@@ -22,5 +22,6 @@ export type Post = {
   excerpt?: string
   category?: string
   category_slug?: string
+  tags?: string[]
   [key: string]: any
 }

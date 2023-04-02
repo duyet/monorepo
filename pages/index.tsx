@@ -14,7 +14,9 @@ export default function Home({ posts }: Props) {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
+  const page = parseInt(params?.page) || 0
+
   const posts = getAllPosts(
     [
       'slug',
@@ -25,7 +27,7 @@ export async function getStaticProps() {
       'category',
       'category_slug',
     ],
-    20
+    page * 10 + 10
   )
 
   return {

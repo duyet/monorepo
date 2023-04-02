@@ -33,17 +33,20 @@ export default function Post({
             <header>
               <h1 className='text-4xl font-bold'>{post.title}</h1>
 
-              <div className='flex flex-row gap-2'>
-                <time className='mt-2 text-gray-400'>
-                  {distanceToNow(new Date(post.date))}
+              <div className='flex flex-row gap-2 text-gray-400'>
+                <time className='mt-2'>{post.date.toString()}</time>
+                <time className='mt-2'>
+                  ({distanceToNow(new Date(post.date))})
                 </time>
-                <span className='mt-2 text-gray-400'>&#x2022;</span>
-                <span className='mt-2 text-gray-400'>
+                <span className='mt-2'>&#x2022;</span>
+                <span className='mt-2'>
                   in{' '}
                   <Link href={`/category/${post.category_slug}`}>
                     {post.category}
                   </Link>
                 </span>
+                <span className='mt-2'>&#x2022;</span>
+                <span className='mt-2'>{post.tags?.join(', ')}</span>
               </div>
             </header>
 
@@ -75,6 +78,7 @@ export async function getStaticProps({ params }: Params) {
     'content',
     'category',
     'category_slug',
+    'tags',
   ])
   const content = await markdownToHtml(post.content || '')
 

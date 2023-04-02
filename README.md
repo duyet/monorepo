@@ -1,8 +1,9 @@
 # Duyet Data Engineering Blog
 
-
-This repository contains the Nextjs version of the blog, which has been migrated from the old Gatsby version. 
+This repository contains the Nextjs version of the blog, which has been migrated from the old Gatsby version.
 The blog is now integrated with Auth0 for authentication and Upstash for serverless Redis storage to support comments.
+
+- **Live: https://duyet.vercel.app**
 
 ## What's New?
 

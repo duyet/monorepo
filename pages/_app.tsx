@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app'
 import { Auth0Provider } from '@auth0/auth0-react'
 
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID
 
@@ -29,6 +30,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <main className='py-5'>
         <Component {...pageProps} />
       </main>
+
+      <Footer />
 
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

@@ -30,11 +30,11 @@ const skills: Link[] = [
 ]
 
 const links: Link[] = [
-  { name: 'Résumé (PDF)', link: 'https://cv.duyet.net' },
+  { name: 'Resume (PDF)', link: 'https://cv.duyet.net' },
   { name: 'Github', link: 'https://github.com' },
 ]
 
-function About() {
+export default function About() {
   return (
     <>
       <Container>
@@ -56,7 +56,7 @@ function About() {
                   key={name}
                   href={link}
                   target='_blank'
-                  className='text-sky-600 mr-4'
+                  className='text-blue-600 mr-4'
                 >
                   {name}
                 </a>
@@ -69,7 +69,7 @@ function About() {
                   key={name}
                   href={link}
                   target='_blank'
-                  className='text-sky-600 mr-4'
+                  className='text-blue-600 mr-4'
                   rel='nofollow noopener noreferrer'
                 >
                   {name}
@@ -84,5 +84,3 @@ function About() {
     </>
   )
 }
-
-export default About

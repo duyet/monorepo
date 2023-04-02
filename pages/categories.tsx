@@ -18,7 +18,7 @@ export default function Categories({ categories }: Props) {
             <Link
               as={`/category/${getSlug(cat)}`}
               href='/category/[category]'
-              className='text-sky-600'
+              className='text-blue-600'
             >
               {cat} ({count})
             </Link>
