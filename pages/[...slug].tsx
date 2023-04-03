@@ -33,20 +33,18 @@ export default function Post({
             <header>
               <h1 className='text-4xl font-bold'>{post.title}</h1>
 
-              <div className='flex flex-row gap-2 text-gray-400'>
-                <time className='mt-2'>{post.date.toString()}</time>
-                <time className='mt-2'>
-                  ({distanceToNow(new Date(post.date))})
-                </time>
-                <span className='mt-2'>&#x2022;</span>
-                <span className='mt-2'>
+              <div className='flex flex-row flex-wrap gap-2 text-gray-400 mt-2'>
+                <time>{post.date.toString()}</time>
+                <time>({distanceToNow(new Date(post.date))})</time>
+                <span>&#x2022;</span>
+                <span>
                   in{' '}
                   <Link href={`/category/${post.category_slug}`}>
                     {post.category}
                   </Link>
                 </span>
-                <span className='mt-2'>&#x2022;</span>
-                <span className='mt-2'>{post.tags?.join(', ')}</span>
+                <span>&#x2022;</span>
+                <span>{post.tags?.join(', ')}</span>
               </div>
             </header>
 
