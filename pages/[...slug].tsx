@@ -10,6 +10,11 @@ import distanceToNow from '../lib/dateRelative'
 import { getAllPosts, getPostBySlug } from '../lib/getPost'
 import markdownToHtml from '../lib/markdownToHtml'
 
+const getGithubEditUrl = (slug: string) => {
+  const file = slug.replace(/\.(md|htm|html)$/, '.md').replace(/^\/?/, '')
+  return `https://github.com/duyet/new-blog/edit/master/_posts/${file}`
+}
+
 export default function Post({
   post,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -33,18 +38,21 @@ export default function Post({
             <header>
               <h1 className='text-4xl font-bold'>{post.title}</h1>
 
-              <div className='flex flex-row flex-wrap gap-2 text-gray-400 mt-2'>
+              <div className='flex flex-row flex-wrap gap-2 text-gray-400 mt-2 text-sm'>
                 <time>{post.date.toString()}</time>
                 <time>({distanceToNow(new Date(post.date))})</time>
                 <span>&#x2022;</span>
                 <span>
-                  in{' '}
                   <Link href={`/category/${post.category_slug}`}>
                     {post.category}
                   </Link>
                 </span>
                 <span>&#x2022;</span>
                 <span>{post.tags?.join(', ')}</span>
+                <span>&#x2022;</span>
+                <span>
+                  <a href={post.edit_url}>Edit</a>
+                </span>
               </div>
             </header>
 
@@ -85,6 +93,7 @@ export async function getStaticProps({ params }: Params) {
       post: {
         ...post,
         content,
+        edit_url: getGithubEditUrl(post.slug),
       },
     },
   }

@@ -23,5 +23,6 @@ export type Post = {
   category?: string
   category_slug?: string
   tags?: string[]
+  edit_url?: string
   [key: string]: any
 }
