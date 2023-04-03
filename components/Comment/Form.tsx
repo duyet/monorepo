@@ -36,7 +36,9 @@ export default function CommentForm({
             </button>
             <button
               className='text-gray-500'
-              onClick={() => logout({ returnTo: window.location.origin })}
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
             >
               Log Out
             </button>
