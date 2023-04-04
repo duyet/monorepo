@@ -15,9 +15,9 @@ const getGithubEditUrl = (slug: string) => {
   return `https://github.com/duyet/new-blog/edit/master/_posts/${file}`
 }
 
-export default function Post({
-  post,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+type Props = InferGetStaticPropsType<typeof getStaticProps>
+
+export default function Post({ post }: Props) {
   const router = useRouter()
 
   if (!router.isFallback && !post?.slug) {
