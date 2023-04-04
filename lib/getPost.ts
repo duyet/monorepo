@@ -29,12 +29,12 @@ export function getPostPaths(dir: string = postsDirectory): string[] {
 }
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
-  return getPostByPath(join(postsDirectory, slug), fields)
+  const fileName = slug.replace(/\.(md|htm|html)$/, '')
+  return getPostByPath(join(postsDirectory, `${fileName}.md`), fields)
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
-  const filePath = fullPath.replace(/\.(md|htm|html)$/, '.md')
-  const fileContents = fs.readFileSync(filePath, 'utf8')
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
   const items: Post = {}
@@ -42,7 +42,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
     if (field === 'slug') {
-      items[field] = data.slug || filePath
+      items[field] = data.slug || fullPath
     }
 
     if (field === 'path') {

@@ -101,16 +101,23 @@ export async function getStaticProps({ params }: Params) {
 
 export async function getStaticPaths() {
   const posts = getAllPosts(['slug'])
+  const posibleExtensions = ['', '.html']
 
   return {
-    paths: posts.map(({ slug }) => {
-      const slugArray = slug.replace(/^\//, '').split('/')
-      return {
-        params: {
-          slug: slugArray,
-        },
-      }
-    }),
+    paths: posts.flatMap(({ slug }) =>
+      posibleExtensions.map((ext: string) => {
+        const slugArray = slug
+          .replace(/\.(md|html)$/, ext)
+          .replace(/^\//, '')
+          .split('/')
+
+        return {
+          params: {
+            slug: slugArray,
+          },
+        }
+      })
+    ),
     fallback: false,
   }
 }
