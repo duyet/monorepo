@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 import type { AppProps } from 'next/app'
 import { Auth0Provider } from '@auth0/auth0-react'
+import { Analytics } from '@vercel/analytics/react'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -32,6 +33,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </main>
 
       <Footer />
+
+      <Analytics />
 
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
