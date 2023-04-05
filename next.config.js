@@ -14,6 +14,11 @@ module.exports = {
         destination: '/?page=:id',
         permanent: true,
       },
+      {
+        source: '/pages/:id',
+        destination: '/:id',
+        permanent: true,
+      },
     ]
   },
 }
