@@ -56,6 +56,14 @@ Upstash environment
 - `NEXT_PUBLIC_AUTH0_CLIENT_ID`: Can be found in the Auth0 dashboard under `settings`.
 - `NEXT_PUBLIC_AUTH0_ADMIN_EMAIL`: This is the email of the admin user which you use while signing in Auth0. Admin is able to delete any comment.
 
+### `5` Configuring Cloudflare
+
+Follow this to create Cloudflare API key:
+https://developers.cloudflare.com/analytics/graphql-api/getting-started/authentication/api-key-auth/
+
+- `NEXT_PUBLIC_CLOUDFLARE_API_KEY`: Cloudflare API Key
+- `NEXT_PUBLIC_CLOUDFLARE_ZONE_ID`: Cloudflare Zone, see https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/
+
 ## Deploy Your Local Project
 
 To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket

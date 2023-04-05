@@ -10,6 +10,7 @@
     "@auth0/auth0-react": "^2.0.0",
     "@tailwindcss/typography": "^0.5.7",
     "@tremor/react": "^2.1.0",
+    "@vercel/analytics": "^0.1.11",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "graphql": "^16.6.0",
