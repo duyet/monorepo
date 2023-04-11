@@ -61,8 +61,6 @@ export default function Post({ post }: Props) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </article>
-
-          <Comment />
         </div>
       )}
     </Container>
