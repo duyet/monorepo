@@ -57,7 +57,7 @@ export default function Post({ post }: Props) {
             </header>
 
             <div
-              className='prose mt-10 max-w-none'
+              className='prose mt-10 mb-10 max-w-none'
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </article>
