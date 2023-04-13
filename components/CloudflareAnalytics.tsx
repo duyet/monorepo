@@ -1,4 +1,4 @@
-import { Card, Metric, Text, AreaChart } from '@tremor/react'
+import { Flex, Card, Metric, Text, AreaChart } from '@tremor/react'
 
 import { CloudflareAnalyticsByDate } from '../interfaces'
 
@@ -30,16 +30,30 @@ export default function CloudflareAnalytics({
 
   return (
     <Card className='mx-auto'>
-      <div className='flex flex-row gap-5'>
+      <Flex className='mb-5'>
         <div>
-          <Text>Total Requests (30 days)</Text>
-          <Metric>{dataFormatter(totalRequests)}</Metric>
+          <Text>Total Requests</Text>
+          <Flex
+            className='space-x-3'
+            justifyContent='start'
+            alignItems='baseline'
+          >
+            <Metric>{dataFormatter(totalRequests)}</Metric>
+            <Text className='truncate'>in 30 days</Text>
+          </Flex>
         </div>
         <div>
-          <Text>Total Pageviews (30 days)</Text>
-          <Metric>{dataFormatter(totalPageviews)}</Metric>
+          <Text>Total Pageviews</Text>
+          <Flex
+            className='space-x-3'
+            justifyContent='start'
+            alignItems='baseline'
+          >
+            <Metric>{dataFormatter(totalPageviews)}</Metric>
+            <Text className='truncate'>in 30 days</Text>
+          </Flex>
         </div>
-      </div>
+      </Flex>
       <AreaChart
         data={chartData}
         index='date'
