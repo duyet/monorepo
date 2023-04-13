@@ -33,13 +33,13 @@ export default function Stats(props: Props) {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const query = `
-    query RequestsAndDataTransferByHostname($zoneTag: string, $date_geq: string) {
+    query viewer($zoneTag: string, $date_start: string, $date_end: string) {
       viewer {
         zones(filter: { zoneTag: $zoneTag }) {
           httpRequests1dGroups(
             orderBy: [date_ASC]
             limit: 1000
-            filter: { date_geq: $date_geq }
+            filter: { date_geq: $date_start, date_lt: $date_end }
           ) {
             date: dimensions {
               date
@@ -60,10 +60,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   const variables = {
     zoneTag: process.env.NEXT_PUBLIC_CLOUDFLARE_ZONE_ID,
-    // Last 30 days
-    date_geq: new Date(new Date().setDate(new Date().getDate() - 30))
+    date_start: new Date(new Date().setDate(new Date().getDate() - 30))
       .toISOString()
       .split('T')[0],
+    date_end: new Date().toISOString().split('T')[0],
   }
 
   const headers = {

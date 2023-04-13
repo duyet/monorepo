@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import Container from '../components/Container'
 import { getAllPosts } from '../lib/getPost'
+import type { Post } from '../interfaces'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -16,9 +17,9 @@ export default function Archives({ postsByYear }: Props) {
 
           return (
             <div key={year}>
-              <h1 className='text-3xl font-bold mb-5 text-sky-500'>{year}</h1>
+              <h1 className='text-3xl font-bold mb-5 mt-10'>{year}</h1>
 
-              {posts.map((post) => (
+              {posts.map((post: Post) => (
                 <article key={post.slug} className='mb-5'>
                   <div className='flex flex-row gap-2 mb-2'>
                     <time className='text-gray-400'>
