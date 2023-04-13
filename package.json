@@ -14,7 +14,7 @@
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "graphql": "^16.6.0",
-    "graphql-request": "^5.2.0",
+    "graphql-request": "^6.0.0",
     "gray-matter": "4.0.3",
     "ioredis": "^5.2.4",
     "nanoid": "^4.0.0",
