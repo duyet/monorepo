@@ -5,7 +5,6 @@ date: '2023-04-15'
 author: Van-Duyet Le
 category: Data
 tags:
-  - Data
   - DevOps
   - Helm
   - Kubernetes
@@ -97,4 +96,4 @@ customScriptDefaultMode: "0777"
 ## References
 
 - [https://stackoverflow.com/a/33168435](https://stackoverflow.com/a/33168435)
-- [https://helm.sh/docs/chart_template_guide/function_list/#todecimal](https://helm.sh/docs/chart_template_guide/function_list/#todecimal)
+- [Template Function List > toDecimal](https://helm.sh/docs/chart_template_guide/function_list/#todecimal)

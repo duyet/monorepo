@@ -19,6 +19,11 @@ module.exports = {
         destination: '/:id',
         permanent: true,
       },
+      {
+        source: '/stats',
+        destination: '/insights',
+        permanent: true,
+      },
     ]
   },
 }
