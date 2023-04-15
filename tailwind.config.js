@@ -31,6 +31,7 @@ module.exports = {
               color: theme('colors.blue.600'),
               textDecoration: 'none',
               textDecorationThickness: 'from-font',
+              textOverflow: 'ellipsis',
               '&:hover': {
                 textDecoration: 'underline',
               },

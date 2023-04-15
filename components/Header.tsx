@@ -6,7 +6,7 @@ import Logo from '../public/duyet-notion.svg'
 
 const navigation = [
   { name: 'About', href: '/about' },
-  { name: 'Statistics', href: '/stats' },
+  { name: 'Insights', href: '/insights' },
   { name: 'Archives', href: '/archives' },
 ]
 
