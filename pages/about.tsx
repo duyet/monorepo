@@ -56,6 +56,7 @@ export default function About() {
                   key={name}
                   href={link}
                   target='_blank'
+                  rel='noopener noreferrer'
                   className='text-blue-600 mr-4'
                 >
                   {name}

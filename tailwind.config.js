@@ -22,6 +22,9 @@ module.exports = {
     },
   ],
   theme: {
+    fontFamily: {
+      sans: ['var(--font-sans)', ...fontFamily.sans],
+    },
     extend: {
       typography: (theme) => ({
         DEFAULT: {
