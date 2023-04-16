@@ -89,18 +89,18 @@ export function FooterContent() {
             <div className='mt-12 xl:!mt-0'>
               <FooterHeader>Open to Work</FooterHeader>
               <p className='mt-4 text-sm text-gray-600 dark:text-[#888888]'>
-                Data Engineering / me@duyet.net
+                me@duyet.net
               </p>
-              <p className='mt-5'>
+              <div className='mt-5'>
                 <ThemeToggle />
-              </p>
+              </div>
             </div>
           </div>
 
           <div className='pt-8 mt-8 sm:flex sm:items-center sm:justify-between'>
             <div>
               <p className='mt-4 text-xs text-gray-500 dark:text-[#888888]'>
-                &copy; {new Date().getFullYear()} duyet.net
+                &copy; {new Date().getFullYear()} duyet.net the Data Engineer
               </p>
             </div>
           </div>

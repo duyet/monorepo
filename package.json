@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
+    "@radix-ui/react-toggle-group": "^1.0.3",
     "@tailwindcss/typography": "^0.5.7",
     "@tremor/react": "^2.1.0",
     "@vercel/analytics": "^0.1.11",
@@ -17,6 +18,7 @@
     "graphql-request": "^6.0.0",
     "gray-matter": "4.0.3",
     "ioredis": "^5.2.4",
+    "lucide-react": "^0.145.0",
     "nanoid": "^4.0.0",
     "next": "latest",
     "next-themes": "^0.2.1",
