@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import type { Post } from '../interfaces'
 import distanceToNow from '../lib/dateRelative'
@@ -37,7 +38,13 @@ export default function Feed({ posts, thumbnail = true }: Props) {
             <p className='mt-4 leading-relaxed'>{post.excerpt}</p>
 
             {thumbnail && post.thumbnail ? (
-              <img src={post.thumbnail} className='mt-4' />
+              <Image
+                src={post.thumbnail}
+                className='mt-4'
+                width={800}
+                height={300}
+                alt={post.title}
+              />
             ) : null}
           </article>
         ))
