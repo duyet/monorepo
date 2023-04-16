@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Comment } from '../../interfaces'
 import distanceToNow from '../../lib/dateRelative'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -20,7 +21,7 @@ export default function CommentList({ comments, onDelete }: CommentListProps) {
         return (
           <div key={comment.created_at} className='flex space-x-4'>
             <div className='flex-shrink-0'>
-              <img
+              <Image
                 src={comment.user.picture}
                 alt={comment.user.name}
                 width={40}

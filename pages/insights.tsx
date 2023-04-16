@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { GetStaticProps } from 'next'
 import { request } from 'graphql-request'
 
@@ -23,7 +24,7 @@ export default function Stats(props: Props) {
       <div className='space-y-6 mt-10'>
         <div className='flex flex-col gap-5'>
           {urls.map((url) => (
-            <img key={url} src={url} alt='' />
+            <Image key={url} src={url} width={800} height={500} alt='' />
           ))}
         </div>
       </div>
@@ -74,19 +75,19 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     'https://api.cloudflare.com/client/v4/graphql',
     query,
     variables,
-    headers,
+    headers
   )
 
   const zone = data.viewer.zones[0]
 
   const totalRequests = zone.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.requests,
-    0,
+    0
   )
 
   const totalPageviews = zone.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.pageViews,
-    0,
+    0
   )
 
   const generatedAt = new Date().toISOString()

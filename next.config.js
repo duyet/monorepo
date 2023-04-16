@@ -3,7 +3,8 @@
  */
 module.exports = {
   images: {
-    domains: ['i.imgur.com'],
+    dangerouslyAllowSVG: true,
+    domains: ['i.imgur.com', 'wakatime.com', 'github-readme-stats.vercel.app'],
   },
   async redirects() {
     return [
