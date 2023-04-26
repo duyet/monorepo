@@ -8,9 +8,9 @@
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
 "@auth0/auth0-react@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-2.0.1.tgz#581d3d1481fabe6f5b6821a08254344345f1a77c"
-  integrity sha512-7Rla3del7inUloaWMsECs0JvBpDEj9lgfy+BQE/Z75zs9tveNvxab+xFdfrBC0GPN0eoiq1PeHcc++YjLnti+g==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-2.0.2.tgz#9b4d21c1a71b9be3144a8ea76aeab32cad703bb3"
+  integrity sha512-MyN1FdB+Ogo9S3YWShfUq7eVsq37ioh885oThnwZ1OjYrKUlImM+dWwybDD+Bg8U28sYBt3QEqFbMAQC/p4ONQ==
   dependencies:
     "@auth0/auth0-spa-js" "^2.0.4"
 
