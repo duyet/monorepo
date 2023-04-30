@@ -4,7 +4,12 @@
 module.exports = {
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['i.imgur.com', 'wakatime.com', 'github-readme-stats.vercel.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   async redirects() {
     return [
