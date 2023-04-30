@@ -1,8 +1,8 @@
-import { Flex, Card, Metric, Text, AreaChart } from '@tremor/react'
+import { Flex, Metric, Text, AreaChart } from '@tremor/react'
 
-import { CloudflareAnalyticsByDate } from '../interfaces'
+import { CloudflareAnalyticsByDate } from '../../interfaces'
 
-export type CloudflareAnalyticsProps = {
+export type CloudflareProps = {
   data: CloudflareAnalyticsByDate
   totalRequests: number
   totalPageviews: number
@@ -13,12 +13,12 @@ const dataFormatter = (number: number) => {
   return Intl.NumberFormat('us').format(number).toString()
 }
 
-export default function CloudflareAnalytics({
+export default function Cloudflare({
   data,
   generatedAt,
   totalRequests,
   totalPageviews,
-}: CloudflareAnalyticsProps) {
+}: CloudflareProps) {
   const chartData = data.viewer.zones[0].httpRequests1dGroups.map((item) => {
     return {
       date: item.date.date,
@@ -29,17 +29,19 @@ export default function CloudflareAnalytics({
   })
 
   return (
-    <Card className='mx-auto'>
+    <div className='mx-auto'>
       <Flex className='mb-5'>
         <div>
-          <Text>Total Requests</Text>
+          <Text className='dark:text-white'>Total Requests</Text>
           <Flex
             className='space-x-3'
             justifyContent='start'
             alignItems='baseline'
           >
-            <Metric>{dataFormatter(totalRequests)}</Metric>
-            <Text className='truncate'>in 30 days</Text>
+            <Metric className='dark:text-white'>
+              {dataFormatter(totalRequests)}
+            </Metric>
+            <Text className='truncate dark:text-white'>in 30 days</Text>
           </Flex>
         </div>
         <div>
@@ -49,8 +51,10 @@ export default function CloudflareAnalytics({
             justifyContent='start'
             alignItems='baseline'
           >
-            <Metric>{dataFormatter(totalPageviews)}</Metric>
-            <Text className='truncate'>in 30 days</Text>
+            <Metric className='dark:text-white'>
+              {dataFormatter(totalPageviews)}
+            </Metric>
+            <Text className='truncate dark:text-white'>in 30 days</Text>
           </Flex>
         </div>
       </Flex>
@@ -64,6 +68,6 @@ export default function CloudflareAnalytics({
       <div className='text-sm italic text-gray-600 text-right mt-5'>
         Source: Cloudflare | Generated at {generatedAt}
       </div>
-    </Card>
+    </div>
   )
 }
