@@ -9,6 +9,17 @@ export type Props = {
   thumbnail?: boolean
 }
 
+const Thumb = ({ url, alt }: { url?: string; alt?: string }) => {
+  if (!url) return null
+
+  if (url.startsWith('http://')) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={url} className='mt-4' alt={alt} />
+  }
+
+  return <Image src={url} className='mt-4' width={800} height={300} alt={alt} />
+}
+
 export default function Feed({ posts, thumbnail = true }: Props) {
   return (
     <>
@@ -37,15 +48,7 @@ export default function Feed({ posts, thumbnail = true }: Props) {
 
             <p className='mt-4 leading-relaxed'>{post.excerpt}</p>
 
-            {thumbnail && post.thumbnail ? (
-              <Image
-                src={post.thumbnail}
-                className='mt-4'
-                width={800}
-                height={300}
-                alt={post.title}
-              />
-            ) : null}
+            <Thumb url={post.thumbnail} alt={post.title} />
           </article>
         ))
       ) : (
