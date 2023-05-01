@@ -13,14 +13,14 @@ blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-48153433750831841
 blogger_orig_url: https://blog.duyet.net/2015/08/git-khoi-phuc-bang-reflog.html
 slug: /2015/08/git-khoi-phuc-bang-reflog.html
 category: Git
-description: 'Nhiều khi bạn lỡ tay reset hard, xóa commit, xóa branch, ... Có rất ít người biết cách để khôi phục, nhiều bạn còn "trâu bò" hơn khi quyết định.... ngồi code lại. Hầu hết chúng ta có thể cứu nhờ vào cỗ máy thời gian của Git: reflog'
+description: 'Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặc loại bỏ một nhánh. Rất ít người biết cách khôi phục từ những tình huống này và một số người thậm chí phải code từ đầu. May mắn thay, hầu hết chúng ta có thể dựa vào "cỗ máy thời gian" của Git: reflog'
 fbCommentUrl: none
 
 ---
 
-Nhiều khi bạn lỡ tay reset hard, xóa commit, xóa branch, ... Có rất ít người biết cách để khôi phục, nhiều bạn còn "trâu bò" hơn khi quyết định.... ngồi code lại. Hầu hết chúng ta có thể cứu nhờ vào cỗ máy thời gian của Git: reflog
+Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặc loại bỏ một nhánh. Rất ít người biết cách khôi phục từ những tình huống này và một số người thậm chí phải code từ đầu. May mắn thay, hầu hết chúng ta có thể dựa vào "cỗ máy thời gian" của Git: [`reflog`](https://git-scm.com/docs/git-reflog).
 
-## Xem reflog để khôi phục lại 1 commit bất kì ##
+## Xem reflog để khôi phục lại 1 commit bất kì
 
 Reflog như cỗ máy thời gian, nó ghi lại toàn bộ những gì bạn đã làm, kể cả khi bạn xóa 1 commit nào đó. 
 
@@ -42,10 +42,9 @@ c528ae5 HEAD@{11}: pull: Fast-forward
 ```
 git reset --hard 0979a9e
 HEAD is now at 0979a9e Finish UAF module, need update xls file normaly
-
 ```
 
-## Lỡ tay reset --hard ##
+## Lỡ tay reset --hard
 Tương tự như trên, ta xem lại reflog
 
 ```
@@ -63,7 +62,6 @@ Kết quả sẽ là
 712d37c HEAD@{6}: commit: Fix priority, SGU doesn't have priority value
 295779f HEAD@{7}: pull: Fast-forward
 ....
-
 ```
 
 ![](https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png)
@@ -78,14 +76,14 @@ HEAD is now at 0979a9e Finish UAF module, need update xls file normaly
 ```
 
 ## Lỡ xóa branch ##
-Trong trường hợp bạn lỡ xóa branch bằng `branch -D`  thì cũng có thể dễ dàng khôi phục như trường hợp mất commit.
+Trong trường hợp bạn lỡ xóa branch bằng `branch -D`
 
 ```
-$ git br -D duyetdev
-Deleted branch duyetdev (was 700674f).
-
+$ git br -D duyet
+Deleted branch duyet (was 700674f).
 ```
 
+Thì cũng có thể dễ dàng khôi phục như trường hợp mất commit.
 Ta xem lại lịch sử bằng **reflog**
 
 ```
@@ -104,5 +102,6 @@ $ git checkout develop
 
 Và chúng ta sẽ quay lại branch vừa bị xóa lúc nãy.
 
-## Kết ##
-Reflog là một công cụ mạnh mẽ trong git, nó như cỗ máy thời gian giúp ta khôi phục bất cứ chỗ nào, đây không phải là công cụ duy nhất nhưng có thể ó sẽ là cứu cánh cuối cùng mỗi khi "lỡ dại" đấy nhé. Chúc bạn thành công :D 
+## Kết
+
+Reflog là một công cụ mạnh mẽ trong Git, giống như một chiếc cỗ máy thời gian giúp chúng ta khôi phục dữ liệu ở bất cứ đâu. Mặc dù không phải là công cụ duy nhất, nhưng nó có thể là cứu cánh cuối cùng mỗi khi chúng ta "lỡ tay". Chúc bạn thành công! :D
