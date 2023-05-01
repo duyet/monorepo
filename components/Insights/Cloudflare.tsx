@@ -45,7 +45,7 @@ export default function Cloudflare({
           </Flex>
         </div>
         <div>
-          <Text>Total Pageviews</Text>
+          <Text className='dark:text-white'>Total Pageviews</Text>
           <Flex
             className='space-x-3'
             justifyContent='start'
