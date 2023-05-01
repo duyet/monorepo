@@ -4,11 +4,9 @@ import { request } from 'graphql-request'
 
 import Container from '../components/Container'
 import { CloudflareAnalyticsByDate } from '../interfaces'
-import CloudflareAnalytics, {
-  CloudflareAnalyticsProps,
-} from '../components/CloudflareAnalytics'
+import Cloudflare, { CloudflareProps } from '../components/Insights/Cloudflare'
 
-type Props = CloudflareAnalyticsProps
+type Props = CloudflareProps
 
 const urls = [
   'https://wakatime.com/share/@8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9/bec141b5-a112-445b-8c79-c2a5f37e3380.svg',
@@ -19,7 +17,7 @@ const urls = [
 export default function Stats(props: Props) {
   return (
     <Container>
-      <CloudflareAnalytics {...props} />
+      <Cloudflare {...props} />
 
       <div className='space-y-6 mt-10'>
         <div className='flex flex-col gap-5'>
