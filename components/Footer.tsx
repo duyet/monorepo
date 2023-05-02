@@ -43,7 +43,7 @@ const navigation = {
     },
     { name: 'Status', href: 'https://github.com/duyet/uptime' },
     { name: 'pageview.js', href: 'https://pageview.duyet.net' },
-    { name: 'Statistics', href: '/stats' },
+    { name: 'Insights', href: '/insights' },
   ],
   profile: [
     { name: 'Github', href: 'https://github.com/duyet' },
