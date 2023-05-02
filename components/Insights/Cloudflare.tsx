@@ -28,35 +28,35 @@ export default function Cloudflare({
     }
   })
 
+  const cards = [
+    {
+      title: 'Total Requests',
+      value: dataFormatter(totalRequests),
+      valueDesc: 'in 30 days',
+    },
+    {
+      title: 'Total Pageviews',
+      value: dataFormatter(totalPageviews),
+      valueDesc: 'in 30 days',
+    },
+  ]
+
   return (
     <div className='mx-auto'>
       <Flex className='mb-5'>
-        <div>
-          <Text className='dark:text-white'>Total Requests</Text>
-          <Flex
-            className='space-x-3'
-            justifyContent='start'
-            alignItems='baseline'
-          >
-            <Metric className='dark:text-white'>
-              {dataFormatter(totalRequests)}
-            </Metric>
-            <Text className='truncate dark:text-white'>in 30 days</Text>
-          </Flex>
-        </div>
-        <div>
-          <Text className='dark:text-white'>Total Pageviews</Text>
-          <Flex
-            className='space-x-3'
-            justifyContent='start'
-            alignItems='baseline'
-          >
-            <Metric className='dark:text-white'>
-              {dataFormatter(totalPageviews)}
-            </Metric>
-            <Text className='truncate dark:text-white'>in 30 days</Text>
-          </Flex>
-        </div>
+        {cards.map((card) => (
+          <div key={card.title}>
+            <Text className='dark:text-white'>{card.title}</Text>
+            <Flex
+              className='space-x-3'
+              justifyContent='start'
+              alignItems='baseline'
+            >
+              <Metric className='dark:text-white'>{card.value}</Metric>
+              <Text className='truncate dark:text-white'>{card.valueDesc}</Text>
+            </Flex>
+          </div>
+        ))}
       </Flex>
       <AreaChart
         data={chartData}

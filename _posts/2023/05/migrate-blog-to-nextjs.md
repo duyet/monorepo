@@ -19,7 +19,7 @@ twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2
 description: "I've been using Gastby since 2019 and while it's great that I can write my blogs in NeoVim, commit and push to Github, and have Cloudflare Pages build and publish to CDN, but I was becoming frustrated with the slow building times and the overall maintenance requirements."
 ---
 
-I've been using [Gastby since 2019](https://blog.duyet.net/2019/08/migrate-blogger-to-gatsby) and while it's great that I can write my blogs [in NeoVim](https://blog.duyet.net/2021/06/neovim.html), commit and push to Github, and have Cloudflare Pages build and publish to CDN, but I was becoming frustrated with the slow building times and the overall maintenance requirements.
+I've been using [Gastby since 2019](/2019/08/migrate-blogger-to-gatsby) and while it's great that I can write my blogs [in NeoVim](/2021/06/neovim.html), commit and push to Github, and have [Cloudflare Pages](/2021/05/migrate-to-cloudflare-pages.html) build and publish to CDN, but I was becoming frustrated with the slow building times and the overall maintenance requirements.
 
 Old blog took 10 minutes to build:
 
@@ -27,7 +27,6 @@ Old blog took 10 minutes to build:
 
 Last month I decided to spend my Sunday migrate my blog to [Next.js](https://nextjs.org) and host it on [Vercel](https://vercel.com).
 Next.js has become the standard for modern web development, and as someone who has worked with it before, I felt confident in my ability to use it effectively. You are now reading on the new Next.js blog:
-
 
 ![Light](/media/2023/05/migrate-blog-to-nextjs/new-blog-light.png)
 
@@ -82,5 +81,5 @@ Please find the source code of my Next.js blog here: [https://github.com/duyet/n
 - [https://github.com/duyet/new-blog](https://github.com/duyet/new-blog)
 - [https://nextjs.org](https://nextjs.org)
 - [https://turbo.build](https://turbo.build/)
-- [https://swc.rs/](https://swc.rs/)
+- [https://swc.rs](https://swc.rs)
 - [Using MDX with Next.js](https://nextjs.org/docs/advanced-features/using-mdx)
