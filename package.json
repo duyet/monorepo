@@ -18,7 +18,7 @@
     "graphql": "^16.6.0",
     "graphql-request": "^6.0.0",
     "gray-matter": "4.0.3",
-    "lucide-react": "^0.193.0",
+    "lucide-react": "^0.206.0",
     "nanoid": "^4.0.0",
     "next": "latest",
     "next-themes": "^0.2.1",
