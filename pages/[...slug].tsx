@@ -60,6 +60,8 @@ export default function Post({ post }: Props) {
               className='prose dark:prose-invert mt-10 mb-10 max-w-none'
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+
+            <Comment />
           </article>
         </div>
       )}
