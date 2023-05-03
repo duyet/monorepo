@@ -1,7 +1,7 @@
+import kv from '@vercel/kv'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import type { Comment } from '../../interfaces'
-import redis from '../redis'
 import clearUrl from '../clearUrl'
 
 export default async function fetchComment(
@@ -10,23 +10,20 @@ export default async function fetchComment(
 ) {
   const url = clearUrl(req.headers.referer)
 
-  if (!redis) {
-    return res.status(500).json({ message: 'Failed to connect to redis.' })
-  }
-
   try {
     // get data
-    const rawComments = await redis.lrange(url, 0, -1)
+    const rawComments = await kv.lrange<Comment>(url, 0, -1)
+    console.log('rawComments', rawComments)
 
     // string data to object
-    const comments = rawComments.map((c) => {
-      const comment: Comment = JSON.parse(c)
+    const comments = rawComments.map((comment: Comment) => {
       delete comment.user.email
       return comment
     })
 
     return res.status(200).json(comments)
-  } catch (_) {
+  } catch (e) {
+    console.error(e)
     return res.status(400).json({ message: 'Unexpected error occurred.' })
   }
 }

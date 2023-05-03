@@ -1,7 +1,7 @@
 # Duyet Data Engineering Blog
 
 This repository contains the Nextjs version of the blog, which has been migrated from the old Gatsby version.
-The blog is now integrated with Auth0 for authentication and Upstash for serverless Redis storage to support comments.
+The blog is now integrated with Auth0 for authentication and Vercel Storage KV for serverless Redis storage to support comments.
 
 - **Live: https://duyet.vercel.app**
 
@@ -28,13 +28,16 @@ Copy the `.env.local.example` file in this directory to `.env.local` (which will
 cp .env.local.example .env.local
 ```
 
-### `3` Configuring Upstash
+### `3` Configuring Vercel Storage KV
 
-Go to the [Upstash Console](https://console.upstash.com/) and create a new database
+Go to the **Vercel Storage** and create a new database. Copy the .env.local from Vercel UI.
 
-Upstash environment
+![](./.github/screenshot/kv.png)
 
-- `REDIS_URL`: Find the URL in the database details page in Upstash Console clicking on **Redis Connect** button.
+- `KV_URL`
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`
+- `KV_REST_API_READ_ONLY_TOKEN`
 
 ### `4` Configuring Auth0
 

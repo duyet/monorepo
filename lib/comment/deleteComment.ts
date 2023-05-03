@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import type { User, Comment } from '../../interfaces'
-import redis from '../redis'
 import getUser from '../getUser'
 import clearUrl from '../clearUrl'
 
@@ -17,10 +16,6 @@ export default async function deleteComments(
     return res.status(400).json({ message: 'Missing parameter.' })
   }
 
-  if (!redis) {
-    return res.status(500).json({ message: 'Failed to connect to redis.' })
-  }
-
   try {
     // verify user token
     const user: User = await getUser(authorization)
@@ -34,8 +29,8 @@ export default async function deleteComments(
       return res.status(400).json({ message: 'Need authorization.' })
     }
 
-    // delete
-    await redis.lrem(url, 0, JSON.stringify(comment))
+    // TODO: delete
+    // await kv.lrem(url, 0, JSON.stringify(comment))
 
     return res.status(200).end()
   } catch (err) {
