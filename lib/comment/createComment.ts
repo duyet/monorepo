@@ -1,8 +1,8 @@
+import kv from '@vercel/kv'
 import { nanoid } from 'nanoid'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import type { Comment } from '../../interfaces'
-import redis from '../redis'
 import getUser from '../getUser'
 import clearUrl from '../clearUrl'
 
@@ -16,12 +16,6 @@ export default async function createComments(
 
   if (!text || !authorization) {
     return res.status(400).json({ message: 'Missing parameter.' })
-  }
-
-  if (!redis) {
-    return res
-      .status(400)
-      .json({ message: 'Failed to connect to redis client.' })
   }
 
   try {
@@ -40,7 +34,7 @@ export default async function createComments(
     }
 
     // write data
-    await redis.lpush(url, JSON.stringify(comment))
+    await kv.lpush(url, JSON.stringify(comment))
 
     return res.status(200).json(comment)
   } catch (_) {

@@ -30,9 +30,14 @@ cp .env.local.example .env.local
 
 ### `3` Configuring Vercel Storage KV
 
-Go to the **Vercel Storage** and create a new database
+Go to the **Vercel Storage** and create a new database. Copy the .env.local from Vercel UI.
 
-- `REDIS_URL`: Connect KV database via `REDIS_URL` env.
+![](./.github/screenshot/kv.png)
+
+- `KV_URL`
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`
+- `KV_REST_API_READ_ONLY_TOKEN`
 
 ### `4` Configuring Auth0
 
