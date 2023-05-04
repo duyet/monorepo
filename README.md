@@ -4,6 +4,9 @@ This repository contains the Nextjs version of the blog, which has been migrated
 The blog is now integrated with Auth0 for authentication and Vercel Storage KV for serverless Redis storage to support comments.
 
 - **Live: https://duyet.vercel.app**
+- **Live: https://blog.duyet.net**
+
+![](./.github/screenshot/screenshot.png)
 
 ## What's New?
 

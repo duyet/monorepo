@@ -13,7 +13,6 @@ export default async function fetchComment(
   try {
     // get data
     const rawComments = await kv.lrange<Comment>(url, 0, -1)
-    console.log('rawComments', rawComments)
 
     // string data to object
     const comments = rawComments.map((comment: Comment) => {
