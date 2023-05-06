@@ -1,13 +1,12 @@
-import type { InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 
-import Container from '../components/Container'
-import { getAllPosts } from '../lib/getPost'
-import type { Post } from '../interfaces'
+import type { Post } from '../../interfaces'
+import { getAllPosts } from '../../lib/getPost'
+import Container from '../../components/Container'
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+export default function Archives() {
+  const postsByYear = getPostsByYear()
 
-export default function Archives({ postsByYear }: Props) {
   return (
     <Container>
       {Object.keys(postsByYear)
@@ -44,7 +43,7 @@ export default function Archives({ postsByYear }: Props) {
   )
 }
 
-export async function getStaticProps() {
+function getPostsByYear() {
   const allPosts = getAllPosts(['slug', 'title', 'date', 'category'])
 
   // Post by year
@@ -60,7 +59,5 @@ export async function getStaticProps() {
     return acc
   }, {})
 
-  return {
-    props: { postsByYear },
-  }
+  return postsByYear
 }

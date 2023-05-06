@@ -1,6 +1,8 @@
+'use client'
+
 import { Flex, Metric, Text, AreaChart } from '@tremor/react'
 
-import { CloudflareAnalyticsByDate } from '../../interfaces'
+import { CloudflareAnalyticsByDate } from '../../../interfaces'
 
 export type CloudflareProps = {
   data: CloudflareAnalyticsByDate

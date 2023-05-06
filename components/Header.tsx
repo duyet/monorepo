@@ -13,7 +13,7 @@ const navigation = [
 export default function Header() {
   return (
     <header className='py-10'>
-      <Container>
+      <Container className='mb-0'>
         <nav className='flex items-center space-x-6 flex flex-wrap'>
           <Link href='/' className='p-3 font-bold flex flex-row items-center'>
             <Image src={Logo} alt='Logo' width={45} height={45} />

@@ -6,7 +6,6 @@ import distanceToNow from '../lib/dateRelative'
 
 export type Props = {
   posts: Post[]
-  thumbnail?: boolean
 }
 
 const Thumb = ({ url, alt }: { url?: string; alt?: string }) => {
@@ -17,10 +16,18 @@ const Thumb = ({ url, alt }: { url?: string; alt?: string }) => {
     return <img src={url} className='mt-4' alt={alt} />
   }
 
-  return <Image src={url} className='mt-4' width={800} height={300} alt={alt} />
+  return (
+    <Image
+      src={url}
+      className='mt-4'
+      width={800}
+      height={300}
+      alt={alt || ''}
+    />
+  )
 }
 
-export default function Feed({ posts, thumbnail = true }: Props) {
+export default function Feed({ posts }: Props) {
   return (
     <>
       {posts.length ? (

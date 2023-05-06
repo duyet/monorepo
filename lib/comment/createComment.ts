@@ -10,7 +10,7 @@ export default async function createComments(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = clearUrl(req.headers.referer)
+  const url = clearUrl(req.headers.referer || '')
   const { text } = req.body
   const { authorization } = req.headers
 

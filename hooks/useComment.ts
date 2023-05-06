@@ -1,3 +1,5 @@
+'use client'
+
 import type { Comment } from '../interfaces'
 import React, { useState } from 'react'
 import useSWR from 'swr'

@@ -37,42 +37,53 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  const items: Post = {}
+  const post: Post = {
+    slug: '',
+    title: '',
+    date: new Date(),
+    content: '',
+    category: 'Unknown',
+    category_slug: 'unknown',
+  }
 
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
     if (field === 'slug') {
-      items[field] = data.slug || fullPath
+      post[field] = data.slug || fullPath
+    }
+
+    if (field === 'title') {
+      post[field] = data.title
     }
 
     if (field === 'path') {
-      items[field] = fullPath
+      post[field] = fullPath
     }
 
     if (field === 'content') {
-      items[field] = content
+      post[field] = content
     }
 
     if (field === 'category') {
       // Some posts have a category of "null" so we need to handle that
-      items[field] = data.category || 'Unknown'
+      post[field] = data.category || post[field]
     }
 
     if (field === 'category_slug') {
-      items[field] = getSlug(data.category || 'Unknown')
+      post[field] = getSlug(data.category || post[field])
     }
 
     if (field === 'excerpt') {
-      items[field] =
+      post[field] =
         data.description || content.split(' ').slice(0, 20).join(' ') + '...'
     }
 
     if (typeof data[field] !== 'undefined') {
-      items[field] = data[field]
+      post[field] = data[field]
     }
   })
 
-  return items
+  return post
 }
 
 export function getAllPosts(fields: string[] = [], limit = 0): Post[] {
