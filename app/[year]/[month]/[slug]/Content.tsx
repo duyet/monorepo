@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-import distanceToNow from '../../lib/dateRelative'
-import { getPostBySlug } from '../../lib/getPost'
-import markdownToHtml from '../../lib/markdownToHtml'
-import { Post } from '../../interfaces'
+import distanceToNow from '../../../../lib/dateRelative'
+import { getPostBySlug } from '../../../../lib/getPost'
+import markdownToHtml from '../../../../lib/markdownToHtml'
+import { Post } from '../../../../interfaces'
 
 export default function Content({ post }: { post: Post }) {
   return (

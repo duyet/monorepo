@@ -1,13 +1,21 @@
-"use client";
+'use client'
 
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
-
 import { Sun, Moon } from 'lucide-react'
 
-const toggleGroupItemClasses =
-  'bg-white data-[state=on]:bg-slate-200 dark:bg-transparent dark:data-[state=on]:bg-slate-800 dark:data-[state=on]:text-white dark:data-[state=on]:border-white flex h-8 w-8 items-center justify-center text-base leading-4 first:rounded-l last:rounded-r focus:z-10 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none'
+import { cn } from '../lib/utils'
+
+const toggleGroupItemClasses = cn(
+  'bg-white dark:bg-transparent',
+  'data-[state=on]:bg-slate-100 dark:data-[state=on]:bg-slate-800',
+  'dark:data-[state=on]:text-white dark:data-[state=on]:border-white',
+  'flex h-8 w-8 items-center',
+  'justify-center text-base leading-4',
+  'first:rounded-l last:rounded-r focus:z-10',
+  'focus:shadow-black focus:outline-none'
+)
 
 export default function ThemeToggle() {
   // Avoid hydration mismatch

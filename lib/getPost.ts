@@ -50,6 +50,15 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   fields.forEach((field) => {
     if (field === 'slug') {
       post[field] = data.slug || fullPath
+
+      // Validate slug format /yyyy/mm/slug(.html)
+      const slugRegex = /^\/(\d{4})\/(\d{2})\/(.+)$/
+      const match = post[field].match(slugRegex)
+      if (!match) {
+        throw new Error(
+          `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`
+        )
+      }
     }
 
     if (field === 'title') {

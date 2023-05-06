@@ -1,11 +1,11 @@
 'use client'
 
-import type { Comment } from '../interfaces'
-import React, { useState } from 'react'
 import useSWR from 'swr'
+import React, { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import fetcher from '../lib/fetcher'
+import fetcher from '../../../../../../lib/fetcher'
+import type { Comment } from '../../../../../../interfaces'
 
 export default function useComments() {
   const { getAccessTokenSilently } = useAuth0()

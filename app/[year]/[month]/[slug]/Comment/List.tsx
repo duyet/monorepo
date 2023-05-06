@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import type { Comment } from '../../interfaces'
-import distanceToNow from '../../lib/dateRelative'
 import { useAuth0 } from '@auth0/auth0-react'
+
+import type { Comment } from '../../../../../interfaces'
+import distanceToNow from '../../../../../lib/dateRelative'
 
 type CommentListProps = {
   comments?: Comment[]
@@ -31,7 +32,7 @@ export default function CommentList({ comments, onDelete }: CommentListProps) {
             </div>
 
             <div className='flex-grow'>
-              <div className='flex space-x-2'>
+              <div className='flex space-x-3'>
                 <b>{comment.user.name}</b>
                 <time className='text-gray-400'>
                   {distanceToNow(comment.created_at)}
