@@ -2,7 +2,7 @@
 
 import CommentForm from './Form'
 import CommentList from './List'
-import useComments from '../../hooks/useComment'
+import useComments from '../../../hooks/useComment'
 
 export default function Comment() {
   const { text, setText, comments, onSubmit, onDelete } = useComments()

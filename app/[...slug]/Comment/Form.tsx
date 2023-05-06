@@ -11,12 +11,12 @@ export default function CommentForm({
   setText,
   onSubmit,
 }: CommentFormProps) {
-  const { isAuthenticated, logout, loginWithPopup } = useAuth0()
+  const { isAuthenticated, user, logout, loginWithPopup } = useAuth0()
 
   return (
     <form onSubmit={onSubmit}>
       <textarea
-        className='flex w-full max-h-40 p-3 rounded resize-y bg-gray-200 text-gray-900 placeholder-gray-500'
+        className='flex w-full max-h-40 p-3 rounded resize-y bg-gray-100 text-gray-900 placeholder-gray-500'
         rows={2}
         placeholder={
           isAuthenticated
@@ -30,18 +30,22 @@ export default function CommentForm({
 
       <div className='flex items-center mt-4'>
         {isAuthenticated ? (
-          <div className='flex items-center space-x-6'>
+          <div className='flex items-center space-x-6 justify-between w-full'>
             <button className='py-2 px-4 rounded bg-gray-100 text-gray disabled:opacity-40 hover:bg-gray-200'>
               Send
             </button>
-            <button
-              className='text-gray-500'
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
-            >
-              Log Out
-            </button>
+
+            <div>
+              <span className='text-sm'>{user?.name}</span>
+              <button
+                className='py-2 px-4 text-gray-500 text-sm'
+                onClick={() =>
+                  logout({ logoutParams: { returnTo: window.location.origin } })
+                }
+              >
+                Log Out
+              </button>
+            </div>
           </div>
         ) : (
           <button

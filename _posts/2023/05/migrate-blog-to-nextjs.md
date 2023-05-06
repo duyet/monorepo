@@ -1,6 +1,6 @@
 ---
 template: post
-title: 'Migrate (again) my blog to Next.js from Gatsby'
+title: 'Migrate (again) to Next.js 13 Pro Max'
 date: '2023-05-01'
 author: Van-Duyet Le
 category: Project
@@ -38,7 +38,7 @@ They are creator of Next.js so they have many opt-in optimization like Turbo Pac
 
 ![Vercel with Github](/media/2023/05/migrate-blog-to-nextjs/migrate-blog-to-nextjs.png)
 
-I was able to use [rehype and a few plugins](https://github.com/duyet/new-blog/blob/master/lib/markdownToHtml.ts) to parse my old markdown files and convert them to MDX format. My first priority was to make sure that all of the **existing functionality** of my blog remained intact and that the structure was maintained without losing any of the old URLs. After that, I can adding new features like **comments** or **[`/insights`](https://blog.duyet.net/insights)** became much easier with Next.js and React.js. As a data engineer, I believe that it's important to showcase my work, such as data visualizations.
+I was able to use [rehype and a few plugins](https://github.com/duyet/new-blog/blob/master/lib/markdownToHtml.ts) to parse my old markdown files and convert them to MDX format. My first priority was to make sure that all of the **existing functionality** of my blog remained intact and that the structure was maintained without losing any of the old URLs. After that, I can adding new features like **comments**, **[`/insights`](https://blog.duyet.net/insights)** or [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components) became much easier with Next.js and React.js. As a data engineer, I believe that it's important to showcase my work, such as data visualizations.
 
 ![/insights](/media/2023/05/migrate-blog-to-nextjs/insights.png)
 

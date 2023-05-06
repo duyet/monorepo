@@ -1,13 +1,16 @@
-import cn from 'classnames'
 import Link from 'next/link'
 import { ReactNode, ReactElement } from 'react'
 
+import { cn } from '../lib/utils'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
-  const classes =
-    'text-sm text-[#666666] dark:text-[#888888] no-underline betterhover:hover:text-gray-700 betterhover:hover:dark:text-white transition'
+  const classes = cn(
+    'text-sm text-[#666666] dark:text-[#888888]',
+    'no-underline betterhover:hover:text-gray-700',
+    'betterhover:hover:dark:text-white transition'
+  )
 
   if (href.startsWith('http')) {
     return (

@@ -1,8 +1,8 @@
-import Comment from '../../components/Comment'
 import Container from '../../components/Container'
 import { getAllPosts } from '../../lib/getPost'
 
 import Content, { getPost } from './Content'
+import Comment from './Comment'
 
 type Params = {
   slug: string[]
