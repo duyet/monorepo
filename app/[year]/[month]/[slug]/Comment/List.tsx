@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { useAuth0 } from '@auth0/auth0-react'
 
-import type { Comment } from '../../../interfaces'
-import distanceToNow from '../../../lib/dateRelative'
+import type { Comment } from '../../../../../interfaces'
+import distanceToNow from '../../../../../lib/dateRelative'
 
 type CommentListProps = {
   comments?: Comment[]

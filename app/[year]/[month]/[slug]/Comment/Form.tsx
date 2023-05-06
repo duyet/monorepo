@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 
-import { cn } from '../../../lib/utils'
+import { cn } from '../../../../../lib/utils'
 
 type CommentFormProps = {
   text: string
