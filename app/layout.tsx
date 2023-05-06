@@ -31,13 +31,13 @@ export default function RootLayout({
         <meta charSet='utf-8' />
         <meta name='robots' content='follow, index' />
         <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-        <link rel="icon" href="/icon.svg" sizes="any" />
+        <link rel='icon' href='/icon.svg' sizes='any' />
       </head>
       <body className='bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50'>
         <Auth0Provider>
           <ThemeProvider>
             <Header />
-            <main className='py-5'>{children}</main>
+            <main>{children}</main>
             <Footer />
             <Analytics />
           </ThemeProvider>
