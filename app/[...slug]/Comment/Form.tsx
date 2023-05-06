@@ -1,10 +1,23 @@
 import { useAuth0 } from '@auth0/auth0-react'
 
+import { cn } from '../../../lib/utils'
+
 type CommentFormProps = {
   text: string
   setText: Function
   onSubmit: (e: React.FormEvent) => Promise<void>
 }
+
+const btnClasses = cn(
+  'py-2 px-4 rounded disabled:opacity-40 hover:bg-gray-200',
+  'bg-gray-100 dark:bg-slate-800 dark:text-slate-50',
+  'text-gray text-sm'
+)
+
+const textareaClasses = cn(
+  'flex w-full max-h-40 p-3 rounded resize-y text-gray-900 placeholder-gray-500',
+  'bg-gray-100 dark:bg-slate-800 dark:text-slate-50'
+)
 
 export default function CommentForm({
   text,
@@ -16,7 +29,7 @@ export default function CommentForm({
   return (
     <form onSubmit={onSubmit}>
       <textarea
-        className='flex w-full max-h-40 p-3 rounded resize-y bg-gray-100 text-gray-900 placeholder-gray-500'
+        className={textareaClasses}
         rows={2}
         placeholder={
           isAuthenticated
@@ -31,14 +44,12 @@ export default function CommentForm({
       <div className='flex items-center mt-4'>
         {isAuthenticated ? (
           <div className='flex items-center space-x-6 justify-between w-full'>
-            <button className='py-2 px-4 rounded bg-gray-100 text-gray disabled:opacity-40 hover:bg-gray-200'>
-              Send
-            </button>
+            <button className={btnClasses}>Send</button>
 
             <div>
               <span className='text-sm'>{user?.name}</span>
               <button
-                className='py-2 px-4 text-gray-500 text-sm'
+                className={cn(btnClasses, 'bg-transparent dark:bg-transparent dark:text-slate-50')}
                 onClick={() =>
                   logout({ logoutParams: { returnTo: window.location.origin } })
                 }
@@ -50,7 +61,7 @@ export default function CommentForm({
         ) : (
           <button
             type='button'
-            className='py-2 px-4 rounded bg-gray-100 text-gray disabled:opacity-40 hover:bg-gray-200'
+            className={btnClasses}
             onClick={() => loginWithPopup()}
           >
             Log In
