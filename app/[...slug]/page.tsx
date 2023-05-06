@@ -11,8 +11,6 @@ type Params = {
 export default async function Post({ params: { slug } }: { params: Params }) {
   const post = await getPost(slug)
 
-  if (!post) return null
-
   return (
     <Container>
       <article>
