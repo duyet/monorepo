@@ -1,12 +1,8 @@
 import Image from 'next/image'
-import type { GetStaticProps } from 'next'
 import { request } from 'graphql-request'
 
-import Container from '../components/Container'
-import { CloudflareAnalyticsByDate } from '../interfaces'
-import Cloudflare, { CloudflareProps } from '../components/Insights/Cloudflare'
-
-type Props = CloudflareProps
+import Cloudflare from './Cloudflare'
+import { CloudflareAnalyticsByDate } from '../../../interfaces'
 
 const urls = [
   'https://wakatime.com/share/@8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9/bec141b5-a112-445b-8c79-c2a5f37e3380.svg',
@@ -14,9 +10,11 @@ const urls = [
   'https://github-readme-stats.vercel.app/api?username=duyet&show_icons=true&theme=vue&hide_border=true&custom_title=@duyet',
 ]
 
-export default function Stats(props: Props) {
+export default async function Stats() {
+  const props = await getProps()
+
   return (
-    <Container>
+    <>
       <Cloudflare {...props} />
 
       <div className='space-y-6 mt-10'>
@@ -26,11 +24,11 @@ export default function Stats(props: Props) {
           ))}
         </div>
       </div>
-    </Container>
+    </>
   )
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+const getProps = async () => {
   const query = `
     query viewer($zoneTag: string, $date_start: string, $date_end: string) {
       viewer {
@@ -91,11 +89,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const generatedAt = new Date().toISOString()
 
   return {
-    props: {
-      data,
-      generatedAt,
-      totalRequests,
-      totalPageviews,
-    },
+    data,
+    generatedAt,
+    totalRequests,
+    totalPageviews,
   }
 }

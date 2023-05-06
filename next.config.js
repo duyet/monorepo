@@ -2,6 +2,9 @@
  * @type {import('next').NextConfig}
  */
 module.exports = {
+  experimental: {
+    appDir: true,
+  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -14,8 +17,8 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/category',
-        destination: '/categories',
+        source: '/categories',
+        destination: '/category',
         permanent: true,
       },
       {

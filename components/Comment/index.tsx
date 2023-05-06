@@ -1,3 +1,5 @@
+'use client'
+
 import CommentForm from './Form'
 import CommentList from './List'
 import useComments from '../../hooks/useComment'

@@ -8,7 +8,7 @@ export default async function fetchComment(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = clearUrl(req.headers.referer)
+  const url = clearUrl(req.headers.referer || '')
 
   try {
     // get data
