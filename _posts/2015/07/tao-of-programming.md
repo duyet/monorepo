@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Đạo lập trình - The Tao Of Programming '
 date: "2015-07-10"
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
 - đạo lập trình
 - News
 modified_time: '2015-07-10T23:36:20.684+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7935587221128501706
-blogger_orig_url: https://blog.duyet.net/2015/07/tao-of-programming.html
 slug: /2015/07/tao-of-programming.html
 category: News
 description: "Nguồn gốc huyền bí, sinh ra từ hư vô. Vô thanh vô tướng, vĩnh viễn bất biến, mãi mãi vận hành. Là nguồn gốc của mọi chương trình. Ta không biết tên nó là gì, nên ta gọi nó là Đạo."

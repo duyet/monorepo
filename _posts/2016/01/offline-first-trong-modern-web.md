@@ -1,5 +1,4 @@
 ---
-template: post
 title: Offline-First trong Modern Web
 date: "2016-01-07"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Offline
 modified_time: '2016-01-11T01:58:30.083+07:00'
 thumbnail: https://3.bp.blogspot.com/-kknlRujasGI/Vo6QpZWVJJI/AAAAAAAAN2U/Z2VbLAWnQOA/s1600/offline-text%2BMJN%2BTech%2BWeb.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6318488971517586288
-blogger_orig_url: https://blog.duyet.net/2016/01/offline-first-trong-modern-web.html
 slug: /2016/01/offline-first-trong-modern-web.html
 category: Web
 description: '"Web" và "Online" là gần như là 2 khái niệm đi liền với nhau. Nhưng gần đây xu thế mới trong thế giới web còn tồn tại 1 khái niệm nữa là công nghệ web offline, offline-first.'
-fbCommentUrl: none
 ---
 
 "Web" và "Online" là gần như là 2 khái niệm đi liền với nhau. Nhưng gần đây xu thế mới trong thế giới web còn tồn tại 1 khái niệm nữa là công nghệ web offline, offline-first.

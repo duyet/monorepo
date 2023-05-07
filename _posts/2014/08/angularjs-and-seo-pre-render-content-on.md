@@ -1,5 +1,4 @@
 ---
-template: post
 title: AngularJS and SEO - pre-render content on the server
 date: "2014-08-21"
 category: Javascript
@@ -7,8 +6,6 @@ tags:
 - SEO
 - Angular
 modified_time: '2015-01-23T23:25:50.861+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5603555434376135856
-blogger_orig_url: https://blog.duyet.net/2014/08/angularjs-and-seo-pre-render-content-on.html
 slug: /2014/08/angularjs-and-seo-pre-render-content-on.html
 description: The simple way to make this content SEO-friendly is to pre-render data on the server and then allow angular to do it's job on the client.
 

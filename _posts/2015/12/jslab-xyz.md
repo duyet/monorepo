@@ -1,5 +1,4 @@
 ---
-template: post
 title: jsLab.xyz
 date: "2015-12-17"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Jslab
 modified_time: '2016-01-11T02:00:17.623+07:00'
 thumbnail: https://3.bp.blogspot.com/-YEiHaBErShs/VnJos52PFGI/AAAAAAAAMAo/Su-T_R9cnZ0/s1600/jslab.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1021189587106418249
-blogger_orig_url: https://blog.duyet.net/2015/12/jslab-xyz.html
 slug: /2015/12/jslab-xyz.html
 category: Project
 description: jsLab.xyz
-fbCommentUrl: none
 ---
 
 [jsLab](http://jslab.xyz/) - Mình thích Js, mình làm việc nhiều về các công nghệ của Js, cũng có nhiều mini-project dạng side-project. Vậy tại sao không tập hợp chúng lại.

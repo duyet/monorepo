@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Rust Design Pattern: Command Pattern"
 date: "2022-02-13"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
   - Rust Design Patterns
   - Behavioural Patterns
 slug: /2022/02/rust-command-design-pattern.html
-draft: false
-fbCommentUrl: none
 description: Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.
 
 ---

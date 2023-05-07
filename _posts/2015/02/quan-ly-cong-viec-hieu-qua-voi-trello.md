@@ -1,5 +1,4 @@
 ---
-template: post
 title: Quản lý công việc hiệu quả với Trello
 date: "2015-02-14"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Project Manager
 modified_time: '2015-02-14T11:57:49.831+07:00'
 thumbnail: https://4.bp.blogspot.com/-c9D8D5DlXK0/VN7U6eDu_iI/AAAAAAAACFg/VIL1z25OfEI/s1600/2014_12_06_bd8a9.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2180961950956502054
-blogger_orig_url: https://blog.duyet.net/2015/02/quan-ly-cong-viec-hieu-qua-voi-trello.html
 slug: /2015/02/quan-ly-cong-viec-hieu-qua-voi-trello.html
 description: Trello là một công cụ để phối hợp công việc hiệu quả giúp cho mọi người trong team chỉ cần nhìn qua là biết được có những đầu việc nào, ai đang làm gì, và làm đến giai đoạn nào rồi. Trello là một công cụ Freemium, tức là bạn có thể xài miễn phí cho đến khi cần những tích năng nâng cao và đặc biệt chỉ có bản trả tiền mới có thì bạn mới phải trả.
 

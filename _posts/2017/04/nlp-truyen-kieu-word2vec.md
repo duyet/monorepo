@@ -1,5 +1,4 @@
 ---
-template: post
 title: NLP - Truyện Kiều Word2vec
 date: "2017-04-16"
 author: Van-Duyet Le
@@ -10,8 +9,6 @@ tags:
 - Machine Learning
 modified_time: '2018-09-10T17:20:37.588+07:00'
 thumbnail: https://1.bp.blogspot.com/-O7tdQkuYZ4U/WPOFQVmaFaI/AAAAAAAAkmE/B_LuJ3fxknYsAekzZCy5uOLez3znOiV9wCK4B/s1600/word2vectors.gif
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6982435686840732185
-blogger_orig_url: https://blog.duyet.net/2017/04/nlp-truyen-kieu-word2vec.html
 slug: /2017/04/nlp-truyen-kieu-word2vec.html
 category: Machine Learning
 description: Trong các dự án gần đây mình làm nhiều về Word2vec, khá có vẻ là useful trong việc biểu diễn word lên không gian vector (word embedding). Nói thêm về Word2vec, trong các dự án nghiên cứu W2V của Google còn khám phá được ra tính ngữ nghĩa, cú pháp của các từ ở một số mức độ nào đó

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Github là gì?
 date: "2015-02-14"
 author: Van-Duyet Le
@@ -8,11 +7,8 @@ tags:
 - Git
 - Github
 modified_time: '2016-03-01T12:14:59.064+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8192788491263355004
-blogger_orig_url: https://blog.duyet.net/2015/02/pm-github-la-gi.html
 slug: /2015/02/pm-github-la-gi.html
 description: Github, còn được gọi là social network dành cho developer đi vào hoạt động tháng 2 năm 2008, là một dịch vụ sử dụng hệ thống quản lý phân tán giúp người dùng lưu trữ source code cho các dự án. Git là một mô hình quản lý source phân tán, nó có mọi tính năng của một source control như SVN và hơn thế nữa.
-fbCommentUrl: none
 
 ---
 

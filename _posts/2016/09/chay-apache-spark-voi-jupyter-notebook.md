@@ -1,5 +1,4 @@
 ---
-template: post
 title: Chạy Apache Spark với Jupyter Notebook
 date: "2016-09-20"
 author: Van-Duyet Le
@@ -15,8 +14,6 @@ tags:
 - Machine Learning
 modified_time: '2018-09-10T17:20:37.518+07:00'
 thumbnail: https://1.bp.blogspot.com/-IbzOyRw7mkM/V-Dm-cyXE9I/AAAAAAAAd-I/nGA92fFap4MM4uqKErB7g2H-t6T7CD1RQCLcB/s1600/Selection_006.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6884070140617008733
-blogger_orig_url: https://blog.duyet.net/2016/09/chay-apache-spark-voi-jupyter-notebook.html
 slug: /2016/09/chay-apache-spark-voi-jupyter-notebook.html
 category: Data
 description: IPython Notebook là một công cụ tiện lợi cho Python. Ta có thể Debug chương trình PySpark Line-by-line trên IPython Notebook một cách dễ dàng, tiết kiệm được nhiều thời gian.

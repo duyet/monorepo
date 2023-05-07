@@ -1,5 +1,4 @@
 ---
-template: post
 title: Slack - công cụ chat trong việc theo dõi tiến độ công việc của project
 date: "2015-04-26"
 author: Van-Duyet Le
@@ -13,12 +12,9 @@ tags:
 - project
 modified_time: '2015-04-26T00:42:36.740+07:00'
 thumbnail: https://4.bp.blogspot.com/-L2pkSjtbhqQ/VTvQbexFy_I/AAAAAAAACWU/cUhMb50WKnA/s1600/2377299_slack-500.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8777646648801182771
-blogger_orig_url: https://blog.duyet.net/2015/04/slack-cong-cu-chat-trong-viec-theo-doi-tien-do-du-an.html
 slug: /2015/04/slack-cong-cu-chat-trong-viec-theo-doi-tien-do-du-an.html
 category: News
 description: Slack là gì? Đây là một dịch vụ chat mới, được phát triển để chúng ta hãy quên đi việc giao tiếp bằng email hay bằng các phần mềm chat thông thường (như Skype, Yahoo, iMessage...). Ưu điểm của nó, thứ nhất là đa nền tảng (máy tính, Android, iOS) nên mọi người trong công ty có thể chat nhóm với nhau bất kể họ dùng thiết bị gì. 
-fbCommentUrl: none
 
 ---
 

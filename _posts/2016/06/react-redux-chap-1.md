@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'React + Redux cơ bản - Phần 1: Component, JSX, Props & State'
 date: "2016-06-23"
 author: Van-Duyet Le
@@ -12,8 +11,6 @@ tags:
 - Webpack
 modified_time: '2016-07-07T21:19:47.188+07:00'
 thumbnail: https://3.bp.blogspot.com/-BE6HQe1NzmM/V2rk2jjMk8I/AAAAAAAAYAs/7yUcpn2MzPIWPTxqZ6eZ3S84OHd5opEOwCK4B/s1600/React%2B1.0.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8141507994081076773
-blogger_orig_url: https://blog.duyet.net/2016/06/react-redux-chap-1.html
 slug: /2016/06/react-redux-chap-1.html
 category: Javascript
 description: Mình sẽ dành 1 chuỗi bài để viết về React, kết hợp với mô hình Redux, sử dụng Webpack để đóng gói và kết hợp với Sails.js để làm RESTful API Server.

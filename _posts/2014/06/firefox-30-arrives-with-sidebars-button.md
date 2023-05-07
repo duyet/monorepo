@@ -1,18 +1,16 @@
 ---
-template: post
-title: Firefox 30 arrives with sidebars button, GStreamer 1.0 support, and quickshare
+title:
+  Firefox 30 arrives with sidebars button, GStreamer 1.0 support, and quickshare
   in context menu on Android
-date: "2014-06-11"
+date: '2014-06-11'
 category: News
 tags:
-- Devlopers
-- Firefox 30
-- Firefox
-- Web
-- News
+  - Devlopers
+  - Firefox 30
+  - Firefox
+  - Web
+  - News
 modified_time: '2014-06-11T12:41:30.534+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6413329274110474208
-blogger_orig_url: https://blog.duyet.net/2014/06/firefox-30-arrives-with-sidebars-button.html
 slug: /2014/06/firefox-30-arrives-with-sidebars-button.html
 description: Mozilla today officially launched Firefox 30 for Windows, Mac, Linux, and Android. Additions include a button for direct access to sidebars (social, bookmark, and history), support for GStreamer 1.0, and new quickshare buttons in the context menu on Android.
 thumbnail: https://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2013/12/firefox_logo_new-786x305.png
@@ -26,7 +24,8 @@ In terms of new features, this is a relatively minor release, especially when co
 
 ![](https://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2013/12/firefox_logo_new-786x305.png)
 
-## Desktop ##
+## Desktop
+
 While this isn’t a major release, the new desktop version does have a sizeable list of changes. Here’s the [full changelog](https://www.mozilla.org/en-US/firefox/30.0/releasenotes/) for Firefox 30:
 
 - New: Sidebars button in browser chrome enables faster access to social, bookmark, & history sidebars.
@@ -46,7 +45,8 @@ While this isn’t a major release, the new desktop version does have a sizeable
 
 If you’re a Web developer, you should probably check out [Firefox 30 for developers](https://developer.mozilla.org/en-US/docs/Firefox_30_for_developers).
 
-## Android ##
+## Android
+
 New buttons aside, the Android version has also gained support for six new languages. Here’s the [full Firefox 30 for Android changelog](https://www.mozilla.org/en-US/mobile/30.0/releasenotes/):
 
 - New: Add web content to home page panels using Home Feeds Add-On.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Spark on Kubernetes Performance Tuning
 date: "2021-04-10"
 author: Van-Duyet Le
@@ -10,9 +9,7 @@ tags:
   - Apache Spark
 thumbnail: https://1.bp.blogspot.com/-DqjllNPwXAs/YHG4KE1w2bI/AAAAAAAB_Hc/-laW2XvRNHgXvgub8XcNgw83tajD2ihlQCLcBGAsYHQ/s0/image-20210221-073612.png
 slug: /2021/04/spark-kubernetes-performance-tuning.html
-draft: false
 description: Spark Performance tuning is a process to improve the performance of the Spark, on this post, I will focus on Spark that runing of Kubernetes.
-fbCommentUrl: none
 ---
 
 # Adaptive Query Execution

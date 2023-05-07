@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tối ưu hóa Javascript với Google Closure Compiler
 date: "2016-09-14"
 author: Van-Duyet Le
@@ -14,12 +13,9 @@ tags:
 - Node
 modified_time: '2016-09-14T11:46:14.393+07:00'
 thumbnail: https://2.bp.blogspot.com/-XJmHynlIbNA/V9jI1Lbj5hI/AAAAAAAAduA/igD5n31EEUcfvwq_Y06IX2cPgsuoEKxZQCK4B/s1600/image00.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5575661335809480469
-blogger_orig_url: https://blog.duyet.net/2016/09/toi-uu-hoa-javascript-voi-google-closure.html
 slug: /2016/09/toi-uu-hoa-javascript-voi-google-closure.html
 category: News
 description: Closure Compiler là 1 dự án của Google giúp Javascript tải và chạy nhanh hơn. Không phải là biên dịch từ Javascript sang mã máy, mà Closure biên dịch từ Javascript sang better-Javascript. Tức là tự động viết lại Javascript sao cho tối ưu hóa nhất mà kết quả không thay đổi.
-fbCommentUrl: none
 ---
 
 [Closure Compiler](https://developers.google.com/closure/compiler/) là 1 dự án của Google giúp Javascript tải và chạy nhanh hơn. Không phải là biên dịch từ Javascript sang mã máy, mà Closure biên dịch từ Javascript sang better-Javascript. Tức là tự động viết lại Javascript sao cho tối ưu hóa nhất mà kết quả không thay đổi.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Google Big Data Meetup in Saigon
 date: "2015-11-13"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Google
 - BigData
 modified_time: '2016-04-04T17:00:42.706+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-552298962938169188
-blogger_orig_url: https://blog.duyet.net/2015/11/google-big-data-meetup-in-saigon.html
 slug: /2015/11/google-big-data-meetup-in-saigon.html
 category: News
 description: Felipe Hoffa is a US-based Big Data Developer Advocate of Google.
-fbCommentUrl: none
 ---
 
 Felipe Hoffa is a US-based Big Data Developer Advocate of Google.

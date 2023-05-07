@@ -1,5 +1,4 @@
 ---
-template: post
 title: Good reasons to use ClickHouse
 date: "2021-08-29"
 author: Van-Duyet Le
@@ -11,11 +10,9 @@ tags:
  - ClickHouse
 thumbnail: https://1.bp.blogspot.com/-1a6QwQg9VgM/YStWOIv7gZI/AAAAAAACNVE/My9HF_PJ37c9-eVAmzJprUMUivZVwpOCwCLcBGAsYHQ/s0/clickhouse-good-reasons-to-use-0.gif
 slug: /2021/08/good-reasons-to-use-clickhouse.html
-draft: false
 description: >
   More than 200+ companies are using ClickHouse today. 
   With many features support, it's equally powerful for both Analytics and Big Data service backend.
-fbCommentUrl: none
 ---
 
 More than 200+ companies are using ClickHouse today. 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sublime Text Plugin nào cho lập trình viên Node.js
 date: "2016-07-20"
 author: Van-Duyet Le
@@ -13,12 +12,9 @@ tags:
 - Node
 modified_time: '2016-07-20T11:16:14.977+07:00'
 thumbnail: https://3.bp.blogspot.com/-Vk9xy2-YHhQ/V476BZ29wmI/AAAAAAAAaC8/dzgxlK1P5nQ-GNPbynkCDUxxHmwYl4rxACK4B/s1600/package-control-duyetdev.gif
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1764480450440533459
-blogger_orig_url: https://blog.duyet.net/2016/07/sublime-text-plugin-nodejs.html
 slug: /2016/07/sublime-text-plugin-nodejs.html
 category: Web
 description: Hôm nay mình sẽ giới thiệu 1 số plugin cần có để lập trình Node.js trên Sublime.
-fbCommentUrl: none
 
 ---
 

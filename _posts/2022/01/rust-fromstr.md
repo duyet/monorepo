@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Rust: FromStr trait"
 date: "2022-01-02"
 author: Van-Duyet Le
@@ -10,8 +9,6 @@ tags:
   - Rust Tiếng Việt
   - Rust Basic
 slug: /2022/01/rust-fromstr.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/HlquQNu.png
 description: FromStr là một trait để khởi tạo instance từ string trong Rust, nó tương đương abstract class nếu bạn có background OOP.
 

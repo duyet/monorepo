@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Giới thiệu Yeoman, Grunt và Bower
 date: "2015-04-20"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Yeoman
 modified_time: '2015-05-17T11:50:32.805+07:00'
 thumbnail: https://1.bp.blogspot.com/-S3xORsBBOes/VTUU2dzVT9I/AAAAAAAACTw/v0XhVPBgDfE/s1600/bower.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2942387526104683237
-blogger_orig_url: https://blog.duyet.net/2015/04/nodejs-gioi-thieu-yeoman-grunt-va-bower.html
 slug: /2015/04/nodejs-gioi-thieu-yeoman-grunt-va-bower.html
 category: Javascript
 description: Chuyển từ PHP sang Nodejs thật có nhiều cái bỡ ngỡ. Cấu trúc được viết dưới dạng None-Blocking tăng tốc độ xử lý và chịu tải lên cực cao. Ứng dụng cũng được viết nhanh hơn rất nhiều nhờ các package và trình quản lý gói npm. Trong bài viết này mình sẽ giới thiệu về 1 số tools mà hầu như mọi lập trình viên Nodejs nào cũng cần phải biết qua, đó là Bower, NPM, Grunt và Yeoman.
-fbCommentUrl: none
 
 ---
 

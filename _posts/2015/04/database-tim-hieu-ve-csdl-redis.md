@@ -1,5 +1,4 @@
 ---
-template: post
 title: Database - Tìm hiểu về CSDL Redis
 date: "2015-04-06"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - NoSQL
 modified_time: '2015-04-06T00:32:31.095+07:00'
 thumbnail: https://1.bp.blogspot.com/-5k958LlJol8/VSFvGnofvCI/AAAAAAAACOY/WM4CxLtpcOU/s1600/redis.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8245884350005996852
-blogger_orig_url: https://blog.duyet.net/2015/04/database-tim-hieu-ve-csdl-redis.html
 slug: /2015/04/database-tim-hieu-ve-csdl-redis.html
 category: Data
 description: Redis là 1 trong số các hệ quản trị cơ sở dữ liệu phát triển mang phong cách NoSQL. Redis là hệ thống lưu trữ key-value với rất nhiều tính năng và được sử dụng rộng rãi. Redis nổi bật bởi việc hỗ trợ nhiều cấu trúc dữ liệu cơ bản (hash, list, set, sorted set, string), đồng thời cho phép scripting bằng ngôn ngữ lua.

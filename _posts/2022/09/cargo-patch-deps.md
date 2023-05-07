@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Cargo: Patch Dependencies'
 date: '2022-09-24'
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
   - Rust
   - Cargo
 slug: /2022/09/cargo-patch-deps.html
-draft: false
-fbCommentUrl: none
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fcargo-patch-deps.html
 description: There are several scenarios when you will need to override or patch upstream dependencies. Like testing a bugfix of your crates before pushing to crates.io, a non-working upstream crate has a new feature or a bug fix on the master branch of its git repository that you'd want to try, etc. In these cases, the [patch] section of Cargo.toml might be useful.
 

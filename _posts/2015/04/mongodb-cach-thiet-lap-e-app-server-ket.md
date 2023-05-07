@@ -1,5 +1,4 @@
 ---
-template: post
 title: MongoDB - Cách thiết lập để App Server kết nối đến MongoDb Server
 date: "2015-04-09"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Server
 - Ubuntu
 modified_time: '2016-02-03T13:05:06.878+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1137075654557312195
-blogger_orig_url: https://blog.duyet.net/2015/04/mongodb-cach-thiet-lap-e-app-server-ket.html
 slug: /2015/04/mongodb-cach-thiet-lap-e-app-server-ket.html
 category: Data
 description: "Thông thường, chúng ta thường thiết lập để Code và phần Database chung 1 server. Với những ứng dụng lớn để quản lý, chúng ta phải tách riêng biệt chúng trên nhiều server khác nhau.

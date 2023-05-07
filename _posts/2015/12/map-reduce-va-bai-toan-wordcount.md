@@ -1,5 +1,4 @@
 ---
-template: post
 title: Bigdata - Map-Reduce và bài toán Word Count
 date: "2015-12-02"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Big Data
 modified_time: '2016-01-11T02:00:48.839+07:00'
 thumbnail: https://3.bp.blogspot.com/-i_xNRnGm_pY/Vl8HH5-TM0I/AAAAAAAAKKU/K1W4w2i2f5E/s1600/big-data-cloud-e1383271750410-460x394.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5347978529971452971
-blogger_orig_url: https://blog.duyet.net/2015/12/map-reduce-va-bai-toan-wordcount.html
 slug: /2015/12/map-reduce-va-bai-toan-wordcount.html
 category: Data Engineer
 description: Map-Reduce là một giải pháp! Map-Reduce được phát minh bởi các kỹ sư Google để giải quyết bài toán xử lý một khối lượng dữ liệu cực lớn, vượt quá khả năng xử lý của một máy tính đơn có cấu hình khủng.
-fbCommentUrl: none
 ---
 
 Map-Reduce là một giải pháp! Map-Reduce được phát minh bởi các kỹ sư Google để giải quyết bài toán xử lý một khối lượng dữ liệu cực lớn, vượt quá khả năng xử lý của một máy tính đơn có cấu hình khủng.

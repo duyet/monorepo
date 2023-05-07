@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tài liệu Panama
 date: "2016-04-06"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Bảo mật
 modified_time: '2016-04-06T21:57:42.995+07:00'
 thumbnail: https://3.bp.blogspot.com/-6MKYjo1l_4w/VwQE-HzgxWI/AAAAAAAAS4Y/ms8tZUiYGnMbhKz2SDO3tqabO0iab6IGQ/s1600/firma_aufmacher_final.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8773629003153933021
-blogger_orig_url: https://blog.duyet.net/2016/04/tai-lieu-panama.html
 slug: /2016/04/tai-lieu-panama.html
 category: News
 description: Vụ rò rỉ 2.6TB tài liệu Panama có liên quan đến việc trốn thuế, rửa tiền và tham nhũng đang nóng mấy ngày qua, các tài liệu công bố có liên quan đến nhiều chính trị gia lớn, tổng thống, những người siêu giàu. Có nhiều cái thú vị trong vụ án cấp độ cực lớn ở lần này.
-fbCommentUrl: none
 ---
 
 Vụ rò rỉ 2.6TB tài liệu Panama có liên quan đến việc trốn thuế, rửa tiền và tham nhũng đang nóng mấy ngày qua, các tài liệu công bố có liên quan đến nhiều chính trị gia lớn, tổng thống, những người siêu giàu. Có nhiều cái thú vị trong vụ án cấp độ cực lớn ở lần này.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Big Data - Monitoring Spark with Graphite and Grafana
 date: "2015-07-14"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - BigData
 modified_time: '2015-07-14T13:00:07.257+07:00'
 thumbnail: https://3.bp.blogspot.com/-ytrI0VvmxgE/VaSiReFjsmI/AAAAAAAACl0/JSOfOs9-Pas/s1600/ss-tasks-3.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5746818033842679355
-blogger_orig_url: https://blog.duyet.net/2015/07/big-data-monitoring-spark-with-graphite.html
 slug: /2015/07/big-data-monitoring-spark-with-graphite.html
 category: News
 description: 
-fbCommentUrl: none
 
 ---
 

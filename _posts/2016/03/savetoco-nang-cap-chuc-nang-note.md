@@ -1,5 +1,4 @@
 ---
-template: post
 title: saveto.co nâng cấp chức năng note
 date: "2016-03-24"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - note
 modified_time: '2016-03-25T00:03:10.156+07:00'
 thumbnail: https://4.bp.blogspot.com/-IQqx5voNl_w/VvLTmSA8WLI/AAAAAAAASMk/gcSzeVC8jd8m8mZIn5ySX_ytb_F1YLSFA/s1600/screencapture-saveto-co-note-1458754419141.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4894401123454604923
-blogger_orig_url: https://blog.duyet.net/2016/03/savetoco-nang-cap-chuc-nang-note.html
 slug: /2016/03/savetoco-nang-cap-chuc-nang-note.html
 category: Project
 description: Hệ thống service saveto.co dùng để share và shortener URL, home for the best link in the internet.
-fbCommentUrl: none
 ---
 
 Hệ thống service [saveto.co](https://saveto.co/) dùng để share và shortener URL, home for the best link in the internet.

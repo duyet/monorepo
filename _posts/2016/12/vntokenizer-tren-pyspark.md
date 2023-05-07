@@ -1,5 +1,4 @@
 ---
-template: post
 title: vnTokenizer trên PySpark
 date: "2016-12-14"
 author: Van-Duyet Le
@@ -13,8 +12,6 @@ tags:
 - NLP
 - Machine Learning
 modified_time: '2018-09-10T17:20:37.029+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3825495208380118194
-blogger_orig_url: https://blog.duyet.net/2016/12/vntokenizer-tren-pyspark.html
 slug: /2016/12/vntokenizer-tren-pyspark.html
 category: Data Engineer
 description: Trong blog này mình sẽ custom lại vn.vitk để có thể chạy như một thư viện lập trình, sử dụng ngôn ngữ python (trên PySpark và Jupyter Notebook).  

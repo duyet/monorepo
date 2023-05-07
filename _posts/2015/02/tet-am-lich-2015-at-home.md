@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tết âm lịch 2015 - At home
 date: "2015-02-13"
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
 - Story
 modified_time: '2015-02-13T17:25:15.572+07:00'
 thumbnail: https://2.bp.blogspot.com/-s-xwckaCwhc/VNzlqnMmZ-I/AAAAAAAACDY/Vw6cLAyQ5v0/s1600/IMG_20150210_110610.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6291177285530797324
-blogger_orig_url: https://blog.duyet.net/2015/02/tet-am-lich-2015-at-home.html
 slug: /2015/02/tet-am-lich-2015-at-home.html
 description: "Lăn lộn bao năm giờ mới về nhà! (chém tí)  
 Cái status hiện nay trong suốt mấy ngày qua đó là: Ăn-ngập-mặt-ing :v :v "

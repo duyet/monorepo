@@ -1,5 +1,4 @@
 ---
-template: post
 title: Đâu là lợi thế cạnh tranh của người Việt?
 date: "2016-02-14"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - đọc báo
 - chinhphu.vn
 modified_time: '2016-02-14T22:42:27.186+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6877104584529331015
-blogger_orig_url: https://blog.duyet.net/2016/02/dau-la-loi-canh-tranh-cua-nguoi-viet.html
 slug: /2016/02/dau-la-loi-canh-tranh-cua-nguoi-viet.html
 category: News
 description: Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.    
-fbCommentUrl: none
 ---
 
 [Chinhphu.vn](http://chinhphu.vn/) - Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.    

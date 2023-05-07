@@ -1,5 +1,4 @@
 ---
-template: post
 title: Neural networks là gì?
 date: "2016-03-26"
 author: Van-Duyet Le
@@ -12,8 +11,6 @@ tags:
 - Machine Learning
 modified_time: '2016-05-02T19:39:30.826+07:00'
 thumbnail: https://1.bp.blogspot.com/-IrbvGQYE780/Vvai3HWIZKI/AAAAAAAASX8/Bk--e7sYx8cmsbgq8aooy7bUKKr80wKVw/s1600/500px-Network3322.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5633443439884990056
-blogger_orig_url: https://blog.duyet.net/2016/03/neural-networks.html
 slug: /2016/03/neural-networks.html
 category: Machine Learning
 description: Neural networks là gì?

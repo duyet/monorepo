@@ -1,5 +1,4 @@
 ---
-template: post
 title: Install Odoo 8 in Ubuntu 14.04/15.04
 date: "2015-09-22"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Python
 - Odoo
 modified_time: '2018-09-01T22:29:37.931+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4097132143425802073
-blogger_orig_url: https://blog.duyet.net/2015/09/install-odoo-8-in-ubuntu-14-04-15-04.html
 slug: /2015/09/install-odoo-8-in-ubuntu-14-04-15-04.html
 category: Linux
 description: Cài đặt Odoo trên Ubuntu 14.04/15.04
-fbCommentUrl: none
 ---
 
 You can simply [download](https://www.odoo.com/page/download) a .deb (for Debian/Ubuntu type systems) or a. rpm (Redhat/CentOS) package of OpenERP and install that. Unfortunately that approach doesn’t provide us (Libertus Solutions) with enough fine-grained control over where things get installed, and it restricts our flexibility to modify & customise, hence I prefer to do it a slightly more manual way (this install process below should only take about 10-15 minutes once the host machine has been built). 

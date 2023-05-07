@@ -1,5 +1,4 @@
 ---
-template: post
 title: Đánh giá hệ thống Information Retrieval (tiếp theo)
 date: "2019-10-09"
 category: Data Engineer
@@ -11,7 +10,6 @@ tags:
 slug: /2019/10/ir-evaluation-2.html
 # thumbnail: https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80
 description: Tiếp theo về các chỉ số đánh giá các hệ thống Information Retrieval, bài này sẽ bàn về đánh giá hệ thống tìm kiếm với Ground truth là non-binary (không phải nhị phân), và đánh giá hệ thống large scale.
-draft: false
 fbCommentSnapshot: none
 
 ---

@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Chatbot với Botpress - Phần 2: Coding'
 date: "2017-01-24"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Node
 modified_time: '2018-09-10T17:24:58.329+07:00'
 thumbnail: https://3.bp.blogspot.com/-GXx1lZwBtgg/WIbK6HLTO8I/AAAAAAAAimw/B9qbrjjIQIMC2CxXk1O-xqYAbTMOe4rogCLcB/s1600/screenshot-ui.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3118916906750050409
-blogger_orig_url: https://blog.duyet.net/2017/01/botpress-p2.html
 slug: /2017/01/botpress-p2.html
 category: Web
 description: Chatbot với Botpress phần 2
-fbCommentUrl: none
 ---
 
 Tiếp tục phần 2, phần trước [Chatbot với Botpress](https://blog.duyet.net/2017/01/botpress.html#.WIarsRJ97_g) bạn đã có 1 bộ khung cho Bot chỉ với vài thao tác, [kết nối mới Messenger](https://blog.duyet.net/2017/01/botpress.html#KtniviMessenger) với Persistent Menu, Getting Started message, làm quen với postback, Auto response, ... module botpress-analytics để thống kê.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Giới thiệu MEANJs Fullstack và cách cài đặt
 date: "2015-04-05"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Web
 modified_time: '2015-04-27T21:41:00.383+07:00'
 thumbnail: https://3.bp.blogspot.com/-5rfaJD0WbCQ/VT5I0zIo48I/AAAAAAAACbA/Z3PvVUVO7Vo/s1600/meanjs-intro.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5454366534033840823
-blogger_orig_url: https://blog.duyet.net/2015/04/nodejs-gioi-thieu-meanjs-fullstack.html
 slug: /2015/04/nodejs-gioi-thieu-meanjs-fullstack.html
 category: Javascript
 description: MEANJs là một web application framework cho NodeJS, nó là 1 stack kết hợp nhiều công nghệ, giúp bạn dễ dàng nhanh chóng và dễ dàng phát triển 1 ứng dụng Web SPA (Single Page Application). Cùng tìm hiểu nhé.
-fbCommentUrl: none
 
 ---
 

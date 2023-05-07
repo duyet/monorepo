@@ -1,5 +1,4 @@
 ---
-template: post
 title: Why does Helm Charts interpret 0777 as 511?
 date: '2023-04-15'
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
   - Helm
   - Kubernetes
 slug: /2023/04/helm-charts-problem.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/HhcwrAw.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F04%2Fhelm-charts-problem.html
 description: Why does Helm Charts interpret 0777 to 511? It took me quite some time to debug it.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Notibar.js
 date: "2017-03-04"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
 - project
 modified_time: '2018-09-10T17:22:11.270+07:00'
 thumbnail: https://2.bp.blogspot.com/-aWA0Q8jTEM8/WLpunYKc57I/AAAAAAAAjz8/AoGD9qpGYaE1OHeqi5QrBJcgm0HCJgnOACLcB/s1600/Screenshot%2Bfrom%2B2017-03-04%2B14-35-54.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8719092157154756743
-blogger_orig_url: https://blog.duyet.net/2017/03/notibarjs.html
 slug: /2017/03/notibarjs.html
 category: Project
 description: Notibar.js - Lightweight notification bar, no dependency.  

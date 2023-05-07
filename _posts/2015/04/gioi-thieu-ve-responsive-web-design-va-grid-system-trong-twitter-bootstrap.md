@@ -1,5 +1,4 @@
 ---
-template: post
 title: Giới thiệu về Responsive web design và Grid System trong Twitter Bootstrap
 date: "2015-04-27"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
 - Web
 modified_time: '2015-04-27T20:50:23.704+07:00'
 thumbnail: https://1.bp.blogspot.com/-iDoc8QnmKZs/VT2rLbRz3sI/AAAAAAAACYc/t1bR5wIg9Pk/s1600/ThinkingResponsive.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-834624372157333662
-blogger_orig_url: https://blog.duyet.net/2015/04/gioi-thieu-ve-responsive-web-design-va-grid-system-trong-twitter-bootstrap.html
 slug: /2015/04/gioi-thieu-ve-responsive-web-design-va-grid-system-trong-twitter-bootstrap.html
 category: News
 description: 

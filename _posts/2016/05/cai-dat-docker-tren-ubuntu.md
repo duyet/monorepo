@@ -1,5 +1,4 @@
 ---
-template: post
 title: Cài đặt Docker trên Ubuntu
 date: "2016-05-01"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - How-to
 modified_time: '2018-09-10T17:24:35.829+07:00'
 thumbnail: https://2.bp.blogspot.com/-PixuaXfP3N8/VyYNLdQQKPI/AAAAAAAAUJE/jpqCnfOYVyYaMwWBl3V2whQlLdxzU70qQCK4B/s1600/docker-swarm-hero2.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8700791234463723602
-blogger_orig_url: https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html
 slug: /2016/05/cai-dat-docker-tren-ubuntu.html
 category: Linux
 description: Docker cung cấp một nền tảng mở cho các nhà phát triển và sysadmins để xây dựng, đóng gói, vận chuyển và triển khai ứng dụng bất cứ nơi nào, ứng dụng được chạy trong một container lightweight, cùng với khả năng tự động hóa, nhân bản nhanh, gọn nhẹ, ...
-fbCommentUrl: none
 ---
 
 Docker cung cấp một nền tảng mở cho các nhà phát triển và sysadmins để xây dựng, đóng gói, vận chuyển và triển khai ứng dụng bất cứ nơi nào, ứng dụng được chạy trong một container lightweight, cùng với khả năng tự động hóa, nhân bản nhanh, gọn nhẹ, ...

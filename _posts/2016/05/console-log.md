@@ -1,5 +1,4 @@
 ---
-template: post
 title: console.log() nâng cao
 date: "2016-05-16"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Debug
 modified_time: '2016-05-16T20:57:35.599+07:00'
 thumbnail: https://1.bp.blogspot.com/-2tFGxZVRXY8/VznC82-aNtI/AAAAAAAAVLg/nL2_UJPqxrAG5BSQVhCjR3f-OpM8tESyQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B19-50-27.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-9132821458973141979
-blogger_orig_url: https://blog.duyet.net/2016/05/console-log.html
 slug: /2016/05/console-log.html
 category: Javascript
 description: Là một lập trình viên Javascript/Nodejs, ắt hẳn ai cũng đã quen với các hàm `console.*` để debug. Nay tôi xin giới thiệu các tính năng cách sử dụng hay và ít được biết đến của các hàm `console.*` này.
-fbCommentUrl: none
 ---
 
 Là một lập trình viên Javascript/Nodejs, ắt hẳn ai cũng đã quen với các hàm `console.*` để debug.

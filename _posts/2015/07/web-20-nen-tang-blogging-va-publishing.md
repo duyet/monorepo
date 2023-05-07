@@ -1,5 +1,4 @@
 ---
-template: post
 title: Web - 20 nền tảng blogging và publishing tốt nhất trong năm 2015
 date: "2015-07-20"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - Blog
 - Top
 modified_time: '2015-07-20T23:08:05.936+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1349363701068512364
-blogger_orig_url: https://blog.duyet.net/2015/07/web-20-nen-tang-blogging-va-publishing.html
 slug: /2015/07/web-20-nen-tang-blogging-va-publishing.html
 category: Web
 description: Mặc dù hiện nay MXH đang thay thế dần nền tảng blogging, blog có dấu hiệu đang chết dần, thì vẫn có hàng trăm nghìn người đang sử dụng blog trong năm qua. Theo thống kê của The Next Web, có 20 nền tảng được blogger hay publisher chọn dùng nhiều nhất trong năm 2015.
-fbCommentUrl: none
 
 ---
 

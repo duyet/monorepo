@@ -1,5 +1,4 @@
 ---
-template: post
 title: TL;DR - khi nào nên sử dụng Random Forest thay vì Neural Network
 date: "2020-05-01"
 author: Van-Duyet Le
@@ -9,9 +8,7 @@ tags:
 - TLDR
 thumbnail: https://3.bp.blogspot.com/-uzyqmWX5I1o/XqwizPGEHqI/AAAAAAABWd4/VzE8XDrPcGwrcsdl8KOHqEjGsXBNDzdvACK4BGAYYCw/s1200/nn-rf.png
 slug: /2020/05/tldr-why-rf.html
-draft: false
 description: Cả Random Forest và Neural Networks đều là những kỹ thuật khác nhau nhưng có thể sử dụng chung ở một số lĩnh vực. Vậy khi nào sử dụng 1 kỹ thuật thay vì cái còn lại?
-fbCommentUrl: none
 ---
 
 Neural networks đã chứng tỏ rằng nó hiệu quả hơn một số thuật toán Machine Learning ở nhiều lĩnh vực khác nhau. Tuy nhiên, một neural network sẽ phải cần 1 lượng tham số (variables) nhiều đến nổi chúng ta không thể kiểm soát được để hiểu hết. Thứ hai, với NN nếu chúng ta chỉ quan tâm đến kết quả dự đoán thì ổn, nhưng trong môi trường công nghiệp, chúng ta (hay lãnh đạo của chúng ta) cần một model giải thích được ý nghĩa của feature/variable đó.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Papers with Code: A Fantastic GitHub Resource for Machine Learning'
 date: "2019-01-06"
 author: Van-Duyet Le
@@ -12,12 +11,8 @@ tags:
 - Machine Learning
 modified_time: '2019-01-06T10:16:58.212+07:00'
 thumbnail: https://4.bp.blogspot.com/-MeLBsmLAEPc/XDFwdbzx4OI/AAAAAAAA3eM/dvTNPS6N26wnQQvOQ-OtVOPC5A4JXwNQgCLcBGAs/s1600/duyet-pwc.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7665812193795919443
-blogger_orig_url: https://blog.duyet.net/2019/01/pwc.html
 slug: /2019/01/pwc.html
-draft: false
 description: Papers with code. Sorted by stars. Updated weekly.
-fbCommentUrl: none
 ---
 
 Bạn đang tìm một số papers có code đi kèm?

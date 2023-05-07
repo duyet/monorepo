@@ -12,9 +12,12 @@ type Props = {
 export default function Year({ params: { year } }: Props) {
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
 
+  if (!posts) return null
+
   return (
     <>
       <h1 className='text-3xl font-bold mb-5 mt-10'>{year}</h1>
+
       {posts.map((post: Post) => (
         <article key={post.slug} className='mb-5'>
           <div className='flex flex-row gap-2 mb-2'>

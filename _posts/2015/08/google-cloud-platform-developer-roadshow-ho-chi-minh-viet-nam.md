@@ -1,5 +1,4 @@
 ---
-template: post
 title: Google Cloud Platform Developer Roadshow, Ho Chi Minh, Vietnam by GCPUG and
   GDG
 date: "2015-08-27"
@@ -10,12 +9,9 @@ tags:
 - Google Cloud
 modified_time: '2015-08-28T23:34:31.605+07:00'
 thumbnail: https://3.bp.blogspot.com/-KJbSfLPwRLk/Vd6ypB6Zy5I/AAAAAAAACyg/BwwX8fLMNzE/s1600/Google-CloudPlatform_VerticalLockup.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8696520092810514075
-blogger_orig_url: https://blog.duyet.net/2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html
 slug: /2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html
 category: News
 description: Please come join us for some great learning and discussion on the future of compute, storage, big data and the power of Google Cloud Platform
-fbCommentUrl: none
 ---
 
 Please come join us for some great learning and discussion on the future of compute, storage, big data and the power of Google Cloud Platform. Register [here](https://docs.google.com/forms/d/1YFPohOxYv7frowmjtArP9gA3GBRIXgsFEkUaKUC1MUw/viewform).

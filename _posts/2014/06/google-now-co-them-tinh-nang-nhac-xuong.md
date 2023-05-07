@@ -1,15 +1,12 @@
 ---
-template: post
 title: Google Now có thêm tính năng "nhắc" xuống tàu xe khi đến bến
-date: "2014-06-09"
+date: '2014-06-09'
 category: News
 tags:
-- Google now
-- Google
-- Android
+  - Google now
+  - Google
+  - Android
 modified_time: '2014-06-09T10:04:41.637+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-89796231113363175
-blogger_orig_url: https://blog.duyet.net/2014/06/google-now-co-them-tinh-nang-nhac-xuong.html
 slug: /2014/06/google-now-co-them-tinh-nang-nhac-xuong.html
 description: Chắc hẳn, bạn đã không ít lần ngủ quên trên xe bus và để lỡ mất bến xe cần xuống. Google Now sẽ giúp bạn giải quyết vấn đề này.
 thumbnail: https://vnreview.vn/image/11/49/38/1149382.jpg?t=1402235901564

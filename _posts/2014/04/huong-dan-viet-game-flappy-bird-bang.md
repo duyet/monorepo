@@ -1,5 +1,4 @@
 ---
-template: post
 title: Hướng dẫn viết game Flappy Bird bằng HTML5 - Phần 3
 date: "2014-04-02"
 category: Javascript
@@ -9,8 +8,6 @@ tags:
 - jQuery
 modified_time: '2015-01-22T19:22:48.214+07:00'
 thumbnail: https://4.bp.blogspot.com/-7exI9UlIZZ4/UzuVmrP-YRI/AAAAAAAAGgE/OjgRgxeToxU/s1600/diag.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-900355265705355732
-blogger_orig_url: https://blog.duyet.net/2014/04/huong-dan-viet-game-flappy-bird-bang.html
 slug: /2014/04/huong-dan-viet-game-flappy-bird-bang.html
 description: Ở phần 1 của bài viết này, chúng ta đã biết cách xây dựng Flappy Bird Clone đơn giản. Phần 2 đã bổ xung thêm một số hiện ứng và âm thanh. Trong phần cuối cùng của bài viết này, mình sẽ hướng dẫn các bạn thêm 1 số thành phần khác để hoàn chỉnh game của chúng ta. Bắt đầu nào!
 

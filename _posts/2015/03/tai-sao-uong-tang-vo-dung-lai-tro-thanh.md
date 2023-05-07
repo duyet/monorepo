@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tại sao Đường Tăng vô dụng lại trở thành người lãnh đạo, còn Tôn Ngộ Không
   tài phép thì lại là kẻ làm công?
 date: "2015-03-15"
@@ -7,8 +6,6 @@ author: Van-Duyet Le
 tags: 
 modified_time: '2015-03-15T20:00:52.502+07:00'
 thumbnail: https://3.bp.blogspot.com/-rmsHj5wxB9Q/VQWCMqu8JPI/AAAAAAAACL8/45wkrTGVRLw/s1600/20141221221931-tai-sao-duong-tang-vo-dung0lai-tro-thanh-nguoi-lanh-dao-con-ton-ngo-khong-tai-phep-thi-lai-lam-ke-lam-cong-2-stardaily.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1221808387943578333
-blogger_orig_url: https://blog.duyet.net/2015/03/tai-sao-uong-tang-vo-dung-lai-tro-thanh.html
 slug: /2015/03/tai-sao-uong-tang-vo-dung-lai-tro-thanh.html
 category: News
 description: 4 điều rút ra sau đây sẽ cho bạn 1 bài học quý báu trong cuộc sống, công việc kinh doanh đặc biệt là những người đang làm ở vị trí quản lý.

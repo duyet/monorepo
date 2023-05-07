@@ -1,5 +1,4 @@
 ---
-template: post
 title: Apache Spark on Docker
 date: "2015-12-12"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Big Data
 modified_time: '2016-01-11T02:00:26.381+07:00'
 thumbnail: https://1.bp.blogspot.com/-KvlK1aCu4JA/VmsMOTCCySI/AAAAAAAALYo/H_kBQPB_dDE/s1600/KuDr42X_ITXghJhSInDZekNEF0jLt3NeVxtRye3tqco.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2717059024603161563
-blogger_orig_url: https://blog.duyet.net/2015/12/apache-spark-on-docker.html
 slug: /2015/12/apache-spark-on-docker.html
 category: Data
 description: Docker and Spark are two technologies which are very hyped these days
-fbCommentUrl: none
 ---
 
 Docker and Spark are two technologies which are very hyped these days. [The repository](https://github.com/duyet/docker-spark) contains a Docker file to build a Docker image with Apache Spark.

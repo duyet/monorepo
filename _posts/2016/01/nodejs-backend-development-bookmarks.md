@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Backend Development Bookmarks
 date: "2016-01-03"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - Nodejs
 - bookmark
 modified_time: '2016-01-11T02:16:06.451+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8342344021032490861
-blogger_orig_url: https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks.html
 slug: /2016/01/nodejs-backend-development-bookmarks.html
 category: Web
 description: Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về nodejs backend, từ các hướng dẫn cài đặt, npm, database, các frameworks, socket, security, testing, ... tất tần tật để có thể dễ dàng tra cứu. Danh sách này cũng có thể nói gần như overview được hết các kiến thức về Nodejs backend. 
-fbCommentUrl: none
 ---
 
 Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về nodejs backend, từ các hướng dẫn cài đặt, npm, database, các frameworks, socket, security, testing, ... tất tần tật để có thể dễ dàng tra cứu. Danh sách này cũng có thể nói gần như overview được hết các kiến thức về Nodejs backend. 

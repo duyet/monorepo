@@ -1,5 +1,4 @@
 ---
-template: post
 title: Những xu hướng thiết kế web cho năm 2014
 date: "2014-04-16"
 category: News
@@ -14,8 +13,6 @@ tags:
 - News
 modified_time: '2014-04-16T13:28:56.415+07:00'
 thumbnail: https://4.bp.blogspot.com/-hcX9upEKHUk/U04gVCzbnZI/AAAAAAAAGiE/qe_KjWOLVrs/s1600/flat-altenrative.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4720921948196249785
-blogger_orig_url: https://blog.duyet.net/2014/04/nhung-xu-huong-thiet-ke-web-cho-nam-2014.html
 slug: /2014/04/nhung-xu-huong-thiet-ke-web-cho-nam-2014.html
 description: Các nhà thiết kế web đã có một năm tuyệt vời với rất nhiều ý tưởng cất cánh. Bên cạnh một số ý tưởng chợt loé lên rồi vụt tắt thì cũng có những ý tưởng tiếp tục tạo ra những ảnh hưởng của mình. Xu hướng của năm 2014 là những gì đã gây được chú ý trong năm 2013 và hứa hẹn sẽ giữ được năng lượng để tạo ảnh hưởng khắp nơi.
 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Coding - Những lợi ích của việc tiếp cận phương pháp module hóa
 date: "2015-02-14"
 author: Van-Duyet Le
@@ -8,11 +7,8 @@ tags:
 - Module
 - Coding
 modified_time: '2015-02-14T12:39:31.138+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2066005298265408912
-blogger_orig_url: https://blog.duyet.net/2015/02/coding-nhung-loi-ich-cua-viec-tiep-can.html
 slug: /2015/02/coding-nhung-loi-ich-cua-viec-tiep-can.html
 description: Chúng ta thường có xu hướng chỉ muốn bắt tay ngay vào việc viết code. Đôi khi niềm đam mê có thể làm chúng ta vất vả hơn trong thời gian dài khi app của chúng ta phát triển và mở rộng ra, sau đó chúng ta bị mắc kẹt với việc viết lại code hay thậm chí tệ hơn là có những ý nghĩ tệ về code. 
-fbCommentUrl: none
 
 ---
 

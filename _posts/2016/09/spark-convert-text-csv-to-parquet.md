@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Spark: Convert Text (CSV) to Parquet để tối ưu hóa Spark SQL và HDFS'
 date: "2016-09-21"
 author: Van-Duyet Le
@@ -14,12 +13,9 @@ tags:
 - Spark SQL
 modified_time: '2018-09-01T22:32:18.872+07:00'
 thumbnail: https://2.bp.blogspot.com/-e_wBjtB6Fl0/V-ID3ys6F9I/AAAAAAAAd_k/jRxF8H344KM_ywgsxVfQAPy3GDXAd1_fQCK4B/s1600/parquet-logo.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1854812732983668692
-blogger_orig_url: https://blog.duyet.net/2016/09/spark-convert-text-csv-to-parquet.html
 slug: /2016/09/spark-convert-text-csv-to-parquet.html
 category: Data Engineer
 description: Lưu trữ dữ liệu dưới dạng Columnar như Apache Parquet góp phần tăng hiệu năng truy xuất trên Spark lên rất nhiều lần. Bởi vì nó có thể tính toán và chỉ lấy ra 1 phần dữ liệu cần thiết (như 1 vài cột trên CSV), mà không cần phải đụng tới các phần khác của data row. Ngoài ra Parquet còn hỗ trợ flexible compression do đó tiết kiệm được rất nhiều không gian HDFS.  
-fbCommentUrl: none
 ---
 
 Lưu trữ dữ liệu dưới dạng **Columnar** như **Apache Parquet** \[1\] (**[https://parquet.apache.org](https://parquet.apache.org/)**) góp phần tăng hiệu năng truy xuất trên Spark lên rất nhiều lần. Bởi vì nó có thể tính toán và chỉ lấy ra 1 phần dữ liệu cần thiết (như 1 vài cột trên CSV), mà không cần phải đụng tới các phần khác của data row. Ngoài ra Parquet còn hỗ trợ flexible compression do đó tiết kiệm được rất nhiều không gian HDFS.  

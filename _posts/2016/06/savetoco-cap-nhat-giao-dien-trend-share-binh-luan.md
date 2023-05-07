@@ -1,5 +1,4 @@
 ---
-template: post
 title: saveto.co cập nhật giao diện, trend, share và bình luận
 date: "2016-06-30"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Update
 modified_time: '2016-06-30T23:39:31.427+07:00'
 thumbnail: https://3.bp.blogspot.com/-m5O1aeEL_Uc/V3VJ-QDKyFI/AAAAAAAAYps/m4jpG6hycrUqacjFRntOCKsbiJK_AcZDQCLcB/s1600/saveto-update-1.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4110031803257377530
-blogger_orig_url: https://blog.duyet.net/2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html
 slug: /2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html
 category: Project
 description: saveto.co vừa cập nhật hệ thống, nâng cấp một ít giao diện, cho phép hiển thị trực tiếp meta image từ URL.
-fbCommentUrl: none
 
 ---
 

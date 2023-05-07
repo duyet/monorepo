@@ -1,5 +1,4 @@
 ---
-template: post
 title: Giao diện phẳng cho Sublime Text
 date: "2015-07-20"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - theme
 modified_time: '2015-07-20T23:57:56.971+07:00'
 thumbnail: https://3.bp.blogspot.com/-sa830MyF-Pc/Va0kRlvZo9I/AAAAAAAACp4/gaw6hL08lPM/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A30%253A29.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3511063714856173572
-blogger_orig_url: https://blog.duyet.net/2015/07/giao-dien-phang-cho-sublime-text.html
 slug: /2015/07/giao-dien-phang-cho-sublime-text.html
 category: Web
 description: Sublime text là một editor cực mạnh mẽ với nhiều plugin hữu ích, có thể cài đặt 1 cách dễ dàng trực tiếp. Sublime Text hiện đang được đông đảo các Web Developer sử dụng và yêu thích. Một điểm mạnh nữa là Sublime Text có thể mở rộng thông qua các Plugin, themes, .... viết bằng python.
-fbCommentUrl: none
 
 ---
 

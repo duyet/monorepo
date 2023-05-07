@@ -1,5 +1,4 @@
 ---
-template: post
 title: JS - The Entire JavaScript Language in a Single Image
 date: "2015-09-10"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - docs
 - Javascript
 modified_time: '2015-09-10T08:58:25.126+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-9155651952089387567
-blogger_orig_url: https://blog.duyet.net/2015/09/js-entire-javascript-language-in-single.html
 slug: /2015/09/js-entire-javascript-language-in-single.html
 category: Javascript
 description: A developer named Yusheng has created an amazing infographic that shows the entire JavaScript language syntax into one single image. Take a look and save it for a quick reminder.
-fbCommentUrl: none
 ---
 
 A developer named Yusheng has created an amazing infographic that shows the entire JavaScript language syntax into one single image. Take a look and save it for a quick reminder.

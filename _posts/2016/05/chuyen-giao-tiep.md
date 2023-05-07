@@ -1,5 +1,4 @@
 ---
-template: post
 title: Chuyện giao tiếp
 date: "2016-05-29"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Bực cái mình
 modified_time: '2016-05-29T18:47:24.237+07:00'
 thumbnail: https://2.bp.blogspot.com/-CqdJgXyyhn4/V0rUJ9kOP2I/AAAAAAAAWMM/FYn0syrDCS4u3KDGBInYpe3T19ADgjcggCK4B/s1600/e.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3961232419598992822
-blogger_orig_url: https://blog.duyet.net/2016/05/chuyen-giao-tiep.html
 slug: /2016/05/chuyen-giao-tiep.html
 category: Story
 description: 'Mỗi ngày tôi nhận khoảng cả chục message inbox, đã gặp rất nhiều trường hợp, đại loại như chỉ hỏi: alo, ê rảnh không, ê có online không, help ... rồi im luôn.'
-fbCommentUrl: none
 ---
 
 Mỗi ngày tôi nhận khoảng cả chục message inbox, đã gặp rất nhiều trường hợp, đại loại như chỉ hỏi: alo, ê rảnh không, ê có online không, help ... rồi im luôn.

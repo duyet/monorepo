@@ -1,5 +1,4 @@
 ---
-template: post
 title: Webfont.js - Web Font Loader
 date: "2016-06-04"
 author: Van-Duyet Le
@@ -12,13 +11,10 @@ tags:
 - webfont.js
 modified_time: '2017-08-06T11:41:14.305+07:00'
 thumbnail: https://4.bp.blogspot.com/-H539bJlNjPU/V1L9FlbhUUI/AAAAAAAAW_E/W_wtHvUOpbgR0ke51a_6F0tkAHvq54drgCK4B/s1600/web-font-performance.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4641198387186010113
-blogger_orig_url: https://blog.duyet.net/2016/06/web-font-loader.html
 slug: /2016/06/web-font-loader.html
 category: Javascript
 
 description: Web Font Loader (webfont.js) 
-fbCommentUrl: none
 ---
 
 Web Font Loader (`webfont.js`) cho phép bạn sử dụng các Fonts tùy chỉnh trên Web. Giúp điều khiển fonts 1 cách linh động hơn bằng Javascript, thay vì thẻ `<link>` hoặc CSS, linh động tùy chỉnh các tham số, tối ưu tốc độ tải và dễ sử dụng hơn.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Các package mà mọi lập trình viên Nodejs đều phải biết.
 date: "2015-08-07"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - NPM
 - async
 modified_time: '2015-08-07T20:38:19.130+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1494283261103480392
-blogger_orig_url: https://blog.duyet.net/2015/08/nodejs-cac-package-ma-moi-lap-trinh.html
 slug: /2015/08/nodejs-cac-package-ma-moi-lap-trinh.html
 category: Javascript
 description: Nodejs module (hay npm module) giúp lập trình viên Nodejs phát triển ứng dụng cực nhanh, lý do là các việc cần xử lý hầu hết là các module đã giải quyết cho chúng ta rồi. Sau mình sẽ liệt kê danh sách các module mà bất cứ ai khi bắt đầu học Nodejs đều phải biết.

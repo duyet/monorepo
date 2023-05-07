@@ -1,5 +1,4 @@
 ---
-template: post
 title: Đóng gói và triển khai ứng dụng Nodejs bằng Docker
 date: "2016-05-01"
 author: Van-Duyet Le
@@ -14,12 +13,9 @@ tags:
 - Docker build
 modified_time: '2018-09-10T17:23:15.023+07:00'
 thumbnail: https://1.bp.blogspot.com/-PdJFod9lQSU/VyYyDa_nEnI/AAAAAAAAUaE/CpGySWOh_TMGvZGjYqpcSHtTft7yi7tjwCK4B/s1600/1-_MtS4HqN2srTcrSyet61DQ.jpeg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5166007528308230925
-blogger_orig_url: https://blog.duyet.net/2016/05/dockerizing-nodejs.html
 slug: /2016/05/dockerizing-nodejs.html
 category: Linux
 description: Hướng dẫn cách đóng gói và build image docker cho ứng dụng Nodejs một cách cơ bản nhất.
-fbCommentUrl: none
 ---
 
 [Docker ra đời](https://blog.duyet.net/2015/12/docker-la-gi-co-ban-ve-docker.html#.VyYMd4N94_M) cho giải pháp đóng gói, vận chuyển và triển khai ứng dụng hết sức nhanh chóng và đơn giản. Với Docker, các thành viên trong team (cũng như với người muốn trải nghiệm thử project) sẽ triển khai ngay được môi trường ứng dụng mà không phải mất nhiều thời gian, công việc của SysAdmin cũng nhẹ nhàng hơn.

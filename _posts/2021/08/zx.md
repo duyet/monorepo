@@ -1,5 +1,4 @@
 ---
-template: post
 title: zx
 date: '2021-08-28'
 author: Van-Duyet Le
@@ -10,11 +9,9 @@ tags:
   - Linux
 slug: /2021/08/zx.html
 thumbnail: https://1.bp.blogspot.com/-UxQmomMaIJA/YSn3KPNcrQI/AAAAAAACNMA/nBsVLSi2dYUFx9QK1zWX8-s0ViiNSHLAQCLcBGAsYHQ/s0/zx-thumb.png
-draft: false
 description: >
   A tool for writing better scripts. I usually choose to write a Python or Deno script instead of a shell script for more convenience. 
   I found this tool is so great, helping to write the script quickly.
-fbCommentUrl: none
 ---
 
 A tool for writing better scripts by Google - `zx`.

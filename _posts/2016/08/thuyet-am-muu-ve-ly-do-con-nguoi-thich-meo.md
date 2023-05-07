@@ -1,5 +1,4 @@
 ---
-template: post
 title: Thuyết âm mưu về lý do con người thích mèo
 date: "2016-08-27"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Read Station
 modified_time: '2016-08-27T23:38:57.300+07:00'
 thumbnail: https://1.bp.blogspot.com/-uuq0TQnZ-4I/V8G1A5D2rgI/AAAAAAAAcMA/WeDRiowNLUEqVeXoo04yZiSZXQEvACqfwCK4B/s1600/maxresdefault.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5336051287798434330
-blogger_orig_url: https://blog.duyet.net/2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo.html
 slug: /2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo.html
 category: News
 description: Con người có tự do lựa chọn hay chúng ta chỉ là những con rối bị ký sinh trùng giật dây?

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Bigdata -  Columnar Database và Graph Database
 date: "2016-02-03"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Big Data
 modified_time: '2016-02-03T16:34:19.787+07:00'
 thumbnail: https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s1600/example-graph.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-607367745608184844
-blogger_orig_url: https://blog.duyet.net/2016/02/columnar-database-va-graph-database.html
 slug: /2016/02/columnar-database-va-graph-database.html
 category: Data
 description: Như đã nói về big data, chúng ta có các loại dữ liệu khác nhau và chúng ta cần lưu trữ trong database. Bigdata có thể xử lý và lưu trữ trên nhiều loại CSDL khác nhau. Sau đây tôi sẽ nói 1 ít về columnar Database và Graph Database.
-fbCommentUrl: none
 ---
 
 Như đã nói về big data, chúng ta có các loại dữ liệu khác nhau và chúng ta cần lưu trữ trong database. Bigdata có thể xử lý và lưu trữ trên nhiều loại CSDL khác nhau. Sau đây tôi sẽ nói 1 ít về columnar Database và Graph Database.

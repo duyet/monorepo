@@ -1,5 +1,4 @@
 ---
-template: post
 title: Giới thiệu, làm quen với phpMyAdmin - Hệ quản trị MySQL
 date: "2015-02-15"
 author: Van-Duyet Le
@@ -10,11 +9,8 @@ tags:
 - Tutorials
 modified_time: '2015-02-15T23:05:02.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-RIl_Pz6Y1Fo/VODDEddfGiI/AAAAAAAACHw/wibuZ6SUfAQ/s1600/Screenshot%2Bfrom%2B2015-02-15%2B22%3A59%3A44.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5098182681799861842
-blogger_orig_url: https://blog.duyet.net/2015/02/gioi-thieu-lam-quen-voi-phpmyadmin-he.html
 slug: /2015/02/gioi-thieu-lam-quen-voi-phpmyadmin-he.html
 description: 
-fbCommentUrl: none
 
 ---
 

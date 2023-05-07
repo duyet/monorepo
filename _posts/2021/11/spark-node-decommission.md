@@ -1,5 +1,4 @@
 ---
-template: post
 title: Spark on Kubernetes - better handling for node shutdown 
 date: "2021-11-22"
 author: Van-Duyet Le
@@ -10,8 +9,6 @@ tags:
   - Kubernetes
 slug: /2021/11/spark-node-decommission.html
 thumbnail: https://1.bp.blogspot.com/--34hINH9_uQ/YZqJZ0URtWI/AAAAAAACXDw/yGn6wkjBWaMDfSZL3Hylwz6ILzP4xKDvACLcBGAsYHQ/s0/spark-spot-node-shutdown.png
-draft: false
-fbCommentUrl: none
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2021%2F11%2Fspark-node-decommission.html
 hackerNewsCommentUrl: https://news.ycombinator.com/item?id=29974675
 description: >

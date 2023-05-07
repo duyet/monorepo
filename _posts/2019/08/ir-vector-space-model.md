@@ -1,5 +1,4 @@
 ---
-template: post
 title: Information Retrieval - Vector Space Model
 date: "2019-08-30"
 category: Data Engineer
@@ -12,7 +11,6 @@ slug: /2019/08/ir-vector-space-model.html
 thumbnail: https://1.bp.blogspot.com/-XHW4aYhrwXw/XWp6tFER1vI/AAAAAAABGLc/AsRMlDpxMwAcoUFOjZMV1fK-0FfnZEmEwCLcBGAs/s1600/Screen%2BShot%2B2019-08-31%2Bat%2B8.48.04%2BPM.png
 description: Hệ thống tra cứu thông tin - Information Retrieval. Một hệ thống tìm kiếm thông tin (Information Retrieval - IR) là một hệ thống tra cứu (thường là các tài liệu văn bản) từ một nguồn không có cấu trúc tự nhiên (thường là văn bản), chứa đựng một số thông tin nào đó từ một tập hợp lớn. Một trong những kỹ thuật phổ biến trong Information Retrieval đó là Vector Space Model. 
 prev: /2019/08/airflow-note.html
-fbCommentUrl: none
 ---
 
 Một hệ thống tìm kiếm thông tin (Information Retrieval - IR) là một hệ thống tra cứu (thường là các tài liệu văn bản) từ một nguồn không có cấu trúc tự nhiên (thường là văn bản), chứa đựng một số thông tin nào đó từ một tập hợp lớn. 

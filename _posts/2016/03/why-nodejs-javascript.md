@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sao lại là Node.js/Javascript?
 date: "2016-03-19"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Javascript
 modified_time: '2016-05-02T19:40:06.595+07:00'
 thumbnail: https://1.bp.blogspot.com/-02uvvbRBDEE/Vu0-MapY7TI/AAAAAAAAR6o/TImmG942FQwE1RxaBpwQEt_n_6PC1G_ag/s1600/Screenshot%2Bfrom%2B2016-03-19%2B18-54-46.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5205721013245101344
-blogger_orig_url: https://blog.duyet.net/2016/03/why-nodejs-javascript.html
 slug: /2016/03/why-nodejs-javascript.html
 category: Javascript
 description: Hàng năm, Stack Overflow đều có 1 cuộc khảo sát trên hàng trăm nghìn Developers thông qua các dịch của mình. Năm nay có 56,033 coders trên 173 nước trên thế giới tham gia khảo sát. Kết quả của các khảo sát này cho ta cái nhìn tổng quan và đúng đắn nhất về development trong năm qua.
-fbCommentUrl: none
 ---
 
 Hàng năm, Stack Overflow đều có 1 cuộc [khảo sát trên hàng trăm nghìn Developers](http://stackoverflow.com/research/developer-survey-2016#overview) thông qua các dịch của mình. Năm nay có 56,033 coders trên 173 nước trên thế giới tham gia khảo sát. Kết quả của các khảo sát này cho ta cái nhìn tổng quan và đúng đắn nhất về development trong năm qua.

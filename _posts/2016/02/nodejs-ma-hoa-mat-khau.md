@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Mã hóa mật khẩu
 date: "2016-02-03"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - bcrypt
 modified_time: '2016-02-03T14:22:58.956+07:00'
 thumbnail: https://4.bp.blogspot.com/-ye71o5GWvp0/VrGoa5MFAQI/AAAAAAAAPCg/EplwAJ4v5yk/s1600/password-protection-flat_1.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7668217930935277395
-blogger_orig_url: https://blog.duyet.net/2016/02/nodejs-ma-hoa-mat-khau.html
 slug: /2016/02/nodejs-ma-hoa-mat-khau.html
 category: Javascript
 description: Mã hóa mật khẩu người dùng trước khi lưu vào database là 1 chuyện bắt buộc phải làm đối với bất cứ 1 website nào. Không riêng gì ai, Nodejs cũng hỗ trợ khá nhiều thư viện để hỗ trợ việc mã hóa này.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Git - Kĩ thuật chia branch, "Branch early, branch often"
 date: "2015-07-16"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Git Workflow
 modified_time: '2015-07-16T12:54:31.864+07:00'
 thumbnail: https://4.bp.blogspot.com/-s4EMBlWhY34/VadEZkNL7YI/AAAAAAAACnc/byhewvc8IsQ/s1600/s1-1024x417.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-9144536109356254828
-blogger_orig_url: https://blog.duyet.net/2015/07/git-ki-thuat-chia-branch-branch-early.html
 slug: /2015/07/git-ki-thuat-chia-branch-branch-early.html
 category: Git
 description: Đây là một bài mình viết trên blog CodeDaily, nói về kĩ thuật chia branch, branch workflow.
-fbCommentUrl: none
 
 ---
 

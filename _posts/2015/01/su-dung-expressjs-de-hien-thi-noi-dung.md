@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sử dụng ExpressJS để hiển thị nội dung file HTML
 date: "2015-01-23"
 category: Javascript
@@ -8,8 +7,6 @@ tags:
 - ExpressJs
 - readFile
 modified_time: '2015-01-29T11:48:14.276+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4041887026699289646
-blogger_orig_url: https://blog.duyet.net/2015/01/su-dung-expressjs-e-hien-thi-noi-dung.html
 slug: /2015/01/su-dung-expressjs-de-hien-thi-noi-dung.html
 description: "Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: res.sendfile(), tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó."
 

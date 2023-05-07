@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Pricetrack: theo dõi giá và cashback (by Firebase)"
 date: "2019-05-13"
 author: Van-Duyet Le
@@ -12,7 +11,6 @@ tags:
 - Project
 
 thumbnail: https://1.bp.blogspot.com/-YI_vbZhajkU/XNl4r1H3CRI/AAAAAAABAgI/eZRSFuf3RXQsltqLb2_ObS_lWlE475n5wCLcBGAs/s1600/screenshot-detail.png
-blogger_orig_url: https://blog.duyet.net/2019/05/pricetrack-cashback.html
 slug: /2019/05/pricetrack-cashback.html
 description: "Pricetrack (https://pricetrack.web.app) là một side project nhỏ của mình với chức năng theo dõi giá liên tục từ các trang TMDT (tiki.vn, shopee.vn, ...), thông báo và cashback hoàn tiền.
 Vì hay mua sắm nên pricetrack giúp mình check được giá ảo lên xuống thất thường, hoặc track khi nào có khuyến mãi thì mua.

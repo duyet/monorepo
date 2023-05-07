@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Talk: Why docker?'
 date: "2016-05-01"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Talk
 modified_time: '2018-09-10T17:24:13.718+07:00'
 thumbnail: https://4.bp.blogspot.com/-84F7ca4G75c/VyYPFOcKb4I/AAAAAAAAULU/J4g0-i0v5K4s1vK2432PQsnsZ1qFB8MKACLcB/s1600/Screenshot%2Bfrom%2B2016-05-01%2B21-13-19.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1247301462464734137
-blogger_orig_url: https://blog.duyet.net/2016/05/why-docker.html
 slug: /2016/05/why-docker.html
 category: Talk
 description: 'Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look về Docker, kiến trúc cơ bản, quy mô tình hình sử dụng, các ứng dụng và cách sử dụng, viết 1 Dockerfile đơn giản.'
-fbCommentUrl: none
 ---
 
 Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look về Docker, kiến trúc cơ bản, quy mô tình hình sử dụng, các ứng dụng và cách sử dụng, viết 1 Dockerfile đơn giản.

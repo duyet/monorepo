@@ -1,5 +1,4 @@
 ---
-template: post
 title: PHP Framework là gì? Tại sao nên dùng framework?
 date: "2014-06-02"
 category: PHP
@@ -7,8 +6,6 @@ tags:
 - Framework
 - PHP
 modified_time: '2014-06-02T12:51:02.746+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2306051633096092269
-blogger_orig_url: https://blog.duyet.net/2014/06/php-framework-la-gi-tai-sao-nen-dung.html
 slug: /2014/06/php-framework-la-gi-tai-sao-nen-dung.html
 description: PHP có một lịch sử phát triển lâu đời và được đông đảo lập trình viên đón nhận, ngày càng phát triển mạnh mẽ hơn. Nhiều người bảo chọn PHP vì lí do mã nguồn mở, miễn phí, dễ triển khai, chạy nhanh (?); nhưng theo mình nghĩ, những ai đã làm việc với PHP và theo đuổi nó vì một lý do rất đơn giản, đó là làm việc với PHP rất thoải mái. 
 

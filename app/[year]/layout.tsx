@@ -9,6 +9,6 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function YearLayout({ params: { year }, children }: Props) {
+export default function YearLayout({ children }: Props) {
   return <Container>{children}</Container>
 }

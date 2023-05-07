@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sử dụng PyTorch với GPU miễn phí trên Google Colab
 date: "2018-06-03"
 author: Van-Duyet Le
@@ -14,12 +13,9 @@ tags:
 - Colaboratory
 modified_time: '2018-07-20T10:11:11.326+07:00'
 thumbnail: https://4.bp.blogspot.com/-SdOdKIqi8Q0/WxPzp07jlfI/AAAAAAAAubY/BdjBxk-frPgTZKvNR8CTYpBgUwRcF9SQACLcBGAs/s1600/35226d9fbc661ced1c5d17e374638389178c3176.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4058951143958765380
-blogger_orig_url: https://blog.duyet.net/2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren.html
 slug: /2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren.html
 category: Web
 description: Google Colab (https://colab.research.google.com/) là một phiên bản Jupyter/iPython đến từ Google (think iPython + Google Drive), cung cấp cho chúng ta một môi trường notebook-based với backend Python 2/3 miễn phí. Google Colab rất hữu ích trong việc chia sẻ, giáo dục và teamwork trong các dự án về Machine Learning.
-fbCommentUrl: none
 ---
 
 [Google Colab](https://blog.duyet.net/2017/11/colaboratory-research-google.html#.WxPuK0jRDIU) ([https://colab.research.google.com/](https://colab.research.google.com/)) là một phiên bản Jupyter/iPython đến từ Google (think iPython + Google Drive), cung cấp cho chúng ta một môi trường notebook-based với backend Python 2/3 miễn phí. Google Colab rất hữu ích trong việc chia sẻ, giáo dục và teamwork trong các dự án về Machine Learning.

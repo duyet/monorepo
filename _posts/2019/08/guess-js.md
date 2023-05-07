@@ -1,5 +1,4 @@
 ---
-template: post
 title: Guess.js
 date: "2019-08-09"
 author: Van-Duyet Le
@@ -13,7 +12,6 @@ tags:
 thumbnail: https://4.bp.blogspot.com/-Gjsnx_YH4HM/XU2UV2DlnnI/AAAAAAABFVM/LjDl6ilxQeYPzQgs_acID9VEwy4L62QsACK4BGAYYCw/s200/guess.png
 slug: /2019/08/guess-js.html
 description: Guess.js - Thư viện và công cụ cải thiện UX dựa trên Dữ liệu, thống kê và Machine Learning. Và cách cài đặt plugin Gatsby. 
-fbCommentUrl: none
 ---
 
 Guess.js là một tập các thư viện và công cụ giúp sử dụng dữ liệu và thuật toán để cải thiện UX của trang. Thư viện gồm các thuật toán sử dụng nội dung trang và dữ liệu Google Analytics, sử dụng [predictive analytics](https://en.wikipedia.org/wiki/Predictive_analytics) để cải thiện hiệu năng tải trang thông qua `<link rel="[prerender/prefetch/preload]">`, quyết định xem nên tải tài nguyên nào trước. Dự đoán người dùng bấm vào link nào tiếp theo từ trang hiện tại.

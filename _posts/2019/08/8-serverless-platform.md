@@ -1,5 +1,4 @@
 ---
-template: post
 title: 8 nền tảng serverless platform tốt nhất hiện nay
 date: "2019-08-09"
 author: Van-Duyet Le
@@ -11,7 +10,6 @@ tags:
 thumbnail: https://2.bp.blogspot.com/-UXFKQHmgZr4/XU5GBRoYgMI/AAAAAAABFX4/36g3ohD57bUaGSoqwPctGsTdL4lG85vPwCK4BGAYYCw/s1600/serverless-arch.jpg
 slug: /2019/08/8-serverless-platform.md
 description: Một vài nền tảng serverless tốt nhất hiện nay cho ứng dụng của bạn.
-fbCommentUrl: none
 ---
 
 Serverless architecture không có nghĩa là bạn không cần server. Thay vào đó là bạn cần ít server hơn để quản lý. Ở các ứng dụng truyền thống, bạn sẽ phải quản lý mọi thứ từ logic ứng dụng trong máy ảo, máy vật lý hoặc cloud server. Tuy nhiên, xu thế hiện nay đang dần thay đổi.

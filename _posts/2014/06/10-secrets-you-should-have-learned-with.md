@@ -1,5 +1,4 @@
 ---
-template: post
 title: 10 Secrets You Should Have Learned with Your Software Engineering Degree –
   But Probably Didn’t
 date: "2014-06-11"
@@ -9,8 +8,6 @@ tags:
 - Software
 modified_time: '2014-06-11T20:59:34.772+07:00'
 thumbnail: https://4.bp.blogspot.com/--7etYcfMsrk/U5hgSH12GUI/AAAAAAAAGso/9WpH-R4jsFg/s1600/shutterstock_150587633_techschool.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4975095902762048407
-blogger_orig_url: https://blog.duyet.net/2014/06/10-secrets-you-should-have-learned-with.html
 slug: /2014/06/10-secrets-you-should-have-learned-with.html
 description: "It’s an all too common story: You go to school for years and years and walk out with a freshly printed diploma, snag your first job, and yet get immediately blindsided by unwritten rules and other day-to-day complexities that no one bothered to warn you about. And programming is no exception."
 ---

@@ -1,14 +1,11 @@
 ---
-template: post
-title: Cú pháp jQuery selector
+title: jQuery Selector
 date: "2014-06-02"
 category: Javascript
 tags:
 - jQuery Selector
 - jQuery
-modified_time: '2014-06-02T12:59:20.875+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5725214778206562429
-blogger_orig_url: https://blog.duyet.net/2014/06/cu-phap-jquery-selector.html
+modified_time: '2023-06-07'
 slug: /2014/06/cu-phap-jquery-selector.html
 description: Selector là một chuỗi ký tự cho phép chỉ định chính xác element trên tài liệu html. Gọi hàm $(<selector>) để jQuery trả về cho bạn một jQuery object. Object này chứa những hàm cung cấp bởi jQuery và mảng chứa DOM node tìm thấy bởi selector. 
 

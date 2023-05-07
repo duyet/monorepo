@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Create React apps: công cụ generate React chính thức từ Facebook, không cần
   cấu hình.'
 date: "2016-07-25"
@@ -12,8 +11,6 @@ tags:
 - facebook
 modified_time: '2016-07-25T09:31:24.499+07:00'
 thumbnail: https://3.bp.blogspot.com/-HahL2Dcmo7o/V5Vz1SQORXI/AAAAAAAAaMM/HomR1n60e4oKER20VhEDSIZQag-nQqptwCK4B/s1600/create-react-app.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2331782777537838966
-blogger_orig_url: https://blog.duyet.net/2016/07/create-react-apps.html
 slug: /2016/07/create-react-apps.html
 category: Javascript
 description: Facebook ra mắt công cụ mới Create React App - generate ra React starter project.

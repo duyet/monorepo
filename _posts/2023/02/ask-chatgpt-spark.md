@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Ask ChatGPT about 20 important concepts of Apache Spark'
 date: '2023-02-26'
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
   - Data
   - Data Engineer
 slug: /2023/02/ask-chatgpt-spark.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/ZvhkzWZ.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F02%2Fask-chatgpt-spark.html
 description: I asked ChatGPT to explain 20 important concepts of Apache Spark. Let's see what it has to say! 

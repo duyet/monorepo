@@ -16,6 +16,7 @@ export default function Error({ error }: { error: Error; reset: () => void }) {
         width={1200}
         height={800}
         alt='error'
+        priority={true}
         className='absolute h-full w-full object-cover'
       />
       <div className='inset-0 bg-black opacity-25 absolute'></div>

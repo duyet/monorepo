@@ -1,5 +1,4 @@
 ---
-template: post
 title: function* và yield trong Javascript generator function
 date: "2016-02-21"
 author: Van-Duyet Le
@@ -12,8 +11,6 @@ tags:
 - Object
 modified_time: '2016-02-26T21:31:30.559+07:00'
 thumbnail: https://1.bp.blogspot.com/-OA0tvHhNN3o/VsiyjiJwLbI/AAAAAAAAQAo/IugUE3zNbrY/s1600/generator-function.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3625446092140013146
-blogger_orig_url: https://blog.duyet.net/2016/02/generator-function-javascript.html
 slug: /2016/02/generator-function-javascript.html
 category: Javascript
 description: function* giúp khai báo 1 generator function, trả về 1 Generator object. Với chức năng mới này, hàm có thể dừng thực thi bất cứ thời điểm nào, đợi async chạy xong, xong tiếp tục thực thi.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Github Project - Feedback Social Platform
 date: "2015-08-09"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - Github
 - project
 modified_time: '2018-09-10T17:30:29.064+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6374836962940036188
-blogger_orig_url: https://blog.duyet.net/2015/08/github-project-feedback-social-platform.html
 slug: /2015/08/github-project-feedback-social-platform.html
 category: Project
 description: Feedback Social is platform free for all to feedback, preview, complain,... about everything. They can get for supports from community about that.
-fbCommentUrl: none
 ---
 
 Feedback Social is platform free for all to feedback, preview, complain,... about everything. They can get for supports from community about that.

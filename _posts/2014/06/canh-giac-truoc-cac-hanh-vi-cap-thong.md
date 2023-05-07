@@ -1,5 +1,4 @@
 ---
-template: post
 title: Cảnh giác trước các hành vi ăn cắp thông tin cá nhân
 date: "2014-06-03"
 category: News
@@ -9,8 +8,6 @@ tags:
 - Bảo mật
 - Cảnh giác
 modified_time: '2014-06-03T22:41:49.407+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3667394738206683579
-blogger_orig_url: https://blog.duyet.net/2014/06/canh-giac-truoc-cac-hanh-vi-cap-thong.html
 slug: /2014/06/canh-giac-truoc-cac-hanh-vi-cap-thong.html
 description: Tương tự như kẻ trộm cướp, tin tặc mạng có nhiều cách khác nhau để lấy cắp thông tin cá nhân và tiền của bạn. Giống như việc bạn chống lại kẻ trộm, hãy nhớ tự bảo vệ bản thân khỏi hành vi gian lận và ăn cắp thông tin cá nhân. 
 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Machine Learning is Fun! (Vietnamese version)
 date: "2017-08-25"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Machine Learning
 modified_time: '2017-08-25T17:09:50.109+07:00'
 thumbnail: https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1517103563202158292
-blogger_orig_url: https://blog.duyet.net/2017/08/machine-learning-is-fun.html
 slug: /2017/08/machine-learning-is-fun.html
 category: Machine Learning
 description: 'Chuỗi bài viết "Machine Learning is Fun!" này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang cho bạn đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.'
-fbCommentUrl: none
 ---
 
 Chuỗi bài viết _"Machine Learning is Fun!"_ này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang cho bạn đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.  

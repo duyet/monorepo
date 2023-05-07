@@ -1,5 +1,4 @@
 ---
-template: post
 title: copy.js - simple copy text to clipboard in the browser
 date: "2016-02-17"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Javascript
 modified_time: '2016-02-21T01:41:52.268+07:00'
 thumbnail: https://3.bp.blogspot.com/-qnoZylNW4-g/VsizR9xBEPI/AAAAAAAAQAw/fR-qHa0ccjk/s1600/copyjs.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5649667418340185075
-blogger_orig_url: https://blog.duyet.net/2016/02/copyjs-simple-copy-text-to-clipboard-in.html
 slug: /2016/02/copyjs-simple-copy-text-to-clipboard-in.html
 category: Javascript
 description: Simple copy to clipboard. No Flash.
-fbCommentUrl: none
 ---
 
 Simple copy to clipboard. No Flash.

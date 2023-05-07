@@ -1,5 +1,4 @@
 ---
-template: post
 title: Japanese stopwords package for npm, bower and plaintext
 date: "2016-02-27"
 author: Van-Duyet Le
@@ -13,12 +12,9 @@ tags:
 - NLP
 modified_time: '2016-03-18T23:29:23.351+07:00'
 thumbnail: https://4.bp.blogspot.com/-tKM0wg2Vmqc/VtFheibWiSI/AAAAAAAAQbc/KFhuP43v4lA/s1600/japanese-stopwords.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5407769601694262724
-blogger_orig_url: https://blog.duyet.net/2016/02/japanese-stopwords-package.html
 slug: /2016/02/japanese-stopwords-package.html
 category: Machine Learning
 description: Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード    
-fbCommentUrl: none
 ---
 
 Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード    

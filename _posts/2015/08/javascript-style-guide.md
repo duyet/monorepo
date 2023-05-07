@@ -1,5 +1,4 @@
 ---
-template: post
 title: JavaScript Style Guide
 date: "2015-08-01"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - style guide
 - Javascript
 modified_time: '2015-08-01T10:25:33.996+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7540331680687269417
-blogger_orig_url: https://blog.duyet.net/2015/08/javascript-style-guide.html
 slug: /2015/08/javascript-style-guide.html
 category: Javascript
 description: A mostly reasonable approach to JavaScript.
-fbCommentUrl: none
 
 ---
 
