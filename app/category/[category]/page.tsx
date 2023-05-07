@@ -28,13 +28,7 @@ async function getPosts(category: Props['params']['category']) {
 export async function generateStaticParams() {
   const categories = getAllCategories()
 
-  return Object.keys(categories).map((cat: string) => {
-    const category = getSlug(cat)
-
-    return {
-      params: {
-        category,
-      },
-    }
-  })
+  return Object.keys(categories).map((cat: string) => ({
+    category: getSlug(cat),
+  }))
 }

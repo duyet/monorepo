@@ -1,4 +1,4 @@
-const getSlug = (name: string) => {
+export const getSlug = (name: string) => {
   return name.toLowerCase().replace(/ /g, '-')
 }
 
