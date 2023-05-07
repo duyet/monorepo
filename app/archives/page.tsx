@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 import type { Post } from '../../interfaces'
-import { getAllPosts } from '../../lib/getPost'
 import Container from '../../components/Container'
+import { getPostsByAllYear } from '../../lib/getPost'
 
 export default function Archives() {
-  const postsByYear = getPostsByYear()
+  const postsByYear = getPostsByAllYear(['slug', 'title', 'date', 'category'])
 
   return (
     <Container>
@@ -16,7 +16,9 @@ export default function Archives() {
 
           return (
             <div key={year}>
-              <h1 className='text-3xl font-bold mb-5 mt-10'>{year}</h1>
+              <Link href='/[year]' as={`/${year}`}>
+                <h1 className='text-3xl font-bold mb-5 mt-10'>{year}</h1>
+              </Link>
 
               {posts.map((post: Post) => (
                 <article key={post.slug} className='mb-5'>
@@ -28,8 +30,8 @@ export default function Archives() {
                   </div>
 
                   <Link
-                    as={`${post.slug}`}
                     href='/[...slug]'
+                    as={`${post.slug}`}
                     className='text-xl font-bold'
                   >
                     {post.title}
@@ -41,23 +43,4 @@ export default function Archives() {
         })}
     </Container>
   )
-}
-
-function getPostsByYear() {
-  const allPosts = getAllPosts(['slug', 'title', 'date', 'category'])
-
-  // Post by year
-  const postsByYear = allPosts.reduce((acc, post) => {
-    const year = new Date(post.date).getFullYear()
-
-    if (!acc[year]) {
-      acc[year] = []
-    }
-
-    acc[year].push(post)
-
-    return acc
-  }, {})
-
-  return postsByYear
 }

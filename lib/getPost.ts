@@ -140,3 +140,30 @@ export function getPostsByCategory(
     .filter((post) => post.category_slug === category)
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
+
+export function getPostsByAllYear(fields: string[] = []) {
+  const extraFields = [...fields, 'date']
+  const allPosts = getAllPosts(extraFields)
+
+  // Post by year
+  const postsByYear = allPosts.reduce((acc, post) => {
+    const year = new Date(post.date).getFullYear()
+
+    if (!acc[year]) {
+      acc[year] = []
+    }
+
+    acc[year].push(post)
+
+    return acc
+  }, {})
+
+  return postsByYear
+}
+
+export function getPostsByYear(year: number, fields: string[] = []) {
+  const extraFields = [...fields, 'date']
+  const postByYears = getPostsByAllYear(extraFields)
+
+  return postByYears[year]
+}
