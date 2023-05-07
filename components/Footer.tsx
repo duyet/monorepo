@@ -115,13 +115,7 @@ export function FooterContent() {
 export default function Footer({ menu }: { menu?: boolean }): ReactElement {
   return (
     <footer className='bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900'>
-      <div
-        className={cn(
-          'mx-auto max-w-[90rem] py-2 px-4 flex gap-2',
-          menu ? 'flex' : 'hidden'
-        )}
-      ></div>
-      <hr className='dark:border-neutral-800' />
+      <hr className='dark:border-neutral-700' />
       <div
         className={cn(
           'mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white',

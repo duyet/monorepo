@@ -21,18 +21,18 @@ module.exports = {
     },
   ],
   theme: {
-    fontFamily: {
-      sans: ['var(--font-sans)', ...fontFamily.sans],
-    },
     extend: {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            color: theme('colors.black.100'),
             a: {
               color: theme('colors.blue.600'),
               textDecoration: 'none',
               textDecorationThickness: 'from-font',
               textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
               '&:hover': {
                 textDecoration: 'underline',
               },
@@ -48,7 +48,7 @@ module.exports = {
           css: {
             a: {
               color: theme('colors.white'),
-              textDecoration: 'underline'
+              textDecoration: 'underline',
             },
           },
         },
