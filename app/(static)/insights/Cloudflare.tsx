@@ -61,13 +61,14 @@ export default function Cloudflare({
         ))}
       </Flex>
       <AreaChart
-        data={chartData}
         index='date'
-        categories={['Requests', 'Page Views', 'Unique Visitors']}
+        data={chartData}
         showYAxis={false}
+        showGridLines={false}
         valueFormatter={dataFormatter}
+        categories={['Requests', 'Page Views', 'Unique Visitors']}
       />
-      <div className='text-sm italic text-gray-600 text-right mt-5'>
+      <div className='text-sm italic text-gray-400 text-right mt-5'>
         Source: Cloudflare | Generated at {generatedAt}
       </div>
     </div>
