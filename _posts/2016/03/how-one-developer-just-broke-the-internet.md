@@ -1,5 +1,4 @@
 ---
-template: post
 title: How one developer just broke Node, Babel and thousands of projects in 11 lines
   of JavaScript
 date: "2016-03-26"
@@ -11,12 +10,9 @@ tags:
 - Package
 - News
 modified_time: '2016-05-02T19:39:38.146+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4874282820759264251
-blogger_orig_url: https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet.html
 slug: /2016/03/how-one-developer-just-broke-the-internet.html
 category: News
 description: Một lập trình viên vừa gây lỗi hàng loạt cho Node, Babel và hàng nghìn projects khác. Chỉ với 11 dòng Javascript.
-fbCommentUrl: none
 ---
 
 Một lập trình viên vừa gây lỗi hàng loạt cho Node, Babel và hàng nghìn projects khác. Chỉ với 11 dòng Javascript.

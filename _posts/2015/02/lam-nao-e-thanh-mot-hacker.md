@@ -1,5 +1,4 @@
 ---
-template: post
 title: Làm thế nào để trở thành một hacker?
 date: "2015-02-26"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Translate
 modified_time: '2015-02-27T13:08:05.189+07:00'
 thumbnail: https://3.bp.blogspot.com/-oswyX6WhPgA/VO8sGTFRpdI/AAAAAAAACKw/vY7mLfDq8KA/s1600/hacker.manifesto_1353980477_42.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2385808663604991315
-blogger_orig_url: https://blog.duyet.net/2015/02/lam-nao-e-thanh-mot-hacker.html
 slug: /2015/02/lam-nao-e-thanh-mot-hacker.html
 category: News
 description: Lựa chọn trở thành một hacker mũ trắng hay mũ đen nằm ở bản thân mỗi người và tùy vào hoàn cảnh cụ thể, nhưng chung quy lại thì họ cần những gì? Hacker đúng nghĩa không phải là tin tặc, mà là những người có khả năng tìm tòi, phát hiện ra những kẽ hở len lỏi trong các đoạn mã lập trình phức tạp của những ứng dụng - tưởng chừng như hoàn hảo.

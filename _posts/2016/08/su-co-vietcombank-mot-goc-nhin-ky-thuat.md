@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sự cố Vietcombank, một góc nhìn kỹ thuật
 date: "2016-08-18"
 author: Van-Duyet Le
@@ -14,12 +13,9 @@ tags:
 - VCB
 modified_time: '2016-08-18T09:15:09.720+07:00'
 thumbnail: https://3.bp.blogspot.com/-5A7qKw_phn8/V7UXD6zsqHI/AAAAAAAAbs8/tlfCE3ExbbE6bwK-8Np0qudqLAOjNDSKQCK4B/s1600/sitegiamao.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2837763184490095351
-blogger_orig_url: https://blog.duyet.net/2016/08/su-co-vietcombank-mot-goc-nhin-ky-thuat.html
 slug: /2016/08/su-co-vietcombank-mot-goc-nhin-ky-thuat.html
 category: News
 description: "Bài viết gốc đăng tại VnSecurity"
-fbCommentUrl: none
 ---
 
 Bài viết gốc đăng tại VnSecurity: www.vnsecurity.net/research/2016/08/13/Ve-su-vu-khach-hang-Vietcombank-bi-mat-tien.html

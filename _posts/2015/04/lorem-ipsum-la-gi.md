@@ -1,5 +1,4 @@
 ---
-template: post
 title: Lorem Ipsum là gì?
 date: "2015-04-15"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Web
 modified_time: '2015-04-15T23:06:58.760+07:00'
 thumbnail: https://4.bp.blogspot.com/-E6m4y8pwKVo/VS6LS5LUCmI/AAAAAAAACRU/8aSZgKRN-DI/s1600/lipsum.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5005308039293586856
-blogger_orig_url: https://blog.duyet.net/2015/04/lorem-ipsum-la-gi.html
 slug: /2015/04/lorem-ipsum-la-gi.html
 category: Web
 description: Nếu bạn là người quen với việc thiết kế web, chắc chắn không dưới một lần bạn đã từng thấy những giao diện được thiết kế và có các dòng chữ không phải là ngôn ngữ quen thuộc nào trên thế giới. Đó chính là những dòng chữ quen thuộc của giới thiết kế layout "Lorem Ipsum Dolor sit amet …"
-fbCommentUrl: none
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: jQuery - Smooth page scrolling với TweenMax
 date: '2014-04-15'
 category: Javascript
@@ -7,8 +6,6 @@ tags:
   - Javascript
   - jquery
 modified_time: '2014-04-15T17:08:24.345+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5394235747184161246
-blogger_orig_url: https://blog.duyet.net/2014/04/jquery-smooth-page-scrolling-voi.html
 slug: /2014/04/jquery-smooth-page-scrolling-voi.html
 description: Trong tutorial này, mình sẽ hướng dẫn các bạn có được hiệu ứng cuộn trang 1 cách mượt mà. Hiện chức năng này có sẵn trên firefox, hay chrome,.. nhưng không phải Client nào cũng được bật chức năng này. Trong bài viết mình sẽ sử dụng TweenMax và ScrollToPlugin
 

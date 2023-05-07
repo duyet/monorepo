@@ -1,5 +1,4 @@
 ---
-template: post
 title: Docker là gì? Cơ bản về Docker
 date: "2015-12-20"
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
 - Dockerfile
 modified_time: '2018-09-10T17:28:07.923+07:00'
 thumbnail: https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3324245740616192311
-blogger_orig_url: https://blog.duyet.net/2015/12/docker-la-gi-co-ban-ve-docker.html
 slug: /2015/12/docker-la-gi-co-ban-ve-docker.html
 category: Docker
 description: Trong thời gian gần đây có rất nhiều bài báo, hay blog, và cả trên Twitter có rất nhiều người đề cập đến Docker. Vậy Docker là gì và tại sao nó hữu ích

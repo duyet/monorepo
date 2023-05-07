@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tensorflow - cài đặt trên Docker
 date: "2016-02-05"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Howto
 modified_time: '2016-02-05T23:48:54.687+07:00'
 thumbnail: https://2.bp.blogspot.com/-ALrzO2lz1Hk/VrTSHtGlC8I/AAAAAAAAPHE/ZFPNvhh_PPA/s1600/CYJ-8P4WkAQtAqp.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4129099079213361357
-blogger_orig_url: https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker.html
 slug: /2016/02/cai-dat-tensorflow-tren-docker.html
 category: Machine Learning
 description: Docker luôn là giải pháp đóng gói và triển khai các ứng dụng 1 cách nhanh chóng và an toàn. Sau mình xin hướng dẫn các cài đặt Tensorflow trong môi trường container của Docker.
-fbCommentUrl: none
 ---
 
 Docker luôn là giải pháp đóng gói và triển khai các ứng dụng 1 cách nhanh chóng và an toàn. Sau mình xin hướng dẫn các cài đặt Tensorflow trong môi trường container của Docker.

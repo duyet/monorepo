@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sách hay (Engineer)
 date: "2019-09-17"
 category: Data Engineer

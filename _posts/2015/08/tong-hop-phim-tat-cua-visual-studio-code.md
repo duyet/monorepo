@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tổng hợp phím tắt của Visual Studio Code
 date: '2015-08-07'
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
   - Visual Studio Code
 modified_time: '2015-08-07T21:10:50.024+07:00'
 thumbnail: https://2.bp.blogspot.com/-FGeqqi-Oxuk/VcS8Ssfh-FI/AAAAAAAACsY/U9P4bj2vfhI/s1600/VS_Code_Ubntu_duyetdev.com.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6641503406040607190
-blogger_orig_url: https://blog.duyet.net/2015/08/tong-hop-phim-tat-cua-visual-studio-code.html
 slug: /2015/08/tong-hop-phim-tat-cua-visual-studio-code.html
 category: News
 description: Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Rust Design Pattern: Strategy Pattern"
 date: "2021-12-19"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
   - Rust Design Patterns
   - Behavioural Patterns
 slug: /2021/12/rust-strategy-design-pattern.html
-draft: false
-fbCommentUrl: none
 description: Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.
 
 ---

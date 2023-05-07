@@ -1,5 +1,4 @@
 ---
-template: post
 title: WebGazer.js - theo dõi chuyển động mắt của người dùng trên Website
 date: "2016-05-29"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - WebGazer.js
 modified_time: '2017-08-06T11:41:14.293+07:00'
 thumbnail: https://1.bp.blogspot.com/-U2FpDKE-uPY/V0qHwxldpOI/AAAAAAAAWK4/Qq3E3Z0I-M8Z8F_slgkZCDtvp5x67oGkQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-29%2B13-09-23.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3232393619485176934
-blogger_orig_url: https://blog.duyet.net/2016/05/webgazerjs-theo-doi-chuyen-dong-mat.html
 slug: /2016/05/webgazerjs-theo-doi-chuyen-dong-mat.html
 category: Javascript
 description: WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người dùng, xác định điểm trên màn hình mà người dùng đang chú ý đến. Thư viện xử lý real-time, chạy trực tiếp trên trình duyệt, sử dụng webcam để nhận diện và không cần phải gửi video về server.
-fbCommentUrl: none
 ---
 
 WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người dùng, xác định điểm trên màn hình mà người dùng đang chú ý đến. Thư viện xử lý real-time, chạy trực tiếp trên trình duyệt, sử dụng webcam để nhận diện và không cần phải gửi video về server.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: TensorFlow.js
 date: "2018-07-19"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Web
 modified_time: '2018-07-20T12:57:01.378+07:00'
 thumbnail: https://1.bp.blogspot.com/-WBy6evaOwH8/W1CvMUBZFXI/AAAAAAAAxYI/pa6D8MlcTsQ-VQuwCHAyNcJvMf8RteCLgCK4BGAYYCw/s1600/tensorflowjs.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4302333722370154187
-blogger_orig_url: https://blog.duyet.net/2018/07/tensorflowjs.html
 slug: /2018/07/tensorflowjs.html
 category: Machine Learning
 description: Với TensorFlow.js, không những có thể chạy models machine learning, mà chúng ta còn có thể training trực tiếp ngay trên browser. Trong bài viết ngắn gọn này, mình sẽ giới thiệu cách sử dụng cơ bản và nhanh nhất để bắt đầu với Tensorflow.js.
-fbCommentUrl: none
 ---
 
 Với TensorFlow.js, không những có thể chạy models machine learning, mà chúng ta còn có thể training trực tiếp ngay trên browser. Trong bài viết ngắn gọn này, mình sẽ giới thiệu cách sử dụng cơ bản và nhanh nhất để bắt đầu với Tensorflow.js.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Hệ thống Thông tin - Học tốt và sẽ làm gì?
 date: "2014-06-03"
 category: News
@@ -7,8 +6,6 @@ tags:
 - News
 - Hệ thống thông tin
 modified_time: '2014-06-03T22:31:42.259+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2505241526507020766
-blogger_orig_url: https://blog.duyet.net/2014/06/he-thong-thong-tin-hoc-tot-va-se-lam-gi.html
 slug: /2014/06/he-thong-thong-tin-hoc-tot-va-se-lam-gi.html
 description: Nhìn tỷ lệ chọi năm nay, cũng như mọi năm ngành Hệ thống Thông tin (HTTT) có tỷ lệ chọi thấp nhất nhì trường. Có lẽ cũng nhiều bạn chưa biết, chưa hiểu và chưa rõ học HTTT là học gì, học HTTT xong rồi làm gì? (Bài viết sau theo suy nghĩ của tác giả)
 

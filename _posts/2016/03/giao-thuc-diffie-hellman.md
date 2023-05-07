@@ -1,5 +1,4 @@
 ---
-template: post
 title: Giao thức Diffie-Hellman (DH)
 date: "2016-03-08"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Bảo mật
 modified_time: '2016-03-08T20:22:36.152+07:00'
 thumbnail: https://4.bp.blogspot.com/-POla3_QYnOA/Vt7RlL_z6hI/AAAAAAAAQtU/TGeI1cufIe0/s1600/anglerek_dh_02b.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6589695726259461920
-blogger_orig_url: https://blog.duyet.net/2016/03/giao-thuc-diffie-hellman.html
 slug: /2016/03/giao-thuc-diffie-hellman.html
 category: Security
 description: Theo trang công nghệ Engadget, giải thưởng AM Turing được coi như Nobel IT năm 2015 sẽ được trao cho hai nhà khoa học Whitfield Diffie và Martin E. Hellman, tác giả của đề tài mã hóa dữ liệu mang tên "Giao thức Difie-Hellman 1976". Phương pháp mã hóa được cho là "có thể bảo vệ hàng nghìn tỷ USD" đã được vinh danh tại giải thường được coi là "giải Nobel" cho lĩnh vực công nghệ thông tin.
-fbCommentUrl: none
 ---
 
 Theo trang công nghệ Engadget, giải thưởng AM Turing được coi như Nobel IT năm 2015 sẽ được trao cho hai nhà khoa học Whitfield Diffie và Martin E. Hellman, tác giả của đề tài mã hóa dữ liệu mang tên "Giao thức Difie-Hellman 1976". Phương pháp mã hóa được cho là "có thể bảo vệ hàng nghìn tỷ USD" đã được vinh danh tại giải thường được coi là "giải Nobel" cho lĩnh vực công nghệ thông tin.

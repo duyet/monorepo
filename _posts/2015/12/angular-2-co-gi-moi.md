@@ -1,5 +1,4 @@
 ---
-template: post
 title: Angular 2 có gì mới?
 date: "2015-12-20"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - angular 2
 modified_time: '2016-01-11T02:00:01.346+07:00'
 thumbnail: https://1.bp.blogspot.com/-ns1tQ1-Aw4E/VnZPOxT1x7I/AAAAAAAAMGI/0am16xApXRU/s1600/angularjs_logo.svg_-650x401.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1819946190652739302
-blogger_orig_url: https://blog.duyet.net/2015/12/angular-2-co-gi-moi.html
 slug: /2015/12/angular-2-co-gi-moi.html
 category: Javascript
 description: Cách đây vài hôm Angular 2 chính thức ra mắt, phiên bản Beta
-fbCommentUrl: none
 ---
 
 Cách đây vài hôm Angular 2 chính thức ra mắt, phiên bản Beta. Theo như t[henextweb](http://thenextweb.com/dd/2015/12/16/angular-2-hits-beta-and-its-a-big-deal-for-the-future-of-the-web/), angular 2 hứa hẹn sẽ là tương lai mới của công nghệ Web hiện đại hiện nay.

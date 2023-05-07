@@ -1,5 +1,4 @@
 ---
-template: post
 title: Rust automatically upgrade to a new edition
 date: "2022-05-14"
 author: Van-Duyet Le
@@ -7,8 +6,6 @@ category: Rust
 tags:
  - Rust
 slug: /2022/05/rust-cargo-fix.html
-draft: false
-fbCommentUrl: none
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F05%2Frust-cargo-fix.html
 linkedInCommentUrl: 
 description: Every two or three years, the Rust team produces a new Rust edition. Each edition contains a lot of changes. Each edition brings together the features that have landed into a clear package with fully updated documentation and tooling.

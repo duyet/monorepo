@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript Weekly #8'
 date: "2016-08-31"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - React Native
 modified_time: '2016-08-31T13:45:22.392+07:00'
 thumbnail: https://4.bp.blogspot.com/-EeqUOHEdZrU/V8Z6JSTShDI/AAAAAAAAclM/4xB15KFwMzwpHjYJXww5sS7zO-yS7d06gCK4B/s1600/JSFor-Mike-700x382.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7002382433912697001
-blogger_orig_url: https://blog.duyet.net/2016/08/javascript-weekly-8.html
 slug: /2016/08/javascript-weekly-8.html
 category: Javascript
 description: "Javascript Weekly #8 với các bài viết: React Native có mặt trên Ubuntu, JS góp mặt vào IoT với việc điều khiển các mạch máy tính thông minh, song song hoá tính toán với GPU, ..."
-fbCommentUrl: none
 ---
 
 Javascript Weekly #8 với các bài viết: React Native có mặt trên Ubuntu, JS góp mặt vào IoT với việc điều khiển các mạch máy tính thông minh, song song hoá tính toán với GPU, ...

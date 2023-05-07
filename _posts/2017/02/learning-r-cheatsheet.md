@@ -1,5 +1,4 @@
 ---
-template: post
 title: Learning R cheatsheet
 date: "2017-02-05"
 author: Van-Duyet Le
@@ -10,8 +9,6 @@ tags:
 - cheatsheet
 - R
 modified_time: '2018-07-20T10:14:05.965+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-130181259145323405
-blogger_orig_url: https://blog.duyet.net/2017/02/learning-r-cheatsheet.html
 slug: /2017/02/learning-r-cheatsheet.html
 category: Machine Learning
 description: R cheatsheet

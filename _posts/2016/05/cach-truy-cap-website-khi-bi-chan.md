@@ -1,5 +1,4 @@
 ---
-template: post
 title: Cách truy cập Website khi bị chặn
 date: "2016-05-14"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Tutorials
 modified_time: '2016-05-14T22:55:15.854+07:00'
 thumbnail: https://2.bp.blogspot.com/-6rmyO9vVn_U/Vzc77dL_NAI/AAAAAAAAVD8/Wvsfgk_OvMUeC5hCRyDPoAe39khT159KQCK4B/s1600/zenmate-14-535x535.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6400436546351581963
-blogger_orig_url: https://blog.duyet.net/2016/05/cach-truy-cap-website-khi-bi-chan.html
 slug: /2016/05/cach-truy-cap-website-khi-bi-chan.html
 category: Web
 description: Nhiều bạn hỏi ý kiến tôi về việc "vượt tường lửa", cách truy cập các trang bị chặn, chẳng hạn như Facebook trong mấy tuần qua. Cách sau sẽ giúp bạn vượt được tường lửa và ẩn danh an toàn trên Internet.
-fbCommentUrl: none
 ---
 
 Nhiều bạn hỏi ý kiến tôi về việc "vượt tường lửa", cách truy cập các trang bị chặn, chẳng hạn như Facebook trong mấy tuần qua. Cách sau sẽ giúp bạn vượt được tường lửa và ẩn danh an toàn trên Internet.

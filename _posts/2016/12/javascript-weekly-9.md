@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript Weekly #9'
 date: "2016-12-10"
 author: Van-Duyet Le
@@ -13,12 +12,9 @@ tags:
 - ES5
 modified_time: '2016-12-10T10:09:19.995+07:00'
 thumbnail: https://2.bp.blogspot.com/-3n1yGifwJdY/WEtxXVdp38I/AAAAAAAAgt4/ijum1QPHo6ENxNmPawMuGeKyxKfw2tfEACLcB/s1600/Screenshot%2Bfrom%2B2016-12-10%2B10-06-59.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2770227424011044110
-blogger_orig_url: https://blog.duyet.net/2016/12/javascript-weekly-9.html
 slug: /2016/12/javascript-weekly-9.html
 category: Javascript
 description: 
-fbCommentUrl: none
 ---
 
 Javascript Weekly #9: Date-DNS, chi tiết về các bản cập nhật mới của V8, React và Angular.

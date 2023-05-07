@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Migrate (again) to Next.js 13 Pro Max'
 date: '2023-05-01'
 author: Van-Duyet Le
@@ -12,8 +11,6 @@ tags:
   - Rust
   - Vercel
 slug: /2023/05/migrate-blog-to-nextjs.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/980XhnE.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F05%2Fmigrate-blog-to-nextjs.html
 description: "I've been using Gastby since 2019 and while it's great that I can write my blogs in NeoVim, commit and push to Github, and have Cloudflare Pages build and publish to CDN, but I was becoming frustrated with the slow building times and the overall maintenance requirements."

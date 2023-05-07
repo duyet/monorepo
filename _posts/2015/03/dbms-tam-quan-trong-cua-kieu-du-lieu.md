@@ -1,5 +1,4 @@
 ---
-template: post
 title: DBMS - Tầm Quan Trọng Của Kiểu Dữ Liệu
 date: "2015-03-04"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - MySQL
 - type
 modified_time: '2015-03-04T18:05:32.561+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7135335946971209887
-blogger_orig_url: https://blog.duyet.net/2015/03/dbms-tam-quan-trong-cua-kieu-du-lieu.html
 slug: /2015/03/dbms-tam-quan-trong-cua-kieu-du-lieu.html
 category: Data
 description: Một bài viết từ Blog kĩ thuật máy tính
-fbCommentUrl: none
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Lỗ hổng trên Cookie của WordPress cho phép các Hacker xâm nhập vào tài khoản
   của người dùng
 date: "2014-06-03"
@@ -10,8 +9,6 @@ tags:
 - The Hacker News
 - Cookie
 modified_time: '2014-06-03T22:53:32.326+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-705499100492935958
-blogger_orig_url: https://blog.duyet.net/2014/06/lo-hong-tren-cookie-cua-wordpress-cho.html
 thumbnail: https://securitydaily.net/wp-content/uploads/2014/05/wordpress-hacking-exploit.jpg
 slug: /2014/06/lo-hong-tren-cookie-cua-wordpress-cho.html
 description: Bạn có đang sở hữu một blog trên website WordPress không? Nếu có, thì bạn nên cẩn trọng khi đăng nhập vào tài khoản WordPress từ lần sau khi kết nối với mạng Wi-Fi công cộng, bởi vì tài khoản của bạn có thể bị xâm nhập lúc nào mà ban không biết thậm chí kể cả việc bạn đã sử dụng xác thực dùng hai nhân tố.

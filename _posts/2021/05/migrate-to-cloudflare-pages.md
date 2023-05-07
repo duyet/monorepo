@@ -1,5 +1,4 @@
 ---
-template: post
 title: Migrate to Cloudflare Pages
 date: "2021-05-01"
 author: Van-Duyet Le
@@ -8,9 +7,7 @@ tags:
   - Web
 thumbnail: https://1.bp.blogspot.com/-fv8NJjM23lg/YI2Ontqi9JI/AAAAAAACBJY/u6pVcBulAh8feYttV2-FztBUISKdI8yhwCLcBGAsYHQ/s0/migrate-to-cloudflare-pages-0.png
 slug: /2021/05/migrate-to-cloudflare-pages.html
-draft: false
 description: Cloudflare just released the Pages, with the most generous free tier, it is all set to compete with Netlify on this front. I just to try it out in this blog.
-fbCommentUrl: none
 ---
 
 This blog uses Netlify, it's very fast, Netlify is the first choice for most developers recently.

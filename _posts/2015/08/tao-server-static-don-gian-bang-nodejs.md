@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Nodejs - Tạo static server đơn giản với Nodejs '
 date: "2015-08-09"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - simple
 modified_time: '2018-09-10T17:30:05.200+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6758765916496612222
-blogger_orig_url: https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html
 slug: /2015/08/tao-server-static-don-gian-bang-nodejs.html
 category: Javascript
 description: Với package sau bạn có thể tạo 1 static server đơn giản bằng Nodejs.
-fbCommentUrl: none
 ---
 
 Với package sau bạn có thể tạo 1 static server đơn giản bằng Nodejs.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Vạch trần Lỗ Hổng Zero-day trên Internet Explorer bị Microsoft che dấu
 date: "2014-06-03"
 category: News
@@ -7,9 +6,7 @@ tags:
 - The Hacker News
 - Bảo mật
 modified_time: '2014-06-03T22:56:10.748+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7312586922367376447
 thumbnail: https://securitydaily.net/wp-content/uploads/2014/05/internet-explorer-zero-day-700x443.jpg
-blogger_orig_url: https://blog.duyet.net/2014/06/vach-tran-lo-hong-zero-day-tren.html
 slug: /2014/06/vach-tran-lo-hong-zero-day-tren.html
 description: Microsoft đã giữ bí mật lỗ hổng Zero–Day nghiêm trọng  trên Internet Explorer 8 với tất cả chúng ta từ tháng 10 năm 2013.
 

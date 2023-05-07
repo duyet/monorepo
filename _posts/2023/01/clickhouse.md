@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?'
 date: '2023-01-10'
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Data Engineer
 - ClickHouse
 slug: /2023/01/clickhouse.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/UhphBkE.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F01%2Fclickhouse.html
 description: Recently, I was working on building a new Logs dashboard at Fossil to serve our internal team for log retrieval, and I found ClickHouse to be a very interesting and fast engine for this purpose. In this post, I'll share my experience with using ClickHouse as the foundation of a light-weight data platform and how it compares to another popular choice, Athena. We'll also explore how ClickHouse can be integrated with other tools such as Kafka to create a robust and efficient data pipeline.

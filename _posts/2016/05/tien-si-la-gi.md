@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tiến sĩ là gì?
 date: "2016-05-07"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Translate
 modified_time: '2016-05-07T22:26:22.707+07:00'
 thumbnail: https://3.bp.blogspot.com/-TKCXYQEvxtA/Vy4HF6FLaJI/AAAAAAAAUsA/rjtdzqvzOCAfKVGQOpQdxxPhFJ_is5PGQCK4B/s1600/PhDKnowledge.001.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1562520195331654547
-blogger_orig_url: https://blog.duyet.net/2016/05/tien-si-la-gi.html
 slug: /2016/05/tien-si-la-gi.html
 category: News
 description: Tiến sĩ là gì? Người có kiến thức như thế nào thì đặt tới trình độ Tiến sĩ (Ph.D)?
-fbCommentUrl: none
 ---
 
 Tiến sĩ là gì? Người có kiến thức như thế nào thì đặt tới trình độ Tiến sĩ (Ph.D)?

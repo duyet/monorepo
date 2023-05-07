@@ -1,5 +1,4 @@
 ---
-template: post
 title: Running Spark in GitHub Actions
 date: '2023-05-07'
 author: Van-Duyet Le
@@ -10,8 +9,6 @@ tags:
   - Spark
   - Github
 slug: /2023/05/spark-github-actions.html
-draft: false
-fbCommentUrl: none
 thumbnail: /media/2023/05/spark-github-actions/1.png
 description: 'This post provides a quick and easy guide on how to run Apache Spark in GitHub Actions for testing purposes'
 ---

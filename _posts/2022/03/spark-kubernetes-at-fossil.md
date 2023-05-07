@@ -1,5 +1,4 @@
 ---
-template: post
 title: Spark on Kubernetes tại Fossil 🤔
 date: "2022-03-09"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
   - Kubernetes
 slug: /2022/03/spark-kubernetes-at-fossil.html
 thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEggpb4U-cWkhLQo1R-OUORtAvLFPnn0LB22LJ9mOBSpWiC3yoqM3iOoo1BlilS5nxhnOmNs8JyUsVHFdA4dKOLGqRH9WoBXAJxn8v-cg18QFuJFbPHwg_5V6N_0gtgtRpy41fCLICGakuAayr9p5Bwlr02rrmDVjYxOBU4hwL6Oz4gWWXs0VFYDQK-lFw
-draft: false
-fbCommentUrl: none
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F03%2Fspark-kubernetes-at-fossil.html
 linkedInCommentUrl: https://www.linkedin.com/posts/duyet_spark-on-kubernetes-t%E1%BA%A1i-fossil-activity-6908001211849555969-j5Ss
 description: Apache Spark được chọn làm công nghệ cho Batch layer bởi khả năng xử lý một lượng lớn data cùng một lúc. Ở thiết kế ban đầu, team data chọn sử dụng Apache Spark trên AWS EMR do có sẵn và triển khai nhanh chóng. Dần dần, AWS EMR bộc lộ một số điểm hạn chế trên môi trường Production. Trong bài viết này, mình sẽ nói về tại sao và làm thế nào team Data chuyển từ Spark trên AWS EMR sang Kubernetes.

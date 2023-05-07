@@ -1,5 +1,4 @@
 ---
-template: post
 title: Git - 19 Tips For Everyday Git Use
 date: "2015-09-16"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - Git
 - Thủ thuật Git
 modified_time: '2015-09-16T14:12:43.738+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-596441972641043929
-blogger_orig_url: https://blog.duyet.net/2015/09/git-19-tips-for-everyday-git-use.html
 slug: /2015/09/git-19-tips-for-everyday-git-use.html
 category: Git
 description: 'I’ve been using git full time for the past 4 years, and I wanted to share the most practical tips that I’ve learned along the way. Hopefully, it will be useful to somebody out there'
-fbCommentUrl: none
 ---
 
 I’ve been using git full time for the past 4 years, and I wanted to share the most practical tips that I’ve learned along the way. Hopefully, it will be useful to somebody out there.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Chuyện startup - Các lực cản khởi nghiệp tại Việt Nam
 date: "2015-02-22"
 author: Van-Duyet Le
@@ -8,11 +7,8 @@ tags:
 - Vietnam
 - Startup
 modified_time: '2015-02-22T13:05:19.405+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2695537199879733003
-blogger_orig_url: https://blog.duyet.net/2015/02/chuyen-startup-cac-luc-can-khoi-nghiep.html
 slug: /2015/02/chuyen-startup-cac-luc-can-khoi-nghiep.html
 description: 
-fbCommentUrl: none
 
 ---
 

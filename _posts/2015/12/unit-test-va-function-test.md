@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Unit test và Function test '
 date: "2015-12-21"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - Test
 modified_time: '2016-01-11T01:59:18.744+07:00'
 thumbnail: https://3.bp.blogspot.com/-k9Gxf_MV1Gg/Vnfrm5xSgxI/AAAAAAAAMMs/bicR-4BjnmU/s1600/unit-test.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8004927281160524746
-blogger_orig_url: https://blog.duyet.net/2015/12/unit-test-va-function-test.html
 slug: /2015/12/unit-test-va-function-test.html
 category: Javascript
 description: Một hoạt động mang tính sống còn trong các dự án sản xuất hoặc gia công phần mềm, đó là kiểm thử phần mềm (testing).
-fbCommentUrl: none
 ---
 
 Một hoạt động mang tính sống còn trong các dự án sản xuất hoặc gia công phần mềm, đó là kiểm thử phần mềm (testing).

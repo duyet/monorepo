@@ -1,5 +1,4 @@
 ---
-template: post
 title: Design Patterns là gì?
 date: "2015-02-23"
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
 - Design Patterns
 modified_time: '2015-02-23T23:19:57.778+07:00'
 thumbnail: https://3.bp.blogspot.com/-TjEKejI8edI/VOtRCGheINI/AAAAAAAACKA/7BihROVk8WM/s1600/Abstract_Factory_example1-2x.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5767307668074598669
-blogger_orig_url: https://blog.duyet.net/2015/02/oop-design-patterns-la-gi.html
 slug: /2015/02/oop-design-patterns-la-gi.html
 category: News
 description: Design patterns là các giải pháp đã được tối ưu hóa, được tái sử dụng cho các vấn đề lập trình mà chúng ta gặp phải hàng ngày. Nó là một khuôn mẫu đã được suy nghĩ, giải quyết trong tình huống cụ thể rồi.

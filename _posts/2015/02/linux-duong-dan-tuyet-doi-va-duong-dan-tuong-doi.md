@@ -1,5 +1,4 @@
 ---
-template: post
 title: Linux - Đường dẫn tuyệt đối và đường dẫn tương đối
 date: "2015-02-15"
 author: Van-Duyet Le
@@ -8,11 +7,8 @@ tags:
 - Linux
 modified_time: '2015-02-16T12:47:50.156+07:00'
 thumbnail: https://1.bp.blogspot.com/-7Vz3G6MLhWs/VOAh4mrkK4I/AAAAAAAACG4/DURQJ5i71pE/s1600/Screenshot%2Bfrom%2B2015-02-15%2B11%3A33%3A35.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1424511096744401353
-blogger_orig_url: https://blog.duyet.net/2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html
 slug: /2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html
 description: Trong linux, khi làm việc trên server hay đơn giản hơn là làm việc trên ternimal, ít nhiều bạn cũng phải rớ tới các file và thư mục, bay nhảy qua lại. Nhưng 1 điều bạn nhất định phải biết, đó là đường dẫn.
-fbCommentUrl: none
 
 ---
 

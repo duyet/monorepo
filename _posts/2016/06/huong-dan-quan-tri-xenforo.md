@@ -1,5 +1,4 @@
 ---
-template: post
 title: Hướng dẫn quản trị Xenforo
 date: "2016-06-05"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - PHP
 modified_time: '2016-06-07T00:46:20.719+07:00'
 thumbnail: https://1.bp.blogspot.com/-Fo89IbwIKK0/V1PIrjm861I/AAAAAAAAXIY/QjZwSJeJUMEFMOE8haRf7tNGdyjPBmqXQCLcB/s1600/Workspace%2B1_007.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5882491229031211530
-blogger_orig_url: https://blog.duyet.net/2016/06/huong-dan-quan-tri-xenforo.html
 slug: /2016/06/huong-dan-quan-tri-xenforo.html
 category: Dev
 description: Hướng dẫn quản trị diễn đàn Xenforo. Trích từ tài liệu hướng dẫn sử dụng SHTP Forum.
-fbCommentUrl: none
 ---
 
 Hướng dẫn quản trị diễn đàn Xenforo. Trích từ tài liệu hướng dẫn sử dụng SHTP Forum.

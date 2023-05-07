@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Data Studio: Connecting BigQuery and Google Sheets to help with hefty data analysis"
 date: "2020-05-01"
 author: Van-Duyet Le
@@ -11,9 +10,7 @@ tags:
 
 thumbnail: https://1.bp.blogspot.com/-tL8SgFMEaQU/XqwoFKV6DxI/AAAAAAABWeM/jCbFEFQ8rkUIndBbUppJt7xuG5gajTJawCK4BGAYYCw/s1200/caching-with-spreadsheet.png
 slug: /2020/05/data-studio-caching-with-spreadsheet.html
-draft: false
 description: Normally, with BigQuery as a data source of Data Studio, users (of Data Studio Dashboard) might end up generating a lot of queries on your behalf — and that means you can end up with a huge BigQuery bill. It’s taken so long to refresh data when you change something in development mode. How to solve this problem with Spreadsheet, for free?
-fbCommentUrl: none
 ---
 
 Normally, with BigQuery as a data source of Data Studio, it’s should be:

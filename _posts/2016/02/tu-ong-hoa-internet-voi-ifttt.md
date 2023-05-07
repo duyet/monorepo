@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tự động hóa Internet với IFTTT
 date: "2016-02-10"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - IFTTT
 modified_time: '2016-02-10T20:42:07.419+07:00'
 thumbnail: https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s1600/IFTTT.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4127736285031648994
-blogger_orig_url: https://blog.duyet.net/2016/02/tu-ong-hoa-internet-voi-ifttt.html
 slug: /2016/02/tu-ong-hoa-internet-voi-ifttt.html
 category: Automation
 description: IFTTT là một dịch vụ rất thú vị, cho phép người dùng tự động hóa các dịch vụ internet như mạng xã hội, Google Drive, Mail, Dropbox, Calendars, ... thậm chí location, SMS, ... trên smartphone.
-fbCommentUrl: none
 ---
 
 [If This Then That (IFTTT)](https://ifttt.com/) là một dịch vụ rất thú vị, cho phép người dùng tự động hóa các dịch vụ internet như mạng xã hội, Google Drive, Mail, Dropbox, Calendars, ... thậm chí location, SMS, ... trên smartphone.

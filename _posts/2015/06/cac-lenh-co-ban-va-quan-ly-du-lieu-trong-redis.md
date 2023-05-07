@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Redis - Các lệnh cơ bản và quản lý dữ liệu trong Redis'
 date: "2015-06-30"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - RAM
 modified_time: '2015-06-30T23:55:23.871+07:00'
 thumbnail: https://4.bp.blogspot.com/-46qpHiPhs-A/VZLJ0KouhbI/AAAAAAAAClQ/j--kh2vlDsw/s1600/c99f92417a7cc17e22ea294c26674e6536d9497a.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3018917716490354671
-blogger_orig_url: https://blog.duyet.net/2015/06/cac-lenh-co-ban-va-quan-ly-du-lieu-trong-redis.html
 slug: /2015/06/cac-lenh-co-ban-va-quan-ly-du-lieu-trong-redis.html
 category: News
 description: ''

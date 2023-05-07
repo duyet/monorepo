@@ -1,5 +1,4 @@
 ---
-template: post
 title: Co-founder Là Yếu Tố Quyết Định Để Thành Lập IT Startup
 date: "2015-02-13"
 author: Van-Duyet Le
@@ -10,8 +9,6 @@ tags:
 - UIT
 modified_time: '2015-02-13T22:59:27.386+07:00'
 thumbnail: https://1.bp.blogspot.com/-TdjoTQILojc/VN4cWrEgEtI/AAAAAAAACEg/-Ddjh7sYzeQ/s1600/IMG_1292-640x609.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1943109046069681839
-blogger_orig_url: https://blog.duyet.net/2015/02/co-founder-la-yeu-to-quyet-inh-e-thanh.html
 slug: /2015/02/co-founder-la-yeu-to-quyet-inh-e-thanh.html
 description: "Dấn thân vào đại học, UIT. Điều đầu tiên khi bước vào trường là ... bước vào forum: tìm người lập team cùng phát triển tiếp dự án opensource thời cấp 3 còn đang dang dở. Khi thế hừng hực, nhưng cuộc sống ít khi nào giống với khi ta hằng tưởng tượng nha :v"
 ---

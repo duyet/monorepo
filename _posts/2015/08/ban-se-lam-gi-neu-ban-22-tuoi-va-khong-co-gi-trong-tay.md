@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sẽ làm gì nếu bạn đã 22 tuổi và không có gì trong tay?
 date: "2015-08-25"
 author: Van-Duyet Le
@@ -8,8 +7,6 @@ tags:
 - Sưu tầm
 modified_time: '2016-03-19T18:23:45.288+07:00'
 thumbnail: https://2.bp.blogspot.com/-joQlf9lsZaM/Vdtp_HLj2oI/AAAAAAAACyM/_BqDYEDXy_o/s1600/Screenshot_1.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-9192491707881463799
-blogger_orig_url: https://blog.duyet.net/2015/08/ban-se-lam-gi-neu-ban-22-tuoi-va-khong-co-gi-trong-tay.html
 slug: /2015/08/ban-se-lam-gi-neu-ban-22-tuoi-va-khong-co-gi-trong-tay.html
 category: News
 description: Alan Joyce – CEO của Qantas Airways từng nói "Nếu được quay trở lại tuổi 22, bất kể tham vọng sự nghiệp của tôi là gì, tôi sẽ trì hoãn những kế hoạch tương lai lại một chút và xách ba lô lên đường"

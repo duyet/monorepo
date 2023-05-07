@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript Weekly #5'
 date: "2016-06-18"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Node
 modified_time: '2016-06-18T23:17:14.335+07:00'
 thumbnail: https://1.bp.blogspot.com/-raHIBW9hoEw/V2VwikTHooI/AAAAAAAAX1A/by3IQqWb2BALMqlXky_DPutfvbe7kj28gCK4B/s1600/js5.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7869846753559714434
-blogger_orig_url: https://blog.duyet.net/2016/06/javascript-weekly-5.html
 slug: /2016/06/javascript-weekly-5.html
 category: Javascript
 description: Preact cho những ai muốn sử dụng các chức năng core của React chỉ với 3KB, Angular 2 ra mắt với nhiều tính năng mới, học D3.js, bài viết cực hay và chi tiết về "this" trong Javascript trong các trường hợp.
-fbCommentUrl: none
 ---
 
 Preact cho những ai muốn sử dụng các chức năng core của React chỉ với 3KB, Angular 2 ra mắt với nhiều tính năng mới, học D3.js, bài viết cực hay và chi tiết về "this" trong Javascript trong các trường hợp.

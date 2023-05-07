@@ -1,5 +1,4 @@
 ---
-template: post
 title: Xây dựng thương hiệu cá nhân tại công sở
 date: "2015-03-09"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - thương hiệu cá nhân
 - vietnamworks
 modified_time: '2015-03-09T11:07:35.103+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6376983129607467073
-blogger_orig_url: https://blog.duyet.net/2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so.html
 slug: /2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so.html
 category: News
 description: Một bài viết khá hay ở vietnamworks, mình là freelancer nên chắc cũng nên học hỏi phần nào.
-fbCommentUrl: none
 
 ---
 

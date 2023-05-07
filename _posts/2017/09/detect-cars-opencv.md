@@ -1,5 +1,4 @@
 ---
-template: post
 title: Python - Nhận dạng xe hơi với OpenCV
 date: "2017-09-20"
 author: Van-Duyet Le
@@ -13,12 +12,9 @@ tags:
 modified_time: '2018-09-01T22:32:19.312+07:00'
 thumbnail_2: https://2.bp.blogspot.com/-u1Fqw11luYo/WcE3gP_ykFI/AAAAAAAAngY/iPfg5bwKCcIVn5XTgM3SnVjKzf0QRBBegCLcBGAs/s1600/Screenshot%2Bfrom%2B2017-09-19%2B22-27-44.png
 thumbnail: https://1.bp.blogspot.com/-Sx90cRHgP4s/WcKO5d4IRGI/AAAAAAAAnjM/gp0RZ17opasM_xxlTQGid7cX-WqC9BRRwCLcBGAs/s1600/result_car2.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4598795408481099766
-blogger_orig_url: https://blog.duyet.net/2017/09/detect-cars-opencv.html
 slug: /2017/09/detect-cars-opencv.html
 category: Machine Learning
 description: Trong bài này, mình sẽ hướng dẫn sử dụng OpenCV để nhận diện xe hơi trong ảnh (video frame) với đặc trưng HAAR, sử dụng file mô hình đã được trained.
-fbCommentUrl: none
 ---
 
 Trong bài này, mình sẽ hướng dẫn sử dụng OpenCV để nhận diện xe hơi trong ảnh (video frame) với [đặc trưng haar](https://en.wikipedia.org/wiki/Haar-like_features), sử dụng file mô hình đã được trained.

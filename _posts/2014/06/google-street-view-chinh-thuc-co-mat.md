@@ -1,5 +1,4 @@
 ---
-template: post
 title: Google Street View chính thức có mặt tại Việt Nam
 date: "2014-06-29"
 author: Unknown
@@ -8,8 +7,6 @@ tags:
 - Google Maps
 modified_time: '2014-06-29T01:55:37.367+07:00'
 thumbnail: https://4.bp.blogspot.com/-LSNXlZ0aWzE/U68O82yNa2I/AAAAAAAAGu0/XTk0S2KEiZ8/s1600/1403849746-vt1_EIZZ.jpg.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4921887272924702246
-blogger_orig_url: https://blog.duyet.net/2014/06/google-street-view-chinh-thuc-co-mat.html
 slug: /2014/06/google-street-view-chinh-thuc-co-mat.html
 description: Google Street View Việt Nam là một dự án cộng đồng, sẽ số hóa hình ảnh của 20 tỉnh, thành phố tại Việt Nam lên Google Maps ở góc nhìn 360 độ.
 ---

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Giới thiệu SailsJS framework.
 date: "2015-08-08"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - sailsjs
 modified_time: '2016-05-14T13:36:49.370+07:00'
 thumbnail: https://4.bp.blogspot.com/-s5C5wk5JYDQ/VcX1QdZWrhI/AAAAAAAACs8/Kw28tJWqIzY/s1600/sailsjs.PNG
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4332880434128439754
-blogger_orig_url: https://blog.duyet.net/2015/08/gioi-thieu-sailsjs-framework.html
 slug: /2015/08/gioi-thieu-sailsjs-framework.html
 category: Javascript
 description: 'SailsJS là một framework với mong muốn tạo ra một NodeJS framework "dễ sử dụng và đầy đủ mọi thứ" như Ruby on Rails.'
-fbCommentUrl: none
 ---
 
 SailsJS là một framework với mong muốn tạo ra một NodeJS framework "dễ sử dụng và đầy đủ mọi thứ" như Ruby on Rails.

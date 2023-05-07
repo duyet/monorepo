@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript Weekly #10'
 date: "2016-12-17"
 author: Van-Duyet Le
@@ -13,13 +12,10 @@ tags:
 - Node.js
 modified_time: '2016-12-17T08:23:58.772+07:00'
 thumbnail: https://4.bp.blogspot.com/-BRrJsgNHOPo/WFSS-hQLsGI/AAAAAAAAhGs/yDzG4caJSxEfSfL8ldoaWP77igcyefSVACK4B/s1600/Templating-Engines-for-JavaScript.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4564810048485013679
-blogger_orig_url: https://blog.duyet.net/2016/12/javascript-weekly-10.html
 slug: /2016/12/javascript-weekly-10.html
 category: Javascript
 description: "Javascript Weekly #10 gửi đến cộng đồng một số tin tức JS mới: top frameworks 2017, Angular Next 4.0, Voca xử lý string cực kỳ mạnh, Hyper 1.0 - terminal on top JS, Vuetify, ..."
 
-fbCommentUrl: none
 ---
 
 [Javascript Weekly #10](https://blog.duyet.net/2016/12/javascript-weekly-10.html) gửi đến cộng đồng một số tin tức JS mới: top frameworks 2017, Angular Next 4.0, Voca xử lý string cực kỳ mạnh, Hyper 1.0 - terminal on top JS, Vuetify, ...

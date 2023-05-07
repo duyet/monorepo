@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Parse Stack '
 date: "2016-08-18"
 author: Van-Duyet Le
@@ -13,12 +12,9 @@ tags:
 - Dashboard
 modified_time: '2017-08-06T11:41:14.269+07:00'
 thumbnail: https://4.bp.blogspot.com/-juqpy4uQn4M/V7VU_YXVo9I/AAAAAAAAbtU/39gqxQzjBFwFYm26fip_pKI35hPVTSrcACLcB/s1600/parse-stack-logo.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2387224023544643975
-blogger_orig_url: https://blog.duyet.net/2016/08/parse-stack.html
 slug: /2016/08/parse-stack.html
 category: Project
 description: Parse Server is an open source version of the Parse backend that can be deployed to any infrastructure that can run Node.js.
-fbCommentUrl: none
 ---
 
 Parse Server is an open source version of the Parse backend that can be deployed to any infrastructure that can run Node.js.

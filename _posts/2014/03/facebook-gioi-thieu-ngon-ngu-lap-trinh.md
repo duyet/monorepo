@@ -1,5 +1,4 @@
 ---
-template: post
 title: Facebook giới thiệu ngôn ngữ lập trình "Hack" giúp viết phần mềm nhanh hơn
 date: "2014-03-26"
 category: News
@@ -9,8 +8,6 @@ tags:
 - News
 modified_time: '2014-03-26T16:16:25.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-PF7LGfm7_68/UzKawKQERqI/AAAAAAAAGe4/OxfzzOKWb04/s1600/2442182_Facebook_Hack.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6762768401967865720
-blogger_orig_url: https://blog.duyet.net/2014/03/facebook-gioi-thieu-ngon-ngu-lap-trinh.html
 slug: /2014/03/facebook-gioi-thieu-ngon-ngu-lap-trinh.html
 description: Facebook mới đây đã giới thiệu một ngôn ngữ lập trình mới có khả năng đẩy nhanh tốc độ viết cũng như kiểm tra các phần mềm. Với tên gọi Hack, ngôn ngữ đã được nội bộ Facebook sử dụng hơn một năm nay và bây giờ hãng đưa nó thành một chuẩn mở cho mọi người cùng xài.
 

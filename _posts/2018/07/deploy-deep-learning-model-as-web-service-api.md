@@ -1,5 +1,4 @@
 ---
-template: post
 title: Deploy Deep Learning model as a web service API
 date: "2018-07-21"
 author: Van-Duyet Le
@@ -14,10 +13,7 @@ tags:
 - Machine Learning
 modified_time: '2018-10-31T23:23:57.689+07:00'
 thumbnail: https://3.bp.blogspot.com/-msPb3Y2WcN8/W9nW7gASaMI/AAAAAAAA04w/P9xEh3pGAN8pRsJmaTgFHqssjUToQHo3wCLcBGAs/s1080/deep-learning-web-app.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5279585737995825038
-blogger_orig_url: https://blog.duyet.net/2018/07/deploy-deep-learning-model-as-web-service-api.html
 slug: /2018/07/deploy-deep-learning-model-as-web-service-api.html
-draft: false
 description: Trong bài này mình sẽ hướng dẫn deploy 1 model Deep learning, cụ thể là Keras dưới dạng một web service API. Sử dụng Flask framework python và Redis server như một Messeage Queue.
 
 ---

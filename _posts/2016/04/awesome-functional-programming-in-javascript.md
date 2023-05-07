@@ -1,5 +1,4 @@
 ---
-template: post
 title: Awesome functional programming in JavaScript
 date: "2016-04-18"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Javascript
 - Functional Programming
 modified_time: '2016-05-02T19:36:58.924+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7466772893105046002
-blogger_orig_url: https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html
 slug: /2016/04/awesome-functional-programming-in-javascript.html
 category: Javascript
 description: A curated list of awesome functional programming in JavaScript
-fbCommentUrl: none
 ---
 
 A curated list of awesome functional programming in JavaScript. Origin [here](https://github.com/stoeffel/awesome-fp-js), suggestions and PRs are welcome.

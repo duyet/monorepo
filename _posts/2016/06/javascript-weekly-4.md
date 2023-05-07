@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript Weekly #4'
 date: "2016-06-11"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Javascript-Weekly
 modified_time: '2016-06-11T22:02:39.496+07:00'
 thumbnail: https://4.bp.blogspot.com/-mQxRpFMY0UM/V1wn05hGx3I/AAAAAAAAXiA/PUSZrt0AUoMEyGQbfmEbmJlhnEmBIp-5gCK4B/s1600/js-4.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8454063536227658355
-blogger_orig_url: https://blog.duyet.net/2016/06/javascript-weekly-4.html
 slug: /2016/06/javascript-weekly-4.html
 category: Javascript
 description: React và ES6 vẫn là các chủ đề đang được quan tâm. Javascript Weekly tuần này có gì hot?
-fbCommentUrl: none
 ---
 
 React và ES6 vẫn là các chủ đề đang được quan tâm. Javascript Weekly tuần này có gì hot?

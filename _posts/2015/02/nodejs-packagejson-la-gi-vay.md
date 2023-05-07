@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - package.json là gì vậy?
 date: "2015-02-22"
 author: Van-Duyet Le
@@ -9,11 +8,8 @@ tags:
 - NPM
 - Package.json
 modified_time: '2015-02-22T13:56:30.535+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-7493248599588947827
-blogger_orig_url: https://blog.duyet.net/2015/02/nodejs-packagejson-la-gi-vay.html
 slug: /2015/02/nodejs-packagejson-la-gi-vay.html
 description: "Khi bạn bắt đầu làm quen với việc xây dựng 1 trang web với Nodejs, 1 thứ mà bạn vẫn thường luôn thấy trong các source ở github đó là: `package.json`. Vậy nó là gì, tại sao chúng ta luôn cần phải có nó khi xây dựng 1 ứng dụng bằng Nodejs"
-fbCommentUrl: none
 
 ---
 

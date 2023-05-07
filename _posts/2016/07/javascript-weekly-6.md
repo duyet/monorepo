@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript Weekly #6'
 date: "2016-07-01"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Node
 modified_time: '2016-07-01T08:08:57.508+07:00'
 thumbnail: https://2.bp.blogspot.com/-o4JfW1aayP8/V3Wu-4LLs4I/AAAAAAAAYrk/8qq-Dkaa0L0ZO-CNAZcGl1y3zgWUDNAVQCK4B/s1600/js-weekly-6.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3939231473251837893
-blogger_orig_url: https://blog.duyet.net/2016/07/javascript-weekly-6.html
 slug: /2016/07/javascript-weekly-6.html
 category: Javascript
 description: "Bài viết giới thiệu chi tiết về Redux, D3.js 4.0 Released, thư viện hiệu ứng anime.js, viết ứng dụng WebAssembly đầu tiên, Debug Node .... đây là các bài sẽ có trong Javascript Weekly #6"
-fbCommentUrl: none
 ---
 
 Bài viết giới thiệu chi tiết về Redux, D3.js 4.0 Released, thư viện hiệu ứng anime.js, viết ứng dụng WebAssembly đầu tiên, Debug Node .... đây là các bài sẽ có trong [Javascript Weekly #6](https://saveto.co/t/js-weekly-6) này mà tôi muốn giới thiệu đến các bạn.

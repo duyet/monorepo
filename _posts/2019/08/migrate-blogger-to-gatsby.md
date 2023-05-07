@@ -1,5 +1,4 @@
 ---
-template: post
 title: Migrate Blogger sang Gatsby
 date: "2019-08-07"
 author: Van-Duyet Le
@@ -70,8 +69,7 @@ Mình thực hiện các bước sau:
 
 - Với từng bài mình tinh chỉnh thêm 1 ít để phù hợp với Gatsby, như set giá trị `slug` từ `blogger_orig_url` lúc export ra, để giữ nguyên url của từng bài viết. Thêm các thuộc tính khác như `category`, `tag`, ... chỉnh sửa lại các bài viết cũ... Mọi thứ có thể làm dễ dàng thông qua công cụ *Find and Replace* của VSCode.
     ```markdown
-    blogger_orig_url: https://blog.duyet.net/2019/04/shorten-url-voi-firebase.html
-    slug: /2019/04/shorten-url-voi-firebase.html
+        slug: /2019/04/shorten-url-voi-firebase.html
     ...
     ```
 

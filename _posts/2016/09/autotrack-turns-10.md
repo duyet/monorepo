@@ -1,5 +1,4 @@
 ---
-template: post
 title: Autotrack turns 1.0
 date: "2016-09-01"
 author: Van-Duyet Le
@@ -12,8 +11,6 @@ tags:
 - Announce
 modified_time: '2017-08-06T11:41:14.281+07:00'
 thumbnail: https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2914961772508345979
-blogger_orig_url: https://blog.duyet.net/2016/09/autotrack-turns-10.html
 slug: /2016/09/autotrack-turns-10.html
 category: Javascript
 description: Autotrack là thư viện Javascript sử dụng với analytics.js, cung cấp cho lập trình viên nhiều công cụ hơn để theo dõi hoạt động người dùng trên web.

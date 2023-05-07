@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Javascript - Thư viện Vizualization '
 date: "2016-01-03"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Javascript
 modified_time: '2016-01-11T02:05:58.920+07:00'
 thumbnail: https://2.bp.blogspot.com/-XxKj_UJfFVE/VokhkxfngXI/AAAAAAAANp0/2b5K02Ylz28/s1600/preview%2B%25281%2529.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4865231351417868670
-blogger_orig_url: https://blog.duyet.net/2016/01/javascript-thu-vien-vizualization.html
 slug: /2016/01/javascript-thu-vien-vizualization.html
 category: Javascript
 description: Các thư viện Vizualization trên Js
-fbCommentUrl: none
 ---
 
 Các thư viện Vizualization trên Js

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nginx - adding cross-origin resource sharing (CORS) support to reverse proxied
   APIs
 date: "2016-02-08"
@@ -10,12 +9,9 @@ tags:
 - CORS
 - Howto
 modified_time: '2018-09-10T17:26:06.992+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3453587777397111212
-blogger_orig_url: https://blog.duyet.net/2016/02/nginx-adding-cors.html
 slug: /2016/02/nginx-adding-cors.html
 category: Linux
 description: Example Nginx configuration for adding cross-origin resource sharing (CORS) support to reverse proxied APIs.  
-fbCommentUrl: none
 ---
 
 Example Nginx configuration for adding cross-origin resource sharing (CORS) support to reverse proxied APIs.  

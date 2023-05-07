@@ -1,5 +1,4 @@
 ---
-template: post
 title: Bootstrap - Giới thiệu về Components thành phần được xây dựng sẵn trong Twitter
   Bootstrap
 date: "2015-04-27"
@@ -10,12 +9,9 @@ tags:
 - Components
 modified_time: '2015-04-27T20:50:25.576+07:00'
 thumbnail: https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5009922903661231408
-blogger_orig_url: https://blog.duyet.net/2015/04/bootstrap-gioi-thieu-ve-components.html
 slug: /2015/04/bootstrap-gioi-thieu-ve-components.html
 category: Web
 description: Ở bài trước mình đã giới thiệu về Bootstrap về hệ thống Grid, giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
-fbCommentUrl: none
 
 ---
 

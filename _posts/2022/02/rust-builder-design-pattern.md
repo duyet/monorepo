@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Rust Design Pattern: Builder Pattern"
 date: "2022-02-13"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
   - Rust Design Patterns
   - Creational Patterns
 slug: /2022/02/rust-builder-design-pattern.html
-draft: false
-fbCommentUrl: none
 description: Builder được sử dụng cực kỳ phổ biến trong Rust so với các ngôn ngữ khác, bởi vì Rust không có overloading.
 ---
 

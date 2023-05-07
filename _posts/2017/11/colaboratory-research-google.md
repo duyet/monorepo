@@ -1,5 +1,4 @@
 ---
-template: post
 title: Colaboratory - phiên bản custom của Jupyter Notebook từ Google
 date: "2017-11-07"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - Colaboratory
 modified_time: '2017-11-07T21:44:08.268+07:00'
 thumbnail: https://3.bp.blogspot.com/-nk_nMNcWKYM/WgHCCof8UaI/AAAAAAAAoJQ/L5dEhuHoU7Q87DLnbgSRWhITvd2Lr1D2ACLcBGAs/s1600/cola.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5908086879232239428
-blogger_orig_url: https://blog.duyet.net/2017/11/colaboratory-research-google.html
 slug: /2017/11/colaboratory-research-google.html
 category: Web
 description: Colaboratory là phiên bản Jupyter Notebook được Google update lại, nhiều chức năng hay hơn nhất là khả năng cộng tác tương tự Google Docs. Code được lưu trong Google Drive, sử dụng miễn phí backend máy ảo của Google.  
-fbCommentUrl: none
 ---
 
 Colaboratory là phiên bản Jupyter Notebook được Google update lại, nhiều chức năng hay hơn nhất là khả năng cộng tác tương tự Google Docs. Code được lưu trong Google Drive, sử dụng miễn phí backend máy ảo của Google.  

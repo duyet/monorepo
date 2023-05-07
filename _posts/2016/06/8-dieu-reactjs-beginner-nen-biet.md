@@ -1,5 +1,4 @@
 ---
-template: post
 title: 8 điều React.js beginner nên biết
 date: "2016-06-25"
 author: Van-Duyet Le
@@ -14,8 +13,6 @@ tags:
 - React Dev Tools
 modified_time: '2016-06-26T18:04:26.960+07:00'
 thumbnail: https://1.bp.blogspot.com/-KtYQVNUSOhM/V25BbTCHiII/AAAAAAAAYQk/-9QPfR5wy5ImvMrLutGZEklZSuz-0IZkgCK4B/s1600/1-MG736zGtLMBbSkhwu4D3cA.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2779797443065449271
-blogger_orig_url: https://blog.duyet.net/2016/06/8-dieu-reactjs-beginner-nen-biet.html
 slug: /2016/06/8-dieu-reactjs-beginner-nen-biet.html
 category: Javascript
 description: Mình bắt đầu nghiên cứu và sử dụng React.js một thời gian. Phải nói React và React Native là một trong nghệ của tương lai, sẽ phát triển mạnh.

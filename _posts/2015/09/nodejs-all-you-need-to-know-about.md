@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - All you need to know about Node.js 4.0.0
 date: "2015-09-09"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Update
 modified_time: '2015-09-09T18:48:56.604+07:00'
 thumbnail: https://2.bp.blogspot.com/-h7ljxkRrImE/VfAcZ8U9dlI/AAAAAAAAC4U/wYPnnlhcP3Y/s1600/nodejs_logo_light.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3739311589347534066
-blogger_orig_url: https://blog.duyet.net/2015/09/nodejs-all-you-need-to-know-about.html
 slug: /2015/09/nodejs-all-you-need-to-know-about.html
 category: Javascript
 description: Now – that Node.js 4.0.0 is about to be officially released – you may wonder what it delivers to you and if you should upgrade right away, or not. This post covers the most important changes you need to know, and some key implications you may have to take into account in making your decision.
-fbCommentUrl: none
 ---
 
 Now – that Node.js 4.0.0 is about to be officially released – you may wonder what it delivers to you and if you should upgrade right away, or not. This post covers the most important changes you need to know, and some key implications you may have to take into account in making your decision.

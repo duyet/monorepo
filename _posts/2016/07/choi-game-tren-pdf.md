@@ -1,5 +1,4 @@
 ---
-template: post
 title: Chơi game trên PDF
 date: "2016-07-05"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - PDF
 modified_time: '2016-07-05T22:42:37.881+07:00'
 thumbnail: https://4.bp.blogspot.com/-Qc0UVC6wcGE/V3vVVdVR0tI/AAAAAAAAZLg/xGTOIwQY4RM11dliMo5bGa4kvMiOxw4twCK4B/s1600/game-pdf-duyetdev.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1034853409040435017
-blogger_orig_url: https://blog.duyet.net/2016/07/choi-game-tren-pdf.html
 slug: /2016/07/choi-game-tren-pdf.html
 category: News
 description: Cái này nghe mới lạ, nhưng có thật.
-fbCommentUrl: none
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Big Integer Javascript
 date: "2016-07-22"
 author: Van-Duyet Le
@@ -13,13 +12,10 @@ tags:
 - math
 modified_time: '2017-08-06T11:41:14.325+07:00'
 thumbnail: https://4.bp.blogspot.com/-i7nGASMBcM0/V5Gd_g2OWaI/AAAAAAAAaI8/o--B6bDhYbks5Md71uVLEKrfHn76B-AHACK4B/s1600/bigint.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5745165741843842765
-blogger_orig_url: https://blog.duyet.net/2016/07/big-integer-javascript.html
 slug: /2016/07/big-integer-javascript.html
 category: Javascript
 description: "Integer trong Javascript giới hạn đến giá trị 18437736874454810627 (tức 2^64−2^53+3). Để xử lý các giá trị lớn hơn nhiều lần với hiệu năng cao, ta có thể sử dụng thư viện Big Integer sau.
 Big integer cho phép thực hiện các phép toán cộng, trừ, nhân, chia, so sánh, ... với các số Integer không giới hạn, miễn sau bạn có đủ RAM."
-fbCommentUrl: none
 
 ---
 

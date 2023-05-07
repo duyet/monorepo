@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Data Engineering Tools written in Rust'
 date: '2023-01-22'
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Data Engineer
 - Rust
 slug: /2023/01/data-engineering-rust-tools.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/qjUwEpo.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F01%2Fdata-engineering-rust-tools.html
 description: This blog post will provide an overview of the data engineering tools available in Rust, their advantages and benefits, as well as a discussion on why Rust is a great choice for data engineering. 

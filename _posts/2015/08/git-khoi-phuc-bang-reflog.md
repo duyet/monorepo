@@ -1,5 +1,4 @@
 ---
-template: post
 title: Git - Khôi phục bằng reflog sau khi xóa commit hoặc branch
 date: "2015-08-07"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - khôi phục
 modified_time: '2015-08-07T13:04:07.964+07:00'
 thumbnail: https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4815343375083184130
-blogger_orig_url: https://blog.duyet.net/2015/08/git-khoi-phuc-bang-reflog.html
 slug: /2015/08/git-khoi-phuc-bang-reflog.html
 category: Git
 description: 'Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặc loại bỏ một nhánh. Rất ít người biết cách khôi phục từ những tình huống này và một số người thậm chí phải code từ đầu. May mắn thay, hầu hết chúng ta có thể dựa vào "cỗ máy thời gian" của Git: reflog'
-fbCommentUrl: none
 
 ---
 

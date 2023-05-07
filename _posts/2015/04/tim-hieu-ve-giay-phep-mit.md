@@ -1,5 +1,4 @@
 ---
-template: post
 title: Open Source - Tìm hiểu về giấy phép MIT
 date: "2015-04-11"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Giấy phép nguồn mở
 - MIT
 modified_time: '2015-04-11T13:08:57.544+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3543142209625103716
-blogger_orig_url: https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-mit.html
 slug: /2015/04/tim-hieu-ve-giay-phep-mit.html
 category: News
 description: MIT là một giấy phép phần mềm tự do được phát hành bởi Học viện Công nghệ Massachusetts (Massachusetts Institute of Technology – MIT), được hội đồng MIT X sử dụng.
-fbCommentUrl: none
 
 ---
 

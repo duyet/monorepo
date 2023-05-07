@@ -1,5 +1,4 @@
 ---
-template: post
 title: Tensorflow - hướng dẫn cài đặt
 date: "2016-02-05"
 author: Van-Duyet Le
@@ -12,8 +11,6 @@ tags:
 - Machine Learning
 modified_time: '2018-09-01T22:28:00.802+07:00'
 thumbnail: https://3.bp.blogspot.com/-R2h5LWtXLa4/VrTTs4StSYI/AAAAAAAAPHQ/AewU2C9IqOo/s1600/logo-alt%25402x.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8134879646542065055
-blogger_orig_url: https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html
 slug: /2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html
 category: Machine Learning
 description: Cài đặt Tensorflow

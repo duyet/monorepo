@@ -1,5 +1,4 @@
 ---
-template: post
 title: Quy trình phát triển phần mềm - mô hình xoắn ốc (The Boehm's spiral model)
 date: "2015-02-24"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - Mô hình
 modified_time: '2015-03-15T23:09:41.232+07:00'
 thumbnail: https://1.bp.blogspot.com/-p_03hnTUKIE/VOttDHeLpDI/AAAAAAAACKU/8Y1yU-4I8Eg/s1600/33349.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3758357170820930874
-blogger_orig_url: https://blog.duyet.net/2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh_24.html
 slug: /2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh_24.html
 category: News
 description: Mô hình xoắn ốc có thể được xem là sự kết hợp giữa mô hình thác nước và mô hình mẫu và đồng thời thêm một thành phần mới - phân tích rủi ro.
-fbCommentUrl: none
 
 ---
 

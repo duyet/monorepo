@@ -1,5 +1,4 @@
 ---
-template: post
 title: Một số kỹ thuật phát hiện và phân tích mã độc
 date: "2014-06-03"
 category: News
@@ -7,8 +6,6 @@ tags:
 - Mã độc
 - Virus
 modified_time: '2016-04-05T12:40:10.398+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2118600843656995122
-blogger_orig_url: https://blog.duyet.net/2014/06/mot-so-ky-thuat-phat-hien-va-phan-tich.html
 slug: /2014/06/mot-so-ky-thuat-phat-hien-va-phan-tich.html
 description: Trong bài này chúng ta sẽ tập trung đi sâu về một số thủ thuật, kỹ thuật được sử dụng để hỗ trợ trong quá trình phát hiện, phân tích và diệt mã độc.
 

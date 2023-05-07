@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Tuần này đọc được gì: "Hãy đi rồi sẽ đến"'
 date: "2015-07-18"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Review Books
 modified_time: '2015-07-18T18:49:11.889+07:00'
 thumbnail: https://4.bp.blogspot.com/-I7Gl-al6Ep8/Vao8aQ4w5YI/AAAAAAAACpk/CPHVylrXseU/s1600/IMG_20150718_182503.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1714656209032837021
-blogger_orig_url: https://blog.duyet.net/2015/07/tuan-nay-oc-uoc-gi-hay-i-roi-se-en.html
 slug: /2015/07/tuan-nay-oc-uoc-gi-hay-i-roi-se-en.html
 category: Book
 description: Đây là một câu chuyện về quá trình khởi nghiệp, cũng với những chia sẻ về khó khăn và kinh nghiệm của tác giả.
-fbCommentUrl: none
 
 ---
 

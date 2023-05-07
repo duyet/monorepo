@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'JavaScript Weekly #2'
 date: "2016-05-28"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Javascript-Weekly
 modified_time: '2016-05-28T13:47:48.428+07:00'
 thumbnail: https://4.bp.blogspot.com/-K_vkG8qVJiA/V0k5ORhPhXI/AAAAAAAAWJQ/PR7wLT5sdfIGjSGb5SqJeFIevpWo2rbKwCK4B/s1600/javascript-weekly-2-duyetdev.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8576083275981773549
-blogger_orig_url: https://blog.duyet.net/2016/05/javascript-weekly-2.html
 slug: /2016/05/javascript-weekly-2.html
 category: Javascript
 description: 'Javascript #2 tuần này có gì mới.'
-fbCommentUrl: none
 ---
 
 Javascript #2 tuần này có gì mới.

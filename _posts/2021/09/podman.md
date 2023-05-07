@@ -1,5 +1,4 @@
 ---
-template: post
 title: From Docker to Podman on MacOS
 date: "2021-09-05"
 author: Van-Duyet Le
@@ -9,12 +8,10 @@ tags:
   - Docker
 slug: /2021/09/podman.html
 thumbnail: https://podman.io/images/podman.svg
-draft: false
 description: >
   I'm looking for some of alternatives for Docker. Currently, there are a 
   few of container technologies which are Docker’s most direct competitors, 
   such as rkt, Podman, containerd, ...
-fbCommentUrl: none
 ---
 
 I'm looking for some alternatives for Docker. Currently, there are a

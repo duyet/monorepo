@@ -1,5 +1,4 @@
 ---
-template: post
 title: Cài đặt OpenVPN trên Debian, Ubuntu và CentOS
 date: "2015-10-26"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Ubuntu
 modified_time: '2016-02-03T13:05:36.649+07:00'
 thumbnail: https://1.bp.blogspot.com/-MSVkQL61Px0/Vi483gBYyyI/AAAAAAAAFL4/XtlhpYG-uGU/s1600/Cai-dat-OpenVPN-Server.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8132263938399123512
-blogger_orig_url: https://blog.duyet.net/2015/10/cai-at-openvpn-tren-debian-ubuntu-va-centos.html
 slug: /2015/10/cai-at-openvpn-tren-debian-ubuntu-va-centos.html
 category: Linux
 description: OpenVPN là một chương trình mã nguồn mở VPN hoàn toàn miễn phí và đang được xem là giải pháp hoàn hảo nhất cho những ai muốn có một kết nối bảo mật giữa hai mạng. Trong bài này, mình sẽ giới thiệu OpenVPN road warrior installer, một script tự động cài đặt OpenVPN Server rất đơn giản và nhanh chóng.
-fbCommentUrl: none
 ---
 
 OpenVPN là một chương trình mã nguồn mở VPN hoàn toàn miễn phí và đang được xem là giải pháp hoàn hảo nhất cho những ai muốn có một kết nối bảo mật giữa hai mạng. Trong bài này, mình sẽ giới thiệu OpenVPN road warrior installer, một script tự động cài đặt OpenVPN Server rất đơn giản và nhanh chóng.

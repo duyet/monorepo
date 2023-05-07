@@ -1,5 +1,4 @@
 ---
-template: post
 title: Chơi Game Boy Emulator trên Terminal
 date: "2016-02-28"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - PHP
 modified_time: '2016-05-02T19:41:54.973+07:00'
 thumbnail: https://4.bp.blogspot.com/-NJDpViHfUg4/VtKOGcA-wEI/AAAAAAAAQes/dI5hCCos2CA/s1600/yq3uxuyqhyfjdb9q460h.gif
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4634892629654174140
-blogger_orig_url: https://blog.duyet.net/2016/02/game-boy-emulator-in-terminal.html
 slug: /2016/02/game-boy-emulator-in-terminal.html
 category: News
 description: Bạn làm việc nhiều trên Terminal? Một lập trình viên nghĩ ra cách giải trí khá hay là chơi các game của Game Boy ngay trên Terminal. Chương trình giả lập này được viết bằng PHP.
-fbCommentUrl: none
 ---
 
 Bạn làm việc nhiều trên Terminal? Một lập trình viên nghĩ ra cách giải trí khá hay là chơi các game của Game Boy ngay trên Terminal. Chương trình giả lập này được viết bằng PHP.

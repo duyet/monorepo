@@ -1,5 +1,4 @@
 ---
-template: post
 title: Doc2vec trong Sentiment Analysis
 date: "2017-10-08"
 author: Van-Duyet Le
@@ -15,8 +14,6 @@ tags:
 - Sentimennt Analysis
 modified_time: '2018-09-10T17:20:37.659+07:00'
 thumbnail: https://2.bp.blogspot.com/-IpnvLkBHx74/WdnUJ5r3q_I/AAAAAAAAnxI/Cz9B_YQo6tcu0YwOffsQQWmcfjH_mRulwCK4BGAYYCw/s1600/pv_dm.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8110609367090379434
-blogger_orig_url: https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis.html
 slug: /2017/10/doc2vec-trong-sentiment-analysis.html
 category: Machine Learning
 description: Doc2vec, ngoài từ (word), ta còn có thể biểu diễn các câu (sentences) thậm chí 1 đoạn văn bản (document). Khi đó, bạn có thể dễ dàng vector hóa cả một đoạn văn bản thành một vector có số chiều cố định và nhỏ, từ đó có thể chạy bất cứ thuật toán classification cơ bản nào trên các vector đó. 

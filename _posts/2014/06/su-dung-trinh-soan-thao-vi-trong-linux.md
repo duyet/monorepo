@@ -1,5 +1,4 @@
 ---
-template: post
 title: Sử dụng "vi" trong Linux
 date: "2014-06-15"
 category: Linux
@@ -7,8 +6,6 @@ tags:
 - Linux
 - Fedora
 modified_time: '2014-06-15T09:31:06.549+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4166931066163902607
-blogger_orig_url: https://blog.duyet.net/2014/06/su-dung-trinh-soan-thao-vi-trong-linux.html
 slug: /2014/06/su-dung-trinh-soan-thao-vi-trong-linux.html
 description: Linux là một hệ điều hành được điều khiển đa phần qua môi trường dòng lệnh (console), thêm vào đó, các file cấu hình dịch vụ trên Linux thường được chỉnh sửa bởi trình editor là vi (hay vim, bản cải thiện của vi). Nếu bạn là người thường xuyên quản trị server linux qua console, thì vi là trình tiện ích hay sử dụng nhất. Do vậy, học cách sử dụng vi là một yêu cầu tối thiểu và cần thiết cho một người sử dụng linux.
 

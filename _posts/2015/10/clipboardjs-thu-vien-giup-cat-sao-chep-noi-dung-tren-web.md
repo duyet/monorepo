@@ -1,5 +1,4 @@
 ---
-template: post
 title: Clipboard.js - thư viện giúp cắt/sao chép nội dung trên web một cách dễ dàng.
 date: "2015-10-30"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - Javascript
 modified_time: '2016-01-11T02:05:25.683+07:00'
 thumbnail: https://3.bp.blogspot.com/-nogpFtDX4JE/VjNskDinauI/AAAAAAAAFfk/ciSSYDvmaKs/s1600/5ab0a950-5fb4-11e5-9602-e73c0b661883.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2216941621948862965
-blogger_orig_url: https://blog.duyet.net/2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html
 slug: /2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html
 category: Javascript
 description: Clipboard.js là một thư viện vô cùng gọn nhẹ (2kb) giúp bạn dễ dàng cắt hoặc sao chép nội dung trên trang web một cách dễ dàng. Được sử dụng trong các trường hợp bạn muốn người dùng tự động copy dữ liệu vào trong clipboard mà không cần thực hiện thao tác copy hoặc Ctrl + C.
-fbCommentUrl: none
 ---
 
 Clipboard.js là một thư viện vô cùng gọn nhẹ (2kb) giúp bạn dễ dàng cắt hoặc sao chép nội dung trên trang web một cách dễ dàng. Được sử dụng trong các trường hợp bạn muốn người dùng tự động copy dữ liệu vào trong clipboard mà không cần thực hiện thao tác copy hoặc Ctrl + C.

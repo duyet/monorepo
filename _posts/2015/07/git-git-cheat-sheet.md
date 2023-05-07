@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Git - Git Cheat Sheet '
 date: "2015-07-16"
 author: Van-Duyet Le
@@ -7,12 +6,9 @@ tags:
 - Git
 - Git cheatsheet
 modified_time: '2015-07-16T13:04:43.947+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8858628283203984426
-blogger_orig_url: https://blog.duyet.net/2015/07/git-git-cheat-sheet.html
 slug: /2015/07/git-git-cheat-sheet.html
 category: Git
 description: A simple Git cheat sheet for the basic commands and working with a git repo, in our case Github. (Sau đây mình xin list ra danh sách Git cheat sheet các lệnh cơ bản và cần thiết nhất khi chúng ta sử dụng git, cụ thể là Github)
-fbCommentUrl: none
 
 ---
 

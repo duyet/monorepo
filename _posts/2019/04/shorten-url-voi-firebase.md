@@ -1,5 +1,4 @@
 ---
-template: post
 title: Super Simple Shorten URL với Firebase Dynamic Links
 date: "2019-04-19"
 author: Van-Duyet Le
@@ -13,10 +12,8 @@ tags:
 
 thumbnail: https://1.bp.blogspot.com/-mOYlbR85Tpw/XMciLyM34pI/AAAAAAAA_bE/aJtpyjh8Us0E5pbp8y6Djz4XA_qHmGFIACLcBGAs/s1600/Screen%2BShot%2B2019-04-29%2Bat%2B11.11.23%2BPM.png
 
-blogger_orig_url: https://blog.duyet.net/2019/04/shorten-url-voi-firebase.html
 slug: /2019/04/shorten-url-voi-firebase.html
 description: goo.gl đã shutdown, và được thay thế bằng Dynamic Link của Firebase. Mình đã sử dụng API của Dynamic Link và Firebase viết ứng dụng Shorten URL mới siêu đơn giản như dưới đây. Bài viết này mình xin hướng dẫn một chút và chia sẽ mã nguồn, cũng như cách deploy siêu đơn giản của Google Firebase.
-fbCommentUrl: none
 ---
 
 [goo.gl đã shutdown](https://www.searchenginejournal.com/goo-gl/246569/), và được thay thế bằng [Dynamic Link](https://firebase.google.com/docs/dynamic-links) của Firebase. Mình đã sử dụng API của Dynamic Link và Firebase viết [ứng dụng Shorten URL](https://s.duyet.net/) mới siêu đơn giản như dưới đây. Bài viết này mình xin hướng dẫn một chút và chia sẽ mã nguồn, cũng như cách deploy siêu đơn giản của Google Firebase.  

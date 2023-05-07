@@ -1,5 +1,4 @@
 ---
-template: post
 title: Rust Source-based Code Coverage 
 date: "2022-04-09"
 author: Van-Duyet Le
@@ -7,8 +6,6 @@ category: Rust
 tags:
  - Rust
 slug: /2022/04/rust-code-cov.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/Pmccyke.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F04%2Frust-code-cov.html
 linkedInCommentUrl: 

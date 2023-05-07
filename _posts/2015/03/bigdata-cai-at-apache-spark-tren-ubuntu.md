@@ -1,5 +1,4 @@
 ---
-template: post
 title: BigData - Cài đặt Apache Spark trên Ubuntu 14.04
 date: "2015-03-27"
 author: Van-Duyet Le
@@ -11,8 +10,6 @@ tags:
 - Hadoop
 modified_time: '2018-09-01T22:28:00.347+07:00'
 thumbnail: https://1.bp.blogspot.com/-Ruz5XvIPJZo/VS5s2ElpdQI/AAAAAAAACQ0/G7LCMJ0klNk/s1600/download-spark.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3847908519775182747
-blogger_orig_url: https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html
 slug: /2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html
 category: BigData
 description: Trong lúc tìm hiểu vài thứ về BigData cho một số dự án, mình quyết định chọn Apache Spark thay cho Hadoop. Theo như giới thiệu từ trang chủ của Apache Spark, thì tốc độ của nó cao hơn 100x so với Hadoop MapReduce khi chạy trên bộ nhớ, và nhanh hơn 10x lần khi chạy trên đĩa, tương thích hầu hết các CSDL phân tán (HDFS, HBase, Cassandra, ...). Ta có thể sử dụng Java, Scala hoặc Python để triển khai các thuật toán trên Spark.

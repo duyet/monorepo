@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Là gì? Ăn được không?
 date: "2015-02-14"
 author: Van-Duyet Le
@@ -8,11 +7,8 @@ tags:
 - Nodejs
 modified_time: '2015-02-14T12:21:19.667+07:00'
 thumbnail: https://3.bp.blogspot.com/-eakdJK4WfIo/VN7Z1vHx60I/AAAAAAAACF4/8w2BtYeO9zE/s1600/2014_12_13_3ea77.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6977592353211554543
-blogger_orig_url: https://blog.duyet.net/2015/02/nodejs-la-gi-uoc-khong.html
 slug: /2015/02/nodejs-la-gi-uoc-khong.html
 description: Node.js là 1 nền tảng (platform) chạy trên môi trường V8 Javascript runtime. Node.js cho phép lập trình viên xây dựng các ứng dụng có tính mở rộng cao sử dụng Javascript trên server. Và vì được porting từ C nên về mặt tốc độ xử lý thì khá nhanh.
-fbCommentUrl: none
 
 ---
 

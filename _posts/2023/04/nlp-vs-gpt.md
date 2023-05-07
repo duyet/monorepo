@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'GPT vs Traditional NLP Models'
 date: '2023-04-01'
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
   - Data Engineer
   - NLP
 slug: /2023/04/nlp-vs-gpt.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/azqWurz.jpg
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F04%2Fnlp-vs-gpt.html
 description: The field of Natural Language Processing (NLP) has seen remarkable advancements in recent years, and the emergence of the Generative Pre-trained Transformer (GPT) has revolutionized the way NLP models operate. GPT is a cutting-edge language model that employs deep learning to generate human-like text. Unlike conventional NLP models, which required extensive training on specific tasks, GPT is pre-trained on vast amounts of data and can be fine-tuned for various NLP tasks

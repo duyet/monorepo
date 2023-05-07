@@ -1,5 +1,4 @@
 ---
-template: post
 title: "Rust: cargo-edit"
 date: "2022-02-06"
 author: Van-Duyet Le
@@ -10,7 +9,6 @@ tags:
   - Rust Tiếng Việt
   - Rust Basic
 slug: /2022/02/cargo-edit.html
-fbCommentUrl: none
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Fcargo-edit.html
 thumbnail: https://i.imgur.com/zy1QIYA.png 
 description: cargo-edit là công cụ mở rộng của cargo cho phép có thêm một số tính năng quản lý dependencies giống như npm hoặc yarn.

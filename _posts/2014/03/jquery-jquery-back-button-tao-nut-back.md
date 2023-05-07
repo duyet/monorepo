@@ -1,38 +1,34 @@
 ---
-template: post
-title: "[jQuery] Jquery Back Button - Tạo nút back bằng jQuery"
-date: "2014-03-02"
-author: Unknown
+title: '[jQuery] Jquery Back Button - Tạo nút back bằng jQuery'
+date: '2014-03-02'
 category: Javascript
 tags:
-- Javascript
-- Tutorials
-- jQuery
-modified_time: '2014-03-02T16:23:11.225+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6403606179442339490
-blogger_orig_url: https://blog.duyet.net/2014/03/jquery-jquery-back-button-tao-nut-back.html
+  - Javascript
+  - Tutorials
+  - jQuery
+modified_time: '2023-06-07'
 slug: /2014/03/jquery-jquery-back-button-tao-nut-back.html
 description: Jquery Back Button làm việc giống như nút Back trên trình duyệt, nó sẽ chuyển bạn đến trang trước đó.
-
 ---
 
-Jquery Back Button làm việc giống như nút Back trên trình duyệt, nó sẽ chuyển bạn đến trang trước đó.
+JQuery Back Button là một phương thức hoạt động tương tự như nút Back trên trình duyệt, cho phép người dùng trở về trang trước đó một cách thuận tiện.
 
-Bây giờ chúng ta sẽ thử viết nó trên jQuery để xem nó hoạt động như thế nào.
+Dưới đây là cách sử dụng JQuery Back Button để thực hiện chức năng này:
+
 
 ```html
 <button type="button" id="mybutton"></button>
 
 <script>
-    $(document).ready({
-         $('#mybutton').click(function(){
-             parent.history.back();
-             return false;
-         });
-    })
+  $(document).ready({
+       $('#mybutton').click(function(){
+           parent.history.back();
+           return false;
+       });
+  })
 </script>
 ```
 
-Bạn có thể sử dụng nó cho mọi đối tượng như `<p>`, `<a>`, `<div>`, ...
+Với mã này, bạn có thể áp dụng chức năng của JQuery Back Button cho bất kỳ phần tử HTML nào, chẳng hạn như `<p>`, `<a>`, `<div>`, ...
 
 Chúc bạn thành công.

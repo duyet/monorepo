@@ -1,5 +1,4 @@
 ---
-template: post
 title: Điều khiển máy tính từ xa trên Android với Chrome Remote Desktop
 date: "2014-04-17"
 category: News
@@ -11,8 +10,6 @@ tags:
 - Android
 modified_time: '2014-04-17T14:36:34.934+07:00'
 thumbnail: https://2.bp.blogspot.com/-njaV5ePxiTU/U096NQXjgAI/AAAAAAAAGjU/Xj1ojkCuaTs/s1600/chrome-remote-desktop-1.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2773872453601158509
-blogger_orig_url: https://blog.duyet.net/2014/04/ieu-khien-may-tinh-tu-xa-tren-android.html
 slug: /2014/04/ieu-khien-may-tinh-tu-xa-tren-android.html
 description: Chrome Remote Desktop là một tiện ích mở rộng trên Chrome, cho phép bạn chia sẻ quyền điều khiển Desktop. Bạn có thể điều khiển máy của bạn từ xa thông qua 1 máy tính khác hoặc 1 thiết bị android hay iOs. Sau 1 năm phát triển, Google đã cho ra mắt extend Chrome Remote Desktop phiên bản beta, cho phép điều khiển máy tính từ xa qua thiết bị di động. Bài viết này mình sẽ hướng dẫn các bạn cách cài ứng dụng để điều khiển máy tính từ xa.
 

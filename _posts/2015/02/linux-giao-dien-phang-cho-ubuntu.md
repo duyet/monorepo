@@ -1,5 +1,4 @@
 ---
-template: post
 title: Linux - Giao diện phẳng cho Ubuntu
 date: "2015-02-17"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
 - Tweak
 modified_time: '2015-02-17T19:48:16.078+07:00'
 thumbnail: https://4.bp.blogspot.com/-NPt92Fq9HCQ/VOMvXySpZSI/AAAAAAAACIA/12wdtDOP7ZA/s1600/Screenshot%2Bfrom%2B2015-02-17%2B19%3A07%3A47.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-763610203044718576
-blogger_orig_url: https://blog.duyet.net/2015/02/linux-giao-dien-phang-cho-ubuntu.html
 slug: /2015/02/linux-giao-dien-phang-cho-ubuntu.html
 description: Giao diện phẳng ngày nay tại đang là trào lưu rất mạnh mẽ và Ubuntu đã có dự định chuyển sang giao diện phẳng. Gần đây nhiều bạn có hỏi giao diện hiện mình đang dùng là gì. Bài viết này sẽ hướng dẫn các bạn thay đổi theme tạo giao diện phẳng đẹp mắt cho Ubuntu cũng như các Distros khác của Linux.
 fbCommentUrl: http://blog.duyetdev.com/2015/02/linux-giao-dien-phang-cho-ubuntu.html

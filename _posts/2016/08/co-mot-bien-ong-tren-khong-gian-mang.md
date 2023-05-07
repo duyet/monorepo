@@ -1,5 +1,4 @@
 ---
-template: post
 title: Có một Biển Đông trên không gian mạng
 date: "2016-08-01"
 author: Van-Duyet Le
@@ -12,12 +11,9 @@ tags:
 - Thảo luận
 modified_time: '2016-08-01T10:02:22.152+07:00'
 thumbnail: https://lh6.googleusercontent.com/l6tvfU-bi2HIa0edDNKcui8Qei6QjBgGxUrhYdHXe3_8m9gGbW0uFZzxRuXyh7DUIysdotaNGFeNY-6wf6jxsSRH-rtMb65uphWXAhT3QdKPEtBaJE3hkI5byXGPlZbPvSPYAUHW=s1600
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-682588428321714591
-blogger_orig_url: https://blog.duyet.net/2016/08/co-mot-bien-ong-tren-khong-gian-mang.html
 slug: /2016/08/co-mot-bien-ong-tren-khong-gian-mang.html
 category: News
 description: Có một Biển Đông trên không gian mạng
-fbCommentUrl: none
 ---
 
 [thái: Có một Biển Đông trên không gian mạng](http://vnhacker.blogspot.com/2016/07/co-mot-bien-ong-tren-khong-gian-mang.html?spref=bl): Mùa hè 2014, giữa lúc người Việt trong nước và hải ngoại đang sôi sục vì Trung Quốc đưa giàn khoan HD-981 vào Biển Đông, từ Hoa Kỳ các chuyên gia của [ThreatConnect](https://www.threatconnect.com/piercing-the-cows-tongue-china-targeting-south-china-seas-nations/) và [ESET](http://www.welivesecurity.com/2014/06/20/targeted-attack-against-vietnamese-government-right-on-the-monre/) công bố hai bản báo cáo độc lập về những tấn công có chủ đích (targeted attacks) vào hệ thống máy tính của các cơ quan chính phủ Việt Nam.

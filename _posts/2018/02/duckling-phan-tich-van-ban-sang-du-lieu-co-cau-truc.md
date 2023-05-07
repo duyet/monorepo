@@ -1,5 +1,4 @@
 ---
-template: post
 title: Duckling - phân tích văn bản sang dữ liệu có cấu trúc
 date: "2018-02-19"
 author: Van-Duyet Le
@@ -16,12 +15,9 @@ tags:
 - Haskell
 modified_time: '2018-09-10T17:20:37.168+07:00'
 thumbnail: https://1.bp.blogspot.com/-EDgp745KklY/WopyCVizV7I/AAAAAAAAqbc/-xBWh3Ve4xg9DQGDY8YMbLiB688d-zXagCK4BGAYYCw/s1600/carbon_duckling.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4531407208168967622
-blogger_orig_url: https://blog.duyet.net/2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc.html
 slug: /2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc.html
 category: Machine Learning
 description: Duckling là một thư viện của Haskell, phát triển bởi Facebook, rất hay để phân tích (parses) dữ liệu text sang dạng có cấu trúc (structured data). Công cụ này rất hữu ích trong các ứng dụng phân tích văn bản trong NLP và nhất là lĩnh vực chatbot.
-fbCommentUrl: none
 ---
 **[Duckling](https://github.com/facebook/duckling)** là một thư viện của Haskell, phát triển bởi Facebook, rất hay để phân tích (parses) dữ liệu text sang dạng có cấu trúc (structured data). Công cụ này rất hữu ích trong các ứng dụng phân tích văn bản trong NLP và nhất là lĩnh vực **chatbot**.  
 [![](https://1.bp.blogspot.com/-EDgp745KklY/WopyCVizV7I/AAAAAAAAqbc/-xBWh3Ve4xg9DQGDY8YMbLiB688d-zXagCK4BGAYYCw/s1600/carbon_duckling.png)](https://1.bp.blogspot.com/-EDgp745KklY/WopyCVizV7I/AAAAAAAAqbc/-xBWh3Ve4xg9DQGDY8YMbLiB688d-zXagCK4BGAYYCw/s1600/carbon_duckling.png)  

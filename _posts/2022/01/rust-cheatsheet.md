@@ -1,5 +1,4 @@
 ---
-template: post
 title: cheats.rs
 date: "2022-01-01"
 author: Van-Duyet Le
@@ -9,8 +8,6 @@ tags:
   - Rust Tiếng Việt
   - Rust Basic
 slug: /2022/01/rust-cheatsheet.html
-draft: false
-fbCommentUrl: none
 thumbnail: https://i.imgur.com/bX8iwcM.png
 description: This is the best cheat sheet that I have ever seen. It breaks down the different categories, from language constructs, data layouts, types, tooling, etc.
 

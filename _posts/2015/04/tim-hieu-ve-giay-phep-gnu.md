@@ -1,5 +1,4 @@
 ---
-template: post
 title: Open Source - Tìm hiểu về giấy phép GNU (GNU General Public License)
 date: "2015-04-11"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - License
 modified_time: '2015-04-11T13:03:51.623+07:00'
 thumbnail: https://4.bp.blogspot.com/-LlEOmpqG7Dg/VSi4YDNEClI/AAAAAAAACPU/VZ-xgKDBd8E/s1600/719px-gnu_general_public_license_3_logo-svg2.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2252297400084755589
-blogger_orig_url: https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-gnu.html
 slug: /2015/04/tim-hieu-ve-giay-phep-gnu.html
 category: News
 description: GNU (GNU General Public License) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.
-fbCommentUrl: none
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-template: post
 title: PHP - Tổng quan về Web và thiết lập môi trường để lập trình PHP
 date: "2015-04-16"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - Courses
 modified_time: '2015-04-18T20:57:32.802+07:00'
 thumbnail: https://4.bp.blogspot.com/-QxU1LVBUcsA/VS6XNXt1ozI/AAAAAAAACRk/Og_wF5j7WDM/s1600/mohinh01.jpg
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-4963808330081956003
-blogger_orig_url: https://blog.duyet.net/2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap.html
 slug: /2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap.html
 category: PHP
 description: Hơn 70% website hiện tại trên thế giới phát triển trên nền ngôn ngữ PHP là minh chứng cụ thể cho thấy đây là một ngôn ngữ mạnh mẽ, phổ biến, dễ sử dụng để phát triển Web trong thời điểm hiện tại. Có thể kể đến một số website hiện tại đang sử dụng PHP là ngôn ngữ nền tảng như Facebook, Wikipedia, Yahoo, Photobucket,…
-fbCommentUrl: none
 
 ---
 

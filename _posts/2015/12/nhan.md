@@ -1,5 +1,4 @@
 ---
-template: post
 title: nhẫn
 date: "2015-12-01"
 author: Van-Duyet Le
@@ -8,12 +7,9 @@ tags:
 - nhẫn
 - tan man
 modified_time: '2015-12-01T23:55:30.384+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8205103247285341602
-blogger_orig_url: https://blog.duyet.net/2015/12/nhan.html
 slug: /2015/12/nhan.html
 category: Story
 description: Năm mới ra trường tấm bằng đại học xếp xó, thấy bạn bè nhiều đứa không học hành đến nơi mà phất lên như gió, thấy hổ thẹn. Thầy giáo vỗ vai "Đàn ông cần nhẫn, nhất là sự nghiệp chớ nên vội vàng, đòi nay mai giàu liền không có đâu. Giờ đã có mục tiêu cứ im lặng mà làm, đừng nhìn thành công người khác, đừng khoe mục tiêu".
-fbCommentUrl: none
 ---
 
 Năm mới ra trường tấm bằng đại học xếp xó, thấy bạn bè nhiều đứa không học hành đến nơi mà phất lên như gió, thấy hổ thẹn. Thầy giáo vỗ vai "Đàn ông cần nhẫn, nhất là sự nghiệp chớ nên vội vàng, đòi nay mai giàu liền không có đâu. Giờ đã có mục tiêu cứ im lặng mà làm, đừng nhìn thành công người khác, đừng khoe mục tiêu".

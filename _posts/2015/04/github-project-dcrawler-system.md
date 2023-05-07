@@ -1,5 +1,4 @@
 ---
-template: post
 title: 'Github project - DCrawler - Crawler System base on Nodejs and MongoDB '
 date: "2015-04-10"
 author: Van-Duyet Le
@@ -9,13 +8,10 @@ tags:
 - DCrawler
 - project
 modified_time: '2015-08-02T17:33:50.208+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-3272086302003907110
-blogger_orig_url: https://blog.duyet.net/2015/04/github-project-dcrawler-system.html
 slug: /2015/04/github-project-dcrawler-system.html
 category: Project
 description: "DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
 Design by Van-Duyet Le (@lvduit), one of module for my DSS Project."
-fbCommentUrl: none
 
 ---
 

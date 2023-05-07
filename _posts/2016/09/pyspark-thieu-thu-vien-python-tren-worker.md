@@ -1,5 +1,4 @@
 ---
-template: post
 title: PySpark - Thiếu thư viện Python trên Worker
 date: "2016-09-08"
 author: Van-Duyet Le
@@ -15,12 +14,9 @@ tags:
 - Big Data
 - Thủ thuật
 modified_time: '2018-09-01T22:32:19.537+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-6733211340626561170
-blogger_orig_url: https://blog.duyet.net/2016/09/pyspark-thieu-thu-vien-python-tren-worker.html
 slug: /2016/09/pyspark-thieu-thu-vien-python-tren-worker.html
 category: Data
 description: Apache Spark chạy trên Cluster, với Java thì đơn giản. Với Python thì package python phải được cài trên từng Node của Worker. Nếu không bạn sẽ gặp phải lỗi thiếu thư viện.
-fbCommentUrl: none
 ---
 
 Apache Spark chạy trên Cluster, với Java thì đơn giản. Với Python thì package python phải được cài trên từng Node của Worker. Nếu không bạn sẽ gặp phải lỗi thiếu thư viện.

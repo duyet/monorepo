@@ -1,20 +1,16 @@
 ---
-template: post
 title: 'Mã nguồn mở Presto: truy vấn SQL dữ liệu bigdata lên đến hàng GB hay TB'
-date: "2014-04-06"
+date: '2014-04-06'
 category: News
 tags:
-- Open Source
-- Presto
-- facebook
-- Github
+  - Open Source
+  - Presto
+  - facebook
+  - Github
 modified_time: '2014-04-06T12:21:50.469+07:00'
 thumbnail: https://2.bp.blogspot.com/-svi1Luc0KZ8/U0DkUZHpdsI/AAAAAAAAGgU/oEV-ImDUuo4/s1600/presto.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-2393800391655442104
-blogger_orig_url: https://blog.duyet.net/2014/04/ma-nguon-mo-presto-truy-van-sql-du-lieu.html
 slug: /2014/04/ma-nguon-mo-presto-truy-van-sql-du-lieu.html
 description: Presto là tên một hệ thống dùng để truy vấn dữ liệu dạng SQL cho các mã nguồn lớn. Dữ liệu truy vấn có thể lên đến hàng Gigabyte đến Petabytes. Presto là một hệ thống mã nguồn mở được tạo ra bởi các kỹ sư của Google.
-
 ---
 
 Presto là tên một hệ thống dùng để truy vấn dữ liệu dạng SQL cho các mã nguồn lớn. Dữ liệu truy vấn có thể lên đến hàng Gigabyte đến Petabytes. Presto là một hệ thống mã nguồn mở được tạo ra bởi các kỹ sư của Google.

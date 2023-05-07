@@ -1,5 +1,4 @@
 ---
-template: post
 title: Nodejs - Create simple static server with Nodejs
 date: "2015-08-09"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - simple
 modified_time: '2018-09-10T17:29:34.941+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1803496770055106930
-blogger_orig_url: https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html
 slug: /2015/08/nodejs-create-simple-static-server-with.html
 category: Javascript
 description: With this simple package, you can create your own static server simply by Nodejs.
-fbCommentUrl: none
 ---
 
 With this simple package, you can create your own static server simply by Nodejs.

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Year In Review [2015]
 date: "2015-12-31"
 author: Van-Duyet Le
@@ -9,12 +8,9 @@ tags:
 - year in review
 modified_time: '2016-01-11T01:59:09.345+07:00'
 thumbnail: https://4.bp.blogspot.com/-fLXS7P-nN0U/VoVg5qgEvcI/AAAAAAAANpQ/y3PC7LaWdj4/s1600/2016-Season_trailerstill.gif
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-5692836187888278919
-blogger_orig_url: https://blog.duyet.net/2015/12/year-in-review-2015.html
 slug: /2015/12/year-in-review-2015.html
 category: Story
 description: Năm qua thiệt dài, làm thiệt nhiều, thiệt siêng, đôi lúc cũng lười vô tội vạ, được nhiều, mất nhiều, tổng kết lại vài thứ trong năm qua.
-fbCommentUrl: none
 ---
 
 [![](https://4.bp.blogspot.com/-fLXS7P-nN0U/VoVg5qgEvcI/AAAAAAAANpQ/y3PC7LaWdj4/s1600/2016-Season_trailerstill.gif)](https://blog.duyet.net/2015/12/year-in-review-2015.html)

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Javascript Shorthands Tips
 date: "2019-10-20"
 category: Web
@@ -9,7 +8,6 @@ tags:
 slug: /2019/10/js-shorthand-tips.html
 thumbnail: 
 description: These Javascript shorthand tips will make your code look more cool and clean.
-fbCommentUrl: none
 ---
 
 These Javascript shorthand tips will make your code look more cool and clean. Let's begin.

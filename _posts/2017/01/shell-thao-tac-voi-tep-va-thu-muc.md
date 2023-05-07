@@ -1,5 +1,4 @@
 ---
-template: post
 title: Shell - Mọi thao tác với tệp và thư mục trên Bash
 date: "2017-01-23"
 author: Van-Duyet Le
@@ -10,12 +9,9 @@ tags:
 - CMD
 modified_time: '2017-01-23T11:38:35.234+07:00'
 thumbnail: https://1.bp.blogspot.com/-LFMgOUBzTRc/WIWIaGmpQzI/AAAAAAAAieU/kvAZPXb218k53BpTdGwnVJQbL4KyhjtRgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-36-34.png
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-8780458314288554113
-blogger_orig_url: https://blog.duyet.net/2017/01/shell-thao-tac-voi-tep-va-thu-muc.html
 slug: /2017/01/shell-thao-tac-voi-tep-va-thu-muc.html
 category: Linux
 description: Shell bash trên Linux nếu như biết khai thác thì nó sẽ là một công cụ rất mạnh, trong bài này mình sẽ liệt kê các thao tác với tệp và thư mục (copy, move, rename, zip, ...). Like a hacker :))
-fbCommentUrl: none
 ---
 
 Shell bash trên Linux nếu như biết khai thác thì nó sẽ là một công cụ rất mạnh, trong bài này mình sẽ liệt kê các thao tác với tệp và thư mục (copy, move, rename, zip, ...). Like a hacker :))

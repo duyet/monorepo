@@ -1,5 +1,4 @@
 ---
-template: post
 title: Detect robots in koa
 date: "2016-02-21"
 author: Van-Duyet Le
@@ -11,12 +10,9 @@ tags:
 - robot
 - Framework
 modified_time: '2016-05-06T19:17:49.348+07:00'
-blogger_id: tag:blogger.com,1999:blog-3454518094181460838.post-1921884524666147083
-blogger_orig_url: https://blog.duyet.net/2016/02/detect-robots-in-koa.html
 slug: /2016/02/detect-robots-in-koa.html
 category: Javascript
 description: Plugin cho KoaJs, nhận diện crawler bot
-fbCommentUrl: none
 ---
 
 Koa detect robots. Fast Middleware detect bot crawler for Koa.  
