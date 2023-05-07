@@ -1,5 +1,6 @@
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 
+import Meta from './Meta'
 import Comment from './Comment'
 import Content, { getPost } from './Content'
 import { getAllPosts } from '../../../../lib/getPost'
@@ -26,7 +27,8 @@ export default async function Post({
     <Container>
       <article>
         <Content post={post} />
-        <Comment />
+        <Meta post={post} className='mt-10' />
+        <Comment className='mt-0' />
       </article>
     </Container>
   )

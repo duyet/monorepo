@@ -15,8 +15,8 @@ const btnClasses = cn(
 )
 
 const textareaClasses = cn(
-  'flex w-full max-h-40 p-3 rounded resize-y text-gray-900 placeholder-gray-500',
-  'bg-gray-100 dark:bg-slate-800 dark:text-slate-50'
+  'flex w-full max-h-40 p-3 rounded resize-y text-gray-900',
+  'border-t border-gray-200 dark:border-gray-700 dark:bg-transparent'
 )
 
 export default function CommentForm({
@@ -41,7 +41,7 @@ export default function CommentForm({
         value={text}
       />
 
-      <div className='flex items-center mt-4'>
+      <div className='flex items-center mt-2'>
         {isAuthenticated ? (
           <div className='flex items-center space-x-6 justify-between w-full'>
             <button className={btnClasses}>Send</button>
