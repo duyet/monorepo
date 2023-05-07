@@ -1,4 +1,3 @@
-import type { InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 
 import getSlug from '../../lib/getSlug'
