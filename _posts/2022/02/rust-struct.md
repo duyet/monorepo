@@ -1,7 +1,7 @@
 ---
 template: post
 title: "Rust: Struct"
-date: "2022-02-13 10:00:00"
+date: "2022-02-13"
 author: Van-Duyet Le
 category: Rust
 tags:

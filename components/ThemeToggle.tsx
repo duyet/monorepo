@@ -3,19 +3,27 @@
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, Monitor } from 'lucide-react'
 
 import { cn } from '../lib/utils'
 
-const toggleGroupItemClasses = cn(
-  'bg-white dark:bg-transparent',
-  'data-[state=on]:bg-slate-100 dark:data-[state=on]:bg-slate-800',
-  'dark:data-[state=on]:text-white dark:data-[state=on]:border-white',
-  'flex h-8 w-8 items-center',
-  'justify-center text-base leading-4',
-  'first:rounded-l last:rounded-r focus:z-10',
-  'focus:shadow-black focus:outline-none'
+const toggleGroupClasses = cn(
+  'p-[3px] w-fit flex rounded-full border border-gray-200',
+  'dark:border-gray-800'
 )
+
+const toggleGroupItemClasses = cn(
+  'h-8 w-8 flex items-center rounded-full justify-center transition',
+  'text-gray-400 hover:text-gray-900 dark:hover:data-[state=off]:text-gray-100',
+  'data-[state=on]:bg-gray-200 data-[state=on]:text-gray-900',
+  'dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-200'
+)
+
+const iconProps = {
+  className: cn('w-4 h-4'),
+  strokeWidth: 1,
+  size: 16,
+}
 
 export default function ThemeToggle() {
   // Avoid hydration mismatch
@@ -40,7 +48,7 @@ export default function ThemeToggle() {
 
   return (
     <ToggleGroup.Root
-      className='inline-flex rounded space-x-px'
+      className={toggleGroupClasses}
       type='single'
       aria-label='Theme'
       onValueChange={onChange}
@@ -51,14 +59,21 @@ export default function ThemeToggle() {
         value='light'
         aria-label='Light'
       >
-        <Sun className='w-5 h-5' />
+        <Sun {...iconProps} />
+      </ToggleGroup.Item>
+      <ToggleGroup.Item
+        className={toggleGroupItemClasses}
+        value='system'
+        aria-label='System'
+      >
+        <Monitor {...iconProps} />
       </ToggleGroup.Item>
       <ToggleGroup.Item
         className={toggleGroupItemClasses}
         value='dark'
         aria-label='Dark'
       >
-        <Moon className='w-5 h-5' />
+        <Moon {...iconProps} />
       </ToggleGroup.Item>
     </ToggleGroup.Root>
   )

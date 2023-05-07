@@ -1,7 +1,7 @@
 ---
 template: post
 title: "Rust: Trait"
-date: "2022-02-13 10:10"
+date: "2022-02-13"
 author: Van-Duyet Le
 category: Rust
 tags:

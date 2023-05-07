@@ -1,7 +1,7 @@
 ---
 template: post
 title: "Rust: Copy & Clone Trait"
-date: "2022-02-13 11:00.000+07:00"
+date: "2022-02-13"
 author: Van-Duyet Le
 category: Rust
 tags:
