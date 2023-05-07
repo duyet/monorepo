@@ -2,6 +2,7 @@ import { request } from 'graphql-request'
 
 import { Metric, AreaChart, Flex, Text } from '../../../../components/Tremor'
 import { CloudflareAnalyticsByDate } from '../../../../interfaces'
+import TextDataSource from '../TextDataSource'
 
 export type CloudflareProps = {
   data: CloudflareAnalyticsByDate
@@ -63,9 +64,10 @@ export default async function Cloudflare() {
         showGridLines={false}
         categories={['Requests', 'Page Views', 'Unique Visitors']}
       />
-      <div className='text-sm italic text-gray-400 text-right mt-5'>
-        Source: Cloudflare | Generated at {generatedAt}
-      </div>
+
+      <TextDataSource>
+        Cloudflare | Generated at {generatedAt}
+      </TextDataSource>
     </div>
   )
 }
