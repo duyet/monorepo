@@ -37,6 +37,7 @@ export default function Content({ post, className }: Props) {
         href={post.edit_url}
         target='_blank'
         title='Edit in Github'
+        rel='noopener noreferrer'
       >
         <Github strokeWidth={1} size={20} />
       </a>
