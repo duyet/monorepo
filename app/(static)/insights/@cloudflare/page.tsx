@@ -11,6 +11,9 @@ export type CloudflareProps = {
   generatedAt: string
 }
 
+// Revalidate every 24 hours
+export const revalidate = 86400
+
 async function dataFormatter(number: number) {
   return Intl.NumberFormat('us').format(number).toString()
 }
@@ -65,9 +68,7 @@ export default async function Cloudflare() {
         categories={['Requests', 'Page Views', 'Unique Visitors']}
       />
 
-      <TextDataSource>
-        Cloudflare | Generated at {generatedAt}
-      </TextDataSource>
+      <TextDataSource>Cloudflare | Generated at {generatedAt}</TextDataSource>
     </div>
   )
 }

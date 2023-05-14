@@ -38,14 +38,15 @@ function FooterHeader({ children }: { children: ReactNode }) {
 
 const navigation = {
   general: [
-    { name: 'Archives', href: '/archives' },
     { name: 'Substack', href: 'https://duyet.substack.com' },
     {
       name: 'Rust Tiếng Việt (Book)',
       href: 'https://rust-tieng-viet.github.io/?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet',
     },
     { name: 'pageview.js', href: 'https://pageview.duyet.net' },
-    { name: 'Insights', href: '/insights' },
+    { name: '/archives', href: '/archives' },
+    { name: '/insights', href: '/insights' },
+    { name: '/comments', href: '/comments' },
   ],
   profile: [
     { name: 'Github', href: 'https://github.com/duyet' },
