@@ -1,8 +1,7 @@
-import Image from 'next/image'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import type { Comment } from '../../../../../interfaces'
-import distanceToNow from '../../../../../lib/dateRelative'
+import CommentContent from '../../../../../components/CommentContent'
 
 type CommentListProps = {
   comments?: Comment[]
@@ -20,37 +19,13 @@ export default function CommentList({ comments, onDelete }: CommentListProps) {
           user && user.email === process.env.NEXT_PUBLIC_AUTH0_ADMIN_EMAIL
 
         return (
-          <div key={comment.created_at} className='flex space-x-4'>
-            <div className='flex-shrink-0'>
-              <Image
-                src={comment.user.picture}
-                alt={comment.user.name}
-                width={40}
-                height={40}
-                className='rounded-full'
-              />
-            </div>
-
-            <div className='flex-grow'>
-              <div className='flex space-x-3'>
-                <b>{comment.user.name}</b>
-                <time className='text-gray-400'>
-                  {distanceToNow(comment.created_at)}
-                </time>
-                {(isAdmin || isAuthor) && (
-                  <button
-                    className='text-gray-400 hover:text-red-500'
-                    onClick={() => onDelete(comment)}
-                    aria-label='Close'
-                  >
-                    x
-                  </button>
-                )}
-              </div>
-
-              <div>{comment.text}</div>
-            </div>
-          </div>
+          <CommentContent
+            key={comment.created_at}
+            comment={comment}
+            isAdmin={isAdmin}
+            isAuthor={isAuthor}
+            onDelete={onDelete}
+          />
         )
       })}
     </div>
