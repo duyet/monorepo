@@ -8,7 +8,7 @@ import CommentContent from '../../components/CommentContent'
 const URL_PREFIX = 'https://blog.duyet.net'
 
 // Revalidate every hour
-export const revalidate = 3600;
+export const revalidate = 3600
 
 export default async function Comments() {
   const urls = await kv.keys(URL_PREFIX + '/*')
