@@ -1,5 +1,3 @@
-const { fontFamily } = require('tailwindcss/defaultTheme')
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -15,13 +13,9 @@ module.exports = {
     },
     typography: ['dark'],
   },
-  safelist: [
-    {
-      pattern: /hljs+/,
-    },
-  ],
   theme: {
     extend: {
+      ...require('./tremor.theme.js').theme,
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -63,9 +57,16 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    {
+      pattern: /hljs+/,
+    },
+    ...require('./tremor.theme.js').safelist,
+  ],
   plugins: [
     require('@tailwindcss/typography'),
     require('tailwind-highlightjs'),
+    ...require('./tremor.theme.js').plugins,
   ],
   darkMode: ['class', 'html[class~="dark"]'],
 }
