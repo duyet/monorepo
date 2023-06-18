@@ -64,7 +64,7 @@ My plan revolved around taking an exploratory approach to determine the feasibil
 2. **Evaluation and Team Involvement**: Once I can proved with the team the initial prototype is promising, we intended to involve additional team members in the development process. Their expertise and perspectives would help validate the viability of Rust for our Data Platform.
 3. **Become the mainstream**: As the project gained momentum, our plan was to gradually transition the entire team to Rust. This shift would allow us to leverage the distinctive features and advantages of Rust effectively, enabling us to tackle the challenges we had faced.
 
-# ****The First Benchmark****
+# The First Benchmark
 
 My first version took three months to rewrite has shown excellent performance even **without** optimization, the memory `.clone()` everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well. 
 
@@ -93,7 +93,7 @@ transformations:
         return source_field.get("config_name").lower()  year
 ```
 
-# TeamInvolvement
+# Team Involvement
 
 The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, the Kafka configurations management, ...
 
