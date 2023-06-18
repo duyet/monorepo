@@ -1,4 +1,4 @@
-import kv from '@vercel/kv'
+import { kv } from '@vercel/kv'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import type { Comment } from '../../interfaces'

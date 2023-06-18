@@ -22,7 +22,7 @@ export default function AnalyticWrapper() {
         `}
       </Script>
 
-      <Script id='pageview' strategy='afterInteractive'>
+      <Script id='pageview' strategy='beforeInteractive'>
         {`
           !function(e,n,t){e.onload=function(){
           let e=n.createElement("script");
@@ -30,6 +30,7 @@ export default function AnalyticWrapper() {
           (window,document,"//pageview.duyet.net/pageview.js");
         `}
       </Script>
+
       <Script id='clarity' strategy='afterInteractive'>
         {`
           (function(c,l,a,r,i,t,y){

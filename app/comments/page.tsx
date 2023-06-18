@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import kv from '@vercel/kv'
+import { kv } from '@vercel/kv'
 
 import type { Comment } from '../../interfaces'
 import Container from '../../components/Container'
