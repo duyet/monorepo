@@ -64,7 +64,7 @@ My plan revolved around taking an exploratory approach to determine the feasibil
 2. **Evaluation and Team Involvement**: Once I can proved with the team the initial prototype is promising, we intended to involve additional team members in the development process. Their expertise and perspectives would help validate the viability of Rust for our Data Platform.
 3. **Become the mainstream**: As the project gained momentum, our plan was to gradually transition the entire team to Rust. This shift would allow us to leverage the distinctive features and advantages of Rust effectively, enabling us to tackle the challenges we had faced.
 
-# ****The First Benchmark****
+# The First Benchmark
 
 My first version took three months to rewrite has shown excellent performance even **without** optimization, the memory `.clone()` everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well. 
 
@@ -93,12 +93,11 @@ transformations:
         return source_field.get("config_name").lower()  year
 ```
 
-# Team all in
+# Team Involvement
 
-The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn Rust. [http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of my documents for them.
-[Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu) and [Hung](https://github.com/) are starting to building more components of the platform.
+The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, the Kafka configurations management, ...
 
-Several key components of our Data Platform have already been successfully rewritten in Rust include the data ingestion API, data transformation workers, and the management of Kafka configurations, ...
+[http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of my documents I could provide for the team at first.
 
 However, there have been some changes, and the migration is progressing slowly due to other priorities.
 
@@ -106,7 +105,7 @@ However, there have been some changes, and the migration is progressing slowly d
 
 *Data Engineering Team 2022*
 
-# Well, what's next?*
+# Well, what's next?
 
 ![What's next?](/media/2023/06/fossil-data-platform-written-rust/whats-next.png)
 
@@ -129,7 +128,7 @@ Despite being [the most loved language for seven consecutive years](https://surv
 - [tokio-rs/tokio](https://github.com/tokio-rs/tokio): A runtime for asynchronous applications provides I/O, networking, scheduling, timers, ...
 - [launchbadge/sqlx](https://github.com/launchbadge/sqlx): 🧰 The Rust SQL Toolkit. An async, pure Rust SQL crate featuring compile-time checked queries without a DSL. Supports PostgreSQL, MySQL, SQLite, and MSSQL.
 
-I have discussed the future with my team, and we have considered the possibility of Rust becoming the new trend in Data Engineering. 
+I have discussed the future with my team, and we have considered the possibility of Rust becoming the new trend in Data Engineering.
 
 We chose Rust for developing many of our applications due to its high level of security for concurrent processing, as well as its focus on correctness and performance. Rust's compiler is an excellent tool for identifying bugs, but ultimately, it is important to measure the running code and identify bottlenecks in order to solve them.
 
@@ -139,7 +138,7 @@ We chose Rust for developing many of our applications due to its high level of s
 - [Rust is for Big Data (#rust2018) - Andy Grove](https://andygrove.io/2018/01/rust-is-for-big-data/)
 - [Rust và Data Engineering? 🤔](https://blog.duyet.net/2021/11/rust-data-engineering.html)
 
-# ****Where to start?****
+# Where to start?
 
 If you're considering diving into Rust for your own projects or migrating an existing codebase, I highly recommend starting with the [**Rust By Example**](https://doc.rust-lang.org/rust-by-example/) book. 
 
