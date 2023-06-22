@@ -66,7 +66,7 @@ My plan revolved around taking an exploratory approach to determine the feasibil
 
 # The First Benchmark
 
-My first version took three months to rewrite has shown excellent performance even **without** optimization, the memory `.clone()` everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well. 
+My first version took three months to rewrite has shown excellent performance even **without** optimization, the memory `.clone()` everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well.
 
 Despite the lack of fine-tuning and potential areas for optimization, Rust demonstrated its inherent efficiency and ability to handle our data processing requirements effectively
 
@@ -76,7 +76,12 @@ Despite the lack of fine-tuning and potential areas for optimization, Rust demon
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-3.png)
 
-Moving forward, our focus shifted to further optimizing the code, eliminating unnecessary memory clones, and leveraging Rust's advanced features to unlock even greater efficiency. 
+
+![](/media/2023/06/fossil-data-platform-written-rust/bench-4.png)
+
+The image above displays the benchmark results of **Data Platform v3 (Python)** vs **v4 (Rust)** in terms of processing time and memory usage. Rust outperformed Python by achieving a *8490490% faster processing time** while maintaining the same memory usage. It's worth noting that Arrow was used as the data layout format during the benchmark. Based on this benchmark, the team started optimizing memory usage to further improve the performance of the Data Platform.
+
+Moving forward, our focus shifted to further optimizing the code, eliminating unnecessary memory clones, and leveraging Rust's advanced features to unlock even greater efficiency.
 
 The need to ensure backward compatibility with the previous Python-based inline transformation without disrupting the current configuration. I will need FFI to interact with Python (thanks to [PyO3](https://github.com/PyO3/pyo3)) which decreased the performance, but this trade-off is acceptable.
 
@@ -92,6 +97,8 @@ transformations:
         year = datetime.now().strftime("%Y")
         return source_field.get("config_name").lower()
 ```
+
+
 
 # Team involvement
 
