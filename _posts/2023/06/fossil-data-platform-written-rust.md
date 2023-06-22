@@ -103,7 +103,7 @@ transformations:
 
 # Team involvement
 
-The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs (AWS Athena Schema Management)](https://github.com/duyet/athena-rs), [grant-rs (Manage Redshift/Postgres privileges in GitOps style)](https://github.com/duyet/grant-rs), the Kafka configurations management, ...
+The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs](https://github.com/duyet/athena-rs) (AWS Athena Schema Management), [grant-rs](https://github.com/duyet/grant-rs) (Manage Redshift/Postgres privileges in GitOps style), the Kafka configurations management, ...
 
 [http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of the documents I could provide for the team at first.
 
@@ -136,7 +136,9 @@ Despite being [the most loved language for seven consecutive years](https://surv
 - [tokio-rs/tokio](https://github.com/tokio-rs/tokio): A runtime for asynchronous applications provides I/O, networking, scheduling, timers, ...
 - [launchbadge/sqlx](https://github.com/launchbadge/sqlx): 🧰 The Rust SQL Toolkit. An async, pure Rust SQL crate featuring compile-time checked queries without a DSL. Supports PostgreSQL, MySQL, SQLite, and MSSQL.
 
-I have discussed the future with my team, and we have considered the possibility of Rust becoming the new trend in Data Engineering.
+I have discussed the future with my team, and I bet and considered the possibility of Rust becoming the new trend in Data Engineering. 
+We could proud to have been one of the first teams to use Rust in building a Data Platform.
+However, even though Rust might become the standard when the platform is stable, it may still be difficult to hire new Rust developers, especially in Vietnam.
 
 We chose Rust for developing many of our applications due to its high level of security for concurrent processing, as well as its focus on correctness and performance. Rust's compiler is an excellent tool for identifying bugs, but ultimately, it is important to measure the running code and identify bottlenecks in order to solve them.
 
