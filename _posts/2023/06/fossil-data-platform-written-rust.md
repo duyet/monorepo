@@ -78,7 +78,7 @@ Despite the lack of fine-tuning and potential areas for optimization, Rust demon
 
 Moving forward, our focus shifted to further optimizing the code, eliminating unnecessary memory clones, and leveraging Rust's advanced features to unlock even greater efficiency. 
 
-The need to ensure backward compatibility with the previous Python-based inline transformation without disrupting the current configuration. I will need FFI to interact with Python which decreased the performance, but this trade-off is acceptable.
+The need to ensure backward compatibility with the previous Python-based inline transformation without disrupting the current configuration. I will need FFI to interact with Python (thanks to [PyO3](https://github.com/PyO3/pyo3)) which decreased the performance, but this trade-off is acceptable.
 
 ```yaml
 # example config.yaml
@@ -87,17 +87,17 @@ source_field: properties
 target_field: config_value
 transformations:
     - name: custom_code
-			language: python
+        language: python
       code: |
-				year = datetime.now().strftime("%Y")
-        return source_field.get("config_name").lower()  year
+        year = datetime.now().strftime("%Y")
+        return source_field.get("config_name").lower()
 ```
 
-# Team Involvement
+# Team involvement
 
-The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, the Kafka configurations management, ...
+The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs (AWS Athena Schema Management)](https://github.com/duyet/athena-rs), [grant-rs (Manage Redshift/Postgres privileges in GitOps style)](https://github.com/duyet/grant-rs), the Kafka configurations management, ...
 
-[http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of my documents I could provide for the team at first.
+[http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of the documents I could provide for the team at first.
 
 However, there have been some changes, and the migration is progressing slowly due to other priorities.
 
