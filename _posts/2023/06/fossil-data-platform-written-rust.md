@@ -16,7 +16,7 @@ My data engineering team at Fossil recently released some of Rust-based componen
 
 # The Need for Change
 
-With the Fossil Data Platform handling approximately *1.2 billion records** daily in near-real time, our existing Python codebase started showing signs of strain. We had been using Python for years and encountered issues such as duplicated code, deprecated components, hardcoded elements, and a lack of comprehensive reviews. This situation prompted a critical evaluation of our options:
+With the Fossil Data Platform handling approximately *1.2 billion records* daily in near-real time, our existing Python codebase started showing signs of strain. We had been using Python for years and encountered issues such as duplicated code, deprecated components, hardcoded elements, and a lack of comprehensive reviews. This situation prompted a critical evaluation of our options:
 
 1. **Continuing with Python:** We contemplated rewriting the platform while sticking with Python. However, considering our data engineering requirements, we recognized the need for a language more suitable for the task.
 2. Rewrite into data-engineering-friendly language like **Java or Scala**, given their popularity in the data engineering domain.
@@ -66,11 +66,13 @@ My plan revolved around taking an exploratory approach to determine the feasibil
 
 # The First Benchmark
 
-My first version took three months to rewrite has shown excellent performance even **without** optimization, the memory `.clone()` everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well.
+My first version took three months to rewrite and has shown excellent performance even **without** optimization, the memory [`.clone()`](https://doc.rust-lang.org/std/clone/trait.Clone.html) everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well.
 
-Despite the lack of fine-tuning and potential areas for optimization, Rust demonstrated its inherent efficiency and ability to handle our data processing requirements effectively
+Despite the lack of fine-tuning and potential areas for optimization, Rust demonstrated its inherent efficiency and ability to handle our data processing requirements effectively:
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-1.png)
+
+After comparing the two components in the real  environment, Rust processes messages faster and consumes more messages than Python.
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-2.png)
 
@@ -78,7 +80,7 @@ Despite the lack of fine-tuning and potential areas for optimization, Rust demon
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-4.png)
 
-The image above displays the benchmark results of **Data Platform v3 (Python)** vs **v4 (Rust)** in terms of processing time and memory usage. Rust outperformed Python by achieving a **490% faster processing time** while maintaining the same memory usage. It's worth noting that Arrow was used as the data layout format during the benchmark. Based on this benchmark, the team started optimizing memory usage to further improve the performance of the Data Platform.
+The image above displays the recent benchmark results of **Data Platform v3 (Python)** vs **v4 (Rust)** in terms of processing time and memory usage. Rust outperformed Python by achieving a **490% faster processing time** while maintaining the same memory usage. It's worth noting that Arrow was used as the data layout format during the benchmark. Based on this benchmark, the team started optimizing memory usage to further improve the performance of the Data Platform.
 
 Moving forward, our focus shifted to further optimizing the code, eliminating unnecessary memory clones, and leveraging Rust's advanced features to unlock even greater efficiency.
 
@@ -91,7 +93,7 @@ source_field: properties
 target_field: config_value
 transformations:
     - name: custom_code
-        language: python
+      language: python
       code: |
         year = datetime.now().strftime("%Y")
         return source_field.get("config_name").lower()
