@@ -1,7 +1,7 @@
 ---
 title: Fossil Data Platform Rewritten in Rust 🦀
 date: '2023-06-18'
-author: Van-Duyet Le
+author: Duyet, Hieu
 category: Data
 tags:
   - Data
@@ -12,7 +12,15 @@ thumbnail: /media/2023/06/fossil-data-platform-written-rust/bench-2.png
 description: My data engineering team at Fossil recently released some of Rust-based components of our Data Platform after faced performance and maintenance challenges of the old Python codebase. I would like to share the insights and lessons learned during the process of migrating Fossil's Data Platform from Python to Rust.
 ---
 
+[Duyet]: https://github.com/duyet
+[Hieu]: https://github.com/therealhieu
+[Khanh]: https://github.com/DuyKhanhVu
+[Hung]: https://github.com/hungtg7
+[Duong]: https://github.com/lethanhduong
+
 My data engineering team at Fossil recently released some of Rust-based components of our Data Platform after faced performance and maintenance challenges of the old Python codebase. I would like to share the insights and lessons learned during the process of migrating Fossil's Data Platform from Python to Rust.
+
+**Authors: [Duyet], [Hieu]**
 
 # The Need for Change
 
@@ -103,7 +111,7 @@ transformations:
 
 # Team involvement
 
-The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu](https://github.com/therealhieu), Uyen, [Khanh](https://github.com/DuyKhanhVu), [Hung](https://github.com/hungtg7) and [Duong](https://github.com/lethanhduong) are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs](https://github.com/duyet/athena-rs) (AWS Athena Schema Management), [grant-rs](https://github.com/duyet/grant-rs) (Manage Redshift/Postgres privileges in GitOps style), the Kafka configurations management, ...
+The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu], Uyen, [Khanh], [Hung] and [Duong] are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs](https://github.com/duyet/athena-rs) (AWS Athena Schema Management), [grant-rs](https://github.com/duyet/grant-rs) (Manage Redshift/Postgres privileges in GitOps style), the Kafka configurations management, ...
 
 [http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of the documents I could provide for the team at first.
 
