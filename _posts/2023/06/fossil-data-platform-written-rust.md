@@ -123,13 +123,13 @@ However, there have been some changes, and the migration is progressing slowly d
 
 # Well, what's next?
 
-![What's next?](/media/2023/06/fossil-data-platform-written-rust/whats-next.png)
-
 We need to have continued our efforts to optimize and refine its performance. Furthermore, we are exploring opportunities to leverage the Rust-based Data Platform alongside Apache Spark for batch processing. Investigating the integration possibilities between the Rust-based platform and Apache Spark opens up new avenues for expanding our data engineering capabilities.
 
 In parallel, we are actively working on ensuring backward compatibility with our previous Python-based Data Platform. This involves rigorous testing of the new Rust-based components with the existing configuration files and datasets.
 
 After all, [Hieu](https://github.com/therealhieu) is leading the rewrite effort based on his experience from the first version and is implementing best practices. He plans to create partially open-source components that are backward compatible with Python, refactor the configuration, use Polars and DuckDB, enable parallel processing on the Tokio runtime, and carefully benchmark resource consumption. Hieu may provide detailed information and lessons learned at a later time through a highlighting article.
+
+![](/media/2023/06/fossil-data-platform-written-rust/whats-next.png)
 
 # The feature of Rust for Data Engineering
 
