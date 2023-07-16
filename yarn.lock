@@ -13,16 +13,16 @@
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
 "@auth0/auth0-react@^2.0.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-2.1.1.tgz#69caec80ddcde6f7312677e9522997441419e8ec"
-  integrity sha512-KOFdTaFvashPX1o3h3ARYSCtR0qMya1ia57rSL2q7yggKv7PijHI/cKoG/gDvLA2G0M1qoCR3eACGDgHxstO3Q==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-2.2.0.tgz#8dc3dc75eff1cb994bf395e5d5799bc285d1c2e2"
+  integrity sha512-Kqk73HamFDDit9rGlmqUMbZiSuYcAJ0+P3ZS3kek79fsrUTc2od9tTVOjkNbzMLifetevOJ3Mgt/6f/6To4vkg==
   dependencies:
-    "@auth0/auth0-spa-js" "^2.0.8"
+    "@auth0/auth0-spa-js" "^2.1.0"
 
-"@auth0/auth0-spa-js@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-2.0.8.tgz#42a8e5aad043e66dbba2a8fadc086a46bf0d021f"
-  integrity sha512-qCgWZS58S69WCg2ybd+SDiaw3ahBVJ4/tSFWMtIpc//Fq8kRHGwMOmgpNKVAFrpHG0ck2oWFGrpylxoto8Z0mA==
+"@auth0/auth0-spa-js@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-2.1.0.tgz#f1515d5e7d6b6bebe2a035b7297f936e8711f80f"
+  integrity sha512-7cF2NxrslgjArIdBwpNg02atPldpHHOrXxDScL71cbxKuKny3eziZIpNHQAdsPFiLhjKQ+izWmLq2ZRFlYB/eQ==
 
 "@babel/runtime@^7.1.2", "@babel/runtime@^7.21.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.22.5"
