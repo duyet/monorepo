@@ -9,7 +9,7 @@ tags:
   - Ariflow
 slug: /2023/07/airflow-control-parallelism-concurrency.html
 thumbnail: /media/2023/07/airflow-control-parallelism-concurrency.svg
-description: 
+description: "How to control parallelism and concurrency"
 ---
 
 ![Airflow control the parallelism and concurrency](/media/2023/07/airflow-control-parallelism-concurrency.svg)
