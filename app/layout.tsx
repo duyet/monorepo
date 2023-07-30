@@ -18,7 +18,7 @@ const inter = Inter({
 export const metadata = {
   title: 'Tôi là Duyệt',
   description:
-    'Data Engineer @ Fossil. I blog about web development, machine learning, data engineering and more',
+    'Data Engineer. I blog about data engineering, bigdata, rust and more',
 }
 
 export default function RootLayout({

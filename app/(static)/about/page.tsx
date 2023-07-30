@@ -9,6 +9,10 @@ const skills: Link[] = [
     link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python',
   },
   {
+    name: 'Rust',
+    link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust',
+  },
+  {
     name: 'Javascript',
     link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript',
   },
@@ -37,11 +41,10 @@ export default function About() {
     <div className='space-y-6'>
       <h1 className='text-2xl font-bold'>Tôi là Duyệt</h1>
       <p>
-        Being a <strong>Data Engineer</strong> with 5+ years of experience, I’m
-        currently working for Fossil Group with a Terabyte-scale Data Platform
-        based on Kubernetes. I am confident in my knowledge of data engineering
+        Being a <strong>Data Engineer</strong> with 5+ years of experience.
+        I am confident in my knowledge of data engineering
         concepts as well as best practices and also familiarity with
-        state-of-the-art data and cloud technologies
+        state-of-the-art data and Cloud technologies
       </p>
 
       <div className='flex flex-col'>
