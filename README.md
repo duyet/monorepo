@@ -31,6 +31,12 @@ Copy the `.env.local.example` file in this directory to `.env.local` (which will
 cp .env.local.example .env.local
 ```
 
+or clone from Vercel deploy
+
+```bash
+vercel env pull .env.local
+```
+
 ### `3` Configuring Vercel Storage KV
 
 Go to the **Vercel Storage** and create a new database. Copy the .env.local from Vercel UI.
