@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { Auth0Provider } from '@auth0/auth0-react'
+import { Auth0Provider } from '@auth0/auth0-react';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const redirect_uri =
     typeof window !== 'undefined' && window.location.origin
       ? window.location.origin
-      : ''
+      : '';
 
   return (
     <Auth0Provider
@@ -18,5 +18,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     >
       {children}
     </Auth0Provider>
-  )
+  );
 }

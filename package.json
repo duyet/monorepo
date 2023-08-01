@@ -1,11 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "fix": "prettier --write .",
+    "lint": "next lint",
+    "prettier-check": "prettier --check .",
+    "start": "next start"
   },
+  "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
     "@headlessui/tailwindcss": "^0.2.0",
@@ -44,6 +47,7 @@
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.7",
     "@types/rss": "^0.0.30",
+    "@vercel/style-guide": "^4.0.2",
     "autoprefixer": "^10.4.12",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",

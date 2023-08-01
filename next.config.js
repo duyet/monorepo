@@ -36,6 +36,6 @@ module.exports = {
         destination: '/insights',
         permanent: true,
       },
-    ]
+    ];
   },
-}
+};
