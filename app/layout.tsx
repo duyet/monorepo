@@ -1,30 +1,30 @@
-import './globals.css';
+import './globals.css'
 
-import { Inter } from 'next/font/google';
+import { Inter } from 'next/font/google'
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Analytics from '../components/Analytics';
-import ThemeProvider from '../components/ThemeProvider';
-import Auth0Provider from '../components/Auth0Provider';
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import Analytics from '../components/Analytics'
+import ThemeProvider from '../components/ThemeProvider'
+import Auth0Provider from '../components/Auth0Provider'
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
-});
+})
 
 export const metadata = {
   title: 'Tôi là Duyệt',
   description:
     'Data Engineer. I blog about data engineering, bigdata, rust and more',
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" className={inter.className}>
@@ -45,5 +45,5 @@ export default function RootLayout({
         </Auth0Provider>
       </body>
     </html>
-  );
+  )
 }

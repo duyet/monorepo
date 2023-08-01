@@ -69,4 +69,4 @@ module.exports = {
     ...require('./tremor.theme.js').plugins,
   ],
   darkMode: ['class', 'html[class~="dark"]'],
-};
+}

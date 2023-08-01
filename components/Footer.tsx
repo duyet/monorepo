@@ -1,16 +1,16 @@
-import Link from 'next/link';
-import { ReactNode, ReactElement } from 'react';
+import Link from 'next/link'
+import { ReactNode, ReactElement } from 'react'
 
-import { cn } from '../lib/utils';
-import Container from './Container';
-import ThemeToggle from './ThemeToggle';
+import { cn } from '../lib/utils'
+import Container from './Container'
+import ThemeToggle from './ThemeToggle'
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
     'text-sm text-[#666666] dark:text-[#888888]',
     'no-underline betterhover:hover:text-gray-700',
     'betterhover:hover:dark:text-white transition',
-  );
+  )
 
   if (href.startsWith('http')) {
     return (
@@ -22,18 +22,18 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
       >
         {children}
       </a>
-    );
+    )
   }
 
   return (
     <Link href={href} className={classes}>
       {children}
     </Link>
-  );
+  )
 }
 
 function FooterHeader({ children }: { children: ReactNode }) {
-  return <h3 className="text-sm text-black dark:text-white">{children}</h3>;
+  return <h3 className="text-sm text-black dark:text-white">{children}</h3>
 }
 
 const navigation = {
@@ -53,7 +53,7 @@ const navigation = {
     { name: 'Resume (PDF)', href: 'https://cv.duyet.net' },
     { name: 'Projects', href: 'https://github.com/duyet?tab=repositories' },
   ],
-};
+}
 
 export function FooterContent() {
   return (
@@ -109,7 +109,7 @@ export function FooterContent() {
         </div>
       </div>
     </Container>
-  );
+  )
 }
 
 export default function Footer({ menu }: { menu?: boolean }): ReactElement {
@@ -125,5 +125,5 @@ export default function Footer({ menu }: { menu?: boolean }): ReactElement {
         <FooterContent />
       </div>
     </footer>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react'
 
-import Container from '../components/Container';
+import Container from '../components/Container'
 
 export default function Loading() {
   return (
@@ -12,5 +12,5 @@ export default function Loading() {
         </div>
       </div>
     </Container>
-  );
+  )
 }

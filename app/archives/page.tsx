@@ -1,16 +1,16 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import type { Post } from '../../interfaces';
-import Container from '../../components/Container';
-import { getPostsByAllYear } from '../../lib/getPost';
-import YearList from '../../components/YearList';
+import type { Post } from '../../interfaces'
+import Container from '../../components/Container'
+import { getPostsByAllYear } from '../../lib/getPost'
+import YearList from '../../components/YearList'
 
 export default function Archives() {
-  const yearLimit = 5;
+  const yearLimit = 5
   const postsByYear = getPostsByAllYear(
     ['slug', 'title', 'date', 'category'],
     yearLimit,
-  );
+  )
 
   return (
     <Container>
@@ -18,7 +18,7 @@ export default function Archives() {
         {Object.keys(postsByYear)
           .sort((a: string, b: string) => parseInt(b) - parseInt(a))
           .map((year: string) => {
-            const posts = postsByYear[year];
+            const posts = postsByYear[year]
 
             return (
               <div key={year}>
@@ -45,7 +45,7 @@ export default function Archives() {
                   </article>
                 ))}
               </div>
-            );
+            )
           })}
       </div>
 
@@ -53,5 +53,5 @@ export default function Archives() {
         <YearList />
       </div>
     </Container>
-  );
+  )
 }

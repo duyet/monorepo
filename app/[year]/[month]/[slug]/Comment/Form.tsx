@@ -1,30 +1,30 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react'
 
-import { cn } from '../../../../../lib/utils';
+import { cn } from '../../../../../lib/utils'
 
 type CommentFormProps = {
-  text: string;
-  setText: Function;
-  onSubmit: (e: React.FormEvent) => Promise<void>;
-};
+  text: string
+  setText: Function
+  onSubmit: (e: React.FormEvent) => Promise<void>
+}
 
 const btnClasses = cn(
   'py-2 px-4 rounded disabled:opacity-40 hover:bg-gray-200',
   'bg-gray-100 dark:bg-slate-800 dark:text-slate-50',
   'text-gray text-sm',
-);
+)
 
 const textareaClasses = cn(
   'flex w-full max-h-40 p-3 rounded resize-y text-gray-900',
   'border-t border-gray-200 dark:border-gray-700 dark:bg-transparent',
-);
+)
 
 export default function CommentForm({
   text,
   setText,
   onSubmit,
 }: CommentFormProps) {
-  const { isAuthenticated, user, logout, loginWithPopup } = useAuth0();
+  const { isAuthenticated, user, logout, loginWithPopup } = useAuth0()
 
   return (
     <form onSubmit={onSubmit}>
@@ -72,5 +72,5 @@ export default function CommentForm({
         )}
       </div>
     </form>
-  );
+  )
 }

@@ -1,2 +1,2 @@
-export * from './comment';
-export * from './cloudflare';
+export * from './comment'
+export * from './cloudflare'

@@ -1,16 +1,16 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-import type { Comment } from '../interfaces';
-import distanceToNow from '../lib/dateRelative';
-import { cn } from '../lib/utils';
+import type { Comment } from '../interfaces'
+import distanceToNow from '../lib/dateRelative'
+import { cn } from '../lib/utils'
 
 type CommentProps = {
-  comment: Comment;
-  isAdmin?: boolean;
-  isAuthor?: boolean;
-  onDelete?: (comment: Comment) => void;
-  className?: string;
-};
+  comment: Comment
+  isAdmin?: boolean
+  isAuthor?: boolean
+  onDelete?: (comment: Comment) => void
+  className?: string
+}
 
 export default function CommentContent({
   comment,
@@ -19,9 +19,9 @@ export default function CommentContent({
   onDelete,
   className,
 }: CommentProps) {
-  isAdmin = isAdmin || false;
-  isAuthor = isAuthor || false;
-  onDelete = onDelete || ((_: Comment) => {});
+  isAdmin = isAdmin || false
+  isAuthor = isAuthor || false
+  onDelete = onDelete || ((_: Comment) => {})
 
   return (
     <div className={cn('flex space-x-4', className)}>
@@ -56,5 +56,5 @@ export default function CommentContent({
         <div>{comment.text}</div>
       </div>
     </div>
-  );
+  )
 }

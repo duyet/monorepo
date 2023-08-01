@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from 'next/link'
+import Image from 'next/image'
 
-import Menu from './Menu';
-import Logo from '../public/duyet-notion.svg';
-import Container from '../components/Container';
+import Menu from './Menu'
+import Logo from '../public/duyet-notion.svg'
+import Container from '../components/Container'
 
 export default function Header() {
   return (
@@ -21,5 +21,5 @@ export default function Header() {
         </nav>
       </Container>
     </header>
-  );
+  )
 }

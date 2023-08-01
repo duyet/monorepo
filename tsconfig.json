@@ -34,6 +34,5 @@
   "baseUrl": ".",
   "paths": {
     "@/*": ["./*"]
-  },
-  "extends": "@vercel/style-guide/typescript"
+  }
 }

@@ -1,16 +1,16 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils'
 
 const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Insights', href: '/insights' },
   { name: 'Archives', href: '/archives' },
-];
+]
 
 type Props = {
-  className?: string;
-};
+  className?: string
+}
 
 export default function Menu({ className }: Props) {
   return (
@@ -25,5 +25,5 @@ export default function Menu({ className }: Props) {
         </Link>
       ))}
     </div>
-  );
+  )
 }

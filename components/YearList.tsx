@@ -1,25 +1,25 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import { getPostsByAllYear } from '../lib/getPost';
-import { cn } from '../lib/utils';
+import { getPostsByAllYear } from '../lib/getPost'
+import { cn } from '../lib/utils'
 
 type Props = {
-  order?: 'asc' | 'desc';
-  yearLimit?: number;
-  className?: string;
-};
+  order?: 'asc' | 'desc'
+  yearLimit?: number
+  className?: string
+}
 
 export default function YearList({
   order = 'desc',
   yearLimit = -1,
   className,
 }: Props) {
-  const years = Object.keys(getPostsByAllYear([], yearLimit));
+  const years = Object.keys(getPostsByAllYear([], yearLimit))
 
   if (order === 'desc') {
-    years.sort((a: string, b: string) => parseInt(b) - parseInt(a));
+    years.sort((a: string, b: string) => parseInt(b) - parseInt(a))
   } else {
-    years.sort((a: string, b: string) => parseInt(a) - parseInt(b));
+    years.sort((a: string, b: string) => parseInt(a) - parseInt(b))
   }
 
   return (
@@ -36,5 +36,5 @@ export default function YearList({
         </Link>
       ))}
     </div>
-  );
+  )
 }

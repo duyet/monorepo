@@ -1,7 +1,7 @@
-import Script from 'next/script';
-import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/react'
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID
 
 export default function AnalyticWrapper() {
   return (
@@ -41,5 +41,5 @@ export default function AnalyticWrapper() {
       `}
       </Script>
     </>
-  );
+  )
 }

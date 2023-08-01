@@ -1,4 +1,4 @@
-import Content, { getPost } from './Content';
+import Content, { getPost } from './Content'
 
-export default Content;
-export { getPost };
+export default Content
+export { getPost }

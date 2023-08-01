@@ -1,19 +1,19 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import type { Post } from '../../interfaces';
-import { getPostsByYear, getPostsByAllYear } from '../../lib/getPost';
-import YearList from '../../components/YearList';
+import type { Post } from '../../interfaces'
+import { getPostsByYear, getPostsByAllYear } from '../../lib/getPost'
+import YearList from '../../components/YearList'
 
 type Props = {
   params: {
-    year: number;
-  };
-};
+    year: number
+  }
+}
 
 export default function Year({ params: { year } }: Props) {
-  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
+  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
 
-  if (!posts) return null;
+  if (!posts) return null
 
   return (
     <>
@@ -40,13 +40,13 @@ export default function Year({ params: { year } }: Props) {
         <YearList />
       </div>
     </>
-  );
+  )
 }
 
 export async function generateStaticParams() {
-  const posts = getPostsByAllYear();
+  const posts = getPostsByAllYear()
 
   return Object.keys(posts).map((year) => ({
     year,
-  }));
+  }))
 }

@@ -1,25 +1,25 @@
-import { request } from 'graphql-request';
+import { request } from 'graphql-request'
 
-import { Metric, AreaChart, Flex, Text } from '../../../../components/Tremor';
-import { CloudflareAnalyticsByDate } from '../../../../interfaces';
-import TextDataSource from '../TextDataSource';
+import { Metric, AreaChart, Flex, Text } from '../../../../components/Tremor'
+import { CloudflareAnalyticsByDate } from '../../../../interfaces'
+import TextDataSource from '../TextDataSource'
 
 export type CloudflareProps = {
-  data: CloudflareAnalyticsByDate;
-  totalRequests: number;
-  totalPageviews: number;
-  generatedAt: string;
-};
+  data: CloudflareAnalyticsByDate
+  totalRequests: number
+  totalPageviews: number
+  generatedAt: string
+}
 
 // Revalidate every 24 hours
-export const revalidate = 86400;
+export const revalidate = 86400
 
 async function dataFormatter(number: number) {
-  return Intl.NumberFormat('us').format(number).toString();
+  return Intl.NumberFormat('us').format(number).toString()
 }
 
 export default async function Cloudflare() {
-  const { data, generatedAt, totalRequests, totalPageviews } = await getData();
+  const { data, generatedAt, totalRequests, totalPageviews } = await getData()
 
   const chartData =
     data?.viewer?.zones[0]?.httpRequests1dGroups?.map((item) => {
@@ -28,8 +28,8 @@ export default async function Cloudflare() {
         'Page Views': item.sum.pageViews,
         Requests: item.sum.requests,
         'Unique Visitors': item.uniq.uniques,
-      };
-    }) || [];
+      }
+    }) || []
 
   const cards = [
     {
@@ -42,7 +42,7 @@ export default async function Cloudflare() {
       value: await dataFormatter(totalPageviews || 0),
       valueDesc: 'in 30 days',
     },
-  ];
+  ]
 
   return (
     <div className="mx-auto">
@@ -71,7 +71,7 @@ export default async function Cloudflare() {
 
       <TextDataSource>Cloudflare | Generated at {generatedAt}</TextDataSource>
     </div>
-  );
+  )
 }
 
 const getData = async () => {
@@ -99,7 +99,7 @@ const getData = async () => {
           }
         }
       }
-    }`;
+    }`
 
   const variables = {
     zoneTag: process.env.NEXT_PUBLIC_CLOUDFLARE_ZONE_ID,
@@ -107,37 +107,37 @@ const getData = async () => {
       .toISOString()
       .split('T')[0],
     date_end: new Date().toISOString().split('T')[0],
-  };
+  }
 
   const headers = {
     Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_CLOUDFLARE_API_KEY,
-  };
+  }
 
   const data: CloudflareAnalyticsByDate = await request(
     'https://api.cloudflare.com/client/v4/graphql',
     query,
     variables,
     headers,
-  );
+  )
 
-  const zone = data.viewer.zones[0];
+  const zone = data.viewer.zones[0]
 
   const totalRequests = zone?.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.requests,
     0,
-  );
+  )
 
   const totalPageviews = zone?.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.pageViews,
     0,
-  );
+  )
 
-  const generatedAt = new Date().toISOString();
+  const generatedAt = new Date().toISOString()
 
   return {
     data,
     generatedAt,
     totalRequests,
     totalPageviews,
-  };
-};
+  }
+}

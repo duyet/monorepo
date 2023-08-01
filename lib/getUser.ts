@@ -7,6 +7,6 @@ export default async function getUser(token: string) {
         'Content-Type': 'application/json',
       },
     },
-  );
-  return await response.json();
+  )
+  return await response.json()
 }

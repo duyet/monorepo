@@ -1,10 +1,10 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import getSlug from '../../lib/getSlug';
-import { getAllCategories } from '../../lib/getPost';
+import getSlug from '../../lib/getSlug'
+import { getAllCategories } from '../../lib/getPost'
 
 export default function Categories() {
-  const categories = getAllCategories();
+  const categories = getAllCategories()
 
   return (
     <div>
@@ -22,5 +22,5 @@ export default function Categories() {
         </article>
       ))}
     </div>
-  );
+  )
 }

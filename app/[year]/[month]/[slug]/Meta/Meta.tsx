@@ -1,17 +1,17 @@
-import Link from 'next/link';
-import { Github } from 'lucide-react';
+import Link from 'next/link'
+import { Github } from 'lucide-react'
 
-import { cn } from '../../../../../lib/utils';
-import { Post } from '../../../../../interfaces';
-import distanceToNow from '../../../../../lib/dateRelative';
+import { cn } from '../../../../../lib/utils'
+import { Post } from '../../../../../interfaces'
+import distanceToNow from '../../../../../lib/dateRelative'
 
 type Props = {
-  post: Post;
-  className?: string;
-};
+  post: Post
+  className?: string
+}
 
 export default function Content({ post, className }: Props) {
-  const tags = post.tags?.join(', ');
+  const tags = post.tags?.join(', ')
 
   return (
     <div
@@ -42,5 +42,5 @@ export default function Content({ post, className }: Props) {
         <Github strokeWidth={1} size={20} />
       </a>
     </div>
-  );
+  )
 }
