@@ -17,7 +17,8 @@ description: Hơn 70% website hiện tại trên thế giới phát triển trê
 Hơn 70% website hiện tại trên thế giới phát triển trên nền ngôn ngữ PHP là minh chứng cụ thể cho thấy đây là một ngôn ngữ mạnh mẽ, phổ biến, dễ sử dụng để phát triển Web trong thời điểm hiện tại. Có thể kể đến một số website hiện tại đang sử dụng PHP là ngôn ngữ nền tảng như Facebook, Wikipedia, Yahoo, Photobucket,…
 Hy vọng qua loạt bài viết về PHP cơ bản, mọi người có thể tự tin xây dựng cho riêng mình một trang cá nhân từ PHP.
 
-## Hiểu về cách mà 1 trang web hoạt động ##
+## Hiểu về cách mà 1 trang web hoạt động
+
 Đầu tiên mình giới thiệu về cách mà 1 trang web hoạt động nhé. Web hoạt động theo mô hình Client-Server dưới đây:
 
 ![](https://4.bp.blogspot.com/-QxU1LVBUcsA/VS6XNXt1ozI/AAAAAAAACRk/Og_wF5j7WDM/s1600/mohinh01.jpg)
@@ -27,7 +28,8 @@ Trong đó:
 - Web Client thì các bạn đã biết rồi, là các trình duyệt Web.
 - Web Server là máy tính lưu trữ các website.
 
-### Quy trình hoạt động ###
+### Quy trình hoạt động
+
 
 1. Người duyệt xem web truy cập vào trang http://uit.edu.vn
 2. Hệ thống DNS sẽ xác định IP của UIT là 118.69.123.137
@@ -44,7 +46,8 @@ Vậy theo như trên, thì để có 1 trang web hoàn chỉnh chúng ta cần 
 
 Sau đây là các khái niệm cơ bản:
 
-## PHP là gì? ##
+## PHP là gì?
+
 
 - PHP viết tắt của Hypertext Preprocessor.
 - PHP không ăn được :))
@@ -53,13 +56,15 @@ Sau đây là các khái niệm cơ bản:
 - PHP hỗ trợ rất nhiều cơ sở dữ liệu (MySQL, Informix, Oracle, Sybase, Solid, PostgreSQL, Generic ODBC, vv)
 - PHP là một phần mềm mã nguồn mở.
 
-## HTML là gì? ##
+## HTML là gì?
+
 
 - HTML là viết tắt của cụm từ Hypertext Markup Language (Hiểu nghĩa là "Ngôn ngữ đánh dấu siêu văn bản bằng thẻ").
 - HTML không phải là một ngôn ngữ lập trình máy tính mà nó là một ngôn ngữ sử dụng các thẻ html để biểu diễn các trang web.
 - ISC Courses cũng có 1 lớp Static Web, các bạn chú ý theo học song song nhé. Để biết thêm HTML là gì thì bấm Ctrl + U :))
 
-## Để học PHP cần những gì? ##
+## Để học PHP cần những gì?
+
 
 - Một chiếc máy tính.
 - Một trình duyệt web.
@@ -67,13 +72,15 @@ Sau đây là các khái niệm cơ bản:
 - Một chút đam mê.
 - Một cuốn tập (sắm ngay đi nhé).
 
-## Cách cài đặt Web Server trên máy Localhost ##
+## Cách cài đặt Web Server trên máy Localhost
+
 
 Một Web Server được cấu thành từ hiều thứ như Apache, PHP, MySQL, …. được cài đặt trên Server. 
 
 Để thuận tiện học thiết kế web, chúng ta cài đặt máy tính của mình chương trình web server để máy tính của mình trở thành một localhost nhằm upload các website và xem các trang web. Sau đây mình sẽ hướng dẫn sử dụng bộ công cụ XAMPP để tạo 1 localhost.
 
-## Cài đặt XAMPP trên Windows ##
+## Cài đặt XAMPP trên Windows
+
 
 Do đa số mọi người sử dụng Window, còn ai sử dụng Linux thì các bạn contacts mình hoặc đợi  bài hướng dẫn chi tiết sau nha. 
 
@@ -114,7 +121,8 @@ Bây giờ bạn vào thư mục cài đặt XAMPP, chúng ta sẽ thấy cấu 
 
 Một trang Web PHP được viết thành nhiều file có đuôi .php, đặt trong nhiều thư mục khác nhau. Thư mục htdocs sẽ là nơi lưu tất cả các script php hay web của chúng ta sau này.
 
-## Cài đặt trình soạn thảo văn bản ##
+## Cài đặt trình soạn thảo văn bản
+
 Để viết code PHP bạn có thể viết bằng bất cứ trình soạn thảo text nào như notepad++, Sublime text, …. Nhưng mình ưu tiên khuyến khích các bạn sử dụng Sublime Text vì gọn nhẹ, nhiều Plugin hỗ trợ, ….
 
 Để cài đặt, đầu tiên download file cài đặt từ trang chủ Sublime: [http://www.sublimetext.com](http://www.sublimetext.com/)
@@ -123,7 +131,8 @@ Một trang Web PHP được viết thành nhiều file có đuôi .php, đặt 
 
 Chi tiết cách sử dụng các bạn xem thêm tại đây nhé, rất chi tiết: [https://www.izwebz.com/newbie/huong-dan-dung-sublime-text-2/](https://www.izwebz.com/newbie/huong-dan-dung-sublime-text-2/)
 
-## Kết ##
+## Kết
+
 Đến đây thì bạn đã có đầy đủ các công cụ để học PHP rồi nhé :))
 
 Ở bài sau chúng ta sẽ được biết qua các khái niệm, quy tắc, hàm, biến, hằng, …

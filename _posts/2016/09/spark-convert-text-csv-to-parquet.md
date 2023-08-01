@@ -30,6 +30,7 @@ Theo một bài viết của **IBM**\[2\], chuyển đổi sang Parquet giúp t�
 
 ## Let’s convert to Parquet!
 
+
 Spark SQL hỗ trợ đọc và ghi Parquet files, và giữ nguyên được meta data. Parquet schema cho phép data files "self-explanatory" to the Spark SQL applications.  
   
 Đoạn chương trình sau sử dụng databricks.csv để đọc flat file, sau đó lưu lại dạng Parquet kèm Schema.  
@@ -37,6 +38,7 @@ Spark SQL hỗ trợ đọc và ghi Parquet files, và giữ nguyên được me
 Đoạn mã trên tự động convert tất cả các file hadoopdsPath+"/catalog\_page/\* và lưu Parquet vào thư mục `/user/spark/data/parquet/`, mặc định Spark sử dụng chuẩn nén `gzip`, bạn có thể sử dụng compression codec `uncompressed`, `snappy`, hoặc `lzo`.  
 
 ## Convert 1TB mất bao lâu?
+
 
 Mất **50 phút**, tức khoảng **20GB/phút khi sử dụng 6-datanode Spark 1.5.1**. Tổng lượng bộ nhớ sử dụng là 500GB. Kết quả Parquet files trên HDFS có dạng:  
   
@@ -59,6 +61,7 @@ $ hadoop fs -du -h -s /user/spark/data/parquet1000g231.4 G  /user/spark/data/par
 Từ **897.9GB** text, với Parquet chỉ còn lại **231.4GB,** tiết kiệm được khoảng 75%.  
 
 ## Tham khảo
+
 
 *   \[1\] Apache Parquet - [https://parquet.apache.org/](https://parquet.apache.org/)
 *   \[2\] [How-to: Convert Text to Parquet in Spark to Boost Performance](https://developer.ibm.com/hadoop/2015/12/03/parquet-for-spark-sql/)

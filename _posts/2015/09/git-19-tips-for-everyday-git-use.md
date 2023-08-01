@@ -38,7 +38,8 @@ If you are completely new to git, I suggest reading [Git Cheat Sheet](http://www
 
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 1. Parameters for better logging ##
+## 1. Parameters for better logging
+
 **Sample Command**`git log --oneline --graph`
 Chances are, by now you’ve used git log. It supports a number of command line parameters, which are very powerful, especially when used in combination. Here are the ones that I use the most:
 
@@ -56,14 +57,16 @@ If everything else fails, git has a `--pretty` parameter that let’s you create
 [![git-log-oneline](http://www.alexkras.com/wp-content/uploads/git-log-oneline.png)](http://www.alexkras.com/wp-content/uploads/git-log-oneline.png)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 2. Log actual changes in a file ##
+## 2. Log actual changes in a file
+
 **Sample Command**`git log -p filename`
 `git log -p` or `git log -p filename` lets you view not only the commit message, author, and date, but actual changes that took place in each commit.
 Then you can use the regular `less` search command of "slash" followed by your search term`/{{ "{{" }}your-search-here}}` to look for changes to a particular keyword over time. (Use lower case n to go to the next result, and upper case N to go to the previous result).
 [![git-log-search](http://www.alexkras.com/wp-content/uploads/git-log-search.png)](http://www.alexkras.com/wp-content/uploads/git-log-search.png)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 3. Only Log changes for some specific lines in a file ##
+## 3. Only Log changes for some specific lines in a file
+
 **Sample Command**`git log -L 1,1:some-file.txt`
 You can use `git blame filename` to find the person responsible for every line of the file.
 [![git-blame](http://www.alexkras.com/wp-content/uploads/git-blame.png)](http://www.alexkras.com/wp-content/uploads/git-blame.png)
@@ -73,14 +76,16 @@ An alternative is provided by `git log` with a `-L` flag. This flag allows you t
 [![git-log-lines](http://www.alexkras.com/wp-content/uploads/git-log-lines.png)](http://www.alexkras.com/wp-content/uploads/git-log-lines.png)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 4. Log changes not yet merged to the parent branch ##
+## 4. Log changes not yet merged to the parent branch
+
 **Sample:**`git log --no-merges master..`
 If you ever worked on a long-lived branches, with multiple people working on it, chances are you’ve experienced numerous merges of the parent branch(i.e. master) into your feature branch. This makes it hard to see the changes that took place on the master branch vs. the changes that have been committed on the feature branch and which have yet to be merged.
 `git log --no-merges master..` will solve the issue. Note the `--no-merges` flag indicate to only show changes that have not been merged yet to ANY branch, and the **master..** option, indicates to only show changes that have not been merged to master branch. (You must include the **..** after master).
 You can also do `git show --no-merges master..` or `git log -p --no-merges master..` (output is identical) to see actual file changes that are have yet to be merged.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 5. Extract a file from another branch ##
+## 5. Extract a file from another branch
+
 **Sample:**`git show some-branch:some-file.js`
 Sometimes it is nice to take a pick at an entire file on a different branch, without switching to this branch.
 You can do so via `git show some-branch-name:some-file-name.js`, which would show the file in your terminal.
@@ -90,7 +95,8 @@ Note: If all you want to see is a diff between two files, you can simple run:
 `git diff some-branch some-filename.js`
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 6. Some notes on rebasing ##
+## 6. Some notes on rebasing
+
 **Sample:**`git pull -—rebase`
 We’ve talked about a lot of merge commits when working on a remote branch. Some of those commits can be avoided by using `git rebase`.
 Generally I consider rebasing to be an advanced feature, and it’s probably best left for another post.
@@ -105,7 +111,9 @@ That being said, rebasing is not something to be afraid of either, rather someth
 Probably the best way to rebase is using **interactive rebasing**, invoked via `git rebase -i {{ "{{" }}some commit hash}}`. It will open up an editor, with self explanatory instruction. Since rebasing is outside of the scope of this article, I’ll leave it at that.
 [![git-rebase-i](http://www.alexkras.com/wp-content/uploads/git-rebase-i.png)](http://www.alexkras.com/wp-content/uploads/git-rebase-i.png)
 
-### One particular rebase that is very helpful is `git pull --rebase`. ###
+### One particular rebase that is very helpful is `git pull --rebase`.
+
+
 For example, imagine you are working on a local version of a master branch, and you made one small commit. At the same time, somebody else checked in a week worth of work onto the master branch. When you try to push your change, git tells you to do a `git pull` first, to resolve the conflict. Being a good citizen that you are, you do a `git pull` to end up with the following commit message auto generated by git.
 
 > Merge remote-tracking branch ‘origin/master’         
@@ -115,7 +123,8 @@ In this case, a valid alternative is to do a `git pull --rebase` instead.
 This will force git to first pull the changes, and then re-apply(rebase) your un-pushed commits on top of the latest version of the remote branch, as if they just took place. This will remove the need for merge and the ugly merge message.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 7. Remember the branch structure after a local merge ##
+## 7. Remember the branch structure after a local merge
+
 **Sample:**`git merge --no-ff`
 I like to create a new branch for every new bug or feature. Among other benefits, it helps me to get a great clarity on how a series of commits may relate to a particular task. If you ever merged a pull request on github or a similar tool, you will in fact be able to nicely see the merged branch history in `git log --oneline --graph` view.
 If you ever try to merge a local branch, into another local branch, you may notice git has flatten out the branch, making it show up as a straight line in git history.
@@ -124,7 +133,8 @@ If you want to force git to keep branches history, similarly to what you would s
 [![git-merge-no-ff](http://www.alexkras.com/wp-content/uploads/git-merge-no-ff.png)](http://www.alexkras.com/wp-content/uploads/git-merge-no-ff.png)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 8. Fix your previous commit, instead of making a new commit ##
+## 8. Fix your previous commit, instead of making a new commit
+
 **Sample**`git commit --amend`
 This one is pretty straightforward.
 Let say you made a commit and then realized you made a typo. You could make a new commit with a "descriptive" message **typo**. But there is a better way.
@@ -139,7 +149,8 @@ Let say you made a commit and then realized you made a typo. You could make a ne
 If you are working on your own branch, you can fix commits even after you have pushed, you would just have to do a `git push -f` (-f stands for force), which would over-ride the history. But you **WOULD NOT want to do this** on a branch that is **being used by other people** (as discussed in rebase section above). At that point, a "typo" commit, might be your best bet.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 9. Three stages in git, and how to move between them ##
+## 9. Three stages in git, and how to move between them
+
 **Sample**`git reset --hard HEAD` and `git status -s`
 As you may already know by now, a file in git can be in 3 stages:         
 1. Not staged for commit         
@@ -151,7 +162,9 @@ Another view that makes it much easier to visualize the stages is invoked via `g
 Obviously, `git status` will not show files that have already been committed, you can use `git log` to see those instead ![:)](http://www.alexkras.com/wp-includes/images/smilies/simple-smile.png)
 There are a couple of options available to you to move the files to a different stage.
 
-### Resetting the files ###
+### Resetting the files
+
+
 There are 3 types of reset available in git. A reset allows you to return to a particular version in git history.
 
 1. `git reset --hard {{ "{{" }}some-commit-hash}}` – Return to a particular point in history. **All changes made after this commit are discarded**.
@@ -165,7 +178,9 @@ Common use cases that I find myself using the reset are bellow:
 2. I want to edit, re-stage and re-commit files in some different order – `git reset {{ "{{" }}some-start-point-hash}}`
 3. I just want to re commit past 3 commits, as one big commit – `git reset --soft {{ "{{" }}some-start-point-hash}}`
 
-### Check out some files ###
+### Check out some files
+
+
 If you simply want to forget some local changes for some files, but at the same time want to keep changes made in other files, it is much easier to check out committed versions of the files that you want to forget, via:         
 `git checkout forget-my-changes.js`
 It’s like running `git reset --hard` but only on some of the files.
@@ -176,13 +191,15 @@ You’ll notice that the checked out files will be in a "staged for commit" stag
 Note, that running `git reset --hard HEAD file-name.js` does not work. In general, moving through various stages in git is a bit confusing and the pattern is not always clear, which I hoped is to remedied a bit with this section.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 10. Revert a commit, softly ##
+## 10. Revert a commit, softly
+
 **Sample**`git revert -n`
 This one is handy if you want to undo a previous commit or two, look at the changes, and see which ones might have caused a problem.
 Regular `git revert` will automatically re-commit reverted files, prompting you to write a new commit message. The `-n` flag tells git to take it easy on committing for now, since all we want to do is look.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 11. See diff-erence for the entire project (not just one file at a time) in a 3rd party diff tool ##
+## 11. See diff-erence for the entire project (not just one file at a time) in a 3rd party diff tool
+
 **Sample**`git difftool -d`
 My favorite diff-ing program is [Meld](http://www.alexkras.com/how-to-run-meld-on-mac-os-x-yosemite-without-homebrew-macports-or-think/). I fell in love with it during my Linux times, and I carry it with me.
 I am not trying to sell you on Meld, though. Chances are you have a diff-ing tool of choice already, and git can work with it too, both as a merge and as a diff tool. Simply run the following commands, making sure to replace meld with your favorite diff tools of choice:
@@ -199,20 +216,23 @@ If you invoke `git difftool` with a `-d` flag, it will try to diff the entire fo
 [![git-difftool-d](http://www.alexkras.com/wp-content/uploads/git-difftool-d.png)](http://www.alexkras.com/wp-content/uploads/git-difftool-d.png)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 12. Ignore the white space ##
+## 12. Ignore the white space
+
 **Sample**`git diff -w` or `git blame -w`
 Have you ever re-indented or re-formatted a file, only to realize that now `git blame` shows that you are responsible for everything in that file?
 Turns out, git is smart enough to know the difference. You can invoke a lot of the commands (i.e. `git diff`, `git blame`) with a `-w` flag, and git will ignore the white space changes.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 13. Only "add" some changes from a file ##
+## 13. Only "add" some changes from a file
+
 **Sample**`git add -p`
 Somebody at git must really like the `-p` flag, because it always comes with some handy functionality.
 In case of `git add`, it allows you to interactive select exactly what you want to be committed. That way you can logically organize your commits in an easy to read manner.
 [![git-add-p](http://www.alexkras.com/wp-content/uploads/git-add-p.png)](http://www.alexkras.com/wp-content/uploads/git-add-p.png)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 14. Discover and zap those old branches ##
+## 14. Discover and zap those old branches
+
 **Sample**`git branch -a`
 It is common for a large number of remote branches to just hang around, some even after they have been merged into the master branch. If you are a neat freak (at least when it comes to code) like me, chances are they will irritate you a little.
 You can see all of the remote branches by running git branch with the `-a` flag (show all branches) and the `--merged` flag would only show branches that are fully merged into the master branch.
@@ -224,7 +244,8 @@ If you want to get really fancy, you can get a list of all the remote branches, 
 Unfortunately, there is no easy way (that I know of) to only show merged branches. So you might have to just compare the two outputs or write a script to do it for you.
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 15. Stash only some files ##
+## 15. Stash only some files
+
 **Sample**`git stash —keep-index` or `git stash -p`
 If you don’t yet know what `git stash` does, it simply puts all your unsaved changes on a "git stack" of sorts. Then at a later time you can do `git stash pop` and your changes will be re-applied. You can also do `git stash list` to see all your stashed changes. Take a look at `man git stash` for more options.
 One limitation of regular `git stash` is that it will stash all of the files at once. And sometimes it is handy to only stash some of the file, and keep the rest in your working tree.
@@ -239,7 +260,8 @@ Another handy trick, for stashing only some of the files, is to:
 
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 16. Good commit messages ##
+## 16. Good commit messages
+
 A little while ago I came across a great article on how to write a good commit message. Check it out here: [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/)
 One rule that really stood out for me is, **"every good commit should be able to complete the following sentence"**
 **When applied, this commit will:** {{ "{{" }} YOUR COMMIT MESSAGE}}
@@ -249,12 +271,14 @@ For example:
 – *When applied this commit will***Revert commit 12345**
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 17. Git Auto-completion ##
+## 17. Git Auto-completion
+
 Git packages for some operating systems (i.e. Ubuntu) come with git auto completion enabled by default. If your operating system did not come with one(Mac doesn’t), you can easily enable it by following these guidelines:
 [https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks#Auto-Completion](https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks#Auto-Completion)
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 18. Create aliases for your most frequently used commands ##
+## 18. Create aliases for your most frequently used commands
+
 **TLDR; Use git or bash aliases for most commonly used long git commands**
 Best way to use Git is via command line, and the best way to learn the command line is by doing everything the hard way first (typing everything out).
 After a while, however, it might be a good idea to track down your most used commands, and create an easier aliases for them.
@@ -268,7 +292,8 @@ For example, I have the following entry in my .bashrc file.
 `alias gil="git log –online –graph"`, allowing me to use `gil` instead of the long command,which is even 2 character shorter than having to type `git l` :).
 [https://www.blogger.com/null](https://www.blogger.com/null)
 
-## 19. Quickly find a commit that broke your feature (EXTRA AWESOME) ##
+## 19. Quickly find a commit that broke your feature (EXTRA AWESOME)
+
 **Sample:**`git bisect`
 `git bisect` uses divide and conquer algorithm to find a broken commit among a large number of commits.
 Imagine yourself coming back to work after a week long vacation. You pull the latest version of the project only to find out that a feature that you worked on right before you left is now broken.
@@ -278,14 +303,17 @@ At this point you would probably try to find the bug that broke your feature and
 **If the bug is hard to find**, however, you could try to navigate your way through the commit history, in attempt to pin point where the things went bad.
 The second approach is exactly where `git bisect` is so handy. It will allow you to find the breaking change in the fastest time possible.
 
-### So what does `git bisect` do? ###
+### So what does `git bisect` do?
+
+
 After you specify any known bad commit and any known good commit, `git bisect` will split the in-between commits in half, and checkout a new (nameless) branch in the middle commit to let you check if your future is broken at that point in time.
 Let say the middle commit still works. You would then let git know that via `git bisect good` command. Then you only have half of the commits left to test.
 Git would then split the remaining commits in half and into a new branch(again), letting you to test the feature again.
 `git bisect` will continue to narrow down your commits in a similar manner, until the first bad commit is found.
 Since you divide the number of commits by half on every iteration, you are able to find your bad commits in log(n) time (which is simply a ["big O"](https://en.wikipedia.org/wiki/Big_O_notation) speak for very fast).
 
-### The actual commands you need to run to execute the full `git bisect` flow are: ###
+### The actual commands you need to run to execute the full `git bisect` flow are:
+
 
 1. `git bisect start` – let git know to start bisecting.
 2. `git bisect good {{ "{{" }}some-commit-hash}}` – let git know about a known good commit (i.e. last commit that you made before the vacation).

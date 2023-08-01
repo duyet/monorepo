@@ -18,7 +18,9 @@ description: Sublime text là một editor cực mạnh mẽ với nhiều plugi
 Sublime text là một editor cực mạnh mẽ với nhiều plugin hữu ích, có thể cài đặt 1 cách dễ dàng trực tiếp. Sublime Text hiện đang được đông đảo các Web Developer sử dụng và yêu thích. Một điểm mạnh nữa là Sublime Text có thể mở rộng thông qua các Plugin, themes, .... viết bằng python.
 Hôm nay mình sẽ hướng dẫn về cách thay đổi giao diện cho Sublime Text, giúp bạn đỡ bớt phần nhàm chán khi Code quanh năm với cái giao diện cũ òm :))
 
-## Cài Package Control  ##
+## Cài Package Control
+
+
 Package Control giúp ta cài đặt mọi thứ trực tiếp vào sublime thông qua màn hình chính của IDE. Nếu bạn nào đã cài thì bỏ qua bước này.
 
 Bấm `Ctrl + `` để mở Sublime Console, rồi paste đoạn code sau vào.
@@ -40,7 +42,8 @@ Bấm Ctrl + Shift + P, gõ "Package Control", nếu thấy như thế này tứ
 
 ![](https://3.bp.blogspot.com/-sa830MyF-Pc/Va0kRlvZo9I/AAAAAAAACp4/gaw6hL08lPM/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A30%253A29.png)
 
-## Cài đặt theme thông qua Package Control ##
+## Cài đặt theme thông qua Package Control
+
 Theme bên dưới mình đang sử dụng là itg.flat, để cài đặt:
 
 1. Ctrl + Shift + P 

@@ -14,7 +14,9 @@ description: Trong linux, khi làm việc trên server hay đơn giản hơn là
 
 Trong linux, khi làm việc trên server hay đơn giản hơn là làm việc trên ternimal, ít nhiều bạn cũng phải rớ tới các file và thư mục, bay nhảy qua lại. Nhưng 1 điều bạn nhất định phải biết, đó là đường dẫn.
 
-## Đường dẫn tuyệt đối ##
+## Đường dẫn tuyệt đối
+
+
 Đường dẫn tuyệt đối của một tệp tin hay thư mục luôn bắt đầu bởi `/` (root) và tiếp theo sau đó là chuỗi các thư mục mà nó đi xuyên qua cho đến khi tới đích. Tóm lại, một đường dẫn tuyệt đối là đường dẫn bắt đầu bởi `/ `(root)
 Ví dụ :
 
@@ -23,13 +25,15 @@ Ví dụ :
 
 Chốt: đường dẫn tuyệt đối bắt đầu bằng dấu /
 
-## Đường dẫn tương đối ##
+## Đường dẫn tương đối
+
+
 Đối với đường dẫn tương đối thì người sử dụng không đòi hỏi phải bắt đầu từ `/` (root). Đường dẫn tương đối bắt đầu đi từ thư mục hiện tại. Một đường dẫn tương đối thường bắt đầu với tên của một thư mục hoặc tệp tin, kết hợp với các thư mục đặt biệt sau
 
 - Dấu `.` (dấu chấm), thư mục `.` là thư mục đặc biệt, liên kết (biểu thị) đến thư mục hiện thời (working directory). 
 - Dấu `..` (hai chấm) liên kết (biểu thị) cho thư mục mẹ của thư mục hiện thời.
 
-Ví dụ: ráng đọc từng dòng shell nha =]]
+Ví dụ: ráng đọc từng dòng bash nha =]]
 
 ![](https://1.bp.blogspot.com/-7Vz3G6MLhWs/VOAh4mrkK4I/AAAAAAAACG4/DURQJ5i71pE/s1600/Screenshot%2Bfrom%2B2015-02-15%2B11%3A33%3A35.png)
 
@@ -38,55 +42,53 @@ Giả sử là bạn đang đứng trong thư mục `/home/lvduit` trong cây th
 Từ đây thì đường dẫn `abc/xxx` sẽ là đường dẫn tương đối của tệp tin xxx.
 Còn` /home/lvduit/abc/xxx` sẽ là đường dẫn tuyệt đối.
 
-## Kết ##
+## Kết
+
+
 Về thư mục gốc
 
-```shell
-[lvduit@lvduit ~]$ cd /
+```bash
+$ cd /
 ```
 
 Nhảy đến 1 vị trí bất kì khi biết địa chỉ tuyệt đối
 
-```shell
-[lvduit@lvduit ~]$ cd /usr/lib/
+```bash
+$ cd /usr/lib/
 ```
 
 Di chuyển đến thư mục con nằm trong thư mục hiện tại
 
-```shell
-[lvduit@lvduit ~]$ cd docs  # hoặc ./docs
+```bash
+$ cd docs  # hoặc ./docs
 ```
 
 Di chuyển đến thư mục mẹ
 
-```shell
-[lvduit@lvduit ~]$ cd ..
-[lvduit@lvduit ~]$ cd ../..  # di chuyển đến thư mục mẹ 2 lần
+```bash
+$ cd ..
+$ cd ../..  # di chuyển đến thư mục mẹ 2 lần
 ```
 
 Bây giờ, giả sử bạn đang làm việc trong thư mục `/mnt/data/linux`. Sau đó bạn chuyển sang thư mục `/etc/sysconfig`. Để quay trở lại thư mục `/mnt/data/linux`, bạn gõ:
 
-```shell
+```bash
 $ cd -
 ```
 
 Lệnh cd không có tham số, sẽ đưa bạn về nhà, dù bất kể bạn đang ở đâu
 
-```shell
-[lvduit@lvduit ~]$ pwd
+```bash
+$ pwd
 /net/ftp/pub/html
-[lvduit@lvduit ~]$ cd
-[lvduit@lvduit ~]$ pwd
-/home/lvduit
+$ cd
+$ pwd
+/home/duyet
 ```
 
 Tương tự vậy, thư mục ~ cũng cho phép bạn về nhà bằng cách này
 
-```shell
-[lvduit@lvduit ~]$ cd ~
+```bash
+$ cd ~
 ```
 
-## Bonus ##
-Mọi thắc mắc, bạn có thể comment bên dưới, liên hệ qua mail (lvduit08 at gmail.com).
-
-I hope it will be useful for you :))

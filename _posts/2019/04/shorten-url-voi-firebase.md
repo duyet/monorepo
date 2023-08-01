@@ -32,6 +32,7 @@ Service sử dụng:
 
 ## Bước 1: Cài đặt Firebase Functions 
 
+
 theo các bước ở đây: [https://firebase.google.com/docs/functions/get-started](https://firebase.google.com/docs/functions/get-started) bao gồm  
 
 
@@ -85,6 +86,7 @@ firebase deploy --only functions
 ```
 
 ## Bước 2: Firebase Hosting, Web UI
+
 
 Website mình sử dụng [Gatsby React](https://gatsbyjs.org/), mã nguồn tại thư mục hosting: [https://github.com/duyet/firebase-shorten-url/tree/master/hosting](https://github.com/duyet/firebase-shorten-url/tree/master/hosting)  
   
@@ -145,6 +147,7 @@ Kết quả: [https://s.duyet.net](https://s.duyet.net/)
 Hiện tại link được tạo bởi Dynamic Link không hiện trên Firebase Dashboard, và chưa thể custom được keyword như trên Firebase Dashboard.  
 
 ## Tham khảo
+
 
 1.  [https://s.duyet.net](https://s.duyet.net/)
 2.  [Firebase Dynamic Links](https://firebase.google.com/docs/dynamic-links)

@@ -23,10 +23,11 @@ Jupyter Notebook là công cụ khá mạnh của lập trình viên Python và 
 
 ![](https://4.bp.blogspot.com/-aQIMnwL9Gxc/WDR00IF9dqI/AAAAAAAAf9w/ZvplzJNUtI8vjWh2nF8_kVJZoYF3fHF9QCLcB/s1600/Screenshot%2Bfrom%2B2016-11-22%2B23-39-25.png)
 
-## Cài đặt ##
+## Cài đặt
+
 1. Cài Jupyter Notebook và R
 
-```shell
+```bash
 # Install Jupyter Notebook 
 pip install jupyter
 
@@ -39,7 +40,7 @@ sudo apt-get install r-base
 
 2. Cài đặt R kernel, mở R command line
 
-```shell
+```bash
 root@duyetdev:~# R
 
 R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
@@ -54,7 +55,7 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 
 3. Khởi động Jupyter Notebook   
 
-```shell
+```bash
 jupyter notebook 
 ```
 
@@ -63,6 +64,7 @@ jupyter notebook
 ![](https://1.bp.blogspot.com/-msKKn9TC3QM/WDR3Z66_pXI/AAAAAAAAf98/pxS7bxjnjOIKszldYK4vh8ZUH2Q8kui2QCK4B/s1600/kernel-select.png)
 
 ## Tham khảo 
+
 
 Ngoài ra, Jupyter còn hỗ trợ rất nhiều Kernel khác do cộng đồng phát triển, xem tại đây: [https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages ](https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages)
 

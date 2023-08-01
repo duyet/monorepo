@@ -18,6 +18,7 @@ Cách để thêm file vào commit gần đây nhất, hoặc chỉnh sửa comm
 
 ## Sửa commit message
 
+
 ```bash
 $ git add <files>$đ git commit -m 
 $ git commit -m "implement feature A"
@@ -28,6 +29,7 @@ $ git commit --amend
 
 ## Thêm file bị thiếu vào commit gần nhất, và sửa commit message
 
+
 ```
 $ git add <files>
 $ git commit -m "feat: implement feature A"
@@ -37,6 +39,7 @@ $ git commit --amend
 ```
 
 ## Thêm file bị thiếu vào commit gần nhất, và KHÔNG sửa commit message
+
 
 ```
 $ git add <files>

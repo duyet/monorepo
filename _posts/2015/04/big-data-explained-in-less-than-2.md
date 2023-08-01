@@ -15,7 +15,8 @@ description: There are some things that are so big that they have implications f
 There are some things that are so big that they have implications for everyone, whether we want them to or not. Big Data is one of those concepts, and is completely transforming the way we do business and is impacting most other parts of our lives.
 It’s such an important idea that everyone from your grandma to your CEO needs to have a basic understanding of what it is and why it’s important.
 
-## What is Big Data? ##
+## What is Big Data?
+
 "Big Data" means different things to different people and there isn’t, and probably never will be, a commonly agreed upon definition out there. But the phenomenon is real and it is producing benefits in so many different areas, so it makes sense for all of us to have a working understanding of the concept.
 
 ![](https://2.bp.blogspot.com/-91L8Jd3M3u4/VSpWUia7JaI/AAAAAAAACQY/LcrkDeteKiA/s1600/AAEAAQAAAAAAAAMxAAAAJDk1ZTU1YTg0LWU0ZGQtNDRiYi1iM2UxLWNmY2FhYjhiMzgxMQ.jpg)
@@ -34,7 +35,8 @@ The other big change is in the kind of data we can analyze. It used to be that d
 
 Now data analysts can also look at "unstructured" data like photos, tweets, emails, voice recordings and sensor data to find patterns.
 
-## How is it being used? ##
+## How is it being used?
+
 As with any leap forward in innovation, the tool can be used for good or nefarious purposes. Some people are concerned about privacy, as more and more details of our lives are being recorded and analyzed by businesses, agencies, and governments every day. Those concerns are real and not to be taken lightly, and I believe that best practices, rules, and regulations will evolve alongside the technology to protect individuals.
 
 But the benefits of big data are very real, and truly remarkable.
@@ -45,7 +47,8 @@ It’s also used to optimize business processes. Retailers are able to optimize 
 
 But big data goes way beyond shopping and consumerism. Big data analytics enable us to find new cures and better understand and predict the spread of diseases. Police forces use big data tools to catch criminals and even predict criminal activity and credit card companies use big data analytics it to detect fraudulent transactions. A number of cities are even using big data analytics with the aim of turning themselves into Smart Cities, where a bus would know to wait for a delayed train and where traffic signals predict traffic volumes and operate to minimize jams.
 
-## Why is it so important? ##
+## Why is it so important?
+
 The biggest reason big data is important to everyone is that it’s a trend that’s only going to grow.
 
 As the tools to collect and analyze the data become less and less expensive and more and more accessible, we will develop more and more uses for it — everything from smart yoga mats to better healthcare tools and a more effective police force.

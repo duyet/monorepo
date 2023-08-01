@@ -18,7 +18,8 @@ Design by Van-Duyet Le (@lvduit), one of module for my DSS Project."
 DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
 Design by Van-Duyet Le (@lvduit), one of module for my DSS Project.
 
-## DCrawler ##
+## DCrawler
+
 DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
 
 Project: DCrawler ([https://github.com/lvduit/DCrawler](https://github.com/lvduit/DCrawler))
@@ -26,7 +27,8 @@ Version: 0.0.1
 Author: Van-Duyet Le ([@lvduit](http://twitter.com/lvduit))
 Home: [http://lvduit.com](http://lvduit.com/)
 
-## Features ##
+## Features
+
 Current features:
 
 - Content parser like jQuery.
@@ -34,11 +36,13 @@ Current features:
 - MongoDb Store.
 - Queues stack on Database, you can stop and resume anytime.
 
-## Usage ##
+## Usage
+
 
 Make sure your Nodejs and MongoDb are installed.
 
-### To install: ###
+### To install:
+
 
 1. Clone the script from Github
 
@@ -53,7 +57,9 @@ cd ./DCrawler
 npm install
 ```
 
-### Config your spider ###
+### Config your spider
+
+
 Config your spider, the sample spider is located at modules/tinhte.js
 
 To run:
@@ -68,10 +74,13 @@ For multi thread base on your CPU Core
 node multithread
 ```
 
-### To view your data ###
+### To view your data
+
+
 Using [https://github.com/lvduit/mongo-express](https://github.com/lvduit/mongo-express) for GUI MongoDb Data view.  
 
-## License ##
+## License
+
 MIT License
 
 Copyright (c) 2015 Van-Duyet Le

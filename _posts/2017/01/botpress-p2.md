@@ -22,7 +22,8 @@ Về cơ bản Bot theo cơ chế lắng nghe lệnh (từ khóa) và trả lờ
 
 Xem lại phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://blog.duyet.net/2017/01/botpress.html#.WJP5QxJ97_g)
 
-## Simple Hello World ##
+## Simple Hello World
+
 OK để bắt đầu ta mở `index.js`
 
 ```js
@@ -52,7 +53,8 @@ Khởi động lại Botpress server.
 
 [![](https://1.bp.blogspot.com/--v33owHOC6Y/WIa2ZvmliqI/AAAAAAAAik4/EmA8Lc7XAgMAHGUHanOBtLs3uixdIlN1ACKgB/s640/Screenshot_2017-01-24-09-03-08-630_com.facebook.orca.png)](https://1.bp.blogspot.com/--v33owHOC6Y/WIa2ZvmliqI/AAAAAAAAik4/EmA8Lc7XAgMAHGUHanOBtLs3uixdIlN1ACKgB/s1600/Screenshot_2017-01-24-09-03-08-630_com.facebook.orca.png)
 
-## Hello world nhưng bớt ngu hơn xíu ##
+## Hello world nhưng bớt ngu hơn xíu
+
 Bây giờ mình muốn mỗi khi bot nghe "hello" là tự động chào lại bằng tên (first_name) mình.
 
 ```js
@@ -73,7 +75,8 @@ module.exports = function(bp) {
 
 [![](https://4.bp.blogspot.com/-8vdkgAPplng/WIa4MtxfARI/AAAAAAAAilM/Ux0PKCpmXHoBui9hYc7fuO6busO4iJIaQCKgB/s640/Screenshot_2017-01-24-09-12-24-681_com.google.android.apps.photos.png)](https://4.bp.blogspot.com/-8vdkgAPplng/WIa4MtxfARI/AAAAAAAAilM/Ux0PKCpmXHoBui9hYc7fuO6busO4iJIaQCKgB/s1600/Screenshot_2017-01-24-09-12-24-681_com.google.android.apps.photos.png)
 
-## Messenger Quick Reply ##
+## Messenger Quick Reply
+
 Quick Reply là chức năng trong Messenger, cho phép user thay vì phải chat thì có thể chọn 1 từ menu. Khai báo tham số quick_replies như sau:
 
 ```js
@@ -114,7 +117,8 @@ module.exports = function(bp) {
 
 [![](https://1.bp.blogspot.com/-W7vlccclv-A/WIa9BT5alwI/AAAAAAAAil0/cGrnqfmlv_U-n2xJhOzgcZiZ9u9Oa0qDACKgB/s640/Screenshot_2017-01-24-09-32-42-123_com.facebook.orca.png)](https://1.bp.blogspot.com/-W7vlccclv-A/WIa9BT5alwI/AAAAAAAAil0/cGrnqfmlv_U-n2xJhOzgcZiZ9u9Oa0qDACKgB/s1600/Screenshot_2017-01-24-09-32-42-123_com.facebook.orca.png)
 
-## Messenger Attachments ##
+## Messenger Attachments
+
 Messenger có thể gửi đính kèm với 4 định dạng: `'audio'`, `'file'`, `'image'` or `'video'`
 
 ```js
@@ -134,7 +138,8 @@ Tham số thứ 3 `url` của file đính kèm.
 
 [![](https://2.bp.blogspot.com/-cgMBrsS0v3E/WIa-rbq68cI/AAAAAAAAimE/0-05L5gKka8GI3qmJjjq20DrekMWIPjjwCKgB/s640/Screenshot_2017-01-24-09-40-29-234_com.facebook.orca.png)](https://2.bp.blogspot.com/-cgMBrsS0v3E/WIa-rbq68cI/AAAAAAAAimE/0-05L5gKka8GI3qmJjjq20DrekMWIPjjwCKgB/s1600/Screenshot_2017-01-24-09-40-29-234_com.facebook.orca.png)
 
-## Messenger Templates ##
+## Messenger Templates
+
 [Facebook hỗ trợ nhiều dạng message template](https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates). Ví dụ như:
 
 1. [Button Template](https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template)
@@ -177,14 +182,16 @@ bp.hear(/duyetdev/i, event => {
 
 [![](https://4.bp.blogspot.com/-uw8VgTCx_n0/WIbDuJ6D-ZI/AAAAAAAAimg/gi7ug_nLreYFnbTCj5pPSxqr1ofyLvYfACK4B/s640/Screenshot_2017-01-24-09-59-12-331_com.facebook.orca.png)](https://4.bp.blogspot.com/-uw8VgTCx_n0/WIbDuJ6D-ZI/AAAAAAAAimg/gi7ug_nLreYFnbTCj5pPSxqr1ofyLvYfACK4B/s1600/Screenshot_2017-01-24-09-59-12-331_com.facebook.orca.png)
 
-## Kết ##
+## Kết
+
 ChatBot không chỉ phải biết trả lời theo từ khóa mà còn phải hiểu được ý người chat khi viết bằng nhiều cách khác nhau, phần tiếp theo chúng ta sẽ làm cho con ahihi "thông minh" hơn bằng cách kết hợp với các Service API NLP để get được context, object, ... từ tin nhắn của người dùng.
 
 Nếu có thời gian mình sẽ viết 1 bài tự build ra model cho Bot để có thể đọc hiểu và trả lời ở mức cơ bản.
 
 Xem phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://blog.duyet.net/2017/01/botpress.html#.WJP5QxJ97_g)
 
-## Tham khảo ##
+## Tham khảo
+
 
 1. [Nodejs - Chatbot với Botpress](https://blog.duyet.net/2017/01/botpress.html)
 2. [Botpress Advanted Topics](https://docs.botpress.io/advanced-topics.html)

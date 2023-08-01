@@ -32,7 +32,7 @@ Then, in my templates, I tried to use that value for the defaultMode of a volume
 
 File: templates/deployment.yaml
 
-```
+```tpl
 {{- if .Values.customScripts }}
 - name: custom-scripts
   configMap:
@@ -91,6 +91,7 @@ customScriptDefaultMode: "0777"
 ```
 
 ## References
+
 
 - [https://stackoverflow.com/a/33168435](https://stackoverflow.com/a/33168435)
 - [Template Function List > toDecimal](https://helm.sh/docs/chart_template_guide/function_list/#todecimal)

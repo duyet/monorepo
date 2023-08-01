@@ -17,13 +17,15 @@ Javascript #2 tuần này có gì mới.
 
 [![](https://4.bp.blogspot.com/-K_vkG8qVJiA/V0k5ORhPhXI/AAAAAAAAWJQ/PR7wLT5sdfIGjSGb5SqJeFIevpWo2rbKwCK4B/s1600/javascript-weekly-2-duyetdev.png)](https://blog.duyet.net/2016/05/javascript-weekly-2.html)
 
-## [Six nifty ES6 tricks](http://saveto.co/LdRQ7M) ##
+## [Six nifty ES6 tricks](http://saveto.co/LdRQ7M)
+
 DR. AXEL RAUSCHMAYER
 Đây là bài viết của Dr. Axel, về các thủ thuật hay trong ES6, như hoán đổi biến, sử dụng desctructuring, ...
 
 Xem thêm: [ES6 - swap (hoán đổi) nhanh 2 biến số](https://blog.duyet.net/2016/05/es6-swap-via-destructuring.html#.V0k6NXV97CB) / [ES6 - ép sử dụng tham số trong function](https://blog.duyet.net/2016/05/es6-ep-su-dung-tham-so-trong-function.html#.V0k6KHV97CA)
 
-## [React Tutorial: Cloning Yelp](http://saveto.co/wHMNCL) ##
+## [React Tutorial: Cloning Yelp](http://saveto.co/wHMNCL)
+
 
 ARI LERNER
 
@@ -31,19 +33,22 @@ React là công nghệ đang rất hot hiện nay. Bằng cách học thông qua
 
 [![](https://4.bp.blogspot.com/-rkBefMDxkJU/V0k-k6IlILI/AAAAAAAAWJs/LMlK00pPdRY9ymMJT26xDoKNiROzWiW7wCK4B/s640/fullstackreact-yelp-clone-tutorial.png)](https://4.bp.blogspot.com/-rkBefMDxkJU/V0k-k6IlILI/AAAAAAAAWJs/LMlK00pPdRY9ymMJT26xDoKNiROzWiW7wCK4B/s1600/fullstackreact-yelp-clone-tutorial.png)
 
-## [Understanding ASTs by Building Your Own Babel Plugin](http://saveto.co/Lirltu) ##
+## [Understanding ASTs by Building Your Own Babel Plugin](http://saveto.co/Lirltu)
+
 DAN PRINCE
 Babel là plugin phổ biến hiện nay, chuyển đổi mã ES6, ES7 sang các phiên bản Javascript thấp hơn. Qua bài viết bạn sẽ biết thế nào là AST, các ES6 hoạt động như thế nào.
 
 ![](https://2.bp.blogspot.com/-eDvomub8slU/V0k-ZleMYBI/AAAAAAAAWJk/SPtRxM2eGHEJdys-WUErpNOMdJVhkkSjgCK4B/s320/babel-logo.png)
 
-## [jQuery 3.0 Release Candidate Released](http://saveto.co/6qxqmw) ##
+## [jQuery 3.0 Release Candidate Released](http://saveto.co/6qxqmw)
+
 
 JQUERY FOUNDATION
 
 jQuery ra mắt phiên bản 3.0 "This is the same code we expect to release as the final version of jQuery 3.0 [..] When released, 3.0 will become the only version of jQuery."
 
-## [An Algorithm Visualizer Written in JS](http://saveto.co/SdDrsx) ##
+## [An Algorithm Visualizer Written in JS](http://saveto.co/SdDrsx)
+
 
 JASON PARK
 

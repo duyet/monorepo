@@ -41,6 +41,7 @@ PySpark sử dụng **py4j** để gọi trực tiếp các thư viện **Spark*
 
 ## 1. vn.vitk.tok.Tokenizer
 
+
 Với vn.vitk.tok.Tokenizer, Class này chỉ có Constructor với tham số String sparkMaster ([link](https://github.com/phuonglh/vn.vitk/blob/master/src/main/java/vn/vitk/tok/Tokenizer.java#L77)), địa chỉ của Spark Master. Mình muốn truyền trực tiếp Spark Context từ PySpark vào, thêm vào file **[vn.vitk/src/main/java/vn/vitk/tok/Tokenizer.java](https://github.com/phuonglh/vn.vitk/blob/master/src/main/java/vn/vitk/tok/Tokenizer.java#L77)**  
   
 ```java
@@ -71,6 +72,7 @@ Build lại project bằng lệnh: `mvn compile package`, sau khi build thành c
 
 ## Submit PySpark và code
 
+
 Submit vn.vitk-3.0.jar bằng lệnh:  
 
 ```bash
@@ -95,6 +97,7 @@ https://gist.github.com/duyet/9252f98405738ac63d5d8fd034866dac
 Bạn có thể xem toàn bộ mã nguồn, input và output mẫu tại đây: [https://github.com/duyet/pyspark-vn.vitk](https://github.com/duyet/pyspark-vn.vitk)  
 
 ## Tham khảo
+
 
 1.  [https://github.com/phuonglh/vn.vitk](https://github.com/phuonglh/vn.vitk)
 2.  [https://github.com/duyet/pyspark-vn.vitk](https://github.com/duyet/pyspark-vn.vitk)

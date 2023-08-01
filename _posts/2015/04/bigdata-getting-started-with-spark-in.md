@@ -24,10 +24,12 @@ Spark is the first fast, general purpose distributed computing paradigm resultin
 
 In this post we will first discuss how to set up Spark to start easily performing analytics, either simply on your local machine or in a cluster on EC2. We then will explore Spark at an introductory level, moving towards an understanding of what Spark is and how it works (hopefully motivating further exploration). In the last two sections we will start to interact with Spark on the command line and then demo how to write a Spark application in Python and submit it to the cluster as a Spark job.
 
-## Install Spark ##
+## Install Spark
+
 Spark is pretty simple to set up and get running on your machine. I have a post (in Vietnamese)  how to install Spark in Ubuntu 14.04, see there: [https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html](https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html)
 
-## pyspark ##
+## pyspark
+
 
 After you source your profile (or simply restart your terminal), you should now be able to run a `pyspark` interpreter locally. Execute the pyspark command, and you should see a result as follows:
 
@@ -82,7 +84,8 @@ log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=WARN
 
 Now when you run PySpark you should get much simpler output messages! Special thanks to @genomegeek who pointed this out at a District Data Labs workshop!
 
-## Using IPython Notebook with Spark ##
+## Using IPython Notebook with Spark
+
 When Googling around for helpful Spark tips, I discovered a couple posts that mentioned how to configure PySpark with IPython notebook. [IPython notebook](http://ipython.org/notebook.html) is an essential tool for data scientists to present their scientific and theoretical work in an interactive fashion, integrating both text and Python code. For many data scientists, IPython notebook is their first introduction to Python and is used widely so I thought it would be worth including it in this post.
 
 Most of the instructions here are adapted from an IPython notebook: [Setting up IPython with PySpark](http://nbviewer.ipython.org/gist/fperez/6384491/00-Setup-IPython-PySpark.ipynb). However, we will focus on connecting your IPython shell to PySpark in standalone mode on your local computer rather than on an EC2 cluster. If you would like to work with PySpark/IPython on a cluster, feel free to check out those instructions and if you do, please comment on how it went!
@@ -168,7 +171,8 @@ print nums.filter(isprime).count()
 
 If you get a number without errors, then your context is working correctly!
 
-## Programming Spark ##
+## Programming Spark
+
 Programming Spark applications is similar to other data flow languages that had previously been implemented on Hadoop. Code is written in a driver program which is lazily evaluated, and upon an action, the driver code is distributed across the cluster to be executed by workers on their partitions of the RDD. Results are then sent back to the driver for aggregation or compilation. Essentially the driver program creates one or more RDDs, applies operations to transform the RDD, then invokes some action on the transformed RDD.
 
 These steps are outlined as follows:
@@ -181,7 +185,8 @@ When Spark runs a closure on a worker, any variables used in the closure are cop
 
 Spark applications are essentially the manipulation of RDDs through transformations and actions. Future posts will go into this in greater detail, but this understanding should be enough to execute the example programs below.
 
-## Spark Execution ##
+## Spark Execution
+
 A brief note on the execution of Spark. Essentially, Spark applications are run as independent sets of processes, coordinated by a SparkContext in a driver program. The context will connect to some cluster manager (e.g. YARN) which allocates system resources. Each worker in the cluster is managed by an executor, which is in turn managed by the SparkContext. The executor manages computation as well as storage and caching on each machine.
 
 What is important to note is that application code is sent from the driver to the executors, and the executors specify the context and the various tasks to be run. The executors communicate back and forth with the driver for data sharing or for interaction. Drivers are key participants in Spark jobs, and therefore, they should be on the same network as the cluster. This is different from Hadoop code, where you might submit a job from anywhere to the JobTracker, which then handles the execution on the cluster.
@@ -194,15 +199,20 @@ A basic template for writing a Spark application in Python is as follows:
 ```
 ## Spark Application - execute with spark-submit
 
+
 ## Imports
+
 from pyspark import SparkConf, SparkContext
 
 ## Module Constants
+
 APP_NAME = "My Spark Application"
 
 ## Closure Functions
 
+
 ## Main functionality
+
 
 def main(sc):
     pass
@@ -226,7 +236,9 @@ In order to demonstrate a common use of Spark, let's take a look at a common use
 ```
 ## Spark Application - execute with spark-submit
 
+
 ## Imports
+
 import csv
 import matplotlib.pyplot as plt
 
@@ -237,6 +249,7 @@ from operator import add, itemgetter
 from pyspark import SparkConf, SparkContext
 
 ## Module Constants
+
 APP_NAME = "Flight Delay Analysis"
 DATE_FMT = "%Y-%m-%d"
 TIME_FMT = "%H%M"
@@ -246,6 +259,7 @@ fields   = ('date', 'airline', 'flightnum', 'origin', 'dest', 'dep',
 Flight   = namedtuple('Flight', fields)
 
 ## Closure Functions
+
 def parse(row):
     """
     Parses a row and returns a named tuple.
@@ -299,6 +313,7 @@ def plot(delays):
     plt.show()
 
 ## Main functionality
+
 def main(sc):
 
     # Load the airlines lookup dictionary
@@ -353,14 +368,16 @@ With an RDD of Flight objects in hand, we map an anonymous function that transfo
 
 This example is kind of long, but hopefully it illustrates the interplay of the cluster and the driver program (sending out for analytics, then bringing results back to the driver) as well as the role of Python code in a Spark application.
 
-## Conclusion ##
+## Conclusion
+
 Although far from a complete introduction to Spark, we hope that you have a better feel for what Spark is, and how to conduct fast, in-memory distributed computing with Python. At the very least, you should be able to get Spark up and running and start exploring data either on your local machine in stand alone mode or via Amazon EC2. You should even be able to get iPython notebook set up and configured to run Spark!
 
 Spark doesn't solve the distributed storage problem (usually Spark gets its data from HDFS), but it does provide a rich functional programming API for distributed computation. This framework is built upon the idea of resilient distributed datasets or "RDDs" for short. RDDs are a programming abstraction that represents a partitioned collection of objects, allowing for distributed operations to be performed upon them. RDDs are fault-tolerant (the resilient part) and, most importantly, can be stored in memory on worker nodes for immediate reuse. In memory storage provides for faster and more easily expressed iterative algorithms as well as enabling real-time interactive analyses.
 
 Because the Spark library has an API available in Python, Scala, and Java, as well as built-in modules for machine learning, streaming data, graph algorithms, and SQL-like queries; it has rapidly become one of the most important distributed computation frameworks that exists today. When coupled with YARN, Spark serves to augment not replace existing Hadoop clusters and will be an important part of Big Data in the future, opening up new avenues of data science exploration.
 
-## Helpful Links ##
+## Helpful Links
+
 Hopefully you've enjoyed this post! Writing never happens in a vacuum, so here are a few helpful links that helped me write the post; ones that you might want to review to explore Spark further. Note that some of the book links are affiliate links, meaning that if you click on them and purchase, you're helping to support District Data Labs!
 
 This was more of an introductory post than is typical for District Data Labs articles , but there are some data and code associated with the introduction that you can find here:
@@ -369,12 +386,14 @@ This was more of an introductory post than is typical for District Data Labs art
 - [Shakespeare Dataset](http://goo.gl/PAIFCp)
 - [Airline On Time Dataset](http://goo.gl/HOVyYV) is munged from The Bureau of Transportation Statistics (US DOT)
 
-## Books on Spark ##
+## Books on Spark
+
 
 1. [Learning Spark](http://goo.gl/M0VZbv)
 2. [Advanced Analytics with Spark](http://goo.gl/ak7ljS)
 
-## Helpful Blog Posts ##
+## Helpful Blog Posts
+
 
 - [Setting up IPython with PySpark](http://goo.gl/95Vvgf)
 - [Databricks Spark Reference Applications](http://goo.gl/ta8Akq)

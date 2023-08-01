@@ -19,23 +19,28 @@ Preact cho những ai muốn sử dụng các chức năng core của React ch�
 
 [![](https://1.bp.blogspot.com/-raHIBW9hoEw/V2VwikTHooI/AAAAAAAAX1A/by3IQqWb2BALMqlXky_DPutfvbe7kj28gCK4B/s1600/js5.png)](https://blog.duyet.net/2016/06/javascript-weekly-5.html)
 
-## [Preact: A Fast, 3KB React Alternative with the same ES6 API](http://saveto.co/4C9qiB) ##
+## [Preact: A Fast, 3KB React Alternative with the same ES6 API](http://saveto.co/4C9qiB)
+
 JASON MILLER
 PReact là một phiên bản react rút gọn nhất có thể, chỉ giữ lại những chức năng cốt lõi. thư viện chỉ 3KB nên rất nhẹ, hỗ trợ ES6 classs.
 
-## [Angular 2 Release Candidate 2 Available](http://saveto.co/fcldB4) ##
+## [Angular 2 Release Candidate 2 Available](http://saveto.co/fcldB4)
+
 ANGULAR JS
 Angular 2 ra mắt bản RC2, bổ sung nhiều công nghệ để xây dựng forms, cải tiến Web Worker và thư viện [Animation Framework](https://angular.io/docs/ts/latest/guide/animations.html).
 
-## [The Why, What, and How of Practicing TDD in JavaScript](http://saveto.co/7GHot1) ##
+## [The Why, What, and How of Practicing TDD in JavaScript](http://saveto.co/7GHot1)
+
 JAMES SINCLAIR
 "Test Driven Development is one weird trick that will change the way you code forever (in a good way)."
 
-## [A Gentle Explanation of the 'this' Keyword](http://saveto.co/NlUkeG) ##
+## [A Gentle Explanation of the 'this' Keyword](http://saveto.co/NlUkeG)
+
 DMITRI PAVLUTIN
 Một bài viết cực kì chuyên sâu về tử khóa this trong Javascript. Qua bài này bạn sẽ biết được nhiều điều bí ẩn của 'this' trong các trường hợp khác nhau.
 
-## [Learn D3.js Basics By Planting A Vegetable Garden](http://saveto.co/gWuUVQ) ##
+## [Learn D3.js Basics By Planting A Vegetable Garden](http://saveto.co/gWuUVQ)
+
 KEVIN KONONENKO
 Học cách sử dụng D3.js bằng một bài hướng dẫn trực quan từ D3 Garden.
 

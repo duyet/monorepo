@@ -55,7 +55,8 @@ server {
 
 This config will add CORS support for all request from localhost and sub.duyet.net
 
-## Resource ##
+## Resource
+
 
 - [http://enable-cors.org](http://enable-cors.org/)
 - [https://gist.github.com/michiel/1064640](https://gist.github.com/michiel/1064640)

@@ -17,6 +17,7 @@ description: Đây là viết của Dượng Tony - Tony buổi sáng, không li
 
 ## 1\. Ở: Nếu ở trọ, hãy tìm nhà trọ ở xa nhất mà có thể kết nối với chỗ làm bằng phương tiện công cộng.
 
+
 Lúc ngồi trên xe buýt, tàu điện cũng là lúc quan sát xã hội từ trên cao, người đi xe máy xe hơi đều thấp hơn bạn. Không nên vật lộn với việc tự lái xe. 30 phút lái xe là 30 phút bạn lãng phí cho sự căng thẳng, nguy cơ tai nạn, hít khói bụi làm giảm tuổi thọ. Đi bộ từ trạm xe buýt đến nơi cần đến giúp tim bạn khỏe mạnh. Nếu đi xe buýt mất 1h30 và tự lái xe mất 30 phút, hãy chọn đi xe buýt. Đám đông chỉ đi xe cá nhân, mình ngược lại với đám đông, đã sao?  
   
 
@@ -34,6 +35,7 @@ Lim kể, lúc ảnh làm phụ bếp, đang rửa thớt thì buộc miệng n�
 
 ## 2\. Ăn: Hãy dậy thật sớm, nấu cơm, xôi, mì. Nấu thêm để mang theo ăn trưa hoặc ăn ổ bánh mì, đĩa cơm bình dân nơi gần nhất.
 
+
 Mình nên ăn chay rau củ quả ở mức hấp/luộc, sẽ không có gì cả đâu nếu vài ngày trong tuần bạn không ăn thịt. Người ăn chay vẫn thông minh đẹp đẽ như thường. 90% kỹ sư IT người Ấn Độ ở Silicon Valley ăn chay. Mình ăn chay không phải vì tôn giáo mà vì sức khỏe. Thỉnh thoảng vẫn cứ quất thịt cá…nhưng nếu nấu cho 1 mình mình ăn, đừng tốn thời gian. Cứ cá chiên/trứng luộc, rau củ quả hấp, trái cây là đủ. Không tốn thời gian cho việc ăn.  
   
 
@@ -42,6 +44,7 @@ Mình nên ăn chay rau củ quả ở mức hấp/luộc, sẽ không có gì c
   
 
 ## 3\. Chơi: Nên mời bạn bè 2 lần một tháng, ăn bình dân thôi. Nhóm 4 người, mỗi đứa 2 lần, 1 tháng mình có 8 lần gặp gỡ.
+
 
 Hãy chọn những người hiểu biết, giàu có hơn mình, đang làm công ty lớn, đang khởi nghiệp,…để nghe họ nói chuyện đời. Cá mập thì quây quần dưới đáy sâu. Cá lòng tong thì nhao nhao trên mặt nước, cạnh tranh khốc liệt việc đớp bọt. Khoe quần áo, bàn chuyện ca sĩ này diễn viên kia, viết thế này đúng viết thế kia sai…chỉ có ở đám lòng tong. Đám cá lớn sống im lặng.
 
@@ -53,6 +56,7 @@ Hãy chọn những người hiểu biết, giàu có hơn mình, đang làm cô
 
 ## 4\. Học: Phải dành 10 USD ~ 200 ngàn tiền mua sách/tháng.
 
+
 Người vĩ đại trên khắp thế giới, ngoài tủ rượu ra, trong nhà họ còn có tủ sách. Hãy đọc sách dạy làm người, làm giàu, sách kinh tế, sách văn chương, sách nấu ăn hoặc bất cứ sách gì ưa thích. Kiến thức rộng sẽ giúp mình làm ăn rộng. Khi đi làm, việc nói giỏi, cái gì cũng biết khiến công việc trôi chảy hơn. Tháng này bạn chưa bỏ ra 200 ngàn mua sách thì coi như thua. Đọc xong sách, kể lại nội dung cho bạn bè. Đừng giấu. Nếu có khóa học nào đó, nên đăng ký, hoặc dồn lại vài tháng làm 1 khóa, nhớ học với người thành đạt thật sự, tức người có điều hành công ty lớn, bậc trí nhân…chứ không phải nhóm mua môi múa mép.  
   
 
@@ -61,6 +65,7 @@ Người vĩ đại trên khắp thế giới, ngoài tủ rượu ra, trong nh�
   
 
 ## 5\. Đi: Tháng để dành 1 triệu, năm sẽ có khoảng 12 triệu cho việc đi chơi.
+
 
 Ban đầu nên đi đường bộ sang các nước lân bang. Hãy tự thưởng mỗi năm một chuyến đi xa. Tết là thời điểm tốt để về thăm gia đình, rồi đi chơi trước khi vô làm trong năm mới. Nhất định phải đi nước ngoài mỗi năm một lần, để coi sông, coi biển, coi đại dương nó ra sao…có cái gì hay ho thì bắt chước, mang về làm ăn  
   
@@ -71,6 +76,7 @@ Ban đầu nên đi đường bộ sang các nước lân bang. Hãy tự thư�
 Trong tay nên có 1 cái smartphone loại bình dân để tra tìm bản đồ, hãy đặt vé máy bay/xe lửa/xe đò.. giá rẻ nhất.  
 
 ## 6\. Để dành: tháng TỐI THIỂU để dành 1 triệu. Cứ gửi ở ngân hàng, nhiều hơn có thể mua 5 phân hoặc 1 chỉ vàng, đó là vốn khởi nghiệp về sau.
+
 
 Năm tới, nếu thu nhập vẫn 6 triệu, tự tát vô mặt. Muốn tăng lương, hãy cống hiến. Đừng sợ người khác không thấy nỗ lực của mình. Đừng "khôn" kiểu "tôi có được gì không, làm nhiều cho lắm thì lương cũng vậy". Tư duy này khiến mình nghèo miết. Hãy cố gắng làm thêm giờ. Bạn phải làm thêm việc ở cơ quan, đến sớm hơn, về trễ hơn. Trong lúc làm việc, tập trung cao độ, nhận nhiều việc của công ty giao, tự mở thêm các mối quan hệ trong công việc, tay kẹp ĐT, tay đánh máy, vừa đi vừa chạy...làm ầm ầm, ầm ầm vô.  
 

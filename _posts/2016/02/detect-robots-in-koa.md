@@ -18,13 +18,15 @@ description: Plugin cho KoaJs, nhận diện crawler bot
 Koa detect robots. Fast Middleware detect bot crawler for Koa.  
 [![](https://nodei.co/npm/koa-isbot.png?downloads=true&amp;downloadRank=true&amp;stars=true)](https://www.npmjs.com/package/koa-isbot)
 
-## Installation  ##
+## Installation 
+
 
 ```bash
 npm install koa-isbot --save 
 ```
 
-## Usage  ##
+## Usage 
+
 
 ```js
 var koa = require('koa')
@@ -57,7 +59,8 @@ app.use(aysnc (ctx, next) => {
 app.listen(3000);
 ```
 
-## Support list ##
+## Support list
+
 
 - Google bot - googlebot
 - Baidu - baiduspider
@@ -75,11 +78,13 @@ app.listen(3000);
 - Pingdom - pingdom
 - tumblr - tumblr
 
-## Source code ##
+## Source code
+
 Github: [https://github.com/duyet/koa-isbot](https://github.com/duyet/koa-isbot)
 NPM: [https://www.npmjs.com/package/koa-isbot](https://www.npmjs.com/package/koa-isbot)
 
-## How to contribute ##
+## How to contribute
+
 
 1. Fork the project on Github ([https://github.com/duyet/koa-isbot/fork](https://github.com/duyet/koa-isbot/fork))
 2. Create a topic branch for your changes

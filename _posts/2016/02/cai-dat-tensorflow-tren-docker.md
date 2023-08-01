@@ -18,10 +18,13 @@ Docker luôn là giải pháp đóng gói và triển khai các ứng dụng 1 c
 
 ![](https://2.bp.blogspot.com/-ALrzO2lz1Hk/VrTSHtGlC8I/AAAAAAAAPHE/ZFPNvhh_PPA/s400/CYJ-8P4WkAQtAqp.png)
 
-## Cài đặt Docker  ##
+## Cài đặt Docker
+
+
 Mình sử dụng Ubuntu 15.10, bạn có thể xem cách cài đặt Docker cho từng loại hệ điều hành treentrang của Docker: [https://docs.docker.com/engine/installation/ubuntulinux/](https://docs.docker.com/engine/installation/ubuntulinux/)
 
-## Launch a Docker ##
+## Launch a Docker
+
 Google cung cấp 4 bản Docker của Tensorflow:
 
 - b.gcr.io/tensorflow/tensorflow: TensorFlow CPU binary image.
@@ -45,5 +48,6 @@ chmod +x ./docker_run_gpu.sh
 ./docker_run_gpu.sh b.gcr.io/tensorflow/tensorflow:gpu
 ```
 
-## Kiểm tra cài đặt ##
+## Kiểm tra cài đặt
+
 Vui lòng xem phần kiểm tra cài đặt trong [bài viết sau](https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html).

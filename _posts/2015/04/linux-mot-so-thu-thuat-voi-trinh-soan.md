@@ -20,23 +20,27 @@ Vim (hoặc vi) là một trong những editor trên ternimal mạnh mẽ trên 
 
 Các lệnh được sử dụng ở chế độ command mode, nếu ở chế độ edit thì bạn có thể chuyển sang chế độ này bằng cách nhấn phím: [esc]
 
-## Căn lề các cột dữ liệu ##
+## Căn lề các cột dữ liệu
+
 Lệnh
 
 ```
 :%!column -t
 ```
 
-## Chọn theo cột / dòng ##
+## Chọn theo cột / dòng
+
 Ấn v và dùng phím di chuyển (jkhl) để chọn vùng text theo dòng
 Ấn Ctrl+v và dùng phím di chuyển (jkhl) để chọn vùng text theo cột
 
-## Di chuyển cả một cột ##
+## Di chuyển cả một cột
+
 
 - Chọn cả cột
 - Ấn Shift + → để dịch cột qua phải, Ấn Shift + ← để dịch cột qua trái.
 
-## Chèn 1 ký tự vào một cột ##
+## Chèn 1 ký tự vào một cột
+
 
 - Chọn cả cột (dùng ctrl+v)
 - Shift + I

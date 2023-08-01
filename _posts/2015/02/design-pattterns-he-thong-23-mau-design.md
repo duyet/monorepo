@@ -14,12 +14,13 @@ Hệ thống các mẫu design pattern hiện có 23 mẫu được định ngh�
 
 ## Về tác giả
 
-  
+
 Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralph Johnson** và **John Vlissides**, hay còn được biết đến với các tên **"Gang of Four"** hay đơn giản là "**GoF**". Hệ thống các mẫu này có thể nói là đủ và tối ưu cho việc giải quyết hết các vấn đề của bài toán phân tích thiết kế và xây dựng phần mềm trong thời điểm hiện tại. Hệ thống các mẫu design pattern được chia thành 3 nhóm: nhóm **Creational** (5 mẫu), nhóm **Structural** (7 mẫu) và nhóm **Behavioral** (11 mẫu).  
 
   
 
 ## Danh sách 23 mẫu
+
 
 <table class="table table-bordered" style="border: 1px solid #ccc">
     <thead>
@@ -182,5 +183,6 @@ Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralp
 </table>
 
 ## Kết 
+
 
 Các bài viết sau mình sẽ đi sâu vào 3 nhóm chính, cuối cùng là các bài viết về từng mẫu của từng nhóm.

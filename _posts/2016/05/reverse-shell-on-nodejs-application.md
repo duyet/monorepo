@@ -16,7 +16,8 @@ description: How we obtained a Javascript reverse shell by exploiting a vulnerab
 
 How we obtained a Javascript reverse shell by exploiting a vulnerability on a Node.js application during a security assessment.
 
-## Introduction ##
+## Introduction
+
 We were tasked by a small web developer team to perform a security assessment of their mobile app backend which is a REST API.
 
 The architecture is rather simple there is only three Linux servers.
@@ -30,7 +31,8 @@ We also noticed that the redis server was accessible from the WAN without authen
 
 Our next step was to review the Node.js API code and understand the crashes.
 
-## Simplified vulnerable application ##
+## Simplified vulnerable application
+
 We created this small Node.js application with the vulnerable function if you want to try to exploit it yourself.
 This Node.js web server will wait for a query such as `http://target.tld//?name=do*` and search for animal names matching that query.
 
@@ -108,7 +110,8 @@ server.listen(3000);
 ]
 ```
 
-## The vulnerability ##
+## The vulnerability
+
 After a few minutes of analyzing the buggy endpoints in the code we noticed a bad practice issue that could lead to remote code execution.
 The `stringToRegexp` function is evaluating user input to create a `RegExp` object and use it to find elements in an array.
 
@@ -128,7 +131,8 @@ Visiting the address below will print a message on the server terminal.
 
 From there it would be nice to execute code to have an interactive shell such as `/bin/sh`.
 
-## The Node.js reverse shell ##
+## The Node.js reverse shell
+
 The Javascript code below is a Node.js reverse shell.
 The payload will spawn a /bin/sh shell, create a TCP connection to the attacker and attach the shell standard streams to it.
 
@@ -150,7 +154,8 @@ The payload will spawn a /bin/sh shell, create a TCP connection to the attacker 
 To execute the payload gracefully we used a little trick, we encoded our reverse shell payload to hexadecimal and used the Node.js Buffer object to decode it.
 `http://target.tld/?name=["./;eval(new Buffer('PAYLOAD', 'hex').toString());//*"]`
 
-## Conclusion ##
+## Conclusion
+
 It's highly recommended to avoid using the `eval` function in a Javascript project.
 The fix was rather simple, they started using using the `RegExp` object directly.
 See origin post here: [https://wiremask.eu/writeups/reverse-shell-on-a-nodejs-application/](https://wiremask.eu/writeups/reverse-shell-on-a-nodejs-application/)

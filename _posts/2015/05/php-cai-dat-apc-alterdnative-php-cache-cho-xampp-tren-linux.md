@@ -15,11 +15,12 @@ description: Hướng dẫn cài đặt APC (Alternative PHP Cache) cho XAMPP tr
 
 Nếu bạn chưa cài đặt bản XAMPP Developer thì bạn có thể download tại đây: [http://www.apachefriends.org/en/xampp-linux.html](http://www.apachefriends.org/en/xampp-linux.html)
 
-## Installing APC ##
+## Installing APC
+
 
 Đầu tiên, download và giải nén APC
 
-```shell
+```bash
 wget -O apc-latest.tar.gz http://pecl.php.net/get/APC
 tar xvfz apc-latest.tar.gz
 cd APC-*
@@ -51,7 +52,8 @@ sudo sh -c "echo 'extension=apc.so' >> /opt/lampp/etc/php.ini"
 sudo /opt/lampp/lampp restart
 ```
 
-## Linux/Ubuntu x64 ##
+## Linux/Ubuntu x64
+
 XAMPP được biên dịch ở dạng 32bit, vì thế nếu bạn dùng Linux/Ubunut x64 bạn cần biên dịch APC 32 bit.
 
 Đầu tiên cài đặt thư viện 32-bit development

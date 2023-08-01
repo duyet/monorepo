@@ -19,7 +19,8 @@ Simple copy to clipboard. No Flash.
 
 ![](https://3.bp.blogspot.com/-qnoZylNW4-g/VsizR9xBEPI/AAAAAAAAQAw/fR-qHa0ccjk/s1600/copyjs.png)
 
-## Install ##
+## Install
+
 You can get it on bower. 
 
 ```bash
@@ -34,7 +35,8 @@ npm install copy-js --save
 
 If you're not into package management, just [[download a ZIP]](https://github.com/duyet/copy.js/archive/master.zip) file.
 
-## Setup ##
+## Setup
+
 First, include the script located on the dist folder.
 
 ```html
@@ -47,7 +49,8 @@ Or load it from CDN provider.
 <script src="//cdn.rawgit.com/duyetdev/copy.js/master/dist/copy.min.js"></script>
 ```
 
-## Usage ##
+## Usage
+
 Just copy:
 
 ```js

@@ -42,6 +42,7 @@ Kiến trúc của một hệ thống IR
 
 ## Ký hiệu
 
+
 Ta có một số ký hiệu sau:
 - Query (Câu truy vấn) $q = t_1 ... t_m$
 - Tài liệu (Documents) $d = d_{i_1}, d_{i_2}, ..., t_{i_n}$
@@ -52,6 +53,7 @@ Ta có một số ký hiệu sau:
 
 
 ## 1. Ý tưởng của Vector Space Model
+
 
 Với mỗi truy vấn, hệ thống tìm kiếm sẽ sử dụng một độ đo $Rel(q, d)$ để tính độ tương đồng giữa truy vấn (query) đó với các tài liệu (docs), từ đó xếp dạng được kết quả trả về.
 
@@ -79,6 +81,7 @@ $$
 
 ### Các giả định:
 
+
  - Các query và documents được biểu diễn cùng một định dạng với nhau (cùng kích thước, cách biểu diễn trọng số).
  - $Relevance(d, q) \Leftrightarrow similarity(d, q)$
 
@@ -91,6 +94,7 @@ $$
 
 
 ### Các vấn đề đặt ra 
+
 
 Các vấn đề cần đặt ra là:
 1. Làm thế nào để biểu diễn $q$ và $d$, công thức tính $Rep(d)$, $Rep(q)$.
@@ -109,11 +113,13 @@ Biểu diễn documents và query bởi các **concept vectors**
 
 ## 3. Tìm trọng số (weights) cho vector
 
+
 Cách xác định và tính weights cho vector là hết sức quan trọng, ảnh hưởng đến độ chính xác của các thuật toán xếp hạng. Việc các từ có trọng số khác nhau là do không phải các từ đều có sự quan trọng giống nhau, sử dụng số lần xuất hiện của các từ làm vector không phải là một cách tối ưu. Ở phương diện các documents, một vài từ có thể mang nhiều thông tin hơn các từ còn lại.
 
 Có nhiều kỹ thuật tính trọng số: TF, IDF, TF-IDF, ...
 
 ### a. TF: Term frequency
+
 
 Từ nào xuất hiện nhiều trong câu thì quan trọng, công thức này sẽ đếm tuần suất xuất hiện các từ trong câu.
 
@@ -128,6 +134,7 @@ $$
 
 ### b. IDF: Inverse document frequency
 
+
 Từ nào xuất hiện nhiều trong mọi câu thì không mang nhiều ý nghĩa (ví dụ như *a, the, are, thì, là, ...*). Vì vậy trọng số IDF là nghịch đảo của tuần suất xuất hiện của các từ trong các documents.
 
 $$
@@ -140,6 +147,7 @@ Với:
 
 ### c. TF-IDF: Term frequency - Inverse document frequency
 
+
 Phép nhân giữa TD và IDF cho phép ta kết hợp cả 2 độ đo trên, từ vừa xuất hiện nhiều lần trong câu, vừa không phải là từ phổ biến xuất hiện trong mọi câu.
 
 $$
@@ -148,9 +156,11 @@ $$
 
 ## 4. Các độ đo similarity
 
+
 Sau khi có được các vector cho query và docs, ta tính được similarity bằng cách tính khoảng cách giữa các vector.
 
 ### a. Euclidean distance
+
 
 Công thức tính theo WiKi:
 
@@ -164,6 +174,7 @@ Nhược điểm:
 
 ### b. Manhattan
 
+
 Manhattan distance hay còn gọi là L1 distance, tính khoảng cách 2 vector theo công thức
 
 $$
@@ -173,6 +184,7 @@ $$
 
 
 ### c. Độ đo góc 
+
 
 Việc tính xem các vector overlapped với nhau như thế nào cũng là một phép so sánh hay sử dụng, độ đo góc phổ biến là Cosine Similarity.
 
@@ -190,7 +202,9 @@ Sau khi biểu diễn dưới dạng vector và tính khoảng cách, ta xếp h
 
 ## 5. Ưu và nhược điểm của Vector Space Model
 
+
 ### a. Ưu điểm
+
 
 - Dễ hiểu và dễ cài đặt
 - Đã được nghiên cứu từ lâu và thực nghiệm cho kết quả tốt và khả thi

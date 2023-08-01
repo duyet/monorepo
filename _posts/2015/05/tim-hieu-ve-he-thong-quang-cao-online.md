@@ -17,7 +17,8 @@ description: Chắc hẳn trong đa số chúng ta đều rất ghét các loạ
 
 Chắc hẳn trong đa số chúng ta đều rất ghét các loại quảng cáo trên Web, Internet. Có lẽ nguyên nhân lớn nhất là chúng cản trở chúng ta đến với dịch vụ (che tầm nhìn của trang web hay tivi), và chúng hiển thị những thông tin mà chúng ta coi là dư thừa, không cần thiết. Tuy nhiên có phải vì thế mà quảng cáo chỉ toàn điều xấu và không đáng tồn tại?
 
-## Quảng cáo là gì?  ##
+## Quảng cáo là gì?
+
 
 Quảng cáo là hình thức tuyên truyền được trả tiền để thực hiện việc giới thiệu thông tin về sản phẩm, dịch vụ, công ty hay ý tưởng, quảng cáo là hoạt động truyền thông phi trực tiếp giữa người với người mà trong đó người muốn truyền thông phải trả tiền cho các phương tiện truyền thông đại chúng để đưa thông tin đến thuyết phục hay tác động đến người nhận thông tin.
 
@@ -25,7 +26,8 @@ Quảng cáo là những nỗ lực nhằm tác động tới hành vi, thói qu
 
 ![](https://1.bp.blogspot.com/-zKPSuJl81ss/VVgTJnRpLnI/AAAAAAAACfQ/NW8xNo8FrxA/s1600/image_a3c65c2974270fd093ee8a9bf8ae7d0b.jpg)
 
-## Các lợi ích của quảng cáo  ##
+## Các lợi ích của quảng cáo
+
 
 Ở quan điểm bài viết, mình chỉ xét ở khía cạnh quảng cáo Online, Internet. 
 
@@ -41,7 +43,8 @@ Thực tế thì hệ thống quảng cáo đã và đang thay đổi hàng ngay
 
 Qua đó bạn sẽ hiểu tại sao google lại chỉ có thể sống được mà chỉ nhờ có quảng cáo, bạn cũng hiểu được tại sao facebook, twitter sẵn sàng cung cấp dịch vụ miễn phí cho bạn. Để bắt đầu, trước tiên chúng ta sẽ đến với các thuật ngữ chuyên môn được sử dụng trong hệ thống quảng cáo.
 
-## Quảng cáo thuần (pure adverstisement) ##
+## Quảng cáo thuần (pure adverstisement)
+
 
 Đây có lẽ là loại hình quảng cáo dễ hiểu nhất và mặc dù xuất hiện từ thời 'xa xưa', nhưng loại hình này vẫn khá thông dụng cho đến hiện nay. Cách quảng cáo này thông qua việc liên lạc trực tiếp giữa 'người bán' và 'người mua' (người mua ở đây có thể là nhà quảng cáo (advertiser) hoặc cũng có thể là công ty trung gian (ad-agency)). 
 
@@ -50,7 +53,8 @@ Hình thức này thường có giới hạn thời gian với một cái giá c
 - Ưu điểm: Thường các media lớn sẽ có lượng view rất lớn -> có lợi về quảng bá brand
 - Nhược điểm: Giá cao, không target được người dùng nên sẽ phí một lượng impression rất lớn cho những người không quan tâm.
 
-## Quảng cáo dựa vào search engine (listing adverstisement) ##
+## Quảng cáo dựa vào search engine (listing adverstisement)
+
 
 Đây là cách quảng cáo đem lại doanh thu chủ yếu cho các search engine thông dụng như google hay bing. Để hình dung về hình thức này, bạn chỉ cần tham khảo 2 ví dụ dưới đây mà mình chụp lại của google.
 
@@ -63,7 +67,8 @@ Hình thức quảng cáo dựa trên search engine có ưu điểm và nhược
 - Ưu điểm: 'động lực' của user rất cao -> tỉ lệ click rất tốt. (khi user đã 'chủ động' tìm kiếm thì khả năng click vào link một món hàng ưa thích sẽ rất cao)
 - Nhược điểm: Phụ thuộc vào keyword, một số keyword thông dụng có giá rất cao. Ngoài ra việc chọn lựa keyword một cách hợp lý cũng không hề dễ dàng.
 
-## Quảng cáo hiển thị (display advertisement - programmatic) ##
+## Quảng cáo hiển thị (display advertisement - programmatic)
+
 
 Loại hình quảng cáo này là loại hình thông dụng và 'bình dân' nhất, với đặc điểm chính là 'tiến hoá' từ quảng cáo thuần (pure advertisement). Pure advertisement có nhược điểm là phải có quá trình trao đổi trực tiếp giữa 'người mua' và 'người bán', và người bán ở đây thường chỉ là các media lớn, có lượng impression cực cao. Các media lớn này thường là các trang web báo chí (The NYTimes, Vnexpress...), hay các trang portal (như yahoo news..). 
 
@@ -78,7 +83,8 @@ Mô hình quảng cáo này sẽ được tôi nhắc đến kĩ hơn trong bài
 
 ![](https://3.bp.blogspot.com/-3gn4U4nrm3U/VVgTheZUbgI/AAAAAAAACfY/iHv1bw4LZMg/s1600/mang-hien-thi-google.png)
 
-## Các hình thức quảng cáo khác ##
+## Các hình thức quảng cáo khác
+
 
 Ngoài các hình thức trên thì hiện nay còn rất nhiều hình thức quảng cáo khác 'mới nổi' mà có thể kể đến điển hình như:
 
@@ -89,7 +95,8 @@ Ngoài các hình thức trên thì hiện nay còn rất nhiều hình thức q
 
 Tham khảo thêm: http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg
 
-## Các thuật ngữ chung  ##
+## Các thuật ngữ chung 
+
 
 - Media (hay còn gọi là publisher): media bạn có thể hiểu là các trang web (vd như vnexpress), hay các mobile application.  Media là nơi có nhiều user tập trung, và cũng là nơi để đặt quảng cáo.
 - Advertiser: Là những người nắm (own) quảng cáo. Advertiser bạn có thể hình dung là các doanh nghiệp muốn đưa hình ảnh của mình đến người dùng, vd như cocacola, samsung, ...
@@ -103,7 +110,8 @@ Tham khảo thêm: http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg
 - Cost Per Mile - CPM (Thousand Impressions): CPM là hình thức tính chi phí dựa trên 1000 lần hiển thị của quảng cáo.
 - ROI (Return on Investment): Đây là số tiền để đánh giá độ hiệu quả của một 'chiến dịch' quảng cáo. Một chiến dịch quảng cáo advertiser có thể tung ra ở rất nhiều nơi, sử dụng rất nhiều banner khác nhau. ROI là số tiền thu được sau chiến dịch quảng cáo đó / số tiền advertiser đã đầu tư và chiến dịch đó.
 
-## Thuật ngữ về hệ thống kĩ thuật ##
+## Thuật ngữ về hệ thống kĩ thuật
+
 
 - Ad-Network: là một 'mạng lưới' các media (các website hay các application). Sẽ có các công ty nắm các ad-network này. Đặc điểm của các công ty đó là họ sẽ có chiến lược để 'phân phối' (deliver) các quảng cáo đến các media thích hợp để tăng lợi nhuận cho họ cũng như bên media.
 - Ad-Exchange: Đây là một trong những bước tiến lớn để giúp quảng cáo thông minh hơn. Adexchange là một hệ thống nằm trung gian giữa Media và Advertiser, giúp 'trao đổi' quảng cáo giữa các advertiser. Bạn có thể hình dung Ad-Exchange giống như một sàn chứng khoán, mà những người chơi chứng khoán là các advertiser.
@@ -112,7 +120,8 @@ Tham khảo thêm: http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg
 - SSP (Supply Side Platform): Khác với DSP ở phía 'gần' với advertiser hơn, SSP ở phía gần với media hơn. SSP giúp media quản lý nhiều Ad-Network, Ad-Exchange khác nhau, giúp cho media có thể tăng lợi nhuận cho mình. Mỗi khi có một user truy cập vào media, media sẽ sử dụng SSP để chọn ra quảng cáo có giá trị tiền cao nhất. Giống như DSP, SSP là cách cửa giúp media bước vào thế giới của Ad-Network, Ad-Exchange.
 - Retargeting: Đây là một kĩ thuật được sử dụng rất phổ biến trong quảng cáo. Giả sử có một cô gái xinh đẹp vào trang web của LV, ngẵm nghĩa một chiếc túi xách, xong do không có tiền, cô ấy rời khỏi trang web mất :(. Vài ngày sau, cô gái vào trang tin tức Y, đột nhiên thấy quảng cáo về chiếc túi xách cô ấy mong ước, rất may cô ấy đã nhận lương. Và nhờ thế cô ấy đã click vào quảng cáo của LV, và đôi bên cùng có lợi. Kĩ thuật giúp thực hiện quá trình tren được gọi là Re-targeting.
 
-## Kết  ##
+## Kết 
+
 
 Ở bài viết này mình đã giới thiệu một cách cơ bản nhất về quảng cáo, các loại hình quảng cáo, các thuật ngữ media của hệ thống quảng cáo. 
 

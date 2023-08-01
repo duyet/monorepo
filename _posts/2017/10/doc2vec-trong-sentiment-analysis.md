@@ -37,6 +37,7 @@ Trong bài này, mình sẽ giới thiệu rất cơ bản basic concept để c
 
 ## Doc2vec
 
+
 **Doc2vec** được giới thiệu bởi _Quoc Le_ và _Mikolov_ ([https://arxiv.org/abs/1405.4053](https://arxiv.org/abs/1405.4053)), cũng như Word2vec, có 2 model chính là: **DBOW** và **DM**  
 
 *   **DBOW** (distributed bag of words): Mô hình này đơn giản là không quan tâm thứ tự các từ, training nhanh hơn, không sử dụng local-context/neighboring. Mô hình chèn thêm 1 "word" là ParagraphID, ParagraphID này đại diện cho văn bản được training. Sau khi training xong có thể hiểu các vector ParagraphID này là vector embedded của các văn bản. Hình ảnh được mô tả trong bài báo:  
@@ -53,7 +54,9 @@ Trong bài này, mình sẽ giới thiệu rất cơ bản basic concept để c
 
 ## Setup
 
+
 ### Modules
+
 
 Mình sử dụng **gensim**, gensim được implement **Word2vec** lẫn **Doc2vec**, tài liệu rất dễ đọc. Ngoài ra còn có **numpy** để thao tác trên array, **sklearn** cho các thuật toán phân lớp.
 
@@ -83,6 +86,7 @@ import matplotlib.pyplot as plt
 
 ### Data
 
+
 Mình có các tập data để training, gồm training và testing như sau:
 
 *   _test-neg.txt:_ 12500 negative movie reviews from the test data
@@ -101,6 +105,7 @@ this film grate at the teeth and i m still wondering what the heck bill paxton w
 ```
 
 ### Input data vào Doc2vec
+
 
 Doc2vec của gensim input một object **LabeledSentence**, gồm 1 tập các từ kèm theo label (id của paragraph), có format như sau:
 
@@ -161,6 +166,7 @@ sentences = LabeledLineSentence(sources)
 
 
 ## Model
+
 ### Building the Vocabulary Table
 
 Trước tiên **Doc2vec** yêu cầu build Vocabulary table, 1 tập chứa tất cả các từ, lọc bỏ các từ trùng lặp, thực hiện một số thống kê. Chúng ta có một số tham số như sau:
@@ -177,6 +183,7 @@ model.build_vocab(sentences.to_array())
 
 ### Training Doc2Vec
 
+
 Mình sẽ train model với **10 epochs**. Nếu có thời gian bạn có thể chọn 20 hoặc 50 epochs. Mỗi epochs là một lần training trên toàn bộ dữ liệu.
 
 Phần này có thể tốn rất nhiều thời gian, tùy cấu hình máy bạn như thế nào.
@@ -185,6 +192,7 @@ Phần này có thể tốn rất nhiều thời gian, tùy cấu hình máy b�
 model.train(sentences.sentences_perm(), total_examples=model.corpus_count, epochs=10)
 ```
 ### Inspecting the Model
+
 
 Sau khi training, chúng ta có được các vector từ và vector văn bản. Tìm similarity của một từ (theo khoảng cách cosine).
 
@@ -246,6 +254,7 @@ array([ -1.01556428e-01,  -3.56465846e-01,   3.44622403e-01,
 ```
 ### Saving and Loading Models
 
+
 Lưu xuống và tái sử dụng
 
 ```py
@@ -260,6 +269,7 @@ model = Doc2Vec.load('./imdb.d2v')
 ```
 
 ## Classifying Sentiments
+
 
 Từ các vector văn bản trên, ta có thể sử dụng chúng để huấn luyện các bộ phân lớp. Trước tiên mình extract các vector này từ **Doc2vec** ra. Ở trên chúng ta có **25000** đoạn training reviews (_12500 positive, 12500 negative_), tức chúng ta sẽ có 25000 vector.
 
@@ -310,6 +320,7 @@ for i in range(12500):
 
 ### Testing Vectors
 
+
 Tương tự với các vector để test
 
 ```py
@@ -326,6 +337,7 @@ for i in range(12500):
 ```
 
 ### Classification
+
 
 Từ đây bạn có thể sử dụng bất cứ thuật toán phân lớp nào, bạn có thể thực hiện tiếp bước model selection đến khi nào đạt kết quả tốt nhất. Ở đây mình sử dụng **Logistic Regression** và **SVM**
 
@@ -414,6 +426,7 @@ plot_confusion_matrix(cm, classes=['neg', 'pos'])
 SVM cho kết quả tương tự, vẫn khá tốt **~ 86%**  
 
 ## **Kết**
+
 
 Trong bài này mình đã:  
 

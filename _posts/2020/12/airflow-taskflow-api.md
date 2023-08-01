@@ -75,6 +75,7 @@ dag = taskflow_api_etl()
 
 ## 1. DAG
 
+
 Đây là cách viết mới bằng cách sử dụng các Python decorators của Taskflow API: `@dag` và `@task`
 
 Trong ví dụ trên, chúng ta sử dụng `@dag` decorator cho python function `taskflow_api_etl`, đây là **DAG ID**,
@@ -98,6 +99,7 @@ def example_dag(email: str = 'me@duyet.net'):
 ```
 
 ## 2. Tasks
+
 
 Trong pipeline ở trên, ta có 3 tasks python function, sử dụng `@task` decorator. Tên của function dùng để đặt tên cho `task_id`. Cách viết mới này chỉ cần sử dụng `@task` thay vì định nghĩa python function rồi bỏ vào `PythonOperator`.
 
@@ -164,6 +166,7 @@ Ví dụ trên, DAG sẽ tạo ra các task ids sau: `[extract, extract__1, extr
 
 ## 3. Context
 
+
 Để truy cập vào [context](https://blog.duyet.net/2019/08/airflow-context.html), bạn có thể sử dụng `get_current_context`.
 
 ```python
@@ -177,6 +180,7 @@ def my_task():
 Gọi method này ngoài execution context sẽ raise error.
 
 ## 4. Airflow decorators vs Operator
+
 
 Taskflow API decorators có thể được sử dụng kết hợp với các Operator truyền thống, như ví dụ dưới đây:
 
@@ -228,5 +232,6 @@ DAG = send_server_ip()
 ```
 
 ## Kết
+
 
 Bây giờ bạn đã biết khi viết 1 DAG sử dụng Taskflow API trong Airflow 2.0 sẽ đơn giản và tường minh hơn như thế nào. Tham khảo thêm tại trang [Concepts](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#concepts) để xem các giải thích chi tiết về Airflow như DAGs, Tasks, Operators, ... cũng như [Python task decorator](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#concepts-task-decorator).

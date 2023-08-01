@@ -36,7 +36,8 @@ Thông tin cấu hình của môi trường test:
 
 - Public IP – 10.0.0.1
 
-## 1. Bind IP ##
+## 1. Bind IP
+
 
 Mở `/etc/mongod.conf` tìm đến dòng bind_ip
 
@@ -51,7 +52,8 @@ bind_ip = 127.0.0.1
 
 Mặc định MongoDb chỉ cho phép kết nối từ nội bộ (127.0.0.1), nên nhiệm vụ của bạn là sửa đổi thông tin này, 1 số trường hợp như sau: 
 
-### 1. listen on all interfaces ###
+### 1. listen on all interfaces
+
 
 Nếu bạn chẳng cần quan tâm cái quái gì là bảo mật, thì xóa dòng `bind_ip = 127.0.0.1` đi, hoặc sửa thành `bind_ip = 0.0.0.0`
 
@@ -60,7 +62,8 @@ Nếu bạn chẳng cần quan tâm cái quái gì là bảo mật, thì xóa d�
 # bind_ip = 127.0.0.1
 ```
 
-### 2. Chỉ cho phép kết nối từ mạng nội bộ (LAN) ###
+### 2. Chỉ cho phép kết nối từ mạng nội bộ (LAN)
+
 
 ```
 $ vim /etc/mongod.conf
@@ -73,7 +76,8 @@ bind_ip = 127.0.0.1,192.168.161.100
 
 Nhớ là đặt IP Private, không phải IP Public của App Server nha 
 
-### 3. Cho phép kết nối từ bất cứ IP nào ###
+### 3. Cho phép kết nối từ bất cứ IP nào
+
 
 Trường hợp server đặt tại công ty, bạn muốn máy ở nhà kết nối đến để sử dụng. Bạn có thể kết nối đến MongoDb thông qua địa chỉ Public IP 45.56.65.100
 
@@ -97,7 +101,8 @@ $ sudo service mongod restart
 [ ok ] Restarting database: mongod.
 ```
 
-## 2. IpTables Firewall ##
+## 2. IpTables Firewall
+
 
 Nếu bạn có đặt tường lửa, hãy thiết lập lại sao cho tường lửa cho phép kết nối thông qua Port của của MongoDb (mặc định là 27017)
 

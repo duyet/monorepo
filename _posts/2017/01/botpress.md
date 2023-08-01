@@ -32,7 +32,8 @@ Mình thấy Node.js là ngôn ngữ được sử dụng khá phổ biến đ�
 - Trang chủ: [https://botpress.io](https://botpress.io/)
 - Xem phần 2: [Chatbot với Botpress - Phần 2: Coding](https://blog.duyet.net/2017/01/botpress-p2.html#.WJP5EhJ97_g)
 
-## Cài đặt và init Bot ##
+## Cài đặt và init Bot
+
 Sử dụng NPM để cài đặt botpress bằng lệnh:
 
 ```
@@ -59,7 +60,8 @@ Khởi động UI bằng lệnh `$ botpress start`
 
 Bên dưới dashboard còn hiển thị 1 số module mà có thể "lắp" được vào bot. Bấm Install để cài đặt  và cấu hình.
 
-## Kết nối với Messenger ##
+## Kết nối với Messenger
+
 Bây giờ mình muốn Ahihi Bot có thể chat và tương tác trên Messenger, mình tiến hành kết nối sử dụng module botpress-messenger.
 
 Có 2 cách cài, 1 là dùng NPM chạy lệnh sau, sau đó khởi động lại UI:
@@ -90,7 +92,8 @@ Copy App ID và App Secret. Tiếp tục vào mục Messenger (cột trái), ch�
 
 Code trên Local chúng ta sử dụng ngrok, tick vào mục Use ngrok. 
 
-## Save & Connect ##
+## Save & Connect
+
 
 [![](https://4.bp.blogspot.com/-brOoSCiXfSw/WIYtHtM77bI/AAAAAAAAiic/YQQOX7gEBosWiovhV2qjZg117CMWhqDqQCLcB/s1600/Untitled%2Bdrawing%2B%25285%2529.png)](https://4.bp.blogspot.com/-brOoSCiXfSw/WIYtHtM77bI/AAAAAAAAiic/YQQOX7gEBosWiovhV2qjZg117CMWhqDqQCLcB/s1600/Untitled%2Bdrawing%2B%25285%2529.png)
 
@@ -111,7 +114,8 @@ Sau khi thiết lập sơ sơ, lưu lại và vào messenger chat thử, mình s
 
 [![](https://2.bp.blogspot.com/-h7Zf7KRzyLQ/WIYy3MByfnI/AAAAAAAAii0/T50EcqbGBw8K0eAh43Q25sTJQzocT2VYQCLcB/s1600/ahihi-options-chatbot.png)](https://2.bp.blogspot.com/-h7Zf7KRzyLQ/WIYy3MByfnI/AAAAAAAAii0/T50EcqbGBw8K0eAh43Q25sTJQzocT2VYQCLcB/s1600/ahihi-options-chatbot.png)
 
-## Test bot ##
+## Test bot
+
 
 Kiểm tra Bot có hoạt động hay không, mở Messenger và chat thử "BOT_LICENSE"
 
@@ -119,7 +123,8 @@ Something like:
 
 [![](https://4.bp.blogspot.com/-30_3xgRxw24/WIaw0JOX1bI/AAAAAAAAikc/lHaxnvPdIWQ6eARB_VZP0NOFxLEPwIo_gCK4B/s640/Screenshot_2017-01-24-08-38-43-824_com.facebook.orca.png)](https://4.bp.blogspot.com/-30_3xgRxw24/WIaw0JOX1bI/AAAAAAAAikc/lHaxnvPdIWQ6eARB_VZP0NOFxLEPwIo_gCK4B/s1600/Screenshot_2017-01-24-08-38-43-824_com.facebook.orca.png)
 
-## botpress-analytics ##
+## botpress-analytics
+
 
 Ở trên là bạn đã có 1 con bot sơ sơ rồi, ở phần sau mình mới bắt đầu code, mình giới thiệu luôn 1 số module hay. Botpress Analytics thống kê Bot usage ngay trên Dashboard, với giao diện biểu đồ trực quan.
 
@@ -131,13 +136,15 @@ Giao diện Analytics dashboard
 
 [![](https://2.bp.blogspot.com/-6sixXbkvC_0/WIY3dShgPYI/AAAAAAAAijc/VWtGDUN3Bdo7eK8N4XwLmbzISTNxqXyOACK4B/s1600/%255Bahihi-bot%255D%2Bbotpress-analytics-dashboard%2B%25284%2529.png)](https://2.bp.blogspot.com/-6sixXbkvC_0/WIY3dShgPYI/AAAAAAAAijc/VWtGDUN3Bdo7eK8N4XwLmbzISTNxqXyOACK4B/s1600/%255Bahihi-bot%255D%2Bbotpress-analytics-dashboard%2B%25284%2529.png)
 
-## Tham khảo ##
+## Tham khảo
+
 
 - Github - [https://github.com/botpress/botpress](https://github.com/botpress/botpress)
 - Botpress - Documentation: [https://docs.botpress.io](https://docs.botpress.io/)
 - [Botpress Messenger - Get started](https://github.com/botpress/botpress-messenger#get-started)
 
-## Kết  ##
+## Kết 
+
 
 Botpress khá là hay, giúp ta tạo được bot trong thời gian ngắn, tích hợp được nhiều chức năng và nhiều platform. 
 

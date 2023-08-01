@@ -29,6 +29,7 @@ Trong bài này sẽ hướng dẫn cách cài đặt DevStack, với các modul
 
 ## Môi trường 
 
+
 DevStack yêu cầu chạy trên HDH **Linux**. Các hệ điều hành Linux mà bạn có thể sử dụng như: **Ubuntu 14.04/16.04, Fedora 23/24, CentOS/RHEL 7, cũng như Debian và OpenSUSE.**  
 Trong bài này tất cả ví dụ được sử dụng trên **CentOS 7**, các hệ điều hành khác tương tự  
   
@@ -52,6 +53,7 @@ Cài đặt user **stack** (không cài đặt **devstack** dưới tài khoản
   
 
 ## Cài đặt Devstack với module Murano và Magnum
+
 
 Murano project là dự án application catalog của **Openstack**, cho phép lập trình viên có thể public các ứng dụng dưới dạng cloud-ready, người dùng có thể triển khai, cài đặt các ứng dụng này chỉ **với vài nút bấm**.  
   
@@ -106,6 +108,7 @@ Chạy lệnh sau và đợi Devstack tự động Clone các phần thiếu và
 
 ## Hoàn tất và sử dụng
 
+
 Truy cập http://localhost/dashboard, sử dụng tài khoản admin/123456  
   
 
@@ -129,6 +132,7 @@ Truy cập http://localhost/dashboard, sử dụng tài khoản admin/123456
 
 ## Một số lỗi hay gặp
 
+
 Danh sách các lỗi hay gặp và cách xử lý
 
   
@@ -151,6 +155,7 @@ Danh sách các lỗi hay gặp và cách xử lý
     sudo pip install python-openstackclient
 
 ## Tham khảo
+
 
 \[1\] https://wiki.openstack.org/wiki/Magnum  
 \[2\] https://wiki.openstack.org/wiki/Murano  

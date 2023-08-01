@@ -22,7 +22,8 @@ description: Google Colab (https://colab.research.google.com/) là một phiên 
 
 ![](https://4.bp.blogspot.com/-SdOdKIqi8Q0/WxPzp07jlfI/AAAAAAAAubY/BdjBxk-frPgTZKvNR8CTYpBgUwRcF9SQACLcBGAs/s640/35226d9fbc661ced1c5d17e374638389178c3176.png)
 
-## GPU ##
+## GPU
+
 Một chức năng Google vừa cập nhật cho Colab là sử dụng GPU backend miễn phí trong 12 tiếng liên tiếp. Thông tin như sau:
 
 1. The GPU used in the backend is a K80 (at this moment).
@@ -31,13 +32,15 @@ Một chức năng Google vừa cập nhật cho Colab là sử dụng GPU backe
 [![](https://2.bp.blogspot.com/-ERE_NP9B2Cg/WxPu3W9_8QI/AAAAAAAAua4/CU2FES_GEI44uZ0UK8B-rKC4Xw0HjWQTQCK4BGAYYCw/s320/NVIDIA-Tesla-K80-GPU.jpg)](https://2.bp.blogspot.com/-ERE_NP9B2Cg/WxPu3W9_8QI/AAAAAAAAua4/CU2FES_GEI44uZ0UK8B-rKC4Xw0HjWQTQCK4BGAYYCw/s1600/NVIDIA-Tesla-K80-GPU.jpg)
 Có nghĩa bạn có thể tiếp tục sử dụng GPU sau 12 tiếng bằng cách connect tới VM khác.
 
-## Kích hoạt GPU ##
+## Kích hoạt GPU
+
 1. Mở Notebook Colab
 2. Vào menu Edit > Notebook Settings,  Hardware accelerator chọn GPU
 
 [![](https://1.bp.blogspot.com/-2xNbbfzx6Og/WxPwkZc_LoI/AAAAAAAAubA/6b-NZMa9t_komNhrKg6-pXGiBi0WrETcACLcBGAs/s1600/colab-gpu.PNG)](https://1.bp.blogspot.com/-2xNbbfzx6Og/WxPwkZc_LoI/AAAAAAAAubA/6b-NZMa9t_komNhrKg6-pXGiBi0WrETcACLcBGAs/s1600/colab-gpu.PNG)
 
-## Cài đặt Pytorch ##
+## Cài đặt Pytorch
+
 Chạy lệnh sau trong notebook cell
 
 ```py

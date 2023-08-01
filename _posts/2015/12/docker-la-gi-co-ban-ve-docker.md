@@ -19,11 +19,13 @@ Trong thời gian gần đây có rất nhiều bài báo, hay blog, và cả tr
 
 ## Docker là gì?
 
+
 Docker - đây là một công cụ tạo môi trường được "đóng gói" (còn gọi là Container) trên máy tính mà không làm tác động tới môi trường hiện tại của máy, môi trường trong Docker sẽ chạy độc lập.
 
 Một số developer thường tạo sẵn các môi trường này, và upload lên mạng để mọi người lấy về dùng, và mấy cái này gọi là các Images.  
 
 ## Docker và máy ảo?
+
 
 Docker là công cụ tạo môi trường đóng gói, nó còn đóng gói cả hệ điều hành trong đó, vậy Docker khác máy ảo chỗ nào?
 
@@ -58,6 +60,7 @@ Tóm lại, docker:
 
 ## Khi nào thì sử dụng Docker
 
+
 *   Docker là một công cụ đơn giản, như Git hay Java, mà cho phép bạn kết hợp chặt chẽ tới công việc phát triển hay điều hành hàng ngày của bạn.
 *   Sử dụng Docker như là một phần mềm quản lý phiên bản (version control system) cho toàn hệ điều hành của bạn.
 *   Sử dụng Docker khi bạn muốn đóng góp hay hợp tác hệ điều hành của bạn với một nhóm nào đó.
@@ -69,11 +72,14 @@ Hãy thử dùng và trải nghiệm docker. Mình sẽ liệt kê một số l�
 
 ## Các lệnh cơ bản
 
+
 ### Pull một image từ Docker Hub
+
 
 docker pull <image name>  
 
 ### Tạo một container từ image có sẵn
+
 
     docker run -v <thư mục trên máy tính>:<thư mục trong container> -it <image name> /bin/bash
 
@@ -90,6 +96,7 @@ Lệnh trên map cổng 8080 của container ra cổng 8080 của máy tính hi�
 
 ### Liệt kê các images hiện có
 
+
     docker images
 
   
@@ -101,6 +108,7 @@ Trong kết quả trả về của lệnh này, chúng ta lưu ý các thông s�
 
 ### Liệt kê các container đang chạy
 
+
     docker psdocker ps -a # liệt kê các container đã tắt
 
   
@@ -110,11 +118,13 @@ Trong kết quả trả về của lệnh này, chúng ta lưu ý các thông s�
 
 ### Khởi động và truy cập lại vào một container đã tắt
 
+
 Nếu một container đã tắt (không xuất hiện khi dùng lệnh docker ps nữa, chúng ta có thể chạy lệnh docker ps -a để lấy ID hoặc NAME của nó, sau đó dùng lệnh sau để khởi động và truy cập lại vào đó)
 
     docker start <ID hoặc NAME>docker exec -it <ID hoặc NAME> /bin/bash 
 
 ### Xoá một container
+
 
 Nếu một container đã hết giá trị lợi dụng, dù nó đã tắt nhưng nó vẫn chiếm một phần dung lượng trên máy tính, để xoá nó đi, chúng ta dùng lệnh 
 
@@ -127,11 +137,13 @@ Nếu container đang chạy, bạn cũng có thể xoá nhưng phải thêm tha
 
 ### Xoá một image
 
+
 Cũng như container, nếu bạn đã ko còn nhu cầu sử dụng một image nào đó nữa, thì nên xoá nó đi. Dùng lệnh rmi
 
     docker rmi <ID hoặc NAME># ordocker rmi -f <ID hoặc NAME>
 
 ## Kết
+
 
 Sự thật là Docker đang dần thay đổi nhiều lập trình viên và đặc biệt là các admin cách làm việc của họ. 
 

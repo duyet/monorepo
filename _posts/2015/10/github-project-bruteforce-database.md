@@ -18,7 +18,8 @@ A Password dictionaries for hacking, bruteforce, testing ...
 
 Image: jameswebb
 
-## duyetdev/bruteforce-database ##
+## duyetdev/bruteforce-database
+
 Project: Bruteforce Database
 Github: [https://github.com/duyet/bruteforce-database](https://github.com/duyet/bruteforce-database)
 Author: Van-Duyet Le (@duyetdev)
@@ -32,14 +33,16 @@ Author: Van-Duyet Le (@duyetdev)
 - **facebook-firstnames.txt** 4.347.667 of Facebook firstnames.
 - **2151220-passwords.txt** 2.151.220 passwords from dazzlepod.com
 
-## How to contribute ##
+## How to contribute
+
 
 1. Fork the project on Github
 2. Create a topic branch for your changes
 3. Ensure that you provide documentation and test coverage for your changes (patches won’t be accepted without)
 4. Create a pull request on Github (these are also a great place to start a conversation around a patch as early as possible)
 
-## [https://github.com/duyet/bruteforce-database#license](https://github.com/duyet/bruteforce-database#license)License ##
+## [https://github.com/duyet/bruteforce-database#license](https://github.com/duyet/bruteforce-database#license)License
+
 
 MIT License
 

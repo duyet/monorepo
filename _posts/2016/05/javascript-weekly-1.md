@@ -17,32 +17,39 @@ Từ nay, blog sẽ có thêm mục mới JavaScript Weekly, cập nhật và t�
 
 [![](https://3.bp.blogspot.com/--MqDil9Xkos/Vz8jBgnbr-I/AAAAAAAAViI/2carPWBy2bEwuqHYyinS1nz0tWur3vHlgCK4B/s640/clickable-markers.png)](https://3.bp.blogspot.com/--MqDil9Xkos/Vz8jBgnbr-I/AAAAAAAAViI/2carPWBy2bEwuqHYyinS1nz0tWur3vHlgCK4B/s1600/clickable-markers.png)
 
-## [How to Write a Google Maps Component with React](http://saveto.co/IZCPwr) ##
+## [How to Write a Google Maps Component with React](http://saveto.co/IZCPwr)
+
 ARI LERNER
 Bài viết hay và cực kì chi tiết, cách để xây dựng React Component bản đồ sử dụng Google Maps API, sử dụng ES6.
 
-## [nlp_compromise: Natural Language Processing in JS](http://saveto.co/h9GY1U) ##
+## [nlp_compromise: Natural Language Processing in JS](http://saveto.co/h9GY1U)
+
 NLP COMPROMISE
 NPL Compromise có nhiều chức năng thú vị về khả năng xử lý ngôn ngữ tự nhiên (Tiếng Anh), như khả năng tách từ thành cây ngữ nghĩa, từ loại, thay thế các thành phần trong câu, chuyển đổi các thì của 1 câu, chuyển từ chữ sang số, v.v.
 
-## [Node.js Releases: How Do They Work? (video)](http://saveto.co/C2fYSG) ##
+## [Node.js Releases: How Do They Work? (video)](http://saveto.co/C2fYSG)
+
 MYLES BORINS
 Stable, major, minor, LTS - what does it all mean?
 
-## [Horizon 1.0: A Realtime, Open-Source JavaScript Backend](http://saveto.co/SmaLPp) ##
+## [Horizon 1.0: A Realtime, Open-Source JavaScript Backend](http://saveto.co/SmaLPp)
+
 HORIZON
 Xây dựng bởi RethinkDB team, Horizon cho phép xây dựng ứng dụng Nodejs tương thích với RethingDB, cung cấp nhiều công dụ phát triển và deploying nhanh ứng dụng Javascript.
 "The realtime JavaScript backend. Build powerful web and mobile apps that scale."
 
-## [Lebab - Convert ES5 Code sang ES6 readable](http://saveto.co/1GqxVZ) ##
+## [Lebab - Convert ES5 Code sang ES6 readable](http://saveto.co/1GqxVZ)
+
 MOHAMAD MOHEBIFAR
 Khác với Babel, Lebab là thư viện giúp convert ngược từ Javascript ES5 sang Readable ES6. Nâng cấp ứng dụng ES5 cũ sang các công nghệ mới của ES6.
 
-## [Build a Chrome Extension with Angular 2 & TypeScript](http://saveto.co/971wz1) ##
+## [Build a Chrome Extension with Angular 2 & TypeScript](http://saveto.co/971wz1)
+
 MICHAELA LEHR
 Từ học cách xây dựng Extension quản lý bookmark cho Google Chrome, sử dụng Angular 2 và TypeScript.
 
-## [JavaPoly.js: Java(script) in the Browser](http://saveto.co/7H1i3g) ##
+## [JavaPoly.js: Java(script) in the Browser](http://saveto.co/7H1i3g)
+
 HARSHAD RJ AND JIM SPROCH
 Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.
 

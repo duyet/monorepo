@@ -24,7 +24,8 @@ Big integer cho phép thực hiện các phép toán cộng, trừ, nhân, chia,
 
 [![](https://4.bp.blogspot.com/-i7nGASMBcM0/V5Gd_g2OWaI/AAAAAAAAaI8/o--B6bDhYbks5Md71uVLEKrfHn76B-AHACK4B/s1600/bigint.png)](https://blog.duyet.net/2016/07/big-integer-javascript.html)
 
-## Cài đặt ##
+## Cài đặt
+
 Nodejs bằng NPM: 
 
 ```
@@ -43,7 +44,8 @@ Sử dụng trên code:
 var bigInt = require("big-integer");
 ```
 
-## Sử dụng ##
+## Sử dụng
+
 
 ```
 var bigInt = require('big-integer');
@@ -104,7 +106,8 @@ c = bigInt('100')
 console.log(c.val()); // 25
 ```
 
-## APIs ##
+## APIs
+
 Big Integer hỗ trợ một số phép tính toán cơ bản như sau
 
 - `.add(n)` - cộng n.
@@ -127,7 +130,8 @@ Big Integer hỗ trợ một số phép tính toán cơ bản như sau
 
 Xem chi tiết danh sách các hàm hỗ trợ [tại đây](https://github.com/peterolson/BigInteger.js).
 
-## Tham khảo ##
+## Tham khảo
+
 
 - [https://github.com/peterolson/BigInteger.js](http://saveto.co/Kq1Q5l)
 - [Big integer benchmarks](http://peterolson.github.io/BigInteger.js/benchmark)

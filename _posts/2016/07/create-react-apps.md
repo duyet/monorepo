@@ -22,7 +22,8 @@ Một thông tin mới cực kỳ hấp dẫn với cộng đồng [React trong 
 [![](https://3.bp.blogspot.com/-HahL2Dcmo7o/V5Vz1SQORXI/AAAAAAAAaMM/HomR1n60e4oKER20VhEDSIZQag-nQqptwCK4B/s1600/create-react-app.png)](https://blog.duyet.net/2016/07/create-react-apps.html#.V5V54XV97OQ)
 Khi nào cần đến Redux, React Router, ... bạn có thể dụng npm install để cài đặt sau.
 
-## Quick Start ##
+## Quick Start
+
 Cài đặt create-react-app bằng npm, thêm `-g` flag (để "globally").
 
 ```
@@ -61,7 +62,8 @@ Rất nhanh chóng là bạn đã có thể bắt đầu code cho project mới 
 
 ![](https://3.bp.blogspot.com/-uMo1EyHerQg/V5V49HgNy_I/AAAAAAAAaMY/R9jonvqbrqo3B0l7H8wtzZ-kTpuYPwFJgCLcB/s1600/create-react-app.png)
 
-## Tham khảo ##
+## Tham khảo
+
 
 - [https://github.com/facebookincubator/create-react-app](http://saveto.co/AIqXFq)
 - [Create React App: The Fast, Official, and Build-Free Way to Create React Projects](https://daveceddia.com/create-react-app-official-project-generator/)

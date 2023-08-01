@@ -21,7 +21,8 @@ Nay tôi xin giới thiệu các tính năng cách sử dụng hay và ít đư�
 [![](https://1.bp.blogspot.com/-2tFGxZVRXY8/VznC82-aNtI/AAAAAAAAVLg/nL2_UJPqxrAG5BSQVhCjR3f-OpM8tESyQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B19-50-27.png)](https://blog.duyet.net/2016/05/console-log.html)
 Truy cập [https://saveto.co](https://saveto.co/) và bấm F12
 
-## console.* ##
+## console.*
+
 Cùng ôn lại các hàm của `console`. Bạn có thể test ngay bằng cách sử dụng trình debug (F12) trên trình duyệt.
 
 - `console.log()` in ra chuỗi, hàm, hằng, mảng, object, ...
@@ -32,7 +33,8 @@ Cùng ôn lại các hàm của `console`. Bạn có thể test ngay bằng các
 - `console.dir(obj)` xem toàn bộ các thuộc tính của 1 object javascript.
 - ... 
 
-## Định dạng css cho console.log ##
+## Định dạng css cho console.log
+
 Ta có thể định dạng lại các message in ra consolebằng CSS. Chỉ cần viết thêm tham số `%c` và CSS vào tham số cuối cùng. Ví dụ:
 
 ```js
@@ -44,7 +46,8 @@ console.log('%cTôi là Duyệt', css);
 
 ![](https://1.bp.blogspot.com/-qLUjlDkW9ss/VznOr0YGq3I/AAAAAAAAVM8/1ynNTWo_zq88Eu1mdssNC5awYH4sxyO-wCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-43-26.png)
 
-## Template string ##
+## Template string
+
 
 Các hàm console.* cũng hỗ trợ template string.
 
@@ -54,7 +57,8 @@ console.log("I'm %s and %s years old.", '@duyetdev', 20)
 
 ![](https://4.bp.blogspot.com/-LpnbNfzxwiw/VznOSwSB2XI/AAAAAAAAVMw/WJAQZy_oKWI8L31cUZKXs8qD3C0mF-WzQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-41-35.png)
 
-## Vẽ bảng với console.table() ##
+## Vẽ bảng với console.table()
+
 Debug với array hoặc object phức tạp và không trực quan. `console.table()` giúp hiển thị dữ liệu dưới dạng bảng ngay trên console.
 
 ```js
@@ -74,7 +78,8 @@ console.table(jobs)
 
 ![](https://1.bp.blogspot.com/-raB55lsLtiM/VznINa_YgeI/AAAAAAAAVME/PQe6-hMOsPwg_onUqUvDpiYF4L0VgtSMACK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-15-50.png)
 
-## console.time() ##
+## console.time()
+
 `console.time` và `console.timeEnd` đo thời gian runtime, từ khi `console.time` chạy cho đến khi `console.timeEnd` kết thúc.
 
 ```js
@@ -86,7 +91,8 @@ console.timeEnd('Thời gian debug hàm X: ');
 
 ![](https://2.bp.blogspot.com/-2VW1YKzWB7w/VznJTuYYfqI/AAAAAAAAVMQ/u7tPZK_3UnUM-LkpBrrfHWiHn5R0btsIgCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-20-15.png)
 
-## Nhóm các message với console.group ##
+## Nhóm các message với console.group
+
 `console.group` giúp gom các message lại thành 1 group inline. Xem ví dụ sau:
 
 ```js
@@ -107,6 +113,7 @@ console.groupEnd();
 ![](https://3.bp.blogspot.com/-ZPMJmH_7IZY/VznMKlSBbLI/AAAAAAAAVMc/AhIq2AqmPu4flHf2P_pBJ4VnNQw_gZ8mgCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-32-38.png)
 
 ## Tham khảo 
+
 
 - [https://developer.mozilla.org/en-US/docs/Web/API/console](https://developer.mozilla.org/en-US/docs/Web/API/console)
 - [Advanced Logging with the JavaScript Console](https://egghead.io/series/js-console-for-power-users)

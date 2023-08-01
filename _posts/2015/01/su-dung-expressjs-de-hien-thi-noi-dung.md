@@ -16,27 +16,28 @@ Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến 
 
 ## Cách sử dụng res.sendFile()
 
-Cách sử dụng phương thức `sendFile()` hết sức đơn giản, bạn chỉ cần truyền vào tham số duy nhất là đường dẫn đến file html cần hiển thị.
 
-## Ví dụ nha ##
+Cách sử dụng phương thức `sendFile()` hết sức đơn giản, bạn chỉ cần truyền vào tham số duy nhất là đường dẫn đến file html cần hiển thị.
+## Ví dụ nha     
+
 
 Tạo thư mục ứng
 
-```shell
+```bash
 $ mkdir express-sendfile
 $ cd express-sendfile
 ```
 
 Khởi tạo ứng dụng Nodejs và ExpressJs
 
-```shell
+```bash
 $ npm init
 $ npm install express --save
 ```
 
-Tạo ra 2 file `server.js` và `index.html
-`
-```shell
+Tạo ra 2 file `server.js` và `index.html`
+
+```bash
 $ touch server.js index.html
 ```
 
@@ -83,12 +84,15 @@ Sau đó là file `index.html`, đây là nội dung mà chúng ta cần hiển 
 
 Ok, bây giờ chúng ta kiểm tra thế nào nhé, chạy lệnh:  
 
-```shell
+```bash
 $ node server.js
 ```
+
 Mở trình duyệt, truy cập vào địa chỉ: [http://localhost:8000](http://localhost:8000/)
 
 Chúng ta sẽ thấy được nội dung như sau:
 
-## Kết luận ##
+## Kết luận
+
+
 `res.sendFile()` là 1 phương thức hết sức dễ sử dụng và hữu ích trong ExpressJs, bạn có thể làm các ứng dụng SinglePage, load nội dung bằng AngularJs, trang tĩnh, ... Ngoài ra ExpressJs còn cung cấp cho chúng ta nhiều công cụ nữa để đọc và download file trên server. 

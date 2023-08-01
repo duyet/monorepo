@@ -24,7 +24,8 @@ IPython Notebook là một công cụ tiện lợi cho Python. Ta có thể Debu
 
 ![](https://1.bp.blogspot.com/-IbzOyRw7mkM/V-Dm-cyXE9I/AAAAAAAAd-I/nGA92fFap4MM4uqKErB7g2H-t6T7CD1RQCLcB/s1600/Selection_006.png)
 
-## 1. Cài đặt Spark ##
+## 1. Cài đặt Spark
+
 Truy cập trang chủ ([https://spark.apache.org/downloads.html](https://spark.apache.org/downloads.html)), tải về bản Spark phù hợp (ở đây tôi tải bản Apache Spark 1.6.2).
 
 ```bash
@@ -44,7 +45,8 @@ Kiểm tra Spark đã Start thành công hay chưa, truy cập: http://spark-mas
 
 [![](https://1.bp.blogspot.com/-8msgj2t9RLA/V-Dfx7XjMXI/AAAAAAAAd9s/umMiRMw-fgYYFw3Zx7cPwpOnVI2eGDdHACLcB/s1600/Spark%2BMaster%2Bat%2Bspark%253A--duyetdev%253A7077%2B-%2BGoogle%2BChrome_002.png)](https://1.bp.blogspot.com/-8msgj2t9RLA/V-Dfx7XjMXI/AAAAAAAAd9s/umMiRMw-fgYYFw3Zx7cPwpOnVI2eGDdHACLcB/s1600/Spark%2BMaster%2Bat%2Bspark%253A--duyetdev%253A7077%2B-%2BGoogle%2BChrome_002.png)
 
-## 2. Cài đặt Jupyter Notebook ##
+## 2. Cài đặt Jupyter Notebook
+
 Cài đặt bằng command line
 
 ```bash
@@ -69,7 +71,9 @@ Port có thể thay đổi theo ý thích, nếu trùng thì Notebook sẽ tự 
 
 [![](https://3.bp.blogspot.com/-b0G6CE9ED4U/V-DhO5Y6MfI/AAAAAAAAd90/ien68QnA5jsMwwZ7owHKgMs4GpB9t-I3wCLcB/s1600/duyetdev%2540duyetdev%253A%2B%257E-spark-1.6.2-bin-hadoop2.6_003.png)](https://3.bp.blogspot.com/-b0G6CE9ED4U/V-DhO5Y6MfI/AAAAAAAAd90/ien68QnA5jsMwwZ7owHKgMs4GpB9t-I3wCLcB/s1600/duyetdev%2540duyetdev%253A%2B%257E-spark-1.6.2-bin-hadoop2.6_003.png)
 
-## 3. RUN  ##
+## 3. RUN
+
+
 Thực thi lệnh
 
 ```bash

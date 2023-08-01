@@ -39,7 +39,8 @@ Mặc dù Slack đã bước vào giai đoạn hoạt động chính thức như
 
 Dự kiến trong năm nay, Slack sẽ tích hợp thêm nhiều tính năng mới ví dụ như tích hợp email, có thêm tài khoản khách (Guest Accounts) và tính năng thống kê chi tiết dành cho các tài khoản trả phí.
 
-## Hình ảnh ##
+## Hình ảnh
+
 
 [![](https://3.bp.blogspot.com/-WcMdIuFF_DQ/VTvRbW5BPoI/AAAAAAAACW4/xJHu2MifECU/s1600/2377287_slack-03.png)](https://3.bp.blogspot.com/-WcMdIuFF_DQ/VTvRbW5BPoI/AAAAAAAACW4/xJHu2MifECU/s1600/2377287_slack-03.png)
 

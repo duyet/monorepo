@@ -18,7 +18,8 @@ description: Có một Biển Đông trên không gian mạng
 
 [thái: Có một Biển Đông trên không gian mạng](http://vnhacker.blogspot.com/2016/07/co-mot-bien-ong-tren-khong-gian-mang.html?spref=bl): Mùa hè 2014, giữa lúc người Việt trong nước và hải ngoại đang sôi sục vì Trung Quốc đưa giàn khoan HD-981 vào Biển Đông, từ Hoa Kỳ các chuyên gia của [ThreatConnect](https://www.threatconnect.com/piercing-the-cows-tongue-china-targeting-south-china-seas-nations/) và [ESET](http://www.welivesecurity.com/2014/06/20/targeted-attack-against-vietnamese-government-right-on-the-monre/) công bố hai bản báo cáo độc lập về những tấn công có chủ đích (targeted attacks) vào hệ thống máy tính của các cơ quan chính phủ Việt Nam.
 
-## Mạng máy tính chính phủ Việt Nam liên tục bị tấn công khi có căng thẳng trên Biển Đông ##
+## Mạng máy tính chính phủ Việt Nam liên tục bị tấn công khi có căng thẳng trên Biển Đông
+
 ESET phát hiện một nhóm người không rõ từ đâu gửi mã độc đến hộp thư điện tử của các nhân viên và cán bộ Bộ Tài Nguyên Môi Trường. Họ nhúng mã độc vào một tệp văn bản Microsoft Word, chỉ cần mở ra sẽ bị lây nhiễm. Một khi đã nhiễm vào máy tính, mã độc sẽ vô hiệu hóa phần mềm chống mã độc BKAV và gửi tín hiệu xâm nhập thành công đến một máy chủ điều khiển được đặt ở Hàn Quốc. Người tạo ra mã độc này bây giờ có toàn quyền điều khiển máy tính của nạn nhân.
 
 Trên Internet có nhiều nhóm hacker với các động cơ khác nhau. Có những thanh niên đang tập tễnh vào nghề an ninh mạng muốn tấn công để chứng tỏ kỹ năng, cũng có những tập đoàn tội phạm tấn công để kiếm tiền. Những nhóm này thường quét toàn bộ Internet để tìm mục tiêu, gặp ai hack đó, không cần biết lý do. Không quá khó để ngăn chặn những nhóm hacker như vầy, vì họ chỉ muốn tìm những mục tiêu dễ nhất.
@@ -40,7 +41,8 @@ Sự kiện mạng máy tính sân bay Tân Sơn Nhất, sân bay Nội Bài và
 
 Trung Quốc muốn thiết lập vùng cấm bay ở Biển Đông, nên từ mấy năm nay các nhóm hacker Gấu Trúc đã âm thầm tấn công các hãng máy bay trong khu vực. Bọn chúng muốn xâm nhập Vietnam Airlines, chúng tôi dự đoán, để lấy cắp thông tin về các chuyến bay, các kế hoạch mở rộng đường bay, kể cả lịch của các chuyến bay quân sự mà Bộ Quốc Phòng Việt Nam có thể đã chia sẻ với Vietnam Airlines.
 
-## Hệ thống mạng máy tính Việt Nam rất dễ bị tổn thương ##
+## Hệ thống mạng máy tính Việt Nam rất dễ bị tổn thương
+
 Chúng tôi không ngạc nhiên khi hacker Trung Quốc (và có thể nhiều nước khác) dễ dàng "ra vô như đi chợ" hệ thống mạng của các cơ quan chính phủ Việt Nam. Phương thức tấn công nhúng mã độc vào các tệp văn bản rồi gửi đến hộp thư điện tử của nạn nhân (spear phishing) rất đơn giản nhưng cũng cực kỳ hiệu quả, đơn giản vì đại đa số máy tính ở Việt Nam cài đặt sử dụng phần mềm không rõ nguồn gốc hoặc không được cập nhật thường xuyên và đại đa số người dân thiếu những kiến thức cơ bản về an toàn thông tin.
 
 [Theo thống kê của hãng phần mềm Microsoft](https://www.microsoft.com/security/sir/default.aspx), từ năm 2011 đến nay Việt Nam luôn nằm trong nhóm các quốc gia có tỉ lệ nhiễm mã độc cao nhất thế giới. Nếu như quý 1 năm 2015, tỉ lệ các máy tính đã từng ít nhất một lần chạm trán mã độc ở Việt Nam chỉ là 37.1% thì đến quý 4 năm 2015, tỉ lệ này đã là 50.7%. Ngoài ra nếu như trong trong quý 1 năm 2015, cứ 1000 máy tính thì ít nhất 30 máy tính đã từng bị nhiễm mã độc thì cho đến quý 4 năm 2015 tỉ lệ này đã tăng lên 40/1000. Đây là một quả bom nổ chậm cần phải được tháo ngòi càng sớm càng tốt nếu muốn đảm bảo an ninh quốc gia và an toàn ổn định xã hội.

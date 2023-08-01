@@ -25,7 +25,8 @@ Web Font Loader hỗ trợ load fonts từ [Google Fonts](http://www.google.com/
 
 `Webfont.js` được Google và Typekit cùng nhau phát triển.
 
-## Cài đặt ##
+## Cài đặt
+
 Để sử dụng, chỉ cần load webfont.js và liệt kê các Fonts cần sử dụng. Bạn có thể sử dụng Google Fonts bằng cách sau:
 
 ```html
@@ -60,7 +61,8 @@ Web Font Loader hỗ trợ load fonts từ [Google Fonts](http://www.google.com/
 
 Tốc độ có thể được tăng lên, nhưng cách này có thể gây nên tình trạng [Flash of Unstyled Text (FOUT)](http://help.typekit.com/customer/portal/articles/6852). Tức là giao diện bị vỡ do Fonts chưa tải kịp. Trường hợp FOUT có thể được fix bằng nhiều cách, WebFont.js hỗ trợ 1 số API sự kiện cho biết trạng thái tải font, để hiển thị trạng thái đang Loading nếu bạn muốn. Xem thêm ở đây: https://helpx.adobe.com/typekit/using/font-events.html
 
-## Tham khảo ##
+## Tham khảo
+
 
 - Web Font Loader | [Github](https://github.com/typekit/webfontloader)
 - Web Font Loader | [Google Developers](https://developers.google.com/fonts/docs/webfont_loader)

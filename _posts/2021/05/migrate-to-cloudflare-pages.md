@@ -61,6 +61,7 @@ After that, you can select a GitHub repository to be deployed, follow the steps 
 
 ## First deploy
 
+
 Once I've finished setting your build configuration, Cloudflare Pages will begin deploying my site.
 The build logs will output as Cloudflare Pages installs your project dependencies, build the project,
 and deploys it to Cloudflare's global network, the same with Netlify.
@@ -68,6 +69,7 @@ and deploys it to Cloudflare's global network, the same with Netlify.
 ![](/media/2021/05/migrate-to-cloudflare-pages-4.png)
 
 ## Update the DNS
+
 
 So, I continue to point the domain to the new site: https://blog.duyet.net. To do this, go to the "Domains" tab in the dashboard.
 Cloudflare ask to me change the DNS config from Netlify to Cloudflare Pages site. I get the DNS record updated just in a few seconds!

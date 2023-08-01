@@ -87,6 +87,7 @@ The annotated report will be like this:
 
 ## All in one script for code coverage
 
+
 Here is the script that constructs all the steps above, used by my most projects https://github.com/duyet/cov-rs
 
 ```bash
@@ -107,6 +108,7 @@ the report to Github pull requests as well.
 ![](https://github.com/duyet/cov-rs/raw/master/.github/cov-comment.png)
 
 ## References
+
 
 - https://github.com/duyet/cov-rs
 - https://blog.rust-lang.org/2022/04/07/Rust-1.60.0.html

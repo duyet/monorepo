@@ -19,7 +19,8 @@ WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người d
 
 ![](https://1.bp.blogspot.com/-U2FpDKE-uPY/V0qHwxldpOI/AAAAAAAAWK4/Qq3E3Z0I-M8Z8F_slgkZCDtvp5x67oGkQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-29%2B13-09-23.png)
 
-## Các chức năng nổi bật ##
+## Các chức năng nổi bật
+
 
 - Tính toán Realtime trên hầu hết các trình duyệt (Chrome, Firefox, Opera, Edge).
 - Không cần thiết bị chuyên dụng, chỉ cần sử dụng Webcams.
@@ -27,7 +28,9 @@ WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người d
 - Tích hợp và sử dụng đơn giản.
 - Dự đoán được nhiều điểm nhìn.
 
-## Sử dụng  ##
+## Sử dụng
+
+
 Thêm webgazer.js vào website:
 
 ```

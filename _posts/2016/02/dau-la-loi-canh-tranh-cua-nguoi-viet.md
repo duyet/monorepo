@@ -14,7 +14,8 @@ description: Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH V
 [Chinhphu.vn](http://chinhphu.vn/) - Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.    
 "Bởi tính cách tích cực hay tiêu cực là góc nhìn của mỗi người. Khen một điều tích cực cũng là do người phân tích, chê điều tiêu cực cũng là do góc nhìn của người lựa chọn. Biến tất cả những gì mình có thành lợi thế cạnh tranh thì đó mới là tư duy hiện đại, có tầm của người có văn hóa, làm văn hóa", GS.TSKH Vũ Minh Giang nhấn mạnh.
 
-## Từ tính linh hoạt tới lợi thế công nghệ thông tin ##
+## Từ tính linh hoạt tới lợi thế công nghệ thông tin
+
 GS.TSKH Vũ Minh Giang phân tích, trước hết văn hóa là một tài nguyên cả hữu hình và vô hình, hiện thân dưới các dạng di sản văn hóa vật thể, phi vật thể. Có những di sản tiêu biểu được UNESCO vinh danh là di sản văn hóa của nhân loại nhưng cũng có những nét văn hóa hòa vào trong cuộc sống như tình tương thân tương ái, đoàn kết trước hiểm nguy, lá lành đùm rá rách, nhân hậu… Đó là những nét đẹp truyền thống của tính cách người Việt.
 
 Chỉ nói riêng về tính cách người Việt, GS. Vũ Minh Giang cho rằng "với những di sản văn hóa phi vật thể kiểu này, hiện nay chúng ta chưa có một định hướng chung có tính tổng quát về việc nghiên cứu, biến tất cả giá trị phi vật thể của mình thành động lực để xây dựng các chiến lược phát triển".
@@ -33,7 +34,8 @@ Nhìn sang các quốc gia khác, với tính mềm dẻo đến mức như là 
 
 "Do đó, tính cách tùy tiện-mềm dẻo của người Việt, nhìn ở góc độ này nó là han chế tiêu cực, nhưng nhìn ở góc độ khác nó lại là lợi thế. Chúng ta làm sao vứt bỏ nét tính cách đã hình thành từ hàng ngàn năm nay. Vấn đề là làm sao biến nó thành tài sản, thành thế mạnh cạnh tranh của đất nước" GS Vũ Minh Giang trăn trở.
 
-## Ra thế giới bằng sự thông minh, linh hoạt, sáng tạo ##
+## Ra thế giới bằng sự thông minh, linh hoạt, sáng tạo
+
 
 Quay trở lại bài toán khai thác giá trị phi vật thể của người Việt, GS. Vũ Minh Giang cho rằng cần phải có một tầm nhìn, chiến lược trong việc biến tất cả những gì mình có thành lợi thế trong quá trình hội nhập quốc tế.
 

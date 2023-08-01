@@ -26,13 +26,15 @@ Cụ thể Javascript đứng đầu bảng Top Tech on Stack Overflow (62,588).
 
 Vẫn phải nói là Javascript/Nodejs vẫn khá là mạnh và đa chức năng, cú pháp dễ học. Hay xem Javascript làm được những gì.
 
-## Web ##
+## Web
+
 Javascript ban đầu được thiết kế cho các Website, ngôn ngữ lập trình kịch bản.
 Cuộc chiến trình duyệt lần nhứ nhất bắt đầu, IE vs Netscape (1995). Lúc này Nestcape quyết định tạo một ngôn ngữ đơn giản cho lập trình viên không chuyên có thể sử dụng đươc nhằm cạnh tranh với Microsoft về tính năng của trình duyệt. Thế là JavaScript ra đời, nó được phát triển bởi Brendan Eich dưới tên LiveScript, sau đổi tên thành Javascript.
 
 Hiện tại JavaScript đã phát hành đến phiên bản 5.1 (11.2011). Và là một trong những ngôn ngữ lập trình phổ biến nhất thế giới. Nó cùng với HTML và CSS tạo thành 3 ngôn ngữ bắt buộc phải có đối với một website.
 
-## Node.js ##
+## Node.js
+
 Node.js được viết bằng JavaScript, là một hệ thống phần mềm viết các ứng dụng internet có khả năng mở rộng, chủ yếu là web server. Nodejs sử dụng kỹ thật điều khển theo sự kiện, nhập/xuất không đồng bộ để tối tiểu tổng chi phí và tối đại khả năng mở rộng.
 
 Node.js được xây dựng trên V8 JavaScript engine của Google, libUV, và vài thư viện khác. Nodejs ra đời nhiều công nghệ rất hay: từ Web, Task Runner, Crawler, ứng dụng Realtime, Testing, Mobile, Robot ...
@@ -43,6 +45,7 @@ Trang chủ [NPM](http://npmjs.com/) (trình quản lý package của Nodejs), c
 
 ## Ứng dụng mobile 
 
+
 Javascript còn thể được dùng để viết nên các ứng dụng Hybrid Mobile, lập trình viên chỉ cần biết Javascript, không cần phải học thêm Java hay Object-C. Phát triển một lần và build được trên nhiều nền tảng Android, iOs, Windows, ... 
 
 Các framework nổi bật hiện nay gồm [Ionic](http://ionicframework.com/), [Cordova](https://cordova.apache.org/) và [React Native](https://facebook.github.io/react-native/)
@@ -52,6 +55,7 @@ Hybrid Mobile tuy không đạt hiệu suất bằng các ứng dụng Native, n
 ![](https://4.bp.blogspot.com/-r6iGXPWFJC4/Vu1GV0rh5jI/AAAAAAAAR7I/mrrP74HyJYk8yUUOXOIEykBM1jaUCo-Kw/s1600/Screenshot%2Bfrom%2B2016-03-19%2B19-29-38.png)
 
 ## Ứng dụng đa nền tảng 
+
 
 Microsoft đang dần chuyển mình sang các công nghệ của Javascript/Nodejs, như các ứng dụng Metro trên Windows 8/10 có thể được phát triển bằng HTML5/Javascipt. Visual Studio hỗ trợ phát triển các project Express.js. 
 
@@ -65,13 +69,15 @@ Visual Code được viết dựa trên [Electron](http://electron.atom.io/), đ
 
 ## Game 
 
+
 Ngoài Unity cũng có nhiều developers chọn Javascript và HTML5 để phát triển Game, với hiệu suất cũng rất cao. Một số framework nổi tiếng được sử dụng như: [Pharser](http://phaser.io/), [Pandajs](http://www.pandajs.net/), [craftyjs](http://craftyjs.com/), ...
 
 ![](https://3.bp.blogspot.com/-5CryDTIuoAY/Vu1JvFKPVNI/AAAAAAAAR7s/n3erMJHL_GcHw1C_r7ulbLU5pWIP8sWag/s1600/Screenshot%2Bfrom%2B2016-03-19%2B19-43-52.png)
 
 ![](file:///home/duyetdev/Pictures/Screenshot%20from%202016-03-19%2019-43-52.png)
 
-## OS và Tools ##
+## OS và Tools
+
 
 Nodejs có thể viết được các tools dạng command lines khá mạnh, giống như Python hoặc Shell Script.
 
@@ -85,7 +91,8 @@ Mình còn tìm thấy 1 dự án, sử dụng Nodejs và NPM để xây dựng 
 
 Nodejs còn thường được dùng trong các CSDL NoSQL, làm ngôn ngữ truy vấn (MongoDB và CouchDB).
 
-## Các công nghệ khác ##
+## Các công nghệ khác
+
 
 Nodejs/Javascript thực sự rất phổ biến và khả năng không hạn chế. JS còn chạy được trong các Robots, xử lý tính toán máy học, Raspberry PI, trong phần mềm Photoshop, ...
 

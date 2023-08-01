@@ -23,6 +23,7 @@ Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look v�
 
 ## Nội dung:  
 
+
 - Giới thiệu Docker, nguồn gốc ra đời.
 - Thuật ngữ Container, Isolated Environment
 - Cộng đồng Docker, quy mô
@@ -35,6 +36,7 @@ Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look v�
 Slide được Public tại đây: [https://talk.duyet.net/why-docker/](https://talk.duyet.net/why-docker/), link dự phòng: [http://duyetdev.github.io/why-docker](http://duyetdev.github.io/why-docker)
 
 ## Tham khảo 
+
 
 - [Cài đặt Docker trên Ubuntu](https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html)
 - Slide: Why docker? - [https://talk.duyet.net/why-docker/](http://why-docker.talk.duyetdev.com/)

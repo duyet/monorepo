@@ -19,14 +19,18 @@ description: Bài trước tôi có nói về Columnar Database và Graph Databa
 
 ![](https://2.bp.blogspot.com/-Wq61rnHCVQk/VrHL_XD9alI/AAAAAAAAPEE/8DjlqxdZ5dE/s400/Wikipedia_multilingual_network_graph_July_2013.svg.png)
 
-## Graph (đồ thị)  ##
+## Graph (đồ thị)
+
+
 Đồ thị là một tập các đối tượng gọi là đỉnh nối với nhau bởi các cạnh. Thông thường, đồ thị được vẽ dưới dạng một tập các điểm (đỉnh, nút) nối với nhau bởi các đoạn thẳng (cạnh). Tùy theo ứng dụng mà một số cạnh có thể có hướng. ([Wikipedia](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93_th%E1%BB%8B_(l%C3%BD_thuy%E1%BA%BFt_%C4%91%E1%BB%93_th%E1%BB%8B))).
 
-## Graph Database ##
+## Graph Database
+
 Graph Database mô tả và lưu trữ dữ liệu dưới dạng đồ thị, một cách trực quan và dễ dàng truy vấn.
 Dĩ nhiên Graph Database cũng sẽ có những ưu, khuyết điểm, những trường hợp nên và không nên sử dụng.
 
-## Khi nào sử dụng Graph Database ##
+## Khi nào sử dụng Graph Database
+
 
 Quay lại CSDL quan hệ, chúng ta đã quá quen với cách biểu diễn theo từng quan hệ truyền thống, nhưng với những bài toán cần nhiều quan hệ việc sử dụng Relation Database để lưu trữ không phải là một giải pháp hay vì :
 
@@ -45,7 +49,8 @@ Giả sử ta có một cơ sở dữ liệu quan hệ lưu trữ thông tin ng�
 
 Tuy nhiên Graph Database trả lời câu hỏi trên một cách rất trực tiếp và đơn giản!
 
-## Neo4j ##
+## Neo4j
+
 
 Neo4j là một trong những Graph Database phổ biển nhất hiện nay.
 
@@ -66,7 +71,8 @@ Quy ước:
 - có duy nhất một kiểu của cạnh : (a)-[rel:KNOW]-(b) mô tả a và b được liên kết với nhau bởi cạnh rel có kiểu là KNOW
 - có thể có hướng : (a)-[rel:KNOW]->(b)
 
-### Cài đặt Neo4j ###
+### Cài đặt Neo4j
+
 
 Download Neo4j bản mới nhất tại trang chủ: [http://www.neo4j.org](http://www.neo4j.org/)
 
@@ -74,7 +80,8 @@ Khởi chạy Neo4j bằng lệnh bin/neo4j start
 
 Truy cập: http://localhost:7474 để sử dụng và truy vấn.
 
-## Neo4j trong môi trường Big Data ##
+## Neo4j trong môi trường Big Data
+
 
 Lưu trữ graph bằng Neo4j thì toàn bộ graph phải nằm trên một máy duy nhất. Đây là nhược điểm rất lớn của Neo4j, điều này khiến việc lưu trữ một big graph bao gồm rất nhiều đỉnh và cạnh bằng Neo4j là rất khó khăn.
 

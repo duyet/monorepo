@@ -51,9 +51,11 @@ có thể chủ động điều khiển việc parallel tasks.
 
 ## Demo & benchmark
 
+
 <https://rust-tieng-viet.github.io/crates/rayon.html#demo--bench>
 
 ## References
+
 
 - [Rayon: data parallelism in Rust](https://smallcultfollowing.com/babysteps/blog/2015/12/18/rayon-data-parallelism-in-rust/)
 - <https://www.youtube.com/watch?v=gof_OEv71Aw>

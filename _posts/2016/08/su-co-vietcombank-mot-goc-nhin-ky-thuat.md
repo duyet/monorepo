@@ -25,7 +25,8 @@ Nhiều ngày qua các phương tiện thông tin truyền thông tại Việt N
 
 Nhằm góp một tiếng nói độc lập về sự việc này, nhóm nghiên cứu VNSECURITY đã thẩm định quy trình giao dịch trên ngân hàng điện tử của Vietcombank. Trong bài viết này chúng tôi đưa ra hai phương án mà kẻ xấu đã thực hiện để trộm tiền. Chúng tôi đánh giá phương án phishing là khả dĩ nhất. Ngoài ra chúng tôi cũng đã phát hiện một lỗ hổng trong thiết kế của Smart OTP. Chúng tôi không có bằng chứng mạnh mẽ để chứng minh đây là lỗ hổng mà kẻ xấu đã sử dụng, nhưng chúng tôi hi vọng, thông qua các phân tích kỹ thuật, Smart OTP và các sản phẩm Internet Banking khác ở Vietcombank cũng như các ngân hàng khác sẽ được điều chỉnh để an toàn hơn và người dùng cũng hiểu hơn về những rủi ro mà họ đang chịu khi sử dụng các sản phẩm và dịch vụ Internet Banking. Trong bài viết tiếp theo, chúng tôi sẽ bàn về cách triển khai một hệ thống xác thực hai lớp hiện đại chống lại được tấn công phishing.
 
-##  Giải pháp xác thực 2 lớp của Vietcombank ##
+##  Giải pháp xác thực 2 lớp của Vietcombank
+
 Trước hết, chúng tôi xin giới thiệu về các bước cơ bản mà một giao dịch chuyển tiền điện tử phải tuân thủ:
 
 1. Người dùng đăng nhập bằng tên đăng nhập và mật khẩu.
@@ -37,7 +38,8 @@ Vietcombank cung cấp hai sản phẩm OTP: SMS và Smart OTP. Smart OTP là m�
 
 Theo như đề cập ở trên, nửa đêm ngày 4 rạng sáng ngày 5, nạn nhân bị đánh cắp hơn nửa tỉ đồng, mà không hề nhận được SMS OTP. Vietcombank và C50 cho rằng kẻ xấu bằng cách nào đó đã [kích hoạt thành công dịch vụ Smart OTP của nạn nhân](http://infonet.vn/da-tim-ra-nguyen-nhan-chu-the-vietcombank-mat-500-trieu-dong-post206166.info) [4].
 
-## Hướng tấn công số 1: phishing ##
+## Hướng tấn công số 1: phishing
+
 Đây là hướng tấn công đơn giản và dễ thực hiện nhất. Tại một thời điểm nào đó trước khi nạn nhân bị rút nửa tỉ đồng, kẻ xấu đã:
 
 1. Lừa nạn nhân vào trang web giả mạo để lấy thông tin tên người dùng và mật khẩu.
@@ -51,7 +53,8 @@ Chúng tôi đánh giá khả năng cao đây là cách mà kẻ xấu đã th�
 
 Hình ảnh cung cấp bởi C50 cho thấy website giả mạo yêu cầu nạn nhân nhập vào mã OTP.
 
-## Hướng tấn công số 2: khai thác lỗ hổng của Smart OTP ##
+## Hướng tấn công số 2: khai thác lỗ hổng của Smart OTP
+
 
 Vì tò mò, chúng tôi đã tiến hành kiểm tra ứng dụng Smart OTP và phát hiện một lỗ hổng. Lợi dụng lỗ hổng này, chỉ cần biết số điện thoại của nạn nhân, kẻ xấu có thể kích hoạt Smart OTP của các khách hàng chưa đăng ký dịch vụ Smart OTP. Phương án tấn công như sau:
 
@@ -115,7 +118,8 @@ Trao đổi với chúng tôi đại diện Vietcombank đồng ý rằng giao t
 
 Trong phần tiếp theo của loạt bài này, chúng tôi sẽ bàn về cách thiết kế một hệ thống xác thực hai lớp an toàn.
 
-## Nhật ký phát hiện và thông báo lỗ hổng ##
+## Nhật ký phát hiện và thông báo lỗ hổng
+
 Theo thông lệ quốc tế, chúng tôi công bố toàn bộ nhật ký phát hiện và thông báo lỗ hổng (ngày giờ ước lượng theo giờ VN)
 
 - 22:30, 12/8/2016: tải app Smart APK về.

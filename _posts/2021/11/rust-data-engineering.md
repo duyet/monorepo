@@ -47,6 +47,7 @@ Và cuối cùng mình dự định sẽ bắt đầu với Rust, bởi vì
 
 ## 1. End to end
 
+
 Rust có thể làm việc với OS System, Networking và Embedding. Được tạo bởi Mozilla, Rust hiện đang được dùng ở  **[Facebook](https://engineering.fb.com/2021/04/29/developer-tools/rust/)**, **[Apple](https://twitter.com/oskargroth/status/1301502690409709568)**, **[Amazon](https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/)**, **[Microsoft](https://twitter.com/ryan_levick/status/1171830191804551168)**, và **[Google](https://security.googleblog.com/2021/04/rust-in-android-platform.html)** cho các dự án systems infrastructure, encryption và virtualization. Một số dự án nổi bật như: **[Firecracker](https://github.com/firecracker-microvm/firecracker)** (AWS), **[Bottlerocket](https://github.com/bottlerocket-os/bottlerocket)** (AWS), **[Quiche](https://github.com/cloudflare/quiche)** (Cloudflare) và **[Neqo](https://github.com/mozilla/neqo)** (Mozilla).
 
 Rust for the Web: **[WebAssembly](https://webassembly.org/docs/use-cases/)** *(WASM)*: mình còn làm việc với TypeScript và React để xây dựng các Web Tool, WASM là một xu hướng hiện nay, nhiều NPM package đang dần được viết bằng Rust và có thể chạy được trên frontend. Rust cũng đang dần thay thế nhiều thành phần trong hệ sinh thái của Javascript như minification (Terser), transpilation (Babel), formatting (Prettier), bundling (webpack), linting (ESLint).
@@ -55,6 +56,7 @@ Rust for the Web: **[WebAssembly](https://webassembly.org/docs/use-cases/)** *(
 
 ## 2. Performant by default
 
+
 Mình sử dụng Python đã nhiều năm cho rất nhiều loại Project, từ Data Platform, Backend, Tools, ... 
 Phải nói rằng Python không phải là một lựa chọn tốt nếu bạn cần một Performance tuyệt đối, 
 và performance đôi khi không phải dựa vào system design hoàn toàn, mà là do chính bản chất của ngôn ngữ.
@@ -62,6 +64,7 @@ và performance đôi khi không phải dựa vào system design hoàn toàn, m�
 Một ví dụ có thể dễ thấy là thuật toán sắp xếp trên Python cực kỳ chậm (do bản chất của `for loop`) khiến người ta viết nó bằng C và chúng ta có các thư viện viết bằng Cython (https://github.com/numpy/numpy/blob/main/numpy/core/src/npysort/timsort.cpp)
 
 ## 3. Memory safe
+
 
 Viết code trên Rust an toàn, hầu hết các lỗi đều được complier phát hiện và giải thích rõ ràng. 
 Bạn sẽ phải làm quen với các khái niệm như [Borrowing](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html), 
@@ -72,6 +75,7 @@ Và những khái niệm hay luật này giúp code an toàn hơn, hơn 60% bugs
 
 
 ## 4. Data Intensive System Design
+
 
 Nhiều project liên quan đến lĩnh vực Data cũng đang dần được viết (hoặc viết lại) bằng Rust (Thrift Rust, Kafka Client Rust, Apache Arrow, ...)
 
@@ -106,6 +110,7 @@ assert_eq!(pretty_results.trim().lines().collect::<Vec<_>>(), expected);
 
 ## 5. Language Tooling
 
+
 Mình đã phải lòng Cargo - một công cụ chính thức của Rust. 
 Cargo thực sự rất mạnh, giúp bạn dễ dàng quản lý các dependency, tác project thành từng crate nhỏ hơn 
 (mà không cần quá quan tâm đến cái sự nhức đầu `PYTHONPATH` trong Python nữa). 
@@ -115,6 +120,7 @@ giúp xây dựng các tiêu chuẩn cộng đồng dễ dàng hơn bao giờ h�
 ![Cargo Clippy](/media/2021/11/duyet-clippy.png)
 
 ## 6. Rust tests and documentation
+
 
 Rust và Cargo cho phép bạn có nhiều loại test khác nhau: unit test, tests trong module, integration tests 
 trong thư mục `tests/`, test trên docs. Test trên example docs cực kỳ đặc biệt và là thứ mình thích nhất, 
@@ -127,6 +133,7 @@ Một điều nữa là hệ thống document cực kỳ chất lượng của R
 Ban đầu mình chỉ cần đọc The Book (https://doc.rust-lang.org/book/) vì mọi thứ đều được giải thích rõ ràng chi tiết.
 
 ## 7. Nhiều ông lớn
+
 
 Nhiều gã khổng lồ công nghệ đã và đang sử dụng và đóng góp rất nhiều cho Rust kể từ khi tách ra từ Mozilla và thành lập Rust Foundation. 
 

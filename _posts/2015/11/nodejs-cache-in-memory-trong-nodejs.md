@@ -19,13 +19,15 @@ memory-cache là một package đơn giản trong Nodejs, giúp chúng ta cache 
 
 ![](https://1.bp.blogspot.com/-AyUtco9W0rE/VkYN8h_yUBI/AAAAAAAAFqI/IY2bT1tt5VU/s1600/nodejs-logo.png)![](https://1.bp.blogspot.com/-NpW8Cw34Ay0/VkYPmTU76DI/AAAAAAAAFqY/UroPqdRt4mg/s400/hdd_hard_drive_disk_technology_storage_save_hardware_information_data_sata_device_memory_tool_backup_computer_electronics_equipment_flat_design_icon-512.png)
 
-## Installation ##
+## Installation
+
 
 ```
 npm install --save memory-cache
 ```
 
-## Usage ##
+## Usage
+
 
 ```
 var cache = require('memory-cache');
@@ -53,38 +55,47 @@ Houdini will now disappear
 Houdini is null
 ```
 
-## API ##
+## API
 
-### put = function(key, value, time) ###
+
+### put = function(key, value, time)
+
 
 - Lưu một giá trị vào bộ nhớ.
 - Nếu không có time thì biến được lưu vĩnh viễn.
 
-### get = function(key) ###
+### get = function(key)
+
 
 - Lấy giá trị cache.
 - Nếu key không tồn tại, trả về giá trị null
 
-### del = function(key) ###
+### del = function(key)
+
 
 - Xóa giá trị, trả về true nếu xóa thành công, ngược lại false.
 
-### clear = function() ###
+### clear = function()
+
 
 - Xóa toàn bộ cache.
 
-### size = function() ###
+### size = function()
+
 
 - Trả về số lượng giá trị lưu trong cache.
 
-### memsize = function() ###
+### memsize = function()
+
 
 - Trả về tổng số bộ nhớ mà cache sử dụng.
 
-### debug = function(bool) ###
+### debug = function(bool)
+
 
 - Bật tắt chế độ debug
 
-### keys = function() ###
+### keys = function()
+
 
 - Trả về danh sách các keys.

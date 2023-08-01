@@ -18,7 +18,8 @@ Docker and Spark are two technologies which are very hyped these days. [The repo
 
 ![](https://1.bp.blogspot.com/-KvlK1aCu4JA/VmsMOTCCySI/AAAAAAAALYo/H_kBQPB_dDE/s640/KuDr42X_ITXghJhSInDZekNEF0jLt3NeVxtRye3tqco.png)
 
-## Install Docker on Ubuntu ##
+## Install Docker on Ubuntu
+
 Log into your Ubuntu installation as a user with sudo privileges.
 Install wget and wget docker
 
@@ -72,19 +73,22 @@ For more examples and ideas, visit:
  https://docs.docker.com/userguide/
 ```
 
-## Pull the image from Docker Repository ##
+## Pull the image from Docker Repository
+
 
 ```
 docker pull duyetdev/docker-spark
 ```
 
-## Building the image ##
+## Building the image
+
 
 ```
 docker build --rm -t duyetdev/docker-spark .
 ```
 
-## Running the image ##
+## Running the image
+
 
 If using boot2docker make sure your VM has more than 2GB memory 
 
@@ -102,7 +106,8 @@ or
 docker run -d -h sandbox duyetdev/docker-spark -
 ```
 
-## Testing ##
+## Testing
+
 
 In order to check whether everything is OK, you can run one of the stock examples, coming with Spark.
 

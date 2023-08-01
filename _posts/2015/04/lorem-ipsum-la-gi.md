@@ -16,7 +16,8 @@ description: Nếu bạn là người quen với việc thiết kế web, chắc
 
 Nếu bạn là người quen với việc thiết kế web, chắc chắn không dưới một lần bạn đã từng thấy những giao diện được thiết kế và có các dòng chữ không phải là ngôn ngữ quen thuộc nào trên thế giới. Đó chính là những dòng chữ quen thuộc của giới thiết kế layout "Lorem Ipsum Dolor sit amet …"
 
-## Lorem Ipsum  là gì? ##
+## Lorem Ipsum  là gì?
+
 Lorem ipsum là dạng chữ mẫu được sử dụng trong ngành in ấn từ những năm 1500. Nó dần trở lên phổ biến kể từ những năm 1960 và cho đến ngày nay, hầu hết những giao diện và các phần mềm máy tính đều sử dụng Lorem Ipsum là chữ mẫu.
 
 Thực chất Lorem Ipsum không phải là dòng chữ vô nghĩa được tạo ra một cách ngẫu nhiên, mà theo những nghiên cứu gần đây, người ta tin rằng nó được bắt nguồn từ một bài văn cổ đại, có niên đại  khoảng 45 năm trước công nguyên.
@@ -28,6 +29,7 @@ Nhưng cho dù hư thực thế nào đi chăng nữa, nhưng công dụng của
 Ở hình 1, bạn có cảm giác rối mắt và thấy không thể tập trung vào bố cục. Nhưng ở tấm hình thứ 2 khắc phục được lối này, mắt ta cảm thấy dễ chịu hơn khi không phải đọc lại cùng một nội dung nhiều lần. Do vậy nếu bạn chưa sử dụng Lorem Ipsum cho giao diện mình thiết kế, hãy bắt đầu làm quen với việc sử dụng này.
 
 ## Công cụ 
+
 
 Nếu bạn muốn dùng những đoạn text này, hãy vào trang chủ của Lipsum.com và họ có công cụ cho phép bạn tạo nhiều đoạn văn dạng này.
 

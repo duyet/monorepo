@@ -22,7 +22,8 @@ Following is the summarized steps of How to Install Oracle 12c on Ubuntu 15.04
 
 Detailed Step by Step of How to Install Oracle 12c on Ubuntu 15.04
 
-## 1. Oracle Installation Prerequisites ##
+## 1. Oracle Installation Prerequisites
+
 Host file modification
 The /etc/hosts file must contain a fully qualified name for the server.
 
@@ -30,7 +31,8 @@ The /etc/hosts file must contain a fully qualified name for the server.
 IP-address  fully-qualified-machine-name machine-name
 ```
 
-## 2. Hardware requirement ##
+## 2. Hardware requirement
+
 
 1. General Server Minimum Requirements
 Server should be started in runlevel 3 or runlevel 5.
@@ -47,7 +49,8 @@ Recommended: 2 GB of RAM or moreSwap Space Requirement for Linux
 2. If RAM size is between 2 GB to 16 GB then Swap space should be equal to the size of the RAM
 3. If RAM size is more than 16 GB then Swap space should be 16 GB
 
-## 3. Install Prerequisites packages ##
+## 3. Install Prerequisites packages
+
 
 1. Open a command prompt by pressing CTRL + ALT + t and run following command as a root / root equivalent user to downloads the package lists from the repositories and updates them to get information on the newest versions of packages and their dependencies. It will do this for all repositories and PPAs.
 
@@ -88,7 +91,8 @@ lsb-graphics make odbcinst pax po-debconf rpm \
 rpm-common sysstat unixodbc unixodbc-dev unzip
 ```
 
-## 4. Creating Required Operating System Groups and Users ##
+## 4. Creating Required Operating System Groups and Users
+
 
 1. Run following command as root/ root equivalent user to create required Operating System groups and users
 
@@ -111,7 +115,8 @@ sudo chown -R oracle:dba /u01
 sudo passwd oracle
 ```
 
-## 5. Configuring Kernel Parameters and Resource Limits ##
+## 5. Configuring Kernel Parameters and Resource Limits
+
 
 1. Make ourself as Red Hat by running following command as root/ root equivalent user
 
@@ -179,7 +184,8 @@ do sudo ln -s /etc/rc$i.d /etc/rc.d/rc$i.d
 done
 ```
 
-## 6. Downloading Software ##
+## 6. Downloading Software
+
 Login as a oracle user as we are going to install database using oracle user.
 Go to following link to download Oracle 12c.
 [Download Oracle 12c Enterprise Edition](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html)
@@ -189,7 +195,8 @@ Download the file to /u01/binaries.
 
 ![](https://1.bp.blogspot.com/-CB9-dLfNP90/VfZd6RSwrNI/AAAAAAAAC5M/rmrmrNrd86s/s1600/Screenshot%2Bfrom%2B2015-09-14%2B12%253A38%253A55.png)
 
-## 7. Unpack Files ##
+## 7. Unpack Files
+
 Login as a oracle user and open a terminal by pressing CTRL + ALT + T
 Go to **/u01/binaries** folder using following command
 
@@ -210,7 +217,8 @@ Before doing the installation we need to give proper permission to the extracted
 chown -Rf oracle:dba /u01/binaries
 ```
 
-## Install Oracle 12c on Ubuntu ##
+## Install Oracle 12c on Ubuntu
+
 
 1. Login as a oracle user and start installation using following command 
 ```

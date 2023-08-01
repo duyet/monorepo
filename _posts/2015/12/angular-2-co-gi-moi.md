@@ -22,9 +22,12 @@ Angular 2 có nhiều điểm mới, nhìn sơ bộ có thể thấy angular có
 - Hỗ trợ template tốt hơn – Angular 2 có cú pháp template mới dễ đọc hơn, bỏ bớt một số directive, tích hợp tốt hơn với Web Component. Trong tương lai họ còn mong muốn tạo ra tool hỗ trợ báo lỗi ngay trong lúc viết code như các ngôn ngữ compile.
 - Angular 2, ứng dụng được phân tách thành hai phần đó là application layer và render layer. Điều này cho phép Angular có thể chạy trên những môi trường khác ngoài browser như Web Workers hay thậm chí là server.
 
-### AtScript ###
+### AtScript
+
+
 AtScript là cú pháp mở rộng của ES6, ngôn ngữ này được dùng để phát triển Angular 2.0. Tuy nhiên bạn vẫn có thể sử dụng Javacript/ES5 thuần để code ứng dụng Angular 2.
-### Templating và Data Binding ###
+### Templating và Data Binding
+
 
 - Dynamic Loading: chức này hiện là điểm thiếu xót trong Angular 1.0, chức năng cho phép lập trình viên thêm directives hoặc controller một cách tự động.
 - Templating: Template sẽ đươc biên dịch bất đồng bộ, giúp tăng tốc độ của ứng dụng.
@@ -34,7 +37,8 @@ AtScript là cú pháp mở rộng của ES6, ngôn ngữ này được dùng đ
 - Decorator Directives
 - Template Directives
 
-### Routing Solution ###
+### Routing Solution
+
 
 Router trong angular ban đầu được thiết kế để định nghĩa cho 1 số dạng route trong ứng dụng, nhưng nếu ứng dụng một khi lớn, việc định nghĩa từng route sẽ vô cùng khó khăn. Angular đã thiết kế lại route giúp sử dụng một cách đơn giản hơn. 
 
@@ -50,18 +54,22 @@ Router trong angular ban đầu được thiết kế để định nghĩa cho 1
 - Location Service
 - History Manipulation
 
-### Child Router ###
+### Child Router
+
 
 Child Router biến mỗi components thành một ứng dụng nhỏ hơn, mỗi ứng dụng này lại có 1 bộ router riêng.
 
-### Screen Activator ###
+### Screen Activator
+
 
 Cái này chưa rõ, mình sẽ tìm hiểu sau.
 
-### Logging ###
+### Logging
+
 
 Angular 2 nay sử dụng thêm bộ logging service mới tên là [diary.js](https://github.com/angular/diary.js/tree/master) - rất hữu ích trong debug và kiểm soát ứng dụng. 
 
-### Scope ###
+### Scope
+
 
 $scope sẽ được loại bỏ trong Angular 2

@@ -19,10 +19,13 @@ Nhiệm vụ của mình là thu thập dữ liệu từ nhiều nguồn thô nh
 
 ![](https://3.bp.blogspot.com/-Cwxzj6-qXVo/VcXRtQa3L4I/AAAAAAAACss/YD6WVCG84JE/s1600/nodejs-crawler.png)
 
-#### Github project ####
+#### Github project
+
+
 Có thể xem thêm code của project tại Github tại đây: [https://github.com/duyet/Crawler-DKXT-DH-2015](https://github.com/duyet/Crawler-DKXT-DH-2015)
 
-## Bóc tách bảng HTML và dò đường (với bảng có phân trang) ##
+## Bóc tách bảng HTML và dò đường (với bảng có phân trang)
+
 
 Đây là cách dễ và cũng là dạng crawler phổ biến nhất. Với bảng có phân trang, chúng ta phải lập trình để spider có thể dò được link của trang tiếp theo cho đến khi lấy hết được nội dung. 
 

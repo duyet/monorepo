@@ -18,7 +18,8 @@ Shell bash trên Linux nếu như biết khai thác thì nó sẽ là một côn
 
 ![](https://1.bp.blogspot.com/-LFMgOUBzTRc/WIWIaGmpQzI/AAAAAAAAieU/kvAZPXb218k53BpTdGwnVJQbL4KyhjtRgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-36-34.png)
 
-## copy a file ##
+## copy a file
+
 
 Copy `readme.txt` vào thư mục `documents`
 
@@ -26,13 +27,15 @@ Copy `readme.txt` vào thư mục `documents`
 cp readme.txt documents/
 ```
 
-## duplicate a file ##
+## duplicate a file
+
 
 ```bash
 cp readme.txt readme.bak.txt
 ```
 
-## copy a folder ##
+## copy a folder
+
 
 Copy thư mục `myMusic` vào thư mục `myMedia` 
 
@@ -43,7 +46,8 @@ cp -a myMusic/ myMedia/myMusic/
 
 ```
 
-## duplicate a folder ##
+## duplicate a folder
+
 Chú ý dấu /
 
 ```bash
@@ -53,7 +57,8 @@ cp -a myMusic myMedia/
 
 ```
 
-## move a file ##
+## move a file
+
 Di chuyển file readme.txt vào thư mục documents/
 
 ```bash
@@ -62,7 +67,8 @@ mv readme.txt documents/
 
 Luôn sử dụng dấu / cuối thư mục, [for this reason](http://unix.stackexchange.com/a/50533).
 
-## rename a file ##
+## rename a file
+
 Đổi tên bằng cách move nó
 
 ```bash
@@ -70,7 +76,8 @@ mv readme.txt README.md
 
 ```
 
-## move a folder ##
+## move a folder
+
 Tương tự di chuyển file
 
 ```bash
@@ -80,14 +87,16 @@ mv myMedia/ myMusic/myMedia
 
 ```
 
-## rename a folder ##
+## rename a folder
+
 
 ```bash
 mv myMedia/ myMusic/
 
 ```
 
-## create a new file ##
+## create a new file
+
 Tạo file rỗng
 
 ```bash
@@ -102,7 +111,8 @@ or
 
 ```
 
-## create a new folder ##
+## create a new folder
+
 
 ```bash
 mkdir 'untitled folder'
@@ -116,7 +126,8 @@ mkdir -p 'path/may/not/exist/untitled folder'
 
 ```
 
-## show file/folder size ##
+## show file/folder size
+
 
 ```bash
 stat -x readme.md
@@ -130,7 +141,8 @@ du -sh readme.md
 
 ```
 
-## open a file with the default program ##
+## open a file with the default program
+
 Mở file trên GUI
 
 ```bash
@@ -139,7 +151,8 @@ xdg-open file   # on Linux
 
 ```
 
-## zip a folder ##
+## zip a folder
+
 Nén zip 1 thư mục
 
 ```bash
@@ -147,7 +160,8 @@ zip -r archive_name.zip folder_to_compress
 
 ```
 
-## unzip a folder ##
+## unzip a folder
+
 Giải nén file zip
 
 ```bash
@@ -155,20 +169,23 @@ unzip archive_name.zip
 
 ```
 
-## remove a file ##
+## remove a file
+
 Xóa hoàn toàn, không thể khôi phục file
 
 ```bash
 rm my_useless_file
 ```
 
-## remove a folder ##
+## remove a folder
+
 
 ```bash
 rm -r my_useless_folder
 ```
 
-## list folder contents ##
+## list folder contents
+
 Liệt kê nội dung thư mục
 
 ```bash
@@ -176,7 +193,8 @@ ls -la my_folder
 
 ```
 
-## tree view a folder and its subfolders ##
+## tree view a folder and its subfolders
+
 hiển thị dưới dạng cây thư mục
 
 ```bash
@@ -187,7 +205,8 @@ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'     # on macOS
 
 ![](https://4.bp.blogspot.com/-tK8h8jZr_bE/WIWEVOZOijI/AAAAAAAAieI/M-j88WoOPgwUof29-7baFsDsniPOoLXPgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-01-08.png)
 
-## find a stale file ##
+## find a stale file
+
 
 Tìm tất cả files modified hơn 5 ngày trước.
 

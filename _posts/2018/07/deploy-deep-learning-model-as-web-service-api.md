@@ -39,9 +39,10 @@ server cũng sẽ đợi một giá trị trong redis, có KEY=<ID của ảnh>
 Bạn có thể cài đặt như hướng dẫn trong Github.
 
 #### 1. Cài redis-server
+
 Trong Ubuntu, sử dụng lệnh:
 
-```shell
+```bash
 sudo apt-get install -y redis redis-server
 ```
 
@@ -54,7 +55,8 @@ PONG
 
 #### 2. Tạo môi trường ảo và cài đặt các thư viện:
 
-```shell
+
+```bash
 virtualenv venv                   # create virtual environment folder
 source ./venv/bin/activate        # activate env
 pip install -r requirements.txt   # install packages
@@ -62,19 +64,22 @@ pip install -r requirements.txt   # install packages
 
 #### 3. Run worker.py
 
-```shell
+
+```bash
 python worker.py
 ```
 
 #### 4. Mở terminal khác, khởi động server.py
 
-```shell
+
+```bash
 python server.py
 ```
 
 #### 5. Sử dụng Postman hoặc cURL để test:
 
-```shell
+
+```bash
 curl -X POST http://localhost:5000/predict \
         -F 'image=@file.png'
 ```

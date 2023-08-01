@@ -55,5 +55,6 @@ and ["inheriting a dependency from a workspace"](https://doc.rust-lang.org/carg
 
 ## References
 
+
 - [Inheriting a dependency from a workspace - The Cargo Book](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#inheriting-a-dependency-from-a-workspace)
 - [Cargo improvements: workspace inheritance and multi-target builds](https://blog.rust-lang.org/2022/09/22/Rust-1.64.0.html#cargo-improvements-workspace-inheritance-and-multi-target-builds)

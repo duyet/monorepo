@@ -13,13 +13,15 @@ description: Feedback Social is platform free for all to feedback, preview, comp
 
 Feedback Social is platform free for all to feedback, preview, complain,... about everything. They can get for supports from community about that.
 
-## Feedback Social Platform ##
+## Feedback Social Platform
+
 Project: Feedback Social Platform (https://github.com/duyet/feedback-social)
 Version: 0.0.1
 Author: Van-Duyet Le (@duyetdev)
 Home: https://blog.duyet.net
 
-## License ##
+## License
+
 MIT License
 
 Copyright (c) 2015 Van-Duyet Le

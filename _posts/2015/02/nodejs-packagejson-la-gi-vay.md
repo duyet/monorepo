@@ -15,7 +15,8 @@ description: "Khi bạn bắt đầu làm quen với việc xây dựng 1 trang 
 
 Khi bạn bắt đầu làm quen với việc xây dựng 1 trang web với Nodejs, 1 thứ mà bạn vẫn thường luôn thấy trong các source ở github đó là: `package.json`. Vậy nó là gì, tại sao chúng ta luôn cần phải có nó khi xây dựng 1 ứng dụng bằng Nodejs
 
-## Giới thiệu ##
+## Giới thiệu
+
 
 `package.json` là file đặc biệt, bạn có thể hiểu nó là 1 document giúp bạn biết được trong cái đống code này cần có những gói nào (Nói thêm nodejs xây dựng dựa trên nhiều module gọi là package, quản lý thông quan npm). `Package.json` là file cấu hình của npm, giúp cho npm hiểu nó cần phải cài đặt cái gì, thông tin về ứng dụng, phiên bản, ...
 
@@ -50,13 +51,19 @@ Cho xem mắt xíu nè, đây là nội dung thường thấy của 1 file `pack
 }
 ```
 
-## Các thành phần của `Package.json`  ##
+## Các thành phần của `Package.json`
+
+
 `Package.json` chứa rất nhiều thông tin, thường thì ta chỉ quan tâm đến vài thuộc tính chính thôi.
 
-### name ###
+### name
+
+
 Tên của project hoặc package, nên viết hoa cho thuộc tính name. Đây là thuộc tính bắt buộc. Ngoài ra bạn có thể public project của bạn, thì thuộc tính name này sẽ là package name, nên cái này phải là duy nhất nhé.
 
-### version ###
+### version
+
+
 Phiên bản của project. Cách ghi version hiện nay được quy đinh bởi 1 ông nào đó tên Semantic Versioning. Ông quy định thế này, phiên bản phải gồm 3 phần `MAJOR.MINOR.PATCH`
 Theo nguyên văn, trong đó:
 
@@ -73,13 +80,18 @@ Ví dụ:
 }
 ```
 
-### description ###
+### description
+
+
 Đoạn mô tả của project. Chú ý viết ngắn gọn xúc tích rõ ràng dễ hiểu, không hư cấu nhé.
 
-### author ###
+### author
+
+
 Thông tin về tác giả. Mình hy vọng 1 ngày 1 package nào đó trên npm có tên của bạn nhé.
 
-### dependencies ###
+### dependencies
+
 
 Cái này quan trọng đây. Trong project, bạn sẽ phải sử dụng rất nhiều gói, những gói này đã được viết sẵn, chỉ cần require rồi quất thôi. 
 
@@ -108,7 +120,7 @@ Ví dụ nhé:
 Giá trị trong thuộc tính này là 1 json, gồm tên package và version của package của gói đó. 
 Khi có file `package.json` bạn có thể cài các gói này 1 cách tự động bằng lệnh
 
-```shell
+```bash
 $ npm install
 ```
 
@@ -119,6 +131,7 @@ $ npm install
 - `"^1.0.5"` version từ 1.0.5 đến <1.1.0
 - `">0.10.0"` version phải lớn hơn 0.10.0
 
-## Kết ##
+## Kết
+
 
 Còn khá nhiều các thuộc tính và quy định trong `package.json`, bạn có thể tìm hiểu kĩ hơn tại đây nhé [https://docs.npmjs.com/files/package.json](https://docs.npmjs.com/files/package.json)

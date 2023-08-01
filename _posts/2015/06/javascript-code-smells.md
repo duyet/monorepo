@@ -28,6 +28,7 @@ The following video was recorded this year at FluentConf. This is the 30 minute 
 
 ## Types of Smells
 
+
 The following are the types of smells that he cover throughout the presentation. The names are a bit odd, but he have a weird compulsion to alliterate at times :)  
   
 
@@ -48,5 +49,6 @@ The following are the types of smells that he cover throughout the presentation.
   
 
 ## Slides
+
 
 You can find the slides from the presentation online at [elijahmanor.com/talks/js-smells](http://elijahmanor.com/talks/js-smells)

@@ -128,5 +128,6 @@ println!("Sometimes I need to print {{ or }} too!")
 
 ## References
 
+
 - [Format Strings in Rust 1.58](https://www.rustnote.com/blog/format_strings.html#format-strings-in-rust-158)
 - [Announcing Rust 1.58.0](https://www.rustnote.com/blog/format_strings.html)

@@ -91,6 +91,7 @@ Có hai cách:
 
 ### (1) Sử dụng `.clone()`
 
+
 ```rust
 fn prints_country(country_name: String) {
   println!("{}", country_name);
@@ -108,6 +109,7 @@ fn main() {
 String rất lớn, do đó `.copy()` sẽ tốn rất nhiều bộ nhớ. Sử dụng `&` để reference sẽ nhanh hơn, nếu có thể.
 
 ### (2) Sử dụng `&` reference
+
 
 ```rust
 fn prints_country(country_name: &String) {

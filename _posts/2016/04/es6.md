@@ -21,7 +21,8 @@ ES6 là phiên bản mới nhất của bộ tiêu chuẩn ECMAScript. ES6 ra m�
 
 Bài viết có thể sẽ không bao quát được hết những gì có trong ES6, nhưng sẽ nêu ra những điểm mới, điểm hay mà mình tiếp xúc trong quá trình sử dụng. Để xem đầy đủ changelog vui lòng [xem tại đây](http://es6-features.org/).
 
-## let/const ##
+## let/const
+
 ES6 bổ sung thêm cách khai báo biến cục bộ ([Block-scoped variables](http://es6-features.org/#BlockScopedVariables)), let khai báo biến trong block mà không làm ảnh hưởng đến giá trị trong block khác, hoặc const cho các biến không thay đổi giá trị. Ngoài ra let chỉ có giá trị trong phạm vi block code được khai báo.
 
 ```js
@@ -33,7 +34,8 @@ if(true) {
 console.log(x);  // undefined x do x chỉ được khai báo trong khối lệnh if() { ... }
 ```
 
-## Arrow ##
+## Arrow
+
 Arrow là một dạng viết tắt của các function sử dụng dấu =>, giống Java, C# hoặc Coffee Script.
 
 Tạo hàm bằng arrow: `param => returnValue`
@@ -72,7 +74,8 @@ var bob = {
 }
 ```
 
-## Class ##
+## Class
+
 ES5 không hỗ trợ class, mà mô tả các đối tượng thông qua các function và prototype. Hiện ES6 đã hỗ trợ Class, đúng chất của OOP.
 
 ```js
@@ -101,7 +104,8 @@ class SkinnedMesh extends THREE.Mesh {
 }
 ```
 
-## Enhanced Object Literals ##
+## Enhanced Object Literals
+
 Enhanced Object Literals giúp rút gọn quá trình khai báo `foo: foo` trong Object. Ví dụ ngày trước bạn khai báo như thế này:
 
 ```js
@@ -132,7 +136,8 @@ var obj = {
 };
 ```
 
-## Exporting ##
+## Exporting
+
 
 ES6 có một chút thay đổi về cú pháp export 
 
@@ -171,7 +176,8 @@ function sumThree(a, b) {
 export { sumTwo, sumThree };
 ```
 
-## Importing Modules ##
+## Importing Modules
+
 
 ```js
 // ES5
@@ -187,7 +193,8 @@ import {
 import * as util from 'math/addition'
 ```
 
-## Template Strings + Escaping Characters + Multi-line Strings ##
+## Template Strings + Escaping Characters + Multi-line Strings
+
 Template Strings: Cái này khá dễ hiểu, giống như C/C++, Python. Template String được bao bởi dấu huyền (`)
 
 ```js
@@ -243,7 +250,8 @@ var text = (
 )
 ```
 
-## Destructuring Assignment ##
+## Destructuring Assignment
+
 
 ```js
 function multi_values() {
@@ -258,7 +266,8 @@ var [ a, , b ] = list; // a = 1; b = 3
 [ b, a ] = [ a, b ]; // a = 3; b = 1
 ```
 
-## Tham số mặc định ##
+## Tham số mặc định
+
 
 ES6 cho thấy sự thông minh trong cách nhận giá trị tham số đầu vào của một function. Bằng cách tự động điền giá trị tham số đầu vào theo thứ tự truyền vào tương ứng.
 
@@ -276,7 +285,8 @@ function default2 (x = 1, y = 2, z = 3) {
 default2(undefined, 6, 7); // 1 6 7
 ```
 
-## Sử dụng "..." cho đa tham số ##
+## Sử dụng "..." cho đa tham số
+
 
 "..." trong ES6 có vai trò như định nghĩa một mảng động khi truyền vào tham số cho một function
 
@@ -288,7 +298,8 @@ function three_dot1 (...args) {
 three_dot1(1, 2, 3, 4); 
 ```
 
-## For..Of ##
+## For..Of
+
 
 Giống for..in, for..of dùng để viết vòng lặp trên các iterator function hoặc generator function
 
@@ -313,15 +324,18 @@ for (var n of fibonacci) {
 }
 ```
 
-## Generators ##
+## Generators
+
 
 Có 1 bài giải thích chi tiết về generator function tại đây: [function* và yield trong Javascript generator function](http://saveto.co/mdtehe)
 
-## Unicode ##
+## Unicode
+
 
 ES6 hỗ trợ Unicode tốt hơn, không cần phải cài thêm các thư viện nào khác. Ngoài ra RegExp có thêm tham số `u` sử dụng cho unicode string.
 
-## Map + Set + WeakMap + WeakSet ##
+## Map + Set + WeakMap + WeakSet
+
 
 Map, Set, WeakMap, WeakSet là các hàm thường thấy trong các ứng dụng về cấu trúc dữ liệu và giải thuật. Ví dụ:
 
@@ -349,7 +363,8 @@ ws.add({ data: 42 });
 // Because the added object has no other references, it will not be held in the set
 ```
 
-## Symbols ##
+## Symbols
+
 
 Các object state sử dụng chuổi để định danh phần tử của mảng, object. Symbols giúp tạo ra để thay thế string. Cái này giống như cú pháp `arr[:name]` trong Ruby.
 
@@ -376,6 +391,8 @@ var c = new MyClass("hello")
 c["key"] === undefined
 ```
 
-## Kết  ##
+## Kết
+
+
 ES6 còn khá nhiều chức năng hay, mình sẽ giới thiệu sau.
 Tham khảo thêm tại đây: [https://github.com/duyet-collections/es6features](https://github.com/duyet-collections/es6features)
