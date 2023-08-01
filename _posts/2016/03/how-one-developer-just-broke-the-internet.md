@@ -46,7 +46,8 @@ function leftpad (str, len, ch) {
 }
 ```
 
-### Tham khảo ###
+### Tham khảo
+
 
 - [How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](http://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)
 - [A discussion about the breaking of the Internet](https://medium.com/@mproberts/a-discussion-about-the-breaking-of-the-internet-3d4d2a83aa4d#.baitcblji) | Medium

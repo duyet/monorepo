@@ -14,14 +14,23 @@ description: Chúng ta thường có xu hướng chỉ muốn bắt tay ngay và
 
 Chúng ta thường có xu hướng chỉ muốn bắt tay ngay vào việc viết code. Đôi khi niềm đam mê có thể làm chúng ta vất vả hơn trong thời gian dài khi app của chúng ta phát triển và mở rộng ra, sau đó chúng ta bị mắc kẹt với việc viết lại code hay thậm chí tệ hơn là có những ý nghĩ tệ về code. 
 Một phương pháp hay nhất là module hóa. Bạn có thể thấy được những lợi ích của phương pháp này như sau.
-## Code Maintainability ##
+
+## Code Maintainability
+
+
 Thực hiện theo phương pháp trên sẽ chia nhỏ app của bạn một cách hợp lý và bạn sẽ dễ dàng xác định vị trí và chỉnh sửa code
 
-## Scalable ##
+## Scalable
+
+
 Code của bạn sẽ quy mô hơn. Việc add các directive và các pages mới sẽ không làm phồng thêm folder hiện tại. Các developers mới dễ dàng tiếp cận hơn khi cấu trúc trên được bạn giải thích. Ngoài ra, với phương pháp này, bạn có thể drop các tính năng trong và ngoài app với việc test các chức năng mới hay loại bỏ nó một cách dễ dàng.
 
-## Debugging ##
+## Debugging
+
+
 Debug code sẽ dễ dàng hơn nhiều nếu bạn tiếp cận phương pháp trên để phát triển app. Sẽ dễ dàng hơn để tìm các phần bị lỗi của code và fix chúng.
 
-## Testing ##
+## Testing
+
+
 Viết test script và test các apps module hóa dễ hơn rất nhiều đối với các apps không module hóa

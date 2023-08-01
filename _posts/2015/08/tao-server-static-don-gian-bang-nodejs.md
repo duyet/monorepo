@@ -17,13 +17,15 @@ description: Với package sau bạn có thể tạo 1 static server đơn giả
 Với package sau bạn có thể tạo 1 static server đơn giản bằng Nodejs.
 English version: [https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html](https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html?utm_source=duyetdev_blog&amp;utm_medium=local_click&amp;utm_campaign=duyetdev_blog)
 
-## Cài đặt ##
+## Cài đặt
+
 
 ```
 $ npm install static-html-server -g
 ```
 
-## Tạo thư mục chứa các file html, css  ##
+## Tạo thư mục chứa các file html, css 
+
 
 Mình tạo 1 thư mục project, đường dẫn ~/project/test-static-server với 2 file bên trong
 
@@ -32,7 +34,8 @@ Mình tạo 1 thư mục project, đường dẫn ~/project/test-static-server v
 
 ![](https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png)
 
-## Khởi động Server  ##
+## Khởi động Server 
+
 
 Khởi động server bằng lệnh 
 
@@ -51,7 +54,8 @@ Mở trình duyệt và truy cập http://localhost:8888
 
 Chúc các bạn thành công.
 
-## Github Project ##
+## Github Project
+
 
 Github repo: [https://github.com/duyet/static-html-server](https://github.com/duyet/static-html-server)
 

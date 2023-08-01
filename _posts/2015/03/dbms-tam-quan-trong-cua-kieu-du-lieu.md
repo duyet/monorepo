@@ -23,7 +23,8 @@ Hắn vừa nghĩ, mắt vừa lướt qua các đồ thị giám sát tài nguy
 ssh X
 ```
 
-## Truy tìm ##
+## Truy tìm
+
 X là một máy chủ cơ sở dữ liệu chạy mysql, 4 cores 24GB Ram 2 đĩa cứng 300GB RAID 1. Không quá yếu nhưng cũng không quá khoẻ. Vì là máy chủ cơ sở dữ liệu nên phần lớn tài nguyên của X được dùng cho mysql.
 
 "Để xem chú mày bị làm sao nhé!" - hắn bắt đầu công đoạn chẩn đoán bệnh của máy chủ.
@@ -158,7 +159,8 @@ No query specified
 
 Sau khi đổi video_id thành kiểu chuỗi thì index đã được sử dụng key: PRIMARY. Hắn ngay lập tức liên lạc với bên phát triển và để sửa đoạn code sinh ra query trên. Bên phát triển lập tức tìm ra có 1 dòng code chưa gọi strval để biến video_id thành xâu dữ liệu trước ném query cho DB. Bên phát triển lập tức sửa source code và cập nhật phiên bản mới nhất lên máy chủ. Ngay lập tức %cpu của X trở về 1%. Trang web lại vào bình thường như chưa từng có gì cản trở. Slow log query cũng dừng log query hẳn.
 
-## Bài học ##
+## Bài học
+
 
 Index thật quan trọng và Kiểu dữ liệu cũng rất quan trọng.
 

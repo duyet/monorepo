@@ -20,7 +20,8 @@ Về Node.js, ắt hẳn mọi người đều đã quá quen với Expressjs. N
 
 [![](https://4.bp.blogspot.com/-sCicwYtVpcY/VyS-dwEy4YI/AAAAAAAAUBM/5Q1QZ6zVR5YcsV7lgN8MYWfkZvrz6AXtgCK4B/s1600/Screen-Shot-2014-04-11-at-7.49.09-AM.png)](https://blog.duyet.net/2016/04/gioi-thieu-koajs.html)
 
-## Koa.js là gì? ##
+## Koa.js là gì?
+
 Koa là một Web framework Nodejs, được viết bởi team của Expressjs. Koa sử dụng nhiều chức năng mới của ES6, được xem là chưa ổn định với các bản Nodejs dưới 4.0, nhưng mới vừa rồi [Node v6 vừa ra mắt](https://blog.duyet.net/2016/04/ra-mat-nodejs-v6.html), đánh dấu Koajs sẽ là 1 framework mạnh và ổn định hơn.
 
 Koa.js yêu cầu sử dụng Node.js v4.0 trở lên, với các bản 4.0 trở về trước yêu cầu sử dụng thêm flag --harmony để kích hoạt các chức năng mở rộng của Javascript (cụ thể là generator).
@@ -29,13 +30,15 @@ Koa.js yêu cầu sử dụng Node.js v4.0 trở lên, với các bản 4.0 tr�
 node --harmony app.js
 ```
 
-## Vì sao nên sử dụng Koa ##
+## Vì sao nên sử dụng Koa
+
 Như đã PR, koa is next generation web framework. [Koa](http://koajs.com/) chủ yếu tận dụng chức năng generators của Javascript ES6.
 Bạn có thể xem bài viết sau để hiểu rõ hơn về Generators này: [function* và yield trong Javascript generator function](https://blog.duyet.net/2016/02/generator-function-javascript.html#.VyTAS4N94_M)
 
 Ngoài ra còn 2 chức năng mới nữa là sử dụng middleware theo từng tầng và xử lý lỗi tốt. Một điểm tôi thấy hay khi sử dụng nữa là Koa có phong cách code rất lite, giúp app nhỏ gọn và dễ kiểm soát.
 
-## Hello world ##
+## Hello world
+
 
 Cài đặt koa bằng npm
 
@@ -64,7 +67,8 @@ $ node app.js
 
 Truy cập trình duyệt bằng địa chỉ: [http://localhost:3000](http://localhost:3000/)
 
-## yielding to * ##
+## yielding to *
+
 Koa được viết dựa trên co - giúp xử lý generators, thay vì sử dụng callback, Koa nhờ đó có cú pháp đơn giản và sạch sẽ hơn.
 Bạn nên đọc thêm về generators và co-routines ở bài viết này: [https://medium.com/code-adventures/174f1fe66127](https://medium.com/code-adventures/174f1fe66127)
 
@@ -91,7 +95,8 @@ function *(next) {
 
 Koa có thể điều khiển luồng dữ liệu 1 cách trực quan nhất, cái bạn thấy đầu tiên là không cần sử dụng callback. Koa còn tương thích nhiều với các package co-*, cách tiếp cận khác khi làm việc với xử lý bất đồng bộ trong Nodejs. Tôi sẽ nó sâu hơn về co trong một dịp khác.
 
-## Cascading Middleware ##
+## Cascading Middleware
+
 
 Nếu bạn đã sử dụng qua Promises hay các framework control flow khác, mọi xử lý chỉ sẽ đi theo 1 luồng duy nhất, hoặc theo cơ chế ném-bắt callback. Koa middleware lại có cách xử lý hoàn toàn khác và mạnh mẽ hơn. 
 
@@ -129,7 +134,8 @@ function saveResults*() {
 
 Tìm hiểu đầy đủ về middleware Koa tại đây: [https://github.com/koajs/koa/blob/master/docs/guide.md](https://github.com/koajs/koa/blob/master/docs/guide.md)
 
-## Koa lightweight ##
+## Koa lightweight
+
 Khác với Express với hàng tá các middleware được cài đặt sẵn. Định hướng là 1 framework core tinh gọn, Koa không có bất kì middleware được tích hợp sẵn cả.
 
 Có nhiều chức năng mà bạn sẽ cần phải cài thêm khi sử dụng koa tùy theo nhu cầu: routing, body parsing, basic authentication, static file serving, template rendering, ... Danh sách các middleware được liệt kê ở wiki: [https://github.com/koajs/koa/wiki](https://github.com/koajs/koa/wiki)
@@ -145,7 +151,8 @@ Một số middleware nổi bật nên cài như:
 - [koa-session](https://github.com/koajs/session)
 - ...
 
-## Next ##
+## Next
+
 Koa tinh gọn, nên một số framework khác được build sẵn, bổ sung các chức năng mà koa đang thiếu:
 
 - [api-boilerplate](https://github.com/koajs/api-boilerplate) - an API application boilerplate
@@ -157,7 +164,8 @@ Koa tinh gọn, nên một số framework khác được build sẵn, bổ sung 
 
 Với những bạn mới, tôi khuyên nên bắt đầu trước với koala hoặc koan.
 
-## Tham khảo ##
+## Tham khảo
+
 
 - Trang chủ - [http://koajs.com](http://koajs.com/)
 - Koa github - [https://github.com/koajs/koa](https://github.com/koajs/koa)

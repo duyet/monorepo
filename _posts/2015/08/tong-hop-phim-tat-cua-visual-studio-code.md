@@ -57,6 +57,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Rich Languages Editing
 
+
 | Key             | Command                     | Command id                            |
 |-----------------|-----------------------------|---------------------------------------|
 | Ctrl+Space      | Trigger Suggest             | editor.action.triggerSuggest          |
@@ -74,6 +75,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Navigation
 
+
 | Key          | Command                         | Command id                          |
 |--------------|---------------------------------|-------------------------------------|
 | Ctrl+T       | Show All Symbols                | workbench.action.showAllSymbols     |
@@ -90,6 +92,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Editor/Window Management
 
+
 | Key                  | Command                             | Command id                         |
 |----------------------|-------------------------------------|------------------------------------|
 | Ctrl+Shift+N         | New Window                          | workbench.action.newWindow         |
@@ -105,6 +108,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - File Management
 
+
 | Key          | Command      | Command id                             |
 |--------------|--------------|----------------------------------------|
 | Ctrl+N       | New File     | workbench.action.files.newUntitledFile |
@@ -114,6 +118,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 | Ctrl+Shift+S | Save As...   | workbench.action.files.saveAs          |
 
 ## Shortcuts - Display
+
 
 | Key           | Command                        | Command id                                  |
 |---------------|--------------------------------|---------------------------------------------|
@@ -133,6 +138,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Debug
 
+
 | Key       | Command           | Command id                           |
 |-----------|-------------------|--------------------------------------|
 | F9        | Toggle Breakpoint | editor.debug.action.toggleBreakpoint |
@@ -144,6 +150,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 | Shift+F5  | Stop              | workbench.action.debug.stop          |
 
 ## Shortcuts - Tasks
+
 
 | Key          | Command        | Command id                   |
 |--------------|----------------|------------------------------|

@@ -15,11 +15,13 @@ Một hoạt động mang tính sống còn trong các dự án sản xuất ho�
 
 ![](https://3.bp.blogspot.com/-k9Gxf_MV1Gg/Vnfrm5xSgxI/AAAAAAAAMMs/bicR-4BjnmU/s1600/unit-test.jpg)
 
-## Kiểm thử phần mềm là gì? ##
+## Kiểm thử phần mềm là gì?
+
 Thực ra KTPM là công việc mà bất cứ người nào từng tham gia phát triển phần mềm (PTPM) đều biết và từng làm.
 Theo nghĩa thông thường nhất, KTPM bao gồm việc "chạy thử" PM hay một chức năng của PM, xem nó "chạy" đúng như mong muốn hay không. Việc kiểm tra này có thể thực hiện từng chặng, sau mỗi chức năng hoặc module được phát triển, hoặc thực hiện sau cùng, khi PM đã được phát triển hoàn tất.
 
-## Unit Test ##
+## Unit Test
+
 
 Unit Test – Kiểm tra mức đơn vị
 
@@ -33,7 +35,8 @@ Unit Test thường do lập trình viên thực hiện. Công đoạn này cầ
 
 Cũng như các mức kiểm tra khác, Unit Test cũng đòi hỏi phải chuẩn bị trước các tình huống (test case) hoặc kịch bản (script), trong đó chỉ định rõ dữ liệu vào, các bước thực hiện và dữ liệu mong chờ sẽ xuất ra. Các test case và script này nên được giữ lại để tái sử dụng.
 
-## Integration Test  ##
+## Integration Test 
+
 
 Integration Test – Kiểm tra tích hợp
 

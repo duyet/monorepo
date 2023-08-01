@@ -42,6 +42,7 @@ Phiên bản mới nhất tại thời điểm này là 0.12.3, bạn nên check
 
 #### Bài toán hồi quy đơn giản
 
+
 Bây giờ đã load được Tensorflow.js, mình thử một bài toán đơn giản.  
 Giả sử chúng ta có phương trình  
 
@@ -153,6 +154,7 @@ Sau đây là source code đầy đủ của toàn bộ chương trình trên:
 Cuối cùng mình đã giới thiệu qua cách train một model rất đơn giản với Tensorflow.js, từ đây bạn đã có thể xây dựng ứng dụng deep learning ngay trên trình duyệt rồi.  
 
 #### References
+
 
 *   [Getting Started with TensorFlow.js](https://medium.com/tensorflow/getting-started-with-tensorflow-js-50f6783489b2)
 

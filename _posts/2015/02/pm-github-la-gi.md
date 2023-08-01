@@ -17,7 +17,8 @@ Github được viết bằng Ruby on Rails. GitHub cung cấp dịch vụ thư�
 
 Có hơn 439000 developer tạo hơn 1 triệu 350 ngàn repositories là một con số khá ấn tượng, cùng với một số khách hàng lớn của github như Twitter, Facebook, Yahoo ... cho thấy tính phổ biến của Github, cũng như cộng đồng lập trình thế giới tín nhiệm nó như thế nào.
 
-## Cách thức làm việc với GitHub ##
+## Cách thức làm việc với GitHub
+
 
 Làm việc với GitHub nói riêng hay hệ thống GIT nói chung có 2 workflow chính là local workflow và server workflow.
 
@@ -25,14 +26,16 @@ Bạn có thể làm mọi chuyện thay đổi source code ở local, sau khi �
 
 Mở rộng: từ repository của github ta có thể theo phương thức của Git tạo bản build cho production site bằng cách push thay đổi lên nó. Khi tương tác với repository server (cập nhật hay thay đổi) GITHUB đòi hỏi mã chứng nhận "Bạn là ai" thông qua so sánh SSH key ở local của bạn và SSH key trên server tương ứng với account mà bạn đã đăng ký với GITHUB trước đó.
 
-## Làm việc với repository ở local ##
+## Làm việc với repository ở local
+
 
 Với 2 command thường dùng là git add và git commit
 
 - git add: add file đã thay đổi vào stage
 - git commit commit các file đã add vào stage lên repository ở local Ngoài ra bạn xem một số command khác
 
-## Làm việc với repository ở server github ##
+## Làm việc với repository ở server github
+
 
 Sau khi đã quậy tè le ở local, cuối cùng khi có một bản ổn định và hoàn tất ta sẽ quyết định cập nhật nó lên repository server với:
 
@@ -40,7 +43,8 @@ Sau khi đã quậy tè le ở local, cuối cùng khi có một bản ổn đ�
 - fetch: cập nhật thay đổi từ repository server về repository local
 - pull/rebase: sao chép source code từ server về local workspace (tương đương checkout của SVN)
 
-## Tính năng API của Github ##
+## Tính năng API của Github
+
 
 Ngoài những tính năng tuyệt vời của hệ thống quản lý source phân tán GIT nói chung, Github còn hỗ trợ người dùng những tính năng quan trọng thông qua API sau:
 
@@ -48,6 +52,7 @@ Ngoài những tính năng tuyệt vời của hệ thống quản lý source ph
 - API to Access Compare Views: Tính năng này hỗ trợ người dùng review và so sánh code của dự án thông qua việc xem các commit, comments, các dòng khác nhau giữa 2 version của file code ... Tính năng này cũng thông qua HTTP - POST, người dùng có thể thực hiên trên web browser.
 - API to Manage Service Hooks: GitHub hỗ trợ tính năng mở rộng post-receive hooks. Tính năng này cho phép người dùng đăng ký 1 URL của mình (như là một web hook) cho các respository. Bất cứ khi nào có người push source code của họ lên repository, GitHub sẽ thông báo cho bạn biết bằng cách POST thông tin (dạng JSON) về lần push đó đến URL mà bạn đã đăng ký trước đó. Còn rất nhiều API hữu ích khác, các bạn có thể xem tất cả tại develop.github
 
-## Kết ##
+## Kết
+
 
 Nói sơ sơ thôi, rảnh rảnh sẽ chi tiết

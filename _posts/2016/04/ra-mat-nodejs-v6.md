@@ -23,17 +23,20 @@ Nodejs v6.0.0 sử dụng V8 JavaScript engine, giúp hỗ trợ hơn 93% các [
 
 Các điểm mới trong Nodejs v6:
 
-## Nâng cấp hiệu năng ##
+## Nâng cấp hiệu năng
+
 
 - Load module nhanh hơn gấp 4 lần so với Nodejs v4
 - Nâng cấp V8 engine
 
-## Bảo mật ##
+## Bảo mật
+
 
 - `Math.random` được tăng cường bảo mật, xem thêm: [http://v8project.blogspot.hu/2015/12/theres-mathrandom-and-then-theres.html](http://v8project.blogspot.hu/2015/12/theres-mathrandom-and-then-theres.html)
 - Buffer API mới: giảm khả năng lỗi và lỗ hổng cho ứng dụng.
 
-## ES6 Features ##
+## ES6 Features
+
 
 Như đã nói ở trên, Nodejs v6 hỗ trợ 93% các chức năng mới của ES6 mà không cần dùng compile Babel như trước đây.
 
@@ -46,7 +49,8 @@ console.log(z) // 2
 
 Xem thêm [ES6 có gì mới?](https://blog.duyet.net/2016/04/es6.html)
 
-## Nâng cấp lên Nodejs v6 ##
+## Nâng cấp lên Nodejs v6
+
 
 Sử dụng nvm:
 
@@ -61,7 +65,8 @@ sudo npm install -g n # Cài n
 sudo n latest # Install or activate the latest node release
 ```
 
-## Tham khảo ##
+## Tham khảo
+
 
 Tháng 10 năm nay Nodejs v6 mới chính thức chuyển sang phiên bản TLS. 
 

@@ -27,29 +27,36 @@ Sau khi ra đời, ReactJS đã nhanh chóng trở nên phổ biến nhờ hiệ
 
 ## Lợi ích mà React mang lại cho Facebook
 
+
 Facebook là một mạng xã hội lớn nhất thế giới, vì vậy những đột phá của React đã mang lại rất nhiều lợi ích cho công ty. Sau đây là những ưu điểm chính của React:
 
 ### React không sử dụng template
+
 Thông thường, việc thiết kế giao diện cho web applications thường sử dụng các HTML template. Tuy nhiên, React tiếp cận khác đi bằng cách sử dụng những components. Điều đó có nghĩa React sử dụng "ngôn ngữ lập trình thực sự" để render view thay vì ngôn ngữ mark-up như HTML. Điều này là một ưu điểm lớn bởi các lí do sau:
 
 - Javascript (ngôn ngữ được dùng bởi React) là một ngôn ngữ mềm dẻo và mạnh mẽ với khả năng xây dựng các đối tượng trừu tượng, rất phù hợp để xây dựng một ứng dụng lớn.
 - Bằng cách kết hợp markup với phần xử lí view logic tương ứng của nó, React thực sự giúp view có thể dễ dàng mở rộng hoặc bảo trì.
 - Việc chuyển markup vào trong Javascript giúp hạn chế được lỗi bảo mật XSS
 
-### React thực sự hữu dụng khi dữ liệu thay đổi liên tục ###
+### React thực sự hữu dụng khi dữ liệu thay đổi liên tục
+
+
 Với những ứng dụng Javascript truyền thống, bạn cần phải theo dõi xem dữ liệu nào đã thay đổi, rồi thay đổi DOM tương ứng để đảm bảo nó luôn cật nhật. React tiếp cận theo một hướng khác. Khi một component được khởi tạo, phương thức render được gọi để tạo ra một lightweight representation cho view. Khi dữ liệu thay đổi, phương thức render lại được gọi. Và để tối ưu, React so sánh sự thay đổi (diff) giữa các giá trị của lần render này với lần render trước, và cập nhật ít thay đổi nhất đến DOM.
 Ngoài ra, nhờ React, Facebook đã làm được rất nhiều điều khác
 
-### Facebook đã tạo ra một dynamic chart mà render ra canvas thay vì HTML ###
+### Facebook đã tạo ra một dynamic chart mà render ra canvas thay vì HTML
+
 
 - Instagram là một ứng dụng web dạng single-page, được xây dựng hoàn toàn bởi React và Backbone.Router
 - Gần đây Facebook đã tạo ra React Native, giúp viết các ứng dụng native trên điện thoại iOS, Android bằng Javascript. Trong đó app Facebook Groups là một ví dụ.
 
-## Tại sao Facebook lại biến nó thành nguồn mở? ##
+## Tại sao Facebook lại biến nó thành nguồn mở?
+
 
 Ở Facebook, sứ mệnh của công ty là tạo nên một thế giới cởi mở hơn và được kết nối (more open and connected). Và họ muốn thể hiện sứ mệnh đó thông qua mã nguồn mở. Họ nhận thấy rằng, những vấn đề mà họ gặp phải trong việc phát triển web application cũng là vấn đề của rất nhiều các công ty công nghệ khác. Và họ muốn đóng góp nhiều nhất có thể để giúp đỡ cộng đồng, cũng như nhận được sự hỗ trợ từ cộng đồng để cùng nhau giải quyết những thách thức chung.
 
-## Tham khảo ##
+## Tham khảo
+
 
 - [http://facebook.github.io/react/blog/2013/06/05/why-react.html](http://facebook.github.io/react/blog/2013/06/05/why-react.html)
 - [http://thenewstack.io/javascripts-history-and-how-it-led-to-reactjs/](http://thenewstack.io/javascripts-history-and-how-it-led-to-reactjs/)

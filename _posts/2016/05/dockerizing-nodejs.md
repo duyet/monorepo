@@ -24,10 +24,12 @@ Bài sau tôi sẽ hướng dẫn cách đóng gói và build image docker cho �
 
 [![](https://1.bp.blogspot.com/-PdJFod9lQSU/VyYyDa_nEnI/AAAAAAAAUaE/CpGySWOh_TMGvZGjYqpcSHtTft7yi7tjwCK4B/s400/1-_MtS4HqN2srTcrSyet61DQ.jpeg)](https://blog.duyet.net/2016/05/dockerizing-nodejs.html)
 
-## Cài đặt Docker ##
+## Cài đặt Docker
+
 Tôi sử dụng Ubuntu, [xem cách cài Docker trên Ubuntu](https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html). Với các nền tảng khác, xem tại trang Guide tại trang chủ Docker ([https://docs.docker.com/engine/installation/](https://docs.docker.com/engine/installation/)).
 
-## Chuẩn bị ứng dụng cần đóng gói ##
+## Chuẩn bị ứng dụng cần đóng gói
+
 Bạn chuẩn bị ứng dụng Nodejs cần đóng gói và triển khai. Ở đây tôi sẽ sử dụng [source](https://github.com/saveto-co/saveto) của trang [https://saveto.co](https://saveto.co/) viết bằng [Koajs](https://blog.duyet.net/2016/04/gioi-thieu-koajs.html). Mã nguồn tải về ở đây: [https://github.com/saveto-co/saveto](https://github.com/saveto-co/saveto)
 
 Mỗi ứng dụng viết bằng Nodejs bắt buộc đều phải có `package.json`, lưu thông tin về các gói cần thiết, nhiều thông tin khác về tên, phiên bản, ...
@@ -66,7 +68,8 @@ Mỗi ứng dụng viết bằng Nodejs bắt buộc đều phải có `package.
 
 [Saveto.co](http://saveto.co/) còn có thêm `bower.json` mô tả những thư viện frontend nào sẽ được sử dụng.
 
-## Tạo Dockerfile ##
+## Tạo Dockerfile
+
 `Dockerfile` sẽ mô tả các bước để Docker build ảnh của ứng dụng, gồm các layer nào.
 
 ```
@@ -155,7 +158,9 @@ EXPOSE 6969
 CMD ["npm","start"]
 ```
 
-## Build image  ##
+## Build image
+
+
 Cd đến thư mục chứa Dockerfile, chạy lệnh bên dưới để build image. --tag dùng để đặt tên cho ảnh dễ nhớ, nhớ đừng bỏ xót dấu chấm ở cuối
 
 ```
@@ -175,7 +180,8 @@ duyetdev/saveto                    latest              5e8c25e32c8b        5 min
 
 ```
 
-## Run the image ##
+## Run the image
+
 Run docker image với tùy chọn -d sẽ chạy container dưới background, tùy chọn -p sẽ mapping port của máy thật (public) với port của container (private)
 
 ```
@@ -208,7 +214,8 @@ Test: truy cập thử ứng dụng bằng trình duyệt: [http://localhost:696
 
 Chúc bạn thành công.
 
-## Tham khảo thêm ##
+## Tham khảo thêm
+
 
 - [Dockerizing a Node.js web app](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
 - [Docker là gì? Cơ bản về Docker](https://blog.duyet.net/2015/12/docker-la-gi-co-ban-ve-docker.html#.VyYMd4N94_M)

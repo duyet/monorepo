@@ -20,6 +20,7 @@ Giấy phép Apache là giấy phép mã nguồn mở được soạn ra bởi T
 
 ## 1. Nhà phát hành 
 
+
 Giấy phép Apache là giấy phép mã nguồn mở được soạn ra bởi Tổ chức phần mềm Apache (ASF – Apache Software Foundation).
 
 Tất cả mọi phần mềm do ASF phát hành đều mang giấy phép Apache. Những dự án không thuộc ASF nhưng vẫn mang giấy phép Apache, cho đến tháng 7 năm 2009 là vào khoảng 5000 dự án.
@@ -29,6 +30,7 @@ Phiên bản mới nhất của Apache là 2.0 [http://www.apache.org/licenses/L
 ASF và Tổ chức phần mềm tự do (FSF) đều công nhận giấy phép Apache 2.0 là một giấy phép phần mềm tự do, tương thích với phiên bản giấy phép GNU 3.0.
 
 ## 2. Nội dung chính 
+
 
 - Giống như các giấy phép mã nguồn mở khác, giấy phép Apache cho phép người dùng tự do sự dụng phần mềm với bất kì mục đích nào, tự do phân phối, tự do sửa đổi, tự do phân phối bản sửa đổi mình làm (đoạn 3 của giấy phép).
 - Giấy phép Apache không yêu cầu bản sửa đổi của phần mềm phải được phân phối dưới cùng giấy phép với bản gốc, cũng không yêu cầu bản sửa đổi phải được phân phối dưới dạng mã nguồn mở. Giấy phép Apache chỉ yêu cầu có một thông báo nhắc nhở người nhận rằng giấy phép Apache đã được sử dụng trong sản phẩm họ nhận được.
@@ -54,7 +56,8 @@ See the License for the specific language governing permissions and limitations 
 
 So với giấy phép BSD, Apache có nội dung chặt chẽ hơn trong các điều khoản và duy trì quyền sở hữu trí tuệ (BSD chỉ có 3 yêu cầu ngắn gọn trong giấy phép, trong khi Apache có tới 9 khoản mục lớn).
 
-## 3. Các phần mềm sử dụng giấy phép Apache ##
+## 3. Các phần mềm sử dụng giấy phép Apache
+
 Mặc dù có nhiều phần mềm không phải do ASF phát hành cũng mang giấy phép Apache, song nổi tiếng và được sử dụng nhiều nhất vẫn là Apache Server, phần mềm giao tiếp dành cho máy chủ. Ngay từ khi ra đời Apache đã có thể cạnh tranh với chương trình máy chủ của Nescape, và tới nay thì Apache chiếm khoảng hơn 60% thị phần máy chủ thế giới.
 
 Bên cạnh Apache Server, còn có những phần mềm khác sử dụng giấy phép Apache như:

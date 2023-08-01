@@ -137,6 +137,7 @@ Hãy tìm hiểu xem một số thành phần chính đóng vai trò gì nhé.
 
 ## 3.1. Spark Operator
 
+
 Spark Operator là một Kubernetes Operator được thiết kế cho Spark nhằm mục đích xác định và thực thi các Spark applications dễ dàng như các workloads khác trên Kubernetes, bằng cách sử dụng và quản lý một Kubernetes custom resources (CRD) để specifying, running, và update status của Spark applications.
 
 Để tìm hiểu thêm bạn có thể xem qua về [Design](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/design.md), [API Specification](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/user-guide.md), và [User Guide](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/user-guide.md) trên Github.
@@ -153,6 +154,7 @@ helm install spark-operator \
 ```
 
 ## 3.2. Spark Submit Worker
+
 
 Một `SparkApplication` có về cơ bản là một resource CRD, có thể được apply vào cluster bằng `kubectl`, như ví dụ dưới đây:
 
@@ -206,6 +208,7 @@ Việc quản lý các Spark Application dưới dạng YAML specs còn giúp c�
 
 ## 3.3. Spark Jobs UI
 
+
 Spark Jobs UI hay Spark Jobs Dashboard là một Web UI để quản lý Spark Jobs và artifacts được generated hoặc customized bởi engineers. Dashboard được viết bằng Typescript và Next.js, gồm một số tính năng cơ bản như:
 
 - Liệt kê mọi Spark Jobs artifacts
@@ -226,6 +229,7 @@ Hãy xem một số screenshot dưới đây để có cái hình cụ thể hơ
 ![Có thể custom một số config lúc chạy backfill, như resources, số lượng executor, spark version, ...](/media/2022/03/spark-k8s-6.png)
 
 ## 3.4. Spark History Server
+
 
 Spark History Server là một Spark Web UI có sẵn của Spark, dùng để monitor trạng thái và tài nguyên sử dụng cho Spark App. Spark History Server được dựng lên để đọc lại logs của các Jobs đã hoàn thành trước đó lưu trên S3 bucket. Mỗi `SparkApplication` sẽ được config để push Spark events lên S3:
 

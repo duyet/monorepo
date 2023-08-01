@@ -27,16 +27,23 @@ Hanoi, Vietnam 26 August, Wednesday
 Ho Chi Minh, Vietnam 27 August, Thursday
 6pm to 9pm TBC
 
-## Agenda ##
+## Agenda
 
-### 15 min Registration ###
 
-### 10 min Welcome ###
+### 15 min Registration
 
-### 45 min Firebase – Build Extraordinary Apps ###
+
+### 10 min Welcome
+
+
+### 45 min Firebase – Build Extraordinary Apps
+
+
 Firebase is a new member of Google Cloud Platform, but a proven tool for creating real-time experiences. Firebase is the fastest way to build your app. Come and learn how you can build applications quickly without managing complex infrastructure.
 
-### 45 min Innovation. Not Infrastructure. An overview of Google Compute Engine (Jakarta, Bandung, Yogyakarta) ###
+### 45 min Innovation. Not Infrastructure. An overview of Google Compute Engine (Jakarta, Bandung, Yogyakarta)
+
+
 Run large-scale workloads on virtual machines hosted on Google’s infrastructure. Choose a VM that fits your needs and gain the performance of Google’s worldwide fiber network. Come and learn about the differentiated advantages of Google Compute Engine.
 OR
 Desired State: Containing Chaos with Kubernetes (Kuala Lumpur)
@@ -45,12 +52,16 @@ OR
 Modern DevOps with GCP (Hanoi, Ho Chi Minh City, Bangkok)
 In this talk I will discuss different ways of developing and operating infrastructures for web services, also referred to as DevOps. This will include topics such as infrastructure provisioning, continuous integration, application deployment, and monitoring. GCP services such as load-balancing and BigQuery, which are useful for improving efficiency of various DevOps processes, will also be covered. Finally, I will introduce Mackerel, a server monitoring SaaS that functions as a hub of actions pertaining to DevOps.
 
-### 45 min Your Data and the World Beyond MapReduce ###
+### 45 min Your Data and the World Beyond MapReduce
+
+
 Google’s MapReduce has been the most important innovation in the Big Data industry in last decade, which provided the technical foundation for Apache Hadoop MapReduce and other solutions. But at Google, we have moved to next generation technologies such as Dremel, Flume and MillWheel that replace the classic MapReduce infrastructure. In this session, we will introduce two products from Google Cloud Platform, BigQuery and Cloud Dataflow, that allow developers to leverage the power of the Google’s latest Big Data technologies.
 
-### 20 min Q&A and Networking ###
+### 20 min Q&A and Networking
 
-## Speakers ##
+
+## Speakers
+
 
 Kazunori Sato, Developer Advocate
 

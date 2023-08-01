@@ -25,6 +25,7 @@ Github: **[https://github.com/facebook/duckling](https://github.com/facebook/du
 
 ## Sử dụng
 
+
 Compile và run binary  
   
 
@@ -43,6 +44,7 @@ File **exe/ExampleMain.hs** chứa các ví dụ để bạn có thể tích h�
 Mình có deploy một server Duckling tại địa chỉ sau để mọi người tiện test nhanh: **[https://duyet-duckling-bkykfkyksj.now.sh](https://duyet-duckling-bkykfkyksj.now.sh/)**
 
 ## Supported dimensions
+
 
 Mình thấy rằng Duckling hỗ trợ nhiều ngôn ngữ và các dimension (tiếng Việt có ở một vài dimension). Bảng sau ví dụ các dimension mà Duckling hỗ trợ:
 
@@ -122,5 +124,6 @@ Mình thấy rằng Duckling hỗ trợ nhiều ngôn ngữ và các dimension 
   
 
 ## Kết
+
 
 Xem thêm các hướng dẫn và cách mở rộng Duckling tại trang Github của project nhé.

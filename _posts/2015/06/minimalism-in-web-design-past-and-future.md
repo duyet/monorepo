@@ -27,6 +27,7 @@ Designers of every era find themselves connected to a minimalist approach of som
 
 ## Less is More: A Brief History & Deconstruction 
 
+
 Those three little words are the simplest definition of minimalism. The spirit of minimal web design is to create an impressive visual website without a lot of bells and whistles.
 
 A minimal design by nature is not stark or barren, although it certainly can be.
@@ -68,6 +69,7 @@ Minimalism works because it does what all design should do – it puts [the emph
 
 ## The Appeal of Minimalism 
 
+
 Minimalism prevails because it is an effective and visually dynamic option for designers. Like all lasting design philosophies, it’s experienced multiple evolutions over time and meshes well with a variety of other design languages and design techniques.
 
 ![](https://3.bp.blogspot.com/-jkzYuwBgkJI/VXCB92PV5ZI/AAAAAAAAChw/aP3u8k2NAf8/s1600/Screen-Shot-2015-06-03-at-09.27.51-520x268.png)
@@ -83,7 +85,8 @@ As we described in the [Curated Collection of Design Techniques: Cards & Minimal
 
 In minimalist Web design, a common approach is to subtract design elements until the site is on the verge of "breaking". From there, test the website with a minimum of five users, then reprioritize design elements and interface objects as needed. By following this process at least once (we’d recommend for each major design iteration), you’re able to strike a balance between usability and elegance.
 
-## The Future of Minimalism in Web Design ##
+## The Future of Minimalism in Web Design
+
 Even though the design space is seeing a rise in minimalist sites at the moment, don’t confuse this timeless technique with a mere trend.
 
 Because we have seen it happen in print design areas, it is likely that minimalist Web design will ebb and flow for years to come as well. As with any popular design technique, the initial surge in popularity will likely be followed by a pull-back of sorts, where almost opposing techniques will find popularity, before the technique circles back again.
@@ -98,6 +101,7 @@ Let’s explore a few of these evolving elements below.
 
 ## 1. Minimal texture 
 
+
 Designers will expand from stark background styles to include a more pale or almost unnoticeable texture with a aesthetic plan that is minimal in every other way. This breakaway from a purely minimalist style still has roots in simplicity, but with a little more visual variety.
 
 ![](https://4.bp.blogspot.com/-cOwBQG-OpdQ/VXCCks0dSxI/AAAAAAAACiA/CsTfcNzKiDg/s1600/ezorzi-520x302.png)
@@ -105,6 +109,7 @@ Designers will expand from stark background styles to include a more pale or alm
 Photo credit: [http://ezorzi.com](http://ezorzi.com/)
 
 ## 2. Reverse colors 
+
 
 While white backgrounds have been the dominant feature in minimal design (giving a very literal meaning to white space), designs will continue breaking from this pattern by using more color, backgrounds that are dark with lighter text, or a monochromatic color scheme using various shades of the same hue.
 
@@ -114,6 +119,7 @@ Photo credit: [http://www.bb-b.net/en/](http://www.bb-b.net/en/)
 
 ## 3. More interactive effects 
 
+
 Of course, minimalism is also traditionally defined by a lack of effects. Simple animation in the minimal style will become more popular as more designers appreciate that minimal does not equal static.
 
 ![](https://2.bp.blogspot.com/-pm6-CXOVa9I/VXCDN46HqcI/AAAAAAAACiY/M-fRWk1YCig/s1600/Screen-Shot-2015-06-03-at-09.31.43.png)
@@ -121,6 +127,7 @@ Of course, minimalism is also traditionally defined by a lack of effects. Simple
 Photo credit: [http://oakstreetbootmakers.com](http://oakstreetbootmakers.com/)
 
 ## 4. Move away from symmetry 
+
 
 The current minimalist landscape favors symmetry, but that is certainly not a law. While balance is important, actual symmetry is not.
 
@@ -131,6 +138,7 @@ Photo credit: [http://theafrix.com/work](http://theafrix.com/work)
 More websites will actually use asymmetrical concepts to create organization, balance, and a strong minimal aesthetic. As the design landscape becomes more saturated, web designers can apply asymmetry towards common UI patterns to create a familiar yet fresh look.
 
 ## 5. Improved usability 
+
 
 Ironically, minimalist sites should be more usable (in theory) since the content is clear and less distractions exist on the screen. However, you can easily run into the issue of minimal design that’s too minimal.
 
@@ -143,6 +151,7 @@ To swing the pendulum back towards functional aesthetics, we’re starting to se
 Photo credit: [http://wildflower.resn.co.nz](http://wildflower.resn.co.nz/)
 
 ## Conclusion 
+
 
 Minimalism is more than just white space and the fewest elements as possible. The heart of the minimalist philosophy is in emphasizing content. Reducing the elements and featuring a lot of negative space are simply means to that end – they minimize distractions so that users can focus only on what’s important.
 

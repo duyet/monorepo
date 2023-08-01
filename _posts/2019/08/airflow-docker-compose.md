@@ -23,7 +23,7 @@ Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường dev
 
 Đầu tiên thiết lập cấu trúc project như dưới đây. Thư mục `dags` sẽ chứa các DAG python của Airflow.
 
-```shell
+```bash
 .
 ├── dags
 │   └── first_dag.py
@@ -33,6 +33,7 @@ Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường dev
 
 
 ## 1.1 `Dockerfile`
+
 
 Nội dung file `Dockerfile`:
 
@@ -46,6 +47,7 @@ COPY dags /usr/local/airflow/dags
 
 
 ## 1.2 `docker-compose.yaml`
+
 
 Nội dung file `docker-compose.yaml`:
 
@@ -111,7 +113,7 @@ Mount thư mục `./dags:/opt/airflow/dags` để link thư mục `dags` với t
 
 Tại thư mục project:
 
-```shell
+```bash
 docker-compose up
 ```
 

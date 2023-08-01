@@ -26,6 +26,7 @@ Hệ thống giao thông ở San Francisco khá phát triển, có khá nhiều 
 
 ## Thẻ Clipper
 
+
 Trước tiên mình nói về [Clipper Card](https://www.clippercard.com/ClipperWeb/index.do) vì đây là loại thẻ hiện đại, sử dụng được tất cả các loại phương tiện công cộng ở vùng vịnh, chỉ cần nạp tiền và có thể sử dụng dễ dàng. Chỉ cần chạm 1 lần khi bạn lên xe Bus, hay tag thẻ ở điểm đầu và điểm cuối nếu bạn đi BART (tàu điện ngầm ở SF) hoặc Caltrain, hệ thống sẽ tự tính số trạm đã đi qua và trừ tiền.
 
 Thẻ có thể mua dễ dàng ở các máy bán tự động ở trạm, hay ở siêu thị (WalGreens). Phí phát hành $3. Chú ý riêng khi mua ở máy bán tự động nó yêu cầu tối thiểu là $20 ($3 phí thẻ + $17 tiền số dư).  
@@ -34,6 +35,7 @@ Thẻ có thể mua dễ dàng ở các máy bán tự động ở trạm, hay �
 [![](https://1.bp.blogspot.com/-v4s4MPAQ9G8/XM0bGg73fPI/AAAAAAAA_3I/K4G31vT90iwhxHKSMwotdEK79g7FgUnLgCK4BGAYYCw/s400/IMG_20190504_113240_090.jpg)](https://1.bp.blogspot.com/-v4s4MPAQ9G8/XM0bGg73fPI/AAAAAAAA_3I/K4G31vT90iwhxHKSMwotdEK79g7FgUnLgCK4BGAYYCw/s1600/IMG_20190504_113240_090.jpg)
 
 ## MUNI
+
 
 MUNI có hệ thống bus đi khắp các nơi trong thành phố, mức giá hiện tại là $1.5/người lớn. Bạn có thể dùng thẻ Clipper hay dùng App Mobile. Kinh nghiệm nếu đang đi du lịch bạn nên mua gói [Day Pass](https://www.sfmta.com/fares/day-pass) trên MuniMobile hoặc Visitor Passport, đi lại không giới hạn, bao gồm bus, streetcar và cable car.  
   
@@ -70,6 +72,7 @@ Dùng MuniMobile khi lên Bus chỉ cần đưa cho tài xế thấy là đượ
 
 ## BART
 
+
 Đây là phương tiện đi lại ở San Francisco phổ biến, hệ thống BART nối liền San Francisco với vịnh phía Đông. BART chỉ chạy đến khoảng nửa đêm. Trong nội thành San Francisco, tàu của BART chạy dưới lòng đất dọc phố Market. Tàu chạy khá nhanh và ồn.
 
 Đi BART có thể dùng thẻ Clipper hoặc BART Ticket.
@@ -102,6 +105,7 @@ Khi đi Google Maps sẽ hiện các tàu theo line màu như thế này:
 
 ## Caltrain
 
+
 Caltrain là lựa chọn hoàn hảo nếu đi từ vùng ngoại ô vào thành phố hoặc từ San Francisco đến San Jose, thung lũng Silicon. Tàu này là tàu lửa đi trên mặt đất, tàu lớn nhiều toa, có cả toa để xe đạp.  
 Như các phương tiện khác bạn có thể sử dụng thẻ Clipper để tag ở đầu và cuối trạm, mua tại Ticket Machine hoặc qua [ứng dụng riêng của Caltrain](http://www.caltrain.com/Fares/howtobuy/CaltrainMobile.html). Được chia thành 6 Zones, giá vé tùy thuộc bạn đi bao nhiêu Zone, ngoài ra cũng có gói Day Pass như MUNI.  
   
@@ -117,6 +121,7 @@ Như các phương tiện khác bạn có thể sử dụng thẻ Clipper để 
 [![](https://3.bp.blogspot.com/-L4iRDO90Nws/XM0lx9GKl7I/AAAAAAAA_4c/L2rkzYLAyscvJEWkgK0Vr2UJS5-CC5hhgCLcBGAs/s1600/20190414010110_IMG_0064.JPG)](https://3.bp.blogspot.com/-L4iRDO90Nws/XM0lx9GKl7I/AAAAAAAA_4c/L2rkzYLAyscvJEWkgK0Vr2UJS5-CC5hhgCLcBGAs/s1600/20190414010110_IMG_0064.JPG)
 
 ## Xe đạp và xe scooter
+
 
 Một lựa chọn hoàn hảo khác để đi dạo trong thành phố là xe đạp và xe Scooter. Một số đường có Lane xanh dành riêng cho xe đạp. Xe đạp nằm ở mọi nơi trong thành phố. Chỉ cần quét mã QR thì khoá sẽ mở ra, khi trả thì kiếm đại 1 gốc cây hay trụ nào đó khóa lại là được. Xe có thể thuê của [Jump Bike](https://jump.com/) (thuộc Uber).  
   

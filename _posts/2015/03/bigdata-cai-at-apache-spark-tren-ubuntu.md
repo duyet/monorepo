@@ -26,10 +26,11 @@ Spark có nhiều phiên bản khác nhau, tương thích với Hadoop và hầu
 
 Sau đây mình sẽ hướng dẫn về các bước cần thiết để biên dịch, cài đặt và cấu hình Spark từ Source.
 
-## Cài đặt Java ##
+## Cài đặt Java
+
 Để có thể chạy Spark trên ubuntu, cần phải có Java. Nếu chưa có thì cài đặt như sau, chạy các lệnh:
 
-```shell
+```bash
 $ sudo apt-add-repository ppa:webupd8team/java
 $ sudo apt-get update
 $ sudo apt-get install oracle-java7-installer
@@ -46,7 +47,8 @@ Bạn sẽ thấy
 java version "1.7.0_76" Java(TM) SE Runtime Environment (build 1.7.0_76-b13) Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
 ```
 
-## Cài đặt Scala ##
+## Cài đặt Scala
+
 Tiếp theo là cài đặt Scala, bạn có thể tìm hiểu thêm về Scala tại [trang chủ](http://www.scala-lang.org/index.html)
 
 Tải bản Scala 2.11.6 tại đây: [http://www.scala-lang.org/download/](http://www.scala-lang.org/download/)
@@ -82,7 +84,8 @@ $ scala -version
 Thấy giống giống thế này là Ok: 
 `Scala code runner version 2.11.6 -- Copyright 2002-2013, LAMP/EPFL`
 
-## Tải và cài đặt Apache Spark ##
+## Tải và cài đặt Apache Spark
+
 Truy cập [http://spark.apache.org/downloads.html](http://spark.apache.org/downloads.html) và tải bản Spark mới nhất, hoặc làm theo cách dưới đây
 
 ```
@@ -92,7 +95,8 @@ $ tar xvf spark-1.3.0.tgz
 
 ```
 
-## Biên dịch Spark ##
+## Biên dịch Spark
+
 Trong source của Spark mới vừa tải về đã tích hợp sẵn SBT(Simple Build Tool), để biên dịch Spark, chạy các lệnh sau:
 
 ```
@@ -102,7 +106,8 @@ $ sbt/sbt assembly
 
 Ăn miếng nước, uống miếng bánh, đợi 1 vài (chục) phút để SBT build.
 
-## Test thử ##
+## Test thử
+
 Sau thời gian chờ đợi, bạn đã có thể sử dụng. Test thử nào, sau đây là chương trình tính số Pi, tích hợp sẵn trong Spark
 
 ```
@@ -111,7 +116,8 @@ $ ./bin/run-example SparkPi 10
 
 Kết quả 3.14634, hệ thống của bạn đã sẵn sàng chinh chiến.  
 
-## Sử dụng spark-submit ##
+## Sử dụng spark-submit
+
 Một khi bạn đã viết xong vài thuật toán nho nhỏ trên API của Spark, đây là lúc chạy trên Spark. Spark-Submit là một script (bin/spark-submit), giúp bạn submit chương trình của bạn lên Spark và chạy. Bạn có thể Submit file Jar nếu viết app bằng Java, đường dẫn file .py nếu viết bằng python, ...
 
 Trong thư mục Spark mặc định có chứa nhiều file ví dụ trong thư mục examples, bằng ngôn cả ngôn ngữ Java, Scala và Python.
@@ -171,7 +177,8 @@ export HADOOP_CONF_DIR=XXX
   1000 # tham số
 ```
 
-## Sử dụng Spark Shell ##
+## Sử dụng Spark Shell
+
 
 Bạn có thể sử dụng Spark thông qua Scala Shell 
 
@@ -184,7 +191,8 @@ scala> val textFile = sc.textFile("README.md")
 scala> textFile.count()
 ```
 
-## Kết hợp Spark với Hadoop Filesystems (HDFS) ##
+## Kết hợp Spark với Hadoop Filesystems (HDFS)
+
 Ở trên mình hướng dẫn cách build từ source, cách này có cái hay là bạn có thể chạy Spark với bất kì phiên bản Hadoop nào. Bây giờ mình muốn sử dụng kết hợp với HDFS thì sao? thực hiện các bước sau
 
 Dọn dẹp
@@ -211,6 +219,7 @@ scala> file.flatMap(line => line.split(",")).map(word => (word, 1)).reduceByKey(
 scala> count.saveAsTextFile("hdfs://IP:8020/path/to/ouput")
 ```
 
-## Kết ##
+## Kết
+
 Cách cấu hình Spark để chạy MultiNode trên YARN: [https://spark.apache.org/docs/1.2.0/running-on-yarn.html](https://spark.apache.org/docs/1.2.0/running-on-yarn.html)
 Quick Start: [http://spark.apache.org/docs/1.1.1/quick-start.html](http://spark.apache.org/docs/1.1.1/quick-start.html)

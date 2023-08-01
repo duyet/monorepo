@@ -31,6 +31,7 @@ English below.
 
 ## Table of Contents ## 
 
+
 The Silent Void [1]
 
 The Ancient Masters [2]
@@ -51,10 +52,12 @@ Epilogue [9]
 
 ## Hồi 1: Cõi hư vô ## 
 
+
 > Lập Trình Sư nói:
 > "Khi ngươi biết cách lấy mã lỗi từ đoạn code bắt lỗi, ngươi có thể xuống núi."
 
 ## 1.1 ## 
+
 
 Nguồn gốc huyền bí, sinh ra từ hư vô. Vô thanh vô tướng, vĩnh viễn bất biến, mãi mãi vận hành. Là nguồn gốc của mọi chương trình. Ta không biết tên nó là gì, nên ta gọi nó là Đạo.
 
@@ -64,6 +67,7 @@ Nguồn gốc huyền bí, sinh ra từ hư vô. Vô thanh vô tướng, vĩnh v
 
 ## 1.2 ## 
 
+
 Đạo sinh máy ngữ, máy ngữ sinh hợp ngữ, hợp ngữ sinh trình dịch, trình dịch sinh ngôn ngữ, ngôn ngữ biến hóa vô cùng (1).
 
 Nay vạn ngữ đã hình thành. Một ngữ dù thấp kém đến đâu vẫn có mục đích của nó. Mỗi ngữ đều thể hiện tính âm dương của phần mềm. Mỗi ngữ đều có một vị trí trong Đạo.
@@ -71,6 +75,7 @@ Nay vạn ngữ đã hình thành. Một ngữ dù thấp kém đến đâu vẫ
 Tuy nhiên nếu có thể, các ngươi không nên chọn COBOL.
 
 ## 1.3 ## 
+
 
 Khởi thủy từ Đạo. Đạo sinh thời gian và không gian (Space and Time). Nên thời gian và không gian chính là Âm và Dương của lập trình vậy. 
 
@@ -80,10 +85,12 @@ Sao có thể khác được?
 
 ## Hồi 2: Lập Trình Sư ## 
 
+
 > Lập Trình Sư nói:
 > "Ba ngày không lập trình, cuộc sống trở nên vô nghĩa."
 
 ## 2.1 ## 
+
 
 Bậc Lập Trình Sư vi diệu huyền thông, cao thâm vô lượng. Vì không thể biết được, nên miễn cưỡng mà mô tả họ: Cẩn thận như đi trên băng mỏng. Cảnh giác như tướng giữa trận tiền. Tốt bụng như chủ nhà tiếp khách quý. Mộc mạc như thân gỗ chưa đẽo gọt. Bí ẩn như hồ đen trong hang tối.
 
@@ -93,9 +100,11 @@ Câu trả lời nằm trong Đạo.
 
 ## 2.2 ## 
 
+
 Có lần Đại sư Turing nằm mộng thấy mình hóa thành máy, mà không biết mình là Turing nữa, rồi bỗng tỉnh dậy, ngạc nhiên thấy mình là Turing. Không biết có phải mình là Turing nằm mộng thấy hóa máy hay là máy nằm mộng thấy hóa Turing? (3)
 
 ## 2.3 ## 
+
 
 Một nhân viên từ một công ty máy tính sau khi tham dự đại hội phần mềm trở về trình báo với chủ nhân: "Không hiểu lũ lập trình viên kia là cái loại gì. Chúng cư xử rất thô lỗ và không có lễ nghi gì cả. Đầu tóc thì bù xù, quần áo thì nhăn nhúm. Chúng nhảy xổ vào hội trường và gây huyên náo cả buổi."
 
@@ -105,16 +114,19 @@ Họ đang sống trong Đạo."
 
 ## 2.4 ## 
 
+
 Đồ đệ hỏi Lập Trình Sư: "Một lập trình viên không bao giờ thiết kế, viết tài liệu, hay thử nghiệm chương trình. Vậy mà tất cả mọi người đều coi anh ta là thiên hạ đệ nhất. Tại sao vậy?"
 
 Lập Trình Sư trả lời: "Kẻ đó đã lĩnh hội được Đạo. Hắn đã thoát khỏi giới hạn của thiết kế; khi hệ thống có lỗi hắn vẫn tiếp nhận một cách bình thản. Hắn đã thoát khỏi giới hạn của tài liệu; hắn không bao giờ e ngại khi người khác review code của mình. Hắn đã thoát khỏi giới hạn của thử nghiệm; mỗi đoạn code hắn viết đều đã sáng sủa, hoàn hảo, còn ý nghĩa của chúng đã hiển nhiên như cuộc sống. Hắn đã đắc Đạo vậy."
 
 ## Hồi 3: Thiết kế ## 
 
+
 > Lập Trình Sư nói:
 > "Khi chương trình đang được thử nghiệm (test), thì đã quá muộn để thay đổi thiết kế."
 
 ## 3.1 ## 
+
 
 Một nam nhân tham dự triển lãm tin học. Khi vào cửa, gã nói với người bảo vệ:
 
@@ -138,9 +150,11 @@ Gã mỉm cười, "Ta trộm ý tưởng."
 
 ## 3.2 ## 
 
+
 Một Lập Trình Sư viết chương trình phi cấu trúc. Một lập trình viên học theo, cũng viết chương trình phi cấu trúc. Khi xem kết quả, Lập Trình Sư mắng: "Tuyệt học của cao thủ đâu phải để cho kẻ tầm thường? Muốn phá vỡ cấu trúc, trước tiên ngươi phải tinh thông cấu trúc."
 
 ## 3.3 ## 
+
 
 Một lập trình viên làm môn khách tại phủ Ngô Vương. Ngô Vương hỏi: "Hệ điều hành và phần mềm kế toán, thứ nào dễ thiết kế hơn?"
 
@@ -156,6 +170,7 @@ Lập trình viên không đáp.
 
 ## 3.4 ## 
 
+
 Quản đốc đưa cho Lập Trình Sư tài liệu yêu cầu của một phần mềm và hỏi: "Việc thiết kế hệ thống này sẽ mất bao lâu nếu ta để năm lập trình viên làm?"
 
 "Mất một năm", Lập Trình Sư trả lời ngay.
@@ -170,10 +185,12 @@ Lập Trình Sư nhún vai: "Sẽ chẳng bao giờ xong."
 
 ## Hồi 4: Lập trình ## 
 
+
 > Lập Trình Sư nói:
 > "Chương trình tốt thì tự nhiên là thiên đường, chương trình tồi thì tự nhiên là địa ngục."
 
 ## 4.1 ## 
+
 
 Một chương trình hay thì phải cực kỳ tinh gọn, nhẹ nhàng như bướm vờn hoa, từng thành phần liên kết với nhau như chuỗi ngọc trên cườm tay tiên nữ. Tư tưởng của chương trình phải liền mạch như suối chảy. Không nên quá dài, không nên quá ngắn, không nên có biến vô dụng, không nên có vòng lặp thừa, không nên thiếu cấu trúc, không nên quá cứng nhắc.
 
@@ -185,6 +202,7 @@ Một chương trình không đáp ứng được những yêu cầu trên sẽ 
 
 ## 4.2 ## 
 
+
 Đồ đệ hỏi Lập Trình Sư: "Thưa, chương trình con viết lúc chạy lúc không, mặc dù con đã tuân thủ đúng quy tắc lập trình. Con cảm thấy vô cùng bế tắc. Tại sao vậy?"
 
 Lập Trình Sư đáp: "Ngươi bối rối vì ngươi chưa giác ngộ. Chỉ có kẻ ngốc mới đòi hỏi con người phải luôn luôn đúng đắn. Vậy thì tại sao ngươi lại đòi hỏi điều đó từ thứ mà con người tạo ra? Máy móc chỉ là máy móc, Đạo mới là hoàn hảo. Quy tắc chỉ là nhất thời, Đạo mới là mãi mãi. Thế nên để được khai sáng, ngươi phải suy ngẫm về Đạo."
@@ -194,6 +212,7 @@ Lập Trình Sư đáp: "Ngươi bối rối vì ngươi chưa giác ngộ. Ch�
 "Khi đó chương trình của ngươi sẽ chạy trơn tru." Lập Trình Sư đáp.
 
 ## 4.3 ## 
+
 
 Một Lập Trình Sư giảng về bản chất của Đạo cho một đồ đệ. "Đạo nằm trong tất cả các phần mềm dù phần mềm đó có tầm thường đến đâu", Lập Trình Sư nói.
 
@@ -211,6 +230,7 @@ Lập Trình Sư khẽ ho một tiếng và đứng lên. "Bài giảng hôm nay
 
 ## 4.4 ## 
 
+
 Lập trình viên của thái tử viết một chương trình, ngón tay lướt trên bàn phím như tiên nữ gảy đàn. Chương trình được dịch không một lỗi và thực thi êm như hoa rơi trên mặt nước.
 
 "Tuyệt!" thái tử thốt lên, "Kỹ thuật của các hạ thật hoàn hảo!"
@@ -221,10 +241,12 @@ Lập trình viên của thái tử viết một chương trình, ngón tay lư�
 
 ## Hồi 5: Cải tiến ## 
 
+
 > Lập Trình Sư nói
 > "Một chương trình, dù chỉ có 3 dòng code, một ngày nào đó vẫn cần phải được cải tiến."
 
 ## 5.1 ## 
+
 
 Cửa giả hay dùng thì không phí dầu mỡ
 
@@ -237,6 +259,7 @@ Phần mềm sẽ mục nát nếu chẳng đụng đến
 Đó là những điều huyền diệu.
 
 ## 5.2 ## 
+
 
 Quản đốc hỏi một lập trình viên xem anh ta cần bao lâu để hoàn thành chương trình đang viết. "Sẽ xong trong ngày mai."
 
@@ -252,6 +275,7 @@ Vài năm sau quản đốc rửa tay gác phím, trên đường đến dự ti
 
 ## 5.3 ## 
 
+
 Một lập trình viên được Lập Trình Sư giao viết một chương trình quản lý tài chính nhỏ.
 
 Anh ta làm việc như điên trong nhiều ngày. Khi Lập Trình Sư xem kết quả, ông thấy cả một chương trình soạn thảo, một đống hàm đồ họa, một giao diện trí tuệ nhân tạo nhưng chẳng có gì về tài chính.
@@ -259,6 +283,7 @@ Anh ta làm việc như điên trong nhiều ngày. Khi Lập Trình Sư xem k�
 Khi Lập Trình Sư hỏi tại sao, thì gã nổi đóa: "Đừng vội, tại hạ sẽ viết chương trình tài chính sau cùng."
 
 ## 5.4 ## 
+
 
 Đời nào dân tốt bỏ mùa?
 
@@ -270,10 +295,12 @@ Phu tốt code chẳng mòn theo tháng ngày
 
 ## Hồi 6: Quản đốc ## 
 
+
 > Lập Trình Sư nói:
 > "Môn phái có nhiều lập trình viên và ít quản đốc thì sẽ hưng thịnh."
 
 ## 6.1 ## 
+
 
 Khi các quản đốc chỉ biết họp bàn, lập trình viên sẽ đi viết game nhảm nhí. Khi tổng quản chỉ nói về lợi nhuận hàng quý, ngân sách dành cho phát triển sẽ bị cắt. Khi các trụ cột trong môn phái chỉ biết nói trăng sao, mây mù sẽ bao phủ khắp nơi.
 
@@ -284,6 +311,7 @@ Khi các quản đốc cam kết toàn lực, game nhảm nhí sẽ không còn.
 Đấy chính là đạo lập trình.
 
 ## 6.2 ## 
+
 
 Tại sao hiệu suất của lập trình viên lại thấp?
 
@@ -301,6 +329,7 @@ Khi làm việc dưới sự quản lý tồi, họ sẽ chẳng còn hứng th�
 
 ## 6.3 ## 
 
+
 Viên quản đốc nọ gặp khó khăn đến mức sắp bị sa thải, may sao một lập trình viên làm việc cho ông ta đã tạo ra một chương trình rất hay và nâng cao được doanh số. Kết quả, ông ta đã giữ được ngôi vị của mình.
 
 Viên quản đốc bèn tặng thưởng cho lập trình viên đó, nhưng anh ta từ chối: "Tôi lập trình bởi vì tôi đam mê, không phải vì trông chờ phần thưởng."
@@ -311,16 +340,19 @@ Khi nói về vấn đề này, lập trình viên một lần nữa lại từ 
 
 ## 6.4 ## 
 
+
 Quản đốc đi đến chỗ các lập trình viên: "Tất cả hãy tuân thủ giờ làm việc: bắt đầu từ 9 giờ sáng và kết thúc lúc 5 giờ chiều." Lập tức, đám lập trình viên trở nên giận dữ, một số thì rũ áo đứng dậy bỏ đi.
 
 Quản đốc vội nói: "Thôi được, các ngươi có thể tự quyết định giờ giấc của mình, miễn là có thể hoàn thành dự án đúng thời hạn." Các lập trình viên nghe vậy liền cảm thấy hài lòng trở lại, họ bắt đầu công việc vào buổi trưa và kết thúc khi trời gần sáng.
 
 ## Hồi 7: Trung tâm đầu não  ## 
 
+
 > Lập Trình Sư nói:
 > "Ngươi có thể giới thiệu một chương trình cho lãnh đạo của môn phái, nhưng ngươi không thể làm cho họ hiểu về máy tính." 
 
 ## 7.1  ## 
+
 
 Đồ đệ hỏi Lập Trình Sư: "Phương Đông có cây đại thụ, người ta gọi là "Trung tâm đầu não". Nó phình ra rất to với một đám phó môn chủ và tổng quản. Nó phát ra vô số mệnh lệnh, đại thể tựa như "Cút đi!" hay "Lại đây!", thiên hạ chẳng ai hiểu nó nói gì. Cứ mỗi năm nó lại mọc ra nhiều nhánh hơn, nhưng đều chả đem lại lợi ích gì. Tại sao một thứ vô lý như vậy lại có thể tồn tại được?" 
 
@@ -328,11 +360,13 @@ Lập Trình Sư nói: "Ngươi bối rối vì thấy nó không hợp lý. Sao
 
 ## 7.2  ## 
 
+
 Ngoài biển Đông có loài cá kình to lớn. Nó hóa thân thành loài chim hạc mà đôi cánh che kín cả bầu trời. Khi bay qua đất liền, nó mang theo một thông điệp từ "Trung tâm đầu não", thông điệp ấy rơi vào giữa đám lập trình viên, tựa sấm sét giữa trời quang. Rồi theo gió, nó bay lên trời, quay về biển Đông. 
 
 Các lập trình viên tập sự thì nhìn theo cánh chim mà trong lòng ngập tràn nghi vấn. Những lập trình viên khác thì kinh hãi, khiếp sợ. Riêng Lập Trình Sư vẫn bình thản làm việc, như không hề nhận thấy sự có mặt của con chim kia. 
 
 ## 7.3 ## 
+
 
 Lão pháp sư từ Tháp Ngà mang đến chỗ Lập Trình Sư phát minh mới nhất để kiểm nghiệm. Ông ta đẩy một cái thùng lớn màu đen vào văn phòng của Lập Trình Sư. 
 
@@ -350,20 +384,24 @@ Vài ngày sau, 1 đồ đệ đến văn phòng của Lập Trình Sư và hỏ
 
 ## 7.4  ## 
 
+
 Lập Trình Sư viết hết chương trình này đến chương trình khác mà không chút lo sợ. Không sự thay đổi nào trong quản lý có thể ảnh hưởng đến y. Y vĩnh viễn không bị sa thải, ngay cả khi dự án bị hủy. Tại sao vậy? Vì y đã đắc Đạo.
 
 ## Quyển 8: Phần cứng và phần mềm  ## 
+
 
 > Lập Trình Sư nói:
 > "Không có gió, cỏ cây bất động. Không có phần mềm, phần cứng vô dụng." 
 
 ## 8.1  ## 
 
+
 Đồ đệ hỏi: "Thưa sư phụ! Con biết 1 công ty máy tính vĩ đại hơn tất cả công ty còn lại, ví như gã khổng lồ với bầy lùn, mỗi chi nhánh của nó có thể sánh ngang với cả một công ty lớn. Sao lại như thế?" 
 
 Lập Trình Sư nói: "Đừng hỏi vớ vẩn thế. Công ty đó lớn vì nó thực sự lớn. Nếu nó chỉ bán phần cứng, thiên hạ không ai thèm mua. Nếu nó chỉ bán phần mềm, thiên hạ không ai thèm dùng. Nếu nó chỉ bảo trì hệ thống, thiên hạ xem nó như nô tỳ. Vì nó kết hợp tất cả, thiên hạ tin nó là trời. Ấy gọi là không cần cố gắng mà vẫn lấy được thiên hạ vậy."
 
 ## 8.2  ## 
+
 
 Một hôm, Lập Trình Sư đến chỗ đồ đệ. Y đang chúi mũi chơi game trên Nintendo. Lập Trình Sư nói: "Này, ta có thể thử nó được không ?" Tên đồ đệ (vẻ bất ngờ) trao nó cho Lập Trình Sư. 
 
@@ -375,6 +413,7 @@ Lập Trình Sư quăng cái Nintendo xuống đất, lấy chân nghiền nát.
 
 ## 8.3  ## 
 
+
 Lập trình viên mainframe đến thăm bạn mình là một lập trình viên vi xử lý (microprocessors). "Nhìn tôi này," lập trình viên vi xử lý nói, "Thật là sảng khoái. Tôi có hệ điều hành và đĩa cứng của chính mình. Tôi không phải chia sẻ tài nguyên với bất cứ kẻ nào. Phần mềm của tôi trước sau như một, sử dụng nhẹ tựa lông hồng. Sao bằng hữu không bỏ thứ đó (mainframe) và tham gia với tôi?"
 
 Lập trình viên mainframe bèn giải thích: "Máy chủ (mainframe) đứng giữa trung tâm dữ liệu khác nào bậc hiền nhân đang tọa thiền trên đài sen. Đĩa cứng xếp chồng bất tận như Thái Sơn, bộ nhớ tầng tầng lớp lớp mênh mông như đại dương. Phần mềm long lanh như ngọc quý, quấn quít tựa tơ vương. Các chương trình, lần lượt, đi qua như dòng thiên hà chảy xiết. Đó là vì sao tại hạ cảm thấy hoan hỷ trong hiện tại." 
@@ -383,6 +422,7 @@ Lập trình viên nọ nghe xong, im lặng. Nhưng cả hai vẫn là bằng h
 
 ## 8.4  ## 
 
+
 Phần cứng gặp phần mềm trên đường lên đỉnh Hy Mã Lạp Sơn. Phần mềm nói: "Các hạ là Dương, tại hạ là Âm. Nếu ta kết hợp cùng nhau, tất sẽ được vinh hoa phú quý." Và cả hai lên đường, mưu tính đại sự. 
 
 Giữa đường, họ gặp Cái bang trưởng lão Phần Sụn (Firmware), ăn mặc rách rưới, tay chống gậy bước tới, nói rằng: "Đạo tồn tại giữa Âm và Dương. Đạo tĩnh lặng tựa mặt hồ không chút gợn sóng. Đạo không cần tên tuổi, bởi vậy không ai biết sự hiện diện của Đạo. Đạo không cần tiền bạc, Đạo đã hoàn mỹ trong Đạo. Đạo tồn tại trên cả không gian và thời gian." 
@@ -390,6 +430,7 @@ Giữa đường, họ gặp Cái bang trưởng lão Phần Sụn (Firmware), �
 Phần cứng và Phần mềm, cảm thấy hổ thẹn, bèn quay về.
 
 ## Hồi 9: Lời kết  ## 
+
 
 > Lập Trình Sư nói:
 > "Giờ ngươi có thể xuống núi."
@@ -412,6 +453,7 @@ Re-html-ized and edited by Kragen Sittler
 
 ## Table of Contents ## 
 
+
 1. [The Silent Void](http://canonical.org/~kragen/tao-of-programming.html#book1)
 2. [The Ancient Masters](http://canonical.org/~kragen/tao-of-programming.html#book2)
 3. [Design](http://canonical.org/~kragen/tao-of-programming.html#book3)
@@ -426,11 +468,13 @@ Re-html-ized and edited by Kragen Sittler
 
 ## [Book 1 - The Silent Void](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``When you have learned to snatch the error code from the trap frame, it will be time for you to leave.''
 
 ### 1.1 ### 
+
 
 Something mysterious is formed, born in the silent void. Waiting alone and unmoving, it is at once still and yet in constant motion. It is the source of all programs. I do not know its name, so I will call it the Tao of Programming.
 
@@ -439,6 +483,7 @@ If the Tao is great, then the operating system is great. If the operating system
 The Tao of Programming flows far away and returns on the wind of morning.
 
 ### 1.2 ### 
+
 
 The Tao gave birth to machine language. Machine language gave birth to the assembler.
 
@@ -450,6 +495,7 @@ But do not program in COBOL if you can avoid it.
 
 ### 1.3 ### 
 
+
 In the beginning was the Tao. The Tao gave birth to Space and Time. Therefore Space and Time are Yin and Yang of programming.
 
 Programmers that do not comprehend the Tao are always running out of time and space for their programs. Programmers that comprehend the Tao always have enough time and space to accomplish their goals.
@@ -457,6 +503,7 @@ Programmers that do not comprehend the Tao are always running out of time and sp
 How could it be otherwise?
 
 ### 1.4 ### 
+
 
 The wise programmer is told about Tao and follows it. The average programmer is told about Tao and searches for it. The foolish programmer is told about Tao and laughs at it.
 
@@ -471,11 +518,13 @@ Even a perfect program still has bugs.
 
 ## [Book 2 - The Ancient Masters](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``After three days without programming, life becomes meaningless.''
 
 ### 2.1 ### 
+
 
 The programmers of old were mysterious and profound. We cannot fathom their thoughts, so all we do is describe their appearance.
 
@@ -487,11 +536,13 @@ The answer exists only in Tao.
 
 ### 2.2 ### 
 
+
 Grand Master Turing once dreamed that he was a machine. When he awoke he exclaimed:
 
 > ``I don't know whether I am Turing dreaming that I am a machine, or a machine dreaming that I am Turing!''
 
 ### 2.3 ### 
+
 
 A programmer from a very large computer company went to a software conference and then returned to report to his manager, saying: ``What sort of programmers work for other companies? They behaved badly and were unconcerned with appearances. Their hair was long and unkempt and their clothes were wrinkled and old. They crashed our hospitality suite and they made rude noises during my presentation.''
 
@@ -501,6 +552,7 @@ The manager said: ``I should have never sent you to the conference. Those progra
 
 ### 2.4 ### 
 
+
 A novice asked the Master: ``Here is a programmer that never designs, documents or tests his programs. Yet all who know him consider him one of the best programmers in the world. Why is this?''
 
 The Master replies: ``That programmer has mastered the Tao. He has gone beyond the need for design; he does not become angry when the system crashes, but accepts the universe without concern. He has gone beyond the need for documentation; he no longer cares if anyone else sees his code. He has gone beyond the need for testing; each of his programs are perfect within themselves, serene and elegant, their purpose self-evident. Truly, he has entered the mystery of Tao.''
@@ -509,11 +561,13 @@ The Master replies: ``That programmer has mastered the Tao. He has gone beyond t
 
 ## [Book 3 - Design](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``When the program is being tested, it is too late to make design changes.''
 
 ### 3.1 ### 
+
 
 There once was a man who went to a computer trade show. Each day as he entered, the man told the guard at the door:
 
@@ -531,9 +585,11 @@ The man smiled. ``I am stealing ideas,'' he said.
 
 ### 3.2 ### 
 
+
 There once was a master programmer who wrote unstructured programs. A novice programmer, seeking to imitate him, also began to write unstructured programs. When the novice asked the master to evaluate his progress, the master criticized him for writing unstructured programs, saying, ``What is appropriate for the master is not appropriate for the novice. You must understand the Tao before transcending structure.''
 
 ### 3.3 ### 
+
 
 There was once a programmer who was attached to the court of the warlord of Wu. The warlord asked the programmer: ``Which is easier to design: an accounting package or an operating system?''
 
@@ -548,6 +604,7 @@ The warlord of Wu nodded and smiled. ``That is all good and well, but which is e
 The programmer made no reply.
 
 ### 3.4 ### 
+
 
 A manager went to the master programmer and showed him the requirements document for a new application. The manager asked the master: ``How long will it take to design this system if I assign five programmers to it?''
 
@@ -565,11 +622,13 @@ The master programmer shrugged. ``Then the design will never be completed,'' he 
 
 ## [Book 4 - Coding](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``A well-written program is its own heaven; a poorly-written program is its own hell.''
 
 ### 4.1 ### 
+
 
 A program should be light and agile, its subroutines connected like a string of pearls. The spirit and intent of the program should be retained throughout. There should be neither too little or too much, neither needless loops nor useless variables, neither lack of structure nor overwhelming rigidity.
 
@@ -580,6 +639,7 @@ A program, no matter how complex, should act as a single unit. The program shoul
 If the program fails in these requirements, it will be in a state of disorder and confusion. The only way to correct this is to rewrite the program.
 
 ### 4.2 ### 
+
 
 A novice asked the master: ``I have a program that sometime runs and sometimes aborts. I have followed the rules of programming, yet I am totally baffled. What is the reason for this?''
 
@@ -592,6 +652,7 @@ The master replied: ``You are confused because you do not understand Tao. Only a
 ``Your program will then run correctly,'' replied the master.
 
 ### 4.3 ### 
+
 
 A master was explaining the nature of Tao of to one of his novices. ``The Tao is embodied in all software - regardless of how insignificant,'' said the master.
 
@@ -609,6 +670,7 @@ The master coughed and shifted his position slightly. ``The lesson is over for t
 
 ### 4.4 ### 
 
+
 Prince Wang's programmer was coding software. His fingers danced upon the keyboard. The program compiled without an error message, and the program ran like a gentle wind.
 
 ``Excellent!'' the Prince exclaimed, ``Your technique is faultless!''
@@ -621,11 +683,13 @@ Prince Wang said, ``Would that all of my programmers were as wise!''
 
 ## [Book 5 - Maintenance](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``Though a program be but three lines long, someday it will have to be maintained.''
 
 ### 5.1 ### 
+
 
 A well-used door needs no oil on its hinges.
 A swift-flowing stream does not grow stagnant.
@@ -635,6 +699,7 @@ Software rots if not used.
 These are great mysteries.
 
 ### 5.2 ### 
+
 
 A manager asked a programmer how long it would take him to finish the program on which he was working. ``It will be finished tomorrow,'' the programmer promptly replied.
 
@@ -650,6 +715,7 @@ Several years later, the manager retired. On the way to his retirement luncheon,
 
 ### 5.3 ### 
 
+
 A novice programmer was once assigned to code a simple financial package.
 
 The novice worked furiously for many days, but when his master reviewed his program, he discovered that it contained a screen editor, a set of generalized graphics routines, an artificial intelligence interface, but not the slightest mention of anything financial.
@@ -657,6 +723,7 @@ The novice worked furiously for many days, but when his master reviewed his prog
 When the master asked about this, the novice became indignant. ``Don't be so impatient,'' he said, ``I'll put in the financial stuff eventually.''
 
 ### 5.4 ### 
+
 
 Does a good farmer neglect a crop he has planted?
 Does a good teacher overlook even the most humble student?
@@ -667,11 +734,13 @@ Does a good programmer refuse to maintain his code?
 
 ## [Book 6 - Management](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``Let the programmers be many and the managers few - then all will be productive.''
 
 ### 6.1 ### 
+
 
 When managers hold endless meetings, the programmers write games. When accountants talk of quarterly profits, the development budget is about to be cut. When senior scientists talk blue sky, the clouds are about to roll in.
 
@@ -682,6 +751,7 @@ When managers make commitments, game programs are ignored. When accountants make
 Truly, this is the Tao of Programming.
 
 ### 6.2 ### 
+
 
 Why are programmers non-productive?
 Because their time is wasted in meetings.
@@ -696,6 +766,7 @@ Having worked for poor management, they no longer value their jobs.
 
 ### 6.3 ### 
 
+
 A manager was about to be fired, but a programmer who worked for him invented a new program that became popular and sold well. As a result, the manager retained his job.
 
 The manager tried to give the programmer a bonus, but the programmer refused it, saying, ``I wrote the program because I thought it was an interesting concept, and thus I expect no reward.''
@@ -706,6 +777,7 @@ But when told this, the programmer once more refused, saying, ``I exist so that 
 
 ### 6.4 ### 
 
+
 A manager went to his programmers and told them: ``As regards to your work hours: you are going to have to come in at nine in the morning and leave at five in the afternoon.'' At this, all of them became angry and several resigned on the spot.
 
 So the manager said: ``All right, in that case you may set your own working hours, as long as you finish your projects on schedule.'' The programmers, now satisfied, began to come in at noon and work to the wee hours of the morning.
@@ -714,11 +786,13 @@ So the manager said: ``All right, in that case you may set your own working hour
 
 ## [Book 7 - Corporate Wisdom](https://www.blogger.com/null) ## 
 
+
 Thus spake the master programmer:
 
 ``You can demonstrate a program for a corporate executive, but you can't make him computer literate.''
 
 ### 7.1 ### 
+
 
 A novice asked the master: `In the east there is a great tree-structure that men call` Corporate Headquarters'. It is bloated out of shape with vice presidents and accountants. It issues a multitude of memos, each saying `Go, Hence!` or `Go, Hither!` and nobody knows what is meant. Every year new names are put onto the branches, but all to no avail. How can such an unnatural entity be?"
 
@@ -726,11 +800,13 @@ The master replied: *You perceive this immense structure and are disturbed that 
 
 ### 7.2 ### 
 
+
 In the east there is a shark which is larger than all other fish. It changes into a bird whose wings are like clouds filling the sky. When this bird moves across the land, it brings a message from Corporate Headquarters. This message it drops into the midst of the programmers, like a seagull making its mark upon the beach. Then the bird mounts on the wind and, with the blue sky at its back, returns home.
 
 The novice programmer stares in wonder at the bird, for he understands it not. The average programmer dreads the coming of the bird, for he fears its message. The master programmer continues to work at his terminal, for he does not know that the bird has come and gone.
 
 ### 7.3 ### 
+
 
 The Magician of the Ivory Tower brought his latest invention for the master programmer to examine. The magician wheeled a large black box into the master's office while the master waited in silence.
 
@@ -748,11 +824,13 @@ Several days later, a novice wandered into the office of the master programmer a
 
 ### 7.4 ### 
 
+
 The master programmer moves from program to program without fear. No change in management can harm him. He will not be fired, even if the project is cancelled. Why is this? He is filled with Tao.
 
 ---
 
 ## [Book 8 - Hardware and Software](https://www.blogger.com/null) ## 
+
 
 Thus spake the master programmer:
 
@@ -760,11 +838,13 @@ Thus spake the master programmer:
 
 ### 8.1 ### 
 
+
 A novice asked the master: *I perceive that one computer company is much larger than all others. It towers above its competition like a giant among dwarfs. Any one of its divisions could comprise an entire business. Why is this so?*
 
 The master replied, *Why do you ask such foolish questions? That company is large because it is large. If it only made hardware, nobody would buy it. If it only made software, nobody would use it. If it only maintained systems, people would treat it like a servant. But because it combines all of these things, people think it one of the gods! By not seeking to strive, it conquers without effort.*
 
 ### 8.2 ### 
+
 
 A master programmer passed a novice programmer one day. The master noted the novice's preoccupation with a hand-held computer game. *Excuse me*, he said, *may I examine it?*
 
@@ -776,6 +856,7 @@ The master dropped the device to the ground and crushed it underfoot. And sudden
 
 ### 8.3 ### 
 
+
 There was once a programmer who worked upon microprocessors. *Look at how well off I am here,* he said to a mainframe programmer who came to visit, *I have my own operating system and file storage device. I do not have to share my resources with anyone. The software is self- consistent and easy-to-use. Why do you not quit your present job and join me here?*
 
 The mainframe programmer then began to describe his system to his friend, saying *The mainframe sits like an ancient sage meditating in the midst of the data center. Its disk drives lie end-to-end like a great ocean of machinery. The software is as multifaceted as a diamond, and as convoluted as a primeval jungle. The programs, each unique, move through the system like a swift-flowing river. That is why I am happy where I am.*
@@ -783,6 +864,7 @@ The mainframe programmer then began to describe his system to his friend, saying
 The microcomputer programmer, upon hearing this, fell silent. But the two programmers remained friends until the end of their days.
 
 ### 8.4 ### 
+
 
 Hardware met Software on the road to Changtse. Software said: *You are Yin and I am Yang. If we travel together we will become famous and earn vast sums of money.* And so the set forth together, thinking to conquer the world.
 
@@ -793,6 +875,7 @@ Software and Hardware, ashamed, returned to their homes.
 ---
 
 ## [Book 9 - Epilogue](https://www.blogger.com/null) ## 
+
 
 Thus spake the master programmer:
 

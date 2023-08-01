@@ -77,8 +77,10 @@ Please find the source code of my Next.js blog here: [https://github.com/duyet/n
 
 ### Updates
 
+
 - **2023-06-05**: Migrate to `/app` router from `/pages`
 - **2023-06-08**: Refactor `/app` router using some cool features
+
     - [Nested Route](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and [Nested Layout](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#nesting-layouts): `/app/[year]/[month]/[slug]`
     - [Router Groups](https://nextjs.org/docs/app/building-your-application/routing/route-groups): `/app/(static)/`
     - [Parallel Routes](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes): `/app/insights/@cloudflare` and `/app/insights/@wakatime`

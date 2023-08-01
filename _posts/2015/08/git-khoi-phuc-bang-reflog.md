@@ -18,6 +18,7 @@ description: 'Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặ
 
 ## Xem reflog để khôi phục lại 1 commit bất kì
 
+
 Reflog như cỗ máy thời gian, nó ghi lại toàn bộ những gì bạn đã làm, kể cả khi bạn xóa 1 commit nào đó. 
 
 ```
@@ -41,12 +42,13 @@ HEAD is now at 0979a9e Finish UAF module, need update xls file normaly
 ```
 
 ## Lỡ tay reset --hard
+
 Tương tự như trên, ta xem lại reflog
 
-```
+```bash
 $ git reset --hard HEAD~
-
 ```
+
 Kết quả sẽ là
 
 ```
@@ -62,7 +64,6 @@ Kết quả sẽ là
 
 ![](https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png)
 
-
 `0979a9e` là commit reset HEAD, `4d77eb9` là commit bị mất bạn cần sẽ nhảy đến.  Để khôi phục
 
 ```
@@ -71,7 +72,8 @@ HEAD is now at 0979a9e Finish UAF module, need update xls file normaly
 
 ```
 
-## Lỡ xóa branch ##
+## Lỡ xóa branch
+
 Trong trường hợp bạn lỡ xóa branch bằng `branch -D`
 
 ```
@@ -99,5 +101,6 @@ $ git checkout develop
 Và chúng ta sẽ quay lại branch vừa bị xóa lúc nãy.
 
 ## Kết
+
 
 Reflog là một công cụ mạnh mẽ trong Git, giống như một chiếc cỗ máy thời gian giúp chúng ta khôi phục dữ liệu ở bất cứ đâu. Mặc dù không phải là công cụ duy nhất, nhưng nó có thể là cứu cánh cuối cùng mỗi khi chúng ta "lỡ tay". Chúc bạn thành công! :D

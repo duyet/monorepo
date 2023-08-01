@@ -20,11 +20,13 @@ Như đã nói về big data, chúng ta có các loại dữ liệu khác nhau v
 [![](https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s640/example-graph.jpg)](https://blog.duyet.net/2016/02/columnar-database-va-graph-database.html#.VrHJjOx97Qo)
 Ảnh: W3.Org
 
-## Columnar Databases ##
+## Columnar Databases
+
 CSDL quan hệ là row store database hoặc row oriented database. Columnar databases là column oriented or column store database.
 Khi sử dụng columnar database, ta có thể thêm data bằng cách thêm 1 cột mới vào columnar database. HBase là 1 trong các columnar database phổ biến nhất. Nó dùng hệ thống tập tin Hadoop (HDFS) và MapReduce cho hệ thống lưu trữ dữ liệu. Tuy nhiên, nhớ rằng đây không phải là sự lựa chọn tốt cho mọi ứng dụng. Columnar Databases có lợi cho các CSDL có khối lượng dữ liệu lớn (volume) được thu thập và xử lý.
 
-## Graph Databases ##
+## Graph Databases
+
 Graph database được ưu tiên sư dụng với dữ liệu được liên kết chặt chẽ ở mức cao. CSDL này có cấu trúc quan hệ node. Các nodes và các relationships chứa 1 Key Value Pair nơi dữ liệu được lưu trữ.
 
 Điều thuận lợi nhất của CSDL này là hỗ trợ điều hướng nhanh hơn giữa các các mối quan hệ (relationship).

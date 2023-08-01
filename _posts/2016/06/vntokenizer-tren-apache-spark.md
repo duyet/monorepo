@@ -20,7 +20,9 @@ fbCommentUrl: http://blog.duyetdev.com/2016/06/vntokenizer-tren-apache-spark.htm
 
 Nay vnTokenizer vừa ra mắt phiên bản 5.0 (tên là Vitk) hỗ trợ chạy trên Apache Spark, cho những ai xử lý Big Data hoặc cần xử lý một lượng lớn input.
 
-## Chuẩn bị  ##
+## Chuẩn bị
+
+
 Yêu cần Ubuntu, cài đặt sẵn
 
 - Java Development Kit ([JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)), version 7.0 hoặc mới hơn. 
@@ -44,7 +46,8 @@ mvn compile package
 
 Sau khi build thành công, file `vn.vitk-2.0.jar` được đặt trong thư mục `target`
 
-## Tách từ, gán nhãn từ loại ##
+## Tách từ, gán nhãn từ loại
+
 Vitk có chạy ở chế độ stand-alone cluster hoặc cluster thật. Ở chế độ cluster, mỗi máy cần truy cập đến thư mục chung chứa dữ liệu trong thư mục /dat của Vitk.
 
 Sử dụng chức năng network file system (NFS) của Unix để mount thư mục /vi.vitk/dat và /export/dat

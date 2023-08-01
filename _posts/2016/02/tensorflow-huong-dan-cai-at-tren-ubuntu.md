@@ -23,18 +23,20 @@ Tensorflow được viết bằng C++ và Python.  Có nhiều cách để cài 
 
 ![](https://3.bp.blogspot.com/-R2h5LWtXLa4/VrTTs4StSYI/AAAAAAAAPHQ/AewU2C9IqOo/s320/logo-alt%25402x.png)
 
-## Yêu cầu hệ thống ##
+## Yêu cầu hệ thống
+
 
 - Tensorflow hỗ trợ Python 2.7 và  Python 3.3+, do tôi dùng Ubuntu lên Python được cài đặt sẵn.
 - Bản Tensorflow GPU cần cài đặt Cuda Toolkit 7.0 và cuDNN v2. Xem hướng dẫn cài [tại đây](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#optional-install-cuda-gpus-on-linux).
 
-## Cài thông qua pip ##
+## Cài thông qua pip
+
 
 Pip là trình quản lý các module của python. 
 
 Cài pip:
 
-```shell
+```bash
 # Ubuntu/Linux 64-bit
 $ sudo apt-get install python-pip python-dev
 
@@ -44,7 +46,7 @@ $ sudo easy_install pip
 
 Sau đó cài Tensorflow:
 
-```shell
+```bash
 # Ubuntu/Linux 64-bit, CPU only:
 $ sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
 
@@ -66,10 +68,11 @@ $ sudo easy_install --upgrade six
 $ sudo pip install --upgrade https://storage.googleapis.com/tensorflow/mac/tensorflow-0.6.0-py2-none-any.whl
 ```
 
-## Kiểm tra cài đặt ##
+## Kiểm tra cài đặt
+
 Kiểm tra xem Tensorflow đã được cài đặt thành công hay chưa. Mở terminal và gõ thử các lệnh python sau. Nếu báo lỗi tức là cài đặt không thành công.
 
-```shell
+```bash
 $ python
 ...
 >>> import tensorflow as tf
@@ -84,5 +87,6 @@ Hello, TensorFlow!
 >>>
 ```
 
-## Cài đặt trên Docker ##
+## Cài đặt trên Docker
+
 Một cách khác cũng được khuyến khích là cài đặt trong môi trường Docker. Xem hướng dẫn tại [bài viết này](https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker.html).

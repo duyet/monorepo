@@ -18,7 +18,8 @@ Destructuring là chức năng mới trong ES6 của Javascript. Giúp extract d
 
 ![](https://2.bp.blogspot.com/-6CbJccfAv4A/V0fdpvOadvI/AAAAAAAAWEM/Z7TwERT_aAgcV-HfBQZfq-yXOCOBqomtQCK4B/s1600/es6-destructuring.png)
 
-## 1. Object destructuring ##
+## 1. Object destructuring
+
 
 ```js
 const obj = { first: 'Jane', last: 'Doe' };
@@ -30,7 +31,8 @@ const {first, last} = obj;
     // first = 'Jane'; last = 'Doe'
 ```
 
-## 2. Array destructuring ##
+## 2. Array destructuring
+
 Destructuring giá trị từ mảng
 
 ```js
@@ -46,7 +48,8 @@ const [all, year, month, day] =
     .exec('2999-12-31');
 ```
 
-## 3. Khi nào cần sử dụng destructuring ##
+## 3. Khi nào cần sử dụng destructuring
+
 Cơ bản, destructuring có thể được sử dụng ở 1 số trường hợp sau:
 
 ```js
@@ -86,10 +89,13 @@ for (const {name, age} of arr2) {
 // Hoa 40
 ```
 
-## 4. Các Patterns  ##
+## 4. Các Patterns
+
+
 Một số patterns sử dụng sâu hơn chức năng này:
 
-#### 4.1 Pick what you need ####
+#### 4.1 Pick what you need
+
 
 Chỉ bóc tách lấy giá trị trong Object mà bạn cần
 
@@ -104,7 +110,9 @@ const obj = { a: [{ foo: 123, bar: 'abc' }, {}], b: true };
 const { a: [{foo: f}] } = obj; // f = 123
 ```
 
-#### 4.2 Object patterns coerce values to objects ####
+#### 4.2 Object patterns coerce values to objects
+
+
 Pattern này ép giá trị nguồn (bên phải) thành object trước, khó để giải thích cái này, bạn xem ví dụ bên dưới<br />
 
 ```js
@@ -112,14 +120,16 @@ const {length : len} = 'abc'; // len = 3
 const {toString: s} = 123; // s = Number.prototype.toString
 ```
 
-#### 4.3 Array patterns work with iterables ####
+#### 4.3 Array patterns work with iterables
+
 
 ```js
 // Strings are iterable:
 const [x,...y] = 'abc'; // x='a'; y=['b', 'c']
 ```
 
-#### 4.4 Sử dụng với Generator function (yield) ####
+#### 4.4 Sử dụng với Generator function (yield)
+
 
 ```js
 function* allNaturalNumbers() {
@@ -131,7 +141,8 @@ function* allNaturalNumbers() {
 const [x, y, z] = allNaturalNumbers(); // x=0; y=1; z=2
 ```
 
-#### 4.5 Default values ####
+#### 4.5 Default values
+
 
 ```js
 const [x=3, y] = []; // x = 3; y = undefined
@@ -147,19 +158,22 @@ const [x=3, y=x] = [7, 2]; // x=7; y=2
 const [{ prop: x } = {}] = [];
 ```
 
-#### 4.6 Khuyết tham số ####
+#### 4.6 Khuyết tham số
+
 
 ```js
 const [,, x, y] = ['a', 'b', 'c', 'd']; // x = 'c'; y = 'd'
 ```
 
-#### 4.7. Load module Node.js  ####
+#### 4.7. Load module Node.js 
+
 
 ```js
 const { Loader, main } = require('toolkit/loader');
 ```
 
-## 5. Tham khảo  ##
+## 5. Tham khảo 
+
 
 - [http://exploringjs.com/es6/ch_destructuring.html](http://exploringjs.com/es6/ch_destructuring.html)
 - [https://gist.github.com/mikaelbr/9900818](https://gist.github.com/mikaelbr/9900818)

@@ -18,7 +18,7 @@ MEANJs là một web application framework cho NodeJS, nó là 1 stack kết h�
 
 ## MEAN.Js - nghĩa là gì vậy? 
 
-  
+
 MEANJS là sự kết hợp giữa MongoDb, ExpressJS framework, AngularJs.  
 MEAN là viết tắt của **M**ongoDB + **E**xpressJS + **A**ngularJS + **N**odeJS.  
   
@@ -29,15 +29,13 @@ MEAN là viết tắt của **M**ongoDB + **E**xpressJS + **A**ngularJS + **
 
 ### 1. MongoDB
 
+
 MongoDB là một cơ sở dữ liệu NoSQL.  
   
 NoSQL là một thế hệ cơ sở dữ liệu có các đặc điểm chính là không ràng buộc (nonrelational), phân tán (distributed), mã nguồn mở (open source), khả năng co giản theo chiều ngang (Horizontal scalable) có thể lưu trữ, xử lý từ một lượng rất nhỏ cho tới dữ liệu cực lớn, lên đến hàng petabytes dữ liệu trong hệ thống cần có độ chịu tải, chịu lỗi cao với những yêu cầu về tài nguyên phần cứng thấp.  
-  
 
 ![](https://2.bp.blogspot.com/-9P59a2PDl-8/VT5JZdFLQAI/AAAAAAAACbI/TzA9efeYMso/s1600/mongodb_logo.png)
 
-  
-  
 Mục tiêu chính của Mongo là giữ lại các thuộc tính thân thiện của SQL. Do đó các câu truy vấn khá giống với SQLvậy nên MongoDB khá thích hợp cho các lập trình viên đã quen với ngôn ngữ truy vấn SQL. MongoDB có một khối lượng tính năng lớn và hiệu năng cao. Với các loại dữ liệu phong phú, nhiều truy vấn và việc giảm thời gian phát triển trong việc mô hình hóa các đối tượng.  
   
 MongoDB được sử dụng tốt nhất với nhu cầu cần truy vấn động, cần tốc độ nhanh cho một cơ sở dữ liệu lớn vì MongoDB ngoài tốc độ đọc nhanh ra thì tốc độ ghi của nó rất nhanh. MongoDB hỗ trợ việc tìm theo trường, khoảng kết quả tìm và tìm theo cú pháp. Các truy vấn có thể trả về các trường được qui định trong văn bản và cũng có thể bao gồm các hàm Javascript mà người dùng chưa định nghĩa. Cũng giống như các cơ sở dữ liệu quan hệ, bất cứ một trường nào trong MongoDB đều được đánh chỉ mục.  
@@ -47,6 +45,7 @@ MongoDB còn có hổ trợ theo mô hình chủ – tớ (master – slave), m�
 MongoDB sử dụng một quá trình xử lý để xử lý các yêu cầu về dữ liệu, quản lý định dạng dữ liệu, thực hiện các hoạt động quản lý bên dưới là mongod, đây là trình xử lý chính. Trong việc mở rộng theo chiều ngang sử dụng mô hình mảnh lưu trữ, MongoDB cung cấp dịch vụ xử lý các truy vấn từ tầng ứng dụng, xác định vị trí dữ liệu trong cụm các node phân mảnh được gọi là mongos  
 
 ### 2. ExpressJS
+
 
 Express là một web application framework cho NodeJS, cung cấp các tính năng mạnh mẽ cho việc xây dựng một ứng dụng web đúng nghĩa hoặc lai.  
   
@@ -62,6 +61,7 @@ Express cũng có thể sử dụng để xây dựng một API mạnh mẽ và 
 
 ### 3. AngularJS
 
+
 AngularJS được bắt đầu từ năm 2009, do lập trình viên Misko Hevery tại Google viết ra như là một dự án kiểu "viết cho vui". Misko và nhóm lúc này đang tham gia vào 1 dự án của Google tên là Google Feedback. Với AngularJS, Misko đã rút ngắn số dòng code front-end từ 17000 dòng còn chỉ khoảng 1500. Với sự thành công đó, đội ngũ của dự án Google Feedback quyết định phát triển AngularJS theo hướng mã nguồn mở. Theo thông số từ Github mà mình thấy, hiện tại dự án AngularJS đang có gần 11000 người theo dõi và hơn 2000 lượt fork.  
   
 Công nghệ HTML hỗ trợ tốt cho các trang web tĩnh, kiểu như trước năm 2000 vậy. Khi bạn xây dựng 1 trang web với PHP, Node/Express, hay Ruby thì nó cũng chỉ là một trang web tĩnh với nội dung được thay đổi khi bạn gửi request về máy chủ, máy chủ sẽ render 1 trang với nội dung tương ứng. Tuy nhiên mọi thứ đã thay đổi nhiều từ sự phát triển của HTML5, nhất là khi có sự chống lưng từ những ông lớn như Google, Yahoo, Facebook, và sự tập hợp đông đảo của cộng đồng mã nguồn mở.  
@@ -72,6 +72,7 @@ Công nghệ HTML hỗ trợ tốt cho các trang web tĩnh, kiểu như trướ
   
 
 ### 4. NodeJS
+
 
 NodeJS là một nền tảng được xây dựng trên "V8 Javascript engine" được viết bằng c++ và Javasccript. Nền tảng này được phát triển bởi Ryan Lienhart Dahl vào năm 2009.  
   

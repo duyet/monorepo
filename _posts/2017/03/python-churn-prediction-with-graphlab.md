@@ -22,9 +22,11 @@ Churn prediction is the task of identifying whether users are likely to stop usi
 
 ## Introduction
 
+
 A churn predictor model learns historical user behavior patterns to make an accurate forecast for the probability of no activity in the future (defined as churn).  
 
 ## How is churn defined?
+
 
 Customer churn can be defined in many ways. In this toolkit, churn is defined to be **no activity** for a fixed period of time (called the **churn\_period**). Using this definition, a user is said to have churned if there is no activity for a duration of time known as the **churn\_period** (by default, this is set to 30 days). The following figure better illustrates this concept.  
   
@@ -32,6 +34,7 @@ Customer churn can be defined in many ways. In this toolkit, churn is defined to
 [![](https://3.bp.blogspot.com/-QM-iDbzDDHA/WMyzyHEo0bI/AAAAAAAAkLg/xshMvTyQvmYvUQMzROiW4NOmuewyGoXfACK4B/s1600/churn-illustration.png)](https://3.bp.blogspot.com/-QM-iDbzDDHA/WMyzyHEo0bI/AAAAAAAAkLg/xshMvTyQvmYvUQMzROiW4NOmuewyGoXfACK4B/s1600/churn-illustration.png)
 
 ## Input Data
+
 
 In the dataset, let us assume that the last timestamp was October 1,  
 

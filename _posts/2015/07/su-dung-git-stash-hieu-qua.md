@@ -18,7 +18,8 @@ Git là công cụ cực kì hiệu quả để quản lý source code và cũng
 
 ![](https://1.bp.blogspot.com/-3yYbNqRb-g4/VaUEdtFF9QI/AAAAAAAACm0/yuduSPkQak8/s640/git.png)
 
-## Lưu lại thay đổi ##
+## Lưu lại thay đổi
+
 
 `Git stash` được sử dụng khi muốn lưu lại các thay đổi **chưa commit**, thường rất hữu dụng khi bạn muốn đổi sang 1 branch khác mà lại đang làm dở ở branch hiện tại.
 
@@ -30,7 +31,8 @@ Muốn lưu toàn bộ nội dung công việc đang làm dở, bạn có thể 
 
 Khi này branch đã trở nên "sạch sẽ" và `git status` sẽ cho thấy bạn có thể chuyển sang branch tuỳ thích. Bạn có thể `git stash` **bao nhiêu lần tuỳ thích** và mỗi lần đó git sẽ lưu toàn bộ lần thay đổi đó như 1 phần tử trong 1 stack.
 
-## Lấy lại thay đổi ##
+## Lấy lại thay đổi
+
 
 Sau khi đã git stash 1 hoặc vài lần, bạn có thể xem lại danh sách các lần lưu thay đổi bằng câu lệnh
 
@@ -63,7 +65,8 @@ $ git stash apply stash@{1}
 
 ```
 
-## Xoá các thay đổi không cần thiết ##
+## Xoá các thay đổi không cần thiết
+
 
 Đôi khi bạn muốn lấy lại thay đổi và xoá nội dung thay đổi lưu trong stack đi, khi đó bạn có thể
 

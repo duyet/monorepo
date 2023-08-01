@@ -25,7 +25,9 @@ Github: [https://github.com/googleanalytics/autotrack](https://github.com/google
 
 Autotrack vừa mới ra mắt phiên bản ổn định 1.0, hiện cung cấp nhiều plugins đi kèm như: Impression Tracker, Clean URL Tracker, Page Visibility Tracker, ...
 
-### Để sử dụng: ###
+### Để sử dụng:
+
+
 1. Chèn autotrack,js vào website
 
 ```html

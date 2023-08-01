@@ -17,7 +17,8 @@ Flarum is the next-generation forum software that makes online discussion fun. I
 
 ![](https://1.bp.blogspot.com/-8a4wz6knhKo/VhJ9TYTSFnI/AAAAAAAADf0/kF8pUcA1zpg/s640/flarum-logo.png)
 
-## Vietnamese Extension for Flarum ##
+## Vietnamese Extension for Flarum
+
 Building for Flarum 0.1.0-beta.2
 
 To set up your Flarum forum with a fully working vietnamese language, please follow this procedure:
@@ -30,7 +31,8 @@ To set up your Flarum forum with a fully working vietnamese language, please fol
 
 Source code at Github: [https://github.com/duyet/flarum-vietnamese-extension](https://github.com/duyet/flarum-vietnamese-extension)
 
-## How to contribute ##
+## How to contribute
+
 
 1. Fork the project on Github
 2. Create a topic branch for your changes

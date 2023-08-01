@@ -27,7 +27,8 @@ Một số kiến thức cần nằm trước
 - Webpack
 - Sử dụng Ubuntu (Windows tương tự)
 
-## React Component ##
+## React Component
+
 React.JS là một thư viện Javascript dùng để xây dựng giao diện người dùng. React được ví như phần View của mô hình MVC.
 React được xây dựng xung quanh các Component, chứ không dùng template như các framework khác.
 
@@ -46,13 +47,15 @@ ReactDOM.render(<HelloMessage name="Duyệt" />, document.body);
 Phương thức createClass nhận vào một tham số, là đối tượng mô tả đặc tính của component. Đối tượng này bao gồm tất cả các phương thức để hình thành nên component. Phương thức quan trọng nhất là render, phương thức này được trigger khi component đã sẵn sàng để được render lên trên page.
 Trong các bài viết sau mình sẽ khuyến khích sử dụng class của ES6 hơn.
 
-## JSX  -  Javascript Syntax Extension ##
+## JSX  -  Javascript Syntax Extension
+
 
 Như ở ví dụ trên, mình viết HTML trong file Javascript. Đây đơn giản là một syntax extension của Javascript. Với nó bạn có thể viết Javascript với những tag giống như XML (XML-like). Về bản chất, các tag thực sự là những lời gọi hàm, sẽ được chuyển đổi trong React code và end up dưới dạng HTML và Javascript trong cây DOM. 
 
 JSX render sẽ mô tả rõ nhất về những gì sẽ được hiển thị ra. 
 
-## Props & State ##
+## Props & State
+
 
 Hai thuộc tính quan trọng của một React Component là Props và State. Sự khác biệt giữa hai kiểu thì hơi khó khăn để hiểu ngay từ ban đầu, ít nhất là về mặt khái niêm. Nhưng một khi bạn bắt đầu code, bạn sẽ nhanh chóng tách biệt được hai loại.
 
@@ -63,9 +66,11 @@ Hai thuộc tính quan trọng của một React Component là Props và State. 
 
 State thay đổi, còn Props thì read-only trong mỗi Components. Chúng ta sẽ đi rõ ở các phần sau.
 
-## Ứng dụng React đơn giản đầu tiên ##
+## Ứng dụng React đơn giản đầu tiên
 
-### 1. Tạo thư mục project, cấu hình package.json và Webpack. ###
+
+### 1. Tạo thư mục project, cấu hình package.json và Webpack.
+
 
 Tạo thư mục project
 
@@ -85,7 +90,9 @@ npm init
 
 Ta được file package.json lưu lại thông tin các package của project. 
 
-### 2. Cài đặt React + Webpack + Babel ###
+### 2. Cài đặt React + Webpack + Babel
+
+
 Lần lượt cài đặt React, Webpack và Babel (để viết ES6) bằng các lệnh sau:
 
 ```
@@ -96,7 +103,9 @@ npm i -g static-html-server # Static server để giả lập server HTTP
 
 ```
 
-### 3. Cấu hình Webpack  ###
+### 3. Cấu hình Webpack 
+
+
 Tạo file webpack.config.js với nội dung sau:
 
 ```
@@ -129,7 +138,9 @@ Và cấu trúc thư mục như hình:
 
 [![](https://4.bp.blogspot.com/-r2qmxSXqm2k/V2rWi5K8MsI/AAAAAAAAX_k/K6uv74Zde08ZlcAYkZaCSHnSgBS9zohMACK4B/s1600/_react_2.png)](https://4.bp.blogspot.com/-r2qmxSXqm2k/V2rWi5K8MsI/AAAAAAAAX_k/K6uv74Zde08ZlcAYkZaCSHnSgBS9zohMACK4B/s1600/_react_2.png)
 
-### 4. React Component <App /> ###
+### 4. React Component <App />
+
+
 Tạo file `src/index.jsx` với nội dung như sau: 
 
 ```
@@ -177,7 +188,9 @@ Sau đó truy cập vào địa chỉ `http://localhost:7788` bằng trình duy�
 Vậy là đã xong bước nhập môn Hello World với React và Webpack.
 Webpack với tham số --watch sẽ tự động build lại mỗi khi file source thay đổi, nên bạn sẽ không cần chạy lại webpack mỗi lần build.
 
-### 5. Sử dụng Props  ###
+### 5. Sử dụng Props 
+
+
 Ví dụ sau hướng dẫn bạn cách sử dụng Components và Props trong React.
 Tạo file mới đặt tên `src/Hello.jsx` với nội dung:
 
@@ -225,7 +238,9 @@ Mở lại trình duyệt để xem kết quả:
 
 [![](https://2.bp.blogspot.com/-ZwpbyhibzSM/V2rfOQhY8jI/AAAAAAAAYAU/jo6JoN_MPtwYhMO8qQACrr2wkKn8InzgQCK4B/s1600/_react_6.png)](https://2.bp.blogspot.com/-ZwpbyhibzSM/V2rfOQhY8jI/AAAAAAAAYAU/jo6JoN_MPtwYhMO8qQACrr2wkKn8InzgQCK4B/s1600/_react_6.png)
 
-### 6. Sử dụng State và Event  ###
+### 6. Sử dụng State và Event 
+
+
 Như đã nói React tập trung xử lý view, thành phần state trong React rất mạnh nhưng bản thân React không có các chức năng như xử lý Event hay 2-way binding, ta phải xử lý chúng bằng tay dựa vào các Event mặc định của DOM.
 
 Ta viết thêm `<input />` và hàm `onChange` cho Component `<App />`
@@ -272,10 +287,14 @@ render(<App />, document.getElementById('app'));
 
 ```
 
-### 7. Sử dụng các thư viện của Node.js ###
+### 7. Sử dụng các thư viện của Node.js
+
+
 Sử dụng Webpack để build bundle và sử dụng NPM để quản lý. Bạn cũng có thể sử dụng kết hợp với các thư viện của Node.js như (lodash, moment, crypt, ...) một cách dễ dàng. Chỉ cần cài đặt NPM và Import vào để sử dụng.
 
-## Tổng kết  ##
+## Tổng kết
+
+
 Mình đã hướng dẫn các bạn tạo nên một ứng dụng cơ bản với React và Webpack. Hiểu được 2 thành phần Props và State.
 Phần tiếp theo sẽ giải thích Virtual DOM, xây dựng ứng dụng TODO List, Load CSS trực tiếp vào JSX và các phương thức điều khiển React Lifecycle.
 

@@ -21,11 +21,13 @@ Japanese stopwords, available for npm, bower, plaintext. 日本のストップ�
 
 [![](https://4.bp.blogspot.com/-tKM0wg2Vmqc/VtFheibWiSI/AAAAAAAAQbc/KFhuP43v4lA/s1600/japanese-stopwords.png)](https://blog.duyet.net/2016/02/japanese-stopwords-package.html)
 
-## Source ##
+## Source
+
 
 Github source: [https://github.com/stopwords/japanese-stopwords](https://github.com/stopwords/japanese-stopwords)
 
-## Using ##
+## Using
+
 1. Nodejs package via npm
 
 ```
@@ -56,7 +58,8 @@ bower install --save japanese-stopwords
 </script>
 ```
 
-## Test ##
+## Test
+
 
 ```
 git clone https://github.com/duyet/japanese-stopwords
@@ -65,12 +68,14 @@ npm install
 mocha
 ```
 
-## How to contribute ##
+## How to contribute
+
 
 1. Fork the project on Github ([https://github.com/duyet/japanese-stopwords/fork](https://github.com/duyet/japanese-stopwords/fork))
 2. Create a topic branch for your changes
 3. Ensure that you provide documentation and test coverage for your changes (patches won’t be accepted without)
 4. Create a pull request on Github (these are also a great place to start a conversation around a patch as early as possible)
 
-## License ##
+## License
+
 [MIT License](https://github.com/duyet/japanese-stopwords/blob/master/LICENSE)

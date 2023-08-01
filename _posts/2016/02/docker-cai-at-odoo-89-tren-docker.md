@@ -27,9 +27,11 @@ Sau tôi sẽ hướng dẫn cài đặt Odoo 8/9 trên Server Ubuntu chỉ bằ
 
 ## Cài đặt Docker  
 
+
 Tôi sử dụng Ubuntu 15.10, bạn có thể xem cách cài đặt Docker cho từng loại hệ điều hành treentrang của Docker: [https://docs.docker.com/engine/installation/ubuntulinux/](https://docs.docker.com/engine/installation/ubuntulinux/)
 
-## Cài đặt PostgreSQL ##
+## Cài đặt PostgreSQL
+
 
 PostgreSQL được cài đặt qua Docker:
 
@@ -39,7 +41,9 @@ docker run -d -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo --name db postgres
 
 PostgreSQL sẽ được tự động tải về và cài đặt với User và password là odoo.
 
-## Cài đặt Odoo 8/9  ##
+## Cài đặt Odoo 8/9
+
+
 Bản odoo mới nhất hiện tại là Odoo 9, ảnh Docker chính thức của Odoo tại Docker Hub. Pull và chạy Odoo Image.
 
 ```
@@ -54,7 +58,8 @@ docker run -p 127.0.0.1:8069:8069 --name odoo --link db:db -t odoo:8.0
 
 Xong. Mở trình duyệt và truy cập: [http://localhost:8069](http://localhost:8069/)
 
-## Mở rộng ##
+## Mở rộng
+
 Stop và restart Odoo instance
 
 ```

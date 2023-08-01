@@ -21,7 +21,9 @@ Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi t
 
 ![](https://3.bp.blogspot.com/-QUh_PaavDSA/WIWWTCtiTXI/AAAAAAAAies/LvVHTtMjnAglcdCB8uZfGsgJVfz7dirXQCLcB/s1600/ezgif.com-optimize.gif)
 
-## Rancher  ##
+## Rancher
+
+
 Trang chủ: [http://rancher.com](http://rancher.com/)
 
 Mình đang dùng cái này, khá là hay và mạnh, Rancher có thể quản lý các container trên Cluster lớn, Docker Swarm, Mesos hay Kubernete. Kết nối các Host trên EC2, Linode, Azure ... bằng API. Quản lý kết nối giữa các Container, port, metric monitor, ...
@@ -70,7 +72,8 @@ Một số hình ảnh:
 
 [![](https://1.bp.blogspot.com/-VxORm2ey2oc/WIWi_B9klWI/AAAAAAAAigE/SJfU3mInHdUnAkgn9D_1sfYezS37R8sNgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B13-28-27.png)](https://1.bp.blogspot.com/-VxORm2ey2oc/WIWi_B9klWI/AAAAAAAAigE/SJfU3mInHdUnAkgn9D_1sfYezS37R8sNgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B13-28-27.png)
 
-## Tham khảo ##
+## Tham khảo
+
 
 - Rancher - [http://rancher.com/rancher/](http://rancher.com/rancher/)
 - Installing Rancher Server - [http://docs.rancher.com/rancher/v1.3/en/installing-rancher/installing-server/](http://docs.rancher.com/rancher/v1.3/en/installing-rancher/installing-server/)

@@ -15,7 +15,8 @@ description: A mostly reasonable approach to JavaScript.
 A mostly reasonable approach to JavaScript.
 See full: [https://github.com/duyet/javascript](https://github.com/duyet/javascript)
 
-## Table of Contents ##
+## Table of Contents
+
 
 1. [Types](#types)
 2. [Objects](#objects)
@@ -49,7 +50,8 @@ See full: [https://github.com/duyet/javascript](https://github.com/duyet/javascr
 30. [Contributors](#contributors)
 31. [License](#license)
 
-## Types ##
+## Types
+
 
 - Primitives: When you access a primitive type you work directly on its value.
 
@@ -85,7 +87,8 @@ console.log(foo[0], bar[0]); // => 9, 9
 
 [⬆ back to top](#table-of-contents)
 
-## Objects ##
+## Objects
+
 
 - Use the literal syntax for object creation.
 
@@ -134,7 +137,8 @@ var superman = {
 
 [⬆ back to top](#table-of-contents)
 
-## Arrays ##
+## Arrays
+
 
 - Use the literal syntax for array creation.
 
@@ -185,7 +189,8 @@ var args =Array.prototype.slice.call(arguments);
 
 [⬆ back to top](#table-of-contents)
 
-## Strings ##
+## Strings
+
 
 - Use single quotes `''` for strings.
 
@@ -268,7 +273,8 @@ return'<ul>'+ items.join('') +'</ul>';
 
 [⬆ back to top](#table-of-contents)
 
-## Functions ##
+## Functions
+
 
 - Function expressions:
 
@@ -325,7 +331,8 @@ functionyup(name, options, args) {
 
 [⬆ back to top](#table-of-contents)
 
-## Properties ##
+## Properties
+
 
 - Use dot notation when accessing properties.
 
@@ -359,7 +366,8 @@ var isJedi = getProp('jedi');
 
 [⬆ back to top](#table-of-contents)
 
-## Variables ##
+## Variables
+
 
 - Always use `var` to declare variables. Not doing so  will result in global variables. We want to avoid polluting the global  namespace. Captain Planet warned us of that.
 
@@ -474,7 +482,8 @@ returntrue;
 
 [⬆ back to top](#table-of-contents)
 
-## Hoisting ##
+## Hoisting
+
 
 - Variable declarations get hoisted to the top of their scope, but their assignment does not.
 
@@ -562,7 +571,8 @@ console.log('Flying');
 
 [⬆ back to top](#table-of-contents)
 
-## Comparison Operators & Equality ##
+## Comparison Operators & Equality
+
 
 - Use `===` and `!==` over `==` and `!=`.
 - Comparison operators are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
@@ -609,7 +619,8 @@ if (collection.length) {
 
 [⬆ back to top](#table-of-contents)
 
-## Blocks ##
+## Blocks
+
 
 - Use braces with all multi-line blocks.
 
@@ -658,7 +669,8 @@ if (test) {
 
 [⬆ back to top](#table-of-contents)
 
-## Comments ##
+## Comments
+
 
 - Use `/** ... */` for multi-line comments. Include a description, specify types and values for all parameters and return values.
 
@@ -749,7 +761,8 @@ returnthis;
 
 [⬆ back to top](#table-of-contents)
 
-## Whitespace ##
+## Whitespace
+
 
 - Use soft tabs set to 2 spaces.
 
@@ -932,7 +945,8 @@ return obj;
 
 [⬆ back to top](#table-of-contents)
 
-## Commas ##
+## Commas
+
 
 - Leading commas: Nope.
 
@@ -998,7 +1012,8 @@ var heroes = [
 
 [⬆ back to top](#table-of-contents)
 
-## Semicolons ##
+## Semicolons
+
 
 - Yup.
 
@@ -1026,7 +1041,8 @@ return name;
 
 [⬆ back to top](#table-of-contents)
 
-## Type Casting & Coercion ##
+## Type Casting & Coercion
+
 
 - Perform type coercion at the beginning of the statement.
 - Strings:
@@ -1108,7 +1124,8 @@ var hasAge =!!age;
 
 [⬆ back to top](#table-of-contents)
 
-## Naming Conventions ##
+## Naming Conventions
+
 
 - Avoid single letter names. Be descriptive with your naming.
 
@@ -1241,7 +1258,8 @@ var CheckBox =require('./CheckBox');
 
 [⬆ back to top](#table-of-contents)
 
-## Accessors ##
+## Accessors
+
 
 - Accessor functions for properties are not required.
 - If you do make accessor functions use getVal() and setVal('hello').
@@ -1294,7 +1312,8 @@ returnthis[key];
 
 [⬆ back to top](#table-of-contents)
 
-## Constructors ##
+## Constructors
+
 
 - Assign methods to the prototype object, instead of overwriting  the prototype with a new object. Overwriting the prototype makes  inheritance impossible: by resetting the prototype you'll overwrite the  base!
 
@@ -1377,7 +1396,8 @@ return'Jedi - '+this.getName();
 
 [⬆ back to top](#table-of-contents)
 
-## Events ##
+## Events
+
 
 - When attaching data payloads to events (whether DOM events or  something more proprietary like Backbone events), pass a hash instead of  a raw value. This allows a subsequent contributor to add more data to  the event payload without finding and updating every handler for the  event. For example, instead of:
 
@@ -1407,7 +1427,8 @@ $(this).on('listingUpdated', function(e, data) {
 
 [⬆ back to top](#table-of-contents)
 
-## Modules ##
+## Modules
+
 
 - The module should start with a `!`. This ensures that if a  malformed module forgets to include a final semicolon there aren't  errors in production when the scripts get concatenated. [Explanation](https://github.com/airbnb/javascript/issues/44#issuecomment-13063933)
 - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
@@ -1437,7 +1458,8 @@ global.FancyInput = FancyInput;
 
 [⬆ back to top](#table-of-contents)
 
-## jQuery ##
+## jQuery
+
 
 - Prefix jQuery object variables with a `$`.
 
@@ -1498,13 +1520,15 @@ $sidebar.find('ul').hide();
 
 [⬆ back to top](#table-of-contents)
 
-## ECMAScript 5 Compatibility ##
+## ECMAScript 5 Compatibility
+
 
 - Refer to [Kangax](https://twitter.com/kangax/)'s ES5 [compatibility table](http://kangax.github.com/es5-compat-table/).
 
 [⬆ back to top](#table-of-contents)
 
-## Testing ##
+## Testing
+
 
 - Yup.
 
@@ -1516,7 +1540,8 @@ returntrue;
 
 [⬆ back to top](#table-of-contents)
 
-## Performance ##
+## Performance
+
 
 - [On Layout & Web Performance](http://kellegous.com/j/2013/01/26/layout-performance/)
 - [String vs Array Concat](http://jsperf.com/string-vs-array-concat/2)
@@ -1529,7 +1554,8 @@ returntrue;
 
 [⬆ back to top](#table-of-contents)
 
-## Resources ##
+## Resources
+
 Read This
 
 - [Annotated ECMAScript 5.1](http://es5.github.com/)

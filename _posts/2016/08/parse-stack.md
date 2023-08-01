@@ -25,7 +25,8 @@ Parse Server works with the Express web application framework. It can be added t
 
 [Parse Stack](http://saveto.co/JGY2Wm) = Parse server + Parse Dashboard
 
-## Installation ##
+## Installation
+
 
 1. Clone and install the Parse Stack
 
@@ -48,7 +49,8 @@ mongodb-runner start
 npm start
 ```
 
-## Using it ##
+## Using it
+
 
 - Access to endpoint
 
@@ -62,6 +64,7 @@ npm start
 
 Parse Dashboard
 
-## Resources ##
+## Resources
+
 Project homepage: [https://github.com/duyet/parse-stack](http://saveto.co/JGY2Wm)
 Parse Server: [https://github.com/ParsePlatform/parse-server](https://github.com/ParsePlatform/parse-server)

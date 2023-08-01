@@ -29,6 +29,7 @@ Nguồn ảnh từ Zing. Danh sách các chính trị gia có liên quan. Hiện
 
 ## Phân tích 2.6TB bằng cách nào? 
 
+
 ICIJ đã huy động một đội ngũ nhà báo cùng các chuyên gia dữ liệu hàng đầu giúp sàng lọc cũng như giải thích dữ liệu.
 
 Toàn bộ số dữ liệu là 2.6TB, họ xây dựng hẳn một hệ thống máy tính hiện đại, có thể sánh ngang với mạng lưới của các cơ quan tình báo, hãng luật hay những tập đoàn lớn, để phục vụ cho công tác xử lý, phân tích, đánh giá thông tin. Dữ liệu phân tích chủ yếu là Email, Database, các file PDF và hình ảnh. Họ còn sử dụng hệ thống [Nuix](http://www.nuix.com/), sử dụng OCR (optical character recognition) để nhận diện thông tin trong hình ảnh. Tất cả mọi thông tin sẽ được chuyển đổi hết thành searchable , tức là có thể tìm kiếm được thông qua công cụ máy tính. Dữ liệu sẽ được Index đánh chỉ mục, giúp cho các nhà báo có thể tra cứu dễ dàng (giống hệ thống tìm kiếm Google). 
@@ -40,26 +41,32 @@ Xem thêm tại đây: [http://panamapapers.sueddeutsche.de/articles/56febff0a1b
 
 ## Bản đồ Panama Papers 
 
+
 [Bản đồ Panama Papers](https://briankilmartin.cartodb.com/viz/54ddb5c0-f80e-11e5-9a9c-0e5db1731f59/embed_map?ref=producthunt) cho cái nhìn tổng quan, giúp theo dõi, tra cứu nhanh các công ty, tập đoàn hay quốc gia có liên quan. Việt Nam có 7 công ty có tên trong danh sách, nhưng hiện chưa rõ là công ty nào.
 
 [![](https://2.bp.blogspot.com/-3_QeKDcBIfk/VwQATZDisTI/AAAAAAAAS4A/g3Vv8_3wao8A-CCr3w61gGIqWxp4SXNGQ/s1600/Screenshot%2Bfrom%2B2016-04-06%2B01-09-47.png)](https://briankilmartin.cartodb.com/viz/54ddb5c0-f80e-11e5-9a9c-0e5db1731f59/embed_map?ref=producthunt)
 
-## Thiên đường trốn thuế? 
+## Thiên đường trốn thuế?
+
+
 Những công ty ma này núp dưới hình dạng của một doanh nghiệp hợp pháp nhưng không có hoạt động gì ngoài quản lý tiền nhưng che đậy thân phận của người sở hữu. Tuy nhiên, trụ sở của những công ty ma thường đặt ở những nơi nhà chức trách khó tìm ra chủ sở hữu trong trường hợp họ muốn.
 
 Các khách hàng cũng cần một trung tâm tài chính nước ngoài, cái thường được gọi là Thiên đường thuế. Nó thường là các quốc đảo nhỏ, với rất nhiều ngân hàng bí mật cùng mức thuế thấp hoặc không tồn tại trên giấy tờ giao dịch. Những cái tên điển hình là quần đảo Bristish Virgin, Bahamas, Panama…. Nó giúp rửa các khoản tiền phi pháp từ tham nhũng, trốn thuế, buôn bán ma túy….
 
-## Rửa tiền là gì? ##
+## Rửa tiền là gì?
+
 
 Các hoạt động rửa tiền thực chất là hợp thức hóa những khoản tiền phi pháp. Nó giúp việc sử dụng chúng không bị giám sát, khiến bại lộ các hành vi phi pháp. Khi tham nhũng, một chính trị gia cần rửa số tiền bẩn để không bị lộ. Nó sẽ được chuyển tới một công ty con của trung tâm tài chính nước ngoài. Số tiền này sẽ được chuyển vào tài khoản không ghi tên thuộc sở hữu của công ty ma mà không ai có thể truy tìm nguồn gốc. Từ tài khoản này, số tiền có thể được dùng hợp pháp trên khắp thế giới.
 
-## Trung Quốc ##
+## Trung Quốc
+
 
 Về Trung Quốc, Panama Papers chỉ đích danh Tập Cận Bình có dính tới các hoạt động tín dụng không minh bạch, ông phản ứng lại bằng cách ra lệnh cấm và trừng phạt nghiêm khắc bất kì báo chí, truyền thông nào nhắc về vụ Panama trên đất TQ. Chi tiết tại đây: [All mention of Panama Papers banned from Chinese websites](http://www.theguardian.com/news/2016/apr/05/all-mention-of-panama-papers-banned-from-chinese-websites) 
 
 Sắp đến sẽ là Việt Nam chăng !?
 
-## Kết ##
+## Kết
+
 
 Có quá nhiều kế hay trong các cách làm giàu, bài học từ những người giàu nhất thế giới. Muốn giàu không chỉ giỏi mà còn phải khôn ngoan.
 

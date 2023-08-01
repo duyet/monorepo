@@ -32,7 +32,8 @@ Việc nhóm các văn bản thành các chủ đề khác nhau có thể sử d
 
 Số cụm của đề bài không thể xác định chính xác. Quan sát dữ liệu, ta thấy được đa số các bài báo được lấy từ các trang tin lớn như VnExpress, Tuổi trẻ Online.
 
-## 1. Phân tích về tên chủ đề bài viết trên báo điện tử ##
+## 1. Phân tích về tên chủ đề bài viết trên báo điện tử
+
 Phân tích một chút về danh mục chủ đề trên các trang báo này. Các mục tại VnExpress được phân thành từng mục chính, mỗi mục chính lại có các chuyên mục nhỏ.
 
 [![](https://1.bp.blogspot.com/-TItqIphNgKI/V3R0PP5SioI/AAAAAAAAYnw/5JUCgLf8v4QSRGA3J4VnJDwBRePYD3HAgCK4B/s1600/vnexpress-category-duyetdev.png)](https://1.bp.blogspot.com/-TItqIphNgKI/V3R0PP5SioI/AAAAAAAAYnw/5JUCgLf8v4QSRGA3J4VnJDwBRePYD3HAgCK4B/s1600/vnexpress-category-duyetdev.png)
@@ -41,7 +42,8 @@ Phân tích một chút về danh mục chủ đề trên các trang báo này. 
 - Khi thu thập bài viết từ nhiều nguồn, sẽ có trường hợp các bài viết trùng nhau (hoặc gần giống nhau), nhưng 2 báo lại có cách đặt tên chủ đề khác nhau. 
 - Một số trang tin tổng hợp (Zing.vn, Báo mới, ...) sẽ tổng hợp các tin từ các trang chính thống, và sẽ sắp xếp các bài viết vào các mục tương đương. 
 
-## 2. Phân tích dữ liệu thô ##
+## 2. Phân tích dữ liệu thô
+
 Dữ liệu thu được ở dạng text, mỗi file là một bài viết. Mỗi bài viết đều bị nhiễu (do thu thập dư các liên kết bài viết liên quan, các bài xem nhiều nhất, ...).
 
 [![](https://1.bp.blogspot.com/-_u_ejZfg6eQ/V3R9SHspd-I/AAAAAAAAYn8/sJQOPCkb1SEL6NHHs9thWaf-FJsueyBYACLcB/s1600/data_sample_1.png)](https://1.bp.blogspot.com/-_u_ejZfg6eQ/V3R9SHspd-I/AAAAAAAAYn8/sJQOPCkb1SEL6NHHs9thWaf-FJsueyBYACLcB/s1600/data_sample_1.png)
@@ -52,9 +54,12 @@ Dữ liệu cũng thu thập các bài ở dạng bài viết ảnh (chỉ thu t
 
 Các dữ liệu này khá nhiễu, khó rút trích đặc trưng, cần phải trải qua trá trình tiền xử lý để xử lý các bài viết này. 
 
-## 3. Phương pháp thực hiện ##
+## 3. Phương pháp thực hiện
 
-### 3.1. Đề xuất phương pháp  ###
+
+### 3.1. Đề xuất phương pháp 
+
+
 Do sự khó khăn trong dữ liệu, và không xác định được số chủ đề của bài viết, cách đặt tên chủ đề, ... có nhiều phương pháp khác nhau để tiến hành nhóm các bài viết. 
 Ta thống nhất sẽ chỉ chia các bài viết thành các chủ đề chính (không chia thành các chủ đề phân cấp nhỏ hơn). Tổng quát lại chúng ta sẽ có các cách sau để tiến hành nhóm các bài viết cùng chủ đề lại với nhau:
 
@@ -69,7 +74,9 @@ Ta thống nhất sẽ chỉ chia các bài viết thành các chủ đề chín
 
 [![](https://3.bp.blogspot.com/-bJ5jBLzPvQ8/V3SLnWQkOjI/AAAAAAAAYow/_zYLSmcQyaEB7VL5JLLykLDQSrZWqThagCLcB/s1600/chu-de-tui-tu.png)](https://3.bp.blogspot.com/-bJ5jBLzPvQ8/V3SLnWQkOjI/AAAAAAAAYow/_zYLSmcQyaEB7VL5JLLykLDQSrZWqThagCLcB/s1600/chu-de-tui-tu.png)
 
-### 3.2. Thực nghiệm ###
+### 3.2. Thực nghiệm
+
+
 Trong giới hạn, mình không thể thực nghiệm hết được tất cả các phương pháp đã nêu, mà chỉ chọn một phương pháp truyền thống: sử dụng phương pháp thu thập lại và phân lớp chủ đề sử dụng SVM. Phương pháp gồm 4 bước cơ bản: 
 
 ![https://2.bp.blogspot.com/-vG0Kj5fx5cE/V3SWSGCP_lI/AAAAAAAAYpI/lAou9gxVbwc1BoIRIY_b-mHeXNstPTfLQCLcB/s1600/docs-tokenizer.png](https://2.bp.blogspot.com/-vG0Kj5fx5cE/V3SWSGCP_lI/AAAAAAAAYpI/lAou9gxVbwc1BoIRIY_b-mHeXNstPTfLQCLcB/s1600/docs-tokenizer.png)
@@ -100,5 +107,6 @@ Có thể tổng quá quá trình thực hiện như sau
 
 [![](https://3.bp.blogspot.com/-ImcDoVM3LpY/V3S4fB9HuII/AAAAAAAAYpc/2MRkvcDnlFQOvflExJczB9uWRIjVFa58ACLcB/s1600/progress.png)](https://3.bp.blogspot.com/-ImcDoVM3LpY/V3S4fB9HuII/AAAAAAAAYpc/2MRkvcDnlFQOvflExJczB9uWRIjVFa58ACLcB/s1600/progress.png)
 
-## Tổng kết ##
+## Tổng kết
+
 Qua quá trình xử lý, ta được tập kết quả của 28,000 văn bản cùng với chủ đề. Với lượng dữ liệu lớn, mô hình xử lý đơn lẻ truyền thống không thể phân tích nhanh chóng và có hiệu quả. Có thể kết hợp thêm kỹ thuật phân tán hóa dữ liệu và song song các tác vụ để nâng cao tốc độ thực thi, cụ thể có thể sử dụng mô hình MapReduce của các framework [Apache Hadoop](http://hadoop.apache.org/) hoặc [Apache Spark](https://spark.apache.org/)

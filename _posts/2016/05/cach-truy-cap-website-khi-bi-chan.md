@@ -22,6 +22,7 @@ Sử dụng một trong các cách sau:
 
 ## 1.1.1.1 
 
+
 1.1.1.1 Wrap là dịch vụ VPN miễn phí của Cloudflare. Nếu như bạn dùng kết hợp 1.1.1.1 với WARP thì kết nối của bạn sẽ an toàn hơn rất nhiều vì khi đó nó sẽ thay đổi phương thức kết nối giữa điện thoại của bạn bằng một giao thức mới hiện đại và tối ưu hơn rất nhiều.
 
 Hiện tại thì 1.1.1.1 WARP đang cung cấp 2 phiên bản trên IOS và Android, các bạn có thể lên Android Play Store hoặc AppStore search 1.1.1.1 hoặc click vào link sau: 
@@ -32,11 +33,14 @@ Hiện tại thì 1.1.1.1 WARP đang cung cấp 2 phiên bản trên IOS và And
 ![](https://lh3.googleusercontent.com/hRk1fa8UwnrIdg5FJt9wRfFz7805vhTRuoDoQB0Pl61oMDxxBqgDXwcXwtej4ulWeA=w2880-h1522-rw)
 
 
-## 2. ZenMate ##
+## 2. ZenMate
+
 ZenMate là giải pháp VPN tích hợp trên trình duyệt, và cả các thiết bị di động, cho phép truy cập Web sử dụng VPN đơn giản, hiệu quả và không cần phải thiết lập nhiều.
 Trang chủ: [https://zenmate.com](https://zenmate.com/)
 
-#### 2.1. Cài đặt trên Chrome hoặc Firefox ####
+#### 2.1. Cài đặt trên Chrome hoặc Firefox
+
+
 Bạn có thể truy cập trực tiếp vào trang Extension của Chrome để cài: https://chrome.google.com/webstore/detail/zenmate-vpn-best-cyber-se/fdcgdnkidjaadafnichfpabhfomcebme?hl=en
 
 (Nhấn vào nút ADD TO CHROME để tự động cài)
@@ -53,7 +57,9 @@ Sử dụng: Sau khi thiết lập tài khoản xong, ZenMate sẽ xuất hiện
 
 ZenMate khá nhanh và ổn định. Quan trọng hơn hết, ZenMate được thiết kế rất đơn giản và dễ dùng, thích hợp cho những người không rành kỹ thuật. Với Firefox thực hiện tương tự như với Chrome.
 
-#### 2.2. ZenMate trên Android ####
+#### 2.2. ZenMate trên Android
+
+
 Với Smartphone Android, cách sử dụng cũng tương tự. Truy cập Play Store và tìm ứng dụng ZenMate.
 (Nhấn Install để cài đặt)
 
@@ -63,12 +69,15 @@ Sau khi cài đặt thành công, bạn mở ứng dụng ZenMate và đăng nh�
 
 [![](https://1.bp.blogspot.com/-boJX_SRa7CQ/Vzc200gkGHI/AAAAAAAAVDQ/h1vTcCnbzg4nhMZIGEY4j-OZWZg_4sLvwCK4B/s640/Screenshot_2016-05-14-21-24-54_com.android.vpndialogs.png)](https://1.bp.blogspot.com/-boJX_SRa7CQ/Vzc200gkGHI/AAAAAAAAVDQ/h1vTcCnbzg4nhMZIGEY4j-OZWZg_4sLvwCK4B/s1600/Screenshot_2016-05-14-21-24-54_com.android.vpndialogs.png) [![](https://3.bp.blogspot.com/-qe3lttSB8UI/Vzc2iiLf-RI/AAAAAAAAVDI/YixU8LszvaA2w75vtFNucs1RrgGsu7ZdQCK4B/s640/Screenshot_2016-05-14-21-25-18_com.zenmate.android.png)](https://3.bp.blogspot.com/-qe3lttSB8UI/Vzc2iiLf-RI/AAAAAAAAVDI/YixU8LszvaA2w75vtFNucs1RrgGsu7ZdQCK4B/s1600/Screenshot_2016-05-14-21-25-18_com.zenmate.android.png)
 
-#### 2.3. ZenMate for Desktop ####
+#### 2.3. ZenMate for Desktop
+
+
 ZenMate cũng cung cấp App cho Desktop (Windows và Mac). Truy cập trang Downdload để cài đặt cho phù hợp mới máy của mình: [https://zenmate.com/products/](https://zenmate.com/products/)
 
 ![](https://1.bp.blogspot.com/-nGZqzdb-5QY/VzdKCvCIDuI/AAAAAAAAVEc/kaFhFdptSmgUv-zdVSx0ZBae-batLKiogCLcB/s1600/screencapture-zenmate-com-products-1463241047991.png)
 
-## 3. BetterNet ##
+## 3. BetterNet
+
 
 BetterNet rất an toàn, hoàn toàn miễn phí, dễ sử dụng như ZenMate. Sử dụng trên cả Windows chứ không còn giới hạn trong trình duyệt.
 
@@ -78,7 +87,8 @@ BetterNet rất an toàn, hoàn toàn miễn phí, dễ sử dụng như ZenMate
 - Cài trực tiếp vào Chrome: [http://saveto.co/7wDbxS](http://saveto.co/7wDbxS)
 - Cài trực tiếp vào Firefox: [http://saveto.co/NwD5wj](http://saveto.co/NwD5wj)
 
-#### Ví dụ cách cài trên Chrome ####
+#### Ví dụ cách cài trên Chrome
+
 
 Sau khi tải về từ Chrome Web Store (như ZenMate ở trên). Xuất hiện biểu tượng cái khiên ở góc phải màn hình:
 
@@ -90,7 +100,8 @@ Bấm vào nút "Connect" để tự động kết nối, lúc này biểu tư�
 
 Tất cả mọi truy cập xuyên qua trình duyệt Chrome lúc này hoàn toàn riêng tư và được bảo vệ. Nếu muốn kết thúc kết nối vào BetterNet, chỉ cần bấm vào biểu tượng hình khiên màu xanh da trời rồi bấm vào nút "Disconnect" là xong.
 
-## 4. Bật chế độ "Tiết kiệm dữ liệu" trên Chrome Mobile ##
+## 4. Bật chế độ "Tiết kiệm dữ liệu" trên Chrome Mobile
+
 Chrome trên Mobile có chế độ Tiết kiệm dữ liệu. Khi bật chức năng này, dữ liệu sẽ được xử lý trên Server của Google sau đó đẩy về máy, tăng tốc độ. Cũng vì vậy mà dữ liệu sẽ vượt qua được Firewall của nhà mạng. Không rõ cách này có được lâu dài hay không.
 
 Cách bật: Mở Chrome chọn Cài đặt > Trình tiết kiệm dữ liệu, Chọn bật
@@ -100,7 +111,9 @@ Cách bật: Mở Chrome chọn Cài đặt > Trình tiết kiệm dữ liệu, 
 
 Với cách này chỉ có thể truy cập Facebook hoặc Website bị chặn bằng trình duyệt Chrome. Opera Mini hoặc UC Browser cũng có chức năng tương tự.
 
-## Kết  ##
+## Kết
+
+
 Các bạn chuyên về kỹ thuật có thể sử dụng các giải pháp VPN, [Tor](https://www.torproject.org/), Socks, Proxy khác. Tự thiết lập Server gần Vietnam để có tốc độ cao nhất.
 
 ZenMate và BetterNet là 2 giải pháp nhanh và dễ sử dụng nhất. Các bạn không chuyên về kỹ thuật đều có thể sử dụng. Nếu bạn gặp khó khăn vui lòng [bình luận] bên dưới, tôi sẽ hỗ trợ.

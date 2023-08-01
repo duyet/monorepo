@@ -45,6 +45,7 @@ Here are three primary benefits to using Kubernetes as a resource manager:
 
 ## 1. `spark-submit` directly submit a Spark application to a Kubernetes cluster
 
+
 `spark-submit` can be directly used to submit a Spark application to a Kubernetes cluster. The submission mechanism works as follows:
 
 - Spark creates a *Spark driver* running within a [Kubernetes pod](https://kubernetes.io/docs/concepts/workloads/pods/pod/).
@@ -56,7 +57,7 @@ Here are three primary benefits to using Kubernetes as a resource manager:
 
 For example to launch Spark Pi in cluster mode:
 
-```shell
+```bash
 $ bin/spark-submit \
     --master k8s://https://<k8s-apiserver-host>:<k8s-apiserver-port> \
     --deploy-mode cluster \
@@ -72,11 +73,12 @@ More detail at: [https://spark.apache.org/docs/latest/running-on-kubernetes.html
 
 ## 2. Using Spark Operator
 
+
 The [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark aims to make specifying and running Spark applications as easy and idiomatic as running other workloads on Kubernetes. It uses Kubernetes custom resources for specifying, running, and surfacing status of Spark applications. 
 
 The easiest way to install the [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark is to use the Helm chart.
 
-```shell
+```bash
 $ helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 $ helm install incubator/sparkoperator --namespace spark-operator
 ```
@@ -126,11 +128,11 @@ Note that `spark-pi.yaml` configures the driver pod to use the spark service acc
 
 To run the Spark Pi example, run the following command:
 
-```shell
+```bash
 $ kubectl apply -f spark-pi.yaml
 ```
 
-```shell
+```bash
 $ kubectl get po
 NAME                                                              READY     STATUS    RESTARTS   AGE
 spark-pi-1590286117050-driver                                     1/1       Running   0          2m
@@ -142,6 +144,7 @@ Refs:
  - [Quick Start Guide](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md)
 
 ## 3. Using Livy
+
 
 Apache Livy is a service that enables easy interaction with a Spark cluster over a REST interface. 
 The cons is that Livy is written for Yarn. But Yarn is just Yet Another resource manager with containers abstraction adaptable to the Kubernetes concepts. Under the hood Livy parses POSTed configs and does `spark-submit` for you, bypassing other defaults configured for the Livy server.
@@ -155,7 +158,7 @@ After the job submission Livy discovers Spark Driver Pod scheduled to the Kubern
 
 The basic Spark on Kubernetes setup consists of the only Apache Livy server deployment, which can be installed with the Livy Helm chart.
 
-```shell
+```bash
 helm repo add jahstreet https://jahstreet.github.io/helm-charts
 kubectl create namespace spark-jobs
 helm upgrade --install livy --namespace spark-jobs jahstreet/livy
@@ -163,7 +166,7 @@ helm upgrade --install livy --namespace spark-jobs jahstreet/livy
 
 Now when Livy is up and running we can submit Spark job via [Livy REST API](https://livy.incubator.apache.org/docs/latest/rest-api.html).
 
-```shell
+```bash
 kubectl exec livy-0 -- \
     curl -s -k -H 'Content-Type: application/json' -X POST \
       -d '{
@@ -180,7 +183,7 @@ kubectl exec livy-0 -- \
 
 To track the running Spark job we can use all the available Kubernetes tools:
 
-```shell
+```bash
 $ k get pod
 
 NAME                                          READY   STATUS         RESTARTS   AGE
@@ -195,7 +198,7 @@ sparkpi01aasdbtyovr-1590286117050-exec-5      1/1     Running        0          
 
 or the Livy REST API: 
 
-```shell
+```bash
 k exec livy-0 -- curl -s http://localhost:8998/batches/$BATCH_ID | jq
 ```
 

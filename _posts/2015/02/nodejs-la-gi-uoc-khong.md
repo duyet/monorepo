@@ -14,18 +14,21 @@ description: Node.js là 1 nền tảng (platform) chạy trên môi trường V
 
 Node.js là 1 nền tảng (platform) chạy trên môi trường V8 Javascript runtime. Node.js cho phép lập trình viên xây dựng các ứng dụng có tính mở rộng cao sử dụng Javascript trên server. Và vì được porting từ C nên về mặt tốc độ xử lý thì khá nhanh.
 
-## Nodejs không ăn được, nhưng khá ngon  ##
+## Nodejs không ăn được, nhưng khá ngon 
+
 
 ![](https://3.bp.blogspot.com/-eakdJK4WfIo/VN7Z1vHx60I/AAAAAAAACF4/8w2BtYeO9zE/s1600/2014_12_13_3ea77.png)
 
-## Nó có thể làm được gì? ##
+## Nó có thể làm được gì?
+
 
 - Xây dựng websocket server (Chat server)
 - Ứng dụng upload file rất nhanh trên client
 - Ad server
 - Hoặc bất kỳ ứng dụng dữ liệu thời gian thực nào.
 
-## Nó không phải là: ##
+## Nó không phải là:
+
 
 - Một web framework
 - Không dành cho người mới bắt đầu
@@ -71,6 +74,7 @@ Ta có thể thấy ở đây, tốc độ xử lý của non-block code là cao
 
 ## Ứng dụng đầu tiên 
 
+
 ```js
 var http = require('http'); // đây là cách chúng ta require các modules
 http.createServer(function(request, response){
@@ -85,7 +89,7 @@ Chạy server: `node hello` hoặc `node hello.js` --> Server đang chờ kết 
 
 Mở trình duyệt và truy cập tới địa chỉ http://localhost:3000 hoặc dùng terminal:
 
-```shell
+```bash
 $ curl http://localhost:3000
 ```
 

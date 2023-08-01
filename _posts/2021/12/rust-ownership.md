@@ -36,6 +36,7 @@ dần chúng ta có thể viết được code an toàn và hiệu quả hơn.
 
 ### Ownership Rules
 
+
 Nói đơn giản về *ownership rules* thì có một số điều cơ bản sau:
 
 - Mỗi giá trị trong Rust đều có một biến gọi là owner của nó.
@@ -43,6 +44,7 @@ Nói đơn giản về *ownership rules* thì có một số điều cơ bản s
 - Khi owner ra khỏi scope, giá trị sẽ bị hủy.
 
 ### Borrow checker
+
 
 Bằng cách theo dõi data sử dụng thông qua bộ rules, 
 borrow checker có thể xác định khi nào data cần được khởi tạo 

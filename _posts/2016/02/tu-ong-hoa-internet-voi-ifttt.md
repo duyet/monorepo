@@ -39,7 +39,8 @@ Có rất nhiều Recipe được phân thành các nhóm tự động hóa khá
 
 Giao diện của IFTTT cực kì dễ sử dụng. Để bắt đầu, chỉ cần truy cập trang chủ: [ifttt.com](http://ifttt.com/)
 
-## Ví dụ ##
+## Ví dụ
+
 
 [![](https://2.bp.blogspot.com/-GO7JdubQh1A/Vrs4RHEg7jI/AAAAAAAAPZ0/dWGpVBAevh0/s640/Screenshot%2Bfrom%2B2016-02-10%2B20-15-40.png)](https://ifttt.com/recipes/54681-download-new-facebook-photos-you-re-tagged-in-to-a-google-drive-folder)
 

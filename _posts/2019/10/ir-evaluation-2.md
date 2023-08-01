@@ -20,7 +20,9 @@ Với các bộ Ground truth không phải là nhị phân, ta không thể sử
 
 --- 
 
-### Information Retrieval 
+### Information Retrieval
+
+
 - Phần 1: [Vector Space Model](/2019/08/ir-vector-space-model.html)
 - Phần 2: [Đánh giá hệ thống Information Retrieval](/2019/08/ir-evaluation.html)
 - **Phần 3: Đánh giá hệ thống Information Retrieval (tiếp theo)**
@@ -30,6 +32,7 @@ Với các bộ Ground truth không phải là nhị phân, ta không thể sử
 # Chỉ số đánh giá khi Ground truth là non-binary
 
 ## a. Precision & Recall
+
 
 Precision & Recall là 2 độ đo phổ biến, nhất là trong các hệ thống phân lớp (binary classification), information retrieval, ...
 
@@ -67,6 +70,7 @@ Một hệ thống tốt sẽ có sự đánh đổi giữa Precision và Recall
 
 ## b. AUC
 
+
 Để đánh giá hệ thống tốt khi đánh đổi giữa Precision và Recall, ta dùng một chỉ số là **AUC (Area under Curve)**: diện tích dưới đường vẽ của Recall-Precision.
 
 Các vẽ đường precision-recall curve:
@@ -89,12 +93,14 @@ Ta tính diện tích dưới đường precision-recall curve, diện tích l�
 
 ## c. R-precision
 
+
 Tính precision tại vị trí thứ **R-th** mà câu query trả về **R** câu trả lời.
 
 ![R-precision](/media/2019/ir-evaluation/R-precision.png)
 
 
 ## d. F-Measure
+
 
 F-Measure ($F_1$ Score) là độ đo bao gồm vừa Precison và Recall, công thức truyền thống F-Measure là [harmonic mean](https://en.wikipedia.org/wiki/Harmonic_mean#Harmonic_mean_of_two_numbers) của precision và recall.
 
@@ -105,6 +111,7 @@ $$
 Theo ý nghĩa toán học, để đạt được F-measure cao, ta cần Precision lẫn Recall đều cao.
 
 ## e. E-Measure (parameterized F Measure)
+
 
 Vẫn là F-measure nhưng có thêm tham số hiệu chỉnh, vì đôi khi ta cần Precision quan trọng hơn hoặc ngược lại.
 
@@ -118,6 +125,7 @@ Khi đó $\beta$ sẽ điều chỉnh trọng số giữa precision và recall:
  - $\beta$ < 1: Trọng số precision cao hơn.
 
 ## f. MAP (Mean Average Precision)
+
 
 Đây là độ đo tổng hợp kết quả của nhiều query, được sử dụng rất phổ biến. **MAP** cũng chứa thông tin của **precision và recall**, có xét đến độ quan trọng của *thứ hạng kết quả*.
 

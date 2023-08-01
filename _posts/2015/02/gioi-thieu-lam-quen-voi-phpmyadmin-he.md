@@ -31,12 +31,14 @@ Giao diện phpMyAdmin như hình trên, trong đó:
 - Tab Charsets: thông tin về các charset trong MySQL
 - Tab Engines: thông tin về các engine trong MySQL
 
-## Tạo CSDL trong phpMyAdmin ##
+## Tạo CSDL trong phpMyAdmin
+
 
 - Vào mục Databases, gõ tên database muốn tạo và nhấn Create là xong, bạn nên chọn mục "Collation = utf8_general_ci" để hỗ trợ lưu trữ Tiếng Việt trong CSDL.
 - Sau khi tạo CSDL xong bạn sẽ thấy CSDL này của mình ở cột bên trái.
 
-## Tạo bảng trong CSDL ##
+## Tạo bảng trong CSDL
+
 
 - Chọn CSDL ở cột bên trái, sau đó click vào nút New dưới tên CSDL để tạo bảng.
 - Điền tên các côt, kiểu dữ liệu, khóa chính khóa ngoại các kiểu.

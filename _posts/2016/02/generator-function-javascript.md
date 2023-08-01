@@ -23,10 +23,12 @@ May thay, function* là một trong những chức năng mới của Javascript 
 
 ![](https://1.bp.blogspot.com/-OA0tvHhNN3o/VsiyjiJwLbI/AAAAAAAAQAo/IugUE3zNbrY/s1600/generator-function.png)
 
-## Generator function là gì? ##
+## Generator function là gì?
+
 Có thể hiểu Generator function là một function, có khả năng tạm ngưng thực thi trước khi hàm kết thúc, và có thể tiếp tục chạy ở 1 thời điểm khác.
 
-## Cú pháp ##
+## Cú pháp
+
 
 ```js
 function* name([param[, param[, ... param]]]) {
@@ -40,7 +42,8 @@ function* name([param[, param[, ... param]]]) {
 
 Hàm sẽ không được thực thi ngay sau khi gọi, mà thay vào đó generator function trả về iterator, giống như con trỏ trong vòng lặp. Sau khi hàm `next()` của iterator được gọi, generator function sẽ thực thi hàm cho đến khi gặp từ khóa `yield` đầu tiên. Yield sẽ trả về giá trị cho iterator, generator function kết thúc cho đến khi hết giá trị để yield.
 
-## Ví dụ ##
+## Ví dụ
+
 Nói thì dông dài, ví dụ sau sẽ dễ hiểu hơn. Hàm sau có tác dụng tạo ra ID tăng dần, mỗi khi hàm next được gọi.
 
 ```js
@@ -91,7 +94,8 @@ console.log(gen.next().value); // 13
 console.log(gen.next().value); // 20
 ```
 
-## Kết ##
+## Kết
+
 
 Generator function là một trong những tính năng cực kì hữu ích trong ES6. Nodejs có module [co](https://github.com/tj/co) và framework [koa](https://github.com/koajs/koa) (được xem là next generator framework for nodejs) tận dụng rất tốt chức năng này. 
 

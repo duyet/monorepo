@@ -22,12 +22,15 @@ Các sản phẩm kết hợp AI nổi bật hiện nay có thể thấy như: t
 ![](https://1.bp.blogspot.com/-jKehM_T47GI/VrMiraOWJiI/AAAAAAAAPFE/jpYwrmCFW6g/s320/small_1420.png)
 Có thể thấy trí tuệ nhân tạo thu hút nhiều ông lớn (Google, Microsoft, Facebook, ...) quan tâm đầu tư, đặt biệt là Deep Learning.
 
-## Deep Learning  ##
+## Deep Learning
+
+
 Deep Learning là một thuật toán dựa trên một số ý tưởng từ não bộ tới việc tiếp thu nhiều tầng biểu đạt, cả cụ thể lẫn trừu tượng, qua đó làm rõ nghĩa của các loại dữ liệu.
 Deep Learning được ứng dụng trong nhận diện hình ảnh, nhận diện giọng nói, xử lý ngôn ngữ tự nhiên.
 Điểm đặc biệt của Deep Learning là tính chính xác dựa vào lượng dữ liệu, lượng dữ liệu có thể có kích thước khổng lồ mà không bị hạn chế.
 
 Tôi đang tìm hiểu về Deep Learning, những bài viết sau sẽ đi sâu vào tư duy, thuật toán và triển khai 1 hệ thống Deep Learning như thế nào.
 
-## Neural Networks ##
+## Neural Networks
+
 Xem tiếp: [Neural Networks là gì?](https://blog.duyet.net/2016/03/neural-networks.html)

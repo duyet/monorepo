@@ -18,7 +18,8 @@ Cryptolockers have become more and more sophisticated, bypassing system protecti
 
 Before, CTB-Locker, or Onion Ransomware, differed from other ransomware in the usage of the Tor Project’s anonymity network to shield itself from takedown efforts that rely largely on static malware command and control servers. Its use of Tor also helped evading detection and blocking. Another thing that protected CTB-Locker controllers was accepting as payment only Bitcoins, the decentralized and largely anonymous crypto-currency known.  
 
-## Defacement ##
+## Defacement
+
 This new variant aims to encrypt web servers and demand less than half a bitcoin as a ransom (0.4 BTC). If payment isn’t sent on time the ransom is doubled to approximately. When paid, the decryption key is generated and is used to decrypt the web server’s files.  
 
 ![](https://3.bp.blogspot.com/-OCj_qVWa3gQ/VtXfet69CWI/AAAAAAAAQiY/xhQ9CDVm7cg/s1600/ctb_locker_en_1.png)
@@ -27,10 +28,13 @@ In this case, the defacement, which contains a replacement of the main php/html 
 
 It is important to mention that the original code is not deleted. It is stored safely in the web root with a different name in an encrypted state. 
 
-## The message ##
+## The message
+
 As variants of malware of this kind are based on the simple fact that a victim cares more about his content than about paying a ransom, the authors usually leave a very detailed message for everyone to see.  The decryption key is stored on a remote server, but the attackers were "kind enough" to allow the victim to decrypt two files free, as a sign of authenticity.  The other function that exists on the attacked website allows the victim to communicate with the attacker via chat: it requires a personal signature/code which is available for victims only. 
 
-## Encryption  ##
+## Encryption
+
+
 I still don’t know how the CTB-Locker is being deployed on web servers, but there is one common thing among many of the attacked servers – they use the WordPress platform as a content management tool.  Once the malware author is inside WordPress system, he is able to replace the main website file and execute the encryption routine. The main file is renamed and saved in an encrypted state.  
 
 ![](https://2.bp.blogspot.com/-KeL8Xa2g9EI/VtXgdX9FmvI/AAAAAAAAQik/xAOvU-5ufuE/s1600/ctb_locker_en_4-768x313.png)
@@ -45,7 +49,8 @@ Proxy servers which are part of the decryption process:
 - http://studiogreystar.com/access.php
 - http://a1hose.com/access.php
 
-## Proxy to C&C ##
+## Proxy to C&C
+
 
 The attackers are utilizing servers which were already attacked to traffic through another layer of protection. On a victim server’s source code, a JavaScript code reveals how the decryption process is sent through three different servers randomly, however those are not the C&C
 
@@ -53,12 +58,14 @@ The attackers are utilizing servers which were already attacked to traffic throu
 
 When POST request is being sent with the right parameters, a socket instance is being created and sends a connect beam to the attacker’s C&C server. Later it is being determined if the decryption process succeeded.
 
-## Free decrypt ##
+## Free decrypt
+
 The ransomware allows the victim to freely decrypt not more than two files. It is not for the victim to choose, since the files are pre-chosen and can be found in the malware’s designated file as listed above. The two files are randomly picked during the course of the encryption process.  
 
 ![](https://2.bp.blogspot.com/-WnJW97tIi9o/VtXhlHay7nI/AAAAAAAAQjA/O87ECLotvsQ/s1600/ctb_locker_en_6.png)
 
-## Threat actor’s chat room ##
+## Threat actor’s chat room
+
 The ransomware also includes functionality to communicate with the malware authors. As already said, the victim is required to use the secret_ key in order to open the chat. Without it, the chat will remain unresponsive.  
 
 ![](https://3.bp.blogspot.com/-aXi6sGBiuwM/VtXh77RoDRI/AAAAAAAAQjM/JPrASyN5tvc/s1600/ctb_locker_en_8.png)

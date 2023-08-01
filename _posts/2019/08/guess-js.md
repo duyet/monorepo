@@ -37,6 +37,7 @@ Plugin sẽ làm 2 việc:
 
 ## Cài đặt
 
+
 ```
 npm install --save gatsby-plugin-guess-js
 ```

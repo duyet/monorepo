@@ -23,7 +23,8 @@ Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những
 
 Có một ngàn lý do để không xem bóng đá Việt Nam: nào thì cầu thủ kém, nào thì tinh thần ỉu xìu, nào thì sân xấu, nào thì chất lượng hình ảnh cùi bla bla blah… Thực tế là trong gần 20 năm xem bóng đá qua ti vi của tôi thì phần lớn thời gian tôi đều nghĩ như vậy. Nhưng ý tưởng viết bài này lại đến cách đây gần 3 năm: khi bất chợt xem một trận V-league trên ti vi (tôi không xem V-league nhiều). Lúc đó, như thói quen xem Ngoại hạng Anh, tôi cố ngồi 1-2 phút để đợi bình luận viên nói về diễn biến trận đấu, các cầu thủ đáng chú ý… nhưng chẳng có gì cả. Chợt nhớ đến mấy cái board Possession, Goal Attempts, rồi mấy cái replay vẽ đường kẻ việt vị, dự đoán hướng sút… như xem NHA thì mới Ồ – Thì ra cũng có cái khác vô cùng to giữa bóng đá Việt và bóng đá châu Âu: đó là các Dữ liệu trận đấu.
 
-## Đôi nét về Dữ liệu trong thể thao ##
+## Đôi nét về Dữ liệu trong thể thao
+
 Chúng ta thường thấy những Dữ liệu này ở đâu? Chắc ai hay coi đá banh trên truyền hình vẫn nhớ những con số: tỷ lệ kiểm soát bóng (Ball Possession) của Barcelona dưới thời Pep không bao giờ dưới 60%, C. Ronaldo đã ghi được tới 42 bàn thắng trên mọi mặt trận trong mùa giải 07-08, Ricky Lambert đã thực hiện chính xác tất cả các quả penalty trong sự nghiệp thi đấu chuyên nghiệp của mình, Michael Carrick là tiền vệ đánh chặn hiệu quả hàng đầu nước Anh trong mùa giải vừa qua với X pha cắt bóng, Y pha chuyền nguy hiểm cho đồng đội trong đó Z dẫn tới bán thắng… Những con số này được bình luận viên nói liên tục trong các trận đấu, trong các buổi bình luận trước vòng đấu, trong bản tin sáng trưa chiều tối, được các báo mạng nhai đi nhai lại rồi chế ra một đống tin lá cải liên quan, được nhà đài (bên biên tập trận đấu) đưa ra hàng đống bảng biểu trong lúc trận đấu diễn ra để người xem bắt nhịp liên tục.
 
 Một số mức độ cao hơn đó là trong các game thể thao và cá độ. Dân cá độ chuyên nghiệp thì coi mấy con số này như dân cổ phiếu coi báo cáo tài chính vậy. Còn bản chất các trò chơi thể thao cũng xây trên nền "chỉ số", cũng là một dạng dữ liệu số hóa cho các cầu thủ. Ví dụ như Football Manager là game bóng đá chiến thuật nổi tiếng nhất thì chỉ số cầu thủ qua các phiên bản có trọng số (tôi nói trọng số vì không phải hoàn toàn) rất lớn từ thống kê kết quả thi đầu của cầu thủ A mùa giải trước: anh Rooney mùa trước ghi có 15 bàn, ít hơn 10 bàn so với mùa trước nữa nên bản này Finishing sẽ từ 18 xuống 15. Các chỉ số đấy khi vào game thì biểu trưng cho một xác suất cho hành động: ví dụ Heading 20/20 thì có khả năng đánh đầu trúng 80% nếu không xét tới các chỉ số khác (Jumping, Positioning,…).
@@ -44,7 +45,8 @@ Cũng đã đề cập qua ở trên, những bên sử dụng dữ liệu này 
 - Các công trình nghiên cứu về thể thao ở các trường đại học, nhà báo tự do, tác giả viết sách…
 - Các công ty games: Dùng để xây dựng nội dung cho sản phẩm của mình.
 
-## Các công ty cung cấp dữ liệu thể thao chuyên nghiệp ##
+## Các công ty cung cấp dữ liệu thể thao chuyên nghiệp
+
 
 Chưa có những tài liệu viết đầy đủ và chuẩn xác về ngành thống kê dữ liệu thể thao. Tuy nhiên, theo một số bài viết đọc được, thì việc thống kê này bắt nguồn đầu tiên từ các câu lạc bộ. Động lực cho việc này là ban lãnh đạo cần có cách để đánh giá mức độ đóng góp của cầu thủ (nhân viên) của mình, từ đó phân chia tiền thưởng hay đánh giá ký hợp đồng với ai, đuổi việc ai. Sau này, nó phát triển sang việc đánh giá các cầu thủ đội khác để chuyển nhượng (ở các câu lạc bộ bóng đá chuyên nghiệp có bộ phận Scouts làm việc này) thay vì cảm tính huấn luyện viên như trước kia. Rồi giới truyền thông, ban tổ chức cũng vào thu thập cùng phục vụ cho mục đích của riêng mình. Sau này khi có công nghệ ghi hình, lưu giữ, phát sinh các hoạt động như nhau và chồng chéo hao phí dẫn đến ra đời các tổ chức thu thập dữ liệu độc lập.
 
@@ -63,7 +65,8 @@ Mô hình kinh doanh này có mấy điểm cần chú ý:
 
 Đây là những điểm tôi rất thích ở các công ty loại này. Hoạt động chính (Key activities) hàng ngày đó là xem các trận đấu, chuyên gia phân tích nhập dữ liệu vào hệ thống, sau đó bán các dữ liệu này (có customize) cho các khách hàng khác nhau.
 
-## Chuyển hóa hình ảnh thể thao thành dữ liệu số ##
+## Chuyển hóa hình ảnh thể thao thành dữ liệu số
+
 
 Logic của công việc này đó là tạo ra một hệ không gian dữ liệu nhiều chiều rồi mọi thứ đều có thể biểu diễn lại trên đó. Điều này yêu cầu phải thống kê và phân loại TOÀN BỘ các tiêu chuẩn cũng như các trường hợp xảy ra ngoài đời thực và gán hằng số cho nó. 
 
@@ -91,13 +94,15 @@ Những dữ liệu trên khi nhập vào sẽ thành một phần số hóa c�
 
 Hay ho nhất là các dữ liệu đi theo nó. Ví dụ như qua thống kê 300 trận đấu chuyên nghiệp của một cầu thủ, người ta có thể biết tỷ lệ sút trúng khung thành của anh ta là bao nhiêu, xu hướng sút vào vị trí nào của gôn, với thủ môn như vậy thì đứng ở vị trí đấy có bao nhiêu cơ hội bị cản phá,… Những người ở đó chắc phát hiện ra nhiều sự thật bóng đá nhất thế giới chứ chẳng đùa.
 
-## Những vấn đề còn bỏ ngỏ ##
+## Những vấn đề còn bỏ ngỏ
+
 
 - Việc sử dụng dữ liệu trong đánh giá cầu thủ ở các câu lạc bộ.
 - Công nghệ up-to-date dữ liệu trong truyền hình trực tiếp.
 - Khoa học bóng đá ở các CLB như Munich, Dortmund, AC Milan.
 
-## Tham khảo ##
+## Tham khảo
+
 
 - [How Big Data and Analytics are Changing Soccer](https://www.linkedin.com/pulse/how-big-data-analytics-changing-soccer-bernard-marr)
 - [How Big Data is Changing the World of Football](https://datafloq.com/read/how-big-data-is-changing-the-world-of-football/1796)

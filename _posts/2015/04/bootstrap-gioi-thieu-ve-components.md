@@ -17,12 +17,14 @@ description: Ở bài trước mình đã giới thiệu về Bootstrap về h�
 
 Ở bài trước mình đã giới thiệu về Bootstrap về [hệ thống Grid](https://blog.duyet.net/2015/04/gioi-thieu-ve-responsive-web-design-va-grid-system-trong-twitter-bootstrap.html), giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
 
-## Components là gì? ##
+## Components là gì?
+
 Nói một cách dễ hiểu là Bootstrap đã tạo sẵn các thành phần thường hay dùng và định dạng chúng sẵn bằng CSS rồi. Bây giờ muốn sử dụng cái nào thì chỉ cần vào trang Components của Bootstrap 3 xem code rồi đưa vào trang HTML thôi.
 
 Có rất nhiều thành phần được làm sẵn trong trang Components bạn cũng đã thấy như: Glyphicons, Dropdowns, Button groups, Navs, Breadcrumbs ….
 
-## Cách sử dụng Components ##
+## Cách sử dụng Components
+
 Mình sẽ làm qua 1 số ví dụ thôi, vì mọi Components đã có code và demo rõ ràng trên trang [Components Bootstrap](http://getbootstrap.com/components/) rồi.
 
 ![](https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png)
@@ -39,7 +41,7 @@ Trang Components có nhiều mục, gồm phần giới thiệu, ví dụ, code,
 
 Chỉnh sửa phần nội dung nav-brand, phần liên kết, ... cho phù hợp. Ví dụ dưới đây mình sẽ sử dụng kết hợp navbar và jumbotron
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -124,5 +126,6 @@ Kết quả:
 Đọc thêm các phần mở rộng trong hướng dẫn của Bootstrap để có thể tùy biến thêm bằng việc sử dụng các class có sẵn. Hãy đọc qua  mục: Alignment, Headers, Disabled menu items.
 Các bạn có thể hiểu thêm nếu đọc Docs của Bootstrap và thông qua các ví dụ.
 
-## Kết ##
+## Kết
+
 Sử dụng các Components của Bootstrap thực sự khá dễ dàng và nhanh chóng. Ngoài ra cũng có vài trang mở rộng số lượng các Components này lên rất nhiều, tất cả miễn phí và bạn chỉ cần copy về xài thôi.

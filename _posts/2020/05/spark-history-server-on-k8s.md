@@ -26,6 +26,7 @@ The history server UI would only show Spark jobs if they are configured to log e
 
 ### GCS
 
+
 In the case of GCS, the secret needs to be mounted in the driver and executor pods using the configuration options `spark.kubernetes.driver.secrets.[SecretName]` and `spark.kubernetes.executor.secrets.[SecretName]`. A sample command is given below:
 
 ```bash
@@ -45,6 +46,7 @@ bin/spark-submit \
 ```
 
 ### S3
+
 
 In the case of S3, it is recommended to use IAM based authentication. The IAM role should have equivalent access to AmazonS3FullAccess. To write event logs to S3, you need to provide configs as below:
 
@@ -68,6 +70,7 @@ When not using the IAM based authentication, you need to provide additional conf
 ```
 
 ### HDFS
+
 
 In the case of HDFS, only two flags are required:
 

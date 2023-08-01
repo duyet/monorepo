@@ -24,7 +24,8 @@ In this post, we’ll discuss using [Graphite](http://graphite.readthedocs.org/e
 
 Graphs of various metrics about the progress of a Spark application; read on for more info. 
 
-## Spark Web UI ##
+## Spark Web UI
+
 Spark ships with a [Jetty](http://eclipse.org/jetty/) server that provides a wealth of information about running applications:
 
 ![](https://4.bp.blogspot.com/-sXafwlnZE8I/VaSixijiOJI/AAAAAAAACl8/9gEn1oCZlPU/s1600/spark-web-ui.png)
@@ -35,17 +36,22 @@ This interface seems to be the way that most users interact with Spark applicati
 
 However, we hit [issues](https://issues.apache.org/jira/browse/SPARK-2017) with its ability to [scale](https://issues.apache.org/jira/browse/SPARK-4598) and its [real-time experience](https://issues.apache.org/jira/browse/SPARK-5106). Recognizing that reasonable people can ([and do!](https://github.com/apache/spark/pull/2342)) [disagree](https://issues.apache.org/jira/browse/SPARK-2132) about [subjective preferences related to such UIs](https://issues.apache.org/jira/browse/SPARK-1832), we sought a platform that better allowed us to experiment with ways to monitor our applications.
 
-## Enter: [MetricsSystem](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/MetricsSystem.scala) ##
+## Enter: [MetricsSystem](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/MetricsSystem.scala)
+
 Buried in a rarely-explored corner of the Spark codebase is a component called [MetricsSystem](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/MetricsSystem.scala). A MetricsSystem instance lives on every driver and executor and optionally exposes metrics to a variety of [Sink](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/sink/Sink.scala)s while applications are running. 
 
 In this way, MetricsSystem offers the freedom to monitor Spark applications using a variety of third-party tools.
 
-### Graphite ###
+### Graphite
+
+
 In particular, MetricsSystem includes [bindings](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/sink/GraphiteSink.scala) to ship metrics to [Graphite](http://graphite.readthedocs.org/en/latest/overview.html), a popular open-source tool for collecting and serving time series data. 
 
 This capability is [discussed briefly](http://spark.apache.org/docs/1.2.1/monitoring.html#metrics) in the Spark docs, but there is little to no information on the internet about anyone [using it](http://stackoverflow.com/questions/23529404/spark-on-yarn-how-to-send-metrics-to-graphite-sink), so here is a quick digression about how to get Spark to report metrics to Graphite.
 
-### Sending Metrics: Spark → Graphite  ###
+### Sending Metrics: Spark → Graphite 
+
+
 Spark’s MetricsSystem is configured via a metrics.properties file; Spark ships with a [template](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/conf/metrics.properties.template) that provides examples of configuring a variety of [Source](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/source/Source.scala)s and [Sink](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/sink/Sink.scala)s. [Here](https://gist.github.com/ryan-williams/9bf8ae842e02dbc9ab93) is an example like the one we use. Set up a metrics.properties file for yourself, accessible from the machine you’ll be starting your Spark job from.
 
 Next, pass the following flags to [`spark-submit`](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/bin/spark-submit):
@@ -58,13 +64,16 @@ Next, pass the following flags to [`spark-submit`](https://github.com/apache/spa
 
 The `--files` flag will cause `/path/to/metrics.properties` to be sent to every executor, and `spark.metrics.conf=metrics.properties` will tell all executors to load that file when initializing their respective `MetricsSystem`s.
 
-### Grafana ###
+### Grafana
+
+
 Having thus configured Spark (and installed Graphite), we surveyed [the many Graphite-visualization tools that exist](http://graphite.readthedocs.org/en/latest/tools.html#visualization) and began building custom Spark-monitoring dashboards using [Grafana](http://grafana.org/). Grafana is "an open source, feature rich metrics dashboard and graph editor for Graphite, InfluxDB & OpenTSDB," and includes some powerful features for [scripting](http://grafana.org/docs/features/scripted_dashboards/) the creation of [dynamic](http://grafana.org/docs/features/templated_dashboards/) dashboards, allowing us to experiment with many ways of visualizing the performance of our Spark applications in real-time.
 
 # Examples # (#examples)
 Below are a few examples illustrating the kinds of rich information we can get from this setup.
 
 ## Task Completion Rate ## (#task-completion-rate)
+
 These graphs show the number of active and completed tasks, per executor and overall, from a successful test of some toy [read depth histogram](https://github.com/hammerlab/guacamole/blob/5e060ae0e13434e42477ae0715e92103ab45baf9/src/main/scala/org/hammerlab/guacamole/commands/ReadDepthHist.scala) functionality in a branch of our [Guacamole](https://github.com/hammerlab/guacamole) variant calling project:
 
 ![](https://3.bp.blogspot.com/-053jp9eCxuk/VaSkFFqSPcI/AAAAAAAACmI/9xw3c4rM20Y/s1600/rdh-tasks.png)
@@ -73,6 +82,7 @@ The leftmost panel shows close to 400 tasks in flight at once, which  in this ap
 The right two panels show the number of tasks completed and rate of task completion per minute for each executor.
 
 ## HDFS I/O ## (#hdfs-io)
+
 `MetricsSystem` also reports all filesystem- and HDFS-I/O  at per-executor granularity. Below are some graphs showing us our  application’s HDFS read statistics:
 
 ![](https://4.bp.blogspot.com/-4-cphPMQd1g/VaSkMWsiwLI/AAAAAAAACmQ/txn9hIoOnt4/s1600/hdfs-graphs.png)
@@ -87,6 +97,7 @@ Clockwise from top left, we see:
 Our applications are typically not I/O bound in any meaningful way,  but we’ve nonetheless found access to such information useful, if only  from a sanity-checking perspective.
 
 ## JVM ## (#jvm)
+
 The [JVM statistics exported by Spark](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/source/JvmSource.scala) are a treasure trove of information about what is going on in each  executor. We’ve only begun to experiment with ways to distill this data;  here’s an example of per-executor panels with information about garbage  collection:
 
 ![](https://3.bp.blogspot.com/-v1FutiNm7l8/VaSkTzHm34I/AAAAAAAACmY/rIdDEL5LVkY/s1600/per-executor-jvm-metrics.png)

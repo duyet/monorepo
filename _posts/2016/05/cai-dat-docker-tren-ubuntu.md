@@ -18,13 +18,15 @@ Docker cung cấp một nền tảng mở cho các nhà phát triển và sysadm
 
 Cách cài đặt Docker trên Ubuntu
 
-## Ubuntu 15.04/15.10/16.04 ##
+## Ubuntu 15.04/15.10/16.04
+
 
 ```
 sudo apt-get install -y docker.io
 ```
 
-## Ubuntu 14.04/14.10 ##
+## Ubuntu 14.04/14.10
+
 
 ```
 sudo apt-get update
@@ -42,7 +44,8 @@ sudo usermod -aG docker <your user>
 
 Chúc bạn thành công.
 
-## Tham khảo ##
+## Tham khảo
+
 
 - Ảnh: Docker.com
 - Slide: Why docker? - [https://talk.duyet.net/why-docker/](http://why-docker.talk.duyetdev.com/)

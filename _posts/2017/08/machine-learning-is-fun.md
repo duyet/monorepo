@@ -23,6 +23,7 @@ Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Le
 
 ## Machine Learning là gì?
 
+
 **Machine Learning** là một ý tưởng về một thuật toán tổng quát chung có thể nói cho bạn biết vài điều về các khía cạnh khác nhau của bộ dữ liệu, mà bạn không cần phải viết bất cứ dòng code đặc biệt nào để giải quyết vấn đề. Thay vì bạn viết code, bạn đổ dữ liệu vào các thuật toán và chúng sẽ tự xây dựng các logic dựa vào dữ liệu đó.
 
   
@@ -40,9 +41,11 @@ Thuật toán Machine Learning này là black-box, có thể được sử dụn
 
 ## Hai loại thuật toán Machine Learning
 
+
 Thuật toán của Machine Learning được chia thành hai nhóm lớn - học giám sát (**supervised learning**) và học không giám sát (**unsupervised learning**). Sự khác nhau giữa hai nhóm này đơn giản, nhưng rất quan trọng.
 
 ### Supervised Learning
+
 
 Giả sử bạn là một người làm về bất động sản. Công ty của bạn phát triển nhanh, bạn tuyển hàng loạt thực tập. Nhưng có một vấn đề - bạn có thể dễ dàng nhìn lướt qua và đánh giá chính xác giá trị của một ngôi nhà, nhưng với các thực tập viên không có kinh nghiệm, họ không biết mỗi căn trị giá bao nhiêu.
 
@@ -87,6 +90,7 @@ Với **supervised learning**, bạn đang để máy tính phải tìm ra nh�
 
 ### Unsupervised Learning
 
+
 Quay lại với ví dụ bất động sản, giả sử bạn **không biết** thông tin gì về **giá**. Chỉ với thông tin về diện tích, vị trí, ... bạn vẫn có thể làm được vài thứ hay ho. Đây được gọi là **unsupervised learning**.
 
   
@@ -115,6 +119,7 @@ Note: có rất [nhiều loại thuật toán machine learning khác](https://en
 
 ## Có đúng là việc ước lượng (estimate) được giá của một ngôi nhà là "learning" hay không?
 
+
 Với con người, bộ não của chúng ta có thể tiếp cận mọi vấn đề và học cách giải quyết nó mà không cần chỉ dẫn chi tiết nào. Nếu bạn bán nhà trong một thời gian dài, theo bản năng bạn có thể cảm giác được đâu là giá chính xác của một căn nhà. Mục tiêu của ngành AI là lặp lại được điều đó với máy tính.  
   
 Nhưng hiện tại các thuật toán của machine learning của máy tính vẫn chưa đủ tốt, chúng chỉ giải quyết được những vấn đề rất cụ thể và giới hạn. Chúng ta có lẽ nên định nghĩa _"learning"_ ở đây là _"tìm ra được cách giải một bài toán cụ thể dựa vào vài ví dụ"._
@@ -124,6 +129,7 @@ Nhưng hiện tại các thuật toán của machine learning của máy tính v
 Không may _"tìm ra được cách giải một bài toán cụ thể dựa vào vài ví dụ"_ không phải là cái tên hay, thay vào đó mọi người gọi ngắn gọn là _"Machine Learning"_.  
 
 ## Let’s write that program!
+
 
 Vậy, làm thế nào để có thể code được chương trình cho ví dụ trên? Bạn có thể suy nghĩ một chút trước khi đọc phần tiếp theo.
 
@@ -238,6 +244,7 @@ Thật điên rồi đúng không :v 
 
 ## Thử "mọi tổ hợp weights có thể có" ở bước 3
 
+
 Dĩ nhiên bạn hoàn toàn có thể thử mọi tổ hợp số, hoặc là bạn sẽ có kết quả tốt, hoặc là bạn sẽ thử suốt đời mới xong. 
 
   
@@ -288,6 +295,7 @@ Vì vậy, nếu chúng ta đạo hàm cost function, tính giá trị tại đi
 
 ## Những thứ có thể bị skip qua nhanh
 
+
 Thuật toán 3 bước được giới thiệu ở trên được gọi là **multivariate linear regression**. Bạn có thể ước lượng được biểu thức để có thể fit tất cả dòng dữ liệu đang có. Sau đó bạn dùng biểu thức để đoán giá của những căn nhà khác, dựa vào giá của những căn có trong dữ liệu qúa khứ. Đây là một ý tưởng rất tuyệt, và có thể triển khai được trong thực tế.  
   
 Nhưng ý tưởng tôi đã trình bày chỉ đúng với trường hợp đơn giản, sẽ có vài ngoại lệ. Vì giá nhà đất không phải lúc nào cũng theo một đường, một quy luật cố định.  
@@ -298,6 +306,7 @@ Tương tự, tôi cũng bỏ qua trường hợp **overfitting**. Đây là tr
 Có nhiều cách để giải quyết vấn đề này như [regularization](http://en.wikipedia.org/wiki/Regularization_%28mathematics%29#Regularization_in_statistics_and_machine_learning) và sử dụng [cross-validation](http://en.wikipedia.org/wiki/Cross-validation_%28statistics%29) trên data set. Học cách để giải quyết những vấn đề trên cũng là một mục tiêu để ứng dụng thành công machine learning. 
 
 ## Machine Learning toàn năng?
+
 
 Một khi nhìn thấy cách mà machine learning giải quyết những vấn đề rất phức tạp một cách dễ dàng (như nhận diện khuôn mặt, chữ viết), người ta thường sẽ nghĩ rằng machine learning sẽ giải quyết được mọi vấn đề nếu như có đủ data.  
   
@@ -311,6 +320,7 @@ Ví dụ, bạn xây dựng mô hình dự đoán giá nhà dựa vào các lo�
 Vì vậy hãy nhớ nếu một chuyên gia **không** thể sử dụng dữ liệu của giải quyết vấn đề, thì máy tính cũng vậy.  
 
 ## Làm thế nào để tìm hiểu nhiều hơn về Machine Learning
+
 
 Tác giả đã tạo một khóa học [từng bước một về chuỗi bài viết này, kể cả viết code](https://www.lynda.com/Data-Science-tutorials/Machine-Learning-Essential-Training-Value-Estimations/548594-2.html?lpk35=9149&utm_medium=ldc-partner&utm_source=CMPRC&utm_content=524&utm_campaign=CD20575&bid=524&aid=CD20575).  
 Nếu bạn muốn đi sâu hơn, hãy thử khóa học [Machine Learning trên Coursera của Andrew Ng](https://www.coursera.org/course/ml).  

@@ -26,10 +26,12 @@ Có một số điểm và kinh nghiệm khi các bạn mới học React hoặc
 
 ![](https://1.bp.blogspot.com/-KtYQVNUSOhM/V25BbTCHiII/AAAAAAAAYQk/-9QPfR5wy5ImvMrLutGZEklZSuz-0IZkgCK4B/s1600/1-MG736zGtLMBbSkhwu4D3cA.png)
 
-## 1. React chỉ là View Library ##
+## 1. React chỉ là View Library
+
 React không phải là một MVC framework như những framework khác. Đây chỉ là thư viện của Facebook giúp render ra phần view. Vì thế React sẽ không có phần M - Model và C - Controller, mà phải kết hợp với các thư viện khác. React cũng sẽ không có 2-way binding hay là Ajax, ...
 
-## 2. Hãy giữ Components luôn nhỏ gọn ##
+## 2. Hãy giữ Components luôn nhỏ gọn
+
 Bất cứ lập trình giỏi nào cũng đều biết, giữ cho function/class càng nhỏ gọn thì sẽ càng dễ hiểu và dễ bảo trì. Với React cũng vậy, và Components nhỏ sẽ đúng với tinh thần Thinking in React, chia các phần thành các Component nhỏ nhất có thể, để có thể tái sử dụng và hiệu năng cao. Độ chia nhỏ tùy thuộc và mức độ của Team nữa.
 
 Ví dụ với với Components hiển thị danh sách bài viết liên quan ở cuối:
@@ -47,7 +49,8 @@ const LatestPostsComponent = props => (
 
 `<LastestPostsComponent />`  chỉ chứa 1 thẻ `<h1>` và mỗi `posts` được truyền cho components khác `<PostPreview />`
 
-## 3. Write functional components ##
+## 3. Write functional components
+
 Có nhiều cách để viết Components, thứ nhất sử dụng `React.createClass()`:
 
 ```js
@@ -78,7 +81,8 @@ const MyComponent = props => (
 
 Với các Components lớn và nhiều xử lý, nên sử dụng cách 1 hoặc 2. Còn trong đa số các trường hợp khác, Components không cần `state`, chỉ `render()` từ `props` thì nên sử dụng cách thứ 3 này, giúp cho ứng dụng mạch lạc và nhanh hơn.
 
-## 4. Sử dụng ít State components ##
+## 4. Sử dụng ít State components
+
 State lưu giữ linh hồn của ứng dụng. React với các ứng dụng lớn và mở rộng liên tục, ta nên giữ State luôn đơn giản (stateless components).
 
 - State làm cho test khó khăn hơn.
@@ -87,7 +91,8 @@ State lưu giữ linh hồn của ứng dụng. React với các ứng dụng l�
 
 Chỉ sử dụng State khi cần thiết, và phản ánh đúng trạng thái của Components.
 
-## 5. Kết hợp với Redux.js ##
+## 5. Kết hợp với Redux.js
+
 React chỉ là View, nên việc kết hợp với [Redux](http://redux.js.org/), Flux, hay bất cứ mô hình luồng dữ liệu là cần thiết. Hiện tại mình thấy Redux đang có khá nhiều người sử dụng, và tư duy của nó cũng khá hay. Sau khi học React bạn tiếp tục kết hợp với Redux trong các ứng dụng.
 
 [![](https://1.bp.blogspot.com/--30x560n-uU/V24_4PXcD3I/AAAAAAAAYQU/vxp2C7rvkNcuGXn8f0WxbyKzNjx-IKzLgCK4B/s640/1-dODKUGyGkF8qeGLrXKWkiA.png)](https://1.bp.blogspot.com/--30x560n-uU/V24_4PXcD3I/AAAAAAAAYQU/vxp2C7rvkNcuGXn8f0WxbyKzNjx-IKzLgCK4B/s1600/1-dODKUGyGkF8qeGLrXKWkiA.png)
@@ -96,7 +101,8 @@ React chỉ là View, nên việc kết hợp với [Redux](http://redux.js.org/
 
 Một thư viện khác cũng nên quan tâm là [Immutable.js](https://facebook.github.io/immutable-js/) 
 
-## 6. Luôn sử dụng propTypes ##
+## 6. Luôn sử dụng propTypes
+
 [propTypes](https://facebook.github.io/react/docs/reusable-components.html#prop-validation) định nghĩa, ràng buộc cho Props trong React Components, propTypes giúp cho người khác sử dụng các Components của chúng ta an toàn hơn.
 
 ```js
@@ -119,10 +125,12 @@ ListOfNumbers.propTypes = {
 Trong môi trường developments, nếu chúng ta truyền vào cho `props` sai kiểu dữ liệu, hoặc quên truyền dữ liệu cho `props`. React sẽ báo lỗi, và chúng ta phải kiểm tra bằng tay.
 Ở ví dụ trên, `props.className` phải có kiểu `string` và `isRequired` (bắt buộc phải có), tương tự `numbers` phải là một `array` của `number`
 
-## 7. Sử dụng JSX, ES6, Babel, Webpack, và NPM ##
+## 7. Sử dụng JSX, ES6, Babel, Webpack, và NPM
+
 [JSX](https://facebook.github.io/jsx/) (XML-like syntax extension to ECMAScript) là tính năng hay của React, những gì chúng ta viết sẽ là những gì hiển thị. Kết hợp với Babel, biên dịch và tận dụng [các tính năng mới của ES6](http://es6-features.org/). [NPM](https://www.npmjs.com/) và [Webpack](https://webpack.github.io/) giúp quá trình đóng gói và tận dụng các thư viện triệt để hơn.
 
-## 8. Sử dụng React và Redux dev tools ##
+## 8. Sử dụng React và Redux dev tools
+
 
 Cuối cùng các trình Dev Tools của Redux và React sử dụng rất tốt, giúp chúng ta nhanh chóng Debug và tìm ra lỗi trong ứng dụng.
 
@@ -131,6 +139,7 @@ Redux Dev Tools còn [hay hơn](https://www.youtube.com/watch?v=xsSnOQynTHs), gi
 
 [![](https://4.bp.blogspot.com/-VTtgxf13hdo/V24_YXHeb3I/AAAAAAAAYQM/kOlnn_Izy446MH_zpAmgJQfngN1__PWMgCK4B/s1600/react-dev-tools.jpg)](https://4.bp.blogspot.com/-VTtgxf13hdo/V24_YXHeb3I/AAAAAAAAYQM/kOlnn_Izy446MH_zpAmgJQfngN1__PWMgCK4B/s1600/react-dev-tools.jpg)
 
-## Tham khảo ##
+## Tham khảo
+
 [A cartoon intro to Redux](http://saveto.co/lm4l1Z)
 [React Developer Tools - Chrome Web Store](http://saveto.co/oedqhg)

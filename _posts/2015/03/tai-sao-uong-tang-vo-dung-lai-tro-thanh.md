@@ -14,7 +14,8 @@ description: 4 điều rút ra sau đây sẽ cho bạn 1 bài học quý báu t
 
 4 điều rút ra sau đây sẽ cho bạn 1 bài học quý báu trong cuộc sống, công việc kinh doanh đặc biệt là những người đang làm ở vị trí quản lý.
 
-## 1. Niềm tin tối cao ##
+## 1. Niềm tin tối cao
+
 Cái đầu tiên mà Đường Tăng có mà Tôn Ngộ Không không có đó là niềm tin tối cao.
 
 Đường Tăng luôn tiến về phía trước bằng niềm tin cao nhất của mình, dù có hi sinh tính mạng không từ bỏ, nhưng Ngộ Không thì không thể. Anh ta năng lực tốt, nhưng không kiên định vào mục tiêu của mình, nhiều lần đánh trống bỏ dùi. Người không có niềm tin, sẽ khiến người khác không tin theo và mất đi động lực, khi gặp phải khó khăn thì dễ dàng chùn bước, người lãnh đạo một khi khiếp đảm, lùi bước rồi, thì đoàn đội anh ta cũng tan vỡ theo. Với những người không có đủ niềm tin tối cao cũng không được, chỉ trông vào lợi ích cá nhân, biết mình không biết người thì chỉ khiến người khác bỏ mình mà đi.
@@ -24,6 +25,7 @@ Giống như Tống Giang trong Thủy hử truyện, là một người không 
 ![](https://3.bp.blogspot.com/-rmsHj5wxB9Q/VQWCMqu8JPI/AAAAAAAACL8/45wkrTGVRLw/s1600/20141221221931-tai-sao-duong-tang-vo-dung0lai-tro-thanh-nguoi-lanh-dao-con-ton-ngo-khong-tai-phep-thi-lai-lam-ke-lam-cong-2-stardaily.jpg)
 
 ## 2. 'Vô Dụng' cũng là tài sản quý giá của một người lãnh đạo  
+
 
 Cái thứ 2 mà Đường Tăng có mà Tôn Ngộ Không không có chính là 'Vô Dụng'.
 
@@ -39,6 +41,7 @@ Như thế một mặt làm mình mệt mỏi đứt hơi, tối mũi tối mắ
 
 ## 3. Nhân đức Cái thứ ba mà Đường Tăng có, Tôn Ngộ Không không có là 'nhân đức'. 
 
+
 Vì có lòng nhân đức nên Đường Tăng thương hại cả tính mạng của yêu quái, như thế cũng sẽ không biết so đo với thuộc hạ của mình, sẽ không phạt hay trừ tiền công của họ, không ức hiếp họ phải tăng ca, không thực hiện 'tẩy não giáo dục', không lợi dụng họ gánh thay trách nhiệm pháp luật, che chắn bản thân khi gặp nguy hiểm,... 
 
 Đường Tăng mặc dù lợi dụng ba đồ đệ bảo hộ mình, nhưng lại tuyệt đối không có ý bóc lột mà lại dẫn dắt họ cùng nhau nỗ lực, cùng nhau trưởng thành, cùng nhau thành công. Sau cùng, ba đồ đệ của Đường Tăng cũng đều đạt được thành tựu . 
@@ -48,6 +51,7 @@ Vì có lòng nhân đức nên Đường Tăng thương hại cả tính mạng
 Ở Nhật Bản có một công ty, họ mời bố của nhân viên đến công ty ngồi tọa đàm với các quản lý. Ông chủ công ty nói với toàn bộ quản lý, khi các vị không biết phải đối đãi thế nào với những nhân viên dưới quyền của mình, thì hãy nghĩ lại ngày hôm nay, những ông bố của nhân viên mình đã gửi gắm con của họ cho các vị, là mong các vị có thể giáo dục họ trưởng thành, dẫn dắt họ đi đến thành công. Các vị phải nghĩ xem bản thân mình đã xứng với sự ủy thác đó chưa?
 
 ## 4. Mối quan hệ 
+
 
 Cái thứ tư Đường Tăng có mà Tôn Ngộ Không không có đó là 'mối quan hệ' (nhân tố quan hệ).
 

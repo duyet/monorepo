@@ -27,6 +27,7 @@ https://bitbucket-pipelines.atlassian.io/validator
 
 ## Skip trigger the pipelines
 
+
 You can include `[skip ci]` or `[ci skip]` anywhere in your commit message of the HEAD commit.
 Any commits that include `[skip ci]` or `[ci skip]` in the message are ignored by Pipelines.
 
@@ -37,6 +38,7 @@ Ref: https://support.atlassian.com/bitbucket-cloud/docs/bitbucket-pipelines-faqs
 
 ## Build on branch 
 
+
 ```yaml
 pipelines:
   branches:  # Pipelines that run automatically on a commit to a branch
@@ -46,6 +48,7 @@ pipelines:
             - ... 
 ```
 ## Pull Requests
+
 
 ```yaml
 pipelines:
@@ -61,6 +64,7 @@ pipelines:
 ```
 
 ## Parallel
+
 
 ```yaml
 pipelines:
@@ -82,6 +86,7 @@ pipelines:
 ```
 
 ## Reuse steps
+
 
 ```yaml
 definitions: 
@@ -125,6 +130,7 @@ pipelines:
 
 ## Reuse scripts
 
+
 ```yaml
 definitions:
   scripts:
@@ -144,6 +150,7 @@ pipelines:
 ```
 
 ## Script multiple lines
+
 
 Using [literal style block scalar](https://yaml.org/spec/1.2/spec.html#id2795688):
 
@@ -194,6 +201,7 @@ pipelines:
 
 ## Increase Docker memory
 
+
 The Docker-in-Docker daemon used for Docker operations in 
 Pipelines is treated as a service container, and so has a default memory limit of 1024 MB
 
@@ -208,6 +216,7 @@ definitions:
 ```
 
 ## 2x for all steps 
+
 
 ```yaml
 options:
@@ -245,6 +254,7 @@ pipelines:
 ```
 
 ## Environment Variables
+
 
 Pipelines provides a set of default variables that are available for builds, and can be used in scripts:
 https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/

@@ -17,25 +17,30 @@ React và ES6 vẫn là các chủ đề đang được quan tâm. Javascript We
 
 [![](https://4.bp.blogspot.com/-mQxRpFMY0UM/V1wn05hGx3I/AAAAAAAAXiA/PUSZrt0AUoMEyGQbfmEbmJlhnEmBIp-5gCK4B/s1600/js-4.png)](https://blog.duyet.net/2016/06/javascript-weekly-4.html)
 
-## [10 chức năng của Lodash bạn có thể thay thế bằng ES6](https://www.sitepoint.com/lodash-features-replace-es6/?utm_source=duyetdev.com&amp;utm_medium=saveto.co) ##
+## [10 chức năng của Lodash bạn có thể thay thế bằng ES6](https://www.sitepoint.com/lodash-features-replace-es6/?utm_source=duyetdev.com&amp;utm_medium=saveto.co)
+
 DAN PRINCE
 Lodash là một trong những package được sử dụng rất phổ biến, từ xử lý số liệu, mảng, danh sách, ... Nếu bạn sử dụng ES6, có thể bạn sẽ không cần Lodash nữa. Vì ES6 hiện nay đã đủ mạnh để làm được các chức năng này.
 
-## [Building React Applications with Idiomatic Redux](http://saveto.co/Hm3a2V) ##
+## [Building React Applications with Idiomatic Redux](http://saveto.co/Hm3a2V)
+
 EGGHEAD
 Chuỗi 27 video hướng dẫn xây dựng ứng dụng React với Idiomatic Redux. Video được hướng dẫn bơi chính người phát minh ra Redux, Dan Abramov
 
-## [nbind: A Way to Combine C++ and JavaScript](http://saveto.co/lS87z1) ##
+## [nbind: A Way to Combine C++ and JavaScript](http://saveto.co/lS87z1)
+
 CHARTO
 Thư viện giúp Node.js sử dụng được  các thư viện viết bằng C++
 
-## [What's The Smallest Subset of Characters To Run Any JS?](http://saveto.co/rxOPvy) ##
+## [What's The Smallest Subset of Characters To Run Any JS?](http://saveto.co/rxOPvy)
+
 SYLVAIN POLLET-VILLARD
 A mostly pointless, but geeky and fun, look at rendering characters via JavaScript using just a few underlying symbols.
 
 [![](https://3.bp.blogspot.com/-Ld023bbHL_M/V1wk01ThbJI/AAAAAAAAXhk/KO4vd6f_S-INxBFASnIuDTln82dmGEfKQCK4B/s1600/Screenshot%2Bfrom%2B2016-06-11%2B21-47-36.png)](https://3.bp.blogspot.com/-Ld023bbHL_M/V1wk01ThbJI/AAAAAAAAXhk/KO4vd6f_S-INxBFASnIuDTln82dmGEfKQCK4B/s1600/Screenshot%2Bfrom%2B2016-06-11%2B21-47-36.png)
 
 ## [Regular Expressions in JavaScript](http://saveto.co/UXWCj6) 
+
 
 KEVIN YANK
 
@@ -46,7 +51,8 @@ var theString = "test1 Test2 TEST3";
 theString.search(/Test[0-9]+/); // 6
 ```
 
-## [is.js: A Simple Yet Extensible Predicate Library CODE ](http://saveto.co/iHMK6K) ##
+## [is.js: A Simple Yet Extensible Predicate Library CODE ](http://saveto.co/iHMK6K)
+
 Một thư viện với nhiều phương thức để kiểm tra kiểu của một giá trị trong Javascript. Hỗ trợ cho trình duyệt lẫn Node.js
 
 ```

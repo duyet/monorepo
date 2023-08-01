@@ -23,7 +23,8 @@ Thực tế, Spark còn hỗ trợ cho ta nhiều phiên bản pre-built cùng v
 
 ![](https://4.bp.blogspot.com/-5hwfzlugnac/WS7b6rg8cQI/AAAAAAAAlDg/Rgpp6oj-lGQludEAlYo9YtOrGCeudR0zgCLcB/s1600/Screenshot%2Bfrom%2B2017-05-31%2B22-02-05.png)
 
-## 1. Cài đặt Java ##
+## 1. Cài đặt Java
+
 Nếu chưa cài thì bạn cài theo cách sau:
 
 ```
@@ -32,13 +33,15 @@ $ sudo apt-get update
 $ sudo apt-get install oracle-java7-installer
 ```
 
-## 2. Tải Apache Spark bản pre-built ##
+## 2. Tải Apache Spark bản pre-built
+
 Chọn phiên bản thích hợp và tải Apache Spark từ Website: [https://spark.apache.org/downloads.html](https://spark.apache.org/downloads.html)
 Nhớ chọn dòng "Pre-built for Apache Hadoop ...."
 
 [![](https://4.bp.blogspot.com/-NsecZC23D1I/WS7d1VcWZgI/AAAAAAAAlDs/pHrYRZlYba4PLUgYwZTItH9ryyxAmNkPACLcB/s1600/Screenshot%2Bfrom%2B2017-05-31%2B22-14-14.png)](https://4.bp.blogspot.com/-NsecZC23D1I/WS7d1VcWZgI/AAAAAAAAlDs/pHrYRZlYba4PLUgYwZTItH9ryyxAmNkPACLcB/s1600/Screenshot%2Bfrom%2B2017-05-31%2B22-14-14.png)
 
-## 3. Sử dụng ##
+## 3. Sử dụng
+
 Giải nén và mở terminal tại thư mục spark, và sử dụng thôi.
 
 Test thuật toán tính số PI.

@@ -30,6 +30,7 @@ Note: Đối tượng bài viết những ai đang tìm hiểu về NLP và Mach
 
 ## Quy trình tổng quát
 
+
 Việc phân lớp về cơ bản có thể có nhiều kỹ thuật, tổng quát đều thực hiện các bước sau:  
 
 *   **Tiền xử lý văn bản:** lọc bỏ dấu câu, chính tả, kỹ tự lỗi, ...
@@ -49,6 +50,7 @@ Việc phân lớp về cơ bản có thể có nhiều kỹ thuật, tổng qu�
 
 ## Các thư viện hỗ trợ
 
+
 Với mình, việc hỗ trợ xử lý văn bản của **Python** rất mạnh, cú pháp dễ học nhiều thư viện và thuật toán cho NLP, Machine learning:
 
 *   **NLTK**: Natural Language Toolkit ([http://www.nltk.org](http://www.nltk.org/)).  
@@ -66,6 +68,7 @@ Với mình, việc hỗ trợ xử lý văn bản của **Python** rất mạnh
 Trên Python, bạn nên sử dụng **[Jupyter Notebook](http://jupyter.org/)** để có thể code và visualize dễ dàng hơn. Các thư viện trên đều có thể cài dễ dàng bằng **pip**.
 
 ## Ví dụ: phân lớp văn bản theo category
+
 
 Ở notebook ví dụ sau, với [data](https://github.com/duyet/demo-text-classification/blob/master/data/newtrain.csv) là một đoạn text ngắn được phân thành 7 loại category khác nhau:
 

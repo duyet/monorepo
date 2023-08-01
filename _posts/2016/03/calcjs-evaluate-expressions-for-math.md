@@ -19,13 +19,15 @@ Flexible expression parser and offers an integrated solution to work with number
 
 [![](https://1.bp.blogspot.com/-vmFjdMDVRok/Vvek0fYiwmI/AAAAAAAASas/iUUHSjQAWYUcWK6F5tx8qq3nfP_sVozOg/s1600/calc.png)](https://github.com/duyet/calc.js)
 
-## Install ##
+## Install
+
 
 ```
 npm install calc.js
 ```
 
-## Usage ##
+## Usage
+
 
 ```js
 var calc = require('calc.js');
@@ -37,10 +39,12 @@ calc('9 / 3 + 2i');          // 3 + 2i
 calc('det([-1, 2; 3, 1])');  // -7
 ```
 
-## Credit ##
+## Credit
+
 Thanks to [mathjs](https://github.com/josdejong/mathjs) eval.
 
-## Source  ##
+## Source 
+
 
 - [calc.js](https://github.com/duyet/calc.js) | Github
 - [calc.js](https://www.npmjs.com/package/calc.js) | NPM

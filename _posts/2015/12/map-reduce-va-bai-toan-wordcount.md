@@ -19,7 +19,9 @@ Map-Reduce là một giải pháp! Map-Reduce được phát minh bởi các k�
 
 Với máy tính với cấu hình dù rất khoẻ như ở trên thì ta vẫn thấy giới hạn xử lý dữ liệu của nó. Cụ thể máy tính không thể lưu trữ được quá 8TB dữ liệu, không thể đồng thời xử lý được dữ liệu lớn hơn 128GB (kích thước của RAM) và không thể đồng thời xử lý được lớn hơn 18 luồng chương trình.
 
-## Giải pháp xử lý song song Map-Reduce  ##
+## Giải pháp xử lý song song Map-Reduce
+
+
 Theo Google họ có rất nhiều dữ liệu, ước tính đến năm 2013, họ có khoảng 80 petabytes (~ 80.000 TB ~ 80.000.000 GB) trong cơ sở dữ liệu. Do vậy chưa tính đến việc xử lý dữ liệu, chỉ riêng việc đọc dữ liệu đã vượt qua năng lực xử lý của 1 máy tính. Điều này đòi hỏi một mô hình truy vấn dữ liệu mới cho phép xử lý lượng dữ liệu trên.
 Map-Reduce giải quyết các vấn đề liệt kê ở trên bằng cách:
 
@@ -27,7 +29,9 @@ Map-Reduce giải quyết các vấn đề liệt kê ở trên bằng cách:
 - Chuyển tính toán về nơi có dữ liệu. Ý tưởng chuyển tính toán đến nơi có dữ liệu thực sự là một sự đột phá và đã được đề xuất trong [một bài báo](http://research.microsoft.com/pubs/70001/tr-2003-24.pdf) của nhà khoa học máy tính [Jim Gray](https://en.wikipedia.org/wiki/Jim_Gray_(computer_scientist)) từ năm 2003.
 - Đưa ra mô hình và giao diện tính toán đơn giản.
 
-### Chia dữ liệu thành nhiều Block ###
+### Chia dữ liệu thành nhiều Block
+
+
 Các kỹ sư Google giải quyết bài toán này bằng giải pháp GFS. GFS là một hệ thống quản lý File phân tán với các chức năng giống như hệ thống File bình thường của Linux như: không gian tên (namespace), tính thừa thãi (redundancy), và tính sẵn sàng (availability). Như đã giới thiệu ở bài viết Các giải pháp BigData, HDFS cũng là một một hệ thống quản lý File phân tán.
 
 Đặc điểm của hệ thống File phân tán này là:
@@ -35,7 +39,8 @@ Các kỹ sư Google giải quyết bài toán này bằng giải pháp GFS. GFS
 - Dùng để quản lý các File có kích thước lớn: kích thước từ trăm GB đến TB
 - Dữ liệu ít khi bị cập nhật ở giữa file (kiểu mở file, đến dữa file, cập nhật) mà thường được đọc học ghi vào cuối File (append).
 
-## Mô hình tính toán MapReduce và bài toán Wordcount  ##
+## Mô hình tính toán MapReduce và bài toán Wordcount 
+
 
 Bài toán word-count (đếm từ) là bài toán dễ hiểu nhất minh hoạ cho MapReduce (MR). Bài toán có những đặc điểm sau:
 
@@ -65,7 +70,8 @@ Với:
 
 Ví dụ với hình mô tả ở trên thì Map trả về danh sách: <Bear, 1>, <Bear, 1> còn Reduce nhận kết quả trên và trả về <Bear, 2>.
 
-### Lập lịch và dòng dữ liệu ###
+### Lập lịch và dòng dữ liệu
+
 
 Sau khi đã có cách đấu nối và phương pháp tính toán, vấn đề tiếp theo cần bàn là tính thế nào, khi nào và ra sao. Map-Reduce có một đặc điểm thú vị là chỉ cần phân chia các File thành các vùng độc lập thì các thủ tục Map không hoàn toàn liên quan đến nhau có thể thực hiện song song.
 
@@ -79,7 +85,9 @@ Một File Input có thể được xử lý bởi nhiều Map/Reduce. Map-Reduc
 - Quản lý hỏng hóc (ví dụ tự động khởi động các thủ tục M/R đang chạy dở thì máy hỏng, quản lý dữ liệu khi máy hỏng)
 - Quản lý giao tiếp giữa các máy tính.
 
-## Kết  ##
+## Kết
+
+
 Mô hình của Map-Reduce nhìn có vẻ đơn giản nhưng thật sự rất mạnh và có thể giải quyết được rất nhiều bài toán trong BigData. Bạn có thể tham khảo các bài viết trước của mình để hiểu hơn về Big Data và Spark.
 
 Tham khảo:

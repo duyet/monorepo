@@ -19,10 +19,12 @@ OpenVPN là một chương trình mã nguồn mở VPN hoàn toàn miễn phí v
 
 Ảnh: Digital Ocean
 
-## VPN (Virtual Private Network) ##
+## VPN (Virtual Private Network)
+
 VPN (Virtual Private Network) là một mạng riêng sử dụng mạng Internet để kết nối các địa điểm hoặc người sử dụng từ xa với một mạng LAN. Thay vì dùng kết nối thật khá phức tạp như đường dây thuê bao số, VPN tạo ra các liên kết ảo được truyền qua Internet giữa mạng riêng của một tổ chức với địa điểm hoặc người sử dụng ở xa.
 
 ## Cài đặt OpenVPN trên Debian, Ubuntu và CentOS 
+
 
 Để bắt đầu quá trình cài đặt bạn chạy lệnh sau:
 

@@ -34,7 +34,8 @@ Closure được triển khai sử dụng ở các dạng:
 
 Giao diện Web service
 
-## closure-compiler-js ##
+## closure-compiler-js
+
 
 closure-compiler-js là project sử dụng được closure-compiler (Java) trên Javascript. Cài đặt closure-compiler-js qua npm
 
@@ -54,7 +55,9 @@ const out = compile(flags);
 console.info(out.compiledCode);  // will print 'var x = 3;\n'
 ```
 
-### Webpack  ###
+### Webpack 
+
+
 Cấu hình webpack như bên dưới:
 
 ```js
@@ -82,7 +85,9 @@ module.exports = {
 };
 ```
 
-## Tham khảo  ##
+## Tham khảo
+
+
 Còn khá nhiều chức năng và tham số như angularPass, polymerPass, rewritePolyfills, ...
 
 - Closure Compiler - [https://developers.google.com/closure/compiler/](https://developers.google.com/closure/compiler/)

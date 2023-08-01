@@ -26,7 +26,8 @@ Xây dựng bên trên ExpressJS, SailsJS tận dụng được những điểm 
 Trang chủ: [http://sailsjs.org/](http://sailsjs.org/)
 Getting Started: [http://sailsjs.org/get-started](http://sailsjs.org/get-started)
 
-## Cài đặt ##
+## Cài đặt
+
 Cài đặt sails cực kì dễ, với 1 lệnh npm 
 
 ```
@@ -39,7 +40,8 @@ Với Windows hoặc Mac thì không cần sudo
 npm -g install sails
 ```
 
-## Tạo ứng dụng đầu tiên ##
+## Tạo ứng dụng đầu tiên
+
 Tạo ứng dụng Sails bằng lệnh
 
 ```

@@ -18,7 +18,8 @@ Trong Javascript, chúng ta phải sử dụng nhiều loại lệnh điều ki�
 
 ![](https://2.bp.blogspot.com/-RRyHHS4eNUw/W6PRc6rcpWI/AAAAAAAAzqM/FQvD9qNV-c4PuNUrvoSZnZfSqk2EdMZxwCLcBGAs/s1600/udpahiv8rqlemvz0x3wc.png)
 
-## 1. Sử dụng Array.includes thay cho điều kiện so sánh bằng (==) ##
+## 1. Sử dụng Array.includes thay cho điều kiện so sánh bằng (==)
+
 Hãy xem ví dụ:
 
 ```js
@@ -45,7 +46,8 @@ function test(fruit) {
 }
 ```
 
-## 2. Less Nesting, Return Early ##
+## 2. Less Nesting, Return Early
+
 Ý nghĩa của Less Nesting, Return Early là hạn chế việc lồng quá nhiều câu điều kiện, mà hãy return sớm nhất ngay khi có thể.
 
 Ví dụ đoạn chương trình như sau:
@@ -94,7 +96,8 @@ function test(fruit, quantity) {
 }
 ```
 
-## 3. Sử dụng tham số mặc định trong function (default function parameters) và Detructuring ##
+## 3. Sử dụng tham số mặc định trong function (default function parameters) và Detructuring
+
 Ví dụ với đoạn code sau, trong ES5 chắc hẳn bạn đã từng phải rất khó chịu khi luôn phải check xem giá trị của tham số trong function có phải là null / undefined hay không.
 
 ```js
@@ -160,7 +163,8 @@ test({ name: 'apple', color: 'red' }); // apple
 
 Khi cần thuộc tính name trong object `fruit`, ta destruct sử dụng `{name}`, sau đó sử dụng biến `name` trong function thay vì `fruit.name`
 
-## 4. Sử dụng Map / Object Literal thay vì lệnh switch ##
+## 4. Sử dụng Map / Object Literal thay vì lệnh switch
+
 Xem ví dụ sau, chúng ta muốn in tên fruit thông qua màu sắc:
 
 ```js
@@ -229,7 +233,8 @@ function test(color) {
 }
 ```
 
-## 5. Sử dụng Array.every & Array.some ##
+## 5. Sử dụng Array.every & Array.some
+
 Một tip nữa là JS hỗ trợ nhiều thao tác trên array giúp giảm thiểu rất nhiều số dòng code. Ví dụ bên dưới kiểm tra có phải mọi `fruit` đều là màu đỏ hay không:
 
 ```js

@@ -18,7 +18,8 @@ Clipboard.js là một thư viện vô cùng gọn nhẹ (2kb) giúp bạn dễ 
 
 Ưu điểm của Clipboard.js là cực kì nhẹ (2kb) và không sử dụng flash.
 
-## Cài đặt ##
+## Cài đặt
+
 Sử dụng npm
 
 ```bash
@@ -33,7 +34,8 @@ bower install clipboard --save
 
 Hoặc bạn có thể download trực tiếp thư viện bằng [file ZIP tại đây](https://github.com/zenorocha/clipboard.js/archive/master.zip) và sử dụng.
 
-## Cách sử dụng ##
+## Cách sử dụng
+
 Thêm thư viện vào trang web bằng thẻ script
 
 ```html
@@ -50,7 +52,8 @@ Thêm thư viện vào trang web bằng thẻ script
 </script>
 ```
 
-### Copy nội dung trong trang từ một element khác ###
+### Copy nội dung trong trang từ một element khác
+
 
 ![](https://4.bp.blogspot.com/-FCE1AssAJA8/VjNuQuomESI/AAAAAAAAFfs/4kIq61sAw98/s1600/7df57b9c-6050-11e5-9cd1-fbc51d2fd0a7.png)
 
@@ -64,7 +67,8 @@ Thêm thư viện vào trang web bằng thẻ script
 </button>
 ```
 
-### Copy nội dung từ thuộc tính ###
+### Copy nội dung từ thuộc tính
+
 
 ![](https://4.bp.blogspot.com/-MLe6ox0NNlw/VjNuj-y-ovI/AAAAAAAAFf0/kw3VM0U1taY/s1600/6e16cf8c-6050-11e5-9883-1c5681f9ec45.png)
 

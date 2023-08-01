@@ -21,7 +21,8 @@ Trong bài này, mình sẽ hướng dẫn sử dụng OpenCV để nhận diệ
 
 Bài viết chỉ giúp hình dung code trên Opencv chứ không đi sâu vào thuật toán. Trong bài này mình sẽ hướng dẫn cách build/install opencv trên Ubuntu, một chương trình đơn giản detect 1 vùng ảnh, phân loại đó có phải xe hơi hay không và vẽ 1 hình chữ nhật đánh dấu.
 
-## Cài đặt OpenCV trên Ubuntu ##
+## Cài đặt OpenCV trên Ubuntu
+
 Sử dụng Windows hay Fedora bạn có thể cài đặt dễ dàng [theo hướng dẫn này](http://docs.opencv.org/3.0-beta/doc/py_tutorials/py_setup/py_table_of_contents_setup/py_table_of_contents_setup.html#py-table-of-content-setup), còn mình sử dụng Ubuntu nên phải build từ source.
 
 Cài đặt trước một số package/thư viện để build opencv:
@@ -51,7 +52,7 @@ pip install numpy
 
 Bắt đầu build source:
 
-```shell
+```bash
 cd opencv-3.1.0/
 mkdir build
 cd build
@@ -94,7 +95,8 @@ Sau khi cài thành công, có thể xóa source nếu không cần thiết nữ
 rm -rf opencv-3.1.0 opencv_contrib-3.1.0 opencv.zip opencv_contrib.zip
 ```
 
-## Nhận dạng xe ##
+## Nhận dạng xe
+
 Load thư viện opencv, nếu bạn sử dụng Jupyter notebook thì import cả matplotlib để hiển thị ảnh inline ngay trên cell output.
 
 ```python

@@ -22,6 +22,7 @@ Gio.js cực kỳ dễ sử dụng và dễ customize.
 
 ## Cài đặt
 
+
 Include Three.js dependency và Gio.js library:  
   
 ```html
@@ -79,6 +80,7 @@ Khởi tạo và render dữ liệu:
 Xem ví dụ tại [Codepen](https://codepen.io/syt123450/pen/VXNdgM).  
 
 ## References
+
 
 *   Gio.js API document: [http://giojs.org/html/docs/index.html](http://giojs.org/html/docs/index.html)
 *   [https://github.com/syt123450/giojs](https://github.com/syt123450/giojs)

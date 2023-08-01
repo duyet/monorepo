@@ -43,6 +43,7 @@ $ cargo install cargo-edit
 
 ## `cargo add`
 
+
 Thêm một dependencies mới vào `Cargo.toml`. Nếu không chỉ định version, `cargo add` sẽ tự lấy version mới nhất từ [crates.io](https://crates.io/).  
 
 ```bash
@@ -62,6 +63,7 @@ $ cargo add clap --features derive
 
 ## `cargo rm`
 
+
 Ngược lại với `add`
 
 ```bash
@@ -74,6 +76,7 @@ $ cargo rm regex --build
 ```
 
 ## `cargo set-version`
+
 
 ```bash
 # Set the version to the version 1.0.0

@@ -24,6 +24,7 @@ Sử dụng **word2vec** cho [Truyện Kiều](https://en.wikipedia.org/wiki/The
 
 ## Word vector là gì?
 
+
 Trước tiên giới thiệu 1 chút về Word vector. Về cơ bản, đây chỉ là một vector trọng số, biểu diễn cho 1 từ, với số chiều cụ thể.  
   
 Ví dụ, 1-of-N (one-hot vector) sẽ mã hoá (encoding) các từ trong từ điển thành một vector có chiều dài N (tổng số lượng các từ trong từ điển). Giả sử từ điển của chúng ta chỉ có 5 từ: **King, Queen, Man, Woman, và Child**. Ta có thể biểu diễn từ "Queen" như bên dưới:
@@ -39,6 +40,7 @@ Ví dụ, 1-of-N (one-hot vector) sẽ mã hoá (encoding) các từ trong từ 
 Nhược điểm của cách biểu diễn này là ta không thu được nhiều ý nghĩa trong việc so sánh các từ với nhau ngoại trừ so sánh bằng, các từ có ý nghĩa hơn không được nhấn mạnh.  
 
 ## Word2vec
+
 
 Ngược lại, word2vec biểu diễn các từ dưới dạng một phân bố quan hệ với các từ còn lại (distributed representation). Mỗi từ được biểu diễn bằng một vector có các phần tử mang giá trị là phân bố quan hệ của từ này đối với các từ khác trong từ điển.  
   
@@ -65,16 +67,20 @@ Bạn có thể tìm hiểu kỹ hơn về Word2vec **[ở bài viết này](htt
 
 ## Chuẩn bị dataset và tiền xử lý
 
+
 Mình tìm kiếm bộ full Truyện Kiều trên Google, lưu vào file **truyen\_kieu\_data.txt**. Bắt đầu tiền xử lý.
 
 ### 1. Load tất cả các dòng vào data frame Pandas
+
 <script src="https://gist.github.com/duyet/d7ef8efb03a7e79b61368da3f9a961e8.js"></script>
 
 
 ### 2. Xử lý từng dòng: Xóa số dòng, bỏ chấm chấm, phẩy, &nbsp;... các dấu dư thừa.
+
 <script src="https://gist.github.com/duyet/bb84042ca6da9b59a32bab7f19bbf8a9.js"></script>
 
 ## Tách từ sử dụng ngram
+
 
 Để cho nhanh thay về tokenize tiếng Việt, mình sẽ sử dụng unigram (1-gram) và bigram (2-gram) để tách từ ra. 
 
@@ -167,6 +173,7 @@ model.wv.similar_by_word("đời")
 
 ### 5\. PCA và visualization
 
+
 PCA giảm vector word từ 100 chiều về 2 chiều, để vẽ lên không gian 2 chiều.
 
 
@@ -174,6 +181,7 @@ PCA giảm vector word từ 100 chiều về 2 chiều, để vẽ lên không g
 
 
 ## Kết
+
 
 Word2vec chính xác khi với bộ copus thật lớn. Với ví dụ trên thực sự mục đính chỉ là vui là chính và để hiểu rõ hơn phần nào về NLP với Word2vec. Bạn nào có hứng thú có thể build các bộ Word2vec với dữ liệu cho tiếng Việt, với phần Tokenize và tiền xử lý chuẩn - word2vec sẽ hữu ích rất nhiều.  
   

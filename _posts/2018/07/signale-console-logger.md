@@ -19,7 +19,8 @@ description: Signale là một thư viện thay thế console logger trong Nodej
 
 [![](https://3.bp.blogspot.com/-Gj9IxBJacZ4/W1CjcADwEoI/AAAAAAAAxXg/92YNzTR5CXMv9bvrxMU1h-AkCOlPLPn8QCK4BGAYYCw/s640/68747470733a2f2f63646e2e7261776769742e636f6d2f6b6c617573636668712f7369676e616c652f32643862636666382f6d656469612f6865616465722e706e67.png)](https://3.bp.blogspot.com/-Gj9IxBJacZ4/W1CjcADwEoI/AAAAAAAAxXg/92YNzTR5CXMv9bvrxMU1h-AkCOlPLPn8QCK4BGAYYCw/s1600/68747470733a2f2f63646e2e7261776769742e636f6d2f6b6c617573636668712f7369676e616c652f32643862636666382f6d656469612f6865616465722e706e67.png) 
 
-## Cài đặt ##
+## Cài đặt
+
 
 ```
 npm install signale
@@ -40,7 +41,8 @@ signale.complete({prefix: '[task]', message: 'Fix issue #59', suffix: '(@klauscf
 
 [![](https://1.bp.blogspot.com/-3aKgu-UjJ10/W1Cj2iJMPVI/AAAAAAAAxXs/s4-59XuR5uUk6Os3qqy-R8JGOr-tFuumgCK4BGAYYCw/s640/default-loggers.png)](https://1.bp.blogspot.com/-3aKgu-UjJ10/W1Cj2iJMPVI/AAAAAAAAxXs/s4-59XuR5uUk6Os3qqy-R8JGOr-tFuumgCK4BGAYYCw/s1600/default-loggers.png)
 
-## Custom Loggers ##
+## Custom Loggers
+
 Bạn có thể custom rất nhiều cho logger, bao gồm định nghĩa thêm phương thức log mới:
 
 ```js

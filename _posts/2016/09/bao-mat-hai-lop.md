@@ -23,7 +23,8 @@ Mình khuyến khích mọi người nên bật chức năng này trên các tà
 
 [![](https://3.bp.blogspot.com/-U90ziEzboCk/V8e8QNYdT_I/AAAAAAAAcq4/2utzWI8wLTsV5OLn9I2Hwevtb0FdbvwFgCK4B/s1600/FIDO-Yubico-YubiKeys-GfW-blog-845x321.png)](https://blog.duyet.net/2016/09/bao-mat-hai-lop.html)
 
-## Google ##
+## Google
+
 
 1. Truy cập trang [Xác minh 2 bước](http://accounts.google.com/SmsAuthConfig). Bạn có thể phải đăng nhập vào Tài khoản Google của mình.
 2. Trong hộp "Xác minh 2 bước" ở bên phải, chọn Bắt đầu thiết lập.
@@ -44,7 +45,8 @@ Bạn còn có thể sử dụng 1 thiết bị Security Key, sử dụng như 1
 [
 ](https://3.bp.blogspot.com/-U90ziEzboCk/V8e8QNYdT_I/AAAAAAAAcq4/2utzWI8wLTsV5OLn9I2Hwevtb0FdbvwFgCK4B/s1600/FIDO-Yubico-YubiKeys-GfW-blog-845x321.png)![](https://2.bp.blogspot.com/-2cvBm1URfuI/V8e4JUrL1zI/AAAAAAAAcp4/XRREvMQyFiMVnkQjP7BvceESkb8MIib_wCK4B/s1600/Screen%2BShot%2B2016-09-01%2Bat%2B12.09.44%2BPM.png)
 
-## Facebook ##
+## Facebook
+
 Truy cập vào Cài đặt và cài đặt bảo mật 2 lớp bằng cách sử dụng App của Google Authenticator
 
 [![](https://2.bp.blogspot.com/-OJiN9gcTDUw/V8e5b8j9CAI/AAAAAAAAcqA/QiWGdyJePnUZPS93Yl1tQlfLLfxdxtA7wCK4B/s1600/Screen%2BShot%2B2016-09-01%2Bat%2B12.13.00%2BPM.png)](https://2.bp.blogspot.com/-OJiN9gcTDUw/V8e5b8j9CAI/AAAAAAAAcqA/QiWGdyJePnUZPS93Yl1tQlfLLfxdxtA7wCK4B/s1600/Screen%2BShot%2B2016-09-01%2Bat%2B12.13.00%2BPM.png)
@@ -57,7 +59,8 @@ Chỉ cần nhập mã từ ứng dụng:
 
 ![](https://1.bp.blogspot.com/-5ubl9jHz5kM/V8e76c7Kp7I/AAAAAAAAcqs/Gn-QVu6fXoMhHfx8z3QseIx9AglO7T5TwCK4B/s640/Screenshot_2016-09-01-12-11-03-366_com.google.android.apps.authenticator2.png)
 
-## Khác ##
+## Khác
+
 
 - Ngoài ra bạn có thể bật thêm chức năng thông báo mỗi khi đăng nhập về Email hoặc Số điện thoại.
 - Mình khuyến khích sử dụng các thiết bị như FIDO U2F. [Xem thêm demo đăng nhập vào Google sử dụng thiết bị U2F của hãng Yubico](https://www.youtube.com/watch?annotation_id=annotation_1845157061&amp;feature=iv&amp;src_vid=BXN7-Wn1Hy4&amp;v=LeTkw6kmlzg)

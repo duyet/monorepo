@@ -20,7 +20,8 @@ Cách cài đặt và triển khai production Node.js project với Nginx và PM
 
 ![](https://3.bp.blogspot.com/-hgi6cDJuaP0/VxTAu2i1SII/AAAAAAAATkU/k_reis6UEhAElFCqjjolcrW6_j-bjZUfACK4B/s1600/logo_pm2.png)
 
-## Chuẩn bị ##
+## Chuẩn bị
+
 
 Đưa code lên server, nên sử dụng Git
 
@@ -40,14 +41,16 @@ sudo apt-get install mongodb # mongodb
 sudo apt-get install redis-server # redis 
 ```
 
-## Cài đặt Nginx và PM2 ##
+## Cài đặt Nginx và PM2
+
 
 ```
 sudo apt-get install nginx
 sudo npm install -g pm2
 ```
 
-## Khởi động PM2 ##
+## Khởi động PM2
+
 Khởi động Webserver sử dụng PM2
 
 ```
@@ -74,7 +77,8 @@ PM2 sẽ tự động chạy ứng dụng Nodejs, tự động restart khi lỗi
 
 Ví dụ với ứng dụng trên, PM2 chạy ứng dụng ở port 9000, truy cập http://<ip>:9000 để kiểm tra.
 
-## Cấu hình Nginx Reverse Proxy Server ##
+## Cấu hình Nginx Reverse Proxy Server
+
 
 Nginx có vai trò như một Reverse Proxy.
 
@@ -111,9 +115,11 @@ Với example.com là domain, thay localhost và port 9000 trùng với thông t
 sudo service nginx restart
 ```
 
-## Bonus ##
+## Bonus
 
-### Khởi động lại Application ###
+
+### Khởi động lại Application
+
 
 ```
 pm2 restart <appname hoặc appid>
@@ -132,7 +138,8 @@ $ pm2 status
 
 ```
 
-### PM2 tự động cập nhật mã nguồn khi push lên Git ([link](https://github.com/saveto-co/wiki/wiki/Production)) ###
+### PM2 tự động cập nhật mã nguồn khi push lên Git ([link](https://github.com/saveto-co/wiki/wiki/Production))
+
 
 ```
 pm2 install pm2-auto-pull

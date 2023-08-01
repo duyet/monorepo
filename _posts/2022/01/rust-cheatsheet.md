@@ -13,13 +13,12 @@ description: This is the best cheat sheet that I have ever seen. It breaks down 
 
 ---
 
-This is the best cheat sheet that I have ever seen. 
-It breaks down the different categories, from 
+This is the best cheat sheet that I have ever seen.
+It breaks down the different categories, from
 language constructs, data layouts, types, tooling, etc.
 
-If you're already or going to learn Rust, 
+If you're already or going to learn Rust,
 make sure to give it a try: https://cheats.rs
-
 
 ![Rust Cheatsheet](/media/2022/01/duyet-rust-cheatsheet-1.png)
 

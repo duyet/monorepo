@@ -25,7 +25,8 @@ Nếu bạn là người yêu thích cả NLP và Javascript/Node, thì đây l�
 
 Github: [https://github.com/NaturalNode/natural](https://github.com/NaturalNode/natural)
 
-## Cài đặt ##
+## Cài đặt
+
 Sử dụng npm để cài package
 
 ```
@@ -34,7 +35,8 @@ npm install natural
 
 Mình sẽ ví dụ một số tác vụ xử lý ngôn ngữ tự nhiên mà natural có thể làm được.
 
-## Tokenizers ##
+## Tokenizers
+
 Word, Regexp, and [Treebank tokenizers](http://www.cis.upenn.edu/~treebank/tokenization.html)
 
 ```
@@ -56,7 +58,8 @@ console.log(tokenizer.tokenize("my dog hasn't any fleas."));
 // [ 'my',  'dog',  'hasn',  '\'',  't',  'any',  'fleas',  '.' ]
 ```
 
-## String Distance ##
+## String Distance
+
 Natural sử dụng thuật toán [Jaro–Winkler](http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance), Levenshtein và Dice's co-efficient để tính khoảng cách giữa 2 string.
 
 ```
@@ -70,7 +73,8 @@ console.log(natural.LevenshteinDistance("ones","onez")); // -> 1
 console.log(natural.LevenshteinDistance('one', 'one')); // -> 0
 ```
 
-## Classifiers ##
+## Classifiers
+
 Để phân lớp văn bản, natural hỗ trợ 2 thuật toán là [Naive Bayes](http://en.wikipedia.org/wiki/Naive_Bayes_classifier) và [logistic regression](http://en.wikipedia.org/wiki/Logistic_regression). Ví dụ sau sử dụng BayesClassifier.
 
 ```
@@ -96,13 +100,15 @@ console.log(classifier.classify('i am short silver')); // sell
 console.log(classifier.classify('i am long copper')); // buy 
 ```
 
-## N-Grams ##
+## N-Grams
+
 
 ```
 var NGrams = natural.NGrams;
 ```
 
-### bigrams ###
+### bigrams
+
 
 ```
 console.log(NGrams.bigrams('some words here'));
@@ -111,7 +117,8 @@ console.log(NGrams.bigrams(['some',  'words',  'here']));
 
 Cả 2 đoạn trên đều cho kết quả `[ [ 'some', 'words' ], [ 'words', 'here' ] ]`
 
-### trigrams ###
+### trigrams
+
 
 ```
 console.log(NGrams.trigrams('some other words here'));
@@ -120,5 +127,6 @@ console.log(NGrams.trigrams(['some',  'other', 'words',  'here']));
 
 Cả 2 đoạn trên đều cho kết quả `[ [ 'some', 'other', 'words' ], [ 'other', 'words', 'here' ] ]`
 
-## Kết ##
+## Kết
+
 [natural](https://github.com/NaturalNode/natural) còn khá nhiều chức năng và thuật toán khác hay cho xử lý ngôn ngữ tự nhiên. Nếu bạn là người yêu thích Javascript và NLP như mình, thay vì Python có NLTK, thì Natural là một sự lựa chọn khá hay và thú vị.

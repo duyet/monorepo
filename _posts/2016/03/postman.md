@@ -20,10 +20,12 @@ Postman cho phép lưu lại các lần sử dụng. Sử dụng cho cá nhân h
 
 [![](https://2.bp.blogspot.com/-_IT8xVlbJVQ/VvQgO2RgTmI/AAAAAAAASS4/xik1F1ISkUYBey672mAIh7uK0o4vvEJoA/s400/postman-logo%252Btext-320x132.png)](https://blog.duyet.net/2016/03/postman.html)
 
-## Cài đặt ##
+## Cài đặt
+
 Truy cập trang chủ [https://www.getpostman.com](https://www.getpostman.com/) hoặc từ Chrome Web Store.
 
-## Sử dụng ##
+## Sử dụng
+
 
 Cách sử dụng khá đơn giản, chỉ cần điền URL của API, chọn phương thức và nhấn Send
 
@@ -33,7 +35,8 @@ Ví dụ điền thử URL [https://duyet.net](https://duyet.net/) xem sao.
 
 Kết quả sẽ hiện bên dưới. Cột bên trái lưu lại History sử dụng.
 
-### Authorization và Header ###
+### Authorization và Header
+
 
 Postman hỗ trợ Authorization với các API bắt buộc xác thực để sử dụng, Postman hỗ trợ hầu hết loại phương thức Auth. 
 
@@ -41,7 +44,8 @@ Một số API bắt buộc phải kèm thông tin về Request Header, ta cũng
 
 ![](https://1.bp.blogspot.com/-GVWBo-_Za48/VvQiSjTbBUI/AAAAAAAASTA/1fX2G9D-rvgg7ce9tOFyD_1_VeX2IWksg/s1600/Screenshot%2Bfrom%2B2016-03-25%2B00-21-10.png)
 
-### Cookie và các Header bị cấm ###
+### Cookie và các Header bị cấm
+
 
 Do một số chính sách, Chrome và XMLHttpRequest cấm gửi một số header sau:
 
@@ -71,7 +75,8 @@ Do một số chính sách, Chrome và XMLHttpRequest cấm gửi một số hea
 
 ![](https://4.bp.blogspot.com/-1JsE6oTzZok/VvQjaKPlp6I/AAAAAAAASTM/0BB75TR0P-g1urH5yadPy_Kg-3ri_vOLg/s1600/32.png)
 
-## Tham khảo ##
+## Tham khảo
+
 
 - [Sending Requests](https://www.getpostman.com/docs/requests) | Postman
 - [Using the Interceptor to read and write cookies](http://blog.getpostman.com/2014/11/28/using-the-interceptor-to-read-and-write-cookies/) | Postman Blog

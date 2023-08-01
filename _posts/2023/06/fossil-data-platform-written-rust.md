@@ -48,6 +48,7 @@ In the deliberation between Rust and Golang for our next Data Platform, we weigh
 
 ## The Drawbacks of Using Rust
 
+
 **Steep Learning Curve**
 
 Rust's advanced features and strict adherence to memory safety principles can result in a steep learning curve for developers.

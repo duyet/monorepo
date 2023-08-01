@@ -107,6 +107,7 @@ if let Some(fox) = index {
 
 ## **Cách sử dụng Option**
 
+
 Option là standard library, do đã được [preludes](https://learning-rust.github.io/docs/d7.std_primitives_and_preludes.html#Preludes) nên chúng ta không cần khai báo trước khi sử dụng. Ngoài enum [Option](https://doc.rust-lang.org/std/option/enum.Option.html) thì các variant của nó cũng đã được preludes sẵn như [Some](https://doc.rust-lang.org/std/option/enum.Option.html#variant.Some) và [None](https://doc.rust-lang.org/std/option/enum.Option.html#variant.None).
 
 Ví dụ, ta có một function tính giá trị chia hai số, đôi khi sẽ không tìm ra được kết quả, ta sử dụng Some nhu sau:
@@ -142,6 +143,7 @@ Option method overview: [https://doc.rust-lang.org/std/option/#method-overview](
 
 ### `.unwrap()`
 
+
 Trả về giá trị nằm trong `Some`. Nếu giá trị là None có thể dẫn đến panic chương trình. 
 
 ```rust
@@ -154,6 +156,7 @@ assert_eq!(x.unwrap(), "air"); // panic!
 
 ### `.expect()`
 
+
 Giống `.unwrap()`, nhưng nếu panic thì Rust sẽ kèm theo message
 
 ```rust
@@ -163,6 +166,7 @@ x.expect("fruits are healthy"); // panics: `fruits are healthy`
 
 ### `.unwrap_or()`
 
+
 Trả về giá trị nằm trong `Some`, nếu không trả về giá trị nằm trong `or`
 
 ```rust
@@ -170,6 +174,7 @@ assert_eq!(Some("car").unwrap_or("bike"), "car");
 ```
 
 ### `.unwrap_or_default()`
+
 
 Trả về giá trị nằm trong `Some`, nếu không trả về giá [default](https://doc.rust-lang.org/std/default/trait.Default.html#tymethod.default).
 
@@ -185,6 +190,7 @@ assert_eq!(0, bad_year);
 
 ### `.ok_or()`
 
+
 Convert `Option<T>` sang [`Result<T, E>`](https://doc.rust-lang.org/std/result/enum.Result.html), 
 mapping [`Some(v)`](https://doc.rust-lang.org/std/option/enum.Option.html#variant.Some) 
 thành [`Ok(v)`](https://doc.rust-lang.org/std/result/enum.Result.html#variant.Ok) 
@@ -197,6 +203,7 @@ assert_eq!(x.ok_or(0), Ok("foo"));
 ```
 
 ### `match`
+
 
 Chúng ta có thể sử dụng pattern matching để code dễ đọc hơn
 
@@ -254,6 +261,7 @@ Như bạn thấy thì `main()` cũng có thể return về `Result<(), &'static
 
 ### `.unwrap()`
 
+
 Ví dụ trên nhưng sử dụng `.unwrap()` , chủ động panic (crash) dừng chương trình nếu gặp lỗi.
 
 ```rust
@@ -269,6 +277,7 @@ fn main() -> Result<(), &'static str> {
 [(Rust Playground)](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=c93551e94e040369d5874672495e3fc9)
 
 ### `.expect()`
+
 
 Giống như `unwrap()`: chủ động panic (crash) dừng chương trình nếu gặp lỗi và kèm theo message. Sẽ rất có ích, nhất là khi có quá nhiều unwrap, bạn sẽ không biết nó panic ở đâu.
 

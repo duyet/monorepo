@@ -17,13 +17,15 @@ description: With this simple package, you can create your own static server sim
 With this simple package, you can create your own static server simply by Nodejs.
 Vietnamese version: [https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html](https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html)
 
-## Installation ##
+## Installation
+
 
 ```
 $ npm install static-html-server -g
 ```
 
-## Folder tree structure ##
+## Folder tree structure
+
 
 I created a project directory structure is as follows:
 
@@ -34,7 +36,8 @@ With path is: ~/project/test-static-server
 
 ![](https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png)
 
-## Start server ##
+## Start server
+
 
 I started server by using:
 
@@ -53,7 +56,8 @@ Result is:
 
 ![](https://2.bp.blogspot.com/-FiaZHjDZeWQ/VccLGm3k_BI/AAAAAAAACtc/0qxhWNca8Bw/s1600/test-simple-server-view.png)
 
-## Github Project ##
+## Github Project
+
 
 Github repo: [https://github.com/duyet/static-html-server](https://github.com/duyet/static-html-server)
 

@@ -53,6 +53,7 @@ ClickHouse is a column-store database, optimized for fast queries. It's fast bec
 
 ## 1. Fast and Scalability
 
+
 ClickHouse is blazing fast, linearly scalable, hardware efficient, highly reliable, and fun to operate in production.
 There were many performance benchmarks and real-life use cases.
 
@@ -66,6 +67,7 @@ Thanks to vectorized execution and parallel processing, it's also used for all C
 Able to scales horizontally and linearly scaling as well.
 
 ## 2. Integration
+
 
 Connect to any other JDBC database and uses their tables as ClickHouse table. 
 
@@ -88,6 +90,7 @@ Refer to the Table Engines for Integrations document here: https://clickhouse.te
 
 
 ## 3. Partitioning
+
 
 Each partition is stored separately in order to simplify manipulations of this data. 
 
@@ -115,6 +118,7 @@ ALTER TABLE logs DROP PARTITION 202101;
 ```
 
 ### 4. TTL
+
 
 This is my favouris feature of ClickHouse. You can use TTL to automatically delete rows based on a conditions.
 
@@ -155,11 +159,13 @@ Some cases that you can do with TTL:
 
 ### 4. Materialized Views
 
+
 [Materialized Views](https://clickhouse.tech/docs/en/sql-reference/statements/create/view/#materialized) can automatically aggregates data on inserts.
 A materialized view is implemented as follows: when inserting data to the table specified in `SELECT`, 
 part of the inserted data is converted by this `SELECT` query, and the result is inserted in the view.
 
 ### 5. REST Capabilities
+
 
 The HTTP interface on the port 8123 by default lets you use ClickHouse on any platform from any programming language.
 
@@ -182,6 +188,7 @@ The HTTP interface is more limited than the native interface, but it has better 
 You can quickly build an UI dashboard for data visualization or expose an API for other teams.
 
 ### 6. Better SQL
+
 
 - `FORMAT` Clauses: ClickHouse can accept and return data in various formats.
 

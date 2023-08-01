@@ -28,7 +28,8 @@ Notibar.js - Lightweight notification bar, no dependency.
 ```
 See example: https://duyetdev.github.io/notibar.js/example.html
 
-## More custom ##
+## More custom
+
 
 ```js
 notiBar({
