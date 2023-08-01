@@ -27,14 +27,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' className={inter.className}>
+    <html lang="en" className={inter.className}>
       <head>
-        <meta charSet='utf-8' />
-        <meta name='robots' content='follow, index' />
-        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-        <link rel='icon' href='/icon.svg' sizes='any' />
+        <meta charSet="utf-8" />
+        <meta name="robots" content="follow, index" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <link rel="icon" href="/icon.svg" sizes="any" />
       </head>
-      <body className='bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50'>
+      <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
         <Auth0Provider>
           <ThemeProvider>
             <Header />

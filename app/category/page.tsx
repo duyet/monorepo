@@ -8,14 +8,14 @@ export default function Categories() {
 
   return (
     <div>
-      <h1 className='text-3xl font-bold mb-5'>Categories</h1>
+      <h1 className="text-3xl font-bold mb-5">Categories</h1>
 
       {Object.entries(categories).map(([cat, count]) => (
-        <article key={cat} className='mb-5'>
+        <article key={cat} className="mb-5">
           <Link
             as={`/category/${getSlug(cat)}`}
-            href='/category/[category]'
-            className='text-blue-600'
+            href="/category/[category]"
+            className="text-blue-600"
           >
             {cat} ({count})
           </Link>

@@ -16,26 +16,26 @@ export default async function Comments() {
     urls.flatMap(async (url: string) => {
       const comments = await kv.lrange<Comment>(url, 0, -1)
       return comments
-    })
+    }),
   )
   const comments = commentArray.flat()
 
   return (
-    <Container className=''>
-      <h1 className='text-3xl font-bold'>Comments</h1>
-      <div className='space-y-6 mt-10'>
+    <Container className="">
+      <h1 className="text-3xl font-bold">Comments</h1>
+      <div className="space-y-6 mt-10">
         {comments.map((comment) => {
           return (
             <div
               key={comment.created_at}
-              className='flex flex-col prose dark:prose-invert'
+              className="flex flex-col prose dark:prose-invert"
             >
-              <Link href={comment.url} className='text-primary mb-2 '>
+              <Link href={comment.url} className="text-primary mb-2 ">
                 {comment.url.replace(URL_PREFIX, '')}
               </Link>
               <CommentContent
                 key={comment.created_at}
-                className='not-prose'
+                className="not-prose"
                 comment={comment}
               />
             </div>

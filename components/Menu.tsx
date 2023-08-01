@@ -16,7 +16,11 @@ export default function Menu({ className }: Props) {
   return (
     <div className={cn('flex flex-row gap-5 flex-wrap', className)}>
       {navigation.map(({ name, href }) => (
-        <Link key={name} href={href} className='hover:underline underline-offset-8'>
+        <Link
+          key={name}
+          href={href}
+          className="hover:underline underline-offset-8"
+        >
           {name}
         </Link>
       ))}

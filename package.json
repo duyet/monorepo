@@ -1,10 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "fix": "prettier --write .",
+    "lint": "next lint",
+    "prettier-check": "prettier --check .",
+    "start": "next start"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",

@@ -15,7 +15,7 @@ async function getPosts(params) {
       'category',
       'category_slug',
     ],
-    page * 10 + 10
+    page * 10 + 10,
   )
 }
 

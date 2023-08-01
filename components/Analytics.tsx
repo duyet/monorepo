@@ -10,10 +10,10 @@ export default function AnalyticWrapper() {
 
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy='afterInteractive'
+        strategy="afterInteractive"
       />
 
-      <Script id='google-analytics' strategy='afterInteractive'>
+      <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
@@ -22,7 +22,7 @@ export default function AnalyticWrapper() {
         `}
       </Script>
 
-      <Script id='pageview' strategy='beforeInteractive'>
+      <Script id="pageview" strategy="beforeInteractive">
         {`
           !function(e,n,t){e.onload=function(){
           let e=n.createElement("script");
@@ -31,7 +31,7 @@ export default function AnalyticWrapper() {
         `}
       </Script>
 
-      <Script id='clarity' strategy='afterInteractive'>
+      <Script id="clarity" strategy="afterInteractive">
         {`
           (function(c,l,a,r,i,t,y){
             c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };

@@ -27,8 +27,8 @@ export default async function Post({
     <Container>
       <article>
         <Content post={post} />
-        <Meta post={post} className='mt-10' />
-        <Comment className='mt-0' />
+        <Meta post={post} className="mt-10" />
+        <Comment className="mt-0" />
       </article>
     </Container>
   )
@@ -50,7 +50,7 @@ export async function generateStaticParams() {
         month: slugArray[1],
         slug: slugArray[2],
       }
-    })
+    }),
   )
 }
 

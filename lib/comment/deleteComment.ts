@@ -6,7 +6,7 @@ import clearUrl from '../clearUrl'
 
 export default async function deleteComments(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const url = clearUrl(req.headers.referer || '')
   const { comment }: { url: string; comment: Comment } = req.body

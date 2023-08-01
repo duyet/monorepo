@@ -5,12 +5,12 @@ import markdownToHtml from '../../../../../lib/markdownToHtml'
 export default function Content({ post }: { post: Post }) {
   return (
     <>
-      <header className='prose dark:prose-invert'>
+      <header className="prose dark:prose-invert">
         <h1>{post.title}</h1>
       </header>
 
       <div
-        className='prose dark:prose-invert mt-10 mb-10 max-w-none'
+        className="prose dark:prose-invert mt-10 mb-10 max-w-none"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </>

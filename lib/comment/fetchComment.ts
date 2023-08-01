@@ -6,7 +6,7 @@ import clearUrl from '../clearUrl'
 
 export default async function fetchComment(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const url = clearUrl(req.headers.referer || '')
 

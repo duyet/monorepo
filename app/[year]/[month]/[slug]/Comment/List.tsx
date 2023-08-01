@@ -12,7 +12,7 @@ export default function CommentList({ comments, onDelete }: CommentListProps) {
   const { user } = useAuth0()
 
   return (
-    <div className='space-y-6 mt-10'>
+    <div className="space-y-6 mt-10">
       {comments?.map((comment) => {
         const isAuthor = user && user.sub === comment.user.sub
         const isAdmin =

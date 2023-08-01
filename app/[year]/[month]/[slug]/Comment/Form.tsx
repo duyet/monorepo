@@ -11,12 +11,12 @@ type CommentFormProps = {
 const btnClasses = cn(
   'py-2 px-4 rounded disabled:opacity-40 hover:bg-gray-200',
   'bg-gray-100 dark:bg-slate-800 dark:text-slate-50',
-  'text-gray text-sm'
+  'text-gray text-sm',
 )
 
 const textareaClasses = cn(
   'flex w-full max-h-40 p-3 rounded resize-y text-gray-900',
-  'border-t border-gray-200 dark:border-gray-700 dark:bg-transparent'
+  'border-t border-gray-200 dark:border-gray-700 dark:bg-transparent',
 )
 
 export default function CommentForm({
@@ -41,15 +41,18 @@ export default function CommentForm({
         value={text}
       />
 
-      <div className='flex items-center mt-2'>
+      <div className="flex items-center mt-2">
         {isAuthenticated ? (
-          <div className='flex items-center space-x-6 justify-between w-full'>
+          <div className="flex items-center space-x-6 justify-between w-full">
             <button className={btnClasses}>Send</button>
 
             <div>
-              <span className='text-sm'>{user?.name}</span>
+              <span className="text-sm">{user?.name}</span>
               <button
-                className={cn(btnClasses, 'bg-transparent dark:bg-transparent dark:text-slate-50')}
+                className={cn(
+                  btnClasses,
+                  'bg-transparent dark:bg-transparent dark:text-slate-50',
+                )}
                 onClick={() =>
                   logout({ logoutParams: { returnTo: window.location.origin } })
                 }
@@ -60,7 +63,7 @@ export default function CommentForm({
           </div>
         ) : (
           <button
-            type='button'
+            type="button"
             className={btnClasses}
             onClick={() => loginWithPopup()}
           >

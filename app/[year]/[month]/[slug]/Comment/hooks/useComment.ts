@@ -14,7 +14,7 @@ export default function useComments() {
   const { data: comments, mutate } = useSWR<Comment[]>(
     '/api/comment',
     fetcher,
-    { fallbackData: [] }
+    { fallbackData: [] },
   )
 
   const onSubmit = async (e: React.FormEvent) => {

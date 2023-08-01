@@ -21,47 +21,48 @@ async function dataFormatter(number: number) {
 export default async function Cloudflare() {
   const { data, generatedAt, totalRequests, totalPageviews } = await getData()
 
-  const chartData = data.viewer.zones[0].httpRequests1dGroups.map((item) => {
-    return {
-      date: item.date.date,
-      'Page Views': item.sum.pageViews,
-      Requests: item.sum.requests,
-      'Unique Visitors': item.uniq.uniques,
-    }
-  })
+  const chartData =
+    data?.viewer?.zones[0]?.httpRequests1dGroups?.map((item) => {
+      return {
+        date: item.date.date,
+        'Page Views': item.sum.pageViews,
+        Requests: item.sum.requests,
+        'Unique Visitors': item.uniq.uniques,
+      }
+    }) || []
 
   const cards = [
     {
       title: 'Total Requests',
-      value: await dataFormatter(totalRequests),
+      value: await dataFormatter(totalRequests || 0),
       valueDesc: 'in 30 days',
     },
     {
       title: 'Total Pageviews',
-      value: await dataFormatter(totalPageviews),
+      value: await dataFormatter(totalPageviews || 0),
       valueDesc: 'in 30 days',
     },
   ]
 
   return (
-    <div className='mx-auto'>
-      <Flex className='mb-5'>
+    <div className="mx-auto">
+      <Flex className="mb-5">
         {cards.map((card) => (
           <div key={card.title}>
-            <Text className='dark:text-white'>{card.title}</Text>
+            <Text className="dark:text-white">{card.title}</Text>
             <Flex
-              className='space-x-3'
-              justifyContent='start'
-              alignItems='baseline'
+              className="space-x-3"
+              justifyContent="start"
+              alignItems="baseline"
             >
-              <Metric className='dark:text-white'>{card.value}</Metric>
-              <Text className='truncate dark:text-white'>{card.valueDesc}</Text>
+              <Metric className="dark:text-white">{card.value}</Metric>
+              <Text className="truncate dark:text-white">{card.valueDesc}</Text>
             </Flex>
           </div>
         ))}
       </Flex>
       <AreaChart
-        index='date'
+        index="date"
         data={chartData}
         showYAxis={false}
         showGridLines={false}
@@ -116,19 +117,19 @@ const getData = async () => {
     'https://api.cloudflare.com/client/v4/graphql',
     query,
     variables,
-    headers
+    headers,
   )
 
   const zone = data.viewer.zones[0]
 
-  const totalRequests = zone.httpRequests1dGroups.reduce(
+  const totalRequests = zone?.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.requests,
-    0
+    0,
   )
 
-  const totalPageviews = zone.httpRequests1dGroups.reduce(
+  const totalPageviews = zone?.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.pageViews,
-    0
+    0,
   )
 
   const generatedAt = new Date().toISOString()

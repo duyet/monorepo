@@ -42,12 +42,12 @@ const static_charts: {
     },
     extra: (
       <Image
-        src='https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg'
-        alt='Wakatime'
+        src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
+        alt="Wakatime"
         width={200}
         height={30}
         unoptimized
-        className='mt-3'
+        className="mt-3"
       />
     ),
   },
@@ -75,8 +75,8 @@ export default async function Wakatime() {
   const top10Languages = languages.slice(0, 10)
 
   return (
-    <div className='space-y-6 mt-10'>
-      <div className='mb-10'>
+    <div className="space-y-6 mt-10">
+      <div className="mb-10">
         <BarChart
           data={codingActivity}
           index={'range.date'}
@@ -86,11 +86,11 @@ export default async function Wakatime() {
       </div>
 
       <div className={cn('mb-10 p-5', borderClasse)}>
-        <div className='flex flex-row flex-wrap items-center gap-10'>
-          <div className='basis-full md:basis-1/2'>
-            <div className='flex flex-row justify-between text-bold mb-4'>
-              <span className='font-bold'>Top 10 tracked by Wakatime</span>
-              <span className='font-bold'>%</span>
+        <div className="flex flex-row flex-wrap items-center gap-10">
+          <div className="basis-full md:basis-1/2">
+            <div className="flex flex-row justify-between text-bold mb-4">
+              <span className="font-bold">Top 10 tracked by Wakatime</span>
+              <span className="font-bold">%</span>
             </div>
             <BarList
               data={top10Languages.map((language) => ({
@@ -100,18 +100,18 @@ export default async function Wakatime() {
             />
           </div>
 
-          <div className='flex flex-col items-center grow'>
+          <div className="flex flex-col items-center grow">
             <DonutChart
               data={languages}
-              category='percent'
-              index='name'
+              category="percent"
+              index="name"
               showLabel={true}
-              variant='pie'
-              className='w-44 mb-10'
+              variant="pie"
+              className="w-44 mb-10"
             />
             <Legend
               categories={top10Languages.map((language) => language.name)}
-              className='w-full md:w-min'
+              className="w-full md:w-min"
             />
           </div>
         </div>
@@ -121,13 +121,13 @@ export default async function Wakatime() {
 
       {static_charts.map(({ title, source, url, className, extra }) => (
         <div key={title} className={cn('p-3', borderClasse, className)}>
-          {title && <div className='font-bold mb-5'>{title}</div>}
+          {title && <div className="font-bold mb-5">{title}</div>}
 
-          <div className='flex flex-col items-stretch block dark:hidden'>
+          <div className="flex flex-col items-stretch block dark:hidden">
             <Image src={url.light} width={800} height={500} alt={title || ''} />
           </div>
 
-          <div className='flex flex-col gap-5 hidden dark:block'>
+          <div className="flex flex-col gap-5 hidden dark:block">
             <Image src={url.dark} width={800} height={500} alt={title || ''} />
           </div>
 
