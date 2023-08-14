@@ -92,7 +92,7 @@ with DAG(dag_id='dag_3', schedule=[dataset_2], ...):
 	BashOperator(task_id='task_3', bash_command="sleep 5")
 ```
 
-# ****Multiple Datasets****
+# Multiple Datasets
 
 As the `schedule` parameter is a list, DAGs can require multiple datasets, and the DAG will be scheduled once **all** datasets it consumes have been updated at least once since the last time it was run:
 
@@ -112,4 +112,4 @@ with DAG(
 # References
 
 - [Data-aware scheduling](https://airflow.apache.org/docs/apache-airflow/stable/concepts/datasets.html)
-- [https://airflow.apache.org/docs/apache-airflow/stable/_modules/airflow/example_dags/example_datasets.html](https://airflow.apache.org/docs/apache-airflow/stable/_modules/airflow/example_dags/example_datasets.html)
+- [example_dags/example_datasets.py](https://airflow.apache.org/docs/apache-airflow/stable/_modules/airflow/example_dags/example_datasets.html)
