@@ -1,0 +1,22 @@
+{
+  "name": "@duyet/interfaces",
+  "version": "0.1.0",
+  "license": "MIT",
+  "types": "src/index.ts",
+  "files": [
+    "src/**"
+  ],
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "@duyet/eslint-config-custom": "*",
+    "@duyet/tsconfig": "*",
+    "eslint": "8.47.0",
+    "prettier": "^3.0.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.0.0"
+  }
+}
