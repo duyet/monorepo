@@ -38,7 +38,7 @@ export async function generateStaticParams() {
   return posts.flatMap(({ slug }) =>
     posibleExtensions.map((ext: string) => {
       const slugArray = slug
-        .replace(/\.md|\.html$/, ext)
+        .replace(/\.md|html$/, ext)
         .replace(/^\//, '')
         .split('/')
 
