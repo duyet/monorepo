@@ -1,26 +1,23 @@
 import Link from 'next/link'
-
 import { YearList } from '@duyet/components'
 import type { Post } from '@duyet/interfaces'
 import { getPostsByAllYear, getPostsByYear } from '@duyet/libs/getPost'
 
-type Props = {
+interface YearProps {
   params: {
     year: number
   }
 }
 
-export default function Year({ params: { year } }: Props) {
+export default function Year({ params: { year } }: YearProps) {
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
-
-  if (!posts) return null
 
   return (
     <>
       <h1 className="text-3xl font-bold mb-5 mt-10">{year}</h1>
 
       {posts.map((post: Post) => (
-        <article key={post.slug} className="mb-5">
+        <article className="mb-5" key={post.slug}>
           <div className="flex flex-row gap-2 mb-2">
             <time className="text-gray-400">{post.date.toString()}</time>
             <span className="text-gray-500">{post.category}</span>
@@ -28,8 +25,8 @@ export default function Year({ params: { year } }: Props) {
 
           <Link
             as={`${post.slug}`}
-            href="/[...slug]"
             className="text-xl font-bold"
+            href="/[...slug]"
           >
             {post.title}
           </Link>

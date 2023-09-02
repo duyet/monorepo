@@ -1,13 +1,13 @@
 ---
 title: Docker - cài đặt Odoo 8/9 trên Docker
-date: "2016-02-03"
+date: '2016-02-03'
 author: Van-Duyet Le
 tags:
-- Tutorial
-- Docker
-- Dockerfile
-- Odoo
-- DevOps
+  - Tutorial
+  - Docker
+  - Dockerfile
+  - Odoo
+  - DevOps
 modified_time: '2016-02-10T12:46:43.686+07:00'
 thumbnail: https://3.bp.blogspot.com/-wtT1nv3Ugjw/VrGtMM6_XVI/AAAAAAAAPC8/l7qi3IkqGCg/s1600/odoo-docker-big-_495x160.jpg
 slug: /2016/02/docker-cai-at-odoo-89-tren-docker.html
@@ -25,13 +25,11 @@ Sau tôi sẽ hướng dẫn cài đặt Odoo 8/9 trên Server Ubuntu chỉ bằ
 
 ![](https://3.bp.blogspot.com/-wtT1nv3Ugjw/VrGtMM6_XVI/AAAAAAAAPC8/l7qi3IkqGCg/s1600/odoo-docker-big-_495x160.jpg)
 
-## Cài đặt Docker  
-
+## Cài đặt Docker
 
 Tôi sử dụng Ubuntu 15.10, bạn có thể xem cách cài đặt Docker cho từng loại hệ điều hành treentrang của Docker: [https://docs.docker.com/engine/installation/ubuntulinux/](https://docs.docker.com/engine/installation/ubuntulinux/)
 
 ## Cài đặt PostgreSQL
-
 
 PostgreSQL được cài đặt qua Docker:
 
@@ -42,7 +40,6 @@ docker run -d -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo --name db postgres
 PostgreSQL sẽ được tự động tải về và cài đặt với User và password là odoo.
 
 ## Cài đặt Odoo 8/9
-
 
 Bản odoo mới nhất hiện tại là Odoo 9, ảnh Docker chính thức của Odoo tại Docker Hub. Pull và chạy Odoo Image.
 

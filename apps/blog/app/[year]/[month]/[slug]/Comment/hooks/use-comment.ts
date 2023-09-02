@@ -1,9 +1,9 @@
 'use client'
 
 import useSWR from 'swr'
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-
 import { fetcher } from '@duyet/libs'
 import type { Comment } from '@duyet/interfaces'
 
@@ -33,7 +33,7 @@ export default function useComments() {
       setText('')
       await mutate()
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -51,7 +51,7 @@ export default function useComments() {
       })
       await mutate()
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 

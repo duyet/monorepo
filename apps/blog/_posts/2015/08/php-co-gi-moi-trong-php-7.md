@@ -1,17 +1,16 @@
 ---
 title: PHP - Có gì mới trong PHP 7
-date: "2015-08-22"
+date: '2015-08-22'
 author: Van-Duyet Le
 tags:
-- PHP7
-- PHP
+  - PHP7
+  - PHP
 modified_time: '2015-08-22T03:14:44.335+07:00'
 thumbnail: https://4.bp.blogspot.com/-qvsCP3kPz40/VdeEECDHEqI/AAAAAAAACwQ/JD4OFlHjdbo/s1600/php7.jpeg
 slug: /2015/08/php-co-gi-moi-trong-php-7.html
 category: PHP
 description: Phiên bản stable PHP hiện nay đang được sử dụng là phiên bản PHP 5.6. Sau một số tranh luận thì nhóm phát triển đã quyết định họ sẽ bỏ qua tên phiên bản PHP 6. PHP 6 đã tồn tại trong quá khứ như một dự án thử nghiệm, nhưng vì lý do nào đó chưa hoàn chỉnh.
 fbCommentUrl: https://blog.duyet.net/2015/08/php-co-gi-moi-trong-php-7.html
-
 ---
 
 Phiên bản stable PHP hiện nay đang được sử dụng là phiên bản PHP 5.6. Sau một số tranh luận thì nhóm phát triển đã quyết định họ sẽ bỏ qua tên phiên bản PHP 6. PHP 6 đã tồn tại trong quá khứ như một dự án thử nghiệm, nhưng vì lý do nào đó chưa hoàn chỉnh.
@@ -34,8 +33,7 @@ Kết quả thu được ra sao? Bạn có thể thấy bảng so sánh tốc đ
 
 [![](https://1.bp.blogspot.com/-bvsVfhq0zCY/VdeEobNR46I/AAAAAAAACwY/8WKnpvl5kbg/s400/frameworks-php7-performance.jpg)](https://1.bp.blogspot.com/-bvsVfhq0zCY/VdeEobNR46I/AAAAAAAACwY/8WKnpvl5kbg/s1600/frameworks-php7-performance.jpg)
 
-## 3. Quản lý lỗi dễ dàng hơn 
-
+## 3. Quản lý lỗi dễ dàng hơn
 
 Ít nhất cũng phải nói rằng, việc kiểm soát và có khả năng bắt các fatal error chưa bao giờ là công việc dễ dàng đối với các lập trình viên PHP. Engine Exceptions mới sẽ cho phép bạn thay thế những loại lỗi này với các ngoại lệ (exception). Nếu ngoại lệ không bắt được thì PHP sẽ tiếp tục trả về các fatal error giống như các phiên bản PHP 5.X hiện hành.
 
@@ -73,10 +71,9 @@ Hình dưới đây mô tả một trường hợp rất đơn giản mà functi
 
 [![](https://1.bp.blogspot.com/-2zHjiawNYrA/VdeFywqBqEI/AAAAAAAACw4/ttrGtND4lEo/s1600/return-type-declarations.jpg)](https://1.bp.blogspot.com/-2zHjiawNYrA/VdeFywqBqEI/AAAAAAAACw4/ttrGtND4lEo/s1600/return-type-declarations.jpg)
 
-Để mở rộng các tính năng này nhiều hơn, PHP 7 giới thiệu 4 kiểu khai báo mới cho các kiểu vô hướng: int, float, string và bool. [Những kiểu vô hướng](https://wiki.php.net/rfc/scalar_type_hints_v5) mới này cho phép các lập trình viên biểu thị rằng họ đang mong đợi các giá trị integer, float, string, hoặc boolean được trả về. Các kiểu vô hướng mới được giới thiệu bởi PHP 7 cũng sẽ được hỗ trợ bởi Type Hints cho phép các lập trình viên tập trung vào kiểu của các tham số kể từ các bản PHP 5.X. 
+Để mở rộng các tính năng này nhiều hơn, PHP 7 giới thiệu 4 kiểu khai báo mới cho các kiểu vô hướng: int, float, string và bool. [Những kiểu vô hướng](https://wiki.php.net/rfc/scalar_type_hints_v5) mới này cho phép các lập trình viên biểu thị rằng họ đang mong đợi các giá trị integer, float, string, hoặc boolean được trả về. Các kiểu vô hướng mới được giới thiệu bởi PHP 7 cũng sẽ được hỗ trợ bởi Type Hints cho phép các lập trình viên tập trung vào kiểu của các tham số kể từ các bản PHP 5.X.
 
 ## 7. Bổ sung thêm các class Anonymous
-
 
 PHP 7 cho phép bạn sử dụng các [class vô danh (anonymous)](https://wiki.php.net/rfc/anonymous_classes), đây là một đặc trưng đã có trong những ngôn ngữ lập trình hướng đối tượng khác như C# và Java. Một class anonymous là một class không có tên. Đối tượng mà nó khởi tạo có cùng chức năng như một đối tượng của một lớp có tên.
 

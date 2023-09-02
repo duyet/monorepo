@@ -1,10 +1,10 @@
 ---
 title: Google has a new logo, seriously
-date: "2015-09-01"
+date: '2015-09-01'
 author: Van-Duyet Le
 tags:
-- Google
-- News
+  - Google
+  - News
 modified_time: '2015-09-01T23:11:35.725+07:00'
 thumbnail: https://i.ytimg.com/vi/olFEpeMwgHk/default.jpg
 slug: /2015/09/google-has-new-logo-seriously.html

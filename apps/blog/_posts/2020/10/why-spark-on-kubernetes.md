@@ -1,6 +1,6 @@
 ---
 title: 'Tại sao nên triển khai Apache Spark trên Kubernetes'
-date: "2020-10-24"
+date: '2020-10-24'
 author: Van-Duyet Le
 category: Data Engineer
 tags:
@@ -24,7 +24,6 @@ Có một số lý do bạn bạn nên triển khai Apache Spark trên Kubernete
 
 ## Native option
 
-
 Kubernetes đã trở thành native option cho Spark resource manager kể từ version 2.3 (thay vì Hadoop Yarn, Apache Mesos như trước). Trang tài liệu của Apache Spark có hướng dẫn rất đầy đủ các cài đặt để chạy Spark trên Kubernetes: https://spark.apache.org/docs/latest/running-on-kubernetes.html
 
 ![spark-submit can be directly used to submit a Spark application to a Kubernetes cluster](/media/2020/why-spark-k8s/k8s-cluster-mode.png)
@@ -36,7 +35,6 @@ Spark sẽ tạo một Spark driver bằng một [Kubernetes pod](https://kubern
 
 ## Tận dụng sức mạnh của công nghệ Container
 
-
 Chạy Spark trên Kubernetes dưới dạng các pod container, ta tận dụng được nhiều ưu điểm của công nghệ container:
 
 - Đóng gói Spark application, package và dependencies vào cùng một container duy nhất, tránh xung đột phiên bản thư viện với Hadoop hay ứng dụng khác
@@ -44,7 +42,6 @@ Chạy Spark trên Kubernetes dưới dạng các pod container, ta tận dụng
 - Với cách này, bạn thậm chí còn có thể sử dụng nhiều phiên bản Spark trên cùng một cluster một cách dễ dàng. Ví dụ bạn có thể chạy Spark 2.3 và Spark 3.0 mà không hề có sự xung đột nào.
 
 ## Monitoring và Logging
-
 
 Tận dụng monitoring và logging của Kubernetes: Kubernetes rất mạnh trong việc monitoring các pod, service, node. Bạn có thể dễ dàng xuất log hoặc metrics ra một hệ thống khác như Graylog, [Elasticsearch](https://kubernetes.io/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/), [Stackdriver](https://kubernetes.io/docs/tasks/debug-application-cluster/logging-stackdriver/), [Prometheus](https://prometheus.io/), Statd ... bằng cách cài thêm 1 pod logging agent hoặc thêm 1 sidecar container để export.
 
@@ -59,7 +56,6 @@ Tham khảo thêm:
 - [Setting up, Managing & Monitoring Spark on Kubernetes](https://www.datamechanics.co/blog-post/setting-up-managing-monitoring-spark-on-kubernetes)
 
 ## Namespace / Resource quotas
-
 
 Dễ dàng quản lý resources, phân chia giới hạn tài nguyên cho nhiều team bằng cách sử dụng Kubernetes [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) và [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/).
 
@@ -106,7 +102,6 @@ spec:
 
 ## Node selectors, Service Account
 
-
 Sử dụng Kubernetes [node selectors](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector) để kiểm soát việc chạy Spark trên các loại máy khác nhau tùy theo mục đích của Spark app.
 
 Ngoài ra Kubernetes [service account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/) dùng để quản lý permission sử dụng [Role và ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole), cho phép team nào có thể sử dụng cluster nào.
@@ -150,7 +145,6 @@ spec:
 ```
 
 ## Kết luận
-
 
 Mặc dù có nhiều điểm mạnh, Kubernetes scheduler support for Spark vẫn cần nhiều cải thiện do vẫn còn rất mới mẻ, so với thời gian phát triển nhiều năm của YARN hay Mesos.
 

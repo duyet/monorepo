@@ -1,11 +1,11 @@
 ---
 title: Cài đặt Apache Airflow với Docker Compose
-date: "2019-08-26"
+date: '2019-08-26'
 category: Data Engineer
 tags:
-- Airflow
-- Data
-- Data Engineer
+  - Airflow
+  - Data
+  - Data Engineer
 slug: /2019/08/airflow-docker-compose.html
 thumbnail: https://1.bp.blogspot.com/-vBHaHxwvMFw/XWQHodWBFeI/AAAAAAABGCg/Hdlx-I1PSx8_Gip6o7N_2mejUSsT2TCigCLcBGAs/s1600/Screen%2BShot%2B2019-08-26%2Bat%2B11.22.59%2BPM.png
 description: Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường develop Apache Airflow dưới local bằng Docker Compose.
@@ -15,9 +15,7 @@ Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường dev
 
 **TL;DR** Source ví dụ của bài viết này: https://github.com/duyet/airflow-docker-compose
 
-
 ![Airflow in Docker Compose](https://1.bp.blogspot.com/-vBHaHxwvMFw/XWQHodWBFeI/AAAAAAABGCg/Hdlx-I1PSx8_Gip6o7N_2mejUSsT2TCigCLcBGAs/s1600/Screen%2BShot%2B2019-08-26%2Bat%2B11.22.59%2BPM.png)
-
 
 # 1. Cấu trúc project
 
@@ -31,9 +29,7 @@ Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường dev
 └── docker-compose.yaml
 ```
 
-
 ## 1.1 `Dockerfile`
-
 
 Nội dung file `Dockerfile`:
 
@@ -45,9 +41,7 @@ COPY dags /usr/local/airflow/dags
 
 `Dockerfile` ở đây mình kế thừa của tác giả [Puckel](https://github.com/puckel/docker-airflow), `COPY` thư mục `dags` vào Docker image. Có thể cài thêm các thư viện khác bằng lệnh Docker `RUN <cmd>`.
 
-
 ## 1.2 `docker-compose.yaml`
-
 
 Nội dung file `docker-compose.yaml`:
 
@@ -55,52 +49,53 @@ Nội dung file `docker-compose.yaml`:
 version: '2.1'
 
 services:
-    postgres:
-        image: postgres:9.6
-        environment:
-            - POSTGRES_USER=airflow
-            - POSTGRES_PASSWORD=airflow
-            - POSTGRES_DB=airflow
-        volumes:
-            - /tmp/postgres-data:/var/lib/postgresql/data
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - /tmp/postgres-data:/var/lib/postgresql/data
 
-    webserver:
-        build: .
-        restart: always
-        depends_on:
-            - postgres
-        environment:
-            - LOAD_EX=n
-            - EXECUTOR=Local
-            - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-        volumes:
-            - ./dags:/usr/local/airflow/dags
-            - /tmp/airflow_logs:/root/airflow/logs
-        ports:
-            - "8080:8080"
-        command: webserver
-        healthcheck:
-            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
-            interval: 30s
-            timeout: 30s
-            retries: 3
+  webserver:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - /tmp/airflow_logs:/root/airflow/logs
+    ports:
+      - '8080:8080'
+    command: webserver
+    healthcheck:
+      test: ['CMD-SHELL', '[ -f /usr/local/airflow/airflow-webserver.pid ]']
+      interval: 30s
+      timeout: 30s
+      retries: 3
 
-    scheduler:
-        build: .
-        restart: always
-        depends_on:
-            - postgres
-        environment:
-            - LOAD_EX=n
-            - EXECUTOR=Local
-            - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-        volumes:
-            - ./dags:/usr/local/airflow/dags
-            - /tmp/airflow_logs:/root/airflow/logs
-        command: scheduler
+  scheduler:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - /tmp/airflow_logs:/root/airflow/logs
+    command: scheduler
 ```
 
 Docker compose mình thiết lập gồm các service:
+
 - Postgres
 - Airflow Webserver
 - Airflow Scheduler
@@ -127,8 +122,8 @@ Từ bây giờ mình có thể viết và test các DAG bằng cách viết tro
 
 Chúc các bạn thành công.
 
-
 # Tham khảo
- - https://github.com/duyet/airflow-docker-compose
- - [puckel/docker-airflow](https://github.com/puckel/docker-airflow)
- - https://towardsdatascience.com/getting-started-with-airflow-using-docker-cd8b44dbff98
+
+- https://github.com/duyet/airflow-docker-compose
+- [puckel/docker-airflow](https://github.com/puckel/docker-airflow)
+- https://towardsdatascience.com/getting-started-with-airflow-using-docker-cd8b44dbff98

@@ -1,25 +1,23 @@
 ---
 title: Sử dụng ExpressJS để hiển thị nội dung file HTML
-date: "2015-01-23"
+date: '2015-01-23'
 category: Javascript
 tags:
-- Nodejs
-- ExpressJs
-- readFile
+  - Nodejs
+  - ExpressJs
+  - readFile
 modified_time: '2015-01-29T11:48:14.276+07:00'
 slug: /2015/01/su-dung-expressjs-de-hien-thi-noi-dung.html
-description: "Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: res.sendfile(), tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó."
-
+description: 'Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: res.sendfile(), tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó.'
 ---
 
 Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: `res.sendfile()`, tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó.
 
 ## Cách sử dụng res.sendFile()
 
-
 Cách sử dụng phương thức `sendFile()` hết sức đơn giản, bạn chỉ cần truyền vào tham số duy nhất là đường dẫn đến file html cần hiển thị.
-## Ví dụ nha     
 
+## Ví dụ nha
 
 Tạo thư mục ứng
 
@@ -44,45 +42,48 @@ $ touch server.js index.html
 Rồi, trong thư mục của chúng ta sẽ có thêm 2 file là server.js, chúng ta mở bằng trình soạn thảo nào đó, với nội dung như sau:
 
 ```js
-var express = require('express');
-var app = express();
-var path = require('path');
+var express = require('express')
+var app = express()
+var path = require('path')
 
 // viewed at http://localhost:8080
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
-});
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'))
+})
 
-app.listen(8080);
+app.listen(8080)
 ```
 
 Sau đó là file `index.html`, đây là nội dung mà chúng ta cần hiển thị lên trình duyệt:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sample Site</title>
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+    />
     <style>
-        body { padding-top:50px; }
+      body {
+        padding-top: 50px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <div class="jumbotron">
-            <h1>res.sendFile() Works!</h1>
-        </div>
+      <div class="jumbotron">
+        <h1>res.sendFile() Works!</h1>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
 ```
 
-Ok, bây giờ chúng ta kiểm tra thế nào nhé, chạy lệnh:  
+Ok, bây giờ chúng ta kiểm tra thế nào nhé, chạy lệnh:
 
 ```bash
 $ node server.js
@@ -94,5 +95,4 @@ Chúng ta sẽ thấy được nội dung như sau:
 
 ## Kết luận
 
-
-`res.sendFile()` là 1 phương thức hết sức dễ sử dụng và hữu ích trong ExpressJs, bạn có thể làm các ứng dụng SinglePage, load nội dung bằng AngularJs, trang tĩnh, ... Ngoài ra ExpressJs còn cung cấp cho chúng ta nhiều công cụ nữa để đọc và download file trên server. 
+`res.sendFile()` là 1 phương thức hết sức dễ sử dụng và hữu ích trong ExpressJs, bạn có thể làm các ứng dụng SinglePage, load nội dung bằng AngularJs, trang tĩnh, ... Ngoài ra ExpressJs còn cung cấp cho chúng ta nhiều công cụ nữa để đọc và download file trên server.

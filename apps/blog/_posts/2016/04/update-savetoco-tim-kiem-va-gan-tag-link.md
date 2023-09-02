@@ -1,24 +1,24 @@
 ---
 title: 'Update saveto.co: tìm kiếm và gắn tag link'
-date: "2016-04-02"
+date: '2016-04-02'
 author: Van-Duyet Le
 tags:
-- ahihi.club
-- saveto.co
-- changelog
-- Update
-- Javascript
-- Project
+  - ahihi.club
+  - saveto.co
+  - changelog
+  - Update
+  - Javascript
+  - Project
 modified_time: '2016-05-02T19:39:04.343+07:00'
 thumbnail: https://2.bp.blogspot.com/-gqLXpDKNOnk/Vv_o6EAoH0I/AAAAAAAASxY/C2y8cCEixf4y9WGaXLo9SFubx4zTqezLQ/s1600/Screenshot%2Bfrom%2B2016-04-02%2B22-39-31.png
 slug: /2016/04/update-savetoco-tim-kiem-va-gan-tag-link.html
 category: Project
-description: Hiện saveto.co vừa được nâng cấp, các URL được bookmark trên hệ thống hiện có thể được tìm lại thông qua từ khóa, từ khóa được nhập trực tiếp vào thanh URL. 
+description: Hiện saveto.co vừa được nâng cấp, các URL được bookmark trên hệ thống hiện có thể được tìm lại thông qua từ khóa, từ khóa được nhập trực tiếp vào thanh URL.
 ---
 
 Hệ thống service [saveto.co](https://saveto.co/) dùng để share và shortener URL, home for the best link in the internet.
 
-Hiện saveto.co vừa được nâng cấp, các URL được bookmark trên hệ thống hiện có thể được tìm lại thông qua từ khóa, từ khóa được nhập trực tiếp vào thanh URL. 
+Hiện saveto.co vừa được nâng cấp, các URL được bookmark trên hệ thống hiện có thể được tìm lại thông qua từ khóa, từ khóa được nhập trực tiếp vào thanh URL.
 
 [![](https://2.bp.blogspot.com/-gqLXpDKNOnk/Vv_o6EAoH0I/AAAAAAAASxY/C2y8cCEixf4y9WGaXLo9SFubx4zTqezLQ/s1600/Screenshot%2Bfrom%2B2016-04-02%2B22-39-31.png)](https://blog.duyet.net/2016/04/update-savetoco-tim-kiem-va-gan-tag-link.html)
 

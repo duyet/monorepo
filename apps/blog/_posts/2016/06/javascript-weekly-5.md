@@ -1,13 +1,13 @@
 ---
 title: 'Javascript Weekly #5'
-date: "2016-06-18"
+date: '2016-06-18'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Javascript
-- Javascript-Weekly
-- Node.js
-- Node
+  - Nodejs
+  - Javascript
+  - Javascript-Weekly
+  - Node.js
+  - Node
 modified_time: '2016-06-18T23:17:14.335+07:00'
 thumbnail: https://1.bp.blogspot.com/-raHIBW9hoEw/V2VwikTHooI/AAAAAAAAX1A/by3IQqWb2BALMqlXky_DPutfvbe7kj28gCK4B/s1600/js5.png
 slug: /2016/06/javascript-weekly-5.html
@@ -44,6 +44,7 @@ Một bài viết cực kì chuyên sâu về tử khóa this trong Javascript. 
 KEVIN KONONENKO
 Học cách sử dụng D3.js bằng một bài hướng dẫn trực quan từ D3 Garden.
 
---------------------
+---
+
 Saveto: [http://saveto.co/t/js-weekly-5](http://saveto.co/t/js-weekly-5)
 Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascript-weekly](http://saveto.co/javascript-weekly)

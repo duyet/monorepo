@@ -4,14 +4,13 @@ date: '2023-01-22'
 author: Van-Duyet Le
 category: Data
 tags:
-- Data
-- Data Engineer
-- Rust
+  - Data
+  - Data Engineer
+  - Rust
 slug: /2023/01/data-engineering-rust-tools.html
 thumbnail: https://i.imgur.com/qjUwEpo.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F01%2Fdata-engineering-rust-tools.html
-description: This blog post will provide an overview of the data engineering tools available in Rust, their advantages and benefits, as well as a discussion on why Rust is a great choice for data engineering. 
-
+description: This blog post will provide an overview of the data engineering tools available in Rust, their advantages and benefits, as well as a discussion on why Rust is a great choice for data engineering.
 ---
 
 Python is a popular language for data engineers, but it is not the most robust or secure. Data engineering is an essential part of modern software development, and Rust is an increasingly popular programming language for this task. Rust is an efficient language, providing fast computation and low-latency responses with a high level of safety and security. Additionally, it offers a unique set of features and capabilities that make it an ideal [choice for data engineering](https://blog.duyet.net/2021/11/rust-data-engineering.html) ?!.
@@ -35,7 +34,6 @@ This blog post will provide an overview of the data engineering tools available 
   </ul>
 </div>
 
-
 # DataFusion
 
 ![DataFusion](/media/2023/01/data-engineering-rust-tools/datafusion.png)
@@ -57,11 +55,11 @@ async fn main() -> datafusion::error::Result<()> {
 	// create the dataframe
 	let ctx = SessionContext::new();
 	let df = ctx.read_csv("tests/example.csv", CsvReadOptions::new()).await?;
-	
+
 	let df = df.filter(col("a").lt_eq(col("b")))?
 	  .aggregate(vec![col("a")], vec![min(col("b"))])?
 	  .limit(0, Some(100))?;
-	
+
 	// execute and print results
 	df.show().await?;
 	Ok(())
@@ -93,7 +91,7 @@ let df = LazyCsvReader::new("reddit.csv")
 	.finish()?
 	.groupby([col("comment_karma")])
 	.agg([
-		col("name").n_unique().alias("unique_names"), 
+		col("name").n_unique().alias("unique_names"),
 		col("link_karma").max()
 	])
 	.fetch(100)?;

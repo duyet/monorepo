@@ -1,12 +1,12 @@
 ---
 title: 'Chatbot với Botpress - Phần 2: Coding'
-date: "2017-01-24"
+date: '2017-01-24'
 author: Van-Duyet Le
 tags:
-- Chatbot
-- Javascript
-- Node.js
-- Node
+  - Chatbot
+  - Javascript
+  - Node.js
+  - Node
 modified_time: '2018-09-10T17:24:58.329+07:00'
 thumbnail: https://3.bp.blogspot.com/-GXx1lZwBtgg/WIbK6HLTO8I/AAAAAAAAimw/B9qbrjjIQIMC2CxXk1O-xqYAbTMOe4rogCLcB/s1600/screenshot-ui.png
 slug: /2017/01/botpress-p2.html
@@ -27,25 +27,25 @@ Xem lại phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://bl
 OK để bắt đầu ta mở `index.js`
 
 ```js
-module.exports = function(bp) {
+module.exports = function (bp) {
   bp.middlewares.load()
 }
 ```
 
 Dòng 1: `bp` là biến global context object, từ `bp` ta có thể truy cập đến mọi chức năng của botpress và module api.
-Dòng 2: Botpress sử dụng cơ chế middlewares để xử lý incoming và outcoming tin nhắn (hoặc tương tác).  Bạn có thể xem thêm về trang middleware [tại đây](https://docs.botpress.io/middlewares.html).
+Dòng 2: Botpress sử dụng cơ chế middlewares để xử lý incoming và outcoming tin nhắn (hoặc tương tác). Bạn có thể xem thêm về trang middleware [tại đây](https://docs.botpress.io/middlewares.html).
 
 Bây giờ chúng ta thêm vào `index.js` như sau:
 
 ```js
-module.exports = function(bp) {
+module.exports = function (bp) {
   bp.middlewares.load()
 
-  bp.hear('hello ku', event => { // Capture 'hello ku'
-   bp.messenger.sendText(event.user.id, 'Hello world!') // Response
+  bp.hear('hello ku', (event) => {
+    // Capture 'hello ku'
+    bp.messenger.sendText(event.user.id, 'Hello world!') // Response
   })
 }
-
 ```
 
 Khởi động lại Botpress server.
@@ -58,19 +58,22 @@ Khởi động lại Botpress server.
 Bây giờ mình muốn mỗi khi bot nghe "hello" là tự động chào lại bằng tên (first_name) mình.
 
 ```js
-module.exports = function(bp) {
+module.exports = function (bp) {
   bp.middlewares.load()
 
-  bp.hear(/hello/i, (event, next) => { // We use a regex instead of a hardcoded string
+  bp.hear(/hello/i, (event, next) => {
+    // We use a regex instead of a hardcoded string
     const first_name = event.user.first_name
 
-    bp.messenger.sendText(event.user.id, 'Hello, ' + first_name, { typing: true })
+    bp.messenger.sendText(event.user.id, 'Hello, ' + first_name, {
+      typing: true,
+    })
   })
 }
 ```
 
-- Ở lệnh `hear`, mình không dùng hardcoded string nữa mà sử dụng regex.  Bất kì tin nhắn nào chứa "hello" thì callback sẽ được gọi.
-- Object `event.user` sẽ chứa mọi thông tin của user, mình sử dụng nó để reply lại chính tên người dùng. 
+- Ở lệnh `hear`, mình không dùng hardcoded string nữa mà sử dụng regex. Bất kì tin nhắn nào chứa "hello" thì callback sẽ được gọi.
+- Object `event.user` sẽ chứa mọi thông tin của user, mình sử dụng nó để reply lại chính tên người dùng.
 - Tham số thứ 3 của hàm `sendText`, ta dùng `{ typing: true }` messenger sẽ hiển thị hiệu ứng đang typing, nhìn sẽ thật hơn.
 
 [![](https://4.bp.blogspot.com/-8vdkgAPplng/WIa4MtxfARI/AAAAAAAAilM/Ux0PKCpmXHoBui9hYc7fuO6busO4iJIaQCKgB/s640/Screenshot_2017-01-24-09-12-24-681_com.google.android.apps.photos.png)](https://4.bp.blogspot.com/-8vdkgAPplng/WIa4MtxfARI/AAAAAAAAilM/Ux0PKCpmXHoBui9hYc7fuO6busO4iJIaQCKgB/s1600/Screenshot_2017-01-24-09-12-24-681_com.google.android.apps.photos.png)
@@ -80,39 +83,43 @@ module.exports = function(bp) {
 Quick Reply là chức năng trong Messenger, cho phép user thay vì phải chat thì có thể chọn 1 từ menu. Khai báo tham số quick_replies như sau:
 
 ```js
-module.exports = function(bp) {
-    bp.middlewares.load()
+module.exports = function (bp) {
+  bp.middlewares.load()
 
-    bp.hear(/hello/i, (event, next) => { // We use a regex instead of a hardcoded string
-        const first_name = event.user.first_name
-        console.log('==========', event.user)
+  bp.hear(/hello/i, (event, next) => {
+    // We use a regex instead of a hardcoded string
+    const first_name = event.user.first_name
+    console.log('==========', event.user)
 
-        bp.messenger.sendText(event.user.id, 'Hello, ' + first_name, { typing: true })
+    bp.messenger.sendText(event.user.id, 'Hello, ' + first_name, {
+      typing: true,
     })
+  })
 
-    bp.hear(/help/i, (event, next) => {
-        const options = {
-            quick_replies: [{
-                content_type: "text",
-                title: "Đẹp",
-                payload: "HELP_OPTION_1"
-            }, {
-                content_type: "text",
-                title: "Rất đẹp",
-                payload: "HELP_OPTION_2"
-            }],
-            typing: true,
-            waitRead: true // `waitDelivery` or `waitRead` options
-        }
+  bp.hear(/help/i, (event, next) => {
+    const options = {
+      quick_replies: [
+        {
+          content_type: 'text',
+          title: 'Đẹp',
+          payload: 'HELP_OPTION_1',
+        },
+        {
+          content_type: 'text',
+          title: 'Rất đẹp',
+          payload: 'HELP_OPTION_2',
+        },
+      ],
+      typing: true,
+      waitRead: true, // `waitDelivery` or `waitRead` options
+    }
 
-        const text = 'Duyệt có đẹp trai không?'
-        bp.messenger.sendText(event.user.id, text, options)
-            .then(() => {
-                // Do `waitRead` nên nội dung trong đây sẽ được thực thi khi user read. 
-            })
+    const text = 'Duyệt có đẹp trai không?'
+    bp.messenger.sendText(event.user.id, text, options).then(() => {
+      // Do `waitRead` nên nội dung trong đây sẽ được thực thi khi user read.
     })
+  })
 }
-
 ```
 
 [![](https://1.bp.blogspot.com/-W7vlccclv-A/WIa9BT5alwI/AAAAAAAAil0/cGrnqfmlv_U-n2xJhOzgcZiZ9u9Oa0qDACKgB/s640/Screenshot_2017-01-24-09-32-42-123_com.facebook.orca.png)](https://1.bp.blogspot.com/-W7vlccclv-A/WIa9BT5alwI/AAAAAAAAil0/cGrnqfmlv_U-n2xJhOzgcZiZ9u9Oa0qDACKgB/s1600/Screenshot_2017-01-24-09-32-42-123_com.facebook.orca.png)
@@ -122,16 +129,15 @@ module.exports = function(bp) {
 Messenger có thể gửi đính kèm với 4 định dạng: `'audio'`, `'file'`, `'image'` or `'video'`
 
 ```js
-module.exports = function(bp) {
-    bp.middlewares.load()
+module.exports = function (bp) {
+  bp.middlewares.load()
 
-    bp.hear(/meo/i, event => {
-        const type = 'image' // 'audio', 'file', 'image' or 'video'
-        const img_url = 'https://avatars0.githubusercontent.com/u/5009534?v=3&s=460'
-        bp.messenger.sendAttachment(event.user.id, type, img_url)
-    })
+  bp.hear(/meo/i, (event) => {
+    const type = 'image' // 'audio', 'file', 'image' or 'video'
+    const img_url = 'https://avatars0.githubusercontent.com/u/5009534?v=3&s=460'
+    bp.messenger.sendAttachment(event.user.id, type, img_url)
+  })
 }
-
 ```
 
 Tham số thứ 3 `url` của file đính kèm.
@@ -154,29 +160,30 @@ Tham số thứ 3 `url` của file đính kèm.
 Để sử dụng chúng ta chỉ cần khai báo đúng template như trong [docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates) của facebook. Ví dụ:
 
 ```js
-bp.hear(/duyetdev/i, event => {
-    const payload = {
-        template_type: "button",
-        text: "duyetdev profile",
-        buttons: [
-            {
-                type: "web_url",
-                url: "https://duyet.net",
-                title: "duyet.net"
-            },
-            {
-                type: "web_url",
-                url: "https://duyet.net",
-                title: "Profile"
-            },{
-                type: "web_url",
-                url: "https://facebook.com/duyetdev",
-                title: "Facebook"
-            },
-        ]
-    }
+bp.hear(/duyetdev/i, (event) => {
+  const payload = {
+    template_type: 'button',
+    text: 'duyetdev profile',
+    buttons: [
+      {
+        type: 'web_url',
+        url: 'https://duyet.net',
+        title: 'duyet.net',
+      },
+      {
+        type: 'web_url',
+        url: 'https://duyet.net',
+        title: 'Profile',
+      },
+      {
+        type: 'web_url',
+        url: 'https://facebook.com/duyetdev',
+        title: 'Facebook',
+      },
+    ],
+  }
 
-    bp.messenger.sendTemplate(userId, payload, { typing: true })
+  bp.messenger.sendTemplate(userId, payload, { typing: true })
 })
 ```
 
@@ -191,7 +198,6 @@ Nếu có thời gian mình sẽ viết 1 bài tự build ra model cho Bot để
 Xem phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://blog.duyet.net/2017/01/botpress.html#.WJP5QxJ97_g)
 
 ## Tham khảo
-
 
 1. [Nodejs - Chatbot với Botpress](https://blog.duyet.net/2017/01/botpress.html)
 2. [Botpress Advanted Topics](https://docs.botpress.io/advanced-topics.html)

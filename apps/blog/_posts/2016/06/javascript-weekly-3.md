@@ -1,11 +1,11 @@
 ---
 title: 'JavaScript Weekly #3'
-date: "2016-06-04"
+date: '2016-06-04'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Javascript
-- Javascript-Weekly
+  - Nodejs
+  - Javascript
+  - Javascript-Weekly
 modified_time: '2016-06-04T22:24:45.704+07:00'
 thumbnail: https://1.bp.blogspot.com/-PHSe7TVV9MM/V1Lu7UJTYmI/AAAAAAAAW-c/HaPQ8TWBHZMD444B2XUS8TK1iVgLoiUmQCK4B/s1600/react-infinite-calendar-duyetdev.gif
 slug: /2016/06/javascript-weekly-3.html
@@ -18,7 +18,6 @@ V8, modern JavaScript, WebAssembly tại sự kiện Google I/O, các chức nă
 [![](https://1.bp.blogspot.com/-PHSe7TVV9MM/V1Lu7UJTYmI/AAAAAAAAW-c/HaPQ8TWBHZMD444B2XUS8TK1iVgLoiUmQCK4B/s400/react-infinite-calendar-duyetdev.gif)](https://blog.duyet.net/2016/06/javascript-weekly-3.html)
 
 ## [React Infinite Calendar](http://saveto.co/dHYZil)
-
 
 CLAUDÉRIC DEMERS
 
@@ -62,6 +61,7 @@ Bài viết dành cho những ai thích tò mò, nghiên cứu các công nghệ
 JEFF CARPENTER
 Phân tích sự khác nhau của hơn 30 tính năng và cú pháp giữa React, Angular 1 và 2, Polymer, Vue và Ember.
 
---------------------
+---
+
 Saveto: [http://saveto.co/t/js-weekly-3](http://saveto.co/t/js-weekly-3)
 Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascript-weekly](http://saveto.co/javascript-weekly)

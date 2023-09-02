@@ -1,11 +1,11 @@
 import React from 'react'
 
-type Props = {
+interface LayoutProps {
   cloudflare: React.ReactNode
   wakatime: React.ReactNode
 }
 
-export default async function Layout({ cloudflare, wakatime }: Props) {
+export default async function Layout({ cloudflare, wakatime }: LayoutProps) {
   return (
     <>
       {cloudflare}

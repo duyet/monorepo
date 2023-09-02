@@ -1,6 +1,6 @@
 ---
 title: cheats.rs
-date: "2022-01-01"
+date: '2022-01-01'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -10,7 +10,6 @@ tags:
 slug: /2022/01/rust-cheatsheet.html
 thumbnail: https://i.imgur.com/bX8iwcM.png
 description: This is the best cheat sheet that I have ever seen. It breaks down the different categories, from language constructs, data layouts, types, tooling, etc.
-
 ---
 
 This is the best cheat sheet that I have ever seen.

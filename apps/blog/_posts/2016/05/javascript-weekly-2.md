@@ -1,11 +1,11 @@
 ---
 title: 'JavaScript Weekly #2'
-date: "2016-05-28"
+date: '2016-05-28'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Javascript
-- Javascript-Weekly
+  - Nodejs
+  - Javascript
+  - Javascript-Weekly
 modified_time: '2016-05-28T13:47:48.428+07:00'
 thumbnail: https://4.bp.blogspot.com/-K_vkG8qVJiA/V0k5ORhPhXI/AAAAAAAAWJQ/PR7wLT5sdfIGjSGb5SqJeFIevpWo2rbKwCK4B/s1600/javascript-weekly-2-duyetdev.png
 slug: /2016/05/javascript-weekly-2.html
@@ -26,7 +26,6 @@ Xem thêm: [ES6 - swap (hoán đổi) nhanh 2 biến số](https://blog.duyet.ne
 
 ## [React Tutorial: Cloning Yelp](http://saveto.co/wHMNCL)
 
-
 ARI LERNER
 
 React là công nghệ đang rất hot hiện nay. Bằng cách học thông qua các project thực tế, Tutorial trên hướng dẫn bạn xây dựng 1 ứng dụng Yelp clone bằng React. Không cần bạn phải biết React.
@@ -42,13 +41,11 @@ Babel là plugin phổ biến hiện nay, chuyển đổi mã ES6, ES7 sang các
 
 ## [jQuery 3.0 Release Candidate Released](http://saveto.co/6qxqmw)
 
-
 JQUERY FOUNDATION
 
 jQuery ra mắt phiên bản 3.0 "This is the same code we expect to release as the final version of jQuery 3.0 [..] When released, 3.0 will become the only version of jQuery."
 
 ## [An Algorithm Visualizer Written in JS](http://saveto.co/SdDrsx)
-
 
 JASON PARK
 
@@ -56,7 +53,7 @@ Mã nguồn của ứng dụng algorithm visualizer online (visualizer thuật t
 
 [![](https://1.bp.blogspot.com/-f38GpfB3uMk/V0k-GN1agjI/AAAAAAAAWJc/Ems964y9pY4Dh8yi0CMhhYCS_PmnmFuUQCLcB/s1600/687474703a2f2f692e67697068792e636f6d2f336f3645684a46677379536858364d48654d2e676966.gif)](https://1.bp.blogspot.com/-f38GpfB3uMk/V0k-GN1agjI/AAAAAAAAWJc/Ems964y9pY4Dh8yi0CMhhYCS_PmnmFuUQCLcB/s1600/687474703a2f2f692e67697068792e636f6d2f336f3645684a46677379536858364d48654d2e676966.gif)
 
---------------------
+---
 
 Saveto: [http://saveto.co/t/js-weekly-2](http://saveto.co/t/js-weekly-2)
 

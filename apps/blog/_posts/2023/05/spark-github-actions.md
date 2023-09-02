@@ -107,7 +107,7 @@ The [`spark-submit.yaml`] file also specifies the [matrix strategy] to test the 
 
 ![](/media/2023/05/spark-github-actions/1.png)
 
-This is useful for ensuring that your PySpark script works correctly on different versions of Python and Spark. 
+This is useful for ensuring that your PySpark script works correctly on different versions of Python and Spark.
 Additionally, you can add Spark unit tests and run them via Github Actions to ensure that all tests pass before merging PRs.
 
 That's it. You can find all code in my repo: <https://github.com/duyet/spark-in-github-actions>

@@ -1,13 +1,13 @@
 ---
 title: Awesome functional programming in JavaScript
-date: "2016-04-18"
+date: '2016-04-18'
 author: Van-Duyet Le
 tags:
-- awesome
-- awesomelist
-- Nodejs
-- Javascript
-- Functional Programming
+  - awesome
+  - awesomelist
+  - Nodejs
+  - Javascript
+  - Functional Programming
 modified_time: '2016-05-02T19:36:58.924+07:00'
 slug: /2016/04/awesome-functional-programming-in-javascript.html
 category: Javascript
@@ -17,7 +17,6 @@ description: A curated list of awesome functional programming in JavaScript
 A curated list of awesome functional programming in JavaScript. Origin [here](https://github.com/stoeffel/awesome-fp-js), suggestions and PRs are welcome.
 
 ## Table of Contents
-
 
 - [Libraries](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#libraries)
 - [Data Structures](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#data-structures)
@@ -36,7 +35,6 @@ A curated list of awesome functional programming in JavaScript. Origin [here](ht
 
 ## [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#libraries](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#libraries)Libraries
 
-
 - [Ramda](https://github.com/ramda/ramda) – A practical functional library for JavaScript that is designed specifically for a functional programming style. A style that makes it easy to create functional pipelines and never mutates user data.
 - [Folktale](http://folktalejs.org/) – Folktale is a suite of libraries for generic functional programming that allows you to write elegant modular applications with fewer bugs and more reuse.
 - [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide) – An instance of [Lodash](https://github.com/lodash/lodash) with its methods wrapped to produce immutable, auto-curried, iteratee-first, data-last methods.
@@ -54,13 +52,12 @@ A curated list of awesome functional programming in JavaScript. Origin [here](ht
 - [lambdajs](https://github.com/loop-recur/lambdajs) – The full ECMAScript API done a functional way.
 - [fp-dom](https://github.com/fp-dom/) – Making the DOM functional.
 - [trifl](https://github.com/algesten/trifl) – A functional user interface library with unidirectional dataflow and a virtual dom.
-- [funcy](https://github.com/bramstein/funcy) – An experiment in adding functional pattern matching to JavaScript. *Experimental* ![:triangular_flag_on_post:](https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a9.png)
+- [funcy](https://github.com/bramstein/funcy) – An experiment in adding functional pattern matching to JavaScript. _Experimental_ ![:triangular_flag_on_post:](https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a9.png)
 - [date-fp](http://github.com/cullophid/date-fp) – A functional utility library for working with JavaScript dates. All functions in date-fp are pure, autocurried and will not mutate the date objects they are applied to.
 - [_part_](https://github.com/AutoSponge/_part_) – A micro library that encourages functional programming by making native methods available as partially applied functions.
 - [claire](https://github.com/robotlolita/claire) – A property-based testing library for clearly specifying code invariants and behaviour.
 
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#data-structures](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#data-structures)Data Structures
-
 
 Write performant functional code by using the right data structures for the task.
 
@@ -71,7 +68,6 @@ Write performant functional code by using the right data structures for the task
 - [Lazy.js](https://github.com/dtao/lazy.js) – A utility library with a lazy engine under the hood that strives to do as little work as possible while being as flexible as possible.
 
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#algebraic-data-types](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#algebraic-data-types)Algebraic Data Types
-
 
 Use the laws of math instead of always reinventing your own thing. Algebraic!
 
@@ -88,7 +84,6 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#lenses](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#lenses)Lenses
 
-
 - [lenses](https://github.com/DrBoolean/lenses) – Composable [kmett](https://github.com/ekmett/lens) style lenses.
 - [optics](https://github.com/flunc/optics) – Profunctor optics (Lens, Prism, iso).
 - [ramda-lens](https://github.com/ramda/ramda-lens) – ![:ram:](https://assets-cdn.github.com/images/icons/emoji/unicode/1f40f.png) ![:mag_right:](https://assets-cdn.github.com/images/icons/emoji/unicode/1f50e.png) Lens library built on Ramda.
@@ -97,7 +92,6 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 - [partial.lenses](https://github.com/calmm-js/partial.lenses) – Ramda compatible partial lenses. View, insert and update optional data.
 
 ## [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#functional-languages-that-compile-to-javascript](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#functional-languages-that-compile-to-javascript)Functional Languages that Compile to JavaScript
-
 
 - [ClojureScript](https://github.com/clojure/clojurescript) – Compiles [Clojure](http://clojure.org/), a hosted Lisp with immutable persistent data structures, to JavaScript.
 - [Elm](http://elm-lang.org/) – A type-safe functional programming language for declaratively creating web browser-based graphical user interfaces. Implemented in Haskell.
@@ -111,9 +105,7 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 
 ## [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#resources](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#resources)Resources
 
-
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#books](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#books)Books
-
 
 - [Professor Frisby’s Mostly Adequate Guide to Functional Programming](https://github.com/DrBoolean/mostly-adequate-guide) – This is a book on the functional paradigm in general using the world’s most popular functional programming language: JavaScript. By [Brian Lonsdorf](https://twitter.com/drboolean) (2016)
 - [JavaScript Allongé](https://leanpub.com/javascriptallongesix), the "Six" edition by [Reginald Braithwaite](https://github.com/raganwald) (2016)
@@ -122,7 +114,6 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 - [Functional JavaScript](http://shop.oreilly.com/product/0636920028857.do) by [Michael Fogus](https://github.com/fogus) (2013)
 
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#articles](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#articles)Articles
-
 
 - [The Two Pillars of JavaScript Pt 2: Functional Programming](https://medium.com/javascript-scene/the-two-pillars-of-javascript-pt-2-functional-programming-a63aa53a41a4)
 - [FP Concepts in JavaScript](https://medium.com/@collardeau/intro-to-functional-programming-concepts-in-javascript-b0650773139c) – An Intro to Functional Programming Concepts in JavaScript
@@ -140,8 +131,7 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#videos](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#videos)Videos
 
-
-- [Classroom Coding with Prof. Frisby](https://www.youtube.com/watch?v=h_tkIpwbsxY&amp;list=PLK_hdtAJ4KqX0JOs_KMAmUNTNMRYhWEaC) – A series that builds a "practical" web application with React and functional programming in JavaScript.
+- [Classroom Coding with Prof. Frisby](https://www.youtube.com/watch?v=h_tkIpwbsxY&list=PLK_hdtAJ4KqX0JOs_KMAmUNTNMRYhWEaC) – A series that builds a "practical" web application with React and functional programming in JavaScript.
 - [Hey Underscore, You're Doing It Wrong!](https://www.youtube.com/watch?v=m3svKOdZijA) – Underscore.js claims to be a functional programming library, but is it really?
 - [Functional programming patterns for the non-mathematician](https://www.youtube.com/watch?v=AvgwKjTPMmM)
 - [Pure JavaScript](https://vimeo.com/49384334)
@@ -149,10 +139,9 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 
 ### [https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#examples-and-exercises](https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html#examples-and-exercises)Examples and Exercises
 
-
 - [FPJS-Class](https://github.com/loop-recur/FPJS-Class) – Functional Programming learned through JS
 - [functional-javascript-workshop](https://github.com/timoxley/functional-javascript-workshop) – Teaching fundamental functional programming features of JavaScript
 - [functional-frontend-architecture](https://github.com/paldepind/functional-frontend-architecture) – A functional frontend framework. Based on Ramda + union-type-js + Flyd + Snabbdom
 - [cube-composer](https://github.com/sharkdp/cube-composer) – A puzzle game inspired by functional programming.
 - [FP Youtube Search](https://github.com/jaysoo/example-fp-youtube-search) – YouTube search app with ReactJS, Redux, and FP concepts
-- [Hardcore Functional Programming in JavaScript](https://frontendmasters.com/courses/functional-javascript/) – Learn to apply techniques from the forefront of computer science research to solve practical problems in Javascript. Discover functional programming and see it demonstrated step-by-step with how to build an example web app using abstract interfaces like Monads, Functors, Monoids and Applicatives. (*commercial*)
+- [Hardcore Functional Programming in JavaScript](https://frontendmasters.com/courses/functional-javascript/) – Learn to apply techniques from the forefront of computer science research to solve practical problems in Javascript. Discover functional programming and see it demonstrated step-by-step with how to build an example web app using abstract interfaces like Monads, Functors, Monoids and Applicatives. (_commercial_)

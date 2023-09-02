@@ -1,14 +1,14 @@
 ---
 title: URLs là UI
-date: "2017-07-20"
+date: '2017-07-20'
 author: Van-Duyet Le
 tags:
-- Web Design
-- Website
-- UX
-- URL
-- Web
-- UI
+  - Web Design
+  - Website
+  - UX
+  - URL
+  - Web
+  - UI
 modified_time: '2017-07-20T22:29:37.063+07:00'
 thumbnail: https://2.bp.blogspot.com/-Be1T1kU3SNE/WXDK8fI25CI/AAAAAAAAmP8/hNT-xyX6Z6cwW1qoAEx6D3WaW5nYZ8vTQCK4BGAYYCw/s1600/funny-newspaper-URL-job-application.jpg
 slug: /2017/07/urls-are-ui.html
@@ -41,19 +41,18 @@ Cách thiết kế shareable URL rất đơn giản: [https://duyet.net/result.p
 
 ## Genius URL
 
-
 Một ví dụ URL của Stack Overflow: [https://stackoverflow.com/users/4749668/van-duyet-le](https://stackoverflow.com/users/4749668/van-duyet-le)
 Mình có thể thấy:
 
 - URL thể hiện được structure của website, mình đang xem trang thông tin user.
 - Quan trọng nhất là ID: 4749668, bạn có thể thử truy cập [https://stackoverflow.com/users/4749668](https://stackoverflow.com/users/4749668) hoặc [https://stackoverflow.com/u/4749668](https://stackoverflow.com/u/4749668) đều được, ta thấy dù username có thay đổi thì vẫn truy cập được URL thông qua ID cố định. URL lại ngắn và dễ nhận biết.
-- Một ví dụ khác như link bài viết [https://stackoverflow.com/questions/45210398/why-does-map-of-not-allow-null-keys-and-values](https://stackoverflow.com/questions/45210398/why-does-map-of-not-allow-null-keys-and-values) dù tiêu đề có thay đổi, link vẫn truy cập được. Bạn có thể chia sẻ link ngắn gọn bằng cách bỏ phần text phía sau. 
+- Một ví dụ khác như link bài viết [https://stackoverflow.com/questions/45210398/why-does-map-of-not-allow-null-keys-and-values](https://stackoverflow.com/questions/45210398/why-does-map-of-not-allow-null-keys-and-values) dù tiêu đề có thay đổi, link vẫn truy cập được. Bạn có thể chia sẻ link ngắn gọn bằng cách bỏ phần text phía sau.
 
 ## URLs weren't a UX priority
 
 Trong một số trường hợp, người ta lại không ưu tiên URL cho trải nghiệm người dùng. Ví dụ URL chứa token, hay để tiện cho người dùng.
 
-Như URL của OneDrive [https://onedrive.live.com/?id=root&cid=1651FB17955FDADD](https://onedrive.live.com/?id=root&amp;cid=1651FB17955FDADD) vs Dropbox [https://www.dropbox.com/home/Tailieu/python](https://www.dropbox.com/home/Tailieu/python)
+Như URL của OneDrive [https://onedrive.live.com/?id=root&cid=1651FB17955FDADD](https://onedrive.live.com/?id=root&cid=1651FB17955FDADD) vs Dropbox [https://www.dropbox.com/home/Tailieu/python](https://www.dropbox.com/home/Tailieu/python)
 
 Những ai là lập trình viên đều có thể thông cảm với URL của OneDrive, nó giúp việc lập trình đơn giản hơn và dễ quản lý hơn, chỉ cần load folder hoặc file có id phù hợp là được, chứ không phải nhập nhằng check authentication như Dropbox.
 
@@ -67,4 +66,4 @@ Tham khảo
 - [URLs are UI](https://www.hanselman.com/blog/URLsAreUI.aspx)
 - [Cool URIs don't change](https://www.w3.org/Provider/Style/URI)
 
-(*) ảnh: http://themetapicture.com/the-times-before-the-url-shortener/
+(\*) ảnh: http://themetapicture.com/the-times-before-the-url-shortener/

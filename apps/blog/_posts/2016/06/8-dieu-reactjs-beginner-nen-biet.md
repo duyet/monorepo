@@ -1,16 +1,16 @@
 ---
 title: 8 điều React.js beginner nên biết
-date: "2016-06-25"
+date: '2016-06-25'
 author: Van-Duyet Le
 tags:
-- Beginner
-- Redux
-- Redux Dev Tools
-- NPM
-- ES6
-- Babel
-- React
-- React Dev Tools
+  - Beginner
+  - Redux
+  - Redux Dev Tools
+  - NPM
+  - ES6
+  - Babel
+  - React
+  - React Dev Tools
 modified_time: '2016-06-26T18:04:26.960+07:00'
 thumbnail: https://1.bp.blogspot.com/-KtYQVNUSOhM/V25BbTCHiII/AAAAAAAAYQk/-9QPfR5wy5ImvMrLutGZEklZSuz-0IZkgCK4B/s1600/1-MG736zGtLMBbSkhwu4D3cA.png
 slug: /2016/06/8-dieu-reactjs-beginner-nen-biet.html
@@ -37,17 +37,21 @@ Bất cứ lập trình giỏi nào cũng đều biết, giữ cho function/clas
 Ví dụ với với Components hiển thị danh sách bài viết liên quan ở cuối:
 
 ```js
-const LatestPostsComponent = props => (
+const LatestPostsComponent = (props) => (
   <section>
-    <div><h1>Latest posts</h1></div>
     <div>
-      { props.posts.map(post => <PostPreview key={post.slug} post={post}/>) }
+      <h1>Latest posts</h1>
+    </div>
+    <div>
+      {props.posts.map((post) => (
+        <PostPreview key={post.slug} post={post} />
+      ))}
     </div>
   </section>
-);
+)
 ```
 
-`<LastestPostsComponent />`  chỉ chứa 1 thẻ `<h1>` và mỗi `posts` được truyền cho components khác `<PostPreview />`
+`<LastestPostsComponent />` chỉ chứa 1 thẻ `<h1>` và mỗi `posts` được truyền cho components khác `<PostPreview />`
 
 ## 3. Write functional components
 
@@ -55,10 +59,10 @@ Có nhiều cách để viết Components, thứ nhất sử dụng `React.creat
 
 ```js
 const MyComponent = React.createClass({
-  render: function() {
-    return <div className={this.props.className}/>;
-  }
-});
+  render: function () {
+    return <div className={this.props.className} />
+  },
+})
 ```
 
 Và bằng ES6
@@ -66,7 +70,7 @@ Và bằng ES6
 ```js
 class MyComponent extends React.Component {
   render() {
-    return <div className={this.props.className}/>;
+    return <div className={this.props.className} />
   }
 }
 ```
@@ -74,9 +78,7 @@ class MyComponent extends React.Component {
 React 0.14 mới cho phép bạn viết nhanh 1 Components bằng 1 hàm với tham số `props`:
 
 ```js
-const MyComponent = props => (
-  <div className={props.className}/>
-);
+const MyComponent = (props) => <div className={props.className} />
 ```
 
 Với các Components lớn và nhiều xử lý, nên sử dụng cách 1 hoặc 2. Còn trong đa số các trường hợp khác, Components không cần `state`, chỉ `render()` từ `props` thì nên sử dụng cách thứ 3 này, giúp cho ứng dụng mạch lạc và nhanh hơn.
@@ -86,8 +88,8 @@ Với các Components lớn và nhiều xử lý, nên sử dụng cách 1 hoặ
 State lưu giữ linh hồn của ứng dụng. React với các ứng dụng lớn và mở rộng liên tục, ta nên giữ State luôn đơn giản (stateless components).
 
 - State làm cho test khó khăn hơn.
-- State liên quan đến việc render() hiển thị, mỗi lần render() ta sẽ quan tâm: đã khởi tạo dữ liệu cho state hay chưa, state có thay đổi hay chưa, có nên render() lại hay không, ... 
-- State chỉ tồn tại nội bộ trong 1 Components, với việc trao đổi dữ liệu với bên ngoài, việc sử dụng nhiều  state là không cần thiết. 
+- State liên quan đến việc render() hiển thị, mỗi lần render() ta sẽ quan tâm: đã khởi tạo dữ liệu cho state hay chưa, state có thay đổi hay chưa, có nên render() lại hay không, ...
+- State chỉ tồn tại nội bộ trong 1 Components, với việc trao đổi dữ liệu với bên ngoài, việc sử dụng nhiều state là không cần thiết.
 
 Chỉ sử dụng State khi cần thiết, và phản ánh đúng trạng thái của Components.
 
@@ -99,27 +101,25 @@ React chỉ là View, nên việc kết hợp với [Redux](http://redux.js.org/
 
 Ảnh: code-cartoons.com
 
-Một thư viện khác cũng nên quan tâm là [Immutable.js](https://facebook.github.io/immutable-js/) 
+Một thư viện khác cũng nên quan tâm là [Immutable.js](https://facebook.github.io/immutable-js/)
 
 ## 6. Luôn sử dụng propTypes
 
 [propTypes](https://facebook.github.io/react/docs/reusable-components.html#prop-validation) định nghĩa, ràng buộc cho Props trong React Components, propTypes giúp cho người khác sử dụng các Components của chúng ta an toàn hơn.
 
 ```js
-const ListOfNumbers = props => (
+const ListOfNumbers = (props) => (
   <ol className={props.className}>
-    {
-      props.numbers.map(number => (
-        <li>{number}</li>)
-      )
-    }
+    {props.numbers.map((number) => (
+      <li>{number}</li>
+    ))}
   </ol>
-);
+)
 
 ListOfNumbers.propTypes = {
   className: React.PropTypes.string.isRequired,
-  numbers: React.PropTypes.arrayOf(React.PropTypes.number)
-};
+  numbers: React.PropTypes.arrayOf(React.PropTypes.number),
+}
 ```
 
 Trong môi trường developments, nếu chúng ta truyền vào cho `props` sai kiểu dữ liệu, hoặc quên truyền dữ liệu cho `props`. React sẽ báo lỗi, và chúng ta phải kiểm tra bằng tay.
@@ -130,7 +130,6 @@ Trong môi trường developments, nếu chúng ta truyền vào cho `props` sai
 [JSX](https://facebook.github.io/jsx/) (XML-like syntax extension to ECMAScript) là tính năng hay của React, những gì chúng ta viết sẽ là những gì hiển thị. Kết hợp với Babel, biên dịch và tận dụng [các tính năng mới của ES6](http://es6-features.org/). [NPM](https://www.npmjs.com/) và [Webpack](https://webpack.github.io/) giúp quá trình đóng gói và tận dụng các thư viện triệt để hơn.
 
 ## 8. Sử dụng React và Redux dev tools
-
 
 Cuối cùng các trình Dev Tools của Redux và React sử dụng rất tốt, giúp chúng ta nhanh chóng Debug và tìm ra lỗi trong ứng dụng.
 

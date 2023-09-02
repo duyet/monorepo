@@ -1,6 +1,6 @@
 ---
 title: From Docker to Podman on MacOS
-date: "2021-09-05"
+date: '2021-09-05'
 author: Van-Duyet Le
 category: Dev
 tags:
@@ -87,20 +87,20 @@ podman run --rm -it --publish 8000:80 docker.io/library/nginx:latest
 ```bash
 curl http://localhost:8000
 ```
+
 ![](/media/2021/09/podman.png)
 
 ![](/media/2021/09/podman-nginx.png)
 
-You can use Podman to run rootless containers, compatible with the Docker CLI, 
+You can use Podman to run rootless containers, compatible with the Docker CLI,
 and it is a powerful container image for running OCI containers.
-And I believe it has not worked perfectly out of the box, Podman still has a few bugs compared with Docker, 
+And I believe it has not worked perfectly out of the box, Podman still has a few bugs compared with Docker,
 but why don't you give it a try to experiment on it.
 
 Anw, you might can try Podman quickly by go to [this url](https://www.katacoda.com/courses/containers-without-docker/running-containers-with-podman)
 by Katacode, which offers an interactive environment directly in your browser.
 
-
-# References 
+# References
 
 - https://podman.io/whatis.html
 - https://developers.redhat.com/blog/2020/11/19/transitioning-from-docker-to-podman#how_to_stop_and_remove_a_container

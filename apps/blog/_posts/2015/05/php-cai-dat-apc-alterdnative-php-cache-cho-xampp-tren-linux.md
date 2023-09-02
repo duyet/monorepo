@@ -1,22 +1,20 @@
 ---
 title: PHP - Cài đặt APC (Alternative PHP Cache) cho XAMPP trên Linux
-date: "2015-05-16"
+date: '2015-05-16'
 author: Van-Duyet Le
 tags:
-- XAMPP
-- APC
-- PHP
+  - XAMPP
+  - APC
+  - PHP
 modified_time: '2015-05-16T00:28:34.671+07:00'
 slug: /2015/05/php-cai-dat-apc-alterdnative-php-cache-cho-xampp-tren-linux.html
 category: PHP
 description: Hướng dẫn cài đặt APC (Alternative PHP Cache) cho XAMPP trên Linux
-
 ---
 
 Nếu bạn chưa cài đặt bản XAMPP Developer thì bạn có thể download tại đây: [http://www.apachefriends.org/en/xampp-linux.html](http://www.apachefriends.org/en/xampp-linux.html)
 
 ## Installing APC
-
 
 Đầu tiên, download và giải nén APC
 

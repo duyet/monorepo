@@ -1,15 +1,15 @@
 ---
 title: 'Parse Stack '
-date: "2016-08-18"
+date: '2016-08-18'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Parse Server
-- Parse Dashboard
-- intro-js
-- Parse Stack
-- Parse
-- Dashboard
+  - Nodejs
+  - Parse Server
+  - Parse Dashboard
+  - intro-js
+  - Parse Stack
+  - Parse
+  - Dashboard
 modified_time: '2017-08-06T11:41:14.269+07:00'
 thumbnail: https://4.bp.blogspot.com/-juqpy4uQn4M/V7VU_YXVo9I/AAAAAAAAbtU/39gqxQzjBFwFYm26fip_pKI35hPVTSrcACLcB/s1600/parse-stack-logo.png
 slug: /2016/08/parse-stack.html
@@ -26,7 +26,6 @@ Parse Server works with the Express web application framework. It can be added t
 [Parse Stack](http://saveto.co/JGY2Wm) = Parse server + Parse Dashboard
 
 ## Installation
-
 
 1. Clone and install the Parse Stack
 
@@ -50,7 +49,6 @@ npm start
 ```
 
 ## Using it
-
 
 - Access to endpoint
 

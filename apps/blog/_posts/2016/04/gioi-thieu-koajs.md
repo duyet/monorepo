@@ -1,14 +1,14 @@
 ---
 title: Giới thiệu Koa.js
-date: "2016-04-30"
+date: '2016-04-30'
 author: Van-Duyet Le
 tags:
-- koa
-- intro-js
-- koajs
-- Node.js
-- Express.js
-- Node
+  - koa
+  - intro-js
+  - koajs
+  - Node.js
+  - Express.js
+  - Node
 modified_time: '2017-08-06T11:41:14.315+07:00'
 thumbnail: https://4.bp.blogspot.com/-sCicwYtVpcY/VyS-dwEy4YI/AAAAAAAAUBM/5Q1QZ6zVR5YcsV7lgN8MYWfkZvrz6AXtgCK4B/s1600/Screen-Shot-2014-04-11-at-7.49.09-AM.png
 slug: /2016/04/gioi-thieu-koajs.html
@@ -33,12 +33,11 @@ node --harmony app.js
 ## Vì sao nên sử dụng Koa
 
 Như đã PR, koa is next generation web framework. [Koa](http://koajs.com/) chủ yếu tận dụng chức năng generators của Javascript ES6.
-Bạn có thể xem bài viết sau để hiểu rõ hơn về Generators này: [function* và yield trong Javascript generator function](https://blog.duyet.net/2016/02/generator-function-javascript.html#.VyTAS4N94_M)
+Bạn có thể xem bài viết sau để hiểu rõ hơn về Generators này: [function\* và yield trong Javascript generator function](https://blog.duyet.net/2016/02/generator-function-javascript.html#.VyTAS4N94_M)
 
 Ngoài ra còn 2 chức năng mới nữa là sử dụng middleware theo từng tầng và xử lý lỗi tốt. Một điểm tôi thấy hay khi sử dụng nữa là Koa có phong cách code rất lite, giúp app nhỏ gọn và dễ kiểm soát.
 
 ## Hello world
-
 
 Cài đặt koa bằng npm
 
@@ -46,7 +45,7 @@ Cài đặt koa bằng npm
 $ npm install koa
 ```
 
-Tạo và mở file `app.js` với nội dung: 
+Tạo và mở file `app.js` với nội dung:
 
 ```
 var koa = require('koa');
@@ -59,7 +58,7 @@ app.use(function *(){
 app.listen(3000);
 ```
 
-Khởi động Web server bằng lệnh: 
+Khởi động Web server bằng lệnh:
 
 ```
 $ node app.js
@@ -67,7 +66,7 @@ $ node app.js
 
 Truy cập trình duyệt bằng địa chỉ: [http://localhost:3000](http://localhost:3000/)
 
-## yielding to *
+## yielding to \*
 
 Koa được viết dựa trên co - giúp xử lý generators, thay vì sử dụng callback, Koa nhờ đó có cú pháp đơn giản và sạch sẽ hơn.
 Bạn nên đọc thêm về generators và co-routines ở bài viết này: [https://medium.com/code-adventures/174f1fe66127](https://medium.com/code-adventures/174f1fe66127)
@@ -93,21 +92,20 @@ function *(next) {
 }
 ```
 
-Koa có thể điều khiển luồng dữ liệu 1 cách trực quan nhất, cái bạn thấy đầu tiên là không cần sử dụng callback. Koa còn tương thích nhiều với các package co-*, cách tiếp cận khác khi làm việc với xử lý bất đồng bộ trong Nodejs. Tôi sẽ nó sâu hơn về co trong một dịp khác.
+Koa có thể điều khiển luồng dữ liệu 1 cách trực quan nhất, cái bạn thấy đầu tiên là không cần sử dụng callback. Koa còn tương thích nhiều với các package co-\*, cách tiếp cận khác khi làm việc với xử lý bất đồng bộ trong Nodejs. Tôi sẽ nó sâu hơn về co trong một dịp khác.
 
 ## Cascading Middleware
 
-
-Nếu bạn đã sử dụng qua Promises hay các framework control flow khác, mọi xử lý chỉ sẽ đi theo 1 luồng duy nhất, hoặc theo cơ chế ném-bắt callback. Koa middleware lại có cách xử lý hoàn toàn khác và mạnh mẽ hơn. 
+Nếu bạn đã sử dụng qua Promises hay các framework control flow khác, mọi xử lý chỉ sẽ đi theo 1 luồng duy nhất, hoặc theo cơ chế ném-bắt callback. Koa middleware lại có cách xử lý hoàn toàn khác và mạnh mẽ hơn.
 
 Theo ghi ở trang chủ, thì koa: yields "downstream", then control flows back "upstream".
 
-Để giải thích, hay xem qua ví dụ về Koa logging sau: 
+Để giải thích, hay xem qua ví dụ về Koa logging sau:
 
 ```
 app.use(function *(next){
   var start = new Date;
-  yield next;  // <--- yields "downstream" 
+  yield next;  // <--- yields "downstream"
   var ms = new Date - start;
   console.log('%s %s - %s', this.method, this.url, ms);
 });
@@ -121,7 +119,7 @@ Một ví dụ khác khi xử lý kết quả trả về được xử lý ở n
 app.use(function *() {
   this.body = "...header stuff";
   yield saveResults();
-  //could do some other yield here 
+  //could do some other yield here
   this.body += "...footer stuff"
 });
 
@@ -165,7 +163,6 @@ Koa tinh gọn, nên một số framework khác được build sẵn, bổ sung 
 Với những bạn mới, tôi khuyên nên bắt đầu trước với koala hoặc koan.
 
 ## Tham khảo
-
 
 - Trang chủ - [http://koajs.com](http://koajs.com/)
 - Koa github - [https://github.com/koajs/koa](https://github.com/koajs/koa)

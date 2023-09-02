@@ -1,22 +1,21 @@
 ---
 title: DBMS - Tầm Quan Trọng Của Kiểu Dữ Liệu
-date: "2015-03-04"
+date: '2015-03-04'
 author: Van-Duyet Le
 tags:
-- DBMS
-- MySQL
-- type
+  - DBMS
+  - MySQL
+  - type
 modified_time: '2015-03-04T18:05:32.561+07:00'
 slug: /2015/03/dbms-tam-quan-trong-cua-kieu-du-lieu.html
 category: Data
 description: Một bài viết từ Blog kĩ thuật máy tính
-
 ---
 
 2h sáng. "beep, you’ve got mail". Mail từ hệ thống giám sát zabbix.
 1 URL quan trọng trong hệ thống web không hiển thị được. Truy cập vào URL đó nhận status code http trả về 503. Zabbix định kỳ kiểm tra mã lỗi và khi mã trả về khác 200, zabbix gửi mail cho hắn.
 
-"Lại có vấn đề gì rồi đây…" — hắn vùng dậy, mở laptop lên, mở browser ra và truy cập thử vào URL được thông báo. "Quả nhiên là không vào được", hắn nghĩ. Ssh thử vào một máy chủ và kiểm tra error log. Thông báo lỗi "Không truy cập được đến máy chủ cơ sở dữ liệu X" liên tiếp liên tiếp được ghi ra log. "Máy chủ X lại có vấn đề gì rồi đây …". 
+"Lại có vấn đề gì rồi đây…" — hắn vùng dậy, mở laptop lên, mở browser ra và truy cập thử vào URL được thông báo. "Quả nhiên là không vào được", hắn nghĩ. Ssh thử vào một máy chủ và kiểm tra error log. Thông báo lỗi "Không truy cập được đến máy chủ cơ sở dữ liệu X" liên tiếp liên tiếp được ghi ra log. "Máy chủ X lại có vấn đề gì rồi đây …".
 Hắn vừa nghĩ, mắt vừa lướt qua các đồ thị giám sát tài nguyên của toàn bộ hệ thống. "Lưu lượng truy cập vào máy chủ web vẫn bình thường. Tỉ lệ cachehit vẫn không đổi. Mọi thứ không có gì có vẻ bất thường. Vậy vấn đề này ở máy chủ X rồi". Hắn nghĩ, rồi gõ
 
 ```
@@ -68,12 +67,13 @@ Max_data_length: 0
  Create_options:
         Comment: Latest translation for vid
 ```
+
 Để xem chú mày đang bận rộn xử lý cái gì nhé.
 
 ```
 mysql> show process list;
 
-1 loạt query kiểu 
+1 loạt query kiểu
 
 "select * from table_name where video_id in (12345, ‘23434’) and language = ‘en-us’;"
 ```
@@ -84,7 +84,7 @@ mysql> show process list;
 
 Máy chủ bận rộn CPU, I/O không lớn chứng tỏ là query trên tốn rất nhiều CPU. Có lẽ CPU đang tốn thời gian để sắp xếp và tìm kiếm, một mình chứng của việc mysql đang phải tìm với 1 lượng dữ liệu lớn. 70000 không phải con số to, do vậy chỉ có thể là máy chủ X đang phải tìm kiếm mà không có chỉ mục (index)!
 
-"Không lẽ nào!", vừa nói hắn vừa gõ lệnh  
+"Không lẽ nào!", vừa nói hắn vừa gõ lệnh
 
 ```
 mysql> show index from table_name;
@@ -160,7 +160,6 @@ No query specified
 Sau khi đổi video_id thành kiểu chuỗi thì index đã được sử dụng key: PRIMARY. Hắn ngay lập tức liên lạc với bên phát triển và để sửa đoạn code sinh ra query trên. Bên phát triển lập tức tìm ra có 1 dòng code chưa gọi strval để biến video_id thành xâu dữ liệu trước ném query cho DB. Bên phát triển lập tức sửa source code và cập nhật phiên bản mới nhất lên máy chủ. Ngay lập tức %cpu của X trở về 1%. Trang web lại vào bình thường như chưa từng có gì cản trở. Slow log query cũng dừng log query hẳn.
 
 ## Bài học
-
 
 Index thật quan trọng và Kiểu dữ liệu cũng rất quan trọng.
 

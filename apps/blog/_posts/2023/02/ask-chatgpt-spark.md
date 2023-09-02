@@ -9,8 +9,7 @@ tags:
 slug: /2023/02/ask-chatgpt-spark.html
 thumbnail: https://i.imgur.com/ZvhkzWZ.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F02%2Fask-chatgpt-spark.html
-description: I asked ChatGPT to explain 20 important concepts of Apache Spark. Let's see what it has to say! 
-
+description: I asked ChatGPT to explain 20 important concepts of Apache Spark. Let's see what it has to say!
 ---
 
 I asked ChatGPT to explain 20 important concepts of Apache Spark. Let's see what it has to say!

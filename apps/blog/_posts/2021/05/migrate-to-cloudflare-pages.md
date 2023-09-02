@@ -1,6 +1,6 @@
 ---
 title: Migrate to Cloudflare Pages
-date: "2021-05-01"
+date: '2021-05-01'
 author: Van-Duyet Le
 category: Web
 tags:
@@ -21,23 +21,23 @@ And, I not sure but it can be the next number 1 choice to host JAMstack sites. I
 Most of the features are almost similar to that of Netlify, but the Cloudflare Pages come with collaboration and security which make it more good to consider.
 
 | Details                 | Cloudflare Pages |      Netlify      |
-|-------------------------|:----------------:|:-----------------:|
-| Custom Domain           |    Yes (Free)    |     Yes (Free)    |
-| SSL (HTTPS)             |    Yes (Free)    |     Yes (Free)    |
-| Git-based Workflows     |        Yes       |        Yes        |
-| Serverless Functions    |        Yes       |        Yes        |
-| DNS Management          |        Yes       |        Yes        |
-| Continuous Deployment   |        Yes       |        Yes        |
-| Build Preview           |        Yes       |        Yes        |
-| Build Preview           |        Yes       |        Yes        |
-| HTTP/3                  |        Yes       |         No        |
-| QUIC                    |        Yes       |         No        |
-| Global CDN              |        Yes       |         No        |
-| Unlimited Collaborators |        Yes       |         No        |
+| ----------------------- | :--------------: | :---------------: |
+| Custom Domain           |    Yes (Free)    |    Yes (Free)     |
+| SSL (HTTPS)             |    Yes (Free)    |    Yes (Free)     |
+| Git-based Workflows     |       Yes        |        Yes        |
+| Serverless Functions    |       Yes        |        Yes        |
+| DNS Management          |       Yes        |        Yes        |
+| Continuous Deployment   |       Yes        |        Yes        |
+| Build Preview           |       Yes        |        Yes        |
+| Build Preview           |       Yes        |        Yes        |
+| HTTP/3                  |       Yes        |        No         |
+| QUIC                    |       Yes        |        No         |
+| Global CDN              |       Yes        |        No         |
+| Unlimited Collaborators |       Yes        |        No         |
 | Build Capacity          | 500 builds/month | 300 minutes/month |
-| No. of Sites            |     Unlimited    |     Unlimited     |
-| Bandwidth               |     Unlimited    |       100 GB      |
-| Team Members            |     Unlimited    |         1         |
+| No. of Sites            |    Unlimited     |     Unlimited     |
+| Bandwidth               |    Unlimited     |      100 GB       |
+| Team Members            |    Unlimited     |         1         |
 
 # Migrate to Cloudflare Pages from Netlify
 
@@ -61,7 +61,6 @@ After that, you can select a GitHub repository to be deployed, follow the steps 
 
 ## First deploy
 
-
 Once I've finished setting your build configuration, Cloudflare Pages will begin deploying my site.
 The build logs will output as Cloudflare Pages installs your project dependencies, build the project,
 and deploys it to Cloudflare's global network, the same with Netlify.
@@ -69,7 +68,6 @@ and deploys it to Cloudflare's global network, the same with Netlify.
 ![](/media/2021/05/migrate-to-cloudflare-pages-4.png)
 
 ## Update the DNS
-
 
 So, I continue to point the domain to the new site: https://blog.duyet.net. To do this, go to the "Domains" tab in the dashboard.
 Cloudflare ask to me change the DNS config from Netlify to Cloudflare Pages site. I get the DNS record updated just in a few seconds!

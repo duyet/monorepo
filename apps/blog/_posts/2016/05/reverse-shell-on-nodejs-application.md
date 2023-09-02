@@ -1,13 +1,13 @@
 ---
 title: Reverse shell on a Node.js application
-date: "2016-05-30"
+date: '2016-05-30'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Reverse shell
-- Security
-- Node.js
-- vulnerable
+  - Nodejs
+  - Reverse shell
+  - Security
+  - Node.js
+  - vulnerable
 modified_time: '2016-05-30T23:12:07.074+07:00'
 slug: /2016/05/reverse-shell-on-nodejs-application.html
 category: Javascript

@@ -1,6 +1,6 @@
 ---
 title: Spark on Kubernetes Performance Tuning
-date: "2021-04-10"
+date: '2021-04-10'
 author: Van-Duyet Le
 category: Data Engineer
 tags:
@@ -29,13 +29,14 @@ Enable this optimization: `spark.serializer=org.apache.spark.serializer.KryoSeri
 Reference: https://spark.apache.org/docs/latest/tuning.html#data-serialization
 
 # Tuning Java Pointer
+
 Java pointer: reduce memory consumption is to avoid the Java features that add overhead, such as pointer-based data structures.
 
 Enable this optimization:
- - Avoid nested structures
- - Consider using numeric IDs or enumeration objects instead of strings for keys
-    - Set the JVM flag `-XX:+UseCompressedOops` to make pointers be four bytes instead of eight
-`spec.driver.javaOptions and spec.executor.javaOptions`
+
+- Avoid nested structures
+- Consider using numeric IDs or enumeration objects instead of strings for keys - Set the JVM flag `-XX:+UseCompressedOops` to make pointers be four bytes instead of eight
+  `spec.driver.javaOptions and spec.executor.javaOptions`
 
 Reference: https://spark.apache.org/docs/latest/tuning.html#tuning-data-structures
 
@@ -51,7 +52,6 @@ Enable this optimization: `spark.sql.sources.ignoreDataLocality.enabled=true`
 
 Reference: https://issues.apache.org/jira/browse/SPARK-29189
 
-
 # I/O with S3
 
 It's longer time to append data to an existing dataset and in particular, all of Spark jobs have finished, but your command has not finished, it is because driver node is moving the output files of tasks from the job temporary directory to the final destination one-by-one, which is slow with cloud storage (e.g. S3).
@@ -59,7 +59,6 @@ It's longer time to append data to an existing dataset and in particular, all of
 Enable this optimization: `spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version=2`
 
 Reference: https://kb.databricks.com/data/append-slow-with-spark-2.0.0.html
-
 
 # Dynamic Allocation Shuffle File Tracking
 

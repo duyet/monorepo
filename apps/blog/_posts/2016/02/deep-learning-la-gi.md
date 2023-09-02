@@ -1,13 +1,13 @@
 ---
 title: Deep Learning là gì?
-date: "2016-02-04"
+date: '2016-02-04'
 author: Van-Duyet Le
 tags:
-- AI
-- ML
-- Deep Learning
-- Artificial Intelligence
-- Machine Learning
+  - AI
+  - ML
+  - Deep Learning
+  - Artificial Intelligence
+  - Machine Learning
 modified_time: '2016-03-26T21:57:57.625+07:00'
 thumbnail: https://1.bp.blogspot.com/-jKehM_T47GI/VrMiraOWJiI/AAAAAAAAPFE/jpYwrmCFW6g/s1600/small_1420.png
 slug: /2016/02/deep-learning-la-gi.html
@@ -23,7 +23,6 @@ Các sản phẩm kết hợp AI nổi bật hiện nay có thể thấy như: t
 Có thể thấy trí tuệ nhân tạo thu hút nhiều ông lớn (Google, Microsoft, Facebook, ...) quan tâm đầu tư, đặt biệt là Deep Learning.
 
 ## Deep Learning
-
 
 Deep Learning là một thuật toán dựa trên một số ý tưởng từ não bộ tới việc tiếp thu nhiều tầng biểu đạt, cả cụ thể lẫn trừu tượng, qua đó làm rõ nghĩa của các loại dữ liệu.
 Deep Learning được ứng dụng trong nhận diện hình ảnh, nhận diện giọng nói, xử lý ngôn ngữ tự nhiên.

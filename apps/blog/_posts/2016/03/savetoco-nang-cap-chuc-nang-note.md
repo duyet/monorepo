@@ -1,12 +1,12 @@
 ---
 title: saveto.co nâng cấp chức năng note
-date: "2016-03-24"
+date: '2016-03-24'
 author: Van-Duyet Le
 tags:
-- ahihi.club
-- saveto.co
-- changelog
-- note
+  - ahihi.club
+  - saveto.co
+  - changelog
+  - note
 modified_time: '2016-03-25T00:03:10.156+07:00'
 thumbnail: https://4.bp.blogspot.com/-IQqx5voNl_w/VvLTmSA8WLI/AAAAAAAASMk/gcSzeVC8jd8m8mZIn5ySX_ytb_F1YLSFA/s1600/screencapture-saveto-co-note-1458754419141.png
 slug: /2016/03/savetoco-nang-cap-chuc-nang-note.html
@@ -20,12 +20,12 @@ Hiện saveto.co vừa được nâng cấp để có thể lưu trữ note, sni
 
 Cụ thể:
 
-- Note sẽ hỗ trợ cú pháp ngôn ngữ markdown, không cần thêm phần mở rộng, hoặc phần mở rộng là *.md.
+- Note sẽ hỗ trợ cú pháp ngôn ngữ markdown, không cần thêm phần mở rộng, hoặc phần mở rộng là \*.md.
 - Snippet code, để highlight vui lòng để tên file kèm phần mở rộng (ví dụ: main.js)
 
 [![](https://4.bp.blogspot.com/-IQqx5voNl_w/VvLTmSA8WLI/AAAAAAAASMk/gcSzeVC8jd8m8mZIn5ySX_ytb_F1YLSFA/s1600/screencapture-saveto-co-note-1458754419141.png)](https://saveto.co/note)
 
-Mọi user hiện nay đều đã có thể sử dụng Note, kể cả người dùng Anonymous. 
+Mọi user hiện nay đều đã có thể sử dụng Note, kể cả người dùng Anonymous.
 
 Với user đã đăng nhập, có để xem lại danh sách các note của mình tại [https://saveto.co/note/all](https://saveto.co/note/all), user cũng có thể sửa và xóa note, xem lượt view. Với Anonymous, note không thể sửa hoặc xóa.
 

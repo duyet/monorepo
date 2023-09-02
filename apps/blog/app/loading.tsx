@@ -1,5 +1,4 @@
 import { RefreshCw } from 'lucide-react'
-
 import { Container } from '@duyet/components'
 
 export default function Loading() {

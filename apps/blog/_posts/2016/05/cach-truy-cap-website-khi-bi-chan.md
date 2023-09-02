@@ -1,13 +1,13 @@
 ---
 title: Cách truy cập Website khi bị chặn
-date: "2016-05-14"
+date: '2016-05-14'
 author: Van-Duyet Le
 tags:
-- Tutorial
-- Security
-- VPN
-- Tutorials
-- Tutorials
+  - Tutorial
+  - Security
+  - VPN
+  - Tutorials
+  - Tutorials
 modified_time: '2016-05-14T22:55:15.854+07:00'
 thumbnail: https://2.bp.blogspot.com/-6rmyO9vVn_U/Vzc77dL_NAI/AAAAAAAAVD8/Wvsfgk_OvMUeC5hCRyDPoAe39khT159KQCK4B/s1600/zenmate-14-535x535.png
 slug: /2016/05/cach-truy-cap-website-khi-bi-chan.html
@@ -20,18 +20,16 @@ Nhiều bạn hỏi ý kiến tôi về việc "vượt tường lửa", cách t
 ![](https://2.bp.blogspot.com/-6rmyO9vVn_U/Vzc77dL_NAI/AAAAAAAAVD8/Wvsfgk_OvMUeC5hCRyDPoAe39khT159KQCK4B/s1600/zenmate-14-535x535.png)
 Sử dụng một trong các cách sau:
 
-## 1.1.1.1 
-
+## 1.1.1.1
 
 1.1.1.1 Wrap là dịch vụ VPN miễn phí của Cloudflare. Nếu như bạn dùng kết hợp 1.1.1.1 với WARP thì kết nối của bạn sẽ an toàn hơn rất nhiều vì khi đó nó sẽ thay đổi phương thức kết nối giữa điện thoại của bạn bằng một giao thức mới hiện đại và tối ưu hơn rất nhiều.
 
-Hiện tại thì 1.1.1.1 WARP đang cung cấp 2 phiên bản trên IOS và Android, các bạn có thể lên Android Play Store hoặc AppStore search 1.1.1.1 hoặc click vào link sau: 
+Hiện tại thì 1.1.1.1 WARP đang cung cấp 2 phiên bản trên IOS và Android, các bạn có thể lên Android Play Store hoặc AppStore search 1.1.1.1 hoặc click vào link sau:
 
 - Link IOS: https://s.duyet.net/r/1111-ios
 - Link Android: https://s.duyet.net/r/1111-android
 
 ![](https://lh3.googleusercontent.com/hRk1fa8UwnrIdg5FJt9wRfFz7805vhTRuoDoQB0Pl61oMDxxBqgDXwcXwtej4ulWeA=w2880-h1522-rw)
-
 
 ## 2. ZenMate
 
@@ -39,7 +37,6 @@ ZenMate là giải pháp VPN tích hợp trên trình duyệt, và cả các thi
 Trang chủ: [https://zenmate.com](https://zenmate.com/)
 
 #### 2.1. Cài đặt trên Chrome hoặc Firefox
-
 
 Bạn có thể truy cập trực tiếp vào trang Extension của Chrome để cài: https://chrome.google.com/webstore/detail/zenmate-vpn-best-cyber-se/fdcgdnkidjaadafnichfpabhfomcebme?hl=en
 
@@ -59,7 +56,6 @@ ZenMate khá nhanh và ổn định. Quan trọng hơn hết, ZenMate được t
 
 #### 2.2. ZenMate trên Android
 
-
 Với Smartphone Android, cách sử dụng cũng tương tự. Truy cập Play Store và tìm ứng dụng ZenMate.
 (Nhấn Install để cài đặt)
 
@@ -71,13 +67,11 @@ Sau khi cài đặt thành công, bạn mở ứng dụng ZenMate và đăng nh�
 
 #### 2.3. ZenMate for Desktop
 
-
 ZenMate cũng cung cấp App cho Desktop (Windows và Mac). Truy cập trang Downdload để cài đặt cho phù hợp mới máy của mình: [https://zenmate.com/products/](https://zenmate.com/products/)
 
 ![](https://1.bp.blogspot.com/-nGZqzdb-5QY/VzdKCvCIDuI/AAAAAAAAVEc/kaFhFdptSmgUv-zdVSx0ZBae-batLKiogCLcB/s1600/screencapture-zenmate-com-products-1463241047991.png)
 
 ## 3. BetterNet
-
 
 BetterNet rất an toàn, hoàn toàn miễn phí, dễ sử dụng như ZenMate. Sử dụng trên cả Windows chứ không còn giới hạn trong trình duyệt.
 
@@ -88,7 +82,6 @@ BetterNet rất an toàn, hoàn toàn miễn phí, dễ sử dụng như ZenMate
 - Cài trực tiếp vào Firefox: [http://saveto.co/NwD5wj](http://saveto.co/NwD5wj)
 
 #### Ví dụ cách cài trên Chrome
-
 
 Sau khi tải về từ Chrome Web Store (như ZenMate ở trên). Xuất hiện biểu tượng cái khiên ở góc phải màn hình:
 
@@ -112,7 +105,6 @@ Cách bật: Mở Chrome chọn Cài đặt > Trình tiết kiệm dữ liệu, 
 Với cách này chỉ có thể truy cập Facebook hoặc Website bị chặn bằng trình duyệt Chrome. Opera Mini hoặc UC Browser cũng có chức năng tương tự.
 
 ## Kết
-
 
 Các bạn chuyên về kỹ thuật có thể sử dụng các giải pháp VPN, [Tor](https://www.torproject.org/), Socks, Proxy khác. Tự thiết lập Server gần Vietnam để có tốc độ cao nhất.
 

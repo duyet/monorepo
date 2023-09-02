@@ -1,6 +1,6 @@
 ---
-title: "Rust: Turbofish ::<> 🐠 "
-date: "2022-01-02"
+title: 'Rust: Turbofish ::<> 🐠 '
+date: '2022-01-02'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -12,14 +12,13 @@ slug: /2022/01/rust-turbofish.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F01%2Frust-turbofish.html
 thumbnail: https://i.imgur.com/RI41eNJ.png
 description: Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum, Rust có một cú pháp đặc biệt để làm điều này gọi là turbofish.
-
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
 
 ![Rust Turbofish](/media/2022/01/rust-turbofish.png)
 
-Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum, 
+Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum,
 Rust có một cú pháp đặc biệt để làm điều này gọi là turbofish. Quy tắc là khi nào bạn thấy
 
 ```rust
@@ -68,10 +67,10 @@ Chúng ta có thể sử dụng turbofish để mô tả kiểu dữ liệu sẽ
 Một ví dụ phổ biến nữa là `collect()` của `Iterator`
 
 ```rust
-fn collect<B>(self) -> B where B: FromIterator<Self::Item> 
+fn collect<B>(self) -> B where B: FromIterator<Self::Item>
 ```
 
-Bởi vì compiler đã biết kiểu dữ liệu của `Self::Item` mà ta đang collect rồi, 
+Bởi vì compiler đã biết kiểu dữ liệu của `Self::Item` mà ta đang collect rồi,
 chúng ta thường không cần ghi ra. Thay vào đó là sử dụng `_` để compiler tự động infer ra. Ví dụ:
 
 ```rust
@@ -96,7 +95,7 @@ Cú pháp như sau:
 
 # Generic Struct
 
-Trong trường hợp compiler không có đủ thông tin để infer khi tạo generic struct, 
+Trong trường hợp compiler không có đủ thông tin để infer khi tạo generic struct,
 chúng ta cũng có thể sử dụng turbofish syntax. Ví dụ struct `Vec` có định nghĩa như sau
 
 ```rust
@@ -109,26 +108,26 @@ Ví dụ để khởi tạo `Vec` mới với `Vec::new()` ta có thể viết
 Vec::<u8>::new()
 ```
 
-Nhớ là ta bỏ turbofish sau `Vec::` không phải sau method `new` 
-bởi vì struct sử dụng generic type chứ không phải method `new`. 
+Nhớ là ta bỏ turbofish sau `Vec::` không phải sau method `new`
+bởi vì struct sử dụng generic type chứ không phải method `new`.
 Hơi bựa nhưng nó vẫn thỏa quy tắc của turbofish. Một ví dụ khác
 
 ```rust
-std::collections::HashSet::<u8>::with_capacity(10) 
+std::collections::HashSet::<u8>::with_capacity(10)
 ```
 
 Ta đang tạo một `Hashset` với 10 phần tử, bởi vì `Hashset` struct có định nghĩa như sau
 
 ```rust
-pub struct HashSet<T, S = RandomState> { /* fields omitted */ } 
+pub struct HashSet<T, S = RandomState> { /* fields omitted */ }
 ```
 
 Chúng ta có thể sử dụng cú pháp này với mọi Rust collections.
 
 # Generic Enum
 
-Tuy nhiên Enum lại không theo quy tắc trên, bởi vì enum trong Rust không được 
-scoped tại enum name, do đó ta đặt turbofish sau enum variant. 
+Tuy nhiên Enum lại không theo quy tắc trên, bởi vì enum trong Rust không được
+scoped tại enum name, do đó ta đặt turbofish sau enum variant.
 Ví dụ hãy xem enum `Result` được dùng rất nhiều trong Rust
 
 ```rust
@@ -151,7 +150,7 @@ trong Rust, thực tế mọi người sẽ viết như thế này:
 
 ```rust
 Ok::<u8, ()>(10)
-Err::<u8, ()>(()) 
+Err::<u8, ()>(())
 ```
 
 # Reference

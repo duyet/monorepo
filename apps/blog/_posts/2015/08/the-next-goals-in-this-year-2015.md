@@ -1,13 +1,13 @@
 ---
 title: The next goals in this year 2015
-date: "2015-08-10"
+date: '2015-08-10'
 author: Van-Duyet Le
 tags:
-- mục tiêu
+  - mục tiêu
 modified_time: '2015-08-10T10:09:22.333+07:00'
 slug: /2015/08/the-next-goals-in-this-year-2015.html
 category: Story
-description: 
+description:
 ---
 
 Mục tiêu đến hết năm nay.

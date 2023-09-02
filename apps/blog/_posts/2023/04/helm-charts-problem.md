@@ -11,7 +11,6 @@ slug: /2023/04/helm-charts-problem.html
 thumbnail: https://i.imgur.com/HhcwrAw.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F04%2Fhelm-charts-problem.html
 description: Why does Helm Charts interpret 0777 to 511? It took me quite some time to debug it.
-
 ---
 
 It took me quite some time to debug it.
@@ -44,7 +43,8 @@ File: templates/deployment.yaml
 When I ran `helm template .` to render the template, I expected to see `0777`. However, what I got was `511`. Here's the relevant part of the output:
 
 ```yaml
-...
+
+---
 volumes:
   - name: airflow-config
     configMap:
@@ -58,7 +58,8 @@ volumes:
 My expectation was:
 
 ```yaml
-...
+
+---
 volumes:
   - name: airflow-config
     configMap:
@@ -91,7 +92,6 @@ customScriptDefaultMode: "0777"
 ```
 
 ## References
-
 
 - [https://stackoverflow.com/a/33168435](https://stackoverflow.com/a/33168435)
 - [Template Function List > toDecimal](https://helm.sh/docs/chart_template_guide/function_list/#todecimal)

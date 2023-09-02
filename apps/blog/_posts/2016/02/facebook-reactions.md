@@ -1,16 +1,16 @@
 ---
 title: Facebook reactions
-date: "2016-02-27"
+date: '2016-02-27'
 author: Van-Duyet Le
 tags:
-- Reactions
-- Phân tích
-- facebook
+  - Reactions
+  - Phân tích
+  - facebook
 modified_time: '2016-05-02T19:42:01.860+07:00'
 thumbnail: https://2.bp.blogspot.com/-BIxcI2n_erc/VtFJUKh2CbI/AAAAAAAAQbI/l49PMUxYiGE/s1600/reaction.gif
 slug: /2016/02/facebook-reactions.html
 category: News
-description:  Tuần qua, Facebook vừa có sự thay đổi lớn trên toàn cầu, thay thế nút Like truyền thống thành các biểu tượng cảm xúc - Reactions. Facebook Reactions gây ra nhiều phản ứng khác nhau cho người dùng, hầu hết mọi người đều tỏ ra hứng thú với thay đổi lớn này.
+description: Tuần qua, Facebook vừa có sự thay đổi lớn trên toàn cầu, thay thế nút Like truyền thống thành các biểu tượng cảm xúc - Reactions. Facebook Reactions gây ra nhiều phản ứng khác nhau cho người dùng, hầu hết mọi người đều tỏ ra hứng thú với thay đổi lớn này.
 ---
 
 Tuần qua, Facebook vừa có sự thay đổi lớn trên toàn cầu, thay thế nút Like truyền thống thành các biểu tượng cảm xúc - Reactions. Facebook Reactions gây ra nhiều phản ứng khác nhau cho người dùng, hầu hết mọi người đều tỏ ra hứng thú với thay đổi lớn này.

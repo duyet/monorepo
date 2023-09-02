@@ -1,12 +1,12 @@
 ---
 title: Apache Spark on Docker
-date: "2015-12-12"
+date: '2015-12-12'
 author: Van-Duyet Le
 tags:
-- Docker
-- Apache Spark
-- Web
-- Big Data
+  - Docker
+  - Apache Spark
+  - Web
+  - Big Data
 modified_time: '2016-01-11T02:00:26.381+07:00'
 thumbnail: https://1.bp.blogspot.com/-KvlK1aCu4JA/VmsMOTCCySI/AAAAAAAALYo/H_kBQPB_dDE/s1600/KuDr42X_ITXghJhSInDZekNEF0jLt3NeVxtRye3tqco.png
 slug: /2015/12/apache-spark-on-docker.html
@@ -75,13 +75,11 @@ For more examples and ideas, visit:
 
 ## Pull the image from Docker Repository
 
-
 ```
 docker pull duyetdev/docker-spark
 ```
 
 ## Building the image
-
 
 ```
 docker build --rm -t duyetdev/docker-spark .
@@ -89,8 +87,7 @@ docker build --rm -t duyetdev/docker-spark .
 
 ## Running the image
 
-
-If using boot2docker make sure your VM has more than 2GB memory 
+If using boot2docker make sure your VM has more than 2GB memory
 
 In your /etc/hosts file add $(boot2docker ip) as host 'sandbox' to make it easier to access your sandbox UI
 
@@ -107,7 +104,6 @@ docker run -d -h sandbox duyetdev/docker-spark -
 ```
 
 ## Testing
-
 
 In order to check whether everything is OK, you can run one of the stock examples, coming with Spark.
 

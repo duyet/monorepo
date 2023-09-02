@@ -1,11 +1,11 @@
 ---
 title: nhẫn
-date: "2015-12-01"
+date: '2015-12-01'
 author: Van-Duyet Le
 tags:
-- Blog
-- nhẫn
-- tan man
+  - Blog
+  - nhẫn
+  - tan man
 modified_time: '2015-12-01T23:55:30.384+07:00'
 slug: /2015/12/nhan.html
 category: Story

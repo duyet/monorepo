@@ -1,6 +1,6 @@
 ---
-title: "Rust: Option & Result"
-date: "2022-02-15"
+title: 'Rust: Option & Result'
+date: '2022-02-15'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -9,8 +9,7 @@ tags:
   - Rust Basic
 slug: /2022/02/rust-option-result.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-option-result.html
-description: Rust giới thiệu hai generic enums Option và Result để giải quyết các vấn đề null pointer exceptions, exception data leak, ... 
-
+description: Rust giới thiệu hai generic enums Option và Result để giải quyết các vấn đề null pointer exceptions, exception data leak, ...
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
@@ -49,17 +48,17 @@ Nhiều ngôn ngữ sử dụng kiểu dữ liệu `null` hoặc `nil` hoặc `u
 
 # 1. Option
 
-Trong hầu hết các ngôn ngữ họ C (C, C#, Java, ...), để xác định một cái gì đó failed hay không tìm được giá trị thỏa mãn, chúng ta thường trả về một giá trị *“đặc biệt”* nào đó. Ví dụ `indexOf()` của Javascript scan một phần tử trong mảng, trả về vị trí của phần tử đó trong mảng. Và trả về `-1` nếu không tìm thấy. 
+Trong hầu hết các ngôn ngữ họ C (C, C#, Java, ...), để xác định một cái gì đó failed hay không tìm được giá trị thỏa mãn, chúng ta thường trả về một giá trị _“đặc biệt”_ nào đó. Ví dụ `indexOf()` của Javascript scan một phần tử trong mảng, trả về vị trí của phần tử đó trong mảng. Và trả về `-1` nếu không tìm thấy.
 
 Dẫn đến, ta sẽ thường thấy một số đoạn code như sau đây:
 
 ```typescript
-let sentence = "The fox jumps over the dog";
-let index = sentence.indexOf("fox");
+let sentence = 'The fox jumps over the dog'
+let index = sentence.indexOf('fox')
 
 if (index > -1) {
-  let result = sentence.substr(index);
-  console.log(result);
+  let result = sentence.substr(index)
+  console.log(result)
 }
 ```
 
@@ -71,13 +70,13 @@ if (index > 0) {
 }
 ```
 
-`""` hay `null` hay `None` cũng là một trong những trường hợp đặc biệt đó. Bạn đã từng nghe đến ****[Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)****?
+`""` hay `null` hay `None` cũng là một trong những trường hợp đặc biệt đó. Bạn đã từng nghe đến \***\*[Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)\*\***?
 
-Lý do cơ bản là không có gì chắc chắn và có thể ngăn bạn lại việc ... **quên** 
+Lý do cơ bản là không có gì chắc chắn và có thể ngăn bạn lại việc ... **quên**
 xử lý mọi trường hợp giá trị đặc biệt, hoặc do chương trình trả về các giá trị đặc biệt không như mong đợi.
-Có nghĩa là ta có thể *vô tình* làm crash chương trình với một lỗi nhỏ ở bất kỳ đâu, ở bất kỳ thời điểm nào.
+Có nghĩa là ta có thể _vô tình_ làm crash chương trình với một lỗi nhỏ ở bất kỳ đâu, ở bất kỳ thời điểm nào.
 
-Rust làm điều này tốt hơn, chỉ với `Option`. 
+Rust làm điều này tốt hơn, chỉ với `Option`.
 
 Một giá trị optional có thể mang một giá trị nào đó **Some(something)** hoặc không mang giá trị nào cả (**None**).
 
@@ -89,8 +88,8 @@ enum Option<T> { // T is a generic and it can contain any type of value.
 }
 ```
 
-Theo thiết kế, mặc định bạn sẽ không bao giờ lấy được giá trị bạn cần nếu không xử lý 
-các trường hợp có thể xảy ra với `Option`, là `None` chẳng hạn. 
+Theo thiết kế, mặc định bạn sẽ không bao giờ lấy được giá trị bạn cần nếu không xử lý
+các trường hợp có thể xảy ra với `Option`, là `None` chẳng hạn.
 Điều này được bắt buộc bởi compiler lúc compile code, có nghĩa là nếu bạn quên check, code sẽ không bao giờ được compile.
 
 ```rust
@@ -106,7 +105,6 @@ if let Some(fox) = index {
 [(Rust Playground)](https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=8d3d53cae73b642797337b6e1b01e58b)
 
 ## **Cách sử dụng Option**
-
 
 Option là standard library, do đã được [preludes](https://learning-rust.github.io/docs/d7.std_primitives_and_preludes.html#Preludes) nên chúng ta không cần khai báo trước khi sử dụng. Ngoài enum [Option](https://doc.rust-lang.org/std/option/enum.Option.html) thì các variant của nó cũng đã được preludes sẵn như [Some](https://doc.rust-lang.org/std/option/enum.Option.html#variant.Some) và [None](https://doc.rust-lang.org/std/option/enum.Option.html#variant.None).
 
@@ -135,7 +133,7 @@ fn main() {
 }
 ```
 
-Ta thường sử dụng `match` để bắt giá trị trả về (`Some` hoặc `None`). 
+Ta thường sử dụng `match` để bắt giá trị trả về (`Some` hoặc `None`).
 
 Bạn sẽ bắt gặp rất rất nhiều method khác nhau để xử lý giá trị của `Option`
 
@@ -143,8 +141,7 @@ Option method overview: [https://doc.rust-lang.org/std/option/#method-overview](
 
 ### `.unwrap()`
 
-
-Trả về giá trị nằm trong `Some`. Nếu giá trị là None có thể dẫn đến panic chương trình. 
+Trả về giá trị nằm trong `Some`. Nếu giá trị là None có thể dẫn đến panic chương trình.
 
 ```rust
 let x = Some("air");
@@ -156,7 +153,6 @@ assert_eq!(x.unwrap(), "air"); // panic!
 
 ### `.expect()`
 
-
 Giống `.unwrap()`, nhưng nếu panic thì Rust sẽ kèm theo message
 
 ```rust
@@ -166,7 +162,6 @@ x.expect("fruits are healthy"); // panics: `fruits are healthy`
 
 ### `.unwrap_or()`
 
-
 Trả về giá trị nằm trong `Some`, nếu không trả về giá trị nằm trong `or`
 
 ```rust
@@ -174,7 +169,6 @@ assert_eq!(Some("car").unwrap_or("bike"), "car");
 ```
 
 ### `.unwrap_or_default()`
-
 
 Trả về giá trị nằm trong `Some`, nếu không trả về giá [default](https://doc.rust-lang.org/std/default/trait.Default.html#tymethod.default).
 
@@ -190,11 +184,10 @@ assert_eq!(0, bad_year);
 
 ### `.ok_or()`
 
-
-Convert `Option<T>` sang [`Result<T, E>`](https://doc.rust-lang.org/std/result/enum.Result.html), 
-mapping [`Some(v)`](https://doc.rust-lang.org/std/option/enum.Option.html#variant.Some) 
-thành [`Ok(v)`](https://doc.rust-lang.org/std/result/enum.Result.html#variant.Ok) 
-và [`None`](https://doc.rust-lang.org/std/option/enum.Option.html#variant.None) 
+Convert `Option<T>` sang [`Result<T, E>`](https://doc.rust-lang.org/std/result/enum.Result.html),
+mapping [`Some(v)`](https://doc.rust-lang.org/std/option/enum.Option.html#variant.Some)
+thành [`Ok(v)`](https://doc.rust-lang.org/std/result/enum.Result.html#variant.Ok)
+và [`None`](https://doc.rust-lang.org/std/option/enum.Option.html#variant.None)
 sang [`Err(err)`](https://doc.rust-lang.org/std/result/enum.Result.html#variant.Err).
 
 ```rust
@@ -204,14 +197,13 @@ assert_eq!(x.ok_or(0), Ok("foo"));
 
 ### `match`
 
-
 Chúng ta có thể sử dụng pattern matching để code dễ đọc hơn
 
 ```rust
 fn get_name(who: Option<String>) -> String {
   match who {
     Some(name) => format!("Hello {}", name),
-    None       => "Who are you?".to_string(), 
+    None       => "Who are you?".to_string(),
   }
 }
 
@@ -261,7 +253,6 @@ Như bạn thấy thì `main()` cũng có thể return về `Result<(), &'static
 
 ### `.unwrap()`
 
-
 Ví dụ trên nhưng sử dụng `.unwrap()` , chủ động panic (crash) dừng chương trình nếu gặp lỗi.
 
 ```rust
@@ -277,7 +268,6 @@ fn main() -> Result<(), &'static str> {
 [(Rust Playground)](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=c93551e94e040369d5874672495e3fc9)
 
 ### `.expect()`
-
 
 Giống như `unwrap()`: chủ động panic (crash) dừng chương trình nếu gặp lỗi và kèm theo message. Sẽ rất có ích, nhất là khi có quá nhiều unwrap, bạn sẽ không biết nó panic ở đâu.
 

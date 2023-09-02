@@ -10,13 +10,15 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "fix": "prettier --write .",
+    "fix": "prettier --write \"**/*.{ts,tsx}\" .",
     "lint": "next lint",
     "prettier-check": "prettier --check .",
     "start": "next start"
   },
   "dependencies": {
+    "@auth0/auth0-react": "2.0.1",
     "@duyet/components": "*",
+    "@duyet/prettier": "*",
     "@duyet/libs": "*",
     "@headlessui/tailwindcss": "^0.2.0",
     "@radix-ui/react-toggle-group": "^1.0.3",
@@ -50,5 +52,6 @@
     "prettier": "^3.0.0",
     "tailwindcss": "^3.2.4",
     "typescript": "^5.0.0"
-  }
+  },
+  "prettier": "@duyet/prettier"
 }

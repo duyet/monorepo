@@ -1,17 +1,17 @@
 ---
 title: Đâu là lợi thế cạnh tranh của người Việt?
-date: "2016-02-14"
+date: '2016-02-14'
 author: Van-Duyet Le
 tags:
-- đọc báo
-- chinhphu.vn
+  - đọc báo
+  - chinhphu.vn
 modified_time: '2016-02-14T22:42:27.186+07:00'
 slug: /2016/02/dau-la-loi-canh-tranh-cua-nguoi-viet.html
 category: News
-description: Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.    
+description: Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.
 ---
 
-[Chinhphu.vn](http://chinhphu.vn/) - Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.    
+[Chinhphu.vn](http://chinhphu.vn/) - Trong buổi trò chuyện đầu năm với chúng tôi, GS.TSKH Vũ Minh Giang cho rằng, đã tới lúc nên nhìn nhận, coi những giá trị di sản văn hóa phi vật thể như tính cách của người Việt cũng chính là tài nguyên phát triển.  
 "Bởi tính cách tích cực hay tiêu cực là góc nhìn của mỗi người. Khen một điều tích cực cũng là do người phân tích, chê điều tiêu cực cũng là do góc nhìn của người lựa chọn. Biến tất cả những gì mình có thành lợi thế cạnh tranh thì đó mới là tư duy hiện đại, có tầm của người có văn hóa, làm văn hóa", GS.TSKH Vũ Minh Giang nhấn mạnh.
 
 ## Từ tính linh hoạt tới lợi thế công nghệ thông tin
@@ -35,7 +35,6 @@ Nhìn sang các quốc gia khác, với tính mềm dẻo đến mức như là 
 "Do đó, tính cách tùy tiện-mềm dẻo của người Việt, nhìn ở góc độ này nó là han chế tiêu cực, nhưng nhìn ở góc độ khác nó lại là lợi thế. Chúng ta làm sao vứt bỏ nét tính cách đã hình thành từ hàng ngàn năm nay. Vấn đề là làm sao biến nó thành tài sản, thành thế mạnh cạnh tranh của đất nước" GS Vũ Minh Giang trăn trở.
 
 ## Ra thế giới bằng sự thông minh, linh hoạt, sáng tạo
-
 
 Quay trở lại bài toán khai thác giá trị phi vật thể của người Việt, GS. Vũ Minh Giang cho rằng cần phải có một tầm nhìn, chiến lược trong việc biến tất cả những gì mình có thành lợi thế trong quá trình hội nhập quốc tế.
 

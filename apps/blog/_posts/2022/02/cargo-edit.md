@@ -1,6 +1,6 @@
 ---
-title: "Rust: cargo-edit"
-date: "2022-02-06"
+title: 'Rust: cargo-edit'
+date: '2022-02-06'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -10,9 +10,8 @@ tags:
   - Rust Basic
 slug: /2022/02/cargo-edit.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Fcargo-edit.html
-thumbnail: https://i.imgur.com/zy1QIYA.png 
+thumbnail: https://i.imgur.com/zy1QIYA.png
 description: cargo-edit là công cụ mở rộng của cargo cho phép có thêm một số tính năng quản lý dependencies giống như npm hoặc yarn.
-
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
@@ -43,8 +42,7 @@ $ cargo install cargo-edit
 
 ## `cargo add`
 
-
-Thêm một dependencies mới vào `Cargo.toml`. Nếu không chỉ định version, `cargo add` sẽ tự lấy version mới nhất từ [crates.io](https://crates.io/).  
+Thêm một dependencies mới vào `Cargo.toml`. Nếu không chỉ định version, `cargo add` sẽ tự lấy version mới nhất từ [crates.io](https://crates.io/).
 
 ```bash
 $ # Có version cụ thể
@@ -63,7 +61,6 @@ $ cargo add clap --features derive
 
 ## `cargo rm`
 
-
 Ngược lại với `add`
 
 ```bash
@@ -76,7 +73,6 @@ $ cargo rm regex --build
 ```
 
 ## `cargo set-version`
-
 
 ```bash
 # Set the version to the version 1.0.0

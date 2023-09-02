@@ -1,11 +1,11 @@
 ---
 title: Nodejs - Giới thiệu SailsJS framework.
-date: "2015-08-08"
+date: '2015-08-08'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- sails
-- sailsjs
+  - Nodejs
+  - sails
+  - sailsjs
 modified_time: '2016-05-14T13:36:49.370+07:00'
 thumbnail: https://4.bp.blogspot.com/-s5C5wk5JYDQ/VcX1QdZWrhI/AAAAAAAACs8/Kw28tJWqIzY/s1600/sailsjs.PNG
 slug: /2015/08/gioi-thieu-sailsjs-framework.html
@@ -28,7 +28,7 @@ Getting Started: [http://sailsjs.org/get-started](http://sailsjs.org/get-started
 
 ## Cài đặt
 
-Cài đặt sails cực kì dễ, với 1 lệnh npm 
+Cài đặt sails cực kì dễ, với 1 lệnh npm
 
 ```
 $ sudo npm -g install sails

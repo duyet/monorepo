@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Menu from './Menu'
 import Container from './Container'
 
-export default function Header({ logo }: { logo: any }) {
+export default function Header({ logo }: { logo: string }) {
   return (
     <header className="py-10">
       <Container className="mb-0">

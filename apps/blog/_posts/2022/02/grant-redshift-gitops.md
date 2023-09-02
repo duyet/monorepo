@@ -1,6 +1,6 @@
 ---
-title: "grant-rs: Manage Redshift/Postgres Privileges GitOps Style"
-date: "2022-02-24"
+title: 'grant-rs: Manage Redshift/Postgres Privileges GitOps Style'
+date: '2022-02-24'
 author: Van-Duyet Le
 category: Data
 tags:
@@ -10,8 +10,7 @@ tags:
 slug: /2022/02/grant-redshift-gitops.html
 thumbnail: https://i.imgur.com/ooGg2k5.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Fgrant-redshift-gitops.html
-description: The grant project aims to manage Postgres and Redshift database roles and privileges in GitOps style. Grant is the culmination of my learning of Rust for data engineering tools. 
-
+description: The grant project aims to manage Postgres and Redshift database roles and privileges in GitOps style. Grant is the culmination of my learning of Rust for data engineering tools.
 ---
 
 # **What is GitOps?**
@@ -30,12 +29,9 @@ Currently, grant will help you manage the list of users, their passwords, and ma
 
 Everything will be managed visually through YAML files in a Git repo. Any changes will be saved through Git's version management system, making it easy to view history and rollback. Management will also be more accessible because you can easily change, grant and remove access through Git pull requests.
 
-
 ![](https://i.imgur.com/ooGg2k5.png)
 
-
 ## Cli Installation
-
 
 You can install the `grant` cli via Rust cargo:
 
@@ -51,7 +47,6 @@ $ brew install grant
 ```
 
 ## Usage
-
 
 You can find the most information about usage at Github project page https://github.com/duyet/grant-rs
 
@@ -79,8 +74,7 @@ SUBCOMMANDS:
     validate    Validate a configuration file or a target directory that contains configuration files
 ```
 
-## ****Generate new project structure****
-
+## \***\*Generate new project structure\*\***
 
 This will generate the new Postgres/Redshift IaC managed by `grant`. You can make it in anyway.
 
@@ -95,7 +89,7 @@ $ grant gen --target ./db_stg
 # Creating path: "./db_stg"
 # Generated: "./db_stg/config.yml"
 
-$ grant gen --target ./db_prod 
+$ grant gen --target ./db_prod
 # Creating path: "./db_prod"
 # Generated: "./db_prod/config.yml"
 
@@ -123,11 +117,9 @@ There are three parts:
 
 ### `connection`
 
-
 This is the root connection string, and need to have the admin privileges to create/update other users and manage their permissions. The `url` also support env variables to securing the password, for example, `postgres://postgres:${DB_PASSWORD}@localhost:5432/postgres`
 
 ### `roles[]`
-
 
 `roles[]` will contains the list of roles, each role will have
 
@@ -174,8 +166,7 @@ roles:
 
 ### `users[]`
 
-
-The list of users and associate roles. Each user may contain a password which is in plaintext or hashed by `grant gen-pass` 
+The list of users and associate roles. Each user may contain a password which is in plaintext or hashed by `grant gen-pass`
 
 ```bash
 $ grant gen-pass -u duyet
@@ -205,7 +196,6 @@ users:
 ```
 
 ## Apply configuration to cluster
-
 
 Final, to apply all these configurations to the cluster, using the `grant apply`
 
@@ -241,7 +231,6 @@ $ grant apply -f ./db_prd/config.yaml
 
 ## Generate random password
 
-
 Grant can help to generate a new random password
 
 ```bash
@@ -261,8 +250,7 @@ $ grant gen-pass --no-special --username duyet
 
 ## Apply to CI/CD
 
-
-`grant` support `--dryrun` apply mode. You can run the grant dry run on pull requests for reviewing and without it on PRs merged. 
+`grant` support `--dryrun` apply mode. You can run the grant dry run on pull requests for reviewing and without it on PRs merged.
 
 ```bash
 # on pull requests

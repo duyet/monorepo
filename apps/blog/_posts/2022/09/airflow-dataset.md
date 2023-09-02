@@ -4,14 +4,13 @@ date: '2022-09-27'
 author: Van-Duyet Le
 category: Data
 tags:
-- Data
-- Data Engineer
-- Airflow
+  - Data
+  - Data Engineer
+  - Airflow
 slug: /2022/09/airflow-dataset.html
 thumbnail: https://i.imgur.com/oESqHNY.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fairflow-dataset.html
 description: Airflow since 2.4, in addition to scheduling DAGs based upon time, they can also be scheduled based upon a task updating a dataset. This will change the way you schedule DAGs.
-
 ---
 
 Airflow since 2.4, in addition to scheduling DAGs based upon time, they can also be scheduled based upon a task updating a dataset. This will change the way you schedule DAGs.
@@ -74,9 +73,9 @@ schemeless = Dataset("//example/dataset")
 csv_file = Dataset("example_dataset")
 ```
 
-# ****Datasets Chain****
+# \***\*Datasets Chain\*\***
 
-A consumer DAG can update another dataset which triggering another DAGs. 
+A consumer DAG can update another dataset which triggering another DAGs.
 
 ```python
 dataset_1 = Dataset("/tmp/dataset_1.txt")

@@ -1,20 +1,20 @@
 ---
 title: natural - NLTK cho Javascript
-date: "2017-08-06"
+date: '2017-08-06'
 author: Van-Duyet Le
 tags:
-- Data Engineer
-- Nodejs
-- intro-js
-- Javascript
-- NLP
-- Intro-library
-- Machine Learning
+  - Data Engineer
+  - Nodejs
+  - intro-js
+  - Javascript
+  - NLP
+  - Intro-library
+  - Machine Learning
 modified_time: '2018-09-10T17:20:37.866+07:00'
 thumbnail: https://4.bp.blogspot.com/-7UyZjfbL--g/WYadFDYvEfI/AAAAAAAAmc4/x-jU5zgVZz8BsBM5VP5zkZA5Y8c79XIBQCK4BGAYYCw/s1600/nlp_js.png
 slug: /2017/08/natural-nltk.html
 category: Machine Learning
-description: "NaturalJS được ví như nltk cho Node. natural có nhiều chức năng xử lý ngôn ngữ tự nhiên như: Tokenizing, stemming, classification, phonetics, tf-idf, WordNet, string similarity, ..."
+description: 'NaturalJS được ví như nltk cho Node. natural có nhiều chức năng xử lý ngôn ngữ tự nhiên như: Tokenizing, stemming, classification, phonetics, tf-idf, WordNet, string similarity, ...'
 ---
 
 "[Natural](https://github.com/NaturalNode/natural)" được ví như nltk cho Node. [natural](https://github.com/NaturalNode/natural) có nhiều chức năng xử lý ngôn ngữ tự nhiên như: Tokenizing, stemming, classification, phonetics, tf-idf, WordNet, string similarity, ...
@@ -97,18 +97,16 @@ Classify một đoạn văn bản mới:
 
 ```
 console.log(classifier.classify('i am short silver')); // sell
-console.log(classifier.classify('i am long copper')); // buy 
+console.log(classifier.classify('i am long copper')); // buy
 ```
 
 ## N-Grams
-
 
 ```
 var NGrams = natural.NGrams;
 ```
 
 ### bigrams
-
 
 ```
 console.log(NGrams.bigrams('some words here'));
@@ -118,7 +116,6 @@ console.log(NGrams.bigrams(['some',  'words',  'here']));
 Cả 2 đoạn trên đều cho kết quả `[ [ 'some', 'words' ], [ 'words', 'here' ] ]`
 
 ### trigrams
-
 
 ```
 console.log(NGrams.trigrams('some other words here'));

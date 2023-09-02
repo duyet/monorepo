@@ -1,13 +1,13 @@
 ---
 title: ES6 - swap (hoán đổi) nhanh 2 biến số
-date: "2016-05-27"
+date: '2016-05-27'
 author: Van-Duyet Le
 tags:
-- Tutorrial
-- ES6
-- Tutorials
-- Javascript
-- Exploring ES6
+  - Tutorrial
+  - ES6
+  - Tutorials
+  - Javascript
+  - Exploring ES6
 modified_time: '2016-05-27T12:32:27.018+07:00'
 thumbnail: https://3.bp.blogspot.com/-ASmcHtbRZj4/V0fa2A-pCEI/AAAAAAAAWDs/AP5UfzkG1icZUj4TCv68Nr4hu5SK04zxACK4B/s1600/swap-es-duyetdev.com.png
 slug: /2016/05/es6-swap-via-destructuring.html
@@ -22,7 +22,7 @@ ES6 có chức năng destructuring có khá nhiều công dụng. Thủ thuật 
 Đặt 2 biến cần hoán đổi vào mảng, và tiến hành "destructuring" và 1 mảng có cùng tham số.
 
 ```js
-[a, b] = [b, a];
+;[a, b] = [b, a]
 ```
 
 Javascript sẽ tự động hiểu là bạn cần swap 2 biến, nên thực tế sẽ không tạo ra mảng [a, b] để tránh tốn bộ nhớ.

@@ -1,17 +1,17 @@
 ---
 title: R trên Jupiter Notebook (Ubuntu 14.04 / 14.10 / 16.04)
-date: "2016-11-22"
+date: '2016-11-22'
 author: Van-Duyet Le
 tags:
-- Data Engineer
-- Jupyter
-- Data
-- Notebook
-- Pip
-- Python
-- Data Science
-- Jupyter Notebook
-- R
+  - Data Engineer
+  - Jupyter
+  - Data
+  - Notebook
+  - Pip
+  - Python
+  - Data Science
+  - Jupyter Notebook
+  - R
 modified_time: '2016-11-22T23:53:50.793+07:00'
 thumbnail: https://4.bp.blogspot.com/-aQIMnwL9Gxc/WDR00IF9dqI/AAAAAAAAf9w/ZvplzJNUtI8vjWh2nF8_kVJZoYF3fHF9QCLcB/s1600/Screenshot%2Bfrom%2B2016-11-22%2B23-39-25.png
 slug: /2016/11/r-tren-jupiter-notebook-ubuntu-1404.html
@@ -28,7 +28,7 @@ Jupyter Notebook là công cụ khá mạnh của lập trình viên Python và 
 1. Cài Jupyter Notebook và R
 
 ```bash
-# Install Jupyter Notebook 
+# Install Jupyter Notebook
 pip install jupyter
 
 # Install R
@@ -53,18 +53,17 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 
 ```
 
-3. Khởi động Jupyter Notebook   
+3. Khởi động Jupyter Notebook
 
 ```bash
-jupyter notebook 
+jupyter notebook
 ```
 
-4. Tạo Notebook mới và chọn R Kernel   
+4. Tạo Notebook mới và chọn R Kernel
 
 ![](https://1.bp.blogspot.com/-msKKn9TC3QM/WDR3Z66_pXI/AAAAAAAAf98/pxS7bxjnjOIKszldYK4vh8ZUH2Q8kui2QCK4B/s1600/kernel-select.png)
 
-## Tham khảo 
-
+## Tham khảo
 
 Ngoài ra, Jupyter còn hỗ trợ rất nhiều Kernel khác do cộng đồng phát triển, xem tại đây: [https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages ](https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages)
 

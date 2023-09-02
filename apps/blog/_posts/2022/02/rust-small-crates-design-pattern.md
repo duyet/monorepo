@@ -1,6 +1,6 @@
 ---
-title: "Rust Design Pattern: Prefer Small Crates" 
-date: "2022-02-13"
+title: 'Rust Design Pattern: Prefer Small Crates'
+date: '2022-02-13'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -12,7 +12,6 @@ tags:
 slug: /2022/02/rust-small-crates-design-pattern.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2021%2F12%2Frust-strategy-design-pattern.html
 description: Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.
-
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
@@ -37,10 +36,10 @@ description: Prefer small crates that do one thing well. Để có được sự
 
 Không hẳn là một Design pattern, mình thấy đây là một tư tưởng khi viết các project bằng Rust.
 
-Cargo và [crates.io](http://crates.io/) giúp quản lý crate cực kỳ dễ dàng. 
-Hơn nữa, crate trên crates.io không thể sửa hoặc xóa được sau khi publish, 
-bất kỳ bản build nào đang hoạt động chắc chắn sẽ hoạt động được tiếp trong tương lai. 
-Điều này bắt buộc để có được sự hiệu quả, mọi crate phải được thiết kế tốt, 
+Cargo và [crates.io](http://crates.io/) giúp quản lý crate cực kỳ dễ dàng.
+Hơn nữa, crate trên crates.io không thể sửa hoặc xóa được sau khi publish,
+bất kỳ bản build nào đang hoạt động chắc chắn sẽ hoạt động được tiếp trong tương lai.
+Điều này bắt buộc để có được sự hiệu quả, mọi crate phải được thiết kế tốt,
 lựa chọn dependencies kỹ càng và càng nhỏ càng tốt.
 
 > Prefer small crates that do one thing well.
@@ -50,12 +49,12 @@ lựa chọn dependencies kỹ càng và càng nhỏ càng tốt.
 - Small crate sẽ giúp ta dễ hiểu và dễ sử dụng hơn, code dễ module hóa hơn.
 - Đơn vị compilation nhỏ nhất của Rust là crate, tách nhỏ project thành nhiều crate giúp code build parallel.
 - Crate giúp tái sử dụng giữa nhiều project khác nhau.
-    - Ví dụ, crate `url` là một phần của Servo browser engine, nhưng được sử dụng cực kỳ rộng rãi ở các project khác, do nó độc lập và giải quyết một vấn đề cụ thể.
-    - Ví dụ, [AWS SDK Rust](https://awslabs.github.io/aws-sdk-rust/) được tách thành rất nhiều crate nhỏ, và các crate nhỏ này được sử dụng ở khắp nơi không chỉ ở AWS SDK Rust.
-        - `aws-sdk-*`
-        - `aws-config`
-        - `aws_smithy_client`
-        - `aws_types`
+  - Ví dụ, crate `url` là một phần của Servo browser engine, nhưng được sử dụng cực kỳ rộng rãi ở các project khác, do nó độc lập và giải quyết một vấn đề cụ thể.
+  - Ví dụ, [AWS SDK Rust](https://awslabs.github.io/aws-sdk-rust/) được tách thành rất nhiều crate nhỏ, và các crate nhỏ này được sử dụng ở khắp nơi không chỉ ở AWS SDK Rust.
+    - `aws-sdk-*`
+    - `aws-config`
+    - `aws_smithy_client`
+    - `aws_types`
 - Tách nhỏ crate độc lập giúp việc chia tasks trong một project lớn của team hiệu quả hơn.
 
 # Nhược điểm

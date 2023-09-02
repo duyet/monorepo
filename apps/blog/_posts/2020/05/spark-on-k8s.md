@@ -1,13 +1,13 @@
 ---
 title: 3 ways to run Spark on Kubernetes
-date: "2020-05-24"
+date: '2020-05-24'
 author: Van-Duyet Le
 category: Data Engineer
 tags:
-- Data Engineer
-- Spark
-- Kubernetes
-- Livy
+  - Data Engineer
+  - Spark
+  - Kubernetes
+  - Livy
 
 # thumbnail: https://3.bp.blogspot.com/-F-neg4I_RWs/Xsno7eN23rI/AAAAAAABZV4/qTy_8SkWlkQSyH5Gg7D01mFaFkeuWRsuwCK4BGAYYCw/s1600/draft-of-apache-spark-image-2.png
 thumbnail: https://1.bp.blogspot.com/-VI84ABaeYlc/XtIGszW5AoI/AAAAAAABZ0s/w1MDUsBNLwsB7_gMIKf-WMX5JXfZOnXLACK4BGAYYCw/s1600/livy-spark-k8s.png
@@ -15,14 +15,14 @@ slug: /2020/05/spark-on-k8s.html
 description: Spark can run on clusters managed by Kubernetes. This feature makes use of native Kubernetes scheduler that has been added to Spark.
 ---
 
-Most of the big data applications need multiple services likes HDFS, YARN, Spark and their clusters. 
+Most of the big data applications need multiple services likes HDFS, YARN, Spark and their clusters.
 Solutions like EMR, Databricks etc help us to simplify the deployment. But then users will be locked into those specific services. These distributed systems require a cluster-management system to handle tasks such as checking node health and scheduling jobs. With the Apache Spark, you can run it like a scheduler YARN, Mesos, standalone mode or now Kubernetes, which is now experimental.
 
 There are many ways to deploy Spark Application on Kubernetes:
- 1. `spark-submit` directly submit a Spark application to a Kubernetes cluster
- 2. Using [Spark Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator)
- 3. Using Livy to Submit Spark Jobs on Kubernetes
 
+1.  `spark-submit` directly submit a Spark application to a Kubernetes cluster
+2.  Using [Spark Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator)
+3.  Using Livy to Submit Spark Jobs on Kubernetes
 
 # YARN pain points
 
@@ -37,23 +37,20 @@ Spark can run on clusters managed by Kubernetes. This feature makes use of nativ
 It is using custom resource definitions and operators as a means to extend the Kubernetes API. So far, it has open-sourced operators for Spark and Apache Flink, and is working on more.
 
 Here are three primary benefits to using Kubernetes as a resource manager:
+
 - Unified management — Getting away from two cluster management interfaces if your organization already is using Kubernetes elsewhere.
 - Ability to isolate jobs — You can move models and ETL pipelines from dev to production without the headaches of dependency management.
 - Resilient infrastructure — You don’t worry about sizing and building the cluster, manipulating Docker files or Kubernetes networking configurations.
 
-
-
 ## 1. `spark-submit` directly submit a Spark application to a Kubernetes cluster
-
 
 `spark-submit` can be directly used to submit a Spark application to a Kubernetes cluster. The submission mechanism works as follows:
 
-- Spark creates a *Spark driver* running within a [Kubernetes pod](https://kubernetes.io/docs/concepts/workloads/pods/pod/).
+- Spark creates a _Spark driver_ running within a [Kubernetes pod](https://kubernetes.io/docs/concepts/workloads/pods/pod/).
 - The driver creates executors which are also running within Kubernetes pods and connects to them, and executes application code.
 - When the application completes, the executor pods terminate and are cleaned up, but the driver pod persists logs and remains in "completed" state in the Kubernetes API until it’s eventually garbage collected or manually cleaned up.
 
 ![](/media/2020/spark-on-k8s/k8s-cluster-mode.png)
-
 
 For example to launch Spark Pi in cluster mode:
 
@@ -70,11 +67,9 @@ $ bin/spark-submit \
 
 More detail at: [https://spark.apache.org/docs/latest/running-on-kubernetes.html](https://spark.apache.org/docs/latest/running-on-kubernetes.html)
 
-
 ## 2. Using Spark Operator
 
-
-The [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark aims to make specifying and running Spark applications as easy and idiomatic as running other workloads on Kubernetes. It uses Kubernetes custom resources for specifying, running, and surfacing status of Spark applications. 
+The [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark aims to make specifying and running Spark applications as easy and idiomatic as running other workloads on Kubernetes. It uses Kubernetes custom resources for specifying, running, and surfacing status of Spark applications.
 
 The easiest way to install the [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark is to use the Helm chart.
 
@@ -92,7 +87,7 @@ To config the Spark Application, we defines an YAML file:
 ```yaml
 # spark-pi.yaml
 
-apiVersion: "sparkoperator.k8s.io/v1beta2"
+apiVersion: 'sparkoperator.k8s.io/v1beta2'
 kind: SparkApplication
 metadata:
   name: spark-pi
@@ -100,31 +95,30 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: "gcr.io/spark-operator/spark:v2.4.5"
+  image: 'gcr.io/spark-operator/spark:v2.4.5'
   imagePullPolicy: Always
   mainClass: org.apache.spark.examples.SparkPi
-  mainApplicationFile: "local:///opt/spark/examples/jars/spark-examples_2.11-2.4.5.jar"
-  sparkVersion: "2.4.5"
+  mainApplicationFile: 'local:///opt/spark/examples/jars/spark-examples_2.11-2.4.5.jar'
+  sparkVersion: '2.4.5'
   restartPolicy:
     type: Never
 
   driver:
     cores: 1
-    coreLimit: "1200m"
-    memory: "512m"
+    coreLimit: '1200m'
+    memory: '512m'
     labels:
       version: 2.4.5
     serviceAccount: spark
   executor:
     cores: 1
     instances: 1
-    memory: "512m"
+    memory: '512m'
     labels:
       version: 2.4.5
-
 ```
 
-Note that `spark-pi.yaml` configures the driver pod to use the spark service account to communicate with the Kubernetes API server. 
+Note that `spark-pi.yaml` configures the driver pod to use the spark service account to communicate with the Kubernetes API server.
 
 To run the Spark Pi example, run the following command:
 
@@ -140,15 +134,14 @@ spark-pi-1590286117050-exec-1                                     0/1       Pend
 ```
 
 Refs:
- - https://github.com/GoogleCloudPlatform/spark-on-k8s-operator
- - [Quick Start Guide](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md)
+
+- https://github.com/GoogleCloudPlatform/spark-on-k8s-operator
+- [Quick Start Guide](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md)
 
 ## 3. Using Livy
 
-
-Apache Livy is a service that enables easy interaction with a Spark cluster over a REST interface. 
+Apache Livy is a service that enables easy interaction with a Spark cluster over a REST interface.
 The cons is that Livy is written for Yarn. But Yarn is just Yet Another resource manager with containers abstraction adaptable to the Kubernetes concepts. Under the hood Livy parses POSTed configs and does `spark-submit` for you, bypassing other defaults configured for the Livy server.
-
 
 The high-level architecture of Livy on Kubernetes is the same as for Yarn.
 
@@ -196,7 +189,7 @@ sparkpi01aasdbtyovr-1590286117050-exec-4      1/1     Running        0          
 sparkpi01aasdbtyovr-1590286117050-exec-5      1/1     Running        0          1m
 ```
 
-or the Livy REST API: 
+or the Livy REST API:
 
 ```bash
 k exec livy-0 -- curl -s http://localhost:8998/batches/$BATCH_ID | jq
@@ -208,11 +201,8 @@ Refs: https://github.com/jahstreet/spark-on-kubernetes-helm
 
 # How To Choose Between `spark-submit` and Spark Operator?
 
-Since `spark-submit` is built into Apache Spark, it’s easy to use and has well-documented configuration options. It is particularly well-suited for submitting Spark jobs in an isolated manner in development or production, and it allows you to build your own tooling around it if that serves your purposes. You could use it to integrate directly with a job flow tool (e.g. [Apache AirFlow](https://github.com/apache/airflow/blob/master/airflow/contrib/operators/spark_submit_operator.py), Apache Livy). Although easy to use, spark-submit lacks functionalities like supporting basic operations for job management. 
+Since `spark-submit` is built into Apache Spark, it’s easy to use and has well-documented configuration options. It is particularly well-suited for submitting Spark jobs in an isolated manner in development or production, and it allows you to build your own tooling around it if that serves your purposes. You could use it to integrate directly with a job flow tool (e.g. [Apache AirFlow](https://github.com/apache/airflow/blob/master/airflow/contrib/operators/spark_submit_operator.py), Apache Livy). Although easy to use, spark-submit lacks functionalities like supporting basic operations for job management.
 
-If you want to manage your Spark jobs with one tool in a declarative way with some unique management and monitoring features, the Operator is the best available solution. 
+If you want to manage your Spark jobs with one tool in a declarative way with some unique management and monitoring features, the Operator is the best available solution.
 You can manage your Spark Jobs by [GitOps workflows](https://www.weave.works/technologies/gitops/) like the Fluxcd does.
 It saves you effort in monitoring the status of jobs, looking for logs, and keeping track of job versions. This last point is especially crucial if you have a lot of users and many jobs run in your cluster at any given time.
-
-
-

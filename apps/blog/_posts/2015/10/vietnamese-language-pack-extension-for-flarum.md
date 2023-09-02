@@ -1,11 +1,11 @@
 ---
 title: PHP - Vietnamese Language Pack Extension for Flarum
-date: "2015-10-05"
+date: '2015-10-05'
 author: Van-Duyet Le
 tags:
-- Flarum
-- PHP
-- Github
+  - Flarum
+  - PHP
+  - Github
 modified_time: '2015-10-05T20:46:41.997+07:00'
 thumbnail: https://1.bp.blogspot.com/-8a4wz6knhKo/VhJ9TYTSFnI/AAAAAAAADf0/kF8pUcA1zpg/s1600/flarum-logo.png
 slug: /2015/10/vietnamese-language-pack-extension-for-flarum.html
@@ -32,7 +32,6 @@ To set up your Flarum forum with a fully working vietnamese language, please fol
 Source code at Github: [https://github.com/duyet/flarum-vietnamese-extension](https://github.com/duyet/flarum-vietnamese-extension)
 
 ## How to contribute
-
 
 1. Fork the project on Github
 2. Create a topic branch for your changes

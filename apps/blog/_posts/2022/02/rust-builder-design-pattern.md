@@ -1,6 +1,6 @@
 ---
-title: "Rust Design Pattern: Builder Pattern"
-date: "2022-02-13"
+title: 'Rust Design Pattern: Builder Pattern'
+date: '2022-02-13'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -36,8 +36,8 @@ description: Builder được sử dụng cực kỳ phổ biến trong Rust so 
 # Rust Builder Design Pattern
 
 Rust không có overloading, do đó bạn cần phải viết nhiều construct
-cho tất cả các trường hợp có thể có, với các method name khác nhau. 
-Việc này sẽ cực kỳ mất thời gian nếu struct có quá nhiều *fields* hoặc *constructor* phức tạp.
+cho tất cả các trường hợp có thể có, với các method name khác nhau.
+Việc này sẽ cực kỳ mất thời gian nếu struct có quá nhiều _fields_ hoặc _constructor_ phức tạp.
 
 ```rust
 impl Foo {

@@ -1,18 +1,18 @@
 ---
 title: Asiacrypt 2016
-date: "2016-03-18"
+date: '2016-03-18'
 author: Van-Duyet Le
 tags:
-- Security
-- Crypt
-- Research
-- Thông tin
-- An toàn thông tin
-- Nghiên cứu
+  - Security
+  - Crypt
+  - Research
+  - Thông tin
+  - An toàn thông tin
+  - Nghiên cứu
 modified_time: '2016-03-18T23:13:42.399+07:00'
 slug: /2016/03/asiacrypt-2016.html
 category: News
-description: 
+description:
 ---
 
 Theo thông tin từ a [Thái](http://vnhacker.blogspot.com/), Asiacrypt 2016 sẽ được tổ chức ở Hà Nội. Thông tin chính thức: [http://www.asiacrypt2016.com](http://www.asiacrypt2016.com/)

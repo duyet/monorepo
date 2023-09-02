@@ -1,14 +1,14 @@
 ---
 title: Python - Nhận dạng xe hơi với OpenCV
-date: "2017-09-20"
+date: '2017-09-20'
 author: Van-Duyet Le
 tags:
-- Data Engineer
-- opencv
-- image
-- Python
-- Javascript
-- Machine Learning
+  - Data Engineer
+  - opencv
+  - image
+  - Python
+  - Javascript
+  - Machine Learning
 modified_time: '2018-09-01T22:32:19.312+07:00'
 thumbnail_2: https://2.bp.blogspot.com/-u1Fqw11luYo/WcE3gP_ykFI/AAAAAAAAngY/iPfg5bwKCcIVn5XTgM3SnVjKzf0QRBBegCLcBGAs/s1600/Screenshot%2Bfrom%2B2017-09-19%2B22-27-44.png
 thumbnail: https://1.bp.blogspot.com/-Sx90cRHgP4s/WcKO5d4IRGI/AAAAAAAAnjM/gp0RZ17opasM_xxlTQGid7cX-WqC9BRRwCLcBGAs/s1600/result_car2.png
@@ -29,7 +29,7 @@ Cài đặt trước một số package/thư viện để build opencv:
 
 ```
 sudo apt-get install build-essential cmake pkg-config
-sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev # image 
+sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev # image
 sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev # codec, video
 sudo apt-get install libgtk-3-dev # opencv GUI
 sudo apt-get install libatlas-base-dev gfortran
@@ -61,7 +61,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D INSTALL_PYTHON_EXAMPLES=ON \
     -D INSTALL_C_EXAMPLES=OFF \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.1.0/modules \
-    -D BUILD_EXAMPLES=ON .. 
+    -D BUILD_EXAMPLES=ON ..
 ```
 
 Note: Nếu trong quá trình build bị lỗi stdlib.h: No such file or directory thì chỉ cần tạo lại thư mục build, thêm tham số `-D ENABLE_PRECOMPILED_HEADERS=OFF` vào lệnh cmake

@@ -2,7 +2,6 @@ import './globals.css'
 import '@duyet/components/styles.css'
 
 import { Inter } from 'next/font/google'
-
 import {
   Header,
   Footer,
@@ -10,7 +9,6 @@ import {
   ThemeProvider,
   Auth0Provider,
 } from '@duyet/components'
-
 import Logo from '../public/duyet-notion.svg'
 
 const inter = Inter({
@@ -32,17 +30,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html className={inter.className} lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="robots" content="follow, index" />
-        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-        <link rel="icon" href="/icon.svg" sizes="any" />
+        <meta content="follow, index" name="robots" />
+        <meta content="ie=edge" httpEquiv="x-ua-compatible" />
+        <link href="/icon.svg" rel="icon" sizes="any" />
       </head>
       <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
         <Auth0Provider>
           <ThemeProvider>
-            <Header logo={Logo} />
+            <Header
+              logo={Logo} // eslint-disable-line -- TODO: what is the type of logo?
+            />
             <main>{children}</main>
             <Footer />
             <Analytics />

@@ -1,14 +1,14 @@
 ---
 title: Tensorflow - hướng dẫn cài đặt
-date: "2016-02-05"
+date: '2016-02-05'
 author: Van-Duyet Le
 tags:
-- Tensorflow
-- Tutorial
-- Install
-- Python
-- Google
-- Machine Learning
+  - Tensorflow
+  - Tutorial
+  - Install
+  - Python
+  - Google
+  - Machine Learning
 modified_time: '2018-09-01T22:28:00.802+07:00'
 thumbnail: https://3.bp.blogspot.com/-R2h5LWtXLa4/VrTTs4StSYI/AAAAAAAAPHQ/AewU2C9IqOo/s1600/logo-alt%25402x.png
 slug: /2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html
@@ -19,20 +19,18 @@ fbCommentUrl: http://blog.duyetdev.com/2016/02/tensorflow-huong-dan-cai-at-tren-
 
 [Tensorflow](http://tensorflow.org/) - thư viện nguồn mở Machine Learning, xử theo mô hình data flow, có nhiều bài giới thiệu về Tensorflow rồi. Ban đầu được thiết kế để nghiên cứu tại phòng lab Google Brain cho các dự án Machine Learning.
 
-Tensorflow được viết bằng C++ và Python.  Có nhiều cách để cài đặt Tensorflow, chạy trên 1 hoặc nhiều CPU, GPU, di chuyển desktop, mobile lên server mà không cần phải code lại.
+Tensorflow được viết bằng C++ và Python. Có nhiều cách để cài đặt Tensorflow, chạy trên 1 hoặc nhiều CPU, GPU, di chuyển desktop, mobile lên server mà không cần phải code lại.
 
 ![](https://3.bp.blogspot.com/-R2h5LWtXLa4/VrTTs4StSYI/AAAAAAAAPHQ/AewU2C9IqOo/s320/logo-alt%25402x.png)
 
 ## Yêu cầu hệ thống
 
-
-- Tensorflow hỗ trợ Python 2.7 và  Python 3.3+, do tôi dùng Ubuntu lên Python được cài đặt sẵn.
+- Tensorflow hỗ trợ Python 2.7 và Python 3.3+, do tôi dùng Ubuntu lên Python được cài đặt sẵn.
 - Bản Tensorflow GPU cần cài đặt Cuda Toolkit 7.0 và cuDNN v2. Xem hướng dẫn cài [tại đây](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#optional-install-cuda-gpus-on-linux).
 
 ## Cài thông qua pip
 
-
-Pip là trình quản lý các module của python. 
+Pip là trình quản lý các module của python.
 
 Cài pip:
 

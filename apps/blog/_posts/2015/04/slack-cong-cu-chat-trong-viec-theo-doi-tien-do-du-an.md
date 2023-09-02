@@ -1,24 +1,23 @@
 ---
 title: Slack - công cụ chat trong việc theo dõi tiến độ công việc của project
-date: "2015-04-26"
+date: '2015-04-26'
 author: Van-Duyet Le
 tags:
-- Chat
-- Slack
-- Quản lý dự án
-- Dropbox
-- Git
-- Github
-- project
+  - Chat
+  - Slack
+  - Quản lý dự án
+  - Dropbox
+  - Git
+  - Github
+  - project
 modified_time: '2015-04-26T00:42:36.740+07:00'
 thumbnail: https://4.bp.blogspot.com/-L2pkSjtbhqQ/VTvQbexFy_I/AAAAAAAACWU/cUhMb50WKnA/s1600/2377299_slack-500.jpg
 slug: /2015/04/slack-cong-cu-chat-trong-viec-theo-doi-tien-do-du-an.html
 category: News
-description: Slack là gì? Đây là một dịch vụ chat mới, được phát triển để chúng ta hãy quên đi việc giao tiếp bằng email hay bằng các phần mềm chat thông thường (như Skype, Yahoo, iMessage...). Ưu điểm của nó, thứ nhất là đa nền tảng (máy tính, Android, iOS) nên mọi người trong công ty có thể chat nhóm với nhau bất kể họ dùng thiết bị gì. 
-
+description: Slack là gì? Đây là một dịch vụ chat mới, được phát triển để chúng ta hãy quên đi việc giao tiếp bằng email hay bằng các phần mềm chat thông thường (như Skype, Yahoo, iMessage...). Ưu điểm của nó, thứ nhất là đa nền tảng (máy tính, Android, iOS) nên mọi người trong công ty có thể chat nhóm với nhau bất kể họ dùng thiết bị gì.
 ---
 
-Slack là gì? Đây là một dịch vụ chat mới, được phát triển để chúng ta hãy quên đi việc giao tiếp bằng email hay bằng các phần mềm chat thông thường (như Skype, Yahoo, iMessage...). Ưu điểm của nó, thứ nhất là đa nền tảng (máy tính, Android, iOS) nên mọi người trong công ty có thể chat nhóm với nhau bất kể họ dùng thiết bị gì. 
+Slack là gì? Đây là một dịch vụ chat mới, được phát triển để chúng ta hãy quên đi việc giao tiếp bằng email hay bằng các phần mềm chat thông thường (như Skype, Yahoo, iMessage...). Ưu điểm của nó, thứ nhất là đa nền tảng (máy tính, Android, iOS) nên mọi người trong công ty có thể chat nhóm với nhau bất kể họ dùng thiết bị gì.
 Thứ hai và cũng là cái đáng nói nhất là khả năng liên kết với các ứng dụng lưu trữ của những hãng khác, ví dụ như Dropbox, Google Drive, GitHub... để cùng nhau theo dõi tiến độ công việc ngay trong cửa sổ chat của Slack. Gói miễn phí của Slack cho phép người ta có thể lưu trữ tới 10.000 tin nhắn mà nhóm đã trao đổi với nhau, 5GB dung lượng lưu trữ và cho phép liên kết 5 dịch vụ của hãng khác. Các gói có phí sẽ có nhiều chức năng và lưu trữ thoải mái hơn.
 
 ![](https://4.bp.blogspot.com/-L2pkSjtbhqQ/VTvQbexFy_I/AAAAAAAACWU/cUhMb50WKnA/s1600/2377299_slack-500.jpg)
@@ -40,7 +39,6 @@ Mặc dù Slack đã bước vào giai đoạn hoạt động chính thức như
 Dự kiến trong năm nay, Slack sẽ tích hợp thêm nhiều tính năng mới ví dụ như tích hợp email, có thêm tài khoản khách (Guest Accounts) và tính năng thống kê chi tiết dành cho các tài khoản trả phí.
 
 ## Hình ảnh
-
 
 [![](https://3.bp.blogspot.com/-WcMdIuFF_DQ/VTvRbW5BPoI/AAAAAAAACW4/xJHu2MifECU/s1600/2377287_slack-03.png)](https://3.bp.blogspot.com/-WcMdIuFF_DQ/VTvRbW5BPoI/AAAAAAAACW4/xJHu2MifECU/s1600/2377287_slack-03.png)
 

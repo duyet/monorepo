@@ -1,13 +1,13 @@
 ---
 title: Deploy production Node.js với PM2 và Nginx
-date: "2016-04-10"
+date: '2016-04-10'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Tutorial
-- Deploy
-- Nginx
-- PM2
+  - Nodejs
+  - Tutorial
+  - Deploy
+  - Nginx
+  - PM2
 modified_time: '2016-05-02T19:37:15.694+07:00'
 thumbnail: https://3.bp.blogspot.com/-hgi6cDJuaP0/VxTAu2i1SII/AAAAAAAATkU/k_reis6UEhAElFCqjjolcrW6_j-bjZUfACK4B/s1600/logo_pm2.png
 slug: /2016/04/deploy-production-nodejs-pm2-nginx.html
@@ -22,7 +22,6 @@ Cách cài đặt và triển khai production Node.js project với Nginx và PM
 
 ## Chuẩn bị
 
-
 Đưa code lên server, nên sử dụng Git
 
 ```
@@ -30,7 +29,7 @@ cd ~/project
 git clone https://github.com/saveto-co/saveto && cd saveto
 ```
 
-Sau đó cài đặt các package (npm, bower), các phần mềm và cơ sở dữ liệu cần thiết, ... 
+Sau đó cài đặt các package (npm, bower), các phần mềm và cơ sở dữ liệu cần thiết, ...
 
 ```
 npm install
@@ -38,11 +37,10 @@ bower install
 
 # Ví dụ
 sudo apt-get install mongodb # mongodb
-sudo apt-get install redis-server # redis 
+sudo apt-get install redis-server # redis
 ```
 
 ## Cài đặt Nginx và PM2
-
 
 ```
 sudo apt-get install nginx
@@ -79,7 +77,6 @@ Ví dụ với ứng dụng trên, PM2 chạy ứng dụng ở port 9000, truy c
 
 ## Cấu hình Nginx Reverse Proxy Server
 
-
 Nginx có vai trò như một Reverse Proxy.
 
 ![](https://4.bp.blogspot.com/-8LFBF4hC2s0/VxS8sSs0c9I/AAAAAAAATkI/l1QxbaQsm-oS2KsmXjeAANx8OyeR_qLfACK4B/s1600/68747470733a2f2f6173736574732e6469676974616c6f6365616e2e636f6d2f61727469636c65732f6e6f64656a732f6e6f64655f6469616772616d2e706e67.png)
@@ -90,7 +87,7 @@ Mở file cấu hình nginx
 sudo nano /etc/nginx/sites-available/default
 ```
 
-Thêm hoặc xóa file cấu hình theo nội dung bên dưới 
+Thêm hoặc xóa file cấu hình theo nội dung bên dưới
 
 ```
 server {
@@ -117,13 +114,12 @@ sudo service nginx restart
 
 ## Bonus
 
-
 ### Khởi động lại Application
-
 
 ```
 pm2 restart <appname hoặc appid>
 ```
+
 Xem App Name hoặc App ID bằng lệnh:
 
 ```
@@ -139,7 +135,6 @@ $ pm2 status
 ```
 
 ### PM2 tự động cập nhật mã nguồn khi push lên Git ([link](https://github.com/saveto-co/wiki/wiki/Production))
-
 
 ```
 pm2 install pm2-auto-pull

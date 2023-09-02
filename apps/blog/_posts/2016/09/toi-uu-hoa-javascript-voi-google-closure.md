@@ -1,16 +1,16 @@
 ---
 title: Tối ưu hóa Javascript với Google Closure Compiler
-date: "2016-09-14"
+date: '2016-09-14'
 author: Van-Duyet Le
 tags:
-- Optimize
-- Javascript
-- Gulp
-- Node.js
-- Google Closure
-- Tối ưu
-- Webpack
-- Node
+  - Optimize
+  - Javascript
+  - Gulp
+  - Node.js
+  - Google Closure
+  - Tối ưu
+  - Webpack
+  - Node
 modified_time: '2016-09-14T11:46:14.393+07:00'
 thumbnail: https://2.bp.blogspot.com/-XJmHynlIbNA/V9jI1Lbj5hI/AAAAAAAAduA/igD5n31EEUcfvwq_Y06IX2cPgsuoEKxZQCK4B/s1600/image00.png
 slug: /2016/09/toi-uu-hoa-javascript-voi-google-closure.html
@@ -36,7 +36,6 @@ Giao diện Web service
 
 ## closure-compiler-js
 
-
 closure-compiler-js là project sử dụng được closure-compiler (Java) trên Javascript. Cài đặt closure-compiler-js qua npm
 
 ```
@@ -46,31 +45,28 @@ npm install --save google-closure-compiler-js
 Mặc định Closure hỗ trợ chuyển ES6 sang ES5 và tối ưu hóa code
 
 ```js
-const compile = require('google-closure-compiler-js').compile;
+const compile = require('google-closure-compiler-js').compile
 
 const flags = {
-  jsCode: [{src: 'const x = 1 + 2;'}],
-};
-const out = compile(flags);
-console.info(out.compiledCode);  // will print 'var x = 3;\n'
+  jsCode: [{ src: 'const x = 1 + 2;' }],
+}
+const out = compile(flags)
+console.info(out.compiledCode) // will print 'var x = 3;\n'
 ```
 
-### Webpack 
-
+### Webpack
 
 Cấu hình webpack như bên dưới:
 
 ```js
-const ClosureCompiler = require('google-closure-compiler-js').webpack;
-const path = require('path');
+const ClosureCompiler = require('google-closure-compiler-js').webpack
+const path = require('path')
 
 module.exports = {
-  entry: [
-    path.join(__dirname, 'app.js')
-  ],
+  entry: [path.join(__dirname, 'app.js')],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'app.min.js'
+    filename: 'app.min.js',
   },
   plugins: [
     new ClosureCompiler({
@@ -80,13 +76,12 @@ module.exports = {
         compilationLevel: 'ADVANCED',
         warningLevel: 'VERBOSE',
       },
-    })
-  ]
-};
+    }),
+  ],
+}
 ```
 
 ## Tham khảo
-
 
 Còn khá nhiều chức năng và tham số như angularPass, polymerPass, rewritePolyfills, ...
 

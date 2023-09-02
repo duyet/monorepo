@@ -1,25 +1,23 @@
 ---
-title: " Open Source - Tìm hiểu về giấy phép Apache"
-date: "2015-04-11"
+title: ' Open Source - Tìm hiểu về giấy phép Apache'
+date: '2015-04-11'
 author: Van-Duyet Le
 tags:
-- Open Source
-- Apache
-- Giấy phép nguồn mở
+  - Open Source
+  - Apache
+  - Giấy phép nguồn mở
 modified_time: '2015-04-11T14:13:30.700+07:00'
 thumbnail: https://3.bp.blogspot.com/-1HhLBU4pQYg/VSi7A9h4lRI/AAAAAAAACPo/ujnaYYl6GV4/s1600/mantle-asf.png
 slug: /2015/04/open-source-tim-hieu-ve-giay-phep-apache.html
 category: News
 description: Giấy phép Apache là giấy phép mã nguồn mở được soạn ra bởi Tổ chức phần mềm Apache (ASF – Apache Software Foundation).
-
 ---
 
 Giấy phép Apache là giấy phép mã nguồn mở được soạn ra bởi Tổ chức phần mềm Apache (ASF – Apache Software Foundation).
 
 ![](https://3.bp.blogspot.com/-1HhLBU4pQYg/VSi7A9h4lRI/AAAAAAAACPo/ujnaYYl6GV4/s1600/mantle-asf.png)
 
-## 1. Nhà phát hành 
-
+## 1. Nhà phát hành
 
 Giấy phép Apache là giấy phép mã nguồn mở được soạn ra bởi Tổ chức phần mềm Apache (ASF – Apache Software Foundation).
 
@@ -29,8 +27,7 @@ Phiên bản mới nhất của Apache là 2.0 [http://www.apache.org/licenses/L
 
 ASF và Tổ chức phần mềm tự do (FSF) đều công nhận giấy phép Apache 2.0 là một giấy phép phần mềm tự do, tương thích với phiên bản giấy phép GNU 3.0.
 
-## 2. Nội dung chính 
-
+## 2. Nội dung chính
 
 - Giống như các giấy phép mã nguồn mở khác, giấy phép Apache cho phép người dùng tự do sự dụng phần mềm với bất kì mục đích nào, tự do phân phối, tự do sửa đổi, tự do phân phối bản sửa đổi mình làm (đoạn 3 của giấy phép).
 - Giấy phép Apache không yêu cầu bản sửa đổi của phần mềm phải được phân phối dưới cùng giấy phép với bản gốc, cũng không yêu cầu bản sửa đổi phải được phân phối dưới dạng mã nguồn mở. Giấy phép Apache chỉ yêu cầu có một thông báo nhắc nhở người nhận rằng giấy phép Apache đã được sử dụng trong sản phẩm họ nhận được.
@@ -64,4 +61,4 @@ Bên cạnh Apache Server, còn có những phần mềm khác sử dụng giấ
 
 - Apache Cocoon — một chương trình nền cho ứng dụng web
 - XAMPP — gói ứng dụng web gồm Apache và MySQL
-- Apache Axis2 – Chương tình nền cho dịch vụ web (xử lí được cả ngôn ngữ Java & C) 
+- Apache Axis2 – Chương tình nền cho dịch vụ web (xử lí được cả ngôn ngữ Java & C)

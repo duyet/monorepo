@@ -1,25 +1,23 @@
 ---
 title: Giao diện phẳng cho Sublime Text
-date: "2015-07-20"
+date: '2015-07-20'
 author: Van-Duyet Le
 tags:
-- how to
-- sublime text
-- giao diện
-- theme
+  - how to
+  - sublime text
+  - giao diện
+  - theme
 modified_time: '2015-07-20T23:57:56.971+07:00'
 thumbnail: https://3.bp.blogspot.com/-sa830MyF-Pc/Va0kRlvZo9I/AAAAAAAACp4/gaw6hL08lPM/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A30%253A29.png
 slug: /2015/07/giao-dien-phang-cho-sublime-text.html
 category: Web
 description: Sublime text là một editor cực mạnh mẽ với nhiều plugin hữu ích, có thể cài đặt 1 cách dễ dàng trực tiếp. Sublime Text hiện đang được đông đảo các Web Developer sử dụng và yêu thích. Một điểm mạnh nữa là Sublime Text có thể mở rộng thông qua các Plugin, themes, .... viết bằng python.
-
 ---
 
 Sublime text là một editor cực mạnh mẽ với nhiều plugin hữu ích, có thể cài đặt 1 cách dễ dàng trực tiếp. Sublime Text hiện đang được đông đảo các Web Developer sử dụng và yêu thích. Một điểm mạnh nữa là Sublime Text có thể mở rộng thông qua các Plugin, themes, .... viết bằng python.
 Hôm nay mình sẽ hướng dẫn về cách thay đổi giao diện cho Sublime Text, giúp bạn đỡ bớt phần nhàm chán khi Code quanh năm với cái giao diện cũ òm :))
 
 ## Cài Package Control
-
 
 Package Control giúp ta cài đặt mọi thứ trực tiếp vào sublime thông qua màn hình chính của IDE. Nếu bạn nào đã cài thì bỏ qua bước này.
 
@@ -46,13 +44,11 @@ Bấm Ctrl + Shift + P, gõ "Package Control", nếu thấy như thế này tứ
 
 Theme bên dưới mình đang sử dụng là itg.flat, để cài đặt:
 
-1. Ctrl + Shift + P 
+1. Ctrl + Shift + P
 2. Gõ `Install Package`, nhấn Enter.
 3. Gõ: `itg.flat`, nhấn Enter, đợi một lúc.
 
-![](https://3.bp.blogspot.com/-_C9oEjU0vic/Va0lXnXGdnI/AAAAAAAACqE/mjQjBLtmoyE/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A42%253A56.png)
-4. Mở Menu: References > Settings - User
-5. Thêm vào file Settings User đoạn json sau rồi save lai
+![](https://3.bp.blogspot.com/-_C9oEjU0vic/Va0lXnXGdnI/AAAAAAAACqE/mjQjBLtmoyE/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A42%253A56.png) 4. Mở Menu: References > Settings - User 5. Thêm vào file Settings User đoạn json sau rồi save lai
 
 [![](https://2.bp.blogspot.com/-MDvC1cBAQ7Q/Va0lqiG-IZI/AAAAAAAACqM/WYRRgPlpBbo/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A44%253A59.png)](https://2.bp.blogspot.com/-MDvC1cBAQ7Q/Va0lqiG-IZI/AAAAAAAACqM/WYRRgPlpBbo/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A44%253A59.png)
 
@@ -62,5 +58,5 @@ Kết quả phẳng lỳ
 
 ![](https://3.bp.blogspot.com/-mzN6sZ-oJGI/Va0md3gGRXI/AAAAAAAACqY/UzMegyeklVE/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A48%253A24.png)
 
-Ngoài ra bạn có thể truy cập vào trang chủ của Package Control tại:  [https://packagecontrol.io](https://packagecontrol.io/)
+Ngoài ra bạn có thể truy cập vào trang chủ của Package Control tại: [https://packagecontrol.io](https://packagecontrol.io/)
 Search lấy theme bạn chọn, nhớ lấy tên theme rồi vào Sublime Text cài đặt tương tự như ở trên.

@@ -1,10 +1,10 @@
 ---
 title: Offline-First trong Modern Web
-date: "2016-01-07"
+date: '2016-01-07'
 author: Van-Duyet Le
 tags:
-- Web
-- Offline
+  - Web
+  - Offline
 modified_time: '2016-01-11T01:58:30.083+07:00'
 thumbnail: https://3.bp.blogspot.com/-kknlRujasGI/Vo6QpZWVJJI/AAAAAAAAN2U/Z2VbLAWnQOA/s1600/offline-text%2BMJN%2BTech%2BWeb.png
 slug: /2016/01/offline-first-trong-modern-web.html
@@ -16,16 +16,14 @@ description: '"Web" và "Online" là gần như là 2 khái niệm đi liền v�
 
 [![](https://3.bp.blogspot.com/-kknlRujasGI/Vo6QpZWVJJI/AAAAAAAAN2U/Z2VbLAWnQOA/s640/offline-text%2BMJN%2BTech%2BWeb.png)](https://blog.duyet.net/2016/01/offline-first-trong-modern-web.html)
 
-## Các công nghệ mà W3C hỗ trợ 
-
+## Các công nghệ mà W3C hỗ trợ
 
 1. [Offline Web Applications](http://www.w3.org/TR/offline-webapps/) - Hỗ trợ nhiều chức năng giúp tăng trải nghiệm offline (SQL Client, các hàm sự kiện offline/online, localStorage API). Các chức năng mới trong HTML5 giúp xây dựng các trang web có thể hoạt động hoàn toàn Offline.
 2. [Service Workers](http://www.w3.org/TR/service-workers/) - hỗ trợ mở rộng các tác vụ chạy dưới nền, cái này giúp cho web offline giống như một ứng dụng truyền thống.
-3. [IndexedDB](http://www.w3.org/TR/IndexedDB/)  - cung cấp các API, giúp lưu đối tượng dữ liệu Offline, dạng key-value và đánh chỉ mục chúng, tổ chức dữ liệu theo kiểu B-tree. 
+3. [IndexedDB](http://www.w3.org/TR/IndexedDB/) - cung cấp các API, giúp lưu đối tượng dữ liệu Offline, dạng key-value và đánh chỉ mục chúng, tổ chức dữ liệu theo kiểu B-tree.
 4. [WebStorage](http://www.w3.org/TR/webstorage/) - lưu trữ dữ liệu đơn giản dạng key-value.
 
 ## Công cụ
-
 
 - [react-boilerplate](https://github.com/mxstbr/react-boilerplate): Quick setup for performance orientated, offline-first React.js applications.
 - [Haywire](https://github.com/omnia-salud/haywire): A minimal javascript library for network issues detection.
@@ -46,12 +44,10 @@ description: '"Web" và "Online" là gần như là 2 khái niệm đi liền v�
 
 ## Sách
 
-
 - [Offline First: The book (draft)](http://www.webdirections.org/offlineworkshop/ibooksDraft.pdf) (by John Allsopp)
 - [Pro HTML5 Programming - Chapter 12: Creating HTML5 Offline Web Applications](http://apress.jensimmons.com/v5/pro-html5-programming/ch12.html) (by Peter Lubbers, Brian Albers and Frank Salim)
 
-## Sản phẩm sử dụng công nghệ Web Offline 
-
+## Sản phẩm sử dụng công nghệ Web Offline
 
 - [Minutes.io](http://minutes.io/): Awesome offline first minute taking app built with [Hoodie](http://hood.ie/).
 - [Swarm+React TodoMVC](http://ppyr.us/): Awesome offline implementation of [TodoMVC](http://todomvc.com/) with real-time sync.

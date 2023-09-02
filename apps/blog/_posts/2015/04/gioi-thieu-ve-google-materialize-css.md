@@ -1,17 +1,16 @@
 ---
 title: Giới thiệu về Google Materialize CSS framework
-date: "2015-04-27"
+date: '2015-04-27'
 author: Van-Duyet Le
 tags:
-- Css
-- Css Framework
-- Bootstrap
+  - Css
+  - Css Framework
+  - Bootstrap
 modified_time: '2015-04-27T21:31:34.016+07:00'
 thumbnail: https://1.bp.blogspot.com/-re5ZhkEps3k/VT5G2leoLNI/AAAAAAAACa0/dg8TsnkbMf8/s1600/materialize-intro.png
 slug: /2015/04/gioi-thieu-ve-google-materialize-css.html
 category: Web
 description: Được dịp ông anh share cái link về Materialize, 1 css framework dựa trên Material Design của Google. Trước đây mình dùng qua Angular Material và Bootstrap Material, nhưng cái này có vẻ thích hơn. Cũng như các CSS framework khác, Google Materialize này cũng đáp ứng được rất nhiều yêu cầu về thiết kế responsive với các dạng gird quen thuộc. Cung cấp cho chúng ta khá nhiều component đẹp mắt và dễ sử dụng.
-
 ---
 
 Được dịp ông anh share cái link về Materialize, 1 css framework dựa trên Material Design của Google. Trước đây mình dùng qua Angular Material và Bootstrap Material, nhưng cái này có vẻ thích hơn. Cũng như các CSS framework khác, Google Materialize này cũng đáp ứng được rất nhiều yêu cầu về thiết kế responsive với các dạng gird quen thuộc. Cung cấp cho chúng ta khá nhiều component đẹp mắt và dễ sử dụng.
@@ -27,4 +26,4 @@ Thêm 1 số thành phần khác như Preloader, Transitions…và nhiều thàn
 
 Materialize làm việc rất tốt trên mobile, cách nó cho người dùng thao tác với website trên điện thoại rất hay, các bạn có thể test trên điện thoại thật và cảm nhận.
 
-Tóm lại đây là 1 framework cũng khá hay với những bạn yêu thích design material, đáng để thử đấy :)) 
+Tóm lại đây là 1 framework cũng khá hay với những bạn yêu thích design material, đáng để thử đấy :))

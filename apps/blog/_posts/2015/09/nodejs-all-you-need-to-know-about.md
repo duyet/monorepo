@@ -1,10 +1,10 @@
 ---
 title: Nodejs - All you need to know about Node.js 4.0.0
-date: "2015-09-09"
+date: '2015-09-09'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Update
+  - Nodejs
+  - Update
 modified_time: '2015-09-09T18:48:56.604+07:00'
 thumbnail: https://2.bp.blogspot.com/-h7ljxkRrImE/VfAcZ8U9dlI/AAAAAAAAC4U/wYPnnlhcP3Y/s1600/nodejs_logo_light.png
 slug: /2015/09/nodejs-all-you-need-to-know-about.html
@@ -36,13 +36,11 @@ io.js, Node.js and npm developers discussing Native modules at NodeConf Adventur
 
 ## Why "4.0.0"?
 
-
 The io.js project uses semantic versioning (semver) with its first major release being a 1.0.
 
 The current main line of io.js is 3.x. To avoid collisions with the 0.x scheme of Node.js it was decided that the converged version should be a 4.0.0 and will also be following the semver scheme <major>.<minor>.<patch> from now on.
 
 ## So … what’s new
-
 
 Node.js 4.0.0 aims to provide an easy update path for current users of io.js and node and so there are no major/breaking API changes. Nevertheless there are many small improvements and changes. I recommend reviewing the changelog and running extensive tests before updating your production environments.
 
@@ -50,12 +48,11 @@ Let’s review the most important changes.
 
 ### New V8 Version (and its implications)
 
-
 One reason for creating io.js in the first place were unpredictable and long release cycles.
 
 Node.js and io.js heavily depend on Googles V8 JavaScript engine which is under constant development and improvement and the project was falling behind quickly.
 
-Node.js 4.0.0 now uses a recent version of V8 (4.5 compared to 3.28.x in node 0.12, to be exact)  – this is great because it offers new language features (see below) but comes with a cost:
+Node.js 4.0.0 now uses a recent version of V8 (4.5 compared to 3.28.x in node 0.12, to be exact) – this is great because it offers new language features (see below) but comes with a cost:
 
 Node.js projects usually heavily depend on modules. A fraction of them are native – this means that they are written in C++ and are linked against V8.
 
@@ -73,19 +70,17 @@ After covering the not-so-exiting implications let’s look at what you get in r
 
 ### Extended ES6 support
 
-
 [ECMA-262](http://www.ecma-international.org/publications/standards/Ecma-262.htm) is the latest version of the JavaScript language specification and – by building on a recent V8 version – Node.js 4.0.0 supports many new language features out of the box.
 
 Here are some examples
 
 - Block scoping using let and const
 - Classes. Yes really, JavaScript now supports classes but they are just syntactic sugar built around the prototypical inheritance model of JavaScript. So if you are using CoffeeScript because you just can not live without having a ‘class’ keyword this new feature is for you.
-- Generators (function*, next and yield) It makes sense to get used to- and understand them. They will be heavily used in the future. koa.js, for instance, was built by the express folks and heavily depends on them.
+- Generators (function\*, next and yield) It makes sense to get used to- and understand them. They will be heavily used in the future. koa.js, for instance, was built by the express folks and heavily depends on them.
 
 Please find a complete list of currently supported ES6 features here: [ES6 in Node.js 4.0.0.](https://nodejs.org/en/docs/es6/)
 
 ### Performance
-
 
 This is no longer true. I ran my initial performance tests against an early release candidate and there were no significant performance gains. After release candidate 4 introduced [improved V8 ArrayBuffer](https://github.com/nodejs/node/pull/2732) handling I redid my tests and now … well let’s look at it.
 
@@ -111,7 +106,6 @@ After all we can say that you can expect significant performance gains with 4.0.
 
 ### Long Term Support (LTS) Versions
 
-
 Rolling out a new version in bigger environments (including testing and fixing things) often takes months and needs to be well planned – especially for enterprises the lack of a predictable release schedule was cumbersome in the past.
 
 Establishing a LTS policy is a really big step and one of the most important things surrounding the release of 4.0.0.
@@ -129,11 +123,9 @@ There is a [dedicated LTS sub-project on GitHub](https://github.com/nodejs/LTS).
 
 ## Dynatrace and Node.js 4.0.0
 
-
 While we already working on porting the native parts of our Node.js agent to Nan 2 we have decided that we will align with Nodes new LTS schedule and ship a new version in early November.
 
 ## TL/DR
-
 
 - 4.0.0 is the future of Node.js. If you start a new project today use it.
 - The request performance is roughly 20% better than 0.12 – this is a significant gain.
@@ -142,7 +134,6 @@ While we already working on porting the native parts of our Node.js agent to Nan
 - The introduction of Long Term Support (LTS) is one of the most important and highly demanded new "features"
 
 ## Did I miss anything?
-
 
 I’m eager to hear your impressions with Node.js 4.0.0.
 

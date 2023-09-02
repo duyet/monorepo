@@ -1,15 +1,14 @@
 ---
 title: Big Data - Explained in Less Than 2 Minutes - To Absolutely Anyone
-date: "2015-04-12"
+date: '2015-04-12'
 author: Van-Duyet Le
 tags:
-- BigData
+  - BigData
 modified_time: '2015-04-12T18:28:37.128+07:00'
 thumbnail: https://2.bp.blogspot.com/-91L8Jd3M3u4/VSpWUia7JaI/AAAAAAAACQY/LcrkDeteKiA/s1600/AAEAAQAAAAAAAAMxAAAAJDk1ZTU1YTg0LWU0ZGQtNDRiYi1iM2UxLWNmY2FhYjhiMzgxMQ.jpg
 slug: /2015/04/big-data-explained-in-less-than-2.html
 category: Data
 description: There are some things that are so big that they have implications for everyone, whether we want them to or not. Big Data is one of those concepts, and is completely transforming the way we do business and is impacting most other parts of our lives.
-
 ---
 
 There are some things that are so big that they have implications for everyone, whether we want them to or not. Big Data is one of those concepts, and is completely transforming the way we do business and is impacting most other parts of our lives.

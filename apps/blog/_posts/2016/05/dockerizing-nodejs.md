@@ -1,16 +1,16 @@
 ---
 title: Đóng gói và triển khai ứng dụng Nodejs bằng Docker
-date: "2016-05-01"
+date: '2016-05-01'
 author: Van-Duyet Le
 tags:
-- ahihi.club
-- Docker image
-- Nodejs
-- Docker
-- koa
-- Dockerfile
-- saveto.co
-- Docker build
+  - ahihi.club
+  - Docker image
+  - Nodejs
+  - Docker
+  - koa
+  - Dockerfile
+  - saveto.co
+  - Docker build
 modified_time: '2018-09-10T17:23:15.023+07:00'
 thumbnail: https://1.bp.blogspot.com/-PdJFod9lQSU/VyYyDa_nEnI/AAAAAAAAUaE/CpGySWOh_TMGvZGjYqpcSHtTft7yi7tjwCK4B/s1600/1-_MtS4HqN2srTcrSyet61DQ.jpeg
 slug: /2016/05/dockerizing-nodejs.html
@@ -160,7 +160,6 @@ CMD ["npm","start"]
 
 ## Build image
 
-
 Cd đến thư mục chứa Dockerfile, chạy lệnh bên dưới để build image. --tag dùng để đặt tên cho ảnh dễ nhớ, nhớ đừng bỏ xót dấu chấm ở cuối
 
 ```
@@ -172,7 +171,7 @@ $ docker build -t duyetdev/saveto .
 Sau khi build thành công, xem lại danh sách Docker image bằng:
 
 ```
-root@duyetdev:~/saveto# docker images 
+root@duyetdev:~/saveto# docker images
 
 REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
 node                               5.11                8593e962b570        9 days ago          644.3 MB
@@ -189,7 +188,7 @@ root@duyetdev:~/saveto# docker run -p 6969:6969 -d duyetdev/saveto
 62cd21863c2fce3a1e9076d07c68fb32c0172d37c5fb9f2ea536a16a12fa527b
 ```
 
-62cd21863c2fce3a1e9076d07c68fb32c0172d37c5fb9f2ea536a16a12fa527b là ID của container. 
+62cd21863c2fce3a1e9076d07c68fb32c0172d37c5fb9f2ea536a16a12fa527b là ID của container.
 Xem danh sách các container và log đang chạy:
 
 ```
@@ -215,7 +214,6 @@ Test: truy cập thử ứng dụng bằng trình duyệt: [http://localhost:696
 Chúc bạn thành công.
 
 ## Tham khảo thêm
-
 
 - [Dockerizing a Node.js web app](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
 - [Docker là gì? Cơ bản về Docker](https://blog.duyet.net/2015/12/docker-la-gi-co-ban-ve-docker.html#.VyYMd4N94_M)

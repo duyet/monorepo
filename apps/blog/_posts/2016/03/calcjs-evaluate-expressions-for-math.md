@@ -1,13 +1,13 @@
 ---
 title: calc.js - evaluate expressions for Math
-date: "2016-03-27"
+date: '2016-03-27'
 author: Van-Duyet Le
 tags:
-- Calculator
-- Nodejs
-- NPM
-- Javascript
-- math
+  - Calculator
+  - Nodejs
+  - NPM
+  - Javascript
+  - math
 modified_time: '2016-05-02T19:39:16.320+07:00'
 thumbnail: https://1.bp.blogspot.com/-vmFjdMDVRok/Vvek0fYiwmI/AAAAAAAASas/iUUHSjQAWYUcWK6F5tx8qq3nfP_sVozOg/s1600/calc.png
 slug: /2016/03/calcjs-evaluate-expressions-for-math.html
@@ -21,30 +21,27 @@ Flexible expression parser and offers an integrated solution to work with number
 
 ## Install
 
-
 ```
 npm install calc.js
 ```
 
 ## Usage
 
-
 ```js
-var calc = require('calc.js');
+var calc = require('calc.js')
 
-calc('12 / (2.3 + 0.7)');    // 4
-calc('5.08 cm to inch');     // 2 inch
-calc('sin(45 deg) ^ 2');     // 0.5
-calc('9 / 3 + 2i');          // 3 + 2i
-calc('det([-1, 2; 3, 1])');  // -7
+calc('12 / (2.3 + 0.7)') // 4
+calc('5.08 cm to inch') // 2 inch
+calc('sin(45 deg) ^ 2') // 0.5
+calc('9 / 3 + 2i') // 3 + 2i
+calc('det([-1, 2; 3, 1])') // -7
 ```
 
 ## Credit
 
 Thanks to [mathjs](https://github.com/josdejong/mathjs) eval.
 
-## Source 
-
+## Source
 
 - [calc.js](https://github.com/duyet/calc.js) | Github
 - [calc.js](https://www.npmjs.com/package/calc.js) | NPM

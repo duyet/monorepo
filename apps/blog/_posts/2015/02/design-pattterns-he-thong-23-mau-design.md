@@ -1,26 +1,21 @@
 ---
 title: Design Pattterns - hệ thống 23 mẫu Design Patterns
-date: "2015-02-23"
+date: '2015-02-23'
 author: Van-Duyet Le
 tags:
-- Design Patterns
+  - Design Patterns
 modified_time: '2015-02-23T22:40:07.138+07:00'
 slug: /2015/02/design-pattterns-he-thong-23-mau-design.html
 description: Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn Design patterns Elements of Reusable Object Oriented Software
-
 ---
 
-Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn "**Design patterns Elements of Reusable Object Oriented Software**" ([pdf](http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf)).  
+Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn "**Design patterns Elements of Reusable Object Oriented Software**" ([pdf](http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf)).
 
 ## Về tác giả
 
-
-Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralph Johnson** và **John Vlissides**, hay còn được biết đến với các tên **"Gang of Four"** hay đơn giản là "**GoF**". Hệ thống các mẫu này có thể nói là đủ và tối ưu cho việc giải quyết hết các vấn đề của bài toán phân tích thiết kế và xây dựng phần mềm trong thời điểm hiện tại. Hệ thống các mẫu design pattern được chia thành 3 nhóm: nhóm **Creational** (5 mẫu), nhóm **Structural** (7 mẫu) và nhóm **Behavioral** (11 mẫu).  
-
-  
+Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralph Johnson** và **John Vlissides**, hay còn được biết đến với các tên **"Gang of Four"** hay đơn giản là "**GoF**". Hệ thống các mẫu này có thể nói là đủ và tối ưu cho việc giải quyết hết các vấn đề của bài toán phân tích thiết kế và xây dựng phần mềm trong thời điểm hiện tại. Hệ thống các mẫu design pattern được chia thành 3 nhóm: nhóm **Creational** (5 mẫu), nhóm **Structural** (7 mẫu) và nhóm **Behavioral** (11 mẫu).
 
 ## Danh sách 23 mẫu
-
 
 <table class="table table-bordered" style="border: 1px solid #ccc">
     <thead>
@@ -183,6 +178,5 @@ Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralp
 </table>
 
 ## Kết 
-
 
 Các bài viết sau mình sẽ đi sâu vào 3 nhóm chính, cuối cùng là các bài viết về từng mẫu của từng nhóm.

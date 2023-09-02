@@ -1,18 +1,17 @@
 ---
 title: 'Minimalism in Web design: past and future'
-date: "2015-06-05"
+date: '2015-06-05'
 author: Van-Duyet Le
 tags:
-- Web Design
-- TNW
-- Minimalism
-- Web
+  - Web Design
+  - TNW
+  - Minimalism
+  - Web
 modified_time: '2015-06-05T00:02:37.012+07:00'
 thumbnail: https://2.bp.blogspot.com/-Ii0eS7_8A70/VXCAw07Cg5I/AAAAAAAAChI/WSsc3VwRPuI/s1600/beatbox-520x310.png
 slug: /2015/06/minimalism-in-web-design-past-and-future.html
 category: Web
 description: Minimalism is one of the most enduring visual frameworks in Web design given its timeless elegance and clear presentation of content. While cycles of popularity come and go, the design technique is a classic and lasting visual philosophy for designers across all specializations and industries.
-
 ---
 
 Minimalism is one of the most enduring visual frameworks in Web design given its timeless elegance and clear presentation of content. While cycles of popularity come and go, the design technique is a classic and lasting visual philosophy for designers across all specializations and industries.
@@ -25,8 +24,7 @@ As an artistic style, minimalism is not at all a technique exclusive to Web desi
 
 Designers of every era find themselves connected to a minimalist approach of some fashion, including our current minimalism explosion. In this piece, we’ll review the principles of minimalist design, explore its appeal to web designers, then explain how we think the technique will continue to mature.
 
-## Less is More: A Brief History & Deconstruction 
-
+## Less is More: A Brief History & Deconstruction
 
 Those three little words are the simplest definition of minimalism. The spirit of minimal web design is to create an impressive visual website without a lot of bells and whistles.
 
@@ -57,7 +55,7 @@ Minimal Web design is built from these fundamentals, all of which are designed t
 - Negative space – Commonly referred to as white space, negative space is simply any unused space in a design. Oftentimes in minimalist design, you’ll see this space filled with vibrant colors (or it could just be left white/grey/black).
 - High definition photographs – Since there’s less interface ornamentation, users can better appreciate the stunning detail of HD photography. You’ll usually see these photographs overlaid with ghost buttons (white outlines of buttons) and bold typography.
 - Dramatic typography – Whether it’s a script font for the headline and a more straightforward sans-serif for the body copy, typefaces in minimalist design are one of the few areas where visual flourish is acceptable. If you’re curious, check out this excellent collection of 20 minimalist typefaces.
-- Striking contrast – Contrast is created through a combination of unlike design elements. For example, a bold white 72-point typeface against a dark image. Or, a light green monochromatic background overlaid with a white script font.  
+- Striking contrast – Contrast is created through a combination of unlike design elements. For example, a bold white 72-point typeface against a dark image. Or, a light green monochromatic background overlaid with a white script font.
 - Simple navigation – The most complex navigation you’ll likely see is a dropdown menu (and even then, you won’t see submenus pop out). More common, you’ll find a top-level horizontal navigation or even a hamburger menu.
 - Visual balance – As described in our e-book Web Design for the Human Eye, visual balance is achieved through a clear visual hierarchy, consistent alignment & positioning, and smart use of symmetry and asymmetry.
 
@@ -67,8 +65,7 @@ Minimal design is intentional. It is an approach that strips the unnecessary ele
 
 Minimalism works because it does what all design should do – it puts [the emphasis on content](http://www.smashingmagazine.com/2010/05/13/principles-of-minimalist-web-design-with-examples/).
 
-## The Appeal of Minimalism 
-
+## The Appeal of Minimalism
 
 Minimalism prevails because it is an effective and visually dynamic option for designers. Like all lasting design philosophies, it’s experienced multiple evolutions over time and meshes well with a variety of other design languages and design techniques.
 
@@ -80,7 +77,7 @@ As we described in the [Curated Collection of Design Techniques: Cards & Minimal
 
 1. It’s a natural fit with responsive design frameworks.
 2. It reduces the information for browsers to process, causing faster site load times and better site performance.
-3. The concept is content-driven, which coincides impeccably with the rise in  content-first design processes.
+3. The concept is content-driven, which coincides impeccably with the rise in content-first design processes.
 4. It applies to a variety of disciplines beyond Web design, such as architecture, interior design and art.
 
 In minimalist Web design, a common approach is to subtract design elements until the site is on the verge of "breaking". From there, test the website with a minimum of five users, then reprioritize design elements and interface objects as needed. By following this process at least once (we’d recommend for each major design iteration), you’re able to strike a balance between usability and elegance.
@@ -99,8 +96,7 @@ To the end, minimalism will continue to be a popular option, but is likely to ev
 
 Let’s explore a few of these evolving elements below.
 
-## 1. Minimal texture 
-
+## 1. Minimal texture
 
 Designers will expand from stark background styles to include a more pale or almost unnoticeable texture with a aesthetic plan that is minimal in every other way. This breakaway from a purely minimalist style still has roots in simplicity, but with a little more visual variety.
 
@@ -108,8 +104,7 @@ Designers will expand from stark background styles to include a more pale or alm
 
 Photo credit: [http://ezorzi.com](http://ezorzi.com/)
 
-## 2. Reverse colors 
-
+## 2. Reverse colors
 
 While white backgrounds have been the dominant feature in minimal design (giving a very literal meaning to white space), designs will continue breaking from this pattern by using more color, backgrounds that are dark with lighter text, or a monochromatic color scheme using various shades of the same hue.
 
@@ -117,8 +112,7 @@ While white backgrounds have been the dominant feature in minimal design (giving
 
 Photo credit: [http://www.bb-b.net/en/](http://www.bb-b.net/en/)
 
-## 3. More interactive effects 
-
+## 3. More interactive effects
 
 Of course, minimalism is also traditionally defined by a lack of effects. Simple animation in the minimal style will become more popular as more designers appreciate that minimal does not equal static.
 
@@ -126,8 +120,7 @@ Of course, minimalism is also traditionally defined by a lack of effects. Simple
 
 Photo credit: [http://oakstreetbootmakers.com](http://oakstreetbootmakers.com/)
 
-## 4. Move away from symmetry 
-
+## 4. Move away from symmetry
 
 The current minimalist landscape favors symmetry, but that is certainly not a law. While balance is important, actual symmetry is not.
 
@@ -137,8 +130,7 @@ Photo credit: [http://theafrix.com/work](http://theafrix.com/work)
 
 More websites will actually use asymmetrical concepts to create organization, balance, and a strong minimal aesthetic. As the design landscape becomes more saturated, web designers can apply asymmetry towards common UI patterns to create a familiar yet fresh look.
 
-## 5. Improved usability 
-
+## 5. Improved usability
 
 Ironically, minimalist sites should be more usable (in theory) since the content is clear and less distractions exist on the screen. However, you can easily run into the issue of minimal design that’s too minimal.
 
@@ -150,8 +142,7 @@ To swing the pendulum back towards functional aesthetics, we’re starting to se
 
 Photo credit: [http://wildflower.resn.co.nz](http://wildflower.resn.co.nz/)
 
-## Conclusion 
-
+## Conclusion
 
 Minimalism is more than just white space and the fewest elements as possible. The heart of the minimalist philosophy is in emphasizing content. Reducing the elements and featuring a lot of negative space are simply means to that end – they minimize distractions so that users can focus only on what’s important.
 

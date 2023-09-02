@@ -1,21 +1,21 @@
 ---
 title: Phân lớp SVM với Word2vec
-date: "2018-02-25"
+date: '2018-02-25'
 author: Van-Duyet Le
 tags:
-- SVM
-- NLP
-- Word2vec
-- Machine Learning
+  - SVM
+  - NLP
+  - Word2vec
+  - Machine Learning
 modified_time: '2018-02-25T17:57:41.371+07:00'
 thumbnail: https://1.bp.blogspot.com/-1c0fyuos0NM/WpKQLj0AcCI/AAAAAAAAqn8/1z5hCc1pfmYWZVbSiveudFpVxaUel6sMACLcBGAs/s1600/SVM%2Bwith%2BWord2vec%2B%2528Figure%2529.png
 slug: /2018/02/svm-word2vec.html
 category: Web
-description: Trong chuỗi bài viết này mình sử sử dụng thuật toán SVM để phân lớp sentiment (cảm xúc) cho văn bản, kết hợp với ứng dụng Word2vec để biểu diễn các text dưới dạng vector.    
+description: Trong chuỗi bài viết này mình sử sử dụng thuật toán SVM để phân lớp sentiment (cảm xúc) cho văn bản, kết hợp với ứng dụng Word2vec để biểu diễn các text dưới dạng vector.
 fbCommentUrl: http://blog.duyetdev.com/2018/02/svm-word2vec.html
 ---
 
-Trong chuỗi bài viết này mình sử sử dụng thuật toán SVM để phân lớp sentiment (cảm xúc) cho văn bản, kết hợp với ứng dụng Word2vec để biểu diễn các text dưới dạng vector.    
+Trong chuỗi bài viết này mình sử sử dụng thuật toán SVM để phân lớp sentiment (cảm xúc) cho văn bản, kết hợp với ứng dụng Word2vec để biểu diễn các text dưới dạng vector.
 
 Bằng cách sử dụng 1 tập văn bản đã được gán nhãn sẵn. Mỗi câu được vector hóa sử dụng Word2vec ([xem lại Kiều2vec](https://blog.duyet.net/2017/04/nlp-truyen-kieu-word2vec.html)). Được minh họa như hình dưới đây:
 
@@ -24,19 +24,24 @@ Bằng cách sử dụng 1 tập văn bản đã được gán nhãn sẵn. Mỗ
 Các bước sẽ thực hiện:
 
 1. Vector hóa từng câu văn bản:
-    - Tách từ cho từng câu. (E.g. `"Duyệt đẹp trai quá"` ==> [ `"Duyệt"`, `"đẹp"`, `"trai"`, `"quá"` ]
-    - Lọc bỏ stopwords (e.g. [ `"Duyệt"`, `"đẹp"`, `"trai"`, `"quá"` ] ==> [ `"Duyệt"`, `"đẹp"`, `"trai"` ]
-    - Dùng Word2vec model (retrain) để biến mỗi từ thành 1 vector:
-    ```
-    "đẹp" => [0.1123, 0.234, 0.256, 0.001, ...]
-    "train" => [0.542, 0.124, 0.232, 0.124, ...]
-    ```
-    Các vector này có số chiều cố định và giống nhau (phụ thuộc vào mô hình word2vec).
-    - Cộng (hoặc trung bình) các vector của từng từ trong một câu lại, ta được vector của một câu. Cách này khá đơn giản và chỉ dùng được khi câu ngắn (như 1 đoạn tweet). Với câu dài hơn cách biểu diễn này không còn chính xác nữa. Với văn bản lớn và dài, bạn nên [sử dụng Doc2vec](https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis.html) thay thế.
-    ```
-    vec([ "Duyệt", "đẹp", "trai" ]) = [0.1123, 0.234, 0.256, 0.001, ...] + [0.542, 0.124, 0.232, 0.124, ...] + ...
-    = [0.3421, 0.724, 0.242, 0.364, ...]
-    ```
+
+   - Tách từ cho từng câu. (E.g. `"Duyệt đẹp trai quá"` ==> [ `"Duyệt"`, `"đẹp"`, `"trai"`, `"quá"` ]
+   - Lọc bỏ stopwords (e.g. [ `"Duyệt"`, `"đẹp"`, `"trai"`, `"quá"` ] ==> [ `"Duyệt"`, `"đẹp"`, `"trai"` ]
+   - Dùng Word2vec model (retrain) để biến mỗi từ thành 1 vector:
+
+   ```
+   "đẹp" => [0.1123, 0.234, 0.256, 0.001, ...]
+   "train" => [0.542, 0.124, 0.232, 0.124, ...]
+   ```
+
+   Các vector này có số chiều cố định và giống nhau (phụ thuộc vào mô hình word2vec).
+
+   - Cộng (hoặc trung bình) các vector của từng từ trong một câu lại, ta được vector của một câu. Cách này khá đơn giản và chỉ dùng được khi câu ngắn (như 1 đoạn tweet). Với câu dài hơn cách biểu diễn này không còn chính xác nữa. Với văn bản lớn và dài, bạn nên [sử dụng Doc2vec](https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis.html) thay thế.
+
+   ```
+   vec([ "Duyệt", "đẹp", "trai" ]) = [0.1123, 0.234, 0.256, 0.001, ...] + [0.542, 0.124, 0.232, 0.124, ...] + ...
+   = [0.3421, 0.724, 0.242, 0.364, ...]
+   ```
 
 2. Train model SVM
 3. Test accuracy

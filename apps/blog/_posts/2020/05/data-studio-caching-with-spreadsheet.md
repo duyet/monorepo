@@ -1,12 +1,12 @@
 ---
-title: "Data Studio: Connecting BigQuery and Google Sheets to help with hefty data analysis"
-date: "2020-05-01"
+title: 'Data Studio: Connecting BigQuery and Google Sheets to help with hefty data analysis'
+date: '2020-05-01'
 author: Van-Duyet Le
 category: Data Engineer
 tags:
-- Data Engineer
-- Visualization
-- Data Studio
+  - Data Engineer
+  - Visualization
+  - Data Studio
 
 thumbnail: https://1.bp.blogspot.com/-tL8SgFMEaQU/XqwoFKV6DxI/AAAAAAABWeM/jCbFEFQ8rkUIndBbUppJt7xuG5gajTJawCK4BGAYYCw/s1200/caching-with-spreadsheet.png
 slug: /2020/05/data-studio-caching-with-spreadsheet.html
@@ -33,19 +33,19 @@ With the Sheets data connector for BigQuery, you can cache the calculated data f
 
 1. Google Sheets
 
-    ![](/media/2020/data-studio-spreadsheet/howto-step-1.png)
+   ![](/media/2020/data-studio-spreadsheet/howto-step-1.png)
 
 2. Choose Billing Project
 
-    ![](/media/2020/data-studio-spreadsheet/howto-step-2.png)
+   ![](/media/2020/data-studio-spreadsheet/howto-step-2.png)
 
 3. Write a Query
 
-    ![](/media/2020/data-studio-spreadsheet/howto-step-3.png)
+   ![](/media/2020/data-studio-spreadsheet/howto-step-3.png)
 
 4. Refresh Manually
 
-    ![](/media/2020/data-studio-spreadsheet/howto-step-4.png)
+   ![](/media/2020/data-studio-spreadsheet/howto-step-4.png)
 
 5. Schedule automatic updates: You'll be able to use tools like [Apps Script](https://developers.google.com/apps-script/) and [the macro recorder](https://www.blog.google/products/g-suite/think-macro-record-actions-google-sheets-skip-repetitive-work/) to schedule automatic updates to the connected BigQuery data.
 
@@ -53,6 +53,6 @@ Good luck!
 
 # References
 
- - [Analyze hefty data sets with BigQuery and Google Sheets](https://gsuiteupdates.googleblog.com/2019/01/bigquery-google-sheets-analyze-data.html)
- - [Think macro: record actions in Google Sheets to skip repetitive work](https://www.blog.google/products/g-suite/think-macro-record-actions-google-sheets-skip-repetitive-work/)
- - [Connect Data Studio to BigQuery tables.](https://support.google.com/datastudio/answer/6370296)
+- [Analyze hefty data sets with BigQuery and Google Sheets](https://gsuiteupdates.googleblog.com/2019/01/bigquery-google-sheets-analyze-data.html)
+- [Think macro: record actions in Google Sheets to skip repetitive work](https://www.blog.google/products/g-suite/think-macro-record-actions-google-sheets-skip-repetitive-work/)
+- [Connect Data Studio to BigQuery tables.](https://support.google.com/datastudio/answer/6370296)

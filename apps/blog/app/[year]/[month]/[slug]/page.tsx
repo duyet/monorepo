@@ -1,33 +1,30 @@
-import { Metadata } from 'next'
-
-import Meta from './Meta'
-import Comment from './Comment'
-import Content, { getPost } from './Content'
+import type { Metadata } from 'next'
 import { getAllPosts } from '@duyet/libs/getPost'
 import { Container } from '@duyet/components'
+import Meta from './meta'
+import Comment from './comment'
+import Content, { getPost } from './content'
 
-type Params = {
+interface Params {
   year: string
   month: string
   slug: string
 }
 
-type Props = {
+interface PostProps {
   params: Params
 }
 
 export default async function Post({
   params: { year, month, slug },
-}: {
-  params: Params
-}) {
+}: PostProps) {
   const post = await getPost([year, month, slug])
 
   return (
     <Container>
       <article>
         <Content post={post} />
-        <Meta post={post} className="mt-10" />
+        <Meta className="mt-10" post={post} />
         <Comment className="mt-0" />
       </article>
     </Container>
@@ -41,7 +38,7 @@ export async function generateStaticParams() {
   return posts.flatMap(({ slug }) =>
     posibleExtensions.map((ext: string) => {
       const slugArray = slug
-        .replace(/\.(md|html)$/, ext)
+        .replace(/\.md|html$/, ext)
         .replace(/^\//, '')
         .split('/')
 
@@ -56,7 +53,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params: { year, month, slug },
-}: Props): Promise<Metadata> {
+}: PostProps): Promise<Metadata> {
   const post = await getPost([year, month, slug])
 
   return {

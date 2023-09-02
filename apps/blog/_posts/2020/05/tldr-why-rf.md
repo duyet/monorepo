@@ -1,11 +1,11 @@
 ---
 title: TL;DR - khi nào nên sử dụng Random Forest thay vì Neural Network
-date: "2020-05-01"
+date: '2020-05-01'
 author: Van-Duyet Le
 category: Machine Learning
 tags:
-- Machine Learning
-- TLDR
+  - Machine Learning
+  - TLDR
 thumbnail: https://3.bp.blogspot.com/-uzyqmWX5I1o/XqwizPGEHqI/AAAAAAABWd4/VzE8XDrPcGwrcsdl8KOHqEjGsXBNDzdvACK4BGAYYCw/s1200/nn-rf.png
 slug: /2020/05/tldr-why-rf.html
 description: Cả Random Forest và Neural Networks đều là những kỹ thuật khác nhau nhưng có thể sử dụng chung ở một số lĩnh vực. Vậy khi nào sử dụng 1 kỹ thuật thay vì cái còn lại?
@@ -17,12 +17,11 @@ Neural networks đã chứng tỏ rằng nó hiệu quả hơn một số thuậ
 
 ![](/media/2020/why-rf/nn-rf.svg)
 
-
 # Tại sao nên sử dụng Random Forest
 
 - Lý do cơ bản khi sử dụng Random Forest thay vì Decision Tree (DT) là vì RF kết hợp từ nhiều cây DT vào một model để cho kết quả tốt hơn. Hiệu quả đã được chứng minh từ thực nghiệm.
 - Kết quả mô hình có tính giải thích.
-- Ngoài ra RF cũng giúp giảm thiểu overfitting. 
+- Ngoài ra RF cũng giúp giảm thiểu overfitting.
 
 # Khi nào nên sử dụng Random Forest thay vì Neural Networks
 
@@ -33,8 +32,8 @@ Neural networks đã chứng tỏ rằng nó hiệu quả hơn một số thuậ
 
 ![](/media/2020/why-rf/meme.jpeg)
 
-
 # References
- - [3 Reasons to Use Random Forest® Over a Neural Network: Comparing Machine Learning versus Deep Learning](https://www.kdnuggets.com/2020/04/3-reasons-random-forest-neural-network-comparison.html)
- - [Random Forest® vs Neural Networks for Predicting Customer Churn](https://www.kdnuggets.com/2019/12/random-forest-vs-neural-networks-predicting-customer-churn.html)
- - https://www.kdnuggets.com/2019/08/activestate-decision-tree-random-forest-xgboost.html
+
+- [3 Reasons to Use Random Forest® Over a Neural Network: Comparing Machine Learning versus Deep Learning](https://www.kdnuggets.com/2020/04/3-reasons-random-forest-neural-network-comparison.html)
+- [Random Forest® vs Neural Networks for Predicting Customer Churn](https://www.kdnuggets.com/2019/12/random-forest-vs-neural-networks-predicting-customer-churn.html)
+- https://www.kdnuggets.com/2019/08/activestate-decision-tree-random-forest-xgboost.html

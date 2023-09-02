@@ -1,23 +1,23 @@
 ---
 title: Tìm hiểu về dữ liệu trong thể thao hiện đại
-date: "2016-06-29"
+date: '2016-06-29'
 author: Van-Duyet Le
 tags:
-- Sưu tầm
-- Hệ thống thông tin
-- Information System
-- IS
-- Source
-- Data Mining
+  - Sưu tầm
+  - Hệ thống thông tin
+  - Information System
+  - IS
+  - Source
+  - Data Mining
 modified_time: '2016-06-29T23:08:54.053+07:00'
 thumbnail: https://2.bp.blogspot.com/-o_snpmTzvwk/V3PXfZhLszI/AAAAAAAAYmY/htoLHqxBBPEJaFooDzx9zqa_9X0BzNJcwCK4B/s1600/ecoblader-d%25E1%25BB%25AF-li%25E1%25BB%2587u-696x478.png
 slug: /2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html
 category: Data
-description: "Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những câu trả lời cho câu hỏi: Dân hệ thống thông tin thì làm gì?"
+description: 'Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những câu trả lời cho câu hỏi: Dân hệ thống thông tin thì làm gì?'
 fbCommentUrl: http://blog.duyetdev.com/2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html
 ---
 
-Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những câu trả lời cho câu hỏi: Dân hệ thống thông tin thì làm gì? Bài viết tôi đọc được từ anh [Jackie Dương](http://www.ecoblader.com/2014/06/04/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai/), nói về một trong các ứng dụng của Data Mining trong việc phân tích thể thao. 
+Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những câu trả lời cho câu hỏi: Dân hệ thống thông tin thì làm gì? Bài viết tôi đọc được từ anh [Jackie Dương](http://www.ecoblader.com/2014/06/04/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai/), nói về một trong các ứng dụng của Data Mining trong việc phân tích thể thao.
 
 [![](https://2.bp.blogspot.com/-o_snpmTzvwk/V3PXfZhLszI/AAAAAAAAYmY/htoLHqxBBPEJaFooDzx9zqa_9X0BzNJcwCK4B/s400/ecoblader-d%25E1%25BB%25AF-li%25E1%25BB%2587u-696x478.png)](https://blog.duyet.net/2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html)
 
@@ -47,7 +47,6 @@ Cũng đã đề cập qua ở trên, những bên sử dụng dữ liệu này 
 
 ## Các công ty cung cấp dữ liệu thể thao chuyên nghiệp
 
-
 Chưa có những tài liệu viết đầy đủ và chuẩn xác về ngành thống kê dữ liệu thể thao. Tuy nhiên, theo một số bài viết đọc được, thì việc thống kê này bắt nguồn đầu tiên từ các câu lạc bộ. Động lực cho việc này là ban lãnh đạo cần có cách để đánh giá mức độ đóng góp của cầu thủ (nhân viên) của mình, từ đó phân chia tiền thưởng hay đánh giá ký hợp đồng với ai, đuổi việc ai. Sau này, nó phát triển sang việc đánh giá các cầu thủ đội khác để chuyển nhượng (ở các câu lạc bộ bóng đá chuyên nghiệp có bộ phận Scouts làm việc này) thay vì cảm tính huấn luyện viên như trước kia. Rồi giới truyền thông, ban tổ chức cũng vào thu thập cùng phục vụ cho mục đích của riêng mình. Sau này khi có công nghệ ghi hình, lưu giữ, phát sinh các hoạt động như nhau và chồng chéo hao phí dẫn đến ra đời các tổ chức thu thập dữ liệu độc lập.
 
 [![](https://4.bp.blogspot.com/-Nz1qo0KCOb8/V3PYupqgEoI/AAAAAAAAYms/cxlErCN_89kTfN7ykzQkNDzHut4y1Vu_QCK4B/s1600/ecoblader-d%25E1%25BB%25AF-li%25E1%25BB%2587u-b%25C3%25B3ng-%25C4%2591%25C3%25A1.jpg)](https://4.bp.blogspot.com/-Nz1qo0KCOb8/V3PYupqgEoI/AAAAAAAAYms/cxlErCN_89kTfN7ykzQkNDzHut4y1Vu_QCK4B/s1600/ecoblader-d%25E1%25BB%25AF-li%25E1%25BB%2587u-b%25C3%25B3ng-%25C4%2591%25C3%25A1.jpg)
@@ -58,33 +57,32 @@ Hiện nay có hai nguồn Dữ liệu thể thao chính: Một là, từ các h
 
 Những công ty như OPTA ra đời nhằm giải quyết nhu cầu về dữ liệu các đối tượng kể ở phần đầu bài viết: Truyền hình, Báo chí, Cá cược, Các câu lạc bộ, Games,… Các công ty này bán các gói dịch vụ như Data feeds và Statistic cho giới Media, cung cấp Broadcast Data Solutions cho truyền hình, các báo cáo và dữ liệu cho các câu lạc bộ, công ty games hay cá cược có nhu cầu. Ví dụ như OPTA có các đối tác về Media như Kicker, Yahoo, AOL whoscored, L’equipe, Bild.de, Marca, The Sun,… Broadcast có ESPN, SkySport, Canal+, BBC,… Các câu lạc bộ sử dụng dữ liệu do OPTA cung cấp có thể kể đến Arsenal, Barcelona, Chelsea, Manchester City, Bayern Munich, Roma, Dortmund,…
 
-Mô hình kinh doanh này có mấy điểm cần chú ý: 
+Mô hình kinh doanh này có mấy điểm cần chú ý:
 
-- Một là, việc thu thập dữ liệu phải liên tục, trong thời gian dài sẽ tự tăng được giá trị của công ty. 
-- Hai là, tăng trưởng về quy mô không nhanh bằng tăng trưởng về doanh thu, do các gói sản phẩm có thể bán lại cho nhiều khách hàng khác nhau mà không cần đầu tư nhiều vào sản xuất. 
+- Một là, việc thu thập dữ liệu phải liên tục, trong thời gian dài sẽ tự tăng được giá trị của công ty.
+- Hai là, tăng trưởng về quy mô không nhanh bằng tăng trưởng về doanh thu, do các gói sản phẩm có thể bán lại cho nhiều khách hàng khác nhau mà không cần đầu tư nhiều vào sản xuất.
 
 Đây là những điểm tôi rất thích ở các công ty loại này. Hoạt động chính (Key activities) hàng ngày đó là xem các trận đấu, chuyên gia phân tích nhập dữ liệu vào hệ thống, sau đó bán các dữ liệu này (có customize) cho các khách hàng khác nhau.
 
 ## Chuyển hóa hình ảnh thể thao thành dữ liệu số
 
+Logic của công việc này đó là tạo ra một hệ không gian dữ liệu nhiều chiều rồi mọi thứ đều có thể biểu diễn lại trên đó. Điều này yêu cầu phải thống kê và phân loại TOÀN BỘ các tiêu chuẩn cũng như các trường hợp xảy ra ngoài đời thực và gán hằng số cho nó.
 
-Logic của công việc này đó là tạo ra một hệ không gian dữ liệu nhiều chiều rồi mọi thứ đều có thể biểu diễn lại trên đó. Điều này yêu cầu phải thống kê và phân loại TOÀN BỘ các tiêu chuẩn cũng như các trường hợp xảy ra ngoài đời thực và gán hằng số cho nó. 
-
-Ví dụ, sẽ có biến là Chân thuận thì sẽ phải có đúng ba hằng số là Chân trái = 1, Chân phải = 2, Thuận cả hai = 3; hoặc như Biến vị trí cầu thủ thì cần có một trục tọa độ phụ là sân bóng 105*68m rồi sẽ có tọa độ cầu thủ chuẩn bị ghi bàn là (10,22) chẳng hạn. Đương nhiên, chất lượng của hệ thống thông tin này là sự khác biệt cốt lõi của dữ liệu công ty này hay công ty khác.
+Ví dụ, sẽ có biến là Chân thuận thì sẽ phải có đúng ba hằng số là Chân trái = 1, Chân phải = 2, Thuận cả hai = 3; hoặc như Biến vị trí cầu thủ thì cần có một trục tọa độ phụ là sân bóng 105\*68m rồi sẽ có tọa độ cầu thủ chuẩn bị ghi bàn là (10,22) chẳng hạn. Đương nhiên, chất lượng của hệ thống thông tin này là sự khác biệt cốt lõi của dữ liệu công ty này hay công ty khác.
 
 Đi vào một case study cụ thể là bàn thắng lịch sử của Iniesta cho Tây Ban Nha tại chung kết Worldcup 2010 trước Hà Lan. Dưới góc độ người xem thì là một khoảnh khắc kỳ diệu, nhưng các chuyên viên Dữ liệu thể thao ở OPTA lại có góc nhìn hoàn toàn khác. Ví dụ như trường hợp này họ cần lưu một số dữ liệu như sau:
 
 - Game ID (trận đấu nào) : 318304;
 - Event ID (sự kiện thứ bao nhiêu trong trận đấu trên): 1196;
 - Action ID (loại hành động nào): 16 – một bàn thắng (có khoảng 80 loại khác nhau, ví dụ như 1 – Passing, 3 – Dribble, 13 – Off target,… Mọi hành động có thể xảy ra trên sân bóng đều đã được mã hóa);
-- Period ID (hiệp thứ mấy):  4 – hiệp phụ thứ 2;
+- Period ID (hiệp thứ mấy): 4 – hiệp phụ thứ 2;
 - Period minute: 115/Period second: 54;
 - Player ID (mã số cầu thủ trong database): 12237 – Andres Iniesta (tôi cá là gõ mã này vào có luôn cả Personal Information của cầu thủ luôn);
 - Team ID: 118 – Tây Ban Nha;
 - Kit ID: 16;
 - Tọa độ cầu thủ: x:9, y:62.3, dựa trên một hệ trục đặt vào sân bóng;
 - Tọa độ bàn thắng: x:5.6, y:47.57, dựa trên hệ trục đặt vào gôn thủ môn;
-- Goal information: (cùng 1 dãy qualifier ID khác) như 115 (Intentional Assists);  76 (Low left), 118 (One Bounce), 20 (Right foot), 108( Volley),…
+- Goal information: (cùng 1 dãy qualifier ID khác) như 115 (Intentional Assists); 76 (Low left), 118 (One Bounce), 20 (Right foot), 108( Volley),…
 
 [![](https://1.bp.blogspot.com/-bOVinKhwz6s/V3PZWeLiySI/AAAAAAAAYm4/wT682Z072PIitKSjbb2ucAPFS0fVROjMACK4B/s1600/ecoblader-t%25E1%25BB%258Da-%25C4%2591%25E1%25BB%2599-d%25E1%25BB%25AF-li%25E1%25BB%2587u-th%25E1%25BB%2583-thao.jpg)](https://1.bp.blogspot.com/-bOVinKhwz6s/V3PZWeLiySI/AAAAAAAAYm4/wT682Z072PIitKSjbb2ucAPFS0fVROjMACK4B/s1600/ecoblader-t%25E1%25BB%258Da-%25C4%2591%25E1%25BB%2599-d%25E1%25BB%25AF-li%25E1%25BB%2587u-th%25E1%25BB%2583-thao.jpg)
 
@@ -96,13 +94,11 @@ Hay ho nhất là các dữ liệu đi theo nó. Ví dụ như qua thống kê 3
 
 ## Những vấn đề còn bỏ ngỏ
 
-
 - Việc sử dụng dữ liệu trong đánh giá cầu thủ ở các câu lạc bộ.
 - Công nghệ up-to-date dữ liệu trong truyền hình trực tiếp.
 - Khoa học bóng đá ở các CLB như Munich, Dortmund, AC Milan.
 
 ## Tham khảo
-
 
 - [How Big Data and Analytics are Changing Soccer](https://www.linkedin.com/pulse/how-big-data-analytics-changing-soccer-bernard-marr)
 - [How Big Data is Changing the World of Football](https://datafloq.com/read/how-big-data-is-changing-the-world-of-football/1796)

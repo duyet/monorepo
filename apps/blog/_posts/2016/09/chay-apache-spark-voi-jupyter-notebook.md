@@ -1,17 +1,17 @@
 ---
 title: Chạy Apache Spark với Jupyter Notebook
-date: "2016-09-20"
+date: '2016-09-20'
 author: Van-Duyet Le
 tags:
-- Data Engineer
-- Jupyter
-- Apache Spark
-- IPython
-- Python
-- Javascript
-- PySpark
-- Spark
-- Machine Learning
+  - Data Engineer
+  - Jupyter
+  - Apache Spark
+  - IPython
+  - Python
+  - Javascript
+  - PySpark
+  - Spark
+  - Machine Learning
 modified_time: '2018-09-10T17:20:37.518+07:00'
 thumbnail: https://1.bp.blogspot.com/-IbzOyRw7mkM/V-Dm-cyXE9I/AAAAAAAAd-I/nGA92fFap4MM4uqKErB7g2H-t6T7CD1RQCLcB/s1600/Selection_006.png
 slug: /2016/09/chay-apache-spark-voi-jupyter-notebook.html
@@ -72,7 +72,6 @@ Port có thể thay đổi theo ý thích, nếu trùng thì Notebook sẽ tự 
 [![](https://3.bp.blogspot.com/-b0G6CE9ED4U/V-DhO5Y6MfI/AAAAAAAAd90/ien68QnA5jsMwwZ7owHKgMs4GpB9t-I3wCLcB/s1600/duyetdev%2540duyetdev%253A%2B%257E-spark-1.6.2-bin-hadoop2.6_003.png)](https://3.bp.blogspot.com/-b0G6CE9ED4U/V-DhO5Y6MfI/AAAAAAAAd90/ien68QnA5jsMwwZ7owHKgMs4GpB9t-I3wCLcB/s1600/duyetdev%2540duyetdev%253A%2B%257E-spark-1.6.2-bin-hadoop2.6_003.png)
 
 ## 3. RUN
-
 
 Thực thi lệnh
 

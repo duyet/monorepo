@@ -1,11 +1,11 @@
 ---
 title: Gửi Slack Alerts trên Airflow
-date: "2019-08-20"
+date: '2019-08-20'
 category: Data Engineer
 tags:
-- Airflow
-- Data
-- Data Engineer
+  - Airflow
+  - Data
+  - Data Engineer
 slug: /2019/08/slack-alerts-in-airflow.html
 thumbnail: https://1.bp.blogspot.com/-jAfy6D8deHU/XVwQdvnubFI/AAAAAAABFzg/b3ASQC3mmtozUhAQPdBRa3mJGE-Cd23GgCLcBGAs/s1600/airflow-alert-slack.png
 description: Slack là một công cụ khá phổ biến trong các Team, slack giúp tập hợp mọi thông tin về Slack (như Jira alert, ETL pipelines, CI/CD status, deployments, ...) một cách thống nhất và dễ dàng theo dõi. Bài viết này mình hướng dẫn gửi mọi báo lỗi của Airflow đến Slack.
@@ -26,10 +26,9 @@ Truy cập Slack App Directory tìm Incoming Webhooks: `https://<workspace>.slac
 Sau đó bạn sẽ nhận được 1 URL có dạng:
 https://hooks.slack.com/services/T00000000/B0000000/hssA66nupi72KAFy9ttv5fr2
 
-
 ![](https://1.bp.blogspot.com/-5wTS8VRYK4M/XVwSPb4dlTI/AAAAAAABFz8/mnADDTCj0eEAe-WsLN5yaCTWVPOlkefxgCLcBGAs/s1600/Pasted_Image_8_20_19__10_29_PM.png)
 
-Vào **Airflow** > **Admin** >  **Connections** để thêm một connection mới
+Vào **Airflow** > **Admin** > **Connections** để thêm một connection mới
 
 - Conn Id: `Slack`
 - Conn Type: `HTTP`
@@ -52,12 +51,12 @@ SLACK_CONN_ID = 'slack'
 def task_fail_slack_alert(context):
     slack_webhook_token = BaseHook.get_connection(SLACK_CONN_ID).password
     slack_msg = """
-Task Failed. 
-*DAG*: {dag_id} 
-*Task*: {task}  
-*Dag*: {dag} 
-*Execution Time*: {exec_date}  
-*Log Url*: {log_url} 
+Task Failed.
+*DAG*: {dag_id}
+*Task*: {task}
+*Dag*: {dag}
+*Execution Time*: {exec_date}
+*Log Url*: {log_url}
     """.format(
         dag_id=context.get('dag').dag_id,
         task=context.get('task_instance').task_id,
@@ -80,6 +79,7 @@ Task Failed.
 Với mỗi DAG muốn alert, ta thêm thuộc tính `on_failure_callback` cho mỗi DAG. Ví dụ như dưới dây:
 
 `example_dag.py`
+
 ```py
 from airflow import DAG
 ...
@@ -103,7 +103,8 @@ Kết quả:
 ![](https://1.bp.blogspot.com/-jAfy6D8deHU/XVwQdvnubFI/AAAAAAABFzg/b3ASQC3mmtozUhAQPdBRa3mJGE-Cd23GgCLcBGAs/s1600/airflow-alert-slack.png)
 
 # Tham khảo
+
 - https://medium.com/datareply/integrating-slack-alerts-in-airflow-c9dcd155105
-- airflow.operators.slack\_operator: [https://airflow.apache.org/\_modules/airflow/operators/slack_operator.html](https://airflow.apache.org/\_modules/airflow/operators/slack_operator.html)
+- airflow.operators.slack_operator: [https://airflow.apache.org/\_modules/airflow/operators/slack_operator.html](https://airflow.apache.org/_modules/airflow/operators/slack_operator.html)
 
 Chúc các bạn thành công.

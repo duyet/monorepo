@@ -1,14 +1,14 @@
 ---
 title: Detect robots in koa
-date: "2016-02-21"
+date: '2016-02-21'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- koa
-- middleware
-- koajs
-- robot
-- Framework
+  - Nodejs
+  - koa
+  - middleware
+  - koajs
+  - robot
+  - Framework
 modified_time: '2016-05-06T19:17:49.348+07:00'
 slug: /2016/02/detect-robots-in-koa.html
 category: Javascript
@@ -16,34 +16,33 @@ description: Plugin cho KoaJs, nhận diện crawler bot
 ---
 
 Koa detect robots. Fast Middleware detect bot crawler for Koa.  
-[![](https://nodei.co/npm/koa-isbot.png?downloads=true&amp;downloadRank=true&amp;stars=true)](https://www.npmjs.com/package/koa-isbot)
+[![](https://nodei.co/npm/koa-isbot.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/koa-isbot)
 
-## Installation 
-
+## Installation
 
 ```bash
-npm install koa-isbot --save 
+npm install koa-isbot --save
 ```
 
-## Usage 
-
+## Usage
 
 ```js
-var koa = require('koa')
-  , app = koa.app()
-  , isBot = require('koa-isbot');
+var koa = require('koa'),
+  app = koa.app(),
+  isBot = require('koa-isbot')
 
-app.use(isBot());
+app.use(isBot())
 
-app.use(function *(next) {
-    console.log('isBot? ', this.state.isBot); 
-    // null or 'googlebot', 'bingbot', ... 
-});
+app.use(function* (next) {
+  console.log('isBot? ', this.state.isBot)
+  // null or 'googlebot', 'bingbot', ...
+})
 
-app.listen(3000);
+app.listen(3000)
 ```
 
 Update for Koa2
+
 ```js
 var koa = require('koa')
   , app = koa.app()
@@ -52,15 +51,14 @@ var koa = require('koa')
 app.use(isBot());
 
 app.use(aysnc (ctx, next) => {
-    console.log('isBot? ', ctx.isBot); 
-    // null or 'googlebot', 'bingbot', ... 
+    console.log('isBot? ', ctx.isBot);
+    // null or 'googlebot', 'bingbot', ...
 });
 
 app.listen(3000);
 ```
 
 ## Support list
-
 
 - Google bot - googlebot
 - Baidu - baiduspider
@@ -84,7 +82,6 @@ Github: [https://github.com/duyet/koa-isbot](https://github.com/duyet/koa-isbot)
 NPM: [https://www.npmjs.com/package/koa-isbot](https://www.npmjs.com/package/koa-isbot)
 
 ## How to contribute
-
 
 1. Fork the project on Github ([https://github.com/duyet/koa-isbot/fork](https://github.com/duyet/koa-isbot/fork))
 2. Create a topic branch for your changes

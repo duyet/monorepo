@@ -1,8 +1,7 @@
 import Image from 'next/image'
-
 import { BarChart, BarList, Legend, DonutChart } from '@duyet/components'
 import { cn } from '@duyet/libs/utils'
-import TextDataSource from '../TextDataSource'
+import TextDataSource from '../text-data-source'
 
 // See: https://github.com/anuraghazra/github-readme-stats
 const githubStatUrl = (params: { theme: string }) => {
@@ -17,10 +16,10 @@ const githubStatUrl = (params: { theme: string }) => {
     ...params,
   })
 
-  return `https://github-readme-stats.vercel.app/api?${urlParams}`
+  return `https://github-readme-stats.vercel.app/api?${urlParams.toString()}`
 }
 
-const static_charts: {
+const STATIC_CHARTS: {
   title?: string
   source?: string
   className?: string
@@ -37,12 +36,12 @@ const static_charts: {
     },
     extra: (
       <Image
-        src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
         alt="Wakatime"
-        width={200}
-        height={30}
-        unoptimized
         className="mt-3"
+        height={30}
+        src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
+        unoptimized
+        width={200}
       />
     ),
   },
@@ -73,9 +72,9 @@ export default async function Wakatime() {
     <div className="space-y-6 mt-10">
       <div className="mb-10">
         <BarChart
-          data={codingActivity}
-          index={'range.date'}
           categories={['Coding Hours']}
+          data={codingActivity}
+          index="range.date"
         />
         <TextDataSource>Wakatime (Last 30 days)</TextDataSource>
       </div>
@@ -97,12 +96,12 @@ export default async function Wakatime() {
 
           <div className="flex flex-col items-center grow">
             <DonutChart
-              data={languages}
               category="percent"
-              index="name"
-              showLabel={true}
-              variant="pie"
               className="w-44 mb-10"
+              data={languages}
+              index="name"
+              showLabel
+              variant="pie"
             />
             <Legend
               categories={top10Languages.map((language) => language.name)}
@@ -114,16 +113,16 @@ export default async function Wakatime() {
         <TextDataSource>Wakatime (All Times)</TextDataSource>
       </div>
 
-      {static_charts.map(({ title, source, url, className, extra }) => (
-        <div key={title} className={cn('p-3', borderClasse, className)}>
-          {title && <div className="font-bold mb-5">{title}</div>}
+      {STATIC_CHARTS.map(({ title, source, url, className, extra }) => (
+        <div className={cn('p-3', borderClasse, className)} key={title}>
+          {title ? <div className="font-bold mb-5">{title}</div> : null}
 
           <div className="flex flex-col items-stretch block dark:hidden">
-            <Image src={url.light} width={800} height={500} alt={title || ''} />
+            <Image alt={title || ''} height={500} src={url.light} width={800} />
           </div>
 
           <div className="flex flex-col gap-5 hidden dark:block">
-            <Image src={url.dark} width={800} height={500} alt={title || ''} />
+            <Image alt={title || ''} height={500} src={url.dark} width={800} />
           </div>
 
           {extra}
@@ -135,7 +134,7 @@ export default async function Wakatime() {
   )
 }
 
-type WakaCodingActivity = {
+interface WakaCodingActivity {
   data: {
     range: {
       start: string
@@ -156,6 +155,8 @@ type WakaCodingActivity = {
 
 async function getWakaCodingActivity() {
   const raw = await fetch(WAKA_CODING_ACTIVITY_API)
+
+  // eslint-disable-next-line -- Temporarily avoids the lint error problem
   const data: WakaCodingActivity['data'] = (await raw.json()).data
 
   return data.map((item) => ({
@@ -164,7 +165,7 @@ async function getWakaCodingActivity() {
   }))
 }
 
-type WakaLanguages = {
+interface WakaLanguages {
   data: {
     name: string
     percent: number
@@ -173,6 +174,8 @@ type WakaLanguages = {
 }
 async function getWakaLanguages() {
   const raw = await fetch(WAKA_LANGUAGES_API)
+
+  // eslint-disable-next-line -- Temporarily avoids the lint error problem
   const data: WakaLanguages['data'] = (await raw.json()).data
 
   return data

@@ -1,13 +1,13 @@
 ---
 title: console.log() nâng cao
-date: "2016-05-16"
+date: '2016-05-16'
 author: Van-Duyet Le
 tags:
-- Chrome
-- console
-- console.log
-- Javascript
-- Debug
+  - Chrome
+  - console
+  - console.log
+  - Javascript
+  - Debug
 modified_time: '2016-05-16T20:57:35.599+07:00'
 thumbnail: https://1.bp.blogspot.com/-2tFGxZVRXY8/VznC82-aNtI/AAAAAAAAVLg/nL2_UJPqxrAG5BSQVhCjR3f-OpM8tESyQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B19-50-27.png
 slug: /2016/05/console-log.html
@@ -21,7 +21,7 @@ Nay tôi xin giới thiệu các tính năng cách sử dụng hay và ít đư�
 [![](https://1.bp.blogspot.com/-2tFGxZVRXY8/VznC82-aNtI/AAAAAAAAVLg/nL2_UJPqxrAG5BSQVhCjR3f-OpM8tESyQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B19-50-27.png)](https://blog.duyet.net/2016/05/console-log.html)
 Truy cập [https://saveto.co](https://saveto.co/) và bấm F12
 
-## console.*
+## console.\*
 
 Cùng ôn lại các hàm của `console`. Bạn có thể test ngay bằng cách sử dụng trình debug (F12) trên trình duyệt.
 
@@ -31,15 +31,16 @@ Cùng ôn lại các hàm của `console`. Bạn có thể test ngay bằng các
 - `console.count()` in ra số lần lặp lại khi gọi hàm với 1 tham số cụ thể (thường dùng để debug số lần lặp).
 - `console.clear()` xóa sạch console trên trình duyệt.
 - `console.dir(obj)` xem toàn bộ các thuộc tính của 1 object javascript.
-- ... 
+- ...
 
 ## Định dạng css cho console.log
 
 Ta có thể định dạng lại các message in ra consolebằng CSS. Chỉ cần viết thêm tham số `%c` và CSS vào tham số cuối cùng. Ví dụ:
 
 ```js
-var css='background-color: #FFCC00; color: #FFF; font-weight: 700; padding: 10px';
-console.log('%cTôi là Duyệt', css);
+var css =
+  'background-color: #FFCC00; color: #FFF; font-weight: 700; padding: 10px'
+console.log('%cTôi là Duyệt', css)
 ```
 
 ![](https://2.bp.blogspot.com/-B3qwRAK5OnM/VznFtqncUwI/AAAAAAAAVLs/7tqW2Ohn8YUdTGonlIptsWPJbL-9d_2nQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-04-41.png)
@@ -48,8 +49,7 @@ console.log('%cTôi là Duyệt', css);
 
 ## Template string
 
-
-Các hàm console.* cũng hỗ trợ template string.
+Các hàm console.\* cũng hỗ trợ template string.
 
 ```js
 console.log("I'm %s and %s years old.", '@duyetdev', 20)
@@ -62,8 +62,12 @@ console.log("I'm %s and %s years old.", '@duyetdev', 20)
 Debug với array hoặc object phức tạp và không trực quan. `console.table()` giúp hiển thị dữ liệu dưới dạng bảng ngay trên console.
 
 ```js
-var people = [["Van-Duyet", "Le"], ["Kim", "Ngan"], ["XYZ", "ABC"]]
-console.table(people);
+var people = [
+  ['Van-Duyet', 'Le'],
+  ['Kim', 'Ngan'],
+  ['XYZ', 'ABC'],
+]
+console.table(people)
 ```
 
 ![](https://4.bp.blogspot.com/-I7T2ayjwuG0/VznHHbPnuOI/AAAAAAAAVL4/Xj38no2ytU0RFS364KRHOlSArAS7Ph2XgCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-10-50.png)
@@ -72,7 +76,10 @@ Có thể sort trực tiếp trên dữ liệu.
 Làm việc với Object:
 
 ```js
-var jobs = [{ name: 'Lê Văn Duyệt', age: 20, job: 'Ăn hại' }, { name: 'Lê Văn X', age: 20, job: 'Ăn ngủ' }]
+var jobs = [
+  { name: 'Lê Văn Duyệt', age: 20, job: 'Ăn hại' },
+  { name: 'Lê Văn X', age: 20, job: 'Ăn ngủ' },
+]
 console.table(jobs)
 ```
 
@@ -83,9 +90,9 @@ console.table(jobs)
 `console.time` và `console.timeEnd` đo thời gian runtime, từ khi `console.time` chạy cho đến khi `console.timeEnd` kết thúc.
 
 ```js
-console.time('Thời gian debug hàm X: ');
+console.time('Thời gian debug hàm X: ')
 // do some thing ....
-console.timeEnd('Thời gian debug hàm X: ');
+console.timeEnd('Thời gian debug hàm X: ')
 // => Thời gian debug hàm X: : 15986.679ms
 ```
 
@@ -96,24 +103,23 @@ console.timeEnd('Thời gian debug hàm X: ');
 `console.group` giúp gom các message lại thành 1 group inline. Xem ví dụ sau:
 
 ```js
-console.group('Todo');
-console.log('Ngủ');
+console.group('Todo')
+console.log('Ngủ')
 
-    console.group('Ăn');
-    console.log('Bún bò');
-    console.log('Phở');
-    console.log('Chè');
-    console.log('...');
-    console.groupEnd();
+console.group('Ăn')
+console.log('Bún bò')
+console.log('Phở')
+console.log('Chè')
+console.log('...')
+console.groupEnd()
 
-console.log('Đi chơi');
-console.groupEnd();
+console.log('Đi chơi')
+console.groupEnd()
 ```
 
 ![](https://3.bp.blogspot.com/-ZPMJmH_7IZY/VznMKlSBbLI/AAAAAAAAVMc/AhIq2AqmPu4flHf2P_pBJ4VnNQw_gZ8mgCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-32-38.png)
 
-## Tham khảo 
-
+## Tham khảo
 
 - [https://developer.mozilla.org/en-US/docs/Web/API/console](https://developer.mozilla.org/en-US/docs/Web/API/console)
 - [Advanced Logging with the JavaScript Console](https://egghead.io/series/js-console-for-power-users)

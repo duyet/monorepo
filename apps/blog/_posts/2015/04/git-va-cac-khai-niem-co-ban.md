@@ -1,16 +1,15 @@
 ---
 title: Git - Git là gì và các khái niệm cơ bản trong git
-date: "2015-04-26"
+date: '2015-04-26'
 author: Van-Duyet Le
 tags:
-- Git
-- Khái niệm git
+  - Git
+  - Khái niệm git
 modified_time: '2015-04-26T00:33:45.750+07:00'
 thumbnail: https://4.bp.blogspot.com/-ZYIJIZWTj-I/VTvM1dMdDCI/AAAAAAAACWA/_V9XNOLwkAw/s1600/2color-lightbg%402x.png
 slug: /2015/04/git-va-cac-khai-niem-co-ban.html
 category: Git
 description: Bạn là lập trình viên, và đôi khi bạn muốn đưa về trạng thái trước khi quậy phá của file code nào đó? Cách đơn giản nhất đó là sao chép lại file trước khi chỉnh sửa. Trường hợp dùng phương pháp này thì sẽ phải thường xuyên thực hiện việc thêm ngày đã thay đổi vào tên thư mục hay file. Tuy nhiên, việc tự mình sao chép file mỗi lần chỉnh sửa thì sẽ rất vất vả, và cũng dễ xảy ra nhầm lẫn.
-
 ---
 
 Bạn là lập trình viên, và đôi khi bạn muốn đưa về trạng thái trước khi quậy phá của file code nào đó? Cách đơn giản nhất đó là sao chép lại file trước khi chỉnh sửa. Trường hợp dùng phương pháp này thì sẽ phải thường xuyên thực hiện việc thêm ngày đã thay đổi vào tên thư mục hay file. Tuy nhiên, việc tự mình sao chép file mỗi lần chỉnh sửa thì sẽ rất vất vả, và cũng dễ xảy ra nhầm lẫn.
@@ -84,13 +83,11 @@ Chú ý:
 
 ## Xung đột (Conflict)
 
-
 Conflic là trường hợp có 2 sự thay đổi trong một dòng code và máy tính không thể tự quyết định dòng code nào là "đúng". Đúng ở đây có nghĩa là "ý đồ của lập trình viên".
 
 Để giải quyết mâu thuẫn bạn phải dùng "tay không" để sữa các xung đột này. Bạn chỉ việc nhìn vào file bị conflict và tự quyết định dòng code nào giữ lại, dòng nào xóa bỏ.
 
-## Commit 
-
+## Commit
 
 Để ghi lại việc thêm/thay đổi file hay thư mục vào repository thì sẽ thực hiện thao tác gọi là Commit.
 
@@ -102,23 +99,21 @@ Commit này đang được chứa tại repository, các commit nối tiếp v�
 
 Các commit này, được đặt tên bởi 40 ký tự alphabet (mã md5 thì phải) không trùng nhau được băm từ thông tin commit. Bằng việc đặt tên cho commit, có thể chỉ định commit nào từ trong repository.
 
-Mỗi commit đều có yêu cầu phải có commit message, để giải thích commit này là bạn đã làm gì trong này. 
+Mỗi commit đều có yêu cầu phải có commit message, để giải thích commit này là bạn đã làm gì trong này.
 
-## Git Remote 
-
+## Git Remote
 
 Để kết nối được với một repo khác người ta sử dụng một khái niệm gọi là remote.
 
 Trên thực tế khi làm việc với nhau thì không như vậy, vì không phải máy ai cũng cài một "git server" để người khác kết nối được với mình. Thông thường thì chúng ta sẽ sử dụng một repo chung và các máy kết nối vào repo đó.
 
-Có 2 "git repo server" được sử dụng nhiều là github.com và bitbucket.org. 
+Có 2 "git repo server" được sử dụng nhiều là github.com và bitbucket.org.
 
 Trên thực tế khi có 2 người cùng làm việc với 1 project thì thông thường sẽ tạo một repo trên github hoặc bitbucket và repo trên máy người A sẽ kết nối với repo trên github và máy người B cũng kết nối với repo trên github/bitbucket. Từ đó source code của người A và người B sẽ được đồng bộ với nhau thông qua repo trên github/bitbucket.
 
 Vì vậy, trước khi sử dụng git thì bạn nên đăng kí một tài khoản trên github.com hoặc bitbucket.org.
 
-## Working Tree và Index 
-
+## Working Tree và Index
 
 Trên Git, những thư mục được đặt trong sự quản lý của Git mà mọi người đang thực hiện công việc trong thực tế được gọi là working tree.
 
@@ -132,15 +127,13 @@ Trên Git, khi đã thực hiện commit thì trạng thái sẽ không được
 
 ## Kết
 
+Còn khá nhiều định nghĩa trên Git, trên đây mình chỉ nói một vài định nghĩa quan trọng, mình sẽ cố gắng cập nhật đầy đủ sau.
 
-Còn khá nhiều định nghĩa trên Git, trên đây mình chỉ nói một vài định nghĩa quan trọng, mình sẽ cố gắng cập nhật đầy đủ sau. 
-
-Ở bài sau mình sẽ hướng dẫn cách sử dụng Git, sử dụng github, các làm việc trên git và xử lý các trường hợp thường gặp khi teamwork với Git. 
+Ở bài sau mình sẽ hướng dẫn cách sử dụng Git, sử dụng github, các làm việc trên git và xử lý các trường hợp thường gặp khi teamwork với Git.
 
 Bài viết được post tại [LvDuit Blog](https://blog.duyet.net/) và [LvDuit Wordpress](http://lvduit.wordpress.com/).
 
-## Tham khảo 
-
+## Tham khảo
 
 1. [Git Community Book](http://book.git-scm.com/)
 2. [Pro Git](http://progit.org/book/)

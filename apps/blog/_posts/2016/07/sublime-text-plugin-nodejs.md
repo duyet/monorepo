@@ -1,21 +1,20 @@
 ---
 title: Sublime Text Plugin nào cho lập trình viên Node.js
-date: "2016-07-20"
+date: '2016-07-20'
 author: Van-Duyet Le
 tags:
-- Tutorial
-- sublime text
-- Tutorials
-- Javascript
-- React
-- Node.js
-- Node
+  - Tutorial
+  - sublime text
+  - Tutorials
+  - Javascript
+  - React
+  - Node.js
+  - Node
 modified_time: '2016-07-20T11:16:14.977+07:00'
 thumbnail: https://3.bp.blogspot.com/-Vk9xy2-YHhQ/V476BZ29wmI/AAAAAAAAaC8/dzgxlK1P5nQ-GNPbynkCDUxxHmwYl4rxACK4B/s1600/package-control-duyetdev.gif
 slug: /2016/07/sublime-text-plugin-nodejs.html
 category: Web
 description: Hôm nay mình sẽ giới thiệu 1 số plugin cần có để lập trình Node.js trên Sublime.
-
 ---
 
 Trước mình có viết 1 bài về giới thiệu Sublime Text, các [plugin hay cho lập trình viên PHP](https://blog.duyet.net/2014/03/sublime-text-3-editor-manh-me-cho-lap.html). Hôm nay mình sẽ giới thiệu 1 số plugin cần có để lập trình Node.js trên Sublime.
@@ -41,7 +40,7 @@ Plugin cung cấp chức năng tự động completion code, gợi ý hàm cho c
 Cài đặt:
 
 1. Nhấn `Ctrl+Shift+P` hoặc `Cmd+Shift+P` trên Linux/Windows/OS X
-2. Gõ  `install`, chọn `Package Control: Install Package`
+2. Gõ `install`, chọn `Package Control: Install Package`
 3. Gõ `node`, chọn `Nodejs `
 
 ## [Java​Script & Node​JS Snippets](https://packagecontrol.io/packages/JavaScript%20%26%20NodeJS%20Snippets)
@@ -52,7 +51,7 @@ Snippets giúp bạn tiết kiệm thời gian viết code rất nhiều. Nhất
 
 Cài đặt:
 
-1. Nhấn `Ctrl+Shift+P` hoặc  `Cmd+Shift+P` trên Linux/Windows/OS X
+1. Nhấn `Ctrl+Shift+P` hoặc `Cmd+Shift+P` trên Linux/Windows/OS X
 2. Gõ `install`, chọn `Package Control: Install Package`
 3. Tìm và chọn `Java​Script & Node​JS Snippets`
 

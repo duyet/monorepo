@@ -1,10 +1,10 @@
 ---
 title: Cài đặt Docker trên Ubuntu
-date: "2016-05-01"
+date: '2016-05-01'
 author: Van-Duyet Le
 tags:
-- Docker
-- How-to
+  - Docker
+  - How-to
 modified_time: '2018-09-10T17:24:35.829+07:00'
 thumbnail: https://2.bp.blogspot.com/-PixuaXfP3N8/VyYNLdQQKPI/AAAAAAAAUJE/jpqCnfOYVyYaMwWBl3V2whQlLdxzU70qQCK4B/s1600/docker-swarm-hero2.png
 slug: /2016/05/cai-dat-docker-tren-ubuntu.html
@@ -20,13 +20,11 @@ Cách cài đặt Docker trên Ubuntu
 
 ## Ubuntu 15.04/15.10/16.04
 
-
 ```
 sudo apt-get install -y docker.io
 ```
 
 ## Ubuntu 14.04/14.10
-
 
 ```
 sudo apt-get update
@@ -34,7 +32,7 @@ sudo apt-get install curl
 curl -fsSL https://get.docker.com/ | sh
 ```
 
-Nếu muốn chạy Docker với user non-root, không cần sử dụng sudo. Chạy lệnh sau để add user của bạn vào Group docker 
+Nếu muốn chạy Docker với user non-root, không cần sử dụng sudo. Chạy lệnh sau để add user của bạn vào Group docker
 
 ```
 sudo usermod -aG docker <your user>
@@ -45,7 +43,6 @@ sudo usermod -aG docker <your user>
 Chúc bạn thành công.
 
 ## Tham khảo
-
 
 - Ảnh: Docker.com
 - Slide: Why docker? - [https://talk.duyet.net/why-docker/](http://why-docker.talk.duyetdev.com/)

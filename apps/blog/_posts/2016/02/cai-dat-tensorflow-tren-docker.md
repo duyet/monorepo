@@ -1,12 +1,12 @@
 ---
 title: Tensorflow - cài đặt trên Docker
-date: "2016-02-05"
+date: '2016-02-05'
 author: Van-Duyet Le
 tags:
-- Tensorflow
-- Docker
-- Machine Learning
-- Howto
+  - Tensorflow
+  - Docker
+  - Machine Learning
+  - Howto
 modified_time: '2016-02-05T23:48:54.687+07:00'
 thumbnail: https://2.bp.blogspot.com/-ALrzO2lz1Hk/VrTSHtGlC8I/AAAAAAAAPHE/ZFPNvhh_PPA/s1600/CYJ-8P4WkAQtAqp.png
 slug: /2016/02/cai-dat-tensorflow-tren-docker.html
@@ -20,7 +20,6 @@ Docker luôn là giải pháp đóng gói và triển khai các ứng dụng 1 c
 
 ## Cài đặt Docker
 
-
 Mình sử dụng Ubuntu 15.10, bạn có thể xem cách cài đặt Docker cho từng loại hệ điều hành treentrang của Docker: [https://docs.docker.com/engine/installation/ubuntulinux/](https://docs.docker.com/engine/installation/ubuntulinux/)
 
 ## Launch a Docker
@@ -30,7 +29,7 @@ Google cung cấp 4 bản Docker của Tensorflow:
 - b.gcr.io/tensorflow/tensorflow: TensorFlow CPU binary image.
 - b.gcr.io/tensorflow/tensorflow:latest-devel: CPU Binary image plus source code.
 - b.gcr.io/tensorflow/tensorflow:latest-gpu: TensorFlow GPU binary image.
-- b.gcr.io/tensorflow/tensorflow:latest-devel-gpu: GPU Binary image plus source code. 
+- b.gcr.io/tensorflow/tensorflow:latest-devel-gpu: GPU Binary image plus source code.
 
 Lựa chọn bản Docker phù hợp với nhu cầu sử dụng.
 

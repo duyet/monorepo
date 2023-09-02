@@ -1,19 +1,19 @@
 ---
 title: Rancher - Quản lý Docker Container bằng UI
-date: "2017-01-23"
+date: '2017-01-23'
 author: Van-Duyet Le
 tags:
-- Data Engineer
-- Docker
-- Rancher
-- Container
-- Swarm
-- Kubernete
+  - Data Engineer
+  - Docker
+  - Rancher
+  - Container
+  - Swarm
+  - Kubernete
 modified_time: '2018-07-20T10:14:07.356+07:00'
 thumbnail: https://3.bp.blogspot.com/-QUh_PaavDSA/WIWWTCtiTXI/AAAAAAAAies/LvVHTtMjnAglcdCB8uZfGsgJVfz7dirXQCLcB/s1600/ezgif.com-optimize.gif
 slug: /2017/01/rancher.html
 category: Linux
-description: "Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi thao tác đều trên UI. Rancher còn tích hợp Shell trên Docker, App catalog, ..."
+description: 'Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi thao tác đều trên UI. Rancher còn tích hợp Shell trên Docker, App catalog, ...'
 fbCommentUrl: http://blog.duyetdev.com/2017/01/rancher.html
 ---
 
@@ -22,7 +22,6 @@ Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi t
 ![](https://3.bp.blogspot.com/-QUh_PaavDSA/WIWWTCtiTXI/AAAAAAAAies/LvVHTtMjnAglcdCB8uZfGsgJVfz7dirXQCLcB/s1600/ezgif.com-optimize.gif)
 
 ## Rancher
-
 
 Trang chủ: [http://rancher.com](http://rancher.com/)
 
@@ -73,7 +72,6 @@ Một số hình ảnh:
 [![](https://1.bp.blogspot.com/-VxORm2ey2oc/WIWi_B9klWI/AAAAAAAAigE/SJfU3mInHdUnAkgn9D_1sfYezS37R8sNgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B13-28-27.png)](https://1.bp.blogspot.com/-VxORm2ey2oc/WIWi_B9klWI/AAAAAAAAigE/SJfU3mInHdUnAkgn9D_1sfYezS37R8sNgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B13-28-27.png)
 
 ## Tham khảo
-
 
 - Rancher - [http://rancher.com/rancher/](http://rancher.com/rancher/)
 - Installing Rancher Server - [http://docs.rancher.com/rancher/v1.3/en/installing-rancher/installing-server/](http://docs.rancher.com/rancher/v1.3/en/installing-rancher/installing-server/)

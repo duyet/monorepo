@@ -1,13 +1,13 @@
 ---
 title: Spark History Server on Kubernetes
-date: "2020-05-29"
+date: '2020-05-29'
 author: Van-Duyet Le
 category: Data Engineer
 tags:
-- Data Engineer
-- Spark
-- Kubernetes
-- Spark History Server
+  - Data Engineer
+  - Spark
+  - Kubernetes
+  - Spark History Server
 
 thumbnail: https://2.bp.blogspot.com/-BOTA2PWkjBY/XtIGGKlRVGI/AAAAAAABZ0g/xvQ-OCIjSHM6gIkKeXn1ORPG1m32mCkiQCK4BGAYYCw/s1600/spark-history-server.png
 slug: /2020/05/spark-history-server-on-k8s.html
@@ -25,7 +25,6 @@ The history server UI would only show Spark jobs if they are configured to log e
 > A PVC, HDFS, S3, GCS, WASBS can be used as storage for Spark logs.
 
 ### GCS
-
 
 In the case of GCS, the secret needs to be mounted in the driver and executor pods using the configuration options `spark.kubernetes.driver.secrets.[SecretName]` and `spark.kubernetes.executor.secrets.[SecretName]`. A sample command is given below:
 
@@ -46,7 +45,6 @@ bin/spark-submit \
 ```
 
 ### S3
-
 
 In the case of S3, it is recommended to use IAM based authentication. The IAM role should have equivalent access to AmazonS3FullAccess. To write event logs to S3, you need to provide configs as below:
 
@@ -70,7 +68,6 @@ When not using the IAM based authentication, you need to provide additional conf
 ```
 
 ### HDFS
-
 
 In the case of HDFS, only two flags are required:
 

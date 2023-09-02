@@ -1,11 +1,11 @@
 ---
 title: jsLab.xyz
-date: "2015-12-17"
+date: '2015-12-17'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Javascript
-- Jslab
+  - Nodejs
+  - Javascript
+  - Jslab
 modified_time: '2016-01-11T02:00:17.623+07:00'
 thumbnail: https://3.bp.blogspot.com/-YEiHaBErShs/VnJos52PFGI/AAAAAAAAMAo/Su-T_R9cnZ0/s1600/jslab.png
 slug: /2015/12/jslab-xyz.html
@@ -28,7 +28,6 @@ jsLab có sứ mệnh riêng của mình.
 
 ## Hướng phát triển
 
-
 - Javascript & Nodejs
 - Realtime System
 - DevOps, Cloud và Docker
@@ -36,7 +35,6 @@ jsLab có sứ mệnh riêng của mình.
 - Big Data, Data science.
 
 ## Địa chỉ
-
 
 - Trang chủ: [http://jslab.xyz](http://jslab.xyz/)
 - Blog: [http://blog.jslab.xyz](https://blog.jslab.xyz/)

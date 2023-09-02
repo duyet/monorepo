@@ -1,20 +1,22 @@
-import getSlug from '@duyet/libs/getSlug'
+import { getSlug } from '@duyet/libs/getSlug'
 import { Feed } from '@duyet/components'
 import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
 
-type Props = {
+interface PostsByCategoryProps {
   params: {
     category: string
   }
 }
 
-export default async function PostsByCategory({ params }: Props) {
+export default async function PostsByCategory({
+  params,
+}: PostsByCategoryProps) {
   const posts = await getPosts(params.category)
 
   return <Feed posts={posts} />
 }
 
-async function getPosts(category: Props['params']['category']) {
+async function getPosts(category: PostsByCategoryProps['params']['category']) {
   return getPostsByCategory(category, [
     'slug',
     'date',

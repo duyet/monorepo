@@ -1,16 +1,15 @@
 ---
 title: Git - Cách sử dụng git rebase, cách gộp nhiều commit bằng rebase
-date: "2015-08-25"
+date: '2015-08-25'
 author: Van-Duyet Le
 tags:
-- Git
-- Thủ thuật Git
+  - Git
+  - Thủ thuật Git
 modified_time: '2015-08-25T23:28:08.793+07:00'
 slug: /2015/08/cach-su-dung-git-rebase.html
 category: Git
 description: 'Trong dự án, code của bạn luôn có sự thay đổi, sau khi push 1 đống commit lên github. Một ngày kia ông Leader kêu lại: "Ê mày, sửa chỗ này, sửa chỗ kia, code không đúng chuẩn rồi, bla bla ...". Thế là phải hồi hì hục cải tiến code, coding style cho "chuẩn".'
 fbCommentUrl: http://blog.duyetdev.com/2015/08/cach-su-dung-git-rebase.html
-
 ---
 
 Một cách để gộp nhiều commits để git history được đẹp hơn, đó là `git rebase`.
@@ -32,7 +31,7 @@ $ git log --oneline
 ....
 ```
 
-Nếu bạn muốn gộp 2 commit `22cd1f4` và `778e7be` thành một (2 commits gần nhất). Ta có 
+Nếu bạn muốn gộp 2 commit `22cd1f4` và `778e7be` thành một (2 commits gần nhất). Ta có
 
 ```
 $ git rebase -i HEAD~2
@@ -68,10 +67,10 @@ Git rebase sẽ mở 1 editor trong Terminal. Theo như hướng dẫn:
 - `r, rework` = sử dụng commit, nhưng đổi commit message
 - `e, edit` = sử dụng commit, nhưng dừng lại để ammend (thay đổi file, message)
 - `s, squash` = sử dụng commit, nhưng trộn nó với commit trước đó
-- `f, fixup` = giống `squash`, nhưng xóa commit log message 
+- `f, fixup` = giống `squash`, nhưng xóa commit log message
 - `x, exec` = chạy một command
 
-Dòng thứ 2, bạn thay từ `pick` thành `f` để xóa commit đó, đưa files thay đổi vào commit trước đó. 
+Dòng thứ 2, bạn thay từ `pick` thành `f` để xóa commit đó, đưa files thay đổi vào commit trước đó.
 Lưu lại và push trở lên server. Sử dụng `git push -f` để git ghi đè lại history trên server.
 
 ```

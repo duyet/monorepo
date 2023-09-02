@@ -1,11 +1,11 @@
 ---
 title: The Evolution of a Software Engineer
-date: "2016-12-17"
+date: '2016-12-17'
 author: Van-Duyet Le
 tags:
-- Medium
-- Picture
-- Software Engineer
+  - Medium
+  - Picture
+  - Software Engineer
 modified_time: '2016-12-17T07:59:30.786+07:00'
 thumbnail: https://4.bp.blogspot.com/-2MfgUIO43hc/WFSMKIQtYMI/AAAAAAAAhE0/SJv2XYviX58TNQAPNHci7hWE-btfAsrgACK4B/s1600/0-oZ9ehgrpvTVc6e32.png
 slug: /2016/12/the-evolution-of-software-engineer.html

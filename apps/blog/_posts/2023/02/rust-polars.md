@@ -215,10 +215,9 @@ shape: (5, 2)
 
 # Summary
 
-Polars is a powerful Rust library for data engineering and analysis. With its intuitive DataFrame API and efficient query engine, it makes working with large datasets in Rust much easier and more efficient. 
+Polars is a powerful Rust library for data engineering and analysis. With its intuitive DataFrame API and efficient query engine, it makes working with large datasets in Rust much easier and more efficient.
 
 In this blog post, I have demonstrated how to install and use Polars to process data, query a DataFrame, and visualize data using simple examples.
-
 
 I hope this blog post has been helpful in introducing you to Polars and giving you some ideas on how to use it in your own data engineering projects. For more document of usage you can see at some links below:
 

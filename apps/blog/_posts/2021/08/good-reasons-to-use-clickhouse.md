@@ -1,13 +1,13 @@
 ---
 title: Good reasons to use ClickHouse
-date: "2021-08-29"
+date: '2021-08-29'
 author: Van-Duyet Le
 category: Data
 tags:
- - Data
- - Data Engineer
- - Database
- - ClickHouse
+  - Data
+  - Data Engineer
+  - Database
+  - ClickHouse
 thumbnail: https://1.bp.blogspot.com/-1a6QwQg9VgM/YStWOIv7gZI/AAAAAAACNVE/My9HF_PJ37c9-eVAmzJprUMUivZVwpOCwCLcBGAsYHQ/s0/clickhouse-good-reasons-to-use-0.gif
 slug: /2021/08/good-reasons-to-use-clickhouse.html
 description: >
@@ -15,18 +15,18 @@ description: >
   With many features support, it's equally powerful for both Analytics and Big Data service backend.
 ---
 
-More than 200+ companies are using ClickHouse today. 
+More than 200+ companies are using ClickHouse today.
 With many features support, it's equally powerful for both Analytics and Big Data service backend.
 
 ![](/media/2021/08/clickhouse-good-reasons-to-use-0.gif)
 
 # What is ClickHouse?
 
-
 According the website, ClickHouse is an open-source column-oriented DBMS for online analytical processing.
 ClickHouse was developed by Yandex for their Yandex.Metrica web analytics service.
 
 For short, ClickHouse DBMS is:
+
 - Column Store
 - MPP
 - Realtime
@@ -38,6 +38,7 @@ For short, ClickHouse DBMS is:
 # What makes ClickHouse different
 
 ClickHouse is a column-store database, optimized for fast queries. It's fast because:
+
 - Using column-oriented storage: avoid reading unnecessary columns (reduced disk IO, compression for each column, etc). Most of the queries for analytics only use some of columns for the queries.
 - Spares indexes: keeps data structures in memory, not only used columns but only necessary row ranges of those columns
 - Data compression. Storing different values of the same column together often leads to better compression ratios ([specialized codecs](https://clickhouse.tech/docs/en/sql-reference/statements/create/table/#create-query-specialized-codecs)).
@@ -45,19 +46,17 @@ ClickHouse is a column-store database, optimized for fast queries. It's fast bec
 - Low-level optimizations: What really makes ClickHouse stand out is attention to low-level details. e.g. vectorized query execution
 - Specialization and attention to detail: for example, they have [30+ different algorithms](https://github.com/ClickHouse/ClickHouse/blob/master/src/Interpreters/Aggregator.h) for `GROUP BY`. Best one is selected for your query.
 
-
 > ClickHouse works 100-1000x faster than traditional approaches
-
 
 # Good reasons to use ClickHouse
 
 ## 1. Fast and Scalability
 
-
 ClickHouse is blazing fast, linearly scalable, hardware efficient, highly reliable, and fun to operate in production.
 There were many performance benchmarks and real-life use cases.
 
-Performance comparison of analytical DBMS: 
+Performance comparison of analytical DBMS:
+
 - https://clickhouse.tech/benchmark/dbms
 - https://altinity.com/benchmarks
 
@@ -68,13 +67,13 @@ Able to scales horizontally and linearly scaling as well.
 
 ## 2. Integration
 
-
-Connect to any other JDBC database and uses their tables as ClickHouse table. 
+Connect to any other JDBC database and uses their tables as ClickHouse table.
 
 ```sql
-SELECT * 
+SELECT *
 FROM jdbc('mysql://localhost:3306/?user=root', 'schema', 'table');
 ```
+
 Even it can connect to another ClickHouse cluster or a RESTful service.
 
 ```sql
@@ -88,11 +87,9 @@ SELECT * FROM url('https://api.duyet.net/x/weather', CSV, 'col1 String col2 UIni
 
 Refer to the Table Engines for Integrations document here: https://clickhouse.tech/docs/en/engines/table-engines/integrations/
 
-
 ## 3. Partitioning
 
-
-Each partition is stored separately in order to simplify manipulations of this data. 
+Each partition is stored separately in order to simplify manipulations of this data.
 
 ```sql
 CREATE TABLE logs (
@@ -119,7 +116,6 @@ ALTER TABLE logs DROP PARTITION 202101;
 
 ### 4. TTL
 
-
 This is my favouris feature of ClickHouse. You can use TTL to automatically delete rows based on a conditions.
 
 ```sql
@@ -129,7 +125,7 @@ CREATE TABLE logs (
   log_level String,
   log_message String
 ) ENGINE = MergeTree()
-PARTITION BY toYYYYMM(date_index) 
+PARTITION BY toYYYYMM(date_index)
 ORDER BY date_index
 TTL date_index + INTERVAL 6 MONTH; -- deletes data after 6 months
 ```
@@ -152,20 +148,19 @@ Type of TTL rule may follow each TTL expression. It affects an action which is t
 - `GROUP BY` - aggregate expired rows.
 
 Some cases that you can do with TTL:
- - Moving old data to S3 after 6 months.
- - Using better compression for old data after 6 months.
- - Using better compression and move old data to HDD disk after 6 months.
- - etc
+
+- Moving old data to S3 after 6 months.
+- Using better compression for old data after 6 months.
+- Using better compression and move old data to HDD disk after 6 months.
+- etc
 
 ### 4. Materialized Views
 
-
 [Materialized Views](https://clickhouse.tech/docs/en/sql-reference/statements/create/view/#materialized) can automatically aggregates data on inserts.
-A materialized view is implemented as follows: when inserting data to the table specified in `SELECT`, 
+A materialized view is implemented as follows: when inserting data to the table specified in `SELECT`,
 part of the inserted data is converted by this `SELECT` query, and the result is inserted in the view.
 
 ### 5. REST Capabilities
-
 
 The HTTP interface on the port 8123 by default lets you use ClickHouse on any platform from any programming language.
 
@@ -176,7 +171,6 @@ Ok.
 
 Web UI can be accessed here: http://localhost:8123/play.
 
-
 ![](/media/2021/08/clickhouse-good-reasons-to-use-3.png)
 
 Refer to the [HTTP Interface document](https://clickhouse.tech/docs/en/interfaces/http/) for more example about using HTTP via curl.
@@ -184,19 +178,18 @@ Refer to the [HTTP Interface document](https://clickhouse.tech/docs/en/interface
 ![Query ClickHouse via curl POST](/media/2021/08/clickhouse-good-reasons-to-use-4.png)
 ![`JSONEachRow` output format](/media/2021/08/clickhouse-good-reasons-to-use-5.png)
 
-The HTTP interface is more limited than the native interface, but it has better compatibility. 
+The HTTP interface is more limited than the native interface, but it has better compatibility.
 You can quickly build an UI dashboard for data visualization or expose an API for other teams.
 
 ### 6. Better SQL
 
-
 - `FORMAT` Clauses: ClickHouse can accept and return data in various formats.
 
 ```sql
-SELECT EventDate, count() AS c 
-FROM test.hits 
-GROUP BY EventDate WITH TOTALS 
-ORDER BY EventDate 
+SELECT EventDate, count() AS c
+FROM test.hits
+GROUP BY EventDate WITH TOTALS
+ORDER BY EventDate
 FORMAT TabSeparated
 ```
 
@@ -219,7 +212,6 @@ See the supported formats here: https://clickhouse.tech/docs/en/interfaces/forma
 
 ![](/media/2021/08/clickhouse-good-reasons-to-use-6.png)
 
-
 - [Great Functions](https://clickhouse.tech/docs/en/sql-reference/functions/): `topK`, `uniq`, `arrayJoin`, `countIf`, `sumIf`, ...
 - [Lambda Function](https://clickhouse.tech/docs/en/sql-reference/functions/#higher-order-functions)
 
@@ -238,5 +230,5 @@ See the supported formats here: https://clickhouse.tech/docs/en/interfaces/forma
 # References
 
 - https://clickhouse.tech/docs/en/faq/general/columnar-database/
-- https://clickhouse.tech/docs/en/interfaces/http/ 
+- https://clickhouse.tech/docs/en/interfaces/http/
 - https://clickhouse.tech/docs/en/interfaces/formats/

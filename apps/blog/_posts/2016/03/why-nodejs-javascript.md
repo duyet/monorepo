@@ -1,13 +1,13 @@
 ---
 title: Sao lại là Node.js/Javascript?
-date: "2016-03-19"
+date: '2016-03-19'
 author: Van-Duyet Le
 tags:
-- Blog
-- Nodejs
-- Stackoverflow
-- thống kê
-- Javascript
+  - Blog
+  - Nodejs
+  - Stackoverflow
+  - thống kê
+  - Javascript
 modified_time: '2016-05-02T19:40:06.595+07:00'
 thumbnail: https://1.bp.blogspot.com/-02uvvbRBDEE/Vu0-MapY7TI/AAAAAAAAR6o/TImmG942FQwE1RxaBpwQEt_n_6PC1G_ag/s1600/Screenshot%2Bfrom%2B2016-03-19%2B18-54-46.png
 slug: /2016/03/why-nodejs-javascript.html
@@ -43,10 +43,9 @@ Node.js được xây dựng trên V8 JavaScript engine của Google, libUV, và
 
 Trang chủ [NPM](http://npmjs.com/) (trình quản lý package của Nodejs), có đến 150 triệu lượt cài đặt các package Nodejs mỗi ngày, gần 4 tỉ mỗi tháng.
 
-## Ứng dụng mobile 
+## Ứng dụng mobile
 
-
-Javascript còn thể được dùng để viết nên các ứng dụng Hybrid Mobile, lập trình viên chỉ cần biết Javascript, không cần phải học thêm Java hay Object-C. Phát triển một lần và build được trên nhiều nền tảng Android, iOs, Windows, ... 
+Javascript còn thể được dùng để viết nên các ứng dụng Hybrid Mobile, lập trình viên chỉ cần biết Javascript, không cần phải học thêm Java hay Object-C. Phát triển một lần và build được trên nhiều nền tảng Android, iOs, Windows, ...
 
 Các framework nổi bật hiện nay gồm [Ionic](http://ionicframework.com/), [Cordova](https://cordova.apache.org/) và [React Native](https://facebook.github.io/react-native/)
 
@@ -54,12 +53,11 @@ Hybrid Mobile tuy không đạt hiệu suất bằng các ứng dụng Native, n
 
 ![](https://4.bp.blogspot.com/-r6iGXPWFJC4/Vu1GV0rh5jI/AAAAAAAAR7I/mrrP74HyJYk8yUUOXOIEykBM1jaUCo-Kw/s1600/Screenshot%2Bfrom%2B2016-03-19%2B19-29-38.png)
 
-## Ứng dụng đa nền tảng 
+## Ứng dụng đa nền tảng
 
+Microsoft đang dần chuyển mình sang các công nghệ của Javascript/Nodejs, như các ứng dụng Metro trên Windows 8/10 có thể được phát triển bằng HTML5/Javascipt. Visual Studio hỗ trợ phát triển các project Express.js.
 
-Microsoft đang dần chuyển mình sang các công nghệ của Javascript/Nodejs, như các ứng dụng Metro trên Windows 8/10 có thể được phát triển bằng HTML5/Javascipt. Visual Studio hỗ trợ phát triển các project Express.js. 
-
-Đáng quan tâm nhất là khi Microsoft ra mắt [Visual Code](https://code.visualstudio.com/) - Code Editor nguồn mở, chạy đa nền tảng (Windows, Linux và Mac) và được viết hoàn toàn bằng Nodejs, Visual Code hỗ trợ tốt Git và chuyên dùng để phát triển các ứng dụng Web, nhất là Nodejs. 
+Đáng quan tâm nhất là khi Microsoft ra mắt [Visual Code](https://code.visualstudio.com/) - Code Editor nguồn mở, chạy đa nền tảng (Windows, Linux và Mac) và được viết hoàn toàn bằng Nodejs, Visual Code hỗ trợ tốt Git và chuyên dùng để phát triển các ứng dụng Web, nhất là Nodejs.
 
 [![](https://2.bp.blogspot.com/-_OhBdPN_7_Y/Vu1II86LiqI/AAAAAAAAR7U/TwPmvqehj3gaNPy4HCHH2lK1hql8xopVQ/s640/Debugging-1.png)](https://code.visualstudio.com/)
 
@@ -67,8 +65,7 @@ Visual Code được viết dựa trên [Electron](http://electron.atom.io/), đ
 
 ![](https://2.bp.blogspot.com/-IeFpOovCFo8/Vu1IlVCZ4bI/AAAAAAAAR7c/KwN_6NAFy3g2izRIsOQa2beR1I3VjxkDA/s1600/Screenshot%2Bfrom%2B2016-03-19%2B19-39-20.png)
 
-## Game 
-
+## Game
 
 Ngoài Unity cũng có nhiều developers chọn Javascript và HTML5 để phát triển Game, với hiệu suất cũng rất cao. Một số framework nổi tiếng được sử dụng như: [Pharser](http://phaser.io/), [Pandajs](http://www.pandajs.net/), [craftyjs](http://craftyjs.com/), ...
 
@@ -77,7 +74,6 @@ Ngoài Unity cũng có nhiều developers chọn Javascript và HTML5 để phá
 ![](file:///home/duyetdev/Pictures/Screenshot%20from%202016-03-19%2019-43-52.png)
 
 ## OS và Tools
-
 
 Nodejs có thể viết được các tools dạng command lines khá mạnh, giống như Python hoặc Shell Script.
 
@@ -92,7 +88,6 @@ Mình còn tìm thấy 1 dự án, sử dụng Nodejs và NPM để xây dựng 
 Nodejs còn thường được dùng trong các CSDL NoSQL, làm ngôn ngữ truy vấn (MongoDB và CouchDB).
 
 ## Các công nghệ khác
-
 
 Nodejs/Javascript thực sự rất phổ biến và khả năng không hạn chế. JS còn chạy được trong các Robots, xử lý tính toán máy học, Raspberry PI, trong phần mềm Photoshop, ...
 

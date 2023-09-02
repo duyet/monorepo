@@ -1,13 +1,13 @@
 ---
 title: WebGazer.js - theo dõi chuyển động mắt của người dùng trên Website
-date: "2016-05-29"
+date: '2016-05-29'
 author: Van-Duyet Le
 tags:
-- intro-js
-- Tutorials
-- Javascript
-- Machine Learning
-- WebGazer.js
+  - intro-js
+  - Tutorials
+  - Javascript
+  - Machine Learning
+  - WebGazer.js
 modified_time: '2017-08-06T11:41:14.293+07:00'
 thumbnail: https://1.bp.blogspot.com/-U2FpDKE-uPY/V0qHwxldpOI/AAAAAAAAWK4/Qq3E3Z0I-M8Z8F_slgkZCDtvp5x67oGkQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-29%2B13-09-23.png
 slug: /2016/05/webgazerjs-theo-doi-chuyen-dong-mat.html
@@ -21,7 +21,6 @@ WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người d
 
 ## Các chức năng nổi bật
 
-
 - Tính toán Realtime trên hầu hết các trình duyệt (Chrome, Firefox, Opera, Edge).
 - Không cần thiết bị chuyên dụng, chỉ cần sử dụng Webcams.
 - Tự training (huấn luyện), điều chỉnh bằng cách click và di chuyển chuột.
@@ -29,7 +28,6 @@ WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người d
 - Dự đoán được nhiều điểm nhìn.
 
 ## Sử dụng
-
 
 Thêm webgazer.js vào website:
 
@@ -44,7 +42,7 @@ webgazer.setGazeListener(function(data, elapsedTime) {
     if (data == null) {
         return;
     }
-    var xprediction = data.x; //these x coordinates are relative to the viewport 
+    var xprediction = data.x; //these x coordinates are relative to the viewport
     var yprediction = data.y; //these y coordinates are relative to the viewport
     console.log(elapsedTime); //elapsed time is based on time since begin was called
 }).begin();
@@ -58,6 +56,7 @@ if (prediction) {
 };
 
 ```
+
 Xem thêm hướng dẫn sử dụng chi tiết tại trang chủ: [https://webgazer.cs.brown.edu/#usage](https://webgazer.cs.brown.edu/#usage)
 Hoặc ví dụ: [https://webgazer.cs.brown.edu/#examples](https://webgazer.cs.brown.edu/#examples)
 

@@ -1,17 +1,16 @@
 ---
 title: Bigdata - Getting Started with Spark (in Python)
-date: "2015-04-18"
+date: '2015-04-18'
 author: Van-Duyet Le
 tags:
-- Python
-- Spark
-- BigData
+  - Python
+  - Spark
+  - BigData
 modified_time: '2015-04-18T20:48:17.707+07:00'
 thumbnail: https://1.bp.blogspot.com/-Y0pygPjEUNs/VTJddlh9IfI/AAAAAAAACTQ/_LKZZPXV9Wk/s1600/delays_large.png
 slug: /2015/04/bigdata-getting-started-with-spark-in.html
 category: Data
 description: 'Hadoop is the standard tool for distributed computing across really large data sets and is the reason why you see "Big Data" on advertisements as you walk through the airport. It has become an operating system for Big Data, providing a rich ecosystem of tools and techniques that allow you to use a large cluster of relatively cheap commodity hardware to do computing at supercomputer scale. Two ideas from Google in 2003 and 2004 made Hadoop possible: a framework for distributed storage (The Google File System), which is implemented as HDFS in Hadoop, and a framework for distributed computing (MapReduce).'
-
 ---
 
 Hadoop is the standard tool for distributed computing across really large data sets and is the reason why you see "Big Data" on advertisements as you walk through the airport. It has become an operating system for Big Data, providing a rich ecosystem of tools and techniques that allow you to use a large cluster of relatively cheap commodity hardware to do computing at supercomputer scale. Two ideas from Google in 2003 and 2004 made Hadoop possible: a framework for distributed storage (The Google File System), which is implemented as HDFS in Hadoop, and a framework for distributed computing (MapReduce).
@@ -26,10 +25,9 @@ In this post we will first discuss how to set up Spark to start easily performin
 
 ## Install Spark
 
-Spark is pretty simple to set up and get running on your machine. I have a post (in Vietnamese)  how to install Spark in Ubuntu 14.04, see there: [https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html](https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html)
+Spark is pretty simple to set up and get running on your machine. I have a post (in Vietnamese) how to install Spark in Ubuntu 14.04, see there: [https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html](https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html)
 
 ## pyspark
-
 
 After you source your profile (or simply restart your terminal), you should now be able to run a `pyspark` interpreter locally. Execute the pyspark command, and you should see a result as follows:
 
@@ -98,6 +96,7 @@ Most of the instructions here are adapted from an IPython notebook: [Setting up 
 [ProfileCreate] Generating default config file: u'$HOME/.ipython/profile_spark/ipython_notebook_config.py'
 [ProfileCreate] Generating default config file: u'$HOME/.ipython/profile_spark/ipython_nbconvert_config.py
 ```
+
 Keep note of where the profile has been created, and replace the appropriate paths in the following steps:
 
 2. Create a file in **$HOME/.ipython/profile_spark/startup/00-pyspark-setup.py** and add the following:
@@ -356,7 +355,7 @@ To run this code (presuming that you have a directory called ontime with the two
 $ spark-submit app.py
 ```
 
-This will create a Spark job using the localhost as the master, and look for the two CSV files in an ontime directory that is in the same directory as app.py. The final result shows that the total delays (in minutes) for the month of April go from arriving early if you're flying out of the continental U.S. to Hawaii or Alaska to an aggregate total delay for most big airlines. Note especially that we can visualize the result using matplotlib directly on the driver program, app.py:  
+This will create a Spark job using the localhost as the master, and look for the two CSV files in an ontime directory that is in the same directory as app.py. The final result shows that the total delays (in minutes) for the month of April go from arriving early if you're flying out of the continental U.S. to Hawaii or Alaska to an aggregate total delay for most big airlines. Note especially that we can visualize the result using matplotlib directly on the driver program, app.py:
 
 ![](https://1.bp.blogspot.com/-Y0pygPjEUNs/VTJddlh9IfI/AAAAAAAACTQ/_LKZZPXV9Wk/s1600/delays_large.png)
 
@@ -388,12 +387,10 @@ This was more of an introductory post than is typical for District Data Labs art
 
 ## Books on Spark
 
-
 1. [Learning Spark](http://goo.gl/M0VZbv)
 2. [Advanced Analytics with Spark](http://goo.gl/ak7ljS)
 
 ## Helpful Blog Posts
-
 
 - [Setting up IPython with PySpark](http://goo.gl/95Vvgf)
 - [Databricks Spark Reference Applications](http://goo.gl/ta8Akq)

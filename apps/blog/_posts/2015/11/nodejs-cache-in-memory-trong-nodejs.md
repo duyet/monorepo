@@ -1,13 +1,13 @@
 ---
 title: Nodejs - Cache in-memory trong Nodejs
-date: "2015-11-13"
+date: '2015-11-13'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Tutorrial
-- node-cache
-- Package
-- Package.json
+  - Nodejs
+  - Tutorrial
+  - node-cache
+  - Package
+  - Package.json
 modified_time: '2016-01-11T02:02:28.742+07:00'
 thumbnail: https://1.bp.blogspot.com/-AyUtco9W0rE/VkYN8h_yUBI/AAAAAAAAFqI/IY2bT1tt5VU/s1600/nodejs-logo.png
 slug: /2015/11/nodejs-cache-in-memory-trong-nodejs.html
@@ -21,13 +21,11 @@ memory-cache là một package đơn giản trong Nodejs, giúp chúng ta cache 
 
 ## Installation
 
-
 ```
 npm install --save memory-cache
 ```
 
 ## Usage
-
 
 ```
 var cache = require('memory-cache');
@@ -57,45 +55,36 @@ Houdini is null
 
 ## API
 
-
 ### put = function(key, value, time)
-
 
 - Lưu một giá trị vào bộ nhớ.
 - Nếu không có time thì biến được lưu vĩnh viễn.
 
 ### get = function(key)
 
-
 - Lấy giá trị cache.
 - Nếu key không tồn tại, trả về giá trị null
 
 ### del = function(key)
 
-
 - Xóa giá trị, trả về true nếu xóa thành công, ngược lại false.
 
 ### clear = function()
-
 
 - Xóa toàn bộ cache.
 
 ### size = function()
 
-
 - Trả về số lượng giá trị lưu trong cache.
 
 ### memsize = function()
-
 
 - Trả về tổng số bộ nhớ mà cache sử dụng.
 
 ### debug = function(bool)
 
-
 - Bật tắt chế độ debug
 
 ### keys = function()
-
 
 - Trả về danh sách các keys.

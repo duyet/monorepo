@@ -1,10 +1,9 @@
 import { request } from 'graphql-request'
-
 import { Text, Flex, Metric, AreaChart } from '@duyet/components'
-import { CloudflareAnalyticsByDate } from '@duyet/interfaces'
-import TextDataSource from '../TextDataSource'
+import type { CloudflareAnalyticsByDate } from '@duyet/interfaces'
+import TextDataSource from '../text-data-source'
 
-export type CloudflareProps = {
+export interface CloudflareProps {
   data: CloudflareAnalyticsByDate
   totalRequests: number
   totalPageviews: number
@@ -21,15 +20,14 @@ async function dataFormatter(number: number) {
 export default async function Cloudflare() {
   const { data, generatedAt, totalRequests, totalPageviews } = await getData()
 
-  const chartData =
-    data?.viewer?.zones[0]?.httpRequests1dGroups?.map((item) => {
-      return {
-        date: item.date.date,
-        'Page Views': item.sum.pageViews,
-        Requests: item.sum.requests,
-        'Unique Visitors': item.uniq.uniques,
-      }
-    }) || []
+  const chartData = data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {
+    return {
+      date: item.date.date,
+      'Page Views': item.sum.pageViews,
+      Requests: item.sum.requests,
+      'Unique Visitors': item.uniq.uniques,
+    }
+  })
 
   const cards = [
     {
@@ -51,9 +49,9 @@ export default async function Cloudflare() {
           <div key={card.title}>
             <Text className="dark:text-white">{card.title}</Text>
             <Flex
+              alignItems="baseline"
               className="space-x-3"
               justifyContent="start"
-              alignItems="baseline"
             >
               <Metric className="dark:text-white">{card.value}</Metric>
               <Text className="truncate dark:text-white">{card.valueDesc}</Text>
@@ -62,11 +60,11 @@ export default async function Cloudflare() {
         ))}
       </Flex>
       <AreaChart
-        index="date"
-        data={chartData}
-        showYAxis={false}
-        showGridLines={false}
         categories={['Requests', 'Page Views', 'Unique Visitors']}
+        data={chartData}
+        index="date"
+        showGridLines={false}
+        showYAxis={false}
       />
 
       <TextDataSource>Cloudflare | Generated at {generatedAt}</TextDataSource>
@@ -110,7 +108,7 @@ const getData = async () => {
   }
 
   const headers = {
-    Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_CLOUDFLARE_API_KEY,
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLOUDFLARE_API_KEY}`,
   }
 
   const data: CloudflareAnalyticsByDate = await request(
@@ -122,12 +120,12 @@ const getData = async () => {
 
   const zone = data.viewer.zones[0]
 
-  const totalRequests = zone?.httpRequests1dGroups.reduce(
+  const totalRequests = zone.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.requests,
     0,
   )
 
-  const totalPageviews = zone?.httpRequests1dGroups.reduce(
+  const totalPageviews = zone.httpRequests1dGroups.reduce(
     (total, i) => total + i.sum.pageViews,
     0,
   )

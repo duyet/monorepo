@@ -1,13 +1,13 @@
 ---
 title: 'saveto.co cập nhật: tự động tag, hỗ trợ ảnh GIF '
-date: "2016-06-12"
+date: '2016-06-12'
 author: Van-Duyet Le
 tags:
-- ahihi.club
-- saveto.co
-- changelog
-- ahihi
-- Update
+  - ahihi.club
+  - saveto.co
+  - changelog
+  - ahihi
+  - Update
 modified_time: '2016-06-18T23:17:36.576+07:00'
 slug: /2016/06/savetoco-cap-nhat-ho-tro-anh-dong-tu-dong-tag.html
 category: Project

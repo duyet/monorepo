@@ -1,9 +1,7 @@
 import Link from 'next/link'
 import { kv } from '@vercel/kv'
-
 import type { Comment } from '@duyet/interfaces'
-import { Container } from '@duyet/components'
-import { CommentContent } from '@duyet/components'
+import { Container, CommentContent } from '@duyet/components'
 
 const URL_PREFIX = 'https://blog.duyet.net'
 
@@ -11,7 +9,7 @@ const URL_PREFIX = 'https://blog.duyet.net'
 export const revalidate = 3600
 
 export default async function Comments() {
-  const urls = await kv.keys(URL_PREFIX + '/*')
+  const urls = await kv.keys(`${URL_PREFIX}/*`)
   const commentArray = await Promise.all(
     urls.flatMap(async (url: string) => {
       const comments = await kv.lrange<Comment>(url, 0, -1)
@@ -27,16 +25,16 @@ export default async function Comments() {
         {comments.map((comment) => {
           return (
             <div
-              key={comment.created_at}
               className="flex flex-col prose dark:prose-invert"
+              key={comment.created_at}
             >
-              <Link href={comment.url} className="text-primary mb-2 ">
+              <Link className="text-primary mb-2 " href={comment.url}>
                 {comment.url.replace(URL_PREFIX, '')}
               </Link>
               <CommentContent
-                key={comment.created_at}
                 className="not-prose"
                 comment={comment}
+                key={comment.created_at}
               />
             </div>
           )

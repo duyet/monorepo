@@ -1,11 +1,11 @@
 ---
 title: Nodejs - Mã hóa mật khẩu
-date: "2016-02-03"
+date: '2016-02-03'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Tutorial
-- bcrypt
+  - Nodejs
+  - Tutorial
+  - bcrypt
 modified_time: '2016-02-03T14:22:58.956+07:00'
 thumbnail: https://4.bp.blogspot.com/-ye71o5GWvp0/VrGoa5MFAQI/AAAAAAAAPCg/EplwAJ4v5yk/s1600/password-protection-flat_1.png
 slug: /2016/02/nodejs-ma-hoa-mat-khau.html
@@ -22,8 +22,7 @@ Mã hóa mật khẩu người dùng trước khi lưu vào database là 1 chuy�
 
 Bcrypt được sử dụng khá nhiều, ban đầu được thiết kế bởi Niels Provos và David Mazières, xem thêm thông tin tại [wikipedia](https://en.wikipedia.org/wiki/Bcrypt).
 
-### Cài đặt 
-
+### Cài đặt
 
 ```
 npm install bcrypt
@@ -31,12 +30,11 @@ npm install bcrypt
 
 ### Cách sử dụng
 
+-
 
-- 
 #### async (recommended):
 
-
- Để mã hóa mật khẩu
+Để mã hóa mật khẩu
 
 ```
 var bcrypt = require('bcrypt');
@@ -67,11 +65,11 @@ bcrypt.hash('bacon', 8, function(err, hash) {
 });
 ```
 
-- 
+-
+
 #### sync
 
-
- Để mã hóa mật khẩu:
+Để mã hóa mật khẩu:
 
 ```
 var bcrypt = require('bcrypt');

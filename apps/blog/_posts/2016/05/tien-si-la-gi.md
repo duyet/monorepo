@@ -1,12 +1,12 @@
 ---
 title: Tiến sĩ là gì?
-date: "2016-05-07"
+date: '2016-05-07'
 author: Van-Duyet Le
 tags:
-- Ph.D
-- Tiến Sĩ
-- dịch
-- Translate
+  - Ph.D
+  - Tiến Sĩ
+  - dịch
+  - Translate
 modified_time: '2016-05-07T22:26:22.707+07:00'
 thumbnail: https://3.bp.blogspot.com/-TKCXYQEvxtA/Vy4HF6FLaJI/AAAAAAAAUsA/rjtdzqvzOCAfKVGQOpQdxxPhFJ_is5PGQCK4B/s1600/PhDKnowledge.001.jpg
 slug: /2016/05/tien-si-la-gi.html

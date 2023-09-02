@@ -1,9 +1,7 @@
 import Link from 'next/link'
-
 import type { Post } from '@duyet/interfaces'
-import { Container } from '@duyet/components'
+import { Container, YearList } from '@duyet/components'
 import { getPostsByAllYear } from '@duyet/libs/getPost'
-import { YearList } from '@duyet/components'
 
 export default function Archives() {
   const yearLimit = 5
@@ -22,12 +20,12 @@ export default function Archives() {
 
             return (
               <div key={year}>
-                <Link href="/[year]" as={`/${year}`}>
+                <Link as={`/${year}`} href="/[year]">
                   <h1 className="text-3xl font-bold mb-5 mt-10">{year}</h1>
                 </Link>
 
                 {posts.map((post: Post) => (
-                  <article key={post.slug} className="mb-5">
+                  <article className="mb-5" key={post.slug}>
                     <div className="flex flex-row gap-2 mb-2">
                       <time className="text-gray-400">
                         {post.date.toString()}
@@ -36,9 +34,9 @@ export default function Archives() {
                     </div>
 
                     <Link
-                      href="/[...slug]"
                       as={`${post.slug}`}
                       className="text-xl font-bold"
+                      href="/[...slug]"
                     >
                       {post.title}
                     </Link>

@@ -1,11 +1,11 @@
 ---
 title: Google Big Data Meetup in Saigon
-date: "2015-11-13"
+date: '2015-11-13'
 author: Van-Duyet Le
 tags:
-- Meetup
-- Google
-- BigData
+  - Meetup
+  - Google
+  - BigData
 modified_time: '2016-04-04T17:00:42.706+07:00'
 slug: /2015/11/google-big-data-meetup-in-saigon.html
 category: News
@@ -25,4 +25,4 @@ Check out Felipe's profile at:
 
 Register to get the latest updates.
 
-Form [here](https://docs.google.com/forms/d/1anvfxYgbqSllHuq76KBvyOOUYxTJ-TJ7aGDoVkZRpG4/viewform?c=0&amp;w=1&amp;edit_requested=true)
+Form [here](https://docs.google.com/forms/d/1anvfxYgbqSllHuq76KBvyOOUYxTJ-TJ7aGDoVkZRpG4/viewform?c=0&w=1&edit_requested=true)

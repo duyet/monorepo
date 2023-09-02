@@ -1,14 +1,14 @@
 ---
 title: Autotrack turns 1.0
-date: "2016-09-01"
+date: '2016-09-01'
 author: Van-Duyet Le
 tags:
-- Track.js
-- Announment
-- intro-js
-- Google Analytics
-- AutoTrack
-- Announce
+  - Track.js
+  - Announment
+  - intro-js
+  - Google Analytics
+  - AutoTrack
+  - Announce
 modified_time: '2017-08-06T11:41:14.281+07:00'
 thumbnail: https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png
 slug: /2016/09/autotrack-turns-10.html
@@ -16,9 +16,9 @@ category: Javascript
 description: Autotrack là thư viện Javascript sử dụng với analytics.js, cung cấp cho lập trình viên nhiều công cụ hơn để theo dõi hoạt động người dùng trên web.
 ---
 
-Autotrack là thư viện Javascript sử dụng với [analytics.js](https://developers.google.com/analytics/devguides/collection/analyticsjs/?utm_campaign=analytics_discussion_autotrackturns1_080216&amp;utm_source=gdev&amp;utm_medium=blog), cung cấp cho lập trình viên nhiều công cụ hơn để theo dõi hoạt động người dùng trên web.
+Autotrack là thư viện Javascript sử dụng với [analytics.js](https://developers.google.com/analytics/devguides/collection/analyticsjs/?utm_campaign=analytics_discussion_autotrackturns1_080216&utm_source=gdev&utm_medium=blog), cung cấp cho lập trình viên nhiều công cụ hơn để theo dõi hoạt động người dùng trên web.
 
-[![](https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png)](https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png) 
+[![](https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png)](https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png)
 Autotrack là project mã nguồn mở của Google Analytics, host tại Github.
 
 Github: [https://github.com/googleanalytics/autotrack](https://github.com/googleanalytics/autotrack)
@@ -27,26 +27,34 @@ Autotrack vừa mới ra mắt phiên bản ổn định 1.0, hiện cung cấp 
 
 ### Để sử dụng:
 
-
 1. Chèn autotrack,js vào website
 
 ```html
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/1.0.1/autotrack.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/1.0.1/autotrack.js"
+></script>
 ```
+
 2. Include vào ga
 
 ```html
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-XXXXX-Y', 'auto');
+  window.ga =
+    window.ga ||
+    function () {
+      ;(ga.q = ga.q || []).push(arguments)
+    }
+  ga.l = +new Date()
+  ga('create', 'UA-XXXXX-Y', 'auto')
 
-// Replace the following lines with the plugins you want to use.
-ga('require', 'eventTracker');
-ga('require', 'outboundLinkTracker');
-ga('require', 'urlChangeTracker');
-// ...
+  // Replace the following lines with the plugins you want to use.
+  ga('require', 'eventTracker')
+  ga('require', 'outboundLinkTracker')
+  ga('require', 'urlChangeTracker')
+  // ...
 
-ga('send', 'pageview');
+  ga('send', 'pageview')
 </script>
 ```
 

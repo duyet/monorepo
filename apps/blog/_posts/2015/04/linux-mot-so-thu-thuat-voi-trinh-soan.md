@@ -1,17 +1,16 @@
 ---
 title: 'Linux - một số thủ thuật với trình soạn thảo vim '
-date: "2015-04-25"
+date: '2015-04-25'
 author: Van-Duyet Le
 tags:
-- Linux
-- Ubuntu
-- VIM
+  - Linux
+  - Ubuntu
+  - VIM
 modified_time: '2015-04-25T13:09:47.309+07:00'
 thumbnail: https://1.bp.blogspot.com/-Jls16PZ6Obc/VTsuvm57idI/AAAAAAAACU8/AmSffEltsSw/s1600/vim.png
 slug: /2015/04/linux-mot-so-thu-thuat-voi-trinh-soan.html
 category: Linux
 description: Vim (hoặc vi) là một trong những editor trên ternimal mạnh mẽ trên Linux. Sau đây là 1 vài thủ thuật hay khi sử dụng vim trên linux.
-
 ---
 
 Vim (hoặc vi) là một trong những editor trên ternimal mạnh mẽ trên Linux. Sau đây là 1 vài thủ thuật hay khi sử dụng vim trên linux.
@@ -35,12 +34,10 @@ Lệnh
 
 ## Di chuyển cả một cột
 
-
 - Chọn cả cột
 - Ấn Shift + → để dịch cột qua phải, Ấn Shift + ← để dịch cột qua trái.
 
 ## Chèn 1 ký tự vào một cột
-
 
 - Chọn cả cột (dùng ctrl+v)
 - Shift + I

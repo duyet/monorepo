@@ -1,14 +1,14 @@
 ---
 title: Có một Biển Đông trên không gian mạng
-date: "2016-08-01"
+date: '2016-08-01'
 author: Van-Duyet Le
 tags:
-- BKAV
-- Security
-- Vietnamairlines
-- Thái
-- VNA
-- Thảo luận
+  - BKAV
+  - Security
+  - Vietnamairlines
+  - Thái
+  - VNA
+  - Thảo luận
 modified_time: '2016-08-01T10:02:22.152+07:00'
 thumbnail: https://lh6.googleusercontent.com/l6tvfU-bi2HIa0edDNKcui8Qei6QjBgGxUrhYdHXe3_8m9gGbW0uFZzxRuXyh7DUIysdotaNGFeNY-6wf6jxsSRH-rtMb65uphWXAhT3QdKPEtBaJE3hkI5byXGPlZbPvSPYAUHW=s1600
 slug: /2016/08/co-mot-bien-ong-tren-khong-gian-mang.html
@@ -35,7 +35,7 @@ Các chuyên gia ThreatConnect cũng phát hiện Bộ Tài Nguyên Môi Trườ
 Liên tục trong hai năm 2014 và 2015 "Báo Cáo về Các Mối Đe Dọa Toàn cầu" ([2014](http://go.crowdstrike.com/rs/281-OBQ-266/images/ReportGlobalThreatIntelligence.pdf), [2015](http://go.crowdstrike.com/rs/281-OBQ-266/images/15GlobalThreatReport.pdf)) của CrowdStrike chỉ ra rằng Việt Nam đã trở thành mục tiêu số một của các nhóm hacker thuộc chính phủ và quân đội Trung Quốc. Báo cáo này viết rằng ngay khi lúc tình hình Biển Đông trở nên căng thẳng vì dàn khoan HD-981 nhóm hacker Yêu Tinh Gấu Trúc (Goblin Panda) đã liên tục thực hiện các vụ tấn công nhằm vào lợi ích của Việt Nam. Phương thức tấn công cũng tương tự như vụ tấn công Bộ Tài Nguyên Môi Trường. Kẻ tấn công nhúng mã độc vào các tài liệu tiếng Việt và gửi chúng đến hộp thư điện tử của cán bộ nhân viên các tổ chức và cơ quan chính phủ Việt Nam. Nội dung của các tài liệu này thường là bản sao của các tài liệu do chính phủ Việt Nam phát hành, điều này chứng tỏ nhiều khả năng nhóm Yêu Tinh Gấu Trúc đã xâm nhập thành công vào hệ thống máy tính của chính phủ Việt Nam và sử dụng các tài liệu đánh cắp làm mồi nhử cho các cuộc tấn công tiếp theo.
 
 ![](https://lh3.googleusercontent.com/kxRJaTrIjx5G7cHYf5ysRLgP1b6AYD3uavJ7VaathzhnsD8yil-IutHOmsDpE5nIUl2-JYU_OFBT4M7L8KUHSa30LwfSaNwBi1bkXeWOua1_M_s5owuJMweKbRhYSzu_WhEru-yP)
-Trích đoạn một tài liệu tiếng Việt được nhóm hacker Trung Quốc với biệt danh Yêu Tinh Gấu Trúc sử dụng để làm mồi nhử cho các cuộc tấn công vào các cơ quan nhà nước Việt Nam. Câu đầu tiên của văn bản này có nhắc đến dàn khoan HD-981. Nguồn: [http://go.crowdstrike.com/rs/281-OBQ-266/images/ReportGlobalThreatIntelligence.pdf](http://go.crowdstrike.com/rs/281-OBQ-266/images/ReportGlobalThreatIntelligence.pdf). 
+Trích đoạn một tài liệu tiếng Việt được nhóm hacker Trung Quốc với biệt danh Yêu Tinh Gấu Trúc sử dụng để làm mồi nhử cho các cuộc tấn công vào các cơ quan nhà nước Việt Nam. Câu đầu tiên của văn bản này có nhắc đến dàn khoan HD-981. Nguồn: [http://go.crowdstrike.com/rs/281-OBQ-266/images/ReportGlobalThreatIntelligence.pdf](http://go.crowdstrike.com/rs/281-OBQ-266/images/ReportGlobalThreatIntelligence.pdf).
 
 Sự kiện mạng máy tính sân bay Tân Sơn Nhất, sân bay Nội Bài và Vietnam Airlines bị phá hoại vào cuối tháng 7 năm 2016 thật ra là một tin vui đối với những ai lo lắng cho tình hình an ninh mạng ở Việt Nam. Thiệt hại của vụ tấn công này không lớn, nhưng đã giúp hướng sự chú ý đến mạng máy tính ở những hệ thống trọng yếu, nhạy cảm và có thể sẽ giúp phát hiện ra những nhóm hacker "lạ", chúng tôi tin rằng, đã "nằm vùng" từ rất lâu ở những nơi này.
 

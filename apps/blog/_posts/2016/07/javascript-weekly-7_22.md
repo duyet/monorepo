@@ -1,22 +1,21 @@
 ---
 title: 'Javascript Weekly #7'
-date: "2016-07-22"
+date: '2016-07-22'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- ES6
-- Javascript
-- Javascript-Weekly
-- React
-- Node.js
-- Electron
-- Node
+  - Nodejs
+  - ES6
+  - Javascript
+  - Javascript-Weekly
+  - React
+  - Node.js
+  - Electron
+  - Node
 modified_time: '2016-07-22T15:14:43.289+07:00'
 thumbnail: https://4.bp.blogspot.com/-aCVU91X9N2E/V5HPwsra5lI/AAAAAAAAaJU/O6M7sA63ap0c1degbSZcyUTLXnY3hx_AACK4B/s1600/hyperterm.gif
 slug: /2016/07/javascript-weekly-7_22.html
 category: Javascript
-description: "Javascript Weekly #7 tuần này: giới thiệu HyperTerm - Command Line mạnh mẽ dựa trên công nghệ của Web, Node.js, Howler.js là một thư viện Audio nhiều tính năng, hay cách xây dựng ứng dụng Desktop sử dụng Electron và React, khám phá 2 chức năng mới trong ES6, ..."
-
+description: 'Javascript Weekly #7 tuần này: giới thiệu HyperTerm - Command Line mạnh mẽ dựa trên công nghệ của Web, Node.js, Howler.js là một thư viện Audio nhiều tính năng, hay cách xây dựng ứng dụng Desktop sử dụng Electron và React, khám phá 2 chức năng mới trong ES6, ...'
 ---
 
 Javascript Weekly #7 tuần này: giới thiệu HyperTerm - Command Line mạnh mẽ dựa trên công nghệ của Web, Node.js, Howler.js là một thư viện Audio nhiều tính năng, hay cách xây dựng ứng dụng Desktop sử dụng Electron và React, khám phá 2 chức năng mới trong ES6, ...
@@ -62,7 +61,8 @@ Sức mạnh của React là tái sử dụng Code và Module hóa. Bài viết 
 
 [![](https://2.bp.blogspot.com/-QOTIHDPLu34/V5HUXeiNqRI/AAAAAAAAaJ4/ka6KUXWiMlUKokAqBwK_hVDwrEsTXnyxQCK4B/s400/assertible-react-email.png)](http://saveto.co/5LigTV)
 
--------------------
+---
+
 Saveto: [http://saveto.co/t/js-weekly-7](http://saveto.co/t/js-weekly-7)
 Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascript-weekly](http://saveto.co/javascript-weekly)
 [Đăng ký nhận bài viết mới qua Email tại đây.](http://saveto.co/sfZ60w)

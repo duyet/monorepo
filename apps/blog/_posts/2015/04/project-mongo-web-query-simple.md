@@ -1,19 +1,19 @@
 ---
-title: 'Github project - Mongo-Web-Query - Simple MongoDB Query base on Nodejs and
+title:
+  'Github project - Mongo-Web-Query - Simple MongoDB Query base on Nodejs and
   MongoDB '
-date: "2015-04-15"
+date: '2015-04-15'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- MongoDb
-- Github
-- project
+  - Nodejs
+  - MongoDb
+  - Github
+  - project
 modified_time: '2015-04-15T21:33:52.205+07:00'
 thumbnail: https://4.bp.blogspot.com/-66BlQG7PLEU/VS52lOH1UnI/AAAAAAAACRE/egh7Z4oZBOk/s1600/687474703a2f2f692e696d6775722e636f6d2f3543734e4b39442e706e67.png
 slug: /2015/04/project-mongo-web-query-simple.html
 category: Web
 description: Mongo Web Query is Simple Node Application on Web, for query the MongoDB data, one of tools for LvDuit Project Preview Mining.
-
 ---
 
 Mongo Web Query is Simple Node Application on Web, for query the MongoDB data, one of tools for LvDuit Project Preview Mining.
@@ -30,13 +30,11 @@ Home: [http://lvduit.com](http://lvduit.com/)
 
 ## Screenshot
 
-
 ![](https://4.bp.blogspot.com/-66BlQG7PLEU/VS52lOH1UnI/AAAAAAAACRE/egh7Z4oZBOk/s1600/687474703a2f2f692e696d6775722e636f6d2f3543734e4b39442e706e67.png)
 
 Screenshot at version 0.1.1
 
-## Export with wget 
-
+## Export with wget
 
 ```
 wget -O export.json http://localhost:9000/api/query/export?keyword=galaxy+s6

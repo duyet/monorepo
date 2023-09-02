@@ -1,13 +1,13 @@
 ---
 title: copy.js - simple copy text to clipboard in the browser
-date: "2016-02-17"
+date: '2016-02-17'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- copy.js
-- Bower
-- NPM
-- Javascript
+  - Nodejs
+  - copy.js
+  - Bower
+  - NPM
+  - Javascript
 modified_time: '2016-02-21T01:41:52.268+07:00'
 thumbnail: https://3.bp.blogspot.com/-qnoZylNW4-g/VsizR9xBEPI/AAAAAAAAQAw/fR-qHa0ccjk/s1600/copyjs.png
 slug: /2016/02/copyjs-simple-copy-text-to-clipboard-in.html
@@ -21,7 +21,7 @@ Simple copy to clipboard. No Flash.
 
 ## Install
 
-You can get it on bower. 
+You can get it on bower.
 
 ```bash
 bower install copy --save
@@ -54,17 +54,17 @@ Or load it from CDN provider.
 Just copy:
 
 ```js
-copy('hello world.');
+copy('hello world.')
 ```
 
 With `callback`:
 
 ```js
-copy('hello world', function(err) {
- if (err) console.log('Some thing went wrong!');
+copy('hello world', function (err) {
+  if (err) console.log('Some thing went wrong!')
 
- console.log('Copied!');
-});
+  console.log('Copied!')
+})
 ```
 
 That's it!

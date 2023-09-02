@@ -1,23 +1,23 @@
 ---
 title: Install Odoo 8 in Ubuntu 14.04/15.04
-date: "2015-09-22"
+date: '2015-09-22'
 author: Van-Duyet Le
 tags:
-- Linux
-- Tutorial
-- Ubuntu
-- Install
-- Python
-- Odoo
+  - Linux
+  - Tutorial
+  - Ubuntu
+  - Install
+  - Python
+  - Odoo
 modified_time: '2018-09-01T22:29:37.931+07:00'
 slug: /2015/09/install-odoo-8-in-ubuntu-14-04-15-04.html
 category: Linux
 description: Cài đặt Odoo trên Ubuntu 14.04/15.04
 ---
 
-You can simply [download](https://www.odoo.com/page/download) a .deb (for Debian/Ubuntu type systems) or a. rpm (Redhat/CentOS) package of OpenERP and install that. Unfortunately that approach doesn’t provide us (Libertus Solutions) with enough fine-grained control over where things get installed, and it restricts our flexibility to modify & customise, hence I prefer to do it a slightly more manual way (this install process below should only take about 10-15 minutes once the host machine has been built). 
+You can simply [download](https://www.odoo.com/page/download) a .deb (for Debian/Ubuntu type systems) or a. rpm (Redhat/CentOS) package of OpenERP and install that. Unfortunately that approach doesn’t provide us (Libertus Solutions) with enough fine-grained control over where things get installed, and it restricts our flexibility to modify & customise, hence I prefer to do it a slightly more manual way (this install process below should only take about 10-15 minutes once the host machine has been built).
 
-# Step 1. Create the Odoo user that will own and run the application #
+# Step 1. Create the Odoo user that will own and run the application
 
 ```
 sudo adduser --system --home=/opt/odoo --group odoo
@@ -28,7 +28,7 @@ sudo adduser --system --home=/opt/odoo --group odoo
 
 Note: How to run the Odoo server as the odoo system user from the command line if it has no shell. `bash sudo su - odoo -s /bin/bash`
 
-# Step 2. Install and configure the database server, PostgreSQL #
+# Step 2. Install and configure the database server, PostgreSQL
 
 ```
 sudo apt-get install postgresql
@@ -59,7 +59,7 @@ Finally exit from the postgres user account:
 exit
 ```
 
-# Step 3. Install the necessary Python libraries for the server #
+# Step 3. Install the necessary Python libraries for the server
 
 ```
 sudo apt-get install python-cups python-dateutil python-decorator python-docutils python-feedparser \
@@ -71,7 +71,7 @@ python-werkzeug python-xlwt python-yaml wkhtmltopdf
 
 ```
 
-# Step 4. Install the Odoo server #
+# Step 4. Install the Odoo server
 
 Install Git.
 
@@ -96,7 +96,7 @@ exit # Exit odoo user
 
 ```
 
-# Step 5. Configuring the OpenERP application #
+# Step 5. Configuring the OpenERP application
 
 The default configuration file for the server (`/opt/odoo/debian/openerp-server.conf`) is actually very minimal and will, with only a small change work fine so we’ll copy that file to where we need it and change it’s ownership and permissions:
 
@@ -133,7 +133,7 @@ If there are errors, you’ll need to go back and find out where the problem is.
 
 Otherwise simply enter CTL+C to stop the server and then exit to leave the openerp user account and go back to your own shell.
 
-# Step 6. Installing the boot script #
+# Step 6. Installing the boot script
 
 For the final step we need to install a script which will be used to start-up and shut down the server automatically and also run the application as the correct user. There is a script you can use in `/opt/odoo/debian/init` but this will need a few small modifications to work with the system installed the way I have described above. Here’s a link to the one I’ve already modified for Odoo version 8.
 
@@ -160,7 +160,7 @@ sudo chown odoo:root /var/log/odoo
 
 ```
 
-# Step 7. Testing the server #
+# Step 7. Testing the server
 
 To start the Odoo server type:
 
@@ -196,7 +196,7 @@ sudo /etc/init.d/odoo-server stop
 
 Check the log file again to make sure it has stopped and/or look at your server’s process list.
 
-# Step 8. Automating Odoo startup and shutdown #
+# Step 8. Automating Odoo startup and shutdown
 
 If everything above seems to be working OK, the final step is make the script start and stop automatically with the Ubuntu Server. To do this type:
 

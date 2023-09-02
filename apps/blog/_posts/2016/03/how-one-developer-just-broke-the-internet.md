@@ -1,14 +1,15 @@
 ---
-title: How one developer just broke Node, Babel and thousands of projects in 11 lines
+title:
+  How one developer just broke Node, Babel and thousands of projects in 11 lines
   of JavaScript
-date: "2016-03-26"
+date: '2016-03-26'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Bàn luận
-- NPM
-- Package
-- News
+  - Nodejs
+  - Bàn luận
+  - NPM
+  - Package
+  - News
 modified_time: '2016-05-02T19:39:38.146+07:00'
 slug: /2016/03/how-one-developer-just-broke-the-internet.html
 category: News
@@ -48,8 +49,7 @@ function leftpad (str, len, ch) {
 
 ### Tham khảo
 
-
 - [How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](http://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)
 - [A discussion about the breaking of the Internet](https://medium.com/@mproberts/a-discussion-about-the-breaking-of-the-internet-3d4d2a83aa4d#.baitcblji) | Medium
 - [I’ve Just Liberated My Modules](https://medium.com/@azerbike/i-ve-just-liberated-my-modules-9045c06be67c#.l27mzwavf) | Medium
-- [left-pad npm](https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=left-pad%20npm&amp;src=typd) | Twitter Search
+- [left-pad npm](https://twitter.com/search?f=tweets&vertical=default&q=left-pad%20npm&src=typd) | Twitter Search

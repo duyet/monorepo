@@ -1,18 +1,18 @@
 ---
 title: 'Javascript Weekly #6'
-date: "2016-07-01"
+date: '2016-07-01'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Javascript
-- Javascript-Weekly
-- Node.js
-- Node
+  - Nodejs
+  - Javascript
+  - Javascript-Weekly
+  - Node.js
+  - Node
 modified_time: '2016-07-01T08:08:57.508+07:00'
 thumbnail: https://2.bp.blogspot.com/-o4JfW1aayP8/V3Wu-4LLs4I/AAAAAAAAYrk/8qq-Dkaa0L0ZO-CNAZcGl1y3zgWUDNAVQCK4B/s1600/js-weekly-6.png
 slug: /2016/07/javascript-weekly-6.html
 category: Javascript
-description: "Bài viết giới thiệu chi tiết về Redux, D3.js 4.0 Released, thư viện hiệu ứng anime.js, viết ứng dụng WebAssembly đầu tiên, Debug Node .... đây là các bài sẽ có trong Javascript Weekly #6"
+description: 'Bài viết giới thiệu chi tiết về Redux, D3.js 4.0 Released, thư viện hiệu ứng anime.js, viết ứng dụng WebAssembly đầu tiên, Debug Node .... đây là các bài sẽ có trong Javascript Weekly #6'
 ---
 
 Bài viết giới thiệu chi tiết về Redux, D3.js 4.0 Released, thư viện hiệu ứng anime.js, viết ứng dụng WebAssembly đầu tiên, Debug Node .... đây là các bài sẽ có trong [Javascript Weekly #6](https://saveto.co/t/js-weekly-6) này mà tôi muốn giới thiệu đến các bạn.
@@ -56,7 +56,8 @@ NativeBase cung cấp các Components cơ bản Cross-Platform cho các ứng d�
 
 [![](https://4.bp.blogspot.com/-gbt5Jy7UGMk/V3Ws-GLM7yI/AAAAAAAAYrI/u-5pmZUVG3EUCNi9bMSUsJGLkxMJ-F8pACK4B/s320/NSP-White.png)](https://4.bp.blogspot.com/-gbt5Jy7UGMk/V3Ws-GLM7yI/AAAAAAAAYrI/u-5pmZUVG3EUCNi9bMSUsJGLkxMJ-F8pACK4B/s1600/NSP-White.png)
 
---------------------
+---
+
 Saveto: [http://saveto.co/t/js-weekly-6](http://saveto.co/t/js-weekly-6)
 Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascript-weekly](http://saveto.co/javascript-weekly)
 [Đăng ký nhận bài viết mới qua Email tại đây](http://saveto.co/sfZ60w).

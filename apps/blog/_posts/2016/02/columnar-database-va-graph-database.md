@@ -1,13 +1,13 @@
 ---
 title: Bigdata -  Columnar Database và Graph Database
-date: "2016-02-03"
+date: '2016-02-03'
 author: Van-Duyet Le
 tags:
-- Database
-- Graph
-- BigData
-- Graph Database
-- Big Data
+  - Database
+  - Graph
+  - BigData
+  - Graph Database
+  - Big Data
 modified_time: '2016-02-03T16:34:19.787+07:00'
 thumbnail: https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s1600/example-graph.jpg
 slug: /2016/02/columnar-database-va-graph-database.html

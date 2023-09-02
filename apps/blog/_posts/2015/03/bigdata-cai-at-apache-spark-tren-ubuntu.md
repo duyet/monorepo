@@ -1,19 +1,18 @@
 ---
 title: BigData - Cài đặt Apache Spark trên Ubuntu 14.04
-date: "2015-03-27"
+date: '2015-03-27'
 author: Van-Duyet Le
 tags:
-- Apache
-- Python
-- Spark
-- BigData
-- Hadoop
+  - Apache
+  - Python
+  - Spark
+  - BigData
+  - Hadoop
 modified_time: '2018-09-01T22:28:00.347+07:00'
 thumbnail: https://1.bp.blogspot.com/-Ruz5XvIPJZo/VS5s2ElpdQI/AAAAAAAACQ0/G7LCMJ0klNk/s1600/download-spark.png
 slug: /2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html
 category: BigData
 description: Trong lúc tìm hiểu vài thứ về BigData cho một số dự án, mình quyết định chọn Apache Spark thay cho Hadoop. Theo như giới thiệu từ trang chủ của Apache Spark, thì tốc độ của nó cao hơn 100x so với Hadoop MapReduce khi chạy trên bộ nhớ, và nhanh hơn 10x lần khi chạy trên đĩa, tương thích hầu hết các CSDL phân tán (HDFS, HBase, Cassandra, ...). Ta có thể sử dụng Java, Scala hoặc Python để triển khai các thuật toán trên Spark.
-
 ---
 
 Trong lúc tìm hiểu vài thứ về BigData cho một số dự án, mình quyết định chọn Apache Spark thay cho Hadoop. Theo như giới thiệu từ trang chủ của Apache Spark, thì tốc độ của nó cao hơn 100x so với Hadoop MapReduce khi chạy trên bộ nhớ, và nhanh hơn 10x lần khi chạy trên đĩa, tương thích hầu hết các CSDL phân tán (HDFS, HBase, Cassandra, ...). Ta có thể sử dụng Java, Scala hoặc Python để triển khai các thuật toán trên Spark.
@@ -36,13 +35,14 @@ $ sudo apt-get update
 $ sudo apt-get install oracle-java7-installer
 ```
 
-Kiểm tra lại đã cài đặt thành công hay chưa 
+Kiểm tra lại đã cài đặt thành công hay chưa
 
 ```bash
 $ java -version
 ```
 
-Bạn sẽ thấy  
+Bạn sẽ thấy
+
 ```
 java version "1.7.0_76" Java(TM) SE Runtime Environment (build 1.7.0_76-b13) Java HotSpot(TM) 64-Bit Server VM (build 24.76-b04, mixed mode)
 ```
@@ -75,13 +75,13 @@ Khởi động lại .bashrc để nạp lại các biến ENV
 $ source .bashrc
 ```
 
-Kiểm tra xem Scala đã cài đặt thành công hay chưa   
+Kiểm tra xem Scala đã cài đặt thành công hay chưa
 
 ```
 $ scala -version
 ```
 
-Thấy giống giống thế này là Ok: 
+Thấy giống giống thế này là Ok:
 `Scala code runner version 2.11.6 -- Copyright 2002-2013, LAMP/EPFL`
 
 ## Tải và cài đặt Apache Spark
@@ -91,7 +91,7 @@ Truy cập [http://spark.apache.org/downloads.html](http://spark.apache.org/down
 ```
 $ cd ~/Downloads
 $ wget http://mirrors.viethosting.vn/apache/spark/spark-1.3.0/spark-1.3.0.tgz
-$ tar xvf spark-1.3.0.tgz 
+$ tar xvf spark-1.3.0.tgz
 
 ```
 
@@ -114,7 +114,7 @@ Sau thời gian chờ đợi, bạn đã có thể sử dụng. Test thử nào,
 $ ./bin/run-example SparkPi 10
 ```
 
-Kết quả 3.14634, hệ thống của bạn đã sẵn sàng chinh chiến.  
+Kết quả 3.14634, hệ thống của bạn đã sẵn sàng chinh chiến.
 
 ## Sử dụng spark-submit
 
@@ -179,8 +179,7 @@ export HADOOP_CONF_DIR=XXX
 
 ## Sử dụng Spark Shell
 
-
-Bạn có thể sử dụng Spark thông qua Scala Shell 
+Bạn có thể sử dụng Spark thông qua Scala Shell
 
 ```
 $ ./spark-shell
@@ -201,13 +200,13 @@ Dọn dẹp
 $ sbt/sbt clean
 ```
 
-Bạn có thể thay đổi phiên bản của SPARK_HADOOP_VERSION, ở đây mình dùng 2.0.0-cdh4.3.0  
+Bạn có thể thay đổi phiên bản của SPARK_HADOOP_VERSION, ở đây mình dùng 2.0.0-cdh4.3.0
 
 ```
 $ SPARK_HADOOP_VERSION=2.0.0-mr1-cdh4.3.0 sbt/sbt assembly
 ```
 
-Sau khi build thành công, bạn đã có thể đọc và ghi dữ liệu lên cdh4.3.0 clusters 
+Sau khi build thành công, bạn đã có thể đọc và ghi dữ liệu lên cdh4.3.0 clusters
 
 ```
 $ ./spark-shell

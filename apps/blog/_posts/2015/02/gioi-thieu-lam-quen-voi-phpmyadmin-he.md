@@ -1,17 +1,16 @@
 ---
 title: Giới thiệu, làm quen với phpMyAdmin - Hệ quản trị MySQL
-date: "2015-02-15"
+date: '2015-02-15'
 author: Van-Duyet Le
 tags:
-- SQL
-- PHPMyAdmin
-- MySQL
-- Tutorials
+  - SQL
+  - PHPMyAdmin
+  - MySQL
+  - Tutorials
 modified_time: '2015-02-15T23:05:02.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-RIl_Pz6Y1Fo/VODDEddfGiI/AAAAAAAACHw/wibuZ6SUfAQ/s1600/Screenshot%2Bfrom%2B2015-02-15%2B22%3A59%3A44.png
 slug: /2015/02/gioi-thieu-lam-quen-voi-phpmyadmin-he.html
-description: 
-
+description:
 ---
 
 phpMyAdmin là 1 chương trình mã nguồn mở miễn phí, viết bằng PHP, dùng để hỗ trợ các bạn làm việc với MySQL thông qua giao diện web mà không cần dùng tới những dòng lệnh MySQL phức tạp.
@@ -33,12 +32,10 @@ Giao diện phpMyAdmin như hình trên, trong đó:
 
 ## Tạo CSDL trong phpMyAdmin
 
-
 - Vào mục Databases, gõ tên database muốn tạo và nhấn Create là xong, bạn nên chọn mục "Collation = utf8_general_ci" để hỗ trợ lưu trữ Tiếng Việt trong CSDL.
 - Sau khi tạo CSDL xong bạn sẽ thấy CSDL này của mình ở cột bên trái.
 
 ## Tạo bảng trong CSDL
-
 
 - Chọn CSDL ở cột bên trái, sau đó click vào nút New dưới tên CSDL để tạo bảng.
 - Điền tên các côt, kiểu dữ liệu, khóa chính khóa ngoại các kiểu.

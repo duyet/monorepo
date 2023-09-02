@@ -1,25 +1,23 @@
 ---
 title: Git - Khôi phục bằng reflog sau khi xóa commit hoặc branch
-date: "2015-08-07"
+date: '2015-08-07'
 author: Van-Duyet Le
 tags:
-- reflog
-- Git
-- khôi phục
+  - reflog
+  - Git
+  - khôi phục
 modified_time: '2015-08-07T13:04:07.964+07:00'
 thumbnail: https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png
 slug: /2015/08/git-khoi-phuc-bang-reflog.html
 category: Git
 description: 'Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặc loại bỏ một nhánh. Rất ít người biết cách khôi phục từ những tình huống này và một số người thậm chí phải code từ đầu. May mắn thay, hầu hết chúng ta có thể dựa vào "cỗ máy thời gian" của Git: reflog'
-
 ---
 
 Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặc loại bỏ một nhánh. Rất ít người biết cách khôi phục từ những tình huống này và một số người thậm chí phải code từ đầu. May mắn thay, hầu hết chúng ta có thể dựa vào "cỗ máy thời gian" của Git: [`reflog`](https://git-scm.com/docs/git-reflog).
 
 ## Xem reflog để khôi phục lại 1 commit bất kì
 
-
-Reflog như cỗ máy thời gian, nó ghi lại toàn bộ những gì bạn đã làm, kể cả khi bạn xóa 1 commit nào đó. 
+Reflog như cỗ máy thời gian, nó ghi lại toàn bộ những gì bạn đã làm, kể cả khi bạn xóa 1 commit nào đó.
 
 ```
 0979a9e HEAD@{1}: reset: moving to HEAD~
@@ -31,7 +29,6 @@ b5d314a HEAD@{10}: commit: Add faculty_code
 c528ae5 HEAD@{11}: pull: Fast-forward
 ...
 ```
-
 
 `0979a9e` hoặc `HEAD@{3}` là id của commit `Finish UAF module, need update xls file normaly`
 Để khôi phục lại commit đó
@@ -64,7 +61,7 @@ Kết quả sẽ là
 
 ![](https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png)
 
-`0979a9e` là commit reset HEAD, `4d77eb9` là commit bị mất bạn cần sẽ nhảy đến.  Để khôi phục
+`0979a9e` là commit reset HEAD, `4d77eb9` là commit bị mất bạn cần sẽ nhảy đến. Để khôi phục
 
 ```
 git reset --hard 0979a9e
@@ -101,6 +98,5 @@ $ git checkout develop
 Và chúng ta sẽ quay lại branch vừa bị xóa lúc nãy.
 
 ## Kết
-
 
 Reflog là một công cụ mạnh mẽ trong Git, giống như một chiếc cỗ máy thời gian giúp chúng ta khôi phục dữ liệu ở bất cứ đâu. Mặc dù không phải là công cụ duy nhất, nhưng nó có thể là cứu cánh cuối cùng mỗi khi chúng ta "lỡ tay". Chúc bạn thành công! :D

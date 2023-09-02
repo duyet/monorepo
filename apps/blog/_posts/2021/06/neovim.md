@@ -1,6 +1,6 @@
 ---
 title: Migrating from Vim to NeoVim
-date: "2021-06-15"
+date: '2021-06-15'
 author: Van-Duyet Le
 category: Dev
 tags:
@@ -12,16 +12,13 @@ slug: /2021/06/neovim.html
 description: I migrated to NeoVim, after six month with Vim.
 ---
 
-
 I have switched VSCode entirely to Vim for six months. VSCode is a great editor and very powerful, but I need something that makes me more productive. I used to learn how to use Vim many times since I was at university, but I gave up.
-But this time was different,  I made it more serious, and I thought I had completed two goals: use 100% Vim and the speed of using Vim on par with the time of using VSCode.
-
+But this time was different, I made it more serious, and I thought I had completed two goals: use 100% Vim and the speed of using Vim on par with the time of using VSCode.
 
 <figure class="float-right" style="width: 600px">
     <img src="/media/2021/06/vim-learning-curve-duyet.png" />
     <img src="/media/2021/06/using-vim.png" style="border: 1px" />
 </figure>
-
 
 This week I give it a chance to migrate to NeoVim. There are many reasons for me to make a decision:
 
@@ -56,11 +53,9 @@ let &packpath = &runtimepath
 source ~/.vimrc
 ```
 
-
 NeoVim isn't entirely compatible with Vim, but almost all plugins work on NeoVim too, with me, all plugins worked fine.
 
 On the other hands, I'm using this vimrc preset with a ton of useful plugins, color schemes, and configurations: https://github.com/amix/vimrc
-
 
 ![](/media/2021/06/neovim.png)
 
@@ -68,8 +63,9 @@ On the other hands, I'm using this vimrc preset with a ton of useful plugins, co
 
 And the final thoughts, NeoVim has some plugins that take advantage of specific NeoVim features, and you can check it [here](https://github.com/neovim/neovim/wiki/Related-projects).
 
-----
-*Updated Aug 2021*
+---
+
+_Updated Aug 2021_
 
 I just switched to NvChad (https://nvchad.netlify.app) shipped with a beautiful GUI and many settings. You can give it a try.
 

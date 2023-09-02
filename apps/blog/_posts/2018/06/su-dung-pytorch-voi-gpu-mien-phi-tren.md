@@ -1,16 +1,16 @@
 ---
 title: Sử dụng PyTorch với GPU miễn phí trên Google Colab
-date: "2018-06-03"
+date: '2018-06-03'
 author: Van-Duyet Le
 tags:
-- AI
-- Data Engineer
-- Notebook
-- Python
-- PyTorch
-- Machine Learning
-- Jupyter Notebook
-- Colaboratory
+  - AI
+  - Data Engineer
+  - Notebook
+  - Python
+  - PyTorch
+  - Machine Learning
+  - Jupyter Notebook
+  - Colaboratory
 modified_time: '2018-07-20T10:11:11.326+07:00'
 thumbnail: https://4.bp.blogspot.com/-SdOdKIqi8Q0/WxPzp07jlfI/AAAAAAAAubY/BdjBxk-frPgTZKvNR8CTYpBgUwRcF9SQACLcBGAs/s1600/35226d9fbc661ced1c5d17e374638389178c3176.png
 slug: /2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren.html
@@ -35,7 +35,7 @@ Có nghĩa bạn có thể tiếp tục sử dụng GPU sau 12 tiếng bằng c�
 ## Kích hoạt GPU
 
 1. Mở Notebook Colab
-2. Vào menu Edit > Notebook Settings,  Hardware accelerator chọn GPU
+2. Vào menu Edit > Notebook Settings, Hardware accelerator chọn GPU
 
 [![](https://1.bp.blogspot.com/-2xNbbfzx6Og/WxPwkZc_LoI/AAAAAAAAubA/6b-NZMa9t_komNhrKg6-pXGiBi0WrETcACLcBGAs/s1600/colab-gpu.PNG)](https://1.bp.blogspot.com/-2xNbbfzx6Og/WxPwkZc_LoI/AAAAAAAAubA/6b-NZMa9t_komNhrKg6-pXGiBi0WrETcACLcBGAs/s1600/colab-gpu.PNG)
 

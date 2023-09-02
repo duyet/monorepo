@@ -24,7 +24,7 @@ My data engineering team at Fossil recently released some of Rust-based componen
 
 # The Need for Change
 
-With the Fossil Data Platform handling approximately *1.2 billion records* daily in near-real time, our existing Python codebase started showing signs of strain. We had been using Python for years and encountered issues such as duplicated code, deprecated components, hardcoded elements, and a lack of comprehensive reviews. This situation prompted a critical evaluation of our options:
+With the Fossil Data Platform handling approximately _1.2 billion records_ daily in near-real time, our existing Python codebase started showing signs of strain. We had been using Python for years and encountered issues such as duplicated code, deprecated components, hardcoded elements, and a lack of comprehensive reviews. This situation prompted a critical evaluation of our options:
 
 1. **Continuing with Python:** We contemplated rewriting the platform while sticking with Python. However, considering our data engineering requirements, we recognized the need for a language more suitable for the task.
 2. Rewrite into data-engineering-friendly language like **Java or Scala**, given their popularity in the data engineering domain.
@@ -48,14 +48,13 @@ In the deliberation between Rust and Golang for our next Data Platform, we weigh
 
 ## The Drawbacks of Using Rust
 
-
 **Steep Learning Curve**
 
 Rust's advanced features and strict adherence to memory safety principles can result in a steep learning curve for developers.
 
 You will say: Wtf is [From](https://doc.rust-lang.org/std/convert/trait.From.html), [TryFrom](https://doc.rust-lang.org/std/convert/trait.TryFrom.html), [AsRef](https://doc.rust-lang.org/std/convert/trait.AsRef.html), [Arc](https://doc.rust-lang.org/std/sync/struct.Arc.html), [Pin](https://doc.rust-lang.org/std/pin/struct.Pin.html), [Feature](https://doc.rust-lang.org/std/future/trait.Future.html), …
 
-To become proficient, you need to learn the complex language syntax, common idioms, and libraries. This could take weeks or even months of frequent practice. I started with some small projects like [athena-rs](https://github.com/duyet/athena-rs), [grant-rs](https://github.com/duyet/grant-rs), or [glossary-rs](https://github.com/duyet/glossary-rs) at first, and keep learning by building micro project like that until now. 
+To become proficient, you need to learn the complex language syntax, common idioms, and libraries. This could take weeks or even months of frequent practice. I started with some small projects like [athena-rs](https://github.com/duyet/athena-rs), [grant-rs](https://github.com/duyet/grant-rs), or [glossary-rs](https://github.com/duyet/glossary-rs) at first, and keep learning by building micro project like that until now.
 
 **Development Speed**
 
@@ -81,7 +80,7 @@ Despite the lack of fine-tuning and potential areas for optimization, Rust demon
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-1.png)
 
-After comparing the two components in the real  environment, Rust processes messages faster and consumes more messages than Python.
+After comparing the two components in the real environment, Rust processes messages faster and consumes more messages than Python.
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-2.png)
 
@@ -97,18 +96,16 @@ The need to ensure backward compatibility with the previous Python-based inline 
 
 ```yaml
 # example config.yaml
-...
+---
 source_field: properties
 target_field: config_value
 transformations:
-    - name: custom_code
-      language: python
-      code: |
-        year = datetime.now().strftime("%Y")
-        return source_field.get("config_name").lower()
+  - name: custom_code
+    language: python
+    code: |
+      year = datetime.now().strftime("%Y")
+      return source_field.get("config_name").lower()
 ```
-
-
 
 # Team involvement
 
@@ -120,7 +117,7 @@ However, there have been some changes, and the migration is progressing slowly d
 
 ![Data Engineering Team 2022](/media/2023/06/fossil-data-platform-written-rust/data-team-2022.png)
 
-*Data Engineering Team 2022*
+_Data Engineering Team 2022_
 
 # Well, what's next?
 
@@ -145,7 +142,7 @@ Despite being [the most loved language for seven consecutive years](https://surv
 - [tokio-rs/tokio](https://github.com/tokio-rs/tokio): A runtime for asynchronous applications provides I/O, networking, scheduling, timers, ...
 - [launchbadge/sqlx](https://github.com/launchbadge/sqlx): 🧰 The Rust SQL Toolkit. An async, pure Rust SQL crate featuring compile-time checked queries without a DSL. Supports PostgreSQL, MySQL, SQLite, and MSSQL.
 
-I have discussed the future with my team, and I bet and considered the possibility of Rust becoming the new trend in Data Engineering. 
+I have discussed the future with my team, and I bet and considered the possibility of Rust becoming the new trend in Data Engineering.
 We could proud to have been one of the first teams to use Rust in building a Data Platform.
 However, even though Rust might become the standard when the platform is stable, it may still be difficult to hire new Rust developers, especially in Vietnam.
 
@@ -159,7 +156,7 @@ We chose Rust for developing many of our applications due to its high level of s
 
 # Where to start?
 
-If you're considering diving into Rust for your own projects or migrating an existing codebase, I highly recommend starting with the [**Rust By Example**](https://doc.rust-lang.org/rust-by-example/) book. 
+If you're considering diving into Rust for your own projects or migrating an existing codebase, I highly recommend starting with the [**Rust By Example**](https://doc.rust-lang.org/rust-by-example/) book.
 
 In addition, there are other valuable resources available to aid your learning and exploration of Rust. Here are a couple of links you may find helpful:
 

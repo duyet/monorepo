@@ -1,14 +1,13 @@
 import React from 'react'
-
 import { Container } from '@duyet/components'
 
-type Props = {
+interface YearLayoutProps {
   params: {
     year: number
   }
   children: React.ReactNode
 }
 
-export default function YearLayout({ children }: Props) {
+export default function YearLayout({ children }: YearLayoutProps) {
   return <Container>{children}</Container>
 }

@@ -1,14 +1,14 @@
 ---
-title: "[Slide] Sentiment Analysis"
-date: "2018-06-30"
+title: '[Slide] Sentiment Analysis'
+date: '2018-06-30'
 author: Van-Duyet Le
 tags:
-- Sentiment
-- slide
-- NLP
-- Machine Learning
-- Sentimennt Analysis
-- Talk
+  - Sentiment
+  - slide
+  - NLP
+  - Machine Learning
+  - Sentimennt Analysis
+  - Talk
 modified_time: '2018-09-10T17:17:59.233+07:00'
 thumbnail: https://2.bp.blogspot.com/-QmRuaxp1xj4/WzekOKxN0BI/AAAAAAAAw1U/hQrM0Ii9mwspi2k1-incTQ-HFilQkHY6wCLcBGAs/s1600/senti.PNG
 slug: /2018/06/slide-sentiment-analysis.html
@@ -17,25 +17,25 @@ description: 'Mình vừa có bài nói về Sentiment Analysis trong NLP bao q
 ---
 
 Sentiment Analysis: Mining Opinions, Sentiments and Emotions  
-Mình vừa có bài nói về **Sentiment Analysis** trong NLP bao quát, xin phép chia sẻ lại slide tại đây.  
-  
+Mình vừa có bài nói về **Sentiment Analysis** trong NLP bao quát, xin phép chia sẻ lại slide tại đây.
+
 ![](https://2.bp.blogspot.com/-QmRuaxp1xj4/WzekOKxN0BI/AAAAAAAAw1U/hQrM0Ii9mwspi2k1-incTQ-HFilQkHY6wCLcBGAs/s1600/senti.PNG)
 
-  
-**Outline**  
+**Outline**
 
 1.  **Introduction**
-    1. Sentiment Analysis Application 
+
+    1. Sentiment Analysis Application
     2. Sentiment Analysis Research
 
 2.  **Document Sentiment Classification**
 3.  **Sentence Sentiment Classification**
-    1.  Overview 
-    2.  Subjectivity classification 
-    3.  Sentence Sentiment Classification 
+    1.  Overview
+    2.  Subjectivity classification
+    3.  Sentence Sentiment Classification
 4.  **Aspect Sentiment Classification**
-    1.   Overview 
-    2.  Aspect Extraction 
+    1.  Overview
+    2.  Aspect Extraction
     3.  Aspect Sentiment Classification
 
 **[Xem và tải PDF tại đây](https://goo.gl/3nEq13).**

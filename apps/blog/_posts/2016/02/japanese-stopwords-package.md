@@ -1,28 +1,27 @@
 ---
 title: Japanese stopwords package for npm, bower and plaintext
-date: "2016-02-27"
+date: '2016-02-27'
 author: Van-Duyet Le
 tags:
-- Bower
-- NPM
-- Sentiment
-- Stopwords
-- Github
-- Machine Learning
-- NLP
+  - Bower
+  - NPM
+  - Sentiment
+  - Stopwords
+  - Github
+  - Machine Learning
+  - NLP
 modified_time: '2016-03-18T23:29:23.351+07:00'
 thumbnail: https://4.bp.blogspot.com/-tKM0wg2Vmqc/VtFheibWiSI/AAAAAAAAQbc/KFhuP43v4lA/s1600/japanese-stopwords.png
 slug: /2016/02/japanese-stopwords-package.html
 category: Machine Learning
-description: Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード    
+description: Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード
 ---
 
-Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード    
+Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード
 
 [![](https://4.bp.blogspot.com/-tKM0wg2Vmqc/VtFheibWiSI/AAAAAAAAQbc/KFhuP43v4lA/s1600/japanese-stopwords.png)](https://blog.duyet.net/2016/02/japanese-stopwords-package.html)
 
 ## Source
-
 
 Github source: [https://github.com/stopwords/japanese-stopwords](https://github.com/stopwords/japanese-stopwords)
 
@@ -60,7 +59,6 @@ bower install --save japanese-stopwords
 
 ## Test
 
-
 ```
 git clone https://github.com/duyet/japanese-stopwords
 cd japanese-stopwords/
@@ -69,7 +67,6 @@ mocha
 ```
 
 ## How to contribute
-
 
 1. Fork the project on Github ([https://github.com/duyet/japanese-stopwords/fork](https://github.com/duyet/japanese-stopwords/fork))
 2. Create a topic branch for your changes

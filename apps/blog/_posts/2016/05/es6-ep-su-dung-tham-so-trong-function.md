@@ -1,13 +1,13 @@
 ---
 title: ES6 - ép sử dụng tham số trong function
-date: "2016-05-27"
+date: '2016-05-27'
 author: Van-Duyet Le
 tags:
-- Tutorrial
-- ES6
-- Tutorials
-- Javascript
-- Exploring ES6
+  - Tutorrial
+  - ES6
+  - Tutorials
+  - Javascript
+  - Exploring ES6
 modified_time: '2016-05-27T11:34:39.996+07:00'
 slug: /2016/05/es6-ep-su-dung-tham-so-trong-function.html
 category: Javascript
@@ -22,10 +22,10 @@ Các tham số function trong Javascript thực ra không bắt buộc, Javascri
  * the default value is evaluated.
  */
 function mandatory() {
-    throw new Error('Missing parameter');
+  throw new Error('Missing parameter')
 }
 function foo(mustBeProvided = mandatory()) {
-    return mustBeProvided;
+  return mustBeProvided
 }
 ```
 

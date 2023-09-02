@@ -1,12 +1,13 @@
 ---
-title: Google Cloud Platform Developer Roadshow, Ho Chi Minh, Vietnam by GCPUG and
+title:
+  Google Cloud Platform Developer Roadshow, Ho Chi Minh, Vietnam by GCPUG and
   GDG
-date: "2015-08-27"
+date: '2015-08-27'
 author: Van-Duyet Le
 tags:
-- Roadshow
-- Google
-- Google Cloud
+  - Roadshow
+  - Google
+  - Google Cloud
 modified_time: '2015-08-28T23:34:31.605+07:00'
 thumbnail: https://3.bp.blogspot.com/-KJbSfLPwRLk/Vd6ypB6Zy5I/AAAAAAAACyg/BwwX8fLMNzE/s1600/Google-CloudPlatform_VerticalLockup.png
 slug: /2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html
@@ -29,20 +30,15 @@ Ho Chi Minh, Vietnam 27 August, Thursday
 
 ## Agenda
 
-
 ### 15 min Registration
-
 
 ### 10 min Welcome
 
-
 ### 45 min Firebase – Build Extraordinary Apps
-
 
 Firebase is a new member of Google Cloud Platform, but a proven tool for creating real-time experiences. Firebase is the fastest way to build your app. Come and learn how you can build applications quickly without managing complex infrastructure.
 
 ### 45 min Innovation. Not Infrastructure. An overview of Google Compute Engine (Jakarta, Bandung, Yogyakarta)
-
 
 Run large-scale workloads on virtual machines hosted on Google’s infrastructure. Choose a VM that fits your needs and gain the performance of Google’s worldwide fiber network. Come and learn about the differentiated advantages of Google Compute Engine.
 OR
@@ -54,14 +50,11 @@ In this talk I will discuss different ways of developing and operating infrastru
 
 ### 45 min Your Data and the World Beyond MapReduce
 
-
 Google’s MapReduce has been the most important innovation in the Big Data industry in last decade, which provided the technical foundation for Apache Hadoop MapReduce and other solutions. But at Google, we have moved to next generation technologies such as Dremel, Flume and MillWheel that replace the classic MapReduce infrastructure. In this session, we will introduce two products from Google Cloud Platform, BigQuery and Cloud Dataflow, that allow developers to leverage the power of the Google’s latest Big Data technologies.
 
 ### 20 min Q&A and Networking
 
-
 ## Speakers
-
 
 Kazunori Sato, Developer Advocate
 
@@ -73,7 +66,8 @@ Shinji Tanaka is the Chief Technology Officer at Hatena Co., Ltd. Hatena provide
 
 Shinji is responsible for the technology behind all of Hatena’s services from front-end to infrastructure.
 
-----------
+---
+
 Update some nice photos
 
 ![](https://2.bp.blogspot.com/-oYdogeI6h7A/VeCLqfM8jQI/AAAAAAAACy0/-jFOU1u9wg8/s1600/10271216_835570129872855_188873135837677884_o.jpg)

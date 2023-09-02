@@ -1,12 +1,12 @@
 ---
 title: Nodejs - Create simple static server with Nodejs
-date: "2015-08-09"
+date: '2015-08-09'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Tutorial
-- English
-- simple
+  - Nodejs
+  - Tutorial
+  - English
+  - simple
 modified_time: '2018-09-10T17:29:34.941+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
 slug: /2015/08/nodejs-create-simple-static-server-with.html
@@ -19,30 +19,27 @@ Vietnamese version: [https://blog.duyet.net/2015/08/tao-server-static-don-gian-b
 
 ## Installation
 
-
 ```
 $ npm install static-html-server -g
 ```
 
 ## Folder tree structure
 
-
 I created a project directory structure is as follows:
 
 - index.html
-- style.css 
+- style.css
 
-With path is: ~/project/test-static-server 
+With path is: ~/project/test-static-server
 
 ![](https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png)
 
 ## Start server
 
-
 I started server by using:
 
 ```
-$ static-html-server -p 8888 -r ~/project/test-static-server 
+$ static-html-server -p 8888 -r ~/project/test-static-server
 ```
 
 And with:
@@ -52,12 +49,11 @@ And with:
 
 Open your browser and enter to location: http://localhost:8888
 
-Result is: 
+Result is:
 
 ![](https://2.bp.blogspot.com/-FiaZHjDZeWQ/VccLGm3k_BI/AAAAAAAACtc/0qxhWNca8Bw/s1600/test-simple-server-view.png)
 
 ## Github Project
-
 
 Github repo: [https://github.com/duyet/static-html-server](https://github.com/duyet/static-html-server)
 

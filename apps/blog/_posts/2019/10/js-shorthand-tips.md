@@ -1,12 +1,12 @@
 ---
 title: Javascript Shorthands Tips
-date: "2019-10-20"
+date: '2019-10-20'
 category: Web
 tags:
-- Web
-- Javascript
+  - Web
+  - Javascript
 slug: /2019/10/js-shorthand-tips.html
-thumbnail: 
+thumbnail:
 description: These Javascript shorthand tips will make your code look more cool and clean.
 ---
 
@@ -20,12 +20,12 @@ Most of use do not known that "+" can be use for Integer typecasting. Like this 
 
 ```js
 // longhand
-let num = parseInt("69")
-let float = parseFloat("69.69")
+let num = parseInt('69')
+let float = parseFloat('69.69')
 
 // shorthand
-let num = +"69"
-let float = +"69.69"
+let num = +'69'
+let float = +'69.69'
 ```
 
 # 2. Merge array, object by Spread Operator
@@ -35,10 +35,10 @@ ES6 intro us the most powerful syntax is Spread Operator, I think. It can be use
 ```js
 const a = [1, 2, 3]
 
-// longhand 
+// longhand
 const x = [4, 5, 6].concat(b)
 
-// shorthand 
+// shorthand
 const x = [4, 5, 6, ...b]
 const y = [4, ...b, 5, 6] // you can use it anywhere inside an array
 
@@ -54,11 +54,10 @@ const aa = [...a]
 
 To return a value from a function we use the `return` keyword, but we can skip that with arrow function with a single statement.
 
-
 ```js
 // longhand
 const mul = (a, b) => {
-    return a * b
+  return a * b
 }
 
 // shorthand
@@ -76,7 +75,7 @@ const max = 1000000
 // shorthand
 const max = 1e6
 
-1e0 === 1
+1 === 1
 1e1 === 10
 1e2 === 100
 1e3 === 1000
@@ -85,37 +84,46 @@ const max = 1e6
 ```
 
 Bonus:
+
 ```js
-const max = 1_000_000  
-const num = 1_246_357  // cool, lah?
+const max = 1_000_000
+const num = 1_246_357 // cool, lah?
 ```
 
 # 5. '~': Bitwise IndexOf
 
 `~` (bitwise NOT) takes one number and inverts all bits of it.
-The usage of `~` and `indexOf` is, 
+The usage of `~` and `indexOf` is,
 
 ```js
 // longhand
-if (arr.indexOf(item) > -1) { /* Confirm item IS found */ }
-if (arr.indexOf(item) === -1) { /* Confirm item IS NOT found */ }
+if (arr.indexOf(item) > -1) {
+  /* Confirm item IS found */
+}
+if (arr.indexOf(item) === -1) {
+  /* Confirm item IS NOT found */
+}
 
 // shorthand
-if (~arr.indexOf(item)) { /* Confirm item IS found */ }
-if (!~arr.indexOf(item)) { /* Confirm item IS NOT found */ }
+if (~arr.indexOf(item)) {
+  /* Confirm item IS found */
+}
+if (!~arr.indexOf(item)) {
+  /* Confirm item IS NOT found */
+}
 ```
 
 You can use it as a replacement for `Math.floor()`
 
 ```js
 // longhand
-Math.floor(4.9) === 4  // true
+Math.floor(4.9) === 4 // true
 
 // shorthand
-~~4.9 === 4  //true
+~~4.9 === 4 //true
 ```
 
-# 6. Object Property Value 
+# 6. Object Property Value
 
 If you want to define an object who's keys have the same name as variables pass-in as properties, try this tip.
 
@@ -125,16 +133,16 @@ const dog = 'Woof'
 
 // longhand
 const obj = {
-    cat: cat,
-    dog: dog,
-    bird: 'Peet'
+  cat: cat,
+  dog: dog,
+  bird: 'Peet',
 }
 
 // shorthand
 const obj = {
-    cat,
-    dog,
-    bird: 'Peet'
+  cat,
+  dog,
+  bird: 'Peet',
 }
 ```
 
@@ -145,7 +153,7 @@ source: https://alligator.io/js/object-property-shorthand-es6/
 Aren't you tired of using `+` to concatenate multiple variables into a string?
 
 ```js
-// longhand 
+// longhand
 const url = 'http://' + host + ':' + port + '/' category + '?' + params
 
 // shorthand
@@ -156,9 +164,10 @@ Writing multi-line strings in code, just use the backticks
 
 ```js
 // longhand
-const long_text = 'Lorem ipsum dolor sit amet, consectetur'
-    + 'adipisicing elit, sed do eiusmod tempor incididunt'
-    + 'ut labore et dolore magna aliqua. Ut enim ad minim'
+const long_text =
+  'Lorem ipsum dolor sit amet, consectetur' +
+  'adipisicing elit, sed do eiusmod tempor incididunt' +
+  'ut labore et dolore magna aliqua. Ut enim ad minim'
 
 // shorthand
 const long_text = `Lorem ipsum dolor sit amet, consectetur
@@ -172,12 +181,12 @@ Like python
 
 ```js
 // longhand
-Math.pow(2,3) // 2^3 = 8
+Math.pow(2, 3) // 2^3 = 8
 
-// shorthand 
-2**3 // 2^3 = 8
+// shorthand
+2 ** 3 // 2^3 = 8
 ```
 
-----
+---
 
 Thanks for reading, happy coding <3

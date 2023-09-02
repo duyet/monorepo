@@ -1,11 +1,11 @@
 ---
-title: " JavaScript Weekly #1"
-date: "2016-05-20"
+title: ' JavaScript Weekly #1'
+date: '2016-05-20'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Javascript
-- Javascript-Weekly
+  - Nodejs
+  - Javascript
+  - Javascript-Weekly
 modified_time: '2016-05-20T22:11:49.259+07:00'
 thumbnail: https://3.bp.blogspot.com/--MqDil9Xkos/Vz8jBgnbr-I/AAAAAAAAViI/2carPWBy2bEwuqHYyinS1nz0tWur3vHlgCK4B/s1600/clickable-markers.png
 slug: /2016/05/javascript-weekly-1.html
@@ -53,6 +53,7 @@ Từ học cách xây dựng Extension quản lý bookmark cho Google Chrome, s�
 HARSHAD RJ AND JIM SPROCH
 Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.
 
------------------------
+---
+
 Saveto: [http://saveto.co/t/js-weekly-1](http://saveto.co/t/js-weekly-1)
 Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascript-weekly](http://saveto.co/javascript-weekly)

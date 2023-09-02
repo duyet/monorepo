@@ -4,17 +4,16 @@ date: '2023-01-10'
 author: Van-Duyet Le
 category: Data
 tags:
-- Data
-- Data Engineer
-- ClickHouse
+  - Data
+  - Data Engineer
+  - ClickHouse
 slug: /2023/01/clickhouse.html
 thumbnail: https://i.imgur.com/UhphBkE.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F01%2Fclickhouse.html
 description: Recently, I was working on building a new Logs dashboard at Fossil to serve our internal team for log retrieval, and I found ClickHouse to be a very interesting and fast engine for this purpose. In this post, I'll share my experience with using ClickHouse as the foundation of a light-weight data platform and how it compares to another popular choice, Athena. We'll also explore how ClickHouse can be integrated with other tools such as Kafka to create a robust and efficient data pipeline.
-
 ---
 
-Are you looking for a fast and simple database management system for your data platform stack? 
+Are you looking for a fast and simple database management system for your data platform stack?
 
 Recently, I was working on building a new Logs dashboard at Fossil to serve our internal team for log retrieval, and I found ClickHouse to be a very interesting and fast engine for this purpose. In this post, I'll share my experience with using ClickHouse as the foundation of a light-weight data platform and how it compares to another popular choice, Athena. We'll also explore how ClickHouse can be integrated with other tools such as Kafka to create a robust and efficient data pipeline.
 
@@ -61,7 +60,7 @@ SETTINGS
 	kafka_format = 'JSONEachRow';
 ```
 
-To store the events data from Kafka to ClickHouse, I create a table using MergeTree table engine. The table has three columns: an `event_time` column of type **[DateTime](https://clickhouse.com/docs/en/sql-reference/data-types/datetime)**, an `event_id` column of type **[String](https://clickhouse.com/docs/en/sql-reference/data-types/string)**, and a `data` column of type **[String](https://clickhouse.com/docs/en/sql-reference/data-types/string)**. 
+To store the events data from Kafka to ClickHouse, I create a table using MergeTree table engine. The table has three columns: an `event_time` column of type **[DateTime](https://clickhouse.com/docs/en/sql-reference/data-types/datetime)**, an `event_id` column of type **[String](https://clickhouse.com/docs/en/sql-reference/data-types/string)**, and a `data` column of type **[String](https://clickhouse.com/docs/en/sql-reference/data-types/string)**.
 
 ```sql
 CREATE TABLE raw_events (
@@ -101,7 +100,7 @@ You can also use the `GROUP BY` clause to group the data by particular columns.
 ```sql
 SELECT page_id, COUNT(*) AS page_views
 FROM raw_events
-WHERE 
+WHERE
 	event_time > '2020-01-01'
 	AND event_name = 'pageview'
 GROUP BY page_id
@@ -164,8 +163,8 @@ You can follow the detailed official document here to integrate Kafka with Click
 
 # RelicatedMergeTree Engine and Distributed table engine
 
-ClickHouse also makes use of two other advanced features to improve its scalability and performance: the [`RelicatedMergeTree`](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/) engine and 
-the [`Distributed`](https://clickhouse.com/docs/en/engines/table-engines/special/distributed/) table engine. The `RelicatedMergeTree` engine is a distributed version of the MergeTree engine that allows for data to be stored in multiple clusters. 
+ClickHouse also makes use of two other advanced features to improve its scalability and performance: the [`RelicatedMergeTree`](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/) engine and
+the [`Distributed`](https://clickhouse.com/docs/en/engines/table-engines/special/distributed/) table engine. The `RelicatedMergeTree` engine is a distributed version of the MergeTree engine that allows for data to be stored in multiple clusters.
 This allows for increased scalability and performance, making it perfect for large datasets. On the other hand, the Distributed table engine allows for data to be stored in multiple tables, making it easier to manage and query large datasets.
 
 ![](/media/2023/01/data_platform_clickhouse_replicated.png)
@@ -183,4 +182,3 @@ I hope this helps. Was this a good idea? Please let me know.
 - [Kafka Integration](https://clickhouse.tech/docs/en/operations/table_engines/kafka/)
 - [RelicatedMergeTree Engine](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replication/)
 - [Distributed Table Engine](https://clickhouse.tech/docs/en/engines/table-engines/special/distributed/)
-

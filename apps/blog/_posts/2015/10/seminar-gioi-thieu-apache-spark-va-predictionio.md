@@ -1,11 +1,11 @@
 ---
 title: Seminar - Giới thiệu Apache Spark và PredictionIO
-date: "2015-10-26"
+date: '2015-10-26'
 author: Van-Duyet Le
 tags:
-- Apache Spark
-- Seminar
-- PredictionIO
+  - Apache Spark
+  - Seminar
+  - PredictionIO
 modified_time: '2018-09-10T17:28:53.401+07:00'
 thumbnail: https://4.bp.blogspot.com/-3b5RnHFJ-BY/Vi4vs2h_POI/AAAAAAAAFLo/oBzbFHmhIGs/s1600/12087179_910280965688222_3487820241091688604_o.jpg
 slug: /2015/10/seminar-gioi-thieu-apache-spark-va-predictionio.html
@@ -27,4 +27,4 @@ Còn đây là slide cho mọi người tham khảo:
 - MR-Hadoop-Spark: [https://mega.nz/#!q5pjhDaR](https://mega.nz/#!q5pjhDaR)
 - Intro PredictionIO: [https://talk.duyet.net/prediction.io-intro](https://talk.duyet.net/prediction.io-intro)
 
->> isc-team: [http://blog.isc-team.xyz/siminar-apache-spark-va-pridictionio/](http://blog.isc-team.xyz/siminar-apache-spark-va-pridictionio/)
+> > isc-team: [http://blog.isc-team.xyz/siminar-apache-spark-va-pridictionio/](http://blog.isc-team.xyz/siminar-apache-spark-va-pridictionio/)

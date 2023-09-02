@@ -1,6 +1,6 @@
 ---
-title: Spark on Kubernetes - better handling for node shutdown 
-date: "2021-11-22"
+title: Spark on Kubernetes - better handling for node shutdown
+date: '2021-11-22'
 author: Van-Duyet Le
 category: Data
 tags:
@@ -14,7 +14,6 @@ hackerNewsCommentUrl: https://news.ycombinator.com/item?id=29974675
 description: >
   Spark 3.1 on the Kubernetes project is now officially declared as production-ready and Generally Available. Spot instances in Kubernetes can cut your bill by up to 70-80% if you are willing to trade in reliability.
   The new feature - SPIP: Add better handling for node shutdown (SPARK-20624) was implemented to deal with the problem of losing an executor when working with spot nodes - the need to recompute the shuffle or cached data.
-
 ---
 
 # Nodes Decommissioning
@@ -36,7 +35,6 @@ When a node kill occurs, the executor on the spot which is going away is blackli
 Shuffle files and cached data are migrated to another executor. We can also config the `spark.storage.decommission.fallbackStorage.path=s3a://duyet/spark-storage/` to S3 during block manager decommissioning. The storage should be managed by TTL or using `spark.storage.decommission.fallbackStorage.cleanUp=true` to clean up its fallback storage data during shutting down.
 
 ![Spark Nodes Decommissioning](/media/2021/11/spark-spot-node-shutdown.png)
-
 
 # How to enable this?
 

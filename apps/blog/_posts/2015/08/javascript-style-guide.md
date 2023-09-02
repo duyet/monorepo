@@ -1,22 +1,20 @@
 ---
 title: JavaScript Style Guide
-date: "2015-08-01"
+date: '2015-08-01'
 author: Van-Duyet Le
 tags:
-- style guide
-- Javascript
+  - style guide
+  - Javascript
 modified_time: '2015-08-01T10:25:33.996+07:00'
 slug: /2015/08/javascript-style-guide.html
 category: Javascript
 description: A mostly reasonable approach to JavaScript.
-
 ---
 
 A mostly reasonable approach to JavaScript.
 See full: [https://github.com/duyet/javascript](https://github.com/duyet/javascript)
 
 ## Table of Contents
-
 
 1. [Types](#types)
 2. [Objects](#objects)
@@ -51,7 +49,6 @@ See full: [https://github.com/duyet/javascript](https://github.com/duyet/javascr
 31. [License](#license)
 
 ## Types
-
 
 - Primitives: When you access a primitive type you work directly on its value.
 
@@ -88,7 +85,6 @@ console.log(foo[0], bar[0]); // => 9, 9
 [⬆ back to top](#table-of-contents)
 
 ## Objects
-
 
 - Use the literal syntax for object creation.
 
@@ -138,7 +134,6 @@ var superman = {
 [⬆ back to top](#table-of-contents)
 
 ## Arrays
-
 
 - Use the literal syntax for array creation.
 
@@ -190,7 +185,6 @@ var args =Array.prototype.slice.call(arguments);
 [⬆ back to top](#table-of-contents)
 
 ## Strings
-
 
 - Use single quotes `''` for strings.
 
@@ -275,7 +269,6 @@ return'<ul>'+ items.join('') +'</ul>';
 
 ## Functions
 
-
 - Function expressions:
 
 ```
@@ -295,7 +288,7 @@ console.log('Welcome to the Internet. Please follow me.');
 })();
 ```
 
-- Never declare a function in a non-function block (if, while,  etc). Assign the function to a variable instead. Browsers will allow you  to do it, but they all interpret it differently, which is bad news  bears.
+- Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
 - Note: ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement. [Read ECMA-262's note on this issue](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97).
 
 ```
@@ -333,7 +326,6 @@ functionyup(name, options, args) {
 
 ## Properties
 
-
 - Use dot notation when accessing properties.
 
 ```
@@ -368,8 +360,7 @@ var isJedi = getProp('jedi');
 
 ## Variables
 
-
-- Always use `var` to declare variables. Not doing so  will result in global variables. We want to avoid polluting the global  namespace. Captain Planet warned us of that.
+- Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that.
 
 ```
 // bad
@@ -399,7 +390,7 @@ var goSportsTeam =true;
 var dragonball ='z';
 ```
 
-- Declare unassigned variables last. This is helpful when later on  you might need to assign a variable depending on one of the previous  assigned variables.
+- Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
 
 ```
 // bad
@@ -422,7 +413,7 @@ var length;
 var i;
 ```
 
-- Assign variables at the top of their scope. This helps avoid  issues with variable declaration and assignment hoisting related issues.
+- Assign variables at the top of their scope. This helps avoid issues with variable declaration and assignment hoisting related issues.
 
 ```
 // bad
@@ -483,7 +474,6 @@ returntrue;
 [⬆ back to top](#table-of-contents)
 
 ## Hoisting
-
 
 - Variable declarations get hoisted to the top of their scope, but their assignment does not.
 
@@ -573,7 +563,6 @@ console.log('Flying');
 
 ## Comparison Operators & Equality
 
-
 - Use `===` and `!==` over `==` and `!=`.
 - Comparison operators are evaluated using coercion with the `ToBoolean` method and always follow these simple rules:
 
@@ -620,7 +609,6 @@ if (collection.length) {
 [⬆ back to top](#table-of-contents)
 
 ## Blocks
-
 
 - Use braces with all multi-line blocks.
 
@@ -671,7 +659,6 @@ if (test) {
 
 ## Comments
 
-
 - Use `/** ... */` for multi-line comments. Include a description, specify types and values for all parameters and return values.
 
 ```
@@ -704,7 +691,7 @@ return element;
 }
 ```
 
-- Use `//` for single line comments. Place single line  comments on a newline above the subject of the comment. Put an empty  line before the comment.
+- Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment.
 
 ```
 // bad
@@ -734,7 +721,7 @@ return type;
 }
 ```
 
-- Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a  problem that needs to be revisited, or if you're suggesting a solution  to the problem that needs to be implemented. These are different than  regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
+- Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
 - Use `// FIXME:` to annotate problems.
 
 ```
@@ -762,7 +749,6 @@ returnthis;
 [⬆ back to top](#table-of-contents)
 
 ## Whitespace
-
 
 - Use soft tabs set to 2 spaces.
 
@@ -947,7 +933,6 @@ return obj;
 
 ## Commas
 
-
 - Leading commas: Nope.
 
 ```
@@ -982,9 +967,9 @@ var hero = {
 };
 ```
 
-- Additional trailing comma: Nope. This can cause  problems with IE6/7 and IE9 if it's in quirksmode. Also, in some  implementations of ES3 would add length to an array if it had an  additional trailing comma. This was clarified in ES5 ([source](http://es5.github.io/#D)):
+- Additional trailing comma: Nope. This can cause problems with IE6/7 and IE9 if it's in quirksmode. Also, in some implementations of ES3 would add length to an array if it had an additional trailing comma. This was clarified in ES5 ([source](http://es5.github.io/#D)):
 
-> Edition 5 clarifies the fact that a trailing comma at the end of an  ArrayInitialiser does not add to the length of the array. This is not a  semantic change from Edition 3 but some implementations may have  previously misinterpreted this.
+> Edition 5 clarifies the fact that a trailing comma at the end of an ArrayInitialiser does not add to the length of the array. This is not a semantic change from Edition 3 but some implementations may have previously misinterpreted this.
 
 ```
 // bad
@@ -1014,7 +999,6 @@ var heroes = [
 
 ## Semicolons
 
-
 - Yup.
 
 ```
@@ -1042,7 +1026,6 @@ return name;
 [⬆ back to top](#table-of-contents)
 
 ## Type Casting & Coercion
-
 
 - Perform type coercion at the beginning of the statement.
 - Strings:
@@ -1125,7 +1108,6 @@ var hasAge =!!age;
 [⬆ back to top](#table-of-contents)
 
 ## Naming Conventions
-
 
 - Avoid single letter names. Be descriptive with your naming.
 
@@ -1235,7 +1217,7 @@ console.log(msg);
 };
 ```
 
-- Note: IE8 and below exhibit some quirks with named function expressions.  See [http://kangax.github.io/nfe/](http://kangax.github.io/nfe/) for more info.
+- Note: IE8 and below exhibit some quirks with named function expressions. See [http://kangax.github.io/nfe/](http://kangax.github.io/nfe/) for more info.
 - If your file exports a single class, your filename should be exactly the name of the class.
 
 ```
@@ -1259,7 +1241,6 @@ var CheckBox =require('./CheckBox');
 [⬆ back to top](#table-of-contents)
 
 ## Accessors
-
 
 - Accessor functions for properties are not required.
 - If you do make accessor functions use getVal() and setVal('hello').
@@ -1314,8 +1295,7 @@ returnthis[key];
 
 ## Constructors
 
-
-- Assign methods to the prototype object, instead of overwriting  the prototype with a new object. Overwriting the prototype makes  inheritance impossible: by resetting the prototype you'll overwrite the  base!
+- Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
 
 ```
 functionJedi() {
@@ -1398,8 +1378,7 @@ return'Jedi - '+this.getName();
 
 ## Events
 
-
-- When attaching data payloads to events (whether DOM events or  something more proprietary like Backbone events), pass a hash instead of  a raw value. This allows a subsequent contributor to add more data to  the event payload without finding and updating every handler for the  event. For example, instead of:
+- When attaching data payloads to events (whether DOM events or something more proprietary like Backbone events), pass a hash instead of a raw value. This allows a subsequent contributor to add more data to the event payload without finding and updating every handler for the event. For example, instead of:
 
 ```
 // bad
@@ -1429,8 +1408,7 @@ $(this).on('listingUpdated', function(e, data) {
 
 ## Modules
 
-
-- The module should start with a `!`. This ensures that if a  malformed module forgets to include a final semicolon there aren't  errors in production when the scripts get concatenated. [Explanation](https://github.com/airbnb/javascript/issues/44#issuecomment-13063933)
+- The module should start with a `!`. This ensures that if a malformed module forgets to include a final semicolon there aren't errors in production when the scripts get concatenated. [Explanation](https://github.com/airbnb/javascript/issues/44#issuecomment-13063933)
 - The file should be named with camelCase, live in a folder with the same name, and match the name of the single export.
 - Add a method called `noConflict()` that sets the exported module to the previous version and returns this one.
 - Always declare `'use strict';` at the top of the module.
@@ -1459,7 +1437,6 @@ global.FancyInput = FancyInput;
 [⬆ back to top](#table-of-contents)
 
 ## jQuery
-
 
 - Prefix jQuery object variables with a `$`.
 
@@ -1522,13 +1499,11 @@ $sidebar.find('ul').hide();
 
 ## ECMAScript 5 Compatibility
 
-
 - Refer to [Kangax](https://twitter.com/kangax/)'s ES5 [compatibility table](http://kangax.github.com/es5-compat-table/).
 
 [⬆ back to top](#table-of-contents)
 
 ## Testing
-
 
 - Yup.
 
@@ -1541,7 +1516,6 @@ returntrue;
 [⬆ back to top](#table-of-contents)
 
 ## Performance
-
 
 - [On Layout & Web Performance](http://kellegous.com/j/2013/01/26/layout-performance/)
 - [String vs Array Concat](http://jsperf.com/string-vs-array-concat/2)
@@ -1562,7 +1536,7 @@ Read This
 
 Tools
 
-- Code Style Linters  
+- Code Style Linters
 - [JSHint](http://www.jshint.com/) - [Airbnb Style .jshintrc](https://github.com/airbnb/javascript/blob/master/linters/jshintrc)
 - [JSCS](https://github.com/jscs-dev/node-jscs) - [Airbnb Style Preset](https://github.com/jscs-dev/node-jscs/blob/master/presets/airbnb.json)
 
@@ -1592,7 +1566,7 @@ Books
 
 - [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742) - Douglas Crockford
 - [JavaScript Patterns](http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752) - Stoyan Stefanov
-- [Pro JavaScript Design Patterns](http://www.amazon.com/JavaScript-Design-Patterns-Recipes-Problem-Solution/dp/159059908X)  - Ross Harmes and Dustin Diaz
+- [Pro JavaScript Design Patterns](http://www.amazon.com/JavaScript-Design-Patterns-Recipes-Problem-Solution/dp/159059908X) - Ross Harmes and Dustin Diaz
 - [High Performance Web Sites: Essential Knowledge for Front-End Engineers](http://www.amazon.com/High-Performance-Web-Sites-Essential/dp/0596529309) - Steve Souders
 - [Maintainable JavaScript](http://www.amazon.com/Maintainable-JavaScript-Nicholas-C-Zakas/dp/1449327680) - Nicholas C. Zakas
 - [JavaScript Web Applications](http://www.amazon.com/JavaScript-Web-Applications-Alex-MacCaw/dp/144930351X) - Alex MacCaw

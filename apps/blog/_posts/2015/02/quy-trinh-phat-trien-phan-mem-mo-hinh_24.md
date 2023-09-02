@@ -1,18 +1,17 @@
 ---
 title: Quy trình phát triển phần mềm - mô hình xoắn ốc (The Boehm's spiral model)
-date: "2015-02-24"
+date: '2015-02-24'
 author: Van-Duyet Le
 tags:
-- Phát triển phần mềm
-- Developer
-- Xoắn ốc
-- Mô hình
+  - Phát triển phần mềm
+  - Developer
+  - Xoắn ốc
+  - Mô hình
 modified_time: '2015-03-15T23:09:41.232+07:00'
 thumbnail: https://1.bp.blogspot.com/-p_03hnTUKIE/VOttDHeLpDI/AAAAAAAACKU/8Y1yU-4I8Eg/s1600/33349.png
 slug: /2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh_24.html
 category: News
 description: Mô hình xoắn ốc có thể được xem là sự kết hợp giữa mô hình thác nước và mô hình mẫu và đồng thời thêm một thành phần mới - phân tích rủi ro.
-
 ---
 
 Mô hình xoắn ốc có thể được xem là sự kết hợp giữa mô hình thác nước và mô hình mẫu và đồng thời thêm một thành phần mới - phân tích rủi ro.
@@ -28,7 +27,6 @@ Trong mô hình xoắn ốc, quy trình phát triển phần mềm được bi�
 
 ## Mô hình xoắn ốc cải tiến
 
-
 Mô hình xoáy ốc là cải tiến của mô hình tuần tự và mẫu thử, them vào phân tích rủi ro. Là quá trình lặp hướng mở rộng, hoàn thiện dần.
 
 - Lập kế hoạch: xác lập vấn đề, tài nguyên, thời hạn
@@ -36,14 +34,12 @@ Mô hình xoáy ốc là cải tiến của mô hình tuần tự và mẫu th�
 - Kỹ nghệ: phát triển một phiên bản của phần mềm( chọn mô hình thích hợp)
 - Đánh giá của khách: khách hang đánh giá phiên bản phát triển.
 
-## Nhận xét 
-
+## Nhận xét
 
 - Sau mỗi lần tăng vòng thì có thể chuyển giao kết quả thực hiện được cho khách hành nên các chức năng của hệ thống có thể nhìn thấy sớm hơn.
 - Các vòng trước đóng vai trò là mẫu thử để giúp tìm hiểu thêm các yêu cầu ở những vòng tiếp theo.
 
 ## Ưu điểm
-
 
 - Phân tích rủi ro dự án được đầy lên làm một phần thiết yếu trong quy trình xoắn ốc để tăng độ tin cậy của dự án
 - Xây dựng dự án có sự kết hợp các mô hình khác vào phát triển (Thác nứơc, mô hình mẫu…)
@@ -55,7 +51,6 @@ Mô hình xoáy ốc là cải tiến của mô hình tuần tự và mẫu th�
 - Đánh giá tri phí chính xác hơn các phương pháp khác
 
 ## Nhược điểm:
-
 
 - Phức tạp và không thích hợp với các dự án nhỏ và ít rủi ro.
 - Cần có kỹ năng tốt về phân tích rủi ro.

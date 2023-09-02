@@ -1,10 +1,10 @@
 ---
 title: Clipboard.js - thư viện giúp cắt/sao chép nội dung trên web một cách dễ dàng.
-date: "2015-10-30"
+date: '2015-10-30'
 author: Van-Duyet Le
 tags:
-- clipboard.js
-- Javascript
+  - clipboard.js
+  - Javascript
 modified_time: '2016-01-11T02:05:25.683+07:00'
 thumbnail: https://3.bp.blogspot.com/-nogpFtDX4JE/VjNskDinauI/AAAAAAAAFfk/ciSSYDvmaKs/s1600/5ab0a950-5fb4-11e5-9602-e73c0b661883.jpg
 slug: /2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html
@@ -47,13 +47,12 @@ Thêm thư viện vào trang web bằng thẻ script
 
 <!-- 3. Instantiate clipboard by passing a HTML element -->
 <script>
-    var btn = document.getElementById('btn');
-    var clipboard = new Clipboard(btn);
+  var btn = document.getElementById('btn')
+  var clipboard = new Clipboard(btn)
 </script>
 ```
 
 ### Copy nội dung trong trang từ một element khác
-
 
 ![](https://4.bp.blogspot.com/-FCE1AssAJA8/VjNuQuomESI/AAAAAAAAFfs/4kIq61sAw98/s1600/7df57b9c-6050-11e5-9cd1-fbc51d2fd0a7.png)
 
@@ -63,19 +62,21 @@ Thêm thư viện vào trang web bằng thẻ script
 
 <!-- Trigger -->
 <button class="btn" data-clipboard-action="cut" data-clipboard-target="#bar">
-    Cut to clipboard
+  Cut to clipboard
 </button>
 ```
 
 ### Copy nội dung từ thuộc tính
 
-
 ![](https://4.bp.blogspot.com/-MLe6ox0NNlw/VjNuj-y-ovI/AAAAAAAAFf0/kw3VM0U1taY/s1600/6e16cf8c-6050-11e5-9883-1c5681f9ec45.png)
 
 ```html
 <!-- Trigger -->
-<button class="btn" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
-    Copy to clipboard
+<button
+  class="btn"
+  data-clipboard-text="Just because you can doesn't mean you should — clipboard.js"
+>
+  Copy to clipboard
 </button>
 ```
 

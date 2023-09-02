@@ -1,6 +1,6 @@
 ---
-title: "Rust: Format Strings in 1.58"
-date: "2022-01-18"
+title: 'Rust: Format Strings in 1.58'
+date: '2022-01-18'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -12,7 +12,6 @@ slug: /2022/01/rust-format-strings-1.58.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F01%2Frust-turbofish.html
 thumbnail: https://i.imgur.com/OrkBRwV.png
 description: Bản cập nhật `Rust 1.58.0` vừa bổ sung một số tính năng mình thấy khá hay về format string.
-
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
@@ -119,6 +118,7 @@ println!("center aligned: hello{x:-^7}!");
 // left aligned: helloworld--!
 // center aligned: hello-world-!
 ```
+
 Để escape dấu ngoặc
 
 ```rust
@@ -127,7 +127,6 @@ println!("Sometimes I need to print {{ or }} too!")
 ```
 
 ## References
-
 
 - [Format Strings in Rust 1.58](https://www.rustnote.com/blog/format_strings.html#format-strings-in-rust-158)
 - [Announcing Rust 1.58.0](https://www.rustnote.com/blog/format_strings.html)

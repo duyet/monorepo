@@ -1,10 +1,10 @@
 ---
 title: Github Project - Feedback Social Platform
-date: "2015-08-09"
+date: '2015-08-09'
 author: Van-Duyet Le
 tags:
-- Github
-- project
+  - Github
+  - project
 modified_time: '2018-09-10T17:30:29.064+07:00'
 slug: /2015/08/github-project-feedback-social-platform.html
 category: Project

@@ -1,11 +1,11 @@
 ---
 title: Year In Review [2015]
-date: "2015-12-31"
+date: '2015-12-31'
 author: Van-Duyet Le
 tags:
-- Review in year
-- Year In Review [2015]
-- year in review
+  - Review in year
+  - Year In Review [2015]
+  - year in review
 modified_time: '2016-01-11T01:59:09.345+07:00'
 thumbnail: https://4.bp.blogspot.com/-fLXS7P-nN0U/VoVg5qgEvcI/AAAAAAAANpQ/y3PC7LaWdj4/s1600/2016-Season_trailerstill.gif
 slug: /2015/12/year-in-review-2015.html
@@ -29,8 +29,8 @@ Cuối cùng mục tiêu trong năm tiếp theo là hoàn thành mục tiêu nă
 - Khởi nghiệp, hoặc đầu quân cho 1 công ty product. Bước ra biển lớn mới thấy được sức mình thế nào.
 - Cho ra nhiều sản phẩm project mới, nghiên cứu chuyên sâu vào công nghệ JS.
 - Tự tin hơn. Rất rất nhiều lần mình bỏ qua các cơ hội do chưa tự tin vào năng lực bản thân.
-- Học nhiều hơn, biết nhiều hơn, chuyên sâu hơn. 
+- Học nhiều hơn, biết nhiều hơn, chuyên sâu hơn.
 - Tiền bạc và các mối quan hệ vẫn sẽ là kim chỉ nam.
 - Chắc chắn phải học lại tiếng Anh và có một cái bằng lọng lưng
 
-Chúc mọi người năm mới nhiều niềm vui, Try hard and Happy new year!! 
+Chúc mọi người năm mới nhiều niềm vui, Try hard and Happy new year!!

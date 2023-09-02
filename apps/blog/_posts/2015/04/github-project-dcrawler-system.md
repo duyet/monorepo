@@ -38,11 +38,9 @@ Current features:
 
 ## Usage
 
-
 Make sure your Nodejs and MongoDb are installed.
 
 ### To install:
-
 
 1. Clone the script from Github
 
@@ -58,7 +56,6 @@ npm install
 ```
 
 ### Config your spider
-
 
 Config your spider, the sample spider is located at modules/tinhte.js
 
@@ -76,8 +73,7 @@ node multithread
 
 ### To view your data
 
-
-Using [https://github.com/lvduit/mongo-express](https://github.com/lvduit/mongo-express) for GUI MongoDb Data view.  
+Using [https://github.com/lvduit/mongo-express](https://github.com/lvduit/mongo-express) for GUI MongoDb Data view.
 
 ## License
 

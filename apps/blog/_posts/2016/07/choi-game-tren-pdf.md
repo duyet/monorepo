@@ -1,19 +1,18 @@
 ---
 title: Chơi game trên PDF
-date: "2016-07-05"
+date: '2016-07-05'
 author: Van-Duyet Le
 tags:
-- Tutorial
-- sharing
-- Tutorials
-- Game trên PDF
-- PDF
+  - Tutorial
+  - sharing
+  - Tutorials
+  - Game trên PDF
+  - PDF
 modified_time: '2016-07-05T22:42:37.881+07:00'
 thumbnail: https://4.bp.blogspot.com/-Qc0UVC6wcGE/V3vVVdVR0tI/AAAAAAAAZLg/xGTOIwQY4RM11dliMo5bGa4kvMiOxw4twCK4B/s1600/game-pdf-duyetdev.png
 slug: /2016/07/choi-game-tren-pdf.html
 category: News
 description: Cái này nghe mới lạ, nhưng có thật.
-
 ---
 
 Cái này nghe mới lạ, nhưng có thật.

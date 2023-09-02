@@ -1,11 +1,11 @@
 ---
 title: Sách hay (Engineer)
-date: "2019-09-17"
+date: '2019-09-17'
 category: Data Engineer
 tags:
-- Data
-- Data Engineer
-- Books
+  - Data
+  - Data Engineer
+  - Books
 slug: /2019/09/books.html
 thumbnail: https://3.bp.blogspot.com/-hF3wjpoCCl8/XYEW1Gv7dJI/AAAAAAABHQw/6EbIEEGnJVUYDS0TsGQ0R7Dk7G-q2vSxwCK4BGAYYCw/s640/IMG_20170623_205832_047.jpg
 description: Ghi lại mấy cuốn sách hay (Engineering) đã đọc qua.

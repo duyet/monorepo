@@ -1,17 +1,16 @@
 ---
 title: PHP - Tổng quan về Web và thiết lập môi trường để lập trình PHP
-date: "2015-04-16"
+date: '2015-04-16'
 author: Van-Duyet Le
 tags:
-- Training
-- PHP
-- Courses
+  - Training
+  - PHP
+  - Courses
 modified_time: '2015-04-18T20:57:32.802+07:00'
 thumbnail: https://4.bp.blogspot.com/-QxU1LVBUcsA/VS6XNXt1ozI/AAAAAAAACRk/Og_wF5j7WDM/s1600/mohinh01.jpg
 slug: /2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap.html
 category: PHP
 description: Hơn 70% website hiện tại trên thế giới phát triển trên nền ngôn ngữ PHP là minh chứng cụ thể cho thấy đây là một ngôn ngữ mạnh mẽ, phổ biến, dễ sử dụng để phát triển Web trong thời điểm hiện tại. Có thể kể đến một số website hiện tại đang sử dụng PHP là ngôn ngữ nền tảng như Facebook, Wikipedia, Yahoo, Photobucket,…
-
 ---
 
 Hơn 70% website hiện tại trên thế giới phát triển trên nền ngôn ngữ PHP là minh chứng cụ thể cho thấy đây là một ngôn ngữ mạnh mẽ, phổ biến, dễ sử dụng để phát triển Web trong thời điểm hiện tại. Có thể kể đến một số website hiện tại đang sử dụng PHP là ngôn ngữ nền tảng như Facebook, Wikipedia, Yahoo, Photobucket,…
@@ -30,7 +29,6 @@ Trong đó:
 
 ### Quy trình hoạt động
 
-
 1. Người duyệt xem web truy cập vào trang http://uit.edu.vn
 2. Hệ thống DNS sẽ xác định IP của UIT là 118.69.123.137
 3. Yêu cầu Request của máy Web Client sẽ chuyển đến máy Web Server có địa chỉ IP 118.69.123.137.
@@ -48,7 +46,6 @@ Sau đây là các khái niệm cơ bản:
 
 ## PHP là gì?
 
-
 - PHP viết tắt của Hypertext Preprocessor.
 - PHP không ăn được :))
 - Cú pháp PHP có nhiều điểm tương đồng với C/C++
@@ -58,13 +55,11 @@ Sau đây là các khái niệm cơ bản:
 
 ## HTML là gì?
 
-
 - HTML là viết tắt của cụm từ Hypertext Markup Language (Hiểu nghĩa là "Ngôn ngữ đánh dấu siêu văn bản bằng thẻ").
 - HTML không phải là một ngôn ngữ lập trình máy tính mà nó là một ngôn ngữ sử dụng các thẻ html để biểu diễn các trang web.
 - ISC Courses cũng có 1 lớp Static Web, các bạn chú ý theo học song song nhé. Để biết thêm HTML là gì thì bấm Ctrl + U :))
 
 ## Để học PHP cần những gì?
-
 
 - Một chiếc máy tính.
 - Một trình duyệt web.
@@ -74,15 +69,13 @@ Sau đây là các khái niệm cơ bản:
 
 ## Cách cài đặt Web Server trên máy Localhost
 
-
-Một Web Server được cấu thành từ hiều thứ như Apache, PHP, MySQL, …. được cài đặt trên Server. 
+Một Web Server được cấu thành từ hiều thứ như Apache, PHP, MySQL, …. được cài đặt trên Server.
 
 Để thuận tiện học thiết kế web, chúng ta cài đặt máy tính của mình chương trình web server để máy tính của mình trở thành một localhost nhằm upload các website và xem các trang web. Sau đây mình sẽ hướng dẫn sử dụng bộ công cụ XAMPP để tạo 1 localhost.
 
 ## Cài đặt XAMPP trên Windows
 
-
-Do đa số mọi người sử dụng Window, còn ai sử dụng Linux thì các bạn contacts mình hoặc đợi  bài hướng dẫn chi tiết sau nha. 
+Do đa số mọi người sử dụng Window, còn ai sử dụng Linux thì các bạn contacts mình hoặc đợi bài hướng dẫn chi tiết sau nha.
 
 XAMPP là 1 bộ cài sẵn PHP + Apache + MySQL + Perl, chỉ cần cài XAMPP vào là đã có ngay 1 Web Server để học PHP.
 
@@ -102,7 +95,7 @@ Tải về, sau đó chạy file cài đặt để cài XAMPP, cứ Next, Next, 
 
 ![](https://3.bp.blogspot.com/-dwjRQ3TFgPM/VS6Yac-eg0I/AAAAAAAACSI/AhSg7-Vx8jE/s1600/XAMPP_5.png)
 
-Chờ cho nó load xong. Vậy  là ta đã có 1 Web Server, bật Server lên nào. Đầu tiên chạy Xampp Control Panel. Đây là bảng điều khiển để bật các dịch vụ, chúng ta cần chạy Apache, sau này sẽ cần thêm MySQL nữa.
+Chờ cho nó load xong. Vậy là ta đã có 1 Web Server, bật Server lên nào. Đầu tiên chạy Xampp Control Panel. Đây là bảng điều khiển để bật các dịch vụ, chúng ta cần chạy Apache, sau này sẽ cần thêm MySQL nữa.
 
 Nhấn Start để chạy Localhost
 

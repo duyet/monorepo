@@ -1,11 +1,11 @@
 ---
 title: Git - Cách xem nội dung 1 file ở branch khác
-date: "2015-08-25"
+date: '2015-08-25'
 author: Van-Duyet Le
 tags:
-- view file
-- Git
-- Khái niệm git
+  - view file
+  - Git
+  - Khái niệm git
 modified_time: '2015-08-25T22:46:46.932+07:00'
 slug: /2015/08/git-cach-xem-noi-dung-1-file-o-branch-khac.html
 category: Git

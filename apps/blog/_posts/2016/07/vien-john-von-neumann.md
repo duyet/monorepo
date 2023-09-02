@@ -1,18 +1,17 @@
 ---
 title: Viện John von Neumann
-date: "2016-07-05"
+date: '2016-07-05'
 author: Van-Duyet Le
 tags:
-- Notes
-- Tự truyện
-- JVN
-- Câu chuyện
+  - Notes
+  - Tự truyện
+  - JVN
+  - Câu chuyện
 modified_time: '2016-07-22T11:21:31.663+07:00'
 thumbnail: https://4.bp.blogspot.com/-OH9toccRKt4/V3r1SFwz3HI/AAAAAAAAZIg/QtF0KDOP2505VLIu-AIxr_6MoojVQhqdgCK4B/s1600/IMG_20160702_091452_HDR%2B%25281%2529.jpg
 slug: /2016/07/vien-john-von-neumann.html
 category: Story
 description: Viện John von Neumann nằm trong khu CNPM - Đại học quốc gia TP.HCM. Ngày xưa từng có đi dự hội thảo trong khu này, nghe 1 anh lớn nói sau này có điều kiện nên vào học Thạc sĩ và PhD tại đây, đây là nơi hội tụ của biết bao nhiêu người tài. Lúc đó chỉ cười, thực sự tôi chưa từng nghĩ mình sẽ vào học tại đây.
-
 ---
 
 [Viện John von Neumann](http://www.jvn.edu.vn/) nằm trong khu CNPM - Đại học quốc gia TP.HCM. Ngày xưa từng có đi dự một hội thảo trong khu này, nghe anh khóa trên nói sau này có điều kiện nên vào học Thạc sĩ và PhD tại đây đi, đây là nơi hội tụ của biết bao nhiêu người tài.
@@ -45,7 +44,7 @@ Không phải là một câu so sánh, nhưng rõ ràng bản thân có thể th
 
 ![](https://4.bp.blogspot.com/-vdylnK1G_Bg/V3r89duKGUI/AAAAAAAAZJU/ShHewCpHwksGNVWOMF134PdGQOc8Ih2XACK4B/s1600/13580642_1619594615020578_4132836646932798294_o.jpg)
 
-Nhưng rõ ràng cái quan trọng có thể thấy được sau buổi phản biện ấy tinh thần động viên, tinh thần thúc đẩy học tập, thí sinh sẽ hiểu được mình còn thiếu cái gì và trao dồi sau. 
+Nhưng rõ ràng cái quan trọng có thể thấy được sau buổi phản biện ấy tinh thần động viên, tinh thần thúc đẩy học tập, thí sinh sẽ hiểu được mình còn thiếu cái gì và trao dồi sau.
 
 ![](https://1.bp.blogspot.com/-1WCb0Yygft4/V3r9pBYwXJI/AAAAAAAAZJk/MZy0OiMnqHcZhtXz--lzcUv7sdvSLDw0gCK4B/s320/13613610_1619594618353911_6936632888706636397_o.jpg)
 
@@ -54,4 +53,3 @@ Thực sự ngộ ra rất nhiều, còn quá nhiều điều cần phải học
 ---
 
 Update 2021-04-21: Đã nhiều năm đọc lại bài này, cảm xúc những ngày ấy vẫn còn y nguyên, JVN ngày đó vẫn thực sự rất amazing. Do nhiều biến cố, không thể học tiếp ở đây, cũng như không theo sự nghiệp làm nghiên cứu, các anh lớn ngày đó cũng không còn dạy ở đấy, đã và đang làm PhD, Leader ở các nơi rồi.
-

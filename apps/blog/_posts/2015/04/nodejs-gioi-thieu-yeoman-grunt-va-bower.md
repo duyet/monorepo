@@ -1,24 +1,22 @@
 ---
 title: Nodejs - Giới thiệu Yeoman, Grunt và Bower
-date: "2015-04-20"
+date: '2015-04-20'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Grunt
-- Bower
-- Yeoman
+  - Nodejs
+  - Grunt
+  - Bower
+  - Yeoman
 modified_time: '2015-05-17T11:50:32.805+07:00'
 thumbnail: https://1.bp.blogspot.com/-S3xORsBBOes/VTUU2dzVT9I/AAAAAAAACTw/v0XhVPBgDfE/s1600/bower.png
 slug: /2015/04/nodejs-gioi-thieu-yeoman-grunt-va-bower.html
 category: Javascript
 description: Chuyển từ PHP sang Nodejs thật có nhiều cái bỡ ngỡ. Cấu trúc được viết dưới dạng None-Blocking tăng tốc độ xử lý và chịu tải lên cực cao. Ứng dụng cũng được viết nhanh hơn rất nhiều nhờ các package và trình quản lý gói npm. Trong bài viết này mình sẽ giới thiệu về 1 số tools mà hầu như mọi lập trình viên Nodejs nào cũng cần phải biết qua, đó là Bower, NPM, Grunt và Yeoman.
-
 ---
 
 Chuyển từ PHP sang Nodejs thật có nhiều cái bỡ ngỡ. Cấu trúc được viết dưới dạng None-Blocking tăng tốc độ xử lý và chịu tải lên cực cao. Ứng dụng cũng được viết nhanh hơn rất nhiều nhờ các package và trình quản lý gói npm. Trong bài viết này mình sẽ giới thiệu về 1 số tools mà hầu như mọi lập trình viên Nodejs nào cũng cần phải biết qua, đó là Bower, NPM, Grunt và Yeoman.
 
 ## Giới thiệu Bower
-
 
 Bower ([http://bower.io](http://bower.io/)) là công cụ quản lý các packages và components frontend cho web. Được viết bởi Twitter Inc. Nó có thể tìm kiếm, cài đặt hoặc gỡ bõ các gói thư viện (package) web như Javascript, CSS, HTML.
 
@@ -26,15 +24,13 @@ Bower ([http://bower.io](http://bower.io/)) là công cụ quản lý các packa
 
 ### Cài đặt
 
-
 Trước khi cài đặt, bạn phải chắc chắc rằng đã cài đặt thành công Nodejs và Npm. Sau khi đã cài xong ta tiến hành cài đặt bower bằng câu lệnh sau:
 
 ```
 $ npm install -g bower
 ```
 
-### Cách cài đặt gói thông qua Bower 
-
+### Cách cài đặt gói thông qua Bower
 
 Ta có thể sử dụng bower để cài đặt một package, ví dụ cài đặt jquery. Tạo một thư mục và chạy lệnh.
 
@@ -72,13 +68,11 @@ Mình sẽ nói chi tiết hơn về Bower ở một bài viết khác.
 
 ## Giới thiệu Grunt
 
-
 Grunt ([http://gruntjs.com](http://gruntjs.com/)) là tool tự động hoá cho các dự án Nodejs. Ta có thể Minify code, biên dịch, unit test, validate, ... Bạn có thể tự động hoá mọi công việc để giảm effort.
 
 ![](https://2.bp.blogspot.com/-bEpKWPHnB0k/VTUVwgNafOI/AAAAAAAACT4/WelLMu7wB-U/s1600/grunt.png)
 
 ## Với thiệu về Yeoman
-
 
 Trang chủ: [yeoman.io](http://yeoman.io/)
 
@@ -89,11 +83,11 @@ Dễ dàng tạo phần khung sườn cho những dự án mới, với các tem
 
 Chức năng:
 
-- Yeoman hiện tại có các bộ generator cho Angular, Backbone, React, Polymer và hơn [1500+ projects khác](http://yeoman.io/generators). 
+- Yeoman hiện tại có các bộ generator cho Angular, Backbone, React, Polymer và hơn [1500+ projects khác](http://yeoman.io/generators).
 - Hệ thống build process hỗ trợ minify script và css, tối ưu ảnh và HTML, biên dịch coffeescript, sass, less.
-- Tất cả các script và js đều được tự động chạy qua JSHint để đảm bảo script được viết best-practives. Các bạn có thể tìm hiểu thêm về JSHint và CssHint. 
+- Tất cả các script và js đều được tự động chạy qua JSHint để đảm bảo script được viết best-practives. Các bạn có thể tìm hiểu thêm về JSHint và CssHint.
 - Tối ưu ảnh cực tốt (OptiPNG và JPEGTran).
-- Package Management: có thể tìm kiếm, cài đặt packages mới thông quan terminal mà không cần mở trình duyệt. 
+- Package Management: có thể tìm kiếm, cài đặt packages mới thông quan terminal mà không cần mở trình duyệt.
 - PhantomJS Unit Testing.
 
 Yeoman + Bower + Grunt - Bộ 3 song hành
@@ -101,7 +95,6 @@ Yeoman + Bower + Grunt - Bộ 3 song hành
 ![](https://4.bp.blogspot.com/-RfsS9jWKACs/VTUWnPxbkPI/AAAAAAAACUA/st104-Cz0zg/s1600/workflow.c3cc.jpg)
 
 ### Cài đặt Yeoman
-
 
 ```
 $ npm install -g yo

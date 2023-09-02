@@ -1,6 +1,6 @@
 ---
 title: Spark on Kubernetes tại Fossil 🤔
-date: "2022-03-09"
+date: '2022-03-09'
 author: Van-Duyet Le
 category: Data
 tags:
@@ -13,32 +13,31 @@ thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEggpb4U-cWkhLQo1R-OU
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F03%2Fspark-kubernetes-at-fossil.html
 linkedInCommentUrl: https://www.linkedin.com/posts/duyet_spark-on-kubernetes-t%E1%BA%A1i-fossil-activity-6908001211849555969-j5Ss
 description: Apache Spark được chọn làm công nghệ cho Batch layer bởi khả năng xử lý một lượng lớn data cùng một lúc. Ở thiết kế ban đầu, team data chọn sử dụng Apache Spark trên AWS EMR do có sẵn và triển khai nhanh chóng. Dần dần, AWS EMR bộc lộ một số điểm hạn chế trên môi trường Production. Trong bài viết này, mình sẽ nói về tại sao và làm thế nào team Data chuyển từ Spark trên AWS EMR sang Kubernetes.
-
 ---
 
-Tại [Fossil](https://sites.google.com/fossil.com/fossil-vietnam/home), 
-có hàng trăm triệu log records được thu thập mỗi ngày, 
-được xử lý và lưu trữ trong các Data Warehouse bởi hệ thống **Fossil Data Platform**. 
-Data Platform là một hệ thống event-driven được thiết kế dựa trên Lambda Architecture 
-gồm một near-realtime layer và một batch layer. Near-realtime layer cho phép data từ 
-lúc đẩy vào hệ thống cho đến khi xuất hiện ở đầu cuối có độ trễ tối đa 15 phút. 
-Batch layer sẽ tính toán bộ data lại một lần nữa, vào cuối mỗi ngày, để đảm bảo data 
+Tại [Fossil](https://sites.google.com/fossil.com/fossil-vietnam/home),
+có hàng trăm triệu log records được thu thập mỗi ngày,
+được xử lý và lưu trữ trong các Data Warehouse bởi hệ thống **Fossil Data Platform**.
+Data Platform là một hệ thống event-driven được thiết kế dựa trên Lambda Architecture
+gồm một near-realtime layer và một batch layer. Near-realtime layer cho phép data từ
+lúc đẩy vào hệ thống cho đến khi xuất hiện ở đầu cuối có độ trễ tối đa 15 phút.
+Batch layer sẽ tính toán bộ data lại một lần nữa, vào cuối mỗi ngày, để đảm bảo data
 được chính xác và tối ưu hóa để lưu trữ lâu dài.
 
-Hệ thống được triển khai trên Kubernetes Cluster bao gồm nhiều thành phần. 
-Một số thành phần có thể kể đến như: *API Ingession*, [*CDC*](https://debezium.io), 
-[*Kafka Connector*](https://docs.confluent.io/platform/current/connect/index.html), 
-các *Parser* và *Transformer* xử lý raw data. 
-[**Apache Airflow**](https://airflow.apache.org/) và [**Apache Spark**](https://spark.apache.org/) 
-cũng được triển khai trên [**Kubernetes**](https://kubernetes.io), quản lý bởi các 
+Hệ thống được triển khai trên Kubernetes Cluster bao gồm nhiều thành phần.
+Một số thành phần có thể kể đến như: _API Ingession_, [_CDC_](https://debezium.io),
+[_Kafka Connector_](https://docs.confluent.io/platform/current/connect/index.html),
+các _Parser_ và _Transformer_ xử lý raw data.
+[**Apache Airflow**](https://airflow.apache.org/) và [**Apache Spark**](https://spark.apache.org/)
+cũng được triển khai trên [**Kubernetes**](https://kubernetes.io), quản lý bởi các
 [Kubernetes Operators](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/).
 
-Apache Spark được chọn làm công nghệ cho Batch layer bởi khả năng xử lý 
-một lượng lớn data cùng một lúc. Ở thiết kế ban đầu, team data chọn sử dụng 
-Apache Spark trên **AWS EMR** do có sẵn và triển khai nhanh chóng. 
+Apache Spark được chọn làm công nghệ cho Batch layer bởi khả năng xử lý
+một lượng lớn data cùng một lúc. Ở thiết kế ban đầu, team data chọn sử dụng
+Apache Spark trên **AWS EMR** do có sẵn và triển khai nhanh chóng.
 Dần dần, AWS EMR bộc lộ một số điểm hạn chế trên môi trường Production.
 
-Trong bài viết này, mình sẽ nói về tại sao và làm thế nào team 
+Trong bài viết này, mình sẽ nói về tại sao và làm thế nào team
 Data chuyển từ Spark trên AWS EMR sang Kubernetes.
 
 <div class="toc">
@@ -63,34 +62,34 @@ Data chuyển từ Spark trên AWS EMR sang Kubernetes.
 
 # 1. Apache Spark trên AWS EMR
 
-Trong thế giới của Data Engineering thì [**Apache Spark**](https://spark.apache.org/) không còn quá xa lạ. 
-Spark là open source với mục đích triển khai một hệ thống tính toán in-memory và massively parallel. 
-Spark được sử dụng rộng rãi trong nhiều lĩnh vực xử lý Big Data, từ Data Analytics đến Machine Learning. 
+Trong thế giới của Data Engineering thì [**Apache Spark**](https://spark.apache.org/) không còn quá xa lạ.
+Spark là open source với mục đích triển khai một hệ thống tính toán in-memory và massively parallel.
+Spark được sử dụng rộng rãi trong nhiều lĩnh vực xử lý Big Data, từ Data Analytics đến Machine Learning.
 Spark được thiết kế để có thể chạy ở Standalone Mode cũng như trên Mesos, YARN và Kubernetes.
 
-Ở thiết kế đầu tiên, team Fossil Data Platform thiết kế sử dụng Apache Spark 
-để chạy các Jobs cùng với Apache Hive trên AWS EMR. Điều này hết sức đơn giản 
+Ở thiết kế đầu tiên, team Fossil Data Platform thiết kế sử dụng Apache Spark
+để chạy các Jobs cùng với Apache Hive trên AWS EMR. Điều này hết sức đơn giản
 do việc thiết lập cụm AWS EMR khá dễ dàng và nhanh chóng.
 Dần dần sau một khoảng thời gian, team nhận ra có một số điểm yếu:
 
-- Tại thời điểm đó AWS chưa ra mắt *EMR Serverless* và *EMR on EKS*, việc scale thêm EC2 Node tốn thời gian do phải bootstrap (cài đặt và khởi động) 1 loạt các services cần thiết.
+- Tại thời điểm đó AWS chưa ra mắt _EMR Serverless_ và _EMR on EKS_, việc scale thêm EC2 Node tốn thời gian do phải bootstrap (cài đặt và khởi động) 1 loạt các services cần thiết.
 - Trên mỗi Node sẽ tốn 1 phần resources overhead để chạy các services đó (Spark, Livy, Zeppelin, Hive, HDFS, Monitoring, …).
 - Chi phí quản lý EMR Cluster.
 - HA trên EMR bắt buộc bạn phải có 3 node master chạy song song, nếu 1 node master chết thì node khác lên thay, nhưng bình thường sẽ lãng phí 2 node backup không làm gì cả.
 - ...
 
-Trong khi toàn bộ hệ thống Data Platform được thiết kế dưới dạng micro-services 
-và *event-driven architecture* với nhiều thành phần chạy trên Kubernetes, 
+Trong khi toàn bộ hệ thống Data Platform được thiết kế dưới dạng micro-services
+và _event-driven architecture_ với nhiều thành phần chạy trên Kubernetes,
 team bắt đầu nghĩ đến việc deploy Spark Jobs trên Kubernetes thay vì EMR, có một số ưu điểm có thể kể đến:
 
 - Tiết kiệm chi phí, bao gồm chi phí cho việc đợi provisioning và bootstrapping phức tạp, costing được tính theo giây, việc này cũng giúp loại bỏ chi phí quản lý EMR cluster, khoảng **$700-$800** cho một tháng (chưa bao gồm chi phí EC2).
 - Spark trên YARN cũng tốn chi phí maintenance không nhỏ.
 - Tiết kiệm chi phí do không phải duy trì một lúc 3 Node Master HA.
 - Không thể chạy nhiều version của Spark khác nhau, ví dụ đang sử dụng Spark 2.4.x, bạn cần upgrade một số Application lên Spark 3.x để dùng tính năng mới, bắt buộc phải upgrade các Application cũ hoặc cài đặt một Cluster EMR mới. Ngược lại Spark trên Kubernetes cho phép chạy các driver, executer trên các Kubernetes Pod, mỗi Pod gồm 1 container nên có thể isolated workloads dễ dàng. Ngoài ra có thể thừa hưởng được mọi tính năng của Kubernetes như:
-    - [Request/Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/): điều chỉnh hay giới hạn resources (mem, cpu), số lượng Pod cho mỗi Spark Application.
-    - [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/): Kubernetes Namespace còn cho phép phân quyền cho các team, các môi trường với lượng resources xác định nữa (e.g. namespace: `data-prod`, `data-stag`, `data-dev`, …)
-    - Tận dụng được [Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler) và có khả năng scale-to-zero.
-    - [Node Selector và Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/): cho phép chọn loại Node tùy theo tính chất của Jobs đó, ví dụ một số Jobs cần nhiều Mem, trong khi một khố Jobs khác cần nhiều CPU.
+  - [Request/Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/): điều chỉnh hay giới hạn resources (mem, cpu), số lượng Pod cho mỗi Spark Application.
+  - [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/): Kubernetes Namespace còn cho phép phân quyền cho các team, các môi trường với lượng resources xác định nữa (e.g. namespace: `data-prod`, `data-stag`, `data-dev`, …)
+  - Tận dụng được [Kubernetes Autoscaler](https://github.com/kubernetes/autoscaler) và có khả năng scale-to-zero.
+  - [Node Selector và Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/): cho phép chọn loại Node tùy theo tính chất của Jobs đó, ví dụ một số Jobs cần nhiều Mem, trong khi một khố Jobs khác cần nhiều CPU.
 
 # 2. Spark on Kubernetes - Livy
 
@@ -137,7 +136,6 @@ Hãy tìm hiểu xem một số thành phần chính đóng vai trò gì nhé.
 
 ## 3.1. Spark Operator
 
-
 Spark Operator là một Kubernetes Operator được thiết kế cho Spark nhằm mục đích xác định và thực thi các Spark applications dễ dàng như các workloads khác trên Kubernetes, bằng cách sử dụng và quản lý một Kubernetes custom resources (CRD) để specifying, running, và update status của Spark applications.
 
 Để tìm hiểu thêm bạn có thể xem qua về [Design](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/design.md), [API Specification](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/user-guide.md), và [User Guide](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/user-guide.md) trên Github.
@@ -155,25 +153,24 @@ helm install spark-operator \
 
 ## 3.2. Spark Submit Worker
 
-
 Một `SparkApplication` có về cơ bản là một resource CRD, có thể được apply vào cluster bằng `kubectl`, như ví dụ dưới đây:
 
 ```yaml
 # spark-pi.yaml
 ---
-apiVersion: "sparkoperator.k8s.io/v1beta2"
+apiVersion: 'sparkoperator.k8s.io/v1beta2'
 kind: SparkApplication
 metadata:
   name: pyspark-pi
   namespace: spark-jobs
 spec:
   type: Python
-  pythonVersion: "3"
+  pythonVersion: '3'
   mode: cluster
-  image: "gcr.io/spark-operator/spark-py:v3.1.1"
+  image: 'gcr.io/spark-operator/spark-py:v3.1.1'
   imagePullPolicy: Always
   mainApplicationFile: local:///opt/spark/examples/src/main/python/pi.py
-  sparkVersion: "3.1.1"
+  sparkVersion: '3.1.1'
   restartPolicy:
     type: OnFailure
     onFailureRetries: 3
@@ -182,15 +179,15 @@ spec:
     onSubmissionFailureRetryInterval: 20
   driver:
     cores: 1
-    coreLimit: "1200m"
-    memory: "512m"
+    coreLimit: '1200m'
+    memory: '512m'
     labels:
       version: 3.1.1
     serviceAccount: spark
   executor:
     cores: 1
     instances: 1
-    memory: "512m"
+    memory: '512m'
     labels:
       version: 3.1.1
 ```
@@ -207,7 +204,6 @@ kubectl get sparkapp
 Việc quản lý các Spark Application dưới dạng YAML specs còn giúp có thêm một số lợi ích của **GitOps**: mọi thay đổi đều được Git Versioning, phân quyền trên Git, review thay đổi, approve hoặc reject thay đổi, dễ dàng rollback bằng cách revert git, …
 
 ## 3.3. Spark Jobs UI
-
 
 Spark Jobs UI hay Spark Jobs Dashboard là một Web UI để quản lý Spark Jobs và artifacts được generated hoặc customized bởi engineers. Dashboard được viết bằng Typescript và Next.js, gồm một số tính năng cơ bản như:
 
@@ -230,14 +226,13 @@ Hãy xem một số screenshot dưới đây để có cái hình cụ thể hơ
 
 ## 3.4. Spark History Server
 
-
 Spark History Server là một Spark Web UI có sẵn của Spark, dùng để monitor trạng thái và tài nguyên sử dụng cho Spark App. Spark History Server được dựng lên để đọc lại logs của các Jobs đã hoàn thành trước đó lưu trên S3 bucket. Mỗi `SparkApplication` sẽ được config để push Spark events lên S3:
 
 ```yaml
 spec:
-   sparkConf:
-     "spark.eventLog.enabled": "true"
-     "spark.eventLog.dir": "s3a://fossil-spark/logs/"
+  sparkConf:
+    'spark.eventLog.enabled': 'true'
+    'spark.eventLog.dir': 's3a://fossil-spark/logs/'
 ```
 
 Spark History Server cũng có thể được cài đặt thông qua [this Helm Chart](https://artifacthub.io/packages/helm/spot/spark-history-server), chỉ cần trỏ đúng đường dẫn của `logDirectory` vào đúng vị trí S3 bucket mà Spark đã gửi lên.
@@ -245,17 +240,17 @@ Spark History Server cũng có thể được cài đặt thông qua [this Helm 
 ```yaml
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm install stable/spark-history-server \
- --namespace spark-jobs \
- --set enableS3=true \
- --set logDirectory=s3a://fossil-spark/logs/
+--namespace spark-jobs \
+--set enableS3=true \
+--set logDirectory=s3a://fossil-spark/logs/
 ```
 
 ![Untitled](/media/2022/03/spark-k8s-7.png)
 
 # 4. Performance Tuning on Kubernetes
 
-Có rất nhiều tối ưu được được thực hiện do tính chất Spark trên Kubernetes + AWS sẽ có chút khác biệt với Spark trên YARN. 
-Một số có thể kể đến mà bạn có thể xem thêm ở đây 
+Có rất nhiều tối ưu được được thực hiện do tính chất Spark trên Kubernetes + AWS sẽ có chút khác biệt với Spark trên YARN.
+Một số có thể kể đến mà bạn có thể xem thêm ở đây
 [Spark on Kubernetes Performance Tuning](/2021/04/spark-kubernetes-performance-tuning.html) hoặc dễ dàng tìm kiếm trên Google:
 
 - Using Volcano Scheduler for Gang schedule

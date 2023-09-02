@@ -1,16 +1,15 @@
 ---
 title: Tại sao Facebook tạo React và biến nó thành nguồn mở ?
-date: "2015-06-30"
+date: '2015-06-30'
 author: Van-Duyet Le
 tags:
-- React
-- facebook
+  - React
+  - facebook
 modified_time: '2015-06-30T23:31:35.142+07:00'
 thumbnail: https://2.bp.blogspot.com/-fyYlYdrDzY8/VZIKLpbzgzI/AAAAAAAAClA/A14BLEYp2Kg/s1600/2015_06_20_2a3229e9d8.jpeg
 slug: /2015/06/tai-sao-facebook-tao-react-va-bien-no.html
 category: News
 description: ReactJS là một Javascript library được phát triển bởi Facebook đang ngày càng trở nên phổ biến hơn. Hiện tại các tài liệu hướng dẫn về cách sử dụng ReactJS trên mạng đã có rất nhiều. Trong bài viết này mình tập trung về lí do mà Facebook đã tạo ra React.
-
 ---
 
 ReactJS là một Javascript library được phát triển bởi Facebook đang ngày càng trở nên phổ biến hơn. Hiện tại các tài liệu hướng dẫn về cách sử dụng ReactJS trên mạng đã có rất nhiều. Trong bài viết này mình tập trung về lí do mà Facebook đã tạo ra React.
@@ -27,7 +26,6 @@ Sau khi ra đời, ReactJS đã nhanh chóng trở nên phổ biến nhờ hiệ
 
 ## Lợi ích mà React mang lại cho Facebook
 
-
 Facebook là một mạng xã hội lớn nhất thế giới, vì vậy những đột phá của React đã mang lại rất nhiều lợi ích cho công ty. Sau đây là những ưu điểm chính của React:
 
 ### React không sử dụng template
@@ -40,23 +38,19 @@ Thông thường, việc thiết kế giao diện cho web applications thường
 
 ### React thực sự hữu dụng khi dữ liệu thay đổi liên tục
 
-
 Với những ứng dụng Javascript truyền thống, bạn cần phải theo dõi xem dữ liệu nào đã thay đổi, rồi thay đổi DOM tương ứng để đảm bảo nó luôn cật nhật. React tiếp cận theo một hướng khác. Khi một component được khởi tạo, phương thức render được gọi để tạo ra một lightweight representation cho view. Khi dữ liệu thay đổi, phương thức render lại được gọi. Và để tối ưu, React so sánh sự thay đổi (diff) giữa các giá trị của lần render này với lần render trước, và cập nhật ít thay đổi nhất đến DOM.
 Ngoài ra, nhờ React, Facebook đã làm được rất nhiều điều khác
 
 ### Facebook đã tạo ra một dynamic chart mà render ra canvas thay vì HTML
-
 
 - Instagram là một ứng dụng web dạng single-page, được xây dựng hoàn toàn bởi React và Backbone.Router
 - Gần đây Facebook đã tạo ra React Native, giúp viết các ứng dụng native trên điện thoại iOS, Android bằng Javascript. Trong đó app Facebook Groups là một ví dụ.
 
 ## Tại sao Facebook lại biến nó thành nguồn mở?
 
-
 Ở Facebook, sứ mệnh của công ty là tạo nên một thế giới cởi mở hơn và được kết nối (more open and connected). Và họ muốn thể hiện sứ mệnh đó thông qua mã nguồn mở. Họ nhận thấy rằng, những vấn đề mà họ gặp phải trong việc phát triển web application cũng là vấn đề của rất nhiều các công ty công nghệ khác. Và họ muốn đóng góp nhiều nhất có thể để giúp đỡ cộng đồng, cũng như nhận được sự hỗ trợ từ cộng đồng để cùng nhau giải quyết những thách thức chung.
 
 ## Tham khảo
-
 
 - [http://facebook.github.io/react/blog/2013/06/05/why-react.html](http://facebook.github.io/react/blog/2013/06/05/why-react.html)
 - [http://thenewstack.io/javascripts-history-and-how-it-led-to-reactjs/](http://thenewstack.io/javascripts-history-and-how-it-led-to-reactjs/)

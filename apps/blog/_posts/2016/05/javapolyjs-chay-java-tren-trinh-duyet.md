@@ -1,22 +1,22 @@
 ---
 title: 'JavaPoly.js: chạy Java ngay trên trình duyệt Web'
-date: "2016-05-21"
+date: '2016-05-21'
 author: Van-Duyet Le
 tags:
-- Nodejs
-- Java
-- intro-js
-- Tutorials
-- Javascript
-- JavaPoly
+  - Nodejs
+  - Java
+  - intro-js
+  - Tutorials
+  - Javascript
+  - JavaPoly
 modified_time: '2017-08-06T11:41:14.356+07:00'
 thumbnail: https://3.bp.blogspot.com/-0PVYXnZKPos/Vz9CsMIpfnI/AAAAAAAAVi0/MHADr9GRYt4DooMtDYj-DesgH9Ba3KcMACK4B/s1600/f1s7ah2zp9vghd2hth1a.jpg
 slug: /2016/05/javapolyjs-chay-java-tren-trinh-duyet.html
 category: Javascript
-description: Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.    
+description: Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.
 ---
 
-Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.    
+Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.
 
 [![](https://3.bp.blogspot.com/-0PVYXnZKPos/Vz9CsMIpfnI/AAAAAAAAVi0/MHADr9GRYt4DooMtDYj-DesgH9Ba3KcMACK4B/s1600/f1s7ah2zp9vghd2hth1a.jpg)](https://blog.duyet.net/2016/05/javapolyjs-chay-java-tren-trinh-duyet.html)
 
@@ -25,7 +25,10 @@ Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch 
 <script src="https://www.javapoly.com/javapoly.js"></script>
 
 <!-- Include your favorite Java libraries (jar files) -->
-<script type="text/java" src="http://www.yourdomain.com/jimboxutilities.jar"></script>
+<script
+  type="text/java"
+  src="http://www.yourdomain.com/jimboxutilities.jar"
+></script>
 
 <!-- Write your Java code -->
 <script type="text/java">
@@ -43,7 +46,7 @@ Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch 
 
 <!-- Invoke your Java code from Javascript -->
 <script type="text/javascript">
-  com.demo.Greeter.sayHello("world");
+  com.demo.Greeter.sayHello('world')
 </script>
 ```
 

@@ -1,16 +1,15 @@
 ---
-title: "Cargo: workspace inheritance"
-date: "2022-09-24"
+title: 'Cargo: workspace inheritance'
+date: '2022-09-24'
 author: Van-Duyet Le
 category: Rust
 tags:
   - Rust
   - Cargo
 slug: /2022/09/cargo-workspace-inheritance.html
-thumbnail: https://i.imgur.com/JRrTxzC.png 
+thumbnail: https://i.imgur.com/JRrTxzC.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fcargo-workspace-inheritance.html
-description: Since 1.64.0, Cargo now supports workspace inheritance, so you can avoid duplicating similar field values between crates while working within a workspace. Workspace inheritance can include things like shared version numbers, repository URLs, or rust-version. 
-
+description: Since 1.64.0, Cargo now supports workspace inheritance, so you can avoid duplicating similar field values between crates while working within a workspace. Workspace inheritance can include things like shared version numbers, repository URLs, or rust-version.
 ---
 
 Since [1.64.0](https://blog.rust-lang.org/2022/09/22/Rust-1.64.0.html), Cargo now supports workspace inheritance, so you can avoid duplicating similar field values between crates while working within a workspace. Workspace inheritance can include things like shared `version` numbers, `repository` URLs, or `rust-version`.
@@ -54,7 +53,6 @@ For more details, see [`workspace.package`](https://doc.rust-lang.org/cargo/ref
 and ["inheriting a dependency from a workspace"](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#inheriting-a-dependency-from-a-workspace).
 
 ## References
-
 
 - [Inheriting a dependency from a workspace - The Cargo Book](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#inheriting-a-dependency-from-a-workspace)
 - [Cargo improvements: workspace inheritance and multi-target builds](https://blog.rust-lang.org/2022/09/22/Rust-1.64.0.html#cargo-improvements-workspace-inheritance-and-multi-target-builds)

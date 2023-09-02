@@ -1,6 +1,6 @@
 ---
-title: "Rust: Struct"
-date: "2022-02-13"
+title: 'Rust: Struct'
+date: '2022-02-13'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -10,8 +10,7 @@ tags:
   - Rust Basic
 slug: /2022/02/rust-struct.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-struct.html
-description: Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng. 
-
+description: Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng.
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
@@ -38,7 +37,7 @@ Unit struct là một struct mà không có gì cả:
 
 ```rust
 struct FileDirectory;
-fn main() {} 
+fn main() {}
 ```
 
 # Tuple struct
@@ -61,7 +60,7 @@ fn main() {
 
 # Named struct
 
-Phổ biến nhất, bạn sẽ phải định nghĩa field name trong block `{}` 
+Phổ biến nhất, bạn sẽ phải định nghĩa field name trong block `{}`
 
 ```rust
 struct Colour(u8, u8, u8); // Declare the same Colour tuple struct

@@ -1,15 +1,14 @@
 ---
 title: Linux - Một số lệnh hay dùng
-date: "2015-02-13"
+date: '2015-02-13'
 author: Van-Duyet Le
 category: Linux
 tags:
-- Linux
+  - Linux
 modified_time: '2015-02-15T11:47:58.252+07:00'
 thumbnail: https://3.bp.blogspot.com/-4cvpjZwnz50/VN4p_hlVBOI/AAAAAAAACFE/0kqpzy9wJQ0/s1600/IMG_8804_resize.jpg
 slug: /2015/02/linux-mot-so-lenh-hay-dung.html
 description: Dùng Linux cũng đã lâu. Thấy nhiều bạn học HDH, nếu không nắm được một số câu lệnh cần thiết thì công việc quản trị của bạn sẽ gặp không ít khó khăn, mình ghi ra vài lệnh hay, hay dùng trên Linux để tiện tham khảo.
-
 ---
 
 Dùng Linux cũng đã lâu. Thấy nhiều bạn học HDH, nếu không nắm được một số câu lệnh cần thiết thì công việc quản trị của bạn sẽ gặp không ít khó khăn, mình ghi ra vài lệnh hay, hay dùng trên Linux để tiện tham khảo.
@@ -31,7 +30,6 @@ Man sẽ hiển thị chi tiết, ý nghĩa, cách sử dụng và các tham s�
 ![](https://3.bp.blogspot.com/-msPIi9OmGCA/VN9w9joiUBI/AAAAAAAACGQ/6tpcUMXAuz8/s1600/Screenshot%2Bfrom%2B2015-02-14%2B22%3A57%3A02.png)
 
 ## Hay dùng nhất
-
 
 - `pwd` in ra màn hình thư mục đang hoạt động (ví dụ: `/etc/home/lvduit/Downloads/`), xem thêm [đường dẫn tuyệt đối và đường dẫn tương đối trong linux](/2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html).
 - `cd` thay đổi thư mục, cái này là viết tắt của change directory ấy (ví dụ: `cd ..` – ra một cấp thư mục hiện tại; cd vidu – vào thư mục /vidu).
@@ -83,14 +81,13 @@ Dù ở phân phối nào, bạn cũng có thể dùng phím TAB để tự đ�
 
 ## Đa lệnh
 
-
-Bạn có thể dùng lệnh đa dòng trên một dòng. Ví dụ như, nếu muốn tạo ba thư mục chỉ trên một dòng, cú pháp có thể là: 
+Bạn có thể dùng lệnh đa dòng trên một dòng. Ví dụ như, nếu muốn tạo ba thư mục chỉ trên một dòng, cú pháp có thể là:
 
 ```bash
 $ mkdir ./lvduit; mkdir ./uit
 ```
 
-hay 
+hay
 
 ```bash
 $ mkdir ./lvduit && mkdir ./uit
@@ -197,8 +194,7 @@ Khi đó thông tin về đĩa cứng của hệ thống sẽ được hiển th
 
 - `who`: cho biết những ai đang thâm nhập hệ thống
 
-## 
-
+##
 
 Nếu lúc nào đó được yêu cầu phải đăng nhập với tài khoản gốc (root), bạn có thể đăng nhập tạm thời bằng cách dùng lệnh su. Ngoài ra, bạn có thể dụng sudo lệnh để chạy 1 lệnh dưới quyền root
 

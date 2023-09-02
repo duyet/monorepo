@@ -1,12 +1,12 @@
 ---
 title: Quản lý project với Trello thế nào?
-date: "2015-02-14"
+date: '2015-02-14'
 author: Van-Duyet Le
 category: News
 tags:
-- Trello
-- PM
-- Project Manager
+  - Trello
+  - PM
+  - Project Manager
 modified_time: '2015-02-14T12:09:50.731+07:00'
 thumbnail: https://2.bp.blogspot.com/-d2pTx8rZZrk/VN7W8LEDxdI/AAAAAAAACFs/6YHHZwlhRRw/s1600/2014_12_06_0f6f9.png
 slug: /2015/02/quan-ly-project-voi-trello-nao.html
@@ -17,16 +17,13 @@ Như trong bài chia sẻ trước giới thiệu về Trello một [công cụ 
 
 ## Sử dụng Trello quản lý Project
 
-
 Đây là cách thông dụng cũng như rõ ràng nhất khi mọi người bắt đầu sử dụng Trello. Nhất là với phần Onboarding (hướng dẫn sử dụng ban đầu) của Trello đã giúp bạn tạo trước 1 board với 3 Lists cơ bản nhất cho mọi dự án: To Do – Doing – Done.
 
 ## Dùng template có sẵn của Trello
 
-
 Hiểu một cách đơn giản, ở Trello, bạn sẽ gắn những công việc của mình vào từng Cards khác nhau và để vào List tương ứng với từng giai đoạn của Card đó. Mức độ hoàn thành công việc sẽ tăng dần từ trái qua phải như trong trường hợp mẫu là To Do (những task sẽ làm), Doing (những task đang làm), Done (những task đã xong).
 
 ## Cải tiến thêm
-
 
 Tuy nhiên với những project thực tế thì mức độ yêu cầu chi tiết sẽ phức tạp hơn nhiều. Khi đó đòi hỏi Trello board cần được tùy chỉnh để phù hợp hơn và hỗ trợ được các nhu cầu thực tế khác nhau của công việc.
 
@@ -39,7 +36,6 @@ Ví dụ đây là Trello của dự án Ăn gì cũng được.
 
 ## Đảm bảo thông tin của Card luôn đầy đủ
 
-
 Ngoài ra, bạn có thể tận dụng những tính năng khác của một card trong Trello để giúp đưa thêm những thông tin chi tiết cần thiết:
 
 - Assign: chỉ định những thành viên tham gia phụ trách card đó. Tại mỗi giai đoạn có thể có những thành viên phụ trách từng phần việc khác nhau, nếu bạn đã làm xong phần việc của mình, hãy move card đó qua List tiếp theo bên phải và tiếp tục gán "assign" cho thành viên khác phụ trách.
@@ -50,7 +46,6 @@ Ngoài ra, bạn có thể tận dụng những tính năng khác của một ca
 - Comments: đây chính là ưu điểm của Trello so với những phần mềm To-Do khác. Do nhiều người cùng làm nên phần comments giúp cho việc trao đổi giữa những thành viên với nhau hiệu quả và tập trung. Bất kỳ những thông tin phát sinh cũng cần được comment lại để khi manager/client theo dõi các comments có thể nắm rõ tiến trình công việc để có những điều chỉnh thích hợp.
 
 ## Một card như thế nào được gọi là "chuẩn"?
-
 
 Bọn mình cũng tham khảo nhiều trang, nhất là dùng Trello cho Agile development và cũng tìm được khá nhiều tài liệu hay (bài này là 1 ví dụ). Sau đó áp dụng thử thì bọn mình rút ra được một số yêu cầu sau đây được xem là cần thiết cho 1 Card "chuẩn" cũng như một Board có đầy đủ chức năng:
 

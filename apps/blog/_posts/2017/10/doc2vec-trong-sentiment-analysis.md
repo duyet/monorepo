@@ -1,62 +1,55 @@
 ---
 title: Doc2vec trong Sentiment Analysis
-date: "2017-10-08"
+date: '2017-10-08'
 author: Van-Duyet Le
 tags:
-- Doc2vec
-- Neural Network
-- Python
-- Sentiment
-- Javascript
-- NLP
-- Word2vec
-- Machine Learning
-- Sentimennt Analysis
+  - Doc2vec
+  - Neural Network
+  - Python
+  - Sentiment
+  - Javascript
+  - NLP
+  - Word2vec
+  - Machine Learning
+  - Sentimennt Analysis
 modified_time: '2018-09-10T17:20:37.659+07:00'
 thumbnail: https://2.bp.blogspot.com/-IpnvLkBHx74/WdnUJ5r3q_I/AAAAAAAAnxI/Cz9B_YQo6tcu0YwOffsQQWmcfjH_mRulwCK4BGAYYCw/s1600/pv_dm.png
 slug: /2017/10/doc2vec-trong-sentiment-analysis.html
 category: Machine Learning
-description: Doc2vec, ngoài từ (word), ta còn có thể biểu diễn các câu (sentences) thậm chí 1 đoạn văn bản (document). Khi đó, bạn có thể dễ dàng vector hóa cả một đoạn văn bản thành một vector có số chiều cố định và nhỏ, từ đó có thể chạy bất cứ thuật toán classification cơ bản nào trên các vector đó. 
+description: Doc2vec, ngoài từ (word), ta còn có thể biểu diễn các câu (sentences) thậm chí 1 đoạn văn bản (document). Khi đó, bạn có thể dễ dàng vector hóa cả một đoạn văn bản thành một vector có số chiều cố định và nhỏ, từ đó có thể chạy bất cứ thuật toán classification cơ bản nào trên các vector đó.
 fbCommentUrl: http://blog.duyetdev.com/2017/10/doc2vec-trong-sentiment-analysis.html
 ---
 
-Sự thành công của **Word2vec** đã được chứng minh trong rất nhiều công trình NLP.  
-  
-Nhắc lại về Word2vec, nó sử dụng 1 tập copus, qua một mạng Neural biểu diễn các word thành các vector, các vector giữ lại được tính chất ngữ nghĩa. Tức các từ mang ý nghĩa similar với nhau thì gần nhau trong không gian vector. Trong NLP, đây một trong những phương thức của word embedding. Word2vec hiện nay được sử dụng hết sức rộng rãi.  
-  
-**Doc2vec**, ngoài từ (word), ta còn có thể biểu diễn các câu (sentences) thậm chí 1 đoạn văn bản (document). Khi đó, bạn có thể dễ dàng vector hóa cả một đoạn văn bản thành một vector có số chiều cố định và nhỏ, từ đó có thể chạy bất cứ thuật toán classification cơ bản nào trên các vector đó.  
-  
+Sự thành công của **Word2vec** đã được chứng minh trong rất nhiều công trình NLP.
+
+Nhắc lại về Word2vec, nó sử dụng 1 tập copus, qua một mạng Neural biểu diễn các word thành các vector, các vector giữ lại được tính chất ngữ nghĩa. Tức các từ mang ý nghĩa similar với nhau thì gần nhau trong không gian vector. Trong NLP, đây một trong những phương thức của word embedding. Word2vec hiện nay được sử dụng hết sức rộng rãi.
+
+**Doc2vec**, ngoài từ (word), ta còn có thể biểu diễn các câu (sentences) thậm chí 1 đoạn văn bản (document). Khi đó, bạn có thể dễ dàng vector hóa cả một đoạn văn bản thành một vector có số chiều cố định và nhỏ, từ đó có thể chạy bất cứ thuật toán classification cơ bản nào trên các vector đó.
 
 [![](https://2.bp.blogspot.com/-IpnvLkBHx74/WdnUJ5r3q_I/AAAAAAAAnxI/Cz9B_YQo6tcu0YwOffsQQWmcfjH_mRulwCK4BGAYYCw/s1600/pv_dm.png)](https://2.bp.blogspot.com/-IpnvLkBHx74/WdnUJ5r3q_I/AAAAAAAAnxI/Cz9B_YQo6tcu0YwOffsQQWmcfjH_mRulwCK4BGAYYCw/s1600/pv_dm.png)
 Ảnh: https://arxiv.org/pdf/1405.4053.pdf
 
 Trong bài này, mình sẽ giới thiệu rất cơ bản basic concept để các bạn có thể hình dung việc ứng dụng **Doc2vec trong** **Sentiment Analysis** như thế nào.
 
-  
-**[Xem bài viết dưới dạng notebook.](https://github.com/duyet/doc2vec-sentiment/blob/master/Doc2vec%20Sentiment%20Analysis.ipynb)**  
+**[Xem bài viết dưới dạng notebook.](https://github.com/duyet/doc2vec-sentiment/blob/master/Doc2vec%20Sentiment%20Analysis.ipynb)**
 
 ## Doc2vec
 
+**Doc2vec** được giới thiệu bởi _Quoc Le_ và *Mikolov* ([https://arxiv.org/abs/1405.4053](https://arxiv.org/abs/1405.4053)), cũng như Word2vec, có 2 model chính là: **DBOW** và **DM**
 
-**Doc2vec** được giới thiệu bởi _Quoc Le_ và _Mikolov_ ([https://arxiv.org/abs/1405.4053](https://arxiv.org/abs/1405.4053)), cũng như Word2vec, có 2 model chính là: **DBOW** và **DM**  
+- **DBOW** (distributed bag of words): Mô hình này đơn giản là không quan tâm thứ tự các từ, training nhanh hơn, không sử dụng local-context/neighboring. Mô hình chèn thêm 1 "word" là ParagraphID, ParagraphID này đại diện cho văn bản được training. Sau khi training xong có thể hiểu các vector ParagraphID này là vector embedded của các văn bản. Hình ảnh được mô tả trong bài báo:
 
-*   **DBOW** (distributed bag of words): Mô hình này đơn giản là không quan tâm thứ tự các từ, training nhanh hơn, không sử dụng local-context/neighboring. Mô hình chèn thêm 1 "word" là ParagraphID, ParagraphID này đại diện cho văn bản được training. Sau khi training xong có thể hiểu các vector ParagraphID này là vector embedded của các văn bản. Hình ảnh được mô tả trong bài báo:  
-    
-    [![](https://3.bp.blogspot.com/-wai3jZmknIY/WdnLxUFOpTI/AAAAAAAAnwc/UfNbC3B1KPw6GxhjIaigYMLnkgyQYAS6QCK4BGAYYCw/s1600/doc2vec_dbow%2B%25281%2529.jpg)](https://3.bp.blogspot.com/-wai3jZmknIY/WdnLxUFOpTI/AAAAAAAAnwc/UfNbC3B1KPw6GxhjIaigYMLnkgyQYAS6QCK4BGAYYCw/s1600/doc2vec_dbow%2B%25281%2529.jpg)
-    
-*   **DM** (distributed memory): xem một paragraph là một từ, sau đó nối từ này vào tập các từ trong câu. Trong quá trình training, vector của paragraph và vector từ đều được update.  
-    
-    [![](https://1.bp.blogspot.com/--QeiWTR1UXw/WdnL4u33MoI/AAAAAAAAnwk/_HANkz23v5cgj6gyxWXSQI2X21E7Hc35ACK4BGAYYCw/s1600/doc2vec_dm.jpg)](https://1.bp.blogspot.com/--QeiWTR1UXw/WdnL4u33MoI/AAAAAAAAnwk/_HANkz23v5cgj6gyxWXSQI2X21E7Hc35ACK4BGAYYCw/s1600/doc2vec_dm.jpg)
-    
+  [![](https://3.bp.blogspot.com/-wai3jZmknIY/WdnLxUFOpTI/AAAAAAAAnwc/UfNbC3B1KPw6GxhjIaigYMLnkgyQYAS6QCK4BGAYYCw/s1600/doc2vec_dbow%2B%25281%2529.jpg)](https://3.bp.blogspot.com/-wai3jZmknIY/WdnLxUFOpTI/AAAAAAAAnwc/UfNbC3B1KPw6GxhjIaigYMLnkgyQYAS6QCK4BGAYYCw/s1600/doc2vec_dbow%2B%25281%2529.jpg)
 
-  
-**Tóm lại:** ta xem văn bản như là một từ, docID/paragraphID được biểu diễn dạng 1-hot, được embedded vào không gian vector.  
+- **DM** (distributed memory): xem một paragraph là một từ, sau đó nối từ này vào tập các từ trong câu. Trong quá trình training, vector của paragraph và vector từ đều được update.
+
+  [![](https://1.bp.blogspot.com/--QeiWTR1UXw/WdnL4u33MoI/AAAAAAAAnwk/_HANkz23v5cgj6gyxWXSQI2X21E7Hc35ACK4BGAYYCw/s1600/doc2vec_dm.jpg)](https://1.bp.blogspot.com/--QeiWTR1UXw/WdnL4u33MoI/AAAAAAAAnwk/_HANkz23v5cgj6gyxWXSQI2X21E7Hc35ACK4BGAYYCw/s1600/doc2vec_dm.jpg)
+
+**Tóm lại:** ta xem văn bản như là một từ, docID/paragraphID được biểu diễn dạng 1-hot, được embedded vào không gian vector.
 
 ## Setup
 
-
 ### Modules
-
 
 Mình sử dụng **gensim**, gensim được implement **Word2vec** lẫn **Doc2vec**, tài liệu rất dễ đọc. Ngoài ra còn có **numpy** để thao tác trên array, **sklearn** cho các thuật toán phân lớp.
 
@@ -83,19 +76,17 @@ import itertools
 import matplotlib.pyplot as plt
 ```
 
-
 ### Data
-
 
 Mình có các tập data để training, gồm training và testing như sau:
 
-*   _test-neg.txt:_ 12500 negative movie reviews from the test data
-*   _test-pos.txt_: 12500 positive movie reviews from the test data
-*   _train-neg.txt_: 12500 negative movie reviews from the training data
-*   _train-pos.txt_: 12500 positive movie reviews from the training data
+- _test-neg.txt:_ 12500 negative movie reviews from the test data
+- _test-pos.txt_: 12500 positive movie reviews from the test data
+- _train-neg.txt_: 12500 negative movie reviews from the training data
+- _train-pos.txt_: 12500 positive movie reviews from the training data
 
-Tải dataset tại đây: **[Github](https://github.com/duyet/doc2vec-sentiment)**  
-  
+Tải dataset tại đây: **[Github](https://github.com/duyet/doc2vec-sentiment)**
+
 Trong mỗi file data, 1 đoạn văn bản trên một dòng:
 
 ```
@@ -106,13 +97,11 @@ this film grate at the teeth and i m still wondering what the heck bill paxton w
 
 ### Input data vào Doc2vec
 
-
 Doc2vec của gensim input một object **LabeledSentence**, gồm 1 tập các từ kèm theo label (id của paragraph), có format như sau:
 
 ```py
 [['word1', 'word2', 'word3', 'lastword'], ['label1']]
 ```
-  
 
 Ta sẽ viết class **LabeledLineSentence** để đọc data **txt**, yield ra object **LabeledSentence** để **gensim** có thể hiểu.
 
@@ -120,22 +109,22 @@ Ta sẽ viết class **LabeledLineSentence** để đọc data **txt**, yield ra
 class LabeledLineSentence(object):
     def __init__(self, sources):
         self.sources = sources
-        
+
         flipped = {}
-        
+
         # make sure that keys are unique
         for key, value in sources.items():
             if value not in flipped:
                 flipped[value] = [key]
             else:
                 raise Exception('Non-unique prefix encountered')
-    
+
     def __iter__(self):
         for source, prefix in self.sources.items():
             with utils.smart_open(source) as fin:
                 for item_no, line in enumerate(fin):
                     yield LabeledSentence(utils.to_unicode(line).split(), [prefix + '_%s' % item_no])
-    
+
     def to_array(self):
         self.sentences = []
         for source, prefix in self.sources.items():
@@ -143,27 +132,26 @@ class LabeledLineSentence(object):
                 for item_no, line in enumerate(fin):
                     self.sentences.append(LabeledSentence(utils.to_unicode(line).split(), [prefix + '_%s' % item_no]))
         return self.sentences
-    
+
     def sentences_perm(self):
         shuffled = list(self.sentences)
         random.shuffle(shuffled)
         return shuffled
 ```
 
-Ok bây giờ chúng ta feed data files vào **LabeledLineSentence**, **LabeledLineSentence** input 1 dict với key là tên file, value là **prefix** của các sentences trong văn bản.  
+Ok bây giờ chúng ta feed data files vào **LabeledLineSentence**, **LabeledLineSentence** input 1 dict với key là tên file, value là **prefix** của các sentences trong văn bản.
 
 ```py
 sources = {
     'data/test-neg.txt':'TEST_NEG',
-    'data/test-pos.txt':'TEST_POS', 
-    'data/train-neg.txt':'TRAIN_NEG', 
-    'data/train-pos.txt':'TRAIN_POS', 
+    'data/test-pos.txt':'TEST_POS',
+    'data/train-neg.txt':'TRAIN_NEG',
+    'data/train-pos.txt':'TRAIN_POS',
     'data/train-unsup.txt':'TRAIN_UNS'
 }
 
 sentences = LabeledLineSentence(sources)
 ```
-
 
 ## Model
 
@@ -171,10 +159,10 @@ sentences = LabeledLineSentence(sources)
 
 Trước tiên **Doc2vec** yêu cầu build Vocabulary table, 1 tập chứa tất cả các từ, lọc bỏ các từ trùng lặp, thực hiện một số thống kê. Chúng ta có một số tham số như sau:
 
-*   _min\_count_: lọc bỏ tất cả các từ khỏi từ điển có số lần xuất hiện nhỏ hơn min\_count.
-*   _window_: khoảng cách tối đa của từ hiện tại và từ predicted. Tương tự window trong Skip-gram model.
-*   _size_: số chiều của vector embedded. Thường từ trong khoảng 100-400 cho kết quả tối ưu.
-*   _workers_: Số worker threads (set bằng số core của máy).
+- _min_count_: lọc bỏ tất cả các từ khỏi từ điển có số lần xuất hiện nhỏ hơn min_count.
+- _window_: khoảng cách tối đa của từ hiện tại và từ predicted. Tương tự window trong Skip-gram model.
+- _size_: số chiều của vector embedded. Thường từ trong khoảng 100-400 cho kết quả tối ưu.
+- _workers_: Số worker threads (set bằng số core của máy).
 
 ```py
 model = Doc2Vec(min_count=1, window=10, size=100, sample=1e-4, negative=5, workers=7)
@@ -183,7 +171,6 @@ model.build_vocab(sentences.to_array())
 
 ### Training Doc2Vec
 
-
 Mình sẽ train model với **10 epochs**. Nếu có thời gian bạn có thể chọn 20 hoặc 50 epochs. Mỗi epochs là một lần training trên toàn bộ dữ liệu.
 
 Phần này có thể tốn rất nhiều thời gian, tùy cấu hình máy bạn như thế nào.
@@ -191,8 +178,8 @@ Phần này có thể tốn rất nhiều thời gian, tùy cấu hình máy b�
 ```py
 model.train(sentences.sentences_perm(), total_examples=model.corpus_count, epochs=10)
 ```
-### Inspecting the Model
 
+### Inspecting the Model
 
 Sau khi training, chúng ta có được các vector từ và vector văn bản. Tìm similarity của một từ (theo khoảng cách cosine).
 
@@ -210,7 +197,6 @@ Sau khi training, chúng ta có được các vector từ và vector văn bản.
  (u'fantastic', 0.5322197675704956),
  (u'poor', 0.5300629734992981)]
 ```
-  
 
 Vector của một đoạn văn trong tập negative reviews:
 
@@ -252,15 +238,14 @@ array([ -1.01556428e-01,  -3.56465846e-01,   3.44622403e-01,
         -3.10191274e-01,  -8.09229612e-02,  -8.08758587e-02,
          8.15131485e-01], dtype=float32)
 ```
-### Saving and Loading Models
 
+### Saving and Loading Models
 
 Lưu xuống và tái sử dụng
 
 ```py
 model.save('./imdb.d2v')
 ```
-
 
 Khi sử dụng, model chỉ cần load lại
 
@@ -270,10 +255,9 @@ model = Doc2Vec.load('./imdb.d2v')
 
 ## Classifying Sentiments
 
-
 Từ các vector văn bản trên, ta có thể sử dụng chúng để huấn luyện các bộ phân lớp. Trước tiên mình extract các vector này từ **Doc2vec** ra. Ở trên chúng ta có **25000** đoạn training reviews (_12500 positive, 12500 negative_), tức chúng ta sẽ có 25000 vector.
 
-Chúng ta tạo 2 biến **X\_train** và **y\_train** để lưu lại các vectors và labels tương ứng.
+Chúng ta tạo 2 biến **X_train** và **y_train** để lưu lại các vectors và labels tương ứng.
 
 ```py
 X_train = np.zeros((25000, 100))
@@ -288,8 +272,7 @@ for i in range(12500):
     y_train[12500 + i] = 0
 ```
 
-
-**X\_train** là một list các vector:
+**X_train** là một list các vector:
 
 ```py
 >>> print X_train
@@ -300,7 +283,7 @@ for i in range(12500):
   -1.24059582]
  [ 0.43396333  0.55141008  1.10285032 ..., -0.00459967 -1.20170486
    0.24269094]
- ..., 
+ ...,
  [-0.0061076   1.02311051  1.14070487 ...,  0.43794197 -1.44546068
    0.92352289]
  [-0.66359657 -0.14818916 -0.00780609 ..., -0.23638545  0.11614358
@@ -308,18 +291,15 @@ for i in range(12500):
  [ 0.48667926  0.21486095 -0.06502845 ...,  0.73961246  0.17024654
    0.49861109]]
 ```
-  
 
-**y\_train** sẽ là một list các label tương ứng, _label 1: positive, label 0: negative_.
+**y_train** sẽ là một list các label tương ứng, _label 1: positive, label 0: negative_.
 
 ```python
 >>> print y_train
 [ 1.  1.  1. ...,  0.  0.  0.]
 ```
 
-
 ### Testing Vectors
-
 
 Tương tự với các vector để test
 
@@ -337,7 +317,6 @@ for i in range(12500):
 ```
 
 ### Classification
-
 
 Từ đây bạn có thể sử dụng bất cứ thuật toán phân lớp nào, bạn có thể thực hiện tiếp bước model selection đến khi nào đạt kết quả tốt nhất. Ở đây mình sử dụng **Logistic Regression** và **SVM**
 
@@ -359,9 +338,9 @@ def plot_confusion_matrix(cm, classes,
                           title='Confusion matrix',
                           cmap=plt.cm.Blues):
     """
-    See full source and example: 
+    See full source and example:
     http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
-    
+
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
     """
@@ -394,16 +373,12 @@ cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
 plot_confusion_matrix(cm, classes=['neg', 'pos'])
 ```
 
-*Accuracy 0.86376*<br />
-*Confusion matrix, without normalization* 
+_Accuracy 0.86376_<br />
+_Confusion matrix, without normalization_
 
 [![](https://3.bp.blogspot.com/-xZEUdBCyrEI/WdnN-V4iInI/AAAAAAAAnww/OqQ3uBxMCV0Eg0XkvsN7f-q2hkMZTrUvQCK4BGAYYCw/s1600/confusion_matrix_LR.png)](https://3.bp.blogspot.com/-xZEUdBCyrEI/WdnN-V4iInI/AAAAAAAAnww/OqQ3uBxMCV0Eg0XkvsN7f-q2hkMZTrUvQCK4BGAYYCw/s1600/confusion_matrix_LR.png)
 
-  
-
 Ok, chúng ta có **87% accuracy** cho sentiment analysis với **Logistic Regression**.
-
-
 
 Thử với SVM
 
@@ -417,23 +392,22 @@ cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
 plot_confusion_matrix(cm, classes=['neg', 'pos'])
 ```
 
-*Accuracy 0.86708* <br />
-*Confusion matrix, without normalization*
+_Accuracy 0.86708_ <br />
+_Confusion matrix, without normalization_
 
 [![](https://4.bp.blogspot.com/-vMs52b_9gZk/WdnOJG1wjhI/AAAAAAAAnw4/H10XIqYo_sMpAGS0tGWThPZkT0pkEJLHQCK4BGAYYCw/s1600/confusion_matrix_SVM.png)](https://4.bp.blogspot.com/-vMs52b_9gZk/WdnOJG1wjhI/AAAAAAAAnw4/H10XIqYo_sMpAGS0tGWThPZkT0pkEJLHQCK4BGAYYCw/s1600/confusion_matrix_SVM.png)
 
-
-SVM cho kết quả tương tự, vẫn khá tốt **~ 86%**  
+SVM cho kết quả tương tự, vẫn khá tốt **~ 86%**
 
 ## **Kết**
 
+Trong bài này mình đã:
 
-Trong bài này mình đã:  
+- Giới thiệu basic idea của Doc2vec.
+- Các sử dụng Gensim để vector hóa một văn bản và sử dụng Logistic Regression cũng như SVM để phân lớp, đạt độ chính xác cao.
 
-*   Giới thiệu basic idea của Doc2vec.
-*   Các sử dụng Gensim để vector hóa một văn bản và sử dụng Logistic Regression cũng như SVM để phân lớp, đạt độ chính xác cao.
+Tham khảo:
 
-Tham khảo:  
-*   Notebook và data bài viết: **[https://github.com/duyet/doc2vec-sentiment](https://github.com/duyet/doc2vec-sentiment)**
-*   Doc2vec tuts: **[https://rare-technologies.com/doc2vec-tutorial/](https://rare-technologies.com/doc2vec-tutorial/)**
-*   **[https://github.com/linanqiu/word2vec-sentiments](https://github.com/linanqiu/word2vec-sentiments)**
+- Notebook và data bài viết: **[https://github.com/duyet/doc2vec-sentiment](https://github.com/duyet/doc2vec-sentiment)**
+- Doc2vec tuts: **[https://rare-technologies.com/doc2vec-tutorial/](https://rare-technologies.com/doc2vec-tutorial/)**
+- **[https://github.com/linanqiu/word2vec-sentiments](https://github.com/linanqiu/word2vec-sentiments)**

@@ -1,6 +1,6 @@
 ---
-title: "Rust: Copy & Clone Trait"
-date: "2022-02-13"
+title: 'Rust: Copy & Clone Trait'
+date: '2022-02-13'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -11,7 +11,7 @@ tags:
 slug: /2022/02/rust-copy-clone-trait.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-copy-clone-trait.html
 thumbnail: https://i.imgur.com/shjfLWK.png
-description: "Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function."
+description: 'Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function.'
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
@@ -91,7 +91,6 @@ Có hai cách:
 
 ### (1) Sử dụng `.clone()`
 
-
 ```rust
 fn prints_country(country_name: String) {
   println!("{}", country_name);
@@ -109,7 +108,6 @@ fn main() {
 String rất lớn, do đó `.copy()` sẽ tốn rất nhiều bộ nhớ. Sử dụng `&` để reference sẽ nhanh hơn, nếu có thể.
 
 ### (2) Sử dụng `&` reference
-
 
 ```rust
 fn prints_country(country_name: &String) {
@@ -141,7 +139,7 @@ fn main() {
 }
 ```
 
-`&str` là một kiểu hơi phức tạp. 
+`&str` là một kiểu hơi phức tạp.
 Nó có thể vừa là String literals `let s = "I am &str";`. Trường hợp này `s` có kiểu `&'static` bởi vì nó được ghi trực tiếp vào binary. `&str` cũng có thể là borrowed của `str` hoặc `String`.
 
 # Bonus: uninitialized variable

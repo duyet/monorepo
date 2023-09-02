@@ -1,6 +1,6 @@
 ---
 title: Airflow 2.0 - Taskflow API
-date: "2020-12-26"
+date: '2020-12-26'
 author: Van-Duyet Le
 category: Data Engineer
 tags:
@@ -17,7 +17,7 @@ Chú trọng vào việc đơn giản hóa và rõ ràng cách viết Airflow DA
 Sau đây là ví dụ khi sử dụng cách viết mới Taskflow API trong Airflow 2.0:
 
 ```python
-import urllib.request, json 
+import urllib.request, json
 
 from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago
@@ -42,7 +42,7 @@ def taskflow_api_etl():
     """
     src = urllib.request.urlopen(data_source_url)
     data = json.loads(url.read().decode())
-    
+
     return data
 
   @task(multiple_outputs=True)
@@ -75,7 +75,6 @@ dag = taskflow_api_etl()
 
 ## 1. DAG
 
-
 Đây là cách viết mới bằng cách sử dụng các Python decorators của Taskflow API: `@dag` và `@task`
 
 Trong ví dụ trên, chúng ta sử dụng `@dag` decorator cho python function `taskflow_api_etl`, đây là **DAG ID**,
@@ -100,7 +99,6 @@ def example_dag(email: str = 'me@duyet.net'):
 
 ## 2. Tasks
 
-
 Trong pipeline ở trên, ta có 3 tasks python function, sử dụng `@task` decorator. Tên của function dùng để đặt tên cho `task_id`. Cách viết mới này chỉ cần sử dụng `@task` thay vì định nghĩa python function rồi bỏ vào `PythonOperator`.
 
 ```python
@@ -114,14 +112,14 @@ def extract():
   """
   src = urllib.request.urlopen(data_source_url)
   data = json.loads(url.read().decode())
-  
+
   return data
 ```
 
 Outputs và inputs sẽ được gửi qua lại giữa các tasks sử dụng [XCom](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#concepts-xcom).
 Output return từ function task, được sử dụng để làm input cho các tasks tiếp theo. Với cách này, input và output, mối quan hệ giữa các task sẽ tường minh hơn.
 
-Sử dụng `@task(multiple_outputs=True)` để tách ra nhiều giá trị XCom nếu task task trả về một dictionaries, lists hoặc tuples. 
+Sử dụng `@task(multiple_outputs=True)` để tách ra nhiều giá trị XCom nếu task task trả về một dictionaries, lists hoặc tuples.
 
 Ví dụ:
 
@@ -166,7 +164,6 @@ Ví dụ trên, DAG sẽ tạo ra các task ids sau: `[extract, extract__1, extr
 
 ## 3. Context
 
-
 Để truy cập vào [context](https://blog.duyet.net/2019/08/airflow-context.html), bạn có thể sử dụng `get_current_context`.
 
 ```python
@@ -181,14 +178,13 @@ Gọi method này ngoài execution context sẽ raise error.
 
 ## 4. Airflow decorators vs Operator
 
-
 Taskflow API decorators có thể được sử dụng kết hợp với các Operator truyền thống, như ví dụ dưới đây:
 
 ```python
 # ...
 with DAG('send_server_ip', default_args=default_args) as dag:
   get_ip = SimpleHttpOperator(task_id='get_ip', xcom_push=True)
-  
+
   @task
   def prepare_email(raw_json: str) -> Dict[str, str]:
     external_ip = json.loads(raw_json)['origin']
@@ -232,6 +228,5 @@ DAG = send_server_ip()
 ```
 
 ## Kết
-
 
 Bây giờ bạn đã biết khi viết 1 DAG sử dụng Taskflow API trong Airflow 2.0 sẽ đơn giản và tường minh hơn như thế nào. Tham khảo thêm tại trang [Concepts](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#concepts) để xem các giải thích chi tiết về Airflow như DAGs, Tasks, Operators, ... cũng như [Python task decorator](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#concepts-task-decorator).

@@ -1,14 +1,15 @@
 ---
-title: 'Create React apps: công cụ generate React chính thức từ Facebook, không cần
+title:
+  'Create React apps: công cụ generate React chính thức từ Facebook, không cần
   cấu hình.'
-date: "2016-07-25"
+date: '2016-07-25'
 author: Van-Duyet Le
 tags:
-- Redux
-- Tutorial
-- Tutorials
-- React
-- facebook
+  - Redux
+  - Tutorial
+  - Tutorials
+  - React
+  - facebook
 modified_time: '2016-07-25T09:31:24.499+07:00'
 thumbnail: https://3.bp.blogspot.com/-HahL2Dcmo7o/V5Vz1SQORXI/AAAAAAAAaMM/HomR1n60e4oKER20VhEDSIZQag-nQqptwCK4B/s1600/create-react-app.png
 slug: /2016/07/create-react-apps.html
@@ -52,7 +53,7 @@ src/
    logo.svg
 ```
 
-Cuối cùng để build và run, sử dụng lệnh:  
+Cuối cùng để build và run, sử dụng lệnh:
 
 ```
 npm start
@@ -63,7 +64,6 @@ Rất nhanh chóng là bạn đã có thể bắt đầu code cho project mới 
 ![](https://3.bp.blogspot.com/-uMo1EyHerQg/V5V49HgNy_I/AAAAAAAAaMY/R9jonvqbrqo3B0l7H8wtzZ-kTpuYPwFJgCLcB/s1600/create-react-app.png)
 
 ## Tham khảo
-
 
 - [https://github.com/facebookincubator/create-react-app](http://saveto.co/AIqXFq)
 - [Create React App: The Fast, Official, and Build-Free Way to Create React Projects](https://daveceddia.com/create-react-app-official-project-generator/)

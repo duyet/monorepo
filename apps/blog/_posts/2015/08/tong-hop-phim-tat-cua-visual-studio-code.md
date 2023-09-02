@@ -17,12 +17,10 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ![](https://2.bp.blogspot.com/-FGeqqi-Oxuk/VcS8Ssfh-FI/AAAAAAAACsY/U9P4bj2vfhI/s1600/VS_Code_Ubntu_duyetdev.com.png)
 
-
 ## Shortcuts - Basic Editing
 
-
 | Key                 | Command                                     | Command id                                 |
-|---------------------|---------------------------------------------|--------------------------------------------|
+| ------------------- | ------------------------------------------- | ------------------------------------------ |
 | Ctrl+Shift+K        | Delete Line                                 | editor.action.deleteLines                  |
 | Ctrl+Enter          | Insert Line Below                           | editor.action.insertLineAfter              |
 | Ctrl+Shift+Enter    | Insert Line Above                           | editor.action.insertLineBefore             |
@@ -54,12 +52,10 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 | Shift+F3            | Find Previous                               | editor.action.previousMatchFindAction      |
 | Ctrl+M              | Toggle Use of Tab Key for Setting Focus     | editor.action.toggleTabFocusMode           |
 
-
 ## Shortcuts - Rich Languages Editing
 
-
 | Key             | Command                     | Command id                            |
-|-----------------|-----------------------------|---------------------------------------|
+| --------------- | --------------------------- | ------------------------------------- |
 | Ctrl+Space      | Trigger Suggest             | editor.action.triggerSuggest          |
 | Ctrl+Shift+I    | Format Code                 | editor.action.format                  |
 | F12             | Go to Definition            | editor.action.goToDeclaration         |
@@ -72,12 +68,10 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 | Shift+Alt+Right | Expand AST Select           | editor.action.smartSelect.grow        |
 | Shift+Alt+Left  | Shrink AST Select           | editor.action.smartSelect.shrink      |
 
-
 ## Shortcuts - Navigation
 
-
 | Key          | Command                         | Command id                          |
-|--------------|---------------------------------|-------------------------------------|
+| ------------ | ------------------------------- | ----------------------------------- |
 | Ctrl+T       | Show All Symbols                | workbench.action.showAllSymbols     |
 | Ctrl+G       | Go to Line...                   | workbench.action.gotoLine           |
 | Ctrl+P       | Go to File...                   | workbench.action.quickOpen          |
@@ -92,13 +86,12 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Editor/Window Management
 
-
 | Key                  | Command                             | Command id                         |
-|----------------------|-------------------------------------|------------------------------------|
+| -------------------- | ----------------------------------- | ---------------------------------- |
 | Ctrl+Shift+N         | New Window                          | workbench.action.newWindow         |
 | Ctrl+Shift+W         | Close Window                        | workbench.action.closeWindow       |
 | Ctrl+W               | Close Editor                        | workbench.action.closeActiveEditor |
-| Ctrl+\`               | Cycle Between Opened Editors        | workbench.action.cycleEditor       |
+| Ctrl+\`              | Cycle Between Opened Editors        | workbench.action.cycleEditor       |
 | Ctrl+\               | Split Editor                        | workbench.action.splitEditor       |
 | Ctrl+1               | Focus into Left Hand Editor         | workbench.action.focusFirstEditor  |
 | Ctrl+2               | Focus into Side Editor              | workbench.action.focusSecondEditor |
@@ -108,9 +101,8 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - File Management
 
-
 | Key          | Command      | Command id                             |
-|--------------|--------------|----------------------------------------|
+| ------------ | ------------ | -------------------------------------- |
 | Ctrl+N       | New File     | workbench.action.files.newUntitledFile |
 | Ctrl+O       | Open File... | workbench.action.files.openFile        |
 | Ctrl+S       | Save         | workbench.action.files.save            |
@@ -119,9 +111,8 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Display
 
-
 | Key           | Command                        | Command id                                  |
-|---------------|--------------------------------|---------------------------------------------|
+| ------------- | ------------------------------ | ------------------------------------------- |
 | F11           | Toggle Full Screen             | workbench.action.toggleFullScreen           |
 | Ctrl+=        | Zoom in                        | workbench.action.zoomIn                     |
 | Ctrl+-        | Zoom out                       | workbench.action.zoomOut                    |
@@ -138,9 +129,8 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Debug
 
-
 | Key       | Command           | Command id                           |
-|-----------|-------------------|--------------------------------------|
+| --------- | ----------------- | ------------------------------------ |
 | F9        | Toggle Breakpoint | editor.debug.action.toggleBreakpoint |
 | F5        | Continue          | workbench.action.debug.play          |
 | F5        | Pause             | workbench.action.debug.start         |
@@ -151,9 +141,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 
 ## Shortcuts - Tasks
 
-
 | Key          | Command        | Command id                   |
-|--------------|----------------|------------------------------|
+| ------------ | -------------- | ---------------------------- |
 | Ctrl+Shift+B | Run Build Task | workbench.action.tasks.build |
 | Ctrl+Shift+T | Run Test Task  | workbench.action.tasks.test  |
-

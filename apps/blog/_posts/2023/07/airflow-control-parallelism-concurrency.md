@@ -9,7 +9,7 @@ tags:
   - Ariflow
 slug: /2023/07/airflow-control-parallelism-concurrency.html
 thumbnail: /media/2023/07/airflow-control-parallelism-concurrency.svg
-description: "How to control parallelism and concurrency"
+description: 'How to control parallelism and concurrency'
 ---
 
 ![Airflow control the parallelism and concurrency](/media/2023/07/airflow-control-parallelism-concurrency.svg)
@@ -33,7 +33,6 @@ Operators or tasks also have configurations that improves efficiency and schedul
 - `queue`: See [Queues](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/executor/celery.html#executor-celeryexecutor-queue) for CeleryExecutor deployments only.
 
 ## Credits
-
 
 - [Airflow Fundamental Concepts > Backfill](https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html#backfill)
 - [How to control the parallelism or concurrency of an Airflow installation?](https://stackoverflow.com/a/56370721)

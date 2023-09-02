@@ -1,7 +1,7 @@
 import { Container, Feed } from '@duyet/components'
 import { getAllPosts } from '@duyet/libs/getPost'
 
-type Params = Record<string, any>
+type Params = Record<string, string>
 
 async function getPosts(params: Params) {
   const page = params.page ? parseInt(params.page) - 1 : 0

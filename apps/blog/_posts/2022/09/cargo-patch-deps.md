@@ -9,7 +9,6 @@ tags:
 slug: /2022/09/cargo-patch-deps.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fcargo-patch-deps.html
 description: There are several scenarios when you will need to override or patch upstream dependencies. Like testing a bugfix of your crates before pushing to crates.io, a non-working upstream crate has a new feature or a bug fix on the master branch of its git repository that you'd want to try, etc. In these cases, the [patch] section of Cargo.toml might be useful.
-
 ---
 
 There are several scenarios when you will need to override or patch upstream dependencies.
@@ -24,7 +23,7 @@ section of `Cargo.toml` might be useful.
 # Patch dependencies from local
 
 Let's say you're working with the [`uuid` crate](https://crates.io/crates/uuid)
-but while you're working on it you discover a bug. You decide to try to fix the bug. 
+but while you're working on it you discover a bug. You decide to try to fix the bug.
 Originally your `Cargo.toml` manifest will look like this:
 
 ```toml
@@ -57,7 +56,7 @@ uuid = { path = "../path/to/uuid" }
 ```
 
 Here we declare that we're *patching* the source `crates-io` with a new dependency.
-This will effectively add the local checked out version of `uuid` to the crates.io 
+This will effectively add the local checked out version of `uuid` to the crates.io
 registry for our local package.
 
 In any case, typically all you need to do now is:

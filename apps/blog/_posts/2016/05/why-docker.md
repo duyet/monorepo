@@ -1,11 +1,11 @@
 ---
 title: 'Talk: Why docker?'
-date: "2016-05-01"
+date: '2016-05-01'
 author: Van-Duyet Le
 tags:
-- Docker
-- Seminar
-- Talk
+  - Docker
+  - Seminar
+  - Talk
 modified_time: '2018-09-10T17:24:13.718+07:00'
 thumbnail: https://4.bp.blogspot.com/-84F7ca4G75c/VyYPFOcKb4I/AAAAAAAAULU/J4g0-i0v5K4s1vK2432PQsnsZ1qFB8MKACLcB/s1600/Screenshot%2Bfrom%2B2016-05-01%2B21-13-19.png
 slug: /2016/05/why-docker.html
@@ -21,8 +21,7 @@ Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look v�
 
 ![](https://4.bp.blogspot.com/-ULipw3Y-7kc/VyYQiwVPMdI/AAAAAAAAUNk/EPX4IhrT84Uw1MJvDGgpE2DVhb-2ZsknACLcB/s400/Screenshot%2Bfrom%2B2016-05-01%2B21-18-42.png)
 
-## Nội dung:  
-
+## Nội dung:
 
 - Giới thiệu Docker, nguồn gốc ra đời.
 - Thuật ngữ Container, Isolated Environment
@@ -35,8 +34,7 @@ Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look v�
 
 Slide được Public tại đây: [https://talk.duyet.net/why-docker/](https://talk.duyet.net/why-docker/), link dự phòng: [http://duyetdev.github.io/why-docker](http://duyetdev.github.io/why-docker)
 
-## Tham khảo 
-
+## Tham khảo
 
 - [Cài đặt Docker trên Ubuntu](https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html)
 - Slide: Why docker? - [https://talk.duyet.net/why-docker/](http://why-docker.talk.duyetdev.com/)

@@ -1,13 +1,13 @@
 ---
 title: Postgres Full Text Search
-date: "2021-07-04"
+date: '2021-07-04'
 author: Van-Duyet Le
 category: Data
 tags:
- - Data
- - Data Engineer
- - Database
- - Postgres
+  - Data
+  - Data Engineer
+  - Database
+  - Postgres
 thumbnail: https://1.bp.blogspot.com/-myVyO9v0lXQ/YOHlrpMnfFI/AAAAAAACIJ8/YfkgH_rMiRMqxhoI0rNTOeC61w8XGaLCACLcBGAsYHQ/s0/pg-full-text-duyet.png
 slug: /2021/07/postgres-full-text-search.html
 description: Postgres has built-in functions to handle Full Text Search queries. This is like a "search engine" within Postgres.
@@ -52,7 +52,6 @@ select to_tsvector("the green eggs and ham") @@ to_tsquery("egg")
 t
 ```
 
-
 ```sql
 select to_tsvector("the green eggs and ham") @@ to_tsquery("eggs")
 ```
@@ -76,7 +75,6 @@ f
 ```
 
 Use `|` for **OR** in the search query:
-
 
 ```sql
 select to_tsvector("the green eggs and ham") @@ to_tsquery("eggs | red")
@@ -115,7 +113,6 @@ t
 
 Use the negation symbol `!` to find phrases which **don't** contain a search term.
 For example, search for the phase that have `egg` but not `ham`:
-
 
 ```sql
 select to_tsvector("the green eggs and ham") @@ to_tsquery("egg & !ham")

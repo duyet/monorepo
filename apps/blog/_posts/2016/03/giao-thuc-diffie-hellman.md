@@ -1,13 +1,13 @@
 ---
 title: Giao thức Diffie-Hellman (DH)
-date: "2016-03-08"
+date: '2016-03-08'
 author: Van-Duyet Le
 tags:
-- Diffie-Hellman
-- Security
-- RSA
-- Phân tích
-- Bảo mật
+  - Diffie-Hellman
+  - Security
+  - RSA
+  - Phân tích
+  - Bảo mật
 modified_time: '2016-03-08T20:22:36.152+07:00'
 thumbnail: https://4.bp.blogspot.com/-POla3_QYnOA/Vt7RlL_z6hI/AAAAAAAAQtU/TGeI1cufIe0/s1600/anglerek_dh_02b.jpg
 slug: /2016/03/giao-thuc-diffie-hellman.html

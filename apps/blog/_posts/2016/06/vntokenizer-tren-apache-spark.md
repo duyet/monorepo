@@ -1,14 +1,14 @@
 ---
 title: Chạy vnTokenizer trên môi trường Apache Spark
-date: "2016-06-23"
+date: '2016-06-23'
 author: Van-Duyet Le
 tags:
-- Apache Spark
-- vnTokenizer
-- Big Data
-- Machine Learning
-- Gán nhãn
-- Tách từ
+  - Apache Spark
+  - vnTokenizer
+  - Big Data
+  - Machine Learning
+  - Gán nhãn
+  - Tách từ
 modified_time: '2018-09-10T17:20:36.889+07:00'
 slug: /2016/06/vntokenizer-tren-apache-spark.html
 category: Machine Learning
@@ -22,10 +22,9 @@ Nay vnTokenizer vừa ra mắt phiên bản 5.0 (tên là Vitk) hỗ trợ chạ
 
 ## Chuẩn bị
 
-
 Yêu cần Ubuntu, cài đặt sẵn
 
-- Java Development Kit ([JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)), version 7.0 hoặc mới hơn. 
+- Java Development Kit ([JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)), version 7.0 hoặc mới hơn.
 - [Apache Maven](http://maven.apache.org/) version 3.0 hoặc mới hơn.
 
 Download [Apache Spark](https://spark.apache.org/) bản prebuilt. Giải nén bỏ và đặt tại `~/spark`
@@ -33,14 +32,14 @@ Download [Apache Spark](https://spark.apache.org/) bản prebuilt. Giải nén b
 ```
 cd ~ && wget http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz
 tar xzvf spark-1.6.1-bin-hadoop2.6.tgz
-mv spark-1.6.1-bin-hadoop2.6/ spark/ 
+mv spark-1.6.1-bin-hadoop2.6/ spark/
 ```
 
 Clone project Vitk và build bằng Maven
 
 ```
 git clone https://github.com/phuonglh/vn.vitk.git
-cd vn.vitk 
+cd vn.vitk
 mvn compile package
 ```
 

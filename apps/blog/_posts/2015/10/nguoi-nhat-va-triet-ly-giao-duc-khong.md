@@ -1,9 +1,9 @@
 ---
 title: Người Nhật và triết lý giáo dục không trường chuyên lớp chọn
-date: "2015-10-04"
+date: '2015-10-04'
 author: Van-Duyet Le
 tags:
-- Báo
+  - Báo
 modified_time: '2015-10-05T20:47:27.757+07:00'
 thumbnail: https://1.bp.blogspot.com/-lJko2K8QwxY/VhE4m_0MIxI/AAAAAAAADbA/WeMXmpmAirY/s1600/Nhatgiaoduc-8bf58.jpg
 slug: /2015/10/nguoi-nhat-va-triet-ly-giao-duc-khong.html

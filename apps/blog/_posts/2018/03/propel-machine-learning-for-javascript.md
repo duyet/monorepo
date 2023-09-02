@@ -1,15 +1,15 @@
 ---
 title: Propel - Machine learning for Javascript
-date: "2018-03-01"
+date: '2018-03-01'
 author: Van-Duyet Le
 tags:
-- Data Engineer
-- Nodejs
-- intro-js
-- Javascript
-- Intro-library
-- Intro
-- Machine Learning
+  - Data Engineer
+  - Nodejs
+  - intro-js
+  - Javascript
+  - Intro-library
+  - Intro
+  - Machine Learning
 modified_time: '2018-07-20T10:14:07.558+07:00'
 thumbnail: https://4.bp.blogspot.com/-rCCLsL2bgWA/WpgsDSlK8nI/AAAAAAAAqrM/4Ijx-Bt0yvYMe29D7W48z97lGge2IZDHgCLcBGAs/s1600/Propel.png
 slug: /2018/03/propel-machine-learning-for-javascript.html
@@ -33,7 +33,7 @@ npm install propel
 ```
 
 ```js
-import { grad } from "propel";
+import { grad } from 'propel'
 ```
 
 Sử dụng trên trình duyệt:

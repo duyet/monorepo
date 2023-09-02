@@ -1,11 +1,11 @@
 ---
 title: Tự động hóa Internet với IFTTT
-date: "2016-02-10"
+date: '2016-02-10'
 author: Van-Duyet Le
 tags:
-- Auto
-- Service
-- IFTTT
+  - Auto
+  - Service
+  - IFTTT
 modified_time: '2016-02-10T20:42:07.419+07:00'
 thumbnail: https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s1600/IFTTT.png
 slug: /2016/02/tu-ong-hoa-internet-voi-ifttt.html
@@ -20,16 +20,16 @@ Chẳng hạn như khi chụp 1 tấm hình, bạn muốn điện thoại sẽ t
 IFTTT hiện đang hỗ trợ hàng trăm các dịch vụ Internet như thế. Tạo ra rất nhiều tổ hợp khác nhau.
 
 ![](https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s400/IFTTT.png)
-Cách thức hoạt động của [IFTTT](https://ifttt.com/recipes) xoay quanh ý tưởng của câu lệnh có điều kiện trong lập trình: IF (nếu) - THEN (thì). 
+Cách thức hoạt động của [IFTTT](https://ifttt.com/recipes) xoay quanh ý tưởng của câu lệnh có điều kiện trong lập trình: IF (nếu) - THEN (thì).
 
 Ví dụ:
 
-- Nếu upload file vào Dropbox, thì copy file đó vào Google Drive. 
+- Nếu upload file vào Dropbox, thì copy file đó vào Google Drive.
 - Nếu upload ảnh lên Facebook, thì chia sẻ lên Twitter.
 - Nếu có cuộc gọi, thì lưu vào Calendar.
 - ...
 
-Một tổ hợp 2 dịch vụ như vậy gọi là Recipe. 
+Một tổ hợp 2 dịch vụ như vậy gọi là Recipe.
 
 Có 2 cách để Recipe trong IFTTT: Tự bạn có thể tạo công thức (Recipe) theo ý mình hoặc chọn sẵn Recipe được "xào nấu" sẵn trên cộng đồng người dùng chia sẻ.
 
@@ -41,21 +41,20 @@ Giao diện của IFTTT cực kì dễ sử dụng. Để bắt đầu, chỉ c�
 
 ## Ví dụ
 
-
 [![](https://2.bp.blogspot.com/-GO7JdubQh1A/Vrs4RHEg7jI/AAAAAAAAPZ0/dWGpVBAevh0/s640/Screenshot%2Bfrom%2B2016-02-10%2B20-15-40.png)](https://ifttt.com/recipes/54681-download-new-facebook-photos-you-re-tagged-in-to-a-google-drive-folder)
 
 Lưu các hình được tag trên Faccebook vào Google Drive.
 
-1. Click nút Create Recipes 
+1. Click nút Create Recipes
 2. Chọn If là Facebook.
-![](https://1.bp.blogspot.com/-jYO_EKW6L9U/Vrs6TiLlIXI/AAAAAAAAPaA/JZIUpZTt_JQ/s640/Screenshot%2Bfrom%2B2016-02-10%2B20-21-19.png)
+   ![](https://1.bp.blogspot.com/-jYO_EKW6L9U/Vrs6TiLlIXI/AAAAAAAAPaA/JZIUpZTt_JQ/s640/Screenshot%2Bfrom%2B2016-02-10%2B20-21-19.png)
 3. Choose a Trigger, chọn You are tagged in a photo.
 4. Cấp quyền ứng dụng Cho Facebook.
 5. Chọn Create trigger
 6. Chọn That là Google Drive ![](https://1.bp.blogspot.com/-aQh3of31G0Q/Vrs6dUDWwZI/AAAAAAAAPaI/AvQCbR2bBb8/s640/Screenshot%2Bfrom%2B2016-02-10%2B20-22-29.png)
 7. Choose a Trigger, chọn Upload file from URL
 8. Cấp quyền cho Google Drive, chọn Create Action
-9. Nhấn Create Recipe để hoàn thành.   
+9. Nhấn Create Recipe để hoàn thành.
 
 ![](https://1.bp.blogspot.com/-YTLCKFkdqGE/Vrs6tC2bWfI/AAAAAAAAPaQ/bPyW-1y2Eyc/s640/Screenshot%2Bfrom%2B2016-02-10%2B20-26-54.png)
 

@@ -1,12 +1,12 @@
 ---
 title: Shell - Mọi thao tác với tệp và thư mục trên Bash
-date: "2017-01-23"
+date: '2017-01-23'
 author: Van-Duyet Le
 tags:
-- Linux
-- Shell bash
-- Ubuntu
-- CMD
+  - Linux
+  - Shell bash
+  - Ubuntu
+  - CMD
 modified_time: '2017-01-23T11:38:35.234+07:00'
 thumbnail: https://1.bp.blogspot.com/-LFMgOUBzTRc/WIWIaGmpQzI/AAAAAAAAieU/kvAZPXb218k53BpTdGwnVJQbL4KyhjtRgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-36-34.png
 slug: /2017/01/shell-thao-tac-voi-tep-va-thu-muc.html
@@ -20,7 +20,6 @@ Shell bash trên Linux nếu như biết khai thác thì nó sẽ là một côn
 
 ## copy a file
 
-
 Copy `readme.txt` vào thư mục `documents`
 
 ```bash
@@ -29,15 +28,13 @@ cp readme.txt documents/
 
 ## duplicate a file
 
-
 ```bash
 cp readme.txt readme.bak.txt
 ```
 
 ## copy a folder
 
-
-Copy thư mục `myMusic` vào thư mục `myMedia` 
+Copy thư mục `myMusic` vào thư mục `myMedia`
 
 ```bash
 cp -a myMusic myMedia/
@@ -89,7 +86,6 @@ mv myMedia/ myMusic/myMedia
 
 ## rename a folder
 
-
 ```bash
 mv myMedia/ myMusic/
 
@@ -113,7 +109,6 @@ or
 
 ## create a new folder
 
-
 ```bash
 mkdir 'untitled folder'
 
@@ -127,7 +122,6 @@ mkdir -p 'path/may/not/exist/untitled folder'
 ```
 
 ## show file/folder size
-
 
 ```bash
 stat -x readme.md
@@ -179,7 +173,6 @@ rm my_useless_file
 
 ## remove a folder
 
-
 ```bash
 rm -r my_useless_folder
 ```
@@ -206,7 +199,6 @@ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'     # on macOS
 ![](https://4.bp.blogspot.com/-tK8h8jZr_bE/WIWEVOZOijI/AAAAAAAAieI/M-j88WoOPgwUof29-7baFsDsniPOoLXPgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-01-08.png)
 
 ## find a stale file
-
 
 Tìm tất cả files modified hơn 5 ngày trước.
 

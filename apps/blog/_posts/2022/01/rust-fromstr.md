@@ -1,6 +1,6 @@
 ---
-title: "Rust: FromStr trait"
-date: "2022-01-02"
+title: 'Rust: FromStr trait'
+date: '2022-01-02'
 author: Van-Duyet Le
 category: Rust
 tags:
@@ -11,12 +11,11 @@ tags:
 slug: /2022/01/rust-fromstr.html
 thumbnail: https://i.imgur.com/HlquQNu.png
 description: FromStr là một trait để khởi tạo instance từ string trong Rust, nó tương đương abstract class nếu bạn có background OOP.
-
 ---
 
 <div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
 
-[FromStr](https://doc.rust-lang.org/std/str/trait.FromStr.html) là một trait để khởi tạo instance từ string trong Rust, 
+[FromStr](https://doc.rust-lang.org/std/str/trait.FromStr.html) là một trait để khởi tạo instance từ string trong Rust,
 nó tương đương abstract class nếu bạn có background OOP.
 
 ```rust
@@ -26,8 +25,8 @@ pub trait FromStr {
 }
 ```
 
-Thường phương thức `from_str` của `FromStr` thường được ngầm định 
-sử dụng thông qua phương thức [parse](https://doc.rust-lang.org/nightly/std/primitive.str.html#method.parse) 
+Thường phương thức `from_str` của `FromStr` thường được ngầm định
+sử dụng thông qua phương thức [parse](https://doc.rust-lang.org/nightly/std/primitive.str.html#method.parse)
 của [str](https://doc.rust-lang.org/nightly/std/primitive.str.html). Ví dụ:
 
 ```rust
@@ -39,7 +38,7 @@ let one: u32 = "1".parse().unwrap();
 assert_eq!(1, one);
 
 // parse() sử dụng turbofish ::<>
-let two = "2".parse::<u32>(); 
+let two = "2".parse::<u32>();
 assert_eq!(Ok(2), two);
 
 let nope = "j".parse::<u32>();
@@ -47,7 +46,7 @@ assert!(nope.is_err());
 ```
 
 `parse` là một phương thức general nên thường được sử dụng với kiểu dữ liệu
-như trên hoặc sử dụng turbofish `::<>` để thuật toán inference có thể hiểu 
+như trên hoặc sử dụng turbofish `::<>` để thuật toán inference có thể hiểu
 để parse thành đúng kiểu bạn cần.
 
 # Parse str to Struct
@@ -105,7 +104,7 @@ fn print(color: Color, text: &str) { ... }
 print(Green, "duyet");
 ```
 
-Cũng nên hạn chế sử dụng quá nhiều Boolean, thực tế Boolean cũng chỉ là 
+Cũng nên hạn chế sử dụng quá nhiều Boolean, thực tế Boolean cũng chỉ là
 
 ```rust
 enum bool { true, false }
@@ -115,7 +114,7 @@ Thay vào đó hãy tự định nghĩa enum cho các ngữ cảnh khác nhau đ
 
 ```rust
 enum EnvVars { Clear, Inherit }
-enum DisplayStyle { Color, Monochrome } 
+enum DisplayStyle { Color, Monochrome }
 ```
 
 Chúng ta implement [std::str::FromStr](https://doc.rust-lang.org/std/str/trait.FromStr.html) trait như sau:

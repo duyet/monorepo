@@ -1,11 +1,11 @@
 ---
 title: Cài đặt OpenVPN trên Debian, Ubuntu và CentOS
-date: "2015-10-26"
+date: '2015-10-26'
 author: Van-Duyet Le
 tags:
-- Linux
-- OpenVPN
-- Ubuntu
+  - Linux
+  - OpenVPN
+  - Ubuntu
 modified_time: '2016-02-03T13:05:36.649+07:00'
 thumbnail: https://1.bp.blogspot.com/-MSVkQL61Px0/Vi483gBYyyI/AAAAAAAAFL4/XtlhpYG-uGU/s1600/Cai-dat-OpenVPN-Server.jpg
 slug: /2015/10/cai-at-openvpn-tren-debian-ubuntu-va-centos.html
@@ -23,8 +23,7 @@ OpenVPN là một chương trình mã nguồn mở VPN hoàn toàn miễn phí v
 
 VPN (Virtual Private Network) là một mạng riêng sử dụng mạng Internet để kết nối các địa điểm hoặc người sử dụng từ xa với một mạng LAN. Thay vì dùng kết nối thật khá phức tạp như đường dây thuê bao số, VPN tạo ra các liên kết ảo được truyền qua Internet giữa mạng riêng của một tổ chức với địa điểm hoặc người sử dụng ở xa.
 
-## Cài đặt OpenVPN trên Debian, Ubuntu và CentOS 
-
+## Cài đặt OpenVPN trên Debian, Ubuntu và CentOS
 
 Để bắt đầu quá trình cài đặt bạn chạy lệnh sau:
 

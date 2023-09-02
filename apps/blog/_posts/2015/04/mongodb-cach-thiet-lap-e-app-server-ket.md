@@ -38,7 +38,6 @@ Thông tin cấu hình của môi trường test:
 
 ## 1. Bind IP
 
-
 Mở `/etc/mongod.conf` tìm đến dòng bind_ip
 
 ```
@@ -50,10 +49,9 @@ $ vim /etc/mongod.conf
 bind_ip = 127.0.0.1
 ```
 
-Mặc định MongoDb chỉ cho phép kết nối từ nội bộ (127.0.0.1), nên nhiệm vụ của bạn là sửa đổi thông tin này, 1 số trường hợp như sau: 
+Mặc định MongoDb chỉ cho phép kết nối từ nội bộ (127.0.0.1), nên nhiệm vụ của bạn là sửa đổi thông tin này, 1 số trường hợp như sau:
 
 ### 1. listen on all interfaces
-
 
 Nếu bạn chẳng cần quan tâm cái quái gì là bảo mật, thì xóa dòng `bind_ip = 127.0.0.1` đi, hoặc sửa thành `bind_ip = 0.0.0.0`
 
@@ -64,7 +62,6 @@ Nếu bạn chẳng cần quan tâm cái quái gì là bảo mật, thì xóa d�
 
 ### 2. Chỉ cho phép kết nối từ mạng nội bộ (LAN)
 
-
 ```
 $ vim /etc/mongod.conf
 
@@ -74,10 +71,9 @@ $ vim /etc/mongod.conf
 bind_ip = 127.0.0.1,192.168.161.100
 ```
 
-Nhớ là đặt IP Private, không phải IP Public của App Server nha 
+Nhớ là đặt IP Private, không phải IP Public của App Server nha
 
 ### 3. Cho phép kết nối từ bất cứ IP nào
-
 
 Trường hợp server đặt tại công ty, bạn muốn máy ở nhà kết nối đến để sử dụng. Bạn có thể kết nối đến MongoDb thông qua địa chỉ Public IP 45.56.65.100
 
@@ -90,11 +86,11 @@ $ vim /etc/mongod.conf
 bind_ip = 127.0.0.1,192.168.161.100,45.56.65.100
 ```
 
-Mình khuyên là nên sử dụng một mạng riêng ảo VPN để đảm bảo tính bảo mật hơn cách này. 
+Mình khuyên là nên sử dụng một mạng riêng ảo VPN để đảm bảo tính bảo mật hơn cách này.
 
----------------------
+---
 
-Khởi động lại MongoDb để thay đổi có tác dụng: 
+Khởi động lại MongoDb để thay đổi có tác dụng:
 
 ```
 $ sudo service mongod restart
@@ -103,10 +99,9 @@ $ sudo service mongod restart
 
 ## 2. IpTables Firewall
 
-
 Nếu bạn có đặt tường lửa, hãy thiết lập lại sao cho tường lửa cho phép kết nối thông qua Port của của MongoDb (mặc định là 27017)
 
-Ở đây mình sử dụng iptables để thiết lập kết nối đến trên Ubuntu 
+Ở đây mình sử dụng iptables để thiết lập kết nối đến trên Ubuntu
 
 Cho phép mọi kết nối thông qua cổng 27017
 

@@ -1,20 +1,20 @@
 ---
-title: " Github project - Bruteforce Database - Password dictionaries"
-date: "2015-10-05"
+title: ' Github project - Bruteforce Database - Password dictionaries'
+date: '2015-10-05'
 author: Van-Duyet Le
 tags:
-- Github
-- project
+  - Github
+  - project
 modified_time: '2015-10-05T20:46:06.959+07:00'
 thumbnail: https://2.bp.blogspot.com/-DBFErnG-8AE/VhJ-z3Y-41I/AAAAAAAADgA/FGCt8naBMKs/s1600/mtyourmind.10001mb.com.png
 slug: /2015/10/github-project-bruteforce-database.html
 category: Project
-description: A Password dictionaries for hacking, bruteforce, testing ...  
+description: A Password dictionaries for hacking, bruteforce, testing ...
 ---
 
-A Password dictionaries for hacking, bruteforce, testing ...  
+A Password dictionaries for hacking, bruteforce, testing ...
 
-![](https://2.bp.blogspot.com/-DBFErnG-8AE/VhJ-z3Y-41I/AAAAAAAADgA/FGCt8naBMKs/s1600/mtyourmind.10001mb.com.png) 
+![](https://2.bp.blogspot.com/-DBFErnG-8AE/VhJ-z3Y-41I/AAAAAAAADgA/FGCt8naBMKs/s1600/mtyourmind.10001mb.com.png)
 
 Image: jameswebb
 
@@ -35,14 +35,12 @@ Author: Van-Duyet Le (@duyetdev)
 
 ## How to contribute
 
-
 1. Fork the project on Github
 2. Create a topic branch for your changes
 3. Ensure that you provide documentation and test coverage for your changes (patches won’t be accepted without)
 4. Create a pull request on Github (these are also a great place to start a conversation around a patch as early as possible)
 
 ## [https://github.com/duyet/bruteforce-database#license](https://github.com/duyet/bruteforce-database#license)License
-
 
 MIT License
 

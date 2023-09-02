@@ -1,12 +1,12 @@
 ---
 title: Web Performance 101
-date: "2018-11-13"
+date: '2018-11-13'
 author: Van-Duyet Le
 tags:
-- Recommend read
-- Intro
-- Web
-- Intro post
+  - Recommend read
+  - Intro
+  - Web
+  - Intro post
 modified_time: '2018-11-13T00:11:36.222+07:00'
 thumbnail: https://3.bp.blogspot.com/-JVmogTZv_Bs/W-mzZzk0NlI/AAAAAAAA1JI/axjukAia6WEVCx4_QnOjb7qkQ8TLhYVmACLcBGAs/s1600/Screen%2BShot%2B2018-11-13%2Bat%2B12.07.30%2BAM.png
 slug: /2018/11/web-performance-101.html

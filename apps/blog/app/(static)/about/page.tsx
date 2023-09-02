@@ -1,4 +1,4 @@
-type Link = {
+interface Link {
   name: string
   link?: string
 }
@@ -52,11 +52,11 @@ export default function About() {
           Skills & stacks:{' '}
           {skills.map(({ name, link = '#' }) => (
             <a
-              key={name}
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-blue-600 mr-4"
+              href={link}
+              key={name}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               {name}
             </a>
@@ -66,11 +66,11 @@ export default function About() {
         <p>
           {links.map(({ name, link = '#' }) => (
             <a
-              key={name}
-              href={link}
-              target="_blank"
               className="text-blue-600 mr-4"
+              href={link}
+              key={name}
               rel="nofollow noopener noreferrer"
+              target="_blank"
             >
               {name}
             </a>

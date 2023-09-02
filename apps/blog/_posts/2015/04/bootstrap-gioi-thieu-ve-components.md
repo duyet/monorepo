@@ -1,18 +1,18 @@
 ---
-title: Bootstrap - Giới thiệu về Components thành phần được xây dựng sẵn trong Twitter
+title:
+  Bootstrap - Giới thiệu về Components thành phần được xây dựng sẵn trong Twitter
   Bootstrap
-date: "2015-04-27"
+date: '2015-04-27'
 author: Van-Duyet Le
 tags:
-- Css
-- Bootstrap
-- Components
+  - Css
+  - Bootstrap
+  - Components
 modified_time: '2015-04-27T20:50:25.576+07:00'
 thumbnail: https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png
 slug: /2015/04/bootstrap-gioi-thieu-ve-components.html
 category: Web
 description: Ở bài trước mình đã giới thiệu về Bootstrap về hệ thống Grid, giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
-
 ---
 
 Ở bài trước mình đã giới thiệu về Bootstrap về [hệ thống Grid](https://blog.duyet.net/2015/04/gioi-thieu-ve-responsive-web-design-va-grid-system-trong-twitter-bootstrap.html), giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
@@ -42,18 +42,25 @@ Trang Components có nhiều mục, gồm phần giới thiệu, ví dụ, code,
 Chỉnh sửa phần nội dung nav-brand, phần liên kết, ... cho phù hợp. Ví dụ dưới đây mình sẽ sử dụng kết hợp navbar và jumbotron
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Navbar Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+    />
 
-    <style>.navbar { margin-top: 20px; }</style>
+    <style>
+      .navbar {
+        margin-top: 20px;
+      }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -63,14 +70,19 @@ Chỉnh sửa phần nội dung nav-brand, phần liên kết, ... cho phù hợ
   </head>
 
   <body>
-
     <div class="container">
-
       <!-- Static navbar -->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#navbar"
+              aria-expanded="false"
+              aria-controls="navbar"
+            >
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -84,7 +96,14 @@ Chỉnh sửa phần nội dung nav-brand, phần liên kết, ... cho phù hợ
               <li><a href="#">About</a></li>
               <li><a href="#">Contact</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-expanded="false"
+                  >Dropdown <span class="caret"></span
+                ></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="#">Action</a></li>
                   <li><a href="#">Another action</a></li>
@@ -100,30 +119,37 @@ Chỉnh sửa phần nội dung nav-brand, phần liên kết, ... cho phù hợ
               <li class="active"><a href="#">Login</a></li>
               <li><a href="#">Register</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
       </nav>
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Hi, My name is Van-Duyet Le</h1>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
         <p>
-          <a class="btn btn-lg btn-primary" href="#" role="button">See more &raquo;</a>
+          This example is a quick exercise to illustrate how the default, static
+          navbar and fixed to top navbar work. It includes the responsive CSS
+          and HTML, so it also adapts to your viewport and device.
+        </p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="#" role="button"
+            >See more &raquo;</a
+          >
         </p>
       </div>
-
-    </div> <!-- /container -->
+    </div>
+    <!-- /container -->
   </body>
 </html>
-
 ```
 
 Kết quả:
 
 ![](https://2.bp.blogspot.com/-d8IFTRjmzA8/VT3zMGxRpxI/AAAAAAAACac/qjghCLUV9f0/s1600/bs-components-demo.png)
 
-Đọc thêm các phần mở rộng trong hướng dẫn của Bootstrap để có thể tùy biến thêm bằng việc sử dụng các class có sẵn. Hãy đọc qua  mục: Alignment, Headers, Disabled menu items.
+Đọc thêm các phần mở rộng trong hướng dẫn của Bootstrap để có thể tùy biến thêm bằng việc sử dụng các class có sẵn. Hãy đọc qua mục: Alignment, Headers, Disabled menu items.
 Các bạn có thể hiểu thêm nếu đọc Docs của Bootstrap và thông qua các ví dụ.
 
 ## Kết

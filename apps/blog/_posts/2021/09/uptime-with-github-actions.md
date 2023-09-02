@@ -1,6 +1,6 @@
 ---
-title: Uptime with GitHub Actions 
-date: "2021-09-20"
+title: Uptime with GitHub Actions
+date: '2021-09-20'
 author: Van-Duyet Le
 category: Dev
 tags:
@@ -16,7 +16,7 @@ description: >
 Hey, I just found this tool, so incredibly clever that
 it uses Github Actions for uptime monitor and status page.
 
-Firstly, look at my Uptime Repo (https://github.com/duyet/uptime) and 
+Firstly, look at my Uptime Repo (https://github.com/duyet/uptime) and
 the Status Page (https://duyet.github.io/uptime) hosted by Github Page.
 
 ![Uptime](/media/2021/09/uptime-1.png)
@@ -35,14 +35,12 @@ Upptime doesn't require a server, it's all powered by GitHub:
 
 # Getting started
 
-Just follow the detailed tutorials here (https://upptime.js.org/docs/get-started), 
+Just follow the detailed tutorials here (https://upptime.js.org/docs/get-started),
 create your repository from the template with a few configuration.
 
-
-Upptime uses thousands of build minutes every month (approximately 3,000 minutes in the default setting). 
-If you use a public repository, GitHub offers unlimited free build minutes, 
+Upptime uses thousands of build minutes every month (approximately 3,000 minutes in the default setting).
+If you use a public repository, GitHub offers unlimited free build minutes,
 but if you use a private repository, you'll have to pay for this time.
-
 
 # References
 

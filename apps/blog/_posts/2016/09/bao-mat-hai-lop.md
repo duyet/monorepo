@@ -1,14 +1,14 @@
 ---
 title: Bảo mật hai lớp
-date: "2016-09-01"
+date: '2016-09-01'
 author: Van-Duyet Le
 tags:
-- Security
-- Xác minh 2 lớp
-- Tutorials
-- Bảo mật 2 lớp
-- Bảo mật
-- Thủ thuật
+  - Security
+  - Xác minh 2 lớp
+  - Tutorials
+  - Bảo mật 2 lớp
+  - Bảo mật
+  - Thủ thuật
 modified_time: '2016-09-01T12:36:14.646+07:00'
 thumbnail: https://3.bp.blogspot.com/-U90ziEzboCk/V8e8QNYdT_I/AAAAAAAAcq4/2utzWI8wLTsV5OLn9I2Hwevtb0FdbvwFgCK4B/s1600/FIDO-Yubico-YubiKeys-GfW-blog-845x321.png
 slug: /2016/09/bao-mat-hai-lop.html
@@ -25,7 +25,6 @@ Mình khuyến khích mọi người nên bật chức năng này trên các tà
 
 ## Google
 
-
 1. Truy cập trang [Xác minh 2 bước](http://accounts.google.com/SmsAuthConfig). Bạn có thể phải đăng nhập vào Tài khoản Google của mình.
 2. Trong hộp "Xác minh 2 bước" ở bên phải, chọn Bắt đầu thiết lập.
 3. Làm theo quy trình thiết lập từng bước.
@@ -40,7 +39,7 @@ Khi đó trên Android sẽ yêu cầu xác nhận đăng nhập:
 
 ![](https://4.bp.blogspot.com/-Yg_ZM1xSMKA/V8e3zHqGy9I/AAAAAAAAcpw/pkjuXcXH1lkC3kzFz6nk0ZK59sitjc8pwCK4B/s640/Screenshot_2016-09-01-11-32-18-672_com.google.android.gms.png)
 
-Bạn còn có thể sử dụng 1 thiết bị Security Key, sử dụng như 1 chìa khoá vật lý để đảm bảo an toàn hơn. 
+Bạn còn có thể sử dụng 1 thiết bị Security Key, sử dụng như 1 chìa khoá vật lý để đảm bảo an toàn hơn.
 
 [
 ](https://3.bp.blogspot.com/-U90ziEzboCk/V8e8QNYdT_I/AAAAAAAAcq4/2utzWI8wLTsV5OLn9I2Hwevtb0FdbvwFgCK4B/s1600/FIDO-Yubico-YubiKeys-GfW-blog-845x321.png)![](https://2.bp.blogspot.com/-2cvBm1URfuI/V8e4JUrL1zI/AAAAAAAAcp4/XRREvMQyFiMVnkQjP7BvceESkb8MIib_wCK4B/s1600/Screen%2BShot%2B2016-09-01%2Bat%2B12.09.44%2BPM.png)
@@ -61,9 +60,8 @@ Chỉ cần nhập mã từ ứng dụng:
 
 ## Khác
 
-
 - Ngoài ra bạn có thể bật thêm chức năng thông báo mỗi khi đăng nhập về Email hoặc Số điện thoại.
-- Mình khuyến khích sử dụng các thiết bị như FIDO U2F. [Xem thêm demo đăng nhập vào Google sử dụng thiết bị U2F của hãng Yubico](https://www.youtube.com/watch?annotation_id=annotation_1845157061&amp;feature=iv&amp;src_vid=BXN7-Wn1Hy4&amp;v=LeTkw6kmlzg)
+- Mình khuyến khích sử dụng các thiết bị như FIDO U2F. [Xem thêm demo đăng nhập vào Google sử dụng thiết bị U2F của hãng Yubico](https://www.youtube.com/watch?annotation_id=annotation_1845157061&feature=iv&src_vid=BXN7-Wn1Hy4&v=LeTkw6kmlzg)
 - Bạn nào làm về mạch và điện tử có thể tự chế tạo cho mình 1 thiết bị xác minh 2 bước để có thể được an toàn tuyệt đối ([https://github.com/conorpp/u2f-zero](https://github.com/conorpp/u2f-zero))
 
 [![](https://4.bp.blogspot.com/-ig8MqVNAnTw/V8e9Tb-NpwI/AAAAAAAAcrM/AkKDZQBQVj0U6Z4tgScGLyRJTYBWRWscwCK4B/s640/687474703a2f2f692e696d6775722e636f6d2f6451706f3977432e6a7067.jpeg)](https://4.bp.blogspot.com/-ig8MqVNAnTw/V8e9Tb-NpwI/AAAAAAAAcrM/AkKDZQBQVj0U6Z4tgScGLyRJTYBWRWscwCK4B/s1600/687474703a2f2f692e696d6775722e636f6d2f6451706f3977432e6a7067.jpeg)
