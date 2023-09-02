@@ -1,8 +1,13 @@
 'use client'
 
+import { ReactElement, JSXElementConstructor } from 'react'
 import { Auth0Provider } from '@auth0/auth0-react'
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({
+  children,
+}: {
+  children: ReactElement<any, string | JSXElementConstructor<any>>
+}) {
   const redirect_uri =
     typeof window !== 'undefined' && window.location.origin
       ? window.location.origin
