@@ -1,7 +1,7 @@
 'use client'
 
-import CommentForm from './form'
-import CommentList from './list'
+import CommentForm from './comment-form'
+import CommentList from './comment-list'
 import useComments from './hooks/use-comment'
 
 interface CommentProps {
