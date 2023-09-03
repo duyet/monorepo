@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 interface LayoutProps {
-  cloudflare: React.ReactNode
-  wakatime: React.ReactNode
+  cloudflare: React.ReactNode;
+  wakatime: React.ReactNode;
 }
 
 export default async function Layout({ cloudflare, wakatime }: LayoutProps) {
@@ -11,5 +11,5 @@ export default async function Layout({ cloudflare, wakatime }: LayoutProps) {
       {cloudflare}
       {wakatime}
     </>
-  )
+  );
 }

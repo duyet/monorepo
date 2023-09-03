@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import type { Post } from '@duyet/interfaces'
-import { Container, YearList } from '@duyet/components'
-import { getPostsByAllYear } from '@duyet/libs/getPost'
+import Link from 'next/link';
+import type { Post } from '@duyet/interfaces';
+import { Container, YearList } from '@duyet/components';
+import { getPostsByAllYear } from '@duyet/libs/getPost';
 
 export default function Archives() {
-  const yearLimit = 5
+  const yearLimit = 5;
   const postsByYear = getPostsByAllYear(
     ['slug', 'title', 'date', 'category'],
     yearLimit,
-  )
+  );
 
   return (
     <Container>
@@ -16,7 +16,7 @@ export default function Archives() {
         {Object.keys(postsByYear)
           .sort((a: string, b: string) => parseInt(b) - parseInt(a))
           .map((year: string) => {
-            const posts = postsByYear[parseInt(year)]
+            const posts = postsByYear[parseInt(year)];
 
             return (
               <div key={year}>
@@ -43,7 +43,7 @@ export default function Archives() {
                   </article>
                 ))}
               </div>
-            )
+            );
           })}
       </div>
 
@@ -51,5 +51,5 @@ export default function Archives() {
         <YearList />
       </div>
     </Container>
-  )
+  );
 }

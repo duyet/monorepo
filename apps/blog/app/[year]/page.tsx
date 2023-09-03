@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import { YearList } from '@duyet/components'
-import type { Post } from '@duyet/interfaces'
-import { getPostsByAllYear, getPostsByYear } from '@duyet/libs/getPost'
+import Link from 'next/link';
+import { YearList } from '@duyet/components';
+import type { Post } from '@duyet/interfaces';
+import { getPostsByAllYear, getPostsByYear } from '@duyet/libs/getPost';
 
 interface YearProps {
   params: {
-    year: number
-  }
+    year: number;
+  };
 }
 
 export default function Year({ params: { year } }: YearProps) {
-  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
+  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
 
   return (
     <>
@@ -37,13 +37,13 @@ export default function Year({ params: { year } }: YearProps) {
         <YearList />
       </div>
     </>
-  )
+  );
 }
 
 export async function generateStaticParams() {
-  const posts = getPostsByAllYear()
+  const posts = getPostsByAllYear();
 
   return Object.keys(posts).map((year) => ({
     year,
-  }))
+  }));
 }

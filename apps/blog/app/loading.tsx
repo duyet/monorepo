@@ -1,5 +1,5 @@
-import { RefreshCw } from 'lucide-react'
-import { Container } from '@duyet/components'
+import { RefreshCw } from 'lucide-react';
+import { Container } from '@duyet/components';
 
 export default function Loading() {
   return (
@@ -11,5 +11,5 @@ export default function Loading() {
         </div>
       </div>
     </Container>
-  )
+  );
 }

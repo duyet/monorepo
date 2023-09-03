@@ -1,6 +1,6 @@
-import type { Post } from '@duyet/interfaces'
-import { getPostBySlug } from '@duyet/libs/getPost'
-import markdownToHtml from '@duyet/libs/markdownToHtml'
+import type { Post } from '@duyet/interfaces';
+import { getPostBySlug } from '@duyet/libs/getPost';
+import markdownToHtml from '@duyet/libs/markdownToHtml';
 
 export default function Content({ post }: { post: Post }) {
   return (
@@ -14,7 +14,7 @@ export default function Content({ post }: { post: Post }) {
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </>
-  )
+  );
 }
 
 export async function getPost(slug: string[]) {
@@ -27,17 +27,17 @@ export async function getPost(slug: string[]) {
     'category',
     'category_slug',
     'tags',
-  ])
-  const content = await markdownToHtml(post.content || 'Error')
+  ]);
+  const content = await markdownToHtml(post.content || 'Error');
 
   return {
     ...post,
     content,
     edit_url: getGithubEditUrl(post.slug),
-  }
+  };
 }
 
 const getGithubEditUrl = (slug: string) => {
-  const file = slug.replace(/\.md|htm|html$/, '.md').replace(/^\/?/, '')
-  return `https://github.com/duyet/new-blog/edit/master/_posts/${file}`
-}
+  const file = slug.replace(/\.md|htm|html$/, '.md').replace(/^\/?/, '');
+  return `https://github.com/duyet/new-blog/edit/master/_posts/${file}`;
+};

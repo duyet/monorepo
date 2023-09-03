@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { getSlug } from '@duyet/libs/getSlug'
-import { getAllCategories } from '@duyet/libs/getPost'
+import Link from 'next/link';
+import { getSlug } from '@duyet/libs/getSlug';
+import { getAllCategories } from '@duyet/libs/getPost';
 
 export default function Categories() {
-  const categories = getAllCategories()
+  const categories = getAllCategories();
 
   return (
     <div>
@@ -21,5 +21,5 @@ export default function Categories() {
         </article>
       ))}
     </div>
-  )
+  );
 }

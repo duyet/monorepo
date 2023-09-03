@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import { Github } from 'lucide-react'
-import { cn } from '@duyet/libs/utils'
-import type { Post } from '@duyet/interfaces'
-import distanceToNow from '@duyet/libs/dateRelative'
+import Link from 'next/link';
+import { Github } from 'lucide-react';
+import { cn } from '@duyet/libs/utils';
+import type { Post } from '@duyet/interfaces';
+import distanceToNow from '@duyet/libs/dateRelative';
 
 interface ContentProps {
-  post: Post
-  className?: string
+  post: Post;
+  className?: string;
 }
 
 export default function Content({ post, className }: ContentProps) {
-  const tags = post.tags?.join(', ')
+  const tags = post.tags?.join(', ');
 
   return (
     <div
@@ -41,5 +41,5 @@ export default function Content({ post, className }: ContentProps) {
         <Github size={20} strokeWidth={1} />
       </a>
     </div>
-  )
+  );
 }

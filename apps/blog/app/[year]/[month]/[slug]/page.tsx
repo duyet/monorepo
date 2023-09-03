@@ -1,24 +1,24 @@
-import type { Metadata } from 'next'
-import { getAllPosts } from '@duyet/libs/getPost'
-import { Container } from '@duyet/components'
-import Meta from './meta'
-import Comment from './comment'
-import Content, { getPost } from './content'
+import type { Metadata } from 'next';
+import { getAllPosts } from '@duyet/libs/getPost';
+import { Container } from '@duyet/components';
+import Meta from './meta';
+import Comment from './comment';
+import Content, { getPost } from './content';
 
 interface Params {
-  year: string
-  month: string
-  slug: string
+  year: string;
+  month: string;
+  slug: string;
 }
 
 interface PostProps {
-  params: Params
+  params: Params;
 }
 
 export default async function Post({
   params: { year, month, slug },
 }: PostProps) {
-  const post = await getPost([year, month, slug])
+  const post = await getPost([year, month, slug]);
 
   return (
     <Container>
@@ -28,33 +28,33 @@ export default async function Post({
         <Comment className="mt-0" />
       </article>
     </Container>
-  )
+  );
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts(['slug'])
-  const posibleExtensions = ['', '.html']
+  const posts = getAllPosts(['slug']);
+  const posibleExtensions = ['', '.html'];
 
   return posts.flatMap(({ slug }) =>
     posibleExtensions.map((ext: string) => {
       const slugArray = slug
-        .replace(/\.md|html$/, ext)
+        .replace(/\.md|\.html$/, ext)
         .replace(/^\//, '')
-        .split('/')
+        .split('/');
 
       return {
         year: slugArray[0],
         month: slugArray[1],
         slug: slugArray[2],
-      }
+      };
     }),
-  )
+  );
 }
 
 export async function generateMetadata({
   params: { year, month, slug },
 }: PostProps): Promise<Metadata> {
-  const post = await getPost([year, month, slug])
+  const post = await getPost([year, month, slug]);
 
   return {
     title: post.title,
@@ -62,5 +62,5 @@ export async function generateMetadata({
     creator: post.author,
     category: post.category,
     keywords: post.tags,
-  }
+  };
 }

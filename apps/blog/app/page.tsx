@@ -1,10 +1,10 @@
-import { Container, Feed } from '@duyet/components'
-import { getAllPosts } from '@duyet/libs/getPost'
+import { Container, Feed } from '@duyet/components';
+import { getAllPosts } from '@duyet/libs/getPost';
 
-type Params = Record<string, string>
+type Params = Record<string, string>;
 
 async function getPosts(params: Params) {
-  const page = params.page ? parseInt(params.page) - 1 : 0
+  const page = params.page ? parseInt(params.page) - 1 : 0;
 
   return getAllPosts(
     [
@@ -17,14 +17,14 @@ async function getPosts(params: Params) {
       'category_slug',
     ],
     page * 10 + 10,
-  )
+  );
 }
 
 export default async function Page({ params }: { params: Params }) {
-  const posts = await getPosts(params)
+  const posts = await getPosts(params);
   return (
     <Container>
       <Feed posts={posts} />
     </Container>
-  )
+  );
 }

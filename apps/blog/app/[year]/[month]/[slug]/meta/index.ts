@@ -1,3 +1,3 @@
-import Meta from './meta'
+import Meta from './meta';
 
-export default Meta
+export default Meta;

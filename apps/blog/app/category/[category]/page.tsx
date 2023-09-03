@@ -1,19 +1,19 @@
-import { getSlug } from '@duyet/libs/getSlug'
-import { Feed } from '@duyet/components'
-import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
+import { getSlug } from '@duyet/libs/getSlug';
+import { Feed } from '@duyet/components';
+import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost';
 
 interface PostsByCategoryProps {
   params: {
-    category: string
-  }
+    category: string;
+  };
 }
 
 export default async function PostsByCategory({
   params,
 }: PostsByCategoryProps) {
-  const posts = await getPosts(params.category)
+  const posts = await getPosts(params.category);
 
-  return <Feed posts={posts} />
+  return <Feed posts={posts} />;
 }
 
 async function getPosts(category: PostsByCategoryProps['params']['category']) {
@@ -24,13 +24,13 @@ async function getPosts(category: PostsByCategoryProps['params']['category']) {
     'excerpt',
     'category',
     'thumbnail',
-  ])
+  ]);
 }
 
 export async function generateStaticParams() {
-  const categories = getAllCategories()
+  const categories = getAllCategories();
 
   return Object.keys(categories).map((cat: string) => ({
     category: getSlug(cat),
-  }))
+  }));
 }
