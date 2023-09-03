@@ -5,19 +5,31 @@
     "packages/*",
     "apps/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duyet/monorepo.git"
+  },
   "scripts": {
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev --parallel",
+    "prepare": "husky install",
     "fix": "prettier --write \"**/*.{ts,tsx}\"",
     "lint": "turbo lint",
     "prettier-check": "prettier --check \"**/*.{ts,tsx}\"",
     "start": "turbo start"
   },
+  "lint-staged": {
+    "*": "prettier -w --ignore-unknown"
+  },
   "dependencies": {
     "dotenv-cli": "^7.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "@duyet/tsconfig": "*",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "eslint": "8.48.0",
     "prettier": "^3.0.0",
     "turbo": "^1.10.12"
