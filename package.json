@@ -1,59 +1,28 @@
 {
+  "name": "duyet",
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
-    "fix": "prettier --write .",
-    "lint": "next lint",
-    "prettier-check": "prettier --check .",
-    "start": "next start"
+    "build": "dotenv -- turbo build",
+    "dev": "dotenv -- turbo dev --parallel",
+    "fix": "prettier --write \"**/*.{ts,tsx}\"",
+    "lint": "turbo lint",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx}\"",
+    "start": "turbo start"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.0.0",
-    "@headlessui/tailwindcss": "^0.2.0",
-    "@radix-ui/react-toggle-group": "^1.0.3",
-    "@tailwindcss/typography": "^0.5.7",
-    "@tremor/react": "^3.0.0",
-    "@vercel/analytics": "^1.0.0",
-    "@vercel/kv": "^0.2.0",
-    "clsx": "^2.0.0",
-    "date-fns": "^2.29.3",
-    "graphql": "^16.6.0",
-    "graphql-request": "^6.0.0",
-    "gray-matter": "4.0.3",
-    "lucide-react": "^0.274.0",
-    "nanoid": "^4.0.0",
-    "next": "^13.4.1",
-    "next-themes": "^0.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rehype": "^12.0.1",
-    "rehype-autolink-headings": "^6.1.1",
-    "rehype-format": "^5.0.0",
-    "rehype-highlight": "^6.0.0",
-    "rehype-slug": "^6.0.0",
-    "rehype-stringify": "^9.0.3",
-    "remark-gfm": "^3.0.1",
-    "remark-parse": "^10.0.1",
-    "remark-rehype": "^10.1.0",
-    "rss": "^1.2.2",
-    "swr": "^2.0.0",
-    "tailwind-highlightjs": "^2.0.1",
-    "tailwind-merge": "^1.12.0"
+    "dotenv-cli": "^7.3.0"
   },
   "devDependencies": {
-    "@types/node": "^18.11.5",
-    "@types/react": "^18.0.23",
-    "@types/react-dom": "^18.0.7",
-    "@types/rss": "^0.0.30",
-    "autoprefixer": "^10.4.12",
-    "eslint": "8.48.0",
-    "eslint-config-next": "13.4.12",
-    "postcss": "^8.4.18",
+    "@duyet/tsconfig": "*",
+    "eslint": "8.47.0",
     "prettier": "^3.0.0",
-    "tailwindcss": "^3.2.1",
-    "typescript": "^5.0.0"
+    "turbo": "^1.10.12"
   },
+  "packageManager": "yarn@1.22.19",
   "engines": {
     "node": "^18"
   }

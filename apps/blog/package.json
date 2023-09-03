@@ -1,0 +1,57 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "fix": "prettier --write \"**/*.{ts,tsx}\" .",
+    "lint": "next lint",
+    "prettier-check": "prettier --check .",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@auth0/auth0-react": "2.0.1",
+    "@duyet/components": "*",
+    "@duyet/prettier": "*",
+    "@duyet/libs": "*",
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@radix-ui/react-toggle-group": "^1.0.3",
+    "@tremor/react": "^3.0.0",
+    "@vercel/analytics": "^1.0.0",
+    "@vercel/kv": "^0.2.0",
+    "encoding": "^0.1.13",
+    "graphql": "^16.6.0",
+    "graphql-request": "^6.0.0",
+    "lucide-react": "^0.268.0",
+    "nanoid": "^4.0.0",
+    "next": "^13.4.1",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rss": "^1.2.2",
+    "swr": "^2.0.0"
+  },
+  "devDependencies": {
+    "@duyet/eslint-config-custom": "*",
+    "@duyet/interfaces": "*",
+    "@duyet/tailwind-config": "*",
+    "@duyet/tsconfig": "*",
+    "@types/node": "^18.11.5",
+    "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.7",
+    "@types/rss": "^0.0.30",
+    "autoprefixer": "^10.4.12",
+    "eslint": "8.47.0",
+    "postcss": "^8.4.18",
+    "prettier": "^3.0.0",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^5.0.0"
+  },
+  "prettier": "@duyet/prettier"
+}

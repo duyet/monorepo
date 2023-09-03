@@ -1,0 +1,30 @@
+{
+  "name": "@duyet/libs",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "date-fns": "^2.29.3",
+    "gray-matter": "4.0.3",
+    "rehype": "^12.0.1",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-format": "^4.0.1",
+    "rehype-highlight": "^6.0.0",
+    "rehype-slug": "^5.1.0",
+    "rehype-stringify": "^9.0.3",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "tailwind-merge": "^1.12.0"
+  },
+  "devDependencies": {
+    "@duyet/eslint-config-custom": "*",
+    "@duyet/interfaces": "*",
+    "@duyet/tsconfig": "*",
+    "eslint": "8.47.0",
+    "prettier": "*",
+    "typescript": "*"
+  }
+}

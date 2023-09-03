@@ -1,0 +1,16 @@
+{
+  "name": "@duyet/prettier",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "main": "prettier.config.js",
+  "files": [
+    "./"
+  ],
+  "dependencies": {
+    "prettier-plugin-packagejson": "^2.4.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
