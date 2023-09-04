@@ -8,7 +8,7 @@ tags:
   - BigData
 modified_time: '2015-04-18T20:48:17.707+07:00'
 thumbnail: https://1.bp.blogspot.com/-Y0pygPjEUNs/VTJddlh9IfI/AAAAAAAACTQ/_LKZZPXV9Wk/s1600/delays_large.png
-slug: /2015/04/bigdata-getting-started-with-spark-in.html
+slug: /2015/04/bigdata-getting-started-with-spark-in-python.html
 category: Data
 description: 'Hadoop is the standard tool for distributed computing across really large data sets and is the reason why you see "Big Data" on advertisements as you walk through the airport. It has become an operating system for Big Data, providing a rich ecosystem of tools and techniques that allow you to use a large cluster of relatively cheap commodity hardware to do computing at supercomputer scale. Two ideas from Google in 2003 and 2004 made Hadoop possible: a framework for distributed storage (The Google File System), which is implemented as HDFS in Hadoop, and a framework for distributed computing (MapReduce).'
 ---

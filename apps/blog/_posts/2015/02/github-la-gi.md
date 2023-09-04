@@ -7,7 +7,7 @@ tags:
   - Git
   - Github
 modified_time: '2016-03-01T12:14:59.064+07:00'
-slug: /2015/02/pm-github-la-gi.html
+slug: /2015/02/github-la-gi.html
 description: Github, còn được gọi là social network dành cho developer đi vào hoạt động tháng 2 năm 2008, là một dịch vụ sử dụng hệ thống quản lý phân tán giúp người dùng lưu trữ source code cho các dự án. Git là một mô hình quản lý source phân tán, nó có mọi tính năng của một source control như SVN và hơn thế nữa.
 ---
 
