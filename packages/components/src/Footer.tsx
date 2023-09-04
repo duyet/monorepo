@@ -5,6 +5,12 @@ import { cn } from '@duyet/libs/utils'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
 
+const BLOG_URL =
+  process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
+const INSIGHTS_URL =
+  process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || 'https://insights.duyet.net'
+const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net'
+
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
     'text-sm text-[#666666] dark:text-[#888888]',
@@ -43,14 +49,14 @@ const navigation = {
       href: 'https://rust-tieng-viet.github.io/?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet',
     },
     { name: 'pageview.js', href: 'https://pageview.duyet.net' },
-    { name: '/archives', href: '/archives' },
-    { name: '/insights', href: '/insights' },
-    { name: '/comments', href: '/comments' },
+    { name: '/archives', href: `${BLOG_URL}/archives` },
+    { name: '/insights', href: INSIGHTS_URL },
+    { name: '/comments', href: `${BLOG_URL}/comments` },
   ],
   profile: [
     { name: 'Github', href: 'https://github.com/duyet' },
     { name: 'Linkedin', href: 'https://linkedin.com/in/duyet' },
-    { name: 'Resume (PDF)', href: 'https://cv.duyet.net' },
+    { name: 'Resume (PDF)', href: CV_URL },
     { name: 'Projects', href: 'https://github.com/duyet?tab=repositories' },
   ],
 }

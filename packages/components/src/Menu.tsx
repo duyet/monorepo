@@ -2,10 +2,15 @@ import Link from 'next/link'
 
 import { cn } from '@duyet/libs/utils'
 
+const BLOG_URL =
+  process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
+const INSIGHTS_URL =
+  process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || 'https://insights.duyet.net'
+
 const navigation = [
-  { name: 'About', href: '/about' },
-  { name: 'Insights', href: '/insights' },
-  { name: 'Archives', href: '/archives' },
+  { name: 'About', href: `${BLOG_URL}/about` },
+  { name: 'Insights', href: INSIGHTS_URL },
+  { name: 'Archives', href: `${BLOG_URL}/archives` },
 ]
 
 type Props = {

@@ -1,25 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDotEnv": [
-    ".env",
-    ".env.local"
-  ],
+  "globalDotEnv": [".env", ".env.local"],
   "pipeline": {
     "build": {
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**"
-      ],
-      "dependsOn": [
-        "^build"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "dependsOn": ["^build"]
     },
     "lint": {},
     "test": {
-      "outputs": [
-        "coverage/**"
-      ],
+      "outputs": ["coverage/**"],
       "dependsOn": []
     },
     "dev": {
@@ -27,17 +16,16 @@
       "persistent": true
     },
     "deploy": {
-      "dependsOn": [
-        "build",
-        "test",
-        "lint"
-      ]
+      "dependsOn": ["build", "test", "lint"]
     },
     "clean": {
       "cache": false
     }
   },
   "globalEnv": [
+    "NEXT_PUBLIC_DUYET_CV_URL",
+    "NEXT_PUBLIC_DUYET_BLOG_URL",
+    "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
     "KV_REST_API_READ_ONLY_TOKEN",
     "KV_REST_API_TOKEN",
     "KV_REST_API_URL",

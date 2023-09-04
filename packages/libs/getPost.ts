@@ -197,5 +197,5 @@ export function getPostsByYear(year: number, fields: string[] = []) {
   const extraFields = [...fields, 'date']
   const postByYears = getPostsByAllYear(extraFields)
 
-  return postByYears[year]
+  return postByYears[year] || []
 }

@@ -5,6 +5,7 @@
   "main": "./index.tsx",
   "types": "./index.tsx",
   "dependencies": {
+    "nanoid": "^4.0.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.29.3",
     "gray-matter": "4.0.3",

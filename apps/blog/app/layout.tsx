@@ -9,7 +9,6 @@ import {
   ThemeProvider,
   Auth0Provider,
 } from '@duyet/components';
-import Logo from '../public/duyet-notion.svg';
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],
@@ -40,9 +39,7 @@ export default function RootLayout({
       <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
         <Auth0Provider>
           <ThemeProvider>
-            <Header
-              logo={Logo} // eslint-disable-line -- TODO: what is the type of logo?
-            />
+            <Header />
             <main>{children}</main>
             <Footer />
             <Analytics />

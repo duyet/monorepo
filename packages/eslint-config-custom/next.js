@@ -41,5 +41,6 @@ module.exports = {
     'import/no-default-export': 'off',
     '@typescript-eslint/require-await': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@next/next/no-head-element': 'off',
   },
 }

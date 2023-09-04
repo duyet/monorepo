@@ -1,7 +1,7 @@
 import { cn } from '@duyet/libs/utils'
 
 type ContainerProps = {
-  children: React.ReactNode
+  children: React.ReactNode | React.ReactNode[]
   className?: string
 }
 

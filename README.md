@@ -5,13 +5,17 @@ This monorepo contains the Nextjs version of the blog, cv, photo, etc.
 - **Blog: https://blog.duyet.net or https://duyet.vercel.app**
 - **CV: https://cv.duyet.net**
 
-![](./.github/screenshot/screenshot.png)
-
-## Blog
+## 1. Blog
 
 See the [./apps/blog/README.md](./apps/blog/README.md)
 
-## CV
+![](./.github/screenshot/screenshot-blog.png)
+
+## 2. Insights
+
+See the [./apps/insights/README.md](./apps/insights/README.md)
+
+## 3. CV
 
 See the [./apps/cv/README.md](./apps/cv/README.md)
 

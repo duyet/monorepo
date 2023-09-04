@@ -6,7 +6,7 @@ The blog is now integrated with Auth0 for authentication and Vercel Storage KV f
 - **Live: https://duyet.vercel.app**
 - **Live: https://blog.duyet.net**
 
-![](../../.github/screenshot/screenshot.png)
+![](../../.github/screenshot/screenshot-blog.png)
 
 ## What's New?
 
@@ -20,7 +20,7 @@ If you would like to deploy your own instance of the blog, follow these instruct
 ### `1` Clone the repository:
 
 ```bash
-git clone https://github.com/duyet/new-blog.git
+git clone https://github.com/duyet/monorepo.git
 ```
 
 ### `2` Set up environment variables
@@ -67,14 +67,6 @@ Go to the **Vercel Storage** and create a new database. Copy the .env.local from
 - `NEXT_PUBLIC_AUTH0_DOMAIN`: Can be found in the Auth0 dashboard under `settings`.
 - `NEXT_PUBLIC_AUTH0_CLIENT_ID`: Can be found in the Auth0 dashboard under `settings`.
 - `NEXT_PUBLIC_AUTH0_ADMIN_EMAIL`: This is the email of the admin user which you use while signing in Auth0. Admin is able to delete any comment.
-
-### `5` Configuring Cloudflare
-
-Follow this to create Cloudflare API key:
-https://developers.cloudflare.com/analytics/graphql-api/getting-started/authentication/api-key-auth/
-
-- `NEXT_PUBLIC_CLOUDFLARE_API_KEY`: Cloudflare API Key
-- `NEXT_PUBLIC_CLOUDFLARE_ZONE_ID`: Cloudflare Zone, see https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/
 
 ## Deploy Your Local Project
 

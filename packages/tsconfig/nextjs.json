@@ -13,11 +13,7 @@
     "declarationMap": false,
     "incremental": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
@@ -32,10 +28,10 @@
     "tailwind.config.js",
     "postcss.config.js",
     "src",
+    "app",
+    "components",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
