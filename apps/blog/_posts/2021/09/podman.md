@@ -2,7 +2,7 @@
 title: From Docker to Podman on MacOS
 date: '2021-09-05'
 author: Van-Duyet Le
-category: Dev
+category: Productivity
 tags:
   - Data Engineer
   - Docker

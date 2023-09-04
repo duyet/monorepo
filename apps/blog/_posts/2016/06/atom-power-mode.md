@@ -12,7 +12,7 @@ tags:
 modified_time: '2016-06-19T13:51:14.163+07:00'
 thumbnail: https://4.bp.blogspot.com/-gdvdRkIUxK0/V1MReF-aX5I/AAAAAAAAXBQ/DaDIbAlqW3ky9FvFNGu_1wrhYKOjljhugCK4B/s1600/power-mode-atom-duyetdev.com.gif
 slug: /2016/06/atom-power-mode.html
-category: Dev
+category: Productivity
 description: Atom power-mode
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: DuckDB
-date: '2023-09-04'
+date: '2023-09-03'
 author: Duyet
 category: Data
 tags:
@@ -8,13 +8,13 @@ tags:
   - Data Engineering
   - DuckDB
 slug: /2023/09/duckdb.html
-thumbnail: /media/2023/09/duckdb-introduction.png
+thumbnail: /media/2023/09/duckdb/duckdb-introduction.png
 description: 'In this post, I want to explore the features and capabilities of DuckDB, an open-source, in-process SQL OLAP database management system written in C++11 that has been gaining popularity recently. According to what people have said, DuckDB is designed to be easy to use and flexible, allowing you to run complex queries on relational datasets using either local, file-based DuckDB instances or the cloud service MotherDuck.'
 ---
 
 In this post, I want to explore the features and capabilities of [DuckDB](https://duckdb.org/), an open-source, in-process SQL OLAP database management system written in C++11 that has been gaining popularity recently. According to what people have said, DuckDB is designed to be easy to use and flexible, allowing you to run complex queries on relational datasets using either local, file-based DuckDB instances or the cloud service [MotherDuck](https://motherduck.com/).
 
-![DuckDB](/media/2023/09/duckdb-introduction.png)
+![DuckDB](/media/2023/09/duckdb/duckdb-introduction.png)
 
 One of the key goals of DuckDB is to make accessing data in common formats easy. It supports running queries directly on **CSV, JSON, Parquet, and other file formats**. DuckDB can also write query results directly to any of these formats.
 
@@ -50,7 +50,7 @@ unzip duckdb_cli-osx-universal.zip && rm duckdb_cli-osx-universal.zip
 ./duckdb
 ```
 
-![DuckDB Installation](/media/2023/09/duckdb-installation.png)
+![DuckDB Installation](/media/2023/09/duckdb/duckdb-installation.png)
 
 # 2. Reading/Writing CSV Files
 
@@ -228,11 +228,11 @@ https://shell.duckdb.org
 
 DuckDB has been compiled to WebAssembly, so it can run inside any browser on any device. A great starting point is to read the [DuckDB-Wasm launch blog post](https://duckdb.org/2021/10/29/duckdb-wasm.html) to integrate DuckDB-Wasm to your web application.
 
-![DuckDB Online Shell](/media/2023/09/duckdb-online-shell.png)
+![DuckDB Online Shell](/media/2023/09/duckdb/duckdb-online-shell.png)
 
 # 8. Serverless DuckDB over S3
 
-![](/media/2023/09/duckdb-serverless.png)
+![](/media/2023/09/duckdb/duckdb-serverless.png)
 
 [This cool project](https://github.com/BauplanLabs/quack-reduce/) helping you running DuckDB serverless over a data lake on S3 using AWS Lambda. Seeing the [blog post](https://towardsdatascience.com/a-serverless-query-engine-from-spare-parts-bd6320f10353) for more detail.
 
@@ -240,7 +240,7 @@ DuckDB has been compiled to WebAssembly, so it can run inside any browser on any
 
 [dbt](http://getdbt.com/) is the best way to manage a collection of data transformations written in SQL or Python for analytics and data science. Yes we can use it together via this adapter [dbt-duckdb](https://github.com/jwills/dbt-duckdb). Seeing [the document](https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup) for more detail.
 
-![](/media/2023/09/duckdb-dbt.png)
+![](/media/2023/09/duckdb/duckdb-dbt.png)
 
 # 10. DuckDB with Apache Airflow
 
@@ -285,7 +285,7 @@ For additional tutorials, please refer to [this](https://docs.astronomer.io/lear
 
 # 11. Modern Data Stack in a Box with DuckDB
 
-![Modern Data Stack in a Box](/media/2023/09/duckdb-box.png)
+![Modern Data Stack in a Box](/media/2023/09/duckdb/duckdb-box.png)
 
 I highly recommend, you should check out this post if you are a data engineer: https://duckdb.org/2022/10/12/modern-data-stack-in-a-box.html.
 

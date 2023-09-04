@@ -2,7 +2,7 @@
 title: zx
 date: '2021-08-28'
 author: Van-Duyet Le
-category: Dev
+category: Productivity
 tags:
   - Data Engineer
   - Bash
