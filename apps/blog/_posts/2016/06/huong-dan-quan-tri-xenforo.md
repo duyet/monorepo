@@ -10,7 +10,7 @@ tags:
 modified_time: '2016-06-07T00:46:20.719+07:00'
 thumbnail: https://1.bp.blogspot.com/-Fo89IbwIKK0/V1PIrjm861I/AAAAAAAAXIY/QjZwSJeJUMEFMOE8haRf7tNGdyjPBmqXQCLcB/s1600/Workspace%2B1_007.png
 slug: /2016/06/huong-dan-quan-tri-xenforo.html
-category: Dev
+category: Productivity
 description: Hướng dẫn quản trị diễn đàn Xenforo. Trích từ tài liệu hướng dẫn sử dụng SHTP Forum.
 ---
 

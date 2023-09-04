@@ -2,7 +2,7 @@
 title: Uptime with GitHub Actions
 date: '2021-09-20'
 author: Van-Duyet Le
-category: Dev
+category: Productivity
 tags:
   - Data Engineer
   - Docker

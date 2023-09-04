@@ -2,7 +2,7 @@
 title: Migrating from Vim to NeoVim
 date: '2021-06-15'
 author: Van-Duyet Le
-category: Dev
+category: Productivity
 tags:
   - Dev
   - Vim
