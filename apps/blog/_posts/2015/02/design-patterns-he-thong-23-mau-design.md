@@ -5,7 +5,7 @@ author: Van-Duyet Le
 tags:
   - Design Patterns
 modified_time: '2015-02-23T22:40:07.138+07:00'
-slug: /2015/02/design-pattterns-he-thong-23-mau-design.html
+slug: /2015/02/design-patterns-he-thong-23-mau-design.html
 description: Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn Design patterns Elements of Reusable Object Oriented Software
 ---
 

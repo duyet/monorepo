@@ -9,7 +9,7 @@ tags:
   - Project Manager
 modified_time: '2015-02-14T12:09:50.731+07:00'
 thumbnail: https://2.bp.blogspot.com/-d2pTx8rZZrk/VN7W8LEDxdI/AAAAAAAACFs/6YHHZwlhRRw/s1600/2014_12_06_0f6f9.png
-slug: /2015/02/quan-ly-project-voi-trello-nao.html
+slug: /2015/02/quan-ly-project-voi-trello-ntn.html
 description: Như trong bài chia sẻ trước giới thiệu về Trello một công cụ quản lý công việc hiệu quả, dễ sử dụng và cực kỳ linh hoạt. Bạn có thể áp dụng Trello cho mọi việc từ lên list những đầu việc đơn giản cho đến việc quản lý những dự án phức tạp.
 ---
 

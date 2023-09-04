@@ -9,7 +9,7 @@ tags:
   - Mô hình
 modified_time: '2015-03-15T23:09:41.232+07:00'
 thumbnail: https://1.bp.blogspot.com/-p_03hnTUKIE/VOttDHeLpDI/AAAAAAAACKU/8Y1yU-4I8Eg/s1600/33349.png
-slug: /2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh_24.html
+slug: /2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh-xoan-oc.html
 category: News
 description: Mô hình xoắn ốc có thể được xem là sự kết hợp giữa mô hình thác nước và mô hình mẫu và đồng thời thêm một thành phần mới - phân tích rủi ro.
 ---

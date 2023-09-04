@@ -8,10 +8,10 @@ tags:
 modified_time: '2015-03-09T11:07:35.103+07:00'
 slug: /2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so.html
 category: News
-description: Một bài viết khá hay ở vietnamworks, mình là freelancer nên chắc cũng nên học hỏi phần nào.
+description: 'Một bài viết khá hay ở vietnamworks. Đã bao giờ bạn có câu hỏi: "Mọi người sẽ nói gì về bạn khi họ nhận xét bạn?" Hãy nghĩ xem mọi người sẽ đánh giá và nói gì về bạn. Những gì hầu hết đồng nghiệp đánh giá về bạn phản ánh thương hiệu cá nhân của bạn nơi công sở.'
 ---
 
-Một bài viết khá hay ở vietnamworks, mình là freelancer nên chắc cũng nên học hỏi phần nào.
+Một bài viết khá hay ở vietnamworks.
 
 Đã bao giờ bạn có câu hỏi: "Mọi người sẽ nói gì về bạn khi họ nhận xét bạn?" Hãy nghĩ xem mọi người sẽ đánh giá và nói gì về bạn. Những gì hầu hết đồng nghiệp đánh giá về bạn phản ánh thương hiệu cá nhân của bạn nơi công sở.
 
