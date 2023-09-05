@@ -17,6 +17,8 @@ module.exports = {
         'ci',
         // Rust-related changes
         'rust',
+        // Docs-related changes
+        'docs',
       ],
     ],
     'scope-empty': [1, 'never'],
