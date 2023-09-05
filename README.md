@@ -16,6 +16,8 @@ See the [./apps/blog/README.md](./apps/blog/README.md)
 
 See the [./apps/insights/README.md](./apps/insights/README.md)
 
+![](./.github/screenshot/screenshot-insights.png)
+
 ## 3. CV
 
 See the [./apps/cv/README.md](./apps/cv/README.md)
