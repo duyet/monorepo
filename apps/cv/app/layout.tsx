@@ -1,3 +1,6 @@
+import './globals.css';
+import '@duyet/components/styles.css';
+
 import { Head, Analytics } from '@duyet/components';
 
 export const metadata = {

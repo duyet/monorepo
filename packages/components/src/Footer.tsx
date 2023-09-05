@@ -4,6 +4,7 @@ import { ReactNode, ReactElement } from 'react'
 import { cn } from '@duyet/libs/utils'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
+import Social from './Social'
 
 const BLOG_URL =
   process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
@@ -14,8 +15,8 @@ const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net'
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
     'text-sm text-[#666666] dark:text-[#888888]',
-    'no-underline betterhover:hover:text-gray-700',
-    'betterhover:hover:dark:text-white transition',
+    'no-underline hover:text-gray-700',
+    'hover:dark:text-white transition',
   )
 
   if (href.startsWith('http')) {
@@ -38,7 +39,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   )
 }
 
-function FooterHeader({ children }: { children: ReactNode }) {
+function FooterHeader({ children }: { children: ReactNode }): ReactElement {
   return <h3 className="text-sm text-black dark:text-white">{children}</h3>
 }
 
@@ -54,14 +55,13 @@ const navigation = {
     { name: '/comments', href: `${BLOG_URL}/comments` },
   ],
   profile: [
-    { name: 'Github', href: 'https://github.com/duyet' },
     { name: 'Linkedin', href: 'https://linkedin.com/in/duyet' },
     { name: 'Resume (PDF)', href: CV_URL },
     { name: 'Projects', href: 'https://github.com/duyet?tab=repositories' },
   ],
 }
 
-export function FooterContent() {
+export function FooterContent(): ReactElement {
   return (
     <Container>
       <div aria-labelledby="footer-heading">
@@ -83,7 +83,10 @@ export function FooterContent() {
                   </ul>
                 </div>
                 <div className="mt-12 md:!mt-0">
-                  <FooterHeader>Profile</FooterHeader>
+                  <FooterHeader>me@duyet.net</FooterHeader>
+                  <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
+                    <Social />
+                  </div>
                   <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
                     {navigation.profile.map((item) => (
                       <li key={item.name}>
@@ -94,18 +97,12 @@ export function FooterContent() {
                 </div>
               </div>
             </div>
-            <div className="mt-12 xl:!mt-0">
-              <FooterHeader>Open to Work</FooterHeader>
-              <p className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
-                me@duyet.net
-              </p>
-            </div>
           </div>
 
           <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
             <div className="mt-5">
               <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
-                &copy; {new Date().getFullYear()} duyet.net the Data Engineer
+                &copy; {new Date().getFullYear()} duyet.net | Data Engineer
               </p>
             </div>
             <div className="mt-5">
@@ -118,7 +115,7 @@ export function FooterContent() {
   )
 }
 
-export default function Footer({ menu }: { menu?: boolean }): ReactElement {
+export default function Footer(): ReactElement {
   return (
     <footer className="bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900">
       <hr className="dark:border-neutral-700" />
