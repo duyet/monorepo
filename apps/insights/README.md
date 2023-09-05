@@ -1,6 +1,7 @@
 # Duyet Insights
 
 - **Live: https://insights.duyet.net**
+- **Live: https://duyet-insights.vercel.app**
 
 ## Deployment
 
