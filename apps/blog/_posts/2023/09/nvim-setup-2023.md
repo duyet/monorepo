@@ -15,9 +15,9 @@ description: It's been years since I first started using neovim and I've been up
 
 It's been years since I first [started using neovim](https://blog.duyet.net/2021/06/neovim.html) and I've been updating it regularly ever since. 
 
-One of the biggest changes I've made is adding some beautiful color schemes, which were forked from [Neovim-from-scratch](https://github.com/LunarVim/Neovim-from-scratch).
+I made changes to it by adding more plugins and beautiful color schemes, which were originally forked from [Neovim-from-scratch](https://github.com/LunarVim/Neovim-from-scratch).
 
-I also started managing all my packages using [packer.nvim](https://github.com/wbthomason/packer.nvim) which has made things a lot easier. If you ever forget a key binding, the [which-key.nvim](https://github.com/folke/which-key.nvim) plugin has been a lifesaver. And with the Copilot plugin, my coding productivity has skyrocketed. 
+I started managing all my packages using [packer.nvim](https://github.com/wbthomason/packer.nvim) which has made things a lot easier. If you ever forget a key binding, the [which-key.nvim](https://github.com/folke/which-key.nvim) plugin has been a lifesaver. And with the Copilot plugin, my coding productivity has skyrocketed. 
 
 I also have to give a shoutout to [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) for doing an amazing job and [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) for helping me find what I need quickly and easily. 
 
