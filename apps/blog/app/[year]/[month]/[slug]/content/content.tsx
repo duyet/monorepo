@@ -1,3 +1,4 @@
+import { cn } from '@duyet/libs';
 import type { Post } from '@duyet/interfaces';
 import { getPostBySlug } from '@duyet/libs/getPost';
 import markdownToHtml from '@duyet/libs/markdownToHtml';
@@ -9,8 +10,8 @@ export default function Content({ post }: { post: Post }) {
         <h1>{post.title}</h1>
       </header>
 
-      <div
-        className="prose dark:prose-invert mt-10 mb-10 max-w-none"
+      <article
+        className={cn('prose dark:prose-invert', 'mt-10 mb-10 max-w-none')}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </>

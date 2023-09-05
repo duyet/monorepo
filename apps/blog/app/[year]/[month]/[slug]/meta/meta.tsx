@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github } from 'lucide-react';
+import { Icons } from '@duyet/components';
 import { cn } from '@duyet/libs/utils';
 import type { Post } from '@duyet/interfaces';
 import distanceToNow from '@duyet/libs/dateRelative';
@@ -15,7 +15,9 @@ export default function Content({ post, className }: ContentProps) {
   return (
     <div
       className={cn(
-        'flex flex-row flex-wrap gap-2 text-gray-400 text-sm py-5 px-3',
+        'flex flex-row flex-wrap gap-2',
+        'text-gray-400 text-sm',
+        'py-5 px-3',
         'border-t border-gray-200 dark:border-gray-700',
         className,
       )}
@@ -38,7 +40,7 @@ export default function Content({ post, className }: ContentProps) {
         target="_blank"
         title="Edit in Github"
       >
-        <Github size={20} strokeWidth={1} />
+        <Icons.Github className="w-4 h-4" />
       </a>
     </div>
   );

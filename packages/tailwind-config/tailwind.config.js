@@ -28,6 +28,7 @@ module.exports = {
               textOverflow: 'ellipsis',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
+              wordBreak: 'break-all',
               '&:hover': {
                 textDecoration: 'underline',
               },
@@ -36,6 +37,9 @@ module.exports = {
               fontWeight: theme('fontWeight.semibold'),
               fontSize: theme('fontSize.3xl'),
               marginTop: theme('spacing.10'),
+            },
+            pre: {
+              padding: 0,
             },
           },
         },

@@ -15,6 +15,8 @@ module.exports = {
         'cv',
         // CI-related changes
         'ci',
+        // UI-related changes
+        'ui',
         // Rust-related changes
         'rust',
         // Docs-related changes

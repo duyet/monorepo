@@ -1,14 +1,6 @@
-'use client'
-
-import { useEffect } from 'react'
 import Image from 'next/image'
 
-export default function Error({ error }: { error: Error; reset: () => void }) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error)
-  }, [error])
-
+export default function Error(_props: { error?: Error; reset?: () => void }) {
   return (
     <div className="bg-indigo-900 relative overflow-hidden h-screen">
       <Image

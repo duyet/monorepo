@@ -13,9 +13,9 @@
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev --parallel",
     "prepare": "husky install",
-    "fix": "prettier --write \"**/*.{ts,tsx}\"",
+    "fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint",
-    "prettier-check": "prettier --check \"**/*.{ts,tsx}\"",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "start": "turbo start"
   },
   "lint-staged": {
