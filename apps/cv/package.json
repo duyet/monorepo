@@ -1,0 +1,38 @@
+{
+  "name": "cv",
+  "version": "0.1.0",
+  "private": true,
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev -p 3002",
+    "fix": "prettier --write \"**/*.{ts,tsx}\" .",
+    "lint": "eslint .",
+    "prettier-check": "prettier --check .",
+    "start": "next start"
+  },
+  "prettier": "@duyet/prettier",
+  "dependencies": {
+    "@duyet/components": "*",
+    "@duyet/libs": "*",
+    "@duyet/prettier": "*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@duyet/eslint-config-custom": "*",
+    "@duyet/tsconfig": "*",
+    "@types/node": "^18.11.5",
+    "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.7",
+    "autoprefixer": "^10.4.12",
+    "csstype": "^3.1.2",
+    "postcss": "^8.4.18",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}
