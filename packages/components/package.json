@@ -17,12 +17,12 @@
     "src/**"
   ],
   "scripts": {
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "lint": "eslint \"**/*.ts*\""
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
-    "@duyet/libs": "*"
+    "@duyet/libs": "*",
+    "lucide-react": "^0.274.0"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",

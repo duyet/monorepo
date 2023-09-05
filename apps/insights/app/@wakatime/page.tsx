@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { BarChart, BarList, Legend, DonutChart } from '@duyet/components';
 import { cn } from '@duyet/libs/utils';
-import TextDataSource from '../text-data-source';
+import TextDataSource from '../../components/text-data-source';
 
 // See: https://github.com/anuraghazra/github-readme-stats
 const githubStatUrl = (params: { theme: string }) => {
