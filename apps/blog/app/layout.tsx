@@ -3,6 +3,7 @@ import '@duyet/components/styles.css';
 
 import { Inter } from 'next/font/google';
 import {
+  Head,
   Header,
   Footer,
   Analytics,
@@ -30,12 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html className={inter.className} lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta content="follow, index" name="robots" />
-        <meta content="ie=edge" httpEquiv="x-ua-compatible" />
-        <link href="/icon.svg" rel="icon" sizes="any" />
-      </head>
+      <Head />
       <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
         <Auth0Provider>
           <ThemeProvider>
