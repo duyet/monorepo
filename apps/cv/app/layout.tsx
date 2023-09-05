@@ -1,4 +1,4 @@
-import { Head } from '@duyet/components';
+import { Head, Analytics } from '@duyet/components';
 
 export const metadata = {
   title: 'Duyet Resume',
@@ -14,6 +14,7 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en" style={{ width: '100%', margin: 0, padding: 0 }}>
       <Head />
       <body style={{ margin: 0, padding: 0 }}>{children}</body>
+      <Analytics />
     </html>
   );
 }
