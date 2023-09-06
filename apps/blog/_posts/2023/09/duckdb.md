@@ -31,8 +31,9 @@ I will cover some basic features of DuckDB and explore some ideas for how it can
 - [9. DuckDB with dbt](#9-duckdb-with-dbt)
 - [10. DuckDB with Apache Airflow](#10-duckdb-with-apache-airflow)
 - [11. Modern Data Stack in a Box with DuckDB](#11-modern-data-stack-in-a-box-with-duckdb)
-- [12. Conclusion](#12-conclusion)
-- [13. References](#13-references)
+- [12. DuckDB instead of Spark](#12-duckdb-instead-of-spark)
+- [13. Conclusion](#13-conclusion)
+- [14. References](#14-references)
 
 # 1. Installation single binary
 
@@ -291,13 +292,25 @@ I highly recommend, you should check out this post if you are a data engineer: h
 
 > There is a large volume of literature ([1](https://www.startdataengineering.com/post/scale-data-pipelines/), [2](https://www.databricks.com/session_na21/scaling-your-data-pipelines-with-apache-spark-on-kubernetes), [3](https://towardsdatascience.com/scaling-data-products-delivery-using-domain-oriented-data-pipelines-869ca9461892)) about scaling data pipelines. “Use Kafka! Build a lake house! Don’t build a lake house, use Snowflake! Don’t use Snowflake, use XYZ!” However, with advances in hardware and the rapid maturation of data software, there is a simpler approach. This article will light up the path to highly performant single node analytics with an MDS-in-a-box open source stack: Meltano, DuckDB, dbt, & Apache Superset on Windows using Windows Subsystem for Linux (WSL). There are many options within the MDS, so if you are using another stack to build an MDS-in-a-box, please share it with the community on the DuckDB [Twitter](https://twitter.com/duckdb?s=20&t=yBKUNLGHVZGEj1jL-P_PsQ), [GitHub](https://github.com/duckdb/duckdb/discussions), or [Discord](https://discord.com/invite/tcvwpjfnZx), or the [dbt slack](https://www.getdbt.com/community/join-the-community/)! Or just stop by for a friendly debate about our choice of tools!
 
-# 12. Conclusion
+## 12. DuckDB instead of Spark
+
+Spark is a powerful tool for big data processing, but it can be too much for medium-sized datasets, resulting in significant overhead. If you're working with smaller datasets ranging from tenths to hundredths of gigabytes, you can use dbt and Duckdb as an alternative processing engine. This option may be suitable for your needs if your transformations are relatively straightforward, such as renaming columns or cleansing input data.
+
+When it comes to performing data transformations on medium-sized datasets, using DBT with Duckdb can be more cost-effective than using Spark. Moreover, DuckDB may even be faster for such datasets.
+
+Many of you might soon think about [use dbt and Duckdb instead of Spark in data pipelines like this guy](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5).
+
+![DuckDB instead of Spark](/medium/2023/09/duckdb/duckdb-spark.webp)
+
+Image: [dataminded](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5)
+
+# 13. Conclusion
 
 One of the things I like about DuckDB is its simplicity and portability. Similar to SQLite, I can install and use it with a single binary or easily embed it into my application. 
 
 For those who work with relational datasets, DuckDB is an excellent tool to consider. Its flexibility and user-friendly nature make it a great choice for both data analysts and engineers. Whether you need to import data from CSV or Parquet files or query Pandas or Polars DataFrames, DuckDB has got you covered. Give it a try today and see how it can aid you in your next project.
 
-# 13. References
+# 14. References
 
 - [Official Documentation](https://duckdb.org/docs/) - Official DuckDB documentation.
 - [Official Blog](https://duckdb.org/news/) - Official DuckDB blog.
