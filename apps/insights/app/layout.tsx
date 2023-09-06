@@ -26,9 +26,14 @@ export const metadata = {
 interface LayoutProps {
   cloudflare: React.ReactNode;
   wakatime: React.ReactNode;
+  github: React.ReactNode;
 }
 
-export default function RootLayout({ cloudflare, wakatime }: LayoutProps) {
+export default function RootLayout({
+  cloudflare,
+  wakatime,
+  github,
+}: LayoutProps) {
   return (
     <html className={inter.className} lang="en">
       <Head />
@@ -39,6 +44,7 @@ export default function RootLayout({ cloudflare, wakatime }: LayoutProps) {
             <Container className="mb-20">
               {cloudflare}
               {wakatime}
+              {github}
             </Container>
           </main>
           <Footer />

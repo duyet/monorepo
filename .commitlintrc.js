@@ -9,10 +9,11 @@ module.exports = {
         'deps',
         // Post
         'post',
-        // Prettier-related changes
+        // App changes
         'blog',
-        // TypeScript-related changes
         'cv',
+        'insights',
+        'travel',
         // CI-related changes
         'ci',
         // UI-related changes
