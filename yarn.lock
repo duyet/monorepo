@@ -933,9 +933,9 @@
     postcss-selector-parser "6.0.10"
 
 "@tremor/react@^3.0.0":
-  version "3.6.6"
-  resolved "https://registry.yarnpkg.com/@tremor/react/-/react-3.6.6.tgz#acd050559ea6cdd3dade5b89f447468ef56a7993"
-  integrity sha512-JTt2rR+InEm6CMWFPy5/VYXY2LgGStYYaW70gTZ4xldzxyS+DRJdYaKd23latEMRRFnfGJXdjSWawHeRBoE4Rw==
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/@tremor/react/-/react-3.7.2.tgz#96136af0a65bf88dd395fb80610a42dbebbf0cb6"
+  integrity sha512-WEFsXL9uot5bL/T2YCtkj7PeTC1XVgevWaD2Ql8h/9xKTpA6YCwEaj/jQqtz83b/8GAYx3ZsI8choKqPNGGb9Q==
   dependencies:
     "@floating-ui/react" "^0.19.1"
     "@headlessui/react" "^1.7.14"
