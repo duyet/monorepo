@@ -288,7 +288,7 @@ For additional tutorials, please refer to [this](https://docs.astronomer.io/lear
 
 ![Modern Data Stack in a Box](/media/2023/09/duckdb/duckdb-box.png)
 
-I highly recommend, you should check out this post if you are a data engineer: https://duckdb.org/2022/10/12/modern-data-stack-in-a-box.html.
+If is a data engineer, you should check out [this post](https://duckdb.org/2022/10/12/modern-data-stack-in-a-box.html).
 
 > There is a large volume of literature ([1](https://www.startdataengineering.com/post/scale-data-pipelines/), [2](https://www.databricks.com/session_na21/scaling-your-data-pipelines-with-apache-spark-on-kubernetes), [3](https://towardsdatascience.com/scaling-data-products-delivery-using-domain-oriented-data-pipelines-869ca9461892)) about scaling data pipelines. “Use Kafka! Build a lake house! Don’t build a lake house, use Snowflake! Don’t use Snowflake, use XYZ!” However, with advances in hardware and the rapid maturation of data software, there is a simpler approach. This article will light up the path to highly performant single node analytics with an MDS-in-a-box open source stack: Meltano, DuckDB, dbt, & Apache Superset on Windows using Windows Subsystem for Linux (WSL). There are many options within the MDS, so if you are using another stack to build an MDS-in-a-box, please share it with the community on the DuckDB [Twitter](https://twitter.com/duckdb?s=20&t=yBKUNLGHVZGEj1jL-P_PsQ), [GitHub](https://github.com/duckdb/duckdb/discussions), or [Discord](https://discord.com/invite/tcvwpjfnZx), or the [dbt slack](https://www.getdbt.com/community/join-the-community/)! Or just stop by for a friendly debate about our choice of tools!
 
@@ -300,7 +300,7 @@ When it comes to performing data transformations on medium-sized datasets, using
 
 Many of you might soon think about [use dbt and Duckdb instead of Spark in data pipelines like this guy](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5).
 
-![DuckDB instead of Spark](/medium/2023/09/duckdb/duckdb-spark.webp)
+![DuckDB instead of Spark](/medium/2023/09/duckdb/duckdb-spark.png)
 
 Image: [dataminded](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5)
 

@@ -107,6 +107,82 @@ transformations:
       return source_field.get("config_name").lower()
 ```
 
+# Going Production
+
+For easier to understand, the platform should be configured as shown in the figure below. It runs on Kubernetes with KEDA for fully automated scaling. During peak periods or migration, it can scale up to 1000 pods using Python-based workers.
+Data collector was written in Node.js, now rewriten in Rust thanks to [actix-web](https://actix.rs/).
+
+![Data Engineering Team 2022](/media/2023/06/fossil-data-platform-written-rust/dp-overview.png)
+
+
+The initial plan involves replacing the mini-batch layer pods with **transformation-rs**. This reduces the number of pods to a range of 10-20, resulting in significant resource savings and improved performance.
+
+| Transformation Worker       | Python       | Rust       |
+| --------------------------- | ------------ | ---------- |
+| Number of Pods (KEDA Scale) | 30-1000 pods | 10-50 pods |
+
+The data collector API was initially developed using Node.js, but it has since been rewritten in Rust using the [actix-web](https://actix.rs) framework. This migration has resulted in several benefits, including reduced API call latency and improved resource utilization. By leveraging Rust's excellent performance and actix-web's powerful features, the data collector API can now handle requests more efficiently and with lower resource usage.
+
+| Ingestion API              | Node.js   | Rust     |
+| -------------------------- | --------- | -------- |
+| Number of Pods (HPA Scale) | 5-30 pods | 1-5 pods |
+
+# Spark and Rust
+
+I planned for doing POCs to explore ways to speed up the Spark cluster and integrated it with `transformation-rs` to use a single codebase for both. Our approach involved these options:
+
+### 1. Create a **Rusty Python Library**
+so that an UDF can use call to Rust directly, thanks to [maturin.rs](https://www.maturin.rs) by helping us for building wheels for Python 3.7+ easily.
+
+maturin will add the native extension as a module in your python folder. Example layout with pyo3 after `maturin develop`:
+
+```
+my-project
+├── Cargo.toml
+├── my_project
+│   ├── __init__.py
+│   ├── bar.py
+│   └── _lib_name.cpython-36m-x86_64-linux-gnu.so
+├── README.md
+└── src
+    └── lib.rs
+```
+
+### 2. `pyspark.RDD.pipe`
+
+This return an RDD created by piping elements to a forked external process - our binary of `transformation-rs`.
+
+Imaging we already have this binary running on container to processing a file:
+
+```bash
+./transformation-rs --config config.toml -f dataset.json.gz
+```
+
+We can run it via Spark RDD like below:
+
+```scala
+sc.addFile("s3a://data-team/transformation-rs", false) 
+val ds = df.toJSON.rdd.pipe(SparkFiles.getRootDirectory + "transformation-rs").toDS 
+```
+
+Checking out [this great post](https://blog.phylum.io/spark-and-rust-how-to-build-fast-distributed-and-flexible-analytics-pipelines/) to get more detail about this solution.
+
+### 3. DataFusion
+
+Replace Spark by [Ballista: Distributed Scheduler for Apache Arrow DataFusion](https://docs.rs/ballista/latest/ballista/#ballista-distributed-scheduler-for-apache-arrow-datafusion)
+
+Ballista is a distributed scheduler for Apache Arrow DataFusion, which offers a promising alternative to Spark. It provides an efficient and flexible way to process large datasets using distributed computing. By using Ballista, we can avoid the overhead and high costs associated with Spark and instead leverage the power of Apache Arrow DataFusion to process data efficiently.
+
+Moreover, Ballista is designed to work well with Rust, which is known for its excellent performance and multi-core processing capabilities. This makes it an ideal choice for companies that want to process large datasets quickly and efficiently without the high costs associated with Spark.
+
+While Ballista is still a relatively new technology, it shows great promise and is worth considering as an alternative to Spark. As more companies adopt Ballista and contribute to its development, we can expect to see even more improvements in its performance and capabilities.
+
+### 4. You Don't Always Need Spark
+
+While Spark is considered an excellent tool for processing very large datasets, we realized that we don't always have such large datasets to work with. Instead of running Spark workers on Kubernetes nodes with **r6i.12xlarge (48 cores - 384 GiB)** spot instances, which resulted in significant overhead and high costs.
+
+We decided to experiment with just running Rust on these huge machines that would allow us to leverage the excellent performance of multiple core processing. By doing so, we hoped to see how Rust could perform on these powerful machines and whether it could be a viable alternative to Spark.
+
 # Team involvement
 
 The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu], Uyen, [Khanh], [Hung] and [Duong] are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs](https://github.com/duyet/athena-rs) (AWS Athena Schema Management), [grant-rs](https://github.com/duyet/grant-rs) (Manage Redshift/Postgres privileges in GitOps style), the Kafka configurations management, ...
