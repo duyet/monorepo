@@ -27,8 +27,8 @@ module.exports = {
               textDecorationThickness: 'from-font',
               textOverflow: 'ellipsis',
               overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              wordBreak: 'break-all',
+              whiteSpace: 'break-spaces',
+              wordBreak: 'break-word',
               '&:hover': {
                 textDecoration: 'underline',
               },

@@ -83,7 +83,7 @@ async fn main() -> Result<()> {
 }
 ```
 
-Seeing more at the Rust doc https://docs.rs/opendal/latest/opendal
+Seeing more at the Rust doc https://docs.rs/opendal
 # Layers
 
 OpenDAL also supporting [`layers`](https://docs.rs/opendal/latest/opendal/layers/index.html) like *logging, prometheus, tracing, timeout, retry, etc*.
