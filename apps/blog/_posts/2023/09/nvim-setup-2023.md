@@ -15,6 +15,10 @@ description: It's been years since I first started using neovim and I've been up
 
 It's been years since I first [started using neovim](https://blog.duyet.net/2021/06/neovim.html) and I've been updating it regularly ever since. 
 
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HzFWny-BUag?si=LRqkYfwX38tesz_K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</center>
+
 I made changes to it by adding more plugins and beautiful color schemes, which were originally forked from [Neovim-from-scratch](https://github.com/LunarVim/Neovim-from-scratch).
 
 I started managing all my packages using [packer.nvim](https://github.com/wbthomason/packer.nvim) which has made things a lot easier. If you ever forget a key binding, the [which-key.nvim](https://github.com/folke/which-key.nvim) plugin has been a lifesaver. And with the Copilot plugin, my coding productivity has skyrocketed. 
