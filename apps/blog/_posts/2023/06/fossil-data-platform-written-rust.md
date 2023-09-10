@@ -22,6 +22,22 @@ My data engineering team at Fossil recently released some of Rust-based componen
 
 **Authors: [Duyet], [Hieu]**
 
+* [The Need for Change](#the-need-for-change)
+* [Why Rust is chosen?](#why-rust-is-chosen)
+* [The Drawbacks of Using Rust](#the-drawbacks-of-using-rust)
+* [The plan](#the-plan)
+* [The First Benchmark](#the-first-benchmark)
+* [Going Production](#going-production)
+* [Spark and Rust](#spark-and-rust)
+  1. [Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
+  2. [`pyspark.RDD.pipe`](#2-pysparkrddpipe)
+  3. [DataFusion](#3-datafusion)
+  4. [You Don't Always Need Spark](#4-you-dont-always-need-spark)
+* [Team involvement](#team-involvement)
+* [Well, what's next?](#well-whats-next)
+* [The feature of Rust for Data Engineering](#the-feature-of-rust-for-data-engineering)
+* [Where to start?](#where-to-start)
+
 # The Need for Change
 
 With the Fossil Data Platform handling approximately _1.2 billion records_ daily in near-real time, our existing Python codebase started showing signs of strain. We had been using Python for years and encountered issues such as duplicated code, deprecated components, hardcoded elements, and a lack of comprehensive reviews. This situation prompted a critical evaluation of our options:
@@ -46,7 +62,7 @@ In the deliberation between Rust and Golang for our next Data Platform, we weigh
 - **Unique approach** to memory management, which guarantees memory safety without the overhead of a garbage collector, resulting in a smaller memory footprint and predictable performance, critical factors in data-intensive applications like our Data Platform.
 - You can learn some more at this post [https://blog.duyet.net/2021/11/rust-data-engineering.html](https://blog.duyet.net/2021/11/rust-data-engineering.html)
 
-## The Drawbacks of Using Rust
+# The Drawbacks of Using Rust
 
 **Steep Learning Curve**
 
