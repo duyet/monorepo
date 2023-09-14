@@ -70,3 +70,12 @@ _Updated Aug 2021_
 I just switched to NvChad (https://nvchad.netlify.app) shipped with a beautiful GUI and many settings. You can give it a try.
 
 ![](/media/2021/06/nvchad.png)
+
+---
+
+_Updated Aug 2023_
+
+Moved to own setup: [My Neovim Setup in 2023](https://blog.duyet.net/2023/09/nvim-setup-2023.html)
+
+![](/media/2023/09/nvim/screenshot_4.png)
+
