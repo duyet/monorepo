@@ -38,7 +38,8 @@ export async function getPost(slug: string[]) {
   };
 }
 
+// TODO: remove hardcode
 const getGithubEditUrl = (slug: string) => {
   const file = slug.replace(/\.md|htm|html$/, '.md').replace(/^\/?/, '');
-  return `https://github.com/duyet/new-blog/edit/master/_posts/${file}`;
+  return `https://github.com/duyet/monorepo/edit/master/apps/blog/_posts/${file}`;
 };
