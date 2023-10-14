@@ -2,7 +2,7 @@
 title: Rust Source-based Code Coverage
 date: '2022-04-09'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Rust
 slug: /2022/04/rust-code-cov.html

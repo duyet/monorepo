@@ -2,7 +2,7 @@
 title: 'Rust: cargo-edit'
 date: '2022-02-06'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Rust
   - Vietnamese

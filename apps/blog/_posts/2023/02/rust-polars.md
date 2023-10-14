@@ -2,7 +2,7 @@
 title: 'Rust Data Engineering: Processing Dataframes with Polars'
 date: '2023-02-19'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Data
   - Data Engineer

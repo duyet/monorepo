@@ -2,7 +2,7 @@
 title: 'Rust Design Pattern: Strategy Pattern'
 date: '2021-12-19'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Rust
   - Vietnamese
