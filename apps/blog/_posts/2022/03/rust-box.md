@@ -2,7 +2,7 @@
 title: 'Rust: Box'
 date: '2022-03-05'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Rust
   - Vietnamese

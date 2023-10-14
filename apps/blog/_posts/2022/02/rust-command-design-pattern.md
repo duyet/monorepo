@@ -2,7 +2,7 @@
 title: 'Rust Design Pattern: Command Pattern'
 date: '2022-02-13'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Rust
   - Vietnamese

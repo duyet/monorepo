@@ -2,7 +2,7 @@
 title: 'Rust: indoc'
 date: '2022-08-06'
 author: Van-Duyet Le
-category: Rust
+category: Rust 🦀
 tags:
   - Rust
   - Vietnamese

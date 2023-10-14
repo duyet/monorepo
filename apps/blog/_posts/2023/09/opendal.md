@@ -2,7 +2,7 @@
 title: Apache OpenDAL in Rust to Access Any Kind of Data Services
 date: '2023-09-09'
 author: Duyet
-category: Rust
+category: Rust 🦀
 tags:
 - Data
 - Rust
