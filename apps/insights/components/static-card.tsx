@@ -1,6 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import { cn } from '@duyet/libs';
-import TextDataSource from './text-data-source';
+import { TextDataSource } from './text-data-source';
 
 interface StaticCardProps {
   title?: string;
@@ -30,6 +32,7 @@ export function StaticCard({
         <Image
           alt={title || ''}
           height={500}
+          loader={({ src }) => src}
           src={url.light}
           unoptimized
           width={800}
