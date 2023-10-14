@@ -2,7 +2,7 @@
 title: Fossil Data Platform Rewritten in Rust 🦀
 date: '2023-06-18'
 author: Duyet, Hieu
-category: Data
+category: Rust 🦀
 tags:
   - Data
   - Data Engineering
@@ -22,21 +22,21 @@ My data engineering team at Fossil recently released some of Rust-based componen
 
 **Authors: [Duyet], [Hieu]**
 
-* [The Need for Change](#the-need-for-change)
-* [Why Rust is chosen?](#why-rust-is-chosen)
-* [The Drawbacks of Using Rust](#the-drawbacks-of-using-rust)
-* [The plan](#the-plan)
-* [The First Benchmark](#the-first-benchmark)
-* [Going Production](#going-production)
-* [Spark and Rust](#spark-and-rust)
-  1. [Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
-  2. [`pyspark.RDD.pipe`](#2-pysparkrddpipe)
-  3. [DataFusion](#3-datafusion)
-  4. [You Don't Always Need Spark](#4-you-dont-always-need-spark)
-* [Team involvement](#team-involvement)
-* [Well, what's next?](#well-whats-next)
-* [The feature of Rust for Data Engineering](#the-feature-of-rust-for-data-engineering)
-* [Where to start?](#where-to-start)
+- [The Need for Change](#the-need-for-change)
+- [Why Rust is chosen?](#why-rust-is-chosen)
+- [The Drawbacks of Using Rust](#the-drawbacks-of-using-rust)
+- [The plan](#the-plan)
+- [The First Benchmark](#the-first-benchmark)
+- [Going Production](#going-production)
+- [Spark and Rust](#spark-and-rust)
+    - [1. Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
+    - [2. `pyspark.RDD.pipe`](#2-pysparkrddpipe)
+    - [3. DataFusion](#3-datafusion)
+    - [4. You Don't Always Need Spark](#4-you-dont-always-need-spark)
+- [Team involvement](#team-involvement)
+- [Well, what's next?](#well-whats-next)
+- [The feature of Rust for Data Engineering](#the-feature-of-rust-for-data-engineering)
+- [Where to start?](#where-to-start)
 
 # The Need for Change
 
@@ -92,13 +92,13 @@ My plan revolved around taking an exploratory approach to determine the feasibil
 
 My first version took three months to rewrite and has shown excellent performance even **without** optimization, the memory [`.clone()`](https://doc.rust-lang.org/std/clone/trait.Clone.html) everywhere. I conducted some benchmarks including `cargo bench` and transforming the real data files as well.
 
-Despite the lack of fine-tuning and potential areas for optimization, Rust demonstrated its inherent efficiency and ability to handle our data processing requirements effectively:
-
-![](/media/2023/06/fossil-data-platform-written-rust/bench-1.png)
-
 After comparing the two components in the real environment, Rust processes messages faster and consumes more messages than Python.
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-2.png)
+
+Despite the lack of fine-tuning and potential areas for optimization, Rust demonstrated its inherent efficiency and ability to handle our data processing requirements effectively:
+
+![](/media/2023/06/fossil-data-platform-written-rust/bench-1.png)
 
 ![](/media/2023/06/fossil-data-platform-written-rust/bench-3.png)
 
@@ -209,7 +209,11 @@ However, there have been some changes, and the migration is progressing slowly d
 
 ![Data Engineering Team 2022](/media/2023/06/fossil-data-platform-written-rust/data-team-2022.png)
 
-_Data Engineering Team 2022_
+_Data Team 2022_
+
+![Data Engineering Team 2023](/media/2023/06/fossil-data-platform-written-rust/data-team-2023.jpeg)
+
+_Data Team 2023_
 
 # Well, what's next?
 
