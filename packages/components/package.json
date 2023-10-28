@@ -22,7 +22,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
     "@duyet/libs": "*",
-    "lucide-react": "^0.288.0"
+    "lucide-react": "^0.290.0"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
