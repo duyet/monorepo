@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "devDependencies": {
-    "eslint-config-next": "^13.4.1",
+    "eslint-config-next": "^14.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "7.33.2",
     "@vercel/style-guide": "^5.0.0",
