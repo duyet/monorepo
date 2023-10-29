@@ -13,6 +13,7 @@ module.exports = {
         'blog',
         'cv',
         'insights',
+        'photos',
         'travel',
         // CI-related changes
         'ci',

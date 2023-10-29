@@ -1,7 +1,7 @@
 import { request } from 'graphql-request';
-import { Text, Flex, Metric, AreaChart } from '@duyet/components';
 import type { CloudflareAnalyticsByDate } from '@duyet/interfaces';
-import TextDataSource from '../../components/text-data-source';
+import { TextDataSource } from '../../components/text-data-source';
+import { Text, Flex, Metric, AreaChart } from '../../components/tremor';
 
 export interface CloudflareProps {
   data: CloudflareAnalyticsByDate;
