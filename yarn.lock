@@ -28,9 +28,9 @@
     "@auth0/auth0-spa-js" "^2.0.4"
 
 "@auth0/auth0-react@^2.0.0":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-2.2.2.tgz#efcb2e011ca1be5e2f57265fc91eee3704d20966"
-  integrity sha512-+E0Cj2J4v14ael56pBdoaGO2m5LLB4qLShhw3E/okmUeA7WmKOrveRn19wl0f6cl0YzwrDKXAkmqFlP6ARMznw==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-2.2.3.tgz#55336ec25f80c7033d81449e5693836fc89bab94"
+  integrity sha512-3B0KA/ky1yA6iQK8045N8U0ZBkmDB3ElCSwJuxNbAoKmZBc4+DjzZhWRxYsgb9PrfHC14Lr2h4950A3PEFDULA==
   dependencies:
     "@auth0/auth0-spa-js" "^2.1.2"
 
