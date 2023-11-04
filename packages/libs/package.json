@@ -24,7 +24,7 @@
     "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
     "@duyet/tsconfig": "*",
-    "eslint": "8.52.0",
+    "eslint": "8.53.0",
     "prettier": "*",
     "typescript": "*"
   }
