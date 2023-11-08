@@ -1061,10 +1061,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/rss@^0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@types/rss/-/rss-0.0.31.tgz#2416c71f1797c9b91c7fd52d0f22a57a88a4802d"
-  integrity sha512-iW6iqXCU1+t61uMkwIQQ4/TOq4QelIo9SfRJ717niStG5Z09B0pWhHkKujo2a0jsjHlga3yhGiemukLPYdl6iQ==
+"@types/rss@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/rss/-/rss-0.0.32.tgz#19de5179a8160455c2f46a7699391ebacd4853cc"
+  integrity sha512-2oKNqKyUY4RSdvl5eZR1n2Q9yvw3XTe3mQHsFPn9alaNBxfPnbXBtGP8R0SV8pK1PrVnLul0zx7izbm5/gF5Qw==
 
 "@types/scheduler@*":
   version "0.16.4"
