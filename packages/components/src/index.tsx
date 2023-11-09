@@ -15,5 +15,3 @@ export { default as YearList } from './YearList'
 export { default as Loading } from './Loading'
 export { default as Error } from './Error'
 export { default as Icons } from './Icons'
-
-export * from './Tremor'

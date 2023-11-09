@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "next build",
-    "dev": "next dev -p 3002",
+    "dev": "next dev -p 3200",
     "fix": "prettier --write \"**/*.{ts,tsx}\" .",
     "lint": "eslint .",
     "prettier-check": "prettier --check .",

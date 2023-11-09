@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { BarChart, BarList, Legend, DonutChart } from '@duyet/components';
 import { cn } from '@duyet/libs/utils';
+import { BarChart, BarList, Legend, DonutChart } from '../../components/tremor';
 import { TextDataSource } from '../../components/text-data-source';
 import { StaticCard } from '../../components/static-card';
 
