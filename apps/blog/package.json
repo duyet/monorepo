@@ -25,7 +25,7 @@
     "@radix-ui/react-toggle-group": "^1.0.3",
     "@tremor/react": "^3.0.0",
     "@vercel/analytics": "^1.0.0",
-    "@vercel/kv": "^0.2.0",
+    "@vercel/kv": "^1.0.0",
     "encoding": "^0.1.13",
     "graphql": "^16.6.0",
     "graphql-request": "^6.0.0",
