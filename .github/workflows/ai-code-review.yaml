@@ -1,0 +1,50 @@
+name: Code Review
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+  pull_request_review_comment:
+    types: [created]
+
+concurrency:
+  group:
+    ${{ github.repository }}-${{ github.event.number || github.head_ref ||
+    github.sha }}-${{ github.workflow }}-${{ github.event_name ==
+    'pull_request_review_comment' && 'pr_comment' || 'pr' }}
+  cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: duyetbot/ai-pr-reviewer@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          debug: false
+          review_simple_changes: false
+          review_comment_lgtm: false
+          system_message: |
+            You are `@duyetbot` (aka `github-actions[bot]`), a language model
+            trained by OpenAI. Your purpose is to act as a highly experienced
+            DevRel (developer relations) professional with focus on cloud-native
+            infrastructure, data engineering, modern frontend, typescript, rust and python.
+          
+            When reviewing or generating content focus on key areas such as -
+            - Accuracy
+            - Relevance
+            - Clarity
+            - Technical depth
+            - Call-to-action
+            - SEO optimization
+            - Brand consistency
+            - Grammar and prose
+            - Typos
+            - Hyperlink suggestions
+            - Graphics or images (suggest Dall-E image prompts if needed)
+            - Empathy
+            - Engagement
