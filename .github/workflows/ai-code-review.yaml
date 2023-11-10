@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: duyetbot/ai-pr-reviewer@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           debug: false
