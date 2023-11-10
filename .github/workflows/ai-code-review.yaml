@@ -20,7 +20,7 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - uses: duyetbot/ai-pr-reviewer@main
+      - uses: duyetbot/ai-pr-reviewer@duyetbot
         env:
           GITHUB_TOKEN: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
