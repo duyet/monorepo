@@ -1296,9 +1296,9 @@
     "@upstash/redis" "1.24.3"
 
 "@vercel/style-guide@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@vercel/style-guide/-/style-guide-5.0.1.tgz#8cee7395878cfba75b49284a5776723a7c991be2"
-  integrity sha512-3J/5xpwJ2Wk+cKB3EGY2KCdVQycaThLKhjBmgXPfIKb+E74lPpXVIDfaQE0D2JoAyIzGsqdH7Lbmr+DojwofxQ==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@vercel/style-guide/-/style-guide-5.1.0.tgz#93489c46184abf0389a40a674ec38e6cba5d43bf"
+  integrity sha512-L9lWYePIycm7vIOjDLj+mmMdmmPkW3/brHjgq+nJdvMOrL7Hdk/19w8X583HYSk0vWsq494o5Qkh6x5+uW7ljg==
   dependencies:
     "@babel/core" "^7.22.11"
     "@babel/eslint-parser" "^7.22.11"
