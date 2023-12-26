@@ -21,7 +21,7 @@ export default async function Github() {
     <div className="space-y-6 mt-10">
       <StaticCard
         className="dark:border-0 dark:p-0"
-        source="Gthub"
+        source="Github"
         url={{
           light: githubStatUrl({ theme: 'default' }),
           dark: githubStatUrl({ theme: 'dracula' }),
