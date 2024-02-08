@@ -22,7 +22,7 @@ ES6 có chức năng destructuring có khá nhiều công dụng. Thủ thuật 
 Đặt 2 biến cần hoán đổi vào mảng, và tiến hành "destructuring" và 1 mảng có cùng tham số.
 
 ```js
-;[a, b] = [b, a]
+[a, b] = [b, a];
 ```
 
 Javascript sẽ tự động hiểu là bạn cần swap 2 biến, nên thực tế sẽ không tạo ra mảng [a, b] để tránh tốn bộ nhớ.

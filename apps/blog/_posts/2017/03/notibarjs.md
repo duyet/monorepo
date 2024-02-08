@@ -28,7 +28,7 @@ Notibar.js - Lightweight notification bar, no dependency.
 <script type="text/javascript">
   notiBar(
     '<strong>notibar.js</strong> by <a href="https://duyet.net">duyetdev</a>  :))',
-  )
+  );
 </script>
 ```
 
@@ -47,7 +47,7 @@ notiBar({
   color: '#2895F1',
   bgColor: '#f0f9ff',
   borderBottomColor: '#96c4ea',
-})
+});
 ```
 
 Github: [https://github.com/duyet/notibar.js](https://github.com/duyet/notibar.js)

@@ -39,8 +39,8 @@ Ta có thể định dạng lại các message in ra consolebằng CSS. Chỉ c�
 
 ```js
 var css =
-  'background-color: #FFCC00; color: #FFF; font-weight: 700; padding: 10px'
-console.log('%cTôi là Duyệt', css)
+  'background-color: #FFCC00; color: #FFF; font-weight: 700; padding: 10px';
+console.log('%cTôi là Duyệt', css);
 ```
 
 ![](https://2.bp.blogspot.com/-B3qwRAK5OnM/VznFtqncUwI/AAAAAAAAVLs/7tqW2Ohn8YUdTGonlIptsWPJbL-9d_2nQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-04-41.png)
@@ -52,7 +52,7 @@ console.log('%cTôi là Duyệt', css)
 Các hàm console.\* cũng hỗ trợ template string.
 
 ```js
-console.log("I'm %s and %s years old.", '@duyetdev', 20)
+console.log("I'm %s and %s years old.", '@duyetdev', 20);
 ```
 
 ![](https://4.bp.blogspot.com/-LpnbNfzxwiw/VznOSwSB2XI/AAAAAAAAVMw/WJAQZy_oKWI8L31cUZKXs8qD3C0mF-WzQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-41-35.png)
@@ -66,8 +66,8 @@ var people = [
   ['Van-Duyet', 'Le'],
   ['Kim', 'Ngan'],
   ['XYZ', 'ABC'],
-]
-console.table(people)
+];
+console.table(people);
 ```
 
 ![](https://4.bp.blogspot.com/-I7T2ayjwuG0/VznHHbPnuOI/AAAAAAAAVL4/Xj38no2ytU0RFS364KRHOlSArAS7Ph2XgCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-10-50.png)
@@ -79,8 +79,8 @@ Làm việc với Object:
 var jobs = [
   { name: 'Lê Văn Duyệt', age: 20, job: 'Ăn hại' },
   { name: 'Lê Văn X', age: 20, job: 'Ăn ngủ' },
-]
-console.table(jobs)
+];
+console.table(jobs);
 ```
 
 ![](https://1.bp.blogspot.com/-raB55lsLtiM/VznINa_YgeI/AAAAAAAAVME/PQe6-hMOsPwg_onUqUvDpiYF4L0VgtSMACK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-15-50.png)
@@ -90,9 +90,9 @@ console.table(jobs)
 `console.time` và `console.timeEnd` đo thời gian runtime, từ khi `console.time` chạy cho đến khi `console.timeEnd` kết thúc.
 
 ```js
-console.time('Thời gian debug hàm X: ')
+console.time('Thời gian debug hàm X: ');
 // do some thing ....
-console.timeEnd('Thời gian debug hàm X: ')
+console.timeEnd('Thời gian debug hàm X: ');
 // => Thời gian debug hàm X: : 15986.679ms
 ```
 
@@ -103,18 +103,18 @@ console.timeEnd('Thời gian debug hàm X: ')
 `console.group` giúp gom các message lại thành 1 group inline. Xem ví dụ sau:
 
 ```js
-console.group('Todo')
-console.log('Ngủ')
+console.group('Todo');
+console.log('Ngủ');
 
-console.group('Ăn')
-console.log('Bún bò')
-console.log('Phở')
-console.log('Chè')
-console.log('...')
-console.groupEnd()
+console.group('Ăn');
+console.log('Bún bò');
+console.log('Phở');
+console.log('Chè');
+console.log('...');
+console.groupEnd();
 
-console.log('Đi chơi')
-console.groupEnd()
+console.log('Đi chơi');
+console.groupEnd();
 ```
 
 ![](https://3.bp.blogspot.com/-ZPMJmH_7IZY/VznMKlSBbLI/AAAAAAAAVMc/AhIq2AqmPu4flHf2P_pBJ4VnNQw_gZ8mgCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-32-38.png)

@@ -28,8 +28,8 @@ OK để bắt đầu ta mở `index.js`
 
 ```js
 module.exports = function (bp) {
-  bp.middlewares.load()
-}
+  bp.middlewares.load();
+};
 ```
 
 Dòng 1: `bp` là biến global context object, từ `bp` ta có thể truy cập đến mọi chức năng của botpress và module api.
@@ -39,13 +39,13 @@ Bây giờ chúng ta thêm vào `index.js` như sau:
 
 ```js
 module.exports = function (bp) {
-  bp.middlewares.load()
+  bp.middlewares.load();
 
   bp.hear('hello ku', (event) => {
     // Capture 'hello ku'
-    bp.messenger.sendText(event.user.id, 'Hello world!') // Response
-  })
-}
+    bp.messenger.sendText(event.user.id, 'Hello world!'); // Response
+  });
+};
 ```
 
 Khởi động lại Botpress server.
@@ -59,17 +59,17 @@ Bây giờ mình muốn mỗi khi bot nghe "hello" là tự động chào lại 
 
 ```js
 module.exports = function (bp) {
-  bp.middlewares.load()
+  bp.middlewares.load();
 
   bp.hear(/hello/i, (event, next) => {
     // We use a regex instead of a hardcoded string
-    const first_name = event.user.first_name
+    const first_name = event.user.first_name;
 
     bp.messenger.sendText(event.user.id, 'Hello, ' + first_name, {
       typing: true,
-    })
-  })
-}
+    });
+  });
+};
 ```
 
 - Ở lệnh `hear`, mình không dùng hardcoded string nữa mà sử dụng regex. Bất kì tin nhắn nào chứa "hello" thì callback sẽ được gọi.
@@ -84,17 +84,17 @@ Quick Reply là chức năng trong Messenger, cho phép user thay vì phải cha
 
 ```js
 module.exports = function (bp) {
-  bp.middlewares.load()
+  bp.middlewares.load();
 
   bp.hear(/hello/i, (event, next) => {
     // We use a regex instead of a hardcoded string
-    const first_name = event.user.first_name
-    console.log('==========', event.user)
+    const first_name = event.user.first_name;
+    console.log('==========', event.user);
 
     bp.messenger.sendText(event.user.id, 'Hello, ' + first_name, {
       typing: true,
-    })
-  })
+    });
+  });
 
   bp.hear(/help/i, (event, next) => {
     const options = {
@@ -112,14 +112,14 @@ module.exports = function (bp) {
       ],
       typing: true,
       waitRead: true, // `waitDelivery` or `waitRead` options
-    }
+    };
 
-    const text = 'Duyệt có đẹp trai không?'
+    const text = 'Duyệt có đẹp trai không?';
     bp.messenger.sendText(event.user.id, text, options).then(() => {
       // Do `waitRead` nên nội dung trong đây sẽ được thực thi khi user read.
-    })
-  })
-}
+    });
+  });
+};
 ```
 
 [![](https://1.bp.blogspot.com/-W7vlccclv-A/WIa9BT5alwI/AAAAAAAAil0/cGrnqfmlv_U-n2xJhOzgcZiZ9u9Oa0qDACKgB/s640/Screenshot_2017-01-24-09-32-42-123_com.facebook.orca.png)](https://1.bp.blogspot.com/-W7vlccclv-A/WIa9BT5alwI/AAAAAAAAil0/cGrnqfmlv_U-n2xJhOzgcZiZ9u9Oa0qDACKgB/s1600/Screenshot_2017-01-24-09-32-42-123_com.facebook.orca.png)
@@ -130,14 +130,15 @@ Messenger có thể gửi đính kèm với 4 định dạng: `'audio'`, `'file'
 
 ```js
 module.exports = function (bp) {
-  bp.middlewares.load()
+  bp.middlewares.load();
 
   bp.hear(/meo/i, (event) => {
-    const type = 'image' // 'audio', 'file', 'image' or 'video'
-    const img_url = 'https://avatars0.githubusercontent.com/u/5009534?v=3&s=460'
-    bp.messenger.sendAttachment(event.user.id, type, img_url)
-  })
-}
+    const type = 'image'; // 'audio', 'file', 'image' or 'video'
+    const img_url =
+      'https://avatars0.githubusercontent.com/u/5009534?v=3&s=460';
+    bp.messenger.sendAttachment(event.user.id, type, img_url);
+  });
+};
 ```
 
 Tham số thứ 3 `url` của file đính kèm.
@@ -181,10 +182,10 @@ bp.hear(/duyetdev/i, (event) => {
         title: 'Facebook',
       },
     ],
-  }
+  };
 
-  bp.messenger.sendTemplate(userId, payload, { typing: true })
-})
+  bp.messenger.sendTemplate(userId, payload, { typing: true });
+});
 ```
 
 [![](https://4.bp.blogspot.com/-uw8VgTCx_n0/WIbDuJ6D-ZI/AAAAAAAAimg/gi7ug_nLreYFnbTCj5pPSxqr1ofyLvYfACK4B/s640/Screenshot_2017-01-24-09-59-12-331_com.facebook.orca.png)](https://4.bp.blogspot.com/-uw8VgTCx_n0/WIbDuJ6D-ZI/AAAAAAAAimg/gi7ug_nLreYFnbTCj5pPSxqr1ofyLvYfACK4B/s1600/Screenshot_2017-01-24-09-59-12-331_com.facebook.orca.png)

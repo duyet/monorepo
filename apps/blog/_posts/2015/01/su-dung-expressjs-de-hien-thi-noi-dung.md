@@ -42,16 +42,16 @@ $ touch server.js index.html
 Rồi, trong thư mục của chúng ta sẽ có thêm 2 file là server.js, chúng ta mở bằng trình soạn thảo nào đó, với nội dung như sau:
 
 ```js
-var express = require('express')
-var app = express()
-var path = require('path')
+var express = require('express');
+var app = express();
+var path = require('path');
 
 // viewed at http://localhost:8080
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'))
-})
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
 
-app.listen(8080)
+app.listen(8080);
 ```
 
 Sau đó là file `index.html`, đây là nội dung mà chúng ta cần hiển thị lên trình duyệt:

@@ -53,12 +53,12 @@ Trong hầu hết các ngôn ngữ họ C (C, C#, Java, ...), để xác định
 Dẫn đến, ta sẽ thường thấy một số đoạn code như sau đây:
 
 ```typescript
-let sentence = 'The fox jumps over the dog'
-let index = sentence.indexOf('fox')
+let sentence = 'The fox jumps over the dog';
+let index = sentence.indexOf('fox');
 
 if (index > -1) {
-  let result = sentence.substr(index)
-  console.log(result)
+  let result = sentence.substr(index);
+  console.log(result);
 }
 ```
 

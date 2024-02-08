@@ -22,7 +22,7 @@ Có nhiều cách để lấy được nội dung file package.json 1 cách tr�
 Bản chất của package.json là 1 meta json chứa thông tin của project. Cách đơn giản và nhanh nhất là sử dụng require của Nodejs, do require có khả năng load được nội dung file json vào 1 biến trong js.
 
 ```js
-var pkg = require('./package.json')
-console.log(pkg.version)
-console.log(pkg.name)
+var pkg = require('./package.json');
+console.log(pkg.version);
+console.log(pkg.name);
 ```

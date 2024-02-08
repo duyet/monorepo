@@ -22,10 +22,10 @@ Các tham số function trong Javascript thực ra không bắt buộc, Javascri
  * the default value is evaluated.
  */
 function mandatory() {
-  throw new Error('Missing parameter')
+  throw new Error('Missing parameter');
 }
 function foo(mustBeProvided = mandatory()) {
-  return mustBeProvided
+  return mustBeProvided;
 }
 ```
 

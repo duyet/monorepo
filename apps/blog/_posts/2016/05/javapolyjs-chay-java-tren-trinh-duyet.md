@@ -46,7 +46,7 @@ Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch 
 
 <!-- Invoke your Java code from Javascript -->
 <script type="text/javascript">
-  com.demo.Greeter.sayHello('world')
+  com.demo.Greeter.sayHello('world');
 </script>
 ```
 

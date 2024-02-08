@@ -43,18 +43,18 @@ Autotrack vừa mới ra mắt phiên bản ổn định 1.0, hiện cung cấp 
   window.ga =
     window.ga ||
     function () {
-      ;(ga.q = ga.q || []).push(arguments)
-    }
-  ga.l = +new Date()
-  ga('create', 'UA-XXXXX-Y', 'auto')
+      (ga.q = ga.q || []).push(arguments);
+    };
+  ga.l = +new Date();
+  ga('create', 'UA-XXXXX-Y', 'auto');
 
   // Replace the following lines with the plugins you want to use.
-  ga('require', 'eventTracker')
-  ga('require', 'outboundLinkTracker')
-  ga('require', 'urlChangeTracker')
+  ga('require', 'eventTracker');
+  ga('require', 'outboundLinkTracker');
+  ga('require', 'urlChangeTracker');
   // ...
 
-  ga('send', 'pageview')
+  ga('send', 'pageview');
 </script>
 ```
 

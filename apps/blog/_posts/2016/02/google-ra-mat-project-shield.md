@@ -22,5 +22,4 @@ Các website, blog nói trên có thể đăng ký và được xét duyệt s�
 
 <iframe allowfullscreen="" frameborder="0" height="480" src="https://www.youtube.com/embed/YZqiF5Duh0U" style="border: 0; width: 100%; max-width: 853px;"></iframe>
 
-
 Sau khi đăng ký, Project Shield sẽ hướng dẫn cài đặt, bằng cách trỏ domain về máy chủ của Google,  máy chủ này trỏ về server gốc của Website. Máy chủ này làm nhiệm vụ như 1 proxy server, mọi request đến Website đều thông qua máy chủ này, filter, phân tích, cache, giúp server gốc không chịu ảnh hưởng nếu có DDOS xảy ra.

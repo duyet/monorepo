@@ -18,12 +18,12 @@ The [nullish coalescing proposal](https://github.com/tc39/proposal-nullish-coale
 The nullish coalescing operator (`??`) acts very similar to the `||` operator, except that we don’t use _"truthy"_ when evaluating the operator. Instead we use the definition of _"nullish"_, meaning "is the value strictly equal to null or undefined". So imagine the expression `lhs ?? rhs`: if `lhs` is not nullish, it evaluates to `lhs`. Otherwise, it evaluates to rhs.
 
 ```js
-false ?? true // => false
-0 ?? 1 // => 0
-'' ?? 'default' // => ''
+false ?? true; // => false
+0 ?? 1; // => 0
+'' ?? 'default'; // => ''
 
-null ?? [] // => []
-undefined ?? [] // => []
+null ?? []; // => []
+undefined ?? []; // => []
 ```
 
 # References

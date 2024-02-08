@@ -4,9 +4,9 @@ date: '2023-09-09'
 author: Duyet
 category: Rust 🦀
 tags:
-- Data
-- Rust
-- Data Engineer
+  - Data
+  - Rust
+  - Data Engineer
 slug: /2023/09/opendal.html
 thumbnail: /media/2023/09/opendal/opendal-1.png
 description: OpenDAL is a data access layer that allows users to easily and efficiently retrieve data from various storage services in a unified way such as S3, FTP, FS, Google Drive, HDFS, etc. They has been rewritten in Rust for the Core and have a binding from many various language like Python, Node.js, C, etc..
@@ -16,7 +16,7 @@ description: OpenDAL is a data access layer that allows users to easily and eff
 
 ![](/media/2023/09/opendal/opendal-1.png)
 
-OpenDAL is designed for developers who need to build cloud-native, cross-cloud-first applications and services that **require configurable storage backends** to meet complex data access needs. 
+OpenDAL is designed for developers who need to build cloud-native, cross-cloud-first applications and services that **require configurable storage backends** to meet complex data access needs.
 With OpenDAL, developers can use a unified interface to access multiple storage backends, including **cloud object storage, distributed file systems, and relational databases**. This allows developers to **easily switch** between different storage backends without having to worry about the underlying implementation details.
 
 ![](/media/2023/09/opendal/opendal-2.png)
@@ -31,11 +31,11 @@ For example, if we want to access to [S3 Service](https://opendal.apache.org/doc
 
 ```rust
 use opendal::{services, Operator};
-  
-#[tokio::main]  
-async fn main() -> Result<()> {  
-	// Pick a builder and configure it.  
-	let mut builder = services::S3::default();  
+
+#[tokio::main]
+async fn main() -> Result<()> {
+	// Pick a builder and configure it.
+	let mut builder = services::S3::default();
 	builder.bucket("my-bucket");
 
 	// Init an operator
@@ -65,8 +65,8 @@ Another alternative is to create the `Operator` using a [`HashMap`](https://doc.
 ```rust
 use std::collections::HashMap;
 use opendal::{services, Operator, Scheme};
-  
-#[tokio::main]  
+
+#[tokio::main]
 async fn main() -> Result<()> {
 	// Config
 	let map = HashMap::from([
@@ -84,23 +84,24 @@ async fn main() -> Result<()> {
 ```
 
 Seeing more at the Rust doc https://docs.rs/opendal
+
 # Layers
 
-OpenDAL also supporting [`layers`](https://docs.rs/opendal/latest/opendal/layers/index.html) like *logging, prometheus, tracing, timeout, retry, etc*.
+OpenDAL also supporting [`layers`](https://docs.rs/opendal/latest/opendal/layers/index.html) like _logging, prometheus, tracing, timeout, retry, etc_.
 
 ```rust
 use opendal::{services, Operator};
 use opendal::layers::LoggingLayer;
-  
-#[tokio::main]  
-async fn main() -> Result<()> {  
-	// Pick a builder and configure it.  
-	let mut builder = services::S3::default();  
+
+#[tokio::main]
+async fn main() -> Result<()> {
+	// Pick a builder and configure it.
+	let mut builder = services::S3::default();
 	builder.bucket("my-bucket");
 
 	// Init an operator
 	let op = Operator::new(builder)?
-		// Init with logging layer enabled.  
+		// Init with logging layer enabled.
 		.layer(LoggingLayer::default())
 		.finish();
 
@@ -112,6 +113,7 @@ async fn main() -> Result<()> {
 ```
 
 Look at some additional examples below
+
 # FS - File System
 
 [Document](https://opendal.apache.org/docs/services/fs) and [docs.rs](https://docs.rs/opendal/latest/opendal/services/struct.Fs.htmll)
@@ -147,7 +149,7 @@ use opendal::{Operator, Scheme};
 async fn main() -> Result<()> {
 	let mut map = HashMap::new();
 	map.insert("endpoint".to_string(), "127.0.0.1".to_string());
-	
+
 	let op: Operator = Operator::via_map(Scheme::Http, map)?;
 
 	// Read data http://127.0.0.1/hello.txt
@@ -157,7 +159,7 @@ async fn main() -> Result<()> {
 }
 ```
 
-# Example: function support to read CSV file from local/s3/http 
+# Example: function support to read CSV file from local/s3/http
 
 ```rust
 use anyhow::{Context, Result};
@@ -246,4 +248,4 @@ Get and run the example code in my repository on GitHub [`duyet/opendal-examples
 - [Apache OpenDAL GitHub](https://github.com/apache/incubator-opendal)
 - [Apache OpenDAL Documentation](https://opendal.apache.org/docs)
 - [docs.rs/opendal](https://docs.rs/opendal)
-- ["OpenDAL Examples Repository on GitHub"](https://github.com/duyet/opendal-examples) by duyet. 
+- ["OpenDAL Examples Repository on GitHub"](https://github.com/duyet/opendal-examples) by duyet.

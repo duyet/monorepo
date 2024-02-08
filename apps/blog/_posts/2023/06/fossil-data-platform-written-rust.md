@@ -29,10 +29,10 @@ My data engineering team at Fossil recently released some of Rust-based componen
 - [The First Benchmark](#the-first-benchmark)
 - [Going Production](#going-production)
 - [Spark and Rust](#spark-and-rust)
-    - [1. Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
-    - [2. `pyspark.RDD.pipe`](#2-pysparkrddpipe)
-    - [3. DataFusion](#3-datafusion)
-    - [4. You Don't Always Need Spark](#4-you-dont-always-need-spark)
+  - [1. Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
+  - [2. `pyspark.RDD.pipe`](#2-pysparkrddpipe)
+  - [3. DataFusion](#3-datafusion)
+  - [4. You Don't Always Need Spark](#4-you-dont-always-need-spark)
 - [Team involvement](#team-involvement)
 - [Well, what's next?](#well-whats-next)
 - [The feature of Rust for Data Engineering](#the-feature-of-rust-for-data-engineering)
@@ -130,7 +130,6 @@ Data collector was written in Node.js, now rewriten in Rust thanks to [actix-web
 
 ![Data Engineering Team 2022](/media/2023/06/fossil-data-platform-written-rust/dp-overview.png)
 
-
 The initial plan involves replacing the mini-batch layer pods with **transformation-rs**. This reduces the number of pods to a range of 10-20, resulting in significant resource savings and improved performance.
 
 | Transformation Worker       | Python       | Rust       |
@@ -148,6 +147,7 @@ The data collector API was initially developed using Node.js, but it has since b
 I planned for doing POCs to explore ways to speed up the Spark cluster and integrated it with `transformation-rs` to use a single codebase for both. Our approach involved these options:
 
 ### 1. Create a **Rusty Python Library**
+
 so that an UDF can use call to Rust directly, thanks to [maturin.rs](https://www.maturin.rs) by helping us for building wheels for Python 3.7+ easily.
 
 maturin will add the native extension as a module in your python folder. Example layout with pyo3 after `maturin develop`:
@@ -177,8 +177,8 @@ Imaging we already have this binary running on container to processing a file:
 We can run it via Spark RDD like below:
 
 ```scala
-sc.addFile("s3a://data-team/transformation-rs", false) 
-val ds = df.toJSON.rdd.pipe(SparkFiles.getRootDirectory + "transformation-rs").toDS 
+sc.addFile("s3a://data-team/transformation-rs", false)
+val ds = df.toJSON.rdd.pipe(SparkFiles.getRootDirectory + "transformation-rs").toDS
 ```
 
 Checking out [this great post](https://blog.phylum.io/spark-and-rust-how-to-build-fast-distributed-and-flexible-analytics-pipelines/) to get more detail about this solution.

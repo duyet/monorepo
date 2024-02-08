@@ -43,7 +43,6 @@ File: templates/deployment.yaml
 When I ran `helm template .` to render the template, I expected to see `0777`. However, what I got was `511`. Here's the relevant part of the output:
 
 ```yaml
-
 ---
 volumes:
   - name: airflow-config
@@ -58,7 +57,6 @@ volumes:
 My expectation was:
 
 ```yaml
-
 ---
 volumes:
   - name: airflow-config

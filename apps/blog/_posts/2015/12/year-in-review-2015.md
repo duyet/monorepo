@@ -1,5 +1,5 @@
 ---
-title: Year In Review [2015]
+title: Year In Review 2015
 date: '2015-12-31'
 author: Van-Duyet Le
 tags:

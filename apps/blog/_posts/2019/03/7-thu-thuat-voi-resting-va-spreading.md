@@ -19,11 +19,11 @@ thumbnail: https://1.bp.blogspot.com/-Lx7eCzJBFOM/XI27Q9rLwuI/AAAAAAAA7f8/nArHou
 Bạn có thể vừa clone và thêm thuộc tính cho objects. Ví dụ sau clone user object và thêm vào thuộc tính password
 
 ```js
-const user = { id: 100, name: 'Howard Moon' }
-const userWithPass = { ...user, password: 'Password!' }
+const user = { id: 100, name: 'Howard Moon' };
+const userWithPass = { ...user, password: 'Password!' };
 
-user //=> { id: 100, name: 'Howard Moon' }
-userWithPass //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
+user; //=> { id: 100, name: 'Howard Moon' }
+userWithPass; //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
 ```
 
 # 2. Merge Objects
@@ -31,20 +31,20 @@ userWithPass //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
 Merge 2 objects vào 1 objects
 
 ```js
-const part1 = { id: 100, name: 'Howard Moon' }
-const part2 = { id: 100, password: 'Password!' }
+const part1 = { id: 100, name: 'Howard Moon' };
+const part2 = { id: 100, password: 'Password!' };
 
-const user1 = { ...part1, ...part2 }
+const user1 = { ...part1, ...part2 };
 //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
 ```
 
 Hoặc có thể merge với cú pháp sau:
 
 ```js
-const partial = { id: 100, name: 'Howard Moon' }
-const user = { ...partial, ...{ id: 100, password: 'Password!' } }
+const partial = { id: 100, name: 'Howard Moon' };
+const user = { ...partial, ...{ id: 100, password: 'Password!' } };
 
-user //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
+user; //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
 ```
 
 # 3. Loại bỏ (xóa) một thuộc tính (Exclude Properties)
@@ -52,14 +52,14 @@ user //=> { id: 100, name: 'Howard Moon', password: 'Password!' }
 Có thể loại bỏ thuộc tính bằng cách destructuring kết hợp với rest operator. Ví dụ sau loại bỏ thuộc tính password
 
 ```js
-const noPassword = ({ password, ...rest }) => rest
+const noPassword = ({ password, ...rest }) => rest;
 const user = {
   id: 100,
   name: 'Howard Moon',
   password: 'Password!',
-}
+};
 
-noPassword(user) //=> { id: 100, name: 'Howard moon' }
+noPassword(user); //=> { id: 100, name: 'Howard moon' }
 ```
 
 # 4. Loại bỏ thuộc tính linh động (Dynamically Exclude Properties)
@@ -71,20 +71,20 @@ const user1 = {
   id: 100,
   name: 'Howard Moon',
   password: 'Password!',
-}
+};
 const removeProperty =
   (prop) =>
   ({ [prop]: _, ...rest }) =>
-    rest
+    rest;
 //                     ----       ------
 //                          \   /
 //                dynamic destructuring
 
-const removePassword = removeProperty('password')
-const removeId = removeProperty('id')
+const removePassword = removeProperty('password');
+const removeId = removeProperty('id');
 
-removePassword(user1) //=> { id: 100, name: 'Howard Moon' }
-removeId(user1) //=> { name: 'Howard Moon', password: 'Password!' }
+removePassword(user1); //=> { id: 100, name: 'Howard Moon' }
+removeId(user1); //=> { name: 'Howard Moon', password: 'Password!' }
 ```
 
 # 5. Sắp xếp loại thứ tự các thuộc tính (Organize Properties)
@@ -96,14 +96,14 @@ const user3 = {
   password: 'Password!',
   name: 'Naboo',
   id: 300,
-}
+};
 
-const organize = (object) => ({ id: undefined, ...object })
+const organize = (object) => ({ id: undefined, ...object });
 //                            -------------
 //                          /
 //  move id to the first property
 
-organize(user3)
+organize(user3);
 //=> { id: 300, password: 'Password!', name: 'Naboo' }
 ```
 
@@ -115,20 +115,20 @@ organize(user3)
 const user2 = {
   id: 200,
   name: 'Vince Noir',
-}
+};
 
 const user4 = {
   id: 400,
   name: 'Bollo',
   quotes: ["I've got a bad feeling about this..."],
-}
+};
 
-const setDefaults = ({ quotes = [], ...object }) => ({ ...object, quotes })
+const setDefaults = ({ quotes = [], ...object }) => ({ ...object, quotes });
 
-setDefaults(user2)
+setDefaults(user2);
 //=> { id: 200, name: 'Vince Noir', quotes: [] }
 
-setDefaults(user4)
+setDefaults(user4);
 //=> {
 //=>   id: 400,
 //=>   name: 'Bollo',
@@ -141,14 +141,14 @@ setDefaults(user4)
 Kết hợp các kỹ thuật ở trên, ta viết function rename để đổi tên 1 thuộc tính như sau:
 
 ```js
-const renamed = ({ ID, ...object }) => ({ id: ID, ...object })
+const renamed = ({ ID, ...object }) => ({ id: ID, ...object });
 
 const user = {
   ID: 500,
   name: 'Bob Fossil',
-}
+};
 
-renamed(user) //=> { id: 5000, name: 'Bob Fossil' }
+renamed(user); //=> { id: 5000, name: 'Bob Fossil' }
 ```
 
 # Tham khảo

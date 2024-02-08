@@ -21,12 +21,12 @@ Destructuring là chức năng mới trong ES6 của Javascript. Giúp extract d
 ## 1. Object destructuring
 
 ```js
-const obj = { first: 'Jane', last: 'Doe' }
-const { first: f, last: l } = obj
+const obj = { first: 'Jane', last: 'Doe' };
+const { first: f, last: l } = obj;
 // f = 'Jane'; l = 'Doe'
 
 // {prop} is short for {prop: prop}
-const { first, last } = obj
+const { first, last } = obj;
 // first = 'Jane'; last = 'Doe'
 ```
 
@@ -35,15 +35,15 @@ const { first, last } = obj
 Destructuring giá trị từ mảng
 
 ```js
-const iterable = ['a', 'b']
-const [x, y] = iterable
+const iterable = ['a', 'b'];
+const [x, y] = iterable;
 // x = 'a'; y = 'b'
 ```
 
 Destructuring cũng giúp xử lý giá trị được trả về
 
 ```js
-const [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec('2999-12-31')
+const [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec('2999-12-31');
 ```
 
 ## 3. Khi nào cần sử dụng destructuring
@@ -67,9 +67,9 @@ f(['a']);
 Sử dụng với vòng lặp `for-of`
 
 ```js
-const arr1 = ['a', 'b']
+const arr1 = ['a', 'b'];
 for (const [index, element] of arr1.entries()) {
-  console.log(index, element)
+  console.log(index, element);
 }
 // Output:
 // 0 a
@@ -78,9 +78,9 @@ for (const [index, element] of arr1.entries()) {
 const arr2 = [
   { name: 'Duyệt', age: 21 },
   { name: 'Hoa', age: 19 },
-]
+];
 for (const { name, age } of arr2) {
-  console.log(name, age)
+  console.log(name, age);
 }
 // Output:
 // Duyệt 41
@@ -96,16 +96,16 @@ Một số patterns sử dụng sâu hơn chức năng này:
 Chỉ bóc tách lấy giá trị trong Object mà bạn cần
 
 ```js
-const { x: x } = { x: 7, y: 3 } // x = 7
+const { x: x } = { x: 7, y: 3 }; // x = 7
 
 // Array
-const [x, y] = ['a', 'b', 'c'] // x='a'; y='b';
+const [x, y] = ['a', 'b', 'c']; // x='a'; y='b';
 
 // Hoặc khó hơn, và "sâu" hơn như thế này
-const obj = { a: [{ foo: 123, bar: 'abc' }, {}], b: true }
+const obj = { a: [{ foo: 123, bar: 'abc' }, {}], b: true };
 const {
   a: [{ foo: f }],
-} = obj // f = 123
+} = obj; // f = 123
 ```
 
 #### 4.2 Object patterns coerce values to objects
@@ -113,15 +113,15 @@ const {
 Pattern này ép giá trị nguồn (bên phải) thành object trước, khó để giải thích cái này, bạn xem ví dụ bên dưới<br />
 
 ```js
-const { length: len } = 'abc' // len = 3
-const { toString: s } = 123 // s = Number.prototype.toString
+const { length: len } = 'abc'; // len = 3
+const { toString: s } = 123; // s = Number.prototype.toString
 ```
 
 #### 4.3 Array patterns work with iterables
 
 ```js
 // Strings are iterable:
-const [x, ...y] = 'abc' // x='a'; y=['b', 'c']
+const [x, ...y] = 'abc'; // x='a'; y=['b', 'c']
 ```
 
 #### 4.4 Sử dụng với Generator function (yield)
@@ -129,39 +129,39 @@ const [x, ...y] = 'abc' // x='a'; y=['b', 'c']
 ```js
 function* allNaturalNumbers() {
   for (let n = 0; ; n++) {
-    yield n
+    yield n;
   }
 }
 
-const [x, y, z] = allNaturalNumbers() // x=0; y=1; z=2
+const [x, y, z] = allNaturalNumbers(); // x=0; y=1; z=2
 ```
 
 #### 4.5 Default values
 
 ```js
-const [x = 3, y] = [] // x = 3; y = undefined
-const { foo: x = 3, bar: y } = {} // x = 3; y = undefined
-const [x = 1] = [undefined] // x = 1
-const { prop: y = 2 } = { prop: undefined } // y = 2
+const [x = 3, y] = []; // x = 3; y = undefined
+const { foo: x = 3, bar: y } = {}; // x = 3; y = undefined
+const [x = 1] = [undefined]; // x = 1
+const { prop: y = 2 } = { prop: undefined }; // y = 2
 
-const [x = 3, y = x] = [] // x=3; y=3
-const [x = 3, y = x] = [7] // x=7; y=7
-const [x = 3, y = x] = [7, 2] // x=7; y=2
+const [x = 3, y = x] = []; // x=3; y=3
+const [x = 3, y = x] = [7]; // x=7; y=7
+const [x = 3, y = x] = [7, 2]; // x=7; y=2
 
 // Khó hơn
-const [{ prop: x } = {}] = []
+const [{ prop: x } = {}] = [];
 ```
 
 #### 4.6 Khuyết tham số
 
 ```js
-const [, , x, y] = ['a', 'b', 'c', 'd'] // x = 'c'; y = 'd'
+const [, , x, y] = ['a', 'b', 'c', 'd']; // x = 'c'; y = 'd'
 ```
 
 #### 4.7. Load module Node.js
 
 ```js
-const { Loader, main } = require('toolkit/loader')
+const { Loader, main } = require('toolkit/loader');
 ```
 
 ## 5. Tham khảo

@@ -33,10 +33,7 @@ module.exports = {
         destination: '/insights',
         permanent: true,
       },
-    ]
+    ];
   },
-  transpilePackages: [
-    "@duyet/components",
-    "@duyet/libs"
-  ]
-}
+  transpilePackages: ['@duyet/components', '@duyet/libs'],
+};

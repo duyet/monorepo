@@ -147,6 +147,7 @@ orders
 ```
 
 References
+
 - [Partitioned Writes](https://duckdb.org/docs/archive/0.8.1/data/partitioning/partitioned_writes)
 - [Hive Partitioning](https://duckdb.org/docs/archive/0.8.1/data/partitioning/hive_partitioning)
 
@@ -191,7 +192,7 @@ fn main() -> Result<()> {
 
 # 6. Using DuckDB in Python
 
-DuckDB can be used from Python using the DuckDB Python API. The API can be installed using pip:  `pip install duckdb`.
+DuckDB can be used from Python using the DuckDB Python API. The API can be installed using pip: `pip install duckdb`.
 
 ```python
 import duckdb
@@ -237,7 +238,7 @@ DuckDB has been compiled to WebAssembly, so it can run inside any browser on any
 
 [This cool project](https://github.com/BauplanLabs/quack-reduce/) helping you running DuckDB serverless over a data lake on S3 using AWS Lambda. Seeing the [blog post](https://towardsdatascience.com/a-serverless-query-engine-from-spare-parts-bd6320f10353) for more detail.
 
-# 9. DuckDB with dbt 
+# 9. DuckDB with dbt
 
 [dbt](http://getdbt.com/) is the best way to manage a collection of data transformations written in SQL or Python for analytics and data science. Yes we can use it together via this adapter [dbt-duckdb](https://github.com/jwills/dbt-duckdb). Seeing [the document](https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup) for more detail.
 
@@ -306,7 +307,7 @@ Image: [dataminded](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-o
 
 # 13. Conclusion
 
-One of the things I like about DuckDB is its simplicity and portability. Similar to SQLite, I can install and use it with a single binary or easily embed it into my application. 
+One of the things I like about DuckDB is its simplicity and portability. Similar to SQLite, I can install and use it with a single binary or easily embed it into my application.
 
 For those who work with relational datasets, DuckDB is an excellent tool to consider. Its flexibility and user-friendly nature make it a great choice for both data analysts and engineers. Whether you need to import data from CSV or Parquet files or query Pandas or Polars DataFrames, DuckDB has got you covered. Give it a try today and see how it can aid you in your next project.
 
