@@ -48,17 +48,17 @@ I met friends and new people, and took many photos for our upcoming wedding that
     <img class="h-auto max-w-full rounded-lg grow" src="/media/2024/02/2023-summary/dalat-1.jpeg" alt="" />
     <div class="grid gap-2">
         <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/dalat-2.jpg" alt="" />
-        <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/kiengiang-2.JPG" alt="" />
+        <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/kiengiang-2.jpg" alt="" />
     </div>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
     <div class="grid gap-2">
         <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-1.jpeg" alt="" /></div>
-        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-nini.JPG" alt="" /></div>
+        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-nini.jpg" alt="" /></div>
     </div>
     <div class="grid gap-2">
-        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/cantho-1.JPG" alt="" /></div>
+        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/cantho-1.jpg" alt="" /></div>
     </div>
 </div>
 
