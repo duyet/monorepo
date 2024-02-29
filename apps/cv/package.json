@@ -17,8 +17,8 @@
   },
   "prettier": "@duyet/prettier",
   "dependencies": {
-    "@commitlint/cli": "^18.0.0",
-    "@commitlint/config-conventional": "^18.0.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@duyet/prettier": "*",
