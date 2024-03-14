@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getAllPosts } from '@duyet/libs/getPost';
-import { Auth0Provider, Container } from '@duyet/components';
+import { Container } from '@duyet/components';
 import Meta from './meta';
 import Comment from './comment';
 import Content, { getPost } from './content';
@@ -25,9 +25,7 @@ export default async function Post({
       <article>
         <Content post={post} />
         <Meta className="mt-10" post={post} />
-        <Auth0Provider>
-          <Comment className="mt-0" />
-        </Auth0Provider>
+        <Comment className="mt-0" />
       </article>
     </Container>
   );
