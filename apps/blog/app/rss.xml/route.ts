@@ -1,6 +1,6 @@
-import RSS from 'rss';
 import type { Post } from '@duyet/interfaces';
 import { getAllPosts } from '@duyet/libs/getPost';
+import RSS from 'rss';
 
 const siteUrl = 'https://blog.duyet.net';
 

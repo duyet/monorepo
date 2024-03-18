@@ -18,7 +18,7 @@ const githubStatUrl = (params: { theme: string }): string => {
 
 export default async function Github() {
   return (
-    <div className="space-y-6 mt-10">
+    <div className="mt-10 space-y-6">
       <StaticCard
         className="dark:border-0 dark:p-0"
         source="Github"

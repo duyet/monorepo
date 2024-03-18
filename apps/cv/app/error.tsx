@@ -1,6 +1,6 @@
 'use client'; // Error components must be Client components
 
-import { Error } from '@duyet/components';
+import Error from '@duyet/components/Error';
 
 export default function Page({
   error,

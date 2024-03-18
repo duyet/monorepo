@@ -1,29 +1,34 @@
-import { kv } from '@vercel/kv'
-import { nanoid } from 'nanoid'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { kv } from "@vercel/kv";
+import { nanoid } from "nanoid";
+import { NextResponse } from "next/server";
 
-import type { Comment } from '@duyet/interfaces'
-import getUser from '../getUser'
-import clearUrl from '../clearUrl'
+import type { Comment } from "@duyet/interfaces";
+import getUser from "../getUser";
+import clearUrl from "../clearUrl";
 
-export default async function createComments(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const url = clearUrl(req.headers.referer || '')
-  const { text } = req.body
-  const { authorization } = req.headers
+export default async function createComments(req: Request) {
+  const url = clearUrl(req.headers.get("referer") || "");
+  const { text } = await req.json();
+  const authorization = req.headers.get("authorization");
 
   if (!text || !authorization) {
-    return res.status(400).json({ message: 'Missing parameter.' })
+    return NextResponse.json(
+      { message: "Missing parameter." },
+      { status: 400 },
+    );
   }
 
   try {
     // verify user token
-    const user = await getUser(authorization)
-    if (!user) return res.status(400).json({ message: 'Need authorization.' })
+    const user = await getUser(authorization);
+    if (!user) {
+      return NextResponse.json(
+        { message: "Need authorization." },
+        { status: 400 },
+      );
+    }
 
-    const { name, picture, sub, email } = user
+    const { name, picture, sub, email } = user;
 
     const comment: Comment = {
       id: nanoid(),
@@ -31,13 +36,17 @@ export default async function createComments(
       url,
       text,
       user: { name, picture, sub, email },
-    }
+    };
 
     // write data
-    await kv.lpush(url, JSON.stringify(comment))
+    await kv.lpush(url, JSON.stringify(comment));
 
-    return res.status(200).json(comment)
-  } catch (_) {
-    return res.status(400).json({ message: 'Unexpected error occurred.' })
+    return NextResponse.json(comment);
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { message: "Unexpected error occurred." },
+      { status: 400 },
+    );
   }
 }

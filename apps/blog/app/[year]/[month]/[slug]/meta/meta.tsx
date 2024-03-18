@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import { Icons } from '@duyet/components';
-import { cn } from '@duyet/libs/utils';
+import Icons from '@duyet/components/Icons';
 import type { Post } from '@duyet/interfaces';
 import distanceToNow from '@duyet/libs/dateRelative';
+import { getSlug } from '@duyet/libs/getSlug';
+import { cn } from '@duyet/libs/utils';
+import Link from 'next/link';
 
 interface ContentProps {
   post: Post;
@@ -10,14 +11,12 @@ interface ContentProps {
 }
 
 export default function Content({ post, className }: ContentProps) {
-  const tags = post.tags?.join(', ');
-
   return (
     <div
       className={cn(
         'flex flex-row flex-wrap gap-2',
-        'text-gray-400 text-sm',
-        'py-5 px-3',
+        'text-sm text-gray-400',
+        'px-3 py-5',
         'border-t border-gray-200 dark:border-gray-700',
         className,
       )}
@@ -29,8 +28,12 @@ export default function Content({ post, className }: ContentProps) {
         <Link href={`/category/${post.category_slug}`}>{post.category}</Link>
       </span>
       <span>&#x2022;</span>
-      <span className="truncate max-w-[200px]" title={`Tags: ${tags}`}>
-        {tags}
+      <span className="flex max-w-[200px] flex-row gap-2 truncate">
+        {post.tags.map((tag) => (
+          <Link href={`/tag/${getSlug(tag)}`} key={tag} title={`Tag: ${tag}`}>
+            {tag}
+          </Link>
+        ))}
       </span>
       <span>&#x2022;</span>
       <a
@@ -40,7 +43,7 @@ export default function Content({ post, className }: ContentProps) {
         target="_blank"
         title="Edit in Github"
       >
-        <Icons.Github className="w-4 h-4" />
+        <Icons.Github className="h-4 w-4" />
       </a>
     </div>
   );

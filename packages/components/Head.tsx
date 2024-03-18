@@ -6,5 +6,5 @@ export default function Head() {
       <meta content="ie=edge" httpEquiv="x-ua-compatible" />
       <link href="/icon.svg" rel="icon" sizes="any" />
     </head>
-  )
+  );
 }

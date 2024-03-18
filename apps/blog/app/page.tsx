@@ -1,4 +1,5 @@
-import { Container, Feed } from '@duyet/components';
+import Container from '@duyet/components/Container';
+import Feed from '@duyet/components/Feed';
 import { getAllPosts } from '@duyet/libs/getPost';
 
 type Params = Record<string, string>;

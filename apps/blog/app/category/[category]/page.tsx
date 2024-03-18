@@ -1,6 +1,6 @@
-import { getSlug } from '@duyet/libs/getSlug';
-import { Feed } from '@duyet/components';
+import Feed from '@duyet/components/Feed';
 import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost';
+import { getSlug } from '@duyet/libs/getSlug';
 
 interface PostsByCategoryProps {
   params: {

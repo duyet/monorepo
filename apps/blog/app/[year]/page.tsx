@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { YearList } from '@duyet/components';
+import YearList from '@duyet/components/YearList';
 import type { Post } from '@duyet/interfaces';
 import { getPostsByAllYear, getPostsByYear } from '@duyet/libs/getPost';
+import Link from 'next/link';
 
 interface YearProps {
   params: {
@@ -10,15 +10,20 @@ interface YearProps {
 }
 
 export default function Year({ params: { year } }: YearProps) {
+  // Validate year is number
+  if (typeof year !== 'number' || isNaN(year)) {
+    return null;
+  }
+
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-5 mt-10">{year}</h1>
+      <h1 className="mb-5 mt-10 text-3xl font-bold">{year}</h1>
 
       {posts.map((post: Post) => (
         <article className="mb-5" key={post.slug}>
-          <div className="flex flex-row gap-2 mb-2">
+          <div className="mb-2 flex flex-row gap-2">
             <time className="text-gray-400">{post.date.toString()}</time>
             <span className="text-gray-500">{post.category}</span>
           </div>

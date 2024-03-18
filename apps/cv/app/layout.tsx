@@ -1,14 +1,12 @@
-import './globals.css';
 import '@duyet/components/styles.css';
+import './globals.css';
 
-import {
-  Head,
-  Analytics,
-  ThemeProvider,
-  Header,
-  Container,
-  Footer,
-} from '@duyet/components';
+import Analytics from '@duyet/components/Analytics';
+import Container from '@duyet/components/Container';
+import Footer from '@duyet/components/Footer';
+import Head from '@duyet/components/Head';
+import Header from '@duyet/components/Header';
+import ThemeProvider from '@duyet/components/ThemeProvider';
 
 export const metadata = {
   title: 'Duyet Resume',

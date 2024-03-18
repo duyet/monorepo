@@ -1,39 +1,51 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from "next/server";
+import type { User, Comment } from "@duyet/interfaces";
+import getUser from "../getUser";
+import clearUrl from "../clearUrl";
 
-import type { User, Comment } from '@duyet/interfaces'
-import getUser from '../getUser'
-import clearUrl from '../clearUrl'
-
-export default async function deleteComments(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const url = clearUrl(req.headers.referer || '')
-  const { comment }: { url: string; comment: Comment } = req.body
-  const { authorization } = req.headers
+export default async function deleteComments(req: Request) {
+  const url = clearUrl(req.headers.get("referer") || "");
+  const { comment }: { url: string; comment: Comment } = await req.json();
+  const authorization = req.headers.get("authorization");
 
   if (!comment || !authorization) {
-    return res.status(400).json({ message: 'Missing parameter.' })
+    return NextResponse.json(
+      { message: "Missing parameter." },
+      { status: 400 },
+    );
   }
 
   try {
     // verify user token
-    const user: User = await getUser(authorization)
-    if (!user) return res.status(400).json({ message: 'Invalid token.' })
-    comment.user.email = user.email
+    const user: User = await getUser(authorization);
+    if (!user) {
+      return NextResponse.json(
+        { message: "Need authorization." },
+        { status: 400 },
+      );
+    }
 
-    const isAdmin = process.env.NEXT_PUBLIC_AUTH0_ADMIN_EMAIL === user.email
-    const isAuthor = user.sub === comment.user.sub
+    comment.user.email = user.email;
+
+    const isAdmin = process.env.NEXT_PUBLIC_AUTH0_ADMIN_EMAIL === user.email;
+    const isAuthor = user.sub === comment.user.sub;
 
     if (!isAdmin && !isAuthor) {
-      return res.status(400).json({ message: 'Need authorization.' })
+      return NextResponse.json(
+        { message: "Need authorization." },
+        { status: 400 },
+      );
     }
 
     // TODO: delete
     // await kv.lrem(url, 0, JSON.stringify(comment))
 
-    return res.status(200).end()
+    return NextResponse.json(comment);
   } catch (err) {
-    return res.status(400)
+    console.error(err);
+    return NextResponse.json(
+      { message: "Unexpected error occurred." },
+      { status: 400 },
+    );
   }
 }

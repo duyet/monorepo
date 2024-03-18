@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Error(_props: { error?: Error; reset?: () => void }) {
   return (
@@ -23,5 +23,5 @@ export default function Error(_props: { error?: Error; reset?: () => void }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

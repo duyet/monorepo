@@ -1,6 +1,6 @@
 'use client';
 
-import { Auth0Provider } from '@duyet/components';
+import Auth0Provider from '@duyet/components/Auth0Provider';
 import Wrapper from './wrapper';
 
 interface CommentProps {

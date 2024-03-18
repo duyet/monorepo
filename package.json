@@ -28,14 +28,10 @@
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@duyet/tsconfig": "*",
+    "eslint": "8.54.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
-    "eslint": "8.54.0",
     "prettier": "^3.0.0",
-    "turbo": "^1.10.12"
-  },
-  "packageManager": "yarn@1.22.21",
-  "engines": {
-    "node": "^18"
+    "turbo": "^1.12.5"
   }
 }

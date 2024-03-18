@@ -1,32 +1,32 @@
 type Date = {
-  date: string
-}
+  date: string;
+};
 
 type Sum = {
-  bytes: number
-  requests: number
-  pageViews: number
-  cachedBytes: number
-}
+  bytes: number;
+  requests: number;
+  pageViews: number;
+  cachedBytes: number;
+};
 
 type Uniq = {
-  uniques: number
-}
+  uniques: number;
+};
 
 type HttpRequests1dGroup = {
-  date: Date
-  sum: Sum
-  uniq: Uniq
-}
+  date: Date;
+  sum: Sum;
+  uniq: Uniq;
+};
 
 type Zone = {
-  httpRequests1dGroups: HttpRequests1dGroup[]
-}
+  httpRequests1dGroups: HttpRequests1dGroup[];
+};
 
 type Viewer = {
-  zones: Zone[]
-}
+  zones: Zone[];
+};
 
 export type CloudflareAnalyticsByDate = {
-  viewer: Viewer
-}
+  viewer: Viewer;
+};

@@ -1,5 +1,5 @@
+import Container from '@duyet/components/Container';
 import React from 'react';
-import { Container } from '@duyet/components';
 
 interface YearLayoutProps {
   params: {

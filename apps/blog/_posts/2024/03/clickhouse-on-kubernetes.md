@@ -12,9 +12,9 @@ thumbnail: /media/2024/03/clickhouse-k8s/clickhouse-operator.png
 description: ClickHouse has been both exciting and incredibly challenging based on my experience migrating and scaling from Iceberg to ClickHouse, zero to a large cluster of trillions of rows. I have had to deal with many of use cases and resolve issues. I have been trying to take notes every day for myself, although it takes time to publish them as a series of blog posts. I hope I can do so on this ClickHouse on Kubernetes series.
 ---
 
-ClickHouse has been both exciting and incredibly challenging based on my experience migrating and scaling from Iceberg to ClickHouse, zero to a large cluster of trillions of rows. I have had to deal with many of use cases and resolve issues such as table corruption, excessive data parts, slow start-up times, converting tables from `ReplacingMergeTree` to `ReplicatedReplacingMergeTree`, managing *clickhouse-keeper*, etc.
+ClickHouse has been both exciting and incredibly challenging based on my experience migrating and scaling from Iceberg to ClickHouse, zero to a large cluster of trillions of rows. I have had to deal with many of use cases and resolve issues such as table corruption, excessive data parts, slow start-up times, converting tables from `ReplacingMergeTree` to `ReplicatedReplacingMergeTree`, managing _clickhouse-keeper_, etc.
 
-I have been trying to take notes every day for myself, although it takes time to publish them as a series of blog posts. I hope I can do so on this ClickHouse on Kubernetes series.
+I have been trying to take notes every day for myself, although it takes time to publish them as a series of blog posts. I hope I can do so on this [ClickHouse on Kubernetes](/tag/clickhouse-on-kubernetes) series.
 
 There are many ways to deploy **ClickHouse on Kubernetes**. You can install it using the [Bitnami ClickHouse Helm Chart](https://bitnami.com/stack/clickhouse/helm) or the [Altinity Kubernetes Operator](https://github.com/Altinity/clickhouse-operator). I have experience with both of them and found that the most effective way is to use the ClickHouse Operator from Altinity. With this operator, you can manage multiple clusters and configure users, profiles, or even customize the Pods using a CRD.
 
@@ -85,6 +85,7 @@ chi-single-clickhouse-0-0-0                                       1/1     Runnin
 ```
 
 ClickHouse Operator also create Services point to your single pod:
+
 ```
 $ kubectl get svc -n clickhouse
 
@@ -94,6 +95,7 @@ chi-single-clickhouse-0-0   ClusterIP      None             <none>        9000/T
 ```
 
 You can access your first ClickHouse via port-forward:
+
 - 8123 using for access via HTTP, for example access playground: http://localhost:8123/play
 - 9000, native port, using for `clickhouse-client` command line
 
@@ -103,8 +105,7 @@ $ kubectl port-forward svc/clickhouse-single 8123 -n clickhouse
 
 ![](/media/2024/03/clickhouse-k8s/clickhouse-k8s-1.png)
 
-
-To query via command line, install the  `clickhouse` via
+To query via command line, install the `clickhouse` via
 
 ```bash
 curl https://clickhouse.com/ | sh
@@ -258,7 +259,6 @@ spec:
 
 From here, you can start deploying your first ClickHouse on Kubernetes. ClickHouse is quite performant but can be a real challenge for Data Engineers managing a large cluster like mine. You need to deal with a lot of issues and learn how to design the "correct" table.
 
-I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on ClickHouse on Kubernetes. Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
+I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on [ClickHouse on Kubernetes](/tag/clickhouse-on-kubernetes). Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
 
 Thank you.
-

@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
+import Image from "next/image";
 
-import type { Comment } from '@duyet/interfaces'
-import distanceToNow from '@duyet/libs/dateRelative'
-import { cn } from '@duyet/libs/utils'
+import type { Comment } from "@duyet/interfaces";
+import distanceToNow from "@duyet/libs/dateRelative";
+import { cn } from "@duyet/libs/utils";
 
 type CommentProps = {
-  comment: Comment
-  isAdmin?: boolean
-  isAuthor?: boolean
-  onDelete?: (comment: Comment) => Promise<void>
-  className?: string
-}
+  comment: Comment;
+  isAdmin?: boolean;
+  isAuthor?: boolean;
+  onDelete?: (comment: Comment) => Promise<void>;
+  className?: string;
+};
 
 export default function CommentContent({
   comment,
@@ -21,12 +21,12 @@ export default function CommentContent({
   onDelete,
   className,
 }: CommentProps) {
-  isAdmin = isAdmin || false
-  isAuthor = isAuthor || false
-  onDelete = onDelete || (async (_: Comment) => {})
+  isAdmin = isAdmin || false;
+  isAuthor = isAuthor || false;
+  onDelete = onDelete || (async (_: Comment) => {});
 
   return (
-    <div className={cn('flex space-x-4', className)}>
+    <div className={cn("flex space-x-4", className)}>
       <div className="flex-shrink-0">
         <Image
           src={comment.user.picture}
@@ -58,5 +58,5 @@ export default function CommentContent({
         <div>{comment.text}</div>
       </div>
     </div>
-  )
+  );
 }

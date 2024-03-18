@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import CommentContent from '@duyet/components/CommentContent';
 import type { Comment } from '@duyet/interfaces';
-import { CommentContent } from '@duyet/components';
 
 interface CommentListProps {
   comments?: Comment[];
@@ -11,7 +11,7 @@ export default function CommentList({ comments, onDelete }: CommentListProps) {
   const { user } = useAuth0();
 
   return (
-    <div className="space-y-6 mt-10">
+    <div className="mt-10 space-y-6">
       {comments?.map((comment) => {
         const isAuthor = user && user.sub === comment.user.sub;
         const isAdmin =

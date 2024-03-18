@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import { BarChart, BarList, Legend, DonutChart } from '@duyet/components';
+import { BarChart, BarList, DonutChart, Legend } from '@duyet/components';
 import { cn } from '@duyet/libs/utils';
-import { TextDataSource } from '../../components/text-data-source';
+import Image from 'next/image';
 import { StaticCard } from '../../components/static-card';
+import { TextDataSource } from '../../components/text-data-source';
 
 const WAKA_CODING_ACTIVITY_API =
   'https://wakatime.com/share/@duyet/2fe9921d-4bd2-4a6f-87a1-5cc2fcc5a9fc.json';
@@ -18,7 +18,7 @@ export default async function Wakatime() {
   const top10Languages = languages.slice(0, 10);
 
   return (
-    <div className="space-y-6 mt-10">
+    <div className="mt-10 space-y-6">
       <div className="mb-10">
         <BarChart
           categories={['Coding Hours']}
@@ -31,7 +31,7 @@ export default async function Wakatime() {
       <div className={cn('mb-10 p-5', borderClasses)}>
         <div className="flex flex-row flex-wrap items-center gap-10">
           <div className="basis-full md:basis-1/2">
-            <div className="flex flex-row justify-between text-bold mb-4">
+            <div className="text-bold mb-4 flex flex-row justify-between">
               <span className="font-bold">Top 10 tracked by Wakatime</span>
               <span className="font-bold">%</span>
             </div>
@@ -43,10 +43,10 @@ export default async function Wakatime() {
             />
           </div>
 
-          <div className="flex flex-col items-center grow">
+          <div className="flex grow flex-col items-center">
             <DonutChart
               category="percent"
-              className="w-44 mb-10"
+              className="mb-10 w-44"
               data={languages}
               index="name"
               showLabel

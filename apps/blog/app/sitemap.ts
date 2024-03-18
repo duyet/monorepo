@@ -1,7 +1,7 @@
-import type { MetadataRoute } from 'next';
 import type { Post } from '@duyet/interfaces';
-import { getSlug } from '@duyet/libs/getSlug';
 import { getAllCategories, getAllPosts } from '@duyet/libs/getPost';
+import { getSlug } from '@duyet/libs/getSlug';
+import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = 'https://blog.duyet.net';

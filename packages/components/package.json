@@ -5,16 +5,11 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "exports": {
-    ".": "./src/index.tsx",
-    "./tremor": "./src/Tremor.tsx",
-    "./styles.css": "./src/styles.css"
-  },
-  "main": "./src/index.tsx",
-  "module": "./src/index.tsx",
-  "types": "./src/index.tsx",
+  "main": "./index.tsx",
+  "module": "./index.tsx",
+  "types": "./index.tsx",
   "files": [
-    "src/**"
+    "**"
   ],
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"

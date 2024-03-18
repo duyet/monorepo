@@ -1,50 +1,50 @@
-'use client'
+"use client";
 
-import { useTheme } from 'next-themes'
-import { useState, useEffect } from 'react'
-import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import { Sun, Moon, Monitor } from 'lucide-react'
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import { Sun, Moon, Monitor } from "lucide-react";
 
-import { cn } from '@duyet/libs/utils'
+import { cn } from "@duyet/libs/utils";
 
 const toggleGroupClasses = cn(
-  'p-[3px] w-fit flex rounded-full border border-gray-200',
-  'dark:border-gray-800',
-)
+  "p-[3px] w-fit flex rounded-full border border-gray-200",
+  "dark:border-gray-800",
+);
 
 const toggleGroupItemClasses = cn(
-  'h-8 w-8 flex items-center rounded-full justify-center transition',
-  'text-gray-400 hover:text-gray-900 dark:hover:data-[state=off]:text-gray-100',
-  'data-[state=on]:bg-gray-200 data-[state=on]:text-gray-900',
-  'dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-200',
-)
+  "h-8 w-8 flex items-center rounded-full justify-center transition",
+  "text-gray-400 hover:text-gray-900 dark:hover:data-[state=off]:text-gray-100",
+  "data-[state=on]:bg-gray-200 data-[state=on]:text-gray-900",
+  "dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-200",
+);
 
 const iconProps = {
-  className: cn('w-4 h-4'),
+  className: cn("w-4 h-4"),
   strokeWidth: 1,
   size: 16,
-}
+};
 
 export default function ThemeToggle() {
   // Avoid hydration mismatch
   // https://github.com/pacocoursey/next-themes#avoid-hydration-mismatch
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   const onChange = (value: string) => {
-    if (value) setTheme(value)
-  }
+    if (value) setTheme(value);
+  };
 
-  console.log('current theme', theme)
+  console.log("current theme", theme);
 
   return (
     <ToggleGroup.Root
@@ -76,5 +76,5 @@ export default function ThemeToggle() {
         <Moon {...iconProps} />
       </ToggleGroup.Item>
     </ToggleGroup.Root>
-  )
+  );
 }

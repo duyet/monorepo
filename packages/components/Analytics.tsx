@@ -1,8 +1,8 @@
-import Script from 'next/script'
-import { Analytics } from '@vercel/analytics/react'
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID
-const POSTHOG_API_KEY = process.env.NEXT_PUBLIC_POSTHOG_API_KEY
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
+const POSTHOG_API_KEY = process.env.NEXT_PUBLIC_POSTHOG_API_KEY;
 
 export default function AnalyticWrapper() {
   return (
@@ -49,5 +49,5 @@ export default function AnalyticWrapper() {
         `}
       </Script>
     </>
-  )
+  );
 }
