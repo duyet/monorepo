@@ -8,13 +8,13 @@ interface CommentFormProps {
 }
 
 const btnClasses = cn(
-  'py-2 px-4 rounded disabled:opacity-40 hover:bg-gray-200',
+  'rounded px-4 py-2 hover:bg-gray-200 disabled:opacity-40',
   'bg-gray-100 dark:bg-slate-800 dark:text-slate-50',
   'text-gray text-sm',
 );
 
 const textareaClasses = cn(
-  'flex w-full max-h-40 p-3 rounded resize-y text-gray-900',
+  'flex max-h-40 w-full resize-y rounded p-3 text-gray-900',
   'border-t border-gray-200 dark:border-gray-700 dark:bg-transparent',
 );
 
@@ -43,9 +43,9 @@ export default function CommentForm({
         value={text}
       />
 
-      <div className="flex items-center mt-2">
+      <div className="mt-2 flex items-center">
         {isAuthenticated ? (
-          <div className="flex items-center space-x-6 justify-between w-full">
+          <div className="flex w-full items-center justify-between space-x-6">
             <button className={btnClasses} type="button">
               Send
             </button>

@@ -1,7 +1,8 @@
-import Link from 'next/link';
-import { kv } from '@vercel/kv';
+import CommentContent from '@duyet/components/CommentContent';
+import Container from '@duyet/components/Container';
 import type { Comment } from '@duyet/interfaces';
-import { Container, CommentContent } from '@duyet/components';
+import { kv } from '@vercel/kv';
+import Link from 'next/link';
 
 const URL_PREFIX = 'https://blog.duyet.net';
 
@@ -21,11 +22,11 @@ export default async function Comments() {
   return (
     <Container className="">
       <h1 className="text-3xl font-bold">Comments</h1>
-      <div className="space-y-6 mt-10">
+      <div className="mt-10 space-y-6">
         {comments.map((comment) => {
           return (
             <div
-              className="flex flex-col prose dark:prose-invert"
+              className="prose flex flex-col dark:prose-invert"
               key={comment.created_at}
             >
               <Link className="text-primary mb-2 " href={comment.url}>

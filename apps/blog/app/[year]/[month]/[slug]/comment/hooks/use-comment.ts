@@ -1,11 +1,11 @@
 'use client';
 
-import useSWR from 'swr';
+import { useAuth0 } from '@auth0/auth0-react';
+import type { Comment } from '@duyet/interfaces';
+import { fetcher } from '@duyet/libs';
 import type React from 'react';
 import { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import { fetcher } from '@duyet/libs';
-import type { Comment } from '@duyet/interfaces';
+import useSWR from 'swr';
 
 export default function useComments() {
   const { getAccessTokenSilently } = useAuth0();

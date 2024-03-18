@@ -33,9 +33,5 @@
     "lint-staged": "^15.0.0",
     "prettier": "^3.0.0",
     "turbo": "^1.12.5"
-  },
-  "packageManager": "yarn@1.22.21",
-  "engines": {
-    "node": "^18"
   }
 }

@@ -1,8 +1,8 @@
 'use client';
 
 import CommentForm from './form';
-import CommentList from './list';
 import useComments from './hooks/use-comment';
+import CommentList from './list';
 
 interface CommentProps {
   className?: string;

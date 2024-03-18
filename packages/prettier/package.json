@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "main": "prettier.config.js",
+  "main": "prettier.config.cjs",
   "files": [
     "./"
   ],
   "dependencies": {
     "prettier-plugin-packagejson": "^2.4.5"
+  },
+  "devDependencies": {
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.5.12"
   },
   "publishConfig": {
     "access": "public"

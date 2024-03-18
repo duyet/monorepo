@@ -1,19 +1,19 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
 
-import type { Post } from '@duyet/interfaces'
-import distanceToNow from '@duyet/libs/dateRelative'
+import type { Post } from "@duyet/interfaces";
+import distanceToNow from "@duyet/libs/dateRelative";
 
 export type Props = {
-  posts: Post[]
-}
+  posts: Post[];
+};
 
 const Thumb = ({ url, alt }: { url?: string; alt?: string }) => {
-  if (!url) return null
+  if (!url) return null;
 
-  if (url.startsWith('http://')) {
+  if (url.startsWith("http://")) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={url} className="mt-4" alt={alt} />
+    return <img src={url} className="mt-4" alt={alt} />;
   }
 
   return (
@@ -22,10 +22,10 @@ const Thumb = ({ url, alt }: { url?: string; alt?: string }) => {
       className="mt-4"
       width={800}
       height={300}
-      alt={alt || ''}
+      alt={alt || ""}
     />
-  )
-}
+  );
+};
 
 export default function Feed({ posts }: Props) {
   return (
@@ -62,5 +62,5 @@ export default function Feed({ posts }: Props) {
         <p>No blog posted yet :/</p>
       )}
     </>
-  )
+  );
 }

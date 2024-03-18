@@ -1,10 +1,10 @@
-import { RefreshCw } from 'lucide-react'
+import { RefreshCw } from "lucide-react";
 
-import Container from './Container'
+import Container from "./Container";
 
 type Props = {
-  className?: string
-}
+  className?: string;
+};
 
 export default function Loading({ className }: Props) {
   return (
@@ -16,5 +16,5 @@ export default function Loading({ className }: Props) {
         </div>
       </div>
     </Container>
-  )
+  );
 }

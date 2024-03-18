@@ -1,25 +1,25 @@
-import { cn } from '@duyet/libs/utils'
-import Link from 'next/link'
-import Image from 'next/image'
+import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
+import Image from "next/image";
 
-import Menu from './Menu'
-import Container from './Container'
+import Menu from "./Menu";
+import Container from "./Container";
 
-import LOGO from './logo.svg'
+import LOGO from "./logo.svg";
 
 interface HeaderProps {
-  className?: string
-  shortText?: string
-  longText?: string
+  className?: string;
+  shortText?: string;
+  longText?: string;
 }
 
 export default function Header({
-  className = '',
-  shortText = 'Duyệt',
-  longText = 'Tôi là Duyệt',
+  className = "",
+  shortText = "Duyệt",
+  longText = "Tôi là Duyệt",
 }: HeaderProps) {
   return (
-    <header className={cn('py-10', className)}>
+    <header className={cn("py-10", className)}>
       <Container className="mb-0">
         <nav className="flex items-center space-x-6 flex-wrap justify-between">
           <Link href="/" className="p-3 font-bold flex flex-row items-center">
@@ -33,5 +33,5 @@ export default function Header({
         </nav>
       </Container>
     </header>
-  )
+  );
 }

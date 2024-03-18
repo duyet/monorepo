@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <div>
       <object
-        className="w-full min-h-[1000px] border-0"
+        className="min-h-[1000px] w-full border-0"
         data="/duyet.cv.pdf"
         type="application/pdf"
       >
@@ -19,7 +19,7 @@ export default function Page() {
         />
       </object>
 
-      <div className="flex flex-col items-center justify-center mt-10">
+      <div className="mt-10 flex flex-col items-center justify-center">
         <a className="px-4 py-2" download href={file}>
           Download PDF
         </a>

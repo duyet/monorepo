@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import fetchComment from '@duyet/libs/comment/fetchComment';
 import createComments from '@duyet/libs/comment/createComment';
 import deleteComments from '@duyet/libs/comment/deleteComment';
+import fetchComment from '@duyet/libs/comment/fetchComment';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,

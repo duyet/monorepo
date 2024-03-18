@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { getSlug } from '@duyet/libs/getSlug';
 import { getAllCategories } from '@duyet/libs/getPost';
+import { getSlug } from '@duyet/libs/getSlug';
+import Link from 'next/link';
 
 export default function Categories() {
   const categories = getAllCategories();
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-5">Categories</h1>
+      <h1 className="mb-5 text-3xl font-bold">Categories</h1>
 
       {Object.entries(categories).map(([cat, count]) => (
         <article className="mb-5" key={cat}>

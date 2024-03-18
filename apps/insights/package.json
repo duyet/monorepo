@@ -19,7 +19,6 @@
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",
-    "@duyet/prettier": "*",
     "@tremor/react": "^3.0.0",
     "@vercel/analytics": "^1.0.0",
     "encoding": "^0.1.13",
@@ -35,6 +34,7 @@
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
+    "@duyet/prettier": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@types/node": "^18.11.5",

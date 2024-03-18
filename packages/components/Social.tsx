@@ -1,13 +1,13 @@
-import { ReactElement } from 'react'
-import { Github, Twitter } from './Icons'
-import { cn } from '@duyet/libs'
+import { ReactElement } from "react";
+import { Github, Twitter } from "./Icons";
+import { cn } from "@duyet/libs";
 
 export default function Social(): ReactElement {
   const iconClasses = cn(
-    'w-4 h-4',
-    'text-slate-400 hover:text-slate-600',
-    'dark:text-gray-500 dark:hover:text-white',
-  )
+    "w-4 h-4",
+    "text-slate-400 hover:text-slate-600",
+    "dark:text-gray-500 dark:hover:text-white",
+  );
 
   return (
     <div className="flex flex-row gap-4">
@@ -18,5 +18,5 @@ export default function Social(): ReactElement {
         <Twitter className={iconClasses} />
       </a>
     </div>
-  )
+  );
 }

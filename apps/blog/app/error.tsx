@@ -1,6 +1,6 @@
 'use client'; // Error components must be Client components
 
-import { Error } from '@duyet/components';
+import ErrorComponent from '@duyet/components/Error';
 
 export default function Page({
   error,
@@ -9,5 +9,5 @@ export default function Page({
   error: Error;
   reset: () => void;
 }) {
-  return <Error error={error} reset={reset} />;
+  return <ErrorComponent error={error} reset={reset} />;
 }

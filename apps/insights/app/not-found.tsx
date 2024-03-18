@@ -1,4 +1,4 @@
-import { Error } from '@duyet/components';
+import Error from '@duyet/components/Error';
 
 export default function NotFound() {
   return (

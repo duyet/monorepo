@@ -1,201 +1,242 @@
-import fs from 'fs'
-import { join } from 'path'
-import matter from 'gray-matter'
+import matter from "gray-matter";
 
-import getSlug from './getSlug'
-import type { Post } from '@duyet/interfaces'
+import getSlug from "./getSlug";
+import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 
-const getPostsDirectory = () => join(process.cwd(), '_posts')
+const getFs = () => require("fs");
+const getJoin = () => require("path").join;
+const getPostsDirectory = () => getJoin()(process.cwd(), "_posts");
 
 /**
  * Get all slugs from the posts directory recursively
  */
 export function getPostPaths(dir?: string): string[] {
-  const _dir = dir || getPostsDirectory()
-  const slugs = fs.readdirSync(_dir)
+  const fs = getFs();
+  const join = getJoin();
+
+  const _dir = dir || getPostsDirectory();
+  const slugs = fs.readdirSync(_dir);
 
   return slugs.flatMap((file) => {
-    const child = join(_dir, file)
+    const child = join(_dir, file);
     // If the file is a directory, recursively get the slugs from that directory
     if (fs.statSync(child).isDirectory()) {
-      return getPostPaths(child)
+      return getPostPaths(child);
     }
 
-    if (!file.endsWith('.md')) {
-      return []
+    if (!file.endsWith(".md")) {
+      return [];
     }
 
-    return [join(_dir, file)]
-  })
+    return [join(_dir, file)];
+  });
 }
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
-  const fileName = slug.replace(/\.(md|htm|html)$/, '')
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields)
+  const join = getJoin();
+  const fileName = slug.replace(/\.(md|htm|html)$/, "");
+  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
+  const fs = getFs();
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const { data, content } = matter(fileContents);
 
   const post: Post = {
-    slug: '',
-    title: '',
+    slug: "",
+    title: "",
     date: new Date(),
-    content: '',
-    category: 'Unknown',
-    category_slug: 'unknown',
-  }
+    content: "",
+    category: "Unknown",
+    category_slug: "unknown",
+    tags: [],
+  };
 
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
-    if (field === 'slug') {
-      post[field] = data.slug || fullPath
+    if (field === "slug") {
+      post[field] = data.slug || fullPath;
 
       // Validate slug format /yyyy/mm/slug(.html)
-      const slugRegex = /^\/(\d{4})\/(\d{2})\/(.+)$/
-      const match = post[field].match(slugRegex)
+      const slugRegex = /^\/(\d{4})\/(\d{2})\/(.+)$/;
+      const match = post[field].match(slugRegex);
       if (!match) {
         throw new Error(
           `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`,
-        )
+        );
       }
     }
 
-    if (field === 'title') {
-      post[field] = data.title
+    if (field === "title") {
+      post[field] = data.title;
     }
 
-    if (field === 'path') {
-      post[field] = fullPath
+    if (field === "path") {
+      post[field] = fullPath;
     }
 
-    if (field === 'content') {
-      post[field] = content
+    if (field === "content") {
+      post[field] = content;
     }
 
-    if (field === 'category') {
+    if (field === "category") {
       // Some posts have a category of "null" so we need to handle that
-      post[field] = data.category || post[field]
+      post[field] = data.category || post[field];
     }
 
-    if (field === 'category_slug') {
-      post[field] = getSlug(data.category || post[field])
+    if (field === "category_slug") {
+      post[field] = getSlug(data.category || post[field]);
     }
 
-    if (field === 'excerpt') {
+    if (field === "tags") {
+      post[field] = data.tags || [];
+    }
+
+    if (field === "excerpt") {
       post[field] =
-        data.description || content.split(' ').slice(0, 20).join(' ') + '...'
+        data.description || content.split(" ").slice(0, 20).join(" ") + "...";
     }
 
-    if (typeof data[field] !== 'undefined') {
-      post[field] = data[field]
+    if (typeof data[field] !== "undefined") {
+      post[field] = data[field];
     }
-  })
+  });
 
-  return post
+  return post;
 }
 
 export function getAllPosts(fields: string[] = [], limit = 0): Post[] {
-  const paths = getPostPaths()
+  const paths = getPostPaths();
 
   const posts = paths
     .map((path) => getPostByPath(path, fields))
     // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
 
   if (limit > 0) {
-    return posts.slice(0, limit)
+    return posts.slice(0, limit);
   }
 
-  return posts
+  return posts;
 }
 
-export function getAllCategories(): Record<string, number> {
-  const paths = getPostPaths()
-  const posts = paths.map((path) => getPostByPath(path, ['category']))
+export function getAllCategories(): CategoryCount {
+  const paths = getPostPaths();
+  const posts = paths.map((path) => getPostByPath(path, ["category"]));
 
   return posts
     .map((post) => post.category)
     .reduce(
       (acc, cat) => {
         if (acc[cat]) {
-          acc[cat]++
+          acc[cat]++;
         } else {
-          acc[cat] = 1
+          acc[cat] = 1;
         }
 
-        return acc
+        return acc;
       },
       {} as Record<string, number>,
-    )
+    );
 }
 
 export function getPostsByCategory(
   category: string,
   fields: string[] = [],
 ): Post[] {
-  const paths = getPostPaths()
+  const paths = getPostPaths();
 
-  const extraFields = [...fields, 'category_slug']
-  const posts = paths.map((path) => getPostByPath(path, extraFields))
+  const extraFields = [...fields, "category_slug"];
+  const posts = paths.map((path) => getPostByPath(path, extraFields));
 
   return posts
     .filter((post) => post.category_slug === category)
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+}
+
+export function getAllTags(): TagCount {
+  const paths = getPostPaths();
+  const posts = paths.map((path) => getPostByPath(path, ["tags"]));
+
+  return posts
+    .flatMap((post) => post.tags || [])
+    .reduce(
+      (acc, tag) => {
+        if (acc[tag]) {
+          acc[tag]++;
+        } else {
+          acc[tag] = 1;
+        }
+
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+}
+
+export function getPostsByTag(tag: string, fields: string[] = []): Post[] {
+  const paths = getPostPaths();
+
+  const extraFields = [...fields, "tags"];
+  const posts = paths.map((path) => getPostByPath(path, extraFields));
+
+  return posts
+    .filter((post) => post.tags?.includes(tag))
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
 }
 
 export function getPostsByAllYear(
   fields: string[] = [],
   yearLimit: number = -1,
 ): Record<number, Post[]> {
-  const extraFields = [...fields, 'date']
-  const allPosts = getAllPosts(extraFields)
+  const extraFields = [...fields, "date"];
+  const allPosts = getAllPosts(extraFields);
 
   // Post by year
   const postsByYear = allPosts.reduce(
     (acc, post) => {
-      const year = new Date(post.date).getFullYear()
+      const year = new Date(post.date).getFullYear();
 
       if (!acc[year]) {
-        acc[year] = []
+        acc[year] = [];
       }
 
-      acc[year].push(post)
+      acc[year].push(post);
 
-      return acc
+      return acc;
     },
     {} as Record<number, Post[]>,
-  )
+  );
 
   // Sort posts by year
   Object.keys(postsByYear).forEach((year: string) => {
     postsByYear[parseInt(year)].sort((post1: Post, post2: Post) =>
       post1.date > post2.date ? -1 : 1,
-    )
-  })
+    );
+  });
 
   // Limit the number of years
   if (yearLimit > 0) {
     const years = Object.keys(postsByYear).sort((year1, year2) =>
       year1 > year2 ? -1 : 1,
-    )
-    const limitedYears = years.slice(0, yearLimit)
+    );
+    const limitedYears = years.slice(0, yearLimit);
     return limitedYears.reduce(
       (acc, year: string) => {
-        acc[parseInt(year)] = postsByYear[parseInt(year)]
-        return acc
+        acc[parseInt(year)] = postsByYear[parseInt(year)];
+        return acc;
       },
       {} as Record<number, Post[]>,
-    )
+    );
   }
 
-  return postsByYear
+  return postsByYear;
 }
 
 export function getPostsByYear(year: number, fields: string[] = []) {
-  const extraFields = [...fields, 'date']
-  const postByYears = getPostsByAllYear(extraFields)
+  const extraFields = [...fields, "date"];
+  const postByYears = getPostsByAllYear(extraFields);
 
-  return postByYears[year] || []
+  return postByYears[year] || [];
 }

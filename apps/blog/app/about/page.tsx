@@ -52,7 +52,7 @@ export default function About() {
           Skills & stacks:{' '}
           {skills.map(({ name, link = '#' }) => (
             <a
-              className="text-blue-600 mr-4"
+              className="mr-4 text-blue-600"
               href={link}
               key={name}
               rel="noopener noreferrer"
@@ -66,7 +66,7 @@ export default function About() {
         <p>
           {links.map(({ name, link = '#' }) => (
             <a
-              className="text-blue-600 mr-4"
+              className="mr-4 text-blue-600"
               href={link}
               key={name}
               rel="nofollow noopener noreferrer"

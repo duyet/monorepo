@@ -12,7 +12,7 @@ thumbnail: /media/2024/03/clickhouse-k8s/clickhouse-operator.png
 description: ClickHouse has been both exciting and incredibly challenging based on my experience migrating and scaling from Iceberg to ClickHouse, zero to a large cluster of trillions of rows. I have had to deal with many of use cases and resolve issues. I have been trying to take notes every day for myself, although it takes time to publish them as a series of blog posts. I hope I can do so on this ClickHouse on Kubernetes series.
 ---
 
-ClickHouse has been both exciting and incredibly challenging based on my experience migrating and scaling from Iceberg to ClickHouse, zero to a large cluster of trillions of rows. I have had to deal with many of use cases and resolve issues such as table corruption, excessive data parts, slow start-up times, converting tables from `ReplacingMergeTree` to `ReplicatedReplacingMergeTree`, managing *clickhouse-keeper*, etc.
+ClickHouse has been both exciting and incredibly challenging based on my experience migrating and scaling from Iceberg to ClickHouse, zero to a large cluster of trillions of rows. I have had to deal with many of use cases and resolve issues such as table corruption, excessive data parts, slow start-up times, converting tables from `ReplacingMergeTree` to `ReplicatedReplacingMergeTree`, managing _clickhouse-keeper_, etc.
 
 I have been trying to take notes every day for myself, although it takes time to publish them as a series of blog posts. I hope I can do so on this ClickHouse on Kubernetes series.
 
@@ -85,6 +85,7 @@ chi-single-clickhouse-0-0-0                                       1/1     Runnin
 ```
 
 ClickHouse Operator also create Services point to your single pod:
+
 ```
 $ kubectl get svc -n clickhouse
 
@@ -94,6 +95,7 @@ chi-single-clickhouse-0-0   ClusterIP      None             <none>        9000/T
 ```
 
 You can access your first ClickHouse via port-forward:
+
 - 8123 using for access via HTTP, for example access playground: http://localhost:8123/play
 - 9000, native port, using for `clickhouse-client` command line
 
@@ -103,8 +105,7 @@ $ kubectl port-forward svc/clickhouse-single 8123 -n clickhouse
 
 ![](/media/2024/03/clickhouse-k8s/clickhouse-k8s-1.png)
 
-
-To query via command line, install the  `clickhouse` via
+To query via command line, install the `clickhouse` via
 
 ```bash
 curl https://clickhouse.com/ | sh
@@ -261,4 +262,3 @@ From here, you can start deploying your first ClickHouse on Kubernetes. ClickHou
 I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on ClickHouse on Kubernetes. Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
 
 Thank you.
-

@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
+import Container from '@duyet/components/Container';
 import { getAllPosts } from '@duyet/libs/getPost';
-import { Container } from '@duyet/components';
-import Meta from './meta';
+import type { Metadata } from 'next';
 import Comment from './comment';
 import Content, { getPost } from './content';
+import Meta from './meta';
 
 interface Params {
   year: string;

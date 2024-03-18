@@ -4,7 +4,7 @@ interface TextDataSourceProps {
 
 export function TextDataSource({ children }: TextDataSourceProps) {
   return (
-    <div className="text-sm italic text-gray-400 text-right mt-5">
+    <div className="mt-5 text-right text-sm italic text-gray-400">
       Source: {children}
     </div>
   );

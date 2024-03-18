@@ -1,15 +1,13 @@
-import './globals.css';
 import '@duyet/components/styles.css';
+import './globals.css';
 
+import Analytics from '@duyet/components/Analytics';
+import Auth0Provider from '@duyet/components/Auth0Provider';
+import Footer from '@duyet/components/Footer';
+import Head from '@duyet/components/Head';
+import Header from '@duyet/components/Header';
+import ThemeProvider from '@duyet/components/ThemeProvider';
 import { Inter } from 'next/font/google';
-import {
-  Head,
-  Header,
-  Footer,
-  Analytics,
-  ThemeProvider,
-  Auth0Provider,
-} from '@duyet/components';
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],

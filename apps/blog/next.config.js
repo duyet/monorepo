@@ -1,7 +1,9 @@
 /**
  * @type {import('next').NextConfig}
  */
-module.exports = {
+const config = {
+  swcMinify: true,
+  transpilePackages: ['@duyet/components', '@duyet/libs'],
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -35,5 +37,10 @@ module.exports = {
       },
     ];
   },
-  transpilePackages: ['@duyet/components', '@duyet/libs'],
 };
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer(config);
