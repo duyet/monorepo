@@ -1,14 +1,11 @@
 import { kv } from "@vercel/kv";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 import type { Comment } from "@duyet/interfaces";
 import clearUrl from "../clearUrl";
 
-export default async function fetchComment(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const url = clearUrl(req.headers.referer || "");
+export default async function fetchComment(req: Request) {
+  const url = clearUrl(req.headers.get("referer") || "");
 
   try {
     // get data
@@ -20,9 +17,12 @@ export default async function fetchComment(
       return comment;
     });
 
-    return res.status(200).json(comments);
+    return NextResponse.json(comments);
   } catch (e) {
     console.error(e);
-    return res.status(400).json({ message: "Unexpected error occurred." });
+    return NextResponse.json(
+      { message: "Unexpected error occurred." },
+      { status: 400 },
+    );
   }
 }

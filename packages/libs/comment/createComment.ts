@@ -1,27 +1,32 @@
 import { kv } from "@vercel/kv";
 import { nanoid } from "nanoid";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 import type { Comment } from "@duyet/interfaces";
 import getUser from "../getUser";
 import clearUrl from "../clearUrl";
 
-export default async function createComments(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const url = clearUrl(req.headers.referer || "");
-  const { text } = req.body;
-  const { authorization } = req.headers;
+export default async function createComments(req: NextRequest) {
+  const url = clearUrl(req.headers.get("referer") || "");
+  const { text } = await req.json();
+  const authorization = req.headers.get("authorization");
 
   if (!text || !authorization) {
-    return res.status(400).json({ message: "Missing parameter." });
+    return NextResponse.json(
+      { message: "Missing parameter." },
+      { status: 400 },
+    );
   }
 
   try {
     // verify user token
     const user = await getUser(authorization);
-    if (!user) return res.status(400).json({ message: "Need authorization." });
+    if (!user) {
+      return NextResponse.json(
+        { message: "Need authorization." },
+        { status: 400 },
+      );
+    }
 
     const { name, picture, sub, email } = user;
 
@@ -36,8 +41,12 @@ export default async function createComments(
     // write data
     await kv.lpush(url, JSON.stringify(comment));
 
-    return res.status(200).json(comment);
-  } catch (_) {
-    return res.status(400).json({ message: "Unexpected error occurred." });
+    return NextResponse.json(comment);
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { message: "Unexpected error occurred." },
+      { status: 400 },
+    );
   }
 }
