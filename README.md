@@ -24,4 +24,4 @@ See the [./apps/cv/README.md](./apps/cv/README.md)
 
 ---
 
-![Insights](https://repobeats.axiom.co/api/embed/b8005da2575428b9396084a55b4652232d4a7266.svg "Repobeats analytics image")
+![Insights](https://repobeats.axiom.co/api/embed/5f31f3460c5a1e44b1477bebc7ef0bb88a620b67.svg "Repobeats analytics image")
