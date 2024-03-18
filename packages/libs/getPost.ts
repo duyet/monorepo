@@ -3,16 +3,16 @@ import matter from "gray-matter";
 import getSlug from "./getSlug";
 import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 
-const getFs = () => require("fs");
-const getJoin = () => require("path").join;
-const getPostsDirectory = () => getJoin()(process.cwd(), "_posts");
+const nodeFs = () => require("fs");
+const nodeJoin = () => require("path").join;
+const getPostsDirectory = () => nodeJoin()(process.cwd(), "_posts");
 
 /**
  * Get all slugs from the posts directory recursively
  */
 export function getPostPaths(dir?: string): string[] {
-  const fs = getFs();
-  const join = getJoin();
+  const fs = nodeFs();
+  const join = nodeJoin();
 
   const _dir = dir || getPostsDirectory();
   const slugs = fs.readdirSync(_dir);
@@ -33,13 +33,13 @@ export function getPostPaths(dir?: string): string[] {
 }
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
-  const join = getJoin();
+  const join = nodeJoin();
   const fileName = slug.replace(/\.(md|htm|html)$/, "");
   return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
-  const fs = getFs();
+  const fs = nodeFs();
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 

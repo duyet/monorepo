@@ -33,22 +33,19 @@ export default async function Post({
 
 export async function generateStaticParams() {
   const posts = getAllPosts(['slug']);
-  const posibleExtensions = ['', '.html'];
 
-  return posts.flatMap(({ slug }) =>
-    posibleExtensions.map((ext: string) => {
-      const slugArray = slug
-        .replace(/\.md|\.html$/, ext)
-        .replace(/^\//, '')
-        .split('/');
+  return posts.flatMap(({ slug }) => {
+    const slugArray = slug
+      .replace(/\.md|\.html$/, '.html')
+      .replace(/^\//, '')
+      .split('/');
 
-      return {
-        year: slugArray[0],
-        month: slugArray[1],
-        slug: slugArray[2],
-      };
-    }),
-  );
+    return {
+      year: slugArray[0],
+      month: slugArray[1],
+      slug: slugArray[2],
+    };
+  });
 }
 
 export async function generateMetadata({
