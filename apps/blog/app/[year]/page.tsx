@@ -10,6 +10,11 @@ interface YearProps {
 }
 
 export default function Year({ params: { year } }: YearProps) {
+  // Validate year is number
+  if (typeof year !== 'number' || isNaN(year)) {
+    return null;
+  }
+
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
 
   return (
