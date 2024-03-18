@@ -2,7 +2,7 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import type { Comment } from '@duyet/interfaces';
-import { fetcher } from '@duyet/libs';
+import { fetcher } from '@duyet/libs/fetcher';
 import type React from 'react';
 import { useState } from 'react';
 import useSWR from 'swr';

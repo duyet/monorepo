@@ -17,7 +17,7 @@ export function getPostPaths(dir?: string): string[] {
   const _dir = dir || getPostsDirectory();
   const slugs = fs.readdirSync(_dir);
 
-  return slugs.flatMap((file) => {
+  return slugs.flatMap((file: string) => {
     const child = join(_dir, file);
     // If the file is a directory, recursively get the slugs from that directory
     if (fs.statSync(child).isDirectory()) {

@@ -1,12 +1,12 @@
 import { kv } from "@vercel/kv";
 import { nanoid } from "nanoid";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import type { Comment } from "@duyet/interfaces";
 import getUser from "../getUser";
 import clearUrl from "../clearUrl";
 
-export default async function createComments(req: NextRequest) {
+export default async function createComments(req: Request) {
   const url = clearUrl(req.headers.get("referer") || "");
   const { text } = await req.json();
   const authorization = req.headers.get("authorization");

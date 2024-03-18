@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import type { User, Comment } from "@duyet/interfaces";
 import getUser from "../getUser";
 import clearUrl from "../clearUrl";
 
-export default async function deleteComments(req: NextRequest) {
+export default async function deleteComments(req: Request) {
   const url = clearUrl(req.headers.get("referer") || "");
   const { comment }: { url: string; comment: Comment } = await req.json();
   const authorization = req.headers.get("authorization");
