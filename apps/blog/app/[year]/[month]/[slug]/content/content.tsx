@@ -1,7 +1,7 @@
 import type { Post } from '@duyet/interfaces';
-import { cn } from '@duyet/libs';
 import { getPostBySlug } from '@duyet/libs/getPost';
 import markdownToHtml from '@duyet/libs/markdownToHtml';
+import { cn } from '@duyet/libs/utils';
 
 export default function Content({ post }: { post: Post }) {
   return (

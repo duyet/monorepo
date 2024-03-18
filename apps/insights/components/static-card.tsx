@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@duyet/libs';
+import { cn } from '@duyet/libs/utils';
 import Image from 'next/image';
 import { TextDataSource } from './text-data-source';
 
