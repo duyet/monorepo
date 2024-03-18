@@ -7,17 +7,24 @@ const nodeFs = () => require("fs");
 const nodeJoin = () => require("path").join;
 const getPostsDirectory = () => nodeJoin()(process.cwd(), "_posts");
 
+const CACHED: { [key: string]: any } = {};
+const CACHED_POST_PATHS: string[] = [];
+
 /**
  * Get all slugs from the posts directory recursively
  */
 export function getPostPaths(dir?: string): string[] {
+  if (CACHED_POST_PATHS.length) {
+    return CACHED_POST_PATHS;
+  }
+
   const fs = nodeFs();
   const join = nodeJoin();
 
   const _dir = dir || getPostsDirectory();
   const slugs = fs.readdirSync(_dir);
 
-  return slugs.flatMap((file: string) => {
+  const paths = slugs.flatMap((file: string) => {
     const child = join(_dir, file);
     // If the file is a directory, recursively get the slugs from that directory
     if (fs.statSync(child).isDirectory()) {
@@ -30,6 +37,11 @@ export function getPostPaths(dir?: string): string[] {
 
     return [join(_dir, file)];
   });
+
+  // Cache the post paths
+  CACHED_POST_PATHS.push(...paths);
+
+  return paths;
 }
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
@@ -39,9 +51,17 @@ export function getPostBySlug(slug: string, fields: string[] = []): Post {
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
-  const fs = nodeFs();
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  let fileContent;
+
+  if (CACHED[fullPath]) {
+    fileContent = CACHED[fullPath];
+  } else {
+    const fs = nodeFs();
+    fileContent = fs.readFileSync(fullPath, "utf8");
+    CACHED[fullPath] = fileContent;
+  }
+
+  const { data, content } = matter(fileContent);
 
   const post: Post = {
     slug: "",
