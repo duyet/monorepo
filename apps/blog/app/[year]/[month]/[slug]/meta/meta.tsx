@@ -1,6 +1,7 @@
 import Icons from '@duyet/components/Icons';
 import type { Post } from '@duyet/interfaces';
 import distanceToNow from '@duyet/libs/dateRelative';
+import { getSlug } from '@duyet/libs/getSlug';
 import { cn } from '@duyet/libs/utils';
 import Link from 'next/link';
 
@@ -10,8 +11,6 @@ interface ContentProps {
 }
 
 export default function Content({ post, className }: ContentProps) {
-  const tags = post.tags.join(', ');
-
   return (
     <div
       className={cn(
@@ -29,8 +28,12 @@ export default function Content({ post, className }: ContentProps) {
         <Link href={`/category/${post.category_slug}`}>{post.category}</Link>
       </span>
       <span>&#x2022;</span>
-      <span className="max-w-[200px] truncate" title={`Tags: ${tags}`}>
-        {tags}
+      <span className="flex max-w-[200px] flex-row gap-2 truncate">
+        {post.tags.map((tag) => (
+          <Link href={`/tag/${getSlug(tag)}`} key={tag} title={`Tag: ${tag}`}>
+            {tag}
+          </Link>
+        ))}
       </span>
       <span>&#x2022;</span>
       <a

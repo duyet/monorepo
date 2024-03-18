@@ -6,18 +6,23 @@ import Link from 'next/link';
 export default function Tags() {
   const tags: TagCount = getAllTags();
 
+  // Sort
+  const sortedTags = Object.fromEntries(
+    Object.entries(tags).sort(([, a], [, b]) => b - a),
+  );
+
   return (
     <div>
       <h1 className="mb-5 text-3xl font-bold">Tags</h1>
 
-      {Object.entries(tags).map(([tag, count]) => (
+      {Object.entries(sortedTags).map(([tag, count]) => (
         <article className="mb-5" key={tag}>
           <Link
             as={`/tag/${getSlug(tag)}`}
             className="text-blue-600"
             href="/tag/[tag]"
           >
-            {tag} ({count})
+            {tag} ({count} posts)
           </Link>
         </article>
       ))}

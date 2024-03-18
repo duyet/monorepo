@@ -8,6 +8,7 @@ export type Post = {
   category: string;
   category_slug: string;
   tags: string[];
+  tags_slug: string[];
   edit_url?: string;
   [key: string]: any;
 };

@@ -61,6 +61,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     category: "Unknown",
     category_slug: "unknown",
     tags: [],
+    tags_slug: [],
   };
 
   // Ensure only the minimal needed data is exposed
@@ -101,6 +102,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "tags") {
       post[field] = data.tags || [];
+      post["tags_slug"] = post[field].map((tag: string) => getSlug(tag));
     }
 
     if (field === "excerpt") {
@@ -192,7 +194,7 @@ export function getPostsByTag(tag: string, fields: string[] = []): Post[] {
   const posts = paths.map((path) => getPostByPath(path, extraFields));
 
   return posts
-    .filter((post) => post.tags?.includes(tag))
+    .filter((post) => post.tags.includes(tag) || post.tags_slug.includes(tag))
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
 }
 
