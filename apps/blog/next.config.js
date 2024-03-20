@@ -32,7 +32,7 @@ const config = {
       },
       {
         source: '/stats',
-        destination: '/insights',
+        destination: 'https://insights.duyet.net',
         permanent: true,
       },
     ];
