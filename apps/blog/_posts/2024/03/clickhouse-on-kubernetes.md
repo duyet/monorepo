@@ -25,13 +25,16 @@ There are many ways to deploy **ClickHouse on Kubernetes**. You can install it u
 You can install the operator via apply directly [clickhouse-operator-install-bundle.yaml](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/operator/clickhouse-operator-install-bundle.yaml) but I recommend install it via helm so you can its config if needed.
 
 ```bash
-helm repo add clickhouse-operator https://docs.altinity.com/clickhouse-operator/
-helm upgrade --install --create-namespace --namespace clickhouse clickhouse-operator clickhouse-operator/altinity-clickhouse-operator
+helm repo add clickhouse-operator https://docs.altinity.com/clickhouse-operator
+helm upgrade --install --create-namespace \
+    --namespace clickhouse \
+    clickhouse-operator \
+    clickhouse-operator/altinity-clickhouse-operator
 ```
 
 Operator is deployed in **clickhouse** namespace:
 
-```shell
+```bash
 kubectl get pods -n clickhouse
 
 NAME                                   READY   STATUS    RESTARTS   AGE
@@ -80,13 +83,13 @@ Checking if the pods and services is ready:
 
 ```bash
 $ kubectl k get po -n clickhouse
-NAME                                                              READY   STATUS      RESTARTS       AGE
-chi-single-clickhouse-0-0-0                                       1/1     Running     0              66s
+NAME                          READY   STATUS   RESTARTS  AGE
+chi-single-clickhouse-0-0-0   1/1     Running  0         66s
 ```
 
 ClickHouse Operator also create Services point to your single pod:
 
-```
+```bash
 $ kubectl get svc -n clickhouse
 
 NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
@@ -113,7 +116,7 @@ curl https://clickhouse.com/ | sh
 
 Then
 
-```
+```bash
 clickhouse client --host localhost --port 8123 --user duyet
 ```
 
