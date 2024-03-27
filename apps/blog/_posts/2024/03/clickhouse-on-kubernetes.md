@@ -270,3 +270,10 @@ From here, you can start deploying your first ClickHouse on Kubernetes. ClickHou
 I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on [ClickHouse on Kubernetes](/tag/clickhouse-on-kubernetes). Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
 
 Thank you.
+
+---
+
+# ClickHouse Series
+
+ - [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
+ - [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
