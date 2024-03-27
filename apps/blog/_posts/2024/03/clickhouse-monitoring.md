@@ -14,11 +14,11 @@ description: Now that you have your first ClickHouse instance on Kubernetes and 
 
 Now that you have your [first ClickHouse instance on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html) and are starting to use it, you need to monitoring and observing what happens on it is an important task to achieve stability. There are many ways:
 
-- Built-in dashboard
+- [Built-in](#built-in-advanced-observability-dashboard) dashboard
 - Export metrics to Prometheus and visualize them with Grafana
-- ClickHouse Monitoring UI that relies on powerful system tables
+- [ClickHouse Monitoring UI](https://github.com/duyet/clickhouse-monitoring) that relies on powerful system tables
 
-# Built-in advanced observability dashboard
+# 1. Built-in advanced observability dashboard
 
 ClickHouse includes an advanced observability dashboard feature accessible at `$HOST:$PORT/dashboard` (login required).
 
@@ -26,7 +26,7 @@ It displays metrics such as Queries/second, CPU usage, Queries running, Merges r
 
 ![](/media/2024/03/monitoring-clickhouse/clickhouse-builtin-dashboard.png)
 
-# Monitoring with Prometheus
+# 2. Monitoring with Prometheus + Grafana
 
 You can configure ClickHouse to export metrics to [Prometheus](https://prometheus.io/). ClickHouse Operator do have a section for this:
 1. Step 1: [Setup Prometheus](https://github.com/Altinity/clickhouse-operator/blob/master/docs/prometheus_setup.md) pool data from ClickHouse into Prometheus
@@ -37,7 +37,13 @@ They also have a dashboard for ClickHouse Operator Dashboard so you can just nee
 - [ClickHouse_Queries_dashboard.json](https://github.com/Altinity/clickhouse-operator/blob/master/grafana-dashboard/ClickHouse_Queries_dashboard.json)
 - [ClickHouseKeeper_dashboard.json](https://github.com/Altinity/clickhouse-operator/blob/master/grafana-dashboard/ClickHouseKeeper_dashboard.json)
 
-# Monitoring Queries using system tables
+References:
+ - [ClickHouse Grafana plugin 4.0 - Leveling up SQL Observability](https://clickhouse.com/blog/clickhouse-grafana-plugin-4-0)
+ - [A Story of Open-source GitHub Activity using ClickHouse + Grafana](https://clickhouse.com/blog/introduction-to-clickhouse-and-grafana-webinar)
+ - Video: [Visualizing ClickHouse Data with Grafana](https://www.youtube.com/watch?v=Ve-VPDxHgZU)
+ - [Visualizing Data with ClickHouse - Part 1 - Grafana](https://clickhouse.com/blog/visualizing-data-with-grafana)
+
+# 3. ClickHouse system tables
 
 You should read these blog post by ClickHouse about [rely on the system tables](https://clickhouse.com/blog/clickhouse-debugging-issues-with-system-tables) to get more insights about running queries and their performance. These contains about some topic like for example: most expensive SELECT queries, average query duration and number of requests, number of SQL queries by client or user, etc.
 
@@ -46,14 +52,13 @@ You should read these blog post by ClickHouse about [rely on the system tables](
 
 ![](/media/2024/03/monitoring-clickhouse/clickhouse-blog.png)
 
-# ClickHouse Monitoring UI Dashboard
+# 4. ClickHouse Monitoring UI Dashboard
 
-This is my simple monitoring dashboard for ClickHouse, built with [Next.js](https://nextjs.org/) for monitoring all my clusters. It relies on system tables that provide rich information. A live demo is available at: https://clickhouse-monitoring.vercel.app/
+This is my simple monitoring dashboard for ClickHouse, built with [Next.js](https://nextjs.org/) for monitoring all my clusters. It relies on system tables above that provide rich information. A live demo is available at: https://clickhouse-monitoring.vercel.app/
 
 ![](https://github.com/duyet/clickhouse-monitoring/raw/main/.github/screenshots/screenshot_1.png)
 
 ![](https://github.com/duyet/clickhouse-monitoring/raw/main/.github/screenshots/screenshot_2.png)
-
 
 You can install it into Kubernetes via the latest helm chart here: [https://github.com/duyet/charts/tree/master/clickhouse-monitoring](https://github.com/duyet/charts/tree/master/clickhouse-monitoring)
 
