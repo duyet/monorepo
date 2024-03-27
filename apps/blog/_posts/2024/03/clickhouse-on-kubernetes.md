@@ -20,9 +20,9 @@ There are many ways to deploy **ClickHouse on Kubernetes**. You can install it u
 
 ![](/media/2024/03/clickhouse-k8s/clickhouse-operator.png)
 
-# 1. Install [clickhouse-operator](https://github.com/Altinity/clickhouse-operator)
+# 1. clickhouse-operator
 
-You can install the operator via apply directly [clickhouse-operator-install-bundle.yaml](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/operator/clickhouse-operator-install-bundle.yaml) but I recommend install it via helm so you can its config if needed.
+You can install the [clickhouse operator](https://github.com/Altinity/clickhouse-operator)) via apply directly [clickhouse-operator-install-bundle.yaml](https://github.com/Altinity/clickhouse-operator/blob/master/deploy/operator/clickhouse-operator-install-bundle.yaml) but I recommend install it via helm so you can its config if needed.
 
 ```bash
 helm repo add clickhouse-operator https://docs.altinity.com/clickhouse-operator
@@ -41,11 +41,12 @@ NAME                                   READY   STATUS    RESTARTS   AGE
 clickhouse-operator-5c46dfc7bd-7cz5l   1/1     Running   0          3s
 ```
 
-Look [https://github.com/Altinity/clickhouse-operator/tree/master/deploy/helm/](https://github.com/Altinity/clickhouse-operator/tree/master/deploy/helm/) for details
+The clickhouse-operator is now ready.
+Looking at [https://github.com/Altinity/clickhouse-operator/tree/master/deploy/helm/](https://github.com/Altinity/clickhouse-operator/tree/master/deploy/helm/) and [Operator Configuration](https://github.com/Altinity/clickhouse-operator/blob/master/docs/operator_configuration.md) for more details.
 
-# 2. Config and create single node clickhouse
+# 2. Deploy first single node clickhouse
 
-Create the `clickhouse-single.yaml` file and apply it in Kubernetes. There are many configuration options, so you may need to refer to their example repository ([chi-examples](https://github.com/Altinity/clickhouse-operator/tree/master/docs/chi-examples)) to customize things. I will create a very basic ClickHouse node and explain more later below or in different posts.
+Create the `clickhouse-single.yaml` file and apply it to your Kubernetes. There are many configuration options, so you may need to refer to their example repository ([chi-examples](https://github.com/Altinity/clickhouse-operator/tree/master/docs/chi-examples)) to customize things. I will create a very basic ClickHouse node and explain more later below or in different posts.
 
 ```yml
 # File: clickhouse-single.yaml
@@ -99,8 +100,8 @@ chi-single-clickhouse-0-0   ClusterIP      None             <none>        9000/T
 
 You can access your first ClickHouse via port-forward:
 
-- 8123 using for access via HTTP, for example access playground: http://localhost:8123/play
-- 9000, native port, using for `clickhouse-client` command line
+- **8123**, using for access via HTTP and JDBC, for example access playground: http://localhost:8123/play
+- **9000**, native port, using for `clickhouse-client` command line
 
 ```bash
 $ kubectl port-forward svc/clickhouse-single 8123 -n clickhouse
@@ -122,9 +123,13 @@ clickhouse client --host localhost --port 8123 --user duyet
 
 ![](/media/2024/03/clickhouse-k8s/clickhouse-k8s-2.png)
 
+Internal Kubernetes apps can also access via Services name.
+
 Check out the example [01-single.yaml](https://github.com/duyet/clickhouse-on-kubernetes-examples/blob/main/01-single.yaml)
 
-### 2.1. Custom Clickhouse version
+### 2.1. Customize ClickHouse version
+
+Define a `podTemplate` with your specific container image and tag:
 
 ```yaml
 # File: clickhouse-single.yaml
@@ -265,3 +270,10 @@ From here, you can start deploying your first ClickHouse on Kubernetes. ClickHou
 I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on [ClickHouse on Kubernetes](/tag/clickhouse-on-kubernetes). Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
 
 Thank you.
+
+---
+
+# ClickHouse Series
+
+ - [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
+ - [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
