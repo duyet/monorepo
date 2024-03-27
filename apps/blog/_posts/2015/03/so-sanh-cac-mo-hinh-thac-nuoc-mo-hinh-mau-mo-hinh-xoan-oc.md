@@ -3,7 +3,7 @@ title: So sánh mô hình Waterfall, mô hình mẫu, mô hình xoắn ốc
 date: '2015-03-15'
 author: Van-Duyet Le
 tags:
-    - Software Engineering
+  - Software Engineering
 modified_time: '2015-03-15T23:58:50.492+07:00'
 slug: /2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc.html
 category: Software Engineering

@@ -41,7 +41,7 @@ NAME                                   READY   STATUS    RESTARTS   AGE
 clickhouse-operator-5c46dfc7bd-7cz5l   1/1     Running   0          3s
 ```
 
-The clickhouse-operator is now ready. 
+The clickhouse-operator is now ready.
 Looking at [https://github.com/Altinity/clickhouse-operator/tree/master/deploy/helm/](https://github.com/Altinity/clickhouse-operator/tree/master/deploy/helm/) and [Operator Configuration](https://github.com/Altinity/clickhouse-operator/blob/master/docs/operator_configuration.md) for more details.
 
 # 2. Deploy first single node clickhouse
