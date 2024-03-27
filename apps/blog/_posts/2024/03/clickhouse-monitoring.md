@@ -7,8 +7,8 @@ tags:
   - Data
   - ClickHouse
   - ClickHouse on Kubernetes
-slug: /2024/03/monitoring-clickhouse.html
-thumbnail: https://github.com/duyet/clickhouse-monitoring/raw/main/.github/screenshots/screenshot_1.png
+slug: /2024/03/clickhouse-monitoring.html
+thumbnail: /media/2024/03/monitoring-clickhouse/clickhouse-monitoring.png
 description: Now that you have your first ClickHouse instance on Kubernetes and are starting to use it, you need to monitoring and observing what happens on it is an important task to achieve stability.
 ---
 
@@ -78,4 +78,4 @@ helm install -f values.yaml clickhouse-monitoring-release duyet/clickhouse-monit
 
  - [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
  - [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
- - [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/monitoring-clickhouse.html)
+ - [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
