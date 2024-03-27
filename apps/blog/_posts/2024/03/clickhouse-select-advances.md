@@ -84,7 +84,8 @@ SELECT COLUMNS('URL.*ID') EXCEPT URLCategoryID FROM hits;
 **REPLACE**: Specifies one or more [expression aliases](https://clickhouse.com/docs/en/sql-reference/syntax#syntax-expression_aliases)
 
 ```sql
-SELECT COLUMNS('URL.*ID') REPLACE (URLCategoryID * 10 AS URLCategoryID) FROM hits;
+SELECT COLUMNS('URL.*ID') REPLACE (URLCategoryID * 10 AS URLCategoryID)
+FROM hits;
 
 ┌─URLCategoryID─┬─URLRegionID─┐
 │        156640 │         216 │
@@ -94,7 +95,8 @@ SELECT COLUMNS('URL.*ID') REPLACE (URLCategoryID * 10 AS URLCategoryID) FROM hit
 │             0 │           0 │
 └───────────────┴─────────────┘
 
-SELECT COLUMNS('URL.*ID') REPLACE (leftPad(toString(URLRegionID), 10, '*') AS URLRegionID) FROM hits;
+SELECT COLUMNS('URL.*ID') REPLACE (leftPad(toString(URLRegionID), 10, '*') AS URLRegionID)
+FROM hits;
 
 ┌─URLCategoryID─┬─URLRegionID─┐
 │         15664 │ *******216  │
@@ -124,3 +126,10 @@ When upgrading ClickHouse usually rename system table if schema changed in a new
 ```sql
 SELECT * FROM merge(system, '^query_log')
 ```
+
+---
+
+# ClickHouse Series
+
+ - [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
+ - [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
