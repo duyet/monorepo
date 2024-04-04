@@ -2,6 +2,7 @@ import YearList from '@duyet/components/YearList';
 import type { Post } from '@duyet/interfaces';
 import { getPostsByAllYear, getPostsByYear } from '@duyet/libs/getPost';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 interface YearProps {
   params: {
@@ -10,9 +11,8 @@ interface YearProps {
 }
 
 export default function Year({ params: { year } }: YearProps) {
-  // Validate year is number
   if (typeof year !== 'number' || isNaN(year)) {
-    return null;
+    return redirect('/');
   }
 
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
