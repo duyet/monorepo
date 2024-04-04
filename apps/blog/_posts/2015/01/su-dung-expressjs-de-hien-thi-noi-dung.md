@@ -8,16 +8,16 @@ tags:
   - readFile
 modified_time: '2015-01-29T11:48:14.276+07:00'
 slug: /2015/01/su-dung-expressjs-de-hien-thi-noi-dung.html
-description: 'Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: res.sendfile(), tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó.'
+description: 'Trong ExpressJs có một cách cực kỳ đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: res.sendfile(), tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó.'
 ---
 
-Trong ExpressJs có 1 cách cực kì đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: `res.sendfile()`, tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó.
+Trong ExpressJs có một cách cực kỳ đơn giản để gửi file HTML đến trình duyệt là sử dụng phương thức: `res.sendfile()`, tác dụng của nó là đọc nội dung file .html rồi gửi nội dung đến trình duyệt, giúp chúng ta có thể hiển thị nhanh nội dung trang, hoặc trang tĩnh nào đó.
 
-## Cách sử dụng res.sendFile()
+## Cách Sử Dụng res.sendFile()
 
-Cách sử dụng phương thức `sendFile()` hết sức đơn giản, bạn chỉ cần truyền vào tham số duy nhất là đường dẫn đến file html cần hiển thị.
+Cách sử dụng phương thức `sendFile()` rất đơn giản, bạn chỉ cần truyền vào tham số duy nhất là đường dẫn đến file html cần hiển thị.
 
-## Ví dụ nha
+## Ví dụ
 
 Tạo thư mục ứng
 
@@ -93,6 +93,6 @@ Mở trình duyệt, truy cập vào địa chỉ: [http://localhost:8000](http:
 
 Chúng ta sẽ thấy được nội dung như sau:
 
-## Kết luận
+## Kết Luận
 
-`res.sendFile()` là 1 phương thức hết sức dễ sử dụng và hữu ích trong ExpressJs, bạn có thể làm các ứng dụng SinglePage, load nội dung bằng AngularJs, trang tĩnh, ... Ngoài ra ExpressJs còn cung cấp cho chúng ta nhiều công cụ nữa để đọc và download file trên server.
+`res.sendFile()` là một phương thức rất dễ sử dụng và hữu ích trong ExpressJs, bạn có thể làm các ứng dụng SinglePage, load nội dung bằng AngularJs, trang tĩnh, ... Ngoài ra ExpressJs còn cung cấp cho chúng ta nhiều công cụ khác để đọc và download file trên server.

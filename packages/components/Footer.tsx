@@ -52,7 +52,6 @@ const navigation = {
     { name: "pageview.js", href: "https://pageview.duyet.net" },
     { name: "/archives", href: `${BLOG_URL}/archives` },
     { name: "/insights", href: INSIGHTS_URL },
-    { name: "/comments", href: `${BLOG_URL}/comments` },
   ],
   profile: [
     { name: "Linkedin", href: "https://linkedin.com/in/duyet" },

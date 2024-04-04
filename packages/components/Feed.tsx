@@ -35,7 +35,6 @@ export default function Feed({ posts }: Props) {
           <article key={post.slug} className="mb-20">
             <div className="flex flex-row gap-2 mb-2 text-gray-400">
               <time>{post.date.toString()}</time>
-              <time>({distanceToNow(new Date(post.date))})</time>
 
               <Link
                 href={`/category/${post.category_slug}`}
