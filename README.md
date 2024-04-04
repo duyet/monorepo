@@ -1,4 +1,4 @@
-# Duyet Website Monorepo
+# duyet.net
 
 This monorepo contains the Nextjs version of the blog, cv, photo, etc.
 
