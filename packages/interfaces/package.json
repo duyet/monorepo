@@ -14,7 +14,7 @@
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
-    "eslint": "8.54.0",
+    "eslint": "9.3.0",
     "prettier": "^3.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
