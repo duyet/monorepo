@@ -22,10 +22,7 @@ export default function Content({ post }: { post: Post }) {
       </header>
 
       <article
-        className={cn(
-          'prose prose-base dark:prose-invert',
-          'mb-10 mt-10 max-w-none',
-        )}
+        className={cn('prose dark:prose-invert', 'mb-10 mt-10 max-w-none')}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </>

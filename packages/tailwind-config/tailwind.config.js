@@ -39,7 +39,7 @@ module.exports = {
               marginTop: theme("spacing.10"),
             },
             pre: {
-              padding: 3,
+              padding: 5,
             },
           },
         },
@@ -54,7 +54,7 @@ module.exports = {
       }),
     },
     hljs: {
-      theme: "atom-one-dark",
+      theme: "night-owl",
       custom: {
         base: {
           background: "transparent",
