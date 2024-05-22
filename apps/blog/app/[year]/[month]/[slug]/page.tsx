@@ -14,6 +14,8 @@ interface PostProps {
   params: Params;
 }
 
+export const dynamic = 'force-static';
+
 export default async function Post({
   params: { year, month, slug },
 }: PostProps) {

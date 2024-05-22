@@ -10,7 +10,7 @@ export default function Container({
   className = "",
 }: ContainerProps) {
   return (
-    <div className={cn("container max-w-3xl m-auto px-4 mb-10", className)}>
+    <div className={cn("container max-w-4xl m-auto px-4 mb-10", className)}>
       {children}
     </div>
   );

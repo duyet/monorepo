@@ -28,11 +28,7 @@ export default function Year({ params: { year } }: YearProps) {
             <span className="text-gray-500">{post.category}</span>
           </div>
 
-          <Link
-            as={`${post.slug}`}
-            className="text-xl font-bold"
-            href="/[...slug]"
-          >
+          <Link as={post.slug} className="text-xl font-bold" href="/[...slug]">
             {post.title}
           </Link>
         </article>

@@ -6,12 +6,26 @@ import { cn } from '@duyet/libs/utils';
 export default function Content({ post }: { post: Post }) {
   return (
     <>
-      <header className="prose dark:prose-invert">
-        <h1>{post.title}</h1>
+      <header>
+        <h1
+          className={cn(
+            'mt-2 inline-block py-2',
+            'bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text bg-clip-text',
+            'dark:from-gray-50 dark:to-gray-300',
+            'text-4xl font-bold tracking-normal text-transparent',
+            'md:text-5xl md:tracking-tighter',
+            'lg:text-6xl lg:tracking-tighter',
+          )}
+        >
+          {post.title}
+        </h1>
       </header>
 
       <article
-        className={cn('prose dark:prose-invert', 'mb-10 mt-10 max-w-none')}
+        className={cn(
+          'prose prose-base dark:prose-invert',
+          'mb-10 mt-10 max-w-none',
+        )}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </>

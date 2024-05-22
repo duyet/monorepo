@@ -35,7 +35,7 @@ export default function Archives() {
                     </div>
 
                     <Link
-                      as={`${post.slug}`}
+                      as={post.slug}
                       className="text-xl font-bold"
                       href="/[...slug]"
                     >
