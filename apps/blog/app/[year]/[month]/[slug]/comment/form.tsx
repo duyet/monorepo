@@ -58,6 +58,7 @@ export default function CommentForm({
                   'bg-transparent dark:bg-transparent dark:text-slate-50',
                 )}
                 onClick={() => {
+                  // Using 'void' to ignore the promise returned by 'logout'
                   void logout({
                     logoutParams: { returnTo: window.location.origin },
                   });
