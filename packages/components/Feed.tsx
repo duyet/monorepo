@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import type { Post } from "@duyet/interfaces";
-import distanceToNow from "@duyet/libs/dateRelative";
+import { cn } from "@duyet/libs/utils";
 
 export type Props = {
   posts: Post[];
@@ -47,7 +47,12 @@ export default function Feed({ posts }: Props) {
             <Link
               as={`${post.slug}`}
               href="/[...slug]"
-              className="block text-2xl font-semibold"
+              className={cn(
+                "block text-4xl font-bold py-2 mt-2 from-gray-900 to-gray-800 bg-clip-text",
+                "dark:from-gray-50 dark:to-gray-300",
+                "md:text-5xl md:tracking-tighter",
+                "lg:text-6xl lg:tracking-tighter",
+              )}
             >
               {post.title}
             </Link>

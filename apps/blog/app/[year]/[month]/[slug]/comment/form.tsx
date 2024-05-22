@@ -58,7 +58,7 @@ export default function CommentForm({
                   'bg-transparent dark:bg-transparent dark:text-slate-50',
                 )}
                 onClick={() => {
-                  logout({
+                  void logout({
                     logoutParams: { returnTo: window.location.origin },
                   });
                 }}
