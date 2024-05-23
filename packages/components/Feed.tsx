@@ -48,8 +48,8 @@ export function FeedItem({ post }: { post: Post }) {
           "inline-block text-4xl font-bold py-2 mt-2 hover:underline",
           "from-gray-900 to-gray-800 bg-clip-text",
           "dark:from-gray-50 dark:to-gray-300",
-          "md:text-5xl md:tracking-tighter",
-          "lg:text-6xl lg:tracking-tighter",
+          "md:text-4xl md:tracking-tighter",
+          "lg:text-5xl lg:tracking-tighter",
         )}
       >
         {post.title}
