@@ -16,6 +16,10 @@ interface PostProps {
 
 export const dynamic = 'force-static';
 
+// Dynamic segments not included in generateStaticParams will return a 404.
+// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
+export const dynamicParams = false;
+
 export default async function Post({
   params: { year, month, slug },
 }: PostProps) {

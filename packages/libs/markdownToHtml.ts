@@ -12,11 +12,10 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 export default async function markdownToHtml(markdown: VFileCompatible) {
   const result = await unified()
-    .data("settings", { fragment: true })
-    .use(remarkParse)
+    .use(remarkParse, { fragment: true })
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeHighlight, { ignoreMissing: true })
+    .use(rehypeHighlight, { detect: true })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypeFormat)
