@@ -2,7 +2,10 @@ import YearList from '@duyet/components/YearList';
 import type { Post } from '@duyet/interfaces';
 import { getPostsByAllYear, getPostsByYear } from '@duyet/libs/getPost';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+
+// Dynamic segments not included in generateStaticParams will return a 404.
+// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
+export const dynamicParams = false;
 
 interface YearProps {
   params: {
@@ -11,10 +14,6 @@ interface YearProps {
 }
 
 export default function Year({ params: { year } }: YearProps) {
-  if (typeof year !== 'number' || isNaN(year)) {
-    return redirect('/');
-  }
-
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
 
   return (
