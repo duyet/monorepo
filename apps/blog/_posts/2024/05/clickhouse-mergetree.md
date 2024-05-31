@@ -1,5 +1,5 @@
 ---
-title: ClickHouse Table Design - MergeTree
+title: ClickHouse MergeTree Engine
 date: '2024-05-31'
 author: Duyet
 category: Data
@@ -9,11 +9,12 @@ tags:
   - ClickHouse on Kubernetes
 slug: /2024/05/clickhouse-mergetree.html
 thumbnail: /media/2024/05/clickhouse-mergetree-parts-merge.png
-description: From the beginning of this series ClickHouse on Kubernetes, you can now set up your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features.
-
+description: After starting this series ClickHouse on Kubernetes, you can now configure your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
 ---
 
-From the beginning of this series [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html), you can now set up your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features.
+After starting this series [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html), you can now configure your first single-node ClickHouse server.
+Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
+
 
 1. [Creating a Basic Table](#creating-a-basic-table)
 1. [MergeTree Engine](#mergetree-engine)
@@ -28,7 +29,7 @@ From the beginning of this series [ClickHouse on Kubernetes](https://blog.duyet.
 
 # Creating a Basic Table
 
-Here’s a basic example of a table using the [MergeTree](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree) engine:
+Here's a basic example of a table using the [MergeTree](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree) engine:
 
 ```sql
 CREATE TABLE events
@@ -45,20 +46,20 @@ ORDER BY (user_id, event_time)
 ```
 
 ClickHouse column data types include [(full list)](https://clickhouse.com/docs/en/sql-reference/data-types)
-- **Integer types**: [signed and unsigned integers](https://clickhouse.com/docs/en/sql-reference/data-types/int-uint) (`UInt8`, `UInt16`, `UInt32`, `UInt64`, `UInt128`, `UInt256`, `Int8`, `Int16`, `Int32`, `Int64`, `Int128`, `Int256`)
-- **Floating-point numbers**: [floats](https://clickhouse.com/docs/en/sql-reference/data-types/float)(`Float32` and `Float64`) and [`Decimal` values](https://clickhouse.com/docs/en/sql-reference/data-types/decimal)
-- **Boolean**: ClickHouse has a [`Boolean` type](https://clickhouse.com/docs/en/sql-reference/data-types/boolean)
-- **Strings**: [`String`](https://clickhouse.com/docs/en/sql-reference/data-types/string) and [`FixedString`](https://clickhouse.com/docs/en/sql-reference/data-types/fixedstring)
-- **Dates**: use [`Date`](https://clickhouse.com/docs/en/sql-reference/data-types/date) and [`Date32`](https://clickhouse.com/docs/en/sql-reference/data-types/date32) for days, and [`DateTime`](https://clickhouse.com/docs/en/sql-reference/data-types/datetime) and [`DateTime64`](https://clickhouse.com/docs/en/sql-reference/data-types/datetime64) for instances in time
-- **JSON**: the [`JSON` object](https://clickhouse.com/docs/en/sql-reference/data-types/json) stores a JSON document in a single column
-- **UUID**: a performant option for storing [`UUID` values](https://clickhouse.com/docs/en/sql-reference/data-types/uuid)
-- **Low cardinality types**: use an [`Enum`](https://clickhouse.com/docs/en/sql-reference/data-types/enum) when you have a handful of unique values, or use [`LowCardinality`](https://clickhouse.com/docs/en/sql-reference/data-types/lowcardinality) when you have up to 10,000 unique values of a column
-- **Arrays**: any column can be defined as an [`Array` of values](https://clickhouse.com/docs/en/sql-reference/data-types/array)
+- **Integer types**: [signed and unsigned integers](https://clickhouse.com/docs/en/sql-reference/data-types/int-uint) (`UInt8`, `UInt16`, `UInt32`, `UInt64`, `UInt128`, `UInt256`, `Int8`, `Int16`, `Int32`, `Int64`, `Int128`, `Int256`)
+- **Floating-point numbers**: [floats](https://clickhouse.com/docs/en/sql-reference/data-types/float)(`Float32` and `Float64`) and [`Decimal` values](https://clickhouse.com/docs/en/sql-reference/data-types/decimal)
+- **Boolean**: ClickHouse has a [`Boolean` type](https://clickhouse.com/docs/en/sql-reference/data-types/boolean)
+- **Strings**: [`String`](https://clickhouse.com/docs/en/sql-reference/data-types/string) and [`FixedString`](https://clickhouse.com/docs/en/sql-reference/data-types/fixedstring)
+- **Dates**: use [`Date`](https://clickhouse.com/docs/en/sql-reference/data-types/date) and [`Date32`](https://clickhouse.com/docs/en/sql-reference/data-types/date32) for days, and [`DateTime`](https://clickhouse.com/docs/en/sql-reference/data-types/datetime) and [`DateTime64`](https://clickhouse.com/docs/en/sql-reference/data-types/datetime64) for instances in time
+- **JSON**: the [`JSON` object](https://clickhouse.com/docs/en/sql-reference/data-types/json) stores a JSON document in a single column
+- **UUID**: a performant option for storing [`UUID` values](https://clickhouse.com/docs/en/sql-reference/data-types/uuid)
+- **Low cardinality types**: use an [`Enum`](https://clickhouse.com/docs/en/sql-reference/data-types/enum) when you have a handful of unique values, or use [`LowCardinality`](https://clickhouse.com/docs/en/sql-reference/data-types/lowcardinality) when you have up to 10,000 unique values of a column
+- **Arrays**: any column can be defined as an [`Array` of values](https://clickhouse.com/docs/en/sql-reference/data-types/array)
 - ...
 
 # MergeTree Engine
 
-The [`MergeTree`](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree) engine and other engines of this family (`*MergeTree`) are the most commonly used and most robust ClickHouse table engines. The data is quickly written to the table part by part, and merging the parts in the background.
+The [`MergeTree`](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree) engine and other engines of this family (`*MergeTree`) are the most commonly used and most robust ClickHouse table engines. The data is quickly written to the table part by part, and merging the parts in the background.
 
 ```sql
 PARTITION BY toYYYYMM(event_date)
@@ -79,7 +80,7 @@ ClickHouse also automatically cuts off the partition data where the partitioning
 ORDER BY (user_id, event_date)
 ```
 
-The data will be merged and sorted by `(user_id, event_time)`. This data is stored as separate **parts** (chunks) sorted by the primary key. Within 10-15 minutes after insertion, the parts of the same partition are merged into a complete part. Note that a part is different from a partition; a **part** is a smaller unit within a **partition**. Use the `ORDER BY tuple()` syntax, if you do not need sorting.
+The data will be merged and sorted by `(user_id, event_time)`. This data is stored as separate **parts** (chunks) sorted by the primary key. Within 10-15 minutes after insertion, the parts of the same partition are merged into a complete part. Note that a part is different from a partition; a **part** is a smaller unit within a **partition**. Use the `ORDER BY tuple()` syntax, if you do not need sorting.
 
 # Insert data
 
@@ -101,7 +102,7 @@ SELECT * FROM events;
 └─────────────────────┴────────────┴─────────┴────────────┴───────┘
 ```
 
-`event_date` is automatic assign by the `DEFAULT toDate(event_time)`. It is also possible to use `DEFAULT` keyword to insert default values:
+`event_date` is automatic assign by the `DEFAULT toDate(event_time)`. It is also possible to use `DEFAULT` keyword to insert default values:
 
 ```sql 
 INSERT INTO events VALUES (now(), DEFAULT, 333, 'click', '/insights')
@@ -148,7 +149,7 @@ ClickHouse will merge into new part `202405_1_2_1` mark it as **active** part, a
 
 ### Insert by FORMAT
 
-Data can be passed to the INSERT in any [format](https://clickhouse.com/docs/en/interfaces/formats#formats) supported by ClickHouse. The format must be specified explicitly in the query, for example:
+Data can be passed to the INSERT in any [format](https://clickhouse.com/docs/en/interfaces/formats#formats) supported by ClickHouse. The format must be specified explicitly in the query, for example:
 
 ```sql
 INSERT INTO events FORMAT JSONEachRow 
@@ -175,7 +176,7 @@ Some common formats for Input and Output data
 
 # UNDROP 🤯
 
-Like every other database engine, you can DROP one or more tables, but you can even UNDROP them within up to 8 minutes (by default, can be adjusted using the `database_atomic_delay_before_drop_table_sec` setting).
+Like every other database engine, you can DROP one or more tables, but you can even `UNDROP` them within up to 8 minutes (by default, can be adjusted using the `database_atomic_delay_before_drop_table_sec` setting).
 
 ```sql
 DROP TABLE events;
@@ -184,7 +185,7 @@ UNDROP TABLE events;
 `
 # DETACH/ATTACH
 
-Detaching a table makes the server "forget" about the existence of the table. This action does not delete the data or metadata of the table. I usually DETACH it when encountering some issues that need to be fixed under the file system, and then ATTACH it to scan and load it back.
+Detaching a table makes the server "forget" about the existence of the table. This action does not delete the data or metadata of the table. I usually `DETACH` it when encountering some issues that need to be fixed under the file system, and then `ATTACH` it to scan and load it back.
 
 ![](/media/2024/05/clickhouse-mergetree-detached-tables.png)
 
@@ -259,7 +260,7 @@ SELECT event_type, COUNT() FROM events GROUP BY 1;
 
 ![](/media/2024/05/clickhouse-mergetree-count-event-type-string-type.png)
 
-The value is repeated. Consider using [`Enum`](https://clickhouse.com/docs/en/sql-reference/data-types/enum) when you have a handful of unique values or [`LowCardinality`](https://clickhouse.com/docs/en/sql-reference/data-types/lowcardinality) when you have up to 10,000 unique values (e.g. `click`, `pageview`,...) of a column.
+The value is repeated. Consider using [`Enum`](https://clickhouse.com/docs/en/sql-reference/data-types/enum) when you have a handful of unique values or [`LowCardinality`](https://clickhouse.com/docs/en/sql-reference/data-types/lowcardinality) when you have up to 10,000 unique values (e.g. `click`, `pageview`,...) of a column.
 
 Let’s look at how `event_type` column are stored
 
@@ -310,7 +311,7 @@ ORDER BY column ASC
 └────────────┴────────────────────────┴────────────┴──────────────┴─────────────┴───────────┘
 ```
 
-The storage size has been reduced x7 times, and compressed is just now only **151 KiB**. In some case you even get better compr_ratio. This also improved query performance:
+The storage size has been reduced **x7 times**, and compressed is just now only **151 KiB**. In some case you even get better compr_ratio. This also improved query performance:
 
 ```diff
 SELECT event_type, COUNT() FROM events GROUP BY 1;
@@ -319,7 +320,7 @@ SELECT event_type, COUNT() FROM events GROUP BY 1;
 + 3 rows in set. Elapsed: 5.272 sec. Processed 33.29 million rows, 33.29 MB (6.31 million rows/s., 6.31 MB/s.)
 ```
 
-The query now runs **5.41 times faster**. LowCardinality changes the internal representation of other data types to be dictionary-encoded.
+The query now runs **5.41 times faster**. `LowCardinality` changes the internal representation of other data types to be dictionary-encoded.
 
 ![](/media/2024/05/clickhouse-mergetree-count-event-type-lowcardinality-type.png)
 
