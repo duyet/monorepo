@@ -29,19 +29,22 @@ It displays metrics such as Queries/second, CPU usage, Queries running, Merges r
 # 2. Monitoring with Prometheus + Grafana
 
 You can configure ClickHouse to export metrics to [Prometheus](https://prometheus.io/). ClickHouse Operator do have a section for this:
+
 1. Step 1: [Setup Prometheus](https://github.com/Altinity/clickhouse-operator/blob/master/docs/prometheus_setup.md) pool data from ClickHouse into Prometheus
 2. Step 2: [Setup Grafana](https://github.com/Altinity/clickhouse-operator/blob/master/docs/grafana_setup.md)
 
 They also have a dashboard for ClickHouse Operator Dashboard so you can just need to import it:
+
 - [Altinity_ClickHouse_Operator_dashboard.json](https://github.com/Altinity/clickhouse-operator/blob/master/grafana-dashboard/Altinity_ClickHouse_Operator_dashboard.json)
 - [ClickHouse_Queries_dashboard.json](https://github.com/Altinity/clickhouse-operator/blob/master/grafana-dashboard/ClickHouse_Queries_dashboard.json)
 - [ClickHouseKeeper_dashboard.json](https://github.com/Altinity/clickhouse-operator/blob/master/grafana-dashboard/ClickHouseKeeper_dashboard.json)
 
 References:
- - [ClickHouse Grafana plugin 4.0 - Leveling up SQL Observability](https://clickhouse.com/blog/clickhouse-grafana-plugin-4-0)
- - [A Story of Open-source GitHub Activity using ClickHouse + Grafana](https://clickhouse.com/blog/introduction-to-clickhouse-and-grafana-webinar)
- - Video: [Visualizing ClickHouse Data with Grafana](https://www.youtube.com/watch?v=Ve-VPDxHgZU)
- - [Visualizing Data with ClickHouse - Part 1 - Grafana](https://clickhouse.com/blog/visualizing-data-with-grafana)
+
+- [ClickHouse Grafana plugin 4.0 - Leveling up SQL Observability](https://clickhouse.com/blog/clickhouse-grafana-plugin-4-0)
+- [A Story of Open-source GitHub Activity using ClickHouse + Grafana](https://clickhouse.com/blog/introduction-to-clickhouse-and-grafana-webinar)
+- Video: [Visualizing ClickHouse Data with Grafana](https://www.youtube.com/watch?v=Ve-VPDxHgZU)
+- [Visualizing Data with ClickHouse - Part 1 - Grafana](https://clickhouse.com/blog/visualizing-data-with-grafana)
 
 # 3. ClickHouse system tables
 
@@ -79,8 +82,9 @@ helm install -f values.yaml clickhouse-monitoring-release duyet/clickhouse-monit
 ```
 
 ---
+
 # ClickHouse Series
 
- - [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
- - [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
- - [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
+- [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
+- [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
+- [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
