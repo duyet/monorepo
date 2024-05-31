@@ -7,6 +7,7 @@ import Footer from '@duyet/components/Footer';
 import Head from '@duyet/components/Head';
 import Header from '@duyet/components/Header';
 import ThemeProvider from '@duyet/components/ThemeProvider';
+import { AxiomWebVitals } from 'next-axiom';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html className={inter.className} lang="en">
       <Head />
+      <AxiomWebVitals />
       <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
         <Auth0Provider>
           <ThemeProvider>
