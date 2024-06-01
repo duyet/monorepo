@@ -15,7 +15,6 @@ description: After starting this series ClickHouse on Kubernetes, you can now co
 After starting this series [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html), you can now configure your first single-node ClickHouse server.
 Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
 
-
 1. [Creating a Basic Table](#creating-a-basic-table)
 1. [MergeTree Engine](#mergetree-engine)
 1. [ORDER BY](#order-by)
@@ -46,6 +45,7 @@ ORDER BY (user_id, event_time)
 ```
 
 ClickHouse column data types include [(full list)](https://clickhouse.com/docs/en/sql-reference/data-types)
+
 - **Integer types**: [signed and unsigned integers](https://clickhouse.com/docs/en/sql-reference/data-types/int-uint) (`UInt8`, `UInt16`, `UInt32`, `UInt64`, `UInt128`, `UInt256`, `Int8`, `Int16`, `Int32`, `Int64`, `Int128`, `Int256`)
 - **Floating-point numbers**: [floats](https://clickhouse.com/docs/en/sql-reference/data-types/float)(`Float32` and `Float64`) and [`Decimal` values](https://clickhouse.com/docs/en/sql-reference/data-types/decimal)
 - **Boolean**: ClickHouse has a [`Boolean` type](https://clickhouse.com/docs/en/sql-reference/data-types/boolean)
@@ -66,6 +66,7 @@ PARTITION BY toYYYYMM(event_date)
 ```
 
 Each partition is stored separately folder
+
 - `202401/`
 - `202402/`
 - ...
@@ -104,7 +105,7 @@ SELECT * FROM events;
 
 `event_date` is automatic assign by the `DEFAULT toDate(event_time)`. It is also possible to use `DEFAULT` keyword to insert default values:
 
-```sql 
+```sql
 INSERT INTO events VALUES (now(), DEFAULT, 333, 'click', '/insights')
 ```
 
@@ -152,7 +153,7 @@ ClickHouse will merge into new part `202405_1_2_1` mark it as **active** part, a
 Data can be passed to the INSERT in any [format](https://clickhouse.com/docs/en/interfaces/formats#formats) supported by ClickHouse. The format must be specified explicitly in the query, for example:
 
 ```sql
-INSERT INTO events FORMAT JSONEachRow 
+INSERT INTO events FORMAT JSONEachRow
 {"event_time": "2024-06-01 00:00:00", "user_id": "111", "event_type": "scroll", "value": "/blog"}
 
 Ok.
@@ -169,6 +170,7 @@ SELECT * FROM events LIMIT 3 Format CSV;
 ```
 
 Some common formats for Input and Output data
+
 - [TabSeparated](https://clickhouse.com/docs/en/interfaces/formats#tabseparated)
 - [CSV](https://clickhouse.com/docs/en/interfaces/formats#csv)
 - [JSONEachRow](https://clickhouse.com/docs/en/interfaces/formats#jsoneachrow)
@@ -182,7 +184,7 @@ Like every other database engine, you can DROP one or more tables, but you can e
 DROP TABLE events;
 UNDROP TABLE events;
 ```
-`
+
 # DETACH/ATTACH
 
 Detaching a table makes the server "forget" about the existence of the table. This action does not delete the data or metadata of the table. I usually `DETACH` it when encountering some issues that need to be fixed under the file system, and then `ATTACH` it to scan and load it back.
@@ -330,4 +332,3 @@ The query now runs **5.41 times faster**. `LowCardinality` changes the internal 
 2. [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
 3. [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
 4. ClickHouse Table Design - MergeTree
-

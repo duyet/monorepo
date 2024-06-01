@@ -11,7 +11,8 @@
     "analyze": "cross-env ANALYZE=true next build",
     "build": "next build",
     "dev": "next dev -p 3000",
-    "fix": "prettier --write \"**/*.{ts,tsx}\" .",
+    "fix": "prettier --write \"**/*.{ts,tsx,md}\" .",
+    "fmt": "yarn fix",
     "lint": "next lint",
     "prettier-check": "prettier --check .",
     "start": "next start"
