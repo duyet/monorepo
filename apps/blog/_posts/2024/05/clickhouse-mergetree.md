@@ -331,4 +331,5 @@ The query now runs **5.41 times faster**. `LowCardinality` changes the internal 
 1. [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
 2. [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
 3. [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
-4. ClickHouse Table Design - MergeTree
+4. ClickHouse MergeTree Engine
+5. [ClickHouse ReplacingMergeTree Engine](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html)
