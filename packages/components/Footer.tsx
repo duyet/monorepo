@@ -5,6 +5,7 @@ import { cn } from "@duyet/libs/utils";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
 import Social from "./Social";
+import Logo from "./Logo";
 
 const BLOG_URL =
   process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
@@ -40,7 +41,9 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 }
 
 function FooterHeader({ children }: { children: ReactNode }): ReactElement {
-  return <h3 className="text-sm text-black dark:text-white">{children}</h3>;
+  return (
+    <h3 className="text-sm text-black dark:text-white font-bold">{children}</h3>
+  );
 }
 
 const navigation = {
@@ -70,7 +73,11 @@ export function FooterContent(): ReactElement {
         <div className="w-full py-8 mx-auto">
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="grid grid-cols-1 gap-8 xl:col-span-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 md:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 md:gap-8">
+                <div className="mt-6 md:!mt-0">
+                  <Logo className="p-0" />
+                </div>
+
                 <div className="mt-12 md:!mt-0">
                   <FooterHeader>Resources</FooterHeader>
                   <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
@@ -81,6 +88,7 @@ export function FooterContent(): ReactElement {
                     ))}
                   </ul>
                 </div>
+
                 <div className="mt-12 md:!mt-0">
                   <FooterHeader>me@duyet.net</FooterHeader>
                   <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
