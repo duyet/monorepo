@@ -9,7 +9,7 @@ tags:
   - ClickHouse on Kubernetes
 slug: /2024/06/clickhouse-replacingmergetree.html
 thumbnail: /media/2024/06/clickhouse-replacingmt/clickhouse-replacingmergetree-illustration.png
-description: My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to [`MergeTree`](/2024/05/clickhouse-mergetree.html) but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
+description: My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to `MergeTree` but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
 ---
 
 My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to [`MergeTree`](/2024/05/clickhouse-mergetree.html) but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
@@ -40,7 +40,9 @@ PARTITION BY toYYYYMM(event_date)
 ORDER BY (user_id, event_type, event_time)
 ```
 
-The most important part of the `ReplacingMergeTree` engine definition is the `ORDER BY` expression, which serves as the unique key for the table. ClickHouse does not reject non-unique values; instead, `ReplacingMergeTree` de-duplicates them when **merging** and keeps only the last based on the `event_time` column. If you omit the `event_time` in the engine parameters, ClickHouse will keep the **newer row**.
+The most important part of the `ReplacingMergeTree` engine definition is the `ORDER BY` expression, which serves as the unique key for the table. ClickHouse does not reject non-unique values, instead `ReplacingMergeTree` de-duplicates them when **merging** and keeps only the last based on the `event_time` column.
+
+If you omit the `event_time` in the engine parameters, ClickHouse will keep the **newer row**:
 
 ```sql
 CREATE TABLE events_replacing ( ... )
