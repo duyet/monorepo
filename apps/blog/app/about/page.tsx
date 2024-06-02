@@ -38,24 +38,22 @@ const links: Link[] = [
 
 export default function About() {
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Tôi là Duyệt</h1>
+    <div className="space-y-6 leading-loose">
+      <h1 className="text-4xl font-bold lg:text-5xl">Duyệt</h1>
       <p>
-        Being a <strong>Data Engineer</strong> with 5+ years of experience. I am
-        confident in my knowledge of data engineering concepts as well as best
-        practices and also familiarity with state-of-the-art data and Cloud
-        technologies
+        <strong>Data Engineer</strong> with 5+ years of experience. I am
+        confident in my knowledge of Data Engineering concepts, best practices
+        and state-of-the-art data and Cloud technologies.
       </p>
 
-      <div className="flex flex-col">
-        <p className="mb-5">
-          Skills & stacks:{' '}
-          {skills.map(({ name, link = '#' }) => (
+      <div className="flex flex-col gap-5">
+        <p>
+          {links.map(({ name, link = '#' }) => (
             <a
               className="mr-4 text-blue-600"
               href={link}
               key={name}
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer"
               target="_blank"
             >
               {name}
@@ -64,12 +62,13 @@ export default function About() {
         </p>
 
         <p>
-          {links.map(({ name, link = '#' }) => (
+          Skills & stacks:{' '}
+          {skills.map(({ name, link = '#' }) => (
             <a
-              className="mr-4 text-blue-600"
+              className="mr-4 inline-block text-blue-600"
               href={link}
               key={name}
-              rel="nofollow noopener noreferrer"
+              rel="noopener noreferrer"
               target="_blank"
             >
               {name}
