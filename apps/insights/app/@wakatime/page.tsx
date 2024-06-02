@@ -106,9 +106,7 @@ interface WakaCodingActivity {
 
 async function getWakaCodingActivity() {
   const raw = await fetch(WAKA_CODING_ACTIVITY_API);
-
-  // eslint-disable-next-line -- Temporarily avoids the lint error problem
-  const data: WakaCodingActivity['data'] = (await raw.json()).data;
+  const data = ((await raw.json()) as WakaCodingActivity).data;
 
   return data.map((item) => ({
     ...item,
@@ -125,9 +123,7 @@ interface WakaLanguages {
 }
 async function getWakaLanguages() {
   const raw = await fetch(WAKA_LANGUAGES_API);
-
-  // eslint-disable-next-line -- Temporarily avoids the lint error problem
-  const data: WakaLanguages['data'] = (await raw.json()).data;
+  const data = ((await raw.json()) as WakaLanguages).data;
 
   return data;
 }
