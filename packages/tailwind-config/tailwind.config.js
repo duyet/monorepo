@@ -1,3 +1,8 @@
+import merge from "deepmerge";
+
+const tremorTheme = require("./tremor.theme.js").theme;
+const shadcnTheme = require("./shadcn.theme.js").theme;
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,6 +11,7 @@ module.exports = {
     "../../packages/**/*.{js,ts,jsx,tsx}",
     // Path to the tremor module
     "../../node_modules/@tremor/react/**/*.{js,ts,jsx,tsx}",
+    "../../packages/components/node_modules/@tremor/react/**/*.{js,ts,jsx,tsx}",
   ],
   variants: {
     extend: {
@@ -16,7 +22,8 @@ module.exports = {
   },
   theme: {
     extend: {
-      ...require("./tremor.theme.js").theme,
+      ...merge(tremorTheme, shadcnTheme),
+
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -71,6 +78,7 @@ module.exports = {
   plugins: [
     require("@tailwindcss/typography"),
     require("tailwind-highlightjs"),
+    require("tailwindcss-animate"),
     ...require("./tremor.theme.js").plugins,
   ],
   darkMode: ["class", 'html[class~="dark"]'],

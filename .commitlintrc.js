@@ -1,29 +1,29 @@
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'scope-enum': [
+    "scope-enum": [
       2,
-      'always',
+      "always",
       [
         // Dependency-related changes
-        'deps',
+        "deps",
         // Post
-        'post',
+        "post",
         // App changes
-        'blog',
-        'cv',
-        'insights',
-        'travel',
+        "blog",
+        "cv",
+        "insights",
+        "travel",
         // CI-related changes
-        'ci',
+        "ci",
         // UI-related changes
-        'ui',
+        "ui",
         // Rust-related changes
-        'rust',
+        "rust",
         // Docs-related changes
-        'docs',
+        "docs",
       ],
     ],
-    'scope-empty': [1, 'never'],
+    "scope-empty": [1, "never"],
   },
-}
+};
