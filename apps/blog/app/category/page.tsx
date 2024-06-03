@@ -7,7 +7,7 @@ export default function Categories() {
 
   return (
     <div>
-      <h1 className="mb-5 text-3xl font-bold">Categories</h1>
+      <h1 className="mb-10 text-5xl font-bold">Categories</h1>
 
       {Object.entries(categories).map(([cat, count]) => (
         <article className="mb-5" key={cat}>
