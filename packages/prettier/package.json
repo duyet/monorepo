@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "prettier-plugin-organize-imports": "^3.2.4",
-    "prettier-plugin-tailwindcss": "^0.5.12"
+    "prettier-plugin-tailwindcss": "^0.6.0"
   },
   "publishConfig": {
     "access": "public"
