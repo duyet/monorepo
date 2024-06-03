@@ -21,7 +21,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@tremor/react": "^3.17.2",
-    "lucide-react": "^0.382.0"
+    "lucide-react": "^0.383.0"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
