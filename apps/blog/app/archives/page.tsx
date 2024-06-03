@@ -22,7 +22,9 @@ export default function Archives() {
             return (
               <div key={year}>
                 <Link as={`/${year}`} href="/[year]">
-                  <h1 className="mb-5 mt-10 text-3xl font-bold">{year}</h1>
+                  <h1 className="mb-8 mt-8 text-5xl font-bold sm:text-6xl md:mb-10 md:mb-10 md:text-8xl">
+                    {year}
+                  </h1>
                 </Link>
 
                 {posts.map((post: Post) => (
@@ -36,7 +38,7 @@ export default function Archives() {
 
                     <Link
                       as={post.slug}
-                      className="text-xl font-bold"
+                      className="text-xl font-bold md:text-2xl"
                       href="/[...slug]"
                     >
                       {post.title}
