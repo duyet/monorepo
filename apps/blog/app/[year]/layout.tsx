@@ -1,4 +1,5 @@
 import Container from '@duyet/components/Container';
+import Header from '@duyet/components/Header';
 import React from 'react';
 
 interface YearLayoutProps {
@@ -9,5 +10,10 @@ interface YearLayoutProps {
 }
 
 export default function YearLayout({ children }: YearLayoutProps) {
-  return <Container>{children}</Container>;
+  return (
+    <>
+      <Header />
+      <Container>{children}</Container>
+    </>
+  );
 }

@@ -1,5 +1,6 @@
 import Container from '@duyet/components/Container';
 import Feed from '@duyet/components/Feed';
+import Header from '@duyet/components/Header';
 import { getAllPosts } from '@duyet/libs/getPost';
 
 type Params = Record<string, string>;
@@ -24,8 +25,11 @@ async function getPosts(params: Params) {
 export default async function Page({ params }: { params: Params }) {
   const posts = await getPosts(params);
   return (
-    <Container>
-      <Feed posts={posts} />
-    </Container>
+    <>
+      <Header center className="mb-20 mt-20" longText="Data Engineering" />
+      <Container>
+        <Feed posts={posts} />
+      </Container>
+    </>
   );
 }

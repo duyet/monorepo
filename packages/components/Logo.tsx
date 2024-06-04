@@ -7,6 +7,7 @@ import LOGO from "./logo.svg";
 interface LogoProps {
   className?: string;
   textClassName?: string;
+  logoClassName?: string;
   shortText?: string;
   longText?: string;
   width?: number;
@@ -16,6 +17,7 @@ interface LogoProps {
 export default function Logo({
   className = "",
   textClassName = "",
+  logoClassName = "",
   shortText,
   longText,
   width = 50,
@@ -26,6 +28,7 @@ export default function Logo({
     "hover:opacity-80 transition-opacity",
     "cursor-pointer",
     "rounded-full",
+    logoClassName,
   );
   const textCls = cn("ml-2 font-bold text-lg", textClassName);
 
