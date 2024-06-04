@@ -19,7 +19,11 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header
-      className={cn("py-10", center ? "flex justify-center" : "", className)}
+      className={cn(
+        "py-10",
+        center ? "md:flex md:justify-center md:my-10" : "",
+        className,
+      )}
     >
       <Container className="mb-0">
         <nav
