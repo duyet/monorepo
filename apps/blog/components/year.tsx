@@ -8,7 +8,7 @@ export interface YearProps {
   className?: string;
 }
 
-export default function Year({ year, className }: YearProps) {
+export function Year({ year, className }: YearProps) {
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
 
   if (!posts.length) {
@@ -48,3 +48,5 @@ export default function Year({ year, className }: YearProps) {
     </div>
   );
 }
+
+export default Year;

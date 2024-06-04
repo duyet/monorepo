@@ -1,7 +1,7 @@
 import Container from '@duyet/components/Container';
 import YearList from '@duyet/components/YearList';
 import { getPostsByAllYear } from '@duyet/libs/getPost';
-import Year from '../../components/Year';
+import { Year } from '../../components/year';
 
 export default function Archives() {
   const yearLimit = 5;
