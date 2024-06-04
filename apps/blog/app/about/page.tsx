@@ -39,7 +39,7 @@ const links: Link[] = [
 export default function About() {
   return (
     <div className="space-y-6 leading-loose">
-      <h1 className="text-4xl font-bold lg:text-5xl">Duyệt</h1>
+      <h1 className="my-10 text-6xl font-bold lg:text-7xl">Duyệt</h1>
       <p>
         <strong>Data Engineer</strong> with 5+ years of experience. I am
         confident in my knowledge of Data Engineering concepts, best practices

@@ -37,6 +37,12 @@ const config = {
         destination: 'https://insights.duyet.net',
         permanent: true,
       },
+      {
+        // Non-html to .html blog post
+        source: '/:year/:month/:slug/',
+        destination: '/:year/:month/:slug.html',
+        permanent: true,
+      },
     ];
   },
 };

@@ -2,6 +2,7 @@ import Container from '@duyet/components/Container';
 import YearList from '@duyet/components/YearList';
 import type { Post } from '@duyet/interfaces';
 import { getPostsByAllYear } from '@duyet/libs/getPost';
+import { cn } from '@duyet/libs/utils';
 import Link from 'next/link';
 
 export default function Archives() {
@@ -22,7 +23,13 @@ export default function Archives() {
             return (
               <div key={year}>
                 <Link as={`/${year}`} href="/[year]">
-                  <h1 className="mb-8 mt-8 text-5xl font-bold sm:text-6xl md:mb-10 md:mb-10 md:text-8xl">
+                  <h1
+                    className={cn(
+                      'mb-8 mt-8 text-5xl font-extrabold',
+                      'sm:text-6xl',
+                      'md:mb-10 md:mb-10 md:text-8xl md:font-black',
+                    )}
+                  >
                     {year}
                   </h1>
                 </Link>
