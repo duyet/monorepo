@@ -17,17 +17,17 @@ export default function Year({ year, className }: YearProps) {
 
   return (
     <div className={cn(className)}>
-      <Link as={`/${year}`} href="/[year]">
-        <h1
-          className={cn(
-            'mb-8 mt-8 text-5xl font-extrabold',
-            'sm:text-6xl',
-            'md:mb-10 md:mb-10 md:text-8xl md:font-black',
-          )}
-        >
+      <h1
+        className={cn(
+          'mb-8 mt-8 text-5xl font-extrabold',
+          'sm:text-6xl',
+          'md:mb-10 md:mb-10 md:text-8xl md:font-black',
+        )}
+      >
+        <Link as={`/${year}`} href="/[year]">
           {year}
-        </h1>
-      </Link>
+        </Link>
+      </h1>
 
       {posts.map((post: Post) => (
         <article className="mb-5" key={post.slug}>
