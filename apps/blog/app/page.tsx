@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: Params }) {
   const posts = await getPosts(params);
   return (
     <>
-      <Header center className="mb-20 mt-20" longText="Data Engineering" />
+      <Header center longText="Data Engineering" />
       <Container>
         <Feed posts={posts} />
       </Container>
