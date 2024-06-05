@@ -10,7 +10,7 @@ export default function Content({ post }: { post: Post }) {
         <h1
           className={cn(
             'mt-2 inline-block py-2',
-            'bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text bg-clip-text',
+            'bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text',
             'dark:from-gray-50 dark:to-gray-300',
             'text-4xl font-bold tracking-normal text-transparent',
             'md:text-5xl md:tracking-tighter',
@@ -23,7 +23,7 @@ export default function Content({ post }: { post: Post }) {
 
       <article
         className={cn('prose dark:prose-invert', 'mb-10 mt-10 max-w-none')}
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: post.content || 'No content' }}
       />
     </>
   );
@@ -39,6 +39,7 @@ export async function getPost(slug: string[]) {
     'category',
     'category_slug',
     'tags',
+    'series',
   ]);
   const content = await markdownToHtml(post.content || 'Error');
 

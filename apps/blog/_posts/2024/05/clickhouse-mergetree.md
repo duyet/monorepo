@@ -3,6 +3,7 @@ title: ClickHouse MergeTree Engine
 date: '2024-05-31'
 author: Duyet
 category: Data
+series: ClickHouse
 tags:
   - Data
   - ClickHouse
@@ -325,11 +326,3 @@ SELECT event_type, COUNT() FROM events GROUP BY 1;
 The query now runs **5.41 times faster**. `LowCardinality` changes the internal representation of other data types to be dictionary-encoded.
 
 ![](/media/2024/05/clickhouse-mergetree-count-event-type-lowcardinality-type.png)
-
-# ClickHouse Series
-
-1. [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
-2. [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
-3. [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
-4. ClickHouse MergeTree Engine
-5. [ClickHouse ReplacingMergeTree Engine](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html)

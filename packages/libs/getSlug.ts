@@ -1,4 +1,8 @@
-export const getSlug = (name: string) => {
+export const getSlug = (name?: string) => {
+  if (!name) {
+    return "";
+  }
+
   return (
     name
       .toLowerCase()
