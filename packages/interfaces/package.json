@@ -9,7 +9,7 @@
   "scripts": {
     "check-types": "tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "lint": "eslint \"**/*.ts*\""
+    "lint": "eslint"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
