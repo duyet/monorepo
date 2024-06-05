@@ -3,13 +3,14 @@ export type Post = {
   title: string;
   author?: string;
   date: Date;
-  content: string;
+  content?: string;
   excerpt?: string;
   category: string;
   category_slug: string;
   tags: string[];
   tags_slug: string[];
   edit_url?: string;
+  series?: string;
   [key: string]: any;
 };
 
@@ -19,4 +20,10 @@ export interface TagCount {
 
 export interface CategoryCount {
   [key: string]: number;
+}
+
+export interface Series {
+  name: string;
+  slug: string;
+  posts: Post[];
 }

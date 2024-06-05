@@ -21,7 +21,7 @@ export function Year({ year, className }: YearProps) {
         className={cn(
           'mb-8 mt-8 text-5xl font-extrabold',
           'sm:text-6xl',
-          'md:mb-10 md:mb-10 md:text-8xl md:font-black',
+          'md:mb-10 md:text-8xl md:font-black',
         )}
       >
         <Link as={`/${year}`} href="/[year]">

@@ -3,6 +3,7 @@ title: ClickHouse on Kubernetes
 date: '2024-03-13'
 author: Duyet
 category: Data
+series: ClickHouse
 tags:
   - Data
   - ClickHouse
@@ -267,16 +268,7 @@ spec:
 
 From here, you can start deploying your first ClickHouse on Kubernetes. ClickHouse is quite performant but can be a real challenge for Data Engineers managing a large cluster like mine. You need to deal with a lot of issues and learn how to design the "correct" table.
 
-I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on [ClickHouse on Kubernetes](/tag/clickhouse-on-kubernetes). Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
+I will soon publish more problems that you might need to deal with and scale from a small cluster to a larger one with high availability in the series on [ClickHouse on Kubernetes](/series/clickhouse). Check out all the manifest on this series in here https://github.com/duyet/clickhouse-on-kubernetes-examples/tree/main.
 
 Thank you.
 
----
-
-# ClickHouse Series
-
-1. ClickHouse on Kubernetes
-2. [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
-3. [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
-4. [ClickHouse MergeTree Engine](https://blog.duyet.net/2024/05/clickhouse-mergetree.html)
-5. [ClickHouse ReplacingMergeTree Engine](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html)

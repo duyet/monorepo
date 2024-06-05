@@ -2,6 +2,7 @@
 title: ClickHouse ReplacingMergeTree Engine
 date: '2024-06-01'
 author: Duyet
+series: ClickHouse
 category: Data
 tags:
   - Data
@@ -16,13 +17,13 @@ My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is 
 
 Data duplication is a common issue within a data platform, even from upstream data sources or retrying data loads from previous runs. Duplications can be annoying.
 
-1. [Basic Syntax](#basic-syntax)
-1. [Data Insert](#data-insert)
-1. [OPTIMIZE FINAL](#optimize-final)
-1. [SELECT FINAL](#select-final)
-1. [PRIMARY KEY](#primary-key)
-1. [References](#references)
-1. [ClickHouse Series](#clickhouse-series)
+- [Basic Syntax](#basic-syntax)
+- [Data Insert](#data-insert)
+- [OPTIMIZE FINAL](#optimize-final)
+- [SELECT FINAL](#select-final)
+- [PRIMARY KEY](#primary-key)
+- [References](#references)
+- [ClickHouse Series](#clickhouse-series)
 
 # Basic Syntax
 
@@ -118,11 +119,4 @@ ORDER BY (user_id, event_type, event_time)
 
 - [ClickHouse ReplacingMergeTree Explained: The Good, The Bad, and The Ugly](https://altinity.com/blog/clickhouse-replacingmergetree-explained-the-good-the-bad-and-the-ugly)
 - [Change Data Capture (CDC) with PostgreSQL and ClickHouse - Part 1](https://clickhouse.com/blog/clickhouse-postgresql-change-data-capture-cdc-part-1)
-
-# ClickHouse Series
-
-1. [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
-2. [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
-3. [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring.html)
-4. [ClickHouse MergeTree Engine](https://blog.duyet.net/2024/05/clickhouse-mergetree.html)
-5. ClickHouse ReplacingMergeTree Engine
+- [`ReplacingMergeTree`](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replacingmergetree)

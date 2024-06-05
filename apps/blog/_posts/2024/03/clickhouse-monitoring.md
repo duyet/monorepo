@@ -3,6 +3,7 @@ title: Monitoring ClickHouse on Kubernetes
 date: '2024-03-27'
 author: Duyet
 category: Data
+series: ClickHouse
 tags:
   - Data
   - ClickHouse
@@ -80,13 +81,3 @@ EOF
 
 helm install -f values.yaml clickhouse-monitoring-release duyet/clickhouse-monitoring
 ```
-
----
-
-# ClickHouse Series
-
-1. [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html)
-2. [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances.html)
-3. Monitoring ClickHouse on Kubernetes
-4. [ClickHouse MergeTree Engine](https://blog.duyet.net/2024/05/clickhouse-mergetree.html)
-5. [ClickHouse ReplacingMergeTree Engine](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html)
