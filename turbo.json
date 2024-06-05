@@ -1,27 +1,5 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDotEnv": [".env", ".env.local"],
-  "pipeline": {
-    "build": {
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "dependsOn": ["^build"]
-    },
-    "lint": {},
-    "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "deploy": {
-      "dependsOn": ["build", "test", "lint"]
-    },
-    "clean": {
-      "cache": false
-    }
-  },
   "globalEnv": [
     "NEXT_PUBLIC_DUYET_CV_URL",
     "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -49,5 +27,28 @@
     "POSTGRES_USER",
     "POSTHOG_API_KEY",
     "POSTHOG_PROJECT_ID"
-  ]
+  ],
+  "globalDependencies": [".env", ".env.local"],
+  "tasks": {
+    "build": {
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "lint": {},
+    "fmt": {},
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "deploy": {
+      "dependsOn": ["build", "test", "lint"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
 }

@@ -14,16 +14,13 @@
     "dev": "dotenv -- turbo dev --parallel",
     "prepare": "husky install",
     "fix": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "fmt": "yarn fix",
-    "lint": "turbo lint",
+    "fmt": "dotenv -- turbo fmt",
+    "lint": "dotenv -- turbo lint",
     "prettier-check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "start": "turbo start"
+    "start": "dotenv -- turbo start"
   },
   "lint-staged": {
     "*": "prettier -w --ignore-unknown"
-  },
-  "dependencies": {
-    "dotenv-cli": "^7.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
@@ -33,6 +30,8 @@
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
     "prettier": "^3.0.0",
-    "turbo": "^1.13.3"
-  }
+    "turbo": "^2.0.1",
+    "dotenv-cli": "^7.3.0"
+  },
+  "packageManager": "yarn@1.22.22"
 }

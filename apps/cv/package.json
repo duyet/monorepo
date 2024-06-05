@@ -11,7 +11,8 @@
     "build": "next build",
     "dev": "next dev -p 3002",
     "fix": "prettier --write \"**/*.{ts,tsx}\" .",
-    "lint": "eslint .",
+    "fmt": "yarn fix",
+    "lint": "next lint",
     "prettier-check": "prettier --check .",
     "start": "next start"
   },
