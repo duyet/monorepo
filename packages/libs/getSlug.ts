@@ -1,4 +1,11 @@
-export const getSlug = (name?: string) => {
+/**
+ * Get slug from string
+ * Example: "Hello World!" => "hello-world", "Hello World 😊" => "hello-world"
+ *
+ * @param name
+ * @returns slug
+ */
+export const getSlug = (name?: string): string => {
   if (!name) {
     return "";
   }
@@ -12,6 +19,9 @@ export const getSlug = (name?: string) => {
         "",
       )
       .replace(/ /g, "-")
+      // Replace "-" at the beginning and end of the string, e.g. "-slug-" => "slug"
+      .replace(/^-+/, "")
+      .replace(/-+$/, "")
   );
 };
 
