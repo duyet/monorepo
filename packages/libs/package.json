@@ -24,8 +24,15 @@
     "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
     "@duyet/tsconfig": "*",
+    "@types/jest": "^29.5.12",
     "eslint": "8.57.0",
+    "jest": "^29.7.0",
     "prettier": "*",
+    "ts-jest": "^29.1.4",
     "typescript": "*"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
   }
 }

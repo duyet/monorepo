@@ -8,5 +8,6 @@ export default async function getUser(token: string) {
       },
     },
   );
+
   return await response.json();
 }
