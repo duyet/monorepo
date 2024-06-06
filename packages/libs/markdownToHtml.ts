@@ -10,7 +10,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-export default async function markdownToHtml(markdown: VFileCompatible) {
+export async function markdownToHtml(markdown: VFileCompatible) {
   const result = await unified()
     .use(remarkParse, { fragment: true })
     .use(remarkGfm)
@@ -24,3 +24,5 @@ export default async function markdownToHtml(markdown: VFileCompatible) {
 
   return result.toString();
 }
+
+export default markdownToHtml;
