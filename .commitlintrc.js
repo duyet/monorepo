@@ -22,6 +22,8 @@ module.exports = {
         "rust",
         // Docs-related changes
         "docs",
+        // Library-related changes
+        "lib",
       ],
     ],
     "scope-empty": [1, "never"],
