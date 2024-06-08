@@ -1,5 +1,11 @@
 import merge from "deepmerge";
 
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 const tremorTheme = require("./tremor.theme.js").theme;
 const shadcnTheme = require("./shadcn.theme.js").theme;
 
@@ -25,6 +31,10 @@ module.exports = {
   theme: {
     extend: {
       ...merge(tremorTheme, shadcnTheme),
+
+      colors: {
+        gold: "#ffd465",
+      },
 
       typography: (theme) => ({
         DEFAULT: {
@@ -82,6 +92,20 @@ module.exports = {
     require("tailwind-highlightjs"),
     require("tailwindcss-animate"),
     ...require("./tremor.theme.js").plugins,
+    addVariablesForColors,
   ],
   darkMode: ["class", 'html[class~="dark"]'],
 };
+
+// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
+// https://ui.aceternity.com/components/background-boxes
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}

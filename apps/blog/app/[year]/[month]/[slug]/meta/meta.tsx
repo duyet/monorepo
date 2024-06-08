@@ -31,7 +31,7 @@ export default function Content({ post, className }: ContentProps) {
           <Link href={`/category/${post.category_slug}`}>{post.category}</Link>
         </span>
         <span>&#x2022;</span>
-        <span className="flex max-w-[200px] flex-row gap-2 truncate">
+        <span className="flex flex-row gap-2 truncate">
           {post.tags.map((tag) => (
             <Link href={`/tag/${getSlug(tag)}`} key={tag} title={`Tag: ${tag}`}>
               {tag}

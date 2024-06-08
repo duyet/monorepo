@@ -1,4 +1,3 @@
-import Container from '@duyet/components/Container';
 import { getSeries } from '@duyet/libs/getSeries';
 import { notFound } from 'next/navigation';
 import { SeriesBox } from '../../../components/series';
@@ -16,11 +15,5 @@ export default function SeriesPage({ params: { slug } }: PageProps) {
     return notFound();
   }
 
-  return (
-    <Container>
-      <div className="mt-10">
-        <SeriesBox series={series} />
-      </div>
-    </Container>
-  );
+  return <SeriesBox className="mt-0 border-0 pb-10 pt-10" series={series} />;
 }
