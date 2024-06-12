@@ -1,13 +1,26 @@
+import { DownloadIcon } from '@radix-ui/react-icons';
+
 const file = 'https://cv.duyet.net/duyet.cv.pdf';
 
 export const metadata = {
-  title: 'Duyet Resume',
+  title: 'Duyet Le | Resume',
   description: '',
 };
 
 export default function Page() {
   return (
     <div>
+      <div className="mb-10 flex flex-col items-center justify-center">
+        <a
+          className="flex flex-row items-center gap-2 px-4 py-2 font-bold underline-offset-2 hover:underline"
+          download
+          href={file}
+        >
+          <DownloadIcon className="h-4 w-4" />
+          PDF Download
+        </a>
+      </div>
+
       <object
         className="min-h-[1000px] w-full border-0"
         data="/duyet.cv.pdf"
@@ -18,12 +31,6 @@ export default function Page() {
           title="cv"
         />
       </object>
-
-      <div className="mt-10 flex flex-col items-center justify-center">
-        <a className="px-4 py-2" download href={file}>
-          Download PDF
-        </a>
-      </div>
     </div>
   );
 }

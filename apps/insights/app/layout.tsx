@@ -50,7 +50,7 @@ export default function RootLayout({
             <Container className="mb-20">
               <Tabs defaultValue="blog">
                 <TabsList className="mb-3 text-muted-foreground">
-                  <TabsTrigger value="blog">Blog Insights</TabsTrigger>
+                  <TabsTrigger value="blog">Blog</TabsTrigger>
                   <TabsTrigger value="wakatime">Wakatime</TabsTrigger>
                   <TabsTrigger value="github">Github</TabsTrigger>
                 </TabsList>

@@ -1,6 +1,6 @@
 import { cn } from "@duyet/libs/utils";
 
-import Menu from "./Menu";
+import Menu, { type NavigationItem } from "./Menu";
 import Container from "./Container";
 import Logo from "./Logo";
 
@@ -9,6 +9,7 @@ interface HeaderProps {
   shortText?: string;
   longText?: string;
   center?: boolean;
+  navigationItems?: NavigationItem[];
 }
 
 export default function Header({
@@ -16,6 +17,7 @@ export default function Header({
   shortText = "Duyệt",
   longText = "Tôi là Duyệt",
   center = false,
+  navigationItems,
 }: HeaderProps) {
   return (
     <header
@@ -39,7 +41,7 @@ export default function Header({
             logoClassName={center ? "md:w-40 md:h-40" : ""}
             textClassName={center ? "md:text-7xl md:mt-5" : ""}
           />
-          <Menu />
+          <Menu navigationItems={navigationItems} />
         </nav>
       </Container>
     </header>

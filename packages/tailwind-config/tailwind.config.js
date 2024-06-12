@@ -1,7 +1,5 @@
 import merge from "deepmerge";
 
-const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
@@ -30,11 +28,11 @@ module.exports = {
   },
   theme: {
     extend: {
-      ...merge(tremorTheme, shadcnTheme),
-
-      colors: {
-        gold: "#ffd465",
-      },
+      ...merge(tremorTheme, shadcnTheme, {
+        colors: {
+          gold: "#ffd465",
+        },
+      }),
 
       typography: (theme) => ({
         DEFAULT: {

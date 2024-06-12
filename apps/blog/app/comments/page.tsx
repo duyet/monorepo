@@ -29,7 +29,7 @@ export default async function Comments() {
               className="prose flex flex-col dark:prose-invert"
               key={comment.created_at}
             >
-              <Link className="text-primary mb-2" href={comment.url}>
+              <Link className="mb-2 text-primary" href={comment.url}>
                 {comment.url.replace(URL_PREFIX, '')}
               </Link>
               <CommentContent
