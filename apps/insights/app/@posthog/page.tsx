@@ -18,14 +18,15 @@ export default async function PostHog() {
     return null;
   }
 
+  const top = 20;
   const last = 90;
-  const paths = await getTopPath(10, `-${last}d`);
+  const paths = await getTopPath(top, `-${last}d`);
 
   return (
     <div className="mt-10 space-y-6 rounded border p-5 dark:border-gray-800">
       <div className="basis-full">
         <div className="text-bold mb-4 flex flex-row justify-between">
-          <span className="font-bold">Top 10 Paths last {last} days</span>
+          <span className="font-bold">Top {top}</span>
           <span className="font-bold">Visitors</span>
         </div>
         <BarList
@@ -37,7 +38,7 @@ export default async function PostHog() {
         />
       </div>
 
-      <TextDataSource>PostHog</TextDataSource>
+      <TextDataSource>PostHog (last {last} days)</TextDataSource>
     </div>
   );
 }

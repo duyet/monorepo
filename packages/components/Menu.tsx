@@ -7,20 +7,29 @@ const BLOG_URL =
 const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
 
-const navigation = [
-  { name: "About", href: `${BLOG_URL}/about` },
-  { name: "Insights", href: INSIGHTS_URL },
-  { name: "Archives", href: `${BLOG_URL}/archives` },
-];
+export type NavigationItem = {
+  name: string;
+  href: string;
+};
+
+export const ABOUT = { name: "About", href: `${BLOG_URL}/about` };
+export const INSIGHTS = { name: "Insights", href: INSIGHTS_URL };
+export const ARCHIVES = { name: "Archives", href: `${BLOG_URL}/archives` };
+export const BLOG = { name: "Blog", href: `${BLOG_URL}` };
+const defaultNavigation = [ABOUT, INSIGHTS, ARCHIVES];
 
 type Props = {
   className?: string;
+  navigationItems?: NavigationItem[];
 };
 
-export default function Menu({ className }: Props) {
+export default function Menu({
+  className,
+  navigationItems = defaultNavigation,
+}: Props) {
   return (
     <div className={cn("flex flex-row gap-5 flex-wrap", className)}>
-      {navigation.map(({ name, href }) => (
+      {navigationItems.map(({ name, href }) => (
         <Link
           key={name}
           href={href}
