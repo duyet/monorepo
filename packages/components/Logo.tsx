@@ -6,20 +6,14 @@ import LOGO from "./logo.svg";
 
 interface LogoProps {
   className?: string;
-  textClassName?: string;
   logoClassName?: string;
-  shortText?: string;
-  longText?: string;
   width?: number;
   height?: number;
 }
 
 export default function Logo({
   className = "",
-  textClassName = "",
   logoClassName = "",
-  shortText,
-  longText,
   width = 50,
   height = 50,
 }: LogoProps) {
@@ -30,7 +24,6 @@ export default function Logo({
     "rounded-full",
     logoClassName,
   );
-  const textCls = cn("ml-2 font-bold text-lg", textClassName);
 
   return (
     <Link
@@ -44,12 +37,6 @@ export default function Logo({
         height={height}
         className={logoCls}
       />
-      {shortText && (
-        <span className={cn(textCls, "block sm:hidden")}>{shortText}</span>
-      )}
-      {longText && (
-        <span className={cn(textCls, "hidden sm:block")}>{longText}</span>
-      )}
     </Link>
   );
 }
