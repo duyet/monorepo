@@ -3,7 +3,7 @@ title: ClickHouse on Kubernetes
 date: '2024-03-13'
 author: Duyet
 category: Data
-series: ClickHouse
+series: ClickHouse on Kubernetes
 tags:
   - Data
   - ClickHouse

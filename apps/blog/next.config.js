@@ -1,4 +1,5 @@
 const { withAxiom } = require('next-axiom');
+const redirects = require('./next.redirects');
 
 /**
  * @type {import('next').NextConfig}
@@ -15,36 +16,7 @@ const config = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/categories',
-        destination: '/category',
-        permanent: true,
-      },
-      {
-        source: '/page/:id',
-        destination: '/?page=:id',
-        permanent: true,
-      },
-      {
-        source: '/pages/:id',
-        destination: '/:id',
-        permanent: true,
-      },
-      {
-        source: '/stats',
-        destination: 'https://insights.duyet.net',
-        permanent: true,
-      },
-      {
-        // Non-html to .html blog post
-        source: '/:year/:month/:slug/',
-        destination: '/:year/:month/:slug.html',
-        permanent: true,
-      },
-    ];
-  },
+  redirects,
 };
 
 module.exports = withAxiom(config);

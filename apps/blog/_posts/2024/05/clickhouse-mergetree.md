@@ -3,7 +3,7 @@ title: ClickHouse MergeTree Engine
 date: '2024-05-31'
 author: Duyet
 category: Data
-series: ClickHouse
+series: ClickHouse on Kubernetes
 tags:
   - Data
   - ClickHouse

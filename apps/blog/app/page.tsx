@@ -2,6 +2,7 @@ import Container from '@duyet/components/Container';
 import Feed from '@duyet/components/Feed';
 import Header from '@duyet/components/Header';
 import { getAllPosts } from '@duyet/libs/getPost';
+import Link from 'next/link';
 
 type Params = Record<string, string>;
 
@@ -26,9 +27,14 @@ export default async function Page({ params }: { params: Params }) {
   const posts = await getPosts(params);
   return (
     <>
-      <Header center longText="Data Engineering" />
+      <Header center logo={false} longText="Data Engineering" />
       <Container>
         <Feed posts={posts} />
+        <Link href="/archives?ref=home">
+          <div className="py-3 text-center hover:bg-gray-100 hover:underline">
+            See more
+          </div>
+        </Link>
       </Container>
     </>
   );

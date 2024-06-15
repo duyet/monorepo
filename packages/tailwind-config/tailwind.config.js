@@ -28,11 +28,15 @@ module.exports = {
   },
   theme: {
     extend: {
-      ...merge(tremorTheme, shadcnTheme, {
-        colors: {
-          gold: "#ffd465",
+      ...merge.all([
+        tremorTheme,
+        shadcnTheme,
+        {
+          colors: {
+            gold: "#ffd465",
+          },
         },
-      }),
+      ]),
 
       typography: (theme) => ({
         DEFAULT: {
