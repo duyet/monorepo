@@ -1,6 +1,6 @@
 import type { Post } from '@duyet/interfaces';
 import { getPostBySlug } from '@duyet/libs/getPost';
-import markdownToHtml from '@duyet/libs/markdownToHtml';
+import { markdownToHtml } from '@duyet/libs/markdownToHtml';
 import { cn } from '@duyet/libs/utils';
 
 export default function Content({ post }: { post: Post }) {
@@ -10,9 +10,8 @@ export default function Content({ post }: { post: Post }) {
         <h1
           className={cn(
             'mt-2 inline-block py-2',
-            'bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text',
             'dark:from-gray-50 dark:to-gray-300',
-            'text-4xl font-bold tracking-normal text-transparent',
+            'text-4xl font-bold tracking-normal',
             'md:text-5xl md:tracking-tighter',
             'lg:text-6xl lg:tracking-tighter',
           )}
@@ -52,6 +51,6 @@ export async function getPost(slug: string[]) {
 
 // TODO: remove hardcode
 const getGithubEditUrl = (slug: string) => {
-  const file = slug.replace(/\.md|htm|html$/, '.md').replace(/^\/?/, '');
+  const file = slug.replace(/\.md|\.html|\.htm$/, '.md').replace(/^\/?/, '');
   return `https://github.com/duyet/monorepo/edit/master/apps/blog/_posts/${file}`;
 };
