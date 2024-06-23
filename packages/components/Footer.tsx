@@ -52,7 +52,7 @@ const navigation = {
       name: "Rust Tiếng Việt (Book)",
       href: "https://rust-tieng-viet.github.io/?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet",
     },
-    { name: "pageview.js", href: "https://pageview.duyet.net" },
+    { name: "/ai", href: `${BLOG_URL}/ai` },
     { name: "/archives", href: `${BLOG_URL}/archives` },
     { name: "/insights", href: INSIGHTS_URL },
   ],
