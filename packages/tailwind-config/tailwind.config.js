@@ -48,6 +48,7 @@ module.exports = {
               textDecorationThickness: "from-font",
               textOverflow: "ellipsis",
               overflow: "hidden",
+              overflowWrap: "break-word",
               whiteSpace: "break-spaces",
               wordBreak: "break-word",
               "&:hover": {
@@ -61,6 +62,10 @@ module.exports = {
             },
             pre: {
               padding: 5,
+            },
+            code: {
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
             },
           },
         },
