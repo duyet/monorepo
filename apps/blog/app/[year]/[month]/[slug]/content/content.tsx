@@ -9,7 +9,7 @@ export default function Content({ post }: { post: Post }) {
       <header>
         <h1
           className={cn(
-            'mt-2 inline-block py-2',
+            'mt-2 inline-block break-words py-2',
             'dark:from-gray-50 dark:to-gray-300',
             'text-4xl font-bold tracking-normal',
             'md:text-5xl md:tracking-tighter',
@@ -21,7 +21,10 @@ export default function Content({ post }: { post: Post }) {
       </header>
 
       <article
-        className={cn('prose dark:prose-invert', 'mb-10 mt-10 max-w-none')}
+        className={cn(
+          'prose dark:prose-invert prose-code:break-words',
+          'mb-10 mt-10 max-w-none',
+        )}
         dangerouslySetInnerHTML={{ __html: post.content || 'No content' }}
       />
     </>
