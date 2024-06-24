@@ -19,19 +19,21 @@ Now you have a large single node cluster with a [ReplacingMergeTree](https://blo
 1. [Create Replicated table](#create-replicated-table)
 1. [Data insert](#data-insert)
 1. [Manage replication](#manage-replication)
-    - [How many replication jobs are running?](#how-many-replication-jobs-are-running)
-    - [The `system.replicated_fetches` also contains the detail of fetching tasks](#the-systemreplicated_fetches-also-contains-the-detail-of-fetching-tasks)
-    - [clickhouse-monitoring](#clickhouse-monitoring)
+   - [How many replication jobs are running?](#how-many-replication-jobs-are-running)
+   - [The `system.replicated_fetches` also contains the detail of fetching tasks](#the-systemreplicated_fetches-also-contains-the-detail-of-fetching-tasks)
+   - [clickhouse-monitoring](#clickhouse-monitoring)
+1. [Converting from MergeTree to ReplicatedMergeTree](#converting-from-mergetree-to-replicatedmergetree)
 1. [Replication Performance Tuning](#replication-performance-tuning)
 1. [References](#references)
 
-
 In this replicated setup, table will be synced between `clickhouse-01` and `clickhouse-02` via ClickHouse Keeper (or Zookeeper).
-
 
 ![](/media/2024/06/clickhouse-replicated/clickhouse-replicatedreplacingmergetree.png)
 
-Replication works at the level of an individual table. Note that Data Replication between nodes is not limited to the ReplicatedReplacingMergeTree engine only, this is just a recommended and the most useful table engine for data engineers. Replication can support all engines in the MergeTree family.
+Replication works at the level of an individual table.
+Note that Data Replication between nodes is not limited to the `ReplicatedReplacingMergeTree` engine only,
+this is just a recommended and the most useful table engine for data engineers.
+Replication can support all engines in the MergeTree family.
 
 - ReplicatedMergeTree
 - ReplicatedSummingMergeTree
@@ -44,6 +46,7 @@ Replication works at the level of an individual table. Note that Data Replicatio
 # Cluster setup via ClickHouse Operator
 
 With the previous [clickhouse-operator installed](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html), you will need
+
 1. to have **Zookeeper** or **ClickHouse Keeper installed** on your Kubernetes.
 2. then, you can modify the single `ClickHouseInstallation` or add a new cluster by configuring it to **connect to the Keeper cluster**.
 
@@ -69,10 +72,10 @@ metadata:
   name: cluster
 spec:
   defaults:
-    templates: 
+    templates:
       dataVolumeClaimTemplate: default
       podTemplate: clickhouse:24.5
- 
+
   configuration:
     zookeeper:
       nodes:
@@ -196,11 +199,12 @@ $ kubectl exec chi-cluster-clickhouse-0-0 -- clickhouse client -q "SELECT hostNa
 │ chi-cluster-clickhouse-1-0 │       1 │
 └────────────────────────────┴─────────┘
 ```
+
 # Manage replication
 
 With `Replicated*MergeTree` tables, you may sometimes see that it is slow to determine if they are up to date with another instance, or how to ensure they are already synchronized. ClickHouse provides some system tables to help us monitor that.
 
-### How many replication jobs are running?
+## How many replication jobs are running?
 
 ```sql
 SELECT
@@ -235,7 +239,7 @@ WHERE metric LIKE '%Fetch%'
 └───────────────────────────┴───────┴──────────────────────────────────────────────────────────────────────────┘
 ```
 
-### The `system.replicated_fetches` also contains the detail of fetching tasks
+## The `system.replicated_fetches` also contains the detail of fetching tasks
 
 Number of jobs are running:
 
@@ -274,13 +278,66 @@ to_detached:                 0
 thread_id:                   670
 ```
 
-### clickhouse-monitoring
+## clickhouse-monitoring
 
 All these query above can be easily managed via [clickhouse-monitoring](http://github.com/duyet/clickhouse-monitoring) UI tool. Checking [previous post](https://blog.duyet.net/2024/03/clickhouse-monitoring.html#4-clickhouse-monitoring-ui-dashboard) for installation and usage.
 
+# Converting from MergeTree to ReplicatedMergeTree
+
+Options here are:
+
+1. For small table, create new replicated table then copy data via: `INSERT INTO SELECT` then drop the old table.
+
+```sql
+CREATE TABLE replicated_events ON CLUSTER '{cluster}' ...
+INSERT INTO replicated_events SELECT * FROM events;
+```
+
+2. For larger table, create new replicated table then COPY parts from the old table to the new one. This can be done by [`ATTACH PARTITION FROM`](https://clickhouse.com/docs/en/sql-reference/statements/alter/partition#attach-partition-from) command.
+
+```sql
+CREATE replicated_events ON CLUSTER '{cluster}'
+AS events                                  -- copy the structure from the old table
+ENGINE = ReplicatedReplacingMergeTree      -- change the engine
+PARTITION BY toYYYYMM(event_date)
+ORDER BY (user_id, event_type, event_time);
+
+SELECT DISTINCT format('ALTER TABLE replicated_events ATTACH PARTITION ID {} FROM events;', partition_id) FROM system.parts WHERE table = 'events';
+
+-- Copy and execute the output of the above query to attach all parts
+ALTER TABLE replicated_events ATTACH PARTITION ID 20230217_11_11_143 FROM events;
+ALTER TABLE replicated_events ATTACH PARTITION ID 20230218_41_41_222 FROM events;
+...
+```
+
+3. If you understand and can modify the file system, you can directly perform some file manipulation by renaming the old existing MergeTree table, then creating a `ReplicatedMergeTree` table with the old name. Move all the old data parts to the `detached` folder, then ClickHouse will automatically attach them to the new table.
+
+```sql
+-- Rename the old table
+-- /var/lib/clickhouse/data/default/events_old
+RENAME TABLE events TO events_old;
+
+-- Create new replicated table
+-- /var/lib/clickhouse/data/default/events
+CREATE TABLE events ON CLUSTER '{cluster}'
+AS events_old ...;
+```
+
+Copy all parts from the old table to the new one:
+
+```bash
+mkdir -p /var/lib/clickhouse/data/default/events/detached
+mv /var/lib/clickhouse/data/default/events_old/* /var/lib/clickhouse/data/default/events/detached/
+```
+
+Run `ALTER TABLE ATTACH PARTITION` to attach all parts or restart the ClickHouse server will automatically attach them.
+
+4. Do a backup of `MergeTree` and recover as `ReplicatedMergeTree`. [See example here](https://github.com/AlexAkulov/clickhouse-backup/blob/master/Examples.md#how-to-convert-mergetree-to-replicatedmegretree)
+
 # Replication Performance Tuning
 
-Parts will be fetched immediately or during hours or days, depending on your table size. If you see the replication is too slow, consider checking the `system.replication_queue` table, which shows the entries with `postpone_reason`.
+Parts will be fetched immediately or during hours or days, depending on your table size.
+If you see the replication is too slow, consider checking the `system.replication_queue` table, which shows the entries with `postpone_reason`.
 
 ```sql
 SELECT
@@ -301,7 +358,9 @@ Query id: 64130c98-9536-4c41-abe3-5f26a27a2ffb
 └──────────┴──────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-This is mostly ok because the maximum replication slots just are being used. In case you believe your cluster can handle more than that, consider to increase the pool size [`background_fetches_pool_size`](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#background_fetches_pool_size)
+This is mostly ok because the maximum replication slots just are being used.
+In case you believe your cluster can handle more than that, consider to increase the pool size
+[`background_fetches_pool_size`](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#background_fetches_pool_size)
 
 ```xml
 <yandex>
@@ -321,8 +380,6 @@ The `MergeTree` setting [`replicated_max_parallel_fetches_for_host`](https://cli
 <yandex>
 ```
 
-
-
 The [`replicated_fetches_http_connection_timeout`](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#replicated_fetches_http_connection_timeout) and [`replicated_fetches_http_receive_timeout`](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#replicated_fetches_http_receive_timeout) sometimes helps if you see a lot of timeout errors in the ClickHouse logs, but wouldn't it be better to reduce the pool size instead.
 
 ```xml
@@ -337,8 +394,8 @@ The [`replicated_fetches_http_connection_timeout`](https://clickhouse.com/docs/e
 ```
 
 # References
+
+- [Data Replication - ClickHouse Documentation](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/)
 - [Setup ClickHouse cluster with data replication](https://github.com/Altinity/clickhouse-operator/blob/master/docs/replication_setup.md)
 - [Update ClickHouse Installation - add replication to existing non-replicated cluster](https://github.com/Altinity/clickhouse-operator/blob/master/docs/chi_update_add_replication.md)
 - [Converting MergeTree to Replicated](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/)
-
-
