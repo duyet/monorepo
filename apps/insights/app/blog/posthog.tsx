@@ -12,7 +12,7 @@ interface Path {
   views: number;
 }
 
-export default async function PostHog() {
+export async function PostHog() {
   if (!process.env.POSTHOG_API_KEY || !process.env.POSTHOG_PROJECT_ID) {
     console.error('POSTHOG_API_KEY or POSTHOG_PROJECT_ID is not set');
     return null;

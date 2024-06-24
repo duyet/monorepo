@@ -16,17 +16,15 @@ const githubStatUrl = (params: { theme: string }): string => {
   return `https://github-readme-stats.vercel.app/api?${urlParams.toString()}`;
 };
 
-export default async function Github() {
+export function GithubCard() {
   return (
-    <div className="mt-10 space-y-6">
-      <StaticCard
-        className="dark:border-0 dark:p-0"
-        source="Github"
-        url={{
-          light: githubStatUrl({ theme: 'default' }),
-          dark: githubStatUrl({ theme: 'dracula' }),
-        }}
-      />
-    </div>
+    <StaticCard
+      className="dark:border-0 dark:p-0"
+      source="Github"
+      url={{
+        light: githubStatUrl({ theme: 'default' }),
+        dark: githubStatUrl({ theme: 'dracula' }),
+      }}
+    />
   );
 }

@@ -17,7 +17,7 @@ async function dataFormatter(number: number) {
   return Intl.NumberFormat('us').format(number).toString();
 }
 
-export default async function Cloudflare() {
+export async function Cloudflare() {
   const { data, generatedAt, totalRequests, totalPageviews } = await getData();
 
   const chartData = data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {

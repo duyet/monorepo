@@ -6,13 +6,8 @@ import Footer from '@duyet/components/Footer';
 import Head from '@duyet/components/Head';
 import Header from '@duyet/components/Header';
 import ThemeProvider from '@duyet/components/ThemeProvider';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@duyet/components/ui/tabs';
 import { Inter } from 'next/font/google';
+import { Tabs } from '../components/tabs';
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],
@@ -27,18 +22,10 @@ export const metadata = {
 };
 
 interface LayoutProps {
-  cloudflare: React.ReactNode;
-  posthog: React.ReactNode;
-  wakatime: React.ReactNode;
-  github: React.ReactNode;
+  children: React.ReactNode;
 }
 
-export default function RootLayout({
-  cloudflare,
-  posthog,
-  wakatime,
-  github,
-}: LayoutProps) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html className={inter.className} lang="en">
       <Head />
@@ -48,19 +35,14 @@ export default function RootLayout({
 
           <main>
             <Container className="mb-20">
-              <Tabs defaultValue="blog">
-                <TabsList className="mb-3 text-muted-foreground">
-                  <TabsTrigger value="blog">Blog</TabsTrigger>
-                  <TabsTrigger value="wakatime">Wakatime</TabsTrigger>
-                  <TabsTrigger value="github">Github</TabsTrigger>
-                </TabsList>
-                <TabsContent value="blog">
-                  {cloudflare}
-                  {posthog}
-                </TabsContent>
-                <TabsContent value="wakatime">{wakatime}</TabsContent>
-                <TabsContent value="github">{github}</TabsContent>
-              </Tabs>
+              <Tabs
+                tabs={[
+                  { text: 'Blog', href: '/blog' },
+                  { text: 'Wakatime', href: '/wakatime' },
+                  { text: 'GitHub', href: '/github' },
+                ]}
+              />
+              <div className="mt-10">{children}</div>
             </Container>
           </main>
 

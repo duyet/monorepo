@@ -1,24 +1,16 @@
 /* eslint-disable camelcase -- because want to keep original variable name from github api */
+
+import type { GithubRepo } from '@duyet/interfaces';
 import { cn } from '@duyet/libs/utils';
 import { CodeIcon, StarIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
-interface ProjectProps {
+interface RepoProps {
   className?: string;
 }
 
-interface Project {
-  name: string;
-  html_url: string;
-  description: string;
-  stargazers_count: number;
-  language: string;
-  archived: boolean;
-  disabled: boolean;
-}
-
-export async function Projects({ className }: ProjectProps) {
-  const projects = await getGithubProjects(
+export async function Repos({ className }: RepoProps) {
+  const repos = await getGithubRepos(
     'duyet',
     ['clickhouse-monitoring', 'pricetrack', 'grant-rs', 'charts'],
     [
@@ -36,19 +28,19 @@ export async function Projects({ className }: ProjectProps) {
 
   return (
     <div className={cn('w-full', className)}>
-      <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {projects.map((project) => (
-          <ProjectItem key={project.name} project={project} />
+      <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {repos.map((repo: GithubRepo) => (
+          <Repo key={repo.name} repo={repo} />
         ))}
       </div>
     </div>
   );
 }
 
-function ProjectItem({
-  project: { name, html_url, description, stargazers_count, language },
+function Repo({
+  repo: { name, html_url, description, stargazers_count, language },
 }: {
-  project: Project;
+  repo: GithubRepo;
 }) {
   return (
     <div className="group relative rounded-lg border bg-background p-4 transition-all hover:shadow-lg">
@@ -69,12 +61,18 @@ function ProjectItem({
           {description || 'No description'}
         </p>
 
-        {language ? (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <CodeIcon className="h-4 w-4" />
-            <span>{language}</span>
-          </div>
-        ) : null}
+        <div className="flex flex-row">
+          {language ? (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <CodeIcon className="h-4 w-4" />
+              <span>{language}</span>
+            </div>
+          ) : (
+            <div />
+          )}
+
+          <div />
+        </div>
       </div>
     </div>
   );
@@ -83,47 +81,54 @@ function ProjectItem({
 /**
  * Get Github projects of a user with some preferred projects and ignored projects
  */
-async function getGithubProjects(
+async function getGithubRepos(
   owner: string,
   preferredProjects: string[] = [],
   ignoredProjects: string[] = [],
   n = 8,
-): Promise<Project[]> {
-  let allProjects: Project[] = [];
+): Promise<GithubRepo[]> {
+  let repos: GithubRepo[] = [];
 
   const fetchPage = async (page: number) => {
     const params = new URLSearchParams({
-      sort: 'pushed',
+      q: `user:${owner}`,
+      sort: 'stars',
       per_page: '100',
       type: 'all',
       page: page.toString(),
     });
+
+    const headers = new Headers({
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    });
+
     const res = await fetch(
-      `https://api.github.com/users/${owner}/repos?${params.toString()}`,
-      { cache: 'force-cache' },
+      `https://api.github.com/search/repositories?${params.toString()}`,
+      { cache: 'force-cache', headers },
     );
-    return res.json() as Promise<Project[]>;
+
+    return res.json() as Promise<{ items: GithubRepo[] }>;
   };
 
-  const results = await Promise.all([1, 2, 3, 4, 5, 6].map(fetchPage));
-  allProjects = results.flat();
+  const results = await fetchPage(1);
+  repos = results.items;
 
-  const filteredProjects = allProjects.filter(
-    (project: Project) =>
-      project.stargazers_count > 0 &&
-      !project.archived &&
-      !project.disabled &&
-      !ignoredProjects.includes(project.name),
+  const filteredRepos = repos.filter(
+    (repo: GithubRepo) =>
+      repo.stargazers_count > 0 &&
+      !repo.archived &&
+      !repo.disabled &&
+      !ignoredProjects.includes(repo.name),
   );
 
-  const sortedProjects = [
+  const sortedRepos = [
     ...preferredProjects
-      .map((name) => filteredProjects.find((p) => p.name === name))
+      .map((name) => filteredRepos.find((p) => p.name === name))
       .filter(Boolean),
-    ...filteredProjects.filter((p) => !preferredProjects.includes(p.name)),
+    ...filteredRepos.filter((p) => !preferredProjects.includes(p.name)),
   ]
-    .filter((project): project is Project => project !== undefined)
+    .filter((project): project is GithubRepo => project !== undefined)
     .sort((a, b) => b.stargazers_count - a.stargazers_count);
 
-  return sortedProjects.slice(0, n);
+  return sortedRepos.slice(0, n);
 }
