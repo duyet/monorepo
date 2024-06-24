@@ -19,6 +19,7 @@ env:
   KV_REST_API_URL: ${{ secrets.KV_REST_API_URL }}
   KV_REST_API_TOKEN: ${{ secrets.KV_REST_API_TOKEN }}
   KV_REST_API_READ_ONLY_TOKEN: ${{ secrets.KV_REST_API_READ_ONLY_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   analyze:

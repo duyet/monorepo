@@ -6,12 +6,13 @@ import { CodeIcon, StarIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
 interface RepoProps {
+  owner: string;
   className?: string;
 }
 
-export async function Repos({ className }: RepoProps) {
+export async function Repos({ owner, className }: RepoProps) {
   const repos = await getGithubRepos(
-    'duyet',
+    owner,
     ['clickhouse-monitoring', 'pricetrack', 'grant-rs', 'charts'],
     [
       'awesome-web-scraper',

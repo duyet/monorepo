@@ -35,13 +35,15 @@ export default function RootLayout({ children }: LayoutProps) {
 
           <main>
             <Container className="mb-20">
-              <Tabs
-                tabs={[
-                  { text: 'Blog', href: '/blog' },
-                  { text: 'Wakatime', href: '/wakatime' },
-                  { text: 'GitHub', href: '/github' },
-                ]}
-              />
+              <div>
+                <Tabs
+                  tabs={[
+                    { text: 'Blog', href: '/blog' },
+                    { text: 'GitHub', href: '/github' },
+                    { text: 'Wakatime', href: '/wakatime' },
+                  ]}
+                />
+              </div>
               <div className="mt-10">{children}</div>
             </Container>
           </main>
