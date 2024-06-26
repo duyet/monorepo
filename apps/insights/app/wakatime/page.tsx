@@ -4,6 +4,11 @@ import Image from 'next/image';
 import { StaticCard } from '../../components/static-card';
 import { TextDataSource } from '../../components/text-data-source';
 
+export const metadata = {
+  title: '@duyet Coding Insights',
+  description: 'Coding Insights data collected from Wakatime.',
+};
+
 const WAKA_CODING_ACTIVITY_API =
   'https://wakatime.com/share/@duyet/2fe9921d-4bd2-4a6f-87a1-5cc2fcc5a9fc.json';
 

@@ -26,7 +26,8 @@
     "POSTGRES_URL_NON_POOLING",
     "POSTGRES_USER",
     "POSTHOG_API_KEY",
-    "POSTHOG_PROJECT_ID"
+    "POSTHOG_PROJECT_ID",
+    "GITHUB_TOKEN"
   ],
   "globalDependencies": [".env", ".env.local"],
   "tasks": {

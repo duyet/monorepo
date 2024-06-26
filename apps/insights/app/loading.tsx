@@ -1,5 +1,5 @@
-import Loading from '@duyet/components/Loading';
+import { SkeletonCard } from '../components/skeleton-card';
 
 export default function Page() {
-  return <Loading />;
+  return <SkeletonCard />;
 }

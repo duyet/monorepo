@@ -1,5 +1,4 @@
 import Container from '@duyet/components/Container';
-import { Projects } from '../../components/projects';
 
 interface Link {
   name: string;
@@ -81,10 +80,6 @@ export default function About() {
           </p>
         </div>
       </Container>
-
-      <div className="lg:m-15 m-5 md:mx-20">
-        <Projects />
-      </div>
     </div>
   );
 }
