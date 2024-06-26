@@ -1,7 +1,7 @@
 ---
 title: api.duyet.net
 date: '2018-11-18'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - 'api.duyet.net'
 modified_time: '2018-11-18T00:17:49.832+07:00'

@@ -3,7 +3,7 @@ title:
   Làm theo được 6 điều dưới đây, đảm bảo vứt ở đâu bạn cũng sống tốt thu nhập
   cao.
 date: '2015-08-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tony
   - Tony buổi sáng

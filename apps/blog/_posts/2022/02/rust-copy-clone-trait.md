@@ -1,7 +1,7 @@
 ---
 title: 'Rust: Copy & Clone Trait'
 date: '2022-02-13'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

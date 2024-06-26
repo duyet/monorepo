@@ -1,7 +1,7 @@
 ---
 title: Year In Review 2015
 date: '2015-12-31'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Review in year
   - Year In Review [2015]

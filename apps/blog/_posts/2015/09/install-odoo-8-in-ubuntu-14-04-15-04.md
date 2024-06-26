@@ -1,7 +1,7 @@
 ---
 title: Install Odoo 8 in Ubuntu 14.04/15.04
 date: '2015-09-22'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Linux
   - Tutorial

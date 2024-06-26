@@ -1,12 +1,12 @@
 ---
 title: Guess.js
 date: '2019-08-09'
-author: Van-Duyet Le
+author: Duyet
 category: Javascript
 tags:
   - Data
   - Web
-  - Data Engineer
+  - Data Engineering
   - Javascript
 
 thumbnail: https://4.bp.blogspot.com/-Gjsnx_YH4HM/XU2UV2DlnnI/AAAAAAABFVM/LjDl6ilxQeYPzQgs_acID9VEwy4L62QsACK4BGAYYCw/s200/guess.png

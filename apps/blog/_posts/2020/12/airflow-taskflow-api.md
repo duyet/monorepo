@@ -1,11 +1,11 @@
 ---
 title: Airflow 2.0 - Taskflow API
 date: '2020-12-26'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
   - Airflow
-  - Data Engineer
+  - Data Engineering
   - Airflow 2.0
 thumbnail: https://1.bp.blogspot.com/-ON0KTUqotAs/X-chcnFmhtI/AAAAAAABzmA/-kBwGuYyCS44Q16FCHL23iio9WUm6Ux9wCLcBGAsYHQ/s0/duyet-airflow-taskflow-api.png
 slug: /2020/12/airflow-taskflow-api.html

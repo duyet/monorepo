@@ -1,7 +1,7 @@
 ---
 title: PHP - Cài đặt APC (Alternative PHP Cache) cho XAMPP trên Linux
 date: '2015-05-16'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - XAMPP
   - APC

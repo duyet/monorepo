@@ -1,10 +1,10 @@
 ---
 title: Bitbucket Pipelines Notes
 date: '2021-08-27'
-author: Van-Duyet Le
+author: Duyet
 category: Productivity
 tags:
-  - Data Engineer
+  - Data Engineering
   - Git
   - Bitbucket
 thumbnail: https://1.bp.blogspot.com/-n5JQguH7_m8/YSm0Goi6CsI/AAAAAAACNKs/Qc1CH4ETIwcN06Iw6fBswAikkl56mhmYQCLcBGAsYHQ/s16000/Screen%2BShot%2B2021-08-27%2Bat%2B9.24.21%2BPM.png

@@ -1,7 +1,7 @@
 ---
 title: Tự động hóa Internet với IFTTT
 date: '2016-02-10'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Auto
   - Service

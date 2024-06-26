@@ -1,7 +1,7 @@
 ---
 title: Duyet stackshare
 date: '2019-01-29'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Share
   - StackShare

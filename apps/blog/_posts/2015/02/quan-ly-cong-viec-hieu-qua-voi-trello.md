@@ -1,7 +1,7 @@
 ---
 title: Quản lý công việc hiệu quả với Trello
 date: '2015-02-14'
-author: Van-Duyet Le
+author: Duyet
 category: Productivity
 tags:
   - Productivity

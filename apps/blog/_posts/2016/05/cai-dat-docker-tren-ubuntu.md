@@ -1,7 +1,7 @@
 ---
 title: Cài đặt Docker trên Ubuntu
 date: '2016-05-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Docker
   - How-to

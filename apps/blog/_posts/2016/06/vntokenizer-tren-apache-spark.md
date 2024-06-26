@@ -1,19 +1,16 @@
 ---
 title: Chạy vnTokenizer trên môi trường Apache Spark
 date: '2016-06-23'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Apache Spark
   - vnTokenizer
   - Big Data
   - Machine Learning
-  - Gán nhãn
-  - Tách từ
 modified_time: '2018-09-10T17:20:36.889+07:00'
 slug: /2016/06/vntokenizer-tren-apache-spark.html
 category: Machine Learning
 description: vnTokenizer là công cụ chuyên dùng tách từ, gán nhãn từ loại cho tiếng Việt, của tác giả Lê Hồng Phương. vnTokenizer được viết bằng Java, có thể sử dụng như Tools Command Line hoặc Programming.
-fbCommentUrl: http://blog.duyetdev.com/2016/06/vntokenizer-tren-apache-spark.html
 ---
 
 [vnTokenizer](http://mim.hus.vnu.edu.vn/phuonglh/softwares/vnTokenizer) là công cụ chuyên dùng tách từ, gán nhãn từ loại cho tiếng Việt, của tác giả [Lê Hồng Phương](http://mim.hus.vnu.edu.vn/phuonglh/). vnTokenizer được viết bằng Java, có thể sử dụng như Tools Command Line hoặc Programming.

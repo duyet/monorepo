@@ -1,11 +1,11 @@
 ---
 title: 'Yarn: A new package manager for JavaScript'
 date: '2016-10-13'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Yarn
   - NPM
-  - intro-js
+
   - Javascript
   - Node.js
   - facebook

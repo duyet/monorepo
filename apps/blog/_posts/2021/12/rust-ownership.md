@@ -1,7 +1,7 @@
 ---
 title: 'Rust: Ownership'
 date: '2021-12-19'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

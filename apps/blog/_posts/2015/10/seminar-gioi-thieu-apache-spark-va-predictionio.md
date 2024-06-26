@@ -1,7 +1,7 @@
 ---
 title: Seminar - Giới thiệu Apache Spark và PredictionIO
 date: '2015-10-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Apache Spark
   - Seminar

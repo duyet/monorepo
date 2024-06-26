@@ -1,7 +1,7 @@
 ---
 title: Super Simple Shorten URL với Firebase Dynamic Links
 date: '2019-04-19'
-author: Van-Duyet Le
+author: Duyet
 category: Project
 tags:
   - Dynamic Links

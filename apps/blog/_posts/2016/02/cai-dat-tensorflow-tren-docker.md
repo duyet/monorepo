@@ -1,7 +1,7 @@
 ---
 title: Tensorflow - cài đặt trên Docker
 date: '2016-02-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tensorflow
   - Docker

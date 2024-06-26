@@ -1,10 +1,10 @@
 ---
 title: 'Data Studio: Connecting BigQuery and Google Sheets to help with hefty data analysis'
 date: '2020-05-01'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
-  - Data Engineer
+  - Data Engineering
   - Visualization
   - Data Studio
 

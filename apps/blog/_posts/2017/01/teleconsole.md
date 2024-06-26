@@ -1,7 +1,7 @@
 ---
 title: 'Teleconsole - Chia sẻ remote console '
 date: '2017-01-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Share Terminal
   - Teleconsole
@@ -10,7 +10,6 @@ thumbnail: https://4.bp.blogspot.com/-SyehZxOfseM/WIlfpz8ZHGI/AAAAAAAAioQ/RZdJWw
 slug: /2017/01/teleconsole.html
 category: Linux
 description: Teleconsole là dịch vụ miễn phí dùng để chia sẻ terminal session với người khác, giống như Teamviewer cho Terminal.
-fbCommentUrl: none
 ---
 
 Teleconsole là dịch vụ miễn phí dùng để chia sẻ terminal session với người khác, giống như Teamviewer cho Terminal.

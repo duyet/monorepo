@@ -1,10 +1,8 @@
 ---
 title: WebGazer.js - theo dõi chuyển động mắt của người dùng trên Website
 date: '2016-05-29'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - intro-js
-  - Tutorials
   - Javascript
   - Machine Learning
   - WebGazer.js

@@ -1,7 +1,7 @@
 ---
 title: Detect robots in koa
 date: '2016-02-21'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - koa

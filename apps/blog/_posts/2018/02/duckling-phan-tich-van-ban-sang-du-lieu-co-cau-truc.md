@@ -1,9 +1,9 @@
 ---
 title: Duckling - phân tích văn bản sang dữ liệu có cấu trúc
 date: '2018-02-19'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Open Source
   - Chatbot
   - Duckling

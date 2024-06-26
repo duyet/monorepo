@@ -6,9 +6,11 @@ import Link from 'next/link';
 export default function Tags() {
   const tags: TagCount = getAllTags();
 
-  // Sort
+  // Sort and keep tags with > 1 post
   const sortedTags = Object.fromEntries(
-    Object.entries(tags).sort(([, a], [, b]) => b - a),
+    Object.entries(tags)
+      .filter(([, count]) => count > 1)
+      .sort(([, a], [, b]) => b - a),
   );
 
   return (

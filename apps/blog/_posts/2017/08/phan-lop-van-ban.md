@@ -1,9 +1,9 @@
 ---
 title: Phân lớp văn bản
 date: '2017-08-11'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Gensim
   - Tutorial
   - Text Classification
@@ -17,7 +17,6 @@ thumbnail: https://3.bp.blogspot.com/-_i6Le_EX3oU/WX_10OCZ9lI/AAAAAAAAmV8/X7JDtZ
 slug: /2017/08/phan-lop-van-ban.html
 category: Machine Learning
 description: Trong Machine Learning và NLP, phân lớp văn bản là một bài toán xử lí văn bản cổ điển, gán các nhãn phân loại lên một văn bản mới dựa trên mức độ tương tự của văn bản đó so với các văn bản đã được gán nhãn trong tập huấn luyện.
-fbCommentUrl: http://blog.duyetdev.com/2017/08/phan-lop-van-ban.html
 ---
 
 Trong Machine Learning và NLP, phân lớp văn bản là một bài toán xử lí văn bản cổ điển, gán các nhãn phân loại lên một văn bản mới dựa trên mức độ tương tự của văn bản đó so với các văn bản đã được gán nhãn trong tập huấn luyện.

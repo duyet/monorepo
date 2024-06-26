@@ -1,7 +1,7 @@
 ---
 title: Japanese stopwords package for npm, bower and plaintext
 date: '2016-02-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Bower
   - NPM

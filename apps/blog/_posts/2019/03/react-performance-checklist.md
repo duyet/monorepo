@@ -1,7 +1,7 @@
 ---
 title: Checklist tối ưu hiệu năng React
 date: '2019-03-03'
-author: Van-Duyet Le
+author: Duyet
 category: Web
 tags:
   - React

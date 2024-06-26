@@ -1,7 +1,7 @@
 ---
 title: Bigdata - Map-Reduce và bài toán Word Count
 date: '2015-12-02'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Apache Spark
   - BigData

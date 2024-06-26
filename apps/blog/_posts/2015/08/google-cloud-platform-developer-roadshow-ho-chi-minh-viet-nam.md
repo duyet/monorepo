@@ -3,7 +3,7 @@ title:
   Google Cloud Platform Developer Roadshow, Ho Chi Minh, Vietnam by GCPUG and
   GDG
 date: '2015-08-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Roadshow
   - Google

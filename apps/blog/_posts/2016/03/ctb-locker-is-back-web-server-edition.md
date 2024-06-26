@@ -1,7 +1,7 @@
 ---
 title: 'CTB-Locker is back: the web server edition'
 date: '2016-03-02'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Security
   - Tor

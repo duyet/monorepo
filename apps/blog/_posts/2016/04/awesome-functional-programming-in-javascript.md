@@ -1,7 +1,7 @@
 ---
 title: Awesome functional programming in JavaScript
 date: '2016-04-18'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - awesome
   - awesomelist

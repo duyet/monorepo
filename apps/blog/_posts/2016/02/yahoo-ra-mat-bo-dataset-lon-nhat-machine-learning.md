@@ -1,7 +1,7 @@
 ---
 title: 13.5TB - Yahoo ra mắt bộ Dataset cực lớn cho lĩnh vực máy học
 date: '2016-02-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Dataset
   - Labs

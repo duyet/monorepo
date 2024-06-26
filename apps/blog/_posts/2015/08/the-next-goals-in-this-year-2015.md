@@ -1,7 +1,7 @@
 ---
 title: The next goals in this year 2015
 date: '2015-08-10'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - mục tiêu
 modified_time: '2015-08-10T10:09:22.333+07:00'

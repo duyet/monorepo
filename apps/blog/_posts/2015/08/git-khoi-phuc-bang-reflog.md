@@ -1,7 +1,7 @@
 ---
 title: Git - Khôi phục bằng reflog sau khi xóa commit hoặc branch
 date: '2015-08-07'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - reflog
   - Git

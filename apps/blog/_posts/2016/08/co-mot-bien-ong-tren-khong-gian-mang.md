@@ -1,7 +1,7 @@
 ---
 title: Có một Biển Đông trên không gian mạng
 date: '2016-08-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - BKAV
   - Security

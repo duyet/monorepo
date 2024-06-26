@@ -1,7 +1,7 @@
 ---
 title: Google has a new logo, seriously
 date: '2015-09-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Google
   - News

@@ -1,10 +1,10 @@
 ---
 title: Airflow DAG Serialization
 date: '2020-05-01'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
-  - Data Engineer
+  - Data Engineering
   - Airflow
 thumbnail: https://1.bp.blogspot.com/-5cIyBwelyrQ/Xvg-wwqPJRI/AAAAAAABeeI/d4DPBinapik2Dffz3wXSTnsU7cgCHPqBACK4BGAYYCw/s1600/dag_serialization.png
 slug: /2020/05/airflow-dag-serialization.html

@@ -1,7 +1,7 @@
 ---
 title: Design Patterns là gì?
 date: '2015-02-23'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - OOP
   - Design Patterns

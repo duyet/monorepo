@@ -1,7 +1,7 @@
 ---
 title: Quy trình phát triển phần mềm - Mô hình thác nước (waterfall model)
 date: '2015-02-24'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Phát triển phần mềm
   - Phần mềm

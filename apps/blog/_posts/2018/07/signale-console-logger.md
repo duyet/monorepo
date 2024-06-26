@@ -1,11 +1,11 @@
 ---
 title: Signale - Hackable console logger for Nodejs
 date: '2018-07-19'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Logger
-  - intro-js
+
   - Javascript
   - Intro-library
 modified_time: '2018-07-19T21:51:29.517+07:00'

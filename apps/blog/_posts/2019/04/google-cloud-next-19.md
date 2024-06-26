@@ -1,7 +1,7 @@
 ---
 title: Google Cloud Next '19
 date: '2019-04-19'
-author: Van-Duyet Le
+author: Duyet
 category: Story
 tags:
   - Google

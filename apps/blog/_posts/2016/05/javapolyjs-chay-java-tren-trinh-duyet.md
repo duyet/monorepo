@@ -1,12 +1,11 @@
 ---
 title: 'JavaPoly.js: chạy Java ngay trên trình duyệt Web'
 date: '2016-05-21'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Java
-  - intro-js
-  - Tutorials
+
   - Javascript
   - JavaPoly
 modified_time: '2017-08-06T11:41:14.356+07:00'

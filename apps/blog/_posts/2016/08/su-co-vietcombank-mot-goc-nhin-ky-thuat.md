@@ -1,7 +1,7 @@
 ---
 title: Sự cố Vietcombank, một góc nhìn kỹ thuật
 date: '2016-08-18'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - SmartOTP
   - OTP

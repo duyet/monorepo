@@ -1,7 +1,7 @@
 ---
 title: Git - Cách sử dụng git rebase, cách gộp nhiều commit bằng rebase
 date: '2015-08-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
   - Thủ thuật Git
@@ -9,7 +9,6 @@ modified_time: '2015-08-25T23:28:08.793+07:00'
 slug: /2015/08/cach-su-dung-git-rebase.html
 category: Git
 description: 'Trong dự án, code của bạn luôn có sự thay đổi, sau khi push 1 đống commit lên github. Một ngày kia ông Leader kêu lại: "Ê mày, sửa chỗ này, sửa chỗ kia, code không đúng chuẩn rồi, bla bla ...". Thế là phải hồi hì hục cải tiến code, coding style cho "chuẩn".'
-fbCommentUrl: http://blog.duyetdev.com/2015/08/cach-su-dung-git-rebase.html
 ---
 
 Một cách để gộp nhiều commits để git history được đẹp hơn, đó là `git rebase`.

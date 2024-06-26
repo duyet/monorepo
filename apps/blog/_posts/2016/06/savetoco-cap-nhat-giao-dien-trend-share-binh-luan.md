@@ -1,11 +1,9 @@
 ---
 title: saveto.co cập nhật giao diện, trend, share và bình luận
 date: '2016-06-30'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Saveto update
   - saveto.co
-  - cập nhật
   - Update
 modified_time: '2016-06-30T23:39:31.427+07:00'
 thumbnail: https://3.bp.blogspot.com/-m5O1aeEL_Uc/V3VJ-QDKyFI/AAAAAAAAYps/m4jpG6hycrUqacjFRntOCKsbiJK_AcZDQCLcB/s1600/saveto-update-1.png

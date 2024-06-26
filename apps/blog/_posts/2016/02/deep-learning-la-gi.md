@@ -1,7 +1,7 @@
 ---
 title: Deep Learning là gì?
 date: '2016-02-04'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - AI
   - ML
@@ -13,7 +13,6 @@ thumbnail: https://1.bp.blogspot.com/-jKehM_T47GI/VrMiraOWJiI/AAAAAAAAPFE/jpYwrm
 slug: /2016/02/deep-learning-la-gi.html
 category: Machine Learning
 description: 'Thế giới đã chứng kiến sự phát triển vượt bậc sau khi con người phát minh ra các công nghệ: động cơ hơi nước, điện, máy vi tính, internet. Công nghệ tiếp theo sẽ có sự tác động mạnh mẽ như vậy chính là trí thông minh nhân tạo (Artificial Intelligence - AI)'
-fbCommentUrl: http://blog.duyetdev.com/2016/02/deep-learning-la-gi.html
 ---
 
 Thế giới đã chứng kiến sự phát triển vượt bậc sau khi con người phát minh ra các công nghệ: động cơ hơi nước, điện, máy vi tính, internet. Công nghệ tiếp theo sẽ có sự tác động mạnh mẽ như vậy chính là trí thông minh nhân tạo (Artificial Intelligence - AI).

@@ -1,12 +1,11 @@
 ---
 title: Bảo mật hai lớp
 date: '2016-09-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Security
   - Xác minh 2 lớp
-  - Tutorials
-  - Bảo mật 2 lớp
+    - Bảo mật 2 lớp
   - Bảo mật
   - Thủ thuật
 modified_time: '2016-09-01T12:36:14.646+07:00'

@@ -5,7 +5,7 @@ category: Data Engineer
 tags:
   - Airflow
   - Data
-  - Data Engineer
+  - Data Engineering
 slug: /2019/08/slack-alerts-in-airflow.html
 thumbnail: https://1.bp.blogspot.com/-jAfy6D8deHU/XVwQdvnubFI/AAAAAAABFzg/b3ASQC3mmtozUhAQPdBRa3mJGE-Cd23GgCLcBGAs/s1600/airflow-alert-slack.png
 description: Slack là một công cụ khá phổ biến trong các Team, slack giúp tập hợp mọi thông tin về Slack (như Jira alert, ETL pipelines, CI/CD status, deployments, ...) một cách thống nhất và dễ dàng theo dõi. Bài viết này mình hướng dẫn gửi mọi báo lỗi của Airflow đến Slack.

@@ -1,7 +1,7 @@
 ---
 title: Cài đặt OpenVPN trên Debian, Ubuntu và CentOS
 date: '2015-10-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Linux
   - OpenVPN

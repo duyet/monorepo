@@ -1,7 +1,7 @@
 ---
 title: Apache Spark on Docker
 date: '2015-12-12'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Docker
   - Apache Spark

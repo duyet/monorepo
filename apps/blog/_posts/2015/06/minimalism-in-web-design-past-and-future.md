@@ -1,7 +1,7 @@
 ---
 title: 'Minimalism in Web design: past and future'
 date: '2015-06-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Web Design
   - TNW

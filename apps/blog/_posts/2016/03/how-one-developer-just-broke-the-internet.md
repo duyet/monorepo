@@ -3,7 +3,7 @@ title:
   How one developer just broke Node, Babel and thousands of projects in 11 lines
   of JavaScript
 date: '2016-03-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Bàn luận

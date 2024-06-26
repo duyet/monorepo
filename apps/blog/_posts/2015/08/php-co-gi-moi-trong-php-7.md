@@ -1,7 +1,7 @@
 ---
 title: PHP - Có gì mới trong PHP 7
 date: '2015-08-22'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - PHP7
   - PHP
@@ -10,7 +10,6 @@ thumbnail: https://4.bp.blogspot.com/-qvsCP3kPz40/VdeEECDHEqI/AAAAAAAACwQ/JD4OFl
 slug: /2015/08/php-co-gi-moi-trong-php-7.html
 category: PHP
 description: Phiên bản stable PHP hiện nay đang được sử dụng là phiên bản PHP 5.6. Sau một số tranh luận thì nhóm phát triển đã quyết định họ sẽ bỏ qua tên phiên bản PHP 6. PHP 6 đã tồn tại trong quá khứ như một dự án thử nghiệm, nhưng vì lý do nào đó chưa hoàn chỉnh.
-fbCommentUrl: https://blog.duyet.net/2015/08/php-co-gi-moi-trong-php-7.html
 ---
 
 Phiên bản stable PHP hiện nay đang được sử dụng là phiên bản PHP 5.6. Sau một số tranh luận thì nhóm phát triển đã quyết định họ sẽ bỏ qua tên phiên bản PHP 6. PHP 6 đã tồn tại trong quá khứ như một dự án thử nghiệm, nhưng vì lý do nào đó chưa hoàn chỉnh.

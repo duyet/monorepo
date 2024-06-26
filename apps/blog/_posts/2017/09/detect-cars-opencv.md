@@ -1,9 +1,9 @@
 ---
 title: Python - Nhận dạng xe hơi với OpenCV
 date: '2017-09-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - opencv
   - image
   - Python

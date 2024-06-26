@@ -1,9 +1,9 @@
 ---
 title: '[Slide] Build simple data pipeline for ETL and data aggregation on AWS'
 date: '2018-11-12'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Share
   - slide
   - Talk

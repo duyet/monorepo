@@ -1,7 +1,7 @@
 ---
 title: TensorFlow.js
 date: '2018-07-19'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tensorflow
   - Javascript

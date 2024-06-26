@@ -1,11 +1,11 @@
 ---
 title: Running Spark in GitHub Actions
 date: '2023-05-07'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineering
+  - Data Engineeringing
   - Spark
   - Github
 slug: /2023/05/spark-github-actions.html

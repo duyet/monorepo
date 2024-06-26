@@ -1,7 +1,7 @@
 ---
 title: 'Papers with Code: A Fantastic GitHub Resource for Machine Learning'
 date: '2019-01-06'
-author: Van-Duyet Le
+author: Duyet
 category: Machine Learning
 tags:
   - AI

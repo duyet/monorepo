@@ -1,12 +1,12 @@
 ---
 title: 'grant-rs: Manage Redshift/Postgres Privileges GitOps Style'
 date: '2022-02-24'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Rust
   - Redshift
-  - Data Engineer
+  - Data Engineering
 slug: /2022/02/grant-redshift-gitops.html
 thumbnail: https://i.imgur.com/ooGg2k5.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Fgrant-redshift-gitops.html

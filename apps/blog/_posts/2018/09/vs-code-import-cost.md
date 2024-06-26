@@ -1,13 +1,12 @@
 ---
 title: VS Code - Import Cost
 date: '2018-09-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - VS Code
   - plugin
   - Node.js
-  - Node
 modified_time: '2018-09-17T00:10:15.029+07:00'
 thumbnail: https://4.bp.blogspot.com/-TZRWLF6rr6U/W56MhbtWJCI/AAAAAAAAzjc/QA6dYo_Aul4ZC2PR4pH4T8NBsXLikY-8QCK4BGAYYCw/s1600/68747470733a2f2f66696c652d776b62636e6c6376626e2e6e6f772e73682f696d706f72742d636f73742e676966.gif
 slug: /2018/09/vs-code-import-cost.html

@@ -5,7 +5,7 @@ author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineering
+  - Data Engineeringing
   - DuckDB
 slug: /2023/09/duckdb.html
 thumbnail: /media/2023/09/duckdb/duckdb-introduction.png

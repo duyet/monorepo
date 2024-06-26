@@ -1,11 +1,11 @@
 ---
 title: 'Tại sao nên triển khai Apache Spark trên Kubernetes'
 date: '2020-10-24'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
   - Spark
-  - Data Engineer
+  - Data Engineering
   - Kubernetes
 thumbnail: https://1.bp.blogspot.com/-aBPAW0o9sqY/X5Ps-9d_hLI/AAAAAAABp1A/ZCTOfwThNEUykd4biRSDnZj0D7menY9kACLcBGAsYHQ/s0/spark-on-k8s.jpg
 slug: /2020/10/why-spark-on-kubernetes.html

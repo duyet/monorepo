@@ -1,7 +1,7 @@
 ---
 title: Git - 19 Tips For Everyday Git Use
 date: '2015-09-16'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
   - Thủ thuật Git

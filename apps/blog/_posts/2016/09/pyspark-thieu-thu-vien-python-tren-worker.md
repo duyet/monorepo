@@ -1,13 +1,12 @@
 ---
 title: PySpark - Thiếu thư viện Python trên Worker
 date: '2016-09-08'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Apache Spark
   - Python
-  - Tutorials
-  - Javascript
+    - Javascript
   - Spark
   - Javascript
   - note

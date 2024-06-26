@@ -1,7 +1,7 @@
 ---
 title: 'Migrate (again) to Next.js 13 Pro Max'
 date: '2023-05-01'
-author: Van-Duyet Le
+author: Duyet
 category: Project
 tags:
   - Project

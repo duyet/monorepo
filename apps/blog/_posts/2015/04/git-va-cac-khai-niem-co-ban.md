@@ -1,7 +1,7 @@
 ---
 title: Git - Git là gì và các khái niệm cơ bản trong git
 date: '2015-04-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
   - Khái niệm git

@@ -1,7 +1,7 @@
 ---
 title: Linux - Một số lệnh hay dùng
 date: '2015-02-13'
-author: Van-Duyet Le
+author: Duyet
 category: Linux
 tags:
   - Linux

@@ -1,7 +1,7 @@
 ---
 title: Viện John von Neumann
 date: '2016-07-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Notes
   - JVN

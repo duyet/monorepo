@@ -1,7 +1,7 @@
 ---
 title: Merge conflicts on GitHub website
 date: '2016-12-14'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Github
   - News

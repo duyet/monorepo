@@ -1,7 +1,7 @@
 ---
 title: Nodejs - package.json là gì vậy?
 date: '2015-02-22'
-author: Van-Duyet Le
+author: Duyet
 category: Javascript
 tags:
   - Nodejs

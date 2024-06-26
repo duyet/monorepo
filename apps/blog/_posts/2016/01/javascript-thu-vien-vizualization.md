@@ -1,7 +1,7 @@
 ---
 title: 'Javascript - Thư viện Vizualization '
 date: '2016-01-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Javascript

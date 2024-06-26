@@ -1,7 +1,7 @@
 ---
 title: Quản lý project với Trello thế nào?
 date: '2015-02-14'
-author: Van-Duyet Le
+author: Duyet
 category: News
 tags:
   - Trello

@@ -1,7 +1,7 @@
 ---
 title: ProtonMail - dịch vụ mail end-to-end encrypted
 date: '2016-03-18'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Security
   - Protonmail

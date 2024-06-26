@@ -1,7 +1,7 @@
 ---
 title: jsLab.xyz
 date: '2015-12-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Javascript

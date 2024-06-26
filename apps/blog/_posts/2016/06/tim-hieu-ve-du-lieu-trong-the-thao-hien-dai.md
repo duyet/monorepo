@@ -1,20 +1,16 @@
 ---
 title: Tìm hiểu về dữ liệu trong thể thao hiện đại
 date: '2016-06-29'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Sưu tầm
   - Hệ thống thông tin
   - Information System
-  - IS
-  - Source
-  - Data Mining
+  - Data
 modified_time: '2016-06-29T23:08:54.053+07:00'
 thumbnail: https://2.bp.blogspot.com/-o_snpmTzvwk/V3PXfZhLszI/AAAAAAAAYmY/htoLHqxBBPEJaFooDzx9zqa_9X0BzNJcwCK4B/s1600/ecoblader-d%25E1%25BB%25AF-li%25E1%25BB%2587u-696x478.png
 slug: /2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html
 category: Data
 description: 'Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những câu trả lời cho câu hỏi: Dân hệ thống thông tin thì làm gì?'
-fbCommentUrl: http://blog.duyetdev.com/2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html
 ---
 
 Tìm hiểu về dữ liệu trong thể thao hiện đại. Một trong những câu trả lời cho câu hỏi: Dân hệ thống thông tin thì làm gì? Bài viết tôi đọc được từ anh [Jackie Dương](http://www.ecoblader.com/2014/06/04/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai/), nói về một trong các ứng dụng của Data Mining trong việc phân tích thể thao.

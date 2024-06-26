@@ -1,7 +1,7 @@
 ---
 title: Machine Learning is Fun! (Vietnamese version)
 date: '2017-08-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - ML
   - Machine Learning is Fun

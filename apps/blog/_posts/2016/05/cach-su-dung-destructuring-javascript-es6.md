@@ -1,7 +1,7 @@
 ---
 title: Cách sử dụng Destructuring trong Javascript ES6
 date: '2016-05-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Destructuring

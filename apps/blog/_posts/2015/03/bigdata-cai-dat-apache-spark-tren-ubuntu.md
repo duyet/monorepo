@@ -1,7 +1,7 @@
 ---
 title: BigData - Cài đặt Apache Spark trên Ubuntu 14.04
 date: '2015-03-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Apache
   - Python

@@ -1,19 +1,14 @@
 ---
 title: Webfont.js - Web Font Loader
 date: '2016-06-04'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tutorial
-  - intro-js
-  - Tutorials
   - Javascript
-  - Web Font
-  - webfont.js
 modified_time: '2017-08-06T11:41:14.305+07:00'
 thumbnail: https://4.bp.blogspot.com/-H539bJlNjPU/V1L9FlbhUUI/AAAAAAAAW_E/W_wtHvUOpbgR0ke51a_6F0tkAHvq54drgCK4B/s1600/web-font-performance.png
 slug: /2016/06/web-font-loader.html
 category: Javascript
-
 description: Web Font Loader (webfont.js)
 ---
 

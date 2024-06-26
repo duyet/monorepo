@@ -1,10 +1,9 @@
 ---
 title: Nodejs - Backend Development Bookmarks
 date: '2016-01-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
-  - bookmark
 modified_time: '2016-01-11T02:16:06.451+07:00'
 slug: /2016/01/nodejs-backend-development-bookmarks.html
 category: Web

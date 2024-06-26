@@ -1,7 +1,7 @@
 ---
 title: Giới thiệu về Google Materialize CSS framework
 date: '2015-04-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Css
   - Css Framework

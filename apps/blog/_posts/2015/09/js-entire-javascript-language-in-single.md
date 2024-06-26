@@ -1,7 +1,7 @@
 ---
 title: JS - The Entire JavaScript Language in a Single Image
 date: '2015-09-10'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - docs
   - Javascript

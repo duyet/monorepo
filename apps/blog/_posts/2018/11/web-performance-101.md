@@ -1,7 +1,7 @@
 ---
 title: Web Performance 101
 date: '2018-11-13'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Recommend read
   - Intro

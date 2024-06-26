@@ -1,10 +1,10 @@
 ---
 title: 3 ways to run Spark on Kubernetes
 date: '2020-05-24'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
-  - Data Engineer
+  - Data Engineering
   - Spark
   - Kubernetes
   - Livy

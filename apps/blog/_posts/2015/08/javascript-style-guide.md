@@ -1,7 +1,7 @@
 ---
 title: JavaScript Style Guide
 date: '2015-08-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - style guide
   - Javascript

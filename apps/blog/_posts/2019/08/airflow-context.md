@@ -1,12 +1,12 @@
 ---
 title: Airflow - "context" dictionary
 date: '2019-08-09'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
   - Data
   - Python
-  - Data Engineer
+  - Data Engineering
   - Airflow
 
 thumbnail: https://4.bp.blogspot.com/-H9PlWKnP_Gc/XU2U4yVVQtI/AAAAAAABFVY/MZem1VyxGr8ORiZbRNx3Kno5C4nzJeeEgCK4BGAYYCw/s200/1_6jjSw8IqGbsPZp7L_43YyQ.png

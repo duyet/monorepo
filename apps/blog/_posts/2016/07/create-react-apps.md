@@ -1,21 +1,16 @@
 ---
-title:
-  'Create React apps: công cụ generate React chính thức từ Facebook, không cần
-  cấu hình.'
+title: Create React Apps
 date: '2016-07-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Redux
   - Tutorial
-  - Tutorials
   - React
-  - facebook
 modified_time: '2016-07-25T09:31:24.499+07:00'
 thumbnail: https://3.bp.blogspot.com/-HahL2Dcmo7o/V5Vz1SQORXI/AAAAAAAAaMM/HomR1n60e4oKER20VhEDSIZQag-nQqptwCK4B/s1600/create-react-app.png
 slug: /2016/07/create-react-apps.html
 category: Javascript
 description: Facebook ra mắt công cụ mới Create React App - generate ra React starter project.
-fbCommentUrl: http://blog.duyetdev.com/2016/07/create-react-apps.html
 ---
 
 Một thông tin mới cực kỳ hấp dẫn với cộng đồng [React trong tuần này](http://saveto.co/AIqXFq)! Facebook ra mắt công cụ mới **Create React App** - generate ra React starter project. Cài đặt rất nhanh và không cần phải cấu hình (react, webpack, ...) gì cả, project nhỏ gọn, không có quá nhiều dependencies. Cùng tìm hiểu nhanh về công cụ này.
@@ -27,19 +22,19 @@ Khi nào cần đến Redux, React Router, ... bạn có thể dụng npm instal
 
 Cài đặt create-react-app bằng npm, thêm `-g` flag (để "globally").
 
-```
+```bash
 sudo npm install -g create-react-app
 ```
 
 Sau khi cài, ta sử dụng lệnh create-react-app để generate a project:
 
-```
+```bash
 create-react-app hello-awesomeness && cd hello-awesomeness
 ```
 
 Đợi cho cho đến khi cài đặt package cần thiết hoàn thành. create-react-app cũng tự động cấu hình ứng dụng. Sau khi cài đặt xong ta được cấu trúc project như thế này:
 
-```
+```bash
 favicon.ico
 index.html
 package.json
@@ -55,7 +50,7 @@ src/
 
 Cuối cùng để build và run, sử dụng lệnh:
 
-```
+```bash
 npm start
 ```
 

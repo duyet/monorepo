@@ -1,7 +1,7 @@
 ---
 title: Rust Source-based Code Coverage
 date: '2022-04-09'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

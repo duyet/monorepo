@@ -1,7 +1,7 @@
 ---
 title: Chartico - Tạo biểu đồ cột nhanh chóng và đơn giản
 date: '2015-12-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - PR
   - Web

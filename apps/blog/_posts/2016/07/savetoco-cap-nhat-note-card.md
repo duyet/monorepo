@@ -1,7 +1,7 @@
 ---
 title: 'saveto.co cập nhật: Note Card'
 date: '2016-07-12'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - ahihi.club
   - Saveto update

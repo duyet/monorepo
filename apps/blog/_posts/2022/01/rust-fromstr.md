@@ -1,7 +1,7 @@
 ---
 title: 'Rust: FromStr trait'
 date: '2022-01-02'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

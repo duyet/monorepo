@@ -1,7 +1,7 @@
 ---
 title: Giao thức Diffie-Hellman (DH)
 date: '2016-03-08'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Diffie-Hellman
   - Security

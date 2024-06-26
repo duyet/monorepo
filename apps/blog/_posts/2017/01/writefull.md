@@ -1,7 +1,7 @@
 ---
 title: Writefull
 date: '2017-01-22'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Chrome
   - Chrome Extension

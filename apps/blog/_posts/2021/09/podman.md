@@ -1,10 +1,10 @@
 ---
 title: From Docker to Podman on MacOS
 date: '2021-09-05'
-author: Van-Duyet Le
+author: Duyet
 category: Productivity
 tags:
-  - Data Engineer
+  - Data Engineering
   - Docker
 slug: /2021/09/podman.html
 thumbnail: https://podman.io/images/podman.svg

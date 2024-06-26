@@ -1,7 +1,7 @@
 ---
 title: '[Slide] Sentiment Analysis'
 date: '2018-06-30'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Sentiment
   - slide

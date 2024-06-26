@@ -1,11 +1,11 @@
 ---
 title: Good reasons to use ClickHouse
 date: '2021-08-29'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - Database
   - ClickHouse
 thumbnail: https://1.bp.blogspot.com/-1a6QwQg9VgM/YStWOIv7gZI/AAAAAAACNVE/My9HF_PJ37c9-eVAmzJprUMUivZVwpOCwCLcBGAsYHQ/s0/clickhouse-good-reasons-to-use-0.gif

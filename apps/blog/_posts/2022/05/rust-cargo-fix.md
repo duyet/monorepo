@@ -1,7 +1,7 @@
 ---
 title: Rust automatically upgrade to a new edition
 date: '2022-05-14'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

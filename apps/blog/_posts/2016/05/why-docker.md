@@ -1,7 +1,7 @@
 ---
 title: 'Talk: Why docker?'
 date: '2016-05-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Docker
   - Seminar

@@ -1,7 +1,7 @@
 ---
 title: Giao diện phẳng cho Sublime Text
 date: '2015-07-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - how to
   - sublime text

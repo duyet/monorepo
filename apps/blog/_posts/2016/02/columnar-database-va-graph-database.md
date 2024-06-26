@@ -1,7 +1,7 @@
 ---
 title: Bigdata -  Columnar Database và Graph Database
 date: '2016-02-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Database
   - Graph

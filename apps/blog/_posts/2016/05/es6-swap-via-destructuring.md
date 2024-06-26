@@ -1,13 +1,11 @@
 ---
 title: ES6 - swap (hoán đổi) nhanh 2 biến số
 date: '2016-05-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Tutorrial
+  - Tutorial
   - ES6
-  - Tutorials
   - Javascript
-  - Exploring ES6
 modified_time: '2016-05-27T12:32:27.018+07:00'
 thumbnail: https://3.bp.blogspot.com/-ASmcHtbRZj4/V0fa2A-pCEI/AAAAAAAAWDs/AP5UfzkG1icZUj4TCv68Nr4hu5SK04zxACK4B/s1600/swap-es-duyetdev.com.png
 slug: /2016/05/es6-swap-via-destructuring.html

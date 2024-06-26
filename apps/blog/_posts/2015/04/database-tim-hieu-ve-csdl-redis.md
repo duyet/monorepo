@@ -1,7 +1,7 @@
 ---
 title: Database - Tìm hiểu về CSDL Redis
 date: '2015-04-06'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Redis
   - CSDL

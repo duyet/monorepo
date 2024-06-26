@@ -1,7 +1,7 @@
 ---
 title: 8 nền tảng serverless platform tốt nhất hiện nay
 date: '2019-08-09'
-author: Van-Duyet Le
+author: Duyet
 category: Server
 tags:
   - Server

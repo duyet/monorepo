@@ -1,11 +1,11 @@
 ---
 title: Spark on Kubernetes tại Fossil 🤔
 date: '2022-03-09'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Vietnamese
-  - Data Engineer
+  - Data Engineering
   - Spark
   - Kubernetes
 slug: /2022/03/spark-kubernetes-at-fossil.html

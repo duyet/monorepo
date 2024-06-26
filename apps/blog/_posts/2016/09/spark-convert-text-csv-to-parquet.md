@@ -1,9 +1,9 @@
 ---
 title: 'Spark: Convert Text (CSV) to Parquet để tối ưu hóa Spark SQL và HDFS'
 date: '2016-09-21'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Apache Spark
   - Python
   - Javascript

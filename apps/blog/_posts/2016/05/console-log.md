@@ -1,7 +1,7 @@
 ---
 title: console.log() nâng cao
 date: '2016-05-16'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Chrome
   - console
