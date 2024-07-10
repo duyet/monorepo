@@ -55,6 +55,11 @@ module.exports = {
                 textDecoration: "underline",
               },
             },
+            'a[href^="https://"]': {
+              "&::after": {
+                content: '"↗︎"',
+              },
+            },
             h1: {
               fontWeight: theme("fontWeight.semibold"),
               fontSize: theme("fontSize.3xl"),

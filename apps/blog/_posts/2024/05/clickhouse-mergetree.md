@@ -1,5 +1,5 @@
 ---
-title: ClickHouse MergeTree Engine
+title: MergeTree
 date: '2024-05-31'
 author: Duyet
 category: Data
@@ -16,16 +16,15 @@ description: After starting this series ClickHouse on Kubernetes, you can now co
 After starting this series [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html), you can now configure your first single-node ClickHouse server.
 Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
 
-1. [Creating a Basic Table](#creating-a-basic-table)
-1. [MergeTree Engine](#mergetree-engine)
-1. [ORDER BY](#order-by)
-1. [Insert data](#insert-data)
-1. [Insert by FORMAT](#insert-by-format)
-1. [UNDROP 🤯](#undrop-)
-1. [DETACH/ATTACH](#detachattach)
-1. [TTL](#ttl)
-1. [LowCardinality(T) column data type](#lowcardinalityt-column-data-type)
-1. [ClickHouse Series](#clickhouse-series)
+- [Creating a Basic Table](#creating-a-basic-table)
+- [MergeTree Engine](#mergetree-engine)
+- [ORDER BY](#order-by)
+- [Insert data](#insert-data)
+    - [Insert by FORMAT](#insert-by-format)
+- [UNDROP 🤯](#undrop-)
+- [DETACH/ATTACH](#detachattach)
+- [TTL](#ttl)
+- [LowCardinality(T) column data type](#lowcardinalityt-column-data-type)
 
 # Creating a Basic Table
 

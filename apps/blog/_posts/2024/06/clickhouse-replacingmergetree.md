@@ -1,5 +1,5 @@
 ---
-title: ClickHouse ReplacingMergeTree Engine
+title: ReplacingMergeTree
 date: '2024-06-01'
 author: Duyet
 series: ClickHouse on Kubernetes
@@ -23,7 +23,6 @@ Data duplication is a common issue within a data platform, even from upstream da
 - [SELECT FINAL](#select-final)
 - [PRIMARY KEY](#primary-key)
 - [References](#references)
-- [ClickHouse Series](#clickhouse-series)
 
 # Basic Syntax
 
