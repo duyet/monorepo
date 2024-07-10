@@ -1,7 +1,7 @@
 ---
 title: Angular 2 có gì mới?
 date: '2015-12-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - data binding
   - Angular

@@ -1,11 +1,11 @@
 ---
 title: Autotrack turns 1.0
 date: '2016-09-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Track.js
   - Announment
-  - intro-js
+
   - Google Analytics
   - AutoTrack
   - Announce

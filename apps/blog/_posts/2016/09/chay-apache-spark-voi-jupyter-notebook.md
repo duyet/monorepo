@@ -1,9 +1,9 @@
 ---
 title: Chạy Apache Spark với Jupyter Notebook
 date: '2016-09-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Jupyter
   - Apache Spark
   - IPython
@@ -17,7 +17,6 @@ thumbnail: https://1.bp.blogspot.com/-IbzOyRw7mkM/V-Dm-cyXE9I/AAAAAAAAd-I/nGA92f
 slug: /2016/09/chay-apache-spark-voi-jupyter-notebook.html
 category: Data
 description: IPython Notebook là một công cụ tiện lợi cho Python. Ta có thể Debug chương trình PySpark Line-by-line trên IPython Notebook một cách dễ dàng, tiết kiệm được nhiều thời gian.
-fbCommentUrl: http://blog.duyetdev.com/2016/09/chay-apache-spark-voi-jupiter-notebook.html
 ---
 
 IPython Notebook là một công cụ tiện lợi cho Python. Ta có thể Debug chương trình PySpark Line-by-line trên IPython Notebook một cách dễ dàng, tiết kiệm được nhiều thời gian.

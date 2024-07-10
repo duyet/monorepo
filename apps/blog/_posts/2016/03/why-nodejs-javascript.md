@@ -1,7 +1,7 @@
 ---
 title: Sao lại là Node.js/Javascript?
 date: '2016-03-19'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Blog
   - Nodejs

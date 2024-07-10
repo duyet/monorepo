@@ -1,11 +1,11 @@
 ---
 title: Notibar.js
 date: '2017-03-04'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - notibar.js
   - plugin
-  - intro-js
+
   - Javascript
   - project
 modified_time: '2018-09-10T17:22:11.270+07:00'
@@ -13,7 +13,6 @@ thumbnail: https://2.bp.blogspot.com/-aWA0Q8jTEM8/WLpunYKc57I/AAAAAAAAjz8/AoGD9q
 slug: /2017/03/notibarjs.html
 category: Project
 description: Notibar.js - Lightweight notification bar, no dependency.
-fbCommentUrl: none
 ---
 
 Notibar.js - Lightweight notification bar, no dependency.

@@ -1,7 +1,7 @@
 ---
 title: Facebook reactions
 date: '2016-02-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Reactions
   - Phân tích

@@ -1,10 +1,10 @@
 ---
 title: Deploy Deep Learning model as a web service API
 date: '2018-07-21'
-author: Van-Duyet Le
+author: Duyet
 category: Machine Learning
 tags:
-  - Data Engineer
+  - Data Engineering
   - Redis
   - Python
   - Flask

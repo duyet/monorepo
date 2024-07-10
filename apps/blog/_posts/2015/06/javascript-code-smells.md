@@ -1,7 +1,7 @@
 ---
 title: JavaScript Code Smells
 date: '2015-06-06'
-author: Van-Duyet Le
+author: Duyet
 tags: [javascript]
 modified_time: '2015-06-06T08:51:54.455+07:00'
 thumbnail: https://i.ytimg.com/vi/JVlfj7mQZPo/default.jpg

@@ -1,7 +1,7 @@
 ---
 title: Xây dựng thương hiệu cá nhân tại công sở
 date: '2015-03-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - thương hiệu cá nhân
   - vietnamworks

@@ -1,11 +1,11 @@
 ---
 title: Propel - Machine learning for Javascript
 date: '2018-03-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Nodejs
-  - intro-js
+
   - Javascript
   - Intro-library
   - Intro

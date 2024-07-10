@@ -1,7 +1,7 @@
 ---
 title: Review - Trải nghiệm Firefox OS bản B2G trên Android
 date: '2015-11-14'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Firefox OS
   - Firefox

@@ -1,7 +1,7 @@
 ---
 title: Reverse shell on a Node.js application
 date: '2016-05-30'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Reverse shell

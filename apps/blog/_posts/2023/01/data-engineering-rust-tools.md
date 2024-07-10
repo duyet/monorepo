@@ -1,11 +1,11 @@
 ---
 title: 'Data Engineering Tools written in Rust'
 date: '2023-01-22'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - Rust
 slug: /2023/01/data-engineering-rust-tools.html
 thumbnail: https://i.imgur.com/qjUwEpo.png

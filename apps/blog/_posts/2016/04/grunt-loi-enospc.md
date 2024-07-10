@@ -1,7 +1,7 @@
 ---
 title: Grunt - lỗi ENOSPC
 date: '2016-04-08'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Grunt

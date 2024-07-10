@@ -1,15 +1,13 @@
 ---
 title: Sublime Text Plugin nào cho lập trình viên Node.js
 date: '2016-07-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tutorial
   - sublime text
-  - Tutorials
-  - Javascript
+    - Javascript
   - React
   - Node.js
-  - Node
 modified_time: '2016-07-20T11:16:14.977+07:00'
 thumbnail: https://3.bp.blogspot.com/-Vk9xy2-YHhQ/V476BZ29wmI/AAAAAAAAaC8/dzgxlK1P5nQ-GNPbynkCDUxxHmwYl4rxACK4B/s1600/package-control-duyetdev.gif
 slug: /2016/07/sublime-text-plugin-nodejs.html

@@ -1,11 +1,10 @@
 ---
 title: ES6 - ép sử dụng tham số trong function
 date: '2016-05-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Tutorrial
+  - Tutorial
   - ES6
-  - Tutorials
   - Javascript
   - Exploring ES6
 modified_time: '2016-05-27T11:34:39.996+07:00'

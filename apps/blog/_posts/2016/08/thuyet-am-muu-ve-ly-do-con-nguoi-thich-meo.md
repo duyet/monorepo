@@ -1,7 +1,7 @@
 ---
 title: Thuyết âm mưu về lý do con người thích mèo
 date: '2016-08-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Mèo
   - Trạm đọc
@@ -11,7 +11,6 @@ thumbnail: https://1.bp.blogspot.com/-uuq0TQnZ-4I/V8G1A5D2rgI/AAAAAAAAcMA/WeDRio
 slug: /2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo.html
 category: News
 description: Con người có tự do lựa chọn hay chúng ta chỉ là những con rối bị ký sinh trùng giật dây?
-fbCommentUrl: http://blog.duyetdev.com/2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo.html
 ---
 
 Con người có tự do lựa chọn hay chúng ta chỉ là những con rối bị ký sinh trùng giật dây?

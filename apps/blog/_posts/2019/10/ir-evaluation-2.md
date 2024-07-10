@@ -4,7 +4,7 @@ date: '2019-10-09'
 category: Data Engineer
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - Information Retrieval
   - NLP
 slug: /2019/10/ir-evaluation-2.html

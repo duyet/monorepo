@@ -1,11 +1,11 @@
 ---
 title: natural - NLTK cho Javascript
 date: '2017-08-06'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Nodejs
-  - intro-js
+
   - Javascript
   - NLP
   - Intro-library

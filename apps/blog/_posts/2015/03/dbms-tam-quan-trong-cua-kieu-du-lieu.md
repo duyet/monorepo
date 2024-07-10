@@ -1,7 +1,7 @@
 ---
 title: DBMS - Tầm Quan Trọng Của Kiểu Dữ Liệu
 date: '2015-03-04'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - DBMS
   - MySQL

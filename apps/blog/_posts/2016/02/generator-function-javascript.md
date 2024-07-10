@@ -1,20 +1,16 @@
 ---
 title: function* và yield trong Javascript generator function
 date: '2016-02-21'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Generator
   - ECMAScript 2015
   - ES6
   - Javascript
-  - function
-  - Object
 modified_time: '2016-02-26T21:31:30.559+07:00'
 thumbnail: https://1.bp.blogspot.com/-OA0tvHhNN3o/VsiyjiJwLbI/AAAAAAAAQAo/IugUE3zNbrY/s1600/generator-function.png
 slug: /2016/02/generator-function-javascript.html
 category: Javascript
 description: function* giúp khai báo 1 generator function, trả về 1 Generator object. Với chức năng mới này, hàm có thể dừng thực thi bất cứ thời điểm nào, đợi async chạy xong, xong tiếp tục thực thi.
-fbCommentUrl: http://blog.duyetdev.com/2016/02/generator-function-javascript.html
 ---
 
 Một trong những chức năng, cũng như vấn đề mà mọi developer javascript/nodejs đều gặp phải là lập trình bất đồng bộ (async) và [callback hell](http://callbackhell.com/) khó điều khiển.

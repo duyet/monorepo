@@ -1,7 +1,7 @@
 ---
 title: Github là gì?
 date: '2015-02-14'
-author: Van-Duyet Le
+author: Duyet
 category: News
 tags:
   - Git

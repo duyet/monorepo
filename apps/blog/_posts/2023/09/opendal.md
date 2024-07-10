@@ -6,7 +6,7 @@ category: Rust 🦀
 tags:
   - Data
   - Rust
-  - Data Engineer
+  - Data Engineering
 slug: /2023/09/opendal.html
 thumbnail: /media/2023/09/opendal/opendal-1.png
 description: OpenDAL is a data access layer that allows users to easily and efficiently retrieve data from various storage services in a unified way such as S3, FTP, FS, Google Drive, HDFS, etc. They has been rewritten in Rust for the Core and have a binding from many various language like Python, Node.js, C, etc..

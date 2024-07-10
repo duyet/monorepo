@@ -1,7 +1,7 @@
 ---
 title: DNS là cái quái gì vậy?
 date: '2015-02-23'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - DNS
   - WWW

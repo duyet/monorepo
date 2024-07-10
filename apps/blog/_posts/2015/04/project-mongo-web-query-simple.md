@@ -3,7 +3,7 @@ title:
   'Github project - Mongo-Web-Query - Simple MongoDB Query base on Nodejs and
   MongoDB '
 date: '2015-04-15'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - MongoDb
@@ -25,7 +25,7 @@ Mongo Web Query is Simple Node Application on Web, for query the MongoDB data, o
 
 Project: Mongo Web Query ([https://github.com/lvduit/Mongo-Web-Query](https://github.com/lvduit/Mongo-Web-Query))
 Version: 0.0.1
-Author: Van-Duyet Le ([@lvduit](http://twitter.com/lvduit))
+author: Duyet ([@lvduit](http://twitter.com/lvduit))
 Home: [http://lvduit.com](http://lvduit.com/)
 
 ## Screenshot

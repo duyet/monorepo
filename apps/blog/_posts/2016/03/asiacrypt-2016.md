@@ -1,7 +1,7 @@
 ---
 title: Asiacrypt 2016
 date: '2016-03-18'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Security
   - Crypt

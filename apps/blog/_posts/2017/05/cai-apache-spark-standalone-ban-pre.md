@@ -1,9 +1,9 @@
 ---
 title: Cài Apache Spark standalone bản pre-built
 date: '2017-05-31'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Apache Spark
   - Python
   - Javascript

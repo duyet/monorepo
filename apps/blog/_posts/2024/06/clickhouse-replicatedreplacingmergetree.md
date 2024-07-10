@@ -1,5 +1,5 @@
 ---
-title: ClickHouse ReplicatedReplacingMergeTree Engine
+title: ReplicatedReplacingMergeTree
 date: '2024-06-23'
 author: Duyet
 series: ClickHouse on Kubernetes
@@ -15,16 +15,16 @@ description: Now you have a large single node cluster with a ReplacingMergeTree 
 
 Now you have a large single node cluster with a [ReplacingMergeTree](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html) table that can deduplicate itself. This time, you need more replicated nodes to serve more data users or improve the high availability.
 
-1. [Cluster setup via ClickHouse Operator](#cluster-setup-via-clickhouse-operator)
-1. [Create Replicated table](#create-replicated-table)
-1. [Data insert](#data-insert)
-1. [Manage replication](#manage-replication)
-   - [How many replication jobs are running?](#how-many-replication-jobs-are-running)
-   - [The `system.replicated_fetches` also contains the detail of fetching tasks](#the-systemreplicated_fetches-also-contains-the-detail-of-fetching-tasks)
-   - [clickhouse-monitoring](#clickhouse-monitoring)
-1. [Converting from MergeTree to ReplicatedMergeTree](#converting-from-mergetree-to-replicatedmergetree)
-1. [Replication Performance Tuning](#replication-performance-tuning)
-1. [References](#references)
+- [Cluster setup via ClickHouse Operator](#cluster-setup-via-clickhouse-operator)
+- [Create Replicated table](#create-replicated-table)
+- [Data Insert](#data-insert)
+- [Manage replication](#manage-replication)
+  - [How many replication jobs are running?](#how-many-replication-jobs-are-running)
+  - [The `system.replicated_fetches` also contains the detail of fetching tasks](#the-systemreplicated_fetches-also-contains-the-detail-of-fetching-tasks)
+  - [clickhouse-monitoring](#clickhouse-monitoring)
+- [Converting from MergeTree to ReplicatedMergeTree](#converting-from-mergetree-to-replicatedmergetree)
+- [Replication Performance Tuning](#replication-performance-tuning)
+- [References](#references)
 
 In this replicated setup, table will be synced between `clickhouse-01` and `clickhouse-02` via ClickHouse Keeper (or Zookeeper).
 

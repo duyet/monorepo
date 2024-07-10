@@ -1,11 +1,10 @@
 ---
 title: 5 bí quyết viết JS conditionals tốt hơn
 date: '2018-09-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - ES6
-  - Tutorials
-  - Javascript
+    - Javascript
   - Thủ thuật
 modified_time: '2018-09-20T23:59:04.102+07:00'
 thumbnail: https://2.bp.blogspot.com/-RRyHHS4eNUw/W6PRc6rcpWI/AAAAAAAAzqM/FQvD9qNV-c4PuNUrvoSZnZfSqk2EdMZxwCLcBGAs/s1600/udpahiv8rqlemvz0x3wc.png

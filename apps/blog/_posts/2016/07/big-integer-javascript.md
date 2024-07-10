@@ -1,62 +1,59 @@
 ---
 title: Big Integer Javascript
-date: "2016-07-22"
-author: Van-Duyet Le
+date: '2016-07-22'
+author: Duyet
 tags:
-- NPM
-- intro-js
-- Javascript
-- Number
-- Node.js
-- Lib
-- math
+  - Javascript
 modified_time: '2017-08-06T11:41:14.325+07:00'
 thumbnail: https://4.bp.blogspot.com/-i7nGASMBcM0/V5Gd_g2OWaI/AAAAAAAAaI8/o--B6bDhYbks5Md71uVLEKrfHn76B-AHACK4B/s1600/bigint.png
 slug: /2016/07/big-integer-javascript.html
 category: Javascript
-description: "Integer trong Javascript giới hạn đến giá trị 18437736874454810627 (tức 2^64−2^53+3). Để xử lý các giá trị lớn hơn nhiều lần với hiệu năng cao, ta có thể sử dụng thư viện Big Integer sau.
-Big integer cho phép thực hiện các phép toán cộng, trừ, nhân, chia, so sánh, ... với các số Integer không giới hạn, miễn sau bạn có đủ RAM."
-
+description: "JavaScript's Integer has a limit of up to 18437736874454810627 (that is, 2^64-2^53+3). To handle much larger values with high performance, we can use the Big Integer library."
 ---
 
-Integer trong Javascript giới hạn đến giá trị 18437736874454810627 (tức 2^64−2^53+3). Để xử lý các giá trị lớn hơn nhiều lần với hiệu năng cao, ta có thể sử dụng thư viện Big Integer sau.
-Big integer cho phép thực hiện các phép toán cộng, trừ, nhân, chia, so sánh, ... với các số Integer không giới hạn, miễn sau bạn có đủ RAM.
+JavaScript's Integer has a limit of up to 18437736874454810627 (that is, 2^64-2^53+3). To handle much larger values with high performance, we can use the Big Integer library.
+
+Big Integer allows performing basic arithmetic operations such as addition, subtraction, multiplication, division, and comparison with unlimited Integer values, as long as you have enough RAM.
 
 [![](https://4.bp.blogspot.com/-i7nGASMBcM0/V5Gd_g2OWaI/AAAAAAAAaI8/o--B6bDhYbks5Md71uVLEKrfHn76B-AHACK4B/s1600/bigint.png)](https://blog.duyet.net/2016/07/big-integer-javascript.html)
 
-## Cài đặt
+## Installation
 
-Nodejs bằng NPM:
+Using Node.js and NPM:
 
-```
+```js
 npm install big-integer
 ```
 
-Chạy ở Browsers:
+Running in Browsers:
 
-```
+```html
 <script src="http://peterolson.github.com/BigInteger.js/BigInteger.min.js"></script>
 ```
 
-Sử dụng trên code:
+Usage in code:
 
-```
-var bigInt = require("big-integer");
+```js
+var bigInt = require('big-integer');
 ```
 
-## Sử dụng
+## Usage
 
-```
+```js
 var bigInt = require('big-integer');
 
-// Các cách khai báo
+// Different ways of declaring
 var zero = bigInt();
 var ninetyThree = bigInt(93);
-var largeNumber = bigInt("75643564363473453456342378564387956906736546456235345");
-var googol = bigInt("1e100");
+var largeNumber = bigInt(
+  '75643564363473453456342378564387956906736546456235345',
+);
+var googol = bigInt('1e100');
 
-var a = '218093290301725279849294552737145306526429515095910348328784867259719961681262317171990366018836471452273795738712382654617011499370332067465452153429131133154474494728461513797156576311424209209825768452476998761186844896333150192092696406370188813135474544186922431865203259468892782696696554856807492686240273426580684476908600903286664578178500293562463803241679236095343405558144595606432072340054';
-var b = '759453421168594746297585634824794585057708073795685055048450994660667302169842440997187780071628842999365618342370044730249364762070171939525787172608446535167458760784909718498489041640160903072085566658168644606091524276643802085431070120034640336353069020700940598038997582524596177336508';
+var a =
+  '218093290301725279849294552737145306526429515095910348328784867259719961681262317171990366018836471452273795738712382654617011499370332067465452153429131133154474494728461513797156576311424209209825768452476998761186844896333150192092696406370188813135474544186922431865203259468892782696696554856807492686240273426580684476908600903286664578178500293562463803241679236095343405558144595606432072340054';
+var b =
+  '759453421168594746297585634824794585057708073795685055048450994660667302169842440997187780071628842999365618342370044730249364762070171939525787172608446535167458760784909718498489041640160903072085566658168644606091524276643802085431070120034640336353069020700940598038997582524596177336508';
 var c;
 
 // a + b
@@ -85,51 +82,51 @@ console.log(c.val()); // => 5920255740738734218386447197787065641698520726848773
 // a^2
 bigInt(3).square(); // => 9
 
-// So sánh bằng
+// Equality comparison
 a.equals(b); // false
 a.eq(b); // false
 
-// Số chẵn
+// Even number
 a.isOdd(); // true|false
 
-// Số dương
+// Positive number
 a.isPositive(); // true
 bigInt(-1).isPositive(); // false
 
-// chain usage
+// Chain usage
 c = bigInt('100')
-        .add('50') // 150
-        .sub('10') // 140
-        .mul('2') // 280
-        .div('11'); // 25
+  .add('50') // 150
+  .sub('10') // 140
+  .mul('2') // 280
+  .div('11'); // 25
 console.log(c.val()); // 25
 ```
 
 ## APIs
 
-Big Integer hỗ trợ một số phép tính toán cơ bản như sau
+Big Integer supports various basic arithmetic operations such as:
 
-- `.add(n)` - cộng n.
-- `.sub(n)` - trừ n.
-- `.mul(n)` - nhân với n
-- `.divide(n)` - chia cho n.
-- `.mod(n)` - chia lấy phần dư (phép modulo) cho n.
-- `.abs()` - trị truyệt đối
-- `.neg()` - lấy số âm của số big int hiện tại.
-- `.cmp(n)` - so sánh với số n, trả về 1 nếu lớn hơn, 0 nếu bằng và -1 nếu nhỏ hơn n.
-- `.lt(n)` - nếu số big int nhỏ hơn n, trả về `true`.
-- `.lte(n)` - nhỏ hơn hoặc bằng.
-- `.gt(n)` - lớn hơn.
-- `.gte(n)` - lớn hơn hoặc bằng.
-- `.square()` - bình phương.
-- `.shiftLeft(n)` - Shift trái.
-- `.next()` - Số tiếp theo (cộng 1).
-- `.isPrime()` - Kiểm tra số nguyên tố.
+- `.add(n)` - Add n.
+- `.sub(n)` - Subtract n.
+- `.mul(n)` - Multiply by n.
+- `.divide(n)` - Divide by n.
+- `.mod(n)` - Modulo (remainder) of n.
+- `.abs()` - Absolute value.
+- `.neg()` - Negate the current big integer.
+- `.cmp(n)` - Compare to n, returning 1 if greater, 0 if equal, and -1 if less than n.
+- `.lt(n)` - If the big integer is less than n, returns `true`.
+- `.lte(n)` - Less than or equal to.
+- `.gt(n)` - Greater than.
+- `.gte(n)` - Greater than or equal to.
+- `.square()` - Square the number.
+- `.shiftLeft(n)` - Shift left.
+- `.next()` - The next number (add 1).
+- `.isPrime()` - Check if the number is prime.
 - ...
 
-Xem chi tiết danh sách các hàm hỗ trợ [tại đây](https://github.com/peterolson/BigInteger.js).
+See the full list of supported functions [here](https://github.com/peterolson/BigInteger.js).
 
-## Tham khảo
+## References
 
 - [https://github.com/peterolson/BigInteger.js](http://saveto.co/Kq1Q5l)
 - [Big integer benchmarks](http://peterolson.github.io/BigInteger.js/benchmark)

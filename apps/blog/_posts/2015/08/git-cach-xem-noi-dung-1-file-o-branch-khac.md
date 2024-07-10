@@ -1,7 +1,7 @@
 ---
 title: Git - Cách xem nội dung 1 file ở branch khác
 date: '2015-08-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - view file
   - Git

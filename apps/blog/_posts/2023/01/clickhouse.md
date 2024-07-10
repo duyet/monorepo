@@ -1,11 +1,11 @@
 ---
 title: 'Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?'
 date: '2023-01-10'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - ClickHouse
 slug: /2023/01/clickhouse.html
 thumbnail: https://i.imgur.com/UhphBkE.png

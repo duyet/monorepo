@@ -1,7 +1,7 @@
 ---
 title: 'Git - Git Cheat Sheet '
 date: '2015-07-16'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
   - Git cheatsheet

@@ -1,9 +1,9 @@
 ---
 title: R trên Jupiter Notebook (Ubuntu 14.04 / 14.10 / 16.04)
 date: '2016-11-22'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Jupyter
   - Data
   - Notebook

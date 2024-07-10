@@ -1,10 +1,10 @@
 ---
 title: zx
 date: '2021-08-28'
-author: Van-Duyet Le
+author: Duyet
 category: Productivity
 tags:
-  - Data Engineer
+  - Data Engineering
   - Bash
   - Linux
 slug: /2021/08/zx.html

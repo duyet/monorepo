@@ -1,7 +1,7 @@
 ---
 title: Ra mắt Node.js v6.0.0
 date: '2016-04-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - release

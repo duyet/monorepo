@@ -1,7 +1,7 @@
 ---
 title: Git - Cách xóa nhanh tất cả các branch cũ đã merge vào branch master
 date: '2015-08-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
   - Thủ thuật Git

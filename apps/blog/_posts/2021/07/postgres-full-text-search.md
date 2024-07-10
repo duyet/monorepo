@@ -1,11 +1,11 @@
 ---
 title: Postgres Full Text Search
 date: '2021-07-04'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - Database
   - Postgres
 thumbnail: https://1.bp.blogspot.com/-myVyO9v0lXQ/YOHlrpMnfFI/AAAAAAACIJ8/YfkgH_rMiRMqxhoI0rNTOeC61w8XGaLCACLcBGAsYHQ/s0/pg-full-text-duyet.png

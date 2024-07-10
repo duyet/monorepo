@@ -5,7 +5,7 @@ author: Duyet, Hieu
 category: Rust 🦀
 tags:
   - Data
-  - Data Engineering
+  - Data Engineeringing
   - Rust
 slug: /2023/06/fossil-data-platform-written-rust.html
 thumbnail: /media/2023/06/fossil-data-platform-written-rust/bench-2.png

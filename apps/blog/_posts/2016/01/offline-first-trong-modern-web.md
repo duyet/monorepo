@@ -1,7 +1,7 @@
 ---
 title: Offline-First trong Modern Web
 date: '2016-01-07'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Web
   - Offline

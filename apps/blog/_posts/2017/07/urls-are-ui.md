@@ -1,7 +1,7 @@
 ---
 title: URLs là UI
 date: '2017-07-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Web Design
   - Website

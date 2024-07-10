@@ -1,11 +1,11 @@
 ---
 title: 'GPT vs Traditional NLP Models'
 date: '2023-04-01'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - NLP
 slug: /2023/04/nlp-vs-gpt.html
 thumbnail: https://i.imgur.com/azqWurz.jpg

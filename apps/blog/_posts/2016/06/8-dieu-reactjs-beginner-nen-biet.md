@@ -1,7 +1,7 @@
 ---
 title: 8 điều React.js beginner nên biết
 date: '2016-06-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Beginner
   - Redux
@@ -16,8 +16,6 @@ thumbnail: https://1.bp.blogspot.com/-KtYQVNUSOhM/V25BbTCHiII/AAAAAAAAYQk/-9QPfR
 slug: /2016/06/8-dieu-reactjs-beginner-nen-biet.html
 category: Javascript
 description: Mình bắt đầu nghiên cứu và sử dụng React.js một thời gian. Phải nói React và React Native là một trong nghệ của tương lai, sẽ phát triển mạnh.
-
-fbCommentUrl: http://blog.duyetdev.com/2016/06/8-dieu-reactjs-beginner-nen-biet.html
 ---
 
 Mình bắt đầu nghiên cứu và sử dụng [React.js](https://facebook.github.io/react/index.html) một thời gian. Phải nói React và React Native là một trong nghệ của tương lai, sẽ phát triển mạnh.

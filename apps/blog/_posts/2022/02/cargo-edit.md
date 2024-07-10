@@ -1,7 +1,7 @@
 ---
 title: 'Rust: cargo-edit'
 date: '2022-02-06'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

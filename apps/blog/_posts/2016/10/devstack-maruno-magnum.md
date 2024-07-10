@@ -1,7 +1,7 @@
 ---
 title: Openstack - App Catalog và Docker trên Devstack
 date: '2016-10-29'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Docker
   - Python
@@ -16,7 +16,6 @@ thumbnail: https://2.bp.blogspot.com/-8mDGZPymnKU/WBSIXCWaybI/AAAAAAAAfaM/pIubRd
 slug: /2016/10/devstack-maruno-magnum.html
 category: News
 description: DevStack là giúp triển khai mô hình Openstack cho Developers, có thể chạy trên Single-Machine
-fbCommentUrl: http://blog.duyetdev.com/2016/10/devstack-maruno-magnum.html
 ---
 
 DevStack là giúp triển khai mô hình Openstack cho Developers, có thể chạy trên Single-Machine.  

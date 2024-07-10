@@ -1,10 +1,10 @@
 ---
 title: Sử dụng PyTorch với GPU miễn phí trên Google Colab
 date: '2018-06-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - AI
-  - Data Engineer
+  - Data Engineering
   - Notebook
   - Python
   - PyTorch

@@ -1,7 +1,7 @@
 ---
 title: Slack - công cụ chat trong việc theo dõi tiến độ công việc của project
 date: '2015-04-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Chat
   - Slack

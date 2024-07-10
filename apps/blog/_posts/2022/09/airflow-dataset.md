@@ -1,11 +1,11 @@
 ---
 title: 'Airflow Dataset (Data-aware scheduling)'
 date: '2022-09-27'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
   - Airflow
 slug: /2022/09/airflow-dataset.html
 thumbnail: https://i.imgur.com/oESqHNY.png

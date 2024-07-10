@@ -1,9 +1,9 @@
 ---
 title: Colaboratory - phiên bản custom của Jupyter Notebook từ Google
 date: '2017-11-07'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Google
   - Data Science
   - Jupyter Notebook

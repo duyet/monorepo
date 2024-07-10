@@ -3,7 +3,7 @@ title:
   Nginx - adding cross-origin resource sharing (CORS) support to reverse proxied
   APIs
 date: '2016-02-08'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tutorial
   - Nginx

@@ -1,10 +1,10 @@
 ---
 title: Nodejs - Cache in-memory trong Nodejs
 date: '2015-11-13'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
-  - Tutorrial
+  - Tutorial
   - node-cache
   - Package
   - Package.json

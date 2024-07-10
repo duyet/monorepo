@@ -1,7 +1,7 @@
 ---
 title: 'Tolks.io - Put your story up on the Internet '
 date: '2017-09-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Fun
   - Web Experience

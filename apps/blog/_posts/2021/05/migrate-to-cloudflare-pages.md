@@ -1,7 +1,7 @@
 ---
 title: Migrate to Cloudflare Pages
 date: '2021-05-01'
-author: Van-Duyet Le
+author: Duyet
 category: Web
 tags:
   - Web

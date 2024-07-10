@@ -1,7 +1,7 @@
 ---
 title: 'Rust: Option & Result'
 date: '2022-02-15'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

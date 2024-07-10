@@ -1,7 +1,7 @@
 ---
 title: 'Javascript Weekly #10'
 date: '2016-12-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Javascript-Weekly-10
   - Hyper

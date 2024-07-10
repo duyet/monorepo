@@ -1,7 +1,7 @@
 ---
 title: Postman
 date: '2016-03-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tutorial
   - Postman

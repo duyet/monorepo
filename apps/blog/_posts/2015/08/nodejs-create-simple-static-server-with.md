@@ -1,7 +1,7 @@
 ---
 title: Nodejs - Create simple static server with Nodejs
 date: '2015-08-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Tutorial

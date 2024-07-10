@@ -1,7 +1,7 @@
 ---
 title: ES6 có gì mới?
 date: '2016-04-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - ECMAScript 2015
@@ -12,7 +12,6 @@ thumbnail: https://4.bp.blogspot.com/-oK1U8Mxh0do/VwKkWfHuhzI/AAAAAAAAS2M/nCj-Zc
 slug: /2016/04/es6.html
 category: Javascript
 description: ES6 là phiên bản mới nhất của bộ tiêu chuẩn ECMAScript. ES6 ra mắt giữa 2015 với rất nhiều những tính năng mới lạ, và cần thiết đối với sự phát triển chóng mặt của Javascript trong những năm gần đây. Cụ thể ES6 sẽ có những điểm mới nào nổi bật?
-fbCommentUrl: http://blog.duyetdev.com/2016/04/es6.html
 ---
 
 ES6 là phiên bản mới nhất của bộ tiêu chuẩn ECMAScript. ES6 ra mắt giữa 2015 với rất nhiều những tính năng mới lạ, và cần thiết đối với sự phát triển chóng mặt của Javascript trong những năm gần đây. Cụ thể ES6 sẽ có những điểm mới nào nổi bật?

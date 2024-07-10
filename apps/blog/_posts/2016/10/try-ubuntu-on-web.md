@@ -1,7 +1,7 @@
 ---
 title: Try Ubuntu on Web
 date: '2016-10-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Open Source
   - Ubuntu

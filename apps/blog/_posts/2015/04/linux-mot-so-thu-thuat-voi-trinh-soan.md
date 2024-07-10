@@ -1,7 +1,7 @@
 ---
 title: 'Linux - một số thủ thuật với trình soạn thảo vim '
 date: '2015-04-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Linux
   - Ubuntu

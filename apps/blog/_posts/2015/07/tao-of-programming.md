@@ -1,7 +1,7 @@
 ---
 title: 'Đạo lập trình - The Tao Of Programming '
 date: '2015-07-10'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tao of Programming
   - đạo lập trình

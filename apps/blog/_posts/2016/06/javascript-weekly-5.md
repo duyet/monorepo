@@ -1,13 +1,12 @@
 ---
 title: 'Javascript Weekly #5'
 date: '2016-06-18'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Javascript
   - Javascript-Weekly
   - Node.js
-  - Node
 modified_time: '2016-06-18T23:17:14.335+07:00'
 thumbnail: https://1.bp.blogspot.com/-raHIBW9hoEw/V2VwikTHooI/AAAAAAAAX1A/by3IQqWb2BALMqlXky_DPutfvbe7kj28gCK4B/s1600/js5.png
 slug: /2016/06/javascript-weekly-5.html

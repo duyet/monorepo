@@ -1,7 +1,7 @@
 ---
 title: The Evolution of a Software Engineer
 date: '2016-12-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Medium
   - Picture

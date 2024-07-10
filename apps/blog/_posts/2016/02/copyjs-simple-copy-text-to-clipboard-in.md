@@ -1,10 +1,9 @@
 ---
 title: copy.js - simple copy text to clipboard in the browser
 date: '2016-02-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
-  - copy.js
   - Bower
   - NPM
   - Javascript

@@ -1,7 +1,7 @@
 ---
 title: 'Javascript Weekly #9'
 date: '2016-12-10'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - ES6
   - Javascript-Weekly-9

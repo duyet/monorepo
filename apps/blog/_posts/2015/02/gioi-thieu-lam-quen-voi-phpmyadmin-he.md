@@ -1,12 +1,11 @@
 ---
 title: Giới thiệu, làm quen với phpMyAdmin - Hệ quản trị MySQL
 date: '2015-02-15'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - SQL
   - PHPMyAdmin
   - MySQL
-  - Tutorials
 modified_time: '2015-02-15T23:05:02.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-RIl_Pz6Y1Fo/VODDEddfGiI/AAAAAAAACHw/wibuZ6SUfAQ/s1600/Screenshot%2Bfrom%2B2015-02-15%2B22%3A59%3A44.png
 slug: /2015/02/gioi-thieu-lam-quen-voi-phpmyadmin-he.html

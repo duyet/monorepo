@@ -1,7 +1,7 @@
 ---
 title: Linux - Đường dẫn tuyệt đối và đường dẫn tương đối
 date: '2015-02-15'
-author: Van-Duyet Le
+author: Duyet
 category: Linux
 tags:
   - Linux

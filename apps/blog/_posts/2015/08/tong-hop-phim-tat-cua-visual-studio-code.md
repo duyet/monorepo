@@ -1,7 +1,7 @@
 ---
 title: Tổng hợp phím tắt của Visual Studio Code
 date: '2015-08-07'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - VS Code
   - Phím tắt

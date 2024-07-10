@@ -1,7 +1,7 @@
 ---
 title: sitemap.duyetdev.com
 date: '2016-02-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - release
   - sitemap

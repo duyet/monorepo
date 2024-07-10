@@ -1,10 +1,10 @@
 ---
 title: Uptime with GitHub Actions
 date: '2021-09-20'
-author: Van-Duyet Le
+author: Duyet
 category: Productivity
 tags:
-  - Data Engineer
+  - Data Engineering
   - Docker
 slug: /2021/09/uptime-with-github-actions.html
 thumbnail: https://1.bp.blogspot.com/-uGEmZa3e2Pc/YUiWb8qAkaI/AAAAAAACQig/bPXGd6Kl6EULxY61aolS0W6-PSldz5kOgCLcBGAsYHQ/s0/uptime-1.png

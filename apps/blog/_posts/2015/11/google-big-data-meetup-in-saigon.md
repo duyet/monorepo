@@ -1,7 +1,7 @@
 ---
 title: Google Big Data Meetup in Saigon
 date: '2015-11-13'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Meetup
   - Google

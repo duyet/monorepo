@@ -1,7 +1,7 @@
 ---
 title: Why does Helm Charts interpret 0777 as 511?
 date: '2023-04-15'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - DevOps

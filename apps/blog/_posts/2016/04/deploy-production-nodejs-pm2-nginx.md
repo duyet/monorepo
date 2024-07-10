@@ -1,7 +1,7 @@
 ---
 title: Deploy production Node.js với PM2 và Nginx
 date: '2016-04-10'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Tutorial
@@ -13,7 +13,6 @@ thumbnail: https://3.bp.blogspot.com/-hgi6cDJuaP0/VxTAu2i1SII/AAAAAAAATkU/k_reis
 slug: /2016/04/deploy-production-nodejs-pm2-nginx.html
 category: Javascript
 description: Cách cài đặt và triển khai production Node.js project với Nginx và PM2.
-fbCommentUrl: http://blog.duyetdev.com/2016/04/deploy-production-nodejs-pm2-nginx.html
 ---
 
 Cách cài đặt và triển khai production Node.js project với Nginx và PM2.

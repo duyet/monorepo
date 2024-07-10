@@ -1,7 +1,7 @@
 ---
 title: Nodejs - đọc file package.json
 date: '2016-02-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Tutorial

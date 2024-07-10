@@ -1,7 +1,7 @@
 ---
 title: Big Data - Monitoring Spark with Graphite and Grafana
 date: '2015-07-14'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Apache Spark
   - Spark

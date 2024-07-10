@@ -22,7 +22,7 @@ export default function Content({ post }: { post: Post }) {
 
       <article
         className={cn(
-          'prose dark:prose-invert prose-code:break-words',
+          'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
           'mb-10 mt-10 max-w-none',
         )}
         dangerouslySetInnerHTML={{ __html: post.content || 'No content' }}

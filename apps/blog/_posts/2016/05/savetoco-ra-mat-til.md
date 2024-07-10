@@ -1,7 +1,7 @@
 ---
 title: saveto.co ra mắt TIL
 date: '2016-05-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - ahihi.club
   - saveto.co

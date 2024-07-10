@@ -1,7 +1,7 @@
 ---
 title: 7 thủ thuật với Resting và Spreading JavaScript Objects
 date: '2019-03-27'
-author: Van-Duyet Le
+author: Duyet
 category: Javascript
 tags:
   - ES6

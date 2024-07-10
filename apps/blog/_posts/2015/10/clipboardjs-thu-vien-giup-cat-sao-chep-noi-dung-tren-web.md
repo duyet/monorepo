@@ -1,7 +1,7 @@
 ---
 title: Clipboard.js - thư viện giúp cắt/sao chép nội dung trên web một cách dễ dàng.
 date: '2015-10-30'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - clipboard.js
   - Javascript

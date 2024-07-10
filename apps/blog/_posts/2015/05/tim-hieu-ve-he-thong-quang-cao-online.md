@@ -1,7 +1,7 @@
 ---
 title: Tìm hiểu về hệ thống quảng cáo và quảng cáo Online
 date: '2015-05-17'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - CPC
   - Ads

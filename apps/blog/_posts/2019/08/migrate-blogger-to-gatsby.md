@@ -1,7 +1,7 @@
 ---
 title: Migrate Blogger sang Gatsby
 date: '2019-08-07'
-author: Van-Duyet Le
+author: Duyet
 category: Story
 tags:
   - Story
@@ -10,7 +10,6 @@ tags:
 thumbnail: https://images.unsplash.com/photo-1470175369463-7bb9f41e614b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80
 slug: /2019/08/migrate-blogger-to-gatsby.html
 description: Mình đã migrate từ Blogger sang Gatsby
-fbCommentUrl: https://blog.duyetdev.com/2019/08/migrate-blogger-to-gatsby.html
 ---
 
 Những bài viết đầu tiên của blog này được bắt đầu năm 2014, đã nhiều năm sử dụng nền tảng Blogger của Google.

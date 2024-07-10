@@ -1,7 +1,7 @@
 ---
 title: Nodejs - Giới thiệu SailsJS framework.
 date: '2015-08-08'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - sails

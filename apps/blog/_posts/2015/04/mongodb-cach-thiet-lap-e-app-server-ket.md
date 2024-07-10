@@ -1,7 +1,7 @@
 ---
 title: MongoDB - Cách thiết lập để App Server kết nối đến MongoDb Server
 date: "2015-04-09"
-author: Van-Duyet Le
+author: Duyet
 tags:
 - Linux
 - MongoDb

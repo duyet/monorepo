@@ -1,7 +1,7 @@
 ---
 title: PHP - Vietnamese Language Pack Extension for Flarum
 date: '2015-10-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Flarum
   - PHP

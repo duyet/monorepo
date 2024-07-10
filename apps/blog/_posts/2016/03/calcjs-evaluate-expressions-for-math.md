@@ -1,7 +1,7 @@
 ---
 title: calc.js - evaluate expressions for Math
 date: '2016-03-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Calculator
   - Nodejs

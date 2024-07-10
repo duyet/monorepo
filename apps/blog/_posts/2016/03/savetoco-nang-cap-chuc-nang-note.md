@@ -1,7 +1,7 @@
 ---
 title: saveto.co nâng cấp chức năng note
 date: '2016-03-24'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - ahihi.club
   - saveto.co

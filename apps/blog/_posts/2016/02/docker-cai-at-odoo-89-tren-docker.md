@@ -1,7 +1,7 @@
 ---
 title: Docker - cài đặt Odoo 8/9 trên Docker
 date: '2016-02-03'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tutorial
   - Docker

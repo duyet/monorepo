@@ -1,10 +1,10 @@
 ---
 title: gpu.js - Tăng tốc Javascript với GPU
 date: '2017-07-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - GPU
-  - intro-js
+
   - Javascript
 modified_time: '2017-07-26T22:18:53.281+07:00'
 thumbnail: https://1.bp.blogspot.com/-X7Kr5VOlHrs/WXiyj88TKTI/AAAAAAAAmTo/zXoRm7bqaOM-DSDvG1EEBlHaN52T5Tp_gCK4BGAYYCw/s1600/687474703a2f2f6770752e726f636b732f696d672f6f67696d6167652e706e67.png

@@ -1,9 +1,9 @@
 ---
 title: vnTokenizer trên PySpark
 date: '2016-12-14'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Python
   - Javascript
   - PySpark
@@ -15,8 +15,6 @@ modified_time: '2018-09-10T17:20:37.029+07:00'
 slug: /2016/12/vntokenizer-tren-pyspark.html
 category: Data Engineer
 description: Trong blog này mình sẽ custom lại vn.vitk để có thể chạy như một thư viện lập trình, sử dụng ngôn ngữ python (trên PySpark và Jupyter Notebook).
-
-fbCommentUrl: http://blog.duyetdev.com/2016/12/vntokenizer-tren-pyspark.html
 ---
 
 vnTokenizer của tác giả Lê Hồng Phương ở phiên bản thứ 3 (**[vn.vitk](https://github.com/phuonglh/vn.vitk)**) này được build trên Apache Spark, cho phép xử lý dữ liệu lớn. vn.vitk hỗ trợ các tác vụ: Word segmentation, Part-of-speech tagging, Dependency parsing.

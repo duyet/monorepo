@@ -1,7 +1,7 @@
 ---
 title: Coding - Những lợi ích của việc tiếp cận phương pháp module hóa
 date: '2015-02-14'
-author: Van-Duyet Le
+author: Duyet
 category: News
 tags:
   - Module

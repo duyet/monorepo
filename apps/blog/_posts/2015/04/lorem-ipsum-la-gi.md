@@ -1,7 +1,7 @@
 ---
 title: Lorem Ipsum là gì?
 date: '2015-04-15'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - HTML
   - Lorem Ipsum

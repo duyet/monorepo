@@ -1,20 +1,18 @@
 ---
 title: 'Chatbot với Botpress - Phần 1: Init Chatbot'
 date: '2017-01-24'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Botpress
   - Chatbot
   - Node.js
   - Bot
-  - Node
 modified_time: '2017-02-03T10:29:53.696+07:00'
 thumbnail: https://1.bp.blogspot.com/-E3jFFQUIYCs/WIYM0StyBTI/AAAAAAAAihE/voCjyxjUDMcfR7dIoMfX7bdbLnaoaOASQCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B21-01-28.png
 slug: /2017/01/botpress.html
 category: Web
 description: Botpress được ví như Wordpress for Chatbot - được viết bằng Node, cài đặt đơn giản, quản lý trên giao diện web, cơ chế lập trình module - Botpress giúp rút ngắn thời gian Dev lên rất nhiều.
-fbCommentUrl: http://blog.duyetdev.com/2017/01/botpress.html
 ---
 
 Mình thấy Node.js là ngôn ngữ được sử dụng khá phổ biến để viết chatbot (Slack, Messenger, ...), nhiều Framework cho Chatbot được ra đời, trong đó mình tìm thấy Botpress cũng khá hay và dễ sử dụng, khả năng mở rộng cao.

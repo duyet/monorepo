@@ -1,7 +1,7 @@
 ---
 title: Explain Shell - explainshell.com
 date: '2017-04-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Linux
   - Shell

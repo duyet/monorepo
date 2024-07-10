@@ -1,10 +1,10 @@
 ---
 title: 'Rust và Data Engineering? 🤔'
 date: '2021-11-27'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
-  - Data Engineer
+  - Data Engineering
   - Rust
   - Vietnamese
   - Rust Tiếng Việt

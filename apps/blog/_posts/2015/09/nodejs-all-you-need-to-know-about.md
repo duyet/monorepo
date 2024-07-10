@@ -1,7 +1,7 @@
 ---
 title: Nodejs - All you need to know about Node.js 4.0.0
 date: '2015-09-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Update

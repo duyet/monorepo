@@ -3,7 +3,7 @@ title:
   Bootstrap - Giới thiệu về Components thành phần được xây dựng sẵn trong Twitter
   Bootstrap
 date: '2015-04-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Css
   - Bootstrap

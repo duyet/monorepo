@@ -1,7 +1,7 @@
 ---
 title: Neural networks là gì?
 date: '2016-03-26'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - AI
   - ML
@@ -14,7 +14,6 @@ thumbnail: https://1.bp.blogspot.com/-IrbvGQYE780/Vvai3HWIZKI/AAAAAAAASX8/Bk--e7
 slug: /2016/03/neural-networks.html
 category: Machine Learning
 description: Neural networks là gì?
-fbCommentUrl: http://blog.duyetdev.com/2016/03/neural-networks.html
 ---
 
 Theo nghĩa sinh học, mạng Neural là một tập hợp các dây thần kinh kết nối với nhau. Trong [Deep learning](https://blog.duyet.net/2016/02/deep-learning-la-gi.html#.VvajANx96b8), Neural networks để chỉ mạng Neural nhân tạo, cấu thành từ các lớp Neural.

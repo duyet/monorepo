@@ -1,7 +1,7 @@
 ---
 title: 'Unit test và Function test '
 date: '2015-12-21'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Test
 modified_time: '2016-01-11T01:59:18.744+07:00'

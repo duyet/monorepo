@@ -1,7 +1,7 @@
 ---
 title: 'JavaScript Weekly #2'
 date: '2016-05-28'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Nodejs
   - Javascript

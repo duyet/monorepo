@@ -1,7 +1,7 @@
 ---
 title: Git - Chỉnh sửa git vừa commit
 date: '2015-08-07'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
   - git commit

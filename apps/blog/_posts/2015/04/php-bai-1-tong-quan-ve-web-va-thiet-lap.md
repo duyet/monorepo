@@ -1,7 +1,7 @@
 ---
 title: PHP - Tổng quan về Web và thiết lập môi trường để lập trình PHP
 date: '2015-04-16'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Training
   - PHP

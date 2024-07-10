@@ -1,7 +1,7 @@
 ---
 title: Web - 20 nền tảng blogging và publishing tốt nhất trong năm 2015
 date: '2015-07-20'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Blog
   - Top

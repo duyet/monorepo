@@ -1,10 +1,10 @@
 ---
 title: Spark on Kubernetes - better handling for node shutdown
 date: '2021-11-22'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
-  - Data Engineer
+  - Data Engineering
   - Spark
   - Kubernetes
 slug: /2021/11/spark-node-decommission.html

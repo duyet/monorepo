@@ -1,9 +1,9 @@
 ---
 title: Rancher - Quản lý Docker Container bằng UI
 date: '2017-01-23'
-author: Van-Duyet Le
+author: Duyet
 tags:
-  - Data Engineer
+  - Data Engineering
   - Docker
   - Rancher
   - Container
@@ -14,7 +14,6 @@ thumbnail: https://3.bp.blogspot.com/-QUh_PaavDSA/WIWWTCtiTXI/AAAAAAAAies/LvVHTt
 slug: /2017/01/rancher.html
 category: Linux
 description: 'Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi thao tác đều trên UI. Rancher còn tích hợp Shell trên Docker, App catalog, ...'
-fbCommentUrl: http://blog.duyetdev.com/2017/01/rancher.html
 ---
 
 Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi thao tác đều trên UI. Rancher còn tích hợp Shell trên Docker, App catalog, ...

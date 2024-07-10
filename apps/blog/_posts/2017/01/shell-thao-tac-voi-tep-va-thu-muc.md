@@ -1,7 +1,7 @@
 ---
 title: Shell - Mọi thao tác với tệp và thư mục trên Bash
 date: '2017-01-23'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Linux
   - Shell bash

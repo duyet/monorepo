@@ -1,7 +1,7 @@
 ---
 title: Github Project - Feedback Social Platform
 date: '2015-08-09'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Github
   - project
@@ -17,7 +17,7 @@ Feedback Social is platform free for all to feedback, preview, complain,... abou
 
 Project: Feedback Social Platform (https://github.com/duyet/feedback-social)
 Version: 0.0.1
-Author: Van-Duyet Le (@duyetdev)
+author: Duyet (@duyetdev)
 Home: https://blog.duyet.net
 
 ## License

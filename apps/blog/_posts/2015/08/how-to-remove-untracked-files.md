@@ -1,7 +1,7 @@
 ---
 title: Git - How to remove untracked files
 date: '2015-08-25'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Git
 modified_time: '2016-02-29T23:23:31.364+07:00'

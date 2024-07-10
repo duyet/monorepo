@@ -1,7 +1,7 @@
 ---
 title: Tài liệu Panama
 date: '2016-04-06'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Panama Papers
   - Tài liệu Panama

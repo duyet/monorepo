@@ -1,10 +1,10 @@
 ---
 title: Spark on Kubernetes Performance Tuning
 date: '2021-04-10'
-author: Van-Duyet Le
+author: Duyet
 category: Data Engineer
 tags:
-  - Data Engineer
+  - Data Engineering
   - Spark
   - Apache Spark
 thumbnail: https://1.bp.blogspot.com/-DqjllNPwXAs/YHG4KE1w2bI/AAAAAAAB_Hc/-laW2XvRNHgXvgub8XcNgw83tajD2ihlQCLcBGAsYHQ/s0/image-20210221-073612.png

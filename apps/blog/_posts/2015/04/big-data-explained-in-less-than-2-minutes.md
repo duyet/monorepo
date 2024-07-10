@@ -1,7 +1,7 @@
 ---
 title: Big Data - Explained in Less Than 2 Minutes - To Absolutely Anyone
 date: '2015-04-12'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - BigData
 modified_time: '2015-04-12T18:28:37.128+07:00'

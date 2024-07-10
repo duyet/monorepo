@@ -1,7 +1,7 @@
 ---
 title: 'Cargo: workspace inheritance'
 date: '2022-09-24'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

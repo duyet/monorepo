@@ -1,7 +1,7 @@
 ---
 title: cheats.rs
 date: '2022-01-01'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

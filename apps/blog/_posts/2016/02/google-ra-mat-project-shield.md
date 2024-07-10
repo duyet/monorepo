@@ -1,7 +1,7 @@
 ---
 title: Google ra mắt Project Shield
 date: '2016-02-27'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Google
   - Jigsaw

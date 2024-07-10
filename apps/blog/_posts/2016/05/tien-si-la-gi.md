@@ -1,7 +1,7 @@
 ---
 title: Tiến sĩ là gì?
 date: '2016-05-07'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Ph.D
   - Tiến Sĩ

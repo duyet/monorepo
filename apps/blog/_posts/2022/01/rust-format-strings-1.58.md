@@ -1,7 +1,7 @@
 ---
 title: 'Rust: Format Strings in 1.58'
 date: '2022-01-18'
-author: Van-Duyet Le
+author: Duyet
 category: Rust 🦀
 tags:
   - Rust

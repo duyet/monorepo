@@ -1,7 +1,7 @@
 ---
 title: Tensorflow - hướng dẫn cài đặt
 date: '2016-02-05'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tensorflow
   - Tutorial
@@ -14,7 +14,6 @@ thumbnail: https://3.bp.blogspot.com/-R2h5LWtXLa4/VrTTs4StSYI/AAAAAAAAPHQ/AewU2C
 slug: /2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html
 category: Machine Learning
 description: Cài đặt Tensorflow
-fbCommentUrl: http://blog.duyetdev.com/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html
 ---
 
 [Tensorflow](http://tensorflow.org/) - thư viện nguồn mở Machine Learning, xử theo mô hình data flow, có nhiều bài giới thiệu về Tensorflow rồi. Ban đầu được thiết kế để nghiên cứu tại phòng lab Google Brain cho các dự án Machine Learning.

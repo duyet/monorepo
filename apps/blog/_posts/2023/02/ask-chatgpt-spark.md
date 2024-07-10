@@ -1,11 +1,11 @@
 ---
 title: 'Ask ChatGPT about 20 important concepts of Apache Spark'
 date: '2023-02-26'
-author: Van-Duyet Le
+author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineer
+  - Data Engineering
 slug: /2023/02/ask-chatgpt-spark.html
 thumbnail: https://i.imgur.com/ZvhkzWZ.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F02%2Fask-chatgpt-spark.html

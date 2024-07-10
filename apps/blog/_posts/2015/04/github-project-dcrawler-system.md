@@ -1,7 +1,7 @@
 ---
 title: 'Github project - DCrawler - Crawler System base on Nodejs and MongoDB '
 date: "2015-04-10"
-author: Van-Duyet Le
+author: Duyet
 tags:
 - Nodejs
 - MongoDb
@@ -24,7 +24,7 @@ DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, mult
 
 Project: DCrawler ([https://github.com/lvduit/DCrawler](https://github.com/lvduit/DCrawler))
 Version: 0.0.1
-Author: Van-Duyet Le ([@lvduit](http://twitter.com/lvduit))
+author: Duyet ([@lvduit](http://twitter.com/lvduit))
 Home: [http://lvduit.com](http://lvduit.com/)
 
 ## Features

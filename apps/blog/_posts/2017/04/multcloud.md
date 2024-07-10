@@ -3,7 +3,7 @@ title:
   Multcloud - di chuyển, sao chép dữ liệu qua lại giữa các Cloud Drive (Google
   Drive, Dropbox, ...)
 date: '2017-04-11'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Tools
   - Tutorial

@@ -1,7 +1,7 @@
 ---
 title: Gio.js - 3D Globe Data Visualization
 date: '2018-07-01'
-author: Van-Duyet Le
+author: Duyet
 tags:
   - Javascript
   - Visualization

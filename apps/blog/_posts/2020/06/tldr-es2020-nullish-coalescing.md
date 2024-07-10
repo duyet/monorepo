@@ -1,7 +1,7 @@
 ---
 title: 'TL;DR - ES2020: Nullish Coalescing'
 date: '2020-06-28'
-author: Van-Duyet Le
+author: Duyet
 category: Web
 tags:
   - Web
