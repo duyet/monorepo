@@ -1,5 +1,5 @@
 ---
-title: DNS là cái quái gì vậy?
+title: DNS là gì?
 date: '2015-02-23'
 author: Duyet
 tags:
@@ -7,7 +7,7 @@ tags:
   - WWW
   - Web
 modified_time: '2015-02-23T13:41:18.274+07:00'
-slug: /2015/02/dns-la-cai-quai-gi-vay.html
+slug: /2015/02/dns.html
 category: News
 description: DNS là từ viết tắt trong tiếng Anh của Domain Name System, là Hệ thống phân giải tên miền được phát minh vào năm 1984 cho Internet. Bạn có thể hiểu DNS như một cái "Danh bạ điện thoại" để tìm trên Internet bằng cách dịch tên máy chủ máy tính thành địa chỉ IP
 ---

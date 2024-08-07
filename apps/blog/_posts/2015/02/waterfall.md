@@ -1,16 +1,14 @@
 ---
-title: Quy trình phát triển phần mềm - Mô hình thác nước (waterfall model)
+title: Mô hình thác nước (Waterfall Model)
 date: '2015-02-24'
 author: Duyet
 tags:
   - Phát triển phần mềm
-  - Phần mềm
+  - Software Engineering
   - Software
-  - Thác nước
-  - waterfall
 modified_time: '2015-03-14T01:06:34.258+07:00'
-slug: /2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh-thac-nuoc.html
-category: News
+slug: /2015/02/waterfall.html
+category: Software Engineering
 description: 'Mô hình thác nước là một mô hình của quy trình phát triển phần mềm, trong đó quy trình phát triển trông giống như một dòng chảy, với các pha được thực hiện theo trật tự nghiêm ngặt và không có sự quay lui hay nhảy vượt pha là: phân tích yêu cầu, thiết kế, triển khai thực hiện, kiểm thử, liên kết và bảo trì.'
 ---
 
