@@ -136,7 +136,7 @@ spark-pi-1590286117050-exec-1                                     0/1       Pend
 Refs:
 
 - https://github.com/GoogleCloudPlatform/spark-on-k8s-operator
-- [Quick Start Guide](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/quick-start-guide.md)
+- [User Guide](https://www.kubeflow.org/docs/components/spark-operator/user-guide/)
 
 ## 3. Using Livy
 
