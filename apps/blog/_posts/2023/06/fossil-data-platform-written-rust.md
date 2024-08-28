@@ -3,6 +3,7 @@ title: Fossil Data Platform Rewritten in Rust 🦀
 date: '2023-06-18'
 author: Duyet, Hieu
 category: Rust 🦀
+series: Rust Data Engineering
 tags:
   - Data
   - Data Engineeringing
@@ -29,10 +30,10 @@ My data engineering team at Fossil recently released some of Rust-based componen
 - [The First Benchmark](#the-first-benchmark)
 - [Going Production](#going-production)
 - [Spark and Rust](#spark-and-rust)
-  - [1. Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
-  - [2. `pyspark.RDD.pipe`](#2-pysparkrddpipe)
-  - [3. DataFusion](#3-datafusion)
-  - [4. You Don't Always Need Spark](#4-you-dont-always-need-spark)
+    - [1. Create a **Rusty Python Library**](#1-create-a-rusty-python-library)
+    - [2. `pyspark.RDD.pipe`](#2-pysparkrddpipe)
+    - [3. DataFusion](#3-datafusion)
+    - [4. You Don't Always Need Spark](#4-you-dont-always-need-spark)
 - [Team involvement](#team-involvement)
 - [Well, what's next?](#well-whats-next)
 - [The feature of Rust for Data Engineering](#the-feature-of-rust-for-data-engineering)
