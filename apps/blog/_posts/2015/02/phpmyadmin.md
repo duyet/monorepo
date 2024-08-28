@@ -1,5 +1,5 @@
 ---
-title: Giới thiệu, làm quen với phpMyAdmin - Hệ quản trị MySQL
+title: phpMyAdmin
 date: '2015-02-15'
 author: Duyet
 tags:
@@ -8,8 +8,8 @@ tags:
   - MySQL
 modified_time: '2015-02-15T23:05:02.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-RIl_Pz6Y1Fo/VODDEddfGiI/AAAAAAAACHw/wibuZ6SUfAQ/s1600/Screenshot%2Bfrom%2B2015-02-15%2B22%3A59%3A44.png
-slug: /2015/02/gioi-thieu-lam-quen-voi-phpmyadmin-he.html
-description:
+slug: /2015/02/phpmyadmin.html
+description: phpMyAdmin là 1 chương trình mã nguồn mở miễn phí, viết bằng PHP, dùng để hỗ trợ các bạn làm việc với MySQL thông qua giao diện web mà không cần dùng tới những dòng lệnh MySQL phức tạp.
 ---
 
 phpMyAdmin là 1 chương trình mã nguồn mở miễn phí, viết bằng PHP, dùng để hỗ trợ các bạn làm việc với MySQL thông qua giao diện web mà không cần dùng tới những dòng lệnh MySQL phức tạp.
@@ -38,5 +38,3 @@ Giao diện phpMyAdmin như hình trên, trong đó:
 
 - Chọn CSDL ở cột bên trái, sau đó click vào nút New dưới tên CSDL để tạo bảng.
 - Điền tên các côt, kiểu dữ liệu, khóa chính khóa ngoại các kiểu.
-
-Updating...

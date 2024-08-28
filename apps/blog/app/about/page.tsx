@@ -44,7 +44,7 @@ export default function About() {
       <Container className="mb-8 md:mb-16">
         <h1 className="my-10 text-6xl font-bold lg:text-7xl">Duyệt</h1>
         <p>
-          <strong>Data Engineer</strong> with 5+ years of experience. I am
+          <strong>Data Engineer</strong> with 6+ years of experience. I am
           confident in my knowledge of Data Engineering concepts, best practices
           and state-of-the-art data and Cloud technologies.
         </p>
