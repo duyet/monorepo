@@ -3,6 +3,7 @@ title: 'Rust và Data Engineering? 🤔'
 date: '2021-11-27'
 author: Duyet
 category: Data
+series: Rust Data Engineering
 tags:
   - Data Engineering
   - Rust

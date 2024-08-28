@@ -3,6 +3,7 @@ title: 'Data Engineering Tools written in Rust'
 date: '2023-01-22'
 author: Duyet
 category: Data
+series: Rust Data Engineering
 tags:
   - Data
   - Data Engineering
