@@ -2,6 +2,7 @@
 title: Đánh giá hệ thống Information Retrieval
 date: '2019-08-31'
 category: Data Engineer
+series: Information Retrieval
 tags:
   - Data
   - Data Engineering
@@ -20,7 +21,6 @@ Trong bài này chúng ta sẽ tìm hiểu về cách đánh giá các hệ th�
 
 - Phần 1: [Vector Space Model](/2019/08/ir-vector-space-model.html)
 - **Phần 2: Đánh giá hệ thống Information Retrieval**
-- Phần 3: [Đánh giá hệ thống Information Retrieval (tiếp theo)](#)
 
 ---
 

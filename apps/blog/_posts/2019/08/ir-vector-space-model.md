@@ -2,6 +2,7 @@
 title: Information Retrieval - Vector Space Model
 date: '2019-08-30'
 category: Data Engineer
+series: Information Retrieval
 tags:
   - Data
   - Data Engineering
@@ -19,7 +20,6 @@ Một hệ thống tìm kiếm thông tin (Information Retrieval - IR) là một
 
 - **Phần 1**: **Vector Space Model**
 - Phần 2: [Đánh giá hệ thống Information Retrieval](/2019/08/ir-evaluation.html)
-- Phần 3: [Đánh giá hệ thống Information Retrieval (tiếp theo)](#)
 
 <figure>
 	<blockquote>
