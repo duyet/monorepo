@@ -2,7 +2,7 @@
 title: Coding - Những lợi ích của việc tiếp cận phương pháp module hóa
 date: '2015-02-14'
 author: Duyet
-category: Software Engineering 
+category: Software Engineering
 tags:
   - Module
   - Coding

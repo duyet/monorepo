@@ -18,7 +18,8 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        'rounded-lg border border-gold bg-card bg-gold text-card-foreground dark:border-gray-800 dark:bg-gray-900',
+        'rounded-lg border border-gold bg-card bg-gold text-card-foreground',
+        'dark:border-gray-800 dark:bg-gray-900',
         className,
       )}
     >

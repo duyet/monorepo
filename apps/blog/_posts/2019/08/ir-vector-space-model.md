@@ -152,10 +152,10 @@ Sau khi có được các vector cho query và docs, ta tính được similarit
 
 Công thức tính theo WiKi:
 
-
 $$
 d(\mathbf{d}, \mathbf{q}) = \sqrt{(d_1-q_1)^2+(d_2-q_2)^2+\cdots+(d_n-q_n)^2}
 $$
+
 $$
 = \sqrt{\sum_{i=1}^n (d_i-q_i)^2}.
 $$

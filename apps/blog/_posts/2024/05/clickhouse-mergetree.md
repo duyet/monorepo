@@ -20,7 +20,7 @@ Let's dive into creating your first table and understanding the basic concepts b
 - [MergeTree Engine](#mergetree-engine)
 - [ORDER BY](#order-by)
 - [Insert data](#insert-data)
-    - [Insert by FORMAT](#insert-by-format)
+  - [Insert by FORMAT](#insert-by-format)
 - [UNDROP 🤯](#undrop-)
 - [DETACH/ATTACH](#detachattach)
 - [TTL](#ttl)
