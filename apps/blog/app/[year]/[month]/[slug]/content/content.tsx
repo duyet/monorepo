@@ -3,6 +3,9 @@ import { getPostBySlug } from '@duyet/libs/getPost';
 import { markdownToHtml } from '@duyet/libs/markdownToHtml';
 import { cn } from '@duyet/libs/utils';
 
+import 'katex/dist/contrib/mhchem.min.js';
+import 'katex/dist/katex.min.css';
+
 export default function Content({ post }: { post: Post }) {
   return (
     <>
