@@ -54,7 +54,7 @@ const navigation = {
     },
     { name: "/ai", href: `${BLOG_URL}/ai` },
     { name: "/archives", href: `${BLOG_URL}/archives` },
-    { name: "/insights", href: INSIGHTS_URL },
+    { name: "/series", href: `${BLOG_URL}/series` },
   ],
   profile: [
     { name: "Linkedin", href: "https://linkedin.com/in/duyet" },

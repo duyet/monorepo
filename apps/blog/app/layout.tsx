@@ -35,6 +35,7 @@ export default function RootLayout({
         fontFamily:
           '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
       }}
+      suppressHydrationWarning
     >
       <Head />
       <AxiomWebVitals />
