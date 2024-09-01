@@ -82,9 +82,9 @@ Với mỗi truy vấn, hệ thống tìm kiếm sẽ sử dụng một độ đ
 
 - $similarity(d, q)$ có thể được tính bằng bất cứ độ đo trên vector nào (e.g. [Euclidean](https://en.wikipedia.org/wiki/Euclidean_vector#Dot_product), [Consine Similarity](https://en.wikipedia.org/wiki/Cosine_similarity), ... )
 
-  $$
-      R(q) = \{ d \in C\ |\ rel(d, q) > \theta,\ rel(d, q) = \Delta( Rep(q), Rep(d) ) \}
-  $$
+$$
+R(q) = \{ d \in C\ |\ rel(d, q) > \theta,\ rel(d, q) = \Delta( Rep(q), Rep(d) ) \}
+$$
 
 ### Các vấn đề đặt ra
 
@@ -114,7 +114,7 @@ Có nhiều kỹ thuật tính trọng số: TF, IDF, TF-IDF, ...
 Từ nào xuất hiện nhiều trong câu thì quan trọng, công thức này sẽ đếm tuần suất xuất hiện các từ trong câu.
 
 $$
-    tf(t, d) = f(t, d) \sim \text{tần số xuất hiện của t trong d}
+tf(t, d) = f(t, d) \sim \text{tần số xuất hiện của t trong d}
 $$
 
 **TF normalization**: Do tùy độ dài ngắn khác nhau của từng câu, mà việc đếm tần suất các từ có thể không công bằng, một số kỹ thuật chuẩn hóa sau có thể giảm tránh được điều này,
@@ -128,7 +128,7 @@ $$
 Từ nào xuất hiện nhiều trong mọi câu thì không mang nhiều ý nghĩa (ví dụ như _a, the, are, thì, là, ..._). Vì vậy trọng số IDF là nghịch đảo của tuần suất xuất hiện của các từ trong các documents.
 
 $$
- \mathrm{idf}(t, D) =  \log \frac{N}{1 + |\{d \in D: t \in d\}|}
+\mathrm{idf}(t, D) =  \log \frac{N}{1 + |\{d \in D: t \in d\}|}
 $$
 
 Với:
@@ -141,7 +141,7 @@ Với:
 Phép nhân giữa TD và IDF cho phép ta kết hợp cả 2 độ đo trên, từ vừa xuất hiện nhiều lần trong câu, vừa không phải là từ phổ biến xuất hiện trong mọi câu.
 
 $$
-    {\displaystyle \mathrm {tfidf} (t,d,D)=\mathrm {tf} (t,d)\cdot \mathrm {idf} (t,D)}
+\mathrm {tfidf} (t,d,D)=\mathrm {tf} (t,d)\cdot \mathrm {idf} (t,D)
 $$
 
 ## 4. Các độ đo similarity
@@ -152,9 +152,12 @@ Sau khi có được các vector cho query và docs, ta tính được similarit
 
 Công thức tính theo WiKi:
 
-$$
 
-{\displaystyle {\begin{aligned}d(\mathbf {d} ,\mathbf {q} )&={\sqrt {(d_{1}-q_{1})^{2}+(d_{2}-q_{2})^{2}+\cdots +(d_{n}-q_{n})^{2}}}\\[8pt]&={\sqrt {\sum _{i=1}^{n}(d_{i}-q_{i})^{2}}}.\end{aligned}}}
+$$
+d(\mathbf{d}, \mathbf{q}) = \sqrt{(d_1-q_1)^2+(d_2-q_2)^2+\cdots+(d_n-q_n)^2}
+$$
+$$
+= \sqrt{\sum_{i=1}^n (d_i-q_i)^2}.
 $$
 
 Nhược điểm:
@@ -166,7 +169,7 @@ Nhược điểm:
 Manhattan distance hay còn gọi là L1 distance, tính khoảng cách 2 vector theo công thức
 
 $$
-    d_{1}(\mathbf {p} ,\mathbf {q} )=\|\mathbf {p} -\mathbf {q} \|_{1}=\sum _{i=1}^{n}|p_{i}-q_{i}|
+d_{1}(\mathbf {p} ,\mathbf {q} )=\|\mathbf {p} -\mathbf {q} \|_{1}=\sum _{i=1}^{n}|p_{i}-q_{i}|
 $$
 
 ### c. Độ đo góc
@@ -174,7 +177,7 @@ $$
 Việc tính xem các vector overlapped với nhau như thế nào cũng là một phép so sánh hay sử dụng, độ đo góc phổ biến là Cosine Similarity.
 
 $$
-{\displaystyle {\text{similarity}}=\cos(\theta )={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|\|\mathbf {B} \|}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}}
+\text{similarity} = \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{|\mathbf{A}| |\mathbf{B}|} = \frac{\sum_{i=1}^{n}{A_iB_i}}{\sqrt{\sum_{i=1}^{n}{A_i^2}} \sqrt{\sum_{i=1}^{n}{B_i^2}}}
 $$
 
 ---
