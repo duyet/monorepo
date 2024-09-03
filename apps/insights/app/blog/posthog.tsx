@@ -19,7 +19,7 @@ export async function PostHog() {
   }
 
   const top = 20;
-  const last = 90;
+  const last = 30;
   const paths = await getTopPath(top, `-${last}d`);
 
   return (
