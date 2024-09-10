@@ -177,6 +177,7 @@ I hope this helps. Was this a good idea? Please let me know.
 
 # References
 
+- [Series: ClickHouse on Kubernetes](https://blog.duyet.net/series/clickhouse-on-kubernetes)
 - ClickHouse Playground - [https://play.clickhouse.com/play](https://play.clickhouse.com/play)
 - [MergeTree Engine](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/)
 - [Kafka Integration](https://clickhouse.tech/docs/en/operations/table_engines/kafka/)
