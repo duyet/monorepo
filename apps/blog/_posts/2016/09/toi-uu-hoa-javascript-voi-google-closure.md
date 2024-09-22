@@ -44,13 +44,13 @@ npm install --save google-closure-compiler-js
 Mặc định Closure hỗ trợ chuyển ES6 sang ES5 và tối ưu hóa code
 
 ```js
-const compile = require('google-closure-compiler-js').compile;
+const compile = require('google-closure-compiler-js').compile
 
 const flags = {
   jsCode: [{ src: 'const x = 1 + 2;' }],
-};
-const out = compile(flags);
-console.info(out.compiledCode); // will print 'var x = 3;\n'
+}
+const out = compile(flags)
+console.info(out.compiledCode) // will print 'var x = 3;\n'
 ```
 
 ### Webpack
@@ -58,8 +58,8 @@ console.info(out.compiledCode); // will print 'var x = 3;\n'
 Cấu hình webpack như bên dưới:
 
 ```js
-const ClosureCompiler = require('google-closure-compiler-js').webpack;
-const path = require('path');
+const ClosureCompiler = require('google-closure-compiler-js').webpack
+const path = require('path')
 
 module.exports = {
   entry: [path.join(__dirname, 'app.js')],
@@ -77,7 +77,7 @@ module.exports = {
       },
     }),
   ],
-};
+}
 ```
 
 ## Tham khảo

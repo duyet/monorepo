@@ -27,7 +27,7 @@ export function ExperienceItem({
   return (
     <div className={cn('flex flex-col gap-1', className)}>
       <h3
-        className="inline-flex items-center gap-2 text-lg font-bold"
+        className="inline-flex items-center gap-2 text-base font-bold"
         style={{ fontFamily: 'var(--font-bodoni)' }}
       >
         <span>{title}</span>
@@ -69,12 +69,12 @@ function CompanyLine({
           width={10}
           height={10}
           className={cn(
-            'h-6 w-auto grayscale group-hover:grayscale-0',
+            'h-6 w-auto grayscale group-hover:grayscale-0 print:hidden',
             companyLogoClassName,
           )}
         />
       ) : null}
-      {company}
+      <span>{company}</span>
     </span>
   )
 

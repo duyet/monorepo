@@ -33,7 +33,7 @@ export function Skill({
           {icon}{' '}
           {url ? (
             <Link href={url} target="_blank">
-              Detail about <strong>{skill}</strong>
+              Posts about <strong>{skill}</strong>
               {' →'}
             </Link>
           ) : (

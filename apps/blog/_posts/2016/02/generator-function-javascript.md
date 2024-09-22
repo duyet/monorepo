@@ -43,16 +43,16 @@ Nói thì dông dài, ví dụ sau sẽ dễ hiểu hơn. Hàm sau có tác dụ
 
 ```js
 function* id_maker() {
-  var index = 0;
-  while (index < 3) yield index++;
+  var index = 0
+  while (index < 3) yield index++
 }
 
-var gen = id_maker();
+var gen = id_maker()
 
-console.log(gen.next().value); // 0
-console.log(gen.next().value); // 1
-console.log(gen.next().value); // 2
-console.log(gen.next().value); // undefined
+console.log(gen.next().value) // 0
+console.log(gen.next().value) // 1
+console.log(gen.next().value) // 2
+console.log(gen.next().value) // undefined
 ```
 
 `yield` sẽ được gọi 3 lần trong vòng lặp for, do đó khi gọi đến lần thứ 4 thì log sẽ trả về undefined.
@@ -60,31 +60,31 @@ console.log(gen.next().value); // undefined
 Ở ví dụ trên, `gen.next()` sẽ trả về một object có 2 tham số là `value` và `done`. Kiểm tra có còn `next()` được nữa hay không thì chỉ cần kiểm tra giá trị `done`
 
 ```js
-console.log(gen.next()); // { value: 0, done: false }
+console.log(gen.next()) // { value: 0, done: false }
 ```
 
 `yield` chỉ có thể return về giá trị, để return về 1 hàm khác, ta sử dụng `yield*`
 
 ```js
 function* anotherGenerator(i) {
-  yield i + 1;
-  yield i + 2;
-  yield i + 3;
+  yield i + 1
+  yield i + 2
+  yield i + 3
 }
 
 function* generator(i) {
-  yield i;
-  yield* anotherGenerator(i);
-  yield i + 10;
+  yield i
+  yield* anotherGenerator(i)
+  yield i + 10
 }
 
-var gen = generator(10);
+var gen = generator(10)
 
-console.log(gen.next().value); // 10
-console.log(gen.next().value); // 11
-console.log(gen.next().value); // 12
-console.log(gen.next().value); // 13
-console.log(gen.next().value); // 20
+console.log(gen.next().value) // 10
+console.log(gen.next().value) // 11
+console.log(gen.next().value) // 12
+console.log(gen.next().value) // 13
+console.log(gen.next().value) // 20
 ```
 
 ## Kết

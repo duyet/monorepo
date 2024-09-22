@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/hover-card'
 import { Separator } from '@/components/ui/separator'
 
+import { HoverLinks } from '@/components/hover-links'
 import { Skill } from '@/components/skill'
 import FossilLogo from '@/public/fossil.svg'
 import FptLogo from '@/public/fpt.svg'
@@ -125,10 +126,30 @@ export default function Page() {
             company="Cartrack"
             companyUrl="https://cartrack.us"
             companyLogo={CartrackLogo as ImageProps['src']}
-            companyLogoClassName="h-6"
+            companyLogoClassName="h-5 w-auto"
             period="OCTOBER 2023 - CURRENT"
             responsibilities={[
-              'Migrated 350TB+ Iceberg Data Lake to ClickHouse on Kubernetes.',
+              <span key="migrate-iceberg-to-clickhouse">
+                Migrated 350TB+ Iceberg Data Lake to{' '}
+                <HoverLinks
+                  text="ClickHouse on Kubernetes"
+                  links={[
+                    {
+                      text: 'ClickHouse on Kubernetes',
+                      href: 'https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html',
+                    },
+                    {
+                      text: 'Monitoring ClickHouse on Kubernetes',
+                      href: 'https://blog.duyet.net/2024/03/clickhouse-monitoring.html',
+                    },
+                    {
+                      text: 'Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?',
+                      href: 'https://blog.duyet.net/2023/01/clickhouse.html',
+                    },
+                  ]}
+                />
+                .
+              </span>,
               'Enhanced ClickHouse for 300% better data compression and 2x-100x faster queries.',
               'Deprecated old tools (Spark, Iceberg, Trino) and automated operations with Airflow.',
             ]}
@@ -138,25 +159,50 @@ export default function Page() {
             company="Fossil Group Inc"
             companyUrl="https://fossil.com"
             companyLogo={FossilLogo as ImageProps['src']}
-            companyLogoClassName="w-11"
+            companyLogoClassName="h-auto w-10"
             period="OCTOBER 2018 - JULY 2023"
             responsibilities={[
-              'Promoted to lead Data Platform Team within 2 years.',
-              'Cut monthly costs from $45,000 to $20,000. Developed tools for Data Monitoring, Data Catalog, and Self-service Analytics',
+              'Optimize monthly costs from $45,000 to $20,000 (GCP and AWS Cloud).',
+              'Managed a team of 4 data engineers and 2 data analysts to provide end-to-end analytics solutions to stakeholders. Raised data-driven awareness throughout the organization and encouraged everyone to take a more data-driven approach to problem-solving.',
               <Link
                 href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
                 key="next-gen-data-platform"
               >
-                Designed next-gen Data Platform in Rust.
+                Designed next-gen Data Platform in Rust ↗︎
               </Link>,
-              'Managed a team of 4 data engineers and 2 data analysts to provide end-to-end analytics solutions to stakeholders. Raised data-driven awareness throughout the organization and encouraged everyone to take a more data-driven approach to problem-solving.',
+              <span key="k8s-deploy">
+                Developed tools for Data Monitoring, Data Catalog, and
+                Self-service Analytics for internal teams with{' '}
+                <HoverLinks
+                  text="everything deployed on Kubernetes"
+                  links={[
+                    {
+                      text: 'Spark on Kubernetes tại Fossil︎',
+                      href: 'https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html',
+                    },
+                    {
+                      text: 'Spark on Kubernetes Performance Tuning︎',
+                      href: 'https://blog.duyet.net/2021/04/spark-kubernetes-performance-tuning.html',
+                    },
+                    {
+                      text: 'ClickHouse on Kubernetes︎',
+                      href: 'https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html',
+                    },
+                    {
+                      text: 'Fossil Data Platform Rewritten in Rust 🦀︎',
+                      href: 'https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html',
+                    },
+                  ]}
+                />
+                .
+              </span>,
             ]}
           />
           <ExperienceItem
             title="Sr. Data Engineer"
             company="FPT Software"
             companyLogo={FptLogo as ImageProps['src']}
-            companyLogoClassName="w-9"
+            companyLogoClassName="h-auto w-7"
             period="JUNE 2017 - OCTOBER 2018"
             responsibilities={[
               'Built data pipelines processing 2TB/day with AWS for a Recommendation System',
@@ -167,7 +213,7 @@ export default function Page() {
             title="Data Engineer"
             company="John von Neumann Institute"
             companyLogo={JvnLogo as ImageProps['src']}
-            companyLogoClassName="h-6"
+            companyLogoClassName="h-5 w-auto"
             period="SEPTEMBER 2015 - JUNE 2017"
             responsibilities={[
               'Developed data pipelines and visualizations.',
@@ -183,7 +229,7 @@ export default function Page() {
           major="Bachelor's degree, Information System"
           note="Thesis: Network of career skills and support an optimal job search"
           period="2013 - 2017"
-          university="University of Information Technology - HCMC"
+          university="University of Information Technology"
         />
       </Section>
 
@@ -255,7 +301,7 @@ export default function Page() {
         </div>
       </Section>
 
-      <div className="print:hide mx-auto mt-10">
+      <div className="mx-auto mt-10 print:hidden">
         <Link href="/pdf" title="PDF Format">
           <FileTextIcon />
         </Link>

@@ -33,7 +33,7 @@ npm install propel
 ```
 
 ```js
-import { grad } from 'propel';
+import { grad } from 'propel'
 ```
 
 Sử dụng trên trình duyệt:

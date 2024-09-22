@@ -1,29 +1,29 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { cn } from '@duyet/libs/utils';
+import { useAuth0 } from '@auth0/auth0-react'
+import { cn } from '@duyet/libs/utils'
 
 interface CommentFormProps {
-  text: string;
-  setText: (s: string) => void;
-  onSubmit: (e: React.FormEvent) => Promise<void>;
+  text: string
+  setText: (s: string) => void
+  onSubmit: (e: React.FormEvent) => Promise<void>
 }
 
 const btnClasses = cn(
   'rounded px-4 py-2 hover:bg-gray-200 disabled:opacity-40',
   'bg-gray-100 dark:bg-slate-800 dark:text-slate-50',
   'text-gray text-sm',
-);
+)
 
 const textareaClasses = cn(
   'flex max-h-40 w-full resize-y rounded p-3 text-gray-900',
   'border-t border-gray-200 dark:border-gray-700 dark:bg-transparent',
-);
+)
 
 export default function CommentForm({
   text,
   setText,
   onSubmit,
 }: CommentFormProps) {
-  const { isAuthenticated, user, logout, loginWithPopup } = useAuth0();
+  const { isAuthenticated, user, logout, loginWithPopup } = useAuth0()
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- TODO: fix this
@@ -31,7 +31,7 @@ export default function CommentForm({
       <textarea
         className={textareaClasses}
         onChange={(e) => {
-          setText(e.target.value);
+          setText(e.target.value)
         }}
         onClick={!isAuthenticated ? () => loginWithPopup() : undefined}
         placeholder={
@@ -61,7 +61,7 @@ export default function CommentForm({
                   // Using 'void' to ignore the promise returned by 'logout'
                   void logout({
                     logoutParams: { returnTo: window.location.origin },
-                  });
+                  })
                 }}
                 type="button"
               >
@@ -80,5 +80,5 @@ export default function CommentForm({
         )}
       </div>
     </form>
-  );
+  )
 }

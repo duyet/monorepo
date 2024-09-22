@@ -25,12 +25,12 @@ Bài viết có thể sẽ không bao quát được hết những gì có trong
 ES6 bổ sung thêm cách khai báo biến cục bộ ([Block-scoped variables](http://es6-features.org/#BlockScopedVariables)), let khai báo biến trong block mà không làm ảnh hưởng đến giá trị trong block khác, hoặc const cho các biến không thay đổi giá trị. Ngoài ra let chỉ có giá trị trong phạm vi block code được khai báo.
 
 ```js
-const koa = require('koa');
+const koa = require('koa')
 if (true) {
-  let x = 1;
-  console.log(x); // in ra: "1"
+  let x = 1
+  console.log(x) // in ra: "1"
 }
-console.log(x); // undefined x do x chỉ được khai báo trong khối lệnh if() { ... }
+console.log(x) // undefined x do x chỉ được khai báo trong khối lệnh if() { ... }
 ```
 
 ## Arrow
@@ -40,33 +40,33 @@ Arrow là một dạng viết tắt của các function sử dụng dấu =>, gi
 Tạo hàm bằng arrow: `param => returnValue`
 
 ```js
-(a, b) => a + b;
-(a, b) => {
-  return a + b;
-};
+;(a, b) => a + b
+;(a, b) => {
+  return a + b
+}
 ```
 
 Hữu ích khi lập trình hàm `(funtional programing) [1, 2].map(x => x * 2)`
 
 ```js
 // Expression bodies
-var odds = evens.map((v) => v + 1);
-var nums = evens.map((v, i) => v + i);
-var pairs = evens.map((v) => ({ even: v, odd: v + 1 }));
+var odds = evens.map((v) => v + 1)
+var nums = evens.map((v, i) => v + i)
+var pairs = evens.map((v) => ({ even: v, odd: v + 1 }))
 
 // Statement bodies
 nums.forEach((v) => {
-  if (v % 5 === 0) fives.push(v);
-});
+  if (v % 5 === 0) fives.push(v)
+})
 
 // Lexical this
 var bob = {
   _name: 'Bob',
   _friends: [],
   printFriends() {
-    this._friends.forEach((f) => console.log(this._name + ' knows ' + f));
+    this._friends.forEach((f) => console.log(this._name + ' knows ' + f))
   },
-};
+}
 ```
 
 ## Class
@@ -76,25 +76,25 @@ ES5 không hỗ trợ class, mà mô tả các đối tượng thông qua các f
 ```js
 class SkinnedMesh extends THREE.Mesh {
   constructor(geometry, materials) {
-    super(geometry, materials);
+    super(geometry, materials)
 
-    this.idMatrix = SkinnedMesh.defaultMatrix();
-    this.bones = [];
-    this.boneMatrices = [];
+    this.idMatrix = SkinnedMesh.defaultMatrix()
+    this.bones = []
+    this.boneMatrices = []
     //...
   }
   update(camera) {
     //...
-    super.update();
+    super.update()
   }
   get boneCount() {
-    return this.bones.length;
+    return this.bones.length
   }
   set matrixType(matrixType) {
-    this.idMatrix = SkinnedMesh[matrixType]();
+    this.idMatrix = SkinnedMesh[matrixType]()
   }
   static defaultMatrix() {
-    return new THREE.Matrix4();
+    return new THREE.Matrix4()
   }
 }
 ```
@@ -124,11 +124,11 @@ var obj = {
   // Methods
   toString() {
     // Super calls
-    return 'd ' + super.toString();
+    return 'd ' + super.toString()
   },
   // Computed (dynamic) property names
   ['prop_' + (() => 42)()]: 42,
-};
+}
 ```
 
 ## Exporting
@@ -151,23 +151,23 @@ export default function bar () {}
 
 ```js
 // ES5
-module.exports.name = 'David';
-module.exports.age = 25;
+module.exports.name = 'David'
+module.exports.age = 25
 
 // ES6
-export var name = 'David';
-export var age = 25;
+export var name = 'David'
+export var age = 25
 ```
 
 ```js
 // math/addition.js
 function sumTwo(a, b) {
-  return a + b;
+  return a + b
 }
 function sumThree(a, b) {
-  return a + b + c;
+  return a + b + c
 }
-export { sumTwo, sumThree };
+export { sumTwo, sumThree }
 ```
 
 ## Importing Modules
@@ -192,59 +192,59 @@ Template Strings: Cái này khá dễ hiểu, giống như C/C++, Python. Templa
 
 ```js
 // Basic literal string creation
-`In JavaScript '\n' is a line-feed.` // Multiline strings
+;`In JavaScript '\n' is a line-feed.` // Multiline strings
 `In JavaScript this is
- not legal.`;
+ not legal.`
 
 // String interpolation
 var name = 'Bob',
-  time = 'today';
-`Hello ${name}, how are you ${time}?`;
+  time = 'today'
+;`Hello ${name}, how are you ${time}?`
 
 // Construct an HTTP request prefix is used to interpret the replacements and construction
 POST`http://foo.org/bar?a=${a}&b=${b}
      Content-Type: application/json
      X-Credentials: ${credentials}
      { "foo": ${foo},
-       "bar": ${bar}}`(myOnReadyStateChangeHandler);
+       "bar": ${bar}}`(myOnReadyStateChangeHandler)
 ```
 
 Escaping Characters: Không cần phải quan tâm khi string chứa dấu nháy đơn và kép lẫn lộn
 
 ```js
 // ES5
-var text = 'This string contains "double quotes" which are escaped.';
+var text = 'This string contains "double quotes" which are escaped.'
 
 // ES6
-let text = `This string contains "double quotes" which are escaped.`;
+let text = `This string contains "double quotes" which are escaped.`
 ```
 
 Multi-line Strings:
 
 ```js
 // ES5
-var text = 'cat\n' + 'dog\n' + 'nickelodeon';
-var text = ['cat', 'dog', 'nickelodeon'].join('\n');
+var text = 'cat\n' + 'dog\n' + 'nickelodeon'
+var text = ['cat', 'dog', 'nickelodeon'].join('\n')
 
 // ES6
 var text = `cat
   dog
-  nickelodeon`;
+  nickelodeon`
 ```
 
 ## Destructuring Assignment
 
 ```js
 function multi_values() {
-  return [1, 2, 3, 4, 5, 6];
+  return [1, 2, 3, 4, 5, 6]
 }
 // khi muốn gọi giá trị từ hàm trả về
-[x1, x2, , , x5, x6] = multi_values();
-console.log(x6); // 6
+;[x1, x2, , , x5, x6] = multi_values()
+console.log(x6) // 6
 
-var list = [1, 2, 3];
-var [a, , b] = list; // a = 1; b = 3
-[b, a] = [a, b]; // a = 3; b = 1
+var list = [1, 2, 3]
+var [a, , b] = list // a = 1; b = 3
+;[b, a] = [a, b] // a = 3; b = 1
 ```
 
 ## Tham số mặc định
@@ -253,16 +253,16 @@ ES6 cho thấy sự thông minh trong cách nhận giá trị tham số đầu v
 
 ```js
 function default1(x = 1, y = 2, z = 3) {
-  console.log(x, y, z);
+  console.log(x, y, z)
 }
-default1(5, 6); // 5 6 3
+default1(5, 6) // 5 6 3
 ```
 
 ```js
 function default2(x = 1, y = 2, z = 3) {
-  console.log(x, y, z);
+  console.log(x, y, z)
 }
-default2(undefined, 6, 7); // 1 6 7
+default2(undefined, 6, 7) // 1 6 7
 ```
 
 ## Sử dụng "..." cho đa tham số
@@ -271,10 +271,10 @@ default2(undefined, 6, 7); // 1 6 7
 
 ```js
 function three_dot1(...args) {
-  console.log(args.length); // in ra "4"
-  console.log(args); // in ra "1 2 3 4"
+  console.log(args.length) // in ra "4"
+  console.log(args) // in ra "1 2 3 4"
 }
-three_dot1(1, 2, 3, 4);
+three_dot1(1, 2, 3, 4)
 ```
 
 ## For..Of
@@ -285,20 +285,20 @@ Giống for..in, for..of dùng để viết vòng lặp trên các iterator func
 let fibonacci = {
   [Symbol.iterator]() {
     let pre = 0,
-      cur = 1;
+      cur = 1
     return {
       next() {
-        [pre, cur] = [cur, pre + cur];
-        return { done: false, value: cur };
+        ;[pre, cur] = [cur, pre + cur]
+        return { done: false, value: cur }
       },
-    };
+    }
   },
-};
+}
 
 for (var n of fibonacci) {
   // truncate the sequence at 1000
-  if (n > 1000) break;
-  console.log(n);
+  if (n > 1000) break
+  console.log(n)
 }
 ```
 
@@ -316,25 +316,25 @@ Map, Set, WeakMap, WeakSet là các hàm thường thấy trong các ứng dụn
 
 ```js
 // Sets
-var s = new Set();
-s.add('hello').add('goodbye').add('hello');
-s.size === 2;
-s.has('hello') === true;
+var s = new Set()
+s.add('hello').add('goodbye').add('hello')
+s.size === 2
+s.has('hello') === true
 
 // Maps
-var m = new Map();
-m.set('hello', 42);
-m.set(s, 34);
-m.get(s) == 34;
+var m = new Map()
+m.set('hello', 42)
+m.set(s, 34)
+m.get(s) == 34
 
 // Weak Maps
-var wm = new WeakMap();
-wm.set(s, { extra: 42 });
-wm.size === undefined;
+var wm = new WeakMap()
+wm.set(s, { extra: 42 })
+wm.size === undefined
 
 // Weak Sets
-var ws = new WeakSet();
-ws.add({ data: 42 });
+var ws = new WeakSet()
+ws.add({ data: 42 })
 // Because the added object has no other references, it will not be held in the set
 ```
 

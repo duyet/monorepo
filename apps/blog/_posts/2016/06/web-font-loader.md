@@ -31,7 +31,7 @@ Web Font Loader hỗ trợ load fonts từ [Google Fonts](http://www.google.com/
     google: {
       families: ['Droid Sans', 'Droid Serif'],
     },
-  });
+  })
 </script>
 ```
 
@@ -48,13 +48,13 @@ Web Font Loader hỗ trợ load fonts từ [Google Fonts](http://www.google.com/
         'Open Sans Condensed:300,700',
       ],
     },
-  };
-  (function (d) {
+  }
+  ;(function (d) {
     var wf = d.createElement('script'),
-      s = d.scripts[0];
-    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
-    s.parentNode.insertBefore(wf, s);
-  })(document);
+      s = d.scripts[0]
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js'
+    s.parentNode.insertBefore(wf, s)
+  })(document)
 </script>
 ```
 

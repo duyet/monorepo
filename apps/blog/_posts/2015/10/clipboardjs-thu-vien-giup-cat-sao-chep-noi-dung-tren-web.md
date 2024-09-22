@@ -47,8 +47,8 @@ Thêm thư viện vào trang web bằng thẻ script
 
 <!-- 3. Instantiate clipboard by passing a HTML element -->
 <script>
-  var btn = document.getElementById('btn');
-  var clipboard = new Clipboard(btn);
+  var btn = document.getElementById('btn')
+  var clipboard = new Clipboard(btn)
 </script>
 ```
 

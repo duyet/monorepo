@@ -46,7 +46,7 @@ const LatestPostsComponent = (props) => (
       ))}
     </div>
   </section>
-);
+)
 ```
 
 `<LastestPostsComponent />` chỉ chứa 1 thẻ `<h1>` và mỗi `posts` được truyền cho components khác `<PostPreview />`
@@ -58,9 +58,9 @@ Có nhiều cách để viết Components, thứ nhất sử dụng `React.creat
 ```js
 const MyComponent = React.createClass({
   render: function () {
-    return <div className={this.props.className} />;
+    return <div className={this.props.className} />
   },
-});
+})
 ```
 
 Và bằng ES6
@@ -68,7 +68,7 @@ Và bằng ES6
 ```js
 class MyComponent extends React.Component {
   render() {
-    return <div className={this.props.className} />;
+    return <div className={this.props.className} />
   }
 }
 ```
@@ -76,7 +76,7 @@ class MyComponent extends React.Component {
 React 0.14 mới cho phép bạn viết nhanh 1 Components bằng 1 hàm với tham số `props`:
 
 ```js
-const MyComponent = (props) => <div className={props.className} />;
+const MyComponent = (props) => <div className={props.className} />
 ```
 
 Với các Components lớn và nhiều xử lý, nên sử dụng cách 1 hoặc 2. Còn trong đa số các trường hợp khác, Components không cần `state`, chỉ `render()` từ `props` thì nên sử dụng cách thứ 3 này, giúp cho ứng dụng mạch lạc và nhanh hơn.
@@ -112,12 +112,12 @@ const ListOfNumbers = (props) => (
       <li>{number}</li>
     ))}
   </ol>
-);
+)
 
 ListOfNumbers.propTypes = {
   className: React.PropTypes.string.isRequired,
   numbers: React.PropTypes.arrayOf(React.PropTypes.number),
-};
+}
 ```
 
 Trong môi trường developments, nếu chúng ta truyền vào cho `props` sai kiểu dữ liệu, hoặc quên truyền dữ liệu cho `props`. React sẽ báo lỗi, và chúng ta phải kiểm tra bằng tay.

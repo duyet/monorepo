@@ -1,19 +1,19 @@
-import type { Series } from '@duyet/interfaces';
-import { cn } from '@duyet/libs/utils';
-import { NewspaperIcon } from 'lucide-react';
-import Link from 'next/link';
+import type { Series } from '@duyet/interfaces'
+import { cn } from '@duyet/libs/utils'
+import { NewspaperIcon } from 'lucide-react'
+import Link from 'next/link'
 
 export function SeriesBox({
   series,
   current,
   className,
 }: {
-  series: Series | null;
-  current?: string;
-  className?: string;
+  series: Series | null
+  current?: string
+  className?: string
 }) {
-  if (!series) return null;
-  const { name, posts } = series;
+  if (!series) return null
+  const { name, posts } = series
 
   return (
     <div
@@ -80,11 +80,11 @@ export function SeriesBox({
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

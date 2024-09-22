@@ -28,13 +28,13 @@ npm install calc.js
 ## Usage
 
 ```js
-var calc = require('calc.js');
+var calc = require('calc.js')
 
-calc('12 / (2.3 + 0.7)'); // 4
-calc('5.08 cm to inch'); // 2 inch
-calc('sin(45 deg) ^ 2'); // 0.5
-calc('9 / 3 + 2i'); // 3 + 2i
-calc('det([-1, 2; 3, 1])'); // -7
+calc('12 / (2.3 + 0.7)') // 4
+calc('5.08 cm to inch') // 2 inch
+calc('sin(45 deg) ^ 2') // 0.5
+calc('9 / 3 + 2i') // 3 + 2i
+calc('det([-1, 2; 3, 1])') // -7
 ```
 
 ## Credit

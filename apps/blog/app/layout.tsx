@@ -1,31 +1,31 @@
-import '@duyet/components/styles.css';
-import './globals.css';
+import '@duyet/components/styles.css'
+import './globals.css'
 
-import Analytics from '@duyet/components/Analytics';
-import Auth0Provider from '@duyet/components/Auth0Provider';
-import Footer from '@duyet/components/Footer';
-import Head from '@duyet/components/Head';
-import ThemeProvider from '@duyet/components/ThemeProvider';
-import { cn } from '@duyet/libs/utils';
-import { AxiomWebVitals } from 'next-axiom';
-import { Inter } from 'next/font/google';
+import Analytics from '@duyet/components/Analytics'
+import Auth0Provider from '@duyet/components/Auth0Provider'
+import Footer from '@duyet/components/Footer'
+import Head from '@duyet/components/Head'
+import ThemeProvider from '@duyet/components/ThemeProvider'
+import { cn } from '@duyet/libs/utils'
+import { AxiomWebVitals } from 'next-axiom'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
-});
+})
 
 export const metadata = {
   title: 'Tôi là Duyệt',
   description: 'Data Engineer. I blog about Data Engineering, Rust and more',
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html
@@ -54,5 +54,5 @@ export default function RootLayout({
         </Auth0Provider>
       </body>
     </html>
-  );
+  )
 }

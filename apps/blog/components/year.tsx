@@ -1,18 +1,18 @@
-import type { Post } from '@duyet/interfaces';
-import { getPostsByYear } from '@duyet/libs/getPost';
-import { cn } from '@duyet/libs/utils';
-import Link from 'next/link';
+import type { Post } from '@duyet/interfaces'
+import { getPostsByYear } from '@duyet/libs/getPost'
+import { cn } from '@duyet/libs/utils'
+import Link from 'next/link'
 
 export interface YearProps {
-  year: number;
-  className?: string;
+  year: number
+  className?: string
 }
 
 export function Year({ year, className }: YearProps) {
-  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category']);
+  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
 
   if (!posts.length) {
-    return null;
+    return null
   }
 
   return (
@@ -46,7 +46,7 @@ export function Year({ year, className }: YearProps) {
         </article>
       ))}
     </div>
-  );
+  )
 }
 
-export default Year;
+export default Year

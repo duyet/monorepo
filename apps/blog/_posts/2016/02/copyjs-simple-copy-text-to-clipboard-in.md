@@ -53,17 +53,17 @@ Or load it from CDN provider.
 Just copy:
 
 ```js
-copy('hello world.');
+copy('hello world.')
 ```
 
 With `callback`:
 
 ```js
 copy('hello world', function (err) {
-  if (err) console.log('Some thing went wrong!');
+  if (err) console.log('Some thing went wrong!')
 
-  console.log('Copied!');
-});
+  console.log('Copied!')
+})
 ```
 
 That's it!

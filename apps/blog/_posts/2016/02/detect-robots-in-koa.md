@@ -29,16 +29,16 @@ npm install koa-isbot --save
 ```js
 var koa = require('koa'),
   app = koa.app(),
-  isBot = require('koa-isbot');
+  isBot = require('koa-isbot')
 
-app.use(isBot());
+app.use(isBot())
 
 app.use(function* (next) {
-  console.log('isBot? ', this.state.isBot);
+  console.log('isBot? ', this.state.isBot)
   // null or 'googlebot', 'bingbot', ...
-});
+})
 
-app.listen(3000);
+app.listen(3000)
 ```
 
 Update for Koa2

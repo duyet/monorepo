@@ -40,16 +40,16 @@ $ touch server.js index.html
 Now, in our directory, we will have two files. Open `server.js` with some text editor, with the following content:
 
 ```js
-var express = require('express');
-var app = express();
-var path = require('path');
+var express = require('express')
+var app = express()
+var path = require('path')
 
 // viewed at http://localhost:8080
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
+  res.sendFile(path.join(__dirname + '/index.html'))
+})
 
-app.listen(8080);
+app.listen(8080)
 ```
 
 Next is the `index.html` file, this is the content we need to display in the browser:
