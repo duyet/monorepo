@@ -1,5 +1,17 @@
-/* eslint react/jsx-sort-props: 0 -- No sort props */
-import { FileTextIcon, GithubIcon, LinkedinIcon } from 'lucide-react'
+import {
+  SiGithub as GithubIcon,
+  SiLinkedin as LinkedinIcon,
+  SiApacheairflow,
+  SiApachespark,
+  SiClickhouse,
+  SiHelm,
+  SiKubernetes,
+  SiPython,
+  SiRust,
+  SiTypescript,
+} from '@icons-pack/react-simple-icons'
+import { FileTextIcon } from 'lucide-react'
+import type { ImageProps } from 'next/image'
 import Link from 'next/link'
 
 import { Education } from '@/components/education'
@@ -14,7 +26,15 @@ import {
 } from '@/components/ui/hover-card'
 import { Separator } from '@/components/ui/separator'
 
-export default function Component() {
+import { Skill } from '@/components/skill'
+import FossilLogo from '@/public/fossil.svg'
+import FptLogo from '@/public/fpt.svg'
+import JvnLogo from '@/public/jvn.png'
+import CartrackLogo from '@/public/karo.svg'
+
+export const dynamic = 'force-static'
+
+export default function Page() {
   return (
     <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-black">
       <header className="flex flex-col gap-3">
@@ -103,6 +123,9 @@ export default function Component() {
           <ExperienceItem
             title="Sr. Data Engineer"
             company="Cartrack"
+            companyUrl="https://cartrack.us"
+            companyLogo={CartrackLogo as ImageProps['src']}
+            companyLogoClassName="h-6"
             period="OCTOBER 2023 - CURRENT"
             responsibilities={[
               'Migrated 350TB+ Iceberg Data Lake to ClickHouse on Kubernetes.',
@@ -113,6 +136,9 @@ export default function Component() {
           <ExperienceItem
             title="Sr. Data Engineer"
             company="Fossil Group Inc"
+            companyUrl="https://fossil.com"
+            companyLogo={FossilLogo as ImageProps['src']}
+            companyLogoClassName="w-11"
             period="OCTOBER 2018 - JULY 2023"
             responsibilities={[
               'Promoted to lead Data Platform Team within 2 years.',
@@ -129,6 +155,8 @@ export default function Component() {
           <ExperienceItem
             title="Sr. Data Engineer"
             company="FPT Software"
+            companyLogo={FptLogo as ImageProps['src']}
+            companyLogoClassName="w-9"
             period="JUNE 2017 - OCTOBER 2018"
             responsibilities={[
               'Built data pipelines processing 2TB/day with AWS for a Recommendation System',
@@ -137,7 +165,9 @@ export default function Component() {
           />
           <ExperienceItem
             title="Data Engineer"
-            company="John von Neumann Institute - Vietnam National University"
+            company="John von Neumann Institute"
+            companyLogo={JvnLogo as ImageProps['src']}
+            companyLogoClassName="h-6"
             period="SEPTEMBER 2015 - JUNE 2017"
             responsibilities={[
               'Developed data pipelines and visualizations.',
@@ -161,25 +191,66 @@ export default function Component() {
         <div className="flex flex-col gap-2">
           <div>
             <strong>Data Engineering:</strong>{' '}
-            <Link href="https://blog.duyet.net/tag/clickhouse">ClickHouse</Link>
+            <Skill
+              skill="ClickHouse"
+              url="https://blog.duyet.net/tag/clickhouse"
+              icon={<SiClickhouse />}
+            />
             {', '}
-            <Link href="https://blog.duyet.net/tag/spark">Spark</Link>
-            {', '} Kafka{', '}
-            <Link href="https://blog.duyet.net/tag/airflow">Airflow</Link>
+            <Skill
+              skill="Spark"
+              url="https://blog.duyet.net/tag/spark"
+              icon={<SiApachespark />}
+            />
             {', '}
-            AWS, BigQuery, Data Studio{', '}
-            <Link href="https://blog.duyet.net/tag/python">Python</Link>
+            <Skill skill="Kafka" />
             {', '}
-            <Link href="https://blog.duyet.net/tag/rust">Rust</Link>
+            <Skill
+              skill="Airflow"
+              url="https://blog.duyet.net/tag/airflow"
+              icon={<SiApacheairflow />}
+            />
             {', '}
-            <Link href="https://blog.duyet.net/tag/typescript">Typescript</Link>
+            <Skill skill="AWS" />
+            {', '}
+            <Skill skill="BigQuery" />
+            {', '}
+            <Skill skill="Data Studio" />
+            {', '}
+            <Skill
+              skill="Python"
+              url="https://blog.duyet.net/tag/python"
+              icon={<SiPython />}
+            />
+            {', '}
+            <Skill
+              skill="Rust"
+              url="https://blog.duyet.net/tag/rust"
+              icon={<SiRust />}
+            />
+            {', '}
+            <Skill
+              skill="Typescript"
+              url="https://blog.duyet.net/tag/typescript"
+              icon={<SiTypescript />}
+            />
             .
           </div>
           <div>
-            <strong>DevOps:</strong> CI/CD{', '}
-            <Link href="https://blog.duyet.net/tag/kubernetes">Kubernetes</Link>
+            <strong>DevOps:</strong> <Skill skill="CI/CD" />
             {', '}
-            <Link href="https://blog.duyet.net/tag/helm">Helm</Link>.
+            <Skill
+              skill="Kubernetes"
+              url="https://blog.duyet.net/tag/kubernetes"
+              icon={<SiKubernetes />}
+            />
+            {', '}
+            <Skill
+              skill="Helm"
+              url="https://blog.duyet.net/tag/helm"
+              icon={<SiHelm />}
+            />
+            .
           </div>
         </div>
       </Section>

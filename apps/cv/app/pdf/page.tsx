@@ -1,11 +1,12 @@
 import { DownloadIcon } from '@radix-ui/react-icons'
 
-const file = 'https://cv.duyet.net/duyet.cv.pdf'
-
+export const dynamic = 'force-static'
 export const metadata = {
   title: 'Duyet Le | Resume',
   description: '',
 }
+
+const file = 'https://cv.duyet.net/duyet.cv.pdf'
 
 export default function Page() {
   return (
