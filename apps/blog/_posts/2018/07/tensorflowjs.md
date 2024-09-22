@@ -57,8 +57,8 @@ Như hàm `f(x)` trên ta đã biết, cho một giá trị x ta có được gi
 Bắt đầu, mình sẽ tạo 1 neural network đơn giản, chỉ có 1 input và 1 output, vậy ở đây mình có 1 single node. Trên Javascript, mình có thể tạo một **tf.sequential** và add các định nghĩa của layer vào, cực kỳ đơn giản:
 
 ```js
-const model = tf.sequential();
-model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+const model = tf.sequential()
+model.add(tf.layers.dense({ units: 1, inputShape: [1] }))
 ```
 
 Sau đó, mình compile model, định nghĩa loss type và hàm optimizer. Loss type ở đây mình sử dụng **meanSquaredError** cho đơn giản, optimizer là stochastic gradient descent:
@@ -67,20 +67,20 @@ Sau đó, mình compile model, định nghĩa loss type và hàm optimizer. Loss
 model.compile({
   loss: 'meanSquaredError',
   optimizer: 'sgd',
-});
+})
 ```
 
 Để train model, mình định nghĩa 1 tensor X cho giá trị đầu vào và 1 tensor khác cho giá trị Y:
 
 ```js
-const xs = tf.tensor2d([-1, 0, 1, 2, 3, 4], [6, 1]);
-const ys = tf.tensor2d([-3, -1, 1, 3, 5, 7], [6, 1]);
+const xs = tf.tensor2d([-1, 0, 1, 2, 3, 4], [6, 1])
+const ys = tf.tensor2d([-3, -1, 1, 3, 5, 7], [6, 1])
 ```
 
 Để train model mình sử dụng `fit()`, đưa tập `Xs` và `Ys`, set số `epochs` (số lần lăp qua toàn bộ data)
 
 ```js
-await model.fit(xs, ys, { epochs: 500 });
+await model.fit(xs, ys, { epochs: 500 })
 ```
 
 Done, sau khi train có được model, model này được dùng để đoán 1 giá trị `Y` cho giá trị `X` mới, ví dụ `X = 10`. Sử dụng `predict()` và in giá trị này vào 1 thẻ `<div> `
@@ -88,7 +88,7 @@ Done, sau khi train có được model, model này được dùng để đoán 1
 ```js
 document.getElementById('output_field').innerText = model.predict(
   tf.tensor2d([10], [1, 1]),
-);
+)
 ```
 
 [![](https://3.bp.blogspot.com/-tZzhHT2HZFo/W1DAagaO5_I/AAAAAAAAxYQ/AckM8BYmLeU_S2hrj5HSHCcxy2829ZS9ACLcBGAs/s1600/Chart%2Bmodel%2BtensorflowJS.png)](https://3.bp.blogspot.com/-tZzhHT2HZFo/W1DAagaO5_I/AAAAAAAAxYQ/AckM8BYmLeU_S2hrj5HSHCcxy2829ZS9ACLcBGAs/s1600/Chart%2Bmodel%2BtensorflowJS.png)
@@ -113,22 +113,22 @@ Sau đây là source code đầy đủ của toàn bộ chương trình trên:
       // because of the script tag above.
 
       // Define a model for linear regression.
-      const model = tf.sequential();
-      model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+      const model = tf.sequential()
+      model.add(tf.layers.dense({ units: 1, inputShape: [1] }))
 
       // Prepare the model for training: Specify the loss and the optimizer.
-      model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
+      model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' })
 
       // Generate some synthetic data for training.
-      const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
-      const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
+      const xs = tf.tensor2d([1, 2, 3, 4], [4, 1])
+      const ys = tf.tensor2d([1, 3, 5, 7], [4, 1])
 
       // Train the model using the data.
       model.fit(xs, ys, { epochs: 10 }).then(() => {
         // Use the model to do inference on a data point the model hasn't seen before:
         // Open the browser devtools to see the output
-        model.predict(tf.tensor2d([5], [1, 1])).print();
-      });
+        model.predict(tf.tensor2d([5], [1, 1])).print()
+      })
     </script>
   </head>
 

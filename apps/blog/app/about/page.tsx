@@ -1,8 +1,8 @@
-import Container from '@duyet/components/Container';
+import Container from '@duyet/components/Container'
 
 interface Link {
-  name: string;
-  link?: string;
+  name: string
+  link?: string
 }
 
 const skills: Link[] = [
@@ -31,12 +31,13 @@ const skills: Link[] = [
   {
     name: 'GCP',
   },
-];
+]
 
 const links: Link[] = [
-  { name: 'Resume (PDF)', link: 'https://cv.duyet.net' },
+  { name: 'Resume', link: 'https://cv.duyet.net' },
+  { name: 'Resume (PDF)', link: 'https://cv.duyet.net/pdf' },
   { name: 'Github', link: 'https://github.com' },
-];
+]
 
 export default function About() {
   return (
@@ -81,5 +82,5 @@ export default function About() {
         </div>
       </Container>
     </div>
-  );
+  )
 }

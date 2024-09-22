@@ -78,6 +78,6 @@ const redirects = async () => [
     destination: '/2015/02/phpmyadmin.html',
     permanent: true,
   },
-];
+]
 
-module.exports = redirects;
+module.exports = redirects

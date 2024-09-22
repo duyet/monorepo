@@ -19,7 +19,7 @@ Mình lướt github và vô tình thấy thư viện [gpu.js](http://gpu.rocks/
 Ví dụ về phép nhân ma trận 512x512 trên gpu.js
 
 ```js
-const gpu = new GPU();
+const gpu = new GPU()
 
 // Create the GPU accelerated function from a kernel
 // function that computes a single element in the
@@ -28,16 +28,16 @@ const gpu = new GPU();
 // in very fast computations! (...sometimes)
 const matMult = gpu
   .createKernel(function (a, b) {
-    var sum = 0;
+    var sum = 0
     for (var i = 0; i < 512; i++) {
-      sum += a[this.thread.y][i] * b[i][this.thread.x];
+      sum += a[this.thread.y][i] * b[i][this.thread.x]
     }
-    return sum;
+    return sum
   })
-  .setDimensions([512, 512]);
+  .setDimensions([512, 512])
 
 // Perform matrix multiplication on 2 matrices of size 512 x 512
-const c = matMult(a, b);
+const c = matMult(a, b)
 ```
 
 Khi chạy benchmark ở [trang chủ](http://gpu.rocks/), tùy vào cấu hình máy bạn, thường phép tính này nhanh hơn 1-15x lần.

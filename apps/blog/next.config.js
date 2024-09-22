@@ -1,5 +1,5 @@
-const { withAxiom } = require('next-axiom');
-const redirects = require('./next.redirects');
+const { withAxiom } = require('next-axiom')
+const redirects = require('./next.redirects')
 
 /**
  * @type {import('next').NextConfig}
@@ -17,6 +17,6 @@ const config = {
     ],
   },
   redirects,
-};
+}
 
-module.exports = withAxiom(config);
+module.exports = withAxiom(config)

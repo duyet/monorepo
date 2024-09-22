@@ -59,7 +59,7 @@ module.exports = {
       },
     },
   ],
-};
+}
 ```
 
 Tích hợp với CI
@@ -89,7 +89,7 @@ module.exports = {
       },
     },
   ],
-};
+}
 ```
 
 # References

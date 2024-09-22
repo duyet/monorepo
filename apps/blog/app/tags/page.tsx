@@ -1,17 +1,17 @@
-import { type TagCount } from '@duyet/interfaces';
-import { getAllTags } from '@duyet/libs/getPost';
-import { getSlug } from '@duyet/libs/getSlug';
-import Link from 'next/link';
+import { type TagCount } from '@duyet/interfaces'
+import { getAllTags } from '@duyet/libs/getPost'
+import { getSlug } from '@duyet/libs/getSlug'
+import Link from 'next/link'
 
 export default function Tags() {
-  const tags: TagCount = getAllTags();
+  const tags: TagCount = getAllTags()
 
   // Sort and keep tags with > 1 post
   const sortedTags = Object.fromEntries(
     Object.entries(tags)
       .filter(([, count]) => count > 1)
       .sort(([, a], [, b]) => b - a),
-  );
+  )
 
   return (
     <div>
@@ -36,5 +36,5 @@ export default function Tags() {
         ))}
       </div>
     </div>
-  );
+  )
 }

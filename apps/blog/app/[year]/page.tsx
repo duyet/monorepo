@@ -1,15 +1,15 @@
-import YearList from '@duyet/components/YearList';
-import { getPostsByAllYear } from '@duyet/libs/getPost';
-import { Year } from '../../components/year';
+import YearList from '@duyet/components/YearList'
+import { getPostsByAllYear } from '@duyet/libs/getPost'
+import { Year } from '../../components/year'
 
 // Dynamic segments not included in generateStaticParams will return a 404.
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
-export const dynamicParams = false;
+export const dynamicParams = false
 
 interface YearProps {
   params: {
-    year: number;
-  };
+    year: number
+  }
 }
 
 export default function YearPage({ params: { year } }: YearProps) {
@@ -21,13 +21,13 @@ export default function YearPage({ params: { year } }: YearProps) {
         <YearList />
       </div>
     </>
-  );
+  )
 }
 
 export async function generateStaticParams() {
-  const posts = getPostsByAllYear();
+  const posts = getPostsByAllYear()
 
   return Object.keys(posts).map((year) => ({
     year,
-  }));
+  }))
 }

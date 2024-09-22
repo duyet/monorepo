@@ -58,7 +58,7 @@ const navigation = {
   ],
   profile: [
     { name: "Linkedin", href: "https://linkedin.com/in/duyet" },
-    { name: "Resume (PDF)", href: CV_URL },
+    { name: "Resume", href: CV_URL },
     { name: "Projects", href: "https://github.com/duyet?tab=repositories" },
   ],
 };

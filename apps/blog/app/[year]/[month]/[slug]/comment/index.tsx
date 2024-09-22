@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import Auth0Provider from '@duyet/components/Auth0Provider';
-import Wrapper from './wrapper';
+import Auth0Provider from '@duyet/components/Auth0Provider'
+import Wrapper from './wrapper'
 
 interface CommentProps {
-  className?: string;
+  className?: string
 }
 
 export default function Comment(props: CommentProps) {
@@ -12,5 +12,5 @@ export default function Comment(props: CommentProps) {
     <Auth0Provider>
       <Wrapper {...props} />
     </Auth0Provider>
-  );
+  )
 }

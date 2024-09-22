@@ -25,7 +25,7 @@ Hãy xem ví dụ:
 // condition
 function test(fruit) {
   if (fruit == 'apple' || fruit == 'strawberry') {
-    console.log('red');
+    console.log('red')
   }
 }
 ```
@@ -37,10 +37,10 @@ Bạn có thể viết lại câu điều kiện trên dưới dạng:
 ```javascript
 function test(fruit) {
   // extract conditions to array
-  const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
+  const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries']
 
   if (redFruits.includes(fruit)) {
-    console.log('red');
+    console.log('red')
   }
 }
 ```
@@ -53,44 +53,44 @@ Ví dụ đoạn chương trình như sau:
 
 ```js
 function test(fruit, quantity) {
-  const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
+  const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries']
 
   // condition 1: fruit must has value
   if (fruit) {
     // condition 2: must be red
     if (redFruits.includes(fruit)) {
-      console.log('red');
+      console.log('red')
 
       // condition 3: must be big quantity
       if (quantity > 10) {
-        console.log('big quantity');
+        console.log('big quantity')
       }
     }
   } else {
-    throw 'No fruit!';
+    throw 'No fruit!'
   }
 }
 
 // test results
-test(null); // error: No fruits
-test('apple'); // print: red
-test('apple', 20); // print: red, big quantity
+test(null) // error: No fruits
+test('apple') // print: red
+test('apple', 20) // print: red, big quantity
 ```
 
 Với đoạn code trên, 1 quy luật đơn giản là hãy return ngay khi có thể:
 
 ```js
 function test(fruit, quantity) {
-  const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
+  const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries']
 
-  if (!fruit) throw 'No fruit!'; // condition 1: throw error early
-  if (!redFruits.includes(fruit)) return; // condition 2: stop when fruit is not red
+  if (!fruit) throw 'No fruit!' // condition 1: throw error early
+  if (!redFruits.includes(fruit)) return // condition 2: stop when fruit is not red
 
-  console.log('red');
+  console.log('red')
 
   // condition 3: must be big quantity
   if (quantity > 10) {
-    console.log('big quantity');
+    console.log('big quantity')
   }
 }
 ```
@@ -101,15 +101,15 @@ Ví dụ với đoạn code sau, trong ES5 chắc hẳn bạn đã từng phải
 
 ```js
 function test(fruit, quantity) {
-  if (!fruit) return;
-  const q = quantity || 1; // if quantity not provided, default to one
+  if (!fruit) return
+  const q = quantity || 1 // if quantity not provided, default to one
 
-  console.log(`We have ${q} ${fruit}!`);
+  console.log(`We have ${q} ${fruit}!`)
 }
 
 //test results
-test('banana'); // We have 1 banana!
-test('apple', 2); // We have 2 apple!
+test('banana') // We have 1 banana!
+test('apple', 2) // We have 2 apple!
 ```
 
 Với ES6 về sau, bạn đã có thể gán [giá trị mặc định cho params](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters), như sau:
@@ -117,13 +117,13 @@ Với ES6 về sau, bạn đã có thể gán [giá trị mặc định cho para
 ```js
 function test(fruit, quantity = 1) {
   // if quantity not provided, default to one
-  if (!fruit) return;
-  console.log(`We have ${quantity} ${fruit}!`);
+  if (!fruit) return
+  console.log(`We have ${quantity} ${fruit}!`)
 }
 
 //test results
-test('banana'); // We have 1 banana!
-test('apple', 2); // We have 2 apple!
+test('banana') // We have 1 banana!
+test('apple', 2) // We have 2 apple!
 ```
 
 Chúng ta cũng có thể gán default cho `fruit`, như sau: `function test(fruit = "unknown", quantity = 1) {...}`
@@ -134,16 +134,16 @@ Nhưng trong trường hợp muốn `fruit` là object thì sao? Chúng ta có t
 function test(fruit) {
   // printing fruit name if value provided
   if (fruit && fruit.name) {
-    console.log(fruit.name);
+    console.log(fruit.name)
   } else {
-    console.log('unknown');
+    console.log('unknown')
   }
 }
 
 //test results
-test(undefined); // unknown
-test({}); // unknown
-test({ name: 'apple', color: 'red' }); // apple
+test(undefined) // unknown
+test({}) // unknown
+test({ name: 'apple', color: 'red' }) // apple
 ```
 
 Trong ví dụ trên, chúng ta muốn in fruit name ra nếu tồn tại, ngược lại in `'unknown'`. Chúng ta có thể tránh việc sử dụng `fruit && fruit.name` bằng cách sử dụng default function parameter và destructing.
@@ -152,13 +152,13 @@ Trong ví dụ trên, chúng ta muốn in fruit name ra nếu tồn tại, ngư�
 // destructing - get name property only
 // assign default empty object {}
 function test({ name } = {}) {
-  console.log(name || 'unknown');
+  console.log(name || 'unknown')
 }
 
 //test results
-test(undefined); // unknown
-test({}); // unknown
-test({ name: 'apple', color: 'red' }); // apple
+test(undefined) // unknown
+test({}) // unknown
+test({ name: 'apple', color: 'red' }) // apple
 ```
 
 Khi cần thuộc tính name trong object `fruit`, ta destruct sử dụng `{name}`, sau đó sử dụng biến `name` trong function thay vì `fruit.name`
@@ -172,19 +172,19 @@ function test(color) {
   // use switch case to find fruits in color
   switch (color) {
     case 'red':
-      return ['apple', 'strawberry'];
+      return ['apple', 'strawberry']
     case 'yellow':
-      return ['banana', 'pineapple'];
+      return ['banana', 'pineapple']
     case 'purple':
-      return ['grape', 'plum'];
+      return ['grape', 'plum']
     default:
-      return [];
+      return []
   }
 }
 
 //test results
-test(null); // []
-test('yellow'); // ['banana', 'pineapple']
+test(null) // []
+test('yellow') // ['banana', 'pineapple']
 ```
 
 Code trên không có gì sai, nhưng nó quá dài dòng try hard, mình viết lại dưới dạng trí tuệ hơn 1 chút:
@@ -196,9 +196,9 @@ function test(color) {
     red: ['apple', 'strawberry'],
     yellow: ['banana', 'pineapple'],
     purple: ['grape', 'plum'],
-  };
+  }
 
-  return fruitColor[color] || [];
+  return fruitColor[color] || []
 }
 ```
 
@@ -210,9 +210,9 @@ function test(color) {
   const fruitColor = new Map()
     .set('red', ['apple', 'strawberry'])
     .set('yellow', ['banana', 'pineapple'])
-    .set('purple', ['grape', 'plum']);
+    .set('purple', ['grape', 'plum'])
 
-  return fruitColor.get(color) || [];
+  return fruitColor.get(color) || []
 }
 ```
 
@@ -228,9 +228,9 @@ function test(color) {
     { name: 'pineapple', color: 'yellow' },
     { name: 'grape', color: 'purple' },
     { name: 'plum', color: 'purple' },
-  ];
+  ]
 
-  return fruits.filter((f) => f.color == color);
+  return fruits.filter((f) => f.color == color)
 }
 ```
 
@@ -244,17 +244,17 @@ function test(fruits) {
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
     { name: 'grape', color: 'purple' },
-  ];
+  ]
 
-  let isAllRed = true;
+  let isAllRed = true
 
   // condition: all fruits must be red
   for (let f of fruits) {
-    if (!isAllRed) break;
-    isAllRed = f.color == 'red';
+    if (!isAllRed) break
+    isAllRed = f.color == 'red'
   }
 
-  console.log(isAllRed); // false
+  console.log(isAllRed) // false
 }
 ```
 
@@ -266,12 +266,12 @@ function test(fruits) {
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
     { name: 'grape', color: 'purple' },
-  ];
+  ]
 
   // condition: short way, all fruits must be red
-  const isAllRed = fruits.every((f) => f.color == 'red');
+  const isAllRed = fruits.every((f) => f.color == 'red')
 
-  console.log(isAllRed); // false
+  console.log(isAllRed) // false
 }
 ```
 
@@ -283,12 +283,12 @@ function test(fruits) {
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
     { name: 'grape', color: 'purple' },
-  ];
+  ]
 
   // condition: if any fruit is red
-  const isAnyRed = fruits.some((f) => f.color == 'red');
+  const isAnyRed = fruits.some((f) => f.color == 'red')
 
-  console.log(isAnyRed); // true
+  console.log(isAnyRed) // true
 }
 ```
 

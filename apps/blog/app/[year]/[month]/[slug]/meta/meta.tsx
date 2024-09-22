@@ -1,15 +1,15 @@
-import Icons from '@duyet/components/Icons';
-import type { Post } from '@duyet/interfaces';
-import distanceToNow from '@duyet/libs/dateRelative';
-import { getSeries } from '@duyet/libs/getSeries';
-import { getSlug } from '@duyet/libs/getSlug';
-import { cn } from '@duyet/libs/utils';
-import Link from 'next/link';
-import { SeriesBox } from '../../../../../components/series';
+import Icons from '@duyet/components/Icons'
+import type { Post } from '@duyet/interfaces'
+import distanceToNow from '@duyet/libs/dateRelative'
+import { getSeries } from '@duyet/libs/getSeries'
+import { getSlug } from '@duyet/libs/getSlug'
+import { cn } from '@duyet/libs/utils'
+import Link from 'next/link'
+import { SeriesBox } from '../../../../../components/series'
 
 interface ContentProps {
-  post: Post;
-  className?: string;
+  post: Post
+  className?: string
 }
 
 export default function Content({ post, className }: ContentProps) {
@@ -57,5 +57,5 @@ export default function Content({ post, className }: ContentProps) {
         />
       )}
     </div>
-  );
+  )
 }

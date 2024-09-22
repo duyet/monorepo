@@ -52,16 +52,16 @@ Khởi tạo và render dữ liệu:
 ```html
 <script>
   // get the container to hold the IO globe
-  var container = document.getElementById('globalArea');
+  var container = document.getElementById('globalArea')
 
   // create controller for the IO globe, input the container as the parameter
-  var controller = new GIO.Controller(container);
+  var controller = new GIO.Controller(container)
 
   // use addData() API to add the the data to the controller, know more about data format check out documentation about data: http://giojs.org/html/docs/dataIntro.html
-  controller.addData(data);
+  controller.addData(data)
 
   // call the init() API to show the IO globe in the browser
-  controller.init();
+  controller.init()
 </script>
 ```
 
