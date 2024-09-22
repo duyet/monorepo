@@ -40,7 +40,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
-function FooterHeader({ children }: { children: ReactNode }): ReactElement {
+function FooterHeader({ children }: { children: ReactNode }) {
   return (
     <h3 className="text-sm text-black dark:text-white font-bold">{children}</h3>
   );
@@ -63,7 +63,7 @@ const navigation = {
   ],
 };
 
-export function FooterContent(): ReactElement {
+export function FooterContent() {
   return (
     <Container>
       <div aria-labelledby="footer-heading">
@@ -122,14 +122,26 @@ export function FooterContent(): ReactElement {
   );
 }
 
-export default function Footer(): ReactElement {
+export default function Footer({
+  className,
+  containerClassName,
+}: {
+  className?: string;
+  containerClassName?: string;
+}): ReactElement {
   return (
-    <footer className="bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900">
+    <footer
+      className={cn(
+        "bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900",
+        className,
+      )}
+    >
       <hr className="dark:border-neutral-700" />
       <div
         className={cn(
           "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white",
           "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]",
+          containerClassName,
         )}
       >
         <FooterContent />

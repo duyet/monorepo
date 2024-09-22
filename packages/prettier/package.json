@@ -7,11 +7,10 @@
   "files": [
     "./"
   ],
-  "dependencies": {
-    "prettier-plugin-packagejson": "^2.4.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "prettier-plugin-organize-imports": "^4.0.0",
+    "prettier-plugin-packagejson": "^2.4.5",
     "prettier-plugin-tailwindcss": "^0.6.0"
   },
   "publishConfig": {

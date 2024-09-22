@@ -12,6 +12,7 @@ interface HeaderProps {
   center?: boolean;
   navigationItems?: NavigationItem[];
   className?: string;
+  containerClassName?: string;
 }
 
 export default function Header({
@@ -21,6 +22,7 @@ export default function Header({
   center = false,
   navigationItems,
   className,
+  containerClassName,
 }: HeaderProps) {
   return (
     <header
@@ -30,7 +32,7 @@ export default function Header({
         className,
       )}
     >
-      <Container className="mb-0">
+      <Container className={cn("mb-0", containerClassName)}>
         <nav
           className={cn(
             "flex items-center space-x-6 flex-wrap justify-between transition-all gap-4",
