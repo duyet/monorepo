@@ -57,6 +57,7 @@ export default function Page() {
               className="hover:underline"
               key="homepage"
               href="https://duyet.net"
+              target="_blank"
             >
               https://duyet.net
             </Link>,
@@ -66,6 +67,7 @@ export default function Page() {
                 <Link
                   className="hover:underline"
                   href="https://github.com/duyet"
+                  target="_blank"
                 >
                   https://github.com/duyet
                 </Link>
@@ -74,6 +76,7 @@ export default function Page() {
                 <Link
                   className="hover:underline"
                   href="https://linkedin.com/in/duyet"
+                  target="_blank"
                 >
                   <div className="flex flex-col gap-2">
                     <GithubIcon />
@@ -91,6 +94,7 @@ export default function Page() {
                 <Link
                   className="hover:underline"
                   href="https://linkedin.com/in/duyet"
+                  target="_blank"
                 >
                   https://linkedin.com/in/duyet
                 </Link>
@@ -99,6 +103,7 @@ export default function Page() {
                 <Link
                   className="hover:underline"
                   href="https://linkedin.com/in/duyet"
+                  target="_blank"
                 >
                   <div className="flex flex-col gap-2">
                     <LinkedinIcon />
@@ -167,6 +172,8 @@ export default function Page() {
               <Link
                 href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
                 key="next-gen-data-platform"
+                className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+                target="_blank"
               >
                 Designed next-gen Data Platform in Rust ↗︎
               </Link>,
@@ -227,8 +234,8 @@ export default function Page() {
       <Section title="Education">
         <Education
           major="Bachelor's degree, Information System"
-          note="Thesis: Network of career skills and support an optimal job search"
-          period="2013 - 2017"
+          thesis="Thesis: Network of career skills and support an optimal job search"
+          thesisUrl="https://arxiv.org/pdf/1707.09751"
           university="University of Information Technology"
         />
       </Section>
@@ -241,12 +248,36 @@ export default function Page() {
               skill="ClickHouse"
               url="https://blog.duyet.net/tag/clickhouse"
               icon={<SiClickhouse />}
+              note={
+                <span>
+                  Experienced in managing some Terabyte-scale ClickHouse
+                  clusters deployed on Kubernetes, which have many challenges
+                  for troubleshooting and complex issues.
+                </span>
+              }
             />
             {', '}
             <Skill
               skill="Spark"
               url="https://blog.duyet.net/tag/spark"
               icon={<SiApachespark />}
+              note={
+                <span>
+                  I&apos;ve been using Spark extensively since I started as a
+                  Data Engineer, experience running Spark with{' '}
+                  <strong>YARN</strong>, Databricks, <strong>AWS EMR</strong>,
+                  as well as{' '}
+                  <Link
+                    href="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    <strong>Kubernetes</strong>
+                  </Link>
+                  . Haven&apos;t been using it as much lately due to the
+                  convenience offered by ClickHouse and DuckDB.
+                </span>
+              }
             />
             {', '}
             <Skill skill="Kafka" />
@@ -267,34 +298,121 @@ export default function Page() {
               skill="Python"
               url="https://blog.duyet.net/tag/python"
               icon={<SiPython />}
+              note={
+                <span>
+                  With over 5 years of experience, I have developed expertise in
+                  building Data Platforms, Data Processing, CLI, API, and Web
+                  Applications
+                </span>
+              }
             />
             {', '}
             <Skill
               skill="Rust"
               url="https://blog.duyet.net/tag/rust"
               icon={<SiRust />}
+              note={
+                <span>
+                  I am new and have been working with{' '}
+                  <Link
+                    href="https://blog.duyet.net/2021/11/rust-data-engineering.html"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    Rust
+                  </Link>{' '}
+                  for about 2 years, during which I have developed and deployed
+                  a production{' '}
+                  <Link
+                    href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    Data Platform at Fossil
+                  </Link>
+                  , created multiple command line applications, and documented
+                  all my experiences in Vietnamese through{' '}
+                  <Link
+                    href="https://rust-tieng-viet.github.io/"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    Rust Tiếng Việt
+                  </Link>
+                </span>
+              }
             />
             {', '}
             <Skill
               skill="Typescript"
               url="https://blog.duyet.net/tag/typescript"
               icon={<SiTypescript />}
+              note={
+                <span>
+                  I&apos;ve used TypeScript to complement my Data Engineering
+                  work.
+                  <br />
+                  From building data visualization to present insights, to
+                  developing internal tools for data serving or monitoring. Some
+                  of open-source works are:{' '}
+                  <Link
+                    href="https://github.com/duyet/clickhouse-monitoring"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    clickhouse-monitoring
+                  </Link>{' '}
+                  or{' '}
+                  <Link
+                    href="https://github.com/duyet/monorepo"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    this CV itself
+                  </Link>
+                </span>
+              }
             />
             .
           </div>
           <div>
-            <strong>DevOps:</strong> <Skill skill="CI/CD" />
+            <strong>DevOps:</strong>{' '}
+            <Skill
+              skill="CI/CD"
+              note={<span>I am familiar with Jenkins and GitHub Actions</span>}
+            />
             {', '}
             <Skill
               skill="Kubernetes"
               url="https://blog.duyet.net/tag/kubernetes"
               icon={<SiKubernetes />}
+              note={
+                <span>
+                  Familiarity with fundamental Kubernetes concepts such as
+                  Deployment, Statefulset, Service, Ingress, and PVC, etc.
+                  <br />
+                  Various environments from AWS EKS to self-hosted (Rancher RKE
+                  or minikube).
+                </span>
+              }
             />
             {', '}
             <Skill
-              skill="Helm"
+              skill="Helm Charts"
               url="https://blog.duyet.net/tag/helm"
               icon={<SiHelm />}
+              note={
+                <span>
+                  Checkout{' '}
+                  <Link
+                    href="https://github.com/duyet/charts"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    duyet/charts
+                  </Link>
+                </span>
+              }
             />
             .
           </div>
