@@ -1,11 +1,11 @@
-import { cn } from '@duyet/libs';
+import { cn } from '@duyet/libs'
 
-interface Props {
-  major: string;
-  university: string;
-  period: string;
-  note: string;
-  className?: string;
+interface EducationProps {
+  major: string
+  university: string
+  period: string
+  note: string
+  className?: string
 }
 
 export function Education({
@@ -14,7 +14,7 @@ export function Education({
   period,
   note,
   className,
-}: Props) {
+}: EducationProps) {
   return (
     <div className={cn(className)}>
       <h3
@@ -28,5 +28,5 @@ export function Education({
       <p className="uppercase text-gray-600">{period}</p>
       <div className="mt-2 list-disc">{note}</div>
     </div>
-  );
+  )
 }

@@ -19,6 +19,7 @@ module.exports = {
     "@vercel/style-guide/eslint/react",
     "@vercel/style-guide/eslint/next",
     "eslint-config-turbo",
+    "eslint-config-prettier",
   ].map(require.resolve),
   parserOptions: {
     project,
@@ -39,8 +40,10 @@ module.exports = {
   rules: {
     "no-console": "off",
     "import/no-default-export": "off",
+    "import/order": "off",
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@next/next/no-head-element": "off",
+    "react/jsx-sort-props": "off",
   },
 };

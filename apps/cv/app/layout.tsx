@@ -1,36 +1,36 @@
-import '@duyet/components/styles.css';
-import './globals.css';
+import '@duyet/components/styles.css'
+import './globals.css'
 
-import Analytics from '@duyet/components/Analytics';
-import Container from '@duyet/components/Container';
-import Footer from '@duyet/components/Footer';
-import Head from '@duyet/components/Head';
-import Header from '@duyet/components/Header';
-import { ABOUT, BLOG, INSIGHTS } from '@duyet/components/Menu';
-import ThemeProvider from '@duyet/components/ThemeProvider';
-import { Bodoni_Moda, Inter } from 'next/font/google';
+import Analytics from '@duyet/components/Analytics'
+import Container from '@duyet/components/Container'
+import Footer from '@duyet/components/Footer'
+import Head from '@duyet/components/Head'
+import Header from '@duyet/components/Header'
+import { ABOUT, BLOG, INSIGHTS } from '@duyet/components/Menu'
+import ThemeProvider from '@duyet/components/ThemeProvider'
+import { Bodoni_Moda as Bodoni, Inter } from 'next/font/google'
 
 const inter = Inter({
   weight: ['300', '400', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
-});
+})
 
-const bodoni = Bodoni_Moda({
+const bodoni = Bodoni({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-bodoni',
   display: 'swap',
-});
+})
 
 export const metadata = {
   title: 'Duyet Le | Resume',
   description: '',
-};
+}
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function RootLayout({ children }: LayoutProps) {
@@ -68,5 +68,5 @@ export default function RootLayout({ children }: LayoutProps) {
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

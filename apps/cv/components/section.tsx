@@ -1,9 +1,9 @@
-import { cn } from '@duyet/libs';
+import { cn } from '@duyet/libs'
 
 interface SectionProps {
-  title: string;
-  className?: string;
-  children: React.ReactNode;
+  title: string
+  className?: string
+  children: React.ReactNode
 }
 
 export function Section({ title, className, children }: SectionProps) {
@@ -17,5 +17,5 @@ export function Section({ title, className, children }: SectionProps) {
       </h2>
       {children}
     </section>
-  );
+  )
 }

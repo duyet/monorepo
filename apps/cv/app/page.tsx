@@ -1,17 +1,18 @@
 /* eslint react/jsx-sort-props: 0 -- No sort props */
-import { Education } from '@/components/education';
-import { ExperienceItem } from '@/components/experience';
-import { InlineLink } from '@/components/inline-link';
-import { Overview } from '@/components/overview';
-import { Section } from '@/components/section';
+import { FileTextIcon, GithubIcon, LinkedinIcon } from 'lucide-react'
+import Link from 'next/link'
+
+import { Education } from '@/components/education'
+import { ExperienceItem } from '@/components/experience'
+import { InlineLink } from '@/components/inline-link'
+import { Overview } from '@/components/overview'
+import { Section } from '@/components/section'
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/hover-card';
-import { Separator } from '@/components/ui/separator';
-import { FileTextIcon, GithubIcon, LinkedinIcon } from 'lucide-react';
-import Link from 'next/link';
+} from '@/components/ui/hover-card'
+import { Separator } from '@/components/ui/separator'
 
 export default function Component() {
   return (
@@ -189,5 +190,5 @@ export default function Component() {
         </Link>
       </div>
     </div>
-  );
+  )
 }

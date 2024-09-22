@@ -1,14 +1,14 @@
-import { cn } from '@duyet/libs';
-import { ExternalLink } from 'lucide-react';
-import Link from 'next/link';
+import { cn } from '@duyet/libs'
+import { ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 
 interface ExperienceItemProps {
-  title: string;
-  company: string;
-  companyUrl?: string;
-  period: string;
-  responsibilities: (string | React.ReactNode)[];
-  className?: string;
+  title: string
+  company: string
+  companyUrl?: string
+  period: string
+  responsibilities: (string | React.ReactNode)[]
+  className?: string
 }
 
 export function ExperienceItem({
@@ -37,12 +37,12 @@ export function ExperienceItem({
       </h3>
       <p className="text-xs uppercase text-gray-600">{period}</p>
       <ul className="ml-2 mt-2 list-disc pl-5 text-sm">
-        {responsibilities.map((item, index) => (
-          <li className="mt-1" key={index}>
+        {responsibilities.map((item) => (
+          <li className="mt-1" key={item?.toString()}>
             {item}
           </li>
         ))}
       </ul>
     </div>
-  );
+  )
 }

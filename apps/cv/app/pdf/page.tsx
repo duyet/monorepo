@@ -1,11 +1,11 @@
-import { DownloadIcon } from '@radix-ui/react-icons';
+import { DownloadIcon } from '@radix-ui/react-icons'
 
-const file = 'https://cv.duyet.net/duyet.cv.pdf';
+const file = 'https://cv.duyet.net/duyet.cv.pdf'
 
 export const metadata = {
   title: 'Duyet Le | Resume',
   description: '',
-};
+}
 
 export default function Page() {
   return (
@@ -32,5 +32,5 @@ export default function Page() {
         />
       </object>
     </div>
-  );
+  )
 }

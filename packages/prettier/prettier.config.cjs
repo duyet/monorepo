@@ -9,12 +9,13 @@ const overridableDefaults = {
   tabWidth: 2,
   printWidth: 80,
   useTabs: false,
-};
+  singleQuote: true,
+  semi: false,
+}
 
 /** @type {import("prettier").Config} */
 module.exports = {
   ...overridableDefaults,
-  singleQuote: true,
   plugins: [
     'prettier-plugin-packagejson',
     'prettier-plugin-organize-imports',
@@ -22,4 +23,4 @@ module.exports = {
   ],
   tailwindConfig: '../../packages/tailwind-config/tailwind.config.js',
   tailwindFunctions: ['clsx', 'cn'],
-};
+}
