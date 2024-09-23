@@ -275,7 +275,23 @@ export default function Page() {
                     <strong>Kubernetes</strong>
                   </Link>
                   . Haven&apos;t been using it as much lately due to the
-                  convenience offered by ClickHouse and DuckDB.
+                  convenience offered by{' '}
+                  <Link
+                    href="https://blog.duyet.net/tag/clickhouse"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    ClickHouse
+                  </Link>
+                  {' and '}
+                  <Link
+                    href="https://blog.duyet.net/2023/09/duckdb.html"
+                    target="_blank"
+                    className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+                  >
+                    DuckDB
+                  </Link>
+                  .
                 </span>
               }
             />
