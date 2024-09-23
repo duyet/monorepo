@@ -21,7 +21,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@tremor/react": "^3.17.2",
-    "lucide-react": "^0.441.0"
+    "lucide-react": "^0.445.0"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
@@ -33,7 +33,7 @@
     "@types/react-dom": "^18.2.0",
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.4.12",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "postcss": "^8.4.18",
     "prettier": "^3.0.0",
     "react": "^18.2.0",
