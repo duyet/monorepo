@@ -1,28 +1,28 @@
-import './globals.css';
+import './globals.css'
 
-import Analytics from '@duyet/components/Analytics';
-import Container from '@duyet/components/Container';
-import Footer from '@duyet/components/Footer';
-import Head from '@duyet/components/Head';
-import Header from '@duyet/components/Header';
-import ThemeProvider from '@duyet/components/ThemeProvider';
-import { Inter } from 'next/font/google';
-import { Tabs } from '../components/tabs';
+import Analytics from '@duyet/components/Analytics'
+import Container from '@duyet/components/Container'
+import Footer from '@duyet/components/Footer'
+import Head from '@duyet/components/Head'
+import Header from '@duyet/components/Header'
+import ThemeProvider from '@duyet/components/ThemeProvider'
+import { Inter } from 'next/font/google'
+import { Tabs } from '../components/tabs'
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
-});
+})
 
 export const metadata = {
   title: 'Insights | duyet.net',
   description: 'Insights for duyet.net',
-};
+}
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function RootLayout({ children }: LayoutProps) {
@@ -53,5 +53,5 @@ export default function RootLayout({ children }: LayoutProps) {
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

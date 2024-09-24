@@ -2,7 +2,8 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
-const POSTHOG_API_KEY = process.env.NEXT_PUBLIC_POSTHOG_API_KEY;
+const POSTHOG_API_KEY = process.env.POSTHOG_API_KEY;
+const SELINE_TOKEN = process.env.NEXT_PUBLIC_SELINE_TOKEN;
 
 export default function AnalyticWrapper() {
   return (
@@ -12,6 +13,13 @@ export default function AnalyticWrapper() {
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
+      />
+
+      <Script
+        id="seline"
+        strategy="afterInteractive"
+        src="https://cdn.seline.so/seline.js"
+        data-token={SELINE_TOKEN}
       />
 
       <Script id="google-analytics" strategy="afterInteractive">

@@ -1,8 +1,8 @@
-import { StaticCard } from '../../components/static-card';
+import { StaticCard } from '../../components/static-card'
 
 // See: https://github.com/anuraghazra/github-readme-stats
 const githubStatUrl = (params: { username: string; theme: string }): string => {
-  const { username, theme } = params;
+  const { username, theme } = params
 
   const urlParams = new URLSearchParams({
     username,
@@ -13,10 +13,10 @@ const githubStatUrl = (params: { username: string; theme: string }): string => {
     include_all_commits: 'true',
     count_private: 'true',
     text_bold: 'false',
-  });
+  })
 
-  return `https://github-readme-stats.vercel.app/api?${urlParams.toString()}`;
-};
+  return `https://github-readme-stats.vercel.app/api?${urlParams.toString()}`
+}
 
 export function GithubCard({ owner }: { owner: string }) {
   return (
@@ -28,5 +28,5 @@ export function GithubCard({ owner }: { owner: string }) {
         dark: githubStatUrl({ username: owner, theme: 'dracula' }),
       }}
     />
-  );
+  )
 }

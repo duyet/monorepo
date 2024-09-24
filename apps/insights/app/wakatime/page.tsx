@@ -1,26 +1,26 @@
-import { BarChart, BarList, DonutChart, Legend } from '@duyet/components';
-import { cn } from '@duyet/libs/utils';
-import Image from 'next/image';
-import { StaticCard } from '../../components/static-card';
-import { TextDataSource } from '../../components/text-data-source';
+import { BarChart, BarList, DonutChart, Legend } from '@duyet/components'
+import { cn } from '@duyet/libs/utils'
+import Image from 'next/image'
+import { StaticCard } from '../../components/static-card'
+import { TextDataSource } from '../../components/text-data-source'
 
 export const metadata = {
   title: '@duyet Coding Insights',
   description: 'Coding Insights data collected from Wakatime.',
-};
+}
 
 const WAKA_CODING_ACTIVITY_API =
-  'https://wakatime.com/share/@duyet/2fe9921d-4bd2-4a6f-87a1-5cc2fcc5a9fc.json';
+  'https://wakatime.com/share/@duyet/2fe9921d-4bd2-4a6f-87a1-5cc2fcc5a9fc.json'
 
 const WAKA_LANGUAGES_API =
-  'https://wakatime.com/share/@duyet/8087c715-c108-487c-87ba-64d545ac95a8.json';
+  'https://wakatime.com/share/@duyet/8087c715-c108-487c-87ba-64d545ac95a8.json'
 
-const borderClasses = 'border rounded dark:border-gray-800';
+const borderClasses = 'border rounded dark:border-gray-800'
 
 export default async function Wakatime() {
-  const codingActivity = await getWakaCodingActivity();
-  const languages = await getWakaLanguages();
-  const top10Languages = languages.slice(0, 10);
+  const codingActivity = await getWakaCodingActivity()
+  const languages = await getWakaLanguages()
+  const top10Languages = languages.slice(0, 10)
 
   return (
     <div className="mt-10 space-y-6">
@@ -87,48 +87,48 @@ export default async function Wakatime() {
         }}
       />
     </div>
-  );
+  )
 }
 
 interface WakaCodingActivity {
   data: {
     range: {
-      start: string;
-      end: string;
-      date: string;
-      text: string;
-      timezone: string;
-    };
+      start: string
+      end: string
+      date: string
+      text: string
+      timezone: string
+    }
     grand_total: {
-      hours: number;
-      minutes: number;
-      total_seconds: number;
-      digital: string;
-      text: string;
-    };
-  }[];
+      hours: number
+      minutes: number
+      total_seconds: number
+      digital: string
+      text: string
+    }
+  }[]
 }
 
 async function getWakaCodingActivity() {
-  const raw = await fetch(WAKA_CODING_ACTIVITY_API);
-  const data = ((await raw.json()) as WakaCodingActivity).data;
+  const raw = await fetch(WAKA_CODING_ACTIVITY_API)
+  const data = ((await raw.json()) as WakaCodingActivity).data
 
   return data.map((item) => ({
     ...item,
     'Coding Hours': (item.grand_total.total_seconds / 3600).toFixed(1),
-  }));
+  }))
 }
 
 interface WakaLanguages {
   data: {
-    name: string;
-    percent: number;
-    color: string;
-  }[];
+    name: string
+    percent: number
+    color: string
+  }[]
 }
 async function getWakaLanguages() {
-  const raw = await fetch(WAKA_LANGUAGES_API);
-  const data = ((await raw.json()) as WakaLanguages).data;
+  const raw = await fetch(WAKA_LANGUAGES_API)
+  const data = ((await raw.json()) as WakaLanguages).data
 
-  return data;
+  return data
 }

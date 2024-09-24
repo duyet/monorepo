@@ -1,3 +1,3 @@
-import config from '@duyet/prettier';
+import config from '@duyet/prettier'
 
-export default config;
+export default config

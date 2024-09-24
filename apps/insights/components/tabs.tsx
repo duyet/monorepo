@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { cn } from '@duyet/libs/utils';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { cn } from '@duyet/libs/utils'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export function Tabs({ tabs }: { tabs: { text: string; href: string }[] }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <div className="mb-4 flex items-center">
@@ -24,5 +24,5 @@ export function Tabs({ tabs }: { tabs: { text: string; href: string }[] }) {
         </Link>
       ))}
     </div>
-  );
+  )
 }

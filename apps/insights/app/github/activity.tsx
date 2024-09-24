@@ -1,17 +1,17 @@
 /* eslint-disable camelcase -- because want to keep original variable name from github api */
 
-import type { GithubRepo } from '@duyet/interfaces';
-import { cn } from '@duyet/libs/utils';
-import { StarIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
+import type { GithubRepo } from '@duyet/interfaces'
+import { cn } from '@duyet/libs/utils'
+import { StarIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 interface JustStarsProps {
-  owner: string;
-  className?: string;
+  owner: string
+  className?: string
 }
 
 export async function GithubActivity({ owner, className }: JustStarsProps) {
-  const repos = await getGithubStars(owner);
+  const repos = await getGithubStars(owner)
 
   return (
     <div className={cn('w-full', className)}>
@@ -21,15 +21,15 @@ export async function GithubActivity({ owner, className }: JustStarsProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function Activity({
   owner,
   repo: { html_url, full_name, stargazers_count },
 }: {
-  owner: string;
-  repo: GithubRepo;
+  owner: string
+  repo: GithubRepo
 }) {
   return (
     <div className="flex items-center justify-between gap-2 p-2">
@@ -51,7 +51,7 @@ function Activity({
         {stargazers_count}
       </p>
     </div>
-  );
+  )
 }
 
 async function getGithubStars(owner: string): Promise<GithubRepo[]> {
@@ -60,19 +60,19 @@ async function getGithubStars(owner: string): Promise<GithubRepo[]> {
       per_page: '20',
       type: 'all',
       page: page.toString(),
-    });
+    })
 
     const headers = new Headers({
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    });
+    })
 
     const res = await fetch(
       `https://api.github.com/users/${owner}/starred?${params.toString()}`,
       { cache: 'force-cache', headers },
-    );
+    )
 
-    return res.json() as Promise<GithubRepo[]>;
-  };
+    return res.json() as Promise<GithubRepo[]>
+  }
 
-  return fetchPage(1);
+  return fetchPage(1)
 }
