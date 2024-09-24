@@ -1,4 +1,4 @@
-import { Skeleton } from '@duyet/components/ui/skeleton';
+import { Skeleton } from '@duyet/components/ui/skeleton'
 
 export function SkeletonCard() {
   return (
@@ -9,5 +9,5 @@ export function SkeletonCard() {
         <Skeleton className="h-4 w-[200px]" />
       </div>
     </div>
-  );
+  )
 }

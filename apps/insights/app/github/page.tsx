@@ -1,15 +1,15 @@
-import { Suspense } from 'react';
-import { SkeletonCard } from '../../components/skeleton-card';
-import { GithubActivity } from './activity';
-import { GithubCard } from './card';
-import { Repos } from './repos';
+import { Suspense } from 'react'
+import { SkeletonCard } from '../../components/skeleton-card'
+import { GithubActivity } from './activity'
+import { GithubCard } from './card'
+import { Repos } from './repos'
 
-const owner = 'duyet';
+const owner = 'duyet'
 
 export const metadata = {
   title: 'Github Insights @duyet',
   description: 'Github Insights @duyet',
-};
+}
 
 export default function Page() {
   return (
@@ -24,5 +24,5 @@ export default function Page() {
         <GithubCard owner={owner} />
       </Suspense>
     </div>
-  );
+  )
 }

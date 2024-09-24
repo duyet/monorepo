@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { cn } from '@duyet/libs/utils';
-import Image from 'next/image';
-import { TextDataSource } from './text-data-source';
+import { cn } from '@duyet/libs/utils'
+import Image from 'next/image'
+import { TextDataSource } from './text-data-source'
 
 interface StaticCardProps {
-  title?: string;
-  source?: string;
+  title?: string
+  source?: string
   url: {
-    light: string;
-    dark: string;
-  };
-  className?: string;
-  extra?: React.ReactNode;
+    light: string
+    dark: string
+  }
+  className?: string
+  extra?: React.ReactNode
 }
 
 export function StaticCard({
@@ -53,7 +53,7 @@ export function StaticCard({
 
       <TextDataSource>{source}</TextDataSource>
     </div>
-  );
+  )
 }
 
-export default StaticCard;
+export default StaticCard

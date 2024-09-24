@@ -1,13 +1,13 @@
 /* eslint-disable camelcase -- because want to keep original variable name from github api */
 
-import type { GithubRepo } from '@duyet/interfaces';
-import { cn } from '@duyet/libs/utils';
-import { CodeIcon, StarIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
+import type { GithubRepo } from '@duyet/interfaces'
+import { cn } from '@duyet/libs/utils'
+import { CodeIcon, StarIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 interface RepoProps {
-  owner: string;
-  className?: string;
+  owner: string
+  className?: string
 }
 
 export async function Repos({ owner, className }: RepoProps) {
@@ -25,7 +25,7 @@ export async function Repos({ owner, className }: RepoProps) {
       'google-search-crawler',
     ],
     12,
-  );
+  )
 
   return (
     <div className={cn('w-full', className)}>
@@ -35,13 +35,13 @@ export async function Repos({ owner, className }: RepoProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function Repo({
   repo: { name, html_url, description, stargazers_count, language },
 }: {
-  repo: GithubRepo;
+  repo: GithubRepo
 }) {
   return (
     <div className="group relative rounded-lg border bg-background p-4 transition-all hover:shadow-lg">
@@ -76,7 +76,7 @@ function Repo({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 /**
@@ -88,7 +88,7 @@ async function getGithubRepos(
   ignoredProjects: string[] = [],
   n = 8,
 ): Promise<GithubRepo[]> {
-  let repos: GithubRepo[] = [];
+  let repos: GithubRepo[] = []
 
   const fetchPage = async (page: number) => {
     const params = new URLSearchParams({
@@ -97,22 +97,22 @@ async function getGithubRepos(
       per_page: '100',
       type: 'all',
       page: page.toString(),
-    });
+    })
 
     const headers = new Headers({
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    });
+    })
 
     const res = await fetch(
       `https://api.github.com/search/repositories?${params.toString()}`,
       { cache: 'force-cache', headers },
-    );
+    )
 
-    return res.json() as Promise<{ items: GithubRepo[] }>;
-  };
+    return res.json() as Promise<{ items: GithubRepo[] }>
+  }
 
-  const results = await fetchPage(1);
-  repos = results.items;
+  const results = await fetchPage(1)
+  repos = results.items
 
   const filteredRepos = repos.filter(
     (repo: GithubRepo) =>
@@ -120,7 +120,7 @@ async function getGithubRepos(
       !repo.archived &&
       !repo.disabled &&
       !ignoredProjects.includes(repo.name),
-  );
+  )
 
   const sortedRepos = [
     ...preferredProjects
@@ -129,7 +129,7 @@ async function getGithubRepos(
     ...filteredRepos.filter((p) => !preferredProjects.includes(p.name)),
   ]
     .filter((project): project is GithubRepo => project !== undefined)
-    .sort((a, b) => b.stargazers_count - a.stargazers_count);
+    .sort((a, b) => b.stargazers_count - a.stargazers_count)
 
-  return sortedRepos.slice(0, n);
+  return sortedRepos.slice(0, n)
 }

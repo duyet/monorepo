@@ -12,4 +12,4 @@ module.exports = {
     ],
   },
   transpilePackages: ['@duyet/components', '@duyet/libs'],
-};
+}
