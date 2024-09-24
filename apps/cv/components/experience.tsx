@@ -1,4 +1,4 @@
-import { cn } from '@duyet/libs'
+import { cn, distanceFormat } from '@duyet/libs'
 import type { ImageProps } from 'next/image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +9,8 @@ interface ExperienceItemProps {
   companyUrl?: string
   companyLogo?: ImageProps['src']
   companyLogoClassName?: string
-  period: string
+  from: Date
+  to?: Date
   responsibilities: (string | React.ReactNode)[]
   className?: string
 }
@@ -20,7 +21,8 @@ export function ExperienceItem({
   companyUrl,
   companyLogo,
   companyLogoClassName,
-  period,
+  from,
+  to,
   responsibilities,
   className,
 }: ExperienceItemProps) {
@@ -28,7 +30,7 @@ export function ExperienceItem({
     <div className={cn('flex flex-col gap-1', className)}>
       <h3
         className="inline-flex items-center gap-2 text-base font-bold"
-        style={{ fontFamily: 'var(--font-bodoni)' }}
+        style={{ fontFamily: 'var(--font-lora)' }}
       >
         <span>{title}</span>
         <span>-</span>
@@ -39,7 +41,7 @@ export function ExperienceItem({
           companyLogoClassName={companyLogoClassName}
         />
       </h3>
-      <p className="text-xs uppercase text-gray-600">{period}</p>
+      <PeriodLine from={from} to={to} />
       <ul className="ml-2 mt-2 list-disc pl-5 text-sm">
         {responsibilities.map((item) => (
           <li className="mt-1" key={item?.toString()}>
@@ -61,7 +63,12 @@ function CompanyLine({
   'company' | 'companyUrl' | 'companyLogo' | 'companyLogoClassName'
 >) {
   const logoWithText = (
-    <span className="group inline-flex items-center gap-2 font-normal">
+    <span
+      className={cn(
+        'group inline-flex items-center gap-2 font-normal',
+        'hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4',
+      )}
+    >
       {companyLogo ? (
         <Image
           src={companyLogo}
@@ -87,4 +94,23 @@ function CompanyLine({
   }
 
   return logoWithText
+}
+
+function PeriodLine({ from, to }: { from: Date; to?: Date }) {
+  const monthFmt = new Intl.DateTimeFormat('en-US', { month: 'long' })
+
+  const fromString = `${monthFmt.format(from)} ${from.getFullYear()}`
+  const toString = to ? `${monthFmt.format(to)} ${to.getFullYear()}` : 'CURRENT'
+  const period = `${fromString} - ${toString}`
+
+  const duration = distanceFormat(from, to ? to : new Date())
+
+  return (
+    <div className="group inline-flex gap-2 text-xs uppercase text-gray-600">
+      <div className="hover:text-gray-700">{period}</div>
+      <div className="hidden font-bold text-gray-400 group-hover:block">
+        {duration}
+      </div>
+    </div>
+  )
 }

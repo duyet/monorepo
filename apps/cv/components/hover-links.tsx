@@ -1,3 +1,6 @@
+'use client'
+
+import * as seline from '@seline-analytics/web'
 import Link from 'next/link'
 
 import {
@@ -14,9 +17,15 @@ export function HoverLinks({
   links: { text: string; href: string }[]
 }) {
   return (
-    <HoverCard openDelay={0} closeDelay={0}>
+    <HoverCard
+      openDelay={50}
+      closeDelay={0}
+      onOpenChange={(open: boolean) => {
+        if (open) seline.track('CV: Hover Link', { text })
+      }}
+    >
       <HoverCardTrigger asChild>
-        <span className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4">
+        <span className="cursor-context-menu underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4">
           {text}
         </span>
       </HoverCardTrigger>

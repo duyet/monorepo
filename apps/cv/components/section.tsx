@@ -11,7 +11,7 @@ export function Section({ title, className, children }: SectionProps) {
     <section className={cn(className)}>
       <h2
         className="mb-4 text-xl font-bold text-red-500"
-        style={{ fontFamily: 'var(--font-bodoni)' }}
+        style={{ fontFamily: 'var(--font-lora)' }}
       >
         {title}
       </h2>
