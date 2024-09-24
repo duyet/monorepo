@@ -65,7 +65,7 @@ export default function Page() {
               https://duyet.net
             </Link>,
 
-            <HoverCard key="github" openDelay={100} closeDelay={0}>
+            <HoverCard key="github" openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
                 <Link
                   className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"

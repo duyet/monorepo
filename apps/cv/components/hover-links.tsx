@@ -18,8 +18,8 @@ export function HoverLinks({
 }) {
   return (
     <HoverCard
-      openDelay={50}
-      closeDelay={0}
+      openDelay={100}
+      closeDelay={100}
       onOpenChange={(open: boolean) => {
         if (open) seline.track('CV: Hover Link', { text })
       }}
