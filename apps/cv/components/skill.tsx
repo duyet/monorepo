@@ -1,10 +1,14 @@
+'use client'
+
+import * as seline from '@seline-analytics/web'
+import Link from 'next/link'
+import React from 'react'
+
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card'
-import Link from 'next/link'
-import React from 'react'
 
 export function Skill({
   skill,
@@ -23,20 +27,26 @@ export function Skill({
       <Link
         href={url}
         target="_blank"
-        className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+        className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
       >
         {skill}
       </Link>
     )
 
   return (
-    <HoverCard openDelay={0} closeDelay={0}>
+    <HoverCard
+      openDelay={50}
+      closeDelay={0}
+      onOpenChange={(open: boolean) => {
+        if (open) seline.track('CV: Hover Skill', { skill })
+      }}
+    >
       <HoverCardTrigger asChild>
         {url ? (
           <Link
             href={url}
             target="_blank"
-            className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             {skill}
           </Link>
