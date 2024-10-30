@@ -46,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps) {
         fontFamily:
           '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
       }}
+      suppressHydrationWarning
     >
       <Head />
 

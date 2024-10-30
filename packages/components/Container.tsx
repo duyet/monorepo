@@ -1,3 +1,5 @@
+import React from "react";
+
 import { cn } from "@duyet/libs/utils";
 
 type ContainerProps = {
