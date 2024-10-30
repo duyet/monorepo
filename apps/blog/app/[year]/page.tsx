@@ -7,12 +7,14 @@ import { Year } from '../../components/year'
 export const dynamicParams = false
 
 interface YearProps {
-  params: {
+  params: Promise<{
     year: number
-  }
+  }>
 }
 
-export default function YearPage({ params: { year } }: YearProps) {
+export default async function YearPage({ params }: YearProps) {
+  const { year } = await params
+
   return (
     <>
       <Year year={year} />

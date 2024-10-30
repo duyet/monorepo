@@ -2,19 +2,22 @@ import Feed from '@duyet/components/Feed'
 import { getAllTags, getPostsByTag } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
 
+interface Params {
+  tag: string
+}
+
 interface PostsByTagProps {
-  params: {
-    tag: string
-  }
+  params: Promise<Params>
 }
 
 export default async function PostsByTag({ params }: PostsByTagProps) {
-  const posts = await getPosts(params.tag)
+  const { tag } = await params
+  const posts = await getPosts(tag)
 
   return <Feed posts={posts} />
 }
 
-async function getPosts(tag: PostsByTagProps['params']['tag']) {
+async function getPosts(tag: Params['tag']) {
   return getPostsByTag(tag, [
     'slug',
     'date',

@@ -11,7 +11,7 @@ interface Params {
 }
 
 interface PostProps {
-  params: Params
+  params: Promise<Params>
 }
 
 export const dynamic = 'force-static'
@@ -20,9 +20,8 @@ export const dynamic = 'force-static'
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
 export const dynamicParams = false
 
-export default async function Post({
-  params: { year, month, slug },
-}: PostProps) {
+export default async function Post({ params }: PostProps) {
+  const { year, month, slug } = await params
   const post = await getPost([year, month, slug])
 
   return (
@@ -53,8 +52,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params: { year, month, slug },
+  params,
 }: PostProps): Promise<Metadata> {
+  const { year, month, slug } = await params
   const post = await getPost([year, month, slug])
 
   return {
