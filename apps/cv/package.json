@@ -17,9 +17,6 @@
     "start": "next start"
   },
   "prettier": "@duyet/prettier",
-  "resolutions": {
-    "react-is": "19.0.0-rc-02c0e824-20241028"
-  },
   "dependencies": {
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",

@@ -17,10 +17,6 @@
     "start": "next start"
   },
   "prettier": "@duyet/prettier",
-  "resolutions": {
-    "@headlessui/react": "0.0.0-insiders.d71fb9c",
-    "react-is": "19.0.0-rc-02c0e824-20241028"
-  },
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",

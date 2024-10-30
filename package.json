@@ -12,7 +12,7 @@
   "scripts": {
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev --parallel",
-    "prepare": "husky install",
+    "prepare": "husky",
     "fix": "prettier --write \"**/*.{js,ts,tsx,md}\"",
     "fmt": "dotenv -- turbo fmt",
     "lint": "dotenv -- turbo lint",
@@ -33,6 +33,14 @@
     "lint-staged": "^15.0.0",
     "prettier": "^3.0.0",
     "turbo": "^2.0.1"
+  },
+  "resolutions": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@headlessui/react": "0.0.0-insiders.d71fb9c",
+    "react": "19.0.0-rc-02c0e824-20241028",
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "react-is": "19.0.0-rc-02c0e824-20241028"
   },
   "packageManager": "yarn@1.22.22"
 }

@@ -47,9 +47,5 @@
   },
   "peerDependencies": {
     "react": "^18 | ^19"
-  },
-  "resolutions": {
-    "react-is": "^19.0.0-rc-02c0e824-20241028",
-    "@headlessui/react": "0.0.0-insiders.d71fb9c"
   }
 }

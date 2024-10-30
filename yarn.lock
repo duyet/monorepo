@@ -2092,11 +2092,6 @@
   resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-6.0.3.tgz#705bb349e789efa06f43f128cef51240753424cb"
   integrity sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==
 
-"@types/prop-types@*":
-  version "15.7.13"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.13.tgz#2af91918ee12d9d32914feb13f5326658461b451"
-  integrity sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==
-
 "@types/react-dom@npm:types-react-dom@19.0.0-rc.1":
   version "19.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/types-react-dom/-/types-react-dom-19.0.0-rc.1.tgz#1d544d02c5df2a82d87c2eff979afa2e21a8317a"
@@ -2104,15 +2099,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
-  version "18.3.12"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.12.tgz#99419f182ccd69151813b7ee24b792fe08774f60"
-  integrity sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^3.0.2"
-
-"@types/react@npm:types-react@19.0.0-rc.1":
+"@types/react@*", "@types/react@npm:types-react@19.0.0-rc.1":
   version "19.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/types-react/-/types-react-19.0.0-rc.1.tgz#576d1a702f6d0cc5b24813a293913e5cbfeaa647"
   integrity sha512-RshndUfqTW6K3STLPis8BtAYCGOkMbtvYsi90gmVNDZBXUyUc5juf2PE9LfS/JmOlUIRO8cWTS/1MTnmhjDqyQ==
@@ -7450,10 +7437,10 @@ react-dom@19.0.0-rc-02c0e824-20241028:
   dependencies:
     scheduler "0.25.0-rc-02c0e824-20241028"
 
-react-is@^16.10.2, react-is@^16.13.1, react-is@^18.0.0, react-is@^19.0.0-rc-02c0e824-20241028:
-  version "19.0.0-rc-fb9a90fa48-20240614"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.0.0-rc-fb9a90fa48-20240614.tgz#6987893799abdedf2e9929e31541cb6d7dc8285a"
-  integrity sha512-60qI7v1B9RhmZwjTCnAgzcuABOQsIH20vTbETQPaze96s1lY2lSawv9dvXAfF8Z1MIqOppWSKLNOshF0WsZ3OA==
+react-is@19.0.0-rc-02c0e824-20241028, react-is@^16.10.2, react-is@^16.13.1, react-is@^18.0.0:
+  version "19.0.0-rc-02c0e824-20241028"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.0.0-rc-02c0e824-20241028.tgz#712df80b940421efd059ee081f52db72ad27e1f7"
+  integrity sha512-dbZlYPxscH1wTMEaQVVHHsTgZuA9UcD/wWpojKyq8b03FCc3Xwu0bbFUiYOuVfOynVAPWbt+BIZGMXE1Kss5yQ==
 
 react-smooth@^4.0.0:
   version "4.0.1"
@@ -7479,15 +7466,10 @@ react-transition-state@^2.1.2:
   resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-2.1.2.tgz#e89c51573e6221acbcacc8df0ed996c3796d70fc"
   integrity sha512-RkDYBkj1V1ZqBA5AwQPrMt2Uagwsx6b//GVJdRDhs/t0o66w2nhQiyHyFGQEI60mgtbaIdLm8yhBRCvhA+FxEg==
 
-react@19.0.0-rc-02c0e824-20241028:
+react@19.0.0-rc-02c0e824-20241028, react@^19.0.0-rc-0bc30748-20241028:
   version "19.0.0-rc-02c0e824-20241028"
   resolved "https://registry.yarnpkg.com/react/-/react-19.0.0-rc-02c0e824-20241028.tgz#d0f92b734b245471359fec4be89b3f26e23f3197"
   integrity sha512-GbZ7hpPHQMiEu53BqEaPQVM/4GG4hARo+mqEEnx4rYporDvNvUjutiAFxYFSbu6sgHwcr7LeFv8htEOwALVA2A==
-
-react@^19.0.0-rc-0bc30748-20241028:
-  version "19.0.0-rc-0bc30748-20241028"
-  resolved "https://registry.yarnpkg.com/react/-/react-19.0.0-rc-0bc30748-20241028.tgz#57bff47d8a94c48d3b86aae179fbdb53244c3d4c"
-  integrity sha512-5sHskLH7OUxHRzQrcqWerxqGe33fr5uP5OM5rM6s3wWlVvfEO4Q3ehODByudS9/XeYCUp6kUtS5Tl+kZ+rr8gQ==
 
 read-cache@^1.0.0:
   version "1.0.0"

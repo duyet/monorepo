@@ -15,10 +15,5 @@
   "dependencies": {
     "@headlessui/tailwindcss": "^0.0.0-insiders.d71fb9c",
     "deepmerge": "^4.3.1"
-  },
-  "resolutions": {
-    "react-is": "19.0.0-rc-02c0e824-20241028",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
