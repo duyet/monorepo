@@ -7,7 +7,7 @@ tags:
   - ES6
   - Javascript
   - Nodejs
-  - Thủ thuật
+  - How to
 modified_time: '2019-03-27T00:00:03.766+07:00'
 slug: /2019/03/7-thu-thuat-voi-resting-va-spreading.html
 description: Resting và spreading càng ngày được ưa chuộng vì sự tiện lợi của nó, sau đây là 7 tricks với JavaScript objects.

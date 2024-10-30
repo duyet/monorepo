@@ -3,12 +3,12 @@ import { getPostsByYear } from '@duyet/libs/getPost'
 import { cn } from '@duyet/libs/utils'
 import Link from 'next/link'
 
-export interface YearProps {
+export interface YearPostProps {
   year: number
   className?: string
 }
 
-export function Year({ year, className }: YearProps) {
+export function YearPost({ year, className }: YearPostProps) {
   const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
 
   if (!posts.length) {
@@ -29,24 +29,22 @@ export function Year({ year, className }: YearProps) {
         </Link>
       </h1>
 
-      {posts.map((post: Post) => (
-        <article className="mb-5" key={post.slug}>
-          <div className="mb-2 flex flex-row gap-2">
-            <time className="text-gray-400">{post.date.toString()}</time>
-            <span className="text-gray-500">{post.category}</span>
-          </div>
-
-          <Link
-            as={post.slug}
-            className="text-xl font-bold md:text-2xl"
-            href="/[...slug]"
+      <div className="flex flex-col gap-3">
+        {posts.map((post: Post) => (
+          <article
+            className="flex flex-row items-center justify-between gap-2"
+            key={post.slug}
           >
-            {post.title}
-          </Link>
-        </article>
-      ))}
+            <Link as={post.slug} className="text-md" href="/[...slug]">
+              {post.title}
+            </Link>
+            <hr className="shrink grow border-dotted border-slate-200 opacity-50" />
+            <time className="text-gray-400">{post.date.toString()}</time>
+          </article>
+        ))}
+      </div>
     </div>
   )
 }
 
-export default Year
+export default YearPost

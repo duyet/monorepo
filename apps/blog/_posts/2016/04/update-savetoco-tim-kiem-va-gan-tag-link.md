@@ -3,7 +3,6 @@ title: 'Update saveto.co: tìm kiếm và gắn tag link'
 date: '2016-04-02'
 author: Duyet
 tags:
-  - ahihi.club
   - saveto.co
   - changelog
   - Update

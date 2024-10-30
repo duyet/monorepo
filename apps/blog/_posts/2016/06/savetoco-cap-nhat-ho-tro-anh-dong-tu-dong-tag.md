@@ -3,7 +3,6 @@ title: 'saveto.co cập nhật: tự động tag, hỗ trợ ảnh GIF '
 date: '2016-06-12'
 author: Duyet
 tags:
-  - ahihi.club
   - saveto.co
   - changelog
   - Update

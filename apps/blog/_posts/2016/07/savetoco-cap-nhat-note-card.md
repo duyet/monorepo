@@ -3,7 +3,6 @@ title: 'saveto.co cập nhật: Note Card'
 date: '2016-07-12'
 author: Duyet
 tags:
-  - ahihi.club
   - Saveto update
   - saveto
   - saveto.co

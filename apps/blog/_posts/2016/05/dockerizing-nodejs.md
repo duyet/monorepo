@@ -3,7 +3,6 @@ title: Đóng gói và triển khai ứng dụng Nodejs bằng Docker
 date: '2016-05-01'
 author: Duyet
 tags:
-  - ahihi.club
   - Docker image
   - Nodejs
   - Docker
