@@ -11,7 +11,7 @@ interface ExperienceItemProps {
   companyLogoClassName?: string
   from: Date
   to?: Date
-  responsibilities: (string | React.ReactNode)[]
+  responsibilities: { id: number; item: string | React.ReactNode }[]
   className?: string
 }
 
@@ -43,8 +43,8 @@ export function ExperienceItem({
       </h3>
       <PeriodLine from={from} to={to} />
       <ul className="ml-2 mt-2 list-disc pl-5 text-sm">
-        {responsibilities.map((item) => (
-          <li className="mt-1" key={item?.toString()}>
+        {responsibilities.map(({ id, item }) => (
+          <li className="mt-1" key={id}>
             {item}
           </li>
         ))}

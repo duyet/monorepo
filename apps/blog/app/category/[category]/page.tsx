@@ -2,21 +2,24 @@ import Feed from '@duyet/components/Feed'
 import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
 
+interface Params {
+  category: string
+}
+
 interface PostsByCategoryProps {
-  params: {
-    category: string
-  }
+  params: Promise<Params>
 }
 
 export default async function PostsByCategory({
   params,
 }: PostsByCategoryProps) {
-  const posts = await getPosts(params.category)
+  const { category } = await params
+  const posts = await getPosts(category)
 
   return <Feed posts={posts} />
 }
 
-async function getPosts(category: PostsByCategoryProps['params']['category']) {
+async function getPosts(category: Params['category']) {
   return getPostsByCategory(category, [
     'slug',
     'date',

@@ -18,10 +18,15 @@
     "@auth0/auth0-react": "^2.0.0",
     "@duyet/libs": "*",
     "@radix-ui/react-collapsible": "^1.0.3",
-    "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-tabs": "^1.0.4",
-    "@tremor/react": "^3.17.2",
-    "lucide-react": "^0.453.0"
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.1",
+    "@radix-ui/react-toggle-group": "^1.1.0",
+    "@tremor/react": "^3.18.3",
+    "@vercel/analytics": "^1.3.2",
+    "lucide-react": "^0.453.0",
+    "next": "^15.0.2",
+    "next-themes": "^0.3.0",
+    "react": "^19.0.0-rc-0bc30748-20241028"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
@@ -29,19 +34,18 @@
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@types/node": "^20.0.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.4.12",
     "eslint": "8.57.1",
     "postcss": "^8.4.18",
     "prettier": "^3.0.0",
-    "react": "^18.2.0",
     "tailwindcss": "*",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18 | ^19"
   }
 }

@@ -3,12 +3,13 @@ import { notFound } from 'next/navigation'
 import { SeriesBox } from '../../../components/series'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function SeriesPage({ params: { slug } }: PageProps) {
+export default async function SeriesPage({ params }: PageProps) {
+  const { slug } = await params
   const series = getSeries({ slug })
 
   if (!series) {

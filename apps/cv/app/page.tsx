@@ -142,30 +142,44 @@ export default function Page() {
             companyLogoClassName="h-5 w-auto"
             from={new Date('2023-10')}
             responsibilities={[
-              'Deprecated old stack (Spark, Iceberg, Trino) replaced by ClickHouse.',
-              <span key="migrate-iceberg-to-clickhouse">
-                Migrated 350TB+ Iceberg Data Lake to{' '}
-                <HoverLinks
-                  text="ClickHouse on Kubernetes"
-                  links={[
-                    {
-                      text: 'ClickHouse on Kubernetes',
-                      href: 'https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html',
-                    },
-                    {
-                      text: 'Monitoring ClickHouse on Kubernetes',
-                      href: 'https://blog.duyet.net/2024/03/clickhouse-monitoring.html',
-                    },
-                    {
-                      text: 'Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?',
-                      href: 'https://blog.duyet.net/2023/01/clickhouse.html',
-                    },
-                  ]}
-                />
-                .
-              </span>,
-              'Enhanced ClickHouse for 300% better data compression and 2x-100x faster queries, compared with Trino + Iceberg',
-              'Automated operations with Airflow: data replication, data processing, healthchecks, etc.',
+              {
+                id: 1,
+                item: 'Deprecated old stack (Spark, Iceberg, Trino) replaced by ClickHouse.',
+              },
+              {
+                id: 2,
+                item: (
+                  <span key="migrate-iceberg-to-clickhouse">
+                    Migrated 350TB+ Iceberg Data Lake to{' '}
+                    <HoverLinks
+                      text="ClickHouse on Kubernetes"
+                      links={[
+                        {
+                          text: 'ClickHouse on Kubernetes',
+                          href: 'https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html',
+                        },
+                        {
+                          text: 'Monitoring ClickHouse on Kubernetes',
+                          href: 'https://blog.duyet.net/2024/03/clickhouse-monitoring.html',
+                        },
+                        {
+                          text: 'Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?',
+                          href: 'https://blog.duyet.net/2023/01/clickhouse.html',
+                        },
+                      ]}
+                    />
+                    .
+                  </span>
+                ),
+              },
+              {
+                id: 3,
+                item: 'Enhanced ClickHouse for 300% better data compression and 2x-100x faster queries, compared with Trino + Iceberg',
+              },
+              {
+                id: 4,
+                item: 'Automated operations with Airflow: data replication, data processing, healthchecks, etc.',
+              },
             ]}
           />
           <ExperienceItem
@@ -177,42 +191,58 @@ export default function Page() {
             from={new Date('2018-10')}
             to={new Date('2023-07')}
             responsibilities={[
-              'Optimize monthly costs from $45,000 to $20,000 (GCP and AWS Cloud).',
-              'Managed a team of 4 data engineers and 2 data analysts to provide end-to-end analytics solutions to stakeholders. Raised data-driven awareness throughout the organization and encouraged everyone to take a more data-driven approach to problem-solving.',
-              <Link
-                href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
-                key="next-gen-data-platform"
-                className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
-                target="_blank"
-              >
-                Designed next-gen Data Platform in Rust ↗︎
-              </Link>,
-              <span key="k8s-deploy">
-                Developed tools for Data Monitoring, Data Catalog, and
-                Self-service Analytics for internal teams with{' '}
-                <HoverLinks
-                  text="everything deployed on Kubernetes"
-                  links={[
-                    {
-                      text: 'Spark on Kubernetes tại Fossil︎',
-                      href: 'https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html',
-                    },
-                    {
-                      text: 'Spark on Kubernetes Performance Tuning︎',
-                      href: 'https://blog.duyet.net/2021/04/spark-kubernetes-performance-tuning.html',
-                    },
-                    {
-                      text: 'ClickHouse on Kubernetes︎',
-                      href: 'https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html',
-                    },
-                    {
-                      text: 'Fossil Data Platform Rewritten in Rust 🦀︎',
-                      href: 'https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html',
-                    },
-                  ]}
-                />
-                .
-              </span>,
+              {
+                id: 1,
+                item: 'Optimize monthly costs from $45,000 to $20,000 (GCP and AWS Cloud).',
+              },
+              {
+                id: 2,
+                item: 'Managed a team of 4 data engineers and 2 data analysts to provide end-to-end analytics solutions to stakeholders. Raised data-driven awareness throughout the organization and encouraged everyone to take a more data-driven approach to problem-solving.',
+              },
+              {
+                id: 3,
+                item: (
+                  <Link
+                    href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
+                    key="next-gen-data-platform"
+                    className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+                    target="_blank"
+                  >
+                    Designed next-gen Data Platform in Rust ↗︎
+                  </Link>
+                ),
+              },
+              {
+                id: 4,
+                item: (
+                  <span key="k8s-deploy">
+                    Developed tools for Data Monitoring, Data Catalog, and
+                    Self-service Analytics for internal teams with{' '}
+                    <HoverLinks
+                      text="everything deployed on Kubernetes"
+                      links={[
+                        {
+                          text: 'Spark on Kubernetes tại Fossil︎',
+                          href: 'https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html',
+                        },
+                        {
+                          text: 'Spark on Kubernetes Performance Tuning︎',
+                          href: 'https://blog.duyet.net/2021/04/spark-kubernetes-performance-tuning.html',
+                        },
+                        {
+                          text: 'ClickHouse on Kubernetes︎',
+                          href: 'https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html',
+                        },
+                        {
+                          text: 'Fossil Data Platform Rewritten in Rust 🦀︎',
+                          href: 'https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html',
+                        },
+                      ]}
+                    />
+                    .
+                  </span>
+                ),
+              },
             ]}
           />
           <ExperienceItem
@@ -223,11 +253,19 @@ export default function Page() {
             from={new Date('2017-06')}
             to={new Date('2018-10')}
             responsibilities={[
-              'Built data pipelines processing 2TB/day with AWS for a Recommendation System',
-              <span key="azure">
-                Ingested and transformed 1TB+/day into Data Lake using Azure
-                Cloud and Databricks
-              </span>,
+              {
+                id: 1,
+                item: 'Built data pipelines processing 2TB/day with AWS for a Recommendation System',
+              },
+              {
+                id: 2,
+                item: (
+                  <span key="azure">
+                    Ingested and transformed 1TB+/day into Data Lake using Azure
+                    Cloud and Databricks
+                  </span>
+                ),
+              },
             ]}
           />
           <ExperienceItem
@@ -238,8 +276,14 @@ export default function Page() {
             from={new Date('2015-09')}
             to={new Date('2017-06')}
             responsibilities={[
-              'Developed data pipelines, data cleaning and visualizations for adhoc problems.',
-              'Train and deployed ML models: customer lifetime value, churn prediction, sales optimization, recruitment optimization, etc.',
+              {
+                id: 1,
+                item: 'Developed data pipelines, data cleaning and visualizations for adhoc problems.',
+              },
+              {
+                id: 2,
+                item: 'Train and deployed ML models: customer lifetime value, churn prediction, sales optimization, recruitment optimization, etc.',
+              },
             ]}
           />
         </div>

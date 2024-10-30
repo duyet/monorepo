@@ -8,6 +8,9 @@ export const metadata = {
   description: 'Blog Insights data collected from Cloudflare and PostHog.',
 }
 
+// Revalidate every 24 hours
+export const revalidate = 86400
+
 export default function Page() {
   return (
     <>
