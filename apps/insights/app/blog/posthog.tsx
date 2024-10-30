@@ -3,9 +3,6 @@ import { TextDataSource } from '../../components/text-data-source'
 
 const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
 
-// Revalidate every 24 hours
-export const revalidate = 86400
-
 interface Path {
   path: string
   visitors: number

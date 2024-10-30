@@ -21,9 +21,10 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.0",
-    "@tremor/react": "^3.17.2",
+    "@tremor/react": "^3.18.3",
     "@vercel/analytics": "^1.3.2",
     "lucide-react": "^0.453.0",
+    "next": "^15.0.2",
     "next-themes": "^0.3.0",
     "react": "^19.0.0-rc-0bc30748-20241028"
   },
@@ -46,5 +47,9 @@
   },
   "peerDependencies": {
     "react": "^18 | ^19"
+  },
+  "resolutions": {
+    "react-is": "^19.0.0-rc-02c0e824-20241028",
+    "@headlessui/react": "0.0.0-insiders.d71fb9c"
   }
 }

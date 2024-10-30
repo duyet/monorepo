@@ -11,9 +11,6 @@ export interface CloudflareProps {
   generatedAt: string
 }
 
-// Revalidate every 24 hours
-export const revalidate = 86400
-
 async function dataFormatter(number: number) {
   return Intl.NumberFormat('us').format(number).toString()
 }

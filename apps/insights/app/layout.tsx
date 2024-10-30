@@ -27,7 +27,7 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html className={inter.className} lang="en">
+    <html className={inter.className} lang="en" suppressHydrationWarning>
       <Head />
       <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
         <ThemeProvider>
