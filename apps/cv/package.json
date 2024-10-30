@@ -18,8 +18,7 @@
   },
   "prettier": "@duyet/prettier",
   "resolutions": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    "react-is": "19.0.0-rc-02c0e824-20241028"
   },
   "dependencies": {
     "@commitlint/cli": "^19.0.0",

@@ -1,12 +1,14 @@
+import Link from 'next/link'
+
 import Container from '@duyet/components/Container'
 import Grid from '@duyet/components/Grid'
 import { getAllPosts } from '@duyet/libs/getPost'
-import Link from 'next/link'
 
-type Params = Record<string, string>
+type Params = Promise<Record<string, string>>
 
 async function getPosts(params: Params) {
-  const page = params.page ? parseInt(params.page) - 1 : 0
+  const { page } = await params
+  const pageNumber = page ? parseInt(page) - 1 : 0
 
   return getAllPosts(
     [
@@ -18,7 +20,7 @@ async function getPosts(params: Params) {
       'category',
       'category_slug',
     ],
-    page * 10 + 10,
+    pageNumber * 10 + 10,
   )
 }
 
