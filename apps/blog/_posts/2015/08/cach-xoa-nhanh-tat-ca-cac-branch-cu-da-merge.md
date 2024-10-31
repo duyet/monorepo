@@ -4,7 +4,7 @@ date: '2015-08-25'
 author: Duyet
 tags:
   - Git
-  - How to
+  - Tutorial
   - Github
 modified_time: '2015-08-25T22:58:57.734+07:00'
 slug: /2015/08/cach-xoa-nhanh-tat-ca-cac-branch-cu-da-merge.html

@@ -3,13 +3,10 @@ title: 'Javascript Weekly #9'
 date: '2016-12-10'
 author: Duyet
 tags:
-  - ES6
-  - Javascript-Weekly-9
   - Javascript
-  - Javascript-Weekly
+  - Javascript Weekly
   - React
   - Node.js
-  - ES5
 modified_time: '2016-12-10T10:09:19.995+07:00'
 thumbnail: https://2.bp.blogspot.com/-3n1yGifwJdY/WEtxXVdp38I/AAAAAAAAgt4/ijum1QPHo6ENxNmPawMuGeKyxKfw2tfEACLcB/s1600/Screenshot%2Bfrom%2B2016-12-10%2B10-06-59.png
 slug: /2016/12/javascript-weekly-9.html

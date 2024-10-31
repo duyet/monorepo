@@ -3,10 +3,7 @@ title: 'saveto.co cập nhật: Note Card'
 date: '2016-07-12'
 author: Duyet
 tags:
-  - Saveto update
-  - saveto
-  - saveto.co
-  - note card
+  - Side Project
 modified_time: '2016-07-12T10:43:02.069+07:00'
 thumbnail: https://1.bp.blogspot.com/-ygEOobbwRPI/V4RmaAY1KVI/AAAAAAAAZwc/ASHaVZwKe7s2e-zMRWgDjFRWzYAeADETACLcB/s1600/saveto-note-card.png
 slug: /2016/07/savetoco-cap-nhat-note-card.html

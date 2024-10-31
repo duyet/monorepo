@@ -8,7 +8,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
   - Rust Design Patterns
-  - Creational Patterns
+  - Design Patterns
 slug: /2022/02/rust-builder-design-pattern.html
 description: Builder được sử dụng cực kỳ phổ biến trong Rust so với các ngôn ngữ khác, bởi vì Rust không có overloading.
 ---

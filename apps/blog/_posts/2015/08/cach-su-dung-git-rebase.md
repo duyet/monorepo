@@ -4,7 +4,7 @@ date: '2015-08-25'
 author: Duyet
 tags:
   - Git
-  - How to
+  - Tutorial
 modified_time: '2015-08-25T23:28:08.793+07:00'
 slug: /2015/08/cach-su-dung-git-rebase.html
 category: Git

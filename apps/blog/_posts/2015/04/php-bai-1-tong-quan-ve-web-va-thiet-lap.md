@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Training
   - PHP
-  - Courses
 modified_time: '2015-04-18T20:57:32.802+07:00'
 thumbnail: https://4.bp.blogspot.com/-QxU1LVBUcsA/VS6XNXt1ozI/AAAAAAAACRk/Og_wF5j7WDM/s1600/mohinh01.jpg
 slug: /2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap.html

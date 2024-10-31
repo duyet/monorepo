@@ -4,8 +4,6 @@ date: '2016-03-02'
 author: Duyet
 tags:
   - Security
-  - Tor
-  - CTB
   - Ransomware
 modified_time: '2016-05-02T19:41:20.131+07:00'
 thumbnail: https://3.bp.blogspot.com/-OCj_qVWa3gQ/VtXfet69CWI/AAAAAAAAQiY/xhQ9CDVm7cg/s1600/ctb_locker_en_1.png

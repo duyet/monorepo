@@ -4,7 +4,6 @@ date: '2015-07-16'
 author: Duyet
 tags:
   - Git
-  - Git Workflow
 modified_time: '2015-07-16T12:54:31.864+07:00'
 thumbnail: https://4.bp.blogspot.com/-s4EMBlWhY34/VadEZkNL7YI/AAAAAAAACnc/byhewvc8IsQ/s1600/s1-1024x417.png
 slug: /2015/07/git-ki-thuat-chia-branch-branch-early.html

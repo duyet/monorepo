@@ -6,7 +6,6 @@ category: Productivity
 tags:
   - Data Engineering
   - Git
-  - Bitbucket
 thumbnail: https://1.bp.blogspot.com/-n5JQguH7_m8/YSm0Goi6CsI/AAAAAAACNKs/Qc1CH4ETIwcN06Iw6fBswAikkl56mhmYQCLcBGAsYHQ/s16000/Screen%2BShot%2B2021-08-27%2Bat%2B9.24.21%2BPM.png
 slug: /2021/08/bitbucket-pipelines-notes.html
 description: Bitbucket Pipelines document is fragmented everywhere. It always makes me search for a while every time I write a new one for CI/CD. So I'll make a few notes here.

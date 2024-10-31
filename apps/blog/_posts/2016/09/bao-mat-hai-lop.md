@@ -4,7 +4,7 @@ date: '2016-09-01'
 author: Duyet
 tags:
   - Security
-  - How to
+  - Tutorial
 modified_time: '2016-09-01T12:36:14.646+07:00'
 thumbnail: https://3.bp.blogspot.com/-U90ziEzboCk/V8e8QNYdT_I/AAAAAAAAcq4/2utzWI8wLTsV5OLn9I2Hwevtb0FdbvwFgCK4B/s1600/FIDO-Yubico-YubiKeys-GfW-blog-845x321.png
 slug: /2016/09/bao-mat-hai-lop.html

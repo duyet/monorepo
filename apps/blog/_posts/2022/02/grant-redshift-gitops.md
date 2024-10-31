@@ -5,7 +5,7 @@ author: Duyet
 category: Data
 tags:
   - Rust
-  - Redshift
+  - Database
   - Data Engineering
 slug: /2022/02/grant-redshift-gitops.html
 thumbnail: https://i.imgur.com/ooGg2k5.png

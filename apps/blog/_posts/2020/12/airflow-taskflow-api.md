@@ -4,9 +4,8 @@ date: '2020-12-26'
 author: Duyet
 category: Data Engineer
 tags:
-  - Airflow
+  - Apache Airflow
   - Data Engineering
-  - Airflow 2.0
 thumbnail: https://1.bp.blogspot.com/-ON0KTUqotAs/X-chcnFmhtI/AAAAAAABzmA/-kBwGuYyCS44Q16FCHL23iio9WUm6Ux9wCLcBGAsYHQ/s0/duyet-airflow-taskflow-api.png
 slug: /2020/12/airflow-taskflow-api.html
 description: Chú trọng vào việc đơn giản hóa và rõ ràng cách viết Airflow DAG, cách trao đổi thông tin giữa các tasks, Airflow 2.0 ra mắt Taskflow API cho phép viết đơn giản và gọn gàng hơn so với cách truyền thống, đặc biệt vào các pipelines sử dụng PythonOperators.

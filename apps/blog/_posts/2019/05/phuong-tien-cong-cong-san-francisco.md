@@ -5,8 +5,8 @@ author: Duyet
 category: Story
 tags:
   - San Francisco
-  - Travel
-  - USA
+  - Photos
+  - The US
 
 thumbnail: https://1.bp.blogspot.com/-HbKS4i_0yqA/XM0Kbzu24bI/AAAAAAAA_hQ/84Pq1m-TK3QRHfv5GAFijK87OniCXDrnwCK4BGAYYCw/s1600/1969-12-31%2B04.00.00%2B27.jpg
 

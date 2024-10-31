@@ -4,7 +4,7 @@ date: '2020-10-24'
 author: Duyet
 category: Data Engineer
 tags:
-  - Spark
+  - Apache Spark
   - Data Engineering
   - Kubernetes
 thumbnail: https://1.bp.blogspot.com/-aBPAW0o9sqY/X5Ps-9d_hLI/AAAAAAABp1A/ZCTOfwThNEUykd4biRSDnZj0D7menY9kACLcBGAsYHQ/s0/spark-on-k8s.jpg

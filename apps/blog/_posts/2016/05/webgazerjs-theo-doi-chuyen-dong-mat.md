@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Javascript
   - Machine Learning
-  - WebGazer.js
 modified_time: '2017-08-06T11:41:14.293+07:00'
 thumbnail: https://1.bp.blogspot.com/-U2FpDKE-uPY/V0qHwxldpOI/AAAAAAAAWK4/Qq3E3Z0I-M8Z8F_slgkZCDtvp5x67oGkQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-29%2B13-09-23.png
 slug: /2016/05/webgazerjs-theo-doi-chuyen-dong-mat.html

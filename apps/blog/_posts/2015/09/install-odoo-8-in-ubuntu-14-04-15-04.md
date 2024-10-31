@@ -6,9 +6,7 @@ tags:
   - Linux
   - Tutorial
   - Ubuntu
-  - Install
   - Python
-  - Odoo
 modified_time: '2018-09-01T22:29:37.931+07:00'
 slug: /2015/09/install-odoo-8-in-ubuntu-14-04-15-04.html
 category: Linux

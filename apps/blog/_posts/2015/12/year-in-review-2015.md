@@ -3,9 +3,7 @@ title: Year In Review 2015
 date: '2015-12-31'
 author: Duyet
 tags:
-  - Review in year
-  - Year In Review [2015]
-  - year in review
+  - Year In Review
 modified_time: '2016-01-11T01:59:09.345+07:00'
 thumbnail: https://4.bp.blogspot.com/-fLXS7P-nN0U/VoVg5qgEvcI/AAAAAAAANpQ/y3PC7LaWdj4/s1600/2016-Season_trailerstill.gif
 slug: /2015/12/year-in-review-2015.html

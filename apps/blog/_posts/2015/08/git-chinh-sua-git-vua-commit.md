@@ -4,7 +4,7 @@ date: '2015-08-07'
 author: Duyet
 tags:
   - Git
-  - git commit
+  - Tutorial
 modified_time: '2015-08-07T22:14:16.153+07:00'
 slug: /2015/08/git-chinh-sua-git-vua-commit.html
 category: Git

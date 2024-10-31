@@ -3,14 +3,10 @@ title: 8 điều React.js beginner nên biết
 date: '2016-06-25'
 author: Duyet
 tags:
-  - Beginner
-  - Redux
-  - Redux Dev Tools
   - NPM
-  - ES6
-  - Babel
   - React
-  - React Dev Tools
+  - Tools
+  - Web
 modified_time: '2016-06-26T18:04:26.960+07:00'
 thumbnail: https://1.bp.blogspot.com/-KtYQVNUSOhM/V25BbTCHiII/AAAAAAAAYQk/-9QPfR5wy5ImvMrLutGZEklZSuz-0IZkgCK4B/s1600/1-MG736zGtLMBbSkhwu4D3cA.png
 slug: /2016/06/8-dieu-reactjs-beginner-nen-biet.html

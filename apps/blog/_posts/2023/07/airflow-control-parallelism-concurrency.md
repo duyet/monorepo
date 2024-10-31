@@ -5,8 +5,8 @@ author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineeringing
-  - Airflow
+  - Data Engineering
+  - Apache Airflow
 slug: /2023/07/airflow-control-parallelism-concurrency.html
 thumbnail: /media/2023/07/airflow-control-parallelism-concurrency.svg
 description: 'How to control parallelism and concurrency'

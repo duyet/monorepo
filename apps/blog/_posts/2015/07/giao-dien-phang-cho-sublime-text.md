@@ -3,10 +3,8 @@ title: Giao diện phẳng cho Sublime Text
 date: '2015-07-20'
 author: Duyet
 tags:
-  - how to
-  - sublime text
-  - giao diện
-  - theme
+  - Tools
+  - IDE
 modified_time: '2015-07-20T23:57:56.971+07:00'
 thumbnail: https://3.bp.blogspot.com/-sa830MyF-Pc/Va0kRlvZo9I/AAAAAAAACp4/gaw6hL08lPM/s1600/Screenshot%2Bfrom%2B2015-07-20%2B23%253A30%253A29.png
 slug: /2015/07/giao-dien-phang-cho-sublime-text.html

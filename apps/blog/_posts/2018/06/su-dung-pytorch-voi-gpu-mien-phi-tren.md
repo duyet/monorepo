@@ -3,14 +3,9 @@ title: Sử dụng PyTorch với GPU miễn phí trên Google Colab
 date: '2018-06-03'
 author: Duyet
 tags:
-  - AI
   - Data Engineering
-  - Notebook
   - Python
-  - PyTorch
   - Machine Learning
-  - Jupyter Notebook
-  - Colaboratory
 modified_time: '2018-07-20T10:11:11.326+07:00'
 thumbnail: https://4.bp.blogspot.com/-SdOdKIqi8Q0/WxPzp07jlfI/AAAAAAAAubY/BdjBxk-frPgTZKvNR8CTYpBgUwRcF9SQACLcBGAs/s1600/35226d9fbc661ced1c5d17e374638389178c3176.png
 slug: /2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren.html

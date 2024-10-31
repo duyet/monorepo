@@ -4,8 +4,8 @@ date: '2015-02-14'
 author: Duyet
 category: Software Engineering
 tags:
-  - Module
-  - Coding
+  - Read
+  - Software Engineering
 slug: /2015/02/module.html
 description: Chúng ta thường có xu hướng muốn bắt tay ngay vào việc viết code. Tuy nhiên, niềm đam mê này đôi khi có thể khiến chúng ta gặp khó khăn về lâu dài khi ứng dụng phát triển và mở rộng. Khi đó, chúng ta có thể phải đối mặt với việc viết lại code hoặc gặp phải những vấn đề nghiêm trọng hơn.
 ---

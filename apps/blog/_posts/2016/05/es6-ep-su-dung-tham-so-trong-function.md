@@ -6,7 +6,6 @@ tags:
   - Tutorial
   - ES6
   - Javascript
-  - Exploring ES6
 modified_time: '2016-05-27T11:34:39.996+07:00'
 slug: /2016/05/es6-ep-su-dung-tham-so-trong-function.html
 category: Javascript

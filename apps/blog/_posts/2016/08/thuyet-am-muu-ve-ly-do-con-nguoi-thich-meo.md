@@ -3,9 +3,7 @@ title: Thuyết âm mưu về lý do con người thích mèo
 date: '2016-08-27'
 author: Duyet
 tags:
-  - Mèo
-  - Trạm đọc
-  - Read Station
+  - Read
 modified_time: '2016-08-27T23:38:57.300+07:00'
 thumbnail: https://1.bp.blogspot.com/-uuq0TQnZ-4I/V8G1A5D2rgI/AAAAAAAAcMA/WeDRiowNLUEqVeXoo04yZiSZXQEvACqfwCK4B/s1600/maxresdefault.jpg
 slug: /2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo.html

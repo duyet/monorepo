@@ -6,7 +6,7 @@ category: Rust 🦀
 tags:
   - Rust
   - Rust Tiếng Việt
-  - Rust Basic
+
 slug: /2022/02/rust-option-result.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-option-result.html
 description: Rust giới thiệu hai generic enums Option và Result để giải quyết các vấn đề null pointer exceptions, exception data leak, ...

@@ -3,9 +3,6 @@ title: Machine Learning is Fun! (Vietnamese version)
 date: '2017-08-25'
 author: Duyet
 tags:
-  - ML
-  - Machine Learning is Fun
-  - Trans
   - Machine Learning
 modified_time: '2017-08-25T17:09:50.109+07:00'
 thumbnail: https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png

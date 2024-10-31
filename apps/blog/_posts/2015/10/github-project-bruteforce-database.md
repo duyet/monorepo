@@ -1,10 +1,10 @@
 ---
-title: ' Github project - Bruteforce Database - Password dictionaries'
+title: Bruteforce Database
 date: '2015-10-05'
 author: Duyet
 tags:
   - Github
-  - project
+  - Side Project
 modified_time: '2015-10-05T20:46:06.959+07:00'
 thumbnail: https://2.bp.blogspot.com/-DBFErnG-8AE/VhJ-z3Y-41I/AAAAAAAADgA/FGCt8naBMKs/s1600/mtyourmind.10001mb.com.png
 slug: /2015/10/github-project-bruteforce-database.html

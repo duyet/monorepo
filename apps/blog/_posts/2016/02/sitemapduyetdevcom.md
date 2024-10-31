@@ -3,8 +3,7 @@ title: sitemap.duyetdev.com
 date: '2016-02-03'
 author: Duyet
 tags:
-  - release
-  - sitemap
+  - Side Project
 modified_time: '2016-02-03T12:32:16.312+07:00'
 thumbnail: https://1.bp.blogspot.com/-KdfFcR3DrHY/VrGQVFi50tI/AAAAAAAAPCE/jlt9NUoQTxo/s1600/service-icon.png
 slug: /2016/02/sitemapduyetdevcom.html

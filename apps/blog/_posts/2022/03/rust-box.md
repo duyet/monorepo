@@ -7,7 +7,7 @@ tags:
   - Rust
   - Vietnamese
   - Rust Tiếng Việt
-  - Rust Basic
+
 slug: /2022/03/rust-box.html
 thumbnail: https://i.imgur.com/Axgh2R9.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F03%2Frust-box.html

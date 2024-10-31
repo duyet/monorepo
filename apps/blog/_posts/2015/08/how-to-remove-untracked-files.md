@@ -1,5 +1,5 @@
 ---
-title: Git - How to remove untracked files
+title: Git - Tutorial remove untracked files
 date: '2015-08-25'
 author: Duyet
 tags:

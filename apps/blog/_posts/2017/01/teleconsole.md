@@ -3,8 +3,7 @@ title: 'Teleconsole - Chia sẻ remote console '
 date: '2017-01-26'
 author: Duyet
 tags:
-  - Share Terminal
-  - Teleconsole
+  - Tools
 modified_time: '2017-01-26T09:53:34.037+07:00'
 thumbnail: https://4.bp.blogspot.com/-SyehZxOfseM/WIlfpz8ZHGI/AAAAAAAAioQ/RZdJWwM9zwQttiAcu1ECPU4pk-hNVrFlACK4B/s1600/full-screen-teleconsole.gif
 slug: /2017/01/teleconsole.html

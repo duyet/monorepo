@@ -3,9 +3,9 @@ title: 'Javascript Weekly #8'
 date: '2016-08-31'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Javascript
-  - Javascript-Weekly
+  - Javascript Weekly
   - React
   - React Native
 modified_time: '2016-08-31T13:45:22.392+07:00'

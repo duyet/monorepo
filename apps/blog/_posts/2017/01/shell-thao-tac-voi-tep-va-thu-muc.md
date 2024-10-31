@@ -4,9 +4,8 @@ date: '2017-01-23'
 author: Duyet
 tags:
   - Linux
-  - Shell bash
+  - Tutorial
   - Ubuntu
-  - CMD
 modified_time: '2017-01-23T11:38:35.234+07:00'
 thumbnail: https://1.bp.blogspot.com/-LFMgOUBzTRc/WIWIaGmpQzI/AAAAAAAAieU/kvAZPXb218k53BpTdGwnVJQbL4KyhjtRgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-36-34.png
 slug: /2017/01/shell-thao-tac-voi-tep-va-thu-muc.html

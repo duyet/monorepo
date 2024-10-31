@@ -6,7 +6,7 @@ tags:
   - Tensorflow
   - Docker
   - Machine Learning
-  - Howto
+  - Tutorial
 modified_time: '2016-02-05T23:48:54.687+07:00'
 thumbnail: https://2.bp.blogspot.com/-ALrzO2lz1Hk/VrTSHtGlC8I/AAAAAAAAPHE/ZFPNvhh_PPA/s1600/CYJ-8P4WkAQtAqp.png
 slug: /2016/02/cai-dat-tensorflow-tren-docker.html

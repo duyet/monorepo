@@ -3,7 +3,6 @@ title: PHP - Vietnamese Language Pack Extension for Flarum
 date: '2015-10-05'
 author: Duyet
 tags:
-  - Flarum
   - PHP
   - Github
 modified_time: '2015-10-05T20:46:41.997+07:00'

@@ -3,7 +3,7 @@ title: 'Parse Stack'
 date: '2016-08-18'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
 modified_time: '2017-08-06T11:41:14.269+07:00'
 thumbnail: https://4.bp.blogspot.com/-juqpy4uQn4M/V7VU_YXVo9I/AAAAAAAAbtU/39gqxQzjBFwFYm26fip_pKI35hPVTSrcACLcB/s1600/parse-stack-logo.png
 slug: /2016/08/parse-stack.html

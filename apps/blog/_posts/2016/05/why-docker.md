@@ -4,7 +4,6 @@ date: '2016-05-01'
 author: Duyet
 tags:
   - Docker
-  - Seminar
   - Talk
 modified_time: '2018-09-10T17:24:13.718+07:00'
 thumbnail: https://4.bp.blogspot.com/-84F7ca4G75c/VyYPFOcKb4I/AAAAAAAAULU/J4g0-i0v5K4s1vK2432PQsnsZ1qFB8MKACLcB/s1600/Screenshot%2Bfrom%2B2016-05-01%2B21-13-19.png

@@ -3,7 +3,6 @@ title: Phân lớp SVM với Word2vec
 date: '2018-02-25'
 author: Duyet
 tags:
-  - SVM
   - NLP
   - Word2vec
   - Machine Learning

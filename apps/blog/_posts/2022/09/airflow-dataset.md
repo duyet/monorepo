@@ -6,7 +6,7 @@ category: Data
 tags:
   - Data
   - Data Engineering
-  - Airflow
+  - Apache Airflow
 slug: /2022/09/airflow-dataset.html
 thumbnail: https://i.imgur.com/oESqHNY.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fairflow-dataset.html

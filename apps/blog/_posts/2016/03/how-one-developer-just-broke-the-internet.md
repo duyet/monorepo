@@ -5,11 +5,8 @@ title:
 date: '2016-03-26'
 author: Duyet
 tags:
-  - Nodejs
-  - Bàn luận
-  - NPM
-  - Package
-  - News
+  - Node.js
+  - Read
 modified_time: '2016-05-02T19:39:38.146+07:00'
 slug: /2016/03/how-one-developer-just-broke-the-internet.html
 category: News

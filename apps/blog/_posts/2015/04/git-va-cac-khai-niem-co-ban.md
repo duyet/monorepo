@@ -4,7 +4,7 @@ date: '2015-04-26'
 author: Duyet
 tags:
   - Git
-  - Khái niệm git
+  - Tutorial
 modified_time: '2015-04-26T00:33:45.750+07:00'
 thumbnail: https://4.bp.blogspot.com/-ZYIJIZWTj-I/VTvM1dMdDCI/AAAAAAAACWA/_V9XNOLwkAw/s1600/2color-lightbg%402x.png
 slug: /2015/04/git-va-cac-khai-niem-co-ban.html

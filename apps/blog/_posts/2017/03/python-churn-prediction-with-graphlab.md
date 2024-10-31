@@ -4,8 +4,6 @@ date: '2017-03-18'
 author: Duyet
 tags:
   - Python
-  - Javascript
-  - Churn
   - Data Science
   - Machine Learning
 modified_time: '2018-09-01T22:32:19.839+07:00'

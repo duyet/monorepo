@@ -5,8 +5,8 @@ author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineeringing
-  - Spark
+  - Data Engineering
+  - Apache Spark
   - Github
 slug: /2023/05/spark-github-actions.html
 thumbnail: /media/2023/05/spark-github-actions/1.png

@@ -3,10 +3,8 @@ title: 'Nodejs - Tạo static server đơn giản với Nodejs '
 date: '2015-08-09'
 author: Duyet
 tags:
-  - Nodejs
-  - Server
-  - static server
-  - simple
+  - Node.js
+  - Tutorial
 modified_time: '2018-09-10T17:30:05.200+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
 slug: /2015/08/tao-server-static-don-gian-bang-nodejs.html

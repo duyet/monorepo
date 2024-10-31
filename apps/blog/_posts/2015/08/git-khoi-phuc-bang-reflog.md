@@ -3,9 +3,8 @@ title: Git - Khôi phục bằng reflog sau khi xóa commit hoặc branch
 date: '2015-08-07'
 author: Duyet
 tags:
-  - reflog
   - Git
-  - khôi phục
+  - Tutorial
 modified_time: '2015-08-07T13:04:07.964+07:00'
 thumbnail: https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png
 slug: /2015/08/git-khoi-phuc-bang-reflog.html

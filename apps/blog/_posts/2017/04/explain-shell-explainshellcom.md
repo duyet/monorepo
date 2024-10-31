@@ -4,10 +4,7 @@ date: '2017-04-27'
 author: Duyet
 tags:
   - Linux
-  - Shell
-  - Share
   - Ubuntu
-  - Terminal
 modified_time: '2017-04-27T00:19:09.474+07:00'
 thumbnail: https://2.bp.blogspot.com/-Mic3S70QXaI/WQDWNCRvzeI/AAAAAAAAkzk/W93LTPJqpNAI_ytExK8g_xuZiTOxMU-HACLcB/s1600/Screenshot%2Bfrom%2B2017-04-27%2B00-17-01.png
 slug: /2017/04/explain-shell-explainshellcom.html

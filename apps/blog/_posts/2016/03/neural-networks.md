@@ -3,10 +3,8 @@ title: Neural networks là gì?
 date: '2016-03-26'
 author: Duyet
 tags:
-  - AI
-  - ML
   - Deep Learning
-  - Artificial Intelligence
+  - Artificial Intelligence (AI)
   - Neural Networks
   - Machine Learning
 modified_time: '2016-05-02T19:39:30.826+07:00'

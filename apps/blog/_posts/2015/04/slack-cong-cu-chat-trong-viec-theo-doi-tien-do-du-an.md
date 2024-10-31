@@ -4,12 +4,7 @@ date: '2015-04-26'
 author: Duyet
 tags:
   - Chat
-  - Slack
-  - Quản lý dự án
-  - Dropbox
-  - Git
   - Github
-  - project
 modified_time: '2015-04-26T00:42:36.740+07:00'
 thumbnail: https://4.bp.blogspot.com/-L2pkSjtbhqQ/VTvQbexFy_I/AAAAAAAACWU/cUhMb50WKnA/s1600/2377299_slack-500.jpg
 slug: /2015/04/slack-cong-cu-chat-trong-viec-theo-doi-tien-do-du-an.html

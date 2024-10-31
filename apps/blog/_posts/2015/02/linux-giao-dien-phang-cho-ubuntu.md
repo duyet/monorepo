@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Linux
   - Ubuntu
-  - Tweak
+  - Tools
 modified_time: '2015-02-17T19:48:16.078+07:00'
 thumbnail: https://4.bp.blogspot.com/-NPt92Fq9HCQ/VOMvXySpZSI/AAAAAAAACIA/12wdtDOP7ZA/s1600/Screenshot%2Bfrom%2B2015-02-17%2B19%3A07%3A47.png
 slug: /2015/02/linux-giao-dien-phang-cho-ubuntu.html

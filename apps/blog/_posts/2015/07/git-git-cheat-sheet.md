@@ -4,7 +4,7 @@ date: '2015-07-16'
 author: Duyet
 tags:
   - Git
-  - Git cheatsheet
+  - Cheatsheet
 modified_time: '2015-07-16T13:04:43.947+07:00'
 slug: /2015/07/git-git-cheat-sheet.html
 category: Git

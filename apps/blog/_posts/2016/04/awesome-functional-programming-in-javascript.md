@@ -3,11 +3,8 @@ title: Awesome functional programming in JavaScript
 date: '2016-04-18'
 author: Duyet
 tags:
-  - awesome
-  - awesomelist
-  - Nodejs
+  - Node.js
   - Javascript
-  - Functional Programming
 modified_time: '2016-05-02T19:36:58.924+07:00'
 slug: /2016/04/awesome-functional-programming-in-javascript.html
 category: Javascript

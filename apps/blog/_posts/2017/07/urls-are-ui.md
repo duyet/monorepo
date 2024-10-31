@@ -6,9 +6,7 @@ tags:
   - Web Design
   - Website
   - UX
-  - URL
   - Web
-  - UI
 modified_time: '2017-07-20T22:29:37.063+07:00'
 thumbnail: https://2.bp.blogspot.com/-Be1T1kU3SNE/WXDK8fI25CI/AAAAAAAAmP8/hNT-xyX6Z6cwW1qoAEx6D3WaW5nYZ8vTQCK4BGAYYCw/s1600/funny-newspaper-URL-job-application.jpg
 slug: /2017/07/urls-are-ui.html

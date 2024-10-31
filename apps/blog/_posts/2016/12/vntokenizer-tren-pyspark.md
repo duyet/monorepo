@@ -5,10 +5,7 @@ author: Duyet
 tags:
   - Data Engineering
   - Python
-  - Javascript
-  - PySpark
-  - Spark
-  - vnTokenizer
+  - Apache Spark
   - NLP
   - Machine Learning
 modified_time: '2018-09-10T17:20:37.029+07:00'

@@ -4,11 +4,6 @@ date: '2016-03-18'
 author: Duyet
 tags:
   - Security
-  - Crypt
-  - Research
-  - Thông tin
-  - An toàn thông tin
-  - Nghiên cứu
 modified_time: '2016-03-18T23:13:42.399+07:00'
 slug: /2016/03/asiacrypt-2016.html
 category: News

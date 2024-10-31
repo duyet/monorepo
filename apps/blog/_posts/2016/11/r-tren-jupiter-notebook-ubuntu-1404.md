@@ -4,14 +4,8 @@ date: '2016-11-22'
 author: Duyet
 tags:
   - Data Engineering
-  - Jupyter
-  - Data
-  - Notebook
-  - Pip
   - Python
   - Data Science
-  - Jupyter Notebook
-  - R
 modified_time: '2016-11-22T23:53:50.793+07:00'
 thumbnail: https://4.bp.blogspot.com/-aQIMnwL9Gxc/WDR00IF9dqI/AAAAAAAAf9w/ZvplzJNUtI8vjWh2nF8_kVJZoYF3fHF9QCLcB/s1600/Screenshot%2Bfrom%2B2016-11-22%2B23-39-25.png
 slug: /2016/11/r-tren-jupiter-notebook-ubuntu-1404.html

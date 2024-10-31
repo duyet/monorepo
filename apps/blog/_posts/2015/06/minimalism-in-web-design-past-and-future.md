@@ -3,9 +3,6 @@ title: 'Minimalism in Web design: past and future'
 date: '2015-06-05'
 author: Duyet
 tags:
-  - Web Design
-  - TNW
-  - Minimalism
   - Web
 modified_time: '2015-06-05T00:02:37.012+07:00'
 thumbnail: https://2.bp.blogspot.com/-Ii0eS7_8A70/VXCAw07Cg5I/AAAAAAAAChI/WSsc3VwRPuI/s1600/beatbox-520x310.png

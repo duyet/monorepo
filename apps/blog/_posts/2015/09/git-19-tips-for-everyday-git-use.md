@@ -4,7 +4,7 @@ date: '2015-09-16'
 author: Duyet
 tags:
   - Git
-  - How to
+  - Tutorial
 modified_time: '2015-09-16T14:12:43.738+07:00'
 slug: /2015/09/git-19-tips-for-everyday-git-use.html
 category: Git

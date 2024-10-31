@@ -6,7 +6,7 @@ category: Data
 tags:
   - Vietnamese
   - Data Engineering
-  - Spark
+  - Apache Spark
   - Kubernetes
 slug: /2022/03/spark-kubernetes-at-fossil.html
 thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEggpb4U-cWkhLQo1R-OUORtAvLFPnn0LB22LJ9mOBSpWiC3yoqM3iOoo1BlilS5nxhnOmNs8JyUsVHFdA4dKOLGqRH9WoBXAJxn8v-cg18QFuJFbPHwg_5V6N_0gtgtRpy41fCLICGakuAayr9p5Bwlr02rrmDVjYxOBU4hwL6Oz4gWWXs0VFYDQK-lFw
@@ -46,7 +46,7 @@ Data chuyển từ Spark trên AWS EMR sang Kubernetes.
     <li><a href="#1-apache-spark-trên-aws-emr">1. Apache Spark trên AWS EMR</a></li>
     <li><a href="#2-spark-on-kubernetes---livy">2. Spark on Kubernetes - Livy</a></li>
     <li>
-      <a href="#3-spark-on-kubernetes---spark-operator">3. Spark on Kubernetes - Spark Operator</a>
+      <a href="#3-spark-on-kubernetes---spark-operator">3. Spark on Kubernetes - Apache Spark Operator</a>
       <ul>
         <li><a href="#31-spark-operator">3.1. Spark Operator</a></li>
         <li><a href="#32-spark-submit-worker">3.2. Spark Submit Worker</a></li>
@@ -83,7 +83,7 @@ và _event-driven architecture_ với nhiều thành phần chạy trên Kuberne
 team bắt đầu nghĩ đến việc deploy Spark Jobs trên Kubernetes thay vì EMR, có một số ưu điểm có thể kể đến:
 
 - Tiết kiệm chi phí, bao gồm chi phí cho việc đợi provisioning và bootstrapping phức tạp, costing được tính theo giây, việc này cũng giúp loại bỏ chi phí quản lý EMR cluster, khoảng **$700-$800** cho một tháng (chưa bao gồm chi phí EC2).
-- Spark trên YARN cũng tốn chi phí maintenance không nhỏ.
+- Apache Spark trên YARN cũng tốn chi phí maintenance không nhỏ.
 - Tiết kiệm chi phí do không phải duy trì một lúc 3 Node Master HA.
 - Không thể chạy nhiều version của Spark khác nhau, ví dụ đang sử dụng Spark 2.4.x, bạn cần upgrade một số Application lên Spark 3.x để dùng tính năng mới, bắt buộc phải upgrade các Application cũ hoặc cài đặt một Cluster EMR mới. Ngược lại Spark trên Kubernetes cho phép chạy các driver, executer trên các Kubernetes Pod, mỗi Pod gồm 1 container nên có thể isolated workloads dễ dàng. Ngoài ra có thể thừa hưởng được mọi tính năng của Kubernetes như:
   - [Request/Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/): điều chỉnh hay giới hạn resources (mem, cpu), số lượng Pod cho mỗi Spark Application.
@@ -118,7 +118,7 @@ Team sử dụng Livy, đây là một service cho phép tương tác với Spar
 
 Tuy nhiên lại có một số điểm hạn chế như do delay từ Airflow Scheduler, Livy cũng dễ bị stuck. Nếu một jobs chạy lâu nhưng Livy bị restart thì Jobs đó cũng bị ảnh hưởng theo. Team quyết định nâng cấp.
 
-# 3. Spark on Kubernetes - Spark Operator
+# 3. Spark on Kubernetes - Apache Spark Operator
 
 Sau khi đánh giá khả năng của Spark Operator bởi GCP Google, team quyết định đi đến phiên bản 2.0 của architecture. Các thành phần sẽ như hình dưới đây:
 

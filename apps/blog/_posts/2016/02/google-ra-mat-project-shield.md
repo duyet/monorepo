@@ -4,8 +4,7 @@ date: '2016-02-27'
 author: Duyet
 tags:
   - Google
-  - Jigsaw
-  - Product
+  - Security
 modified_time: '2016-02-27T16:32:55.356+07:00'
 thumbnail: https://4.bp.blogspot.com/-pKLY-EIwkLk/VtFsxbiTP2I/AAAAAAAAQbs/gt0QUH2BeB8/s1600/project-shield.png
 slug: /2016/02/google-ra-mat-project-shield.html

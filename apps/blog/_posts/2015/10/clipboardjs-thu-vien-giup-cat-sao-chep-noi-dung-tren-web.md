@@ -3,8 +3,8 @@ title: Clipboard.js - thư viện giúp cắt/sao chép nội dung trên web m�
 date: '2015-10-30'
 author: Duyet
 tags:
-  - clipboard.js
   - Javascript
+  - Javascript Framework
 modified_time: '2016-01-11T02:05:25.683+07:00'
 thumbnail: https://3.bp.blogspot.com/-nogpFtDX4JE/VjNskDinauI/AAAAAAAAFfk/ciSSYDvmaKs/s1600/5ab0a950-5fb4-11e5-9602-e73c0b661883.jpg
 slug: /2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html

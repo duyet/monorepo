@@ -3,11 +3,8 @@ title: 'Update saveto.co: tìm kiếm và gắn tag link'
 date: '2016-04-02'
 author: Duyet
 tags:
-  - saveto.co
-  - changelog
-  - Update
   - Javascript
-  - Project
+  - Side Project
 modified_time: '2016-05-02T19:39:04.343+07:00'
 thumbnail: https://2.bp.blogspot.com/-gqLXpDKNOnk/Vv_o6EAoH0I/AAAAAAAASxY/C2y8cCEixf4y9WGaXLo9SFubx4zTqezLQ/s1600/Screenshot%2Bfrom%2B2016-04-02%2B22-39-31.png
 slug: /2016/04/update-savetoco-tim-kiem-va-gan-tag-link.html

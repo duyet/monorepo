@@ -3,10 +3,7 @@ title: Nodejs - Giới thiệu Yeoman, Grunt và Bower
 date: '2015-04-20'
 author: Duyet
 tags:
-  - Nodejs
-  - Grunt
-  - Bower
-  - Yeoman
+  - Node.js
 modified_time: '2015-05-17T11:50:32.805+07:00'
 thumbnail: https://1.bp.blogspot.com/-S3xORsBBOes/VTUU2dzVT9I/AAAAAAAACTw/v0XhVPBgDfE/s1600/bower.png
 slug: /2015/04/nodejs-gioi-thieu-yeoman-grunt-va-bower.html

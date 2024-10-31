@@ -3,8 +3,7 @@ title: Tự động hóa Internet với IFTTT
 date: '2016-02-10'
 author: Duyet
 tags:
-  - Auto
-  - Service
+  - Tutorial
   - IFTTT
 modified_time: '2016-02-10T20:42:07.419+07:00'
 thumbnail: https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s1600/IFTTT.png

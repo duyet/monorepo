@@ -4,8 +4,7 @@ date: '2016-07-20'
 author: Duyet
 tags:
   - Tutorial
-  - sublime text
-    - Javascript
+  - Javascript
   - React
   - Node.js
 modified_time: '2016-07-20T11:16:14.977+07:00'
