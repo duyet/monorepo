@@ -7,7 +7,7 @@ tags:
   - Rust
   - Vietnamese
   - Rust Tiếng Việt
-  - Rust Basic
+
 slug: /2022/02/rust-copy-clone-trait.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-copy-clone-trait.html
 thumbnail: https://i.imgur.com/shjfLWK.png

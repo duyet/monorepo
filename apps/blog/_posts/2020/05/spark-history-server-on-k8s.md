@@ -5,9 +5,8 @@ author: Duyet
 category: Data Engineer
 tags:
   - Data Engineering
-  - Spark
+  - Apache Spark
   - Kubernetes
-  - Spark History Server
 
 thumbnail: https://2.bp.blogspot.com/-BOTA2PWkjBY/XtIGGKlRVGI/AAAAAAABZ0g/xvQ-OCIjSHM6gIkKeXn1ORPG1m32mCkiQCK4BGAYYCw/s1600/spark-history-server.png
 slug: /2020/05/spark-history-server-on-k8s.html

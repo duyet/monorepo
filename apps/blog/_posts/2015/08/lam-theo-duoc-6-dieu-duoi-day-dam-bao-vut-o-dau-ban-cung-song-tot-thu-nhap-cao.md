@@ -5,9 +5,7 @@ title:
 date: '2015-08-09'
 author: Duyet
 tags:
-  - Tony
-  - Tony buổi sáng
-  - Bài viết hay
+  - Read
 modified_time: '2015-08-09T23:04:07.441+07:00'
 thumbnail: https://1.bp.blogspot.com/-_AGdPVcTw6c/VcdELg2WkII/AAAAAAAACtw/yvgddlzqydc/s1600/150524-b-lam-tho-dc-5-dieu-duoi-day-1.jpg
 slug: /2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao.html

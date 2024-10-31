@@ -3,10 +3,10 @@ title: 'Javascript Weekly #7'
 date: '2016-07-22'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - ES6
   - Javascript
-  - Javascript-Weekly
+  - Javascript Weekly
   - React
   - Node.js
   - Electron

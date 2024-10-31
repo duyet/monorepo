@@ -4,7 +4,7 @@ date: '2016-05-01'
 author: Duyet
 tags:
   - Docker
-  - How-to
+  - Tutorial
 modified_time: '2018-09-10T17:24:35.829+07:00'
 thumbnail: https://2.bp.blogspot.com/-PixuaXfP3N8/VyYNLdQQKPI/AAAAAAAAUJE/jpqCnfOYVyYaMwWBl3V2whQlLdxzU70qQCK4B/s1600/docker-swarm-hero2.png
 slug: /2016/05/cai-dat-docker-tren-ubuntu.html

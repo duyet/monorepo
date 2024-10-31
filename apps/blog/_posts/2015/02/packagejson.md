@@ -4,7 +4,7 @@ date: '2015-02-22'
 author: Duyet
 category: Javascript
 tags:
-  - Nodejs
+  - Node.js
   - NPM
   - Package.json
 modified_time: '2015-02-22T13:56:30.535+07:00'

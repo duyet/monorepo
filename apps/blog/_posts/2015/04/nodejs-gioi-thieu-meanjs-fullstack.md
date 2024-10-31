@@ -3,8 +3,8 @@ title: Nodejs - Giới thiệu MEANJs Fullstack và cách cài đặt
 date: '2015-04-05'
 author: Duyet
 tags:
-  - Nodejs
-  - MEANjs
+  - Node.js
+  - Javascript Framework
   - Web
 modified_time: '2015-04-27T21:41:00.383+07:00'
 thumbnail: https://3.bp.blogspot.com/-5rfaJD0WbCQ/VT5I0zIo48I/AAAAAAAACbA/Z3PvVUVO7Vo/s1600/meanjs-intro.png

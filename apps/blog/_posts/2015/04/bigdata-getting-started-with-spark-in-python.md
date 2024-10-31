@@ -4,7 +4,7 @@ date: '2015-04-18'
 author: Duyet
 tags:
   - Python
-  - Spark
+  - Apache Spark
   - BigData
 modified_time: '2015-04-18T20:48:17.707+07:00'
 thumbnail: https://1.bp.blogspot.com/-Y0pygPjEUNs/VTJddlh9IfI/AAAAAAAACTQ/_LKZZPXV9Wk/s1600/delays_large.png

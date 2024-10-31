@@ -3,7 +3,7 @@ title: Nodejs - Mã hóa mật khẩu
 date: '2016-02-03'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Tutorial
 modified_time: '2016-02-03T14:22:58.956+07:00'
 thumbnail: https://4.bp.blogspot.com/-ye71o5GWvp0/VrGoa5MFAQI/AAAAAAAAPCg/EplwAJ4v5yk/s1600/password-protection-flat_1.png

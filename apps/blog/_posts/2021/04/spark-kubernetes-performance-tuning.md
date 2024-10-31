@@ -5,7 +5,7 @@ author: Duyet
 category: Data Engineer
 tags:
   - Data Engineering
-  - Spark
+  - Apache Spark
   - Apache Spark
 thumbnail: https://1.bp.blogspot.com/-DqjllNPwXAs/YHG4KE1w2bI/AAAAAAAB_Hc/-laW2XvRNHgXvgub8XcNgw83tajD2ihlQCLcBGAsYHQ/s0/image-20210221-073612.png
 slug: /2021/04/spark-kubernetes-performance-tuning.html

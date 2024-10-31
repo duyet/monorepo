@@ -3,7 +3,6 @@ title: function* và yield trong Javascript generator function
 date: '2016-02-21'
 author: Duyet
 tags:
-  - ECMAScript 2015
   - ES6
   - Javascript
 modified_time: '2016-02-26T21:31:30.559+07:00'

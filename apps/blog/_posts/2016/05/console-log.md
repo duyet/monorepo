@@ -4,10 +4,8 @@ date: '2016-05-16'
 author: Duyet
 tags:
   - Chrome
-  - console
-  - console.log
   - Javascript
-  - Debug
+  - Tutorial
 modified_time: '2016-05-16T20:57:35.599+07:00'
 thumbnail: https://1.bp.blogspot.com/-2tFGxZVRXY8/VznC82-aNtI/AAAAAAAAVLg/nL2_UJPqxrAG5BSQVhCjR3f-OpM8tESyQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B19-50-27.png
 slug: /2016/05/console-log.html

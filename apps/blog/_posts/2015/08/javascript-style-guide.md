@@ -3,7 +3,7 @@ title: JavaScript Style Guide
 date: '2015-08-01'
 author: Duyet
 tags:
-  - style guide
+  - Tutorial
   - Javascript
 modified_time: '2015-08-01T10:25:33.996+07:00'
 slug: /2015/08/javascript-style-guide.html
@@ -16,37 +16,32 @@ See full: [https://github.com/duyet/javascript](https://github.com/duyet/javascr
 
 ## Table of Contents
 
-1. [Types](#types)
-2. [Objects](#objects)
-3. [Arrays](#arrays)
-4. [Strings](#strings)
-5. [Functions](#functions)
-6. [Properties](#properties)
-7. [Variables](#variables)
-8. [Hoisting](#hoisting)
-9. [Comparison Operators & Equality](#comparison-operators--equality)
-10. [Blocks](#blocks)
-11. [Comments](#comments)
-12. [Whitespace](#whitespace)
-13. [Commas](#commas)
-14. [Semicolons](#semicolons)
-15. [Type Casting & Coercion](#type-casting--coercion)
-16. [Naming Conventions](#naming-conventions)
-17. [Accessors](#accessors)
-18. [Constructors](#constructors)
-19. [Events](#events)
-20. [Modules](#modules)
-21. [jQuery](#jquery)
-22. [ECMAScript 5 Compatibility](#ecmascript-5-compatibility)
-23. [Testing](#testing)
-24. [Performance](#performance)
-25. [Resources](#resources)
-26. [In the Wild](#in-the-wild)
-27. [Translation](#translation)
-28. [The JavaScript Style Guide Guide](#the-javascript-style-guide-guide)
-29. [Chat With Us About Javascript](#chat-with-us-about-javascript)
-30. [Contributors](#contributors)
-31. [License](#license)
+- [Table of Contents](#table-of-contents)
+- [Types](#types)
+- [Objects](#objects)
+- [Arrays](#arrays)
+- [Strings](#strings)
+- [Functions](#functions)
+- [Properties](#properties)
+- [Variables](#variables)
+- [Hoisting](#hoisting)
+- [Comparison Operators \& Equality](#comparison-operators--equality)
+- [Blocks](#blocks)
+- [Comments](#comments)
+- [Whitespace](#whitespace)
+- [Commas](#commas)
+- [Semicolons](#semicolons)
+- [Type Casting \& Coercion](#type-casting--coercion)
+- [Naming Conventions](#naming-conventions)
+- [Accessors](#accessors)
+- [Constructors](#constructors)
+- [Events](#events)
+- [Modules](#modules)
+- [jQuery](#jquery)
+- [ECMAScript 5 Compatibility](#ecmascript-5-compatibility)
+- [Testing](#testing)
+- [Performance](#performance)
+- [Resources](#resources)
 
 ## Types
 

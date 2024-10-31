@@ -3,12 +3,8 @@ title: Detect robots in koa
 date: '2016-02-21'
 author: Duyet
 tags:
-  - Nodejs
-  - koa
-  - middleware
-  - koajs
-  - robot
-  - Framework
+  - Node.js
+  - Javascript Framework
 modified_time: '2016-05-06T19:17:49.348+07:00'
 slug: /2016/02/detect-robots-in-koa.html
 category: Javascript

@@ -4,7 +4,7 @@ date: '2023-05-01'
 author: Duyet
 category: Project
 tags:
-  - Project
+  - Side Project
   - Web
   - Blog
   - React

@@ -3,13 +3,9 @@ title: 13.5TB - Yahoo ra mắt bộ Dataset cực lớn cho lĩnh vực máy h�
 date: '2016-02-09'
 author: Duyet
 tags:
-  - Dataset
-  - Labs
-  - ML
-  - Webscope
-  - Yahoo
   - Big Data
   - Machine Learning
+  - NLP
 modified_time: '2016-02-09T23:39:26.233+07:00'
 thumbnail: https://3.bp.blogspot.com/-H7jTeKLalpM/VroS_GtuDxI/AAAAAAAAPYg/2ziVowvFxR0/s1600/Screenshot%2Bfrom%2B2016-02-09%2B23-23-25.png
 slug: /2016/02/yahoo-ra-mat-bo-dataset-lon-nhat-machine-learning.html

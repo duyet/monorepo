@@ -3,9 +3,9 @@ title: Chartico - Tạo biểu đồ cột nhanh chóng và đơn giản
 date: '2015-12-09'
 author: Duyet
 tags:
-  - PR
+  - Tools
+  - Tutorial
   - Web
-  - Chartico
 modified_time: '2016-01-11T02:00:36.072+07:00'
 thumbnail: https://3.bp.blogspot.com/-jAv_oexdrHk/VmhKEute_XI/AAAAAAAALXc/UG5BlQTW7xg/s1600/og.png
 slug: /2015/12/chartico-tao-bieu-o-cot-nhanh-chong-va.html

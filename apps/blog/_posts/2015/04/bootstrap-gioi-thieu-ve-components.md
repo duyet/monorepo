@@ -5,9 +5,7 @@ title:
 date: '2015-04-27'
 author: Duyet
 tags:
-  - Css
-  - Bootstrap
-  - Components
+  - CSS
 modified_time: '2015-04-27T20:50:25.576+07:00'
 thumbnail: https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png
 slug: /2015/04/bootstrap-gioi-thieu-ve-components.html

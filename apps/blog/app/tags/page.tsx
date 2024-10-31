@@ -6,35 +6,60 @@ import Link from 'next/link'
 export default function Tags() {
   const tags: TagCount = getAllTags()
 
-  // Sort and keep tags with > 1 post
   const sortedTags = Object.fromEntries(
-    Object.entries(tags)
-      .filter(([, count]) => count > 1)
-      .sort(([, a], [, b]) => b - a),
+    Object.entries(tags).sort(([, a], [, b]) => b - a),
   )
+
+  // { "A": {tag1: 1, tag2: 10}, "B": ... }
+  const groupedTagsByAlphabet: Record<string, TagCount> = Object.entries(
+    sortedTags,
+  ).reduce<Record<string, TagCount>>((acc, [tag, count]) => {
+    const firstLetter = tag[0].toUpperCase()
+    acc[firstLetter] = { ...acc[firstLetter], [tag]: count }
+    return acc
+  }, {})
+
+  const sortedAlpha = Object.keys(groupedTagsByAlphabet).sort()
 
   return (
     <div>
-      <h1 className="lg:mb-15 mb-10 text-4xl font-bold md:text-6xl lg:text-8xl">
-        Tags
-      </h1>
+      <div className="lg:mb-15 mb-10">
+        <h1 className="mb-5 text-4xl font-bold md:text-6xl lg:text-8xl">
+          Topics
+        </h1>
+        <p className="lg:mb-15 mb-10">
+          This page lists my {Object.keys(sortedTags).length} blogging topics in
+          alphabetical order.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-        {Object.entries(sortedTags).map(([tag, count]) => (
-          <div className="mb-5" key={tag}>
-            <Link
-              as={`/tag/${getSlug(tag)}`}
-              className="flex flex-col text-lg"
-              href="/tag/[tag]"
-            >
-              <h3 className="font-bold">{tag}</h3>
-              <span className="text-sm text-muted hover:no-underline">
-                {count} posts
-              </span>
-            </Link>
+      <div className="flex flex-col gap-5">
+        {sortedAlpha.map((alpha) => (
+          <div className="mb-5" key={alpha}>
+            <h1 className="mb-5 text-5xl font-bold">{alpha}</h1>
+            <TagCounts tags={groupedTagsByAlphabet[alpha]} />
           </div>
         ))}
       </div>
+    </div>
+  )
+}
+
+function TagCounts({ tags }: { tags: TagCount }) {
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+      {Object.entries(tags).map(([tag, count]) => (
+        <div key={tag}>
+          <Link
+            as={`/tag/${getSlug(tag)}`}
+            className="inline-flex gap-1"
+            href="/tag/[tag]"
+          >
+            <h3 className="">{tag}</h3>
+            <span className="text-muted hover:no-underline">({count})</span>
+          </Link>
+        </div>
+      ))}
     </div>
   )
 }

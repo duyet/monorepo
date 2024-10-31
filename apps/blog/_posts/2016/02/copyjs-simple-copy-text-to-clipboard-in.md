@@ -3,8 +3,7 @@ title: copy.js - simple copy text to clipboard in the browser
 date: '2016-02-17'
 author: Duyet
 tags:
-  - Nodejs
-  - Bower
+  - Node.js
   - NPM
   - Javascript
 modified_time: '2016-02-21T01:41:52.268+07:00'

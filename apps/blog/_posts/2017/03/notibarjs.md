@@ -3,11 +3,8 @@ title: Notibar.js
 date: '2017-03-04'
 author: Duyet
 tags:
-  - notibar.js
-  - plugin
-
   - Javascript
-  - project
+  - Side Project
 modified_time: '2018-09-10T17:22:11.270+07:00'
 thumbnail: https://2.bp.blogspot.com/-aWA0Q8jTEM8/WLpunYKc57I/AAAAAAAAjz8/AoGD9qpGYaE1OHeqi5QrBJcgm0HCJgnOACLcB/s1600/Screenshot%2Bfrom%2B2017-03-04%2B14-35-54.png
 slug: /2017/03/notibarjs.html

@@ -4,8 +4,7 @@ date: '2015-08-07'
 author: Duyet
 tags:
   - VS Code
-  - Phím tắt
-  - Visual Studio Code
+  - Tutorial
 modified_time: '2015-08-07T21:10:50.024+07:00'
 thumbnail: https://2.bp.blogspot.com/-FGeqqi-Oxuk/VcS8Ssfh-FI/AAAAAAAACsY/U9P4bj2vfhI/s1600/VS_Code_Ubntu_duyetdev.com.png
 slug: /2015/08/tong-hop-phim-tat-cua-visual-studio-code.html

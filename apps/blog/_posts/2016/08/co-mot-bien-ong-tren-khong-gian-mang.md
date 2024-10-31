@@ -3,12 +3,7 @@ title: Có một Biển Đông trên không gian mạng
 date: '2016-08-01'
 author: Duyet
 tags:
-  - BKAV
   - Security
-  - Vietnamairlines
-  - Thái
-  - VNA
-  - Thảo luận
 modified_time: '2016-08-01T10:02:22.152+07:00'
 thumbnail: https://lh6.googleusercontent.com/l6tvfU-bi2HIa0edDNKcui8Qei6QjBgGxUrhYdHXe3_8m9gGbW0uFZzxRuXyh7DUIysdotaNGFeNY-6wf6jxsSRH-rtMb65uphWXAhT3QdKPEtBaJE3hkI5byXGPlZbPvSPYAUHW=s1600
 slug: /2016/08/co-mot-bien-ong-tren-khong-gian-mang.html

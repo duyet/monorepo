@@ -3,8 +3,7 @@ title: Xây dựng thương hiệu cá nhân tại công sở
 date: '2015-03-09'
 author: Duyet
 tags:
-  - thương hiệu cá nhân
-  - vietnamworks
+  - Thương hiệu cá nhân
 modified_time: '2015-03-09T11:07:35.103+07:00'
 slug: /2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so.html
 category: News

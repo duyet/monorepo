@@ -5,14 +5,8 @@ author: Duyet
 tags:
   - Data Engineering
   - Open Source
-  - Chatbot
-  - Duckling
-  - NLP
-  - Intro-library
   - Machine Learning
-  - facebook
-  - Opensource
-  - Haskell
+  - NLP
 modified_time: '2018-09-10T17:20:37.168+07:00'
 thumbnail: https://1.bp.blogspot.com/-EDgp745KklY/WopyCVizV7I/AAAAAAAAqbc/-xBWh3Ve4xg9DQGDY8YMbLiB688d-zXagCK4BGAYYCw/s1600/carbon_duckling.png
 slug: /2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc.html

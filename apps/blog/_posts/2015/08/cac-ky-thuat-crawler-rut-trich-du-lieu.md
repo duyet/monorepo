@@ -3,8 +3,8 @@ title: Nodejs - Các kỹ thuật Crawler, rút trích dữ liệu với Nodejs
 date: '2015-08-08'
 author: Duyet
 tags:
-  - Nodejs
-  - crawler
+  - Node.js
+  - Javascript Framework
 modified_time: '2015-08-08T17:37:55.222+07:00'
 thumbnail: https://3.bp.blogspot.com/-Cwxzj6-qXVo/VcXRtQa3L4I/AAAAAAAACss/YD6WVCG84JE/s1600/nodejs-crawler.png
 slug: /2015/08/cac-ky-thuat-crawler-rut-trich-du-lieu.html

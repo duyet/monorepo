@@ -3,10 +3,9 @@ title: Grunt - lỗi ENOSPC
 date: '2016-04-08'
 author: Duyet
 tags:
-  - Nodejs
-  - Grunt
-  - Grunt task
-  - Fix
+  - Node.js
+  - Tutorial
+  - Javascript
 modified_time: '2016-05-02T19:37:37.873+07:00'
 slug: /2016/04/grunt-loi-enospc.html
 category: News

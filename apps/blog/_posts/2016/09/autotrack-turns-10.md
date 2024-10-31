@@ -3,12 +3,8 @@ title: Autotrack turns 1.0
 date: '2016-09-01'
 author: Duyet
 tags:
-  - Track.js
-  - Announment
-
-  - Google Analytics
-  - AutoTrack
-  - Announce
+  - News
+  - Javascript
 modified_time: '2017-08-06T11:41:14.281+07:00'
 thumbnail: https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png
 slug: /2016/09/autotrack-turns-10.html

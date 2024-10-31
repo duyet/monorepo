@@ -5,10 +5,7 @@ author: Duyet
 category: Machine Learning
 tags:
   - Data Engineering
-  - Redis
   - Python
-  - Flask
-  - Keras
   - Data Science
   - Machine Learning
 modified_time: '2018-10-31T23:23:57.689+07:00'

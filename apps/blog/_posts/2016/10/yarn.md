@@ -3,12 +3,9 @@ title: 'Yarn: A new package manager for JavaScript'
 date: '2016-10-13'
 author: Duyet
 tags:
-  - Yarn
   - NPM
-
   - Javascript
   - Node.js
-  - facebook
 modified_time: '2017-08-06T11:41:14.334+07:00'
 thumbnail: https://3.bp.blogspot.com/-ezPc9fi877Y/V_-5qaMEI4I/AAAAAAAAe6Y/qtoRjeGc45IgqUG93Ap-GRSyyf-hO7kkACK4B/s1600/Yarn-796x398.jpg
 slug: /2016/10/yarn.html

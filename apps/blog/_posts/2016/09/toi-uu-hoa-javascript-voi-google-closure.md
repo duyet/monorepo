@@ -5,11 +5,7 @@ author: Duyet
 tags:
   - Optimize
   - Javascript
-  - Gulp
   - Node.js
-  - Google Closure
-  - Tối ưu
-  - Webpack
 modified_time: '2016-09-14T11:46:14.393+07:00'
 thumbnail: https://2.bp.blogspot.com/-XJmHynlIbNA/V9jI1Lbj5hI/AAAAAAAAduA/igD5n31EEUcfvwq_Y06IX2cPgsuoEKxZQCK4B/s1600/image00.png
 slug: /2016/09/toi-uu-hoa-javascript-voi-google-closure.html

@@ -4,11 +4,8 @@ date: '2018-03-01'
 author: Duyet
 tags:
   - Data Engineering
-  - Nodejs
-
+  - Node.js
   - Javascript
-  - Intro-library
-  - Intro
   - Machine Learning
 modified_time: '2018-07-20T10:14:07.558+07:00'
 thumbnail: https://4.bp.blogspot.com/-rCCLsL2bgWA/WpgsDSlK8nI/AAAAAAAAqrM/4Ijx-Bt0yvYMe29D7W48z97lGge2IZDHgCLcBGAs/s1600/Propel.png

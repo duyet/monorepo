@@ -3,11 +3,7 @@ title: 'Javascript Weekly #10'
 date: '2016-12-17'
 author: Duyet
 tags:
-  - Javascript-Weekly-10
-  - Hyper
-  - Vue
-  - Javascript-Weekly
-  - Angular
+  - Javascript Weekly
   - React
   - Node.js
 modified_time: '2016-12-17T08:23:58.772+07:00'

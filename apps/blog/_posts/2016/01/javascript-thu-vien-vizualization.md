@@ -3,7 +3,7 @@ title: 'Javascript - Thư viện Vizualization '
 date: '2016-01-03'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Javascript
 modified_time: '2016-01-11T02:05:58.920+07:00'
 thumbnail: https://2.bp.blogspot.com/-XxKj_UJfFVE/VokhkxfngXI/AAAAAAAANp0/2b5K02Ylz28/s1600/preview%2B%25281%2529.png

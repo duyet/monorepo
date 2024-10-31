@@ -6,9 +6,8 @@ category: Story
 tags:
   - Google
   - Google Cloud
-  - Google Cloud Next 19
+  - Events
   - Photos
-  - San Francisco, USA
 thumbnail: https://3.bp.blogspot.com/-zBntEa9bcPU/XLrjTOU8rcI/AAAAAAAA-58/6h9mG_3ltBwbkoBBxsoKzVt1-B7UIpsHgCLcBGAs/s1600/IMG_20190411_112303_565.jpg
 slug: /2019/04/google-cloud-next-19.html
 description: Năm nay mình tham dự Google Cloud Next '19 tại San Francisco. Xin phép chia sẻ lại một vài hình ảnh hội nghị năm nay.

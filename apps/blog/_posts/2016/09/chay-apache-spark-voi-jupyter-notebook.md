@@ -4,13 +4,8 @@ date: '2016-09-20'
 author: Duyet
 tags:
   - Data Engineering
-  - Jupyter
   - Apache Spark
-  - IPython
   - Python
-  - Javascript
-  - PySpark
-  - Spark
   - Machine Learning
 modified_time: '2018-09-10T17:20:37.518+07:00'
 thumbnail: https://1.bp.blogspot.com/-IbzOyRw7mkM/V-Dm-cyXE9I/AAAAAAAAd-I/nGA92fFap4MM4uqKErB7g2H-t6T7CD1RQCLcB/s1600/Selection_006.png

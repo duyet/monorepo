@@ -3,9 +3,9 @@ title: ' JavaScript Weekly #1'
 date: '2016-05-20'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Javascript
-  - Javascript-Weekly
+  - Javascript Weekly
 modified_time: '2016-05-20T22:11:49.259+07:00'
 thumbnail: https://3.bp.blogspot.com/--MqDil9Xkos/Vz8jBgnbr-I/AAAAAAAAViI/2carPWBy2bEwuqHYyinS1nz0tWur3vHlgCK4B/s1600/clickable-markers.png
 slug: /2016/05/javascript-weekly-1.html

@@ -3,9 +3,8 @@ title: 'Git - Phục hồi code cũ'
 date: '2015-01-25'
 category: Git
 tags:
-  - Reset
+  - Tutorial
   - Git
-  - Commit
 thumbnail: https://2.bp.blogspot.com/-sVvs3hQG6DM/VMRzlSdIUFI/AAAAAAAATBA/wBYhBdej6nA/s1600/Git-Logo-2Color.png
 slug: /2015/01/git-recovering-old-code.html
 description: Git là một công cụ mạnh mẽ để quản lý dự án, được sử dụng phổ biến hiện nay. Dưới đây là một số trường hợp mà bạn có thể cần phục hồi mã nguồn do lỗi, hoặc các tình huống khác mà bạn thường gặp

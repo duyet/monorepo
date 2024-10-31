@@ -3,8 +3,7 @@ title: Nodejs - All you need to know about Node.js 4.0.0
 date: '2015-09-09'
 author: Duyet
 tags:
-  - Nodejs
-  - Update
+  - Node.js
 modified_time: '2015-09-09T18:48:56.604+07:00'
 thumbnail: https://2.bp.blogspot.com/-h7ljxkRrImE/VfAcZ8U9dlI/AAAAAAAAC4U/wYPnnlhcP3Y/s1600/nodejs_logo_light.png
 slug: /2015/09/nodejs-all-you-need-to-know-about.html

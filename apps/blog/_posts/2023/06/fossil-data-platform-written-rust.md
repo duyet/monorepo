@@ -6,7 +6,7 @@ category: Rust 🦀
 series: Rust Data Engineering
 tags:
   - Data
-  - Data Engineeringing
+  - Data Engineering
   - Rust
 slug: /2023/06/fossil-data-platform-written-rust.html
 thumbnail: /media/2023/06/fossil-data-platform-written-rust/bench-2.png

@@ -4,7 +4,7 @@ date: '2015-09-16'
 author: Duyet
 tags:
   - Git
-  - Thủ thuật Git
+  - Tutorial
 modified_time: '2015-09-16T14:12:43.738+07:00'
 slug: /2015/09/git-19-tips-for-everyday-git-use.html
 category: Git
@@ -16,25 +16,30 @@ If you are completely new to git, I suggest reading [Git Cheat Sheet](http://www
 
 **Table of Contexts:**
 
-1. [Parameters for better logging](#git-log)
-2. [Log actual changes in a file](#search-log)
-3. [Only Log changes for some specific lines in file](#log-lines)
-4. [Log changes not yet merged to the parent branch](#log-not-merged)
-5. [Extract a file from another branch](#extract-file)
-6. [Some notes on rebasing](#pull-rebase)
-7. [Remember the branch structure after a local merge](#no-fast-forward)
-8. [Fix your previous commit, instead of making a new commit](#ammend-commit)
-9. [Three stages in git, and how to move between them](#stages)
-10. [Revert a commit, softly](#soft-revert)
-11. [See diff-erence for the entire project (not just one file at a time) in a 3rd party diff tool](#folder-diff)
-12. [Ignore the white space](#ignore-white-space)
-13. [Only "add" some changes from a file](#selective-add)
-14. [Discover and zap those old branches](#find-old-branches)
-15. [Stash only some files](#selective-stash)
-16. [Good commit messages](#good-commit-message)
-17. [Git Auto-completion](#auto-complete)
-18. [Create aliases for your most frequently used commands](#aliases)
-19. [Quickly find a commit that broke your feature (EXTRA AWESOME)](#git-bisect)
+- [1. Parameters for better logging](#1-parameters-for-better-logging)
+- [2. Log actual changes in a file](#2-log-actual-changes-in-a-file)
+- [3. Only Log changes for some specific lines in a file](#3-only-log-changes-for-some-specific-lines-in-a-file)
+- [4. Log changes not yet merged to the parent branch](#4-log-changes-not-yet-merged-to-the-parent-branch)
+- [5. Extract a file from another branch](#5-extract-a-file-from-another-branch)
+- [6. Some notes on rebasing](#6-some-notes-on-rebasing)
+  - [One particular rebase that is very helpful is `git pull --rebase`.](#one-particular-rebase-that-is-very-helpful-is-git-pull---rebase)
+- [7. Remember the branch structure after a local merge](#7-remember-the-branch-structure-after-a-local-merge)
+- [8. Fix your previous commit, instead of making a new commit](#8-fix-your-previous-commit-instead-of-making-a-new-commit)
+- [9. Three stages in git, and how to move between them](#9-three-stages-in-git-and-how-to-move-between-them)
+  - [Resetting the files](#resetting-the-files)
+  - [Check out some files](#check-out-some-files)
+- [10. Revert a commit, softly](#10-revert-a-commit-softly)
+- [11. See diff-erence for the entire project (not just one file at a time) in a 3rd party diff tool](#11-see-diff-erence-for-the-entire-project-not-just-one-file-at-a-time-in-a-3rd-party-diff-tool)
+- [12. Ignore the white space](#12-ignore-the-white-space)
+- [13. Only "add" some changes from a file](#13-only-add-some-changes-from-a-file)
+- [14. Discover and zap those old branches](#14-discover-and-zap-those-old-branches)
+- [15. Stash only some files](#15-stash-only-some-files)
+- [16. Good commit messages](#16-good-commit-messages)
+- [17. Git Auto-completion](#17-git-auto-completion)
+- [18. Create aliases for your most frequently used commands](#18-create-aliases-for-your-most-frequently-used-commands)
+- [19. Quickly find a commit that broke your feature (EXTRA AWESOME)](#19-quickly-find-a-commit-that-broke-your-feature-extra-awesome)
+  - [So what does `git bisect` do?](#so-what-does-git-bisect-do)
+  - [The actual commands you need to run to execute the full `git bisect` flow are:](#the-actual-commands-you-need-to-run-to-execute-the-full-git-bisect-flow-are)
 
 [https://www.blogger.com/null](https://www.blogger.com/null)
 

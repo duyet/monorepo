@@ -5,10 +5,7 @@ author: Duyet
 tags:
   - Data Engineering
   - Docker
-  - Rancher
-  - Container
-  - Swarm
-  - Kubernete
+  - Kubernetes
 modified_time: '2018-07-20T10:14:07.356+07:00'
 thumbnail: https://3.bp.blogspot.com/-QUh_PaavDSA/WIWWTCtiTXI/AAAAAAAAies/LvVHTtMjnAglcdCB8uZfGsgJVfz7dirXQCLcB/s1600/ezgif.com-optimize.gif
 slug: /2017/01/rancher.html

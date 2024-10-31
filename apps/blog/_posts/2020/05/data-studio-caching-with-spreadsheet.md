@@ -6,7 +6,7 @@ category: Data Engineer
 tags:
   - Data Engineering
   - Visualization
-  - Data Studio
+  - Tools
 
 thumbnail: https://1.bp.blogspot.com/-tL8SgFMEaQU/XqwoFKV6DxI/AAAAAAABWeM/jCbFEFQ8rkUIndBbUppJt7xuG5gajTJawCK4BGAYYCw/s1200/caching-with-spreadsheet.png
 slug: /2020/05/data-studio-caching-with-spreadsheet.html

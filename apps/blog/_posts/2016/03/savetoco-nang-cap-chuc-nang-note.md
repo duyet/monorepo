@@ -3,10 +3,7 @@ title: saveto.co nâng cấp chức năng note
 date: '2016-03-24'
 author: Duyet
 tags:
-  - ahihi.club
-  - saveto.co
-  - changelog
-  - note
+  - Side Project
 modified_time: '2016-03-25T00:03:10.156+07:00'
 thumbnail: https://4.bp.blogspot.com/-IQqx5voNl_w/VvLTmSA8WLI/AAAAAAAASMk/gcSzeVC8jd8m8mZIn5ySX_ytb_F1YLSFA/s1600/screencapture-saveto-co-note-1458754419141.png
 slug: /2016/03/savetoco-nang-cap-chuc-nang-note.html

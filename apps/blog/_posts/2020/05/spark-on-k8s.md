@@ -5,9 +5,8 @@ author: Duyet
 category: Data Engineer
 tags:
   - Data Engineering
-  - Spark
+  - Apache Spark
   - Kubernetes
-  - Livy
 
 # thumbnail: https://3.bp.blogspot.com/-F-neg4I_RWs/Xsno7eN23rI/AAAAAAABZV4/qTy_8SkWlkQSyH5Gg7D01mFaFkeuWRsuwCK4BGAYYCw/s1600/draft-of-apache-spark-image-2.png
 thumbnail: https://1.bp.blogspot.com/-VI84ABaeYlc/XtIGszW5AoI/AAAAAAABZ0s/w1MDUsBNLwsB7_gMIKf-WMX5JXfZOnXLACK4BGAYYCw/s1600/livy-spark-k8s.png
@@ -46,7 +45,7 @@ Here are three primary benefits to using Kubernetes as a resource manager:
 
 `spark-submit` can be directly used to submit a Spark application to a Kubernetes cluster. The submission mechanism works as follows:
 
-- Spark creates a _Spark driver_ running within a [Kubernetes pod](https://kubernetes.io/docs/concepts/workloads/pods/pod/).
+- Apache Spark creates a _Spark driver_ running within a [Kubernetes pod](https://kubernetes.io/docs/concepts/workloads/pods/pod/).
 - The driver creates executors which are also running within Kubernetes pods and connects to them, and executes application code.
 - When the application completes, the executor pods terminate and are cleaned up, but the driver pod persists logs and remains in "completed" state in the Kubernetes API until it’s eventually garbage collected or manually cleaned up.
 

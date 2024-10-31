@@ -4,13 +4,9 @@ date: '2017-08-11'
 author: Duyet
 tags:
   - Data Engineering
-  - Gensim
   - Tutorial
-  - Text Classification
   - Python
-  - Javascript
   - NLP
-  - NLTK
   - Machine Learning
 modified_time: '2018-09-01T22:32:19.917+07:00'
 thumbnail: https://3.bp.blogspot.com/-_i6Le_EX3oU/WX_10OCZ9lI/AAAAAAAAmV8/X7JDtZf83DknCJbJrqdhbx1fXXzz0W8LgCK4BGAYYCw/s1600/tree.gif

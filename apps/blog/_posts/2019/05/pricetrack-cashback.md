@@ -8,7 +8,7 @@ tags:
 - Firebase Functions
 - Firebase Hosting
 - Side Project
-- Project
+- Side Project
 
 thumbnail: https://1.bp.blogspot.com/-YI_vbZhajkU/XNl4r1H3CRI/AAAAAAABAgI/eZRSFuf3RXQsltqLb2_ObS_lWlE475n5wCLcBGAs/s1600/screenshot-detail.png
 slug: /2019/05/pricetrack-cashback.html

@@ -3,8 +3,6 @@ title: 'Đạo lập trình - The Tao Of Programming '
 date: '2015-07-10'
 author: Duyet
 tags:
-  - Tao of Programming
-  - đạo lập trình
   - News
 modified_time: '2015-07-10T23:36:20.684+07:00'
 slug: /2015/07/tao-of-programming.html

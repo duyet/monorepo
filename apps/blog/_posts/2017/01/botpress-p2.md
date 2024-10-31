@@ -3,7 +3,7 @@ title: 'Chatbot với Botpress - Phần 2: Coding'
 date: '2017-01-24'
 author: Duyet
 tags:
-  - Chatbot
+  - Javascript Framework
   - Javascript
   - Node.js
 modified_time: '2018-09-10T17:24:58.329+07:00'

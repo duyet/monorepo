@@ -3,12 +3,8 @@ title: saveto.co ra mắt TIL
 date: '2016-05-17'
 author: Duyet
 tags:
-  - ahihi.club
-  - saveto.co
   - Today I learned
-  - til
-  - Project
-  - Update
+  - Side Project
 modified_time: '2016-05-17T14:34:52.999+07:00'
 thumbnail: https://4.bp.blogspot.com/-agx83Kzlj74/VzrIvGe_JHI/AAAAAAAAVT8/5c8lpeSLa9IRif5NzOAnou0r3EiuOZb3wCK4B/s1600/saveto-til.png
 slug: /2016/05/savetoco-ra-mat-til.html

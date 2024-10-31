@@ -3,10 +3,8 @@ title: Nodejs - Các package mà mọi lập trình viên Nodejs đều phải b
 date: '2015-08-07'
 author: Duyet
 tags:
-  - Nodejs
-  - ExpressJs
+  - Node.js
   - NPM
-  - async
 modified_time: '2015-08-07T20:38:19.130+07:00'
 slug: /2015/08/nodejs-cac-package-ma-moi-lap-trinh.html
 category: Javascript

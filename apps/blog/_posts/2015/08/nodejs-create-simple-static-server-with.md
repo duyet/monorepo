@@ -3,10 +3,8 @@ title: Nodejs - Create simple static server with Nodejs
 date: '2015-08-09'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Tutorial
-  - English
-  - simple
 modified_time: '2018-09-10T17:29:34.941+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
 slug: /2015/08/nodejs-create-simple-static-server-with.html

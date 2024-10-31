@@ -3,8 +3,7 @@ title: DNS là gì?
 date: '2015-02-23'
 author: Duyet
 tags:
-  - DNS
-  - WWW
+  - Networking
   - Web
 modified_time: '2015-02-23T13:41:18.274+07:00'
 slug: /2015/02/dns.html

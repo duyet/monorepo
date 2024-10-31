@@ -1,6 +1,6 @@
 import YearList from '@duyet/components/YearList'
 import { getPostsByAllYear } from '@duyet/libs/getPost'
-import { Year } from '../../components/year'
+import { YearPost } from '../../components/year-post'
 
 // Dynamic segments not included in generateStaticParams will return a 404.
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
@@ -17,7 +17,7 @@ export default async function YearPage({ params }: YearProps) {
 
   return (
     <>
-      <Year year={year} />
+      <YearPost year={year} />
 
       <div className="mt-10">
         <YearList />

@@ -5,13 +5,9 @@ author: Duyet
 tags:
   - Doc2vec
   - Neural Network
-  - Python
-  - Sentiment
-  - Javascript
   - NLP
   - Word2vec
   - Machine Learning
-  - Sentimennt Analysis
 modified_time: '2018-09-10T17:20:37.659+07:00'
 thumbnail: https://2.bp.blogspot.com/-IpnvLkBHx74/WdnUJ5r3q_I/AAAAAAAAnxI/Cz9B_YQo6tcu0YwOffsQQWmcfjH_mRulwCK4BGAYYCw/s1600/pv_dm.png
 slug: /2017/10/doc2vec-trong-sentiment-analysis.html

@@ -4,8 +4,7 @@ date: '2019-08-09'
 author: Duyet
 category: Server
 tags:
-  - Server
-  - Serverless
+  - Tools
 
 thumbnail: https://2.bp.blogspot.com/-UXFKQHmgZr4/XU5GBRoYgMI/AAAAAAABFX4/36g3ohD57bUaGSoqwPctGsTdL4lG85vPwCK4BGAYYCw/s1600/serverless-arch.jpg
 slug: /2019/08/8-serverless-platform.md

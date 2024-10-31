@@ -3,7 +3,7 @@ title: JS - The Entire JavaScript Language in a Single Image
 date: '2015-09-10'
 author: Duyet
 tags:
-  - docs
+  - Read
   - Javascript
 modified_time: '2015-09-10T08:58:25.126+07:00'
 slug: /2015/09/js-entire-javascript-language-in-single.html

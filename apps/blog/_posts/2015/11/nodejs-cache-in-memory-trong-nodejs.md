@@ -3,11 +3,8 @@ title: Nodejs - Cache in-memory trong Nodejs
 date: '2015-11-13'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Tutorial
-  - node-cache
-  - Package
-  - Package.json
 modified_time: '2016-01-11T02:02:28.742+07:00'
 thumbnail: https://1.bp.blogspot.com/-AyUtco9W0rE/VkYN8h_yUBI/AAAAAAAAFqI/IY2bT1tt5VU/s1600/nodejs-logo.png
 slug: /2015/11/nodejs-cache-in-memory-trong-nodejs.html

@@ -1,12 +1,11 @@
 ---
-title: 'Github project - DCrawler - Crawler System base on Nodejs and MongoDB '
+title: 'Crawler System base on Nodejs and MongoDB '
 date: "2015-04-10"
 author: Duyet
 tags:
-- Nodejs
+- Node.js
 - MongoDb
-- DCrawler
-- project
+- Side Project
 modified_time: '2015-08-02T17:33:50.208+07:00'
 slug: /2015/04/github-project-dcrawler-system.html
 category: Project

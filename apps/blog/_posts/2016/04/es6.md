@@ -3,8 +3,7 @@ title: ES6 có gì mới?
 date: '2016-04-05'
 author: Duyet
 tags:
-  - Nodejs
-  - ECMAScript 2015
+  - Node.js
   - ES6
   - Javascript
 modified_time: '2016-05-02T19:39:07.241+07:00'

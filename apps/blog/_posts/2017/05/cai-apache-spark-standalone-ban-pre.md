@@ -8,7 +8,7 @@ tags:
   - Python
   - Javascript
   - PySpark
-  - Spark
+  - Apache Spark
   - Big Data
 modified_time: '2018-09-01T22:32:19.019+07:00'
 thumbnail: https://4.bp.blogspot.com/-5hwfzlugnac/WS7b6rg8cQI/AAAAAAAAlDg/Rgpp6oj-lGQludEAlYo9YtOrGCeudR0zgCLcB/s1600/Screenshot%2Bfrom%2B2017-05-31%2B22-02-05.png

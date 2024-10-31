@@ -5,7 +5,6 @@ author: Duyet
 category: Data
 tags:
   - DevOps
-  - Helm
   - Kubernetes
 slug: /2023/04/helm-charts-problem.html
 thumbnail: https://i.imgur.com/HhcwrAw.png

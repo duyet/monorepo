@@ -4,10 +4,7 @@ date: '2017-09-20'
 author: Duyet
 tags:
   - Data Engineering
-  - opencv
-  - image
   - Python
-  - Javascript
   - Machine Learning
 modified_time: '2018-09-01T22:32:19.312+07:00'
 thumbnail_2: https://2.bp.blogspot.com/-u1Fqw11luYo/WcE3gP_ykFI/AAAAAAAAngY/iPfg5bwKCcIVn5XTgM3SnVjKzf0QRBBegCLcBGAs/s1600/Screenshot%2Bfrom%2B2017-09-19%2B22-27-44.png

@@ -3,9 +3,8 @@ title: Angular 2 có gì mới?
 date: '2015-12-20'
 author: Duyet
 tags:
-  - data binding
-  - Angular
-  - angular 2
+  - JavaScript Framework
+  - Javascript
 modified_time: '2016-01-11T02:00:01.346+07:00'
 thumbnail: https://1.bp.blogspot.com/-ns1tQ1-Aw4E/VnZPOxT1x7I/AAAAAAAAMGI/0am16xApXRU/s1600/angularjs_logo.svg_-650x401.png
 slug: /2015/12/angular-2-co-gi-moi.html

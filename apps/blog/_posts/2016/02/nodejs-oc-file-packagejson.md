@@ -3,7 +3,7 @@ title: Nodejs - đọc file package.json
 date: '2016-02-03'
 author: Duyet
 tags:
-  - Nodejs
+  - Node.js
   - Tutorial
   - Package.json
 modified_time: '2016-02-03T17:15:07.500+07:00'

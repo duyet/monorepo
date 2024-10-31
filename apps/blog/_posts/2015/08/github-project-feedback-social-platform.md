@@ -1,10 +1,10 @@
 ---
-title: Github Project - Feedback Social Platform
+title: Feedback Social Platform
 date: '2015-08-09'
 author: Duyet
 tags:
   - Github
-  - project
+  - Side Project
 modified_time: '2018-09-10T17:30:29.064+07:00'
 slug: /2015/08/github-project-feedback-social-platform.html
 category: Project

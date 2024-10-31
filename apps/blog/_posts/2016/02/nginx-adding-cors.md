@@ -6,9 +6,6 @@ date: '2016-02-08'
 author: Duyet
 tags:
   - Tutorial
-  - Nginx
-  - CORS
-  - Howto
 modified_time: '2018-09-10T17:26:06.992+07:00'
 slug: /2016/02/nginx-adding-cors.html
 category: Linux

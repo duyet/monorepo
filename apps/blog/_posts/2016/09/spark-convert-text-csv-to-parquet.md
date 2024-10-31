@@ -6,11 +6,7 @@ tags:
   - Data Engineering
   - Apache Spark
   - Python
-  - Javascript
-  - BigData
   - Big Data
-  - Apache Parquet
-  - Spark SQL
 modified_time: '2018-09-01T22:32:18.872+07:00'
 thumbnail: https://2.bp.blogspot.com/-e_wBjtB6Fl0/V-ID3ys6F9I/AAAAAAAAd_k/jRxF8H344KM_ywgsxVfQAPy3GDXAd1_fQCK4B/s1600/parquet-logo.png
 slug: /2016/09/spark-convert-text-csv-to-parquet.html

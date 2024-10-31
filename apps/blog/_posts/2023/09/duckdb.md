@@ -5,7 +5,7 @@ author: Duyet
 category: Data
 tags:
   - Data
-  - Data Engineeringing
+  - Data Engineering
   - DuckDB
 slug: /2023/09/duckdb.html
 thumbnail: /media/2023/09/duckdb/duckdb-introduction.png
@@ -31,7 +31,7 @@ I will cover some basic features of DuckDB and explore some ideas for how it can
 - [9. DuckDB with dbt](#9-duckdb-with-dbt)
 - [10. DuckDB with Apache Airflow](#10-duckdb-with-apache-airflow)
 - [11. Modern Data Stack in a Box with DuckDB](#11-modern-data-stack-in-a-box-with-duckdb)
-- [12. DuckDB instead of Spark](#12-duckdb-instead-of-spark)
+  - [12. DuckDB instead of Spark](#12-duckdb-instead-of-spark)
 - [13. Conclusion](#13-conclusion)
 - [14. References](#14-references)
 

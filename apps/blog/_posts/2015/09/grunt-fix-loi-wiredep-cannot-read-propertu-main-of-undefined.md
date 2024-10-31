@@ -3,11 +3,8 @@ title: Grunt - Fix lỗi wiredep "Cannot read property 'main' of undefined"
 date: '2015-09-22'
 author: Duyet
 tags:
-  - Nodejs
-  - Grunt
-  - Bower
-  - Grunt task
-  - Wiredep
+  - Node.js
+  - Tutorial
 modified_time: '2015-09-22T20:21:45.074+07:00'
 thumbnail: https://1.bp.blogspot.com/-iqXkWdvF-jg/VgFUvbmohqI/AAAAAAAAC5g/alZjGwHMCHY/s1600/Screenshot%2Bfrom%2B2015-09-22%2B20%253A15%253A45.png
 slug: /2015/09/grunt-fix-loi-wiredep-cannot-read-propertu-main-of-undefined.html

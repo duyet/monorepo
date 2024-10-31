@@ -3,10 +3,9 @@ title: Tìm hiểu về hệ thống quảng cáo và quảng cáo Online
 date: '2015-05-17'
 author: Duyet
 tags:
-  - CPC
-  - Ads
-  - Ad Netword
-  - Quảng cáo
+  - Data Engineering
+  - Read
+
 modified_time: '2015-05-17T11:08:03.008+07:00'
 thumbnail: https://1.bp.blogspot.com/-zKPSuJl81ss/VVgTJnRpLnI/AAAAAAAACfQ/NW8xNo8FrxA/s1600/image_a3c65c2974270fd093ee8a9bf8ae7d0b.jpg
 slug: /2015/05/tim-hieu-ve-he-thong-quang-cao-online.html
