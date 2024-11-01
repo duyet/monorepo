@@ -5,7 +5,6 @@ author: Duyet
 category: Productivity
 tags:
   - Data Engineering
-  - Bash
   - Linux
 slug: /2021/08/zx.html
 thumbnail: https://1.bp.blogspot.com/-UxQmomMaIJA/YSn3KPNcrQI/AAAAAAACNMA/nBsVLSi2dYUFx9QK1zWX8-s0ViiNSHLAQCLcBGAsYHQ/s0/zx-thumb.png

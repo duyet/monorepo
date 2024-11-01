@@ -4,6 +4,7 @@ date: '2015-02-23'
 author: Duyet
 tags:
   - Design Patterns
+category: Software Engineering
 modified_time: '2015-02-23T22:40:07.138+07:00'
 slug: /2015/02/design-patterns-he-thong-23-mau-design.html
 description: Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn Design patterns Elements of Reusable Object Oriented Software
@@ -17,7 +18,7 @@ Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralp
 
 ## Danh sách 23 mẫu
 
-<table class="table table-bordered" style="border: 1px solid #ccc">
+<table class="table table-bordered">
     <thead>
         <tr class="cms_table_grid_tr" valign="top">
             <td>STT</td>

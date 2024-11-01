@@ -3,7 +3,6 @@ title: Tìm hiểu về dữ liệu trong thể thao hiện đại
 date: '2016-06-29'
 author: Duyet
 tags:
-  - Hệ thống thông tin
   - Information System
   - Data
 modified_time: '2016-06-29T23:08:54.053+07:00'

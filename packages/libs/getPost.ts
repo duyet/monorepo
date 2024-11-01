@@ -2,6 +2,7 @@ import matter from "gray-matter";
 
 import getSlug from "./getSlug";
 import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
+import { normalizeTag } from "./tags";
 
 const nodeFs = () => require("fs");
 const nodeJoin = () => require("path").join;
@@ -80,28 +81,28 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     }
 
     if (field === "title") {
-      post[field] = data.title;
+      post["title"] = data.title;
     }
 
     if (field === "path") {
-      post[field] = fullPath;
+      post["path"] = fullPath;
     }
 
     if (field === "content") {
-      post[field] = content;
+      post["content"] = content;
     }
 
     if (field === "category") {
       // Some posts have a category of "null" so we need to handle that
-      post[field] = data.category || post[field];
+      post["category"] = data.category || post[field];
     }
 
     if (field === "category_slug") {
-      post[field] = getSlug(data.category || post[field]);
+      post["category_slug"] = getSlug(data.category || post[field]);
     }
 
     if (field === "tags") {
-      post[field] = data.tags || [];
+      post["tags"] = (data.tags || []).map(normalizeTag);
       post["tags_slug"] = post[field].map((tag: string) => getSlug(tag));
     }
 

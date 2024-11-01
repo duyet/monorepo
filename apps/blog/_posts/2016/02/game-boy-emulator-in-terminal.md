@@ -3,7 +3,7 @@ title: Game Boy Emulator Terminal
 date: '2016-02-28'
 author: Duyet
 tags:
-  - Terminal
+  - Read
   - PHP
 modified_time: '2016-05-02T19:41:54.973+07:00'
 thumbnail: https://4.bp.blogspot.com/-NJDpViHfUg4/VtKOGcA-wEI/AAAAAAAAQes/dI5hCCos2CA/s1600/yq3uxuyqhyfjdb9q460h.gif

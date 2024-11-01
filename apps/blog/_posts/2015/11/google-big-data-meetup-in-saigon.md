@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Events
   - Google
-  - BigData
+  - Big Data
 modified_time: '2016-04-04T17:00:42.706+07:00'
 slug: /2015/11/google-big-data-meetup-in-saigon.html
 category: News

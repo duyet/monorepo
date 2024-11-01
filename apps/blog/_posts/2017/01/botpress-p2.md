@@ -3,9 +3,9 @@ title: 'Chatbot với Botpress - Phần 2: Coding'
 date: '2017-01-24'
 author: Duyet
 tags:
-  - Javascript Framework
-  - Javascript
   - Node.js
+  - Javascript Framework
+  - Chatbot
 modified_time: '2018-09-10T17:24:58.329+07:00'
 thumbnail: https://3.bp.blogspot.com/-GXx1lZwBtgg/WIbK6HLTO8I/AAAAAAAAimw/B9qbrjjIQIMC2CxXk1O-xqYAbTMOe4rogCLcB/s1600/screenshot-ui.png
 slug: /2017/01/botpress-p2.html
@@ -194,7 +194,7 @@ ChatBot không chỉ phải biết trả lời theo từ khóa mà còn phải h
 
 Nếu có thời gian mình sẽ viết 1 bài tự build ra model cho Bot để có thể đọc hiểu và trả lời ở mức cơ bản.
 
-Xem phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://blog.duyet.net/2017/01/botpress.html#.WJP5QxJ97_g)
+Xem phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://blog.duyet.net/2017/01/botpress.html)
 
 ## Tham khảo
 

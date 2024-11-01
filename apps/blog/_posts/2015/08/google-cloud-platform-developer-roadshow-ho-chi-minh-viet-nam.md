@@ -5,7 +5,7 @@ title:
 date: '2015-08-27'
 author: Duyet
 tags:
-  - Roadshow
+  - Events
   - Google
   - Google Cloud
 modified_time: '2015-08-28T23:34:31.605+07:00'

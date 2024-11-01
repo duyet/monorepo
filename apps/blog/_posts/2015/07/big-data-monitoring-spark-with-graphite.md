@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Apache Spark
   - Apache Spark
-  - BigData
+  - Big Data
 modified_time: '2015-07-14T13:00:07.257+07:00'
 thumbnail: https://3.bp.blogspot.com/-ytrI0VvmxgE/VaSiReFjsmI/AAAAAAAACl0/JSOfOs9-Pas/s1600/ss-tasks-3.png
 slug: /2015/07/big-data-monitoring-spark-with-graphite.html

@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import type { Comment } from "@duyet/interfaces";
-import distanceToNow from "@duyet/libs/dateRelative";
+import { distanceToNow } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
 
 type CommentProps = {

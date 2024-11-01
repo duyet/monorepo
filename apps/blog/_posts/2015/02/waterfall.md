@@ -3,9 +3,9 @@ title: Mô hình thác nước (Waterfall Model)
 date: '2015-02-24'
 author: Duyet
 tags:
-  - Phát triển phần mềm
   - Software Engineering
   - Software
+  - Design Patterns
 modified_time: '2015-03-14T01:06:34.258+07:00'
 slug: /2015/02/waterfall.html
 category: Software Engineering

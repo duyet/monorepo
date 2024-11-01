@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Open Source
   - Ubuntu
-  - Website
   - Web
 modified_time: '2016-10-09T00:55:36.863+07:00'
 thumbnail: https://2.bp.blogspot.com/-N0_V8u-o7Ls/V_kxVyBj8hI/AAAAAAAAe04/A7CAQaAIsiUtb8i1MueiOjg4EVgvrsN9gCLcB/s1600/Screenshot%2Bfrom%2B2016-10-09%2B00-46-15.png

@@ -4,7 +4,7 @@ date: '2015-04-06'
 author: Duyet
 tags:
   - Redis
-  - CSDL
+  - Database
   - NoSQL
 modified_time: '2015-04-06T00:32:31.095+07:00'
 thumbnail: https://1.bp.blogspot.com/-5k958LlJol8/VSFvGnofvCI/AAAAAAAACOY/WM4CxLtpcOU/s1600/redis.png

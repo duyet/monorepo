@@ -1,6 +1,6 @@
 export * from "./clearUrl";
 export * from "./comment";
-export * from "./dateRelative";
+export * from "./date";
 export * from "./fetcher";
 export * from "./getPost";
 export * from "./getSlug";

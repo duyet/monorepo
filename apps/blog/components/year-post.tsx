@@ -1,7 +1,9 @@
+import Link from 'next/link'
+
 import type { Post } from '@duyet/interfaces'
+import { dateFormat } from '@duyet/libs/date'
 import { getPostsByYear } from '@duyet/libs/getPost'
 import { cn } from '@duyet/libs/utils'
-import Link from 'next/link'
 
 export interface YearPostProps {
   year: number
@@ -35,11 +37,13 @@ export function YearPost({ year, className }: YearPostProps) {
             className="flex flex-row items-center justify-between gap-2"
             key={post.slug}
           >
-            <Link as={post.slug} className="text-md" href="/[...slug]">
+            <Link as={post.slug} className="text-md truncate" href="/[...slug]">
               {post.title}
             </Link>
             <hr className="shrink grow border-dotted border-slate-200 opacity-50" />
-            <time className="text-gray-400">{post.date.toString()}</time>
+            <time className="flex-0 flex-nowrap overflow-hidden text-nowrap text-gray-400">
+              {dateFormat(post.date, 'MMMM do')}
+            </time>
           </article>
         ))}
       </div>

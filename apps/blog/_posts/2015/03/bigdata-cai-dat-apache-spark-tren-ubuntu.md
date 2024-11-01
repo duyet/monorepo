@@ -6,7 +6,7 @@ tags:
   - Apache Spark
   - Apache Hadoop
   - Python
-  - BigData
+  - Big Data
 modified_time: '2018-09-01T22:28:00.347+07:00'
 thumbnail: https://1.bp.blogspot.com/-Ruz5XvIPJZo/VS5s2ElpdQI/AAAAAAAACQ0/G7LCMJ0klNk/s1600/download-spark.png
 slug: /2015/03/bigdata-cai-dat-apache-spark-tren-ubuntu.html
