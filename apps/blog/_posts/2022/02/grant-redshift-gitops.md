@@ -1,5 +1,5 @@
 ---
-title: 'grant-rs: Manage Redshift/Postgres Privileges GitOps Style'
+title: Manage Redshift/Postgres Privileges GitOps Style
 date: '2022-02-24'
 author: Duyet
 category: Data

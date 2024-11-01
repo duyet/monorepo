@@ -1,5 +1,5 @@
 ---
-title: 'Chatbot với Botpress - Phần 1: Init Chatbot'
+title: 'Botpress - Phần 1: Init Chatbot'
 date: '2017-01-24'
 author: Duyet
 tags:

@@ -50,7 +50,7 @@ console.log('%cTôi là Duyệt', css)
 Các hàm console.\* cũng hỗ trợ template string.
 
 ```js
-console.log("I'm %s and %s years old.", '@duyetdev', 20)
+console.log("I'm %s and %s years old.", '@duyet', 20)
 ```
 
 ![](https://4.bp.blogspot.com/-LpnbNfzxwiw/VznOSwSB2XI/AAAAAAAAVMw/WJAQZy_oKWI8L31cUZKXs8qD3C0mF-WzQCK4B/s1600/Screenshot%2Bfrom%2B2016-05-16%2B20-41-35.png)

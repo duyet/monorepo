@@ -1,5 +1,5 @@
 ---
-title: Sách hay (Engineer)
+title: Sách hay (Engineering)
 date: '2019-09-17'
 category: Data Engineer
 tags:
@@ -44,9 +44,7 @@ Ghi lại mấy cuốn sách hay (Engineering) đã đọc qua.
         <p>Quyển sách survey tất tần tật về Sentiment Analysis (opinions, sentiments, emotions, and attitudes), các kỹ thuật nhận diện cảm xúc hiện nay đang có (document level, aspect level, ...), tác giả còn nói đến các vấn đề trong thực tế khi ứng dụng Sentiment. Một quyển sách nên đọc khi bắt đầu vào lĩnh vực Sentiment Analysis này.</p>
     </td>
     <td>
-        <a href="https://talk.duyet.net/senti/senti.pdf" target="_blank">
-            Slide
-        </a>
+        <a href="https://talk.duyet.net/senti/senti.pdf" target="_blank">Slide</a>
     </td>
 </tr>
 <tr>
@@ -58,9 +56,7 @@ Ghi lại mấy cuốn sách hay (Engineering) đã đọc qua.
         Sách rất hay và mua rất đáng tiền, nội dung như tên gọi của sách. Tác giả tiếp cận các thuật toán trong Machine Learning theo hướng toán và tối ưu (Optimization). Đa số nội dung sách đều có thể đọc trên trang <a href="https://machinelearningcoban.com" target="_blank">machinelearningcoban.com</a> của tác giả.
     </td>
     <td>
-        <a href="https://machinelearningcoban.com/ebook/" target="_blank">
-            Mua sách
-        </a>
+        <a href="https://machinelearningcoban.com/ebook/" target="_blank">Mua sách</a>
     </td>
 </tr>
 <tr>
@@ -72,9 +68,7 @@ Ghi lại mấy cuốn sách hay (Engineering) đã đọc qua.
         Giới thiệu về Apache Spark (Spark SQL, Spark Streaming, setup, and Maven coordinates). Sách giúp bạn làm vài bài tập từ batch jobs đến stream processing và machine learning. Đây là quyển đầu tiên mình đọc lúc mới dùng Spark (mặc dù không đọc được hết) và đang học trên Databricks. Tới giờ có thể đã outdated một tí vì Spark trong sách là 1.6
     </td>
     <td>
-        <a href="http://index-of.co.uk/Big-Data-Technologies/Learning%20Spark%20%20Lightning-Fast%20Big%20Data%20Analysis%20.pdf" target="_blank">
-            PDF
-        </a>
+        <a href="http://index-of.co.uk/Big-Data-Technologies/Learning%20Spark%20%20Lightning-Fast%20Big%20Data%20Analysis%20.pdf" target="_blank">PDF</a>
     </td>
 </tr>
 <tr>
@@ -86,12 +80,8 @@ Ghi lại mấy cuốn sách hay (Engineering) đã đọc qua.
         Sách về Information Retrieval (IR), cực kỳ chi tiết về các kỹ thuật trong tìm kiếm thông tin, nổi bật như Vector Space Model, đánh giá hệ thống IR, Feedback, Text classification, Web search, ...
     </td>
     <td>
-        <a href="https://nlp.stanford.edu/IR-book/" target="_blank">
-            Homepage
-        </a>
-        <a href="https://nlp.stanford.edu/IR-book/pdf/irbookonlinereading.pdf" target="_blank">
-            PDF
-        </a>
+        <a href="https://nlp.stanford.edu/IR-book/" target="_blank">Homepage</a>
+        <a href="https://nlp.stanford.edu/IR-book/pdf/irbookonlinereading.pdf" target="_blank">PDF</a>
     </td>
 </tr>
 </table>

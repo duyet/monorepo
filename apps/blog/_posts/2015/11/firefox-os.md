@@ -1,5 +1,5 @@
 ---
-title: Review - Trải nghiệm Firefox OS bản B2G trên Android
+title: Firefox OS
 date: '2015-11-14'
 author: Duyet
 tags:
@@ -8,9 +8,9 @@ tags:
   - Javascript
 modified_time: '2016-01-11T02:01:59.455+07:00'
 thumbnail: https://2.bp.blogspot.com/-NMBlGlYVEN0/VkdfMAWxk-I/AAAAAAAAF0g/VsMjL_K_yZM/s1600/Screenshot_2015-11-14-23-12-54_org.mozilla.b2gdroid.png
-slug: /2015/11/review-trai-nghiem-firefox-os.html
+slug: /2015/11/firefox-os.html
 category: Web
-description:
+description: Firefox OS 2.5 vừa được Mozilla phát hành dưới dạng Developer Preview cho người dùng Android trải nghiệm và sử dụng
 ---
 
 Firefox OS 2.5 vừa được Mozilla phát hành dưới dạng Developer Preview cho người dùng Android trải nghiệm và sử dụng. Sau đây là các trải nghiệm ban đầu của mình về một HĐH khá thú vị này.

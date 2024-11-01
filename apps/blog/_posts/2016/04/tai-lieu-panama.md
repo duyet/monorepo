@@ -4,7 +4,7 @@ date: '2016-04-06'
 author: Duyet
 tags:
   - Read
-  - Bảo mật
+  - Security
 modified_time: '2016-04-06T21:57:42.995+07:00'
 thumbnail: https://3.bp.blogspot.com/-6MKYjo1l_4w/VwQE-HzgxWI/AAAAAAAAS4Y/ms8tZUiYGnMbhKz2SDO3tqabO0iab6IGQ/s1600/firma_aufmacher_final.jpg
 slug: /2016/04/tai-lieu-panama.html

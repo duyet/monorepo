@@ -1,5 +1,5 @@
 ---
-title: Bigdata - Getting Started with Spark (in Python)
+title: Big Data - Getting Started with Spark (in Python)
 date: '2015-04-18'
 author: Duyet
 tags:

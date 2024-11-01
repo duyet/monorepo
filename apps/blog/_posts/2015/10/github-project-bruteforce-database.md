@@ -22,7 +22,7 @@ Image: jameswebb
 
 Project: Bruteforce Database
 Github: [https://github.com/duyet/bruteforce-database](https://github.com/duyet/bruteforce-database)
-author: Duyet (@duyetdev)
+author: Duyet (@duyet)
 
 - **8-more-passwords.txt** sorting only passwords with more than 8 characters, removed all numeric passes, removed consecutive characters (3 characters or more), removed all lowercase passwords, passwords without a capital letter and also a number (61.682 password).
 - **7-more-passwords.txt** it consists of passwords 7 characters or more, and numeric passwords removed (52.8136 passwords).

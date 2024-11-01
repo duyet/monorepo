@@ -88,8 +88,6 @@ $ node server.js
 
 Open the browser and go to: [http://localhost:8080](http://localhost:8080/)
 
-We will see the content as follows:
-
 ## Conclusion
 
 `res.sendFile()` is a very easy-to-use and useful method in ExpressJs, you can make SinglePage applications, load content using AngularJs, static pages, etc. Additionally, ExpressJs provides many other tools to read and download files on the server.
