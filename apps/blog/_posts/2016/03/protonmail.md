@@ -4,8 +4,6 @@ date: '2016-03-18'
 author: Duyet
 tags:
   - Security
-  - Protonmail
-  - Mail
 modified_time: '2016-05-02T19:41:37.840+07:00'
 thumbnail: https://1.bp.blogspot.com/-PWQ8eL2rX70/Vuwrlp0ko4I/AAAAAAAAR5Y/WEQ8q4QytdwXFd3soJbCkrTCreB8sDwHw/s1600/Screen-Shot-2014-05-02-at-8.47.10-PM.png
 slug: /2016/03/protonmail.html
@@ -17,6 +15,6 @@ description: ProtonMail cho ra mắt beta hồi 2014, nhưng theo được biế
 
 ProtonMail miễn phí, dung lượng cho mỗi tài khoản là 500MB, có thể nâng cấp dung lượng, tên miền tùy chỉnh tùy theo nhu cầu.
 
-[![](https://1.bp.blogspot.com/-PWQ8eL2rX70/Vuwrlp0ko4I/AAAAAAAAR5Y/WEQ8q4QytdwXFd3soJbCkrTCreB8sDwHw/s1600/Screen-Shot-2014-05-02-at-8.47.10-PM.png)](https://mail.protonmail.com/)
+![](https://1.bp.blogspot.com/-PWQ8eL2rX70/Vuwrlp0ko4I/AAAAAAAAR5Y/WEQ8q4QytdwXFd3soJbCkrTCreB8sDwHw/s1600/Screen-Shot-2014-05-02-at-8.47.10-PM.png)
 
 Protonmail là lựa chọn tốt nếu thay thế Gmail, hoặc cho những ai có nhu cầu bảo mật thông tin cá nhân.

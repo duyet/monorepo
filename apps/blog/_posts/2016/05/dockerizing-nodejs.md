@@ -166,7 +166,7 @@ $ docker build -t duyetdev/saveto .
 Sau khi build thành công, xem lại danh sách Docker image bằng:
 
 ```
-root@duyetdev:~/saveto# docker images
+root@duyet:~/saveto# docker images
 
 REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
 node                               5.11                8593e962b570        9 days ago          644.3 MB
@@ -179,7 +179,7 @@ duyetdev/saveto                    latest              5e8c25e32c8b        5 min
 Run docker image với tùy chọn -d sẽ chạy container dưới background, tùy chọn -p sẽ mapping port của máy thật (public) với port của container (private)
 
 ```
-root@duyetdev:~/saveto# docker run -p 6969:6969 -d duyetdev/saveto
+root@duyet:~/saveto# docker run -p 6969:6969 -d duyetdev/saveto
 62cd21863c2fce3a1e9076d07c68fb32c0172d37c5fb9f2ea536a16a12fa527b
 ```
 

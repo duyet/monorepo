@@ -28,16 +28,16 @@ Mở rộng: từ repository của github ta có thể theo phương thức củ
 
 Với 2 command thường dùng là git add và git commit
 
-- git add: add file đã thay đổi vào stage
-- git commit commit các file đã add vào stage lên repository ở local Ngoài ra bạn xem một số command khác
+- `git add`: add file đã thay đổi vào stage
+- `git commit` commit các file đã add vào stage lên repository ở local Ngoài ra bạn xem một số command khác
 
 ## Làm việc với repository ở server github
 
 Sau khi đã quậy tè le ở local, cuối cùng khi có một bản ổn định và hoàn tất ta sẽ quyết định cập nhật nó lên repository server với:
 
-- push: push thay đổi từ repository local lên repository server
-- fetch: cập nhật thay đổi từ repository server về repository local
-- pull/rebase: sao chép source code từ server về local workspace (tương đương checkout của SVN)
+- `git push`: push thay đổi từ repository local lên repository server
+- `git fetch`: cập nhật thay đổi từ repository server về repository local
+- `git pull`/`git rebase`: sao chép source code từ server về local workspace (tương đương checkout của SVN)
 
 ## Tính năng API của Github
 
@@ -46,7 +46,3 @@ Ngoài những tính năng tuyệt vời của hệ thống quản lý source ph
 - API to Update The Repository via HTTP: GitHub hỗ trợ người dùng có thể edit file source code từ web browser thông qua HTTP - POST
 - API to Access Compare Views: Tính năng này hỗ trợ người dùng review và so sánh code của dự án thông qua việc xem các commit, comments, các dòng khác nhau giữa 2 version của file code ... Tính năng này cũng thông qua HTTP - POST, người dùng có thể thực hiên trên web browser.
 - API to Manage Service Hooks: GitHub hỗ trợ tính năng mở rộng post-receive hooks. Tính năng này cho phép người dùng đăng ký 1 URL của mình (như là một web hook) cho các respository. Bất cứ khi nào có người push source code của họ lên repository, GitHub sẽ thông báo cho bạn biết bằng cách POST thông tin (dạng JSON) về lần push đó đến URL mà bạn đã đăng ký trước đó. Còn rất nhiều API hữu ích khác, các bạn có thể xem tất cả tại develop.github
-
-## Kết
-
-Nói sơ sơ thôi, rảnh rảnh sẽ chi tiết

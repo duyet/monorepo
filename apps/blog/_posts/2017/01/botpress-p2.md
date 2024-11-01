@@ -1,5 +1,5 @@
 ---
-title: 'Chatbot với Botpress - Phần 2: Coding'
+title: 'Botpress - Phần 2: Coding'
 date: '2017-01-24'
 author: Duyet
 tags:

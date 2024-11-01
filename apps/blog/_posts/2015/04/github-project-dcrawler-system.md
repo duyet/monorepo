@@ -10,12 +10,12 @@ modified_time: '2015-08-02T17:33:50.208+07:00'
 slug: /2015/04/github-project-dcrawler-system.html
 category: Project
 description: "DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
-Design by Van-Duyet Le (@lvduit), one of module for my DSS Project."
+Design by Van-Duyet Le (@duyet), one of module for my DSS Project."
 
 ---
 
 DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
-Design by Van-Duyet Le (@lvduit), one of module for my DSS Project.
+Design by Van-Duyet Le (@duyet), one of module for my DSS Project.
 
 ## DCrawler
 
@@ -23,7 +23,7 @@ DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, mult
 
 Project: DCrawler ([https://github.com/lvduit/DCrawler](https://github.com/lvduit/DCrawler))
 Version: 0.0.1
-author: Duyet ([@lvduit](http://twitter.com/lvduit))
+author: Duyet ([@duyet](http://twitter.com/lvduit))
 Home: [http://lvduit.com](http://lvduit.com/)
 
 ## Features

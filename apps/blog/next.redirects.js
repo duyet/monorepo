@@ -78,6 +78,32 @@ const redirects = async () => [
     destination: '/2015/02/phpmyadmin.html',
     permanent: true,
   },
+  {
+    source: '/2015/12/chartico-tao-bieu-o-cot-nhanh-chong-va.html',
+    destination: '/2015/12/chartico.html',
+    permanent: true,
+  },
+  {
+    source: '/2015/12/docker-la-gi-co-ban-ve-docker.html',
+    destination: '/2015/12/docker.html',
+    permanent: true,
+  },
+  {
+    source: '/2015/11/review-trai-nghiem-firefox-os.html',
+    destination: '/2015/11/firefox-os.html',
+    permanent: true,
+  },
+  {
+    source: '/2015/09/nodejs-all-you-need-to-know-about.html',
+    destination: '/2015/09/all-you-need-to-know-about-nodejs.html',
+    permanent: true,
+  },
+  {
+    source: '/2015/04/project-mongo-web-query-simple.html',
+    destination: '/2015/04/mongo-web-query.html',
+    permanent: true,
+  },
+
 ]
 
 module.exports = redirects

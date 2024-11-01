@@ -153,7 +153,7 @@ Và file `index.html`
 <!DOCTYPE html>
 <html>
 <head>
- <title>React by @duyetdev</title>
+ <title>React by @duyet</title>
 </head>
 <body>
  <div id="app"></div>

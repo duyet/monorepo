@@ -4,6 +4,7 @@ date: '2015-04-12'
 author: Duyet
 tags:
   - Big Data
+  - Read
 modified_time: '2015-04-12T18:28:37.128+07:00'
 thumbnail: https://2.bp.blogspot.com/-91L8Jd3M3u4/VSpWUia7JaI/AAAAAAAACQY/LcrkDeteKiA/s1600/AAEAAQAAAAAAAAMxAAAAJDk1ZTU1YTg0LWU0ZGQtNDRiYi1iM2UxLWNmY2FhYjhiMzgxMQ.jpg
 slug: /2015/04/big-data-explained-in-less-than-2-minutes.html

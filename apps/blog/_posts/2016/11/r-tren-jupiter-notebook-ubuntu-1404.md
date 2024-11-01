@@ -35,7 +35,7 @@ sudo apt-get install r-base
 2. Cài đặt R kernel, mở R command line
 
 ```bash
-root@duyetdev:~# R
+root@duyet:~# R
 
 R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
 Copyright (C) 2015 The R Foundation for Statistical Computing

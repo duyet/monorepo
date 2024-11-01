@@ -1,19 +1,19 @@
 ---
-title: Docker là gì? Cơ bản về Docker
+title: Docker là gì?
 date: '2015-12-20'
 author: Duyet
 tags:
   - Docker
 modified_time: '2018-09-10T17:28:07.923+07:00'
 thumbnail: https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png
-slug: /2015/12/docker-la-gi-co-ban-ve-docker.html
+slug: /2015/12/docker.html
 category: Docker
-description: Trong thời gian gần đây có rất nhiều bài báo, hay blog, và cả trên Twitter có rất nhiều người đề cập đến Docker. Vậy Docker là gì và tại sao nó hữu ích
+description: Vậy Docker là gì và tại sao nó hữu ích.
 ---
 
-Trong thời gian gần đây có rất nhiều bài báo, hay blog, và cả trên Twitter có rất nhiều người đề cập đến Docker. Vậy Docker là gì và tại sao nó hữu ích.
+Vậy Docker là gì và tại sao nó hữu ích.
 
-[![](https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png)](https://blog.duyet.net/2015/12/docker-la-gi-co-ban-ve-docker.html)
+![](https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png)
 
 ## Docker là gì?
 

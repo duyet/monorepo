@@ -4,7 +4,7 @@ date: '2016-08-18'
 author: Duyet
 tags:
   - Security
-  - Bảo mật
+  - Read
 modified_time: '2016-08-18T09:15:09.720+07:00'
 thumbnail: https://3.bp.blogspot.com/-5A7qKw_phn8/V7UXD6zsqHI/AAAAAAAAbs8/tlfCE3ExbbE6bwK-8Np0qudqLAOjNDSKQCK4B/s1600/sitegiamao.png
 slug: /2016/08/su-co-vietcombank-mot-goc-nhin-ky-thuat.html
