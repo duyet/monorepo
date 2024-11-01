@@ -12,12 +12,14 @@ export function Thumb({
   alt,
   width = 800,
   height = 300,
+  unoptimized,
   className,
 }: {
   url?: string;
   alt?: string;
   width?: number;
   height?: number;
+  unoptimized?: boolean;
   className?: string;
 }) {
   if (!url) return null;
@@ -34,6 +36,7 @@ export function Thumb({
       width={width}
       height={height}
       alt={alt || ""}
+      unoptimized={unoptimized}
     />
   );
 }

@@ -29,7 +29,6 @@ SELECT customTransform(data) FROM raw_events;
   - [More examples](#more-examples)
 - [References](#references)
 
-
 For example, if you are using [dbt](https://www.getdbt.com), it can move and process data from tables to tables without data leaving the cluster.
 
 ![ClickHouse UDF dbt](/media/2024/11/udf/clickhouse-rust-udf-dbt.png)
@@ -260,7 +259,7 @@ SELECT extractUrl("from https://example.org") as extracted
 
 ```sql
 -- Extract from a table
-SELECT 
+SELECT
     id,
     extractUrl(content) as extracted_url
 FROM raw.events;
@@ -269,7 +268,7 @@ FROM raw.events;
 ```sql
 -- Extract and insert to another table
 INSERT INTO dwh.fact_click
-SELECT 
+SELECT
     id,
     extractUrl(content) as extracted_url
 FROM raw.events;

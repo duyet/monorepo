@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Container from '@duyet/components/Container'
 import Header from '@duyet/components/Header'
 import { getPostsByAllYear } from '@duyet/libs/getPost'
+import { Latest } from '../components/latest'
 import { YearPost } from '../components/year-post'
 
 export default async function Page() {
@@ -19,6 +20,8 @@ export default async function Page() {
     <>
       <Header longText="Data Engineering" />
       <Container>
+        <Latest className="mb-8" />
+
         <div className="text-lg">
           Lists all {postCount} posts of the past {pastYears} years of blogging.
           You can jump straight to the{' '}
@@ -31,6 +34,7 @@ export default async function Page() {
           </Link>
           .
         </div>
+
         <div className="flex flex-col gap-8">
           {Object.keys(postsByYear)
             .sort((a: string, b: string) => parseInt(b) - parseInt(a))

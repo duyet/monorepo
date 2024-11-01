@@ -15,8 +15,9 @@ export type NavigationItem = {
 export const ABOUT = { name: "About", href: `${BLOG_URL}/about` };
 export const INSIGHTS = { name: "Insights", href: INSIGHTS_URL };
 export const ARCHIVES = { name: "Archives", href: `${BLOG_URL}/archives` };
+export const FEED = { name: "Feed", href: `${BLOG_URL}/feed` };
 export const BLOG = { name: "Blog", href: `${BLOG_URL}` };
-const defaultNavigation = [ABOUT, INSIGHTS, ARCHIVES];
+const defaultNavigation = [FEED, INSIGHTS, ABOUT];
 
 type Props = {
   className?: string;
