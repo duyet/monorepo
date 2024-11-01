@@ -1,14 +1,15 @@
 export type Post = {
   slug: string;
   title: string;
-  author?: string;
   date: Date;
-  content?: string;
-  excerpt?: string;
   category: string;
   category_slug: string;
   tags: string[];
   tags_slug: string[];
+  thumbnail?: string;
+  author?: string;
+  content?: string;
+  excerpt?: string;
   edit_url?: string;
   series?: string;
   [key: string]: any;

@@ -39,6 +39,7 @@ export function YearPost({ year, className }: YearPostProps) {
           >
             <Link as={post.slug} className="text-md truncate" href="/[...slug]">
               {post.title}
+              <IsNewPost date={post.date} />
             </Link>
             <hr className="shrink grow border-dotted border-slate-200 opacity-50" />
             <time className="flex-0 flex-nowrap overflow-hidden text-nowrap text-gray-400">
@@ -51,4 +52,12 @@ export function YearPost({ year, className }: YearPostProps) {
   )
 }
 
-export default YearPost
+function IsNewPost({ date }: { date: Date | undefined }) {
+  const today = new Date()
+
+  if (!date || dateFormat(date, 'yyyy-MM') !== dateFormat(today, 'yyyy-MM')) {
+    return null
+  }
+
+  return <span className="ml-2 text-sm text-red-500">New</span>
+}
