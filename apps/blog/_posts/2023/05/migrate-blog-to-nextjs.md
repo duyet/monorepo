@@ -6,9 +6,7 @@ category: Project
 tags:
   - Side Project
   - Web
-  - Blog
   - React
-  - Rust
   - Vercel
 slug: /2023/05/migrate-blog-to-nextjs.html
 thumbnail: https://i.imgur.com/980XhnE.png

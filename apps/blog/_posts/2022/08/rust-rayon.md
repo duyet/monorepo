@@ -7,7 +7,7 @@ tags:
   - Rust
   - Vietnamese
   - Rust Tiếng Việt
-  - Crates
+  - Rust Crates
 slug: /2022/08/rust-rayon.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F08%2Frust-rayon.html
 description: rayon là thư viện data-parallelism cho Rust, gọn nhẹ và dễ dàng convert từ code tính toán tuần tự sang song song mà vẫn đảm bảo không lỗi data-race.

@@ -5,7 +5,7 @@ author: Duyet
 tags:
 - Linux
 - MongoDb
-- Server
+- Tutorial
 - Ubuntu
 modified_time: '2016-02-03T13:05:06.878+07:00'
 slug: /2015/04/mongodb-cach-thiet-lap-e-app-server-ket.html

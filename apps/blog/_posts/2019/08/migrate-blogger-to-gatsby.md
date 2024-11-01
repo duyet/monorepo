@@ -4,7 +4,7 @@ date: '2019-08-07'
 author: Duyet
 category: Story
 tags:
-  - Story
+  - Side Project
   - Javascript
 
 thumbnail: https://images.unsplash.com/photo-1470175369463-7bb9f41e614b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80

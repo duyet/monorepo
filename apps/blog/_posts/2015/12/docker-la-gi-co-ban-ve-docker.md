@@ -4,7 +4,6 @@ date: '2015-12-20'
 author: Duyet
 tags:
   - Docker
-  - Dockerfile
 modified_time: '2018-09-10T17:28:07.923+07:00'
 thumbnail: https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png
 slug: /2015/12/docker-la-gi-co-ban-ve-docker.html

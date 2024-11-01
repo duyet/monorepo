@@ -4,7 +4,7 @@ date: '2015-04-11'
 author: Duyet
 tags:
   - Open Source
-  - Giấy phép nguồn mở
+  - License
   - MIT
 modified_time: '2015-04-11T13:08:57.544+07:00'
 slug: /2015/04/tim-hieu-ve-giay-phep-mit.html

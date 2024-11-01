@@ -9,7 +9,6 @@ tags:
   - Javascript Weekly
   - React
   - Node.js
-  - Electron
 modified_time: '2016-07-22T15:14:43.289+07:00'
 thumbnail: https://4.bp.blogspot.com/-aCVU91X9N2E/V5HPwsra5lI/AAAAAAAAaJU/O6M7sA63ap0c1degbSZcyUTLXnY3hx_AACK4B/s1600/hyperterm.gif
 slug: /2016/07/javascript-weekly-7_22.html

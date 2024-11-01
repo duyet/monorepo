@@ -4,7 +4,7 @@ date: '2015-12-02'
 author: Duyet
 tags:
   - Apache Spark
-  - BigData
+  - Big Data
   - Big Data
 modified_time: '2016-01-11T02:00:48.839+07:00'
 thumbnail: https://3.bp.blogspot.com/-i_xNRnGm_pY/Vl8HH5-TM0I/AAAAAAAAKKU/K1W4w2i2f5E/s1600/big-data-cloud-e1383271750410-460x394.png

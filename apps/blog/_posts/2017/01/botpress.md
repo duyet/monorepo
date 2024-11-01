@@ -25,7 +25,7 @@ Mình thấy Node.js là ngôn ngữ được sử dụng khá phổ biến đ�
 </div>
 
 - Trang chủ: [https://botpress.io](https://botpress.io/)
-- Xem phần 2: [Chatbot với Botpress - Phần 2: Coding](https://blog.duyet.net/2017/01/botpress-p2.html#.WJP5EhJ97_g)
+- Xem phần 2: [Chatbot với Botpress - Phần 2: Coding](https://blog.duyet.net/2017/01/botpress-p2.html)
 
 ## Cài đặt và init Bot
 
@@ -100,9 +100,8 @@ Bên dưới là một số mục tùy chọn:
 - Auto response: Nội dung Auto response
 - Greeting text: Nội dung chào.
 - Persistent menu: Menu điều hướng trong Messenger. Có 2 dạng:
-
-- Postback: một Postback sẽ gọi ra 1 hàm tương ứng.
-- URL.
+  - Postback: một Postback sẽ gọi ra 1 hàm tương ứng.
+  - URL.
 
 Sau khi thiết lập sơ sơ, lưu lại và vào messenger chat thử, mình sẽ giải thích các tùy chọn ở trên như sau:
 
@@ -142,4 +141,4 @@ Botpress khá là hay, giúp ta tạo được bot trong thời gian ngắn, tí
 
 Chúc bạn thành công, mọi thắc mắc vui lòng comment tại bên dưới.
 
-Xem tiếp phần 2: [Chatbot với Botpress - Phần 2: Coding](https://blog.duyet.net/2017/01/botpress-p2.html#.WJP5EhJ97_g)
+Xem tiếp phần 2: [Chatbot với Botpress - Phần 2: Coding](https://blog.duyet.net/2017/01/botpress-p2.html)

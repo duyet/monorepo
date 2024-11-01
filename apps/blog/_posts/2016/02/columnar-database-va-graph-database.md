@@ -4,8 +4,6 @@ date: '2016-02-03'
 author: Duyet
 tags:
   - Database
-  - Graph
-  - BigData
   - Graph Database
   - Big Data
 modified_time: '2016-02-03T16:34:19.787+07:00'

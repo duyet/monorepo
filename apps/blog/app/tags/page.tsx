@@ -37,7 +37,7 @@ export default function Tags() {
         {sortedAlpha.map((alpha) => (
           <div className="mb-5" key={alpha}>
             <h1 className="mb-5 text-5xl font-bold">{alpha}</h1>
-            <TagCounts tags={groupedTagsByAlphabet[alpha]} />
+            <TagList tags={groupedTagsByAlphabet[alpha]} />
           </div>
         ))}
       </div>
@@ -45,17 +45,16 @@ export default function Tags() {
   )
 }
 
-function TagCounts({ tags }: { tags: TagCount }) {
+function TagList({ tags }: { tags: TagCount }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
       {Object.entries(tags).map(([tag, count]) => (
         <div key={tag}>
           <Link
-            as={`/tag/${getSlug(tag)}`}
-            className="inline-flex gap-1"
-            href="/tag/[tag]"
+            href={`/tag/${getSlug(tag)}`}
+            className="group inline-flex gap-1"
           >
-            <h3 className="">{tag}</h3>
+            <h3>{tag}</h3>
             <span className="text-muted hover:no-underline">({count})</span>
           </Link>
         </div>

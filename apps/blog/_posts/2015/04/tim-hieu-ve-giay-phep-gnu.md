@@ -4,7 +4,6 @@ date: '2015-04-11'
 author: Duyet
 tags:
   - Open Source
-  - Giấy phép nguồn mở
   - License
 modified_time: '2015-04-11T13:03:51.623+07:00'
 thumbnail: https://4.bp.blogspot.com/-LlEOmpqG7Dg/VSi4YDNEClI/AAAAAAAACPU/VZ-xgKDBd8E/s1600/719px-gnu_general_public_license_3_logo-svg2.png

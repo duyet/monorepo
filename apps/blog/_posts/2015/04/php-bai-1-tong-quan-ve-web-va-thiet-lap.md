@@ -3,7 +3,8 @@ title: PHP - Tổng quan về Web và thiết lập môi trường để lập t
 date: '2015-04-16'
 author: Duyet
 tags:
-  - Training
+  - Web
+  - Tutorial
   - PHP
 modified_time: '2015-04-18T20:57:32.802+07:00'
 thumbnail: https://4.bp.blogspot.com/-QxU1LVBUcsA/VS6XNXt1ozI/AAAAAAAACRk/Og_wF5j7WDM/s1600/mohinh01.jpg

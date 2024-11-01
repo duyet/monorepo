@@ -3,8 +3,7 @@ title: Web - 20 nền tảng blogging và publishing tốt nhất trong năm 201
 date: '2015-07-20'
 author: Duyet
 tags:
-  - Blog
-  - Top
+  - Web
 modified_time: '2015-07-20T23:08:05.936+07:00'
 slug: /2015/07/web-20-nen-tang-blogging-va-publishing.html
 category: Web

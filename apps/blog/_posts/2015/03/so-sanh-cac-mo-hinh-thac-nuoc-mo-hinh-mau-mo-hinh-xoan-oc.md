@@ -4,6 +4,7 @@ date: '2015-03-15'
 author: Duyet
 tags:
   - Software Engineering
+  - Design Patterns
 modified_time: '2015-03-15T23:58:50.492+07:00'
 slug: /2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc.html
 category: Software Engineering
