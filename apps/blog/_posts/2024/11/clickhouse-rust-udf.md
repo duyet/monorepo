@@ -11,8 +11,6 @@ thumbnail: /media/2024/11/udf/clickhouse-rust-udf-dbt.png
 description: In Data Platform System with ClickHouse, rather than extracting data from ClickHouse for processing in external systems, we can perform transformations directly within ClickHouse itself. ClickHouse can call any external executable program or script to process data. My idea is using custom **User-Defined Functions (UDFs) written in Rust** to handle data transformations between tables.
 ---
 
-Why Rust?
-
 In Data Platform System with ClickHouse, rather than extracting data from ClickHouse for processing in external systems, we can perform transformations directly within ClickHouse itself. ClickHouse can call any external executable program or script to process data. My idea is using custom **User-Defined Functions (UDFs) written in Rust** to handle data transformations between tables.
 
 This approach can significantly improve performance and reduce data movement, leading to more efficient data processing pipelines.
