@@ -103,7 +103,6 @@ const redirects = async () => [
     destination: '/2015/04/mongo-web-query.html',
     permanent: true,
   },
-
 ]
 
 module.exports = redirects

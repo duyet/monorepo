@@ -10,6 +10,18 @@ thumbnail: https://4.bp.blogspot.com/-LlEOmpqG7Dg/VSi4YDNEClI/AAAAAAAACPU/VZ-xgK
 slug: /2015/04/tim-hieu-ve-giay-phep-gnu.html
 category: News
 description: GNU (GNU General Public License) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.
+snippet: |
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4044047400859099"
+     crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+      style="display:block; text-align:center;"
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client="ca-pub-4044047400859099"
+      data-ad-slot="4768236865"></ins>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 ---
 
 GNU (GNU General Public License) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.

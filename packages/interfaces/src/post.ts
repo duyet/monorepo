@@ -12,6 +12,7 @@ export type Post = {
   excerpt?: string;
   edit_url?: string;
   series?: string;
+  snippet?: string;
   [key: string]: any;
 };
 

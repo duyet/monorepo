@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment -- have no idea to fix the line 37 */
+
 import type { Post } from '@duyet/interfaces'
 import { getPostBySlug } from '@duyet/libs/getPost'
 import { markdownToHtml } from '@duyet/libs/markdownToHtml'
@@ -5,6 +7,7 @@ import { cn } from '@duyet/libs/utils'
 
 import 'katex/dist/contrib/mhchem.min.js'
 import 'katex/dist/katex.min.css'
+import { Snippet } from './snippet'
 
 export default function Content({ post }: { post: Post }) {
   return (
@@ -30,6 +33,8 @@ export default function Content({ post }: { post: Post }) {
         )}
         dangerouslySetInnerHTML={{ __html: post.content || 'No content' }}
       />
+
+      <Snippet html={post.snippet || ''} />
     </>
   )
 }
@@ -45,6 +50,7 @@ export async function getPost(slug: string[]) {
     'category_slug',
     'tags',
     'series',
+    'snippet',
   ])
   const content = await markdownToHtml(post.content || 'Error')
 
