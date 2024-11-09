@@ -63,6 +63,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     category_slug: 'unknown',
     tags: [],
     tags_slug: [],
+    snippet: '',
   }
 
   // Ensure only the minimal needed data is exposed
@@ -114,6 +115,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     if (field === 'excerpt') {
       post[field] =
         data.description || content.split(' ').slice(0, 20).join(' ') + '...'
+    }
+
+    if (field === 'snippet') {
+      post['snippet'] = data.snippet || ''
     }
 
     if (typeof data[field] !== 'undefined') {
