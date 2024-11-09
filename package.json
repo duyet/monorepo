@@ -36,11 +36,11 @@
   },
   "resolutions": {
     "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "@headlessui/react": "0.0.0-insiders.d71fb9c",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "react-is": "19.0.0-rc-02c0e824-20241028"
+    "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "@headlessui/react": "0.3.2",
+    "react": "19.0.0-rc-fb9a90fa48-20240614",
+    "react-dom": "19.0.0-rc-fb9a90fa48-20240614",
+    "react-is": "19.0.0-rc-fb9a90fa48-20240614"
   },
   "packageManager": "yarn@1.22.22"
 }
