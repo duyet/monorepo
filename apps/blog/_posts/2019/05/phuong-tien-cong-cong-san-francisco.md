@@ -1,6 +1,7 @@
 ---
 title: Đi lại bằng phương tiện công cộng ở San Francisco
 date: '2019-04-19'
+featured: true
 author: Duyet
 category: Story
 tags:

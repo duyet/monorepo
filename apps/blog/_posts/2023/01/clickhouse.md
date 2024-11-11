@@ -2,6 +2,7 @@
 title: 'Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?'
 date: '2023-01-10'
 author: Duyet
+featured: true
 category: Data
 tags:
   - Data

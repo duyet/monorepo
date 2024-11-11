@@ -6,6 +6,7 @@ export type Post = {
   category_slug: string;
   tags: string[];
   tags_slug: string[];
+  featured: boolean;
   thumbnail?: string;
   author?: string;
   content?: string;

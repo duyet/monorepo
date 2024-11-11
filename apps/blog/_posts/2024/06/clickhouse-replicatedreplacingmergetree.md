@@ -1,6 +1,7 @@
 ---
 title: ReplicatedReplacingMergeTree
 date: '2024-06-23'
+featured: true
 author: Duyet
 series: ClickHouse on Kubernetes
 category: Data

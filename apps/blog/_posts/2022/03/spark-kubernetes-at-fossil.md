@@ -1,6 +1,7 @@
 ---
 title: Spark on Kubernetes tại Fossil 🤔
 date: '2022-03-09'
+featured: true
 author: Duyet
 category: Data
 tags:

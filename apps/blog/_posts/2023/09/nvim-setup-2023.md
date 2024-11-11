@@ -1,6 +1,7 @@
 ---
 title: My Neovim Setup in 2023
 date: '2023-09-04'
+featured: true
 author: Duyet
 category: Productivity
 tags:

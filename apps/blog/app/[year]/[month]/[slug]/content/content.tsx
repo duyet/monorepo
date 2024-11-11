@@ -7,12 +7,13 @@ import { cn } from '@duyet/libs/utils'
 
 import 'katex/dist/contrib/mhchem.min.js'
 import 'katex/dist/katex.min.css'
+import { OldPostWarning } from './old-post-warning'
 import { Snippet } from './snippet'
 
 export default function Content({ post }: { post: Post }) {
   return (
     <>
-      <header>
+      <header className="flex flex-col gap-4">
         <h1
           className={cn(
             'mt-2 inline-block break-words py-2',
@@ -24,6 +25,8 @@ export default function Content({ post }: { post: Post }) {
         >
           {post.title}
         </h1>
+
+        <OldPostWarning post={post} year={5} className="" />
       </header>
 
       <article

@@ -64,6 +64,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     tags: [],
     tags_slug: [],
     snippet: '',
+    featured: false,
   }
 
   // Ensure only the minimal needed data is exposed
@@ -119,6 +120,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === 'snippet') {
       post['snippet'] = data.snippet || ''
+    }
+
+    if (field === 'featured') {
+      post['featured'] = Boolean(data.featured) || false
     }
 
     if (typeof data[field] !== 'undefined') {
@@ -178,6 +183,16 @@ export function getPostsByCategory(
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
 
+/**
+ * Retrieves all unique tags from all posts and counts their occurrences.
+ * 
+ * This function scans through all posts in the blog, extracts their tags,
+ * and creates a count of how many times each tag appears across all posts.
+ * 
+ * @returns {TagCount} An object where each key is a unique tag and its value
+ * is the number of times that tag appears across all posts. The type TagCount
+ * is defined as Record<string, number>.
+ */
 export function getAllTags(): TagCount {
   const paths = getPostPaths()
   const posts = paths.map((path) => getPostByPath(path, ['tags']))
@@ -198,6 +213,16 @@ export function getAllTags(): TagCount {
     )
 }
 
+/**
+ * Retrieves posts that have the specified tag.
+ *
+ * @param tag - The tag to filter posts by.
+ * @param fields - An optional array of fields to include in the returned posts.
+ *
+ * @returns An array of posts that have the specified tag. The posts are sorted by date in descending order.
+ *
+ * @throws Will throw an error if the tag format is invalid.
+ */
 export function getPostsByTag(tag: string, fields: string[] = []): Post[] {
   const paths = getPostPaths()
 
@@ -211,10 +236,15 @@ export function getPostsByTag(tag: string, fields: string[] = []): Post[] {
 
 export function getPostsByAllYear(
   fields: string[] = [],
-  yearLimit: number = -1
+  yearLimit: number = -1,
+  featured?: boolean
 ): Record<number, Post[]> {
-  const extraFields = [...fields, 'date']
-  const allPosts = getAllPosts(extraFields)
+  const extraFields = [...fields, 'date', 'featured']
+  let allPosts = getAllPosts(extraFields)
+
+  if (featured !== undefined) {
+    allPosts = allPosts.filter((post) => post.featured === true)
+  }
 
   // Post by year
   const postsByYear = allPosts.reduce(
@@ -258,7 +288,7 @@ export function getPostsByAllYear(
 }
 
 export function getPostsByYear(year: number, fields: string[] = []) {
-  const extraFields = [...fields, 'date']
+  const extraFields = [...fields, 'date', 'featured']
   const postByYears = getPostsByAllYear(extraFields)
 
   return postByYears[year] || []

@@ -1,6 +1,7 @@
 ---
 title: 'Data Engineering Tools written in Rust'
 date: '2023-01-22'
+featured: true
 author: Duyet
 category: Data
 series: Rust Data Engineering

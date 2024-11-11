@@ -1,6 +1,7 @@
 ---
 title: Đánh giá hệ thống Information Retrieval
 date: '2019-08-31'
+featured: true
 category: Data Engineer
 series: Information Retrieval
 tags:

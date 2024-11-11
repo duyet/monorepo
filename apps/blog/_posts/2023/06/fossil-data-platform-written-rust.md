@@ -1,6 +1,7 @@
 ---
 title: Fossil Data Platform Rewritten in Rust 🦀
 date: '2023-06-18'
+featured: true
 author: Duyet, Hieu
 category: Rust 🦀
 series: Rust Data Engineering
