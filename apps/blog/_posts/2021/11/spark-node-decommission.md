@@ -1,6 +1,7 @@
 ---
 title: Spark on Kubernetes - better handling for node shutdown
 date: '2021-11-22'
+featured: true
 author: Duyet
 category: Data
 tags:

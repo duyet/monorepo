@@ -1,6 +1,7 @@
 ---
 title: 3 ways to run Spark on Kubernetes
 date: '2020-05-24'
+featured: true
 author: Duyet
 category: Data Engineer
 tags:

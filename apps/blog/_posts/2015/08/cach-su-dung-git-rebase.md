@@ -1,5 +1,5 @@
 ---
-title: Git - Cách sử dụng git rebase, cách gộp nhiều commit bằng rebase
+title: Git rebase, gộp commits bằng rebase
 date: '2015-08-25'
 author: Duyet
 tags:

@@ -1,6 +1,7 @@
 ---
 title: Migrate Blogger sang Gatsby
 date: '2019-08-07'
+featured: true
 author: Duyet
 category: Story
 tags:

@@ -1,6 +1,7 @@
 ---
 title: ClickHouse on Kubernetes
 date: '2024-03-13'
+featured: true
 author: Duyet
 category: Data
 series: ClickHouse on Kubernetes

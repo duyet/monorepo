@@ -5,20 +5,24 @@ import { getPostsByAllYear } from '@duyet/libs/getPost'
 import { YearPost } from '../../components/year-post'
 
 export default function Archives() {
-  const postsByYear = getPostsByAllYear(['slug', 'title', 'date', 'category'])
-  const postCount = Object.values(postsByYear).reduce(
-    (acc, yearPosts) => acc + yearPosts.length,
-    0,
+  const postsByYear = getPostsByAllYear(
+    ['slug', 'title', 'date', 'category', 'featured'],
+    -1,
+    true,
   )
-
-  const years = Object.keys(postsByYear).map(Number)
-  const pastYears = new Date().getFullYear() - Math.min(...years)
 
   return (
     <Container>
       <div>
-        Lists all {postCount} posts of the past {pastYears} years. You can also
-        explore <Link href="/tags">by the topics</Link>.
+        This page highlights featured blog posts. You can also explore{' '}
+        <Link href="/" className="underline">
+          all posts
+        </Link>{' '}
+        or{' '}
+        <Link href="/tags" className="underline">
+          by the topics
+        </Link>
+        .
       </div>
       <div className="flex flex-col gap-8">
         {Object.entries(postsByYear)

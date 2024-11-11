@@ -1,18 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment -- IsFeatured */
+
 import Link from 'next/link'
 
 import type { Post } from '@duyet/interfaces'
 import { dateFormat } from '@duyet/libs/date'
-import { getPostsByYear } from '@duyet/libs/getPost'
 import { cn } from '@duyet/libs/utils'
 
 export interface YearPostProps {
   year: number
+  posts: Post[]
   className?: string
 }
 
-export function YearPost({ year, className }: YearPostProps) {
-  const posts = getPostsByYear(year, ['slug', 'title', 'date', 'category'])
-
+export function YearPost({ year, posts, className }: YearPostProps) {
   if (!posts.length) {
     return null
   }
@@ -40,10 +40,11 @@ export function YearPost({ year, className }: YearPostProps) {
             <Link as={post.slug} className="text-md truncate" href="/[...slug]">
               {post.title}
               <IsNewPost date={post.date} />
+              <IsFeatured featured={post.featured} />
             </Link>
             <hr className="shrink grow border-dotted border-slate-200 opacity-50" />
             <time className="flex-0 flex-nowrap overflow-hidden text-nowrap text-gray-400">
-              {dateFormat(post.date, 'MMMM do')}
+              {dateFormat(post.date, 'MMM do')}
             </time>
           </article>
         ))}
@@ -60,4 +61,16 @@ function IsNewPost({ date }: { date: Date | undefined }) {
   }
 
   return <span className="ml-2 text-sm text-red-500">New</span>
+}
+
+function IsFeatured({ featured }: { featured: boolean }) {
+  if (!featured) {
+    return null
+  }
+
+  return (
+    <span className="ml-2 text-sm font-bold uppercase text-red-600">
+      Featured
+    </span>
+  )
 }

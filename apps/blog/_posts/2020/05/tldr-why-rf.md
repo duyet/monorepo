@@ -1,5 +1,5 @@
 ---
-title: TL;DR - khi nào nên sử dụng Random Forest thay vì Neural Network
+title: TL;DR - Random Forest thay vì Neural Network
 date: '2020-05-01'
 author: Duyet
 category: Machine Learning

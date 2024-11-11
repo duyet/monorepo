@@ -1,6 +1,7 @@
 ---
 title: Information Retrieval - Vector Space Model
 date: '2019-08-30'
+featured: true
 category: Data Engineer
 series: Information Retrieval
 tags:
