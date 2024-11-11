@@ -13,7 +13,7 @@ export interface YearPostProps {
 }
 
 export function YearPost({ year, posts, className }: YearPostProps) {
-  if (!posts?.length) {
+  if (!posts.length) {
     return null
   }
 
