@@ -1,5 +1,5 @@
 ---
-title: Big Data - Explained in Less Than 2 Minutes - To Absolutely Anyone
+title: Big Data Explained in Less Than 2 Minutes
 date: '2015-04-12'
 author: Duyet
 tags:

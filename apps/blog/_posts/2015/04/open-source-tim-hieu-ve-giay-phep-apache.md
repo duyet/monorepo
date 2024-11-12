@@ -1,5 +1,5 @@
 ---
-title: ' Open Source - Tìm hiểu về giấy phép Apache'
+title: Tìm hiểu về giấy phép Apache
 date: '2015-04-11'
 author: Duyet
 tags:

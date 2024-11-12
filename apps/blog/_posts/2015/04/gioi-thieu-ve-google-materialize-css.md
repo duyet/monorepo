@@ -1,5 +1,5 @@
 ---
-title: Giới thiệu về Google Materialize CSS framework
+title: Google Materialize CSS framework
 date: '2015-04-27'
 author: Duyet
 tags:

@@ -11,6 +11,7 @@ tags:
 slug: /2024/05/clickhouse-mergetree.html
 thumbnail: /media/2024/05/clickhouse-mergetree-parts-merge.png
 description: After starting this series ClickHouse on Kubernetes, you can now configure your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
+twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F05%2Fclickhouse-mergetree.html
 ---
 
 After starting this series [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html), you can now configure your first single-node ClickHouse server.

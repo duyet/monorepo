@@ -2,6 +2,7 @@
 title: 'Rust Design Pattern: Strategy Pattern'
 date: '2021-12-19'
 author: Duyet
+series: Rust Design Patterns
 category: Rust 🦀
 tags:
   - Rust
@@ -12,27 +13,15 @@ slug: /2021/12/rust-strategy-design-pattern.html
 description: Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.
 ---
 
-<div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
+**Chuỗi bài viết [Rust Tiếng Việt](/tag/rust-tiếng-việt/) là một trong những nội dung nằm trong sách [**Rust Tiếng Việt**](https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet)**
 
-<div class="toc">
-  <p>Stragery là một trong <a href="/tag/rust-design-patterns">những pattern</a> thuộc nhóm <strong><a href="/tag/behavioural-patterns">Behavioural Patterns<a/></strong></p>
-  <ul>
-    <li>
-      <a href="/tag/behavioural-patterns">Behavioural Patterns</a>
-      <ul>
-        <li><a href="/2021/12/rust-strategy-design-pattern.html"><strong>Strategy Design Pattern</strong></a></li>
-        <li><a href="/2022/02/rust-command-design-pattern.html">Command Design Pattern</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="/tag/creational-patterns">Creational Patterns</a>
-    </li>
-    <li>
-      <a href="/tag/structural-patterns">Structural Patterns</a>
-    </li>
-  </ul>
-  </ul>
-</div>
+**Strategy là một trong [những pattern](/tag/rust-design-patterns) thuộc nhóm **[**Behavioural Patterns**](/tag/behavioural-patterns)\*\*
+
+- Behavioural Patterns
+  - [**Strategy Design Pattern**](/2021/12/rust-strategy-design-pattern.html)
+  - [Command Design Pattern](/2022/02/rust-command-design-pattern.html)
+- [Creational Patterns](/tag/creational-patterns)
+- [Structural Patterns](/tag/structural-patterns)
 
 [Strategy design pattern](https://en.wikipedia.org/wiki/Strategy_pattern) là một technique nhằm mục đích phân tách nhiều vấn đề,
 tách software modules thông qua [Dependency Inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle).

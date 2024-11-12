@@ -2,6 +2,8 @@
 title: 'Rust Design Pattern: Command Pattern'
 date: '2022-02-13'
 author: Duyet
+featured: true
+series: Rust Design Patterns
 category: Rust 🦀
 tags:
   - Rust
@@ -12,26 +14,13 @@ slug: /2022/02/rust-command-design-pattern.html
 description: Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.
 ---
 
-<div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
+Chuỗi bài viết [Rust Tiếng Việt](/tag/rust-tiếng-việt/) là một trong những nội dung nằm trong sách [**Rust Tiếng Việt**](https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet).
 
-<div class="toc">
-  <p>Stragery là một trong <a href="/tag/rust-design-patterns">những pattern</a> thuộc nhóm <strong><a href="/tag/behavioural-patterns">Behavioural Patterns<a/></strong></p>
-  <ul>
-    <li>
-      <a href="/tag/behavioural-patterns">Behavioural Patterns</a>
-      <ul>
-        <li><a href="/2021/12/rust-strategy-design-pattern.html">Strategy Design Pattern</a></li>
-        <li><a href="/2022/02/rust-command-design-pattern.html"><strong>Command Design Pattern</strong></a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="/tag/creational-patterns">Creational Patterns</a>
-    </li>
-    <li>
-      <a href="/tag/structural-patterns">Structural Patterns</a>
-    </li>
-  </ul>
-</div>
+- **Behavioural Patterns**:
+  - [Strategy Design Pattern](/2021/12/rust-strategy-design-pattern.html)
+  - [**Command Design Pattern**](/2022/02/rust-command-design-pattern.html)
+- [Creational Patterns](/tag/creational-patterns)
+- [Structural Patterns](/tag/structural-patterns)
 
 Ý tưởng cơ bản của [Command Pattern](https://en.wikipedia.org/wiki/Command_pattern)
 là tách các actions thành các object riêng và gọi chúng thông qua parameters.

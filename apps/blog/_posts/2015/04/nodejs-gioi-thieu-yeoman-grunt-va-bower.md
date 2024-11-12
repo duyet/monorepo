@@ -1,5 +1,5 @@
 ---
-title: Nodejs - Giới thiệu Yeoman, Grunt và Bower
+title: Yeoman, Grunt và Bower
 date: '2015-04-20'
 author: Duyet
 tags:

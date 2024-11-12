@@ -1,5 +1,5 @@
 ---
-title: 'Linux - một số thủ thuật với trình soạn thảo vim '
+title: 'Linux - một số thủ thuật với trình soạn thảo vim'
 date: '2015-04-25'
 author: Duyet
 tags:

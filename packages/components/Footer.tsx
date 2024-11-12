@@ -49,14 +49,16 @@ function FooterHeader({ children }: { children: ReactNode }) {
 const navigation = {
   general: [
     {
-      name: "Rust Tiếng Việt (Book)",
+      name: "Rust Tiếng Việt",
       href: "https://rust-tieng-viet.github.io/?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet",
     },
     { name: "/ai", href: `${BLOG_URL}/ai` },
     { name: "/archives", href: `${BLOG_URL}/archives` },
     { name: "/series", href: `${BLOG_URL}/series` },
+    { name: "/tags", href: `${BLOG_URL}/tags` },
   ],
   profile: [
+    { name: "About", href: `${BLOG_URL}/about` },
     { name: "Linkedin", href: "https://linkedin.com/in/duyet" },
     { name: "Resume", href: CV_URL },
     { name: "Projects", href: "https://github.com/duyet?tab=repositories" },
