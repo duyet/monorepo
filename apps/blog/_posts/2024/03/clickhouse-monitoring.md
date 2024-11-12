@@ -12,6 +12,7 @@ tags:
 slug: /2024/03/clickhouse-monitoring.html
 thumbnail: /media/2024/03/monitoring-clickhouse/clickhouse-monitoring.png
 description: Now that you have your first ClickHouse instance on Kubernetes and are starting to use it, you need to monitoring and observing what happens on it is an important task to achieve stability.
+twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F03%2Fclickhouse-monitoring.html
 ---
 
 Now that you have your [first ClickHouse instance on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html) and are starting to use it, you need to monitoring and observing what happens on it is an important task to achieve stability. There are many ways:

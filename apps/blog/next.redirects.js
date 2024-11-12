@@ -103,6 +103,21 @@ const redirects = async () => [
     destination: '/2015/04/mongo-web-query.html',
     permanent: true,
   },
+  {
+    source: '/2015/04/database-tim-hieu-ve-csdl-redis.html',
+    destination: '/2015/04/redis.html',
+    permanent: true,
+  },
+  {
+    source: '/2015/04/bootstrap-gioi-thieu-ve-components.html',
+    destination: '/2015/04/bootstrap.html',
+    permanent: true,
+  },
+  {
+    source: '/2015/04/bigdata-getting-started-with-spark-in-python.html',
+    destination: '/2015/04/pyspark.html',
+    permanent: true,
+  },
 ]
 
 module.exports = redirects

@@ -1,6 +1,7 @@
 ---
 title: 'Rust: Rayon - A data parallelism library for Rust'
 date: '2022-08-06'
+featured: true
 author: Duyet
 category: Rust 🦀
 tags:

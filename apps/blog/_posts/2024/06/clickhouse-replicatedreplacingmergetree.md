@@ -12,6 +12,7 @@ tags:
 slug: /2024/06/clickhouse-replicatedreplacingmergetree.html
 thumbnail: /media/2024/06/clickhouse-replicated/clickhouse-replicatedreplacingmergetree.png
 description: Now you have a large single node cluster with a ReplacingMergeTree table that can deduplicate itself. This time, you need more replicated nodes to serve more data users or improve the high availability.
+twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F06%2Fclickhouse-replicatedreplacingmergetree.html
 ---
 
 Now you have a large single node cluster with a [ReplacingMergeTree](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html) table that can deduplicate itself. This time, you need more replicated nodes to serve more data users or improve the high availability.

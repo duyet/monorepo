@@ -3,6 +3,8 @@ title: 'Rust Design Pattern: Prefer Small Crates'
 date: '2022-02-13'
 author: Duyet
 category: Rust 🦀
+featured: true
+series: Rust Design Patterns
 tags:
   - Rust
   - Vietnamese
@@ -14,25 +16,14 @@ twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2
 description: Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.
 ---
 
-<div class="noti">Chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a> là một trong những nội dung nằm trong sách <a href="https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet" target="_blank"><strong>Rust Tiếng Việt</strong></a></div>
+Chuỗi bài viết [Rust Tiếng Việt](/tag/rust-tiếng-việt/) là một trong những nội dung nằm trong sách [**Rust Tiếng Việt**](https://rust-tieng-viet.github.io/?utm_source=blog.duyet.net&utm_medium=post&utm_campaign=launch_rust_tieng_viet).
 
-<div class="toc">
-  <p>Prefer Small Crates là một trong <a href="/tag/rust-design-patterns">những pattern</a> thuộc nhóm <strong><a href="/tag/structural-patterns">Structural Patterns<a/></strong></p>
-  <ul>
-    <li>
-      <a href="/tag/behavioural-patterns">Behavioural Patterns</a>
-    </li>
-    <li>
-      <a href="/tag/creational-patterns">Creational Patterns</a>
-    </li>
-    <li>
-      <a href="/tag/structural-patterns">Structural Patterns</a>
-      <ul>
-        <li><a href="/2022/02/rust-small-crates-design-pattern.html"><strong>Prefer Small Crates</strong></a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
+Prefer Small Crates là một trong [những pattern](/tag/rust-design-patterns) thuộc nhóm **[Structural Patterns](/tag/structural-patterns)**.
+
+- Behavioural Patterns
+- Creational Patterns
+- Structural Patterns
+  - [**Prefer Small Crates**](/2022/02/rust-small-crates-design-pattern.html)
 
 Không hẳn là một Design pattern, mình thấy đây là một tư tưởng khi viết các project bằng Rust.
 

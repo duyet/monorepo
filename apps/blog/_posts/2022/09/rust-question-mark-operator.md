@@ -1,6 +1,7 @@
 ---
 title: 'Rust: Why ? is good'
 date: '2022-09-24'
+featured: true
 author: Duyet
 category: Rust 🦀
 tags:

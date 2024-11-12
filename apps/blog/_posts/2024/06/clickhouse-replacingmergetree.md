@@ -11,6 +11,7 @@ tags:
 slug: /2024/06/clickhouse-replacingmergetree.html
 thumbnail: /media/2024/06/clickhouse-replacingmt/clickhouse-replacingmergetree-illustration.png
 description: My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to `MergeTree` but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
+twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F06%2Fclickhouse-replacingmergetree.html
 ---
 
 My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to [`MergeTree`](/2024/05/clickhouse-mergetree.html) but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
