@@ -1,6 +1,7 @@
 ---
 title: Running Spark in GitHub Actions
 date: '2023-05-07'
+featured: true
 author: Duyet
 category: Data
 tags:

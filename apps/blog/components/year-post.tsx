@@ -26,9 +26,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
           'md:mb-10 md:text-8xl md:font-black',
         )}
       >
-        <Link as={`/${year}`} href="/[year]">
-          {year}
-        </Link>
+        {year}
       </h1>
 
       <div className="flex flex-col gap-3">
