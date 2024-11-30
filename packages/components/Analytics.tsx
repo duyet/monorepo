@@ -56,6 +56,12 @@ export default function AnalyticWrapper() {
           posthog.init('${POSTHOG_API_KEY}',{api_host:'https://app.posthog.com'})
         `}
       </Script>
+
+      <Script
+        id="jitsu"
+        strategy="afterInteractive"
+        src="https://cm43x9afh00003b61bdnjgdkj.d.jitsu.com/p.js"
+      />
     </>
   );
 }
