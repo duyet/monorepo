@@ -60,7 +60,7 @@ export default function AnalyticWrapper() {
       <Script
         id="jitsu"
         strategy="afterInteractive"
-        src="https://cm43x9afh00003b61bdnjgdkj.d.jitsu.com/p.js"
+        src="https://j.duyet.net/p.js"
       />
     </>
   );
