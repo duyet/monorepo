@@ -1501,10 +1501,10 @@
   resolved "https://registry.yarnpkg.com/@radix-ui/react-direction/-/react-direction-1.1.0.tgz#a7d39855f4d077adc2a1922f9c353c5977a09cdc"
   integrity sha512-BUuBvgThEiAXh2DWu93XsT+a3aWrGqolGlqqw5VU1kG7p/ZH2cuDlM1sRLNnY3QcBS69UIz2mcKhMxDsdewhjg==
 
-"@radix-ui/react-dismissable-layer@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.2.tgz#771594b202f32bc8ffeb278c565f10c513814aee"
-  integrity sha512-kEHnlhv7wUggvhuJPkyw4qspXLJOdYoAP4dO2c8ngGuXTq1w/HZp1YeVB+NQ2KbH1iEG+pvOCGYSqh9HZOz6hg==
+"@radix-ui/react-dismissable-layer@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.3.tgz#4ee0f0f82d53bf5bd9db21665799bb0d1bad5ed8"
+  integrity sha512-onrWn/72lQoEucDmJnr8uczSNTujT0vJnA/X5+3AkChVPowr8n1yvIKIabhWyMQeMvvmdpsvcyDqx3X1LEXCPg==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
@@ -1513,14 +1513,14 @@
     "@radix-ui/react-use-escape-keydown" "1.1.0"
 
 "@radix-ui/react-hover-card@^1.1.1":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-hover-card/-/react-hover-card-1.1.3.tgz#04c537a2f99f00c4efffbc98d0c6c58e2b2417bb"
-  integrity sha512-D+o67Fd7fjkW10ycdsse1sYuGV9dNQKOhoVii7ksSfUYqQiTPxz9bP/Vu1g6huJ1651/2j8q7JGGWSIBIuGO1Q==
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-hover-card/-/react-hover-card-1.1.4.tgz#f334fdc1814e14a81ecb4e88a72b92326c1f89a6"
+  integrity sha512-QSUUnRA3PQ2UhvoCv3eYvMnCAgGQW+sTu86QPuNb+ZMi+ZENd6UWpiXbcWDQ4AEaKF9KKpCHBeaJz9Rw6lRlaQ==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
     "@radix-ui/react-context" "1.1.1"
-    "@radix-ui/react-dismissable-layer" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.3"
     "@radix-ui/react-popper" "1.2.1"
     "@radix-ui/react-portal" "1.1.3"
     "@radix-ui/react-presence" "1.1.2"
@@ -1832,10 +1832,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@seline-analytics/web@^0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@seline-analytics/web/-/web-0.0.17.tgz#14676c085e307f9b4d1fdaad93da5be148efacd3"
-  integrity sha512-sYYDBgy+Sa7qwkkkgJO630oSeBHw5+0OrB4WZYBI8SLFx2kLlsEWFpBee7NiE3iUV/MkrvmCr7woc8cv1Q1xvg==
+"@seline-analytics/web@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@seline-analytics/web/-/web-0.0.20.tgz#90f2c91abf141c42e8f4281ee138be275c92c8c7"
+  integrity sha512-eX3uSjZ3NgTGICsFvBpz9Yjgi7AUhhkKE17ZvN1/JW6v+tA8m4bnRavN6fhpcRWRISlvKGSu2AHKqNRh6+GSBA==
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
@@ -4493,9 +4493,9 @@ fraction.js@^4.3.7:
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
 framer-motion@^11.2.10:
-  version "11.14.4"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.14.4.tgz#cb7197107d75ff4592444a83918e31827fcec3b3"
-  integrity sha512-NQuzr9JbeJDMQmy0FFLhLzk9h1kAjVC1tGE/HY4ubF02B95EBm2lpA21LE3Od/OpXqXgp0zl5Hdqu25hliBRsA==
+  version "11.15.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.15.0.tgz#93e5d1839d500ba9cab1d617959a36142a61212b"
+  integrity sha512-MLk8IvZntxOMg7lDBLw2qgTHHv664bYoYmnFTmE0Gm/FW67aOJk0WM3ctMcG+Xhcv+vh5uyyXwxvxhSeJzSe+w==
   dependencies:
     motion-dom "^11.14.3"
     motion-utils "^11.14.3"
@@ -6041,9 +6041,9 @@ jsonparse@^1.2.0:
     object.values "^1.1.6"
 
 katex@^0.16.0, katex@^0.16.11:
-  version "0.16.15"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.15.tgz#16b0d235aae8dfa3b2d5d63fd9874bfa394abfab"
-  integrity sha512-yE9YJIEAk2aZ+FL/G8r+UGw0CTUzEA8ZFy6E+8tc3spHUKq3qBnzCkI1CQwGoI9atJhVyFPEypQsTY7mJ1Pi9w==
+  version "0.16.18"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.18.tgz#20781284288bc52805c519e48ac756163ad4b1f3"
+  integrity sha512-LRuk0rPdXrecAFwQucYjMiIs0JFefk6N1q/04mlw14aVIVgxq1FO0MA9RiIIGVaKOB5GIP5GH4aBBNraZERmaQ==
   dependencies:
     commander "^8.3.0"
 
@@ -6272,10 +6272,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lucide-react@^0.468.0:
-  version "0.468.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.468.0.tgz#830c1bfd905575ddd23b832baa420c87db166910"
-  integrity sha512-6koYRhnM2N0GGZIdXzSeiNwguv1gt/FAjZOiPl76roBi3xKEXa4WmfpxgQwTTL4KipXjefrnf3oV4IsYhi4JFA==
+lucide-react@^0.469.0:
+  version "0.469.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.469.0.tgz#f16936ca6521482fef754a7eabb310e6c68e1482"
+  integrity sha512-28vvUnnKQ/dBwiCQtwJw7QauYnE7yd2Cyp4tTTJpvglX4EMpbflcdBgrgToX2j71B3YvugK/NH3BGUk+E/p/Fw==
 
 make-dir@^4.0.0:
   version "4.0.0"
@@ -6895,9 +6895,9 @@ natural-compare@^1.4.0:
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
 next-axiom@^1.3.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-1.9.0.tgz#8cb65b08b9bba267394e3caecfc61fd67f5f259b"
-  integrity sha512-CvpwB+7hB/qKKwQWdf0btnWrB+FFX1O2iUzJe0H43PlnwcX1CCQ+zGiwDEx8hSwoauP94W7F6WZxzkTgzFr6Ug==
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-1.9.1.tgz#25d7f747a7a0c0ff387921e1f546b9eafae86754"
+  integrity sha512-aSvfZHtGlcaSAGf+5IFTEgDIvqFaHkCUoFu9sNCy5bc8NxEl1v6cYhPZ54X0W9OQ9FyPRiHeD4DjxM/3p3yVRw==
   dependencies:
     use-deep-compare "^1.2.1"
     whatwg-fetch "^3.6.2"
@@ -8414,9 +8414,9 @@ tailwindcss-animate@^1.0.7:
   integrity sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==
 
 tailwindcss@*, tailwindcss@^3.2.4:
-  version "3.4.16"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.16.tgz#35a7c3030844d6000fc271878db4096b6a8d2ec9"
-  integrity sha512-TI4Cyx7gDiZ6r44ewaJmt0o6BrMCT5aK5e0rmJ/G9Xq3w7CX/5VXl/zIPEJZFUK5VEqwByyhqNPycPlvcK4ZNw==
+  version "3.4.17"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.17.tgz#ae8406c0f96696a631c790768ff319d46d5e5a63"
+  integrity sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     arg "^5.0.2"
