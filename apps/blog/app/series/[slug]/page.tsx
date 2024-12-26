@@ -2,6 +2,8 @@ import { getSeries } from '@duyet/libs/getSeries'
 import { notFound } from 'next/navigation'
 import { SeriesBox } from '../../../components/series'
 
+export const dynamic = 'force-static'
+
 interface PageProps {
   params: Promise<{
     slug: string

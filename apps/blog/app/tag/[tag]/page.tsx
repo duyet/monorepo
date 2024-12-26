@@ -1,7 +1,10 @@
+import Link from 'next/link'
+
 import Feed from '@duyet/components/Feed'
 import { getAllTags, getPostsByTag } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
-import Link from 'next/link'
+
+export const dynamic = 'force-static'
 
 interface Params {
   tag: string

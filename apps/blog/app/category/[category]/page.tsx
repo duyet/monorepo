@@ -2,6 +2,8 @@ import Feed from '@duyet/components/Feed'
 import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
 
+export const dynamic = 'force-static'
+
 interface Params {
   category: string
 }
