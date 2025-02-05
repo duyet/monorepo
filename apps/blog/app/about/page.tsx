@@ -36,7 +36,7 @@ const skills: Link[] = [
 const links: Link[] = [
   { name: 'Resume', link: 'https://cv.duyet.net' },
   { name: 'Resume (PDF)', link: 'https://cv.duyet.net/pdf' },
-  { name: 'Github', link: 'https://github.com' },
+  { name: 'Github', link: 'https://github.com/duyet' },
 ]
 
 export default function About() {
