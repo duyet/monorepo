@@ -180,6 +180,10 @@ export default function Page() {
                 id: 4,
                 item: 'Automated operations with Airflow: data replication, data processing, healthchecks, etc.',
               },
+              {
+                id: 5,
+                item: 'LLM + RAG',
+              },
             ]}
           />
           <ExperienceItem
