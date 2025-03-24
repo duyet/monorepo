@@ -2102,9 +2102,9 @@
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
 "@types/node@*", "@types/node@^22.0.0":
-  version "22.13.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.10.tgz#df9ea358c5ed991266becc3109dc2dc9125d77e4"
-  integrity sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw==
+  version "22.13.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.11.tgz#f0ed6b302dcf0f4229d44ea707e77484ad46d234"
+  integrity sha512-iEUCUJoU0i3VnrCmgoWCXttklWcvoCIx4jzcP22fioIVSdTmjgoEvmAO/QPw6TcS9k5FrNgn4w7q5lGOd1CT5g==
   dependencies:
     undici-types "~6.20.0"
 
@@ -6691,10 +6691,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lucide-react@^0.482.0:
-  version "0.482.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.482.0.tgz#0277ec1c728bfcacab0ea8c4fb4aa5cc2f155623"
-  integrity sha512-XM8PzHzSrg8ATmmO+fzf+JyYlVVdQnJjuyLDj2p4V2zEtcKeBNAqAoJIGFv1x2HSBa7kT8gpYUxwdQ0g7nypfw==
+lucide-react@^0.483.0:
+  version "0.483.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.483.0.tgz#036c538173a8c310ac6b7d6af150543e5ecdf116"
+  integrity sha512-WldsY17Qb/T3VZdMnVQ9C3DDIP7h1ViDTHVdVGnLZcvHNg30zH/MTQ04RTORjexoGmpsXroiQXZ4QyR0kBy0FA==
 
 make-dir@^4.0.0:
   version "4.0.0"
@@ -7316,9 +7316,9 @@ nanoid@^3.3.8:
   integrity sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==
 
 nanoid@^5.0.0:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-5.1.4.tgz#10b15a91d2f727b1f200faf0ff73656fd96c497d"
-  integrity sha512-GTFcMIDgR7tqji/LpSY8rtg464VnJl/j6ypoehYnuGb+Y8qZUdtKB8WVCXon0UEZgFDbuUxpIl//6FHLHgXSNA==
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-5.1.5.tgz#f7597f9d9054eb4da9548cdd53ca70f1790e87de"
+  integrity sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw==
 
 natural-compare@^1.4.0:
   version "1.4.0"
