@@ -53,8 +53,6 @@ export default function Page() {
 
         <InlineLink
           links={[
-            <div key="country">Vietnam</div>,
-            <div key="yob">1995</div>,
             <div key="email">me@duyet.net</div>,
             <Link
               className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
