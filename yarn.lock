@@ -969,10 +969,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz#4a2868d75d6d6963e423bcf90b7fd1be343409d3"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
-"@icons-pack/react-simple-icons@^10.0.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@icons-pack/react-simple-icons/-/react-simple-icons-10.2.0.tgz#18bb0dfb6241de35e7412e7430eb8fb54013bdf0"
-  integrity sha512-QDUxup8D3GdIIzwGpxQs6bjeFV5mJes25qqf4aqP/PaBYQNCar7AiyD8C14636TosCG0A/QqAUwm/Hviep4d4g==
+"@icons-pack/react-simple-icons@^12.0.0":
+  version "12.7.0"
+  resolved "https://registry.yarnpkg.com/@icons-pack/react-simple-icons/-/react-simple-icons-12.7.0.tgz#d24e12d93829e6c34b76eb4ede19a67c0fb5a58c"
+  integrity sha512-XpG7e8buAco8AbvCar+4LX5do0L98d/NaeHoTuW4awyUH33id7HQiiMomK+cS1MRxfLNMmhW2W0223/fMC0unw==
 
 "@img/sharp-darwin-arm64@0.34.1":
   version "0.34.1"
