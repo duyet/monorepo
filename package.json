@@ -27,20 +27,15 @@
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@duyet/tsconfig": "*",
+    "@tailwindcss/postcss": "^4.1.6",
     "dotenv-cli": "^8.0.0",
-    "eslint": "8.57.1",
+    "eslint": "^9.26.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
+    "postcss": "^8.5.3",
     "prettier": "^3.0.0",
-    "turbo": "^2.0.1"
-  },
-  "resolutions": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0",
-    "@headlessui/react": "2.2.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-is": "19.1.0"
+    "tailwindcss": "^4.1.6",
+    "turbo": "^2.5.3"
   },
   "packageManager": "yarn@1.22.22"
 }
