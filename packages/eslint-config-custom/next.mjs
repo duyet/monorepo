@@ -1,7 +1,8 @@
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import turboConfig from 'eslint-config-turbo/flat'
-import eslintConfigPrettier from "eslint-config-prettier/flat"
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import tseslint from 'typescript-eslint'
 
 const compat = new FlatCompat({
   // import.meta.dirname is available after Node.js v20.11.0
@@ -10,7 +11,7 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 })
 
-const eslintConfig = [
+const eslintConfig = tseslint.config(
   ...turboConfig,
   eslintConfigPrettier,
   ...compat.config({
@@ -20,6 +21,7 @@ const eslintConfig = [
       '@next/next/no-page-custom-font': 'off',
     },
   }),
-]
+  tseslint.configs.recommended
+)
 
 export default eslintConfig

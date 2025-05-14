@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- have no idea to fix the line 37 */
-
 import type { Post } from '@duyet/interfaces'
 import { getPostBySlug } from '@duyet/libs/getPost'
 import { markdownToHtml } from '@duyet/libs/markdownToHtml'
