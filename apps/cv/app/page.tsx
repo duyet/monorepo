@@ -1,7 +1,4 @@
-import {
-  SiGithub as GithubIcon,
-  SiLinkedin as LinkedinIcon,
-} from '@icons-pack/react-simple-icons'
+import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons'
 import type { ImageProps } from 'next/image'
 import Link from 'next/link'
 
@@ -80,7 +77,7 @@ export default function Page() {
                   target="_blank"
                 >
                   <div className="flex flex-col gap-2">
-                    <GithubIcon />
+                    <GitHubLogoIcon />
                     <div>
                       <strong>Github: </strong>
                       <span>@duyet</span>
@@ -107,7 +104,7 @@ export default function Page() {
                   target="_blank"
                 >
                   <div className="flex flex-col gap-2">
-                    <LinkedinIcon />
+                    <LinkedInLogoIcon />
                     <div>
                       <strong>Linkedin: </strong>
                       <span>/in/duyet</span>
