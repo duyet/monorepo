@@ -17,7 +17,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
     "text-sm text-[#666666] dark:text-[#888888]",
     "no-underline hover:text-gray-700",
-    "hover:dark:text-white transition",
+    "dark:hover:text-white transition",
   );
 
   if (href.startsWith("http")) {
@@ -76,11 +76,11 @@ export function FooterContent() {
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="grid grid-cols-1 gap-8 xl:col-span-2">
               <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 md:gap-8">
-                <div className="mt-6 md:!mt-0">
+                <div className="mt-6 md:mt-0!">
                   <Logo className="p-0" />
                 </div>
 
-                <div className="mt-12 md:!mt-0">
+                <div className="mt-12 md:mt-0!">
                   <FooterHeader>Resources</FooterHeader>
                   <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
                     {navigation.general.map((item) => (
@@ -91,7 +91,7 @@ export function FooterContent() {
                   </ul>
                 </div>
 
-                <div className="mt-12 md:!mt-0">
+                <div className="mt-12 md:mt-0!">
                   <FooterHeader>me@duyet.net</FooterHeader>
                   <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
                     <Social />

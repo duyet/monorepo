@@ -2,7 +2,7 @@ import merge from "deepmerge";
 
 const {
   default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+} = require("tailwindcss/lib/util/flattenColorPalette.js");
 
 const tremorTheme = require("./tremor.theme.js").theme;
 const shadcnTheme = require("./shadcn.theme.js").theme;
