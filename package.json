@@ -30,12 +30,15 @@
     "@tailwindcss/postcss": "^4.1.6",
     "dotenv-cli": "^8.0.0",
     "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-config-turbo": "^2.5.3",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
     "postcss": "^8.5.3",
     "prettier": "^3.0.0",
     "tailwindcss": "^4.1.6",
-    "turbo": "^2.5.3"
+    "turbo": "^2.5.3",
+    "typescript": "^5.8.3"
   },
   "packageManager": "yarn@1.22.22"
 }
