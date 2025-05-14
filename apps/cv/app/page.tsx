@@ -180,7 +180,7 @@ export default function Page() {
               },
               {
                 id: 5,
-                item: 'LLM + RAG',
+                item: 'Multi-agent LLM + RAG (LlamaIndex, Qdrant, ClickHouse text2sql, Nextjs, etc)',
               },
             ]}
           />
