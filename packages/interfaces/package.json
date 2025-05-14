@@ -7,7 +7,7 @@
     "src/**"
   ],
   "scripts": {
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc --noEmit --jsx",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "eslint"
   },

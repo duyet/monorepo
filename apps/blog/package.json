@@ -15,7 +15,8 @@
     "fmt": "yarn fix",
     "lint": "next lint",
     "prettier-check": "prettier --check .",
-    "start": "next start"
+    "start": "next start",
+    "check-types": "tsc --noEmit"
   },
   "prettier": "@duyet/prettier",
   "dependencies": {
