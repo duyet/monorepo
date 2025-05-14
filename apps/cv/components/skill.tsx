@@ -55,7 +55,7 @@ export function Skill({
         )}
       </HoverCardTrigger>
       <HoverCardContent asChild>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 bg-white">
           {icon}{' '}
           {url ? (
             <Link href={url} target="_blank">
