@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- IsFeatured */
-
 import Link from 'next/link'
 
 import type { Post } from '@duyet/interfaces'

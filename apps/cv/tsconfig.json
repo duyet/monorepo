@@ -14,7 +14,7 @@
   },
   "include": [
     "next-env.d.ts",
-    ".eslintrc.js",
+    "eslint.config.mjs",
     "app/**/*.ts",
     "app/**/*.tsx",
     "components/*.ts",
