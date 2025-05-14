@@ -27,7 +27,7 @@ export default function CommentContent({
 
   return (
     <div className={cn("flex space-x-4", className)}>
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         <Image
           src={comment.user.picture}
           alt={comment.user.name}
@@ -37,7 +37,7 @@ export default function CommentContent({
         />
       </div>
 
-      <div className="flex-grow">
+      <div className="grow">
         <div className="flex space-x-3">
           <b>{comment.user.name}</b>
           <time className="text-gray-400">
