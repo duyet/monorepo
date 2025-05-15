@@ -99,7 +99,6 @@ export default {
   ],
   plugins: [
     require('tailwind-highlightjs'),
-    require('tailwindcss-animate'),
     ...require('./tremor.theme.js').plugins,
     addVariablesForColors,
   ],
