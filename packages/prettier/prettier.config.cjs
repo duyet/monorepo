@@ -21,6 +21,6 @@ module.exports = {
     'prettier-plugin-organize-imports',
     'prettier-plugin-tailwindcss',
   ],
-  tailwindConfig: '../../packages/tailwind-config/tailwind.config.js',
+  tailwindConfig: '../../packages/tailwind-config/tailwind.config.mjs',
   tailwindFunctions: ['clsx', 'cn'],
 }

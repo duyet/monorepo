@@ -21,7 +21,7 @@
     "components/*.tsx",
     "**/*.ts",
     "**/*.tsx",
-    "tailwind.config.js",
+    "tailwind.config.mjs",
     "postcss.config.js",
     "app",
     "./components",

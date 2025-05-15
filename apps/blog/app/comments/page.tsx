@@ -26,7 +26,7 @@ export default async function Comments() {
         {comments.map((comment) => {
           return (
             <div
-              className="prose flex flex-col dark:prose-invert"
+              className="prose dark:prose-invert flex flex-col"
               key={comment.created_at}
             >
               <Link className="mb-2 text-primary" href={comment.url}>
