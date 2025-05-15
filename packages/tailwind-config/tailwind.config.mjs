@@ -1,14 +1,11 @@
 import merge from 'deepmerge'
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
-const {
-  default: flattenColorPalette,
-} = require('tailwindcss/lib/util/flattenColorPalette')
-
-const tremorTheme = require('./tremor.theme.js').theme
-const shadcnTheme = require('./shadcn.theme.js').theme
+import { theme as tremorTheme } from './tremor.theme.js'
+import { theme as shadcnTheme } from './shadcn.theme.js'
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     // Related path
     '../../apps/*/{app,components}/*.{js,ts,jsx,tsx}',
@@ -102,7 +99,6 @@ module.exports = {
   ],
   plugins: [
     require('tailwind-highlightjs'),
-    require('tailwindcss-animate'),
     ...require('./tremor.theme.js').plugins,
     addVariablesForColors,
   ],

@@ -1636,7 +1636,7 @@
     "@radix-ui/react-use-callback-ref" "1.1.1"
     "@radix-ui/react-use-escape-keydown" "1.1.1"
 
-"@radix-ui/react-hover-card@^1.1.1":
+"@radix-ui/react-hover-card@^1.1.13":
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-hover-card/-/react-hover-card-1.1.13.tgz#875bc07bae27a1634544b2d41940b358263bec5f"
   integrity sha512-Wtjvx0d/6Bgd/jAYS1mW6IPSUQ25y0hkUSOS1z5/4+U8+DJPwKroqJlM/AlVFl3LywGoruiPmcvB9Aks9mSOQw==
@@ -2376,24 +2376,15 @@
   resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-6.0.3.tgz#705bb349e789efa06f43f128cef51240753424cb"
   integrity sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==
 
-"@types/react-dom@npm:types-react-dom@19.0.0":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/types-react-dom/-/types-react-dom-19.0.0.tgz#48286ba504ac48e9345cc860f76845344c5a633a"
-  integrity sha512-qtWBYduBCmrgf4wqnTrGttEJJSZ6cTGmzuvmWd/34TJNKz/Pp69Islc1+txHF3nRxSuRvmhxztFXvLyxhp8G2w==
-  dependencies:
-    "@types/react" "*"
+"@types/react-dom@^19.1.5":
+  version "19.1.5"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.1.5.tgz#cdfe2c663742887372f54804b16e8dbc26bd794a"
+  integrity sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==
 
-"@types/react@*":
+"@types/react@^19.1.4":
   version "19.1.4"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-19.1.4.tgz#4d125f014d6ac26b4759775698db118701e314fe"
   integrity sha512-EB1yiiYdvySuIITtD5lhW4yPyJ31RkJkkDw794LaQYrxCSaQV/47y5o1FMC4zF9ZyjUjzJMZwbovEnT5yHTW6g==
-  dependencies:
-    csstype "^3.0.2"
-
-"@types/react@npm:types-react@19.0.0-rc.1":
-  version "19.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/types-react/-/types-react-19.0.0-rc.1.tgz#576d1a702f6d0cc5b24813a293913e5cbfeaa647"
-  integrity sha512-RshndUfqTW6K3STLPis8BtAYCGOkMbtvYsi90gmVNDZBXUyUc5juf2PE9LfS/JmOlUIRO8cWTS/1MTnmhjDqyQ==
   dependencies:
     csstype "^3.0.2"
 
@@ -8071,7 +8062,7 @@ next-themes@^0.4.0:
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.4.6.tgz#8d7e92d03b8fea6582892a50a928c9b23502e8b6"
   integrity sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==
 
-next@15.3.2:
+next@15.3.2, next@^15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/next/-/next-15.3.2.tgz#97510629e38a058dd154782a5c2ec9c9ab94d0d8"
   integrity sha512-CA3BatMyHkxZ48sgOCLdVHjFU36N7TF1HhqAHLFOkV6buwZnvMI84Cug8xD56B9mCuKrqXnLn94417GrZ/jjCQ==
@@ -8751,7 +8742,7 @@ react-transition-state@^2.1.2:
   resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-2.1.2.tgz#e89c51573e6221acbcacc8df0ed996c3796d70fc"
   integrity sha512-RkDYBkj1V1ZqBA5AwQPrMt2Uagwsx6b//GVJdRDhs/t0o66w2nhQiyHyFGQEI60mgtbaIdLm8yhBRCvhA+FxEg==
 
-react@19.1.0, react@^19.0.0-rc-0bc30748-20241028:
+react@19.1.0, react@^19.1.0:
   version "19.1.0"
   resolved "https://registry.yarnpkg.com/react/-/react-19.1.0.tgz#926864b6c48da7627f004795d6cce50e90793b75"
   integrity sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==
@@ -10176,6 +10167,11 @@ turbo@^2.5.3:
     turbo-linux-arm64 "2.5.3"
     turbo-windows-64 "2.5.3"
     turbo-windows-arm64 "2.5.3"
+
+tw-animate-css@*, tw-animate-css@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/tw-animate-css/-/tw-animate-css-1.2.9.tgz#b25d5fb31fd3c3ec6d91c1d1842c0d7c0fdbd999"
+  integrity sha512-9O4k1at9pMQff9EAcCEuy1UNO43JmaPQvq+0lwza9Y0BQ6LB38NiMj+qHqjoQf40355MX+gs6wtlR6H9WsSXFg==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

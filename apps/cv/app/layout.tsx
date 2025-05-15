@@ -63,7 +63,6 @@ export default function RootLayout({ children }: LayoutProps) {
               containerClassName="max-w-3xl"
               longText="Resume"
               navigationItems={[
-                { name: 'PDF version', href: '/pdf' },
                 BLOG,
                 ABOUT,
                 INSIGHTS,
