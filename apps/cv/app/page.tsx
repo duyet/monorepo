@@ -117,7 +117,9 @@ export default function Page() {
         />
         <Overview className="text-sm">
           Data Engineer with 6+ years of experience in modern data warehousing,
-          distributed systems, and cloud computing. Proficient in <SkillSpark />
+          distributed systems, and cloud computing. Proficient in <SkillClickHouse />
+          {', '}
+          <SkillSpark />
           {', '}
           <SkillAirflow />
           {', '}
