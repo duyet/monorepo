@@ -54,7 +54,7 @@
     "@duyet/prettier": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
-    "@next/bundle-analyzer": "15.3.3",
+    "@next/bundle-analyzer": "15.3.4",
     "@types/node": "^22.0.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
