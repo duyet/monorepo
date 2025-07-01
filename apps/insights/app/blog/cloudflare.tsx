@@ -62,7 +62,6 @@ export async function Cloudflare() {
         data={chartData}
         index="date"
         showGridLines={false}
-        showYAxis={false}
       />
 
       <TextDataSource>Cloudflare | Generated at {generatedAt}</TextDataSource>
