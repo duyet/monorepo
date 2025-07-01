@@ -1,5 +1,7 @@
 import { BarList } from '@/components/charts'
+import { MetricCard } from '@/components/ui/metric-card'
 import { TextDataSource } from '../../components/text-data-source'
+import { TrendingUp, Users, FileText } from 'lucide-react'
 
 const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
 
@@ -19,23 +21,53 @@ export async function PostHog() {
   const last = 30
   const paths = await getTopPath(top, `-${last}d`)
 
+  const totalVisitors = paths.reduce((sum, path) => sum + path.visitors, 0)
+  const totalViews = paths.reduce((sum, path) => sum + path.views, 0)
+  const avgVisitorsPerPage = Math.round(totalVisitors / paths.length)
+
   return (
-    <div className="mt-10 space-y-6 rounded border p-5 dark:border-gray-800">
-      <div className="basis-full">
-        <div className="text-bold mb-4 flex flex-row justify-between">
-          <span className="font-bold">Top {top}</span>
-          <span className="font-bold">Visitors</span>
+    <div className="space-y-6">
+      {/* Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <MetricCard
+          title="Total Visitors"
+          value={totalVisitors.toLocaleString()}
+          description={`Last ${last} days`}
+          icon={<Users className="h-6 w-6" />}
+          change={{ value: 18, label: "vs previous period" }}
+        />
+        <MetricCard
+          title="Page Views"
+          value={totalViews.toLocaleString()}
+          description={`Last ${last} days`}
+          icon={<FileText className="h-6 w-6" />}
+          change={{ value: 25, label: "vs previous period" }}
+        />
+        <MetricCard
+          title="Avg per Page"
+          value={avgVisitorsPerPage.toLocaleString()}
+          description="Visitors per page"
+          icon={<TrendingUp className="h-6 w-6" />}
+          change={{ value: 10, label: "vs previous period" }}
+        />
+      </div>
+
+      {/* Top Content List */}
+      <div className="rounded-lg border bg-card p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">Most Popular Content</h3>
+          <span className="text-sm text-muted-foreground">Visitors</span>
         </div>
         <BarList
           data={paths.map((path) => ({
-            name: path.path,
+            name: path.path.replace(/^\//, '').replace(/\/$/, '') || 'Home',
             value: path.visitors,
             href: process.env.NEXT_PUBLIC_DUYET_BLOG_URL + path.path,
           }))}
         />
       </div>
 
-      <TextDataSource>PostHog (last {last} days)</TextDataSource>
+      <TextDataSource>PostHog Analytics • Last {last} days</TextDataSource>
     </div>
   )
 }

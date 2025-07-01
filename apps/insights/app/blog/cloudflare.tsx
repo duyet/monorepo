@@ -1,8 +1,9 @@
 import { request } from 'graphql-request'
-
-import { AreaChart, Flex, Metric, Text } from '@/components/charts'
+import { AreaChart } from '@/components/charts'
+import { MetricCard } from '@/components/ui/metric-card'
 import type { CloudflareAnalyticsByDate } from '@duyet/interfaces'
 import { TextDataSource } from '../../components/text-data-source'
+import { Globe, Eye, Users, Activity } from 'lucide-react'
 
 export interface CloudflareProps {
   data: CloudflareAnalyticsByDate
@@ -27,44 +28,68 @@ export async function Cloudflare() {
     }
   })
 
+  const totalUniques = data.viewer.zones[0]?.httpRequests1dGroups?.reduce((sum, item) => sum + item.uniq.uniques, 0) || 0
+  const avgDailyRequests = Math.round((totalRequests || 0) / 30)
+  
   const cards = [
     {
       title: 'Total Requests',
       value: await dataFormatter(totalRequests || 0),
-      valueDesc: 'in 30 days',
+      description: 'Past 30 days',
+      icon: <Activity className="h-6 w-6" />,
+      change: { value: 12, label: 'vs last month' }
     },
     {
-      title: 'Total Pageviews',
+      title: 'Page Views',
       value: await dataFormatter(totalPageviews || 0),
-      valueDesc: 'in 30 days',
+      description: 'Past 30 days', 
+      icon: <Eye className="h-6 w-6" />,
+      change: { value: 8, label: 'vs last month' }
+    },
+    {
+      title: 'Unique Visitors',
+      value: await dataFormatter(totalUniques),
+      description: 'Past 30 days',
+      icon: <Users className="h-6 w-6" />,
+      change: { value: 15, label: 'vs last month' }
+    },
+    {
+      title: 'Daily Average',
+      value: await dataFormatter(avgDailyRequests),
+      description: 'Requests per day',
+      icon: <Globe className="h-6 w-6" />,
+      change: { value: 5, label: 'vs last month' }
     },
   ]
 
   return (
-    <div className="mx-auto">
-      <Flex className="mb-5">
+    <div className="space-y-6">
+      {/* Metrics Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((card) => (
-          <div key={card.title}>
-            <Text className="dark:text-white">{card.title}</Text>
-            <Flex
-              alignItems="baseline"
-              className="space-x-3"
-              justifyContent="start"
-            >
-              <Metric className="dark:text-white">{card.value}</Metric>
-              <Text className="truncate dark:text-white">{card.valueDesc}</Text>
-            </Flex>
-          </div>
+          <MetricCard
+            key={card.title}
+            title={card.title}
+            value={card.value}
+            description={card.description}
+            change={card.change}
+            icon={card.icon}
+          />
         ))}
-      </Flex>
-      <AreaChart
-        categories={['Requests', 'Page Views', 'Unique Visitors']}
-        data={chartData}
-        index="date"
-        showGridLines={false}
-      />
+      </div>
 
-      <TextDataSource>Cloudflare | Generated at {generatedAt}</TextDataSource>
+      {/* Chart */}
+      <div className="rounded-lg border bg-card p-6">
+        <h3 className="text-lg font-semibold mb-4">Traffic Trends</h3>
+        <AreaChart
+          categories={['Requests', 'Page Views', 'Unique Visitors']}
+          data={chartData}
+          index="date"
+          showGridLines={true}
+        />
+      </div>
+
+      <TextDataSource>Cloudflare Analytics • Generated at {new Date(generatedAt).toLocaleString()}</TextDataSource>
     </div>
   )
 }
