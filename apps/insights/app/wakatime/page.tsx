@@ -1,4 +1,4 @@
-import { BarChart, BarList, DonutChart, Legend } from '@duyet/components'
+import { BarChart, BarList, DonutChart, Legend } from '@/components/charts'
 import { cn } from '@duyet/libs/utils'
 import Image from 'next/image'
 import { StaticCard } from '../../components/static-card'
