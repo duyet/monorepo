@@ -1,38 +1,80 @@
 import { NextResponse } from 'next/server'
 
-import { llmsInfo } from '@/config/cv.data'
+import { cvData } from '@/config/cv.data'
 
 export const dynamic = 'force-static'
 
+function formatResponsibility(item: unknown): string {
+  if (typeof item === 'string') {
+    return item
+  }
+  // For JSX elements, extract just the text content
+  if (typeof item === 'object' && item && 'props' in item && 
+      typeof item.props === 'object' && item.props && 'children' in item.props) {
+    return extractTextContent(item.props.children)
+  }
+  return String(item)
+}
+
+function extractTextContent(content: unknown): string {
+  if (typeof content === 'string') {
+    return content
+  }
+  if (Array.isArray(content)) {
+    return content.map(extractTextContent).join('')
+  }
+  if (typeof content === 'object' && content && 'props' in content && 
+      typeof content.props === 'object' && content.props && 'children' in content.props) {
+    return extractTextContent(content.props.children)
+  }
+  if (typeof content === 'object' && content && 'props' in content && 
+      typeof content.props === 'object' && content.props && 'text' in content.props) {
+    return String(content.props.text)
+  }
+  return ''
+}
+
 export async function GET() {
-  const llmsContent = `# ${llmsInfo.name}
+  const { personal, experience, education } = cvData
 
-${llmsInfo.bio}
+  const llmsContent = `# ${personal.name} | ${personal.title}
 
-## Contact
-- Email: ${llmsInfo.email}
-- Website: ${llmsInfo.website}
-- GitHub: ${llmsInfo.links.github}
-- LinkedIn: ${llmsInfo.links.linkedin}
-- Blog: ${llmsInfo.links.blog}
+${personal.contacts.map(contact => contact.label).join(' · ')}
 
-## Current Role
-${llmsInfo.currentRole.title} at ${llmsInfo.currentRole.company} (${llmsInfo.currentRole.duration})
+Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in ClickHouse, Spark, Airflow, Python, Rust.
 
-## Areas of Expertise
-${llmsInfo.expertise.map(area => `- ${area}`).join('\n')}
+## Experience
 
-## Key Technologies
-${llmsInfo.technologies.map(tech => `- ${tech}`).join('\n')}
+${experience.map(exp => {
+  const period = exp.to 
+    ? `${exp.from.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - ${exp.to.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}`
+    : `${exp.from.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - Present`
+  
+  return `### ${exp.title}
+${exp.company} (${period})
 
-## Notable Achievements
-${llmsInfo.keyAchievements.map(achievement => `- ${achievement}`).join('\n')}
+${exp.responsibilities.map(resp => `• ${formatResponsibility(resp.item)}`).join('\n')}`
+}).join('\n\n')}
+
+## Education
+
+${education.map(edu => {
+  return `### ${edu.major}
+${edu.university}
+${edu.thesis}
+${edu.thesisUrl ? `Thesis URL: ${edu.thesisUrl}` : ''}`
+}).join('\n\n')}
+
+## Skills
+
+**Data Engineering:** ClickHouse, Spark, Kafka, Airflow, AWS, BigQuery, Data Studio, Python, Rust, Typescript.
+
+**DevOps:** CI/CD, Kubernetes, Helm.
 
 ---
 
-This file follows the llms.txt standard for providing information about ${llmsInfo.name} to Large Language Models and AI assistants.
-Generated from CV data at ${llmsInfo.website}
-`
+This file follows the llms.txt standard for providing CV information to Large Language Models and AI assistants.
+Generated from: https://duyet.net`
 
   return new NextResponse(llmsContent, {
     headers: {
