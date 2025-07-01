@@ -52,9 +52,9 @@ const ChartContainer = React.forwardRef<
         data-chart={chartId}
         ref={ref}
         className={cn(
-          "flex aspect-video justify-center text-xs",
+          "flex h-[200px] w-full justify-center text-xs",
           "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground",
-          "[&_.recharts-cartesian-grid_line]:stroke-border/20",
+          "[&_.recharts-cartesian-grid_line]:stroke-border/20", 
           "[&_.recharts-tooltip-cursor]:stroke-border",
           "[&_.recharts-surface]:outline-none",
           className

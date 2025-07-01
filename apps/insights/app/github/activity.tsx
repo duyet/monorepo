@@ -1,4 +1,3 @@
-/* eslint-disable camelcase -- because want to keep original variable name from github api */
 
 import type { GithubRepo } from '@duyet/interfaces'
 import { cn } from '@duyet/libs/utils'

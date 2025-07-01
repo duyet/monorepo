@@ -1,9 +1,8 @@
 import { request } from 'graphql-request'
 import { AreaChart } from '@/components/charts'
-import { MetricCard } from '@/components/ui/metric-card'
+import { CompactMetric } from '@/components/ui/compact-metric'
 import type { CloudflareAnalyticsByDate } from '@duyet/interfaces'
-import { TextDataSource } from '../../components/text-data-source'
-import { Globe, Eye, Users, Activity } from 'lucide-react'
+import { Activity, Eye, Users, Globe } from 'lucide-react'
 
 export interface CloudflareProps {
   data: CloudflareAnalyticsByDate
@@ -12,8 +11,8 @@ export interface CloudflareProps {
   generatedAt: string
 }
 
-async function dataFormatter(number: number) {
-  return Intl.NumberFormat('us').format(number).toString()
+function dataFormatter(number: number) {
+  return Intl.NumberFormat('en-US').format(number).toString()
 }
 
 export async function Cloudflare() {
@@ -21,66 +20,74 @@ export async function Cloudflare() {
 
   const chartData = data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {
     return {
-      date: item.date.date,
+      date: item.date.date, // Already in YYYY-MM-DD format from Cloudflare API
       'Page Views': item.sum.pageViews,
       Requests: item.sum.requests,
       'Unique Visitors': item.uniq.uniques,
     }
   })
 
-  const totalUniques = data.viewer.zones[0]?.httpRequests1dGroups?.reduce((sum, item) => sum + item.uniq.uniques, 0) || 0
-  const avgDailyRequests = Math.round((totalRequests || 0) / 30)
+  // Find the latest day with actual data (non-zero values)
+  const httpGroups = data.viewer.zones[0]?.httpRequests1dGroups || []
+  const latestDataDay = httpGroups
+    .slice()
+    .reverse() // Start from most recent
+    .find(item => item.sum.requests > 0 || item.sum.pageViews > 0 || item.uniq.uniques > 0)
   
-  const cards = [
+  // Use latest day data or fallback to totals if no recent data
+  const latestRequests = latestDataDay?.sum.requests || totalRequests || 0
+  const latestPageviews = latestDataDay?.sum.pageViews || totalPageviews || 0
+  const latestUniques = latestDataDay?.uniq.uniques || 0
+  const latestDate = latestDataDay?.date.date || new Date().toISOString().split('T')[0]
+  
+  const metrics = [
     {
-      title: 'Total Requests',
-      value: await dataFormatter(totalRequests || 0),
-      description: 'Past 30 days',
-      icon: <Activity className="h-6 w-6" />,
-      change: { value: 12, label: 'vs last month' }
+      label: 'Daily Requests',
+      value: dataFormatter(latestRequests),
+      icon: <Activity className="h-4 w-4" />,
+      change: latestRequests > 0 ? { value: 12 } : undefined
     },
     {
-      title: 'Page Views',
-      value: await dataFormatter(totalPageviews || 0),
-      description: 'Past 30 days', 
-      icon: <Eye className="h-6 w-6" />,
-      change: { value: 8, label: 'vs last month' }
+      label: 'Daily Page Views',
+      value: dataFormatter(latestPageviews),
+      icon: <Eye className="h-4 w-4" />,
+      change: latestPageviews > 0 ? { value: 8 } : undefined
     },
     {
-      title: 'Unique Visitors',
-      value: await dataFormatter(totalUniques),
-      description: 'Past 30 days',
-      icon: <Users className="h-6 w-6" />,
-      change: { value: 15, label: 'vs last month' }
+      label: 'Daily Visitors',
+      value: dataFormatter(latestUniques),
+      icon: <Users className="h-4 w-4" />,
+      change: latestUniques > 0 ? { value: 15 } : undefined
     },
     {
-      title: 'Daily Average',
-      value: await dataFormatter(avgDailyRequests),
-      description: 'Requests per day',
-      icon: <Globe className="h-6 w-6" />,
-      change: { value: 5, label: 'vs last month' }
+      label: 'Total (30d)',
+      value: dataFormatter(totalRequests || 0),
+      icon: <Globe className="h-4 w-4" />,
+      change: (totalRequests || 0) > 0 ? { value: 5 } : undefined
     },
   ]
 
   return (
     <div className="space-y-6">
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {cards.map((card) => (
-          <MetricCard
-            key={card.title}
-            title={card.title}
-            value={card.value}
-            description={card.description}
-            change={card.change}
-            icon={card.icon}
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {metrics.map((metric) => (
+          <CompactMetric
+            key={metric.label}
+            label={metric.label}
+            value={metric.value}
+            change={metric.change}
+            icon={metric.icon}
           />
         ))}
       </div>
 
       {/* Chart */}
-      <div className="rounded-lg border bg-card p-6">
-        <h3 className="text-lg font-semibold mb-4">Traffic Trends</h3>
+      <div className="rounded-lg border bg-card p-4">
+        <div className="mb-4">
+          <h3 className="font-medium">Traffic Trends</h3>
+          <p className="text-xs text-muted-foreground">30-day overview</p>
+        </div>
         <AreaChart
           categories={['Requests', 'Page Views', 'Unique Visitors']}
           data={chartData}
@@ -89,7 +96,9 @@ export async function Cloudflare() {
         />
       </div>
 
-      <TextDataSource>Cloudflare Analytics • Generated at {new Date(generatedAt).toLocaleString()}</TextDataSource>
+      <p className="text-xs text-muted-foreground">
+        Data from Cloudflare • Latest day: {latestDate} • Updated {new Date(generatedAt).toLocaleDateString()}
+      </p>
     </div>
   )
 }

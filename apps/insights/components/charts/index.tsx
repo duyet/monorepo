@@ -4,6 +4,7 @@ export { AreaChart } from "./area-chart"
 export { BarChart } from "./bar-chart"
 export { DonutChart } from "./donut-chart"
 export { BarList } from "./bar-list"
+export { LanguageBarChart } from "./language-bar-chart"
 export { Legend } from "./legend"
 
 interface MetricProps { children: React.ReactNode; className?: string }

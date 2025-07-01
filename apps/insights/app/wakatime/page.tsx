@@ -1,13 +1,12 @@
-import { BarChart, BarList, DonutChart } from '@/components/charts'
-import { MetricCard } from '@/components/ui/metric-card'
+import { BarChart, LanguageBarChart, DonutChart } from '@/components/charts'
+import { CompactMetric } from '@/components/ui/compact-metric'
 import Image from 'next/image'
 import { StaticCard } from '../../components/static-card'
-import { TextDataSource } from '../../components/text-data-source'
 import { Code, Clock, Zap, Calendar } from 'lucide-react'
 
 export const metadata = {
-  title: '@duyet Coding Insights',
-  description: 'Coding Insights data collected from Wakatime.',
+  title: 'WakaTime Coding Analytics @duyet',
+  description: 'Programming activity, language statistics, and coding insights from WakaTime',
 }
 
 const WAKA_CODING_ACTIVITY_API =
@@ -19,7 +18,6 @@ const WAKA_LANGUAGES_API =
 export default async function Wakatime() {
   const codingActivity = await getWakaCodingActivity()
   const languages = await getWakaLanguages()
-  const top10Languages = languages.slice(0, 10)
   
   const totalHours = codingActivity.reduce((sum, day) => sum + parseFloat(day['Coding Hours']), 0)
   const avgDailyHours = totalHours / codingActivity.length
@@ -27,132 +25,135 @@ export default async function Wakatime() {
   const daysActive = codingActivity.filter(day => parseFloat(day['Coding Hours']) > 0).length
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-purple-950">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center space-x-3 mb-4">
-            <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900">
-              <Code className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Coding Dashboard
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400">
-                Programming activity and language statistics
-              </p>
-            </div>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="border-b pb-6">
+        <h1 className="text-2xl font-bold tracking-tight">Coding Analytics</h1>
+        <p className="text-muted-foreground mt-1">
+          Programming activity and language statistics from WakaTime
+        </p>
+      </div>
+
+      {/* Main Content */}
+      <div className="space-y-8">
+        {/* Coding Metrics */}
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Coding Overview</h2>
+            <p className="text-sm text-muted-foreground">Programming activity summary for the last 30 days</p>
           </div>
-        </div>
-
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <MetricCard
-            title="Total Hours"
-            value={totalHours.toFixed(1)}
-            description="Last 30 days"
-            icon={<Clock className="h-6 w-6" />}
-            change={{ value: 22, label: "vs last month" }}
-          />
-          <MetricCard
-            title="Daily Average"
-            value={avgDailyHours.toFixed(1)}
-            description="Hours per day"
-            icon={<Zap className="h-6 w-6" />}
-            change={{ value: 15, label: "vs last month" }}
-          />
-          <MetricCard
-            title="Active Days"
-            value={daysActive.toString()}
-            description="Days with activity"
-            icon={<Calendar className="h-6 w-6" />}
-            change={{ value: 8, label: "vs last month" }}
-          />
-          <MetricCard
-            title="Top Language"
-            value={topLanguage?.name || 'N/A'}
-            description={`${topLanguage?.percent || 0}% of time`}
-            icon={<Code className="h-6 w-6" />}
-          />
-        </div>
-
-        {/* Coding Activity Chart */}
-        <div className="rounded-xl border bg-card p-6 shadow-sm mb-8">
-          <h2 className="text-xl font-semibold mb-4 flex items-center space-x-2">
-            <Clock className="h-5 w-5 text-blue-600" />
-            <span>Daily Coding Activity</span>
-          </h2>
-          <BarChart
-            categories={['Coding Hours']}
-            data={codingActivity}
-            index="range.date"
-          />
-          <TextDataSource>Wakatime • Last 30 days</TextDataSource>
-        </div>
-
-        {/* Languages Section */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Languages List */}
-          <div className="rounded-xl border bg-card p-6 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Code className="h-5 w-5 text-green-600" />
-                <span>Programming Languages</span>
-              </div>
-              <span className="text-sm text-muted-foreground">Usage %</span>
-            </h2>
-            <BarList
-              data={top10Languages.map((language) => ({
-                name: language.name,
-                value: language.percent,
-              }))}
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <CompactMetric
+              label="Total Hours"
+              value={totalHours.toFixed(1)}
+              icon={<Clock className="h-4 w-4" />}
+              change={totalHours > 0 ? { value: 22 } : undefined}
+            />
+            <CompactMetric
+              label="Daily Average"
+              value={avgDailyHours.toFixed(1)}
+              icon={<Zap className="h-4 w-4" />}
+              change={avgDailyHours > 0 ? { value: 15 } : undefined}
+            />
+            <CompactMetric
+              label="Active Days"
+              value={daysActive.toString()}
+              icon={<Calendar className="h-4 w-4" />}
+              change={daysActive > 0 ? { value: 8 } : undefined}
+            />
+            <CompactMetric
+              label="Top Language"
+              value={topLanguage?.name || 'N/A'}
+              icon={<Code className="h-4 w-4" />}
             />
           </div>
+        </div>
 
-          {/* Languages Pie Chart */}
-          <div className="rounded-xl border bg-card p-6 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4">Language Distribution</h2>
-            <div className="flex justify-center">
-              <DonutChart
-                category="percent"
-                className="w-64 h-64"
-                data={languages.slice(0, 8)}
-                index="name"
-                showLabel
-                variant="pie"
-              />
+        {/* Coding Activity */}
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Daily Activity</h2>
+            <p className="text-sm text-muted-foreground">Coding hours over the last 30 days</p>
+          </div>
+          <div className="rounded-lg border bg-card p-4">
+            <div className="mb-4">
+              <h3 className="font-medium">Coding Hours Trend</h3>
+              <p className="text-xs text-muted-foreground">Daily programming activity</p>
+            </div>
+            <BarChart
+              categories={['Coding Hours']}
+              data={codingActivity}
+              index="range.date"
+            />
+          </div>
+        </div>
+
+        {/* Programming Languages */}
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Programming Languages</h2>
+            <p className="text-sm text-muted-foreground">Language usage and distribution</p>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Languages List */}
+            <div className="rounded-lg border bg-card p-4">
+              <div className="mb-4">
+                <h3 className="font-medium">Most Used Languages</h3>
+                <p className="text-xs text-muted-foreground">Top 8 by usage percentage</p>
+              </div>
+              <LanguageBarChart data={languages} />
+            </div>
+
+            {/* Languages Distribution */}
+            <div className="rounded-lg border bg-card p-4">
+              <div className="mb-4">
+                <h3 className="font-medium">Language Distribution</h3>
+                <p className="text-xs text-muted-foreground">Visual breakdown by usage</p>
+              </div>
+              <div className="flex justify-center">
+                <DonutChart
+                  category="percent"
+                  data={languages.slice(0, 8)}
+                  index="name"
+                  showLabel
+                  variant="pie"
+                />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Activity Calendar */}
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
-          <h2 className="text-xl font-semibold mb-4 flex items-center space-x-2">
-            <Calendar className="h-5 w-5 text-purple-600" />
-            <span>Yearly Activity Calendar</span>
-          </h2>
-          <StaticCard
-            extra={
-              <Image
-                alt="Wakatime Badge"
-                className="mt-3"
-                height={30}
-                src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
-                unoptimized
-                width={200}
-              />
-            }
-            source="Wakatime (Last Year)"
-            title="Coding Activity Heatmap"
-            url={{
-              light: 'https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg',
-              dark: 'https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg',
-            }}
-          />
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Yearly Activity</h2>
+            <p className="text-sm text-muted-foreground">Annual coding activity heatmap</p>
+          </div>
+          <div className="rounded-lg border bg-card p-4">
+            <StaticCard
+              extra={
+                <Image
+                  alt="Wakatime Badge"
+                  className="mt-3"
+                  height={30}
+                  src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
+                  unoptimized
+                  width={200}
+                />
+              }
+              source="WakaTime (Last Year)"
+              title="Coding Activity Heatmap"
+              url={{
+                light: 'https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg',
+                dark: 'https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg',
+              }}
+            />
+          </div>
         </div>
 
-        <TextDataSource>Wakatime Analytics • All time data</TextDataSource>
+        <p className="text-xs text-muted-foreground">
+          Data from WakaTime • Updated daily
+        </p>
       </div>
     </div>
   )
@@ -184,6 +185,10 @@ async function getWakaCodingActivity() {
   return data.map((item) => ({
     ...item,
     'Coding Hours': (item.grand_total.total_seconds / 3600).toFixed(1),
+    range: {
+      ...item.range,
+      date: new Date(item.range.date).toISOString().split('T')[0], // Ensure YYYY-MM-DD format
+    },
   }))
 }
 

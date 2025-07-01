@@ -1,7 +1,6 @@
-import { BarList } from '@/components/charts'
-import { MetricCard } from '@/components/ui/metric-card'
-import { TextDataSource } from '../../components/text-data-source'
-import { TrendingUp, Users, FileText } from 'lucide-react'
+import { CompactMetric } from '@/components/ui/compact-metric'
+import { PopularContentTable } from '@/components/popular-content-table'
+import { Users, FileText, TrendingUp } from 'lucide-react'
 
 const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
 
@@ -25,49 +24,54 @@ export async function PostHog() {
   const totalViews = paths.reduce((sum, path) => sum + path.views, 0)
   const avgVisitorsPerPage = Math.round(totalVisitors / paths.length)
 
+  const metrics = [
+    {
+      label: 'Total Visitors',
+      value: totalVisitors.toLocaleString(),
+      icon: <Users className="h-4 w-4" />,
+      change: totalVisitors > 0 ? { value: 18 } : undefined
+    },
+    {
+      label: 'Page Views',
+      value: totalViews.toLocaleString(),
+      icon: <FileText className="h-4 w-4" />,
+      change: totalViews > 0 ? { value: 25 } : undefined
+    },
+    {
+      label: 'Avg per Page',
+      value: avgVisitorsPerPage.toLocaleString(),
+      icon: <TrendingUp className="h-4 w-4" />,
+      change: avgVisitorsPerPage > 0 ? { value: 10 } : undefined
+    },
+  ]
+
   return (
     <div className="space-y-6">
       {/* Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <MetricCard
-          title="Total Visitors"
-          value={totalVisitors.toLocaleString()}
-          description={`Last ${last} days`}
-          icon={<Users className="h-6 w-6" />}
-          change={{ value: 18, label: "vs previous period" }}
-        />
-        <MetricCard
-          title="Page Views"
-          value={totalViews.toLocaleString()}
-          description={`Last ${last} days`}
-          icon={<FileText className="h-6 w-6" />}
-          change={{ value: 25, label: "vs previous period" }}
-        />
-        <MetricCard
-          title="Avg per Page"
-          value={avgVisitorsPerPage.toLocaleString()}
-          description="Visitors per page"
-          icon={<TrendingUp className="h-6 w-6" />}
-          change={{ value: 10, label: "vs previous period" }}
-        />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {metrics.map((metric) => (
+          <CompactMetric
+            key={metric.label}
+            label={metric.label}
+            value={metric.value}
+            change={metric.change}
+            icon={metric.icon}
+          />
+        ))}
       </div>
 
-      {/* Top Content List */}
-      <div className="rounded-lg border bg-card p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold">Most Popular Content</h3>
-          <span className="text-sm text-muted-foreground">Visitors</span>
-        </div>
-        <BarList
-          data={paths.map((path) => ({
-            name: path.path.replace(/^\//, '').replace(/\/$/, '') || 'Home',
-            value: path.visitors,
-            href: process.env.NEXT_PUBLIC_DUYET_BLOG_URL + path.path,
-          }))}
-        />
-      </div>
+      {/* Popular Content Table */}
+      <PopularContentTable
+        data={paths.map((path) => ({
+          name: path.path,
+          value: path.visitors,
+          href: process.env.NEXT_PUBLIC_DUYET_BLOG_URL + path.path,
+        }))}
+      />
 
-      <TextDataSource>PostHog Analytics • Last {last} days</TextDataSource>
+      <p className="text-xs text-muted-foreground">
+        Data from PostHog • Last {last} days
+      </p>
     </div>
   )
 }
@@ -120,10 +124,25 @@ async function getTopPath(
   })
 
   const data = (await raw.json()) as PostHogResponse
-
-  return data.results.map((result) => ({
-    path: result[0] as string,
-    visitors: result[1] as number,
-    views: result[2] as number,
-  }))
+  
+  // Map data based on column structure
+  const pathIndex = data.columns.findIndex(col => col.toLowerCase().includes('page') || col.toLowerCase().includes('path'))
+  const visitorsIndex = data.columns.findIndex(col => col.toLowerCase().includes('visitor') || col.toLowerCase().includes('unique'))
+  const viewsIndex = data.columns.findIndex(col => col.toLowerCase().includes('view') || col.toLowerCase().includes('pageview'))
+  
+  return data.results.map((result) => {
+    const pathValue = result[pathIndex >= 0 ? pathIndex : 0] as string
+    const visitorsData = result[visitorsIndex >= 0 ? visitorsIndex : 1]
+    const viewsData = result[viewsIndex >= 0 ? viewsIndex : 2]
+    
+    // Handle array format [count, comparison] or simple number
+    const visitors = Array.isArray(visitorsData) ? Number(visitorsData[0]) || 0 : Number(visitorsData) || 0
+    const views = Array.isArray(viewsData) ? Number(viewsData[0]) || 0 : Number(viewsData) || 0
+    
+    return {
+      path: pathValue,
+      visitors,
+      views,
+    }
+  })
 }
