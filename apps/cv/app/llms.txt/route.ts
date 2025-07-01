@@ -4,51 +4,58 @@ import { cvData } from '@/config/cv.data'
 
 export const dynamic = 'force-static'
 
-function formatResponsibility(item: unknown): string {
-  if (typeof item === 'string') {
-    return item
-  }
-  // For JSX elements, extract just the text content
-  if (typeof item === 'object' && item && 'props' in item && 
-      typeof item.props === 'object' && item.props && 'children' in item.props) {
-    return extractTextContent(item.props.children)
-  }
-  return String(item)
+// Type guard to check for a JSX-like element, improving readability and reducing repetition.
+function isJsxElement(value: unknown): value is { props: { children?: unknown; text?: unknown } } {
+  return value !== null && typeof value === 'object' && 'props' in value && (value as { props: unknown }).props !== null;
 }
 
 function extractTextContent(content: unknown): string {
-  if (typeof content === 'string') {
-    return content
+  if (content === null || typeof content === 'undefined') {
+    return '';
+  }
+  if (typeof content === 'string' || typeof content === 'number') {
+    return String(content);
   }
   if (Array.isArray(content)) {
-    return content.map(extractTextContent).join('')
+    return content.map(extractTextContent).join('');
   }
-  if (typeof content === 'object' && content && 'props' in content && 
-      typeof content.props === 'object' && content.props && 'children' in content.props) {
-    return extractTextContent(content.props.children)
+  if (isJsxElement(content)) {
+    // Recursively extract content from children if they exist.
+    if ('children' in content.props) {
+      return extractTextContent(content.props.children);
+    }
+    // Otherwise, check for a text prop as a fallback.
+    if ('text' in content.props) {
+      return String(content.props.text);
+    }
   }
-  if (typeof content === 'object' && content && 'props' in content && 
-      typeof content.props === 'object' && content.props && 'text' in content.props) {
-    return String(content.props.text)
-  }
-  return ''
+  return '';
+}
+
+// `formatResponsibility` can now be a simple, clear alias for the robust extraction function.
+function formatResponsibility(item: unknown): string {
+  return extractTextContent(item);
+}
+
+// Extract date formatting logic to reduce repetition
+function formatDateRange(from: Date, to?: Date): string {
+  const formatDate = (date: Date) => date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
+  return to ? `${formatDate(from)} - ${formatDate(to)}` : `${formatDate(from)} - Present`
 }
 
 export async function GET() {
-  const { personal, experience, education } = cvData
+  const { personal, experience, education, skills } = cvData
 
   const llmsContent = `# ${personal.name} | ${personal.title}
 
 ${personal.contacts.map(contact => contact.label).join(' · ')}
 
-Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in ClickHouse, Spark, Airflow, Python, Rust.
+${personal.overview}
 
 ## Experience
 
 ${experience.map(exp => {
-  const period = exp.to 
-    ? `${exp.from.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - ${exp.to.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}`
-    : `${exp.from.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - Present`
+  const period = formatDateRange(exp.from, exp.to)
   
   return `### ${exp.title}
 ${exp.company} (${period})
@@ -59,17 +66,21 @@ ${exp.responsibilities.map(resp => `• ${formatResponsibility(resp.item)}`).joi
 ## Education
 
 ${education.map(edu => {
-  return `### ${edu.major}
-${edu.university}
-${edu.thesis}
-${edu.thesisUrl ? `Thesis URL: ${edu.thesisUrl}` : ''}`
+  const parts = [
+    `### ${edu.major}`,
+    edu.university,
+    edu.thesis,
+    edu.thesisUrl ? `Thesis URL: ${edu.thesisUrl}` : ''
+  ].filter(Boolean)
+  return parts.join('\n')
 }).join('\n\n')}
 
 ## Skills
 
-**Data Engineering:** ClickHouse, Spark, Kafka, Airflow, AWS, BigQuery, Data Studio, Python, Rust, Typescript.
-
-**DevOps:** CI/CD, Kubernetes, Helm.
+${skills.map(skillGroup => {
+  const skillList = skillGroup.skills.map(skill => skill.name).join(', ')
+  return `**${skillGroup.name}:** ${skillList}.`
+}).join('\n\n')}
 
 ---
 
