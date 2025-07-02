@@ -22,6 +22,13 @@ export function DonutChart({ data, index, category, variant = "donut", showLabel
     })
   )
 
+  // Custom label function to show language names
+  const renderLabel = showLabel ? (entry: Record<string, unknown>) => {
+    const name = String(entry[index] || '')
+    const value = Number(entry[category] || 0)
+    return value > 5 ? name : '' // Only show label if percentage > 5%
+  } : false
+
   return (
     <ChartContainer config={chartConfig} className={className}>
       <PieChart>
@@ -33,7 +40,8 @@ export function DonutChart({ data, index, category, variant = "donut", showLabel
           innerRadius={variant === "donut" ? "60%" : "0%"}
           outerRadius="80%"
           paddingAngle={2}
-          label={showLabel}
+          label={renderLabel}
+          labelLine={false}
         >
           {data.map((_, i) => (
             <Cell key={`cell-${i}`} fill={CHART_COLORS[i % CHART_COLORS.length]} />
