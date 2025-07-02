@@ -119,7 +119,7 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   
   // Fetch all repositories
   const reposResponse = await fetch(
-    `https://api.github.com/search/repositories?q=user:${owner}&sort=updated&per_page=100&type=all`,
+    `https://api.github.com/search/repositories?q=user:${owner}+is:public&sort=updated&per_page=100`,
     {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
@@ -135,7 +135,7 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   }
 
   const reposData = await reposResponse.json()
-  const repos = reposData.items || []
+  const repos = reposData.items || [] // Already filtered for public repos in the query
 
   // Calculate repository stats
   const totalRepos = repos.length
