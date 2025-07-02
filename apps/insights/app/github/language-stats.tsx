@@ -1,6 +1,7 @@
 import { DonutChart } from '@/components/charts'
 import { CompactMetric } from '@/components/ui/compact-metric'
 import { Code, GitBranch, Archive, Star } from 'lucide-react'
+import { fetchAllRepositories } from './github-utils'
 
 const owner = 'duyet'
 
@@ -117,30 +118,14 @@ export async function GitHubLanguageStats() {
 async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   console.log(`Fetching GitHub language stats for ${owner}`)
   
-  // Fetch all repositories
-  const reposResponse = await fetch(
-    `https://api.github.com/search/repositories?q=user:${owner}+is:public&sort=updated&per_page=100`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3+json',
-      },
-      cache: 'force-cache',
-    }
-  )
-
-  if (!reposResponse.ok) {
-    console.error('Failed to fetch repositories:', reposResponse.statusText)
-    return { languages: [], totalRepos: 0, totalStars: 0, archivedRepos: 0, activeRepos: 0 }
-  }
-
-  const reposData = await reposResponse.json()
-  const repos = reposData.items || [] // Already filtered for public repos in the query
+  // Fetch all repositories with pagination
+  const repos = await fetchAllRepositories(owner)
+  console.log(`Found ${repos.length} public repositories for ${owner}`)
 
   // Calculate repository stats
   const totalRepos = repos.length
-  const totalStars = repos.reduce((sum: number, repo: { stargazers_count?: number }) => sum + (repo.stargazers_count || 0), 0)
-  const archivedRepos = repos.filter((repo: { archived?: boolean }) => repo.archived).length
+  const totalStars = repos.reduce((sum: number, repo) => sum + (repo.stargazers_count || 0), 0)
+  const archivedRepos = repos.filter((repo) => repo.archived).length
   const activeRepos = totalRepos - archivedRepos
 
   // Aggregate languages across all repositories
@@ -193,3 +178,4 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     activeRepos,
   }
 }
+

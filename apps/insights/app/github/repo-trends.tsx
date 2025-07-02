@@ -1,5 +1,6 @@
 import { CompactMetric } from '@/components/ui/compact-metric'
 import { Star, GitFork, TrendingUp, Eye } from 'lucide-react'
+import { fetchAllRepositories, type GitHubRepository } from './github-utils'
 
 const owner = 'duyet'
 
@@ -142,37 +143,13 @@ async function getTrendStats(owner: string): Promise<TrendStats> {
   console.log(`Fetching GitHub trend stats for ${owner}`)
   
   try {
-    // Fetch all repositories
-    const reposResponse = await fetch(
-      `https://api.github.com/search/repositories?q=user:${owner}+is:public&sort=updated&per_page=100`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-          Accept: 'application/vnd.github.v3+json',
-        },
-        cache: 'force-cache',
-      }
-    )
-
-    if (!reposResponse.ok) {
-      console.error('Failed to fetch repositories:', reposResponse.statusText)
-      return getEmptyTrendStats()
-    }
-
-    const reposData = await reposResponse.json()
-    const repos = reposData.items || [] // Already filtered for public repos in the query
+    // Fetch all repositories with pagination
+    const repos = await fetchAllRepositories(owner)
+    console.log(`Found ${repos.length} public repositories for trends analysis`)
 
     // Convert to trend data
     const repoTrends: RepoTrend[] = repos
-      .map((repo: { 
-        name: string; 
-        stargazers_count?: number; 
-        forks_count?: number; 
-        watchers_count?: number; 
-        updated_at: string; 
-        language?: string; 
-        size?: number 
-      }) => ({
+      .map((repo: GitHubRepository) => ({
         name: repo.name,
         stars: repo.stargazers_count || 0,
         forks: repo.forks_count || 0,
@@ -218,3 +195,4 @@ function getEmptyTrendStats(): TrendStats {
     trendingRepos: []
   }
 }
+
