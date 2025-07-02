@@ -187,7 +187,10 @@ async function getWakaCodingActivity() {
     'Coding Hours': (item.grand_total.total_seconds / 3600).toFixed(1),
     range: {
       ...item.range,
-      date: new Date(item.range.date).toISOString().split('T')[0], // Ensure YYYY-MM-DD format
+      // Check if date is already in YYYY-MM-DD format to avoid timezone shifts
+      date: /^\d{4}-\d{2}-\d{2}$/.test(item.range.date) 
+        ? item.range.date 
+        : new Date(item.range.date).toISOString().split('T')[0],
     },
   }))
 }

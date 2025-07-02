@@ -125,15 +125,37 @@ async function getTopPath(
 
   const data = (await raw.json()) as PostHogResponse
   
-  // Map data based on column structure
-  const pathIndex = data.columns.findIndex(col => col.toLowerCase().includes('page') || col.toLowerCase().includes('path'))
-  const visitorsIndex = data.columns.findIndex(col => col.toLowerCase().includes('visitor') || col.toLowerCase().includes('unique'))
-  const viewsIndex = data.columns.findIndex(col => col.toLowerCase().includes('view') || col.toLowerCase().includes('pageview'))
+  // Map data based on column structure with validation
+  const pathIndex = data.columns.findIndex(col => 
+    col.toLowerCase().includes('page') || 
+    col.toLowerCase().includes('path') ||
+    col.toLowerCase().includes('breakdown_value')
+  )
+  const visitorsIndex = data.columns.findIndex(col => 
+    col.toLowerCase().includes('visitor') || 
+    col.toLowerCase().includes('unique')
+  )
+  const viewsIndex = data.columns.findIndex(col => 
+    col.toLowerCase().includes('view') || 
+    col.toLowerCase().includes('pageview')
+  )
+  
+  // Validate that we found the expected columns
+  if (pathIndex === -1 || visitorsIndex === -1 || viewsIndex === -1) {
+    console.warn('PostHog columns not found as expected:', { 
+      columns: data.columns, 
+      pathIndex, 
+      visitorsIndex, 
+      viewsIndex 
+    })
+    // Return empty array instead of potentially incorrect data
+    return []
+  }
   
   return data.results.map((result) => {
-    const pathValue = result[pathIndex >= 0 ? pathIndex : 0] as string
-    const visitorsData = result[visitorsIndex >= 0 ? visitorsIndex : 1]
-    const viewsData = result[viewsIndex >= 0 ? viewsIndex : 2]
+    const pathValue = result[pathIndex] as string
+    const visitorsData = result[visitorsIndex]
+    const viewsData = result[viewsIndex]
     
     // Handle array format [count, comparison] or simple number
     const visitors = Array.isArray(visitorsData) ? Number(visitorsData[0]) || 0 : Number(visitorsData) || 0
