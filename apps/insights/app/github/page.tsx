@@ -3,6 +3,9 @@ import { SkeletonCard } from '../../components/skeleton-card'
 import { GithubActivity } from './activity'
 import { GithubCard } from './card'
 import { Repos } from './repos'
+import { GitHubLanguageStats } from './language-stats'
+import { CommitTimeline } from './commit-timeline'
+import { RepoTrends } from './repo-trends'
 
 const owner = 'duyet'
 
@@ -27,6 +30,28 @@ export default function Page() {
 
       {/* Main Content */}
       <div className="space-y-8">
+        {/* Language Distribution */}
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Language Distribution</h2>
+            <p className="text-sm text-muted-foreground">Programming languages and repository statistics</p>
+          </div>
+          <Suspense fallback={<SkeletonCard />}>
+            <GitHubLanguageStats />
+          </Suspense>
+        </div>
+
+        {/* Repository Trends */}
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Repository Trends</h2>
+            <p className="text-sm text-muted-foreground">Stars, forks, and trending repositories</p>
+          </div>
+          <Suspense fallback={<SkeletonCard />}>
+            <RepoTrends />
+          </Suspense>
+        </div>
+
         {/* Repository Analytics */}
         <div>
           <div className="mb-4">
@@ -35,6 +60,17 @@ export default function Page() {
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <Repos owner={owner} />
+          </Suspense>
+        </div>
+
+        {/* Commit Timeline */}
+        <div>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Commit Activity</h2>
+            <p className="text-sm text-muted-foreground">Weekly commit frequency and patterns</p>
+          </div>
+          <Suspense fallback={<SkeletonCard />}>
+            <CommitTimeline />
           </Suspense>
         </div>
 
