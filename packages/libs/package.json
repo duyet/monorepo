@@ -24,9 +24,9 @@
     "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
     "@duyet/tsconfig": "*",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^30.0.0",
     "eslint": "*",
-    "jest": "^29.7.0",
+    "jest": "^30.0.0",
     "prettier": "*",
     "ts-jest": "^29.1.4",
     "typescript": "*"
