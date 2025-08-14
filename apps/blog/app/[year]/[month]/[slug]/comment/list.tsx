@@ -1,3 +1,5 @@
+'use client'
+
 import { useAuth0 } from '@auth0/auth0-react'
 import CommentContent from '@duyet/components/CommentContent'
 import type { Comment } from '@duyet/interfaces'

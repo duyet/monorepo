@@ -1,25 +1,24 @@
 "use client";
 
-import { ReactElement, JSXElementConstructor, useEffect, useState } from "react";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { ReactElement, JSXElementConstructor } from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import Auth0Provider to avoid SSR issues
+const Auth0Provider = dynamic(
+  () => import("@auth0/auth0-react").then((mod) => mod.Auth0Provider),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 export default function Providers({
   children,
 }: {
   children: ReactElement<any, string | JSXElementConstructor<any>>;
 }) {
-  const [isClient, setIsClient] = useState(false);
-  
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const redirect_uri = isClient ? window.location.origin : "";
-
-  // Don't render Auth0Provider during SSR
-  if (!isClient) {
-    return children;
-  }
+  // For SSR, we need a fallback that doesn't use window
+  const redirect_uri = typeof window !== "undefined" ? window.location.origin : "";
 
   return (
     <Auth0Provider
