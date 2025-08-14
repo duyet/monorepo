@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, JSXElementConstructor } from "react";
+import { ReactElement, JSXElementConstructor, useEffect, useState } from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 export default function Providers({
@@ -8,10 +8,18 @@ export default function Providers({
 }: {
   children: ReactElement<any, string | JSXElementConstructor<any>>;
 }) {
-  const redirect_uri =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "";
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const redirect_uri = isClient ? window.location.origin : "";
+
+  // Don't render Auth0Provider during SSR
+  if (!isClient) {
+    return children;
+  }
 
   return (
     <Auth0Provider

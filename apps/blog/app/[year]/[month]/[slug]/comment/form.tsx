@@ -26,7 +26,6 @@ export default function CommentForm({
   const { isAuthenticated, user, logout, loginWithPopup } = useAuth0()
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- TODO: fix this
     <form onSubmit={onSubmit}>
       <textarea
         className={textareaClasses}
@@ -72,7 +71,7 @@ export default function CommentForm({
         ) : (
           <button
             className={btnClasses}
-            onClick={() => loginWithPopup()} // eslint-disable-line @typescript-eslint/no-misused-promises -- TODO: fix this
+            onClick={() => loginWithPopup()}
             type="button"
           >
             Log In
