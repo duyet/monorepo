@@ -7,7 +7,7 @@ import Footer from '@duyet/components/Footer'
 import Head from '@duyet/components/Head'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { cn } from '@duyet/libs/utils'
-import { AxiomWebVitals } from 'next-axiom'
+// import { AxiomWebVitals } from 'next-axiom'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({
@@ -38,7 +38,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <Head />
-      <AxiomWebVitals />
+      {/* <AxiomWebVitals /> */}
       <body
         className={cn(
           'bg-white text-gray-700 subpixel-antialiased',

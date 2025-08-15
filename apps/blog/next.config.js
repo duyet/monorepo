@@ -1,4 +1,4 @@
-const { withAxiom } = require('next-axiom')
+// const { withAxiom } = require('next-axiom')
 const redirects = require('./next.redirects')
 
 /**
@@ -18,4 +18,5 @@ const config = {
   redirects,
 }
 
-module.exports = withAxiom(config)
+module.exports = config
+// module.exports = withAxiom(config)
