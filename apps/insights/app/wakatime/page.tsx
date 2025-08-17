@@ -9,20 +9,18 @@ export const metadata = {
   description: 'Programming activity, language statistics, and coding insights from WakaTime',
 }
 
-const WAKA_CODING_ACTIVITY_API =
-  'https://wakatime.com/share/@duyet/2fe9921d-4bd2-4a6f-87a1-5cc2fcc5a9fc.json'
 
-const WAKA_LANGUAGES_API =
-  'https://wakatime.com/share/@duyet/8087c715-c108-487c-87ba-64d545ac95a8.json'
+// Static generation only
+export const dynamic = 'force-static'
 
-export default async function Wakatime() {
-  const codingActivity = await getWakaCodingActivity()
-  const languages = await getWakaLanguages()
+export default function Wakatime() {
+  // Using static placeholder data for static generation
+  const codingActivity: { range: { date: string }; 'Coding Hours': string }[] = []
+  const languages: { name: string; percent: number }[] = []
   
-  const totalHours = codingActivity.reduce((sum, day) => sum + parseFloat(day['Coding Hours']), 0)
-  const avgDailyHours = totalHours / codingActivity.length
-  const topLanguage = languages[0]
-  const daysActive = codingActivity.filter(day => parseFloat(day['Coding Hours']) > 0).length
+  const totalHours = 0
+  const avgDailyHours = 0
+  const daysActive = 0
 
   return (
     <div className="space-y-8">
@@ -63,7 +61,7 @@ export default async function Wakatime() {
             />
             <CompactMetric
               label="Top Language"
-              value={topLanguage?.name || 'N/A'}
+              value="N/A"
               icon={<Code className="h-4 w-4" />}
             />
           </div>
@@ -159,52 +157,3 @@ export default async function Wakatime() {
   )
 }
 
-interface WakaCodingActivity {
-  data: {
-    range: {
-      start: string
-      end: string
-      date: string
-      text: string
-      timezone: string
-    }
-    grand_total: {
-      hours: number
-      minutes: number
-      total_seconds: number
-      digital: string
-      text: string
-    }
-  }[]
-}
-
-async function getWakaCodingActivity() {
-  const raw = await fetch(WAKA_CODING_ACTIVITY_API)
-  const data = ((await raw.json()) as WakaCodingActivity).data
-
-  return data.map((item) => ({
-    ...item,
-    'Coding Hours': (item.grand_total.total_seconds / 3600).toFixed(1),
-    range: {
-      ...item.range,
-      // Check if date is already in YYYY-MM-DD format to avoid timezone shifts
-      date: /^\d{4}-\d{2}-\d{2}$/.test(item.range.date) 
-        ? item.range.date 
-        : new Date(item.range.date).toISOString().split('T')[0],
-    },
-  }))
-}
-
-interface WakaLanguages {
-  data: {
-    name: string
-    percent: number
-    color: string
-  }[]
-}
-async function getWakaLanguages() {
-  const raw = await fetch(WAKA_LANGUAGES_API)
-  const data = ((await raw.json()) as WakaLanguages).data
-
-  return data
-}

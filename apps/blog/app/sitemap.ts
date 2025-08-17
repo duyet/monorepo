@@ -3,6 +3,9 @@ import { getAllCategories, getAllPosts } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
 import type { MetadataRoute } from 'next'
 
+// Static generation for sitemap
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = 'https://blog.duyet.net'
   const posts = getAllPosts(['slug', 'title', 'excerpt', 'date'], 100000)

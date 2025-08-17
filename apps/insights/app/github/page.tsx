@@ -14,8 +14,8 @@ export const metadata = {
   description: 'GitHub repository analytics and development activity insights',
 }
 
-// Revalidate every 24 hours
-export const revalidate = 86400
+// Static generation only
+export const dynamic = 'force-static'
 
 export default function Page() {
   return (

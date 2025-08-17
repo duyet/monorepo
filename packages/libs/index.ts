@@ -1,5 +1,4 @@
 export * from "./clearUrl";
-export * from "./comment";
 export * from "./date";
 export * from "./fetcher";
 export * from "./getPost";

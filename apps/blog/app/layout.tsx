@@ -2,7 +2,6 @@ import '@duyet/components/styles.css'
 import './globals.css'
 
 import Analytics from '@duyet/components/Analytics'
-import Auth0Provider from '@duyet/components/Auth0Provider'
 import Footer from '@duyet/components/Footer'
 import Head from '@duyet/components/Head'
 import ThemeProvider from '@duyet/components/ThemeProvider'
@@ -45,13 +44,11 @@ export default function RootLayout({
           'transition-colors duration-1000 dark:bg-slate-900 dark:text-slate-50',
         )}
       >
-        <Auth0Provider>
-          <ThemeProvider>
-            {children}
-            <Footer />
-            <Analytics />
-          </ThemeProvider>
-        </Auth0Provider>
+        <ThemeProvider>
+          {children}
+          <Footer />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -5,9 +5,11 @@ const redirects = require('./next.redirects')
  * @type {import('next').NextConfig}
  */
 const config = {
+  output: 'export',
   transpilePackages: ['@duyet/components', '@duyet/libs'],
   images: {
     dangerouslyAllowSVG: true,
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -15,7 +17,8 @@ const config = {
       },
     ],
   },
-  redirects,
+  // Redirects don't work with static export
+  // redirects,
 }
 
 module.exports = config

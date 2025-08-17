@@ -1,4 +1,4 @@
-import { getSeries } from '@duyet/libs/getSeries'
+import { getAllSeries, getSeries } from '@duyet/libs/getSeries'
 import { notFound } from 'next/navigation'
 import { SeriesBox } from '../../../components/series'
 
@@ -8,6 +8,13 @@ interface PageProps {
   params: Promise<{
     slug: string
   }>
+}
+
+export async function generateStaticParams() {
+  const allSeries = getAllSeries()
+  return allSeries.map((series) => ({
+    slug: series.slug,
+  }))
 }
 
 export default async function SeriesPage({ params }: PageProps) {

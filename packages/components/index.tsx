@@ -1,6 +1,4 @@
 export { default as Analytics } from "./Analytics";
-export { default as Auth0Provider } from "./Auth0Provider";
-export { default as CommentContent } from "./CommentContent";
 export { default as Container } from "./Container";
 export { default as Feed } from "./Feed";
 export { default as Footer } from "./Footer";
