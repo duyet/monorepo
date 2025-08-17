@@ -1,3 +1,5 @@
+'use client'
+
 import Error from '@duyet/components/Error'
 
 export default function NotFound() {
