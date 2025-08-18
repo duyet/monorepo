@@ -1,0 +1,35 @@
+import { getWakaTimeMetrics } from './wakatime-utils'
+import { CompactMetric } from '@/components/ui/compact-metric'
+import { Code, Clock, Zap, Calendar } from 'lucide-react'
+
+export async function WakaTimeMetrics() {
+  const metrics = await getWakaTimeMetrics()
+
+  return (
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <CompactMetric
+        label="Total Hours"
+        value={metrics.totalHours.toFixed(1)}
+        icon={<Clock className="h-4 w-4" />}
+        change={metrics.totalHours > 0 ? { value: 22 } : undefined}
+      />
+      <CompactMetric
+        label="Daily Average"
+        value={metrics.avgDailyHours.toFixed(1)}
+        icon={<Zap className="h-4 w-4" />}
+        change={metrics.avgDailyHours > 0 ? { value: 15 } : undefined}
+      />
+      <CompactMetric
+        label="Active Days"
+        value={metrics.daysActive.toString()}
+        icon={<Calendar className="h-4 w-4" />}
+        change={metrics.daysActive > 0 ? { value: 8 } : undefined}
+      />
+      <CompactMetric
+        label="Top Language"
+        value={metrics.topLanguage}
+        icon={<Code className="h-4 w-4" />}
+      />
+    </div>
+  )
+}

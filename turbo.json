@@ -27,7 +27,8 @@
     "POSTGRES_USER",
     "POSTHOG_API_KEY",
     "POSTHOG_PROJECT_ID",
-    "GITHUB_TOKEN"
+    "GITHUB_TOKEN",
+    "WAKATIME_API_KEY"
   ],
   "globalDependencies": [".env", ".env.local"],
   "tasks": {

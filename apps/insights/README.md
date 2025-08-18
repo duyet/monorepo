@@ -1,45 +1,31 @@
-# Duyet Insights
+# Insights Dashboard
 
-- **Live: https://insights.duyet.net**
-- **Live: https://duyet-insights.vercel.app**
+Analytics dashboard showing GitHub activity, WakaTime coding statistics, and more.
 
-## Deployment
+## Environment Variables
 
-If you would like to deploy your own instance of the blog, follow these instructions:
+Copy `.env.local.example` to `.env.local` and fill in the following variables:
 
-### `1` Clone the repository:
+### Required for WakaTime Integration
+- `WAKATIME_API_KEY` - Get your API key from [WakaTime Settings](https://wakatime.com/api-key)
+
+### Other API Keys
+- `GITHUB_TOKEN` - GitHub personal access token for repository analytics
+- `POSTHOG_API_KEY` / `POSTHOG_PROJECT_ID` - PostHog analytics
+- `NEXT_PUBLIC_CLOUDFLARE_*` - Cloudflare analytics
+- `KV_*` - Vercel KV Redis storage
+
+## WakaTime Setup
+
+1. Sign up at [wakatime.com](https://wakatime.com)
+2. Install WakaTime plugins for your editors/IDEs
+3. Get your API key from [WakaTime Settings](https://wakatime.com/api-key)
+4. Add `WAKATIME_API_KEY=your_api_key_here` to `.env.local`
+
+## Development
 
 ```bash
-git clone https://github.com/duyet/monorepo.git
-
+yarn dev
 ```
 
-### `2` Set up environment variables
-
-Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
-
-```bash
-cp .env.local.example .env.local
-```
-
-or clone from Vercel deploy
-
-```bash
-vercel env pull .env.local
-```
-
-### `5` Configuring Cloudflare
-
-Follow this to create Cloudflare API key:
-https://developers.cloudflare.com/analytics/graphql-api/getting-started/authentication/api-key-auth/
-
-- `NEXT_PUBLIC_CLOUDFLARE_API_KEY`: Cloudflare API Key
-- `NEXT_PUBLIC_CLOUDFLARE_ZONE_ID`: Cloudflare Zone, see https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/
-
-## Deploy Your Local Project
-
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket
-and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=upstash-roadmap).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to
-match your `.env.local` file.
+Visit http://localhost:3001 to see the dashboard.
