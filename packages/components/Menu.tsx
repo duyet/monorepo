@@ -6,6 +6,8 @@ const BLOG_URL =
   process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
 const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
+const PHOTO_URL =
+  process.env.NEXT_PUBLIC_DUYET_PHOTO_URL || "https://photos.duyet.net";
 
 export type NavigationItem = {
   name: string;
@@ -14,10 +16,11 @@ export type NavigationItem = {
 
 export const ABOUT = { name: "About", href: `${BLOG_URL}/about` };
 export const INSIGHTS = { name: "Insights", href: INSIGHTS_URL };
+export const PHOTOS = { name: "Photos", href: PHOTO_URL };
 export const ARCHIVES = { name: "Archives", href: `${BLOG_URL}/archives` };
 export const FEED = { name: "Feed", href: `${BLOG_URL}/feed` };
 export const BLOG = { name: "Blog", href: `${BLOG_URL}` };
-const defaultNavigation = [FEED, INSIGHTS, ABOUT];
+const defaultNavigation = [FEED, PHOTOS, INSIGHTS, ABOUT];
 
 type Props = {
   className?: string;

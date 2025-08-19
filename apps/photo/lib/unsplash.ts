@@ -1,0 +1,101 @@
+import { createApi } from 'unsplash-js'
+import type { PhotosByYear, UnsplashPhoto } from './types'
+
+const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY
+const USERNAME = '_duyet'
+
+let unsplash: ReturnType<typeof createApi> | null = null
+
+if (UNSPLASH_ACCESS_KEY) {
+  unsplash = createApi({
+    accessKey: UNSPLASH_ACCESS_KEY,
+  })
+}
+
+export async function getUserPhotos(
+  page = 1,
+  perPage = 30,
+  orderBy = 'latest',
+): Promise<UnsplashPhoto[]> {
+  if (!unsplash) {
+    console.warn('UNSPLASH_ACCESS_KEY not configured, returning empty array')
+    return []
+  }
+
+  try {
+    const result = await unsplash.users.getPhotos({
+      username: USERNAME,
+      page,
+      perPage,
+      orderBy: orderBy as any,
+    })
+
+    if (result.errors) {
+      console.error('Unsplash API errors:', result.errors)
+      throw new Error('Failed to fetch photos from Unsplash')
+    }
+
+    return (result.response?.results || []) as unknown as UnsplashPhoto[]
+  } catch (error) {
+    console.error('Error fetching user photos:', error)
+    throw error
+  }
+}
+
+export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
+  const allPhotos: UnsplashPhoto[] = []
+  let page = 1
+  let hasMore = true
+
+  while (hasMore) {
+    try {
+      const photos = await getUserPhotos(page, 30, 'latest')
+
+      if (photos.length === 0) {
+        hasMore = false
+      } else {
+        allPhotos.push(...photos)
+        page++
+
+        // Respect rate limits - add a small delay
+        await new Promise((resolve) => setTimeout(resolve, 100))
+      }
+    } catch (error) {
+      console.error(`Error fetching page ${page}:`, error)
+      hasMore = false
+    }
+  }
+
+  return allPhotos
+}
+
+export function groupPhotosByYear(photos: UnsplashPhoto[]): PhotosByYear {
+  return photos.reduce((acc: PhotosByYear, photo) => {
+    const year = new Date(photo.created_at).getFullYear().toString()
+
+    if (!acc[year]) {
+      acc[year] = []
+    }
+
+    acc[year].push(photo)
+    return acc
+  }, {})
+}
+
+export function getPhotosByYear(
+  photos: UnsplashPhoto[],
+  year: string,
+): UnsplashPhoto[] {
+  return photos.filter((photo) => {
+    const photoYear = new Date(photo.created_at).getFullYear().toString()
+    return photoYear === year
+  })
+}
+
+export function formatPhotoDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
