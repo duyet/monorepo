@@ -36,7 +36,7 @@ export default function Lightbox({
   totalCount,
 }: LightboxProps) {
   const [isLoading, setIsLoading] = useState(true)
-  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(true)
 
   // Keyboard navigation
   useEffect(() => {
@@ -68,6 +68,13 @@ export default function Lightbox({
   useEffect(() => {
     setIsLoading(true)
   }, [photo.id])
+
+  // Reset to fullscreen when lightbox opens
+  useEffect(() => {
+    if (isOpen) {
+      setIsFullscreen(true)
+    }
+  }, [isOpen])
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
