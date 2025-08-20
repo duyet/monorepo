@@ -288,6 +288,7 @@ export default function Lightbox({
                               </div>
                             </div>
                           )}
+                        </div>
                       </div>
                     </div>
                   </div>
