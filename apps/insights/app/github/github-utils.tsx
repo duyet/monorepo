@@ -14,8 +14,10 @@ export async function fetchAllRepositories(owner: string): Promise<GitHubReposit
   const allRepos: GitHubRepository[] = []
   let page = 1
   const perPage = 100
+  let retryCount = 0
+  const maxRetries = 3
   
-  while (true) {
+  while (page <= 10) { // GitHub Search API limit: 1000 results max (10 pages of 100)
     try {
       console.log(`Fetching repositories page ${page} for ${owner}`)
       
@@ -26,12 +28,31 @@ export async function fetchAllRepositories(owner: string): Promise<GitHubReposit
             Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
             Accept: 'application/vnd.github.v3+json',
           },
-          cache: 'force-cache',
+          next: { revalidate: 3600 }, // Cache for 1 hour instead of force-cache
         }
       )
 
+      // Handle rate limiting
+      if (response.status === 403 || response.status === 429) {
+        const retryAfter = response.headers.get('retry-after')
+        
+        if (retryCount < maxRetries) {
+          const waitTime = retryAfter 
+            ? parseInt(retryAfter) * 1000 
+            : Math.pow(2, retryCount) * 1000 // Exponential backoff: 1s, 2s, 4s
+          
+          console.warn(`Rate limited on page ${page}. Retrying in ${waitTime}ms (attempt ${retryCount + 1}/${maxRetries})`)
+          await new Promise(resolve => setTimeout(resolve, waitTime))
+          retryCount++
+          continue
+        } else {
+          console.error(`Rate limit exceeded after ${maxRetries} retries. Stopping.`)
+          break
+        }
+      }
+
       if (!response.ok) {
-        console.error(`Failed to fetch repositories page ${page}:`, response.statusText)
+        console.error(`Failed to fetch repositories page ${page}:`, response.status, response.statusText)
         break
       }
 
@@ -50,17 +71,21 @@ export async function fetchAllRepositories(owner: string): Promise<GitHubReposit
       }
       
       page++
-      
-      // GitHub Search API has a limit of 1000 results (10 pages of 100)
-      // But let's add a safety limit to prevent infinite loops
-      if (page > 20) {
-        console.warn(`Reached page limit (${page}), stopping pagination`)
-        break
-      }
+      retryCount = 0 // Reset retry count on successful request
       
     } catch (error) {
       console.error(`Error fetching repositories page ${page}:`, error)
-      break
+      
+      if (retryCount < maxRetries) {
+        const waitTime = Math.pow(2, retryCount) * 1000 // Exponential backoff
+        console.warn(`Retrying page ${page} in ${waitTime}ms (attempt ${retryCount + 1}/${maxRetries})`)
+        await new Promise(resolve => setTimeout(resolve, waitTime))
+        retryCount++
+        continue
+      } else {
+        console.error(`Failed to fetch page ${page} after ${maxRetries} retries. Stopping.`)
+        break
+      }
     }
   }
   

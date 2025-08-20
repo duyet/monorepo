@@ -8,5 +8,11 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_DUYET_INSIGHTS_URL: string
     readonly NEXT_PUBLIC_DUYET_CV_URL: string
     readonly NEXT_PUBLIC_MEASUREMENT_ID: string
+    readonly GITHUB_TOKEN: string
+    readonly WAKATIME_API_KEY: string
+    readonly CLOUDFLARE_API_TOKEN: string
+    readonly CLOUDFLARE_ZONE_ID: string
+    readonly POSTHOG_API_KEY: string
+    readonly POSTHOG_PROJECT_ID: string
   }
 }

@@ -8,5 +8,6 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_DUYET_INSIGHTS_URL: string
     readonly NEXT_PUBLIC_DUYET_CV_URL: string
     readonly NEXT_PUBLIC_MEASUREMENT_ID: string
+    readonly NEXT_PUBLIC_GITHUB_REPO_URL: string
   }
 }

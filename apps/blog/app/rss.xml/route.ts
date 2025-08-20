@@ -6,7 +6,7 @@ const siteUrl = 'https://blog.duyet.net'
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const posts = getAllPosts(['slug', 'title', 'excerpt', 'date'], 100000)
+  const posts = getAllPosts(['slug', 'title', 'excerpt', 'date'], 50)
 
   const feed = new RSS({
     title: 'Tôi là Duyệt',
