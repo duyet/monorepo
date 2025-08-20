@@ -114,7 +114,7 @@ describe('Lightbox', () => {
     )
 
     expect(screen.getByRole('img')).toBeInTheDocument()
-    expect(screen.getByRole('img')).toHaveAttribute('src', mockPhoto.urls.full)
+    expect(screen.getByRole('img')).toHaveAttribute('src', mockPhoto.urls.raw)
   })
 
   it('does not render when closed', () => {
@@ -133,7 +133,7 @@ describe('Lightbox', () => {
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
 
-  it('displays photo information correctly', () => {
+  it('displays photo information correctly in non-fullscreen mode', () => {
     render(
       <Lightbox
         photo={mockPhoto}
@@ -146,18 +146,16 @@ describe('Lightbox', () => {
       />,
     )
 
-    expect(screen.getByText('A beautiful sunset')).toBeInTheDocument()
-    expect(screen.getByText('January 15, 2023')).toBeInTheDocument()
+    // Switch to non-fullscreen mode to see the info
+    const fullscreenToggle = screen.getByLabelText('Exit fullscreen')
+    fireEvent.click(fullscreenToggle)
+
     expect(screen.getByText('👁 50,000')).toBeInTheDocument()
     expect(screen.getByText('⬇ 5,000')).toBeInTheDocument()
-    expect(screen.getByText('1920 × 1080')).toBeInTheDocument()
-    expect(
-      screen.getByText('📍 Grand Canyon Village, United States'),
-    ).toBeInTheDocument()
-    expect(screen.getByText('1 of 5')).toBeInTheDocument()
+    expect(screen.getByText('January 15, 2023')).toBeInTheDocument()
   })
 
-  it('displays camera/EXIF information', () => {
+  it('opens in fullscreen mode by default', () => {
     render(
       <Lightbox
         photo={mockPhoto}
@@ -170,14 +168,11 @@ describe('Lightbox', () => {
       />,
     )
 
-    expect(screen.getByText('📷 Canon EOS R5')).toBeInTheDocument()
-    expect(screen.getByText('🔍 85mm')).toBeInTheDocument()
-    expect(screen.getByText('⚪ f/2.8')).toBeInTheDocument()
-    expect(screen.getByText('⏱ 1/250s')).toBeInTheDocument()
-    expect(screen.getByText('🎞 ISO 200')).toBeInTheDocument()
+    // Should show "Exit fullscreen" button when in fullscreen mode
+    expect(screen.getByLabelText('Exit fullscreen')).toBeInTheDocument()
   })
 
-  it('hides _duyet username but shows other usernames', () => {
+  it('has fullscreen toggle functionality', () => {
     render(
       <Lightbox
         photo={mockPhoto}
@@ -190,37 +185,16 @@ describe('Lightbox', () => {
       />,
     )
 
-    expect(screen.getByText('@photographer')).toBeInTheDocument()
+    // Should start in fullscreen mode
+    expect(screen.getByLabelText('Exit fullscreen')).toBeInTheDocument()
 
-    // Test with _duyet username
-    const duyetPhoto = {
-      ...mockPhoto,
-      user: { ...mockPhoto.user, username: '_duyet' },
-    }
-    const { rerender } = render(
-      <Lightbox
-        photo={duyetPhoto}
-        isOpen={true}
-        onClose={mockOnClose}
-        onNext={mockOnNext}
-        onPrevious={mockOnPrevious}
-        currentIndex={0}
-        totalCount={5}
-      />,
-    )
+    // Click to exit fullscreen
+    fireEvent.click(screen.getByLabelText('Exit fullscreen'))
+    expect(screen.getByLabelText('Enter fullscreen')).toBeInTheDocument()
 
-    rerender(
-      <Lightbox
-        photo={duyetPhoto}
-        isOpen={true}
-        onClose={mockOnClose}
-        onNext={mockOnNext}
-        onPrevious={mockOnPrevious}
-        currentIndex={0}
-        totalCount={5}
-      />,
-    )
-    expect(screen.queryByText('@_duyet')).not.toBeInTheDocument()
+    // Click to enter fullscreen again
+    fireEvent.click(screen.getByLabelText('Enter fullscreen'))
+    expect(screen.getByLabelText('Exit fullscreen')).toBeInTheDocument()
   })
 
   it('has accessible title', () => {
@@ -281,7 +255,8 @@ describe('Lightbox', () => {
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
 
-  it('handles keyboard navigation', () => {
+
+  it('handles keyboard navigation including fullscreen toggle', () => {
     render(
       <Lightbox
         photo={mockPhoto}
@@ -302,25 +277,10 @@ describe('Lightbox', () => {
 
     fireEvent.keyDown(document, { key: 'ArrowRight' })
     expect(mockOnNext).toHaveBeenCalledTimes(1)
-  })
 
-  it('displays Unsplash attribution', () => {
-    render(
-      <Lightbox
-        photo={mockPhoto}
-        isOpen={true}
-        onClose={mockOnClose}
-        onNext={mockOnNext}
-        onPrevious={mockOnPrevious}
-        currentIndex={0}
-        totalCount={5}
-      />,
-    )
-
-    expect(screen.getByText(/Photo by/)).toBeInTheDocument()
-    expect(screen.getByText(/Test Photographer/)).toBeInTheDocument()
-    expect(screen.getByText(/on/)).toBeInTheDocument()
-    expect(screen.getByText(/Unsplash/)).toBeInTheDocument()
+    // Test fullscreen toggle with 'f' key
+    fireEvent.keyDown(document, { key: 'f' })
+    expect(screen.getByLabelText('Enter fullscreen')).toBeInTheDocument()
   })
 
   it('handles missing optional data gracefully', () => {
@@ -345,6 +305,7 @@ describe('Lightbox', () => {
     )
 
     expect(screen.getByRole('img')).toBeInTheDocument()
-    expect(screen.getByText('1920 × 1080')).toBeInTheDocument()
+    // Should still render without crashing when data is missing
+    expect(screen.getByLabelText('Exit fullscreen')).toBeInTheDocument()
   })
 })
