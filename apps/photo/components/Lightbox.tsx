@@ -9,6 +9,8 @@ import {
   ChevronRight,
   Download,
   ExternalLink,
+  Expand,
+  Shrink,
   X,
 } from 'lucide-react'
 import Image from 'next/image'
@@ -34,6 +36,7 @@ export default function Lightbox({
   totalCount,
 }: LightboxProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   // Keyboard navigation
   useEffect(() => {
@@ -50,12 +53,16 @@ export default function Lightbox({
         case 'ArrowRight':
           onNext?.()
           break
+        case 'f':
+        case 'F':
+          setIsFullscreen(!isFullscreen)
+          break
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose, onNext, onPrevious])
+  }, [isOpen, onClose, onNext, onPrevious, isFullscreen])
 
   // Reset loading state when photo changes
   useEffect(() => {
@@ -66,29 +73,55 @@ export default function Lightbox({
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm" />
-        <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <Dialog.Content className={cn(
+          "fixed inset-0 z-50 flex items-center justify-center",
+          isFullscreen ? "p-0" : "p-4"
+        )}>
           {/* Hidden title for accessibility */}
           <Dialog.Title className="sr-only">
             {photo.description ||
               photo.alt_description ||
               `Photo by ${photo.user.name}`}
           </Dialog.Title>
-          <div className="relative h-full w-full max-w-7xl">
-            {/* Close button */}
-            <Dialog.Close asChild>
+          <div className={cn(
+            "relative h-full w-full",
+            isFullscreen ? "max-w-none" : "max-w-7xl"
+          )}>
+            {/* Top controls */}
+            <div className="absolute right-4 top-4 z-10 flex gap-2">
+              {/* Fullscreen toggle */}
               <button
-                className="absolute right-4 top-4 z-10 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-                aria-label="Close"
+                onClick={() => setIsFullscreen(!isFullscreen)}
+                className="rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
+                aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                title={isFullscreen ? "Exit fullscreen (F)" : "Enter fullscreen (F)"}
               >
-                <X className="h-6 w-6" />
+                {isFullscreen ? (
+                  <Shrink className="h-5 w-5" />
+                ) : (
+                  <Expand className="h-5 w-5" />
+                )}
               </button>
-            </Dialog.Close>
+              
+              {/* Close button */}
+              <Dialog.Close asChild>
+                <button
+                  className="rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
+                  aria-label="Close"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </Dialog.Close>
+            </div>
 
             {/* Navigation buttons */}
             {onPrevious && (
               <button
                 onClick={onPrevious}
-                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
+                className={cn(
+                  "absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70",
+                  isFullscreen ? "left-2" : "left-4"
+                )}
                 aria-label="Previous photo"
               >
                 <ChevronLeft className="h-8 w-8" />
@@ -98,7 +131,10 @@ export default function Lightbox({
             {onNext && (
               <button
                 onClick={onNext}
-                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
+                className={cn(
+                  "absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70",
+                  isFullscreen ? "right-2" : "right-4"
+                )}
                 aria-label="Next photo"
               >
                 <ChevronRight className="h-8 w-8" />
@@ -106,24 +142,34 @@ export default function Lightbox({
             )}
 
             {/* Main image container */}
-            <div className="flex h-full flex-col">
+            <div className={cn(
+              "flex h-full flex-col",
+              isFullscreen ? "p-0" : ""
+            )}>
               <div className="relative flex-1">
-                <Image
-                  src={photo.urls.full}
-                  alt={
-                    photo.alt_description ||
-                    photo.description ||
-                    'Photo by Duyệt'
-                  }
-                  fill
-                  className={cn(
-                    'object-contain transition-opacity duration-500',
-                    isLoading ? 'opacity-0' : 'opacity-100',
-                  )}
-                  onLoad={() => setIsLoading(false)}
-                  priority
-                  sizes="100vw"
-                />
+                <div 
+                  className="relative h-full w-full cursor-pointer" 
+                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  title={isFullscreen ? "Click to exit fullscreen" : "Click to enter fullscreen"}
+                >
+                  <Image
+                    src={photo.urls.raw}
+                    alt={
+                      photo.alt_description ||
+                      photo.description ||
+                      'Photo by Duyệt'
+                    }
+                    fill
+                    className={cn(
+                      'transition-opacity duration-500',
+                      isFullscreen ? 'object-contain' : 'object-contain',
+                      isLoading ? 'opacity-0' : 'opacity-100',
+                    )}
+                    onLoad={() => setIsLoading(false)}
+                    priority
+                    sizes={isFullscreen ? "100vw" : "(max-width: 1792px) 100vw, 1792px"}
+                  />
+                </div>
 
                 {/* Loading indicator */}
                 {isLoading && (
@@ -133,8 +179,9 @@ export default function Lightbox({
                 )}
               </div>
 
-              {/* Photo info panel */}
-              <div className="bg-black/80 p-4 text-white">
+              {/* Photo info panel - hidden in fullscreen */}
+              {!isFullscreen && (
+                <div className="bg-black/80 p-4 text-white">
                 <div className="mx-auto flex max-w-4xl items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-4">
@@ -269,7 +316,8 @@ export default function Lightbox({
                     )}
                   </div>
                 </div>
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </Dialog.Content>
