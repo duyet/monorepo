@@ -38,36 +38,44 @@ export async function getUserPhotos(
 
     const photos = (result.response?.results || []) as unknown as UnsplashPhoto[]
     
-    // Enrich photos with detailed information (location, EXIF)
-    const enrichedPhotos = await Promise.all(
-      photos.map(async (photo) => {
-        try {
-          const detailResult = await unsplash!.photos.get({ photoId: photo.id })
-          if (detailResult.response) {
-            const detailed = detailResult.response as any
-            return {
-              ...photo,
-              location: detailed.location,
-              exif: detailed.exif,
-              // Map statistics to our expected format
-              stats: photo.statistics ? {
-                views: photo.statistics.views?.total || 0,
-                downloads: photo.statistics.downloads?.total || 0,
-              } : undefined,
-            }
-          }
-          return photo
-        } catch (error) {
-          console.warn(`Failed to fetch details for photo ${photo.id}:`, error)
-          return photo
-        }
-      })
-    )
+    // Process photos with stats mapping only
+    const processedPhotos = photos.map(photo => {
+      return {
+        ...photo,
+        // Map statistics to our expected format if available
+        stats: photo.statistics ? {
+          views: photo.statistics.views?.total || 0,
+          downloads: photo.statistics.downloads?.total || 0,
+        } : undefined,
+      }
+    })
 
-    return enrichedPhotos
+    return processedPhotos
   } catch (error) {
     console.error('Error fetching user photos:', error)
     throw error
+  }
+}
+
+// Optional function to fetch detailed info for specific photo (used on demand)
+export async function getPhotoDetails(photoId: string): Promise<Partial<UnsplashPhoto> | null> {
+  if (!unsplash) {
+    return null
+  }
+
+  try {
+    const result = await unsplash.photos.get({ photoId })
+    if (result.response) {
+      const detailed = result.response as any
+      return {
+        location: detailed.location,
+        exif: detailed.exif,
+      }
+    }
+    return null
+  } catch (error) {
+    console.warn(`Failed to fetch details for photo ${photoId}:`, error)
+    return null
   }
 }
 
@@ -86,8 +94,8 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         allPhotos.push(...photos)
         page++
 
-        // Respect rate limits - add a small delay
-        await new Promise((resolve) => setTimeout(resolve, 100))
+        // Respect rate limits - add a delay to avoid hitting limits
+        await new Promise((resolve) => setTimeout(resolve, 500))
       }
     } catch (error) {
       console.error(`Error fetching page ${page}:`, error)
