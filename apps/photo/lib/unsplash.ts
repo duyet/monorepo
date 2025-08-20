@@ -52,6 +52,11 @@ export async function getUserPhotos(
 
     return processedPhotos
   } catch (error) {
+    // Check if it's a rate limit error
+    if (error instanceof Error && error.message.includes('expected JSON response')) {
+      console.warn(`Rate limit hit on page ${page}, returning empty array`)
+      return []
+    }
     console.error('Error fetching user photos:', error)
     throw error
   }
@@ -83,8 +88,9 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   const allPhotos: UnsplashPhoto[] = []
   let page = 1
   let hasMore = true
+  const maxPages = 3 // Limit to avoid rate limits
 
-  while (hasMore) {
+  while (hasMore && page <= maxPages) {
     try {
       const photos = await getUserPhotos(page, 30, 'latest')
 
@@ -94,12 +100,21 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         allPhotos.push(...photos)
         page++
 
-        // Respect rate limits - add a delay to avoid hitting limits
-        await new Promise((resolve) => setTimeout(resolve, 500))
+        // Respect rate limits - add a longer delay between requests
+        if (page <= maxPages) {
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+        }
       }
     } catch (error) {
       console.error(`Error fetching page ${page}:`, error)
-      hasMore = false
+      
+      // If we hit rate limits, stop fetching more pages but return what we have
+      if (error instanceof Error && error.message.includes('expected JSON response')) {
+        console.warn('Likely hit rate limits, stopping at page', page - 1)
+        hasMore = false
+      } else {
+        hasMore = false
+      }
     }
   }
 
