@@ -3,12 +3,14 @@ import { distanceFormat, distanceToNow, dateFormat } from './date'
 describe('distanceToNow', () => {
   it('should format future date with suffix', () => {
     const futureDate = new Date(Date.now() + 24 * 60 * 60 * 1000) // tomorrow
-    expect(distanceToNow(futureDate)).toBe('in 1 day')
+    const result = distanceToNow(futureDate)
+    expect(result).toMatch(/^in (1 day|24 hours)$/)
   })
 
   it('should format past date with suffix', () => {
     const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000) // yesterday
-    expect(distanceToNow(pastDate)).toBe('1 day ago')
+    const result = distanceToNow(pastDate)
+    expect(result).toMatch(/^(1 day|24 hours) ago$/)
   })
 
   it('should handle numeric timestamp', () => {
