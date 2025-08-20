@@ -225,92 +225,19 @@ export default function Lightbox({
                   )}
                 </div>
 
-                {/* Photo info panel - shown in normal mode only */}
-                <div className="bg-black/80 p-4 text-white">
-                  <div className="mx-auto flex max-w-4xl items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-1">
-                          {photo.description && (
-                            <h2 className="text-lg font-semibold leading-tight">
-                              {photo.description}
-                            </h2>
-                          )}
-                          <div className="mt-1 flex items-center gap-4 text-sm text-gray-300">
-                            <span>{formatPhotoDate(photo.created_at)}</span>
-                            <span>•</span>
-                            {photo.stats && (
-                              <>
-                                <span className="flex items-center gap-1">
-                                  👁 {photo.stats.views.toLocaleString()}
-                                </span>
-                                <span>•</span>
-                                <span className="flex items-center gap-1">
-                                  ⬇ {photo.stats.downloads.toLocaleString()}
-                                </span>
-                                <span>•</span>
-                              </>
-                            )}
-                            <span>
-                              {photo.width} × {photo.height}
-                            </span>
-                            {photo.location &&
-                              (photo.location.city || photo.location.country) && (
-                                <>
-                                  <span>•</span>
-                                  <span>
-                                    📍{' '}
-                                    {[photo.location.city, photo.location.country]
-                                      .filter(Boolean)
-                                      .join(', ')}
-                                  </span>
-                                </>
-                              )}
-                          </div>
-                          {(photo.exif?.make ||
-                            photo.exif?.model ||
-                            photo.exif?.aperture ||
-                            photo.exif?.exposure_time ||
-                            photo.exif?.focal_length ||
-                            photo.exif?.iso) && (
-                            <div className="mt-2 text-xs text-gray-400">
-                              <div className="flex flex-wrap items-center gap-4">
-                                {photo.exif.make && photo.exif.model && (
-                                  <span>
-                                    📷 {photo.exif.make} {photo.exif.model}
-                                  </span>
-                                )}
-                                {photo.exif.focal_length && (
-                                  <span>🔍 {photo.exif.focal_length}mm</span>
-                                )}
-                                {photo.exif.aperture && (
-                                  <span>⚪ f/{photo.exif.aperture}</span>
-                                )}
-                                {photo.exif.exposure_time && (
-                                  <span>⏱ {photo.exif.exposure_time}s</span>
-                                )}
-                                {photo.exif.iso && (
-                                  <span>🎞 ISO {photo.exif.iso}</span>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Compact action bar */}
-                  <div className="flex items-center justify-between">
+                {/* Minimal info bar - shown in normal mode only */}
+                <div className="bg-black/60 px-3 py-1">
+                  <div className="flex items-center justify-between text-xs text-gray-400">
+                    {/* Left side - actions */}
                     <div className="flex items-center gap-3">
                       <a
                         href={photo.links.html}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs text-gray-400 transition-colors hover:text-white"
+                        className="flex items-center gap-1 transition-colors hover:text-white"
                         title="View original"
                       >
-                        <ExternalLink className="h-3.5 w-3.5" />
+                        <ExternalLink className="h-3 w-3" />
                         View
                       </a>
                       <a
@@ -318,27 +245,24 @@ export default function Lightbox({
                         target="_blank"
                         rel="noopener noreferrer"
                         download
-                        className="flex items-center gap-1.5 text-xs text-gray-400 transition-colors hover:text-white"
+                        className="flex items-center gap-1 transition-colors hover:text-white"
                         title="Download photo"
                       >
-                        <Download className="h-3.5 w-3.5" />
+                        <Download className="h-3 w-3" />
                         Download
                       </a>
                     </div>
                     
-                    {/* Stats */}
-                    {photo.stats && (
-                      <div className="flex items-center gap-3 text-xs text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <span className="text-gray-400">👁</span>
-                          {photo.stats.views.toLocaleString()}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <span className="text-gray-400">⬇</span>
-                          {photo.stats.downloads.toLocaleString()}
-                        </span>
-                      </div>
-                    )}
+                    {/* Right side - compact info */}
+                    <div className="flex items-center gap-2">
+                      {photo.stats && (
+                        <>
+                          <span>👁 {photo.stats.views.toLocaleString()}</span>
+                          <span>⬇ {photo.stats.downloads.toLocaleString()}</span>
+                        </>
+                      )}
+                      <span>{formatPhotoDate(photo.created_at)}</span>
+                    </div>
                   </div>
                 </div>
               </div>
