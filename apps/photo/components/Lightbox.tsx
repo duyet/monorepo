@@ -154,15 +154,12 @@ export default function Lightbox({
 
             {/* Main image container */}
             {isFullscreen ? (
-              // Fullscreen mode: maximize width, allow scrolling for tall images
-              <div className="w-full">
+              // Fullscreen mode: maximize both width and height from top to bottom
+              <div className="flex h-screen w-full items-center justify-center">
                 <div 
-                  className="relative w-full cursor-pointer" 
+                  className="relative h-full w-full cursor-pointer" 
                   onClick={() => setIsFullscreen(!isFullscreen)}
                   title="Click to exit fullscreen"
-                  style={{
-                    aspectRatio: `${photo.width} / ${photo.height}`,
-                  }}
                 >
                   <Image
                     src={photo.urls.raw}
@@ -171,10 +168,9 @@ export default function Lightbox({
                       photo.description ||
                       'Photo by Duyệt'
                     }
-                    width={photo.width}
-                    height={photo.height}
+                    fill
                     className={cn(
-                      'h-auto w-full transition-opacity duration-500',
+                      'object-contain transition-opacity duration-500',
                       isLoading ? 'opacity-0' : 'opacity-100',
                     )}
                     onLoad={() => setIsLoading(false)}
@@ -185,7 +181,7 @@ export default function Lightbox({
 
                 {/* Loading indicator */}
                 {isLoading && (
-                  <div className="fixed inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <div className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent" />
                   </div>
                 )}
