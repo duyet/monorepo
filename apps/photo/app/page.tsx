@@ -56,16 +56,7 @@ export default async function PhotosPage() {
             >
               Unsplash profile
             </a>
-            . All photos are powered by{' '}
-            <a
-              href="https://unsplash.com/?utm_source=duyet_photo_gallery&utm_medium=referral"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-gray-900 dark:hover:text-white"
-            >
-              Unsplash
-            </a>
-            .
+.
           </div>
 
           {years.length > 0 && (
