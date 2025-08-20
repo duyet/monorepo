@@ -1,7 +1,14 @@
 export const clearUrl = (url: string) => {
-  const { origin, pathname } = new URL(url);
-  const cleanedPathname = pathname.replace(/\/+$/, "").replace(/^\/+/, "");
-  return cleanedPathname ? `${origin}/${cleanedPathname}` : origin;
+  try {
+    const urlObj = new URL(url);
+    // Remove query parameters and hash by only using origin and pathname
+    const { origin, pathname } = urlObj;
+    // Remove trailing slashes and collapse multiple slashes
+    const cleanedPathname = pathname.replace(/\/+$/, "").replace(/\/+/g, "/").replace(/^\/+/, "");
+    return cleanedPathname ? `${origin}/${cleanedPathname}` : origin;
+  } catch (error) {
+    throw new Error("Invalid URL");
+  }
 };
 
 export default clearUrl;

@@ -14,6 +14,10 @@ export default function Tags() {
   const groupedTagsByAlphabet: Record<string, TagCount> = Object.entries(
     sortedTags,
   ).reduce<Record<string, TagCount>>((acc, [tag, count]) => {
+    // Safety check: ensure tag exists and has at least one character
+    if (!tag || tag.length === 0) {
+      return acc
+    }
     const firstLetter = tag[0].toUpperCase()
     acc[firstLetter] = { ...acc[firstLetter], [tag]: count }
     return acc
