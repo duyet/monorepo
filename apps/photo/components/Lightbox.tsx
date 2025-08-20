@@ -252,23 +252,13 @@ export default function Lightbox({
                   </div>
                 </div>
 
-                {/* Unsplash attribution */}
-                <div className="border-t border-white/10 px-4 py-2 text-center text-xs text-gray-400">
-                  Photo by{' '}
-                  <a
-                    href={photo.user.links.html}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:underline"
-                  >
-                    {photo.user.name}
-                  </a>{' '}
-                  on{' '}
+                {/* Compact Unsplash attribution */}
+                <div className="border-t border-white/10 px-4 py-1 text-center text-xs text-gray-500">
                   <a
                     href="https://unsplash.com/?utm_source=duyet_photo_gallery&utm_medium=referral"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:underline"
+                    className="hover:text-gray-300"
                   >
                     Unsplash
                   </a>

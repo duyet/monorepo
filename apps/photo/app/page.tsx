@@ -97,17 +97,6 @@ export default async function PhotosPage() {
                 <p className="text-gray-500 dark:text-gray-400">
                   No photos available at the moment.
                 </p>
-                <p className="mt-2 text-sm text-gray-400 dark:text-gray-500">
-                  Photos will be loaded from{' '}
-                  <a
-                    href="https://unsplash.com/@_duyet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    @_duyet on Unsplash
-                  </a>
-                </p>
               </div>
             </div>
           </Container>
