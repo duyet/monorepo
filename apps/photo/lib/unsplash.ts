@@ -28,6 +28,7 @@ export async function getUserPhotos(
       page,
       perPage,
       orderBy: orderBy as any,
+      stats: true, // Include statistics (views, downloads)
     })
 
     if (result.errors) {
@@ -35,7 +36,35 @@ export async function getUserPhotos(
       throw new Error('Failed to fetch photos from Unsplash')
     }
 
-    return (result.response?.results || []) as unknown as UnsplashPhoto[]
+    const photos = (result.response?.results || []) as unknown as UnsplashPhoto[]
+    
+    // Enrich photos with detailed information (location, EXIF)
+    const enrichedPhotos = await Promise.all(
+      photos.map(async (photo) => {
+        try {
+          const detailResult = await unsplash!.photos.get({ photoId: photo.id })
+          if (detailResult.response) {
+            const detailed = detailResult.response as any
+            return {
+              ...photo,
+              location: detailed.location,
+              exif: detailed.exif,
+              // Map statistics to our expected format
+              stats: photo.statistics ? {
+                views: photo.statistics.views?.total || 0,
+                downloads: photo.statistics.downloads?.total || 0,
+              } : undefined,
+            }
+          }
+          return photo
+        } catch (error) {
+          console.warn(`Failed to fetch details for photo ${photo.id}:`, error)
+          return photo
+        }
+      })
+    )
+
+    return enrichedPhotos
   } catch (error) {
     console.error('Error fetching user photos:', error)
     throw error

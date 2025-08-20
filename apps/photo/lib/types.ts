@@ -24,6 +24,18 @@ export interface UnsplashPhoto {
     download_location: string
   }
   likes: number
+  // Raw statistics from API (when stats=true)
+  statistics?: {
+    downloads?: {
+      total: number
+    }
+    views?: {
+      total: number
+    }
+    likes?: {
+      total: number
+    }
+  }
   // Enhanced fields for better display
   stats?: {
     downloads: number

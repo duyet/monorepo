@@ -228,40 +228,46 @@ export default function Lightbox({
                     </div>
                   </div>
 
-                  {/* Action buttons */}
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={photo.links.html}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-lg bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-                      title="View on Unsplash"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                    <a
-                      href={photo.urls.full}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download
-                      className="rounded-lg bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-                      title="Download photo"
-                    >
-                      <Download className="h-5 w-5" />
-                    </a>
+                  {/* Compact action bar */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={photo.links.html}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs text-gray-400 transition-colors hover:text-white"
+                        title="View original"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        View
+                      </a>
+                      <a
+                        href={photo.urls.full}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                        className="flex items-center gap-1.5 text-xs text-gray-400 transition-colors hover:text-white"
+                        title="Download photo"
+                      >
+                        <Download className="h-3.5 w-3.5" />
+                        Download
+                      </a>
+                    </div>
+                    
+                    {/* Stats */}
+                    {photo.stats && (
+                      <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <span className="text-gray-400">👁</span>
+                          {photo.stats.views.toLocaleString()}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="text-gray-400">⬇</span>
+                          {photo.stats.downloads.toLocaleString()}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                </div>
-
-                {/* Compact Unsplash attribution */}
-                <div className="border-t border-white/10 px-4 py-1 text-center text-xs text-gray-500">
-                  <a
-                    href="https://unsplash.com/?utm_source=duyet_photo_gallery&utm_medium=referral"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-gray-300"
-                  >
-                    Unsplash
-                  </a>
                 </div>
               </div>
             </div>
