@@ -1,6 +1,6 @@
-import { getWakaTimeMetrics } from './wakatime-utils'
 import { CompactMetric } from '@/components/ui/compact-metric'
-import { Code, Clock, Zap, Calendar } from 'lucide-react'
+import { Calendar, Clock, Code, Zap } from 'lucide-react'
+import { getWakaTimeMetrics } from './wakatime-utils'
 
 export async function WakaTimeMetrics() {
   const metrics = await getWakaTimeMetrics()

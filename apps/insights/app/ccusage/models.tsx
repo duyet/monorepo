@@ -1,0 +1,66 @@
+import { DonutChart, LanguageBarChart } from '@/components/charts'
+import { getCCUsageModels } from './ccusage-utils'
+import { useModelChartData, usePerformanceMonitor } from './hooks'
+import type { CCUsageModelsProps } from './types'
+
+export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps) {
+  const models = await getCCUsageModels(days)
+  const { tokenChartData, costChartData } = useModelChartData(models)
+  const { logRenderTime } = usePerformanceMonitor('CCUsageModels', models.length)
+  
+  // Log performance for many models
+  if (models.length > 20) {
+    logRenderTime()
+  }
+  
+  if (!models.length) {
+    return (
+      <div className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}>
+        <p className="text-muted-foreground">No model data available</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Model usage distribution will appear here once data is available
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`grid gap-6 lg:grid-cols-2 ${className || ''}`}>
+      {/* Token Usage Distribution */}
+      <div className="rounded-lg border bg-card p-4">
+        <div className="mb-4">
+          <h3 className="font-medium">Token Usage by Model</h3>
+          <p className="text-xs text-muted-foreground">
+            Top 10 AI models by token usage
+          </p>
+        </div>
+        <LanguageBarChart data={tokenChartData} />
+        <div className="mt-3 text-xs text-muted-foreground">
+          Percentages based on total token consumption over last 30 days
+        </div>
+      </div>
+
+      {/* Cost Distribution */}
+      <div className="rounded-lg border bg-card p-4">
+        <div className="mb-4">
+          <h3 className="font-medium">Cost Distribution by Model</h3>
+          <p className="text-xs text-muted-foreground">
+            Cost breakdown by AI model
+          </p>
+        </div>
+        <div className="flex justify-center">
+          <DonutChart
+            category="percent"
+            data={costChartData.slice(0, 8)} // Top 8 for better visibility
+            index="name"
+            showLabel
+            variant="pie"
+          />
+        </div>
+        <div className="mt-3 text-center text-xs text-muted-foreground">
+          Shows top 8 models by cost. Percentages based on total spending.
+        </div>
+      </div>
+    </div>
+  )
+}

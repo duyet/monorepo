@@ -1,6 +1,6 @@
 import { DonutChart } from '@/components/charts'
 import { CompactMetric } from '@/components/ui/compact-metric'
-import { Code, GitBranch, Archive, Star } from 'lucide-react'
+import { Archive, Code, GitBranch, Star } from 'lucide-react'
 import { fetchAllRepositories } from './github-utils'
 
 const owner = 'duyet'
@@ -21,19 +21,19 @@ export async function GitHubLanguageStats() {
       label: 'Total Repos',
       value: stats.totalRepos.toString(),
       icon: <GitBranch className="h-4 w-4" />,
-      change: stats.totalRepos > 0 ? { value: 12 } : undefined
+      change: stats.totalRepos > 0 ? { value: 12 } : undefined,
     },
     {
       label: 'Total Stars',
       value: stats.totalStars.toLocaleString(),
       icon: <Star className="h-4 w-4" />,
-      change: stats.totalStars > 0 ? { value: 8 } : undefined
+      change: stats.totalStars > 0 ? { value: 8 } : undefined,
     },
     {
       label: 'Active Repos',
       value: stats.activeRepos.toString(),
       icon: <Code className="h-4 w-4" />,
-      change: stats.activeRepos > 0 ? { value: 15 } : undefined
+      change: stats.activeRepos > 0 ? { value: 15 } : undefined,
     },
     {
       label: 'Archived',
@@ -58,12 +58,14 @@ export async function GitHubLanguageStats() {
       </div>
 
       {/* Language Distribution */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid gap-6 lg:grid-cols-2">
         {/* Language Chart */}
         <div className="rounded-lg border bg-card p-4">
           <div className="mb-4">
             <h3 className="font-medium">Language Distribution</h3>
-            <p className="text-xs text-muted-foreground">Programming languages across all repositories</p>
+            <p className="text-xs text-muted-foreground">
+              Programming languages across all repositories
+            </p>
           </div>
           <div className="flex justify-center">
             <DonutChart
@@ -80,13 +82,18 @@ export async function GitHubLanguageStats() {
         <div className="rounded-lg border bg-card p-4">
           <div className="mb-4">
             <h3 className="font-medium">Top Languages</h3>
-            <p className="text-xs text-muted-foreground">Most used programming languages</p>
+            <p className="text-xs text-muted-foreground">
+              Most used programming languages
+            </p>
           </div>
           <div className="space-y-3">
             {stats.languages.slice(0, 6).map((lang, index) => (
-              <div key={lang.name} className="flex items-center justify-between">
+              <div
+                key={lang.name}
+                className="flex items-center justify-between"
+              >
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono w-4 text-center text-muted-foreground">
+                  <span className="w-4 text-center font-mono text-xs text-muted-foreground">
                     {index + 1}
                   </span>
                   <span className="text-sm font-medium">{lang.name}</span>
@@ -95,10 +102,10 @@ export async function GitHubLanguageStats() {
                   <span className="text-xs text-muted-foreground">
                     {lang.percentage.toFixed(1)}%
                   </span>
-                  <div 
-                    className="w-12 h-2 rounded-full bg-muted"
+                  <div
+                    className="h-2 w-12 rounded-full bg-muted"
                     style={{
-                      background: `linear-gradient(to right, hsl(var(--chart-${(index % 5) + 1})) ${lang.percentage}%, hsl(var(--muted)) ${lang.percentage}%)`
+                      background: `linear-gradient(to right, hsl(var(--chart-${(index % 5) + 1})) ${lang.percentage}%, hsl(var(--muted)) ${lang.percentage}%)`,
                     }}
                   />
                 </div>
@@ -117,26 +124,29 @@ export async function GitHubLanguageStats() {
 
 async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   console.log(`Fetching GitHub language stats for ${owner}`)
-  
+
   // Fetch all repositories with pagination
   const repos = await fetchAllRepositories(owner)
   console.log(`Found ${repos.length} public repositories for ${owner}`)
 
   // Calculate repository stats
   const totalRepos = repos.length
-  const totalStars = repos.reduce((sum: number, repo) => sum + (repo.stargazers_count || 0), 0)
+  const totalStars = repos.reduce(
+    (sum: number, repo) => sum + (repo.stargazers_count || 0),
+    0,
+  )
   const archivedRepos = repos.filter((repo) => repo.archived).length
   const activeRepos = totalRepos - archivedRepos
 
   // Aggregate languages across all repositories
   const languageBytes: Record<string, number> = {}
-  
+
   // Get language data for each repository (limit to top 20 to avoid rate limits)
   const topRepos = repos.slice(0, 20)
-  
+
   for (const repo of topRepos) {
     if (repo.archived || !repo.name) continue
-    
+
     try {
       const langResponse = await fetch(
         `https://api.github.com/repos/${owner}/${repo.name}/languages`,
@@ -146,7 +156,7 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
             Accept: 'application/vnd.github.v3+json',
           },
           cache: 'force-cache',
-        }
+        },
       )
 
       if (langResponse.ok) {
@@ -161,12 +171,15 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   }
 
   // Calculate percentages
-  const totalBytes = Object.values(languageBytes).reduce((sum, bytes) => sum + bytes, 0)
+  const totalBytes = Object.values(languageBytes).reduce(
+    (sum, bytes) => sum + bytes,
+    0,
+  )
   const languages = Object.entries(languageBytes)
     .map(([name, bytes]) => ({
       name,
       bytes,
-      percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0
+      percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0,
     }))
     .sort((a, b) => b.percentage - a.percentage)
 
@@ -178,4 +191,3 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     activeRepos,
   }
 }
-

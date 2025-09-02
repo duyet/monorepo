@@ -651,6 +651,18 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@clickhouse/client-common@1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@clickhouse/client-common/-/client-common-1.12.1.tgz#e6900d98316076c4e99f91a95c433dd714c77516"
+  integrity sha512-ccw1N6hB4+MyaAHIaWBwGZ6O2GgMlO99FlMj0B0UEGfjxM9v5dYVYql6FpP19rMwrVAroYs/IgX2vyZEBvzQLg==
+
+"@clickhouse/client@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@clickhouse/client/-/client-1.12.1.tgz#6379542c5bfdc227477853945ce6ba7916653eae"
+  integrity sha512-7ORY85rphRazqHzImNXMrh4vsaPrpetFoTWpZYueCO2bbO6PXYDXp/GQ4DgxnGIqbWB/Di1Ai+Xuwq2o7DJ36A==
+  dependencies:
+    "@clickhouse/client-common" "1.12.1"
+
 "@commitlint/cli@^19.0.0":
   version "19.8.1"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-19.8.1.tgz#85f7d9f331344e1f0a2b9d8b24fd3695466e1158"

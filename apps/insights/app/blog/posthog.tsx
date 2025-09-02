@@ -1,6 +1,6 @@
-import { CompactMetric } from '@/components/ui/compact-metric'
 import { PopularContentTable } from '@/components/popular-content-table'
-import { Users, FileText, TrendingUp } from 'lucide-react'
+import { CompactMetric } from '@/components/ui/compact-metric'
+import { FileText, TrendingUp, Users } from 'lucide-react'
 
 const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
 
@@ -29,19 +29,19 @@ export async function PostHog() {
       label: 'Total Visitors',
       value: totalVisitors.toLocaleString(),
       icon: <Users className="h-4 w-4" />,
-      change: totalVisitors > 0 ? { value: 18 } : undefined
+      change: totalVisitors > 0 ? { value: 18 } : undefined,
     },
     {
       label: 'Page Views',
       value: totalViews.toLocaleString(),
       icon: <FileText className="h-4 w-4" />,
-      change: totalViews > 0 ? { value: 25 } : undefined
+      change: totalViews > 0 ? { value: 25 } : undefined,
     },
     {
       label: 'Avg per Page',
       value: avgVisitorsPerPage.toLocaleString(),
       icon: <TrendingUp className="h-4 w-4" />,
-      change: avgVisitorsPerPage > 0 ? { value: 10 } : undefined
+      change: avgVisitorsPerPage > 0 ? { value: 10 } : undefined,
     },
   ]
 
@@ -124,43 +124,50 @@ async function getTopPath(
   })
 
   const data = (await raw.json()) as PostHogResponse
-  
+
   // Map data based on column structure with validation
-  const pathIndex = data.columns.findIndex(col => 
-    col.toLowerCase().includes('page') || 
-    col.toLowerCase().includes('path') ||
-    col.toLowerCase().includes('breakdown_value')
+  const pathIndex = data.columns.findIndex(
+    (col) =>
+      col.toLowerCase().includes('page') ||
+      col.toLowerCase().includes('path') ||
+      col.toLowerCase().includes('breakdown_value'),
   )
-  const visitorsIndex = data.columns.findIndex(col => 
-    col.toLowerCase().includes('visitor') || 
-    col.toLowerCase().includes('unique')
+  const visitorsIndex = data.columns.findIndex(
+    (col) =>
+      col.toLowerCase().includes('visitor') ||
+      col.toLowerCase().includes('unique'),
   )
-  const viewsIndex = data.columns.findIndex(col => 
-    col.toLowerCase().includes('view') || 
-    col.toLowerCase().includes('pageview')
+  const viewsIndex = data.columns.findIndex(
+    (col) =>
+      col.toLowerCase().includes('view') ||
+      col.toLowerCase().includes('pageview'),
   )
-  
+
   // Validate that we found the expected columns
   if (pathIndex === -1 || visitorsIndex === -1 || viewsIndex === -1) {
-    console.warn('PostHog columns not found as expected:', { 
-      columns: data.columns, 
-      pathIndex, 
-      visitorsIndex, 
-      viewsIndex 
+    console.warn('PostHog columns not found as expected:', {
+      columns: data.columns,
+      pathIndex,
+      visitorsIndex,
+      viewsIndex,
     })
     // Return empty array instead of potentially incorrect data
     return []
   }
-  
+
   return data.results.map((result) => {
     const pathValue = result[pathIndex] as string
     const visitorsData = result[visitorsIndex]
     const viewsData = result[viewsIndex]
-    
+
     // Handle array format [count, comparison] or simple number
-    const visitors = Array.isArray(visitorsData) ? Number(visitorsData[0]) || 0 : Number(visitorsData) || 0
-    const views = Array.isArray(viewsData) ? Number(viewsData[0]) || 0 : Number(viewsData) || 0
-    
+    const visitors = Array.isArray(visitorsData)
+      ? Number(visitorsData[0]) || 0
+      : Number(visitorsData) || 0
+    const views = Array.isArray(viewsData)
+      ? Number(viewsData[0]) || 0
+      : Number(viewsData) || 0
+
     return {
       path: pathValue,
       visitors,

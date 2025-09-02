@@ -2,10 +2,10 @@ import { Suspense } from 'react'
 import { SkeletonCard } from '../../components/skeleton-card'
 import { GithubActivity } from './activity'
 import { GithubCard } from './card'
-import { Repos } from './repos'
-import { GitHubLanguageStats } from './language-stats'
 import { CommitTimeline } from './commit-timeline'
+import { GitHubLanguageStats } from './language-stats'
 import { RepoTrends } from './repo-trends'
+import { Repos } from './repos'
 
 const owner = 'duyet'
 
@@ -23,7 +23,7 @@ export default function Page() {
       {/* Header */}
       <div className="border-b pb-6">
         <h1 className="text-2xl font-bold tracking-tight">GitHub Analytics</h1>
-        <p className="text-muted-foreground mt-1">
+        <p className="mt-1 text-muted-foreground">
           Repository insights and development activity
         </p>
       </div>
@@ -34,7 +34,9 @@ export default function Page() {
         <div>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Language Distribution</h2>
-            <p className="text-sm text-muted-foreground">Programming languages and repository statistics</p>
+            <p className="text-sm text-muted-foreground">
+              Programming languages and repository statistics
+            </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <GitHubLanguageStats />
@@ -45,7 +47,9 @@ export default function Page() {
         <div>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Repository Trends</h2>
-            <p className="text-sm text-muted-foreground">Stars, forks, and trending repositories</p>
+            <p className="text-sm text-muted-foreground">
+              Stars, forks, and trending repositories
+            </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <RepoTrends />
@@ -56,7 +60,9 @@ export default function Page() {
         <div>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Repository Overview</h2>
-            <p className="text-sm text-muted-foreground">Public repositories and statistics</p>
+            <p className="text-sm text-muted-foreground">
+              Public repositories and statistics
+            </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <Repos owner={owner} />
@@ -67,7 +73,9 @@ export default function Page() {
         <div>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Commit Activity</h2>
-            <p className="text-sm text-muted-foreground">Weekly commit frequency and patterns</p>
+            <p className="text-sm text-muted-foreground">
+              Weekly commit frequency and patterns
+            </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <CommitTimeline />
@@ -78,7 +86,9 @@ export default function Page() {
         <div>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Development Activity</h2>
-            <p className="text-sm text-muted-foreground">Recent contributions and activity patterns</p>
+            <p className="text-sm text-muted-foreground">
+              Recent contributions and activity patterns
+            </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <GithubActivity owner={owner} />
@@ -89,7 +99,9 @@ export default function Page() {
         <div>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Profile Statistics</h2>
-            <p className="text-sm text-muted-foreground">Overall GitHub profile metrics</p>
+            <p className="text-sm text-muted-foreground">
+              Overall GitHub profile metrics
+            </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
             <GithubCard owner={owner} />

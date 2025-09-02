@@ -12,6 +12,8 @@ declare namespace NodeJS {
     readonly WAKATIME_API_KEY: string
     readonly CLOUDFLARE_API_TOKEN: string
     readonly CLOUDFLARE_ZONE_ID: string
+    readonly CLOUDFLARE_API_KEY: string
+    readonly CLOUDFLARE_EMAIL: string
     readonly POSTHOG_API_KEY: string
     readonly POSTHOG_PROJECT_ID: string
   }

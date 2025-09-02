@@ -62,7 +62,7 @@ async function wakaTimeRequest(endpoint: string) {
     }
 
     const data = await res.json()
-    
+
     // Basic validation to ensure we have a valid response object
     if (!data || typeof data !== 'object') {
       console.error('WakaTime API returned invalid response format')
@@ -87,23 +87,23 @@ export async function getWakaTimeSummary(): Promise<WakaTimeSummary | null> {
 export async function getWakaTimeLanguages() {
   const stats = await getWakaTimeStats()
   if (!stats?.data?.languages || !Array.isArray(stats.data.languages)) return []
-  
-  return stats.data.languages.slice(0, 8).map(lang => ({
+
+  return stats.data.languages.slice(0, 8).map((lang) => ({
     name: lang?.name || 'Unknown',
     percent: Math.round((lang?.percent || 0) * 100) / 100,
-    total_seconds: lang?.total_seconds || 0
+    total_seconds: lang?.total_seconds || 0,
   }))
 }
 
 export async function getWakaTimeActivity() {
   const summary = await getWakaTimeSummary()
   if (!summary?.data || !Array.isArray(summary.data)) return []
-  
-  return summary.data.map(day => ({
+
+  return summary.data.map((day) => ({
     range: {
-      date: day?.range?.date || 'Unknown'
+      date: day?.range?.date || 'Unknown',
     },
-    'Coding Hours': ((day?.grand_total?.total_seconds || 0) / 3600).toFixed(1)
+    'Coding Hours': ((day?.grand_total?.total_seconds || 0) / 3600).toFixed(1),
   }))
 }
 
@@ -114,7 +114,7 @@ export async function getWakaTimeMetrics() {
       totalHours: 0,
       avgDailyHours: 0,
       daysActive: 0,
-      topLanguage: 'N/A'
+      topLanguage: 'N/A',
     }
   }
 
@@ -125,14 +125,16 @@ export async function getWakaTimeMetrics() {
 
   // Calculate active days from summary
   const summary = await getWakaTimeSummary()
-  const daysActive = summary?.data && Array.isArray(summary.data) 
-    ? summary.data.filter(day => (day?.grand_total?.total_seconds || 0) > 0).length 
-    : 0
+  const daysActive =
+    summary?.data && Array.isArray(summary.data)
+      ? summary.data.filter((day) => (day?.grand_total?.total_seconds || 0) > 0)
+          .length
+      : 0
 
   return {
     totalHours: Math.round(totalHours * 10) / 10,
     avgDailyHours: Math.round(avgDailyHours * 10) / 10,
     daysActive,
-    topLanguage
+    topLanguage,
   }
 }

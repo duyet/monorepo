@@ -1,4 +1,3 @@
-
 import type { GithubRepo } from '@duyet/interfaces'
 import { cn } from '@duyet/libs/utils'
 import { CodeIcon, StarIcon } from '@radix-ui/react-icons'
