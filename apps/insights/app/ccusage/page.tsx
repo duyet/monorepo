@@ -75,11 +75,7 @@ export default function CCUsage() {
                   {section.description}
                 </p>
               </div>
-              <CCUsageErrorBoundary
-                onError={(error, errorInfo) => {
-                  console.error(`Error in ${section.id}:`, error, errorInfo)
-                }}
-              >
+              <CCUsageErrorBoundary>
                 <Suspense fallback={<SkeletonCard />}>
                   <Component days={STATIC_DAYS} />
                 </Suspense>
