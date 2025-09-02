@@ -19,6 +19,18 @@ interface CommitStats {
 
 export async function CommitTimeline() {
   const stats = await getCommitStats(owner)
+  
+  // Safety check for stats structure
+  if (!stats || !Array.isArray(stats.commitHistory)) {
+    return (
+      <div className="rounded-lg border bg-card p-8 text-center">
+        <p className="text-muted-foreground">No commit data available</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          GitHub API may be unavailable or repository access is limited
+        </p>
+      </div>
+    )
+  }
 
   const metrics = [
     {
@@ -221,8 +233,8 @@ async function fetchAllEvents(
 
       const events = await response.json()
 
-      if (!events || events.length === 0) {
-        break // No more events
+      if (!events || !Array.isArray(events) || events.length === 0) {
+        break // No more events or invalid response
       }
 
       // Check if we've reached events older than 12 weeks

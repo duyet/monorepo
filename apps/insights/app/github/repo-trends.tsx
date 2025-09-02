@@ -24,6 +24,18 @@ interface TrendStats {
 
 export async function RepoTrends() {
   const stats = await getTrendStats(owner)
+  
+  // Safety check for stats structure
+  if (!stats || !Array.isArray(stats.topRepos) || !Array.isArray(stats.trendingRepos)) {
+    return (
+      <div className="rounded-lg border bg-card p-8 text-center">
+        <p className="text-muted-foreground">No repository trends available</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          GitHub API may be unavailable or repository access is limited
+        </p>
+      </div>
+    )
+  }
 
   const metrics = [
     {
@@ -152,9 +164,9 @@ export async function RepoTrends() {
 }
 
 async function getTrendStats(owner: string): Promise<TrendStats> {
-  console.log(`Fetching GitHub trend stats for ${owner}`)
-
   try {
+    console.log(`Fetching GitHub trend stats for ${owner}`)
+
     // Fetch all repositories with pagination
     const repos = await fetchAllRepositories(owner)
     console.log(`Found ${repos.length} public repositories for trends analysis`)

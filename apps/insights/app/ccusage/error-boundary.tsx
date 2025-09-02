@@ -7,7 +7,6 @@
 
 import { Component, type ReactNode } from 'react'
 import { AlertTriangle, RotateCcw } from 'lucide-react'
-import { useErrorHandler } from './hooks'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -96,7 +95,21 @@ function DefaultErrorFallback({ error, onRetry, className }: DefaultErrorFallbac
  * Hook-based error boundary for functional components
  */
 export function useCCUsageErrorBoundary() {
-  const { getErrorMessage, isRetryableError } = useErrorHandler()
+  const getErrorMessage = (error: unknown): string => {
+    if (typeof error === 'string') return error
+    if (error instanceof Error) return error.message
+    return 'An unexpected error occurred'
+  }
+  
+  const isRetryableError = (error: unknown): boolean => {
+    const message = typeof error === 'string' ? error : 
+                   error instanceof Error ? error.message : ''
+    
+    // Network errors are typically retryable
+    return message.includes('timeout') || 
+           message.includes('connection') ||
+           message.includes('network')
+  }
   
   return {
     wrapWithErrorBoundary: (component: ReactNode, errorProps?: Partial<ErrorBoundaryProps>) => (

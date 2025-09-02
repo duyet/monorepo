@@ -15,6 +15,18 @@ interface GitHubLanguageStats {
 
 export async function GitHubLanguageStats() {
   const stats = await getLanguageStats(owner)
+  
+  // Safety check in case stats is null/undefined or languages is not an array
+  if (!stats || !Array.isArray(stats.languages)) {
+    return (
+      <div className="rounded-lg border bg-card p-8 text-center">
+        <p className="text-muted-foreground">No language data available</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          GitHub API may be unavailable or repository access is limited
+        </p>
+      </div>
+    )
+  }
 
   const metrics = [
     {
@@ -123,11 +135,12 @@ export async function GitHubLanguageStats() {
 }
 
 async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
-  console.log(`Fetching GitHub language stats for ${owner}`)
+  try {
+    console.log(`Fetching GitHub language stats for ${owner}`)
 
-  // Fetch all repositories with pagination
-  const repos = await fetchAllRepositories(owner)
-  console.log(`Found ${repos.length} public repositories for ${owner}`)
+    // Fetch all repositories with pagination
+    const repos = await fetchAllRepositories(owner)
+    console.log(`Found ${repos.length} public repositories for ${owner}`)
 
   // Calculate repository stats
   const totalRepos = repos.length
@@ -183,11 +196,21 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     }))
     .sort((a, b) => b.percentage - a.percentage)
 
-  return {
-    languages,
-    totalRepos,
-    totalStars,
-    archivedRepos,
-    activeRepos,
+    return {
+      languages,
+      totalRepos,
+      totalStars,
+      archivedRepos,
+      activeRepos,
+    }
+  } catch (error) {
+    console.error('Error fetching GitHub language stats:', error)
+    return {
+      languages: [],
+      totalRepos: 0,
+      totalStars: 0,
+      archivedRepos: 0,
+      activeRepos: 0,
+    }
   }
 }
