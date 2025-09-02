@@ -138,7 +138,7 @@ const getData = async () => {
     }`
 
   const variables = {
-    zoneTag: process.env.CLOUDFLARE_ZONE_ID,
+    zoneTag: process.env.NEXT_PUBLIC_CLOUDFLARE_ZONE_ID,
     date_start: new Date(new Date().setDate(new Date().getDate() - 30))
       .toISOString()
       .split('T')[0],
@@ -146,7 +146,7 @@ const getData = async () => {
   }
 
   const headers = {
-    Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLOUDFLARE_API_TOKEN}`,
   }
 
   const data: CloudflareAnalyticsByDate = await request(
