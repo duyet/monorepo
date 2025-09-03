@@ -5,7 +5,7 @@ import Header from '@duyet/components/Header'
 
 interface YearLayoutProps {
   params: Promise<{
-    year: number
+    year: string
   }>
   children: React.ReactNode | React.ReactNode[]
 }

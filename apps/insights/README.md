@@ -7,9 +7,11 @@ Analytics dashboard showing GitHub activity, WakaTime coding statistics, and mor
 Copy `.env.local.example` to `.env.local` and fill in the following variables:
 
 ### Required for WakaTime Integration
+
 - `WAKATIME_API_KEY` - Get your API key from [WakaTime Settings](https://wakatime.com/api-key)
 
 ### Other API Keys
+
 - `GITHUB_TOKEN` - GitHub personal access token for repository analytics
 - `POSTHOG_API_KEY` / `POSTHOG_PROJECT_ID` - PostHog analytics
 - `NEXT_PUBLIC_CLOUDFLARE_*` - Cloudflare analytics
