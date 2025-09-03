@@ -1,4 +1,4 @@
-import { SkeletonCard } from '../components/skeleton-card'
+import { SkeletonCard } from '../components/SkeletonCard'
 
 export default function Page() {
   return <SkeletonCard />

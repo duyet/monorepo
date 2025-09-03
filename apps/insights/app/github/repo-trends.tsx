@@ -1,4 +1,4 @@
-import { CompactMetric } from '@/components/ui/compact-metric'
+import { CompactMetric } from '@/components/ui/CompactMetric'
 import { Eye, GitFork, Star, TrendingUp } from 'lucide-react'
 import { fetchAllRepositories, type GitHubRepository } from './github-utils'
 

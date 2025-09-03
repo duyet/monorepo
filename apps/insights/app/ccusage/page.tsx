@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { SkeletonCard } from '../../components/skeleton-card'
+import { SkeletonCard } from '../../components/SkeletonCard'
 import { CCUsageActivity } from './activity'
 import { CCUsageCosts } from './costs'
 import { CCUsageMetrics } from './metrics'

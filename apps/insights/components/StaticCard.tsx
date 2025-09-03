@@ -2,7 +2,7 @@
 
 import { cn } from '@duyet/libs/utils'
 import Image from 'next/image'
-import { TextDataSource } from './text-data-source'
+import { TextDataSource } from './TextDataSource'
 
 interface StaticCardProps {
   title?: string

@@ -1,5 +1,5 @@
-import { PopularContentTable } from '@/components/popular-content-table'
-import { CompactMetric } from '@/components/ui/compact-metric'
+import { PopularContentTable } from '@/components/PopularContentTable'
+import { CompactMetric } from '@/components/ui/CompactMetric'
 import { FileText, TrendingUp, Users } from 'lucide-react'
 
 const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
