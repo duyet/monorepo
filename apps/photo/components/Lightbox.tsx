@@ -1,20 +1,15 @@
 'use client'
 
 import type { UnsplashPhoto } from '@/lib/types'
-import { formatPhotoDate } from '@/lib/unsplash'
+import { getOptimalImageSrc, getResponsiveSizes } from '@/lib/ImageOptimization'
+import { formatPhotoMetadata, formatPhotoDescription } from '@/lib/MetadataFormatters'
+import { useLightboxNavigation } from '../hooks/UseKeyboardNavigation'
 import { cn } from '@duyet/libs/utils'
 import * as Dialog from '@radix-ui/react-dialog'
-import {
-  ChevronLeft,
-  ChevronRight,
-  Download,
-  ExternalLink,
-  Expand,
-  Shrink,
-  X,
-} from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { LightboxLoading } from './LoadingStates'
+import { LightboxTopControls, NavigationButton, InfoPanel } from './LightboxControls'
 
 interface LightboxProps {
   photo: UnsplashPhoto
@@ -29,240 +24,177 @@ interface LightboxProps {
 export default function Lightbox({
   photo,
   isOpen,
-  onClose,
   onNext,
   onPrevious,
   currentIndex,
   totalCount,
+  onClose,
 }: LightboxProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(true)
+  const [showInfo, setShowInfo] = useState(false)
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isOpen) return
+  // Get formatted metadata and description
+  const metadata = formatPhotoMetadata(photo)
+  const description = formatPhotoDescription(photo)
 
-      switch (event.key) {
-        case 'Escape':
-          onClose()
-          break
-        case 'ArrowLeft':
-          onPrevious?.()
-          break
-        case 'ArrowRight':
-          onNext?.()
-          break
-        case 'f':
-        case 'F':
-          setIsFullscreen(!isFullscreen)
-          break
-      }
-    }
+  // Setup navigation hooks
+  const touchHandlers = useLightboxNavigation({
+    isOpen,
+    canGoNext: !!onNext,
+    canGoPrevious: !!onPrevious,
+    onClose,
+    onNext,
+    onPrevious,
+    onToggleFullscreen: () => setIsFullscreen(!isFullscreen),
+    onToggleInfo: () => setShowInfo(!showInfo),
+  })
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose, onNext, onPrevious, isFullscreen])
-
-  // Reset loading state when photo changes
+  // Reset states when photo changes or lightbox opens
   useEffect(() => {
     setIsLoading(true)
   }, [photo.id])
 
-  // Reset to fullscreen when lightbox opens
   useEffect(() => {
     if (isOpen) {
       setIsFullscreen(true)
+      setShowInfo(false)
     }
   }, [isOpen])
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm" />
-        <Dialog.Content className={cn(
-          "fixed inset-0 z-50",
-          isFullscreen 
-            ? "overflow-auto p-0" 
-            : "flex items-center justify-center p-4"
-        )}>
-          {/* Hidden title for accessibility */}
-          <Dialog.Title className="sr-only">
-            {photo.description ||
-              photo.alt_description ||
-              `Photo by ${photo.user.name}`}
-          </Dialog.Title>
-          <div className={cn(
-            "relative w-full",
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm" />
+        <Dialog.Content 
+          className={cn(
+            'fixed inset-0 z-50',
             isFullscreen 
-              ? "min-h-full max-w-none" 
-              : "h-full max-w-7xl"
-          )}>
-            {/* Top controls */}
-            <div className="absolute right-4 top-4 z-10 flex gap-2">
-              {/* Fullscreen toggle */}
-              <button
-                onClick={() => setIsFullscreen(!isFullscreen)}
-                className="rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-                aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-                title={isFullscreen ? "Exit fullscreen (F)" : "Enter fullscreen (F)"}
-              >
-                {isFullscreen ? (
-                  <Shrink className="h-5 w-5" />
-                ) : (
-                  <Expand className="h-5 w-5" />
-                )}
-              </button>
-              
-              {/* Close button */}
-              <Dialog.Close asChild>
-                <button
-                  className="rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-                  aria-label="Close"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </Dialog.Close>
-            </div>
+              ? 'overflow-hidden p-0' 
+              : 'flex items-center justify-center p-4'
+          )}
+        >
+          {/* Accessibility title */}
+          <Dialog.Title className="sr-only">
+            {description}
+          </Dialog.Title>
 
-            {/* Navigation buttons */}
+          <div className={cn(
+            'relative w-full',
+            isFullscreen 
+              ? 'h-full max-w-none' 
+              : 'h-full max-w-7xl'
+          )}>
+            
+            {/* Top Controls */}
+            <LightboxTopControls
+              currentIndex={currentIndex}
+              totalCount={totalCount}
+              isFullscreen={isFullscreen}
+              showInfo={showInfo}
+              onClose={onClose}
+              onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
+              onToggleInfo={() => setShowInfo(!showInfo)}
+            />
+
+            {/* Navigation Buttons */}
             {onPrevious && (
-              <button
+              <NavigationButton
+                direction="previous"
                 onClick={onPrevious}
-                className={cn(
-                  "absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70",
-                  isFullscreen ? "left-2" : "left-4"
-                )}
-                aria-label="Previous photo"
-              >
-                <ChevronLeft className="h-8 w-8" />
-              </button>
+                isFullscreen={isFullscreen}
+              />
             )}
 
             {onNext && (
-              <button
+              <NavigationButton
+                direction="next"
                 onClick={onNext}
-                className={cn(
-                  "absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70",
-                  isFullscreen ? "right-2" : "right-4"
-                )}
-                aria-label="Next photo"
-              >
-                <ChevronRight className="h-8 w-8" />
-              </button>
+                isFullscreen={isFullscreen}
+              />
             )}
 
-            {/* Main image container */}
-            {isFullscreen ? (
-              // Fullscreen mode: maximize both width and height from top to bottom
-              <div className="flex h-screen w-full items-center justify-center">
+            {/* Main Image Container */}
+            <div 
+              className={cn(
+                'relative',
+                isFullscreen 
+                  ? 'h-full w-full flex items-center justify-center'
+                  : 'h-full flex flex-col'
+              )}
+              {...touchHandlers}
+            >
+              {isFullscreen ? (
+                // Fullscreen Image
                 <div 
                   className="relative h-full w-full cursor-pointer" 
-                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  onClick={() => setIsFullscreen(false)}
                   title="Click to exit fullscreen"
                 >
                   <Image
-                    src={photo.urls.raw}
-                    alt={
-                      photo.alt_description ||
-                      photo.description ||
-                      'Photo by Duyệt'
-                    }
+                    src={getOptimalImageSrc(photo, { context: 'lightbox' })}
+                    alt={description}
                     fill
                     className={cn(
-                      'object-contain transition-opacity duration-500',
+                      'object-contain transition-opacity duration-700',
                       isLoading ? 'opacity-0' : 'opacity-100',
                     )}
                     onLoad={() => setIsLoading(false)}
                     priority
-                    sizes="100vw"
+                    sizes={getResponsiveSizes('lightbox')}
+                    quality={95}
                   />
                 </div>
-
-                {/* Loading indicator */}
-                {isLoading && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  </div>
-                )}
-              </div>
-            ) : (
-              // Normal mode: contained layout
-              <div className="flex h-full flex-col">
-                <div className="relative flex-1">
-                  <div 
-                    className="relative h-full w-full cursor-pointer" 
-                    onClick={() => setIsFullscreen(!isFullscreen)}
-                    title="Click to enter fullscreen"
-                  >
-                    <Image
-                      src={photo.urls.raw}
-                      alt={
-                        photo.alt_description ||
-                        photo.description ||
-                        'Photo by Duyệt'
-                      }
-                      fill
-                      className={cn(
-                        'object-contain transition-opacity duration-500',
-                        isLoading ? 'opacity-0' : 'opacity-100',
-                      )}
-                      onLoad={() => setIsLoading(false)}
-                      priority
-                      sizes="(max-width: 1792px) 100vw, 1792px"
-                    />
-                  </div>
-
-                  {/* Loading indicator */}
-                  {isLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                    </div>
-                  )}
-                </div>
-
-                {/* Minimal info bar - shown in normal mode only */}
-                <div className="bg-black/60 px-3 py-1">
-                  <div className="flex items-center justify-between text-xs text-gray-400">
-                    {/* Left side - actions */}
-                    <div className="flex items-center gap-3">
-                      <a
-                        href={photo.links.html}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 transition-colors hover:text-white"
-                        title="View original"
-                      >
-                        <ExternalLink className="h-3 w-3" />
-                        View
-                      </a>
-                      <a
-                        href={photo.urls.full}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        download
-                        className="flex items-center gap-1 transition-colors hover:text-white"
-                        title="Download photo"
-                      >
-                        <Download className="h-3 w-3" />
-                        Download
-                      </a>
-                    </div>
-                    
-                    {/* Right side - compact info */}
-                    <div className="flex items-center gap-2">
-                      {photo.stats && (
-                        <>
-                          <span>👁 {photo.stats.views.toLocaleString()}</span>
-                          <span>⬇ {photo.stats.downloads.toLocaleString()}</span>
-                        </>
-                      )}
-                      <span>{formatPhotoDate(photo.created_at)}</span>
+              ) : (
+                // Contained Layout
+                <>
+                  <div className="relative flex-1">
+                    <div 
+                      className="relative h-full w-full cursor-pointer" 
+                      onClick={() => setIsFullscreen(true)}
+                      title="Click to enter fullscreen"
+                    >
+                      <Image
+                        src={getOptimalImageSrc(photo, { context: 'lightbox' })}
+                        alt={description}
+                        fill
+                        className={cn(
+                          'object-contain transition-opacity duration-700',
+                          isLoading ? 'opacity-0' : 'opacity-100',
+                        )}
+                        onLoad={() => setIsLoading(false)}
+                        priority
+                        sizes="(max-width: 1792px) 100vw, 1792px"
+                        quality={95}
+                      />
                     </div>
                   </div>
-                </div>
-              </div>
-            )}
+
+                  {/* Info Panel for contained mode */}
+                  <InfoPanel
+                    photo={photo}
+                    metadata={metadata}
+                    isFullscreen={false}
+                  />
+                </>
+              )}
+
+              {/* Loading State */}
+              {isLoading && (
+                <LightboxLoading 
+                  message="Loading high-resolution image..." 
+                />
+              )}
+
+              {/* Info Panel for fullscreen mode */}
+              {isFullscreen && showInfo && (
+                <InfoPanel
+                  photo={photo}
+                  metadata={metadata}
+                  isFullscreen={true}
+                />
+              )}
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

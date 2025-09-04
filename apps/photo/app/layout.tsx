@@ -18,7 +18,33 @@ const inter = Inter({
 export const metadata = {
   title: 'Photos | Duyệt',
   description:
-    'Photography portfolio by Duyệt - Data Engineer and photographer',
+    'A curated collection of photography by Duyệt - Data Engineer and photographer. Explore stunning landscapes, portraits, and street photography.',
+  keywords: 'photography, portfolio, Duyet, landscape, portrait, street photography, art',
+  authors: [{ name: 'Duyệt', url: 'https://duyet.net' }],
+  creator: 'Duyệt',
+  openGraph: {
+    title: 'Photos | Duyệt',
+    description: 'A curated collection of photography by Duyệt',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Photos | Duyệt',
+    description: 'A curated collection of photography by Duyệt',
+    creator: '@_duyet',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 }
 
 export default function RootLayout({
@@ -44,9 +70,13 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <Header longText="Photos" shortText="Photos" />
-          {children}
-          <Footer />
+          <div className="min-h-screen flex flex-col">
+            <Header longText="Photos" shortText="Photos" />
+            <main className="flex-1" role="main">
+              {children}
+            </main>
+            <Footer />
+          </div>
           <Analytics />
         </ThemeProvider>
       </body>
