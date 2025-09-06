@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { SkeletonCard } from '../../components/skeleton-card'
+import { SkeletonCard } from '../../components/SkeletonCard'
 import { Cloudflare } from './cloudflare'
 import { PostHog } from './posthog'
 

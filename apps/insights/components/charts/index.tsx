@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils'
 
-export { AreaChart } from './area-chart'
-export { BarChart } from './bar-chart'
-export { BarList } from './bar-list'
-export { DonutChart } from './donut-chart'
-export { LanguageBarChart } from './language-bar-chart'
+export { AreaChart } from './AreaChart'
+export { BarChart } from './BarChart'
+export { BarList } from './BarList'
+export { DonutChart } from './DonutChart'
+export { LanguageBarChart } from './LanguageBarChart'
 export { Legend } from './legend'
 
 interface MetricProps {

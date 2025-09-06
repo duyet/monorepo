@@ -1,5 +1,5 @@
 import { AreaChart } from '@/components/charts'
-import { CompactMetric } from '@/components/ui/compact-metric'
+import { CompactMetric } from '@/components/ui/CompactMetric'
 import { Calendar, GitCommit, Zap } from 'lucide-react'
 
 const owner = 'duyet'

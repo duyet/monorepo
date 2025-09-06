@@ -1,4 +1,4 @@
-import { StaticCard } from '../../components/static-card'
+import { StaticCard } from '../../components/StaticCard'
 
 // See: https://github.com/anuraghazra/github-readme-stats
 const githubStatUrl = (params: { username: string; theme: string }): string => {
