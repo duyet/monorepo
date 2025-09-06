@@ -1,10 +1,16 @@
 'use client'
 
 import type { UnsplashPhoto } from '@/lib/types'
-import { formatPhotoDate } from '@/lib/unsplash'
+import { 
+  getOptimalImageSrc, 
+  generateBlurDataURL, 
+  getResponsiveSizes,
+  shouldPrioritizeLoading,
+} from '@/lib/ImageOptimization'
+import { formatCompactMetadata, formatPhotoDescription } from '@/lib/MetadataFormatters'
 import { cn } from '@duyet/libs/utils'
-import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback } from 'react'
+import LazyImage from './LazyImage'
 
 interface PhotoCardProps {
   photo: UnsplashPhoto
@@ -19,114 +25,111 @@ export default function PhotoCard({
   onClick,
   className,
 }: PhotoCardProps) {
-  const [isLoading, setIsLoading] = useState(true)
+  // Get optimized metadata for card display
+  const metadata = formatCompactMetadata(photo)
+  const description = formatPhotoDescription(photo)
 
-  // Calculate aspect ratio for better layout
-  const aspectRatio = photo.width / photo.height
-  const isPortrait = aspectRatio < 1
-  const isLandscape = aspectRatio > 1.5
-
-  // Determine image size based on aspect ratio and screen size
-  const getImageSrc = () => {
-    // Use higher quality images for better display
-    if (isPortrait) {
-      return photo.urls.regular // Higher quality for portrait images
-    } else if (isLandscape) {
-      return photo.urls.regular // Regular size for landscape
-    }
-    return photo.urls.regular // Default to regular quality
-  }
+  // Get optimized image configuration
+  const imageSrc = useCallback(() => 
+    getOptimalImageSrc(photo, { context: 'grid' }), [photo]
+  )
 
   return (
     <div
       className={cn(
-        'group relative cursor-pointer overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800',
-        'transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
-        'break-inside-avoid', // Prevents breaking in masonry layout
+        // Base card styling with professional aesthetics
+        'group relative cursor-pointer overflow-hidden',
+        'rounded-xl bg-white shadow-sm ring-1 ring-gray-200/50',
+        'dark:bg-gray-900 dark:ring-gray-800/50',
+        
+        // Enhanced hover effects for portfolio feel
+        'transition-all duration-300 ease-out',
+        'hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/10',
+        'dark:hover:shadow-gray-900/30',
+        'hover:ring-gray-300/50 dark:hover:ring-gray-700/50',
+        
+        // Masonry layout optimization
+        'break-inside-avoid mb-6 lg:mb-8',
         className,
       )}
-      onClick={() => {
-        console.log('PhotoCard clicked:', photo.id) // Debug log
-        onClick()
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${description}`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick()
+        }
       }}
     >
+      {/* Image Container */}
       <div className="relative">
-        <Image
-          src={getImageSrc()}
-          alt={photo.alt_description || photo.description || 'Photo by Duyệt'}
+        <LazyImage
+          src={imageSrc()}
+          alt={description}
           width={photo.width}
           height={photo.height}
-          className={cn(
-            'h-auto w-full object-cover transition-opacity duration-500',
-            isLoading ? 'opacity-0' : 'opacity-100',
-          )}
-          onLoad={() => setIsLoading(false)}
-          loading={index < 6 ? 'eager' : 'lazy'} // Load first 6 images eagerly, rest lazily
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${Buffer.from(
-            `<svg width="${photo.width}" height="${photo.height}" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="${photo.color || '#f3f4f6'}"/></svg>`,
-          ).toString('base64')}`}
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          priority={shouldPrioritizeLoading(index)}
+          blurDataURL={generateBlurDataURL(photo)}
+          sizes={getResponsiveSizes('grid')}
+          className="transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-30">
-          <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        {/* Professional overlay with enhanced typography */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100">
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+            
+            {/* Primary description */}
             {photo.description && (
-              <p className="text-sm font-medium leading-tight">
+              <h3 className="font-medium leading-snug text-sm sm:text-base line-clamp-2 mb-2">
                 {photo.description}
-              </p>
+              </h3>
             )}
-            <p className="text-xs opacity-75">
-              {formatPhotoDate(photo.created_at)}
-            </p>
-            <div className="mt-1 flex items-center gap-2 text-xs opacity-75">
-              {photo.stats && (
-                <>
-                  <span>👁 {photo.stats.views.toLocaleString()}</span>
-                  <span>•</span>
-                  <span>⬇ {photo.stats.downloads.toLocaleString()}</span>
-                  <span>•</span>
-                </>
+            
+            {/* Enhanced metadata display */}
+            <div className="space-y-1.5 text-xs sm:text-sm">
+              {/* Primary metadata */}
+              {metadata.primary.length > 0 && (
+                <div className="flex items-center gap-3 text-white/90">
+                  {metadata.primary.map((item, idx) => (
+                    <span key={idx}>{item}</span>
+                  ))}
+                </div>
               )}
-              <span>
-                {photo.width} × {photo.height}
-              </span>
-              {photo.location &&
-                (photo.location.city || photo.location.country) && (
-                  <>
-                    <span>•</span>
-                    <span>
-                      📍{' '}
-                      {[photo.location.city, photo.location.country]
-                        .filter(Boolean)
-                        .join(', ')}
-                    </span>
-                  </>
-                )}
-              {/* Hide username _duyet as requested */}
+              
+              {/* Secondary metadata */}
+              {metadata.secondary.length > 0 && (
+                <div className="flex items-center gap-3 text-white/75 text-xs">
+                  {metadata.secondary.map((item, idx) => (
+                    <span key={idx}>{item}</span>
+                  ))}
+                </div>
+              )}
+
+              {/* Attribution (excluding _duyet as specified) */}
               {photo.user.username !== '_duyet' && (
-                <>
-                  <span>•</span>
+                <div className="pt-1 border-t border-white/20">
                   <a
                     href={photo.user.links.html}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline"
+                    className="inline-flex items-center text-xs text-white/90 hover:text-white transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    @{photo.user.username}
+                    <span>by</span>
+                    <span className="ml-1 font-medium">@{photo.user.username}</span>
                   </a>
-                </>
+                </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Loading skeleton */}
-        {isLoading && (
-          <div className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700" />
-        )}
+        {/* Subtle loading indicator */}
+        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="w-2 h-2 bg-white/40 rounded-full animate-pulse" />
+        </div>
       </div>
     </div>
   )

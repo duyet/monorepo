@@ -30,7 +30,6 @@ export async function generateStaticParams() {
     const fallbackYears = [currentYear, currentYear - 1, currentYear - 2]
     return fallbackYears.map((year) => ({ year: year.toString() }))
   } catch (error) {
-    console.error('Error generating static params:', error)
     // Return fallback years for build
     const currentYear = new Date().getFullYear()
     const fallbackYears = [currentYear, currentYear - 1, currentYear - 2]
@@ -63,7 +62,6 @@ export default async function YearPage({ params }: YearPageProps) {
     allPhotos = await getAllUserPhotos()
     yearPhotos = getPhotosByYear(allPhotos, year)
   } catch (e) {
-    console.error('Failed to fetch photos:', e)
     error = 'Failed to load photos. Please try again later.'
   }
 
@@ -165,7 +163,7 @@ export default async function YearPage({ params }: YearPageProps) {
       {/* Photo grid - full width */}
       <div className="w-full">
         <div className="px-4 sm:px-6 lg:px-8">
-          <PhotoGrid photos={yearPhotos} className="gap-4 sm:gap-6 lg:gap-8" />
+          <PhotoGrid photos={yearPhotos} />
         </div>
       </div>
     </>
