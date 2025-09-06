@@ -40,9 +40,9 @@ export default function PhotoCard({
   return (
     <div
       className={cn(
-        'group relative cursor-pointer overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800',
-        'transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
-        'break-inside-avoid', // Prevents breaking in masonry layout
+        'group relative cursor-pointer overflow-hidden bg-gray-100 dark:bg-gray-800',
+        'transition-opacity duration-200 hover:opacity-95',
+        'break-inside-avoid mb-4', // Prevents breaking in masonry layout
         className,
       )}
       onClick={() => {
@@ -70,8 +70,8 @@ export default function PhotoCard({
         />
 
         {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-30">
-          <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-200 group-hover:bg-opacity-20">
+          <div className="absolute bottom-0 left-0 right-0 p-3 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             {photo.description && (
               <p className="text-sm font-medium leading-tight">
                 {photo.description}
