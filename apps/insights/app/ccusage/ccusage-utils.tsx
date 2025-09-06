@@ -96,6 +96,22 @@ function anonymizeProjects(projects: Record<string, unknown>[]): CCUsageProjectD
 // ============================================================================
 
 /**
+ * Detect protocol (HTTP/HTTPS) based on port number or explicit configuration
+ */
+function detectClickHouseProtocol(port: string, explicitProtocol?: string): string {
+  // Allow explicit protocol override via environment variable
+  if (explicitProtocol) {
+    return explicitProtocol.toLowerCase() === 'https' ? 'https' : 'http'
+  }
+
+  // Auto-detect based on common HTTPS ports
+  const portNumber = parseInt(port, 10)
+  const httsPorts = [443, 8443, 9440, 9000] // Common ClickHouse HTTPS ports
+  
+  return httsPorts.includes(portNumber) ? 'https' : 'http'
+}
+
+/**
  * Get ClickHouse configuration from environment variables
  */
 function getClickHouseConfig(): ClickHouseConfig | null {
@@ -104,13 +120,16 @@ function getClickHouseConfig(): ClickHouseConfig | null {
   const username = process.env.CLICKHOUSE_USER
   const password = process.env.CLICKHOUSE_PASSWORD
   const database = process.env.CLICKHOUSE_DATABASE
+  const explicitProtocol = process.env.CLICKHOUSE_PROTOCOL
 
   if (!host || !username || !password || !database) {
     console.warn('ClickHouse environment variables not found')
     return null
   }
 
-  return { host, port, username, password, database }
+  const protocol = detectClickHouseProtocol(port, explicitProtocol)
+
+  return { host, port, username, password, database, protocol }
 }
 
 /**
@@ -122,7 +141,7 @@ function getClickHouseClient() {
 
   try {
     return createClient({
-      host: `http://${config.host}:${config.port}`,
+      host: `${config.protocol}://${config.host}:${config.port}`,
       username: config.username,
       password: config.password,
       database: config.database,
