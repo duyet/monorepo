@@ -36,7 +36,8 @@
     "CLICKHOUSE_PORT",
     "CLICKHOUSE_USER", 
     "CLICKHOUSE_PASSWORD",
-    "CLICKHOUSE_DATABASE"
+    "CLICKHOUSE_DATABASE",
+    "CLICKHOUSE_PROTOCOL"
   ],
   "globalDependencies": [".env", ".env.local"],
   "tasks": {
