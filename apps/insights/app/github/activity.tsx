@@ -11,6 +11,20 @@ interface JustStarsProps {
 export async function GithubActivity({ owner, className }: JustStarsProps) {
   const repos = await getGithubStars(owner)
 
+  // Safety check for repos array
+  if (!repos || !Array.isArray(repos)) {
+    return (
+      <div className={cn('w-full', className)}>
+        <div className="rounded-lg border bg-card p-8 text-center">
+          <p className="text-muted-foreground">No activity data available</p>
+          <p className="mt-2 text-xs text-muted-foreground">
+            GitHub API may be unavailable or repository access is limited
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={cn('w-full', className)}>
       <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2">

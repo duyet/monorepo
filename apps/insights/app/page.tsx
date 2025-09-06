@@ -1,5 +1,5 @@
-import { Cloudflare } from './blog/cloudflare'
-import { PostHog } from './blog/posthog'
+import { CloudflareWithPeriods } from './blog/cloudflare-with-periods'
+import { PostHogWithPeriods } from './blog/posthog-with-periods'
 
 export const metadata = {
   title: '@duyet Insights Dashboard',
@@ -30,7 +30,7 @@ export default function InsightsPage() {
               Traffic and performance metrics from Cloudflare
             </p>
           </div>
-          <Cloudflare />
+          <CloudflareWithPeriods />
         </div>
 
         {/* Content Analytics */}
@@ -41,7 +41,7 @@ export default function InsightsPage() {
               Most popular pages and visitor insights from PostHog
             </p>
           </div>
-          <PostHog />
+          <PostHogWithPeriods />
         </div>
       </div>
     </div>

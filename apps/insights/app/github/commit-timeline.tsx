@@ -5,6 +5,18 @@ const owner = 'duyet'
 
 export async function CommitTimeline() {
   const stats = await getCommitStats(owner)
+  
+  // Safety check for stats structure
+  if (!stats || !Array.isArray(stats.commitHistory)) {
+    return (
+      <div className="rounded-lg border bg-card p-8 text-center">
+        <p className="text-muted-foreground">No commit data available</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          GitHub API may be unavailable or repository access is limited
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
@@ -12,7 +24,26 @@ export async function CommitTimeline() {
       <CommitMetrics stats={stats} />
 
       {/* Commit Activity Chart */}
+<<<<<<< HEAD
       <CommitChart stats={stats} />
+=======
+      <div className="rounded-lg border bg-card p-4">
+        <div className="mb-4">
+          <h3 className="font-medium">Commit Activity (Last 12 Weeks)</h3>
+          <p className="text-xs text-muted-foreground">
+            Weekly commit frequency across all repositories
+          </p>
+        </div>
+        <div className="h-64">
+          <AreaChart
+            data={stats.commitHistory}
+            index="date"
+            categories={['commits']}
+            showGridLines={false}
+          />
+        </div>
+      </div>
+>>>>>>> origin/master
 
       <p className="text-xs text-muted-foreground">
         Data from GitHub API • Last 12 weeks of commit activity
@@ -20,3 +51,194 @@ export async function CommitTimeline() {
     </div>
   )
 }
+<<<<<<< HEAD
+=======
+
+async function getCommitStats(owner: string): Promise<CommitStats> {
+  console.log(`Fetching GitHub commit stats for ${owner}`)
+
+  try {
+    // Get user events with pagination to cover full 12 weeks
+    const events = await fetchAllEvents(owner)
+
+    // Filter push events (commits)
+    const pushEvents = events.filter(
+      (event: { type: string }) => event.type === 'PushEvent',
+    )
+
+    // Calculate commit statistics
+    const commitsByWeek = new Map<string, number>()
+    const commitsByDay = new Map<string, number>()
+    let totalCommits = 0
+
+    // Process last 12 weeks
+    const now = new Date()
+    const twelveWeeksAgo = new Date(
+      now.getTime() - 12 * 7 * 24 * 60 * 60 * 1000,
+    )
+
+    pushEvents.forEach(
+      (event: { created_at: string; payload?: { commits?: unknown[] } }) => {
+        const eventDate = new Date(event.created_at)
+        if (eventDate < twelveWeeksAgo) return
+
+        const commits = event.payload?.commits?.length || 1
+        totalCommits += commits
+
+        // Group by week
+        const weekStart = getWeekStart(eventDate)
+        const weekKey = weekStart.toISOString().split('T')[0]
+        commitsByWeek.set(weekKey, (commitsByWeek.get(weekKey) || 0) + commits)
+
+        // Group by day of week
+        const dayName = eventDate.toLocaleDateString('en-US', {
+          weekday: 'long',
+        })
+        commitsByDay.set(dayName, (commitsByDay.get(dayName) || 0) + commits)
+      },
+    )
+
+    // Create timeline data for all 12 weeks
+    const commitHistory: CommitActivity[] = []
+    for (let i = 11; i >= 0; i--) {
+      const weekDate = new Date(now.getTime() - i * 7 * 24 * 60 * 60 * 1000)
+      const weekStart = getWeekStart(weekDate)
+      const weekKey = weekStart.toISOString().split('T')[0]
+      const weekCommits = commitsByWeek.get(weekKey) || 0
+
+      commitHistory.push({
+        date: weekKey,
+        commits: weekCommits,
+        week: 12 - i,
+      })
+    }
+
+    console.log(
+      `Commit history generated for ${commitHistory.length} weeks, total commits: ${totalCommits}`,
+    )
+
+    // Find most active day
+    let mostActiveDay = 'Monday'
+    let maxCommits = 0
+    commitsByDay.forEach((commits, day) => {
+      if (commits > maxCommits) {
+        maxCommits = commits
+        mostActiveDay = day
+      }
+    })
+
+    return {
+      totalCommits,
+      avgCommitsPerWeek:
+        commitHistory.length > 0 ? totalCommits / commitHistory.length : 0,
+      mostActiveDay,
+      commitHistory,
+    }
+  } catch (error) {
+    console.error('Error fetching commit stats:', error)
+    return getEmptyStats()
+  }
+}
+
+function getWeekStart(date: Date): Date {
+  const d = new Date(date)
+  const day = d.getDay()
+  const diff = d.getDate() - day
+  return new Date(d.setDate(diff))
+}
+
+function getEmptyStats(): CommitStats {
+  return {
+    totalCommits: 0,
+    avgCommitsPerWeek: 0,
+    mostActiveDay: 'Monday',
+    commitHistory: [],
+  }
+}
+
+async function fetchAllEvents(
+  owner: string,
+): Promise<
+  { type: string; created_at: string; payload?: { commits?: unknown[] } }[]
+> {
+  const allEvents: {
+    type: string
+    created_at: string
+    payload?: { commits?: unknown[] }
+  }[] = []
+  let page = 1
+  const perPage = 100
+  const twelveWeeksAgo = new Date(Date.now() - 12 * 7 * 24 * 60 * 60 * 1000)
+
+  while (true) {
+    try {
+      console.log(`Fetching events page ${page} for ${owner}`)
+
+      const response = await fetch(
+        `https://api.github.com/users/${owner}/events?per_page=${perPage}&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            Accept: 'application/vnd.github.v3+json',
+          },
+          cache: 'force-cache',
+        },
+      )
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch events page ${page}:`,
+          response.statusText,
+        )
+        break
+      }
+
+      const events = await response.json()
+
+      if (!events || !Array.isArray(events) || events.length === 0) {
+        break // No more events or invalid response
+      }
+
+      // Check if we've reached events older than 12 weeks
+      const hasOldEvents = events.some(
+        (event: { created_at: string }) =>
+          new Date(event.created_at) < twelveWeeksAgo,
+      )
+
+      // Add events that are within the 12-week window
+      const recentEvents = events.filter(
+        (event: { created_at: string }) =>
+          new Date(event.created_at) >= twelveWeeksAgo,
+      )
+      allEvents.push(...recentEvents)
+
+      // If we found old events, we've gone back far enough
+      if (hasOldEvents) {
+        console.log(
+          `Reached events older than 12 weeks, stopping at page ${page}`,
+        )
+        break
+      }
+
+      // If we got less than perPage items, we've reached the end
+      if (events.length < perPage) {
+        break
+      }
+
+      page++
+
+      // Safety limit - GitHub events API typically shows last 90 days
+      if (page > 10) {
+        console.warn(`Reached page limit (${page}), stopping pagination`)
+        break
+      }
+    } catch (error) {
+      console.error(`Error fetching events page ${page}:`, error)
+      break
+    }
+  }
+
+  console.log(`Total events fetched: ${allEvents.length} (last 12 weeks)`)
+  return allEvents
+}
+>>>>>>> origin/master

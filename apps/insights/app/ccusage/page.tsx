@@ -1,5 +1,9 @@
 import { Suspense } from 'react'
+<<<<<<< HEAD
 import { SkeletonCard } from '../../components/SkeletonCard'
+=======
+import { SkeletonCard } from '../../components/skeleton-card'
+>>>>>>> origin/master
 import { CCUsageActivity } from './activity'
 import { CCUsageCosts } from './costs'
 import { CCUsageMetrics } from './metrics'

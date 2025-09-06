@@ -1,5 +1,6 @@
 import { DonutChart, LanguageBarChart } from '@/components/charts'
 import { getCCUsageModels } from './ccusage-utils'
+<<<<<<< HEAD
 import { useModelChartData, usePerformanceMonitor } from './hooks'
 import type { CCUsageModelsProps } from './types'
 
@@ -12,6 +13,24 @@ export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps
   if (models.length > 20) {
     logRenderTime()
   }
+=======
+import type { CCUsageModelsProps, ModelChartData } from './types'
+
+export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps) {
+  const models = await getCCUsageModels(days)
+  
+  // Transform model data for charts (converted from hook to regular functions)
+  const tokenChartData: ModelChartData[] = models.map((model) => ({
+    name: model.name,
+    percent: model.percent,
+  }))
+
+  const costChartData: ModelChartData[] = models.map((model) => ({
+    name: model.name,
+    percent: model.costPercent,
+  }))
+  
+>>>>>>> origin/master
   
   if (!models.length) {
     return (
