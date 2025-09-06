@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AreaChart } from '@/components/charts'
-import { CompactMetric } from '@/components/ui/compact-metric'
+import { CompactMetric } from '@/components/ui/CompactMetric'
 import { PeriodSelector } from '@/components/period-selector'
 import { Activity, Eye, Globe, Users } from 'lucide-react'
 import { DEFAULT_PERIOD, TIME_PERIODS, type TimePeriod, type PeriodData } from '@/types/periods'

@@ -1,21 +1,5 @@
 import { AreaChart } from '@/components/charts'
 import { getCCUsageCosts } from './ccusage-utils'
-<<<<<<< HEAD
-import { useFormattedCurrency, useProcessedCosts, useCostChartData, usePerformanceMonitor } from './hooks'
-import type { CCUsageCostsProps } from './types'
-
-export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) {
-  const rawCosts = await getCCUsageCosts(days)
-  const { format: formatCurrency } = useFormattedCurrency()
-  const { data: costs, summary } = useProcessedCosts(rawCosts)
-  const costChartData = useCostChartData(costs)
-  const { logRenderTime } = usePerformanceMonitor('CCUsageCosts', costs.length)
-  
-  // Log performance for large datasets
-  if (costs.length > 90) {
-    logRenderTime()
-  }
-=======
 import type { CCUsageCostsProps, CostChartData } from './types'
 
 function formatCurrency(amount: number): string {
@@ -43,7 +27,6 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
     'Cache Cost': row['Cache Cost'],
   }))
   
->>>>>>> origin/master
 
   if (!costs || costs.length === 0) {
     return (

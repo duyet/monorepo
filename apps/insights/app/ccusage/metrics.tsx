@@ -1,26 +1,4 @@
-<<<<<<< HEAD
 import { CompactMetric } from '@/components/ui/CompactMetric'
-import { Brain, Calendar, Database, DollarSign } from 'lucide-react'
-import { getCCUsageMetrics } from './ccusage-utils'
-import { useFormattedCurrency, useModelNameFormatter, useProcessedMetrics } from './hooks'
-import type { CCUsageMetricsProps } from './types'
-
-export async function CCUsageMetrics({ days = 30, className }: CCUsageMetricsProps) {
-  const rawMetrics = await getCCUsageMetrics(days)
-  const { format: formatCurrency, formatTokens } = useFormattedCurrency()
-  const formatModelName = useModelNameFormatter()
-  const metrics = useProcessedMetrics(rawMetrics)
-  
-  if (!metrics) {
-    return (
-      <div className={`text-center text-muted-foreground ${className || ''}`}>
-        <p>No metrics data available</p>
-        <p className="mt-2 text-xs">Unable to load usage metrics</p>
-      </div>
-    )
-  }
-=======
-import { CompactMetric } from '@/components/ui/compact-metric'
 import { Brain, Calendar, Database, DollarSign } from 'lucide-react'
 import { getCCUsageMetrics } from './ccusage-utils'
 import type { CCUsageMetricsProps } from './types'
@@ -66,7 +44,6 @@ export async function CCUsageMetrics({ days = 30, className }: CCUsageMetricsPro
     averageCostPerToken: rawMetrics.totalTokens > 0 ? rawMetrics.totalCost / rawMetrics.totalTokens : 0,
     costPerDay: rawMetrics.activeDays > 0 ? rawMetrics.totalCost / rawMetrics.activeDays : 0,
   }
->>>>>>> origin/master
 
   return (
     <div className={`grid grid-cols-2 gap-4 lg:grid-cols-4 ${className || ''}`}>

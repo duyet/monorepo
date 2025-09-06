@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { PopularContentTable } from '@/components/popular-content-table'
-import { CompactMetric } from '@/components/ui/compact-metric'
+import { PopularContentTable } from '@/components/PopularContentTable'
+import { CompactMetric } from '@/components/ui/CompactMetric'
 import { PeriodSelector } from '@/components/period-selector'
 import { FileText, TrendingUp, Users } from 'lucide-react'
 import { DEFAULT_PERIOD, TIME_PERIODS, type TimePeriod, type PeriodData } from '@/types/periods'

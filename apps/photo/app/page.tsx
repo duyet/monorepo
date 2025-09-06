@@ -60,14 +60,15 @@ export default async function PhotosPage() {
           </div>
 
           {years.length > 0 && (
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap gap-1">
+              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Browse by year:</span>
               {years.map((year) => (
                 <Link
                   key={year}
                   href={`/${year}`}
-                  className="rounded-full bg-gray-100 px-3 py-1 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                  className="bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
                 >
-                  {year} ({photosByYear[year.toString()].length})
+                  {year}
                 </Link>
               ))}
             </div>
@@ -79,7 +80,7 @@ export default async function PhotosPage() {
       <div className="w-full">
         {photos.length > 0 ? (
           <div className="px-4 sm:px-6 lg:px-8">
-            <PhotoGrid photos={photos} className="gap-4 sm:gap-6 lg:gap-8" />
+            <PhotoGrid photos={photos} />
           </div>
         ) : (
           <Container>

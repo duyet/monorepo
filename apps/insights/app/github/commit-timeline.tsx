@@ -1,7 +1,21 @@
-import { getCommitStats } from './utils/commit-stats'
-import { CommitMetrics, CommitChart } from './components'
+import { AreaChart } from '@/components/charts'
+import { CompactMetric } from '@/components/ui/CompactMetric'
+import { Calendar, GitCommit, Zap } from 'lucide-react'
 
 const owner = 'duyet'
+
+interface CommitActivity extends Record<string, unknown> {
+  date: string
+  commits: number
+  week: number
+}
+
+interface CommitStats {
+  totalCommits: number
+  avgCommitsPerWeek: number
+  mostActiveDay: string
+  commitHistory: CommitActivity[]
+}
 
 export async function CommitTimeline() {
   const stats = await getCommitStats(owner)
@@ -18,15 +32,42 @@ export async function CommitTimeline() {
     )
   }
 
+  const metrics = [
+    {
+      label: 'Total Commits',
+      value: stats.totalCommits.toLocaleString(),
+      icon: <GitCommit className="h-4 w-4" />,
+      change: stats.totalCommits > 0 ? { value: 12 } : undefined,
+    },
+    {
+      label: 'Avg/Week',
+      value: Math.round(stats.avgCommitsPerWeek).toString(),
+      icon: <Zap className="h-4 w-4" />,
+      change: stats.avgCommitsPerWeek > 0 ? { value: 8 } : undefined,
+    },
+    {
+      label: 'Most Active',
+      value: stats.mostActiveDay,
+      icon: <Calendar className="h-4 w-4" />,
+    },
+  ]
+
   return (
     <div className="space-y-6">
       {/* Commit Metrics */}
-      <CommitMetrics stats={stats} />
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {metrics.map((metric) => (
+          <CompactMetric
+            key={metric.label}
+            label={metric.label}
+            value={metric.value}
+            change={metric.change}
+            icon={metric.icon}
+          />
+        ))}
+      </div>
 
       {/* Commit Activity Chart */}
-<<<<<<< HEAD
-      <CommitChart stats={stats} />
-=======
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
           <h3 className="font-medium">Commit Activity (Last 12 Weeks)</h3>
@@ -43,7 +84,6 @@ export async function CommitTimeline() {
           />
         </div>
       </div>
->>>>>>> origin/master
 
       <p className="text-xs text-muted-foreground">
         Data from GitHub API • Last 12 weeks of commit activity
@@ -51,8 +91,6 @@ export async function CommitTimeline() {
     </div>
   )
 }
-<<<<<<< HEAD
-=======
 
 async function getCommitStats(owner: string): Promise<CommitStats> {
   console.log(`Fetching GitHub commit stats for ${owner}`)
@@ -241,4 +279,3 @@ async function fetchAllEvents(
   console.log(`Total events fetched: ${allEvents.length} (last 12 weeks)`)
   return allEvents
 }
->>>>>>> origin/master
