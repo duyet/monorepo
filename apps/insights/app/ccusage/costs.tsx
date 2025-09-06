@@ -1,19 +1,32 @@
 import { AreaChart } from '@/components/charts'
 import { getCCUsageCosts } from './ccusage-utils'
-import { useFormattedCurrency, useProcessedCosts, useCostChartData, usePerformanceMonitor } from './hooks'
-import type { CCUsageCostsProps } from './types'
+import type { CCUsageCostsProps, CostChartData } from './types'
+
+function formatCurrency(amount: number): string {
+  if (amount === 0) return '$0'
+  if (amount < 0.01) return '<$0.01'
+  if (amount < 1) return `$${amount.toFixed(2)}`
+  if (amount < 10) return `$${amount.toFixed(1)}`
+  return `$${Math.round(amount)}`
+}
 
 export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) {
-  const rawCosts = await getCCUsageCosts(days)
-  const { format: formatCurrency } = useFormattedCurrency()
-  const { data: costs, summary } = useProcessedCosts(rawCosts)
-  const costChartData = useCostChartData(costs)
-  const { logRenderTime } = usePerformanceMonitor('CCUsageCosts', costs.length)
+  const costs = await getCCUsageCosts(days)
   
-  // Log performance for large datasets
-  if (costs.length > 90) {
-    logRenderTime()
-  }
+  // Process cost data with summary calculations (converted from hook)
+  const total = costs.reduce((sum, day) => sum + day['Total Cost'], 0)
+  const average = costs.length > 0 ? total / costs.length : 0
+  const projected = average * 30 // Monthly projection
+  const summary = { total, average, projected }
+  
+  // Transform cost data for charts (converted from hook)
+  const costChartData: CostChartData[] = costs.map((row) => ({
+    date: row.date,
+    'Input Cost': row['Input Cost'],
+    'Output Cost': row['Output Cost'],
+    'Cache Cost': row['Cache Cost'],
+  }))
+  
 
   if (!costs || costs.length === 0) {
     return (

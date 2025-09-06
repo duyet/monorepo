@@ -139,6 +139,7 @@ export interface ClickHouseConfig {
   username: string
   password: string
   database: string
+  protocol?: string
 }
 
 export interface QueryResult {

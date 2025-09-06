@@ -1,16 +1,9 @@
 import { BarChart } from '@/components/charts'
 import { getCCUsageActivity } from './ccusage-utils'
-import { usePerformanceMonitor } from './hooks'
 import type { CCUsageActivityProps } from './types'
 
 export async function CCUsageActivity({ days = 30, className }: CCUsageActivityProps) {
   const activity = await getCCUsageActivity(days)
-  const { logRenderTime } = usePerformanceMonitor('CCUsageActivity', activity.length)
-  
-  // Log performance for large datasets
-  if (activity.length > 90) {
-    logRenderTime()
-  }
   
   if (!activity.length) {
     return (

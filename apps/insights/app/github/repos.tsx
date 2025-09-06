@@ -25,6 +25,20 @@ export async function Repos({ owner, className }: RepoProps) {
     12,
   )
 
+  // Safety check for repos array
+  if (!repos || !Array.isArray(repos)) {
+    return (
+      <div className={cn('w-full', className)}>
+        <div className="rounded-lg border bg-card p-8 text-center">
+          <p className="text-muted-foreground">No repositories available</p>
+          <p className="mt-2 text-xs text-muted-foreground">
+            GitHub API may be unavailable or repository access is limited
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={cn('w-full', className)}>
       <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -101,16 +115,27 @@ async function getGithubRepos(
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     })
 
-    const res = await fetch(
-      `https://api.github.com/search/repositories?${params.toString()}`,
-      { cache: 'force-cache', headers },
-    )
+    try {
+      const res = await fetch(
+        `https://api.github.com/search/repositories?${params.toString()}`,
+        { cache: 'force-cache', headers },
+      )
 
-    return res.json() as Promise<{ items: GithubRepo[] }>
+      if (!res.ok) {
+        console.error(`GitHub API error: ${res.status} ${res.statusText}`)
+        return { items: [] }
+      }
+
+      const data = await res.json()
+      return data as { items: GithubRepo[] }
+    } catch (error) {
+      console.error('Failed to fetch GitHub repositories:', error)
+      return { items: [] }
+    }
   }
 
   const results = await fetchPage(1)
-  repos = results.items
+  repos = results.items || []
 
   const filteredRepos = repos.filter(
     (repo: GithubRepo) =>
