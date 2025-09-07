@@ -79,9 +79,7 @@ export default async function PhotosPage() {
       {/* Photo grid - full width */}
       <div className="w-full">
         {photos.length > 0 ? (
-          <div className="px-4 sm:px-6 lg:px-8">
-            <PhotoGrid photos={photos} />
-          </div>
+          <PhotoGrid photos={photos} />
         ) : (
           <Container>
             <div className="flex min-h-[400px] items-center justify-center">

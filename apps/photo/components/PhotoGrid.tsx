@@ -69,8 +69,8 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
     <>
       <Masonry
         breakpointCols={breakpointColumns}
-        className={cn('flex w-full -ml-4', className)}
-        columnClassName="pl-4 bg-clip-padding"
+        className={cn('flex w-full', className)}
+        columnClassName="bg-clip-padding"
       >
         {photos.map((photo, index) => (
           <PhotoCard
