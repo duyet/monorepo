@@ -42,7 +42,7 @@ export default function PhotoCard({
       className={cn(
         'group relative cursor-pointer overflow-hidden bg-gray-100 dark:bg-gray-800',
         'transition-opacity duration-200 hover:opacity-95',
-        'break-inside-avoid mb-4', // Prevents breaking in masonry layout
+        'break-inside-avoid', // Prevents breaking in masonry layout
         className,
       )}
       onClick={() => {
