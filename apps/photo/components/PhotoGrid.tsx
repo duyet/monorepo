@@ -68,7 +68,6 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
   return (
     <ErrorBoundary>
       <div className={cn('w-full', className)}>
-        {/* Professional masonry grid */}
         <Masonry
           breakpointCols={MASONRY_CONFIG.breakpoints}
           className={masonryClasses.container}

@@ -122,40 +122,21 @@ export default async function YearPage({ params }: YearPageProps) {
           </p>
 
           {/* Year navigation */}
-          <div className="mt-6 flex items-center gap-4">
-            {previousYear && (
+          <div className="mt-4 flex flex-wrap items-center gap-1">
+            <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Browse by year:</span>
+            {allYears.map((y) => (
               <Link
-                href={`/${previousYear}`}
-                className="rounded-lg bg-gray-100 px-4 py-2 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                key={y}
+                href={`/${y}`}
+                className={`px-2 py-1 text-sm transition-colors ${
+                  y === yearNum
+                    ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
+                    : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
+                }`}
               >
-                ← {previousYear}
+                {y}
               </Link>
-            )}
-
-            <div className="flex flex-wrap gap-2">
-              {allYears.map((y) => (
-                <Link
-                  key={y}
-                  href={`/${y}`}
-                  className={`rounded-full px-3 py-1 text-sm transition-colors ${
-                    y === yearNum
-                      ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                      : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
-                  }`}
-                >
-                  {y}
-                </Link>
-              ))}
-            </div>
-
-            {nextYear && (
-              <Link
-                href={`/${nextYear}`}
-                className="rounded-lg bg-gray-100 px-4 py-2 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                {nextYear} →
-              </Link>
-            )}
+            ))}
           </div>
         </div>
       </Container>

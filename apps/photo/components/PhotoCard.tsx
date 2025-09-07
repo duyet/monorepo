@@ -37,16 +37,9 @@ export default function PhotoCard({
   return (
     <div
       className={cn(
-        // Base card styling for seamless grid
-        'group relative cursor-pointer overflow-hidden',
-        'bg-gray-100 dark:bg-gray-800',
-        
-        // Minimal hover effects
-        'transition-opacity duration-200',
-        'hover:opacity-95',
-        
-        // Masonry layout optimization
-        'break-inside-avoid',
+        'group relative cursor-pointer overflow-hidden bg-gray-100 dark:bg-gray-800',
+        'transition-opacity duration-200 hover:opacity-95',
+        'break-inside-avoid', // Prevents breaking in masonry layout
         className,
       )}
       onClick={onClick}
@@ -73,11 +66,9 @@ export default function PhotoCard({
           className="transition-opacity duration-300"
         />
 
-        {/* Simplified overlay */}
+        {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-200 group-hover:bg-opacity-20">
-          <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-            
-            {/* Primary description */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             {photo.description && (
               <h3 className="font-medium leading-snug text-sm sm:text-base line-clamp-2 mb-2">
                 {photo.description}
