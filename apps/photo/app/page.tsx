@@ -14,7 +14,6 @@ export default async function PhotosPage() {
     photos = await getAllUserPhotos()
     photosByYear = groupPhotosByYear(photos)
   } catch (e) {
-    console.error('Failed to fetch photos:', e)
     error = 'Failed to load photos. Please try again later.'
   }
 
@@ -43,25 +42,33 @@ export default async function PhotosPage() {
 
   return (
     <>
+      {/* Skip to content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg transition-all hover:bg-blue-700"
+      >
+        Skip to main content
+      </a>
+      
       {/* Header and intro text - contained */}
       <Container>
-        <div className="mb-8">
+        <section className="mb-8" aria-labelledby="intro-heading">
+          <h1 id="intro-heading" className="sr-only">Photography Portfolio</h1>
           <div className="text-lg text-gray-600 dark:text-gray-300">
-            A collection of {totalPhotos} photographs from my{' '}
+            Photography collection from my{' '}
             <a
               href="https://unsplash.com/@_duyet"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-gray-900 dark:hover:text-white"
+              className="underline underline-offset-2 transition-colors hover:text-gray-900 dark:hover:text-white"
             >
               Unsplash profile
             </a>
-.
+            .
           </div>
 
           {years.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-1">
-              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Browse by year:</span>
               {years.map((year) => (
                 <Link
                   key={year}
@@ -73,11 +80,12 @@ export default async function PhotosPage() {
               ))}
             </div>
           )}
-        </div>
+        </section>
       </Container>
 
       {/* Photo grid - full width */}
-      <div className="w-full">
+      <section className="w-full" aria-labelledby="photos-heading" id="main-content">
+        <h2 id="photos-heading" className="sr-only">Photo Gallery</h2>
         {photos.length > 0 ? (
           <PhotoGrid photos={photos} />
         ) : (
@@ -91,7 +99,7 @@ export default async function PhotosPage() {
             </div>
           </Container>
         )}
-      </div>
+      </section>
     </>
   )
 }

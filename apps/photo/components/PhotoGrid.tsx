@@ -1,11 +1,15 @@
 'use client'
 
 import type { UnsplashPhoto } from '@/lib/types'
+import { MASONRY_CONFIG, getMasonryClasses } from '@/lib/GridUtilities'
 import { cn } from '@duyet/libs/utils'
 import { useCallback, useState } from 'react'
 import Masonry from 'react-masonry-css'
+import { EmptyState } from './LoadingStates'
+import ErrorBoundary from './ErrorBoundary'
 import Lightbox from './Lightbox'
 import PhotoCard from './PhotoCard'
+import { Images } from 'lucide-react'
 
 interface PhotoGridProps {
   photos: UnsplashPhoto[]
@@ -16,9 +20,9 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<UnsplashPhoto | null>(null)
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
 
+  // Grid navigation handlers with enhanced performance
   const handlePhotoClick = useCallback(
     (photo: UnsplashPhoto, index: number) => {
-      console.log('Photo clicked:', photo.id, index) // Debug log
       setSelectedPhoto(photo)
       setSelectedIndex(index)
     },
@@ -42,58 +46,56 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
   }, [selectedIndex, photos])
 
   const handleClose = useCallback(() => {
-    console.log('Closing lightbox') // Debug log
     setSelectedPhoto(null)
     setSelectedIndex(-1)
   }, [])
 
-  // Masonry breakpoint configuration
-  const breakpointColumns = {
-    default: 3,
-    1024: 3,
-    768: 2,
-    640: 1,
-  }
+  // Get masonry styling
+  const masonryClasses = getMasonryClasses()
 
+  // Empty state handling
   if (!photos.length) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center text-gray-500 dark:text-gray-400">
-        <p>No photos found.</p>
-      </div>
+      <EmptyState
+        title="No photos found"
+        description="There are no photos to display at the moment. Try adjusting your filters or check back later."
+        icon={<Images className="h-16 w-16" />}
+        className={className}
+      />
     )
   }
 
-  console.log('Selected photo:', selectedPhoto?.id) // Debug log
-
   return (
-    <>
-      <Masonry
-        breakpointCols={breakpointColumns}
-        className={cn('flex w-full', className)}
-        columnClassName="bg-clip-padding"
-      >
-        {photos.map((photo, index) => (
-          <PhotoCard
-            key={photo.id}
-            photo={photo}
-            index={index}
-            onClick={() => handlePhotoClick(photo, index)}
-          />
-        ))}
-      </Masonry>
+    <ErrorBoundary>
+      <div className={cn('w-full', className)}>
+        <Masonry
+          breakpointCols={MASONRY_CONFIG.breakpoints}
+          className={masonryClasses.container}
+          columnClassName={masonryClasses.column}
+        >
+          {photos.map((photo, index) => (
+            <PhotoCard
+              key={photo.id}
+              photo={photo}
+              index={index}
+              onClick={() => handlePhotoClick(photo, index)}
+            />
+          ))}
+        </Masonry>
 
-      {/* Lightbox */}
-      {selectedPhoto && (
-        <Lightbox
-          photo={selectedPhoto}
-          isOpen={!!selectedPhoto}
-          onClose={handleClose}
-          onNext={selectedIndex < photos.length - 1 ? handleNext : undefined}
-          onPrevious={selectedIndex > 0 ? handlePrevious : undefined}
-          currentIndex={selectedIndex}
-          totalCount={photos.length}
-        />
-      )}
-    </>
+        {/* Enhanced lightbox with modular architecture */}
+        {selectedPhoto && (
+          <Lightbox
+            photo={selectedPhoto}
+            isOpen={!!selectedPhoto}
+            onClose={handleClose}
+            onNext={selectedIndex < photos.length - 1 ? handleNext : undefined}
+            onPrevious={selectedIndex > 0 ? handlePrevious : undefined}
+            currentIndex={selectedIndex}
+            totalCount={photos.length}
+          />
+        )}
+      </div>
+    </ErrorBoundary>
   )
 }
