@@ -95,11 +95,10 @@ export default async function PhotosPage() {
       </Container>
 
       {/* Photo grid - full width */}
-      <section className="w-full" aria-labelledby="photos-heading" id="main-content">        <h2 id="photos-heading" className="sr-only">Photo Gallery</h2>
+      <section className="w-full" aria-labelledby="photos-heading" id="main-content">
+        <h2 id="photos-heading" className="sr-only">Photo Gallery</h2>
         {photos.length > 0 ? (
-          <div className="px-4 sm:px-6 lg:px-8">
-            <PhotoGrid photos={photos} />
-          </div>
+          <PhotoGrid photos={photos} />
         ) : (
           <Container>
             <div className="flex min-h-[400px] items-center justify-center">

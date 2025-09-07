@@ -37,19 +37,16 @@ export default function PhotoCard({
   return (
     <div
       className={cn(
-        // Base card styling with professional aesthetics
+        // Base card styling for seamless grid
         'group relative cursor-pointer overflow-hidden',
-        'rounded-xl bg-white shadow-sm ring-1 ring-gray-200/50',
-        'dark:bg-gray-900 dark:ring-gray-800/50',
+        'bg-gray-100 dark:bg-gray-800',
         
-        // Enhanced hover effects for portfolio feel
-        'transition-all duration-300 ease-out',
-        'hover:scale-[1.02] hover:shadow-xl hover:shadow-gray-900/10',
-        'dark:hover:shadow-gray-900/30',
-        'hover:ring-gray-300/50 dark:hover:ring-gray-700/50',
+        // Minimal hover effects
+        'transition-opacity duration-200',
+        'hover:opacity-95',
         
         // Masonry layout optimization
-        'break-inside-avoid mb-6 lg:mb-8',
+        'break-inside-avoid',
         className,
       )}
       onClick={onClick}
@@ -73,11 +70,11 @@ export default function PhotoCard({
           priority={shouldPrioritizeLoading(index)}
           blurDataURL={generateBlurDataURL(photo)}
           sizes={getResponsiveSizes('grid')}
-          className="transition-transform duration-500 group-hover:scale-105"
+          className="transition-opacity duration-300"
         />
 
-        {/* Professional overlay with enhanced typography */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100">
+        {/* Simplified overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-200 group-hover:bg-opacity-20">
           <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
             
             {/* Primary description */}

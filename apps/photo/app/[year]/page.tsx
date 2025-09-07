@@ -162,9 +162,7 @@ export default async function YearPage({ params }: YearPageProps) {
 
       {/* Photo grid - full width */}
       <div className="w-full">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <PhotoGrid photos={yearPhotos} />
-        </div>
+        <PhotoGrid photos={yearPhotos} />
       </div>
     </>
   )
