@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { cn } from "@duyet/libs/utils";
-import ThemeToggle from "./ThemeToggle";
 
 const BLOG_URL =
   process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
@@ -19,7 +18,7 @@ export const ABOUT = { name: "About", href: `${BLOG_URL}/about` };
 export const INSIGHTS = { name: "Insights", href: INSIGHTS_URL };
 export const PHOTOS = { name: "Photos", href: PHOTO_URL };
 export const ARCHIVES = { name: "Archives", href: `${BLOG_URL}/archives` };
-export const FEED = { name: "Feed", href: `${BLOG_URL}/feed` };
+export const FEED = { name: "Feed", href: `${BLOG_URL}` };
 export const BLOG = { name: "Blog", href: `${BLOG_URL}` };
 const defaultNavigation = [FEED, PHOTOS, INSIGHTS, ABOUT];
 
@@ -43,7 +42,6 @@ export default function Menu({
           {name}
         </Link>
       ))}
-      <ThemeToggle />
     </div>
   );
 }
