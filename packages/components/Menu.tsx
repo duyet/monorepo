@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { cn } from "@duyet/libs/utils";
+import ThemeToggle from "./ThemeToggle";
 
 const BLOG_URL =
   process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
@@ -32,7 +33,7 @@ export default function Menu({
   navigationItems = defaultNavigation,
 }: Props) {
   return (
-    <div className={cn("flex flex-row gap-5 flex-wrap", className)}>
+    <div className={cn("flex flex-row gap-5 flex-wrap items-center", className)}>
       {navigationItems.map(({ name, href }) => (
         <Link
           key={name}
@@ -42,6 +43,7 @@ export default function Menu({
           {name}
         </Link>
       ))}
+      <ThemeToggle />
     </div>
   );
 }

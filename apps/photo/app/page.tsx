@@ -55,7 +55,7 @@ export default async function PhotosPage() {
         <section className="mb-8" aria-labelledby="intro-heading">
           <h1 id="intro-heading" className="sr-only">Photography Portfolio</h1>
           <div className="text-lg text-gray-600 dark:text-gray-300">
-            A curated collection of {totalPhotos} photographs from my{' '}
+            Photography collection from my{' '}
             <a
               href="https://unsplash.com/@_duyet"
               target="_blank"
@@ -69,7 +69,6 @@ export default async function PhotosPage() {
 
           {years.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-1">
-              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Browse by year:</span>
               {years.map((year) => (
                 <Link
                   key={year}

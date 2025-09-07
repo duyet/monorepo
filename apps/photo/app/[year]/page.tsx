@@ -116,14 +116,9 @@ export default async function YearPage({ params }: YearPageProps) {
           </div>
 
           <h1 className="mb-2 text-3xl font-bold">Photos from {year}</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            {yearPhotos.length} photograph{yearPhotos.length !== 1 ? 's' : ''}{' '}
-            from {year}
-          </p>
 
           {/* Year navigation */}
           <div className="mt-4 flex flex-wrap items-center gap-1">
-            <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">Browse by year:</span>
             {allYears.map((y) => (
               <Link
                 key={y}
