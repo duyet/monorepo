@@ -53,6 +53,30 @@ const getDataForAllPeriods = async (): Promise<PeriodData<CloudflareDataByPeriod
 }
 
 const getDataForPeriod = async (days: number) => {
+  // Check if required environment variables are present
+  if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
+    console.warn('Cloudflare API credentials not configured, returning empty data')
+    return {
+      data: {
+        viewer: {
+          zones: [{
+            httpRequests1dGroups: []
+          }]
+        }
+      },
+      totalRequests: 0,
+      totalPageviews: 0,
+    }
+  }
+
+  // Limit days to avoid quota errors (max 364 days for Cloudflare free tier)
+  const maxDays = 364
+  const actualDays = Math.min(days, maxDays)
+
+  if (days > maxDays) {
+    console.warn(`Requested ${days} days but limiting to ${maxDays} days due to Cloudflare quota limits`)
+  }
+
   const query = `
     query viewer($zoneTag: string, $date_start: string, $date_end: string) {
       viewer {
@@ -81,7 +105,7 @@ const getDataForPeriod = async (days: number) => {
 
   const variables = {
     zoneTag: process.env.CLOUDFLARE_ZONE_ID,
-    date_start: new Date(new Date().setDate(new Date().getDate() - days))
+    date_start: new Date(new Date().setDate(new Date().getDate() - actualDays))
       .toISOString()
       .split('T')[0],
     date_end: new Date().toISOString().split('T')[0],
@@ -91,28 +115,65 @@ const getDataForPeriod = async (days: number) => {
     Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
   }
 
-  const data: CloudflareAnalyticsByDate = await request(
-    'https://api.cloudflare.com/client/v4/graphql',
-    query,
-    variables,
-    headers,
-  )
+  try {
+    const data: CloudflareAnalyticsByDate = await request(
+      'https://api.cloudflare.com/client/v4/graphql',
+      query,
+      variables,
+      headers,
+    )
 
-  const zone = data.viewer.zones[0]
+    const zone = data.viewer.zones[0]
 
-  const totalRequests = zone.httpRequests1dGroups.reduce(
-    (total, i) => total + i.sum.requests,
-    0,
-  )
+    if (!zone || !zone.httpRequests1dGroups) {
+      console.warn('No zone data returned from Cloudflare API')
+      return {
+        data: {
+          viewer: {
+            zones: [{
+              httpRequests1dGroups: []
+            }]
+          }
+        },
+        totalRequests: 0,
+        totalPageviews: 0,
+      }
+    }
 
-  const totalPageviews = zone.httpRequests1dGroups.reduce(
-    (total, i) => total + i.sum.pageViews,
-    0,
-  )
+    const totalRequests = zone.httpRequests1dGroups.reduce(
+      (total, i) => total + i.sum.requests,
+      0,
+    )
 
-  return {
-    data,
-    totalRequests,
-    totalPageviews,
+    const totalPageviews = zone.httpRequests1dGroups.reduce(
+      (total, i) => total + i.sum.pageViews,
+      0,
+    )
+
+    return {
+      data,
+      totalRequests,
+      totalPageviews,
+    }
+  } catch (error) {
+    console.error(`Cloudflare API error for ${actualDays} days:`, error)
+
+    // Check if it's a quota error and suggest a shorter period
+    if (error instanceof Error && error.message.includes('cannot request data older than')) {
+      console.warn('Cloudflare quota exceeded, consider reducing the time period')
+    }
+
+    // Return empty data structure on error
+    return {
+      data: {
+        viewer: {
+          zones: [{
+            httpRequests1dGroups: []
+          }]
+        }
+      },
+      totalRequests: 0,
+      totalPageviews: 0,
+    }
   }
 }
