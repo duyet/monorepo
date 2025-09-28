@@ -1,6 +1,7 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "globalEnv": [
+    "NEXT_PUBLIC_DUYET_HOME_URL",
     "NEXT_PUBLIC_DUYET_CV_URL",
     "NEXT_PUBLIC_DUYET_BLOG_URL",
     "NEXT_PUBLIC_DUYET_INSIGHTS_URL",

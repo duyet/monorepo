@@ -12,6 +12,7 @@ module.exports = {
         // App changes
         "blog",
         "cv",
+        "home",
         "insights",
         "travel",
         // CI-related changes
