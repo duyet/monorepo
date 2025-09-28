@@ -162,6 +162,7 @@ export function InsightsSection() {
           <Link
             href={process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || 'https://insights.duyet.net'}
             target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center px-5 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
           >
             View Full Dashboard

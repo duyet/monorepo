@@ -70,6 +70,7 @@ export function ContactSection() {
                     key={index}
                     href={link.href}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className={`flex items-center space-x-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 transition-all ${link.color} text-sm`}
                   >
                     {link.icon}
@@ -126,6 +127,7 @@ export function ContactSection() {
                     key={index}
                     href={project.url}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="block p-3 bg-gray-50 dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-colors group"
                   >
                     <div className="flex items-center justify-between">

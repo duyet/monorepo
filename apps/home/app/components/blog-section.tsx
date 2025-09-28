@@ -56,6 +56,7 @@ export function BlogSection({ latestPosts }: BlogSectionProps) {
                   <Link
                     href={postUrl}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     {post.title}
@@ -105,6 +106,7 @@ export function BlogSection({ latestPosts }: BlogSectionProps) {
           <Link
             href={process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'}
             target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm"
           >
             View All Posts

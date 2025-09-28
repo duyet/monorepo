@@ -15,8 +15,9 @@ export default async function HomePage() {
 
   // Calculate stats for hero section
   const postCount = allPosts.length
-  const yearsSinceFirst = allPosts.length > 0
-    ? new Date().getFullYear() - new Date(allPosts[allPosts.length - 1].date).getFullYear()
+  const sortedPosts = allPosts.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  const yearsSinceFirst = sortedPosts.length > 0
+    ? new Date().getFullYear() - new Date(sortedPosts[0].date).getFullYear()
     : 0
 
   return (
