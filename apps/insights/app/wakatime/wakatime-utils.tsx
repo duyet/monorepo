@@ -57,7 +57,13 @@ async function wakaTimeRequest(endpoint: string) {
     })
 
     if (!res.ok) {
-      console.error(`WakaTime API error: ${res.status} ${res.statusText}`)
+      if (res.status === 401) {
+        console.error('WakaTime API authentication failed - invalid API key')
+      } else if (res.status === 403) {
+        console.error('WakaTime API access forbidden - check permissions')
+      } else {
+        console.error(`WakaTime API error: ${res.status} ${res.statusText}`)
+      }
       return null
     }
 

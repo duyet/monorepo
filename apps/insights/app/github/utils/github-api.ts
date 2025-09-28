@@ -4,6 +4,12 @@ import type { GitHubEvent } from './types'
  * Fetch all GitHub events for a user within the last 12 weeks
  */
 export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
+  // Check if GitHub token is configured
+  if (!process.env.GITHUB_TOKEN) {
+    console.warn('GITHUB_TOKEN not configured, returning empty events')
+    return []
+  }
+
   const allEvents: GitHubEvent[] = []
   let page = 1
   const perPage = 100
@@ -19,16 +25,22 @@ export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
             Accept: 'application/vnd.github.v3+json',
+            'User-Agent': 'insights-app',
           },
           cache: 'force-cache',
         },
       )
 
       if (!response.ok) {
-        console.error(
-          `Failed to fetch events page ${page}:`,
-          response.statusText,
-        )
+        if (response.status === 401) {
+          console.error('GitHub API authentication failed - invalid token')
+        } else if (response.status === 403) {
+          console.error('GitHub API rate limit exceeded or access forbidden')
+        } else {
+          console.error(
+            `Failed to fetch events page ${page}: ${response.status} ${response.statusText}`,
+          )
+        }
         break
       }
 

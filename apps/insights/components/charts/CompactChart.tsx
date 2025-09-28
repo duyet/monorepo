@@ -255,7 +255,6 @@ export function MiniSparkline({
 interface CompactPieChartProps extends BaseChartProps {
   nameKey: string
   valueKey: string
-  showLabels?: boolean
   innerRadius?: number
 }
 
@@ -265,7 +264,6 @@ export function CompactPieChart({
   valueKey,
   className,
   height = 200,
-  showLabels = false,
   showTooltip = true,
   innerRadius = 0,
 }: CompactPieChartProps) {
