@@ -53,6 +53,9 @@ const getDataForAllPeriods = async (): Promise<PeriodData<CloudflareDataByPeriod
 }
 
 const getDataForPeriod = async (days: number) => {
+  // Cloudflare free tier only allows max 365 days of data
+  const cappedDays = Math.min(days, 365)
+
   const query = `
     query viewer($zoneTag: string, $date_start: string, $date_end: string) {
       viewer {
@@ -81,7 +84,7 @@ const getDataForPeriod = async (days: number) => {
 
   const variables = {
     zoneTag: process.env.CLOUDFLARE_ZONE_ID,
-    date_start: new Date(new Date().setDate(new Date().getDate() - days))
+    date_start: new Date(new Date().setDate(new Date().getDate() - cappedDays))
       .toISOString()
       .split('T')[0],
     date_end: new Date().toISOString().split('T')[0],
