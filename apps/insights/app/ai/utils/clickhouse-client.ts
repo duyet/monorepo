@@ -28,12 +28,36 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
   const database = process.env.CLICKHOUSE_DATABASE
   const explicitProtocol = process.env.CLICKHOUSE_PROTOCOL
 
+  // Debug logging for environment detection
+  console.log('[ClickHouse Config] Environment check:', {
+    hasHost: !!host,
+    hasUsername: !!username,
+    hasPassword: !!password,
+    hasDatabase: !!database,
+    port,
+    protocol: explicitProtocol,
+    nodeEnv: process.env.NODE_ENV,
+    buildEnv: process.env.VERCEL ? 'vercel' : process.env.CF_PAGES ? 'cloudflare' : 'local',
+  })
+
   if (!host || !username || !password || !database) {
-    console.warn('ClickHouse environment variables not found')
+    console.warn('[ClickHouse Config] Missing required environment variables:', {
+      host: host ? 'SET' : 'MISSING',
+      username: username ? 'SET' : 'MISSING',
+      password: password ? 'SET' : 'MISSING',
+      database: database ? 'SET' : 'MISSING',
+    })
     return null
   }
 
   const protocol = detectClickHouseProtocol(port, explicitProtocol)
+
+  console.log('[ClickHouse Config] Configuration created:', {
+    host,
+    port,
+    protocol,
+    database,
+  })
 
   return { host, port, username, password, database, protocol }
 }
@@ -43,11 +67,17 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
  */
 export function getClickHouseClient() {
   const config = getClickHouseConfig()
-  if (!config) return null
+  if (!config) {
+    console.warn('[ClickHouse Client] No configuration available')
+    return null
+  }
 
   try {
-    return createClient({
-      url: `${config.protocol}://${config.host}:${config.port}`,
+    const url = `${config.protocol}://${config.host}:${config.port}`
+    console.log('[ClickHouse Client] Creating client with URL:', url)
+
+    const client = createClient({
+      url,
       username: config.username,
       password: config.password,
       database: config.database,
@@ -58,8 +88,11 @@ export function getClickHouseClient() {
         max_memory_usage: '1G', // Limit memory usage
       },
     })
+
+    console.log('[ClickHouse Client] Client created successfully')
+    return client
   } catch (error) {
-    console.error('Failed to create ClickHouse client:', error)
+    console.error('[ClickHouse Client] Failed to create client:', error)
     return null
   }
 }
@@ -72,9 +105,16 @@ export async function executeClickHouseQuery(
   timeoutMs: number = 60000,
   maxRetries: number = 3,
 ): Promise<QueryResult> {
+  console.log('[ClickHouse Query] Starting query execution:', {
+    queryLength: query.length,
+    timeout: timeoutMs,
+    maxRetries,
+  })
+
   const client = getClickHouseClient()
 
   if (!client) {
+    console.error('[ClickHouse Query] Client not available')
     return {
       success: false,
       data: [],
@@ -86,6 +126,8 @@ export async function executeClickHouseQuery(
 
   // Retry logic with exponential backoff
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    console.log(`[ClickHouse Query] Attempt ${attempt}/${maxRetries}`)
+
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
@@ -97,16 +139,23 @@ export async function executeClickHouseQuery(
       })
 
       clearTimeout(timeoutId)
+      console.log('[ClickHouse Query] Query executed, parsing result...')
+
       const data = await resultSet.json()
 
       // ClickHouse JSONEachRow format returns array of objects
       if (Array.isArray(data)) {
+        console.log('[ClickHouse Query] Success:', {
+          rowCount: data.length,
+          hasData: data.length > 0,
+        })
         return {
           success: true,
           data: data as Record<string, unknown>[],
         }
       }
 
+      console.log('[ClickHouse Query] Success but no data returned')
       return {
         success: true,
         data: [],
@@ -115,25 +164,31 @@ export async function executeClickHouseQuery(
       clearTimeout(timeoutId)
       lastError = error instanceof Error ? error : new Error('Unknown error')
 
-      console.error(`ClickHouse query failed (attempt ${attempt}/${maxRetries}):`, error)
+      console.error(`[ClickHouse Query] Failed (attempt ${attempt}/${maxRetries}):`, {
+        error: lastError.message,
+        errorType: error?.constructor?.name,
+        stack: lastError.stack?.split('\n').slice(0, 3).join('\n'),
+      })
 
       // Don't retry on the last attempt
       if (attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
         const backoffMs = Math.pow(2, attempt - 1) * 1000
-        console.log(`Retrying in ${backoffMs}ms...`)
+        console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms...`)
         await new Promise(resolve => setTimeout(resolve, backoffMs))
       }
     } finally {
       try {
         await client.close()
+        console.log('[ClickHouse Query] Client closed')
       } catch (closeError) {
-        console.warn('Failed to close ClickHouse client:', closeError)
+        console.warn('[ClickHouse Query] Failed to close client:', closeError)
       }
     }
   }
 
   // All retries failed
+  console.error('[ClickHouse Query] All retries exhausted:', lastError?.message)
   return {
     success: false,
     data: [],
