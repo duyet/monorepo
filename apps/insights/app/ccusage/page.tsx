@@ -85,16 +85,7 @@ export default function CCUsage() {
         })}
 
         <p className="text-xs text-muted-foreground">
-          Data from Claude Code usage analytics • Updated daily • All sensitive
-          information anonymized • Data analyzed by{' '}
-          <a
-            href="https://github.com/ryoppippi/ccusage"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-600 underline"
-          >
-            ccusage
-          </a>
+          Claude Code Usage Analytics
         </p>
       </div>
     </div>
