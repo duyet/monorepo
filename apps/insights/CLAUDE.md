@@ -222,28 +222,46 @@ yarn test ccusage
 ## API Integration Patterns
 
 ### ClickHouse Integration
+
+**IMPORTANT**: Our implementation uses connection pooling and Keep-Alive as recommended by the official ClickHouse JS client documentation. The client instance is a singleton that persists across queries for optimal performance.
+
 ```typescript
-// Proper error handling and connection management
+// ✅ CORRECT: Singleton client with connection pooling (current implementation)
+// The client is created once and reused across all queries
 const client = createClient({
-  host: `http://${host}:${port}`,
-  username,
-  password,
-  database,
+  url: 'https://username:password@host:port/database', // Official URL format
+  request_timeout: 60000,
   clickhouse_settings: {
-    max_execution_time: 30,
+    max_execution_time: 60,
     max_result_rows: '10000',
     max_memory_usage: '1G',
   },
 })
 
-// Always close connections
+// Query without closing - connection pooling handles reconnection
+const result = await client.query({
+  query: 'SELECT * FROM table',
+  format: 'JSONEachRow',
+})
+const data = await result.json()
+
+// ❌ WRONG: Do NOT close the client after each query
+// This defeats the purpose of connection pooling and causes performance issues
 try {
   const result = await client.query({ query })
   return await result.json()
 } finally {
-  await client.close()
+  await client.close() // ❌ Don't do this!
 }
 ```
+
+**Key Implementation Details**:
+- Client uses HTTP(S) protocol with connection pooling
+- Keep-Alive is enabled by default (max 10 connections)
+- Client instance persists across queries for performance
+- Use `closeClickHouseClient()` only for graceful app shutdown
+- URL format embeds credentials: `protocol://user:pass@host:port/db`
+- Query format should be `'JSONEachRow'` for array of objects
 
 ### GitHub API Pattern
 ```typescript

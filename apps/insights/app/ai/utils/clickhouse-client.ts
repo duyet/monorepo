@@ -69,10 +69,19 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
   return { host, port, username, password, database, protocol }
 }
 
+// Singleton client instance for connection pooling
+let clientInstance: ReturnType<typeof createClient> | null = null
+
 /**
- * Get ClickHouse client instance with error handling
+ * Get ClickHouse client instance with error handling and connection pooling
+ * Returns a singleton instance that reuses connections via Keep-Alive
  */
 export function getClickHouseClient() {
+  // Return existing client if available
+  if (clientInstance) {
+    return clientInstance
+  }
+
   const config = getClickHouseConfig()
   if (!config) {
     console.warn('[ClickHouse Client] No configuration available')
@@ -80,14 +89,13 @@ export function getClickHouseClient() {
   }
 
   try {
-    const url = `${config.protocol}://${config.host}:${config.port}`
-    console.log('[ClickHouse Client] Creating client with URL:', url)
+    // Use official URL format: protocol://username:password@host:port/database
+    // This is the recommended approach per ClickHouse JS client docs
+    const url = `${config.protocol}://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`
+    console.log('[ClickHouse Client] Creating client with URL:', url.replace(/:([^:@]+)@/, ':***@'))
 
-    const client = createClient({
+    clientInstance = createClient({
       url,
-      username: config.username,
-      password: config.password,
-      database: config.database,
       request_timeout: 60000, // 60 second request timeout
       clickhouse_settings: {
         max_execution_time: 60,
@@ -96,8 +104,8 @@ export function getClickHouseClient() {
       },
     })
 
-    console.log('[ClickHouse Client] Client created successfully')
-    return client
+    console.log('[ClickHouse Client] Client created successfully with connection pooling enabled')
+    return clientInstance
   } catch (error) {
     console.error('[ClickHouse Client] Failed to create client:', error)
     return null
@@ -186,14 +194,9 @@ export async function executeClickHouseQuery(
         console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms...`)
         await new Promise(resolve => setTimeout(resolve, backoffMs))
       }
-    } finally {
-      try {
-        await client.close()
-        console.log('[ClickHouse Query] Client closed')
-      } catch (closeError) {
-        console.warn('[ClickHouse Query] Failed to close client:', closeError)
-      }
     }
+    // NOTE: We do NOT close the client here to allow connection pooling and Keep-Alive
+    // The client instance is reused across queries for better performance
   }
 
   // All retries failed
@@ -222,4 +225,21 @@ export async function executeClickHouseQueryLegacy(
   }
 
   return result.data
+}
+
+/**
+ * Close the ClickHouse client connection (for graceful shutdown)
+ * Should only be called when the application is shutting down
+ */
+export async function closeClickHouseClient(): Promise<void> {
+  if (clientInstance) {
+    try {
+      console.log('[ClickHouse Client] Closing connection...')
+      await clientInstance.close()
+      clientInstance = null
+      console.log('[ClickHouse Client] Connection closed successfully')
+    } catch (error) {
+      console.error('[ClickHouse Client] Error closing connection:', error)
+    }
+  }
 }
