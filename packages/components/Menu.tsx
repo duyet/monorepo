@@ -7,7 +7,7 @@ const BLOG_URL =
 const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
 const PHOTO_URL =
-  process.env.NEXT_PUBLIC_DUYET_PHOTO_URL || "https://photos.duyet.net";
+  process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net";
 
 export type NavigationItem = {
   name: string;
