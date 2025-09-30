@@ -111,6 +111,24 @@ export async function Cloudflare() {
 }
 
 const getData = async () => {
+  // Check if required environment variables are present
+  if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
+    console.warn('Cloudflare API credentials not configured, returning empty data')
+    const emptyData = {
+      viewer: {
+        zones: [{
+          httpRequests1dGroups: []
+        }]
+      }
+    }
+    return {
+      data: emptyData,
+      generatedAt: new Date().toISOString(),
+      totalRequests: 0,
+      totalPageviews: 0,
+    }
+  }
+
   const query = `
     query viewer($zoneTag: string, $date_start: string, $date_end: string) {
       viewer {
@@ -149,31 +167,65 @@ const getData = async () => {
     Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
   }
 
-  const data: CloudflareAnalyticsByDate = await request(
-    'https://api.cloudflare.com/client/v4/graphql',
-    query,
-    variables,
-    headers,
-  )
+  try {
+    const data: CloudflareAnalyticsByDate = await request(
+      'https://api.cloudflare.com/client/v4/graphql',
+      query,
+      variables,
+      headers,
+    )
 
-  const zone = data.viewer.zones[0]
+    const zone = data.viewer.zones[0]
 
-  const totalRequests = zone.httpRequests1dGroups.reduce(
-    (total, i) => total + i.sum.requests,
-    0,
-  )
+    if (!zone || !zone.httpRequests1dGroups) {
+      console.warn('No zone data returned from Cloudflare API')
+      const emptyData = {
+        viewer: {
+          zones: [{
+            httpRequests1dGroups: []
+          }]
+        }
+      }
+      return {
+        data: emptyData,
+        generatedAt: new Date().toISOString(),
+        totalRequests: 0,
+        totalPageviews: 0,
+      }
+    }
 
-  const totalPageviews = zone.httpRequests1dGroups.reduce(
-    (total, i) => total + i.sum.pageViews,
-    0,
-  )
+    const totalRequests = zone.httpRequests1dGroups.reduce(
+      (total, i) => total + i.sum.requests,
+      0,
+    )
 
-  const generatedAt = new Date().toISOString()
+    const totalPageviews = zone.httpRequests1dGroups.reduce(
+      (total, i) => total + i.sum.pageViews,
+      0,
+    )
 
-  return {
-    data,
-    generatedAt,
-    totalRequests,
-    totalPageviews,
+    const generatedAt = new Date().toISOString()
+
+    return {
+      data,
+      generatedAt,
+      totalRequests,
+      totalPageviews,
+    }
+  } catch (error) {
+    console.error('Cloudflare API error:', error)
+    const emptyData = {
+      viewer: {
+        zones: [{
+          httpRequests1dGroups: []
+        }]
+      }
+    }
+    return {
+      data: emptyData,
+      generatedAt: new Date().toISOString(),
+      totalRequests: 0,
+      totalPageviews: 0,
+    }
   }
 }

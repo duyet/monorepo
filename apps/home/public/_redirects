@@ -1,0 +1,37 @@
+# Cloudflare Pages Redirects
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Main pages
+/blog https://blog.duyet.net 302
+/cv https://cv.duyet.net 302
+/about https://blog.duyet.net/about 302
+
+# Insights
+/i https://insights.duyet.net 302
+/insights https://insights.duyet.net 302
+
+# Tools & Projects
+/mcp https://mcp.duyet.net 302
+/rs https://rust-tieng-viet.github.io 302
+/monitor https://clickhouse-monitoring.vercel.app 302
+/numi https://numi.app 302
+
+# Social Media
+/in https://linkedin.com/in/duyet 302
+/github https://github.com/duyet 302
+/x https://x.com/_duyet 302
+/un https://unsplash.com/@_duyet 302
+/tiktok https://www.tiktok.com/@duyet.net 302
+/tt https://www.tiktok.com/@duyet.net 302
+/ni https://www.tiktok.com/@niniluungan 302
+
+# Blog Topics
+/clickhouse https://blog.duyet.net/tag/clickhouse 302
+/ch https://blog.duyet.net/series/clickhouse-on-kubernetes?utm_source=duyet.net&utm_medium=linkedin&utm_campaign=duyet.net 302
+
+# External Tools
+/mo https://monica.im/invitation?c=RJF8T7RT 302
+
+# API Endpoints
+/api_nini https://script.google.com/macros/s/AKfycbyRLwRpcBUlE1Iw2mhSN1zQNHLT7EQsnFVPaduKyEUJMQwaBhEuKXJfWjzUZc20F7sR/exec 302
+/api/nini /api_nini 302

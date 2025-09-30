@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { SeriesBox } from '../../../components/series'
 
 export const dynamic = 'force-static'
+export const dynamicParams = false
 
 interface PageProps {
   params: Promise<{

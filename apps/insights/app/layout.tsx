@@ -7,7 +7,7 @@ import Head from '@duyet/components/Head'
 import Header from '@duyet/components/Header'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { Inter } from 'next/font/google'
-import { Tabs } from '../components/tabs'
+import { CompactNavigation } from '../components/navigation/CompactNavigation'
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],
@@ -35,17 +35,10 @@ export default function RootLayout({ children }: LayoutProps) {
 
           <main>
             <Container className="mb-20">
-              <div>
-                <Tabs
-                  tabs={[
-                    { text: 'Blog', href: '/blog' },
-                    { text: 'GitHub', href: '/github' },
-                    { text: 'Wakatime', href: '/wakatime' },
-                    { text: 'AI Usage', href: '/ai' },
-                  ]}
-                />
+              <div className="mb-6">
+                <CompactNavigation />
               </div>
-              <div className="mt-10">{children}</div>
+              <div>{children}</div>
             </Container>
           </main>
 

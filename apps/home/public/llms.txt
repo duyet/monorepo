@@ -1,0 +1,49 @@
+# duyet.net
+
+This is the personal website of Duyet Le, a Senior Data Engineer and technology enthusiast. The website serves as a central hub for Duyet's professional presence, technical projects, and digital resources.
+
+## Available Pages & Features
+
+### Personal Links
+- **Blog**: https://blog.duyet.net - Technical blog about data engineering, software development
+- **Resume/CV**: https://cv.duyet.net - Professional resume and experience
+- **Insights**: https://insights.duyet.net - Data insights and analytics platform
+- **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
+- **Rust Tiếng Việt**: https://rust-tieng-viet.github.io - Vietnamese Rust programming language guide
+- **ClickHouse Monitoring**: https://duyet.net/monitor - Real-time ClickHouse cluster monitoring
+
+### Social Media & Professional
+- **GitHub**: https://duyet.net/github - Open source projects and contributions
+- **LinkedIn**: https://duyet.net/in - Professional networking and career
+- **X (Twitter)**: https://duyet.net/x - Tech thoughts and updates
+- **Unsplash**: https://duyet.net/un - Photography portfolio
+
+## About Duyet Le - Senior Data Engineer
+
+Duyet Le is a Senior Data Engineer and technology enthusiast based in Vietnam, specializing in:
+
+### Professional Expertise
+- **Large-scale Data Platforms**: Building and architecting data infrastructure at scale
+- **Real-time Analytics**: Stream processing, event-driven architectures, and real-time dashboards
+- **ClickHouse Expert**: Deep expertise in ClickHouse database for analytics workloads
+- **Cloud & DevOps**: Kubernetes, Docker, CI/CD, infrastructure as code
+- **LLM Agents**: Developing AI agents, integrating LLMs with your data systems and internal services
+- **Open Source Contributor**: Active in the data engineering and developer tools community
+
+### Key Technologies
+- **Databases**: ClickHouse, PostgreSQL, Redis
+- **Big Data**: Apache Kafka, Apache Spark, Airflow, dbt
+- **LLM Technologies**: LlamaIndex, Qdrant
+- **infrastructure**: Kubernetes
+- **Languages**: Python, TypeScript, Rust, SQL
+
+### MCP (Model Context Protocol) Integration
+Duyet has built MCP servers that AI systems can connect to for enhanced capabilities:
+- **MCP Server**: https://mcp.duyet.net - AI-accessible tools and utilities
+- **Documentation**: Comprehensive guides for AI integration and data engineering patterns
+
+### LLM-Friendly Documentation
+Each platform provides structured information for AI systems:
+- **Blog**: https://blog.duyet.net/llms.txt - Technical articles and tutorials
+- **CV**: https://cv.duyet.net/llms.txt - Professional experience and skills
+- **MCP Tools**: https://mcp.duyet.net/llms.txt - AI tools and utilities

@@ -3,6 +3,7 @@ import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
 
 export const dynamic = 'force-static'
+export const dynamicParams = false
 
 interface Params {
   category: string
@@ -10,6 +11,14 @@ interface Params {
 
 interface PostsByCategoryProps {
   params: Promise<Params>
+}
+
+export async function generateStaticParams() {
+  const categories = getAllCategories()
+
+  return Object.keys(categories).map((cat: string) => ({
+    category: getSlug(cat),
+  }))
 }
 
 export default async function PostsByCategory({
@@ -30,12 +39,4 @@ async function getPosts(category: Params['category']) {
     'category',
     'thumbnail',
   ])
-}
-
-export async function generateStaticParams() {
-  const categories = getAllCategories()
-
-  return Object.keys(categories).map((cat: string) => ({
-    category: getSlug(cat),
-  }))
 }

@@ -5,6 +5,7 @@ import { getAllTags, getPostsByTag } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
 
 export const dynamic = 'force-static'
+export const dynamicParams = false
 
 interface Params {
   tag: string
@@ -15,6 +16,14 @@ interface PostsByTagProps {
 }
 
 const POSTS_PER_PAGE = 10
+
+export async function generateStaticParams() {
+  const tags = getAllTags()
+
+  return Object.keys(tags).map((tag: string) => ({
+    tag: getSlug(tag),
+  }))
+}
 
 export default async function PostsByTag({ params }: PostsByTagProps) {
   const { tag } = await params
@@ -28,7 +37,7 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
         <Link href="/tags">all my favorite topics here</Link>.
       </h1>
       <Feed posts={posts} noThumbnail />
-      
+
       {totalPages > 1 && (
         <div className="mt-16 p-6 bg-gray-50 rounded-lg">
           <h2 className="text-lg font-semibold mb-4">Browse by pages:</h2>
@@ -58,12 +67,4 @@ async function getPosts(tag: Params['tag']) {
     'category',
     'thumbnail',
   ])
-}
-
-export async function generateStaticParams() {
-  const tags = getAllTags()
-
-  return Object.keys(tags).map((tag: string) => ({
-    tag: getSlug(tag),
-  }))
 }

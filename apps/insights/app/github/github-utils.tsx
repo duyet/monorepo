@@ -13,6 +13,12 @@ export interface GitHubRepository {
 export async function fetchAllRepositories(
   owner: string,
 ): Promise<GitHubRepository[]> {
+  // Check if GitHub token is configured
+  if (!process.env.GITHUB_TOKEN) {
+    console.warn('GITHUB_TOKEN not configured, returning empty repositories')
+    return []
+  }
+
   const allRepos: GitHubRepository[] = []
   let page = 1
   const perPage = 100
@@ -30,6 +36,7 @@ export async function fetchAllRepositories(
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
             Accept: 'application/vnd.github.v3+json',
+            'User-Agent': 'insights-app',
           },
           next: { revalidate: 3600 }, // Cache for 1 hour instead of force-cache
         },
@@ -59,11 +66,13 @@ export async function fetchAllRepositories(
       }
 
       if (!response.ok) {
-        console.error(
-          `Failed to fetch repositories page ${page}:`,
-          response.status,
-          response.statusText,
-        )
+        if (response.status === 401) {
+          console.error('GitHub API authentication failed - invalid token')
+        } else {
+          console.error(
+            `Failed to fetch repositories page ${page}: ${response.status} ${response.statusText}`,
+          )
+        }
         break
       }
 

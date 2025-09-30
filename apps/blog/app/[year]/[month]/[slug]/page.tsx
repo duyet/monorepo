@@ -15,24 +15,7 @@ interface PostProps {
 }
 
 export const dynamic = 'force-static'
-
-// Dynamic segments not included in generateStaticParams will return a 404.
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
 export const dynamicParams = false
-
-export default async function Post({ params }: PostProps) {
-  const { year, month, slug } = await params
-  const post = await getPost([year, month, slug])
-
-  return (
-    <Container>
-      <article>
-        <Content post={post} />
-        <Meta className="mt-10" post={post} />
-      </article>
-    </Container>
-  )
-}
 
 export async function generateStaticParams() {
   const posts = getAllPosts(['slug'])
@@ -49,6 +32,20 @@ export async function generateStaticParams() {
       slug: slugArray[2],
     }
   })
+}
+
+export default async function Post({ params }: PostProps) {
+  const { year, month, slug } = await params
+  const post = await getPost([year, month, slug])
+
+  return (
+    <Container>
+      <article>
+        <Content post={post} />
+        <Meta className="mt-10" post={post} />
+      </article>
+    </Container>
+  )
 }
 
 export async function generateMetadata({
