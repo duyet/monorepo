@@ -46,13 +46,12 @@ async function wakaTimeRequest(endpoint: string) {
     return null
   }
 
-  const headers = new Headers({
-    Authorization: `Basic ${Buffer.from(apiKey).toString('base64')}`,
-  })
+  // Add API key as query parameter
+  const separator = endpoint.includes('?') ? '&' : '?'
+  const url = `${WAKATIME_API_BASE}${endpoint}${separator}api_key=${apiKey}`
 
   try {
-    const res = await fetch(`${WAKATIME_API_BASE}${endpoint}`, {
-      headers,
+    const res = await fetch(url, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     })
 
