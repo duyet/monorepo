@@ -31,28 +31,27 @@ const navItems: NavItem[] = [
     description: 'Dashboard overview with key metrics',
   },
   {
-    text: 'Website',
+    text: 'Blog',
     href: '/blog',
     icon: Globe,
     description: 'Traffic analytics from Cloudflare & PostHog',
   },
   {
-    text: 'Development',
+    text: 'Github',
     href: '/github',
     icon: Code,
     description: 'GitHub activity and repository insights',
   },
   {
-    text: 'Productivity',
+    text: 'Wakatime',
     href: '/wakatime',
     icon: Activity,
     description: 'Coding time and productivity tracking',
   },
   {
-    text: 'AI Usage',
-    href: '/ccusage',
+    text: 'AI',
+    href: '/ai',
     icon: BarChart3,
-    badge: 'New',
     description: 'Claude Code usage and cost analytics',
   },
 ]
