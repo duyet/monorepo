@@ -89,7 +89,7 @@ async function getTopPath(
   limit = 10,
   dateFrom: string,
 ): Promise<Path[]> {
-  console.log('Fetching Posthog data', POSTHOG_API)
+  console.log('Fetching Posthog data from', POSTHOG_API)
 
   const raw = await fetch(POSTHOG_API, {
     method: 'POST',
@@ -117,6 +117,7 @@ async function getTopPath(
   })
 
   const data = (await raw.json()) as PostHogResponse
+  console.log('Fetching Posthog data from', POSTHOG_API, 'response', data)
 
   // Map data based on column structure with validation
   const pathIndex = data.columns.findIndex(

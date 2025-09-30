@@ -222,28 +222,46 @@ yarn test ccusage
 ## API Integration Patterns
 
 ### ClickHouse Integration
+
+**IMPORTANT**: Our implementation uses connection pooling and Keep-Alive as recommended by the official ClickHouse JS client documentation. The client instance is a singleton that persists across queries for optimal performance.
+
 ```typescript
-// Proper error handling and connection management
+// ✅ CORRECT: Singleton client with connection pooling (current implementation)
+// The client is created once and reused across all queries
 const client = createClient({
-  host: `http://${host}:${port}`,
-  username,
-  password,
-  database,
+  url: 'https://username:password@host:port/database', // Official URL format
+  request_timeout: 60000,
   clickhouse_settings: {
-    max_execution_time: 30,
+    max_execution_time: 60,
     max_result_rows: '10000',
     max_memory_usage: '1G',
   },
 })
 
-// Always close connections
+// Query without closing - connection pooling handles reconnection
+const result = await client.query({
+  query: 'SELECT * FROM table',
+  format: 'JSONEachRow',
+})
+const data = await result.json()
+
+// ❌ WRONG: Do NOT close the client after each query
+// This defeats the purpose of connection pooling and causes performance issues
 try {
   const result = await client.query({ query })
   return await result.json()
 } finally {
-  await client.close()
+  await client.close() // ❌ Don't do this!
 }
 ```
+
+**Key Implementation Details**:
+- Client uses HTTP(S) protocol with connection pooling
+- Keep-Alive is enabled by default (max 10 connections)
+- Client instance persists across queries for performance
+- Use `closeClickHouseClient()` only for graceful app shutdown
+- URL format embeds credentials: `protocol://user:pass@host:port/db`
+- Query format should be `'JSONEachRow'` for array of objects
 
 ### GitHub API Pattern
 ```typescript
@@ -292,10 +310,52 @@ if (!response.ok) {
 ## Troubleshooting Guide
 
 ### Common Issues
-1. **ClickHouse Connection**: Check network, credentials, and database availability
-2. **Static Generation Fails**: Verify all data fetching works at build time
-3. **Type Errors**: Ensure proper TypeScript interfaces for all data structures
-4. **Chart Rendering**: Verify data format matches Recharts requirements
+
+#### 1. ClickHouse Connection Issues
+**Symptom**: CCUsage page shows no data, logs show `hasDatabase: false` or empty query results
+
+**Root Cause**: Missing `CLICKHOUSE_DATABASE` environment variable in build/deployment environment
+
+**Debug Logs to Check**:
+- `[ClickHouse Config] Environment check:` - Shows which env vars are set
+- `[ClickHouse Config] FATAL: Missing required environment variables:` - Lists missing vars
+- `[ClickHouse Query] FATAL: Client not available` - Indicates config is incomplete
+
+**Solution**:
+1. Verify all ClickHouse environment variables are set:
+   - `CLICKHOUSE_HOST` (required)
+   - `CLICKHOUSE_PORT` (default: 8123 or 443)
+   - `CLICKHOUSE_USER` (required)
+   - `CLICKHOUSE_PASSWORD` (required)
+   - `CLICKHOUSE_DATABASE` (required) - **Most commonly missing**
+   - `CLICKHOUSE_PROTOCOL` (optional: http/https, auto-detected from port)
+
+2. In Cloudflare Pages:
+   - Go to Settings → Environment variables
+   - Add all required variables to both Production and Preview environments
+   - Redeploy after adding variables
+
+3. In Vercel:
+   - Go to Project Settings → Environment Variables
+   - Add all required variables
+   - Redeploy after adding variables
+
+**Expected Logs When Working**:
+```
+[ClickHouse Config] Configuration created: { host, port, protocol, database }
+[ClickHouse Client] Creating client with URL: https://host:443
+[ClickHouse Client] Client created successfully
+[ClickHouse Query] Success: { rowCount: N, hasData: true }
+```
+
+#### 2. Static Generation Fails
+Verify all data fetching works at build time
+
+#### 3. Type Errors
+Ensure proper TypeScript interfaces for all data structures
+
+#### 4. Chart Rendering
+Verify data format matches Recharts requirements
 
 ### Debug Tools
 ```bash

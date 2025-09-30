@@ -1,6 +1,9 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "globalEnv": [
+    "NODE_ENV",
+    "VERCEL",
+    "CF_PAGES",
     "NEXT_PUBLIC_DUYET_HOME_URL",
     "NEXT_PUBLIC_DUYET_CV_URL",
     "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -35,7 +38,7 @@
     "WAKATIME_API_KEY",
     "CLICKHOUSE_HOST",
     "CLICKHOUSE_PORT",
-    "CLICKHOUSE_USER", 
+    "CLICKHOUSE_USER",
     "CLICKHOUSE_PASSWORD",
     "CLICKHOUSE_DATABASE",
     "CLICKHOUSE_PROTOCOL"

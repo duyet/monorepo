@@ -69,7 +69,8 @@ const getDataForPeriod = async (days: number) => {
     }
   }
 
-  // Limit days to avoid quota errors (max 364 days for Cloudflare free tier)
+  // Cloudflare free tier only allows max 364 days of data (31536000s limit)
+  // Using 364 to stay safely within the 365-day quota
   const maxDays = 364
   const actualDays = Math.min(days, maxDays)
 
