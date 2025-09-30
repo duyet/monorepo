@@ -1,4 +1,4 @@
-const config = require('@duyet/tailwind-config/tailwind.config.js');
+const config = require('@duyet/tailwind-config/tailwind.config.mjs');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

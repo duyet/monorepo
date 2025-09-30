@@ -5,12 +5,19 @@ import Analytics from '@duyet/components/Analytics'
 import Head from '@duyet/components/Head'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { cn } from '@duyet/libs/utils'
-import { Inter } from 'next/font/google'
+import { Inter, Libre_Baskerville } from 'next/font/google'
 
 const inter = Inter({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const libreBaskerville = Libre_Baskerville({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -26,14 +33,14 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={cn(inter.variable, 'font-sans')}
+      className={cn(inter.variable, libreBaskerville.variable, 'font-sans')}
       lang="en"
       suppressHydrationWarning
     >
       <Head />
       <body
         className={cn(
-          'bg-claude-cream text-claude-black antialiased',
+          'bg-neutral-50 text-neutral-900 antialiased',
           'transition-colors duration-300',
         )}
       >
