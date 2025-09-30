@@ -23,7 +23,6 @@ export function CompactCard({
   children,
   className,
   padding = 'md',
-  hover = true,
   header,
 }: CompactCardProps) {
   return (
