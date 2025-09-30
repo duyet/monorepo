@@ -47,7 +47,7 @@ async function wakaTimeRequest(endpoint: string) {
   }
 
   const headers = new Headers({
-    Authorization: `Bearer ${apiKey}`,
+    Authorization: `Basic ${Buffer.from(apiKey).toString('base64')}`,
   })
 
   try {
