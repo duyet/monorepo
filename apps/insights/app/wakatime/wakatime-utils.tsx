@@ -56,7 +56,10 @@ async function wakaTimeRequest(endpoint: string) {
     })
 
     if (!res.ok) {
-      console.error(`WakaTime API error: ${res.status} ${res.statusText}`)
+      console.error(
+        `WakaTime API error: ${res.status} ${res.statusText}`,
+        `URL: ${url.replace(/api_key=[^&]+/, 'api_key=***')}`
+      )
       return null
     }
 
