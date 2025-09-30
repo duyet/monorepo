@@ -41,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     { text: 'Blog', href: '/blog' },
                     { text: 'GitHub', href: '/github' },
                     { text: 'Wakatime', href: '/wakatime' },
-                    { text: 'AI Usage', href: '/ccusage' },
+                    { text: 'AI Usage', href: '/ai' },
                   ]}
                 />
               </div>
