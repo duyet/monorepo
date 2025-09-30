@@ -124,6 +124,7 @@ async function getTopPath(
   })
 
   const data = (await raw.json()) as PostHogResponse
+  console.log('Fetching Posthog data from', POSTHOG_API, 'response', data)
 
   // Map data based on column structure with validation
   const pathIndex = data.columns.findIndex(

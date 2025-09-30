@@ -98,22 +98,27 @@ function anonymizeProjects(projects: Record<string, unknown>[]): CCUsageProjectD
  * Get overview metrics for the specified time period
  */
 export async function getCCUsageMetrics(days: DateRangeDays = 30): Promise<CCUsageMetricsData> {
+  console.log('[CCUsage Metrics] Fetching metrics for days:', days)
+
   const dateCondition = getDateCondition(days)
   const query = `
-    SELECT 
+    SELECT
       SUM(total_tokens) as total_tokens,
       SUM(input_tokens) as input_tokens,
       SUM(output_tokens) as output_tokens,
       SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
       SUM(total_cost) as total_cost,
       COUNT(DISTINCT date) as active_days
-    FROM ccusage_usage_daily 
+    FROM ccusage_usage_daily
     ${dateCondition}
   `
 
+  console.log('[CCUsage Metrics] Executing query with condition:', dateCondition || 'ALL TIME')
   const results = await executeClickHouseQueryLegacy(query)
+  console.log('[CCUsage Metrics] Query results:', { rowCount: results?.length || 0 })
 
   if (!results || results.length === 0) {
+    console.warn('[CCUsage Metrics] No data returned from query')
     return {
       totalTokens: 0,
       dailyAverage: 0,
@@ -130,22 +135,27 @@ export async function getCCUsageMetrics(days: DateRangeDays = 30): Promise<CCUsa
   const cacheTokens = Number(data.cache_tokens) || 0
   const totalCost = Number(data.total_cost) || 0
 
+  console.log('[CCUsage Metrics] Parsed main metrics:', { totalTokens, activeDays, cacheTokens, totalCost })
+
   // Get top model separately
   const modelDateCondition = getCreatedAtCondition(days)
   const modelQuery = `
     SELECT model_name, SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
     FROM ccusage_model_breakdowns
-    ${modelDateCondition}  
+    ${modelDateCondition}
     GROUP BY model_name
     ORDER BY total_tokens DESC
     LIMIT 1
   `
 
+  console.log('[CCUsage Metrics] Fetching top model...')
   const modelResults = await executeClickHouseQueryLegacy(modelQuery)
   const topModel =
     modelResults.length > 0 ? String(modelResults[0].model_name) : 'N/A'
 
-  return {
+  console.log('[CCUsage Metrics] Top model:', topModel)
+
+  const metricsData = {
     totalTokens: Math.round(totalTokens),
     dailyAverage: Math.round(totalTokens / activeDays),
     activeDays,
@@ -153,30 +163,39 @@ export async function getCCUsageMetrics(days: DateRangeDays = 30): Promise<CCUsa
     totalCost,
     topModel,
   }
+
+  console.log('[CCUsage Metrics] Final metrics:', metricsData)
+  return metricsData
 }
 
 /**
  * Get daily usage activity for the specified time period including cost data
  */
 export async function getCCUsageActivity(days: DateRangeDays = 30): Promise<CCUsageActivityData[]> {
+  console.log('[CCUsage Activity] Fetching activity for days:', days)
+
   const dateCondition = getDateCondition(days)
   const query = `
-    SELECT 
+    SELECT
       date,
       SUM(total_tokens) as "Total Tokens",
       SUM(input_tokens) as "Input Tokens",
       SUM(output_tokens) as "Output Tokens",
       SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
       SUM(total_cost) as "Total Cost"
-    FROM ccusage_usage_daily 
+    FROM ccusage_usage_daily
     ${dateCondition}
-    GROUP BY date 
+    GROUP BY date
     ORDER BY date ASC
   `
 
   const results = await executeClickHouseQueryLegacy(query)
+  console.log('[CCUsage Activity] Query results:', { rowCount: results?.length || 0 })
 
-  if (!results || results.length === 0) return []
+  if (!results || results.length === 0) {
+    console.warn('[CCUsage Activity] No data returned')
+    return []
+  }
 
   return results.map((row) => ({
     date: String(row.date) || 'Unknown',
@@ -234,23 +253,29 @@ function distributePercentages(rawPercentages: number[]): number[] {
  * Get model usage distribution for the specified time period
  */
 export async function getCCUsageModels(days: DateRangeDays = 30): Promise<CCUsageModelData[]> {
+  console.log('[CCUsage Models] Fetching models for days:', days)
+
   const dateCondition = getCreatedAtCondition(days)
   const query = `
-    SELECT 
+    SELECT
       model_name,
       SUM(cost) as total_cost,
       SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens,
       COUNT() as usage_count
     FROM ccusage_model_breakdowns
-    ${dateCondition}  
+    ${dateCondition}
     GROUP BY model_name
     ORDER BY total_tokens DESC
     LIMIT 10
   `
 
   const results = await executeClickHouseQueryLegacy(query)
+  console.log('[CCUsage Models] Query results:', { rowCount: results?.length || 0 })
 
-  if (!results || results.length === 0) return []
+  if (!results || results.length === 0) {
+    console.warn('[CCUsage Models] No data returned')
+    return []
+  }
 
   const totalTokens = results.reduce(
     (sum, model) => sum + (Number(model.total_tokens) || 0),
