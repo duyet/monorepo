@@ -9,7 +9,7 @@ import { CCUsageErrorBoundary } from './error-boundary'
 import type { DateRangeDays } from './types'
 
 export const metadata = {
-  title: 'Claude Code Usage Analytics @duyet',
+  title: 'AI Usage Analytics',
   description:
     'AI usage analytics, token consumption, and model insights from Claude Code',
 }

@@ -292,10 +292,52 @@ if (!response.ok) {
 ## Troubleshooting Guide
 
 ### Common Issues
-1. **ClickHouse Connection**: Check network, credentials, and database availability
-2. **Static Generation Fails**: Verify all data fetching works at build time
-3. **Type Errors**: Ensure proper TypeScript interfaces for all data structures
-4. **Chart Rendering**: Verify data format matches Recharts requirements
+
+#### 1. ClickHouse Connection Issues
+**Symptom**: CCUsage page shows no data, logs show `hasDatabase: false` or empty query results
+
+**Root Cause**: Missing `CLICKHOUSE_DATABASE` environment variable in build/deployment environment
+
+**Debug Logs to Check**:
+- `[ClickHouse Config] Environment check:` - Shows which env vars are set
+- `[ClickHouse Config] FATAL: Missing required environment variables:` - Lists missing vars
+- `[ClickHouse Query] FATAL: Client not available` - Indicates config is incomplete
+
+**Solution**:
+1. Verify all ClickHouse environment variables are set:
+   - `CLICKHOUSE_HOST` (required)
+   - `CLICKHOUSE_PORT` (default: 8123 or 443)
+   - `CLICKHOUSE_USER` (required)
+   - `CLICKHOUSE_PASSWORD` (required)
+   - `CLICKHOUSE_DATABASE` (required) - **Most commonly missing**
+   - `CLICKHOUSE_PROTOCOL` (optional: http/https, auto-detected from port)
+
+2. In Cloudflare Pages:
+   - Go to Settings → Environment variables
+   - Add all required variables to both Production and Preview environments
+   - Redeploy after adding variables
+
+3. In Vercel:
+   - Go to Project Settings → Environment Variables
+   - Add all required variables
+   - Redeploy after adding variables
+
+**Expected Logs When Working**:
+```
+[ClickHouse Config] Configuration created: { host, port, protocol, database }
+[ClickHouse Client] Creating client with URL: https://host:443
+[ClickHouse Client] Client created successfully
+[ClickHouse Query] Success: { rowCount: N, hasData: true }
+```
+
+#### 2. Static Generation Fails
+Verify all data fetching works at build time
+
+#### 3. Type Errors
+Ensure proper TypeScript interfaces for all data structures
+
+#### 4. Chart Rendering
+Verify data format matches Recharts requirements
 
 ### Debug Tools
 ```bash

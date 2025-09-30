@@ -41,11 +41,18 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
   })
 
   if (!host || !username || !password || !database) {
-    console.warn('[ClickHouse Config] Missing required environment variables:', {
+    const missing = []
+    if (!host) missing.push('CLICKHOUSE_HOST')
+    if (!username) missing.push('CLICKHOUSE_USER')
+    if (!password) missing.push('CLICKHOUSE_PASSWORD')
+    if (!database) missing.push('CLICKHOUSE_DATABASE')
+
+    console.error('[ClickHouse Config] FATAL: Missing required environment variables:', missing.join(', '))
+    console.error('[ClickHouse Config] ClickHouse will not be available. Please configure:', {
       host: host ? 'SET' : 'MISSING',
       username: username ? 'SET' : 'MISSING',
       password: password ? 'SET' : 'MISSING',
-      database: database ? 'SET' : 'MISSING',
+      database: database ? 'MISSING - MUST BE SET' : 'SET',
     })
     return null
   }
@@ -114,11 +121,13 @@ export async function executeClickHouseQuery(
   const client = getClickHouseClient()
 
   if (!client) {
-    console.error('[ClickHouse Query] Client not available')
+    console.error('[ClickHouse Query] FATAL: Client not available - check environment variables')
+    console.error('[ClickHouse Query] Query cannot execute without valid configuration')
+    console.error('[ClickHouse Query] Ensure CLICKHOUSE_HOST, CLICKHOUSE_USER, CLICKHOUSE_PASSWORD, and CLICKHOUSE_DATABASE are set')
     return {
       success: false,
       data: [],
-      error: 'ClickHouse client not available',
+      error: 'ClickHouse client not available - missing required environment variables',
     }
   }
 
@@ -203,5 +212,14 @@ export async function executeClickHouseQueryLegacy(
   query: string,
 ): Promise<Record<string, unknown>[]> {
   const result = await executeClickHouseQuery(query)
+
+  if (!result.success && result.error) {
+    console.error('[ClickHouse Query Legacy] Query failed:', result.error)
+  }
+
+  if (result.data.length === 0 && !result.success) {
+    console.warn('[ClickHouse Query Legacy] Returning empty array due to failure')
+  }
+
   return result.data
 }
