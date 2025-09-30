@@ -56,7 +56,7 @@ function Repo({
   repo: GithubRepo
 }) {
   return (
-    <div className="group relative rounded-lg border bg-background p-4 transition-all hover:shadow-lg">
+    <div className="group relative rounded-lg border bg-background p-4 transition-all">
       <Link className="absolute inset-0 z-10" href={html_url} prefetch={false}>
         <span className="sr-only">View project</span>
       </Link>

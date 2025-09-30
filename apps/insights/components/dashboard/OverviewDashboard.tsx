@@ -223,21 +223,10 @@ export function OverviewDashboard() {
         </DashboardGrid>
       </div>
 
-      {/* Quick Actions */}
+      {/* Last Updated */}
       <div className="border-t pt-4">
-        <div className="flex items-center justify-between">
-          <div className="text-xs text-muted-foreground">
-            Last updated: {new Date().toLocaleTimeString()}
-          </div>
-          <div className="flex space-x-2 text-xs">
-            <button className="text-blue-600 hover:text-blue-700">
-              Export Data
-            </button>
-            <span className="text-muted-foreground">•</span>
-            <button className="text-blue-600 hover:text-blue-700">
-              Refresh
-            </button>
-          </div>
+        <div className="text-xs text-muted-foreground">
+          Last updated: {new Date().toLocaleTimeString()}
         </div>
       </div>
     </div>

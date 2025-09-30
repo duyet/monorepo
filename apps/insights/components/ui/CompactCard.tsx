@@ -29,8 +29,7 @@ export function CompactCard({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm',
-        hover && 'transition-shadow duration-200 hover:shadow-md',
+        'relative overflow-hidden rounded-lg border bg-card text-card-foreground',
         className,
       )}
     >

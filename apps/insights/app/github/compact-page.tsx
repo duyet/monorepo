@@ -241,10 +241,6 @@ export default function CompactGitHubPage() {
             <button className="text-blue-600 hover:text-blue-700">
               View on GitHub
             </button>
-            <span className="text-muted-foreground">•</span>
-            <button className="text-blue-600 hover:text-blue-700">
-              Export Data
-            </button>
           </div>
         </div>
       </div>
