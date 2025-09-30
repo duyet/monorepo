@@ -52,7 +52,6 @@ export function getClickHouseClient() {
       password: config.password,
       database: config.database,
       request_timeout: 60000, // 60 second request timeout
-      connect_timeout: 10000, // 10 second connection timeout
       clickhouse_settings: {
         max_execution_time: 60,
         max_result_rows: '10000', // Prevent runaway queries
