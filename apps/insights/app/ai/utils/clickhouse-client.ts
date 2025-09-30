@@ -51,8 +51,10 @@ export function getClickHouseClient() {
       username: config.username,
       password: config.password,
       database: config.database,
+      request_timeout: 60000, // 60 second request timeout
+      connect_timeout: 10000, // 10 second connection timeout
       clickhouse_settings: {
-        max_execution_time: 30,
+        max_execution_time: 60,
         max_result_rows: '10000', // Prevent runaway queries
         max_memory_usage: '1G', // Limit memory usage
       },
@@ -64,11 +66,12 @@ export function getClickHouseClient() {
 }
 
 /**
- * Execute ClickHouse query with comprehensive error handling
+ * Execute ClickHouse query with retry logic and comprehensive error handling
  */
 export async function executeClickHouseQuery(
   query: string,
-  timeoutMs: number = 30000,
+  timeoutMs: number = 60000,
+  maxRetries: number = 3,
 ): Promise<QueryResult> {
   const client = getClickHouseClient()
 
@@ -80,47 +83,62 @@ export async function executeClickHouseQuery(
     }
   }
 
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+  let lastError: Error | null = null
 
-  try {
-    const resultSet = await client.query({
-      query,
-      format: 'JSONEachRow',
-      abort_signal: controller.signal,
-    })
+  // Retry logic with exponential backoff
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
-    clearTimeout(timeoutId)
-    const data = await resultSet.json()
+    try {
+      const resultSet = await client.query({
+        query,
+        format: 'JSONEachRow',
+        abort_signal: controller.signal,
+      })
 
-    // ClickHouse JSONEachRow format returns array of objects
-    if (Array.isArray(data)) {
+      clearTimeout(timeoutId)
+      const data = await resultSet.json()
+
+      // ClickHouse JSONEachRow format returns array of objects
+      if (Array.isArray(data)) {
+        return {
+          success: true,
+          data: data as Record<string, unknown>[],
+        }
+      }
+
       return {
         success: true,
-        data: data as Record<string, unknown>[],
+        data: [],
+      }
+    } catch (error) {
+      clearTimeout(timeoutId)
+      lastError = error instanceof Error ? error : new Error('Unknown error')
+
+      console.error(`ClickHouse query failed (attempt ${attempt}/${maxRetries}):`, error)
+
+      // Don't retry on the last attempt
+      if (attempt < maxRetries) {
+        // Exponential backoff: 1s, 2s, 4s
+        const backoffMs = Math.pow(2, attempt - 1) * 1000
+        console.log(`Retrying in ${backoffMs}ms...`)
+        await new Promise(resolve => setTimeout(resolve, backoffMs))
+      }
+    } finally {
+      try {
+        await client.close()
+      } catch (closeError) {
+        console.warn('Failed to close ClickHouse client:', closeError)
       }
     }
+  }
 
-    return {
-      success: true,
-      data: [],
-    }
-  } catch (error) {
-    clearTimeout(timeoutId)
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-    console.error('ClickHouse query failed:', error)
-
-    return {
-      success: false,
-      data: [],
-      error: errorMessage,
-    }
-  } finally {
-    try {
-      await client.close()
-    } catch (closeError) {
-      console.warn('Failed to close ClickHouse client:', closeError)
-    }
+  // All retries failed
+  return {
+    success: false,
+    data: [],
+    error: lastError?.message || 'Unknown error after retries',
   }
 }
 
