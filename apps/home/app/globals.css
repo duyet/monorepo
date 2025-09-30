@@ -2,6 +2,16 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@layer base {
+  :root {
+    --font-tiempos: 'Tiempos Text', Georgia, serif;
+  }
+
+  body {
+    @apply bg-claude-cream text-claude-black;
+  }
+}
+
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;

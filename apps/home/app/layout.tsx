@@ -8,7 +8,7 @@ import { cn } from '@duyet/libs/utils'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({
-  weight: ['400', '700'],
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
@@ -26,19 +26,15 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={inter.variable}
+      className={cn(inter.variable, 'font-sans')}
       lang="en"
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
-      }}
       suppressHydrationWarning
     >
       <Head />
       <body
         className={cn(
-          'bg-white text-gray-700 subpixel-antialiased',
-          'transition-colors duration-1000 dark:bg-slate-900 dark:text-slate-50',
+          'bg-claude-cream text-claude-black antialiased',
+          'transition-colors duration-300',
         )}
       >
         <ThemeProvider>
