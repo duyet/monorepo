@@ -40,9 +40,12 @@ export default function RootLayout({
       {/* <AxiomWebVitals /> */}
       <body
         className={cn(
-          'bg-beige-100 text-beige-900 subpixel-antialiased',
+          'text-beige-900 subpixel-antialiased',
           'transition-colors duration-1000 dark:bg-brown-800 dark:text-brown-50',
         )}
+        style={{
+          backgroundColor: '#faf9f5',
+        }}
       >
         <ThemeProvider>
           {children}
