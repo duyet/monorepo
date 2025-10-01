@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export const dynamic = 'force-static'
 
-// SVG Icons matching home page style
+// Claude-style SVG Icons - minimal, geometric, soft
 const ResumeIcon = () => (
   <svg
     width="80"
@@ -11,29 +11,38 @@ const ResumeIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      x="24"
+      y="16"
+      width="32"
+      height="48"
+      rx="6"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      fill="none"
+    />
     <circle
       cx="40"
-      cy="28"
-      r="8"
+      cy="30"
+      r="6"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       fill="none"
     />
     <path
-      d="M28 50C28 44 32 42 40 42C48 42 52 44 52 50"
+      d="M31 46C31 42 34 40 40 40C46 40 49 42 49 46"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       strokeLinecap="round"
     />
-    <rect
-      x="22"
-      y="12"
-      width="36"
-      height="56"
-      rx="2"
+    <line
+      x1="32"
+      y1="54"
+      x2="48"
+      y2="54"
       stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
+      strokeWidth="2.5"
+      strokeLinecap="round"
     />
   </svg>
 )
@@ -46,9 +55,33 @@ const GithubIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <circle
+      cx="40"
+      cy="38"
+      r="18"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      fill="none"
+    />
+    <circle cx="33" cy="35" r="2.5" fill="currentColor" />
+    <circle cx="47" cy="35" r="2.5" fill="currentColor" />
     <path
-      d="M40 20C28.95 20 20 28.95 20 40C20 48.85 25.73 56.35 33.68 58.98C34.68 59.17 35.03 58.55 35.03 58.02C35.03 57.53 35.01 56.18 35.01 54.75C30 55.77 28.8 53.37 28.4 52.12C28.18 51.48 27.2 49.95 26.38 49.46C25.73 49.1 24.73 48.08 26.36 48.06C27.87 48.04 28.93 49.59 29.3 50.21C31.1 53.19 33.97 52.34 35.09 51.81C35.27 50.61 35.76 49.75 36.3 49.23C32.15 48.71 27.8 47.01 27.8 39.4C27.8 37.29 28.55 35.56 29.35 34.21C29.15 33.69 28.48 31.69 29.55 29C29.55 29 31.24 28.47 35.03 30.96C36.63 30.5 38.33 30.27 40.03 30.27C41.73 30.27 43.43 30.5 45.03 30.96C48.82 28.45 50.51 29 50.51 29C51.58 31.69 50.91 33.69 50.71 34.21C51.51 35.56 52.26 37.27 52.26 39.4C52.26 47.03 47.89 48.71 43.74 49.23C44.44 49.85 45.01 51.05 45.01 52.92C45.01 55.6 44.99 57.75 44.99 58.02C44.99 58.55 45.34 59.19 46.34 58.98C50.3156 57.6502 53.7015 55.0507 56.0409 51.5884C58.3803 48.1261 59.5501 44.0041 59.38 39.83C59.38 28.95 51.05 20 40 20Z"
-      fill="currentColor"
+      d="M32 48C32 48 34 52 40 52C46 52 48 48 48 48"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M28 44V50C28 52 26 54 24 54"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M52 44V50C52 52 54 54 56 54"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
     />
   </svg>
 )
@@ -62,23 +95,39 @@ const LinkedInIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect
-      x="20"
-      y="20"
-      width="40"
-      height="40"
-      rx="4"
+      x="22"
+      y="22"
+      width="36"
+      height="36"
+      rx="8"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       fill="none"
     />
-    <circle cx="30" cy="30" r="3" fill="currentColor" />
-    <rect x="26" y="36" width="8" height="18" fill="currentColor" />
+    <circle cx="32" cy="34" r="3" fill="currentColor" />
+    <rect
+      x="28"
+      y="40"
+      width="8"
+      height="14"
+      rx="1.5"
+      fill="currentColor"
+    />
+    <rect
+      x="40"
+      y="40"
+      width="8"
+      height="14"
+      rx="1.5"
+      fill="currentColor"
+    />
     <path
-      d="M40 36V54M40 36C40 33 42 32 45 32C48 32 50 33 50 36V54"
+      d="M44 40V38C44 36 45 34 48 34C51 34 52 36 52 38V54"
       stroke="currentColor"
-      strokeWidth="4"
+      strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
+      fill="none"
     />
   </svg>
 )
@@ -92,40 +141,40 @@ const BlogIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect
-      x="20"
-      y="15"
-      width="40"
-      height="50"
-      rx="2"
+      x="24"
+      y="20"
+      width="32"
+      height="40"
+      rx="6"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       fill="none"
     />
     <line
-      x1="28"
-      y1="25"
-      x2="52"
-      y2="25"
+      x1="32"
+      y1="32"
+      x2="48"
+      y2="32"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       strokeLinecap="round"
     />
     <line
-      x1="28"
-      y1="33"
-      x2="52"
-      y2="33"
+      x1="32"
+      y1="40"
+      x2="48"
+      y2="40"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       strokeLinecap="round"
     />
     <line
-      x1="28"
-      y1="41"
-      x2="45"
-      y2="41"
+      x1="32"
+      y1="48"
+      x2="42"
+      y2="48"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.5"
       strokeLinecap="round"
     />
   </svg>
