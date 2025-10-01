@@ -7,12 +7,19 @@ import Head from '@duyet/components/Head'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { cn } from '@duyet/libs/utils'
 // import { AxiomWebVitals } from 'next-axiom'
-import { Inter } from 'next/font/google'
+import { Inter, Tinos } from 'next/font/google'
 
 const inter = Inter({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const tinos = Tinos({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-tinos',
   display: 'swap',
 })
 
@@ -28,12 +35,8 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={inter.variable}
+      className={`${inter.variable} ${tinos.variable}`}
       lang="en"
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
-      }}
       suppressHydrationWarning
     >
       <Head />
