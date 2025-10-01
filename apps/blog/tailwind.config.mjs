@@ -11,6 +11,11 @@ export default {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         serif: ['var(--font-serif)', 'Georgia', 'serif'],
       },
+      colors: {
+        ivory: {
+          medium: '#f0eee6',
+        },
+      },
     },
   },
 }

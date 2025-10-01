@@ -1,4 +1,3 @@
-
 import Link from 'next/link'
 
 import Container from '@duyet/components/Container'
@@ -66,12 +65,14 @@ function TagList({ tags }: { tags: TagCount }) {
         <Link
           key={tag}
           href={`/tag/${getSlug(tag)}`}
-          className="group inline-flex items-baseline gap-2 rounded-lg bg-neutral-100/50 px-4 py-3 transition-all hover:bg-neutral-100 hover:shadow-sm"
+          className="group inline-flex items-baseline gap-2 rounded-lg bg-ivory-medium px-4 py-3 transition-all hover:bg-neutral-200 hover:shadow-sm"
         >
-          <h3 className="text-base font-medium text-neutral-800 group-hover:text-neutral-900">
+          <h3 className="flex-1 text-base font-medium text-neutral-800 group-hover:text-neutral-900">
             {tag}
           </h3>
-          <span className="text-sm text-neutral-500">({count})</span>
+          <span className="text-lg font-semibold text-neutral-600">
+            {count}
+          </span>
         </Link>
       ))}
     </div>
