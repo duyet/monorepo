@@ -1,11 +1,14 @@
-import Container from '@duyet/components/Container'
+import Link from 'next/link'
 
-interface Link {
+import Container from '@duyet/components/Container'
+import Header from '@duyet/components/Header'
+
+interface LinkItem {
   name: string
   link?: string
 }
 
-const skills: Link[] = [
+const skills: LinkItem[] = [
   {
     name: 'Python',
     link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python',
@@ -33,7 +36,7 @@ const skills: Link[] = [
   },
 ]
 
-const links: Link[] = [
+const links: LinkItem[] = [
   { name: 'Resume', link: 'https://cv.duyet.net' },
   { name: 'Resume (PDF)', link: 'https://cv.duyet.net/pdf' },
   { name: 'Github', link: 'https://github.com/duyet' },
@@ -41,46 +44,45 @@ const links: Link[] = [
 
 export default function About() {
   return (
-    <div className="mb-16 space-y-6 leading-loose">
-      <Container className="mb-8 md:mb-16">
-        <h1 className="my-10 text-6xl font-bold lg:text-7xl">Duyệt</h1>
-        <p>
+    <>
+      <Header longText="About" />
+      <Container>
+        <div className="text-lg">
           <strong>Data Engineer</strong> with 6+ years of experience. I am
           confident in my knowledge of Data Engineering concepts, best practices
           and state-of-the-art data and Cloud technologies.
-        </p>
+        </div>
 
-        <div className="flex flex-col gap-5">
-          <p>
-            {links.map(({ name, link = '#' }) => (
-              <a
-                className="mr-4 text-blue-600"
-                href={link}
-                key={name}
-                rel="nofollow noopener noreferrer"
-                target="_blank"
-              >
-                {name}
-              </a>
+        <div className="mt-8 flex flex-col gap-8">
+          <div className="text-lg">
+            Connect with me:{' '}
+            {links.map(({ name, link = '#' }, index) => (
+              <span key={name}>
+                {index > 0 && ', '}
+                <Link href={link} className="underline" target="_blank">
+                  {name}
+                </Link>
+              </span>
             ))}
-          </p>
+          </div>
 
-          <p>
+          <div className="text-lg">
             Skills & stacks:{' '}
-            {skills.map(({ name, link = '#' }) => (
-              <a
-                className="mr-4 inline-block text-blue-600"
-                href={link}
-                key={name}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {name}
-              </a>
+            {skills.map(({ name, link }, index) => (
+              <span key={name}>
+                {index > 0 && ', '}
+                {link ? (
+                  <Link href={link} className="underline" target="_blank">
+                    {name}
+                  </Link>
+                ) : (
+                  <span>{name}</span>
+                )}
+              </span>
             ))}
-          </p>
+          </div>
         </div>
       </Container>
-    </div>
+    </>
   )
 }
