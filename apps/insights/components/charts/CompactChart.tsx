@@ -12,13 +12,13 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Cell,
   Line,
   LineChart,
+  Pie,
+  PieChart,
   XAxis,
   YAxis,
-  Cell,
-  PieChart,
-  Pie,
 } from 'recharts'
 
 const CHART_COLORS = [
@@ -66,7 +66,9 @@ export function CompactAreaChart({
         height={height}
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
-        {showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" />}
+        {showGrid && (
+          <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+        )}
         <XAxis
           dataKey={index}
           tickLine={false}
@@ -120,7 +122,9 @@ export function CompactLineChart({
         height={height}
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
-        {showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" />}
+        {showGrid && (
+          <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+        )}
         <XAxis
           dataKey={index}
           tickLine={false}
@@ -176,7 +180,9 @@ export function CompactBarChart({
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
         layout={horizontal ? 'horizontal' : 'vertical'}
       >
-        {showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" />}
+        {showGrid && (
+          <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+        )}
         {horizontal ? (
           <>
             <XAxis type="number" hide />
@@ -272,7 +278,7 @@ export function CompactPieChart({
       item[nameKey] as string,
       {
         label: item[nameKey] as string,
-        color: CHART_COLORS[i % CHART_COLORS.length]
+        color: CHART_COLORS[i % CHART_COLORS.length],
       },
     ]),
   )

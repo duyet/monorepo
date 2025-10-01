@@ -1,11 +1,11 @@
-import { CCUsageActivity } from './activity'
-import { CCUsageCosts } from './costs'
-import { CCUsageMetrics } from './metrics'
-import { CCUsageModels } from './models'
-import { CCUsageDailyTable } from './daily-table'
-import { CCUsageErrorBoundary } from './error-boundary'
 import { SectionLayout } from '@/components/layouts'
 import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
+import { CCUsageActivity } from './activity'
+import { CCUsageCosts } from './costs'
+import { CCUsageDailyTable } from './daily-table'
+import { CCUsageErrorBoundary } from './error-boundary'
+import { CCUsageMetrics } from './metrics'
+import { CCUsageModels } from './models'
 import type { DateRangeDays } from './types'
 
 export const metadata = {
@@ -18,7 +18,9 @@ export const metadata = {
 export const dynamic = 'force-static'
 
 // Default is 30 days
-const STATIC_DAYS: DateRangeDays = getPeriodDays(DEFAULT_PERIOD) as DateRangeDays
+const STATIC_DAYS: DateRangeDays = getPeriodDays(
+  DEFAULT_PERIOD,
+) as DateRangeDays
 
 export default function CCUsage() {
   return (
@@ -32,8 +34,8 @@ export default function CCUsage() {
           Claude Code usage patterns, token consumption, and model insights
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
-          Note: Costs are estimated based on Claude subscription pricing and
-          may not reflect actual charges
+          Note: Costs are estimated based on Claude subscription pricing and may
+          not reflect actual charges
         </p>
       </div>
 

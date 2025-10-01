@@ -49,14 +49,14 @@ async function wakaTimeRequest(endpoint: string) {
       if (res.status === 401) {
         console.error(
           `WakaTime API authentication failed: Invalid or expired API key`,
-          `URL: ${url.replace(/api_key=[^&]+/, 'api_key=***')}`
+          `URL: ${url.replace(/api_key=[^&]+/, 'api_key=***')}`,
         )
       } else if (res.status === 403) {
         console.error('WakaTime API access forbidden - check permissions')
       } else {
         console.error(
           `WakaTime API error: ${res.status} ${res.statusText}`,
-          `URL: ${url.replace(/api_key=[^&]+/, 'api_key=***')}`
+          `URL: ${url.replace(/api_key=[^&]+/, 'api_key=***')}`,
         )
       }
       return null
@@ -86,7 +86,9 @@ function getWakaTimeRange(days: number | 'all'): string {
   return 'last_30_days' // fallback
 }
 
-export async function getWakaTimeStats(days: number | 'all' = 30): Promise<WakaTimeStats | null> {
+export async function getWakaTimeStats(
+  days: number | 'all' = 30,
+): Promise<WakaTimeStats | null> {
   const range = getWakaTimeRange(days)
   return wakaTimeRequest(`/users/current/stats/${range}`)
 }

@@ -22,7 +22,7 @@ describe('Dark Mode Configuration', () => {
     const { container } = render(
       <div className="bg-white text-gray-700 dark:bg-slate-900 dark:text-slate-50">
         Test Content
-      </div>
+      </div>,
     )
 
     expect(container.firstChild).toHaveClass('bg-white', 'text-gray-700')
@@ -30,11 +30,12 @@ describe('Dark Mode Configuration', () => {
 
   it('should apply transition classes for smooth theme switching', () => {
     const { container } = render(
-      <div className="transition-colors duration-1000">
-        Test Content
-      </div>
+      <div className="transition-colors duration-1000">Test Content</div>,
     )
 
-    expect(container.firstChild).toHaveClass('transition-colors', 'duration-1000')
+    expect(container.firstChild).toHaveClass(
+      'transition-colors',
+      'duration-1000',
+    )
   })
 })

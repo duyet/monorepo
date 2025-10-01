@@ -5,13 +5,13 @@ import { ExperienceItem } from '@/components/experience'
 import { InlineLink } from '@/components/inline-link'
 import { Overview } from '@/components/overview'
 import { Section } from '@/components/section'
+import { Skill } from '@/components/skill'
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card'
 import { Separator } from '@/components/ui/separator'
-import { Skill } from '@/components/skill'
 
 import { cvData } from '@/config/cv.data'
 import {
@@ -94,10 +94,11 @@ export default function Page() {
         </h1>
 
         <InlineLink links={renderContactLinks()} />
-        
+
         <Overview className="text-sm">
           Data Engineer with 6+ years of experience in modern data warehousing,
-          distributed systems, and cloud computing. Proficient in <SkillClickHouse />
+          distributed systems, and cloud computing. Proficient in{' '}
+          <SkillClickHouse />
           {', '}
           <SkillSpark />
           {', '}

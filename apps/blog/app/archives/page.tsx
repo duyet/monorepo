@@ -4,6 +4,8 @@ import Container from '@duyet/components/Container'
 import { getPostsByAllYear } from '@duyet/libs/getPost'
 import { YearPost } from '../../components/year-post'
 
+export const dynamic = 'force-static'
+
 export default function Archives() {
   const postsByYear = getPostsByAllYear(['slug', 'title', 'date', 'category'])
   const postCount = Object.values(postsByYear).reduce(

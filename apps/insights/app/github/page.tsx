@@ -1,10 +1,10 @@
+import { PageLayout, SectionLayout } from '@/components/layouts'
 import { GithubActivity } from './activity'
 import { GithubCard } from './card'
 import { CommitTimeline } from './commit-timeline'
 import { GitHubLanguageStats } from './language-stats'
 import { RepoTrends } from './repo-trends'
 import { Repos } from './repos'
-import { PageLayout, SectionLayout } from '@/components/layouts'
 
 const owner = 'duyet'
 

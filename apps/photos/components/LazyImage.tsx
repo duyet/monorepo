@@ -1,10 +1,10 @@
 'use client'
 
 import { cn } from '@duyet/libs/utils'
+import { AlertCircle } from 'lucide-react'
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { AlertCircle } from 'lucide-react'
-import { ImageSkeleton, LoadingSpinner } from './LoadingStates'
+import { ImageSkeleton } from './LoadingStates'
 
 interface LazyImageProps {
   src: string

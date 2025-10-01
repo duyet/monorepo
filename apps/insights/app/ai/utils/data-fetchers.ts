@@ -1,20 +1,22 @@
 import type {
-  DateRangeDays,
-  CCUsageMetricsData,
   CCUsageActivityData,
-  CCUsageModelData,
   CCUsageCostData,
-  CCUsageProjectData,
   CCUsageEfficiencyData,
+  CCUsageMetricsData,
+  CCUsageModelData,
+  CCUsageProjectData,
+  DateRangeDays,
 } from '../types'
-import { executeClickHouseQueryLegacy } from './database'
-import { getDateCondition, getCreatedAtCondition } from './queries'
 import { anonymizeProjects, distributePercentages } from './data-processing'
+import { executeClickHouseQueryLegacy } from './database'
+import { getCreatedAtCondition, getDateCondition } from './queries'
 
 /**
  * Get overview metrics for the specified time period
  */
-export async function getCCUsageMetrics(days: DateRangeDays = 30): Promise<CCUsageMetricsData> {
+export async function getCCUsageMetrics(
+  days: DateRangeDays = 30,
+): Promise<CCUsageMetricsData> {
   const dateCondition = getDateCondition(days)
   const query = `
     SELECT 
@@ -76,7 +78,9 @@ export async function getCCUsageMetrics(days: DateRangeDays = 30): Promise<CCUsa
  * Get daily usage activity for the specified time period including cost data
  * Returns token values in thousands for chart display
  */
-export async function getCCUsageActivity(days: DateRangeDays = 30): Promise<CCUsageActivityData[]> {
+export async function getCCUsageActivity(
+  days: DateRangeDays = 30,
+): Promise<CCUsageActivityData[]> {
   const dateCondition = getDateCondition(days)
   const query = `
     SELECT
@@ -110,7 +114,9 @@ export async function getCCUsageActivity(days: DateRangeDays = 30): Promise<CCUs
  * Get daily usage activity with actual token values (not divided by 1000)
  * For detailed tables that need exact numbers
  */
-export async function getCCUsageActivityRaw(days: DateRangeDays = 30): Promise<CCUsageActivityData[]> {
+export async function getCCUsageActivityRaw(
+  days: DateRangeDays = 30,
+): Promise<CCUsageActivityData[]> {
   const dateCondition = getDateCondition(days)
   const query = `
     SELECT
@@ -143,7 +149,9 @@ export async function getCCUsageActivityRaw(days: DateRangeDays = 30): Promise<C
 /**
  * Get model usage distribution for the specified time period
  */
-export async function getCCUsageModels(days: DateRangeDays = 30): Promise<CCUsageModelData[]> {
+export async function getCCUsageModels(
+  days: DateRangeDays = 30,
+): Promise<CCUsageModelData[]> {
   const dateCondition = getCreatedAtCondition(days)
   const query = `
     SELECT 
@@ -177,14 +185,22 @@ export async function getCCUsageModels(days: DateRangeDays = 30): Promise<CCUsag
     name: String(model.model_name) || 'Unknown',
     tokens: Number(model.total_tokens) || 0,
     cost: Number(model.total_cost) || 0,
-    rawPercent: totalTokens > 0 ? ((Number(model.total_tokens) || 0) / totalTokens) * 100 : 0,
-    rawCostPercent: totalCost > 0 ? ((Number(model.total_cost) || 0) / totalCost) * 100 : 0,
+    rawPercent:
+      totalTokens > 0
+        ? ((Number(model.total_tokens) || 0) / totalTokens) * 100
+        : 0,
+    rawCostPercent:
+      totalCost > 0 ? ((Number(model.total_cost) || 0) / totalCost) * 100 : 0,
     usageCount: Number(model.usage_count) || 0,
   }))
 
   // Apply proper percentage distribution to ensure sum equals 100%
-  const distributedTokenPercentages = distributePercentages(modelData.map(m => m.rawPercent))
-  const distributedCostPercentages = distributePercentages(modelData.map(m => m.rawCostPercent))
+  const distributedTokenPercentages = distributePercentages(
+    modelData.map((m) => m.rawPercent),
+  )
+  const distributedCostPercentages = distributePercentages(
+    modelData.map((m) => m.rawCostPercent),
+  )
 
   return modelData.map((model, index) => ({
     name: model.name,
@@ -257,7 +273,9 @@ export async function getCCUsageEfficiency(): Promise<CCUsageEfficiencyData[]> {
  * Note: Individual cost breakdown by token type is calculated proportionally
  * based on token usage ratios since the schema only stores total_cost
  */
-export async function getCCUsageCosts(days: DateRangeDays = 30): Promise<CCUsageCostData[]> {
+export async function getCCUsageCosts(
+  days: DateRangeDays = 30,
+): Promise<CCUsageCostData[]> {
   const dateCondition = getDateCondition(days)
   const query = `
     SELECT 
@@ -283,12 +301,15 @@ export async function getCCUsageCosts(days: DateRangeDays = 30): Promise<CCUsage
     const outputTokens = Number(row.output_tokens) || 0
     const cacheTokens = Number(row.cache_tokens) || 0
     const totalTokens = Number(row.total_tokens) || 0
-    
+
     // Calculate proportional costs based on token usage ratios
     // This is an approximation since actual pricing varies by token type
-    const inputCost = totalTokens > 0 ? (totalCost * inputTokens) / totalTokens : 0
-    const outputCost = totalTokens > 0 ? (totalCost * outputTokens) / totalTokens : 0
-    const cacheCost = totalTokens > 0 ? (totalCost * cacheTokens) / totalTokens : 0
+    const inputCost =
+      totalTokens > 0 ? (totalCost * inputTokens) / totalTokens : 0
+    const outputCost =
+      totalTokens > 0 ? (totalCost * outputTokens) / totalTokens : 0
+    const cacheCost =
+      totalTokens > 0 ? (totalCost * cacheTokens) / totalTokens : 0
 
     return {
       date: String(row.date) || 'Unknown',

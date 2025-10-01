@@ -13,7 +13,10 @@ interface ErrorBoundaryProps {
   fallback?: React.ComponentType<{ error?: Error; retry: () => void }>
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false }
@@ -40,14 +43,22 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     if (this.state.hasError) {
       const FallbackComponent = this.props.fallback || DefaultErrorFallback
-      return <FallbackComponent error={this.state.error} retry={this.handleRetry} />
+      return (
+        <FallbackComponent error={this.state.error} retry={this.handleRetry} />
+      )
     }
 
     return this.props.children
   }
 }
 
-function DefaultErrorFallback({ error, retry }: { error?: Error; retry: () => void }) {
+function DefaultErrorFallback({
+  error,
+  retry,
+}: {
+  error?: Error
+  retry: () => void
+}) {
   return (
     <div className="flex min-h-[300px] items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-800">
       <div className="text-center">
@@ -56,7 +67,8 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry: () => vo
           Something went wrong
         </h3>
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          {error?.message || 'An unexpected error occurred while loading the photos.'}
+          {error?.message ||
+            'An unexpected error occurred while loading the photos.'}
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <button
@@ -72,7 +84,7 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry: () => vo
             Refresh Page
           </button>
         </div>
-        
+
         {/* Development error details */}
         {process.env.NODE_ENV === 'development' && error && (
           <details className="mt-6 text-left">

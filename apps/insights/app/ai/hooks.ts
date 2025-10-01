@@ -5,14 +5,14 @@
 
 import { useMemo } from 'react'
 import {
-  CCUsageMetricsData,
   CCUsageActivityData,
-  CCUsageModelData,
   CCUsageCostData,
-  ModelChartData,
-  TokenChartData,
+  CCUsageMetricsData,
+  CCUsageModelData,
   CostChartData,
   FormatOptions,
+  ModelChartData,
+  TokenChartData,
   UseFormattedCurrency,
 } from './types'
 
@@ -26,15 +26,17 @@ import {
 export function useFormattedCurrency(): UseFormattedCurrency {
   const format = useMemo(() => {
     return (amount: number, options: FormatOptions = {}) => {
-      const {
-        showSymbol = true,
-      } = options
+      const { showSymbol = true } = options
 
       if (amount === 0) return showSymbol ? '$0' : '0'
       if (amount < 0.01) return showSymbol ? '<$0.01' : '<0.01'
-      if (amount < 1) return showSymbol ? `$${amount.toFixed(2)}` : amount.toFixed(2)
-      if (amount < 10) return showSymbol ? `$${amount.toFixed(1)}` : amount.toFixed(1)
-      return showSymbol ? `$${Math.round(amount)}` : Math.round(amount).toString()
+      if (amount < 1)
+        return showSymbol ? `$${amount.toFixed(2)}` : amount.toFixed(2)
+      if (amount < 10)
+        return showSymbol ? `$${amount.toFixed(1)}` : amount.toFixed(1)
+      return showSymbol
+        ? `$${Math.round(amount)}`
+        : Math.round(amount).toString()
     }
   }, [])
 
@@ -59,7 +61,9 @@ export function useFormattedCurrency(): UseFormattedCurrency {
 /**
  * Transform activity data for token usage charts
  */
-export function useTokenChartData(activity: CCUsageActivityData[]): TokenChartData[] {
+export function useTokenChartData(
+  activity: CCUsageActivityData[],
+): TokenChartData[] {
   return useMemo(() => {
     return activity.map((row) => ({
       date: row.date,
@@ -87,7 +91,9 @@ export function useCostChartData(costs: CCUsageCostData[]): CostChartData[] {
 /**
  * Transform activity data for daily cost charts
  */
-export function useDailyCostData(activity: CCUsageActivityData[]): Array<{date: string, 'Total Cost': number}> {
+export function useDailyCostData(
+  activity: CCUsageActivityData[],
+): Array<{ date: string; 'Total Cost': number }> {
   return useMemo(() => {
     return activity.map((row) => ({
       date: row.date,
@@ -156,8 +162,10 @@ export function useProcessedMetrics(data: CCUsageMetricsData | null) {
     return {
       ...data,
       // Add computed properties
-      cacheEfficiency: data.totalTokens > 0 ? (data.cacheTokens / data.totalTokens) * 100 : 0,
-      averageCostPerToken: data.totalTokens > 0 ? data.totalCost / data.totalTokens : 0,
+      cacheEfficiency:
+        data.totalTokens > 0 ? (data.cacheTokens / data.totalTokens) * 100 : 0,
+      averageCostPerToken:
+        data.totalTokens > 0 ? data.totalCost / data.totalTokens : 0,
       costPerDay: data.activeDays > 0 ? data.totalCost / data.activeDays : 0,
     }
   }, [data])
@@ -217,15 +225,21 @@ export function useErrorHandler() {
         if (error instanceof Error) return error.message
         return 'An unexpected error occurred'
       },
-      
+
       isRetryableError: (error: unknown): boolean => {
-        const message = typeof error === 'string' ? error : 
-                       error instanceof Error ? error.message : ''
-        
+        const message =
+          typeof error === 'string'
+            ? error
+            : error instanceof Error
+              ? error.message
+              : ''
+
         // Network errors are typically retryable
-        return message.includes('timeout') || 
-               message.includes('connection') ||
-               message.includes('network')
+        return (
+          message.includes('timeout') ||
+          message.includes('connection') ||
+          message.includes('network')
+        )
       },
     }
   }, [])
@@ -241,15 +255,16 @@ export function useErrorHandler() {
 export function usePerformanceMonitor(componentName: string, dataSize: number) {
   return useMemo(() => {
     const startTime = performance.now()
-    
+
     return {
       logRenderTime: () => {
         const endTime = performance.now()
         const renderTime = endTime - startTime
-        
-        if (renderTime > 100) { // Log if rendering takes more than 100ms
+
+        if (renderTime > 100) {
+          // Log if rendering takes more than 100ms
           console.warn(
-            `[Performance] ${componentName} rendered in ${renderTime.toFixed(2)}ms with ${dataSize} items`
+            `[Performance] ${componentName} rendered in ${renderTime.toFixed(2)}ms with ${dataSize} items`,
           )
         }
       },

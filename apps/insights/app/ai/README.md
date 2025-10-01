@@ -25,17 +25,20 @@ ccusage/
 ## Key Features
 
 ### 🎯 **Type Safety**
+
 - Comprehensive TypeScript interfaces for all data models
 - Strict typing for ClickHouse responses and component props
 - Generic types for chart data transformations
 
 ### ⚡ **Performance Optimizations**
+
 - Memoized data transformations using `useMemo`
 - Performance monitoring for large datasets
 - Optimized chart data processing
 - Efficient currency formatting
 
 ### 🔧 **Custom Hooks**
+
 - **`useFormattedCurrency`**: Smart currency and token formatting
 - **`useTokenChartData`**: Transform activity data for charts
 - **`useModelChartData`**: Process model usage for visualizations
@@ -43,12 +46,14 @@ ccusage/
 - **`useErrorHandler`**: Standardized error management
 
 ### 🛡️ **Error Handling**
+
 - Comprehensive error boundaries with retry mechanisms
 - Graceful fallbacks for missing data
 - Performance monitoring and logging
 - User-friendly error displays
 
 ### 🎨 **Component Design**
+
 - Consistent prop interfaces across components
 - Flexible className support for styling
 - Suspense-compatible async components
@@ -81,11 +86,11 @@ import { useFormattedCurrency, useTokenChartData } from './ccusage/hooks'
 function MyComponent({ data }) {
   const { format: formatCurrency, formatTokens } = useFormattedCurrency()
   const chartData = useTokenChartData(data)
-  
+
   return (
     <div>
       <p>Cost: {formatCurrency(1234.56)}</p> {/* $1.2K */}
-      <p>Tokens: {formatTokens(1500000)}</p>  {/* 1.5M */}
+      <p>Tokens: {formatTokens(1500000)}</p> {/* 1.5M */}
     </div>
   )
 }
@@ -95,8 +100,7 @@ function MyComponent({ data }) {
 
 ```tsx
 import { CCUsageErrorBoundary, CCUsageMetrics } from './ccusage'
-
-<CCUsageErrorBoundary
+;<CCUsageErrorBoundary
   onError={(error, errorInfo) => {
     console.error('Metrics error:', error)
     // Send to error reporting service
@@ -123,16 +127,19 @@ Charts (Visualization)
 ## Performance Considerations
 
 ### Data Processing
+
 - Large datasets (>90 days) trigger performance monitoring
 - Chart data transformations are memoized
 - Token counts converted to thousands for readability
 
 ### Memory Management
+
 - ClickHouse queries include memory limits (`max_memory_usage: '1G'`)
 - Result row limits prevent runaway queries (`max_result_rows: 10000`)
 - Automatic client connection cleanup
 
 ### Rendering Optimization
+
 - Components use React.Suspense for loading states
 - Error boundaries prevent cascade failures
 - Performance logging for render times >100ms
@@ -146,6 +153,7 @@ export const dynamic = 'force-static'
 ```
 
 All components work with static generation by:
+
 - Using default 30-day period for static builds
 - Avoiding client-side state management
 - Providing static date filter displays
@@ -155,7 +163,7 @@ All components work with static generation by:
 ### Levels of Error Handling
 
 1. **Query Level**: ClickHouse connection and query errors
-2. **Component Level**: Data processing and rendering errors  
+2. **Component Level**: Data processing and rendering errors
 3. **UI Level**: User-facing error displays with retry options
 4. **Boundary Level**: React error boundaries for crash recovery
 
@@ -173,12 +181,14 @@ All components work with static generation by:
 The refactored components maintain backward compatibility while providing enhanced features:
 
 **Before:**
+
 ```tsx
 import { CCUsageMetrics } from './metrics'
 // Limited type safety, inline formatting logic
 ```
 
 **After:**
+
 ```tsx
 import { CCUsageMetrics, useFormattedCurrency } from './ccusage'
 // Full type safety, reusable hooks, error boundaries
@@ -201,18 +211,21 @@ import { CCUsageMetrics, useFormattedCurrency } from './ccusage'
 ## Best Practices
 
 ### Component Development
+
 - Always use the provided hooks for data processing
 - Wrap components in error boundaries for production use
 - Include performance monitoring for large datasets
 - Use consistent prop interfaces across components
 
 ### Data Handling
+
 - Validate input parameters before processing
 - Use type-safe interfaces for all data operations
 - Implement graceful fallbacks for missing data
 - Log performance metrics for optimization
 
 ### Styling
+
 - Use the `className` prop for custom styling
 - Maintain consistent spacing and layout patterns
 - Support dark mode with CSS custom properties
@@ -239,8 +252,9 @@ When adding new components or features:
 ## Environment Variables
 
 Required ClickHouse configuration:
+
 - `CLICKHOUSE_HOST`
 - `CLICKHOUSE_PORT` (default: 8123)
 - `CLICKHOUSE_USER`
-- `CLICKHOUSE_PASSWORD` 
+- `CLICKHOUSE_PASSWORD`
 - `CLICKHOUSE_DATABASE`

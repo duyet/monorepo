@@ -76,7 +76,7 @@ function CompanyLine({
           width={10}
           height={10}
           className={cn(
-            'h-6 w-auto grayscale group-hover:grayscale-0 print:hidden dark:brightness-0 dark:invert',
+            'h-6 w-auto grayscale group-hover:grayscale-0 dark:brightness-0 dark:invert print:hidden',
             companyLogoClassName,
           )}
         />
@@ -107,7 +107,9 @@ function PeriodLine({ from, to }: { from: Date; to?: Date }) {
 
   return (
     <div className="group inline-flex gap-2 text-xs uppercase text-gray-600 dark:text-gray-300">
-      <div className="hover:text-gray-700 dark:hover:text-gray-200">{period}</div>
+      <div className="hover:text-gray-700 dark:hover:text-gray-200">
+        {period}
+      </div>
       <div className="hidden font-bold text-gray-400 group-hover:block dark:text-gray-400">
         {duration}
       </div>

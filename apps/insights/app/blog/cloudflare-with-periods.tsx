@@ -1,6 +1,6 @@
+import { TIME_PERIODS, type PeriodData } from '@/types/periods'
 import type { CloudflareAnalyticsByDate } from '@duyet/interfaces'
 import { request } from 'graphql-request'
-import { TIME_PERIODS, type PeriodData } from '@/types/periods'
 import { CloudflareClient } from './cloudflare-client'
 
 export interface CloudflareDataByPeriod {
@@ -12,11 +12,13 @@ export interface CloudflareDataByPeriod {
 
 export async function CloudflareWithPeriods() {
   const allPeriodData = await getDataForAllPeriods()
-  
+
   return <CloudflareClient data={allPeriodData} />
 }
 
-const getDataForAllPeriods = async (): Promise<PeriodData<CloudflareDataByPeriod>> => {
+const getDataForAllPeriods = async (): Promise<
+  PeriodData<CloudflareDataByPeriod>
+> => {
   const results: Partial<PeriodData<CloudflareDataByPeriod>> = {}
   const generatedAt = new Date().toISOString()
 
@@ -29,15 +31,20 @@ const getDataForAllPeriods = async (): Promise<PeriodData<CloudflareDataByPeriod
         generatedAt,
       }
     } catch (error) {
-      console.error(`Error fetching Cloudflare data for ${period.value}:`, error)
+      console.error(
+        `Error fetching Cloudflare data for ${period.value}:`,
+        error,
+      )
       // Fallback to empty data structure
       results[period.value] = {
         data: {
           viewer: {
-            zones: [{
-              httpRequests1dGroups: []
-            }]
-          }
+            zones: [
+              {
+                httpRequests1dGroups: [],
+              },
+            ],
+          },
         },
         totalRequests: 0,
         totalPageviews: 0,
@@ -55,14 +62,18 @@ const getDataForAllPeriods = async (): Promise<PeriodData<CloudflareDataByPeriod
 const getDataForPeriod = async (days: number) => {
   // Check if required environment variables are present
   if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
-    console.warn('Cloudflare API credentials not configured, returning empty data')
+    console.warn(
+      'Cloudflare API credentials not configured, returning empty data',
+    )
     return {
       data: {
         viewer: {
-          zones: [{
-            httpRequests1dGroups: []
-          }]
-        }
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
       },
       totalRequests: 0,
       totalPageviews: 0,
@@ -75,7 +86,9 @@ const getDataForPeriod = async (days: number) => {
   const actualDays = Math.min(days, maxDays)
 
   if (days > maxDays) {
-    console.warn(`Requested ${days} days but limiting to ${maxDays} days due to Cloudflare quota limits`)
+    console.warn(
+      `Requested ${days} days but limiting to ${maxDays} days due to Cloudflare quota limits`,
+    )
   }
 
   const query = `
@@ -131,10 +144,12 @@ const getDataForPeriod = async (days: number) => {
       return {
         data: {
           viewer: {
-            zones: [{
-              httpRequests1dGroups: []
-            }]
-          }
+            zones: [
+              {
+                httpRequests1dGroups: [],
+              },
+            ],
+          },
         },
         totalRequests: 0,
         totalPageviews: 0,
@@ -160,18 +175,25 @@ const getDataForPeriod = async (days: number) => {
     console.error(`Cloudflare API error for ${actualDays} days:`, error)
 
     // Check if it's a quota error and suggest a shorter period
-    if (error instanceof Error && error.message.includes('cannot request data older than')) {
-      console.warn('Cloudflare quota exceeded, consider reducing the time period')
+    if (
+      error instanceof Error &&
+      error.message.includes('cannot request data older than')
+    ) {
+      console.warn(
+        'Cloudflare quota exceeded, consider reducing the time period',
+      )
     }
 
     // Return empty data structure on error
     return {
       data: {
         viewer: {
-          zones: [{
-            httpRequests1dGroups: []
-          }]
-        }
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
       },
       totalRequests: 0,
       totalPageviews: 0,

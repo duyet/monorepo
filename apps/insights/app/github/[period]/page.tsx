@@ -1,3 +1,4 @@
+import { generatePeriodStaticParams, getPeriodConfig } from '@/lib/periods'
 import { Suspense } from 'react'
 import { SkeletonCard } from '../../../components/SkeletonCard'
 import { GithubActivity } from '../activity'
@@ -6,7 +7,6 @@ import { CommitTimeline } from '../commit-timeline'
 import { GitHubLanguageStats } from '../language-stats'
 import { RepoTrends } from '../repo-trends'
 import { Repos } from '../repos'
-import { generatePeriodStaticParams, getPeriodConfig } from '@/lib/periods'
 
 const owner = 'duyet'
 

@@ -19,16 +19,21 @@ export default function ListPage() {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      <div className="max-w-4xl mx-auto px-4 py-16">
+      <div className="mx-auto max-w-4xl px-4 py-16">
         {/* Header */}
         <div className="mb-12">
-          <Link href="/" className="inline-block mb-4 text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+          <Link
+            href="/"
+            className="mb-4 inline-block text-sm text-neutral-500 transition-colors hover:text-neutral-900"
+          >
             ← Back to home
           </Link>
-          <h1 className="text-4xl font-serif font-normal text-neutral-900 mb-2">
+          <h1 className="mb-2 font-serif text-4xl font-normal text-neutral-900">
             All Links
           </h1>
-          <p className="text-neutral-600">Short URLs and redirects available on duyet.net</p>
+          <p className="text-neutral-600">
+            Short URLs and redirects available on duyet.net
+          </p>
         </div>
 
         {/* URL List */}
@@ -36,12 +41,12 @@ export default function ListPage() {
           {publicUrls.map(({ path, target, desc }) => (
             <div
               key={path}
-              className="bg-white border border-neutral-200 rounded-lg p-4 hover:border-neutral-300 transition-colors"
+              className="rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300"
             >
               <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline gap-3 mb-1">
-                    <code className="text-sm font-mono text-neutral-900 font-medium">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-1 flex items-baseline gap-3">
+                    <code className="font-mono text-sm font-medium text-neutral-900">
                       {path}
                     </code>
                     {desc && (
@@ -52,7 +57,7 @@ export default function ListPage() {
                     href={target}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors break-all"
+                    className="break-all text-sm text-neutral-600 transition-colors hover:text-neutral-900"
                   >
                     → {target}
                   </Link>
@@ -63,7 +68,7 @@ export default function ListPage() {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-neutral-200 text-center text-sm text-neutral-500">
+        <div className="mt-12 border-t border-neutral-200 pt-8 text-center text-sm text-neutral-500">
           <p>Total: {publicUrls.length} short URLs</p>
         </div>
       </div>

@@ -1,7 +1,11 @@
 import { DonutChart, LanguageBarChart } from '@/components/charts'
 import { getWakaTimeLanguages } from './wakatime-utils'
 
-export async function WakaTimeLanguages({ days = 30 }: { days?: number | 'all' }) {
+export async function WakaTimeLanguages({
+  days = 30,
+}: {
+  days?: number | 'all'
+}) {
   const languages = await getWakaTimeLanguages(days)
 
   return (

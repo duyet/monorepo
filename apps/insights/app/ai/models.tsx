@@ -2,9 +2,12 @@ import { DonutChart, LanguageBarChart } from '@/components/charts'
 import { getCCUsageModels } from './ccusage-utils'
 import type { CCUsageModelsProps, ModelChartData } from './types'
 
-export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps) {
+export async function CCUsageModels({
+  days = 30,
+  className,
+}: CCUsageModelsProps) {
   const models = await getCCUsageModels(days)
-  
+
   // Transform model data for charts (converted from hook to regular functions)
   const tokenChartData: ModelChartData[] = models.map((model) => ({
     name: model.name,
@@ -15,11 +18,12 @@ export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps
     name: model.name,
     percent: model.costPercent,
   }))
-  
-  
+
   if (!models.length) {
     return (
-      <div className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}>
+      <div
+        className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}
+      >
         <p className="text-muted-foreground">No model data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
           Model usage distribution will appear here once data is available

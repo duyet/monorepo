@@ -29,9 +29,9 @@ export function CompactMetric({
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <div className="space-y-1 flex-1 min-w-0">
+        <div className="min-w-0 flex-1 space-y-1">
           <p className="text-xs font-medium text-muted-foreground">{label}</p>
-          <p className="font-mono text-lg font-semibold tracking-tight break-words">
+          <p className="break-words font-mono text-lg font-semibold tracking-tight">
             {value}
           </p>
           {change && (
@@ -53,7 +53,9 @@ export function CompactMetric({
             </div>
           )}
         </div>
-        {icon && <div className="text-muted-foreground flex-shrink-0">{icon}</div>}
+        {icon && (
+          <div className="flex-shrink-0 text-muted-foreground">{icon}</div>
+        )}
       </div>
     </div>
   )

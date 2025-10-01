@@ -10,7 +10,10 @@ function formatCurrency(amount: number): string {
   return `$${Math.round(amount)}`
 }
 
-export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) {
+export async function CCUsageCosts({
+  days = 30,
+  className,
+}: CCUsageCostsProps) {
   const costs = await getCCUsageCosts(days)
 
   // Process cost data with summary calculations (converted from hook)
@@ -23,19 +26,27 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
   const recentPeriod = costs.slice(midPoint)
   const previousPeriod = costs.slice(0, midPoint)
 
-  const recentTotal = recentPeriod.reduce((sum, day) => sum + day['Total Cost'], 0)
-  const previousTotal = previousPeriod.reduce((sum, day) => sum + day['Total Cost'], 0)
+  const recentTotal = recentPeriod.reduce(
+    (sum, day) => sum + day['Total Cost'],
+    0,
+  )
+  const previousTotal = previousPeriod.reduce(
+    (sum, day) => sum + day['Total Cost'],
+    0,
+  )
 
-  const recentAvg = recentPeriod.length > 0 ? recentTotal / recentPeriod.length : 0
-  const previousAvg = previousPeriod.length > 0 ? previousTotal / previousPeriod.length : 0
+  const recentAvg =
+    recentPeriod.length > 0 ? recentTotal / recentPeriod.length : 0
+  const previousAvg =
+    previousPeriod.length > 0 ? previousTotal / previousPeriod.length : 0
 
-  const totalPercentChange = previousTotal > 0
-    ? ((recentTotal - previousTotal) / previousTotal) * 100
-    : 0
+  const totalPercentChange =
+    previousTotal > 0
+      ? ((recentTotal - previousTotal) / previousTotal) * 100
+      : 0
 
-  const avgPercentChange = previousAvg > 0
-    ? ((recentAvg - previousAvg) / previousAvg) * 100
-    : 0
+  const avgPercentChange =
+    previousAvg > 0 ? ((recentAvg - previousAvg) / previousAvg) * 100 : 0
 
   const summary = {
     total,
@@ -44,7 +55,7 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
     totalPercentChange,
     avgPercentChange,
   }
-  
+
   // Transform cost data for charts (converted from hook)
   const costChartData: CostChartData[] = costs.map((row) => ({
     date: row.date,
@@ -52,11 +63,12 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
     'Output Cost': row['Output Cost'],
     'Cache Cost': row['Cache Cost'],
   }))
-  
 
   if (!costs || costs.length === 0) {
     return (
-      <div className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}>
+      <div
+        className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}
+      >
         <p className="text-muted-foreground">No cost data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
           Daily cost breakdown will appear here once usage data is available
@@ -71,10 +83,15 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-lg border bg-card p-4">
           <div className="flex items-baseline gap-2">
-            <div className="text-2xl font-bold">{formatCurrency(summary.total)}</div>
+            <div className="text-2xl font-bold">
+              {formatCurrency(summary.total)}
+            </div>
             {summary.totalPercentChange !== 0 && (
-              <span className={`text-xs font-medium ${summary.totalPercentChange > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                {summary.totalPercentChange > 0 ? '+' : ''}{summary.totalPercentChange.toFixed(1)}%
+              <span
+                className={`text-xs font-medium ${summary.totalPercentChange > 0 ? 'text-red-600' : 'text-green-600'}`}
+              >
+                {summary.totalPercentChange > 0 ? '+' : ''}
+                {summary.totalPercentChange.toFixed(1)}%
               </span>
             )}
           </div>
@@ -84,10 +101,15 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
         </div>
         <div className="rounded-lg border bg-card p-4">
           <div className="flex items-baseline gap-2">
-            <div className="text-2xl font-bold">{formatCurrency(summary.average)}</div>
+            <div className="text-2xl font-bold">
+              {formatCurrency(summary.average)}
+            </div>
             {summary.avgPercentChange !== 0 && (
-              <span className={`text-xs font-medium ${summary.avgPercentChange > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                {summary.avgPercentChange > 0 ? '+' : ''}{summary.avgPercentChange.toFixed(1)}%
+              <span
+                className={`text-xs font-medium ${summary.avgPercentChange > 0 ? 'text-red-600' : 'text-green-600'}`}
+              >
+                {summary.avgPercentChange > 0 ? '+' : ''}
+                {summary.avgPercentChange.toFixed(1)}%
               </span>
             )}
           </div>
@@ -99,9 +121,7 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
           <div className="text-2xl font-bold">
             {formatCurrency(summary.projected)}
           </div>
-          <p className="text-xs text-muted-foreground">
-            Monthly Projection
-          </p>
+          <p className="text-xs text-muted-foreground">Monthly Projection</p>
         </div>
       </div>
 

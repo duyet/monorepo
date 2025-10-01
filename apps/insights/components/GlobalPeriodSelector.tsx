@@ -1,9 +1,9 @@
 'use client'
 
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { DEFAULT_PERIOD, PERIODS, type PeriodValue } from '@/lib/periods'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { PERIODS, DEFAULT_PERIOD, type PeriodValue } from '@/lib/periods'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export function GlobalPeriodSelector() {
   const pathname = usePathname()
@@ -25,9 +25,7 @@ export function GlobalPeriodSelector() {
       <TabsList>
         {PERIODS.map((period) => (
           <Link key={period.value} href={`/${currentTab}/${period.value}`}>
-            <TabsTrigger value={period.value}>
-              {period.label}
-            </TabsTrigger>
+            <TabsTrigger value={period.value}>{period.label}</TabsTrigger>
           </Link>
         ))}
       </TabsList>

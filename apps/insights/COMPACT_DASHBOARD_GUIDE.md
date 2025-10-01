@@ -19,6 +19,7 @@ This guide documents the comprehensive UI/UX improvements made to the insights a
 ### 📱 **Mobile-First Analytics Experience**
 
 **Mobile Optimizations**:
+
 - **Touch-friendly Navigation**: Improved mobile menu with descriptions
 - **Swipeable Charts**: Category pagination for multi-series data
 - **Adaptive Layouts**: Stack cards vertically on small screens
@@ -27,6 +28,7 @@ This guide documents the comprehensive UI/UX improvements made to the insights a
 ### 🧭 **Enhanced Navigation & Discovery**
 
 **Navigation Improvements**:
+
 - **Compact Horizontal Nav**: Icon + text with hover descriptions
 - **Breadcrumb Navigation**: Clear hierarchy and context
 - **Progressive Disclosure**: Collapsible sections for advanced features
@@ -35,6 +37,7 @@ This guide documents the comprehensive UI/UX improvements made to the insights a
 ### ⚡ **Performance & Usability**
 
 **Performance Features**:
+
 - **Lazy Loading**: Progressive disclosure prevents initial bloat
 - **Optimized Charts**: Reduced margins, optional grid lines
 - **Memory Efficient**: Intelligent re-rendering and cleanup
@@ -137,12 +140,12 @@ xl:grid-cols-6                 /* 1280px+ */
 
 ## Performance Benchmarks
 
-| Component | Target | Actual |
-|-----------|--------|--------|
-| Grid Render | <100ms | ~85ms |
+| Component    | Target | Actual |
+| ------------ | ------ | ------ |
+| Grid Render  | <100ms | ~85ms  |
 | Chart Render | <200ms | ~160ms |
 | Mobile Chart | <250ms | ~200ms |
-| Stats Cards | <150ms | ~120ms |
+| Stats Cards  | <150ms | ~120ms |
 
 ## Usage Examples
 
@@ -323,15 +326,27 @@ import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
 import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
 
 // Charts
-import { CompactAreaChart, MiniSparkline } from '@/components/charts/CompactChart'
+import {
+  CompactAreaChart,
+  MiniSparkline,
+} from '@/components/charts/CompactChart'
 import { MobileOptimizedChart } from '@/components/mobile/MobileOptimizedChart'
 
 // Navigation
-import { CompactNavigation, Breadcrumb } from '@/components/navigation/CompactNavigation'
-import { DateRangeSelector, QuickFilters } from '@/components/ui/DateRangeSelector'
+import {
+  CompactNavigation,
+  Breadcrumb,
+} from '@/components/navigation/CompactNavigation'
+import {
+  DateRangeSelector,
+  QuickFilters,
+} from '@/components/ui/DateRangeSelector'
 
 // Progressive Disclosure
-import { ProgressiveDisclosure, CollapsibleSection } from '@/components/ui/ProgressiveDisclosure'
+import {
+  ProgressiveDisclosure,
+  CollapsibleSection,
+} from '@/components/ui/ProgressiveDisclosure'
 ```
 
 ### Performance Targets

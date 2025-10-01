@@ -1,11 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { PeriodSelector } from '@/components/period-selector'
 import { PopularContentTable } from '@/components/PopularContentTable'
 import { CompactMetric } from '@/components/ui/CompactMetric'
-import { PeriodSelector } from '@/components/period-selector'
+import {
+  DEFAULT_PERIOD,
+  TIME_PERIODS,
+  type PeriodData,
+  type TimePeriod,
+} from '@/types/periods'
 import { FileText, TrendingUp, Users } from 'lucide-react'
-import { DEFAULT_PERIOD, TIME_PERIODS, type TimePeriod, type PeriodData } from '@/types/periods'
+import { useState } from 'react'
 import type { PostHogDataByPeriod } from './posthog-with-periods'
 
 interface PostHogClientProps {
@@ -14,21 +19,21 @@ interface PostHogClientProps {
 
 export function PostHogClient({ data }: PostHogClientProps) {
   const [activePeriod, setActivePeriod] = useState<TimePeriod>(DEFAULT_PERIOD)
-  
+
   const currentData = data[activePeriod]
-  const activePeriodInfo = TIME_PERIODS.find(p => p.value === activePeriod)
-  
+  const activePeriodInfo = TIME_PERIODS.find((p) => p.value === activePeriod)
+
   if (!currentData) {
     return (
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div></div>
-          <PeriodSelector 
-            activePeriod={activePeriod} 
+          <PeriodSelector
+            activePeriod={activePeriod}
             onPeriodChange={setActivePeriod}
           />
         </div>
-        <div className="text-center py-8 text-muted-foreground">
+        <div className="py-8 text-center text-muted-foreground">
           No data available for this period
         </div>
       </div>
@@ -59,10 +64,10 @@ export function PostHogClient({ data }: PostHogClientProps) {
   return (
     <div className="space-y-6">
       {/* Period Selector */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div></div>
-        <PeriodSelector 
-          activePeriod={activePeriod} 
+        <PeriodSelector
+          activePeriod={activePeriod}
           onPeriodChange={setActivePeriod}
         />
       </div>
@@ -90,8 +95,8 @@ export function PostHogClient({ data }: PostHogClientProps) {
       />
 
       <p className="text-xs text-muted-foreground">
-        Data from PostHog • Last {activePeriodInfo?.label || activePeriod} • Updated{' '}
-        {new Date(currentData.generatedAt).toLocaleDateString()}
+        Data from PostHog • Last {activePeriodInfo?.label || activePeriod} •
+        Updated {new Date(currentData.generatedAt).toLocaleDateString()}
       </p>
     </div>
   )

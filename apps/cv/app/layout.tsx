@@ -62,12 +62,7 @@ export default function RootLayout({ children }: LayoutProps) {
               logo={false}
               containerClassName="max-w-3xl"
               longText="Resume"
-              navigationItems={[
-                BLOG,
-                PHOTOS,
-                INSIGHTS,
-                ABOUT,
-              ]}
+              navigationItems={[BLOG, PHOTOS, INSIGHTS, ABOUT]}
               shortText="CV"
             />
           </div>

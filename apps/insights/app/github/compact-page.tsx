@@ -1,22 +1,16 @@
-import { Suspense } from 'react'
-import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
-import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
 import { CompactAreaChart } from '@/components/charts/CompactChart'
 import { Breadcrumb } from '@/components/navigation/CompactNavigation'
+import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
+import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
 import { QuickFilters } from '@/components/ui/DateRangeSelector'
+import { Calendar, Code, GitCommit, GitFork, Star } from 'lucide-react'
+import { Suspense } from 'react'
 import { GithubActivity } from './activity'
 import { GithubCard } from './card'
 import { CommitTimeline } from './commit-timeline'
 import { GitHubLanguageStats } from './language-stats'
 import { RepoTrends } from './repo-trends'
 import { Repos } from './repos'
-import {
-  GitCommit,
-  Star,
-  GitFork,
-  Code,
-  Calendar,
-} from 'lucide-react'
 
 const owner = 'duyet'
 
@@ -50,13 +44,14 @@ export default function CompactGitHubPage() {
     <div className="space-y-6">
       {/* Header with Breadcrumb */}
       <div className="border-b pb-4">
-        <Breadcrumb items={[
-          { label: 'Dashboard', href: '/' },
-          { label: 'Development' },
-        ]} />
+        <Breadcrumb
+          items={[{ label: 'Dashboard', href: '/' }, { label: 'Development' }]}
+        />
         <div className="mt-2 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold tracking-tight">Development Analytics</h1>
+            <h1 className="text-xl font-bold tracking-tight">
+              Development Analytics
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">
               GitHub repository insights and development activity
             </p>
@@ -71,7 +66,7 @@ export default function CompactGitHubPage() {
 
       {/* Key Metrics Overview */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground">
           Development Overview
         </h2>
         <DashboardGrid cols={4} gap="sm">
@@ -120,7 +115,7 @@ export default function CompactGitHubPage() {
 
       {/* Main Analytics Grid */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground">
           Activity Analysis
         </h2>
         <DashboardGrid cols={3} gap="md">
@@ -130,7 +125,9 @@ export default function CompactGitHubPage() {
               title="Weekly Commit Pattern"
               header={
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold">Weekly Commit Pattern</h3>
+                  <h3 className="text-sm font-semibold">
+                    Weekly Commit Pattern
+                  </h3>
                   <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                     <Calendar className="h-3 w-3" />
                     <span>Last 7 days</span>
@@ -168,7 +165,11 @@ export default function CompactGitHubPage() {
           {/* Language Stats */}
           <GridItem>
             <CompactCard title="Language Distribution" padding="sm">
-              <Suspense fallback={<div className="h-40 animate-pulse bg-muted rounded" />}>
+              <Suspense
+                fallback={
+                  <div className="h-40 animate-pulse rounded bg-muted" />
+                }
+              >
                 <GitHubLanguageStats />
               </Suspense>
             </CompactCard>
@@ -178,14 +179,18 @@ export default function CompactGitHubPage() {
 
       {/* Repository Insights */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground">
           Repository Insights
         </h2>
         <DashboardGrid cols={2} gap="md">
           {/* Repository Trends */}
           <GridItem>
             <CompactCard title="Trending Repositories" padding="sm">
-              <Suspense fallback={<div className="h-48 animate-pulse bg-muted rounded" />}>
+              <Suspense
+                fallback={
+                  <div className="h-48 animate-pulse rounded bg-muted" />
+                }
+              >
                 <RepoTrends />
               </Suspense>
             </CompactCard>
@@ -194,7 +199,11 @@ export default function CompactGitHubPage() {
           {/* Profile Overview */}
           <GridItem>
             <CompactCard title="Profile Statistics" padding="sm">
-              <Suspense fallback={<div className="h-48 animate-pulse bg-muted rounded" />}>
+              <Suspense
+                fallback={
+                  <div className="h-48 animate-pulse rounded bg-muted" />
+                }
+              >
                 <GithubCard owner={owner} />
               </Suspense>
             </CompactCard>
@@ -204,27 +213,33 @@ export default function CompactGitHubPage() {
 
       {/* Detailed Sections */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground">
           Detailed Analytics
         </h2>
         <div className="space-y-4">
           {/* Commit Timeline */}
           <CompactCard title="Commit Timeline" padding="sm">
-            <Suspense fallback={<div className="h-40 animate-pulse bg-muted rounded" />}>
+            <Suspense
+              fallback={<div className="h-40 animate-pulse rounded bg-muted" />}
+            >
               <CommitTimeline />
             </Suspense>
           </CompactCard>
 
           {/* Repository List */}
           <CompactCard title="Repository Overview" padding="sm">
-            <Suspense fallback={<div className="h-64 animate-pulse bg-muted rounded" />}>
+            <Suspense
+              fallback={<div className="h-64 animate-pulse rounded bg-muted" />}
+            >
               <Repos owner={owner} />
             </Suspense>
           </CompactCard>
 
           {/* Activity Details */}
           <CompactCard title="Development Activity" padding="sm">
-            <Suspense fallback={<div className="h-48 animate-pulse bg-muted rounded" />}>
+            <Suspense
+              fallback={<div className="h-48 animate-pulse rounded bg-muted" />}
+            >
               <GithubActivity owner={owner} />
             </Suspense>
           </CompactCard>
@@ -235,7 +250,8 @@ export default function CompactGitHubPage() {
       <div className="border-t pt-4">
         <div className="flex items-center justify-between text-xs">
           <div className="text-muted-foreground">
-            Data from GitHub API • Updated every hour • {owner}'s public repositories
+            Data from GitHub API • Updated every hour • {owner}'s public
+            repositories
           </div>
           <div className="flex space-x-2">
             <button className="text-blue-600 hover:text-blue-700">

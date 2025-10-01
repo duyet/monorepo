@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 
 /**
  * Custom hooks for keyboard and touch navigation
@@ -215,7 +215,15 @@ export function useTouchGestures(options: TouchGestureOptions) {
       // Clean up touch data
       delete (event.currentTarget as any).__touchData
     },
-    [isEnabled, onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, minimumSwipeDistance, touchThreshold],
+    [
+      isEnabled,
+      onSwipeLeft,
+      onSwipeRight,
+      onSwipeUp,
+      onSwipeDown,
+      minimumSwipeDistance,
+      touchThreshold,
+    ],
   )
 
   return {
@@ -255,7 +263,10 @@ export function useLightboxNavigation(options: LightboxNavigationOptions) {
     onArrowLeft: canGoPrevious ? onPrevious : undefined,
     onArrowRight: canGoNext ? onNext : undefined,
     customKeys: {
-      ...(onToggleFullscreen && { f: onToggleFullscreen, F: onToggleFullscreen }),
+      ...(onToggleFullscreen && {
+        f: onToggleFullscreen,
+        F: onToggleFullscreen,
+      }),
       ...(onToggleInfo && { i: onToggleInfo, I: onToggleInfo }),
     },
   })

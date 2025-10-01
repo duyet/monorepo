@@ -24,9 +24,13 @@ interface TrendStats {
 
 export async function RepoTrends() {
   const stats = await getTrendStats(owner)
-  
+
   // Safety check for stats structure
-  if (!stats || !Array.isArray(stats.topRepos) || !Array.isArray(stats.trendingRepos)) {
+  if (
+    !stats ||
+    !Array.isArray(stats.topRepos) ||
+    !Array.isArray(stats.trendingRepos)
+  ) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
         <p className="text-muted-foreground">No repository trends available</p>

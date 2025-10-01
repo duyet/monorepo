@@ -4,7 +4,10 @@ import type { ClickHouseConfig, QueryResult } from '../types'
 /**
  * Detect protocol (HTTP/HTTPS) based on port number or explicit configuration
  */
-function detectClickHouseProtocol(port: string, explicitProtocol?: string): string {
+function detectClickHouseProtocol(
+  port: string,
+  explicitProtocol?: string,
+): string {
   // Allow explicit protocol override via environment variable
   if (explicitProtocol) {
     return explicitProtocol.toLowerCase() === 'https' ? 'https' : 'http'
@@ -37,7 +40,11 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
     port,
     protocol: explicitProtocol,
     nodeEnv: process.env.NODE_ENV,
-    buildEnv: process.env.VERCEL ? 'vercel' : process.env.CF_PAGES ? 'cloudflare' : 'local',
+    buildEnv: process.env.VERCEL
+      ? 'vercel'
+      : process.env.CF_PAGES
+        ? 'cloudflare'
+        : 'local',
   })
 
   if (!host || !username || !password || !database) {
@@ -47,13 +54,19 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
     if (!password) missing.push('CLICKHOUSE_PASSWORD')
     if (!database) missing.push('CLICKHOUSE_DATABASE')
 
-    console.error('[ClickHouse Config] FATAL: Missing required environment variables:', missing.join(', '))
-    console.error('[ClickHouse Config] ClickHouse will not be available. Please configure:', {
-      host: host ? 'SET' : 'MISSING',
-      username: username ? 'SET' : 'MISSING',
-      password: password ? 'SET' : 'MISSING',
-      database: database ? 'MISSING - MUST BE SET' : 'SET',
-    })
+    console.error(
+      '[ClickHouse Config] FATAL: Missing required environment variables:',
+      missing.join(', '),
+    )
+    console.error(
+      '[ClickHouse Config] ClickHouse will not be available. Please configure:',
+      {
+        host: host ? 'SET' : 'MISSING',
+        username: username ? 'SET' : 'MISSING',
+        password: password ? 'SET' : 'MISSING',
+        database: database ? 'MISSING - MUST BE SET' : 'SET',
+      },
+    )
     return null
   }
 
@@ -92,7 +105,10 @@ export function getClickHouseClient() {
     // Use official URL format: protocol://username:password@host:port/database
     // This is the recommended approach per ClickHouse JS client docs
     const url = `${config.protocol}://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`
-    console.log('[ClickHouse Client] Creating client with URL:', url.replace(/:([^:@]+)@/, ':***@'))
+    console.log(
+      '[ClickHouse Client] Creating client with URL:',
+      url.replace(/:([^:@]+)@/, ':***@'),
+    )
 
     clientInstance = createClient({
       url,
@@ -104,7 +120,9 @@ export function getClickHouseClient() {
       },
     })
 
-    console.log('[ClickHouse Client] Client created successfully with connection pooling enabled')
+    console.log(
+      '[ClickHouse Client] Client created successfully with connection pooling enabled',
+    )
     return clientInstance
   } catch (error) {
     console.error('[ClickHouse Client] Failed to create client:', error)
@@ -129,13 +147,20 @@ export async function executeClickHouseQuery(
   const client = getClickHouseClient()
 
   if (!client) {
-    console.error('[ClickHouse Query] FATAL: Client not available - check environment variables')
-    console.error('[ClickHouse Query] Query cannot execute without valid configuration')
-    console.error('[ClickHouse Query] Ensure CLICKHOUSE_HOST, CLICKHOUSE_USER, CLICKHOUSE_PASSWORD, and CLICKHOUSE_DATABASE are set')
+    console.error(
+      '[ClickHouse Query] FATAL: Client not available - check environment variables',
+    )
+    console.error(
+      '[ClickHouse Query] Query cannot execute without valid configuration',
+    )
+    console.error(
+      '[ClickHouse Query] Ensure CLICKHOUSE_HOST, CLICKHOUSE_USER, CLICKHOUSE_PASSWORD, and CLICKHOUSE_DATABASE are set',
+    )
     return {
       success: false,
       data: [],
-      error: 'ClickHouse client not available - missing required environment variables',
+      error:
+        'ClickHouse client not available - missing required environment variables',
     }
   }
 
@@ -181,18 +206,21 @@ export async function executeClickHouseQuery(
       clearTimeout(timeoutId)
       lastError = error instanceof Error ? error : new Error('Unknown error')
 
-      console.error(`[ClickHouse Query] Failed (attempt ${attempt}/${maxRetries}):`, {
-        error: lastError.message,
-        errorType: error?.constructor?.name,
-        stack: lastError.stack?.split('\n').slice(0, 3).join('\n'),
-      })
+      console.error(
+        `[ClickHouse Query] Failed (attempt ${attempt}/${maxRetries}):`,
+        {
+          error: lastError.message,
+          errorType: error?.constructor?.name,
+          stack: lastError.stack?.split('\n').slice(0, 3).join('\n'),
+        },
+      )
 
       // Don't retry on the last attempt
       if (attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
         const backoffMs = Math.pow(2, attempt - 1) * 1000
         console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms...`)
-        await new Promise(resolve => setTimeout(resolve, backoffMs))
+        await new Promise((resolve) => setTimeout(resolve, backoffMs))
       }
     }
     // NOTE: We do NOT close the client here to allow connection pooling and Keep-Alive
@@ -221,7 +249,9 @@ export async function executeClickHouseQueryLegacy(
   }
 
   if (result.data.length === 0 && !result.success) {
-    console.warn('[ClickHouse Query Legacy] Returning empty array due to failure')
+    console.warn(
+      '[ClickHouse Query Legacy] Returning empty array due to failure',
+    )
   }
 
   return result.data

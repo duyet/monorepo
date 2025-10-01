@@ -56,7 +56,9 @@ export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
       photo.exif.exposure_time && `${photo.exif.exposure_time}s`,
       photo.exif.iso && `ISO ${photo.exif.iso}`,
       photo.exif.focal_length && `${photo.exif.focal_length}mm`,
-    ].filter(Boolean).join(' • ')
+    ]
+      .filter(Boolean)
+      .join(' • ')
 
     if (camera) {
       metadata.exif = { camera, settings }
@@ -131,23 +133,25 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
   const title = photo.description || `Untitled Photography`
   const subtitle = formatPhotoDate(photo.created_at)
 
-  const technical: string[] = [
-    `${photo.width} × ${photo.height}`,
-  ]
+  const technical: string[] = [`${photo.width} × ${photo.height}`]
 
   const creative: string[] = []
 
   // Add EXIF technical data
   if (photo.exif) {
     if (photo.exif.make || photo.exif.model) {
-      technical.push([photo.exif.make, photo.exif.model].filter(Boolean).join(' '))
+      technical.push(
+        [photo.exif.make, photo.exif.model].filter(Boolean).join(' '),
+      )
     }
     if (photo.exif.aperture || photo.exif.exposure_time || photo.exif.iso) {
       const settings = [
         photo.exif.aperture && `f/${photo.exif.aperture}`,
         photo.exif.exposure_time && `${photo.exif.exposure_time}s`,
         photo.exif.iso && `ISO ${photo.exif.iso}`,
-      ].filter(Boolean).join(' • ')
+      ]
+        .filter(Boolean)
+        .join(' • ')
       if (settings) technical.push(settings)
     }
     if (photo.exif.focal_length) {
@@ -157,7 +161,9 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
 
   // Add creative context
   if (photo.location && (photo.location.city || photo.location.country)) {
-    creative.push([photo.location.city, photo.location.country].filter(Boolean).join(', '))
+    creative.push(
+      [photo.location.city, photo.location.country].filter(Boolean).join(', '),
+    )
   }
 
   if (photo.stats) {

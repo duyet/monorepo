@@ -136,9 +136,7 @@ export function LanguageBarChart({ data, className }: LanguageBarChartProps) {
           content={<ChartTooltipContent indicator="line" />}
         />
         <Bar dataKey="percent" fill="var(--chart-1)" radius={4}>
-          <LabelList
-            content={CombinedLabel}
-          />
+          <LabelList content={CombinedLabel} />
         </Bar>
       </BarChart>
     </ChartContainer>

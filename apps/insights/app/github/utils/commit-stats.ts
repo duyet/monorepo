@@ -1,6 +1,6 @@
-import type { CommitStats, CommitActivity } from './types'
-import { fetchAllEvents } from './github-api'
 import { getWeekStart } from './date-helpers'
+import { fetchAllEvents } from './github-api'
+import type { CommitActivity, CommitStats } from './types'
 
 /**
  * Get empty commit stats structure

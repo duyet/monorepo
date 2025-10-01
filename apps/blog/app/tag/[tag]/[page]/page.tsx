@@ -39,7 +39,9 @@ export async function generateStaticParams() {
   return params
 }
 
-export default async function PostsByTagWithPage({ params }: PostsByTagWithPageProps) {
+export default async function PostsByTagWithPage({
+  params,
+}: PostsByTagWithPageProps) {
   const { tag, page } = await params
   const pageNumber = parseInt(page, 10)
 
@@ -61,19 +63,19 @@ export default async function PostsByTagWithPage({ params }: PostsByTagWithPageP
   return (
     <div>
       <h1 className="mb-16">
-        Showing posts {startIndex + 1}-{Math.min(endIndex, allPosts.length)} of {allPosts.length} from {tag} topic
-        (Page {pageNumber} of {totalPages}).
+        Showing posts {startIndex + 1}-{Math.min(endIndex, allPosts.length)} of{' '}
+        {allPosts.length} from {tag} topic (Page {pageNumber} of {totalPages}).
         Checking out <Link href="/tags">all my favorite topics here</Link>.
       </h1>
 
       <Feed posts={posts} noThumbnail />
 
       {totalPages > 1 && (
-        <div className="mt-16 flex justify-center items-center gap-4">
+        <div className="mt-16 flex items-center justify-center gap-4">
           {pageNumber > 1 && (
             <Link
               href={`/tag/${tag}/${pageNumber - 1}`}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
             >
               Previous
             </Link>
@@ -86,7 +88,7 @@ export default async function PostsByTagWithPage({ params }: PostsByTagWithPageP
           {pageNumber < totalPages && (
             <Link
               href={`/tag/${tag}/${pageNumber + 1}`}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
             >
               Next
             </Link>

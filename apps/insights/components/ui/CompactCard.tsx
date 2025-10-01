@@ -1,7 +1,7 @@
 'use client'
 
-import { cn } from '../../lib/utils'
 import { ReactNode } from 'react'
+import { cn } from '../../lib/utils'
 
 interface CompactCardProps {
   title?: string
@@ -33,10 +33,12 @@ export function CompactCard({
       )}
     >
       {(title || header) && (
-        <div className={cn(
-          'border-b px-4 py-3',
-          padding === 'none' && 'px-3 py-2'
-        )}>
+        <div
+          className={cn(
+            'border-b px-4 py-3',
+            padding === 'none' && 'px-3 py-2',
+          )}
+        >
           {header || (
             <h3 className="text-sm font-semibold leading-none tracking-tight">
               {title}
@@ -44,9 +46,7 @@ export function CompactCard({
           )}
         </div>
       )}
-      <div className={paddingClasses[padding]}>
-        {children}
-      </div>
+      <div className={paddingClasses[padding]}>{children}</div>
     </div>
   )
 }
@@ -75,23 +75,24 @@ export function StatsCard({
   compact = false,
 }: StatsCardProps) {
   return (
-    <CompactCard
-      className={className}
-      padding={compact ? 'sm' : 'md'}
-    >
+    <CompactCard className={className} padding={compact ? 'sm' : 'md'}>
       <div className="flex items-start justify-between">
-        <div className="space-y-1 min-w-0 flex-1">
-          <p className={cn(
-            "font-medium text-muted-foreground",
-            compact ? "text-xs" : "text-sm"
-          )}>
+        <div className="min-w-0 flex-1 space-y-1">
+          <p
+            className={cn(
+              'font-medium text-muted-foreground',
+              compact ? 'text-xs' : 'text-sm',
+            )}
+          >
             {title}
           </p>
           <div className="flex items-baseline space-x-2">
-            <p className={cn(
-              "font-bold tracking-tight",
-              compact ? "text-lg" : "text-2xl"
-            )}>
+            <p
+              className={cn(
+                'font-bold tracking-tight',
+                compact ? 'text-lg' : 'text-2xl',
+              )}
+            >
               {value}
             </p>
             {change && (
@@ -104,30 +105,31 @@ export function StatsCard({
                 )}
               >
                 {change.value >= 0 ? '+' : ''}
-                {change.value}%
-                {change.label && ` ${change.label}`}
+                {change.value}%{change.label && ` ${change.label}`}
               </span>
             )}
           </div>
           {subtitle && (
-            <p className={cn(
-              "text-muted-foreground",
-              compact ? "text-xs" : "text-sm"
-            )}>
+            <p
+              className={cn(
+                'text-muted-foreground',
+                compact ? 'text-xs' : 'text-sm',
+              )}
+            >
               {subtitle}
             </p>
           )}
           {change?.period && (
-            <p className="text-xs text-muted-foreground">
-              vs. {change.period}
-            </p>
+            <p className="text-xs text-muted-foreground">vs. {change.period}</p>
           )}
         </div>
         {icon && (
-          <div className={cn(
-            "text-muted-foreground/60 shrink-0",
-            compact ? "h-4 w-4" : "h-5 w-5"
-          )}>
+          <div
+            className={cn(
+              'text-muted-foreground/60 shrink-0',
+              compact ? 'h-4 w-4' : 'h-5 w-5',
+            )}
+          >
             {icon}
           </div>
         )}

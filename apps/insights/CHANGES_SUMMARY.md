@@ -3,6 +3,7 @@
 ## Files Modified
 
 ### Bug Fix: Token Display
+
 1. **`/components/charts/BarChart.tsx`**
    - Added `valueFormatter?: (value: unknown) => string` prop
    - Passed formatter to ChartTooltipContent
@@ -21,6 +22,7 @@
    - Cost chart: `<BarChart>` → `<CostBarChart>`
 
 ### Structure Improvements: New Layout Components
+
 5. **`/components/layouts/PageLayout.tsx`** (NEW)
    - Reusable page header with title/description
    - Optional footer support
@@ -35,6 +37,7 @@
    - Exports PageLayout and SectionLayout
 
 ### Structure Improvements: Refactored Pages
+
 8. **`/app/github/page.tsx`**
    - Removed: Manual layout div structure (45 lines)
    - Added: PageLayout and SectionLayout components
@@ -56,6 +59,7 @@
 ### Token Display Fix
 
 **Before** (`/app/ai/activity.tsx`):
+
 ```tsx
 <BarChart
   categories={['Input Tokens', 'Output Tokens', 'Cache Tokens']}
@@ -64,9 +68,11 @@
   stack={true}
 />
 ```
+
 **Problem**: Tooltip showed "9, 36, 76655" instead of "9K, 36K, 76K"
 
 **After**:
+
 ```tsx
 <TokenBarChart
   categories={['Input Tokens', 'Output Tokens', 'Cache Tokens']}
@@ -76,11 +82,13 @@
   showInThousands={true}
 />
 ```
+
 **Result**: Tooltip now shows "9K, 36K, 76K" correctly
 
 ### Layout Pattern Changes
 
 **Before** (Manual Layout):
+
 ```tsx
 export default function Page() {
   return (
@@ -111,6 +119,7 @@ export default function Page() {
 ```
 
 **After** (Using Layouts):
+
 ```tsx
 export default function Page() {
   return (
@@ -127,17 +136,20 @@ export default function Page() {
 ## Impact Summary
 
 ### Code Reduction
+
 - **GitHub page**: -45 lines (-40%)
 - **WakaTime page**: -30 lines (-27%)
 - **AI page**: -9 lines (-9%)
 - **Total duplicate code eliminated**: 84 lines
 
 ### New Files Created
+
 - 5 new files (3 chart wrappers, 2 layouts, 1 index)
 - ~200 lines of reusable code
 - Net improvement: Eliminated 84 lines of duplication with 200 lines of reusable code
 
 ### Build Status
+
 ```
 ✓ Compiled successfully in 4.4s
 ✓ Generating static pages (25/25)
@@ -147,12 +159,14 @@ export default function Page() {
 ## Testing Checklist
 
 ### Automated (✓ Completed)
+
 - [x] TypeScript compilation passes
 - [x] Build completes successfully
 - [x] All 25 static pages generated
 - [x] No runtime errors during build
 
 ### Manual (Required)
+
 - [ ] Token charts display "K" suffix in tooltips
 - [ ] Cost charts display "$" with 2 decimals
 - [ ] All pages render correctly in browser
@@ -164,6 +178,7 @@ export default function Page() {
 ## Migration Guide
 
 ### For Future Pages
+
 To create a new insights page using the new patterns:
 
 ```tsx
@@ -177,10 +192,7 @@ export default function NewPage() {
       description="Your page description"
       footer={<p className="text-xs">Optional footer</p>}
     >
-      <SectionLayout
-        title="Section Title"
-        description="Section description"
-      >
+      <SectionLayout title="Section Title" description="Section description">
         <YourComponent />
       </SectionLayout>
     </PageLayout>
@@ -189,12 +201,13 @@ export default function NewPage() {
 ```
 
 ### For Chart Components
+
 To use formatted charts:
 
 ```tsx
 // For token counts (in thousands)
 import { TokenBarChart } from '@/components/charts/TokenBarChart'
-<TokenBarChart
+;<TokenBarChart
   data={data}
   categories={['Input', 'Output']}
   index="date"
@@ -203,11 +216,7 @@ import { TokenBarChart } from '@/components/charts/TokenBarChart'
 
 // For costs
 import { CostBarChart } from '@/components/charts/CostBarChart'
-<CostBarChart
-  data={data}
-  categories={['Total Cost']}
-  index="date"
-/>
+;<CostBarChart data={data} categories={['Total Cost']} index="date" />
 ```
 
 ## Breaking Changes

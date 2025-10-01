@@ -24,11 +24,13 @@ export async function PostHogWithPeriods() {
   }
 
   const allPeriodData = await getDataForAllPeriods()
-  
+
   return <PostHogClient data={allPeriodData} />
 }
 
-const getDataForAllPeriods = async (): Promise<PeriodData<PostHogDataByPeriod>> => {
+const getDataForAllPeriods = async (): Promise<
+  PeriodData<PostHogDataByPeriod>
+> => {
   const results: Partial<PeriodData<PostHogDataByPeriod>> = {}
   const generatedAt = new Date().toISOString()
   const top = 20
@@ -38,11 +40,12 @@ const getDataForAllPeriods = async (): Promise<PeriodData<PostHogDataByPeriod>> 
     try {
       const dateFrom = `-${period.days}d`
       const paths = await getTopPath(top, dateFrom as '-30d' | '-90d')
-      
+
       const totalVisitors = paths.reduce((sum, path) => sum + path.visitors, 0)
       const totalViews = paths.reduce((sum, path) => sum + path.views, 0)
-      const avgVisitorsPerPage = paths.length > 0 ? Math.round(totalVisitors / paths.length) : 0
-      
+      const avgVisitorsPerPage =
+        paths.length > 0 ? Math.round(totalVisitors / paths.length) : 0
+
       results[period.value] = {
         paths,
         totalVisitors,
@@ -85,10 +88,7 @@ interface PostHogResponse {
   timezone: string
 }
 
-async function getTopPath(
-  limit = 10,
-  dateFrom: string,
-): Promise<Path[]> {
+async function getTopPath(limit = 10, dateFrom: string): Promise<Path[]> {
   console.log('Fetching Posthog data from', POSTHOG_API)
 
   const raw = await fetch(POSTHOG_API, {

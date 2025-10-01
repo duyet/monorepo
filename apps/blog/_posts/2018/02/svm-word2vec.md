@@ -22,7 +22,6 @@ Bằng cách sử dụng 1 tập văn bản đã được gán nhãn sẵn. Mỗ
 Các bước sẽ thực hiện:
 
 1. Vector hóa từng câu văn bản:
-
    - Tách từ cho từng câu. (E.g. `"Duyệt đẹp trai quá"` ==> [ `"Duyệt"`, `"đẹp"`, `"trai"`, `"quá"` ]
    - Lọc bỏ stopwords (e.g. [ `"Duyệt"`, `"đẹp"`, `"trai"`, `"quá"` ] ==> [ `"Duyệt"`, `"đẹp"`, `"trai"` ]
    - Dùng Word2vec model (retrain) để biến mỗi từ thành 1 vector:
@@ -33,7 +32,6 @@ Các bước sẽ thực hiện:
    ```
 
    Các vector này có số chiều cố định và giống nhau (phụ thuộc vào mô hình word2vec).
-
    - Cộng (hoặc trung bình) các vector của từng từ trong một câu lại, ta được vector của một câu. Cách này khá đơn giản và chỉ dùng được khi câu ngắn (như 1 đoạn tweet). Với câu dài hơn cách biểu diễn này không còn chính xác nữa. Với văn bản lớn và dài, bạn nên [sử dụng Doc2vec](https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis.html) thay thế.
 
    ```

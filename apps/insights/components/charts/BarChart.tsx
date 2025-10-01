@@ -57,7 +57,9 @@ export function BarChart({
         <ChartTooltip
           content={
             <ChartTooltipContent
-              formatter={valueFormatter ? (value) => valueFormatter(value) : undefined}
+              formatter={
+                valueFormatter ? (value) => valueFormatter(value) : undefined
+              }
             />
           }
         />
@@ -65,7 +67,9 @@ export function BarChart({
           // For stacked bars, only the last (top) bar should have rounded corners
           const isLastInStack = stack && i === categories.length - 1
           const radius: [number, number, number, number] = stack
-            ? (isLastInStack ? [4, 4, 0, 0] : [0, 0, 0, 0])
+            ? isLastInStack
+              ? [4, 4, 0, 0]
+              : [0, 0, 0, 0]
             : [4, 4, 0, 0]
 
           return (

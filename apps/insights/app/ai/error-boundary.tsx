@@ -5,8 +5,8 @@
 
 'use client'
 
-import { Component, type ReactNode } from 'react'
 import { AlertTriangle, RotateCcw } from 'lucide-react'
+import { Component, type ReactNode } from 'react'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -21,7 +21,10 @@ interface ErrorBoundaryState {
   errorInfo: unknown
 }
 
-export class CCUsageErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class CCUsageErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false, error: null, errorInfo: null }
@@ -70,19 +73,26 @@ interface DefaultErrorFallbackProps {
   className?: string
 }
 
-function DefaultErrorFallback({ error, onRetry, className }: DefaultErrorFallbackProps) {
+function DefaultErrorFallback({
+  error,
+  onRetry,
+  className,
+}: DefaultErrorFallbackProps) {
   return (
-    <div className={`rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-950 ${className || ''}`}>
-      <AlertTriangle className="mx-auto h-8 w-8 text-red-500 mb-3" />
-      <h3 className="text-lg font-medium text-red-800 dark:text-red-200 mb-2">
+    <div
+      className={`rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-950 ${className || ''}`}
+    >
+      <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-red-500" />
+      <h3 className="mb-2 text-lg font-medium text-red-800 dark:text-red-200">
         Something went wrong
       </h3>
-      <p className="text-sm text-red-600 dark:text-red-300 mb-4">
-        {error?.message || 'An unexpected error occurred while loading the data.'}
+      <p className="mb-4 text-sm text-red-600 dark:text-red-300">
+        {error?.message ||
+          'An unexpected error occurred while loading the data.'}
       </p>
       <button
         onClick={onRetry}
-        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-700 bg-red-100 border border-red-300 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:text-red-200 dark:bg-red-800 dark:border-red-700 dark:hover:bg-red-700"
+        className="inline-flex items-center gap-2 rounded-md border border-red-300 bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:border-red-700 dark:bg-red-800 dark:text-red-200 dark:hover:bg-red-700"
       >
         <RotateCcw className="h-4 w-4" />
         Try again
@@ -100,22 +110,29 @@ export function useCCUsageErrorBoundary() {
     if (error instanceof Error) return error.message
     return 'An unexpected error occurred'
   }
-  
+
   const isRetryableError = (error: unknown): boolean => {
-    const message = typeof error === 'string' ? error : 
-                   error instanceof Error ? error.message : ''
-    
+    const message =
+      typeof error === 'string'
+        ? error
+        : error instanceof Error
+          ? error.message
+          : ''
+
     // Network errors are typically retryable
-    return message.includes('timeout') || 
-           message.includes('connection') ||
-           message.includes('network')
+    return (
+      message.includes('timeout') ||
+      message.includes('connection') ||
+      message.includes('network')
+    )
   }
-  
+
   return {
-    wrapWithErrorBoundary: (component: ReactNode, errorProps?: Partial<ErrorBoundaryProps>) => (
-      <CCUsageErrorBoundary {...errorProps}>
-        {component}
-      </CCUsageErrorBoundary>
+    wrapWithErrorBoundary: (
+      component: ReactNode,
+      errorProps?: Partial<ErrorBoundaryProps>,
+    ) => (
+      <CCUsageErrorBoundary {...errorProps}>{component}</CCUsageErrorBoundary>
     ),
     getErrorMessage,
     isRetryableError,
@@ -125,22 +142,22 @@ export function useCCUsageErrorBoundary() {
 /**
  * Simplified error display component for inline errors
  */
-export function CCUsageErrorDisplay({ 
-  error, 
-  onRetry, 
-  className 
-}: { 
+export function CCUsageErrorDisplay({
+  error,
+  onRetry,
+  className,
+}: {
   error: string | Error
   onRetry?: () => void
-  className?: string 
+  className?: string
 }) {
   const errorMessage = typeof error === 'string' ? error : error.message
 
   return (
-    <div className={`rounded-lg border bg-card p-4 text-center ${className || ''}`}>
-      <p className="text-sm text-muted-foreground mb-3">
-        {errorMessage}
-      </p>
+    <div
+      className={`rounded-lg border bg-card p-4 text-center ${className || ''}`}
+    >
+      <p className="mb-3 text-sm text-muted-foreground">{errorMessage}</p>
       {onRetry && (
         <button
           onClick={onRetry}

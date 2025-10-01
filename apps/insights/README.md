@@ -27,6 +27,7 @@ Copy `.env.local.example` to `.env.local` and fill in the following variables:
 ## AI Usage Data Source
 
 The **AI Usage** tab displays Claude Code usage analytics imported from the [ccusage-import](https://github.com/duyet/ccusage-import) script. This script:
+
 - Imports Claude Code usage data into ClickHouse database
 - Provides cost tracking and token usage analytics
 - Requires ClickHouse environment variables (see below)

@@ -14,7 +14,7 @@ export interface CommitStats {
 export interface GitHubEvent {
   type: string
   created_at: string
-  payload?: { 
-    commits?: unknown[] 
+  payload?: {
+    commits?: unknown[]
   }
 }

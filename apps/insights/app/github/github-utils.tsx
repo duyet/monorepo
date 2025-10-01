@@ -77,13 +77,13 @@ export async function fetchAllRepositories(
       }
 
       const data = await response.json()
-      
+
       // Handle case where API response doesn't include items (e.g., authentication error)
       if (!data || !Array.isArray(data.items)) {
         console.error(`Invalid response format from GitHub API on page ${page}`)
         break
       }
-      
+
       const repos = data.items || []
 
       if (repos.length === 0) {

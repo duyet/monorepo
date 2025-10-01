@@ -1,9 +1,9 @@
+import type { PeriodDays } from '@/lib/periods'
+import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
 import { Suspense } from 'react'
 import { SkeletonCard } from '../../components/SkeletonCard'
 import { Cloudflare } from './cloudflare'
 import { PostHog } from './posthog'
-import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
-import type { PeriodDays } from '@/lib/periods'
 
 export const metadata = {
   title: 'Blog Insights',

@@ -1,15 +1,22 @@
 'use client'
 
-import type { UnsplashPhoto } from '@/lib/types'
 import { getOptimalImageSrc, getResponsiveSizes } from '@/lib/ImageOptimization'
-import { formatPhotoMetadata, formatPhotoDescription } from '@/lib/MetadataFormatters'
-import { useLightboxNavigation } from '../hooks/UseKeyboardNavigation'
+import {
+  formatPhotoDescription,
+  formatPhotoMetadata,
+} from '@/lib/MetadataFormatters'
+import type { UnsplashPhoto } from '@/lib/types'
 import { cn } from '@duyet/libs/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { useLightboxNavigation } from '../hooks/UseKeyboardNavigation'
+import {
+  InfoPanel,
+  LightboxTopControls,
+  NavigationButton,
+} from './LightboxControls'
 import { LightboxLoading } from './LoadingStates'
-import { LightboxTopControls, NavigationButton, InfoPanel } from './LightboxControls'
 
 interface LightboxProps {
   photo: UnsplashPhoto
@@ -66,26 +73,23 @@ export default function Lightbox({
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm" />
-        <Dialog.Content 
+        <Dialog.Content
           className={cn(
             'fixed inset-0 z-50',
-            isFullscreen 
-              ? 'overflow-hidden p-0' 
-              : 'flex items-center justify-center p-4'
+            isFullscreen
+              ? 'overflow-hidden p-0'
+              : 'flex items-center justify-center p-4',
           )}
         >
           {/* Accessibility title */}
-          <Dialog.Title className="sr-only">
-            {description}
-          </Dialog.Title>
+          <Dialog.Title className="sr-only">{description}</Dialog.Title>
 
-          <div className={cn(
-            'relative w-full',
-            isFullscreen 
-              ? 'h-full max-w-none' 
-              : 'h-full max-w-7xl'
-          )}>
-            
+          <div
+            className={cn(
+              'relative w-full',
+              isFullscreen ? 'h-full max-w-none' : 'h-full max-w-7xl',
+            )}
+          >
             {/* Top Controls */}
             <LightboxTopControls
               currentIndex={currentIndex}
@@ -115,19 +119,19 @@ export default function Lightbox({
             )}
 
             {/* Main Image Container */}
-            <div 
+            <div
               className={cn(
                 'relative',
-                isFullscreen 
-                  ? 'h-full w-full flex items-center justify-center'
-                  : 'h-full flex flex-col'
+                isFullscreen
+                  ? 'flex h-full w-full items-center justify-center'
+                  : 'flex h-full flex-col',
               )}
               {...touchHandlers}
             >
               {isFullscreen ? (
                 // Fullscreen Image
-                <div 
-                  className="relative h-full w-full cursor-pointer" 
+                <div
+                  className="relative h-full w-full cursor-pointer"
                   onClick={() => setIsFullscreen(false)}
                   title="Click to exit fullscreen"
                 >
@@ -149,8 +153,8 @@ export default function Lightbox({
                 // Contained Layout
                 <>
                   <div className="relative flex-1">
-                    <div 
-                      className="relative h-full w-full cursor-pointer" 
+                    <div
+                      className="relative h-full w-full cursor-pointer"
                       onClick={() => setIsFullscreen(true)}
                       title="Click to enter fullscreen"
                     >
@@ -181,9 +185,7 @@ export default function Lightbox({
 
               {/* Loading State */}
               {isLoading && (
-                <LightboxLoading 
-                  message="Loading high-resolution image..." 
-                />
+                <LightboxLoading message="Loading high-resolution image..." />
               )}
 
               {/* Info Panel for fullscreen mode */}

@@ -1,9 +1,14 @@
 'use client'
 
+import {
+  CompactAreaChart,
+  CompactBarChart,
+  CompactLineChart,
+  MiniSparkline,
+} from '@/components/charts/CompactChart'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
-import { CompactAreaChart, CompactBarChart, CompactLineChart, MiniSparkline } from '@/components/charts/CompactChart'
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from 'lucide-react'
+import { useState } from 'react'
 
 interface MobileOptimizedChartProps {
   data: Array<Record<string, unknown>>
@@ -34,15 +39,19 @@ export function MobileOptimizedChart({
 
   // For mobile, show one category at a time if multiple categories
   const shouldPaginate = isMobile && categories.length > 1
-  const displayCategories = shouldPaginate ? [categories[currentCategory]] : categories
-  const chartHeight = isExpanded ? (height || 300) : (height || 200)
+  const displayCategories = shouldPaginate
+    ? [categories[currentCategory]]
+    : categories
+  const chartHeight = isExpanded ? height || 300 : height || 200
 
   const nextCategory = () => {
     setCurrentCategory((prev) => (prev + 1) % categories.length)
   }
 
   const prevCategory = () => {
-    setCurrentCategory((prev) => (prev - 1 + categories.length) % categories.length)
+    setCurrentCategory(
+      (prev) => (prev - 1 + categories.length) % categories.length,
+    )
   }
 
   const renderChart = () => {
@@ -80,36 +89,41 @@ export function MobileOptimizedChart({
       <table className="w-full text-xs">
         <thead>
           <tr className="border-b">
-            <th className="text-left p-2 font-medium text-muted-foreground">
+            <th className="p-2 text-left font-medium text-muted-foreground">
               {index}
             </th>
             {displayCategories.map((category) => (
-              <th key={category} className="text-right p-2 font-medium text-muted-foreground">
+              <th
+                key={category}
+                className="p-2 text-right font-medium text-muted-foreground"
+              >
                 {category}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.slice(0, 10).map((row, i) => ( // Limit to 10 rows on mobile
-            <tr key={i} className="border-b border-border/50">
-              <td className="p-2 font-medium">
-                {String(row[index])}
-              </td>
-              {displayCategories.map((category) => (
-                <td key={category} className="text-right p-2 font-mono">
-                  {typeof row[category] === 'number'
-                    ? row[category].toLocaleString()
-                    : String(row[category])
-                  }
-                </td>
-              ))}
-            </tr>
-          ))}
+          {data.slice(0, 10).map(
+            (
+              row,
+              i, // Limit to 10 rows on mobile
+            ) => (
+              <tr key={i} className="border-border/50 border-b">
+                <td className="p-2 font-medium">{String(row[index])}</td>
+                {displayCategories.map((category) => (
+                  <td key={category} className="p-2 text-right font-mono">
+                    {typeof row[category] === 'number'
+                      ? row[category].toLocaleString()
+                      : String(row[category])}
+                  </td>
+                ))}
+              </tr>
+            ),
+          )}
         </tbody>
       </table>
       {data.length > 10 && (
-        <p className="text-xs text-muted-foreground text-center py-2">
+        <p className="py-2 text-center text-xs text-muted-foreground">
           Showing first 10 of {data.length} rows
         </p>
       )}
@@ -123,30 +137,31 @@ export function MobileOptimizedChart({
         <div className="flex items-center justify-between">
           <div className="min-w-0 flex-1">
             {title && (
-              <h3 className="text-sm font-semibold truncate">{title}</h3>
+              <h3 className="truncate text-sm font-semibold">{title}</h3>
             )}
             {shouldPaginate && (
               <p className="text-xs text-muted-foreground">
-                {categories[currentCategory]} ({currentCategory + 1} of {categories.length})
+                {categories[currentCategory]} ({currentCategory + 1} of{' '}
+                {categories.length})
               </p>
             )}
           </div>
 
           {showControls && (
-            <div className="flex items-center space-x-1 shrink-0">
+            <div className="flex shrink-0 items-center space-x-1">
               {/* Category navigation for mobile */}
               {shouldPaginate && (
                 <>
                   <button
                     onClick={prevCategory}
-                    className="p-1 rounded hover:bg-accent"
+                    className="rounded p-1 hover:bg-accent"
                     disabled={categories.length <= 1}
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     onClick={nextCategory}
-                    className="p-1 rounded hover:bg-accent"
+                    className="rounded p-1 hover:bg-accent"
                     disabled={categories.length <= 1}
                   >
                     <ChevronRight className="h-4 w-4" />
@@ -159,10 +174,10 @@ export function MobileOptimizedChart({
                 <button
                   onClick={() => setCurrentView('chart')}
                   className={cn(
-                    'px-2 py-1 text-xs rounded-l',
+                    'rounded-l px-2 py-1 text-xs',
                     currentView === 'chart'
                       ? 'bg-accent text-accent-foreground'
-                      : 'hover:bg-accent/50'
+                      : 'hover:bg-accent/50',
                   )}
                 >
                   Chart
@@ -170,10 +185,10 @@ export function MobileOptimizedChart({
                 <button
                   onClick={() => setCurrentView('data')}
                   className={cn(
-                    'px-2 py-1 text-xs rounded-r border-l',
+                    'rounded-r border-l px-2 py-1 text-xs',
                     currentView === 'data'
                       ? 'bg-accent text-accent-foreground'
-                      : 'hover:bg-accent/50'
+                      : 'hover:bg-accent/50',
                   )}
                 >
                   Data
@@ -183,7 +198,7 @@ export function MobileOptimizedChart({
               {/* Expand/collapse */}
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="p-1 rounded hover:bg-accent"
+                className="rounded p-1 hover:bg-accent"
               >
                 {isExpanded ? (
                   <Minimize2 className="h-4 w-4" />
@@ -212,7 +227,7 @@ export function MobileOptimizedChart({
                 'h-2 w-2 rounded-full transition-colors',
                 index === currentCategory
                   ? 'bg-primary'
-                  : 'bg-muted-foreground/30'
+                  : 'bg-muted-foreground/30',
               )}
             />
           ))}

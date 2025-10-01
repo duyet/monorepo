@@ -20,10 +20,12 @@ function formatTokens(tokens: number): string {
   return tokens.toString()
 }
 
-
-export async function CCUsageMetrics({ days = 30, className }: CCUsageMetricsProps) {
+export async function CCUsageMetrics({
+  days = 30,
+  className,
+}: CCUsageMetricsProps) {
   const rawMetrics = await getCCUsageMetrics(days)
-  
+
   if (!rawMetrics) {
     return (
       <div className={`text-center text-muted-foreground ${className || ''}`}>
@@ -31,14 +33,23 @@ export async function CCUsageMetrics({ days = 30, className }: CCUsageMetricsPro
       </div>
     )
   }
-  
+
   // Process metrics data with computed derived values (converted from hook)
   const metrics = {
     ...rawMetrics,
     // Add computed properties
-    cacheEfficiency: rawMetrics.totalTokens > 0 ? (rawMetrics.cacheTokens / rawMetrics.totalTokens) * 100 : 0,
-    averageCostPerToken: rawMetrics.totalTokens > 0 ? rawMetrics.totalCost / rawMetrics.totalTokens : 0,
-    costPerDay: rawMetrics.activeDays > 0 ? rawMetrics.totalCost / rawMetrics.activeDays : 0,
+    cacheEfficiency:
+      rawMetrics.totalTokens > 0
+        ? (rawMetrics.cacheTokens / rawMetrics.totalTokens) * 100
+        : 0,
+    averageCostPerToken:
+      rawMetrics.totalTokens > 0
+        ? rawMetrics.totalCost / rawMetrics.totalTokens
+        : 0,
+    costPerDay:
+      rawMetrics.activeDays > 0
+        ? rawMetrics.totalCost / rawMetrics.activeDays
+        : 0,
   }
 
   return (

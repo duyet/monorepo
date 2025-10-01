@@ -2,10 +2,11 @@
 
 This monorepo contains the Nextjs version of the blog, cv, photo, etc.
 
-- **Blog: https://blog.duyet.net or https://duyet.vercel.app**
-- **Insights: https://insights.duyet.net or https://duyet-insights.vercel.app**
-- **CV: https://cv.duyet.net or https://duyet-cv.vercel.app**
-- **Photos: https://photos.duyet.net**
+- **Home: https://duyet.net or https://duyet-home.pages.dev**
+- **Blog: https://blog.duyet.net or https://duyet-blog.pages.dev**
+- **Insights: https://insights.duyet.net or https://duyet-insights.pages.dev**
+- **CV: https://cv.duyet.net or https://duyet-cv.pages.dev**
+- **Photos: https://photos.duyet.net or https://duyet-photos.pages.dev**
 
 ## 1. Blog
 

@@ -1,8 +1,8 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
-import { cn } from '@/lib/utils'
 import { ChartContext } from './context'
 import type { ChartConfig } from './types'
 

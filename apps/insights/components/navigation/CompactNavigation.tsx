@@ -1,19 +1,19 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 import {
   Activity,
   BarChart3,
+  ChevronDown,
   Code,
   Globe,
   Home,
   Menu,
   X,
-  ChevronDown,
 } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 interface NavItem {
   text: string
@@ -78,7 +78,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
           {navItems.map((item) => {
             const Icon = item.icon
             const currentBasePath = getBasePath(pathname)
-            const isActive = pathname === item.href || currentBasePath === item.href
+            const isActive =
+              pathname === item.href || currentBasePath === item.href
 
             return (
               <Link
@@ -89,7 +90,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                   'hover:bg-accent hover:text-accent-foreground',
                   isActive
                     ? 'bg-accent text-accent-foreground'
-                    : 'text-muted-foreground'
+                    : 'text-muted-foreground',
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -114,7 +115,12 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         >
           <Menu className="h-4 w-4" />
           <span>Menu</span>
-          <ChevronDown className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')} />
+          <ChevronDown
+            className={cn(
+              'h-4 w-4 transition-transform',
+              isOpen && 'rotate-180',
+            )}
+          />
         </button>
 
         {/* Mobile Menu Overlay */}
@@ -125,7 +131,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
               onClick={() => setIsOpen(false)}
             />
             <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-lg border bg-card p-4 shadow-lg">
-              <div className="flex items-center justify-between mb-4 sticky top-0 bg-card pb-2">
+              <div className="sticky top-0 mb-4 flex items-center justify-between bg-card pb-2">
                 <h3 className="text-sm font-semibold">Navigation</h3>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -138,7 +144,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                 {navItems.map((item) => {
                   const Icon = item.icon
                   const currentBasePath = getBasePath(pathname)
-                  const isActive = pathname === item.href || currentBasePath === item.href
+                  const isActive =
+                    pathname === item.href || currentBasePath === item.href
 
                   return (
                     <Link
@@ -150,10 +157,10 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                         'hover:bg-accent hover:text-accent-foreground',
                         isActive
                           ? 'bg-accent text-accent-foreground'
-                          : 'text-muted-foreground'
+                          : 'text-muted-foreground',
                       )}
                     >
-                      <Icon className="h-5 w-5 mt-0.5 shrink-0" />
+                      <Icon className="mt-0.5 h-5 w-5 shrink-0" />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center space-x-2">
                           <span className="font-medium">{item.text}</span>
@@ -164,7 +171,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                           )}
                         </div>
                         {item.description && (
-                          <p className="text-xs text-muted-foreground mt-0.5">
+                          <p className="mt-0.5 text-xs text-muted-foreground">
                             {item.description}
                           </p>
                         )}
@@ -195,12 +202,12 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
           {item.href ? (
             <Link
               href={item.href}
-              className="hover:text-foreground transition-colors"
+              className="transition-colors hover:text-foreground"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="text-foreground font-medium">{item.label}</span>
+            <span className="font-medium text-foreground">{item.label}</span>
           )}
         </div>
       ))}
