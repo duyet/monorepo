@@ -37,19 +37,12 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
     ? ((recentAvg - previousAvg) / previousAvg) * 100
     : 0
 
-  // Calculate 5-day rolling average
-  const last5Days = costs.slice(-5)
-  const last5DaysAvg = last5Days.length > 0
-    ? last5Days.reduce((sum, day) => sum + day['Total Cost'], 0) / last5Days.length
-    : 0
-
   const summary = {
     total,
     average,
     projected,
     totalPercentChange,
     avgPercentChange,
-    last5DaysAvg
   }
   
   // Transform cost data for charts (converted from hook)
@@ -75,7 +68,7 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
   return (
     <div className={`space-y-6 ${className || ''}`}>
       {/* Cost Summary Cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-lg border bg-card p-4">
           <div className="flex items-baseline gap-2">
             <div className="text-2xl font-bold">{formatCurrency(summary.total)}</div>
@@ -108,14 +101,6 @@ export async function CCUsageCosts({ days = 30, className }: CCUsageCostsProps) 
           </div>
           <p className="text-xs text-muted-foreground">
             Monthly Projection
-          </p>
-        </div>
-        <div className="rounded-lg border bg-card p-4">
-          <div className="text-2xl font-bold">
-            {formatCurrency(summary.last5DaysAvg)}
-          </div>
-          <p className="text-xs text-muted-foreground">
-            5-Day Rolling Average
           </p>
         </div>
       </div>
