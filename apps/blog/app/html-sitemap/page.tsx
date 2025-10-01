@@ -5,13 +5,13 @@ import Link from 'next/link'
 
 export const dynamic = 'force-static'
 
-export default function SitemapPage() {
+export default function HtmlSitemapPage() {
   const posts = getAllPosts(['slug', 'title', 'excerpt', 'date'], 100000)
   const categories = Object.keys(getAllCategories())
 
   return (
     <div className="mx-auto max-w-4xl">
-      <h1 className="mb-8 text-3xl font-bold">Sitemap</h1>
+      <h1 className="mb-8 text-3xl font-bold">HTML Sitemap</h1>
 
       <div className="grid gap-8 md:grid-cols-2">
         <section>
