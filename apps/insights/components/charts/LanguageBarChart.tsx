@@ -36,51 +36,59 @@ interface LabelProps {
 const chartConfig = {
   percent: {
     label: 'Usage %',
-    color: 'hsl(var(--chart-1))',
+    color: 'var(--chart-1)',
   },
   label: {
-    color: 'hsl(var(--background))',
+    color: 'var(--background)',
   },
 } satisfies ChartConfig
 
 
-// Custom label component that combines model name and percentage
+// Custom label component that shows model name and percentage
 const CombinedLabel = (props: LabelProps) => {
   const { payload, x = 0, y = 0, width = 0, height = 0, value } = props
-  
+
   // Handle case where payload might be undefined
   if (!payload) return null
-  
+
   // Convert string|number to number
   const numX = typeof x === 'string' ? parseFloat(x) : x
   const numY = typeof y === 'string' ? parseFloat(y) : y
   const numWidth = typeof width === 'string' ? parseFloat(width) : width
   const numHeight = typeof height === 'string' ? parseFloat(height) : height
   const numValue = typeof value === 'string' ? parseFloat(value) : value
-  
+
   const isShortBar = payload.isShortBar || (payload.percent || 0) < 15
   const displayName = payload.displayName || payload.name || ''
   const percentage = `${Number(numValue || payload.percent || 0).toFixed(1)}%`
-  
-  // Combine name and percentage into a single string to avoid positioning issues
-  const combinedText = isShortBar ? `${displayName} (${percentage})` : percentage
-  
-  // For short bars, position outside; for long bars, position at the right edge
-  const textX = isShortBar ? numX + numWidth + 8 : numX + numWidth - 8
-  const textAnchor = isShortBar ? 'start' : 'end'
-  const fill = isShortBar ? 'hsl(var(--foreground))' : 'hsl(var(--background))'
-  
+
   return (
-    <text
-      x={textX}
-      y={numY + numHeight / 2}
-      textAnchor={textAnchor}
-      dominantBaseline="middle"
-      fontSize={12}
-      fill={fill}
-    >
-      {combinedText}
-    </text>
+    <g>
+      {/* Model name - always on the left outside */}
+      <text
+        x={numX - 8}
+        y={numY + numHeight / 2}
+        textAnchor="end"
+        dominantBaseline="middle"
+        fontSize={12}
+        fill="var(--foreground)"
+      >
+        {displayName}
+      </text>
+
+      {/* Percentage - inside bar for long bars, outside for short bars */}
+      <text
+        x={isShortBar ? numX + numWidth + 8 : numX + numWidth - 8}
+        y={numY + numHeight / 2}
+        textAnchor={isShortBar ? 'start' : 'end'}
+        dominantBaseline="middle"
+        fontSize={12}
+        fontWeight={500}
+        fill={isShortBar ? 'var(--foreground)' : 'var(--background)'}
+      >
+        {percentage}
+      </text>
+    </g>
   )
 }
 
@@ -101,8 +109,8 @@ export function LanguageBarChart({ data, className }: LanguageBarChartProps) {
         data={chartData}
         layout="vertical"
         margin={{
-          right: 120, // Increased to accommodate text outside bars
-          left: 10,
+          right: 80, // Space for percentage outside short bars
+          left: 150, // Space for model names on the left
         }}
       >
         <CartesianGrid horizontal={false} />
@@ -119,7 +127,7 @@ export function LanguageBarChart({ data, className }: LanguageBarChartProps) {
           cursor={false}
           content={<ChartTooltipContent indicator="line" />}
         />
-        <Bar dataKey="percent" fill="hsl(var(--chart-1))" radius={4}>
+        <Bar dataKey="percent" fill="var(--chart-1)" radius={4}>
           <LabelList
             content={CombinedLabel}
           />

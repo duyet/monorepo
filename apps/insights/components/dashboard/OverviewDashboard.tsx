@@ -1,8 +1,7 @@
 'use client'
 
-import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
-import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
-import { CompactAreaChart, MiniSparkline, CompactPieChart } from '@/components/charts/CompactChart'
+import { CompactCard } from '@/components/ui/CompactCard'
+import { CompactAreaChart, CompactPieChart } from '@/components/charts/CompactChart'
 import {
   Users,
   GitCommit,
@@ -55,79 +54,85 @@ export function OverviewDashboard() {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="border-b pb-4">
-        <h1 className="text-xl font-bold tracking-tight">Dashboard Overview</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+      <div className="space-y-1">
+        <h1 className="text-xl font-semibold">Dashboard Overview</h1>
+        <p className="text-sm text-muted-foreground">
           Key metrics and insights across all analytics sources
         </p>
       </div>
 
-      {/* Key Metrics Grid */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
-          Key Performance Indicators
+      {/* Key Performance Indicators */}
+      <div className="space-y-3">
+        <h2 className="text-xs font-medium tracking-wide uppercase text-muted-foreground">
+          Key Performance Indicators • Last 30 Days
         </h2>
-        <DashboardGrid cols={4} gap="sm">
-          <StatsCard
-            title="Monthly Visitors"
-            value={mockOverviewData.websiteStats.visitors.value.toLocaleString()}
-            change={{
-              value: mockOverviewData.websiteStats.visitors.change,
-              period: mockOverviewData.websiteStats.visitors.period,
-            }}
-            icon={<Users />}
-            compact
-          />
-          <StatsCard
-            title="Coding Hours"
-            value={mockOverviewData.codingStats.totalHours.value}
-            change={{
-              value: mockOverviewData.codingStats.totalHours.change,
-              period: mockOverviewData.codingStats.totalHours.period,
-            }}
-            icon={<Clock />}
-            compact
-          />
-          <StatsCard
-            title="AI Tokens"
-            value={mockOverviewData.aiUsage.tokens.value}
-            change={{
-              value: mockOverviewData.aiUsage.tokens.change,
-              period: mockOverviewData.aiUsage.tokens.period,
-            }}
-            icon={<Zap />}
-            compact
-          />
-          <StatsCard
-            title="Git Commits"
-            value={mockOverviewData.codingStats.commits.value}
-            change={{
-              value: mockOverviewData.codingStats.commits.change,
-              period: mockOverviewData.codingStats.commits.period,
-            }}
-            icon={<GitCommit />}
-            compact
-          />
-        </DashboardGrid>
+        <div className="grid grid-cols-4 gap-4">
+          <CompactCard padding="sm">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Users className="h-3 w-3" />
+                <span>Monthly Visitors</span>
+              </div>
+              <div className="text-lg font-semibold">{mockOverviewData.websiteStats.visitors.value.toLocaleString()}</div>
+              <div className="text-xs text-green-600">+{mockOverviewData.websiteStats.visitors.change}%</div>
+            </div>
+          </CompactCard>
+
+          <CompactCard padding="sm">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Clock className="h-3 w-3" />
+                <span>Coding Hours</span>
+              </div>
+              <div className="text-lg font-semibold">{mockOverviewData.codingStats.totalHours.value}</div>
+              <div className="text-xs text-green-600">+{mockOverviewData.codingStats.totalHours.change}%</div>
+            </div>
+          </CompactCard>
+
+          <CompactCard padding="sm">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Zap className="h-3 w-3" />
+                <span>AI Tokens</span>
+              </div>
+              <div className="text-lg font-semibold">{mockOverviewData.aiUsage.tokens.value}</div>
+              <div className="text-xs text-green-600">+{mockOverviewData.aiUsage.tokens.change}%</div>
+            </div>
+          </CompactCard>
+
+          <CompactCard padding="sm">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <GitCommit className="h-3 w-3" />
+                <span>Git Commits</span>
+              </div>
+              <div className="text-lg font-semibold">{mockOverviewData.codingStats.commits.value}</div>
+              <div className="text-xs text-green-600">+{mockOverviewData.codingStats.commits.change}%</div>
+            </div>
+          </CompactCard>
+        </div>
       </div>
 
-      {/* Activity & Trends */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+      {/* Activity Trends */}
+      <div className="space-y-3">
+        <h2 className="text-xs font-medium tracking-wide uppercase text-muted-foreground">
           Activity Trends
         </h2>
-        <DashboardGrid cols={3} gap="md">
-          <GridItem span={2}>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="col-span-2">
             <CompactCard title="Weekly Activity Pattern" padding="sm">
               <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
+                <div className="text-xs text-muted-foreground">
+                  Showing your development activity across the week, tracking commits, coding sessions, and project events
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2">
                     <span className="text-muted-foreground">Peak day:</span>
-                    <span className="ml-2 font-medium">Saturday</span>
+                    <span className="font-medium">Saturday</span>
                   </div>
-                  <div>
+                  <div className="flex items-center gap-2">
                     <span className="text-muted-foreground">Avg daily:</span>
-                    <span className="ml-2 font-medium">154 events</span>
+                    <span className="font-medium">154 events</span>
                   </div>
                 </div>
                 <CompactAreaChart
@@ -139,92 +144,77 @@ export function OverviewDashboard() {
                 />
               </div>
             </CompactCard>
-          </GridItem>
-          <GridItem>
-            <CompactCard title="Language Distribution" padding="sm">
-              <div className="space-y-3">
-                <div className="text-sm text-muted-foreground">
-                  Top 5 languages this month
-                </div>
-                <CompactPieChart
-                  data={mockOverviewData.languageData}
-                  nameKey="language"
-                  valueKey="percentage"
-                  height={180}
-                  innerRadius={30}
-                />
+          </div>
+
+          <CompactCard title="Language Distribution" padding="sm">
+            <div className="space-y-3">
+              <div className="text-sm text-muted-foreground">
+                Top 5 languages this month (by percentage of time)
               </div>
-            </CompactCard>
-          </GridItem>
-        </DashboardGrid>
+              <CompactPieChart
+                data={mockOverviewData.languageData}
+                nameKey="language"
+                valueKey="percentage"
+                height={180}
+                innerRadius={35}
+              />
+            </div>
+          </CompactCard>
+        </div>
       </div>
 
-      {/* Quick Stats Grid */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+      {/* Performance Metrics */}
+      <div className="space-y-3">
+        <h2 className="text-xs font-medium tracking-wide uppercase text-muted-foreground">
           Performance Metrics
         </h2>
-        <DashboardGrid cols={6} gap="sm">
-          <GridItem span={2}>
-            <CompactCard padding="sm">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">Page Views</span>
-                  <Eye className="h-3 w-3 text-muted-foreground" />
-                </div>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-lg font-bold">{mockOverviewData.websiteStats.pageViews.value.toLocaleString()}</span>
-                  <span className="text-xs text-green-600">+{mockOverviewData.websiteStats.pageViews.change}%</span>
-                </div>
-                <MiniSparkline
-                  data={mockOverviewData.sparklineData}
-                  dataKey="value"
-                  height={30}
-                />
+        <div className="grid grid-cols-3 gap-4">
+          <CompactCard padding="sm">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">Page Views</span>
+                <Eye className="h-3 w-3 text-muted-foreground/60" />
               </div>
-            </CompactCard>
-          </GridItem>
+              <div className="text-xl font-semibold">{mockOverviewData.websiteStats.pageViews.value.toLocaleString()}</div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-xs text-green-600">+{mockOverviewData.websiteStats.pageViews.change}%</span>
+                <span className="text-xs text-muted-foreground">vs last 30 days</span>
+              </div>
+            </div>
+          </CompactCard>
 
-          <GridItem span={2}>
-            <CompactCard padding="sm">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">Bounce Rate</span>
-                  <MousePointer className="h-3 w-3 text-muted-foreground" />
-                </div>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-lg font-bold">{mockOverviewData.websiteStats.bounceRate.value}</span>
-                  <span className="text-xs text-green-600">{mockOverviewData.websiteStats.bounceRate.change}%</span>
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  vs {mockOverviewData.websiteStats.bounceRate.period}
-                </div>
+          <CompactCard padding="sm">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">Bounce Rate</span>
+                <MousePointer className="h-3 w-3 text-muted-foreground/60" />
               </div>
-            </CompactCard>
-          </GridItem>
+              <div className="text-xl font-semibold">{mockOverviewData.websiteStats.bounceRate.value}</div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-xs text-green-600">{mockOverviewData.websiteStats.bounceRate.change}%</span>
+                <span className="text-xs text-muted-foreground">vs {mockOverviewData.websiteStats.bounceRate.period}</span>
+              </div>
+            </div>
+          </CompactCard>
 
-          <GridItem span={2}>
-            <CompactCard padding="sm">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">AI Efficiency</span>
-                  <BarChart3 className="h-3 w-3 text-muted-foreground" />
-                </div>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-lg font-bold">{mockOverviewData.aiUsage.efficiency.value}</span>
-                  <span className="text-xs text-green-600">+{mockOverviewData.aiUsage.efficiency.change}%</span>
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  {mockOverviewData.aiUsage.efficiency.period}
-                </div>
+          <CompactCard padding="sm">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">AI Efficiency</span>
+                <BarChart3 className="h-3 w-3 text-muted-foreground/60" />
               </div>
-            </CompactCard>
-          </GridItem>
-        </DashboardGrid>
+              <div className="text-xl font-semibold">{mockOverviewData.aiUsage.efficiency.value}</div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-xs text-green-600">+{mockOverviewData.aiUsage.efficiency.change}%</span>
+                <span className="text-xs text-muted-foreground">{mockOverviewData.aiUsage.efficiency.period}</span>
+              </div>
+            </div>
+          </CompactCard>
+        </div>
       </div>
 
-      {/* Last Updated */}
-      <div className="border-t pt-4">
+      {/* Last Updated Footer */}
+      <div className="pt-3 border-t">
         <div className="text-xs text-muted-foreground">
           Last updated: {new Date().toLocaleTimeString()}
         </div>

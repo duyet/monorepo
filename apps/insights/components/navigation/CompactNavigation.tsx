@@ -64,6 +64,12 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
+  // Extract the base path (first segment) for matching
+  const getBasePath = (path: string) => {
+    const segments = path.split('/').filter(Boolean)
+    return segments[0] ? `/${segments[0]}` : '/'
+  }
+
   return (
     <>
       {/* Desktop Navigation */}
@@ -71,7 +77,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         <div className="flex items-center space-x-1">
           {navItems.map((item) => {
             const Icon = item.icon
-            const isActive = pathname === item.href
+            const currentBasePath = getBasePath(pathname)
+            const isActive = pathname === item.href || currentBasePath === item.href
 
             return (
               <Link
@@ -117,8 +124,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            <div className="absolute left-0 right-0 top-full z-50 mt-2 rounded-lg border bg-card p-4 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
+            <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-lg border bg-card p-4 shadow-lg">
+              <div className="flex items-center justify-between mb-4 sticky top-0 bg-card pb-2">
                 <h3 className="text-sm font-semibold">Navigation</h3>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -130,7 +137,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
               <div className="space-y-2">
                 {navItems.map((item) => {
                   const Icon = item.icon
-                  const isActive = pathname === item.href
+                  const currentBasePath = getBasePath(pathname)
+                  const isActive = pathname === item.href || currentBasePath === item.href
 
                   return (
                     <Link

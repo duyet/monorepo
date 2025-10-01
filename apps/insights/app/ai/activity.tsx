@@ -41,9 +41,9 @@ export async function CCUsageActivity({ days = 30, className }: CCUsageActivityP
       {/* Cost Per Day Chart */}
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
-          <h3 className="font-medium">Daily Cost Trend</h3>
+          <h3 className="font-medium">Daily Cost Trend ($)</h3>
           <p className="text-xs text-muted-foreground">
-            Daily spending on Claude Code usage
+            Daily spending on Claude Code usage in USD
           </p>
         </div>
         <BarChart

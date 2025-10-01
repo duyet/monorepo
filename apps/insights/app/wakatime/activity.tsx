@@ -1,8 +1,8 @@
 import { BarChart } from '@/components/charts'
 import { getWakaTimeActivity } from './wakatime-utils'
 
-export async function WakaTimeActivity() {
-  const codingActivity = await getWakaTimeActivity()
+export async function WakaTimeActivity({ days = 30 }: { days?: number | 'all' }) {
+  const codingActivity = await getWakaTimeActivity(days)
 
   return (
     <div className="rounded-lg border bg-card p-4">

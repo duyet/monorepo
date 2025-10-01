@@ -1,60 +1,70 @@
 import { Suspense } from 'react'
-import { SkeletonCard } from '../../components/SkeletonCard'
-import { CCUsageActivity } from './activity'
-import { CCUsageCosts } from './costs'
-import { CCUsageMetrics } from './metrics'
-import { CCUsageModels } from './models'
-import { CCUsageDailyTable } from './daily-table'
-import { CCUsageErrorBoundary } from './error-boundary'
-import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
-import type { DateRangeDays } from './types'
+import { SkeletonCard } from '../../../components/SkeletonCard'
+import { CCUsageActivity } from '../activity'
+import { CCUsageCosts } from '../costs'
+import { CCUsageMetrics } from '../metrics'
+import { CCUsageModels } from '../models'
+import { CCUsageDailyTable } from '../daily-table'
+import { CCUsageErrorBoundary } from '../error-boundary'
+import { generatePeriodStaticParams, getPeriodConfig, getPeriodDays } from '@/lib/periods'
+import type { DateRangeDays } from '../types'
 
-export const metadata = {
-  title: 'AI Usage Analytics',
-  description:
-    'AI usage analytics, token consumption, and model insights from Claude Code',
-}
-
-// Static generation
 export const dynamic = 'force-static'
 
-// Default is 30 days
-const STATIC_DAYS: DateRangeDays = getPeriodDays(DEFAULT_PERIOD) as DateRangeDays
+// Generate static pages for all time periods
+export function generateStaticParams() {
+  return generatePeriodStaticParams()
+}
 
 const SECTION_CONFIGS = [
   {
     id: 'metrics',
     title: 'Usage Overview',
-    description: 'Token consumption and activity summary',
     component: CCUsageMetrics,
   },
   {
     id: 'activity',
     title: 'Daily Activity',
-    description: 'Token usage patterns',
     component: CCUsageActivity,
   },
   {
     id: 'models',
     title: 'AI Model Usage',
-    description: 'Model distribution and usage patterns',
     component: CCUsageModels,
   },
   {
     id: 'costs',
     title: 'Daily Costs',
-    description: 'Cost breakdown and spending patterns',
     component: CCUsageCosts,
   },
   {
     id: 'daily-table',
     title: 'Daily Usage Detail',
-    description: 'Complete daily breakdown of tokens and costs',
     component: CCUsageDailyTable,
   },
 ] as const
 
-export default function CCUsage() {
+interface PageProps {
+  params: Promise<{
+    period: string
+  }>
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { period } = await params
+  const config = getPeriodConfig(period)
+
+  return {
+    title: `AI Usage Analytics - ${config.label}`,
+    description: `AI usage analytics for the last ${config.label}`,
+  }
+}
+
+export default async function AIUsagePeriodPage({ params }: PageProps) {
+  const { period } = await params
+  const config = getPeriodConfig(period)
+  const days = getPeriodDays(period) as DateRangeDays
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -65,28 +75,23 @@ export default function CCUsage() {
         <p className="mt-1 text-muted-foreground">
           Claude Code usage patterns, token consumption, and model insights
         </p>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Note: Costs are estimated based on Claude subscription pricing and
-          may not reflect actual charges
-        </p>
       </div>
 
       {/* Main Content */}
       <div className="space-y-8">
         {SECTION_CONFIGS.map((section) => {
           const Component = section.component
+          const description = `${section.title} for the last ${config.label}`
 
           return (
             <section key={section.id} className="space-y-4">
               <div className="mb-4">
                 <h2 className="text-lg font-semibold">{section.title}</h2>
-                <p className="text-sm text-muted-foreground">
-                  {section.description}
-                </p>
+                <p className="text-sm text-muted-foreground">{description}</p>
               </div>
               <CCUsageErrorBoundary>
                 <Suspense fallback={<SkeletonCard />}>
-                  <Component days={STATIC_DAYS} />
+                  <Component days={days} />
                 </Suspense>
               </CCUsageErrorBoundary>
             </section>

@@ -2,8 +2,8 @@ import { CompactMetric } from '@/components/ui/CompactMetric'
 import { Calendar, Clock, Code, Zap } from 'lucide-react'
 import { getWakaTimeMetrics } from './wakatime-utils'
 
-export async function WakaTimeMetrics() {
-  const metrics = await getWakaTimeMetrics()
+export async function WakaTimeMetrics({ days = 30 }: { days?: number | 'all' }) {
+  const metrics = await getWakaTimeMetrics(days)
 
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

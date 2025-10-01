@@ -1,8 +1,8 @@
 import { DonutChart, LanguageBarChart } from '@/components/charts'
 import { getWakaTimeLanguages } from './wakatime-utils'
 
-export async function WakaTimeLanguages() {
-  const languages = await getWakaTimeLanguages()
+export async function WakaTimeLanguages({ days = 30 }: { days?: number | 'all' }) {
+  const languages = await getWakaTimeLanguages(days)
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">

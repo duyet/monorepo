@@ -77,12 +77,22 @@ async function wakaTimeRequest(endpoint: string) {
   }
 }
 
-export async function getWakaTimeStats(): Promise<WakaTimeStats | null> {
-  return wakaTimeRequest('/users/current/stats/last_30_days')
+// Map our period values to WakaTime API ranges
+function getWakaTimeRange(days: number | 'all'): string {
+  if (days === 'all' || days === 365) return 'last_year'
+  if (days === 90) return 'last_6_months'
+  if (days === 30) return 'last_30_days'
+  if (days === 7) return 'last_7_days'
+  return 'last_30_days' // fallback
 }
 
-export async function getWakaTimeLanguages() {
-  const stats = await getWakaTimeStats()
+export async function getWakaTimeStats(days: number | 'all' = 30): Promise<WakaTimeStats | null> {
+  const range = getWakaTimeRange(days)
+  return wakaTimeRequest(`/users/current/stats/${range}`)
+}
+
+export async function getWakaTimeLanguages(days: number | 'all' = 30) {
+  const stats = await getWakaTimeStats(days)
   if (!stats?.data?.languages || !Array.isArray(stats.data.languages)) return []
 
   return stats.data.languages.slice(0, 8).map((lang) => ({
@@ -92,17 +102,17 @@ export async function getWakaTimeLanguages() {
   }))
 }
 
-export async function getWakaTimeActivity() {
+export async function getWakaTimeActivity(days: number | 'all' = 30) {
   // Activity chart - using aggregated stats since daily summaries require premium
-  const stats = await getWakaTimeStats()
+  const stats = await getWakaTimeStats(days)
   if (!stats?.data) return []
 
   const { data } = stats
   const avgHours = (data.daily_average || 0) / 3600
-  const days = data.days_minus_holidays || 30
+  const activeDays = data.days_minus_holidays || 30
 
   // Generate approximated daily data points for visualization
-  return Array.from({ length: Math.min(days, 30) }, (_, i) => ({
+  return Array.from({ length: Math.min(activeDays, 30) }, (_, i) => ({
     range: {
       date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000)
         .toISOString()
@@ -112,8 +122,8 @@ export async function getWakaTimeActivity() {
   }))
 }
 
-export async function getWakaTimeMetrics() {
-  const stats = await getWakaTimeStats()
+export async function getWakaTimeMetrics(days: number | 'all' = 30) {
+  const stats = await getWakaTimeStats(days)
   if (!stats?.data) {
     return {
       totalHours: 0,

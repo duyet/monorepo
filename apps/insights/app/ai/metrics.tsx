@@ -20,10 +20,6 @@ function formatTokens(tokens: number): string {
   return tokens.toString()
 }
 
-function formatModelName(modelName: string, maxLength: number = 15): string {
-  if (modelName.length <= maxLength) return modelName
-  return `${modelName.substring(0, maxLength)}...`
-}
 
 export async function CCUsageMetrics({ days = 30, className }: CCUsageMetricsProps) {
   const rawMetrics = await getCCUsageMetrics(days)
@@ -67,7 +63,7 @@ export async function CCUsageMetrics({ days = 30, className }: CCUsageMetricsPro
       />
       <CompactMetric
         label="Top Model"
-        value={formatModelName(metrics.topModel)}
+        value={metrics.topModel}
         icon={<Brain className="h-4 w-4" />}
       />
     </div>

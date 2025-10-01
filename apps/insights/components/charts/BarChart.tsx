@@ -22,11 +22,11 @@ interface BarChartProps {
 }
 
 const CHART_COLORS = [
-  'hsl(var(--chart-1))',
-  'hsl(var(--chart-2))',
-  'hsl(var(--chart-3))',
-  'hsl(var(--chart-4))',
-  'hsl(var(--chart-5))',
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
 ]
 
 export function BarChart({
@@ -53,15 +53,23 @@ export function BarChart({
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
         <ChartTooltip content={<ChartTooltipContent />} />
-        {categories.map((category, i) => (
-          <Bar
-            key={category}
-            dataKey={category}
-            stackId={stack ? 'stack' : undefined}
-            fill={CHART_COLORS[i % CHART_COLORS.length]}
-            radius={stack ? [0, 0, 0, 0] : [4, 4, 0, 0]}
-          />
-        ))}
+        {categories.map((category, i) => {
+          // For stacked bars, only the last (top) bar should have rounded corners
+          const isLastInStack = stack && i === categories.length - 1
+          const radius: [number, number, number, number] = stack
+            ? (isLastInStack ? [4, 4, 0, 0] : [0, 0, 0, 0])
+            : [4, 4, 0, 0]
+
+          return (
+            <Bar
+              key={category}
+              dataKey={category}
+              stackId={stack ? 'stack' : undefined}
+              fill={CHART_COLORS[i % CHART_COLORS.length]}
+              radius={radius}
+            />
+          )
+        })}
       </RechartsBarChart>
     </ChartContainer>
   )
