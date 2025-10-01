@@ -11,14 +11,14 @@ import { Snippet } from './snippet'
 export default function Content({ post }: { post: Post }) {
   return (
     <>
-      <header className="flex flex-col gap-4">
+      <header className="mb-8 flex flex-col gap-4">
         <h1
           className={cn(
             'mt-2 inline-block break-words py-2',
-            'dark:from-gray-50 dark:to-gray-300',
+            'font-serif text-neutral-900',
             'text-4xl font-bold tracking-normal',
-            'md:text-5xl md:tracking-tighter',
-            'lg:text-6xl lg:tracking-tighter',
+            'md:text-5xl md:tracking-tight',
+            'lg:text-6xl lg:tracking-tight',
           )}
         >
           {post.title}

@@ -50,7 +50,7 @@ export default function Header({
             <Link
               href="/"
               className={cn(
-                "font-bold flex flex-row items-center text-2xl",
+                "font-serif text-2xl font-normal flex flex-row items-center text-neutral-900",
                 className,
               )}
             >
