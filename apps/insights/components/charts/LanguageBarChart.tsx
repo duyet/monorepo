@@ -43,6 +43,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+// Truncate text to fit within max length
+function truncateText(text: string, maxLength: number = 20): string {
+  if (text.length <= maxLength) return text
+  return text.substring(0, maxLength - 3) + '...'
+}
 
 // Custom label component that shows model name and percentage
 const CombinedLabel = (props: LabelProps) => {
@@ -59,7 +64,8 @@ const CombinedLabel = (props: LabelProps) => {
   const numValue = typeof value === 'string' ? parseFloat(value) : value
 
   const isShortBar = payload.isShortBar || (payload.percent || 0) < 15
-  const displayName = payload.displayName || payload.name || ''
+  const rawName = payload.displayName || payload.name || ''
+  const displayName = truncateText(rawName, 20)
   const percentage = `${Number(numValue || payload.percent || 0).toFixed(1)}%`
 
   return (
@@ -71,7 +77,8 @@ const CombinedLabel = (props: LabelProps) => {
         textAnchor="end"
         dominantBaseline="middle"
         fontSize={12}
-        fill="var(--foreground)"
+        fill="hsl(var(--foreground))"
+        style={{ userSelect: 'none' }}
       >
         {displayName}
       </text>
@@ -84,7 +91,8 @@ const CombinedLabel = (props: LabelProps) => {
         dominantBaseline="middle"
         fontSize={12}
         fontWeight={500}
-        fill={isShortBar ? 'var(--foreground)' : 'var(--background)'}
+        fill={isShortBar ? 'hsl(var(--foreground))' : 'hsl(var(--background))'}
+        style={{ userSelect: 'none' }}
       >
         {percentage}
       </text>
