@@ -15,7 +15,11 @@ export default {
         ivory: {
           medium: '#f0eee6',
         },
-        cactus: '#bcd1ca',
+        cactus: {
+          DEFAULT: '#bcd1ca',
+          light: '#d4e3de',
+          medium: '#bcd1ca',
+        },
       },
     },
   },
