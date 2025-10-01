@@ -17,13 +17,13 @@ export default function Featured() {
   )
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen">
       <Container>
-        <div className="mb-12 text-center">
-          <h1 className="mb-6 font-serif text-5xl font-bold text-neutral-900 md:text-6xl lg:text-7xl">
+        <div className="mb-12 rounded-3xl bg-cactus p-12 md:p-16">
+          <h1 className="mb-4 font-serif text-4xl font-bold text-neutral-900 md:text-5xl lg:text-6xl">
             Featured
           </h1>
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-700">
+          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700">
             This page highlights{' '}
             <strong className="font-semibold text-neutral-900">
               {postCount} featured blog posts
