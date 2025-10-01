@@ -4,11 +4,11 @@
  */
 
 import {
-  getCCUsageMetrics,
   getCCUsageActivity,
-  getCCUsageModels,
-  getCCUsageEfficiency,
   getCCUsageCosts,
+  getCCUsageEfficiency,
+  getCCUsageMetrics,
+  getCCUsageModels,
 } from '../ccusage-utils'
 
 // Mock ClickHouse client utilities
@@ -17,7 +17,9 @@ jest.mock('../utils/clickhouse-client', () => ({
 }))
 
 import { executeClickHouseQueryLegacy } from '../utils/clickhouse-client'
-const mockExecuteQuery = executeClickHouseQueryLegacy as jest.MockedFunction<typeof executeClickHouseQueryLegacy>
+const mockExecuteQuery = executeClickHouseQueryLegacy as jest.MockedFunction<
+  typeof executeClickHouseQueryLegacy
+>
 
 describe('CCUsage Utilities', () => {
   beforeEach(() => {
@@ -107,8 +109,18 @@ describe('CCUsage Utilities', () => {
   describe('getCCUsageModels', () => {
     it('should calculate model percentages correctly', async () => {
       const mockData = [
-        { model_name: 'claude-3-5-sonnet', total_tokens: 8000, total_cost: 4.0, usage_count: 5 },
-        { model_name: 'claude-3-opus', total_tokens: 2000, total_cost: 1.0, usage_count: 2 },
+        {
+          model_name: 'claude-3-5-sonnet',
+          total_tokens: 8000,
+          total_cost: 4.0,
+          usage_count: 5,
+        },
+        {
+          model_name: 'claude-3-opus',
+          total_tokens: 2000,
+          total_cost: 1.0,
+          usage_count: 2,
+        },
       ]
 
       mockExecuteQuery.mockResolvedValue(mockData)

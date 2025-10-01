@@ -27,10 +27,10 @@ export interface GridConfiguration {
 export const MASONRY_CONFIG: GridConfiguration = {
   breakpoints: {
     default: 4, // 4 columns on very wide screens (1536px+)
-    1280: 3,    // 3 columns on desktop (1024px - 1280px)
-    1024: 3,    // 3 columns on smaller desktop
-    768: 2,     // 2 columns on tablet
-    640: 1,     // 1 column on mobile
+    1280: 3, // 3 columns on desktop (1024px - 1280px)
+    1024: 3, // 3 columns on smaller desktop
+    768: 2, // 2 columns on tablet
+    640: 1, // 1 column on mobile
   },
   gutter: {
     mobile: '16px', // 4 (1rem)
@@ -54,7 +54,7 @@ export function getColumnsForViewport(width: number): number {
   if (width >= 1024) return breakpoints['1024']
   if (width >= 768) return breakpoints['768']
   if (width >= 640) return breakpoints['640']
-  
+
   return 1 // Mobile fallback
 }
 
@@ -80,7 +80,10 @@ export interface SortOptions {
   direction: 'asc' | 'desc'
 }
 
-export function sortPhotos(photos: UnsplashPhoto[], options: SortOptions): UnsplashPhoto[] {
+export function sortPhotos(
+  photos: UnsplashPhoto[],
+  options: SortOptions,
+): UnsplashPhoto[] {
   const { by, direction } = options
   const sorted = [...photos]
 
@@ -89,12 +92,15 @@ export function sortPhotos(photos: UnsplashPhoto[], options: SortOptions): Unspl
 
     switch (by) {
       case 'date':
-        compareValue = new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        compareValue =
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         break
 
       case 'popularity':
-        const aPopularity = (a.stats?.views || 0) + (a.stats?.downloads || 0) + (a.likes || 0)
-        const bPopularity = (b.stats?.views || 0) + (b.stats?.downloads || 0) + (b.likes || 0)
+        const aPopularity =
+          (a.stats?.views || 0) + (a.stats?.downloads || 0) + (a.likes || 0)
+        const bPopularity =
+          (b.stats?.views || 0) + (b.stats?.downloads || 0) + (b.likes || 0)
         compareValue = aPopularity - bPopularity
         break
 
@@ -127,7 +133,10 @@ export interface FilterOptions {
   photographer?: string
 }
 
-export function filterPhotos(photos: UnsplashPhoto[], options: FilterOptions): UnsplashPhoto[] {
+export function filterPhotos(
+  photos: UnsplashPhoto[],
+  options: FilterOptions,
+): UnsplashPhoto[] {
   return photos.filter((photo) => {
     // Aspect ratio filter
     if (options.aspectRatio && options.aspectRatio !== 'all') {
@@ -153,7 +162,10 @@ export function filterPhotos(photos: UnsplashPhoto[], options: FilterOptions): U
 
     // Location filter
     if (options.hasLocation !== undefined) {
-      const hasLocation = !!(photo.location && (photo.location.city || photo.location.country))
+      const hasLocation = !!(
+        photo.location &&
+        (photo.location.city || photo.location.country)
+      )
       if (hasLocation !== options.hasLocation) return false
     }
 
@@ -164,7 +176,10 @@ export function filterPhotos(photos: UnsplashPhoto[], options: FilterOptions): U
     }
 
     // Minimum views filter
-    if (options.minViews && (!photo.stats || photo.stats.views < options.minViews)) {
+    if (
+      options.minViews &&
+      (!photo.stats || photo.stats.views < options.minViews)
+    ) {
       return false
     }
 
@@ -211,7 +226,7 @@ export function calculateGridItemDimensions(
   columns: number,
 ): GridItemDimensions {
   const gutter = 24 // Default gutter in pixels
-  const availableWidth = containerWidth - (gutter * (columns - 1))
+  const availableWidth = containerWidth - gutter * (columns - 1)
   const columnWidth = availableWidth / columns
 
   const aspectRatio = photo.width / photo.height
@@ -251,16 +266,21 @@ export function generateSSRGridLayout(
   columnHeights: number[]
   photoColumns: UnsplashPhoto[][]
 } {
-  const photoColumns: UnsplashPhoto[][] = Array.from({ length: columns }, () => [])
+  const photoColumns: UnsplashPhoto[][] = Array.from(
+    { length: columns },
+    () => [],
+  )
   const columnHeights: number[] = Array(columns).fill(0)
 
   photos.forEach((photo) => {
     // Find the shortest column
-    const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights))
-    
+    const shortestColumnIndex = columnHeights.indexOf(
+      Math.min(...columnHeights),
+    )
+
     // Add photo to shortest column
     photoColumns[shortestColumnIndex].push(photo)
-    
+
     // Update column height (simplified calculation)
     const aspectRatio = photo.width / photo.height
     const estimatedHeight = 300 / aspectRatio // Base width of 300px

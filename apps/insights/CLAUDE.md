@@ -11,6 +11,7 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 ## Architecture & Tech Stack
 
 ### Core Technologies
+
 - **Framework**: Next.js 15.5.0 with App Router and React 19
 - **Styling**: Tailwind CSS with custom design system
 - **Charts**: Recharts with shadcn/ui components
@@ -19,6 +20,7 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 - **Static Generation**: Force static for Vercel deployment
 
 ### Data Sources Integration
+
 - **GitHub**: Repository statistics, commit activity, language trends
 - **PostHog**: User behavior and product analytics
 - **WakaTime**: Coding time tracking and productivity metrics
@@ -28,9 +30,11 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 ## Feature Modules
 
 ### 1. GitHub Analytics (`/app/github/`)
+
 **Purpose**: Developer productivity and repository insights
 
 **Components**:
+
 - `activity.tsx` - Commit activity heatmap and trends
 - `commit-timeline.tsx` - Daily commit visualization
 - `language-stats.tsx` - Programming language distribution
@@ -40,14 +44,17 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 **Data Flow**: GitHub API → Server-side fetch → Static generation → Client display
 
 ### 2. PostHog Analytics (`/app/blog/posthog.tsx`)
+
 **Purpose**: User behavior and product analytics
 
 **Implementation**: Real-time dashboard metrics with privacy-first approach
 
 ### 3. WakaTime Integration (`/app/wakatime/`)
+
 **Purpose**: Coding productivity and time tracking
 
 **Components**:
+
 - `activity.tsx` - Coding activity trends and patterns
 - `languages.tsx` - Language usage over time
 - `metrics.tsx` - Productivity metrics and summaries
@@ -55,9 +62,11 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 **Key Feature**: Smart caching and error handling for API rate limits
 
 ### 4. CCUsage Analytics (`/app/ccusage/`) - **NEW FEATURE**
+
 **Purpose**: Claude Code usage analytics and cost tracking
 
 **Architecture**:
+
 ```
 /app/ccusage/
 ├── page.tsx              # Main dashboard layout
@@ -75,6 +84,7 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 ```
 
 **Key Features**:
+
 - **Privacy-First Design**: Anonymized project paths, aggregated data only
 - **Cost Analytics**: Smart currency formatting with proportional cost calculations
 - **Percentage Distribution**: Proper rounding ensuring totals always equal 100%
@@ -83,6 +93,7 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 - **Static Generation**: Compatible with Vercel's edge deployment
 
 **Data Processing**:
+
 - **Source**: ClickHouse database with real-time Claude Code usage logs
 - **Connection**: HTTP-based @clickhouse/client (not SSH)
 - **Privacy**: No absolute costs, anonymized paths, machine-aggregated data
@@ -91,6 +102,7 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 ## Development Patterns & Best Practices
 
 ### Static Generation Strategy
+
 ```typescript
 // All pages use force-static for optimal performance
 export const dynamic = 'force-static'
@@ -98,6 +110,7 @@ export const revalidate = 3600 // 1 hour cache
 ```
 
 ### Error Handling Pattern
+
 ```typescript
 // Comprehensive error boundaries with user-friendly fallbacks
 <CCUsageErrorBoundary>
@@ -108,6 +121,7 @@ export const revalidate = 3600 // 1 hour cache
 ```
 
 ### Data Fetching Pattern
+
 ```typescript
 // Server-side data fetching with proper error handling
 export default async function Page() {
@@ -121,6 +135,7 @@ export default async function Page() {
 ```
 
 ### Custom Hook Pattern
+
 ```typescript
 // Memoized hooks for performance optimization
 export function useProcessedData(rawData: RawData[]) {
@@ -133,6 +148,7 @@ export function useProcessedData(rawData: RawData[]) {
 ## Environment Variables
 
 ### Public Variables (Client-side)
+
 ```bash
 NEXT_PUBLIC_MEASUREMENT_ID=G-XXXXXXXXX      # Google Analytics
 NEXT_PUBLIC_DUYET_BLOG_URL=https://blog.duyet.net
@@ -141,6 +157,7 @@ NEXT_PUBLIC_DUYET_CV_URL=https://cv.duyet.net
 ```
 
 ### Private Variables (Server-side only)
+
 ```bash
 # External APIs
 GITHUB_TOKEN=ghp_xxxxxxxxxxxx
@@ -162,6 +179,7 @@ CLICKHOUSE_DATABASE=analytics_db
 ## Development Commands
 
 ### Local Development
+
 ```bash
 # Install dependencies
 yarn install
@@ -172,12 +190,13 @@ yarn dev  # Runs on http://localhost:3000
 # Type checking
 yarn check-types
 
-# Linting and formatting  
+# Linting and formatting
 yarn lint
 yarn fmt
 ```
 
 ### Production Build
+
 ```bash
 # Build for production
 yarn build
@@ -187,6 +206,7 @@ yarn analyze
 ```
 
 ### Testing
+
 ```bash
 # Run unit tests
 yarn test
@@ -198,23 +218,27 @@ yarn test ccusage
 ## Code Quality Guidelines
 
 ### TypeScript Best Practices
+
 - **Strict Mode**: All code must pass TypeScript strict mode
 - **Interface Definition**: Use proper interfaces, avoid `any` types
 - **Null Safety**: Always handle null/undefined cases explicitly
 
 ### Component Architecture
+
 - **Server Components**: Default for all page-level components
 - **Client Components**: Only when interactivity required (marked with 'use client')
 - **Error Boundaries**: Wrap data-dependent components
 - **Suspense Boundaries**: For async data loading
 
 ### Performance Optimization
+
 - **Static Generation**: Force static wherever possible
 - **Memoization**: Use useMemo/useCallback for expensive calculations
 - **Code Splitting**: Lazy load non-critical components
 - **Bundle Analysis**: Monitor bundle size with yarn analyze
 
 ### Data Privacy & Security
+
 - **No Sensitive Data**: Never expose API keys or personal information
 - **Anonymization**: Aggregate and anonymize all user data
 - **GDPR Compliance**: Privacy-first data collection and processing
@@ -256,6 +280,7 @@ try {
 ```
 
 **Key Implementation Details**:
+
 - Client uses HTTP(S) protocol with connection pooling
 - Keep-Alive is enabled by default (max 10 connections)
 - Client instance persists across queries for performance
@@ -264,11 +289,12 @@ try {
 - Query format should be `'JSONEachRow'` for array of objects
 
 ### GitHub API Pattern
+
 ```typescript
 // Rate limit aware fetching with exponential backoff
 const response = await fetch(url, {
   headers: {
-    'Authorization': `token ${GITHUB_TOKEN}`,
+    Authorization: `token ${GITHUB_TOKEN}`,
     'User-Agent': 'insights-app',
   },
 })
@@ -281,16 +307,19 @@ if (!response.ok) {
 ## Testing Strategy
 
 ### Unit Tests
+
 - **Utils**: Test all data transformation functions
 - **Hooks**: Test custom React hooks with @testing-library
 - **Components**: Test error boundaries and edge cases
 
-### Integration Tests  
+### Integration Tests
+
 - **API Endpoints**: Mock external API responses
 - **Data Flow**: Test complete data fetch → process → display flow
 - **Error Scenarios**: Test graceful failure handling
 
 ### Performance Tests
+
 - **Bundle Size**: Monitor and alert on bundle growth
 - **Load Time**: Test static generation performance
 - **Memory Usage**: Profile heavy data processing operations
@@ -298,11 +327,13 @@ if (!response.ok) {
 ## Deployment & Monitoring
 
 ### Vercel Configuration
+
 - **Static Export**: Compatible with edge functions
 - **Environment Variables**: Properly configured in Vercel dashboard
 - **Build Optimization**: Monitored build times and success rates
 
 ### Monitoring & Alerting
+
 - **Error Tracking**: Automatic error boundary reporting
 - **Performance Monitoring**: Core Web Vitals tracking
 - **API Health**: Monitor external API availability and response times
@@ -312,16 +343,19 @@ if (!response.ok) {
 ### Common Issues
 
 #### 1. ClickHouse Connection Issues
+
 **Symptom**: CCUsage page shows no data, logs show `hasDatabase: false` or empty query results
 
 **Root Cause**: Missing `CLICKHOUSE_DATABASE` environment variable in build/deployment environment
 
 **Debug Logs to Check**:
+
 - `[ClickHouse Config] Environment check:` - Shows which env vars are set
 - `[ClickHouse Config] FATAL: Missing required environment variables:` - Lists missing vars
 - `[ClickHouse Query] FATAL: Client not available` - Indicates config is incomplete
 
 **Solution**:
+
 1. Verify all ClickHouse environment variables are set:
    - `CLICKHOUSE_HOST` (required)
    - `CLICKHOUSE_PORT` (default: 8123 or 443)
@@ -341,6 +375,7 @@ if (!response.ok) {
    - Redeploy after adding variables
 
 **Expected Logs When Working**:
+
 ```
 [ClickHouse Config] Configuration created: { host, port, protocol, database }
 [ClickHouse Client] Creating client with URL: https://host:443
@@ -349,15 +384,19 @@ if (!response.ok) {
 ```
 
 #### 2. Static Generation Fails
+
 Verify all data fetching works at build time
 
 #### 3. Type Errors
+
 Ensure proper TypeScript interfaces for all data structures
 
 #### 4. Chart Rendering
+
 Verify data format matches Recharts requirements
 
 ### Debug Tools
+
 ```bash
 # Check environment variables
 yarn env-check
@@ -375,16 +414,19 @@ yarn lint app/ccusage/
 ## Security Considerations
 
 ### Data Privacy
+
 - **Anonymization**: All user data must be anonymized before processing
 - **Aggregation**: Only show aggregated metrics, never individual user data
 - **Retention**: Follow data retention policies for analytics data
 
 ### API Security
+
 - **Environment Variables**: Never commit secrets to repository
 - **Rate Limiting**: Respect all external API rate limits
 - **Error Messages**: Sanitize error messages to avoid information leakage
 
 ### Content Security Policy
+
 - **External Resources**: Whitelist all external domains
 - **Script Sources**: Use strict CSP for analytics scripts
 - **Data Sources**: Validate all external data before processing

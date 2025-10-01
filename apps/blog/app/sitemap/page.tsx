@@ -10,18 +10,20 @@ export default function SitemapPage() {
   const categories = Object.keys(getAllCategories())
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Sitemap</h1>
-      
-      <div className="grid md:grid-cols-2 gap-8">
+    <div className="mx-auto max-w-4xl">
+      <h1 className="mb-8 text-3xl font-bold">Sitemap</h1>
+
+      <div className="grid gap-8 md:grid-cols-2">
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Blog Posts ({posts.length})</h2>
+          <h2 className="mb-4 text-2xl font-semibold">
+            Blog Posts ({posts.length})
+          </h2>
           <ul className="space-y-2">
             {posts.map((post: Post) => (
               <li key={post.slug}>
-                <Link 
+                <Link
                   href={post.slug}
-                  className="text-blue-600 hover:text-blue-800 underline"
+                  className="text-blue-600 underline hover:text-blue-800"
                 >
                   {post.title}
                 </Link>
@@ -34,13 +36,15 @@ export default function SitemapPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Categories ({categories.length})</h2>
+          <h2 className="mb-4 text-2xl font-semibold">
+            Categories ({categories.length})
+          </h2>
           <ul className="space-y-2">
             {categories.map((category) => (
               <li key={category}>
-                <Link 
+                <Link
                   href={`/category/${getSlug(category)}`}
-                  className="text-blue-600 hover:text-blue-800 underline"
+                  className="text-blue-600 underline hover:text-blue-800"
                 >
                   {category}
                 </Link>
@@ -48,35 +52,53 @@ export default function SitemapPage() {
             ))}
           </ul>
 
-          <h2 className="text-2xl font-semibold mb-4 mt-8">Pages</h2>
+          <h2 className="mb-4 mt-8 text-2xl font-semibold">Pages</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/about"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 About
               </Link>
             </li>
             <li>
-              <Link href="/archives" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/archives"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Archives
               </Link>
             </li>
             <li>
-              <Link href="/featured" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/featured"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Featured
               </Link>
             </li>
             <li>
-              <Link href="/tags" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/tags"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Tags
               </Link>
             </li>
             <li>
-              <Link href="/series" className="text-blue-600 hover:text-blue-800 underline">
+              <Link
+                href="/series"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Series
               </Link>
             </li>
@@ -84,8 +106,13 @@ export default function SitemapPage() {
         </section>
       </div>
 
-      <div className="mt-8 pt-4 border-t text-sm text-gray-500">
-        <p>This sitemap is also available in XML format at <Link href="/sitemap.xml" className="underline">/sitemap.xml</Link></p>
+      <div className="mt-8 border-t pt-4 text-sm text-gray-500">
+        <p>
+          This sitemap is also available in XML format at{' '}
+          <Link href="/sitemap.xml" className="underline">
+            /sitemap.xml
+          </Link>
+        </p>
       </div>
     </div>
   )

@@ -23,7 +23,8 @@ const libreBaskerville = Libre_Baskerville({
 
 export const metadata = {
   title: 'Duyet Le - Data Engineer',
-  description: 'Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.',
+  description:
+    'Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.',
 }
 
 export default function RootLayout({

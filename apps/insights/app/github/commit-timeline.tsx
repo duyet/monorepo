@@ -19,7 +19,7 @@ interface CommitStats {
 
 export async function CommitTimeline() {
   const stats = await getCommitStats(owner)
-  
+
   // Safety check for stats structure
   if (!stats || !Array.isArray(stats.commitHistory)) {
     return (

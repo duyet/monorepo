@@ -2,11 +2,6 @@ import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
 import { HoverLinks } from '@/components/hover-links'
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card'
 import FossilLogo from '@/public/fossil.svg'
 import FptLogo from '@/public/fpt.svg'
 import JvnLogo from '@/public/jvn.png'
@@ -19,7 +14,8 @@ export const cvData: CVData = {
     name: 'Duyet Le',
     title: 'Résumé',
     email: 'me@duyet.net',
-    overview: 'Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in ClickHouse, Spark, Airflow, Python, Rust.',
+    overview:
+      'Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in ClickHouse, Spark, Airflow, Python, Rust.',
     contacts: [
       {
         id: 'email',
@@ -29,7 +25,7 @@ export const cvData: CVData = {
       },
       {
         id: 'website',
-        type: 'website', 
+        type: 'website',
         label: 'https://duyet.net',
         url: 'https://duyet.net',
       },
@@ -146,8 +142,8 @@ export const cvData: CVData = {
           id: 4,
           item: (
             <span key="k8s-deploy">
-              Developed tools for Data Monitoring, Data Catalog, and Self-service
-              Analytics for internal teams with{' '}
+              Developed tools for Data Monitoring, Data Catalog, and
+              Self-service Analytics for internal teams with{' '}
               <HoverLinks
                 text="everything deployed on Kubernetes"
                 links={[
@@ -222,8 +218,9 @@ export const cvData: CVData = {
   education: [
     {
       id: 'uit',
-      major: 'Bachelor\'s degree, Information System',
-      thesis: 'Thesis: Network of career skills and support an optimal job search',
+      major: "Bachelor's degree, Information System",
+      thesis:
+        'Thesis: Network of career skills and support an optimal job search',
       thesisUrl: 'https://arxiv.org/pdf/1707.09751',
       university: 'University of Information Technology',
     },

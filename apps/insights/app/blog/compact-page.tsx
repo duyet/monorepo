@@ -1,27 +1,31 @@
-import { Suspense } from 'react'
-import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
-import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
-import { ProgressiveDisclosure, CollapsibleSection } from '@/components/ui/ProgressiveDisclosure'
 import { MobileOptimizedChart } from '@/components/mobile/MobileOptimizedChart'
-import { SkeletonCard } from '@/components/SkeletonCard'
 import { Breadcrumb } from '@/components/navigation/CompactNavigation'
+import { SkeletonCard } from '@/components/SkeletonCard'
+import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
+import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
 import { QuickFilters } from '@/components/ui/DateRangeSelector'
+import {
+  CollapsibleSection,
+  ProgressiveDisclosure,
+} from '@/components/ui/ProgressiveDisclosure'
+import {
+  Activity,
+  Clock,
+  Eye,
+  Globe,
+  MousePointer,
+  TrendingUp,
+  Users,
+  Zap,
+} from 'lucide-react'
+import { Suspense } from 'react'
 import { Cloudflare } from './cloudflare'
 import { PostHog } from './posthog'
-import {
-  Eye,
-  Users,
-  MousePointer,
-  Clock,
-  TrendingUp,
-  Globe,
-  Zap,
-  Activity,
-} from 'lucide-react'
 
 export const metadata = {
   title: 'Website Analytics',
-  description: 'Website traffic and performance analytics from Cloudflare and PostHog.',
+  description:
+    'Website traffic and performance analytics from Cloudflare and PostHog.',
 }
 
 // Static generation only
@@ -51,13 +55,17 @@ export default function CompactBlogPage() {
     <div className="space-y-6">
       {/* Header with Breadcrumb */}
       <div className="border-b pb-4">
-        <Breadcrumb items={[
-          { label: 'Dashboard', href: '/' },
-          { label: 'Website Analytics' },
-        ]} />
-        <div className="mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <Breadcrumb
+          items={[
+            { label: 'Dashboard', href: '/' },
+            { label: 'Website Analytics' },
+          ]}
+        />
+        <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-xl font-bold tracking-tight">Website Analytics</h1>
+            <h1 className="text-xl font-bold tracking-tight">
+              Website Analytics
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Traffic insights from Cloudflare and user behavior from PostHog
             </p>
@@ -72,7 +80,7 @@ export default function CompactBlogPage() {
 
       {/* Key Metrics Overview */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground">
           Traffic Overview
         </h2>
         <DashboardGrid cols={3} gap="sm">
@@ -121,12 +129,18 @@ export default function CompactBlogPage() {
               <CompactCard padding="sm">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground">Avg Session</span>
+                    <span className="text-xs font-medium text-muted-foreground">
+                      Avg Session
+                    </span>
                     <Clock className="h-3 w-3 text-muted-foreground" />
                   </div>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-lg font-bold">{mockWebsiteStats.avgSession.value}</span>
-                    <span className="text-xs text-green-600">+{mockWebsiteStats.avgSession.change}%</span>
+                    <span className="text-lg font-bold">
+                      {mockWebsiteStats.avgSession.value}
+                    </span>
+                    <span className="text-xs text-green-600">
+                      +{mockWebsiteStats.avgSession.change}%
+                    </span>
                   </div>
                 </div>
               </CompactCard>
@@ -135,12 +149,18 @@ export default function CompactBlogPage() {
               <CompactCard padding="sm">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground">Load Time</span>
+                    <span className="text-xs font-medium text-muted-foreground">
+                      Load Time
+                    </span>
                     <Zap className="h-3 w-3 text-muted-foreground" />
                   </div>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-lg font-bold">{mockWebsiteStats.loadTime.value}</span>
-                    <span className="text-xs text-green-600">{mockWebsiteStats.loadTime.change}%</span>
+                    <span className="text-lg font-bold">
+                      {mockWebsiteStats.loadTime.value}
+                    </span>
+                    <span className="text-xs text-green-600">
+                      {mockWebsiteStats.loadTime.change}%
+                    </span>
                   </div>
                 </div>
               </CompactCard>
@@ -149,12 +169,18 @@ export default function CompactBlogPage() {
               <CompactCard padding="sm">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground">Conversion</span>
+                    <span className="text-xs font-medium text-muted-foreground">
+                      Conversion
+                    </span>
                     <TrendingUp className="h-3 w-3 text-muted-foreground" />
                   </div>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-lg font-bold">{mockWebsiteStats.conversionRate.value}</span>
-                    <span className="text-xs text-green-600">+{mockWebsiteStats.conversionRate.change}%</span>
+                    <span className="text-lg font-bold">
+                      {mockWebsiteStats.conversionRate.value}
+                    </span>
+                    <span className="text-xs text-green-600">
+                      +{mockWebsiteStats.conversionRate.change}%
+                    </span>
                   </div>
                 </div>
               </CompactCard>
@@ -165,7 +191,7 @@ export default function CompactBlogPage() {
 
       {/* Traffic Trends - Mobile Optimized */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground">
           Traffic Trends
         </h2>
         <CompactCard title="Daily Website Traffic" padding="sm">
@@ -210,14 +236,14 @@ export default function CompactBlogPage() {
           <DashboardGrid cols={2} gap="md">
             <GridItem>
               <CompactCard title="Geographic Distribution" padding="sm">
-                <div className="h-32 flex items-center justify-center text-sm text-muted-foreground">
+                <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">
                   Geographic traffic heatmap placeholder
                 </div>
               </CompactCard>
             </GridItem>
             <GridItem>
               <CompactCard title="Device Breakdown" padding="sm">
-                <div className="h-32 flex items-center justify-center text-sm text-muted-foreground">
+                <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">
                   Device type distribution placeholder
                 </div>
               </CompactCard>
@@ -226,7 +252,7 @@ export default function CompactBlogPage() {
         </CollapsibleSection>
 
         <CollapsibleSection title="Performance Insights" level={2}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <CompactCard title="Core Web Vitals" padding="sm">
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
@@ -265,7 +291,7 @@ export default function CompactBlogPage() {
 
       {/* Quick Actions Footer */}
       <div className="border-t pt-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
+        <div className="flex flex-col gap-2 text-xs sm:flex-row sm:items-center sm:justify-between">
           <div className="text-muted-foreground">
             Data from Cloudflare Analytics & PostHog • Updated every 15 minutes
           </div>

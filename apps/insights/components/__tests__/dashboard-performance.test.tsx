@@ -3,14 +3,14 @@
  * Tests rendering speed, memory usage, and mobile optimization
  */
 
+import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { render, screen, waitFor } from '@testing-library/react'
-import { describe, it, expect, beforeAll, afterAll } from '@jest/globals'
 
 // Mock components for testing
-import { DashboardGrid, GridItem } from '../ui/DashboardGrid'
-import { CompactCard, StatsCard } from '../ui/CompactCard'
 import { CompactAreaChart, MiniSparkline } from '../charts/CompactChart'
 import { MobileOptimizedChart } from '../mobile/MobileOptimizedChart'
+import { CompactCard, StatsCard } from '../ui/CompactCard'
+import { DashboardGrid, GridItem } from '../ui/DashboardGrid'
 import { ProgressiveDisclosure } from '../ui/ProgressiveDisclosure'
 
 // Mock data for performance testing
@@ -56,8 +56,11 @@ describe('Dashboard Performance Tests', () => {
   afterAll(() => {
     const finalMemory = measureMemoryUsage()
     if (initialMemory && finalMemory) {
-      const memoryDelta = finalMemory.usedJSHeapSize - initialMemory.usedJSHeapSize
-      console.log(`Memory usage delta: ${(memoryDelta / 1024 / 1024).toFixed(2)} MB`)
+      const memoryDelta =
+        finalMemory.usedJSHeapSize - initialMemory.usedJSHeapSize
+      console.log(
+        `Memory usage delta: ${(memoryDelta / 1024 / 1024).toFixed(2)} MB`,
+      )
     }
   })
 
@@ -73,7 +76,7 @@ describe('Dashboard Performance Tests', () => {
                 </CompactCard>
               </GridItem>
             ))}
-          </DashboardGrid>
+          </DashboardGrid>,
         )
       })
 
@@ -87,7 +90,7 @@ describe('Dashboard Performance Tests', () => {
           <GridItem span={2}>Large item</GridItem>
           <GridItem>Small item 1</GridItem>
           <GridItem>Small item 2</GridItem>
-        </DashboardGrid>
+        </DashboardGrid>,
       )
 
       // Test mobile breakpoint
@@ -97,7 +100,7 @@ describe('Dashboard Performance Tests', () => {
           <GridItem span={2}>Large item</GridItem>
           <GridItem>Small item 1</GridItem>
           <GridItem>Small item 2</GridItem>
-        </DashboardGrid>
+        </DashboardGrid>,
       )
 
       expect(screen.getByText('Large item')).toBeInTheDocument()
@@ -113,7 +116,7 @@ describe('Dashboard Performance Tests', () => {
             index="date"
             categories={['value', 'category1', 'category2']}
             height={200}
-          />
+          />,
         )
       })
 
@@ -133,7 +136,7 @@ describe('Dashboard Performance Tests', () => {
                 height={40}
               />
             ))}
-          </div>
+          </div>,
         )
       })
 
@@ -152,7 +155,7 @@ describe('Dashboard Performance Tests', () => {
             categories={['value', 'category1', 'category2']}
             type="area"
             showControls
-          />
+          />,
         )
       })
 
@@ -172,12 +175,10 @@ describe('Dashboard Performance Tests', () => {
                 title={`Section ${i}`}
                 defaultOpen={false}
               >
-                <div style={{ height: '200px' }}>
-                  Heavy content {i}
-                </div>
+                <div style={{ height: '200px' }}>Heavy content {i}</div>
               </ProgressiveDisclosure>
             ))}
-          </div>
+          </div>,
         )
       })
 
@@ -203,7 +204,7 @@ describe('Dashboard Performance Tests', () => {
                 compact
               />
             ))}
-          </DashboardGrid>
+          </DashboardGrid>,
         )
       })
 
@@ -223,7 +224,7 @@ describe('Dashboard Performance Tests', () => {
           <GridItem>Item 1</GridItem>
           <GridItem>Item 2</GridItem>
           <GridItem>Item 3</GridItem>
-        </DashboardGrid>
+        </DashboardGrid>,
       )
 
       // Should render without layout shift
@@ -239,7 +240,7 @@ describe('Dashboard Performance Tests', () => {
           index="date"
           categories={['value']}
           type="area"
-        />
+        />,
       )
 
       // Component should render with touch controls
@@ -254,21 +255,21 @@ describe('Dashboard Performance Tests', () => {
           data={mockData.slice(0, 50)}
           index="date"
           categories={['value']}
-        />
+        />,
       )
 
       // Simulate frequent updates
       for (let i = 0; i < 10; i++) {
         const shuffledData = mockData
           .slice(0, 50)
-          .map(item => ({ ...item, value: Math.random() * 1000 }))
+          .map((item) => ({ ...item, value: Math.random() * 1000 }))
 
         rerender(
           <CompactAreaChart
             data={shuffledData}
             index="date"
             categories={['value']}
-          />
+          />,
         )
       }
 
@@ -288,7 +289,7 @@ describe('Accessibility Performance', () => {
           change={{ value: 5.2, period: 'last month' }}
           compact
         />
-      </DashboardGrid>
+      </DashboardGrid>,
     )
 
     // Should maintain semantic structure
@@ -300,7 +301,7 @@ describe('Accessibility Performance', () => {
     render(
       <ProgressiveDisclosure title="Test Section">
         <div>Content</div>
-      </ProgressiveDisclosure>
+      </ProgressiveDisclosure>,
     )
 
     const button = screen.getByRole('button')

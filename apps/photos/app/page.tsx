@@ -45,15 +45,17 @@ export default async function PhotosPage() {
       {/* Skip to content link for accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg transition-all hover:bg-blue-700"
+        className="sr-only z-50 rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg transition-all hover:bg-blue-700 focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
       >
         Skip to main content
       </a>
-      
+
       {/* Header and intro text - contained */}
       <Container>
         <section className="mb-8" aria-labelledby="intro-heading">
-          <h1 id="intro-heading" className="sr-only">Photography Portfolio</h1>
+          <h1 id="intro-heading" className="sr-only">
+            Photography Portfolio
+          </h1>
           <div className="text-lg text-gray-600 dark:text-gray-300">
             Photography collection from my{' '}
             <a
@@ -84,8 +86,14 @@ export default async function PhotosPage() {
       </Container>
 
       {/* Photo grid - full width */}
-      <section className="w-full" aria-labelledby="photos-heading" id="main-content">
-        <h2 id="photos-heading" className="sr-only">Photo Gallery</h2>
+      <section
+        className="w-full"
+        aria-labelledby="photos-heading"
+        id="main-content"
+      >
+        <h2 id="photos-heading" className="sr-only">
+          Photo Gallery
+        </h2>
         {photos.length > 0 ? (
           <PhotoGrid photos={photos} />
         ) : (

@@ -12,7 +12,11 @@ interface LoadingSpinnerProps {
   color?: 'white' | 'gray' | 'primary'
 }
 
-export function LoadingSpinner({ size = 'md', className, color = 'white' }: LoadingSpinnerProps) {
+export function LoadingSpinner({
+  size = 'md',
+  className,
+  color = 'white',
+}: LoadingSpinnerProps) {
   const sizeClasses = {
     sm: 'h-4 w-4',
     md: 'h-8 w-8',
@@ -45,7 +49,11 @@ interface ImageSkeletonProps {
   animated?: boolean
 }
 
-export function ImageSkeleton({ aspectRatio, className, animated = true }: ImageSkeletonProps) {
+export function ImageSkeleton({
+  aspectRatio,
+  className,
+  animated = true,
+}: ImageSkeletonProps) {
   return (
     <div
       className={cn(
@@ -65,26 +73,29 @@ interface PhotoCardSkeletonProps {
   showMetadata?: boolean
 }
 
-export function PhotoCardSkeleton({ className, showMetadata = true }: PhotoCardSkeletonProps) {
+export function PhotoCardSkeleton({
+  className,
+  showMetadata = true,
+}: PhotoCardSkeletonProps) {
   return (
     <div
       className={cn(
         'overflow-hidden rounded-lg bg-gray-100 shadow-sm dark:bg-gray-800',
-        'break-inside-avoid mb-4 sm:mb-6 lg:mb-8',
+        'mb-4 break-inside-avoid sm:mb-6 lg:mb-8',
         className,
       )}
     >
       {/* Image skeleton with random aspect ratio for variety */}
-      <ImageSkeleton 
+      <ImageSkeleton
         aspectRatio={`${Math.floor(Math.random() * 200) + 200}/${Math.floor(Math.random() * 200) + 200}`}
         className="w-full"
       />
-      
+
       {/* Optional metadata skeleton */}
       {showMetadata && (
-        <div className="p-3 space-y-2">
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-          <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4" />
+        <div className="space-y-2 p-3">
+          <div className="h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+          <div className="h-3 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
         </div>
       )}
     </div>
@@ -97,10 +108,14 @@ interface PhotoGridSkeletonProps {
   className?: string
 }
 
-export function PhotoGridSkeleton({ count = 12, columns = 3, className }: PhotoGridSkeletonProps) {
+export function PhotoGridSkeleton({
+  count = 12,
+  columns = 3,
+  className,
+}: PhotoGridSkeletonProps) {
   return (
     <div className={cn('grid gap-4 sm:gap-6 lg:gap-8', className)}>
-      <div 
+      <div
         className="grid gap-4 sm:gap-6 lg:gap-8"
         style={{
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
@@ -119,9 +134,17 @@ interface LightboxLoadingProps {
   className?: string
 }
 
-export function LightboxLoading({ message = 'Loading image...', className }: LightboxLoadingProps) {
+export function LightboxLoading({
+  message = 'Loading image...',
+  className,
+}: LightboxLoadingProps) {
   return (
-    <div className={cn('absolute inset-0 flex items-center justify-center bg-black/20', className)}>
+    <div
+      className={cn(
+        'absolute inset-0 flex items-center justify-center bg-black/20',
+        className,
+      )}
+    >
       <div className="flex flex-col items-center gap-3 text-white">
         <LoadingSpinner size="lg" color="white" />
         <p className="text-sm font-medium">{message}</p>
@@ -138,15 +161,15 @@ interface EmptyStateProps {
   className?: string
 }
 
-export function EmptyState({ 
-  title, 
-  description, 
-  icon, 
-  action, 
-  className 
+export function EmptyState({
+  title,
+  description,
+  icon,
+  action,
+  className,
 }: EmptyStateProps) {
   return (
-    <div 
+    <div
       className={cn(
         'flex min-h-[400px] items-center justify-center text-center',
         'rounded-lg border-2 border-dashed border-gray-300 bg-gray-50',
@@ -155,12 +178,8 @@ export function EmptyState({
       )}
     >
       <div className="max-w-md space-y-4">
-        {icon && (
-          <div className="mx-auto w-fit text-gray-400">
-            {icon}
-          </div>
-        )}
-        
+        {icon && <div className="mx-auto w-fit text-gray-400">{icon}</div>}
+
         <div>
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
             {title}
@@ -171,12 +190,8 @@ export function EmptyState({
             </p>
           )}
         </div>
-        
-        {action && (
-          <div className="pt-2">
-            {action}
-          </div>
-        )}
+
+        {action && <div className="pt-2">{action}</div>}
       </div>
     </div>
   )

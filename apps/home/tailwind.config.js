@@ -1,4 +1,4 @@
-const config = require('@duyet/tailwind-config/tailwind.config.mjs');
+const config = require('@duyet/tailwind-config/tailwind.config.mjs')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -40,7 +40,12 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-tiempos)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: [
+          'var(--font-tiempos)',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+        ],
         serif: ['var(--font-tiempos)', 'ui-serif', 'Georgia', 'serif'],
       },
     },

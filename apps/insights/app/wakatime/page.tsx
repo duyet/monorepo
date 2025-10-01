@@ -1,11 +1,11 @@
+import { PageLayout, SectionLayout } from '@/components/layouts'
+import type { PeriodDays } from '@/lib/periods'
+import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
 import Image from 'next/image'
 import { StaticCard } from '../../components/StaticCard'
 import { WakaTimeActivity } from './activity'
 import { WakaTimeLanguages } from './languages'
 import { WakaTimeMetrics } from './metrics'
-import { PageLayout, SectionLayout } from '@/components/layouts'
-import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
-import type { PeriodDays } from '@/lib/periods'
 
 export const metadata = {
   title: 'WakaTime Coding Analytics @duyet',

@@ -6,7 +6,7 @@
     "build": "next build",
     "check-types": "tsc --noEmit",
     "dev": "next dev --turbopack -p 3001",
-    "fix": "prettier --write \"**/*.{ts,tsx,md}\" .",
+    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "yarn fix",
     "lint": "next lint",
     "prettier-check": "prettier --check .",
@@ -15,8 +15,8 @@
   "prettier": "@duyet/prettier",
   "dependencies": {
     "@duyet/components": "*",
-    "@duyet/libs": "*",
     "@duyet/interfaces": "*",
+    "@duyet/libs": "*",
     "@radix-ui/react-icons": "^1.3.0",
     "@tremor/react": "^3.0.0",
     "@vercel/analytics": "^1.0.0",

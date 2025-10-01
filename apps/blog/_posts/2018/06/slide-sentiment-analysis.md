@@ -23,7 +23,6 @@ Mình vừa có bài nói về **Sentiment Analysis** trong NLP bao quát, xin 
 **Outline**
 
 1.  **Introduction**
-
     1. Sentiment Analysis Application
     2. Sentiment Analysis Research
 

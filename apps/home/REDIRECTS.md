@@ -20,6 +20,7 @@ Each line in the `_redirects` file follows this format:
 ```
 
 Example:
+
 ```
 /blog https://blog.duyet.net 302
 /mcp https://mcp.duyet.net 302
@@ -28,6 +29,7 @@ Example:
 ## Available Redirects
 
 All available redirects can be viewed at:
+
 - **Production**: https://duyet.net/ls
 - **Local**: http://localhost:3000/ls
 

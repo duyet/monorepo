@@ -1,12 +1,16 @@
+import {
+  generatePeriodStaticParams,
+  getPeriodConfig,
+  getPeriodDays,
+} from '@/lib/periods'
 import { Suspense } from 'react'
 import { SkeletonCard } from '../../../components/SkeletonCard'
 import { CCUsageActivity } from '../activity'
 import { CCUsageCosts } from '../costs'
-import { CCUsageMetrics } from '../metrics'
-import { CCUsageModels } from '../models'
 import { CCUsageDailyTable } from '../daily-table'
 import { CCUsageErrorBoundary } from '../error-boundary'
-import { generatePeriodStaticParams, getPeriodConfig, getPeriodDays } from '@/lib/periods'
+import { CCUsageMetrics } from '../metrics'
+import { CCUsageModels } from '../models'
 import type { DateRangeDays } from '../types'
 
 export const dynamic = 'force-static'

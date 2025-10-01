@@ -42,7 +42,10 @@ export const PERIODS: PeriodConfig[] = [
 export const DEFAULT_PERIOD: PeriodValue = '30'
 
 export function getPeriodConfig(value: string): PeriodConfig {
-  return PERIODS.find(p => p.value === value) || PERIODS.find(p => p.value === DEFAULT_PERIOD)!
+  return (
+    PERIODS.find((p) => p.value === value) ||
+    PERIODS.find((p) => p.value === DEFAULT_PERIOD)!
+  )
 }
 
 export function getPeriodDays(value: string): PeriodDays {
@@ -50,19 +53,19 @@ export function getPeriodDays(value: string): PeriodDays {
 }
 
 export function isPeriodValue(value: string): value is PeriodValue {
-  return PERIODS.some(p => p.value === value)
+  return PERIODS.some((p) => p.value === value)
 }
 
 /**
  * Get all period values for static generation
  */
 export function getAllPeriodValues(): PeriodValue[] {
-  return PERIODS.map(p => p.value)
+  return PERIODS.map((p) => p.value)
 }
 
 /**
  * Generate static params for all periods
  */
 export function generatePeriodStaticParams() {
-  return PERIODS.map(p => ({ period: p.value }))
+  return PERIODS.map((p) => ({ period: p.value }))
 }

@@ -1,8 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { useState, ReactNode } from 'react'
 import { ChevronDown, ChevronRight, Info, Settings } from 'lucide-react'
+import { ReactNode, useState } from 'react'
 
 interface ProgressiveDisclosureProps {
   title: string
@@ -42,17 +42,19 @@ export function ProgressiveDisclosure({
         className={cn(
           'flex w-full items-center justify-between p-4 text-left transition-colors',
           'hover:bg-accent/50',
-          variant === 'subtle' && 'p-3 hover:bg-transparent'
+          variant === 'subtle' && 'p-3 hover:bg-transparent',
         )}
       >
-        <div className="flex items-center space-x-3 min-w-0 flex-1">
-          {icon && <div className="text-muted-foreground shrink-0">{icon}</div>}
+        <div className="flex min-w-0 flex-1 items-center space-x-3">
+          {icon && <div className="shrink-0 text-muted-foreground">{icon}</div>}
           <div className="min-w-0 flex-1">
             <div className="flex items-center space-x-2">
-              <h3 className={cn(
-                'font-semibold',
-                variant === 'subtle' ? 'text-sm' : 'text-base'
-              )}>
+              <h3
+                className={cn(
+                  'font-semibold',
+                  variant === 'subtle' ? 'text-sm' : 'text-base',
+                )}
+              >
                 {title}
               </h3>
               {badge && (
@@ -62,7 +64,7 @@ export function ProgressiveDisclosure({
               )}
             </div>
             {description && (
-              <p className="text-sm text-muted-foreground mt-0.5">
+              <p className="mt-0.5 text-sm text-muted-foreground">
                 {description}
               </p>
             )}
@@ -83,10 +85,12 @@ export function ProgressiveDisclosure({
       </button>
 
       {isOpen && (
-        <div className={cn(
-          'border-t p-4',
-          variant === 'subtle' && 'border-t-0 px-3 pb-3'
-        )}>
+        <div
+          className={cn(
+            'border-t p-4',
+            variant === 'subtle' && 'border-t-0 px-3 pb-3',
+          )}
+        >
           {children}
         </div>
       )}
@@ -123,9 +127,7 @@ export function CollapsibleSection({
         onClick={() => setIsExpanded(!isExpanded)}
         className="flex w-full items-center justify-between text-left"
       >
-        <h3 className={cn(titleSizes[level], 'text-foreground')}>
-          {title}
-        </h3>
+        <h3 className={cn(titleSizes[level], 'text-foreground')}>{title}</h3>
         {isExpanded ? (
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
         ) : (
@@ -133,11 +135,7 @@ export function CollapsibleSection({
         )}
       </button>
 
-      {isExpanded && (
-        <div className="space-y-4">
-          {children}
-        </div>
-      )}
+      {isExpanded && <div className="space-y-4">{children}</div>}
     </div>
   )
 }
@@ -163,7 +161,7 @@ export function AdvancedToggle({
 
       <button
         onClick={() => setShowAdvanced(!showAdvanced)}
-        className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        className="flex items-center space-x-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <Settings className="h-4 w-4" />
         <span>{label}</span>
@@ -175,7 +173,7 @@ export function AdvancedToggle({
       </button>
 
       {showAdvanced && (
-        <div className="rounded-lg border bg-muted/30 p-4">
+        <div className="bg-muted/30 rounded-lg border p-4">
           {advancedContent}
         </div>
       )}
@@ -221,9 +219,7 @@ export function InfoDisclosure({
       </button>
 
       {isOpen && (
-        <div className="mt-2 pl-6 text-sm text-muted-foreground">
-          {content}
-        </div>
+        <div className="mt-2 pl-6 text-sm text-muted-foreground">{content}</div>
       )}
     </div>
   )

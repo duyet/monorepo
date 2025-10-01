@@ -255,7 +255,6 @@ describe.skip('Lightbox', () => {
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
 
-
   it('handles keyboard navigation including fullscreen toggle', () => {
     render(
       <Lightbox

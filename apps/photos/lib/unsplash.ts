@@ -36,24 +36,30 @@ export async function getUserPhotos(
       throw new Error('Failed to fetch photos from Unsplash')
     }
 
-    const photos = (result.response?.results || []) as unknown as UnsplashPhoto[]
-    
+    const photos = (result.response?.results ||
+      []) as unknown as UnsplashPhoto[]
+
     // Process photos with stats mapping only
-    const processedPhotos = photos.map(photo => {
+    const processedPhotos = photos.map((photo) => {
       return {
         ...photo,
         // Map statistics to our expected format if available
-        stats: photo.statistics ? {
-          views: photo.statistics.views?.total || 0,
-          downloads: photo.statistics.downloads?.total || 0,
-        } : undefined,
+        stats: photo.statistics
+          ? {
+              views: photo.statistics.views?.total || 0,
+              downloads: photo.statistics.downloads?.total || 0,
+            }
+          : undefined,
       }
     })
 
     return processedPhotos
   } catch (error) {
     // Check if it's a rate limit error
-    if (error instanceof Error && error.message.includes('expected JSON response')) {
+    if (
+      error instanceof Error &&
+      error.message.includes('expected JSON response')
+    ) {
       console.warn(`Rate limit hit on page ${page}, returning empty array`)
       return []
     }
@@ -63,7 +69,9 @@ export async function getUserPhotos(
 }
 
 // Optional function to fetch detailed info for specific photo (used on demand)
-export async function getPhotoDetails(photoId: string): Promise<Partial<UnsplashPhoto> | null> {
+export async function getPhotoDetails(
+  photoId: string,
+): Promise<Partial<UnsplashPhoto> | null> {
   if (!unsplash) {
     return null
   }
@@ -107,9 +115,12 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       }
     } catch (error) {
       console.error(`Error fetching page ${page}:`, error)
-      
+
       // If we hit rate limits, stop fetching more pages but return what we have
-      if (error instanceof Error && error.message.includes('expected JSON response')) {
+      if (
+        error instanceof Error &&
+        error.message.includes('expected JSON response')
+      ) {
         console.warn('Likely hit rate limits, stopping at page', page - 1)
         hasMore = false
       } else {

@@ -64,6 +64,8 @@ export async function getPost(slug: string[]) {
 
 const getGithubEditUrl = (slug: string) => {
   const file = slug.replace(/\.md|\.html|\.htm$/, '.md').replace(/^\/?/, '')
-  const repoUrl = process.env.NEXT_PUBLIC_GITHUB_REPO_URL || 'https://github.com/duyet/monorepo'
+  const repoUrl =
+    process.env.NEXT_PUBLIC_GITHUB_REPO_URL ||
+    'https://github.com/duyet/monorepo'
   return `${repoUrl}/edit/master/apps/blog/_posts/${file}`
 }

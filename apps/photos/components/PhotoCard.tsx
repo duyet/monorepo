@@ -1,13 +1,16 @@
 'use client'
 
-import type { UnsplashPhoto } from '@/lib/types'
-import { 
-  getOptimalImageSrc, 
-  generateBlurDataURL, 
+import {
+  generateBlurDataURL,
+  getOptimalImageSrc,
   getResponsiveSizes,
   shouldPrioritizeLoading,
 } from '@/lib/ImageOptimization'
-import { formatCompactMetadata, formatPhotoDescription } from '@/lib/MetadataFormatters'
+import {
+  formatCompactMetadata,
+  formatPhotoDescription,
+} from '@/lib/MetadataFormatters'
+import type { UnsplashPhoto } from '@/lib/types'
 import { cn } from '@duyet/libs/utils'
 import { useCallback } from 'react'
 import LazyImage from './LazyImage'
@@ -30,8 +33,9 @@ export default function PhotoCard({
   const description = formatPhotoDescription(photo)
 
   // Get optimized image configuration
-  const imageSrc = useCallback(() => 
-    getOptimalImageSrc(photo, { context: 'grid' }), [photo]
+  const imageSrc = useCallback(
+    () => getOptimalImageSrc(photo, { context: 'grid' }),
+    [photo],
   )
 
   return (
@@ -70,11 +74,11 @@ export default function PhotoCard({
         <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-200 group-hover:bg-opacity-20">
           <div className="absolute bottom-0 left-0 right-0 p-3 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             {photo.description && (
-              <h3 className="font-medium leading-snug text-sm sm:text-base line-clamp-2 mb-2">
+              <h3 className="mb-2 line-clamp-2 text-sm font-medium leading-snug sm:text-base">
                 {photo.description}
               </h3>
             )}
-            
+
             {/* Enhanced metadata display */}
             <div className="space-y-1.5 text-xs sm:text-sm">
               {/* Primary metadata */}
@@ -85,10 +89,10 @@ export default function PhotoCard({
                   ))}
                 </div>
               )}
-              
+
               {/* Secondary metadata */}
               {metadata.secondary.length > 0 && (
-                <div className="flex items-center gap-3 text-white/75 text-xs">
+                <div className="flex items-center gap-3 text-xs text-white/75">
                   {metadata.secondary.map((item, idx) => (
                     <span key={idx}>{item}</span>
                   ))}
@@ -97,16 +101,18 @@ export default function PhotoCard({
 
               {/* Attribution (excluding _duyet as specified) */}
               {photo.user.username !== '_duyet' && (
-                <div className="pt-1 border-t border-white/20">
+                <div className="border-t border-white/20 pt-1">
                   <a
                     href={photo.user.links.html}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-xs text-white/90 hover:text-white transition-colors"
+                    className="inline-flex items-center text-xs text-white/90 transition-colors hover:text-white"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <span>by</span>
-                    <span className="ml-1 font-medium">@{photo.user.username}</span>
+                    <span className="ml-1 font-medium">
+                      @{photo.user.username}
+                    </span>
                   </a>
                 </div>
               )}
@@ -115,8 +121,8 @@ export default function PhotoCard({
         </div>
 
         {/* Subtle loading indicator */}
-        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="w-2 h-2 bg-white/40 rounded-full animate-pulse" />
+        <div className="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="h-2 w-2 animate-pulse rounded-full bg-white/40" />
         </div>
       </div>
     </div>

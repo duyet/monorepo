@@ -1,11 +1,16 @@
 'use client'
 
-import { useState } from 'react'
 import { AreaChart } from '@/components/charts'
-import { CompactMetric } from '@/components/ui/CompactMetric'
 import { PeriodSelector } from '@/components/period-selector'
+import { CompactMetric } from '@/components/ui/CompactMetric'
+import {
+  DEFAULT_PERIOD,
+  TIME_PERIODS,
+  type PeriodData,
+  type TimePeriod,
+} from '@/types/periods'
 import { Activity, Eye, Globe, Users } from 'lucide-react'
-import { DEFAULT_PERIOD, TIME_PERIODS, type TimePeriod, type PeriodData } from '@/types/periods'
+import { useState } from 'react'
 import type { CloudflareDataByPeriod } from './cloudflare-with-periods'
 
 interface CloudflareClientProps {
@@ -18,38 +23,41 @@ function dataFormatter(number: number) {
 
 export function CloudflareClient({ data }: CloudflareClientProps) {
   const [activePeriod, setActivePeriod] = useState<TimePeriod>(DEFAULT_PERIOD)
-  
+
   const currentData = data[activePeriod]
-  const activePeriodInfo = TIME_PERIODS.find(p => p.value === activePeriod)
-  
+  const activePeriodInfo = TIME_PERIODS.find((p) => p.value === activePeriod)
+
   if (!currentData || !currentData.data.viewer.zones[0]) {
     return (
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div></div>
-          <PeriodSelector 
-            activePeriod={activePeriod} 
+          <PeriodSelector
+            activePeriod={activePeriod}
             onPeriodChange={setActivePeriod}
           />
         </div>
-        <div className="text-center py-8 text-muted-foreground">
+        <div className="py-8 text-center text-muted-foreground">
           No data available for this period
         </div>
       </div>
     )
   }
 
-  const chartData = currentData.data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {
-    return {
-      date: item.date.date, // Already in YYYY-MM-DD format from Cloudflare API
-      'Page Views': item.sum.pageViews,
-      Requests: item.sum.requests,
-      'Unique Visitors': item.uniq.uniques,
-    }
-  })
+  const chartData = currentData.data.viewer.zones[0]?.httpRequests1dGroups?.map(
+    (item) => {
+      return {
+        date: item.date.date, // Already in YYYY-MM-DD format from Cloudflare API
+        'Page Views': item.sum.pageViews,
+        Requests: item.sum.requests,
+        'Unique Visitors': item.uniq.uniques,
+      }
+    },
+  )
 
   // Find the latest day with actual data (non-zero values)
-  const httpGroups = currentData.data.viewer.zones[0]?.httpRequests1dGroups || []
+  const httpGroups =
+    currentData.data.viewer.zones[0]?.httpRequests1dGroups || []
   const latestDataDay = httpGroups
     .slice()
     .reverse() // Start from most recent
@@ -61,8 +69,10 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
     )
 
   // Use latest day data or fallback to totals if no recent data
-  const latestRequests = latestDataDay?.sum.requests || currentData.totalRequests || 0
-  const latestPageviews = latestDataDay?.sum.pageViews || currentData.totalPageviews || 0
+  const latestRequests =
+    latestDataDay?.sum.requests || currentData.totalRequests || 0
+  const latestPageviews =
+    latestDataDay?.sum.pageViews || currentData.totalPageviews || 0
   const latestUniques = latestDataDay?.uniq.uniques || 0
   const latestDate =
     latestDataDay?.date.date || new Date().toISOString().split('T')[0]
@@ -97,10 +107,10 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
   return (
     <div className="space-y-6">
       {/* Period Selector */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div></div>
-        <PeriodSelector 
-          activePeriod={activePeriod} 
+        <PeriodSelector
+          activePeriod={activePeriod}
           onPeriodChange={setActivePeriod}
         />
       </div>

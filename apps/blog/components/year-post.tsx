@@ -29,17 +29,18 @@ export function YearPost({ year, posts, className }: YearPostProps) {
 
       <div className="flex flex-col gap-3">
         {posts.map((post: Post) => (
-          <article
-            className="flex flex-row items-center gap-4"
-            key={post.slug}
-          >
-              <Link as={post.slug} className="text-md hover:underline" href="/[...slug]">
-                {post.title}
-                <IsNewPost date={post.date} />
-                <IsFeatured featured={post.featured} />
-              </Link>
+          <article className="flex flex-row items-center gap-4" key={post.slug}>
+            <Link
+              as={post.slug}
+              className="text-md hover:underline"
+              href="/[...slug]"
+            >
+              {post.title}
+              <IsNewPost date={post.date} />
+              <IsFeatured featured={post.featured} />
+            </Link>
             <hr className="shrink grow border-dotted border-slate-200 opacity-50" />
-            <time className="flex-shrink-0 text-sm font-mono text-muted-foreground whitespace-nowrap">
+            <time className="flex-shrink-0 whitespace-nowrap font-mono text-sm text-muted-foreground">
               {dateFormat(post.date, 'MMM dd')}
             </time>
           </article>

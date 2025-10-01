@@ -13,7 +13,7 @@
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev --parallel",
     "prepare": "husky",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path .gitignore",
     "fmt": "dotenv -- turbo fmt",
     "lint": "dotenv -- turbo lint",
     "prettier-check": "prettier --check \"**/*.{ts,tsx,md}\"",

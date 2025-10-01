@@ -1,14 +1,19 @@
-import { TokenBarChart } from '@/components/charts/TokenBarChart'
 import { CostBarChart } from '@/components/charts/CostBarChart'
+import { TokenBarChart } from '@/components/charts/TokenBarChart'
 import { getCCUsageActivity } from './ccusage-utils'
 import type { CCUsageActivityProps } from './types'
 
-export async function CCUsageActivity({ days = 30, className }: CCUsageActivityProps) {
+export async function CCUsageActivity({
+  days = 30,
+  className,
+}: CCUsageActivityProps) {
   const activity = await getCCUsageActivity(days)
-  
+
   if (!activity.length) {
     return (
-      <div className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}>
+      <div
+        className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}
+      >
         <p className="text-muted-foreground">No activity data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
           Daily usage activity will appear here once data is available

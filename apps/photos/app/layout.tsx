@@ -19,7 +19,8 @@ export const metadata = {
   title: 'Photos | Duyệt',
   description:
     'A curated collection of photography by Duyệt - Data Engineer and photographer. Explore stunning landscapes, portraits, and street photography.',
-  keywords: 'photography, portfolio, Duyet, landscape, portrait, street photography, art',
+  keywords:
+    'photography, portfolio, Duyet, landscape, portrait, street photography, art',
   authors: [{ name: 'Duyệt', url: 'https://duyet.net' }],
   creator: 'Duyệt',
   openGraph: {
@@ -70,7 +71,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <div className="min-h-screen flex flex-col">
+          <div className="flex min-h-screen flex-col">
             <Header longText="Photos" shortText="Photos" />
             <main className="flex-1" role="main">
               {children}

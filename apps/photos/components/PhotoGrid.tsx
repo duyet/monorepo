@@ -1,15 +1,15 @@
 'use client'
 
-import type { UnsplashPhoto } from '@/lib/types'
 import { MASONRY_CONFIG, getMasonryClasses } from '@/lib/GridUtilities'
+import type { UnsplashPhoto } from '@/lib/types'
 import { cn } from '@duyet/libs/utils'
+import { Images } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import Masonry from 'react-masonry-css'
-import { EmptyState } from './LoadingStates'
 import ErrorBoundary from './ErrorBoundary'
 import Lightbox from './Lightbox'
+import { EmptyState } from './LoadingStates'
 import PhotoCard from './PhotoCard'
-import { Images } from 'lucide-react'
 
 interface PhotoGridProps {
   photos: UnsplashPhoto[]

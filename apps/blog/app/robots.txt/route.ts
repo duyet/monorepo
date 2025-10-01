@@ -2,7 +2,7 @@ export const dynamic = 'force-static'
 
 export function GET(): Response {
   const siteUrl = 'https://blog.duyet.net'
-  
+
   const robotsTxt = `User-agent: *
 Allow: /
 

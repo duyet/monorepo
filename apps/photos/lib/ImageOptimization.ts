@@ -60,7 +60,7 @@ export function getOptimalImageSrc(
       if (devicePixelRatio > 2 || aspectInfo.isPortrait) {
         return photo.urls.regular
       }
-      
+
       if (aspectInfo.isLandscape) {
         return photo.urls.regular
       }
@@ -75,7 +75,7 @@ export function getOptimalImageSrc(
  */
 export function generateBlurDataURL(photo: UnsplashPhoto): string {
   const color = photo.color || '#f3f4f6'
-  
+
   return `data:image/svg+xml;base64,${Buffer.from(
     `<svg width="${photo.width}" height="${photo.height}" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill="${color}"/>
@@ -86,7 +86,9 @@ export function generateBlurDataURL(photo: UnsplashPhoto): string {
 /**
  * Calculate responsive image sizes based on breakpoints
  */
-export function getResponsiveSizes(context: 'grid' | 'lightbox' = 'grid'): string {
+export function getResponsiveSizes(
+  context: 'grid' | 'lightbox' = 'grid',
+): string {
   if (context === 'lightbox') {
     return '100vw'
   }
@@ -98,9 +100,12 @@ export function getResponsiveSizes(context: 'grid' | 'lightbox' = 'grid'): strin
 /**
  * Determine loading priority based on index and viewport
  */
-export function shouldPrioritizeLoading(index: number, context: 'grid' | 'lightbox' = 'grid'): boolean {
+export function shouldPrioritizeLoading(
+  index: number,
+  context: 'grid' | 'lightbox' = 'grid',
+): boolean {
   if (context === 'lightbox') return true
-  
+
   // Prioritize first 6 images in grid for above-the-fold content
   return index < 6
 }

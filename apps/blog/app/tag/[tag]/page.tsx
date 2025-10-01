@@ -39,18 +39,20 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
       <Feed posts={posts} noThumbnail />
 
       {totalPages > 1 && (
-        <div className="mt-16 p-6 bg-gray-50 rounded-lg">
-          <h2 className="text-lg font-semibold mb-4">Browse by pages:</h2>
+        <div className="mt-16 rounded-lg bg-gray-50 p-6">
+          <h2 className="mb-4 text-lg font-semibold">Browse by pages:</h2>
           <div className="flex flex-wrap gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-              <Link
-                key={pageNum}
-                href={`/tag/${tag}/${pageNum}`}
-                className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                Page {pageNum}
-              </Link>
-            ))}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+              (pageNum) => (
+                <Link
+                  key={pageNum}
+                  href={`/tag/${tag}/${pageNum}`}
+                  className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
+                >
+                  Page {pageNum}
+                </Link>
+              ),
+            )}
           </div>
         </div>
       )}

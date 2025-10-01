@@ -17,7 +17,8 @@ function dataFormatter(number: number) {
 }
 
 export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
-  const { data, generatedAt, totalRequests, totalPageviews } = await getData(days)
+  const { data, generatedAt, totalRequests, totalPageviews } =
+    await getData(days)
 
   const chartData = data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {
     return {
@@ -116,13 +117,17 @@ export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
 const getData = async (days: number | 'all' = 30) => {
   // Check if required environment variables are present
   if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
-    console.warn('Cloudflare API credentials not configured, returning empty data')
+    console.warn(
+      'Cloudflare API credentials not configured, returning empty data',
+    )
     const emptyData = {
       viewer: {
-        zones: [{
-          httpRequests1dGroups: []
-        }]
-      }
+        zones: [
+          {
+            httpRequests1dGroups: [],
+          },
+        ],
+      },
     }
     return {
       data: emptyData,
@@ -162,7 +167,9 @@ const getData = async (days: number | 'all' = 30) => {
   const daysToSubtract = days === 'all' ? 365 * 3 : days // 3 years for "all"
   const variables = {
     zoneTag: process.env.CLOUDFLARE_ZONE_ID,
-    date_start: new Date(new Date().setDate(new Date().getDate() - daysToSubtract))
+    date_start: new Date(
+      new Date().setDate(new Date().getDate() - daysToSubtract),
+    )
       .toISOString()
       .split('T')[0],
     date_end: new Date().toISOString().split('T')[0],
@@ -186,10 +193,12 @@ const getData = async (days: number | 'all' = 30) => {
       console.warn('No zone data returned from Cloudflare API')
       const emptyData = {
         viewer: {
-          zones: [{
-            httpRequests1dGroups: []
-          }]
-        }
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
       }
       return {
         data: emptyData,
@@ -221,10 +230,12 @@ const getData = async (days: number | 'all' = 30) => {
     console.error('Cloudflare API error:', error)
     const emptyData = {
       viewer: {
-        zones: [{
-          httpRequests1dGroups: []
-        }]
-      }
+        zones: [
+          {
+            httpRequests1dGroups: [],
+          },
+        ],
+      },
     }
     return {
       data: emptyData,

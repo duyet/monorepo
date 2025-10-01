@@ -6,9 +6,9 @@
 
 import type { StaticDateFilterProps } from './types'
 
-export function StaticDateFilter({ 
+export function StaticDateFilter({
   currentPeriod = '30 days',
-  className 
+  className,
 }: StaticDateFilterProps) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>

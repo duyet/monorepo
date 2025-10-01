@@ -1,8 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
 import { Calendar, ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 
 export type DateRange = '7d' | '30d' | '90d' | '6m' | '1y' | 'all'
 
@@ -37,7 +37,9 @@ export function DateRangeSelector({
   disabled = false,
 }: DateRangeSelectorProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const selectedOption = dateRangeOptions.find(option => option.value === value)
+  const selectedOption = dateRangeOptions.find(
+    (option) => option.value === value,
+  )
 
   if (compact) {
     return (
@@ -50,10 +52,10 @@ export function DateRangeSelector({
             className={cn(
               'rounded-md px-2 py-1 text-xs font-medium transition-colors',
               'hover:bg-accent hover:text-accent-foreground',
-              'disabled:opacity-50 disabled:cursor-not-allowed',
+              'disabled:cursor-not-allowed disabled:opacity-50',
               value === option.value
                 ? 'bg-accent text-accent-foreground'
-                : 'text-muted-foreground'
+                : 'text-muted-foreground',
             )}
           >
             {option.label}
@@ -70,14 +72,16 @@ export function DateRangeSelector({
         disabled={disabled}
         className={cn(
           'flex items-center space-x-2 rounded-lg border bg-background px-3 py-2 text-sm',
-          'hover:bg-accent hover:text-accent-foreground transition-colors',
-          'disabled:opacity-50 disabled:cursor-not-allowed',
-          'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
+          'transition-colors hover:bg-accent hover:text-accent-foreground',
+          'disabled:cursor-not-allowed disabled:opacity-50',
+          'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
         )}
       >
         <Calendar className="h-4 w-4" />
         <span>{selectedOption?.label || 'Select range'}</span>
-        <ChevronDown className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')} />
+        <ChevronDown
+          className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
+        />
       </button>
 
       {isOpen && (
@@ -100,7 +104,7 @@ export function DateRangeSelector({
                     'hover:bg-accent hover:text-accent-foreground',
                     value === option.value
                       ? 'bg-accent text-accent-foreground'
-                      : 'text-card-foreground'
+                      : 'text-card-foreground',
                   )}
                 >
                   <div>
@@ -142,7 +146,7 @@ export function QuickFilters({
         </span>
       )}
       {quickRanges.map((range) => {
-        const option = dateRangeOptions.find(opt => opt.value === range)
+        const option = dateRangeOptions.find((opt) => opt.value === range)
         return (
           <button
             key={range}
@@ -152,7 +156,7 @@ export function QuickFilters({
               'hover:bg-accent hover:text-accent-foreground',
               currentRange === range
                 ? 'bg-accent text-accent-foreground'
-                : 'text-muted-foreground'
+                : 'text-muted-foreground',
             )}
           >
             {option?.label}

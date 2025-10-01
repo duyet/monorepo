@@ -1,7 +1,11 @@
 import { BarChart } from '@/components/charts'
 import { getWakaTimeActivity } from './wakatime-utils'
 
-export async function WakaTimeActivity({ days = 30 }: { days?: number | 'all' }) {
+export async function WakaTimeActivity({
+  days = 30,
+}: {
+  days?: number | 'all'
+}) {
   const codingActivity = await getWakaTimeActivity(days)
 
   return (

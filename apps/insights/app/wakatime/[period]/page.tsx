@@ -1,3 +1,9 @@
+import type { PeriodDays } from '@/lib/periods'
+import {
+  generatePeriodStaticParams,
+  getPeriodConfig,
+  getPeriodDays,
+} from '@/lib/periods'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import { SkeletonCard } from '../../../components/SkeletonCard'
@@ -5,8 +11,6 @@ import { StaticCard } from '../../../components/StaticCard'
 import { WakaTimeActivity } from '../activity'
 import { WakaTimeLanguages } from '../languages'
 import { WakaTimeMetrics } from '../metrics'
-import { generatePeriodStaticParams, getPeriodConfig, getPeriodDays } from '@/lib/periods'
-import type { PeriodDays } from '@/lib/periods'
 
 export const dynamic = 'force-static'
 
@@ -42,7 +46,8 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
       <div className="border-b pb-6">
         <h1 className="text-2xl font-bold tracking-tight">Coding Analytics</h1>
         <p className="mt-1 text-muted-foreground">
-          Programming activity and language statistics from WakaTime • {config.label}
+          Programming activity and language statistics from WakaTime •{' '}
+          {config.label}
         </p>
       </div>
 

@@ -15,7 +15,7 @@ interface GitHubLanguageStats {
 
 export async function GitHubLanguageStats() {
   const stats = await getLanguageStats(owner)
-  
+
   // Safety check in case stats is null/undefined or languages is not an array
   if (!stats || !Array.isArray(stats.languages)) {
     return (
@@ -142,59 +142,59 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     const repos = await fetchAllRepositories(owner)
     console.log(`Found ${repos.length} public repositories for ${owner}`)
 
-  // Calculate repository stats
-  const totalRepos = repos.length
-  const totalStars = repos.reduce(
-    (sum: number, repo) => sum + (repo.stargazers_count || 0),
-    0,
-  )
-  const archivedRepos = repos.filter((repo) => repo.archived).length
-  const activeRepos = totalRepos - archivedRepos
+    // Calculate repository stats
+    const totalRepos = repos.length
+    const totalStars = repos.reduce(
+      (sum: number, repo) => sum + (repo.stargazers_count || 0),
+      0,
+    )
+    const archivedRepos = repos.filter((repo) => repo.archived).length
+    const activeRepos = totalRepos - archivedRepos
 
-  // Aggregate languages across all repositories
-  const languageBytes: Record<string, number> = {}
+    // Aggregate languages across all repositories
+    const languageBytes: Record<string, number> = {}
 
-  // Get language data for each repository (limit to top 20 to avoid rate limits)
-  const topRepos = repos.slice(0, 20)
+    // Get language data for each repository (limit to top 20 to avoid rate limits)
+    const topRepos = repos.slice(0, 20)
 
-  for (const repo of topRepos) {
-    if (repo.archived || !repo.name) continue
+    for (const repo of topRepos) {
+      if (repo.archived || !repo.name) continue
 
-    try {
-      const langResponse = await fetch(
-        `https://api.github.com/repos/${owner}/${repo.name}/languages`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-            Accept: 'application/vnd.github.v3+json',
+      try {
+        const langResponse = await fetch(
+          `https://api.github.com/repos/${owner}/${repo.name}/languages`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+              Accept: 'application/vnd.github.v3+json',
+            },
+            cache: 'force-cache',
           },
-          cache: 'force-cache',
-        },
-      )
+        )
 
-      if (langResponse.ok) {
-        const languages = await langResponse.json()
-        Object.entries(languages).forEach(([lang, bytes]) => {
-          languageBytes[lang] = (languageBytes[lang] || 0) + (bytes as number)
-        })
+        if (langResponse.ok) {
+          const languages = await langResponse.json()
+          Object.entries(languages).forEach(([lang, bytes]) => {
+            languageBytes[lang] = (languageBytes[lang] || 0) + (bytes as number)
+          })
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch languages for ${repo.name}:`, error)
       }
-    } catch (error) {
-      console.warn(`Failed to fetch languages for ${repo.name}:`, error)
     }
-  }
 
-  // Calculate percentages
-  const totalBytes = Object.values(languageBytes).reduce(
-    (sum, bytes) => sum + bytes,
-    0,
-  )
-  const languages = Object.entries(languageBytes)
-    .map(([name, bytes]) => ({
-      name,
-      bytes,
-      percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0,
-    }))
-    .sort((a, b) => b.percentage - a.percentage)
+    // Calculate percentages
+    const totalBytes = Object.values(languageBytes).reduce(
+      (sum, bytes) => sum + bytes,
+      0,
+    )
+    const languages = Object.entries(languageBytes)
+      .map(([name, bytes]) => ({
+        name,
+        bytes,
+        percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0,
+      }))
+      .sort((a, b) => b.percentage - a.percentage)
 
     return {
       languages,

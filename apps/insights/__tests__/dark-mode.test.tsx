@@ -23,7 +23,7 @@ describe('Dark Mode Configuration', () => {
     const { container } = render(
       <div className="bg-white text-gray-700 dark:bg-slate-900 dark:text-slate-50">
         Test Content
-      </div>
+      </div>,
     )
 
     expect(container.firstChild).toHaveClass('bg-white', 'text-gray-700')

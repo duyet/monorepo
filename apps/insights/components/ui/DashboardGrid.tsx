@@ -1,7 +1,7 @@
 'use client'
 
-import { cn } from '../../lib/utils'
 import { ReactNode } from 'react'
+import { cn } from '../../lib/utils'
 
 interface DashboardGridProps {
   children: ReactNode
@@ -32,14 +32,7 @@ export function DashboardGrid({
   gap = 'md',
 }: DashboardGridProps) {
   return (
-    <div
-      className={cn(
-        'grid',
-        colsClasses[cols],
-        gapClasses[gap],
-        className,
-      )}
-    >
+    <div className={cn('grid', colsClasses[cols], gapClasses[gap], className)}>
       {children}
     </div>
   )
