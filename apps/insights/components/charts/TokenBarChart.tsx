@@ -40,19 +40,19 @@ export function TokenBarChart({
     ? (value: unknown) => `${value}K`
     : undefined
 
-  // Explicit color mapping for token categories
+  // Explicit color mapping for token categories using CSS variables
   const chartConfig: ChartConfig = {
     'Input Tokens': {
       label: 'Input Tokens',
-      color: 'hsl(var(--chart-1))',
+      color: 'var(--chart-1)',
     },
     'Output Tokens': {
       label: 'Output Tokens',
-      color: 'hsl(var(--chart-2))',
+      color: 'var(--chart-2)',
     },
     'Cache Tokens': {
       label: 'Cache Tokens',
-      color: 'hsl(var(--chart-3))',
+      color: 'var(--chart-3)',
     },
   }
 
