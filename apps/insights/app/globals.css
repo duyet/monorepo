@@ -74,10 +74,10 @@
   --popover: hsl(224 71% 4%);
   --popover-foreground: hsl(215 20.2% 65.1%);
 
-  --border: hsl(216 34% 17%);
-  --input: hsl(216 34% 17%);
+  --border: hsl(216 20% 25%);
+  --input: hsl(216 20% 25%);
 
-  --card: hsl(224 71% 4%);
+  --card: hsl(224 20% 12%);
   --card-foreground: hsl(213 31% 91%);
 
   --primary: hsl(210 40% 98%);
