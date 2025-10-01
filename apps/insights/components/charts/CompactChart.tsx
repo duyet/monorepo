@@ -22,11 +22,11 @@ import {
 } from 'recharts'
 
 const CHART_COLORS = [
-  'hsl(var(--chart-1))',
-  'hsl(var(--chart-2))',
-  'hsl(var(--chart-3))',
-  'hsl(var(--chart-4))',
-  'hsl(var(--chart-5))',
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
 ]
 
 interface BaseChartProps {
@@ -72,7 +72,7 @@ export function CompactAreaChart({
           tickLine={false}
           axisLine={false}
           fontSize={11}
-          tick={{ fill: 'hsl(var(--muted-foreground))' }}
+          tick={{ fill: 'var(--muted-foreground)' }}
         />
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
         {categories.map((category, i) => (
@@ -82,8 +82,8 @@ export function CompactAreaChart({
             type="monotone"
             fill={CHART_COLORS[i % CHART_COLORS.length]}
             stroke={CHART_COLORS[i % CHART_COLORS.length]}
-            fillOpacity={0.2}
-            strokeWidth={1.5}
+            fillOpacity={0.3}
+            strokeWidth={2}
           />
         ))}
       </AreaChart>
@@ -126,7 +126,7 @@ export function CompactLineChart({
           tickLine={false}
           axisLine={false}
           fontSize={11}
-          tick={{ fill: 'hsl(var(--muted-foreground))' }}
+          tick={{ fill: 'var(--muted-foreground)' }}
         />
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
         {categories.map((category, i) => (
@@ -186,7 +186,7 @@ export function CompactBarChart({
               tickLine={false}
               axisLine={false}
               fontSize={11}
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              tick={{ fill: 'var(--muted-foreground)' }}
             />
           </>
         ) : (
@@ -195,7 +195,7 @@ export function CompactBarChart({
             tickLine={false}
             axisLine={false}
             fontSize={11}
-            tick={{ fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fill: 'var(--muted-foreground)' }}
           />
         )}
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
@@ -204,7 +204,7 @@ export function CompactBarChart({
             key={category}
             dataKey={category}
             fill={CHART_COLORS[i % CHART_COLORS.length]}
-            radius={2}
+            radius={[6, 6, 0, 0]}
           />
         ))}
       </BarChart>
@@ -244,8 +244,8 @@ export function MiniSparkline({
           type="monotone"
           fill={color}
           stroke={color}
-          fillOpacity={0.3}
-          strokeWidth={1.5}
+          fillOpacity={0.4}
+          strokeWidth={2}
         />
       </AreaChart>
     </ChartContainer>
@@ -288,7 +288,7 @@ export function CompactPieChart({
           cy="50%"
           innerRadius={innerRadius}
           outerRadius={height / 2 - 10}
-          paddingAngle={2}
+          paddingAngle={3}
         >
           {data.map((_, index) => (
             <Cell

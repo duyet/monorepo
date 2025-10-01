@@ -22,11 +22,11 @@ interface AreaChartProps {
 }
 
 const CHART_COLORS = [
-  'hsl(var(--chart-1))',
-  'hsl(var(--chart-2))',
-  'hsl(var(--chart-3))',
-  'hsl(var(--chart-4))',
-  'hsl(var(--chart-5))',
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
 ]
 
 export function AreaChart({
@@ -56,8 +56,8 @@ export function AreaChart({
             type="monotone"
             fill={CHART_COLORS[i % CHART_COLORS.length]}
             stroke={CHART_COLORS[i % CHART_COLORS.length]}
-            fillOpacity={0.2}
-            strokeWidth={2}
+            fillOpacity={0.3}
+            strokeWidth={2.5}
           />
         ))}
       </RechartsAreaChart>

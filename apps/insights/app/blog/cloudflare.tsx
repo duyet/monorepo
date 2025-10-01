@@ -9,14 +9,15 @@ export interface CloudflareProps {
   totalRequests: number
   totalPageviews: number
   generatedAt: string
+  days: number | 'all'
 }
 
 function dataFormatter(number: number) {
   return Intl.NumberFormat('en-US').format(number).toString()
 }
 
-export async function Cloudflare() {
-  const { data, generatedAt, totalRequests, totalPageviews } = await getData()
+export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
+  const { data, generatedAt, totalRequests, totalPageviews } = await getData(days)
 
   const chartData = data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {
     return {
@@ -66,7 +67,7 @@ export async function Cloudflare() {
       change: latestUniques > 0 ? { value: 15 } : undefined,
     },
     {
-      label: 'Total (30d)',
+      label: `Total (${days === 'all' ? 'All time' : `${days}d`})`,
       value: dataFormatter(totalRequests || 0),
       icon: <Globe className="h-4 w-4" />,
       change: (totalRequests || 0) > 0 ? { value: 5 } : undefined,
@@ -92,7 +93,9 @@ export async function Cloudflare() {
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
           <h3 className="font-medium">Traffic Trends</h3>
-          <p className="text-xs text-muted-foreground">30-day overview</p>
+          <p className="text-xs text-muted-foreground">
+            {days === 'all' ? 'All time' : `${days}-day`} overview
+          </p>
         </div>
         <AreaChart
           categories={['Requests', 'Page Views', 'Unique Visitors']}
@@ -110,7 +113,7 @@ export async function Cloudflare() {
   )
 }
 
-const getData = async () => {
+const getData = async (days: number | 'all' = 30) => {
   // Check if required environment variables are present
   if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
     console.warn('Cloudflare API credentials not configured, returning empty data')
@@ -155,9 +158,11 @@ const getData = async () => {
       }
     }`
 
+  // Calculate date range based on days parameter
+  const daysToSubtract = days === 'all' ? 365 * 3 : days // 3 years for "all"
   const variables = {
     zoneTag: process.env.CLOUDFLARE_ZONE_ID,
-    date_start: new Date(new Date().setDate(new Date().getDate() - 30))
+    date_start: new Date(new Date().setDate(new Date().getDate() - daysToSubtract))
       .toISOString()
       .split('T')[0],
     date_end: new Date().toISOString().split('T')[0],

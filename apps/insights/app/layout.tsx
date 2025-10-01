@@ -8,6 +8,7 @@ import Header from '@duyet/components/Header'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { Inter } from 'next/font/google'
 import { CompactNavigation } from '../components/navigation/CompactNavigation'
+import { GlobalPeriodSelector } from '../components/GlobalPeriodSelector'
 
 const inter = Inter({
   weight: ['100', '200', '300', '400', '700'],
@@ -35,8 +36,9 @@ export default function RootLayout({ children }: LayoutProps) {
 
           <main>
             <Container className="mb-20">
-              <div className="mb-6">
+              <div className="mb-6 flex items-center justify-between gap-4 flex-wrap">
                 <CompactNavigation />
+                <GlobalPeriodSelector />
               </div>
               <div>{children}</div>
             </Container>

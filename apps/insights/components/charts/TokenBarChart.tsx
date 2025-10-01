@@ -13,37 +13,48 @@ import {
   XAxis,
 } from 'recharts'
 
-interface BarChartProps {
+interface TokenBarChartProps {
   data: Array<Record<string, unknown>>
   index: string
   categories: string[]
   className?: string
   stack?: boolean
-  valueFormatter?: (value: unknown) => string
+  showInThousands?: boolean
 }
 
-const CHART_COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
-]
-
-export function BarChart({
+/**
+ * Client-side wrapper for token usage charts with distinct colors
+ * Input Tokens: Blue (chart-1)
+ * Output Tokens: Orange (chart-2)
+ * Cache Tokens: Purple (chart-3)
+ */
+export function TokenBarChart({
   data,
   index,
   categories,
   className,
   stack = false,
-  valueFormatter,
-}: BarChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    categories.map((category, i) => [
-      category,
-      { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ]),
-  )
+  showInThousands = false,
+}: TokenBarChartProps) {
+  const valueFormatter = showInThousands
+    ? (value: unknown) => `${value}K`
+    : undefined
+
+  // Explicit color mapping for token categories using CSS variables
+  const chartConfig: ChartConfig = {
+    'Input Tokens': {
+      label: 'Input Tokens',
+      color: 'var(--chart-1)',
+    },
+    'Output Tokens': {
+      label: 'Output Tokens',
+      color: 'var(--chart-2)',
+    },
+    'Cache Tokens': {
+      label: 'Cache Tokens',
+      color: 'var(--chart-3)',
+    },
+  }
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -73,7 +84,7 @@ export function BarChart({
               key={category}
               dataKey={category}
               stackId={stack ? 'stack' : undefined}
-              fill={CHART_COLORS[i % CHART_COLORS.length]}
+              fill={chartConfig[category]?.color || 'hsl(var(--chart-1))'}
               radius={radius}
             />
           )

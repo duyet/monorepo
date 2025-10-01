@@ -170,6 +170,7 @@ export async function getCCUsageMetrics(days: DateRangeDays = 30): Promise<CCUsa
 
 /**
  * Get daily usage activity for the specified time period including cost data
+ * Returns token values in thousands for chart display
  */
 export async function getCCUsageActivity(days: DateRangeDays = 30): Promise<CCUsageActivityData[]> {
   console.log('[CCUsage Activity] Fetching activity for days:', days)
@@ -204,6 +205,46 @@ export async function getCCUsageActivity(days: DateRangeDays = 30): Promise<CCUs
     'Output Tokens': Math.round((Number(row['Output Tokens']) || 0) / 1000),
     'Cache Tokens': Math.round((Number(row['Cache Tokens']) || 0) / 1000),
     'Total Cost': Number(row['Total Cost']) || 0, // Keep cost in actual dollars
+  }))
+}
+
+/**
+ * Get daily usage activity with actual token values (not divided by 1000)
+ * For detailed tables that need exact numbers
+ */
+export async function getCCUsageActivityRaw(days: DateRangeDays = 30): Promise<CCUsageActivityData[]> {
+  console.log('[CCUsage Activity Raw] Fetching raw activity for days:', days)
+
+  const dateCondition = getDateCondition(days)
+  const query = `
+    SELECT
+      date,
+      SUM(total_tokens) as "Total Tokens",
+      SUM(input_tokens) as "Input Tokens",
+      SUM(output_tokens) as "Output Tokens",
+      SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
+      SUM(total_cost) as "Total Cost"
+    FROM ccusage_usage_daily
+    ${dateCondition}
+    GROUP BY date
+    ORDER BY date ASC
+  `
+
+  const results = await executeClickHouseQueryLegacy(query)
+  console.log('[CCUsage Activity Raw] Query results:', { rowCount: results?.length || 0 })
+
+  if (!results || results.length === 0) {
+    console.warn('[CCUsage Activity Raw] No data returned')
+    return []
+  }
+
+  return results.map((row) => ({
+    date: String(row.date) || 'Unknown',
+    'Total Tokens': Number(row['Total Tokens']) || 0, // Keep actual token counts
+    'Input Tokens': Number(row['Input Tokens']) || 0,
+    'Output Tokens': Number(row['Output Tokens']) || 0,
+    'Cache Tokens': Number(row['Cache Tokens']) || 0,
+    'Total Cost': Number(row['Total Cost']) || 0,
   }))
 }
 

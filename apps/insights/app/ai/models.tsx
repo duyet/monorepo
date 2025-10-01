@@ -35,13 +35,10 @@ export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps
         <div className="mb-4">
           <h3 className="font-medium">Token Usage by Model</h3>
           <p className="text-xs text-muted-foreground">
-            Top 10 AI models by token usage
+            Percentages based on total token consumption
           </p>
         </div>
         <LanguageBarChart data={tokenChartData} />
-        <div className="mt-3 text-xs text-muted-foreground">
-          Percentages based on total token consumption over last 30 days
-        </div>
       </div>
 
       {/* Cost Distribution */}
@@ -49,7 +46,7 @@ export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps
         <div className="mb-4">
           <h3 className="font-medium">Cost Distribution by Model</h3>
           <p className="text-xs text-muted-foreground">
-            Cost breakdown by AI model
+            Percentages based on total spending
           </p>
         </div>
         <div className="flex justify-center">
@@ -60,9 +57,6 @@ export async function CCUsageModels({ days = 30, className }: CCUsageModelsProps
             showLabel
             variant="pie"
           />
-        </div>
-        <div className="mt-3 text-center text-xs text-muted-foreground">
-          Shows top 8 models by cost. Percentages based on total spending.
         </div>
       </div>
     </div>

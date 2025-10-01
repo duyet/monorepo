@@ -1,0 +1,166 @@
+import { getCCUsageActivityRaw } from './ccusage-utils'
+import type { CCUsageActivityProps } from './types'
+
+function formatNumber(num: number): string {
+  if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
+  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`
+  return num.toFixed(0)
+}
+
+function formatCurrency(amount: number): string {
+  if (amount === 0) return '$0.00'
+  if (amount < 0.01) return '<$0.01'
+  return `$${amount.toFixed(2)}`
+}
+
+interface BarCellProps {
+  value: number
+  max: number
+  label: string
+  color?: string
+}
+
+function BarCell({ value, max, label, color = 'var(--chart-1)' }: BarCellProps) {
+  const percentage = max > 0 ? (value / max) * 100 : 0
+
+  return (
+    <div className="relative min-w-[100px]">
+      <div className="absolute inset-0 flex items-center justify-end">
+        <div
+          className="h-6 rounded-sm transition-all"
+          style={{
+            width: `${percentage}%`,
+            backgroundColor: color,
+          }}
+        />
+      </div>
+      <div className="relative px-3 py-1 text-right font-medium">
+        {label}
+      </div>
+    </div>
+  )
+}
+
+export async function CCUsageDailyTable({ days = 30, className }: CCUsageActivityProps) {
+  const activity = await getCCUsageActivityRaw(days)
+
+  if (!activity.length) {
+    return (
+      <div className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}>
+        <p className="text-muted-foreground">No daily data available</p>
+      </div>
+    )
+  }
+
+  // Reverse to show most recent first
+  const sortedActivity = [...activity].reverse()
+
+  // Calculate max values for bar scaling
+  const maxInput = Math.max(...sortedActivity.map(row => row['Input Tokens'] || 0))
+  const maxOutput = Math.max(...sortedActivity.map(row => row['Output Tokens'] || 0))
+  const maxCache = Math.max(...sortedActivity.map(row => row['Cache Tokens'] || 0))
+  const maxTotal = Math.max(...sortedActivity.map(row =>
+    (row['Input Tokens'] || 0) + (row['Output Tokens'] || 0) + (row['Cache Tokens'] || 0)
+  ))
+  const maxCost = Math.max(...sortedActivity.map(row => row['Total Cost'] || 0))
+
+  return (
+    <div className={`rounded-lg border bg-card ${className || ''}`}>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="border-b bg-muted/50">
+            <tr>
+              <th className="px-4 py-3 text-left font-medium whitespace-nowrap">Date</th>
+              <th className="px-4 py-3 text-left font-medium whitespace-nowrap">Input Tokens</th>
+              <th className="px-4 py-3 text-left font-medium whitespace-nowrap">Output Tokens</th>
+              <th className="px-4 py-3 text-left font-medium whitespace-nowrap">Cache Tokens</th>
+              <th className="px-4 py-3 text-left font-medium whitespace-nowrap">Total Tokens</th>
+              <th className="px-4 py-3 text-left font-medium whitespace-nowrap">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedActivity.map((row, index) => {
+              const inputTokens = row['Input Tokens'] || 0
+              const outputTokens = row['Output Tokens'] || 0
+              const cacheTokens = row['Cache Tokens'] || 0
+              const totalTokens = inputTokens + outputTokens + cacheTokens
+              const totalCost = row['Total Cost'] || 0
+
+              return (
+                <tr
+                  key={row.date}
+                  className={`border-b last:border-0 hover:bg-muted/50 transition-colors ${index % 2 === 0 ? 'bg-muted/20' : ''}`}
+                >
+                  <td className="px-4 py-2 font-medium whitespace-nowrap">{row.date}</td>
+                  <td className="px-4 py-2">
+                    <BarCell
+                      value={inputTokens}
+                      max={maxInput}
+                      label={formatNumber(inputTokens)}
+                      color="var(--chart-1)"
+                    />
+                  </td>
+                  <td className="px-4 py-2">
+                    <BarCell
+                      value={outputTokens}
+                      max={maxOutput}
+                      label={formatNumber(outputTokens)}
+                      color="var(--chart-2)"
+                    />
+                  </td>
+                  <td className="px-4 py-2">
+                    <BarCell
+                      value={cacheTokens}
+                      max={maxCache}
+                      label={formatNumber(cacheTokens)}
+                      color="var(--chart-3)"
+                    />
+                  </td>
+                  <td className="px-4 py-2">
+                    <BarCell
+                      value={totalTokens}
+                      max={maxTotal}
+                      label={formatNumber(totalTokens)}
+                      color="var(--chart-4)"
+                    />
+                  </td>
+                  <td className="px-4 py-2">
+                    <BarCell
+                      value={totalCost}
+                      max={maxCost}
+                      label={formatCurrency(totalCost)}
+                      color="var(--chart-5)"
+                    />
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+          <tfoot className="border-t bg-muted/50 font-semibold">
+            <tr>
+              <td className="px-4 py-3 whitespace-nowrap">Total</td>
+              <td className="px-4 py-3">
+                {formatNumber(sortedActivity.reduce((sum, row) => sum + (row['Input Tokens'] || 0), 0))}
+              </td>
+              <td className="px-4 py-3">
+                {formatNumber(sortedActivity.reduce((sum, row) => sum + (row['Output Tokens'] || 0), 0))}
+              </td>
+              <td className="px-4 py-3">
+                {formatNumber(sortedActivity.reduce((sum, row) => sum + (row['Cache Tokens'] || 0), 0))}
+              </td>
+              <td className="px-4 py-3">
+                {formatNumber(sortedActivity.reduce((sum, row) => {
+                  const total = (row['Input Tokens'] || 0) + (row['Output Tokens'] || 0) + (row['Cache Tokens'] || 0)
+                  return sum + total
+                }, 0))}
+              </td>
+              <td className="px-4 py-3">
+                {formatCurrency(sortedActivity.reduce((sum, row) => sum + (row['Total Cost'] || 0), 0))}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  )
+}

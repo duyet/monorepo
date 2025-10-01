@@ -10,15 +10,15 @@ interface Path {
   views: number
 }
 
-export async function PostHog() {
+export async function PostHog({ days = 30 }: { days?: number | 'all' }) {
   if (!process.env.POSTHOG_API_KEY || !process.env.POSTHOG_PROJECT_ID) {
     console.error('POSTHOG_API_KEY or POSTHOG_PROJECT_ID is not set')
     return null
   }
 
   const top = 20
-  const last = 30
-  const paths = await getTopPath(top, `-${last}d`)
+  const dateFrom = days === 'all' ? '-365d' : `-${days}d`
+  const paths = await getTopPath(top, dateFrom)
 
   const totalVisitors = paths.reduce((sum, path) => sum + path.visitors, 0)
   const totalViews = paths.reduce((sum, path) => sum + path.views, 0)
@@ -70,7 +70,7 @@ export async function PostHog() {
       />
 
       <p className="text-xs text-muted-foreground">
-        Data from PostHog • Last {last} days
+        Data from PostHog • {days === 'all' ? 'All time' : `Last ${days} days`}
       </p>
     </div>
   )
@@ -94,7 +94,7 @@ interface PostHogResponse {
 
 async function getTopPath(
   limit = 10,
-  dateFrom: '-30d' | '-90d' = '-90d',
+  dateFrom: string = '-90d',
 ): Promise<Path[]> {
   console.log('Fetching Posthog data', POSTHOG_API)
 
