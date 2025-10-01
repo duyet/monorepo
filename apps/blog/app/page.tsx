@@ -2,7 +2,9 @@ import Link from 'next/link'
 
 import Container from '@duyet/components/Container'
 import Header from '@duyet/components/Header'
-import { getPostsByAllYear } from '@duyet/libs/getPost'
+import { getAllTags, getPostsByAllYear } from '@duyet/libs/getPost'
+import { getAllSeries } from '@duyet/libs/getSeries'
+import { HomeCards } from '../components/home-cards'
 import { YearPost } from '../components/year-post'
 
 export default async function Page() {
@@ -14,6 +16,13 @@ export default async function Page() {
 
   const years = Object.keys(postsByYear).map(Number)
   const pastYears = new Date().getFullYear() - Math.min(...years)
+
+  const seriesList = getAllSeries().slice(0, 3)
+  const allTags = getAllTags()
+  const topTags = Object.entries(allTags)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5)
+    .map(([tag]) => tag)
 
   return (
     <div className="min-h-screen bg-neutral-50 pb-10">
@@ -50,6 +59,8 @@ export default async function Page() {
             .
           </p>
         </div>
+
+        <HomeCards seriesList={seriesList} topTags={topTags} />
 
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)

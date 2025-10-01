@@ -19,7 +19,7 @@ export default function Featured() {
   return (
     <div className="min-h-screen">
       <Container>
-        <div className="mb-12 rounded-3xl bg-cactus-light p-12 md:p-16">
+        <div className="bg-cactus-light mb-12 rounded-3xl p-12 md:p-16">
           <h1 className="mb-8 font-serif text-4xl font-bold text-neutral-900 md:text-5xl lg:text-6xl">
             Featured
           </h1>

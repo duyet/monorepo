@@ -24,8 +24,12 @@ export default function Content({ post, className }: ContentProps) {
           className,
         )}
       >
-        <time className="font-medium text-neutral-700">{post.date.toString()}</time>
-        <time className="text-neutral-500">({distanceToNow(new Date(post.date))})</time>
+        <time className="font-medium text-neutral-700">
+          {post.date.toString()}
+        </time>
+        <time className="text-neutral-500">
+          ({distanceToNow(new Date(post.date))})
+        </time>
         <span className="text-neutral-400">•</span>
         <Link
           href={`/category/${post.category_slug}`}

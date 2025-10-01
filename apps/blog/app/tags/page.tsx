@@ -65,7 +65,7 @@ function TagList({ tags }: { tags: TagCount }) {
         <Link
           key={tag}
           href={`/tag/${getSlug(tag)}`}
-          className="group inline-flex items-baseline gap-2 rounded-lg bg-ivory-medium px-4 py-3 transition-all hover:bg-neutral-200 hover:shadow-sm"
+          className="bg-ivory-medium group inline-flex items-baseline gap-2 rounded-lg px-4 py-3 transition-all hover:bg-neutral-200 hover:shadow-sm"
         >
           <h3 className="flex-1 text-base font-medium text-neutral-800 group-hover:text-neutral-900">
             {tag}

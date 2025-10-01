@@ -23,6 +23,12 @@ export default {
         oat: {
           DEFAULT: '#e3dacc',
         },
+        sage: {
+          DEFAULT: '#b8ccc5',
+        },
+        lavender: {
+          DEFAULT: '#c5c8dc',
+        },
       },
     },
   },

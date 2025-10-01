@@ -16,12 +16,7 @@ export function SeriesBox({
   const { name, posts } = series
 
   return (
-    <div
-      className={cn(
-        'rounded-3xl bg-oat p-8 md:p-12',
-        className,
-      )}
-    >
+    <div className={cn('bg-oat rounded-3xl p-8 md:p-12', className)}>
       <h2 className="mb-8 flex flex-row items-center gap-3 font-serif text-2xl font-bold text-neutral-900 md:text-3xl">
         <NewspaperIcon size={28} strokeWidth={2} />
         Series:{' '}
@@ -46,7 +41,7 @@ export function SeriesBox({
             >
               <div
                 className={cn(
-                  'text-5xl font-bold md:text-6xl font-serif',
+                  'font-serif text-5xl font-bold md:text-6xl',
                   isCurrent ? 'text-neutral-900' : 'text-neutral-900',
                 )}
               >
