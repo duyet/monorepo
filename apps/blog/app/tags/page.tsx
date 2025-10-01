@@ -1,7 +1,9 @@
+import Link from 'next/link'
+
+import Container from '@duyet/components/Container'
 import { type TagCount } from '@duyet/interfaces'
 import { getAllTags } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
-import Link from 'next/link'
 
 export default function Tags() {
   const tags: TagCount = getAllTags()
@@ -26,42 +28,52 @@ export default function Tags() {
   const sortedAlpha = Object.keys(groupedTagsByAlphabet).sort()
 
   return (
-    <div>
-      <div className="lg:mb-15 mb-10">
-        <h1 className="mb-5 text-4xl font-bold md:text-6xl lg:text-8xl">
-          Topics
-        </h1>
-        <p className="lg:mb-15 mb-10">
-          This page lists my {Object.keys(sortedTags).length} blogging topics in
-          alphabetical order.
-        </p>
-      </div>
+    <div className="min-h-screen">
+      <Container>
+        <div className="mb-12">
+          <h1 className="mb-6 font-serif text-5xl font-bold text-neutral-900 md:text-6xl lg:text-7xl">
+            Topics
+          </h1>
+          <p className="text-lg leading-relaxed text-neutral-700">
+            This page lists my{' '}
+            <strong className="font-semibold text-neutral-900">
+              {Object.keys(sortedTags).length} blogging topics
+            </strong>{' '}
+            in alphabetical order.
+          </p>
+        </div>
 
-      <div className="flex flex-col gap-5">
-        {sortedAlpha.map((alpha) => (
-          <div className="mb-5" key={alpha}>
-            <h1 className="mb-5 text-5xl font-bold">{alpha}</h1>
-            <TagList tags={groupedTagsByAlphabet[alpha]} />
-          </div>
-        ))}
-      </div>
+        <div className="flex flex-col gap-12">
+          {sortedAlpha.map((alpha) => (
+            <div key={alpha}>
+              <h2 className="mb-6 font-serif text-4xl font-bold text-neutral-900 md:text-5xl">
+                {alpha}
+              </h2>
+              <TagList tags={groupedTagsByAlphabet[alpha]} />
+            </div>
+          ))}
+        </div>
+      </Container>
     </div>
   )
 }
 
 function TagList({ tags }: { tags: TagCount }) {
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {Object.entries(tags).map(([tag, count]) => (
-        <div key={tag}>
-          <Link
-            href={`/tag/${getSlug(tag)}`}
-            className="group inline-flex gap-1"
-          >
-            <h3>{tag}</h3>
-            <span className="text-muted hover:no-underline">({count})</span>
-          </Link>
-        </div>
+        <Link
+          key={tag}
+          href={`/tag/${getSlug(tag)}`}
+          className="bg-ivory-medium group inline-flex items-baseline gap-2 rounded-lg px-4 py-3 transition-all hover:bg-neutral-200 hover:shadow-sm"
+        >
+          <h3 className="flex-1 text-base font-medium text-neutral-800 group-hover:text-neutral-900">
+            {tag}
+          </h3>
+          <span className="text-lg font-semibold text-neutral-600">
+            {count}
+          </span>
+        </Link>
       ))}
     </div>
   )

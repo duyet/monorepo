@@ -16,74 +16,63 @@ export function SeriesBox({
   const { name, posts } = series
 
   return (
-    <div
-      className={cn(
-        'rounded-lg border border-gold bg-card bg-gold text-card-foreground',
-        'dark:border-gray-800 dark:bg-gray-900',
-        className,
-      )}
-    >
-      <div className="overflow-hidden dark:bg-gray-900">
-        <div className="p-6 md:p-8">
-          <h2 className="text-gradient-to-r mb-4 flex flex-row items-center gap-2 from-green-400 to-blue-500 text-2xl font-bold">
-            <NewspaperIcon size={24} strokeWidth={1} />
-            Series:{' '}
-            <Link
-              className="underline-offset-8 hover:underline"
-              href={`/series/${series.slug}`}
+    <div className={cn('bg-oat rounded-3xl p-8 md:p-12', className)}>
+      <h2 className="mb-8 flex flex-row items-center gap-3 font-serif text-2xl font-bold text-neutral-900 md:text-3xl">
+        <NewspaperIcon size={28} strokeWidth={2} />
+        Series:{' '}
+        <Link
+          className="underline-offset-4 hover:underline"
+          href={`/series/${series.slug}`}
+        >
+          {name}
+        </Link>
+      </h2>
+
+      <div className="grid grid-cols-1 gap-2">
+        {posts.map(({ slug, title, excerpt }, i) => {
+          const isCurrent = current === slug
+          return (
+            <div
+              className={cn(
+                'flex items-center gap-6 rounded-2xl p-4 transition-all',
+                isCurrent ? 'bg-white' : '',
+              )}
+              key={slug}
             >
-              {name}
-            </Link>
-          </h2>
+              <div
+                className={cn(
+                  'font-serif text-5xl font-bold md:text-6xl',
+                  isCurrent ? 'text-neutral-900' : 'text-neutral-900',
+                )}
+              >
+                {i + 1}
+              </div>
+              <div className="flex-1">
+                {isCurrent ? (
+                  <span className="line-clamp-1 text-lg font-semibold text-neutral-900">
+                    {title}
+                  </span>
+                ) : (
+                  <Link
+                    className="line-clamp-1 text-lg font-medium text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
+                    href={slug}
+                  >
+                    {title}
+                  </Link>
+                )}
 
-          <div className="grid grid-cols-1 gap-4">
-            {posts.map(({ slug, title, excerpt }, i) => {
-              return (
-                <div
+                <p
                   className={cn(
-                    'flex items-center justify-between',
-                    current === slug ? 'text-black dark:text-white' : '',
+                    'line-clamp-1 text-sm',
+                    isCurrent ? 'text-neutral-700' : 'text-neutral-600',
                   )}
-                  key={slug}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={cn(
-                        'text-6xl font-bold text-gray-600 dark:text-gray-600',
-                        current === slug && 'text-gray-950 dark:text-gray-300',
-                      )}
-                    >
-                      {i + 1}
-                    </div>
-                    <div>
-                      {current === slug ? (
-                        <span className="text-black-950 line-clamp-1 text-lg font-medium">
-                          {title}
-                        </span>
-                      ) : (
-                        <Link
-                          className="text-black-900 line-clamp-1 text-lg font-medium hover:underline"
-                          href={slug}
-                        >
-                          {title}
-                        </Link>
-                      )}
-
-                      <p
-                        className={cn(
-                          'line-clamp-1 text-sm text-gray-600 dark:text-gray-400',
-                          current === slug && 'dark:text-gray-300',
-                        )}
-                      >
-                        {excerpt}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
+                  {excerpt}
+                </p>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

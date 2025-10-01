@@ -105,22 +105,8 @@ const LinkedInIcon = () => (
       fill="none"
     />
     <circle cx="32" cy="34" r="3" fill="currentColor" />
-    <rect
-      x="28"
-      y="40"
-      width="8"
-      height="14"
-      rx="1.5"
-      fill="currentColor"
-    />
-    <rect
-      x="40"
-      y="40"
-      width="8"
-      height="14"
-      rx="1.5"
-      fill="currentColor"
-    />
+    <rect x="28" y="40" width="8" height="14" rx="1.5" fill="currentColor" />
+    <rect x="40" y="40" width="8" height="14" rx="1.5" fill="currentColor" />
     <path
       d="M44 40V38C44 36 45 34 48 34C51 34 52 36 52 38V54"
       stroke="currentColor"

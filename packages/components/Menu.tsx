@@ -8,6 +8,8 @@ const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
 const PHOTO_URL =
   process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net";
+const CV_URL =
+  process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
 
 export type NavigationItem = {
   name: string;
@@ -20,7 +22,8 @@ export const PHOTOS = { name: "Photos", href: PHOTO_URL };
 export const ARCHIVES = { name: "Archives", href: `${BLOG_URL}/archives` };
 export const FEED = { name: "Feed", href: `${BLOG_URL}` };
 export const BLOG = { name: "Blog", href: `${BLOG_URL}` };
-const defaultNavigation = [FEED, PHOTOS, INSIGHTS, ABOUT];
+export const CV = { name: "CV", href: CV_URL };
+const DEFAULT_NAVIGATION = [ABOUT, PHOTOS, INSIGHTS, CV];
 
 type Props = {
   className?: string;
@@ -29,7 +32,7 @@ type Props = {
 
 export default function Menu({
   className,
-  navigationItems = defaultNavigation,
+  navigationItems = DEFAULT_NAVIGATION,
 }: Props) {
   return (
     <div className={cn("flex flex-row gap-5 flex-wrap items-center", className)}>
