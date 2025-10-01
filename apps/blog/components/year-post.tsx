@@ -19,9 +19,10 @@ export function YearPost({ year, posts, className }: YearPostProps) {
     <div className={cn(className)}>
       <h1
         className={cn(
-          'mb-8 mt-8 text-5xl font-extrabold',
+          'mb-8 mt-8 text-5xl font-extrabold text-beige-950 tracking-tight',
           'sm:text-6xl',
           'md:mb-10 md:text-8xl md:font-black',
+          'dark:text-brown-50',
         )}
       >
         {year}
@@ -30,16 +31,16 @@ export function YearPost({ year, posts, className }: YearPostProps) {
       <div className="flex flex-col gap-3">
         {posts.map((post: Post) => (
           <article
-            className="flex flex-row items-center gap-4"
+            className="flex flex-row items-center gap-4 py-2 px-4 rounded-lg hover:bg-beige-200/50 dark:hover:bg-brown-700/30 transition-colors group"
             key={post.slug}
           >
-              <Link as={post.slug} className="text-md hover:underline" href="/[...slug]">
+              <Link as={post.slug} className="text-md text-beige-900 dark:text-brown-50 group-hover:text-beige-600 dark:group-hover:text-beige-500 transition-colors" href="/[...slug]">
                 {post.title}
                 <IsNewPost date={post.date} />
                 <IsFeatured featured={post.featured} />
               </Link>
-            <hr className="shrink grow border-dotted border-slate-200 opacity-50" />
-            <time className="flex-shrink-0 text-sm font-mono text-muted-foreground whitespace-nowrap">
+            <hr className="shrink grow border-dotted border-beige-400 dark:border-brown-600 opacity-50" />
+            <time className="flex-shrink-0 text-sm font-mono text-beige-700 dark:text-brown-200 whitespace-nowrap">
               {dateFormat(post.date, 'MMM dd')}
             </time>
           </article>
@@ -56,7 +57,7 @@ function IsNewPost({ date }: { date: Date | undefined }) {
     return null
   }
 
-  return <span className="ml-2 text-sm text-red-500">New</span>
+  return <span className="ml-2 text-sm text-beige-600 dark:text-beige-500 font-medium">New</span>
 }
 
 function IsFeatured({ featured }: { featured: boolean }) {
@@ -65,7 +66,7 @@ function IsFeatured({ featured }: { featured: boolean }) {
   }
 
   return (
-    <span className="ml-2 text-sm font-bold uppercase text-red-600">
+    <span className="ml-2 text-sm font-bold uppercase text-beige-600 dark:text-beige-500">
       Featured
     </span>
   )

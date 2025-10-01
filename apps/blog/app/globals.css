@@ -19,6 +19,16 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-beige-400, currentcolor);
+  }
+
+  :root {
+    --shadow-soft: 0 2px 8px rgba(61, 59, 54, 0.08);
+    --shadow-soft-lg: 0 4px 16px rgba(61, 59, 54, 0.12);
+  }
+
+  .dark {
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-soft-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
   }
 }

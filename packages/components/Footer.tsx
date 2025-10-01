@@ -15,9 +15,9 @@ const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
-    "text-sm text-[#666666] dark:text-[#888888]",
-    "no-underline hover:text-gray-700",
-    "dark:hover:text-white transition",
+    "text-sm text-beige-700 dark:text-brown-200",
+    "no-underline hover:text-beige-600",
+    "dark:hover:text-beige-500 transition-colors",
   );
 
   if (href.startsWith("http")) {
@@ -42,7 +42,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 
 function FooterHeader({ children }: { children: ReactNode }) {
   return (
-    <h3 className="text-sm text-black dark:text-white font-bold">{children}</h3>
+    <h3 className="text-sm text-beige-950 dark:text-brown-50 font-bold tracking-wide">{children}</h3>
   );
 }
 
@@ -93,7 +93,7 @@ export function FooterContent() {
 
                 <div className="mt-12 md:mt-0!">
                   <FooterHeader>me@duyet.net</FooterHeader>
-                  <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
+                  <div className="mt-4 text-sm text-beige-700 dark:text-brown-200">
                     <Social />
                   </div>
                   <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
@@ -110,7 +110,7 @@ export function FooterContent() {
 
           <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
             <div className="mt-5">
-              <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
+              <p className="mt-4 text-xs text-beige-700 dark:text-brown-200">
                 &copy; {new Date().getFullYear()} duyet.net | Data Engineer
               </p>
             </div>
@@ -134,14 +134,14 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900",
+        "bg-beige-200 pb-[env(safe-area-inset-bottom)] relative dark:bg-brown-700",
         className,
       )}
     >
-      <hr className="dark:border-neutral-700" />
+      <hr className="border-beige-400 dark:border-brown-600" />
       <div
         className={cn(
-          "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white",
+          "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-beige-900 dark:text-brown-50",
           "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]",
           containerClassName,
         )}

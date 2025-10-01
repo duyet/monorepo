@@ -19,18 +19,18 @@ export default async function Page() {
     <>
       <Header longText="Data Engineering" />
       <Container>
-        <div className="text-lg">
+        <div className="text-lg text-beige-800 leading-relaxed tracking-wide">
           Lists all {postCount} posts of the past {pastYears} years of blogging.
           You can jump straight to the{' '}
-          <Link href="/feed" className="underline">
+          <Link href="/feed" className="text-beige-600 hover:text-beige-500 underline transition-colors">
             /feed
           </Link>{' '}
           for latest posts, also explore{' '}
-          <Link href="/tags" className="underline">
+          <Link href="/tags" className="text-beige-600 hover:text-beige-500 underline transition-colors">
             by the topics
           </Link>{' '}
           or{' '}
-          <Link href="/featured" className="underline">
+          <Link href="/featured" className="text-beige-600 hover:text-beige-500 underline transition-colors">
             my featured posts
           </Link>
           .
