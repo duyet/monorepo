@@ -82,7 +82,7 @@ export default function Page() {
   }
 
   return (
-    <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-black">
+    <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-foreground">
       <header className="flex flex-col gap-3">
         <h1
           className="mb-2 inline-flex gap-2 text-2xl font-bold"
