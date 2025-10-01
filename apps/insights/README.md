@@ -24,6 +24,15 @@ Copy `.env.local.example` to `.env.local` and fill in the following variables:
 3. Get your API key from [WakaTime Settings](https://wakatime.com/api-key)
 4. Add `WAKATIME_API_KEY=your_api_key_here` to `.env.local`
 
+## AI Usage Data Source
+
+The **AI Usage** tab displays Claude Code usage analytics imported from the [ccusage-import](https://github.com/duyet/ccusage-import) script. This script:
+- Imports Claude Code usage data into ClickHouse database
+- Provides cost tracking and token usage analytics
+- Requires ClickHouse environment variables (see below)
+
+See the [ccusage-import repository](https://github.com/duyet/ccusage-import) for setup instructions and import scheduling.
+
 ## Development
 
 ```bash
