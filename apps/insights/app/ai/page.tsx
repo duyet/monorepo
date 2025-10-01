@@ -1,11 +1,10 @@
-import { Suspense } from 'react'
-import { SkeletonCard } from '../../components/SkeletonCard'
 import { CCUsageActivity } from './activity'
 import { CCUsageCosts } from './costs'
 import { CCUsageMetrics } from './metrics'
 import { CCUsageModels } from './models'
 import { CCUsageDailyTable } from './daily-table'
 import { CCUsageErrorBoundary } from './error-boundary'
+import { SectionLayout } from '@/components/layouts'
 import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
 import type { DateRangeDays } from './types'
 
@@ -20,39 +19,6 @@ export const dynamic = 'force-static'
 
 // Default is 30 days
 const STATIC_DAYS: DateRangeDays = getPeriodDays(DEFAULT_PERIOD) as DateRangeDays
-
-const SECTION_CONFIGS = [
-  {
-    id: 'metrics',
-    title: 'Usage Overview',
-    description: 'Token consumption and activity summary',
-    component: CCUsageMetrics,
-  },
-  {
-    id: 'activity',
-    title: 'Daily Activity',
-    description: 'Token usage patterns',
-    component: CCUsageActivity,
-  },
-  {
-    id: 'models',
-    title: 'AI Model Usage',
-    description: 'Model distribution and usage patterns',
-    component: CCUsageModels,
-  },
-  {
-    id: 'costs',
-    title: 'Daily Costs',
-    description: 'Cost breakdown and spending patterns',
-    component: CCUsageCosts,
-  },
-  {
-    id: 'daily-table',
-    title: 'Daily Usage Detail',
-    description: 'Complete daily breakdown of tokens and costs',
-    component: CCUsageDailyTable,
-  },
-] as const
 
 export default function CCUsage() {
   return (
@@ -73,25 +39,50 @@ export default function CCUsage() {
 
       {/* Main Content */}
       <div className="space-y-8">
-        {SECTION_CONFIGS.map((section) => {
-          const Component = section.component
+        <CCUsageErrorBoundary>
+          <SectionLayout
+            title="Usage Overview"
+            description="Token consumption and activity summary"
+          >
+            <CCUsageMetrics days={STATIC_DAYS} />
+          </SectionLayout>
+        </CCUsageErrorBoundary>
 
-          return (
-            <section key={section.id} className="space-y-4">
-              <div className="mb-4">
-                <h2 className="text-lg font-semibold">{section.title}</h2>
-                <p className="text-sm text-muted-foreground">
-                  {section.description}
-                </p>
-              </div>
-              <CCUsageErrorBoundary>
-                <Suspense fallback={<SkeletonCard />}>
-                  <Component days={STATIC_DAYS} />
-                </Suspense>
-              </CCUsageErrorBoundary>
-            </section>
-          )
-        })}
+        <CCUsageErrorBoundary>
+          <SectionLayout
+            title="Daily Activity"
+            description="Token usage patterns"
+          >
+            <CCUsageActivity days={STATIC_DAYS} />
+          </SectionLayout>
+        </CCUsageErrorBoundary>
+
+        <CCUsageErrorBoundary>
+          <SectionLayout
+            title="AI Model Usage"
+            description="Model distribution and usage patterns"
+          >
+            <CCUsageModels days={STATIC_DAYS} />
+          </SectionLayout>
+        </CCUsageErrorBoundary>
+
+        <CCUsageErrorBoundary>
+          <SectionLayout
+            title="Daily Costs"
+            description="Cost breakdown and spending patterns"
+          >
+            <CCUsageCosts days={STATIC_DAYS} />
+          </SectionLayout>
+        </CCUsageErrorBoundary>
+
+        <CCUsageErrorBoundary>
+          <SectionLayout
+            title="Daily Usage Detail"
+            description="Complete daily breakdown of tokens and costs"
+          >
+            <CCUsageDailyTable days={STATIC_DAYS} />
+          </SectionLayout>
+        </CCUsageErrorBoundary>
 
         <p className="text-xs text-muted-foreground">
           Claude Code Usage Analytics

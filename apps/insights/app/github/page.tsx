@@ -1,11 +1,10 @@
-import { Suspense } from 'react'
-import { SkeletonCard } from '../../components/SkeletonCard'
 import { GithubActivity } from './activity'
 import { GithubCard } from './card'
 import { CommitTimeline } from './commit-timeline'
 import { GitHubLanguageStats } from './language-stats'
 import { RepoTrends } from './repo-trends'
 import { Repos } from './repos'
+import { PageLayout, SectionLayout } from '@/components/layouts'
 
 const owner = 'duyet'
 
@@ -19,95 +18,51 @@ export const dynamic = 'force-static'
 
 export default function Page() {
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="border-b pb-6">
-        <h1 className="text-2xl font-bold tracking-tight">GitHub Analytics</h1>
-        <p className="mt-1 text-muted-foreground">
-          Repository insights and development activity
-        </p>
-      </div>
+    <PageLayout
+      title="GitHub Analytics"
+      description="Repository insights and development activity"
+    >
+      <SectionLayout
+        title="Language Distribution"
+        description="Programming languages and repository statistics"
+      >
+        <GitHubLanguageStats />
+      </SectionLayout>
 
-      {/* Main Content */}
-      <div className="space-y-8">
-        {/* Language Distribution */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Language Distribution</h2>
-            <p className="text-sm text-muted-foreground">
-              Programming languages and repository statistics
-            </p>
-          </div>
-          <Suspense fallback={<SkeletonCard />}>
-            <GitHubLanguageStats />
-          </Suspense>
-        </div>
+      <SectionLayout
+        title="Repository Trends"
+        description="Stars, forks, and trending repositories"
+      >
+        <RepoTrends />
+      </SectionLayout>
 
-        {/* Repository Trends */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Repository Trends</h2>
-            <p className="text-sm text-muted-foreground">
-              Stars, forks, and trending repositories
-            </p>
-          </div>
-          <Suspense fallback={<SkeletonCard />}>
-            <RepoTrends />
-          </Suspense>
-        </div>
+      <SectionLayout
+        title="Repository Overview"
+        description="Public repositories and statistics"
+      >
+        <Repos owner={owner} />
+      </SectionLayout>
 
-        {/* Repository Analytics */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Repository Overview</h2>
-            <p className="text-sm text-muted-foreground">
-              Public repositories and statistics
-            </p>
-          </div>
-          <Suspense fallback={<SkeletonCard />}>
-            <Repos owner={owner} />
-          </Suspense>
-        </div>
+      <SectionLayout
+        title="Commit Activity"
+        description="Weekly commit frequency and patterns"
+      >
+        <CommitTimeline />
+      </SectionLayout>
 
-        {/* Commit Timeline */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Commit Activity</h2>
-            <p className="text-sm text-muted-foreground">
-              Weekly commit frequency and patterns
-            </p>
-          </div>
-          <Suspense fallback={<SkeletonCard />}>
-            <CommitTimeline />
-          </Suspense>
-        </div>
+      <SectionLayout
+        title="Development Activity"
+        description="Recent contributions and activity patterns"
+      >
+        <GithubActivity owner={owner} />
+      </SectionLayout>
 
-        {/* Development Activity */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Development Activity</h2>
-            <p className="text-sm text-muted-foreground">
-              Recent contributions and activity patterns
-            </p>
-          </div>
-          <Suspense fallback={<SkeletonCard />}>
-            <GithubActivity owner={owner} />
-          </Suspense>
-        </div>
-
-        {/* Profile Stats */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Profile Statistics</h2>
-            <p className="text-sm text-muted-foreground">
-              Overall GitHub profile metrics
-            </p>
-          </div>
-          <Suspense fallback={<SkeletonCard />}>
-            <GithubCard owner={owner} />
-          </Suspense>
-        </div>
-      </div>
-    </div>
+      <SectionLayout
+        title="Profile Statistics"
+        description="Overall GitHub profile metrics"
+      >
+        <GithubCard owner={owner} />
+      </SectionLayout>
+    </PageLayout>
   )
 }

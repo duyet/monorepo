@@ -19,6 +19,7 @@ interface BarChartProps {
   categories: string[]
   className?: string
   stack?: boolean
+  valueFormatter?: (value: unknown) => string
 }
 
 const CHART_COLORS = [
@@ -35,6 +36,7 @@ export function BarChart({
   categories,
   className,
   stack = false,
+  valueFormatter,
 }: BarChartProps) {
   const chartConfig: ChartConfig = Object.fromEntries(
     categories.map((category, i) => [
@@ -52,7 +54,13 @@ export function BarChart({
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
-        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartTooltip
+          content={
+            <ChartTooltipContent
+              formatter={valueFormatter ? (value) => valueFormatter(value) : undefined}
+            />
+          }
+        />
         {categories.map((category, i) => {
           // For stacked bars, only the last (top) bar should have rounded corners
           const isLastInStack = stack && i === categories.length - 1

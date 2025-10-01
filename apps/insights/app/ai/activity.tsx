@@ -1,4 +1,5 @@
-import { BarChart } from '@/components/charts'
+import { TokenBarChart } from '@/components/charts/TokenBarChart'
+import { CostBarChart } from '@/components/charts/CostBarChart'
 import { getCCUsageActivity } from './ccusage-utils'
 import type { CCUsageActivityProps } from './types'
 
@@ -26,11 +27,12 @@ export async function CCUsageActivity({ days = 30, className }: CCUsageActivityP
             Daily Claude Code token usage (in thousands)
           </p>
         </div>
-        <BarChart
+        <TokenBarChart
           categories={['Input Tokens', 'Output Tokens', 'Cache Tokens']}
           data={activity}
           index="date"
           stack={true}
+          showInThousands={true}
         />
         <div className="mt-3 text-xs text-muted-foreground">
           Data shows tokens in thousands (K). Cache tokens represent prompt
@@ -46,7 +48,7 @@ export async function CCUsageActivity({ days = 30, className }: CCUsageActivityP
             Daily spending on Claude Code usage in USD
           </p>
         </div>
-        <BarChart
+        <CostBarChart
           categories={['Total Cost']}
           data={activity}
           index="date"
