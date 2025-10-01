@@ -36,6 +36,8 @@
   }
 
   body {
+    font-family: var(--tiempos-text), -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, serif;
+    font-size: 16px;
     font-feature-settings: "pnum" on, "lnum" on, "ss01" on, "case" on;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
