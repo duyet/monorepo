@@ -20,6 +20,9 @@ export default {
           light: '#d4e3de',
           medium: '#bcd1ca',
         },
+        oat: {
+          DEFAULT: '#e3dacc',
+        },
       },
     },
   },

@@ -16,7 +16,7 @@ export default async function Page() {
   const pastYears = new Date().getFullYear() - Math.min(...years)
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-neutral-50 pb-10">
       <Header longText="Data Engineering" />
       <Container>
         <div className="mb-12 text-center">

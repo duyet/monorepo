@@ -29,16 +29,17 @@ export default async function Page({ params }: { params: Params }) {
   const posts = await getPosts(params)
 
   return (
-    <>
+    <div className="min-h-screen">
       <Header center logo={false} longText="Data Engineering" />
       <Container>
         <Feed posts={posts} />
+
         <Link href="/archives?ref=home">
-          <div className="py-3 text-center hover:bg-gray-100 hover:underline">
-            See more
+          <div className="mt-12 rounded-lg py-4 text-center text-base font-medium text-neutral-800 transition-colors hover:bg-neutral-100 hover:text-neutral-900 hover:underline hover:underline-offset-4">
+            See more posts
           </div>
         </Link>
       </Container>
-    </>
+    </div>
   )
 }
