@@ -36,17 +36,13 @@ export default function RootLayout({
     <html
       className={cn(inter.variable, libreBaskerville.variable)}
       lang="en"
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
-      }}
       suppressHydrationWarning
     >
       <Head />
       <body
         className={cn(
           'bg-claude-cream text-claude-black subpixel-antialiased',
-          'transition-colors duration-1000 dark:bg-claude-gray-900 dark:text-claude-gray-50',
+          'transition-colors duration-300 dark:bg-claude-gray-900 dark:text-claude-gray-50',
         )}
       >
         <ThemeProvider>
