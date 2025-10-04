@@ -6,12 +6,10 @@ export function GET(): NextResponse {
   return NextResponse.json(
     {
       status: 'ok',
-      timestamp: new Date().toISOString(),
     },
     {
       headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
       },
     },
   )
