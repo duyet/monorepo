@@ -40,13 +40,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: [
-          'var(--font-tiempos)',
-          'ui-sans-serif',
-          'system-ui',
-          'sans-serif',
-        ],
-        serif: ['var(--font-tiempos)', 'ui-serif', 'Georgia', 'serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
       },
     },
   },
