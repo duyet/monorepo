@@ -8,7 +8,7 @@ import { cn } from '@duyet/libs/utils'
 import { Inter, Libre_Baskerville } from 'next/font/google'
 
 const inter = Inter({
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
@@ -34,15 +34,15 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={cn(inter.variable, libreBaskerville.variable, 'font-sans')}
+      className={cn(inter.variable, libreBaskerville.variable)}
       lang="en"
       suppressHydrationWarning
     >
       <Head />
       <body
         className={cn(
-          'bg-neutral-50 text-neutral-900 antialiased',
-          'transition-colors duration-300',
+          'bg-claude-cream text-claude-black subpixel-antialiased',
+          'transition-colors duration-300 dark:bg-claude-gray-900 dark:text-claude-gray-50',
         )}
       >
         <ThemeProvider>
