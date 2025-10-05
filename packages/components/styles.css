@@ -18,4 +18,17 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  /* Unified dark mode CSS variables for consistent theming across all apps */
+  :root {
+    /* Light mode colors */
+    --background: #ffffff;
+    --foreground: #374151; /* gray-700 */
+  }
+
+  :root.dark {
+    /* Dark mode colors - consistent across blog, cv, insights */
+    --background: #0f172a; /* slate-900 */
+    --foreground: #f8fafc; /* slate-50 */
+  }
 }

@@ -66,8 +66,8 @@ export default function RootLayout({
       <Head />
       <body
         className={cn(
-          'bg-white text-gray-700 subpixel-antialiased',
-          'transition-colors duration-1000 dark:bg-slate-900 dark:text-slate-50',
+          'bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased',
+          'transition-colors duration-1000',
         )}
       >
         <ThemeProvider>

@@ -50,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps) {
     >
       <Head />
 
-      <body className="bg-white text-gray-700 antialiased dark:bg-slate-900 dark:text-slate-50">
+      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
         <ThemeProvider>
           <main>
             <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20 print:mb-10 print:mt-10">
