@@ -219,14 +219,16 @@
 
   .cv-print-footer p {
     font-size: 6pt !important;
+    font-weight: 300 !important;
     text-align: left !important;
-    color: #999 !important;
+    color: #666 !important;
     line-height: 1.2 !important;
   }
 
   .cv-print-footer a {
-    color: #999 !important;
-    text-decoration: none !important;
+    color: #0066cc !important;
+    text-decoration: underline !important;
+    font-weight: 300 !important;
   }
 
   .cv-print-footer hr,
