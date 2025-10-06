@@ -98,6 +98,10 @@ export default function Page() {
         <Overview className="text-sm">
           Data Engineer with 6+ years of experience in modern data warehousing,
           distributed systems, and cloud computing. Proficient in{' '}
+          <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
+          {', '}
+          <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
+          {', '}
           <SkillClickHouse />
           {', '}
           <SkillSpark />
@@ -144,7 +148,12 @@ export default function Page() {
       <Section title="Skills">
         <div className="flex flex-col gap-2">
           <div>
-            <strong>Data Engineering:</strong> <SkillClickHouse />
+            <strong>Data Engineering:</strong>{' '}
+            <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
+            {', '}
+            <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
+            {', '}
+            <SkillClickHouse />
             {', '}
             <SkillSpark />
             {', '}
