@@ -173,6 +173,20 @@ export default function Page() {
           </div>
         </div>
       </Section>
+
+      <footer className="cv-print-footer hidden print:block">
+        <Separator className="my-2" />
+        <p className="text-xs text-muted-foreground">
+          Live version at{' '}
+          <Link
+            href="https://duyet.net/cv"
+            className="underline"
+            target="_blank"
+          >
+            https://duyet.net/cv
+          </Link>
+        </p>
+      </footer>
     </div>
   )
 }

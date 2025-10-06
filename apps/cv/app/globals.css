@@ -112,3 +112,119 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Print-specific optimizations for single-page PDF */
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-size: 9pt !important;
+    line-height: 1.3 !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Compress layout for single page */
+  main {
+    min-height: auto !important;
+    margin: 10mm 15mm !important;
+  }
+
+  /* Reduce all gaps and spacing */
+  .flex.flex-col.gap-8 {
+    gap: 0.5rem !important;
+  }
+
+  .flex.flex-col.gap-5 {
+    gap: 0.4rem !important;
+  }
+
+  .flex.flex-col.gap-3 {
+    gap: 0.3rem !important;
+  }
+
+  .flex.flex-col.gap-2 {
+    gap: 0.2rem !important;
+  }
+
+  /* Optimize header spacing */
+  header {
+    margin-bottom: 0.3rem !important;
+  }
+
+  h1 {
+    font-size: 16pt !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  /* Compact sections */
+  section {
+    margin-bottom: 0.4rem !important;
+  }
+
+  /* Reduce padding and margins */
+  .mb-2 {
+    margin-bottom: 0.2rem !important;
+  }
+
+  .mb-10 {
+    margin-bottom: 0 !important;
+  }
+
+  .mt-10, .mt-20 {
+    margin-top: 0 !important;
+  }
+
+  /* Prevent page breaks */
+  * {
+    page-break-inside: avoid !important;
+  }
+
+  /* Keep sections together */
+  section, header, .experience-item, .education-item {
+    break-inside: avoid !important;
+  }
+
+  /* Hide print button and unnecessary elements */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Optimize container */
+  .container, [class*="Container"] {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Compress text elements */
+  p, div, span {
+    line-height: 1.3 !important;
+  }
+
+  /* Reduce separator spacing */
+  hr, [role="separator"] {
+    margin: 0.2rem 0 !important;
+  }
+
+  /* Print footer styling */
+  .cv-print-footer {
+    margin-top: 1rem !important;
+    padding-top: 0.5rem !important;
+  }
+
+  .cv-print-footer p {
+    font-size: 7pt !important;
+    text-align: center !important;
+    color: #666 !important;
+  }
+
+  .cv-print-footer a {
+    color: #666 !important;
+    text-decoration: underline !important;
+  }
+}
