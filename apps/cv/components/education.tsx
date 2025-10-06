@@ -19,7 +19,7 @@ export function Education({
   className,
 }: EducationProps) {
   return (
-    <div className={cn('flex flex-col gap-1', className)}>
+    <div className={cn('flex flex-col gap-0.5', className)}>
       <h3
         className="text-base font-bold"
         style={{ fontFamily: 'var(--font-lora)' }}
@@ -33,7 +33,7 @@ export function Education({
         href={thesisUrl}
         className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
       >
-        {thesis} ↗︎
+        ⤷ {thesis} ↗︎
       </Link>
     </div>
   )
