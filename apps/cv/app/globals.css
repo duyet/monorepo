@@ -227,7 +227,7 @@
 
   .cv-print-footer a {
     color: #666 !important;
-    text-decoration: underline !important;
+    text-decoration: none !important;
     font-weight: 300 !important;
   }
 
