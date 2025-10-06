@@ -15,7 +15,7 @@ export const cvData: CVData = {
     title: 'Résumé',
     email: 'me@duyet.net',
     overview:
-      'Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in ClickHouse, Spark, Airflow, Python, Rust.',
+      'Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, ClickHouse, Spark, Airflow, Python, Rust.',
     contacts: [
       {
         id: 'email',
@@ -230,6 +230,8 @@ export const cvData: CVData = {
       id: 'data-engineering',
       name: 'Data Engineering',
       skills: [
+        { id: 'llamaindex', name: 'LlamaIndex' },
+        { id: 'ai-sdk', name: 'AI SDK' },
         { id: 'clickhouse', name: 'ClickHouse' },
         { id: 'spark', name: 'Spark' },
         { id: 'kafka', name: 'Kafka' },
@@ -282,6 +284,8 @@ export const llmsInfo: LLMsInfo = {
     'Built multi-agent LLM + RAG systems',
   ],
   technologies: [
+    'LlamaIndex',
+    'AI SDK',
     'ClickHouse',
     'Apache Spark',
     'Apache Airflow',
