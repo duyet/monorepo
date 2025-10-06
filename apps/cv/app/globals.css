@@ -213,18 +213,24 @@
 
   /* Print footer styling */
   .cv-print-footer {
-    margin-top: 1rem !important;
-    padding-top: 0.5rem !important;
+    margin-top: 0.3rem !important;
+    padding-top: 0.2rem !important;
   }
 
   .cv-print-footer p {
-    font-size: 7pt !important;
-    text-align: center !important;
-    color: #666 !important;
+    font-size: 6pt !important;
+    text-align: left !important;
+    color: #999 !important;
+    line-height: 1.2 !important;
   }
 
   .cv-print-footer a {
-    color: #666 !important;
-    text-decoration: underline !important;
+    color: #999 !important;
+    text-decoration: none !important;
+  }
+
+  .cv-print-footer hr,
+  .cv-print-footer [role="separator"] {
+    margin: 0.1rem 0 !important;
   }
 }
