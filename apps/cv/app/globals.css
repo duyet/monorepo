@@ -123,6 +123,7 @@
   }
 
   body {
+    font-size: 11pt !important;
     line-height: 1.3 !important;
     background: white !important;
     color: black !important;
@@ -162,6 +163,7 @@
   }
 
   h1 {
+    font-size: 18pt !important;
     margin-bottom: 0.3rem !important;
   }
 
