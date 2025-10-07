@@ -239,5 +239,9 @@
   .cv-print-footer hr,
   .cv-print-footer [role="separator"] {
     margin: 0.1rem 0 !important;
+    width: 30% !important;
+    height: 0.5px !important;
+    border-width: 0.5px !important;
+    opacity: 0.3 !important;
   }
 }
