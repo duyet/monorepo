@@ -123,74 +123,58 @@
   }
 
   body {
-    font-size: 10.5pt !important;
-    line-height: 1.4 !important;
+    font-size: 11pt !important;
+    line-height: 1.3 !important;
     background: white !important;
-    color: #000 !important;
+    color: black !important;
   }
 
   /* Remove underlines from all links in print */
   a {
     text-decoration: none !important;
-    color: inherit !important;
   }
 
   /* Compress layout for single page */
   main {
     min-height: auto !important;
-    margin: 15mm 20mm !important;
+    margin: 10mm 15mm !important;
   }
 
-  /* Root container spacing */
+  /* Reduce all gaps and spacing */
   .flex.flex-col.gap-8 {
-    gap: 1.2rem !important;
-  }
-
-  /* Experience items spacing */
-  .flex.flex-col.gap-5 {
-    gap: 0.8rem !important;
-  }
-
-  /* Header spacing */
-  .flex.flex-col.gap-3 {
     gap: 0.5rem !important;
   }
 
-  /* Skills spacing */
-  .flex.flex-col.gap-2 {
+  .flex.flex-col.gap-5 {
+    gap: 0.4rem !important;
+  }
+
+  .flex.flex-col.gap-3 {
     gap: 0.3rem !important;
   }
 
-  /* Header styling */
+  .flex.flex-col.gap-2 {
+    gap: 0.2rem !important;
+  }
+
+  /* Optimize header spacing */
   header {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.3rem !important;
   }
 
   h1 {
-    font-size: 20pt !important;
-    margin-bottom: 0.5rem !important;
-    line-height: 1.2 !important;
-  }
-
-  /* Section titles - keep red color */
-  h2, h3 {
-    color: #dc2626 !important;
-    font-size: 14pt !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  /* Sections spacing */
-  section {
-    margin-bottom: 1rem !important;
-  }
-
-  section h2 {
-    margin-bottom: 0.6rem !important;
-  }
-
-  /* Reduce some margins */
-  .mb-2 {
+    font-size: 18pt !important;
     margin-bottom: 0.3rem !important;
+  }
+
+  /* Compact sections */
+  section {
+    margin-bottom: 0.4rem !important;
+  }
+
+  /* Reduce padding and margins */
+  .mb-2 {
+    margin-bottom: 0.2rem !important;
   }
 
   .mb-10 {
@@ -211,7 +195,7 @@
     break-inside: avoid !important;
   }
 
-  /* Hide elements not needed in print */
+  /* Hide print button and unnecessary elements */
   .print\:hidden {
     display: none !important;
   }
@@ -222,9 +206,14 @@
     padding: 0 !important;
   }
 
-  /* Separator in header */
-  h1 [role="separator"] {
-    opacity: 0.3 !important;
+  /* Compress text elements */
+  p, div, span {
+    line-height: 1.3 !important;
+  }
+
+  /* Reduce separator spacing */
+  hr, [role="separator"] {
+    margin: 0.2rem 0 !important;
   }
 
   /* Print footer styling */
