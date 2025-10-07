@@ -184,7 +184,7 @@ export default function Page() {
       </Section>
 
       <footer className="cv-print-footer hidden print:block">
-        <Separator className="my-2" />
+        <Separator className="cv-footer-separator my-2" />
         <p className="text-xs text-muted-foreground">
           Live version at{' '}
           <Link
