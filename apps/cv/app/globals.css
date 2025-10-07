@@ -236,12 +236,14 @@
     font-weight: 300 !important;
   }
 
-  .cv-print-footer hr,
-  .cv-print-footer [role="separator"] {
+  .cv-print-footer .cv-footer-separator {
     margin: 0.1rem 0 !important;
     width: 30% !important;
+    max-width: 30% !important;
     height: 0.5px !important;
-    border-width: 0.5px !important;
-    opacity: 0.3 !important;
+    border: none !important;
+    border-top: 0.5px solid #ccc !important;
+    opacity: 0.5 !important;
+    background: transparent !important;
   }
 }
