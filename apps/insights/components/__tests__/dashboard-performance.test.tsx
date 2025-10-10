@@ -32,9 +32,9 @@ const measureRenderTime = async (renderFn: () => void) => {
   return end - start
 }
 
-const measureMemoryUsage = () => {
+const measureMemoryUsage = (): { usedJSHeapSize: number } | null => {
   if ('memory' in performance) {
-    return (performance as { memory?: { usedJSHeapSize: number } }).memory
+    return (performance as { memory?: { usedJSHeapSize: number } }).memory || null
   }
   return null
 }
