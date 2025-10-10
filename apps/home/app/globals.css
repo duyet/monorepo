@@ -12,10 +12,6 @@
   html {
     font-family: var(--font-inter);
   }
-
-  body {
-    @apply bg-claude-cream text-claude-black;
-  }
 }
 
 @layer utilities {
