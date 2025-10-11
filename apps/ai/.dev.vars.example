@@ -1,0 +1,21 @@
+# Environment variables for local Cloudflare Workers development
+# Copy this file to .dev.vars for local development with wrangler
+
+# Defines the environment to use when loading Next.js .env files
+# Defaults to "production" when not defined
+NEXTJS_ENV=development
+
+# OpenAI API Key (secret - do not commit)
+OPENAI_API_KEY=sk-proj-...
+
+# Public workflow ID (also set via environment variables)
+NEXT_PUBLIC_CHATKIT_WORKFLOW_ID=wf_...
+
+# Optional: Custom ChatKit API base URL
+# CHATKIT_API_BASE=https://api.openai.com
+
+# Optional: Cloudflare AI Gateway URL (recommended for Cloudflare Workers deployment)
+# This bypasses OpenAI's IP blocking of Cloudflare Workers
+# Get this from: https://dash.cloudflare.com -> AI -> AI Gateway
+# Format: https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/openai
+# CLOUDFLARE_AI_GATEWAY_URL=
