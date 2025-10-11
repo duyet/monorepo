@@ -9,7 +9,11 @@
     "lint": "next lint",
     "check-types": "tsc --noEmit",
     "fmt": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
-    "prettier-check": "prettier --check ."
+    "prettier-check": "prettier --check .",
+    "preview": "opennextjs-cloudflare build && wrangler dev",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types"
   },
   "prettier": "@duyet/prettier",
   "dependencies": {
@@ -19,6 +23,10 @@
     "next": "15.5.4",
     "react": "19.2.0",
     "react-dom": "19.2.0"
+  },
+  "optionalDependencies": {
+    "@opennextjs/cloudflare": "^1.9.2",
+    "wrangler": "^4"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
