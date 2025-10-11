@@ -1986,6 +1986,18 @@
   resolved "https://registry.yarnpkg.com/@nolyfill/is-core-module/-/is-core-module-1.0.39.tgz#3dc35ba0f1e66b403c00b39344f870298ebb1c8e"
   integrity sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==
 
+"@openai/chatkit-react@^0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@openai/chatkit-react/-/chatkit-react-0.0.0.tgz#b8e8624cd1ef5daf6f87537351f1230ba1b962f9"
+  integrity sha512-ppoAKiWKUJGIlKuFQ0mgPRVMAAjJ+PonAzdo1p7BQmTEZtwFI8vq6W7ZRN2UTfzZZIKbJ2diwU6ePbYSKsePuQ==
+  dependencies:
+    "@openai/chatkit" "0.0.0"
+
+"@openai/chatkit@0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@openai/chatkit/-/chatkit-0.0.0.tgz#0ce435d39795663d272f6741b54266bf4726d35e"
+  integrity sha512-9YomebDd2dpWFR3s1fiEtNknXmEC8QYt//2ConGjr/4geWdRqunEpO+i7yJXYEGLJbkmB4lxwKmbwWJA4pvpSg==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
@@ -2619,7 +2631,7 @@
     "@tailwindcss/oxide-win32-arm64-msvc" "4.1.14"
     "@tailwindcss/oxide-win32-x64-msvc" "4.1.14"
 
-"@tailwindcss/postcss@^4.1.6":
+"@tailwindcss/postcss@^4", "@tailwindcss/postcss@^4.1.6":
   version "4.1.14"
   resolved "https://registry.yarnpkg.com/@tailwindcss/postcss/-/postcss-4.1.14.tgz#29fd4e082b29460e4062a7bc4bf70b38a97f8fc5"
   integrity sha512-BdMjIxy7HUNThK87C7BC8I1rE8BVUsfNQSI5siQ4JK3iIa3w0XyVvVL9SXLWO//CtYTcp1v7zci0fYwJOjB+Zg==
@@ -11101,7 +11113,7 @@ tailwindcss@*:
     resolve "^1.22.8"
     sucrase "^3.35.0"
 
-tailwindcss@4.1.14, tailwindcss@^4.1.6:
+tailwindcss@4.1.14, tailwindcss@^4, tailwindcss@^4.1.6:
   version "4.1.14"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.1.14.tgz#a5907cc2202a2a1f5f15bac6f2031e53117e43a8"
   integrity sha512-b7pCxjGO98LnxVkKjaZSDeNuljC4ueKUddjENJOADtubtdo8llTaJy7HwBMeLNSSo2N5QIAgklslK1+Ir8r6CA==
