@@ -78,3 +78,8 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - All apps share common ESLint, Prettier, and TypeScript configurations
 - Environment variables are globally managed through Turborepo
 - Shared components and utilities live in `/packages` and are imported as workspace dependencies
+
+## Git Workflow
+
+- Use the `/commit` command to create a signed commit with the message
+- Follow semantic commit conventions (feat, fix, chore, docs, etc.)

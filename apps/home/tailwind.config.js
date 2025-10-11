@@ -8,7 +8,7 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    '../../packages/components/**/*.{js,ts,jsx,tsx}',
+    '../../packages/components/src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     ...config.theme,
