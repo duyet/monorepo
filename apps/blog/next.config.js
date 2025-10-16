@@ -13,7 +13,31 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'blog.duyet.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.duyet.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.bp.blogspot.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.giphy.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
       },
     ],
   },
