@@ -1,6 +1,7 @@
 import { AreaChart } from '@/components/charts'
 import { CompactMetric } from '@/components/ui/CompactMetric'
 import { Calendar, GitCommit, Zap } from 'lucide-react'
+import { getGithubToken } from './github-utils'
 
 const owner = 'duyet'
 
@@ -216,7 +217,7 @@ async function fetchAllEvents(
         `https://api.github.com/users/${owner}/events?per_page=${perPage}&page=${page}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            Authorization: `Bearer ${getGithubToken()}`,
             Accept: 'application/vnd.github.v3+json',
           },
           cache: 'force-cache',

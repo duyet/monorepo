@@ -2,6 +2,7 @@ import type { GithubRepo } from '@duyet/interfaces'
 import { cn } from '@duyet/libs/utils'
 import { CodeIcon, StarIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import { getGithubToken } from './github-utils'
 
 interface RepoProps {
   owner: string
@@ -112,7 +113,7 @@ async function getGithubRepos(
     })
 
     const headers = new Headers({
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${getGithubToken()}`,
     })
 
     try {

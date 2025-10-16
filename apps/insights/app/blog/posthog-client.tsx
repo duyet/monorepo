@@ -87,11 +87,17 @@ export function PostHogClient({ data }: PostHogClientProps) {
 
       {/* Popular Content Table */}
       <PopularContentTable
-        data={currentData.paths.map((path) => ({
-          name: path.path,
-          value: path.visitors,
-          href: process.env.NEXT_PUBLIC_DUYET_BLOG_URL + path.path,
-        }))}
+        data={currentData.paths.map((path) => {
+          const blogUrl = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || ''
+          if (!blogUrl) {
+            console.warn('NEXT_PUBLIC_DUYET_BLOG_URL is not defined')
+          }
+          return {
+            name: path.path,
+            value: path.visitors,
+            href: `${blogUrl}${path.path}`,
+          }
+        })}
       />
 
       <p className="text-xs text-muted-foreground">
