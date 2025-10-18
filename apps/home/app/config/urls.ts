@@ -21,6 +21,10 @@ export const urls: Urls = {
     target: 'https://insights.duyet.net',
     desc: 'data insights platform',
   },
+  '/photos': {
+    target: 'https://photos.duyet.net',
+    desc: 'photography portfolio',
+  },
   '/mcp': {
     target: 'https://mcp.duyet.net',
     desc: 'Model Context Protocol tools',

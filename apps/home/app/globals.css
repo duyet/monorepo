@@ -14,7 +14,8 @@
   }
 
   body {
-    @apply bg-claude-cream text-claude-black;
+    background-color: #fbf7f0;
+    color: #1f1f1f;
   }
 }
 

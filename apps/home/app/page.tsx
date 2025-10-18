@@ -153,6 +153,32 @@ const InsightsIcon = () => (
   </svg>
 )
 
+const PhotosIcon = () => (
+  <svg
+    width="80"
+    height="80"
+    viewBox="0 0 80 80"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="18"
+      y="22"
+      width="44"
+      height="36"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+    />
+    <circle cx="30" cy="34" r="4" fill="currentColor" />
+    <path
+      d="M18 50L28 40L38 50L48 38L62 52V56C62 57.1 61.1 58 60 58H20C18.9 58 18 57.1 18 56V50Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
 export default function HomePage() {
   const links = [
     {
@@ -181,6 +207,15 @@ export default function HomePage() {
         'https://insights.duyet.net',
       color: 'bg-stone-100/70',
     },
+    {
+      icon: PhotosIcon,
+      title: 'Photos',
+      description:
+        'Photography portfolio and visual stories from travels and daily life.',
+      url:
+        process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
+      color: 'bg-sky-100/50',
+    },
   ]
 
   return (
@@ -195,7 +230,7 @@ export default function HomePage() {
         </div>
 
         {/* Links Grid */}
-        <div className="mb-20 grid gap-6 md:grid-cols-3">
+        <div className="mb-20 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {links.map((link, index) => {
             const Icon = link.icon
             return (
