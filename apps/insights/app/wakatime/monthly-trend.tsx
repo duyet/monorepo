@@ -28,18 +28,14 @@ export async function WakaTimeMonthlyTrend() {
           Coding activity month by month over the last{' '}
           {Math.ceil(monthlyData.length / 12)} years
         </p>
-        <p className="mt-2 text-xs italic text-muted-foreground">
-          Note: I&apos;m not coding much these days - Claude Code is mostly
-          doing that
-        </p>
       </div>
       <AreaChart
         categories={['Monthly Hours']}
         data={monthlyData.map((item) => ({
-          date: item.displayDate,
+          yearMonth: item.yearMonth,
           'Monthly Hours': item.hours,
         }))}
-        index="date"
+        index="yearMonth"
         showGridLines={true}
       />
     </div>

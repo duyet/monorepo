@@ -46,12 +46,11 @@ export async function WakaTimeHourlyHeatmap() {
             Activity Intensity
           </p>
           <div className="grid grid-cols-7 gap-2">
-            {heatmapData.map((item) => {
-              // Calculate color intensity based on hours (normalized)
+            {(() => {
+              // Calculate maxHours once outside the map to avoid recalculation
               const maxHours = Math.max(...heatmapData.map((d) => d.hours))
-              const intensity = maxHours > 0 ? item.hours / maxHours : 0
 
-              // Color scale from light to dark based on intensity
+              // Color scale function
               const getColorClass = (intensity: number) => {
                 if (intensity >= 0.75) return 'bg-green-600 dark:bg-green-500'
                 if (intensity >= 0.5) return 'bg-green-500 dark:bg-green-600'
@@ -60,22 +59,28 @@ export async function WakaTimeHourlyHeatmap() {
                 return 'bg-gray-200 dark:bg-gray-800'
               }
 
-              return (
-                <div
-                  key={item.day}
-                  className="flex flex-col items-center gap-2"
-                >
+              return heatmapData.map((item) => {
+                // Calculate color intensity based on hours (normalized)
+                const intensity =
+                  maxHours > 0 ? item.hours / maxHours : 0
+
+                return (
                   <div
-                    className={`h-20 w-full rounded-md transition-colors ${getColorClass(intensity)}`}
-                    title={`${item.day}: ${item.hours}h (${item.percent}%)`}
-                  />
-                  <span className="text-xs text-muted-foreground">
-                    {item.day.slice(0, 3)}
-                  </span>
-                  <span className="text-xs font-medium">{item.hours}h</span>
-                </div>
-              )
-            })}
+                    key={item.day}
+                    className="flex flex-col items-center gap-2"
+                  >
+                    <div
+                      className={`h-20 w-full rounded-md transition-colors ${getColorClass(intensity)}`}
+                      title={`${item.day}: ${item.hours}h (${item.percent}%)`}
+                    />
+                    <span className="text-xs text-muted-foreground">
+                      {item.day.slice(0, 3)}
+                    </span>
+                    <span className="text-xs font-medium">{item.hours}h</span>
+                  </div>
+                )
+              })
+            })()}
           </div>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <span>Less</span>
