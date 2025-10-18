@@ -148,3 +148,129 @@ export async function getWakaTimeMetrics(days: number | 'all' = 30) {
     topLanguage,
   }
 }
+
+// Get historical monthly activity trend for multiple years
+export async function getWakaTimeMonthlyTrend() {
+  const currentYear = new Date().getFullYear()
+  const startYear = currentYear - 4 // Last 5 years including current year
+
+  interface DayData {
+    date: string
+    total: number
+  }
+
+  interface InsightsResponse {
+    data?: {
+      days?: DayData[]
+      is_up_to_date?: boolean
+    }
+  }
+
+  try {
+    // Fetch data for all_time to get historical data
+    const insights: InsightsResponse | null = await wakaTimeRequest(
+      `/users/current/insights/days?range=all_time`,
+    )
+
+    if (!insights?.data?.days || !Array.isArray(insights.data.days)) {
+      console.warn('No days data available from WakaTime insights')
+      return []
+    }
+
+    // Group by year-month and sum total_seconds
+    const monthlyData = new Map<
+      string,
+      { yearMonth: string; hours: number; year: number; month: number }
+    >()
+
+    insights.data.days.forEach((day) => {
+      if (!day.date || !day.total) return
+
+      const date = new Date(day.date)
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1 // 1-12
+
+      // Only include data from startYear onwards
+      if (year < startYear) return
+
+      const yearMonth = `${year}-${String(month).padStart(2, '0')}`
+      const hours = day.total / 3600
+
+      const existing = monthlyData.get(yearMonth)
+      if (existing) {
+        existing.hours += hours
+      } else {
+        monthlyData.set(yearMonth, { yearMonth, hours, year, month })
+      }
+    })
+
+    // Convert to array and sort by year-month
+    return Array.from(monthlyData.values())
+      .sort((a, b) => a.yearMonth.localeCompare(b.yearMonth))
+      .map((item) => ({
+        yearMonth: item.yearMonth,
+        hours: Math.round(item.hours * 10) / 10,
+        displayDate: new Date(item.year, item.month - 1).toLocaleDateString(
+          'en-US',
+          {
+            year: 'numeric',
+            month: 'short',
+          },
+        ),
+      }))
+  } catch (error) {
+    console.error('Error fetching WakaTime monthly trend:', error)
+    return []
+  }
+}
+
+// Get hourly activity heatmap data by day of week
+export async function getWakaTimeHourlyHeatmap() {
+  interface WeekdayData {
+    percent: number
+    total_seconds: number
+  }
+
+  interface WeekdayInsights {
+    data?: {
+      weekdays?: WeekdayData[]
+      is_up_to_date?: boolean
+    }
+  }
+
+  try {
+    // Try to get weekday insights first
+    const weekdayInsights: WeekdayInsights | null = await wakaTimeRequest(
+      `/users/current/insights/weekday?range=last_year`,
+    )
+
+    if (
+      weekdayInsights?.data?.weekdays &&
+      Array.isArray(weekdayInsights.data.weekdays)
+    ) {
+      // Map weekday data (0=Sunday to 6=Saturday)
+      const days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ]
+
+      return weekdayInsights.data.weekdays.map((weekday, index) => ({
+        day: days[index] || 'Unknown',
+        dayIndex: index,
+        hours: Math.round((weekday.total_seconds / 3600) * 10) / 10,
+        percent: Math.round(weekday.percent * 100) / 100,
+      }))
+    }
+
+    console.warn('Weekday insights not available or empty')
+    return []
+  } catch (error) {
+    console.error('Error fetching WakaTime hourly heatmap:', error)
+    return []
+  }
+}

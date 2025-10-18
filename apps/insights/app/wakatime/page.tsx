@@ -4,8 +4,10 @@ import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
 import Image from 'next/image'
 import { StaticCard } from '../../components/StaticCard'
 import { WakaTimeActivity } from './activity'
+import { WakaTimeHourlyHeatmap } from './hourly-heatmap'
 import { WakaTimeLanguages } from './languages'
 import { WakaTimeMetrics } from './metrics'
+import { WakaTimeMonthlyTrend } from './monthly-trend'
 
 export const metadata = {
   title: 'WakaTime Coding Analytics @duyet',
@@ -48,6 +50,20 @@ export default function Wakatime() {
         description="Language usage and distribution"
       >
         <WakaTimeLanguages days={STATIC_DAYS} />
+      </SectionLayout>
+
+      <SectionLayout
+        title="Long-term Trends"
+        description="Historical coding activity over multiple years"
+      >
+        <WakaTimeMonthlyTrend />
+      </SectionLayout>
+
+      <SectionLayout
+        title="Weekly Patterns"
+        description="Coding activity breakdown by day of week"
+      >
+        <WakaTimeHourlyHeatmap />
       </SectionLayout>
 
       <SectionLayout
