@@ -13,8 +13,10 @@ export const metadata = {
   description: 'GitHub repository analytics and development activity insights',
 }
 
-// Static generation only
-export const dynamic = 'force-static'
+// Use dynamic rendering to prevent build failures when GITHUB_TOKEN is not available
+// The components handle missing token gracefully by returning empty data
+export const dynamic = 'auto'
+export const revalidate = 3600 // Revalidate every hour when token is available
 
 export default function Page() {
   return (

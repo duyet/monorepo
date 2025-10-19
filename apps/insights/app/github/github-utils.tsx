@@ -12,14 +12,15 @@ export interface GitHubRepository {
 
 /**
  * Get GitHub token from environment variables
- * @throws {Error} If GITHUB_TOKEN is not configured
+ * @returns {string | null} GitHub token or null if not configured
  */
-export function getGithubToken(): string {
+export function getGithubToken(): string | null {
   const token = process.env.GITHUB_TOKEN
   if (!token) {
-    throw new Error(
-      'GITHUB_TOKEN environment variable is required for GitHub API calls',
+    console.warn(
+      'GITHUB_TOKEN environment variable is not configured. GitHub API calls will fail.',
     )
+    return null
   }
   return token
 }
@@ -28,9 +29,8 @@ export async function fetchAllRepositories(
   owner: string,
 ): Promise<GitHubRepository[]> {
   // Check if GitHub token is configured
-  try {
-    getGithubToken()
-  } catch {
+  const token = getGithubToken()
+  if (!token) {
     console.warn('GITHUB_TOKEN not configured, returning empty repositories')
     return []
   }
@@ -50,7 +50,7 @@ export async function fetchAllRepositories(
         `https://api.github.com/search/repositories?q=user:${owner}+is:public&sort=updated&per_page=${perPage}&page=${page}`,
         {
           headers: {
-            Authorization: `Bearer ${getGithubToken()}`,
+            Authorization: `Bearer ${token}`,
             Accept: 'application/vnd.github.v3+json',
             'User-Agent': 'insights-app',
           },

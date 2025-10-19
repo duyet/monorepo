@@ -68,6 +68,12 @@ function Activity({
 }
 
 async function getGithubStars(owner: string): Promise<GithubRepo[]> {
+  const token = getGithubToken()
+  if (!token) {
+    console.warn('GITHUB_TOKEN not configured, returning empty starred repos')
+    return []
+  }
+
   const fetchPage = async (page: number) => {
     const params = new URLSearchParams({
       per_page: '20',
@@ -76,7 +82,7 @@ async function getGithubStars(owner: string): Promise<GithubRepo[]> {
     })
 
     const headers = new Headers({
-      Authorization: `Bearer ${getGithubToken()}`,
+      Authorization: `Bearer ${token}`,
     })
 
     const res = await fetch(

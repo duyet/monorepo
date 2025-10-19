@@ -101,6 +101,12 @@ async function getGithubRepos(
   ignoredProjects: string[] = [],
   n = 8,
 ): Promise<GithubRepo[]> {
+  const token = getGithubToken()
+  if (!token) {
+    console.warn('GITHUB_TOKEN not configured, returning empty repositories')
+    return []
+  }
+
   let repos: GithubRepo[] = []
 
   const fetchPage = async (page: number) => {
@@ -113,7 +119,7 @@ async function getGithubRepos(
     })
 
     const headers = new Headers({
-      Authorization: `Bearer ${getGithubToken()}`,
+      Authorization: `Bearer ${token}`,
     })
 
     try {
