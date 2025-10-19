@@ -196,8 +196,7 @@ function groupSumBy<T>(
 
 // Get historical monthly activity trend for multiple years
 export async function getWakaTimeMonthlyTrend() {
-  const currentYear = new Date().getFullYear()
-  const startYear = currentYear - 4 // Last 5 years including current year
+  const startYear = 2025 // Only show data from 2025 onwards
 
   try {
     // Fetch data for all_time to get historical data
@@ -210,7 +209,7 @@ export async function getWakaTimeMonthlyTrend() {
       return []
     }
 
-    // Filter and group data by year-month
+    // Filter and group data by year-month (only from 2025 onwards)
     const filteredDays = insights.data.days.filter((day) => {
       if (!day.date || day.total == null) return false
       const date = new Date(day.date)
@@ -271,6 +270,13 @@ export async function getWakaTimeHourlyHeatmap() {
       return []
     }
 
+    // Check if all weekdays have zero hours - if so, return empty array
+    const hasData = weekdayInsights.data.weekdays.some((weekday) => weekday.total_seconds > 0)
+    if (!hasData) {
+      console.warn('No weekday activity data available')
+      return []
+    }
+
     // Map weekday data (0=Sunday to 6=Saturday)
     return weekdayInsights.data.weekdays.map((weekday, index) => ({
       day: WEEKDAYS[index] || 'Unknown',
@@ -281,5 +287,24 @@ export async function getWakaTimeHourlyHeatmap() {
   } catch (error) {
     console.error('Error fetching WakaTime hourly heatmap:', error)
     return []
+  }
+}
+
+// Get best day insight - when you're most productive
+export async function getWakaTimeBestDay() {
+  try {
+    const bestDayInsights = await wakaTimeRequest(
+      `/users/current/insights/best_day?range=last_year`,
+    )
+
+    if (!bestDayInsights?.data) {
+      console.warn('Best day insights not available')
+      return null
+    }
+
+    return bestDayInsights.data
+  } catch (error) {
+    console.error('Error fetching WakaTime best day:', error)
+    return null
   }
 }

@@ -4,20 +4,9 @@ import { getWakaTimeHourlyHeatmap } from './wakatime-utils'
 export async function WakaTimeHourlyHeatmap() {
   const heatmapData = await getWakaTimeHourlyHeatmap()
 
+  // Hide component completely if no data available
   if (!heatmapData || heatmapData.length === 0) {
-    return (
-      <div className="rounded-lg border bg-card p-4">
-        <div className="mb-4">
-          <h3 className="font-medium">Coding Activity by Day of Week</h3>
-          <p className="text-xs text-muted-foreground">
-            Weekly coding patterns and productivity rhythm
-          </p>
-        </div>
-        <div className="flex items-center justify-center py-8 text-muted-foreground">
-          <p>No activity data available</p>
-        </div>
-      </div>
-    )
+    return null
   }
 
   return (
