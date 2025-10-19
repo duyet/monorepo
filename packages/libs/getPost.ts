@@ -142,6 +142,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     if (field === "featured") {
       post["featured"] = Boolean(data.featured) || false;
     }
+
+    if (field === "series") {
+      post["series"] = data.series || undefined;
+    }
   });
 
   return post;
