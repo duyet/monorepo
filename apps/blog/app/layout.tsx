@@ -18,7 +18,7 @@ const inter = Inter({
 
 const libreBaskerville = Libre_Baskerville({
   weight: ['400', '700'],
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   variable: '--font-serif',
   display: 'swap',
 })
@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       style={{
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
+          'var(--font-inter), -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif',
       }}
       suppressHydrationWarning
     >
