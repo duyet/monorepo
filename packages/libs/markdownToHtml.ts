@@ -11,7 +11,7 @@ import remarkRehype from "remark-rehype";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 
 export async function markdownToHtml(markdown: VFileCompatible) {
   const result = await unified()
@@ -28,8 +28,8 @@ export async function markdownToHtml(markdown: VFileCompatible) {
     .process(markdown);
 
   // Sanitize HTML to prevent XSS attacks
-  const sanitized = DOMPurify.sanitize(result.toString(), {
-    ADD_TAGS: [
+  const sanitized = sanitizeHtml(result.toString(), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       "math",
       "semantics",
       "mrow",
@@ -41,8 +41,25 @@ export async function markdownToHtml(markdown: VFileCompatible) {
       "msup",
       "msub",
       "msubsup",
-    ],
-    ADD_ATTR: ["xmlns", "aria-hidden", "focusable"],
+      "img",
+      "svg",
+      "path",
+      "g",
+      "circle",
+      "rect",
+      "line",
+      "polyline",
+      "polygon",
+    ]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      "*": ["class", "id", "aria-hidden", "focusable", "xmlns"],
+      a: ["href", "name", "target", "rel", "class", "id"],
+      img: ["src", "alt", "title", "width", "height", "loading", "class"],
+      svg: ["width", "height", "viewBox", "fill", "stroke", "class"],
+      path: ["d", "fill", "stroke", "stroke-width", "class"],
+    },
+    allowedSchemes: ["http", "https", "mailto", "data"],
   });
 
   return sanitized;
