@@ -130,7 +130,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-lg border bg-card p-4 shadow-lg">
+            <div className="fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-lg border bg-card p-4 shadow-lg">
               <div className="sticky top-0 mb-4 flex items-center justify-between bg-card pb-2">
                 <h3 className="text-sm font-semibold">Navigation</h3>
                 <button
