@@ -14,7 +14,7 @@ export type Post = {
   edit_url?: string;
   series?: string;
   snippet?: string;
-  [key: string]: any;
+  path?: string;
 };
 
 export interface TagCount {
