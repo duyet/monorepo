@@ -1,7 +1,6 @@
 import { TIME_PERIODS, type PeriodData } from '@/types/periods'
 import { PostHogClient } from './posthog-client'
-
-const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
+import { isPostHogConfigured, queryPostHog } from '@/lib/posthog'
 
 interface Path {
   path: string
@@ -18,8 +17,7 @@ export interface PostHogDataByPeriod {
 }
 
 export async function PostHogWithPeriods() {
-  if (!process.env.POSTHOG_API_KEY || !process.env.POSTHOG_PROJECT_ID) {
-    console.error('POSTHOG_API_KEY or POSTHOG_PROJECT_ID is not set')
+  if (!isPostHogConfigured()) {
     return null
   }
 
@@ -72,52 +70,25 @@ const getDataForAllPeriods = async (): Promise<
   } as PeriodData<PostHogDataByPeriod>
 }
 
-interface PostHogResponse {
-  cache_key: string
-  is_cached: boolean
-  columns: string[]
-  error: string | null
-  hasMore: boolean
-  hogql: string
-  last_refresh: string
-  limit: number
-  offset: number
-  modifiers: object
-  types: string[][]
-  results: (string | number)[][]
-  timezone: string
-}
-
 async function getTopPath(limit = 10, dateFrom: string): Promise<Path[]> {
-  console.log('Fetching Posthog data from', POSTHOG_API)
-
-  const raw = await fetch(POSTHOG_API, {
-    method: 'POST',
-    cache: 'force-cache',
-    headers: {
-      Authorization: `Bearer ${process.env.POSTHOG_API_KEY}`,
-      'Content-Type': 'application/json',
+  const data = await queryPostHog({
+    kind: 'WebStatsTableQuery',
+    properties: [],
+    breakdownBy: 'Page',
+    dateRange: {
+      date_from: dateFrom,
+      date_to: null,
     },
-    body: JSON.stringify({
-      query: {
-        kind: 'WebStatsTableQuery',
-        properties: [],
-        breakdownBy: 'Page',
-        dateRange: {
-          date_from: dateFrom,
-          date_to: null,
-        },
-        includeScrollDepth: false,
-        includeBounceRate: true,
-        doPathCleaning: false,
-        limit,
-        useSessionsTable: true,
-      },
-    }),
+    includeScrollDepth: false,
+    includeBounceRate: true,
+    doPathCleaning: false,
+    limit,
+    useSessionsTable: true,
   })
 
-  const data = (await raw.json()) as PostHogResponse
-  console.log('Fetching Posthog data from', POSTHOG_API, 'response', data)
+  if (!data) {
+    return []
+  }
 
   // Map data based on column structure with validation
   const pathIndex = data.columns.findIndex(

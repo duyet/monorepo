@@ -1,8 +1,7 @@
 import { PopularContentTable } from '@/components/PopularContentTable'
 import { CompactMetric } from '@/components/ui/CompactMetric'
 import { FileText, TrendingUp, Users } from 'lucide-react'
-
-const POSTHOG_API = `https://app.posthog.com/api/projects/${process.env.POSTHOG_PROJECT_ID}/query/`
+import { isPostHogConfigured, queryPostHog } from '@/lib/posthog'
 
 interface Path {
   path: string
@@ -11,8 +10,7 @@ interface Path {
 }
 
 export async function PostHog({ days = 30 }: { days?: number | 'all' }) {
-  if (!process.env.POSTHOG_API_KEY || !process.env.POSTHOG_PROJECT_ID) {
-    console.error('POSTHOG_API_KEY or POSTHOG_PROJECT_ID is not set')
+  if (!isPostHogConfigured()) {
     return null
   }
 
@@ -22,7 +20,8 @@ export async function PostHog({ days = 30 }: { days?: number | 'all' }) {
 
   const totalVisitors = paths.reduce((sum, path) => sum + path.visitors, 0)
   const totalViews = paths.reduce((sum, path) => sum + path.views, 0)
-  const avgVisitorsPerPage = Math.round(totalVisitors / paths.length)
+  const avgVisitorsPerPage =
+    paths.length > 0 ? Math.round(totalVisitors / paths.length) : 0
 
   const metrics = [
     {
@@ -76,55 +75,28 @@ export async function PostHog({ days = 30 }: { days?: number | 'all' }) {
   )
 }
 
-interface PostHogResponse {
-  cache_key: string
-  is_cached: boolean
-  columns: string[]
-  error: string | null
-  hasMore: boolean
-  hogql: string
-  last_refresh: string
-  limit: number
-  offset: number
-  modifiers: object
-  types: string[][]
-  results: (string | number)[][]
-  timezone: string
-}
-
 async function getTopPath(
   limit = 10,
   dateFrom: string = '-90d',
 ): Promise<Path[]> {
-  console.log('Fetching Posthog data', POSTHOG_API)
-
-  const raw = await fetch(POSTHOG_API, {
-    method: 'POST',
-    cache: 'force-cache',
-    headers: {
-      Authorization: `Bearer ${process.env.POSTHOG_API_KEY}`,
-      'Content-Type': 'application/json',
+  const data = await queryPostHog({
+    kind: 'WebStatsTableQuery',
+    properties: [],
+    breakdownBy: 'Page',
+    dateRange: {
+      date_from: dateFrom,
+      date_to: null,
     },
-    body: JSON.stringify({
-      query: {
-        kind: 'WebStatsTableQuery',
-        properties: [],
-        breakdownBy: 'Page',
-        dateRange: {
-          date_from: dateFrom,
-          date_to: null,
-        },
-        includeScrollDepth: false,
-        includeBounceRate: true,
-        doPathCleaning: false,
-        limit,
-        useSessionsTable: true,
-      },
-    }),
+    includeScrollDepth: false,
+    includeBounceRate: true,
+    doPathCleaning: false,
+    limit,
+    useSessionsTable: true,
   })
 
-  const data = (await raw.json()) as PostHogResponse
-  console.log('Fetching Posthog data from', POSTHOG_API, 'response', data)
+  if (!data) {
+    return []
+  }
 
   // Map data based on column structure with validation
   const pathIndex = data.columns.findIndex(
