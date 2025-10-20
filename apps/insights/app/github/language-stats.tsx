@@ -161,11 +161,17 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
       if (repo.archived || !repo.name) continue
 
       try {
+        const token = getGithubToken()
+        if (!token) {
+          console.warn('GITHUB_TOKEN not configured, skipping language fetch')
+          break
+        }
+
         const langResponse = await fetch(
           `https://api.github.com/repos/${owner}/${repo.name}/languages`,
           {
             headers: {
-              Authorization: `Bearer ${getGithubToken()}`,
+              Authorization: `Bearer ${token}`,
               Accept: 'application/vnd.github.v3+json',
             },
             cache: 'force-cache',

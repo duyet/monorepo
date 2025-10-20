@@ -200,6 +200,12 @@ async function fetchAllEvents(
 ): Promise<
   { type: string; created_at: string; payload?: { commits?: unknown[] } }[]
 > {
+  const token = getGithubToken()
+  if (!token) {
+    console.warn('GITHUB_TOKEN not configured, returning empty events')
+    return []
+  }
+
   const allEvents: {
     type: string
     created_at: string
@@ -217,7 +223,7 @@ async function fetchAllEvents(
         `https://api.github.com/users/${owner}/events?per_page=${perPage}&page=${page}`,
         {
           headers: {
-            Authorization: `Bearer ${getGithubToken()}`,
+            Authorization: `Bearer ${token}`,
             Accept: 'application/vnd.github.v3+json',
           },
           cache: 'force-cache',
