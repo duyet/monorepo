@@ -205,7 +205,7 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
         'https://insights.duyet.net',
-      color: 'bg-stone-100/70',
+      color: 'bg-stone-200',
     },
     {
       icon: PhotosIcon,
