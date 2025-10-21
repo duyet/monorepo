@@ -12,6 +12,8 @@ import {
   Shrink,
   X,
 } from 'lucide-react'
+import { PhotoMetadata } from '@/lib/MetadataFormatters'
+import { Photo } from '@/lib/types'
 
 interface LightboxControlsProps {
   currentIndex: number
@@ -137,47 +139,8 @@ export function NavigationButton({
 }
 
 interface InfoPanelProps {
-  photo: {
-    description?: string | null
-    created_at: string
-    width: number
-    height: number
-    stats?: {
-      views: number
-      downloads: number
-    }
-    location?: {
-      city?: string | null
-      country?: string | null
-    }
-    exif?: {
-      make?: string | null
-      model?: string | null
-      aperture?: string | null
-      exposure_time?: string | null
-      iso?: number | null
-      focal_length?: string | null
-    }
-    links: {
-      html: string
-    }
-    urls: {
-      full: string
-    }
-  }
-  metadata: {
-    dateFormatted: string
-    dimensions: string
-    location?: string
-    stats?: {
-      views: string
-      downloads: string
-    }
-    exif?: {
-      camera: string
-      settings: string
-    }
-  }
+  photo: Photo
+  metadata: PhotoMetadata
   isFullscreen: boolean
   className?: string
 }
@@ -188,11 +151,13 @@ export function InfoPanel({
   isFullscreen,
   className,
 }: InfoPanelProps) {
+  const isLocal = metadata.source === 'local'
+
   if (isFullscreen) {
     return (
       <div
         className={cn(
-          'absolute bottom-4 left-4 right-4 z-10 rounded-xl bg-black/85 p-6 text-white backdrop-blur-md',
+          'absolute bottom-4 left-4 right-4 z-10 max-h-[60vh] overflow-y-auto rounded-xl bg-black/85 p-6 text-white backdrop-blur-md',
           className,
         )}
       >
@@ -202,6 +167,11 @@ export function InfoPanel({
               {photo.description}
             </h3>
           )}
+
+          {/* Source indicator */}
+          <div className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-medium">
+            {isLocal ? '📁 Local Upload' : '📷 Unsplash'}
+          </div>
 
           <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
             {/* Technical Information */}
@@ -216,21 +186,45 @@ export function InfoPanel({
                     {metadata.stats.downloads} downloads
                   </p>
                 )}
+                {metadata.fileInfo && (
+                  <>
+                    <p>💾 {metadata.fileInfo.size}</p>
+                    <p>📄 {metadata.fileInfo.mimeType}</p>
+                  </>
+                )}
               </div>
             </div>
 
-            {/* Creative Information */}
+            {/* Capture Information */}
             <div className="space-y-2">
               <h4 className="font-medium text-gray-200">Capture Details</h4>
               <div className="space-y-1 text-gray-300">
                 {metadata.location && <p>📍 {metadata.location}</p>}
                 {metadata.exif && (
                   <>
-                    <p>📷 {metadata.exif.camera}</p>
+                    {metadata.exif.camera && <p>📷 {metadata.exif.camera}</p>}
                     {metadata.exif.settings && (
                       <p>⚙️ {metadata.exif.settings}</p>
                     )}
+                    {metadata.exif.detailedInfo &&
+                      metadata.exif.detailedInfo.length > 0 && (
+                        <div className="mt-2 space-y-1 border-t border-gray-600 pt-2">
+                          <h5 className="text-xs font-medium text-gray-400">
+                            Extended EXIF
+                          </h5>
+                          {metadata.exif.detailedInfo.map((info, i) => (
+                            <p key={i} className="text-xs">
+                              {info}
+                            </p>
+                          ))}
+                        </div>
+                      )}
                   </>
+                )}
+                {metadata.attribution && (
+                  <p className="text-xs text-gray-400">
+                    {metadata.attribution.photographer}
+                  </p>
                 )}
               </div>
             </div>
@@ -238,15 +232,17 @@ export function InfoPanel({
 
           {/* Actions */}
           <div className="flex gap-4 border-t border-gray-600 pt-3">
-            <a
-              href={photo.links.html}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium text-blue-300 transition-colors hover:text-blue-200"
-            >
-              <ExternalLink className="h-4 w-4" />
-              View on Unsplash
-            </a>
+            {!isLocal && 'links' in photo && photo.links && (
+              <a
+                href={photo.links.html}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm font-medium text-blue-300 transition-colors hover:text-blue-200"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View on Unsplash
+              </a>
+            )}
             <a
               href={photo.urls.full}
               target="_blank"
@@ -269,16 +265,18 @@ export function InfoPanel({
       <div className="flex items-center justify-between text-sm">
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <a
-            href={photo.links.html}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
-            title="View on Unsplash"
-          >
-            <ExternalLink className="h-4 w-4" />
-            <span className="hidden sm:inline">View</span>
-          </a>
+          {!isLocal && 'links' in photo && photo.links && (
+            <a
+              href={photo.links.html}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
+              title="View on Unsplash"
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span className="hidden sm:inline">View</span>
+            </a>
+          )}
           <a
             href={photo.urls.full}
             target="_blank"
@@ -294,6 +292,7 @@ export function InfoPanel({
 
         {/* Compact info */}
         <div className="flex items-center gap-3 text-xs text-gray-400">
+          <span>{isLocal ? '📁' : '📷'}</span>
           {metadata.stats && (
             <>
               <span>👁 {metadata.stats.views}</span>
