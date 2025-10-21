@@ -5,4 +5,5 @@ export * from "./getPost";
 export * from "./getSlug";
 export * from "./getUser";
 export * from "./markdownToHtml";
+export * from "./next-routes";
 export * from "./utils";

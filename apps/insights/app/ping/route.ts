@@ -1,16 +1,3 @@
-import { NextResponse } from 'next/server'
+import { createPingRoute } from '@duyet/libs'
 
-export const dynamic = 'force-static'
-
-export function GET(): NextResponse {
-  return NextResponse.json(
-    {
-      status: 'ok',
-    },
-    {
-      headers: {
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-      },
-    },
-  )
-}
+export const { GET, dynamic } = createPingRoute()

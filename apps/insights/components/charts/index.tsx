@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 
 export { AreaChart } from './AreaChart'
 export { BarChart } from './BarChart'

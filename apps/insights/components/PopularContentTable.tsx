@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 import { ArrowUpRight } from 'lucide-react'
 
 interface ContentItem {

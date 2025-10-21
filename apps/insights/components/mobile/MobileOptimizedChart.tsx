@@ -6,7 +6,7 @@ import {
   CompactLineChart,
   MiniSparkline,
 } from '@/components/charts/CompactChart'
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from 'lucide-react'
 import { useState } from 'react'
 

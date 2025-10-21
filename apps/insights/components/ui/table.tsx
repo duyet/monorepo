@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 import * as React from 'react'
 
 const Table = React.forwardRef<
