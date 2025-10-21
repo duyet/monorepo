@@ -26,11 +26,13 @@
     "@duyet/libs": "*",
     "@radix-ui/react-dialog": "^1.1.2",
     "cloudinary": "^2.5.1",
+    "exifreader": "^4.32.0",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-masonry-css": "^1.0.16",
+    "sharp": "^0.34.4",
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
