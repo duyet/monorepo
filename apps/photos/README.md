@@ -1,16 +1,17 @@
-# Photos App - Photography Portfolio with Local Upload
+# Photos App - Photography Portfolio with Build-Time Metadata Extraction
 
-A Next.js 15 photography portfolio application that displays photos from both Unsplash and local uploads, with comprehensive EXIF metadata inspection and a beautiful masonry gallery layout.
+A Next.js 15 photography portfolio application that displays photos from both Unsplash and local files, with comprehensive EXIF metadata inspection. Photos are scanned and metadata is extracted at build time for optimal performance.
 
 ## Features
 
 ### 🖼️ Dual Photo Sources
 - **Unsplash Integration**: Automatically fetches photos from your Unsplash profile
-- **Local Uploads**: Upload and host photos directly in the public folder
+- **Local Photos**: Place photos in `public/photos/` directory
+- **Build-Time Scanning**: All local photos are scanned and metadata extracted during build
 - **Unified Timeline**: Both sources are merged and sorted chronologically
 
 ### 📸 EXIF Metadata Extraction
-- Comprehensive metadata extraction from uploaded photos:
+- Comprehensive metadata extraction from local photos during build:
   - Camera information (make, model, lens)
   - Shooting parameters (aperture, shutter speed, ISO, focal length)
   - GPS location data (latitude, longitude, altitude)
@@ -19,11 +20,11 @@ A Next.js 15 photography portfolio application that displays photos from both Un
   - Additional metadata (software, copyright, artist)
 
 ### 🎨 User Interface
-- **Drag & Drop Upload**: Simple drag-and-drop interface for uploading photos
 - **Masonry Grid Layout**: Responsive grid with 1-4 columns based on screen size
 - **Lightbox Viewer**: Full-screen photo viewer with navigation
 - **Detailed Metadata Panel**: View all photo metadata in the lightbox
 - **Dark Mode Support**: Automatic dark/light theme support
+- **Static Export**: Fully static site with no server required
 
 ### 🔍 Photo Inspection
 - View comprehensive EXIF data for local photos
@@ -35,8 +36,8 @@ A Next.js 15 photography portfolio application that displays photos from both Un
 ## Architecture
 
 ### Technology Stack
-- **Framework**: Next.js 15 (App Router, Server Components)
-- **Runtime Mode**: Server-Side Rendering (SSR)
+- **Framework**: Next.js 15 (App Router, Static Export)
+- **Build Mode**: Static Site Generation (SSG)
 - **Image Processing**: Sharp
 - **EXIF Extraction**: ExifReader
 - **Styling**: Tailwind CSS
@@ -48,153 +49,178 @@ A Next.js 15 photography portfolio application that displays photos from both Un
 ```
 apps/photos/
 ├── app/
-│   ├── api/
-│   │   ├── upload/route.ts          # Photo upload endpoint
-│   │   └── photos/[id]/route.ts     # Photo management API
 │   ├── page.tsx                      # Main gallery page
 │   └── [year]/page.tsx               # Year-filtered gallery
 ├── components/
-│   ├── PhotoUploader.tsx             # Drag & drop upload UI
 │   ├── PhotoGrid.tsx                 # Masonry grid display
 │   ├── PhotoCard.tsx                 # Individual photo cards
 │   ├── Lightbox.tsx                  # Photo viewer
 │   └── LightboxControls.tsx          # Lightbox controls & metadata display
 ├── lib/
 │   ├── types.ts                      # TypeScript interfaces
-│   ├── localPhotos.ts                # Local photo storage service
+│   ├── localPhotos.ts                # Build-time photo scanner
 │   ├── exifExtractor.ts              # EXIF metadata extraction
 │   ├── unsplash.ts                   # Unsplash API integration
 │   ├── MetadataFormatters.ts         # Metadata formatting utilities
 │   └── ImageOptimization.ts          # Image optimization utilities
 └── public/
-    └── photos/
-        ├── metadata.json             # Photo metadata database
-        └── thumbs/                   # Thumbnail storage
+    └── photos/                       # Place your photos here!
+        └── .gitkeep
 ```
 
-## API Endpoints
+## How It Works
 
-### POST /api/upload
-Upload a photo with automatic metadata extraction.
+### Build-Time Photo Scanning
 
-**Request**: `multipart/form-data`
-- `file`: Image file (JPEG, PNG, WebP)
+When you run `yarn build`, the application:
 
-**Response**:
-```json
-{
-  "success": true,
-  "photo": {
-    "id": "uuid",
-    "source": "local",
-    "filename": "generated_filename.jpg",
-    "created_at": "ISO date",
-    "width": 4032,
-    "height": 3024,
-    "exif": { /* comprehensive EXIF data */ },
-    "urls": {
-      "raw": "/photos/filename.jpg",
-      "full": "/photos/filename.jpg",
-      "regular": "/photos/regular_filename.jpg",
-      "small": "/photos/small_filename.jpg",
-      "thumb": "/photos/thumbs/thumb_filename.jpg"
-    }
-  }
+1. **Scans** `public/photos/` directory for image files (JPEG, PNG, WebP)
+2. **Extracts** comprehensive EXIF metadata from each photo
+3. **Processes** metadata to extract camera info, GPS coordinates, dates, etc.
+4. **Merges** local photos with Unsplash photos into a unified timeline
+5. **Generates** static HTML pages with all photo data pre-rendered
+
+### Adding Photos
+
+Simply place your photos in the `public/photos/` directory:
+
+```bash
+# Add photos to the public folder
+cp ~/my-photos/*.jpg apps/photos/public/photos/
+
+# Rebuild the site to scan and extract metadata
+yarn build
+
+# The photos will now appear in your gallery with full metadata!
+```
+
+### Photo Processing
+
+At build time, for each photo in `public/photos/`:
+
+1. File is read and analyzed
+2. EXIF metadata is extracted using ExifReader
+3. Image dimensions are determined using Sharp
+4. GPS coordinates are parsed (if available)
+5. Creation date is extracted from EXIF DateTimeOriginal
+6. All metadata is compiled into a structured Photo object
+7. Photos are merged with Unsplash photos and sorted by date
+
+## Build-Time Scanner
+
+### scanLocalPhotos()
+
+The core function that scans photos during build:
+
+```typescript
+export async function scanLocalPhotos(): Promise<LocalPhoto[]> {
+  // 1. Check if public/photos directory exists
+  // 2. Read all files in the directory
+  // 3. Filter for image files (.jpg, .jpeg, .png, .webp)
+  // 4. For each image:
+  //    - Read file buffer
+  //    - Extract EXIF metadata
+  //    - Get image dimensions
+  //    - Parse GPS coordinates
+  //    - Extract creation date
+  //    - Compile into Photo object
+  // 5. Return array of all processed photos
 }
 ```
 
-### GET /api/photos/[id]
-Get metadata for a specific photo.
-
-### PATCH /api/photos/[id]
-Update photo metadata (description, tags, location).
-
-**Request**:
-```json
-{
-  "description": "New description",
-  "alt_description": "Alt text",
-  "tags": ["landscape", "sunset"],
-  "location": {
-    "name": "Location name",
-    "city": "City",
-    "country": "Country"
-  }
-}
+Build output will show:
+```
+Found 15 photos in public/photos directory
+Processed: IMG_1234.jpg (4032x3024)
+Processed: IMG_1235.jpg (4032x3024)
+...
+Successfully processed 15 local photos
 ```
 
-### DELETE /api/photos/[id]
-Delete a photo and its files.
+## Data Structure
 
-## Data Storage
+### Local Photo Metadata
 
-### Local Photos
-- **Files**: Stored in `public/photos/` directory
-- **Thumbnails**: Stored in `public/photos/thumbs/`
-- **Metadata**: Stored in `public/photos/metadata.json`
+Each scanned photo generates:
 
-### Metadata Structure
-```json
+```typescript
 {
-  "id": "uuid",
-  "source": "local",
-  "filename": "photo_123456789_abc123.jpg",
-  "originalName": "IMG_1234.jpg",
-  "created_at": "2024-01-01T12:00:00.000Z",
-  "updated_at": "2024-01-01T12:00:00.000Z",
-  "width": 4032,
-  "height": 3024,
-  "size": 5242880,
-  "mimeType": "image/jpeg",
-  "urls": { /* ... */ },
-  "exif": {
-    "make": "Apple",
-    "model": "iPhone 15 Pro",
-    "lensModel": "iPhone 15 Pro back triple camera",
-    "exposureTime": "1/100",
-    "fNumber": "1.8",
-    "iso": 64,
-    "focalLength": "6.86",
-    "dateTimeOriginal": "2024:01:01 12:00:00",
-    "gps": {
-      "latitude": 37.7749,
-      "longitude": -122.4194
+  id: "uuid",
+  source: "local",
+  filename: "IMG_1234.jpg",
+  originalName: "IMG_1234.jpg",
+  created_at: "2024-01-01T12:00:00.000Z",  // from EXIF
+  updated_at: "2024-01-15T10:30:00.000Z",  // file mtime
+  width: 4032,
+  height: 3024,
+  size: 5242880,  // bytes
+  mimeType: "image/jpeg",
+  urls: {
+    raw: "/photos/IMG_1234.jpg",
+    full: "/photos/IMG_1234.jpg",
+    regular: "/photos/IMG_1234.jpg",
+    small: "/photos/IMG_1234.jpg",
+    thumb: "/photos/IMG_1234.jpg"
+  },
+  exif: {
+    make: "Apple",
+    model: "iPhone 15 Pro",
+    lensModel: "iPhone 15 Pro back triple camera",
+    exposureTime: "1/100",
+    fNumber: "1.8",
+    iso: 64,
+    focalLength: "6.86",
+    dateTimeOriginal: "2024:01:01 12:00:00",
+    gps: {
+      latitude: 37.7749,
+      longitude: -122.4194,
+      altitude: 10
     }
   },
-  "location": {
-    "position": {
-      "latitude": 37.7749,
-      "longitude": -122.4194
+  location: {
+    position: {
+      latitude: 37.7749,
+      longitude: -122.4194
     }
   }
 }
 ```
-
-## Image Processing
-
-When a photo is uploaded, the following sizes are generated:
-
-1. **Original**: Saved as-is
-2. **Regular**: Resized to max 1920px width (90% quality)
-3. **Small**: Resized to max 800px width (85% quality)
-4. **Thumb**: Resized to max 400px width (80% quality)
-
-All resized images maintain aspect ratio and use JPEG compression.
 
 ## Usage
 
 ### Development
 ```bash
 # Start development server
+# Photos are scanned on each page load
 cd apps/photos
 yarn dev
+```
 
-# Build for production
+### Production Build
+```bash
+# Build static site
+# Photos are scanned once during build
 yarn build
 
-# Start production server
+# Preview the static build
 yarn start
+
+# Deploy the 'out' directory
 ```
+
+### Adding New Photos
+
+1. Place photos in `public/photos/`:
+   ```bash
+   cp ~/vacation-photos/*.jpg apps/photos/public/photos/
+   ```
+
+2. Rebuild the site:
+   ```bash
+   yarn build
+   ```
+
+3. Photos appear in your gallery with full metadata!
 
 ### Environment Variables
 Required in `turbo.json` or `.env`:
@@ -202,10 +228,10 @@ Required in `turbo.json` or `.env`:
 UNSPLASH_ACCESS_KEY=your_unsplash_access_key
 ```
 
-### Upload Limitations
-- **Max file size**: 50MB
-- **Allowed formats**: JPEG, JPG, PNG, WebP
-- **Auto-generated sizes**: 4 versions per photo
+### Supported Photo Formats
+- JPEG / JPG
+- PNG
+- WebP
 
 ## Type Definitions
 
@@ -222,9 +248,10 @@ interface LocalPhoto {
   source: 'local'
   filename: string
   originalName: string
-  created_at: string
+  created_at: string  // from EXIF DateTimeOriginal
   width: number
   height: number
+  size: number        // file size in bytes
   exif?: DetailedExif
   location?: {
     position?: {
@@ -256,16 +283,6 @@ interface DetailedExif {
 
 ## UI Components
 
-### PhotoUploader
-Drag-and-drop upload component with progress tracking.
-
-```tsx
-<PhotoUploader
-  onUploadSuccess={(photo) => console.log('Uploaded:', photo)}
-  onUploadError={(error) => console.error('Error:', error)}
-/>
-```
-
 ### PhotoGrid
 Masonry grid layout for displaying photos.
 
@@ -291,7 +308,7 @@ Full-screen photo viewer with metadata panel.
 ## Features in Detail
 
 ### EXIF Metadata Inspection
-All uploaded photos are processed to extract comprehensive metadata:
+All local photos are processed at build time to extract:
 - **Camera Info**: Make, model, lens information
 - **Settings**: Aperture, shutter speed, ISO, focal length
 - **GPS Data**: Coordinates, altitude with degree precision
@@ -300,7 +317,7 @@ All uploaded photos are processed to extract comprehensive metadata:
 - **Creative**: Exposure mode, metering mode, scene type
 
 ### Photo Timeline
-Photos from both Unsplash and local uploads are:
+Photos from both Unsplash and local folder are:
 - Merged into a single timeline
 - Sorted by capture date (newest first)
 - Grouped by year for filtering
@@ -312,13 +329,50 @@ Photos from both Unsplash and local uploads are:
 - **Extended EXIF**: Additional details for local photos
 - **Source Indicator**: Visual differentiation between sources
 
-## Contributing
+## Build Performance
 
-When adding new features:
-1. Update TypeScript interfaces in `lib/types.ts`
-2. Add new API endpoints in `app/api/`
-3. Update metadata formatters if needed
-4. Test with various photo formats and EXIF data
+- **Static Export**: Entire site is pre-rendered
+- **Fast Builds**: Photos scanned once during build
+- **No Server Required**: Deploy anywhere (Vercel, Netlify, S3, etc.)
+- **SEO Friendly**: All content is pre-rendered HTML
+
+## Deployment
+
+The static site can be deployed to:
+- Vercel (automatic)
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
+- Any static hosting service
+
+Just deploy the `out/` directory after running `yarn build`.
+
+## Development Workflow
+
+1. Add photos to `public/photos/`
+2. Run `yarn dev` to see changes locally
+3. Photos are scanned on each page load in dev mode
+4. Run `yarn build` to create production build
+5. Photos are scanned once and baked into static HTML
+6. Deploy `out/` directory
+
+## Troubleshooting
+
+### Photos not appearing?
+- Ensure photos are in `public/photos/` directory
+- Check file format (must be .jpg, .jpeg, .png, or .webp)
+- Rebuild the site: `yarn build`
+- Check build logs for errors
+
+### Missing EXIF data?
+- Some photos may not have EXIF data
+- Photos edited in some apps may strip EXIF
+- Use a EXIF viewer to check if data exists in the file
+
+### Build errors?
+- Ensure Sharp is properly installed: `yarn install`
+- Check that photos are not corrupted
+- Verify file permissions on the photos directory
 
 ## License
 

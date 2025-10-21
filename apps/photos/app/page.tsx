@@ -1,12 +1,11 @@
 import PhotoGrid from '@/components/PhotoGrid'
-import PhotoUploader from '@/components/PhotoUploader'
-import { getAllUserPhotos, groupPhotosByYear } from '@/lib/unsplash'
-import { loadLocalPhotos, mergePhotos } from '@/lib/localPhotos'
+import { getAllUserPhotos } from '@/lib/unsplash'
+import { scanLocalPhotos, mergePhotos } from '@/lib/localPhotos'
 import Container from '@duyet/components/Container'
 import Link from 'next/link'
 import { Photo, UnsplashPhoto } from '@/lib/types'
 
-export const revalidate = 0 // Disable caching for SSR mode to show uploads immediately
+export const revalidate = 86400 // Revalidate daily for static export
 
 export default async function PhotosPage() {
   let photos: Photo[] = []
@@ -23,8 +22,8 @@ export default async function PhotosPage() {
       source: 'unsplash' as const,
     }))
 
-    // Load local photos
-    const localPhotos = loadLocalPhotos()
+    // Scan local photos at build time
+    const localPhotos = await scanLocalPhotos()
 
     // Merge both sources
     photos = mergePhotos(unsplashPhotosWithSource, localPhotos)
@@ -92,12 +91,7 @@ export default async function PhotosPage() {
             >
               Unsplash profile
             </a>
-            {' '}and local uploads.
-          </div>
-
-          {/* Photo uploader */}
-          <div className="mt-6">
-            <PhotoUploader />
+            {' '}and local photos.
           </div>
 
           {years.length > 0 && (
