@@ -1,9 +1,6 @@
-import { NextResponse } from 'next/server'
+import { createLlmsTxtRoute } from '@duyet/libs'
 
-export const dynamic = 'force-static'
-
-export async function GET() {
-  const llmsContent = `# Duyet Le - Insights & Analytics
+const llmsContent = `# Duyet Le - Insights & Analytics
 
 Senior Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing.
 
@@ -67,10 +64,4 @@ This file follows the llms.txt standard for providing information about Duyet Le
 Generated from insights dashboard at https://insights.duyet.net
 `
 
-  return new NextResponse(llmsContent, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-    },
-  })
-}
+export const { GET, dynamic } = createLlmsTxtRoute(llmsContent)

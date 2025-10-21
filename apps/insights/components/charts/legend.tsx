@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 
 interface LegendProps {
   categories: string[]

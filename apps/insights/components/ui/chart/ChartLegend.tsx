@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
 import { useChart } from './context'

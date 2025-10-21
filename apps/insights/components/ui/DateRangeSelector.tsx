@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@duyet/libs'
 import { Calendar, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
