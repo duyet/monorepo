@@ -1,139 +1,120 @@
 import fs from 'fs'
 import path from 'path'
-import { LocalPhoto, Photo } from './types'
+import sharp from 'sharp'
+import { v4 as uuidv4 } from 'uuid'
+import { LocalPhoto } from './types'
+import { extractExifData, extractPhotoDate } from './exifExtractor'
 
-// Directory structure for local photos
 const PUBLIC_DIR = path.join(process.cwd(), 'public')
 const PHOTOS_DIR = path.join(PUBLIC_DIR, 'photos')
-const THUMBS_DIR = path.join(PHOTOS_DIR, 'thumbs')
-const METADATA_FILE = path.join(PHOTOS_DIR, 'metadata.json')
 
 /**
- * Ensure all required directories exist
+ * Scan the public/photos directory and extract metadata from all photos at build time
  */
-export function ensureDirectories() {
-  if (!fs.existsSync(PHOTOS_DIR)) {
-    fs.mkdirSync(PHOTOS_DIR, { recursive: true })
-  }
-  if (!fs.existsSync(THUMBS_DIR)) {
-    fs.mkdirSync(THUMBS_DIR, { recursive: true })
-  }
-}
+export async function scanLocalPhotos(): Promise<LocalPhoto[]> {
+  const photos: LocalPhoto[] = []
 
-/**
- * Load all local photos metadata from the JSON file
- */
-export function loadLocalPhotos(): LocalPhoto[] {
   try {
-    if (!fs.existsSync(METADATA_FILE)) {
+    // Check if photos directory exists
+    if (!fs.existsSync(PHOTOS_DIR)) {
+      console.log('No photos directory found, skipping local photo scan')
       return []
     }
 
-    const data = fs.readFileSync(METADATA_FILE, 'utf-8')
-    const photos: LocalPhoto[] = JSON.parse(data)
+    // Read all files in the photos directory
+    const files = fs.readdirSync(PHOTOS_DIR)
 
-    // Ensure all photos have source: 'local'
-    return photos.map((photo) => ({
-      ...photo,
-      source: 'local' as const,
-    }))
+    // Filter for image files only
+    const imageFiles = files.filter((file) => {
+      const ext = path.extname(file).toLowerCase()
+      return ['.jpg', '.jpeg', '.png', '.webp'].includes(ext)
+    })
+
+    console.log(`Found ${imageFiles.length} photos in public/photos directory`)
+
+    // Process each image file
+    for (const filename of imageFiles) {
+      try {
+        const filePath = path.join(PHOTOS_DIR, filename)
+        const buffer = fs.readFileSync(filePath)
+        const stats = fs.statSync(filePath)
+
+        // Extract EXIF metadata
+        const exif = await extractExifData(buffer)
+
+        // Get image metadata using sharp
+        const image = sharp(buffer)
+        const metadata = await image.metadata()
+
+        // Determine the creation date
+        const createdAt = extractPhotoDate(exif)
+
+        // Extract location from GPS if available
+        let location
+        if (exif?.gps?.latitude && exif?.gps?.longitude) {
+          location = {
+            position: {
+              latitude: exif.gps.latitude,
+              longitude: exif.gps.longitude,
+            },
+          }
+        }
+
+        // Create photo object
+        const photo: LocalPhoto = {
+          id: uuidv4(),
+          source: 'local',
+          filename,
+          originalName: filename,
+          created_at: createdAt,
+          updated_at: stats.mtime.toISOString(),
+          width: metadata.width || 0,
+          height: metadata.height || 0,
+          size: stats.size,
+          mimeType: getMimeType(filename),
+          urls: {
+            raw: `/photos/${filename}`,
+            full: `/photos/${filename}`,
+            regular: `/photos/${filename}`,
+            small: `/photos/${filename}`,
+            thumb: `/photos/${filename}`,
+          },
+          exif,
+          location,
+          description: exif?.description || exif?.userComment,
+          stats: {
+            views: 0,
+            downloads: 0,
+          },
+        }
+
+        photos.push(photo)
+        console.log(`Processed: ${filename} (${metadata.width}x${metadata.height})`)
+      } catch (error) {
+        console.error(`Error processing ${filename}:`, error)
+      }
+    }
+
+    console.log(`Successfully processed ${photos.length} local photos`)
+    return photos
   } catch (error) {
-    console.error('Error loading local photos:', error)
+    console.error('Error scanning local photos:', error)
     return []
   }
 }
 
 /**
- * Save local photos metadata to the JSON file
+ * Get MIME type from filename
  */
-export function saveLocalPhotos(photos: LocalPhoto[]): void {
-  try {
-    ensureDirectories()
-    const data = JSON.stringify(photos, null, 2)
-    fs.writeFileSync(METADATA_FILE, data, 'utf-8')
-  } catch (error) {
-    console.error('Error saving local photos:', error)
-    throw error
+function getMimeType(filename: string): string {
+  const ext = path.extname(filename).toLowerCase()
+  const mimeTypes: Record<string, string> = {
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.png': 'image/png',
+    '.webp': 'image/webp',
   }
-}
-
-/**
- * Add a new local photo to the metadata
- */
-export function addLocalPhoto(photo: LocalPhoto): void {
-  const photos = loadLocalPhotos()
-  photos.push(photo)
-  saveLocalPhotos(photos)
-}
-
-/**
- * Get a single local photo by ID
- */
-export function getLocalPhoto(id: string): LocalPhoto | null {
-  const photos = loadLocalPhotos()
-  return photos.find((photo) => photo.id === id) || null
-}
-
-/**
- * Update a local photo's metadata
- */
-export function updateLocalPhoto(
-  id: string,
-  updates: Partial<LocalPhoto>
-): LocalPhoto | null {
-  const photos = loadLocalPhotos()
-  const index = photos.findIndex((photo) => photo.id === id)
-
-  if (index === -1) {
-    return null
-  }
-
-  photos[index] = {
-    ...photos[index],
-    ...updates,
-    id, // Prevent ID from being changed
-    source: 'local', // Ensure source stays 'local'
-    updated_at: new Date().toISOString(),
-  }
-
-  saveLocalPhotos(photos)
-  return photos[index]
-}
-
-/**
- * Delete a local photo (both file and metadata)
- */
-export function deleteLocalPhoto(id: string): boolean {
-  const photos = loadLocalPhotos()
-  const photo = photos.find((p) => p.id === id)
-
-  if (!photo) {
-    return false
-  }
-
-  try {
-    // Delete the photo file
-    const photoPath = path.join(PHOTOS_DIR, photo.filename)
-    if (fs.existsSync(photoPath)) {
-      fs.unlinkSync(photoPath)
-    }
-
-    // Delete the thumbnail
-    const thumbFilename = `thumb_${photo.filename}`
-    const thumbPath = path.join(THUMBS_DIR, thumbFilename)
-    if (fs.existsSync(thumbPath)) {
-      fs.unlinkSync(thumbPath)
-    }
-
-    // Remove from metadata
-    const updatedPhotos = photos.filter((p) => p.id !== id)
-    saveLocalPhotos(updatedPhotos)
-
-    return true
-  } catch (error) {
-    console.error('Error deleting local photo:', error)
-    return false
-  }
+  return mimeTypes[ext] || 'image/jpeg'
 }
 
 /**
@@ -169,13 +150,13 @@ export function groupLocalPhotosByYear(
 /**
  * Merge Unsplash and local photos, sorted by date
  */
-export function mergePhotos(
-  unsplashPhotos: Photo[],
+export function mergePhotos<T extends { created_at: string; source?: string }>(
+  unsplashPhotos: T[],
   localPhotos: LocalPhoto[]
-): Photo[] {
-  const allPhotos: Photo[] = [
+): (T | LocalPhoto)[] {
+  const allPhotos = [
     ...unsplashPhotos,
-    ...localPhotos.map((photo) => ({ ...photo, source: 'local' as const })),
+    ...localPhotos,
   ]
 
   // Sort by created_at date (newest first)
@@ -185,28 +166,4 @@ export function mergePhotos(
   )
 
   return allPhotos
-}
-
-/**
- * Get photos directory paths
- */
-export function getPhotosPaths() {
-  return {
-    publicDir: PUBLIC_DIR,
-    photosDir: PHOTOS_DIR,
-    thumbsDir: THUMBS_DIR,
-    metadataFile: METADATA_FILE,
-  }
-}
-
-/**
- * Generate a unique filename for uploaded photos
- */
-export function generateUniqueFilename(originalFilename: string): string {
-  const timestamp = Date.now()
-  const random = Math.random().toString(36).substring(2, 9)
-  const ext = path.extname(originalFilename)
-  const baseName = path.basename(originalFilename, ext).replace(/[^a-z0-9]/gi, '_')
-
-  return `${baseName}_${timestamp}_${random}${ext}`
 }
