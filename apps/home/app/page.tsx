@@ -246,8 +246,8 @@ export default function HomePage() {
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
       url: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-      color: 'bg-yellow-100',
-      iconColor: 'text-yellow-800',
+      color: 'bg-amber-100/60',
+      iconColor: 'text-neutral-800',
     },
     {
       icon: ResumeIcon,
@@ -255,8 +255,8 @@ export default function HomePage() {
       description:
         'Experience building scalable data infrastructure and leading engineering teams.',
       url: process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
-      color: 'bg-orange-100',
-      iconColor: 'text-orange-800',
+      color: 'bg-orange-100/50',
+      iconColor: 'text-neutral-800',
     },
     {
       icon: InsightsIcon,
@@ -266,8 +266,8 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
         'https://insights.duyet.net',
-      color: 'bg-sky-100',
-      iconColor: 'text-sky-800',
+      color: 'bg-blue-100/50',
+      iconColor: 'text-neutral-800',
     },
     {
       icon: PhotosIcon,
@@ -276,26 +276,26 @@ export default function HomePage() {
         'Photography portfolio and visual stories from travels and daily life.',
       url:
         process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
-      color: 'bg-purple-100',
-      iconColor: 'text-purple-800',
+      color: 'bg-purple-100/50',
+      iconColor: 'text-neutral-800',
     },
   ]
 
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24 md:py-32">
+    <div className="min-h-screen bg-neutral-50">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
         {/* Header */}
-        <div className="mb-24 text-center">
-          <h1 className="mb-5 font-serif text-6xl font-normal tracking-tight text-claude-black sm:text-7xl md:text-8xl">
+        <div className="mb-12 text-center">
+          <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
             Duyet
           </h1>
-          <p className="text-lg font-light tracking-wide text-claude-gray-600 sm:text-xl">
+          <p className="text-lg leading-relaxed text-neutral-700">
             Data Engineering
           </p>
         </div>
 
         {/* Links Grid */}
-        <div className="mb-24 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((link, index) => {
             const Icon = link.icon
             return (
@@ -304,15 +304,15 @@ export default function HomePage() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex flex-col p-8 ${link.color} rounded-2xl transition-all duration-300`}
+                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
               >
-                <div className={`mb-6 ${link.iconColor}`}>
+                <div className={`mb-8 ${link.iconColor}`}>
                   <Icon />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold tracking-tight text-claude-black">
+                <h3 className="mb-3 text-xl font-medium text-neutral-900">
                   {link.title}
                 </h3>
-                <p className="text-sm font-light leading-relaxed text-claude-gray-700">
+                <p className="text-sm leading-relaxed text-neutral-700">
                   {link.description}
                 </p>
               </Link>
@@ -321,24 +321,24 @@ export default function HomePage() {
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-10 text-sm font-medium text-claude-gray-500">
+        <div className="flex justify-center gap-10 text-sm font-medium text-neutral-600">
           <Link
             href="https://github.com/duyet"
             target="_blank"
-            className="transition-colors duration-200 hover:text-claude-black"
+            className="transition-colors duration-200 hover:text-neutral-900"
           >
             GitHub
           </Link>
           <Link
             href="https://linkedin.com/in/duyet"
             target="_blank"
-            className="transition-colors duration-200 hover:text-claude-black"
+            className="transition-colors duration-200 hover:text-neutral-900"
           >
             LinkedIn
           </Link>
           <Link
             href="/llms.txt"
-            className="transition-colors duration-200 hover:text-claude-black"
+            className="transition-colors duration-200 hover:text-neutral-900"
           >
             llms.txt
           </Link>
