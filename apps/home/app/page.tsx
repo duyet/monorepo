@@ -282,8 +282,8 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
+    <div className="flex min-h-screen items-center bg-neutral-50">
+      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
