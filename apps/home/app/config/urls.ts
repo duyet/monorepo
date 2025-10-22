@@ -34,6 +34,10 @@ export const urls: Urls = {
     target: 'https://rust-tieng-viet.github.io',
     desc: 'Rust Tiếng Việt',
   },
+  '/rust': {
+    target: 'https://rust-tieng-viet.github.io',
+    desc: 'Rust Tiếng Việt',
+  },
   '/github': {
     target: 'https://github.com/duyet',
     desc: '@duyet on Github',

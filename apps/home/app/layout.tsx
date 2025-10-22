@@ -41,7 +41,7 @@ export default function RootLayout({
       <Head />
       <body
         className={cn(
-          'bg-claude-cream text-claude-black subpixel-antialiased',
+          'text-claude-black subpixel-antialiased',
           'transition-colors duration-300 dark:bg-claude-gray-900 dark:text-claude-gray-50',
         )}
       >

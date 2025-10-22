@@ -50,7 +50,7 @@ const navigation = {
   general: [
     {
       name: "Rust Tiếng Việt",
-      href: "https://rust-tieng-viet.github.io/?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet",
+      href: "https://duyet.net/rust?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet",
     },
     { name: "/ai", href: `${BLOG_URL}/ai` },
     { name: "/archives", href: `${BLOG_URL}/archives` },

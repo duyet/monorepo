@@ -246,8 +246,8 @@ export default function HomePage() {
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
       url: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-      color: 'bg-yellow-50',
-      iconColor: 'text-yellow-700',
+      color: 'bg-yellow-100',
+      iconColor: 'text-yellow-800',
     },
     {
       icon: ResumeIcon,
@@ -255,8 +255,8 @@ export default function HomePage() {
       description:
         'Experience building scalable data infrastructure and leading engineering teams.',
       url: process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
-      color: 'bg-orange-50',
-      iconColor: 'text-orange-700',
+      color: 'bg-orange-100',
+      iconColor: 'text-orange-800',
     },
     {
       icon: InsightsIcon,
@@ -266,8 +266,8 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
         'https://insights.duyet.net',
-      color: 'bg-blue-50',
-      iconColor: 'text-blue-700',
+      color: 'bg-sky-100',
+      iconColor: 'text-sky-800',
     },
     {
       icon: PhotosIcon,
@@ -276,8 +276,8 @@ export default function HomePage() {
         'Photography portfolio and visual stories from travels and daily life.',
       url:
         process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
-      color: 'bg-purple-50',
-      iconColor: 'text-purple-700',
+      color: 'bg-purple-100',
+      iconColor: 'text-purple-800',
     },
   ]
 
