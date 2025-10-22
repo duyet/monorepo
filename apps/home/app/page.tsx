@@ -11,7 +11,7 @@ const BlogIcon = () => (
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out group-hover:scale-105"
+    className="transition-transform duration-300 ease-out"
   >
     {/* Document with folded corner */}
     <path
@@ -67,7 +67,7 @@ const ResumeIcon = () => (
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out group-hover:scale-105"
+    className="transition-transform duration-300 ease-out"
   >
     {/* Document outline */}
     <rect
@@ -127,7 +127,7 @@ const InsightsIcon = () => (
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out group-hover:scale-105"
+    className="transition-transform duration-300 ease-out"
   >
     {/* Bar chart with varying heights */}
     <rect
@@ -188,7 +188,7 @@ const PhotosIcon = () => (
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out group-hover:scale-105"
+    className="transition-transform duration-300 ease-out"
   >
     {/* Camera body */}
     <rect
@@ -304,7 +304,7 @@ export default function HomePage() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex flex-col p-8 ${link.color} rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
+                className={`group flex flex-col p-8 ${link.color} rounded-2xl transition-all duration-300`}
               >
                 <div className={`mb-6 ${link.iconColor}`}>
                   <Icon />
