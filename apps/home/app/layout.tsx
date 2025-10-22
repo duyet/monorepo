@@ -8,7 +8,7 @@ import { cn } from '@duyet/libs/utils'
 import { Inter, Libre_Baskerville } from 'next/font/google'
 
 const inter = Inter({
-  weight: ['400', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
