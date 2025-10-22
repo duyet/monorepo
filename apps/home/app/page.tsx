@@ -295,7 +295,7 @@ export default function HomePage() {
         </div>
 
         {/* Links Grid */}
-        <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-16 grid place-items-center gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((link, index) => {
             const Icon = link.icon
             return (
