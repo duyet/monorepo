@@ -9,7 +9,7 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 - **Resume/CV**: https://cv.duyet.net - Professional resume and experience
 - **Insights**: https://insights.duyet.net - Data insights and analytics platform
 - **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
-- **Rust Tiếng Việt**: https://rust-tieng-viet.github.io - Vietnamese Rust programming language guide
+- **Rust Tiếng Việt**: https://duyet.net/rust - Vietnamese Rust programming language guide
 - **ClickHouse Monitoring**: https://duyet.net/monitor - Real-time ClickHouse cluster monitoring
 
 ### Social Media & Professional

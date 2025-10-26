@@ -40,7 +40,7 @@ export function SkillRust() {
           , created multiple command line applications, and documented all my
           experiences in Vietnamese through{' '}
           <Link
-            href="https://rust-tieng-viet.github.io/"
+            href="https://duyet.net/rust"
             target="_blank"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
