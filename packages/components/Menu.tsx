@@ -8,8 +8,7 @@ const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
 const PHOTO_URL =
   process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net";
-const CV_URL =
-  process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
+const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
 
 export type NavigationItem = {
   name: string;
@@ -35,12 +34,14 @@ export default function Menu({
   navigationItems = DEFAULT_NAVIGATION,
 }: Props) {
   return (
-    <div className={cn("flex flex-row gap-5 flex-wrap items-center", className)}>
+    <div
+      className={cn("flex flex-row gap-5 flex-wrap items-center", className)}
+    >
       {navigationItems.map(({ name, href }) => (
         <Link
           key={name}
           href={href}
-          className="hover:underline underline-offset-8"
+          className="text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
         >
           {name}
         </Link>
