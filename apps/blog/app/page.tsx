@@ -25,7 +25,7 @@ export default async function Page() {
     .map(([tag]) => tag)
 
   return (
-    <div className="min-h-screen bg-neutral-50 pb-10">
+    <div className="bg-cream-warm min-h-screen pb-10">
       <Header longText="Data Engineering" />
       <Container>
         <div className="mb-12 text-center">

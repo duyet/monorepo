@@ -1,5 +1,6 @@
 import type { Series } from '@duyet/interfaces'
-import Link from 'next/link'
+import { ContentCard } from './content-card'
+import { FeaturedCard } from './featured-card'
 
 interface HomeCardsProps {
   seriesList: Series[]
@@ -8,62 +9,65 @@ interface HomeCardsProps {
 
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
   return (
-    <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-      <div className="flex flex-col gap-4">
-        <Link
-          href="/featured"
-          className="bg-cactus-light group flex flex-col rounded-2xl p-6 transition-all hover:scale-[1.02]"
-        >
-          <h3 className="font-serif text-xl font-bold text-neutral-900">
-            Featured Posts →
-          </h3>
-        </Link>
+    <div className="mb-16 flex flex-col gap-6">
+      <FeaturedCard
+        title="Featured Posts"
+        href="/featured"
+        category="Highlights"
+        description="Explore my most popular and impactful articles on data engineering, software architecture, and technology insights."
+        color="terracotta"
+      />
 
-        <Link
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ContentCard
+          title="Explore by Topics"
           href="/tags"
-          className="bg-ivory-medium group flex min-h-[140px] flex-col rounded-2xl p-6 transition-all hover:scale-[1.02]"
-        >
-          <h3 className="mb-3 font-serif text-xl font-bold text-neutral-900">
-            Tags
-          </h3>
-          {topTags.length > 0 && (
-            <div className="mt-auto flex flex-wrap gap-2">
-              {topTags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-white px-3 py-1 text-xs font-medium text-neutral-800"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </Link>
+          category="Browse"
+          description="Discover content organized by technology, tools, and concepts."
+          tags={topTags}
+          color="oat"
+          illustration="geometric"
+        />
+
+        <ContentCard
+          title="Series"
+          href="/series"
+          category="Deep Dives"
+          description="Comprehensive multi-part guides on specific topics and technologies."
+          tags={seriesList.map((s) => s.name)}
+          color="sage"
+          illustration="wavy"
+        />
       </div>
 
-      <Link
-        href="/series"
-        className="bg-lavender group flex min-h-[140px] flex-col rounded-2xl p-6 transition-all hover:scale-[1.02]"
-      >
-        <h3 className="mb-2 font-serif text-xl font-bold text-neutral-900">
-          Series
-        </h3>
-        <p className="mb-3 text-sm text-neutral-700">
-          Deep dives into specific topics
-        </p>
-        {seriesList.length > 0 && (
-          <div className="mt-auto flex flex-wrap gap-2">
-            {seriesList.map((series) => (
-              <span
-                key={series.slug}
-                className="rounded-full bg-white px-3 py-1 text-xs font-medium text-neutral-800"
-              >
-                {series.name}
-              </span>
-            ))}
-          </div>
-        )}
-      </Link>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <ContentCard
+          title="Latest Posts"
+          href="/feed"
+          category="Recent"
+          description="Stay updated with my newest articles and insights."
+          color="cream"
+          illustration="blob"
+        />
+
+        <ContentCard
+          title="Archives"
+          href="/archives"
+          category="History"
+          description="Browse through years of technical content and learning."
+          color="ivory"
+          illustration="geometric"
+        />
+
+        <ContentCard
+          title="About Me"
+          href="/about"
+          category="Profile"
+          description="Learn more about my journey in technology and data engineering."
+          color="lavender"
+          illustration="wavy"
+        />
+      </div>
     </div>
   )
 }
