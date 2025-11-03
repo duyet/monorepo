@@ -283,7 +283,7 @@ export default function HomePage() {
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
       url: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-      color: 'bg-amber-100/60',
+      color: 'bg-[#e89879]/30',
       iconColor: 'text-neutral-800',
     },
     {
@@ -292,7 +292,7 @@ export default function HomePage() {
       description:
         'Experience building scalable data infrastructure and leading engineering teams.',
       url: process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
-      color: 'bg-orange-100/50',
+      color: 'bg-[#f4b8a0]/40',
       iconColor: 'text-neutral-800',
     },
     {
@@ -303,7 +303,7 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
         'https://insights.duyet.net',
-      color: 'bg-blue-100/50',
+      color: 'bg-[#b8ccc5]/30',
       iconColor: 'text-neutral-800',
     },
     {
@@ -313,7 +313,7 @@ export default function HomePage() {
         'Photography portfolio and visual stories from travels and daily life.',
       url:
         process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
-      color: 'bg-purple-100/50',
+      color: 'bg-[#d4c5e0]/30',
       iconColor: 'text-neutral-800',
     },
     {
@@ -322,7 +322,7 @@ export default function HomePage() {
       description:
         'Learn more about my experience, skills, and professional background.',
       url: '/about',
-      color: 'bg-green-100/50',
+      color: 'bg-[#f7f4ee]/80',
       iconColor: 'text-neutral-800',
     },
   ]
