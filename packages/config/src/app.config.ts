@@ -28,8 +28,6 @@ export interface AppUrls {
 }
 
 // Environment-aware URL configuration
-const isProd = process.env.NODE_ENV === "production";
-
 export const appUrls: AppUrls = {
   blog: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net",
   cv: process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net",
