@@ -41,9 +41,9 @@ export default function PhotoCard({
   return (
     <div
       className={cn(
-        'group relative cursor-pointer overflow-hidden bg-gray-100 dark:bg-gray-800',
-        'transition-opacity duration-200 hover:opacity-95',
-        'break-inside-avoid', // Prevents breaking in masonry layout
+        'group relative cursor-pointer overflow-hidden',
+        'transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md',
+        'break-inside-avoid mb-1 md:mb-2', // Prevents breaking in masonry layout + minimal spacing
         className,
       )}
       onClick={onClick}

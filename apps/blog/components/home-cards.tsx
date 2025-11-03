@@ -40,34 +40,6 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <ContentCard
-          title="Latest Posts"
-          href="/feed"
-          category="Recent"
-          description="Stay updated with my newest articles and insights."
-          color="cream"
-          illustration="blob"
-        />
-
-        <ContentCard
-          title="Archives"
-          href="/archives"
-          category="History"
-          description="Browse through years of technical content and learning."
-          color="ivory"
-          illustration="geometric"
-        />
-
-        <ContentCard
-          title="About Me"
-          href="/about"
-          category="Profile"
-          description="Learn more about my journey in technology and data engineering."
-          color="lavender"
-          illustration="wavy"
-        />
-      </div>
     </div>
   )
 }
