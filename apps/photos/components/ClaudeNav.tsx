@@ -34,9 +34,9 @@ export default function ClaudeNav() {
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center">
+        <div className="flex h-16 items-center justify-center md:justify-between">
+          {/* Logo - hidden on desktop when centered */}
+          <div className="absolute left-4 flex items-center md:relative md:left-0">
             <Link
               href="/"
               className="group flex items-center gap-2 transition-colors"
@@ -45,13 +45,10 @@ export default function ClaudeNav() {
               <span className="text-xl font-semibold tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-600 dark:text-neutral-100 dark:group-hover:text-neutral-300">
                 Photos
               </span>
-              <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                by Duyệt
-              </span>
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Centered */}
           <div className="hidden items-center gap-1 md:flex">
             {navigationItems.map((item) => (
               <NavLink key={item.name} item={item} />
@@ -61,7 +58,7 @@ export default function ClaudeNav() {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="focus:ring-terracotta inline-flex items-center justify-center rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset dark:text-neutral-300 dark:hover:bg-neutral-800 md:hidden"
+            className="focus:ring-terracotta absolute right-4 inline-flex items-center justify-center rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset dark:text-neutral-300 dark:hover:bg-neutral-800 md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"

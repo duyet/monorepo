@@ -53,14 +53,14 @@ export default async function PhotosPage() {
       {/* Header section with Anthropic-inspired design */}
       <div className="from-cream-warm to-ivory-light bg-gradient-to-b py-12 dark:from-slate-900 dark:to-slate-800">
         <Container>
-          <section className="mb-8" aria-labelledby="intro-heading">
+          <section className="mb-8 text-center" aria-labelledby="intro-heading">
             <h1
               id="intro-heading"
               className="mb-4 font-serif text-4xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 md:text-5xl"
             >
               Photography Collection
             </h1>
-            <p className="mb-6 text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+            <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
               A curated selection of {totalPhotos} photos from my{' '}
               <a
                 href="https://unsplash.com/@_duyet"
@@ -75,7 +75,7 @@ export default async function PhotosPage() {
             </p>
 
             {years.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2">
                 <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
                   Browse by year:
                 </span>
