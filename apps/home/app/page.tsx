@@ -6,12 +6,12 @@ export const revalidate = 3600
 // SVG Icons - Refined and modern design
 const BlogIcon = () => (
   <svg
-    width="64"
-    height="64"
+    width="80"
+    height="80"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out"
+    className="transition-transform duration-300 ease-out group-hover:scale-110"
   >
     {/* Document with folded corner */}
     <path
@@ -62,12 +62,12 @@ const BlogIcon = () => (
 
 const ResumeIcon = () => (
   <svg
-    width="64"
-    height="64"
+    width="80"
+    height="80"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out"
+    className="transition-transform duration-300 ease-out group-hover:scale-110"
   >
     {/* Document outline */}
     <rect
@@ -122,12 +122,12 @@ const ResumeIcon = () => (
 
 const InsightsIcon = () => (
   <svg
-    width="64"
-    height="64"
+    width="80"
+    height="80"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out"
+    className="transition-transform duration-300 ease-out group-hover:scale-110"
   >
     {/* Bar chart with varying heights */}
     <rect
@@ -183,12 +183,12 @@ const InsightsIcon = () => (
 
 const PhotosIcon = () => (
   <svg
-    width="64"
-    height="64"
+    width="80"
+    height="80"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out"
+    className="transition-transform duration-300 ease-out group-hover:scale-110"
   >
     {/* Camera body */}
     <rect
@@ -240,12 +240,12 @@ const PhotosIcon = () => (
 
 const AboutIcon = () => (
   <svg
-    width="64"
-    height="64"
+    width="80"
+    height="80"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-transform duration-300 ease-out"
+    className="transition-transform duration-300 ease-out group-hover:scale-110"
   >
     {/* User circle */}
     <circle
@@ -331,11 +331,11 @@ export default function HomePage() {
     <div className="flex min-h-screen items-center bg-neutral-50">
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
+        <div className="mb-16 text-center">
+          <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 sm:text-7xl">
             Duyet
           </h1>
-          <p className="text-lg leading-relaxed text-neutral-700">
+          <p className="text-xl leading-relaxed text-neutral-700 sm:text-2xl">
             Data Engineering
           </p>
         </div>
@@ -355,10 +355,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-2xl font-medium text-neutral-900">
+            <h3 className="mb-4 text-3xl font-semibold text-neutral-900 sm:text-4xl">
               {links[0].title}
             </h3>
-            <p className="text-base leading-relaxed text-neutral-700">
+            <p className="text-lg leading-relaxed text-neutral-700 sm:text-xl">
               {links[0].description}
             </p>
           </Link>
@@ -376,10 +376,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
               {links[1].title}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
+            <p className="text-base leading-relaxed text-neutral-700">
               {links[1].description}
             </p>
           </Link>
@@ -397,10 +397,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
               {links[2].title}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
+            <p className="text-base leading-relaxed text-neutral-700">
               {links[2].description}
             </p>
           </Link>
@@ -418,10 +418,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
               {links[3].title}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
+            <p className="text-base leading-relaxed text-neutral-700">
               {links[3].description}
             </p>
           </Link>
@@ -438,17 +438,17 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
               {links[4].title}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
+            <p className="text-base leading-relaxed text-neutral-700">
               {links[4].description}
             </p>
           </Link>
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-10 text-sm font-medium text-neutral-600">
+        <div className="flex justify-center gap-10 text-base font-medium text-neutral-600">
           <Link
             href="https://github.com/duyet"
             target="_blank"
