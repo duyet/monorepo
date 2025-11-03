@@ -1,6 +1,6 @@
 import './globals.css'
 
-import ClaudeNav from '@/components/ClaudeNav'
+import PhotoNav from '@/components/PhotoNav'
 import Analytics from '@duyet/components/Analytics'
 import Footer from '@duyet/components/Footer'
 import Head from '@duyet/components/Head'
@@ -80,7 +80,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            <ClaudeNav />
+            <PhotoNav />
             <main className="mt-16 flex-1" role="main">
               {children}
             </main>

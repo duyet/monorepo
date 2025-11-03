@@ -19,14 +19,14 @@ const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net'
 const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || 'https://duyet.net'
 
 const navigationItems: NavItem[] = [
-  { name: 'Photos', href: '/' },
-  { name: 'Blog', href: BLOG_URL, external: true },
-  { name: 'Insights', href: INSIGHTS_URL, external: true },
-  { name: 'About', href: `${HOME_URL}/about`, external: true },
-  { name: 'CV', href: CV_URL, external: true },
+  { name: 'Home', href: HOME_URL },
+  { name: 'Blog', href: BLOG_URL },
+  { name: 'Insights', href: INSIGHTS_URL },
+  { name: 'CV', href: CV_URL },
+  { name: 'About', href: `${HOME_URL}/about` },
 ]
 
-export default function ClaudeNav() {
+export default function PhotoNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (

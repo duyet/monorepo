@@ -38,12 +38,17 @@ export default function PhotoCard({
     [photo],
   )
 
+  // Extract location for display
+  const location =
+    photo.location && (photo.location.city || photo.location.country)
+      ? [photo.location.city, photo.location.country].filter(Boolean).join(', ')
+      : null
+
   return (
     <div
       className={cn(
-        'group relative cursor-pointer overflow-hidden',
-        'transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md',
-        'break-inside-avoid mb-1 md:mb-2', // Prevents breaking in masonry layout + minimal spacing
+        'group relative cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1',
+        'break-inside-avoid', // Prevents breaking in masonry layout + proper spacing
         className,
       )}
       onClick={onClick}
@@ -58,7 +63,7 @@ export default function PhotoCard({
       }}
     >
       {/* Image Container */}
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <LazyImage
           src={imageSrc()}
           alt={description}
@@ -67,20 +72,14 @@ export default function PhotoCard({
           priority={shouldPrioritizeLoading(index)}
           blurDataURL={generateBlurDataURL(photo)}
           sizes={getResponsiveSizes('grid')}
-          className="transition-opacity duration-300"
+          className="transition-transform duration-300 group-hover:scale-105"
         />
 
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-200 group-hover:bg-opacity-20">
-          <div className="absolute bottom-0 left-0 right-0 p-3 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-            {photo.description && (
-              <h3 className="mb-2 line-clamp-2 text-sm font-medium leading-snug sm:text-base">
-                {photo.description}
-              </h3>
-            )}
-
+        {/* Hover overlay with additional metadata */}
+        <div className="absolute inset-0 transition-opacity duration-200 group-hover:bg-opacity-20">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             {/* Enhanced metadata display */}
-            <div className="space-y-1.5 text-xs sm:text-sm">
+            <div className="space-y-1.5 text-xs text-white sm:text-sm">
               {/* Primary metadata */}
               {metadata.primary.length > 0 && (
                 <div className="flex items-center gap-3 text-white/90">
@@ -119,11 +118,21 @@ export default function PhotoCard({
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Subtle loading indicator */}
-        <div className="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div className="h-2 w-2 animate-pulse rounded-full bg-white/40" />
-        </div>
+      {/* Always visible caption and location */}
+      <div className="p-3">
+        {photo.description && (
+          <h3 className="mb-1.5 line-clamp-2 text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-100">
+            {photo.description}
+          </h3>
+        )}
+        {location && (
+          <p className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
+            <span className="text-sm">📍</span>
+            <span className="line-clamp-1">{location}</span>
+          </p>
+        )}
       </div>
     </div>
   )

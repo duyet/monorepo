@@ -103,43 +103,71 @@ export default async function YearPage({ params }: YearPageProps) {
 
   return (
     <>
-      {/* Header and navigation - contained */}
-      <Container>
-        <div className="mb-8">
-          <div className="mb-4">
-            <Link
-              href="/"
-              className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              ← Back to all photos
-            </Link>
-          </div>
+      {/* Skip to content link for accessibility */}
+      <a
+        href="#main-content"
+        className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white shadow-lg transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
+      >
+        Skip to main content
+      </a>
 
-          <h1 className="mb-2 text-3xl font-bold">Photos from {year}</h1>
-
-          {/* Year navigation */}
-          <div className="mt-4 flex flex-wrap items-center gap-1">
-            {allYears.map((y) => (
+      <div>
+        <Container className="py-12">
+          <section className="mb-8 text-center" aria-labelledby="intro-heading">
+            {/* Back navigation */}
+            <div className="mb-6">
               <Link
-                key={y}
-                href={`/${y}`}
-                className={`px-2 py-1 text-sm transition-colors ${
-                  y === yearNum
-                    ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                    : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
-                }`}
+                href="/"
+                className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light inline-flex items-center text-sm font-medium transition-colors"
               >
-                {y}
+                ← Back to all photos
               </Link>
-            ))}
-          </div>
-        </div>
-      </Container>
+            </div>
 
-      {/* Photo grid - full width */}
-      <div className="w-full">
-        <PhotoGrid photos={yearPhotos} />
+            <h1
+              id="intro-heading"
+              className="mb-4 font-serif text-4xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 md:text-5xl"
+            >
+              Photos from {year}
+            </h1>
+            <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+              A collection of {yearPhotos.length} photo
+              {yearPhotos.length !== 1 ? 's' : ''} captured in {year}.
+            </p>
+
+            {/* Year navigation */}
+            {allYears.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-2">
+                {allYears.map((y) => (
+                  <Link
+                    key={y}
+                    href={`/${y}`}
+                    className={`rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-all hover:shadow ${
+                      y === yearNum
+                        ? 'bg-terracotta hover:bg-terracotta-medium dark:bg-terracotta-light text-white'
+                        : 'hover:bg-terracotta-light bg-white text-neutral-700 hover:text-neutral-900 dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700'
+                    }`}
+                  >
+                    {y}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+        </Container>
       </div>
+
+      {/* Photo grid - full width with padding */}
+      <section
+        className="w-full py-8"
+        aria-labelledby="photos-heading"
+        id="main-content"
+      >
+        <h2 id="photos-heading" className="sr-only">
+          Photo Gallery from {year}
+        </h2>
+        <PhotoGrid photos={yearPhotos} />
+      </section>
     </>
   )
 }

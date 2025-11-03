@@ -51,7 +51,7 @@ export default async function PhotosPage() {
       </a>
 
       <div>
-        <Container className='py-12'>
+        <Container className="py-12">
           <section className="mb-8 text-center" aria-labelledby="intro-heading">
             <h1
               id="intro-heading"
