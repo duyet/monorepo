@@ -18,7 +18,7 @@ interface HeaderProps {
 export default function Header({
   logo = true,
   shortText = "Duyệt",
-  longText = "Tôi là Duyệt",
+  longText = "",
   center = false,
   navigationItems,
   className,
