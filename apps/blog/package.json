@@ -21,6 +21,7 @@
   "prettier": "@duyet/prettier",
   "dependencies": {
     "@duyet/components": "*",
+    "@duyet/config": "*",
     "@duyet/libs": "*",
     "@headlessui/tailwindcss": "^0.2.1",
     "@radix-ui/react-icons": "^1.3.0",
