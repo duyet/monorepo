@@ -329,13 +329,13 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen items-center bg-neutral-50">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
+      <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:py-24">
         {/* Header */}
         <div className="mb-16 text-center">
           <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 sm:text-7xl">
             Duyet
           </h1>
-          <p className="text-xl leading-relaxed text-neutral-700 sm:text-2xl">
+          <p className="text-lg leading-relaxed text-neutral-700 sm:text-xl">
             Data Engineering
           </p>
         </div>
@@ -355,10 +355,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-4 text-3xl font-semibold text-neutral-900 sm:text-4xl">
+            <h3 className="mb-4 text-2xl font-semibold text-neutral-900 sm:text-3xl">
               {links[0].title}
             </h3>
-            <p className="text-lg leading-relaxed text-neutral-700 sm:text-xl">
+            <p className="text-base leading-relaxed text-neutral-700 sm:text-lg">
               {links[0].description}
             </p>
           </Link>
@@ -376,10 +376,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
               {links[1].title}
             </h3>
-            <p className="text-base leading-relaxed text-neutral-700">
+            <p className="text-sm leading-relaxed text-neutral-700">
               {links[1].description}
             </p>
           </Link>
@@ -397,10 +397,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
               {links[2].title}
             </h3>
-            <p className="text-base leading-relaxed text-neutral-700">
+            <p className="text-sm leading-relaxed text-neutral-700">
               {links[2].description}
             </p>
           </Link>
@@ -418,10 +418,10 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
               {links[3].title}
             </h3>
-            <p className="text-base leading-relaxed text-neutral-700">
+            <p className="text-sm leading-relaxed text-neutral-700">
               {links[3].description}
             </p>
           </Link>
@@ -438,17 +438,17 @@ export default function HomePage() {
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
               {links[4].title}
             </h3>
-            <p className="text-base leading-relaxed text-neutral-700">
+            <p className="text-sm leading-relaxed text-neutral-700">
               {links[4].description}
             </p>
           </Link>
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-10 text-base font-medium text-neutral-600">
+        <div className="flex justify-center gap-10 text-sm font-medium text-neutral-600">
           <Link
             href="https://github.com/duyet"
             target="_blank"
