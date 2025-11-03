@@ -36,6 +36,10 @@ export default function RootLayout({
     <html
       className={cn(inter.variable, libreBaskerville.variable)}
       lang="en"
+      style={{
+        fontFamily:
+          'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      }}
       suppressHydrationWarning
     >
       <Head />

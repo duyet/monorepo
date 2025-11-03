@@ -332,7 +332,7 @@ export default function HomePage() {
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
         {/* Header */}
         <div className="mb-16 text-center">
-          <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 sm:text-7xl">
+          <h1 className="mb-6 text-6xl font-medium text-neutral-900 sm:text-7xl">
             Duyet
           </h1>
           <p className="text-xl leading-relaxed text-neutral-700 sm:text-2xl">
