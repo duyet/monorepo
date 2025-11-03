@@ -347,7 +347,7 @@ export default function HomePage() {
             href={links[0].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[0].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:col-span-2 lg:col-span-2`}
+            className={`group flex flex-col p-10 ${links[0].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg sm:col-span-2 lg:col-span-2`}
           >
             <div className={`mb-8 ${links[0].iconColor}`}>
               {(() => {
@@ -368,7 +368,7 @@ export default function HomePage() {
             href={links[1].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[1].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+            className={`group flex flex-col p-10 ${links[1].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
             <div className={`mb-8 ${links[1].iconColor}`}>
               {(() => {
@@ -389,7 +389,7 @@ export default function HomePage() {
             href={links[2].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[2].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+            className={`group flex flex-col p-10 ${links[2].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
             <div className={`mb-8 ${links[2].iconColor}`}>
               {(() => {
@@ -410,7 +410,7 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[3].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+            className={`group flex flex-col p-10 ${links[3].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
             <div className={`mb-8 ${links[3].iconColor}`}>
               {(() => {
@@ -430,7 +430,7 @@ export default function HomePage() {
           <Link
             href={links[4].url}
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[4].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+            className={`group flex flex-col p-10 ${links[4].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
             <div className={`mb-8 ${links[4].iconColor}`}>
               {(() => {
