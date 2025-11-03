@@ -47,8 +47,8 @@ export default function PhotoCard({
   return (
     <div
       className={cn(
-        'group relative cursor-pointer overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-slate-800',
-        'mb-3 break-inside-avoid md:mb-4', // Prevents breaking in masonry layout + proper spacing
+        'group relative cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1',
+        'break-inside-avoid', // Prevents breaking in masonry layout + proper spacing
         className,
       )}
       onClick={onClick}
@@ -63,7 +63,7 @@ export default function PhotoCard({
       }}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden rounded-t-lg">
+      <div className="relative overflow-hidden">
         <LazyImage
           src={imageSrc()}
           alt={description}
@@ -76,7 +76,7 @@ export default function PhotoCard({
         />
 
         {/* Hover overlay with additional metadata */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-200 group-hover:bg-opacity-20">
+        <div className="absolute inset-0 transition-opacity duration-200 group-hover:bg-opacity-20">
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             {/* Enhanced metadata display */}
             <div className="space-y-1.5 text-xs text-white sm:text-sm">

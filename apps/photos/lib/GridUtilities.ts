@@ -67,8 +67,8 @@ export function getMasonryClasses(): {
   column: string
 } {
   return {
-    container: 'flex w-full -ml-3 md:-ml-4',
-    column: 'pl-3 md:pl-4 bg-clip-padding',
+    container: 'flex w-full gap-4',
+    column: 'bg-clip-padding',
   }
 }
 
