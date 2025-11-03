@@ -15,7 +15,7 @@ export const urls: Urls = {
   '/': 'https://duyet.net',
   '/blog': 'https://blog.duyet.net',
   '/cv': 'https://cv.duyet.net',
-  '/about': 'https://blog.duyet.net/about',
+  '/about': { target: '/about', desc: 'about me', system: false },
   '/i': { target: 'https://insights.duyet.net', desc: 'insights' },
   '/insights': {
     target: 'https://insights.duyet.net',

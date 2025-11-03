@@ -50,9 +50,8 @@ export default async function PhotosPage() {
         Skip to main content
       </a>
 
-      {/* Header section with Anthropic-inspired design */}
-      <div className="from-cream-warm to-ivory-light bg-gradient-to-b py-12 dark:from-slate-900 dark:to-slate-800">
-        <Container>
+      <div>
+        <Container className='py-12'>
           <section className="mb-8 text-center" aria-labelledby="intro-heading">
             <h1
               id="intro-heading"

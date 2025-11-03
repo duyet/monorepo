@@ -16,12 +16,13 @@ const BLOG_URL =
 const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || 'https://insights.duyet.net'
 const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net'
+const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || 'https://duyet.net'
 
 const navigationItems: NavItem[] = [
   { name: 'Photos', href: '/' },
   { name: 'Blog', href: BLOG_URL, external: true },
   { name: 'Insights', href: INSIGHTS_URL, external: true },
-  { name: 'About', href: `${BLOG_URL}/about`, external: true },
+  { name: 'About', href: `${HOME_URL}/about`, external: true },
   { name: 'CV', href: CV_URL, external: true },
 ]
 

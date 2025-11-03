@@ -84,7 +84,6 @@ export default function RootLayout({
             <main className="mt-16 flex-1" role="main">
               {children}
             </main>
-            <Footer />
           </div>
           <Analytics />
         </ThemeProvider>

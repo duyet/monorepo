@@ -238,6 +238,43 @@ const PhotosIcon = () => (
   </svg>
 )
 
+const AboutIcon = () => (
+  <svg
+    width="64"
+    height="64"
+    viewBox="0 0 64 64"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="transition-transform duration-300 ease-out"
+  >
+    {/* User circle */}
+    <circle
+      cx="32"
+      cy="32"
+      r="20"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      fill="none"
+    />
+    {/* User head */}
+    <circle
+      cx="32"
+      cy="28"
+      r="6"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      fill="none"
+    />
+    {/* User body */}
+    <path
+      d="M20 48C20 40 24 36 32 36C40 36 44 40 44 48"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+  </svg>
+)
+
 export default function HomePage() {
   const links = [
     {
@@ -277,6 +314,15 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
       color: 'bg-purple-100/50',
+      iconColor: 'text-neutral-800',
+    },
+    {
+      icon: AboutIcon,
+      title: 'About',
+      description:
+        'Learn more about my experience, skills, and professional background.',
+      url: '/about',
+      color: 'bg-green-100/50',
       iconColor: 'text-neutral-800',
     },
   ]

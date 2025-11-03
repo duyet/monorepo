@@ -8,6 +8,7 @@ export const dynamic = 'force-static'
 export default function HtmlSitemapPage() {
   const posts = getAllPosts(['slug', 'title', 'excerpt', 'date'], 100000)
   const categories = Object.keys(getAllCategories())
+  const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || 'https://duyet.net'
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -63,12 +64,14 @@ export default function HtmlSitemapPage() {
               </Link>
             </li>
             <li>
-              <Link
-                href="/about"
+              <a
+                href={`${HOME_URL}/about`}
                 className="text-blue-600 underline hover:text-blue-800"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 About
-              </Link>
+              </a>
             </li>
             <li>
               <Link

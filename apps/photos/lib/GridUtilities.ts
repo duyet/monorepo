@@ -68,7 +68,7 @@ export function getMasonryClasses(): {
 } {
   return {
     container: 'flex w-full -ml-1 md:-ml-2',
-    column: 'pl-1 md:pl-2 bg-clip-padding',
+    column: 'pl-2 pr-2 bg-clip-padding',
   }
 }
 
