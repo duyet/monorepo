@@ -21,6 +21,7 @@
     "@duyet/tsconfig": "*",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.12",
+    "eslint": "*",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
