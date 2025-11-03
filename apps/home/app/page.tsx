@@ -332,7 +332,7 @@ export default function HomePage() {
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-24">
         {/* Header */}
         <div className="mb-16 text-center">
-          <h1 className="mb-6 text-6xl font-medium text-neutral-900 sm:text-7xl">
+          <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 sm:text-7xl">
             Duyet
           </h1>
           <p className="text-xl leading-relaxed text-neutral-700 sm:text-2xl">
@@ -341,15 +341,15 @@ export default function HomePage() {
         </div>
 
         {/* Links Grid - Claude Style */}
-        <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {/* Blog - Featured Large Card */}
           <Link
             href={links[0].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[0].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg sm:col-span-2 lg:col-span-2`}
+            className={`group flex flex-col p-8 ${links[0].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg sm:col-span-2 lg:col-span-2`}
           >
-            <div className={`mb-8 ${links[0].iconColor}`}>
+            <div className={`mb-6 ${links[0].iconColor}`}>
               {(() => {
                 const Icon = links[0].icon
                 return <Icon />
@@ -368,9 +368,9 @@ export default function HomePage() {
             href={links[1].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[1].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-8 ${links[1].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
-            <div className={`mb-8 ${links[1].iconColor}`}>
+            <div className={`mb-6 ${links[1].iconColor}`}>
               {(() => {
                 const Icon = links[1].icon
                 return <Icon />
@@ -389,9 +389,9 @@ export default function HomePage() {
             href={links[2].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[2].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-8 ${links[2].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
-            <div className={`mb-8 ${links[2].iconColor}`}>
+            <div className={`mb-6 ${links[2].iconColor}`}>
               {(() => {
                 const Icon = links[2].icon
                 return <Icon />
@@ -410,9 +410,9 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[3].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-8 ${links[3].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
-            <div className={`mb-8 ${links[3].iconColor}`}>
+            <div className={`mb-6 ${links[3].iconColor}`}>
               {(() => {
                 const Icon = links[3].icon
                 return <Icon />
@@ -430,9 +430,9 @@ export default function HomePage() {
           <Link
             href={links[4].url}
             rel="noopener noreferrer"
-            className={`group flex flex-col p-10 ${links[4].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-8 ${links[4].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
           >
-            <div className={`mb-8 ${links[4].iconColor}`}>
+            <div className={`mb-6 ${links[4].iconColor}`}>
               {(() => {
                 const Icon = links[4].icon
                 return <Icon />
