@@ -16,7 +16,7 @@ export default function HomePage() {
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
       url: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-      color: 'bg-[#e07856]',
+      color: 'bg-[#de6e4b]',
       iconColor: 'text-neutral-900',
     },
     {
@@ -25,7 +25,7 @@ export default function HomePage() {
       description:
         'Experience building scalable data infrastructure and leading engineering teams.',
       url: process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
-      color: 'bg-white',
+      color: 'bg-[#f0d9a8]',
       iconColor: 'text-neutral-900',
     },
     {
@@ -36,7 +36,7 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
         'https://insights.duyet.net',
-      color: 'bg-[#c8d8d3]',
+      color: 'bg-[#a8d5ba]',
       iconColor: 'text-neutral-900',
     },
     {
@@ -55,40 +55,40 @@ export default function HomePage() {
       description:
         'Learn more about my experience, skills, and professional background.',
       url: '/about',
-      color: 'bg-[#f5f3ef]',
+      color: 'bg-[#e8e8e8]',
       iconColor: 'text-neutral-900',
     },
   ]
 
   return (
     <div className="flex min-h-screen items-center bg-neutral-50">
-      <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:py-24">
+      <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-12">
         {/* Header */}
-        <div className="mb-16 text-center">
-          <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 sm:text-7xl">
+        <div className="mb-8 sm:mb-12 text-center">
+          <h1 className="mb-4 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
             Duyet
           </h1>
-          <p className="text-lg leading-relaxed text-neutral-700 sm:text-xl">
+          <p className="text-base leading-relaxed text-neutral-700 sm:text-lg">
             Data Engineering
           </p>
         </div>
 
         {/* Links Grid - Claude Style */}
-        <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 sm:mb-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {/* Blog - Featured Large Card */}
           <Link
             href={links[0].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-8 ${links[0].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg sm:col-span-2 lg:col-span-2`}
+            className={`group flex flex-col p-6 ${links[0].color} rounded-3xl sm:col-span-2 lg:col-span-2`}
           >
-            <div className={`mb-6 ${links[0].iconColor}`}>
+            <div className={`mb-4 ${links[0].iconColor}`}>
               {(() => {
                 const Icon = links[0].icon
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
               {links[0].title}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
@@ -101,15 +101,15 @@ export default function HomePage() {
             href={links[1].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-8 ${links[1].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[1].color} rounded-3xl`}
           >
-            <div className={`mb-6 ${links[1].iconColor}`}>
+            <div className={`mb-4 ${links[1].iconColor}`}>
               {(() => {
                 const Icon = links[1].icon
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
               {links[1].title}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
@@ -122,15 +122,15 @@ export default function HomePage() {
             href={links[2].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-8 ${links[2].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[2].color} rounded-3xl`}
           >
-            <div className={`mb-6 ${links[2].iconColor}`}>
+            <div className={`mb-4 ${links[2].iconColor}`}>
               {(() => {
                 const Icon = links[2].icon
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
               {links[2].title}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
@@ -143,15 +143,15 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-8 ${links[3].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl`}
           >
-            <div className={`mb-6 ${links[3].iconColor}`}>
+            <div className={`mb-4 ${links[3].iconColor}`}>
               {(() => {
                 const Icon = links[3].icon
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
               {links[3].title}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
@@ -163,15 +163,15 @@ export default function HomePage() {
           <Link
             href={links[4].url}
             rel="noopener noreferrer"
-            className={`group flex flex-col p-8 ${links[4].color} rounded-3xl transition-shadow duration-300 hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[4].color} rounded-3xl`}
           >
-            <div className={`mb-6 ${links[4].iconColor}`}>
+            <div className={`mb-4 ${links[4].iconColor}`}>
               {(() => {
                 const Icon = links[4].icon
                 return <Icon />
               })()}
             </div>
-            <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
               {links[4].title}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
