@@ -60,15 +60,15 @@ export function getColumnsForViewport(width: number): number {
 
 /**
  * Generate responsive CSS classes for masonry grid
- * With minimal spacing between photos and side margins
+ * With minimal spacing between photos
  */
 export function getMasonryClasses(): {
   container: string
   column: string
 } {
   return {
-    container: 'flex w-full px-2 md:px-3 -ml-2 md:-ml-3',
-    column: 'pl-2 md:pl-3 bg-clip-padding',
+    container: 'flex w-full -ml-1 md:-ml-2',
+    column: 'pl-1 md:pl-2 bg-clip-padding',
   }
 }
 

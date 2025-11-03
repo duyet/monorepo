@@ -76,9 +76,6 @@ export default async function PhotosPage() {
 
             {years.length > 0 && (
               <div className="flex flex-wrap justify-center gap-2">
-                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                  Browse by year:
-                </span>
                 {years.map((year) => (
                   <Link
                     key={year}

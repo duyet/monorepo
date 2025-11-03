@@ -34,20 +34,7 @@ export default function ClaudeNav() {
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-center md:justify-between">
-          {/* Logo - hidden on desktop when centered */}
-          <div className="absolute left-4 flex items-center md:relative md:left-0">
-            <Link
-              href="/"
-              className="group flex items-center gap-2 transition-colors"
-              aria-label="Home"
-            >
-              <span className="text-xl font-semibold tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-600 dark:text-neutral-100 dark:group-hover:text-neutral-300">
-                Photos
-              </span>
-            </Link>
-          </div>
-
+        <div className="flex h-16 items-center justify-center">
           {/* Desktop Navigation - Centered */}
           <div className="hidden items-center gap-1 md:flex">
             {navigationItems.map((item) => (
