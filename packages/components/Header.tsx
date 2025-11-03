@@ -50,14 +50,12 @@ export default function Header({
             <Link
               href="/"
               className={cn(
-                "font-serif text-2xl font-normal flex flex-row items-center text-neutral-900",
+                "font-serif text-2xl font-normal text-neutral-900",
                 className,
               )}
             >
               {shortText && (
-                <span
-                  className={cn("block sm:hidden", center && "md:w-40 md:h-40")}
-                >
+                <span className="block sm:hidden">
                   {shortText}
                 </span>
               )}
