@@ -1,18 +1,43 @@
 import PhotoGrid from '@/components/PhotoGrid'
-import { getAllUserPhotos, groupPhotosByYear } from '@/lib/unsplash'
+import { getAllUserPhotos } from '@/lib/unsplash'
+import { scanLocalPhotos, mergePhotos } from '@/lib/localPhotos'
 import Container from '@duyet/components/Container'
 import Link from 'next/link'
+import { Photo, UnsplashPhoto } from '@/lib/types'
 
 export const revalidate = 86400 // Revalidate daily for static export
 
 export default async function PhotosPage() {
-  let photos: any[] = []
-  let photosByYear: { [year: string]: any[] } = {}
+  let photos: Photo[] = []
+  let photosByYear: { [year: string]: Photo[] } = {}
   let error: string | null = null
 
   try {
-    photos = await getAllUserPhotos()
-    photosByYear = groupPhotosByYear(photos)
+    // Load Unsplash photos
+    const unsplashPhotos = await getAllUserPhotos()
+
+    // Mark Unsplash photos with source
+    const unsplashPhotosWithSource: Photo[] = unsplashPhotos.map((photo: UnsplashPhoto) => ({
+      ...photo,
+      source: 'unsplash' as const,
+    }))
+
+    // Scan local photos at build time
+    const localPhotos = await scanLocalPhotos()
+
+    // Merge both sources
+    photos = mergePhotos(unsplashPhotosWithSource, localPhotos)
+
+    // Group by year
+    photosByYear = {}
+    photos.forEach((photo) => {
+      const date = new Date(photo.created_at)
+      const year = date.getFullYear().toString()
+      if (!photosByYear[year]) {
+        photosByYear[year] = []
+      }
+      photosByYear[year].push(photo)
+    })
   } catch (e) {
     error = 'Failed to load photos. Please try again later.'
   }
@@ -66,7 +91,7 @@ export default async function PhotosPage() {
             >
               Unsplash profile
             </a>
-            .
+            {' '}and local photos.
           </div>
 
           {years.length > 0 && (

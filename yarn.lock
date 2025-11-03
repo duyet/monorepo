@@ -2970,6 +2970,13 @@
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.8.tgz#8268a8c57a3e4abd25c165ecd36237db7948a55e"
   integrity sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==
 
+"@types/sharp@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.32.0.tgz#fc3ac6df6b456319bae807c3d24efdc6631cdd6f"
+  integrity sha512-OOi3kL+FZDnPhVzsfD37J88FNeZh6gQsGcLc95NbeURRGvmSjeXiDcyWzF2o3yh/gQAUn2uhh/e+CPCa5nwAxw==
+  dependencies:
+    sharp "*"
+
 "@types/stack-utils@^2.0.0", "@types/stack-utils@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.3.tgz#6209321eb2c1712a7e7466422b8cb1fc0d9dd5d8"
@@ -2994,6 +3001,13 @@
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.6.tgz#60be8d21baab8c305132eb9cb912ed497852aadc"
   integrity sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==
+
+"@types/uuid@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-11.0.0.tgz#f4fa34bbf2af941148ef1973c4361fc43617971c"
+  integrity sha512-HVyk8nj2m+jcFRNazzqyVKiZezyhDKrGUA3jlEcg/nZ6Ms+qHwocba1Y/AaVaznJTAM9xpdFSh+ptbNrhOGvZA==
+  dependencies:
+    uuid "*"
 
 "@types/yargs-parser@*":
   version "21.0.3"
@@ -3539,6 +3553,11 @@
     eslint-plugin-unicorn "^51.0.1"
     eslint-plugin-vitest "^0.3.22"
     prettier-plugin-packagejson "^2.4.12"
+
+"@xmldom/xmldom@^0.9.4":
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.9.8.tgz#1471e82bdff9e8f20ee8bbe60d4ffa8a516e78d8"
+  integrity sha512-p96FSY54r+WJ50FIOsCOjyj/wavs8921hG5+kVMmZgKcvIKxMXHTrjNJvRgWa/zuX3B6t2lijLNFaOyuxUH+2A==
 
 JSONStream@^1.3.5:
   version "1.3.5"
@@ -5821,6 +5840,13 @@ execa@^5.0.0, execa@^5.1.1:
     onetime "^5.1.2"
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
+
+exifreader@^4.32.0:
+  version "4.32.0"
+  resolved "https://registry.yarnpkg.com/exifreader/-/exifreader-4.32.0.tgz#48955aff7c7a611a30c3ccec9b5b68b92ebd7785"
+  integrity sha512-sj1PzjpaPwSE/2MeUqoAYcfc2u7AZOGSby0FzmAkB4jjeCXgDryxzVgMwV+tJKGIkGdWkkWiUWoLSJoPHJ6V5Q==
+  optionalDependencies:
+    "@xmldom/xmldom" "^0.9.4"
 
 exit-x@^0.2.2:
   version "0.2.2"
@@ -10489,7 +10515,7 @@ set-function-name@^2.0.1, set-function-name@^2.0.2:
     functions-have-names "^1.2.3"
     has-property-descriptors "^1.0.2"
 
-sharp@^0.34.0, sharp@^0.34.3:
+sharp@*, sharp@^0.34.0, sharp@^0.34.3, sharp@^0.34.4:
   version "0.34.4"
   resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.34.4.tgz#73c2c5a425e98250b8b927e5537f711da8966e38"
   integrity sha512-FUH39xp3SBPnxWvd5iib1X8XY7J0K0X7d93sie9CJg2PO8/7gmg89Nve6OjItK53/MlAushNNxteBYfM6DEuoA==
@@ -11797,6 +11823,11 @@ util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+uuid@*, uuid@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-13.0.0.tgz#263dc341b19b4d755eb8fe36b78d95a6b65707e8"
+  integrity sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==
 
 v8-to-istanbul@^9.0.1:
   version "9.2.0"
