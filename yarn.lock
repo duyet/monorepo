@@ -1062,15 +1062,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.39.0":
+"@eslint/js@9.39.0", "@eslint/js@^9.26.0":
   version "9.39.0"
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.39.0.tgz#e1955cefd1d79e80a9557274e9aa9bd3f641be01"
   integrity sha512-BIhe0sW91JGPiaF1mOuPy5v8NflqfjIcDNpC+LbW9f609WVRX1rArrhi6Z2ymvrAry9jw+5POTj4t2t62o8Bmw==
-
-"@eslint/js@^9.26.0":
-  version "9.38.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.38.0.tgz#f7aa9c7577577f53302c1d795643589d7709ebd1"
-  integrity sha512-UZ1VpFvXf9J06YG9xQBdnzU+kthors6KjhMAl6f4gH4usHyh31rUf2DLGInT8RFYIReYXNSydgPY0V2LuWgl7A==
 
 "@eslint/object-schema@^2.1.7":
   version "2.1.7"
@@ -2930,9 +2925,9 @@
     undici-types "~7.8.0"
 
 "@types/node@^22.0.0":
-  version "22.18.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.18.13.tgz#a037c4f474b860be660e05dbe92a9ef945472e28"
-  integrity sha512-Bo45YKIjnmFtv6I1TuC8AaHBbqXtIo+Om5fE4QiU1Tj8QR/qt+8O3BAtOimG5IFmwaWiPmB3Mv3jtYzBA4Us2A==
+  version "22.19.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.19.0.tgz#849606ef3920850583a4e7ee0930987c35ad80be"
+  integrity sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==
   dependencies:
     undici-types "~6.21.0"
 
