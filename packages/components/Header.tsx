@@ -54,20 +54,20 @@ export default function Header({
                 className,
               )}
             >
-              {shortText && (
-                <span className="block sm:hidden">
-                  {shortText}
-                </span>
-              )}
-              {longText && (
-                <span
-                  className={cn(
-                    "hidden sm:block",
-                    center && "md:text-7xl md:mt-5",
-                  )}
-                >
-                  {longText}
-                </span>
+              {shortText && longText ? (
+                <>
+                  <span className="block sm:hidden">{shortText}</span>
+                  <span
+                    className={cn(
+                      "hidden sm:block",
+                      center && "md:text-7xl md:mt-5",
+                    )}
+                  >
+                    {longText}
+                  </span>
+                </>
+              ) : (
+                <span>{shortText || longText}</span>
               )}
             </Link>
           </div>
