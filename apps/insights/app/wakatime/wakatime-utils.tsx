@@ -1,3 +1,5 @@
+import { wakatimeConfig } from '@duyet/config'
+
 interface WakaTimeStats {
   data: {
     languages: Array<{
@@ -26,8 +28,6 @@ interface WakaTimeStats {
 
 // Using stats endpoint instead of summaries (summaries requires premium)
 
-const WAKATIME_API_BASE = 'https://wakatime.com/api/v1'
-
 async function wakaTimeRequest(endpoint: string) {
   const apiKey = process.env.WAKATIME_API_KEY
 
@@ -38,11 +38,11 @@ async function wakaTimeRequest(endpoint: string) {
 
   // Add API key as query parameter
   const separator = endpoint.includes('?') ? '&' : '?'
-  const url = `${WAKATIME_API_BASE}${endpoint}${separator}api_key=${apiKey}`
+  const url = `${wakatimeConfig.baseUrl}${endpoint}${separator}api_key=${apiKey}`
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
+      next: { revalidate: wakatimeConfig.cache.revalidate },
     })
 
     if (!res.ok) {
@@ -79,29 +79,30 @@ async function wakaTimeRequest(endpoint: string) {
 
 // Map our period values to WakaTime API ranges
 function getWakaTimeRange(days: number | 'all'): string {
-  if (days === 'all' || days === 365) return 'last_year'
-  if (days === 90) return 'last_6_months'
-  if (days === 30) return 'last_30_days'
-  if (days === 7) return 'last_7_days'
-  return 'last_30_days' // fallback
+  if (typeof days === 'number') {
+    return wakatimeConfig.rangeMapping[days] || wakatimeConfig.ranges.last_30_days
+  }
+  return wakatimeConfig.ranges.last_year
 }
 
 export async function getWakaTimeStats(
   days: number | 'all' = 30,
 ): Promise<WakaTimeStats | null> {
   const range = getWakaTimeRange(days)
-  return wakaTimeRequest(`/users/current/stats/${range}`)
+  return wakaTimeRequest(wakatimeConfig.endpoints.stats(range))
 }
 
 export async function getWakaTimeLanguages(days: number | 'all' = 30) {
   const stats = await getWakaTimeStats(days)
   if (!stats?.data?.languages || !Array.isArray(stats.data.languages)) return []
 
-  return stats.data.languages.slice(0, 8).map((lang) => ({
-    name: lang?.name || 'Unknown',
-    percent: Math.round((lang?.percent || 0) * 100) / 100,
-    total_seconds: lang?.total_seconds || 0,
-  }))
+  return stats.data.languages
+    .slice(0, wakatimeConfig.topLanguagesLimit)
+    .map((lang) => ({
+      name: lang?.name || 'Unknown',
+      percent: Math.round((lang?.percent || 0) * 100) / 100,
+      total_seconds: lang?.total_seconds || 0,
+    }))
 }
 
 export async function getWakaTimeActivity(days: number | 'all' = 30) {
@@ -196,12 +197,12 @@ function groupSumBy<T>(
 
 // Get historical monthly activity trend for multiple years
 export async function getWakaTimeMonthlyTrend() {
-  const startYear = 2025 // Only show data from 2025 onwards
+  const startYear = wakatimeConfig.dataStartYear
 
   try {
     // Fetch data for all_time to get historical data
     const insights: InsightsResponse | null = await wakaTimeRequest(
-      `/users/current/insights/days?range=all_time`,
+      wakatimeConfig.endpoints.insights.days(wakatimeConfig.ranges.all_time),
     )
 
     if (!insights?.data?.days || !Array.isArray(insights.data.days)) {
@@ -262,7 +263,7 @@ export async function getWakaTimeHourlyHeatmap() {
   try {
     // Get weekday insights
     const weekdayInsights: WeekdayInsights | null = await wakaTimeRequest(
-      `/users/current/insights/weekday?range=last_year`,
+      wakatimeConfig.endpoints.insights.weekday(wakatimeConfig.ranges.last_year),
     )
 
     if (!weekdayInsights?.data?.weekdays || !Array.isArray(weekdayInsights.data.weekdays)) {
@@ -294,7 +295,7 @@ export async function getWakaTimeHourlyHeatmap() {
 export async function getWakaTimeBestDay() {
   try {
     const bestDayInsights = await wakaTimeRequest(
-      `/users/current/insights/best_day?range=last_year`,
+      wakatimeConfig.endpoints.insights.bestDay(wakatimeConfig.ranges.last_year),
     )
 
     if (!bestDayInsights?.data) {

@@ -5,6 +5,8 @@
  * Handles missing environment variables gracefully and prevents silent failures.
  */
 
+import { posthogConfig } from '@duyet/config'
+
 interface PostHogConfig {
   apiKey: string
   projectId: string
@@ -49,7 +51,7 @@ export function getPostHogConfig(): PostHogConfig | null {
   return {
     apiKey,
     projectId,
-    apiUrl: `https://app.posthog.com/api/projects/${projectId}/query/`,
+    apiUrl: `${posthogConfig.baseUrl}${posthogConfig.endpoints.query(projectId)}`,
   }
 }
 
@@ -79,7 +81,7 @@ export async function queryPostHog(
       cache: 'force-cache',
       headers: {
         Authorization: `Bearer ${config.apiKey}`,
-        'Content-Type': 'application/json',
+        'Content-Type': posthogConfig.headers.contentType,
       },
       body: JSON.stringify({ query }),
     })

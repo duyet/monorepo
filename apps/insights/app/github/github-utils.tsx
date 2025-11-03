@@ -1,3 +1,5 @@
+import { githubConfig, calculateBackoffDelay } from '@duyet/config'
+
 export interface GitHubRepository {
   name: string
   stargazers_count?: number
@@ -37,35 +39,34 @@ export async function fetchAllRepositories(
 
   const allRepos: GitHubRepository[] = []
   let page = 1
-  const perPage = 100
+  const { perPage, maxPages } = githubConfig.pagination
   let retryCount = 0
-  const maxRetries = 3
+  const { maxRetries } = githubConfig.retry
 
-  while (page <= 10) {
-    // GitHub Search API limit: 1000 results max (10 pages of 100)
+  while (page <= maxPages) {
     try {
       console.log(`Fetching repositories page ${page} for ${owner}`)
 
       const response = await fetch(
-        `https://api.github.com/search/repositories?q=user:${owner}+is:public&sort=updated&per_page=${perPage}&page=${page}`,
+        `${githubConfig.baseUrl}${githubConfig.endpoints.searchRepositories}?q=user:${owner}+is:public&sort=updated&per_page=${perPage}&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            Accept: 'application/vnd.github.v3+json',
-            'User-Agent': 'insights-app',
+            Accept: githubConfig.headers.accept,
+            'User-Agent': githubConfig.headers.userAgent,
           },
-          next: { revalidate: 3600 }, // Cache for 1 hour instead of force-cache
+          next: { revalidate: githubConfig.cache.revalidate },
         },
       )
 
       // Handle rate limiting
-      if (response.status === 403 || response.status === 429) {
+      if (githubConfig.rateLimit.retryStatuses.includes(response.status)) {
         const retryAfter = response.headers.get('retry-after')
 
         if (retryCount < maxRetries) {
           const waitTime = retryAfter
             ? parseInt(retryAfter) * 1000
-            : Math.pow(2, retryCount) * 1000 // Exponential backoff: 1s, 2s, 4s
+            : calculateBackoffDelay(retryCount, githubConfig.retry)
 
           console.warn(
             `Rate limited on page ${page}. Retrying in ${waitTime}ms (attempt ${retryCount + 1}/${maxRetries})`,
@@ -119,7 +120,7 @@ export async function fetchAllRepositories(
       console.error(`Error fetching repositories page ${page}:`, error)
 
       if (retryCount < maxRetries) {
-        const waitTime = Math.pow(2, retryCount) * 1000 // Exponential backoff
+        const waitTime = calculateBackoffDelay(retryCount, githubConfig.retry)
         console.warn(
           `Retrying page ${page} in ${waitTime}ms (attempt ${retryCount + 1}/${maxRetries})`,
         )
