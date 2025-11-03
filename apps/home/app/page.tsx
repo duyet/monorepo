@@ -143,20 +143,31 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl`}
+            className={`group relative flex flex-col p-6 ${links[3].color} rounded-3xl overflow-hidden`}
           >
-            <div className={`mb-4 ${links[3].iconColor}`}>
-              {(() => {
-                const Icon = links[3].icon
-                return <Icon />
-              })()}
+            {/* Background image on hover */}
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop)' }}
+            />
+            {/* Overlay to maintain text readability */}
+            <div className="absolute inset-0 bg-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            {/* Content */}
+            <div className="relative z-10">
+              <div className={`mb-4 ${links[3].iconColor}`}>
+                {(() => {
+                  const Icon = links[3].icon
+                  return <Icon />
+                })()}
+              </div>
+              <h3 className="mb-2 text-xl font-semibold text-neutral-900">
+                {links[3].title}
+              </h3>
+              <p className="text-sm leading-relaxed text-neutral-700">
+                {links[3].description}
+              </p>
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[3].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[3].description}
-            </p>
           </Link>
 
           {/* About */}
