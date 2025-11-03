@@ -45,49 +45,58 @@ export default async function PhotosPage() {
       {/* Skip to content link for accessibility */}
       <a
         href="#main-content"
-        className="sr-only z-50 rounded-lg bg-blue-600 px-4 py-2 text-white shadow-lg transition-all hover:bg-blue-700 focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
+        className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white shadow-lg transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
       >
         Skip to main content
       </a>
 
-      {/* Header and intro text - contained */}
-      <Container>
-        <section className="mb-8" aria-labelledby="intro-heading">
-          <h1 id="intro-heading" className="sr-only">
-            Photography Portfolio
-          </h1>
-          <div className="text-lg text-gray-600 dark:text-gray-300">
-            Photography collection from my{' '}
-            <a
-              href="https://unsplash.com/@_duyet"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-colors hover:text-gray-900 dark:hover:text-white"
+      {/* Header section with Anthropic-inspired design */}
+      <div className="from-cream-warm to-ivory-light bg-gradient-to-b py-12 dark:from-slate-900 dark:to-slate-800">
+        <Container>
+          <section className="mb-8" aria-labelledby="intro-heading">
+            <h1
+              id="intro-heading"
+              className="mb-4 font-serif text-4xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 md:text-5xl"
             >
-              Unsplash profile
-            </a>
-            .
-          </div>
+              Photography Collection
+            </h1>
+            <p className="mb-6 text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+              A curated selection of {totalPhotos} photos from my{' '}
+              <a
+                href="https://unsplash.com/@_duyet"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
+              >
+                Unsplash profile
+              </a>
+              . Explore landscapes, architecture, and moments captured through
+              the lens.
+            </p>
 
-          {years.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-1">
-              {years.map((year) => (
-                <Link
-                  key={year}
-                  href={`/${year}`}
-                  className="bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-                >
-                  {year}
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
-      </Container>
+            {years.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                  Browse by year:
+                </span>
+                {years.map((year) => (
+                  <Link
+                    key={year}
+                    href={`/${year}`}
+                    className="hover:bg-terracotta-light rounded-full bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 shadow-sm transition-all hover:text-neutral-900 hover:shadow dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700"
+                  >
+                    {year}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+        </Container>
+      </div>
 
-      {/* Photo grid - full width */}
+      {/* Photo grid - full width with padding */}
       <section
-        className="w-full"
+        className="w-full py-8"
         aria-labelledby="photos-heading"
         id="main-content"
       >
@@ -99,8 +108,8 @@ export default async function PhotosPage() {
         ) : (
           <Container>
             <div className="flex min-h-[400px] items-center justify-center">
-              <div className="text-center">
-                <p className="text-gray-500 dark:text-gray-400">
+              <div className="rounded-2xl bg-white p-8 text-center shadow-sm dark:bg-slate-800">
+                <p className="text-neutral-600 dark:text-neutral-400">
                   No photos available at the moment.
                 </p>
               </div>
