@@ -18,7 +18,7 @@ interface HeaderProps {
 export default function Header({
   logo = true,
   shortText = "Duyệt",
-  longText = "Tôi là Duyệt",
+  longText = "",
   center = false,
   navigationItems,
   className,
@@ -50,26 +50,24 @@ export default function Header({
             <Link
               href="/"
               className={cn(
-                "font-serif text-2xl font-normal flex flex-row items-center text-neutral-900",
+                "font-serif text-2xl font-normal text-neutral-900",
                 className,
               )}
             >
-              {shortText && (
-                <span
-                  className={cn("block sm:hidden", center && "md:w-40 md:h-40")}
-                >
-                  {shortText}
-                </span>
-              )}
-              {longText && (
-                <span
-                  className={cn(
-                    "hidden sm:block",
-                    center && "md:text-7xl md:mt-5",
-                  )}
-                >
-                  {longText}
-                </span>
+              {shortText && longText ? (
+                <>
+                  <span className="block sm:hidden">{shortText}</span>
+                  <span
+                    className={cn(
+                      "hidden sm:block",
+                      center && "md:text-7xl md:mt-5",
+                    )}
+                  >
+                    {longText}
+                  </span>
+                </>
+              ) : (
+                <span>{shortText || longText}</span>
               )}
             </Link>
           </div>

@@ -1,17 +1,24 @@
 import './globals.css'
 
+import ClaudeNav from '@/components/ClaudeNav'
 import Analytics from '@duyet/components/Analytics'
 import Footer from '@duyet/components/Footer'
 import Head from '@duyet/components/Head'
-import Header from '@duyet/components/Header'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { cn } from '@duyet/libs/utils'
-import { Inter } from 'next/font/google'
+import { Inter, Libre_Baskerville } from 'next/font/google'
 
 const inter = Inter({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const libreBaskerville = Libre_Baskerville({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -55,28 +62,28 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={inter.variable}
+      className={cn(inter.variable, libreBaskerville.variable)}
       lang="en"
       style={{
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)',
+          'var(--font-inter), -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif',
       }}
       suppressHydrationWarning
     >
       <Head />
       <body
         className={cn(
-          'bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased',
+          'bg-cream-warm text-[var(--foreground)] subpixel-antialiased',
+          'dark:bg-[var(--background)]',
           'transition-colors duration-1000',
         )}
       >
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            <Header longText="Photos" shortText="Photos" />
-            <main className="flex-1" role="main">
+            <ClaudeNav />
+            <main className="mt-16 flex-1" role="main">
               {children}
             </main>
-            <Footer />
           </div>
           <Analytics />
         </ThemeProvider>
