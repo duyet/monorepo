@@ -26,7 +26,7 @@ const navigationItems: NavItem[] = [
   { name: 'CV', href: CV_URL, external: true },
 ]
 
-export default function ClaudeNav() {
+export default function PhotoNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
