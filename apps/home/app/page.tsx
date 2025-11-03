@@ -340,30 +340,111 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Links Grid */}
-        <div className="mb-16 grid place-items-center gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {links.map((link, index) => {
-            const Icon = link.icon
-            return (
-              <Link
-                key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
-              >
-                <div className={`mb-8 ${link.iconColor}`}>
-                  <Icon />
-                </div>
-                <h3 className="mb-3 text-xl font-medium text-neutral-900">
-                  {link.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-neutral-700">
-                  {link.description}
-                </p>
-              </Link>
-            )
-          })}
+        {/* Links Grid - Claude Style */}
+        <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Blog - Featured Large Card */}
+          <Link
+            href={links[0].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex flex-col p-10 ${links[0].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:col-span-2 lg:col-span-2`}
+          >
+            <div className={`mb-8 ${links[0].iconColor}`}>
+              {(() => {
+                const Icon = links[0].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-3 text-2xl font-medium text-neutral-900">
+              {links[0].title}
+            </h3>
+            <p className="text-base leading-relaxed text-neutral-700">
+              {links[0].description}
+            </p>
+          </Link>
+
+          {/* Resume */}
+          <Link
+            href={links[1].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex flex-col p-10 ${links[1].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+          >
+            <div className={`mb-8 ${links[1].iconColor}`}>
+              {(() => {
+                const Icon = links[1].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+              {links[1].title}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-700">
+              {links[1].description}
+            </p>
+          </Link>
+
+          {/* Insights */}
+          <Link
+            href={links[2].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex flex-col p-10 ${links[2].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+          >
+            <div className={`mb-8 ${links[2].iconColor}`}>
+              {(() => {
+                const Icon = links[2].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+              {links[2].title}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-700">
+              {links[2].description}
+            </p>
+          </Link>
+
+          {/* Photos */}
+          <Link
+            href={links[3].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex flex-col p-10 ${links[3].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+          >
+            <div className={`mb-8 ${links[3].iconColor}`}>
+              {(() => {
+                const Icon = links[3].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+              {links[3].title}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-700">
+              {links[3].description}
+            </p>
+          </Link>
+
+          {/* About */}
+          <Link
+            href={links[4].url}
+            rel="noopener noreferrer"
+            className={`group flex flex-col p-10 ${links[4].color} rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+          >
+            <div className={`mb-8 ${links[4].iconColor}`}>
+              {(() => {
+                const Icon = links[4].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-3 text-xl font-medium text-neutral-900">
+              {links[4].title}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-700">
+              {links[4].description}
+            </p>
+          </Link>
         </div>
 
         {/* Social Links */}
