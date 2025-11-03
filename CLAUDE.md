@@ -83,4 +83,6 @@ Place environment files as `.env` or `.env.local` in the root directory.
 
 - Use the `/commit` command to create a signed commit with the message
 - Follow semantic commit conventions (feat, fix, chore, docs, etc.)
-- Always include duyetbot as co-author in commits: `Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>`
+- Always include duyet and duyetbot as co-authors in commits:
+  - `Co-Authored-By: duyet <me@duyet.net>`
+  - `Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>`
