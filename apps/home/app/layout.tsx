@@ -42,7 +42,7 @@ export default function RootLayout({
       <body
         className={cn(
           'text-claude-black subpixel-antialiased',
-          'transition-colors duration-300 dark:bg-claude-gray-900 dark:text-claude-gray-50',
+          'dark:bg-claude-gray-900 dark:text-claude-gray-50 transition-colors duration-300',
         )}
       >
         <ThemeProvider>

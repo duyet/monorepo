@@ -1,8 +1,8 @@
 interface AbstractShapesProps {
-  className?: string
+  className?: string;
 }
 
-export function AbstractShapes({ className = '' }: AbstractShapesProps) {
+export function AbstractShapes({ className = "" }: AbstractShapesProps) {
   return (
     <svg
       viewBox="0 0 200 200"
@@ -46,10 +46,10 @@ export function AbstractShapes({ className = '' }: AbstractShapesProps) {
         opacity="0.5"
       />
     </svg>
-  )
+  );
 }
 
-export function WavyLines({ className = '' }: AbstractShapesProps) {
+export function WavyLines({ className = "" }: AbstractShapesProps) {
   return (
     <svg
       viewBox="0 0 200 120"
@@ -74,10 +74,10 @@ export function WavyLines({ className = '' }: AbstractShapesProps) {
         opacity="0.4"
       />
     </svg>
-  )
+  );
 }
 
-export function GeometricPattern({ className = '' }: AbstractShapesProps) {
+export function GeometricPattern({ className = "" }: AbstractShapesProps) {
   return (
     <svg
       viewBox="0 0 200 200"
@@ -108,10 +108,10 @@ export function GeometricPattern({ className = '' }: AbstractShapesProps) {
         opacity="0.5"
       />
     </svg>
-  )
+  );
 }
 
-export function OrganicBlob({ className = '' }: AbstractShapesProps) {
+export function OrganicBlob({ className = "" }: AbstractShapesProps) {
   return (
     <svg
       viewBox="0 0 200 200"
@@ -135,5 +135,5 @@ export function OrganicBlob({ className = '' }: AbstractShapesProps) {
         opacity="0.5"
       />
     </svg>
-  )
+  );
 }

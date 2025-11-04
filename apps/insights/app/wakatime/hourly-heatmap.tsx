@@ -50,8 +50,7 @@ export async function WakaTimeHourlyHeatmap() {
 
               return heatmapData.map((item) => {
                 // Calculate color intensity based on hours (normalized)
-                const intensity =
-                  maxHours > 0 ? item.hours / maxHours : 0
+                const intensity = maxHours > 0 ? item.hours / maxHours : 0
 
                 return (
                   <div

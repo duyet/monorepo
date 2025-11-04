@@ -12,8 +12,7 @@ const BLOG_URL =
 const INSIGHTS_URL =
   process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
 const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
-const HOME_URL =
-  process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
+const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(

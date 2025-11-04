@@ -2,7 +2,7 @@
  * Shared Next.js route handlers for common endpoints across apps
  */
 
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
 /**
  * Create a standard ping/health check route handler
@@ -17,19 +17,19 @@ import { NextResponse } from 'next/server'
 export function createPingRoute() {
   const GET = (): NextResponse => {
     return NextResponse.json(
-      { status: 'ok' },
+      { status: "ok" },
       {
         headers: {
-          'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+          "Cache-Control": "public, max-age=3600, s-maxage=3600",
         },
       },
-    )
-  }
+    );
+  };
 
   return {
     GET,
-    dynamic: 'force-static' as const,
-  }
+    dynamic: "force-static" as const,
+  };
 }
 
 /**
@@ -52,19 +52,19 @@ export function createLlmsTxtRoute(
   content: string,
   options: { cacheMaxAge?: number } = {},
 ) {
-  const { cacheMaxAge = 3600 } = options
+  const { cacheMaxAge = 3600 } = options;
 
   const GET = (): NextResponse => {
     return new NextResponse(content.trim(), {
       headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': `public, max-age=${cacheMaxAge}, s-maxage=${cacheMaxAge}`,
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": `public, max-age=${cacheMaxAge}, s-maxage=${cacheMaxAge}`,
       },
-    })
-  }
+    });
+  };
 
   return {
     GET,
-    dynamic: 'force-static' as const,
-  }
+    dynamic: "force-static" as const,
+  };
 }

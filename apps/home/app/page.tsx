@@ -1,9 +1,9 @@
 import Link from 'next/link'
+import AboutIcon from './components/icons/AboutIcon'
 import BlogIcon from './components/icons/BlogIcon'
-import ResumeIcon from './components/icons/ResumeIcon'
 import InsightsIcon from './components/icons/InsightsIcon'
 import PhotosIcon from './components/icons/PhotosIcon'
-import AboutIcon from './components/icons/AboutIcon'
+import ResumeIcon from './components/icons/ResumeIcon'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
@@ -64,7 +64,7 @@ export default function HomePage() {
     <div className="flex min-h-screen items-center bg-neutral-50">
       <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-12">
         {/* Header */}
-        <div className="mb-8 sm:mb-12 text-center">
+        <div className="mb-8 text-center sm:mb-12">
           <h1 className="mb-4 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
             Duyet
           </h1>
@@ -74,7 +74,7 @@ export default function HomePage() {
         </div>
 
         {/* Links Grid - Claude Style */}
-        <div className="mb-8 sm:mb-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
           {/* Blog - Featured Large Card */}
           <Link
             href={links[0].url}
@@ -143,15 +143,18 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group relative flex flex-col p-6 ${links[3].color} rounded-3xl overflow-hidden`}
+            className={`group relative flex flex-col p-6 ${links[3].color} overflow-hidden rounded-3xl`}
           >
             {/* Background image on hover */}
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872)' }}
+              className="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              style={{
+                backgroundImage:
+                  'url(https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872)',
+              }}
             />
             {/* Overlay to maintain text readability */}
-            <div className="absolute inset-0 bg-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-white/80 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             {/* Content */}
             <div className="relative z-10">

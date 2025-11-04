@@ -1,4 +1,4 @@
-import { githubConfig, calculateBackoffDelay } from '@duyet/config'
+import { calculateBackoffDelay, githubConfig } from '@duyet/config'
 
 export interface GitHubRepository {
   name: string

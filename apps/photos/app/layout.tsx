@@ -2,7 +2,6 @@ import './globals.css'
 
 import PhotoNav from '@/components/PhotoNav'
 import Analytics from '@duyet/components/Analytics'
-import Footer from '@duyet/components/Footer'
 import Head from '@duyet/components/Head'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { cn } from '@duyet/libs/utils'

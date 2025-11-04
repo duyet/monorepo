@@ -1,6 +1,6 @@
+import { isPostHogConfigured, queryPostHog } from '@/lib/posthog'
 import { TIME_PERIODS, type PeriodData } from '@/types/periods'
 import { PostHogClient } from './posthog-client'
-import { isPostHogConfigured, queryPostHog } from '@/lib/posthog'
 
 interface Path {
   path: string

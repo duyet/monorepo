@@ -80,7 +80,9 @@ async function wakaTimeRequest(endpoint: string) {
 // Map our period values to WakaTime API ranges
 function getWakaTimeRange(days: number | 'all'): string {
   if (typeof days === 'number') {
-    return wakatimeConfig.rangeMapping[days] || wakatimeConfig.ranges.last_30_days
+    return (
+      wakatimeConfig.rangeMapping[days] || wakatimeConfig.ranges.last_30_days
+    )
   }
   return wakatimeConfig.ranges.last_year
 }
@@ -184,15 +186,12 @@ function groupSumBy<T>(
   keyFn: (it: T) => string,
   valFn: (it: T) => number,
 ): Map<string, number> {
-  return items.reduce(
-    (map, it) => {
-      const k = keyFn(it)
-      const v = valFn(it)
-      map.set(k, (map.get(k) || 0) + v)
-      return map
-    },
-    new Map<string, number>(),
-  )
+  return items.reduce((map, it) => {
+    const k = keyFn(it)
+    const v = valFn(it)
+    map.set(k, (map.get(k) || 0) + v)
+    return map
+  }, new Map<string, number>())
 }
 
 // Get historical monthly activity trend for multiple years
@@ -263,16 +262,23 @@ export async function getWakaTimeHourlyHeatmap() {
   try {
     // Get weekday insights
     const weekdayInsights: WeekdayInsights | null = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.weekday(wakatimeConfig.ranges.last_year),
+      wakatimeConfig.endpoints.insights.weekday(
+        wakatimeConfig.ranges.last_year,
+      ),
     )
 
-    if (!weekdayInsights?.data?.weekdays || !Array.isArray(weekdayInsights.data.weekdays)) {
+    if (
+      !weekdayInsights?.data?.weekdays ||
+      !Array.isArray(weekdayInsights.data.weekdays)
+    ) {
       console.warn('Weekday insights not available or empty')
       return []
     }
 
     // Check if all weekdays have zero hours - if so, return empty array
-    const hasData = weekdayInsights.data.weekdays.some((weekday) => weekday.total_seconds > 0)
+    const hasData = weekdayInsights.data.weekdays.some(
+      (weekday) => weekday.total_seconds > 0,
+    )
     if (!hasData) {
       console.warn('No weekday activity data available')
       return []
@@ -295,7 +301,9 @@ export async function getWakaTimeHourlyHeatmap() {
 export async function getWakaTimeBestDay() {
   try {
     const bestDayInsights = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.bestDay(wakatimeConfig.ranges.last_year),
+      wakatimeConfig.endpoints.insights.bestDay(
+        wakatimeConfig.ranges.last_year,
+      ),
     )
 
     if (!bestDayInsights?.data) {

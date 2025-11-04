@@ -5,18 +5,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Build & Development
+
 - `yarn build` - Build all apps and packages using Turbo
-- `yarn dev` - Start development servers for all apps with Turbo parallel execution 
+- `yarn dev` - Start development servers for all apps with Turbo parallel execution
 - `yarn start` - Start production servers for all apps
 
 ### Code Quality
+
 - `yarn lint` - Lint all projects using Turbo
 - `yarn fmt` or `yarn fix` - Format all TypeScript, TSX, and Markdown files with Prettier
 - `yarn prettier-check` - Check code formatting without making changes
 - `yarn test` - Run tests across all packages using Turbo
 
 ### Individual App Development
+
 Navigate to specific app directories and run:
+
 - `yarn dev` - Start development (blog runs on port 3000 with Turbopack)
 - `yarn build` - Build specific app
 - `yarn check-types` - TypeScript type checking
@@ -27,23 +31,33 @@ Navigate to specific app directories and run:
 This is a **Yarn Workspaces monorepo** managed by **Turborepo** containing:
 
 ### Apps (`/apps/`)
+
 1. **blog** (`apps/blog/`) - Next.js blog with Auth0 authentication and Vercel KV for comments
    - Main blog at https://blog.duyet.net / https://duyet.vercel.app
    - Uses Auth0 for auth, Vercel KV for Redis storage
    - Supports markdown posts with KaTeX math rendering
 
 2. **cv** (`apps/cv/`) - Simple CV hosting application
-   - Live at https://cv.duyet.net / https://duyet-cv.vercel.app  
+   - Live at https://cv.duyet.net / https://duyet-cv.vercel.app
    - Serves PDF CV from `/public` directory
 
 3. **insights** (`apps/insights/`) - Analytics dashboard
    - Live at https://insights.duyet.net / https://duyet-insights.vercel.app
-   - Integrates Cloudflare Analytics, GitHub data, PostHog, WakaTime
+   - Integrates Cloudflare Analytics, GitHub data, PostHog, WakaTime, ClickHouse
+
+4. **home** (`apps/home/`) - Personal homepage with GitHub activity
+   - Uses Tremor for data visualization and GraphQL for GitHub data
+
+5. **photos** (`apps/photos/`) - Photo gallery with Unsplash integration
+   - Features masonry layout and Framer Motion animations
+   - Tests temporarily disabled due to Jest environment issues
 
 ### Shared Packages (`/packages/`)
+
 - `@duyet/components` - Shared React components
 - `@duyet/libs` - Utility libraries and functions
 - `@duyet/interfaces` - TypeScript type definitions
+- `@duyet/config` - Shared configuration for all apps (app, api, ui configs)
 - `@duyet/eslint-config-custom` - ESLint configuration
 - `@duyet/prettier` - Prettier configuration
 - `@duyet/tailwind-config` - Tailwind CSS configuration
@@ -52,6 +66,7 @@ This is a **Yarn Workspaces monorepo** managed by **Turborepo** containing:
 ## Environment Variables
 
 Global environment variables are defined in `turbo.json` and include:
+
 - Next.js public URLs for cross-app linking
 - Auth0 configuration (domain, client ID, admin email)
 - Vercel KV Redis credentials

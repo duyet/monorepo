@@ -39,7 +39,6 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
           illustration="wavy"
         />
       </div>
-
     </div>
   )
 }
