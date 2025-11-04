@@ -1,7 +1,7 @@
 'use client'
 
-import { ReactNode } from 'react'
 import { cn } from '@duyet/libs'
+import { ReactNode } from 'react'
 
 interface CompactCardProps {
   title?: string

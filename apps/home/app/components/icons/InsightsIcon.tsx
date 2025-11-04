@@ -27,14 +27,7 @@ export default function InsightsIcon() {
         fill="currentColor"
         opacity="0.85"
       />
-      <rect
-        x="36"
-        y="16"
-        width="8"
-        height="40"
-        rx="2"
-        fill="currentColor"
-      />
+      <rect x="36" y="16" width="8" height="40" rx="2" fill="currentColor" />
       <rect
         x="48"
         y="28"

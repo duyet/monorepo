@@ -5,6 +5,7 @@ Centralized configuration package for all apps in the monorepo.
 ## Overview
 
 This package provides type-safe, reusable configuration for:
+
 - Application metadata (titles, descriptions, fonts)
 - API endpoints and client configurations
 - UI constants (periods, navigation, themes)
@@ -26,22 +27,22 @@ This package is part of the monorepo workspace. Add it to your app's dependencie
 ### App Configuration
 
 ```typescript
-import { appConfig, blogConfig, insightsConfig } from '@duyet/config'
+import { appConfig, blogConfig, insightsConfig } from "@duyet/config";
 
 // Use app URLs
-const blogUrl = appConfig.urls.blog
+const blogUrl = appConfig.urls.blog;
 
 // Use blog metadata
-export const metadata = blogConfig.metadata
+export const metadata = blogConfig.metadata;
 
 // Use font configuration
-const fontConfig = blogConfig.fonts.inter
+const fontConfig = blogConfig.fonts.inter;
 ```
 
 ### API Configuration
 
 ```typescript
-import { apiConfig, githubConfig, wakatimeConfig } from '@duyet/config'
+import { apiConfig, githubConfig, wakatimeConfig } from "@duyet/config";
 
 // Use GitHub API configuration
 const response = await fetch(
@@ -49,13 +50,13 @@ const response = await fetch(
   {
     headers: githubConfig.headers,
     next: { revalidate: githubConfig.cache.revalidate },
-  }
-)
+  },
+);
 
 // Use helper functions
-import { getWakaTimeRange, calculateBackoffDelay } from '@duyet/config'
-const range = getWakaTimeRange(30) // 'last_30_days'
-const delay = calculateBackoffDelay(2) // exponential backoff
+import { getWakaTimeRange, calculateBackoffDelay } from "@duyet/config";
+const range = getWakaTimeRange(30); // 'last_30_days'
+const delay = calculateBackoffDelay(2); // exponential backoff
 ```
 
 ### UI Configuration
@@ -65,18 +66,18 @@ import {
   uiConfig,
   PERIODS,
   getPeriodDays,
-  insightsNavigation
-} from '@duyet/config'
+  insightsNavigation,
+} from "@duyet/config";
 
 // Use period configuration
-const periods = PERIODS
-const days = getPeriodDays('30') // 30
+const periods = PERIODS;
+const days = getPeriodDays("30"); // 30
 
 // Use navigation
-const navItems = insightsNavigation
+const navItems = insightsNavigation;
 
 // Use theme configuration
-const theme = uiConfig.theme.default
+const theme = uiConfig.theme.default;
 ```
 
 ## Structure
@@ -117,23 +118,20 @@ yarn lint
 
 ```typescript
 // apps/insights/app/github/page.tsx
-const response = await fetch(
-  'https://api.github.com/search/repositories',
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/vnd.github.v3+json',
-    },
-    next: { revalidate: 3600 },
-  }
-)
+const response = await fetch("https://api.github.com/search/repositories", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/vnd.github.v3+json",
+  },
+  next: { revalidate: 3600 },
+});
 ```
 
 ### After (using config)
 
 ```typescript
 // apps/insights/app/github/page.tsx
-import { githubConfig } from '@duyet/config'
+import { githubConfig } from "@duyet/config";
 
 const response = await fetch(
   `${githubConfig.baseUrl}${githubConfig.endpoints.searchRepositories}`,
@@ -143,8 +141,8 @@ const response = await fetch(
       Authorization: `Bearer ${token}`,
     },
     next: { revalidate: githubConfig.cache.revalidate },
-  }
-)
+  },
+);
 ```
 
 ## Contributing

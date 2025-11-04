@@ -5,12 +5,12 @@
  */
 export function normalizeTag(tag: string): string {
   const normalizedTag = tag
-    .split(' ')
+    .split(" ")
     .filter((word) => word.length > 0)
     .map((word) => {
-      return word[0].toUpperCase() + word.toLowerCase().substring(1)
+      return word[0].toUpperCase() + word.toLowerCase().substring(1);
     })
-    .join(' ')
+    .join(" ");
 
-  return normalizedTag
+  return normalizedTag;
 }

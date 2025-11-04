@@ -1,7 +1,7 @@
 import { PopularContentTable } from '@/components/PopularContentTable'
 import { CompactMetric } from '@/components/ui/CompactMetric'
-import { FileText, TrendingUp, Users } from 'lucide-react'
 import { isPostHogConfigured, queryPostHog } from '@/lib/posthog'
+import { FileText, TrendingUp, Users } from 'lucide-react'
 
 interface Path {
   path: string

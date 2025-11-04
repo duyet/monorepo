@@ -1,26 +1,26 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import type { Post } from '@duyet/interfaces'
-import { cn } from '@duyet/libs/utils'
-import { Thumb } from './Thumb'
+import type { Post } from "@duyet/interfaces";
+import { cn } from "@duyet/libs/utils";
+import { Thumb } from "./Thumb";
 
 interface FeedItemProps {
-  post: Post
-  noThumbnail?: boolean
+  post: Post;
+  noThumbnail?: boolean;
 }
 
-export interface FeedProps extends Omit<FeedItemProps, 'post'> {
-  posts: Post[]
+export interface FeedProps extends Omit<FeedItemProps, "post"> {
+  posts: Post[];
 }
 
 export default function Feed({ posts, ...props }: FeedProps) {
   if (!posts) {
-    return <p>No blog posted yet :/</p>
+    return <p>No blog posted yet :/</p>;
   }
 
   return posts.map((post) => (
     <FeedItem key={post.slug} post={post} {...props} />
-  ))
+  ));
 }
 
 export function FeedItem({ post, noThumbnail }: FeedItemProps) {
@@ -41,11 +41,11 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
         as={`${post.slug}`}
         href="/[...slug]"
         className={cn(
-          'inline-block text-4xl font-bold py-2 mt-2 hover:underline',
-          'from-gray-900 to-gray-800 bg-clip-text',
-          'dark:from-gray-50 dark:to-gray-300',
-          'md:text-4xl md:tracking-tighter',
-          'lg:text-5xl lg:tracking-tighter',
+          "inline-block text-4xl font-bold py-2 mt-2 hover:underline",
+          "from-gray-900 to-gray-800 bg-clip-text",
+          "dark:from-gray-50 dark:to-gray-300",
+          "md:text-4xl md:tracking-tighter",
+          "lg:text-5xl lg:tracking-tighter",
         )}
       >
         {post.title}
@@ -59,5 +59,5 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
         </div>
       )}
     </article>
-  )
+  );
 }

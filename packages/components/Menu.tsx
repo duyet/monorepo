@@ -9,8 +9,7 @@ const INSIGHTS_URL =
 const PHOTO_URL =
   process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net";
 const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
-const HOME_URL =
-  process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
+const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
 
 export type NavigationItem = {
   name: string;

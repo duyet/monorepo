@@ -175,7 +175,8 @@ interface LinkItem {
 }
 
 export default function About() {
-  const BLOG_URL = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
+  const BLOG_URL =
+    process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
 
   const links: LinkItem[] = [
     {

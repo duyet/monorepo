@@ -2,7 +2,7 @@
 
 @config '../tailwind.config.mjs';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
