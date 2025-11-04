@@ -16,7 +16,7 @@ export default function HomePage() {
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
       url: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-      color: 'bg-[#de6e4b]',
+      color: 'bg-[#f5dcd0]',
       iconColor: 'text-neutral-900',
     },
     {
