@@ -1,17 +1,27 @@
 # URL Redirects Documentation
 
-This app uses Cloudflare Pages `_redirects` file for URL shortening and redirects.
+This app uses Cloudflare Pages `_redirects` and `_headers` files for URL shortening, redirects, and custom headers.
 
 ## How It Works
 
-When deployed to Cloudflare Pages, the `public/_redirects` file is automatically processed and all redirect rules are applied at the edge.
+When deployed to Cloudflare Pages:
+- The `public/_redirects` file is automatically processed and all redirect rules are applied at the edge
+- The `public/_headers` file is automatically processed to set custom HTTP headers for specific paths
 
-## File Location
+## File Locations
 
+### Redirects
 - **Source**: `public/_redirects`
 - **Build Output**: `out/_redirects` (automatically copied during build)
 
+### Headers
+- **Source**: `public/_headers`
+- **Build Output**: `out/_headers` (automatically copied during build)
+- **Purpose**: Ensures static files like `llms.txt` are served with correct content types
+
 ## Format
+
+### Redirects Format
 
 Each line in the `_redirects` file follows this format:
 
@@ -24,6 +34,24 @@ Example:
 ```
 /blog https://blog.duyet.net 302
 /mcp https://mcp.duyet.net 302
+```
+
+### Headers Format
+
+The `_headers` file uses this format:
+
+```
+/path
+  Header-Name: header-value
+  Another-Header: another-value
+```
+
+Example:
+
+```
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  X-Content-Type-Options: nosniff
 ```
 
 ## Available Redirects
@@ -58,4 +86,5 @@ Cloudflare Pages `_redirects` only work in production. To test locally:
 ## Documentation
 
 - [Cloudflare Pages Redirects](https://developers.cloudflare.com/pages/configuration/redirects/)
+- [Cloudflare Pages Headers](https://developers.cloudflare.com/pages/configuration/headers/)
 - [Next.js Static Export](https://nextjs.org/docs/advanced-features/static-html-export)
