@@ -44,7 +44,7 @@ export default function HomePage() {
       icon: HomelabIcon,
       title: 'Homelab',
       description:
-        'Real-time monitoring dashboard for microk8s cluster with 5 nodes.',
+        'Homelab monitoring dashboard (beta).',
       url:
         process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
         'https://homelab.duyet.net',
