@@ -1,23 +1,34 @@
-# URL Redirects Documentation
+# URL Redirects & Headers Documentation
 
-This app uses Cloudflare Pages `_redirects` and `_headers` files for URL shortening, redirects, and custom headers.
+This app supports deployment to both Cloudflare Pages and Vercel with URL shortening, redirects, and custom headers.
 
 ## How It Works
 
+### Cloudflare Pages
 When deployed to Cloudflare Pages:
 - The `public/_redirects` file is automatically processed and all redirect rules are applied at the edge
 - The `public/_headers` file is automatically processed to set custom HTTP headers for specific paths
 
+### Vercel
+When deployed to Vercel:
+- The `vercel.json` file configures headers for specific paths
+- Redirects can be configured in `vercel.json` as well (currently using Cloudflare format only)
+
 ## File Locations
 
-### Redirects
+### Redirects (Cloudflare Pages)
 - **Source**: `public/_redirects`
 - **Build Output**: `out/_redirects` (automatically copied during build)
 
-### Headers
+### Headers (Cloudflare Pages)
 - **Source**: `public/_headers`
 - **Build Output**: `out/_headers` (automatically copied during build)
 - **Purpose**: Ensures static files like `llms.txt` are served with correct content types
+
+### Vercel Configuration
+- **Source**: `vercel.json`
+- **Purpose**: Configures headers and other Vercel-specific settings
+- **Note**: Used for Vercel deployments to ensure proper content types for static files
 
 ## Format
 
@@ -36,7 +47,7 @@ Example:
 /mcp https://mcp.duyet.net 302
 ```
 
-### Headers Format
+### Headers Format (Cloudflare Pages)
 
 The `_headers` file uses this format:
 
@@ -52,6 +63,48 @@ Example:
 /llms.txt
   Content-Type: text/plain; charset=utf-8
   X-Content-Type-Options: nosniff
+```
+
+### Headers Format (Vercel)
+
+The `vercel.json` file uses JSON format:
+
+```json
+{
+  "headers": [
+    {
+      "source": "/path",
+      "headers": [
+        {
+          "key": "Header-Name",
+          "value": "header-value"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Example:
+
+```json
+{
+  "headers": [
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## Available Redirects
@@ -85,6 +138,13 @@ Cloudflare Pages `_redirects` only work in production. To test locally:
 
 ## Documentation
 
+### Cloudflare Pages
 - [Cloudflare Pages Redirects](https://developers.cloudflare.com/pages/configuration/redirects/)
 - [Cloudflare Pages Headers](https://developers.cloudflare.com/pages/configuration/headers/)
+
+### Vercel
+- [Vercel Headers Configuration](https://vercel.com/docs/projects/project-configuration#headers)
+- [Vercel Redirects Configuration](https://vercel.com/docs/projects/project-configuration#redirects)
+
+### Next.js
 - [Next.js Static Export](https://nextjs.org/docs/advanced-features/static-html-export)
