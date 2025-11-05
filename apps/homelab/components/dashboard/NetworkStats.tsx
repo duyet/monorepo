@@ -21,84 +21,47 @@ export function NetworkStats() {
       {/* Speedtest Results */}
       <Card title="Internet Speed Test">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl bg-gradient-to-br from-claude-mint to-white p-4 dark:from-green-900/20 dark:to-neutral-900">
+          <div className="rounded-3xl bg-[#a8d5ba] p-4 dark:bg-[#a8d5ba]/20">
             <div className="flex items-center gap-2">
-              <ArrowDown className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+              <ArrowDown className="h-4 w-4 text-neutral-700 dark:text-green-400" />
+              <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
                 Download
               </p>
             </div>
             <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
               {speedTest.download}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Mbps</p>
+            <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-400">Mbps</p>
           </div>
 
-          <div className="rounded-2xl bg-gradient-to-br from-claude-coral to-white p-4 dark:from-red-900/20 dark:to-neutral-900">
+          <div className="rounded-3xl bg-[#f5dcd0] p-4 dark:bg-[#f5dcd0]/20">
             <div className="flex items-center gap-2">
-              <ArrowUp className="h-4 w-4 text-red-600 dark:text-red-400" />
-              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+              <ArrowUp className="h-4 w-4 text-neutral-700 dark:text-red-400" />
+              <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
                 Upload
               </p>
             </div>
             <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
               {speedTest.upload}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Mbps</p>
+            <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-400">Mbps</p>
           </div>
 
-          <div className="rounded-2xl bg-gradient-to-br from-claude-lavender to-white p-4 dark:from-purple-900/20 dark:to-neutral-900">
+          <div className="rounded-3xl bg-[#c5c5ff] p-4 dark:bg-[#c5c5ff]/20">
             <div className="flex items-center gap-2">
-              <Gauge className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">Ping</p>
+              <Gauge className="h-4 w-4 text-neutral-700 dark:text-purple-400" />
+              <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Ping</p>
             </div>
             <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
               {speedTest.ping}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">ms</p>
+            <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-400">ms</p>
           </div>
         </div>
-        <p className="mt-4 text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="mt-4 text-xs text-neutral-600 dark:text-neutral-400">
           Last test: {speedTest.timestamp} (via speedtest-cli)
         </p>
       </Card>
-
-      {/* Current Traffic Stats */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="rounded-3xl bg-gradient-to-br from-claude-sky to-white p-6 dark:from-blue-900/20 dark:to-neutral-900">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-2">
-                <ArrowDown className="h-4 w-4 text-blue-500" />
-                <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
-                  Incoming
-                </p>
-              </div>
-              <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
-                {currentTraffic.in}
-              </p>
-              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">MB/s</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-3xl bg-gradient-to-br from-claude-coral to-white p-6 dark:from-red-900/20 dark:to-neutral-900">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-2">
-                <ArrowUp className="h-4 w-4 text-red-500" />
-                <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
-                  Outgoing
-                </p>
-              </div>
-              <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
-                {currentTraffic.out}
-              </p>
-              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">MB/s</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Network Traffic Chart */}
       <Card title="Network Traffic - Last 24 Hours">
