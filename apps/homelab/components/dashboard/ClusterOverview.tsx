@@ -1,7 +1,6 @@
 'use client'
 
-import { Card } from '@/components/Card'
-import { clusterStats, nodes } from '@/lib/mockData'
+import { clusterStats } from '@/lib/mockData'
 import { Activity, CheckCircle2, Database, HardDrive, Server } from 'lucide-react'
 
 export function ClusterOverview() {
