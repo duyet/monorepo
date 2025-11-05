@@ -87,7 +87,7 @@ export const nodes: Node[] = [
     memoryTotal: 16,
     storage: 512,
     uptime: generateUptime(),
-    services: 3,
+    services: 4,
   },
   {
     id: 'node-2',
@@ -163,6 +163,13 @@ const serviceConfigs = [
     port: 9090,
     cpuRange: [2.5, 4],
     memRange: [800, 1200],
+  },
+  {
+    name: 'litellm',
+    node: 'minipc-01',
+    port: 4000,
+    cpuRange: [3, 5],
+    memRange: [600, 900],
   },
   {
     name: 'postgres',
