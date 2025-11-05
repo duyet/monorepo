@@ -1,6 +1,6 @@
 /**
  * Mock data for homelab cluster dashboard
- * Simulates a 3-node minipc cluster with various services and metrics
+ * Dynamically generated at build time for realistic demo data
  */
 
 export interface Node {
@@ -42,217 +42,6 @@ export interface ServiceDowntime {
   reason: string
 }
 
-// 3 minipc nodes
-export const nodes: Node[] = [
-  {
-    id: 'node-1',
-    name: 'minipc-01',
-    ip: '192.168.1.101',
-    status: 'online',
-    cpu: 45.2,
-    memory: 68.5,
-    memoryUsed: 10.96,
-    memoryTotal: 16,
-    uptime: '23d 14h 32m',
-    services: 8,
-  },
-  {
-    id: 'node-2',
-    name: 'minipc-02',
-    ip: '192.168.1.102',
-    status: 'online',
-    cpu: 32.7,
-    memory: 52.3,
-    memoryUsed: 8.37,
-    memoryTotal: 16,
-    uptime: '23d 14h 29m',
-    services: 6,
-  },
-  {
-    id: 'node-3',
-    name: 'minipc-03',
-    ip: '192.168.1.103',
-    status: 'online',
-    cpu: 28.4,
-    memory: 41.8,
-    memoryUsed: 6.69,
-    memoryTotal: 16,
-    uptime: '23d 14h 31m',
-    services: 5,
-  },
-]
-
-// Running services
-export const services: Service[] = [
-  {
-    name: 'traefik',
-    status: 'running',
-    node: 'minipc-01',
-    port: 80,
-    uptime: '23d 14h',
-    cpu: 2.1,
-    memory: 256,
-  },
-  {
-    name: 'portainer',
-    status: 'running',
-    node: 'minipc-01',
-    port: 9000,
-    uptime: '23d 14h',
-    cpu: 1.5,
-    memory: 512,
-  },
-  {
-    name: 'prometheus',
-    status: 'running',
-    node: 'minipc-01',
-    port: 9090,
-    uptime: '23d 14h',
-    cpu: 3.2,
-    memory: 1024,
-  },
-  {
-    name: 'grafana',
-    status: 'running',
-    node: 'minipc-01',
-    port: 3000,
-    uptime: '23d 14h',
-    cpu: 2.8,
-    memory: 768,
-  },
-  {
-    name: 'postgres',
-    status: 'running',
-    node: 'minipc-02',
-    port: 5432,
-    uptime: '23d 14h',
-    cpu: 8.4,
-    memory: 2048,
-  },
-  {
-    name: 'redis',
-    status: 'running',
-    node: 'minipc-02',
-    port: 6379,
-    uptime: '23d 14h',
-    cpu: 1.2,
-    memory: 512,
-  },
-  {
-    name: 'nginx',
-    status: 'running',
-    node: 'minipc-02',
-    port: 8080,
-    uptime: '23d 14h',
-    cpu: 1.8,
-    memory: 128,
-  },
-  {
-    name: 'minio',
-    status: 'running',
-    node: 'minipc-03',
-    port: 9001,
-    uptime: '23d 14h',
-    cpu: 2.5,
-    memory: 1024,
-  },
-  {
-    name: 'jellyfin',
-    status: 'running',
-    node: 'minipc-03',
-    port: 8096,
-    uptime: '23d 14h',
-    cpu: 12.3,
-    memory: 2048,
-  },
-  {
-    name: 'pihole',
-    status: 'running',
-    node: 'minipc-03',
-    port: 53,
-    uptime: '23d 14h',
-    cpu: 0.8,
-    memory: 256,
-  },
-]
-
-// Historical CPU data (last 24 hours)
-export const cpuHistory = [
-  { time: '00:00', 'minipc-01': 35, 'minipc-02': 28, 'minipc-03': 22 },
-  { time: '02:00', 'minipc-01': 32, 'minipc-02': 25, 'minipc-03': 20 },
-  { time: '04:00', 'minipc-01': 30, 'minipc-02': 24, 'minipc-03': 19 },
-  { time: '06:00', 'minipc-01': 38, 'minipc-02': 30, 'minipc-03': 25 },
-  { time: '08:00', 'minipc-01': 48, 'minipc-02': 38, 'minipc-03': 32 },
-  { time: '10:00', 'minipc-01': 52, 'minipc-02': 42, 'minipc-03': 35 },
-  { time: '12:00', 'minipc-01': 45, 'minipc-02': 35, 'minipc-03': 30 },
-  { time: '14:00', 'minipc-01': 50, 'minipc-02': 40, 'minipc-03': 33 },
-  { time: '16:00', 'minipc-01': 55, 'minipc-02': 45, 'minipc-03': 38 },
-  { time: '18:00', 'minipc-01': 48, 'minipc-02': 38, 'minipc-03': 32 },
-  { time: '20:00', 'minipc-01': 42, 'minipc-02': 35, 'minipc-03': 28 },
-  { time: '22:00', 'minipc-01': 40, 'minipc-02': 32, 'minipc-03': 26 },
-  { time: 'Now', 'minipc-01': 45, 'minipc-02': 33, 'minipc-03': 28 },
-]
-
-// Historical Memory data (last 24 hours)
-export const memoryHistory = [
-  { time: '00:00', 'minipc-01': 65, 'minipc-02': 50, 'minipc-03': 40 },
-  { time: '02:00', 'minipc-01': 64, 'minipc-02': 49, 'minipc-03': 39 },
-  { time: '04:00', 'minipc-01': 63, 'minipc-02': 48, 'minipc-03': 38 },
-  { time: '06:00', 'minipc-01': 66, 'minipc-02': 51, 'minipc-03': 41 },
-  { time: '08:00', 'minipc-01': 70, 'minipc-02': 54, 'minipc-03': 44 },
-  { time: '10:00', 'minipc-01': 72, 'minipc-02': 56, 'minipc-03': 45 },
-  { time: '12:00', 'minipc-01': 68, 'minipc-02': 52, 'minipc-03': 42 },
-  { time: '14:00', 'minipc-01': 69, 'minipc-02': 53, 'minipc-03': 43 },
-  { time: '16:00', 'minipc-01': 71, 'minipc-02': 55, 'minipc-03': 44 },
-  { time: '18:00', 'minipc-01': 70, 'minipc-02': 54, 'minipc-03': 43 },
-  { time: '20:00', 'minipc-01': 68, 'minipc-02': 52, 'minipc-03': 42 },
-  { time: '22:00', 'minipc-01': 67, 'minipc-02': 51, 'minipc-03': 41 },
-  { time: 'Now', 'minipc-01': 69, 'minipc-02': 52, 'minipc-03': 42 },
-]
-
-// Network traffic (last 24 hours)
-export const networkTraffic = [
-  { time: '00:00', in: 1.2, out: 0.8 },
-  { time: '02:00', in: 0.9, out: 0.6 },
-  { time: '04:00', in: 0.7, out: 0.5 },
-  { time: '06:00', in: 1.5, out: 1.0 },
-  { time: '08:00', in: 2.8, out: 1.8 },
-  { time: '10:00', in: 3.2, out: 2.1 },
-  { time: '12:00', in: 2.5, out: 1.6 },
-  { time: '14:00', in: 3.0, out: 2.0 },
-  { time: '16:00', in: 3.5, out: 2.3 },
-  { time: '18:00', in: 4.2, out: 2.8 },
-  { time: '20:00', in: 3.8, out: 2.5 },
-  { time: '22:00', in: 2.2, out: 1.4 },
-  { time: 'Now', in: 2.8, out: 1.8 },
-]
-
-// Service downtime history
-export const downtimeHistory: ServiceDowntime[] = [
-  {
-    service: 'postgres',
-    start: '2024-10-15 14:23:00',
-    end: '2024-10-15 14:31:00',
-    duration: '8m',
-    reason: 'Planned maintenance',
-  },
-  {
-    service: 'nginx',
-    start: '2024-10-12 09:15:00',
-    end: '2024-10-12 09:18:00',
-    duration: '3m',
-    reason: 'Configuration update',
-  },
-  {
-    service: 'jellyfin',
-    start: '2024-10-08 22:45:00',
-    end: '2024-10-08 23:02:00',
-    duration: '17m',
-    reason: 'Unexpected restart',
-  },
-]
-
-// Network topology
 export interface NetworkNode {
   id: string
   name: string
@@ -261,6 +50,202 @@ export interface NetworkNode {
   color?: string
 }
 
+// Helper function to generate random value within range
+const random = (min: number, max: number) => Math.random() * (max - min) + min
+
+// Helper function to generate uptime string
+const generateUptime = () => {
+  const days = Math.floor(random(20, 30))
+  const hours = Math.floor(random(0, 24))
+  const minutes = Math.floor(random(0, 60))
+  return `${days}d ${hours}h ${minutes}m`
+}
+
+// Generate timestamp for historical data
+const getHistoricalTime = (hoursAgo: number) => {
+  const d = new Date()
+  d.setHours(d.getHours() - hoursAgo)
+  return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+}
+
+// Generate 3 minipc nodes with dynamic data
+export const nodes: Node[] = [
+  {
+    id: 'node-1',
+    name: 'minipc-01',
+    ip: '192.168.1.101',
+    status: 'online',
+    cpu: Number(random(40, 55).toFixed(1)),
+    memory: Number(random(65, 75).toFixed(1)),
+    memoryUsed: Number(random(10, 12).toFixed(2)),
+    memoryTotal: 16,
+    uptime: generateUptime(),
+    services: 8,
+  },
+  {
+    id: 'node-2',
+    name: 'minipc-02',
+    ip: '192.168.1.102',
+    status: 'online',
+    cpu: Number(random(28, 38).toFixed(1)),
+    memory: Number(random(48, 58).toFixed(1)),
+    memoryUsed: Number(random(7.5, 9.5).toFixed(2)),
+    memoryTotal: 16,
+    uptime: generateUptime(),
+    services: 6,
+  },
+  {
+    id: 'node-3',
+    name: 'minipc-03',
+    ip: '192.168.1.103',
+    status: 'online',
+    cpu: Number(random(25, 35).toFixed(1)),
+    memory: Number(random(38, 48).toFixed(1)),
+    memoryUsed: Number(random(6, 8).toFixed(2)),
+    memoryTotal: 16,
+    uptime: generateUptime(),
+    services: 5,
+  },
+]
+
+// Generate running services with dynamic CPU/Memory
+const serviceConfigs = [
+  { name: 'traefik', node: 'minipc-01', port: 80, cpuRange: [1.5, 2.5], memRange: [200, 300] },
+  { name: 'portainer', node: 'minipc-01', port: 9000, cpuRange: [1, 2], memRange: [400, 600] },
+  { name: 'prometheus', node: 'minipc-01', port: 9090, cpuRange: [2.5, 4], memRange: [800, 1200] },
+  { name: 'grafana', node: 'minipc-01', port: 3000, cpuRange: [2, 3.5], memRange: [600, 900] },
+  { name: 'postgres', node: 'minipc-02', port: 5432, cpuRange: [7, 10], memRange: [1800, 2300] },
+  { name: 'redis', node: 'minipc-02', port: 6379, cpuRange: [0.8, 1.6], memRange: [400, 600] },
+  { name: 'nginx', node: 'minipc-02', port: 8080, cpuRange: [1.2, 2.2], memRange: [100, 180] },
+  { name: 'minio', node: 'minipc-03', port: 9001, cpuRange: [2, 3.5], memRange: [800, 1300] },
+  { name: 'jellyfin', node: 'minipc-03', port: 8096, cpuRange: [10, 15], memRange: [1800, 2400] },
+  { name: 'pihole', node: 'minipc-03', port: 53, cpuRange: [0.5, 1.2], memRange: [200, 350] },
+]
+
+export const services: Service[] = serviceConfigs.map((config) => ({
+  name: config.name,
+  status: 'running' as const,
+  node: config.node,
+  port: config.port,
+  uptime: generateUptime(),
+  cpu: Number(random(config.cpuRange[0], config.cpuRange[1]).toFixed(1)),
+  memory: Math.floor(random(config.memRange[0], config.memRange[1])),
+}))
+
+// Generate historical CPU data (last 24 hours) with realistic patterns
+const generateCpuData = (baseLoad: number, variance: number) => {
+  return [
+    { time: getHistoricalTime(24), 'minipc-01': baseLoad - variance, 'minipc-02': baseLoad - variance - 5, 'minipc-03': baseLoad - variance - 8 },
+    { time: getHistoricalTime(22), 'minipc-01': baseLoad - variance + 2, 'minipc-02': baseLoad - variance - 3, 'minipc-03': baseLoad - variance - 6 },
+    { time: getHistoricalTime(20), 'minipc-01': baseLoad - variance + 5, 'minipc-02': baseLoad - variance, 'minipc-03': baseLoad - variance - 4 },
+    { time: getHistoricalTime(18), 'minipc-01': baseLoad + 3, 'minipc-02': baseLoad, 'minipc-03': baseLoad - 3 },
+    { time: getHistoricalTime(16), 'minipc-01': baseLoad + 8, 'minipc-02': baseLoad + 5, 'minipc-03': baseLoad + 2 },
+    { time: getHistoricalTime(14), 'minipc-01': baseLoad + 12, 'minipc-02': baseLoad + 8, 'minipc-03': baseLoad + 5 },
+    { time: getHistoricalTime(12), 'minipc-01': baseLoad + 5, 'minipc-02': baseLoad + 2, 'minipc-03': baseLoad },
+    { time: getHistoricalTime(10), 'minipc-01': baseLoad + 8, 'minipc-02': baseLoad + 5, 'minipc-03': baseLoad + 3 },
+    { time: getHistoricalTime(8), 'minipc-01': baseLoad + 15, 'minipc-02': baseLoad + 12, 'minipc-03': baseLoad + 8 },
+    { time: getHistoricalTime(6), 'minipc-01': baseLoad + 8, 'minipc-02': baseLoad + 5, 'minipc-03': baseLoad + 2 },
+    { time: getHistoricalTime(4), 'minipc-01': baseLoad + 2, 'minipc-02': baseLoad, 'minipc-03': baseLoad - 2 },
+    { time: getHistoricalTime(2), 'minipc-01': baseLoad, 'minipc-02': baseLoad - 2, 'minipc-03': baseLoad - 4 },
+    { time: 'Now', 'minipc-01': nodes[0].cpu, 'minipc-02': nodes[1].cpu, 'minipc-03': nodes[2].cpu },
+  ]
+}
+
+export const cpuHistory = generateCpuData(40, 10)
+
+// Generate historical Memory data with realistic patterns
+const generateMemoryData = (baseLoad: number, variance: number) => {
+  return [
+    { time: getHistoricalTime(24), 'minipc-01': baseLoad - variance, 'minipc-02': baseLoad - variance - 2, 'minipc-03': baseLoad - variance - 2 },
+    { time: getHistoricalTime(22), 'minipc-01': baseLoad - variance + 1, 'minipc-02': baseLoad - variance - 1, 'minipc-03': baseLoad - variance - 1 },
+    { time: getHistoricalTime(20), 'minipc-01': baseLoad - variance + 2, 'minipc-02': baseLoad - variance, 'minipc-03': baseLoad - variance },
+    { time: getHistoricalTime(18), 'minipc-01': baseLoad + 1, 'minipc-02': baseLoad, 'minipc-03': baseLoad },
+    { time: getHistoricalTime(16), 'minipc-01': baseLoad + 4, 'minipc-02': baseLoad + 2, 'minipc-03': baseLoad + 2 },
+    { time: getHistoricalTime(14), 'minipc-01': baseLoad + 6, 'minipc-02': baseLoad + 4, 'minipc-03': baseLoad + 3 },
+    { time: getHistoricalTime(12), 'minipc-01': baseLoad + 2, 'minipc-02': baseLoad + 1, 'minipc-03': baseLoad },
+    { time: getHistoricalTime(10), 'minipc-01': baseLoad + 3, 'minipc-02': baseLoad + 2, 'minipc-03': baseLoad + 1 },
+    { time: getHistoricalTime(8), 'minipc-01': baseLoad + 5, 'minipc-02': baseLoad + 4, 'minipc-03': baseLoad + 3 },
+    { time: getHistoricalTime(6), 'minipc-01': baseLoad + 4, 'minipc-02': baseLoad + 3, 'minipc-03': baseLoad + 2 },
+    { time: getHistoricalTime(4), 'minipc-01': baseLoad + 2, 'minipc-02': baseLoad + 1, 'minipc-03': baseLoad + 1 },
+    { time: getHistoricalTime(2), 'minipc-01': baseLoad + 1, 'minipc-02': baseLoad, 'minipc-03': baseLoad },
+    { time: 'Now', 'minipc-01': nodes[0].memory, 'minipc-02': nodes[1].memory, 'minipc-03': nodes[2].memory },
+  ]
+}
+
+export const memoryHistory = generateMemoryData(65, 5)
+
+// Generate network traffic with realistic patterns
+const generateNetworkTraffic = () => {
+  return [
+    { time: getHistoricalTime(24), in: random(0.8, 1.5), out: random(0.5, 1.0) },
+    { time: getHistoricalTime(22), in: random(0.6, 1.2), out: random(0.4, 0.8) },
+    { time: getHistoricalTime(20), in: random(0.5, 1.0), out: random(0.3, 0.7) },
+    { time: getHistoricalTime(18), in: random(1.2, 2.0), out: random(0.8, 1.3) },
+    { time: getHistoricalTime(16), in: random(2.5, 3.5), out: random(1.6, 2.3) },
+    { time: getHistoricalTime(14), in: random(2.8, 3.8), out: random(1.8, 2.5) },
+    { time: getHistoricalTime(12), in: random(2.2, 3.0), out: random(1.4, 2.0) },
+    { time: getHistoricalTime(10), in: random(2.6, 3.4), out: random(1.7, 2.3) },
+    { time: getHistoricalTime(8), in: random(3.0, 4.0), out: random(2.0, 2.8) },
+    { time: getHistoricalTime(6), in: random(3.5, 4.5), out: random(2.3, 3.0) },
+    { time: getHistoricalTime(4), in: random(3.2, 4.0), out: random(2.1, 2.7) },
+    { time: getHistoricalTime(2), in: random(1.8, 2.8), out: random(1.2, 1.8) },
+    { time: 'Now', in: random(2.5, 3.5), out: random(1.6, 2.3) },
+  ].map((item) => ({
+    ...item,
+    in: Number(item.in.toFixed(1)),
+    out: Number(item.out.toFixed(1)),
+  }))
+}
+
+export const networkTraffic = generateNetworkTraffic()
+
+// Generate recent downtime incidents (dynamically dated)
+const generateDowntimeHistory = (): ServiceDowntime[] => {
+  const now = new Date()
+  const incidents: ServiceDowntime[] = []
+
+  // Incident 1: 7 days ago
+  const incident1Start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  incident1Start.setHours(14, 23, 0)
+  const incident1End = new Date(incident1Start.getTime() + 8 * 60 * 1000)
+  incidents.push({
+    service: 'postgres',
+    start: incident1Start.toLocaleString(),
+    end: incident1End.toLocaleString(),
+    duration: '8m',
+    reason: 'Planned maintenance',
+  })
+
+  // Incident 2: 10 days ago
+  const incident2Start = new Date(now.getTime() - 10 * 24 * 60 * 60 * 1000)
+  incident2Start.setHours(9, 15, 0)
+  const incident2End = new Date(incident2Start.getTime() + 3 * 60 * 1000)
+  incidents.push({
+    service: 'nginx',
+    start: incident2Start.toLocaleString(),
+    end: incident2End.toLocaleString(),
+    duration: '3m',
+    reason: 'Configuration update',
+  })
+
+  // Incident 3: 15 days ago
+  const incident3Start = new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000)
+  incident3Start.setHours(22, 45, 0)
+  const incident3End = new Date(incident3Start.getTime() + 17 * 60 * 1000)
+  incidents.push({
+    service: 'jellyfin',
+    start: incident3Start.toLocaleString(),
+    end: incident3End.toLocaleString(),
+    duration: '17m',
+    reason: 'Unexpected restart',
+  })
+
+  return incidents
+}
+
+export const downtimeHistory = generateDowntimeHistory()
+
+// Network topology (static structure)
 export const networkTopology: NetworkNode[] = [
   {
     id: 'fpt',
@@ -313,14 +298,14 @@ export const networkTopology: NetworkNode[] = [
   },
 ]
 
-// Cluster summary stats
+// Cluster summary stats (computed from nodes)
 export const clusterStats = {
   totalNodes: nodes.length,
   onlineNodes: nodes.filter((n) => n.status === 'online').length,
   totalServices: services.length,
   runningServices: services.filter((s) => s.status === 'running').length,
-  avgCpu: nodes.reduce((acc, n) => acc + n.cpu, 0) / nodes.length,
-  avgMemory: nodes.reduce((acc, n) => acc + n.memory, 0) / nodes.length,
+  avgCpu: Number((nodes.reduce((acc, n) => acc + n.cpu, 0) / nodes.length).toFixed(1)),
+  avgMemory: Number((nodes.reduce((acc, n) => acc + n.memory, 0) / nodes.length).toFixed(1)),
   totalMemory: nodes.reduce((acc, n) => acc + n.memoryTotal, 0),
-  usedMemory: nodes.reduce((acc, n) => acc + n.memoryUsed, 0),
+  usedMemory: Number(nodes.reduce((acc, n) => acc + n.memoryUsed, 0).toFixed(1)),
 }
