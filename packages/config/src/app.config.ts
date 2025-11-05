@@ -25,6 +25,7 @@ export interface AppUrls {
   insights: string;
   home: string;
   photos: string;
+  homelab: string;
 }
 
 // Environment-aware URL configuration
@@ -36,6 +37,8 @@ export const appUrls: AppUrls = {
   home: process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net",
   photos:
     process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net",
+  homelab:
+    process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
 };
 
 // Blog app configuration
@@ -142,6 +145,28 @@ export const photosConfig = {
   },
 };
 
+// Homelab app configuration
+export const homelabConfig = {
+  metadata: {
+    title: "Homelab | duyet.net",
+    description: "Homelab cluster monitoring dashboard - 3-node minipc cluster",
+    lang: "en",
+  } as AppMetadata,
+  fonts: {
+    inter: {
+      name: "Inter",
+      weights: ["100", "200", "300", "400", "700"] as const,
+      subsets: ["latin"] as const,
+      variable: "--font-sans",
+      display: "swap",
+    } as const,
+  },
+  header: {
+    longText: "Homelab Dashboard",
+    shortText: "Homelab",
+  },
+};
+
 // Export all configs
 export const appConfig = {
   urls: appUrls,
@@ -150,4 +175,5 @@ export const appConfig = {
   cv: cvConfig,
   home: homeConfig,
   photos: photosConfig,
+  homelab: homelabConfig,
 };
