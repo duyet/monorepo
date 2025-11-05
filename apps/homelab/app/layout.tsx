@@ -1,4 +1,3 @@
-import '@duyet/components/styles.css'
 import './globals.css'
 
 import Analytics from '@duyet/components/Analytics'
