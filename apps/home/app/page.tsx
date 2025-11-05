@@ -210,12 +210,12 @@ export default function HomePage() {
           >
             LinkedIn
           </Link>
-          <Link
+          <a
             href="/llms.txt"
             className="transition-colors duration-200 hover:text-neutral-900"
           >
             llms.txt
-          </Link>
+          </a>
         </div>
       </div>
     </div>
