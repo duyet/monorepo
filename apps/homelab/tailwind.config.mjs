@@ -1,19 +1,14 @@
-import baseConfig from '@duyet/tailwind-config'
+import sharedConfig from '@duyet/tailwind-config/tailwind.config.mjs'
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  ...baseConfig,
-  content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    '../../packages/components/**/*.{js,ts,jsx,tsx}',
-  ],
+  ...sharedConfig,
   theme: {
-    ...baseConfig.theme,
+    ...sharedConfig.theme,
     extend: {
-      ...baseConfig.theme?.extend,
+      ...sharedConfig.theme?.extend,
       colors: {
-        ...baseConfig.theme?.extend?.colors,
+        ...sharedConfig.theme?.extend?.colors,
         // Claude-inspired color palette
         'claude-peach': '#f5dcd0',
         'claude-yellow': '#f0d9a8',
