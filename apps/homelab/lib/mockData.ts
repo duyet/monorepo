@@ -20,6 +20,7 @@ export interface Node {
 
 export interface Service {
   name: string
+  namespace: string
   status: 'running' | 'stopped' | 'error'
   node: string
   port: number
@@ -87,7 +88,7 @@ export const nodes: Node[] = [
     memoryTotal: 16,
     storage: 512,
     uptime: generateUptime(),
-    services: 4,
+    services: 5,
   },
   {
     id: 'node-2',
@@ -101,7 +102,7 @@ export const nodes: Node[] = [
     memoryTotal: 16,
     storage: 512,
     uptime: generateUptime(),
-    services: 3,
+    services: 6,
   },
   {
     id: 'node-3',
@@ -149,9 +150,17 @@ export const nodes: Node[] = [
 
 // Generate running services with dynamic CPU/Memory
 const serviceConfigs = [
-  { name: 'traefik', node: 'minipc-01', port: 80, cpuRange: [1.5, 2.5], memRange: [200, 300] },
+  {
+    name: 'traefik',
+    namespace: 'ingress',
+    node: 'minipc-01',
+    port: 80,
+    cpuRange: [1.5, 2.5],
+    memRange: [200, 300],
+  },
   {
     name: 'portainer',
+    namespace: 'management',
     node: 'minipc-01',
     port: 9000,
     cpuRange: [1, 2],
@@ -159,6 +168,7 @@ const serviceConfigs = [
   },
   {
     name: 'prometheus',
+    namespace: 'monitoring',
     node: 'minipc-01',
     port: 9090,
     cpuRange: [2.5, 4],
@@ -166,44 +176,103 @@ const serviceConfigs = [
   },
   {
     name: 'litellm',
+    namespace: 'llm',
     node: 'minipc-01',
     port: 4000,
     cpuRange: [3, 5],
     memRange: [600, 900],
   },
   {
-    name: 'postgres',
-    node: 'minipc-02',
-    port: 5432,
-    cpuRange: [7, 10],
-    memRange: [1800, 2300],
+    name: 'open-webui',
+    namespace: 'llm',
+    node: 'minipc-01',
+    port: 8080,
+    cpuRange: [2, 4],
+    memRange: [500, 800],
   },
-  { name: 'redis', node: 'minipc-02', port: 6379, cpuRange: [0.8, 1.6], memRange: [400, 600] },
+  {
+    name: 'litellm-postgres-1',
+    namespace: 'llm',
+    node: 'minipc-02',
+    port: 5433,
+    cpuRange: [1.5, 3],
+    memRange: [400, 700],
+  },
+  {
+    name: 'litellm-prometheus-1',
+    namespace: 'llm',
+    node: 'minipc-02',
+    port: 9091,
+    cpuRange: [0.5, 1.5],
+    memRange: [200, 400],
+  },
   {
     name: 'clickhouse',
+    namespace: 'analytics',
     node: 'minipc-02',
     port: 8123,
     cpuRange: [5, 8],
     memRange: [1500, 2000],
   },
-  { name: 'minio', node: 'minipc-03', port: 9001, cpuRange: [2, 3.5], memRange: [800, 1300] },
+  {
+    name: 'clickhouse-monitoring-ui',
+    namespace: 'analytics',
+    node: 'minipc-03',
+    port: 3000,
+    cpuRange: [1.5, 2.5],
+    memRange: [300, 500],
+  },
+  {
+    name: 'n8n',
+    namespace: 'n8n',
+    node: 'minipc-02',
+    port: 5678,
+    cpuRange: [2.5, 4.5],
+    memRange: [700, 1000],
+  },
+  {
+    name: 'n8n-postgres-1',
+    namespace: 'n8n',
+    node: 'minipc-02',
+    port: 5434,
+    cpuRange: [1, 2.5],
+    memRange: [400, 700],
+  },
+  {
+    name: 'n8n-redis-1',
+    namespace: 'n8n',
+    node: 'minipc-02',
+    port: 6380,
+    cpuRange: [0.5, 1.5],
+    memRange: [200, 400],
+  },
+  {
+    name: 'n8n-n8n-worker-1',
+    namespace: 'n8n',
+    node: 'minipc-03',
+    port: 5679,
+    cpuRange: [1.5, 3],
+    memRange: [500, 800],
+  },
   {
     name: 'home-assistant',
+    namespace: 'home-assistant',
     node: 'minipc-03',
     port: 8123,
     cpuRange: [3, 5],
     memRange: [600, 900],
   },
   {
-    name: 'clickhouse-monitoring-ui',
-    node: 'minipc-03',
-    port: 3000,
-    cpuRange: [1.5, 2.5],
-    memRange: [300, 500],
+    name: 'pihole',
+    namespace: 'network',
+    node: 'rp-01',
+    port: 53,
+    cpuRange: [0.5, 1.2],
+    memRange: [200, 350],
   },
-  { name: 'pihole', node: 'rp-01', port: 53, cpuRange: [0.5, 1.2], memRange: [200, 350] },
   {
     name: 'grafana',
+    namespace: 'monitoring',
     node: 'rp-01',
     port: 3001,
     cpuRange: [2, 3.5],
@@ -211,6 +280,7 @@ const serviceConfigs = [
   },
   {
     name: 'node-exporter',
+    namespace: 'monitoring',
     node: 'dienquangsmart',
     port: 9100,
     cpuRange: [0.3, 0.8],
@@ -220,6 +290,7 @@ const serviceConfigs = [
 
 export const services: Service[] = serviceConfigs.map((config) => ({
   name: config.name,
+  namespace: config.namespace,
   status: 'running' as const,
   node: config.node,
   port: config.port,
