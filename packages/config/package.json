@@ -19,10 +19,10 @@
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
-    "@jest/globals": "^29.7.0",
-    "@types/jest": "^29.5.12",
+    "@jest/globals": "^30.0.0",
+    "@types/jest": "^30.0.0",
     "eslint": "*",
-    "jest": "^29.7.0",
+    "jest": "^30.0.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
   }
