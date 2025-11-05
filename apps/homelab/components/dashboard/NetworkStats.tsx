@@ -14,8 +14,6 @@ import {
 } from 'recharts'
 
 export function NetworkStats() {
-  const currentTraffic = networkTraffic[networkTraffic.length - 1]
-
   return (
     <div className="space-y-6">
       {/* Speedtest Results */}
