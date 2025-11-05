@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import AboutIcon from './components/icons/AboutIcon'
 import BlogIcon from './components/icons/BlogIcon'
+import HomelabIcon from './components/icons/HomelabIcon'
 import InsightsIcon from './components/icons/InsightsIcon'
 import PhotosIcon from './components/icons/PhotosIcon'
 import ResumeIcon from './components/icons/ResumeIcon'
@@ -37,6 +38,17 @@ export default function HomePage() {
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
         'https://insights.duyet.net',
       color: 'bg-[#a8d5ba]',
+      iconColor: 'text-neutral-900',
+    },
+    {
+      icon: HomelabIcon,
+      title: 'Homelab',
+      description:
+        'Real-time monitoring dashboard for microk8s cluster with 5 nodes.',
+      url:
+        process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
+        'https://homelab.duyet.net',
+      color: 'bg-[#c5c5ff]',
       iconColor: 'text-neutral-900',
     },
     {
@@ -138,12 +150,33 @@ export default function HomePage() {
             </p>
           </Link>
 
-          {/* Photos */}
+          {/* Homelab */}
           <Link
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group relative flex flex-col p-6 ${links[3].color} overflow-hidden rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl`}
+          >
+            <div className={`mb-4 ${links[3].iconColor}`}>
+              {(() => {
+                const Icon = links[3].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
+              {links[3].title}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-700">
+              {links[3].description}
+            </p>
+          </Link>
+
+          {/* Photos */}
+          <Link
+            href={links[4].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group relative flex flex-col p-6 ${links[4].color} overflow-hidden rounded-3xl`}
           >
             {/* Background image on hover */}
             <div
@@ -158,38 +191,38 @@ export default function HomePage() {
 
             {/* Content */}
             <div className="relative z-10">
-              <div className={`mb-4 ${links[3].iconColor}`}>
+              <div className={`mb-4 ${links[4].iconColor}`}>
                 {(() => {
-                  const Icon = links[3].icon
+                  const Icon = links[4].icon
                   return <Icon />
                 })()}
               </div>
               <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-                {links[3].title}
+                {links[4].title}
               </h3>
               <p className="text-sm leading-relaxed text-neutral-700">
-                {links[3].description}
+                {links[4].description}
               </p>
             </div>
           </Link>
 
           {/* About */}
           <Link
-            href={links[4].url}
+            href={links[5].url}
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[4].color} rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[5].color} rounded-3xl`}
           >
-            <div className={`mb-4 ${links[4].iconColor}`}>
+            <div className={`mb-4 ${links[5].iconColor}`}>
               {(() => {
-                const Icon = links[4].icon
+                const Icon = links[5].icon
                 return <Icon />
               })()}
             </div>
             <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[4].title}
+              {links[5].title}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
-              {links[4].description}
+              {links[5].description}
             </p>
           </Link>
         </div>
