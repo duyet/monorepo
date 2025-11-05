@@ -42,7 +42,7 @@ export default function HomelabPage() {
       {/* Last Updated Footer */}
       <div className="border-t pt-4 text-center">
         <p className="text-xs text-muted-foreground">
-          Last updated: {new Date().toLocaleString()} • Auto-refresh every 30 seconds
+          Last updated: {new Date().toLocaleString()}
         </p>
       </div>
     </div>
