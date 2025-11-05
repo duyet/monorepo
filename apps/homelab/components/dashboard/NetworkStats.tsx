@@ -2,7 +2,7 @@
 
 import { Card } from '@/components/Card'
 import { networkTraffic, speedTest } from '@/lib/mockData'
-import { ArrowDown, ArrowUp, Gauge, Wifi } from 'lucide-react'
+import { ArrowDown, ArrowUp, Gauge } from 'lucide-react'
 import {
   Area,
   AreaChart,
