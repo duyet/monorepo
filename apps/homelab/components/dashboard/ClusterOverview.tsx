@@ -80,7 +80,7 @@ export function ClusterOverview() {
           </div>
         </div>
 
-        <div className="rounded-3xl bg-white p-6 dark:bg-neutral-800">
+        <div className="rounded-3xl bg-[#e8e8e8] p-6 dark:bg-[#e8e8e8]/20">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -98,68 +98,6 @@ export function ClusterOverview() {
           </div>
         </div>
       </div>
-
-      {/* Node Details */}
-      <Card title="Cluster Nodes">
-        <div className="space-y-3">
-          {nodes.map((node) => (
-            <div
-              key={node.id}
-              className="flex items-center justify-between rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900/50"
-            >
-              <div className="flex items-center gap-4">
-                {/* Status dot indicator */}
-                <div
-                  className={`h-3 w-3 rounded-full ${
-                    node.status === 'online'
-                      ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'
-                      : node.status === 'degraded'
-                        ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]'
-                        : 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'
-                  }`}
-                  title={node.status}
-                />
-                <div>
-                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">
-                    {node.name}
-                  </h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">{node.ip}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-8">
-                <div className="text-center">
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">CPU</p>
-                  <p className="mt-1 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                    {node.cpu}%
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">Memory</p>
-                  <p className="mt-1 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                    {node.memory}%
-                  </p>
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                    {node.memoryUsed.toFixed(1)}/{node.memoryTotal}GB
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">Services</p>
-                  <p className="mt-1 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                    {node.services}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">Uptime</p>
-                  <p className="mt-1 text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                    {node.uptime}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
     </div>
   )
 }

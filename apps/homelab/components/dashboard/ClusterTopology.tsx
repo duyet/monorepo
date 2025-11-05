@@ -12,7 +12,7 @@ export function ClusterTopology() {
             key={node.id}
             className="rounded-2xl border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-800 dark:bg-neutral-900/50"
           >
-            {/* Status indicator and node name */}
+            {/* Line 1: Status indicator and node name */}
             <div className="mb-2 flex items-center gap-2">
               <div
                 className={`h-2 w-2 rounded-full ${
@@ -29,10 +29,15 @@ export function ClusterTopology() {
               </h4>
             </div>
 
-            {/* IP address */}
-            <p className="mb-2 font-mono text-xs text-neutral-600 dark:text-neutral-400">
-              {node.ip}
-            </p>
+            {/* Line 2: IP address and deployments */}
+            <div className="mb-2 flex items-center justify-between text-xs">
+              <span className="font-mono text-neutral-600 dark:text-neutral-400">
+                {node.ip}
+              </span>
+              <span className="text-neutral-600 dark:text-neutral-400">
+                {node.services} deploy
+              </span>
+            </div>
 
             {/* Quick stats */}
             <div className="space-y-1 text-xs">
@@ -48,13 +53,19 @@ export function ClusterTopology() {
                   {node.memory}%
                 </span>
               </div>
+              <div className="flex justify-between">
+                <span className="text-neutral-600 dark:text-neutral-400">Uptime:</span>
+                <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                  {node.uptime}
+                </span>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
       {/* Cluster info footer */}
-      <div className="mt-3 border-t border-neutral-200 pt-3 dark:border-neutral-700">
+      <div className="mt-3 pt-3">
         <p className="text-xs text-neutral-600 dark:text-neutral-400">
           <span className="font-medium">Orchestration:</span> microk8s
         </p>
