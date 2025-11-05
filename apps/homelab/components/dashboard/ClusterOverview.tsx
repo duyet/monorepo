@@ -9,58 +9,76 @@ export function ClusterOverview() {
     <div className="space-y-6">
       {/* Summary Stats */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card padding="sm" className="bg-gradient-to-br from-claude-lavender to-white dark:from-purple-900/20 dark:to-neutral-900">
+        <div className="rounded-3xl bg-gradient-to-br from-claude-lavender to-white p-6 dark:from-purple-900/20 dark:to-neutral-900">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Total Nodes</p>
-              <p className="mt-2 text-3xl font-bold">{clusterStats.totalNodes}</p>
-              <p className="mt-1 text-xs text-green-600">
+              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+                Total Nodes
+              </p>
+              <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+                {clusterStats.totalNodes}
+              </p>
+              <p className="mt-1 text-xs text-green-600 dark:text-green-400">
                 {clusterStats.onlineNodes} online
               </p>
             </div>
             <Server className="h-12 w-12 text-neutral-400" />
           </div>
-        </Card>
+        </div>
 
-        <Card padding="sm" className="bg-gradient-to-br from-claude-mint to-white dark:from-green-900/20 dark:to-neutral-900">
+        <div className="rounded-3xl bg-gradient-to-br from-claude-mint to-white p-6 dark:from-green-900/20 dark:to-neutral-900">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Services</p>
-              <p className="mt-2 text-3xl font-bold">{clusterStats.totalServices}</p>
-              <p className="mt-1 text-xs text-green-600">
+              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+                Services
+              </p>
+              <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+                {clusterStats.totalServices}
+              </p>
+              <p className="mt-1 text-xs text-green-600 dark:text-green-400">
                 {clusterStats.runningServices} running
               </p>
             </div>
             <CheckCircle2 className="h-12 w-12 text-neutral-400" />
           </div>
-        </Card>
+        </div>
 
-        <Card padding="sm" className="bg-gradient-to-br from-claude-peach to-white dark:from-orange-900/20 dark:to-neutral-900">
+        <div className="rounded-3xl bg-gradient-to-br from-claude-peach to-white p-6 dark:from-orange-900/20 dark:to-neutral-900">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Avg CPU</p>
-              <p className="mt-2 text-3xl font-bold">{clusterStats.avgCpu.toFixed(1)}%</p>
-              <p className="mt-1 text-xs text-muted-foreground">Across all nodes</p>
+              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+                Avg CPU
+              </p>
+              <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+                {clusterStats.avgCpu.toFixed(1)}%
+              </p>
+              <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                Across all nodes
+              </p>
             </div>
             <Activity className="h-12 w-12 text-neutral-400" />
           </div>
-        </Card>
+        </div>
 
-        <Card padding="sm" className="bg-gradient-to-br from-claude-yellow to-white dark:from-yellow-900/20 dark:to-neutral-900">
+        <div className="rounded-3xl bg-gradient-to-br from-claude-yellow to-white p-6 dark:from-yellow-900/20 dark:to-neutral-900">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Memory</p>
-              <p className="mt-2 text-3xl font-bold">
-                {clusterStats.usedMemory.toFixed(0)}
-                <span className="text-lg text-muted-foreground">/{clusterStats.totalMemory}GB</span>
+              <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+                Memory
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+                {clusterStats.usedMemory.toFixed(0)}
+                <span className="text-lg text-neutral-600 dark:text-neutral-400">
+                  /{clusterStats.totalMemory}GB
+                </span>
+              </p>
+              <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
                 {clusterStats.avgMemory.toFixed(1)}% used
               </p>
             </div>
             <HardDrive className="h-12 w-12 text-neutral-400" />
           </div>
-        </Card>
+        </div>
       </div>
 
       {/* Node Details */}
