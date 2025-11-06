@@ -71,7 +71,29 @@ export async function getUserPhotos(
   }
 }
 
-// Optional function to fetch detailed info for specific photo (used on demand)
+/**
+ * Track a photo download (required by Unsplash API guidelines)
+ * This should be called when displaying photos during build time
+ */
+export async function trackPhotoDownload(
+  photoId: string,
+): Promise<void> {
+  if (!unsplash) {
+    return
+  }
+
+  try {
+    await unsplash.photos.trackDownload({ downloadLocation: `https://api.unsplash.com/photos/${photoId}/download` })
+  } catch (error) {
+    // Don't fail the build if tracking fails
+    console.warn(`Failed to track download for photo ${photoId}:`, error)
+  }
+}
+
+/**
+ * Fetch detailed photo information including EXIF and location data
+ * This is used when the listing API doesn't provide complete metadata
+ */
 export async function getPhotoDetails(
   photoId: string,
 ): Promise<Partial<UnsplashPhoto> | null> {
@@ -86,6 +108,9 @@ export async function getPhotoDetails(
       return {
         location: detailed.location,
         exif: detailed.exif,
+        // Also include any other fields that might be missing
+        description: detailed.description,
+        alt_description: detailed.alt_description,
       }
     }
     return null
@@ -95,12 +120,31 @@ export async function getPhotoDetails(
   }
 }
 
+/**
+ * Check if a photo needs detailed data enrichment
+ */
+function needsEnrichment(photo: UnsplashPhoto): boolean {
+  // Only fetch details if we're missing EXIF or location data
+  const hasExif = photo.exif && (
+    photo.exif.make ||
+    photo.exif.model ||
+    photo.exif.aperture ||
+    photo.exif.exposure_time
+  )
+  const hasLocation = photo.location && (photo.location.city || photo.location.country)
+
+  return !hasExif || !hasLocation
+}
+
 export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   const allPhotos: UnsplashPhoto[] = []
   let page = 1
   let hasMore = true
   const maxPages = 3 // Limit to avoid rate limits
 
+  console.log('📸 Fetching user photos from Unsplash...')
+
+  // Step 1: Fetch all pages of photos
   while (hasMore && page <= maxPages) {
     try {
       const photos = await getUserPhotos(page, 30, 'latest')
@@ -109,9 +153,10 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         hasMore = false
       } else {
         allPhotos.push(...photos)
+        console.log(`   ✓ Fetched page ${page}: ${photos.length} photos`)
         page++
 
-        // Respect rate limits - add a longer delay between requests
+        // Respect rate limits - add a delay between page requests
         if (page <= maxPages) {
           await new Promise((resolve) => setTimeout(resolve, 1000))
         }
@@ -131,6 +176,65 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       }
     }
   }
+
+  console.log(`📊 Total photos fetched: ${allPhotos.length}`)
+
+  // Step 2: Enrich photos with detailed data if needed
+  const photosNeedingEnrichment = allPhotos.filter(needsEnrichment)
+
+  if (photosNeedingEnrichment.length > 0) {
+    console.log(`🔍 Enriching ${photosNeedingEnrichment.length} photos with detailed EXIF and location data...`)
+
+    for (let i = 0; i < photosNeedingEnrichment.length; i++) {
+      const photo = photosNeedingEnrichment[i]
+
+      try {
+        // Fetch detailed photo data
+        const details = await getPhotoDetails(photo.id)
+
+        if (details) {
+          // Merge detailed data into the photo
+          Object.assign(photo, {
+            location: details.location || photo.location,
+            exif: details.exif || photo.exif,
+            description: details.description || photo.description,
+            alt_description: details.alt_description || photo.alt_description,
+          })
+
+          if ((i + 1) % 10 === 0) {
+            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos`)
+          }
+        }
+
+        // Rate limiting: wait between requests to avoid hitting API limits
+        // Unsplash allows 50 requests per hour, so we space them out
+        if (i < photosNeedingEnrichment.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 800))
+        }
+      } catch (error) {
+        console.warn(`   ⚠ Failed to enrich photo ${photo.id}:`, error)
+        // Continue with other photos even if one fails
+      }
+    }
+
+    console.log(`   ✓ Completed enrichment: ${photosNeedingEnrichment.length} photos processed`)
+  } else {
+    console.log('✓ All photos already have complete metadata')
+  }
+
+  // Step 3: Track downloads for all photos (required by Unsplash API guidelines)
+  // This is required when displaying photos, even during build time
+  console.log('📥 Tracking photo downloads for Unsplash attribution...')
+  for (let i = 0; i < allPhotos.length; i++) {
+    await trackPhotoDownload(allPhotos[i].id)
+
+    // Small delay to avoid rate limits
+    if (i < allPhotos.length - 1 && i % 20 === 0) {
+      await new Promise((resolve) => setTimeout(resolve, 500))
+    }
+  }
+
+  console.log(`✨ Completed: ${allPhotos.length} photos ready with full metadata`)
 
   return allPhotos
 }
