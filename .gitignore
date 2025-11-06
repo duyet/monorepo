@@ -38,6 +38,3 @@ next-env.d.ts
 
 # Million Lint
 .million
-
-# Unsplash photo cache
-.cache
