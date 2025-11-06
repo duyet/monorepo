@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Million Lint
 .million
+
+# Build cache (configured to persist in CI/CD)
+.cache

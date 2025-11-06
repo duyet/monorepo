@@ -2,9 +2,9 @@ import { promises as fs } from 'fs'
 import { join } from 'path'
 import type { UnsplashPhoto } from './types'
 
-// Store cache in the repository so it persists across CI/CD builds
-// This directory should be committed to git to maintain cache between builds
-const CACHE_DIR = join(process.cwd(), 'unsplash-cache')
+// Cache directory - should be configured in CI/CD to persist between builds
+// See: apps/photos/cache-config/ for platform-specific instructions
+const CACHE_DIR = join(process.cwd(), '.cache', 'unsplash')
 const CACHE_FILE = join(CACHE_DIR, 'photos.json')
 const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000 // 7 days
 

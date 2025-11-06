@@ -1,3 +1,0 @@
-# Treat cache file as binary to avoid merge conflicts
-# The build process will regenerate it if needed
-photos.json merge=ours
