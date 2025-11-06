@@ -3,6 +3,7 @@ import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
 import { theme as tremorTheme } from './tremor.theme.js'
 import { theme as shadcnTheme } from './shadcn.theme.js'
+import { colors as designSystemColors } from './colors.js'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -30,9 +31,7 @@ export default {
         tremorTheme,
         shadcnTheme,
         {
-          colors: {
-            gold: '#ffd465',
-          },
+          colors: designSystemColors,
         },
       ]),
 
