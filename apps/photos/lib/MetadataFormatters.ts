@@ -172,3 +172,31 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
 
   return { title, subtitle, technical, creative }
 }
+
+/**
+ * Format caption for photo stream/feed display
+ * Priority: description → alt_description → location + date → date only
+ */
+export function formatFeedCaption(photo: UnsplashPhoto): string {
+  // Priority 1: Description
+  if (photo.description) {
+    return photo.description
+  }
+
+  // Priority 2: Alt description
+  if (photo.alt_description) {
+    return photo.alt_description
+  }
+
+  // Priority 3: Location + Date (if location available)
+  if (photo.location && (photo.location.city || photo.location.country)) {
+    const location = [photo.location.city, photo.location.country]
+      .filter(Boolean)
+      .join(', ')
+    const date = formatPhotoDate(photo.created_at)
+    return `${location} • ${date}`
+  }
+
+  // Priority 4: Date only
+  return formatPhotoDate(photo.created_at)
+}
