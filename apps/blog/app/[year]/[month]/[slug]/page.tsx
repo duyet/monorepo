@@ -37,12 +37,22 @@ export async function generateStaticParams() {
 export default async function Post({ params }: PostProps) {
   const { year, month, slug } = await params
   const post = await getPost([year, month, slug])
+  const markdownUrl = post.slug.replace(/\.html$/, '.md')
 
   return (
     <Container>
       <article>
         <Content post={post} />
-        <Meta className="mt-10" post={post} />
+        <div className="mt-10 flex items-center gap-2 border-t border-neutral-200 pt-4 text-sm text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+          <a
+            href={markdownUrl}
+            className="hover:text-neutral-900 dark:hover:text-neutral-200 underline decoration-dotted underline-offset-4"
+            title="View raw markdown content (AI-friendly)"
+          >
+            View as Markdown
+          </a>
+        </div>
+        <Meta className="mt-6" post={post} />
       </article>
     </Container>
   )
