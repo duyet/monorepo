@@ -23,7 +23,7 @@ export async function GET(
         'Content-Disposition': `inline; filename="${slug}.md"`,
       },
     })
-  } catch (error) {
+  } catch {
     return new NextResponse('Post not found', { status: 404 })
   }
 }
