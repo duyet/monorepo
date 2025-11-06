@@ -14,6 +14,8 @@ interface ContentProps {
 }
 
 export default function Content({ post, className }: ContentProps) {
+  const markdownUrl = post.slug.replace(/\.html$/, '.md')
+
   return (
     <div>
       <div
@@ -57,6 +59,14 @@ export default function Content({ post, className }: ContentProps) {
           title="Edit in Github"
         >
           <Icons.Github className="h-4 w-4" />
+        </a>
+        <span className="text-neutral-400">•</span>
+        <a
+          href={markdownUrl}
+          className="text-neutral-500 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
+          title="View raw markdown content (AI-friendly)"
+        >
+          View as Markdown
         </a>
       </div>
 
