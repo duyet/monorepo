@@ -1,10 +1,30 @@
-import { getPostBySlug } from '@duyet/libs/getPost'
+import { getAllPosts, getPostBySlug } from '@duyet/libs/getPost'
 import { NextResponse } from 'next/server'
 
 interface Params {
   year: string
   month: string
   slug: string
+}
+
+export const dynamic = 'force-static'
+export const dynamicParams = false
+
+export async function generateStaticParams() {
+  const posts = getAllPosts(['slug'])
+
+  return posts.map(({ slug }) => {
+    const slugArray = slug
+      .replace(/\.md|\.html$/, '')
+      .replace(/^\//, '')
+      .split('/')
+
+    return {
+      year: slugArray[0],
+      month: slugArray[1],
+      slug: slugArray[2],
+    }
+  })
 }
 
 export async function GET(
