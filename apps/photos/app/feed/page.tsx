@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import PhotoFeed from '@/components/PhotoFeed'
 import { getAllUserPhotos } from '@/lib/unsplash'
 import Container from '@duyet/components/Container'
@@ -63,12 +64,12 @@ export default async function FeedPage() {
               My latest photos, newest first. Each image tells a story—a moment
               captured, a place remembered, a feeling preserved. For more
               photos, explore the{' '}
-              <a
+              <Link
                 href="/"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
                 full gallery
-              </a>
+              </Link>
               .
             </p>
           </header>

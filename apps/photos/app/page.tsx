@@ -71,12 +71,12 @@ export default async function PhotosPage() {
               </a>
               . Explore landscapes, architecture, and moments captured through
               the lens. Prefer a narrative experience?{' '}
-              <a
+              <Link
                 href="/feed"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
                 View the photo stream
-              </a>
+              </Link>
               .
             </p>
 
