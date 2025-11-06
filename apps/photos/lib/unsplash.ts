@@ -1,5 +1,13 @@
 import { createApi } from 'unsplash-js'
 import type { PhotosByYear, UnsplashPhoto } from './types'
+import {
+  loadPhotoCache,
+  savePhotoCache,
+  getCachedPhotoData,
+  setCachedPhotoData,
+  getCacheStats,
+  cleanExpiredCache,
+} from './cache'
 
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY
 const USERNAME = '_duyet'
@@ -213,23 +221,57 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
   console.log(`📊 Total photos fetched: ${allPhotos.length}`)
 
-  // Step 2: Enrich photos with detailed data if needed
+  // Step 2: Load cache and enrich photos with detailed data if needed
+  console.log(`💾 Loading photo cache...`)
+  const cache = await loadPhotoCache()
+  const cacheStats = getCacheStats(cache)
+  console.log(`   Cache contains ${cacheStats.validEntries} valid entries (${cacheStats.expiredEntries} expired)`)
+
+  // Clean expired entries
+  if (cacheStats.expiredEntries > 0) {
+    const cleaned = cleanExpiredCache(cache)
+    console.log(`   Cleaned ${cleaned} expired cache entries`)
+  }
+
   const photosNeedingEnrichment = allPhotos.filter(needsEnrichment)
 
   if (photosNeedingEnrichment.length > 0) {
     console.log(`🔍 Enriching ${photosNeedingEnrichment.length} photos with detailed EXIF and location data...`)
-    console.log(`   Rate limit: 800ms delay between requests`)
 
     let successCount = 0
     let failureCount = 0
+    let cacheHits = 0
+    let apiCalls = 0
     const failedPhotos: string[] = []
 
     for (let i = 0; i < photosNeedingEnrichment.length; i++) {
       const photo = photosNeedingEnrichment[i]
 
       try {
-        // Fetch detailed photo data
-        const details = await getPhotoDetails(photo.id)
+        // Check cache first
+        const cachedData = getCachedPhotoData(cache, photo.id)
+
+        let details: Partial<UnsplashPhoto> | null = null
+
+        if (cachedData) {
+          // Use cached data
+          details = cachedData
+          cacheHits++
+        } else {
+          // Fetch from API
+          details = await getPhotoDetails(photo.id)
+          apiCalls++
+
+          // Cache the result
+          if (details) {
+            setCachedPhotoData(cache, photo.id, details)
+          }
+
+          // Rate limiting: only delay for API calls, not cache hits
+          if (i < photosNeedingEnrichment.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 800))
+          }
+        }
 
         if (details) {
           // Merge detailed data into the photo
@@ -242,17 +284,11 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           successCount++
 
           if ((i + 1) % 10 === 0) {
-            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${failureCount} failed)`)
+            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${cacheHits} cache hits, ${apiCalls} API calls)`)
           }
         } else {
           failureCount++
           failedPhotos.push(photo.id)
-        }
-
-        // Rate limiting: wait between requests to avoid hitting API limits
-        // Unsplash allows 50 requests per hour, so we space them out
-        if (i < photosNeedingEnrichment.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 800))
         }
       } catch (error) {
         failureCount++
@@ -264,6 +300,8 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
     console.log(``)
     console.log(`   ✅ Enrichment complete: ${successCount}/${photosNeedingEnrichment.length} photos enriched successfully`)
+    console.log(`   📊 Cache hits: ${cacheHits}, API calls: ${apiCalls} (saved ${cacheHits} API requests!)`)
+
     if (failureCount > 0) {
       console.log(`   ⚠️  ${failureCount} photos failed to enrich`)
       console.log(`   Failed photo IDs: ${failedPhotos.join(', ')}`)
@@ -274,6 +312,11 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       console.log(`      • Temporary Unsplash API issues`)
       console.log(`   Photos without enriched data will still display with available metadata.`)
     }
+
+    // Save cache after enrichment
+    console.log(`   💾 Saving cache...`)
+    await savePhotoCache(cache)
+    console.log(`   ✓ Cache saved successfully`)
   } else {
     console.log('✓ All photos already have complete metadata')
   }
