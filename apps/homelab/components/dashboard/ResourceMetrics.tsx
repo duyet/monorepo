@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/Card'
+import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
 import { cpuHistory, memoryHistory } from '@/lib/mockData'
 import {
   CartesianGrid,
@@ -16,7 +16,11 @@ export function ResourceMetrics() {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* CPU Usage */}
-      <Card title="CPU Usage - Last 24 Hours">
+      <Card>
+        <CardHeader>
+          <CardTitle>CPU Usage - Last 24 Hours</CardTitle>
+        </CardHeader>
+        <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={cpuHistory}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
@@ -77,10 +81,15 @@ export function ResourceMetrics() {
             <span className="text-neutral-600 dark:text-neutral-400">minipc-03</span>
           </div>
         </div>
+        </CardContent>
       </Card>
 
       {/* Memory Usage */}
-      <Card title="Memory Usage - Last 24 Hours">
+      <Card>
+        <CardHeader>
+          <CardTitle>Memory Usage - Last 24 Hours</CardTitle>
+        </CardHeader>
+        <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={memoryHistory}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
@@ -141,6 +150,7 @@ export function ResourceMetrics() {
             <span className="text-neutral-600 dark:text-neutral-400">minipc-03</span>
           </div>
         </div>
+        </CardContent>
       </Card>
     </div>
   )

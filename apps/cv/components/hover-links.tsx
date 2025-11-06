@@ -7,7 +7,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/hover-card'
+} from '@duyet/components/ui/hover-card'
 
 export function HoverLinks({
   text,

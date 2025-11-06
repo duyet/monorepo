@@ -10,8 +10,8 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/hover-card'
-import { Separator } from '@/components/ui/separator'
+} from '@duyet/components/ui/hover-card'
+import { Separator } from '@duyet/components/ui/separator'
 
 import { cvData } from '@/config/cv.data'
 import {

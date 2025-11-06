@@ -1,12 +1,16 @@
 'use client'
 
-import { Card } from '@/components/Card'
+import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
 import { downtimeHistory } from '@/lib/mockData'
 import { AlertCircle, Clock } from 'lucide-react'
 
 export function ServiceDowntime() {
   return (
-    <Card title="Recent Service Downtime">
+    <Card>
+      <CardHeader>
+        <CardTitle>Recent Service Downtime</CardTitle>
+      </CardHeader>
+      <CardContent>
       {downtimeHistory.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <div className="rounded-full bg-green-100 p-4 dark:bg-green-900/30">
@@ -49,6 +53,7 @@ export function ServiceDowntime() {
           ))}
         </div>
       )}
+      </CardContent>
     </Card>
   )
 }
