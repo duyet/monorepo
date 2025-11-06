@@ -1,18 +1,15 @@
 import Link from "next/link";
 import { ReactNode, ReactElement } from "react";
+import type { Profile } from "@duyet/profile";
+import { duyetProfile } from "@duyet/profile";
+import type { UrlsConfig } from "@duyet/urls";
+import { duyetUrls, createNavigation } from "@duyet/urls";
 
 import { cn } from "@duyet/libs/utils";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
 import Social from "./Social";
 import Logo from "./Logo";
-
-const BLOG_URL =
-  process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
-const INSIGHTS_URL =
-  process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
-const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
-const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
@@ -47,26 +44,46 @@ function FooterHeader({ children }: { children: ReactNode }) {
   );
 }
 
-const navigation = {
-  general: [
-    {
-      name: "Rust Tiếng Việt",
-      href: "https://duyet.net/rust?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet",
-    },
-    { name: "/ai", href: `${BLOG_URL}/ai` },
-    { name: "/archives", href: `${BLOG_URL}/archives` },
-    { name: "/series", href: `${BLOG_URL}/series` },
-    { name: "/tags", href: `${BLOG_URL}/tags` },
-  ],
-  profile: [
-    { name: "About", href: `${HOME_URL}/about` },
-    { name: "Linkedin", href: "https://linkedin.com/in/duyet" },
-    { name: "Resume", href: CV_URL },
-    { name: "Projects", href: "https://github.com/duyet?tab=repositories" },
-  ],
-};
+/**
+ * Create footer navigation from URLs and profile configuration
+ */
+function createFooterNavigation(urls: UrlsConfig, profile: Profile) {
+  return {
+    general: [
+      urls.external.rust && {
+        name: "Rust Tiếng Việt",
+        href: `${urls.external.rust}?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet`,
+      },
+      { name: "/ai", href: `${urls.apps.blog}/ai` },
+      { name: "/archives", href: `${urls.apps.blog}/archives` },
+      { name: "/series", href: `${urls.apps.blog}/series` },
+      { name: "/tags", href: `${urls.apps.blog}/tags` },
+    ].filter(Boolean) as Array<{ name: string; href: string }>,
+    profile: [
+      { name: "About", href: `${urls.apps.home}/about` },
+      profile.social.linkedin && {
+        name: "LinkedIn",
+        href: profile.social.linkedin,
+      },
+      { name: "Resume", href: urls.apps.cv },
+      profile.social.github && {
+        name: "Projects",
+        href: `${profile.social.github}?tab=repositories`,
+      },
+    ].filter(Boolean) as Array<{ name: string; href: string }>,
+  };
+}
 
-export function FooterContent() {
+export interface FooterContentProps {
+  profile?: Profile;
+  urls?: UrlsConfig;
+}
+
+export function FooterContent({
+  profile = duyetProfile,
+  urls = duyetUrls,
+}: FooterContentProps = {}) {
+  const navigation = createFooterNavigation(urls, profile);
   return (
     <Container>
       <div aria-labelledby="footer-heading">
@@ -93,9 +110,9 @@ export function FooterContent() {
                 </div>
 
                 <div className="mt-12 md:mt-0">
-                  <FooterHeader>me@duyet.net</FooterHeader>
+                  <FooterHeader>{profile.personal.email}</FooterHeader>
                   <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
-                    <Social />
+                    <Social profile={profile} />
                   </div>
                   <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
                     {navigation.profile.map((item) => (
@@ -112,7 +129,9 @@ export function FooterContent() {
           <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
             <div className="mt-5">
               <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
-                &copy; {new Date().getFullYear()} duyet.net | Data Engineer
+                &copy; {new Date().getFullYear()}{" "}
+                {urls.apps.home.replace(/^https?:\/\//, "")} |{" "}
+                {profile.personal.title}
               </p>
             </div>
             <div className="mt-5">
@@ -125,13 +144,38 @@ export function FooterContent() {
   );
 }
 
+export interface FooterProps {
+  /** Profile configuration (defaults to duyetProfile) */
+  profile?: Profile;
+  /** URLs configuration (defaults to duyetUrls) */
+  urls?: UrlsConfig;
+  /** Optional CSS classes */
+  className?: string;
+  /** Container CSS classes */
+  containerClassName?: string;
+}
+
+/**
+ * Footer component with navigation, social links, and branding
+ *
+ * Accepts profile and URL configuration to display personalized content.
+ * Falls back to Duyet's profile if none provided.
+ *
+ * @example
+ * ```tsx
+ * import { Footer } from '@duyet/components'
+ * import { duyetProfile } from '@duyet/profile'
+ * import { duyetUrls } from '@duyet/urls'
+ *
+ * <Footer profile={duyetProfile} urls={duyetUrls} />
+ * ```
+ */
 export default function Footer({
+  profile = duyetProfile,
+  urls = duyetUrls,
   className,
   containerClassName,
-}: {
-  className?: string;
-  containerClassName?: string;
-}): ReactElement {
+}: FooterProps): ReactElement {
   return (
     <footer
       className={cn(
@@ -147,7 +191,7 @@ export default function Footer({
           containerClassName,
         )}
       >
-        <FooterContent />
+        <FooterContent profile={profile} urls={urls} />
       </div>
     </footer>
   );
