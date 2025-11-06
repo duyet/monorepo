@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Card } from '@/components/Card'
+import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
 import { services } from '@/lib/mockData'
 import { Activity, CheckCircle2, XCircle } from 'lucide-react'
 
@@ -17,7 +17,11 @@ export function ServicesStatus() {
     : services
 
   return (
-    <Card title="Running Services">
+    <Card>
+      <CardHeader>
+        <CardTitle>Running Services</CardTitle>
+      </CardHeader>
+      <CardContent>
       {/* Namespace filters */}
       <div className="mb-4 flex flex-wrap gap-2">
         <button
@@ -95,6 +99,7 @@ export function ServicesStatus() {
           </div>
         ))}
       </div>
+      </CardContent>
     </Card>
   )
 }

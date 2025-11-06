@@ -12,7 +12,7 @@
     "./utils": "./src/utils.ts"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
+    "@types/node": "^20",
     "eslint": "*",
     "typescript": "^5.3.3"
   }

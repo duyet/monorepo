@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/Card'
+import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
 import { networkTraffic, speedTest } from '@/lib/mockData'
 import { ArrowDown, ArrowUp, Gauge } from 'lucide-react'
 import {
@@ -17,7 +17,11 @@ export function NetworkStats() {
   return (
     <div className="space-y-6">
       {/* Speedtest Results */}
-      <Card title="Internet Speed Test">
+      <Card>
+        <CardHeader>
+          <CardTitle>Internet Speed Test</CardTitle>
+        </CardHeader>
+        <CardContent>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-3xl bg-[#a8d5ba] p-4 dark:bg-[#a8d5ba]/20">
             <div className="flex items-center gap-2">
@@ -59,10 +63,15 @@ export function NetworkStats() {
         <p className="mt-4 text-xs text-neutral-600 dark:text-neutral-400">
           Last test: {speedTest.timestamp} (via speedtest-cli)
         </p>
+        </CardContent>
       </Card>
 
       {/* Network Traffic Chart */}
-      <Card title="Network Traffic - Last 24 Hours">
+      <Card>
+        <CardHeader>
+          <CardTitle>Network Traffic - Last 24 Hours</CardTitle>
+        </CardHeader>
+        <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={networkTraffic}>
             <defs>
@@ -127,6 +136,7 @@ export function NetworkStats() {
             <span className="text-muted-foreground">Outgoing</span>
           </div>
         </div>
+        </CardContent>
       </Card>
     </div>
   )

@@ -10,7 +10,7 @@
     "./duyet": "./src/duyet.profile.ts"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {

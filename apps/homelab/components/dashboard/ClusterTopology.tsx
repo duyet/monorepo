@@ -1,11 +1,15 @@
 'use client'
 
-import { Card } from '../Card'
+import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
 import { nodes } from '@/lib/mockData'
 
 export function ClusterTopology() {
   return (
-    <Card title="Cluster Topology">
+    <Card>
+      <CardHeader>
+        <CardTitle>Cluster Topology</CardTitle>
+      </CardHeader>
+      <CardContent>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {nodes.map((node) => (
           <div
@@ -70,6 +74,7 @@ export function ClusterTopology() {
           <span className="font-medium">Orchestration:</span> microk8s
         </p>
       </div>
+      </CardContent>
     </Card>
   )
 }
