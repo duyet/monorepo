@@ -39,7 +39,7 @@ export async function getUserPhotos(
     const photos = (result.response?.results ||
       []) as unknown as UnsplashPhoto[]
 
-    // Process photos with stats mapping only
+    // Process photos with stats, location, and EXIF mapping
     const processedPhotos = photos.map((photo) => {
       return {
         ...photo,
@@ -50,6 +50,9 @@ export async function getUserPhotos(
               downloads: photo.statistics.downloads?.total || 0,
             }
           : undefined,
+        // Ensure location and EXIF are properly passed through
+        location: photo.location || undefined,
+        exif: photo.exif || undefined,
       }
     })
 

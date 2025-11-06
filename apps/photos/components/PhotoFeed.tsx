@@ -1,7 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import type { UnsplashPhoto } from '@/lib/types'
 import { formatFeedCaption } from '@/lib/MetadataFormatters'
 import { generateBlurDataURL } from '@/lib/ImageOptimization'
+import PhotoMetadata from './PhotoMetadata'
 
 interface PhotoFeedProps {
   photos: UnsplashPhoto[]
@@ -53,9 +56,16 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
               />
             </div>
 
-            <figcaption className="mt-4 text-center text-base italic leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-lg">
-              {caption}
-            </figcaption>
+            <div className="mt-4 space-y-3">
+              <figcaption className="text-center text-base italic leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-lg">
+                {caption}
+              </figcaption>
+
+              {/* Photo metadata toggle */}
+              <div className="flex justify-center">
+                <PhotoMetadata photo={photo} />
+              </div>
+            </div>
 
             {/* Schema.org metadata */}
             <meta itemProp="creator" content={photo.user.name} />
