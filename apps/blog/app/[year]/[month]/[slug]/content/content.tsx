@@ -9,6 +9,9 @@ import { OldPostWarning } from './old-post-warning'
 import { Snippet } from './snippet'
 
 export default function Content({ post }: { post: Post }) {
+  // Generate markdown URL by replacing .html with .md
+  const markdownUrl = post.slug.replace(/\.html$/, '.md')
+
   return (
     <>
       <header className="mb-8 flex flex-col gap-4">
@@ -25,6 +28,16 @@ export default function Content({ post }: { post: Post }) {
         </h1>
 
         <OldPostWarning post={post} year={5} className="" />
+
+        <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+          <a
+            href={markdownUrl}
+            className="hover:text-neutral-900 dark:hover:text-neutral-200 underline decoration-dotted underline-offset-4"
+            title="View raw markdown content (AI-friendly)"
+          >
+            View as Markdown
+          </a>
+        </div>
       </header>
 
       <article
