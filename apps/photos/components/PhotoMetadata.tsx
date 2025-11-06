@@ -5,8 +5,8 @@ import type { UnsplashPhoto } from '@/lib/types'
 import {
   formatExifSettings,
   formatCameraName,
-  formatPhotoDate,
 } from '@/lib/MetadataFormatters'
+import { formatPhotoDate } from '@/lib/unsplash'
 import { Info, X, Camera, MapPin, Eye, Download, Calendar } from 'lucide-react'
 
 interface PhotoMetadataProps {
