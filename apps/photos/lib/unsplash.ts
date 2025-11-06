@@ -103,6 +103,17 @@ export async function getPhotoDetails(
 
   try {
     const result = await unsplash.photos.get({ photoId })
+
+    // Log API response status for debugging
+    if (result.status) {
+      console.debug(`   API response for ${photoId}: HTTP ${result.status}`)
+    }
+
+    if (result.errors) {
+      console.error(`   ⚠️  API errors for photo ${photoId}:`, JSON.stringify(result.errors, null, 2))
+      return null
+    }
+
     if (result.response) {
       const detailed = result.response as any
       return {
@@ -113,9 +124,32 @@ export async function getPhotoDetails(
         alt_description: detailed.alt_description,
       }
     }
+
+    console.warn(`   ⚠️  No response data for photo ${photoId}`)
     return null
   } catch (error) {
-    console.warn(`Failed to fetch details for photo ${photoId}:`, error)
+    // Enhanced error logging with more details
+    console.error(`   ❌ Failed to fetch details for photo ${photoId}:`)
+
+    if (error instanceof Error) {
+      console.error(`      Error message: ${error.message}`)
+      console.error(`      Error name: ${error.name}`)
+
+      // Check if it's a fetch/network error with response
+      if ('response' in error) {
+        const err = error as any
+        console.error(`      HTTP Status: ${err.response?.status || 'unknown'}`)
+        console.error(`      Status Text: ${err.response?.statusText || 'unknown'}`)
+      }
+
+      // Log stack trace for debugging
+      if (error.stack) {
+        console.error(`      Stack trace: ${error.stack.split('\n').slice(0, 3).join('\n')}`)
+      }
+    } else {
+      console.error(`      Raw error:`, JSON.stringify(error, null, 2))
+    }
+
     return null
   }
 }
@@ -184,6 +218,11 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
   if (photosNeedingEnrichment.length > 0) {
     console.log(`🔍 Enriching ${photosNeedingEnrichment.length} photos with detailed EXIF and location data...`)
+    console.log(`   Rate limit: 800ms delay between requests`)
+
+    let successCount = 0
+    let failureCount = 0
+    const failedPhotos: string[] = []
 
     for (let i = 0; i < photosNeedingEnrichment.length; i++) {
       const photo = photosNeedingEnrichment[i]
@@ -200,10 +239,14 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
             description: details.description || photo.description,
             alt_description: details.alt_description || photo.alt_description,
           })
+          successCount++
 
           if ((i + 1) % 10 === 0) {
-            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos`)
+            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${failureCount} failed)`)
           }
+        } else {
+          failureCount++
+          failedPhotos.push(photo.id)
         }
 
         // Rate limiting: wait between requests to avoid hitting API limits
@@ -212,12 +255,25 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           await new Promise((resolve) => setTimeout(resolve, 800))
         }
       } catch (error) {
-        console.warn(`   ⚠ Failed to enrich photo ${photo.id}:`, error)
+        failureCount++
+        failedPhotos.push(photo.id)
+        console.error(`   ⚠️  Failed to enrich photo ${photo.id}`)
         // Continue with other photos even if one fails
       }
     }
 
-    console.log(`   ✓ Completed enrichment: ${photosNeedingEnrichment.length} photos processed`)
+    console.log(``)
+    console.log(`   ✅ Enrichment complete: ${successCount}/${photosNeedingEnrichment.length} photos enriched successfully`)
+    if (failureCount > 0) {
+      console.log(`   ⚠️  ${failureCount} photos failed to enrich`)
+      console.log(`   Failed photo IDs: ${failedPhotos.join(', ')}`)
+      console.log(``)
+      console.log(`   💡 Tip: If seeing "expected JSON response" errors, this usually indicates:`)
+      console.log(`      • Unsplash API rate limit reached (50 requests/hour)`)
+      console.log(`      • Network connectivity issues`)
+      console.log(`      • Temporary Unsplash API issues`)
+      console.log(`   Photos without enriched data will still display with available metadata.`)
+    }
   } else {
     console.log('✓ All photos already have complete metadata')
   }
