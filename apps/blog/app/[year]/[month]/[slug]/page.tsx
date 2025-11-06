@@ -59,7 +59,7 @@ export default async function Post({ params }: PostProps) {
         'Content-Type': 'text/markdown; charset=utf-8',
         'Content-Disposition': `inline; filename="${slug}"`,
       },
-    }) as any
+    })
   }
 
   // Otherwise, render the normal HTML page
