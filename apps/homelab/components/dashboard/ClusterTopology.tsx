@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { nodes } from '@/lib/mockData'
 
 export function ClusterTopology() {
@@ -21,10 +21,10 @@ export function ClusterTopology() {
               <div
                 className={`h-2 w-2 rounded-full ${
                   node.status === 'online'
-                    ? 'bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.6)]'
+                    ? 'bg-green-500'
                     : node.status === 'degraded'
-                      ? 'bg-yellow-500 shadow-[0_0_6px_rgba(234,179,8,0.6)]'
-                      : 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.6)]'
+                      ? 'bg-yellow-500'
+                      : 'bg-red-500'
                 }`}
                 title={node.status}
               />

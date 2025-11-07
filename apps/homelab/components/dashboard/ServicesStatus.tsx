@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { services } from '@/lib/mockData'
 import { Activity, CheckCircle2, XCircle } from 'lucide-react'
 
