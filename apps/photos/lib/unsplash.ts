@@ -275,54 +275,53 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         // Check cache first
         const cachedData = getCachedPhotoData(cache, photo.id)
 
-        let details: Partial<UnsplashPhoto> | null | 'RATE_LIMIT' = null
-
         if (cachedData) {
-          // Use cached data
-          details = cachedData
+          // Use cached data - merge into photo
+          Object.assign(photo, {
+            location: cachedData.location || photo.location,
+            exif: cachedData.exif || photo.exif,
+            description: cachedData.description || photo.description,
+            alt_description: cachedData.alt_description || photo.alt_description,
+          })
+          successCount++
           cacheHits++
-        } else {
-          // Stop making API calls if we hit rate limit
-          if (rateLimitHit) {
-            console.log(`   ⏭️  Skipping API call for ${photo.id} (rate limit reached)`)
-            failureCount++
-            failedPhotos.push(photo.id)
-            continue
-          }
 
-          // Fetch from API
-          details = await getPhotoDetails(photo.id)
-          apiCalls++
-
-          // Check if we hit rate limit
-          if (details === 'RATE_LIMIT') {
-            rateLimitHit = true
-            failureCount++
-            failedPhotos.push(photo.id)
-            console.warn(``)
-            console.warn(`   🚫 Rate limit reached! Stopping further API calls.`)
-            console.warn(`   💡 Remaining photos will use cached data if available, or continue without enrichment.`)
-            console.warn(``)
-            continue
+          if ((i + 1) % 10 === 0) {
+            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${cacheHits} cache hits, ${apiCalls} API calls)`)
           }
-
-          // Cache the result
-          if (details) {
-            setCachedPhotoData(cache, photo.id, details)
-          }
-
-          // Rate limiting: only delay for API calls, not cache hits
-          if (i < photosNeedingEnrichment.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 800))
-          }
+          continue
         }
 
-        // Handle the result
-        if (details === 'RATE_LIMIT') {
-          // Already handled above, skip
+        // No cache - need to fetch from API
+        // Stop making API calls if we hit rate limit
+        if (rateLimitHit) {
+          console.log(`   ⏭️  Skipping API call for ${photo.id} (rate limit reached)`)
+          failureCount++
+          failedPhotos.push(photo.id)
           continue
-        } else if (details) {
-          // Successfully got details (from cache or API)
+        }
+
+        // Fetch from API
+        const details = await getPhotoDetails(photo.id)
+        apiCalls++
+
+        // Check if we hit rate limit
+        if (details === 'RATE_LIMIT') {
+          rateLimitHit = true
+          failureCount++
+          failedPhotos.push(photo.id)
+          console.warn(``)
+          console.warn(`   🚫 Rate limit reached! Stopping further API calls.`)
+          console.warn(`   💡 Remaining photos will use cached data if available, or continue without enrichment.`)
+          console.warn(``)
+          continue
+        }
+
+        // Handle successful API response
+        if (details) {
+          // Cache the result
+          setCachedPhotoData(cache, photo.id, details)
+
           // Merge detailed data into the photo
           Object.assign(photo, {
             location: details.location || photo.location,
@@ -336,9 +335,14 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
             console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${cacheHits} cache hits, ${apiCalls} API calls)`)
           }
         } else {
-          // Failed to get details (null)
+          // API returned null (error)
           failureCount++
           failedPhotos.push(photo.id)
+        }
+
+        // Rate limiting: add delay after API calls
+        if (i < photosNeedingEnrichment.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 800))
         }
       } catch (error) {
         // Catch unexpected errors and continue
