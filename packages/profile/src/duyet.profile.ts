@@ -24,7 +24,7 @@ export const duyetProfile: Profile = {
     name: "Duyet Le",
     shortName: "Duyệt",
     email: "me@duyet.net",
-    title: "Sr. Data Engineer",
+    title: "Duyệt",
     bio: "Data Engineering, Rustacean at night",
     experience: "6+ years",
     location: "Vietnam",
