@@ -57,7 +57,7 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
             </div>
 
             <div className="mt-4">
-              <figcaption className="flex items-center justify-center gap-2 text-center text-base italic leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-lg">
+              <figcaption className="flex items-center justify-center gap-2 text-center text-base leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-lg">
                 <span>{caption}</span>
                 <PhotoMetadata photo={photo} />
               </figcaption>
