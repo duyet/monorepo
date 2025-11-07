@@ -53,11 +53,13 @@ export async function getPost(slug: string[]) {
     'series',
     'snippet',
   ])
-  const content = await markdownToHtml(post.content || 'Error')
+  const markdownContent = post.content || 'Error'
+  const content = await markdownToHtml(markdownContent)
 
   return {
     ...post,
     content,
+    markdown_content: markdownContent,
     edit_url: getGithubEditUrl(post.slug),
   }
 }
