@@ -1,9 +1,19 @@
 import type { UnsplashPhoto } from './types'
-import { formatPhotoDate } from './unsplash'
 
 /**
  * Professional metadata formatting utilities
  */
+
+/**
+ * Format photo date in human-readable format
+ */
+export function formatPhotoDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
 
 export interface PhotoMetadata {
   dateFormatted: string
