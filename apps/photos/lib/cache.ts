@@ -2,9 +2,10 @@ import { promises as fs } from 'fs'
 import { join } from 'path'
 import type { UnsplashPhoto } from './types'
 
-// Cache directory - should be configured in CI/CD to persist between builds
-// See: apps/photos/cache-config/ for platform-specific instructions
-const CACHE_DIR = join(process.cwd(), '.cache', 'unsplash')
+// Cache directory in node_modules/.cache for Cloudflare Pages automatic persistence
+// Cloudflare Pages caches node_modules between builds, so this cache persists automatically
+// See: apps/photos/cache-config/README.md for details
+const CACHE_DIR = join(process.cwd(), 'node_modules', '.cache', 'unsplash')
 const CACHE_FILE = join(CACHE_DIR, 'photos.json')
 const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000 // 7 days
 

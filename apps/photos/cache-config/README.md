@@ -1,6 +1,6 @@
-# Unsplash API Cache Configuration
+# Unsplash API Cache Configuration for Cloudflare Pages
 
-This directory contains configuration examples for persisting the Unsplash API cache across CI/CD builds on different platforms.
+This configuration enables persistent caching of Unsplash API responses across Cloudflare Pages builds.
 
 ## Why Cache Persistence Matters
 
@@ -16,191 +16,28 @@ With cache persistence:
 - Build time: **1-2 seconds**
 - Reliable builds
 
-## Cache Directory
+## Cloudflare Pages Native Caching
 
-The app stores cache in: `.cache/unsplash/photos.json`
+Cloudflare Pages **automatically caches** the `node_modules/.cache` directory between builds on the same branch.
 
-**This directory must persist between builds** using your CI/CD platform's cache mechanism.
+### How It Works
 
-## Platform-Specific Setup
+1. **Cache Location**: `node_modules/.cache/unsplash/photos.json`
+2. **Automatic Persistence**: Cloudflare Pages preserves `node_modules` directory
+3. **No Configuration Needed**: Works out of the box
+4. **Branch-Specific**: Each branch maintains its own cache
 
-Choose your platform:
+### Cache Details
 
-### 🔷 Cloudflare Pages
-
-Create `.github/workflows/cloudflare-pages.yml` or add to your existing workflow:
-
-```yaml
-name: Cloudflare Pages
-on: [push]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      # Restore cache from previous build
-      - name: Cache Unsplash API responses
-        uses: actions/cache@v3
-        with:
-          path: .cache
-          key: unsplash-cache-${{ hashFiles('apps/photos/package.json') }}
-          restore-keys: |
-            unsplash-cache-
-
-      - name: Build
-        run: yarn build
-
-      - name: Deploy to Cloudflare Pages
-        # ... your deployment steps
-```
-
-### ▲ Vercel
-
-Create `vercel.json` in your project root:
-
-```json
-{
-  "cacheDirectories": [
-    ".cache"
-  ],
-  "buildCommand": "yarn build"
-}
-```
-
-Or add to existing `vercel.json`:
-
-```json
-{
-  "cacheDirectories": [
-    ".cache",
-    "node_modules",
-    ".next"
-  ]
-}
-```
-
-Vercel will automatically persist `.cache` between builds.
-
-### 🟢 Netlify
-
-Create `netlify.toml` in your project root:
-
-```toml
-[build]
-  command = "yarn build"
-  publish = "apps/photos/out"
-
-[build.environment]
-  # Cache the .cache directory
-
-[[plugins]]
-  package = "netlify-plugin-cache"
-
-  [plugins.inputs]
-    paths = [".cache"]
-```
-
-Or use the Netlify Cache plugin:
-
-```bash
-npm install netlify-plugin-cache
-```
-
-### 🐙 GitHub Actions
-
-Add to your `.github/workflows/*.yml`:
-
-```yaml
-name: Build and Deploy
-on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      # Cache Unsplash API responses
-      - name: Cache Unsplash data
-        uses: actions/cache@v3
-        with:
-          path: |
-            .cache
-            node_modules
-            .next
-          key: ${{ runner.os }}-unsplash-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-unsplash-
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build
-        run: yarn build
-```
-
-### 🦊 GitLab CI
-
-Add to `.gitlab-ci.yml`:
-
-```yaml
-build:
-  image: node:20
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - .cache/
-      - node_modules/
-      - .next/
-  script:
-    - yarn install
-    - yarn build
-  artifacts:
-    paths:
-      - apps/photos/out/
-```
-
-### 🔵 Azure Pipelines
-
-Add to `azure-pipelines.yml`:
-
-```yaml
-trigger:
-  - main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '20.x'
-
-  - task: Cache@2
-    inputs:
-      key: 'unsplash | "$(Agent.OS)" | apps/photos/package.json'
-      restoreKeys: |
-        unsplash | "$(Agent.OS)"
-      path: .cache
-    displayName: 'Cache Unsplash API responses'
-
-  - script: yarn install
-    displayName: 'Install dependencies'
-
-  - script: yarn build
-    displayName: 'Build'
-```
+- **Location**: `node_modules/.cache/unsplash/photos.json`
+- **Size**: ~100-200KB for 90 photos
+- **TTL**: 7 days (auto-expires old entries)
+- **Format**: JSON
+- **Persistence**: Automatic via Cloudflare Pages build cache
 
 ## Verification
 
-To verify cache is working, check your build logs:
+To verify cache is working, check your Cloudflare Pages build logs:
 
 **First build (cold cache):**
 ```
@@ -216,79 +53,133 @@ To verify cache is working, check your build logs:
 📊 Cache hits: 90, API calls: 0 (saved 90 API requests!)
 ```
 
-## Cache Details
+## Build Configuration
 
-- **Location**: `.cache/unsplash/photos.json`
-- **Size**: ~100-200KB for 90 photos
-- **TTL**: 7 days (auto-expires old entries)
-- **Format**: JSON
+In Cloudflare Pages dashboard:
+
+1. Go to your project **Settings** → **Builds & deployments**
+2. **Build command**: `yarn build`
+3. **Build output directory**: `apps/photos/out`
+4. **Root directory**: `/`
+
+No additional cache configuration is needed - Cloudflare Pages handles it automatically.
 
 ## Troubleshooting
 
 ### Cache not persisting
 
-1. **Check logs** - Look for "Cache contains X valid entries"
-2. **Verify path** - Ensure CI/CD caches `.cache` directory
-3. **Check permissions** - Build process needs write access
-4. **Review platform docs** - Each platform has specific cache requirements
+**Symptom**: Every build shows "Cache contains 0 valid entries"
+
+**Solutions**:
+1. **Check build environment** - Ensure using Node.js 18+
+2. **Verify build command** - Should run from monorepo root: `yarn build`
+3. **Clear build cache** - In Cloudflare Pages: Settings → Clear build cache, then rebuild
+4. **Check branch** - Each branch has separate cache; switching branches resets cache
 
 ### Still hitting rate limits
 
-1. **Multiple projects** - Each Unsplash app counts toward same limit
-2. **Cache cleared** - CI/CD may have cleared cache (check settings)
+**Causes**:
+1. **First build after cache clear** - Expected, subsequent builds will be cached
+2. **Multiple projects** - Each Unsplash app counts toward same account limit
 3. **Cache expired** - Entries older than 7 days are refetched
+4. **Branch switching** - New branch starts with empty cache
+
+**Solutions**:
+1. Wait for cache to warm up (one successful build)
+2. Avoid frequent cache clears
+3. Limit concurrent builds across branches
 
 ### Cache not loading
 
-Check build logs for:
+**Check build logs for**:
 ```
 Failed to load cache: [error message]
 ```
 
-Common causes:
-- **Corrupt cache file** - Delete `.cache` and rebuild
-- **Permission issues** - Ensure read/write access
+**Common causes**:
+- **Permission issues** - Build process can't write to `node_modules/.cache`
+- **Corrupt cache file** - Delete cache and rebuild
 - **Path mismatch** - Verify `CACHE_DIR` in `lib/cache.ts`
 
 ## Manual Cache Management
 
-### View cache contents
+### View cache contents (locally)
 
 ```bash
-cat .cache/unsplash/photos.json | jq
+cat node_modules/.cache/unsplash/photos.json | jq
 ```
 
-### Clear cache
+### Clear cache (locally)
 
 ```bash
-rm -rf .cache/unsplash
+rm -rf node_modules/.cache/unsplash
 ```
 
-### Check cache size
+### Clear cache (Cloudflare Pages)
+
+1. Go to project **Settings** → **Builds & deployments**
+2. Click **Clear build cache**
+3. Trigger new build
+
+### Check cache size (locally)
 
 ```bash
-du -sh .cache/unsplash
+du -sh node_modules/.cache/unsplash
 ```
-
-### Force refresh (specific photo)
-
-Edit `.cache/unsplash/photos.json` and remove the entry, or set `timestamp` to 0.
 
 ## Best Practices
 
-1. **Always configure caching** - Don't rely on default behavior
+1. **Let it warm up** - First build will be slow, second will be fast
 2. **Monitor cache hits** - Check build logs for cache effectiveness
-3. **Use cache keys wisely** - Include relevant file hashes
-4. **Set appropriate TTL** - 7 days balances freshness and API usage
-5. **Version your cache** - Include package.json hash in cache key
+3. **Branch strategy** - Each branch maintains separate cache
+4. **Avoid cache clears** - Only clear when troubleshooting
+5. **Rate limit awareness** - Initial builds consume API quota
+
+## How Cache Persistence Works
+
+```
+┌─────────────────────────────────────────────┐
+│  Cloudflare Pages Build Environment         │
+├─────────────────────────────────────────────┤
+│                                             │
+│  1. Restore node_modules/ from cache        │
+│     ↓ (includes .cache/unsplash/)           │
+│                                             │
+│  2. yarn install (updates dependencies)     │
+│     ↓ (preserves .cache/unsplash/)          │
+│                                             │
+│  3. yarn build (reads/writes cache)         │
+│     ↓ (updates .cache/unsplash/)            │
+│                                             │
+│  4. Save node_modules/ to cache             │
+│     ↓ (persists for next build)             │
+│                                             │
+│  5. Deploy output directory                 │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+## Cache File Structure
+
+```json
+{
+  "version": "1.0",
+  "entries": {
+    "photo-id-1": {
+      "timestamp": 1699876543210,
+      "data": {
+        "location": { "city": "San Francisco", "country": "USA" },
+        "exif": { "make": "Canon", "model": "EOS R5", ... },
+        "description": "Golden Gate Bridge at sunset",
+        "alt_description": "Bridge photo"
+      }
+    }
+  }
+}
+```
 
 ## Support
 
-Platform-specific caching issues? Check these resources:
-
-- **Cloudflare Pages**: https://developers.cloudflare.com/pages/platform/build-caching/
-- **Vercel**: https://vercel.com/docs/concepts/projects/overview#cache
-- **Netlify**: https://docs.netlify.com/configure-builds/file-based-configuration/#cache
-- **GitHub Actions**: https://docs.github.com/en/actions/using-workflows/caching-dependencies
-- **GitLab CI**: https://docs.gitlab.com/ee/ci/caching/
-- **Azure Pipelines**: https://docs.microsoft.com/en-us/azure/devops/pipelines/release/caching
+- **Cloudflare Pages Build Caching**: https://developers.cloudflare.com/pages/platform/build-caching/
+- **Cloudflare Pages Builds**: https://developers.cloudflare.com/pages/configuration/build-configuration/
+- **Unsplash API Rate Limits**: https://unsplash.com/documentation#rate-limiting
