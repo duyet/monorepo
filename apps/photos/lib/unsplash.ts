@@ -317,7 +317,12 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           }
         }
 
-        if (details && details !== 'RATE_LIMIT') {
+        // Handle the result
+        if (details === 'RATE_LIMIT') {
+          // Already handled above, skip
+          continue
+        } else if (details) {
+          // Successfully got details (from cache or API)
           // Merge detailed data into the photo
           Object.assign(photo, {
             location: details.location || photo.location,
@@ -330,7 +335,8 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           if ((i + 1) % 10 === 0) {
             console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${cacheHits} cache hits, ${apiCalls} API calls)`)
           }
-        } else if (details !== 'RATE_LIMIT') {
+        } else {
+          // Failed to get details (null)
           failureCount++
           failedPhotos.push(photo.id)
         }
