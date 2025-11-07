@@ -238,7 +238,7 @@ export default function About() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
-            Duyệt
+            About
           </h1>
           <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700">
             Data Engineer with 6+ years of experience. I am confident in my
