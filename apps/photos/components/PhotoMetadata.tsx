@@ -7,7 +7,7 @@ import {
   formatCameraName,
   formatPhotoDate,
 } from '@/lib/MetadataFormatters'
-import { Info, X, Camera, MapPin, Eye, Download, Calendar } from 'lucide-react'
+import { Info, X } from 'lucide-react'
 
 interface PhotoMetadataProps {
   photo: UnsplashPhoto
@@ -54,84 +54,29 @@ export default function PhotoMetadata({
 
       {/* Expandable Metadata Panel */}
       {isExpanded && (
-        <div className="absolute left-0 top-full z-10 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-lg border border-neutral-200/80 bg-white/95 p-3 shadow-xl backdrop-blur-sm dark:border-neutral-700/80 dark:bg-neutral-900/95">
-          <div className="space-y-2">
+        <div className="absolute left-0 top-full z-10 mt-2 rounded border border-black/10 bg-black px-3 py-2 text-left shadow-lg dark:border-white/10">
+          <div className="space-y-1 text-[11px] text-white/90">
             {/* Date */}
-            <div className="flex items-center gap-2.5">
-              <Calendar className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
-              <div className="min-w-0 flex-1">
-                <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                  Date
-                </div>
-                <div className="text-xs text-neutral-700 dark:text-neutral-300">
-                  {formatPhotoDate(photo.created_at)}
-                </div>
-              </div>
-            </div>
+            <div>{formatPhotoDate(photo.created_at)}</div>
 
             {/* Stats */}
             {photo.stats && (
               <>
-                <div className="flex items-center gap-2.5">
-                  <Eye className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                      Views
-                    </div>
-                    <div className="text-xs text-neutral-700 dark:text-neutral-300">
-                      {photo.stats.views.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <Download className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                      Downloads
-                    </div>
-                    <div className="text-xs text-neutral-700 dark:text-neutral-300">
-                      {photo.stats.downloads.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
+                <div>{photo.stats.views.toLocaleString()} views</div>
+                <div>{photo.stats.downloads.toLocaleString()} downloads</div>
               </>
             )}
 
-            {/* Camera */}
+            {/* Camera & EXIF */}
             {cameraName && (
-              <div className="flex items-center gap-2.5">
-                <Camera className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                    Camera
-                  </div>
-                  <div className="text-xs text-neutral-700 dark:text-neutral-300">
-                    {cameraName}
-                  </div>
-                  {exifSettings && (
-                    <div className="mt-0.5 text-[11px] text-neutral-500 dark:text-neutral-400">
-                      {exifSettings}
-                    </div>
-                  )}
-                </div>
+              <div>
+                {cameraName}
+                {exifSettings && ` • ${exifSettings}`}
               </div>
             )}
 
             {/* Location */}
-            {location && (
-              <div className="flex items-center gap-2.5">
-                <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                    Location
-                  </div>
-                  <div className="text-xs text-neutral-700 dark:text-neutral-300">
-                    {location}
-                  </div>
-                </div>
-              </div>
-            )}
+            {location && <div>{location}</div>}
           </div>
         </div>
       )}
