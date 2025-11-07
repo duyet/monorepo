@@ -7,9 +7,10 @@ import { getSeries } from '@duyet/libs/getSeries'
 import { getSlug } from '@duyet/libs/getSlug'
 import { cn } from '@duyet/libs/utils'
 import { SeriesBox } from '../../../../../components/series'
+import { MarkdownMenuWrapper } from './markdown-menu-wrapper'
 
 interface ContentProps {
-  post: Post
+  post: Post & { markdown_content?: string }
   className?: string
 }
 
@@ -60,14 +61,15 @@ export default function Content({ post, className }: ContentProps) {
         >
           <Icons.Github className="h-4 w-4" />
         </a>
-        <span className="text-neutral-400">•</span>
-        <a
-          href={markdownUrl}
-          className="text-neutral-500 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
-          title="View raw markdown content (AI-friendly)"
-        >
-          View as Markdown
-        </a>
+        {post.markdown_content && (
+          <>
+            <span className="text-neutral-400">•</span>
+            <MarkdownMenuWrapper
+              markdownUrl={markdownUrl}
+              markdownContent={post.markdown_content}
+            />
+          </>
+        )}
       </div>
 
       {Boolean(post.series) && (
