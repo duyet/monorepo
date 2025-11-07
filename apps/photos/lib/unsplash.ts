@@ -82,19 +82,26 @@ export async function getUserPhotos(
 /**
  * Track a photo download (required by Unsplash API guidelines)
  * This should be called when displaying photos during build time
+ *
+ * @param downloadLocation - The download_location URL from photo.links.download_location
  */
 export async function trackPhotoDownload(
-  photoId: string,
+  downloadLocation: string,
 ): Promise<void> {
   if (!unsplash) {
     return
   }
 
   try {
-    await unsplash.photos.trackDownload({ downloadLocation: `https://api.unsplash.com/photos/${photoId}/download` })
+    // Use the download_location URL directly from the photo object
+    // This URL includes necessary authentication parameters (ixid)
+    await unsplash.photos.trackDownload({ downloadLocation })
   } catch (error) {
     // Don't fail the build if tracking fails
-    console.warn(`Failed to track download for photo ${photoId}:`, error)
+    // This is a non-critical operation
+    if (error instanceof Error) {
+      console.debug(`  Download tracking failed: ${error.message}`)
+    }
   }
 }
 
@@ -263,7 +270,8 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
     let successCount = 0
     let failureCount = 0
-    let cacheHits = 0
+    let freshCacheHits = 0
+    let expiredCacheUsed = 0
     let apiCalls = 0
     let rateLimitHit = false
     const failedPhotos: string[] = []
@@ -272,32 +280,45 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       const photo = photosNeedingEnrichment[i]
 
       try {
-        // Check cache first
-        const cachedData = getCachedPhotoData(cache, photo.id)
+        // Check cache first (returns both fresh and expired cache)
+        const cacheResult = getCachedPhotoData(cache, photo.id)
 
-        if (cachedData) {
-          // Use cached data - merge into photo
+        // If cache is fresh (not expired), use it directly
+        if (cacheResult && !cacheResult.isExpired) {
           Object.assign(photo, {
-            location: cachedData.location || photo.location,
-            exif: cachedData.exif || photo.exif,
-            description: cachedData.description || photo.description,
-            alt_description: cachedData.alt_description || photo.alt_description,
+            location: cacheResult.data.location || photo.location,
+            exif: cacheResult.data.exif || photo.exif,
+            description: cacheResult.data.description || photo.description,
+            alt_description: cacheResult.data.alt_description || photo.alt_description,
           })
           successCount++
-          cacheHits++
+          freshCacheHits++
 
           if ((i + 1) % 10 === 0) {
-            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${cacheHits} cache hits, ${apiCalls} API calls)`)
+            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${freshCacheHits} fresh cache, ${expiredCacheUsed} stale cache, ${apiCalls} API calls)`)
           }
           continue
         }
 
-        // No cache - need to fetch from API
+        // Cache is expired or doesn't exist - need to fetch from API
         // Stop making API calls if we hit rate limit
         if (rateLimitHit) {
-          console.log(`   ⏭️  Skipping API call for ${photo.id} (rate limit reached)`)
-          failureCount++
-          failedPhotos.push(photo.id)
+          // Try to use expired cache as fallback
+          if (cacheResult) {
+            console.log(`   📦 Using stale cache for ${photo.id} (rate limit reached)`)
+            Object.assign(photo, {
+              location: cacheResult.data.location || photo.location,
+              exif: cacheResult.data.exif || photo.exif,
+              description: cacheResult.data.description || photo.description,
+              alt_description: cacheResult.data.alt_description || photo.alt_description,
+            })
+            successCount++
+            expiredCacheUsed++
+          } else {
+            console.log(`   ⏭️  Skipping ${photo.id} (rate limit reached, no cache available)`)
+            failureCount++
+            failedPhotos.push(photo.id)
+          }
           continue
         }
 
@@ -308,18 +329,31 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         // Check if we hit rate limit
         if (details === 'RATE_LIMIT') {
           rateLimitHit = true
-          failureCount++
-          failedPhotos.push(photo.id)
           console.warn(``)
           console.warn(`   🚫 Rate limit reached! Stopping further API calls.`)
-          console.warn(`   💡 Remaining photos will use cached data if available, or continue without enrichment.`)
+          console.warn(`   💡 Will use stale cache data for remaining photos when available.`)
           console.warn(``)
+
+          // Use expired cache as fallback for this photo
+          if (cacheResult) {
+            Object.assign(photo, {
+              location: cacheResult.data.location || photo.location,
+              exif: cacheResult.data.exif || photo.exif,
+              description: cacheResult.data.description || photo.description,
+              alt_description: cacheResult.data.alt_description || photo.alt_description,
+            })
+            successCount++
+            expiredCacheUsed++
+          } else {
+            failureCount++
+            failedPhotos.push(photo.id)
+          }
           continue
         }
 
         // Handle successful API response
         if (details) {
-          // Cache the result
+          // Cache the fresh result
           setCachedPhotoData(cache, photo.id, details)
 
           // Merge detailed data into the photo
@@ -332,12 +366,24 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           successCount++
 
           if ((i + 1) % 10 === 0) {
-            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${cacheHits} cache hits, ${apiCalls} API calls)`)
+            console.log(`   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${freshCacheHits} fresh cache, ${expiredCacheUsed} stale cache, ${apiCalls} API calls)`)
           }
         } else {
-          // API returned null (error)
-          failureCount++
-          failedPhotos.push(photo.id)
+          // API returned null (error) - use expired cache as fallback
+          if (cacheResult) {
+            console.log(`   📦 API error for ${photo.id}, using stale cache`)
+            Object.assign(photo, {
+              location: cacheResult.data.location || photo.location,
+              exif: cacheResult.data.exif || photo.exif,
+              description: cacheResult.data.description || photo.description,
+              alt_description: cacheResult.data.alt_description || photo.alt_description,
+            })
+            successCount++
+            expiredCacheUsed++
+          } else {
+            failureCount++
+            failedPhotos.push(photo.id)
+          }
         }
 
         // Rate limiting: add delay after API calls
@@ -355,10 +401,15 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
     console.log(``)
     console.log(`   ✅ Enrichment complete: ${successCount}/${photosNeedingEnrichment.length} photos enriched successfully`)
-    console.log(`   📊 Cache hits: ${cacheHits}, API calls: ${apiCalls} (saved ${cacheHits} API requests!)`)
+    console.log(`   📊 Fresh cache: ${freshCacheHits}, Stale cache: ${expiredCacheUsed}, API calls: ${apiCalls}`)
+    console.log(`   💰 Saved ${freshCacheHits + expiredCacheUsed} API requests by using cache!`)
+
+    if (expiredCacheUsed > 0) {
+      console.log(`   💡 ${expiredCacheUsed} photos used stale cache data (TTL expired but kept as fallback)`)
+    }
 
     if (failureCount > 0) {
-      console.log(`   ⚠️  ${failureCount} photos failed to enrich`)
+      console.log(`   ⚠️  ${failureCount} photos failed to enrich (no cache or API available)`)
       if (failedPhotos.length <= 10) {
         console.log(`   Failed photo IDs: ${failedPhotos.join(', ')}`)
       } else {
@@ -388,28 +439,31 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   }
 
   // Step 3: Track downloads for all photos (required by Unsplash API guidelines)
-  // This is required when displaying photos, even during build time
+  // According to Unsplash: "trigger download endpoint when displaying photos"
   console.log('📥 Tracking photo downloads for Unsplash attribution...')
   let downloadTrackingErrors = 0
+
   for (let i = 0; i < allPhotos.length; i++) {
+    const photo = allPhotos[i]
+
     try {
-      await trackPhotoDownload(allPhotos[i].id)
+      // Use the download_location from photo.links which includes auth params
+      await trackPhotoDownload(photo.links.download_location)
     } catch (error) {
       downloadTrackingErrors++
-      // Don't fail the build, but count errors
-      if (downloadTrackingErrors === 1) {
-        console.warn('   ⚠️  Some download tracking calls failed (this is non-critical)')
-      }
+      // Silent fail - don't clutter logs
     }
 
-    // Small delay to avoid rate limits
-    if (i < allPhotos.length - 1 && i % 20 === 0) {
+    // Small delay to avoid rate limits (batch requests)
+    if ((i + 1) % 20 === 0 && i < allPhotos.length - 1) {
       await new Promise((resolve) => setTimeout(resolve, 500))
     }
   }
 
   if (downloadTrackingErrors > 0) {
     console.log(`   ⚠️  ${downloadTrackingErrors}/${allPhotos.length} download tracking calls failed (non-critical)`)
+  } else {
+    console.log(`   ✓ Successfully tracked ${allPhotos.length} photo downloads`)
   }
 
   console.log(`✨ Completed: ${allPhotos.length} photos ready with full metadata`)

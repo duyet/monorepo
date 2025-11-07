@@ -67,25 +67,39 @@ export async function savePhotoCache(cache: PhotoCache): Promise<void> {
 }
 
 /**
- * Get cached photo data if available and not expired
+ * Cache result with expiry information
+ */
+export interface CacheResult {
+  data: Partial<UnsplashPhoto>
+  isExpired: boolean
+  age: number
+}
+
+/**
+ * Get cached photo data if available
+ * Returns both fresh and expired cache data
+ *
+ * @returns CacheResult with data and expiry status, or null if no cache exists
  */
 export function getCachedPhotoData(
   cache: PhotoCache,
   photoId: string,
-): Partial<UnsplashPhoto> | null {
+): CacheResult | null {
   const entry = cache.entries[photoId]
 
   if (!entry) {
     return null
   }
 
-  // Check if cache entry is still valid
+  // Calculate cache age
   const age = Date.now() - entry.timestamp
-  if (age > CACHE_TTL_MS) {
-    return null
-  }
+  const isExpired = age > CACHE_TTL_MS
 
-  return entry.data
+  return {
+    data: entry.data,
+    isExpired,
+    age,
+  }
 }
 
 /**
