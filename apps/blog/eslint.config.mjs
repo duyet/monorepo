@@ -1,3 +1,3 @@
-import eslintConfig from '@duyet/eslint-config-custom/next.mjs'
+import eslintConfig from '../../packages/eslint-config-custom/next.mjs'
 
 export default eslintConfig

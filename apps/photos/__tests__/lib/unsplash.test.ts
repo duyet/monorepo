@@ -1,9 +1,9 @@
 import type { UnsplashPhoto } from '@/lib/types'
 import {
-  formatPhotoDate,
   getPhotosByYear,
   groupPhotosByYear,
 } from '@/lib/unsplash'
+import { formatPhotoDate } from '@/lib/MetadataFormatters'
 
 // Mock photo data
 const mockPhotos: UnsplashPhoto[] = [

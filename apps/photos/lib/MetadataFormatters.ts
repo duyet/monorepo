@@ -1,9 +1,19 @@
 import type { UnsplashPhoto } from './types'
-import { formatPhotoDate } from './unsplash'
 
 /**
  * Professional metadata formatting utilities
  */
+
+/**
+ * Format photo date in human-readable format
+ */
+export function formatPhotoDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
 
 export interface PhotoMetadata {
   dateFormatted: string
@@ -89,6 +99,37 @@ export function formatPhotoDescription(photo: UnsplashPhoto): string {
 }
 
 /**
+ * Format EXIF settings compactly
+ */
+export function formatExifSettings(photo: UnsplashPhoto): string | null {
+  if (!photo.exif) return null
+
+  const settings: string[] = []
+
+  if (photo.exif.aperture) settings.push(`f/${photo.exif.aperture}`)
+  if (photo.exif.exposure_time) settings.push(`${photo.exif.exposure_time}s`)
+  if (photo.exif.iso) settings.push(`ISO ${photo.exif.iso}`)
+  if (photo.exif.focal_length) settings.push(`${photo.exif.focal_length}mm`)
+
+  return settings.length > 0 ? settings.join(' • ') : null
+}
+
+/**
+ * Format camera name from EXIF
+ */
+export function formatCameraName(photo: UnsplashPhoto): string | null {
+  if (!photo.exif) return null
+
+  if (photo.exif.name) return photo.exif.name
+
+  const parts: string[] = []
+  if (photo.exif.make) parts.push(photo.exif.make)
+  if (photo.exif.model) parts.push(photo.exif.model)
+
+  return parts.length > 0 ? parts.join(' ') : null
+}
+
+/**
  * Format compact metadata for card overlays
  */
 export function formatCompactMetadata(photo: UnsplashPhoto): {
@@ -116,6 +157,12 @@ export function formatCompactMetadata(photo: UnsplashPhoto): {
       .filter(Boolean)
       .join(', ')
     secondary.push(`📍 ${location}`)
+  }
+
+  // Camera info in secondary if available
+  const cameraName = formatCameraName(photo)
+  if (cameraName) {
+    secondary.push(`📷 ${cameraName}`)
   }
 
   return { primary, secondary }
@@ -171,4 +218,32 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
   }
 
   return { title, subtitle, technical, creative }
+}
+
+/**
+ * Format caption for photo stream/feed display
+ * Priority: description → alt_description → location + date → date only
+ */
+export function formatFeedCaption(photo: UnsplashPhoto): string {
+  // Priority 1: Description
+  if (photo.description) {
+    return photo.description
+  }
+
+  // Priority 2: Alt description
+  if (photo.alt_description) {
+    return photo.alt_description
+  }
+
+  // Priority 3: Location + Date (if location available)
+  if (photo.location && (photo.location.city || photo.location.country)) {
+    const location = [photo.location.city, photo.location.country]
+      .filter(Boolean)
+      .join(', ')
+    const date = formatPhotoDate(photo.created_at)
+    return `${location} • ${date}`
+  }
+
+  // Priority 4: Date only
+  return formatPhotoDate(photo.created_at)
 }

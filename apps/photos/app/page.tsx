@@ -70,7 +70,14 @@ export default async function PhotosPage() {
                 Unsplash profile
               </a>
               . Explore landscapes, architecture, and moments captured through
-              the lens.
+              the lens. Prefer a narrative experience?{' '}
+              <Link
+                href="/feed"
+                className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
+              >
+                View the photo stream
+              </Link>
+              .
             </p>
 
             {years.length > 0 && (
