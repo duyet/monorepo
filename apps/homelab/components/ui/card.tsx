@@ -5,57 +5,70 @@ import {
   CardHeader as SharedCardHeader,
   CardContent as SharedCardContent,
   CardFooter as SharedCardFooter,
-  CardTitle,
+  CardTitle as SharedCardTitle,
   CardDescription,
 } from "@duyet/components/ui/card";
 
-// Override Card to remove shadow
+// Override Card to remove shadow and border
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCard
     ref={ref}
-    className={`shadow-none p-0 ${className || ""}`}
+    className={`shadow-none border-none ${className || ""}`}
     {...props}
   />
 ));
 Card.displayName = "Card";
 
-// Override CardHeader to remove padding
+// Use default CardHeader with padding
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCardHeader
     ref={ref}
-    className={`p-0 ${className || ""}`}
+    className={className}
     {...props}
   />
 ));
 CardHeader.displayName = "CardHeader";
 
-// Override CardContent to remove padding
+// Override CardTitle to make text smaller
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <SharedCardTitle
+    ref={ref}
+    className={`text-lg ${className || ""}`}
+    {...props}
+  />
+));
+CardTitle.displayName = "CardTitle";
+
+// Use default CardContent with padding
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCardContent
     ref={ref}
-    className={`p-0 ${className || ""}`}
+    className={className}
     {...props}
   />
 ));
 CardContent.displayName = "CardContent";
 
-// Override CardFooter to remove padding
+// Use default CardFooter with padding
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCardFooter
     ref={ref}
-    className={`p-0 ${className || ""}`}
+    className={className}
     {...props}
   />
 ));
