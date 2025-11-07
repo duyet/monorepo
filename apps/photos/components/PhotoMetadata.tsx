@@ -38,23 +38,17 @@ export default function PhotoMetadata({
 
   return (
     <div className={`relative inline-flex items-center ${className}`}>
-      {/* Info Toggle Button */}
+      {/* Info Toggle Icon */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="group inline-flex items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-600 transition-all hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-100"
+        className="group inline-flex items-center justify-center rounded-full p-1 text-neutral-600 transition-all hover:bg-neutral-200 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-100"
         aria-label={isExpanded ? 'Hide photo details' : 'Show photo details'}
         aria-expanded={isExpanded}
       >
         {isExpanded ? (
-          <>
-            <X className="h-3.5 w-3.5" />
-            <span>Hide details</span>
-          </>
+          <X className="h-4 w-4" />
         ) : (
-          <>
-            <Info className="h-3.5 w-3.5" />
-            <span>Show details</span>
-          </>
+          <Info className="h-4 w-4" />
         )}
       </button>
 

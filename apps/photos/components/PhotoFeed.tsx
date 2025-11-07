@@ -56,15 +56,11 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
               />
             </div>
 
-            <div className="mt-4 space-y-3">
-              <figcaption className="text-center text-base italic leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-lg">
-                {caption}
-              </figcaption>
-
-              {/* Photo metadata toggle */}
-              <div className="flex justify-center">
+            <div className="mt-4">
+              <figcaption className="flex items-center justify-center gap-2 text-center text-base italic leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-lg">
+                <span>{caption}</span>
                 <PhotoMetadata photo={photo} />
-              </div>
+              </figcaption>
             </div>
 
             {/* Schema.org metadata */}
