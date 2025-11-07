@@ -238,15 +238,12 @@ export default function About() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
-            About
+            Duyệt
           </h1>
           <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700">
-            <strong className="font-semibold text-neutral-900">
-              Data Engineer
-            </strong>{' '}
-            with 6+ years of experience. I am confident in my knowledge of Data
-            Engineering concepts, best practices and state-of-the-art data and
-            Cloud technologies.
+            Data Engineer with 6+ years of experience. I am confident in my
+            knowledge of Data Engineering concepts, best practices and
+            state-of-the-art data and Cloud technologies.
           </p>
         </div>
 
