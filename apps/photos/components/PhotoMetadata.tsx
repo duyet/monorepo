@@ -54,16 +54,16 @@ export default function PhotoMetadata({
 
       {/* Expandable Metadata Panel */}
       {isExpanded && (
-        <div className="absolute left-0 top-full z-10 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-lg border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
-          <div className="space-y-3">
+        <div className="absolute left-0 top-full z-10 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-lg border border-neutral-200/80 bg-white/95 p-3 shadow-xl backdrop-blur-sm dark:border-neutral-700/80 dark:bg-neutral-900/95">
+          <div className="space-y-2">
             {/* Date */}
-            <div className="flex items-start gap-3">
-              <Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400" />
+            <div className="flex items-center gap-2.5">
+              <Calendar className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
               <div className="min-w-0 flex-1">
-                <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
                   Date
                 </div>
-                <div className="text-sm text-neutral-900 dark:text-neutral-100">
+                <div className="text-xs text-neutral-700 dark:text-neutral-300">
                   {formatPhotoDate(photo.created_at)}
                 </div>
               </div>
@@ -72,25 +72,25 @@ export default function PhotoMetadata({
             {/* Stats */}
             {photo.stats && (
               <>
-                <div className="flex items-start gap-3">
-                  <Eye className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400" />
+                <div className="flex items-center gap-2.5">
+                  <Eye className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
                   <div className="min-w-0 flex-1">
-                    <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                    <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
                       Views
                     </div>
-                    <div className="text-sm text-neutral-900 dark:text-neutral-100">
+                    <div className="text-xs text-neutral-700 dark:text-neutral-300">
                       {photo.stats.views.toLocaleString()}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <Download className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400" />
+                <div className="flex items-center gap-2.5">
+                  <Download className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
                   <div className="min-w-0 flex-1">
-                    <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                    <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
                       Downloads
                     </div>
-                    <div className="text-sm text-neutral-900 dark:text-neutral-100">
+                    <div className="text-xs text-neutral-700 dark:text-neutral-300">
                       {photo.stats.downloads.toLocaleString()}
                     </div>
                   </div>
@@ -100,17 +100,17 @@ export default function PhotoMetadata({
 
             {/* Camera */}
             {cameraName && (
-              <div className="flex items-start gap-3">
-                <Camera className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400" />
+              <div className="flex items-center gap-2.5">
+                <Camera className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                  <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
                     Camera
                   </div>
-                  <div className="text-sm text-neutral-900 dark:text-neutral-100">
+                  <div className="text-xs text-neutral-700 dark:text-neutral-300">
                     {cameraName}
                   </div>
                   {exifSettings && (
-                    <div className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+                    <div className="mt-0.5 text-[11px] text-neutral-500 dark:text-neutral-400">
                       {exifSettings}
                     </div>
                   )}
@@ -120,13 +120,13 @@ export default function PhotoMetadata({
 
             {/* Location */}
             {location && (
-              <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400" />
+              <div className="flex items-center gap-2.5">
+                <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400 dark:text-neutral-500" />
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                  <div className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
                     Location
                   </div>
-                  <div className="text-sm text-neutral-900 dark:text-neutral-100">
+                  <div className="text-xs text-neutral-700 dark:text-neutral-300">
                     {location}
                   </div>
                 </div>
