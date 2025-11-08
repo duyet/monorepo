@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardHeader, CardTitle, CardContent } from '@duyet/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { cpuHistory, memoryHistory } from '@/lib/mockData'
 import {
   CartesianGrid,
