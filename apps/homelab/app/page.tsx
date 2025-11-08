@@ -11,6 +11,8 @@ export const metadata = {
 }
 
 export default function HomelabPage() {
+  const snapshotDate = new Date().toLocaleString()
+
   return (
     <div className="space-y-8">
       {/* Cluster Topology */}
@@ -31,10 +33,13 @@ export default function HomelabPage() {
       {/* Service Downtime */}
       <ServiceDowntime />
 
-      {/* Last Updated Footer */}
-      <div className="border-t pt-4 text-center">
-        <p className="text-xs text-muted-foreground">
-          Last updated: {new Date().toLocaleString()}
+      {/* Orchestration and Info Footer */}
+      <div className="space-y-2 border-t pt-4">
+        <p className="text-xs text-neutral-600 dark:text-neutral-400">
+          <span className="font-medium">Orchestration:</span> microk8s
+        </p>
+        <p className="text-xs text-neutral-500 dark:text-neutral-500">
+          This is not a realtime dashboard. Snapshot taken at {snapshotDate}
         </p>
       </div>
     </div>
