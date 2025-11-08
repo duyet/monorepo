@@ -67,13 +67,6 @@ export function ClusterTopology() {
           </div>
         ))}
       </div>
-
-      {/* Cluster info footer */}
-      <div className="mt-4 pt-3">
-        <p className="text-xs text-neutral-600 dark:text-neutral-400">
-          <span className="font-medium">Orchestration:</span> microk8s
-        </p>
-      </div>
       </CardContent>
     </Card>
   )

@@ -21,7 +21,7 @@ export function ResourceMetrics() {
           <CardTitle>CPU Usage - Last 24 Hours</CardTitle>
         </CardHeader>
         <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={200}>
           <LineChart data={cpuHistory}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
             <XAxis
@@ -48,21 +48,21 @@ export function ResourceMetrics() {
               type="monotone"
               dataKey="minipc-01"
               stroke="#9090ff"
-              strokeWidth={2.5}
+              strokeWidth={1}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="minipc-02"
               stroke="#76c893"
-              strokeWidth={2.5}
+              strokeWidth={1}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="minipc-03"
               stroke="#ffc857"
-              strokeWidth={2.5}
+              strokeWidth={1}
               dot={false}
             />
           </LineChart>
@@ -90,7 +90,7 @@ export function ResourceMetrics() {
           <CardTitle>Memory Usage - Last 24 Hours</CardTitle>
         </CardHeader>
         <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={200}>
           <LineChart data={memoryHistory}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
             <XAxis
@@ -117,21 +117,21 @@ export function ResourceMetrics() {
               type="monotone"
               dataKey="minipc-01"
               stroke="#9090ff"
-              strokeWidth={2.5}
+              strokeWidth={1}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="minipc-02"
               stroke="#76c893"
-              strokeWidth={2.5}
+              strokeWidth={1}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="minipc-03"
               stroke="#ffc857"
-              strokeWidth={2.5}
+              strokeWidth={1}
               dot={false}
             />
           </LineChart>
