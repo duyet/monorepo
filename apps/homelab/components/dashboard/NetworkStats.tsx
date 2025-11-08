@@ -72,7 +72,7 @@ export function NetworkStats() {
           <CardTitle>Network Traffic - Last 24 Hours</CardTitle>
         </CardHeader>
         <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={200}>
           <AreaChart data={networkTraffic}>
             <defs>
               <linearGradient id="inbound" x1="0" y1="0" x2="0" y2="1">
@@ -112,7 +112,7 @@ export function NetworkStats() {
               stroke="#4dabf7"
               fillOpacity={1}
               fill="url(#inbound)"
-              strokeWidth={2}
+              strokeWidth={1}
               name="Incoming"
             />
             <Area
@@ -121,7 +121,7 @@ export function NetworkStats() {
               stroke="#ff6b6b"
               fillOpacity={1}
               fill="url(#outbound)"
-              strokeWidth={2}
+              strokeWidth={1}
               name="Outgoing"
             />
           </AreaChart>
