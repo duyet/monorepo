@@ -13,6 +13,7 @@ export const urls: Urls = {
   '/llms.txt': { target: '/llms.txt', desc: 'LLMs.txt', system: true },
 
   '/': 'https://duyet.net',
+  '/ai': { target: 'https://ai.duyet.net', desc: 'AI chatbot' },
   '/blog': 'https://blog.duyet.net',
   '/cv': 'https://cv.duyet.net',
   '/about': { target: '/about', desc: 'about me', system: false },

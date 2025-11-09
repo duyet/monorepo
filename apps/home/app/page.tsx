@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import AboutIcon from './components/icons/AboutIcon'
+import AIIcon from './components/icons/AIIcon'
 import BlogIcon from './components/icons/BlogIcon'
 import HomelabIcon from './components/icons/HomelabIcon'
 import InsightsIcon from './components/icons/InsightsIcon'
@@ -59,6 +60,15 @@ export default function HomePage() {
       url:
         process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
       color: 'bg-white',
+      iconColor: 'text-neutral-900',
+    },
+    {
+      icon: AIIcon,
+      title: 'Chat',
+      description:
+        'Ask me anything. AI-powered chatbot for questions about duyet.net and related topics.',
+      url: process.env.NEXT_PUBLIC_DUYET_AI_URL || 'https://ai.duyet.net',
+      color: 'bg-[#dbeafe]',
       iconColor: 'text-neutral-900',
     },
     {
@@ -206,9 +216,10 @@ export default function HomePage() {
             </div>
           </Link>
 
-          {/* About */}
+          {/* Chat */}
           <Link
             href={links[5].url}
+            target="_blank"
             rel="noopener noreferrer"
             className={`group flex flex-col p-6 ${links[5].color} rounded-3xl`}
           >
@@ -223,6 +234,26 @@ export default function HomePage() {
             </h3>
             <p className="text-sm leading-relaxed text-neutral-700">
               {links[5].description}
+            </p>
+          </Link>
+
+          {/* About */}
+          <Link
+            href={links[6].url}
+            rel="noopener noreferrer"
+            className={`group flex flex-col p-6 ${links[6].color} rounded-3xl`}
+          >
+            <div className={`mb-4 ${links[6].iconColor}`}>
+              {(() => {
+                const Icon = links[6].icon
+                return <Icon />
+              })()}
+            </div>
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
+              {links[6].title}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-700">
+              {links[6].description}
             </p>
           </Link>
         </div>
