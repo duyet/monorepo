@@ -14,6 +14,7 @@ description: Theo trang công nghệ Engadget, giải thưởng AM Turing đư�
 Theo trang công nghệ Engadget, giải thưởng AM Turing được coi như Nobel IT năm 2015 sẽ được trao cho hai nhà khoa học Whitfield Diffie và Martin E. Hellman, tác giả của đề tài mã hóa dữ liệu mang tên "Giao thức Difie-Hellman 1976". Phương pháp mã hóa được cho là "có thể bảo vệ hàng nghìn tỷ USD" đã được vinh danh tại giải thường được coi là "giải Nobel" cho lĩnh vực công nghệ thông tin.
 
 ![](https://4.bp.blogspot.com/-POla3_QYnOA/Vt7RlL_z6hI/AAAAAAAAQtU/TGeI1cufIe0/s1600/anglerek_dh_02b.jpg)
+
 Đây là giao thức giúp cho 2 máy tính trao đổi thông tin với nhau một cách bảo mật bằng cách tạo ra shared private key.
 
 Giả sử 2 máy tính là A và B. Đầu tiên 2 máy tạo ra 2 số nguyên tố p và g, khi p lớn (thường lớn hơn 512 bits) và g là primitive root modulo của số p. p và g không cần giữ bí mật với các users khác. Khi đó, A và B tự chọn cho mình một số đủ lớn ngẫu nhiên làm private key, giả sử A chọn số a và B chọn số b.

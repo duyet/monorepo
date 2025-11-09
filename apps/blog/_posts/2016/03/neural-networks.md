@@ -14,10 +14,11 @@ category: Machine Learning
 description: Neural networks là gì?
 ---
 
-Theo nghĩa sinh học, mạng Neural là một tập hợp các dây thần kinh kết nối với nhau. Trong [Deep learning](https://blog.duyet.net/2016/02/deep-learning-la-gi.html#.VvajANx96b8), Neural networks để chỉ mạng Neural nhân tạo, cấu thành từ các lớp Neural.
+Theo nghĩa sinh học, mạng Neural là một tập hợp các dây thần kinh kết nối với nhau. Trong Deep learning, Neural networks để chỉ mạng Neural nhân tạo, cấu thành từ các lớp Neural.
 
 [![](https://1.bp.blogspot.com/-IrbvGQYE780/Vvai3HWIZKI/AAAAAAAASX8/Bk--e7sYx8cmsbgq8aooy7bUKKr80wKVw/s1600/500px-Network3322.png)](https://blog.duyet.net/2016/03/neural-networks.html)
-[Deep Learning](https://blog.duyet.net/2016/02/deep-learning-la-gi.html#.VvajANx96b8) được xây dựng trên cơ sở 1 mạng lưới các Neural nhân tạo, tổ chức thành từng lớp (Layer). Kết quả của mỗi lớp lại biểu diễn các thuộc tính (features) của lớp cao hơn (lớp phía sau).
+
+Deep Learning được xây dựng trên cơ sở 1 mạng lưới các Neural nhân tạo, tổ chức thành từng lớp (Layer). Kết quả của mỗi lớp lại biểu diễn các thuộc tính (features) của lớp cao hơn (lớp phía sau).
 
 Theo hình trên, các giá trị nhận được ở Layer 1, lần lượt thông qua các lớp đến lớp cuối cùng. Layer 1 gọi là Input Layer, Layer 4 là Output layer, các layer ở giữa còn lại gọi là Hidden Layer.
 

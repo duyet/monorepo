@@ -24,7 +24,7 @@ Với việc [left-pad](https://github.com/azer/left-pad) bị gỡ trên NPM, h
 
 Hiện mọi người vẫn có thể cài đặt các package đã bị gỡ bỏ này trực tiếp thông qua Github.
 
-```
+```javascript
 module.exports = leftpad;
 
 function leftpad (str, len, ch) {

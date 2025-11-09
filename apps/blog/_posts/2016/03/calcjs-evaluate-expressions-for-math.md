@@ -19,13 +19,13 @@ Flexible expression parser and offers an integrated solution to work with number
 
 ## Install
 
-```
+```bash
 npm install calc.js
 ```
 
 ## Usage
 
-```js
+```javascript
 var calc = require('calc.js')
 
 calc('12 / (2.3 + 0.7)') // 4

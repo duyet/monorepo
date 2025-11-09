@@ -15,6 +15,8 @@ description: Yahoo Labs đã tung ra nhiều loại bộ dữ liệu khác nhau 
 
 Yahoo Labs đã tung ra nhiều loại bộ dữ liệu khác nhau cho những ai nghiên cứu trong lĩnh vực máy học (Machine Learning). Các bộ dữ liệu này chủ yếu được thu thập từ các dịch vụ của Yahoo, như thông tin hoạt động người dùng, dữ liệu đồ thị, ảnh đã gán nhãn, ngôn ngữ tự nhiên, tin nhắn, tương tác mạng xã hội, tương tác tin tức ... từ Yahoo News, Yahoo Sports, Yahoo Finance, Yahoo Movies, ...
 
+> **Lưu ý:** Bài viết từ năm 2016. Yahoo Webscope có thể đã ngừng hoạt động hoặc thay đổi. Vui lòng kiểm tra tính khả dụng hiện tại của dịch vụ.
+
 ![](https://3.bp.blogspot.com/-H7jTeKLalpM/VroS_GtuDxI/AAAAAAAAPYg/2ziVowvFxR0/s1600/Screenshot%2Bfrom%2B2016-02-09%2B23-23-25.png)
 
 Các bộ dữ liệu dùng làm tập train này thuộc nhiều lĩnh vực, bao gồm:

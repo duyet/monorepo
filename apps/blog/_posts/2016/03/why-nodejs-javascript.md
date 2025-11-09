@@ -68,8 +68,6 @@ Ngoài Unity cũng có nhiều developers chọn Javascript và HTML5 để phá
 
 ![](https://3.bp.blogspot.com/-5CryDTIuoAY/Vu1JvFKPVNI/AAAAAAAAR7s/n3erMJHL_GcHw1C_r7ulbLU5pWIP8sWag/s1600/Screenshot%2Bfrom%2B2016-03-19%2B19-43-52.png)
 
-![](file:///home/duyetdev/Pictures/Screenshot%20from%202016-03-19%2019-43-52.png)
-
 ## OS và Tools
 
 Nodejs có thể viết được các tools dạng command lines khá mạnh, giống như Python hoặc Shell Script.
