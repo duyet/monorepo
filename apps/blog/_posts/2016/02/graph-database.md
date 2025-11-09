@@ -68,7 +68,7 @@ Quy ước:
 
 ### Cài đặt Neo4j
 
-Download Neo4j bản mới nhất tại trang chủ: [http://www.neo4j.org](http://www.neo4j.org/)
+Download Neo4j bản mới nhất tại trang chủ: [https://neo4j.com](https://neo4j.com)
 
 Khởi chạy Neo4j bằng lệnh bin/neo4j start
 
@@ -78,7 +78,7 @@ Truy cập: http://localhost:7474 để sử dụng và truy vấn.
 
 Lưu trữ graph bằng Neo4j thì toàn bộ graph phải nằm trên một máy duy nhất. Đây là nhược điểm rất lớn của Neo4j, điều này khiến việc lưu trữ một big graph bao gồm rất nhiều đỉnh và cạnh bằng Neo4j là rất khó khăn.
 
-Tuy nhiên vào năm 2010 Google có publish một bài báo về [Pregel](http://kowshik.github.io/JPregel/pregel_paper.pdf) một mô hình hiệu quả cho việc xử lý big graph. Sau đó hai năm, apache đưa ra thư viện mã nguồn mở mới cài đặt mô hình Pregel là [Apache Giraph](https://giraph.apache.org/) trên hệ sinh thái Hadoop.
+Tuy nhiên vào năm 2010 Google có publish một bài báo về [Pregel](https://kowshik.github.io/JPregel/pregel_paper.pdf) một mô hình hiệu quả cho việc xử lý big graph. Sau đó hai năm, apache đưa ra thư viện mã nguồn mở mới cài đặt mô hình Pregel là [Apache Giraph](https://giraph.apache.org/) trên hệ sinh thái Hadoop.
 
 Đây chính là giải pháp cho việc lưu trữ và xử lý cho các bài toán liên quan đến big graph.
 

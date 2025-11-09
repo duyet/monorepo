@@ -15,7 +15,7 @@ description: 'Thế giới đã chứng kiến sự phát triển vượt bậc 
 ---
 
 Thế giới đã chứng kiến sự phát triển vượt bậc sau khi con người phát minh ra các công nghệ: động cơ hơi nước, điện, máy vi tính, internet. Công nghệ tiếp theo sẽ có sự tác động mạnh mẽ như vậy chính là trí thông minh nhân tạo (Artificial Intelligence - AI).
-Các sản phẩm kết hợp AI nổi bật hiện nay có thể thấy như: tính năng gợi ý trả lời mail trong Inbox by Google, tự tạo Video trong Google Photos, trợ lý ảo Contana, Siri trên smartphone, ...
+Các sản phẩm kết hợp AI nổi bật có thể thấy như: tính năng gợi ý trả lời mail trong Inbox by Google, tự tạo Video trong Google Photos, trợ lý ảo ChatGPT, Siri và Google Assistant trên smartphone, ...
 
 ![](https://1.bp.blogspot.com/-jKehM_T47GI/VrMiraOWJiI/AAAAAAAAPFE/jpYwrmCFW6g/s320/small_1420.png)
 Có thể thấy trí tuệ nhân tạo thu hút nhiều ông lớn (Google, Microsoft, Facebook, ...) quan tâm đầu tư, đặt biệt là Deep Learning.

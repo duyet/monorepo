@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2015-08-07T13:04:07.964+07:00'
 thumbnail: https://1.bp.blogspot.com/-3KF--ZtRoJ8/VcRHZTobPXI/AAAAAAAACsA/ytQrNZKU_1Q/s1600/reflog-duyetdev.png
-slug: /2015/08/git-khoi-phuc-bang-reflog.html
+slug: /2015/08/git-khoi-phuc-bang-reflog
 category: Git
 description: 'Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặc loại bỏ một nhánh. Rất ít người biết cách khôi phục từ những tình huống này và một số người thậm chí phải code từ đầu. May mắn thay, hầu hết chúng ta có thể dựa vào "cỗ máy thời gian" của Git: reflog'
 ---
@@ -18,7 +18,7 @@ description: 'Đôi khi, bạn có thể vô tình reset hard, xóa commit hoặ
 
 Reflog như cỗ máy thời gian, nó ghi lại toàn bộ những gì bạn đã làm, kể cả khi bạn xóa 1 commit nào đó.
 
-```
+```bash
 0979a9e HEAD@{1}: reset: moving to HEAD~
 4d77eb9 HEAD@{2}: commit: Add UI for data showcase.
 0979a9e HEAD@{3}: commit: Finish UAF module, need update xls file normaly
@@ -47,7 +47,7 @@ $ git reset --hard HEAD~
 
 Kết quả sẽ là
 
-```
+```bash
 0979a9e HEAD@{1}: reset: moving to HEAD~
 4d77eb9 HEAD@{2}: commit: Add UI for data showcase.
 0979a9e HEAD@{3}: commit: Finish UAF module, need update xls file normaly
@@ -62,17 +62,16 @@ Kết quả sẽ là
 
 `0979a9e` là commit reset HEAD, `4d77eb9` là commit bị mất bạn cần sẽ nhảy đến. Để khôi phục
 
-```
+```bash
 git reset --hard 0979a9e
 HEAD is now at 0979a9e Finish UAF module, need update xls file normaly
-
 ```
 
 ## Lỡ xóa branch
 
 Trong trường hợp bạn lỡ xóa branch bằng `branch -D`
 
-```
+```bash
 $ git br -D duyet
 Deleted branch duyet (was 700674f).
 ```
@@ -80,7 +79,7 @@ Deleted branch duyet (was 700674f).
 Thì cũng có thể dễ dàng khôi phục như trường hợp mất commit.
 Ta xem lại lịch sử bằng **reflog**
 
-```
+```bash
 $ git reflog
 
 9b48127 HEAD@{0}: checkout: moving from duyetdev to master
@@ -89,7 +88,7 @@ $ git reflog
 
 Trạng thái muốn quay lại là `788674f`, vì thế
 
-```
+```bash
 $ git branch develop 788674f
 $ git checkout develop
 ```

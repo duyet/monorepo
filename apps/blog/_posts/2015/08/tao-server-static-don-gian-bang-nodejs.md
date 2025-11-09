@@ -12,12 +12,13 @@ category: Javascript
 description: Với package sau bạn có thể tạo 1 static server đơn giản bằng Nodejs.
 ---
 
-Với package sau bạn có thể tạo 1 static server đơn giản bằng Nodejs.
-English version: [https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html](https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html?utm_source=duyetdev_blog&utm_medium=local_click&utm_campaign=duyetdev_blog)
+English version: [https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html](https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html)
+
+> Note: This tutorial uses the `static-html-server` package. For modern alternatives in 2025, consider using `npx http-server`, Vite preview mode, or other lightweight server solutions.
 
 ## Cài đặt
 
-```
+```bash
 $ npm install static-html-server -g
 ```
 
@@ -32,9 +33,9 @@ Mình tạo 1 thư mục project, đường dẫn ~/project/test-static-server v
 
 ## Khởi động Server
 
-Khởi động server bằng lệnh
+Khởi động server bằng lệnh:
 
-```
+```bash
 $ static-html-server -p 8888 -r ~/project/test-static-server
 ```
 
@@ -48,6 +49,15 @@ Mở trình duyệt và truy cập http://localhost:8888
 ![](https://2.bp.blogspot.com/-FiaZHjDZeWQ/VccLGm3k_BI/AAAAAAAACtc/0qxhWNca8Bw/s1600/test-simple-server-view.png)
 
 Chúc các bạn thành công.
+
+## Alternatives for 2025
+
+If you're looking for modern alternatives, here are some options:
+
+- **`npx http-server`** - Quick and simple static server (no installation needed)
+- **`npx vite --host`** - Modern build tool with preview mode
+- **Built-in Node.js modules** - Use `http` module directly
+- **`npx live-server`** - Adds live reload to static files
 
 ## Github Project
 

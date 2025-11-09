@@ -4,16 +4,16 @@ date: '2015-07-14'
 author: Duyet
 tags:
   - Apache Spark
-  - Apache Spark
   - Big Data
+  - Monitoring
 modified_time: '2015-07-14T13:00:07.257+07:00'
 thumbnail: https://3.bp.blogspot.com/-ytrI0VvmxgE/VaSiReFjsmI/AAAAAAAACl0/JSOfOs9-Pas/s1600/ss-tasks-3.png
 slug: /2015/07/big-data-monitoring-spark-with-graphite.html
 category: News
-description:
+description: Guide to monitoring Apache Spark applications using GraphiteSink and Grafana dashboards for real-time metrics visualization and performance diagnostics.
 ---
 
-This post I have read from [HammerLab](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/), Contact me if Vietnamese version neccessary. In this post, they'll discuss using Graphite and Grafana to graph metrics obtained from our [Spark](http://spark.apache.org/docs/1.2.1/) applications to answer these questions
+This post is a repost from [HammerLab](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/) (original from February 2015). The monitoring concepts and MetricsSystem approach described here remain valid in 2025 with current Spark versions (3.5+, 4.0+). Contact me if Vietnamese version is necessary. In this post, they'll discuss using Graphite and Grafana to graph metrics obtained from [Spark](https://spark.apache.org/docs/latest/) applications to answer these questions
 
 [![](https://3.bp.blogspot.com/-ytrI0VvmxgE/VaSiReFjsmI/AAAAAAAACl0/JSOfOs9-Pas/s1600/ss-tasks-3.png)](https://3.bp.blogspot.com/-ytrI0VvmxgE/VaSiReFjsmI/AAAAAAAACl0/JSOfOs9-Pas/s1600/ss-tasks-3.png)
 
@@ -65,11 +65,11 @@ The `--files` flag will cause `/path/to/metrics.properties` to be sent to every 
 
 Having thus configured Spark (and installed Graphite), we surveyed [the many Graphite-visualization tools that exist](http://graphite.readthedocs.org/en/latest/tools.html#visualization) and began building custom Spark-monitoring dashboards using [Grafana](http://grafana.org/). Grafana is "an open source, feature rich metrics dashboard and graph editor for Graphite, InfluxDB & OpenTSDB," and includes some powerful features for [scripting](http://grafana.org/docs/features/scripted_dashboards/) the creation of [dynamic](http://grafana.org/docs/features/templated_dashboards/) dashboards, allowing us to experiment with many ways of visualizing the performance of our Spark applications in real-time.
 
-# Examples # (#examples)
+## Examples {#examples}
 
 Below are a few examples illustrating the kinds of rich information we can get from this setup.
 
-## Task Completion Rate ## (#task-completion-rate)
+### Task Completion Rate {#task-completion-rate}
 
 These graphs show the number of active and completed tasks, per executor and overall, from a successful test of some toy [read depth histogram](https://github.com/hammerlab/guacamole/blob/5e060ae0e13434e42477ae0715e92103ab45baf9/src/main/scala/org/hammerlab/guacamole/commands/ReadDepthHist.scala) functionality in a branch of our [Guacamole](https://github.com/hammerlab/guacamole) variant calling project:
 
@@ -78,7 +78,7 @@ These graphs show the number of active and completed tasks, per executor and ove
 The leftmost panel shows close to 400 tasks in flight at once, which in this application corresponds to 4 "cores" on each of 100 executors. The "valley" in that leftmost panel corresponds to the transition between two stages of the one job in this application.
 The right two panels show the number of tasks completed and rate of task completion per minute for each executor.
 
-## HDFS I/O ## (#hdfs-io)
+### HDFS I/O {#hdfs-io}
 
 `MetricsSystem` also reports all filesystem- and HDFS-I/O at per-executor granularity. Below are some graphs showing us our application’s HDFS read statistics:
 
@@ -93,13 +93,13 @@ Clockwise from top left, we see:
 
 Our applications are typically not I/O bound in any meaningful way, but we’ve nonetheless found access to such information useful, if only from a sanity-checking perspective.
 
-## JVM ## (#jvm)
+### JVM {#jvm}
 
 The [JVM statistics exported by Spark](https://github.com/apache/spark/blob/9f603fce78fcc997926e9a72dec44d48cbc396fc/core/src/main/scala/org/apache/spark/metrics/source/JvmSource.scala) are a treasure trove of information about what is going on in each executor. We’ve only begun to experiment with ways to distill this data; here’s an example of per-executor panels with information about garbage collection:
 
 ![](https://3.bp.blogspot.com/-v1FutiNm7l8/VaSkTzHm34I/AAAAAAAACmY/rIdDEL5LVkY/s1600/per-executor-jvm-metrics.png)
 
-# Case Study: Ill-Fated [`SomaticStandard`](https://github.com/hammerlab/guacamole/blob/4c0381c6feba189ab605decaaea3c56a158ff565/src/main/scala/org/hammerlab/guacamole/commands/SomaticStandardCaller.scala) Run # (#case-study-ill-fated-somaticstandardsomaticstandard-run)
+## Case Study: Ill-Fated `SomaticStandard` Run {#case-study-ill-fated-somaticstandard-run}
 
 Let’s do some forensics on a recent failed run of our [SomaticStandard variant caller](https://github.com/hammerlab/guacamole/blob/4c0381c6feba189ab605decaaea3c56a158ff565/src/main/scala/org/hammerlab/guacamole/commands/SomaticStandardCaller.scala) and use our Grafana dashboard to diagnose an issue that proved fatal to the application.
 The graphs below, similar to those in [the first example above](http://www.hammerlab.org/2015/02/27/monitoring-spark-with-graphite-and-grafana/#task-completion-rate-successful-run), show the number of active and completed tasks, per executor and overall, during a period in the middle of the doomed application’s lifetime:
@@ -124,11 +124,11 @@ From experience, we have learned to note and infer several things from graphs li
 Putting all of this information together, we conclude that the issue here was one of a "hot potato" task inducing [garbage collection stalls](http://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29#Disadvantages) (and subsequent deaths) in executors that attempted to perform it.
 This is a common occurrence when [key skew](http://www.cs.cmu.edu/%7Ekair/papers/bala.pdf) causes one or a few tasks in a distributed program to be too large (relative to the amount of memory that has been allocated to the the executors attempting to process them). The study of skew in MapReduce systems dates back to the [earliest days of MapReduce at Google](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/32721.pdf), and it is one of the most common causes of mysterious Spark-job-degradation-or-death that we observe today.
 
-# [grafana-spark-dashboards](https://github.com/hammerlab/grafana-spark-dashboards) # (#grafana-spark-dashboards)
+## grafana-spark-dashboards {#grafana-spark-dashboards}
 
 As usual, we’ve open-sourced the tools showcased here in the hopes that you’ll find them useful as well. The [hammerlab/grafana-spark-dashboards](https://github.com/hammerlab/grafana-spark-dashboards) repo contains a script that you should be able to use off-the-shelf to bootstrap your own slick Grafana dashboards of Spark metrics.
 
-# Future Work # (#future-work)
+## Future Work {#future-work}
 
 The development and standardization of sane tools for monitoring and debugging Spark jobs will be of utmost importance as Spark matures, and our work thus far represents only a tiny contribution toward that end.
 Though the [grafana-spark-dashboards](https://github.com/hammerlab/grafana-spark-dashboards) previewed above have been useful, there’s still an ocean of relevant data we would love to get out of Spark and onto our graphs, including but not limited to:

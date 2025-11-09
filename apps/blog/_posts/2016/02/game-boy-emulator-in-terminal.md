@@ -1,18 +1,25 @@
 ---
-title: Game Boy Emulator Terminal
+title: PHP Game Boy Emulator in Terminal
 date: '2016-02-28'
 author: Duyet
 tags:
-  - Read
+  - emulator
+  - terminal
   - PHP
+  - retro-gaming
 modified_time: '2016-05-02T19:41:54.973+07:00'
 thumbnail: https://4.bp.blogspot.com/-NJDpViHfUg4/VtKOGcA-wEI/AAAAAAAAQes/dI5hCCos2CA/s1600/yq3uxuyqhyfjdb9q460h.gif
 slug: /2016/02/game-boy-emulator-in-terminal.html
-category: News
-description: Một lập trình viên nghĩ ra cách giải trí khá hay là chơi các game của Game Boy ngay trên Terminal. Chương trình giả lập này được viết bằng PHP.
+category: Projects
+description: A PHP-based Game Boy emulator that runs in the terminal - a creative and fun way to play retro games. Features a complete implementation showcasing PHP's capabilities.
 ---
 
+A creative developer came up with a clever way to play classic Game Boy games directly in your terminal. This emulator implementation is written entirely in PHP, showcasing the language's versatility and capabilities.
+
+**Vietnamese Description:**
 Một lập trình viên nghĩ ra cách giải trí chơi các game của Game Boy ngay trên Terminal. Chương trình giả lập này được viết bằng PHP.
+
+> **Note (2025):** This project was originally created for PHP 5.6 or 7. While these versions are deprecated, the project demonstrates interesting concepts about terminal rendering and game emulation. Modern PHP versions are likely compatible, but verify with the original repository.
 
 ![](https://4.bp.blogspot.com/-NJDpViHfUg4/VtKOGcA-wEI/AAAAAAAAQes/dI5hCCos2CA/s1600/yq3uxuyqhyfjdb9q460h.gif)
 

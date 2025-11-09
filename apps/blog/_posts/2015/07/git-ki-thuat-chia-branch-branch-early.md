@@ -30,9 +30,7 @@ Những cách này tất nhiên giải quyết được vấn đề, nhưng khô
 
 Bắt đầu ngày làm việc, bạn chọn làm một chức năng mới. Việc đầu tiên cần làm là tạo một branch mới bằng câu lệnh `git checkout` với tham số `-b`
 
-` `![](https://4.bp.blogspot.com/-s4EMBlWhY34/VadEZkNL7YI/AAAAAAAACnc/byhewvc8IsQ/s1600/s1-1024x417.png)
-
-Bắt đầu ngày làm việc, bạn chọn làm một chức năng mới. Việc đầu tiên cần làm là tạo một branch mới bằng câu lệnh `git checkout` với tham số `-b`
+![](https://4.bp.blogspot.com/-s4EMBlWhY34/VadEZkNL7YI/AAAAAAAACnc/byhewvc8IsQ/s1600/s1-1024x417.png)
 
 ![](https://3.bp.blogspot.com/-uspVsG_BzcM/VadEiRHx95I/AAAAAAAACnk/OIJgxqVFd_k/s1600/s2-1024x413.png)
 
@@ -49,8 +47,6 @@ Và tất nhiên bạn không thể nào từ chối dược, đành quay sang f
 ![](https://1.bp.blogspot.com/-7QZMuA8jUzU/VadE5IcZCOI/AAAAAAAACn8/WhsufMSvR8g/s1600/s5.png)
 
 Mục đích của việc chuyển về branch master là để khi làm chức năng mới, sẽ không dính dáng gì đến các chức năng đang làm dở. Và bạn cũng nên pull thường xuyên để lấy code mới nhất về trước khi bắt đầu thực hiện chức năng mới. Từ master, bạn tạo ra một branch mới:
-
-` `
 
 ![](https://3.bp.blogspot.com/-Xqc3xRSHu2w/VadFCs2nvBI/AAAAAAAACoE/AHJdbgt4CbQ/s1600/s6.png)
 

@@ -35,9 +35,10 @@ Như vậy, trái ngược với các giấy phép Copyleft, người nhận đ�
 
 Có hai file cần được đặt trong thư mục gốc khi phân phối chương trình:
 
-1. LICENSE: bản copy của chính giấy phép MIT.
+1. LICENSE: bản copy của chính giấy phép Apache.
 2. NOTICE: văn bản chú thích tên của các thư viện đã dùng, kèm tên người phát triển.
-3. Trong mỗi tệp tin đã được cấp phép, bất kì thông tin về bản quyền và bằng sáng chế trong bản phân phối lại phải được giữ nguyên như ở bản gốc, và ở mỗi tệp tin đã được chỉnh sửa phải thêm vào ghi chú là đã được chỉnh sửa khi nào.
+
+Ngoài ra, trong mỗi tệp tin đã được cấp phép, bất kì thông tin về bản quyền và bằng sáng chế trong bản phân phối lại phải được giữ nguyên như ở bản gốc, và ở mỗi tệp tin đã được chỉnh sửa phải thêm vào ghi chú là đã được chỉnh sửa khi nào.
 
 Giấy phép Apache không yêu cầu trích dẫn toàn bộ giấy phép vào sản phẩm hay tệp tin đính kèm bản phân phối, mà chỉ cần thêm phần thông báo có chứa đường link tới website chứa giấy phép (GNU 3.0 cũng đã áp dụng cách này). Khi đó, người dùng chỉ thấy thông báo ngắn gọn như sau:
 

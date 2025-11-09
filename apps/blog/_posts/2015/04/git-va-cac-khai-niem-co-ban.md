@@ -68,7 +68,7 @@ Nhánh master thông thường là nhánh chính của ứng dụng. Ví dụ b�
 
 ![](https://4.bp.blogspot.com/-lwRXq80wt0U/VTvGLbXUrgI/AAAAAAAACVU/ekAhTHuKmBM/s1600/branches.png)
 
-Nguồn ảnh: http://rogerdudler.github.io/git-guide/index.vi.html
+Nguồn ảnh: https://rogerdudler.github.io/git-guide/index.vi.html
 
 ## Trộn (Merge)
 
@@ -131,15 +131,15 @@ Còn khá nhiều định nghĩa trên Git, trên đây mình chỉ nói một v
 
 Ở bài sau mình sẽ hướng dẫn cách sử dụng Git, sử dụng github, các làm việc trên git và xử lý các trường hợp thường gặp khi teamwork với Git.
 
-Bài viết được post tại [LvDuit Blog](https://blog.duyet.net/) và [LvDuit Wordpress](http://lvduit.wordpress.com/).
+Bài viết được post tại [LvDuit Blog](https://blog.duyet.net/) và [LvDuit Wordpress](https://lvduit.wordpress.com/).
 
 ## Tham khảo
 
-1. [Git Community Book](http://book.git-scm.com/)
-2. [Pro Git](http://progit.org/book/)
-3. [Think like a git](http://think-like-a-git.net/)
-4. [GitHub Help](http://help.github.com/)
-5. [A Visual Git Guide](http://marklodato.github.com/visual-git-guide/index-en.html)
-6. [Learn Git Branching](http://pcottle.github.io/learnGitBranching/)
-7. [More Git and GitHub Secrets](http://zachholman.com/talk/more-git-and-github-secrets/)
-8. [Understanding Git Conceptually](http://www.sbf5.com/~cduan/technical/git/)
+1. [Git Community Book](https://git-scm.com/book/)
+2. [Pro Git](https://git-scm.com/book/)
+3. [Think like a git](https://think-like-a-git.net/)
+4. [GitHub Help](https://docs.github.com/)
+5. [A Visual Git Guide](https://marklodato.github.io/visual-git-guide/index-en.html)
+6. [Learn Git Branching](https://learngitbranching.js.org/)
+7. [More Git and GitHub Secrets](https://zachholman.com/talk/more-git-and-github-secrets/)
+8. [Understanding Git Conceptually](https://www.sbf5.com/~cduan/technical/git/)

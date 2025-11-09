@@ -1,5 +1,5 @@
 ---
-title: 'Crawler System base on Nodejs and MongoDB '
+title: 'Crawler System Based on Node.js and MongoDB'
 date: "2015-04-10"
 author: Duyet
 tags:
@@ -14,9 +14,6 @@ Design by Van-Duyet Le (@duyet), one of module for my DSS Project."
 
 ---
 
-DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
-Design by Van-Duyet Le (@duyet), one of module for my DSS Project.
-
 ## DCrawler
 
 DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, multi thread support.
@@ -24,7 +21,7 @@ DCrawler is Nodejs Crawler, multi-module-spider, jQuery query page content, mult
 Project: DCrawler ([https://github.com/lvduit/DCrawler](https://github.com/lvduit/DCrawler))
 Version: 0.0.1
 author: Duyet ([@duyet](http://twitter.com/lvduit))
-Home: [http://lvduit.com](http://lvduit.com/)
+Home: [https://lvduit.com](https://lvduit.com/)
 
 ## Features
 

@@ -6,7 +6,7 @@ tags:
   - Redis
   - Database
   - NoSQL
-modified_time: '2015-04-06T00:32:31.095+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://1.bp.blogspot.com/-5k958LlJol8/VSFvGnofvCI/AAAAAAAACOY/WM4CxLtpcOU/s1600/redis.png
 slug: /2015/04/redis.html
 category: Data
@@ -14,7 +14,7 @@ description: Redis là 1 trong số các hệ quản trị cơ sở dữ liệu 
 ---
 
 Redis là 1 trong số các hệ quản trị cơ sở dữ liệu phát triển mang phong cách NoSQL. Redis là hệ thống lưu trữ key-value với rất nhiều tính năng và được sử dụng rộng rãi. Redis nổi bật bởi việc hỗ trợ nhiều cấu trúc dữ liệu cơ bản (hash, list, set, sorted set, string), đồng thời cho phép scripting bằng ngôn ngữ lua.
-Bên cạnh lưu trữ key-value trên RAM với hiệu năng cao, redis còn hỗ trợ lưu trữ dữ liệu trên đĩa cứng (persistent redis) cho phép phục hồi dữ liệu khi gặp sự cố. Ngoài tính năng replicatation (sao chép giữa master-client), tính năng cluster (sao lưu master-master) cũng đang được phát triển .
+Bên cạnh lưu trữ key-value trên RAM với hiệu năng cao, redis còn hỗ trợ lưu trữ dữ liệu trên đĩa cứng (persistent redis) cho phép phục hồi dữ liệu khi gặp sự cố. Ngoài tính năng replication (sao chép giữa master-client), tính năng cluster (sao lưu master-master) cũng đã được phát triển hoàn chỉnh.
 Để sử dụng một cách hiệu quả những tính năng redis hỗ trợ cũng như vận hành redis với hiệu suất cao nhất thì việc am hiểu hệ thống lưu trữ này là điều không thể thiếu. Chính vì lý do này, mình quyết định tìm hiểu mã nguồn redis. Loạt bài viết về redis này tóm tắt những điều mình tìm hiểu được từ việc đọc mã nguồn của redis.
 
 ![](https://1.bp.blogspot.com/-5k958LlJol8/VSFvGnofvCI/AAAAAAAACOY/WM4CxLtpcOU/s1600/redis.png)
@@ -75,7 +75,7 @@ Khác với RDMS như MySQL, hay PostgreSQL, Redis không có table (bảng). Re
 
 ### 3. Clustering
 
-Nếu sử dụng MySQL, bạn phải trả phí để có thể sử dụng tính năng này, còn với họ NoSQL DBMS, tính năng này hoàn toàn free. Tuy nhiên, Redis Cluster đang ở phiên bản alpha, và chúng ta sẽ cùng chờ đợi phiên bản chính thức ra đời. Chúng ta sẽ đề cập đến tính năng này qua 1 bài viết khác, khi Redis Cluster có phiên bản chính thức.
+Nếu sử dụng MySQL, bạn phải trả phí để có thể sử dụng tính năng này, còn với họ NoSQL DBMS, tính năng này hoàn toàn free. Redis Cluster hiện đã là một tính năng ổn định và được sử dụng rộng rãi trong production. So với phiên bản alpha vào thời điểm bài viết này (năm 2015), Redis Cluster đã phát triển đầy đủ và là lựa chọn hàng đầu cho các hệ thống cần mở rộng quy mô.
 
 ### 4. In-memory
 

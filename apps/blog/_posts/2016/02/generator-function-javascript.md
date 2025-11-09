@@ -12,7 +12,7 @@ category: Javascript
 description: function* giúp khai báo 1 generator function, trả về 1 Generator object. Với chức năng mới này, hàm có thể dừng thực thi bất cứ thời điểm nào, đợi async chạy xong, xong tiếp tục thực thi.
 ---
 
-Một trong những chức năng, cũng như vấn đề mà mọi developer javascript/nodejs đều gặp phải là lập trình bất đồng bộ (async) và [callback hell](http://callbackhell.com/) khó điều khiển.
+Một trong những chức năng, cũng như vấn đề mà mọi developer javascript/nodejs đều gặp phải là lập trình bất đồng bộ (async) và [callback hell](https://callbackhell.com/) khó điều khiển.
 
 May thay, function* là một trong những chức năng mới của Javascript trong [ECMAScript 2015](https://duyetdev-collections.github.io/es6features/) (6th Edition, hay tắt là ES6). function* giúp khai báo 1 generator function, trả về 1 [Generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator) object. Với chức năng mới này, hàm có thể dừng thực thi bất cứ thời điểm nào, đợi async chạy xong, xong tiếp tục thực thi.
 
@@ -91,7 +91,9 @@ console.log(gen.next().value) // 20
 Generator function là một trong những tính năng cực kì hữu ích trong ES6. Nodejs có module [co](https://github.com/tj/co) và framework [koa](https://github.com/koajs/koa) (được xem là next generator framework for nodejs) tận dụng rất tốt chức năng này.
 
 yield còn dùng để khử callback phức tạp của Javascript, khử promise - hiện còn làm nhiều bạn lúng túng khi mới bắt đầu với nodejs. Tôi sẽ viết 1 bài hướng dẫn sau.
-Từ bản nodejs 0.12 trở lên đã được hỗ trợ chức năng generator function,với node v0.12 phải có tham số `--harmony` để có thể sử dụng yield/function\*, còn node 4.0 trở lên thì không cần.
+
+**Lưu ý cập nhật (2025)**: Hiện nay, `async/await` (ra mắt ES2017) đã trở thành cách tiêu chuẩn để xử lý bất đồng bộ và thay thế hầu hết các trường hợp sử dụng generators. Tuy nhiên, generators vẫn còn hữu ích cho việc tạo iterators, lazy evaluation, và các mẫu nâng cao khác.
+Từ bản nodejs 0.12 trở lên đã được hỗ trợ chức năng generator function,với node v0.12 phải có tham số `--harmony` để có thể sử dụng yield/function*, còn node 4.0 trở lên thì không cần. (Lưu ý: Bài viết này từ 2016, hiện tại Node.js phiên bản 20+ đã hỗ trợ native generators mà không cần cấu hình thêm).
 
 ```bash
 node --harmony ./app.js
@@ -99,8 +101,8 @@ node --harmony ./app.js
 
 Tham khảo:
 
-- [Write "Synchronous" Node.js Code with ES6 Generators](http://eladnava.com/write-synchronous-node-js-code-with-es6-generators/)
-- [function\* - Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
-- [Callback Hell](http://callbackhell.com/)
+- [Write "Synchronous" Node.js Code with ES6 Generators](https://eladnava.com/write-synchronous-node-js-code-with-es6-generators/)
+- [function* - Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
+- [Callback Hell](https://callbackhell.com/)
 - [Generators in Node.js: Common Misconceptions and Three Good Use Cases - Strongloop](https://strongloop.com/strongblog/how-to-generators-node-js-yield-use-cases/)
 - [ECMAScript 2015 features](https://duyetdev-collections.github.io/es6features)

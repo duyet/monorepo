@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Big Data
   - Read
-modified_time: '2015-04-12T18:28:37.128+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://2.bp.blogspot.com/-91L8Jd3M3u4/VSpWUia7JaI/AAAAAAAACQY/LcrkDeteKiA/s1600/AAEAAQAAAAAAAAMxAAAAJDk1ZTU1YTg0LWU0ZGQtNDRiYi1iM2UxLWNmY2FhYjhiMzgxMQ.jpg
 slug: /2015/04/big-data-explained-in-less-than-2-minutes.html
 category: Data
@@ -55,4 +55,4 @@ As the tools to collect and analyze the data become less and less expensive and 
 
 And, if you live in the modern world, it’s not something you can escape. Whether you’re all for the benefits big data can bring, or worried about Big Brother, it’s important to be aware of the phenomena and tuned in to how it’s affecting your daily life.
 
-Thanks you for: [Bernard Marr](https://www.linkedin.com/in/bernardmarr?trk=pulse-det-athr_prof-art_ftr)
+Thanks to: [Bernard Marr](https://www.linkedin.com/in/bernardmarr?trk=pulse-det-athr_prof-art_ftr)

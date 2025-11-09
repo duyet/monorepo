@@ -28,7 +28,7 @@ Nó không phải là ngôn ngữ cụ thể nào cả. Design patterns có th�
 
 Giúp cho chương trình của mình thực sự đơn giản. Việc sử dụng các design pattern sẽ giúp chúng ta giảm được thời gian và công sức suy nghĩ ra các cách giải quyết cho những vấn đề đã có lời giải.
 
-Bạn có thể đọc qua cuốn "Head First Design Patterns" để có cái nhìn tổng quát hơn về design pattern.
+Bạn có thể đọc qua cuốn ["Head First Design Patterns"](https://www.oreilly.com/library/view/head-first-design/0596007124/) để có cái nhìn tổng quát hơn về design pattern.
 
 ## Phân loại Design Patterns
 
@@ -38,7 +38,7 @@ Có 3 nhóm chính sau:
 - Structural Pattern (nhóm cấu trúc) gồm: Adapter, Bridge, Composite, Decorator, Facade, Proxy và Flyweight. Nó dùng để thiết lập, định nghĩa quan hệ giữa các đối tượng.
 - Behavioral Pattern gồm: Interpreter, Template Method, Chain of Responsibility, Command, Iterator, Mediator, Memento, Observer, State, Strategy và Visitor. Nhóm này dùng trong thực hiện các hành vi của đối tượng.
 
-![](https://3.bp.blogspot.com/-TjEKejI8edI/VOtRCGheINI/AAAAAAAACKA/7BihROVk8WM/s1600/Abstract_Factory_example1-2x.png)
+![Abstract Factory Design Pattern Example Diagram](https://3.bp.blogspot.com/-TjEKejI8edI/VOtRCGheINI/AAAAAAAACKA/7BihROVk8WM/s1600/Abstract_Factory_example1-2x.png)
 
 ## Để học Design Patterns cần có gì?
 

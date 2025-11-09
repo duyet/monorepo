@@ -17,7 +17,7 @@ Dùng Linux cũng đã lâu. Thấy nhiều bạn học HDH, nếu không nắm 
 
 ## First of all
 
-Trước hết, 1 lênh quan trọng nhất khi bắt đầu tìm hiểu về lệnh trên terminal là lệnh man, lệnh man giúp bạn xem thông tin hướng dẫn cách sử dụng 1 lệnh nào đó (man là viết tắt của manual nha)
+Trước hết, 1 lệnh quan trọng nhất khi bắt đầu tìm hiểu về lệnh trên terminal là lệnh man, lệnh man giúp bạn xem thông tin hướng dẫn cách sử dụng 1 lệnh nào đó (man là viết tắt của manual nha)
 Ví dụ:
 
 ```bash
@@ -38,20 +38,20 @@ Man sẽ hiển thị chi tiết, ý nghĩa, cách sử dụng và các tham s�
 - `touch` tạo file mới (`touch ten_file`).
 - `rmdir` xóa một thư mục (`rmdir ten_thumuc`).
 - `cp` copy file hoặc thư mục (`cp file_nguồn file_đích`).
-- `mv` di chuyển file hoặc thư mục; cũng được dùng để đặt lại tên file hoặc thư mục (m`v vị_trí_cũ vị_trí_mới hoặc mv tên_cũ tên_mới`).
+- `mv` di chuyển file hoặc thư mục; cũng được dùng để đặt lại tên file hoặc thư mục (`mv vị_trí_cũ vị_trí_mới` hoặc `mv tên_cũ tên_mới`).
 - `rm` xóa file (`rm tên_file`).
 
 Để tìm kiếm file, bạn có thể dùng:
 
 - `find <tiêu chuẩn tìm kiếm>`: dùng cho các tên file.
-- `grep < tiêu chuẩn tìm kiếm>`: để tìm nội dung trong file
+- `grep <tiêu chuẩn tìm kiếm>`: để tìm nội dung trong file
 
 Để xem một file, bạn có thể dùng:
 
 - `more <tên file>` hiển thị file theo từng trang.
-- `cat < tên file>` hiển thị tất cả file.
-- `head < tên file>` hiển thị các dòng đầu tiên.
-- `tail < tên file>` hiển thị các dòng cuối cùng (có thể hữu ích trong những trường hợp như khi bạn muốn xem thông tin log gần nhất của một file hệ thống).
+- `cat <tên file>` hiển thị tất cả file.
+- `head <tên file>` hiển thị các dòng đầu tiên.
+- `tail <tên file>` hiển thị các dòng cuối cùng (có thể hữu ích trong những trường hợp như khi bạn muốn xem thông tin log gần nhất của một file hệ thống).
 
 ## Editor trên Terminal
 
@@ -102,7 +102,7 @@ Tức là lệnh `man mkdir` in ra cái gì, thì tail bắt lấy rồi in ra c
 
 Một trong những công việc cần thiết khi quản trị hệ thống Linux đó là kiểm soát các tiến trình hiện đang chạy. Khi đã biết được những tiến trình nào đang chạy bạn có thể tắt những tiến trình gây giảm tốc độ của hệ thống. Ngoài ra, thông tin về những tiến trình hệ thống cho chúng ta biết nên tắt nhưng tiến trình làm cho hệ thống vận hành không ổn định. Do đó việc biết được những tiến trình nào đang chạy trên hệ thống rất quan trọng. Linux hỗ trợ nhiều phương pháp kiểm tra tiến trình, một trong số đó là sử dụng lệnh ps. Khi sử dụng lệnh này mọi thông tin về những tiến trình đang chạy sẽ được hiển thị. Bạn chỉ cần nhập cú pháp lệnh sau vào cửa sổ terminal:
 
-```
+```bash
 $ ps aux | less
 ```
 
@@ -172,13 +172,13 @@ Khi đó thông tin về đĩa cứng của hệ thống sẽ được hiển th
 
 - `free`: hiển thị thông tin trên bộ nhớ hệ thống.
 
-- `ifconfig <tên interface>`: để xem thông tin chi tiết về các giao diện mạng; thông thường giao diện mạng ethernet có tên là eth().
+- `ifconfig <tên interface>`: để xem thông tin chi tiết về các giao diện mạng; thông thường giao diện mạng ethernet có tên là eth(). **Lưu ý**: `ifconfig` đã lỗi thời, hãy dùng `ip` command thay thế (ví dụ: `ip addr show`).
 
 - `passwd`: cho phép bạn thay đổi mật khẩu (passwd người_dùng_sở_hữu_mật_khẩu hoặc tên người dùng khác nếu bạn đăng nhập hệ thống với vai trò root).
 
 - `useradd`: cho phép bạn thêm người dùng mới (xem thê man useradd).
 
-- `rlogin`: dùng để điều khiển hoặc thao tác lệnh trên một máy khác
+- `rlogin`: dùng để điều khiển hoặc thao tác lệnh trên một máy khác. **Lưu ý**: `rlogin` đã bị ngừng sử dụng và không an toàn, hãy dùng `ssh` thay thế.
 
 - `exit` : thoát khỏi hệ thống (Bourne-Shell)
 
@@ -194,12 +194,12 @@ Khi đó thông tin về đĩa cứng của hệ thống sẽ được hiển th
 
 - `who`: cho biết những ai đang thâm nhập hệ thống
 
-##
+## Chạy lệnh với quyền Root
 
-Nếu lúc nào đó được yêu cầu phải đăng nhập với tài khoản gốc (root), bạn có thể đăng nhập tạm thời bằng cách dùng lệnh su. Ngoài ra, bạn có thể dụng sudo lệnh để chạy 1 lệnh dưới quyền root
+Nếu lúc nào đó được yêu cầu phải đăng nhập với tài khoản gốc (root), bạn có thể đăng nhập tạm thời bằng cách dùng lệnh su. Ngoài ra, bạn có thể dùng lệnh sudo để chạy 1 lệnh dưới quyền root
 
 Bình thường user không được tạo thư mục tùm lum, vị trí nhất định thôi, giờ muốn tạo thư mục `/lvduit` ở trong nhà của thằng `/root`, `mkdir` thì nó la làng. Vậy nên thêm `sudo` vào là sẽ giải quyết được thôi
 
-```
+```bash
 $ sudo mkdir /root/lvduit
 ```

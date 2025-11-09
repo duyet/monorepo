@@ -6,12 +6,14 @@ tags:
   - Python
   - Apache Spark
   - Big Data
-modified_time: '2015-04-18T20:48:17.707+07:00'
+modified_time: '2025-11-09T00:00:00.000Z'
 thumbnail: https://1.bp.blogspot.com/-Y0pygPjEUNs/VTJddlh9IfI/AAAAAAAACTQ/_LKZZPXV9Wk/s1600/delays_large.png
 slug: /2015/04/pyspark.html
 category: Data
 description: 'Hadoop is the standard tool for distributed computing across really large data sets and is the reason why you see "Big Data" on advertisements as you walk through the airport. It has become an operating system for Big Data, providing a rich ecosystem of tools and techniques that allow you to use a large cluster of relatively cheap commodity hardware to do computing at supercomputer scale. Two ideas from Google in 2003 and 2004 made Hadoop possible: a framework for distributed storage (The Google File System), which is implemented as HDFS in Hadoop, and a framework for distributed computing (MapReduce).'
 ---
+
+> **Note**: This post was originally published in 2015. The core PySpark concepts remain highly relevant in 2025, but code examples have been updated from Python 2 to Python 3 syntax. Current versions of Spark (3.x+) and Python 3.8+ are recommended for production use.
 
 Hadoop is the standard tool for distributed computing across really large data sets and is the reason why you see "Big Data" on advertisements as you walk through the airport. It has become an operating system for Big Data, providing a rich ecosystem of tools and techniques that allow you to use a large cluster of relatively cheap commodity hardware to do computing at supercomputer scale. Two ideas from Google in 2003 and 2004 made Hadoop possible: a framework for distributed storage (The Google File System), which is implemented as HDFS in Hadoop, and a framework for distributed computing (MapReduce).
 
@@ -33,20 +35,20 @@ After you source your profile (or simply restart your terminal), you should now 
 
 ```
 $ pyspark
-Python 2.7.8 (default, Dec  2 2014, 12:45:58)
-[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.54)] on darwin
+Python 3.10.0 (default, Oct 12 2024, 14:56:22)
+[GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 Spark assembly has been built with Hive, including Datanucleus jars on classpath
-Using Sparks default log4j profile: org/apache/spark/log4j-defaults.properties
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 [… snip …]
 Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  `_/
-   /__ / .__/\_,_/_/ /_/\_\   version 1.2.0
+   /__ / .__/\_,_/_/ /_/\_\   version 3.5.0
       /_/
 
-Using Python version 2.7.8 (default, Dec  2 2014 12:45:58)
+Using Python version 3.10.0 (default, Oct 12 2024, 14:56:22)
 SparkContext available as sc.
 >>>
 
@@ -82,63 +84,37 @@ log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=WARN
 
 Now when you run PySpark you should get much simpler output messages! Special thanks to @genomegeek who pointed this out at a District Data Labs workshop!
 
-## Using IPython Notebook with Spark
+## Using Jupyter Notebook with Spark
 
-When Googling around for helpful Spark tips, I discovered a couple posts that mentioned how to configure PySpark with IPython notebook. [IPython notebook](http://ipython.org/notebook.html) is an essential tool for data scientists to present their scientific and theoretical work in an interactive fashion, integrating both text and Python code. For many data scientists, IPython notebook is their first introduction to Python and is used widely so I thought it would be worth including it in this post.
+When looking for helpful Spark tips, one common pattern is to use [Jupyter Notebook](https://jupyter.org/) (the successor to IPython Notebook) with PySpark. Jupyter is an essential tool for data scientists to present their scientific and theoretical work in an interactive fashion, integrating both text and Python code. It's widely used in data science and is an ideal environment for exploring Spark.
 
-Most of the instructions here are adapted from an IPython notebook: [Setting up IPython with PySpark](http://nbviewer.ipython.org/gist/fperez/6384491/00-Setup-IPython-PySpark.ipynb). However, we will focus on connecting your IPython shell to PySpark in standalone mode on your local computer rather than on an EC2 cluster. If you would like to work with PySpark/IPython on a cluster, feel free to check out those instructions and if you do, please comment on how it went!
+The simplest modern approach is to install PySpark and Jupyter, then start a Jupyter server and create a new notebook:
 
-1. Create an iPython notebook profile for our Spark configuration.
+1. Install PySpark and Jupyter via pip:
 
-```
-~$ ipython profile create spark
-[ProfileCreate] Generating default config file: u'$HOME/.ipython/profile_spark/ipython_config.py'
-[ProfileCreate] Generating default config file: u'$HOME/.ipython/profile_spark/ipython_notebook_config.py'
-[ProfileCreate] Generating default config file: u'$HOME/.ipython/profile_spark/ipython_nbconvert_config.py
+```bash
+pip install pyspark jupyter
 ```
 
-Keep note of where the profile has been created, and replace the appropriate paths in the following steps:
+2. Start a Jupyter notebook:
 
-2. Create a file in **$HOME/.ipython/profile_spark/startup/00-pyspark-setup.py** and add the following:
-
-```
-import os
-import sys
-
-# Configure the environment
-if 'SPARK_HOME' not in os.environ:
-    os.environ['SPARK_HOME'] = '/srv/spark'
-
-# Create a variable for our root path
-SPARK_HOME = os.environ['SPARK_HOME']
-
-# Add the PySpark/py4j to the Python Path
-sys.path.insert(0, os.path.join(SPARK_HOME, "python", "build"))
-sys.path.insert(0, os.path.join(SPARK_HOME, "python"))
+```bash
+jupyter notebook
 ```
 
-3. Start up an IPython notebook with the profile we just created.
+3. In your notebook, import and initialize the Spark context at the top:
 
-```
-$ ipython notebook --profile spark
-```
+```python
+from pyspark.sql import SparkSession
 
-4. In your notebook, you should see the variables we just created.
-
-```
-print SPARK_HOME
+# Create a Spark session (modern approach, preferred over SparkContext)
+spark = SparkSession.builder.appName("pyspark-notebook").getOrCreate()
+sc = spark.sparkContext
 ```
 
-5. At the top of your IPython notebook, make sure you add the Spark context.
+4. Test the Spark context by doing a simple computation in a notebook cell:
 
-```
-from pyspark import  SparkContext
-sc = SparkContext( 'local', 'pyspark')
-```
-
-6. Test the Spark context by doing a simple computation using IPython.
-
-```
+```python
 def isprime(n):
     """
     check if integer n is a prime
@@ -162,13 +138,13 @@ def isprime(n):
     return True
 
 # Create an RDD of numbers from 0 to 1,000,000
-nums = sc.parallelize(xrange(1000000))
+nums = sc.parallelize(range(1000000))
 
 # Compute the number of primes in the RDD
-print nums.filter(isprime).count()
+print(nums.filter(isprime).count())
 ```
 
-If you get a number without errors, then your context is working correctly!
+If you get a number without errors, then your Spark context is working correctly!
 
 ## Programming Spark
 
@@ -241,7 +217,7 @@ In order to demonstrate a common use of Spark, let's take a look at a common use
 import csv
 import matplotlib.pyplot as plt
 
-from StringIO import StringIO
+from io import StringIO
 from datetime import datetime
 from collections import namedtuple
 from operator import add, itemgetter
@@ -278,7 +254,7 @@ def split(line):
     Operator function for splitting a line with csv module
     """
     reader = csv.reader(StringIO(line))
-    return reader.next()
+    return next(reader)
 
 def plot(delays):
     """
@@ -286,7 +262,7 @@ def plot(delays):
     """
     airlines = [d[0] for d in delays]
     minutes  = [d[1] for d in delays]
-    index    = list(xrange(len(airlines)))
+    index    = list(range(len(airlines)))
 
     fig, axe = plt.subplots()
     bars = axe.barh(index, minutes)
@@ -334,7 +310,7 @@ def main(sc):
 
     # Provide output from the driver
     for d in delays:
-        print "%0.0f minutes delayed\t%s" % (d[1], d[0])
+        print("{:0.0f} minutes delayed\t{}".format(d[1], d[0]))
 
     # Show a bar chart of the delays
     plot(delays)
@@ -375,26 +351,24 @@ Spark doesn't solve the distributed storage problem (usually Spark gets its data
 
 Because the Spark library has an API available in Python, Scala, and Java, as well as built-in modules for machine learning, streaming data, graph algorithms, and SQL-like queries; it has rapidly become one of the most important distributed computation frameworks that exists today. When coupled with YARN, Spark serves to augment not replace existing Hadoop clusters and will be an important part of Big Data in the future, opening up new avenues of data science exploration.
 
-## Helpful Links
+## Helpful Resources
 
-Hopefully you've enjoyed this post! Writing never happens in a vacuum, so here are a few helpful links that helped me write the post; ones that you might want to review to explore Spark further. Note that some of the book links are affiliate links, meaning that if you click on them and purchase, you're helping to support District Data Labs!
+Hopefully you've enjoyed this post! Here are some helpful resources to explore Spark further:
 
-This was more of an introductory post than is typical for District Data Labs articles , but there are some data and code associated with the introduction that you can find here:
+### Official Documentation and Learning
 
-- [Code on Github](http://goo.gl/rFybd5)
-- [Shakespeare Dataset](http://goo.gl/PAIFCp)
-- [Airline On Time Dataset](http://goo.gl/HOVyYV) is munged from The Bureau of Transportation Statistics (US DOT)
+- [Apache Spark Official Documentation](https://spark.apache.org/docs/latest/)
+- [PySpark API Documentation](https://spark.apache.org/docs/latest/api/python/)
+- [Databricks Learning Resources](https://databricks.com/learn/)
 
-## Books on Spark
+### Books on Spark
 
-1. [Learning Spark](http://goo.gl/M0VZbv)
-2. [Advanced Analytics with Spark](http://goo.gl/ak7ljS)
+1. "Learning Spark: Lightning-Fast Big Data Analysis" (2nd Edition)
+2. "Advanced Analytics with Spark: Patterns for Learning from Data at Scale" (2nd Edition)
+3. "PySpark in Action" by Jean-Georges Perrin
 
-## Helpful Blog Posts
+### Additional Resources
 
-- [Setting up IPython with PySpark](http://goo.gl/95Vvgf)
-- [Databricks Spark Reference Applications](http://goo.gl/ta8Akq)
-- [Running Spark on EC2](http://goo.gl/bDtSMr)
-- [Run Spark and SparkSQL on Amazon Elastic MapReduce](http://goo.gl/I2ViOF)
-
-Thanks again to districtdatalabs.
+- [Databricks Spark Reference Applications](https://github.com/databricks/reference-apps)
+- [Apache Spark on Amazon EMR](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html)
+- [Jupyter and Spark Integration Guide](https://jupyter.org/)

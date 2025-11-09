@@ -14,17 +14,17 @@ description: memory-cache là một package đơn giản trong Nodejs, giúp ch�
 
 memory-cache là một package đơn giản trong Nodejs, giúp chúng ta cache 1 biến hay một giá trị bất kì vào bộ nhớ để dễ dàng quản lý, ngoài ra còn có thể thiết lập thời gian để tự hủy cache khi cần thiết.
 
-![](https://1.bp.blogspot.com/-AyUtco9W0rE/VkYN8h_yUBI/AAAAAAAAFqI/IY2bT1tt5VU/s1600/nodejs-logo.png)![](https://1.bp.blogspot.com/-NpW8Cw34Ay0/VkYPmTU76DI/AAAAAAAAFqY/UroPqdRt4mg/s400/hdd_hard_drive_disk_technology_storage_save_hardware_information_data_sata_device_memory_tool_backup_computer_electronics_equipment_flat_design_icon-512.png)
+<!-- Note: Original images from blogspot are no longer accessible (HTTP 403). Consider migrating to local /media storage. -->
 
 ## Installation
 
-```
+```bash
 npm install --save memory-cache
 ```
 
 ## Usage
 
-```
+```javascript
 var cache = require('memory-cache');
 
 // now just use the cache

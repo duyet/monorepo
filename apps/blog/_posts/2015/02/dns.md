@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Networking
   - Web
-modified_time: '2015-02-23T13:41:18.274+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 slug: /2015/02/dns.html
 category: News
 description: DNS là từ viết tắt trong tiếng Anh của Domain Name System, là Hệ thống phân giải tên miền được phát minh vào năm 1984 cho Internet. Bạn có thể hiểu DNS như một cái "Danh bạ điện thoại" để tìm trên Internet bằng cách dịch tên máy chủ máy tính thành địa chỉ IP
@@ -26,7 +26,7 @@ Người sử dụng chỉ cần nhớ "tên", không cần phải nhớ địa 
 ## Nguyên tắc làm việc của DNS
 
 - Mỗi nhà cung cấp dịch vụ vận hành và duy trì DNS server riêng của mình, gồm các máy bên trong phần riêng của mỗi nhà cung cấp dịch vụ đó trong Internet. Tức là, nếu một trình duyệt tìm kiếm địa chỉ của một website thì DNS server phân giải tên website này phải là DNS server của chính tổ chức quản lý website đó chứ không phải là của một tổ chức (nhà cung cấp dịch vụ) nào khác.
-- INTERNIC ( Internet Network Information Center ) chịu trách nhiệm theo dõi các tên miền và các DNS server tương ứng. INTERNIC là một tổ chức được thành lập bởi NFS ( National Science Foundation ), AT&T và Network Solution, chịu trách nhiệm đăng ký các tên miền của Internet. INTERNIC chỉ có nhiệm vụ quản lý tất cả các DNS server trên Internet chứ không có nhiệm vụ phân giải tên cho từng địa chỉ.
+- ICANN (Internet Corporation for Assigned Names and Numbers) hiện nay chịu trách nhiệm quản lý các tên miền và các DNS server trên toàn thế giới (trước đây là INTERNIC). Các tổ chức đăng ký tên miền (registrars) và nhà cung cấp dịch vụ DNS hoạt động dưới sự giám sát của ICANN. Các tổ chức này chỉ quản lý các DNS server và đăng ký tên miền, chứ không có nhiệm vụ phân giải tên cho từng địa chỉ cụ thể.
 - DNS có khả năng tra vấn các DNS server khác để có được một cái tên đã được phân giải. DNS server của mỗi tên miền thường có hai việc khác biệt. Thứ nhất, chịu trách nhiệm phân giải tên từ các máy bên trong miền về các địa chỉ Internet, cả bên trong lẫn bên ngoài miền nó quản lý. Thứ hai, chúng trả lời các DNS server bên ngoài đang cố gắng phân giải những cái tên bên trong miền nó quản lý.
 - DNS server có khả năng ghi nhớ lại những tên vừa phân giải. Để dùng cho những yêu cầu phân giải lần sau. Số lượng những tên phân giải được lưu lại tùy thuộc vào quy mô của từng DNS.
 

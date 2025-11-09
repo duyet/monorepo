@@ -1,5 +1,5 @@
 ---
-title: Bigdata -  Columnar Database và Graph Database
+title: Bigdata - Columnar Database và Graph Database
 date: '2016-02-03'
 author: Duyet
 tags:
@@ -13,10 +13,13 @@ category: Data
 description: Như đã nói về big data, chúng ta có các loại dữ liệu khác nhau và chúng ta cần lưu trữ trong database. Bigdata có thể xử lý và lưu trữ trên nhiều loại CSDL khác nhau. Sau đây tôi sẽ nói 1 ít về columnar Database và Graph Database.
 ---
 
+> **Note:** This post was published in 2016. While the database concepts remain timeless and relevant in 2025, for current implementations see modern solutions like DuckDB, Apache Arrow (columnar), and Neo4j (graph databases).
+
 Như đã nói về big data, chúng ta có các loại dữ liệu khác nhau và chúng ta cần lưu trữ trong database. Bigdata có thể xử lý và lưu trữ trên nhiều loại CSDL khác nhau. Sau đây tôi sẽ nói 1 ít về columnar Database và Graph Database.
 
-[![](https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s640/example-graph.jpg)](https://blog.duyet.net/2016/02/columnar-database-va-graph-database.html#.VrHJjOx97Qo)
-Ảnh: W3.Org
+![Example Graph Database](https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s640/example-graph.jpg)
+
+**Source:** W3.org Graph Database Concepts
 
 ## Columnar Databases
 

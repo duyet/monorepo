@@ -8,7 +8,7 @@ tags:
   - NPM
   - Package.json
 modified_time: '2015-02-22T13:56:30.535+07:00'
-slug: /2015/02/packagejson.html
+slug: /2015/02/packagejson
 description: 'Khi bạn bắt đầu làm quen với việc xây dựng 1 trang web với Nodejs, 1 thứ mà bạn vẫn thường luôn thấy trong các source ở github đó là: `package.json`. Vậy nó là gì, tại sao chúng ta luôn cần phải có nó khi xây dựng 1 ứng dụng bằng Nodejs'
 ---
 
@@ -24,12 +24,12 @@ File `package.json` được đặt ở thư mục gốc của project.
 
 Cho xem mắt xíu nè, đây là nội dung thường thấy của 1 file `package.json`
 
-```js
+```json
 {
   "name" : "Vote-sc-UIT",
   "description" : "Realtime Vote System base anonymous.",
   "homepage" : "http://project.lvduit.com/nodejs/vote-sc-uit/",
-  "keywords" : ["vote", "realtime", "" "functional", "server", "client", "browser"],
+  "keywords" : ["vote", "realtime", "functional", "server", "client", "browser"],
   "author" : "Van-Duyet Le <lvduit08@gmail.com>",
   "contributors" : [],
   "dependencies" : {
@@ -68,7 +68,7 @@ Theo nguyên văn, trong đó:
 
 Ví dụ:
 
-```js
+```json
 {
   "name" : "Vote-sc-UIT",
   "version" : "1.1.3"
@@ -93,7 +93,7 @@ Ví dụ: ta có package `sails` hoặc `express` là framework, `jade` là gói
 
 Ví dụ nhé:
 
-```js
+```json
 "dependencies" : {
         "async": "*",
         "body-parser": "~1.5.2",
@@ -120,9 +120,9 @@ $ npm install
 
 - `"*"` Nếu như này thì npm sẽ install cho bạn phiên bản mới nhất của package.
 - `"~1.5.2"` dấu ~ cho quy định cho npm sẽ tìm tất cả các phiên bản có dạng 1.5.x (từ >=1.5.0 đến <1.6.0 )
-- `"^1.0.5"` version từ 1.0.5 đến <1.1.0
+- `"^1.0.5"` version từ 1.0.5 đến <2.0.0 (cho phép thay đổi MINOR và PATCH)
 - `">0.10.0"` version phải lớn hơn 0.10.0
 
 ## Kết
 
-Còn khá nhiều các thuộc tính và quy định trong `package.json`, bạn có thể tìm hiểu kĩ hơn tại đây nhé [https://docs.npmjs.com/files/package.json](https://docs.npmjs.com/files/package.json)
+Còn khá nhiều các thuộc tính và quy định trong `package.json`, bạn có thể tìm hiểu kĩ hơn tại đây nhé [https://docs.npmjs.com/cli/v10/configuring-npm/package-json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)

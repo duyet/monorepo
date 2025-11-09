@@ -5,12 +5,17 @@ author: Duyet
 tags:
   - Data Engineering
   - Read
+  - Archived
 
-modified_time: '2015-05-17T11:08:03.008+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://1.bp.blogspot.com/-zKPSuJl81ss/VVgTJnRpLnI/AAAAAAAACfQ/NW8xNo8FrxA/s1600/image_a3c65c2974270fd093ee8a9bf8ae7d0b.jpg
 slug: /2015/05/tim-hieu-ve-he-thong-quang-cao-online.html
 category: News
 description: Chắc hẳn trong đa số chúng ta đều rất ghét các loại quảng cáo trên Web, Internet. Có lẽ nguyên nhân lớn nhất là chúng cản trở chúng ta đến với dịch vụ (che tầm nhìn của trang web hay tivi), và chúng hiển thị những thông tin mà chúng ta coi là dư thừa, không cần thiết. Tuy nhiên có phải vì thế mà quảng cáo chỉ toàn điều xấu và không đáng tồn tại?
+---
+
+> **Lưu ý**: Bài viết này được viết vào năm 2015. Mặc dù các khái niệm cơ bản vẫn còn giá trị, hệ thống quảng cáo trực tuyến đã thay đổi đáng kể với những tiến bộ trong quyền riêng tư (GDPR, cookie restrictions) và các nền tảng mới. Nội dung này được coi là tài liệu lịch sử.
+
 ---
 
 Chắc hẳn trong đa số chúng ta đều rất ghét các loại quảng cáo trên Web, Internet. Có lẽ nguyên nhân lớn nhất là chúng cản trở chúng ta đến với dịch vụ (che tầm nhìn của trang web hay tivi), và chúng hiển thị những thông tin mà chúng ta coi là dư thừa, không cần thiết. Tuy nhiên có phải vì thế mà quảng cáo chỉ toàn điều xấu và không đáng tồn tại?
@@ -20,8 +25,6 @@ Chắc hẳn trong đa số chúng ta đều rất ghét các loại quảng cá
 Quảng cáo là hình thức tuyên truyền được trả tiền để thực hiện việc giới thiệu thông tin về sản phẩm, dịch vụ, công ty hay ý tưởng, quảng cáo là hoạt động truyền thông phi trực tiếp giữa người với người mà trong đó người muốn truyền thông phải trả tiền cho các phương tiện truyền thông đại chúng để đưa thông tin đến thuyết phục hay tác động đến người nhận thông tin.
 
 Quảng cáo là những nỗ lực nhằm tác động tới hành vi, thói quen mua hàng của người tiêu dùng hay khách hàng bằng cách cung cấp những thông điệp bán hàng theo cách thuyết phục về sản phẩm hay dịch vụ của người bán.
-
-![](https://1.bp.blogspot.com/-zKPSuJl81ss/VVgTJnRpLnI/AAAAAAAACfQ/NW8xNo8FrxA/s1600/image_a3c65c2974270fd093ee8a9bf8ae7d0b.jpg)
 
 ## Các lợi ích của quảng cáo
 
@@ -85,7 +88,7 @@ Ngoài các hình thức trên thì hiện nay còn rất nhiều hình thức q
 
 ![](https://2.bp.blogspot.com/-NO7PouvQDtg/VVgTuviz6-I/AAAAAAAACfg/upDEQN-_efU/s1600/Facebook-Ads-Cover.jpg)
 
-Tham khảo thêm: http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg
+Tham khảo thêm: [Kipalog](http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg) (Lưu ý: liên kết này từ năm 2015, có thể không còn hoạt động)
 
 ## Các thuật ngữ chung
 
@@ -114,4 +117,10 @@ Tham khảo thêm: http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg
 
 Ở bài viết này mình đã giới thiệu một cách cơ bản nhất về quảng cáo, các loại hình quảng cáo, các thuật ngữ media của hệ thống quảng cáo.
 
-Sắp tới tôi sẽ nói rõ hơn về khía cạnh kĩ thuật của hình thức quảng cáo hiển thị (display advertisement), cũng như các cách để 'tracking' người dùng.
+**Cập nhật 2025**: Kể từ khi bài viết này được viết vào năm 2015, ngành quảng cáo kỹ thuật số đã trải qua những thay đổi lớn:
+- **Quy định về quyền riêng tư**: GDPR (2018) và các quy định khác đã giới hạn cách tracking người dùng
+- **Kết thúc Third-party cookies**: Google Chrome và các trình duyệt khác đang loại bỏ cookies của bên thứ ba, ảnh hưởng đến retargeting
+- **Nền tảng mới**: Video quảng cáo lập trình, quảng cáo TikTok, và các kênh mạng xã hội đã phát triển đáng kể
+- **AI và máy học**: Các hệ thống RTB hiện đại sử dụng AI nâng cao hơn nhiều so với năm 2015
+
+Mặc dù những khái niệm cơ bản vẫn còn áp dụng, bộ dụng cụ và công nghệ đã phát triển đáng kể.

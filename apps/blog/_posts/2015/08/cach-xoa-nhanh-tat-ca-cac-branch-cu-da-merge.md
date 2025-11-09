@@ -18,8 +18,20 @@ Vậy branch cũ không còn phải code nữa, chúng ta chỉ cần tìm đế
 
 Mình giới thiệu 1 thủ thuật để xóa các branch cũ đã merge vào branch hiện tại, như sau:
 
-```
+```bash
 $ git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
 ```
 
 Các branch đang dev vẫn còn được giữ lại.
+
+Để xem trước những branch sẽ bị xóa mà không thực hiện xóa ngay:
+
+```bash
+$ git branch --merged | grep -v "\*"
+```
+
+Nếu muốn xóa luôn cả remote merged branches:
+
+```bash
+$ git push origin --delete $(git branch -r --merged origin/master | grep -v master | sed 's/origin\///')
+```

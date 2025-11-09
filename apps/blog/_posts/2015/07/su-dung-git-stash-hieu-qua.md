@@ -23,8 +23,9 @@ Git là công cụ cực kì hiệu quả để quản lý source code và cũng
 
 Muốn lưu toàn bộ nội dung công việc đang làm dở, bạn có thể sử dụng `git stash` như sau
 
-```
-# or just "git stash"
+```bash
+$ git stash
+# or just "git stash save" in older versions
 ```
 
 Khi này branch đã trở nên "sạch sẽ" và `git status` sẽ cho thấy bạn có thể chuyển sang branch tuỳ thích. Bạn có thể `git stash` **bao nhiêu lần tuỳ thích** và mỗi lần đó git sẽ lưu toàn bộ lần thay đổi đó như 1 phần tử trong 1 stack.
@@ -43,44 +44,39 @@ stash@{2}: WIP on <branch-name>: <lastest commit>
 
 Nếu muốn xem cả nội dung của từng thay đổi thì thêm option `-p`
 
-```
+```bash
 $ git stash list -p
-
 ```
 
 hoặc xem nội dung cụ thể hơn nữa của lần thay đổi thứ 1:
 
-```
+```bash
 $ git stash show stash@{1}
-
 ```
 
 Khi muốn apply lại thay đổi từ stash lần 1 bạn có thể
 
-```
+```bash
 $ git stash apply stash@{1}
-
 ```
 
 ## Xoá các thay đổi không cần thiết
 
 Đôi khi bạn muốn lấy lại thay đổi và xoá nội dung thay đổi lưu trong stack đi, khi đó bạn có thể
 
-```
+```bash
 $ git stash apply stash@{1}
 $ git stash drop stash@{1}
-
 ```
 
 hoặc đơn giản hơn là
 
-```
+```bash
 $ git stash pop stash@{1}
-
 ```
 
 Thậm chí nếu muốn xoá _toàn bộ stack_ thì có thể dùng `clear`
 
-```
+```bash
 $ git stash clear
 ```

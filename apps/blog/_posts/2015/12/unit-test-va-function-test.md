@@ -1,5 +1,5 @@
 ---
-title: Unit test và Function test
+title: Unit test và Integration test
 date: '2015-12-21'
 author: Duyet
 tags:
@@ -38,7 +38,7 @@ Cũng như các mức kiểm tra khác, Unit Test cũng đòi hỏi phải chu�
 
 Integration Test – Kiểm tra tích hợp
 
-Integration test kết hợp các thành phần của một ứng dụng và kiểm tra như một ứng dụng đã hoàn thành. Trong khi Unit Test kiểm tra các thành phần và Unit riêng lẻ thì Intgration Test kết hợp chúng lại với nhau và kiểm tra sự giao tiếp giữa chúng.
+Integration test kết hợp các thành phần của một ứng dụng và kiểm tra như một ứng dụng đã hoàn thành. Trong khi Unit Test kiểm tra các thành phần và Unit riêng lẻ thì Integration Test kết hợp chúng lại với nhau và kiểm tra sự giao tiếp giữa chúng.
 
 Integration Test có 2 mục tiêu chính:
 

@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Javascript
   - Javascript Framework
-modified_time: '2016-01-11T02:05:25.683+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://3.bp.blogspot.com/-nogpFtDX4JE/VjNskDinauI/AAAAAAAAFfk/ciSSYDvmaKs/s1600/5ab0a950-5fb4-11e5-9602-e73c0b661883.jpg
 slug: /2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html
 category: Javascript
@@ -26,13 +26,15 @@ Sử dụng npm
 npm install clipboard --save
 ```
 
-Sử dụng bower
+Sử dụng bower (DEPRECATED - không còn được khuyên dùng)
 
 ```bash
 bower install clipboard --save
 ```
 
-Hoặc bạn có thể download trực tiếp thư viện bằng [file ZIP tại đây](https://github.com/zenorocha/clipboard.js/archive/master.zip) và sử dụng.
+**Lưu ý**: Bower đã bị ngừng phát triển. Nên sử dụng npm hoặc yarn thay thế.
+
+Hoặc bạn có thể download trực tiếp thư viện bằng [file ZIP tại đây](https://github.com/zenorocha/clipboard.js/archive/refs/heads/main.zip) và sử dụng.
 
 ## Cách sử dụng
 
@@ -81,3 +83,12 @@ Thêm thư viện vào trang web bằng thẻ script
 ```
 
 Bạn có thể xem thêm các ví dụ và api từ trang chủ của project tại đây: [https://github.com/zenorocha/clipboard.js](https://github.com/zenorocha/clipboard.js)
+
+## 2025 Update
+
+Mặc dù bài viết này được viết vào năm 2015, Clipboard.js vẫn còn rất hữu ích trong năm 2025. Tuy nhiên, hãy lưu ý rằng:
+
+- **Modern Clipboard API**: Hầu hết các trình duyệt hiện đại hỗ trợ native `navigator.clipboard` API, có thể giải quyết các trường hợp đơn giản mà không cần thư viện
+- **Clipboard.js vẫn hữu ích**: Vẫn được dùng trong các dự án sản xuất vì nó cung cấp xử lý lỗi tốt, hỗ trợ trình duyệt cũ, và API đơn giản hơn
+- **Kích thước**: Hiện tại Clipboard.js có kích thước ~3kb (gzipped), vẫn rất nhẹ
+- **Bảo trì**: Thư viện vẫn được duy trì tích cực
