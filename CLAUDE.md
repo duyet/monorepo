@@ -50,12 +50,12 @@ This is a **Yarn Workspaces monorepo** managed by **Turborepo** containing:
    - Uses Tremor for data visualization and GraphQL for GitHub data
 
 5. **photos** (`apps/photos/`) - Photo gallery with Unsplash integration
-   - Live at https://photos.duyet.net (official) / https://duyet-photos.pages.dev (Cloudflare)
+   - Live at https://photos.duyet.net (official) / https://duyet-photos.vercel.app (Vercel) / https://duyet-photos.pages.dev (Cloudflare)
    - Features masonry layout and Framer Motion animations
    - Tests temporarily disabled due to Jest environment issues
 
 6. **homelab** (`apps/homelab/`) - Homelab documentation and resources
-   - Live at https://duyet-homelab.pages.dev (Cloudflare)
+   - Live at https://homelab.duyet.net (official) / https://duyet-homelab.pages.dev (Cloudflare)
    - Documentation for personal infrastructure and homelab setup
 
 ### Shared Packages (`/packages/`)

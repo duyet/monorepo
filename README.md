@@ -6,8 +6,8 @@ This monorepo contains the Nextjs version of the blog, cv, photo, etc.
 - **Blog**: https://blog.duyet.net (official) | https://duyet.vercel.app (Vercel) | https://duyet-blog.pages.dev (Cloudflare)
 - **CV**: https://cv.duyet.net (official) | https://duyet-cv.vercel.app (Vercel) | https://duyet-cv.pages.dev (Cloudflare)
 - **Insights**: https://insights.duyet.net (official) | https://duyet-insights.vercel.app (Vercel) | https://duyet-insights.pages.dev (Cloudflare)
-- **Photos**: https://photos.duyet.net (official) | https://duyet-photos.pages.dev (Cloudflare)
-- **Homelab**: https://duyet-homelab.pages.dev (Cloudflare)
+- **Photos**: https://photos.duyet.net (official) | https://duyet-photos.vercel.app (Vercel) | https://duyet-photos.pages.dev (Cloudflare)
+- **Homelab**: https://homelab.duyet.net (official) | https://duyet-homelab.pages.dev (Cloudflare)
 
 ## 1. Blog
 

@@ -2,6 +2,9 @@
 
 A beautiful monitoring dashboard for a 3-node minipc cluster, styled with Claude-inspired colors.
 
+- **Live: https://homelab.duyet.net** (official)
+- **Live: https://duyet-homelab.pages.dev** (Cloudflare Pages)
+
 ## Features
 
 - **Cluster Overview**: Real-time stats for all nodes including CPU, memory, and service count

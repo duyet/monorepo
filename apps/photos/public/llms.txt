@@ -3,7 +3,8 @@
 Photography portfolio showcasing creative work through Unsplash integration, featuring a modern masonry layout and smooth animations.
 
 **Live URLs:**
-- https://photos.duyet.net (official, expected)
+- https://photos.duyet.net (official)
+- https://duyet-photos.vercel.app (Vercel)
 - https://duyet-photos.pages.dev (Cloudflare Pages)
 
 ## About This Gallery

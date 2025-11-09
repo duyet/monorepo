@@ -12,7 +12,9 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 - **Insights**: https://insights.duyet.net - Data insights and analytics platform
   - Alternate URLs: https://duyet-insights.vercel.app (Vercel), https://duyet-insights.pages.dev (Cloudflare)
 - **Photos**: https://photos.duyet.net - Photography portfolio from Unsplash
-  - Alternate URLs: https://duyet-photos.pages.dev (Cloudflare)
+  - Alternate URLs: https://duyet-photos.vercel.app (Vercel), https://duyet-photos.pages.dev (Cloudflare)
+- **Homelab**: https://homelab.duyet.net - Homelab documentation and infrastructure
+  - Alternate URLs: https://duyet-homelab.pages.dev (Cloudflare)
 - **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
 - **Rust Tiếng Việt**: https://duyet.net/rust - Vietnamese Rust programming language guide
 - **ClickHouse Monitoring**: https://duyet.net/monitor - Real-time ClickHouse cluster monitoring
