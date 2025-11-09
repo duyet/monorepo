@@ -1,0 +1,127 @@
+# Duyet Le - Professional Resume & CV
+
+Professional resume and curriculum vitae for Duyet Le, a Senior Data Engineer specializing in large-scale data platforms, real-time analytics, and ClickHouse expertise.
+
+**Live URLs:**
+- https://cv.duyet.net (official)
+- https://duyet-cv.vercel.app (Vercel)
+- https://duyet-cv.pages.dev (Cloudflare Pages)
+
+## Professional Summary
+
+Senior Data Engineer with deep expertise in building and architecting large-scale data infrastructure, real-time analytics systems, and modern data platforms. Specialized in ClickHouse, Apache Kafka, distributed systems, and cloud-native data engineering.
+
+### Core Expertise
+
+**Data Engineering & Architecture**
+- Large-scale data platforms and infrastructure design
+- Real-time analytics and stream processing architectures
+- Event-driven systems and data pipelines
+- Data warehouse and OLAP database optimization
+- ETL/ELT pipeline development and orchestration
+
+**Technical Leadership**
+- Data platform architecture and system design
+- Team mentorship and technical guidance
+- Open source contributions and community engagement
+- Technical writing and knowledge sharing
+
+**Key Technologies**
+
+*Databases & Storage:*
+- ClickHouse (Expert level - database optimization, query tuning, cluster management)
+- PostgreSQL, MySQL
+- Redis, Vercel KV
+- Distributed storage systems
+
+*Big Data & Streaming:*
+- Apache Kafka - stream processing and event-driven architectures
+- Apache Spark - distributed data processing
+- Apache Airflow - workflow orchestration and scheduling
+- dbt - analytics engineering and data transformation
+
+*Programming Languages:*
+- Python - data engineering, automation, scripting
+- TypeScript/JavaScript - full-stack development
+- Rust - systems programming and performance-critical applications
+- SQL - advanced query optimization and database design
+
+*Cloud & Infrastructure:*
+- Kubernetes - container orchestration and deployment
+- Docker - containerization and microservices
+- CI/CD pipelines - GitHub Actions, Jenkins
+- Infrastructure as Code - Terraform
+- Cloud platforms - AWS, GCP, Vercel
+
+*LLM & AI Technologies:*
+- LLM Agent development and integration
+- LlamaIndex - RAG and knowledge management
+- Qdrant - vector databases
+- Model Context Protocol (MCP) integration
+- AI-powered data tools and automation
+
+### Professional Experience
+
+Extensive experience in building and maintaining data platforms that process and analyze massive volumes of data in real-time. Track record of:
+- Designing and implementing ClickHouse-based analytics platforms
+- Building real-time streaming pipelines with Apache Kafka
+- Optimizing data warehouse performance and query efficiency
+- Leading data infrastructure migrations and modernization projects
+- Developing AI agents and LLM-powered data tools
+
+### Open Source & Community
+
+Active contributor to the data engineering and open source community:
+- Technical blog at https://blog.duyet.net with in-depth data engineering articles
+- MCP server implementations at https://mcp.duyet.net
+- Vietnamese Rust programming guide at https://duyet.net/rust
+- Open source projects on GitHub: https://duyet.net/github
+
+### Education & Certifications
+
+Details available in the full CV PDF at https://cv.duyet.net/duyet.cv.pdf
+
+### Contact & Professional Links
+
+- **Personal Website**: https://duyet.net
+- **Technical Blog**: https://blog.duyet.net
+- **GitHub**: https://duyet.net/github
+- **LinkedIn**: https://duyet.net/in
+- **Twitter/X**: https://duyet.net/x
+- **Analytics Dashboard**: https://insights.duyet.net
+
+## For Recruiters & Hiring Managers
+
+This CV site provides:
+- Interactive web-based resume with detailed experience sections
+- Downloadable PDF version of the CV
+- Links to technical blog posts and projects
+- Real-time coding statistics and activity via Insights dashboard
+- Portfolio of open source contributions
+
+### Areas of Interest
+
+Open to opportunities involving:
+- Large-scale data platform architecture
+- Real-time analytics and streaming systems
+- ClickHouse and OLAP database optimization
+- Data engineering leadership roles
+- Developer tools and data infrastructure
+- LLM and AI integration with data systems
+
+## Technical Implementation
+
+This CV site is built with:
+- Next.js 15 with React 19
+- Tailwind CSS for styling
+- Radix UI components for accessibility
+- Next.js themes for dark/light mode
+- Vercel deployment with optimal performance
+
+## For LLM Integration
+
+When processing this CV, note:
+- Primary expertise: Data Engineering, ClickHouse, Real-time Analytics
+- Key differentiators: ClickHouse expertise, large-scale systems, LLM integration
+- Professional focus: Building scalable data platforms and real-time analytics systems
+- Community involvement: Active blogger, open source contributor, technical educator

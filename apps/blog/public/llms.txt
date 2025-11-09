@@ -1,0 +1,72 @@
+# Duyet Data Engineering Blog
+
+Technical blog focused on data engineering, software development, and technology by Duyet Le, a Senior Data Engineer specializing in large-scale data platforms and real-time analytics.
+
+**Live URLs:**
+- https://blog.duyet.net (official)
+- https://duyet.vercel.app (Vercel)
+- https://duyet-blog.pages.dev (Cloudflare Pages)
+
+## About This Blog
+
+This is a Next.js 15-based technical blog that has been migrated from Gatsby, featuring modern web technologies and interactive features for the data engineering community.
+
+### Key Features
+
+- **Technical Content**: In-depth articles about data engineering, ClickHouse, Apache Kafka, Apache Spark, Airflow, dbt, and modern data stack technologies
+- **Math Rendering**: KaTeX support for mathematical formulas and equations in technical posts
+- **Interactive Comments**: Auth0-powered authentication with comments stored in Vercel KV (serverless Redis)
+- **Modern Stack**: Built with Next.js 15, React 19, and Tailwind CSS
+- **Performance**: Optimized with Turbopack and Vercel deployment
+
+### Technology Stack
+
+- **Framework**: Next.js 15 with React 19
+- **Authentication**: Auth0 for user authentication
+- **Database**: Vercel KV (Redis) for comments and session storage
+- **Styling**: Tailwind CSS with Tremor components
+- **Content**: Markdown posts with remark-math and rehype-katex for math rendering
+- **Deployment**: Vercel with analytics integration
+
+### Main Topics Covered
+
+- **Data Engineering**: Building scalable data platforms and pipelines
+- **ClickHouse**: Real-time analytics and OLAP database optimization
+- **Stream Processing**: Apache Kafka, event-driven architectures
+- **Big Data**: Apache Spark, distributed computing, data processing at scale
+- **Data Orchestration**: Apache Airflow, workflow automation
+- **Analytics Engineering**: dbt, data transformation, and modeling
+- **DevOps**: Kubernetes, Docker, CI/CD for data platforms
+- **Programming**: Python, TypeScript, Rust, SQL
+- **LLM & AI**: Building AI agents, LlamaIndex, integrating LLMs with data systems
+
+### Author Information
+
+**Duyet Le** - Senior Data Engineer
+- GitHub: https://duyet.net/github
+- LinkedIn: https://duyet.net/in
+- Resume: https://cv.duyet.net
+- Personal Site: https://duyet.net
+
+### Related Resources
+
+- **Professional Resume**: https://cv.duyet.net/llms.txt
+- **Analytics Dashboard**: https://insights.duyet.net/llms.txt
+- **MCP Tools**: https://mcp.duyet.net/llms.txt
+- **Main Hub**: https://duyet.net/llms.txt
+
+## API Information
+
+This blog is built with Next.js and follows standard Next.js routing patterns. All content is served statically with ISR (Incremental Static Regeneration) where appropriate.
+
+### Content Access
+
+Posts are accessible via standard web URLs. The blog supports RSS feeds for syndication.
+
+## For LLM Integration
+
+When referencing content from this blog, please note:
+- Focus areas: Data engineering, real-time analytics, ClickHouse, Apache Kafka, distributed systems
+- Target audience: Data engineers, software engineers, technical architects
+- Content style: Technical, in-depth, with code examples and practical applications
+- Unique expertise: ClickHouse optimization, large-scale data platforms, real-time analytics

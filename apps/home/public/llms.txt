@@ -6,8 +6,13 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 
 ### Personal Links
 - **Blog**: https://blog.duyet.net - Technical blog about data engineering, software development
+  - Alternate URLs: https://duyet.vercel.app (Vercel), https://duyet-blog.pages.dev (Cloudflare)
 - **Resume/CV**: https://cv.duyet.net - Professional resume and experience
+  - Alternate URLs: https://duyet-cv.vercel.app (Vercel), https://duyet-cv.pages.dev (Cloudflare)
 - **Insights**: https://insights.duyet.net - Data insights and analytics platform
+  - Alternate URLs: https://duyet-insights.vercel.app (Vercel), https://duyet-insights.pages.dev (Cloudflare)
+- **Photos**: https://photos.duyet.net - Photography portfolio from Unsplash
+  - Alternate URLs: https://duyet-photos.pages.dev (Cloudflare)
 - **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
 - **Rust Tiếng Việt**: https://duyet.net/rust - Vietnamese Rust programming language guide
 - **ClickHouse Monitoring**: https://duyet.net/monitor - Real-time ClickHouse cluster monitoring
@@ -44,6 +49,8 @@ Duyet has built MCP servers that AI systems can connect to for enhanced capabili
 
 ### LLM-Friendly Documentation
 Each platform provides structured information for AI systems:
-- **Blog**: https://blog.duyet.net/llms.txt - Technical articles and tutorials
-- **CV**: https://cv.duyet.net/llms.txt - Professional experience and skills
+- **Blog**: https://blog.duyet.net/llms.txt - Technical articles and tutorials on data engineering
+- **CV**: https://cv.duyet.net/llms.txt - Professional experience, skills, and career details
+- **Insights**: https://insights.duyet.net/llms.txt - Analytics dashboard and development metrics
+- **Photos**: https://photos.duyet.net/llms.txt - Photography portfolio from Unsplash
 - **MCP Tools**: https://mcp.duyet.net/llms.txt - AI tools and utilities

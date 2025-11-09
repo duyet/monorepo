@@ -3,8 +3,9 @@
 This repository contains the Nextjs version of the blog, which has been migrated from the old Gatsby version.
 The blog is now integrated with Auth0 for authentication and Vercel Storage KV for serverless Redis storage to support comments.
 
-- **Live: https://duyet.vercel.app**
-- **Live: https://blog.duyet.net**
+- **Live: https://blog.duyet.net** (official)
+- **Live: https://duyet.vercel.app** (Vercel)
+- **Live: https://duyet-blog.pages.dev** (Cloudflare Pages)
 
 ![](../../.github/screenshot/screenshot-blog.png)
 

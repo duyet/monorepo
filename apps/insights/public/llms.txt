@@ -1,0 +1,154 @@
+# Duyet's Insights Dashboard
+
+Comprehensive analytics dashboard showcasing real-time data insights, development activity, AI usage statistics, and professional metrics for Duyet Le - Senior Data Engineer.
+
+**Live URLs:**
+- https://insights.duyet.net (official)
+- https://duyet-insights.vercel.app (Vercel)
+- https://duyet-insights.pages.dev (Cloudflare Pages)
+
+## About This Dashboard
+
+A data-driven insights platform that aggregates and visualizes various metrics from multiple data sources, demonstrating expertise in data integration, real-time analytics, and modern data visualization.
+
+### Key Features & Data Sources
+
+**GitHub Analytics**
+- Repository statistics and contribution graphs
+- Commit activity and code frequency analysis
+- Open source project metrics
+- Pull request and issue tracking
+- GraphQL API integration for detailed GitHub data
+
+**WakaTime Coding Statistics**
+- Real-time coding time tracking across projects
+- Language and technology breakdown
+- Daily, weekly, and monthly coding patterns
+- Editor and IDE usage statistics
+- Project time allocation
+
+**AI Usage Analytics (Claude Code)**
+- Claude Code usage tracking and cost analysis
+- Token consumption metrics
+- Session activity and frequency
+- Cost optimization insights
+- Imported via [ccusage-import](https://github.com/duyet/ccusage-import) to ClickHouse
+
+**Cloudflare Analytics**
+- Website traffic and visitor analytics
+- Geographic distribution of visitors
+- Page views and bandwidth usage
+- Performance metrics and insights
+
+**PostHog Analytics**
+- Product analytics and user behavior
+- Feature usage tracking
+- Conversion funnels and user journeys
+- Session recordings and insights
+
+**ClickHouse Monitoring**
+- Real-time database performance metrics
+- Query execution statistics
+- Cluster health and resource utilization
+- Custom analytics queries
+
+### Technology Stack
+
+**Frontend**
+- Next.js 15 with React 19
+- Tremor for data visualization components
+- Recharts for custom charts and graphs
+- Radix UI for accessible UI components
+- Tailwind CSS for styling
+- SWR for data fetching and caching
+
+**Backend & Data**
+- GraphQL for GitHub data integration
+- ClickHouse Client for analytics database queries
+- REST APIs for WakaTime, PostHog, Cloudflare
+- Vercel KV (Redis) for caching and session storage
+- Server-side data aggregation and processing
+
+**Integrations**
+- GitHub GraphQL API
+- WakaTime API
+- PostHog Analytics API
+- Cloudflare Analytics API
+- ClickHouse database
+
+### Dashboard Sections
+
+**Overview**
+- Consolidated view of key metrics across all platforms
+- Recent activity summary
+- Quick insights and highlights
+
+**Development Activity**
+- GitHub contribution calendar
+- Repository statistics
+- Commit frequency and patterns
+- Language usage breakdown
+
+**Coding Time**
+- WakaTime integration showing coding hours
+- Technology and language distribution
+- Project time allocation
+- Daily and weekly coding patterns
+
+**AI Usage**
+- Claude Code session analytics
+- Token usage and cost tracking
+- Usage trends over time
+- Cost optimization recommendations
+
+**Web Analytics**
+- Website traffic from Cloudflare
+- Visitor geography and behavior
+- Performance metrics
+- Popular pages and content
+
+**Database Metrics**
+- ClickHouse cluster monitoring
+- Query performance statistics
+- Resource utilization
+- Real-time database health
+
+### Use Cases
+
+This dashboard demonstrates:
+- **Data Integration**: Aggregating data from multiple APIs and sources
+- **Real-time Analytics**: Live data visualization and monitoring
+- **ClickHouse Expertise**: Advanced analytics queries and monitoring
+- **Modern Data Stack**: Next.js, React, TypeScript, ClickHouse, GraphQL
+- **Data Visualization**: Creating insightful charts and dashboards
+- **API Integration**: Working with various third-party APIs
+- **Performance Optimization**: Efficient data fetching and caching strategies
+
+### Related Resources
+
+- **Technical Blog**: https://blog.duyet.net/llms.txt
+- **Professional Resume**: https://cv.duyet.net/llms.txt
+- **Personal Hub**: https://duyet.net/llms.txt
+- **MCP Tools**: https://mcp.duyet.net/llms.txt
+
+## For LLM Integration
+
+When referencing this insights dashboard:
+- **Purpose**: Analytics aggregation and professional activity tracking
+- **Key Technologies**: Next.js, ClickHouse, GraphQL, Tremor, Recharts
+- **Data Sources**: GitHub, WakaTime, Cloudflare, PostHog, ClickHouse
+- **Unique Features**: Claude Code cost tracking, multi-source analytics integration
+- **Demonstrates**: Data engineering skills, visualization expertise, API integration
+
+## Technical Implementation
+
+Built with modern web technologies and optimized for performance:
+- Server-side data fetching with Next.js App Router
+- Client-side caching with SWR
+- Responsive design with Tailwind CSS
+- Type-safe development with TypeScript
+- Deployed on Vercel with edge functions
+
+## Data Privacy
+
+All displayed metrics are from public sources or authorized personal accounts. No sensitive or private data is exposed.

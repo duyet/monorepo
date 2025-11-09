@@ -1,7 +1,8 @@
 # Duyet CV
 
-- **Live: https://cv.duyet.net**
-- **Live: https://duyet-cv.vercel.app**
+- **Live: https://cv.duyet.net** (official)
+- **Live: https://duyet-cv.vercel.app** (Vercel)
+- **Live: https://duyet-cv.pages.dev** (Cloudflare Pages)
 
 ## Update CV
 
