@@ -10,6 +10,27 @@ import ResumeIcon from './components/icons/ResumeIcon'
 export const dynamic = 'force-static'
 export const revalidate = 3600
 
+/**
+ * Add UTM tracking parameters to URL
+ */
+function addUtmParams(
+  url: string,
+  campaign: string = 'homepage',
+  content?: string
+): string {
+  // Don't add UTM params to internal routes
+  if (url.startsWith('/')) return url
+
+  const urlObj = new URL(url)
+  urlObj.searchParams.set('utm_source', 'home')
+  urlObj.searchParams.set('utm_medium', 'website')
+  urlObj.searchParams.set('utm_campaign', campaign)
+  if (content) {
+    urlObj.searchParams.set('utm_content', content)
+  }
+  return urlObj.toString()
+}
+
 export default function HomePage() {
   const links = [
     {
@@ -17,7 +38,11 @@ export default function HomePage() {
       title: 'Blog',
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
-      url: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
+      url: addUtmParams(
+        process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
+        'homepage',
+        'blog_card'
+      ),
       color: 'bg-[#f5dcd0]',
       iconColor: 'text-neutral-900',
     },
@@ -26,7 +51,11 @@ export default function HomePage() {
       title: 'Resume',
       description:
         'Experience building scalable data infrastructure and leading engineering teams.',
-      url: process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
+      url: addUtmParams(
+        process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
+        'homepage',
+        'resume_card'
+      ),
       color: 'bg-[#f0d9a8]',
       iconColor: 'text-neutral-900',
     },
@@ -35,9 +64,12 @@ export default function HomePage() {
       title: 'Insights',
       description:
         'Analytics dashboard showcasing data from GitHub, WakaTime, and more.',
-      url:
+      url: addUtmParams(
         process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
-        'https://insights.duyet.net',
+          'https://insights.duyet.net',
+        'homepage',
+        'insights_card'
+      ),
       color: 'bg-[#a8d5ba]',
       iconColor: 'text-neutral-900',
     },
@@ -46,9 +78,12 @@ export default function HomePage() {
       title: 'Homelab',
       description:
         'Homelab monitoring dashboard (beta).',
-      url:
+      url: addUtmParams(
         process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
-        'https://homelab.duyet.net',
+          'https://homelab.duyet.net',
+        'homepage',
+        'homelab_card'
+      ),
       color: 'bg-[#c5c5ff]',
       iconColor: 'text-neutral-900',
     },
@@ -57,8 +92,11 @@ export default function HomePage() {
       title: 'Photos',
       description:
         'Photography portfolio and visual stories from travels and daily life.',
-      url:
+      url: addUtmParams(
         process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
+        'homepage',
+        'photos_card'
+      ),
       color: 'bg-white',
       iconColor: 'text-neutral-900',
     },
@@ -67,7 +105,11 @@ export default function HomePage() {
       title: 'Chat',
       description:
         'Ask me anything. AI-powered chatbot for questions about duyet.net and related topics.',
-      url: process.env.NEXT_PUBLIC_DUYET_AI_URL || 'https://ai.duyet.net',
+      url: addUtmParams(
+        process.env.NEXT_PUBLIC_DUYET_AI_URL || 'https://ai.duyet.net',
+        'homepage',
+        'ai_card'
+      ),
       color: 'bg-[#dbeafe]',
       iconColor: 'text-neutral-900',
     },
@@ -261,14 +303,22 @@ export default function HomePage() {
         {/* Social Links */}
         <div className="flex justify-center gap-10 text-sm font-medium text-neutral-600">
           <Link
-            href="https://github.com/duyet"
+            href={addUtmParams(
+              'https://github.com/duyet',
+              'homepage',
+              'footer_github'
+            )}
             target="_blank"
             className="transition-colors duration-200 hover:text-neutral-900"
           >
             GitHub
           </Link>
           <Link
-            href="https://linkedin.com/in/duyet"
+            href={addUtmParams(
+              'https://linkedin.com/in/duyet',
+              'homepage',
+              'footer_linkedin'
+            )}
             target="_blank"
             className="transition-colors duration-200 hover:text-neutral-900"
           >
