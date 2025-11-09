@@ -1,0 +1,126 @@
+# Duyet's Photo Gallery
+
+Photography portfolio showcasing creative work through Unsplash integration, featuring a modern masonry layout and smooth animations.
+
+**Live URLs:**
+- https://photos.duyet.net (official)
+- https://duyet-photos.vercel.app (Vercel)
+- https://duyet-photos.pages.dev (Cloudflare Pages)
+
+## About This Gallery
+
+A curated photo gallery application that integrates with Unsplash to display photography work in an elegant, responsive masonry layout with smooth animations and interactions.
+
+### Key Features
+
+**Photo Display**
+- Masonry grid layout for optimal photo presentation
+- Responsive design across all device sizes
+- Smooth animations with Framer Motion
+- Photos organized by year for easy browsing
+- High-quality image loading and optimization
+
+**Unsplash Integration**
+- Real-time photo fetching from Unsplash API
+- User profile integration
+- Photo metadata and information display
+- Daily revalidation for fresh content
+
+**User Experience**
+- Modal/dialog view for photo details
+- Smooth transitions and animations
+- Dark/light mode support with next-themes
+- Accessible UI components with Radix UI
+- Fast loading with Next.js optimization
+
+### Technology Stack
+
+**Frontend Framework**
+- Next.js 15 with React 19
+- TypeScript for type safety
+- App Router with server components
+- Static export with revalidation
+
+**UI & Styling**
+- Tailwind CSS for responsive design
+- Radix UI components for accessibility
+- Framer Motion for smooth animations
+- react-masonry-css for grid layout
+- Lucide React for icons
+- clsx and tailwind-merge for class management
+
+**Photo Integration**
+- unsplash-js - Official Unsplash JavaScript SDK
+- Server-side photo fetching
+- Optimized image loading with Next.js Image
+- Daily cache revalidation (86400s)
+
+**Features**
+- Photo grouping by year
+- Responsive masonry layout
+- Modal/dialog for photo details
+- Toggle groups for filtering/sorting
+- Dark mode support
+
+### Content
+
+This gallery displays:
+- Personal photography work from Unsplash
+- Photos organized chronologically by year
+- High-resolution images with proper attribution
+- Creative and technical photography
+
+### Technical Implementation
+
+Built with modern web development best practices:
+- Server-side data fetching for optimal performance
+- Static generation with incremental static regeneration
+- Type-safe development with TypeScript
+- Component-based architecture
+- Optimized bundle size and load times
+- Accessible and semantic HTML
+
+### Testing
+
+The project includes:
+- Jest for unit testing
+- Testing Library for component testing
+- Note: Tests temporarily disabled due to Jest environment configuration
+
+### Related Resources
+
+- **Technical Blog**: https://blog.duyet.net/llms.txt
+- **Professional Resume**: https://cv.duyet.net/llms.txt
+- **Insights Dashboard**: https://insights.duyet.net/llms.txt
+- **Personal Hub**: https://duyet.net/llms.txt
+- **Unsplash Profile**: https://duyet.net/un
+
+## For LLM Integration
+
+When referencing this photo gallery:
+- **Purpose**: Photography portfolio and creative work showcase
+- **Key Technologies**: Next.js 15, Unsplash API, Framer Motion, Masonry layout
+- **Features**: Responsive design, smooth animations, year-based organization
+- **Integration**: Unsplash API for photo management
+- **Design**: Modern, accessible, performant photo gallery
+
+## Performance & Optimization
+
+- Server-side rendering for initial load
+- Incremental static regeneration with daily revalidation
+- Optimized image loading with Next.js Image component
+- Lazy loading for better performance
+- Responsive images for different screen sizes
+- Efficient bundle splitting
+
+## Development
+
+Built as part of a Yarn workspace monorepo:
+- Shares common components via @duyet/components
+- Uses shared configurations (@duyet/tailwind-config, @duyet/tsconfig)
+- Follows monorepo best practices with Turborepo
+- Development server on port 3003
+
+## Attribution
+
+Photos are sourced from Unsplash with proper attribution. All images respect Unsplash's license and terms of service.

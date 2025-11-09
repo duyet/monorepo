@@ -33,24 +33,30 @@ This is a **Yarn Workspaces monorepo** managed by **Turborepo** containing:
 ### Apps (`/apps/`)
 
 1. **blog** (`apps/blog/`) - Next.js blog with Auth0 authentication and Vercel KV for comments
-   - Main blog at https://blog.duyet.net / https://duyet.vercel.app
+   - Live at https://blog.duyet.net (official) / https://duyet.vercel.app (Vercel) / https://duyet-blog.pages.dev (Cloudflare)
    - Uses Auth0 for auth, Vercel KV for Redis storage
    - Supports markdown posts with KaTeX math rendering
 
 2. **cv** (`apps/cv/`) - Simple CV hosting application
-   - Live at https://cv.duyet.net / https://duyet-cv.vercel.app
+   - Live at https://cv.duyet.net (official) / https://duyet-cv.vercel.app (Vercel) / https://duyet-cv.pages.dev (Cloudflare)
    - Serves PDF CV from `/public` directory
 
 3. **insights** (`apps/insights/`) - Analytics dashboard
-   - Live at https://insights.duyet.net / https://duyet-insights.vercel.app
+   - Live at https://insights.duyet.net (official) / https://duyet-insights.vercel.app (Vercel) / https://duyet-insights.pages.dev (Cloudflare)
    - Integrates Cloudflare Analytics, GitHub data, PostHog, WakaTime, ClickHouse
 
 4. **home** (`apps/home/`) - Personal homepage with GitHub activity
+   - Live at https://duyet.net (official) / https://duyet-home.pages.dev (Cloudflare)
    - Uses Tremor for data visualization and GraphQL for GitHub data
 
 5. **photos** (`apps/photos/`) - Photo gallery with Unsplash integration
+   - Live at https://photos.duyet.net (official) / https://duyet-photos.vercel.app (Vercel) / https://duyet-photos.pages.dev (Cloudflare)
    - Features masonry layout and Framer Motion animations
    - Tests temporarily disabled due to Jest environment issues
+
+6. **homelab** (`apps/homelab/`) - Homelab documentation and resources
+   - Live at https://homelab.duyet.net (official) / https://duyet-homelab.pages.dev (Cloudflare)
+   - Documentation for personal infrastructure and homelab setup
 
 ### Shared Packages (`/packages/`)
 
@@ -84,7 +90,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - **Authentication**: Auth0 (blog app)
 - **Database**: PostgreSQL + Vercel KV Redis
 - **Analytics**: PostHog, Cloudflare Analytics
-- **Deployment**: Vercel
+- **Deployment**: Vercel, Cloudflare Pages
 
 ## Development Patterns
 
