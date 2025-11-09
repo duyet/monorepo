@@ -49,7 +49,7 @@ bin/spark-submit \
 In the case of S3, it is recommended to use IAM based authentication. The IAM role should have equivalent access to AmazonS3FullAccess. To write event logs to S3, you need to provide configs as below:
 
 ```bash
-in/spark-submit \
+bin/spark-submit \
     --master k8s://https://<k8s-master-url> \
     --deploy-mode cluster \
     --name spark-pi \
@@ -79,6 +79,8 @@ In the case of HDFS, only two flags are required:
 # 2. Installing the Spark History Server Chart
 
 To install the chart with S3 support:
+
+> **Note**: The Helm stable repository has been deprecated. For current installations, consider using alternative Helm charts or the official Spark Operator.
 
 ```bash
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com

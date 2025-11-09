@@ -7,13 +7,11 @@ tags:
   - Tools
 
 thumbnail: https://2.bp.blogspot.com/-UXFKQHmgZr4/XU5GBRoYgMI/AAAAAAABFX4/36g3ohD57bUaGSoqwPctGsTdL4lG85vPwCK4BGAYYCw/s1600/serverless-arch.jpg
-slug: /2019/08/8-serverless-platform.md
+slug: /2019/08/8-serverless-platform.html
 description: Một vài nền tảng serverless tốt nhất hiện nay cho ứng dụng của bạn.
 ---
 
 Serverless architecture không có nghĩa là bạn không cần server. Thay vào đó là bạn cần ít server hơn để quản lý. Ở các ứng dụng truyền thống, bạn sẽ phải quản lý mọi thứ từ logic ứng dụng trong máy ảo, máy vật lý hoặc cloud server. Tuy nhiên, xu thế hiện nay đang dần thay đổi.
-
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1845_RC03/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"serverless","geo":"","time":"today 5-y"}],"category":0,"property":""}, {"exploreQuery":"date=today%205-y&q=serverless","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
 
 Khi sử dụng kiến trúc serverless, bạn sẽ có nhiều lợi ích như:
 
@@ -87,7 +85,7 @@ Azure Functions sẽ lo infrastructure cho ứng dụng của bạn, tự độn
 
 Bạn có thể trigger function từ web application, HTTP API từ ứng dụng mobile, blob storage, streaming, webhooks, ...
 
-![](/media/2019/azure-function.svg)
+![Azure Functions](https://azure.microsoft.com/svghandler/functions/?width=600&height=315)
 
 Giá được tính dựa vào tổng thời gian để thực thi code, không có upfront cost, Azure hỗ trợ 1 triệu lần thực thi code miễn phí.
 

@@ -9,7 +9,7 @@ tags:
 modified_time: '2018-02-25T17:57:41.371+07:00'
 thumbnail: https://1.bp.blogspot.com/-1c0fyuos0NM/WpKQLj0AcCI/AAAAAAAAqn8/1z5hCc1pfmYWZVbSiveudFpVxaUel6sMACLcBGAs/s1600/SVM%2Bwith%2BWord2vec%2B%2528Figure%2529.png
 slug: /2018/02/svm-word2vec.html
-category: Web
+category: Machine Learning
 description: Trong chuỗi bài viết này mình sử sử dụng thuật toán SVM để phân lớp sentiment (cảm xúc) cho văn bản, kết hợp với ứng dụng Word2vec để biểu diễn các text dưới dạng vector.
 ---
 

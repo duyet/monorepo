@@ -16,6 +16,8 @@ description: Guess.js - Thư viện và công cụ cải thiện UX dựa trên 
 
 Guess.js là một tập các thư viện và công cụ giúp sử dụng dữ liệu và thuật toán để cải thiện UX của trang. Thư viện gồm các thuật toán sử dụng nội dung trang và dữ liệu Google Analytics, sử dụng [predictive analytics](https://en.wikipedia.org/wiki/Predictive_analytics) để cải thiện hiệu năng tải trang thông qua `<link rel="[prerender/prefetch/preload]">`, quyết định xem nên tải tài nguyên nào trước. Dự đoán người dùng bấm vào link nào tiếp theo từ trang hiện tại.
 
+> **Note (2025)**: Guess.js project không còn được maintain tích cực. Modern frameworks như Next.js, Remix đã tích hợp sẵn các tính năng tương tự thông qua prefetching và code splitting tự động. Bài viết này giữ lại để tham khảo về ý tưởng ML-driven bundling.
+
 Preloading tài nguyên là một cách hay để cải thiệu hiệu năng trang. Tuy nhiên preloading mọi thứ sẽ khiến lãng phí băng thông, đặt biệt là với mobile, guess.js sẽ giúp bạn điều này.
 
 ![Guess.js](https://4.bp.blogspot.com/-Gjsnx_YH4HM/XU2UV2DlnnI/AAAAAAABFVM/LjDl6ilxQeYPzQgs_acID9VEwy4L62QsACK4BGAYYCw/s400/guess.png)

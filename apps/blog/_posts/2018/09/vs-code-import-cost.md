@@ -3,7 +3,6 @@ title: VS Code - Import Cost
 date: '2018-09-17'
 author: Duyet
 tags:
-  - Node.js
   - VS Code
   - Node.js
 modified_time: '2018-09-17T00:10:15.029+07:00'

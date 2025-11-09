@@ -3,8 +3,8 @@ title: Signale - Hackable console logger for Nodejs
 date: '2018-07-19'
 author: Duyet
 tags:
-  - Node.js
   - Javascript
+  - Node.js
 modified_time: '2018-07-19T21:51:29.517+07:00'
 thumbnail: https://3.bp.blogspot.com/-Gj9IxBJacZ4/W1CjcADwEoI/AAAAAAAAxXg/92YNzTR5CXMv9bvrxMU1h-AkCOlPLPn8QCK4BGAYYCw/s1600/68747470733a2f2f63646e2e7261776769742e636f6d2f6b6c617573636668712f7369676e616c652f32643862636666382f6d656469612f6865616465722e706e67.png
 slug: /2018/07/signale-console-logger.html

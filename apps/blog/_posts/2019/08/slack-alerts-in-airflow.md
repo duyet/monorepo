@@ -13,6 +13,8 @@ description: Slack là một công cụ khá phổ biến trong các Team, slack
 
 Slack là một công cụ khá phổ biến trong các Team, slack giúp tập hợp mọi thông tin về Slack (như Jira alert, ETL pipelines, CI/CD status, deployments, ...) một cách thống nhất và dễ dàng theo dõi. Bài viết này mình hướng dẫn gửi mọi báo lỗi của Airflow đến Slack.
 
+> **Note (2025)**: Bài viết này viết cho Airflow 1.x. Trong Airflow 2.x, import path đã thay đổi: `airflow.contrib.operators.slack_webhook_operator` → `airflow.providers.slack.operators.slack_webhook`. Khái niệm và cách setup vẫn tương tự.
+
 # 1. Slack Incoming Webhooks và Airflow Connection
 
 Truy cập Slack App Directory tìm Incoming Webhooks: `https://<workspace>.slack.com/apps/A0F7XDUAZ-incoming-webhooks`

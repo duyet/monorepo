@@ -41,7 +41,7 @@ def taskflow_api_etl():
     pipeline. In this case, getting data from remote data source url.
     """
     src = urllib.request.urlopen(data_source_url)
-    data = json.loads(url.read().decode())
+    data = json.loads(src.read().decode())
 
     return data
 

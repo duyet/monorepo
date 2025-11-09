@@ -13,6 +13,8 @@ description: Trong bài này mình sẽ hướng dẫn cách thiết lập môi 
 
 Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường develop Apache Airflow dưới local bằng Docker Compose.
 
+> **Note (2025)**: Bài viết này sử dụng Airflow 1.10.4 và Docker image `puckel/docker-airflow` đã không được maintain. Với Airflow 2.x, nên sử dụng [official Docker image](https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html) từ Apache Airflow.
+
 **TL;DR** Source ví dụ của bài viết này: https://github.com/duyet/airflow-docker-compose
 
 ![Airflow in Docker Compose](https://1.bp.blogspot.com/-vBHaHxwvMFw/XWQHodWBFeI/AAAAAAABGCg/Hdlx-I1PSx8_Gip6o7N_2mejUSsT2TCigCLcBGAs/s1600/Screen%2BShot%2B2019-08-26%2Bat%2B11.22.59%2BPM.png)

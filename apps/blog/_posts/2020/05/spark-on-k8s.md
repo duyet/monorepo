@@ -73,6 +73,8 @@ The [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-op
 
 The easiest way to install the [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark is to use the Helm chart.
 
+> **Note**: The Helm incubator repository has been deprecated. Use the official Spark Operator chart instead: `helm repo add spark-operator https://googlecloudplatform.github.io/spark-on-k8s-operator`
+
 ```bash
 $ helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 $ helm install incubator/sparkoperator --namespace spark-operator
