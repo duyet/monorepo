@@ -16,7 +16,7 @@ Nhân dịp tuyển sinh ĐH này, mình có project về thu thập dữ liệu
 Có trường hiện đại thì show dữ liệu trực tiếp lên web, trường thì up đại 1 file excel, oái hơn là bỏ vào file pdf :v
 Nhiệm vụ của mình là thu thập dữ liệu từ nhiều nguồn thô như vậy một cách tự động. Mỗi trường được viết thành 1 module riêng và có cách để crawler riêng. Bài viết này chủ yếu giới thiệu về các dạng để crawler đặc trưng nhất, và cho thấy được sức mạnh của Nodejs.
 
-> **LƯỚI ỰỨC (2025)**: Bài viết này được viết từ năm 2015 và chủ yếu là tài liệu tham khảo lịch sử. Các kỹ thuật cơ bản về web scraping vẫn còn có giá trị, nhưng hệ sinh thái Node.js đã phát triển đáng kể. Hiện nay, bạn nên xem xét sử dụng các công cụ hiện đại hơn như **Puppeteer**, **Playwright**, hoặc **Cheerio** thay vì node-crawler.
+> **LƯU Ý (2025)**: Bài viết này được viết từ năm 2015 và chủ yếu là tài liệu tham khảo lịch sử. Các kỹ thuật cơ bản về web scraping vẫn còn có giá trị, nhưng hệ sinh thái Node.js đã phát triển đáng kể. Hiện nay, bạn nên xem xét sử dụng các công cụ hiện đại hơn như **Puppeteer**, **Playwright**, hoặc **Cheerio** thay vì node-crawler.
 
 ![](https://3.bp.blogspot.com/-Cwxzj6-qXVo/VcXRtQa3L4I/AAAAAAAACss/YD6WVCG84JE/s1600/nodejs-crawler.png)
 
