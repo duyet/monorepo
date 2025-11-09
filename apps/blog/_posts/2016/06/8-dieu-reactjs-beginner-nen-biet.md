@@ -14,6 +14,12 @@ category: Javascript
 description: Mình bắt đầu nghiên cứu và sử dụng React.js một thời gian. Phải nói React và React Native là một trong nghệ của tương lai, sẽ phát triển mạnh.
 ---
 
+> **Note:** This article is from 2016 and reflects React best practices from that era. Many patterns described here are now outdated:
+> - `React.createClass()` is deprecated (use ES6 classes or functional components with hooks)
+> - `propTypes` is now a separate package (`prop-types`)
+> - Modern React favors hooks over class components
+> - Redux is less commonly used now (Context API, Zustand, etc. are popular alternatives)
+
 Mình bắt đầu nghiên cứu và sử dụng [React.js](https://facebook.github.io/react/index.html) một thời gian. Phải nói React và React Native là một trong nghệ của tương lai, sẽ phát triển mạnh.
 
 Có một số điểm và kinh nghiệm khi các bạn mới học React hoặc Redux nên biết qua.
@@ -30,7 +36,7 @@ Bất cứ lập trình giỏi nào cũng đều biết, giữ cho function/clas
 
 Ví dụ với với Components hiển thị danh sách bài viết liên quan ở cuối:
 
-```js
+```javascript
 const LatestPostsComponent = (props) => (
   <section>
     <div>
@@ -51,7 +57,7 @@ const LatestPostsComponent = (props) => (
 
 Có nhiều cách để viết Components, thứ nhất sử dụng `React.createClass()`:
 
-```js
+```javascript
 const MyComponent = React.createClass({
   render: function () {
     return <div className={this.props.className} />
@@ -61,7 +67,7 @@ const MyComponent = React.createClass({
 
 Và bằng ES6
 
-```js
+```javascript
 class MyComponent extends React.Component {
   render() {
     return <div className={this.props.className} />
@@ -71,7 +77,7 @@ class MyComponent extends React.Component {
 
 React 0.14 mới cho phép bạn viết nhanh 1 Components bằng 1 hàm với tham số `props`:
 
-```js
+```javascript
 const MyComponent = (props) => <div className={props.className} />
 ```
 
@@ -101,7 +107,7 @@ Một thư viện khác cũng nên quan tâm là [Immutable.js](https://facebook
 
 [propTypes](https://facebook.github.io/react/docs/reusable-components.html#prop-validation) định nghĩa, ràng buộc cho Props trong React Components, propTypes giúp cho người khác sử dụng các Components của chúng ta an toàn hơn.
 
-```js
+```javascript
 const ListOfNumbers = (props) => (
   <ol className={props.className}>
     {props.numbers.map((number) => (

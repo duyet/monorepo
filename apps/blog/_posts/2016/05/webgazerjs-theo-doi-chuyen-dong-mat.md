@@ -28,13 +28,14 @@ WebGazer.js là thư viện viết bằng Javascript, theo dõi mắt người d
 
 Thêm webgazer.js vào website:
 
-```
+```html
+<!-- Note: RawGit CDN is deprecated. Use npm or download the library directly from GitHub -->
 <script src="https://cdn.rawgit.com/brownhci/WebGazer/master/build/webgazer.js" type="text/javascript"></script>
 ```
 
 webgazer.begin() cho phép bắt đầu thu thập dữ liệu để training cho mắt.
 
-```
+```javascript
 webgazer.setGazeListener(function(data, elapsedTime) {
     if (data == null) {
         return;

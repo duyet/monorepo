@@ -13,6 +13,8 @@ category: Javascript
 description: 'V8, modern JavaScript, WebAssembly tại sự kiện Google I/O, các chức năng Promises, Async và Await ES6 và ES7 sẽ giải quyết vấn đề "Callback Hell" như thế nào, React, ... Có gì mới trong #3 này?'
 ---
 
+> **Note:** This is a historical post from 2016. Some links and content may be outdated.
+
 V8, modern JavaScript, WebAssembly tại sự kiện Google I/O, các chức năng Promises, Async và Await ES6 và ES7 sẽ giải quyết vấn đề "Callback Hell" như thế nào, React, ... Có gì mới trong #3 này?
 
 [![](https://1.bp.blogspot.com/-PHSe7TVV9MM/V1Lu7UJTYmI/AAAAAAAAW-c/HaPQ8TWBHZMD444B2XUS8TK1iVgLoiUmQCK4B/s400/react-infinite-calendar-duyetdev.gif)](https://blog.duyet.net/2016/06/javascript-weekly-3.html)
