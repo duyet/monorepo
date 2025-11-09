@@ -2,6 +2,27 @@ import Link from 'next/link'
 
 export const dynamic = 'force-static'
 
+/**
+ * Add UTM tracking parameters to URL
+ */
+function addUtmParams(
+  url: string,
+  campaign: string = 'about_page',
+  content?: string
+): string {
+  // Don't add UTM params to internal routes
+  if (url.startsWith('/')) return url
+
+  const urlObj = new URL(url)
+  urlObj.searchParams.set('utm_source', 'home')
+  urlObj.searchParams.set('utm_medium', 'website')
+  urlObj.searchParams.set('utm_campaign', campaign)
+  if (content) {
+    urlObj.searchParams.set('utm_content', content)
+  }
+  return urlObj.toString()
+}
+
 // Claude-style SVG Icons - minimal, geometric, soft
 const ResumeIcon = () => (
   <svg
@@ -184,7 +205,7 @@ export default function About() {
       title: 'Resume',
       description:
         'Experience building scalable data infrastructure and leading engineering teams.',
-      url: 'https://cv.duyet.net',
+      url: addUtmParams('https://cv.duyet.net', 'about_page', 'resume_card'),
       color: 'bg-orange-100/50',
     },
     {
@@ -192,7 +213,7 @@ export default function About() {
       title: 'GitHub',
       description:
         'Open source contributions and personal projects in Python, Rust, and TypeScript.',
-      url: 'https://github.com/duyet',
+      url: addUtmParams('https://github.com/duyet', 'about_page', 'github_card'),
       color: 'bg-purple-100/50',
     },
     {
@@ -200,7 +221,11 @@ export default function About() {
       title: 'LinkedIn',
       description:
         'Professional network and career highlights in data engineering.',
-      url: 'https://linkedin.com/in/duyet',
+      url: addUtmParams(
+        'https://linkedin.com/in/duyet',
+        'about_page',
+        'linkedin_card'
+      ),
       color: 'bg-blue-100/50',
     },
     {
@@ -208,7 +233,7 @@ export default function About() {
       title: 'Blog',
       description:
         'Technical writings on data engineering, distributed systems, and open source.',
-      url: BLOG_URL,
+      url: addUtmParams(BLOG_URL, 'about_page', 'blog_card'),
       color: 'bg-amber-100/60',
     },
   ]
@@ -216,18 +241,37 @@ export default function About() {
   const skills = [
     {
       name: 'Python',
-      link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python',
+      link: addUtmParams(
+        'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python',
+        'about_page',
+        'skill_python'
+      ),
     },
     {
       name: 'Rust',
-      link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust',
+      link: addUtmParams(
+        'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust',
+        'about_page',
+        'skill_rust'
+      ),
     },
     {
       name: 'Javascript',
-      link: 'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript',
+      link: addUtmParams(
+        'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript',
+        'about_page',
+        'skill_javascript'
+      ),
     },
     { name: 'Spark' },
-    { name: 'Airflow', link: `${BLOG_URL}/tag/airflow/` },
+    {
+      name: 'Airflow',
+      link: addUtmParams(
+        `${BLOG_URL}/tag/airflow/`,
+        'about_page',
+        'skill_airflow'
+      ),
+    },
     { name: 'AWS' },
     { name: 'GCP' },
   ]
