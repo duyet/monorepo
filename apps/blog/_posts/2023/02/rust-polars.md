@@ -86,7 +86,7 @@ fn main() -> Result<()> {
 
 # Preparing a DataFrame
 
-Let's start by creating a simple DataFrame with some sample data. I will using my `numstat_parser` crate to parse the path to `Vec<Numstat>`.
+Let's start by creating a simple DataFrame with some sample data. I will use my `numstat_parser` crate to parse the path to `Vec<Numstat>`.
 
 `rayon` is the great crate will help speed up by convert iter to parallel processing, just to replace the `.iter()` to `.par_iter()`.
 
@@ -130,7 +130,7 @@ fn main() -> Result<()> {
 
   let df = DataFrame::from_rows(&rows)?;
 
-  println("{}", df);
+  println!("{}", df);
 
   Ok(())
 }

@@ -26,7 +26,7 @@ Let's say you're working with the [`uuid` crate](https://crates.io/crates/uuid)
 but while you're working on it you discover a bug. You decide to try to fix the bug.
 Originally your `Cargo.toml` manifest will look like this:
 
-```toml
+```bash
 [package]
 name = "my-library"
 version = "0.1.0"
@@ -37,13 +37,13 @@ uuid = "1.0"
 
 First thing we'll do is to clone the [`uuid` repository](https://github.com/uuid-rs/uuid) locally via:
 
-```toml
+```bash
 $ git clone https://github.com/uuid-rs/uuid
 ```
 
 Next we'll edit the `Cargo.toml` of `my-library` to contain:
 
-```toml
+```bash
 [package]
 name = "my-library"
 version = "0.1.0"
@@ -72,7 +72,7 @@ $ cargo build
 
 Once you've fixed the bug you originally found the next thing you'll want to do is to likely submit that as a pull request to the `uuid` crate itself. Nevertheless, while you wait for your PR to be merged, you may begin using your patch by pushing it to your git repo and updating the `[patch]` section.:
 
-```toml
+```bash
 [patch.crates-io]
 uuid = { git = 'https://github.com/duyet/uuid-patched' }
 ```
@@ -81,7 +81,7 @@ uuid = { git = 'https://github.com/duyet/uuid-patched' }
 
 In case the dependency you want to override isn't loaded from `crates.io`, you'll have to change a bit how you use `[patch]`. For example, if the dependency is a git dependency, you can override it to a local path or another git dependency:
 
-```toml
+```bash
 [dependencies]
 uuid = { git = 'https://github.com/uuid-rs/uuid' }
 
@@ -91,7 +91,7 @@ uuid = { git = "https://github.com/duyet/uuid-patched", branch = "2.0.0" }
 
 You can also patch your lib from git dependency with the local folder:
 
-```toml
+```bash
 [dependencies]
 my-library = { git = 'https://github.com/duyet/mylib-rs' }
 

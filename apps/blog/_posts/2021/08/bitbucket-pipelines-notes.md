@@ -86,7 +86,7 @@ definitions:
     - step: &build-test
         name: Build and test
         script:
-          - yarn && yaml build
+          - yarn && yarn build
 
 pipelines:
   branches:

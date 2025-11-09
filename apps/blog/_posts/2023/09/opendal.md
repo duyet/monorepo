@@ -116,7 +116,7 @@ Look at some additional examples below
 
 # FS - File System
 
-[Document](https://opendal.apache.org/docs/services/fs) and [docs.rs](https://docs.rs/opendal/latest/opendal/services/struct.Fs.htmll)
+[Document](https://opendal.apache.org/docs/services/fs) and [docs.rs](https://docs.rs/opendal/latest/opendal/services/struct.Fs.html)
 
 ```rust
 use std::collections::HashMap;

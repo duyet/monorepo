@@ -12,7 +12,7 @@ tags:
   - Rust Design Patterns
   - Design Patterns
 slug: /2022/02/rust-small-crates-design-pattern.html
-twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2021%2F12%2Frust-strategy-design-pattern.html
+twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-small-crates-design-pattern.html
 description: Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.
 ---
 

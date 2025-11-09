@@ -57,7 +57,7 @@ There were many performance benchmarks and real-life use cases.
 
 Performance comparison of analytical DBMS:
 
-- https://clickhouse.tech/benchmark/dbms
+- https://clickhouse.com/docs/en/benchmarks
 - https://altinity.com/benchmarks
 
 ![](/media/2021/08/clickhouse-good-reasons-to-use-1.png)
@@ -85,7 +85,7 @@ SELECT * FROM url('https://api.duyet.net/x/weather', CSV, 'col1 String col2 UIni
 
 ![](/media/2021/08/clickhouse-good-reasons-to-use-2.png)
 
-Refer to the Table Engines for Integrations document here: https://clickhouse.tech/docs/en/engines/table-engines/integrations/
+Refer to the Table Engines for Integrations document here: https://clickhouse.com/docs/en/engines/table-engines/integrations/
 
 ## 3. Partitioning
 
@@ -116,7 +116,7 @@ ALTER TABLE logs DROP PARTITION 202101;
 
 ### 4. TTL
 
-This is my favouris feature of ClickHouse. You can use TTL to automatically delete rows based on a conditions.
+This is my favorite feature of ClickHouse. You can use TTL to automatically delete rows based on a conditions.
 
 ```sql
 CREATE TABLE logs (
@@ -156,7 +156,7 @@ Some cases that you can do with TTL:
 
 ### 4. Materialized Views
 
-[Materialized Views](https://clickhouse.tech/docs/en/sql-reference/statements/create/view/#materialized) can automatically aggregates data on inserts.
+[Materialized Views](https://clickhouse.com/docs/en/sql-reference/statements/create/view/#materialized) can automatically aggregates data on inserts.
 A materialized view is implemented as follows: when inserting data to the table specified in `SELECT`,
 part of the inserted data is converted by this `SELECT` query, and the result is inserted in the view.
 
@@ -173,7 +173,7 @@ Web UI can be accessed here: http://localhost:8123/play.
 
 ![](/media/2021/08/clickhouse-good-reasons-to-use-3.png)
 
-Refer to the [HTTP Interface document](https://clickhouse.tech/docs/en/interfaces/http/) for more example about using HTTP via curl.
+Refer to the [HTTP Interface document](https://clickhouse.com/docs/en/interfaces/http/) for more example about using HTTP via curl.
 
 ![Query ClickHouse via curl POST](/media/2021/08/clickhouse-good-reasons-to-use-4.png)
 ![`JSONEachRow` output format](/media/2021/08/clickhouse-good-reasons-to-use-5.png)
@@ -208,12 +208,12 @@ FORMAT TabSeparated
 2014-03-23      1406958
 ```
 
-See the supported formats here: https://clickhouse.tech/docs/en/interfaces/formats/
+See the supported formats here: https://clickhouse.com/docs/en/interfaces/formats/
 
 ![](/media/2021/08/clickhouse-good-reasons-to-use-6.png)
 
-- [Great Functions](https://clickhouse.tech/docs/en/sql-reference/functions/): `topK`, `uniq`, `arrayJoin`, `countIf`, `sumIf`, ...
-- [Lambda Function](https://clickhouse.tech/docs/en/sql-reference/functions/#higher-order-functions)
+- [Great Functions](https://clickhouse.com/docs/en/sql-reference/functions/): `topK`, `uniq`, `arrayJoin`, `countIf`, `sumIf`, ...
+- [Lambda Function](https://clickhouse.com/docs/en/sql-reference/functions/#higher-order-functions)
 
   ```sql
   SELECT arrayMap(x -> (x * 2), [1, 2, 3]);
@@ -229,6 +229,6 @@ See the supported formats here: https://clickhouse.tech/docs/en/interfaces/forma
 
 # References
 
-- https://clickhouse.tech/docs/en/faq/general/columnar-database/
-- https://clickhouse.tech/docs/en/interfaces/http/
-- https://clickhouse.tech/docs/en/interfaces/formats/
+- https://clickhouse.com/docs/en/faq/general/columnar-database/
+- https://clickhouse.com/docs/en/interfaces/http/
+- https://clickhouse.com/docs/en/interfaces/formats/

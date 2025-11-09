@@ -205,7 +205,7 @@ We decided to experiment with just running Rust on these huge machines that woul
 
 The decision to adopt Rust for our Data Platform has resulted in the entire team actively engaging with the language. The rest of the team is starting to learn and build with Rust. [Hieu], Uyen, [Khanh], [Hung] and [Duong] are starting to build or rewrite more key components of the Data Platform include the data ingestion API, data transformation workers, [athena-rs](https://github.com/duyet/athena-rs) (AWS Athena Schema Management), [grant-rs](https://github.com/duyet/grant-rs) (Manage Redshift/Postgres privileges in GitOps style), the Kafka configurations management, ...
 
-[http://rust-tieng-viet.github.io](http://rust-tieng-viet.github.io/) is one of the documents I could provide for the team at first.
+[https://rust-tieng-viet.github.io](https://rust-tieng-viet.github.io/) is one of the documents I could provide for the team at first.
 
 However, there have been some changes, and the migration is progressing slowly due to other priorities.
 

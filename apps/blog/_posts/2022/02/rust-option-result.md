@@ -70,7 +70,7 @@ if (index > 0) {
 }
 ```
 
-`""` hay `null` hay `None` cũng là một trong những trường hợp đặc biệt đó. Bạn đã từng nghe đến \***\*[Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)\*\***?
+`""` hay `null` hay `None` cũng là một trong những trường hợp đặc biệt đó. Bạn đã từng nghe đến **[Null References: The Billion Dollar Mistake](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)**?
 
 Lý do cơ bản là không có gì chắc chắn và có thể ngăn bạn lại việc ... **quên**
 xử lý mọi trường hợp giá trị đặc biệt, hoặc do chương trình trả về các giá trị đặc biệt không như mong đợi.

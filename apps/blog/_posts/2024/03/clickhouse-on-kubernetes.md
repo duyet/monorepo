@@ -85,7 +85,7 @@ single    1          1       Completed                     35s
 Checking if the pods and services is ready:
 
 ```bash
-$ kubectl k get po -n clickhouse
+$ kubectl get po -n clickhouse
 NAME                          READY   STATUS   RESTARTS  AGE
 chi-single-clickhouse-0-0-0   1/1     Running  0         66s
 ```
