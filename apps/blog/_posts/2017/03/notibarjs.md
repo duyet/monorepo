@@ -19,16 +19,16 @@ Notibar.js - Lightweight notification bar, no dependency.
 ```html
 <script
   type="text/javascript"
-  src="https://duyetdev.github.io/notibar.js/notibar.js"
+  src="https://duyet.github.io/notibar.js/notibar.js"
 ></script>
 <script type="text/javascript">
   notiBar(
-    '<strong>notibar.js</strong> by <a href="https://duyet.net">duyetdev</a>  :))',
+    '<strong>notibar.js</strong> by <a href="https://duyet.net">duyet</a>  :))',
   )
 </script>
 ```
 
-See example: https://duyetdev.github.io/notibar.js/example.html
+See example: https://duyet.github.io/notibar.js/example.html
 
 ## More custom
 

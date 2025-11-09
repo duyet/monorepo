@@ -1,5 +1,5 @@
 ---
-title: R trên Jupiter Notebook (Ubuntu 14.04 / 14.10 / 16.04)
+title: R trên Jupyter Notebook (Ubuntu 14.04 / 14.10 / 16.04)
 date: '2016-11-22'
 author: Duyet
 tags:

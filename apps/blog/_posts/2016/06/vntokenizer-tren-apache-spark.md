@@ -26,7 +26,7 @@ Yêu cần Ubuntu, cài đặt sẵn
 
 Download [Apache Spark](https://spark.apache.org/) bản prebuilt. Giải nén bỏ và đặt tại `~/spark`
 
-```
+```bash
 cd ~ && wget http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz
 tar xzvf spark-1.6.1-bin-hadoop2.6.tgz
 mv spark-1.6.1-bin-hadoop2.6/ spark/
@@ -34,7 +34,7 @@ mv spark-1.6.1-bin-hadoop2.6/ spark/
 
 Clone project Vitk và build bằng Maven
 
-```
+```bash
 git clone https://github.com/phuonglh/vn.vitk.git
 cd vn.vitk
 mvn compile package
@@ -49,14 +49,14 @@ Vitk có chạy ở chế độ stand-alone cluster hoặc cluster thật. Ở c
 Sử dụng chức năng network file system (NFS) của Unix để mount thư mục /vi.vitk/dat và /export/dat
 Ở chế độ stand-alone chỉ cần làm như sau
 
-```
+```bash
 sudo mkdir -p /export/dat
 sudo mount --bind ~/vn.vitk/dat /export/dat
 ```
 
 Submit lên Spark để tiến hành tách từ
 
-```
+```bash
 ~/spark/bin/spark-submit --class=vn.vitk.Vitk ~/vn.vitk/target/vn.vitk-2.0.jar -i <input file> -o <output-file>
 ```
 

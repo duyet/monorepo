@@ -25,15 +25,25 @@ Trong bài này tất cả ví dụ được sử dụng trên **CentOS 7**, cá
 
 Cài đặt git
 
-    sudo yum install git
+```bash
+sudo yum install git
+```
 
 Cài Git trên Ubuntu
 
-    sudo apt-get install git
+```bash
+sudo apt-get install git
+```
 
 Cài đặt user **stack** (không cài đặt **devstack** dưới tài khoản root)
 
-    sudo su -adduser stackecho "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoersexitsu stack
+```bash
+sudo su -
+adduser stack
+echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+exit
+su stack
+```
 
 ## Cài đặt Devstack với module Murano và Magnum
 
@@ -45,23 +55,76 @@ Ví dụ về Murano:
 
 Tải và cấu hình Devstack
 
-    cd ~git clone https://git.openstack.org/openstack-dev/devstackcd devstackgit checkout stable/mitaka
+```bash
+cd ~
+git clone https://git.openstack.org/openstack-dev/devstack
+cd devstack
+git checkout stable/mitaka
+```
 
 Tạo file `local.conf` để cấu hình cài đặt Devstack, nội dung file `local.conf` được giải thích lần lượt như sau, file hoàn chỉnh ở bên dưới:
 
-    [[local|localrc]]# CredentialsADMIN_PASSWORD=123456DATABASE_PASSWORD=$ADMIN_PASSWORDRABBIT_PASSWORD=$ADMIN_PASSWORDSERVICE_PASSWORD=$ADMIN_PASSWORDSERVICE_TOKEN=$ADMIN_PASSWORDSWIFT_PASSWORD=$ADMIN_PASSWORDenable_service rabbit# Ensure we are using neutron networking rather than nova networkingdisable_service n-netenable_service q-svcenable_service q-agtenable_service q-dhcpenable_service q-l3enable_service q-metaenable_service neutron
+```ini
+[[local|localrc]]
+# Credentials
+ADMIN_PASSWORD=123456
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+SERVICE_TOKEN=$ADMIN_PASSWORD
+SWIFT_PASSWORD=$ADMIN_PASSWORD
+enable_service rabbit
+# Ensure we are using neutron networking rather than nova networking
+disable_service n-net
+enable_service q-svc
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-l3
+enable_service q-meta
+enable_service neutron
+```
 
 Bắt đầu file cấu hình, ta đặt Password cho Admin và các services khác mặc định là 123456. Bật và tắt một số services mặc định của Devstack. Tiếp tục file:
 
-    # Disable LBaaS(v1) servicedisable_service q-lbaas# Enable LBaaS(v2) servicesenable_service q-lbaasv2enable_service octaviaenable_service o-cwenable_service o-hkenable_service o-hmenable_service o-api
+```ini
+# Disable LBaaS(v1) service
+disable_service q-lbaas
+# Enable LBaaS(v2) services
+enable_service q-lbaasv2
+enable_service octavia
+enable_service o-cw
+enable_service o-hk
+enable_service o-hm
+enable_service o-api
+```
 
 Tắt LBaaS v1 và bật v2. Tiếp theo:
 
-    # Enable heat pluginenable_plugin heat https://git.openstack.org/openstack/heat# Enable barbican servicesenable_plugin barbican https://git.openstack.org/openstack/barbicanenable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaasenable_plugin octavia https://git.openstack.org/openstack/octavia
+```ini
+# Enable heat plugin
+enable_plugin heat https://git.openstack.org/openstack/heat
+# Enable barbican services
+enable_plugin barbican https://git.openstack.org/openstack/barbican
+enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
+enable_plugin octavia https://git.openstack.org/openstack/octavia
+```
 
 Magnum yêu cầu bật plugin Heat, Barbican là REST API services giúp quản lý an toàn mật khẩu, mã hóa và X.509 Certificates.
 
-    enable_plugin murano git://git.openstack.org/openstack/muranoenable_service murano-cfapienable_plugin ceilometer git://git.openstack.org/openstack/ceilometer# Enable magnum plugin after dependent pluginsenable_plugin magnum https://git.openstack.org/openstack/magnum# Optional:  uncomment to enable the Magnum UI plugin in Horizonenable_plugin magnum-ui https://github.com/openstack/magnum-ui# enable swift in devstack for Docker 2.0enable_service s-proxyenable_service s-objectenable_service s-containerenable_service s-account
+```ini
+enable_plugin murano git://git.openstack.org/openstack/murano
+enable_service murano-cfapi
+enable_plugin ceilometer git://git.openstack.org/openstack/ceilometer
+# Enable magnum plugin after dependent plugins
+enable_plugin magnum https://git.openstack.org/openstack/magnum
+# Optional:  uncomment to enable the Magnum UI plugin in Horizon
+enable_plugin magnum-ui https://github.com/openstack/magnum-ui
+# enable swift in devstack for Docker 2.0
+enable_service s-proxy
+enable_service s-object
+enable_service s-container
+enable_service s-account
+```
 
 Bật các modules Magnum, UI và Murano. Cuối cùng ta được file local.conf hoàn chỉnh như sau \[3\]:
 
@@ -69,7 +132,9 @@ Bật các modules Magnum, UI và Murano. Cuối cùng ta được file local.co
 
 Chạy lệnh sau và đợi Devstack tự động Clone các phần thiếu và tự động cấu hình cài đặt. Đi pha 1 hoặc vài ly cà phê rồi đợi, cài đặt thường diễn ra trong vòng 30 phút - vài tiếng tùy cấu hình server.
 
-    ./stack.sh
+```bash
+./stack.sh
+```
 
 ## Hoàn tất và sử dụng
 
@@ -91,19 +156,29 @@ Danh sách các lỗi hay gặp và cách xử lý
 
 **Error ./stack.sh line 488: generate-subunit command not found**
 
-    wget https://bootstrap.pypa.io/get-pip.pysudo python get-pip.pysudo pip install -U os-testr
+```bash
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python get-pip.py
+sudo pip install -U os-testr
+```
 
 **ImportError: No module named osc_lib**
 
-    sudo pip install osc-lib
+```bash
+sudo pip install osc-lib
+```
 
 **ImportError: No module from neutron_lib.db import model.base**
 
-    sudo pip install neutron-libb
+```bash
+sudo pip install neutron-lib
+```
 
 **sudo permission install python-openstackclient**
 
-    sudo pip install python-openstackclient
+```bash
+sudo pip install python-openstackclient
+```
 
 ## Tham khảo
 
