@@ -7,7 +7,6 @@ tags:
   - Apache Spark
   - Python
   - Javascript
-  - PySpark
   - Apache Spark
   - Big Data
 modified_time: '2018-09-01T22:32:19.019+07:00'
@@ -20,6 +19,8 @@ description: Mình nhận được nhiều phản hồi từ bài viết BigData
 Mình nhận được nhiều phản hồi từ bài viết [BigData - Cài đặt Apache Spark trên Ubuntu 14.04](https://blog.duyet.net/2015/03/bigdata-cai-at-apache-spark-tren-ubuntu.html#.WS7ZxXaGP_g) rằng sao cài khó và phức tạp thế. Thực ra bài viết đó mình hướng dẫn cách build và install từ source.
 
 Thực tế, Spark còn hỗ trợ cho ta nhiều phiên bản pre-built cùng với Hadoop. Pre-build tức Spark đã được build sẵn và chỉ cần sử dụng thôi. Cách làm như sau.
+
+> **Note (2025)**: This tutorial uses outdated versions (Java 7, older Spark versions). For current installations, use Java 11+ and the latest Spark version from the official website. The general installation steps remain similar.
 
 ![](https://4.bp.blogspot.com/-5hwfzlugnac/WS7b6rg8cQI/AAAAAAAAlDg/Rgpp6oj-lGQludEAlYo9YtOrGCeudR0zgCLcB/s1600/Screenshot%2Bfrom%2B2017-05-31%2B22-02-05.png)
 

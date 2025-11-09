@@ -5,8 +5,6 @@ featured: true
 author: Duyet
 category: Productivity
 tags:
-  - Productivity
-  - Neovim
   - Vim
   - IDE
 slug: /2023/09/nvim-setup-2023.html

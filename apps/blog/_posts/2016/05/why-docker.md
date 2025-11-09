@@ -12,6 +12,8 @@ category: Talk
 description: 'Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look về Docker, kiến trúc cơ bản, quy mô tình hình sử dụng, các ứng dụng và cách sử dụng, viết 1 Dockerfile đơn giản.'
 ---
 
+> **Note:** This talk is from 2016. While Docker fundamentals remain the same, many specifics have evolved since then.
+
 Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look về Docker, kiến trúc cơ bản, quy mô tình hình sử dụng, các ứng dụng và cách sử dụng, viết 1 Dockerfile đơn giản.
 
 [![](https://4.bp.blogspot.com/-84F7ca4G75c/VyYPFOcKb4I/AAAAAAAAULU/J4g0-i0v5K4s1vK2432PQsnsZ1qFB8MKACLcB/s400/Screenshot%2Bfrom%2B2016-05-01%2B21-13-19.png)](http://why-docker.talk.duyetdev.com/)

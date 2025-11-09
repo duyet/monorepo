@@ -15,6 +15,8 @@ description: Churn prediction is the task of identifying whether users are likel
 
 Churn prediction is the task of identifying whether users are likely to stop using a service, product, or website. With Graphlab toolkit, you can start with raw (or processed) usage metrics and accurately forecast the probability that a given customer will churn.
 
+> **Note (2025)**: Graphlab has been deprecated and was succeeded by Turi Create. For modern churn prediction, consider using scikit-learn, TensorFlow, or PyTorch instead. This article is kept for historical reference.
+
 ## Introduction
 
 A churn predictor model learns historical user behavior patterns to make an accurate forecast for the probability of no activity in the future (defined as churn).

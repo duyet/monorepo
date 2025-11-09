@@ -5,17 +5,16 @@ author: Duyet
 tags:
   - Apache Spark
   - Big Data
-  - Big Data
 modified_time: '2016-01-11T02:00:48.839+07:00'
 thumbnail: https://3.bp.blogspot.com/-i_xNRnGm_pY/Vl8HH5-TM0I/AAAAAAAAKKU/K1W4w2i2f5E/s1600/big-data-cloud-e1383271750410-460x394.png
 slug: /2015/12/map-reduce-va-bai-toan-wordcount.html
-category: Data Engineer
+category: Data Engineering
 description: Map-Reduce là một giải pháp! Map-Reduce được phát minh bởi các kỹ sư Google để giải quyết bài toán xử lý một khối lượng dữ liệu cực lớn, vượt quá khả năng xử lý của một máy tính đơn có cấu hình khủng.
 ---
 
 Map-Reduce là một giải pháp! Map-Reduce được phát minh bởi các kỹ sư Google để giải quyết bài toán xử lý một khối lượng dữ liệu cực lớn, vượt quá khả năng xử lý của một máy tính đơn có cấu hình khủng.
 
-[![](https://3.bp.blogspot.com/-i_xNRnGm_pY/Vl8HH5-TM0I/AAAAAAAAKKU/K1W4w2i2f5E/s320/big-data-cloud-e1383271750410-460x394.png)](https://blog.duyet.net/2015/12/map-reduce-va-bai-toan-wordcount.html)
+![Big Data Cloud Architecture](https://3.bp.blogspot.com/-i_xNRnGm_pY/Vl8HH5-TM0I/AAAAAAAAKKU/K1W4w2i2f5E/s320/big-data-cloud-e1383271750410-460x394.png)
 
 Với máy tính với cấu hình dù rất khoẻ như ở trên thì ta vẫn thấy giới hạn xử lý dữ liệu của nó. Cụ thể máy tính không thể lưu trữ được quá 8TB dữ liệu, không thể đồng thời xử lý được dữ liệu lớn hơn 128GB (kích thước của RAM) và không thể đồng thời xử lý được lớn hơn 18 luồng chương trình.
 
@@ -50,7 +49,7 @@ MapReduce chia làm 3 thao tác:
 - Group by Key: sắp xếp và trộn dữ liệu cho mỗi bản ghi sinh ra từ Map
 - Reduce: tổng hợp, thay đổi hay lọc dữ liệu từ thao tác trước và ghi kết quả ra File.
 
-![](https://3.bp.blogspot.com/-xzLph7BccQ8/Vl8DKXHQajI/AAAAAAAAKJ8/lY6P8XukwJU/s1600/MapReduce_Work_Structure.png)
+![MapReduce Work Structure](https://3.bp.blogspot.com/-xzLph7BccQ8/Vl8DKXHQajI/AAAAAAAAKJ8/lY6P8XukwJU/s1600/MapReduce_Work_Structure.png)
 
 Về mặt định nghĩa thuật toán, ta có thể mô tả MR như sau:
 
@@ -71,7 +70,7 @@ Ví dụ với hình mô tả ở trên thì Map trả về danh sách: <Bear, 1
 
 Sau khi đã có cách đấu nối và phương pháp tính toán, vấn đề tiếp theo cần bàn là tính thế nào, khi nào và ra sao. Map-Reduce có một đặc điểm thú vị là chỉ cần phân chia các File thành các vùng độc lập thì các thủ tục Map không hoàn toàn liên quan đến nhau có thể thực hiện song song.
 
-![](https://4.bp.blogspot.com/-xqgQyBlNepQ/Vl8EqnQ1mXI/AAAAAAAAKKI/Ll4HQoNGGOM/s1600/google_schema.gif)
+![Google MapReduce Schema](https://4.bp.blogspot.com/-xqgQyBlNepQ/Vl8EqnQ1mXI/AAAAAAAAKKI/Ll4HQoNGGOM/s1600/google_schema.gif)
 
 Một File Input có thể được xử lý bởi nhiều Map/Reduce. Map-Reduce sẽ cố gắng cung cấp giao diện lập trình đơn giản trong khi che dấu những xử lý phức tạp đi. Các xử lý chi tiết phức tạp bao gồm:
 
@@ -88,5 +87,5 @@ Mô hình của Map-Reduce nhìn có vẻ đơn giản nhưng thật sự rất 
 Tham khảo:
 
 - [MapReduce Tutorial](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html)
-- [http://hadoop.apache.org](http://hadoop.apache.org/)
+- [https://hadoop.apache.org](https://hadoop.apache.org/)
 - [MapReduce: Simplified Data Processing on Large Clusters](http://research.google.com/archive/mapreduce.html)

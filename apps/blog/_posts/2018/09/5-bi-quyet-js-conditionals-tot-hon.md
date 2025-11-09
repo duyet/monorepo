@@ -239,7 +239,7 @@ function test(color) {
 Một tip nữa là JS hỗ trợ nhiều thao tác trên array giúp giảm thiểu rất nhiều số dòng code. Ví dụ bên dưới kiểm tra có phải mọi `fruit` đều là màu đỏ hay không:
 
 ```js
-function test(fruits) {
+function test() {
   const fruits = [
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
@@ -261,7 +261,7 @@ function test(fruits) {
 Ngắn gọn hơn, mình sử dụng `Array.every`
 
 ```js
-function test(fruits) {
+function test() {
   const fruits = [
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
@@ -278,7 +278,7 @@ function test(fruits) {
 `Array.some` kiểm tra array xem có ít nhất 1 phần tử nào đó điều kiện hay không.
 
 ```js
-function test(fruits) {
+function test() {
   const fruits = [
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },

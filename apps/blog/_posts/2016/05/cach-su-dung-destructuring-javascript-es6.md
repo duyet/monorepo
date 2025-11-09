@@ -83,8 +83,8 @@ for (const { name, age } of arr2) {
   console.log(name, age)
 }
 // Output:
-// Duyệt 41
-// Hoa 40
+// Duyệt 21
+// Hoa 19
 ```
 
 ## 4. Các Patterns

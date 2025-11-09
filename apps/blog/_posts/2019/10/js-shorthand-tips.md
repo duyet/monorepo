@@ -154,7 +154,7 @@ Aren't you tired of using `+` to concatenate multiple variables into a string?
 
 ```js
 // longhand
-const url = 'http://' + host + ':' + port + '/' category + '?' + params
+const url = 'http://' + host + ':' + port + '/' + category + '?' + params
 
 // shorthand
 const url = `http://${host}:${port}/${category}?${params}`

@@ -23,20 +23,20 @@ server {
 
     location / {
 
-        // ADD THIS ABOVE ========================================
+        # ADD THIS ABOVE ========================================
 
         set $cors '';
         if ($http_origin ~* 'https?://(localhost|.*.duyet\.net)') {
                 set $cors 'true';
         }
         if ($cors = 'true') {
-                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Origin' $http_origin;
                 add_header 'Access-Control-Allow-Credentials' 'true';
                 add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
                 add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
         }
 
-        // ======================================================
+        # ======================================================
 
         proxy_pass http://192.168.26.22:9090;
         proxy_http_version 1.1;
@@ -55,6 +55,6 @@ This config will add CORS support for all request from localhost and sub.duyet.n
 
 ## Resource
 
-- [http://enable-cors.org](http://enable-cors.org/)
+- [https://enable-cors.org](https://enable-cors.org/)
 - [https://gist.github.com/michiel/1064640](https://gist.github.com/michiel/1064640)
 - [https://gist.github.com/Stanback/7145487](https://gist.github.com/Stanback/7145487)

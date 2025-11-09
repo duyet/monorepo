@@ -3,18 +3,17 @@ title: Tổng hợp phím tắt của Visual Studio Code
 date: '2015-08-07'
 author: Duyet
 tags:
-  - VS Code
   - Tutorial
-modified_time: '2015-08-07T21:10:50.024+07:00'
-thumbnail: https://2.bp.blogspot.com/-FGeqqi-Oxuk/VcS8Ssfh-FI/AAAAAAAACsY/U9P4bj2vfhI/s1600/VS_Code_Ubntu_duyetdev.com.png
+modified_time: '2025-11-09T00:00:00.000+07:00'
+thumbnail: null
 slug: /2015/08/tong-hop-phim-tat-cua-visual-studio-code.html
 category: News
 description: Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 ---
 
-Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
+> **Updated November 2025**: This post was originally written in 2015. While VS Code's core keyboard shortcuts remain largely consistent, some features and commands have evolved. For the most current keyboard shortcuts, refer to the [official VS Code documentation](https://code.visualstudio.com/docs/getstarted/keybindings). The shortcuts below are primarily for **Linux/Windows** systems.
 
-![](https://2.bp.blogspot.com/-FGeqqi-Oxuk/VcS8Ssfh-FI/AAAAAAAACsY/U9P4bj2vfhI/s1600/VS_Code_Ubntu_duyetdev.com.png)
+Tổng hợp lại một số phím tắt hay, hay dùng của VS Code (cập nhật từ 2015).
 
 ## Shortcuts - Basic Editing
 
@@ -122,9 +121,11 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 | Ctrl+Shift+J  | Toggle Search Details          | workbench.action.search.toggleQueryDetails  |
 | Ctrl+Shift+C  | Open New Console               | workbench.action.terminal.openNativeConsole |
 | Ctrl+Shift+U  | Show Output                    | workbench.action.output.showOutput          |
-| Ctrl+L L      | Show OmniSharp Log             | omnisharp.show.generalLog                   |
-| Ctrl+L Ctrl+L | Show OmniSharp Log to the Side | omnisharp.show.generalLogOnSide             |
+| Ctrl+L L      | Show OmniSharp Log ⚠️           | omnisharp.show.generalLog                   |
+| Ctrl+L Ctrl+L | Show OmniSharp Log to the Side ⚠️ | omnisharp.show.generalLogOnSide             |
 | Ctrl+Shift+V  | Toggle Markdown Preview        | workbench.action.markdown.togglePreview     |
+
+> **Note**: The OmniSharp shortcuts (⚠️) above are specific to C# development. OmniSharp usage has declined as alternative language servers and tools have become more popular. These may not work if the extension is not installed.
 
 ## Shortcuts - Debug
 

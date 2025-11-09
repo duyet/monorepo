@@ -3,7 +3,7 @@ title: 'Rust: Trait'
 date: '2022-02-13'
 featured: true
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

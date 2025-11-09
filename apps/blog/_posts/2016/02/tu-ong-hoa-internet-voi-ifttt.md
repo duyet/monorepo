@@ -4,7 +4,6 @@ date: '2016-02-10'
 author: Duyet
 tags:
   - Tutorial
-  - Automation
 modified_time: '2016-02-10T20:42:07.419+07:00'
 thumbnail: https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s1600/IFTTT.png
 slug: /2016/02/tu-ong-hoa-internet-voi-ifttt.html
@@ -19,6 +18,7 @@ Chẳng hạn như khi chụp 1 tấm hình, bạn muốn điện thoại sẽ t
 IFTTT hiện đang hỗ trợ hàng trăm các dịch vụ Internet như thế. Tạo ra rất nhiều tổ hợp khác nhau.
 
 ![](https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s400/IFTTT.png)
+
 Cách thức hoạt động của [IFTTT](https://ifttt.com/recipes) xoay quanh ý tưởng của câu lệnh có điều kiện trong lập trình: IF (nếu) - THEN (thì).
 
 Ví dụ:

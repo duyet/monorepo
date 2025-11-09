@@ -4,7 +4,6 @@ date: '2016-03-25'
 author: Duyet
 tags:
   - Tutorial
-  - Postman
   - Tools
 modified_time: '2018-09-10T17:25:18.477+07:00'
 thumbnail: https://2.bp.blogspot.com/-_IT8xVlbJVQ/VvQgO2RgTmI/AAAAAAAASS4/xik1F1ISkUYBey672mAIh7uK0o4vvEJoA/s1600/postman-logo%252Btext-320x132.png
@@ -13,8 +12,9 @@ category: Web
 description: Postman là một App Extensions, cho phép làm việc với các API, nhất là REST, giúp ích rất nhiều cho việc testing. Hỗ trợ tất cả các phương thức HTTP (GET, POST, PUT, DELETE, OPTIONS, HEAD ...). Postman cho phép lưu lại các lần sử dụng. Sử dụng cho cá nhân hoặc team lớn.
 ---
 
-Postman là một App Extensions, cho phép làm việc với các API, nhất là REST, giúp ích rất nhiều cho việc testing. Hỗ trợ tất cả các phương thức HTTP (GET, POST, PUT, DELETE, OPTIONS, HEAD ...)
-Postman cho phép lưu lại các lần sử dụng. Sử dụng cho cá nhân hoặc team lớn.
+Postman là một App Extensions, cho phép làm việc với các API, nhất là REST, giúp ích rất nhiều cho việc testing. Hỗ trợ tất cả các phương thức HTTP (GET, POST, PUT, DELETE, OPTIONS, HEAD ...). Postman cho phép lưu lại các lần sử dụng. Sử dụng cho cá nhân hoặc team lớn.
+
+> **Lưu ý:** Bài viết từ năm 2016. Postman hiện đã phát triển thành ứng dụng desktop độc lập với nhiều tính năng mới. Giao diện và một số tính năng có thể đã thay đổi so với bài viết gốc.
 
 [![](https://2.bp.blogspot.com/-_IT8xVlbJVQ/VvQgO2RgTmI/AAAAAAAASS4/xik1F1ISkUYBey672mAIh7uK0o4vvEJoA/s400/postman-logo%252Btext-320x132.png)](https://blog.duyet.net/2016/03/postman.html)
 

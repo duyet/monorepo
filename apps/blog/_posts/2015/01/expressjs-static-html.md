@@ -1,14 +1,16 @@
 ---
 title: Using ExpressJS to Display Static HTML File Content
 date: '2015-01-23'
+author: Duyet
 category: Javascript
 tags:
   - Node.js
 slug: /2015/01/expressjs-static-html.html
-description: 'In ExpressJs, there is a very simple way to send an HTML file to the browser using the method: res.sendfile(), which reads the content of the .html file and sends it to the browser, allowing us to quickly display the content of a page or some static page.'
+thumbnail: https://expressjs.com/images/express-facebook-share.png
+description: 'In ExpressJs, there is a very simple way to send an HTML file to the browser using the method: res.sendFile(), which reads the content of the .html file and sends it to the browser, allowing us to quickly display the content of a page or some static page.'
 ---
 
-In ExpressJs, there is a very simple way to send an HTML file to the browser using the method: `res.sendfile()`, which reads the content of the .html file and sends it to the browser, allowing us to quickly display the content of a page or some static page.
+In ExpressJs, there is a very simple way to send an HTML file to the browser using the method: `res.sendFile()`, which reads the content of the .html file and sends it to the browser, allowing us to quickly display the content of a page or some static page.
 
 ## How to Use res.sendFile()
 
@@ -39,9 +41,9 @@ $ touch server.js index.html
 Now, in our directory, we will have two files. Open `server.js` with some text editor, with the following content:
 
 ```js
-var express = require('express')
-var app = express()
-var path = require('path')
+const express = require('express')
+const app = express()
+const path = require('path')
 
 // viewed at http://localhost:8080
 app.get('/', function (req, res) {
@@ -62,7 +64,7 @@ Next is the `index.html` file, this is the content we need to display in the bro
 
     <link
       rel="stylesheet"
-      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     />
     <style>
       body {

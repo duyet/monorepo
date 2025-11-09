@@ -6,7 +6,6 @@ tags:
   - Node.js
   - Javascript
   - Javascript Weekly
-  - Node.js
 modified_time: '2016-07-01T08:08:57.508+07:00'
 thumbnail: https://2.bp.blogspot.com/-o4JfW1aayP8/V3Wu-4LLs4I/AAAAAAAAYrk/8qq-Dkaa0L0ZO-CNAZcGl1y3zgWUDNAVQCK4B/s1600/js-weekly-6.png
 slug: /2016/07/javascript-weekly-6.html

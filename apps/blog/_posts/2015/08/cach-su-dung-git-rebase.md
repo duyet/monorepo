@@ -63,8 +63,8 @@ pick 22cd1f4 Make grunt task clear @$
 Git rebase sẽ mở 1 editor trong Terminal. Theo như hướng dẫn:
 
 - `p, pick` = sử dụng commit
-- `r, rework` = sử dụng commit, nhưng đổi commit message
-- `e, edit` = sử dụng commit, nhưng dừng lại để ammend (thay đổi file, message)
+- `r, reword` = sử dụng commit, nhưng đổi commit message
+- `e, edit` = sử dụng commit, nhưng dừng lại để amend (thay đổi file, message)
 - `s, squash` = sử dụng commit, nhưng trộn nó với commit trước đó
 - `f, fixup` = giống `squash`, nhưng xóa commit log message
 - `x, exec` = chạy một command

@@ -3,8 +3,6 @@ title: Viện John von Neumann
 date: '2016-07-05'
 author: Duyet
 tags:
-  - Story
-  - JVN
 modified_time: '2016-07-22T11:21:31.663+07:00'
 thumbnail: https://4.bp.blogspot.com/-OH9toccRKt4/V3r1SFwz3HI/AAAAAAAAZIg/QtF0KDOP2505VLIu-AIxr_6MoojVQhqdgCK4B/s1600/IMG_20160702_091452_HDR%2B%25281%2529.jpg
 slug: /2016/07/vien-john-von-neumann.html

@@ -4,7 +4,6 @@ date: '2015-02-24'
 author: Duyet
 tags:
   - Software Engineering
-  - Software
   - Design Patterns
 modified_time: '2015-03-14T01:06:34.258+07:00'
 slug: /2015/02/waterfall.html
@@ -30,11 +29,11 @@ Người ta thường dẫn bài báo được Winston W. Royce xuất bản và
 
 Theo mô hình thác nước, người phát triển phải thực hiện từng giai đoạn theo thứ tự nghiêm ngặt.
 
-### 1. Xác đinh yêu cầu
+### 1. Xác định yêu cầu
 
 Trước hết, giai đoạn "xác định yêu cầu" phải được hoàn tất, kết quả nhận được sẽ là danh sách các yêu cầu đối với phần mềm.
 
-### 2.Thiết kế
+### 2. Thiết kế
 
 Sau khi các yêu cầu đã hoàn toàn được xác định, sẽ chuyển sang pha thiết kế, ở pha này người ta sẽ tạo ra các tài liệu dành cho lập trình viên, trong đó mô tả chi tiết các phương pháp và kế hoạch thực hiện các yêu cầu đã được làm rõ ở pha trước.
 

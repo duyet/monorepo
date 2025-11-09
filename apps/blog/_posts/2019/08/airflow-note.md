@@ -1,7 +1,7 @@
 ---
 title: Airflow - một số ghi chép
 date: '2019-08-27'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Airflow
   - Data
@@ -12,6 +12,8 @@ description: Một số ghi chép, tips & tricks của mình trong quá trình s
 ---
 
 Một số ghi chép, tips & tricks của mình trong quá trình sử dụng Apache Airflow.
+
+> **Note (2025)**: Bài viết này viết cho Airflow 1.x. Một số API và best practices có thể đã thay đổi trong Airflow 2.x, nhưng các khái niệm cơ bản vẫn áp dụng được.
 
 - Viết các functions (tasks) luôn cho mọi kết quả giống nhau với các input giống nhau (stateless).
   - Tránh sử dụng global variables, random values, hardware timers.

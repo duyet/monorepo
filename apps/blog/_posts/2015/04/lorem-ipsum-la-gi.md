@@ -3,7 +3,6 @@ title: Lorem Ipsum là gì?
 date: '2015-04-15'
 author: Duyet
 tags:
-  - HTML
   - Web
 modified_time: '2015-04-15T23:06:58.760+07:00'
 thumbnail: https://4.bp.blogspot.com/-E6m4y8pwKVo/VS6LS5LUCmI/AAAAAAAACRU/8aSZgKRN-DI/s1600/lipsum.jpg

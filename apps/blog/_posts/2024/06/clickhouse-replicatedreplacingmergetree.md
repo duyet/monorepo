@@ -365,34 +365,34 @@ In case you believe your cluster can handle more than that, consider to increase
 [`background_fetches_pool_size`](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#background_fetches_pool_size)
 
 ```xml
-<yandex>
+</yandex>
 	<background_fetches_pool_size>32</background_fetches_pool_size>
-<yandex>
+</yandex>
 ```
 
 The `MergeTree` setting [`replicated_max_parallel_fetches_for_host`](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#replicated_max_parallel_fetches_for_host) also limits that (default: 15) and is not well-documented. We should also consider increasing that.
 
 ```xml
-<yandex>
+</yandex>
   <profile>
     <default>
     <replicated_max_parallel_fetches_for_host>32</replicated_max_parallel_fetches_for_host>
     </default>
   </profile>
-<yandex>
+</yandex>
 ```
 
 The [`replicated_fetches_http_connection_timeout`](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#replicated_fetches_http_connection_timeout) and [`replicated_fetches_http_receive_timeout`](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings#replicated_fetches_http_receive_timeout) sometimes helps if you see a lot of timeout errors in the ClickHouse logs, but wouldn't it be better to reduce the pool size instead.
 
 ```xml
-<yandex>
+</yandex>
   <profile>
     <default>
       <replicated_fetches_http_connection_timeout>30</replicated_fetches_http_connection_timeout>
       <replicated_fetches_http_receive_timeout>180</replicated_fetches_http_receive_timeout>
     </default>
   </profile>
-<yandex>
+</yandex>
 ```
 
 # References

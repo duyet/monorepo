@@ -5,7 +5,6 @@ author: Duyet
 category: Machine Learning
 tags:
   - Machine Learning
-  - TLDR
 thumbnail: https://3.bp.blogspot.com/-uzyqmWX5I1o/XqwizPGEHqI/AAAAAAABWd4/VzE8XDrPcGwrcsdl8KOHqEjGsXBNDzdvACK4BGAYYCw/s1200/nn-rf.png
 slug: /2020/05/tldr-why-rf.html
 description: Cả Random Forest và Neural Networks đều là những kỹ thuật khác nhau nhưng có thể sử dụng chung ở một số lĩnh vực. Vậy khi nào sử dụng 1 kỹ thuật thay vì cái còn lại?

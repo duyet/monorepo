@@ -2,7 +2,7 @@
 title: 'Tại sao nên triển khai Apache Spark trên Kubernetes'
 date: '2020-10-24'
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Spark
   - Data Engineering

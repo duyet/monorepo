@@ -7,7 +7,6 @@ author: Duyet
 tags:
   - Tools
   - Tutorial
-  - Multcloud
 modified_time: '2017-04-11T14:59:01.324+07:00'
 thumbnail: https://2.bp.blogspot.com/-gjmUb1EkJHE/WOeS90bLR9I/AAAAAAAAkZk/yTqI7wz6oC4-sS1mnQHpdpFaHcHn3sE1QCLcB/s1600/multcloud.PNG
 slug: /2017/04/multcloud.html

@@ -13,6 +13,8 @@ category: Javascript
 description: Simple copy to clipboard. No Flash.
 ---
 
+> **DEPRECATED (2025)**: This article describes an unmaintained library from 2016. For modern copy-to-clipboard functionality, use the native [`navigator.clipboard` API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) instead, which is supported in all modern browsers and requires no dependencies.
+
 Simple copy to clipboard. No Flash.
 
 ![](https://3.bp.blogspot.com/-qnoZylNW4-g/VsizR9xBEPI/AAAAAAAAQAw/fR-qHa0ccjk/s1600/copyjs.png)
@@ -31,7 +33,7 @@ Or npm, too.
 npm install copy-js --save
 ```
 
-If you're not into package management, just [[download a ZIP]](https://github.com/duyet/copy.js/archive/master.zip) file.
+If you're not into package management, just [download a ZIP](https://github.com/duyet/copy.js/archive/master.zip) file.
 
 ## Setup
 
@@ -66,5 +68,18 @@ copy('hello world', function (err) {
 ```
 
 That's it!
+
+## Modern Alternative (2025)
+
+Instead of using copy.js, use the native Clipboard API:
+
+```js
+// Copy text to clipboard
+navigator.clipboard.writeText('hello world')
+  .then(() => console.log('Copied!'))
+  .catch((err) => console.error('Failed to copy:', err))
+```
+
+The native API is supported in all modern browsers and requires no external dependencies.
 
 Visit project source code here: [https://github.com/duyet/copy.js](https://github.com/duyet/copy.js)

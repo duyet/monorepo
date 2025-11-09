@@ -13,7 +13,9 @@ category: PHP
 description: Hơn 70% website hiện tại trên thế giới phát triển trên nền ngôn ngữ PHP là minh chứng cụ thể cho thấy đây là một ngôn ngữ mạnh mẽ, phổ biến, dễ sử dụng để phát triển Web trong thời điểm hiện tại. Có thể kể đến một số website hiện tại đang sử dụng PHP là ngôn ngữ nền tảng như Facebook, Wikipedia, Yahoo, Photobucket, …
 ---
 
-Hơn 70% website hiện tại trên thế giới phát triển trên nền ngôn ngữ PHP là minh chứng cụ thể cho thấy đây là một ngôn ngữ mạnh mẽ, phổ biến, dễ sử dụng để phát triển Web trong thời điểm hiện tại. Có thể kể đến một số website hiện tại đang sử dụng PHP là ngôn ngữ nền tảng như Facebook, Wikipedia, Yahoo, Photobucket,…
+PHP vẫn là một trong những ngôn ngữ phổ biến nhất cho phát triển web, được sử dụng bởi hơn 75% các website có server-side language được biết đến (theo W3Techs 2024). Một số website nổi tiếng sử dụng PHP bao gồm Wikipedia, WordPress, Slack, và nhiều ứng dụng web khác.
+
+**Lưu ý (2025):** Bài viết này được viết năm 2015 với các hướng dẫn cài đặt từ thời kỳ đó. Các khái niệm cơ bản về web vẫn còn hiệu lực, nhưng các công cụ và phương pháp setup đã có những cập nhật hiện đại (Docker, VS Code, PHP 8.x).
 Hy vọng qua loạt bài viết về PHP cơ bản, mọi người có thể tự tin xây dựng cho riêng mình một trang cá nhân từ PHP.
 
 ## Hiểu về cách mà 1 trang web hoạt động
@@ -101,7 +103,7 @@ Nhấn Start để chạy Localhost
 
 ![](https://1.bp.blogspot.com/-sG--csszEzU/VS6YtZ48u_I/AAAAAAAACSc/gIQ9igulGuY/s1600/XAMPP_6.png)
 
-Mở trình duyệt lên, gõ vào thanh địa chỉ [http://localhost/ ](http://localhost/%C2%A0)
+Mở trình duyệt lên, gõ vào thanh địa chỉ `http://localhost/`
 
 Tadaaa, nếu ra được như hình thế này thì đã thành công rồi nhé.
 (Do mình xài nhiều chương trình khác nên mình sử dụng cổng 81, cái bạn cứ vào http://localhost/ bình thường nhé)
@@ -114,15 +116,26 @@ Bây giờ bạn vào thư mục cài đặt XAMPP, chúng ta sẽ thấy cấu 
 
 Một trang Web PHP được viết thành nhiều file có đuôi .php, đặt trong nhiều thư mục khác nhau. Thư mục htdocs sẽ là nơi lưu tất cả các script php hay web của chúng ta sau này.
 
+### Lựa chọn hiện đại thay thế XAMPP (2025)
+
+Bên cạnh XAMPP, bạn cũng có thể sử dụng các giải pháp hiện đại hơn:
+- **Docker + Docker Compose** - Phương pháp chuyên nghiệp, cô lập môi trường
+- **Laravel Sail** - Nếu học Laravel, đi kèm dev environment
+- **Laravel Valet** (macOS/Linux) - Thiết lập nhanh và đơn giản
+- **PHP built-in server** - `php -S localhost:8000` cho học tập cơ bản
+
 ## Cài đặt trình soạn thảo văn bản
 
-Để viết code PHP bạn có thể viết bằng bất cứ trình soạn thảo text nào như notepad++, Sublime text, …. Nhưng mình ưu tiên khuyến khích các bạn sử dụng Sublime Text vì gọn nhẹ, nhiều Plugin hỗ trợ, ….
+Để viết code PHP bạn có thể sử dụng bất kỳ trình soạn thảo text nào. **Khuyến nghị 2025:** Sử dụng **Visual Studio Code** (VS Code) với extension PHP Intelephense - nó miễn phí, mạnh mẽ, và có hỗ trợ lớn từ cộng đồng.
 
-Để cài đặt, đầu tiên download file cài đặt từ trang chủ Sublime: [http://www.sublimetext.com](http://www.sublimetext.com/)
+Download tại: https://code.visualstudio.com/
 
-![](https://1.bp.blogspot.com/-dRn-R8REbSo/VS6ZZk-jstI/AAAAAAAACS8/8L9myQJvDk0/s1600/Screenshot-from-2014-10-13-204458.png)
+Các lựa chọn khác vẫn hoạt động tốt:
+- **JetBrains PhpStorm** - IDE chuyên nghiệp (trả phí)
+- **Sublime Text** - Editor nhẹ và nhanh
+- **Notepad++** - Editor đơn giản cho những người mới bắt đầu
 
-Chi tiết cách sử dụng các bạn xem thêm tại đây nhé, rất chi tiết: [https://www.izwebz.com/newbie/huong-dan-dung-sublime-text-2/](https://www.izwebz.com/newbie/huong-dan-dung-sublime-text-2/)
+Chọn công cụ mà bạn cảm thấy thoải mái nhất!
 
 ## Kết
 
@@ -130,4 +143,7 @@ Chi tiết cách sử dụng các bạn xem thêm tại đây nhé, rất chi ti
 
 Ở bài sau chúng ta sẽ được biết qua các khái niệm, quy tắc, hàm, biến, hằng, …
 
-Trong khi đợi các bài viết tiếp theo của khóa học, các bạn có thể tham khảo trước về cú pháp PHP tại W3Schools [http://www.w3schools.com/php/default.asp](http://www.w3schools.com/php/default.asp)
+Trong khi đợi các bài viết tiếp theo của khóa học, các bạn có thể tham khảo tài liệu PHP:
+- **W3Schools PHP Tutorial**: https://www.w3schools.com/php/
+- **PHP Official Documentation**: https://www.php.net/manual/en/
+- **PHP 8.x Features**: Nếu đã quen với PHP 5.x, hãy tìm hiểu Named Arguments, Match Expression, Attributes (mới trong PHP 8.x)

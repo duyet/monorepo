@@ -15,6 +15,8 @@ description: Cài đặt Tensorflow
 
 [Tensorflow](http://tensorflow.org/) - thư viện nguồn mở Machine Learning, xử theo mô hình data flow, có nhiều bài giới thiệu về Tensorflow rồi. Ban đầu được thiết kế để nghiên cứu tại phòng lab Google Brain cho các dự án Machine Learning.
 
+> **Lưu ý:** Bài viết từ năm 2016 về TensorFlow 0.6.0. Phiên bản hiện tại là TensorFlow 2.x với cách cài đặt và API hoàn toàn khác. Vui lòng tham khảo [tài liệu chính thức](https://www.tensorflow.org/install) cho hướng dẫn cài đặt mới nhất.
+
 Tensorflow được viết bằng C++ và Python. Có nhiều cách để cài đặt Tensorflow, chạy trên 1 hoặc nhiều CPU, GPU, di chuyển desktop, mobile lên server mà không cần phải code lại.
 
 ![](https://3.bp.blogspot.com/-R2h5LWtXLa4/VrTTs4StSYI/AAAAAAAAPHQ/AewU2C9IqOo/s320/logo-alt%25402x.png)
@@ -43,20 +45,18 @@ Sau đó cài Tensorflow:
 ```bash
 # Ubuntu/Linux 64-bit, CPU only:
 $ sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
-
 ```
 
 Cài bản có hỗ trợ GPU:
 
-```
+```bash
 # Ubuntu/Linux 64-bit, GPU enabled:
 $ sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
-
 ```
 
 Cài cho Mac OS X, chỉ có bản CPU only và không hỗ trợ GPU:
 
-```
+```bash
 # Mac OS X, CPU only:
 $ sudo easy_install --upgrade six
 $ sudo pip install --upgrade https://storage.googleapis.com/tensorflow/mac/tensorflow-0.6.0-py2-none-any.whl

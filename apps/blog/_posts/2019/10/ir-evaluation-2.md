@@ -1,7 +1,7 @@
 ---
 title: Đánh giá hệ thống Information Retrieval (tiếp theo)
 date: '2019-10-09'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data
   - Data Engineering

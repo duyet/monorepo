@@ -3,7 +3,6 @@ title: Japanese stopwords package for npm, bower and plaintext
 date: '2016-02-27'
 author: Duyet
 tags:
-  - Sentiment Analysis
   - Github
   - Machine Learning
   - NLP

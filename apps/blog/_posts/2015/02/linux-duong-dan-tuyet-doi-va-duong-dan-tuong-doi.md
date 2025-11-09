@@ -15,7 +15,7 @@ Trong linux, khi làm việc trên server hay đơn giản hơn là làm việc 
 
 ## Đường dẫn tuyệt đối
 
-Đường dẫn tuyệt đối của một tệp tin hay thư mục luôn bắt đầu bởi `/` (root) và tiếp theo sau đó là chuỗi các thư mục mà nó đi xuyên qua cho đến khi tới đích. Tóm lại, một đường dẫn tuyệt đối là đường dẫn bắt đầu bởi `/ `(root)
+Đường dẫn tuyệt đối của một tệp tin hay thư mục luôn bắt đầu bởi `/` (root) và tiếp theo sau đó là chuỗi các thư mục mà nó đi xuyên qua cho đến khi tới đích. Tóm lại, một đường dẫn tuyệt đối là đường dẫn bắt đầu bởi `/`(root)
 Ví dụ :
 
 1. Khi bạn đang đứng trong thư mục lvduit, thư mục con của home (hay còn có thể nói home là thư mục mẹ của `lvduit`) thì đường dẫn tuyệt đối của của thư mục `lvduit` sẽ là `/home/lvduit`.
@@ -37,7 +37,7 @@ Ví dụ: ráng đọc từng dòng bash nha =]]
 Ví dụ khác:
 Giả sử là bạn đang đứng trong thư mục `/home/lvduit` trong cây thư mục.
 Từ đây thì đường dẫn `abc/xxx` sẽ là đường dẫn tương đối của tệp tin xxx.
-Còn` /home/lvduit/abc/xxx` sẽ là đường dẫn tuyệt đối.
+Còn `/home/lvduit/abc/xxx` sẽ là đường dẫn tuyệt đối.
 
 ## Kết
 

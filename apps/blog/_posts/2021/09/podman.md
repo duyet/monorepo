@@ -26,11 +26,10 @@ The Podman CLI is the same as Docker CLI. You can simply alias the Docker CLI, `
 Docker follows the client/server model, using a daemon to manage all containers under its control.
 However, Podman, like rkt and LXC, functions without a central daemon.
 
-I'm not attempting to convince you to use or not to use Podman, especially ocker has
+I'm not attempting to convince you to use or not to use Podman, especially since Docker has
 [recently announced](https://www.docker.com/blog/updating-product-subscriptions/)
 that Docker Desktop will soon require a paid subscription for Team or Business.
 This is just a note if you want to try it on your Mac.
-D
 
 # Install the Podman on Mac
 
@@ -72,8 +71,8 @@ With the `short-name-mode=permissive` config, Podman will try all unqualified-se
 
 Update the `unqualified-search-registries` for your trusted registries:
 
-```
-echo 'unqualified-search-registries = ["docker.io", "quay.io"] >> /etc/containers/registries.conf'
+```bash
+echo 'unqualified-search-registries = ["docker.io", "quay.io"]' >> /etc/containers/registries.conf
 ```
 
 # Rock in

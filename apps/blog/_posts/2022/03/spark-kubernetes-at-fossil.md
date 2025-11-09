@@ -238,7 +238,7 @@ spec:
 
 Spark History Server cũng có thể được cài đặt thông qua [this Helm Chart](https://artifacthub.io/packages/helm/spot/spark-history-server), chỉ cần trỏ đúng đường dẫn của `logDirectory` vào đúng vị trí S3 bucket mà Spark đã gửi lên.
 
-```yaml
+```bash
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm install stable/spark-history-server \
 --namespace spark-jobs \

@@ -23,7 +23,7 @@ Re-html-ized and edited by Kragen Sittler
 
 Last modified 1996-04-10 or earlier
 
-I copied this from [http://canonical.org/~kragen/tao-of-programming.html](http://canonical.org/~kragen/tao-of-programming.html)
+I copied this from [https://canonical.org/~kragen/tao-of-programming.html](https://canonical.org/~kragen/tao-of-programming.html)
 
 English below.
 
@@ -410,19 +410,19 @@ _Last modified 1996-04-10 or earlier_
 
 ## Table of Contents
 
-1. [The Silent Void](http://canonical.org/~kragen/tao-of-programming.html#book1)
-2. [The Ancient Masters](http://canonical.org/~kragen/tao-of-programming.html#book2)
-3. [Design](http://canonical.org/~kragen/tao-of-programming.html#book3)
-4. [Coding](http://canonical.org/~kragen/tao-of-programming.html#book4)
-5. [Maintenance](http://canonical.org/~kragen/tao-of-programming.html#book5)
-6. [Management](http://canonical.org/~kragen/tao-of-programming.html#book6)
-7. [Corporate Wisdom](http://canonical.org/~kragen/tao-of-programming.html#book7)
-8. [Hardware and Software](http://canonical.org/~kragen/tao-of-programming.html#book8)
-9. [Epilogue](http://canonical.org/~kragen/tao-of-programming.html#book9)
+1. [The Silent Void](https://canonical.org/~kragen/tao-of-programming.html#book1)
+2. [The Ancient Masters](https://canonical.org/~kragen/tao-of-programming.html#book2)
+3. [Design](https://canonical.org/~kragen/tao-of-programming.html#book3)
+4. [Coding](https://canonical.org/~kragen/tao-of-programming.html#book4)
+5. [Maintenance](https://canonical.org/~kragen/tao-of-programming.html#book5)
+6. [Management](https://canonical.org/~kragen/tao-of-programming.html#book6)
+7. [Corporate Wisdom](https://canonical.org/~kragen/tao-of-programming.html#book7)
+8. [Hardware and Software](https://canonical.org/~kragen/tao-of-programming.html#book8)
+9. [Epilogue](https://canonical.org/~kragen/tao-of-programming.html#book9)
 
 ---
 
-## [Book 1 - The Silent Void](https://www.blogger.com/null)
+## Book 1 - The Silent Void
 
 Thus spake the master programmer:
 
@@ -467,7 +467,7 @@ Even a perfect program still has bugs.
 
 ---
 
-## [Book 2 - The Ancient Masters](https://www.blogger.com/null)
+## Book 2 - The Ancient Masters
 
 Thus spake the master programmer:
 
@@ -505,7 +505,7 @@ The Master replies: ``That programmer has mastered the Tao. He has gone beyond t
 
 ---
 
-## [Book 3 - Design](https://www.blogger.com/null)
+## Book 3 - Design
 
 Thus spake the master programmer:
 
@@ -561,7 +561,7 @@ The master programmer shrugged. ``Then the design will never be completed,'' he 
 
 ---
 
-## [Book 4 - Coding](https://www.blogger.com/null)
+## Book 4 - Coding
 
 Thus spake the master programmer:
 
@@ -617,7 +617,7 @@ Prince Wang said, ``Would that all of my programmers were as wise!''
 
 ---
 
-## [Book 5 - Maintenance](https://www.blogger.com/null)
+## Book 5 - Maintenance
 
 Thus spake the master programmer:
 
@@ -663,7 +663,7 @@ Does a good programmer refuse to maintain his code?
 
 ---
 
-## [Book 6 - Management](https://www.blogger.com/null)
+## Book 6 - Management
 
 Thus spake the master programmer:
 
@@ -710,7 +710,7 @@ So the manager said: ``All right, in that case you may set your own working hour
 
 ---
 
-## [Book 7 - Corporate Wisdom](https://www.blogger.com/null)
+## Book 7 - Corporate Wisdom
 
 Thus spake the master programmer:
 
@@ -750,7 +750,7 @@ The master programmer moves from program to program without fear. No change in m
 
 ---
 
-## [Book 8 - Hardware and Software](https://www.blogger.com/null)
+## Book 8 - Hardware and Software
 
 Thus spake the master programmer:
 
@@ -790,7 +790,7 @@ Software and Hardware, ashamed, returned to their homes.
 
 ---
 
-## [Book 9 - Epilogue](https://www.blogger.com/null)
+## Book 9 - Epilogue
 
 Thus spake the master programmer:
 

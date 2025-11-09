@@ -1,0 +1,18 @@
+FRONTMATTER FIXES SUMMARY
+======================================================================
+
+Total files processed: 296
+Files modified: 2
+Categories fixed: 0
+Tags standardized: 0
+Tags removed: 2
+
+
+Modified Files:
+  2015/04/gioi-thieu-ve-google-materialize-css.md
+  2015/06/javascript-code-smells.md
+
+
+Removed Tags:
+  CSS: 1 occurrences
+  javascript: 1 occurrences

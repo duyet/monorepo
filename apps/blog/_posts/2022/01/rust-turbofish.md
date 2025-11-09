@@ -2,7 +2,7 @@
 title: 'Rust: Turbofish ::<> 🐠 '
 date: '2022-01-02'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

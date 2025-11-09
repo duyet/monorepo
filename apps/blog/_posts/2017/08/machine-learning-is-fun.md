@@ -112,7 +112,7 @@ def estimate_house_sales_price(num_of_bedrooms, sqft, neighborhood):
   # now adjust our estimate based on the number of bedrooms
   if num_of_bedrooms == 0:
     # Studio apartments are cheap
-    price = price — 20000
+    price = price - 20000
   else:
     # places with more bedrooms are usually
     # more valuable

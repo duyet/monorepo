@@ -13,6 +13,8 @@ category: Javascript
 description: React và ES6 vẫn là các chủ đề đang được quan tâm. Javascript Weekly tuần này có gì hot?
 ---
 
+> **Note:** This is a historical post from 2016. Some links and content may be outdated.
+
 React và ES6 vẫn là các chủ đề đang được quan tâm. Javascript Weekly tuần này có gì hot?
 
 [![](https://4.bp.blogspot.com/-mQxRpFMY0UM/V1wn05hGx3I/AAAAAAAAXiA/PUSZrt0AUoMEyGQbfmEbmJlhnEmBIp-5gCK4B/s1600/js-4.png)](https://blog.duyet.net/2016/06/javascript-weekly-4.html)
@@ -45,7 +47,7 @@ KEVIN YANK
 
 Một bài viết hay và chi tiết về Regular Expressions trong Javascript
 
-```
+```javascript
 var theString = "test1 Test2 TEST3";
 theString.search(/Test[0-9]+/); // 6
 ```
@@ -54,7 +56,7 @@ theString.search(/Test[0-9]+/); // 6
 
 Một thư viện với nhiều phương thức để kiểm tra kiểu của một giá trị trong Javascript. Hỗ trợ cho trình duyệt lẫn Node.js
 
-```
+```javascript
 const is = require( '@pwn/is' )
 
 is.array( [] ) // true

@@ -2,7 +2,7 @@
 title: cheats.rs
 date: '2022-01-01'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Rust Tiếng Việt

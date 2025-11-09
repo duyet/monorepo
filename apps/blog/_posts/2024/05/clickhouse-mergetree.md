@@ -66,7 +66,7 @@ The [`MergeTree`](https://clickhouse.com/docs/en/engines/table-engines/mergetree
 PARTITION BY toYYYYMM(event_date)
 ```
 
-Each partition is stored separately folder
+Each partition is stored in a separate folder
 
 - `202401/`
 - `202402/`

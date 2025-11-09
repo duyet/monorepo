@@ -1,5 +1,5 @@
 ---
-title: Design Pattterns - hệ thống 23 mẫu Design Patterns
+title: Design Patterns - hệ thống 23 mẫu Design Patterns
 date: '2015-02-23'
 author: Duyet
 tags:
@@ -7,10 +7,10 @@ tags:
 category: Software Engineering
 modified_time: '2015-02-23T22:40:07.138+07:00'
 slug: /2015/02/design-patterns-he-thong-23-mau-design.html
-description: Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn Design patterns Elements of Reusable Object Oriented Software
+description: Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa bởi Gang of Four - một kiến thức cơ bản và không lỗi thời trong công nghệ phần mềm
 ---
 
-Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn "**Design patterns Elements of Reusable Object Oriented Software**" ([pdf](http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf)).
+Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa trong cuốn "**Design Patterns: Elements of Reusable Object-Oriented Software**" - một cuốn sách cổ điển của Gang of Four.
 
 ## Về tác giả
 
@@ -178,6 +178,6 @@ Các tác giả của cuốn sách là **Erich Gamma**, **Richard Helm**, **Ralp
     </tbody>
 </table>
 
-## Kết 
+## Kết luận
 
 Các bài viết sau mình sẽ đi sâu vào 3 nhóm chính, cuối cùng là các bài viết về từng mẫu của từng nhóm.

@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Node.js
   - Javascript Framework
-  - Chatbot
 modified_time: '2017-02-03T10:29:53.696+07:00'
 thumbnail: https://1.bp.blogspot.com/-E3jFFQUIYCs/WIYM0StyBTI/AAAAAAAAihE/voCjyxjUDMcfR7dIoMfX7bdbLnaoaOASQCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B21-01-28.png
 slug: /2017/01/botpress.html

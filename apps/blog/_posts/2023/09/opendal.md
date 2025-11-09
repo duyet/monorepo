@@ -2,7 +2,7 @@
 title: Apache OpenDAL in Rust to Access Any Kind of Data Services
 date: '2023-09-09'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Data
   - Rust
@@ -116,7 +116,7 @@ Look at some additional examples below
 
 # FS - File System
 
-[Document](https://opendal.apache.org/docs/services/fs) and [docs.rs](https://docs.rs/opendal/latest/opendal/services/struct.Fs.htmll)
+[Document](https://opendal.apache.org/docs/services/fs) and [docs.rs](https://docs.rs/opendal/latest/opendal/services/struct.Fs.html)
 
 ```rust
 use std::collections::HashMap;

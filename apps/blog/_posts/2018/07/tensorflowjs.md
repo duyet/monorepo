@@ -3,7 +3,6 @@ title: TensorFlow.js
 date: '2018-07-19'
 author: Duyet
 tags:
-  - Tensorflow
   - Javascript
   - Machine Learning
   - Web

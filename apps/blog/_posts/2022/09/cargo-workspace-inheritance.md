@@ -2,7 +2,7 @@
 title: 'Cargo: workspace inheritance'
 date: '2022-09-24'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Cargo

@@ -3,7 +3,6 @@ title: console.log() nâng cao
 date: '2016-05-16'
 author: Duyet
 tags:
-  - Chrome
   - Javascript
   - Tutorial
 modified_time: '2016-05-16T20:57:35.599+07:00'

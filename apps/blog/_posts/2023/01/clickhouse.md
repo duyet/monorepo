@@ -113,7 +113,7 @@ By leveraging the power of ClickHouse's SQL capabilities, you can quickly and ea
 
 ClickHouse also offers a powerful feature called **Materialized view** which allows users to transform data on the fly. This can be used to quickly create tables and views from existing data sources, or to join multiple tables together. This feature is incredibly powerful and can be used to quickly and easily create complex queries without the need to write complex SQL. By leveraging the power of ClickHouse's Materialized view feature, you can streamline your data pipeline and ensure that your data is always up to date.
 
-```rust
+```sql
 CREATE TABLE transformed_data (
   event_time DateTime,
   event_id String,
@@ -139,7 +139,7 @@ The Materialized View called `transform_view` uses the `JSONExtractString()` and
 
 You can then query the `transformed_data` table just like any other table:
 
-```rust
+```sql
 SELECT * FROM transformed_data
 ```
 
@@ -180,7 +180,7 @@ I hope this helps. Was this a good idea? Please let me know.
 
 - [Series: ClickHouse on Kubernetes](https://blog.duyet.net/series/clickhouse-on-kubernetes)
 - ClickHouse Playground - [https://play.clickhouse.com/play](https://play.clickhouse.com/play)
-- [MergeTree Engine](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/)
-- [Kafka Integration](https://clickhouse.tech/docs/en/operations/table_engines/kafka/)
-- [RelicatedMergeTree Engine](https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replication/)
-- [Distributed Table Engine](https://clickhouse.tech/docs/en/engines/table-engines/special/distributed/)
+- [MergeTree Engine](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/)
+- [Kafka Integration](https://clickhouse.com/docs/en/operations/table_engines/kafka/)
+- [RelicatedMergeTree Engine](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/)
+- [Distributed Table Engine](https://clickhouse.com/docs/en/engines/table-engines/special/distributed/)

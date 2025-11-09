@@ -4,7 +4,6 @@ date: '2018-07-01'
 author: Duyet
 tags:
   - Javascript
-  - Visualization
 modified_time: '2018-07-01T23:20:16.007+07:00'
 slug: /2018/07/giojs-3d-globe-data-visualization.html
 thumbnail: https://1.bp.blogspot.com/-fyu1xILKsuE/XUf7uXmrSAI/AAAAAAABFMw/FPCRz3qQR8k7_8iIPSoRkm-zBslPkdFDwCLcBGAs/s1600/Screen%2BShot%2B2019-08-05%2Bat%2B4.49.34%2BPM.png

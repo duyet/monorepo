@@ -31,7 +31,6 @@ Most of the features are almost similar to that of Netlify, but the Cloudflare P
 | DNS Management          |       Yes        |        Yes        |
 | Continuous Deployment   |       Yes        |        Yes        |
 | Build Preview           |       Yes        |        Yes        |
-| Build Preview           |       Yes        |        Yes        |
 | HTTP/3                  |       Yes        |        No         |
 | QUIC                    |       Yes        |        No         |
 | Global CDN              |       Yes        |        No         |

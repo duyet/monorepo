@@ -3,9 +3,6 @@ title: phpMyAdmin
 date: '2015-02-15'
 author: Duyet
 tags:
-  - SQL
-  - PHPMyAdmin
-  - MySQL
 category: Software Engineering
 modified_time: '2015-02-15T23:05:02.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-RIl_Pz6Y1Fo/VODDEddfGiI/AAAAAAAACHw/wibuZ6SUfAQ/s1600/Screenshot%2Bfrom%2B2015-02-15%2B22%3A59%3A44.png

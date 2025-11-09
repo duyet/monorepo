@@ -4,7 +4,7 @@ date: '2015-12-20'
 author: Duyet
 tags:
   - Docker
-modified_time: '2018-09-10T17:28:07.923+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png
 slug: /2015/12/docker.html
 category: Docker
@@ -46,10 +46,10 @@ Docker là công cụ tạo môi trường đóng gói, nó còn đóng gói c�
   
 Tóm lại, docker:
 
-- Docker rất tốt tại việc xây dựng và chia sẻ Disk Image qua hệ thống Docker Index
+- Docker rất tốt tại việc xây dựng và chia sẻ Disk Image qua Docker Hub
 - Docker là một phần mềm quản lý cơ sở hạ tầng.
 - Docker làm việc tuyệt vời với các công cụ quản lý file config (vd: Chef, Puppet)
-- Docker sử dụng btrfs để giảm sát các file hệ thống và có thể được chia sẻ với user khác. (Như cách hoạt động của Git)
+- Docker sử dụng các storage driver (btrfs, overlay2, v.v.) để quản lý file hệ thống và có thể được chia sẻ với user khác. (Như cách hoạt động của Git). Hiện nay, overlay2 là driver phổ biến nhất.
 - Docker có một bộ kho trung tâm của các Disk Images (có thể được public hoặc private), điều này cho phép bạn dễ dàng chạy trên nhiều hệ điều hành khác nhau (Ubuntu, Centos, Fedora, Gentoo).
 
 ## Khi nào thì sử dụng Docker
@@ -66,23 +66,31 @@ Hãy thử dùng và trải nghiệm docker. Mình sẽ liệt kê một số l�
 
 ### Pull một image từ Docker Hub
 
+```bash
 docker pull <image name>
+```
 
 ### Tạo một container từ image có sẵn
 
-    docker run -v <thư mục trên máy tính>:<thư mục trong container> -it <image name> /bin/bash
+```bash
+docker run -v <thư mục trên máy tính>:<thư mục trong container> -it <image name> /bin/bash
+```
 
 Lệnh trên tạo container, liên kết một thư mục trên máy tính vào bên trong container, và mở bash trong máy đó.
 
 Khi cần phải map cổng đó từ container ra máy tính ngoài, khi đó chúng ta dùng thêm tham số -p như sau:
 
-    docker run -v /abc:/abc -p 8080:8080 -it ubuntu /bin/bash
+```bash
+docker run -v /abc:/abc -p 8080:8080 -it ubuntu /bin/bash
+```
 
 Lệnh trên map cổng 8080 của container ra cổng 8080 của máy tính hiện tại.
 
 ### Liệt kê các images hiện có
 
-    docker images
+```bash
+docker images
+```
 
 Trong kết quả trả về của lệnh này, chúng ta lưu ý các thông số:
 
@@ -91,7 +99,10 @@ Trong kết quả trả về của lệnh này, chúng ta lưu ý các thông s�
 
 ### Liệt kê các container đang chạy
 
-    docker psdocker ps -a # liệt kê các container đã tắt
+```bash
+docker ps          # liệt kê các container đang chạy
+docker ps -a       # liệt kê các container đã tắt
+```
 
 - **CONTAINER ID**: Là ID của container đó, ví dụ **4cc671941ee3 **
 - **NAME**: Là tên riêng của container, được tạo ra một cách ngẫu nhiên hoặc có thể tự đặt, ví dụ **stupefied_blackwell **
@@ -100,23 +111,33 @@ Trong kết quả trả về của lệnh này, chúng ta lưu ý các thông s�
 
 Nếu một container đã tắt (không xuất hiện khi dùng lệnh docker ps nữa, chúng ta có thể chạy lệnh docker ps -a để lấy ID hoặc NAME của nó, sau đó dùng lệnh sau để khởi động và truy cập lại vào đó)
 
-    docker start <ID hoặc NAME>docker exec -it <ID hoặc NAME> /bin/bash 
+```bash
+docker start <ID hoặc NAME>
+docker exec -it <ID hoặc NAME> /bin/bash
+``` 
 
 ### Xoá một container
 
 Nếu một container đã hết giá trị lợi dụng, dù nó đã tắt nhưng nó vẫn chiếm một phần dung lượng trên máy tính, để xoá nó đi, chúng ta dùng lệnh
 
-    docker rm <ID hoặc NAME>
+```bash
+docker rm <ID hoặc NAME>
+```
 
-Nếu container đang chạy, bạn cũng có thể xoá nhưng phải thêm tham số \-f vào sau rm để force remove:
+Nếu container đang chạy, bạn cũng có thể xoá nhưng phải thêm tham số -f vào sau rm để force remove:
 
-    docker rm -f <ID hoặc NAME>
+```bash
+docker rm -f <ID hoặc NAME>
+```
 
 ### Xoá một image
 
 Cũng như container, nếu bạn đã ko còn nhu cầu sử dụng một image nào đó nữa, thì nên xoá nó đi. Dùng lệnh rmi
 
-    docker rmi <ID hoặc NAME># ordocker rmi -f <ID hoặc NAME>
+```bash
+docker rmi <ID hoặc NAME>
+docker rmi -f <ID hoặc NAME>  # force remove
+```
 
 ## Kết
 
@@ -129,5 +150,8 @@ Có thời gian mình sẽ chia sẻ một số Image docker hay sử dụng.
 
 Tham khảo:
 
-- Docker - [http://docker.io](http://liink.pw/oHH0G3X)
-- Docker Solutions and Use Cases - [http://liink.pw/K2ZcK6](http://liink.pw/K2ZcK6)
+- Docker Official Documentation - [https://docs.docker.com/](https://docs.docker.com/)
+- Docker Hub - [https://hub.docker.com/](https://hub.docker.com/)
+- Kubernetes (container orchestration) - [https://kubernetes.io/](https://kubernetes.io/)
+
+**Lưu ý (2025)**: Bài viết này được viết năm 2015. Docker vẫn là công cụ thiết yếu trong 2025, nhưng ekosystem đã phát triển đáng kể với container orchestration (Kubernetes, Docker Swarm), CI/CD pipelines, và cloud-native development. Các khái niệm cơ bản vẫn áp dụng được.

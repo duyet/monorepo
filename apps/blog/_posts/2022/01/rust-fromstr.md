@@ -2,7 +2,7 @@
 title: 'Rust: FromStr trait'
 date: '2022-01-02'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

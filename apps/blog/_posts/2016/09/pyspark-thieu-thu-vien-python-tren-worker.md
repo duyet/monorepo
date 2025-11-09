@@ -6,8 +6,6 @@ tags:
   - Data Engineering
   - Apache Spark
   - Python
-  - Apache Spark
-  - Javascript
   - Big Data
 modified_time: '2018-09-01T22:32:19.537+07:00'
 slug: /2016/09/pyspark-thieu-thu-vien-python-tren-worker.html

@@ -42,4 +42,4 @@ Có history, info notebook, executed code, ...
 Code từ Cola có thể import hoặc export ra file .ipynb, tương thích hoàn toàn với Jupyter.  
 Với mình Colaboratory khá là hay và tiện, nhất là còn thể sử dụng tài nguyên miễn phí và mạnh của Google.
 
-Thử sử dụng Colaboratory tại đây nhé: [https://colab.research.google.com](https://colab.research.google.com/)/
+Thử sử dụng Colaboratory tại đây nhé: [https://colab.research.google.com](https://colab.research.google.com/)

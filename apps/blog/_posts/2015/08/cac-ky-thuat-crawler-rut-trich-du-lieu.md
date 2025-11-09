@@ -5,16 +5,18 @@ author: Duyet
 tags:
   - Node.js
   - Javascript Framework
-modified_time: '2015-08-08T17:37:55.222+07:00'
+modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://3.bp.blogspot.com/-Cwxzj6-qXVo/VcXRtQa3L4I/AAAAAAAACss/YD6WVCG84JE/s1600/nodejs-crawler.png
 slug: /2015/08/cac-ky-thuat-crawler-rut-trich-du-lieu.html
-category: Data Engineer
+category: Data Engineering
 description: Nhân dịp tuyển sinh ĐH này, mình có project về thu thập dữ liệu tuyển sinh của các thí sinh trên trang của các trường ĐH. Project này mục tiêu là thu thập toàn bộ thông tin của thí sinh (SBD, tên, tuổi, điểm các môn, nguyện vọng các ngành, trường mà thí sinh nộp xét tuyển, ...). Điều oái oăm là mỗi trường công bố dữ liệu 1 cách hết sức ... tùm lum và tào lao.
 ---
 
 Nhân dịp tuyển sinh ĐH này, mình có project về thu thập dữ liệu tuyển sinh của các thí sinh trên trang của các trường ĐH. Project này mục tiêu là thu thập toàn bộ thông tin của thí sinh (SBD, tên, tuổi, điểm các môn, nguyện vọng các ngành, trường mà thí sinh nộp xét tuyển, ...). Điều oái oăm là mỗi trường công bố dữ liệu 1 cách hết sức ... tùm lum và tào lao.
 Có trường hiện đại thì show dữ liệu trực tiếp lên web, trường thì up đại 1 file excel, oái hơn là bỏ vào file pdf :v
 Nhiệm vụ của mình là thu thập dữ liệu từ nhiều nguồn thô như vậy một cách tự động. Mỗi trường được viết thành 1 module riêng và có cách để crawler riêng. Bài viết này chủ yếu giới thiệu về các dạng để crawler đặc trưng nhất, và cho thấy được sức mạnh của Nodejs.
+
+> **LƯU Ý (2025)**: Bài viết này được viết từ năm 2015 và chủ yếu là tài liệu tham khảo lịch sử. Các kỹ thuật cơ bản về web scraping vẫn còn có giá trị, nhưng hệ sinh thái Node.js đã phát triển đáng kể. Hiện nay, bạn nên xem xét sử dụng các công cụ hiện đại hơn như **Puppeteer**, **Playwright**, hoặc **Cheerio** thay vì node-crawler.
 
 ![](https://3.bp.blogspot.com/-Cwxzj6-qXVo/VcXRtQa3L4I/AAAAAAAACss/YD6WVCG84JE/s1600/nodejs-crawler.png)
 
@@ -26,7 +28,7 @@ Có thể xem thêm code của project tại Github tại đây: [https://github
 
 Đây là cách dễ và cũng là dạng crawler phổ biến nhất. Với bảng có phân trang, chúng ta phải lập trình để spider có thể dò được link của trang tiếp theo cho đến khi lấy hết được nội dung.
 
-Mình sử dụng package node-crawler ([https://github.com/duyet/node-crawler](https://github.com/duyet/node-crawler))
+Mình sử dụng package node-crawler (npm package: [`crawler`](https://www.npmjs.com/package/crawler), source: [https://github.com/duyet/node-crawler](https://github.com/duyet/node-crawler))
 
 Cài đặt:
 
@@ -93,4 +95,6 @@ c.queue([
 ])
 ```
 
-Đang cập nhật thêm....
+## Ghi chú
+
+Bài viết gốc được viết để hướng dẫn các kỹ thuật crawling cơ bản. Project tham khảo hoàn chỉnh với các ví dụ thực tế có sẵn trên GitHub. Để tìm hiểu thêm về các kỹ thuật crawling hiện đại, bạn có thể tham khảo thêm các công cụ và thư viện được nhắc đến ở phần lưới ứuc ở trên.

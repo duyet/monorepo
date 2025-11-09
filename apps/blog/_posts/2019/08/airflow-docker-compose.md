@@ -1,7 +1,7 @@
 ---
 title: Cài đặt Apache Airflow với Docker Compose
 date: '2019-08-26'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Airflow
   - Data
@@ -12,6 +12,8 @@ description: Trong bài này mình sẽ hướng dẫn cách thiết lập môi 
 ---
 
 Trong bài này mình sẽ hướng dẫn cách thiết lập môi trường develop Apache Airflow dưới local bằng Docker Compose.
+
+> **Note (2025)**: Bài viết này sử dụng Airflow 1.10.4 và Docker image `puckel/docker-airflow` đã không được maintain. Với Airflow 2.x, nên sử dụng [official Docker image](https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html) từ Apache Airflow.
 
 **TL;DR** Source ví dụ của bài viết này: https://github.com/duyet/airflow-docker-compose
 

@@ -30,7 +30,7 @@ React được xây dựng xung quanh các Component, chứ không dùng templat
 
 Bạn có thể tạo ra một component bằng các gọi phương thức createClass của đối tượng React.
 
-```
+```jsx
 var HelloMessage = React.createClass({
   render: function() {
     return <div>Hello {this.props.name}</div>;
@@ -66,13 +66,13 @@ State thay đổi, còn Props thì read-only trong mỗi Components. Chúng ta s
 
 Tạo thư mục project
 
-```
+```bash
 mkdir react-ex1 && cd $_
 ```
 
 Cấu hình `package.json`
 
-```
+```bash
 npm init
 ```
 
@@ -86,19 +86,18 @@ Ta được file package.json lưu lại thông tin các package của project.
 
 Lần lượt cài đặt React, Webpack và Babel (để viết ES6) bằng các lệnh sau:
 
-```
+```bash
 npm i react react-dom --save # Install React
 npm i babel babel-core babel-loader babel-preset-es2015 babel-preset-react webpack --save-dev
 npm i -g webpack # Webpack global
 npm i -g static-html-server # Static server để giả lập server HTTP
-
 ```
 
 ### 3. Cấu hình Webpack
 
 Tạo file webpack.config.js với nội dung sau:
 
-```
+```javascript
 var webpack = require('webpack');
 var path = require('path');
 
@@ -132,7 +131,7 @@ Và cấu trúc thư mục như hình:
 
 Tạo file `src/index.jsx` với nội dung như sau:
 
-```
+```jsx
 import React from 'react';
 import { render } from 'react-dom';
 
@@ -149,7 +148,7 @@ render(<App />, document.getElementById('app'));
 
 Và file `index.html`
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,7 +181,7 @@ Webpack với tham số --watch sẽ tự động build lại mỗi khi file sou
 Ví dụ sau hướng dẫn bạn cách sử dụng Components và Props trong React.
 Tạo file mới đặt tên `src/Hello.jsx` với nội dung:
 
-```
+```jsx
 import React, { PropTypes, Component } from 'react';
 
 export default class Message extends Component {
@@ -200,7 +199,7 @@ Message.propTypes = {
 
 Và cập nhật lại file src/index.jsx như sau:
 
-```
+```jsx
 import React from 'react';
 import { render } from 'react-dom';
 import Message from './Message.jsx';
@@ -232,7 +231,7 @@ Như đã nói React tập trung xử lý view, thành phần state trong React 
 
 Ta viết thêm `<input />` và hàm `onChange` cho Component `<App />`
 
-```
+```jsx
 import React from 'react';
 import { render } from 'react-dom';
 import Message from './Message.jsx';
@@ -268,11 +267,7 @@ render(<App />, document.getElementById('app'));
 3. `state.name` được truyền vào Component thông qua `props`
 4. Mỗi khi `state.name` thay đổi thì `<Message />` sẽ được render lại. Kết quả bạn xem tại trình duyệt.
 
-`![](https://3.bp.blogspot.com/-bnFowNNwjo4/V2riRkfIM_I/AAAAAAAAYAg/1KDbCrfYa-AF9npMVy6494lM92T3cgGZACK4B/s1600/_react_7.png)`
-
-```
-
-```
+![](https://3.bp.blogspot.com/-bnFowNNwjo4/V2riRkfIM_I/AAAAAAAAYAg/1KDbCrfYa-AF9npMVy6494lM92T3cgGZACK4B/s1600/_react_7.png)
 
 ### 7. Sử dụng các thư viện của Node.js
 

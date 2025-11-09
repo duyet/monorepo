@@ -3,8 +3,6 @@ title: 'Topic Modeling: Tìm chủ đề cho tập văn bản bài viết'
 date: '2016-06-30'
 author: Duyet
 tags:
-  - Topic Modeling
-  - Data Mining
   - Machine Learning
   - Data
 modified_time: '2016-06-30T23:41:48.897+07:00'

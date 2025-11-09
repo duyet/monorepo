@@ -2,7 +2,7 @@
 title: Scheduling Python script in Airflow
 date: '2020-06-24'
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data Engineering
   - Apache Airflow
@@ -10,10 +10,12 @@ tags:
 
 thumbnail: https://images.unsplash.com/photo-1592928038511-20202bdad1fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80
 slug: /2020/06/scheduling-python-script-in-airflow.html
-description: To schedule a Python script or Python function in Airflow, we use `PythonOperator`.
+description: To schedule a Python script or Python function in Airflow, we use `PythonOperator`. For Airflow 2.0+, consider using the TaskFlow API for a more modern approach.
 ---
 
 To schedule a Python script or Python function in Airflow, we use `PythonOperator`.
+
+> **Note**: For Airflow 2.0+, consider using the [TaskFlow API](/2020/12/airflow-taskflow-api.html) for a more modern and cleaner approach to writing Python tasks.
 
 ```python
 from airflow import DAG

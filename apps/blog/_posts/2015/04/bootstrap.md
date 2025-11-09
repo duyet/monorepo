@@ -3,12 +3,15 @@ title: Twitter Bootstrap
 date: '2015-04-27'
 author: Duyet
 tags:
-  - CSS
 modified_time: '2015-04-27T20:50:25.576+07:00'
 thumbnail: https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png
 slug: /2015/04/bootstrap.html
 category: Web
 description: Ở bài trước mình đã giới thiệu về Bootstrap về hệ thống Grid, giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
+---
+
+**Note**: This article covers Bootstrap 3 (2014). Bootstrap is now at version 5+ (2021). While the concepts remain valuable, the code examples use deprecated syntax. Refer to the [Bootstrap 5 documentation](https://getbootstrap.com/) for modern implementations.
+
 ---
 
 Ở bài trước mình đã giới thiệu về Bootstrap về [hệ thống Grid](https://blog.duyet.net/2015/04/gioi-thieu-ve-responsive-web-design-va-grid-system-trong-twitter-bootstrap.html), giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
@@ -21,7 +24,7 @@ Có rất nhiều thành phần được làm sẵn trong trang Components bạn
 
 ## Cách sử dụng Components
 
-Mình sẽ làm qua 1 số ví dụ thôi, vì mọi Components đã có code và demo rõ ràng trên trang [Components Bootstrap](http://getbootstrap.com/components/) rồi.
+Mình sẽ làm qua 1 số ví dụ thôi, vì mọi Components đã có code và demo rõ ràng trên trang [Components Bootstrap](https://getbootstrap.com/docs/3.3/components/) rồi.
 
 ![](https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png)
 
@@ -29,7 +32,7 @@ Giờ mình sẽ làm qua một ví dụ để chỉ cách các bạn đem nó v
 
 Ví dụ tạo thanh Navbar
 
-Đầu tiên truy cập vào trang Bootstrap Components, chọn mục Navbar: [http://getbootstrap.com/components/#navbar](http://getbootstrap.com/components/#navbar)
+Đầu tiên truy cập vào trang Bootstrap Components, chọn mục Navbar: [https://getbootstrap.com/docs/3.3/components/#navbar](https://getbootstrap.com/docs/3.3/components/#navbar)
 
 ![](https://1.bp.blogspot.com/-TVHoV9o1TkA/VT3vp62oFII/AAAAAAAACaI/FRssZ3OUf3Y/s1600/bs-navbar-demo.png)
 
@@ -58,11 +61,6 @@ Chỉnh sửa phần nội dung nav-brand, phần liên kết, ... cho phù hợ
       }
     </style>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>

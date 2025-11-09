@@ -3,7 +3,7 @@ title: 'Rust Design Pattern: Strategy Pattern'
 date: '2021-12-19'
 author: Duyet
 series: Rust Design Patterns
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

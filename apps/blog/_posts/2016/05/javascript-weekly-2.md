@@ -13,6 +13,8 @@ category: Javascript
 description: 'Javascript #2 tuần này có gì mới.'
 ---
 
+> **Note:** This is a historical post from 2016. Some links and content may be outdated.
+
 Javascript #2 tuần này có gì mới.
 
 [![](https://4.bp.blogspot.com/-K_vkG8qVJiA/V0k5ORhPhXI/AAAAAAAAWJQ/PR7wLT5sdfIGjSGb5SqJeFIevpWo2rbKwCK4B/s1600/javascript-weekly-2-duyetdev.png)](https://blog.duyet.net/2016/05/javascript-weekly-2.html)

@@ -12,6 +12,8 @@ category: Productivity
 description: Hướng dẫn quản trị diễn đàn Xenforo. Trích từ tài liệu hướng dẫn sử dụng SHTP Forum.
 ---
 
+> **Note:** This is a Xenforo administration guide from 2016. The interface and features may have changed in newer versions of Xenforo.
+
 Hướng dẫn quản trị diễn đàn Xenforo. Trích từ tài liệu hướng dẫn sử dụng SHTP Forum.
 (05-06-2016 by [@labx](https://labx.tech/))
 

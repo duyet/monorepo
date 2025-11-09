@@ -1,7 +1,7 @@
 ---
 title: Sách hay (Engineering)
 date: '2019-09-17'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data
   - Data Engineering

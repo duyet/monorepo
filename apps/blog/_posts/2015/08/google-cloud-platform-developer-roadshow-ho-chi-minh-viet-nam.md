@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Events
   - Google
-  - Google Cloud
 modified_time: '2015-08-28T23:34:31.605+07:00'
 thumbnail: https://3.bp.blogspot.com/-KJbSfLPwRLk/Vd6ypB6Zy5I/AAAAAAAACyg/BwwX8fLMNzE/s1600/Google-CloudPlatform_VerticalLockup.png
 slug: /2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html
@@ -13,12 +12,16 @@ category: News
 description: Please come join us for some great learning and discussion on the future of compute, storage, big data and the power of Google Cloud Platform
 ---
 
-Please come join us for some great learning and discussion on the future of compute, storage, big data and the power of Google Cloud Platform. Register [here](https://docs.google.com/forms/d/1YFPohOxYv7frowmjtArP9gA3GBRIXgsFEkUaKUC1MUw/viewform).
+Please come join us for some great learning and discussion on the future of compute, storage, big data and the power of Google Cloud Platform.
+
+**Note:** This is a historical event recap from 2015. The event has concluded and the registration link is no longer active.
 
 ![](https://3.bp.blogspot.com/-KJbSfLPwRLk/Vd6ypB6Zy5I/AAAAAAAACyg/BwwX8fLMNzE/s400/Google-CloudPlatform_VerticalLockup.png)
 
 *GCPUG (Google Cloud Platform User Group) is a group for Cloud users, fans, experts and scholars.
-*GDG (Google Developer Group) is developer community by the developers, for the developers with a shared interest in Google technologiesCities/Dates/Start Time/Venues
+*GDG (Google Developer Group) is developer community by the developers, for the developers with a shared interest in Google technologies
+
+## Cities/Dates/Start Time/Venues
 
 Hanoi, Vietnam 26 August, Wednesday
 6pm to 9pm VTC Academy
@@ -66,9 +69,9 @@ Shinji is responsible for the technology behind all of Hatena’s services from 
 
 ---
 
-Update some nice photos
+## Event Photos
 
-![](https://2.bp.blogspot.com/-oYdogeI6h7A/VeCLqfM8jQI/AAAAAAAACy0/-jFOU1u9wg8/s1600/10271216_835570129872855_188873135837677884_o.jpg)
+![Event photos from Google Cloud Platform Developer Roadshow 2015](https://2.bp.blogspot.com/-oYdogeI6h7A/VeCLqfM8jQI/AAAAAAAACy0/-jFOU1u9wg8/s1600/10271216_835570129872855_188873135837677884_o.jpg)
 
 ![](https://1.bp.blogspot.com/-pSbnY3Lgye4/VeCLq-a0N8I/AAAAAAAACy8/nGV5Dm-8w80/s1600/10991661_835589959870872_4282859211779977236_o.jpg)
 

@@ -2,7 +2,7 @@
 title: 'Rust: Copy & Clone Trait'
 date: '2022-02-13'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese
@@ -32,7 +32,7 @@ Nếu bạn thấy:
 
 - **Copy**: được copy nếu bạn bỏ nó vào function.
 - **Display:** bạn có thể sử dụng `{}` để print.
-- **Debug:** bạn có thể sử udnjg `{:?}` để print.
+- **Debug:** bạn có thể sử dụng `{:?}` để print.
 
 ```rust
 fn prints_number(number: i32) {

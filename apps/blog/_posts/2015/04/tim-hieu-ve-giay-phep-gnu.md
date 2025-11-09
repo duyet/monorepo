@@ -6,33 +6,19 @@ tags:
   - Open Source
   - License
 modified_time: '2015-04-11T13:03:51.623+07:00'
-thumbnail: https://4.bp.blogspot.com/-LlEOmpqG7Dg/VSi4YDNEClI/AAAAAAAACPU/VZ-xgKDBd8E/s1600/719px-gnu_general_public_license_3_logo-svg2.png
+thumbnail: https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg
 slug: /2015/04/tim-hieu-ve-giay-phep-gnu.html
 category: News
 description: GNU (GNU General Public License) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.
-snippet: |
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4044047400859099"
-     crossorigin="anonymous"></script>
-  <ins class="adsbygoogle"
-      style="display:block; text-align:center;"
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client="ca-pub-4044047400859099"
-      data-ad-slot="4768236865"></ins>
-  <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
 ---
 
-GNU (GNU General Public License) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.
-
-![](https://4.bp.blogspot.com/-LlEOmpqG7Dg/VSi4YDNEClI/AAAAAAAACPU/VZ-xgKDBd8E/s1600/719px-gnu_general_public_license_3_logo-svg2.png)
+![GNU General Public License v3 Logo](https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg)
 
 ## 1. Nhà phát hành
 
 GNU (GNU General Public License – Giấy phép công cộng GNU, còn được gọi là GNU GPL hay đơn giản là GPL) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.
 
-Nội dung toàn văn giấy phép GNU (phiên bản 3) tại link sau: [http://www.opensource.org/licenses/gpl-3.0.html](http://www.opensource.org/licenses/gpl-3.0.html)
+Nội dung toàn văn giấy phép GNU (phiên bản 3) tại link sau: [https://opensource.org/licenses/GPL-3.0](https://opensource.org/licenses/GPL-3.0)
 
 ## 2. Nội dung chính
 
@@ -66,4 +52,4 @@ Một số người lo ngại về vấn đề mã nguồn bị public tạo đi
 - GIMP
 - Drupal, WordPress, Joomla…
 
-Nguồn: https://thaiduynguyen.wordpress.com/2009/10/30/tim-hieu-ve-osl/
+**Tham khảo:** [Tìm hiểu về Open Source License](https://thaiduynguyen.wordpress.com/2009/10/30/tim-hieu-ve-osl/)

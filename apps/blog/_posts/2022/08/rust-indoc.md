@@ -2,12 +2,11 @@
 title: 'Rust: indoc'
 date: '2022-08-06'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese
   - Rust Tiếng Việt
-  - Rust Crates
 slug: /2022/08/rust-indoc.html
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F08%2Frust-indoc.html
 description: indoc là một crate nhỏ nhưng hữu ích giúp canh lề (indented documents). indoc!() macro nhận multiline string và un-indents lúc compile time, xoá tất cả khoảng trắng đầu tiên trên cách dòng dựa theo dòng đầu tiên.

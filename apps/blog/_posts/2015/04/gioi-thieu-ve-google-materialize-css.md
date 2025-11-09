@@ -3,8 +3,6 @@ title: Google Materialize CSS framework
 date: '2015-04-27'
 author: Duyet
 tags:
-  - CSS
-  - CSS Framework
 modified_time: '2015-04-27T21:31:34.016+07:00'
 thumbnail: https://1.bp.blogspot.com/-re5ZhkEps3k/VT5G2leoLNI/AAAAAAAACa0/dg8TsnkbMf8/s1600/materialize-intro.png
 slug: /2015/04/gioi-thieu-ve-google-materialize-css.html

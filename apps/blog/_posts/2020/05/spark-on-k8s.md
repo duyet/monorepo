@@ -3,7 +3,7 @@ title: 3 ways to run Spark on Kubernetes
 date: '2020-05-24'
 featured: true
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data Engineering
   - Apache Spark
@@ -72,6 +72,8 @@ More detail at: [https://spark.apache.org/docs/latest/running-on-kubernetes.html
 The [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark aims to make specifying and running Spark applications as easy and idiomatic as running other workloads on Kubernetes. It uses Kubernetes custom resources for specifying, running, and surfacing status of Spark applications.
 
 The easiest way to install the [Kubernetes Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) for Apache Spark is to use the Helm chart.
+
+> **Note**: The Helm incubator repository has been deprecated. Use the official Spark Operator chart instead: `helm repo add spark-operator https://googlecloudplatform.github.io/spark-on-k8s-operator`
 
 ```bash
 $ helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator

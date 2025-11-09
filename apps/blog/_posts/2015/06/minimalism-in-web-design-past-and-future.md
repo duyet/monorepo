@@ -56,7 +56,7 @@ Minimal Web design is built from these fundamentals, all of which are designed t
 - Simple navigation – The most complex navigation you’ll likely see is a dropdown menu (and even then, you won’t see submenus pop out). More common, you’ll find a top-level horizontal navigation or even a hamburger menu.
 - Visual balance – As described in our e-book Web Design for the Human Eye, visual balance is achieved through a clear visual hierarchy, consistent alignment & positioning, and smart use of symmetry and asymmetry.
 
-Now, you might assume minimalism is easy – after all, less elements means less work, right? In fact, the opposite is more accurate: because you are restricted to a few elements, these elements must be crafted with painstaking care and purpose Poor use of minimalism may be easy, but to use it correctly is not.
+Now, you might assume minimalism is easy – after all, less elements means less work, right? In fact, the opposite is more accurate: because you are restricted to a few elements, these elements must be crafted with painstaking care and purpose. Poor use of minimalism may be easy, but to use it correctly is not.
 
 Minimal design is intentional. It is an approach that strips the unnecessary elements from a framework to leave only what is required. Most minimal website designs will not include a lot of color (palettes often only have one color aside from neutrals), texture or shapes or accents.
 

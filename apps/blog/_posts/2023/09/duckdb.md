@@ -6,7 +6,6 @@ category: Data
 tags:
   - Data
   - Data Engineering
-  - DuckDB
 slug: /2023/09/duckdb.html
 thumbnail: /media/2023/09/duckdb/duckdb-introduction.png
 description: 'In this post, I want to explore the features and capabilities of DuckDB, an open-source, in-process SQL OLAP database management system written in C++11 that has been gaining popularity recently. According to what people have said, DuckDB is designed to be easy to use and flexible, allowing you to run complex queries on relational datasets using either local, file-based DuckDB instances or the cloud service MotherDuck.'
