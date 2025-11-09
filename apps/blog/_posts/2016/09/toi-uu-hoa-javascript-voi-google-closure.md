@@ -3,7 +3,6 @@ title: Tối ưu hóa Javascript với Google Closure Compiler
 date: '2016-09-14'
 author: Duyet
 tags:
-  - Optimize
   - Javascript
   - Node.js
 modified_time: '2016-09-14T11:46:14.393+07:00'

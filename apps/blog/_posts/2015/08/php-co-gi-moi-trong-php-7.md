@@ -3,7 +3,6 @@ title: PHP - Có gì mới trong PHP 7
 date: '2015-08-22'
 author: Duyet
 tags:
-  - PHP7
   - PHP
 modified_time: '2015-08-22T03:14:44.335+07:00'
 thumbnail: https://4.bp.blogspot.com/-qvsCP3kPz40/VdeEECDHEqI/AAAAAAAACwQ/JD4OFlHjdbo/s1600/php7.jpeg

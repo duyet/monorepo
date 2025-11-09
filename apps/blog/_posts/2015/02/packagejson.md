@@ -6,7 +6,6 @@ category: Javascript
 tags:
   - Node.js
   - NPM
-  - Package.json
 modified_time: '2015-02-22T13:56:30.535+07:00'
 slug: /2015/02/packagejson
 description: 'Khi bạn bắt đầu làm quen với việc xây dựng 1 trang web với Nodejs, 1 thứ mà bạn vẫn thường luôn thấy trong các source ở github đó là: `package.json`. Vậy nó là gì, tại sao chúng ta luôn cần phải có nó khi xây dựng 1 ứng dụng bằng Nodejs'

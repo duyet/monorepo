@@ -3,7 +3,6 @@ title: Year In Review 2015
 date: '2015-12-31'
 author: Duyet
 tags:
-  - Year In Review
 modified_time: '2016-01-11T01:59:09.345+07:00'
 thumbnail: null
 slug: /2015/12/year-in-review-2015.html

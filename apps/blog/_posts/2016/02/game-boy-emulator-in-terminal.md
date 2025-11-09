@@ -3,14 +3,11 @@ title: PHP Game Boy Emulator in Terminal
 date: '2016-02-28'
 author: Duyet
 tags:
-  - emulator
-  - terminal
   - PHP
-  - retro-gaming
 modified_time: '2016-05-02T19:41:54.973+07:00'
 thumbnail: https://4.bp.blogspot.com/-NJDpViHfUg4/VtKOGcA-wEI/AAAAAAAAQes/dI5hCCos2CA/s1600/yq3uxuyqhyfjdb9q460h.gif
 slug: /2016/02/game-boy-emulator-in-terminal.html
-category: Projects
+category: Project
 description: A PHP-based Game Boy emulator that runs in the terminal - a creative and fun way to play retro games. Features a complete implementation showcasing PHP's capabilities.
 ---
 

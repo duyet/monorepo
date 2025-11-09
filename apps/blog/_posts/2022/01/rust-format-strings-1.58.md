@@ -2,7 +2,7 @@
 title: 'Rust: Format Strings in 1.58'
 date: '2022-01-18'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

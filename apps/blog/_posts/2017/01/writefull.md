@@ -3,9 +3,6 @@ title: Writefull
 date: '2017-01-22'
 author: Duyet
 tags:
-  - Chrome
-  - Chrome Extension
-  - Writing Tools
 modified_time: '2017-01-23T20:21:19.616+07:00'
 thumbnail: https://1.bp.blogspot.com/-NpSIkbQHR-I/WITO8_hyp9I/AAAAAAAAidY/HYD5rOjVQo4q55AWb297izVxxl4eBnywQCLcB/s1600/80e9cd2e-f410-4f9c-bd12-8c40e9079b56.png
 slug: /2017/01/writefull.html

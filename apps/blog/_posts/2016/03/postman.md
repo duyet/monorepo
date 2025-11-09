@@ -4,7 +4,6 @@ date: '2016-03-25'
 author: Duyet
 tags:
   - Tutorial
-  - Postman
   - Tools
 modified_time: '2018-09-10T17:25:18.477+07:00'
 thumbnail: https://2.bp.blogspot.com/-_IT8xVlbJVQ/VvQgO2RgTmI/AAAAAAAASS4/xik1F1ISkUYBey672mAIh7uK0o4vvEJoA/s1600/postman-logo%252Btext-320x132.png

@@ -10,7 +10,7 @@ tags:
   - Machine Learning
 modified_time: '2018-09-10T17:20:37.029+07:00'
 slug: /2016/12/vntokenizer-tren-pyspark.html
-category: Data Engineer
+category: Data Engineering
 description: Trong blog này mình sẽ custom lại vn.vitk để có thể chạy như một thư viện lập trình, sử dụng ngôn ngữ python (trên PySpark và Jupyter Notebook).
 ---
 

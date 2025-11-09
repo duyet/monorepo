@@ -3,7 +3,7 @@ title: Deep Learning là gì?
 date: '2016-02-04'
 author: Duyet
 tags:
-  - ML
+  - Machine Learning
   - Deep Learning
   - Artificial Intelligence (AI)
   - Machine Learning

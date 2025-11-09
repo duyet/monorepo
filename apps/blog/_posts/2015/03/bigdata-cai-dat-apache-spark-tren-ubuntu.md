@@ -4,13 +4,12 @@ date: '2015-03-27'
 author: Duyet
 tags:
   - Apache Spark
-  - Apache Hadoop
   - Python
   - Big Data
 modified_time: '2018-09-01T22:28:00.347+07:00'
 thumbnail: https://1.bp.blogspot.com/-Ruz5XvIPJZo/VS5s2ElpdQI/AAAAAAAACQ0/G7LCMJ0klNk/s1600/download-spark.png
 slug: /2015/03/bigdata-cai-dat-apache-spark-tren-ubuntu.html
-category: BigData
+category: Data
 description: Trong lúc tìm hiểu vài thứ về BigData cho một số dự án, mình quyết định chọn Apache Spark thay cho Hadoop. Theo như giới thiệu từ trang chủ của Apache Spark, thì tốc độ của nó cao hơn 100x so với Hadoop MapReduce khi chạy trên bộ nhớ, và nhanh hơn 10x lần khi chạy trên đĩa, tương thích hầu hết các CSDL phân tán (HDFS, HBase, Cassandra, ...). Ta có thể sử dụng Java, Scala hoặc Python để triển khai các thuật toán trên Spark.
 ---
 

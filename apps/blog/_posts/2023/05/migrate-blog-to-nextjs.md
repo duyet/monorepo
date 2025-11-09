@@ -8,7 +8,6 @@ tags:
   - Side Project
   - Web
   - React
-  - Vercel
 slug: /2023/05/migrate-blog-to-nextjs.html
 thumbnail: https://i.imgur.com/980XhnE.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F05%2Fmigrate-blog-to-nextjs.html

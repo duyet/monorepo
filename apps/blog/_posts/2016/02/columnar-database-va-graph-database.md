@@ -4,7 +4,6 @@ date: '2016-02-03'
 author: Duyet
 tags:
   - Database
-  - Graph Database
   - Big Data
 modified_time: '2016-02-03T16:34:19.787+07:00'
 thumbnail: https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s1600/example-graph.jpg

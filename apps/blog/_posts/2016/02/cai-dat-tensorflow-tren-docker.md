@@ -3,7 +3,6 @@ title: Tensorflow - cài đặt trên Docker
 date: '2016-02-05'
 author: Duyet
 tags:
-  - Tensorflow
   - Docker
   - Machine Learning
   - Tutorial

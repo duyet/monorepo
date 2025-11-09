@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Data Engineering
   - Read
-  - Archived
 
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://1.bp.blogspot.com/-zKPSuJl81ss/VVgTJnRpLnI/AAAAAAAACfQ/NW8xNo8FrxA/s1600/image_a3c65c2974270fd093ee8a9bf8ae7d0b.jpg

@@ -4,7 +4,6 @@ date: '2016-01-07'
 author: Duyet
 tags:
   - Web
-  - Offline
 modified_time: '2016-01-11T01:58:30.083+07:00'
 thumbnail: https://3.bp.blogspot.com/-kknlRujasGI/Vo6QpZWVJJI/AAAAAAAAN2U/Z2VbLAWnQOA/s1600/offline-text%2BMJN%2BTech%2BWeb.png
 slug: /2016/01/offline-first-trong-modern-web.html

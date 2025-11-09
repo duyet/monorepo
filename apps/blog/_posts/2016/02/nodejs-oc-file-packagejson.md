@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Node.js
   - Tutorial
-  - Package.json
 modified_time: '2016-02-03T17:15:07.500+07:00'
 thumbnail: https://1.bp.blogspot.com/-bt9C6eXcBa8/VrGqjAbhpKI/AAAAAAAAPCs/1wKZ1nusi3A/s1600/npm-the-guide-13-638.jpg
 slug: /2016/02/nodejs-oc-file-packagejson.html

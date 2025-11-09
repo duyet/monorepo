@@ -4,7 +4,6 @@ date: '2015-10-26'
 author: Duyet
 tags:
   - Linux
-  - OpenVPN
   - Ubuntu
 modified_time: '2016-02-03T13:05:36.649+07:00'
 thumbnail: https://1.bp.blogspot.com/-MSVkQL61Px0/Vi483gBYyyI/AAAAAAAAFL4/XtlhpYG-uGU/s1600/Cai-dat-OpenVPN-Server.jpg

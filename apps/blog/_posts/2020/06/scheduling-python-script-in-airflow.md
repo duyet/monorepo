@@ -2,7 +2,7 @@
 title: Scheduling Python script in Airflow
 date: '2020-06-24'
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data Engineering
   - Apache Airflow

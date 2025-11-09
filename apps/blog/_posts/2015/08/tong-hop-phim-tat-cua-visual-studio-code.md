@@ -3,7 +3,6 @@ title: Tổng hợp phím tắt của Visual Studio Code
 date: '2015-08-07'
 author: Duyet
 tags:
-  - VS Code
   - Tutorial
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: null

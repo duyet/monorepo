@@ -4,7 +4,7 @@ date: '2022-02-13'
 author: Duyet
 featured: true
 series: Rust Design Patterns
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

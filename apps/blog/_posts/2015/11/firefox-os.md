@@ -3,7 +3,6 @@ title: Firefox OS
 date: '2015-11-14'
 author: Duyet
 tags:
-  - OS
   - Web
   - Javascript
 modified_time: '2016-01-11T02:01:59.455+07:00'

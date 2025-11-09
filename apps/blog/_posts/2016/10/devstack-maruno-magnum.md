@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Docker
   - Python
-  - Openstack
 modified_time: '2018-09-01T22:32:19.992+07:00'
 thumbnail: https://2.bp.blogspot.com/-8mDGZPymnKU/WBSIXCWaybI/AAAAAAAAfaM/pIubRdw6SrkJLB4Sm8oLQJ1D7quLU8rxwCEw/s1600/Screenshot%2Bfrom%2B2016-10-29%2B18-28-55.png
 slug: /2016/10/devstack-maruno-magnum.html

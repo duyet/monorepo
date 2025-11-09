@@ -2,7 +2,7 @@
 title: Airflow DAG Serialization
 date: '2020-05-01'
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data Engineering
   - Apache Airflow

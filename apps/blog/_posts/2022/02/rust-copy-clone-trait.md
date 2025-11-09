@@ -2,7 +2,7 @@
 title: 'Rust: Copy & Clone Trait'
 date: '2022-02-13'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

@@ -3,9 +3,6 @@ title: 6 lời khuyên để đảm bảo dù ở đâu, bạn cũng sống tố
 date: '2015-08-09'
 author: Duyet
 tags:
-  - Career
-  - Lifestyle
-  - Mindset
 modified_time: '2015-08-09T23:04:07.441+07:00'
 slug: /2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao.html
 category: News

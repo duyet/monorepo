@@ -2,7 +2,7 @@
 title: 'Rust Design Pattern: Prefer Small Crates'
 date: '2022-02-13'
 author: Duyet
-category: Rust 🦀
+category: Rust
 featured: true
 series: Rust Design Patterns
 tags:

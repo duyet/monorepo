@@ -3,7 +3,6 @@ title: Unit test và Integration test
 date: '2015-12-21'
 author: Duyet
 tags:
-  - Testing
 modified_time: '2016-01-11T01:59:18.744+07:00'
 thumbnail: https://3.bp.blogspot.com/-k9Gxf_MV1Gg/Vnfrm5xSgxI/AAAAAAAAMMs/bicR-4BjnmU/s1600/unit-test.jpg
 slug: /2015/12/unit-test-va-function-test.html

@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Open Source
   - License
-  - MIT
 modified_time: '2015-04-11T13:08:57.544+07:00'
 slug: /2015/04/tim-hieu-ve-giay-phep-mit.html
 category: News

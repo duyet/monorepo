@@ -7,7 +7,6 @@ tags:
   - Javascript
   - Javascript Weekly
   - React
-  - React Native
 modified_time: '2016-08-31T13:45:22.392+07:00'
 thumbnail: https://4.bp.blogspot.com/-EeqUOHEdZrU/V8Z6JSTShDI/AAAAAAAAclM/4xB15KFwMzwpHjYJXww5sS7zO-yS7d06gCK4B/s1600/JSFor-Mike-700x382.jpg
 slug: /2016/08/javascript-weekly-8.html

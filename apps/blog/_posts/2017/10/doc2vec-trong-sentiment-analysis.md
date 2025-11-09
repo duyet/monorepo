@@ -3,10 +3,7 @@ title: Doc2vec trong Sentiment Analysis
 date: '2017-10-08'
 author: Duyet
 tags:
-  - Doc2vec
-  - Neural Network
   - NLP
-  - Word2vec
   - Machine Learning
 modified_time: '2018-09-10T17:20:37.659+07:00'
 thumbnail: https://2.bp.blogspot.com/-IpnvLkBHx74/WdnUJ5r3q_I/AAAAAAAAnxI/Cz9B_YQo6tcu0YwOffsQQWmcfjH_mRulwCK4BGAYYCw/s1600/pv_dm.png

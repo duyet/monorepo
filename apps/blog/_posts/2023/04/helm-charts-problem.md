@@ -4,7 +4,6 @@ date: '2023-04-15'
 author: Duyet
 category: Data
 tags:
-  - DevOps
   - Kubernetes
 slug: /2023/04/helm-charts-problem.html
 thumbnail: https://i.imgur.com/HhcwrAw.png

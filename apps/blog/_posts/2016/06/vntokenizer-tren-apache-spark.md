@@ -4,7 +4,6 @@ date: '2016-06-23'
 author: Duyet
 tags:
   - Apache Spark
-  - vnTokenizer
   - Big Data
   - Machine Learning
 modified_time: '2018-09-10T17:20:36.889+07:00'

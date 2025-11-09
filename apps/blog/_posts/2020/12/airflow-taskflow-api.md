@@ -3,7 +3,7 @@ title: Airflow 2.0 - Taskflow API
 date: '2020-12-26'
 featured: true
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Airflow
   - Data Engineering

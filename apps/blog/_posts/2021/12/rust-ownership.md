@@ -2,7 +2,7 @@
 title: 'Rust: Ownership'
 date: '2021-12-19'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Vietnamese

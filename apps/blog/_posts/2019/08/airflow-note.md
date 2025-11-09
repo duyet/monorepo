@@ -1,7 +1,7 @@
 ---
 title: Airflow - một số ghi chép
 date: '2019-08-27'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Airflow
   - Data

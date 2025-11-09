@@ -5,7 +5,6 @@ author: Duyet
 tags:
   - Events
   - Google
-  - Google Cloud
 modified_time: '2015-08-28T23:34:31.605+07:00'
 thumbnail: https://3.bp.blogspot.com/-KJbSfLPwRLk/Vd6ypB6Zy5I/AAAAAAAACyg/BwwX8fLMNzE/s1600/Google-CloudPlatform_VerticalLockup.png
 slug: /2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html

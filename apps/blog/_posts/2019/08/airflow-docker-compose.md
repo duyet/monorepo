@@ -1,7 +1,7 @@
 ---
 title: Cài đặt Apache Airflow với Docker Compose
 date: '2019-08-26'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Airflow
   - Data

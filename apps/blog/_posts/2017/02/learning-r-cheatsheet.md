@@ -4,7 +4,6 @@ date: '2017-02-05'
 author: Duyet
 tags:
   - Data Engineering
-  - Cheatsheet
 modified_time: '2018-07-20T10:14:05.965+07:00'
 slug: /2017/02/learning-r-cheatsheet.html
 category: Machine Learning

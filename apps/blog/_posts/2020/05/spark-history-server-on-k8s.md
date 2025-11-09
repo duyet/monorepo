@@ -3,7 +3,7 @@ title: Spark History Server on Kubernetes
 date: '2020-05-29'
 featured: true
 author: Duyet
-category: Data Engineer
+category: Data Engineering
 tags:
   - Data Engineering
   - Apache Spark

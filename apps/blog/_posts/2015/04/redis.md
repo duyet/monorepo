@@ -3,9 +3,7 @@ title: Redis
 date: '2015-04-06'
 author: Duyet
 tags:
-  - Redis
   - Database
-  - NoSQL
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://1.bp.blogspot.com/-5k958LlJol8/VSFvGnofvCI/AAAAAAAACOY/WM4CxLtpcOU/s1600/redis.png
 slug: /2015/04/redis.html

@@ -2,7 +2,7 @@
 title: Rust automatically upgrade to a new edition
 date: '2022-05-14'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
 slug: /2022/05/rust-cargo-fix.html

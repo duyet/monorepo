@@ -4,8 +4,6 @@ date: '2024-02-09'
 author: Duyet
 category: Story
 tags:
-  - Story
-  - Year In Review
 slug: /2024/02/2023-summary.html
 thumbnail: /media/2024/02/2023-summary/working-in-kl.jpeg
 description: So, I hadn't really planned on writing a summary post for this year, as lazy as I am, but somehow, here we are.

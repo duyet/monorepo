@@ -2,7 +2,7 @@
 title: 'Rust: Option & Result'
 date: '2022-02-15'
 author: Duyet
-category: Rust 🦀
+category: Rust
 tags:
   - Rust
   - Rust Tiếng Việt

@@ -1,7 +1,7 @@
 ---
 title: Gửi Slack Alerts trên Airflow
 date: '2019-08-20'
-category: Data Engineer
+category: Data Engineering
 tags:
   - Apache Airflow
   - Data

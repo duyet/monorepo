@@ -4,7 +4,6 @@ date: '2019-04-19'
 author: Duyet
 category: Project
 tags:
-  - Firebase
   - Side Project
 
 thumbnail: https://1.bp.blogspot.com/-mOYlbR85Tpw/XMciLyM34pI/AAAAAAAA_bE/aJtpyjh8Us0E5pbp8y6Djz4XA_qHmGFIACLcBGAs/s1600/Screen%2BShot%2B2019-04-29%2Bat%2B11.11.23%2BPM.png

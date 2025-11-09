@@ -3,9 +3,7 @@ title: Quy trình phát triển phần mềm - mô hình xoắn ốc (The Boehm'
 date: '2015-02-24'
 author: Duyet
 tags:
-  - Phát triển phần mềm
   - Software Engineering
-  - Software
 modified_time: '2015-03-15T23:09:41.232+07:00'
 thumbnail: https://1.bp.blogspot.com/-p_03hnTUKIE/VOttDHeLpDI/AAAAAAAACKU/8Y1yU-4I8Eg/s1600/33349.png
 slug: /2015/02/spiral.html

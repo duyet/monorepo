@@ -3,7 +3,6 @@ title: Create React Apps
 date: '2016-07-25'
 author: Duyet
 tags:
-  - Redux
   - Tutorial
   - React
 modified_time: '2016-07-25T09:31:24.499+07:00'
