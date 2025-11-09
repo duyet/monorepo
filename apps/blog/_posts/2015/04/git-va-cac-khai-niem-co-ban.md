@@ -131,8 +131,6 @@ Còn khá nhiều định nghĩa trên Git, trên đây mình chỉ nói một v
 
 Ở bài sau mình sẽ hướng dẫn cách sử dụng Git, sử dụng github, các làm việc trên git và xử lý các trường hợp thường gặp khi teamwork với Git.
 
-Bài viết được post tại [LvDuit Blog](https://blog.duyet.net/) và [LvDuit Wordpress](https://lvduit.wordpress.com/).
-
 ## Tham khảo
 
 1. [Git Community Book](https://git-scm.com/book/)
