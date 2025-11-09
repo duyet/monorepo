@@ -6,7 +6,7 @@ tags:
   - Git
   - Cheatsheet
 modified_time: '2015-07-16T13:04:43.947+07:00'
-slug: git-git-cheat-sheet
+slug: /2015/07/git-git-cheat-sheet.html
 category: Git
 description: A simple Git cheat sheet for the basic commands and working with a git repo, in our case Github. (Sau đây mình xin list ra danh sách Git cheat sheet các lệnh cơ bản và cần thiết nhất khi chúng ta sử dụng git, cụ thể là Github)
 ---
