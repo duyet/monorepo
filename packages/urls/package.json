@@ -21,7 +21,7 @@
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
-    "@types/node": "^20",
+    "@types/node": "^24.0.0",
     "eslint": "*",
     "typescript": "^5.3.3"
   }
