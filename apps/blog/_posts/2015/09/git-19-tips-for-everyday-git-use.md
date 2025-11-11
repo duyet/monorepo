@@ -252,6 +252,7 @@ One rule that really stood out for me is, **"every good commit should be able to
 **When applied, this commit will:** YOUR COMMIT MESSAGE
 
 For example:
+
 - **When applied, this commit will Update README file**
 - **When applied, this commit will Add validation for GET /user/:id API call**
 - **When applied, this commit will Revert commit 12345**

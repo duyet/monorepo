@@ -51,6 +51,7 @@ $ docker run -it --gpus all tensorflow/tensorflow:latest-gpu
 ```
 
 Lưu ý: GPU support yêu cầu:
+
 - NVIDIA Docker runtime được cài đặt
 - NVIDIA GPU driver tương thích
 - CUDA toolkit tương ứng với phiên bản TensorFlow
@@ -64,11 +65,13 @@ Vui lòng xem phần kiểm tra cài đặt trong [bài viết sau](https://blog
 Bài viết này được viết năm 2016. Dưới đây là những cập nhật quan trọng để sử dụng TensorFlow trên Docker trong 2025:
 
 ### TensorFlow 2.x vs 1.x
+
 - Bài viết gốc sử dụng TensorFlow 0.6.0 (rất cũ)
 - TensorFlow 2.x đã là tiêu chuẩn kể từ 2019
 - API đã thay đổi đáng kể, hãy sử dụng tài liệu tại [tensorflow.org](https://tensorflow.org)
 
 ### Docker Compose cho setup phức tạp
+
 Thay vì chạy Docker commands trực tiếp, sử dụng Docker Compose cho các project lớn:
 
 ```yaml
@@ -77,7 +80,7 @@ services:
   tensorflow:
     image: tensorflow/tensorflow:latest
     ports:
-      - "8888:8888"  # Jupyter notebook
+      - '8888:8888' # Jupyter notebook
     volumes:
       - ./data:/workspace/data
       - ./notebooks:/workspace/notebooks
@@ -85,10 +88,12 @@ services:
 ```
 
 ### Python phiên bản
+
 - TensorFlow 2.x yêu cầu Python 3.8+
 - Python 2.7 không còn được hỗ trợ
 
 ### Lựa chọn thay thế
+
 - **JAX**: Framework ML hiện đại hơn, cũng hỗ trợ Docker
 - **PyTorch**: Có ecosystem Docker mạnh mẽ
 - **Kubernetes**: Dành cho scale lớn thay vì Docker đơn lẻ

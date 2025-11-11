@@ -95,15 +95,15 @@ server.listen(3000);
 
 ```json
 [
-    {"name": "Dinosaur"},
-    {"name": "Dog"},
-    {"name": "Dogfish"},
-    {"name": "Dolphin"},
-    {"name": "Donkey"},
-    {"name": "Dotterel"},
-    {"name": "Dove"},
-    {"name": "Dragonfly"},
-    {"name": "Duck"}
+  { "name": "Dinosaur" },
+  { "name": "Dog" },
+  { "name": "Dogfish" },
+  { "name": "Dolphin" },
+  { "name": "Donkey" },
+  { "name": "Dotterel" },
+  { "name": "Dove" },
+  { "name": "Dragonfly" },
+  { "name": "Duck" }
 ]
 ```
 

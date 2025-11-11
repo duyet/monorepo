@@ -111,7 +111,7 @@ docker ps -a       # liệt kê các container đã tắt
 
 Nếu một container đã tắt (không xuất hiện khi dùng lệnh docker ps nữa, chúng ta có thể chạy lệnh docker ps -a để lấy ID hoặc NAME của nó, sau đó dùng lệnh sau để khởi động và truy cập lại vào đó)
 
-```bash
+````bash
 docker start <ID hoặc NAME>
 docker exec -it <ID hoặc NAME> /bin/bash
 ``` 
@@ -122,7 +122,7 @@ Nếu một container đã hết giá trị lợi dụng, dù nó đã tắt nh�
 
 ```bash
 docker rm <ID hoặc NAME>
-```
+````
 
 Nếu container đang chạy, bạn cũng có thể xoá nhưng phải thêm tham số -f vào sau rm để force remove:
 

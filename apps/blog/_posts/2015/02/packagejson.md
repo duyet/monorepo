@@ -25,26 +25,26 @@ Cho xem mắt xíu nè, đây là nội dung thường thấy của 1 file `pack
 
 ```json
 {
-  "name" : "Vote-sc-UIT",
-  "description" : "Realtime Vote System base anonymous.",
-  "homepage" : "http://project.lvduit.com/nodejs/vote-sc-uit/",
-  "keywords" : ["vote", "realtime", "functional", "server", "client", "browser"],
-  "author" : "Van-Duyet Le <lvduit08@gmail.com>",
-  "contributors" : [],
-  "dependencies" : {
-        "async": "~0.9.0",
-        "body-parser": "~1.5.2",
-        "bower": "~1.3.8",
-        "compression": "~1.0.9",
-        "connect-flash": "~0.1.1",
-        "connect-mongo": "~0.4.1",
-        "consolidate": "~0.10.0",
-        "cookie-parser": "~1.3.2",
-        "cron": "^1.0.5",
-        "express": "~4.7.2"
+  "name": "Vote-sc-UIT",
+  "description": "Realtime Vote System base anonymous.",
+  "homepage": "http://project.lvduit.com/nodejs/vote-sc-uit/",
+  "keywords": ["vote", "realtime", "functional", "server", "client", "browser"],
+  "author": "Van-Duyet Le <lvduit08@gmail.com>",
+  "contributors": [],
+  "dependencies": {
+    "async": "~0.9.0",
+    "body-parser": "~1.5.2",
+    "bower": "~1.3.8",
+    "compression": "~1.0.9",
+    "connect-flash": "~0.1.1",
+    "connect-mongo": "~0.4.1",
+    "consolidate": "~0.10.0",
+    "cookie-parser": "~1.3.2",
+    "cron": "^1.0.5",
+    "express": "~4.7.2"
   },
-  "main" : "app.js",
-  "version" : "1.1.6"
+  "main": "app.js",
+  "version": "1.1.6"
 }
 ```
 
@@ -69,8 +69,8 @@ Ví dụ:
 
 ```json
 {
-  "name" : "Vote-sc-UIT",
-  "version" : "1.1.3"
+  "name": "Vote-sc-UIT",
+  "version": "1.1.3"
 }
 ```
 

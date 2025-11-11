@@ -19,21 +19,25 @@ $ git clean -f
 ## Useful Options
 
 **Dry run** - See what would be removed without actually deleting:
+
 ```bash
 $ git clean -n
 ```
 
 **Remove untracked directories** - Include directories in cleanup:
+
 ```bash
 $ git clean -fd
 ```
 
 **Interactive mode** - Choose which files to remove:
+
 ```bash
 $ git clean -i
 ```
 
 **Force with directories** - Remove both files and directories:
+
 ```bash
 $ git clean -ffd
 ```

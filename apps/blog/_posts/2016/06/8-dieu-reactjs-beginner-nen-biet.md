@@ -15,6 +15,7 @@ description: Mình bắt đầu nghiên cứu và sử dụng React.js một th�
 ---
 
 > **Note:** This article is from 2016 and reflects React best practices from that era. Many patterns described here are now outdated:
+>
 > - `React.createClass()` is deprecated (use ES6 classes or functional components with hooks)
 > - `propTypes` is now a separate package (`prop-types`)
 > - Modern React favors hooks over class components
