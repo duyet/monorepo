@@ -70,7 +70,7 @@ export function OverviewDashboard() {
         <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Key Performance Indicators • Last 30 Days
         </h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <CompactCard padding="sm">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -138,8 +138,8 @@ export function OverviewDashboard() {
         <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Activity Trends
         </h2>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="lg:col-span-2">
             <CompactCard title="Weekly Activity Pattern" padding="sm">
               <div className="space-y-3">
                 <div className="text-xs text-muted-foreground">
@@ -189,7 +189,7 @@ export function OverviewDashboard() {
         <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Performance Metrics
         </h2>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <CompactCard padding="sm">
             <div className="space-y-2">
               <div className="flex items-center justify-between">

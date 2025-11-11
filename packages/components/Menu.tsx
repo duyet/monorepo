@@ -73,13 +73,13 @@ export default function Menu({
   const items = navigationItems ?? createDefaultNavigation(urls);
   return (
     <div
-      className={cn("flex flex-row gap-5 flex-wrap items-center", className)}
+      className={cn("flex flex-row gap-3 sm:gap-5 flex-wrap items-center", className)}
     >
       {items.map(({ name, href }) => (
         <Link
           key={name}
           href={href}
-          className="text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+          className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
         >
           {name}
         </Link>
