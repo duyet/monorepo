@@ -8,52 +8,52 @@ export default function ResumeIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="transition-transform duration-300 ease-out group-hover:scale-110"
     >
-      {/* Document outline */}
+      {/* Document with extra rounded corners - Claude style */}
       <rect
         x="18"
         y="8"
         width="28"
         height="48"
-        rx="3"
+        rx="8"
         stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
-      {/* Profile circle */}
+      {/* Profile circle - softer */}
       <circle
         cx="32"
-        cy="20"
-        r="5"
+        cy="22"
+        r="6"
         stroke="currentColor"
         strokeWidth="2.5"
         fill="none"
       />
-      {/* Shoulders/body */}
+      {/* Shoulders/body with organic curve */}
       <path
-        d="M24 34C24 30.6863 27 28 32 28C37 28 40 30.6863 40 34"
+        d="M23 36C23 32 27 30 32 30C37 30 41 32 41 36"
         stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      {/* Info lines */}
+      {/* Info lines with varying thickness */}
       <line
         x1="24"
-        y1="42"
+        y1="44"
         x2="40"
-        y2="42"
+        y2="44"
         stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
       <line
         x1="24"
-        y1="48"
+        y1="50"
         x2="36"
-        y2="48"
+        y2="50"
         stroke="currentColor"
-        strokeWidth="2.5"
+        strokeWidth="2"
         strokeLinecap="round"
       />
     </svg>

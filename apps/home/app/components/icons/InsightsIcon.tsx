@@ -8,13 +8,13 @@ export default function InsightsIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="transition-transform duration-300 ease-out group-hover:scale-110"
     >
-      {/* Bar chart with varying heights */}
+      {/* Organic bar chart with fully rounded tops - Claude style */}
       <rect
         x="12"
         y="36"
         width="8"
         height="20"
-        rx="2"
+        rx="4"
         fill="currentColor"
         opacity="0.7"
       />
@@ -23,33 +23,34 @@ export default function InsightsIcon() {
         y="24"
         width="8"
         height="32"
-        rx="2"
+        rx="4"
         fill="currentColor"
         opacity="0.85"
       />
-      <rect x="36" y="16" width="8" height="40" rx="2" fill="currentColor" />
+      <rect x="36" y="16" width="8" height="40" rx="4" fill="currentColor" />
       <rect
         x="48"
         y="28"
         width="8"
         height="28"
-        rx="2"
+        rx="4"
         fill="currentColor"
         opacity="0.8"
       />
-      {/* Trend line */}
+      {/* Smooth trend line with curve */}
       <path
-        d="M16 40L28 28L40 20L52 32"
+        d="M16 40Q20 34 28 28Q34 22 40 20Q46 24 52 32"
         stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.6"
+        opacity="0.5"
+        fill="none"
       />
-      <circle cx="16" cy="40" r="2.5" fill="currentColor" opacity="0.6" />
-      <circle cx="28" cy="28" r="2.5" fill="currentColor" opacity="0.6" />
-      <circle cx="40" cy="20" r="2.5" fill="currentColor" opacity="0.6" />
-      <circle cx="52" cy="32" r="2.5" fill="currentColor" opacity="0.6" />
+      {/* Data points */}
+      <circle cx="16" cy="40" r="3" fill="currentColor" opacity="0.7" />
+      <circle cx="28" cy="28" r="3" fill="currentColor" opacity="0.7" />
+      <circle cx="40" cy="20" r="3" fill="currentColor" opacity="0.7" />
+      <circle cx="52" cy="32" r="3" fill="currentColor" opacity="0.7" />
     </svg>
   )
 }

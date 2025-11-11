@@ -8,19 +8,24 @@ export default function AIIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="transition-transform duration-300 ease-out group-hover:scale-110"
     >
-      {/* Chat bubble */}
+      {/* Friendly rounded chat bubble - Claude style */}
       <path
-        d="M12 10C10.8954 10 10 10.8954 10 12V40C10 41.1046 10.8954 42 12 42H36L48 52V42H52C53.1046 42 54 41.1046 54 40V12C54 10.8954 53.1046 10 52 10H12Z"
+        d="M14 16C14 12.6863 16.6863 10 20 10H44C47.3137 10 50 12.6863 50 16V36C50 39.3137 47.3137 42 44 42H30L18 50V42H20C16.6863 42 14 39.3137 14 36V16Z"
         stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
-      {/* Dots inside (representing AI thinking/typing) */}
-      <circle cx="22" cy="26" r="2.5" fill="currentColor" />
+      {/* Organic dots representing AI */}
+      <circle cx="24" cy="26" r="2.5" fill="currentColor" />
       <circle cx="32" cy="26" r="2.5" fill="currentColor" />
-      <circle cx="42" cy="26" r="2.5" fill="currentColor" />
+      <circle cx="40" cy="26" r="2.5" fill="currentColor" />
+      {/* Sparkle accent */}
+      <path
+        d="M46 18L47 20L49 21L47 22L46 24L45 22L43 21L45 20L46 18Z"
+        fill="currentColor"
+      />
     </svg>
   )
 }
