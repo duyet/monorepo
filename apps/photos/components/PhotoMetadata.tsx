@@ -54,8 +54,8 @@ export default function PhotoMetadata({
 
       {/* Expandable Metadata Panel */}
       {isExpanded && (
-        <div className="absolute left-0 top-full z-10 mt-2 min-w-64 max-w-xs rounded border border-black/10 bg-black px-3 py-2 text-left shadow-lg dark:border-white/10">
-          <div className="space-y-1 text-[11px] text-white/90">
+        <div className="absolute left-0 top-full z-10 mt-2 min-w-64 max-w-xs rounded border border-neutral-200 bg-white px-3 py-2 text-left shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
+          <div className="space-y-1 text-[11px] text-neutral-700 dark:text-neutral-200">
             {/* Date */}
             <div>{formatPhotoDate(photo.created_at)}</div>
 

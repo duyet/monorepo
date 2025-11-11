@@ -72,8 +72,7 @@ export default function RootLayout({
       <Head />
       <body
         className={cn(
-          'bg-cream-warm text-[var(--foreground)] subpixel-antialiased',
-          'dark:bg-[var(--background)]',
+          'bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased',
           'transition-colors duration-1000',
         )}
       >
