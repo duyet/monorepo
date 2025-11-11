@@ -55,13 +55,66 @@ export async function CCUsageDailyTable({
       <div
         className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}
       >
-        <p className="text-muted-foreground">No daily data available</p>
+        <p className="text-muted-foreground">No data available</p>
       </div>
     )
   }
 
-  // Reverse to show most recent first
-  const sortedActivity = [...activity].reverse()
+  // Group by month for 12-month view (365 days) and all-time view
+  const shouldGroupByMonth = days === 365 || days === 'all'
+  let sortedActivity: Array<{
+    date: string
+    'Input Tokens': number
+    'Output Tokens': number
+    'Cache Tokens': number
+    'Total Cost': number
+  }>
+
+  if (shouldGroupByMonth) {
+    // Group data by month (YYYY-MM)
+    const monthlyData = activity.reduce(
+      (acc, row) => {
+        // Extract year-month from date (e.g., "2024-01-15" -> "2024-01")
+        const month = row.date.substring(0, 7)
+
+        if (!acc[month]) {
+          acc[month] = {
+            date: month,
+            'Input Tokens': 0,
+            'Output Tokens': 0,
+            'Cache Tokens': 0,
+            'Total Cost': 0,
+          }
+        }
+
+        acc[month]['Input Tokens'] += row['Input Tokens'] || 0
+        acc[month]['Output Tokens'] += row['Output Tokens'] || 0
+        acc[month]['Cache Tokens'] += row['Cache Tokens'] || 0
+        acc[month]['Total Cost'] += row['Total Cost'] || 0
+
+        return acc
+      },
+      {} as Record<
+        string,
+        {
+          date: string
+          'Input Tokens': number
+          'Output Tokens': number
+          'Cache Tokens': number
+          'Total Cost': number
+        }
+      >,
+    )
+
+    // Convert to array and sort by month (most recent first)
+    sortedActivity = Object.values(monthlyData).sort((a, b) =>
+      b.date.localeCompare(a.date),
+    )
+  } else {
+    // Keep daily view for other date ranges
+    // Reverse to show most recent first
+    sortedActivity = [...activity].reverse()
+  }
 
   // Calculate max values for bar scaling
   const maxInput = Math.max(
@@ -92,7 +145,7 @@ export async function CCUsageDailyTable({
           <thead className="bg-muted/50 border-b">
             <tr>
               <th className="whitespace-nowrap px-4 py-3 text-left font-medium">
-                Date
+                {shouldGroupByMonth ? 'Month' : 'Date'}
               </th>
               <th className="whitespace-nowrap px-4 py-3 text-left font-medium">
                 Input Tokens
