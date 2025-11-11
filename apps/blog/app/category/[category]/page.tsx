@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { YearPost } from '@/components/year-post'
+import { getCategoryColorClass, getCategoryMetadata } from '@/lib/category-metadata'
 import Container from '@duyet/components/Container'
 import type { Post } from '@duyet/interfaces'
 import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
@@ -15,42 +16,6 @@ interface Params {
 
 interface PostsByCategoryProps {
   params: Promise<Params>
-}
-
-// Category metadata for rich hero sections
-const categoryMetadata: Record<string, { description: string; color: string }> = {
-  'data-engineering': {
-    description: 'Dive into the world of data pipelines, ETL processes, distributed systems, and building robust data infrastructure that scales.',
-    color: 'bg-cactus-light',
-  },
-  'machine-learning': {
-    description: 'Explore machine learning algorithms, AI applications, model training, and practical implementations in real-world scenarios.',
-    color: 'bg-sage-light',
-  },
-  'web-development': {
-    description: 'Discover modern web technologies, frontend and backend frameworks, best practices, and building performant web applications.',
-    color: 'bg-lavender-light',
-  },
-  'rust': {
-    description: 'Master systems programming with Rust, explore its powerful type system, memory safety features, and growing ecosystem.',
-    color: 'bg-oat-light',
-  },
-  'javascript': {
-    description: 'Deep dive into JavaScript, TypeScript, Node.js, and the ever-evolving ecosystem of tools and frameworks.',
-    color: 'bg-coral-light',
-  },
-  'career': {
-    description: 'Navigate the tech industry with insights on career development, professional growth, interviews, and building your path.',
-    color: 'bg-terracotta-light',
-  },
-  'tutorial': {
-    description: 'Learn through comprehensive step-by-step guides, hands-on tutorials, and practical examples you can follow along.',
-    color: 'bg-ivory-medium',
-  },
-  'personal': {
-    description: 'Personal reflections, life experiences, lessons learned, and thoughts on technology, work, and everything in between.',
-    color: 'bg-cream',
-  },
 }
 
 export async function generateStaticParams() {
@@ -73,6 +38,11 @@ export default async function PostsByCategory({
     (cat) => getSlug(cat) === category,
   ) || category
 
+  // Get the index for consistent color rotation
+  const categoryIndex = Object.keys(categories)
+    .sort((a, b) => categories[b] - categories[a])
+    .indexOf(categoryName)
+
   // Group posts by year
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
     const year = new Date(post.date).getFullYear()
@@ -83,20 +53,18 @@ export default async function PostsByCategory({
     return acc
   }, {})
 
-  // Get metadata for this category
-  const metadata = categoryMetadata[category] || {
-    description: `Explore all posts in the ${categoryName} category.`,
-    color: 'bg-ivory-medium',
-  }
-
   const postCount = posts.length
   const yearCount = Object.keys(postsByYear).length
+
+  // Get dynamic metadata
+  const metadata = getCategoryMetadata(categoryName, postCount, categoryIndex)
+  const colorClass = getCategoryColorClass(metadata.color, 'light')
 
   return (
     <div className="min-h-screen">
       <Container>
         {/* Hero Banner */}
-        <div className={`${metadata.color} mb-12 rounded-3xl p-8 md:p-12 lg:p-16`}>
+        <div className={`${colorClass} mb-12 rounded-3xl p-8 md:p-12 lg:p-16`}>
           <div className="mb-4">
             <Link
               href="/category"

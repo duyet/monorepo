@@ -1,32 +1,8 @@
 import { ContentCard } from '@/components/content-card'
+import { getCategoryMetadata } from '@/lib/category-metadata'
 import Container from '@duyet/components/Container'
 import { getAllCategories } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'
-
-// Category descriptions for better UX
-const categoryDescriptions: Record<string, string> = {
-  'Data Engineering': 'Building data pipelines, ETL processes, and data infrastructure at scale',
-  'Machine Learning': 'Exploring AI, ML algorithms, and practical implementations',
-  'Web Development': 'Modern web technologies, frameworks, and best practices',
-  'Rust': 'Systems programming with Rust and exploring its ecosystem',
-  'JavaScript': 'Deep dives into JavaScript, TypeScript, and Node.js',
-  'Career': 'Career development, tech industry insights, and professional growth',
-  'Tutorial': 'Step-by-step guides and hands-on tutorials',
-  'Personal': 'Personal reflections, thoughts, and experiences',
-}
-
-// Rotating color and illustration scheme
-const colorScheme: Array<{
-  color: 'ivory' | 'oat' | 'cream' | 'cactus' | 'sage' | 'lavender'
-  illustration: 'wavy' | 'geometric' | 'blob' | 'none'
-}> = [
-  { color: 'cactus', illustration: 'wavy' },
-  { color: 'sage', illustration: 'geometric' },
-  { color: 'lavender', illustration: 'blob' },
-  { color: 'oat', illustration: 'wavy' },
-  { color: 'ivory', illustration: 'geometric' },
-  { color: 'cream', illustration: 'blob' },
-]
 
 export default function Categories() {
   const categories = getAllCategories()
@@ -52,18 +28,16 @@ export default function Categories() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categoryEntries.map(([category, count], index) => {
-            const { color, illustration } = colorScheme[index % colorScheme.length]
-            const description = categoryDescriptions[category] ||
-              `Explore ${count} ${count === 1 ? 'post' : 'posts'} about ${category.toLowerCase()}`
+            const metadata = getCategoryMetadata(category, count, index)
 
             return (
               <ContentCard
                 key={category}
                 title={category}
                 href={`/category/${getSlug(category)}`}
-                description={description}
-                color={color}
-                illustration={illustration}
+                description={metadata.description}
+                color={metadata.color}
+                illustration={metadata.illustration}
                 tags={[`${count} ${count === 1 ? 'post' : 'posts'}`]}
               />
             )
