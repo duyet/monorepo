@@ -8,15 +8,15 @@ modified_time: '2017-08-25T17:09:50.109+07:00'
 thumbnail: https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png
 slug: /2017/08/machine-learning-is-fun.html
 category: Machine Learning
-description: 'Chuỗi bài viết "Machine Learning is Fun!" này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang cho bạn đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.'
+description: 'Chuỗi bài viết "Machine Learning is Fun!" này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.'
 ---
 
-Chuỗi bài viết _"Machine Learning is Fun!"_ này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang cho bạn đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.  
+Chuỗi bài viết _"Machine Learning is Fun!"_ này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.  
 Bài gốc: **[https://medium.com/@ageitgey/machine-learning-is-fun-80ea3ec3c471](https://medium.com/@ageitgey/machine-learning-is-fun-80ea3ec3c471)**
 
 Bạn đã từng nghe rất nhiều người nói về Machine Learning, nhưng chúng chỉ là các thông tin rất mù mờ?
 
-Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Learning nhưng chưa biết bắt đầu từ đâu. Tôi cá rằng có rất nhiều người đã cố gắng đọc [bài viết về Machine Learning này trên Wikipedia](http://en.wikipedia.org/wiki/Machine_learning), và họ phải rất vọng và bỏ cuộc vì những định nghĩa giải thích trong đó.
+Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Learning nhưng chưa biết bắt đầu từ đâu. Tôi cá rằng có rất nhiều người đã cố gắng đọc [bài viết về Machine Learning này trên Wikipedia](http://en.wikipedia.org/wiki/Machine_learning), và họ phải rất thất vọng và bỏ cuộc vì những định nghĩa giải thích trong đó.
 
 ## Machine Learning là gì?
 
@@ -24,9 +24,9 @@ Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Le
 
 Ví dụ, một loại thuật toán cơ bản đó là phân lớp (classification algorithm), thuật toán này cho phép chia dữ liệu thành nhiều nhóm khác nhau. Một thuật toán dùng để nhận dạng chữ số viết tay (recognize handwritten numbers) có thể được sử dụng để phân loại email (thành _spam_ và _không spam_), mà không cần phải code lại.
 
-Hai bài toán trên không một thuật toán, nhưng khác dữ liệu.
+Hai bài toán trên dùng cùng một thuật toán, nhưng khác dữ liệu.
 
-[![](https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png)](https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png)
+![](https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png)
 Thuật toán Machine Learning này là black-box, có thể được sử dụng để giải quyết nhiều bài toán phân lớp khác nhau.
 
 "Machine Learning" là một thuật ngữ chung bao hàm rất nhiều thuật toán như trên.
@@ -43,12 +43,12 @@ Giả sử bạn là một người làm về bất động sản. Công ty củ
 
 Và bạn ghi lại thông tin của mọi căn nhà được bán trong thành phố, trong vòng 3 tháng. Với mỗi ngôi nhà, bạn ghi lại mọi thông tin: *số phòng ngủ, diện tích (feet vuông), neighborhood, ...* Nhưng quan trọng nhất là **giá (price)** cuối cùng của căn nhà được bán:
 
-[![](https://2.bp.blogspot.com/-7DRTp5Ofqy4/WZ7VRwU-M7I/AAAAAAAAmvI/Avf9qEmfx-QDS8HQFDdZr_7CToD90TRQACK4BGAYYCw/s400/1-ZWYX9nwsDFaNOW4jOrHDkQ.png)](https://2.bp.blogspot.com/-7DRTp5Ofqy4/WZ7VRwU-M7I/AAAAAAAAmvI/Avf9qEmfx-QDS8HQFDdZr_7CToD90TRQACK4BGAYYCw/s1600/1-ZWYX9nwsDFaNOW4jOrHDkQ.png)
+![](https://2.bp.blogspot.com/-7DRTp5Ofqy4/WZ7VRwU-M7I/AAAAAAAAmvI/Avf9qEmfx-QDS8HQFDdZr_7CToD90TRQACK4BGAYYCw/s400/1-ZWYX9nwsDFaNOW4jOrHDkQ.png)
 Chúng ta có được "training data"
 
 Với dữ liệu "training data" như trên, chúng ta muốn viết một ứng dụng có thể ước tính được giá của một căn nhà tương tự khác:
 
-[![](https://3.bp.blogspot.com/-tp1oaKbTNZ8/WZ7V8meET8I/AAAAAAAAmvU/bIz89XfrHqYiFtmJ-Or7mQJUO-6_2XYsgCK4BGAYYCw/s400/1-V0OXzLOPtpU13MVVrlZJjA.png)](https://3.bp.blogspot.com/-tp1oaKbTNZ8/WZ7V8meET8I/AAAAAAAAmvU/bIz89XfrHqYiFtmJ-Or7mQJUO-6_2XYsgCK4BGAYYCw/s1600/1-V0OXzLOPtpU13MVVrlZJjA.png)
+![](https://3.bp.blogspot.com/-tp1oaKbTNZ8/WZ7V8meET8I/AAAAAAAAmvU/bIz89XfrHqYiFtmJ-Or7mQJUO-6_2XYsgCK4BGAYYCw/s400/1-V0OXzLOPtpU13MVVrlZJjA.png)
 
 Chúng ta muốn sử dụng training data để dự đoán giá của những ngôi nhà khác.
 
@@ -58,7 +58,7 @@ Chúng ta muốn sử dụng training data để dự đoán giá của những 
 
 Nó giống như việc tìm các toán tử trong bài tập toán hồi lớp 1 chúng ta vẫn hay được học:
 
-[![](https://3.bp.blogspot.com/-4yEkrKUv448/WZ7XZPESABI/AAAAAAAAmvg/u4t-5NgVvgEZJI4C4uql3JV1k9cv_iXigCK4BGAYYCw/s1600/1-SihYXaJQS3T6tOwqJ6fzPw.png)](https://3.bp.blogspot.com/-4yEkrKUv448/WZ7XZPESABI/AAAAAAAAmvg/u4t-5NgVvgEZJI4C4uql3JV1k9cv_iXigCK4BGAYYCw/s1600/1-SihYXaJQS3T6tOwqJ6fzPw.png)
+![](https://3.bp.blogspot.com/-4yEkrKUv448/WZ7XZPESABI/AAAAAAAAmvg/u4t-5NgVvgEZJI4C4uql3JV1k9cv_iXigCK4BGAYYCw/s1600/1-SihYXaJQS3T6tOwqJ6fzPw.png)
 
 Từ bảng trên, bạn có thể tìm ra được các phép toán nào để có được kết quả bên phải? Bạn biết bạn có nghĩa vụ phải "làm gì đó" với những con số ở bên trái để có được câu trả lời ở bên phải.
 
@@ -68,7 +68,7 @@ Với **supervised learning**, bạn đang để máy tính phải tìm ra nh�
 
 Quay lại với ví dụ bất động sản, giả sử bạn **không biết** thông tin gì về **giá**. Chỉ với thông tin về diện tích, vị trí, ... bạn vẫn có thể làm được vài thứ hay ho. Đây được gọi là **unsupervised learning**.
 
-[![](https://4.bp.blogspot.com/-ZlPmwL679Xg/WZ7fOZuyZII/AAAAAAAAmvw/lp9BkHOIZ9AkmIxqpXtNOpDqqKedrBSZQCK4BGAYYCw/s400/1-mUJw2yL4-OBI25xUKS7_Bg.png)](https://4.bp.blogspot.com/-ZlPmwL679Xg/WZ7fOZuyZII/AAAAAAAAmvw/lp9BkHOIZ9AkmIxqpXtNOpDqqKedrBSZQCK4BGAYYCw/s1600/1-mUJw2yL4-OBI25xUKS7_Bg.png)
+![](https://4.bp.blogspot.com/-ZlPmwL679Xg/WZ7fOZuyZII/AAAAAAAAmvw/lp9BkHOIZ9AkmIxqpXtNOpDqqKedrBSZQCK4BGAYYCw/s400/1-mUJw2yL4-OBI25xUKS7_Bg.png)
 
 Mặc dù bạn không thể dự đoán được giá nhà, bạn vẫn có thể làm vài chuyện hay khác với Machine Learning
 
@@ -170,7 +170,7 @@ def estimate_house_sales_price(num_of_bedrooms, sqft, neighborhood):
 
 **Bước 2:** Với dữ liệu training data mọi căn nhà mà bạn biết giá, sử dụng chương trình trên để đoán giá và xem thử giá này cách xa với giá thực tế bao nhiêu:
 
-[![](https://4.bp.blogspot.com/-MgQcwDBEWHA/WZ7xaC-Tp6I/AAAAAAAAmwA/LJYNP7_bj3UGg8KHy8jklH575pnPi0RVQCK4BGAYYCw/s640/1-Dih1jJrDpqF0NJsWkA1qgw.png)](https://4.bp.blogspot.com/-MgQcwDBEWHA/WZ7xaC-Tp6I/AAAAAAAAmwA/LJYNP7_bj3UGg8KHy8jklH575pnPi0RVQCK4BGAYYCw/s1600/1-Dih1jJrDpqF0NJsWkA1qgw.png)
+![](https://4.bp.blogspot.com/-MgQcwDBEWHA/WZ7xaC-Tp6I/AAAAAAAAmwA/LJYNP7_bj3UGg8KHy8jklH575pnPi0RVQCK4BGAYYCw/s640/1-Dih1jJrDpqF0NJsWkA1qgw.png)
 
 Sử dụng function để predict giá nhà
 
@@ -178,7 +178,7 @@ Ví dụ với dòng đầu tiên, thực tế nó được bán với giá $250
 
 Bây giờ bạn cộng tổng các bình phương giá chênh lệch của mỗi căn nhà trong tập dữ liệu. Giả sử như bạn có 500 căn nhà, và tổng bình phương chênh lệch từ hàm đoán giá của chúng ta so với thực tế là $86,123,373 - con số này thể hiện mức độ "lỗi" của chương trình của chúng ta.
 
-Tiếp đến ta lấy tổng đó chia cho 500 để lấy trung bình độ chênh lệnh của mỗi ngôi nhà. Gọi nó là độ lỗi trung bình **cost function**.
+Tiếp đến ta lấy tổng đó chia cho 500 để lấy trung bình độ chênh lệch của mỗi ngôi nhà. Gọi nó là độ lỗi trung bình **cost function**.
 
 Nếu bạn có được cost bằng 0 nếu thay đổi các weights, function của bạn sẽ hoàn hảo. Có nghĩa là trong mọi trường hợp, function sẽ đoán chính xác giá của mọi ngôi nhà được đưa vào theo dữ liệu.
 
@@ -205,13 +205,13 @@ Dĩ nhiên bạn hoàn toàn có thể thử mọi tổ hợp số, hoặc là b
 
 Đầu tiên, viết một biểu thức đơn giản để biểu diễn cost ở bước 2 ở trên:
 
-[![](https://4.bp.blogspot.com/-XnoSTAV8CZQ/WZ7-fKsrzxI/AAAAAAAAmwQ/e1kpM0DWYzEs7CMUULnitqcYFN2WxVBfQCK4BGAYYCw/s320/1-4j82aAIUGQKKUmKcHLMWJQ.png)](https://4.bp.blogspot.com/-XnoSTAV8CZQ/WZ7-fKsrzxI/AAAAAAAAmwQ/e1kpM0DWYzEs7CMUULnitqcYFN2WxVBfQCK4BGAYYCw/s1600/1-4j82aAIUGQKKUmKcHLMWJQ.png)
+![](https://4.bp.blogspot.com/-XnoSTAV8CZQ/WZ7-fKsrzxI/AAAAAAAAmwQ/e1kpM0DWYzEs7CMUULnitqcYFN2WxVBfQCK4BGAYYCw/s320/1-4j82aAIUGQKKUmKcHLMWJQ.png)
 
 cost function.
 
 Bây giờ chúng ta viết lại dưới dạng một biểu thức với ký hiệu toán machine learning (không hiểu không sao, có thể bỏ qua):
 
-[![](https://1.bp.blogspot.com/-jmeth13UgKk/WZ7_CMpMtAI/AAAAAAAAmwc/1fhYDMOhB4Esd0UMaSDdKTKi7worsotmACK4BGAYYCw/s320/1-ZyboMOVQ5zOv0ZTC4a3usA.png)](https://1.bp.blogspot.com/-jmeth13UgKk/WZ7_CMpMtAI/AAAAAAAAmwc/1fhYDMOhB4Esd0UMaSDdKTKi7worsotmACK4BGAYYCw/s1600/1-ZyboMOVQ5zOv0ZTC4a3usA.png)
+![](https://1.bp.blogspot.com/-jmeth13UgKk/WZ7_CMpMtAI/AAAAAAAAmwc/1fhYDMOhB4Esd0UMaSDdKTKi7worsotmACK4BGAYYCw/s320/1-ZyboMOVQ5zOv0ZTC4a3usA.png)
 
 θ biểu diễn cho weights, J(θ) có nghĩa là cost của weight hiện có.
 
@@ -219,13 +219,13 @@ Công thức trên biểu diễn độ sai của function ước lượng price 
 
 Nếu chúng ta vẽ hết tất cả giá trị của biểu thức J(θ) với các weights có thể có ứng với number_of_bedrooms và sqft, biểu đồ sẽ có thể có dạng như sau:
 
-[![](https://3.bp.blogspot.com/-MZCl2xFdqh0/WZ7__5U7v6I/AAAAAAAAmwo/7itVMkNTCg8RNc1_D6gef7WuKttfNqntQCK4BGAYYCw/s1600/1-uorFgyflbSMtvfSo9hlI1A.png)](https://3.bp.blogspot.com/-MZCl2xFdqh0/WZ7__5U7v6I/AAAAAAAAmwo/7itVMkNTCg8RNc1_D6gef7WuKttfNqntQCK4BGAYYCw/s1600/1-uorFgyflbSMtvfSo9hlI1A.png)
+![](https://3.bp.blogspot.com/-MZCl2xFdqh0/WZ7__5U7v6I/AAAAAAAAmwo/7itVMkNTCg8RNc1_D6gef7WuKttfNqntQCK4BGAYYCw/s1600/1-uorFgyflbSMtvfSo9hlI1A.png)
 
 Trục đứng thể hiện cost. Đồ thị của cost function sẽ có dạng hình cái bát.
 
 Trên hình trên, điểm thấp nhất màu xanh ứng với nơi có cost thấp nhất - vì thế chương trình sẽ có độ lỗi thấp nhất. Điểm càng cao sẽ có độ lệch/lỗi càng cao. Vì thế nếu chúng ta có thể tìm được weights đưa chúng ta đến điểm thấp nhất trên đồ thị, chúng ta sẽ tìm ra được câu trả lời!
 
-[![](https://2.bp.blogspot.com/-VqLBDjIZ17E/WZ8BBMfMMgI/AAAAAAAAmw0/Q4U93xFRgpY0OQwi7vxRxCqZk0ZmZG79wCK4BGAYYCw/s1600/1-prsH6EfJmFqdmFElj1Ht8g.png)](https://2.bp.blogspot.com/-VqLBDjIZ17E/WZ8BBMfMMgI/AAAAAAAAmw0/Q4U93xFRgpY0OQwi7vxRxCqZk0ZmZG79wCK4BGAYYCw/s1600/1-prsH6EfJmFqdmFElj1Ht8g.png)
+![](https://2.bp.blogspot.com/-VqLBDjIZ17E/WZ8BBMfMMgI/AAAAAAAAmw0/Q4U93xFRgpY0OQwi7vxRxCqZk0ZmZG79wCK4BGAYYCw/s1600/1-prsH6EfJmFqdmFElj1Ht8g.png)
 
 Vì thế, chúng ta cần điều chỉnh weights, giống như việc "đi xuống thung lũng" trong đồ thị để tìm được điểm thấp nhất. Nếu như chúng ta điều chỉnh từng chút một và luôn đi xuống, ta sẽ tìm được điểm cực tiểu mà không cần phải thử quá nhiều weights.
 
@@ -254,7 +254,7 @@ Nhưng, hãy nhớ rằng machine learning chỉ có thể hoạt động nếu 
 
 Ví dụ, bạn xây dựng mô hình dự đoán giá nhà dựa vào các loại chậu cây trồng trước nhà, nó sẽ không bao giờ hoạt động. Giá nhà và chậu cây chẳng liên quan gì nhau cả.
 
-[![](https://1.bp.blogspot.com/-xXiF8XbGbto/WZ_y2OzLlZI/AAAAAAAAmxI/svEAy3KMragCxXKGxF0sYLZDVBkHv_rAQCK4BGAYYCw/s1600/1-N6pxRoVoEoedFELL2HdxbA.png)](https://1.bp.blogspot.com/-xXiF8XbGbto/WZ_y2OzLlZI/AAAAAAAAmxI/svEAy3KMragCxXKGxF0sYLZDVBkHv_rAQCK4BGAYYCw/s1600/1-N6pxRoVoEoedFELL2HdxbA.png)
+![](https://1.bp.blogspot.com/-xXiF8XbGbto/WZ_y2OzLlZI/AAAAAAAAmxI/svEAy3KMragCxXKGxF0sYLZDVBkHv_rAQCK4BGAYYCw/s1600/1-N6pxRoVoEoedFELL2HdxbA.png)
 
 Vì vậy hãy nhớ nếu một chuyên gia **không** thể sử dụng dữ liệu của giải quyết vấn đề, thì máy tính cũng vậy.
 
