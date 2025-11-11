@@ -7,7 +7,7 @@ tags:
 modified_time: '2015-07-10T23:36:20.684+07:00'
 slug: /2015/07/tao-of-programming.html
 category: News
-description: 'Nguồn gốc huyền bí, sinh ra từ hư vô. Vô thanh vô tướng, vĩnh viễn bất biến, mãi mãi vận hành. Là nguồn gốc của mọi chương trình. Ta không biết tên nó là gì, nên ta gọi nó là Đạo.'
+description: 'Bản dịch tiếng Việt đầy đủ của "The Tao of Programming" - tác phẩm kinh điển về triết lý lập trình. 9 chương về Cõi hư vô, Lập Trình Sư, Thiết kế, Lập trình, Cải tiến, Quản đốc, Trung tâm đầu não, Phần cứng và phần mềm. Những bài học vượt thời gian về nghệ thuật coding, debugging, và sống hài hòa với Đạo của lập trình.'
 ---
 
 Lập Trình Sư nói: "Khi ngươi biết cách lấy mã lỗi từ đoạn code bắt lỗi, ngươi có thể xuống núi."

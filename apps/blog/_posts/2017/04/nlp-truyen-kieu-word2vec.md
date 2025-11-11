@@ -11,10 +11,10 @@ modified_time: '2018-09-10T17:20:37.588+07:00'
 thumbnail: https://1.bp.blogspot.com/-O7tdQkuYZ4U/WPOFQVmaFaI/AAAAAAAAkmE/B_LuJ3fxknYsAekzZCy5uOLez3znOiV9wCK4B/s1600/word2vectors.gif
 slug: /2017/04/nlp-truyen-kieu-word2vec.html
 category: Machine Learning
-description: Trong các dự án gần đây mình làm nhiều về Word2vec, khá có vẻ là useful trong việc biểu diễn word lên không gian vector (word embedding). Nói thêm về Word2vec, trong các dự án nghiên cứu W2V của Google còn khám phá được ra tính ngữ nghĩa, cú pháp của các từ ở một số mức độ nào đó
+description: Khám phá Word2vec qua "Truyện Kiều" của Nguyễn Du. Hướng dẫn chi tiết về word embeddings, cách xử lý tiếng Việt với n-grams, và sử dụng Gensim Python để training mô hình. Bài viết giải thích về distributed representation, PCA visualization, và những phát hiện thú vị về mối quan hệ ngữ nghĩa giữa các từ trong kinh điển văn học Việt Nam.
 ---
 
-Trong các dự án gần đây mình làm nhiều về Word2vec, khá có vẻ là useful trong việc biểu diễn word lên không gian vector (word embedding). Nói thêm về Word2vec, trong các dự án nghiên cứu W2V của Google còn khám phá được ra tính ngữ nghĩa, cú pháp của các từ ở một số mức độ nào đó. Ví dụ như bài toán **King + Man - Woman = ?** kinh điển dưới đây:
+Trong các dự án gần đây mình làm nhiều về Word2vec, khá có vẻ là useful trong việc biểu diễn word lên không gian vector (word embedding). Nói thêm về Word2vec, trong các dự án nghiên cứu W2V của Google còn khám phá được ra tính ngữ nghĩa, cú pháp của các từ ở một số mức độ nào đó. Ví dụ như bài toán **King + Man - Woman = ?** kinh điển dưới đây:
 
 ![](https://1.bp.blogspot.com/-O7tdQkuYZ4U/WPOFQVmaFaI/AAAAAAAAkmE/B_LuJ3fxknYsAekzZCy5uOLez3znOiV9wCK4B/s1600/word2vectors.gif)
 
@@ -22,14 +22,14 @@ Sử dụng **word2vec** cho [Truyện Kiều](https://en.wikipedia.org/wiki/The
 
 ## Word vector là gì?
 
-Trước tiên giới thiệu 1 chút về Word vector. Về cơ bản, đây chỉ là một vector trọng số, biểu diễn cho 1 từ, với số chiều cụ thể.
+Trước tiên giới thiệu 1 chút về Word vector. Về cơ bản, đây chỉ là một vector trọng số, biểu diễn cho 1 từ, với số chiều cụ thể.
 
-Ví dụ, 1-of-N (one-hot vector) sẽ mã hoá (encoding) các từ trong từ điển thành một vector có chiều dài N (tổng số lượng các từ trong từ điển). Giả sử từ điển của chúng ta chỉ có 5 từ: **King, Queen, Man, Woman, và Child**. Ta có thể biểu diễn từ "Queen" như bên dưới:
+Ví dụ, 1-of-N (one-hot vector) sẽ mã hoá (encoding) các từ trong từ điển thành một vector có chiều dài N (tổng số lượng các từ trong từ điển). Giả sử từ điển của chúng ta chỉ có 5 từ: **King, Queen, Man, Woman, và Child**. Ta có thể biểu diễn từ "Queen" như bên dưới:
 
 [![](https://3.bp.blogspot.com/-avTgyW5ipsM/WPOGd7GiNMI/AAAAAAAAkmQ/zMVG_NJ-YOQGs3C4EYlaOt7Dqi-iw4l0wCK4B/s1600/word2vec-one-hot.png)](https://3.bp.blogspot.com/-avTgyW5ipsM/WPOGd7GiNMI/AAAAAAAAkmQ/zMVG_NJ-YOQGs3C4EYlaOt7Dqi-iw4l0wCK4B/s1600/word2vec-one-hot.png)
-Ảnh: blog.acolyer.org
+Ảnh: blog.acolyer.org
 
-Nhược điểm của cách biểu diễn này là ta không thu được nhiều ý nghĩa trong việc so sánh các từ với nhau ngoại trừ so sánh bằng, các từ có ý nghĩa hơn không được nhấn mạnh.
+Nhược điểm của cách biểu diễn này là ta không thu được nhiều ý nghĩa trong việc so sánh các từ với nhau ngoại trừ so sánh bằng, các từ có ý nghĩa hơn không được nhấn mạnh.
 
 ## Word2vec
 
@@ -54,7 +54,7 @@ Bạn có thể tìm hiểu kỹ hơn về Word2vec **[ở bài viết này](htt
 
 ## Chuẩn bị dataset và tiền xử lý
 
-Mình tìm kiếm bộ full Truyện Kiều trên Google, lưu vào file **truyen_kieu_data.txt**. Bắt đầu tiền xử lý.
+Mình tìm kiếm bộ full Truyện Kiều trên Google, lưu vào file **truyen_kieu_data.txt**. Bắt đầu tiền xử lý.
 
 ### 1. Load tất cả các dòng vào data frame Pandas
 
@@ -159,9 +159,53 @@ PCA giảm vector word từ 100 chiều về 2 chiều, để vẽ lên không g
 
 Word2vec chính xác khi với bộ copus thật lớn. Với ví dụ trên thực sự mục đính chỉ là vui là chính và để hiểu rõ hơn phần nào về NLP với Word2vec. Bạn nào có hứng thú có thể build các bộ Word2vec với dữ liệu cho tiếng Việt, với phần Tokenize và tiền xử lý chuẩn - word2vec sẽ hữu ích rất nhiều.
 
+### Tổng kết những điểm chính
+
+**Word2vec cơ bản:**
+- 🔤 **One-hot encoding** (1-of-N): Biểu diễn đơn giản nhưng không capture được semantic relationship
+- 🌐 **Distributed representation**: Word2vec biểu diễn từ dưới dạng phân bố quan hệ với các từ khác
+- 📊 Vector representation cho phép máy tính hiểu cú pháp và ngữ nghĩa ở mức độ nhất định
+
+**Kỹ thuật xử lý tiếng Việt:**
+- Sử dụng **unigram (1-gram)** và **bigram (2-gram)** cho tokenization nhanh
+- Tham số `min_count` loại bỏ các từ xuất hiện ít (như "năm trong", "trong cõi")
+- Tiền xử lý: Xóa số dòng, ký tự đặc biệt, dấu câu thừa
+
+**Công cụ và thư viện:**
+- 🐍 **Pandas** - Load và xử lý data
+- 📚 **NLTK ngrams** - Tách từ với n-gram
+- 🔧 **Gensim** - Training word2vec model
+- 📉 **PCA** - Giảm chiều để visualization
+
+**Những phát hiện thú vị từ Truyện Kiều:**
+```
+"thúy kiều" → "thâm" (Thâm thúy!)
+"tài" → "thiên", "dao", "bể" (Tài cao vút như trời biển)
+"tình" → "phụ" (Tình không phụ sao gọi là tình)
+"đời" → "nợ" (Đời là một cục nợ)
+```
+
+**Hạn chế và cải thiện:**
+- ⚠️ Dataset nhỏ (chỉ Truyện Kiều) → Kết quả mang tính giải trí > thực tế
+- 💡 Để chính xác hơn cần:
+  - Corpus lớn hơn nhiều (Wikipedia tiếng Việt, báo chí, sách,...)
+  - Tokenizer chuẩn cho tiếng Việt (VnCoreNLP, underthesea, pyvi)
+  - Fine-tuning hyperparameters (vector_size, window, min_count,...)
+  - Training time dài hơn với nhiều epochs
+
+**Ứng dụng thực tế:**
+- 📝 Sentiment analysis
+- 🔍 Information retrieval và search
+- 🤖 Chatbots và virtual assistants
+- 📖 Document classification
+- 🔄 Machine translation
+- ✍️ Text generation
+
 Tham khảo thêm:
 
-- Truyện Kiều Word2vec at Github: [https://github.com/duyet/truyenkieu-word2vec](https://github.com/duyet/truyenkieu-word2vec)
+- Truyện Kiều Word2vec at Github: [https://github.com/duyet/truyenkieu-word2vec](https://github.com/duyet/truyenkieu-word2vec)
 - [The amazing power of word vectors](https://blog.acolyer.org/2016/04/21/the-amazing-power-of-word-vectors/)
 - [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781.pdf) – Mikolov et al. 2013
 - [Distributed Representations of Words and Phrases and their Compositionality](https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf) – Mikolov et al. 2013
+- [Vietnamese NLP Toolkit - underthesea](https://github.com/undertheseanlp/underthesea)
+- [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP)

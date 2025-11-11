@@ -11,11 +11,18 @@ tags:
   - ClickHouse on Kubernetes
 slug: /2024/06/clickhouse-replicatedreplacingmergetree.html
 thumbnail: /media/2024/06/clickhouse-replicated/clickhouse-replicatedreplacingmergetree.png
-description: Now you have a large single node cluster with a ReplacingMergeTree table that can deduplicate itself. This time, you need more replicated nodes to serve more data users or improve the high availability.
+description: Learn how to set up and manage ReplicatedReplacingMergeTree in ClickHouse on Kubernetes. This comprehensive guide covers cluster setup with ClickHouse Operator, data replication, performance tuning, and best practices for high availability deployments.
 twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F06%2Fclickhouse-replicatedreplacingmergetree.html
 ---
 
 Now you have a large single node cluster with a [ReplacingMergeTree](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html) table that can deduplicate itself. This time, you need more replicated nodes to serve more data users or improve the high availability.
+
+**In this guide, you'll learn:**
+- How to set up a replicated ClickHouse cluster using ClickHouse Operator
+- Creating and managing ReplicatedReplacingMergeTree tables
+- Monitoring replication status and performance
+- Converting existing MergeTree tables to replicated versions
+- Performance tuning for optimal replication throughput
 
 - [Cluster setup via ClickHouse Operator](#cluster-setup-via-clickhouse-operator)
 - [Create Replicated table](#create-replicated-table)
@@ -395,9 +402,40 @@ The [`replicated_fetches_http_connection_timeout`](https://clickhouse.com/docs/e
 </yandex>
 ```
 
+# Summary and Key Takeaways
+
+ReplicatedReplacingMergeTree provides a powerful combination of data deduplication and high availability for your ClickHouse cluster. Here are the key points to remember:
+
+**Essential Concepts:**
+- Replication works at the table level and requires ClickHouse Keeper or Zookeeper
+- Use macros `{cluster}`, `{shard}`, `{replica}` for portable table definitions
+- The `ON CLUSTER` clause automatically creates tables across all replicas
+- Data inserted into any replica automatically syncs to all others
+
+**Performance Best Practices:**
+- Monitor replication queue using `system.replication_queue` and `system.replicated_fetches`
+- Adjust `background_fetches_pool_size` (default: 16) based on your cluster capacity
+- Tune `replicated_max_parallel_fetches_for_host` for optimal throughput
+- Use the [clickhouse-monitoring](http://github.com/duyet/clickhouse-monitoring) tool for visual monitoring
+
+**Migration Strategies:**
+- **Small tables**: Use `INSERT INTO SELECT` for simple data copy
+- **Large tables**: Use `ATTACH PARTITION FROM` to avoid data duplication
+- **Advanced**: Direct filesystem manipulation with `detached` folder
+- **Production**: Consider using `clickhouse-backup` for safe migrations
+
+**Troubleshooting Tips:**
+- Check `postpone_reason` in `system.replication_queue` for slow replication
+- Increase pool sizes if you see "max N fetches already executing" messages
+- Monitor `system.metrics` for `ReplicatedFetch` and `BackgroundFetchesPoolTask`
+- Ensure adequate network bandwidth between nodes for large data transfers
+
+By following these guidelines, you can build a robust, highly available ClickHouse cluster that maintains data consistency across all replicas while providing excellent query performance.
+
 # References
 
 - [Data Replication - ClickHouse Documentation](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication/)
 - [Setup ClickHouse cluster with data replication](https://github.com/Altinity/clickhouse-operator/blob/master/docs/replication_setup.md)
 - [Update ClickHouse Installation - add replication to existing non-replicated cluster](https://github.com/Altinity/clickhouse-operator/blob/master/docs/chi_update_add_replication.md)
 - [Converting MergeTree to Replicated](https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-converting-mergetree-to-replicated/)
+- [ClickHouse Keeper Setup](https://github.com/duyet/charts/tree/master/clickhouse-keeper)
