@@ -293,7 +293,15 @@ export function OverviewDashboard() {
       {/* Last Updated Footer */}
       <div className="border-t pt-3">
         <div className="text-xs text-muted-foreground">
-          Last updated: {new Date().toLocaleTimeString()}
+          Last updated: {new Date().toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short'
+          })}
         </div>
       </div>
     </div>
