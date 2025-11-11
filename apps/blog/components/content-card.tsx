@@ -13,7 +13,7 @@ interface ContentCardProps {
   description?: string
   tags?: string[]
   date?: string
-  color?: 'ivory' | 'oat' | 'cream' | 'cactus' | 'sage' | 'lavender'
+  color?: 'ivory' | 'oat' | 'cream' | 'cactus' | 'sage' | 'lavender' | 'terracotta' | 'coral'
   illustration?: 'wavy' | 'geometric' | 'blob' | 'none'
   className?: string
 }
@@ -25,6 +25,8 @@ const colorClasses = {
   cactus: 'bg-cactus-light text-neutral-900',
   sage: 'bg-sage-light text-neutral-900',
   lavender: 'bg-lavender-light text-neutral-900',
+  terracotta: 'bg-terracotta-light text-neutral-900',
+  coral: 'bg-coral-light text-neutral-900',
 }
 
 const illustrationColorClasses = {
@@ -34,6 +36,8 @@ const illustrationColorClasses = {
   cactus: 'text-cactus',
   sage: 'text-sage',
   lavender: 'text-lavender',
+  terracotta: 'text-terracotta',
+  coral: 'text-coral',
 }
 
 const illustrations = {
