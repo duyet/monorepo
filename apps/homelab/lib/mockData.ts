@@ -207,6 +207,14 @@ const serviceConfigs = [
     memRange: [200, 400],
   },
   {
+    name: 'duyetbot',
+    namespace: 'llm',
+    node: 'minipc-02',
+    port: 8081,
+    cpuRange: [2, 4],
+    memRange: [400, 700],
+  },
+  {
     name: 'clickhouse',
     namespace: 'analytics',
     node: 'minipc-02',
