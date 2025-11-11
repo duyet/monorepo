@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/category/data-engineer",
+      "destination": "/category/data-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/category/bigdata",
+      "destination": "/category/data",
+      "permanent": true
+    }
+  ]
+}
