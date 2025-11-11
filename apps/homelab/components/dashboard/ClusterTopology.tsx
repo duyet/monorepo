@@ -33,13 +33,13 @@ export function ClusterTopology() {
               </h4>
             </div>
 
-            {/* Line 2: IP address and deployments */}
+            {/* Line 2: IP address and uptime */}
             <div className="mb-3 flex items-center justify-between text-xs">
               <span className="font-mono text-neutral-600 dark:text-neutral-400">
                 {node.ip}
               </span>
-              <span className="text-neutral-600 dark:text-neutral-400">
-                {node.services} deploy
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                {node.uptime}
               </span>
             </div>
 
@@ -55,12 +55,6 @@ export function ClusterTopology() {
                 <span className="text-neutral-600 dark:text-neutral-400">RAM:</span>
                 <span className="font-medium text-neutral-900 dark:text-neutral-100">
                   {node.memory}%
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-neutral-600 dark:text-neutral-400">Uptime:</span>
-                <span className="font-medium text-neutral-900 dark:text-neutral-100">
-                  {node.uptime}
                 </span>
               </div>
             </div>
