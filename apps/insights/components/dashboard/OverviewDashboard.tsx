@@ -257,6 +257,33 @@ export function OverviewDashboard() {
         </div>
       </div>
 
+      {/* Homelab Overview Section */}
+      <div className="space-y-3">
+        <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          Homelab Overview
+        </h2>
+        <CompactCard padding="sm">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <div className="text-sm font-medium">
+                View on homelab dashboard
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Infrastructure monitoring and homelab documentation
+              </div>
+            </div>
+            <a
+              href="https://homelab.duyet.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline"
+            >
+              View →
+            </a>
+          </div>
+        </CompactCard>
+      </div>
+
       {/* Last Updated Footer */}
       <div className="border-t pt-3">
         <div className="text-xs text-muted-foreground">
