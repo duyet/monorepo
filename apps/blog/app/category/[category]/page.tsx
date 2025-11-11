@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { YearPost } from '@/components/year-post'
-import { getCategoryColorClass, getCategoryMetadata } from '@/lib/category-metadata'
+import { YearPost } from '../../../components/year-post'
+import { getCategoryColorClass, getCategoryMetadata } from '../../../lib/category-metadata'
 import Container from '@duyet/components/Container'
 import type { Post } from '@duyet/interfaces'
 import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
