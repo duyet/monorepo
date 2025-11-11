@@ -49,7 +49,7 @@ dataset = Dataset('s3://dag/output.txt', extra={'hi': 'bye'})
 
 start_date = datetime(2022, 1, 1)
 
-with DAG(dag_id='producer', start_date=start_date, schedule=[dataset]):
+with DAG(dag_id='consumer', start_date=start_date, schedule=[dataset]):
   BashOperator(task_id='consuming_1',
                bash_command="echo hello")
 ```
@@ -73,19 +73,19 @@ schemeless = Dataset("//example/dataset")
 csv_file = Dataset("example_dataset")
 ```
 
-# \***\*Datasets Chain\*\***
+# Datasets Chain
 
-A consumer DAG can update another dataset which triggering another DAGs.
+A consumer DAG can update another dataset which triggers another DAG.
 
 ```python
 dataset_1 = Dataset("/tmp/dataset_1.txt")
 dataset_2 = Dataset("/tmp/dataset_2.txt")
 
 with DAG(dag_id='dag_1', ...):
-	BashOperator(task_id='task_1', outlet=[dataset_1], bash_command="sleep 5")
+	BashOperator(task_id='task_1', outlets=[dataset_1], bash_command="sleep 5")
 
 with DAG(dag_id='dag_2', schedule=[dataset_1], ...):
-	BashOperator(task_id='task_2', outlet=[dataset_2], bash_command="sleep 5")
+	BashOperator(task_id='task_2', outlets=[dataset_2], bash_command="sleep 5")
 
 with DAG(dag_id='dag_3', schedule=[dataset_2], ...):
 	BashOperator(task_id='task_3', bash_command="sleep 5")
