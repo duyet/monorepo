@@ -70,11 +70,11 @@ export default function Header({
       <Container className={cn("mb-0", containerClassName)}>
         <nav
           className={cn(
-            "flex items-center space-x-6 flex-wrap justify-between transition-all gap-4",
+            "flex items-center flex-wrap justify-between transition-all gap-4",
             center && "md:flex-col md:gap-10",
           )}
         >
-          <div className={cn("flex flex-row items-center")}>
+          <div className={cn("flex flex-row items-center gap-2")}>
             {logo && (
               <Logo
                 className={center ? "md:flex-col" : ""}
@@ -85,7 +85,7 @@ export default function Header({
             <Link
               href={urls.apps.home}
               className={cn(
-                "font-serif text-2xl font-normal text-neutral-900",
+                "font-serif text-xl sm:text-2xl font-normal text-neutral-900 dark:text-neutral-100",
                 className,
               )}
             >
