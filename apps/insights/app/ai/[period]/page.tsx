@@ -79,18 +79,25 @@ export default async function AIUsagePeriodPage({ params }: PageProps) {
         <p className="mt-1 text-muted-foreground">
           Claude Code usage patterns, token consumption, and model insights
         </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Claude Code current subscription $100
+        </p>
       </div>
 
       {/* Main Content */}
       <div className="space-y-8">
         {SECTION_CONFIGS.map((section) => {
           const Component = section.component
-          const description = `${section.title} for the last ${config.label}`
+
+          // Dynamic title for daily-table section based on date range
+          const isMonthlyView = section.id === 'daily-table' && (days === 365 || days === 'all')
+          const sectionTitle = isMonthlyView ? 'Monthly Usage Detail' : section.title
+          const description = `${sectionTitle} for the last ${config.label}`
 
           return (
             <section key={section.id} className="space-y-4">
               <div className="mb-4">
-                <h2 className="text-lg font-semibold">{section.title}</h2>
+                <h2 className="text-lg font-semibold">{sectionTitle}</h2>
                 <p className="text-sm text-muted-foreground">{description}</p>
               </div>
               <CCUsageErrorBoundary>

@@ -11,6 +11,7 @@ import {
   Eye,
   GitCommit,
   MousePointer,
+  Server,
   Users,
   Zap,
 } from 'lucide-react'
@@ -255,6 +256,38 @@ export function OverviewDashboard() {
             </div>
           </CompactCard>
         </div>
+      </div>
+
+      {/* Homelab Overview */}
+      <div className="space-y-3">
+        <h2 className="text-lg font-semibold">Homelab Overview</h2>
+        <CompactCard padding="sm">
+          <a
+            href="https://homelab.duyet.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-950">
+                  <Server className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div className="space-y-1">
+                  <div className="text-sm font-medium group-hover:text-blue-600">
+                    View on homelab dashboard
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Infrastructure monitoring and homelab documentation
+                  </div>
+                </div>
+              </div>
+              <div className="text-sm font-medium text-blue-600 group-hover:text-blue-700">
+                →
+              </div>
+            </div>
+          </a>
+        </CompactCard>
       </div>
 
       {/* Last Updated Footer */}
