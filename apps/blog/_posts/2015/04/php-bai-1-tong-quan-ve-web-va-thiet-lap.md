@@ -119,6 +119,7 @@ Một trang Web PHP được viết thành nhiều file có đuôi .php, đặt 
 ### Lựa chọn hiện đại thay thế XAMPP (2025)
 
 Bên cạnh XAMPP, bạn cũng có thể sử dụng các giải pháp hiện đại hơn:
+
 - **Docker + Docker Compose** - Phương pháp chuyên nghiệp, cô lập môi trường
 - **Laravel Sail** - Nếu học Laravel, đi kèm dev environment
 - **Laravel Valet** (macOS/Linux) - Thiết lập nhanh và đơn giản
@@ -131,6 +132,7 @@ Bên cạnh XAMPP, bạn cũng có thể sử dụng các giải pháp hiện đ
 Download tại: https://code.visualstudio.com/
 
 Các lựa chọn khác vẫn hoạt động tốt:
+
 - **JetBrains PhpStorm** - IDE chuyên nghiệp (trả phí)
 - **Sublime Text** - Editor nhẹ và nhanh
 - **Notepad++** - Editor đơn giản cho những người mới bắt đầu
@@ -144,6 +146,7 @@ Chọn công cụ mà bạn cảm thấy thoải mái nhất!
 Ở bài sau chúng ta sẽ được biết qua các khái niệm, quy tắc, hàm, biến, hằng, …
 
 Trong khi đợi các bài viết tiếp theo của khóa học, các bạn có thể tham khảo tài liệu PHP:
+
 - **W3Schools PHP Tutorial**: https://www.w3schools.com/php/
 - **PHP Official Documentation**: https://www.php.net/manual/en/
 - **PHP 8.x Features**: Nếu đã quen với PHP 5.x, hãy tìm hiểu Named Arguments, Match Expression, Attributes (mới trong PHP 8.x)

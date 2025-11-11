@@ -93,7 +93,7 @@ Generator function là một trong những tính năng cực kì hữu ích tron
 yield còn dùng để khử callback phức tạp của Javascript, khử promise - hiện còn làm nhiều bạn lúng túng khi mới bắt đầu với nodejs. Tôi sẽ viết 1 bài hướng dẫn sau.
 
 **Lưu ý cập nhật (2025)**: Hiện nay, `async/await` (ra mắt ES2017) đã trở thành cách tiêu chuẩn để xử lý bất đồng bộ và thay thế hầu hết các trường hợp sử dụng generators. Tuy nhiên, generators vẫn còn hữu ích cho việc tạo iterators, lazy evaluation, và các mẫu nâng cao khác.
-Từ bản nodejs 0.12 trở lên đã được hỗ trợ chức năng generator function,với node v0.12 phải có tham số `--harmony` để có thể sử dụng yield/function*, còn node 4.0 trở lên thì không cần. (Lưu ý: Bài viết này từ 2016, hiện tại Node.js phiên bản 20+ đã hỗ trợ native generators mà không cần cấu hình thêm).
+Từ bản nodejs 0.12 trở lên đã được hỗ trợ chức năng generator function,với node v0.12 phải có tham số `--harmony` để có thể sử dụng yield/function\*, còn node 4.0 trở lên thì không cần. (Lưu ý: Bài viết này từ 2016, hiện tại Node.js phiên bản 20+ đã hỗ trợ native generators mà không cần cấu hình thêm).
 
 ```bash
 node --harmony ./app.js
@@ -102,7 +102,7 @@ node --harmony ./app.js
 Tham khảo:
 
 - [Write "Synchronous" Node.js Code with ES6 Generators](https://eladnava.com/write-synchronous-node-js-code-with-es6-generators/)
-- [function* - Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
+- [function\* - Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
 - [Callback Hell](https://callbackhell.com/)
 - [Generators in Node.js: Common Misconceptions and Three Good Use Cases - Strongloop](https://strongloop.com/strongblog/how-to-generators-node-js-yield-use-cases/)
 - [ECMAScript 2015 features](https://duyetdev-collections.github.io/es6features)

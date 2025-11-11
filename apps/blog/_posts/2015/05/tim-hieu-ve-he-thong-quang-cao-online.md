@@ -117,6 +117,7 @@ Tham khảo thêm: [Kipalog](http://kipalog.com/posts/upb9BdeqKagyEs4P2Ya1Zg) (L
 Ở bài viết này mình đã giới thiệu một cách cơ bản nhất về quảng cáo, các loại hình quảng cáo, các thuật ngữ media của hệ thống quảng cáo.
 
 **Cập nhật 2025**: Kể từ khi bài viết này được viết vào năm 2015, ngành quảng cáo kỹ thuật số đã trải qua những thay đổi lớn:
+
 - **Quy định về quyền riêng tư**: GDPR (2018) và các quy định khác đã giới hạn cách tracking người dùng
 - **Kết thúc Third-party cookies**: Google Chrome và các trình duyệt khác đang loại bỏ cookies của bên thứ ba, ảnh hưởng đến retargeting
 - **Nền tảng mới**: Video quảng cáo lập trình, quảng cáo TikTok, và các kênh mạng xã hội đã phát triển đáng kể

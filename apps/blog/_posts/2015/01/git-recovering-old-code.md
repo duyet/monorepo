@@ -58,6 +58,7 @@ Sử dụng các lệnh trên giúp bạn xử lý hiệu quả các tình huố
 ---
 
 **📝 Cập nhật 2025:** Từ Git phiên bản 2.23 trở đi, Git đã giới thiệu các lệnh mới dễ hiểu hơn:
+
 - `git restore <file>` - Thay thế cho `git checkout -- <file>` (khôi phục file)
 - `git restore --staged <file>` - Thay thế cho `git reset HEAD <file>` (bỏ file ra khỏi staging area)
 - `git switch <branch>` - Thay thế cho `git checkout <branch>` (chuyển branch)

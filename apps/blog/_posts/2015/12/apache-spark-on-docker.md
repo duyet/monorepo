@@ -77,7 +77,7 @@ docker build --rm -t duyetdev/docker-spark .
 
 ### Historical Note: Boot2Docker
 
-*Note: boot2docker was deprecated in favor of Docker Desktop (2016+). If you're using a legacy system, skip this section.*
+_Note: boot2docker was deprecated in favor of Docker Desktop (2016+). If you're using a legacy system, skip this section._
 
 ### Modern Approach: Docker Compose (Recommended)
 
@@ -94,11 +94,11 @@ services:
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
     ports:
-      - "8080:8080"
-      - "7077:7077"
-      - "4040:4040"
+      - '8080:8080'
+      - '7077:7077'
+      - '4040:4040'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:8080']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -113,7 +113,7 @@ services:
       - SPARK_WORKER_MEMORY=1G
       - SPARK_WORKER_CORES=1
     ports:
-      - "8081:8081"
+      - '8081:8081'
 ```
 
 Then run:

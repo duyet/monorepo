@@ -109,21 +109,21 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code (cập nh
 
 ## Shortcuts - Display
 
-| Key           | Command                        | Command id                                  |
-| ------------- | ------------------------------ | ------------------------------------------- |
-| F11           | Toggle Full Screen             | workbench.action.toggleFullScreen           |
-| Ctrl+=        | Zoom in                        | workbench.action.zoomIn                     |
-| Ctrl+-        | Zoom out                       | workbench.action.zoomOut                    |
-| Ctrl+B        | Toggle Sidebar Visibility      | workbench.action.toggleSidebarVisibility    |
-| Ctrl+Shift+D  | Show Debug                     | workbench.view.debug                        |
-| Ctrl+Shift+E  | Show Explorer                  | workbench.view.explorer                     |
-| Ctrl+Shift+F  | Show Search                    | workbench.view.search                       |
-| Ctrl+Shift+J  | Toggle Search Details          | workbench.action.search.toggleQueryDetails  |
-| Ctrl+Shift+C  | Open New Console               | workbench.action.terminal.openNativeConsole |
-| Ctrl+Shift+U  | Show Output                    | workbench.action.output.showOutput          |
-| Ctrl+L L      | Show OmniSharp Log ⚠️           | omnisharp.show.generalLog                   |
+| Key           | Command                           | Command id                                  |
+| ------------- | --------------------------------- | ------------------------------------------- |
+| F11           | Toggle Full Screen                | workbench.action.toggleFullScreen           |
+| Ctrl+=        | Zoom in                           | workbench.action.zoomIn                     |
+| Ctrl+-        | Zoom out                          | workbench.action.zoomOut                    |
+| Ctrl+B        | Toggle Sidebar Visibility         | workbench.action.toggleSidebarVisibility    |
+| Ctrl+Shift+D  | Show Debug                        | workbench.view.debug                        |
+| Ctrl+Shift+E  | Show Explorer                     | workbench.view.explorer                     |
+| Ctrl+Shift+F  | Show Search                       | workbench.view.search                       |
+| Ctrl+Shift+J  | Toggle Search Details             | workbench.action.search.toggleQueryDetails  |
+| Ctrl+Shift+C  | Open New Console                  | workbench.action.terminal.openNativeConsole |
+| Ctrl+Shift+U  | Show Output                       | workbench.action.output.showOutput          |
+| Ctrl+L L      | Show OmniSharp Log ⚠️             | omnisharp.show.generalLog                   |
 | Ctrl+L Ctrl+L | Show OmniSharp Log to the Side ⚠️ | omnisharp.show.generalLogOnSide             |
-| Ctrl+Shift+V  | Toggle Markdown Preview        | workbench.action.markdown.togglePreview     |
+| Ctrl+Shift+V  | Toggle Markdown Preview           | workbench.action.markdown.togglePreview     |
 
 > **Note**: The OmniSharp shortcuts (⚠️) above are specific to C# development. OmniSharp usage has declined as alternative language servers and tools have become more popular. These may not work if the extension is not installed.
 
