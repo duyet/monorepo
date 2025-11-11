@@ -65,3 +65,24 @@ Reference: https://kb.databricks.com/data/append-slow-with-spark-2.0.0.html
 Experimental. Enables shuffle file tracking for executors, which allows dynamic allocation without the need for an external shuffle service. This option will try to keep alive executors that are storing shuffle data for active jobs.
 
 Enable this optimization: `spark.dynamicAllocation.shuffleTracking.enabled=true`
+
+Reference: https://spark.apache.org/docs/latest/configuration.html#dynamic-allocation
+
+# Summary
+
+These performance tuning techniques can significantly improve Spark application performance when running on Kubernetes:
+
+1. **Adaptive Query Execution (AQE)** - Runtime optimization for better query plans
+2. **Kryo Serialization** - Faster and more compact serialization
+3. **Java Pointer Tuning** - Reduced memory consumption
+4. **Ignoring Data Locality** - Better performance with remote storage like S3
+5. **I/O with S3** - Faster file operations with cloud storage
+6. **Dynamic Allocation Shuffle Tracking** - Better resource utilization without external shuffle service
+
+Always test these optimizations with your specific workload to ensure they provide the expected performance improvements.
+
+# References
+
+- [Spark Configuration Guide](https://spark.apache.org/docs/latest/configuration.html)
+- [Spark Tuning Guide](https://spark.apache.org/docs/latest/tuning.html)
+- [Databricks: Adaptive Query Execution](https://docs.databricks.com/spark/latest/spark-sql/aqe.html)

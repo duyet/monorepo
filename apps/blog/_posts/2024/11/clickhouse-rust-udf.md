@@ -21,7 +21,7 @@ SELECT customTransform(data) FROM raw_events;
 ```
 
 - [Implementation: `extract-url`](#implementation-extract-url)
-- [Configurate ClickHouse](#configurate-clickhouse)
+- [Configure ClickHouse](#configure-clickhouse)
 - [Advances](#advances)
   - [`executable_pool`](#executable_pool)
   - [Functions with constant parameters](#functions-with-constant-parameters)
@@ -80,14 +80,18 @@ anyhow = "1.0.82"
 
 ```rust
 use anyhow::Result;
-use shared::io::process_stdin;
 use std::boxed::Box;
-use std::io::{self, BufRead, Write};
+use std::io::{self, BufRead};
 
 pub type ProcessFn = Box<dyn Fn(&str) -> Option<String>>;
 
+/// Helper function to check if a character is whitespace
+fn is_whitespace(c: char) -> bool {
+    c.is_whitespace()
+}
+
 /// Returns the index to the start and the end of the URL
-/// if the the given string includes a
+/// if the given string includes a
 /// URL or alike. Otherwise, returns `None`.
 pub fn detect_url(s: &str) -> Option<(usize, usize)> {
     let patterns = vec!["http://", "https://", "ftp://", "ftps://", "file://"];
@@ -98,7 +102,7 @@ pub fn detect_url(s: &str) -> Option<(usize, usize)> {
                 let end = s
                     .chars()
                     .skip(pos + pattern.len())
-                    .position(|g| is_whitespace(g.to_string().as_str()))
+                    .position(|c| is_whitespace(c))
                     .unwrap_or(s.len() - pos - pattern.len());
                 return Some((pos, pos + end + pattern.len()));
             }
@@ -208,7 +212,7 @@ sudo chmod 755 /var/lib/clickhouse/user_scripts/extract-url
 
 The `user_scripts_path` setting defines the directory for user script files, which is `/var/lib/clickhouse/user_scripts` by default. You will also need to copy the binary to all instances if you have a cluster with more than one machine.
 
-# Configurate ClickHouse
+# Configure ClickHouse
 
 To add a UDF following the [Executable User Defined Functions](https://clickhouse.com/docs/en/sql-reference/functions/udf#executable-user-defined-functions) document, the configuration of executable user-defined functions can be located in one or more **xml** files. The path to the configuration is specified in the [user_defined_executable_functions_config](https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#server_configuration_parameters-user_defined_executable_functions_config) parameter.
 
