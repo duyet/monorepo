@@ -79,6 +79,9 @@ export default async function AIUsagePeriodPage({ params }: PageProps) {
         <p className="mt-1 text-muted-foreground">
           Claude Code usage patterns, token consumption, and model insights
         </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Claude Code current subscription $100
+        </p>
       </div>
 
       {/* Main Content */}
