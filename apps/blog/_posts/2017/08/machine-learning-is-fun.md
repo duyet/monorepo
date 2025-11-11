@@ -8,15 +8,15 @@ modified_time: '2017-08-25T17:09:50.109+07:00'
 thumbnail: https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png
 slug: /2017/08/machine-learning-is-fun.html
 category: Machine Learning
-description: 'Chuỗi bài viết "Machine Learning is Fun!" này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang cho bạn đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.'
+description: 'Chuỗi bài viết "Machine Learning is Fun!" này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.'
 ---
 
-Chuỗi bài viết _"Machine Learning is Fun!"_ này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang cho bạn đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.  
+Chuỗi bài viết _"Machine Learning is Fun!"_ này mình lược dịch từ bài viết gốc của tác giả ageitgey. Mình tin chắc có rất nhiều bạn đã và đang quan tâm đến Machine Learning hiện nay. "Machine Learning is Fun!" chắc chắn sẽ mang đến cho bạn cái nhìn từ cơ bản đến chuyên sâu nhất về thế giới Machine Learning.  
 Bài gốc: **[https://medium.com/@ageitgey/machine-learning-is-fun-80ea3ec3c471](https://medium.com/@ageitgey/machine-learning-is-fun-80ea3ec3c471)**
 
 Bạn đã từng nghe rất nhiều người nói về Machine Learning, nhưng chúng chỉ là các thông tin rất mù mờ?
 
-Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Learning nhưng chưa biết bắt đầu từ đâu. Tôi cá rằng có rất nhiều người đã cố gắng đọc [bài viết về Machine Learning này trên Wikipedia](http://en.wikipedia.org/wiki/Machine_learning), và họ phải rất vọng và bỏ cuộc vì những định nghĩa giải thích trong đó.
+Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Learning nhưng chưa biết bắt đầu từ đâu. Tôi cá rằng có rất nhiều người đã cố gắng đọc [bài viết về Machine Learning này trên Wikipedia](http://en.wikipedia.org/wiki/Machine_learning), và họ phải rất thất vọng và bỏ cuộc vì những định nghĩa giải thích trong đó.
 
 ## Machine Learning là gì?
 
@@ -24,7 +24,7 @@ Chuỗi bài viết này dành cho những ai muốn tìm hiểu về Machine Le
 
 Ví dụ, một loại thuật toán cơ bản đó là phân lớp (classification algorithm), thuật toán này cho phép chia dữ liệu thành nhiều nhóm khác nhau. Một thuật toán dùng để nhận dạng chữ số viết tay (recognize handwritten numbers) có thể được sử dụng để phân loại email (thành _spam_ và _không spam_), mà không cần phải code lại.
 
-Hai bài toán trên không một thuật toán, nhưng khác dữ liệu.
+Hai bài toán trên dùng cùng một thuật toán, nhưng khác dữ liệu.
 
 [![](https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png)](https://2.bp.blogspot.com/-D4vekDbu6zs/WZ6_chAbYAI/AAAAAAAAmu4/r-VHzqHLRU42sWwYbiGBvI4Dwt28tEDmACK4BGAYYCw/s1600/1-YXiclXZdJQVJZ0tQHCv5zw.png)
 Thuật toán Machine Learning này là black-box, có thể được sử dụng để giải quyết nhiều bài toán phân lớp khác nhau.
@@ -178,7 +178,7 @@ Ví dụ với dòng đầu tiên, thực tế nó được bán với giá $250
 
 Bây giờ bạn cộng tổng các bình phương giá chênh lệch của mỗi căn nhà trong tập dữ liệu. Giả sử như bạn có 500 căn nhà, và tổng bình phương chênh lệch từ hàm đoán giá của chúng ta so với thực tế là $86,123,373 - con số này thể hiện mức độ "lỗi" của chương trình của chúng ta.
 
-Tiếp đến ta lấy tổng đó chia cho 500 để lấy trung bình độ chênh lệnh của mỗi ngôi nhà. Gọi nó là độ lỗi trung bình **cost function**.
+Tiếp đến ta lấy tổng đó chia cho 500 để lấy trung bình độ chênh lệch của mỗi ngôi nhà. Gọi nó là độ lỗi trung bình **cost function**.
 
 Nếu bạn có được cost bằng 0 nếu thay đổi các weights, function của bạn sẽ hoàn hảo. Có nghĩa là trong mọi trường hợp, function sẽ đoán chính xác giá của mọi ngôi nhà được đưa vào theo dữ liệu.
 
