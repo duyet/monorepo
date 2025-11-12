@@ -32,7 +32,8 @@
     "typescript": "*"
   },
   "scripts": {
-    "test": "echo 'Tests temporarily disabled due to Jest environment issue - will be fixed in future update'",
-    "test:watch": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   }
 }
