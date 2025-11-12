@@ -23,6 +23,11 @@ export default function Page() {
     <PageLayout
       title="GitHub Analytics"
       description="Repository insights and development activity"
+      footer={
+        <p className="text-xs text-muted-foreground">
+          Last updated: {new Date().toLocaleDateString()}
+        </p>
+      }
     >
       <SectionLayout
         title="Language Distribution"

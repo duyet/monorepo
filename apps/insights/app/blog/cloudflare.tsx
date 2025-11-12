@@ -107,7 +107,7 @@ export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Data from Cloudflare • Latest day: {latestDate} • Updated{' '}
+        Data Source: Cloudflare | Last updated:{' '}
         {new Date(generatedAt).toLocaleDateString()}
       </p>
     </div>
