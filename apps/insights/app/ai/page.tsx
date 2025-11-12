@@ -87,7 +87,8 @@ export default function CCUsage() {
         </CCUsageErrorBoundary>
 
         <p className="text-xs text-muted-foreground">
-          Claude Code Usage Analytics
+          Data Source: Claude Code | Last updated:{' '}
+          {new Date().toLocaleDateString()}
         </p>
       </div>
     </div>

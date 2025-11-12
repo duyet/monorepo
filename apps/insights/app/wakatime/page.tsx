@@ -27,7 +27,8 @@ export default function Wakatime() {
       description="Programming activity and language statistics from WakaTime"
       footer={
         <p className="text-xs text-muted-foreground">
-          Data from WakaTime • Updated daily
+          Data Source: WakaTime | Last updated:{' '}
+          {new Date().toLocaleDateString()}
         </p>
       }
     >

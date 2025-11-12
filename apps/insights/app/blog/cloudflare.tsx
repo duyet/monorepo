@@ -45,8 +45,6 @@ export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
   const latestRequests = latestDataDay?.sum.requests || totalRequests || 0
   const latestPageviews = latestDataDay?.sum.pageViews || totalPageviews || 0
   const latestUniques = latestDataDay?.uniq.uniques || 0
-  const latestDate =
-    latestDataDay?.date.date || new Date().toISOString().split('T')[0]
 
   const metrics = [
     {
@@ -107,7 +105,7 @@ export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Data from Cloudflare • Latest day: {latestDate} • Updated{' '}
+        Data Source: Cloudflare | Last updated:{' '}
         {new Date(generatedAt).toLocaleDateString()}
       </p>
     </div>

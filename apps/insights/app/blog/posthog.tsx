@@ -69,7 +69,8 @@ export async function PostHog({ days = 30 }: { days?: number | 'all' }) {
       />
 
       <p className="text-xs text-muted-foreground">
-        Data from PostHog • {days === 'all' ? 'All time' : `Last ${days} days`}
+        Most Popular Content | Data Source: PostHog | Last updated:{' '}
+        {new Date().toLocaleDateString()}
       </p>
     </div>
   )
