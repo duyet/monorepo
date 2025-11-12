@@ -128,7 +128,7 @@ transformations:
 # Going Production
 
 For easier to understand, the platform should be configured as shown in the figure below. It runs on Kubernetes with KEDA for fully automated scaling. During peak periods or migration, it can scale up to 1000 pods using Python-based workers.
-Data collector was written in Node.js, now rewriten in Rust thanks to [actix-web](https://actix.rs/).
+Data collector was written in Node.js, now rewritten in Rust thanks to [actix-web](https://actix.rs/).
 
 ![Data Engineering Team 2022](/media/2023/06/fossil-data-platform-written-rust/dp-overview.png)
 
@@ -168,9 +168,9 @@ my-project
 
 ### 2. `pyspark.RDD.pipe`
 
-This return an RDD created by piping elements to a forked external process - our binary of `transformation-rs`.
+This returns an RDD created by piping elements to a forked external process - our binary of `transformation-rs`.
 
-Imaging we already have this binary running on container to processing a file:
+Imagine we already have this binary running in a container for processing a file:
 
 ```bash
 ./transformation-rs --config config.toml -f dataset.json.gz
@@ -241,7 +241,7 @@ Despite being [the most loved language for seven consecutive years](https://surv
 - [launchbadge/sqlx](https://github.com/launchbadge/sqlx): 🧰 The Rust SQL Toolkit. An async, pure Rust SQL crate featuring compile-time checked queries without a DSL. Supports PostgreSQL, MySQL, SQLite, and MSSQL.
 
 I have discussed the future with my team, and I bet and considered the possibility of Rust becoming the new trend in Data Engineering.
-We could proud to have been one of the first teams to use Rust in building a Data Platform.
+We could be proud to have been one of the first teams to use Rust in building a Data Platform.
 However, even though Rust might become the standard when the platform is stable, it may still be difficult to hire new Rust developers, especially in Vietnam.
 
 We chose Rust for developing many of our applications due to its high level of security for concurrent processing, as well as its focus on correctness and performance. Rust's compiler is an excellent tool for identifying bugs, but ultimately, it is important to measure the running code and identify bottlenecks in order to solve them.
