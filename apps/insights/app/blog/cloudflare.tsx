@@ -45,8 +45,6 @@ export async function Cloudflare({ days = 30 }: { days?: number | 'all' }) {
   const latestRequests = latestDataDay?.sum.requests || totalRequests || 0
   const latestPageviews = latestDataDay?.sum.pageViews || totalPageviews || 0
   const latestUniques = latestDataDay?.uniq.uniques || 0
-  const latestDate =
-    latestDataDay?.date.date || new Date().toISOString().split('T')[0]
 
   const metrics = [
     {
