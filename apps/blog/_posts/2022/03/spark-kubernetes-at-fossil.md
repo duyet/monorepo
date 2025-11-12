@@ -13,7 +13,7 @@ slug: /2022/03/spark-kubernetes-at-fossil.html
 thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEggpb4U-cWkhLQo1R-OUORtAvLFPnn0LB22LJ9mOBSpWiC3yoqM3iOoo1BlilS5nxhnOmNs8JyUsVHFdA4dKOLGqRH9WoBXAJxn8v-cg18QFuJFbPHwg_5V6N_0gtgtRpy41fCLICGakuAayr9p5Bwlr02rrmDVjYxOBU4hwL6Oz4gWWXs0VFYDQK-lFw
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F03%2Fspark-kubernetes-at-fossil.html
 linkedInCommentUrl: https://www.linkedin.com/posts/duyet_spark-on-kubernetes-t%E1%BA%A1i-fossil-activity-6908001211849555969-j5Ss
-description: Apache Spark được chọn làm công nghệ cho Batch layer bởi khả năng xử lý một lượng lớn data cùng một lúc. Ở thiết kế ban đầu, team data chọn sử dụng Apache Spark trên AWS EMR do có sẵn và triển khai nhanh chóng. Dần dần, AWS EMR bộc lộ một số điểm hạn chế trên môi trường Production. Trong bài viết này, mình sẽ nói về tại sao và làm thế nào team Data chuyển từ Spark trên AWS EMR sang Kubernetes.
+description: Hành trình chuyển đổi Apache Spark từ AWS EMR sang Kubernetes tại Fossil Data Platform. Tìm hiểu kiến trúc hệ thống với Spark Operator, Spark Submit Worker, và Spark Jobs UI. Bài viết chia sẻ chi tiết về lý do migration, kiến trúc microservices, GitOps workflow, và các tối ưu hóa performance trên Kubernetes production environment.
 ---
 
 Tại [Fossil](https://sites.google.com/fossil.com/fossil-vietnam/home),
@@ -266,16 +266,55 @@ Một số có thể kể đến mà bạn có thể xem thêm ở đây
 
 Như vậy là mọi người đã có thể hình dung được cách mà team Data Platform tại Fossil sử dụng vận hành Apache Spark trên Kubernetes.
 
+## Tổng kết những điểm chính
+
+**Lý do chuyển từ AWS EMR sang Kubernetes:**
+- ⚡ Giảm thời gian bootstrap và provisioning
+- 💰 Tiết kiệm chi phí đáng kể (~$700-800/tháng chưa kể EC2)
+- 🔄 Hỗ trợ đa phiên bản Spark trên cùng một cluster
+- 📊 Tận dụng Kubernetes Autoscaler và scale-to-zero
+- 🎯 Linh hoạt trong việc chọn node types (CPU, Memory intensive)
+- 🔧 Tránh overhead của các service không cần thiết trên EMR
+
+**Kiến trúc Spark on Kubernetes v2.0:**
+1. **Spark Operator** - Quản lý lifecycle của Spark applications thông qua CRDs
+2. **Spark Submit Worker** - GitOps workflow để sync và deploy Spark jobs
+3. **Spark Jobs UI** - Dashboard quản lý, monitor và backfill jobs
+4. **Spark History Server** - Tra cứu logs và metrics của các jobs đã hoàn thành
+
+**Lợi ích của GitOps:**
+- ✅ Version control cho tất cả Spark job specifications
+- ✅ Code review và approval process
+- ✅ Dễ dàng rollback khi có issues
+- ✅ Audit trail đầy đủ cho mọi thay đổi
+
+**Performance Tuning Highlights:**
+- Sử dụng Volcano Scheduler cho gang scheduling
+- Kryo serialization để tối ưu hóa data transfer
+- Dynamic allocation với shuffle file tracking
+- Tận dụng Spot instances cho executors để giảm chi phí
+- Tuning JVM và I/O cho S3
+
+**Best Practices:**
+- Sử dụng `SparkApplication` và `ScheduledSparkApplication` CRDs
+- Quản lý Spark jobs như code với Git versioning
+- Monitor jobs qua multiple channels (UI, History Server, K8s events)
+- Implement data validation trong DAGs
+- Automated backfill capabilities cho data consistency
+
 Do có nhiều chi tiết, nhiều vấn đề kỹ thuật, cách cài đặt, cách tối ưu, … mà mình khó có thể đề cập hết được, do đó bài viết chỉ dừng lại ở tính chất giới thiệu tổng quát. Mình sẽ cố gắng chi tiết hóa các vấn đề ở các bài viết khác nếu có thể trong tương lai.
 
+**Xem thêm:**
+- [Spark on Kubernetes Performance Tuning](/2021/04/spark-kubernetes-performance-tuning.html) - Chi tiết về các tối ưu hóa performance
+
 <div class="noti">
-  Bài viết cũng được đăng tại 
+  Bài viết cũng được đăng tại
   <a href="https://fossil-engineering.github.io/blog/spark-on-kubernetes-at-fossil">Fossil Engineering Blog</a>.
 </div>
 <div class="noti">
-  Hiện tại Fossil Cloud Data đang open cho các vị trí (Sr) Data Engineer, 
-  <a href="https://sites.google.com/fossil.com/fossil-vietnam/careers/jobs" target="_blank">xem thêm JD tại đây</a> 
-  hoặc gửi CV của bạn về email <strong>lvduyet (at) fossil.com</strong> để cùng trao đổi thêm nhé. 
+  Hiện tại Fossil Cloud Data đang open cho các vị trí (Sr) Data Engineer,
+  <a href="https://sites.google.com/fossil.com/fossil-vietnam/careers/jobs" target="_blank">xem thêm JD tại đây</a>
+  hoặc gửi CV của bạn về email <strong>lvduyet (at) fossil.com</strong> để cùng trao đổi thêm nhé.
 </div>
 
 # 6. References

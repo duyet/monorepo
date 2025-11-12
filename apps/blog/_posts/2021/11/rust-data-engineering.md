@@ -14,9 +14,7 @@ slug: /2021/11/rust-data-engineering.html
 thumbnail: https://1.bp.blogspot.com/-vMsrOjluhsk/YaEajTOjloI/AAAAAAACXhA/jPU7jYzICwgqE9pju-oDp0uFQLIzOsnqwCLcBGAsYHQ/s0/stackoverflow-surveys.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2021%2F11%2Frust-data-engineering.html
 linkedInCommentUrl: https://www.linkedin.com/posts/duyet_rust-v%C3%A0-data-engineering-activity-6898502359677333504-g4gZ
-description: >
-  Đối với một Data Engineer như mình, ưu tiên chọn một ngôn ngữ dựa trên việc nó có giải quyết được hết hầu hết các nhu cầu và bài toán của mình hay không: Data Engineering, Distributed System và Web Development.
-  Và cuối cùng mình dự định sẽ bắt đầu với Rust, bởi vì ...
+description: Tại sao Rust là lựa chọn cho Data Engineering? Khám phá 7 lý do chính từ performance, memory safety, đến WebAssembly và hệ sinh thái data tools như Apache Arrow, DataFusion, và Polars. Bài viết chi tiết về ưu nhược điểm, learning curve, và tương lai của Rust trong lĩnh vực Data Engineering và Big Data processing.
 ---
 
 Rust mà một trong những ngôn ngữ có tốc độ phát triển nhanh nhất,
@@ -186,6 +184,91 @@ Rust team đã cải thiện điều này rất nhiều thời gian qua và sẽ
 [tương lai](https://matklad.github.io//2020/09/12/rust-in-2021.html),
 hiện tại mình đã thấy nó nhanh hơn rất nhiều thông qua incremental builds.
 
+# Tổng kết
+
+## Điểm mạnh của Rust cho Data Engineering
+
+**1. Performance & Efficiency**
+- ⚡ Tốc độ comparable với C/C++, nhanh hơn Python đáng kể
+- 💰 Tiết kiệm chi phí infrastructure do hiệu năng cao
+- 🔋 Low resource footprint, phù hợp với containerized environments
+
+**2. Safety & Reliability**
+- 🛡️ Memory safety without garbage collector
+- 🐛 Phát hiện bugs tại compile time, giảm production issues
+- 📊 Predictable performance (không có GC pauses như JVM/Go)
+
+**3. Modern Tooling**
+- 📦 Cargo - Package manager và build tool xuất sắc
+- 🔧 `cargo fmt`, `cargo clippy` - Enforcing best practices
+- 📝 Built-in testing và documentation với examples
+- 🔍 Excellent IDE support (rust-analyzer)
+
+**4. Growing Ecosystem cho Data**
+- Apache Arrow & DataFusion - High-performance query engine
+- Polars - DataFrame library nhanh hơn Pandas
+- Vector - Observability data pipeline (Datadog)
+- Nhiều bindings cho Kafka, Thrift, PostgreSQL, Redis...
+
+**5. Cross-Platform & Versatile**
+- 🌐 WASM support - Run Rust in browser
+- 🐧 Cross-compilation dễ dàng
+- 📱 Embedded systems đến cloud services
+- 🔌 FFI với Python, Node.js, và các ngôn ngữ khác
+
+## Challenges & Considerations
+
+**Learning Curve**
+- ⏰ Cần thời gian để master (weeks to months)
+- 🧠 Khái niệm mới: ownership, borrowing, lifetimes
+- 📚 Steep nhưng có tài liệu chất lượng cao
+
+**Ecosystem Maturity**
+- 📦 Ít libraries hơn Python/Java cho một số use cases
+- 🔄 Một số APIs chưa stable như các ngôn ngữ cũ hơn
+- 👥 Community nhỏ hơn nhưng đang phát triển nhanh
+
+**Compilation Time**
+- ⏱️ Compile time có thể chậm cho large projects
+- 💡 Được cải thiện liên tục với incremental compilation
+- 🚀 Tradeoff với runtime performance và safety
+
+## Khi nào nên dùng Rust?
+
+**Nên dùng Rust khi:**
+- ✅ Performance critical applications
+- ✅ Long-running services cần reliability cao
+- ✅ Data processing với large datasets
+- ✅ Building tools/CLIs cho data engineers
+- ✅ Distributed systems và networking
+- ✅ Replacing legacy C/C++ systems
+
+**Chưa cần Rust khi:**
+- ❌ Rapid prototyping và PoCs
+- ❌ Team không có bandwidth để học
+- ❌ Ecosystem thiếu critical libraries
+- ❌ Business logic đơn giản, không có performance requirements
+
+## Tương lai của Rust trong Data Engineering
+
+Rust đang dần được adoption rộng rãi:
+- **Big Tech**: Google, Microsoft, AWS, Meta đều invest heavily
+- **Data Tools**: Nhiều tools mới được viết bằng Rust (delta-rs, datafusion, polars)
+- **Python Integration**: PyO3 giúp viết Python extensions bằng Rust dễ dàng
+- **Cloud Native**: Rust phù hợp với serverless và edge computing
+
+Dự đoán trong 3-5 năm tới, Rust sẽ trở thành một trong những ngôn ngữ chính cho:
+- Infrastructure layer của data platforms
+- High-performance data processing engines
+- CLI tools và developer tooling
+
+**Lời khuyên:**
+- 🎯 Bắt đầu với small projects/tools
+- 📖 Đọc [The Rust Book](https://doc.rust-lang.org/book/) đầu tiên
+- 💻 Practice với [Rustlings](https://github.com/rust-lang/rustlings)
+- 🤝 Join community: [Rust Discord](https://discord.gg/rust-lang) hoặc [r/rust](https://reddit.com/r/rust)
+- 🔄 Combine với Python cho best of both worlds
+
 <div class="noti">Xem thêm về chuỗi bài viết <a href="/tag/rust-tiếng-việt/">Rust Tiếng Việt</a></div>
 
 # References
@@ -198,4 +281,6 @@ hiện tại mình đã thấy nó nhanh hơn rất nhiều thông qua increment
 - [Rust is for Big Data (#rust2018)](https://andygrove.io/2018/01/rust-is-for-big-data/)
 - [42 Companies using Rust in production](https://kerkour.com/rust-in-production-2021/)
 - [Rust Production Users](https://www.rust-lang.org/production/users)
+- [Are We Web Yet?](https://www.arewewebyet.org/) - Tracking Rust's web ecosystem
+- [Awesome Rust](https://github.com/rust-unofficial/awesome-rust) - Curated list of Rust libraries
 - https://lib.rs
