@@ -32,22 +32,29 @@ export function formatCurrency(amount: number): string {
 
 /**
  * Generate date filter condition for ClickHouse queries
+ * Returns the last N days including today
  */
 function getDateCondition(days: DateRangeDays): string {
   if (days === 'all') {
     return '' // No date filter for all time
   }
-  return `WHERE date >= today() - INTERVAL ${days} DAY`
+  // For "last N days", we want N days including today
+  // So for 7 days: today + 6 previous days
+  // Using > instead of >= to get exactly N days
+  return `WHERE date > today() - INTERVAL ${days} DAY`
 }
 
 /**
  * Generate created_at filter condition for ClickHouse queries
+ * Returns the last N days including today
  */
 function getCreatedAtCondition(days: DateRangeDays): string {
   if (days === 'all') {
     return '' // No date filter for all time
   }
-  return `WHERE created_at >= today() - INTERVAL ${days} DAY`
+  // For "last N days", we want N days including today
+  // Using > instead of >= to get exactly N days
+  return `WHERE created_at > today() - INTERVAL ${days} DAY`
 }
 
 /**
