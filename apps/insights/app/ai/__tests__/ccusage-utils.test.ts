@@ -261,4 +261,139 @@ describe('CCUsage Utilities', () => {
       })
     })
   })
+
+  describe('Date filtering logic', () => {
+    it('should generate correct WHERE clause for 7 days', async () => {
+      const mockData = [
+        {
+          total_tokens: 10000,
+          input_tokens: 6000,
+          output_tokens: 3000,
+          cache_tokens: 1000,
+          total_cost: 1.0,
+          active_days: 7,
+        },
+      ]
+      const mockModelData = [{ model_name: 'claude-3-5-sonnet' }]
+
+      mockExecuteQuery
+        .mockResolvedValueOnce(mockData)
+        .mockResolvedValueOnce(mockModelData)
+
+      await getCCUsageMetrics(7)
+
+      // Check that the query was called with the correct WHERE clause
+      // Using > instead of >= ensures exactly 7 days
+      expect(mockExecuteQuery).toHaveBeenCalledWith(
+        expect.stringContaining('WHERE date > today() - INTERVAL 7 DAY'),
+      )
+    })
+
+    it('should generate correct WHERE clause for 30 days', async () => {
+      const mockData = [
+        {
+          total_tokens: 10000,
+          input_tokens: 6000,
+          output_tokens: 3000,
+          cache_tokens: 1000,
+          total_cost: 1.0,
+          active_days: 30,
+        },
+      ]
+      const mockModelData = [{ model_name: 'claude-3-5-sonnet' }]
+
+      mockExecuteQuery
+        .mockResolvedValueOnce(mockData)
+        .mockResolvedValueOnce(mockModelData)
+
+      await getCCUsageMetrics(30)
+
+      expect(mockExecuteQuery).toHaveBeenCalledWith(
+        expect.stringContaining('WHERE date > today() - INTERVAL 30 DAY'),
+      )
+    })
+
+    it('should generate correct WHERE clause for 365 days', async () => {
+      mockExecuteQuery.mockResolvedValue([])
+
+      await getCCUsageActivity(365)
+
+      expect(mockExecuteQuery).toHaveBeenCalledWith(
+        expect.stringContaining('WHERE date > today() - INTERVAL 365 DAY'),
+      )
+    })
+
+    it('should not include WHERE clause for "all" time period', async () => {
+      mockExecuteQuery.mockResolvedValue([])
+
+      await getCCUsageActivity('all')
+
+      // Check that the query does NOT contain WHERE date
+      const query = mockExecuteQuery.mock.calls[0][0] as string
+      expect(query).not.toContain('WHERE date >')
+      expect(query).not.toContain('INTERVAL')
+    })
+
+    it('should use created_at filter for model queries', async () => {
+      mockExecuteQuery.mockResolvedValue([])
+
+      await getCCUsageModels(7)
+
+      expect(mockExecuteQuery).toHaveBeenCalledWith(
+        expect.stringContaining('WHERE created_at > today() - INTERVAL 7 DAY'),
+      )
+    })
+
+    it('should correctly filter cost data for specific periods', async () => {
+      const mockCostData = [
+        {
+          date: '2024-11-05',
+          total_cost: 1.0,
+          input_tokens: 6000,
+          output_tokens: 3000,
+          cache_tokens: 1000,
+          total_tokens: 10000,
+        },
+        {
+          date: '2024-11-06',
+          total_cost: 1.5,
+          input_tokens: 9000,
+          output_tokens: 4500,
+          cache_tokens: 1500,
+          total_tokens: 15000,
+        },
+      ]
+
+      mockExecuteQuery.mockResolvedValue(mockCostData)
+
+      const result = await getCCUsageCosts(7)
+
+      // Verify the query uses the correct date filter
+      expect(mockExecuteQuery).toHaveBeenCalledWith(
+        expect.stringContaining('WHERE date > today() - INTERVAL 7 DAY'),
+      )
+
+      // Verify data is returned correctly
+      expect(result).toHaveLength(2)
+      expect(result[0]['Total Cost']).toBe(1.0)
+      expect(result[1]['Total Cost']).toBe(1.5)
+    })
+
+    it('should verify date filter prevents off-by-one errors', async () => {
+      // This test ensures we use > instead of >= to get exactly N days
+      // For 7 days: if today is Nov 12, we want Nov 6-12 (7 days)
+      // Using >= would give Nov 5-12 (8 days)
+      // Using > gives Nov 6-12 (7 days) ✓
+
+      mockExecuteQuery.mockResolvedValue([])
+
+      await getCCUsageActivity(7)
+
+      const query = mockExecuteQuery.mock.calls[0][0] as string
+
+      // Ensure we're using > not >=
+      expect(query).toContain('date > today()')
+      expect(query).not.toContain('date >= today()')
+    })
+  })
 })
