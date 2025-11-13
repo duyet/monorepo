@@ -51,10 +51,10 @@ export function formatPhotoMetadata(photo: Photo): PhotoMetadata {
   }
 
   // Statistics
-  if (photo.stats) {
+  if (photo.stats && (photo.stats.views !== undefined || photo.stats.downloads !== undefined)) {
     metadata.stats = {
-      views: photo.stats.views.toLocaleString(),
-      downloads: photo.stats.downloads.toLocaleString(),
+      views: photo.stats.views !== undefined ? photo.stats.views.toLocaleString() : '0',
+      downloads: photo.stats.downloads !== undefined ? photo.stats.downloads.toLocaleString() : '0',
     }
   }
 
