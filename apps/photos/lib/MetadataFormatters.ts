@@ -95,7 +95,7 @@ export function formatPhotoDescription(photo: Photo): string {
   return (
     photo.description ||
     photo.alt_description ||
-    `Photograph ${photo.id} by ${photo.user.name}`
+    `Photograph ${photo.id}${photo.user?.name ? ` by ${photo.user.name}` : ''}`
   )
 }
 
