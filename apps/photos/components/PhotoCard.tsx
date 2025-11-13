@@ -11,6 +11,7 @@ import {
   formatPhotoDescription,
 } from '@/lib/MetadataFormatters'
 import type { Photo } from '@/lib/photo-provider'
+import { OWNER_USERNAME } from '@/lib/config'
 import { cn } from '@duyet/libs/utils'
 import { useCallback } from 'react'
 import LazyImage from './LazyImage'
@@ -98,8 +99,8 @@ export default function PhotoCard({
                 </div>
               )}
 
-              {/* Attribution (excluding _duyet as specified) */}
-              {photo.user && photo.user.username !== '_duyet' && (
+              {/* Attribution (excluding owner's username) */}
+              {photo.user && photo.user.username !== OWNER_USERNAME && (
                 <div className="border-t border-white/20 pt-1">
                   <a
                     href={photo.user.links?.html}

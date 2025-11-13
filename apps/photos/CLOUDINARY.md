@@ -14,6 +14,12 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 CLOUDINARY_FOLDER=optional_folder_name  # Optional: filter photos by folder
+
+# Unsplash Configuration (optional)
+UNSPLASH_USERNAME=your_unsplash_username  # Optional: defaults to PHOTOS_OWNER_USERNAME or '_duyet'
+
+# Owner Configuration
+PHOTOS_OWNER_USERNAME=your_username  # Optional: defaults to '_duyet', used to exclude from attribution
 ```
 
 ### How to Get Cloudinary Credentials
@@ -115,6 +121,8 @@ The app automatically detects which providers are configured and fetches photos 
 ```bash
 # .env.local
 UNSPLASH_ACCESS_KEY=your_unsplash_key
+UNSPLASH_USERNAME=your_unsplash_username  # Optional
+PHOTOS_OWNER_USERNAME=your_username  # Optional, used to exclude from attribution
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret

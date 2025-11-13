@@ -1,4 +1,5 @@
 import type { Photo } from './photo-provider'
+import { OWNER_USERNAME } from './config'
 
 /**
  * Professional metadata formatting utilities
@@ -75,8 +76,8 @@ export function formatPhotoMetadata(photo: Photo): PhotoMetadata {
     }
   }
 
-  // Attribution (exclude _duyet as specified)
-  if (photo.user && photo.user.username !== '_duyet') {
+  // Attribution (exclude owner's username from attribution)
+  if (photo.user && photo.user.username !== OWNER_USERNAME) {
     metadata.attribution = {
       photographer: photo.user.name || '',
       username: photo.user.username || '',
