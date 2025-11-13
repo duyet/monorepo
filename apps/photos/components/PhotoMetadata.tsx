@@ -60,10 +60,14 @@ export default function PhotoMetadata({
             <div>{formatPhotoDate(photo.created_at)}</div>
 
             {/* Stats */}
-            {photo.stats && (
+            {photo.stats && (photo.stats.views !== undefined || photo.stats.downloads !== undefined) && (
               <>
-                <div>{photo.stats.views.toLocaleString()} views</div>
-                <div>{photo.stats.downloads.toLocaleString()} downloads</div>
+                {photo.stats.views !== undefined && (
+                  <div>{photo.stats.views.toLocaleString()} views</div>
+                )}
+                {photo.stats.downloads !== undefined && (
+                  <div>{photo.stats.downloads.toLocaleString()} downloads</div>
+                )}
               </>
             )}
 
