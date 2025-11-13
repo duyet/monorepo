@@ -26,6 +26,9 @@ export function cloudinaryToPhoto(cloudinaryPhoto: CloudinaryPhoto): Photo {
     blur_hash: null, // Cloudinary doesn't provide blur hash by default
     description: cloudinaryPhoto.context?.custom?.caption || null,
     alt_description: cloudinaryPhoto.context?.custom?.alt || null,
+    format: cloudinaryPhoto.format,
+    bytes: cloudinaryPhoto.bytes,
+    tags: cloudinaryPhoto.tags,
     urls: {
       raw: `${baseUrl}/${publicId}`,
       full: `${baseUrl}/q_90/${publicId}`,

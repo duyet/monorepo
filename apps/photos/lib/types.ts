@@ -115,6 +115,8 @@ export interface CloudinaryPhoto {
   type?: string
   url?: string
   secure_url: string
+  bytes?: number
+  tags?: string[]
   colors?: Array<[string, number]>
   context?: {
     custom?: {
@@ -138,6 +140,9 @@ export interface CloudinaryPhoto {
     FNumber?: string
     FocalLength?: string
     ISO?: number
+    DateTimeOriginal?: string
+    Orientation?: number
+    ColorSpace?: string
     [key: string]: any
   }
   // Add any other Cloudinary-specific fields as needed
@@ -158,6 +163,9 @@ export interface Photo {
   blur_hash?: string | null
   description?: string | null
   alt_description?: string | null
+  format?: string
+  bytes?: number
+  tags?: string[]
   urls: {
     raw?: string
     full: string

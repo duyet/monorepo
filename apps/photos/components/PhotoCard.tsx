@@ -99,9 +99,17 @@ export default function PhotoCard({
                 </div>
               )}
 
-              {/* Attribution (excluding owner's username) */}
-              {photo.user && photo.user.username !== OWNER_USERNAME && (
-                <div className="border-t border-white/20 pt-1">
+              {/* Provider Attribution */}
+              <div className="border-t border-white/20 pt-1">
+                {photo.provider === 'cloudinary' ? (
+                  <span className="inline-flex items-center text-xs text-white/90">
+                    CDN: cloudinary
+                  </span>
+                ) : photo.provider === 'unsplash' ? (
+                  <span className="inline-flex items-center text-xs text-white/90">
+                    Unsplash
+                  </span>
+                ) : photo.user && photo.user.username !== OWNER_USERNAME ? (
                   <a
                     href={photo.user.links?.html}
                     target="_blank"
@@ -114,8 +122,8 @@ export default function PhotoCard({
                       @{photo.user.username}
                     </span>
                   </a>
-                </div>
-              )}
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
