@@ -61,6 +61,7 @@
     "typescript": "*",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.1.0",
+    "@testing-library/dom": "^10.4.0",
     "@types/jest": "^30.0.0",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0"
