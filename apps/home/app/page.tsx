@@ -144,9 +144,9 @@ export default function HomePage() {
             href={links[0].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[0].color} rounded-3xl sm:col-span-2 lg:col-span-2`}
+            className={`group flex flex-col p-6 ${links[0].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:col-span-2 lg:col-span-2`}
           >
-            <div className={`mb-4 ${links[0].iconColor}`}>
+            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[0].iconColor}`}>
               {(() => {
                 const Icon = links[0].icon
                 return <Icon />
@@ -165,9 +165,9 @@ export default function HomePage() {
             href={links[1].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[1].color} rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[1].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
           >
-            <div className={`mb-4 ${links[1].iconColor}`}>
+            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[1].iconColor}`}>
               {(() => {
                 const Icon = links[1].icon
                 return <Icon />
@@ -186,9 +186,9 @@ export default function HomePage() {
             href={links[2].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[2].color} rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[2].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
           >
-            <div className={`mb-4 ${links[2].iconColor}`}>
+            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[2].iconColor}`}>
               {(() => {
                 const Icon = links[2].icon
                 return <Icon />
@@ -207,9 +207,9 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
           >
-            <div className={`mb-4 ${links[3].iconColor}`}>
+            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[3].iconColor}`}>
               {(() => {
                 const Icon = links[3].icon
                 return <Icon />
@@ -228,7 +228,7 @@ export default function HomePage() {
             href={links[4].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group relative flex flex-col p-6 ${links[4].color} overflow-hidden rounded-3xl`}
+            className={`group relative flex flex-col p-6 ${links[4].color} overflow-hidden rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
           >
             {/* Background image on hover */}
             <div
@@ -243,7 +243,7 @@ export default function HomePage() {
 
             {/* Content */}
             <div className="relative z-10">
-              <div className={`mb-4 ${links[4].iconColor}`}>
+              <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[4].iconColor}`}>
                 {(() => {
                   const Icon = links[4].icon
                   return <Icon />
@@ -263,9 +263,9 @@ export default function HomePage() {
             href={links[5].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[5].color} rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[5].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
           >
-            <div className={`mb-4 ${links[5].iconColor}`}>
+            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[5].iconColor}`}>
               {(() => {
                 const Icon = links[5].icon
                 return <Icon />
@@ -283,9 +283,9 @@ export default function HomePage() {
           <Link
             href={links[6].url}
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[6].color} rounded-3xl`}
+            className={`group flex flex-col p-6 ${links[6].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
           >
-            <div className={`mb-4 ${links[6].iconColor}`}>
+            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[6].iconColor}`}>
               {(() => {
                 const Icon = links[6].icon
                 return <Icon />
@@ -301,7 +301,7 @@ export default function HomePage() {
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-10 text-sm font-medium text-neutral-600">
+        <div className="flex flex-wrap justify-center gap-6 text-sm font-medium text-neutral-600 sm:gap-10">
           <Link
             href={addUtmParams(
               'https://github.com/duyet',
@@ -323,6 +323,12 @@ export default function HomePage() {
             className="transition-colors duration-200 hover:text-neutral-900"
           >
             LinkedIn
+          </Link>
+          <Link
+            href="/ls"
+            className="transition-colors duration-200 hover:text-neutral-900"
+          >
+            Short URLs
           </Link>
           <a
             href="/llms.txt"
