@@ -4,9 +4,6 @@ import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { urls } from '../config/urls'
 
-export const dynamic = 'force-static'
-export const revalidate = 3600
-
 export default function ListPage() {
   const [searchQuery, setSearchQuery] = useState('')
 
