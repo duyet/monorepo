@@ -143,8 +143,8 @@ interface InfoPanelProps {
     width: number
     height: number
     stats?: {
-      views: number
-      downloads: number
+      views?: number
+      downloads?: number
     }
     location?: {
       city?: string | null
@@ -158,8 +158,8 @@ interface InfoPanelProps {
       iso?: number | null
       focal_length?: string | null
     }
-    links: {
-      html: string
+    links?: {
+      html?: string
     }
     urls: {
       full: string
@@ -238,15 +238,17 @@ export function InfoPanel({
 
           {/* Actions */}
           <div className="flex gap-4 border-t border-gray-600 pt-3">
-            <a
-              href={photo.links.html}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium text-blue-300 transition-colors hover:text-blue-200"
-            >
-              <ExternalLink className="h-4 w-4" />
-              View on Unsplash
-            </a>
+            {photo.links?.html && (
+              <a
+                href={photo.links.html}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm font-medium text-blue-300 transition-colors hover:text-blue-200"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View Source
+              </a>
+            )}
             <a
               href={photo.urls.full}
               target="_blank"
@@ -269,16 +271,18 @@ export function InfoPanel({
       <div className="flex items-center justify-between text-sm">
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <a
-            href={photo.links.html}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
-            title="View on Unsplash"
-          >
-            <ExternalLink className="h-4 w-4" />
-            <span className="hidden sm:inline">View</span>
-          </a>
+          {photo.links?.html && (
+            <a
+              href={photo.links.html}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
+              title="View source"
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span className="hidden sm:inline">View</span>
+            </a>
+          )}
           <a
             href={photo.urls.full}
             target="_blank"
