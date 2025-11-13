@@ -145,8 +145,12 @@ export function formatCompactMetadata(photo: Photo): {
 
   // Stats in primary if available
   if (photo.stats) {
-    primary.push(`👁 ${photo.stats.views.toLocaleString()}`)
-    primary.push(`⬇ ${photo.stats.downloads.toLocaleString()}`)
+    if (photo.stats.views !== undefined) {
+      primary.push(`👁 ${photo.stats.views.toLocaleString()}`)
+    }
+    if (photo.stats.downloads !== undefined) {
+      primary.push(`⬇ ${photo.stats.downloads.toLocaleString()}`)
+    }
   }
 
   // Dimensions in secondary
