@@ -42,8 +42,8 @@ describe('RSS Feed Route', () => {
     const response = await GET()
     const xml = await response.text()
 
-    expect(xml).toContain('<title>Tôi là Duyệt</title>')
-    expect(xml).toContain('<description>Sr. Data Engineer. Rustacean at night</description>')
+    expect(xml).toContain('<![CDATA[Tôi là Duyệt]]>')
+    expect(xml).toContain('<![CDATA[Sr. Data Engineer. Rustacean at night]]>')
     expect(xml).toContain('https://blog.duyet.net')
   })
 
@@ -51,12 +51,12 @@ describe('RSS Feed Route', () => {
     const response = await GET()
     const xml = await response.text()
 
-    expect(xml).toContain('<title>Test Post</title>')
-    expect(xml).toContain('<description>This is a test post</description>')
-    expect(xml).toContain('https://blog.duyet.net/2024/01/test-post')
+    expect(xml).toContain('<![CDATA[Test Post]]>')
+    expect(xml).toContain('<![CDATA[This is a test post]]>')
+    expect(xml).toContain('https://blog.duyet.net//2024/01/test-post')
 
-    expect(xml).toContain('<title>Another Post</title>')
-    expect(xml).toContain('<description>Another test post</description>')
+    expect(xml).toContain('<![CDATA[Another Post]]>')
+    expect(xml).toContain('<![CDATA[Another test post]]>')
   })
 
   it('should call getAllPosts with correct parameters', async () => {
@@ -92,7 +92,7 @@ describe('RSS Feed Route', () => {
     const response = await GET()
     const xml = await response.text()
 
-    expect(xml).toContain('<title>No Excerpt Post</title>')
+    expect(xml).toContain('<![CDATA[No Excerpt Post]]>')
     expect(response.status).toBe(200)
   })
 
