@@ -27,7 +27,8 @@ describe('commit-stats', () => {
 
       expect(stats.totalCommits).toBe(0)
       expect(stats.avgCommitsPerWeek).toBe(0)
-      expect(stats.commitHistory).toEqual([])
+      // commitHistory will have 12 weeks of empty data
+      expect(stats.commitHistory).toHaveLength(12)
     })
 
     it('should count commits from push events', async () => {
@@ -207,24 +208,30 @@ describe('commit-stats', () => {
     it('should handle API errors gracefully', async () => {
       mockFetchAllEvents.mockRejectedValue(new Error('API Error'))
 
-      await expect(getCommitStats('testuser')).rejects.toThrow('API Error')
+      const stats = await getCommitStats('testuser')
+
+      // Should return empty stats instead of throwing
+      expect(stats.totalCommits).toBe(0)
+      expect(stats.avgCommitsPerWeek).toBe(0)
     })
 
     it('should group commits by week correctly', async () => {
-      const week1 = new Date('2024-01-08') // Monday week 1
-      const week2 = new Date('2024-01-15') // Monday week 2
+      // Create events in the last 12 weeks
+      const now = new Date()
+      const recentWeek1 = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+      const recentWeek2 = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
 
       const mockEvents = [
         {
           id: '1',
           type: 'PushEvent',
-          created_at: week1.toISOString(),
+          created_at: recentWeek1.toISOString(),
           payload: { commits: [{}, {}] },
         },
         {
           id: '2',
           type: 'PushEvent',
-          created_at: week2.toISOString(),
+          created_at: recentWeek2.toISOString(),
           payload: { commits: [{}] },
         },
       ]
