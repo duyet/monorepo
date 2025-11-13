@@ -1,5 +1,9 @@
 import PhotoGrid from '@/components/PhotoGrid'
-import { getAllUserPhotos, getPhotosByYear } from '@/lib/unsplash'
+import {
+  getAllPhotos,
+  getPhotosByYear,
+  type Photo,
+} from '@/lib/photo-provider'
 import Container from '@duyet/components/Container'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -12,7 +16,7 @@ interface YearPageProps {
 
 export async function generateStaticParams() {
   try {
-    const photos = await getAllUserPhotos()
+    const photos = await getAllPhotos()
     const years = Array.from(
       new Set(
         photos.map((photo) =>
@@ -54,12 +58,12 @@ export default async function YearPage({ params }: YearPageProps) {
     notFound()
   }
 
-  let allPhotos: any[] = []
-  let yearPhotos: any[] = []
+  let allPhotos: Photo[] = []
+  let yearPhotos: Photo[] = []
   let error: string | null = null
 
   try {
-    allPhotos = await getAllUserPhotos()
+    allPhotos = await getAllPhotos()
     yearPhotos = getPhotosByYear(allPhotos, year)
   } catch (e) {
     error = 'Failed to load photos. Please try again later.'

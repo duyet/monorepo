@@ -1,13 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
 import { formatFeedCaption } from '@/lib/MetadataFormatters'
 import { generateBlurDataURL } from '@/lib/ImageOptimization'
 import PhotoMetadata from './PhotoMetadata'
 
 interface PhotoFeedProps {
-  photos: UnsplashPhoto[]
+  photos: Photo[]
 }
 
 /**
@@ -64,9 +64,13 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
             </div>
 
             {/* Schema.org metadata */}
-            <meta itemProp="creator" content={photo.user.name} />
-            <meta itemProp="creditText" content={photo.user.name} />
-            <meta itemProp="copyrightNotice" content={photo.user.name} />
+            {photo.user && (
+              <>
+                <meta itemProp="creator" content={photo.user.name} />
+                <meta itemProp="creditText" content={photo.user.name} />
+                <meta itemProp="copyrightNotice" content={photo.user.name} />
+              </>
+            )}
             <meta itemProp="datePublished" content={photo.created_at} />
           </figure>
         )

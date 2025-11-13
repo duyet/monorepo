@@ -10,13 +10,14 @@ import {
   formatCompactMetadata,
   formatPhotoDescription,
 } from '@/lib/MetadataFormatters'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
+import { OWNER_USERNAME } from '@/lib/config'
 import { cn } from '@duyet/libs/utils'
 import { useCallback } from 'react'
 import LazyImage from './LazyImage'
 
 interface PhotoCardProps {
-  photo: UnsplashPhoto
+  photo: Photo
   index: number
   onClick: () => void
   className?: string
@@ -98,11 +99,19 @@ export default function PhotoCard({
                 </div>
               )}
 
-              {/* Attribution (excluding _duyet as specified) */}
-              {photo.user.username !== '_duyet' && (
-                <div className="border-t border-white/20 pt-1">
+              {/* Provider Attribution */}
+              <div className="border-t border-white/20 pt-1">
+                {photo.provider === 'cloudinary' ? (
+                  <span className="inline-flex items-center text-xs text-white/90">
+                    CDN: cloudinary
+                  </span>
+                ) : photo.provider === 'unsplash' ? (
+                  <span className="inline-flex items-center text-xs text-white/90">
+                    Unsplash
+                  </span>
+                ) : photo.user && photo.user.username !== OWNER_USERNAME ? (
                   <a
-                    href={photo.user.links.html}
+                    href={photo.user.links?.html}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-xs text-white/90 transition-colors hover:text-white"
@@ -113,8 +122,8 @@ export default function PhotoCard({
                       @{photo.user.username}
                     </span>
                   </a>
-                </div>
-              )}
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
@@ -123,7 +132,7 @@ export default function PhotoCard({
       {/* Always visible caption and location */}
       <div className="p-3">
         {photo.description && (
-          <h3 className="mb-1.5 line-clamp-2 text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-100">
+          <h3 className="mb-1.5 line-clamp-5 text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-100">
             {photo.description}
           </h3>
         )}

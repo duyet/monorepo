@@ -1,4 +1,5 @@
-import type { UnsplashPhoto } from './types'
+import type { Photo } from './photo-provider'
+import { OWNER_USERNAME } from './config'
 
 /**
  * Professional metadata formatting utilities
@@ -37,7 +38,7 @@ export interface PhotoMetadata {
 /**
  * Extract and format comprehensive photo metadata
  */
-export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
+export function formatPhotoMetadata(photo: Photo): PhotoMetadata {
   const metadata: PhotoMetadata = {
     dateFormatted: formatPhotoDate(photo.created_at),
     dimensions: `${photo.width} × ${photo.height}`,
@@ -51,10 +52,10 @@ export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
   }
 
   // Statistics
-  if (photo.stats) {
+  if (photo.stats && (photo.stats.views !== undefined || photo.stats.downloads !== undefined)) {
     metadata.stats = {
-      views: photo.stats.views.toLocaleString(),
-      downloads: photo.stats.downloads.toLocaleString(),
+      views: photo.stats.views !== undefined ? photo.stats.views.toLocaleString() : '0',
+      downloads: photo.stats.downloads !== undefined ? photo.stats.downloads.toLocaleString() : '0',
     }
   }
 
@@ -75,12 +76,12 @@ export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
     }
   }
 
-  // Attribution (exclude _duyet as specified)
-  if (photo.user.username !== '_duyet') {
+  // Attribution (exclude owner's username from attribution)
+  if (photo.user && photo.user.username !== OWNER_USERNAME) {
     metadata.attribution = {
-      photographer: photo.user.name,
-      username: photo.user.username,
-      profileUrl: photo.user.links.html,
+      photographer: photo.user.name || '',
+      username: photo.user.username || '',
+      profileUrl: photo.user.links?.html || '',
     }
   }
 
@@ -90,18 +91,18 @@ export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
 /**
  * Format photo description with fallback
  */
-export function formatPhotoDescription(photo: UnsplashPhoto): string {
+export function formatPhotoDescription(photo: Photo): string {
   return (
     photo.description ||
     photo.alt_description ||
-    `Photograph ${photo.id} by ${photo.user.name}`
+    `Photograph ${photo.id}${photo.user?.name ? ` by ${photo.user.name}` : ''}`
   )
 }
 
 /**
  * Format EXIF settings compactly
  */
-export function formatExifSettings(photo: UnsplashPhoto): string | null {
+export function formatExifSettings(photo: Photo): string | null {
   if (!photo.exif) return null
 
   const settings: string[] = []
@@ -117,7 +118,7 @@ export function formatExifSettings(photo: UnsplashPhoto): string | null {
 /**
  * Format camera name from EXIF
  */
-export function formatCameraName(photo: UnsplashPhoto): string | null {
+export function formatCameraName(photo: Photo): string | null {
   if (!photo.exif) return null
 
   if (photo.exif.name) return photo.exif.name
@@ -132,7 +133,7 @@ export function formatCameraName(photo: UnsplashPhoto): string | null {
 /**
  * Format compact metadata for card overlays
  */
-export function formatCompactMetadata(photo: UnsplashPhoto): {
+export function formatCompactMetadata(photo: Photo): {
   primary: string[]
   secondary: string[]
 } {
@@ -144,8 +145,12 @@ export function formatCompactMetadata(photo: UnsplashPhoto): {
 
   // Stats in primary if available
   if (photo.stats) {
-    primary.push(`👁 ${photo.stats.views.toLocaleString()}`)
-    primary.push(`⬇ ${photo.stats.downloads.toLocaleString()}`)
+    if (photo.stats.views !== undefined) {
+      primary.push(`👁 ${photo.stats.views.toLocaleString()}`)
+    }
+    if (photo.stats.downloads !== undefined) {
+      primary.push(`⬇ ${photo.stats.downloads.toLocaleString()}`)
+    }
   }
 
   // Dimensions in secondary
@@ -171,7 +176,7 @@ export function formatCompactMetadata(photo: UnsplashPhoto): {
 /**
  * Format metadata for professional portfolio display
  */
-export function formatPortfolioMetadata(photo: UnsplashPhoto): {
+export function formatPortfolioMetadata(photo: Photo): {
   title: string
   subtitle: string
   technical: string[]
@@ -213,7 +218,7 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
     )
   }
 
-  if (photo.stats) {
+  if (photo.stats && photo.stats.views !== undefined) {
     creative.push(`${photo.stats.views.toLocaleString()} views`)
   }
 
@@ -224,7 +229,7 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
  * Format caption for photo stream/feed display
  * Priority: description → alt_description → location + date → date only
  */
-export function formatFeedCaption(photo: UnsplashPhoto): string {
+export function formatFeedCaption(photo: Photo): string {
   // Priority 1: Description
   if (photo.description) {
     return photo.description

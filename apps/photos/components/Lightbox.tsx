@@ -5,7 +5,7 @@ import {
   formatPhotoDescription,
   formatPhotoMetadata,
 } from '@/lib/MetadataFormatters'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
 import { cn } from '@duyet/libs/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
@@ -16,10 +16,9 @@ import {
   LightboxTopControls,
   NavigationButton,
 } from './LightboxControls'
-import { LightboxLoading } from './LoadingStates'
 
 interface LightboxProps {
-  photo: UnsplashPhoto
+  photo: Photo
   isOpen: boolean
   onClose: () => void
   onNext?: () => void
@@ -135,6 +134,18 @@ export default function Lightbox({
                   onClick={() => setIsFullscreen(false)}
                   title="Click to exit fullscreen"
                 >
+                  {/* Thumbnail/preview image - loads immediately */}
+                  <Image
+                    src={photo.urls.regular}
+                    alt={description}
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes={getResponsiveSizes('lightbox')}
+                    quality={80}
+                  />
+
+                  {/* High-resolution image - loads progressively */}
                   <Image
                     src={getOptimalImageSrc(photo, { context: 'lightbox' })}
                     alt={description}
@@ -158,6 +169,18 @@ export default function Lightbox({
                       onClick={() => setIsFullscreen(true)}
                       title="Click to enter fullscreen"
                     >
+                      {/* Thumbnail/preview image - loads immediately */}
+                      <Image
+                        src={photo.urls.regular}
+                        alt={description}
+                        fill
+                        className="object-contain"
+                        priority
+                        sizes="(max-width: 1792px) 100vw, 1792px"
+                        quality={80}
+                      />
+
+                      {/* High-resolution image - loads progressively */}
                       <Image
                         src={getOptimalImageSrc(photo, { context: 'lightbox' })}
                         alt={description}
@@ -183,9 +206,17 @@ export default function Lightbox({
                 </>
               )}
 
-              {/* Loading State */}
+              {/* Loading Spinner Overlay - only shows spinner, no black box */}
               {isLoading && (
-                <LightboxLoading message="Loading high-resolution image..." />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="rounded-full bg-black/60 p-4 backdrop-blur-sm">
+                    <div
+                      className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent"
+                      aria-label="Loading high-resolution image..."
+                      role="status"
+                    />
+                  </div>
+                </div>
               )}
 
               {/* Info Panel for fullscreen mode */}

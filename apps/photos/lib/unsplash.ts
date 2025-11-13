@@ -8,9 +8,10 @@ import {
   getCacheStats,
   cleanExpiredCache,
 } from './cache'
+import { UNSPLASH_USERNAME } from './config'
 
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY
-const USERNAME = '_duyet'
+const USERNAME = UNSPLASH_USERNAME
 
 let unsplash: ReturnType<typeof createApi> | null = null
 
