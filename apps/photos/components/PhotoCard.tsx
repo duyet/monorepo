@@ -132,7 +132,7 @@ export default function PhotoCard({
       {/* Always visible caption and location */}
       <div className="p-3">
         {photo.description && (
-          <h3 className="mb-1.5 line-clamp-2 text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-100">
+          <h3 className="mb-1.5 line-clamp-5 text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-100">
             {photo.description}
           </h3>
         )}
