@@ -1,9 +1,10 @@
 'use client'
 
 import { cn } from '@duyet/libs/utils'
-import { Menu, X } from 'lucide-react'
+import { Menu, Moon, Sun, X } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 interface NavItem {
   name: string
@@ -26,6 +27,40 @@ const navigationItems: NavItem[] = [
   { name: 'About', href: `${HOME_URL}/about` },
 ]
 
+function ThemeToggle() {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <button
+        className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+        aria-label="Toggle theme"
+      >
+        <div className="h-5 w-5" />
+      </button>
+    )
+  }
+
+  return (
+    <button
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-terracotta dark:text-neutral-300 dark:hover:bg-neutral-800"
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+    >
+      {theme === 'dark' ? (
+        <Sun className="h-5 w-5" aria-hidden="true" />
+      ) : (
+        <Moon className="h-5 w-5" aria-hidden="true" />
+      )}
+    </button>
+  )
+}
+
 export default function PhotoNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -41,25 +76,29 @@ export default function PhotoNav() {
             {navigationItems.map((item) => (
               <NavLink key={item.name} item={item} />
             ))}
+            <ThemeToggle />
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            className="focus:ring-terracotta absolute right-4 inline-flex items-center justify-center rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset dark:text-neutral-300 dark:hover:bg-neutral-800 md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            <span className="sr-only">
-              {mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            </span>
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" aria-hidden="true" />
-            ) : (
-              <Menu className="h-6 w-6" aria-hidden="true" />
-            )}
-          </button>
+          {/* Mobile menu button and theme toggle */}
+          <div className="absolute right-4 flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="focus:ring-terracotta inline-flex items-center justify-center rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset dark:text-neutral-300 dark:hover:bg-neutral-800"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle navigation menu"
+            >
+              <span className="sr-only">
+                {mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              </span>
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
