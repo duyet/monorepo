@@ -192,13 +192,13 @@ export function InfoPanel({
     return (
       <div
         className={cn(
-          'absolute bottom-4 left-4 right-4 z-10 rounded-xl bg-black/85 p-6 text-white backdrop-blur-md',
+          'absolute bottom-0 left-0 right-0 z-10 bg-black/75 p-6 text-white backdrop-blur-md',
           className,
         )}
       >
         <div className="space-y-4">
           {photo.description && (
-            <h3 className="text-xl font-semibold leading-tight">
+            <h3 className="text-sm leading-tight">
               {photo.description}
             </h3>
           )}
@@ -268,9 +268,9 @@ export function InfoPanel({
   // Compact info bar for normal mode
   return (
     <div className="bg-black/70 px-4 py-3 backdrop-blur-sm">
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex items-center justify-between gap-4 text-sm">
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 shrink-0">
           {photo.links?.html && (
             <a
               href={photo.links.html}
@@ -296,8 +296,15 @@ export function InfoPanel({
           </a>
         </div>
 
+        {/* Description in the middle */}
+        {photo.description && (
+          <div className="flex-1 text-center text-sm text-gray-300 line-clamp-1 px-4">
+            {photo.description}
+          </div>
+        )}
+
         {/* Compact info */}
-        <div className="flex items-center gap-3 text-xs text-gray-400">
+        <div className="flex items-center gap-3 text-xs text-gray-400 shrink-0">
           {metadata.stats && (
             <>
               <span>👁 {metadata.stats.views}</span>
