@@ -43,7 +43,7 @@ export default function HomePage() {
         'homepage',
         'blog_card'
       ),
-      color: 'bg-[#f5dcd0]',
+      color: 'bg-terracotta-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -56,7 +56,7 @@ export default function HomePage() {
         'homepage',
         'resume_card'
       ),
-      color: 'bg-[#f0d9a8]',
+      color: 'bg-oat-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -70,7 +70,7 @@ export default function HomePage() {
         'homepage',
         'insights_card'
       ),
-      color: 'bg-[#a8d5ba]',
+      color: 'bg-cactus-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -84,7 +84,7 @@ export default function HomePage() {
         'homepage',
         'homelab_card'
       ),
-      color: 'bg-[#c5c5ff]',
+      color: 'bg-lavender-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -97,7 +97,7 @@ export default function HomePage() {
         'homepage',
         'photos_card'
       ),
-      color: 'bg-white',
+      color: 'bg-cream',
       iconColor: 'text-neutral-900',
     },
     {
@@ -110,7 +110,7 @@ export default function HomePage() {
         'homepage',
         'ai_card'
       ),
-      color: 'bg-[#dbeafe]',
+      color: 'bg-lavender-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -119,7 +119,7 @@ export default function HomePage() {
       description:
         'Learn more about my experience, skills, and professional background.',
       url: '/about',
-      color: 'bg-[#e8e8e8]',
+      color: 'bg-ivory-light',
       iconColor: 'text-neutral-900',
     },
   ]
