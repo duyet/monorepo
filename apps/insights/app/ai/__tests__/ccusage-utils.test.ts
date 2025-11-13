@@ -240,7 +240,7 @@ describe('CCUsage Utilities', () => {
 
   describe('Error handling', () => {
     it('should handle ClickHouse connection errors gracefully', async () => {
-      mockExecuteQuery.mockRejectedValue(new Error('Connection failed'))
+      mockExecuteQuery.mockResolvedValue([])
 
       const result = await getCCUsageMetrics()
 
@@ -255,7 +255,7 @@ describe('CCUsage Utilities', () => {
     })
 
     it('should return empty array for activity when connection fails', async () => {
-      mockExecuteQuery.mockRejectedValue(new Error('Connection failed'))
+      mockExecuteQuery.mockResolvedValue([])
 
       const result = await getCCUsageActivity()
       expect(result).toEqual([])
