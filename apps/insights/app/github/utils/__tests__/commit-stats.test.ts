@@ -2,6 +2,8 @@
  * Tests for GitHub commit statistics
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getCommitStats } from '../commit-stats'
 import { fetchAllEvents } from '../github-api'
 

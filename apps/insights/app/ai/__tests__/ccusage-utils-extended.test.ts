@@ -2,6 +2,8 @@
  * Extended tests for Claude Code usage utilities with ClickHouse integration
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { calculateCosts, calculateEfficiency } from '../ccusage-utils'
 
 // Mock ClickHouse client
