@@ -10,6 +10,17 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     '../../packages/components/src/**/*.{js,ts,jsx,tsx}',
   ],
+  safelist: [
+    // Card background colors used dynamically in page.tsx
+    'bg-terracotta-light',
+    'bg-oat-light',
+    'bg-cactus-light',
+    'bg-sage-light',
+    'bg-lavender-light',
+    'bg-coral-light',
+    'bg-cream',
+    'bg-ivory-light',
+  ],
   theme: {
     ...config.theme,
     extend: {
