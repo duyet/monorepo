@@ -1,7 +1,7 @@
 import cloudinary from './cloudinary'
 import type { CloudinaryPhoto, Photo } from './types'
 
-const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
 const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER || '' // Optional folder to filter photos
 
 /**

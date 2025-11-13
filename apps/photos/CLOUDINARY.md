@@ -10,7 +10,7 @@ Add the following environment variables to your `.env` or `.env.local` file:
 
 ```bash
 # Cloudinary Configuration
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 CLOUDINARY_FOLDER=optional_folder_name  # Optional: filter photos by folder
@@ -115,7 +115,7 @@ The app automatically detects which providers are configured and fetches photos 
 ```bash
 # .env.local
 UNSPLASH_ACCESS_KEY=your_unsplash_key
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
