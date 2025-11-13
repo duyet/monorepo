@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
 import {
   formatExifSettings,
   formatCameraName,
@@ -10,7 +10,7 @@ import {
 import { Info, X } from 'lucide-react'
 
 interface PhotoMetadataProps {
-  photo: UnsplashPhoto
+  photo: Photo
   className?: string
 }
 

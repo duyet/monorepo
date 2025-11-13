@@ -5,7 +5,7 @@ import {
   formatPhotoDescription,
   formatPhotoMetadata,
 } from '@/lib/MetadataFormatters'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
 import { cn } from '@duyet/libs/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
@@ -19,7 +19,7 @@ import {
 import { LightboxLoading } from './LoadingStates'
 
 interface LightboxProps {
-  photo: UnsplashPhoto
+  photo: Photo
   isOpen: boolean
   onClose: () => void
   onNext?: () => void

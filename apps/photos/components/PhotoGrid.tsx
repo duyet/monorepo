@@ -1,7 +1,7 @@
 'use client'
 
 import { MASONRY_CONFIG, getMasonryClasses } from '@/lib/GridUtilities'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
 import { cn } from '@duyet/libs/utils'
 import { Images } from 'lucide-react'
 import { useCallback, useState } from 'react'
@@ -12,17 +12,17 @@ import { EmptyState } from './LoadingStates'
 import PhotoCard from './PhotoCard'
 
 interface PhotoGridProps {
-  photos: UnsplashPhoto[]
+  photos: Photo[]
   className?: string
 }
 
 export default function PhotoGrid({ photos, className }: PhotoGridProps) {
-  const [selectedPhoto, setSelectedPhoto] = useState<UnsplashPhoto | null>(null)
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
 
   // Grid navigation handlers with enhanced performance
   const handlePhotoClick = useCallback(
-    (photo: UnsplashPhoto, index: number) => {
+    (photo: Photo, index: number) => {
       setSelectedPhoto(photo)
       setSelectedIndex(index)
     },

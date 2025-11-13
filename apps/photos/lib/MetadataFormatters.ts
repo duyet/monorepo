@@ -1,4 +1,4 @@
-import type { UnsplashPhoto } from './types'
+import type { Photo } from './photo-provider'
 
 /**
  * Professional metadata formatting utilities
@@ -37,7 +37,7 @@ export interface PhotoMetadata {
 /**
  * Extract and format comprehensive photo metadata
  */
-export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
+export function formatPhotoMetadata(photo: Photo): PhotoMetadata {
   const metadata: PhotoMetadata = {
     dateFormatted: formatPhotoDate(photo.created_at),
     dimensions: `${photo.width} × ${photo.height}`,
@@ -90,7 +90,7 @@ export function formatPhotoMetadata(photo: UnsplashPhoto): PhotoMetadata {
 /**
  * Format photo description with fallback
  */
-export function formatPhotoDescription(photo: UnsplashPhoto): string {
+export function formatPhotoDescription(photo: Photo): string {
   return (
     photo.description ||
     photo.alt_description ||
@@ -101,7 +101,7 @@ export function formatPhotoDescription(photo: UnsplashPhoto): string {
 /**
  * Format EXIF settings compactly
  */
-export function formatExifSettings(photo: UnsplashPhoto): string | null {
+export function formatExifSettings(photo: Photo): string | null {
   if (!photo.exif) return null
 
   const settings: string[] = []
@@ -117,7 +117,7 @@ export function formatExifSettings(photo: UnsplashPhoto): string | null {
 /**
  * Format camera name from EXIF
  */
-export function formatCameraName(photo: UnsplashPhoto): string | null {
+export function formatCameraName(photo: Photo): string | null {
   if (!photo.exif) return null
 
   if (photo.exif.name) return photo.exif.name
@@ -132,7 +132,7 @@ export function formatCameraName(photo: UnsplashPhoto): string | null {
 /**
  * Format compact metadata for card overlays
  */
-export function formatCompactMetadata(photo: UnsplashPhoto): {
+export function formatCompactMetadata(photo: Photo): {
   primary: string[]
   secondary: string[]
 } {
@@ -171,7 +171,7 @@ export function formatCompactMetadata(photo: UnsplashPhoto): {
 /**
  * Format metadata for professional portfolio display
  */
-export function formatPortfolioMetadata(photo: UnsplashPhoto): {
+export function formatPortfolioMetadata(photo: Photo): {
   title: string
   subtitle: string
   technical: string[]
@@ -224,7 +224,7 @@ export function formatPortfolioMetadata(photo: UnsplashPhoto): {
  * Format caption for photo stream/feed display
  * Priority: description → alt_description → location + date → date only
  */
-export function formatFeedCaption(photo: UnsplashPhoto): string {
+export function formatFeedCaption(photo: Photo): string {
   // Priority 1: Description
   if (photo.description) {
     return photo.description

@@ -1,4 +1,4 @@
-import type { UnsplashPhoto } from './types'
+import type { Photo } from './photo-provider'
 
 /**
  * Image optimization utilities for the photo app
@@ -15,7 +15,7 @@ export interface AspectRatioInfo {
   classification: 'portrait' | 'landscape' | 'square'
 }
 
-export function getAspectRatioInfo(photo: UnsplashPhoto): AspectRatioInfo {
+export function getAspectRatioInfo(photo: Photo): AspectRatioInfo {
   const ratio = photo.width / photo.height
   const isPortrait = ratio < 0.8
   const isLandscape = ratio > 1.5
@@ -39,7 +39,7 @@ export interface ImageSourceOptions {
 }
 
 export function getOptimalImageSrc(
-  photo: UnsplashPhoto,
+  photo: Photo,
   options: ImageSourceOptions,
 ): string {
   const { context, devicePixelRatio = 1 } = options
@@ -73,7 +73,7 @@ export function getOptimalImageSrc(
 /**
  * Generate optimized blur data URL for smoother loading
  */
-export function generateBlurDataURL(photo: UnsplashPhoto): string {
+export function generateBlurDataURL(photo: Photo): string {
   const color = photo.color || '#f3f4f6'
 
   return `data:image/svg+xml;base64,${Buffer.from(

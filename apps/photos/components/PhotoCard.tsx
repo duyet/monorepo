@@ -10,13 +10,13 @@ import {
   formatCompactMetadata,
   formatPhotoDescription,
 } from '@/lib/MetadataFormatters'
-import type { UnsplashPhoto } from '@/lib/types'
+import type { Photo } from '@/lib/photo-provider'
 import { cn } from '@duyet/libs/utils'
 import { useCallback } from 'react'
 import LazyImage from './LazyImage'
 
 interface PhotoCardProps {
-  photo: UnsplashPhoto
+  photo: Photo
   index: number
   onClick: () => void
   className?: string
@@ -99,10 +99,10 @@ export default function PhotoCard({
               )}
 
               {/* Attribution (excluding _duyet as specified) */}
-              {photo.user.username !== '_duyet' && (
+              {photo.user && photo.user.username !== '_duyet' && (
                 <div className="border-t border-white/20 pt-1">
                   <a
-                    href={photo.user.links.html}
+                    href={photo.user.links?.html}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-xs text-white/90 transition-colors hover:text-white"
