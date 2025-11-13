@@ -76,11 +76,11 @@ export function formatPhotoMetadata(photo: Photo): PhotoMetadata {
   }
 
   // Attribution (exclude _duyet as specified)
-  if (photo.user.username !== '_duyet') {
+  if (photo.user && photo.user.username !== '_duyet') {
     metadata.attribution = {
-      photographer: photo.user.name,
-      username: photo.user.username,
-      profileUrl: photo.user.links.html,
+      photographer: photo.user.name || '',
+      username: photo.user.username || '',
+      profileUrl: photo.user.links?.html || '',
     }
   }
 
