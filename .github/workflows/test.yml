@@ -48,3 +48,16 @@ jobs:
 
       - name: Test
         run: yarn test
+        env:
+          NODE_ENV: test
+          CI: true
+
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-coverage
+          path: |
+            **/coverage
+          retention-days: 7
+          if-no-files-found: ignore

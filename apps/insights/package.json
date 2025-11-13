@@ -15,7 +15,10 @@
     "fmt": "yarn fix",
     "lint": "next lint",
     "prettier-check": "prettier --check .",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "prettier": "@duyet/prettier",
   "dependencies": {
@@ -55,6 +58,12 @@
     "postcss": "^8.4.18",
     "prettier": "^3.0.0",
     "tailwindcss": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/dom": "^10.4.0",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.0",
+    "jest-environment-jsdom": "^30.0.0"
   }
 }

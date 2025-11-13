@@ -33,7 +33,14 @@ jest.mock('next/link', () => {
 })
 
 // Mock environment variables
+process.env.NODE_ENV = 'test'
 process.env.NEXT_PUBLIC_URL = 'http://localhost:3000'
 process.env.NEXT_PUBLIC_DUYET_BLOG_URL = 'http://localhost:3000'
 process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL = 'http://localhost:3001'
 process.env.NEXT_PUBLIC_DUYET_CV_URL = 'http://localhost:3002'
+process.env.GITHUB_TOKEN = 'test-token'
+process.env.CLICKHOUSE_HOST = 'localhost'
+process.env.CLICKHOUSE_DATABASE = 'test_db'
+process.env.CLICKHOUSE_PORT = '8123'
+process.env.CLICKHOUSE_USER = 'test_user'
+process.env.CLICKHOUSE_PASSWORD = 'test_password'
