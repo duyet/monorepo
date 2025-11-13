@@ -104,25 +104,40 @@ export interface PhotosByYear {
 
 // Cloudinary Photo Interface
 export interface CloudinaryPhoto {
-  id: string
+  asset_id?: string
   public_id: string
   created_at: string
   updated_at?: string
   width: number
   height: number
-  format: string
-  resource_type: string
-  type: string
-  url: string
+  format?: string
+  resource_type?: string
+  type?: string
+  url?: string
   secure_url: string
+  colors?: Array<[string, number]>
   context?: {
     custom?: {
       caption?: string
       alt?: string
+      location?: {
+        name?: string
+        city?: string
+        country?: string
+      }
       [key: string]: any
     }
   }
   metadata?: {
+    [key: string]: any
+  }
+  image_metadata?: {
+    Make?: string
+    Model?: string
+    ExposureTime?: string
+    FNumber?: string
+    FocalLength?: string
+    ISO?: number
     [key: string]: any
   }
   // Add any other Cloudinary-specific fields as needed

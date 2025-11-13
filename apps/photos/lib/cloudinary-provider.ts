@@ -1,8 +1,5 @@
 import cloudinary from './cloudinary'
-import type {
-  AdminAndResourceOptions,
-  ResourceApiResponse,
-} from 'cloudinary'
+import type { AdminAndResourceOptions } from 'cloudinary'
 import type { CloudinaryPhoto, Photo } from './types'
 
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
@@ -11,7 +8,7 @@ const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER || '' // Optional folder
 /**
  * Convert Cloudinary photo to generic Photo format
  */
-export function cloudinaryToPhoto(cloudinaryPhoto: ResourceApiResponse): Photo {
+export function cloudinaryToPhoto(cloudinaryPhoto: CloudinaryPhoto): Photo {
   const publicId = cloudinaryPhoto.public_id
   const cloudName = CLOUDINARY_CLOUD_NAME
 
@@ -103,7 +100,7 @@ export async function getCloudinaryPhotos(
 
     const result = await cloudinary.api.resources(options)
 
-    const photos = result.resources.map(cloudinaryToPhoto)
+    const photos = (result.resources as CloudinaryPhoto[]).map(cloudinaryToPhoto)
 
     return {
       photos,
