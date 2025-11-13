@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import PhotoFeed from '@/components/PhotoFeed'
-import { getAllUserPhotos } from '@/lib/unsplash'
+import { getAllPhotos } from '@/lib/photo-provider'
 import Container from '@duyet/components/Container'
 
 export const revalidate = 86400 // Revalidate daily
@@ -23,7 +23,7 @@ export default async function FeedPage() {
   let error: string | null = null
 
   try {
-    photos = await getAllUserPhotos()
+    photos = await getAllPhotos()
   } catch (e) {
     error = 'Failed to load photo stream. Please try again later.'
   }

@@ -1,5 +1,5 @@
 import PhotoGrid from '@/components/PhotoGrid'
-import { getAllUserPhotos, groupPhotosByYear } from '@/lib/unsplash'
+import { getAllPhotos, groupPhotosByYear } from '@/lib/photo-provider'
 import Container from '@duyet/components/Container'
 import Link from 'next/link'
 
@@ -11,7 +11,7 @@ export default async function PhotosPage() {
   let error: string | null = null
 
   try {
-    photos = await getAllUserPhotos()
+    photos = await getAllPhotos()
     photosByYear = groupPhotosByYear(photos)
   } catch (e) {
     error = 'Failed to load photos. Please try again later.'
@@ -60,16 +60,16 @@ export default async function PhotosPage() {
               Photography Collection
             </h1>
             <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-              A curated selection of {totalPhotos} photos from my{' '}
+              A curated selection of {totalPhotos} photos from{' '}
               <a
                 href="https://unsplash.com/@_duyet"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
-                Unsplash profile
-              </a>
-              . Explore landscapes, architecture, and moments captured through
+                Unsplash
+              </a>{' '}
+              and Cloudinary. Explore landscapes, architecture, and moments captured through
               the lens. Prefer a narrative experience?{' '}
               <Link
                 href="/feed"
