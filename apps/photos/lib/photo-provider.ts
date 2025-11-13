@@ -2,9 +2,13 @@ import type { Photo } from './types'
 import { getAllUnsplashPhotos } from './unsplash-provider'
 import { getAllCloudinaryPhotos } from './cloudinary-provider'
 
+// Re-export Photo type for convenience
+export type { Photo } from './types'
+
 /**
  * Get all photos from all enabled providers (Unsplash + Cloudinary)
  * Photos are merged and sorted by creation date (newest first)
+ * Fetches from all providers in parallel for better performance
  */
 export async function getAllPhotos(): Promise<Photo[]> {
   console.log('📸 Fetching photos from all providers...')
@@ -12,24 +16,26 @@ export async function getAllPhotos(): Promise<Photo[]> {
 
   const allPhotos: Photo[] = []
 
-  // Fetch from Unsplash
-  try {
-    const unsplashPhotos = await getAllUnsplashPhotos()
-    allPhotos.push(...unsplashPhotos)
-    console.log(`✅ Unsplash: ${unsplashPhotos.length} photos`)
-  } catch (error) {
-    console.error('❌ Error fetching Unsplash photos:', error)
-    // Continue with other providers even if one fails
+  // Fetch from all providers in parallel
+  const [unsplashResult, cloudinaryResult] = await Promise.allSettled([
+    getAllUnsplashPhotos(),
+    getAllCloudinaryPhotos(),
+  ])
+
+  // Handle Unsplash result
+  if (unsplashResult.status === 'fulfilled') {
+    allPhotos.push(...unsplashResult.value)
+    console.log(`✅ Unsplash: ${unsplashResult.value.length} photos`)
+  } else {
+    console.error('❌ Error fetching Unsplash photos:', unsplashResult.reason)
   }
 
-  // Fetch from Cloudinary
-  try {
-    const cloudinaryPhotos = await getAllCloudinaryPhotos()
-    allPhotos.push(...cloudinaryPhotos)
-    console.log(`✅ Cloudinary: ${cloudinaryPhotos.length} photos`)
-  } catch (error) {
-    console.error('❌ Error fetching Cloudinary photos:', error)
-    // Continue even if Cloudinary fails
+  // Handle Cloudinary result
+  if (cloudinaryResult.status === 'fulfilled') {
+    allPhotos.push(...cloudinaryResult.value)
+    console.log(`✅ Cloudinary: ${cloudinaryResult.value.length} photos`)
+  } else {
+    console.error('❌ Error fetching Cloudinary photos:', cloudinaryResult.reason)
   }
 
   // Sort all photos by creation date (newest first)

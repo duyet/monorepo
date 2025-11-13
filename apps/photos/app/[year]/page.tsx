@@ -1,5 +1,9 @@
 import PhotoGrid from '@/components/PhotoGrid'
-import { getAllPhotos, getPhotosByYear } from '@/lib/photo-provider'
+import {
+  getAllPhotos,
+  getPhotosByYear,
+  type Photo,
+} from '@/lib/photo-provider'
 import Container from '@duyet/components/Container'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -54,8 +58,8 @@ export default async function YearPage({ params }: YearPageProps) {
     notFound()
   }
 
-  let allPhotos: any[] = []
-  let yearPhotos: any[] = []
+  let allPhotos: Photo[] = []
+  let yearPhotos: Photo[] = []
   let error: string | null = null
 
   try {

@@ -1,13 +1,17 @@
 import PhotoGrid from '@/components/PhotoGrid'
-import { getAllPhotos, groupPhotosByYear } from '@/lib/photo-provider'
+import {
+  getAllPhotos,
+  groupPhotosByYear,
+  type Photo,
+} from '@/lib/photo-provider'
 import Container from '@duyet/components/Container'
 import Link from 'next/link'
 
 export const revalidate = 86400 // Revalidate daily for static export
 
 export default async function PhotosPage() {
-  let photos: any[] = []
-  let photosByYear: { [year: string]: any[] } = {}
+  let photos: Photo[] = []
+  let photosByYear: { [year: string]: Photo[] } = {}
   let error: string | null = null
 
   try {
