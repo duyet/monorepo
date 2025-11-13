@@ -218,7 +218,7 @@ export function formatPortfolioMetadata(photo: Photo): {
     )
   }
 
-  if (photo.stats) {
+  if (photo.stats && photo.stats.views !== undefined) {
     creative.push(`${photo.stats.views.toLocaleString()} views`)
   }
 
