@@ -14,6 +14,20 @@ jest.mock('../github-api', () => ({
 
 const mockFetchAllEvents = fetchAllEvents as jest.MockedFunction<typeof fetchAllEvents>
 
+// Suppress console output during tests
+const originalConsoleLog = console.log
+const originalConsoleError = console.error
+
+beforeAll(() => {
+  console.log = jest.fn()
+  console.error = jest.fn()
+})
+
+afterAll(() => {
+  console.log = originalConsoleLog
+  console.error = originalConsoleError
+})
+
 describe('commit-stats', () => {
   beforeEach(() => {
     jest.clearAllMocks()
