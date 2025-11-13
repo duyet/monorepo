@@ -188,6 +188,15 @@ export interface Photo {
       medium?: string
       large?: string
     }
+    links?: {
+      self?: string
+      html?: string
+      photos?: string
+      likes?: string
+      portfolio?: string
+      following?: string
+      followers?: string
+    }
   }
   // Original data from the provider
   originalData?: UnsplashPhoto | CloudinaryPhoto
