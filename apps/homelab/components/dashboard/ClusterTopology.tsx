@@ -1,9 +1,10 @@
 'use client'
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { nodes } from '@/lib/mockData'
+import { useNodes } from '@/hooks/useDashboard'
 
 export function ClusterTopology() {
+  const { nodes } = useNodes()
   return (
     <Card>
       <CardHeader>

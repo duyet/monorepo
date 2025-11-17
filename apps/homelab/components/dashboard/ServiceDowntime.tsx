@@ -1,16 +1,18 @@
 'use client'
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { downtimeHistory } from '@/lib/mockData'
+import { useDowntimeHistory } from '@/hooks/useDashboard'
+import { EXTERNAL_LINKS } from '@/lib/constants'
 import { AlertCircle, Clock, ExternalLink } from 'lucide-react'
 
 export function ServiceDowntime() {
+  const downtimeHistory = useDowntimeHistory()
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>Recent Service Downtime</CardTitle>
         <a
-          href="https://duyet.github.io/uptime/"
+          href={EXTERNAL_LINKS.UPTIME_MONITOR}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"

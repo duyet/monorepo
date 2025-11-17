@@ -40,6 +40,15 @@
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.623 0.214 259.815);
+
+  /* Claude-inspired brand colors */
+  --claude-lavender: oklch(0.76 0.12 280);
+  --claude-mint: oklch(0.82 0.08 155);
+  --claude-peach: oklch(0.88 0.08 50);
+  --claude-sunshine: oklch(0.88 0.1 85);
+  --claude-sky: oklch(0.82 0.08 225);
+  --claude-rose: oklch(0.82 0.08 15);
+  --claude-neutral: oklch(0.92 0.005 286);
 }
 
 .dark {
@@ -79,7 +88,15 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-ring: var(--ring);
   --color-radius: var(--radius);
+
+  /* Claude-inspired brand colors for Tailwind */
+  --color-claude-lavender: var(--claude-lavender);
+  --color-claude-mint: var(--claude-mint);
+  --color-claude-peach: var(--claude-peach);
+  --color-claude-sunshine: var(--claude-sunshine);
+  --color-claude-sky: var(--claude-sky);
+  --color-claude-rose: var(--claude-rose);
+  --color-claude-neutral: var(--claude-neutral);
 }

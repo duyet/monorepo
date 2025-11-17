@@ -1,10 +1,11 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { clusterStats } from '@/lib/mockData'
+import { useClusterStats } from '@/hooks/useDashboard'
 import { Activity, CheckCircle2, Database, HardDrive, Server } from 'lucide-react'
 
 export function ClusterOverview() {
+  const clusterStats = useClusterStats()
   return (
     <Card>
       <CardContent>

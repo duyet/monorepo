@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { networkTraffic, speedTest } from '@/lib/mockData'
+import { useNetworkStats } from '@/hooks/useDashboard'
 import { ArrowDown, ArrowUp, Gauge } from 'lucide-react'
 import {
   Area,
@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 
 export function NetworkStats() {
+  const { networkTraffic, speedTest } = useNetworkStats()
   return (
     <div className="space-y-6">
       {/* Speedtest Results */}
