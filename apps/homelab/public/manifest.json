@@ -1,0 +1,23 @@
+{
+  "name": "Homelab Dashboard",
+  "short_name": "Homelab",
+  "description": "MicroK8s cluster monitoring dashboard - Real-time metrics, service status, and network analytics",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#9090ff",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}

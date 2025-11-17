@@ -4,6 +4,7 @@ import { NetworkStats } from '@/components/dashboard/NetworkStats'
 import { ResourceMetrics } from '@/components/dashboard/ResourceMetrics'
 import { ServiceDowntime } from '@/components/dashboard/ServiceDowntime'
 import { ServicesStatus } from '@/components/dashboard/ServicesStatus'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export const metadata = {
   title: 'Homelab Dashboard | duyet.net',
@@ -16,22 +17,34 @@ export default function HomelabPage() {
   return (
     <div className="space-y-8">
       {/* Cluster Topology */}
-      <ClusterTopology />
+      <ErrorBoundary>
+        <ClusterTopology />
+      </ErrorBoundary>
 
       {/* Cluster Overview */}
-      <ClusterOverview />
+      <ErrorBoundary>
+        <ClusterOverview />
+      </ErrorBoundary>
 
       {/* Resource Metrics (CPU & Memory) */}
-      <ResourceMetrics />
+      <ErrorBoundary>
+        <ResourceMetrics />
+      </ErrorBoundary>
 
       {/* Services Status */}
-      <ServicesStatus />
+      <ErrorBoundary>
+        <ServicesStatus />
+      </ErrorBoundary>
 
       {/* Network Stats */}
-      <NetworkStats />
+      <ErrorBoundary>
+        <NetworkStats />
+      </ErrorBoundary>
 
       {/* Service Downtime */}
-      <ServiceDowntime />
+      <ErrorBoundary>
+        <ServiceDowntime />
+      </ErrorBoundary>
 
       {/* Orchestration and Info Footer */}
       <div className="space-y-2 border-t pt-4">

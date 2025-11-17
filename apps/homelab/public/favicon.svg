@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#9090ff"/>
+  <g fill="white">
+    <!-- Top server -->
+    <rect x="12" y="14" width="40" height="10" rx="2"/>
+    <circle cx="18" cy="19" r="2" fill="#9090ff"/>
+    <circle cx="24" cy="19" r="2" fill="#9090ff"/>
+
+    <!-- Middle server -->
+    <rect x="12" y="27" width="40" height="10" rx="2"/>
+    <circle cx="18" cy="32" r="2" fill="#9090ff"/>
+    <circle cx="24" cy="32" r="2" fill="#9090ff"/>
+
+    <!-- Bottom server -->
+    <rect x="12" y="40" width="40" height="10" rx="2"/>
+    <circle cx="18" cy="45" r="2" fill="#9090ff"/>
+    <circle cx="24" cy="45" r="2" fill="#9090ff"/>
+  </g>
+</svg>
