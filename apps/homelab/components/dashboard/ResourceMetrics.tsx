@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { cpuHistory, memoryHistory } from '@/lib/mockData'
+import { useResourceMetrics } from '@/hooks/useDashboard'
 import {
   CartesianGrid,
   Line,
@@ -13,6 +13,7 @@ import {
 } from 'recharts'
 
 export function ResourceMetrics() {
+  const { cpuHistory, memoryHistory } = useResourceMetrics()
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* CPU Usage */}
