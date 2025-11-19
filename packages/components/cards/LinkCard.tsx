@@ -55,7 +55,7 @@ const titleSizeClasses = {
 
 const descriptionSizeClasses = {
   featured: 'text-base md:text-lg',
-  default: 'text-base',
+  default: 'text-sm',
 }
 
 export function LinkCard({
