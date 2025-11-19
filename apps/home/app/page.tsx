@@ -124,7 +124,7 @@ export default function HomePage() {
               'homepage',
               'ai_card'
             )}
-            description="Ask me anything. AI-powered chatbot for questions about duyet.net and related topics."
+            description="Experimental @duyetbot LLM base for questions about duyet.net and related topics."
             color="sage"
           />
 
