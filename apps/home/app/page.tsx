@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import { LinkCard, ContentCard } from '@duyet/components'
-import { homelabNodes } from '../lib/data/homelab-nodes'
+import { nodes } from '../../homelab/lib/data/nodes'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
+
+// Extract node names from homelab data (dynamic - changes when nodes are added/removed)
+const homelabNodes = nodes.map((node) => node.name)
 
 /**
  * Add UTM tracking parameters to URL
@@ -65,7 +68,7 @@ export default function HomePage() {
             color="oat"
           />
 
-          <LinkCard
+          <ContentCard
             title="Insights"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
@@ -75,6 +78,8 @@ export default function HomePage() {
             )}
             description="Analytics dashboard showcasing data from GitHub, WakaTime, and more."
             color="cactus"
+            tags={['Coding Stats', 'Website Traffic', 'LLM Token Usage']}
+            illustration="wavy"
           />
 
           <ContentCard
