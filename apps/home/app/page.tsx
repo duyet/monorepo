@@ -45,7 +45,7 @@ export default function HomePage() {
 
         {/* Links Grid */}
         <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
-          <LinkCard
+          <ContentCard
             title="Blog"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
@@ -54,6 +54,8 @@ export default function HomePage() {
             )}
             description="Technical writings on data engineering, distributed systems, and open source."
             color="terracotta"
+            tags={['Data Engineering', 'Distributed Systems', 'Open Source']}
+            illustration="blob"
             featured
           />
 
