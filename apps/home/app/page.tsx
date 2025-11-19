@@ -43,7 +43,7 @@ export default function HomePage() {
         'homepage',
         'blog_card'
       ),
-      color: 'bg-[#f5dcd0]',
+      color: 'bg-terracotta-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -56,7 +56,7 @@ export default function HomePage() {
         'homepage',
         'resume_card'
       ),
-      color: 'bg-[#f0d9a8]',
+      color: 'bg-oat-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -70,7 +70,7 @@ export default function HomePage() {
         'homepage',
         'insights_card'
       ),
-      color: 'bg-[#a8d5ba]',
+      color: 'bg-cactus-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -84,7 +84,7 @@ export default function HomePage() {
         'homepage',
         'homelab_card'
       ),
-      color: 'bg-[#c5c5ff]',
+      color: 'bg-lavender-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -97,7 +97,7 @@ export default function HomePage() {
         'homepage',
         'photos_card'
       ),
-      color: 'bg-white',
+      color: 'bg-cream',
       iconColor: 'text-neutral-900',
     },
     {
@@ -110,7 +110,7 @@ export default function HomePage() {
         'homepage',
         'ai_card'
       ),
-      color: 'bg-[#dbeafe]',
+      color: 'bg-sage-light',
       iconColor: 'text-neutral-900',
     },
     {
@@ -119,7 +119,7 @@ export default function HomePage() {
       description:
         'Learn more about my experience, skills, and professional background.',
       url: '/about',
-      color: 'bg-[#e8e8e8]',
+      color: 'bg-ivory',
       iconColor: 'text-neutral-900',
     },
   ]
@@ -144,7 +144,7 @@ export default function HomePage() {
             href={links[0].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[0].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:col-span-2 lg:col-span-2`}
+            className={`group flex flex-col p-6 ${links[0].color} rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:col-span-2 lg:col-span-2`}
           >
             <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[0].iconColor}`}>
               {(() => {
@@ -165,7 +165,7 @@ export default function HomePage() {
             href={links[1].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[1].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[1].color} rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md`}
           >
             <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[1].iconColor}`}>
               {(() => {
@@ -186,7 +186,7 @@ export default function HomePage() {
             href={links[2].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[2].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[2].color} rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md`}
           >
             <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[2].iconColor}`}>
               {(() => {
@@ -207,7 +207,7 @@ export default function HomePage() {
             href={links[3].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[3].color} rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md`}
           >
             <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[3].iconColor}`}>
               {(() => {
@@ -228,7 +228,7 @@ export default function HomePage() {
             href={links[4].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group relative flex flex-col p-6 ${links[4].color} overflow-hidden rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+            className={`group relative flex flex-col p-6 ${links[4].color} overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md`}
           >
             {/* Background image on hover */}
             <div
@@ -263,7 +263,7 @@ export default function HomePage() {
             href={links[5].url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[5].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[5].color} rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md`}
           >
             <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[5].iconColor}`}>
               {(() => {
@@ -283,7 +283,7 @@ export default function HomePage() {
           <Link
             href={links[6].url}
             rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[6].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+            className={`group flex flex-col p-6 ${links[6].color} rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-md`}
           >
             <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[6].iconColor}`}>
               {(() => {
