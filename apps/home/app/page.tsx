@@ -56,7 +56,6 @@ export default function HomePage() {
             )}
             description="Technical writings on data engineering, distributed systems, and open source."
             color="terracotta"
-            tags={['Data Engineering', 'Distributed Systems', 'Open Source']}
             illustration="blob"
             featured
           />

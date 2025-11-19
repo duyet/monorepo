@@ -97,7 +97,10 @@ export function ContentCard({
         </h3>
 
         {description && (
-          <p className="line-clamp-3 text-sm leading-relaxed text-neutral-700">
+          <p className={cn(
+            'line-clamp-3 leading-relaxed text-neutral-700',
+            featured ? 'text-base md:text-lg' : 'text-base'
+          )}>
             {description}
           </p>
         )}
