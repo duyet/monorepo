@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { LinkCard } from './components/LinkCard'
+import { LinkCard } from '@duyet/components'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
