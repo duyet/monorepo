@@ -97,7 +97,7 @@ export function LinkCard({
           {title}
         </h3>
 
-        <p className="text-base leading-relaxed text-neutral-700">
+        <p className="text-sm leading-relaxed text-neutral-700">
           {description}
         </p>
       </div>
