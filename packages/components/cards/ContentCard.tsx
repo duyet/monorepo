@@ -50,6 +50,16 @@ const illustrations = {
   none: null,
 }
 
+const titleSizeClasses = {
+  featured: 'text-2xl md:text-3xl',
+  default: 'text-xl md:text-2xl',
+}
+
+const descriptionSizeClasses = {
+  featured: 'text-base md:text-lg',
+  default: 'text-sm',
+}
+
 export function ContentCard({
   title,
   href,
@@ -91,7 +101,7 @@ export function ContentCard({
 
         <h3 className={cn(
           'font-serif font-bold leading-snug',
-          featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
+          featured ? titleSizeClasses.featured : titleSizeClasses.default
         )}>
           {title}
         </h3>
@@ -99,7 +109,7 @@ export function ContentCard({
         {description && (
           <p className={cn(
             'line-clamp-3 leading-relaxed text-neutral-700',
-            featured ? 'text-base md:text-lg' : 'text-base'
+            featured ? descriptionSizeClasses.featured : descriptionSizeClasses.default
           )}>
             {description}
           </p>

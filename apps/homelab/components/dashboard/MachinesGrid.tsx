@@ -15,7 +15,7 @@ export function MachinesGrid() {
         return 'sage'
       case 'offline':
         return 'coral'
-      case 'maintenance':
+      case 'degraded':
         return 'lavender'
       default:
         return 'terracotta'
