@@ -36,3 +36,6 @@ export * from "./ui/tabs";
 
 // Card Components
 export * from "./cards";
+
+// Illustration Components
+export * from "./illustrations";

@@ -1,3 +1,8 @@
+import {
+  GeometricPattern,
+  OrganicBlob,
+  WavyLines,
+} from '../illustrations/AbstractShapes'
 import { cn } from '@duyet/libs/utils'
 import Link from 'next/link'
 
@@ -9,6 +14,7 @@ interface LinkCardProps {
   className?: string
   featured?: boolean
   backgroundImage?: string
+  illustration?: 'wavy' | 'geometric' | 'blob' | 'none'
 }
 
 const colorClasses = {
@@ -23,6 +29,25 @@ const colorClasses = {
   white: 'border border-neutral-200 bg-white text-neutral-900 hover:border-neutral-300',
 }
 
+const illustrationColorClasses = {
+  ivory: 'text-neutral-400',
+  oat: 'text-neutral-400',
+  cream: 'text-neutral-400',
+  cactus: 'text-cactus',
+  sage: 'text-sage',
+  lavender: 'text-lavender',
+  terracotta: 'text-terracotta',
+  coral: 'text-coral',
+  white: 'text-neutral-400',
+}
+
+const illustrations = {
+  wavy: WavyLines,
+  geometric: GeometricPattern,
+  blob: OrganicBlob,
+  none: null,
+}
+
 export function LinkCard({
   title,
   href,
@@ -31,7 +56,9 @@ export function LinkCard({
   className,
   featured = false,
   backgroundImage,
+  illustration = 'none',
 }: LinkCardProps) {
+  const IllustrationComponent = illustrations[illustration]
   const isExternal = href.startsWith('http')
 
   return (
@@ -74,6 +101,14 @@ export function LinkCard({
           {description}
         </p>
       </div>
+
+      {IllustrationComponent && (
+        <div className="absolute bottom-0 right-0 h-32 w-32 opacity-20 transition-opacity group-hover:opacity-30">
+          <IllustrationComponent
+            className={cn('h-full w-full', color && illustrationColorClasses[color])}
+          />
+        </div>
+      )}
     </Link>
   )
 }
