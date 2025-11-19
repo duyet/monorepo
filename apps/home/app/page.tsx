@@ -5,8 +5,10 @@ import { nodes } from '../../homelab/lib/data/nodes'
 export const dynamic = 'force-static'
 export const revalidate = 3600
 
-// Extract node names from homelab data (dynamic - changes when nodes are added/removed)
-const homelabNodes = nodes.map((node) => node.name)
+// Extract node names from homelab data (limit to 3, add "..." if more exist)
+const homelabNodes = nodes.length > 3
+  ? [...nodes.slice(0, 3).map((node) => node.name), '...']
+  : nodes.map((node) => node.name)
 
 /**
  * Add UTM tracking parameters to URL
