@@ -5,17 +5,29 @@ interface LinkCardProps {
   title: string
   href: string
   description: string
-  color?: string
+  color?: 'ivory' | 'oat' | 'cream' | 'cactus' | 'sage' | 'lavender' | 'terracotta' | 'coral' | 'white'
   className?: string
   featured?: boolean
   backgroundImage?: string
+}
+
+const colorClasses = {
+  ivory: 'bg-ivory text-neutral-900',
+  oat: 'bg-oat-light text-neutral-900',
+  cream: 'bg-cream text-neutral-900',
+  cactus: 'bg-cactus-light text-neutral-900',
+  sage: 'bg-sage-light text-neutral-900',
+  lavender: 'bg-lavender-light text-neutral-900',
+  terracotta: 'bg-terracotta-light text-neutral-900',
+  coral: 'bg-coral-light text-neutral-900',
+  white: 'border border-neutral-200 bg-white text-neutral-900 hover:border-neutral-300',
 }
 
 export function LinkCard({
   title,
   href,
   description,
-  color,
+  color = 'white',
   className,
   featured = false,
   backgroundImage,
@@ -28,8 +40,8 @@ export function LinkCard({
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       className={cn(
-        'group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-md',
-        color,
+        'group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
+        colorClasses[color],
         featured && 'sm:col-span-2 lg:col-span-2',
         className
       )}
