@@ -48,6 +48,11 @@ const illustrations = {
   none: null,
 }
 
+const titleSizeClasses = {
+  featured: 'text-2xl md:text-3xl',
+  default: 'text-xl md:text-2xl',
+}
+
 export function LinkCard({
   title,
   href,
@@ -91,7 +96,7 @@ export function LinkCard({
         <h3
           className={cn(
             'font-serif font-bold leading-snug text-neutral-900',
-            featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
+            featured ? titleSizeClasses.featured : titleSizeClasses.default
           )}
         >
           {title}
