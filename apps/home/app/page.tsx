@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { LinkCard } from '@duyet/components'
+import { LinkCard, ContentCard } from '@duyet/components'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
@@ -76,7 +76,7 @@ export default function HomePage() {
             color="cactus"
           />
 
-          <LinkCard
+          <ContentCard
             title="Homelab"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
@@ -86,6 +86,8 @@ export default function HomePage() {
             )}
             description="Homelab monitoring dashboard (beta)."
             color="lavender"
+            tags={['minipc-01', 'minipc-02', 'minipc-03', 'rp-01', 'dienquangsmart']}
+            illustration="geometric"
           />
 
           <LinkCard
