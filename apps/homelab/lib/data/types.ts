@@ -6,7 +6,7 @@ export interface Node {
   id: string
   name: string
   ip: string
-  status: 'online' | 'offline' | 'degraded'
+  status: 'online' | 'offline' | 'degraded' | 'maintenance'
   type: 'minipc' | 'raspberry-pi' | 'banana-board'
   cpu: number // percentage
   memory: number // percentage
