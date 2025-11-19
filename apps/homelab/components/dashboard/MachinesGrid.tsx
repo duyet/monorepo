@@ -1,6 +1,6 @@
 import { ContentCard, FeaturedCard } from '@duyet/components'
-import { nodes } from '@/lib/mockData'
-import type { Node } from '@/lib/mockData/types'
+import { nodes } from '@/lib/data'
+import type { Node } from '@/lib/data/types'
 
 /**
  * MachinesGrid Component

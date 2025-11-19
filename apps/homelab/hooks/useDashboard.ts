@@ -16,7 +16,7 @@ import {
   type Node,
   type Service,
   type ClusterStats,
-} from '@/lib/mockData'
+} from '@/lib/data'
 
 /**
  * Hook for cluster node data
