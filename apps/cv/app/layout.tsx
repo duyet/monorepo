@@ -6,7 +6,7 @@ import Container from '@duyet/components/Container'
 import Footer from '@duyet/components/Footer'
 import Head from '@duyet/components/Head'
 import Header from '@duyet/components/Header'
-import { ABOUT, BLOG, INSIGHTS, PHOTOS } from '@duyet/components/Menu'
+import { ABOUT, BLOG, HOME, INSIGHTS, PHOTOS } from '@duyet/components/Menu'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { Inter, Lora } from 'next/font/google'
 
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps) {
               logo={false}
               containerClassName="max-w-3xl"
               longText="Resume"
-              navigationItems={[BLOG, PHOTOS, INSIGHTS, ABOUT]}
+              navigationItems={[HOME, BLOG, PHOTOS, INSIGHTS, ABOUT]}
               shortText="CV"
             />
           </div>

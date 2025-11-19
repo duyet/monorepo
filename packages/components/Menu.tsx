@@ -15,6 +15,7 @@ export type NavigationItem = {
  */
 export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   return [
+    { name: "Home", href: urls.apps.home },
     { name: "About", href: `${urls.apps.home}/about` },
     { name: "Photos", href: urls.apps.photos },
     { name: "Insights", href: urls.apps.insights },
@@ -26,6 +27,7 @@ export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
  * Helper exports for common navigation items (for backward compatibility)
  * These now use the duyetUrls configuration
  */
+export const HOME = { name: "Home", href: duyetUrls.apps.home };
 export const ABOUT = { name: "About", href: `${duyetUrls.apps.home}/about` };
 export const INSIGHTS = { name: "Insights", href: duyetUrls.apps.insights };
 export const PHOTOS = { name: "Photos", href: duyetUrls.apps.photos };
@@ -73,7 +75,10 @@ export default function Menu({
   const items = navigationItems ?? createDefaultNavigation(urls);
   return (
     <div
-      className={cn("flex flex-row gap-3 sm:gap-5 flex-wrap items-center", className)}
+      className={cn(
+        "flex flex-row gap-3 sm:gap-5 flex-wrap items-center",
+        className,
+      )}
     >
       {items.map(({ name, href }) => (
         <Link
