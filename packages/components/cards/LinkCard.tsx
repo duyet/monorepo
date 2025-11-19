@@ -91,13 +91,13 @@ export function LinkCard({
         <h3
           className={cn(
             'font-serif font-bold leading-snug text-neutral-900',
-            featured ? 'text-2xl md:text-3xl' : 'text-xl'
+            featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
           )}
         >
           {title}
         </h3>
 
-        <p className="text-sm leading-relaxed text-neutral-700">
+        <p className="text-base leading-relaxed text-neutral-700">
           {description}
         </p>
       </div>
