@@ -3,6 +3,7 @@ import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
 import { theme as tremorTheme } from './tremor.theme.js'
 import { theme as shadcnTheme } from './shadcn.theme.js'
+import { theme as claudeTheme } from './claude.theme.js'
 import { colors as designSystemColors } from './colors.js'
 
 /** @type {import('tailwindcss').Config} */
@@ -31,6 +32,7 @@ export default {
       ...merge.all([
         tremorTheme,
         shadcnTheme,
+        claudeTheme,
         {
           colors: designSystemColors,
         },
@@ -106,6 +108,7 @@ export default {
       pattern: /^text-(cactus|sage|lavender|terracotta|coral)$/,
     },
     ...require('./tremor.theme.js').safelist,
+    ...require('./claude.theme.js').safelist,
   ],
   plugins: [
     require('tailwind-highlightjs'),
