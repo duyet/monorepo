@@ -10,6 +10,9 @@ const homelabNodes = nodes.length > 3
   ? [...nodes.slice(0, 3).map((node) => node.name), '...']
   : nodes.map((node) => node.name)
 
+// Build date for resume card
+const buildDate = new Date().toISOString().split('T')[0] // Format: YYYY-MM-DD
+
 /**
  * Add UTM tracking parameters to URL
  */
@@ -60,15 +63,17 @@ export default function HomePage() {
             featured
           />
 
-          <LinkCard
+          <ContentCard
             title="Resume"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
               'homepage',
               'resume_card'
             )}
+            category={`Updated ${buildDate}`}
             description="Experience building scalable data infrastructure and leading engineering teams."
             color="oat"
+            illustration="wavy"
           />
 
           <ContentCard
