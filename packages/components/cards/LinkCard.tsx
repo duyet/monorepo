@@ -53,6 +53,11 @@ const titleSizeClasses = {
   default: 'text-xl md:text-2xl',
 }
 
+const descriptionSizeClasses = {
+  featured: 'text-base md:text-lg',
+  default: 'text-base',
+}
+
 export function LinkCard({
   title,
   href,
@@ -102,7 +107,10 @@ export function LinkCard({
           {title}
         </h3>
 
-        <p className="text-sm leading-relaxed text-neutral-700">
+        <p className={cn(
+          'line-clamp-3 leading-relaxed text-neutral-700',
+          featured ? descriptionSizeClasses.featured : descriptionSizeClasses.default
+        )}>
           {description}
         </p>
       </div>
