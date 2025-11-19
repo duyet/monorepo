@@ -8,6 +8,7 @@ interface LinkCardProps {
   color?: string
   className?: string
   featured?: boolean
+  backgroundImage?: string
 }
 
 export function LinkCard({
@@ -17,6 +18,7 @@ export function LinkCard({
   color,
   className,
   featured = false,
+  backgroundImage,
 }: LinkCardProps) {
   const isExternal = href.startsWith('http')
 
@@ -32,6 +34,20 @@ export function LinkCard({
         className
       )}
     >
+      {backgroundImage && (
+        <>
+          {/* Background image on hover */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+            }}
+          />
+          {/* Overlay to maintain text readability */}
+          <div className="absolute inset-0 bg-white/80 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        </>
+      )}
+
       <div className="relative z-10 flex min-h-[120px] flex-col gap-3">
         <h3
           className={cn(

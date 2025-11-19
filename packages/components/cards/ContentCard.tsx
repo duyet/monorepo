@@ -13,9 +13,10 @@ interface ContentCardProps {
   description?: string
   tags?: string[]
   date?: string
-  color?: 'ivory' | 'oat' | 'cream' | 'cactus' | 'sage' | 'lavender' | 'terracotta' | 'coral'
+  color?: 'ivory' | 'oat' | 'cream' | 'cactus' | 'sage' | 'lavender' | 'terracotta' | 'coral' | 'white'
   illustration?: 'wavy' | 'geometric' | 'blob' | 'none'
   className?: string
+  featured?: boolean
 }
 
 const colorClasses = {
@@ -27,6 +28,7 @@ const colorClasses = {
   lavender: 'bg-lavender-light text-neutral-900',
   terracotta: 'bg-terracotta-light text-neutral-900',
   coral: 'bg-coral-light text-neutral-900',
+  white: 'border border-neutral-200 bg-white text-neutral-900 hover:border-neutral-300',
 }
 
 const illustrationColorClasses = {
@@ -38,6 +40,7 @@ const illustrationColorClasses = {
   lavender: 'text-lavender',
   terracotta: 'text-terracotta',
   coral: 'text-coral',
+  white: 'text-neutral-400',
 }
 
 const illustrations = {
@@ -57,19 +60,27 @@ export function ContentCard({
   color = 'ivory',
   illustration = 'none',
   className,
+  featured = false,
 }: ContentCardProps) {
   const IllustrationComponent = illustrations[illustration]
+  const isExternal = href.startsWith('http')
 
   return (
     <Link
       href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
       className={cn(
         'group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
         colorClasses[color],
+        featured && 'sm:col-span-2 lg:col-span-2',
         className,
       )}
     >
-      <div className="relative z-10 flex min-h-[200px] flex-col gap-3">
+      <div className={cn(
+        "relative z-10 flex flex-col gap-3",
+        color === 'white' ? 'min-h-[120px]' : 'min-h-[200px]'
+      )}>
         {category && (
           <div className="inline-flex items-center">
             <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-wide">
@@ -78,7 +89,10 @@ export function ContentCard({
           </div>
         )}
 
-        <h3 className="font-serif text-xl font-bold leading-snug md:text-2xl">
+        <h3 className={cn(
+          'font-serif font-bold leading-snug',
+          featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
+        )}>
           {title}
         </h3>
 
