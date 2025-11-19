@@ -3,6 +3,7 @@ import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
 import { theme as tremorTheme } from './tremor.theme.js'
 import { theme as shadcnTheme } from './shadcn.theme.js'
+import { theme as claudeTheme } from './claude.theme.js'
 import { colors as designSystemColors } from './colors.js'
 
 /** @type {import('tailwindcss').Config} */
@@ -13,6 +14,7 @@ export default {
     '../../apps/*/{app,components}/**/*.{js,ts,jsx,tsx}',
     '../../apps/*/components/ui/**/*.{js,ts,jsx,tsx}',
     '../../packages/{components,libs}/*.{js,ts,jsx,tsx}',
+    '../../packages/{components,libs}/**/*.{js,ts,jsx,tsx}',
     '../../packages/components/ui/*.{js,ts,jsx,tsx}',
     // Path to the tremor module
     '../../node_modules/@tremor/react/**/*.{js,ts,jsx,tsx}',
@@ -30,6 +32,7 @@ export default {
       ...merge.all([
         tremorTheme,
         shadcnTheme,
+        claudeTheme,
         {
           colors: designSystemColors,
         },
@@ -94,7 +97,18 @@ export default {
     {
       pattern: /hljs+/,
     },
+    // Card component color classes (for blog color palette)
+    {
+      pattern: /^bg-(ivory|oat|cream|cactus|sage|lavender|terracotta|coral)(-light|-medium)?$/,
+    },
+    {
+      pattern: /^text-(ivory|oat|cream|cactus|sage|lavender|terracotta|coral)$/,
+    },
+    {
+      pattern: /^text-(cactus|sage|lavender|terracotta|coral)$/,
+    },
     ...require('./tremor.theme.js').safelist,
+    ...require('./claude.theme.js').safelist,
   ],
   plugins: [
     require('tailwind-highlightjs'),

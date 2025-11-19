@@ -1,5 +1,5 @@
 import { Activity, CheckCircle2, XCircle } from 'lucide-react'
-import type { Service } from '@/lib/mockData'
+import type { Service } from '@/lib/data'
 
 interface ServiceCardProps {
   service: Service

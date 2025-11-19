@@ -1,14 +1,17 @@
 import Link from 'next/link'
-import AboutIcon from './components/icons/AboutIcon'
-import AIIcon from './components/icons/AIIcon'
-import BlogIcon from './components/icons/BlogIcon'
-import HomelabIcon from './components/icons/HomelabIcon'
-import InsightsIcon from './components/icons/InsightsIcon'
-import PhotosIcon from './components/icons/PhotosIcon'
-import ResumeIcon from './components/icons/ResumeIcon'
+import { LinkCard, ContentCard } from '@duyet/components'
+import { nodes } from '../../homelab/lib/data/nodes'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
+
+// Extract node names from homelab data (limit to 3, add "..." if more exist)
+const homelabNodes = nodes.length > 3
+  ? [...nodes.slice(0, 3).map((node) => node.name), '...']
+  : nodes.map((node) => node.name)
+
+// Build date for resume card
+const buildDate = new Date().toISOString().split('T')[0] // Format: YYYY-MM-DD
 
 /**
  * Add UTM tracking parameters to URL
@@ -32,98 +35,6 @@ function addUtmParams(
 }
 
 export default function HomePage() {
-  const links = [
-    {
-      icon: BlogIcon,
-      title: 'Blog',
-      description:
-        'Technical writings on data engineering, distributed systems, and open source.',
-      url: addUtmParams(
-        process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-        'homepage',
-        'blog_card'
-      ),
-      color: 'bg-[#f5dcd0]',
-      iconColor: 'text-neutral-900',
-    },
-    {
-      icon: ResumeIcon,
-      title: 'Resume',
-      description:
-        'Experience building scalable data infrastructure and leading engineering teams.',
-      url: addUtmParams(
-        process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
-        'homepage',
-        'resume_card'
-      ),
-      color: 'bg-[#f0d9a8]',
-      iconColor: 'text-neutral-900',
-    },
-    {
-      icon: InsightsIcon,
-      title: 'Insights',
-      description:
-        'Analytics dashboard showcasing data from GitHub, WakaTime, and more.',
-      url: addUtmParams(
-        process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
-          'https://insights.duyet.net',
-        'homepage',
-        'insights_card'
-      ),
-      color: 'bg-[#a8d5ba]',
-      iconColor: 'text-neutral-900',
-    },
-    {
-      icon: HomelabIcon,
-      title: 'Homelab',
-      description:
-        'Homelab monitoring dashboard (beta).',
-      url: addUtmParams(
-        process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
-          'https://homelab.duyet.net',
-        'homepage',
-        'homelab_card'
-      ),
-      color: 'bg-[#c5c5ff]',
-      iconColor: 'text-neutral-900',
-    },
-    {
-      icon: PhotosIcon,
-      title: 'Photos',
-      description:
-        'Photography portfolio and visual stories from travels and daily life.',
-      url: addUtmParams(
-        process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || 'https://photos.duyet.net',
-        'homepage',
-        'photos_card'
-      ),
-      color: 'bg-white',
-      iconColor: 'text-neutral-900',
-    },
-    {
-      icon: AIIcon,
-      title: 'Chat',
-      description:
-        'Ask me anything. AI-powered chatbot for questions about duyet.net and related topics.',
-      url: addUtmParams(
-        process.env.NEXT_PUBLIC_DUYET_AI_URL || 'https://ai.duyet.net',
-        'homepage',
-        'ai_card'
-      ),
-      color: 'bg-[#dbeafe]',
-      iconColor: 'text-neutral-900',
-    },
-    {
-      icon: AboutIcon,
-      title: 'About',
-      description:
-        'Learn more about my experience, skills, and professional background.',
-      url: '/about',
-      color: 'bg-[#e8e8e8]',
-      iconColor: 'text-neutral-900',
-    },
-  ]
-
   return (
     <div className="flex min-h-screen items-center bg-neutral-50">
       <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-12">
@@ -137,167 +48,92 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Links Grid - Claude Style */}
+        {/* Links Grid */}
         <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Blog - Featured Large Card */}
-          <Link
-            href={links[0].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[0].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:col-span-2 lg:col-span-2`}
-          >
-            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[0].iconColor}`}>
-              {(() => {
-                const Icon = links[0].icon
-                return <Icon />
-              })()}
-            </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[0].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[0].description}
-            </p>
-          </Link>
+          <ContentCard
+            title="Blog"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
+              'homepage',
+              'blog_card'
+            )}
+            description="Technical writings on data engineering, distributed systems, and open source."
+            color="terracotta"
+            illustration="blob"
+            featured
+          />
 
-          {/* Resume */}
-          <Link
-            href={links[1].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[1].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
-          >
-            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[1].iconColor}`}>
-              {(() => {
-                const Icon = links[1].icon
-                return <Icon />
-              })()}
-            </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[1].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[1].description}
-            </p>
-          </Link>
+          <ContentCard
+            title="Resume"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
+              'homepage',
+              'resume_card'
+            )}
+            category={`Updated ${buildDate}`}
+            description="Experience building scalable data infrastructure and leading engineering teams."
+            color="oat"
+            illustration="wavy"
+          />
 
-          {/* Insights */}
-          <Link
-            href={links[2].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[2].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
-          >
-            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[2].iconColor}`}>
-              {(() => {
-                const Icon = links[2].icon
-                return <Icon />
-              })()}
-            </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[2].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[2].description}
-            </p>
-          </Link>
+          <ContentCard
+            title="Insights"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
+                'https://insights.duyet.net',
+              'homepage',
+              'insights_card'
+            )}
+            description="Analytics dashboard showcasing data from GitHub, WakaTime, and more."
+            color="cactus"
+            tags={['Coding Stats', 'Website Traffic', 'LLM Token Usage']}
+            illustration="wavy"
+          />
 
-          {/* Homelab */}
-          <Link
-            href={links[3].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[3].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
-          >
-            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[3].iconColor}`}>
-              {(() => {
-                const Icon = links[3].icon
-                return <Icon />
-              })()}
-            </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[3].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[3].description}
-            </p>
-          </Link>
+          <ContentCard
+            title="Homelab"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
+                'https://homelab.duyet.net',
+              'homepage',
+              'homelab_card'
+            )}
+            description="Homelab monitoring dashboard (beta)."
+            color="lavender"
+            tags={homelabNodes}
+            illustration="geometric"
+          />
 
-          {/* Photos */}
-          <Link
-            href={links[4].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group relative flex flex-col p-6 ${links[4].color} overflow-hidden rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
-          >
-            {/* Background image on hover */}
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-              style={{
-                backgroundImage:
-                  'url(https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872)',
-              }}
-            />
-            {/* Overlay to maintain text readability */}
-            <div className="absolute inset-0 bg-white/80 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <LinkCard
+            title="Photos"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL ||
+                'https://photos.duyet.net',
+              'homepage',
+              'photos_card'
+            )}
+            description="Photography portfolio and visual stories from travels and daily life."
+            color="cream"
+            backgroundImage="https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872"
+          />
 
-            {/* Content */}
-            <div className="relative z-10">
-              <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[4].iconColor}`}>
-                {(() => {
-                  const Icon = links[4].icon
-                  return <Icon />
-                })()}
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-                {links[4].title}
-              </h3>
-              <p className="text-sm leading-relaxed text-neutral-700">
-                {links[4].description}
-              </p>
-            </div>
-          </Link>
+          <LinkCard
+            title="Chat"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_AI_URL || 'https://ai.duyet.net',
+              'homepage',
+              'ai_card'
+            )}
+            description="Experimental @duyetbot LLM base for questions about duyet.net and related topics."
+            color="sage"
+          />
 
-          {/* Chat */}
-          <Link
-            href={links[5].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[5].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
-          >
-            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[5].iconColor}`}>
-              {(() => {
-                const Icon = links[5].icon
-                return <Icon />
-              })()}
-            </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[5].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[5].description}
-            </p>
-          </Link>
-
-          {/* About */}
-          <Link
-            href={links[6].url}
-            rel="noopener noreferrer"
-            className={`group flex flex-col p-6 ${links[6].color} rounded-3xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
-          >
-            <div className={`mb-4 transition-transform duration-300 group-hover:scale-110 ${links[6].iconColor}`}>
-              {(() => {
-                const Icon = links[6].icon
-                return <Icon />
-              })()}
-            </div>
-            <h3 className="mb-2 text-xl font-semibold text-neutral-900">
-              {links[6].title}
-            </h3>
-            <p className="text-sm leading-relaxed text-neutral-700">
-              {links[6].description}
-            </p>
-          </Link>
+          <LinkCard
+            title="About"
+            href="/about"
+            description="Learn more about my experience, skills, and professional background."
+            color="ivory"
+          />
         </div>
 
         {/* Social Links */}

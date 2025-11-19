@@ -42,14 +42,59 @@ export const brandColors = {
 }
 
 /**
+ * Blog/Content card color palette
+ *
+ * Shared color palette for card components across apps
+ * Used in ContentCard, FeaturedCard, and LinkCard components
+ */
+export const cardColors = {
+  ivory: {
+    DEFAULT: '#f5f3ef',
+    medium: '#f0eee6',
+    light: '#f9f8f5',
+  },
+  cactus: {
+    DEFAULT: '#bcd1ca',
+    light: '#d4e3de',
+    medium: '#bcd1ca',
+  },
+  oat: {
+    DEFAULT: '#e3dacc',
+    light: '#ebe5db',
+  },
+  sage: {
+    DEFAULT: '#b8ccc5',
+    light: '#d0ddd8',
+  },
+  lavender: {
+    DEFAULT: '#c5c8dc',
+    light: '#dfe0ec',
+  },
+  terracotta: {
+    DEFAULT: '#e07856',
+    light: '#f4b8a0',
+    medium: '#e89879',
+  },
+  coral: {
+    DEFAULT: '#f39c7a',
+    light: '#ffc4a8',
+  },
+  cream: {
+    DEFAULT: '#faf8f3',
+    warm: '#f7f4ee',
+  },
+}
+
+/**
  * Complete color palette
  *
- * Combines Claude palette with semantic brand colors
- * and any additional custom colors.
+ * Combines Claude palette with semantic brand colors,
+ * card colors, and any additional custom colors.
  */
 export const colors = {
   ...claudeColors,
   ...brandColors,
+  ...cardColors,
   // Legacy colors for backward compatibility
   gold: '#ffd465',
 }
