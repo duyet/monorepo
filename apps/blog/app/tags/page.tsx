@@ -1,5 +1,6 @@
 import { getTagMetadata } from '@/lib/tag-metadata'
-import Container, { ContentCard } from '@duyet/components'
+import { ContentCard } from '@duyet/components'
+import Container from '@duyet/components/Container'
 import { type TagCount } from '@duyet/interfaces'
 import { getAllTags } from '@duyet/libs/getPost'
 import { getSlug } from '@duyet/libs/getSlug'

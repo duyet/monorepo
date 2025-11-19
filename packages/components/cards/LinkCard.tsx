@@ -14,7 +14,7 @@ export function LinkCard({
   title,
   href,
   description,
-  color = 'bg-ivory',
+  color,
   className,
   featured = false,
 }: LinkCardProps) {
@@ -26,7 +26,7 @@ export function LinkCard({
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       className={cn(
-        'group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
+        'group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-md',
         color,
         featured && 'sm:col-span-2 lg:col-span-2',
         className

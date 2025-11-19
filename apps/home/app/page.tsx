@@ -49,7 +49,6 @@ export default function HomePage() {
               'blog_card'
             )}
             description="Technical writings on data engineering, distributed systems, and open source."
-            color="bg-terracotta-light"
             featured
           />
 
@@ -61,7 +60,6 @@ export default function HomePage() {
               'resume_card'
             )}
             description="Experience building scalable data infrastructure and leading engineering teams."
-            color="bg-oat-light"
           />
 
           <LinkCard
@@ -73,7 +71,6 @@ export default function HomePage() {
               'insights_card'
             )}
             description="Analytics dashboard showcasing data from GitHub, WakaTime, and more."
-            color="bg-cactus-light"
           />
 
           <LinkCard
@@ -85,7 +82,6 @@ export default function HomePage() {
               'homelab_card'
             )}
             description="Homelab monitoring dashboard (beta)."
-            color="bg-lavender-light"
           />
 
           <LinkCard
@@ -97,7 +93,6 @@ export default function HomePage() {
               'photos_card'
             )}
             description="Photography portfolio and visual stories from travels and daily life."
-            color="bg-cream"
           />
 
           <LinkCard
@@ -108,14 +103,12 @@ export default function HomePage() {
               'ai_card'
             )}
             description="Ask me anything. AI-powered chatbot for questions about duyet.net and related topics."
-            color="bg-sage-light"
           />
 
           <LinkCard
             title="About"
             href="/about"
             description="Learn more about my experience, skills, and professional background."
-            color="bg-ivory"
           />
         </div>
 
