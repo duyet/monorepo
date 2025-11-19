@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { LinkCard, ContentCard } from '@duyet/components'
+import { homelabNodes } from '../lib/data/homelab-nodes'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600
@@ -86,7 +87,7 @@ export default function HomePage() {
             )}
             description="Homelab monitoring dashboard (beta)."
             color="lavender"
-            tags={['minipc-01', 'minipc-02', 'minipc-03', 'rp-01', 'dienquangsmart']}
+            tags={homelabNodes}
             illustration="geometric"
           />
 
