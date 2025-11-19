@@ -27,7 +27,7 @@ export function LinkCard({
   title,
   href,
   description,
-  color = 'white',
+  color,
   className,
   featured = false,
   backgroundImage,
@@ -41,7 +41,7 @@ export function LinkCard({
       rel={isExternal ? 'noopener noreferrer' : undefined}
       className={cn(
         'group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
-        colorClasses[color],
+        color && colorClasses[color],
         featured && 'sm:col-span-2 lg:col-span-2',
         className
       )}

@@ -57,7 +57,7 @@ export function ContentCard({
   description,
   tags,
   date,
-  color = 'ivory',
+  color,
   illustration = 'none',
   className,
   featured = false,
@@ -72,14 +72,14 @@ export function ContentCard({
       rel={isExternal ? 'noopener noreferrer' : undefined}
       className={cn(
         'group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
-        colorClasses[color],
+        color && colorClasses[color],
         featured && 'sm:col-span-2 lg:col-span-2',
         className,
       )}
     >
       <div className={cn(
         "relative z-10 flex flex-col gap-3",
-        color === 'white' ? 'min-h-[120px]' : 'min-h-[200px]'
+        !color || color === 'white' ? 'min-h-[120px]' : 'min-h-[200px]'
       )}>
         {category && (
           <div className="inline-flex items-center">
@@ -125,7 +125,7 @@ export function ContentCard({
       {IllustrationComponent && (
         <div className="absolute bottom-0 right-0 h-32 w-32 opacity-20 transition-opacity group-hover:opacity-30">
           <IllustrationComponent
-            className={cn('h-full w-full', illustrationColorClasses[color])}
+            className={cn('h-full w-full', color && illustrationColorClasses[color])}
           />
         </div>
       )}
