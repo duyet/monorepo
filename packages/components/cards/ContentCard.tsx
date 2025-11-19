@@ -105,7 +105,7 @@ export function ContentCard({
         <div className="mt-auto flex flex-col gap-2">
           {tags && tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {tags.slice(0, 3).map((tag) => (
+              {tags.map((tag) => (
                 <span
                   key={tag}
                   className="rounded-full bg-white/70 px-2.5 py-0.5 text-xs font-medium text-neutral-700"
