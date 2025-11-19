@@ -95,6 +95,16 @@ export default {
     {
       pattern: /hljs+/,
     },
+    // Card component color classes (for blog color palette)
+    {
+      pattern: /^bg-(ivory|oat|cream|cactus|sage|lavender|terracotta|coral)(-light|-medium)?$/,
+    },
+    {
+      pattern: /^text-(ivory|oat|cream|cactus|sage|lavender|terracotta|coral)$/,
+    },
+    {
+      pattern: /^text-(cactus|sage|lavender|terracotta|coral)$/,
+    },
     ...require('./tremor.theme.js').safelist,
   ],
   plugins: [
