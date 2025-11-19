@@ -13,6 +13,7 @@ export default {
     '../../apps/*/{app,components}/**/*.{js,ts,jsx,tsx}',
     '../../apps/*/components/ui/**/*.{js,ts,jsx,tsx}',
     '../../packages/{components,libs}/*.{js,ts,jsx,tsx}',
+    '../../packages/{components,libs}/**/*.{js,ts,jsx,tsx}',
     '../../packages/components/ui/*.{js,ts,jsx,tsx}',
     // Path to the tremor module
     '../../node_modules/@tremor/react/**/*.{js,ts,jsx,tsx}',
