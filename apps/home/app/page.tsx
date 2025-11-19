@@ -172,6 +172,17 @@ export default function HomePage() {
           >
             llms.txt
           </a>
+          <Link
+            href={addUtmParams(
+              'https://status.duyet.net',
+              'homepage',
+              'footer_status'
+            )}
+            target="_blank"
+            className="transition-colors duration-200 hover:text-neutral-900"
+          >
+            Status
+          </Link>
         </div>
       </div>
     </div>

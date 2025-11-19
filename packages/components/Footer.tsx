@@ -58,6 +58,7 @@ function createFooterNavigation(urls: UrlsConfig, profile: Profile) {
       { name: "/archives", href: `${urls.apps.blog}/archives` },
       { name: "/series", href: `${urls.apps.blog}/series` },
       { name: "/tags", href: `${urls.apps.blog}/tags` },
+      { name: "Status", href: "https://status.duyet.net" },
     ].filter(Boolean) as Array<{ name: string; href: string }>,
     profile: [
       { name: "About", href: `${urls.apps.home}/about` },
