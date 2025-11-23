@@ -4,19 +4,33 @@
 
 @layer base {
   :root {
-    --font-inter:
-      'Inter', -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
-      sans-serif;
-    --font-serif: 'Libre Baskerville', Georgia, serif;
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+
+    /* Sophisticated dark palette */
+    --color-bg-primary: #0d1117;
+    --color-bg-secondary: #161b22;
+    --color-bg-tertiary: #21262d;
+    --color-text-primary: #f0f6fc;
+    --color-text-secondary: #8b949e;
+    --color-text-muted: #6e7681;
+    --color-accent: #58a6ff;
+    --color-accent-warm: #f78166;
+    --color-accent-teal: #3fb950;
+    --color-border: #30363d;
   }
 
   html {
-    font-family: var(--font-inter);
+    font-family: var(--font-sans);
   }
 
   body {
-    background-color: #fbf7f0;
-    color: #1f1f1f;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(88, 166, 255, 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(63, 185, 80, 0.08), transparent),
+      var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
   }
 }
 

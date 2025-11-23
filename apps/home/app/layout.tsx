@@ -5,17 +5,18 @@ import Analytics from '@duyet/components/Analytics'
 import Head from '@duyet/components/Head'
 import ThemeProvider from '@duyet/components/ThemeProvider'
 import { cn } from '@duyet/libs/utils'
-import { Inter, Libre_Baskerville } from 'next/font/google'
+import { IBM_Plex_Sans, Instrument_Serif } from 'next/font/google'
 
-const inter = Inter({
+const ibmPlexSans = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-sans',
   display: 'swap',
 })
 
-const libreBaskerville = Libre_Baskerville({
-  weight: ['400', '700'],
+const instrumentSerif = Instrument_Serif({
+  weight: ['400'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
   variable: '--font-serif',
   display: 'swap',
@@ -34,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={cn(inter.variable, libreBaskerville.variable)}
+      className={cn(ibmPlexSans.variable, instrumentSerif.variable)}
       lang="en"
       suppressHydrationWarning
     >
