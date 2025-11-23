@@ -4,19 +4,76 @@
 
 @layer base {
   :root {
-    --font-inter:
-      'Inter', -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
-      sans-serif;
-    --font-serif: 'Libre Baskerville', Georgia, serif;
+    --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Crimson Pro', Georgia, serif;
+    --bg-primary: #faf8f5;
+    --bg-gradient-start: #fdfcfa;
+    --bg-gradient-end: #f5f0e8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --accent-warm: #e07856;
   }
 
   html {
-    font-family: var(--font-inter);
+    font-family: var(--font-sans);
   }
 
   body {
-    background-color: #fbf7f0;
-    color: #1f1f1f;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .hero-title {
+    background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 50%, #1a1a1a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .geometric-bg {
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(224, 120, 86, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(197, 200, 220, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(184, 204, 197, 0.06) 0%, transparent 70%);
+  }
+
+  .card-entrance {
+    animation: cardSlideUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes cardSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .footer-link {
+    position: relative;
+  }
+
+  .footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+  }
+
+  .footer-link:hover::after {
+    width: 100%;
   }
 }
 
@@ -33,5 +90,29 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 600ms;
   }
 }
