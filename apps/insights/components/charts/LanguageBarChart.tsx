@@ -30,7 +30,7 @@ interface LabelProps {
   y?: string | number
   width?: string | number
   height?: string | number
-  value?: string | number
+  value?: string | number | null
 }
 
 const chartConfig = {
