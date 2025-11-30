@@ -6,7 +6,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart'
-import { Cell, Pie, PieChart } from 'recharts'
+import { Cell, Pie, PieChart, type PieLabelRenderProps } from 'recharts'
 
 interface DonutChartProps {
   data: Array<Record<string, unknown>>
@@ -42,7 +42,8 @@ export function DonutChart({
 
   // Custom label function to show language names
   const renderLabel = showLabel
-    ? (entry: Record<string, unknown>) => {
+    ? (props: PieLabelRenderProps) => {
+        const entry = props.payload as Record<string, unknown>
         const name = String(entry[index] || '')
         const value = Number(entry[category] || 0)
         return value > 5 ? name : '' // Only show label if percentage > 5%
