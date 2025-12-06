@@ -2387,10 +2387,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.11.0.tgz#75dce8e972f90bba488e2b0cc677fb233aa357ab"
   integrity sha512-zxnHvoMQVqewTJr/W4pKjF0bMGiKJv1WX7bSrkl46Hg0QjESbzBROWK0Wg4RphzSOS5Jiy7eFimmM3UgMrMZbQ==
 
-"@seline-analytics/web@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@seline-analytics/web/-/web-0.0.20.tgz#90f2c91abf141c42e8f4281ee138be275c92c8c7"
-  integrity sha512-eX3uSjZ3NgTGICsFvBpz9Yjgi7AUhhkKE17ZvN1/JW6v+tA8m4bnRavN6fhpcRWRISlvKGSu2AHKqNRh6+GSBA==
+"@seline-analytics/web@^1.0.0":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@seline-analytics/web/-/web-1.0.4.tgz#01a89286600c9f45a813cd4fa4d081150ae470fc"
+  integrity sha512-frm8RChQpMT1iVILzxy4dMoF9tbY6LkaYAjzWGI43ff7WNlywJYrXaz2f3fmakRD5l8xMMmQOzSN82Qvcbgutg==
 
 "@sinclair/typebox@^0.34.0":
   version "0.34.37"

@@ -28,7 +28,7 @@
     "@radix-ui/react-hover-card": "^1.1.13",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-separator": "^1.1.0",
-    "@seline-analytics/web": "^0.0.20",
+    "@seline-analytics/web": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.555.0",
