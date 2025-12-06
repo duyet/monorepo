@@ -33,7 +33,7 @@
     "@vercel/analytics": "^1.0.0",
     "dotenv-cli": "^11.0.0",
     "encoding": "^0.1.13",
-    "framer-motion": "^11.2.10",
+    "framer-motion": "^12.0.0",
     "graphql": "^16.6.0",
     "graphql-request": "^6.0.0",
     "katex": "^0.16.11",
