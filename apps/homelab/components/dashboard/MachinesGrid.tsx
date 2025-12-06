@@ -1,31 +1,11 @@
-import { ContentCard, FeaturedCard } from '@duyet/components'
 import { nodes } from '@/lib/data'
-import type { Node } from '@/lib/data/types'
+import { FeaturedMachineCard, MachineCard } from './MachineCard'
 
 /**
  * MachinesGrid Component
- * Displays homelab machines using FeaturedCard for primary node and ContentCard for others
+ * Displays homelab machines using custom machine cards
  */
 export function MachinesGrid() {
-  const getStatusColor = (
-    status: Node['status']
-  ): 'terracotta' | 'sage' | 'coral' | 'lavender' => {
-    switch (status) {
-      case 'online':
-        return 'sage'
-      case 'offline':
-        return 'coral'
-      case 'degraded':
-        return 'lavender'
-      default:
-        return 'terracotta'
-    }
-  }
-
-  const getStatusBadge = (status: Node['status']) => {
-    return status.charAt(0).toUpperCase() + status.slice(1)
-  }
-
   const [primaryNode, ...otherNodes] = nodes
 
   return (
@@ -40,33 +20,13 @@ export function MachinesGrid() {
       </div>
 
       <div className="space-y-4">
-        {/* Primary Node - Featured Card */}
-        {primaryNode && (
-          <FeaturedCard
-            title={primaryNode.name}
-            href={`#${primaryNode.id}`}
-            category={getStatusBadge(primaryNode.status)}
-            description={`Primary cluster node • IP: ${primaryNode.ip} • Running ${primaryNode.services} services • ${primaryNode.cpu}% CPU • ${primaryNode.memoryUsed}/${primaryNode.memoryTotal}GB RAM • Uptime: ${primaryNode.uptime}`}
-            color={getStatusColor(primaryNode.status)}
-          />
-        )}
+        {/* Primary Node - Featured Machine Card */}
+        {primaryNode && <FeaturedMachineCard node={primaryNode} />}
 
-        {/* Other Nodes - Content Cards Grid */}
+        {/* Other Nodes - Machine Cards Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {otherNodes.map((node) => (
-            <ContentCard
-              key={node.id}
-              title={node.name}
-              href={`#${node.id}`}
-              description={`IP: ${node.ip} • Type: ${node.type} • Uptime: ${node.uptime}`}
-              color={getStatusColor(node.status)}
-              tags={[
-                getStatusBadge(node.status),
-                `${node.services} services`,
-                `${node.cpu}% CPU`,
-                `${node.memoryUsed}/${node.memoryTotal}GB RAM`,
-              ]}
-            />
+            <MachineCard key={node.id} node={node} />
           ))}
         </div>
       </div>
