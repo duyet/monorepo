@@ -24,8 +24,8 @@
     "*": "prettier -w --ignore-unknown"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@duyet/tsconfig": "*",
     "@tailwindcss/postcss": "^4.1.6",
     "dotenv-cli": "^8.0.0",
