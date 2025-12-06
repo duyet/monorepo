@@ -49,8 +49,8 @@
     "swr": "^2.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
     "@duyet/prettier": "*",
