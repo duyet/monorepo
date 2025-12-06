@@ -1,6 +1,5 @@
 import { ClusterOverview } from '@/components/dashboard/ClusterOverview'
 import { ClusterTopology } from '@/components/dashboard/ClusterTopology'
-import { MachinesGrid } from '@/components/dashboard/MachinesGrid'
 import { NetworkStats } from '@/components/dashboard/NetworkStats'
 import { ResourceMetrics } from '@/components/dashboard/ResourceMetrics'
 import { ServiceDowntime } from '@/components/dashboard/ServiceDowntime'
@@ -20,11 +19,6 @@ export default function HomelabPage() {
       {/* Cluster Topology */}
       <ErrorBoundary>
         <ClusterTopology />
-      </ErrorBoundary>
-
-      {/* Machines Grid */}
-      <ErrorBoundary>
-        <MachinesGrid />
       </ErrorBoundary>
 
       {/* Cluster Overview */}
