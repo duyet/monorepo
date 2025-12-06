@@ -18,7 +18,7 @@
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
     "@duyet/eslint-config-custom": "*",
