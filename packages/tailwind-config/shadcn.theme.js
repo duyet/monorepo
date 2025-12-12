@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  theme: {
+export const theme = {
     colors: {
       border: "var(--border)",
       input: "var(--input)",
