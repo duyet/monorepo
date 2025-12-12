@@ -1,9 +1,9 @@
 import merge from 'deepmerge'
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
-import { theme as tremorTheme, plugins as tremorPlugins, safelist as tremorSafelist } from './tremor.theme.js'
-import { theme as shadcnTheme } from './shadcn.theme.js'
-import { theme as claudeTheme } from './claude.theme.js'
+const { theme: tremorTheme, plugins: tremorPlugins, safelist: tremorSafelist } = require('./tremor.theme.js')
+const { theme: shadcnTheme } = require('./shadcn.theme.js')
+const { theme: claudeTheme } = require('./claude.theme.js')
 
 /** @type {import('tailwindcss').Config} */
 export default {
