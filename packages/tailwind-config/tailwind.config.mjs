@@ -1,10 +1,14 @@
 import merge from 'deepmerge'
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
-import { theme as tremorTheme } from './tremor.theme.js'
-import { theme as shadcnTheme } from './shadcn.theme.js'
-import { theme as claudeTheme } from './claude.theme.js'
+import tremorThemeModule from './tremor.theme.cjs'
+import shadcnThemeModule from './shadcn.theme.cjs'
+import claudeThemeModule from './claude.theme.cjs'
 import { colors as designSystemColors } from './colors.js'
+
+const tremorTheme = tremorThemeModule.theme
+const shadcnTheme = shadcnThemeModule.theme
+const claudeTheme = claudeThemeModule.theme
 
 /** @type {import('tailwindcss').Config} */
 export default {
