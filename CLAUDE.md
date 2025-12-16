@@ -6,29 +6,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Build & Development
 
-- `yarn build` - Build all apps and packages using Turbo
-- `yarn dev` - Start development servers for all apps with Turbo parallel execution
-- `yarn start` - Start production servers for all apps
+- `bun run build` - Build all apps and packages using Turbo
+- `bun run dev` - Start development servers for all apps with Turbo parallel execution
+- `bun run start` - Start production servers for all apps
 
 ### Code Quality
 
-- `yarn lint` - Lint all projects using Turbo
-- `yarn fmt` or `yarn fix` - Format all TypeScript, TSX, and Markdown files with Prettier
-- `yarn prettier-check` - Check code formatting without making changes
-- `yarn test` - Run tests across all packages using Turbo
+- `bun run lint` - Lint all projects using Turbo
+- `bun run fmt` or `bun run fix` - Format all TypeScript, TSX, and Markdown files with Prettier
+- `bun run prettier-check` - Check code formatting without making changes
+- `bun run test` - Run tests across all packages using Turbo
 
 ### Individual App Development
 
 Navigate to specific app directories and run:
 
-- `yarn dev` - Start development (blog runs on port 3000 with Turbopack)
-- `yarn build` - Build specific app
-- `yarn check-types` - TypeScript type checking
-- `yarn analyze` - Bundle analysis (available in blog app)
+- `bun run dev` - Start development (blog runs on port 3000 with Turbopack)
+- `bun run build` - Build specific app
+- `bun run check-types` - TypeScript type checking
+- `bun run analyze` - Bundle analysis (available in blog app)
 
 ## Architecture Overview
 
-This is a **Yarn Workspaces monorepo** managed by **Turborepo** containing:
+This is a **Bun monorepo** managed by **Turborepo** containing:
 
 ### Apps (`/apps/`)
 
@@ -85,7 +85,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
 
 - **Framework**: Next.js 15 with React 19
 - **Build Tool**: Turborepo for monorepo management
-- **Package Manager**: Yarn v1 (specified in package.json)
+- **Package Manager**: Bun (specified in package.json)
 - **Styling**: Tailwind CSS with custom configurations
 - **Authentication**: Auth0 (blog app)
 - **Database**: PostgreSQL + Vercel KV Redis
@@ -94,7 +94,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
 
 ## Development Patterns
 
-- Use Yarn workspaces for cross-package dependencies (`@duyet/package-name`)
+- Use Bun workspaces for cross-package dependencies (`@duyet/package-name`)
 - Turbo handles build orchestration and dependency management
 - All apps share common ESLint, Prettier, and TypeScript configurations
 - Environment variables are globally managed through Turborepo
