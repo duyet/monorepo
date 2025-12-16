@@ -111,12 +111,12 @@ export default {
     {
       pattern: /^text-(cactus|sage|lavender|terracotta|coral)$/,
     },
-    ...require('./tremor.theme.js').safelist,
-    ...require('./claude.theme.js').safelist,
+    ...(tremorThemeModule.safelist || []),
+    ...(claudeThemeModule.safelist || []),
   ],
   plugins: [
     require('tailwind-highlightjs'),
-    ...require('./tremor.theme.js').plugins,
+    ...(tremorThemeModule.plugins || []),
     addVariablesForColors,
   ],
   darkMode: ['class', 'html[class~="dark"]'],
