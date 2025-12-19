@@ -34,8 +34,7 @@ export default function CCUsage() {
           Claude Code usage patterns, token consumption, and model insights
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
-          Note: Costs are estimated based on Claude subscription pricing and may
-          not reflect actual charges
+          Note: This is a cost simulation calculated based on token consumption. I am currently using Claude Code MAX ($100) so this does not reflect actual charges
         </p>
       </div>
 

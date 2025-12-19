@@ -127,6 +127,120 @@ export async function getWakaTimeActivity(days: number | 'all' = 30) {
   }))
 }
 
+interface DurationItem {
+  project: string
+  time: number
+  duration: number
+  ai_additions?: number
+  ai_deletions?: number
+  human_additions?: number
+  human_deletions?: number
+}
+
+interface DurationsResponse {
+  data?: DurationItem[]
+  start?: string
+  end?: string
+  timezone?: string
+}
+
+export async function getWakaTimeActivityWithAI(days: number | 'all' = 30) {
+  // Get daily activity with human vs AI coding hours breakdown
+  const apiKey = process.env.WAKATIME_API_KEY
+
+  if (!apiKey) {
+    console.warn('WAKATIME_API_KEY not found in environment variables')
+    return []
+  }
+
+  const numDays = typeof days === 'number' ? days : 30
+  const activityMap = new Map<
+    string,
+    { humanSeconds: number; aiSeconds: number }
+  >()
+
+  try {
+    // Fetch durations for each day in the range
+    for (let i = 0; i < numDays; i++) {
+      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000)
+      const dateStr = date.toISOString().split('T')[0]
+
+      const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.durations(dateStr)}&api_key=${apiKey}`
+
+      const res = await fetch(url, {
+        next: { revalidate: wakatimeConfig.cache.revalidate },
+      })
+
+      if (!res.ok) {
+        if (res.status !== 401 && res.status !== 403) {
+          console.error(
+            `WakaTime API error fetching durations for ${dateStr}: ${res.status}`,
+          )
+        }
+        continue
+      }
+
+      const data: DurationsResponse = await res.json()
+
+      if (data.data && Array.isArray(data.data)) {
+        let dayHumanSeconds = 0
+        let dayAiSeconds = 0
+
+        for (const duration of data.data) {
+          if (duration.duration) {
+            // Estimate human vs AI contributions based on additions/deletions
+            const humanAdditions = duration.human_additions || 0
+            const humanDeletions = duration.human_deletions || 0
+            const aiAdditions = duration.ai_additions || 0
+            const aiDeletions = duration.ai_deletions || 0
+
+            const totalActivity =
+              humanAdditions + humanDeletions + aiAdditions + aiDeletions
+
+            // If we have activity data, allocate duration based on ratio
+            if (totalActivity > 0) {
+              const humanRatio =
+                (humanAdditions + humanDeletions) / totalActivity
+              const aiRatio = (aiAdditions + aiDeletions) / totalActivity
+
+              dayHumanSeconds += duration.duration * humanRatio
+              dayAiSeconds += duration.duration * aiRatio
+            } else {
+              // Default to 80% human, 20% AI if no activity data
+              dayHumanSeconds += duration.duration * 0.8
+              dayAiSeconds += duration.duration * 0.2
+            }
+          }
+        }
+
+        if (dayHumanSeconds > 0 || dayAiSeconds > 0) {
+          activityMap.set(dateStr, {
+            humanSeconds: dayHumanSeconds,
+            aiSeconds: dayAiSeconds,
+          })
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching WakaTime activity with AI data:', error)
+  }
+
+  // Convert to sorted array, most recent first
+  const sortedDates = Array.from(activityMap.keys()).sort().reverse()
+
+  return sortedDates.map((date) => {
+    const activity = activityMap.get(date)!
+    const humanHours = (activity.humanSeconds / 3600).toFixed(2)
+    const aiHours = (activity.aiSeconds / 3600).toFixed(2)
+
+    return {
+      date,
+      'Human Hours': parseFloat(humanHours),
+      'AI Hours': parseFloat(aiHours),
+    }
+  })
+}
+
 export async function getWakaTimeMetrics(days: number | 'all' = 30) {
   const stats = await getWakaTimeStats(days)
   if (!stats?.data) {

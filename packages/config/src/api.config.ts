@@ -58,6 +58,7 @@ export const wakatimeConfig = {
   endpoints: {
     currentUser: "/users/current",
     stats: (range: string) => `/users/current/stats/${range}`,
+    durations: (date: string) => `/users/current/durations?date=${date}`,
     insights: {
       days: (range: string) => `/users/current/insights/days?range=${range}`,
       weekday: (range: string) =>
