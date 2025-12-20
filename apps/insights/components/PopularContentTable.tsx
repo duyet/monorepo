@@ -36,7 +36,7 @@ export function PopularContentTable({
 
   const values = data
     .map((item) => Number(item.value) || 0)
-    .filter((v) => !isNaN(v) && v > 0);
+    .filter((v) => !Number.isNaN(v) && v > 0);
   const maxValue = values.length > 0 ? Math.max(...values) : 1;
 
   return (
@@ -50,7 +50,7 @@ export function PopularContentTable({
             <TableHead className="w-[50%]">Page</TableHead>
             <TableHead className="text-right">Visitors</TableHead>
             <TableHead className="w-16 text-right">%</TableHead>
-            <TableHead className="w-8"></TableHead>
+            <TableHead className="w-8" />
           </TableRow>
         </TableHeader>
         <TableBody>

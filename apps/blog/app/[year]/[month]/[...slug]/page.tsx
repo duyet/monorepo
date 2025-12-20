@@ -26,7 +26,7 @@ export async function generateStaticParams() {
     return {
       year: slugArray[0],
       month: slugArray[1],
-      slug: [slugArray[2] + ".md"],
+      slug: [`${slugArray[2]}.md`],
     };
   });
 }

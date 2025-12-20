@@ -79,7 +79,7 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
             <PhotoNav />
-            <main className="mt-16 flex-1" role="main">
+            <main className="mt-16 flex-1" >
               {children}
             </main>
           </div>

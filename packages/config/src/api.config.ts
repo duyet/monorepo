@@ -148,7 +148,7 @@ export function calculateBackoffDelay(
   retryCount: number,
   config: RetryConfig = DEFAULT_RETRY_CONFIG
 ): number {
-  return config.initialDelayMs * Math.pow(config.backoffMultiplier, retryCount);
+  return config.initialDelayMs * config.backoffMultiplier ** retryCount;
 }
 
 // Export all API configs

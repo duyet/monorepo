@@ -40,7 +40,7 @@ class MockVercelKV {
 
   async keys(pattern: string): Promise<string[]> {
     const regex = new RegExp(
-      "^" + pattern.replace(/\*/g, ".*").replace(/\?/g, ".") + "$"
+      `^${pattern.replace(/\*/g, ".*").replace(/\?/g, ".")}$`
     );
     return Object.keys(this.store).filter((key) => regex.test(key));
   }

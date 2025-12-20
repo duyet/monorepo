@@ -4,8 +4,8 @@ import getSlug from "./getSlug";
 import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 import { normalizeTag } from "./tags";
 
-const nodeFs = () => require("fs");
-const nodeJoin = () => require("path").join;
+const nodeFs = () => require("node:fs");
+const nodeJoin = () => require("node:path").join;
 const getPostsDirectory = () => nodeJoin()(process.cwd(), "_posts");
 
 const CACHED = new Map<string, string>();
@@ -99,52 +99,52 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     }
 
     if (field === "title") {
-      post["title"] = data.title;
+      post.title = data.title;
     }
 
     if (field === "path") {
-      post["path"] = fullPath;
+      post.path = fullPath;
     }
 
     if (field === "date") {
       const dateValue = data[field];
-      post["date"] =
+      post.date =
         dateValue instanceof Date ? dateValue : new Date(dateValue);
     }
 
     if (field === "content") {
-      post["content"] = content;
+      post.content = content;
     }
 
     if (field === "category") {
       // Some posts have a category of "null" so we need to handle that
-      post["category"] = data.category || post[field];
+      post.category = data.category || post[field];
     }
 
     if (field === "category_slug") {
-      post["category_slug"] = getSlug(data.category || post[field]);
+      post.category_slug = getSlug(data.category || post[field]);
     }
 
     if (field === "tags") {
-      post["tags"] = (data.tags || []).map(normalizeTag);
-      post["tags_slug"] = post[field].map((tag: string) => getSlug(tag));
+      post.tags = (data.tags || []).map(normalizeTag);
+      post.tags_slug = post[field].map((tag: string) => getSlug(tag));
     }
 
     if (field === "excerpt") {
       post[field] =
-        data.description || content.split(" ").slice(0, 20).join(" ") + "...";
+        data.description || `${content.split(" ").slice(0, 20).join(" ")}...`;
     }
 
     if (field === "snippet") {
-      post["snippet"] = data.snippet || "";
+      post.snippet = data.snippet || "";
     }
 
     if (field === "featured") {
-      post["featured"] = Boolean(data.featured) || false;
+      post.featured = Boolean(data.featured) || false;
     }
 
     if (field === "series") {
-      post["series"] = data.series || undefined;
+      post.series = data.series || undefined;
     }
   });
 

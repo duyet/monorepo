@@ -31,7 +31,7 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <div></div>
+          <div />
           <PeriodSelector
             activePeriod={activePeriod}
             onPeriodChange={setActivePeriod}
@@ -106,7 +106,7 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
     <div className="space-y-6">
       {/* Period Selector */}
       <div className="flex items-center justify-between">
-        <div></div>
+        <div />
         <PeriodSelector
           activePeriod={activePeriod}
           onPeriodChange={setActivePeriod}

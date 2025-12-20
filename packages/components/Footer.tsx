@@ -101,7 +101,7 @@ export function FooterContent({
 
                 <div className="mt-6 sm:mt-12 md:mt-0">
                   <FooterHeader>Resources</FooterHeader>
-                  <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
+                  <ul className="mt-4 space-y-1.5 list-none ml-0">
                     {navigation.general.map((item) => (
                       <li key={item.name}>
                         <FooterLink href={item.href}>{item.name}</FooterLink>
@@ -115,7 +115,7 @@ export function FooterContent({
                   <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
                     <Social profile={profile} />
                   </div>
-                  <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
+                  <ul className="mt-4 space-y-1.5 list-none ml-0">
                     {navigation.profile.map((item) => (
                       <li key={item.name}>
                         <FooterLink href={item.href}>{item.name}</FooterLink>

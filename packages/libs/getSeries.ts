@@ -57,7 +57,7 @@ export function getSeries({
   );
 
   // Series slug
-  const _slug = !!slug ? slug : getSlug(name as string);
+  const _slug = slug ? slug : getSlug(name as string);
 
   // Find
   const seriesPosts = posts.filter((post) => getSlug(post.series) === _slug);

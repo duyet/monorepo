@@ -96,19 +96,21 @@ export function sortPhotos(
           new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
         break;
 
-      case "popularity":
+      case "popularity": {
         const aPopularity =
           (a.stats?.views || 0) + (a.stats?.downloads || 0) + (a.likes || 0);
         const bPopularity =
           (b.stats?.views || 0) + (b.stats?.downloads || 0) + (b.likes || 0);
         compareValue = aPopularity - bPopularity;
         break;
+      }
 
-      case "dimensions":
+      case "dimensions": {
         const aArea = a.width * a.height;
         const bArea = b.width * b.height;
         compareValue = aArea - bArea;
         break;
+      }
 
       case "random":
         compareValue = Math.random() - 0.5;

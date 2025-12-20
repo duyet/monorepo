@@ -195,7 +195,7 @@ export async function getPhotoDetails(
         );
       }
     } else {
-      console.error(`      Raw error:`, JSON.stringify(error, null, 2));
+      console.error("      Raw error:", JSON.stringify(error, null, 2));
     }
 
     return null;
@@ -263,7 +263,7 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   console.log(`📊 Total photos fetched: ${allPhotos.length}`);
 
   // Step 2: Load cache and enrich photos with detailed data if needed
-  console.log(`💾 Loading photo cache...`);
+  console.log("💾 Loading photo cache...");
   const cache = await loadPhotoCache();
   const cacheStats = getCacheStats(cache);
   console.log(
@@ -352,12 +352,12 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         // Check if we hit rate limit
         if (details === "RATE_LIMIT") {
           rateLimitHit = true;
-          console.warn(``);
-          console.warn(`   🚫 Rate limit reached! Stopping further API calls.`);
+          console.warn("");
+          console.warn("   🚫 Rate limit reached! Stopping further API calls.");
           console.warn(
-            `   💡 Will use stale cache data for remaining photos when available.`
+            "   💡 Will use stale cache data for remaining photos when available."
           );
-          console.warn(``);
+          console.warn("");
 
           // Use expired cache as fallback for this photo
           if (cacheResult) {
@@ -431,7 +431,7 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       }
     }
 
-    console.log(``);
+    console.log("");
     console.log(
       `   ✅ Enrichment complete: ${successCount}/${photosNeedingEnrichment.length} photos enriched successfully`
     );
@@ -459,33 +459,33 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           `   Failed photo IDs (first 10): ${failedPhotos.slice(0, 10).join(", ")}...`
         );
       }
-      console.log(``);
+      console.log("");
 
       if (rateLimitHit) {
-        console.log(`   🚫 Rate limit was reached during enrichment.`);
+        console.log("   🚫 Rate limit was reached during enrichment.");
         console.log(
-          `   💡 Next build will use cache and continue where we left off.`
+          "   💡 Next build will use cache and continue where we left off."
         );
         console.log(
-          `   Photos without enriched data will still display with available metadata.`
+          "   Photos without enriched data will still display with available metadata."
         );
       } else {
-        console.log(`   💡 Tip: Common causes for enrichment failures:`);
+        console.log("   💡 Tip: Common causes for enrichment failures:");
         console.log(
-          `      • Unsplash API rate limit reached (50 requests/hour)`
+          "      • Unsplash API rate limit reached (50 requests/hour)"
         );
-        console.log(`      • Network connectivity issues`);
-        console.log(`      • Temporary Unsplash API issues`);
+        console.log("      • Network connectivity issues");
+        console.log("      • Temporary Unsplash API issues");
         console.log(
-          `   Photos without enriched data will still display with available metadata.`
+          "   Photos without enriched data will still display with available metadata."
         );
       }
     }
 
     // Save cache after enrichment
-    console.log(`   💾 Saving cache...`);
+    console.log("   💾 Saving cache...");
     await savePhotoCache(cache);
-    console.log(`   ✓ Cache saved successfully`);
+    console.log("   ✓ Cache saved successfully");
   } else {
     console.log("✓ All photos already have complete metadata");
   }

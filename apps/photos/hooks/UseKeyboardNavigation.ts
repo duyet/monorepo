@@ -213,7 +213,7 @@ export function useTouchGestures(options: TouchGestureOptions) {
       }
 
       // Clean up touch data
-      delete (event.currentTarget as any).__touchData;
+      (event.currentTarget as any).__touchData = undefined;
     },
     [
       isEnabled,

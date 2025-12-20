@@ -53,8 +53,6 @@ export function getOptimalImageSrc(
     case "preview":
       // Use small for quick previews
       return photo.urls.small;
-
-    case "grid":
     default: {
       // Optimize based on aspect ratio and device capabilities
       if (devicePixelRatio > 2 || aspectInfo.isPortrait) {

@@ -70,7 +70,7 @@ const getDataForAllPeriods = async (): Promise<
   } as PeriodData<PostHogDataByPeriod>;
 };
 
-async function getTopPath(limit = 10, dateFrom: string): Promise<Path[]> {
+async function getTopPath(limit, dateFrom: string): Promise<Path[]> {
   const data = await queryPostHog({
     kind: "WebStatsTableQuery",
     properties: [],

@@ -74,12 +74,11 @@ export async function fetchAllRepositories(
           await new Promise((resolve) => setTimeout(resolve, waitTime));
           retryCount++;
           continue;
-        } else {
+        }
           console.error(
             `Rate limit exceeded after ${maxRetries} retries. Stopping.`
           );
           break;
-        }
       }
 
       if (!response.ok) {
@@ -128,7 +127,6 @@ export async function fetchAllRepositories(
         );
         await new Promise((resolve) => setTimeout(resolve, waitTime));
         retryCount++;
-        continue;
       } else {
         console.error(
           `Failed to fetch page ${page} after ${maxRetries} retries. Stopping.`

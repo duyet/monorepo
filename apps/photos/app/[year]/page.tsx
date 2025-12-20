@@ -54,7 +54,7 @@ export default async function YearPage({ params }: YearPageProps) {
 
   // Validate year format
   const yearNum = Number.parseInt(year);
-  if (isNaN(yearNum) || yearNum < 2000 || yearNum > new Date().getFullYear()) {
+  if (Number.isNaN(yearNum) || yearNum < 2000 || yearNum > new Date().getFullYear()) {
     notFound();
   }
 

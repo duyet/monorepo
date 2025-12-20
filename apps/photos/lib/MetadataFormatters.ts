@@ -193,7 +193,7 @@ export function formatPortfolioMetadata(photo: Photo): {
   technical: string[];
   creative: string[];
 } {
-  const title = photo.description || `Untitled Photography`;
+  const title = photo.description || "Untitled Photography";
   const subtitle = formatPhotoDate(photo.created_at);
 
   const technical: string[] = [`${photo.width} × ${photo.height}`];

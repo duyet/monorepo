@@ -48,7 +48,7 @@ async function wakaTimeRequest(endpoint: string) {
     if (!res.ok) {
       if (res.status === 401) {
         console.error(
-          `WakaTime API authentication failed: Invalid or expired API key`,
+          "WakaTime API authentication failed: Invalid or expired API key",
           `URL: ${url.replace(/api_key=[^&]+/, "api_key=***")}`
         );
       } else if (res.status === 403) {

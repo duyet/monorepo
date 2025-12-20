@@ -53,7 +53,7 @@ const chartConfig = {
 // Truncate text to fit within max length
 function truncateText(text: string, maxLength = 20): string {
   if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength - 3) + "...";
+  return `${text.substring(0, maxLength - 3)}...`;
 }
 
 // Custom label component that shows model name and percentage

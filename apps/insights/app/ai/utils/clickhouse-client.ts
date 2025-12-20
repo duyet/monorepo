@@ -218,7 +218,7 @@ export async function executeClickHouseQuery(
       // Don't retry on the last attempt
       if (attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
-        const backoffMs = Math.pow(2, attempt - 1) * 1000;
+        const backoffMs = 2 ** (attempt - 1) * 1000;
         console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms...`);
         await new Promise((resolve) => setTimeout(resolve, backoffMs));
       }
