@@ -1,42 +1,42 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs'
-import { ReactNode } from 'react'
+import { cn } from "@duyet/libs";
+import type { ReactNode } from "react";
 
 interface CompactCardProps {
-  title?: string
-  children: ReactNode
-  className?: string
-  padding?: 'none' | 'sm' | 'md'
-  hover?: boolean
-  header?: ReactNode
+  title?: string;
+  children: ReactNode;
+  className?: string;
+  padding?: "none" | "sm" | "md";
+  hover?: boolean;
+  header?: ReactNode;
 }
 
 const paddingClasses = {
-  none: 'p-0',
-  sm: 'p-3',
-  md: 'p-4',
-}
+  none: "p-0",
+  sm: "p-3",
+  md: "p-4",
+};
 
 export function CompactCard({
   title,
   children,
   className,
-  padding = 'md',
+  padding = "md",
   header,
 }: CompactCardProps) {
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-lg border bg-card text-card-foreground',
-        className,
+        "relative overflow-hidden rounded-lg border bg-card text-card-foreground",
+        className
       )}
     >
       {(title || header) && (
         <div
           className={cn(
-            'border-b px-4 py-3',
-            padding === 'none' && 'px-3 py-2',
+            "border-b px-4 py-3",
+            padding === "none" && "px-3 py-2"
           )}
         >
           {header || (
@@ -48,21 +48,21 @@ export function CompactCard({
       )}
       <div className={paddingClasses[padding]}>{children}</div>
     </div>
-  )
+  );
 }
 
 interface StatsCardProps {
-  title: string
-  value: string | number
-  subtitle?: string
+  title: string;
+  value: string | number;
+  subtitle?: string;
   change?: {
-    value: number
-    label?: string
-    period?: string
-  }
-  icon?: ReactNode
-  className?: string
-  compact?: boolean
+    value: number;
+    label?: string;
+    period?: string;
+  };
+  icon?: ReactNode;
+  className?: string;
+  compact?: boolean;
 }
 
 export function StatsCard({
@@ -75,13 +75,13 @@ export function StatsCard({
   compact = false,
 }: StatsCardProps) {
   return (
-    <CompactCard className={className} padding={compact ? 'sm' : 'md'}>
+    <CompactCard className={className} padding={compact ? "sm" : "md"}>
       <div className="flex items-start justify-between">
         <div className="min-w-0 flex-1 space-y-1">
           <p
             className={cn(
-              'font-medium text-muted-foreground',
-              compact ? 'text-xs' : 'text-sm',
+              "font-medium text-muted-foreground",
+              compact ? "text-xs" : "text-sm"
             )}
           >
             {title}
@@ -89,8 +89,8 @@ export function StatsCard({
           <div className="flex items-baseline space-x-2">
             <p
               className={cn(
-                'font-bold tracking-tight',
-                compact ? 'text-lg' : 'text-2xl',
+                "font-bold tracking-tight",
+                compact ? "text-lg" : "text-2xl"
               )}
             >
               {value}
@@ -98,13 +98,13 @@ export function StatsCard({
             {change && (
               <span
                 className={cn(
-                  'rounded-full px-2 py-0.5 text-xs font-medium',
+                  "rounded-full px-2 py-0.5 text-xs font-medium",
                   change.value >= 0
-                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400'
-                    : 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400',
+                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400"
+                    : "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400"
                 )}
               >
-                {change.value >= 0 ? '+' : ''}
+                {change.value >= 0 ? "+" : ""}
                 {change.value}%{change.label && ` ${change.label}`}
               </span>
             )}
@@ -112,8 +112,8 @@ export function StatsCard({
           {subtitle && (
             <p
               className={cn(
-                'text-muted-foreground',
-                compact ? 'text-xs' : 'text-sm',
+                "text-muted-foreground",
+                compact ? "text-xs" : "text-sm"
               )}
             >
               {subtitle}
@@ -126,8 +126,8 @@ export function StatsCard({
         {icon && (
           <div
             className={cn(
-              'text-muted-foreground/60 shrink-0',
-              compact ? 'h-4 w-4' : 'h-5 w-5',
+              "text-muted-foreground/60 shrink-0",
+              compact ? "h-4 w-4" : "h-5 w-5"
             )}
           >
             {icon}
@@ -135,5 +135,5 @@ export function StatsCard({
         )}
       </div>
     </CompactCard>
-  )
+  );
 }

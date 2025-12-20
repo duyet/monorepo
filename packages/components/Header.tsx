@@ -64,14 +64,14 @@ export default function Header({
       className={cn(
         "py-10",
         center ? "md:flex md:justify-center md:my-10" : "",
-        className,
+        className
       )}
     >
       <Container className={cn("mb-0", containerClassName)}>
         <nav
           className={cn(
             "flex items-center flex-wrap justify-between transition-all gap-4",
-            center && "md:flex-col md:gap-10",
+            center && "md:flex-col md:gap-10"
           )}
         >
           <div className={cn("flex flex-row items-center gap-2")}>
@@ -86,7 +86,7 @@ export default function Header({
               href={urls.apps.home}
               className={cn(
                 "font-serif text-xl sm:text-2xl font-normal text-neutral-900 dark:text-neutral-100",
-                className,
+                className
               )}
             >
               {displayShortText && displayLongText ? (
@@ -95,7 +95,7 @@ export default function Header({
                   <span
                     className={cn(
                       "hidden sm:block",
-                      center && "md:text-7xl md:mt-5",
+                      center && "md:text-7xl md:mt-5"
                     )}
                   >
                     {displayLongText}

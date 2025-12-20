@@ -1,11 +1,11 @@
-import { ReactNode, Suspense } from 'react'
-import { SkeletonCard } from '../SkeletonCard'
+import { type ReactNode, Suspense } from "react";
+import { SkeletonCard } from "../SkeletonCard";
 
 interface SectionLayoutProps {
-  title: string
-  description?: string
-  children: ReactNode
-  className?: string
+  title: string;
+  description?: string;
+  children: ReactNode;
+  className?: string;
 }
 
 /**
@@ -16,7 +16,7 @@ export function SectionLayout({
   title,
   description,
   children,
-  className = '',
+  className = "",
 }: SectionLayoutProps) {
   return (
     <section className={`space-y-4 ${className}`}>
@@ -28,5 +28,5 @@ export function SectionLayout({
       </div>
       <Suspense fallback={<SkeletonCard />}>{children}</Suspense>
     </section>
-  )
+  );
 }

@@ -6,7 +6,7 @@ import { cn } from "@duyet/libs/utils";
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   const rows = new Array(150).fill(1);
   const cols = new Array(100).fill(1);
-  let colors = [
+  const colors = [
     "--sky-300",
     "--pink-300",
     "--green-300",
@@ -28,7 +28,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
       }}
       className={cn(
         "absolute left-1/4 p-4 -top-1/4 flex  -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 ",
-        className,
+        className
       )}
       {...rest}
     >

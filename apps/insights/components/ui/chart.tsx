@@ -1,2 +1,2 @@
 // Re-export all chart components from the modular structure
-export * from './chart/index'
+export * from "./chart/index";

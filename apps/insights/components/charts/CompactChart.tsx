@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from '@/components/ui/chart'
+} from "@/components/ui/chart";
 import {
   Area,
   AreaChart,
@@ -19,27 +19,27 @@ import {
   PieChart,
   XAxis,
   YAxis,
-} from 'recharts'
+} from "recharts";
 
 const CHART_COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
-]
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+];
 
 interface BaseChartProps {
-  data: Array<Record<string, unknown>>
-  className?: string
-  height?: number
-  showGrid?: boolean
-  showTooltip?: boolean
+  data: Array<Record<string, unknown>>;
+  className?: string;
+  height?: number;
+  showGrid?: boolean;
+  showTooltip?: boolean;
 }
 
 interface CompactAreaChartProps extends BaseChartProps {
-  index: string
-  categories: string[]
+  index: string;
+  categories: string[];
 }
 
 export function CompactAreaChart({
@@ -55,8 +55,8 @@ export function CompactAreaChart({
     categories.map((category, i) => [
       category,
       { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ]),
-  )
+    ])
+  );
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -74,7 +74,7 @@ export function CompactAreaChart({
           tickLine={false}
           axisLine={false}
           fontSize={11}
-          tick={{ fill: 'var(--muted-foreground)' }}
+          tick={{ fill: "var(--muted-foreground)" }}
         />
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
         {categories.map((category, i) => (
@@ -90,12 +90,12 @@ export function CompactAreaChart({
         ))}
       </AreaChart>
     </ChartContainer>
-  )
+  );
 }
 
 interface CompactLineChartProps extends BaseChartProps {
-  index: string
-  categories: string[]
+  index: string;
+  categories: string[];
 }
 
 export function CompactLineChart({
@@ -111,8 +111,8 @@ export function CompactLineChart({
     categories.map((category, i) => [
       category,
       { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ]),
-  )
+    ])
+  );
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -130,7 +130,7 @@ export function CompactLineChart({
           tickLine={false}
           axisLine={false}
           fontSize={11}
-          tick={{ fill: 'var(--muted-foreground)' }}
+          tick={{ fill: "var(--muted-foreground)" }}
         />
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
         {categories.map((category, i) => (
@@ -145,13 +145,13 @@ export function CompactLineChart({
         ))}
       </LineChart>
     </ChartContainer>
-  )
+  );
 }
 
 interface CompactBarChartProps extends BaseChartProps {
-  index: string
-  categories: string[]
-  horizontal?: boolean
+  index: string;
+  categories: string[];
+  horizontal?: boolean;
 }
 
 export function CompactBarChart({
@@ -168,8 +168,8 @@ export function CompactBarChart({
     categories.map((category, i) => [
       category,
       { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ]),
-  )
+    ])
+  );
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -178,7 +178,7 @@ export function CompactBarChart({
         data={data}
         height={height}
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-        layout={horizontal ? 'horizontal' : 'vertical'}
+        layout={horizontal ? "horizontal" : "vertical"}
       >
         {showGrid && (
           <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
@@ -192,7 +192,7 @@ export function CompactBarChart({
               tickLine={false}
               axisLine={false}
               fontSize={11}
-              tick={{ fill: 'var(--muted-foreground)' }}
+              tick={{ fill: "var(--muted-foreground)" }}
             />
           </>
         ) : (
@@ -201,7 +201,7 @@ export function CompactBarChart({
             tickLine={false}
             axisLine={false}
             fontSize={11}
-            tick={{ fill: 'var(--muted-foreground)' }}
+            tick={{ fill: "var(--muted-foreground)" }}
           />
         )}
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
@@ -215,15 +215,15 @@ export function CompactBarChart({
         ))}
       </BarChart>
     </ChartContainer>
-  )
+  );
 }
 
 interface MiniSparklineProps {
-  data: Array<Record<string, unknown>>
-  dataKey: string
-  className?: string
-  height?: number
-  color?: string
+  data: Array<Record<string, unknown>>;
+  dataKey: string;
+  className?: string;
+  height?: number;
+  color?: string;
 }
 
 export function MiniSparkline({
@@ -235,7 +235,7 @@ export function MiniSparkline({
 }: MiniSparklineProps) {
   const chartConfig: ChartConfig = {
     [dataKey]: { label: dataKey, color },
-  }
+  };
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -255,13 +255,13 @@ export function MiniSparkline({
         />
       </AreaChart>
     </ChartContainer>
-  )
+  );
 }
 
 interface CompactPieChartProps extends BaseChartProps {
-  nameKey: string
-  valueKey: string
-  innerRadius?: number
+  nameKey: string;
+  valueKey: string;
+  innerRadius?: number;
 }
 
 export function CompactPieChart({
@@ -280,8 +280,8 @@ export function CompactPieChart({
         label: item[nameKey] as string,
         color: CHART_COLORS[i % CHART_COLORS.length],
       },
-    ]),
-  )
+    ])
+  );
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -306,5 +306,5 @@ export function CompactPieChart({
         {showTooltip && <ChartTooltip content={<ChartTooltipContent />} />}
       </PieChart>
     </ChartContainer>
-  )
+  );
 }

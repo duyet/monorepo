@@ -10,7 +10,6 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbopack -p 3003",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
@@ -18,7 +17,6 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "prettier": "@duyet/prettier",
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",
@@ -54,7 +52,6 @@
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "postcss": "^8.4.18",
-    "prettier": "^3.0.0",
     "tailwindcss": "*",
     "typescript": "*"
   }

@@ -34,5 +34,5 @@ export default function AboutIcon() {
         strokeLinecap="round"
       />
     </svg>
-  )
+  );
 }

@@ -5,32 +5,32 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { getCCUsageProjects } from './ccusage-utils'
+} from "@/components/ui/table";
+import { getCCUsageProjects } from "./ccusage-utils";
 
 export async function CCUsageProjects() {
-  const projects = await getCCUsageProjects()
+  const projects = await getCCUsageProjects();
 
   const formatTokens = (tokens: number) => {
     if (tokens >= 1000000) {
-      return `${(tokens / 1000000).toFixed(1)}M`
+      return `${(tokens / 1000000).toFixed(1)}M`;
     } else if (tokens >= 1000) {
-      return `${(tokens / 1000).toFixed(1)}K`
+      return `${(tokens / 1000).toFixed(1)}K`;
     }
-    return tokens.toString()
-  }
+    return tokens.toString();
+  };
 
   const formatDate = (dateStr: string) => {
     try {
-      const date = new Date(dateStr)
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-      })
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
     } catch {
-      return 'Recent'
+      return "Recent";
     }
-  }
+  };
 
   if (!projects || projects.length === 0) {
     return (
@@ -42,7 +42,7 @@ export async function CCUsageProjects() {
           Project usage data will appear here once available
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -98,5 +98,5 @@ export async function CCUsageProjects() {
         to total project activity.
       </div>
     </div>
-  )
+  );
 }

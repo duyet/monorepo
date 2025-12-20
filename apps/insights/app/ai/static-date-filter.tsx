@@ -4,10 +4,10 @@
  * Compatible with static generation
  */
 
-import type { StaticDateFilterProps } from './types'
+import type { StaticDateFilterProps } from "./types";
 
 export function StaticDateFilter({
-  currentPeriod = '30 days',
+  currentPeriod = "30 days",
   className,
 }: StaticDateFilterProps) {
   return (
@@ -17,5 +17,5 @@ export function StaticDateFilter({
         {currentPeriod}
       </div>
     </div>
-  )
+  );
 }

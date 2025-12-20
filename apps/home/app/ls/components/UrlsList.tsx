@@ -1,29 +1,29 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useState, useMemo } from 'react'
+import Link from "next/link";
+import { useState, useMemo } from "react";
 
 type UrlEntry = {
-  path: string
-  target: string
-  desc?: string
-}
+  path: string;
+  target: string;
+  desc?: string;
+};
 
 export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filter based on search query
   const filteredUrls = useMemo(() => {
-    if (!searchQuery) return urls
+    if (!searchQuery) return urls;
 
-    const query = searchQuery.toLowerCase()
+    const query = searchQuery.toLowerCase();
     return urls.filter(
       ({ path, target, desc }) =>
         path.toLowerCase().includes(query) ||
         target.toLowerCase().includes(query) ||
         desc?.toLowerCase().includes(query)
-    )
-  }, [searchQuery, urls])
+    );
+  }, [searchQuery, urls]);
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           </svg>
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery('')}
+              onClick={() => setSearchQuery("")}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 transition-colors hover:text-neutral-900"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
@@ -77,7 +77,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           </p>
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery('')}
+              onClick={() => setSearchQuery("")}
               className="text-neutral-600 hover:text-neutral-900"
             >
               Clear search
@@ -90,14 +90,14 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
       {filteredUrls.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2">
           {filteredUrls.map(({ path, target, desc }) => {
-            const isExternal = target.startsWith('http')
+            const isExternal = target.startsWith("http");
 
             return (
               <Link
                 key={path}
                 href={target}
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noopener noreferrer' : undefined}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md"
               >
                 <div className="flex flex-col gap-2">
@@ -145,7 +145,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                   </div>
                 </div>
               </Link>
-            )
+            );
           })}
         </div>
       ) : (
@@ -167,7 +167,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             No URLs found matching &ldquo;{searchQuery}&rdquo;
           </p>
           <button
-            onClick={() => setSearchQuery('')}
+            onClick={() => setSearchQuery("")}
             className="mt-3 text-sm text-neutral-900 hover:underline"
           >
             Clear search
@@ -175,5 +175,5 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         </div>
       )}
     </>
-  )
+  );
 }

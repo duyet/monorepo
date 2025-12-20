@@ -1,15 +1,15 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 export default function RobotsPage() {
-  const siteUrl = 'https://blog.duyet.net'
+  const siteUrl = "https://blog.duyet.net";
 
   const robotsContent = `User-agent: *
 Allow: /
 
 Sitemap: ${siteUrl}/sitemap.xml
-Sitemap: ${siteUrl}/sitemap`
+Sitemap: ${siteUrl}/sitemap`;
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -44,7 +44,7 @@ Sitemap: ${siteUrl}/sitemap`
 
         <div className="mt-8 border-t pt-4 text-sm text-gray-500">
           <p>
-            This robots.txt is also available in text format at{' '}
+            This robots.txt is also available in text format at{" "}
             <Link href="/robots.txt" className="underline">
               /robots.txt
             </Link>
@@ -52,5 +52,5 @@ Sitemap: ${siteUrl}/sitemap`
         </div>
       </div>
     </div>
-  )
+  );
 }

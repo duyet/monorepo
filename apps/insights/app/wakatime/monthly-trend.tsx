@@ -1,8 +1,8 @@
-import { AreaChart } from '@/components/charts'
-import { getWakaTimeMonthlyTrend } from './wakatime-utils'
+import { AreaChart } from "@/components/charts";
+import { getWakaTimeMonthlyTrend } from "./wakatime-utils";
 
 export async function WakaTimeMonthlyTrend() {
-  const monthlyData = await getWakaTimeMonthlyTrend()
+  const monthlyData = await getWakaTimeMonthlyTrend();
 
   if (!monthlyData || monthlyData.length === 0) {
     return (
@@ -17,7 +17,7 @@ export async function WakaTimeMonthlyTrend() {
           <p>No historical data available</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -25,19 +25,19 @@ export async function WakaTimeMonthlyTrend() {
       <div className="mb-4">
         <h3 className="font-medium">Monthly Activity Trend</h3>
         <p className="text-xs text-muted-foreground">
-          Coding activity month by month over the last{' '}
+          Coding activity month by month over the last{" "}
           {Math.ceil(monthlyData.length / 12)} years
         </p>
       </div>
       <AreaChart
-        categories={['Monthly Hours']}
+        categories={["Monthly Hours"]}
         data={monthlyData.map((item) => ({
           yearMonth: item.yearMonth,
-          'Monthly Hours': item.hours,
+          "Monthly Hours": item.hours,
         }))}
         index="yearMonth"
         showGridLines={true}
       />
     </div>
-  )
+  );
 }

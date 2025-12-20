@@ -1,13 +1,12 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @layer base {
   :root {
-    --font-inter:
-      'Inter', -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
-      sans-serif;
-    --font-serif: 'Libre Baskerville', Georgia, serif;
+    --font-inter: "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif,
+      system-ui, sans-serif;
+    --font-serif: "Libre Baskerville", Georgia, serif;
   }
 
   html {

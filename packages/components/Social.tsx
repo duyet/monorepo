@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import {
@@ -43,7 +43,7 @@ export default function Social({
   const iconClasses = cn(
     iconSize,
     "text-slate-400 hover:text-slate-600",
-    "dark:text-gray-500 dark:hover:text-white",
+    "dark:text-gray-500 dark:hover:text-white"
   );
 
   // Map social links to icons

@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import * as seline from '@seline-analytics/web'
-import Link from 'next/link'
+import * as seline from "@seline-analytics/web";
+import Link from "next/link";
 
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@duyet/components/ui/hover-card'
+} from "@duyet/components/ui/hover-card";
 
 export function HoverLinks({
   text,
   links,
 }: {
-  text: string
-  links: { text: string; href: string }[]
+  text: string;
+  links: { text: string; href: string }[];
 }) {
   return (
     <HoverCard
       openDelay={100}
       closeDelay={100}
       onOpenChange={(open: boolean) => {
-        if (open) seline.track('CV: Hover Link', { text })
+        if (open) seline.track("CV: Hover Link", { text });
       }}
     >
       <HoverCardTrigger asChild>
@@ -44,5 +44,5 @@ export function HoverLinks({
         </div>
       </HoverCardContent>
     </HoverCard>
-  )
+  );
 }

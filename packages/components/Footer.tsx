@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactNode, ReactElement } from "react";
+import type { ReactNode, ReactElement } from "react";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
@@ -15,7 +15,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
     "text-sm text-[#666666] dark:text-[#888888]",
     "no-underline hover:text-gray-700",
-    "dark:hover:text-white transition",
+    "dark:hover:text-white transition"
   );
 
   if (href.startsWith("http")) {
@@ -181,7 +181,7 @@ export default function Footer({
     <footer
       className={cn(
         "bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900",
-        className,
+        className
       )}
     >
       <hr className="dark:border-neutral-700" />
@@ -189,7 +189,7 @@ export default function Footer({
         className={cn(
           "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white",
           "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]",
-          containerClassName,
+          containerClassName
         )}
       >
         <FooterContent profile={profile} urls={urls} />

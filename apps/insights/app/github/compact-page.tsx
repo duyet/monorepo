@@ -1,43 +1,43 @@
-import { CompactAreaChart } from '@/components/charts/CompactChart'
-import { Breadcrumb } from '@/components/navigation/CompactNavigation'
-import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
-import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
-import { QuickFilters } from '@/components/ui/DateRangeSelector'
-import { Calendar, Code, GitCommit, GitFork, Star } from 'lucide-react'
-import { Suspense } from 'react'
-import { GithubActivity } from './activity'
-import { GithubCard } from './card'
-import { CommitTimeline } from './commit-timeline'
-import { GitHubLanguageStats } from './language-stats'
-import { RepoTrends } from './repo-trends'
-import { Repos } from './repos'
+import { CompactAreaChart } from "@/components/charts/CompactChart";
+import { Breadcrumb } from "@/components/navigation/CompactNavigation";
+import { CompactCard, StatsCard } from "@/components/ui/CompactCard";
+import { DashboardGrid, GridItem } from "@/components/ui/DashboardGrid";
+import { QuickFilters } from "@/components/ui/DateRangeSelector";
+import { Calendar, Code, GitCommit, GitFork, Star } from "lucide-react";
+import { Suspense } from "react";
+import { GithubActivity } from "./activity";
+import { GithubCard } from "./card";
+import { CommitTimeline } from "./commit-timeline";
+import { GitHubLanguageStats } from "./language-stats";
+import { RepoTrends } from "./repo-trends";
+import { Repos } from "./repos";
 
-const owner = 'duyet'
+const owner = "duyet";
 
 export const metadata = {
-  title: 'GitHub Insights @duyet',
-  description: 'GitHub repository analytics and development activity insights',
-}
+  title: "GitHub Insights @duyet",
+  description: "GitHub repository analytics and development activity insights",
+};
 
 // Static generation only
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 // Mock data for quick overview cards
 const mockGitHubStats = {
-  totalCommits: { value: 2847, change: 18.5, period: 'last 30 days' },
-  totalStars: { value: 1234, change: 12.3, period: 'last 30 days' },
-  totalRepos: { value: 45, change: 6.7, period: 'public repos' },
-  totalForks: { value: 289, change: 15.1, period: 'last 30 days' },
+  totalCommits: { value: 2847, change: 18.5, period: "last 30 days" },
+  totalStars: { value: 1234, change: 12.3, period: "last 30 days" },
+  totalRepos: { value: 45, change: 6.7, period: "public repos" },
+  totalForks: { value: 289, change: 15.1, period: "last 30 days" },
   weeklyActivity: [
-    { day: 'Mon', commits: 12 },
-    { day: 'Tue', commits: 15 },
-    { day: 'Wed', commits: 8 },
-    { day: 'Thu', commits: 22 },
-    { day: 'Fri', commits: 18 },
-    { day: 'Sat', commits: 5 },
-    { day: 'Sun', commits: 3 },
+    { day: "Mon", commits: 12 },
+    { day: "Tue", commits: 15 },
+    { day: "Wed", commits: 8 },
+    { day: "Thu", commits: 22 },
+    { day: "Fri", commits: 18 },
+    { day: "Sat", commits: 5 },
+    { day: "Sun", commits: 3 },
   ],
-}
+};
 
 export default function CompactGitHubPage() {
   return (
@@ -45,7 +45,7 @@ export default function CompactGitHubPage() {
       {/* Header with Breadcrumb */}
       <div className="border-b pb-4">
         <Breadcrumb
-          items={[{ label: 'Dashboard', href: '/' }, { label: 'Development' }]}
+          items={[{ label: "Dashboard", href: "/" }, { label: "Development" }]}
         />
         <div className="mt-2 flex items-center justify-between">
           <div>
@@ -154,7 +154,7 @@ export default function CompactGitHubPage() {
                 <CompactAreaChart
                   data={mockGitHubStats.weeklyActivity}
                   index="day"
-                  categories={['commits']}
+                  categories={["commits"]}
                   height={160}
                   showGrid={false}
                 />
@@ -261,5 +261,5 @@ export default function CompactGitHubPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

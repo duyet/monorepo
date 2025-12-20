@@ -3,7 +3,7 @@
  * Encapsulates data fetching logic and provides a clean API for components
  */
 
-import { useMemo } from 'react'
+import { useMemo } from "react";
 import {
   nodes,
   cpuHistory,
@@ -16,16 +16,16 @@ import {
   type Node,
   type Service,
   type ClusterStats,
-} from '@/lib/data'
+} from "@/lib/data";
 
 /**
  * Hook for cluster node data
  */
 export function useNodes() {
   return useMemo(() => {
-    const onlineNodes = nodes.filter((n) => n.status === 'online')
-    const offlineNodes = nodes.filter((n) => n.status === 'offline')
-    const degradedNodes = nodes.filter((n) => n.status === 'degraded')
+    const onlineNodes = nodes.filter((n) => n.status === "online");
+    const offlineNodes = nodes.filter((n) => n.status === "offline");
+    const degradedNodes = nodes.filter((n) => n.status === "degraded");
 
     return {
       nodes,
@@ -34,15 +34,15 @@ export function useNodes() {
       degradedNodes,
       totalNodes: nodes.length,
       onlineCount: onlineNodes.length,
-    }
-  }, [])
+    };
+  }, []);
 }
 
 /**
  * Hook for cluster statistics
  */
 export function useClusterStats(): ClusterStats {
-  return useMemo(() => clusterStats, [])
+  return useMemo(() => clusterStats, []);
 }
 
 /**
@@ -55,7 +55,7 @@ export function useResourceMetrics() {
       memoryHistory,
     }),
     []
-  )
+  );
 }
 
 /**
@@ -65,31 +65,33 @@ export function useServices(namespace?: string) {
   return useMemo(() => {
     const filteredServices = namespace
       ? services.filter((s) => s.namespace === namespace)
-      : services
+      : services;
 
-    const namespaces = Array.from(new Set(services.map((s) => s.namespace))).sort()
+    const namespaces = Array.from(
+      new Set(services.map((s) => s.namespace))
+    ).sort();
 
     const servicesByNamespace = services.reduce(
       (acc, service) => {
         if (!acc[service.namespace]) {
-          acc[service.namespace] = []
+          acc[service.namespace] = [];
         }
-        acc[service.namespace].push(service)
-        return acc
+        acc[service.namespace].push(service);
+        return acc;
       },
       {} as Record<string, Service[]>
-    )
+    );
 
     const servicesByNode = services.reduce(
       (acc, service) => {
         if (!acc[service.node]) {
-          acc[service.node] = []
+          acc[service.node] = [];
         }
-        acc[service.node].push(service)
-        return acc
+        acc[service.node].push(service);
+        return acc;
       },
       {} as Record<string, Service[]>
-    )
+    );
 
     return {
       services: filteredServices,
@@ -98,9 +100,9 @@ export function useServices(namespace?: string) {
       servicesByNamespace,
       servicesByNode,
       totalServices: services.length,
-      runningServices: services.filter((s) => s.status === 'running').length,
-    }
-  }, [namespace])
+      runningServices: services.filter((s) => s.status === "running").length,
+    };
+  }, [namespace]);
 }
 
 /**
@@ -113,14 +115,14 @@ export function useNetworkStats() {
       speedTest,
     }),
     []
-  )
+  );
 }
 
 /**
  * Hook for service downtime history
  */
 export function useDowntimeHistory() {
-  return useMemo(() => downtimeHistory, [])
+  return useMemo(() => downtimeHistory, []);
 }
 
 /**
@@ -129,24 +131,24 @@ export function useDowntimeHistory() {
 export function useServiceSearch(searchQuery: string) {
   return useMemo(() => {
     if (!searchQuery.trim()) {
-      return services
+      return services;
     }
 
-    const query = searchQuery.toLowerCase()
+    const query = searchQuery.toLowerCase();
     return services.filter(
       (service) =>
         service.name.toLowerCase().includes(query) ||
         service.namespace.toLowerCase().includes(query) ||
         service.node.toLowerCase().includes(query)
-    )
-  }, [searchQuery])
+    );
+  }, [searchQuery]);
 }
 
 /**
  * Hook for getting node by name
  */
 export function useNode(nodeName: string): Node | undefined {
-  return useMemo(() => nodes.find((n) => n.name === nodeName), [nodeName])
+  return useMemo(() => nodes.find((n) => n.name === nodeName), [nodeName]);
 }
 
 /**
@@ -154,7 +156,9 @@ export function useNode(nodeName: string): Node | undefined {
  */
 export function useNamespaces() {
   return useMemo(() => {
-    const namespaces = Array.from(new Set(services.map((s) => s.namespace))).sort()
-    return namespaces
-  }, [])
+    const namespaces = Array.from(
+      new Set(services.map((s) => s.namespace))
+    ).sort();
+    return namespaces;
+  }, []);
 }

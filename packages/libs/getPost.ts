@@ -93,7 +93,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       const match = post[field].match(slugRegex);
       if (!match) {
         throw new Error(
-          `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`,
+          `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`
         );
       }
     }
@@ -182,13 +182,13 @@ export function getAllCategories(): CategoryCount {
 
         return acc;
       },
-      {} as Record<string, number>,
+      {} as Record<string, number>
     );
 }
 
 export function getPostsByCategory(
   category: string,
-  fields: string[] = [],
+  fields: string[] = []
 ): Post[] {
   const paths = getPostPaths();
 
@@ -226,7 +226,7 @@ export function getAllTags(): TagCount {
 
         return acc;
       },
-      {} as Record<string, number>,
+      {} as Record<string, number>
     );
 }
 
@@ -253,8 +253,8 @@ export function getPostsByTag(tag: string, fields: string[] = []): Post[] {
 
 export function getPostsByAllYear(
   fields: string[] = [],
-  yearLimit: number = -1,
-  featured?: boolean,
+  yearLimit = -1,
+  featured?: boolean
 ): Record<number, Post[]> {
   const extraFields = [...fields, "date", "featured"];
   let allPosts = getAllPosts(extraFields);
@@ -276,28 +276,28 @@ export function getPostsByAllYear(
 
       return acc;
     },
-    {} as Record<number, Post[]>,
+    {} as Record<number, Post[]>
   );
 
   // Sort posts by year
   Object.keys(postsByYear).forEach((year: string) => {
-    postsByYear[parseInt(year)].sort((post1: Post, post2: Post) =>
-      post1.date > post2.date ? -1 : 1,
+    postsByYear[Number.parseInt(year)].sort((post1: Post, post2: Post) =>
+      post1.date > post2.date ? -1 : 1
     );
   });
 
   // Limit the number of years
   if (yearLimit > 0) {
     const years = Object.keys(postsByYear).sort((year1, year2) =>
-      year1 > year2 ? -1 : 1,
+      year1 > year2 ? -1 : 1
     );
     const limitedYears = years.slice(0, yearLimit);
     return limitedYears.reduce(
       (acc, year: string) => {
-        acc[parseInt(year)] = postsByYear[parseInt(year)];
+        acc[Number.parseInt(year)] = postsByYear[Number.parseInt(year)];
         return acc;
       },
-      {} as Record<number, Post[]>,
+      {} as Record<number, Post[]>
     );
   }
 

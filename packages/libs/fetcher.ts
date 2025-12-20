@@ -5,7 +5,7 @@ export const fetcher = async (url: string, options = {}) => {
   // we still try to parse and throw it.
   if (!res.ok) {
     const error = new Error(
-      `HTTP ${res.status}: An error occurred while fetching the data from ${url}`,
+      `HTTP ${res.status}: An error occurred while fetching the data from ${url}`
     );
 
     // Attach extra info to the error object for better debugging

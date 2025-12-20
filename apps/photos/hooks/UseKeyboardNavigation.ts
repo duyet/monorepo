@@ -1,25 +1,25 @@
-'use client'
+"use client";
 
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from "react";
 
 /**
  * Custom hooks for keyboard and touch navigation
  */
 
 export interface KeyboardNavigationOptions {
-  isEnabled: boolean
-  onEscape?: () => void
-  onArrowLeft?: () => void
-  onArrowRight?: () => void
-  onArrowUp?: () => void
-  onArrowDown?: () => void
-  onSpace?: () => void
-  onEnter?: () => void
-  onKeyPress?: (key: string, event: KeyboardEvent) => void
+  isEnabled: boolean;
+  onEscape?: () => void;
+  onArrowLeft?: () => void;
+  onArrowRight?: () => void;
+  onArrowUp?: () => void;
+  onArrowDown?: () => void;
+  onSpace?: () => void;
+  onEnter?: () => void;
+  onKeyPress?: (key: string, event: KeyboardEvent) => void;
   // Custom key mappings
   customKeys?: {
-    [key: string]: () => void
-  }
+    [key: string]: () => void;
+  };
 }
 
 export function useKeyboardNavigation(options: KeyboardNavigationOptions) {
@@ -34,62 +34,62 @@ export function useKeyboardNavigation(options: KeyboardNavigationOptions) {
     onEnter,
     onKeyPress,
     customKeys,
-  } = options
+  } = options;
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (!isEnabled) return
+      if (!isEnabled) return;
 
       // Prevent default behavior for handled keys
       const handledKeys = [
-        'Escape',
-        'ArrowLeft',
-        'ArrowRight',
-        'ArrowUp',
-        'ArrowDown',
-        'Space',
-        'Enter',
+        "Escape",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Space",
+        "Enter",
         ...(customKeys ? Object.keys(customKeys) : []),
-      ]
+      ];
 
-      const key = event.code === 'Space' ? 'Space' : event.key
+      const key = event.code === "Space" ? "Space" : event.key;
 
       if (handledKeys.includes(key)) {
-        event.preventDefault()
+        event.preventDefault();
       }
 
       // Call custom handler first if provided
-      onKeyPress?.(key, event)
+      onKeyPress?.(key, event);
 
       // Handle standard navigation keys
       switch (key) {
-        case 'Escape':
-          onEscape?.()
-          break
-        case 'ArrowLeft':
-          onArrowLeft?.()
-          break
-        case 'ArrowRight':
-          onArrowRight?.()
-          break
-        case 'ArrowUp':
-          onArrowUp?.()
-          break
-        case 'ArrowDown':
-          onArrowDown?.()
-          break
-        case 'Space':
-          onSpace?.()
-          break
-        case 'Enter':
-          onEnter?.()
-          break
+        case "Escape":
+          onEscape?.();
+          break;
+        case "ArrowLeft":
+          onArrowLeft?.();
+          break;
+        case "ArrowRight":
+          onArrowRight?.();
+          break;
+        case "ArrowUp":
+          onArrowUp?.();
+          break;
+        case "ArrowDown":
+          onArrowDown?.();
+          break;
+        case "Space":
+          onSpace?.();
+          break;
+        case "Enter":
+          onEnter?.();
+          break;
         default:
           // Handle custom key mappings
           if (customKeys && key in customKeys) {
-            customKeys[key]()
+            customKeys[key]();
           }
-          break
+          break;
       }
     },
     [
@@ -103,26 +103,26 @@ export function useKeyboardNavigation(options: KeyboardNavigationOptions) {
       onEnter,
       onKeyPress,
       customKeys,
-    ],
-  )
+    ]
+  );
 
   useEffect(() => {
-    if (!isEnabled) return
+    if (!isEnabled) return;
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isEnabled, handleKeyDown])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isEnabled, handleKeyDown]);
 }
 
 export interface TouchGestureOptions {
-  isEnabled: boolean
-  onSwipeLeft?: () => void
-  onSwipeRight?: () => void
-  onSwipeUp?: () => void
-  onSwipeDown?: () => void
-  onPinchZoom?: (scale: number) => void
-  minimumSwipeDistance?: number
-  touchThreshold?: number
+  isEnabled: boolean;
+  onSwipeLeft?: () => void;
+  onSwipeRight?: () => void;
+  onSwipeUp?: () => void;
+  onSwipeDown?: () => void;
+  onPinchZoom?: (scale: number) => void;
+  minimumSwipeDistance?: number;
+  touchThreshold?: number;
 }
 
 export function useTouchGestures(options: TouchGestureOptions) {
@@ -135,60 +135,60 @@ export function useTouchGestures(options: TouchGestureOptions) {
     onPinchZoom,
     minimumSwipeDistance = 50,
     touchThreshold = 10,
-  } = options
+  } = options;
 
   const handleTouchStart = useCallback(
     (event: React.TouchEvent) => {
-      if (!isEnabled) return
+      if (!isEnabled) return;
 
-      const touch = event.touches[0]
+      const touch = event.touches[0];
       const touchData = {
         startX: touch.clientX,
         startY: touch.clientY,
         startTime: Date.now(),
-      }
+      };
 
       // Store touch data on the target element
-      ;(event.currentTarget as any).__touchData = touchData
+      (event.currentTarget as any).__touchData = touchData;
     },
-    [isEnabled],
-  )
+    [isEnabled]
+  );
 
   const handleTouchMove = useCallback(
     (event: React.TouchEvent) => {
-      if (!isEnabled) return
+      if (!isEnabled) return;
 
-      const touch = event.touches[0]
-      const touchData = (event.currentTarget as any).__touchData
+      const touch = event.touches[0];
+      const touchData = (event.currentTarget as any).__touchData;
 
-      if (!touchData) return
+      if (!touchData) return;
 
       // Update current position
-      touchData.currentX = touch.clientX
-      touchData.currentY = touch.clientY
+      touchData.currentX = touch.clientX;
+      touchData.currentY = touch.clientY;
     },
-    [isEnabled],
-  )
+    [isEnabled]
+  );
 
   const handleTouchEnd = useCallback(
     (event: React.TouchEvent) => {
-      if (!isEnabled) return
+      if (!isEnabled) return;
 
-      const touchData = (event.currentTarget as any).__touchData
-      if (!touchData) return
+      const touchData = (event.currentTarget as any).__touchData;
+      if (!touchData) return;
 
-      const { startX, startY, currentX, currentY } = touchData
+      const { startX, startY, currentX, currentY } = touchData;
 
-      if (currentX === undefined || currentY === undefined) return
+      if (currentX === undefined || currentY === undefined) return;
 
-      const deltaX = currentX - startX
-      const deltaY = currentY - startY
-      const absDeltaX = Math.abs(deltaX)
-      const absDeltaY = Math.abs(deltaY)
+      const deltaX = currentX - startX;
+      const deltaY = currentY - startY;
+      const absDeltaX = Math.abs(deltaX);
+      const absDeltaY = Math.abs(deltaY);
 
       // Check if movement is significant enough
       if (absDeltaX < touchThreshold && absDeltaY < touchThreshold) {
-        return
+        return;
       }
 
       // Determine dominant direction
@@ -196,24 +196,24 @@ export function useTouchGestures(options: TouchGestureOptions) {
         // Horizontal swipe
         if (absDeltaX > minimumSwipeDistance) {
           if (deltaX > 0) {
-            onSwipeRight?.()
+            onSwipeRight?.();
           } else {
-            onSwipeLeft?.()
+            onSwipeLeft?.();
           }
         }
       } else {
         // Vertical swipe
         if (absDeltaY > minimumSwipeDistance) {
           if (deltaY > 0) {
-            onSwipeDown?.()
+            onSwipeDown?.();
           } else {
-            onSwipeUp?.()
+            onSwipeUp?.();
           }
         }
       }
 
       // Clean up touch data
-      delete (event.currentTarget as any).__touchData
+      delete (event.currentTarget as any).__touchData;
     },
     [
       isEnabled,
@@ -223,25 +223,25 @@ export function useTouchGestures(options: TouchGestureOptions) {
       onSwipeDown,
       minimumSwipeDistance,
       touchThreshold,
-    ],
-  )
+    ]
+  );
 
   return {
     onTouchStart: handleTouchStart,
     onTouchMove: handleTouchMove,
     onTouchEnd: handleTouchEnd,
-  }
+  };
 }
 
 export interface LightboxNavigationOptions {
-  isOpen: boolean
-  canGoNext: boolean
-  canGoPrevious: boolean
-  onClose: () => void
-  onNext?: () => void
-  onPrevious?: () => void
-  onToggleFullscreen?: () => void
-  onToggleInfo?: () => void
+  isOpen: boolean;
+  canGoNext: boolean;
+  canGoPrevious: boolean;
+  onClose: () => void;
+  onNext?: () => void;
+  onPrevious?: () => void;
+  onToggleFullscreen?: () => void;
+  onToggleInfo?: () => void;
 }
 
 export function useLightboxNavigation(options: LightboxNavigationOptions) {
@@ -254,7 +254,7 @@ export function useLightboxNavigation(options: LightboxNavigationOptions) {
     onPrevious,
     onToggleFullscreen,
     onToggleInfo,
-  } = options
+  } = options;
 
   // Keyboard navigation
   useKeyboardNavigation({
@@ -269,7 +269,7 @@ export function useLightboxNavigation(options: LightboxNavigationOptions) {
       }),
       ...(onToggleInfo && { i: onToggleInfo, I: onToggleInfo }),
     },
-  })
+  });
 
   // Touch navigation
   const touchHandlers = useTouchGestures({
@@ -277,7 +277,7 @@ export function useLightboxNavigation(options: LightboxNavigationOptions) {
     onSwipeLeft: canGoNext ? onNext : undefined,
     onSwipeRight: canGoPrevious ? onPrevious : undefined,
     minimumSwipeDistance: 50,
-  })
+  });
 
-  return touchHandlers
+  return touchHandlers;
 }

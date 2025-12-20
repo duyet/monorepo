@@ -25,14 +25,14 @@ export const NODE_RESOURCE_RANGES = {
     MEMORY: { min: 40, max: 50 },
     MEMORY_USED: { min: 1.6, max: 2 },
   },
-} as const
+} as const;
 
 // Uptime ranges
 export const UPTIME_RANGES = {
   DAYS: { min: 20, max: 30 },
   HOURS: { min: 0, max: 24 },
   MINUTES: { min: 0, max: 60 },
-} as const
+} as const;
 
 // Historical data configuration
 export const HISTORICAL_DATA = {
@@ -59,7 +59,7 @@ export const HISTORICAL_DATA = {
     UPLOAD: { min: 80, max: 100 },
     PING: { min: 8, max: 15 },
   },
-} as const
+} as const;
 
 // Downtime incident configuration
 export const DOWNTIME_INCIDENTS = {
@@ -68,39 +68,41 @@ export const DOWNTIME_INCIDENTS = {
     SHORT: { min: 3, max: 8 },
     MEDIUM: { min: 10, max: 20 },
   },
-} as const
+} as const;
 
 // Time configuration (in hours)
-export const TIME_POINTS = [24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2] as const
+export const TIME_POINTS = [
+  24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2,
+] as const;
 
 // Chart colors (matching Claude-inspired palette from globals.css)
 export const CHART_COLORS = {
-  CLAUDE_LAVENDER: '#9090ff',
-  CLAUDE_MINT: '#a8d5ba',
-  CLAUDE_PEACH: '#ffc79d',
-  CLAUDE_SUNSHINE: '#ffd79d',
-  CLAUDE_SKY: '#b0d4f1',
-  CLAUDE_ROSE: '#ffb3ba',
-} as const
+  CLAUDE_LAVENDER: "#9090ff",
+  CLAUDE_MINT: "#a8d5ba",
+  CLAUDE_PEACH: "#ffc79d",
+  CLAUDE_SUNSHINE: "#ffd79d",
+  CLAUDE_SKY: "#b0d4f1",
+  CLAUDE_ROSE: "#ffb3ba",
+} as const;
 
 // External links
 export const EXTERNAL_LINKS = {
-  UPTIME_MONITOR: 'https://duyet.github.io/uptime/',
-} as const
+  UPTIME_MONITOR: "https://duyet.github.io/uptime/",
+} as const;
 
 // Dashboard refresh interval (milliseconds)
-export const REFRESH_INTERVAL = 60000 // 1 minute
+export const REFRESH_INTERVAL = 60000; // 1 minute
 
 // Service namespaces
 export const SERVICE_NAMESPACES = [
-  'ingress',
-  'management',
-  'monitoring',
-  'llm',
-  'analytics',
-  'n8n',
-  'home-assistant',
-  'network',
-] as const
+  "ingress",
+  "management",
+  "monitoring",
+  "llm",
+  "analytics",
+  "n8n",
+  "home-assistant",
+  "network",
+] as const;
 
-export type ServiceNamespace = (typeof SERVICE_NAMESPACES)[number]
+export type ServiceNamespace = (typeof SERVICE_NAMESPACES)[number];

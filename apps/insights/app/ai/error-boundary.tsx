@@ -3,22 +3,22 @@
  * Provides graceful error handling with consistent UI
  */
 
-'use client'
+"use client";
 
-import { AlertTriangle, RotateCcw } from 'lucide-react'
-import { Component, type ReactNode } from 'react'
+import { AlertTriangle, RotateCcw } from "lucide-react";
+import { Component, type ReactNode } from "react";
 
 interface ErrorBoundaryProps {
-  children: ReactNode
-  fallback?: ReactNode
-  onError?: (error: Error, errorInfo: unknown) => void
-  className?: string
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: Error, errorInfo: unknown) => void;
+  className?: string;
 }
 
 interface ErrorBoundaryState {
-  hasError: boolean
-  error: Error | null
-  errorInfo: unknown
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: unknown;
 }
 
 export class CCUsageErrorBoundary extends Component<
@@ -26,8 +26,8 @@ export class CCUsageErrorBoundary extends Component<
   ErrorBoundaryState
 > {
   constructor(props: ErrorBoundaryProps) {
-    super(props)
-    this.state = { hasError: false, error: null, errorInfo: null }
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -35,23 +35,23 @@ export class CCUsageErrorBoundary extends Component<
       hasError: true,
       error,
       errorInfo: null,
-    }
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: unknown) {
-    console.error('CCUsage Error Boundary caught an error:', error, errorInfo)
-    this.setState({ errorInfo })
-    this.props.onError?.(error, errorInfo)
+    console.error("CCUsage Error Boundary caught an error:", error, errorInfo);
+    this.setState({ errorInfo });
+    this.props.onError?.(error, errorInfo);
   }
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null })
-  }
+    this.setState({ hasError: false, error: null, errorInfo: null });
+  };
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback
+        return this.props.fallback;
       }
 
       return (
@@ -60,17 +60,17 @@ export class CCUsageErrorBoundary extends Component<
           onRetry={this.handleRetry}
           className={this.props.className}
         />
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }
 
 interface DefaultErrorFallbackProps {
-  error: Error | null
-  onRetry: () => void
-  className?: string
+  error: Error | null;
+  onRetry: () => void;
+  className?: string;
 }
 
 function DefaultErrorFallback({
@@ -80,7 +80,7 @@ function DefaultErrorFallback({
 }: DefaultErrorFallbackProps) {
   return (
     <div
-      className={`rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-950 ${className || ''}`}
+      className={`rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-950 ${className || ""}`}
     >
       <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-red-500" />
       <h3 className="mb-2 text-lg font-medium text-red-800 dark:text-red-200">
@@ -88,7 +88,7 @@ function DefaultErrorFallback({
       </h3>
       <p className="mb-4 text-sm text-red-600 dark:text-red-300">
         {error?.message ||
-          'An unexpected error occurred while loading the data.'}
+          "An unexpected error occurred while loading the data."}
       </p>
       <button
         onClick={onRetry}
@@ -98,7 +98,7 @@ function DefaultErrorFallback({
         Try again
       </button>
     </div>
-  )
+  );
 }
 
 /**
@@ -106,37 +106,37 @@ function DefaultErrorFallback({
  */
 export function useCCUsageErrorBoundary() {
   const getErrorMessage = (error: unknown): string => {
-    if (typeof error === 'string') return error
-    if (error instanceof Error) return error.message
-    return 'An unexpected error occurred'
-  }
+    if (typeof error === "string") return error;
+    if (error instanceof Error) return error.message;
+    return "An unexpected error occurred";
+  };
 
   const isRetryableError = (error: unknown): boolean => {
     const message =
-      typeof error === 'string'
+      typeof error === "string"
         ? error
         : error instanceof Error
           ? error.message
-          : ''
+          : "";
 
     // Network errors are typically retryable
     return (
-      message.includes('timeout') ||
-      message.includes('connection') ||
-      message.includes('network')
-    )
-  }
+      message.includes("timeout") ||
+      message.includes("connection") ||
+      message.includes("network")
+    );
+  };
 
   return {
     wrapWithErrorBoundary: (
       component: ReactNode,
-      errorProps?: Partial<ErrorBoundaryProps>,
+      errorProps?: Partial<ErrorBoundaryProps>
     ) => (
       <CCUsageErrorBoundary {...errorProps}>{component}</CCUsageErrorBoundary>
     ),
     getErrorMessage,
     isRetryableError,
-  }
+  };
 }
 
 /**
@@ -147,15 +147,15 @@ export function CCUsageErrorDisplay({
   onRetry,
   className,
 }: {
-  error: string | Error
-  onRetry?: () => void
-  className?: string
+  error: string | Error;
+  onRetry?: () => void;
+  className?: string;
 }) {
-  const errorMessage = typeof error === 'string' ? error : error.message
+  const errorMessage = typeof error === "string" ? error : error.message;
 
   return (
     <div
-      className={`rounded-lg border bg-card p-4 text-center ${className || ''}`}
+      className={`rounded-lg border bg-card p-4 text-center ${className || ""}`}
     >
       <p className="mb-3 text-sm text-muted-foreground">{errorMessage}</p>
       {onRetry && (
@@ -168,5 +168,5 @@ export function CCUsageErrorDisplay({
         </button>
       )}
     </div>
-  )
+  );
 }

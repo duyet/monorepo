@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import Error from '@duyet/components/Error'
+import Error from "@duyet/components/Error";
 
 export default function NotFound() {
   return (
     <div>
       <Error />
     </div>
-  )
+  );
 }

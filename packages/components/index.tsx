@@ -20,7 +20,11 @@ export {
 } from "./LoadingState";
 export { default as Icons } from "./Icons";
 export { default as Error } from "./Error";
-export { default as ErrorBoundary, ErrorDisplay, useErrorBoundary } from "./ErrorBoundary";
+export {
+  default as ErrorBoundary,
+  ErrorDisplay,
+  useErrorBoundary,
+} from "./ErrorBoundary";
 
 export * from "./Tremor";
 

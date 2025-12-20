@@ -1,13 +1,13 @@
-import { MobileOptimizedChart } from '@/components/mobile/MobileOptimizedChart'
-import { Breadcrumb } from '@/components/navigation/CompactNavigation'
-import { SkeletonCard } from '@/components/SkeletonCard'
-import { CompactCard, StatsCard } from '@/components/ui/CompactCard'
-import { DashboardGrid, GridItem } from '@/components/ui/DashboardGrid'
-import { QuickFilters } from '@/components/ui/DateRangeSelector'
+import { MobileOptimizedChart } from "@/components/mobile/MobileOptimizedChart";
+import { Breadcrumb } from "@/components/navigation/CompactNavigation";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import { CompactCard, StatsCard } from "@/components/ui/CompactCard";
+import { DashboardGrid, GridItem } from "@/components/ui/DashboardGrid";
+import { QuickFilters } from "@/components/ui/DateRangeSelector";
 import {
   CollapsibleSection,
   ProgressiveDisclosure,
-} from '@/components/ui/ProgressiveDisclosure'
+} from "@/components/ui/ProgressiveDisclosure";
 import {
   Activity,
   Clock,
@@ -17,38 +17,38 @@ import {
   TrendingUp,
   Users,
   Zap,
-} from 'lucide-react'
-import { Suspense } from 'react'
-import { Cloudflare } from './cloudflare'
-import { PostHog } from './posthog'
+} from "lucide-react";
+import { Suspense } from "react";
+import { Cloudflare } from "./cloudflare";
+import { PostHog } from "./posthog";
 
 export const metadata = {
-  title: 'Website Analytics',
+  title: "Website Analytics",
   description:
-    'Website traffic and performance analytics from Cloudflare and PostHog.',
-}
+    "Website traffic and performance analytics from Cloudflare and PostHog.",
+};
 
 // Static generation only
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 // Mock data for demonstration
 const mockWebsiteStats = {
-  visitors: { value: 15743, change: 18.5, period: 'last 30 days' },
-  pageViews: { value: 42186, change: 12.3, period: 'last 30 days' },
-  bounceRate: { value: '28.4%', change: -5.1, period: 'vs last month' },
-  avgSession: { value: '4m 12s', change: 15.2, period: 'session duration' },
-  loadTime: { value: '1.2s', change: -8.3, period: 'avg load time' },
-  conversionRate: { value: '3.7%', change: 22.1, period: 'conversion rate' },
+  visitors: { value: 15743, change: 18.5, period: "last 30 days" },
+  pageViews: { value: 42186, change: 12.3, period: "last 30 days" },
+  bounceRate: { value: "28.4%", change: -5.1, period: "vs last month" },
+  avgSession: { value: "4m 12s", change: 15.2, period: "session duration" },
+  loadTime: { value: "1.2s", change: -8.3, period: "avg load time" },
+  conversionRate: { value: "3.7%", change: 22.1, period: "conversion rate" },
   dailyTraffic: [
-    { date: '2024-01-01', visitors: 420, pageViews: 1250, bounces: 180 },
-    { date: '2024-01-02', visitors: 380, pageViews: 1180, bounces: 150 },
-    { date: '2024-01-03', visitors: 520, pageViews: 1450, bounces: 200 },
-    { date: '2024-01-04', visitors: 610, pageViews: 1680, bounces: 220 },
-    { date: '2024-01-05', visitors: 480, pageViews: 1380, bounces: 190 },
-    { date: '2024-01-06', visitors: 350, pageViews: 950, bounces: 140 },
-    { date: '2024-01-07', visitors: 290, pageViews: 820, bounces: 120 },
+    { date: "2024-01-01", visitors: 420, pageViews: 1250, bounces: 180 },
+    { date: "2024-01-02", visitors: 380, pageViews: 1180, bounces: 150 },
+    { date: "2024-01-03", visitors: 520, pageViews: 1450, bounces: 200 },
+    { date: "2024-01-04", visitors: 610, pageViews: 1680, bounces: 220 },
+    { date: "2024-01-05", visitors: 480, pageViews: 1380, bounces: 190 },
+    { date: "2024-01-06", visitors: 350, pageViews: 950, bounces: 140 },
+    { date: "2024-01-07", visitors: 290, pageViews: 820, bounces: 120 },
   ],
-}
+};
 
 export default function CompactBlogPage() {
   return (
@@ -57,8 +57,8 @@ export default function CompactBlogPage() {
       <div className="border-b pb-4">
         <Breadcrumb
           items={[
-            { label: 'Dashboard', href: '/' },
-            { label: 'Website Analytics' },
+            { label: "Dashboard", href: "/" },
+            { label: "Website Analytics" },
           ]}
         />
         <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -198,7 +198,7 @@ export default function CompactBlogPage() {
           <MobileOptimizedChart
             data={mockWebsiteStats.dailyTraffic}
             index="date"
-            categories={['visitors', 'pageViews', 'bounces']}
+            categories={["visitors", "pageViews", "bounces"]}
             type="area"
             height={200}
             showControls
@@ -311,5 +311,5 @@ export default function CompactBlogPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

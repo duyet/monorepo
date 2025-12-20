@@ -11,7 +11,6 @@
     "build": "next build",
     "check-types": "tsc --noEmit",
     "dev": "next dev --turbopack -p 3001",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
@@ -20,7 +19,6 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "prettier": "@duyet/prettier",
   "dependencies": {
     "@clickhouse/client": "^1.12.1",
     "@duyet/components": "*",
@@ -54,7 +52,6 @@
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
-    "prettier": "^3.0.0",
     "tailwindcss": "*",
     "typescript": "*",
     "@testing-library/jest-dom": "^6.5.0",

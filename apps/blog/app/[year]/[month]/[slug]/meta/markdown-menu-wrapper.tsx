@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { MarkdownMenu } from './markdown-menu'
+import { MarkdownMenu } from "./markdown-menu";
 
 interface MarkdownMenuWrapperProps {
-  markdownUrl: string
-  markdownContent: string
+  markdownUrl: string;
+  markdownContent: string;
 }
 
 export function MarkdownMenuWrapper({
@@ -13,16 +13,16 @@ export function MarkdownMenuWrapper({
 }: MarkdownMenuWrapperProps) {
   const handleCopyMarkdown = async () => {
     try {
-      await navigator.clipboard.writeText(markdownContent)
+      await navigator.clipboard.writeText(markdownContent);
     } catch (err) {
-      console.error('Failed to copy markdown:', err)
+      console.error("Failed to copy markdown:", err);
     }
-  }
+  };
 
   return (
     <MarkdownMenu
       markdownUrl={markdownUrl}
       onCopyMarkdown={handleCopyMarkdown}
     />
-  )
+  );
 }

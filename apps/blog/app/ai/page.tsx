@@ -1,9 +1,9 @@
-import Container from '@duyet/components/Container'
+import Container from "@duyet/components/Container";
 
 export const metadata = {
-  title: 'AI',
-  description: 'How I use AI.',
-}
+  title: "AI",
+  description: "How I use AI.",
+};
 
 export default function AI() {
   return (
@@ -20,5 +20,5 @@ export default function AI() {
         </p>
       </Container>
     </div>
-  )
+  );
 }

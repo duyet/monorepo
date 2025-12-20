@@ -2,4 +2,4 @@
 export {
   executeClickHouseQuery,
   executeClickHouseQueryLegacy,
-} from './clickhouse-client'
+} from "./clickhouse-client";

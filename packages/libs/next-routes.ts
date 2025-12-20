@@ -22,7 +22,7 @@ export function createPingRoute() {
         headers: {
           "Cache-Control": "public, max-age=3600, s-maxage=3600",
         },
-      },
+      }
     );
   };
 
@@ -50,7 +50,7 @@ export function createPingRoute() {
  */
 export function createLlmsTxtRoute(
   content: string,
-  options: { cacheMaxAge?: number } = {},
+  options: { cacheMaxAge?: number } = {}
 ) {
   const { cacheMaxAge = 3600 } = options;
 

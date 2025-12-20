@@ -1,72 +1,79 @@
-'use client'
+"use client";
 
 import {
-  ChartConfig,
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart'
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
+} from "@/components/ui/chart";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 interface LanguageData {
-  name: string
-  percent: number
-  color?: string
+  name: string;
+  percent: number;
+  color?: string;
 }
 
 interface LanguageBarChartProps {
-  data: LanguageData[]
-  className?: string
+  data: LanguageData[];
+  className?: string;
 }
 
 interface LabelProps {
   payload?: {
-    isShortBar?: boolean
-    percent?: number
-    name?: string
-    displayName?: string
-  }
-  x?: string | number
-  y?: string | number
-  width?: string | number
-  height?: string | number
-  value?: string | number | boolean | null
+    isShortBar?: boolean;
+    percent?: number;
+    name?: string;
+    displayName?: string;
+  };
+  x?: string | number;
+  y?: string | number;
+  width?: string | number;
+  height?: string | number;
+  value?: string | number | boolean | null;
 }
 
 const chartConfig = {
   percent: {
-    label: 'Usage %',
-    color: 'var(--chart-1)',
+    label: "Usage %",
+    color: "var(--chart-1)",
   },
   label: {
-    color: 'var(--background)',
+    color: "var(--background)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 // Truncate text to fit within max length
-function truncateText(text: string, maxLength: number = 20): string {
-  if (text.length <= maxLength) return text
-  return text.substring(0, maxLength - 3) + '...'
+function truncateText(text: string, maxLength = 20): string {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength - 3) + "...";
 }
 
 // Custom label component that shows model name and percentage
 const CombinedLabel = (props: LabelProps) => {
-  const { payload, x = 0, y = 0, width = 0, height = 0, value } = props
+  const { payload, x = 0, y = 0, width = 0, height = 0, value } = props;
 
   // Handle case where payload might be undefined
-  if (!payload) return null
+  if (!payload) return null;
 
   // Convert string|number to number
-  const numX = typeof x === 'string' ? parseFloat(x) : x
-  const numY = typeof y === 'string' ? parseFloat(y) : y
-  const numWidth = typeof width === 'string' ? parseFloat(width) : width
-  const numHeight = typeof height === 'string' ? parseFloat(height) : height
-  const numValue = typeof value === 'string' ? parseFloat(value) : value
+  const numX = typeof x === "string" ? Number.parseFloat(x) : x;
+  const numY = typeof y === "string" ? Number.parseFloat(y) : y;
+  const numWidth = typeof width === "string" ? Number.parseFloat(width) : width;
+  const numHeight = typeof height === "string" ? Number.parseFloat(height) : height;
+  const numValue = typeof value === "string" ? Number.parseFloat(value) : value;
 
-  const isShortBar = payload.isShortBar || (payload.percent || 0) < 15
-  const rawName = payload.displayName || payload.name || ''
-  const displayName = truncateText(rawName, 20)
-  const percentage = `${Number(numValue || payload.percent || 0).toFixed(1)}%`
+  const isShortBar = payload.isShortBar || (payload.percent || 0) < 15;
+  const rawName = payload.displayName || payload.name || "";
+  const displayName = truncateText(rawName, 20);
+  const percentage = `${Number(numValue || payload.percent || 0).toFixed(1)}%`;
 
   return (
     <g>
@@ -78,7 +85,7 @@ const CombinedLabel = (props: LabelProps) => {
         dominantBaseline="middle"
         fontSize={12}
         fill="hsl(var(--foreground))"
-        style={{ userSelect: 'none' }}
+        style={{ userSelect: "none" }}
       >
         {displayName}
       </text>
@@ -87,18 +94,18 @@ const CombinedLabel = (props: LabelProps) => {
       <text
         x={isShortBar ? numX + numWidth + 8 : numX + numWidth - 8}
         y={numY + numHeight / 2}
-        textAnchor={isShortBar ? 'start' : 'end'}
+        textAnchor={isShortBar ? "start" : "end"}
         dominantBaseline="middle"
         fontSize={12}
         fontWeight={500}
-        fill={isShortBar ? 'hsl(var(--foreground))' : 'hsl(var(--background))'}
-        style={{ userSelect: 'none' }}
+        fill={isShortBar ? "hsl(var(--foreground))" : "hsl(var(--background))"}
+        style={{ userSelect: "none" }}
       >
         {percentage}
       </text>
     </g>
-  )
-}
+  );
+};
 
 export function LanguageBarChart({ data, className }: LanguageBarChartProps) {
   // Format data for the chart and limit to top 8
@@ -108,7 +115,7 @@ export function LanguageBarChart({ data, className }: LanguageBarChartProps) {
     percent: language.percent,
     displayName: language.name,
     isShortBar: language.percent < 15, // Threshold for moving text outside
-  }))
+  }));
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -140,5 +147,5 @@ export function LanguageBarChart({ data, className }: LanguageBarChartProps) {
         </Bar>
       </BarChart>
     </ChartContainer>
-  )
+  );
 }

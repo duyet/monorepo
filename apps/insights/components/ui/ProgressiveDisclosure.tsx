@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs'
-import { ChevronDown, ChevronRight, Info, Settings } from 'lucide-react'
-import { ReactNode, useState } from 'react'
+import { cn } from "@duyet/libs";
+import { ChevronDown, ChevronRight, Info, Settings } from "lucide-react";
+import { type ReactNode, useState } from "react";
 
 interface ProgressiveDisclosureProps {
-  title: string
-  preview?: ReactNode
-  children: ReactNode
-  defaultOpen?: boolean
-  className?: string
-  variant?: 'default' | 'subtle' | 'card'
-  badge?: string
-  description?: string
-  icon?: ReactNode
+  title: string;
+  preview?: ReactNode;
+  children: ReactNode;
+  defaultOpen?: boolean;
+  className?: string;
+  variant?: "default" | "subtle" | "card";
+  badge?: string;
+  description?: string;
+  icon?: ReactNode;
 }
 
 export function ProgressiveDisclosure({
@@ -22,27 +22,27 @@ export function ProgressiveDisclosure({
   children,
   defaultOpen = false,
   className,
-  variant = 'default',
+  variant = "default",
   badge,
   description,
   icon,
 }: ProgressiveDisclosureProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const variantStyles = {
-    default: 'border rounded-lg bg-card',
-    subtle: 'border-b',
-    card: 'border rounded-lg bg-card shadow-sm',
-  }
+    default: "border rounded-lg bg-card",
+    subtle: "border-b",
+    card: "border rounded-lg bg-card shadow-sm",
+  };
 
   return (
     <div className={cn(variantStyles[variant], className)}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'flex w-full items-center justify-between p-4 text-left transition-colors',
-          'hover:bg-accent/50',
-          variant === 'subtle' && 'p-3 hover:bg-transparent',
+          "flex w-full items-center justify-between p-4 text-left transition-colors",
+          "hover:bg-accent/50",
+          variant === "subtle" && "p-3 hover:bg-transparent"
         )}
       >
         <div className="flex min-w-0 flex-1 items-center space-x-3">
@@ -51,8 +51,8 @@ export function ProgressiveDisclosure({
             <div className="flex items-center space-x-2">
               <h3
                 className={cn(
-                  'font-semibold',
-                  variant === 'subtle' ? 'text-sm' : 'text-base',
+                  "font-semibold",
+                  variant === "subtle" ? "text-sm" : "text-base"
                 )}
               >
                 {title}
@@ -87,23 +87,23 @@ export function ProgressiveDisclosure({
       {isOpen && (
         <div
           className={cn(
-            'border-t p-4',
-            variant === 'subtle' && 'border-t-0 px-3 pb-3',
+            "border-t p-4",
+            variant === "subtle" && "border-t-0 px-3 pb-3"
           )}
         >
           {children}
         </div>
       )}
     </div>
-  )
+  );
 }
 
 interface CollapsibleSectionProps {
-  title: string
-  children: ReactNode
-  defaultExpanded?: boolean
-  className?: string
-  level?: 1 | 2 | 3
+  title: string;
+  children: ReactNode;
+  defaultExpanded?: boolean;
+  className?: string;
+  level?: 1 | 2 | 3;
 }
 
 export function CollapsibleSection({
@@ -113,21 +113,21 @@ export function CollapsibleSection({
   className,
   level = 1,
 }: CollapsibleSectionProps) {
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded)
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   const titleSizes = {
-    1: 'text-lg font-semibold',
-    2: 'text-base font-semibold',
-    3: 'text-sm font-medium',
-  }
+    1: "text-lg font-semibold",
+    2: "text-base font-semibold",
+    3: "text-sm font-medium",
+  };
 
   return (
-    <div className={cn('space-y-3', className)}>
+    <div className={cn("space-y-3", className)}>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="flex w-full items-center justify-between text-left"
       >
-        <h3 className={cn(titleSizes[level], 'text-foreground')}>{title}</h3>
+        <h3 className={cn(titleSizes[level], "text-foreground")}>{title}</h3>
         {isExpanded ? (
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
         ) : (
@@ -137,26 +137,26 @@ export function CollapsibleSection({
 
       {isExpanded && <div className="space-y-4">{children}</div>}
     </div>
-  )
+  );
 }
 
 interface AdvancedToggleProps {
-  children: ReactNode
-  advancedContent: ReactNode
-  className?: string
-  label?: string
+  children: ReactNode;
+  advancedContent: ReactNode;
+  className?: string;
+  label?: string;
 }
 
 export function AdvancedToggle({
   children,
   advancedContent,
   className,
-  label = 'Advanced Options',
+  label = "Advanced Options",
 }: AdvancedToggleProps) {
-  const [showAdvanced, setShowAdvanced] = useState(false)
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn("space-y-4", className)}>
       {children}
 
       <button
@@ -178,37 +178,37 @@ export function AdvancedToggle({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 interface InfoDisclosureProps {
-  title: string
-  content: ReactNode
-  className?: string
-  variant?: 'info' | 'warning' | 'tip'
+  title: string;
+  content: ReactNode;
+  className?: string;
+  variant?: "info" | "warning" | "tip";
 }
 
 export function InfoDisclosure({
   title,
   content,
   className,
-  variant = 'info',
+  variant = "info",
 }: InfoDisclosureProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const variantStyles = {
-    info: 'text-blue-600 dark:text-blue-400',
-    warning: 'text-amber-600 dark:text-amber-400',
-    tip: 'text-green-600 dark:text-green-400',
-  }
+    info: "text-blue-600 dark:text-blue-400",
+    warning: "text-amber-600 dark:text-amber-400",
+    tip: "text-green-600 dark:text-green-400",
+  };
 
   return (
-    <div className={cn('rounded-lg border bg-card p-3', className)}>
+    <div className={cn("rounded-lg border bg-card p-3", className)}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center space-x-2 text-left"
       >
-        <Info className={cn('h-4 w-4 shrink-0', variantStyles[variant])} />
+        <Info className={cn("h-4 w-4 shrink-0", variantStyles[variant])} />
         <span className="text-sm font-medium">{title}</span>
         <div className="flex-1" />
         {isOpen ? (
@@ -222,5 +222,5 @@ export function InfoDisclosure({
         <div className="mt-2 pl-6 text-sm text-muted-foreground">{content}</div>
       )}
     </div>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-import { BarChart } from '@/components/charts'
-import { getWakaTimeActivityWithAI } from './wakatime-utils'
+import { BarChart } from "@/components/charts";
+import { getWakaTimeActivityWithAI } from "./wakatime-utils";
 
 export async function WakaTimeActivity({
   days = 30,
 }: {
-  days?: number | 'all'
+  days?: number | "all";
 }) {
-  const codingActivity = await getWakaTimeActivityWithAI(days)
+  const codingActivity = await getWakaTimeActivityWithAI(days);
 
   return (
     <div className="rounded-lg border bg-card p-4">
@@ -17,10 +17,10 @@ export async function WakaTimeActivity({
         </p>
       </div>
       <BarChart
-        categories={['Human Hours', 'AI Hours']}
+        categories={["Human Hours", "AI Hours"]}
         data={codingActivity}
         index="date"
       />
     </div>
-  )
+  );
 }

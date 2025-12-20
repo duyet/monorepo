@@ -1,41 +1,41 @@
-import { generatePeriodStaticParams, getPeriodConfig } from '@/lib/periods'
-import { Suspense } from 'react'
-import { SkeletonCard } from '../../../components/SkeletonCard'
-import { GithubActivity } from '../activity'
-import { GithubCard } from '../card'
-import { CommitTimeline } from '../commit-timeline'
-import { GitHubLanguageStats } from '../language-stats'
-import { RepoTrends } from '../repo-trends'
-import { Repos } from '../repos'
+import { generatePeriodStaticParams, getPeriodConfig } from "@/lib/periods";
+import { Suspense } from "react";
+import { SkeletonCard } from "../../../components/SkeletonCard";
+import { GithubActivity } from "../activity";
+import { GithubCard } from "../card";
+import { CommitTimeline } from "../commit-timeline";
+import { GitHubLanguageStats } from "../language-stats";
+import { RepoTrends } from "../repo-trends";
+import { Repos } from "../repos";
 
-const owner = 'duyet'
+const owner = "duyet";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 // Generate static pages for all time periods
 export function generateStaticParams() {
-  return generatePeriodStaticParams()
+  return generatePeriodStaticParams();
 }
 
 interface PageProps {
   params: Promise<{
-    period: string
-  }>
+    period: string;
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { period } = await params
-  const config = getPeriodConfig(period)
+  const { period } = await params;
+  const config = getPeriodConfig(period);
 
   return {
     title: `GitHub Insights @duyet - ${config.label}`,
     description: `GitHub repository analytics for the last ${config.label}`,
-  }
+  };
 }
 
 export default async function GitHubPeriodPage({ params }: PageProps) {
-  const { period } = await params
-  const config = getPeriodConfig(period)
+  const { period } = await params;
+  const config = getPeriodConfig(period);
 
   return (
     <div className="space-y-8">
@@ -128,5 +128,5 @@ export default async function GitHubPeriodPage({ params }: PageProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

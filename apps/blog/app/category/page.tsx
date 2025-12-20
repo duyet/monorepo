@@ -1,13 +1,18 @@
-import { getCategoryMetadata } from '@/lib/category-metadata'
-import { ContentCard } from '@duyet/components'
-import Container from '@duyet/components/Container'
-import { getAllCategories } from '@duyet/libs/getPost'
-import { getSlug } from '@duyet/libs/getSlug'
+import { getCategoryMetadata } from "@/lib/category-metadata";
+import { ContentCard } from "@duyet/components";
+import Container from "@duyet/components/Container";
+import { getAllCategories } from "@duyet/libs/getPost";
+import { getSlug } from "@duyet/libs/getSlug";
 
 export default function Categories() {
-  const categories = getAllCategories()
-  const categoryEntries = Object.entries(categories).sort(([, a], [, b]) => b - a)
-  const totalPosts = Object.values(categories).reduce((sum, count) => sum + count, 0)
+  const categories = getAllCategories();
+  const categoryEntries = Object.entries(categories).sort(
+    ([, a], [, b]) => b - a
+  );
+  const totalPosts = Object.values(categories).reduce(
+    (sum, count) => sum + count,
+    0
+  );
 
   return (
     <div className="min-h-screen">
@@ -17,18 +22,19 @@ export default function Categories() {
             Categories
           </h1>
           <p className="max-w-2xl text-lg leading-relaxed text-neutral-700">
-            Explore my writing organized by{' '}
+            Explore my writing organized by{" "}
             <strong className="font-semibold text-neutral-900">
               {categoryEntries.length} main categories
             </strong>
-            , covering everything from data engineering and machine learning to web
-            development and career insights. {totalPosts} posts and counting.
+            , covering everything from data engineering and machine learning to
+            web development and career insights. {totalPosts} posts and
+            counting.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categoryEntries.map(([category, count], index) => {
-            const metadata = getCategoryMetadata(category, count, index)
+            const metadata = getCategoryMetadata(category, count, index);
 
             return (
               <ContentCard
@@ -38,12 +44,12 @@ export default function Categories() {
                 description={metadata.description}
                 color={metadata.color}
                 illustration={metadata.illustration}
-                tags={[`${count} ${count === 1 ? 'post' : 'posts'}`]}
+                tags={[`${count} ${count === 1 ? "post" : "posts"}`]}
               />
-            )
+            );
           })}
         </div>
       </Container>
     </div>
-  )
+  );
 }

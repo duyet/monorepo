@@ -1,5 +1,5 @@
 interface TextDataSourceProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function TextDataSource({ children }: TextDataSourceProps) {
@@ -7,7 +7,7 @@ export function TextDataSource({ children }: TextDataSourceProps) {
     <div className="mt-5 text-right text-xs italic text-gray-400">
       Source: {children}
     </div>
-  )
+  );
 }
 
-export default TextDataSource
+export default TextDataSource;

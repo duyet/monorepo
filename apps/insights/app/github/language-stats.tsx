@@ -1,20 +1,20 @@
-import { DonutChart } from '@/components/charts'
-import { CompactMetric } from '@/components/ui/CompactMetric'
-import { Archive, Code, GitBranch, Star } from 'lucide-react'
-import { fetchAllRepositories, getGithubToken } from './github-utils'
+import { DonutChart } from "@/components/charts";
+import { CompactMetric } from "@/components/ui/CompactMetric";
+import { Archive, Code, GitBranch, Star } from "lucide-react";
+import { fetchAllRepositories, getGithubToken } from "./github-utils";
 
-const owner = 'duyet'
+const owner = "duyet";
 
 interface GitHubLanguageStats {
-  languages: { name: string; percentage: number; bytes: number }[]
-  totalRepos: number
-  totalStars: number
-  archivedRepos: number
-  activeRepos: number
+  languages: { name: string; percentage: number; bytes: number }[];
+  totalRepos: number;
+  totalStars: number;
+  archivedRepos: number;
+  activeRepos: number;
 }
 
 export async function GitHubLanguageStats() {
-  const stats = await getLanguageStats(owner)
+  const stats = await getLanguageStats(owner);
 
   // Safety check in case stats is null/undefined or languages is not an array
   if (!stats || !Array.isArray(stats.languages)) {
@@ -25,34 +25,34 @@ export async function GitHubLanguageStats() {
           GitHub API may be unavailable or repository access is limited
         </p>
       </div>
-    )
+    );
   }
 
   const metrics = [
     {
-      label: 'Total Repos',
+      label: "Total Repos",
       value: stats.totalRepos.toString(),
       icon: <GitBranch className="h-4 w-4" />,
       change: stats.totalRepos > 0 ? { value: 12 } : undefined,
     },
     {
-      label: 'Total Stars',
+      label: "Total Stars",
       value: stats.totalStars.toLocaleString(),
       icon: <Star className="h-4 w-4" />,
       change: stats.totalStars > 0 ? { value: 8 } : undefined,
     },
     {
-      label: 'Active Repos',
+      label: "Active Repos",
       value: stats.activeRepos.toString(),
       icon: <Code className="h-4 w-4" />,
       change: stats.activeRepos > 0 ? { value: 15 } : undefined,
     },
     {
-      label: 'Archived',
+      label: "Archived",
       value: stats.archivedRepos.toString(),
       icon: <Archive className="h-4 w-4" />,
     },
-  ]
+  ];
 
   return (
     <div className="space-y-6">
@@ -131,40 +131,40 @@ export async function GitHubLanguageStats() {
         Data from GitHub API • Languages calculated by repository size
       </p>
     </div>
-  )
+  );
 }
 
 async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   try {
-    console.log(`Fetching GitHub language stats for ${owner}`)
+    console.log(`Fetching GitHub language stats for ${owner}`);
 
     // Fetch all repositories with pagination
-    const repos = await fetchAllRepositories(owner)
-    console.log(`Found ${repos.length} public repositories for ${owner}`)
+    const repos = await fetchAllRepositories(owner);
+    console.log(`Found ${repos.length} public repositories for ${owner}`);
 
     // Calculate repository stats
-    const totalRepos = repos.length
+    const totalRepos = repos.length;
     const totalStars = repos.reduce(
       (sum: number, repo) => sum + (repo.stargazers_count || 0),
-      0,
-    )
-    const archivedRepos = repos.filter((repo) => repo.archived).length
-    const activeRepos = totalRepos - archivedRepos
+      0
+    );
+    const archivedRepos = repos.filter((repo) => repo.archived).length;
+    const activeRepos = totalRepos - archivedRepos;
 
     // Aggregate languages across all repositories
-    const languageBytes: Record<string, number> = {}
+    const languageBytes: Record<string, number> = {};
 
     // Get language data for each repository (limit to top 20 to avoid rate limits)
-    const topRepos = repos.slice(0, 20)
+    const topRepos = repos.slice(0, 20);
 
     for (const repo of topRepos) {
-      if (repo.archived || !repo.name) continue
+      if (repo.archived || !repo.name) continue;
 
       try {
-        const token = getGithubToken()
+        const token = getGithubToken();
         if (!token) {
-          console.warn('GITHUB_TOKEN not configured, skipping language fetch')
-          break
+          console.warn("GITHUB_TOKEN not configured, skipping language fetch");
+          break;
         }
 
         const langResponse = await fetch(
@@ -172,35 +172,36 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              Accept: 'application/vnd.github.v3+json',
+              Accept: "application/vnd.github.v3+json",
             },
-            cache: 'force-cache',
-          },
-        )
+            cache: "force-cache",
+          }
+        );
 
         if (langResponse.ok) {
-          const languages = await langResponse.json()
+          const languages = await langResponse.json();
           Object.entries(languages).forEach(([lang, bytes]) => {
-            languageBytes[lang] = (languageBytes[lang] || 0) + (bytes as number)
-          })
+            languageBytes[lang] =
+              (languageBytes[lang] || 0) + (bytes as number);
+          });
         }
       } catch (error) {
-        console.warn(`Failed to fetch languages for ${repo.name}:`, error)
+        console.warn(`Failed to fetch languages for ${repo.name}:`, error);
       }
     }
 
     // Calculate percentages
     const totalBytes = Object.values(languageBytes).reduce(
       (sum, bytes) => sum + bytes,
-      0,
-    )
+      0
+    );
     const languages = Object.entries(languageBytes)
       .map(([name, bytes]) => ({
         name,
         bytes,
         percentage: totalBytes > 0 ? (bytes / totalBytes) * 100 : 0,
       }))
-      .sort((a, b) => b.percentage - a.percentage)
+      .sort((a, b) => b.percentage - a.percentage);
 
     return {
       languages,
@@ -208,15 +209,15 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
       totalStars,
       archivedRepos,
       activeRepos,
-    }
+    };
   } catch (error) {
-    console.error('Error fetching GitHub language stats:', error)
+    console.error("Error fetching GitHub language stats:", error);
     return {
       languages: [],
       totalRepos: 0,
       totalStars: 0,
       archivedRepos: 0,
       activeRepos: 0,
-    }
+    };
   }
 }

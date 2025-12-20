@@ -22,5 +22,5 @@ export default function AIIcon() {
       <circle cx="32" cy="26" r="2.5" fill="currentColor" />
       <circle cx="42" cy="26" r="2.5" fill="currentColor" />
     </svg>
-  )
+  );
 }

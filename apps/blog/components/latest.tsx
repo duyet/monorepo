@@ -1,38 +1,43 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { Thumb } from '@duyet/components/Thumb'
-import type { Post } from '@duyet/interfaces'
-import { getAllPosts } from '@duyet/libs/getPost'
-import { cn } from '@duyet/libs/utils'
+import { Thumb } from "@duyet/components/Thumb";
+import type { Post } from "@duyet/interfaces";
+import { getAllPosts } from "@duyet/libs/getPost";
+import { cn } from "@duyet/libs/utils";
 
 export interface LatestProps {
-  className?: string
+  className?: string;
 }
 
 async function getPosts(limit = 3) {
   return getAllPosts(
     [
-      'date',
-      'slug',
-      'title',
-      'excerpt',
-      'thumbnail',
-      'category',
-      'category_slug',
+      "date",
+      "slug",
+      "title",
+      "excerpt",
+      "thumbnail",
+      "category",
+      "category_slug",
     ],
-    limit,
-  )
+    limit
+  );
 }
 
 export async function Latest({ className }: LatestProps) {
-  const posts = await getPosts()
+  const posts = await getPosts();
 
   if (!posts.length) {
-    return null
+    return null;
   }
 
   return (
-    <div className={cn('flex flex-col sm:flex-row justify-stretch gap-4', className)}>
+    <div
+      className={cn(
+        "flex flex-col sm:flex-row justify-stretch gap-4",
+        className
+      )}
+    >
       {posts.map((post: Post) => (
         <Link
           as={post.slug}
@@ -56,5 +61,5 @@ export async function Latest({ className }: LatestProps) {
         </Link>
       ))}
     </div>
-  )
+  );
 }

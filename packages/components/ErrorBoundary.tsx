@@ -1,19 +1,22 @@
-'use client'
+"use client";
 
-import { AlertTriangle, RotateCcw } from 'lucide-react'
-import React, { Component, type ReactNode } from 'react'
+import { AlertTriangle, RotateCcw } from "lucide-react";
+import type React from "react";
+import { Component, type ReactNode } from "react";
 
 interface ErrorBoundaryState {
-  hasError: boolean
-  error: Error | null
-  errorInfo: unknown
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: unknown;
 }
 
 interface ErrorBoundaryProps {
-  children: ReactNode
-  fallback?: React.ComponentType<{ error?: Error; retry: () => void }> | ReactNode
-  onError?: (error: Error, errorInfo: unknown) => void
-  className?: string
+  children: ReactNode;
+  fallback?:
+    | React.ComponentType<{ error?: Error; retry: () => void }>
+    | ReactNode;
+  onError?: (error: Error, errorInfo: unknown) => void;
+  className?: string;
 }
 
 /**
@@ -35,8 +38,8 @@ interface ErrorBoundaryProps {
  */
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
-    super(props)
-    this.state = { hasError: false, error: null, errorInfo: null }
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -44,35 +47,40 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       hasError: true,
       error,
       errorInfo: null,
-    }
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log error in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo)
+    if (process.env.NODE_ENV === "development") {
+      console.error("ErrorBoundary caught an error:", error, errorInfo);
     }
 
-    this.setState({ errorInfo })
-    this.props.onError?.(error, errorInfo)
+    this.setState({ errorInfo });
+    this.props.onError?.(error, errorInfo);
   }
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null })
-  }
+    this.setState({ hasError: false, error: null, errorInfo: null });
+  };
 
   render() {
     if (this.state.hasError) {
-      const { fallback, className } = this.props
+      const { fallback, className } = this.props;
 
       // If fallback is provided
       if (fallback) {
         // Check if it's a component or element
-        if (typeof fallback === 'function') {
-          const FallbackComponent = fallback
-          return <FallbackComponent error={this.state.error ?? undefined} retry={this.handleRetry} />
+        if (typeof fallback === "function") {
+          const FallbackComponent = fallback;
+          return (
+            <FallbackComponent
+              error={this.state.error ?? undefined}
+              retry={this.handleRetry}
+            />
+          );
         }
-        return fallback
+        return fallback;
       }
 
       // Default fallback
@@ -82,17 +90,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           retry={this.handleRetry}
           className={className}
         />
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }
 
 interface DefaultErrorFallbackProps {
-  error: Error | null
-  retry: () => void
-  className?: string
+  error: Error | null;
+  retry: () => void;
+  className?: string;
 }
 
 function DefaultErrorFallback({
@@ -102,7 +110,7 @@ function DefaultErrorFallback({
 }: DefaultErrorFallbackProps) {
   return (
     <div
-      className={`flex min-h-[300px] items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-800 ${className || ''}`}
+      className={`flex min-h-[300px] items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-800 ${className || ""}`}
     >
       <div className="text-center">
         <AlertTriangle className="mx-auto h-12 w-12 text-gray-400" />
@@ -110,7 +118,7 @@ function DefaultErrorFallback({
           Something went wrong
         </h3>
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          {error?.message || 'An unexpected error occurred.'}
+          {error?.message || "An unexpected error occurred."}
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <button
@@ -129,7 +137,7 @@ function DefaultErrorFallback({
         </div>
 
         {/* Development error details */}
-        {process.env.NODE_ENV === 'development' && error && (
+        {process.env.NODE_ENV === "development" && error && (
           <details className="mt-6 text-left">
             <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
               Show error details (development only)
@@ -141,7 +149,7 @@ function DefaultErrorFallback({
         )}
       </div>
     </div>
-  )
+  );
 }
 
 /**
@@ -157,15 +165,15 @@ export function ErrorDisplay({
   onRetry,
   className,
 }: {
-  error: string | Error
-  onRetry?: () => void
-  className?: string
+  error: string | Error;
+  onRetry?: () => void;
+  className?: string;
 }) {
-  const errorMessage = typeof error === 'string' ? error : error.message
+  const errorMessage = typeof error === "string" ? error : error.message;
 
   return (
     <div
-      className={`rounded-lg border bg-card p-4 text-center ${className || ''}`}
+      className={`rounded-lg border bg-card p-4 text-center ${className || ""}`}
     >
       <AlertTriangle className="mx-auto mb-2 h-6 w-6 text-yellow-500" />
       <p className="mb-3 text-sm text-muted-foreground">{errorMessage}</p>
@@ -179,7 +187,7 @@ export function ErrorDisplay({
         </button>
       )}
     </div>
-  )
+  );
 }
 
 /**
@@ -187,33 +195,33 @@ export function ErrorDisplay({
  */
 export function useErrorBoundary() {
   const getErrorMessage = (error: unknown): string => {
-    if (typeof error === 'string') return error
-    if (error instanceof Error) return error.message
-    return 'An unexpected error occurred'
-  }
+    if (typeof error === "string") return error;
+    if (error instanceof Error) return error.message;
+    return "An unexpected error occurred";
+  };
 
   const isRetryableError = (error: unknown): boolean => {
     const message =
-      typeof error === 'string'
+      typeof error === "string"
         ? error
         : error instanceof Error
           ? error.message
-          : ''
+          : "";
 
     // Network errors are typically retryable
     return (
-      message.includes('timeout') ||
-      message.includes('connection') ||
-      message.includes('network') ||
-      message.includes('fetch')
-    )
-  }
+      message.includes("timeout") ||
+      message.includes("connection") ||
+      message.includes("network") ||
+      message.includes("fetch")
+    );
+  };
 
   return {
     getErrorMessage,
     isRetryableError,
-  }
+  };
 }
 
-export default ErrorBoundary
-export { DefaultErrorFallback }
+export default ErrorBoundary;
+export { DefaultErrorFallback };

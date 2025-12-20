@@ -1,4 +1,4 @@
-import sharedConfig from '@duyet/tailwind-config/tailwind.config.mjs'
+import sharedConfig from "@duyet/tailwind-config/tailwind.config.mjs";
 
 /** @type {import('tailwindcss').Config} */
-export default sharedConfig
+export default sharedConfig;

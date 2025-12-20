@@ -1,37 +1,38 @@
-import Link from 'next/link'
-import { LinkCard, ContentCard } from '@duyet/components'
-import { nodes } from '../../homelab/lib/data/nodes'
+import Link from "next/link";
+import { LinkCard, ContentCard } from "@duyet/components";
+import { nodes } from "../../homelab/lib/data/nodes";
 
-export const dynamic = 'force-static'
-export const revalidate = 3600
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
 // Extract node names from homelab data (limit to 3, add "..." if more exist)
-const homelabNodes = nodes.length > 3
-  ? [...nodes.slice(0, 3).map((node) => node.name), '...']
-  : nodes.map((node) => node.name)
+const homelabNodes =
+  nodes.length > 3
+    ? [...nodes.slice(0, 3).map((node) => node.name), "..."]
+    : nodes.map((node) => node.name);
 
 // Build date for resume card
-const buildDate = new Date().toISOString().split('T')[0] // Format: YYYY-MM-DD
+const buildDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
 /**
  * Add UTM tracking parameters to URL
  */
 function addUtmParams(
   url: string,
-  campaign: string = 'homepage',
+  campaign = "homepage",
   content?: string
 ): string {
   // Don't add UTM params to internal routes
-  if (url.startsWith('/')) return url
+  if (url.startsWith("/")) return url;
 
-  const urlObj = new URL(url)
-  urlObj.searchParams.set('utm_source', 'home')
-  urlObj.searchParams.set('utm_medium', 'website')
-  urlObj.searchParams.set('utm_campaign', campaign)
+  const urlObj = new URL(url);
+  urlObj.searchParams.set("utm_source", "home");
+  urlObj.searchParams.set("utm_medium", "website");
+  urlObj.searchParams.set("utm_campaign", campaign);
   if (content) {
-    urlObj.searchParams.set('utm_content', content)
+    urlObj.searchParams.set("utm_content", content);
   }
-  return urlObj.toString()
+  return urlObj.toString();
 }
 
 export default function HomePage() {
@@ -53,9 +54,10 @@ export default function HomePage() {
           <ContentCard
             title="Blog"
             href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net',
-              'homepage',
-              'blog_card'
+              process.env.NEXT_PUBLIC_DUYET_BLOG_URL ||
+                "https://blog.duyet.net",
+              "homepage",
+              "blog_card"
             )}
             description="Technical writings on data engineering, distributed systems, and open source."
             color="terracotta"
@@ -66,9 +68,9 @@ export default function HomePage() {
           <ContentCard
             title="Resume"
             href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net',
-              'homepage',
-              'resume_card'
+              process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net",
+              "homepage",
+              "resume_card"
             )}
             category={`Updated ${buildDate}`}
             description="Experience building scalable data infrastructure and leading engineering teams."
@@ -80,13 +82,13 @@ export default function HomePage() {
             title="Insights"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL ||
-                'https://insights.duyet.net',
-              'homepage',
-              'insights_card'
+                "https://insights.duyet.net",
+              "homepage",
+              "insights_card"
             )}
             description="Analytics dashboard showcasing data from GitHub, WakaTime, and more."
             color="cactus"
-            tags={['Coding Stats', 'Website Traffic', 'LLM Token Usage']}
+            tags={["Coding Stats", "Website Traffic", "LLM Token Usage"]}
             illustration="wavy"
           />
 
@@ -94,9 +96,9 @@ export default function HomePage() {
             title="Homelab"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
-                'https://homelab.duyet.net',
-              'homepage',
-              'homelab_card'
+                "https://homelab.duyet.net",
+              "homepage",
+              "homelab_card"
             )}
             description="Homelab monitoring dashboard (beta)."
             color="lavender"
@@ -108,9 +110,9 @@ export default function HomePage() {
             title="Photos"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL ||
-                'https://photos.duyet.net',
-              'homepage',
-              'photos_card'
+                "https://photos.duyet.net",
+              "homepage",
+              "photos_card"
             )}
             description="Photography portfolio and visual stories from travels and daily life."
             color="cream"
@@ -120,9 +122,9 @@ export default function HomePage() {
           <LinkCard
             title="Chat"
             href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_AI_URL || 'https://ai.duyet.net',
-              'homepage',
-              'ai_card'
+              process.env.NEXT_PUBLIC_DUYET_AI_URL || "https://ai.duyet.net",
+              "homepage",
+              "ai_card"
             )}
             description="Experimental @duyetbot LLM base for questions about duyet.net and related topics."
             color="sage"
@@ -140,9 +142,9 @@ export default function HomePage() {
         <div className="flex flex-wrap justify-center gap-6 text-sm font-medium text-neutral-600 sm:gap-10">
           <Link
             href={addUtmParams(
-              'https://github.com/duyet',
-              'homepage',
-              'footer_github'
+              "https://github.com/duyet",
+              "homepage",
+              "footer_github"
             )}
             target="_blank"
             className="transition-colors duration-200 hover:text-neutral-900"
@@ -151,9 +153,9 @@ export default function HomePage() {
           </Link>
           <Link
             href={addUtmParams(
-              'https://linkedin.com/in/duyet',
-              'homepage',
-              'footer_linkedin'
+              "https://linkedin.com/in/duyet",
+              "homepage",
+              "footer_linkedin"
             )}
             target="_blank"
             className="transition-colors duration-200 hover:text-neutral-900"
@@ -174,9 +176,9 @@ export default function HomePage() {
           </a>
           <Link
             href={addUtmParams(
-              'https://status.duyet.net',
-              'homepage',
-              'footer_status'
+              "https://status.duyet.net",
+              "homepage",
+              "footer_status"
             )}
             target="_blank"
             className="transition-colors duration-200 hover:text-neutral-900"
@@ -186,5 +188,5 @@ export default function HomePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

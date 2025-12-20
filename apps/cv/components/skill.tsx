@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import * as seline from '@seline-analytics/web'
-import Link from 'next/link'
-import React from 'react'
+import * as seline from "@seline-analytics/web";
+import Link from "next/link";
+import type React from "react";
 
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@duyet/components/ui/hover-card'
+} from "@duyet/components/ui/hover-card";
 
 export function Skill({
   skill,
@@ -16,12 +16,12 @@ export function Skill({
   icon,
   note,
 }: {
-  skill: string
-  url?: string
-  icon?: React.ReactNode
-  note?: string | React.ReactNode
+  skill: string;
+  url?: string;
+  icon?: React.ReactNode;
+  note?: string | React.ReactNode;
 }) {
-  if (!url && !icon && !note) return skill
+  if (!url && !icon && !note) return skill;
   if (url && !icon)
     return (
       <Link
@@ -31,14 +31,14 @@ export function Skill({
       >
         {skill}
       </Link>
-    )
+    );
 
   return (
     <HoverCard
       openDelay={100}
       closeDelay={100}
       onOpenChange={(open: boolean) => {
-        if (open) seline.track('CV: Hover Skill', { skill })
+        if (open) seline.track("CV: Hover Skill", { skill });
       }}
     >
       <HoverCardTrigger asChild>
@@ -56,11 +56,11 @@ export function Skill({
       </HoverCardTrigger>
       <HoverCardContent asChild>
         <div className="flex flex-col gap-2 bg-white">
-          {icon}{' '}
+          {icon}{" "}
           {url ? (
             <Link href={url} target="_blank">
               Posts about <strong>{skill}</strong>
-              {' ↗︎'}
+              {" ↗︎"}
             </Link>
           ) : (
             skill
@@ -69,5 +69,5 @@ export function Skill({
         </div>
       </HoverCardContent>
     </HoverCard>
-  )
+  );
 }

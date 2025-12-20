@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs'
-import * as React from 'react'
-import * as RechartsPrimitive from 'recharts'
-import { ChartContext } from './context'
-import type { ChartConfig } from './types'
+import { cn } from "@duyet/libs";
+import * as React from "react";
+import * as RechartsPrimitive from "recharts";
+import { ChartContext } from "./context";
+import type { ChartConfig } from "./types";
 
 export const ChartContainer = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<'div'> & {
-    config: ChartConfig
+  React.ComponentProps<"div"> & {
+    config: ChartConfig;
     children: React.ComponentProps<
       typeof RechartsPrimitive.ResponsiveContainer
-    >['children']
+    >["children"];
   }
 >(({ id, className, children, config, ...props }, ref) => {
-  const uniqueId = React.useId()
-  const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
+  const uniqueId = React.useId();
+  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -24,12 +24,12 @@ export const ChartContainer = React.forwardRef<
         data-chart={chartId}
         ref={ref}
         className={cn(
-          'flex h-[200px] w-full justify-center text-xs',
-          '[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground',
-          '[&_.recharts-cartesian-grid_line]:stroke-border/20',
-          '[&_.recharts-tooltip-cursor]:stroke-border',
-          '[&_.recharts-surface]:outline-none',
-          className,
+          "flex h-[200px] w-full justify-center text-xs",
+          "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground",
+          "[&_.recharts-cartesian-grid_line]:stroke-border/20",
+          "[&_.recharts-tooltip-cursor]:stroke-border",
+          "[&_.recharts-surface]:outline-none",
+          className
         )}
         {...props}
       >
@@ -38,7 +38,7 @@ export const ChartContainer = React.forwardRef<
         </RechartsPrimitive.ResponsiveContainer>
       </div>
     </ChartContext.Provider>
-  )
-})
+  );
+});
 
-ChartContainer.displayName = 'ChartContainer'
+ChartContainer.displayName = "ChartContainer";

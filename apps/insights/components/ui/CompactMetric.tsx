@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs'
-import { ReactNode } from 'react'
+import { cn } from "@duyet/libs";
+import type { ReactNode } from "react";
 
 interface CompactMetricProps {
-  label: string
-  value: string | number
+  label: string;
+  value: string | number;
   change?: {
-    value: number
-    label?: string
-  }
-  icon?: ReactNode
-  className?: string
+    value: number;
+    label?: string;
+  };
+  icon?: ReactNode;
+  className?: string;
 }
 
 export function CompactMetric({
@@ -24,8 +24,8 @@ export function CompactMetric({
   return (
     <div
       className={cn(
-        'rounded-lg border bg-card p-4 text-card-foreground',
-        className,
+        "rounded-lg border bg-card p-4 text-card-foreground",
+        className
       )}
     >
       <div className="flex items-start justify-between gap-2">
@@ -38,11 +38,11 @@ export function CompactMetric({
             <div className="flex items-center space-x-1">
               <span
                 className={cn(
-                  'text-xs font-medium',
-                  change.value >= 0 ? 'text-green-600' : 'text-red-600',
+                  "text-xs font-medium",
+                  change.value >= 0 ? "text-green-600" : "text-red-600"
                 )}
               >
-                {change.value >= 0 ? '+' : ''}
+                {change.value >= 0 ? "+" : ""}
                 {change.value}%
               </span>
               {change.label && (
@@ -58,5 +58,5 @@ export function CompactMetric({
         )}
       </div>
     </div>
-  )
+  );
 }

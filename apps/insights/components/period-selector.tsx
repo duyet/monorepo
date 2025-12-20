@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import { TIME_PERIODS, type TimePeriod } from '@/types/periods'
-import { Button } from '@duyet/components/ui/button'
-import { ChevronDown } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { TIME_PERIODS, type TimePeriod } from "@/types/periods";
+import { Button } from "@duyet/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface PeriodSelectorProps {
-  activePeriod: TimePeriod
-  onPeriodChange: (period: TimePeriod) => void
-  className?: string
+  activePeriod: TimePeriod;
+  onPeriodChange: (period: TimePeriod) => void;
+  className?: string;
 }
 
 export function PeriodSelector({
   activePeriod,
   onPeriodChange,
-  className = '',
+  className = "",
 }: PeriodSelectorProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const activePeriodLabel =
-    TIME_PERIODS.find((p) => p.value === activePeriod)?.label || '30 days'
+    TIME_PERIODS.find((p) => p.value === activePeriod)?.label || "30 days";
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -29,34 +29,34 @@ export function PeriodSelector({
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Close on escape key
   useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsOpen(false)
+      if (event.key === "Escape") {
+        setIsOpen(false);
       }
     }
 
-    document.addEventListener('keydown', handleEscape)
+    document.addEventListener("keydown", handleEscape);
     return () => {
-      document.removeEventListener('keydown', handleEscape)
-    }
-  }, [])
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   const handlePeriodSelect = (period: TimePeriod) => {
-    onPeriodChange(period)
-    setIsOpen(false)
-  }
+    onPeriodChange(period);
+    setIsOpen(false);
+  };
 
   return (
     <div className={`relative inline-block ${className}`} ref={dropdownRef}>
@@ -70,7 +70,7 @@ export function PeriodSelector({
       >
         <span>Time period: {activePeriodLabel}</span>
         <ChevronDown
-          className={`ml-2 h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`ml-2 h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
       </Button>
 
@@ -83,8 +83,8 @@ export function PeriodSelector({
                 onClick={() => handlePeriodSelect(period.value)}
                 className={`w-full rounded-sm px-3 py-2 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${
                   activePeriod === period.value
-                    ? 'bg-accent font-medium text-accent-foreground'
-                    : ''
+                    ? "bg-accent font-medium text-accent-foreground"
+                    : ""
                 }`}
                 role="menuitem"
               >
@@ -95,5 +95,5 @@ export function PeriodSelector({
         </div>
       )}
     </div>
-  )
+  );
 }

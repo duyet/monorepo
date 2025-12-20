@@ -45,7 +45,7 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
           "from-gray-900 to-gray-800 bg-clip-text",
           "dark:from-gray-50 dark:to-gray-300",
           "md:text-4xl md:tracking-tighter",
-          "lg:text-5xl lg:tracking-tighter",
+          "lg:text-5xl lg:tracking-tighter"
         )}
       >
         {post.title}

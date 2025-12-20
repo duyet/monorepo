@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import type { Photo } from '@/lib/photo-provider'
+import { useState } from "react";
+import type { Photo } from "@/lib/photo-provider";
 import {
   formatExifSettings,
   formatCameraName,
   formatPhotoDate,
-} from '@/lib/MetadataFormatters'
-import { Info, X } from 'lucide-react'
+} from "@/lib/MetadataFormatters";
+import { Info, X } from "lucide-react";
 
 interface PhotoMetadataProps {
-  photo: Photo
-  className?: string
+  photo: Photo;
+  className?: string;
 }
 
 /**
@@ -20,30 +20,38 @@ interface PhotoMetadataProps {
  */
 export default function PhotoMetadata({
   photo,
-  className = '',
+  className = "",
 }: PhotoMetadataProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const cameraName = formatCameraName(photo)
-  const exifSettings = formatExifSettings(photo)
-  const hasLocation = photo.location && (photo.location.city || photo.location.country)
+  const cameraName = formatCameraName(photo);
+  const exifSettings = formatExifSettings(photo);
+  const hasLocation =
+    photo.location && (photo.location.city || photo.location.country);
   const location = hasLocation
-    ? [photo.location?.city, photo.location?.country].filter(Boolean).join(', ')
-    : null
+    ? [photo.location?.city, photo.location?.country].filter(Boolean).join(", ")
+    : null;
 
   // Format file size
   const formatFileSize = (bytes?: number) => {
-    if (!bytes) return null
-    if (bytes < 1024) return `${bytes} B`
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-  }
-  const fileSize = formatFileSize(photo.bytes)
+    if (!bytes) return null;
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+  const fileSize = formatFileSize(photo.bytes);
 
   // Don't show button if there's no metadata to display
-  const hasMetadata = photo.stats || cameraName || exifSettings || hasLocation || fileSize || photo.format || photo.tags?.length
+  const hasMetadata =
+    photo.stats ||
+    cameraName ||
+    exifSettings ||
+    hasLocation ||
+    fileSize ||
+    photo.format ||
+    photo.tags?.length;
 
-  if (!hasMetadata) return null
+  if (!hasMetadata) return null;
 
   return (
     <div className={`relative inline-flex items-center ${className}`}>
@@ -51,14 +59,10 @@ export default function PhotoMetadata({
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="group inline-flex items-center justify-center rounded-full p-1 text-neutral-600 transition-all hover:bg-neutral-200 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-100"
-        aria-label={isExpanded ? 'Hide photo details' : 'Show photo details'}
+        aria-label={isExpanded ? "Hide photo details" : "Show photo details"}
         aria-expanded={isExpanded}
       >
-        {isExpanded ? (
-          <X className="h-4 w-4" />
-        ) : (
-          <Info className="h-4 w-4" />
-        )}
+        {isExpanded ? <X className="h-4 w-4" /> : <Info className="h-4 w-4" />}
       </button>
 
       {/* Expandable Metadata Panel */}
@@ -67,7 +71,7 @@ export default function PhotoMetadata({
           <div className="space-y-1 text-[11px] text-neutral-700 dark:text-neutral-200">
             {/* Provider */}
             <div className="font-medium">
-              {photo.provider === 'cloudinary' ? 'CDN: cloudinary' : 'Unsplash'}
+              {photo.provider === "cloudinary" ? "CDN: cloudinary" : "Unsplash"}
             </div>
 
             {/* Date */}
@@ -82,16 +86,20 @@ export default function PhotoMetadata({
             )}
 
             {/* Stats */}
-            {photo.stats && (photo.stats.views !== undefined || photo.stats.downloads !== undefined) && (
-              <>
-                {photo.stats.views !== undefined && (
-                  <div>{photo.stats.views.toLocaleString()} views</div>
-                )}
-                {photo.stats.downloads !== undefined && (
-                  <div>{photo.stats.downloads.toLocaleString()} downloads</div>
-                )}
-              </>
-            )}
+            {photo.stats &&
+              (photo.stats.views !== undefined ||
+                photo.stats.downloads !== undefined) && (
+                <>
+                  {photo.stats.views !== undefined && (
+                    <div>{photo.stats.views.toLocaleString()} views</div>
+                  )}
+                  {photo.stats.downloads !== undefined && (
+                    <div>
+                      {photo.stats.downloads.toLocaleString()} downloads
+                    </div>
+                  )}
+                </>
+              )}
 
             {/* Camera & EXIF */}
             {cameraName && (
@@ -121,5 +129,5 @@ export default function PhotoMetadata({
         </div>
       )}
     </div>
-  )
+  );
 }

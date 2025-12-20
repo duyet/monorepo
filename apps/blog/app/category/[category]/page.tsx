@@ -1,64 +1,67 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { YearPost } from '@/components/year-post'
-import { getCategoryColorClass, getCategoryMetadata } from '@/lib/category-metadata'
-import Container from '@duyet/components/Container'
-import type { Post } from '@duyet/interfaces'
-import { getAllCategories, getPostsByCategory } from '@duyet/libs/getPost'
-import { getSlug } from '@duyet/libs/getSlug'
+import { YearPost } from "@/components/year-post";
+import {
+  getCategoryColorClass,
+  getCategoryMetadata,
+} from "@/lib/category-metadata";
+import Container from "@duyet/components/Container";
+import type { Post } from "@duyet/interfaces";
+import { getAllCategories, getPostsByCategory } from "@duyet/libs/getPost";
+import { getSlug } from "@duyet/libs/getSlug";
 
-export const dynamic = 'force-static'
-export const dynamicParams = false
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 interface Params {
-  category: string
+  category: string;
 }
 
 interface PostsByCategoryProps {
-  params: Promise<Params>
+  params: Promise<Params>;
 }
 
 export async function generateStaticParams() {
-  const categories = getAllCategories()
+  const categories = getAllCategories();
 
   return Object.keys(categories).map((cat: string) => ({
     category: getSlug(cat),
-  }))
+  }));
 }
 
 export default async function PostsByCategory({
   params,
 }: PostsByCategoryProps) {
-  const { category } = await params
-  const posts = await getPosts(category)
+  const { category } = await params;
+  const posts = await getPosts(category);
 
   // Get the category display name (reverse slug to title)
-  const categories = getAllCategories()
-  const categoryName = Object.keys(categories).find(
-    (cat) => getSlug(cat) === category,
-  ) || category
+  const categories = getAllCategories();
+  const categoryName =
+    Object.keys(categories).find((cat) => getSlug(cat) === category) ||
+    category;
 
   // Get the index for consistent color rotation
   const categoryIndex = Object.keys(categories)
     .sort((a, b) => categories[b] - categories[a])
-    .indexOf(categoryName)
+    .indexOf(categoryName);
 
   // Group posts by year
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
-    const year = new Date(post.date).getFullYear()
+    const year = new Date(post.date).getFullYear();
     if (!acc[year]) {
-      acc[year] = []
+      acc[year] = [];
     }
-    acc[year].push(post)
-    return acc
-  }, {})
+    acc[year].push(post);
+    return acc;
+  }, {});
 
-  const postCount = posts.length
-  const yearCount = Object.keys(postsByYear).length
+  const postCount = posts.length;
+  const yearCount = Object.keys(postsByYear).length;
 
   // Get dynamic metadata
-  const metadata = getCategoryMetadata(categoryName, postCount, categoryIndex)
-  const colorClass = getCategoryColorClass(metadata.color, 'light')
+  const metadata = getCategoryMetadata(categoryName, postCount, categoryIndex);
+  const colorClass = getCategoryColorClass(metadata.color, "light");
 
   return (
     <div className="min-h-screen">
@@ -111,7 +114,7 @@ export default async function PostsByCategory({
                 />
               </svg>
               <span>
-                {postCount} {postCount === 1 ? 'post' : 'posts'}
+                {postCount} {postCount === 1 ? "post" : "posts"}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -129,7 +132,7 @@ export default async function PostsByCategory({
                 />
               </svg>
               <span>
-                {yearCount} {yearCount === 1 ? 'year' : 'years'}
+                {yearCount} {yearCount === 1 ? "year" : "years"}
               </span>
             </div>
           </div>
@@ -138,13 +141,9 @@ export default async function PostsByCategory({
         {/* Posts organized by year */}
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
-            .sort(([a], [b]) => parseInt(b) - parseInt(a))
+            .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
             .map(([year, yearPosts]) => (
-              <YearPost
-                key={year}
-                year={parseInt(year)}
-                posts={yearPosts}
-              />
+              <YearPost key={year} year={Number.parseInt(year)} posts={yearPosts} />
             ))}
         </div>
 
@@ -158,15 +157,15 @@ export default async function PostsByCategory({
         )}
       </Container>
     </div>
-  )
+  );
 }
 
-async function getPosts(category: Params['category']) {
+async function getPosts(category: Params["category"]) {
   return getPostsByCategory(category, [
-    'slug',
-    'date',
-    'title',
-    'category',
-    'featured',
-  ])
+    "slug",
+    "date",
+    "title",
+    "category",
+    "featured",
+  ]);
 }

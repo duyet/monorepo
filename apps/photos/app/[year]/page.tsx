@@ -1,77 +1,77 @@
-import PhotoGrid from '@/components/PhotoGrid'
+import PhotoGrid from "@/components/PhotoGrid";
 import {
   getAllPhotos,
   getPhotosByYear,
   type Photo,
-} from '@/lib/photo-provider'
-import Container from '@duyet/components/Container'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
+} from "@/lib/photo-provider";
+import Container from "@duyet/components/Container";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface YearPageProps {
   params: Promise<{
-    year: string
-  }>
+    year: string;
+  }>;
 }
 
 export async function generateStaticParams() {
   try {
-    const photos = await getAllPhotos()
+    const photos = await getAllPhotos();
     const years = Array.from(
       new Set(
         photos.map((photo) =>
-          new Date(photo.created_at).getFullYear().toString(),
-        ),
-      ),
-    )
+          new Date(photo.created_at).getFullYear().toString()
+        )
+      )
+    );
 
     if (years.length > 0) {
-      return years.map((year) => ({ year }))
+      return years.map((year) => ({ year }));
     }
 
     // Fallback years when no photos are available (for build without API key)
-    const currentYear = new Date().getFullYear()
-    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2]
-    return fallbackYears.map((year) => ({ year: year.toString() }))
+    const currentYear = new Date().getFullYear();
+    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2];
+    return fallbackYears.map((year) => ({ year: year.toString() }));
   } catch (error) {
     // Return fallback years for build
-    const currentYear = new Date().getFullYear()
-    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2]
-    return fallbackYears.map((year) => ({ year: year.toString() }))
+    const currentYear = new Date().getFullYear();
+    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2];
+    return fallbackYears.map((year) => ({ year: year.toString() }));
   }
 }
 
 export async function generateMetadata({ params }: YearPageProps) {
-  const { year } = await params
+  const { year } = await params;
   return {
     title: `Photos from ${year} | Duyệt`,
     description: `Photography collection from ${year} by Duyệt`,
-  }
+  };
 }
 
 export default async function YearPage({ params }: YearPageProps) {
-  const { year } = await params
+  const { year } = await params;
 
   // Validate year format
-  const yearNum = parseInt(year)
+  const yearNum = Number.parseInt(year);
   if (isNaN(yearNum) || yearNum < 2000 || yearNum > new Date().getFullYear()) {
-    notFound()
+    notFound();
   }
 
-  let allPhotos: Photo[] = []
-  let yearPhotos: Photo[] = []
-  let error: string | null = null
+  let allPhotos: Photo[] = [];
+  let yearPhotos: Photo[] = [];
+  let error: string | null = null;
 
   try {
-    allPhotos = await getAllPhotos()
-    yearPhotos = getPhotosByYear(allPhotos, year)
+    allPhotos = await getAllPhotos();
+    yearPhotos = getPhotosByYear(allPhotos, year);
   } catch (e) {
-    error = 'Failed to load photos. Please try again later.'
+    error = "Failed to load photos. Please try again later.";
   }
 
   // If no photos found for this year, show 404
   if (!error && yearPhotos.length === 0) {
-    notFound()
+    notFound();
   }
 
   if (error) {
@@ -89,21 +89,21 @@ export default async function YearPage({ params }: YearPageProps) {
           </div>
         </div>
       </Container>
-    )
+    );
   }
 
   // Get available years for navigation
   const allYears = Array.from(
-    new Set(allPhotos.map((photo) => new Date(photo.created_at).getFullYear())),
-  ).sort((a, b) => b - a)
+    new Set(allPhotos.map((photo) => new Date(photo.created_at).getFullYear()))
+  ).sort((a, b) => b - a);
 
-  const currentYearIndex = allYears.indexOf(yearNum)
+  const currentYearIndex = allYears.indexOf(yearNum);
   const previousYear =
-    currentYearIndex > 0 ? allYears[currentYearIndex - 1] : null
+    currentYearIndex > 0 ? allYears[currentYearIndex - 1] : null;
   const nextYear =
     currentYearIndex < allYears.length - 1
       ? allYears[currentYearIndex + 1]
-      : null
+      : null;
 
   return (
     <>
@@ -136,7 +136,7 @@ export default async function YearPage({ params }: YearPageProps) {
             </h1>
             <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
               A collection of {yearPhotos.length} photo
-              {yearPhotos.length !== 1 ? 's' : ''} captured in {year}.
+              {yearPhotos.length !== 1 ? "s" : ""} captured in {year}.
             </p>
 
             {/* Year navigation */}
@@ -148,8 +148,8 @@ export default async function YearPage({ params }: YearPageProps) {
                     href={`/${y}`}
                     className={`rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-all hover:shadow ${
                       y === yearNum
-                        ? 'bg-terracotta hover:bg-terracotta-medium dark:bg-terracotta-light text-white'
-                        : 'hover:bg-terracotta-light bg-white text-neutral-700 hover:text-neutral-900 dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700'
+                        ? "bg-terracotta hover:bg-terracotta-medium dark:bg-terracotta-light text-white"
+                        : "hover:bg-terracotta-light bg-white text-neutral-700 hover:text-neutral-900 dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700"
                     }`}
                   >
                     {y}
@@ -173,5 +173,5 @@ export default async function YearPage({ params }: YearPageProps) {
         <PhotoGrid photos={yearPhotos} />
       </section>
     </>
-  )
+  );
 }

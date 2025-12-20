@@ -1,14 +1,15 @@
-import type { Post } from '@duyet/interfaces'
-import { getAllCategories, getAllPosts } from '@duyet/libs/getPost'
-import { getSlug } from '@duyet/libs/getSlug'
-import Link from 'next/link'
+import type { Post } from "@duyet/interfaces";
+import { getAllCategories, getAllPosts } from "@duyet/libs/getPost";
+import { getSlug } from "@duyet/libs/getSlug";
+import Link from "next/link";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 export default function HtmlSitemapPage() {
-  const posts = getAllPosts(['slug', 'title', 'excerpt', 'date'], 100000)
-  const categories = Object.keys(getAllCategories())
-  const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || 'https://duyet.net'
+  const posts = getAllPosts(["slug", "title", "excerpt", "date"], 100000);
+  const categories = Object.keys(getAllCategories());
+  const HOME_URL =
+    process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -111,12 +112,12 @@ export default function HtmlSitemapPage() {
 
       <div className="mt-8 border-t pt-4 text-sm text-gray-500">
         <p>
-          This sitemap is also available in XML format at{' '}
+          This sitemap is also available in XML format at{" "}
           <Link href="/sitemap.xml" className="underline">
             /sitemap.xml
           </Link>
         </p>
       </div>
     </div>
-  )
+  );
 }

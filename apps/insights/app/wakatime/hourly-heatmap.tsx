@@ -1,12 +1,12 @@
-import { BarChart } from '@/components/charts'
-import { getWakaTimeHourlyHeatmap } from './wakatime-utils'
+import { BarChart } from "@/components/charts";
+import { getWakaTimeHourlyHeatmap } from "./wakatime-utils";
 
 export async function WakaTimeHourlyHeatmap() {
-  const heatmapData = await getWakaTimeHourlyHeatmap()
+  const heatmapData = await getWakaTimeHourlyHeatmap();
 
   // Hide component completely if no data available
   if (!heatmapData || heatmapData.length === 0) {
-    return null
+    return null;
   }
 
   return (
@@ -21,7 +21,7 @@ export async function WakaTimeHourlyHeatmap() {
       <div className="space-y-4">
         {/* Bar chart visualization */}
         <BarChart
-          categories={['Hours']}
+          categories={["Hours"]}
           data={heatmapData.map((item) => ({
             day: item.day,
             Hours: item.hours,
@@ -37,20 +37,20 @@ export async function WakaTimeHourlyHeatmap() {
           <div className="grid grid-cols-7 gap-2">
             {(() => {
               // Calculate maxHours once outside the map to avoid recalculation
-              const maxHours = Math.max(...heatmapData.map((d) => d.hours))
+              const maxHours = Math.max(...heatmapData.map((d) => d.hours));
 
               // Color scale function
               const getColorClass = (intensity: number) => {
-                if (intensity >= 0.75) return 'bg-green-600 dark:bg-green-500'
-                if (intensity >= 0.5) return 'bg-green-500 dark:bg-green-600'
-                if (intensity >= 0.25) return 'bg-green-400 dark:bg-green-700'
-                if (intensity > 0) return 'bg-green-300 dark:bg-green-800'
-                return 'bg-gray-200 dark:bg-gray-800'
-              }
+                if (intensity >= 0.75) return "bg-green-600 dark:bg-green-500";
+                if (intensity >= 0.5) return "bg-green-500 dark:bg-green-600";
+                if (intensity >= 0.25) return "bg-green-400 dark:bg-green-700";
+                if (intensity > 0) return "bg-green-300 dark:bg-green-800";
+                return "bg-gray-200 dark:bg-gray-800";
+              };
 
               return heatmapData.map((item) => {
                 // Calculate color intensity based on hours (normalized)
-                const intensity = maxHours > 0 ? item.hours / maxHours : 0
+                const intensity = maxHours > 0 ? item.hours / maxHours : 0;
 
                 return (
                   <div
@@ -66,8 +66,8 @@ export async function WakaTimeHourlyHeatmap() {
                     </span>
                     <span className="text-xs font-medium">{item.hours}h</span>
                   </div>
-                )
-              })
+                );
+              });
             })()}
           </div>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
@@ -84,5 +84,5 @@ export async function WakaTimeHourlyHeatmap() {
         </div>
       </div>
     </div>
-  )
+  );
 }

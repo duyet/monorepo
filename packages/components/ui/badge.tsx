@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@duyet/libs/utils";
@@ -20,7 +20,7 @@ const badgeVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
 export interface BadgeProps

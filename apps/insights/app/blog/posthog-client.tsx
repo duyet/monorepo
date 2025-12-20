@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import { PeriodSelector } from '@/components/period-selector'
-import { PopularContentTable } from '@/components/PopularContentTable'
-import { CompactMetric } from '@/components/ui/CompactMetric'
+import { PeriodSelector } from "@/components/period-selector";
+import { PopularContentTable } from "@/components/PopularContentTable";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 import {
   DEFAULT_PERIOD,
   TIME_PERIODS,
   type PeriodData,
   type TimePeriod,
-} from '@/types/periods'
-import { FileText, TrendingUp, Users } from 'lucide-react'
-import { useState } from 'react'
-import type { PostHogDataByPeriod } from './posthog-with-periods'
+} from "@/types/periods";
+import { FileText, TrendingUp, Users } from "lucide-react";
+import { useState } from "react";
+import type { PostHogDataByPeriod } from "./posthog-with-periods";
 
 interface PostHogClientProps {
-  data: PeriodData<PostHogDataByPeriod>
+  data: PeriodData<PostHogDataByPeriod>;
 }
 
 export function PostHogClient({ data }: PostHogClientProps) {
-  const [activePeriod, setActivePeriod] = useState<TimePeriod>(DEFAULT_PERIOD)
+  const [activePeriod, setActivePeriod] = useState<TimePeriod>(DEFAULT_PERIOD);
 
-  const currentData = data[activePeriod]
-  const activePeriodInfo = TIME_PERIODS.find((p) => p.value === activePeriod)
+  const currentData = data[activePeriod];
+  const activePeriodInfo = TIME_PERIODS.find((p) => p.value === activePeriod);
 
   if (!currentData) {
     return (
@@ -37,29 +37,29 @@ export function PostHogClient({ data }: PostHogClientProps) {
           No data available for this period
         </div>
       </div>
-    )
+    );
   }
 
   const metrics = [
     {
-      label: 'Total Visitors',
+      label: "Total Visitors",
       value: currentData.totalVisitors.toLocaleString(),
       icon: <Users className="h-4 w-4" />,
       change: currentData.totalVisitors > 0 ? { value: 18 } : undefined,
     },
     {
-      label: 'Page Views',
+      label: "Page Views",
       value: currentData.totalViews.toLocaleString(),
       icon: <FileText className="h-4 w-4" />,
       change: currentData.totalViews > 0 ? { value: 25 } : undefined,
     },
     {
-      label: 'Avg per Page',
+      label: "Avg per Page",
       value: currentData.avgVisitorsPerPage.toLocaleString(),
       icon: <TrendingUp className="h-4 w-4" />,
       change: currentData.avgVisitorsPerPage > 0 ? { value: 10 } : undefined,
     },
-  ]
+  ];
 
   return (
     <div className="space-y-6">
@@ -88,15 +88,15 @@ export function PostHogClient({ data }: PostHogClientProps) {
       {/* Popular Content Table */}
       <PopularContentTable
         data={currentData.paths.map((path) => {
-          const blogUrl = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || ''
+          const blogUrl = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "";
           if (!blogUrl) {
-            console.warn('NEXT_PUBLIC_DUYET_BLOG_URL is not defined')
+            console.warn("NEXT_PUBLIC_DUYET_BLOG_URL is not defined");
           }
           return {
             name: path.path,
             value: path.visitors,
             href: `${blogUrl}${path.path}`,
-          }
+          };
         })}
       />
 
@@ -105,5 +105,5 @@ export function PostHogClient({ data }: PostHogClientProps) {
         Updated {new Date(currentData.generatedAt).toLocaleDateString()}
       </p>
     </div>
-  )
+  );
 }

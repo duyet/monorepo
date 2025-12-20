@@ -12,7 +12,6 @@
     "build": "next build",
     "check-types": "tsc --noEmit",
     "dev": "next dev --turbopack -p 3000",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
@@ -21,7 +20,6 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "prettier": "@duyet/prettier",
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/config": "*",
@@ -65,7 +63,6 @@
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
     "postcss": "^8.4.18",
-    "prettier": "^3.0.0",
     "tailwindcss": "*",
     "tw-animate-css": "*",
     "typescript": "*",

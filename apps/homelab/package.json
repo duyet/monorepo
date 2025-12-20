@@ -6,13 +6,11 @@
     "build": "next build",
     "check-types": "tsc --noEmit",
     "dev": "next dev --turbopack -p 3002",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "next start"
   },
-  "prettier": "@duyet/prettier",
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/config": "*",
@@ -38,7 +36,6 @@
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
-    "prettier": "^3.0.0",
     "tailwindcss": "*",
     "typescript": "*"
   }

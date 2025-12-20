@@ -1,23 +1,26 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { cn } from '@duyet/libs/utils'
+import { useState } from "react";
+import { cn } from "@duyet/libs/utils";
 
 interface MarkdownMenuProps {
-  markdownUrl: string
-  onCopyMarkdown: () => Promise<void>
+  markdownUrl: string;
+  onCopyMarkdown: () => Promise<void>;
 }
 
-export function MarkdownMenu({ markdownUrl, onCopyMarkdown }: MarkdownMenuProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [copied, setCopied] = useState(false)
+export function MarkdownMenu({
+  markdownUrl,
+  onCopyMarkdown,
+}: MarkdownMenuProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await onCopyMarkdown()
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-    setIsOpen(false)
-  }
+    await onCopyMarkdown();
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -53,9 +56,9 @@ export function MarkdownMenu({ markdownUrl, onCopyMarkdown }: MarkdownMenuProps)
               <button
                 onClick={handleCopy}
                 className={cn(
-                  'flex w-full items-center gap-2 px-4 py-2 text-sm text-left',
-                  'text-neutral-700 hover:bg-neutral-100',
-                  'dark:text-neutral-300 dark:hover:bg-neutral-800',
+                  "flex w-full items-center gap-2 px-4 py-2 text-sm text-left",
+                  "text-neutral-700 hover:bg-neutral-100",
+                  "dark:text-neutral-300 dark:hover:bg-neutral-800"
                 )}
               >
                 <svg
@@ -71,14 +74,14 @@ export function MarkdownMenu({ markdownUrl, onCopyMarkdown }: MarkdownMenuProps)
                     d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
                   />
                 </svg>
-                {copied ? 'Copied!' : 'Copy Markdown'}
+                {copied ? "Copied!" : "Copy Markdown"}
               </button>
               <a
                 href={markdownUrl}
                 className={cn(
-                  'flex w-full items-center gap-2 px-4 py-2 text-sm',
-                  'text-neutral-700 hover:bg-neutral-100',
-                  'dark:text-neutral-300 dark:hover:bg-neutral-800',
+                  "flex w-full items-center gap-2 px-4 py-2 text-sm",
+                  "text-neutral-700 hover:bg-neutral-100",
+                  "dark:text-neutral-300 dark:hover:bg-neutral-800"
                 )}
               >
                 <svg
@@ -101,5 +104,5 @@ export function MarkdownMenu({ markdownUrl, onCopyMarkdown }: MarkdownMenuProps)
         </>
       )}
     </div>
-  )
+  );
 }

@@ -2,19 +2,19 @@
  * @type {import('next').NextConfig}
  */
 const config = {
-  output: 'export',
+  output: "export",
   trailingSlash: false,
-  transpilePackages: ['@duyet/components', '@duyet/libs'],
+  transpilePackages: ["@duyet/components", "@duyet/libs"],
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "**",
       },
     ],
   },
-}
+};
 
-module.exports = config
+module.exports = config;

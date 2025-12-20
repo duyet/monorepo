@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs/utils'
-import { AlertCircle } from 'lucide-react'
-import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ImageSkeleton } from './LoadingStates'
+import { cn } from "@duyet/libs/utils";
+import { AlertCircle } from "lucide-react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ImageSkeleton } from "./LoadingStates";
 
 interface LazyImageProps {
-  src: string
-  alt: string
-  width: number
-  height: number
-  className?: string
-  sizes?: string
-  priority?: boolean
-  blurDataURL?: string
-  onLoad?: () => void
-  onError?: () => void
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className?: string;
+  sizes?: string;
+  priority?: boolean;
+  blurDataURL?: string;
+  onLoad?: () => void;
+  onError?: () => void;
 }
 
 export default function LazyImage({
@@ -31,58 +31,58 @@ export default function LazyImage({
   onLoad,
   onError,
 }: LazyImageProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
-  const [isInView, setIsInView] = useState(priority) // Load immediately if priority
-  const imgRef = useRef<HTMLDivElement>(null)
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [isInView, setIsInView] = useState(priority); // Load immediately if priority
+  const imgRef = useRef<HTMLDivElement>(null);
 
   const handleImageLoad = useCallback(() => {
-    setIsLoading(false)
-    setHasError(false)
-    onLoad?.()
-  }, [onLoad])
+    setIsLoading(false);
+    setHasError(false);
+    onLoad?.();
+  }, [onLoad]);
 
   const handleImageError = useCallback(() => {
-    setIsLoading(false)
-    setHasError(true)
-    onError?.()
-  }, [onError])
+    setIsLoading(false);
+    setHasError(true);
+    onError?.();
+  }, [onError]);
 
   const handleRetry = useCallback(() => {
-    setIsLoading(true)
-    setHasError(false)
-  }, [])
+    setIsLoading(true);
+    setHasError(false);
+  }, []);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (priority || isInView) return
+    if (priority || isInView) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsInView(true)
-          observer.disconnect()
+          setIsInView(true);
+          observer.disconnect();
         }
       },
       {
         // Load images when they're 200px away from entering viewport
-        rootMargin: '200px',
+        rootMargin: "200px",
         threshold: 0.01,
-      },
-    )
+      }
+    );
 
-    const currentRef = imgRef.current
+    const currentRef = imgRef.current;
     if (currentRef) {
-      observer.observe(currentRef)
+      observer.observe(currentRef);
     }
 
     return () => {
       if (currentRef) {
-        observer.unobserve(currentRef)
+        observer.unobserve(currentRef);
       }
-      observer.disconnect()
-    }
-  }, [priority, isInView])
+      observer.disconnect();
+    };
+  }, [priority, isInView]);
 
   return (
     <div ref={imgRef} className="relative w-full">
@@ -110,14 +110,14 @@ export default function LazyImage({
             width={width}
             height={height}
             className={cn(
-              'h-auto w-full object-cover transition-opacity duration-500',
-              isLoading ? 'opacity-0' : 'opacity-100',
-              className,
+              "h-auto w-full object-cover transition-opacity duration-500",
+              isLoading ? "opacity-0" : "opacity-100",
+              className
             )}
             onLoad={handleImageLoad}
             onError={handleImageError}
-            loading={priority ? 'eager' : 'lazy'}
-            placeholder={blurDataURL ? 'blur' : 'empty'}
+            loading={priority ? "eager" : "lazy"}
+            placeholder={blurDataURL ? "blur" : "empty"}
             blurDataURL={blurDataURL}
             sizes={sizes}
             quality={85}
@@ -136,5 +136,5 @@ export default function LazyImage({
         <ImageSkeleton aspectRatio={`${width}/${height}`} />
       )}
     </div>
-  )
+  );
 }

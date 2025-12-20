@@ -1,32 +1,32 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import Container from '@duyet/components/Container'
-import Feed from '@duyet/components/Feed'
-import Header from '@duyet/components/Header'
-import { getAllPosts } from '@duyet/libs/getPost'
+import Container from "@duyet/components/Container";
+import Feed from "@duyet/components/Feed";
+import Header from "@duyet/components/Header";
+import { getAllPosts } from "@duyet/libs/getPost";
 
-type Params = Promise<Record<string, string>>
+type Params = Promise<Record<string, string>>;
 
 async function getPosts(params: Params) {
-  const { page } = await params
-  const pageNumber = page ? parseInt(page) - 1 : 0
+  const { page } = await params;
+  const pageNumber = page ? Number.parseInt(page) - 1 : 0;
 
   return getAllPosts(
     [
-      'date',
-      'slug',
-      'title',
-      'excerpt',
-      'thumbnail',
-      'category',
-      'category_slug',
+      "date",
+      "slug",
+      "title",
+      "excerpt",
+      "thumbnail",
+      "category",
+      "category_slug",
     ],
-    pageNumber * 10 + 10,
-  )
+    pageNumber * 10 + 10
+  );
 }
 
 export default async function Page({ params }: { params: Params }) {
-  const posts = await getPosts(params)
+  const posts = await getPosts(params);
 
   return (
     <div className="min-h-screen">
@@ -41,5 +41,5 @@ export default async function Page({ params }: { params: Params }) {
         </Link>
       </Container>
     </div>
-  )
+  );
 }

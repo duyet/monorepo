@@ -10,7 +10,8 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 80
+    "lineWidth": 80,
+    "formatWithErrors": true
   },
   "linter": {
     "enabled": true,

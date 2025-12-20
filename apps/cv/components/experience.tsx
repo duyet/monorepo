@@ -1,18 +1,18 @@
-import { cn, distanceFormat } from '@duyet/libs'
-import type { ImageProps } from 'next/image'
-import Image from 'next/image'
-import Link from 'next/link'
+import { cn, distanceFormat } from "@duyet/libs";
+import type { ImageProps } from "next/image";
+import Image from "next/image";
+import Link from "next/link";
 
 interface ExperienceItemProps {
-  title: string
-  company: string
-  companyUrl?: string
-  companyLogo?: ImageProps['src']
-  companyLogoClassName?: string
-  from: Date
-  to?: Date
-  responsibilities: { id: number; item: string | React.ReactNode }[]
-  className?: string
+  title: string;
+  company: string;
+  companyUrl?: string;
+  companyLogo?: ImageProps["src"];
+  companyLogoClassName?: string;
+  from: Date;
+  to?: Date;
+  responsibilities: { id: number; item: string | React.ReactNode }[];
+  className?: string;
 }
 
 export function ExperienceItem({
@@ -27,10 +27,10 @@ export function ExperienceItem({
   className,
 }: ExperienceItemProps) {
   return (
-    <div className={cn('flex flex-col gap-1', className)}>
+    <div className={cn("flex flex-col gap-1", className)}>
       <h3
         className="inline-flex items-center gap-2 text-base font-bold"
-        style={{ fontFamily: 'var(--font-lora)' }}
+        style={{ fontFamily: "var(--font-lora)" }}
       >
         <span>{title}</span>
         <span>-</span>
@@ -50,7 +50,7 @@ export function ExperienceItem({
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
 function CompanyLine({
@@ -60,13 +60,13 @@ function CompanyLine({
   companyLogoClassName,
 }: Pick<
   ExperienceItemProps,
-  'company' | 'companyUrl' | 'companyLogo' | 'companyLogoClassName'
+  "company" | "companyUrl" | "companyLogo" | "companyLogoClassName"
 >) {
   const logoWithText = (
     <span
       className={cn(
-        'group inline-flex items-center gap-2 font-normal',
-        'hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4',
+        "group inline-flex items-center gap-2 font-normal",
+        "hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
       )}
     >
       {companyLogo ? (
@@ -76,34 +76,36 @@ function CompanyLine({
           width={10}
           height={10}
           className={cn(
-            'h-6 w-auto grayscale group-hover:grayscale-0 dark:brightness-0 dark:invert print:hidden',
-            companyLogoClassName,
+            "h-6 w-auto grayscale group-hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
+            companyLogoClassName
           )}
         />
       ) : null}
       <span>{company}</span>
     </span>
-  )
+  );
 
   if (companyUrl) {
     return (
       <Link href={companyUrl} className="m-0 p-0">
         {logoWithText}
       </Link>
-    )
+    );
   }
 
-  return logoWithText
+  return logoWithText;
 }
 
 function PeriodLine({ from, to }: { from: Date; to?: Date }) {
-  const monthFmt = new Intl.DateTimeFormat('en-US', { month: 'long' })
+  const monthFmt = new Intl.DateTimeFormat("en-US", { month: "long" });
 
-  const fromString = `${monthFmt.format(from)} ${from.getFullYear()}`
-  const toString = to ? `${monthFmt.format(to)} ${to.getFullYear()}` : 'CURRENT'
-  const period = `${fromString} - ${toString}`
+  const fromString = `${monthFmt.format(from)} ${from.getFullYear()}`;
+  const toString = to
+    ? `${monthFmt.format(to)} ${to.getFullYear()}`
+    : "CURRENT";
+  const period = `${fromString} - ${toString}`;
 
-  const duration = distanceFormat(from, to ? to : new Date())
+  const duration = distanceFormat(from, to ? to : new Date());
 
   return (
     <div className="group inline-flex gap-2 text-xs uppercase text-gray-600 dark:text-gray-300">
@@ -114,5 +116,5 @@ function PeriodLine({ from, to }: { from: Date; to?: Date }) {
         {duration}
       </div>
     </div>
-  )
+  );
 }

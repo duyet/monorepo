@@ -146,7 +146,7 @@ export function getWakaTimeRange(days: number | "all"): string {
 // Helper function to calculate exponential backoff delay
 export function calculateBackoffDelay(
   retryCount: number,
-  config: RetryConfig = DEFAULT_RETRY_CONFIG,
+  config: RetryConfig = DEFAULT_RETRY_CONFIG
 ): number {
   return config.initialDelayMs * Math.pow(config.backoffMultiplier, retryCount);
 }

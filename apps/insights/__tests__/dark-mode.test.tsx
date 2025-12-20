@@ -9,35 +9,35 @@
  * 4. Dark mode classes are applied when theme changes
  */
 
-import { render } from '@testing-library/react'
+import { render } from "@testing-library/react";
 
-describe('Dark Mode Configuration', () => {
-  it('should have next-themes dependency installed', () => {
+describe("Dark Mode Configuration", () => {
+  it("should have next-themes dependency installed", () => {
     // Verify package.json includes next-themes
-    const packageJson = require('../package.json')
-    expect(packageJson.dependencies['next-themes']).toBeDefined()
-  })
+    const packageJson = require("../package.json");
+    expect(packageJson.dependencies["next-themes"]).toBeDefined();
+  });
 
-  it('should support dark mode classes in layout', () => {
+  it("should support dark mode classes in layout", () => {
     // Verify that dark: variants are available in components
     const { container } = render(
       <div className="bg-white text-gray-700 dark:bg-slate-900 dark:text-slate-50">
         Test Content
-      </div>,
-    )
+      </div>
+    );
 
-    expect(container.firstChild).toHaveClass('bg-white', 'text-gray-700')
-  })
+    expect(container.firstChild).toHaveClass("bg-white", "text-gray-700");
+  });
 
-  it('should have dark mode CSS variables defined', () => {
+  it("should have dark mode CSS variables defined", () => {
     // Verify globals.css includes .dark class with CSS variables
     // This is checked at build time via the CSS compilation
-    expect(true).toBe(true)
-  })
+    expect(true).toBe(true);
+  });
 
-  it('should have suppressHydrationWarning on html tag', () => {
+  it("should have suppressHydrationWarning on html tag", () => {
     // This is required for next-themes to work properly
     // The actual check happens in layout.tsx
-    expect(true).toBe(true)
-  })
-})
+    expect(true).toBe(true);
+  });
+});

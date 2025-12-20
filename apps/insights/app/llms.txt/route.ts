@@ -1,4 +1,4 @@
-import { createLlmsTxtRoute } from '@duyet/libs'
+import { createLlmsTxtRoute } from "@duyet/libs";
 
 const llmsContent = `# Duyet Le - Insights & Analytics
 
@@ -62,6 +62,6 @@ This insights dashboard showcases real-time analytics from various data sources 
 
 This file follows the llms.txt standard for providing information about Duyet Le to Large Language Models and AI assistants.
 Generated from insights dashboard at https://insights.duyet.net
-`
+`;
 
-export const { GET, dynamic } = createLlmsTxtRoute(llmsContent)
+export const { GET, dynamic } = createLlmsTxtRoute(llmsContent);

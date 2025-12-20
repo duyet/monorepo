@@ -2,9 +2,9 @@
  * Network mock data generation
  */
 
-import { HISTORICAL_DATA } from '../constants'
-import type { NetworkSpeedTest } from './types'
-import { random, getHistoricalTime } from './utils'
+import { HISTORICAL_DATA } from "../constants";
+import type { NetworkSpeedTest } from "./types";
+import { random, getHistoricalTime } from "./utils";
 
 /**
  * Generate network traffic with realistic day/night patterns
@@ -144,7 +144,7 @@ const generateNetworkTraffic = () => {
       ),
     },
     {
-      time: 'Now',
+      time: "Now",
       in: random(
         HISTORICAL_DATA.NETWORK_TRAFFIC.DAY.IN.min,
         HISTORICAL_DATA.NETWORK_TRAFFIC.DAY.IN.max
@@ -158,10 +158,10 @@ const generateNetworkTraffic = () => {
     ...item,
     in: Number(item.in.toFixed(1)),
     out: Number(item.out.toFixed(1)),
-  }))
-}
+  }));
+};
 
-export const networkTraffic = generateNetworkTraffic()
+export const networkTraffic = generateNetworkTraffic();
 
 /**
  * Generate speed test data
@@ -186,4 +186,4 @@ export const speedTest: NetworkSpeedTest = {
     ).toFixed(1)
   ),
   timestamp: new Date().toLocaleString(),
-}
+};

@@ -11,13 +11,11 @@
     "build": "next build",
     "check-types": "tsc --noEmit",
     "dev": "next dev --turbopack -p 3002",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "next start"
   },
-  "prettier": "@duyet/prettier",
   "dependencies": {
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
@@ -48,7 +46,6 @@
     "autoprefixer": "^10.4.12",
     "csstype": "^3.1.2",
     "postcss": "^8.4.18",
-    "prettier": "^3.0.0",
     "tailwindcss": "*",
     "typescript": "*"
   }

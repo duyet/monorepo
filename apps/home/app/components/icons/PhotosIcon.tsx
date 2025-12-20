@@ -54,5 +54,5 @@ export default function PhotosIcon() {
       {/* Flash indicator */}
       <circle cx="44" cy="26" r="1.5" fill="currentColor" />
     </svg>
-  )
+  );
 }

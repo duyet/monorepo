@@ -4,9 +4,7 @@
   "private": true,
   "license": "MIT",
   "main": "prettier.config.cjs",
-  "files": [
-    "./"
-  ],
+  "files": ["./"],
   "dependencies": {},
   "devDependencies": {
     "prettier-plugin-organize-imports": "^4.0.0",

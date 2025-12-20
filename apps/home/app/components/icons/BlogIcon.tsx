@@ -53,5 +53,5 @@ export default function BlogIcon() {
         strokeLinecap="round"
       />
     </svg>
-  )
+  );
 }
