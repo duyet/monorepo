@@ -1,0 +1,6 @@
+# Cloudflare Pages configuration
+# This file configures the build environment for Cloudflare Pages
+
+# Configure the build environment to use Bun
+[env.production]
+vars = { ENV = "production" }
