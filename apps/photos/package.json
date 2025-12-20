@@ -11,7 +11,7 @@
     "build": "next build",
     "dev": "next dev --turbopack -p 3003",
     "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
-    "fmt": "yarn fix",
+    "fmt": "bun run fix",
     "lint": "next lint",
     "prettier-check": "prettier --check .",
     "start": "next start",
