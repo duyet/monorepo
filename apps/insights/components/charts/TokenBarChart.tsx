@@ -1,25 +1,25 @@
-'use client'
+"use client";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from '@/components/ui/chart'
+} from "@/components/ui/chart";
 import {
   Bar,
   CartesianGrid,
   BarChart as RechartsBarChart,
   XAxis,
-} from 'recharts'
+} from "recharts";
 
 interface TokenBarChartProps {
-  data: Array<Record<string, unknown>>
-  index: string
-  categories: string[]
-  className?: string
-  stack?: boolean
-  showInThousands?: boolean
+  data: Array<Record<string, unknown>>;
+  index: string;
+  categories: string[];
+  className?: string;
+  stack?: boolean;
+  showInThousands?: boolean;
 }
 
 /**
@@ -38,23 +38,23 @@ export function TokenBarChart({
 }: TokenBarChartProps) {
   const valueFormatter = showInThousands
     ? (value: unknown) => `${value}K`
-    : undefined
+    : undefined;
 
   // Explicit color mapping for token categories using CSS variables
   const chartConfig: ChartConfig = {
-    'Input Tokens': {
-      label: 'Input Tokens',
-      color: 'var(--chart-1)',
+    "Input Tokens": {
+      label: "Input Tokens",
+      color: "var(--chart-1)",
     },
-    'Output Tokens': {
-      label: 'Output Tokens',
-      color: 'var(--chart-2)',
+    "Output Tokens": {
+      label: "Output Tokens",
+      color: "var(--chart-2)",
     },
-    'Cache Tokens': {
-      label: 'Cache Tokens',
-      color: 'var(--chart-3)',
+    "Cache Tokens": {
+      label: "Cache Tokens",
+      color: "var(--chart-3)",
     },
-  }
+  };
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -76,24 +76,24 @@ export function TokenBarChart({
         />
         {categories.map((category, i) => {
           // For stacked bars, only the last (top) bar should have rounded corners
-          const isLastInStack = stack && i === categories.length - 1
+          const isLastInStack = stack && i === categories.length - 1;
           const radius: [number, number, number, number] = stack
             ? isLastInStack
               ? [4, 4, 0, 0]
               : [0, 0, 0, 0]
-            : [4, 4, 0, 0]
+            : [4, 4, 0, 0];
 
           return (
             <Bar
               key={category}
               dataKey={category}
-              stackId={stack ? 'stack' : undefined}
-              fill={chartConfig[category]?.color || 'hsl(var(--chart-1))'}
+              stackId={stack ? "stack" : undefined}
+              fill={chartConfig[category]?.color || "hsl(var(--chart-1))"}
               radius={radius}
             />
-          )
+          );
         })}
       </RechartsBarChart>
     </ChartContainer>
-  )
+  );
 }

@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
-  transpilePackages: ['@duyet/components', '@duyet/config', '@duyet/libs'],
+  output: "export",
+  transpilePackages: ["@duyet/components", "@duyet/config", "@duyet/libs"],
   eslint: {
-    dirs: ['app', 'components', 'lib'],
+    dirs: ["app", "components", "lib"],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

@@ -51,5 +51,5 @@ export default function InsightsIcon() {
       <circle cx="40" cy="20" r="2.5" fill="currentColor" opacity="0.6" />
       <circle cx="52" cy="32" r="2.5" fill="currentColor" opacity="0.6" />
     </svg>
-  )
+  );
 }

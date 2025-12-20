@@ -1,10 +1,7 @@
 {
   "name": "duyet",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
+  "workspaces": ["packages/*", "apps/*"],
   "repository": {
     "type": "git",
     "url": "https://github.com/duyet/monorepo.git"
@@ -13,34 +10,28 @@
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev --parallel",
     "prepare": "husky",
-    "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path .gitignore",
-    "fmt": "dotenv -- turbo fmt",
-    "lint": "dotenv -- turbo lint",
-    "prettier-check": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "fmt": "biome format --write .",
+    "lint": "biome lint .",
     "start": "dotenv -- turbo start",
     "test": "dotenv -- turbo test"
   },
   "lint-staged": {
-    "*": "prettier -w --ignore-unknown"
+    "*": "biome format --write"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@duyet/tsconfig": "*",
     "@tailwindcss/postcss": "^4.1.6",
     "dotenv-cli": "^11.0.0",
-    "eslint": "^9.26.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-config-turbo": "^2.5.3",
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
     "postcss": "^8.5.3",
-    "prettier": "^3.0.0",
     "tailwindcss": "^4.1.6",
     "turbo": "^2.5.3",
     "tw-animate-css": "^1.2.9",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1"
+    "typescript": "^5.8.3"
   },
   "packageManager": "bun@1.3.4"
 }

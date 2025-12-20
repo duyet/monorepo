@@ -1,58 +1,58 @@
-'use client'
+"use client";
 
 import {
   CompactAreaChart,
   CompactBarChart,
   CompactLineChart,
   MiniSparkline,
-} from '@/components/charts/CompactChart'
-import { cn } from '@duyet/libs'
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from 'lucide-react'
-import { useState } from 'react'
+} from "@/components/charts/CompactChart";
+import { cn } from "@duyet/libs";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
+import { useState } from "react";
 
 interface MobileOptimizedChartProps {
-  data: Array<Record<string, unknown>>
-  index: string
-  categories: string[]
-  type?: 'area' | 'bar' | 'line' | 'sparkline'
-  title?: string
-  className?: string
-  showControls?: boolean
-  height?: number
+  data: Array<Record<string, unknown>>;
+  index: string;
+  categories: string[];
+  type?: "area" | "bar" | "line" | "sparkline";
+  title?: string;
+  className?: string;
+  showControls?: boolean;
+  height?: number;
 }
 
 export function MobileOptimizedChart({
   data,
   index,
   categories,
-  type = 'area',
+  type = "area",
   title,
   className,
   showControls = true,
   height,
 }: MobileOptimizedChartProps) {
-  const [currentCategory, setCurrentCategory] = useState(0)
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [currentView, setCurrentView] = useState<'chart' | 'data'>('chart')
+  const [currentCategory, setCurrentCategory] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentView, setCurrentView] = useState<"chart" | "data">("chart");
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   // For mobile, show one category at a time if multiple categories
-  const shouldPaginate = isMobile && categories.length > 1
+  const shouldPaginate = isMobile && categories.length > 1;
   const displayCategories = shouldPaginate
     ? [categories[currentCategory]]
-    : categories
-  const chartHeight = isExpanded ? height || 300 : height || 200
+    : categories;
+  const chartHeight = isExpanded ? height || 300 : height || 200;
 
   const nextCategory = () => {
-    setCurrentCategory((prev) => (prev + 1) % categories.length)
-  }
+    setCurrentCategory((prev) => (prev + 1) % categories.length);
+  };
 
   const prevCategory = () => {
     setCurrentCategory(
-      (prev) => (prev - 1 + categories.length) % categories.length,
-    )
-  }
+      (prev) => (prev - 1 + categories.length) % categories.length
+    );
+  };
 
   const renderChart = () => {
     const chartProps = {
@@ -60,17 +60,17 @@ export function MobileOptimizedChart({
       index,
       categories: displayCategories,
       height: chartHeight,
-      className: 'w-full',
+      className: "w-full",
       showGrid: !isMobile, // Hide grid on mobile for cleaner look
       showTooltip: true,
-    }
+    };
 
     switch (type) {
-      case 'bar':
-        return <CompactBarChart {...chartProps} />
-      case 'line':
-        return <CompactLineChart {...chartProps} />
-      case 'sparkline':
+      case "bar":
+        return <CompactBarChart {...chartProps} />;
+      case "line":
+        return <CompactLineChart {...chartProps} />;
+      case "sparkline":
         return (
           <MiniSparkline
             data={data}
@@ -78,11 +78,11 @@ export function MobileOptimizedChart({
             height={chartHeight}
             className="w-full"
           />
-        )
+        );
       default:
-        return <CompactAreaChart {...chartProps} />
+        return <CompactAreaChart {...chartProps} />;
     }
-  }
+  };
 
   const renderDataTable = () => (
     <div className="overflow-x-auto">
@@ -106,19 +106,19 @@ export function MobileOptimizedChart({
           {data.slice(0, 10).map(
             (
               row,
-              i, // Limit to 10 rows on mobile
+              i // Limit to 10 rows on mobile
             ) => (
               <tr key={i} className="border-border/50 border-b">
                 <td className="p-2 font-medium">{String(row[index])}</td>
                 {displayCategories.map((category) => (
                   <td key={category} className="p-2 text-right font-mono">
-                    {typeof row[category] === 'number'
+                    {typeof row[category] === "number"
                       ? row[category].toLocaleString()
                       : String(row[category])}
                   </td>
                 ))}
               </tr>
-            ),
+            )
           )}
         </tbody>
       </table>
@@ -128,10 +128,10 @@ export function MobileOptimizedChart({
         </p>
       )}
     </div>
-  )
+  );
 
   return (
-    <div className={cn('space-y-3', className)}>
+    <div className={cn("space-y-3", className)}>
       {/* Header with controls */}
       {(title || showControls) && (
         <div className="flex items-center justify-between">
@@ -141,7 +141,7 @@ export function MobileOptimizedChart({
             )}
             {shouldPaginate && (
               <p className="text-xs text-muted-foreground">
-                {categories[currentCategory]} ({currentCategory + 1} of{' '}
+                {categories[currentCategory]} ({currentCategory + 1} of{" "}
                 {categories.length})
               </p>
             )}
@@ -172,23 +172,23 @@ export function MobileOptimizedChart({
               {/* View toggle */}
               <div className="flex rounded border">
                 <button
-                  onClick={() => setCurrentView('chart')}
+                  onClick={() => setCurrentView("chart")}
                   className={cn(
-                    'rounded-l px-2 py-1 text-xs',
-                    currentView === 'chart'
-                      ? 'bg-accent text-accent-foreground'
-                      : 'hover:bg-accent/50',
+                    "rounded-l px-2 py-1 text-xs",
+                    currentView === "chart"
+                      ? "bg-accent text-accent-foreground"
+                      : "hover:bg-accent/50"
                   )}
                 >
                   Chart
                 </button>
                 <button
-                  onClick={() => setCurrentView('data')}
+                  onClick={() => setCurrentView("data")}
                   className={cn(
-                    'rounded-r border-l px-2 py-1 text-xs',
-                    currentView === 'data'
-                      ? 'bg-accent text-accent-foreground'
-                      : 'hover:bg-accent/50',
+                    "rounded-r border-l px-2 py-1 text-xs",
+                    currentView === "data"
+                      ? "bg-accent text-accent-foreground"
+                      : "hover:bg-accent/50"
                   )}
                 >
                   Data
@@ -213,7 +213,7 @@ export function MobileOptimizedChart({
 
       {/* Content */}
       <div className="min-h-0">
-        {currentView === 'chart' ? renderChart() : renderDataTable()}
+        {currentView === "chart" ? renderChart() : renderDataTable()}
       </div>
 
       {/* Mobile indicators */}
@@ -224,22 +224,22 @@ export function MobileOptimizedChart({
               key={index}
               onClick={() => setCurrentCategory(index)}
               className={cn(
-                'h-2 w-2 rounded-full transition-colors',
+                "h-2 w-2 rounded-full transition-colors",
                 index === currentCategory
-                  ? 'bg-primary'
-                  : 'bg-muted-foreground/30',
+                  ? "bg-primary"
+                  : "bg-muted-foreground/30"
               )}
             />
           ))}
         </div>
       )}
     </div>
-  )
+  );
 }
 
 interface SwipeableChartProps extends MobileOptimizedChartProps {
-  onSwipeLeft?: () => void
-  onSwipeRight?: () => void
+  onSwipeLeft?: () => void;
+  onSwipeRight?: () => void;
 }
 
 export function SwipeableChart({
@@ -247,34 +247,34 @@ export function SwipeableChart({
   onSwipeRight,
   ...props
 }: SwipeableChartProps) {
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const minSwipeDistance = 50
+  const minSwipeDistance = 50;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
+    if (!touchStart || !touchEnd) return;
 
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe && onSwipeLeft) {
-      onSwipeLeft()
+      onSwipeLeft();
     }
     if (isRightSwipe && onSwipeRight) {
-      onSwipeRight()
+      onSwipeRight();
     }
-  }
+  };
 
   return (
     <div
@@ -284,5 +284,5 @@ export function SwipeableChart({
     >
       <MobileOptimizedChart {...props} />
     </div>
-  )
+  );
 }

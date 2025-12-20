@@ -1,29 +1,29 @@
-import { CompactMetric } from '@/components/ui/CompactMetric'
-import { Eye, GitFork, Star, TrendingUp } from 'lucide-react'
-import { fetchAllRepositories, type GitHubRepository } from './github-utils'
+import { CompactMetric } from "@/components/ui/CompactMetric";
+import { Eye, GitFork, Star, TrendingUp } from "lucide-react";
+import { fetchAllRepositories, type GitHubRepository } from "./github-utils";
 
-const owner = 'duyet'
+const owner = "duyet";
 
 interface RepoTrend {
-  name: string
-  stars: number
-  forks: number
-  watchers: number
-  updated: string
-  language: string
-  size: number
+  name: string;
+  stars: number;
+  forks: number;
+  watchers: number;
+  updated: string;
+  language: string;
+  size: number;
 }
 
 interface TrendStats {
-  totalStars: number
-  totalForks: number
-  totalWatchers: number
-  topRepos: RepoTrend[]
-  trendingRepos: RepoTrend[]
+  totalStars: number;
+  totalForks: number;
+  totalWatchers: number;
+  topRepos: RepoTrend[];
+  trendingRepos: RepoTrend[];
 }
 
 export async function RepoTrends() {
-  const stats = await getTrendStats(owner)
+  const stats = await getTrendStats(owner);
 
   // Safety check for stats structure
   if (
@@ -38,29 +38,29 @@ export async function RepoTrends() {
           GitHub API may be unavailable or repository access is limited
         </p>
       </div>
-    )
+    );
   }
 
   const metrics = [
     {
-      label: 'Total Stars',
+      label: "Total Stars",
       value: stats.totalStars.toLocaleString(),
       icon: <Star className="h-4 w-4" />,
       change: stats.totalStars > 0 ? { value: 15 } : undefined,
     },
     {
-      label: 'Total Forks',
+      label: "Total Forks",
       value: stats.totalForks.toLocaleString(),
       icon: <GitFork className="h-4 w-4" />,
       change: stats.totalForks > 0 ? { value: 8 } : undefined,
     },
     {
-      label: 'Watchers',
+      label: "Watchers",
       value: stats.totalWatchers.toLocaleString(),
       icon: <Eye className="h-4 w-4" />,
       change: stats.totalWatchers > 0 ? { value: 12 } : undefined,
     },
-  ]
+  ];
 
   return (
     <div className="space-y-6">
@@ -164,16 +164,18 @@ export async function RepoTrends() {
         Data from GitHub API • Repository statistics and trends
       </p>
     </div>
-  )
+  );
 }
 
 async function getTrendStats(owner: string): Promise<TrendStats> {
   try {
-    console.log(`Fetching GitHub trend stats for ${owner}`)
+    console.log(`Fetching GitHub trend stats for ${owner}`);
 
     // Fetch all repositories with pagination
-    const repos = await fetchAllRepositories(owner)
-    console.log(`Found ${repos.length} public repositories for trends analysis`)
+    const repos = await fetchAllRepositories(owner);
+    console.log(
+      `Found ${repos.length} public repositories for trends analysis`
+    );
 
     // Convert to trend data
     const repoTrends: RepoTrend[] = repos.map((repo: GitHubRepository) => ({
@@ -182,25 +184,25 @@ async function getTrendStats(owner: string): Promise<TrendStats> {
       forks: repo.forks_count || 0,
       watchers: repo.watchers_count || 0,
       updated: repo.updated_at,
-      language: repo.language || 'Unknown',
+      language: repo.language || "Unknown",
       size: repo.size || 0,
-    }))
+    }));
 
     // Calculate totals
-    const totalStars = repoTrends.reduce((sum, repo) => sum + repo.stars, 0)
-    const totalForks = repoTrends.reduce((sum, repo) => sum + repo.forks, 0)
+    const totalStars = repoTrends.reduce((sum, repo) => sum + repo.stars, 0);
+    const totalForks = repoTrends.reduce((sum, repo) => sum + repo.forks, 0);
     const totalWatchers = repoTrends.reduce(
       (sum, repo) => sum + repo.watchers,
-      0,
-    )
+      0
+    );
 
     // Sort by stars for top repos
-    const topRepos = [...repoTrends].sort((a, b) => b.stars - a.stars)
+    const topRepos = [...repoTrends].sort((a, b) => b.stars - a.stars);
 
     // Sort by recent updates for trending
     const trendingRepos = [...repoTrends].sort(
-      (a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime(),
-    )
+      (a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime()
+    );
 
     return {
       totalStars,
@@ -208,10 +210,10 @@ async function getTrendStats(owner: string): Promise<TrendStats> {
       totalWatchers,
       topRepos,
       trendingRepos,
-    }
+    };
   } catch (error) {
-    console.error('Error fetching trend stats:', error)
-    return getEmptyTrendStats()
+    console.error("Error fetching trend stats:", error);
+    return getEmptyTrendStats();
   }
 }
 
@@ -222,5 +224,5 @@ function getEmptyTrendStats(): TrendStats {
     totalWatchers: 0,
     topRepos: [],
     trendingRepos: [],
-  }
+  };
 }

@@ -1,52 +1,52 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs/utils'
+import { cn } from "@duyet/libs/utils";
 
 /**
  * Professional loading states for photo components
  */
 
 interface LoadingSpinnerProps {
-  size?: 'sm' | 'md' | 'lg'
-  className?: string
-  color?: 'white' | 'gray' | 'primary'
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  color?: "white" | "gray" | "primary";
 }
 
 export function LoadingSpinner({
-  size = 'md',
+  size = "md",
   className,
-  color = 'white',
+  color = "white",
 }: LoadingSpinnerProps) {
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-8 w-8',
-    lg: 'h-12 w-12',
-  }
+    sm: "h-4 w-4",
+    md: "h-8 w-8",
+    lg: "h-12 w-12",
+  };
 
   const colorClasses = {
-    white: 'border-white border-t-transparent',
-    gray: 'border-gray-400 border-t-transparent',
-    primary: 'border-blue-600 border-t-transparent',
-  }
+    white: "border-white border-t-transparent",
+    gray: "border-gray-400 border-t-transparent",
+    primary: "border-blue-600 border-t-transparent",
+  };
 
   return (
     <div
       className={cn(
-        'animate-spin rounded-full border-2',
+        "animate-spin rounded-full border-2",
         sizeClasses[size],
         colorClasses[color],
-        className,
+        className
       )}
       aria-label="Loading..."
       role="status"
     />
-  )
+  );
 }
 
 interface ImageSkeletonProps {
-  aspectRatio: string
-  className?: string
-  animated?: boolean
+  aspectRatio: string;
+  className?: string;
+  animated?: boolean;
 }
 
 export function ImageSkeleton({
@@ -57,20 +57,20 @@ export function ImageSkeleton({
   return (
     <div
       className={cn(
-        'bg-gray-200 dark:bg-gray-700',
-        animated && 'animate-pulse',
-        className,
+        "bg-gray-200 dark:bg-gray-700",
+        animated && "animate-pulse",
+        className
       )}
       style={{ aspectRatio }}
       aria-label="Loading image..."
       role="status"
     />
-  )
+  );
 }
 
 interface PhotoCardSkeletonProps {
-  className?: string
-  showMetadata?: boolean
+  className?: string;
+  showMetadata?: boolean;
 }
 
 export function PhotoCardSkeleton({
@@ -80,9 +80,9 @@ export function PhotoCardSkeleton({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-lg bg-gray-100 shadow-sm dark:bg-gray-800',
-        'mb-4 break-inside-avoid sm:mb-6 lg:mb-8',
-        className,
+        "overflow-hidden rounded-lg bg-gray-100 shadow-sm dark:bg-gray-800",
+        "mb-4 break-inside-avoid sm:mb-6 lg:mb-8",
+        className
       )}
     >
       {/* Image skeleton with random aspect ratio for variety */}
@@ -99,13 +99,13 @@ export function PhotoCardSkeleton({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 interface PhotoGridSkeletonProps {
-  count?: number
-  columns?: number
-  className?: string
+  count?: number;
+  columns?: number;
+  className?: string;
 }
 
 export function PhotoGridSkeleton({
@@ -114,7 +114,7 @@ export function PhotoGridSkeleton({
   className,
 }: PhotoGridSkeletonProps) {
   return (
-    <div className={cn('grid gap-4 sm:gap-6 lg:gap-8', className)}>
+    <div className={cn("grid gap-4 sm:gap-6 lg:gap-8", className)}>
       <div
         className="grid gap-4 sm:gap-6 lg:gap-8"
         style={{
@@ -126,23 +126,23 @@ export function PhotoGridSkeleton({
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 interface LightboxLoadingProps {
-  message?: string
-  className?: string
+  message?: string;
+  className?: string;
 }
 
 export function LightboxLoading({
-  message = 'Loading image...',
+  message = "Loading image...",
   className,
 }: LightboxLoadingProps) {
   return (
     <div
       className={cn(
-        'absolute inset-0 flex items-center justify-center bg-black/20',
-        className,
+        "absolute inset-0 flex items-center justify-center bg-black/20",
+        className
       )}
     >
       <div className="flex flex-col items-center gap-3 text-white">
@@ -150,15 +150,15 @@ export function LightboxLoading({
         <p className="text-sm font-medium">{message}</p>
       </div>
     </div>
-  )
+  );
 }
 
 interface EmptyStateProps {
-  title: string
-  description?: string
-  icon?: React.ReactNode
-  action?: React.ReactNode
-  className?: string
+  title: string;
+  description?: string;
+  icon?: React.ReactNode;
+  action?: React.ReactNode;
+  className?: string;
 }
 
 export function EmptyState({
@@ -171,10 +171,10 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'flex min-h-[400px] items-center justify-center text-center',
-        'rounded-lg border-2 border-dashed border-gray-300 bg-gray-50',
-        'dark:border-gray-600 dark:bg-gray-800',
-        className,
+        "flex min-h-[400px] items-center justify-center text-center",
+        "rounded-lg border-2 border-dashed border-gray-300 bg-gray-50",
+        "dark:border-gray-600 dark:bg-gray-800",
+        className
       )}
     >
       <div className="max-w-md space-y-4">
@@ -194,18 +194,18 @@ export function EmptyState({
         {action && <div className="pt-2">{action}</div>}
       </div>
     </div>
-  )
+  );
 }
 
 interface ProgressiveLoadingProps {
-  isLoading: boolean
-  hasError: boolean
-  isEmpty: boolean
-  loadingComponent?: React.ReactNode
-  errorComponent?: React.ReactNode
-  emptyComponent?: React.ReactNode
-  children: React.ReactNode
-  className?: string
+  isLoading: boolean;
+  hasError: boolean;
+  isEmpty: boolean;
+  loadingComponent?: React.ReactNode;
+  errorComponent?: React.ReactNode;
+  emptyComponent?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export function ProgressiveLoading({
@@ -219,16 +219,16 @@ export function ProgressiveLoading({
   className,
 }: ProgressiveLoadingProps) {
   if (isLoading) {
-    return <div className={className}>{loadingComponent}</div>
+    return <div className={className}>{loadingComponent}</div>;
   }
 
   if (hasError) {
-    return <div className={className}>{errorComponent}</div>
+    return <div className={className}>{errorComponent}</div>;
   }
 
   if (isEmpty) {
-    return <div className={className}>{emptyComponent}</div>
+    return <div className={className}>{emptyComponent}</div>;
   }
 
-  return <div className={className}>{children}</div>
+  return <div className={className}>{children}</div>;
 }

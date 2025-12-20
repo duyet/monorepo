@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { BarChart } from './BarChart'
+import { BarChart } from "./BarChart";
 
 interface CostBarChartProps {
-  data: Array<Record<string, unknown>>
-  index: string
-  categories: string[]
-  className?: string
-  stack?: boolean
+  data: Array<Record<string, unknown>>;
+  index: string;
+  categories: string[];
+  className?: string;
+  stack?: boolean;
 }
 
 /**
@@ -21,7 +21,7 @@ export function CostBarChart({
   className,
   stack = false,
 }: CostBarChartProps) {
-  const valueFormatter = (value: unknown) => `$${Number(value).toFixed(2)}`
+  const valueFormatter = (value: unknown) => `$${Number(value).toFixed(2)}`;
 
   return (
     <BarChart
@@ -32,5 +32,5 @@ export function CostBarChart({
       stack={stack}
       valueFormatter={valueFormatter}
     />
-  )
+  );
 }

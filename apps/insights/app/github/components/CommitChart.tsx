@@ -1,8 +1,8 @@
-import { AreaChart } from '@/components/charts'
-import type { CommitStats } from '../utils/types'
+import { AreaChart } from "@/components/charts";
+import type { CommitStats } from "../utils/types";
 
 interface CommitChartProps {
-  stats: CommitStats
+  stats: CommitStats;
 }
 
 export function CommitChart({ stats }: CommitChartProps) {
@@ -18,10 +18,10 @@ export function CommitChart({ stats }: CommitChartProps) {
         <AreaChart
           data={stats.commitHistory}
           index="date"
-          categories={['commits']}
+          categories={["commits"]}
           showGridLines={false}
         />
       </div>
     </div>
-  )
+  );
 }

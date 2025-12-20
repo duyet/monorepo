@@ -1,8 +1,8 @@
-import { Activity, CheckCircle2, XCircle } from 'lucide-react'
-import type { Service } from '@/lib/data'
+import { Activity, CheckCircle2, XCircle } from "lucide-react";
+import type { Service } from "@/lib/data";
 
 interface ServiceCardProps {
-  service: Service
+  service: Service;
 }
 
 /**
@@ -11,13 +11,13 @@ interface ServiceCardProps {
  */
 export function ServiceCard({ service }: ServiceCardProps) {
   const statusIcon =
-    service.status === 'running' ? (
+    service.status === "running" ? (
       <CheckCircle2 className="h-4 w-4 text-green-500" aria-label="Running" />
-    ) : service.status === 'error' ? (
+    ) : service.status === "error" ? (
       <XCircle className="h-4 w-4 text-red-500" aria-label="Error" />
     ) : (
       <Activity className="h-4 w-4 text-yellow-500" aria-label="Stopped" />
-    )
+    );
 
   return (
     <article
@@ -43,7 +43,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
           {/* Node and port info */}
           <p className="text-xs text-neutral-600 dark:text-neutral-400">
-            <span className="font-medium">{service.node}</span> • Port{' '}
+            <span className="font-medium">{service.node}</span> • Port{" "}
             {service.port}
           </p>
         </div>
@@ -68,9 +68,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           className="flex items-center justify-between text-xs"
           role="listitem"
         >
-          <span className="text-neutral-600 dark:text-neutral-400">
-            Memory
-          </span>
+          <span className="text-neutral-600 dark:text-neutral-400">Memory</span>
           <span
             className="font-medium text-neutral-900 dark:text-neutral-100"
             aria-label={`Memory usage: ${service.memory} megabytes`}
@@ -88,5 +86,5 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
       </div>
     </article>
-  )
+  );
 }

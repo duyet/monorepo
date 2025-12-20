@@ -19,7 +19,7 @@ describe("normalizeTag", () => {
 
   it("should handle multiple spaces between words", () => {
     expect(normalizeTag("javascript    framework")).toBe(
-      "Javascript Framework",
+      "Javascript Framework"
     );
   });
 

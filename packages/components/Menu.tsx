@@ -77,7 +77,7 @@ export default function Menu({
     <div
       className={cn(
         "flex flex-row gap-3 sm:gap-5 flex-wrap items-center",
-        className,
+        className
       )}
     >
       {items.map(({ name, href }) => (

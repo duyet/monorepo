@@ -1,39 +1,39 @@
-import { DonutChart, LanguageBarChart } from '@/components/charts'
-import { getCCUsageModels } from './ccusage-utils'
-import type { CCUsageModelsProps, ModelChartData } from './types'
+import { DonutChart, LanguageBarChart } from "@/components/charts";
+import { getCCUsageModels } from "./ccusage-utils";
+import type { CCUsageModelsProps, ModelChartData } from "./types";
 
 export async function CCUsageModels({
   days = 30,
   className,
 }: CCUsageModelsProps) {
-  const models = await getCCUsageModels(days)
+  const models = await getCCUsageModels(days);
 
   // Transform model data for charts (converted from hook to regular functions)
   const tokenChartData: ModelChartData[] = models.map((model) => ({
     name: model.name,
     percent: model.percent,
-  }))
+  }));
 
   const costChartData: ModelChartData[] = models.map((model) => ({
     name: model.name,
     percent: model.costPercent,
-  }))
+  }));
 
   if (!models.length) {
     return (
       <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}
+        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
       >
         <p className="text-muted-foreground">No model data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
           Model usage distribution will appear here once data is available
         </p>
       </div>
-    )
+    );
   }
 
   return (
-    <div className={`grid gap-6 lg:grid-cols-2 ${className || ''}`}>
+    <div className={`grid gap-6 lg:grid-cols-2 ${className || ""}`}>
       {/* Token Usage Distribution */}
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
@@ -64,5 +64,5 @@ export async function CCUsageModels({
         </div>
       </div>
     </div>
-  )
+  );
 }

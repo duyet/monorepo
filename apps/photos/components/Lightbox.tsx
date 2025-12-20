@@ -1,30 +1,33 @@
-'use client'
+"use client";
 
-import { getOptimalImageSrc, getResponsiveSizes } from '@/lib/ImageOptimization'
+import {
+  getOptimalImageSrc,
+  getResponsiveSizes,
+} from "@/lib/ImageOptimization";
 import {
   formatPhotoDescription,
   formatPhotoMetadata,
-} from '@/lib/MetadataFormatters'
-import type { Photo } from '@/lib/photo-provider'
-import { cn } from '@duyet/libs/utils'
-import * as Dialog from '@radix-ui/react-dialog'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { useLightboxNavigation } from '../hooks/UseKeyboardNavigation'
+} from "@/lib/MetadataFormatters";
+import type { Photo } from "@/lib/photo-provider";
+import { cn } from "@duyet/libs/utils";
+import * as Dialog from "@radix-ui/react-dialog";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useLightboxNavigation } from "../hooks/UseKeyboardNavigation";
 import {
   InfoPanel,
   LightboxTopControls,
   NavigationButton,
-} from './LightboxControls'
+} from "./LightboxControls";
 
 interface LightboxProps {
-  photo: Photo
-  isOpen: boolean
-  onClose: () => void
-  onNext?: () => void
-  onPrevious?: () => void
-  currentIndex: number
-  totalCount: number
+  photo: Photo;
+  isOpen: boolean;
+  onClose: () => void;
+  onNext?: () => void;
+  onPrevious?: () => void;
+  currentIndex: number;
+  totalCount: number;
 }
 
 export default function Lightbox({
@@ -36,13 +39,13 @@ export default function Lightbox({
   totalCount,
   onClose,
 }: LightboxProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFullscreen, setIsFullscreen] = useState(true)
-  const [showInfo, setShowInfo] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
 
   // Get formatted metadata and description
-  const metadata = formatPhotoMetadata(photo)
-  const description = formatPhotoDescription(photo)
+  const metadata = formatPhotoMetadata(photo);
+  const description = formatPhotoDescription(photo);
 
   // Setup navigation hooks
   const touchHandlers = useLightboxNavigation({
@@ -54,19 +57,19 @@ export default function Lightbox({
     onPrevious,
     onToggleFullscreen: () => setIsFullscreen(!isFullscreen),
     onToggleInfo: () => setShowInfo(!showInfo),
-  })
+  });
 
   // Reset states when photo changes or lightbox opens
   useEffect(() => {
-    setIsLoading(true)
-  }, [photo.id])
+    setIsLoading(true);
+  }, [photo.id]);
 
   useEffect(() => {
     if (isOpen) {
-      setIsFullscreen(true)
-      setShowInfo(false)
+      setIsFullscreen(true);
+      setShowInfo(false);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
@@ -74,10 +77,10 @@ export default function Lightbox({
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm" />
         <Dialog.Content
           className={cn(
-            'fixed inset-0 z-50',
+            "fixed inset-0 z-50",
             isFullscreen
-              ? 'overflow-hidden p-0'
-              : 'flex items-center justify-center p-4',
+              ? "overflow-hidden p-0"
+              : "flex items-center justify-center p-4"
           )}
         >
           {/* Accessibility title */}
@@ -85,8 +88,8 @@ export default function Lightbox({
 
           <div
             className={cn(
-              'relative w-full',
-              isFullscreen ? 'h-full max-w-none' : 'h-full max-w-7xl',
+              "relative w-full",
+              isFullscreen ? "h-full max-w-none" : "h-full max-w-7xl"
             )}
           >
             {/* Top Controls */}
@@ -120,10 +123,10 @@ export default function Lightbox({
             {/* Main Image Container */}
             <div
               className={cn(
-                'relative',
+                "relative",
                 isFullscreen
-                  ? 'flex h-full w-full items-center justify-center'
-                  : 'flex h-full flex-col',
+                  ? "flex h-full w-full items-center justify-center"
+                  : "flex h-full flex-col"
               )}
               {...touchHandlers}
             >
@@ -141,22 +144,22 @@ export default function Lightbox({
                     fill
                     className="object-contain"
                     priority
-                    sizes={getResponsiveSizes('lightbox')}
+                    sizes={getResponsiveSizes("lightbox")}
                     quality={80}
                   />
 
                   {/* High-resolution image - loads progressively */}
                   <Image
-                    src={getOptimalImageSrc(photo, { context: 'lightbox' })}
+                    src={getOptimalImageSrc(photo, { context: "lightbox" })}
                     alt={description}
                     fill
                     className={cn(
-                      'object-contain transition-opacity duration-700',
-                      isLoading ? 'opacity-0' : 'opacity-100',
+                      "object-contain transition-opacity duration-700",
+                      isLoading ? "opacity-0" : "opacity-100"
                     )}
                     onLoad={() => setIsLoading(false)}
                     priority
-                    sizes={getResponsiveSizes('lightbox')}
+                    sizes={getResponsiveSizes("lightbox")}
                     quality={95}
                   />
                 </div>
@@ -182,12 +185,12 @@ export default function Lightbox({
 
                       {/* High-resolution image - loads progressively */}
                       <Image
-                        src={getOptimalImageSrc(photo, { context: 'lightbox' })}
+                        src={getOptimalImageSrc(photo, { context: "lightbox" })}
                         alt={description}
                         fill
                         className={cn(
-                          'object-contain transition-opacity duration-700',
-                          isLoading ? 'opacity-0' : 'opacity-100',
+                          "object-contain transition-opacity duration-700",
+                          isLoading ? "opacity-0" : "opacity-100"
                         )}
                         onLoad={() => setIsLoading(false)}
                         priority
@@ -232,5 +235,5 @@ export default function Lightbox({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
+  );
 }

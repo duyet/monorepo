@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs'
-import { ReactNode } from 'react'
+import { cn } from "@duyet/libs";
+import type { ReactNode } from "react";
 
 interface MetricCardProps {
-  title: string
-  value: string | number
-  description?: string
+  title: string;
+  value: string | number;
+  description?: string;
   change?: {
-    value: number
-    label: string
-  }
-  icon?: ReactNode
-  className?: string
+    value: number;
+    label: string;
+  };
+  icon?: ReactNode;
+  className?: string;
 }
 
 export function MetricCard({
@@ -26,8 +26,8 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-xl border bg-card p-6 text-card-foreground',
-        className,
+        "relative overflow-hidden rounded-xl border bg-card p-6 text-card-foreground",
+        className
       )}
     >
       <div className="flex items-start justify-between">
@@ -38,13 +38,13 @@ export function MetricCard({
             {change && (
               <span
                 className={cn(
-                  'rounded-full px-2 py-1 text-xs font-medium',
+                  "rounded-full px-2 py-1 text-xs font-medium",
                   change.value >= 0
-                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400'
-                    : 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400',
+                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400"
+                    : "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400"
                 )}
               >
-                {change.value >= 0 ? '+' : ''}
+                {change.value >= 0 ? "+" : ""}
                 {change.value}% {change.label}
               </span>
             )}
@@ -56,5 +56,5 @@ export function MetricCard({
         {icon && <div className="text-muted-foreground/60 h-6 w-6">{icon}</div>}
       </div>
     </div>
-  )
+  );
 }

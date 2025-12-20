@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @config '../tailwind.config.mjs';
 
@@ -207,7 +207,7 @@
 
   /* Optimize container */
   .container,
-  [class*='Container'] {
+  [class*="Container"] {
     max-width: 100% !important;
     padding: 0 !important;
   }
@@ -221,7 +221,7 @@
 
   /* Reduce separator spacing */
   hr,
-  [role='separator'] {
+  [role="separator"] {
     margin: 0.2rem 0 !important;
   }
 

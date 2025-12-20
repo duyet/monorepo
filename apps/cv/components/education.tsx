@@ -1,13 +1,13 @@
-import { cn } from '@duyet/libs'
-import Link from 'next/link'
+import { cn } from "@duyet/libs";
+import Link from "next/link";
 
 interface EducationProps {
-  major: string
-  university: string
-  period?: string
-  thesis: string
-  thesisUrl: string
-  className?: string
+  major: string;
+  university: string;
+  period?: string;
+  thesis: string;
+  thesisUrl: string;
+  className?: string;
 }
 
 export function Education({
@@ -19,10 +19,10 @@ export function Education({
   className,
 }: EducationProps) {
   return (
-    <div className={cn('flex flex-col gap-0.5', className)}>
+    <div className={cn("flex flex-col gap-0.5", className)}>
       <h3
         className="text-base font-bold"
-        style={{ fontFamily: 'var(--font-lora)' }}
+        style={{ fontFamily: "var(--font-lora)" }}
       >
         {major}
         <span className="px-2">-</span>
@@ -36,5 +36,5 @@ export function Education({
         ⤷ {thesis} ↗︎
       </Link>
     </div>
-  )
+  );
 }

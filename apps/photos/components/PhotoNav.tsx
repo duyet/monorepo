@@ -1,39 +1,39 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs/utils'
-import { Menu, Moon, Sun, X } from 'lucide-react'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { cn } from "@duyet/libs/utils";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 interface NavItem {
-  name: string
-  href: string
-  external?: boolean
+  name: string;
+  href: string;
+  external?: boolean;
 }
 
 const BLOG_URL =
-  process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
+  process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
 const INSIGHTS_URL =
-  process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || 'https://insights.duyet.net'
-const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || 'https://cv.duyet.net'
-const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || 'https://duyet.net'
+  process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
+const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
+const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
 
 const navigationItems: NavItem[] = [
-  { name: 'Home', href: HOME_URL },
-  { name: 'Blog', href: BLOG_URL },
-  { name: 'Insights', href: INSIGHTS_URL },
-  { name: 'CV', href: CV_URL },
-  { name: 'About', href: `${HOME_URL}/about` },
-]
+  { name: "Home", href: HOME_URL },
+  { name: "Blog", href: BLOG_URL },
+  { name: "Insights", href: INSIGHTS_URL },
+  { name: "CV", href: CV_URL },
+  { name: "About", href: `${HOME_URL}/about` },
+];
 
 function ThemeToggle() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
     return (
@@ -43,26 +43,26 @@ function ThemeToggle() {
       >
         <div className="h-5 w-5" />
       </button>
-    )
+    );
   }
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-terracotta dark:text-neutral-300 dark:hover:bg-neutral-800"
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
-      {theme === 'dark' ? (
+      {theme === "dark" ? (
         <Sun className="h-5 w-5" aria-hidden="true" />
       ) : (
         <Moon className="h-5 w-5" aria-hidden="true" />
       )}
     </button>
-  )
+  );
 }
 
 export default function PhotoNav() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <nav
@@ -90,7 +90,7 @@ export default function PhotoNav() {
               aria-label="Toggle navigation menu"
             >
               <span className="sr-only">
-                {mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                {mobileMenuOpen ? "Close menu" : "Open menu"}
               </span>
               {mobileMenuOpen ? (
                 <X className="h-6 w-6" aria-hidden="true" />
@@ -117,16 +117,16 @@ export default function PhotoNav() {
         </div>
       )}
     </nav>
-  )
+  );
 }
 
 function NavLink({ item }: { item: NavItem }) {
   const className = cn(
-    'rounded-lg px-3 py-2 text-sm font-medium transition-all',
-    'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
-    'dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100',
-    'focus:ring-terracotta focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900',
-  )
+    "rounded-lg px-3 py-2 text-sm font-medium transition-all",
+    "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900",
+    "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100",
+    "focus:ring-terracotta focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+  );
 
   if (item.external) {
     return (
@@ -138,28 +138,28 @@ function NavLink({ item }: { item: NavItem }) {
       >
         {item.name}
       </a>
-    )
+    );
   }
 
   return (
     <Link href={item.href} className={className}>
       {item.name}
     </Link>
-  )
+  );
 }
 
 function MobileNavLink({
   item,
   onClick,
 }: {
-  item: NavItem
-  onClick: () => void
+  item: NavItem;
+  onClick: () => void;
 }) {
   const className = cn(
-    'block rounded-lg px-3 py-2 text-base font-medium transition-all',
-    'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
-    'dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100',
-  )
+    "block rounded-lg px-3 py-2 text-base font-medium transition-all",
+    "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900",
+    "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+  );
 
   if (item.external) {
     return (
@@ -172,12 +172,12 @@ function MobileNavLink({
       >
         {item.name}
       </a>
-    )
+    );
   }
 
   return (
     <Link href={item.href} className={className} onClick={onClick}>
       {item.name}
     </Link>
-  )
+  );
 }

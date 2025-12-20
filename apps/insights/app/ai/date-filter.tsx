@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { DATE_RANGES } from './hooks'
-import type { DateFilterProps, DateRangeConfig } from './types'
+import { useState } from "react";
+import { DATE_RANGES } from "./hooks";
+import type { DateFilterProps, DateRangeConfig } from "./types";
 
 // Re-export for backward compatibility
-export type DateRange = DateRangeConfig
+export type DateRange = DateRangeConfig;
 
 export function DateFilter({
-  defaultValue = '30d',
+  defaultValue = "30d",
   onValueChange,
   className,
 }: DateFilterProps) {
-  const [selectedValue, setSelectedValue] = useState(defaultValue)
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value
-    setSelectedValue(value)
-    const range = DATE_RANGES.find((r) => r.value === value)
+    const value = event.target.value;
+    setSelectedValue(value);
+    const range = DATE_RANGES.find((r) => r.value === value);
     if (range) {
-      onValueChange(range)
+      onValueChange(range);
     }
-  }
+  };
 
   return (
     <select
@@ -35,8 +35,8 @@ export function DateFilter({
         </option>
       ))}
     </select>
-  )
+  );
 }
 
 // Re-export from hooks for backward compatibility
-export { DATE_RANGES }
+export { DATE_RANGES };

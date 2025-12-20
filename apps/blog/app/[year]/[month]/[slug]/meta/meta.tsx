@@ -1,37 +1,37 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import Icons from '@duyet/components/Icons'
-import type { Post } from '@duyet/interfaces'
-import { distanceToNow } from '@duyet/libs/date'
-import { getSeries } from '@duyet/libs/getSeries'
-import { getSlug } from '@duyet/libs/getSlug'
-import { cn } from '@duyet/libs/utils'
-import { SeriesBox } from '../../../../../components/series'
-import { MarkdownMenuWrapper } from './markdown-menu-wrapper'
+import Icons from "@duyet/components/Icons";
+import type { Post } from "@duyet/interfaces";
+import { distanceToNow } from "@duyet/libs/date";
+import { getSeries } from "@duyet/libs/getSeries";
+import { getSlug } from "@duyet/libs/getSlug";
+import { cn } from "@duyet/libs/utils";
+import { SeriesBox } from "../../../../../components/series";
+import { MarkdownMenuWrapper } from "./markdown-menu-wrapper";
 
 interface ContentProps {
-  post: Post & { markdown_content?: string }
-  className?: string
+  post: Post & { markdown_content?: string };
+  className?: string;
 }
 
 export default function Content({ post, className }: ContentProps) {
-  const markdownUrl = post.slug.replace(/\.html$/, '.md')
+  const markdownUrl = post.slug.replace(/\.html$/, ".md");
 
   return (
     <div>
       <div
         className={cn(
-          'flex flex-row flex-wrap items-center gap-3',
-          'rounded-2xl bg-neutral-50 dark:bg-neutral-800 px-6 py-4',
-          'text-sm text-neutral-600 dark:text-neutral-400',
-          className,
+          "flex flex-row flex-wrap items-center gap-3",
+          "rounded-2xl bg-neutral-50 dark:bg-neutral-800 px-6 py-4",
+          "text-sm text-neutral-600 dark:text-neutral-400",
+          className
         )}
       >
         <time className="font-medium text-neutral-700 dark:text-neutral-300">
-          {new Date(post.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
+          {new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
           })}
         </time>
         <time className="text-neutral-500 dark:text-neutral-400">
@@ -84,5 +84,5 @@ export default function Content({ post, className }: ContentProps) {
         />
       )}
     </div>
-  )
+  );
 }

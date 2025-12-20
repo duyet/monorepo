@@ -176,11 +176,13 @@ export const photosConfig = {
 export const homelabConfig = {
   metadata: {
     title: "Homelab | duyet.net",
-    description: "MicroK8s cluster monitoring dashboard - Real-time metrics, service status, and network analytics for a 5-node heterogeneous homelab",
+    description:
+      "MicroK8s cluster monitoring dashboard - Real-time metrics, service status, and network analytics for a 5-node heterogeneous homelab",
     lang: "en",
     openGraph: {
       title: "Homelab Dashboard | duyet.net",
-      description: "MicroK8s cluster monitoring dashboard - Real-time metrics, service status, and network analytics",
+      description:
+        "MicroK8s cluster monitoring dashboard - Real-time metrics, service status, and network analytics",
       url: "https://homelab.duyet.net",
       siteName: "duyet.net",
       images: [
@@ -197,7 +199,8 @@ export const homelabConfig = {
     twitter: {
       card: "summary_large_image",
       title: "Homelab Dashboard | duyet.net",
-      description: "MicroK8s cluster monitoring - Real-time metrics and service status",
+      description:
+        "MicroK8s cluster monitoring - Real-time metrics and service status",
       images: ["https://homelab.duyet.net/og-image.svg"],
       creator: "@duyetdev",
     },

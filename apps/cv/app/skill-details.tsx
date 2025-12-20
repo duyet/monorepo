@@ -7,10 +7,10 @@ import {
   SiPython,
   SiRust,
   SiTypescript,
-} from '@icons-pack/react-simple-icons'
-import Link from 'next/link'
+} from "@icons-pack/react-simple-icons";
+import Link from "next/link";
 
-import { Skill } from '@/components/skill'
+import { Skill } from "@/components/skill";
 
 export function SkillRust() {
   return (
@@ -20,16 +20,16 @@ export function SkillRust() {
       icon={<SiRust />}
       note={
         <span>
-          I am new and have been working with{' '}
+          I am new and have been working with{" "}
           <Link
             href="https://blog.duyet.net/2021/11/rust-data-engineering.html"
             target="_blank"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             Rust
-          </Link>{' '}
+          </Link>{" "}
           for about 2 years, during which I have developed and deployed a
-          production{' '}
+          production{" "}
           <Link
             href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
             target="_blank"
@@ -38,7 +38,7 @@ export function SkillRust() {
             Data Platform at Fossil
           </Link>
           , created multiple command line applications, and documented all my
-          experiences in Vietnamese through{' '}
+          experiences in Vietnamese through{" "}
           <Link
             href="https://duyet.net/rust"
             target="_blank"
@@ -49,7 +49,7 @@ export function SkillRust() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillTypescript() {
@@ -64,15 +64,15 @@ export function SkillTypescript() {
           <br />
           From building data visualization to present insights, to developing
           internal tools for data serving or monitoring. Some of open-source
-          works are:{' '}
+          works are:{" "}
           <Link
             href="https://github.com/duyet/clickhouse-monitoring"
             target="_blank"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             clickhouse-monitoring
-          </Link>{' '}
-          or{' '}
+          </Link>{" "}
+          or{" "}
           <Link
             href="https://github.com/duyet/monorepo"
             target="_blank"
@@ -83,7 +83,7 @@ export function SkillTypescript() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillHelm() {
@@ -94,7 +94,7 @@ export function SkillHelm() {
       icon={<SiHelm />}
       note={
         <span>
-          Checkout{' '}
+          Checkout{" "}
           <Link
             href="https://github.com/duyet/charts"
             target="_blank"
@@ -105,7 +105,7 @@ export function SkillHelm() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillKubernetes() {
@@ -124,7 +124,7 @@ export function SkillKubernetes() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillPython() {
@@ -141,7 +141,7 @@ export function SkillPython() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillSpark() {
@@ -154,7 +154,7 @@ export function SkillSpark() {
         <span>
           I&apos;ve been using Spark extensively since I started as a Data
           Engineer, experience running Spark with <strong>YARN</strong>,
-          Databricks, <strong>AWS EMR</strong>, as well as{' '}
+          Databricks, <strong>AWS EMR</strong>, as well as{" "}
           <Link
             href="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
             target="_blank"
@@ -163,7 +163,7 @@ export function SkillSpark() {
             <strong>Kubernetes</strong>
           </Link>
           . Haven&apos;t been using it as much lately due to the convenience
-          offered by{' '}
+          offered by{" "}
           <Link
             href="https://blog.duyet.net/tag/clickhouse"
             target="_blank"
@@ -171,7 +171,7 @@ export function SkillSpark() {
           >
             ClickHouse
           </Link>
-          {' and '}
+          {" and "}
           <Link
             href="https://blog.duyet.net/2023/09/duckdb.html"
             target="_blank"
@@ -183,7 +183,7 @@ export function SkillSpark() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillClickHouse() {
@@ -200,7 +200,7 @@ export function SkillClickHouse() {
         </span>
       }
     />
-  )
+  );
 }
 
 export function SkillCICD() {
@@ -209,7 +209,7 @@ export function SkillCICD() {
       skill="CI/CD"
       note={<span>I am familiar with Jenkins and GitHub Actions</span>}
     />
-  )
+  );
 }
 
 export function SkillAirflow() {
@@ -219,5 +219,5 @@ export function SkillAirflow() {
       url="https://blog.duyet.net/tag/airflow"
       icon={<SiApacheairflow />}
     />
-  )
+  );
 }

@@ -1,31 +1,31 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import PhotoFeed from '@/components/PhotoFeed'
-import { getAllPhotos, type Photo } from '@/lib/photo-provider'
-import Container from '@duyet/components/Container'
+import type { Metadata } from "next";
+import Link from "next/link";
+import PhotoFeed from "@/components/PhotoFeed";
+import { getAllPhotos, type Photo } from "@/lib/photo-provider";
+import Container from "@duyet/components/Container";
 
-export const revalidate = 86400 // Revalidate daily
+export const revalidate = 86400; // Revalidate daily
 
 export const metadata: Metadata = {
-  title: 'Photo Stream | Photos',
+  title: "Photo Stream | Photos",
   description:
-    'A chronological stream of my photography. One image at a time, each with its story.',
+    "A chronological stream of my photography. One image at a time, each with its story.",
   openGraph: {
-    title: 'Photo Stream',
+    title: "Photo Stream",
     description:
-      'A chronological stream of my photography. One image at a time, each with its story.',
-    type: 'website',
+      "A chronological stream of my photography. One image at a time, each with its story.",
+    type: "website",
   },
-}
+};
 
 export default async function FeedPage() {
-  let photos: Photo[] = []
-  let error: string | null = null
+  let photos: Photo[] = [];
+  let error: string | null = null;
 
   try {
-    photos = await getAllPhotos()
+    photos = await getAllPhotos();
   } catch (e) {
-    error = 'Failed to load photo stream. Please try again later.'
+    error = "Failed to load photo stream. Please try again later.";
   }
 
   if (error) {
@@ -37,7 +37,7 @@ export default async function FeedPage() {
           </div>
         </div>
       </Container>
-    )
+    );
   }
 
   return (
@@ -63,7 +63,7 @@ export default async function FeedPage() {
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
               My latest photos, newest first. Each image tells a story—a moment
               captured, a place remembered, a feeling preserved. For more
-              photos, explore the{' '}
+              photos, explore the{" "}
               <Link
                 href="/"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
@@ -85,5 +85,5 @@ export default async function FeedPage() {
         </section>
       </div>
     </>
-  )
+  );
 }

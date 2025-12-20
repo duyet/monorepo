@@ -1,9 +1,9 @@
-import type { Series } from '@duyet/interfaces'
-import { ContentCard, FeaturedCard } from '@duyet/components'
+import type { Series } from "@duyet/interfaces";
+import { ContentCard, FeaturedCard } from "@duyet/components";
 
 interface HomeCardsProps {
-  seriesList: Series[]
-  topTags: string[]
+  seriesList: Series[];
+  topTags: string[];
 }
 
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
@@ -39,5 +39,5 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
         />
       </div>
     </div>
-  )
+  );
 }

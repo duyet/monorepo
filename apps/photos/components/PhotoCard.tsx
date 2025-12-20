@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
 import {
   generateBlurDataURL,
   getOptimalImageSrc,
   getResponsiveSizes,
   shouldPrioritizeLoading,
-} from '@/lib/ImageOptimization'
+} from "@/lib/ImageOptimization";
 import {
   formatCompactMetadata,
   formatPhotoDescription,
-} from '@/lib/MetadataFormatters'
-import type { Photo } from '@/lib/photo-provider'
-import { OWNER_USERNAME } from '@/lib/config'
-import { cn } from '@duyet/libs/utils'
-import { useCallback } from 'react'
-import LazyImage from './LazyImage'
+} from "@/lib/MetadataFormatters";
+import type { Photo } from "@/lib/photo-provider";
+import { OWNER_USERNAME } from "@/lib/config";
+import { cn } from "@duyet/libs/utils";
+import { useCallback } from "react";
+import LazyImage from "./LazyImage";
 
 interface PhotoCardProps {
-  photo: Photo
-  index: number
-  onClick: () => void
-  className?: string
+  photo: Photo;
+  index: number;
+  onClick: () => void;
+  className?: string;
 }
 
 export default function PhotoCard({
@@ -30,36 +30,36 @@ export default function PhotoCard({
   className,
 }: PhotoCardProps) {
   // Get optimized metadata for card display
-  const metadata = formatCompactMetadata(photo)
-  const description = formatPhotoDescription(photo)
+  const metadata = formatCompactMetadata(photo);
+  const description = formatPhotoDescription(photo);
 
   // Get optimized image configuration
   const imageSrc = useCallback(
-    () => getOptimalImageSrc(photo, { context: 'grid' }),
-    [photo],
-  )
+    () => getOptimalImageSrc(photo, { context: "grid" }),
+    [photo]
+  );
 
   // Extract location for display
   const location =
     photo.location && (photo.location.city || photo.location.country)
-      ? [photo.location.city, photo.location.country].filter(Boolean).join(', ')
-      : null
+      ? [photo.location.city, photo.location.country].filter(Boolean).join(", ")
+      : null;
 
   return (
     <div
       className={cn(
-        'group relative cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1',
-        'break-inside-avoid', // Prevents breaking in masonry layout + proper spacing
-        className,
+        "group relative cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1",
+        "break-inside-avoid", // Prevents breaking in masonry layout + proper spacing
+        className
       )}
       onClick={onClick}
       role="button"
       tabIndex={0}
       aria-label={`View ${description}`}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          onClick()
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
         }
       }}
     >
@@ -72,7 +72,7 @@ export default function PhotoCard({
           height={photo.height}
           priority={shouldPrioritizeLoading(index)}
           blurDataURL={generateBlurDataURL(photo)}
-          sizes={getResponsiveSizes('grid')}
+          sizes={getResponsiveSizes("grid")}
           className="transition-transform duration-300 group-hover:scale-105"
         />
 
@@ -101,11 +101,11 @@ export default function PhotoCard({
 
               {/* Provider Attribution */}
               <div className="border-t border-white/20 pt-1">
-                {photo.provider === 'cloudinary' ? (
+                {photo.provider === "cloudinary" ? (
                   <span className="inline-flex items-center text-xs text-white/90">
                     CDN: cloudinary
                   </span>
-                ) : photo.provider === 'unsplash' ? (
+                ) : photo.provider === "unsplash" ? (
                   <span className="inline-flex items-center text-xs text-white/90">
                     Unsplash
                   </span>
@@ -144,5 +144,5 @@ export default function PhotoCard({
         )}
       </div>
     </div>
-  )
+  );
 }

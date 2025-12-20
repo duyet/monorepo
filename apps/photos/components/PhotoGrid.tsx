@@ -1,57 +1,54 @@
-'use client'
+"use client";
 
-import { MASONRY_CONFIG, getMasonryClasses } from '@/lib/GridUtilities'
-import type { Photo } from '@/lib/photo-provider'
-import { cn } from '@duyet/libs/utils'
-import { Images } from 'lucide-react'
-import { useCallback, useState } from 'react'
-import Masonry from 'react-masonry-css'
-import ErrorBoundary from './ErrorBoundary'
-import Lightbox from './Lightbox'
-import { EmptyState } from './LoadingStates'
-import PhotoCard from './PhotoCard'
+import { MASONRY_CONFIG, getMasonryClasses } from "@/lib/GridUtilities";
+import type { Photo } from "@/lib/photo-provider";
+import { cn } from "@duyet/libs/utils";
+import { Images } from "lucide-react";
+import { useCallback, useState } from "react";
+import Masonry from "react-masonry-css";
+import ErrorBoundary from "./ErrorBoundary";
+import Lightbox from "./Lightbox";
+import { EmptyState } from "./LoadingStates";
+import PhotoCard from "./PhotoCard";
 
 interface PhotoGridProps {
-  photos: Photo[]
-  className?: string
+  photos: Photo[];
+  className?: string;
 }
 
 export default function PhotoGrid({ photos, className }: PhotoGridProps) {
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1)
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
   // Grid navigation handlers with enhanced performance
-  const handlePhotoClick = useCallback(
-    (photo: Photo, index: number) => {
-      setSelectedPhoto(photo)
-      setSelectedIndex(index)
-    },
-    [],
-  )
+  const handlePhotoClick = useCallback((photo: Photo, index: number) => {
+    setSelectedPhoto(photo);
+    setSelectedIndex(index);
+  }, []);
 
   const handleNext = useCallback(() => {
     if (selectedIndex < photos.length - 1) {
-      const nextIndex = selectedIndex + 1
-      setSelectedIndex(nextIndex)
-      setSelectedPhoto(photos[nextIndex])
+      const nextIndex = selectedIndex + 1;
+      setSelectedIndex(nextIndex);
+      setSelectedPhoto(photos[nextIndex]);
     }
-  }, [selectedIndex, photos])
+  }, [selectedIndex, photos]);
 
   const handlePrevious = useCallback(() => {
     if (selectedIndex > 0) {
-      const prevIndex = selectedIndex - 1
-      setSelectedIndex(prevIndex)
-      setSelectedPhoto(photos[prevIndex])
+      const prevIndex = selectedIndex - 1;
+      setSelectedIndex(prevIndex);
+      setSelectedPhoto(photos[prevIndex]);
     }
-  }, [selectedIndex, photos])
+  }, [selectedIndex, photos]);
 
   const handleClose = useCallback(() => {
-    setSelectedPhoto(null)
-    setSelectedIndex(-1)
-  }, [])
+    setSelectedPhoto(null);
+    setSelectedIndex(-1);
+  }, []);
 
   // Get masonry styling
-  const masonryClasses = getMasonryClasses()
+  const masonryClasses = getMasonryClasses();
 
   // Empty state handling
   if (!photos.length) {
@@ -62,12 +59,12 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
         icon={<Images className="h-16 w-16" />}
         className={className}
       />
-    )
+    );
   }
 
   return (
     <ErrorBoundary>
-      <div className={cn('w-full px-4', className)}>
+      <div className={cn("w-full px-4", className)}>
         <Masonry
           breakpointCols={MASONRY_CONFIG.breakpoints}
           className={masonryClasses.container}
@@ -97,5 +94,5 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
         )}
       </div>
     </ErrorBoundary>
-  )
+  );
 }

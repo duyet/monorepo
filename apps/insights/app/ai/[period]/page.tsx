@@ -2,72 +2,72 @@ import {
   generatePeriodStaticParams,
   getPeriodConfig,
   getPeriodDays,
-} from '@/lib/periods'
-import { Suspense } from 'react'
-import { SkeletonCard } from '../../../components/SkeletonCard'
-import { CCUsageActivity } from '../activity'
-import { CCUsageCosts } from '../costs'
-import { CCUsageDailyTable } from '../daily-table'
-import { CCUsageErrorBoundary } from '../error-boundary'
-import { CCUsageMetrics } from '../metrics'
-import { CCUsageModels } from '../models'
-import type { DateRangeDays } from '../types'
+} from "@/lib/periods";
+import { Suspense } from "react";
+import { SkeletonCard } from "../../../components/SkeletonCard";
+import { CCUsageActivity } from "../activity";
+import { CCUsageCosts } from "../costs";
+import { CCUsageDailyTable } from "../daily-table";
+import { CCUsageErrorBoundary } from "../error-boundary";
+import { CCUsageMetrics } from "../metrics";
+import { CCUsageModels } from "../models";
+import type { DateRangeDays } from "../types";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 // Generate static pages for all time periods
 export function generateStaticParams() {
-  return generatePeriodStaticParams()
+  return generatePeriodStaticParams();
 }
 
 const SECTION_CONFIGS = [
   {
-    id: 'metrics',
-    title: 'Usage Overview',
+    id: "metrics",
+    title: "Usage Overview",
     component: CCUsageMetrics,
   },
   {
-    id: 'activity',
-    title: 'Daily Activity',
+    id: "activity",
+    title: "Daily Activity",
     component: CCUsageActivity,
   },
   {
-    id: 'models',
-    title: 'AI Model Usage',
+    id: "models",
+    title: "AI Model Usage",
     component: CCUsageModels,
   },
   {
-    id: 'costs',
-    title: 'Daily Costs',
+    id: "costs",
+    title: "Daily Costs",
     component: CCUsageCosts,
   },
   {
-    id: 'daily-table',
-    title: 'Daily Usage Detail',
+    id: "daily-table",
+    title: "Daily Usage Detail",
     component: CCUsageDailyTable,
   },
-] as const
+] as const;
 
 interface PageProps {
   params: Promise<{
-    period: string
-  }>
+    period: string;
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { period } = await params
-  const config = getPeriodConfig(period)
+  const { period } = await params;
+  const config = getPeriodConfig(period);
 
   return {
     title: `AI Usage Analytics - ${config.label}`,
     description: `AI usage analytics for the last ${config.label}`,
-  }
+  };
 }
 
 export default async function AIUsagePeriodPage({ params }: PageProps) {
-  const { period } = await params
-  const config = getPeriodConfig(period)
-  const days = getPeriodDays(period) as DateRangeDays
+  const { period } = await params;
+  const config = getPeriodConfig(period);
+  const days = getPeriodDays(period) as DateRangeDays;
 
   return (
     <div className="space-y-8">
@@ -87,12 +87,15 @@ export default async function AIUsagePeriodPage({ params }: PageProps) {
       {/* Main Content */}
       <div className="space-y-8">
         {SECTION_CONFIGS.map((section) => {
-          const Component = section.component
+          const Component = section.component;
 
           // Dynamic title for daily-table section based on date range
-          const isMonthlyView = section.id === 'daily-table' && (days === 365 || days === 'all')
-          const sectionTitle = isMonthlyView ? 'Monthly Usage Detail' : section.title
-          const description = `${sectionTitle} for the last ${config.label}`
+          const isMonthlyView =
+            section.id === "daily-table" && (days === 365 || days === "all");
+          const sectionTitle = isMonthlyView
+            ? "Monthly Usage Detail"
+            : section.title;
+          const description = `${sectionTitle} for the last ${config.label}`;
 
           return (
             <section key={section.id} className="space-y-4">
@@ -106,7 +109,7 @@ export default async function AIUsagePeriodPage({ params }: PageProps) {
                 </Suspense>
               </CCUsageErrorBoundary>
             </section>
-          )
+          );
         })}
 
         <p className="text-xs text-muted-foreground">
@@ -114,5 +117,5 @@ export default async function AIUsagePeriodPage({ params }: PageProps) {
         </p>
       </div>
     </div>
-  )
+  );
 }

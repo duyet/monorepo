@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs/utils'
-import Image from 'next/image'
-import { TextDataSource } from './TextDataSource'
+import { cn } from "@duyet/libs/utils";
+import Image from "next/image";
+import { TextDataSource } from "./TextDataSource";
 
 interface StaticCardProps {
-  title?: string
-  source?: string
+  title?: string;
+  source?: string;
   url: {
-    light: string
-    dark: string
-  }
-  className?: string
-  extra?: React.ReactNode
+    light: string;
+    dark: string;
+  };
+  className?: string;
+  extra?: React.ReactNode;
 }
 
 export function StaticCard({
@@ -24,13 +24,13 @@ export function StaticCard({
 }: StaticCardProps) {
   return (
     <div
-      className={cn('p-3', 'rounded border dark:border-gray-800', className)}
+      className={cn("p-3", "rounded border dark:border-gray-800", className)}
     >
       {title ? <div className="mb-5 font-bold">{title}</div> : null}
 
       <div className="block flex flex-col items-stretch dark:hidden">
         <Image
-          alt={title || ''}
+          alt={title || ""}
           height={500}
           loader={({ src }) => src}
           src={url.light}
@@ -41,7 +41,7 @@ export function StaticCard({
 
       <div className="flex hidden flex-col gap-5 dark:block">
         <Image
-          alt={title || ''}
+          alt={title || ""}
           height={500}
           src={url.dark}
           unoptimized
@@ -53,7 +53,7 @@ export function StaticCard({
 
       <TextDataSource>{source}</TextDataSource>
     </div>
-  )
+  );
 }
 
-export default StaticCard
+export default StaticCard;

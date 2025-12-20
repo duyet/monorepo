@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { RefreshCw } from 'lucide-react'
-import { cn } from '@duyet/libs/utils'
+import { RefreshCw } from "lucide-react";
+import { cn } from "@duyet/libs/utils";
 
 /**
  * Shared loading state components for consistent UX across apps
  */
 
 interface LoadingSpinnerProps {
-  size?: 'sm' | 'md' | 'lg'
-  className?: string
-  color?: 'white' | 'gray' | 'primary'
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  color?: "white" | "gray" | "primary";
 }
 
 /**
@@ -22,40 +22,40 @@ interface LoadingSpinnerProps {
  * ```
  */
 export function LoadingSpinner({
-  size = 'md',
+  size = "md",
   className,
-  color = 'gray',
+  color = "gray",
 }: LoadingSpinnerProps) {
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-8 w-8',
-    lg: 'h-12 w-12',
-  }
+    sm: "h-4 w-4",
+    md: "h-8 w-8",
+    lg: "h-12 w-12",
+  };
 
   const colorClasses = {
-    white: 'border-white border-t-transparent',
-    gray: 'border-gray-400 border-t-transparent dark:border-gray-500',
-    primary: 'border-blue-600 border-t-transparent',
-  }
+    white: "border-white border-t-transparent",
+    gray: "border-gray-400 border-t-transparent dark:border-gray-500",
+    primary: "border-blue-600 border-t-transparent",
+  };
 
   return (
     <div
       className={cn(
-        'animate-spin rounded-full border-2',
+        "animate-spin rounded-full border-2",
         sizeClasses[size],
         colorClasses[color],
-        className,
+        className
       )}
       aria-label="Loading..."
       role="status"
     />
-  )
+  );
 }
 
 interface LoadingStateProps {
-  message?: string
-  className?: string
-  size?: 'sm' | 'md' | 'lg'
+  message?: string;
+  className?: string;
+  size?: "sm" | "md" | "lg";
 }
 
 /**
@@ -67,15 +67,15 @@ interface LoadingStateProps {
  * ```
  */
 export function LoadingState({
-  message = 'Loading...',
+  message = "Loading...",
   className,
-  size = 'md',
+  size = "md",
 }: LoadingStateProps) {
   return (
     <div
       className={cn(
-        'flex min-h-[200px] items-center justify-center',
-        className,
+        "flex min-h-[200px] items-center justify-center",
+        className
       )}
     >
       <div className="flex flex-col items-center gap-3">
@@ -83,7 +83,7 @@ export function LoadingState({
         <p className="text-sm text-gray-600 dark:text-gray-400">{message}</p>
       </div>
     </div>
-  )
+  );
 }
 
 /**
@@ -91,19 +91,24 @@ export function LoadingState({
  */
 export function LoadingIcon({ className }: { className?: string }) {
   return (
-    <div className={cn('flex items-center gap-2 text-gray-600 dark:text-gray-400', className)}>
+    <div
+      className={cn(
+        "flex items-center gap-2 text-gray-600 dark:text-gray-400",
+        className
+      )}
+    >
       <RefreshCw className="h-4 w-4 animate-spin" />
       <span>Loading...</span>
     </div>
-  )
+  );
 }
 
 interface EmptyStateProps {
-  title: string
-  description?: string
-  icon?: React.ReactNode
-  action?: React.ReactNode
-  className?: string
+  title: string;
+  description?: string;
+  icon?: React.ReactNode;
+  action?: React.ReactNode;
+  className?: string;
 }
 
 /**
@@ -129,10 +134,10 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'flex min-h-[300px] items-center justify-center text-center',
-        'rounded-lg border-2 border-dashed border-gray-300 bg-gray-50',
-        'dark:border-gray-600 dark:bg-gray-800',
-        className,
+        "flex min-h-[300px] items-center justify-center text-center",
+        "rounded-lg border-2 border-dashed border-gray-300 bg-gray-50",
+        "dark:border-gray-600 dark:bg-gray-800",
+        className
       )}
     >
       <div className="max-w-md space-y-4 p-6">
@@ -152,41 +157,41 @@ export function EmptyState({
         {action && <div className="pt-2">{action}</div>}
       </div>
     </div>
-  )
+  );
 }
 
 interface ImageSkeletonProps {
-  aspectRatio?: string
-  className?: string
-  animated?: boolean
+  aspectRatio?: string;
+  className?: string;
+  animated?: boolean;
 }
 
 /**
  * Skeleton loader for images
  */
 export function ImageSkeleton({
-  aspectRatio = '1/1',
+  aspectRatio = "1/1",
   className,
   animated = true,
 }: ImageSkeletonProps) {
   return (
     <div
       className={cn(
-        'bg-gray-200 dark:bg-gray-700',
-        animated && 'animate-pulse',
-        className,
+        "bg-gray-200 dark:bg-gray-700",
+        animated && "animate-pulse",
+        className
       )}
       style={{ aspectRatio }}
       aria-label="Loading image..."
       role="status"
     />
-  )
+  );
 }
 
 interface SkeletonCardProps {
-  className?: string
-  showMetadata?: boolean
-  lines?: number
+  className?: string;
+  showMetadata?: boolean;
+  lines?: number;
 }
 
 /**
@@ -203,7 +208,7 @@ export function SkeletonCard({
   lines = 2,
 }: SkeletonCardProps) {
   return (
-    <div className={cn('flex flex-col space-y-3', className)}>
+    <div className={cn("flex flex-col space-y-3", className)}>
       <div className="h-[125px] w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700" />
       {showMetadata && (
         <div className="space-y-2">
@@ -211,26 +216,26 @@ export function SkeletonCard({
             <div
               key={i}
               className={cn(
-                'h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700',
-                i === lines - 1 ? 'w-3/4' : 'w-full',
+                "h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700",
+                i === lines - 1 ? "w-3/4" : "w-full"
               )}
             />
           ))}
         </div>
       )}
     </div>
-  )
+  );
 }
 
 interface ProgressiveLoadingProps {
-  isLoading: boolean
-  hasError?: boolean
-  isEmpty?: boolean
-  loadingComponent?: React.ReactNode
-  errorComponent?: React.ReactNode
-  emptyComponent?: React.ReactNode
-  children: React.ReactNode
-  className?: string
+  isLoading: boolean;
+  hasError?: boolean;
+  isEmpty?: boolean;
+  loadingComponent?: React.ReactNode;
+  errorComponent?: React.ReactNode;
+  emptyComponent?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
 }
 
 /**
@@ -262,14 +267,12 @@ export function ProgressiveLoading({
 }: ProgressiveLoadingProps) {
   if (isLoading) {
     return (
-      <div className={className}>
-        {loadingComponent || <LoadingState />}
-      </div>
-    )
+      <div className={className}>{loadingComponent || <LoadingState />}</div>
+    );
   }
 
   if (hasError) {
-    return <div className={className}>{errorComponent}</div>
+    return <div className={className}>{errorComponent}</div>;
   }
 
   if (isEmpty) {
@@ -277,8 +280,8 @@ export function ProgressiveLoading({
       <div className={className}>
         {emptyComponent || <EmptyState title="No data available" />}
       </div>
-    )
+    );
   }
 
-  return <div className={className}>{children}</div>
+  return <div className={className}>{children}</div>;
 }

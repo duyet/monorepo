@@ -18,13 +18,13 @@
  * Named after Claude AI's warm, approachable color scheme.
  */
 export const claudeColors = {
-  'claude-peach': '#f5dcd0',
-  'claude-mint': '#a8d5ba',
-  'claude-lavender': '#c5c5ff',
-  'claude-coral': '#ff9999',
-  'claude-yellow': '#f0d9a8',
-  'claude-sky': '#b3d9ff',
-}
+  "claude-peach": "#f5dcd0",
+  "claude-mint": "#a8d5ba",
+  "claude-lavender": "#c5c5ff",
+  "claude-coral": "#ff9999",
+  "claude-yellow": "#f0d9a8",
+  "claude-sky": "#b3d9ff",
+};
 
 /**
  * Semantic brand colors
@@ -36,10 +36,10 @@ export const claudeColors = {
  * overridden via CSS variables in the app root.
  */
 export const brandColors = {
-  'brand-primary': 'var(--brand-primary, #f5dcd0)',
-  'brand-secondary': 'var(--brand-secondary, #a8d5ba)',
-  'brand-accent': 'var(--brand-accent, #c5c5ff)',
-}
+  "brand-primary": "var(--brand-primary, #f5dcd0)",
+  "brand-secondary": "var(--brand-secondary, #a8d5ba)",
+  "brand-accent": "var(--brand-accent, #c5c5ff)",
+};
 
 /**
  * Blog/Content card color palette
@@ -49,41 +49,41 @@ export const brandColors = {
  */
 export const cardColors = {
   ivory: {
-    DEFAULT: '#f5f3ef',
-    medium: '#f0eee6',
-    light: '#f9f8f5',
+    DEFAULT: "#f5f3ef",
+    medium: "#f0eee6",
+    light: "#f9f8f5",
   },
   cactus: {
-    DEFAULT: '#bcd1ca',
-    light: '#d4e3de',
-    medium: '#bcd1ca',
+    DEFAULT: "#bcd1ca",
+    light: "#d4e3de",
+    medium: "#bcd1ca",
   },
   oat: {
-    DEFAULT: '#e3dacc',
-    light: '#ebe5db',
+    DEFAULT: "#e3dacc",
+    light: "#ebe5db",
   },
   sage: {
-    DEFAULT: '#b8ccc5',
-    light: '#d0ddd8',
+    DEFAULT: "#b8ccc5",
+    light: "#d0ddd8",
   },
   lavender: {
-    DEFAULT: '#c5c8dc',
-    light: '#dfe0ec',
+    DEFAULT: "#c5c8dc",
+    light: "#dfe0ec",
   },
   terracotta: {
-    DEFAULT: '#e07856',
-    light: '#f4b8a0',
-    medium: '#e89879',
+    DEFAULT: "#e07856",
+    light: "#f4b8a0",
+    medium: "#e89879",
   },
   coral: {
-    DEFAULT: '#f39c7a',
-    light: '#ffc4a8',
+    DEFAULT: "#f39c7a",
+    light: "#ffc4a8",
   },
   cream: {
-    DEFAULT: '#faf8f3',
-    warm: '#f7f4ee',
+    DEFAULT: "#faf8f3",
+    warm: "#f7f4ee",
   },
-}
+};
 
 /**
  * Complete color palette
@@ -96,7 +96,7 @@ export const colors = {
   ...brandColors,
   ...cardColors,
   // Legacy colors for backward compatibility
-  gold: '#ffd465',
-}
+  gold: "#ffd465",
+};
 
-export default colors
+export default colors;

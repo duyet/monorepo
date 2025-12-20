@@ -1,34 +1,34 @@
-'use client'
+"use client";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from '@/components/ui/chart'
+} from "@/components/ui/chart";
 import {
   Bar,
   CartesianGrid,
   BarChart as RechartsBarChart,
   XAxis,
-} from 'recharts'
+} from "recharts";
 
 interface BarChartProps {
-  data: Array<Record<string, unknown>>
-  index: string
-  categories: string[]
-  className?: string
-  stack?: boolean
-  valueFormatter?: (value: unknown) => string
+  data: Array<Record<string, unknown>>;
+  index: string;
+  categories: string[];
+  className?: string;
+  stack?: boolean;
+  valueFormatter?: (value: unknown) => string;
 }
 
 const CHART_COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
-]
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+];
 
 export function BarChart({
   data,
@@ -42,8 +42,8 @@ export function BarChart({
     categories.map((category, i) => [
       category,
       { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ]),
-  )
+    ])
+  );
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -65,24 +65,24 @@ export function BarChart({
         />
         {categories.map((category, i) => {
           // For stacked bars, only the last (top) bar should have rounded corners
-          const isLastInStack = stack && i === categories.length - 1
+          const isLastInStack = stack && i === categories.length - 1;
           const radius: [number, number, number, number] = stack
             ? isLastInStack
               ? [4, 4, 0, 0]
               : [0, 0, 0, 0]
-            : [4, 4, 0, 0]
+            : [4, 4, 0, 0];
 
           return (
             <Bar
               key={category}
               dataKey={category}
-              stackId={stack ? 'stack' : undefined}
+              stackId={stack ? "stack" : undefined}
               fill={CHART_COLORS[i % CHART_COLORS.length]}
               radius={radius}
             />
-          )
+          );
         })}
       </RechartsBarChart>
     </ChartContainer>
-  )
+  );
 }

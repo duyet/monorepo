@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import type { Photo } from '@/lib/photo-provider'
-import { formatFeedCaption } from '@/lib/MetadataFormatters'
-import { generateBlurDataURL } from '@/lib/ImageOptimization'
-import PhotoMetadata from './PhotoMetadata'
+import Image from "next/image";
+import type { Photo } from "@/lib/photo-provider";
+import { formatFeedCaption } from "@/lib/MetadataFormatters";
+import { generateBlurDataURL } from "@/lib/ImageOptimization";
+import PhotoMetadata from "./PhotoMetadata";
 
 interface PhotoFeedProps {
-  photos: Photo[]
+  photos: Photo[];
 }
 
 /**
@@ -22,15 +22,15 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
           No photos available in the feed.
         </p>
       </div>
-    )
+    );
   }
 
   return (
     <div className="mx-auto max-w-4xl space-y-16 px-4 py-8 sm:px-6 lg:px-8">
       {photos.map((photo, index) => {
-        const caption = formatFeedCaption(photo)
-        const blurDataURL = generateBlurDataURL(photo)
-        const isPriority = index < 2 // Priority load first 2 images
+        const caption = formatFeedCaption(photo);
+        const blurDataURL = generateBlurDataURL(photo);
+        const isPriority = index < 2; // Priority load first 2 images
 
         return (
           <figure
@@ -42,13 +42,13 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
             <div className="relative overflow-hidden rounded-lg bg-neutral-100 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-neutral-800">
               <Image
                 src={photo.urls.regular}
-                alt={photo.alt_description || photo.description || 'Photo'}
+                alt={photo.alt_description || photo.description || "Photo"}
                 width={photo.width}
                 height={photo.height}
                 className="h-auto w-full"
                 placeholder="blur"
                 blurDataURL={blurDataURL}
-                loading={isPriority ? 'eager' : 'lazy'}
+                loading={isPriority ? "eager" : "lazy"}
                 priority={isPriority}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 896px, 1024px"
                 quality={90}
@@ -73,8 +73,8 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
             )}
             <meta itemProp="datePublished" content={photo.created_at} />
           </figure>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

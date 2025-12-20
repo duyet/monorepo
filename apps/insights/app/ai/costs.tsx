@@ -1,52 +1,52 @@
-import { AreaChart } from '@/components/charts'
-import { getCCUsageCosts } from './ccusage-utils'
-import type { CCUsageCostsProps, CostChartData } from './types'
+import { AreaChart } from "@/components/charts";
+import { getCCUsageCosts } from "./ccusage-utils";
+import type { CCUsageCostsProps, CostChartData } from "./types";
 
 function formatCurrency(amount: number): string {
-  if (amount === 0) return '$0'
-  if (amount < 0.01) return '<$0.01'
-  if (amount < 1) return `$${amount.toFixed(2)}`
-  if (amount < 10) return `$${amount.toFixed(1)}`
-  return `$${Math.round(amount)}`
+  if (amount === 0) return "$0";
+  if (amount < 0.01) return "<$0.01";
+  if (amount < 1) return `$${amount.toFixed(2)}`;
+  if (amount < 10) return `$${amount.toFixed(1)}`;
+  return `$${Math.round(amount)}`;
 }
 
 export async function CCUsageCosts({
   days = 30,
   className,
 }: CCUsageCostsProps) {
-  const costs = await getCCUsageCosts(days)
+  const costs = await getCCUsageCosts(days);
 
   // Process cost data with summary calculations (converted from hook)
-  const total = costs.reduce((sum, day) => sum + day['Total Cost'], 0)
-  const average = costs.length > 0 ? total / costs.length : 0
-  const projected = average * 30 // Monthly projection
+  const total = costs.reduce((sum, day) => sum + day["Total Cost"], 0);
+  const average = costs.length > 0 ? total / costs.length : 0;
+  const projected = average * 30; // Monthly projection
 
   // Calculate comparison with previous period (split in half)
-  const midPoint = Math.floor(costs.length / 2)
-  const recentPeriod = costs.slice(midPoint)
-  const previousPeriod = costs.slice(0, midPoint)
+  const midPoint = Math.floor(costs.length / 2);
+  const recentPeriod = costs.slice(midPoint);
+  const previousPeriod = costs.slice(0, midPoint);
 
   const recentTotal = recentPeriod.reduce(
-    (sum, day) => sum + day['Total Cost'],
-    0,
-  )
+    (sum, day) => sum + day["Total Cost"],
+    0
+  );
   const previousTotal = previousPeriod.reduce(
-    (sum, day) => sum + day['Total Cost'],
-    0,
-  )
+    (sum, day) => sum + day["Total Cost"],
+    0
+  );
 
   const recentAvg =
-    recentPeriod.length > 0 ? recentTotal / recentPeriod.length : 0
+    recentPeriod.length > 0 ? recentTotal / recentPeriod.length : 0;
   const previousAvg =
-    previousPeriod.length > 0 ? previousTotal / previousPeriod.length : 0
+    previousPeriod.length > 0 ? previousTotal / previousPeriod.length : 0;
 
   const totalPercentChange =
     previousTotal > 0
       ? ((recentTotal - previousTotal) / previousTotal) * 100
-      : 0
+      : 0;
 
   const avgPercentChange =
-    previousAvg > 0 ? ((recentAvg - previousAvg) / previousAvg) * 100 : 0
+    previousAvg > 0 ? ((recentAvg - previousAvg) / previousAvg) * 100 : 0;
 
   const summary = {
     total,
@@ -54,31 +54,31 @@ export async function CCUsageCosts({
     projected,
     totalPercentChange,
     avgPercentChange,
-  }
+  };
 
   // Transform cost data for charts (converted from hook)
   const costChartData: CostChartData[] = costs.map((row) => ({
     date: row.date,
-    'Input Cost': row['Input Cost'],
-    'Output Cost': row['Output Cost'],
-    'Cache Cost': row['Cache Cost'],
-  }))
+    "Input Cost": row["Input Cost"],
+    "Output Cost": row["Output Cost"],
+    "Cache Cost": row["Cache Cost"],
+  }));
 
   if (!costs || costs.length === 0) {
     return (
       <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ''}`}
+        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
       >
         <p className="text-muted-foreground">No cost data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
           Daily cost breakdown will appear here once usage data is available
         </p>
       </div>
-    )
+    );
   }
 
   return (
-    <div className={`space-y-6 ${className || ''}`}>
+    <div className={`space-y-6 ${className || ""}`}>
       {/* Cost Summary Cards */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-lg border bg-card p-4">
@@ -88,15 +88,15 @@ export async function CCUsageCosts({
             </div>
             {summary.totalPercentChange !== 0 && (
               <span
-                className={`text-xs font-medium ${summary.totalPercentChange > 0 ? 'text-red-600' : 'text-green-600'}`}
+                className={`text-xs font-medium ${summary.totalPercentChange > 0 ? "text-red-600" : "text-green-600"}`}
               >
-                {summary.totalPercentChange > 0 ? '+' : ''}
+                {summary.totalPercentChange > 0 ? "+" : ""}
                 {summary.totalPercentChange.toFixed(1)}%
               </span>
             )}
           </div>
           <p className="text-xs text-muted-foreground">
-            Total ({typeof days === 'number' ? `${days} days` : 'all time'})
+            Total ({typeof days === "number" ? `${days} days` : "all time"})
           </p>
         </div>
         <div className="rounded-lg border bg-card p-4">
@@ -106,9 +106,9 @@ export async function CCUsageCosts({
             </div>
             {summary.avgPercentChange !== 0 && (
               <span
-                className={`text-xs font-medium ${summary.avgPercentChange > 0 ? 'text-red-600' : 'text-green-600'}`}
+                className={`text-xs font-medium ${summary.avgPercentChange > 0 ? "text-red-600" : "text-green-600"}`}
               >
-                {summary.avgPercentChange > 0 ? '+' : ''}
+                {summary.avgPercentChange > 0 ? "+" : ""}
                 {summary.avgPercentChange.toFixed(1)}%
               </span>
             )}
@@ -134,7 +134,7 @@ export async function CCUsageCosts({
           </p>
         </div>
         <AreaChart
-          categories={['Input Cost', 'Output Cost', 'Cache Cost']}
+          categories={["Input Cost", "Output Cost", "Cache Cost"]}
           data={costChartData}
           index="date"
           showGridLines={true}
@@ -144,5 +144,5 @@ export async function CCUsageCosts({
         </div>
       </div>
     </div>
-  )
+  );
 }

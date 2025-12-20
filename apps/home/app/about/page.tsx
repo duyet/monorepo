@@ -1,26 +1,26 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 /**
  * Add UTM tracking parameters to URL
  */
 function addUtmParams(
   url: string,
-  campaign: string = 'about_page',
+  campaign = "about_page",
   content?: string
 ): string {
   // Don't add UTM params to internal routes
-  if (url.startsWith('/')) return url
+  if (url.startsWith("/")) return url;
 
-  const urlObj = new URL(url)
-  urlObj.searchParams.set('utm_source', 'home')
-  urlObj.searchParams.set('utm_medium', 'website')
-  urlObj.searchParams.set('utm_campaign', campaign)
+  const urlObj = new URL(url);
+  urlObj.searchParams.set("utm_source", "home");
+  urlObj.searchParams.set("utm_medium", "website");
+  urlObj.searchParams.set("utm_campaign", campaign);
   if (content) {
-    urlObj.searchParams.set('utm_content', content)
+    urlObj.searchParams.set("utm_content", content);
   }
-  return urlObj.toString()
+  return urlObj.toString();
 }
 
 // Claude-style SVG Icons - minimal, geometric, soft
@@ -66,7 +66,7 @@ const ResumeIcon = () => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
 
 const GithubIcon = () => (
   <svg
@@ -105,7 +105,7 @@ const GithubIcon = () => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
 
 const LinkedInIcon = () => (
   <svg
@@ -137,7 +137,7 @@ const LinkedInIcon = () => (
       fill="none"
     />
   </svg>
-)
+);
 
 const BlogIcon = () => (
   <svg
@@ -185,96 +185,100 @@ const BlogIcon = () => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
 
 interface LinkItem {
-  icon: () => React.JSX.Element
-  title: string
-  description: string
-  url: string
-  color: string
+  icon: () => React.JSX.Element;
+  title: string;
+  description: string;
+  url: string;
+  color: string;
 }
 
 export default function About() {
   const BLOG_URL =
-    process.env.NEXT_PUBLIC_DUYET_BLOG_URL || 'https://blog.duyet.net'
+    process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
 
   const links: LinkItem[] = [
     {
       icon: ResumeIcon,
-      title: 'Resume',
+      title: "Resume",
       description:
-        'Experience building scalable data infrastructure and leading engineering teams.',
-      url: addUtmParams('https://cv.duyet.net', 'about_page', 'resume_card'),
-      color: 'bg-orange-100/50',
+        "Experience building scalable data infrastructure and leading engineering teams.",
+      url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
+      color: "bg-orange-100/50",
     },
     {
       icon: GithubIcon,
-      title: 'GitHub',
+      title: "GitHub",
       description:
-        'Open source contributions and personal projects in Python, Rust, and TypeScript.',
-      url: addUtmParams('https://github.com/duyet', 'about_page', 'github_card'),
-      color: 'bg-purple-100/50',
+        "Open source contributions and personal projects in Python, Rust, and TypeScript.",
+      url: addUtmParams(
+        "https://github.com/duyet",
+        "about_page",
+        "github_card"
+      ),
+      color: "bg-purple-100/50",
     },
     {
       icon: LinkedInIcon,
-      title: 'LinkedIn',
+      title: "LinkedIn",
       description:
-        'Professional network and career highlights in data engineering.',
+        "Professional network and career highlights in data engineering.",
       url: addUtmParams(
-        'https://linkedin.com/in/duyet',
-        'about_page',
-        'linkedin_card'
+        "https://linkedin.com/in/duyet",
+        "about_page",
+        "linkedin_card"
       ),
-      color: 'bg-blue-100/50',
+      color: "bg-blue-100/50",
     },
     {
       icon: BlogIcon,
-      title: 'Blog',
+      title: "Blog",
       description:
-        'Technical writings on data engineering, distributed systems, and open source.',
-      url: addUtmParams(BLOG_URL, 'about_page', 'blog_card'),
-      color: 'bg-amber-100/60',
+        "Technical writings on data engineering, distributed systems, and open source.",
+      url: addUtmParams(BLOG_URL, "about_page", "blog_card"),
+      color: "bg-amber-100/60",
     },
-  ]
+  ];
 
   const skills = [
     {
-      name: 'Python',
+      name: "Python",
       link: addUtmParams(
-        'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python',
-        'about_page',
-        'skill_python'
+        "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python",
+        "about_page",
+        "skill_python"
       ),
     },
     {
-      name: 'Rust',
+      name: "Rust",
       link: addUtmParams(
-        'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust',
-        'about_page',
-        'skill_rust'
+        "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust",
+        "about_page",
+        "skill_rust"
       ),
     },
     {
-      name: 'Javascript',
+      name: "Javascript",
       link: addUtmParams(
-        'https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript',
-        'about_page',
-        'skill_javascript'
+        "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript",
+        "about_page",
+        "skill_javascript"
       ),
     },
-    { name: 'Spark' },
+    { name: "Spark" },
     {
-      name: 'Airflow',
+      name: "Airflow",
       link: addUtmParams(
         `${BLOG_URL}/tag/airflow/`,
-        'about_page',
-        'skill_airflow'
+        "about_page",
+        "skill_airflow"
       ),
     },
-    { name: 'AWS' },
-    { name: 'GCP' },
-  ]
+    { name: "AWS" },
+    { name: "GCP" },
+  ];
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -294,15 +298,15 @@ export default function About() {
         {/* Links Grid */}
         <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((link, index) => {
-            const Icon = link.icon
+            const Icon = link.icon;
             return (
               <Link
                 key={index}
                 href={link.url}
-                target={link.url.startsWith('http') ? '_blank' : undefined}
+                target={link.url.startsWith("http") ? "_blank" : undefined}
                 rel={
-                  link.url.startsWith('http')
-                    ? 'noopener noreferrer'
+                  link.url.startsWith("http")
+                    ? "noopener noreferrer"
                     : undefined
                 }
                 className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
@@ -317,7 +321,7 @@ export default function About() {
                   {link.description}
                 </p>
               </Link>
-            )
+            );
           })}
         </div>
 
@@ -350,5 +354,5 @@ export default function About() {
         </div>
       </div>
     </div>
-  )
+  );
 }

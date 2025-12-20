@@ -1,20 +1,20 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import Container from '@duyet/components/Container'
-import { getPostsByAllYear } from '@duyet/libs/getPost'
-import { YearPost } from '../../components/year-post'
+import Container from "@duyet/components/Container";
+import { getPostsByAllYear } from "@duyet/libs/getPost";
+import { YearPost } from "../../components/year-post";
 
 export default function Featured() {
   const postsByYear = getPostsByAllYear(
-    ['slug', 'title', 'date', 'category', 'featured'],
+    ["slug", "title", "date", "category", "featured"],
     -1,
-    true,
-  )
+    true
+  );
 
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
-    0,
-  )
+    0
+  );
 
   return (
     <div className="min-h-screen">
@@ -24,18 +24,18 @@ export default function Featured() {
             Featured
           </h1>
           <p className="max-w-2xl text-lg leading-relaxed text-neutral-700">
-            This page highlights{' '}
+            This page highlights{" "}
             <strong className="font-semibold text-neutral-900">
               {postCount} featured blog posts
             </strong>
-            . You can also explore{' '}
+            . You can also explore{" "}
             <Link
               href="/"
               className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
             >
               all posts
-            </Link>{' '}
-            or{' '}
+            </Link>{" "}
+            or{" "}
             <Link
               href="/tags"
               className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
@@ -48,12 +48,12 @@ export default function Featured() {
 
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
-            .sort(([a], [b]) => parseInt(b) - parseInt(a))
+            .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
             .map(([year, posts]) => (
-              <YearPost key={year} year={parseInt(year)} posts={posts} />
+              <YearPost key={year} year={Number.parseInt(year)} posts={posts} />
             ))}
         </div>
       </Container>
     </div>
-  )
+  );
 }

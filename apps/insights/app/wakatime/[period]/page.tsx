@@ -1,44 +1,44 @@
-import type { PeriodDays } from '@/lib/periods'
+import type { PeriodDays } from "@/lib/periods";
 import {
   generatePeriodStaticParams,
   getPeriodConfig,
   getPeriodDays,
-} from '@/lib/periods'
-import Image from 'next/image'
-import { Suspense } from 'react'
-import { SkeletonCard } from '../../../components/SkeletonCard'
-import { StaticCard } from '../../../components/StaticCard'
-import { WakaTimeActivity } from '../activity'
-import { WakaTimeLanguages } from '../languages'
-import { WakaTimeMetrics } from '../metrics'
+} from "@/lib/periods";
+import Image from "next/image";
+import { Suspense } from "react";
+import { SkeletonCard } from "../../../components/SkeletonCard";
+import { StaticCard } from "../../../components/StaticCard";
+import { WakaTimeActivity } from "../activity";
+import { WakaTimeLanguages } from "../languages";
+import { WakaTimeMetrics } from "../metrics";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 // Generate static pages for all time periods
 export function generateStaticParams() {
-  return generatePeriodStaticParams()
+  return generatePeriodStaticParams();
 }
 
 interface PageProps {
   params: Promise<{
-    period: string
-  }>
+    period: string;
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { period } = await params
-  const config = getPeriodConfig(period)
+  const { period } = await params;
+  const config = getPeriodConfig(period);
 
   return {
     title: `WakaTime Coding Analytics @duyet - ${config.label}`,
     description: `Programming activity for the last ${config.label}`,
-  }
+  };
 }
 
 export default async function WakaTimePeriodPage({ params }: PageProps) {
-  const { period } = await params
-  const config = getPeriodConfig(period)
-  const days = getPeriodDays(period) as PeriodDays
+  const { period } = await params;
+  const config = getPeriodConfig(period);
+  const days = getPeriodDays(period) as PeriodDays;
 
   return (
     <div className="space-y-8">
@@ -46,7 +46,7 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
       <div className="border-b pb-6">
         <h1 className="text-2xl font-bold tracking-tight">Coding Analytics</h1>
         <p className="mt-1 text-muted-foreground">
-          Programming activity and language statistics from WakaTime •{' '}
+          Programming activity and language statistics from WakaTime •{" "}
           {config.label}
         </p>
       </div>
@@ -116,8 +116,8 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
               title="Coding Activity Heatmap"
               url={{
                 light:
-                  'https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg',
-                dark: 'https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg',
+                  "https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg",
+                dark: "https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg",
               }}
             />
           </div>
@@ -128,5 +128,5 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
         </p>
       </div>
     </div>
-  )
+  );
 }

@@ -1,14 +1,14 @@
-import type { Post } from '@duyet/interfaces'
-import { getAllPosts } from '@duyet/libs/getPost'
-import { NextResponse } from 'next/server'
+import type { Post } from "@duyet/interfaces";
+import { getAllPosts } from "@duyet/libs/getPost";
+import { NextResponse } from "next/server";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 export async function GET() {
   const posts = getAllPosts(
-    ['slug', 'title', 'date', 'category', 'tags', 'excerpt'],
-    100000,
-  )
+    ["slug", "title", "date", "category", "tags", "excerpt"],
+    100000
+  );
 
   const llmsContent = `# Duyet Le - Technical Blog
 
@@ -40,44 +40,44 @@ Articles span from ${new Date(posts[posts.length - 1]?.date).getFullYear()} to $
 ${posts
   .slice(0, 20)
   .map((post: Post) => {
-    const url = `https://blog.duyet.net${post.slug}`
-    const date = new Date(post.date).toISOString().split('T')[0]
-    const tags = post.tags?.join(', ') || ''
+    const url = `https://blog.duyet.net${post.slug}`;
+    const date = new Date(post.date).toISOString().split("T")[0];
+    const tags = post.tags?.join(", ") || "";
 
     return `### [${post.title}](${url})
 - **Date**: ${date}
 - **Category**: ${post.category}
 - **Tags**: ${tags}
 - **URL**: ${url}
-${post.excerpt ? `- **Description**: ${post.excerpt}` : ''}
-`
+${post.excerpt ? `- **Description**: ${post.excerpt}` : ""}
+`;
   })
-  .join('\n')}
+  .join("\n")}
 
 ## All Blog Posts by Year
 
 ${Object.entries(
   posts.reduce((acc: Record<string, Post[]>, post: Post) => {
-    const year = new Date(post.date).getFullYear().toString()
-    if (!acc[year]) acc[year] = []
-    acc[year].push(post)
-    return acc
-  }, {}),
+    const year = new Date(post.date).getFullYear().toString();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  }, {})
 )
-  .sort(([a], [b]) => parseInt(b) - parseInt(a))
+  .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
   .map(([year, yearPosts]) => {
     return `### ${year} (${yearPosts.length} posts)
 
 ${yearPosts
   .map((post: Post) => {
-    const url = `https://blog.duyet.net${post.slug}`
-    const date = new Date(post.date).toISOString().split('T')[0]
-    return `- [${post.title}](${url}) - ${date}`
+    const url = `https://blog.duyet.net${post.slug}`;
+    const date = new Date(post.date).toISOString().split("T")[0];
+    return `- [${post.title}](${url}) - ${date}`;
   })
-  .join('\n')}
-`
+  .join("\n")}
+`;
   })
-  .join('\n')}
+  .join("\n")}
 
 ## Popular Topics
 
@@ -114,12 +114,12 @@ This file follows the llms.txt standard for providing comprehensive blog informa
 - Tags: ${Array.from(new Set(posts.flatMap((p) => p.tags || []))).length}
 
 Generated from: https://blog.duyet.net
-`
+`;
 
   return new NextResponse(llmsContent, {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
     },
-  })
+  });
 }

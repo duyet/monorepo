@@ -1,54 +1,57 @@
-'use client'
+"use client";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from '@/components/ui/chart'
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from 'recharts'
+} from "@/components/ui/chart";
+import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 interface DonutChartProps {
-  data: Array<Record<string, unknown>>
-  index: string
-  category: string
-  variant?: 'donut' | 'pie'
-  showLabel?: boolean
-  className?: string
+  data: Array<Record<string, unknown>>;
+  index: string;
+  category: string;
+  variant?: "donut" | "pie";
+  showLabel?: boolean;
+  className?: string;
 }
 
 const CHART_COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
-]
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+];
 
 export function DonutChart({
   data,
   index,
   category,
-  variant = 'donut',
+  variant = "donut",
   showLabel = false,
   className,
 }: DonutChartProps) {
   const chartConfig: ChartConfig = Object.fromEntries(
     data.map((item, i) => {
-      const key = String(item[index])
-      return [key, { label: key, color: CHART_COLORS[i % CHART_COLORS.length] }]
-    }),
-  )
+      const key = String(item[index]);
+      return [
+        key,
+        { label: key, color: CHART_COLORS[i % CHART_COLORS.length] },
+      ];
+    })
+  );
 
   // Custom label function to show language names
   const renderLabel = showLabel
     ? (props: PieLabelRenderProps) => {
-        const entry = props.payload as Record<string, unknown>
-        const name = String(entry[index] || '')
-        const value = Number(entry[category] || 0)
-        return value > 5 ? name : '' // Only show label if percentage > 5%
+        const entry = props.payload as Record<string, unknown>;
+        const name = String(entry[index] || "");
+        const value = Number(entry[category] || 0);
+        return value > 5 ? name : ""; // Only show label if percentage > 5%
       }
-    : false
+    : false;
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -58,7 +61,7 @@ export function DonutChart({
           data={data}
           dataKey={category}
           nameKey={index}
-          innerRadius={variant === 'donut' ? '60%' : '0%'}
+          innerRadius={variant === "donut" ? "60%" : "0%"}
           outerRadius="80%"
           paddingAngle={2}
           label={renderLabel}
@@ -73,5 +76,5 @@ export function DonutChart({
         </Pie>
       </PieChart>
     </ChartContainer>
-  )
+  );
 }

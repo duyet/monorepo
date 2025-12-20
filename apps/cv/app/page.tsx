@@ -1,19 +1,19 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { Education } from '@/components/education'
-import { ExperienceItem } from '@/components/experience'
-import { InlineLink } from '@/components/inline-link'
-import { Overview } from '@/components/overview'
-import { Section } from '@/components/section'
-import { Skill } from '@/components/skill'
+import { Education } from "@/components/education";
+import { ExperienceItem } from "@/components/experience";
+import { InlineLink } from "@/components/inline-link";
+import { Overview } from "@/components/overview";
+import { Section } from "@/components/section";
+import { Skill } from "@/components/skill";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@duyet/components/ui/hover-card'
-import { Separator } from '@duyet/components/ui/separator'
+} from "@duyet/components/ui/hover-card";
+import { Separator } from "@duyet/components/ui/separator";
 
-import { cvData } from '@/config/cv.data'
+import { cvData } from "@/config/cv.data";
 import {
   SkillAirflow,
   SkillCICD,
@@ -24,17 +24,17 @@ import {
   SkillRust,
   SkillSpark,
   SkillTypescript,
-} from './skill-details'
+} from "./skill-details";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 export default function Page() {
-  const { personal, experience, education } = cvData
+  const { personal, experience, education } = cvData;
 
   const renderContactLinks = () => {
     return personal.contacts.map((contact) => {
-      if (contact.type === 'email') {
-        return <div key={contact.id}>{contact.label}</div>
+      if (contact.type === "email") {
+        return <div key={contact.id}>{contact.label}</div>;
       }
 
       if (contact.hoverContent) {
@@ -65,7 +65,7 @@ export default function Page() {
               </Link>
             </HoverCardContent>
           </HoverCard>
-        )
+        );
       }
 
       return (
@@ -77,16 +77,16 @@ export default function Page() {
         >
           {contact.label}
         </Link>
-      )
-    })
-  }
+      );
+    });
+  };
 
   return (
     <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-foreground">
       <header className="flex flex-col gap-3">
         <h1
           className="mb-2 inline-flex gap-2 text-2xl font-bold"
-          style={{ fontFamily: 'var(--font-lora)' }}
+          style={{ fontFamily: "var(--font-lora)" }}
         >
           <span>{personal.name}</span>
           <Separator orientation="vertical" />
@@ -97,19 +97,19 @@ export default function Page() {
 
         <Overview className="text-sm">
           Data Engineer with 6+ years of experience in modern data warehousing,
-          distributed systems, and cloud computing. Proficient in{' '}
+          distributed systems, and cloud computing. Proficient in{" "}
           <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
-          {', '}
+          {", "}
           <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
-          {', '}
+          {", "}
           <SkillClickHouse />
-          {', '}
+          {", "}
           <SkillSpark />
-          {', '}
+          {", "}
           <SkillAirflow />
-          {', '}
+          {", "}
           <SkillPython />
-          {', '}
+          {", "}
           <SkillRust />.
         </Overview>
       </header>
@@ -148,36 +148,36 @@ export default function Page() {
       <Section title="Skills">
         <div className="flex flex-col gap-2">
           <div>
-            <strong>Data Engineering:</strong>{' '}
+            <strong>Data Engineering:</strong>{" "}
             <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
-            {', '}
+            {", "}
             <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
-            {', '}
+            {", "}
             <SkillClickHouse />
-            {', '}
+            {", "}
             <SkillSpark />
-            {', '}
+            {", "}
             <Skill skill="Kafka" />
-            {', '}
+            {", "}
             <SkillAirflow />
-            {', '}
+            {", "}
             <Skill skill="AWS" />
-            {', '}
+            {", "}
             <Skill skill="BigQuery" />
-            {', '}
+            {", "}
             <Skill skill="Data Studio" />
-            {', '}
+            {", "}
             <SkillPython />
-            {', '}
+            {", "}
             <SkillRust />
-            {', '}
+            {", "}
             <SkillTypescript />.
           </div>
           <div>
             <strong>DevOps:</strong> <SkillCICD />
-            {', '}
+            {", "}
             <SkillKubernetes />
-            {', '}
+            {", "}
             <SkillHelm />.
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function Page() {
       <footer className="cv-print-footer hidden print:block">
         <Separator className="cv-footer-separator my-2" />
         <p className="text-xs text-muted-foreground">
-          Live version at{' '}
+          Live version at{" "}
           <Link
             href="https://duyet.net/cv"
             className="underline"
@@ -197,5 +197,5 @@ export default function Page() {
         </p>
       </footer>
     </div>
-  )
+  );
 }

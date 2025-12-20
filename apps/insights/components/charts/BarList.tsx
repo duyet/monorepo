@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import { Progress } from '@/components/ui/progress'
-import { cn } from '@duyet/libs'
-import Link from 'next/link'
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@duyet/libs";
+import Link from "next/link";
 
 interface BarListItem {
-  name: string
-  value: number
-  href?: string
+  name: string;
+  value: number;
+  href?: string;
 }
 
 interface BarListProps {
-  data: BarListItem[]
-  className?: string
+  data: BarListItem[];
+  className?: string;
 }
 
 export function BarList({ data, className }: BarListProps) {
-  const maxValue = Math.max(...data.map((item) => item.value))
+  const maxValue = Math.max(...data.map((item) => item.value));
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       {data.map((item, index) => {
-        const percentage = (item.value / maxValue) * 100
+        const percentage = (item.value / maxValue) * 100;
 
         const ItemContent = () => (
           <>
@@ -33,7 +33,7 @@ export function BarList({ data, className }: BarListProps) {
             </div>
             <Progress value={percentage} className="h-1.5" />
           </>
-        )
+        );
 
         return (
           <div key={index}>
@@ -50,8 +50,8 @@ export function BarList({ data, className }: BarListProps) {
               </div>
             )}
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

@@ -1,30 +1,30 @@
-import { getAllSeries, getSeries } from '@duyet/libs/getSeries'
-import { notFound } from 'next/navigation'
-import { SeriesBox } from '../../../components/series'
+import { getAllSeries, getSeries } from "@duyet/libs/getSeries";
+import { notFound } from "next/navigation";
+import { SeriesBox } from "../../../components/series";
 
-export const dynamic = 'force-static'
-export const dynamicParams = false
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 interface PageProps {
   params: Promise<{
-    slug: string
-  }>
+    slug: string;
+  }>;
 }
 
 export async function generateStaticParams() {
-  const allSeries = getAllSeries()
+  const allSeries = getAllSeries();
   return allSeries.map((series) => ({
     slug: series.slug,
-  }))
+  }));
 }
 
 export default async function SeriesPage({ params }: PageProps) {
-  const { slug } = await params
-  const series = getSeries({ slug })
+  const { slug } = await params;
+  const series = getSeries({ slug });
 
   if (!series) {
-    return notFound()
+    return notFound();
   }
 
-  return <SeriesBox className="mt-0 border-0 pb-10 pt-10" series={series} />
+  return <SeriesBox className="mt-0 border-0 pb-10 pt-10" series={series} />;
 }

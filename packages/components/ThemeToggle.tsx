@@ -9,14 +9,14 @@ import { cn } from "@duyet/libs/utils";
 
 const toggleGroupClasses = cn(
   "p-[3px] w-fit flex rounded-full border border-gray-200",
-  "dark:border-gray-800",
+  "dark:border-gray-800"
 );
 
 const toggleGroupItemClasses = cn(
   "h-8 w-8 flex items-center rounded-full justify-center transition",
   "text-gray-400 hover:text-gray-900 dark:hover:data-[state=off]:text-gray-100",
   "data-[state=on]:bg-gray-200 data-[state=on]:text-gray-900",
-  "dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-200",
+  "dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-200"
 );
 
 const iconProps = {

@@ -1,18 +1,18 @@
-import { ClusterOverview } from '@/components/dashboard/ClusterOverview'
-import { ClusterTopology } from '@/components/dashboard/ClusterTopology'
-import { NetworkStats } from '@/components/dashboard/NetworkStats'
-import { ResourceMetrics } from '@/components/dashboard/ResourceMetrics'
-import { ServiceDowntime } from '@/components/dashboard/ServiceDowntime'
-import { ServicesStatus } from '@/components/dashboard/ServicesStatus'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
+import { ClusterTopology } from "@/components/dashboard/ClusterTopology";
+import { NetworkStats } from "@/components/dashboard/NetworkStats";
+import { ResourceMetrics } from "@/components/dashboard/ResourceMetrics";
+import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
+import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const metadata = {
-  title: 'Homelab Dashboard | duyet.net',
-  description: 'Real-time monitoring dashboard for microk8s cluster',
-}
+  title: "Homelab Dashboard | duyet.net",
+  description: "Real-time monitoring dashboard for microk8s cluster",
+};
 
 export default function HomelabPage() {
-  const snapshotDate = new Date().toLocaleString()
+  const snapshotDate = new Date().toLocaleString();
 
   return (
     <div className="space-y-8">
@@ -56,5 +56,5 @@ export default function HomelabPage() {
         </p>
       </div>
     </div>
-  )
+  );
 }

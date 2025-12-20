@@ -58,6 +58,7 @@ export const wakatimeConfig = {
   endpoints: {
     currentUser: "/users/current",
     stats: (range: string) => `/users/current/stats/${range}`,
+    durations: (date: string) => `/users/current/durations?date=${date}`,
     insights: {
       days: (range: string) => `/users/current/insights/days?range=${range}`,
       weekday: (range: string) =>
@@ -145,9 +146,9 @@ export function getWakaTimeRange(days: number | "all"): string {
 // Helper function to calculate exponential backoff delay
 export function calculateBackoffDelay(
   retryCount: number,
-  config: RetryConfig = DEFAULT_RETRY_CONFIG,
+  config: RetryConfig = DEFAULT_RETRY_CONFIG
 ): number {
-  return config.initialDelayMs * Math.pow(config.backoffMultiplier, retryCount);
+  return config.initialDelayMs * config.backoffMultiplier ** retryCount;
 }
 
 // Export all API configs

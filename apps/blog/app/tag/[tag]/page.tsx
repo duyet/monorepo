@@ -1,62 +1,60 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { YearPost } from '@/components/year-post'
-import { getTagColorClass, getTagMetadata } from '@/lib/tag-metadata'
-import Container from '@duyet/components/Container'
-import type { Post } from '@duyet/interfaces'
-import { getAllTags, getPostsByTag } from '@duyet/libs/getPost'
-import { getSlug } from '@duyet/libs/getSlug'
+import { YearPost } from "@/components/year-post";
+import { getTagColorClass, getTagMetadata } from "@/lib/tag-metadata";
+import Container from "@duyet/components/Container";
+import type { Post } from "@duyet/interfaces";
+import { getAllTags, getPostsByTag } from "@duyet/libs/getPost";
+import { getSlug } from "@duyet/libs/getSlug";
 
-export const dynamic = 'force-static'
-export const dynamicParams = false
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 interface Params {
-  tag: string
+  tag: string;
 }
 
 interface PostsByTagProps {
-  params: Promise<Params>
+  params: Promise<Params>;
 }
 
 export async function generateStaticParams() {
-  const tags = getAllTags()
+  const tags = getAllTags();
 
   return Object.keys(tags).map((tag: string) => ({
     tag: getSlug(tag),
-  }))
+  }));
 }
 
 export default async function PostsByTag({ params }: PostsByTagProps) {
-  const { tag } = await params
-  const posts = await getPosts(tag)
+  const { tag } = await params;
+  const posts = await getPosts(tag);
 
   // Get the tag display name (reverse slug to title)
-  const tags = getAllTags()
-  const tagName = Object.keys(tags).find(
-    (t) => getSlug(t) === tag,
-  ) || tag
+  const tags = getAllTags();
+  const tagName = Object.keys(tags).find((t) => getSlug(t) === tag) || tag;
 
   // Get the index for consistent color rotation
   const tagIndex = Object.keys(tags)
     .sort((a, b) => tags[b] - tags[a])
-    .indexOf(tagName)
+    .indexOf(tagName);
 
   // Group posts by year
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
-    const year = new Date(post.date).getFullYear()
+    const year = new Date(post.date).getFullYear();
     if (!acc[year]) {
-      acc[year] = []
+      acc[year] = [];
     }
-    acc[year].push(post)
-    return acc
-  }, {})
+    acc[year].push(post);
+    return acc;
+  }, {});
 
-  const postCount = posts.length
-  const yearCount = Object.keys(postsByYear).length
+  const postCount = posts.length;
+  const yearCount = Object.keys(postsByYear).length;
 
   // Get dynamic metadata
-  const metadata = getTagMetadata(tagName, postCount, tagIndex)
-  const colorClass = getTagColorClass(metadata.color, 'light')
+  const metadata = getTagMetadata(tagName, postCount, tagIndex);
+  const colorClass = getTagColorClass(metadata.color, "light");
 
   return (
     <div className="min-h-screen">
@@ -109,7 +107,7 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
                 />
               </svg>
               <span>
-                {postCount} {postCount === 1 ? 'post' : 'posts'}
+                {postCount} {postCount === 1 ? "post" : "posts"}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -127,7 +125,7 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
                 />
               </svg>
               <span>
-                {yearCount} {yearCount === 1 ? 'year' : 'years'}
+                {yearCount} {yearCount === 1 ? "year" : "years"}
               </span>
             </div>
           </div>
@@ -136,13 +134,9 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
         {/* Posts organized by year */}
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
-            .sort(([a], [b]) => parseInt(b) - parseInt(a))
+            .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
             .map(([year, yearPosts]) => (
-              <YearPost
-                key={year}
-                year={parseInt(year)}
-                posts={yearPosts}
-              />
+              <YearPost key={year} year={Number.parseInt(year)} posts={yearPosts} />
             ))}
         </div>
 
@@ -156,15 +150,9 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
         )}
       </Container>
     </div>
-  )
+  );
 }
 
-async function getPosts(tag: Params['tag']) {
-  return getPostsByTag(tag, [
-    'slug',
-    'date',
-    'title',
-    'category',
-    'featured',
-  ])
+async function getPosts(tag: Params["tag"]) {
+  return getPostsByTag(tag, ["slug", "date", "title", "category", "featured"]);
 }

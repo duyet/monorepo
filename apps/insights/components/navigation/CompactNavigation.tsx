@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs'
+import { cn } from "@duyet/libs";
 import {
   Activity,
   BarChart3,
@@ -10,87 +10,87 @@ import {
   Home,
   Menu,
   X,
-} from 'lucide-react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface NavItem {
-  text: string
-  href: string
-  icon: React.ComponentType<{ className?: string }>
-  badge?: string
-  description?: string
+  text: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string;
+  description?: string;
 }
 
 const navItems: NavItem[] = [
   {
-    text: 'Overview',
-    href: '/',
+    text: "Overview",
+    href: "/",
     icon: Home,
-    description: 'Dashboard overview with key metrics',
+    description: "Dashboard overview with key metrics",
   },
   {
-    text: 'Blog',
-    href: '/blog',
+    text: "Blog",
+    href: "/blog",
     icon: Globe,
-    description: 'Traffic analytics from Cloudflare & PostHog',
+    description: "Traffic analytics from Cloudflare & PostHog",
   },
   {
-    text: 'Github',
-    href: '/github',
+    text: "Github",
+    href: "/github",
     icon: Code,
-    description: 'GitHub activity and repository insights',
+    description: "GitHub activity and repository insights",
   },
   {
-    text: 'Wakatime',
-    href: '/wakatime',
+    text: "Wakatime",
+    href: "/wakatime",
     icon: Activity,
-    description: 'Coding time and productivity tracking',
+    description: "Coding time and productivity tracking",
   },
   {
-    text: 'AI',
-    href: '/ai',
+    text: "AI",
+    href: "/ai",
     icon: BarChart3,
-    description: 'Claude Code usage and cost analytics',
+    description: "Claude Code usage and cost analytics",
   },
-]
+];
 
 interface CompactNavigationProps {
-  className?: string
+  className?: string;
 }
 
 export function CompactNavigation({ className }: CompactNavigationProps) {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   // Extract the base path (first segment) for matching
   const getBasePath = (path: string) => {
-    const segments = path.split('/').filter(Boolean)
-    return segments[0] ? `/${segments[0]}` : '/'
-  }
+    const segments = path.split("/").filter(Boolean);
+    return segments[0] ? `/${segments[0]}` : "/";
+  };
 
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className={cn('hidden md:block', className)}>
+      <nav className={cn("hidden md:block", className)}>
         <div className="flex items-center space-x-1">
           {navItems.map((item) => {
-            const Icon = item.icon
-            const currentBasePath = getBasePath(pathname)
+            const Icon = item.icon;
+            const currentBasePath = getBasePath(pathname);
             const isActive =
-              pathname === item.href || currentBasePath === item.href
+              pathname === item.href || currentBasePath === item.href;
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                  'hover:bg-accent hover:text-accent-foreground',
+                  "flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                  "hover:bg-accent hover:text-accent-foreground",
                   isActive
-                    ? 'bg-accent text-accent-foreground'
-                    : 'text-muted-foreground',
+                    ? "bg-accent text-accent-foreground"
+                    : "text-muted-foreground"
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -101,7 +101,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                   </span>
                 )}
               </Link>
-            )
+            );
           })}
         </div>
       </nav>
@@ -117,8 +117,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
           <span>Menu</span>
           <ChevronDown
             className={cn(
-              'h-4 w-4 transition-transform',
-              isOpen && 'rotate-180',
+              "h-4 w-4 transition-transform",
+              isOpen && "rotate-180"
             )}
           />
         </button>
@@ -142,10 +142,10 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
               </div>
               <div className="space-y-2">
                 {navItems.map((item) => {
-                  const Icon = item.icon
-                  const currentBasePath = getBasePath(pathname)
+                  const Icon = item.icon;
+                  const currentBasePath = getBasePath(pathname);
                   const isActive =
-                    pathname === item.href || currentBasePath === item.href
+                    pathname === item.href || currentBasePath === item.href;
 
                   return (
                     <Link
@@ -153,11 +153,11 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        'flex items-start space-x-3 rounded-lg p-3 transition-colors',
-                        'hover:bg-accent hover:text-accent-foreground',
+                        "flex items-start space-x-3 rounded-lg p-3 transition-colors",
+                        "hover:bg-accent hover:text-accent-foreground",
                         isActive
-                          ? 'bg-accent text-accent-foreground'
-                          : 'text-muted-foreground',
+                          ? "bg-accent text-accent-foreground"
+                          : "text-muted-foreground"
                       )}
                     >
                       <Icon className="mt-0.5 h-5 w-5 shrink-0" />
@@ -177,7 +177,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                         )}
                       </div>
                     </Link>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -185,17 +185,17 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         )}
       </div>
     </>
-  )
+  );
 }
 
 interface BreadcrumbProps {
-  items: Array<{ label: string; href?: string }>
-  className?: string
+  items: Array<{ label: string; href?: string }>;
+  className?: string;
 }
 
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
-    <nav className={cn('flex text-sm text-muted-foreground', className)}>
+    <nav className={cn("flex text-sm text-muted-foreground", className)}>
       {items.map((item, index) => (
         <div key={index} className="flex items-center">
           {index > 0 && <span className="mx-2">/</span>}
@@ -212,5 +212,5 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         </div>
       ))}
     </nav>
-  )
+  );
 }

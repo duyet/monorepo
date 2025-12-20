@@ -1,4 +1,4 @@
-name: ESLint
+name: Lint
 
 on:
   push:
@@ -10,8 +10,8 @@ on:
     - cron: "26 5 * * 0"
 
 jobs:
-  eslint:
-    name: Run eslint scanning
+  lint:
+    name: Run Biome linting
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -37,7 +37,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bun-
 
-      - name: ESLint
+      - name: Lint
         run: |
           bun install
           bun run lint

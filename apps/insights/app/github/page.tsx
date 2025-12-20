@@ -1,22 +1,22 @@
-import { PageLayout, SectionLayout } from '@/components/layouts'
-import { GithubActivity } from './activity'
-import { GithubCard } from './card'
-import { CommitTimeline } from './commit-timeline'
-import { GitHubLanguageStats } from './language-stats'
-import { RepoTrends } from './repo-trends'
-import { Repos } from './repos'
+import { PageLayout, SectionLayout } from "@/components/layouts";
+import { GithubActivity } from "./activity";
+import { GithubCard } from "./card";
+import { CommitTimeline } from "./commit-timeline";
+import { GitHubLanguageStats } from "./language-stats";
+import { RepoTrends } from "./repo-trends";
+import { Repos } from "./repos";
 
-const owner = 'duyet'
+const owner = "duyet";
 
 export const metadata = {
-  title: 'GitHub Insights @duyet',
-  description: 'GitHub repository analytics and development activity insights',
-}
+  title: "GitHub Insights @duyet",
+  description: "GitHub repository analytics and development activity insights",
+};
 
 // Use dynamic rendering to prevent build failures when GITHUB_TOKEN is not available
 // The components handle missing token gracefully by returning empty data
-export const dynamic = 'auto'
-export const revalidate = 3600 // Revalidate every hour when token is available
+export const dynamic = "auto";
+export const revalidate = 3600; // Revalidate every hour when token is available
 
 export default function Page() {
   return (
@@ -71,5 +71,5 @@ export default function Page() {
         <GithubCard owner={owner} />
       </SectionLayout>
     </PageLayout>
-  )
+  );
 }

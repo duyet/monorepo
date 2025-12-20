@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { cn } from '@duyet/libs/utils'
-import * as Dialog from '@radix-ui/react-dialog'
+import { cn } from "@duyet/libs/utils";
+import * as Dialog from "@radix-ui/react-dialog";
 import {
   ChevronLeft,
   ChevronRight,
@@ -11,19 +11,19 @@ import {
   Info,
   Shrink,
   X,
-} from 'lucide-react'
+} from "lucide-react";
 
 interface LightboxControlsProps {
-  currentIndex: number
-  totalCount: number
-  isFullscreen: boolean
-  showInfo: boolean
-  onClose: () => void
-  onToggleFullscreen: () => void
-  onToggleInfo: () => void
-  onNext?: () => void
-  onPrevious?: () => void
-  className?: string
+  currentIndex: number;
+  totalCount: number;
+  isFullscreen: boolean;
+  showInfo: boolean;
+  onClose: () => void;
+  onToggleFullscreen: () => void;
+  onToggleInfo: () => void;
+  onNext?: () => void;
+  onPrevious?: () => void;
+  className?: string;
 }
 
 export function LightboxTopControls({
@@ -35,12 +35,12 @@ export function LightboxTopControls({
   onToggleInfo,
   onClose,
   className,
-}: Omit<LightboxControlsProps, 'onNext' | 'onPrevious'>) {
+}: Omit<LightboxControlsProps, "onNext" | "onPrevious">) {
   return (
     <div
       className={cn(
-        'absolute left-4 right-4 top-4 z-10 flex items-center justify-between',
-        className,
+        "absolute left-4 right-4 top-4 z-10 flex items-center justify-between",
+        className
       )}
     >
       {/* Counter with professional styling */}
@@ -54,11 +54,11 @@ export function LightboxTopControls({
         <button
           onClick={onToggleInfo}
           className={cn(
-            'rounded-full p-2.5 text-white transition-all duration-200',
-            'backdrop-blur-md hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50',
+            "rounded-full p-2.5 text-white transition-all duration-200",
+            "backdrop-blur-md hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50",
             showInfo
-              ? 'bg-white/30 hover:bg-white/40'
-              : 'bg-black/50 hover:bg-black/70',
+              ? "bg-white/30 hover:bg-white/40"
+              : "bg-black/50 hover:bg-black/70"
           )}
           aria-label="Toggle photo information"
           title="Toggle photo info (I)"
@@ -70,8 +70,8 @@ export function LightboxTopControls({
         <button
           onClick={onToggleFullscreen}
           className="rounded-full bg-black/50 p-2.5 text-white backdrop-blur-md transition-all duration-200 hover:scale-105 hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-          aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-          title={isFullscreen ? 'Exit fullscreen (F)' : 'Enter fullscreen (F)'}
+          aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+          title={isFullscreen ? "Exit fullscreen (F)" : "Enter fullscreen (F)"}
         >
           {isFullscreen ? (
             <Shrink className="h-5 w-5" />
@@ -92,14 +92,14 @@ export function LightboxTopControls({
         </Dialog.Close>
       </div>
     </div>
-  )
+  );
 }
 
 interface NavigationButtonProps {
-  direction: 'previous' | 'next'
-  onClick: () => void
-  isFullscreen: boolean
-  className?: string
+  direction: "previous" | "next";
+  onClick: () => void;
+  isFullscreen: boolean;
+  className?: string;
 }
 
 export function NavigationButton({
@@ -108,78 +108,78 @@ export function NavigationButton({
   isFullscreen,
   className,
 }: NavigationButtonProps) {
-  const isPrevious = direction === 'previous'
-  const Icon = isPrevious ? ChevronLeft : ChevronRight
+  const isPrevious = direction === "previous";
+  const Icon = isPrevious ? ChevronLeft : ChevronRight;
 
   return (
     <button
       onClick={onClick}
       className={cn(
-        'absolute top-1/2 z-10 -translate-y-1/2 rounded-full p-3',
-        'bg-black/60 text-white backdrop-blur-md',
-        'transition-all duration-200 hover:scale-110 hover:bg-black/80',
-        'shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white/50',
+        "absolute top-1/2 z-10 -translate-y-1/2 rounded-full p-3",
+        "bg-black/60 text-white backdrop-blur-md",
+        "transition-all duration-200 hover:scale-110 hover:bg-black/80",
+        "shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white/50",
         isFullscreen
           ? isPrevious
-            ? 'left-4'
-            : 'right-4'
+            ? "left-4"
+            : "right-4"
           : isPrevious
-            ? 'left-6'
-            : 'right-6',
-        className,
+            ? "left-6"
+            : "right-6",
+        className
       )}
-      aria-label={`${isPrevious ? 'Previous' : 'Next'} photo (${isPrevious ? '←' : '→'})`}
-      title={`${isPrevious ? 'Previous' : 'Next'} photo (${isPrevious ? '←' : '→'})`}
+      aria-label={`${isPrevious ? "Previous" : "Next"} photo (${isPrevious ? "←" : "→"})`}
+      title={`${isPrevious ? "Previous" : "Next"} photo (${isPrevious ? "←" : "→"})`}
     >
       <Icon className="h-6 w-6 sm:h-8 sm:w-8" />
     </button>
-  )
+  );
 }
 
 interface InfoPanelProps {
   photo: {
-    description?: string | null
-    created_at: string
-    width: number
-    height: number
+    description?: string | null;
+    created_at: string;
+    width: number;
+    height: number;
     stats?: {
-      views?: number
-      downloads?: number
-    }
+      views?: number;
+      downloads?: number;
+    };
     location?: {
-      city?: string | null
-      country?: string | null
-    }
+      city?: string | null;
+      country?: string | null;
+    };
     exif?: {
-      make?: string | null
-      model?: string | null
-      aperture?: string | null
-      exposure_time?: string | null
-      iso?: number | null
-      focal_length?: string | null
-    }
+      make?: string | null;
+      model?: string | null;
+      aperture?: string | null;
+      exposure_time?: string | null;
+      iso?: number | null;
+      focal_length?: string | null;
+    };
     links?: {
-      html?: string
-    }
+      html?: string;
+    };
     urls: {
-      full: string
-    }
-  }
+      full: string;
+    };
+  };
   metadata: {
-    dateFormatted: string
-    dimensions: string
-    location?: string
+    dateFormatted: string;
+    dimensions: string;
+    location?: string;
     stats?: {
-      views: string
-      downloads: string
-    }
+      views: string;
+      downloads: string;
+    };
     exif?: {
-      camera: string
-      settings: string
-    }
-  }
-  isFullscreen: boolean
-  className?: string
+      camera: string;
+      settings: string;
+    };
+  };
+  isFullscreen: boolean;
+  className?: string;
 }
 
 export function InfoPanel({
@@ -192,15 +192,13 @@ export function InfoPanel({
     return (
       <div
         className={cn(
-          'absolute bottom-0 left-0 right-0 z-10 bg-black/75 p-6 text-white backdrop-blur-md',
-          className,
+          "absolute bottom-0 left-0 right-0 z-10 bg-black/75 p-6 text-white backdrop-blur-md",
+          className
         )}
       >
         <div className="space-y-4">
           {photo.description && (
-            <h3 className="text-sm leading-tight">
-              {photo.description}
-            </h3>
+            <h3 className="text-sm leading-tight">{photo.description}</h3>
           )}
 
           <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
@@ -212,7 +210,7 @@ export function InfoPanel({
                 <p>📐 {metadata.dimensions}</p>
                 {metadata.stats && (
                   <p>
-                    👁 {metadata.stats.views} views • ⬇{' '}
+                    👁 {metadata.stats.views} views • ⬇{" "}
                     {metadata.stats.downloads} downloads
                   </p>
                 )}
@@ -262,7 +260,7 @@ export function InfoPanel({
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // Compact info bar for normal mode
@@ -315,5 +313,5 @@ export function InfoPanel({
         </div>
       </div>
     </div>
-  )
+  );
 }

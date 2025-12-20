@@ -57,5 +57,5 @@ export default function ResumeIcon() {
         strokeLinecap="round"
       />
     </svg>
-  )
+  );
 }

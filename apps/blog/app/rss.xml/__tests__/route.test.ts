@@ -3,104 +3,104 @@
  */
 
 // Mock getAllPosts before importing the route
-jest.mock('@duyet/libs/getPost', () => ({
+jest.mock("@duyet/libs/getPost", () => ({
   getAllPosts: jest.fn(() => [
     {
-      slug: '/2024/01/test-post',
-      title: 'Test Post',
-      excerpt: 'This is a test post',
-      date: '2024-01-01',
+      slug: "/2024/01/test-post",
+      title: "Test Post",
+      excerpt: "This is a test post",
+      date: "2024-01-01",
     },
     {
-      slug: '/2024/01/another-post',
-      title: 'Another Post',
-      excerpt: 'Another test post',
-      date: '2024-01-02',
+      slug: "/2024/01/another-post",
+      title: "Another Post",
+      excerpt: "Another test post",
+      date: "2024-01-02",
     },
   ]),
-}))
+}));
 
-import { GET, dynamic } from '../route'
-import { getAllPosts } from '@duyet/libs/getPost'
+import { GET, dynamic } from "../route";
+import { getAllPosts } from "@duyet/libs/getPost";
 
-describe('RSS Feed Route', () => {
+describe("RSS Feed Route", () => {
   beforeEach(() => {
-    jest.clearAllMocks()
-  })
+    jest.clearAllMocks();
+  });
 
-  it('should return valid RSS XML', async () => {
-    const response = await GET()
-    const xml = await response.text()
+  it("should return valid RSS XML", async () => {
+    const response = await GET();
+    const xml = await response.text();
 
-    expect(xml).toContain('<?xml version="1.0" encoding="UTF-8"?>')
-    expect(xml).toContain('<rss')
-    expect(xml).toContain('</rss>')
-    expect(response.status).toBe(200)
-  })
+    expect(xml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+    expect(xml).toContain("<rss");
+    expect(xml).toContain("</rss>");
+    expect(response.status).toBe(200);
+  });
 
-  it('should include blog metadata', async () => {
-    const response = await GET()
-    const xml = await response.text()
+  it("should include blog metadata", async () => {
+    const response = await GET();
+    const xml = await response.text();
 
-    expect(xml).toContain('<![CDATA[Tôi là Duyệt]]>')
-    expect(xml).toContain('<![CDATA[Sr. Data Engineer. Rustacean at night]]>')
-    expect(xml).toContain('https://blog.duyet.net')
-  })
+    expect(xml).toContain("<![CDATA[Tôi là Duyệt]]>");
+    expect(xml).toContain("<![CDATA[Sr. Data Engineer. Rustacean at night]]>");
+    expect(xml).toContain("https://blog.duyet.net");
+  });
 
-  it('should include posts in RSS feed', async () => {
-    const response = await GET()
-    const xml = await response.text()
+  it("should include posts in RSS feed", async () => {
+    const response = await GET();
+    const xml = await response.text();
 
-    expect(xml).toContain('<![CDATA[Test Post]]>')
-    expect(xml).toContain('<![CDATA[This is a test post]]>')
-    expect(xml).toContain('https://blog.duyet.net//2024/01/test-post')
+    expect(xml).toContain("<![CDATA[Test Post]]>");
+    expect(xml).toContain("<![CDATA[This is a test post]]>");
+    expect(xml).toContain("https://blog.duyet.net//2024/01/test-post");
 
-    expect(xml).toContain('<![CDATA[Another Post]]>')
-    expect(xml).toContain('<![CDATA[Another test post]]>')
-  })
+    expect(xml).toContain("<![CDATA[Another Post]]>");
+    expect(xml).toContain("<![CDATA[Another test post]]>");
+  });
 
-  it('should call getAllPosts with correct parameters', async () => {
-    await GET()
+  it("should call getAllPosts with correct parameters", async () => {
+    await GET();
 
     expect(getAllPosts).toHaveBeenCalledWith(
-      ['slug', 'title', 'excerpt', 'date'],
+      ["slug", "title", "excerpt", "date"],
       50
-    )
-  })
+    );
+  });
 
-  it('should have correct content type', async () => {
-    const response = await GET()
-    const contentType = response.headers.get('Content-Type')
+  it("should have correct content type", async () => {
+    const response = await GET();
+    const contentType = response.headers.get("Content-Type");
 
-    expect(contentType).toBe('text/xml')
-  })
+    expect(contentType).toBe("text/xml");
+  });
 
-  it('should be statically generated', () => {
-    expect(dynamic).toBe('force-static')
-  })
+  it("should be statically generated", () => {
+    expect(dynamic).toBe("force-static");
+  });
 
-  it('should handle posts without excerpt', async () => {
-    ;(getAllPosts as jest.Mock).mockReturnValueOnce([
+  it("should handle posts without excerpt", async () => {
+    (getAllPosts as jest.Mock).mockReturnValueOnce([
       {
-        slug: '/2024/01/no-excerpt',
-        title: 'No Excerpt Post',
-        excerpt: '',
-        date: '2024-01-01',
+        slug: "/2024/01/no-excerpt",
+        title: "No Excerpt Post",
+        excerpt: "",
+        date: "2024-01-01",
       },
-    ])
+    ]);
 
-    const response = await GET()
-    const xml = await response.text()
+    const response = await GET();
+    const xml = await response.text();
 
-    expect(xml).toContain('<![CDATA[No Excerpt Post]]>')
-    expect(response.status).toBe(200)
-  })
+    expect(xml).toContain("<![CDATA[No Excerpt Post]]>");
+    expect(response.status).toBe(200);
+  });
 
-  it('should format XML with indentation', async () => {
-    const response = await GET()
-    const xml = await response.text()
+  it("should format XML with indentation", async () => {
+    const response = await GET();
+    const xml = await response.text();
 
     // Check that XML is indented (has newlines and spaces)
-    expect(xml).toMatch(/\n\s+</)
-  })
-})
+    expect(xml).toMatch(/\n\s+</);
+  });
+});

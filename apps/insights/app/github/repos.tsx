@@ -1,35 +1,35 @@
-import type { GithubRepo } from '@duyet/interfaces'
-import { cn } from '@duyet/libs/utils'
-import { CodeIcon, StarIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
-import { getGithubToken } from './github-utils'
+import type { GithubRepo } from "@duyet/interfaces";
+import { cn } from "@duyet/libs/utils";
+import { CodeIcon, StarIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import { getGithubToken } from "./github-utils";
 
 interface RepoProps {
-  owner: string
-  className?: string
+  owner: string;
+  className?: string;
 }
 
 export async function Repos({ owner, className }: RepoProps) {
   const repos = await getGithubRepos(
     owner,
-    ['clickhouse-monitoring', 'pricetrack', 'grant-rs', 'charts'],
+    ["clickhouse-monitoring", "pricetrack", "grant-rs", "charts"],
     [
-      'awesome-web-scraper',
-      'vietnamese-wordlist',
-      'vietnamese-namedb',
-      'vietnamese-frontend-interview-questions',
-      'opencv-car-detection',
-      'saveto',
-      'firebase-shorten-url',
-      'google-search-crawler',
+      "awesome-web-scraper",
+      "vietnamese-wordlist",
+      "vietnamese-namedb",
+      "vietnamese-frontend-interview-questions",
+      "opencv-car-detection",
+      "saveto",
+      "firebase-shorten-url",
+      "google-search-crawler",
     ],
-    12,
-  )
+    12
+  );
 
   // Safety check for repos array
   if (!repos || !Array.isArray(repos)) {
     return (
-      <div className={cn('w-full', className)}>
+      <div className={cn("w-full", className)}>
         <div className="rounded-lg border bg-card p-8 text-center">
           <p className="text-muted-foreground">No repositories available</p>
           <p className="mt-2 text-xs text-muted-foreground">
@@ -37,24 +37,24 @@ export async function Repos({ owner, className }: RepoProps) {
           </p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn("w-full", className)}>
       <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {repos.map((repo: GithubRepo) => (
           <Repo key={repo.name} repo={repo} />
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function Repo({
   repo: { name, html_url, description, stargazers_count, language },
 }: {
-  repo: GithubRepo
+  repo: GithubRepo;
 }) {
   return (
     <div className="group relative rounded-lg border bg-background p-4 transition-all">
@@ -72,7 +72,7 @@ function Repo({
         </div>
 
         <p className="text-sm text-muted-foreground">
-          {description || 'No description'}
+          {description || "No description"}
         </p>
 
         <div className="flex flex-row">
@@ -89,7 +89,7 @@ function Repo({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 /**
@@ -99,58 +99,58 @@ async function getGithubRepos(
   owner: string,
   preferredProjects: string[] = [],
   ignoredProjects: string[] = [],
-  n = 8,
+  n = 8
 ): Promise<GithubRepo[]> {
-  const token = getGithubToken()
+  const token = getGithubToken();
   if (!token) {
-    console.warn('GITHUB_TOKEN not configured, returning empty repositories')
-    return []
+    console.warn("GITHUB_TOKEN not configured, returning empty repositories");
+    return [];
   }
 
-  let repos: GithubRepo[] = []
+  let repos: GithubRepo[] = [];
 
   const fetchPage = async (page: number) => {
     const params = new URLSearchParams({
       q: `user:${owner}`,
-      sort: 'stars',
-      per_page: '100',
-      type: 'all',
+      sort: "stars",
+      per_page: "100",
+      type: "all",
       page: page.toString(),
-    })
+    });
 
     const headers = new Headers({
       Authorization: `Bearer ${token}`,
-    })
+    });
 
     try {
       const res = await fetch(
         `https://api.github.com/search/repositories?${params.toString()}`,
-        { cache: 'force-cache', headers },
-      )
+        { cache: "force-cache", headers }
+      );
 
       if (!res.ok) {
-        console.error(`GitHub API error: ${res.status} ${res.statusText}`)
-        return { items: [] }
+        console.error(`GitHub API error: ${res.status} ${res.statusText}`);
+        return { items: [] };
       }
 
-      const data = await res.json()
-      return data as { items: GithubRepo[] }
+      const data = await res.json();
+      return data as { items: GithubRepo[] };
     } catch (error) {
-      console.error('Failed to fetch GitHub repositories:', error)
-      return { items: [] }
+      console.error("Failed to fetch GitHub repositories:", error);
+      return { items: [] };
     }
-  }
+  };
 
-  const results = await fetchPage(1)
-  repos = results.items || []
+  const results = await fetchPage(1);
+  repos = results.items || [];
 
   const filteredRepos = repos.filter(
     (repo: GithubRepo) =>
       repo.stargazers_count > 0 &&
       !repo.archived &&
       !repo.disabled &&
-      !ignoredProjects.includes(repo.name),
-  )
+      !ignoredProjects.includes(repo.name)
+  );
 
   const sortedRepos = [
     ...preferredProjects
@@ -159,7 +159,7 @@ async function getGithubRepos(
     ...filteredRepos.filter((p) => !preferredProjects.includes(p.name)),
   ]
     .filter((project): project is GithubRepo => project !== undefined)
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    .sort((a, b) => b.stargazers_count - a.stargazers_count);
 
-  return sortedRepos.slice(0, n)
+  return sortedRepos.slice(0, n);
 }

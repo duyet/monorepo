@@ -4,31 +4,31 @@
  */
 
 export interface MockClickHouseRow {
-  [key: string]: any
+  [key: string]: any;
 }
 
 export interface MockClickHouseQueryResult {
-  data: MockClickHouseRow[]
-  rows: number
+  data: MockClickHouseRow[];
+  rows: number;
   statistics?: {
-    elapsed: number
-    rows_read: number
-    bytes_read: number
-  }
+    elapsed: number;
+    rows_read: number;
+    bytes_read: number;
+  };
 }
 
 class MockClickHouseClient {
-  private mockData: Map<string, MockClickHouseRow[]> = new Map()
-  private queryHistory: string[] = []
+  private mockData: Map<string, MockClickHouseRow[]> = new Map();
+  private queryHistory: string[] = [];
 
   async query(options: {
-    query: string
-    format?: string
+    query: string;
+    format?: string;
   }): Promise<MockClickHouseQueryResult> {
-    this.queryHistory.push(options.query)
+    this.queryHistory.push(options.query);
 
     // Simple query matcher for testing
-    const data = this.mockData.get(options.query) || []
+    const data = this.mockData.get(options.query) || [];
 
     return {
       data,
@@ -38,17 +38,21 @@ class MockClickHouseClient {
         rows_read: data.length,
         bytes_read: data.length * 100,
       },
-    }
+    };
   }
 
-  async insert(options: { table: string; values: any[]; format?: string }): Promise<void> {
-    const key = `insert:${options.table}`
-    const existing = this.mockData.get(key) || []
-    this.mockData.set(key, [...existing, ...options.values])
+  async insert(options: {
+    table: string;
+    values: any[];
+    format?: string;
+  }): Promise<void> {
+    const key = `insert:${options.table}`;
+    const existing = this.mockData.get(key) || [];
+    this.mockData.set(key, [...existing, ...options.values]);
   }
 
   async ping(): Promise<boolean> {
-    return true
+    return true;
   }
 
   async close(): Promise<void> {
@@ -57,29 +61,29 @@ class MockClickHouseClient {
 
   // Test helper methods
   _setMockData(query: string, data: MockClickHouseRow[]): void {
-    this.mockData.set(query, data)
+    this.mockData.set(query, data);
   }
 
   _getMockData(query: string): MockClickHouseRow[] | undefined {
-    return this.mockData.get(query)
+    return this.mockData.get(query);
   }
 
   _getQueryHistory(): string[] {
-    return [...this.queryHistory]
+    return [...this.queryHistory];
   }
 
   _clearQueryHistory(): void {
-    this.queryHistory = []
+    this.queryHistory = [];
   }
 
   _clear(): void {
-    this.mockData.clear()
-    this.queryHistory = []
+    this.mockData.clear();
+    this.queryHistory = [];
   }
 }
 
 export const createMockClickHouseClient = (): MockClickHouseClient =>
-  new MockClickHouseClient()
+  new MockClickHouseClient();
 
 // Default export for jest.mock()
-export default createMockClickHouseClient()
+export default createMockClickHouseClient();

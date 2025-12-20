@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Table,
@@ -7,19 +7,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { cn } from '@duyet/libs'
-import { ArrowUpRight } from 'lucide-react'
+} from "@/components/ui/table";
+import { cn } from "@duyet/libs";
+import { ArrowUpRight } from "lucide-react";
 
 interface ContentItem {
-  name: string
-  value: number
-  href?: string
+  name: string;
+  value: number;
+  href?: string;
 }
 
 interface PopularContentTableProps {
-  data: ContentItem[]
-  className?: string
+  data: ContentItem[];
+  className?: string;
 }
 
 export function PopularContentTable({
@@ -28,19 +28,19 @@ export function PopularContentTable({
 }: PopularContentTableProps) {
   if (!data || data.length === 0) {
     return (
-      <div className={cn('rounded-lg border bg-card p-4', className)}>
+      <div className={cn("rounded-lg border bg-card p-4", className)}>
         <p className="text-sm text-muted-foreground">No data available</p>
       </div>
-    )
+    );
   }
 
   const values = data
     .map((item) => Number(item.value) || 0)
-    .filter((v) => !isNaN(v) && v > 0)
-  const maxValue = values.length > 0 ? Math.max(...values) : 1
+    .filter((v) => !Number.isNaN(v) && v > 0);
+  const maxValue = values.length > 0 ? Math.max(...values) : 1;
 
   return (
-    <div className={cn('rounded-lg border bg-card', className)}>
+    <div className={cn("rounded-lg border bg-card", className)}>
       <div className="border-b p-4">
         <h3 className="text-sm font-medium">Most Popular Content</h3>
       </div>
@@ -50,24 +50,24 @@ export function PopularContentTable({
             <TableHead className="w-[50%]">Page</TableHead>
             <TableHead className="text-right">Visitors</TableHead>
             <TableHead className="w-16 text-right">%</TableHead>
-            <TableHead className="w-8"></TableHead>
+            <TableHead className="w-8" />
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((item, index) => {
-            const itemValue = Number(item.value) || 0
+            const itemValue = Number(item.value) || 0;
             const percentage =
               maxValue > 0 && itemValue > 0
                 ? Math.round((itemValue / maxValue) * 100)
-                : 0
-            const isTop = index < 3
+                : 0;
+            const isTop = index < 3;
             // Ensure path starts with / and show root as /
             const cleanPath =
-              item.name === '/'
-                ? '/'
-                : item.name.startsWith('/')
+              item.name === "/"
+                ? "/"
+                : item.name.startsWith("/")
                   ? item.name
-                  : `/${item.name}`
+                  : `/${item.name}`;
 
             return (
               <TableRow key={index} className="group">
@@ -75,10 +75,10 @@ export function PopularContentTable({
                   <div className="flex items-center space-x-2">
                     <span
                       className={cn(
-                        'w-5 text-center font-mono text-xs',
+                        "w-5 text-center font-mono text-xs",
                         isTop
-                          ? 'font-semibold text-orange-600'
-                          : 'text-muted-foreground',
+                          ? "font-semibold text-orange-600"
+                          : "text-muted-foreground"
                       )}
                     >
                       {index + 1}
@@ -113,10 +113,10 @@ export function PopularContentTable({
                   )}
                 </TableCell>
               </TableRow>
-            )
+            );
           })}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

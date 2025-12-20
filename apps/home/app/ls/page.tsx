@@ -1,23 +1,23 @@
-import Link from 'next/link'
-import { urls } from '../config/urls'
-import UrlsList from './components/UrlsList'
+import Link from "next/link";
+import { urls } from "../config/urls";
+import UrlsList from "./components/UrlsList";
 
-export const dynamic = 'force-static'
-export const revalidate = 3600
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
 export default function ListPage() {
   // Filter out system URLs and format for display (server-side)
   const publicUrls = Object.entries(urls)
     .filter(([_, value]) => {
-      if (typeof value === 'string') return true
-      return !value.system
+      if (typeof value === "string") return true;
+      return !value.system;
     })
     .map(([path, value]) => ({
       path,
-      target: typeof value === 'string' ? value : value.target,
-      desc: typeof value === 'string' ? undefined : value.desc,
+      target: typeof value === "string" ? value : value.target,
+      desc: typeof value === "string" ? undefined : value.desc,
     }))
-    .sort((a, b) => a.path.localeCompare(b.path))
+    .sort((a, b) => a.path.localeCompare(b.path));
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
@@ -57,11 +57,11 @@ export default function ListPage() {
         {/* Footer */}
         <div className="mt-12 border-t border-neutral-200 pt-8 text-center">
           <p className="text-sm text-neutral-500">
-            Managed via{' '}
+            Managed via{" "}
             <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-xs">
               public/_redirects
-            </code>{' '}
-            and{' '}
+            </code>{" "}
+            and{" "}
             <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-xs">
               app/config/urls.ts
             </code>
@@ -69,5 +69,5 @@ export default function ListPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

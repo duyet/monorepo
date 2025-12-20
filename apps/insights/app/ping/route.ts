@@ -1,3 +1,3 @@
-import { createPingRoute } from '@duyet/libs'
+import { createPingRoute } from "@duyet/libs";
 
-export const { GET, dynamic } = createPingRoute()
+export const { GET, dynamic } = createPingRoute();

@@ -1,1 +1,6 @@
-export { AbstractShapes, WavyLines, GeometricPattern, OrganicBlob } from './AbstractShapes'
+export {
+  AbstractShapes,
+  WavyLines,
+  GeometricPattern,
+  OrganicBlob,
+} from "./AbstractShapes";

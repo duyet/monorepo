@@ -1,26 +1,26 @@
-import { SectionLayout } from '@/components/layouts'
-import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
-import { CCUsageActivity } from './activity'
-import { CCUsageCosts } from './costs'
-import { CCUsageDailyTable } from './daily-table'
-import { CCUsageErrorBoundary } from './error-boundary'
-import { CCUsageMetrics } from './metrics'
-import { CCUsageModels } from './models'
-import type { DateRangeDays } from './types'
+import { SectionLayout } from "@/components/layouts";
+import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
+import { CCUsageActivity } from "./activity";
+import { CCUsageCosts } from "./costs";
+import { CCUsageDailyTable } from "./daily-table";
+import { CCUsageErrorBoundary } from "./error-boundary";
+import { CCUsageMetrics } from "./metrics";
+import { CCUsageModels } from "./models";
+import type { DateRangeDays } from "./types";
 
 export const metadata = {
-  title: 'AI Usage Analytics',
+  title: "AI Usage Analytics",
   description:
-    'AI usage analytics, token consumption, and model insights from Claude Code',
-}
+    "AI usage analytics, token consumption, and model insights from Claude Code",
+};
 
 // Static generation
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 // Default is 30 days
 const STATIC_DAYS: DateRangeDays = getPeriodDays(
-  DEFAULT_PERIOD,
-) as DateRangeDays
+  DEFAULT_PERIOD
+) as DateRangeDays;
 
 export default function CCUsage() {
   return (
@@ -34,8 +34,9 @@ export default function CCUsage() {
           Claude Code usage patterns, token consumption, and model insights
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
-          Note: Costs are estimated based on Claude subscription pricing and may
-          not reflect actual charges
+          Note: This is a cost simulation calculated based on token consumption.
+          I am currently using Claude Code MAX ($100) so this does not reflect
+          actual charges
         </p>
       </div>
 
@@ -87,10 +88,10 @@ export default function CCUsage() {
         </CCUsageErrorBoundary>
 
         <p className="text-xs text-muted-foreground">
-          Data Source: Claude Code | Last updated:{' '}
+          Data Source: Claude Code | Last updated:{" "}
           {new Date().toLocaleDateString()}
         </p>
       </div>
     </div>
-  )
+  );
 }

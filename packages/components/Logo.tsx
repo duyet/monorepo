@@ -22,7 +22,7 @@ export default function Logo({
     "hover:opacity-80 transition-opacity",
     "cursor-pointer",
     "rounded-full",
-    logoClassName,
+    logoClassName
   );
 
   return (

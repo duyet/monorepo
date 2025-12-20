@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
 interface PageLayoutProps {
-  title: string
-  description: string
-  footer?: ReactNode
-  children: ReactNode
-  className?: string
+  title: string;
+  description: string;
+  footer?: ReactNode;
+  children: ReactNode;
+  className?: string;
 }
 
 /**
@@ -17,7 +17,7 @@ export function PageLayout({
   description,
   footer,
   children,
-  className = '',
+  className = "",
 }: PageLayoutProps) {
   return (
     <div className={`space-y-8 ${className}`}>
@@ -33,5 +33,5 @@ export function PageLayout({
       {/* Optional Footer */}
       {footer && <div className="pt-4">{footer}</div>}
     </div>
-  )
+  );
 }

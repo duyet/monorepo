@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import {
   CompactAreaChart,
   CompactPieChart,
-} from '@/components/charts/CompactChart'
-import { CompactCard } from '@/components/ui/CompactCard'
+} from "@/components/charts/CompactChart";
+import { CompactCard } from "@/components/ui/CompactCard";
 import {
   BarChart3,
   Clock,
@@ -14,45 +14,45 @@ import {
   Server,
   Users,
   Zap,
-} from 'lucide-react'
+} from "lucide-react";
 
 // Mock data for demonstration - replace with real data fetching
 const mockOverviewData = {
   websiteStats: {
-    visitors: { value: 12543, change: 15.2, period: 'last 30 days' },
-    pageViews: { value: 34567, change: 8.7, period: 'last 30 days' },
-    bounceRate: { value: '32.4%', change: -5.1, period: 'last 30 days' },
-    avgSession: { value: '3m 24s', change: 12.3, period: 'last 30 days' },
+    visitors: { value: 12543, change: 15.2, period: "last 30 days" },
+    pageViews: { value: 34567, change: 8.7, period: "last 30 days" },
+    bounceRate: { value: "32.4%", change: -5.1, period: "last 30 days" },
+    avgSession: { value: "3m 24s", change: 12.3, period: "last 30 days" },
   },
   codingStats: {
-    totalHours: { value: 156, change: 23.1, period: 'last 30 days' },
-    commits: { value: 247, change: 18.5, period: 'last 30 days' },
-    languages: { value: 8, change: 0, period: 'active languages' },
-    productivity: { value: '87%', change: 5.2, period: 'vs last month' },
+    totalHours: { value: 156, change: 23.1, period: "last 30 days" },
+    commits: { value: 247, change: 18.5, period: "last 30 days" },
+    languages: { value: 8, change: 0, period: "active languages" },
+    productivity: { value: "87%", change: 5.2, period: "vs last month" },
   },
   aiUsage: {
-    tokens: { value: '1.2M', change: 34.7, period: 'last 30 days' },
-    sessions: { value: 89, change: 12.4, period: 'last 30 days' },
-    cost: { value: '$45.60', change: 28.9, period: 'last 30 days' },
-    efficiency: { value: '92%', change: 3.1, period: 'success rate' },
+    tokens: { value: "1.2M", change: 34.7, period: "last 30 days" },
+    sessions: { value: 89, change: 12.4, period: "last 30 days" },
+    cost: { value: "$45.60", change: 28.9, period: "last 30 days" },
+    efficiency: { value: "92%", change: 3.1, period: "success rate" },
   },
   sparklineData: [
-    { day: 'Mon', value: 120 },
-    { day: 'Tue', value: 132 },
-    { day: 'Wed', value: 101 },
-    { day: 'Thu', value: 134 },
-    { day: 'Fri', value: 90 },
-    { day: 'Sat', value: 230 },
-    { day: 'Sun', value: 210 },
+    { day: "Mon", value: 120 },
+    { day: "Tue", value: 132 },
+    { day: "Wed", value: 101 },
+    { day: "Thu", value: 134 },
+    { day: "Fri", value: 90 },
+    { day: "Sat", value: 230 },
+    { day: "Sun", value: 210 },
   ],
   languageData: [
-    { language: 'TypeScript', percentage: 45.2 },
-    { language: 'JavaScript', percentage: 23.8 },
-    { language: 'Python', percentage: 15.4 },
-    { language: 'Go', percentage: 8.9 },
-    { language: 'Rust', percentage: 6.7 },
+    { language: "TypeScript", percentage: 45.2 },
+    { language: "JavaScript", percentage: 23.8 },
+    { language: "Python", percentage: 15.4 },
+    { language: "Go", percentage: 8.9 },
+    { language: "Rust", percentage: 6.7 },
   ],
-}
+};
 
 export function OverviewDashboard() {
   return (
@@ -159,7 +159,7 @@ export function OverviewDashboard() {
                 <CompactAreaChart
                   data={mockOverviewData.sparklineData}
                   index="day"
-                  categories={['value']}
+                  categories={["value"]}
                   height={180}
                   showGrid={false}
                 />
@@ -293,17 +293,18 @@ export function OverviewDashboard() {
       {/* Last Updated Footer */}
       <div className="border-t pt-3">
         <div className="text-xs text-muted-foreground">
-          Last updated: {new Date().toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            timeZoneName: 'short'
+          Last updated:{" "}
+          {new Date().toLocaleString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZoneName: "short",
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }

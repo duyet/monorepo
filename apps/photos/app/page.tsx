@@ -1,30 +1,30 @@
-import PhotoGrid from '@/components/PhotoGrid'
+import PhotoGrid from "@/components/PhotoGrid";
 import {
   getAllPhotos,
   groupPhotosByYear,
   type Photo,
-} from '@/lib/photo-provider'
-import Container from '@duyet/components/Container'
-import Link from 'next/link'
+} from "@/lib/photo-provider";
+import Container from "@duyet/components/Container";
+import Link from "next/link";
 
-export const revalidate = 86400 // Revalidate daily for static export
+export const revalidate = 86400; // Revalidate daily for static export
 
 export default async function PhotosPage() {
-  let photos: Photo[] = []
-  let photosByYear: { [year: string]: Photo[] } = {}
-  let error: string | null = null
+  let photos: Photo[] = [];
+  let photosByYear: { [year: string]: Photo[] } = {};
+  let error: string | null = null;
 
   try {
-    photos = await getAllPhotos()
-    photosByYear = groupPhotosByYear(photos)
+    photos = await getAllPhotos();
+    photosByYear = groupPhotosByYear(photos);
   } catch (e) {
-    error = 'Failed to load photos. Please try again later.'
+    error = "Failed to load photos. Please try again later.";
   }
 
-  const totalPhotos = photos.length
+  const totalPhotos = photos.length;
   const years = Object.keys(photosByYear)
     .map(Number)
-    .sort((a, b) => b - a) // Sort years in descending order
+    .sort((a, b) => b - a); // Sort years in descending order
 
   if (error) {
     return (
@@ -41,7 +41,7 @@ export default async function PhotosPage() {
           </div>
         </div>
       </Container>
-    )
+    );
   }
 
   return (
@@ -64,7 +64,7 @@ export default async function PhotosPage() {
               Photography Collection
             </h1>
             <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-              A curated selection of {totalPhotos} photos from{' '}
+              A curated selection of {totalPhotos} photos from{" "}
               <a
                 href="https://unsplash.com/@_duyet"
                 target="_blank"
@@ -72,9 +72,9 @@ export default async function PhotosPage() {
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
                 Unsplash
-              </a>{' '}
-              and Cloudinary. Explore landscapes, architecture, and moments captured through
-              the lens. Prefer a narrative experience?{' '}
+              </a>{" "}
+              and Cloudinary. Explore landscapes, architecture, and moments
+              captured through the lens. Prefer a narrative experience?{" "}
               <Link
                 href="/feed"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
@@ -125,5 +125,5 @@ export default async function PhotosPage() {
         )}
       </section>
     </>
-  )
+  );
 }

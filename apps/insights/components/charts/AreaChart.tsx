@@ -1,33 +1,33 @@
-'use client'
+"use client";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from '@/components/ui/chart'
+} from "@/components/ui/chart";
 import {
   Area,
   CartesianGrid,
   AreaChart as RechartsAreaChart,
   XAxis,
-} from 'recharts'
+} from "recharts";
 
 interface AreaChartProps {
-  data: Array<Record<string, unknown>>
-  index: string
-  categories: string[]
-  showGridLines?: boolean
-  className?: string
+  data: Array<Record<string, unknown>>;
+  index: string;
+  categories: string[];
+  showGridLines?: boolean;
+  className?: string;
 }
 
 const CHART_COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
-]
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+];
 
 export function AreaChart({
   data,
@@ -40,8 +40,8 @@ export function AreaChart({
     categories.map((category, i) => [
       category,
       { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ]),
-  )
+    ])
+  );
 
   return (
     <ChartContainer config={chartConfig} className={className}>
@@ -62,5 +62,5 @@ export function AreaChart({
         ))}
       </RechartsAreaChart>
     </ChartContainer>
-  )
+  );
 }

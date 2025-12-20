@@ -2,16 +2,16 @@
  * @type {import('next').NextConfig}
  */
 module.exports = {
-  output: 'export',
+  output: "export",
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "**",
       },
     ],
   },
-  transpilePackages: ['@duyet/components', '@duyet/libs'],
-}
+  transpilePackages: ["@duyet/components", "@duyet/libs"],
+};

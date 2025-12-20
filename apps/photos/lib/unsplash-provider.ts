@@ -1,5 +1,5 @@
-import type { UnsplashPhoto, Photo } from './types'
-import { getAllUserPhotos as getUnsplashPhotos } from './unsplash'
+import type { UnsplashPhoto, Photo } from "./types";
+import { getAllUserPhotos as getUnsplashPhotos } from "./unsplash";
 
 /**
  * Convert Unsplash photo to generic Photo format
@@ -7,7 +7,7 @@ import { getAllUserPhotos as getUnsplashPhotos } from './unsplash'
 export function unsplashToPhoto(unsplashPhoto: UnsplashPhoto): Photo {
   return {
     id: unsplashPhoto.id,
-    provider: 'unsplash',
+    provider: "unsplash",
     created_at: unsplashPhoto.created_at,
     updated_at: unsplashPhoto.updated_at,
     width: unsplashPhoto.width,
@@ -40,13 +40,13 @@ export function unsplashToPhoto(unsplashPhoto: UnsplashPhoto): Photo {
       profile_image: unsplashPhoto.user.profile_image,
     },
     originalData: unsplashPhoto,
-  }
+  };
 }
 
 /**
  * Get all photos from Unsplash in generic Photo format
  */
 export async function getAllUnsplashPhotos(): Promise<Photo[]> {
-  const unsplashPhotos = await getUnsplashPhotos()
-  return unsplashPhotos.map(unsplashToPhoto)
+  const unsplashPhotos = await getUnsplashPhotos();
+  return unsplashPhotos.map(unsplashToPhoto);
 }

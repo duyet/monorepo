@@ -6,7 +6,7 @@ import { getPostByPath, getPostPaths } from "./getPost";
 export function getAllSeries(): Series[] {
   const paths = getPostPaths();
   const posts = paths.map((path) =>
-    getPostByPath(path, ["slug", "title", "series", "date", "excerpt"]),
+    getPostByPath(path, ["slug", "title", "series", "date", "excerpt"])
   );
 
   // Sort posts by date
@@ -53,11 +53,11 @@ export function getSeries({
   // Load all posts
   const paths = getPostPaths();
   const posts = paths.map((path) =>
-    getPostByPath(path, ["slug", "title", "series", "date", "excerpt"]),
+    getPostByPath(path, ["slug", "title", "series", "date", "excerpt"])
   );
 
   // Series slug
-  let _slug = !!slug ? slug : getSlug(name as string);
+  const _slug = slug ? slug : getSlug(name as string);
 
   // Find
   const seriesPosts = posts.filter((post) => getSlug(post.series) === _slug);

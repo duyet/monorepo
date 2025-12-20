@@ -1,16 +1,16 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
 export function GET(): NextResponse {
   return NextResponse.json(
     {
-      status: 'ok',
+      status: "ok",
     },
     {
       headers: {
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+        "Cache-Control": "public, max-age=3600, s-maxage=3600",
       },
-    },
-  )
+    }
+  );
 }

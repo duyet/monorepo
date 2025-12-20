@@ -1,8 +1,8 @@
-import { AreaChart } from '@/components/charts'
-import { getCCUsageEfficiency } from './ccusage-utils'
+import { AreaChart } from "@/components/charts";
+import { getCCUsageEfficiency } from "./ccusage-utils";
 
 export async function CCUsageEfficiency() {
-  const efficiency = await getCCUsageEfficiency()
+  const efficiency = await getCCUsageEfficiency();
 
   if (!efficiency || efficiency.length === 0) {
     return (
@@ -12,7 +12,7 @@ export async function CCUsageEfficiency() {
           Cost efficiency trends will appear here once usage data is available
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -24,7 +24,7 @@ export async function CCUsageEfficiency() {
         </p>
       </div>
       <AreaChart
-        categories={['Efficiency Score']}
+        categories={["Efficiency Score"]}
         data={efficiency}
         index="date"
       />
@@ -33,5 +33,5 @@ export async function CCUsageEfficiency() {
         relative and privacy-safe.
       </div>
     </div>
-  )
+  );
 }

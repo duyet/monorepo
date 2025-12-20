@@ -1,24 +1,24 @@
-import { PageLayout, SectionLayout } from '@/components/layouts'
-import type { PeriodDays } from '@/lib/periods'
-import { DEFAULT_PERIOD, getPeriodDays } from '@/lib/periods'
-import Image from 'next/image'
-import { StaticCard } from '../../components/StaticCard'
-import { WakaTimeActivity } from './activity'
-import { WakaTimeHourlyHeatmap } from './hourly-heatmap'
-import { WakaTimeLanguages } from './languages'
-import { WakaTimeMetrics } from './metrics'
-import { WakaTimeMonthlyTrend } from './monthly-trend'
+import { PageLayout, SectionLayout } from "@/components/layouts";
+import type { PeriodDays } from "@/lib/periods";
+import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
+import Image from "next/image";
+import { StaticCard } from "../../components/StaticCard";
+import { WakaTimeActivity } from "./activity";
+import { WakaTimeHourlyHeatmap } from "./hourly-heatmap";
+import { WakaTimeLanguages } from "./languages";
+import { WakaTimeMetrics } from "./metrics";
+import { WakaTimeMonthlyTrend } from "./monthly-trend";
 
 export const metadata = {
-  title: 'WakaTime Coding Analytics @duyet',
+  title: "WakaTime Coding Analytics @duyet",
   description:
-    'Programming activity, language statistics, and coding insights from WakaTime',
-}
+    "Programming activity, language statistics, and coding insights from WakaTime",
+};
 
 // Static generation only
-export const dynamic = 'force-static'
+export const dynamic = "force-static";
 
-const STATIC_DAYS: PeriodDays = getPeriodDays(DEFAULT_PERIOD) as PeriodDays
+const STATIC_DAYS: PeriodDays = getPeriodDays(DEFAULT_PERIOD) as PeriodDays;
 
 export default function Wakatime() {
   return (
@@ -27,7 +27,7 @@ export default function Wakatime() {
       description="Programming activity and language statistics from WakaTime"
       footer={
         <p className="text-xs text-muted-foreground">
-          Data Source: WakaTime | Last updated:{' '}
+          Data Source: WakaTime | Last updated:{" "}
           {new Date().toLocaleDateString()}
         </p>
       }
@@ -87,12 +87,12 @@ export default function Wakatime() {
             title="Coding Activity Heatmap"
             url={{
               light:
-                'https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg',
-              dark: 'https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg',
+                "https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg",
+              dark: "https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg",
             }}
           />
         </div>
       </SectionLayout>
     </PageLayout>
-  )
+  );
 }
