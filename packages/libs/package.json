@@ -27,6 +27,7 @@
     "@types/jest": "^30.0.0",
     "eslint": "*",
     "jest": "^30.0.0",
+    "next": "16.0.10",
     "prettier": "*",
     "ts-jest": "^29.1.4",
     "typescript": "*"

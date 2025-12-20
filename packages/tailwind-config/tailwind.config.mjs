@@ -1,9 +1,14 @@
 import merge from 'deepmerge'
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette.js'
 
-const { theme: tremorTheme, plugins: tremorPlugins, safelist: tremorSafelist } = require('./tremor.theme.js')
-const { theme: shadcnTheme } = require('./shadcn.theme.js')
-const { theme: claudeTheme } = require('./claude.theme.js')
+import tremorThemeModule from './tremor.theme.cjs'
+import shadcnThemeModule from './shadcn.theme.cjs'
+import claudeThemeModule from './claude.theme.cjs'
+import { colors as designSystemColors } from './colors.js'
+
+const tremorTheme = tremorThemeModule.theme
+const shadcnTheme = shadcnThemeModule.theme
+const claudeTheme = claudeThemeModule.theme
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -126,11 +131,12 @@ export default {
     {
       pattern: /^text-(cactus|sage|lavender|terracotta|coral)$/,
     },
-    ...tremorSafelist,
+    ...(tremorThemeModule.safelist || []),
+    ...(claudeThemeModule.safelist || []),
   ],
   plugins: [
     require('tailwind-highlightjs'),
-    ...tremorPlugins,
+    ...(tremorThemeModule.plugins || []),
     addVariablesForColors,
   ],
   darkMode: ['class', 'html[class~="dark"]'],

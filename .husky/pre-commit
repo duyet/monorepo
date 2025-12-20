@@ -1,1 +1,1 @@
-yarn test
+bun run test
