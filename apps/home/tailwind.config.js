@@ -18,6 +18,9 @@ module.exports = {
       // - @duyet/tailwind-config/claude.theme.js (claude-*, claude-gray-*)
       // - @duyet/tailwind-config/colors.js (ivory, oat, cream, cactus, sage, lavender, terracotta, coral)
       // All colors are automatically available via config.theme?.extend?.colors
+      colors: {
+        ...config.theme?.extend?.colors,
+      },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         serif: ['var(--font-serif)', 'Georgia', 'serif'],
