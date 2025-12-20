@@ -8,7 +8,7 @@
     "dev": "next dev --turbopack -p 3002",
     "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
-    "lint": "next lint",
+    "lint": "eslint .",
     "prettier-check": "prettier --check .",
     "start": "next start"
   },
