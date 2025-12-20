@@ -9,7 +9,7 @@
   "scripts": {
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev --parallel",
-    "prepare": "husky",
+    "prepare": "[ \"$CI\" != \"true\" ] && husky || true",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
     "start": "dotenv -- turbo start",
