@@ -14,9 +14,7 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
-    "eslint": "*",
     "typescript": "^5.3.3"
   }
 }

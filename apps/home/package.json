@@ -8,7 +8,7 @@
     "dev": "next dev --turbopack -p 3001",
     "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
-    "lint": "eslint .",
+    "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "next start"
   },
@@ -30,7 +30,6 @@
     "swr": "^2.0.0"
   },
   "devDependencies": {
-    "@duyet/eslint-config-custom": "*",
     "@duyet/prettier": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
@@ -38,7 +37,6 @@
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.12",
-    "eslint": "*",
     "postcss": "^8.4.18",
     "prettier": "^3.0.0",
     "tailwindcss": "*",

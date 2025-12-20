@@ -9,12 +9,10 @@
   "scripts": {
     "check-types": "tsc --noEmit --jsx",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "lint": "eslint"
+    "lint": "biome lint ."
   },
   "devDependencies": {
-    "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
-    "eslint": "*",
     "prettier": "^3.0.0",
     "tsup": "^8.0.0",
     "typescript": "*"

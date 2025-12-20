@@ -12,7 +12,7 @@
     "dev": "next dev --turbopack -p 3003",
     "fix": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
     "fmt": "bun run fix",
-    "lint": "eslint .",
+    "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "next start",
     "test": "jest",
@@ -39,7 +39,6 @@
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
-    "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
     "@duyet/prettier": "*",
     "@duyet/tailwind-config": "*",
@@ -52,7 +51,6 @@
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.12",
-    "eslint": "*",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "postcss": "^8.4.18",

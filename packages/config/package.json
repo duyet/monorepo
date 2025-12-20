@@ -12,16 +12,14 @@
     "./ui": "./src/ui.config.ts"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "biome lint .",
     "check-types": "tsc --noEmit",
     "test": "jest"
   },
   "devDependencies": {
-    "@duyet/eslint-config-custom": "*",
     "@duyet/tsconfig": "*",
     "@jest/globals": "^30.0.0",
     "@types/jest": "^30.0.0",
-    "eslint": "*",
     "jest": "^30.0.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
