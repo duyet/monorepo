@@ -109,7 +109,7 @@ export default {
       }),
     },
     hljs: {
-      theme: "night-owl",
+      theme: "atom-one-dark",
       custom: {
         base: {
           background: "transparent",
