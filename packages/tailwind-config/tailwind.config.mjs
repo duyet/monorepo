@@ -39,6 +39,7 @@ export default {
         claudeTheme,
         {
           colors: {
+            ...designSystemColors,
             gold: "#ffd465",
             // Claude's color palette - flattened for utility class usage
             "claude-beige": "#F4EFE6",
