@@ -108,19 +108,8 @@ export default {
         },
       }),
     },
-    hljs: {
-      theme: "atom-one-dark",
-      custom: {
-        base: {
-          background: "transparent",
-        },
-      },
-    },
   },
   safelist: [
-    {
-      pattern: /hljs+/,
-    },
     // Card component color classes (for blog color palette)
     {
       pattern:
@@ -136,7 +125,6 @@ export default {
     ...(claudeThemeModule.safelist || []),
   ],
   plugins: [
-    require("tailwind-highlightjs"),
     ...(tremorThemeModule.plugins || []),
     addVariablesForColors,
   ],
