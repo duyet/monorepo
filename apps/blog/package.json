@@ -53,6 +53,7 @@
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@next/bundle-analyzer": "16.0.10",
+    "@tailwindcss/postcss": "^4.1.6",
     "@types/node": "^24.0.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
