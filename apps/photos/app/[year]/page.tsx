@@ -17,7 +17,7 @@ interface YearPageProps {
 export async function generateStaticParams() {
   try {
     const photos = await getAllPhotos();
-    const years = Array.from(
+    const yearsFromPhotos = Array.from(
       new Set(
         photos.map((photo) =>
           new Date(photo.created_at).getFullYear().toString()
@@ -25,18 +25,24 @@ export async function generateStaticParams() {
       )
     );
 
-    if (years.length > 0) {
-      return years.map((year) => ({ year }));
+    // Always include a range of years to ensure navigation works
+    // even when some years have no photos yet (e.g., current year early)
+    const currentYear = new Date().getFullYear();
+    const minYear = 2022; // First year of the photo gallery
+    const allYears = [];
+
+    for (let year = minYear; year <= currentYear; year++) {
+      allYears.push(year.toString());
     }
 
-    // Fallback years when no photos are available (for build without API key)
-    const currentYear = new Date().getFullYear();
-    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2];
-    return fallbackYears.map((year) => ({ year: year.toString() }));
+    // Dedupe with years that have actual photos
+    const uniqueYears = Array.from(new Set([...allYears, ...yearsFromPhotos]));
+
+    return uniqueYears.map((year) => ({ year }));
   } catch (error) {
     // Return fallback years for build
     const currentYear = new Date().getFullYear();
-    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2];
+    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3];
     return fallbackYears.map((year) => ({ year: year.toString() }));
   }
 }
