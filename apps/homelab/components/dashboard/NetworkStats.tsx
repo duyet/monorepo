@@ -118,7 +118,7 @@ export function NetworkStats() {
                   borderRadius: "8px",
                   fontSize: "12px",
                 }}
-                formatter={(value: number) => [`${value} MB/s`]}
+                formatter={(value: number | undefined) => [`${value ?? 0} MB/s`]}
               />
               <Area
                 type="monotone"
