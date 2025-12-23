@@ -39,6 +39,7 @@ export default {
         claudeTheme,
         {
           colors: {
+            ...designSystemColors,
             gold: "#ffd465",
             // Claude's color palette - flattened for utility class usage
             "claude-beige": "#F4EFE6",
@@ -108,19 +109,8 @@ export default {
         },
       }),
     },
-    hljs: {
-      theme: "night-owl",
-      custom: {
-        base: {
-          background: "transparent",
-        },
-      },
-    },
   },
   safelist: [
-    {
-      pattern: /hljs+/,
-    },
     // Card component color classes (for blog color palette)
     {
       pattern:
@@ -136,7 +126,6 @@ export default {
     ...(claudeThemeModule.safelist || []),
   ],
   plugins: [
-    require("tailwind-highlightjs"),
     ...(tremorThemeModule.plugins || []),
     addVariablesForColors,
   ],
