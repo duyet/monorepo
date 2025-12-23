@@ -69,10 +69,9 @@ export default async function YearPage({ params }: YearPageProps) {
     error = "Failed to load photos. Please try again later.";
   }
 
-  // If no photos found for this year, show 404
-  if (!error && yearPhotos.length === 0) {
-    notFound();
-  }
+  // If no photos found for this year, show empty state instead of 404
+  // This allows the build to succeed even when a year has no photos yet
+  // (e.g., early in the current year before photos are added)
 
   if (error) {
     return (
@@ -89,6 +88,51 @@ export default async function YearPage({ params }: YearPageProps) {
           </div>
         </div>
       </Container>
+    );
+  }
+
+  // Show empty state for years with no photos
+  if (yearPhotos.length === 0) {
+    return (
+      <>
+        <a
+          href="#main-content"
+          className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white shadow-lg transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
+        >
+          Skip to main content
+        </a>
+
+        <div>
+          <Container className="py-12">
+            <section className="mb-8 text-center" aria-labelledby="intro-heading">
+              <div className="mb-6">
+                <Link
+                  href="/"
+                  className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light inline-flex items-center text-sm font-medium transition-colors"
+                >
+                  ← Back to all photos
+                </Link>
+              </div>
+
+              <h1
+                id="intro-heading"
+                className="mb-4 font-serif text-4xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 md:text-5xl"
+              >
+                Photos from {year}
+              </h1>
+              <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+                No photos have been added for {year} yet.
+              </p>
+
+              <div className="rounded-lg border border-dashed border-gray-300 p-12 dark:border-gray-700">
+                <p className="text-gray-500 dark:text-gray-400">
+                  Check back soon for new photos from {year}!
+                </p>
+              </div>
+            </section>
+          </Container>
+        </div>
+      </>
     );
   }
 

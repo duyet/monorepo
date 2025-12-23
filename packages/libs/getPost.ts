@@ -27,6 +27,10 @@ function cacheSet(key: string, value: string): void {
 
 /**
  * Get all slugs from the posts directory recursively
+ *
+ * @remarks This function is used by the blog app to generate static paths.
+ * The directory is scoped to the blog app's _posts folder to avoid overly broad
+ * file pattern matching in the build system.
  */
 export function getPostPaths(dir?: string): string[] {
   const fs = nodeFs();
