@@ -1,8 +1,9 @@
 import "./globals.css";
 
-import PhotoNav from "@/components/PhotoNav";
 import Analytics from "@duyet/components/Analytics";
+import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
+import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { Inter, Libre_Baskerville } from "next/font/google";
@@ -78,10 +79,11 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            <PhotoNav />
-            <main className="mt-16 flex-1" >
+            <Header />
+            <main className="flex-1">
               {children}
             </main>
+            <Footer />
           </div>
           <Analytics />
         </ThemeProvider>
