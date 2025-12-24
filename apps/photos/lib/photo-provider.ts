@@ -1,20 +1,36 @@
 import type { Photo } from "./types";
-import { getAllUnsplashPhotos } from "./unsplash-provider";
+import {
+  getAllUnsplashPhotos,
+  type UnsplashFetchResult,
+} from "./unsplash-provider";
 import { getAllCloudinaryPhotos } from "./cloudinary-provider";
+import type { PhotoFetchError } from "./errors";
+import { UnknownPhotoError, RateLimitError } from "./errors";
 
 // Re-export Photo type for convenience
 export type { Photo } from "./types";
 
 /**
+ * Result type for getAllPhotos
+ * Returns either photos or a structured error
+ */
+export type GetAllPhotosResult =
+  | { success: true; photos: Photo[]; error: null }
+  | { success: false; photos: []; error: PhotoFetchError };
+
+/**
  * Get all photos from all enabled providers (Unsplash + Cloudinary)
  * Photos are merged and sorted by creation date (newest first)
  * Fetches from all providers in parallel for better performance
+ *
+ * Throws an error if both providers fail completely
  */
 export async function getAllPhotos(): Promise<Photo[]> {
   console.log("📸 Fetching photos from all providers...");
   console.log("");
 
   const allPhotos: Photo[] = [];
+  const errors: PhotoFetchError[] = [];
 
   // Fetch from all providers in parallel
   const [unsplashResult, cloudinaryResult] = await Promise.allSettled([
@@ -24,10 +40,22 @@ export async function getAllPhotos(): Promise<Photo[]> {
 
   // Handle Unsplash result
   if (unsplashResult.status === "fulfilled") {
-    allPhotos.push(...unsplashResult.value);
-    console.log(`✅ Unsplash: ${unsplashResult.value.length} photos`);
+    const result = unsplashResult.value;
+    if (result.success) {
+      allPhotos.push(...result.photos);
+      console.log(`✅ Unsplash: ${result.photos.length} photos`);
+    } else {
+      console.error(
+        `❌ Unsplash error: ${result.error.userMessage} (${result.error.type})`
+      );
+      errors.push(result.error);
+    }
   } else {
-    console.error("❌ Error fetching Unsplash photos:", unsplashResult.reason);
+    console.error(
+      "❌ Unexpected error fetching Unsplash photos:",
+      unsplashResult.reason
+    );
+    errors.push(new UnknownPhotoError(unsplashResult.reason));
   }
 
   // Handle Cloudinary result
@@ -39,6 +67,28 @@ export async function getAllPhotos(): Promise<Photo[]> {
       "❌ Error fetching Cloudinary photos:",
       cloudinaryResult.reason
     );
+    errors.push(new UnknownPhotoError(cloudinaryResult.reason));
+  }
+
+  // If both providers failed and we have no photos, throw the error
+  if (allPhotos.length === 0 && errors.length > 0) {
+    console.log("");
+    console.log("🚫 All photo providers failed to return photos.");
+
+    // Prefer rate limit errors if present (most common issue)
+    const rateLimitError = errors.find(
+      (e) => e instanceof RateLimitError
+    ) as RateLimitError | undefined;
+
+    if (rateLimitError) {
+      console.log(
+        `   💡 Rate limit error: ${rateLimitError.userMessage}`
+      );
+      throw rateLimitError;
+    }
+
+    // Otherwise throw the first error
+    throw errors[0];
   }
 
   // Sort all photos by creation date (newest first)

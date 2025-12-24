@@ -1,5 +1,15 @@
 import type { UnsplashPhoto, Photo } from "./types";
 import { getAllUserPhotos as getUnsplashPhotos } from "./unsplash";
+import type { PhotoFetchError } from "./errors";
+import { UnknownPhotoError } from "./errors";
+
+/**
+ * Result type for getAllUnsplashPhotos
+ * Returns either photos or an error
+ */
+export type UnsplashFetchResult =
+  | { success: true; photos: Photo[]; error: null }
+  | { success: false; photos: []; error: PhotoFetchError };
 
 /**
  * Convert Unsplash photo to generic Photo format
@@ -45,8 +55,27 @@ export function unsplashToPhoto(unsplashPhoto: UnsplashPhoto): Photo {
 
 /**
  * Get all photos from Unsplash in generic Photo format
+ * Returns a result object containing either photos or an error
  */
-export async function getAllUnsplashPhotos(): Promise<Photo[]> {
-  const unsplashPhotos = await getUnsplashPhotos();
-  return unsplashPhotos.map(unsplashToPhoto);
+export async function getAllUnsplashPhotos(): Promise<UnsplashFetchResult> {
+  try {
+    const unsplashPhotos = await getUnsplashPhotos();
+    return {
+      success: true,
+      photos: unsplashPhotos.map(unsplashToPhoto),
+      error: null,
+    };
+  } catch (error) {
+    // Return error in result format
+    const photoFetchError =
+      error && typeof error === "object" && "type" in error
+        ? (error as PhotoFetchError)
+        : new UnknownPhotoError(error);
+
+    return {
+      success: false,
+      photos: [],
+      error: photoFetchError,
+    };
+  }
 }

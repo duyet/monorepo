@@ -9,6 +9,15 @@ import {
   cleanExpiredCache,
 } from "./cache";
 import { UNSPLASH_USERNAME } from "./config";
+import {
+  RateLimitError,
+  AuthError,
+  NetworkError,
+  ApiError,
+  UnknownPhotoError,
+  PhotoFetchError,
+  isRateLimitError,
+} from "./errors";
 
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const USERNAME = UNSPLASH_USERNAME;
@@ -27,8 +36,7 @@ export async function getUserPhotos(
   orderBy = "latest"
 ): Promise<UnsplashPhoto[]> {
   if (!unsplash) {
-    console.warn("⚠️  UNSPLASH_ACCESS_KEY not configured, returning empty array");
-    return [];
+    throw new AuthError("unsplash");
   }
 
   try {
@@ -42,7 +50,10 @@ export async function getUserPhotos(
 
     if (result.errors) {
       console.error("❌ Unsplash API errors:", result.errors);
-      throw new Error("Failed to fetch photos from Unsplash");
+      throw new ApiError(
+        "unsplash",
+        `Failed to fetch photos from Unsplash: ${result.errors.join(", ")}`
+      );
     }
 
     const photos = (result.response?.results ||
@@ -68,23 +79,24 @@ export async function getUserPhotos(
     return processedPhotos;
   } catch (error) {
     // Check if it's a rate limit error
-    if (
-      error instanceof Error &&
-      error.message.includes("expected JSON response")
-    ) {
-      console.warn(
-        `🚫 Unsplash API rate limit hit on page ${page}`
-      );
-      console.warn(
-        "   💡 This is expected if you've exceeded the 50 requests/hour limit."
-      );
-      console.warn(
-        "   📦 The build will continue with cached data or empty results."
-      );
-      return [];
+    if (isRateLimitError(error)) {
+      console.warn(`🚫 Unsplash API rate limit hit on page ${page}`);
+      throw new RateLimitError("unsplash");
     }
+
+    // Re-throw our typed errors
+    if (
+      error instanceof RateLimitError ||
+      error instanceof AuthError ||
+      error instanceof ApiError ||
+      error instanceof NetworkError
+    ) {
+      throw error;
+    }
+
+    // Wrap unknown errors
     console.error("❌ Error fetching user photos:", error);
-    throw error;
+    throw new UnknownPhotoError(error);
   }
 }
 
@@ -112,21 +124,6 @@ export async function trackPhotoDownload(
       console.debug(`  Download tracking failed: ${error.message}`);
     }
   }
-}
-
-/**
- * Check if error is a rate limit error
- */
-function isRateLimitError(error: unknown): boolean {
-  if (!(error instanceof Error)) return false;
-
-  // Common rate limit error patterns
-  return (
-    error.message.includes("expected JSON response") ||
-    error.message.includes("Rate Limit Exceeded") ||
-    error.message.includes("429") ||
-    ("response" in error && (error as any).response?.status === 429)
-  );
 }
 
 /**
@@ -232,6 +229,8 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   let page = 1;
   let hasMore = true;
   const maxPages = 3; // Limit to avoid rate limits
+  let rateLimitError: RateLimitError | null = null;
+  let otherError: Error | null = null;
 
   console.log("📸 Fetching user photos from Unsplash...");
 
@@ -254,10 +253,7 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       }
     } catch (error) {
       // If we hit rate limits, stop fetching more pages but return what we have
-      if (
-        error instanceof Error &&
-        error.message.includes("expected JSON response")
-      ) {
+      if (error instanceof RateLimitError) {
         console.warn(`🚫 Rate limit reached while fetching page ${page}`);
         console.warn(
           "   💡 Unsplash API limit: 50 requests/hour for demo applications"
@@ -265,9 +261,16 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         console.warn(
           `   📦 Using ${allPhotos.length} photos already fetched from previous pages`
         );
+        rateLimitError = error;
+        hasMore = false;
+      } else if (error instanceof PhotoFetchError) {
+        // For other typed errors, log and continue with what we have
+        console.error(`❌ Error fetching page ${page}: ${error.message}`);
+        otherError = error;
         hasMore = false;
       } else {
-        console.error(`❌ Error fetching page ${page}:`, error);
+        console.error(`❌ Unexpected error fetching page ${page}:`, error);
+        otherError = error instanceof Error ? error : new Error(String(error));
         hasMore = false;
       }
     }
@@ -538,6 +541,17 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   console.log(
     `✨ Completed: ${allPhotos.length} photos ready with full metadata`
   );
+
+  // If we got no photos at all, throw the error that stopped us
+  if (allPhotos.length === 0) {
+    if (rateLimitError) {
+      throw rateLimitError;
+    }
+    if (otherError) {
+      throw otherError;
+    }
+    throw new UnknownPhotoError("No photos were fetched from Unsplash");
+  }
 
   return allPhotos;
 }
