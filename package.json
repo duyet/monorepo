@@ -23,6 +23,7 @@
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@duyet/tsconfig": "*",
+    "@next/env": "^16.1.1",
     "@tailwindcss/postcss": "^4.1.6",
     "dotenv-cli": "^11.0.0",
     "husky": "^9.0.0",

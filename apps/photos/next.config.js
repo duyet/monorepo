@@ -1,7 +1,15 @@
 /**
  * @type {import('next').NextConfig}
  */
-module.exports = {
+const { loadEnvConfig } = require("@next/env");
+const path = require("node:path");
+
+// Load env from monorepo root and app directory
+const rootDir = path.resolve(__dirname, "../..");
+loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
+loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
+
+const config = {
   output: "export",
   // Increase timeout for static generation to allow slow API calls
   staticPageGenerationTimeout: 180, // 3 minutes
@@ -22,3 +30,5 @@ module.exports = {
   },
   transpilePackages: ["@duyet/components", "@duyet/libs"],
 };
+
+module.exports = config;

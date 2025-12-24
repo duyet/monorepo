@@ -8,12 +8,12 @@
     "path": false
   },
   "scripts": {
-    "build": "next build",
-    "dev": "next dev --turbopack -p 3003",
+    "build": "bun --bun next build",
+    "dev": "bun --bun next dev --turbopack -p 3003",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
-    "start": "next start",
+    "start": "bun --bun next start",
     "test": "jest",
     "test:watch": "jest --watch"
   },
