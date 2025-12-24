@@ -1,4 +1,4 @@
-import { DonutChart, LanguageBarChart } from "@/components/charts";
+import { DonutChart } from "@/components/charts";
 import { getWakaTimeLanguages } from "./wakatime-utils";
 
 export async function WakaTimeLanguages({
@@ -10,18 +10,26 @@ export async function WakaTimeLanguages({
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      {/* Languages List */}
+      {/* Language Distribution - Pie Chart */}
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
-          <h3 className="font-medium">Most Used Languages</h3>
+          <h3 className="font-medium">Language Breakdown</h3>
           <p className="text-xs text-muted-foreground">
-            Top 8 by usage percentage
+            Full pie view of usage distribution
           </p>
         </div>
-        <LanguageBarChart data={languages} />
+        <div className="flex justify-center">
+          <DonutChart
+            category="percent"
+            data={languages.slice(0, 8)}
+            index="name"
+            showLabel
+            variant="pie"
+          />
+        </div>
       </div>
 
-      {/* Languages Distribution */}
+      {/* Language Distribution - Donut Chart */}
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
           <h3 className="font-medium">Language Distribution</h3>
@@ -35,7 +43,7 @@ export async function WakaTimeLanguages({
             data={languages.slice(0, 8)}
             index="name"
             showLabel
-            variant="pie"
+            variant="donut"
           />
         </div>
       </div>

@@ -2,6 +2,8 @@
 
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
@@ -19,6 +21,7 @@ interface BarChartProps {
   categories: string[];
   className?: string;
   stack?: boolean;
+  legend?: boolean;
   valueFormatter?: (value: unknown) => string;
 }
 
@@ -36,6 +39,7 @@ export function BarChart({
   categories,
   className,
   stack = false,
+  legend = false,
   valueFormatter,
 }: BarChartProps) {
   const chartConfig: ChartConfig = Object.fromEntries(
@@ -82,6 +86,12 @@ export function BarChart({
             />
           );
         })}
+        {legend && (
+          <ChartLegend
+            content={<ChartLegendContent />}
+            verticalAlign="bottom"
+          />
+        )}
       </RechartsBarChart>
     </ChartContainer>
   );

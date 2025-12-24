@@ -68,6 +68,11 @@ export interface CCUsageEfficiencyData {
   [key: string]: string | number;
 }
 
+export interface CCUsageActivityByModelData {
+  date: string;
+  [modelName: string]: number | string; // Dynamic keys for each model
+}
+
 // ============================================================================
 // Component Props Interfaces
 // ============================================================================

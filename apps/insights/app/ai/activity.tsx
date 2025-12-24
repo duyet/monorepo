@@ -1,13 +1,17 @@
+import { BarChart } from "@/components/charts";
 import { CostBarChart } from "@/components/charts/CostBarChart";
 import { TokenBarChart } from "@/components/charts/TokenBarChart";
-import { getCCUsageActivity } from "./ccusage-utils";
+import { getCCUsageActivity, getCCUsageActivityByModel } from "./ccusage-utils";
 import type { CCUsageActivityProps } from "./types";
 
 export async function CCUsageActivity({
   days = 30,
   className,
 }: CCUsageActivityProps) {
-  const activity = await getCCUsageActivity(days);
+  const [activity, activityByModel] = await Promise.all([
+    getCCUsageActivity(days),
+    getCCUsageActivityByModel(days),
+  ]);
 
   if (!activity.length) {
     return (
@@ -21,6 +25,13 @@ export async function CCUsageActivity({
       </div>
     );
   }
+
+  // Get unique model names for categories (exclude 'date')
+  const modelNames = Array.from(
+    new Set(
+      activityByModel.flatMap((d) => Object.keys(d).filter((k) => k !== "date"))
+    )
+  );
 
   return (
     <div className={`space-y-6 ${className || ""}`}>
@@ -44,6 +55,29 @@ export async function CCUsageActivity({
           caching usage.
         </div>
       </div>
+
+      {/* Token Usage by Model Chart */}
+      {activityByModel.length > 0 && (
+        <div className="rounded-lg border bg-card p-4">
+          <div className="mb-4">
+            <h3 className="font-medium">Token Usage by Model</h3>
+            <p className="text-xs text-muted-foreground">
+              Daily token usage stacked by AI model (in thousands)
+            </p>
+          </div>
+          <BarChart
+            categories={modelNames}
+            data={activityByModel}
+            index="date"
+            stack={true}
+            legend={true}
+          />
+          <div className="mt-3 text-xs text-muted-foreground">
+            Data shows tokens in thousands (K). Model names are normalized
+            for display (e.g., claude-3-5-sonnet → Sonnet 3.5).
+          </div>
+        </div>
+      )}
 
       {/* Cost Per Day Chart */}
       <div className="rounded-lg border bg-card p-4">

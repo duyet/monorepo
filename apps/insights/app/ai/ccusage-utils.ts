@@ -1,4 +1,5 @@
 import type {
+  CCUsageActivityByModelData,
   CCUsageActivityData,
   CCUsageCostData,
   CCUsageEfficiencyData,
@@ -501,4 +502,90 @@ export async function getCCUsageCosts(
       "Cache Cost": cacheCost,
     };
   });
+}
+
+/**
+ * Normalize model names for better display
+ * Converts raw model names like "claude-3-5-sonnet-20241022" to "Sonnet 3.5"
+ */
+function normalizeModelName(rawName: string): string {
+  const name = rawName.toLowerCase();
+
+  // Claude models
+  if (name.includes("sonnet")) {
+    const version = name.match(/3[-\.]?(\d)/)?.[1] || "5";
+    return `Sonnet 3.${version}`;
+  }
+  if (name.includes("opus")) {
+    return "Opus 3";
+  }
+  if (name.includes("haiku")) {
+    return "Haiku 3";
+  }
+
+  // Fallback: capitalize first letter, truncate after first segment
+  const firstPart = rawName.split("-")[0] || rawName;
+  return firstPart.charAt(0).toUpperCase() + firstPart.slice(1);
+}
+
+/**
+ * Get daily token usage by model for the specified time period
+ * Returns pivoted data suitable for stacked bar chart
+ */
+export async function getCCUsageActivityByModel(
+  days: DateRangeDays = 30
+): Promise<CCUsageActivityByModelData[]> {
+  console.log("[CCUsage ActivityByModel] Fetching for days:", days);
+
+  const dateCondition = getCreatedAtCondition(days);
+  const query = `
+    SELECT
+      date,
+      model_name,
+      SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
+    FROM ccusage_model_breakdowns
+    ${dateCondition}
+    GROUP BY date, model_name
+    ORDER BY date ASC
+  `;
+
+  const results = await executeClickHouseQueryLegacy(query);
+  console.log("[CCUsage ActivityByModel] Query results:", {
+    rowCount: results?.length || 0,
+  });
+
+  if (!results || results.length === 0) {
+    console.warn("[CCUsage ActivityByModel] No data returned");
+    return [];
+  }
+
+  // Normalize model names and convert to thousands
+  const normalizedResults = results.map((row) => ({
+    date: String(row.date),
+    model_name: normalizeModelName(String(row.model_name)),
+    total_tokens: Math.round((Number(row.total_tokens) || 0) / 1000), // Convert to K
+  }));
+
+  // Pivot: create object with date as key, object of model tokens as values
+  const pivoted = new Map<string, Record<string, number>>();
+
+  for (const row of normalizedResults) {
+    if (!pivoted.has(row.date)) {
+      pivoted.set(row.date, {});
+    }
+    pivoted.get(row.date)![row.model_name] = row.total_tokens;
+  }
+
+  // Convert to array format for Recharts
+  const chartData = Array.from(pivoted.entries()).map(([date, models]) => ({
+    date,
+    ...models,
+  }));
+
+  console.log("[CCUsage ActivityByModel] Pivoted data:", {
+    dates: chartData.length,
+    models: new Set(normalizedResults.map((r) => r.model_name)).size,
+  });
+
+  return chartData;
 }

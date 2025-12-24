@@ -160,6 +160,10 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30) {
     { humanSeconds: number; aiSeconds: number }
   >();
 
+  // Track consecutive failures to detect premium-only endpoints
+  let consecutivePremiumErrors = 0;
+  const MAX_CONSECUTIVE_ERRORS = 5; // Fall back after 5 consecutive 402s
+
   try {
     // Fetch durations for each day in the range
     for (let i = 0; i < numDays; i++) {
@@ -174,26 +178,40 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30) {
 
       if (!res.ok) {
         // 402 = Payment Required (premium feature), 401/403 = auth issues
-        // These are expected for free tier accounts - don't spam logs
+        // These are expected for free tier accounts
         if (res.status === 402 || res.status === 401 || res.status === 403) {
-          // Silently skip premium endpoints for free tier accounts
-          // Fall back to aggregated stats after first premium-only error
-          if (i === 0) {
+          consecutivePremiumErrors++;
+
+          // If we get many consecutive premium errors, fall back early
+          if (consecutivePremiumErrors >= MAX_CONSECUTIVE_ERRORS) {
             console.warn(
-              `WakaTime durations endpoint requires premium account (status ${res.status}). Falling back to aggregated stats.`
+              `WakaTime durations endpoint requires premium account (status ${res.status}). Falling back to aggregated stats after ${consecutivePremiumErrors} errors.`
             );
-          }
-          // After first premium-only error, break and use fallback data
-          if (activityMap.size === 0) {
+            // If we have some data, use it; otherwise fall back
+            if (activityMap.size > 0) {
+              break; // Use what we have
+            }
             return getFallbackActivityData(numDays);
           }
-          break;
+
+          // Log once on first error, then silently continue
+          if (i === 0) {
+            console.warn(
+              `WakaTime durations endpoint requires premium account (status ${res.status}). Will attempt to fetch available days.`
+            );
+          }
+          // Continue to next day instead of breaking
+          continue;
         }
+
         console.error(
           `WakaTime API error fetching durations for ${dateStr}: ${res.status}`
         );
         continue;
       }
+
+      // Reset counter on successful request
+      consecutivePremiumErrors = 0;
 
       const data: DurationsResponse = await res.json();
 

@@ -20,6 +20,8 @@ export async function WakaTimeActivity({
         categories={["Human Hours", "AI Hours"]}
         data={codingActivity}
         index="date"
+        stack={true}
+        legend={true}
       />
     </div>
   );
