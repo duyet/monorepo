@@ -506,26 +506,22 @@ export async function getCCUsageCosts(
 
 /**
  * Normalize model names for better display
- * Converts raw model names like "claude-3-5-sonnet-20241022" to "Sonnet 3.5"
+ * Removes date suffixes while preserving the core model identifier
+ * Examples:
+ *   "claude-opus-4-5-20251101" → "claude-opus-4-5"
+ *   "claude-3-5-sonnet-20241022" → "claude-3-5-sonnet"
+ *   "claude-3-haiku-20240307" → "claude-3-haiku"
  */
 function normalizeModelName(rawName: string): string {
-  const name = rawName.toLowerCase();
+  // Remove date suffix (YYYYMMDD pattern at the end)
+  // Also handles patterns like "-v1:0" or "@20240101"
+  const normalized = rawName
+    .replace(/-\d{8}$/, "") // Remove -YYYYMMDD suffix
+    .replace(/@\d{8}$/, "") // Remove @YYYYMMDD suffix
+    .replace(/-v\d+:\d+$/, "") // Remove -v1:0 style suffixes
+    .replace(/:.*$/, ""); // Remove everything after colon (API version markers)
 
-  // Claude models
-  if (name.includes("sonnet")) {
-    const version = name.match(/3[-\.]?(\d)/)?.[1] || "5";
-    return `Sonnet 3.${version}`;
-  }
-  if (name.includes("opus")) {
-    return "Opus 3";
-  }
-  if (name.includes("haiku")) {
-    return "Haiku 3";
-  }
-
-  // Fallback: capitalize first letter, truncate after first segment
-  const firstPart = rawName.split("-")[0] || rawName;
-  return firstPart.charAt(0).toUpperCase() + firstPart.slice(1);
+  return normalized || rawName;
 }
 
 /**

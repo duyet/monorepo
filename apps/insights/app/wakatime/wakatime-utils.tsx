@@ -287,6 +287,16 @@ async function getActivityFromDurations(
   });
 }
 
+// Map days to WakaTime range parameter
+function getInsightsRange(days: number | "all"): string {
+  if (days === "all") return wakatimeConfig.ranges.all_time;
+  if (days <= 7) return wakatimeConfig.ranges.last_7_days;
+  if (days <= 30) return wakatimeConfig.ranges.last_30_days;
+  if (days <= 180) return wakatimeConfig.ranges.last_6_months;
+  if (days <= 365) return wakatimeConfig.ranges.last_year;
+  return wakatimeConfig.ranges.all_time;
+}
+
 // Get activity from insights endpoint (total hours only) for larger periods
 async function getActivityFromInsights(
   days: number | "all"
@@ -298,11 +308,11 @@ async function getActivityFromInsights(
     return [];
   }
 
-  // Determine range: use all_time for "all" or values > 365, otherwise last_year
-  const range =
-    days === "all" || (typeof days === "number" && days > 365)
-      ? wakatimeConfig.ranges.all_time
-      : wakatimeConfig.ranges.last_year;
+  // Use appropriate range for the requested days
+  const range = getInsightsRange(days);
+  const numDays = typeof days === "number" ? days : 9999;
+
+  console.log(`[WakaTime Insights] Fetching ${numDays} days with range: ${range}`);
 
   const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}&api_key=${apiKey}`;
 
@@ -340,6 +350,8 @@ async function getActivityFromInsights(
       })
       .slice(0, typeof days === "number" ? days : undefined);
 
+    console.log(`[WakaTime Insights] Retrieved ${filteredDays.length} days of data`);
+
     return filteredDays.map((day) => ({
       date: day.date,
       "Total Hours": toHours(day.total),
@@ -362,9 +374,27 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30): Prom
     return getActivityFromInsights(days);
   }
 
-  // Use durations endpoint for smaller ranges - preserves AI breakdown
-  // At this point, days is guaranteed to be a number (not "all") since we filtered for < 365
-  return getActivityFromDurations(typeof days === "number" ? days : 30);
+  // For smaller ranges, try durations endpoint first (has AI breakdown)
+  // but fall back to insights if durations returns insufficient data
+  if (typeof days === "number" && days <= 30) {
+    const durationsData = await getActivityFromDurations(days);
+
+    // Check if we got sufficient data (at least 50% of requested days)
+    // Durations endpoint often fails for older days (premium required)
+    const minExpectedDays = Math.floor(days * 0.5);
+
+    if (durationsData.length >= minExpectedDays) {
+      console.log(`[WakaTime] Using durations data: ${durationsData.length}/${days} days with AI breakdown`);
+      return durationsData;
+    }
+
+    // Fall back to insights endpoint for complete data (no AI breakdown)
+    console.log(`[WakaTime] Durations insufficient (${durationsData.length}/${days}), falling back to insights`);
+    return getActivityFromInsights(days);
+  }
+
+  // For 31-364 days, use insights (durations would be too slow)
+  return getActivityFromInsights(days);
 }
 
 // Fallback to aggregated stats when premium endpoint is unavailable
