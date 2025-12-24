@@ -540,12 +540,12 @@ export async function getCCUsageActivityByModel(
   const dateCondition = getCreatedAtCondition(days);
   const query = `
     SELECT
-      date,
+      toDate(created_at) as date,
       model_name,
       SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
     FROM ccusage_model_breakdowns
     ${dateCondition}
-    GROUP BY date, model_name
+    GROUP BY toDate(created_at), model_name
     ORDER BY date ASC
   `;
 
