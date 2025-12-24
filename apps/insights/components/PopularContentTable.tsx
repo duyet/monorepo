@@ -72,10 +72,10 @@ export function PopularContentTable({
             return (
               <TableRow key={index} className="group">
                 <TableCell className="font-medium">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center gap-2">
                     <span
                       className={cn(
-                        "w-5 text-center font-mono text-xs",
+                        "w-5 shrink-0 text-center font-mono text-xs",
                         isTop
                           ? "font-semibold text-orange-600"
                           : "text-muted-foreground"
@@ -83,10 +83,8 @@ export function PopularContentTable({
                     >
                       {index + 1}
                     </span>
-                    <span className="truncate text-sm">
-                      {cleanPath.length > 30
-                        ? `${cleanPath.slice(0, 30)}...`
-                        : cleanPath}
+                    <span className="min-w-0 truncate text-sm" title={cleanPath}>
+                      {cleanPath}
                     </span>
                   </div>
                 </TableCell>
