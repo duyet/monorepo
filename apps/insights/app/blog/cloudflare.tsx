@@ -159,20 +159,33 @@ const getData = async (days: number | "all" = 30) => {
       }
     }`;
 
-  // Calculate date range based on days parameter
-  const daysToSubtract = days === "all" ? 365 * 3 : days; // 3 years for "all"
-  const variables = {
-    zoneTag: process.env.CLOUDFLARE_ZONE_ID,
-    date_start: new Date(
-      new Date().setDate(new Date().getDate() - daysToSubtract)
-    )
-      .toISOString()
-      .split("T")[0],
-    date_end: new Date().toISOString().split("T")[0],
-  };
+  // Cloudflare free tier has a 365-day limit (31539600s)
+  // We need to chunk requests for longer time periods
+  const maxDaysPerRequest = 364; // Stay safely within 365-day quota
+  const requestedDays = days === "all" ? 365 * 3 : days; // 3 years for "all"
+  const actualDays = Math.min(requestedDays, maxDaysPerRequest);
 
   const headers = {
     Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
+  };
+
+  // Calculate date range
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - actualDays);
+
+  // For "all" or periods > maxDays, we need to fetch in chunks
+  // For now, limit to maxDaysPerRequest to avoid quota errors
+  if (requestedDays > maxDaysPerRequest) {
+    console.warn(
+      `Requested ${days} days but limiting to ${maxDaysPerRequest} days due to Cloudflare quota limits (max ~365 days)`
+    );
+  }
+
+  const variables = {
+    zoneTag: process.env.CLOUDFLARE_ZONE_ID,
+    date_start: startDate.toISOString().split("T")[0],
+    date_end: endDate.toISOString().split("T")[0],
   };
 
   try {
