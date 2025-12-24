@@ -145,8 +145,13 @@ interface DurationsResponse {
   timezone?: string;
 }
 
-export async function getWakaTimeActivityWithAI(days: number | "all" = 30) {
-  // Get daily activity with human vs AI coding hours breakdown
+// Helper function to add delay between requests (rate limiting)
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Get activity from durations endpoint (with AI breakdown) for smaller periods
+async function getActivityFromDurations(
+  days: number
+): Promise<Array<{ date: string; "Human Hours": number; "AI Hours": number }>> {
   const apiKey = process.env.WAKATIME_API_KEY;
 
   if (!apiKey) {
@@ -154,11 +159,8 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30) {
     return [];
   }
 
-  const numDays = typeof days === "number" ? days : 30;
-  const activityMap = new Map<
-    string,
-    { humanSeconds: number; aiSeconds: number }
-  >();
+  const numDays = days;
+  const activityMap = new Map<string, { humanSeconds: number; aiSeconds: number }>();
 
   // Track consecutive failures to detect premium-only endpoints
   let consecutivePremiumErrors = 0;
@@ -253,6 +255,12 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30) {
           });
         }
       }
+
+      // Rate limiting: small delay between requests to stay under 10 req/sec
+      // 30 requests * 100ms = 3 seconds total (well under rate limit)
+      if (i < numDays - 1) {
+        await delay(100);
+      }
     }
   } catch (error) {
     console.error("Error fetching WakaTime activity with AI data:", error);
@@ -277,6 +285,86 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30) {
       "AI Hours": Number.parseFloat(aiHours),
     };
   });
+}
+
+// Get activity from insights endpoint (total hours only) for larger periods
+async function getActivityFromInsights(
+  days: number | "all"
+): Promise<Array<{ date: string; "Total Hours": number }>> {
+  const apiKey = process.env.WAKATIME_API_KEY;
+
+  if (!apiKey) {
+    console.warn("WAKATIME_API_KEY not found in environment variables");
+    return [];
+  }
+
+  // Determine range: use all_time for "all" or values > 365, otherwise last_year
+  const range =
+    days === "all" || (typeof days === "number" && days > 365)
+      ? wakatimeConfig.ranges.all_time
+      : wakatimeConfig.ranges.last_year;
+
+  const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}&api_key=${apiKey}`;
+
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: wakatimeConfig.cache.revalidate },
+    });
+
+    if (!res.ok) {
+      console.error(`WakaTime insights API error: ${res.status}`);
+      return [];
+    }
+
+    const data: InsightsResponse | null = await res.json();
+
+    if (!data?.data?.days || !Array.isArray(data.data.days)) {
+      console.warn("No days data available from WakaTime insights");
+      return [];
+    }
+
+    // Check if data is up to date for large ranges
+    if (data.data.is_up_to_date === false) {
+      console.warn(
+        `WakaTime insights data not fully up to date for range: ${range}`
+      );
+    }
+
+    // Filter by dataStartYear and limit if specified number of days
+    const startYear = wakatimeConfig.dataStartYear;
+    const filteredDays = data.data.days
+      .filter((day) => {
+        if (!day.date || day.total == null) return false;
+        const date = new Date(day.date);
+        return date.getFullYear() >= startYear;
+      })
+      .slice(0, typeof days === "number" ? days : undefined);
+
+    return filteredDays.map((day) => ({
+      date: day.date,
+      "Total Hours": toHours(day.total),
+    }));
+  } catch (error) {
+    console.error("Error fetching WakaTime insights activity:", error);
+    return [];
+  }
+}
+
+// Union type for activity data formats
+type ActivityWithAI = Array<{ date: string; "Human Hours": number; "AI Hours": number }>;
+type ActivityTotalOnly = Array<{ date: string; "Total Hours": number }>;
+
+export async function getWakaTimeActivityWithAI(days: number | "all" = 30): Promise<ActivityWithAI | ActivityTotalOnly> {
+  const numDays = typeof days === "number" ? days : 9999;
+
+  // Use insights endpoint for larger ranges (365+ days) - total hours only
+  if (numDays >= 365) {
+    return getActivityFromInsights(days);
+  }
+
+  // Use durations endpoint for smaller ranges - preserves AI breakdown
+  // At this point, days is guaranteed to be a number (not "all") since we filtered for < 365
+  return getActivityFromDurations(typeof days === "number" ? days : 30);
 }
 
 // Fallback to aggregated stats when premium endpoint is unavailable

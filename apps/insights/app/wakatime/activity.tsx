@@ -1,12 +1,21 @@
 import { BarChart } from "@/components/charts";
 import { getWakaTimeActivityWithAI } from "./wakatime-utils";
 
+type ActivityWithAI = Array<{ date: string; "Human Hours": number; "AI Hours": number }>;
+type ActivityTotalOnly = Array<{ date: string; "Total Hours": number }>;
+
 export async function WakaTimeActivity({
   days = 30,
 }: {
   days?: number | "all";
 }) {
   const codingActivity = await getWakaTimeActivityWithAI(days);
+
+  // Detect data format to determine if we have AI breakdown
+  const hasAIBreakdown = codingActivity.length > 0 && "Human Hours" in codingActivity[0];
+  const categories = hasAIBreakdown
+    ? ["Human Hours", "AI Hours"]
+    : ["Total Hours"];
 
   return (
     <div className="rounded-lg border bg-card p-4">
@@ -17,10 +26,10 @@ export async function WakaTimeActivity({
         </p>
       </div>
       <BarChart
-        categories={["Human Hours", "AI Hours"]}
+        categories={categories}
         data={codingActivity}
         index="date"
-        stack={true}
+        stack={hasAIBreakdown}
         legend={true}
       />
     </div>
