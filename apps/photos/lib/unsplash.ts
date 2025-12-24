@@ -27,7 +27,7 @@ export async function getUserPhotos(
   orderBy = "latest"
 ): Promise<UnsplashPhoto[]> {
   if (!unsplash) {
-    console.warn("UNSPLASH_ACCESS_KEY not configured, returning empty array");
+    console.warn("⚠️  UNSPLASH_ACCESS_KEY not configured, returning empty array");
     return [];
   }
 
@@ -41,7 +41,7 @@ export async function getUserPhotos(
     });
 
     if (result.errors) {
-      console.error("Unsplash API errors:", result.errors);
+      console.error("❌ Unsplash API errors:", result.errors);
       throw new Error("Failed to fetch photos from Unsplash");
     }
 
@@ -72,10 +72,18 @@ export async function getUserPhotos(
       error instanceof Error &&
       error.message.includes("expected JSON response")
     ) {
-      console.warn(`Rate limit hit on page ${page}, returning empty array`);
+      console.warn(
+        `🚫 Unsplash API rate limit hit on page ${page}`
+      );
+      console.warn(
+        "   💡 This is expected if you've exceeded the 50 requests/hour limit."
+      );
+      console.warn(
+        "   📦 The build will continue with cached data or empty results."
+      );
       return [];
     }
-    console.error("Error fetching user photos:", error);
+    console.error("❌ Error fetching user photos:", error);
     throw error;
   }
 }
@@ -245,16 +253,21 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
         }
       }
     } catch (error) {
-      console.error(`Error fetching page ${page}:`, error);
-
       // If we hit rate limits, stop fetching more pages but return what we have
       if (
         error instanceof Error &&
         error.message.includes("expected JSON response")
       ) {
-        console.warn("Likely hit rate limits, stopping at page", page - 1);
+        console.warn(`🚫 Rate limit reached while fetching page ${page}`);
+        console.warn(
+          "   💡 Unsplash API limit: 50 requests/hour for demo applications"
+        );
+        console.warn(
+          `   📦 Using ${allPhotos.length} photos already fetched from previous pages`
+        );
         hasMore = false;
       } else {
+        console.error(`❌ Error fetching page ${page}:`, error);
         hasMore = false;
       }
     }
