@@ -36,10 +36,11 @@ jobs:
         env:
           ANTHROPIC_BASE_URL: https://openrouter.ai/api
           ANTHROPIC_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: '@preset/claude-code-github-action'
+          ANTHROPIC_DEFAULT_SONNET_MODEL: '@preset/claude-code-github-action'
+          ANTHROPIC_DEFAULT_OPUS_MODEL: '@preset/claude-code-github-action'
         with:
           anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
-          claude_args: |
-            --model @preset/claude-code-github-action
 
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
