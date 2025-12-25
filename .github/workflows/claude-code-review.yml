@@ -4,19 +4,16 @@ on:
   pull_request:
     types: [opened, synchronize]
     # Optional: Only run on specific file changes
-    paths:
-      - "src/**/*.ts"
-      - "src/**/*.tsx"
-      - "src/**/*.js"
-      - "src/**/*.jsx"
+    # paths:
+    #   - "src/**/*.ts"
+    #   - "src/**/*.tsx"
+    #   - "src/**/*.js"
+    #   - "src/**/*.jsx"
 
 jobs:
   claude-review:
     # Optional: Filter by PR author
-    if: |
-      !contains(github.event.pull_request.user.login, 'renovate') &&
-      !contains(github.event.pull_request.user.login, 'bot')
-
+    # if: |
     #   github.event.pull_request.user.login == 'external-contributor' ||
     #   github.event.pull_request.user.login == 'new-developer' ||
     #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
@@ -30,25 +27,26 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
       - name: Run Claude Code Review
         id: claude-review
-        # Optional: Skip review for certain conditions
-        if: |
-          !contains(github.event.pull_request.title, '[skip-review]') &&
-          !contains(github.event.pull_request.title, '[WIP]')
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
+        env:
+          ANTHROPIC_BASE_URL: https://openrouter.ai/api
+          ANTHROPIC_AUTH_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
         with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ""
+          claude_args: |
+            --model @preset/claude-code-github-action
+            --allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"
 
-          # Optional: Specify model (defaults to Claude Sonnet 4, uncomment for Claude Opus 4)
-          # model: "claude-opus-4-20250514"
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
 
-          # Direct prompt for automated review (no @claude mention needed)
-          direct_prompt: |
             Please review this pull request and provide feedback on:
             - Code quality and best practices
             - Potential bugs or issues
@@ -56,24 +54,6 @@ jobs:
             - Security concerns
             - Test coverage
 
-            Be constructive and helpful in your feedback.
+            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
 
-          # Optional: Use sticky comments to make Claude reuse the same comment on subsequent pushes to the same PR
-          # use_sticky_comment: true
-
-          # Optional: Customize review based on file types
-          # direct_prompt: |
-          #   Review this PR focusing on:
-          #   - For TypeScript files: Type safety and proper interface usage
-          #   - For API endpoints: Security, input validation, and error handling
-          #   - For React components: Performance, accessibility, and best practices
-          #   - For tests: Coverage, edge cases, and test quality
-
-          # Optional: Different prompts for different authors
-          # direct_prompt: |
-          #   ${{ github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' &&
-          #   'Welcome! Please review this PR from a first-time contributor. Be encouraging and provide detailed explanations for any suggestions.' ||
-          #   'Please provide a thorough code review focusing on our coding standards and best practices.' }}
-
-          # Optional: Add specific tools for running tests or linting
-          # allowed_tools: "Bash(npm run test),Bash(npm run lint),Bash(npm run typecheck)"
+            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
