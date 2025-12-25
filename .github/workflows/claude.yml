@@ -35,10 +35,9 @@ jobs:
         uses: anthropics/claude-code-action@v1
         env:
           ANTHROPIC_BASE_URL: https://openrouter.ai/api
-          ANTHROPIC_OAUTH_TOKEN: ${{ secrets.OPENROUTER_API_KEY }}
-          ANTHROPIC_API_KEY: ""
+          ANTHROPIC_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         with:
-          anthropic_api_key: ""
+          anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           claude_args: |
             --model @preset/claude-code-github-action
 
