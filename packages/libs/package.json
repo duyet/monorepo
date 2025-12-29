@@ -31,7 +31,7 @@
     "@types/jest": "^30.0.0",
     "@types/sanitize-html": "^2.16.0",
     "jest": "^30.0.0",
-    "next": "16.1.0",
+    "next": "16.1.1",
     "ts-jest": "^29.1.4",
     "typescript": "*"
   },
