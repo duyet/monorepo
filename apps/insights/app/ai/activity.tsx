@@ -1,5 +1,4 @@
 import { BarChart } from "@/components/charts";
-import { CostBarChart } from "@/components/charts/CostBarChart";
 import { TokenBarChart } from "@/components/charts/TokenBarChart";
 import { getCCUsageActivity, getCCUsageActivityByModel } from "./ccusage-utils";
 import type { CCUsageActivityProps } from "./types";
@@ -56,13 +55,13 @@ export async function CCUsageActivity({
         </div>
       </div>
 
-      {/* Token Usage by Model Chart */}
+      {/* Daily Token Usage by Model Chart */}
       {activityByModel.length > 0 && (
         <div className="rounded-lg border bg-card p-4">
           <div className="mb-4">
-            <h3 className="font-medium">Token Usage by Model</h3>
+            <h3 className="font-medium">Daily Usage by Model</h3>
             <p className="text-xs text-muted-foreground">
-              Daily token usage stacked by AI model (in thousands)
+              Daily token consumption breakdown by AI model (in thousands)
             </p>
           </div>
           <BarChart
@@ -78,25 +77,6 @@ export async function CCUsageActivity({
           </div>
         </div>
       )}
-
-      {/* Cost Per Day Chart */}
-      <div className="rounded-lg border bg-card p-4">
-        <div className="mb-4">
-          <h3 className="font-medium">Daily Cost Trend ($)</h3>
-          <p className="text-xs text-muted-foreground">
-            Daily spending on Claude Code usage in USD
-          </p>
-        </div>
-        <CostBarChart
-          categories={["Total Cost"]}
-          data={activity}
-          index="date"
-          stack={false}
-        />
-        <div className="mt-3 text-xs text-muted-foreground">
-          Cost in USD based on actual token consumption and pricing.
-        </div>
-      </div>
     </div>
   );
 }

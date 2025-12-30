@@ -40,12 +40,12 @@ export async function CCUsageModels({
 
   return (
     <div className={`grid gap-6 lg:grid-cols-2 ${className || ""}`}>
-      {/* Token Usage Distribution */}
+      {/* Token Distribution */}
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
-          <h3 className="font-medium">Token Usage by Model</h3>
+          <h3 className="font-medium">Token Distribution</h3>
           <p className="text-xs text-muted-foreground">
-            Percentages based on total token consumption
+            Share of total tokens by model
           </p>
         </div>
         <LanguageBarChart data={tokenChartData} />
@@ -54,9 +54,9 @@ export async function CCUsageModels({
       {/* Cost Distribution */}
       <div className="rounded-lg border bg-card p-4">
         <div className="mb-4">
-          <h3 className="font-medium">Cost Distribution by Model</h3>
+          <h3 className="font-medium">Cost Distribution</h3>
           <p className="text-xs text-muted-foreground">
-            Percentages based on total spending
+            Share of total spending by model
           </p>
         </div>
         <LanguageBarChart data={costChartData} />
