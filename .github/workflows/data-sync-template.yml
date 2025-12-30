@@ -27,6 +27,21 @@ on:
         required: false
         type: string
         default: 'sync'
+      backfill_days:
+        description: 'Number of days to backfill (e.g., 90 for last 90 days)'
+        required: false
+        type: number
+        default: 0
+      start_date:
+        description: 'Start date for backfill (YYYY-MM-DD format)'
+        required: false
+        type: string
+        default: ''
+      end_date:
+        description: 'End date for backfill (YYYY-MM-DD format)'
+        required: false
+        type: string
+        default: ''
     secrets:
       CLICKHOUSE_HOST:
         required: true
@@ -135,16 +150,37 @@ jobs:
 
       - name: Sync sources
         working-directory: apps/data-sync
+        env:
+          BACKFILL_DAYS: ${{ inputs.backfill_days }}
+          START_DATE: ${{ inputs.start_date }}
+          END_DATE: ${{ inputs.end_date }}
         run: |
           IFS=',' read -ra SOURCES <<< "$SYNC_SOURCES"
+
           for source in "${SOURCES[@]}"; do
             source=$(echo "$source" | xargs)  # trim whitespace
             echo "::group::Syncing $source"
+
+            # Build sync command with optional flags
+            SYNC_CMD="bun run sync $source"
+
+            # Add dry run flag
             if [ "$DRY_RUN" = "true" ]; then
-              bun run sync "$source" --dry-run
-            else
-              bun run sync "$source"
+              SYNC_CMD="$SYNC_CMD --dry-run"
             fi
+
+            # Add backfill flags (using env vars for security)
+            if [ "$BACKFILL_DAYS" -gt 0 ]; then
+              SYNC_CMD="$SYNC_CMD --backfill-days=$BACKFILL_DAYS"
+            elif [ -n "$START_DATE" ]; then
+              SYNC_CMD="$SYNC_CMD --start-date=$START_DATE"
+              if [ -n "$END_DATE" ]; then
+                SYNC_CMD="$SYNC_CMD --end-date=$END_DATE"
+              fi
+            fi
+
+            echo "Running: $SYNC_CMD"
+            eval $SYNC_CMD
             echo "::endgroup::"
           done
 

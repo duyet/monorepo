@@ -16,6 +16,43 @@ interface SyncSummary {
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
+
+  // Parse date options for backfill
+  const startDateArg = args.find((arg) => arg.startsWith("--start-date="));
+  const endDateArg = args.find((arg) => arg.startsWith("--end-date="));
+  const backfillDaysArg = args.find((arg) => arg.startsWith("--backfill-days="));
+
+  let startDate: Date | undefined;
+  let endDate: Date | undefined;
+
+  if (startDateArg) {
+    startDate = new Date(startDateArg.split("=")[1]);
+    if (isNaN(startDate.getTime())) {
+      logger.error(`Invalid start date: ${startDateArg}`);
+      process.exit(1);
+    }
+  }
+
+  if (endDateArg) {
+    endDate = new Date(endDateArg.split("=")[1]);
+    if (isNaN(endDate.getTime())) {
+      logger.error(`Invalid end date: ${endDateArg}`);
+      process.exit(1);
+    }
+  }
+
+  // Parse --backfill-days option (e.g., --backfill-days=90)
+  if (backfillDaysArg && !startDate) {
+    const days = parseInt(backfillDaysArg.split("=")[1], 10);
+    if (isNaN(days) || days <= 0) {
+      logger.error(`Invalid backfill days: ${backfillDaysArg}`);
+      process.exit(1);
+    }
+    endDate = endDate || new Date();
+    startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
+    logger.info(`Backfill mode: fetching ${days} days of data`);
+  }
+
   const sources = args.filter((arg) => !arg.startsWith("--"));
 
   // Parse sources: 'all' means all enabled sources
@@ -70,7 +107,11 @@ async function main() {
       }
 
       const syncer = new SyncerClass(client);
-      const result = await syncer.sync({ dryRun });
+      const result = await syncer.sync({
+        dryRun,
+        startDate,
+        endDate,
+      });
 
       const duration = Date.now() - syncStart;
 
