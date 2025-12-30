@@ -13,6 +13,8 @@ import {
   CartesianGrid,
   BarChart as RechartsBarChart,
   XAxis,
+  YAxis,
+  Tooltip,
 } from "recharts";
 
 interface BarChartProps {
@@ -23,6 +25,12 @@ interface BarChartProps {
   stack?: boolean;
   legend?: boolean;
   valueFormatter?: (value: unknown) => string;
+  /** Use logarithmic scale for Y-axis (useful for data with large value ranges) */
+  logScale?: boolean;
+  /** Hide Y-axis ticks */
+  hideYAxis?: boolean;
+  /** Chart height in pixels */
+  height?: number;
 }
 
 const CHART_COLORS = [
@@ -48,6 +56,9 @@ export function BarChart({
   stack = false,
   legend = false,
   valueFormatter,
+  logScale = false,
+  hideYAxis = false,
+  height,
 }: BarChartProps) {
   const chartConfig: ChartConfig = Object.fromEntries(
     categories.map((category, i) => [
@@ -61,10 +72,24 @@ export function BarChart({
       <RechartsBarChart
         accessibilityLayer
         data={data}
+        height={height}
         margin={{ top: 20, right: 30, left: 20, bottom: legend ? 60 : 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
+        {!hideYAxis && (
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={logScale ? (value) => {
+              if (value === 0) return "0";
+              if (value < 1) return value.toString();
+              if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+              if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
+              return value.toString();
+            } : undefined}
+          />
+        )}
         <ChartTooltip
           content={
             <ChartTooltipContent

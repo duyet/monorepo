@@ -1,5 +1,3 @@
-"use client";
-
 import {
   CompactAreaChart,
   CompactPieChart,
@@ -15,6 +13,22 @@ import {
   Users,
   Zap,
 } from "lucide-react";
+import { getCCUsageMetrics } from "@/app/ai/ccusage-utils";
+import { getWakaTimeMetrics } from "@/app/wakatime/wakatime-utils";
+
+// Format tokens with B/M/K suffixes (consistent with AI tab)
+function formatTokens(tokens: number): string {
+  if (tokens >= 1000000000) {
+    return `${(tokens / 1000000000).toFixed(1)}B`;
+  }
+  if (tokens >= 1000000) {
+    return `${(tokens / 1000000).toFixed(1)}M`;
+  }
+  if (tokens >= 1000) {
+    return `${(tokens / 1000).toFixed(1)}K`;
+  }
+  return tokens.toString();
+}
 
 // Mock data for demonstration - replace with real data fetching
 const mockOverviewData = {
@@ -24,18 +38,12 @@ const mockOverviewData = {
     bounceRate: { value: "32.4%", change: -5.1, period: "last 30 days" },
     avgSession: { value: "3m 24s", change: 12.3, period: "last 30 days" },
   },
-  codingStats: {
-    totalHours: { value: 156, change: 23.1, period: "last 30 days" },
-    commits: { value: 247, change: 18.5, period: "last 30 days" },
-    languages: { value: 8, change: 0, period: "active languages" },
-    productivity: { value: "87%", change: 5.2, period: "vs last month" },
-  },
-  aiUsage: {
-    tokens: { value: "1.2M", change: 34.7, period: "last 30 days" },
-    sessions: { value: 89, change: 12.4, period: "last 30 days" },
-    cost: { value: "$45.60", change: 28.9, period: "last 30 days" },
-    efficiency: { value: "92%", change: 3.1, period: "success rate" },
-  },
+  commits: { value: 247, change: 18.5, period: "last 30 days" },
+  languages: { value: 8, change: 0, period: "active languages" },
+  productivity: { value: "87%", change: 5.2, period: "vs last month" },
+  aiSessions: { value: 89, change: 12.4, period: "last 30 days" },
+  aiCost: { value: "$45.60", change: 28.9, period: "last 30 days" },
+  aiEfficiency: { value: "92%", change: 3.1, period: "success rate" },
   sparklineData: [
     { day: "Mon", value: 120 },
     { day: "Tue", value: 132 },
@@ -54,7 +62,20 @@ const mockOverviewData = {
   ],
 };
 
-export function OverviewDashboard() {
+export async function OverviewDashboard() {
+  // Fetch real data for AI tokens and Coding hours (consistent with AI/WakaTime tabs)
+  const [aiMetrics, wakaTimeMetrics] = await Promise.allSettled([
+    getCCUsageMetrics(30),
+    getWakaTimeMetrics(30),
+  ]);
+
+  const aiTokens = aiMetrics.status === "fulfilled" && aiMetrics.value
+    ? formatTokens(aiMetrics.value.totalTokens)
+    : mockOverviewData.aiSessions.value; // Fallback to mock if fetch fails
+
+  const codingHours = wakaTimeMetrics.status === "fulfilled" && wakaTimeMetrics.value
+    ? wakaTimeMetrics.value.totalHours.toFixed(1)
+    : mockOverviewData.commits.value; // Fallback to mock if fetch fails
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -93,10 +114,10 @@ export function OverviewDashboard() {
                 <span>Coding Hours</span>
               </div>
               <div className="text-lg font-semibold">
-                {mockOverviewData.codingStats.totalHours.value}
+                {codingHours}
               </div>
               <div className="text-xs text-green-600">
-                +{mockOverviewData.codingStats.totalHours.change}%
+                vs last 30 days
               </div>
             </div>
           </CompactCard>
@@ -108,10 +129,10 @@ export function OverviewDashboard() {
                 <span>AI Tokens</span>
               </div>
               <div className="text-lg font-semibold">
-                {mockOverviewData.aiUsage.tokens.value}
+                {aiTokens}
               </div>
               <div className="text-xs text-green-600">
-                +{mockOverviewData.aiUsage.tokens.change}%
+                vs last 30 days
               </div>
             </div>
           </CompactCard>
@@ -123,10 +144,10 @@ export function OverviewDashboard() {
                 <span>Git Commits</span>
               </div>
               <div className="text-lg font-semibold">
-                {mockOverviewData.codingStats.commits.value}
+                {mockOverviewData.commits.value}
               </div>
               <div className="text-xs text-green-600">
-                +{mockOverviewData.codingStats.commits.change}%
+                +{mockOverviewData.commits.change}%
               </div>
             </div>
           </CompactCard>
@@ -243,14 +264,14 @@ export function OverviewDashboard() {
                 <BarChart3 className="text-muted-foreground/60 h-3 w-3" />
               </div>
               <div className="text-xl font-semibold">
-                {mockOverviewData.aiUsage.efficiency.value}
+                {mockOverviewData.aiEfficiency.value}
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-xs text-green-600">
-                  +{mockOverviewData.aiUsage.efficiency.change}%
+                  +{mockOverviewData.aiEfficiency.change}%
                 </span>
                 <span className="text-xs text-muted-foreground">
-                  {mockOverviewData.aiUsage.efficiency.period}
+                  {mockOverviewData.aiEfficiency.period}
                 </span>
               </div>
             </div>

@@ -20,6 +20,8 @@ interface TokenBarChartProps {
   className?: string;
   stack?: boolean;
   showInThousands?: boolean;
+  /** Chart height in pixels */
+  height?: number;
 }
 
 /**
@@ -35,6 +37,7 @@ export function TokenBarChart({
   className,
   stack = false,
   showInThousands = false,
+  height,
 }: TokenBarChartProps) {
   const valueFormatter = showInThousands
     ? (value: unknown) => `${value}K`
@@ -61,6 +64,7 @@ export function TokenBarChart({
       <RechartsBarChart
         accessibilityLayer
         data={data}
+        height={height}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />

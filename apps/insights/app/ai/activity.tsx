@@ -48,6 +48,7 @@ export async function CCUsageActivity({
           index="date"
           stack={true}
           showInThousands={true}
+          height={350}
         />
         <div className="mt-3 text-xs text-muted-foreground">
           Data shows tokens in thousands (K). Cache tokens represent prompt
@@ -70,6 +71,7 @@ export async function CCUsageActivity({
             index="date"
             stack={true}
             legend={true}
+            height={400}
           />
           <div className="mt-3 text-xs text-muted-foreground">
             Data shows tokens in thousands (K). Model names are normalized
