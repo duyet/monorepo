@@ -35,8 +35,8 @@ export default function CCUsage() {
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
           Note: This is a cost simulation calculated based on token consumption.
-          I am currently using Claude Code MAX ($100) so this does not reflect
-          actual charges
+          I am currently using Claude Code MAX ($100) + ZAI Pro so this does not
+          reflect actual charges
         </p>
       </div>
 
