@@ -70,7 +70,7 @@ export class PostHogSyncer extends BaseSyncer<
     options: SyncOptions
   ): Promise<PostHogResponse[]> {
     const { startDate, endDate } = this.determineDateRange(options);
-    const apiUrl = `${POSTHOG_API_URL}/api/projects/${this.projectId}/insights/web`;
+    const apiUrl = `${POSTHOG_API_URL}/api/projects/${this.projectId}/query/`;
 
     this.logger.info(
       `Fetching PostHog analytics from ${startDate} to ${endDate}`
@@ -99,7 +99,7 @@ export class PostHogSyncer extends BaseSyncer<
             Authorization: `Bearer ${this.apiKey}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ query }),
+          body: JSON.stringify(query),
         });
 
         if (!res.ok) {
