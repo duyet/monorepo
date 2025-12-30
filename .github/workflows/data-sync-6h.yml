@@ -1,0 +1,64 @@
+name: 6-Hour Data Sync (GitHub)
+
+on:
+  schedule:
+    # Every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (preview without writing)'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  # ClickHouse
+  CH_HOST: ${{ secrets.CH_HOST }}
+  CH_PASSWORD: ${{ secrets.CH_PASSWORD }}
+  CH_PORT: ${{ secrets.CH_PORT }}
+  CH_DATABASE: ${{ secrets.CH_DATABASE }}
+
+  # GitHub
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GITHUB_USERNAME: duyet
+
+jobs:
+  sync:
+    name: Sync GitHub Data
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run migrations
+        working-directory: apps/data-sync
+        run: bun run migrate:up
+
+      - name: Sync GitHub
+        working-directory: apps/data-sync
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            bun run sync github --dry-run
+          else
+            bun run sync github
+          fi
+
+      - name: Upload sync logs
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: sync-logs-6h-${{ github.run_id }}
+          path: apps/data-sync/logs/
+          retention-days: 7
+          if-no-files-found: ignore
