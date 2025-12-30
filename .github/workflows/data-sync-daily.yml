@@ -1,4 +1,4 @@
-name: Daily Data Sync (WakaTime, Cloudflare)
+name: Data Sync (Cloudflare, WakaTime)
 
 on:
   schedule:

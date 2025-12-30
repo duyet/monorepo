@@ -1,4 +1,4 @@
-name: 6-Hour Data Sync (GitHub)
+name: Data Sync (GitHub)
 
 on:
   schedule:
