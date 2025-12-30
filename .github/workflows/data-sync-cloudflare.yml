@@ -1,18 +1,13 @@
-name: Data Sync (Unsplash + Cleanup)
+name: Data Sync (Cloudflare)
 
 on:
   schedule:
-    # Weekly on Sunday at 2am UTC
-    - cron: '0 2 * * 0'
+    # Daily at 1am UTC (staggered from WakaTime)
+    - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
         description: 'Dry run mode (preview without writing)'
-        required: false
-        default: false
-        type: boolean
-      skip_cleanup:
-        description: 'Skip retention cleanup'
         required: false
         default: false
         type: boolean
@@ -21,17 +16,18 @@ jobs:
   sync:
     uses: ./.github/workflows/data-sync-template.yml
     with:
-      sources: unsplash
+      sources: cloudflare
       dry_run: ${{ inputs.dry_run || false }}
-      run_cleanup: ${{ !(inputs.skip_cleanup || false) }}
-      log_artifact_name: sync-weekly
+      log_artifact_name: sync-cloudflare
     secrets:
       CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
       CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
       CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
       CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
       CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
-      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
-      UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
+      CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
+      CF_ZONE_TAG: ${{ secrets.CF_ZONE_TAG }}
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
