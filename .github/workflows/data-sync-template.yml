@@ -52,7 +52,9 @@ on:
         required: false
       UNSPLASH_USERNAME:
         required: false
-      TAILSCALE_AUTHKEY:
+      TS_OAUTH_CLIENT_ID:
+        required: true
+      TS_OAUTH_SECRET:
         required: true
 
 jobs:
@@ -81,7 +83,8 @@ jobs:
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
       # Tailscale
-      TAILSCALE_AUTHKEY: ${{ secrets.TAILSCALE_AUTHKEY }}
+      TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+      TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       # Control flags
       DRY_RUN: ${{ inputs.dry_run }}
       SYNC_SOURCES: ${{ inputs.sources }}
@@ -99,7 +102,9 @@ jobs:
       - name: Tailscale
         uses: tailscale/github-action@v4
         with:
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
 
       - name: Run migrations
         if: inputs.run_migrations
@@ -142,7 +147,8 @@ jobs:
       CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
       CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
       CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
-      TAILSCALE_AUTHKEY: ${{ secrets.TAILSCALE_AUTHKEY }}
+      TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+      TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       DRY_RUN: ${{ inputs.dry_run }}
 
     steps:
@@ -158,7 +164,9 @@ jobs:
       - name: Tailscale
         uses: tailscale/github-action@v4
         with:
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
 
       - name: Run retention cleanup
         working-directory: apps/data-sync
