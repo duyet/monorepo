@@ -56,6 +56,8 @@ on:
         required: true
       TS_OAUTH_SECRET:
         required: true
+      GITHUB_TOKEN:
+        required: false
 
 jobs:
   sync:
@@ -72,6 +74,7 @@ jobs:
       CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
       # GitHub
       GITHUB_USERNAME: duyetbot
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # WakaTime
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
       # Cloudflare
