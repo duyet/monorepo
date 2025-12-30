@@ -10,8 +10,19 @@ on:
         default: 'github,wakatime,cloudflare,unsplash,posthog'
       backfill_days:
         description: 'Number of days to backfill (e.g., 90 for last 90 days)'
-        required: true
+        required: false
         type: number
+        default: 30
+      start_date:
+        description: 'Start date for backfill (YYYY-MM-DD format)'
+        required: false
+        type: string
+        default: ''
+      end_date:
+        description: 'End date for backfill (YYYY-MM-DD format)'
+        required: false
+        type: string
+        default: ''
       dry_run:
         description: 'Dry run mode (preview without writing)'
         required: false
@@ -30,6 +41,8 @@ jobs:
     with:
       sources: ${{ inputs.sources }}
       backfill_days: ${{ inputs.backfill_days }}
+      start_date: ${{ inputs.start_date }}
+      end_date: ${{ inputs.end_date }}
       dry_run: ${{ inputs.dry_run }}
       run_cleanup: ${{ inputs.run_cleanup }}
       run_migrations: true
