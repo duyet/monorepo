@@ -1,0 +1,164 @@
+name: Data Sync Template
+
+on:
+  workflow_call:
+    inputs:
+      sources:
+        description: 'Comma-separated list of sources to sync (github,wakatime,cloudflare,unsplash)'
+        required: true
+        type: string
+      run_migrations:
+        description: 'Run migrations before sync'
+        required: false
+        type: boolean
+        default: true
+      run_cleanup:
+        description: 'Run retention cleanup after sync'
+        required: false
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Dry run mode (preview without writing)'
+        required: false
+        type: boolean
+        default: false
+      log_artifact_name:
+        description: 'Name suffix for log artifacts'
+        required: false
+        type: string
+        default: 'sync'
+    secrets:
+      CLICKHOUSE_HOST:
+        required: true
+      CLICKHOUSE_PASSWORD:
+        required: true
+      CLICKHOUSE_PORT:
+        required: false
+      CLICKHOUSE_DATABASE:
+        required: false
+      DUYETBOT_GITHUB_TOKEN:
+        required: false
+      WAKATIME_API_KEY:
+        required: false
+      CLOUDFLARE_API_KEY:
+        required: false
+      CLOUDFLARE_ZONE_ID:
+        required: false
+      CF_ANALYTICS_TOKEN:
+        required: false
+      CF_ZONE_TAG:
+        required: false
+      UNSPLASH_ACCESS_KEY:
+        required: false
+      UNSPLASH_USERNAME:
+        required: false
+
+jobs:
+  sync:
+    name: Data Sync
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      # ClickHouse - use CLICKHOUSE_* naming convention
+      CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+      CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+      CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+      CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+      # GitHub
+      GH_TOKEN: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
+      GITHUB_USERNAME: duyetbot
+      # WakaTime
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+      # Cloudflare
+      CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
+      CF_ZONE_TAG: ${{ secrets.CF_ZONE_TAG }}
+      # Unsplash
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+      UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
+      # Control flags
+      DRY_RUN: ${{ inputs.dry_run }}
+      SYNC_SOURCES: ${{ inputs.sources }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run migrations
+        if: inputs.run_migrations
+        working-directory: apps/data-sync
+        run: bun run migrate:up
+
+      - name: Sync sources
+        working-directory: apps/data-sync
+        run: |
+          IFS=',' read -ra SOURCES <<< "$SYNC_SOURCES"
+          for source in "${SOURCES[@]}"; do
+            source=$(echo "$source" | xargs)  # trim whitespace
+            echo "::group::Syncing $source"
+            if [ "$DRY_RUN" = "true" ]; then
+              bun run sync "$source" --dry-run
+            else
+              bun run sync "$source"
+            fi
+            echo "::endgroup::"
+          done
+
+      - name: Upload sync logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.log_artifact_name }}-logs-${{ github.run_id }}
+          path: apps/data-sync/logs/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  cleanup:
+    name: Retention Cleanup
+    runs-on: ubuntu-latest
+    needs: sync
+    if: inputs.run_cleanup
+    timeout-minutes: 15
+
+    env:
+      CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+      CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+      CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+      CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+      DRY_RUN: ${{ inputs.dry_run }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run retention cleanup
+        working-directory: apps/data-sync
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            bun run cleanup --dry-run
+          else
+            bun run cleanup
+          fi
+
+      - name: Upload cleanup logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleanup-logs-${{ github.run_id }}
+          path: apps/data-sync/logs/
+          retention-days: 7
+          if-no-files-found: ignore

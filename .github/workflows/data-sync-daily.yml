@@ -9,70 +9,23 @@ on:
       dry_run:
         description: 'Dry run mode (preview without writing)'
         required: false
-        default: 'false'
+        default: false
         type: boolean
-
-env:
-  # ClickHouse
-  CH_HOST: ${{ secrets.CH_HOST }}
-  CH_PASSWORD: ${{ secrets.CH_PASSWORD }}
-  CH_PORT: ${{ secrets.CH_PORT }}
-  CH_DATABASE: ${{ secrets.CH_DATABASE }}
-
-  # WakaTime
-  WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-
-  # Cloudflare
-  CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
-  CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-  CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
-  CF_ZONE_TAG: ${{ secrets.CF_ZONE_TAG }}
 
 jobs:
   sync:
-    name: Sync Daily Sources
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Run migrations
-        working-directory: apps/data-sync
-        run: bun run migrate:up
-
-      - name: Sync WakaTime
-        working-directory: apps/data-sync
-        run: |
-          if [ "$DRY_RUN" = "true" ]; then
-            bun run sync wakatime --dry-run
-          else
-            bun run sync wakatime
-          fi
-
-      - name: Sync Cloudflare
-        working-directory: apps/data-sync
-        run: |
-          if [ "$DRY_RUN" = "true" ]; then
-            bun run sync cloudflare --dry-run
-          else
-            bun run sync cloudflare
-          fi
-
-      - name: Upload sync logs
-        if: always()
-        uses: actions/upload-artifact@v5
-        with:
-          name: sync-logs-daily-${{ github.run_id }}
-          path: apps/data-sync/logs/
-          retention-days: 7
-          if-no-files-found: ignore
+    uses: ./.github/workflows/data-sync-template.yml
+    with:
+      sources: wakatime,cloudflare
+      dry_run: ${{ inputs.dry_run || false }}
+      log_artifact_name: sync-daily
+    secrets:
+      CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+      CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+      CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+      CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+      CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
+      CF_ZONE_TAG: ${{ secrets.CF_ZONE_TAG }}
