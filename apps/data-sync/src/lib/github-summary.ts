@@ -22,10 +22,10 @@ export async function getTableStatus(
   client: ClickHouseClient
 ): Promise<TableStatus[]> {
   const tables = [
-    "monorepo_github_contributions_raw",
-    "monorepo_wakatime_stats_raw",
-    "monorepo_cloudflare_analytics_raw",
-    "monorepo_unsplash_photos_raw",
+    "data_sync_github",
+    "data_sync_wakatime",
+    "data_sync_cloudflare",
+    "data_sync_unsplash",
   ];
 
   const statuses: TableStatus[] = [];
@@ -47,7 +47,7 @@ export async function getTableStatus(
       if (Array.isArray(data) && data.length > 0) {
         const row = data[0] as { total_records: number; last_sync: string };
         statuses.push({
-          table: table.replace("monorepo_", "").replace("_raw", ""),
+          table: table.replace("data_sync_", ""),
           totalRecords: row.total_records ?? 0,
           lastSync: row.last_sync,
         });
@@ -55,7 +55,7 @@ export async function getTableStatus(
     } catch (error) {
       // Table might not exist yet, skip
       statuses.push({
-        table: table.replace("monorepo_", "").replace("_raw", ""),
+        table: table.replace("data_sync_", ""),
         totalRecords: 0,
         lastSync: undefined,
       });
