@@ -46,7 +46,7 @@ export class CloudflareSyncer extends BaseSyncer<
   }
 
   protected getTableName(): string {
-    return "data_sync_cloudflare";
+    return "monorepo_cloudflare";
   }
 
   protected async fetchFromApi(

@@ -201,7 +201,7 @@ export class MigrationRunner {
     console.log("[Migration Runner] Initializing migrations table...");
 
     const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS data_sync_migrations (
+      CREATE TABLE IF NOT EXISTS monorepo_migrations (
         version UInt32,
         name String,
         checksum String,
@@ -257,7 +257,7 @@ export class MigrationRunner {
     }
 
     const query =
-      "SELECT version, name, checksum, applied_at FROM data_sync_migrations ORDER BY version";
+      "SELECT version, name, checksum, applied_at FROM monorepo_migrations ORDER BY version";
     const result = await executeQuery(query);
 
     if (!result.success) {
@@ -329,7 +329,7 @@ export class MigrationRunner {
 
         // Record migration using executeCommand (not executeQuery)
         const insertQuery = `
-          INSERT INTO data_sync_migrations (version, name, checksum)
+          INSERT INTO monorepo_migrations (version, name, checksum)
           VALUES (${migration.version}, '${migration.name}', '${migration.checksum}')
         `;
 
@@ -407,7 +407,7 @@ export class MigrationRunner {
 
         // Remove migration record
         const deleteQuery = `
-          ALTER TABLE data_sync_migrations
+          ALTER TABLE monorepo_migrations
           DELETE WHERE version = ${migration.version}
         `;
 

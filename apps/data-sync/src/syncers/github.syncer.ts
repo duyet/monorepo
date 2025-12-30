@@ -63,7 +63,7 @@ export class GitHubSyncer extends BaseSyncer<
   }
 
   protected getTableName(): string {
-    return "data_sync_github";
+    return "monorepo_github";
   }
 
   protected async fetchFromApi(

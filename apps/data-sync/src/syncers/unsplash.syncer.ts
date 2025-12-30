@@ -66,7 +66,7 @@ export class UnsplashSyncer extends BaseSyncer<
   }
 
   protected getTableName(): string {
-    return "data_sync_unsplash";
+    return "monorepo_unsplash";
   }
 
   protected async fetchFromApi(

@@ -95,7 +95,7 @@ export class WakaTimeSyncer extends BaseSyncer<
   }
 
   protected getTableName(): string {
-    return "data_sync_wakatime";
+    return "monorepo_wakatime";
   }
 
   protected async fetchFromApi(

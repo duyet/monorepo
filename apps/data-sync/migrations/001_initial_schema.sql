@@ -4,28 +4,25 @@
 -- UP
 
 -- Drop old migrations table (if exists from previous setup)
-DROP TABLE IF EXISTS monorepo_migrations;
+DROP TABLE IF EXISTS data_sync_migrations;
 
--- Drop old tables with legacy naming
-DROP VIEW IF EXISTS monorepo_github_contributions_daily_mv;
-DROP TABLE IF EXISTS monorepo_github_contributions_daily;
-DROP TABLE IF EXISTS monorepo_github_contributions_raw;
-DROP TABLE IF EXISTS monorepo_github_events_raw;
-DROP TABLE IF EXISTS monorepo_github_repo_stats_raw;
+-- Drop old tables with previous naming
+DROP VIEW IF EXISTS data_sync_github_daily_mv;
+DROP TABLE IF EXISTS data_sync_github_daily;
+DROP TABLE IF EXISTS data_sync_github;
 
-DROP VIEW IF EXISTS monorepo_wakatime_daily_mv;
-DROP TABLE IF EXISTS monorepo_wakatime_daily;
-DROP TABLE IF EXISTS monorepo_wakatime_raw;
+DROP VIEW IF EXISTS data_sync_wakatime_daily_mv;
+DROP TABLE IF EXISTS data_sync_wakatime_daily;
+DROP TABLE IF EXISTS data_sync_wakatime;
 
-DROP VIEW IF EXISTS monorepo_cloudflare_daily_mv;
-DROP TABLE IF EXISTS monorepo_cloudflare_daily;
-DROP TABLE IF EXISTS monorepo_cloudflare_raw;
+DROP VIEW IF EXISTS data_sync_cloudflare_daily_mv;
+DROP TABLE IF EXISTS data_sync_cloudflare_daily;
+DROP TABLE IF EXISTS data_sync_cloudflare;
 
-DROP TABLE IF EXISTS monorepo_unsplash_photo_stats_raw;
-DROP TABLE IF EXISTS monorepo_unsplash_portfolio_stats_raw;
+DROP TABLE IF EXISTS data_sync_unsplash;
 
 -- GitHub contributions table
-CREATE TABLE IF NOT EXISTS data_sync_github (
+CREATE TABLE IF NOT EXISTS monorepo_github (
     sync_version Int64,
     is_deleted UInt8 DEFAULT 0,
     date Date,
@@ -47,7 +44,7 @@ TTL date + INTERVAL 365 DAY DELETE
 SETTINGS index_granularity = 8192;
 
 -- GitHub daily materialized view
-CREATE TABLE IF NOT EXISTS data_sync_github_daily (
+CREATE TABLE IF NOT EXISTS monorepo_github_daily (
   date Date,
   username String,
   contribution_count UInt32,
@@ -63,19 +60,19 @@ CREATE TABLE IF NOT EXISTS data_sync_github_daily (
 ORDER BY (date, username)
 PARTITION BY toYYYYMM(date);
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS data_sync_github_daily_mv
-TO data_sync_github_daily
+CREATE MATERIALIZED VIEW IF NOT EXISTS monorepo_github_daily_mv
+TO monorepo_github_daily
 AS SELECT
   date,
   username,
   contribution_count,
   contribution_level,
   synced_at
-FROM data_sync_github
+FROM monorepo_github
 WHERE is_deleted = 0;
 
 -- WakaTime stats table
-CREATE TABLE IF NOT EXISTS data_sync_wakatime (
+CREATE TABLE IF NOT EXISTS monorepo_wakatime (
   date Date,
   total_seconds UInt64,
   daily_average UInt64,
@@ -98,7 +95,7 @@ PARTITION BY toYYYYMM(date)
 TTL date + INTERVAL 2 YEAR;
 
 -- WakaTime daily materialized view
-CREATE TABLE IF NOT EXISTS data_sync_wakatime_daily (
+CREATE TABLE IF NOT EXISTS monorepo_wakatime_daily (
   date Date,
   total_seconds UInt64,
   daily_average UInt64,
@@ -116,8 +113,8 @@ CREATE TABLE IF NOT EXISTS data_sync_wakatime_daily (
 ORDER BY (date)
 PARTITION BY toYYYYMM(date);
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS data_sync_wakatime_daily_mv
-TO data_sync_wakatime_daily
+CREATE MATERIALIZED VIEW IF NOT EXISTS monorepo_wakatime_daily_mv
+TO monorepo_wakatime_daily
 AS SELECT
   date,
   total_seconds,
@@ -132,11 +129,11 @@ AS SELECT
   best_day_date,
   best_day_seconds,
   synced_at
-FROM data_sync_wakatime
+FROM monorepo_wakatime
 WHERE is_deleted = 0;
 
 -- Cloudflare analytics table
-CREATE TABLE IF NOT EXISTS data_sync_cloudflare (
+CREATE TABLE IF NOT EXISTS monorepo_cloudflare (
   date Date,
   requests UInt64,
   page_views UInt64,
@@ -154,7 +151,7 @@ PARTITION BY toYYYYMM(date)
 TTL date + INTERVAL 2 YEAR;
 
 -- Cloudflare daily materialized view
-CREATE TABLE IF NOT EXISTS data_sync_cloudflare_daily (
+CREATE TABLE IF NOT EXISTS monorepo_cloudflare_daily (
   date Date,
   requests UInt64,
   page_views UInt64,
@@ -167,8 +164,8 @@ CREATE TABLE IF NOT EXISTS data_sync_cloudflare_daily (
 ORDER BY (date)
 PARTITION BY toYYYYMM(date);
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS data_sync_cloudflare_daily_mv
-TO data_sync_cloudflare_daily
+CREATE MATERIALIZED VIEW IF NOT EXISTS monorepo_cloudflare_daily_mv
+TO monorepo_cloudflare_daily
 AS SELECT
   date,
   requests,
@@ -178,11 +175,11 @@ AS SELECT
   total_bytes,
   cache_ratio,
   synced_at
-FROM data_sync_cloudflare
+FROM monorepo_cloudflare
 WHERE is_deleted = 0;
 
 -- Unsplash photos table
-CREATE TABLE IF NOT EXISTS data_sync_unsplash (
+CREATE TABLE IF NOT EXISTS monorepo_unsplash (
     sync_version Int64,
     is_deleted UInt8 DEFAULT 0,
     snapshot_date Date,
@@ -208,16 +205,16 @@ TTL snapshot_date + INTERVAL 90 DAY DELETE
 SETTINGS index_granularity = 8192;
 
 -- DOWN
-DROP VIEW IF EXISTS data_sync_github_daily_mv;
-DROP TABLE IF EXISTS data_sync_github_daily;
-DROP TABLE IF EXISTS data_sync_github;
+DROP VIEW IF EXISTS monorepo_github_daily_mv;
+DROP TABLE IF EXISTS monorepo_github_daily;
+DROP TABLE IF EXISTS monorepo_github;
 
-DROP VIEW IF EXISTS data_sync_wakatime_daily_mv;
-DROP TABLE IF EXISTS data_sync_wakatime_daily;
-DROP TABLE IF EXISTS data_sync_wakatime;
+DROP VIEW IF EXISTS monorepo_wakatime_daily_mv;
+DROP TABLE IF EXISTS monorepo_wakatime_daily;
+DROP TABLE IF EXISTS monorepo_wakatime;
 
-DROP VIEW IF EXISTS data_sync_cloudflare_daily_mv;
-DROP TABLE IF EXISTS data_sync_cloudflare_daily;
-DROP TABLE IF EXISTS data_sync_cloudflare;
+DROP VIEW IF EXISTS monorepo_cloudflare_daily_mv;
+DROP TABLE IF EXISTS monorepo_cloudflare_daily;
+DROP TABLE IF EXISTS monorepo_cloudflare;
 
-DROP TABLE IF EXISTS data_sync_unsplash;
+DROP TABLE IF EXISTS monorepo_unsplash;
