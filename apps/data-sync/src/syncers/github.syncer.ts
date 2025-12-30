@@ -70,22 +70,25 @@ export class GitHubSyncer extends BaseSyncer<
     _options: SyncOptions
   ): Promise<GitHubContributionsResponse[]> {
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
-    if (!token) {
-      throw new Error("GITHUB_TOKEN or GH_TOKEN environment variable not set");
-    }
 
     this.logger.info(
       `Fetching GitHub contributions for user: ${this.username}`
     );
 
     const response = await this.withRetry(async () => {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+        "User-Agent": "data-sync-app",
+      };
+
+      // Add auth if token is available (optional for public data)
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const res = await fetch(GITHUB_GRAPHQL_URL, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-          "User-Agent": "data-sync-app",
-        },
+        headers,
         body: JSON.stringify({
           query: CONTRIBUTIONS_QUERY,
           variables: { username: this.username },

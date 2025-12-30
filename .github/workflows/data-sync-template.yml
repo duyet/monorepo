@@ -38,8 +38,6 @@ on:
         required: false
       CLICKHOUSE_DATABASE:
         required: false
-      DUYETBOT_GITHUB_TOKEN:
-        required: false
       WAKATIME_API_KEY:
         required: false
       CLOUDFLARE_API_KEY:
@@ -73,7 +71,6 @@ jobs:
       CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
       CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
       # GitHub
-      GH_TOKEN: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
       GITHUB_USERNAME: duyetbot
       # WakaTime
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
