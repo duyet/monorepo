@@ -61,7 +61,7 @@ export class PostHogSyncer extends BaseSyncer<
     const allEvents: PostHogEvent[] = [];
 
     // Start with initial URL
-    let url = new URL(
+    let url: URL | null = new URL(
       `${POSTHOG_API_URL}/api/projects/${this.projectId}/events/`
     );
 
@@ -84,7 +84,7 @@ export class PostHogSyncer extends BaseSyncer<
         pageCount++;
 
         const response = await this.withRetry(async () => {
-          const res = await fetch(url.toString(), {
+          const res = await fetch(url!.toString(), {
             method: "GET",
             headers: {
               Authorization: `Bearer ${this.apiKey}`,
@@ -114,11 +114,7 @@ export class PostHogSyncer extends BaseSyncer<
         allEvents.push(...response.results);
 
         // Check for next page
-        if (response.next) {
-          url = new URL(response.next);
-        } else {
-          url = new URL("about:blank");
-        }
+        url = response.next ? new URL(response.next) : null;
 
         this.logger.info(
           `Fetched page ${pageCount}: ${response.results.length} events`
