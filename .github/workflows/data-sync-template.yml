@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       sources:
-        description: 'Comma-separated list of sources to sync (github,wakatime,cloudflare,unsplash)'
+        description: 'Comma-separated list of sources to sync (github,wakatime,cloudflare,unsplash,posthog)'
         required: true
         type: string
       run_migrations:
@@ -58,6 +58,10 @@ on:
         required: true
       GH_TOKEN:
         required: false
+      POSTHOG_API_KEY:
+        required: false
+      POSTHOG_PROJECT_ID:
+        required: false
 
 jobs:
   sync:
@@ -85,6 +89,9 @@ jobs:
       # Unsplash
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
+      # PostHog
+      POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+      POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
       # Tailscale
       TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
       TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}

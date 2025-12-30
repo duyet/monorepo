@@ -1,6 +1,7 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { CloudflareSyncer } from "./cloudflare.syncer";
 import { GitHubSyncer } from "./github.syncer";
+import { PostHogSyncer } from "./posthog.syncer";
 import { UnsplashSyncer } from "./unsplash.syncer";
 import { WakaTimeSyncer } from "./wakatime.syncer";
 
@@ -8,6 +9,7 @@ export { WakaTimeSyncer } from "./wakatime.syncer";
 export { CloudflareSyncer } from "./cloudflare.syncer";
 export { GitHubSyncer } from "./github.syncer";
 export { UnsplashSyncer } from "./unsplash.syncer";
+export { PostHogSyncer } from "./posthog.syncer";
 
 export type SyncerConstructor = new (
   client: ClickHouseClient
@@ -20,6 +22,7 @@ export const syncerMap: Record<string, SyncerConstructor> = {
   cloudflare: CloudflareSyncer,
   github: GitHubSyncer,
   unsplash: UnsplashSyncer,
+  posthog: PostHogSyncer,
 };
 
 export const ALL_SYNCERS = Object.keys(syncerMap);

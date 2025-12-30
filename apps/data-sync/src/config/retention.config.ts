@@ -20,6 +20,11 @@ export const retentionPolicies: RetentionPolicy[] = [
     retentionDays: 365,
     partitionColumn: "date",
   },
+  {
+    tableName: "monorepo_posthog_daily",
+    retentionDays: 90,
+    partitionColumn: "date",
+  },
 ];
 
 export const DEFAULT_RETENTION_DAYS = 90;

@@ -30,6 +30,12 @@ export const sourceConfigs: Record<string, SourceConfig> = {
     schedule: "0 2 * * 0", // Weekly on Sunday
     description: "Unsplash photo statistics",
   },
+  posthog: {
+    name: "posthog",
+    enabled: true,
+    schedule: "0 3 * * *", // Daily at 3am
+    description: "PostHog analytics and user behavior",
+  },
 };
 
 export const ALL_SOURCES = Object.keys(sourceConfigs);

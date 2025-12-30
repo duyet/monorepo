@@ -27,10 +27,12 @@ export async function getTableStatus(
     "monorepo_wakatime",
     "monorepo_cloudflare",
     "monorepo_unsplash",
+    "monorepo_posthog",
     // Aggregated materialized views
     "monorepo_github_daily",
     "monorepo_wakatime_daily",
     "monorepo_cloudflare_daily",
+    "monorepo_posthog_daily",
   ];
 
   const statuses: TableStatus[] = [];
