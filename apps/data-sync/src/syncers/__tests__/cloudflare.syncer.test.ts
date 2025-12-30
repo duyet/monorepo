@@ -1,8 +1,8 @@
-import { describe, test, expect, beforeEach, mock } from 'bun:test';
-import { CloudflareSyncer } from '../cloudflare.syncer';
-import type { ClickHouseClient } from '@clickhouse/client';
+import { beforeEach, describe, expect, mock, test } from "bun:test";
+import type { ClickHouseClient } from "@clickhouse/client";
+import { CloudflareSyncer } from "../cloudflare.syncer";
 
-describe('CloudflareSyncer', () => {
+describe("CloudflareSyncer", () => {
   let mockClient: ClickHouseClient;
 
   beforeEach(() => {
@@ -13,17 +13,17 @@ describe('CloudflareSyncer', () => {
     } as unknown as ClickHouseClient;
   });
 
-  test('should create syncer instance', () => {
+  test("should create syncer instance", () => {
     const syncer = new CloudflareSyncer(mockClient);
     expect(syncer).toBeDefined();
   });
 
-  test('should be CloudflareSyncer instance', () => {
+  test("should be CloudflareSyncer instance", () => {
     const syncer = new CloudflareSyncer(mockClient);
     expect(syncer).toBeInstanceOf(CloudflareSyncer);
   });
 
-  test('should throw error when CLOUDFLARE credentials are missing', async () => {
+  test("should throw error when CLOUDFLARE credentials are missing", async () => {
     const originalZoneId = process.env.CLOUDFLARE_ZONE_ID;
     const originalApiKey = process.env.CLOUDFLARE_API_KEY;
 
@@ -36,7 +36,7 @@ describe('CloudflareSyncer', () => {
       await syncer.sync({ dryRun: true });
     } catch (error) {
       expect(error instanceof Error).toBe(true);
-      expect((error as Error).message).toContain('CLOUDFLARE');
+      expect((error as Error).message).toContain("CLOUDFLARE");
     }
 
     if (originalZoneId) process.env.CLOUDFLARE_ZONE_ID = originalZoneId;

@@ -1,7 +1,7 @@
-import type { ClickHouseClient } from '@clickhouse/client';
-import { BaseSyncer } from '../lib/base';
-import type { SyncOptions } from '../lib/base/types';
-import { wakatimeConfig } from '@duyet/config';
+import type { ClickHouseClient } from "@clickhouse/client";
+import { wakatimeConfig } from "@duyet/config";
+import { BaseSyncer } from "../lib/base";
+import type { SyncOptions } from "../lib/base/types";
 
 interface WakaTimeCategory {
   name: string;
@@ -86,53 +86,64 @@ interface WakaTimeDailyRecord {
   raw_response: string;
 }
 
-export class WakaTimeSyncer extends BaseSyncer<WakaTimeStatsResponse, WakaTimeDailyRecord> {
+export class WakaTimeSyncer extends BaseSyncer<
+  WakaTimeStatsResponse,
+  WakaTimeDailyRecord
+> {
   constructor(client: ClickHouseClient) {
-    super(client, 'wakatime');
+    super(client, "wakatime");
   }
 
   protected getTableName(): string {
-    return 'monorepo_wakatime_raw';
+    return "monorepo_wakatime_raw";
   }
 
-  protected async fetchFromApi(options: SyncOptions): Promise<WakaTimeStatsResponse[]> {
+  protected async fetchFromApi(
+    options: SyncOptions
+  ): Promise<WakaTimeStatsResponse[]> {
     const apiKey = process.env.WAKATIME_API_KEY;
     if (!apiKey) {
-      throw new Error('WAKATIME_API_KEY environment variable not set');
+      throw new Error("WAKATIME_API_KEY environment variable not set");
     }
 
     const range = this.determineRange(options);
     this.logger.info(`Fetching WakaTime stats for range: ${range}`);
 
     const endpoint = wakatimeConfig.endpoints.stats(range);
-    const separator = endpoint.includes('?') ? '&' : '?';
+    const separator = endpoint.includes("?") ? "&" : "?";
     const url = `${wakatimeConfig.baseUrl}${endpoint}${separator}api_key=${apiKey}`;
 
     try {
       const response = await this.withRetry(async () => {
         const res = await fetch(url, {
           headers: {
-            'User-Agent': 'data-sync-app',
+            "User-Agent": "data-sync-app",
           },
         });
 
         if (!res.ok) {
           if (res.status === 401) {
-            throw new Error('WakaTime API authentication failed: Invalid or expired API key');
+            throw new Error(
+              "WakaTime API authentication failed: Invalid or expired API key"
+            );
           }
           if (res.status === 403) {
-            throw new Error('WakaTime API access forbidden - check permissions');
+            throw new Error(
+              "WakaTime API access forbidden - check permissions"
+            );
           }
           if (res.status === 429) {
-            throw new Error('WakaTime API rate limit exceeded');
+            throw new Error("WakaTime API rate limit exceeded");
           }
-          throw new Error(`WakaTime API error: ${res.status} ${res.statusText}`);
+          throw new Error(
+            `WakaTime API error: ${res.status} ${res.statusText}`
+          );
         }
 
         const data = await res.json();
 
-        if (!data || typeof data !== 'object' || !data.data) {
-          throw new Error('WakaTime API returned invalid response format');
+        if (!data || typeof data !== "object" || !data.data) {
+          throw new Error("WakaTime API returned invalid response format");
         }
 
         return data;
@@ -140,26 +151,31 @@ export class WakaTimeSyncer extends BaseSyncer<WakaTimeStatsResponse, WakaTimeDa
 
       return [response];
     } catch (error) {
-      this.logger.error('Failed to fetch from WakaTime API', {
+      this.logger.error("Failed to fetch from WakaTime API", {
         error: error instanceof Error ? error.message : String(error),
       });
       throw error;
     }
   }
 
-  protected async transform(data: WakaTimeStatsResponse[]): Promise<WakaTimeDailyRecord[]> {
-    return data.map(response => {
+  protected async transform(
+    data: WakaTimeStatsResponse[]
+  ): Promise<WakaTimeDailyRecord[]> {
+    return data.map((response) => {
       const { data: statsData } = response;
 
       // Use end date as the record date (end is top-level in data, not nested under range)
-      const date = statsData.end.split('T')[0];
+      const date = statsData.end.split("T")[0];
 
       return {
         date,
         // Round floats to integers for ClickHouse UInt64 columns
         total_seconds: Math.round(statsData.total_seconds || 0),
         daily_average: Math.round(statsData.daily_average || 0),
-        days_active: statsData.days_minus_holidays || statsData.days_including_holidays || 0,
+        days_active:
+          statsData.days_minus_holidays ||
+          statsData.days_including_holidays ||
+          0,
         categories: JSON.stringify(statsData.categories || []),
         languages: JSON.stringify(statsData.languages || []),
         editors: JSON.stringify(statsData.editors || []),
@@ -179,8 +195,11 @@ export class WakaTimeSyncer extends BaseSyncer<WakaTimeStatsResponse, WakaTimeDa
     // If date range specified, use appropriate range
     if (options.startDate || options.endDate) {
       const now = new Date();
-      const start = options.startDate || new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const daysDiff = Math.floor((now.getTime() - start.getTime()) / (24 * 60 * 60 * 1000));
+      const start =
+        options.startDate || new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const daysDiff = Math.floor(
+        (now.getTime() - start.getTime()) / (24 * 60 * 60 * 1000)
+      );
 
       if (daysDiff <= 7) return wakatimeConfig.ranges.last_7_days;
       if (daysDiff <= 30) return wakatimeConfig.ranges.last_30_days;

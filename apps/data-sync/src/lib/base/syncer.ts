@@ -1,6 +1,6 @@
-import type { ClickHouseClient } from '@clickhouse/client';
-import type { SyncResult, SyncOptions, SyncError, SyncMetadata } from './types';
-import { createLogger } from '../logger';
+import type { ClickHouseClient } from "@clickhouse/client";
+import { createLogger } from "../logger";
+import type { SyncError, SyncMetadata, SyncOptions, SyncResult } from "./types";
 
 export abstract class BaseSyncer<TApiResponse, TRecord> {
   protected readonly sourceName: string;
@@ -24,7 +24,7 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
     const recordsUpdated = 0;
 
     try {
-      this.logger.info('Starting sync', { options });
+      this.logger.info("Starting sync", { options });
 
       // 1. Fetch from API with retry
       const apiData = await this.withRetry(
@@ -43,15 +43,15 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
         recordsInserted = await this.insert(records);
         this.logger.info(`Inserted ${recordsInserted} records`);
       } else if (options.dryRun) {
-        this.logger.info('Dry run mode - skipping insert');
+        this.logger.info("Dry run mode - skipping insert");
       } else {
-        this.logger.info('No records to insert');
+        this.logger.info("No records to insert");
       }
 
       const endTime = new Date();
       const durationMs = endTime.getTime() - startTime.getTime();
 
-      this.logger.info('Sync completed successfully', {
+      this.logger.info("Sync completed successfully", {
         durationMs,
         recordsProcessed,
         recordsInserted,
@@ -74,13 +74,16 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
 
       const syncError: SyncError = {
         message: error instanceof Error ? error.message : String(error),
-        code: error instanceof Error && 'code' in error ? String(error.code) : undefined,
+        code:
+          error instanceof Error && "code" in error
+            ? String(error.code)
+            : undefined,
         retryable: error instanceof Error ? this.isRetryable(error) : false,
         context: { options },
       };
 
       errors.push(syncError);
-      this.logger.error('Sync failed', syncError);
+      this.logger.error("Sync failed", syncError);
 
       return {
         source: this.sourceName,
@@ -99,7 +102,9 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
   /**
    * Fetch data from external API - implemented by subclass
    */
-  protected abstract fetchFromApi(options: SyncOptions): Promise<TApiResponse[]>;
+  protected abstract fetchFromApi(
+    options: SyncOptions
+  ): Promise<TApiResponse[]>;
 
   /**
    * Transform API response to ClickHouse records - implemented by subclass
@@ -122,7 +127,7 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
     // Add sync metadata to all records
     // Use ClickHouse-compatible DateTime format: YYYY-MM-DD HH:MM:SS
     const now = new Date();
-    const currentTimestamp = now.toISOString().slice(0, 19).replace('T', ' ');
+    const currentTimestamp = now.toISOString().slice(0, 19).replace("T", " ");
     // sync_version as simple incrementing value (seconds since epoch fits in UInt32 until 2106)
     const syncVersion = Math.floor(now.getTime() / 1000);
     const recordsWithMetadata = records.map((record) => ({
@@ -143,7 +148,7 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
       await this.client.insert({
         table: tableName,
         values: batch,
-        format: 'JSONEachRow',
+        format: "JSONEachRow",
       });
 
       totalInserted += batch.length;
@@ -171,10 +176,13 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
           throw lastError;
         }
 
-        const delayMs = Math.pow(2, attempt - 1) * 1000; // 1s, 2s, 4s
-        this.logger.warn(`Attempt ${attempt} failed, retrying in ${delayMs}ms`, {
-          error: lastError.message,
-        });
+        const delayMs = 2 ** (attempt - 1) * 1000; // 1s, 2s, 4s
+        this.logger.warn(
+          `Attempt ${attempt} failed, retrying in ${delayMs}ms`,
+          {
+            error: lastError.message,
+          }
+        );
 
         await this.sleep(delayMs);
       }

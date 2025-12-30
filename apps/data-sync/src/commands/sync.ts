@@ -1,79 +1,77 @@
 #!/usr/bin/env bun
-import { closeClient, getClient } from '../lib/clickhouse'
-import { ALL_SOURCES, sourceConfigs } from '../config'
-import { logger } from '../lib'
-import { syncerMap } from '../syncers'
+import { ALL_SOURCES, sourceConfigs } from "../config";
+import { logger } from "../lib";
+import { closeClient, getClient } from "../lib/clickhouse";
+import { syncerMap } from "../syncers";
 
 interface SyncSummary {
-  source: string
-  success: boolean
-  recordsProcessed: number
-  duration: number
-  error?: string
+  source: string;
+  success: boolean;
+  recordsProcessed: number;
+  duration: number;
+  error?: string;
 }
 
 async function main() {
-  const args = process.argv.slice(2)
-  const dryRun = args.includes('--dry-run')
-  const sources = args.filter((arg) => !arg.startsWith('--'))
+  const args = process.argv.slice(2);
+  const dryRun = args.includes("--dry-run");
+  const sources = args.filter((arg) => !arg.startsWith("--"));
 
   // Parse sources: 'all' means all enabled sources
   const sourcesToSync =
-    sources.includes('all') || sources.length === 0
+    sources.includes("all") || sources.length === 0
       ? ALL_SOURCES.filter((s) => sourceConfigs[s].enabled)
-      : sources
+      : sources;
 
   // Validate sources
-  const invalidSources = sourcesToSync.filter((s) => !sourceConfigs[s])
+  const invalidSources = sourcesToSync.filter((s) => !sourceConfigs[s]);
   if (invalidSources.length > 0) {
-    logger.error(`Invalid sources: ${invalidSources.join(', ')}`)
-    logger.info(
-      `Available sources: ${ALL_SOURCES.join(', ')}`
-    )
-    process.exit(1)
+    logger.error(`Invalid sources: ${invalidSources.join(", ")}`);
+    logger.info(`Available sources: ${ALL_SOURCES.join(", ")}`);
+    process.exit(1);
   }
 
   if (dryRun) {
-    logger.info('DRY RUN MODE - No data will be written')
+    logger.info("DRY RUN MODE - No data will be written");
   }
 
-  logger.info(`Starting sync for sources: ${sourcesToSync.join(', ')}`)
+  logger.info(`Starting sync for sources: ${sourcesToSync.join(", ")}`);
 
-  const summaries: SyncSummary[] = []
-  const startTime = Date.now()
+  const summaries: SyncSummary[] = [];
+  const startTime = Date.now();
 
   for (const source of sourcesToSync) {
-    const config = sourceConfigs[source]
-    const syncStart = Date.now()
+    const config = sourceConfigs[source];
+    const syncStart = Date.now();
 
-    logger.info(`Syncing ${config.name}: ${config.description}`)
+    logger.info(`Syncing ${config.name}: ${config.description}`);
 
     try {
-      const SyncerClass = syncerMap[source]
+      const SyncerClass = syncerMap[source];
 
       if (!SyncerClass) {
-        logger.warn(`Syncer for ${source} not implemented yet`)
+        logger.warn(`Syncer for ${source} not implemented yet`);
 
-        const duration = Date.now() - syncStart
+        const duration = Date.now() - syncStart;
         summaries.push({
           source,
           success: false,
           recordsProcessed: 0,
           duration,
-          error: 'Syncer not implemented',
-        })
-        continue
+          error: "Syncer not implemented",
+        });
+        continue;
       }
 
-      const client = getClient()
+      const client = getClient();
       if (!client) {
-        throw new Error('ClickHouse client not available')
+        throw new Error("ClickHouse client not available");
       }
 
-      const syncer = new SyncerClass(client)
-      const result = await syncer.sync({ dryRun })
+      const syncer = new SyncerClass(client);
+      const result = await syncer.sync({ dryRun });
 
-      const duration = Date.now() - syncStart
+      const duration = Date.now() - syncStart;
 
       summaries.push({
         source,
@@ -81,12 +79,12 @@ async function main() {
         recordsProcessed: result.recordsProcessed,
         duration,
         error: result.errors.length > 0 ? result.errors[0].message : undefined,
-      })
+      });
     } catch (error) {
-      const duration = Date.now() - syncStart
-      const errorMsg = error instanceof Error ? error.message : 'Unknown error'
+      const duration = Date.now() - syncStart;
+      const errorMsg = error instanceof Error ? error.message : "Unknown error";
 
-      logger.error(`Failed to sync ${source}: ${errorMsg}`)
+      logger.error(`Failed to sync ${source}: ${errorMsg}`);
 
       summaries.push({
         source,
@@ -94,50 +92,53 @@ async function main() {
         recordsProcessed: 0,
         duration,
         error: errorMsg,
-      })
+      });
     }
   }
 
   // Print summary
-  const totalDuration = Date.now() - startTime
-  const successCount = summaries.filter((s) => s.success).length
-  const failureCount = summaries.length - successCount
-  const totalRecords = summaries.reduce((sum, s) => sum + s.recordsProcessed, 0)
+  const totalDuration = Date.now() - startTime;
+  const successCount = summaries.filter((s) => s.success).length;
+  const failureCount = summaries.length - successCount;
+  const totalRecords = summaries.reduce(
+    (sum, s) => sum + s.recordsProcessed,
+    0
+  );
 
-  console.log('\n' + '='.repeat(60))
-  logger.info('SYNC SUMMARY')
-  console.log('='.repeat(60))
+  console.log(`\n${"=".repeat(60)}`);
+  logger.info("SYNC SUMMARY");
+  console.log("=".repeat(60));
 
   for (const summary of summaries) {
-    const status = summary.success ? '✓' : '✗'
-    const statusColor = summary.success ? '\x1b[32m' : '\x1b[31m'
-    const resetColor = '\x1b[0m'
+    const status = summary.success ? "✓" : "✗";
+    const statusColor = summary.success ? "\x1b[32m" : "\x1b[31m";
+    const resetColor = "\x1b[0m";
 
     console.log(
       `${statusColor}${status}${resetColor} ${summary.source.padEnd(15)} ` +
         `${summary.recordsProcessed.toString().padStart(8)} records  ` +
         `${(summary.duration / 1000).toFixed(2)}s`
-    )
+    );
 
     if (summary.error) {
-      console.log(`  ${'\x1b[31m'}Error: ${summary.error}${'\x1b[0m'}`)
+      console.log(`  ${"\x1b[31m"}Error: ${summary.error}${"\x1b[0m"}`);
     }
   }
 
-  console.log('='.repeat(60))
+  console.log("=".repeat(60));
   console.log(
     `Total: ${totalRecords} records | ` +
       `${successCount} success | ${failureCount} failed | ` +
       `${(totalDuration / 1000).toFixed(2)}s`
-  )
-  console.log('='.repeat(60) + '\n')
+  );
+  console.log(`${"=".repeat(60)}\n`);
 
-  await closeClient()
+  await closeClient();
 
-  process.exit(failureCount > 0 ? 1 : 0)
+  process.exit(failureCount > 0 ? 1 : 0);
 }
 
 main().catch((error) => {
-  logger.error('Sync command failed:', error)
-  process.exit(1)
-})
+  logger.error("Sync command failed:", error);
+  process.exit(1);
+});

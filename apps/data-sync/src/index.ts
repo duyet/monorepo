@@ -41,38 +41,43 @@ Examples:
   bun run cleanup --dry-run
 
 For more information, visit: https://github.com/duyet/monorepo
-`)
+`);
 }
 
 async function main() {
-  const command = process.argv[2]
+  const command = process.argv[2];
 
-  if (!command || command === 'help' || command === '--help' || command === '-h') {
-    printHelp()
-    process.exit(0)
+  if (
+    !command ||
+    command === "help" ||
+    command === "--help" ||
+    command === "-h"
+  ) {
+    printHelp();
+    process.exit(0);
   }
 
   switch (command) {
-    case 'sync':
-      await import('./commands/sync')
-      break
+    case "sync":
+      await import("./commands/sync");
+      break;
 
-    case 'migrate':
-      await import('./commands/migrate')
-      break
+    case "migrate":
+      await import("./commands/migrate");
+      break;
 
-    case 'cleanup':
-      await import('./commands/cleanup')
-      break
+    case "cleanup":
+      await import("./commands/cleanup");
+      break;
 
     default:
-      console.error(`Unknown command: ${command}\n`)
-      printHelp()
-      process.exit(1)
+      console.error(`Unknown command: ${command}\n`);
+      printHelp();
+      process.exit(1);
   }
 }
 
 main().catch((error) => {
-  console.error('Command failed:', error)
-  process.exit(1)
-})
+  console.error("Command failed:", error);
+  process.exit(1);
+});

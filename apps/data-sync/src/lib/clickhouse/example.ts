@@ -6,92 +6,98 @@
  */
 
 import {
-  getClient,
-  ping,
-  executeQuery,
   MigrationRunner,
   applyRetentionPolicies,
-  convertRetentionPolicy,
-  optimizeTables,
-  getTableSizes,
-  getRetentionStatus,
   closeClient,
-} from './index'
+  convertRetentionPolicy,
+  executeQuery,
+  getClient,
+  getRetentionStatus,
+  getTableSizes,
+  optimizeTables,
+  ping,
+} from "./index";
 
-import { retentionPolicies } from '../../config/retention.config'
+import { retentionPolicies } from "../../config/retention.config";
 
 /**
  * Initialize database with migrations
  */
 async function initializeDatabase() {
-  console.log('=== Initializing Database ===')
+  console.log("=== Initializing Database ===");
 
   // Test connection
-  const connected = await ping()
+  const connected = await ping();
   if (!connected) {
-    throw new Error('Failed to connect to ClickHouse')
+    throw new Error("Failed to connect to ClickHouse");
   }
-  console.log('✓ Connection successful')
+  console.log("✓ Connection successful");
 
   // Run migrations
-  const runner = new MigrationRunner('./migrations')
-  await runner.init()
+  const runner = new MigrationRunner("./migrations");
+  await runner.init();
 
-  const status = await runner.status()
-  console.log(`✓ Migrations: ${status.appliedCount} applied, ${status.pendingCount} pending`)
+  const status = await runner.status();
+  console.log(
+    `✓ Migrations: ${status.appliedCount} applied, ${status.pendingCount} pending`
+  );
 
   if (status.pendingCount > 0) {
-    console.log('  Running pending migrations...')
-    await runner.up()
-    console.log('✓ All migrations applied')
+    console.log("  Running pending migrations...");
+    await runner.up();
+    console.log("✓ All migrations applied");
   }
 
   // Verify migration integrity
-  const valid = await runner.verify()
+  const valid = await runner.verify();
   if (!valid) {
-    throw new Error('Migration checksum validation failed')
+    throw new Error("Migration checksum validation failed");
   }
-  console.log('✓ Migration checksums verified')
+  console.log("✓ Migration checksums verified");
 }
 
 /**
  * Run retention cleanup
  */
 async function runRetentionCleanup(dryRun = true) {
-  console.log(`\n=== Retention Cleanup (dry run: ${dryRun}) ===`)
+  console.log(`\n=== Retention Cleanup (dry run: ${dryRun}) ===`);
 
   // Convert config policies
-  const policies = retentionPolicies.map(convertRetentionPolicy)
+  const policies = retentionPolicies.map(convertRetentionPolicy);
 
   // Get current retention status
-  const status = await getRetentionStatus(policies)
-  console.log('\nRetention Status:')
+  const status = await getRetentionStatus(policies);
+  console.log("\nRetention Status:");
   for (const info of status) {
     console.log(
       `  ${info.table}: ${info.totalRows} total, ${info.expiredRows} expired (${info.compliancePercentage}% compliant)`
-    )
+    );
   }
 
   // Apply retention policies
-  const results = await applyRetentionPolicies(policies, dryRun)
+  const results = await applyRetentionPolicies(policies, dryRun);
 
-  console.log('\nRetention Results:')
+  console.log("\nRetention Results:");
   for (const result of results) {
     if (result.error) {
-      console.error(`  ✗ ${result.table}: ${result.error}`)
+      console.error(`  ✗ ${result.table}: ${result.error}`);
     } else if (result.deleted) {
-      console.log(`  ✓ ${result.table}: Deleted ${result.recordsToDelete} records`)
+      console.log(
+        `  ✓ ${result.table}: Deleted ${result.recordsToDelete} records`
+      );
     } else {
-      console.log(`  - ${result.table}: Would delete ${result.recordsToDelete} records`)
+      console.log(
+        `  - ${result.table}: Would delete ${result.recordsToDelete} records`
+      );
     }
   }
 
   // Force TTL cleanup if not dry run
   if (!dryRun) {
-    console.log('\nForcing TTL cleanup...')
-    const tables = policies.map((p) => p.table)
-    await optimizeTables(tables)
-    console.log('✓ TTL cleanup completed')
+    console.log("\nForcing TTL cleanup...");
+    const tables = policies.map((p) => p.table);
+    await optimizeTables(tables);
+    console.log("✓ TTL cleanup completed");
   }
 }
 
@@ -99,30 +105,30 @@ async function runRetentionCleanup(dryRun = true) {
  * Get database statistics
  */
 async function getDatabaseStats() {
-  console.log('\n=== Database Statistics ===')
+  console.log("\n=== Database Statistics ===");
 
-  const tables = retentionPolicies.map((p) => p.tableName)
-  const sizes = await getTableSizes(tables)
+  const tables = retentionPolicies.map((p) => p.tableName);
+  const sizes = await getTableSizes(tables);
 
-  console.log('\nTable Sizes:')
+  console.log("\nTable Sizes:");
   for (const [table, info] of Object.entries(sizes)) {
-    const sizeMB = (info.bytes / 1024 / 1024).toFixed(2)
-    console.log(`  ${table}: ${info.rows} rows, ${sizeMB} MB`)
+    const sizeMB = (info.bytes / 1024 / 1024).toFixed(2);
+    console.log(`  ${table}: ${info.rows} rows, ${sizeMB} MB`);
   }
 
   // Get total storage
-  const totalRows = Object.values(sizes).reduce((sum, s) => sum + s.rows, 0)
-  const totalBytes = Object.values(sizes).reduce((sum, s) => sum + s.bytes, 0)
-  const totalMB = (totalBytes / 1024 / 1024).toFixed(2)
+  const totalRows = Object.values(sizes).reduce((sum, s) => sum + s.rows, 0);
+  const totalBytes = Object.values(sizes).reduce((sum, s) => sum + s.bytes, 0);
+  const totalMB = (totalBytes / 1024 / 1024).toFixed(2);
 
-  console.log(`\nTotal: ${totalRows} rows, ${totalMB} MB`)
+  console.log(`\nTotal: ${totalRows} rows, ${totalMB} MB`);
 }
 
 /**
  * Example: Execute custom query
  */
 async function customQuery() {
-  console.log('\n=== Custom Query Example ===')
+  console.log("\n=== Custom Query Example ===");
 
   const query = `
     SELECT
@@ -134,19 +140,19 @@ async function customQuery() {
     WHERE started_at >= today() - INTERVAL 7 DAY
     GROUP BY sync_type, status
     ORDER BY sync_type, status
-  `
+  `;
 
-  const result = await executeQuery(query)
+  const result = await executeQuery(query);
 
   if (result.success) {
-    console.log('\nSync Summary (last 7 days):')
+    console.log("\nSync Summary (last 7 days):");
     for (const row of result.data) {
       console.log(
         `  ${row.sync_type} (${row.status}): ${row.count} syncs, ${Number(row.avg_records).toFixed(0)} avg records`
-      )
+      );
     }
   } else {
-    console.error('Query failed:', result.error)
+    console.error("Query failed:", result.error);
   }
 }
 
@@ -156,24 +162,24 @@ async function customQuery() {
 export async function runMaintenanceWorkflow() {
   try {
     // 1. Initialize database
-    await initializeDatabase()
+    await initializeDatabase();
 
     // 2. Get database stats
-    await getDatabaseStats()
+    await getDatabaseStats();
 
     // 3. Dry run retention cleanup
-    await runRetentionCleanup(true)
+    await runRetentionCleanup(true);
 
     // 4. Run custom queries
-    await customQuery()
+    await customQuery();
 
     // 5. Actually run retention cleanup (uncomment when ready)
     // await runRetentionCleanup(false)
 
-    console.log('\n✓ Maintenance workflow completed successfully')
+    console.log("\n✓ Maintenance workflow completed successfully");
   } catch (error) {
-    console.error('\n✗ Maintenance workflow failed:', error)
-    throw error
+    console.error("\n✗ Maintenance workflow failed:", error);
+    throw error;
   }
 }
 
@@ -181,9 +187,9 @@ export async function runMaintenanceWorkflow() {
  * Graceful shutdown
  */
 export async function shutdown() {
-  console.log('\nShutting down...')
-  await closeClient()
-  console.log('✓ ClickHouse client closed')
+  console.log("\nShutting down...");
+  await closeClient();
+  console.log("✓ ClickHouse client closed");
 }
 
 // Example usage:

@@ -1,7 +1,7 @@
-import type { ClickHouseClient } from '@clickhouse/client';
-import { BaseSyncer } from '../lib/base';
-import type { SyncOptions } from '../lib/base/types';
-import { request } from 'graphql-request';
+import type { ClickHouseClient } from "@clickhouse/client";
+import { request } from "graphql-request";
+import { BaseSyncer } from "../lib/base";
+import type { SyncOptions } from "../lib/base/types";
 
 interface CloudflareHttpRequest {
   date: {
@@ -37,25 +37,34 @@ interface CloudflareDailyRecord {
   raw_response: string;
 }
 
-export class CloudflareSyncer extends BaseSyncer<CloudflareAnalyticsResponse, CloudflareDailyRecord> {
+export class CloudflareSyncer extends BaseSyncer<
+  CloudflareAnalyticsResponse,
+  CloudflareDailyRecord
+> {
   constructor(client: ClickHouseClient) {
-    super(client, 'cloudflare');
+    super(client, "cloudflare");
   }
 
   protected getTableName(): string {
-    return 'monorepo_cloudflare_raw';
+    return "monorepo_cloudflare_raw";
   }
 
-  protected async fetchFromApi(options: SyncOptions): Promise<CloudflareAnalyticsResponse[]> {
+  protected async fetchFromApi(
+    options: SyncOptions
+  ): Promise<CloudflareAnalyticsResponse[]> {
     const zoneId = process.env.CLOUDFLARE_ZONE_ID;
     const apiKey = process.env.CLOUDFLARE_API_KEY;
 
     if (!zoneId || !apiKey) {
-      throw new Error('CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY environment variables are required');
+      throw new Error(
+        "CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY environment variables are required"
+      );
     }
 
     const { startDate, endDate } = this.determineDateRange(options);
-    this.logger.info(`Fetching Cloudflare analytics from ${startDate} to ${endDate}`);
+    this.logger.info(
+      `Fetching Cloudflare analytics from ${startDate} to ${endDate}`
+    );
 
     const query = `
       query viewer($zoneTag: string, $date_start: string, $date_end: string) {
@@ -97,14 +106,14 @@ export class CloudflareSyncer extends BaseSyncer<CloudflareAnalyticsResponse, Cl
     try {
       const response = await this.withRetry(async () => {
         const data = await request<CloudflareAnalyticsResponse>(
-          'https://api.cloudflare.com/client/v4/graphql',
+          "https://api.cloudflare.com/client/v4/graphql",
           query,
           variables,
           headers
         );
 
         if (!data?.viewer?.zones?.[0]?.httpRequests1dGroups) {
-          throw new Error('Cloudflare API returned invalid response format');
+          throw new Error("Cloudflare API returned invalid response format");
         }
 
         return data;
@@ -112,14 +121,16 @@ export class CloudflareSyncer extends BaseSyncer<CloudflareAnalyticsResponse, Cl
 
       return [response];
     } catch (error) {
-      this.logger.error('Failed to fetch from Cloudflare API', {
+      this.logger.error("Failed to fetch from Cloudflare API", {
         error: error instanceof Error ? error.message : String(error),
       });
       throw error;
     }
   }
 
-  protected async transform(data: CloudflareAnalyticsResponse[]): Promise<CloudflareDailyRecord[]> {
+  protected async transform(
+    data: CloudflareAnalyticsResponse[]
+  ): Promise<CloudflareDailyRecord[]> {
     const records: CloudflareDailyRecord[] = [];
 
     for (const response of data) {
@@ -131,7 +142,8 @@ export class CloudflareSyncer extends BaseSyncer<CloudflareAnalyticsResponse, Cl
       for (const httpRequest of zone.httpRequests1dGroups) {
         const totalBytes = httpRequest.sum.bytes || 0;
         const cachedBytes = httpRequest.sum.cachedBytes || 0;
-        const cacheRatio = totalBytes > 0 ? (cachedBytes / totalBytes) * 100 : 0;
+        const cacheRatio =
+          totalBytes > 0 ? (cachedBytes / totalBytes) * 100 : 0;
 
         records.push({
           date: httpRequest.date.date,
@@ -149,25 +161,34 @@ export class CloudflareSyncer extends BaseSyncer<CloudflareAnalyticsResponse, Cl
     return records;
   }
 
-  private determineDateRange(options: SyncOptions): { startDate: string; endDate: string } {
+  private determineDateRange(options: SyncOptions): {
+    startDate: string;
+    endDate: string;
+  } {
     const endDate = options.endDate || new Date();
-    const startDate = options.startDate || new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const startDate =
+      options.startDate ||
+      new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     // Cloudflare free tier has a 365-day limit
     const maxDaysPerRequest = 364;
-    const daysDiff = Math.floor((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
+    const daysDiff = Math.floor(
+      (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)
+    );
 
     let actualStartDate = startDate;
     if (daysDiff > maxDaysPerRequest) {
       this.logger.warn(
         `Requested ${daysDiff} days but limiting to ${maxDaysPerRequest} days due to Cloudflare quota limits`
       );
-      actualStartDate = new Date(endDate.getTime() - maxDaysPerRequest * 24 * 60 * 60 * 1000);
+      actualStartDate = new Date(
+        endDate.getTime() - maxDaysPerRequest * 24 * 60 * 60 * 1000
+      );
     }
 
     return {
-      startDate: actualStartDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0],
+      startDate: actualStartDate.toISOString().split("T")[0],
+      endDate: endDate.toISOString().split("T")[0],
     };
   }
 }

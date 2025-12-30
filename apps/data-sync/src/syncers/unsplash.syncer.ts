@@ -1,6 +1,6 @@
-import type { ClickHouseClient } from '@clickhouse/client';
-import { BaseSyncer } from '../lib/base';
-import type { SyncOptions } from '../lib/base/types';
+import type { ClickHouseClient } from "@clickhouse/client";
+import { BaseSyncer } from "../lib/base";
+import type { SyncOptions } from "../lib/base/types";
 
 interface UnsplashPhoto {
   id: string;
@@ -52,24 +52,29 @@ interface UnsplashPhotoRecord {
   url_thumb: string;
 }
 
-const UNSPLASH_API_URL = 'https://api.unsplash.com';
+const UNSPLASH_API_URL = "https://api.unsplash.com";
 
-export class UnsplashSyncer extends BaseSyncer<UnsplashResponse, UnsplashPhotoRecord> {
+export class UnsplashSyncer extends BaseSyncer<
+  UnsplashResponse,
+  UnsplashPhotoRecord
+> {
   private username: string;
 
   constructor(client: ClickHouseClient, username?: string) {
-    super(client, 'unsplash');
-    this.username = username || process.env.UNSPLASH_USERNAME || 'duyet';
+    super(client, "unsplash");
+    this.username = username || process.env.UNSPLASH_USERNAME || "duyet";
   }
 
   protected getTableName(): string {
-    return 'monorepo_unsplash_photo_stats_raw';
+    return "monorepo_unsplash_photo_stats_raw";
   }
 
-  protected async fetchFromApi(_options: SyncOptions): Promise<UnsplashResponse[]> {
+  protected async fetchFromApi(
+    _options: SyncOptions
+  ): Promise<UnsplashResponse[]> {
     const accessKey = process.env.UNSPLASH_ACCESS_KEY;
     if (!accessKey) {
-      throw new Error('UNSPLASH_ACCESS_KEY environment variable not set');
+      throw new Error("UNSPLASH_ACCESS_KEY environment variable not set");
     }
 
     this.logger.info(`Fetching Unsplash data for user: ${this.username}`);
@@ -87,14 +92,16 @@ export class UnsplashSyncer extends BaseSyncer<UnsplashResponse, UnsplashPhotoRe
     const response = await this.withRetry(async () => {
       const res = await fetch(`${UNSPLASH_API_URL}/users/${this.username}`, {
         headers: {
-          'Authorization': `Client-ID ${accessKey}`,
-          'Accept-Version': 'v1',
+          Authorization: `Client-ID ${accessKey}`,
+          "Accept-Version": "v1",
         },
       });
 
       if (!res.ok) {
         if (res.status === 401) {
-          throw new Error('Unsplash API authentication failed: Invalid access key');
+          throw new Error(
+            "Unsplash API authentication failed: Invalid access key"
+          );
         }
         if (res.status === 404) {
           throw new Error(`Unsplash user not found: ${this.username}`);
@@ -114,20 +121,23 @@ export class UnsplashSyncer extends BaseSyncer<UnsplashResponse, UnsplashPhotoRe
     const perPage = 30;
     let hasMore = true;
 
-    while (hasMore && page <= 10) { // Max 10 pages (300 photos)
+    while (hasMore && page <= 10) {
+      // Max 10 pages (300 photos)
       const photos = await this.withRetry(async () => {
         const res = await fetch(
           `${UNSPLASH_API_URL}/users/${this.username}/photos?page=${page}&per_page=${perPage}&stats=true`,
           {
             headers: {
-              'Authorization': `Client-ID ${accessKey}`,
-              'Accept-Version': 'v1',
+              Authorization: `Client-ID ${accessKey}`,
+              "Accept-Version": "v1",
             },
           }
         );
 
         if (!res.ok) {
-          throw new Error(`Unsplash API error: ${res.status} ${res.statusText}`);
+          throw new Error(
+            `Unsplash API error: ${res.status} ${res.statusText}`
+          );
         }
 
         return res.json();
@@ -150,8 +160,10 @@ export class UnsplashSyncer extends BaseSyncer<UnsplashResponse, UnsplashPhotoRe
     return allPhotos;
   }
 
-  protected async transform(data: UnsplashResponse[]): Promise<UnsplashPhotoRecord[]> {
-    const snapshotDate = new Date().toISOString().split('T')[0];
+  protected async transform(
+    data: UnsplashResponse[]
+  ): Promise<UnsplashPhotoRecord[]> {
+    const snapshotDate = new Date().toISOString().split("T")[0];
     const records: UnsplashPhotoRecord[] = [];
 
     for (const response of data) {
@@ -161,9 +173,9 @@ export class UnsplashSyncer extends BaseSyncer<UnsplashResponse, UnsplashPhotoRe
           photo_id: photo.id,
           width: photo.width,
           height: photo.height,
-          color: photo.color || '',
-          description: photo.description || '',
-          alt_description: photo.alt_description || '',
+          color: photo.color || "",
+          description: photo.description || "",
+          alt_description: photo.alt_description || "",
           created_at: photo.created_at,
           downloads: photo.downloads || 0,
           views: photo.views || 0,

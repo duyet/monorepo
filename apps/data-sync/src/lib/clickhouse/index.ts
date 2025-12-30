@@ -18,7 +18,7 @@ export {
   closeClient,
   type ClickHouseConfig,
   type QueryResult,
-} from './client'
+} from "./client";
 
 // Migration exports
 export {
@@ -26,7 +26,7 @@ export {
   type Migration,
   type AppliedMigration,
   type MigrationStatus,
-} from './migrations'
+} from "./migrations";
 
 // Retention exports
 export {
@@ -37,4 +37,4 @@ export {
   convertRetentionPolicy,
   type RetentionPolicy,
   type RetentionResult,
-} from './retention'
+} from "./retention";
