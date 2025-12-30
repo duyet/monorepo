@@ -1,4 +1,4 @@
-import { DonutChart, LanguageBarChart } from "@/components/charts";
+import { LanguageBarChart } from "@/components/charts";
 import { getCCUsageModels } from "./ccusage-utils";
 import type { CCUsageModelsProps, ModelChartData } from "./types";
 
@@ -9,15 +9,21 @@ export async function CCUsageModels({
   const models = await getCCUsageModels(days);
 
   // Transform model data for charts (converted from hook to regular functions)
+  // Both charts use the same set of models for data consistency
+  // LanguageBarChart internally limits to top 8, which ensures both charts show identical models
   const tokenChartData: ModelChartData[] = models.map((model) => ({
     name: model.name,
     percent: model.percent,
   }));
 
-  const costChartData: ModelChartData[] = models.map((model) => ({
-    name: model.name,
-    percent: model.costPercent,
-  }));
+  // Cost chart uses same models, sorted by cost percentage for better readability
+  // Using bar chart (same as token chart) ensures models with 0% cost are still visible
+  const costChartData: ModelChartData[] = [...models]
+    .sort((a, b) => b.costPercent - a.costPercent)
+    .map((model) => ({
+      name: model.name,
+      percent: model.costPercent,
+    }));
 
   if (!models.length) {
     return (
@@ -53,15 +59,7 @@ export async function CCUsageModels({
             Percentages based on total spending
           </p>
         </div>
-        <div className="flex justify-center">
-          <DonutChart
-            category="percent"
-            data={costChartData.slice(0, 8)} // Top 8 for better visibility
-            index="name"
-            showLabel
-            variant="pie"
-          />
-        </div>
+        <LanguageBarChart data={costChartData} />
       </div>
     </div>
   );

@@ -42,9 +42,13 @@ export function useFormattedCurrency(): UseFormattedCurrency {
 
   const formatTokens = useMemo(() => {
     return (tokens: number) => {
+      if (tokens >= 1000000000) {
+        return `${(tokens / 1000000000).toFixed(1)}B`;
+      }
       if (tokens >= 1000000) {
         return `${(tokens / 1000000).toFixed(1)}M`;
-      }if (tokens >= 1000) {
+      }
+      if (tokens >= 1000) {
         return `${(tokens / 1000).toFixed(1)}K`;
       }
       return tokens.toString();
