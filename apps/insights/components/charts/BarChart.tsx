@@ -31,6 +31,13 @@ const CHART_COLORS = [
   "var(--chart-3)",
   "var(--chart-4)",
   "var(--chart-5)",
+  "hsl(30, 80%, 55%)",   // orange
+  "hsl(280, 65%, 60%)",  // purple
+  "hsl(180, 60%, 45%)",  // teal
+  "hsl(340, 75%, 55%)",  // pink
+  "hsl(60, 70%, 50%)",   // yellow
+  "hsl(200, 70%, 50%)",  // sky blue
+  "hsl(140, 60%, 45%)",  // green
 ];
 
 export function BarChart({
@@ -54,7 +61,7 @@ export function BarChart({
       <RechartsBarChart
         accessibilityLayer
         data={data}
-        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        margin={{ top: 20, right: 30, left: 20, bottom: legend ? 60 : 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
