@@ -2,16 +2,17 @@ import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 
-interface PostHogBreakdownResponse {
-  next: string | null;
-  results: PostHogBreakdownResult[];
+interface PostHogEvent {
+  uuid: string;
+  event: string;
+  properties: Record<string, unknown>;
+  timestamp: string;
+  distinct_id: string;
 }
 
-interface PostHogBreakdownResult {
-  breakdown_value: string;
-  visitors: number;
-  views: number;
-  sessions: number;
+interface PostHogEventsResponse {
+  next: string | null;
+  results: PostHogEvent[];
 }
 
 interface PostHogPathRecord {
@@ -22,10 +23,16 @@ interface PostHogPathRecord {
   sessions: number;
 }
 
+interface AggregatedPathData {
+  visitors: Set<string>;
+  views: number;
+  sessions: Set<string>;
+}
+
 const POSTHOG_API_URL = "https://app.posthog.com";
 
 export class PostHogSyncer extends BaseSyncer<
-  PostHogBreakdownResponse,
+  PostHogEventsResponse,
   PostHogPathRecord[]
 > {
   private apiKey: string;
@@ -49,53 +56,86 @@ export class PostHogSyncer extends BaseSyncer<
 
   protected async fetchFromApi(
     options: SyncOptions
-  ): Promise<PostHogBreakdownResponse> {
+  ): Promise<PostHogEventsResponse> {
     const { startDate, endDate } = this.determineDateRange(options);
-    const url = new URL(
-      `${POSTHOG_API_URL}/api/projects/${this.projectId}/web_analytics/breakdown/`
+    const allEvents: PostHogEvent[] = [];
+
+    // Start with initial URL
+    let url = new URL(
+      `${POSTHOG_API_URL}/api/projects/${this.projectId}/events/`
     );
 
-    // Query parameters
-    url.searchParams.set("breakdown_by", "Page");
-    url.searchParams.set("date_from", startDate);
-    url.searchParams.set("date_to", endDate);
-    url.searchParams.set("limit", "1000");
-    url.searchParams.set("apply_path_cleaning", "true");
+    // Query parameters for pageview events
+    url.searchParams.set("event", "$pageview");
+    url.searchParams.set("after", startDate);
+    url.searchParams.set("before", endDate);
+    url.searchParams.set("limit", "100"); // Max per page
 
     this.logger.info(
-      `Fetching PostHog analytics from ${startDate} to ${endDate}`
+      `Fetching PostHog pageview events from ${startDate} to ${endDate}`
     );
 
     try {
-      const response = await this.withRetry(async () => {
-        const res = await fetch(url.toString(), {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${this.apiKey}`,
-          },
+      // Fetch all pages of events
+      let pageCount = 0;
+      const maxPages = 50; // Safety limit: 50 pages = 5000 events
+
+      while (url && pageCount < maxPages) {
+        pageCount++;
+
+        const response = await this.withRetry(async () => {
+          const res = await fetch(url.toString(), {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${this.apiKey}`,
+            },
+          });
+
+          if (!res.ok) {
+            if (res.status === 401) {
+              throw new Error(
+                "PostHog API authentication failed: Invalid API key"
+              );
+            }
+            if (res.status === 404) {
+              throw new Error(
+                `PostHog project not found: ${this.projectId}`
+              );
+            }
+            const errorText = await res.text().catch(() => res.statusText);
+            throw new Error(
+              `PostHog API error: ${res.status} ${errorText}`
+            );
+          }
+
+          return res.json() as Promise<PostHogEventsResponse>;
         });
 
-        if (!res.ok) {
-          if (res.status === 401) {
-            throw new Error(
-              "PostHog API authentication failed: Invalid API key"
-            );
-          }
-          if (res.status === 404) {
-            throw new Error(
-              `PostHog project not found: ${this.projectId}`
-            );
-          }
-          const errorText = await res.text().catch(() => res.statusText);
-          throw new Error(
-            `PostHog API error: ${res.status} ${errorText}`
-          );
+        allEvents.push(...response.results);
+
+        // Check for next page
+        if (response.next) {
+          url = new URL(response.next);
+        } else {
+          url = new URL("about:blank");
         }
 
-        return res.json() as Promise<PostHogBreakdownResponse>;
-      });
+        this.logger.info(
+          `Fetched page ${pageCount}: ${response.results.length} events`
+        );
+      }
 
-      return response;
+      if (pageCount >= maxPages) {
+        this.logger.warn(
+          `Reached maximum page limit (${maxPages}), some events may be missing`
+        );
+      }
+
+      this.logger.info(
+        `Total events fetched: ${allEvents.length} across ${pageCount} pages`
+      );
+
+      return { results: allEvents, next: null };
     } catch (error) {
       this.logger.error("Failed to fetch from PostHog API", {
         error: error instanceof Error ? error.message : String(error),
@@ -105,34 +145,86 @@ export class PostHogSyncer extends BaseSyncer<
   }
 
   protected async transform(
-    data: PostHogBreakdownResponse
+    data: PostHogEventsResponse
   ): Promise<PostHogPathRecord[]> {
     const records: PostHogPathRecord[] = [];
-    const snapshotDate = new Date().toISOString().split("T")[0];
 
     if (!data.results || data.results.length === 0) {
-      this.logger.warn("No results in PostHog response");
+      this.logger.warn("No events in PostHog response");
       return records;
     }
 
-    for (const result of data.results) {
-      const path = result.breakdown_value;
+    // Aggregate events by date and path
+    const pathMap = new Map<string, AggregatedPathData>();
 
-      // Skip empty paths
-      if (!path || path === "") {
+    for (const event of data.results) {
+      if (event.event !== "$pageview") {
         continue;
       }
 
+      // Extract path from $current_url property
+      const currentUrl = event.properties.$current_url as string | undefined;
+      if (!currentUrl) {
+        continue;
+      }
+
+      // Parse URL to get pathname
+      let path: string;
+      try {
+        const urlObj = new URL(currentUrl);
+        path = urlObj.pathname;
+      } catch {
+        // If URL parsing fails, use the value as-is
+        path = currentUrl;
+      }
+
+      // Skip empty paths
+      if (!path || path === "" || path === "/") {
+        path = "/";
+      }
+
+      // Extract date from timestamp
+      const eventDate = event.timestamp.split("T")[0];
+
+      // Create key for aggregation
+      const key = `${eventDate}:${path}`;
+
+      if (!pathMap.has(key)) {
+        pathMap.set(key, {
+          visitors: new Set<string>(),
+          views: 0,
+          sessions: new Set<string>(),
+        });
+      }
+
+      const aggregated = pathMap.get(key)!;
+      aggregated.visitors.add(event.distinct_id);
+      aggregated.views++;
+
+      // Use distinct_id as a simple session identifier
+      // For more accurate session tracking, you'd use $session_id
+      const sessionId =
+        (event.properties.$session_id as string | undefined) ||
+        event.distinct_id;
+      aggregated.sessions.add(sessionId);
+    }
+
+    // Convert aggregated data to records
+    for (const [key, data] of pathMap.entries()) {
+      const [date, path] = key.split(":");
+
       records.push({
-        date: snapshotDate,
+        date,
         path,
-        visitors: result.visitors || 0,
-        views: result.views || 0,
-        sessions: result.sessions || 0,
+        visitors: data.visitors.size,
+        views: data.views,
+        sessions: data.sessions.size,
       });
     }
 
-    this.logger.info(`Transformed ${records.length} path records`);
+    this.logger.info(
+      `Transformed ${records.length} path records from ${data.results.length} events`
+    );
     return records;
   }
 
@@ -145,8 +237,8 @@ export class PostHogSyncer extends BaseSyncer<
       options.startDate ||
       new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000); // Default 30 days
 
-    // PostHog has limits on date range
-    const maxDaysPerRequest = 365;
+    // PostHog Events API has recommended date range limits
+    const maxDaysPerRequest = 7; // Use 7 days to avoid timeouts
     const daysDiff = Math.floor(
       (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)
     );
@@ -154,16 +246,17 @@ export class PostHogSyncer extends BaseSyncer<
     let actualStartDate = startDate;
     if (daysDiff > maxDaysPerRequest) {
       this.logger.warn(
-        `Requested ${daysDiff} days but limiting to ${maxDaysPerRequest} days due to PostHog limits`
+        `Requested ${daysDiff} days but limiting to ${maxDaysPerRequest} days for Events API`
       );
       actualStartDate = new Date(
         endDate.getTime() - maxDaysPerRequest * 24 * 60 * 60 * 1000
       );
     }
 
+    // Convert to ISO format for Events API (needs full timestamp)
     return {
-      startDate: actualStartDate.toISOString().split("T")[0],
-      endDate: endDate.toISOString().split("T")[0],
+      startDate: actualStartDate.toISOString(),
+      endDate: endDate.toISOString(),
     };
   }
 }
