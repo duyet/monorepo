@@ -2,6 +2,7 @@
 import { ALL_SOURCES, sourceConfigs } from "../config";
 import { logger } from "../lib";
 import { closeClient, getClient } from "../lib/clickhouse";
+import { getTableStatus, writeJobSummary } from "../lib/github-summary";
 import { syncerMap } from "../syncers";
 
 interface SyncSummary {
@@ -132,6 +133,17 @@ async function main() {
       `${(totalDuration / 1000).toFixed(2)}s`
   );
   console.log(`${"=".repeat(60)}\n`);
+
+  // Write GitHub Actions job summary if available
+  const client = getClient();
+  if (client) {
+    try {
+      const tableStatuses = await getTableStatus(client);
+      await writeJobSummary(summaries, tableStatuses);
+    } catch (error) {
+      logger.warn("Failed to write job summary", { error });
+    }
+  }
 
   await closeClient();
 
