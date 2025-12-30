@@ -106,6 +106,18 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
+      - name: Test Tailscale connectivity
+        run: |
+          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
+          if ping -c 3 "$CLICKHOUSE_HOST"; then
+            echo "✓ Successfully pinged ClickHouse host via Tailscale"
+          else
+            echo "✗ Failed to ping ClickHouse host"
+            echo "Available Tailscale IPs:"
+            tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || echo "Could not retrieve Tailscale peers"
+            exit 1
+          fi
+
       - name: Run migrations
         if: inputs.run_migrations
         working-directory: apps/data-sync
@@ -167,6 +179,18 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
+
+      - name: Test Tailscale connectivity
+        run: |
+          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
+          if ping -c 3 "$CLICKHOUSE_HOST"; then
+            echo "✓ Successfully pinged ClickHouse host via Tailscale"
+          else
+            echo "✗ Failed to ping ClickHouse host"
+            echo "Available Tailscale IPs:"
+            tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || echo "Could not retrieve Tailscale peers"
+            exit 1
+          fi
 
       - name: Run retention cleanup
         working-directory: apps/data-sync
