@@ -1,5 +1,5 @@
 -- @name: add_posthog
--- @version: 1
+-- @version: 2
 
 -- UP
 
