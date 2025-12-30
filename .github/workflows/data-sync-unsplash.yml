@@ -1,4 +1,4 @@
-name: Data Sync (Unsplash + Cleanup)
+name: Data Sync (Unsplash)
 
 on:
   schedule:
