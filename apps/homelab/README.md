@@ -55,3 +55,8 @@ Currently displays mock data for demonstration purposes. To integrate with real 
 1. Replace mock data in `lib/mockData.ts` with actual API calls
 2. Add environment variables for your cluster endpoints
 3. Implement data fetching hooks or server-side data fetching
+
+---
+
+**This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
+

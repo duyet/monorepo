@@ -1,4 +1,5 @@
 import PhotoGrid from "@/components/PhotoGrid";
+import { RetryButton } from "@/components/RetryButton";
 import {
   getAllPhotos,
   groupPhotosByYear,
@@ -87,14 +88,7 @@ export default async function PhotosPage() {
             <p className="mb-6 text-neutral-600 dark:text-neutral-400">
               {photoError.userMessage}
             </p>
-            {photoError.retryable && (
-              <button
-                onClick={() => window.location.reload()}
-                className="rounded-lg bg-terracotta px-6 py-2 font-medium text-white transition-colors hover:bg-terracotta-medium"
-              >
-                Try Again
-              </button>
-            )}
+            {photoError.retryable && <RetryButton />}
           </div>
         </div>
       </Container>

@@ -8,12 +8,14 @@
     "path": false
   },
   "scripts": {
+    "config": "bun ../../scripts/sync-app-secrets.ts duyet-photos",
     "build": "bun --bun next build",
     "dev": "bun --bun next dev --turbopack -p 3003",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
+    "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-photos",
     "test": "jest",
     "test:watch": "jest --watch"
   },

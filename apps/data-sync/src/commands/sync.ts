@@ -27,7 +27,7 @@ async function main() {
 
   if (startDateArg) {
     startDate = new Date(startDateArg.split("=")[1]);
-    if (isNaN(startDate.getTime())) {
+    if (Number.isNaN(startDate.getTime())) {
       logger.error(`Invalid start date: ${startDateArg}`);
       process.exit(1);
     }
@@ -35,7 +35,7 @@ async function main() {
 
   if (endDateArg) {
     endDate = new Date(endDateArg.split("=")[1]);
-    if (isNaN(endDate.getTime())) {
+    if (Number.isNaN(endDate.getTime())) {
       logger.error(`Invalid end date: ${endDateArg}`);
       process.exit(1);
     }
@@ -43,8 +43,8 @@ async function main() {
 
   // Parse --backfill-days option (e.g., --backfill-days=90)
   if (backfillDaysArg && !startDate) {
-    const days = parseInt(backfillDaysArg.split("=")[1], 10);
-    if (isNaN(days) || days <= 0) {
+    const days = Number.parseInt(backfillDaysArg.split("=")[1], 10);
+    if (Number.isNaN(days) || days <= 0) {
       logger.error(`Invalid backfill days: ${backfillDaysArg}`);
       process.exit(1);
     }

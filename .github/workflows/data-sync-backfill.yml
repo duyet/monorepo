@@ -7,7 +7,12 @@ on:
         description: 'Comma-separated list of sources to sync (github,wakatime,cloudflare,unsplash,posthog)'
         required: false
         type: string
-        default: 'github,wakatime,cloudflare,unsplash,posthog'
+        default: 'posthog'
+      backfill_days:
+        description: 'Number of days to backfill (e.g., 7 for last 7 days, 0 for normal sync)'
+        required: false
+        type: number
+        default: 0
       dry_run:
         description: 'Dry run mode (preview without writing)'
         required: false
@@ -17,17 +22,17 @@ on:
 jobs:
   backfill:
     name: Data Backfill
-    uses: ./.github/workflows/data-sync-template.yml
-    with:
-      sources: ${{ inputs.sources }}
-      dry_run: ${{ inputs.dry_run }}
-      log_artifact_name: backfill
-    secrets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
       CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
       CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
       CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
       CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
       CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+      GITHUB_USERNAME: duyetbot
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
       CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
       CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
@@ -35,8 +40,79 @@ jobs:
       CF_ZONE_TAG: ${{ secrets.CF_ZONE_TAG }}
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
-      TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-      TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
       POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
       POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+      TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+      TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
+      DRY_RUN: ${{ inputs.dry_run }}
+      SYNC_SOURCES: ${{ inputs.sources }}
+      BACKFILL_DAYS: ${{ inputs.backfill_days }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Test Tailscale connectivity
+        run: |
+          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
+          if ping -c 3 "$CLICKHOUSE_HOST"; then
+            echo "Successfully pinged ClickHouse host via Tailscale"
+          else
+            echo "Failed to ping ClickHouse host"
+            echo "Available Tailscale IPs:"
+            tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || echo "Could not retrieve Tailscale peers"
+            exit 1
+          fi
+
+      - name: Run migrations
+        working-directory: apps/data-sync
+        run: bun run migrate:up
+
+      - name: Sync sources
+        working-directory: apps/data-sync
+        run: |
+          IFS=',' read -ra SOURCES <<< "$SYNC_SOURCES"
+
+          for source in "${SOURCES[@]}"; do
+            source=$(echo "$source" | xargs)  # trim whitespace
+            echo "::group::Syncing $source"
+
+            # Build sync command with optional flags
+            SYNC_CMD="bun run sync $source"
+
+            # Add dry run flag
+            if [ "$DRY_RUN" = "true" ]; then
+              SYNC_CMD="$SYNC_CMD --dry-run"
+            fi
+
+            # Add backfill flags
+            if [ "$BACKFILL_DAYS" -gt 0 ]; then
+              SYNC_CMD="$SYNC_CMD --backfill-days=$BACKFILL_DAYS"
+            fi
+
+            echo "Running: $SYNC_CMD"
+            eval $SYNC_CMD
+            echo "::endgroup::"
+          done
+
+      - name: Upload sync logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backfill-logs-${{ github.run_id }}
+          path: apps/data-sync/logs/
+          retention-days: 7
+          if-no-files-found: ignore

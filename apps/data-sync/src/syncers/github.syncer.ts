@@ -83,7 +83,7 @@ export class GitHubSyncer extends BaseSyncer<
 
       // Add auth if token is available (optional for public data)
       if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
+        headers.Authorization = `Bearer ${token}`;
       }
 
       const res = await fetch(GITHUB_GRAPHQL_URL, {

@@ -26,11 +26,11 @@
     "NEXT_PUBLIC_AUTH0_DOMAIN",
     "CLOUDFLARE_API_KEY",
     "NEXT_PUBLIC_CLOUDFLARE_API_TOKEN",
+    "CLOUDFLARE_API_TOKEN",
     "CLOUDFLARE_ZONE_ID",
     "CLOUDFLARE_EMAIL",
     "NEXT_PUBLIC_MEASUREMENT_ID",
     "NEXT_PUBLIC_AXIOM_DATASET",
-    "NEXT_PUBLIC_AXIOM_TOKEN",
     "NEXT_PUBLIC_SELINE_TOKEN",
     "POSTGRES_DATABASE",
     "POSTGRES_HOST",
@@ -48,7 +48,9 @@
     "CLICKHOUSE_USER",
     "CLICKHOUSE_PASSWORD",
     "CLICKHOUSE_DATABASE",
-    "CLICKHOUSE_PROTOCOL"
+    "CLICKHOUSE_PROTOCOL",
+    "OPENROUTER_API_KEY",
+    "NEXT_PUBLIC_API_BASE_URL"
   ],
   "globalDependencies": [".env", ".env.local"],
   "tasks": {
@@ -70,8 +72,11 @@
       "cache": false,
       "persistent": true
     },
+    "config": {
+      "cache": false
+    },
     "deploy": {
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["test", "lint"]
     },
     "clean": {
       "cache": false

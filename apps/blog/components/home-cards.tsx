@@ -1,5 +1,5 @@
 import type { Series } from "@duyet/interfaces";
-import { ContentCard, FeaturedCard } from "@duyet/components";
+import { ContentCard, FeaturedCard, AiFeaturedCard } from "@duyet/components";
 
 interface HomeCardsProps {
   seriesList: Series[];
@@ -9,12 +9,13 @@ interface HomeCardsProps {
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
   return (
     <div className="mb-16 flex flex-col gap-6">
-      <FeaturedCard
+      <AiFeaturedCard
         title="Featured Posts"
         href="/featured"
         category="Highlights"
-        description="Explore my most popular and impactful articles on data engineering, software architecture, and technology insights."
+        fallbackDescription="Explore my most popular and impactful articles on data engineering, software architecture, and technology insights."
         color="terracotta"
+        cardType="featured"
       />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
