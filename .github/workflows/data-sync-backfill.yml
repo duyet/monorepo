@@ -17,12 +17,10 @@ on:
         description: 'Start date for backfill (YYYY-MM-DD format)'
         required: false
         type: string
-        default: ''
       end_date:
         description: 'End date for backfill (YYYY-MM-DD format)'
         required: false
         type: string
-        default: ''
       dry_run:
         description: 'Dry run mode (preview without writing)'
         required: false

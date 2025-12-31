@@ -36,12 +36,10 @@ on:
         description: 'Start date for backfill (YYYY-MM-DD format)'
         required: false
         type: string
-        default: ''
       end_date:
         description: 'End date for backfill (YYYY-MM-DD format)'
         required: false
         type: string
-        default: ''
     secrets:
       CLICKHOUSE_HOST:
         required: true
