@@ -39,8 +39,6 @@ jobs:
     with:
       sources: ${{ inputs.sources || 'github,wakatime,cloudflare,unsplash,posthog' }}
       backfill_days: ${{ inputs.backfill_days || 0 }}
-      start_date: ${{ inputs.start_date }}
-      end_date: ${{ inputs.end_date }}
       dry_run: ${{ inputs.dry_run || true }}
       run_cleanup: ${{ inputs.run_cleanup || false }}
       run_migrations: true
