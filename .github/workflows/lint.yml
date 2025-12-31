@@ -37,9 +37,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bun-
 
-      - name: Lint
-        run: |
-          bun install
-          bun run lint
+      - name: Install dependencies
+        run: bun install
 
-      # TODO: Upload sarif
+      - name: Run Biome lint
+        run: biome lint --reporter=sarif . > biome-results.sarif
+        continue-on-error: true
+
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: biome-results.sarif
+          wait-for-processing: true
