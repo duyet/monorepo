@@ -24,9 +24,9 @@ jobs:
     name: Data Backfill
     uses: ./.github/workflows/data-sync-template.yml
     with:
-      sources: ${{ inputs.sources || 'github,wakatime,cloudflare,unsplash,posthog' }}
-      backfill_days: ${{ inputs.backfill_days || 0 }}
-      dry_run: ${{ inputs.dry_run || true }}
+      sources: ${{ inputs.sources }}
+      backfill_days: ${{ inputs.backfill_days }}
+      dry_run: ${{ inputs.dry_run }}
       log_artifact_name: backfill
     secrets:
       CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
