@@ -8,6 +8,11 @@ on:
         required: false
         type: string
         default: 'github,wakatime,cloudflare,unsplash,posthog'
+      backfill_days:
+        description: 'Number of days to backfill (0 for normal sync, e.g., 7 for last 7 days)'
+        required: false
+        type: number
+        default: 0
       dry_run:
         description: 'Dry run mode (preview without writing)'
         required: false
@@ -20,6 +25,7 @@ jobs:
     uses: ./.github/workflows/data-sync-template.yml
     with:
       sources: ${{ inputs.sources || 'github,wakatime,cloudflare,unsplash,posthog' }}
+      backfill_days: ${{ inputs.backfill_days || 0 }}
       dry_run: ${{ inputs.dry_run || true }}
       log_artifact_name: backfill
     secrets:
