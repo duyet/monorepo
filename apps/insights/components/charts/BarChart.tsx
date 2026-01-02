@@ -14,7 +14,6 @@ import {
   BarChart as RechartsBarChart,
   XAxis,
   YAxis,
-  Tooltip,
 } from "recharts";
 
 interface BarChartProps {
@@ -48,6 +47,15 @@ const CHART_COLORS = [
   "hsl(140, 60%, 45%)",  // green
 ];
 
+// Format large numbers with appropriate units (K, M, B)
+function formatYAxisLabel(value: number): string {
+  if (value === 0) return "0";
+  if (value >= 1000000000) return `${(value / 1000000000).toFixed(1)}B`;
+  if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+  if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
+  return value.toString();
+}
+
 export function BarChart({
   data,
   index,
@@ -74,6 +82,7 @@ export function BarChart({
         data={data}
         height={height}
         margin={{ top: 20, right: 30, left: 20, bottom: legend ? 60 : 5 }}
+        maxBarSize={50}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
@@ -81,13 +90,7 @@ export function BarChart({
           <YAxis
             tickLine={false}
             axisLine={false}
-            tickFormatter={logScale ? (value) => {
-              if (value === 0) return "0";
-              if (value < 1) return value.toString();
-              if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
-              if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
-              return value.toString();
-            } : undefined}
+            tickFormatter={formatYAxisLabel}
           />
         )}
         <ChartTooltip
