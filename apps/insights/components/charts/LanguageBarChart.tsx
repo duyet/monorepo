@@ -75,6 +75,10 @@ const CombinedLabel = (props: LabelProps) => {
   const displayName = truncateText(rawName, 20);
   const percentage = `${Number(numValue || payload.percent || 0).toFixed(1)}%`;
 
+  // Get computed colors from CSS variables
+  const isDark = typeof window !== "undefined" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
   return (
     <g>
       {/* Model name - always on the left outside */}
@@ -84,7 +88,7 @@ const CombinedLabel = (props: LabelProps) => {
         textAnchor="end"
         dominantBaseline="middle"
         fontSize={12}
-        fill="hsl(var(--foreground))"
+        fill={isDark ? "#f5f5f5" : "#1a1a1a"}
         style={{ userSelect: "none" }}
       >
         {displayName}
@@ -98,7 +102,7 @@ const CombinedLabel = (props: LabelProps) => {
         dominantBaseline="middle"
         fontSize={12}
         fontWeight={500}
-        fill={isShortBar ? "hsl(var(--foreground))" : "hsl(var(--background))"}
+        fill={isShortBar ? (isDark ? "#f5f5f5" : "#1a1a1a") : "#ffffff"}
         style={{ userSelect: "none" }}
       >
         {percentage}
