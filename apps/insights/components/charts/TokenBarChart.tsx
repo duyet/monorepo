@@ -11,6 +11,7 @@ import {
   CartesianGrid,
   BarChart as RechartsBarChart,
   XAxis,
+  YAxis,
 } from "recharts";
 
 interface TokenBarChartProps {
@@ -22,6 +23,15 @@ interface TokenBarChartProps {
   showInThousands?: boolean;
   /** Chart height in pixels */
   height?: number;
+}
+
+// Format large numbers with appropriate units (K, M, B)
+function formatYAxisLabel(value: number): string {
+  if (value === 0) return "0";
+  if (value >= 1000000000) return `${(value / 1000000000).toFixed(1)}B`;
+  if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+  if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
+  return value.toString();
 }
 
 /**
@@ -66,9 +76,11 @@ export function TokenBarChart({
         data={data}
         height={height}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        maxBarSize={50}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
+        <YAxis tickLine={false} axisLine={false} tickFormatter={formatYAxisLabel} />
         <ChartTooltip
           content={
             <ChartTooltipContent

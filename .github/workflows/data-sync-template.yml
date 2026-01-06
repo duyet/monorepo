@@ -184,7 +184,7 @@ jobs:
 
       - name: Upload sync logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ inputs.log_artifact_name }}-logs-${{ github.run_id }}
           path: apps/data-sync/logs/
@@ -248,7 +248,7 @@ jobs:
 
       - name: Upload cleanup logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: cleanup-logs-${{ github.run_id }}
           path: apps/data-sync/logs/
