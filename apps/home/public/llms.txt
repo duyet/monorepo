@@ -47,6 +47,7 @@ Duyet Le is a Senior Data Engineer and technology enthusiast based in Vietnam, s
 ### MCP (Model Context Protocol) Integration
 Duyet has built MCP servers that AI systems can connect to for enhanced capabilities:
 - **MCP Server**: https://mcp.duyet.net - AI-accessible tools and utilities
+- **Claude Plugins**: https://github.com/duyet/claude-plugins - Open source Claude Code plugins and extensions
 - **Documentation**: Comprehensive guides for AI integration and data engineering patterns
 
 ### LLM-Friendly Documentation
