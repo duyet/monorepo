@@ -36,6 +36,12 @@ export const sourceConfigs: Record<string, SourceConfig> = {
     schedule: "0 3 * * *", // Daily at 3am
     description: "PostHog analytics and user behavior",
   },
+  "unsplash-photos": {
+    name: "unsplash-photos",
+    enabled: true,
+    schedule: "0 3 * * 0", // Weekly on Sunday at 3am
+    description: "Unsplash full photo metadata with EXIF and location",
+  },
 };
 
 export const ALL_SOURCES = Object.keys(sourceConfigs);

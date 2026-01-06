@@ -291,12 +291,19 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
   protected async transform(
     data: UnsplashApiPhoto[]
   ): Promise<UnsplashPhotoRecord[]> {
+    // Helper to convert ISO timestamp to ClickHouse DateTime format
+    const formatTimestamp = (iso: string | null): string | null => {
+      if (!iso) return null;
+      // Convert "2025-11-30T17:07:21Z" to "2025-11-30 17:07:21"
+      return iso.replace("T", " ").replace("Z", "").replace(/\.\d{3}Z$/, "");
+    };
+
     return data.map((photo) => ({
       photo_id: photo.id,
       provider: "unsplash",
-      created_at: photo.created_at,
-      updated_at: photo.updated_at,
-      promoted_at: photo.promoted_at,
+      created_at: formatTimestamp(photo.created_at) || "",
+      updated_at: formatTimestamp(photo.updated_at) || "",
+      promoted_at: formatTimestamp(photo.promoted_at),
       width: photo.width,
       height: photo.height,
       color: photo.color,
@@ -315,16 +322,16 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
       likes: photo.likes || 0,
       downloads: photo.statistics?.downloads?.total || 0,
       views: photo.statistics?.views?.total || 0,
-      location_name: photo.location?.name || null,
-      location_city: photo.location?.city || null,
-      location_country: photo.location?.country || null,
+      location_name: photo.location?.name,
+      location_city: photo.location?.city,
+      location_country: photo.location?.country,
       location_latitude: photo.location?.position?.latitude || null,
       location_longitude: photo.location?.position?.longitude || null,
-      exif_make: photo.exif?.make || null,
-      exif_model: photo.exif?.model || null,
-      exif_exposure_time: photo.exif?.exposure_time || null,
-      exif_aperture: photo.exif?.aperture || null,
-      exif_focal_length: photo.exif?.focal_length || null,
+      exif_make: photo.exif?.make,
+      exif_model: photo.exif?.model,
+      exif_exposure_time: photo.exif?.exposure_time,
+      exif_aperture: photo.exif?.aperture,
+      exif_focal_length: photo.exif?.focal_length,
       exif_iso: photo.exif?.iso || null,
       user_id: photo.user.id,
       user_username: photo.user.username,
@@ -333,7 +340,118 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
       user_profile_image_medium: photo.user.profile_image?.medium || null,
       user_profile_image_large: photo.user.profile_image?.large || null,
       user_link_html: photo.user.links?.html || null,
-      raw_data: JSON.stringify(photo),
+      raw_data: "",
     }));
+  }
+
+  /**
+   * Override insert to use HTTP API directly for proper JSON escaping
+   */
+  protected async insert(records: UnsplashPhotoRecord[]): Promise<number> {
+    const tableName = this.getTableName();
+    const batchSize = 100;
+    let totalInserted = 0;
+
+    // Add sync metadata
+    const now = new Date();
+    const currentTimestamp = now.toISOString().slice(0, 19).replace("T", " ");
+    const syncVersion = Math.floor(now.getTime() / 1000);
+
+    // Get ClickHouse connection info from environment
+    const host = process.env.CLICKHOUSE_HOST;
+    const port = process.env.CLICKHOUSE_PORT || "8123";
+    const protocol = ["443", "8443", "9440"].includes(port) ? "https" : "http";
+    const database = process.env.CLICKHOUSE_DATABASE;
+    const user = process.env.CLICKHOUSE_USER || "default";
+    const password = process.env.CLICKHOUSE_PASSWORD;
+
+    if (!host || !password || !database) {
+      throw new Error("Missing ClickHouse configuration");
+    }
+
+    const auth = btoa(`${user}:${password}`);
+
+    for (let i = 0; i < records.length; i += batchSize) {
+      const batch = records.slice(i, i + batchSize);
+
+      this.logger.debug(`Inserting batch ${Math.floor(i / batchSize) + 1}`, {
+        batchSize: batch.length,
+      });
+
+      // Build JSONEachRow data - include all fields with proper sanitization
+      const jsonRows = batch.map((record) => {
+        const r = {
+          photo_id: record.photo_id,
+          provider: record.provider,
+          created_at: record.created_at,
+          updated_at: record.updated_at,
+          promoted_at: record.promoted_at,
+          width: record.width,
+          height: record.height,
+          color: record.color || "",
+          blur_hash: record.blur_hash || "",
+          description: record.description || "",
+          alt_description: record.alt_description || "",
+          url_raw: record.url_raw,
+          url_full: record.url_full,
+          url_regular: record.url_regular,
+          url_small: record.url_small,
+          url_thumb: record.url_thumb,
+          link_self: record.link_self,
+          link_html: record.link_html,
+          link_download: record.link_download,
+          link_download_location: record.link_download_location,
+          likes: record.likes,
+          downloads: record.downloads,
+          views: record.views,
+          location_name: record.location_name || null,
+          location_city: record.location_city || null,
+          location_country: record.location_country || null,
+          location_latitude: record.location_latitude,
+          location_longitude: record.location_longitude,
+          exif_make: record.exif_make || null,
+          exif_model: record.exif_model || null,
+          exif_exposure_time: record.exif_exposure_time || null,
+          exif_aperture: record.exif_aperture || null,
+          exif_focal_length: record.exif_focal_length || null,
+          exif_iso: record.exif_iso || null,
+          user_id: record.user_id,
+          user_username: record.user_username,
+          user_name: record.user_name,
+          user_profile_image_small: record.user_profile_image_small,
+          user_profile_image_medium: record.user_profile_image_medium,
+          user_profile_image_large: record.user_profile_image_large,
+          user_link_html: record.user_link_html,
+          raw_data: record.raw_data,
+          sync_version: syncVersion,
+          is_deleted: 0,
+          synced_at: currentTimestamp,
+        };
+        return JSON.stringify(r);
+      }).join("\n");
+
+      // Use ClickHouse HTTP API with POST body
+      const query = `INSERT INTO ${tableName} FORMAT JSONEachRow`;
+      const url = `${protocol}://${host}:${port}/?query=${encodeURIComponent(query)}&database=${database}`;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Authorization": `Basic ${auth}`,
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: jsonRows,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        this.logger.error(`ClickHouse HTTP error. JSON preview: ${jsonRows.substring(0, 500)}...`);
+        throw new Error(`ClickHouse HTTP error: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      totalInserted += batch.length;
+    }
+
+    return totalInserted;
   }
 }
