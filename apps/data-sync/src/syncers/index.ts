@@ -3,12 +3,14 @@ import { CloudflareSyncer } from "./cloudflare.syncer";
 import { GitHubSyncer } from "./github.syncer";
 import { PostHogSyncer } from "./posthog.syncer";
 import { UnsplashSyncer } from "./unsplash.syncer";
+import { UnsplashPhotosSyncer } from "./unsplash-photos.syncer";
 import { WakaTimeSyncer } from "./wakatime.syncer";
 
 export { WakaTimeSyncer } from "./wakatime.syncer";
 export { CloudflareSyncer } from "./cloudflare.syncer";
 export { GitHubSyncer } from "./github.syncer";
 export { UnsplashSyncer } from "./unsplash.syncer";
+export { UnsplashPhotosSyncer } from "./unsplash-photos.syncer";
 export { PostHogSyncer } from "./posthog.syncer";
 
 export type SyncerConstructor = new (
@@ -22,6 +24,7 @@ export const syncerMap: Record<string, SyncerConstructor> = {
   cloudflare: CloudflareSyncer,
   github: GitHubSyncer,
   unsplash: UnsplashSyncer,
+  "unsplash-photos": UnsplashPhotosSyncer,
   posthog: PostHogSyncer,
 };
 

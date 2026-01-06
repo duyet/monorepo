@@ -20,6 +20,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@clickhouse/client": "^1.8.1",
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@radix-ui/react-dialog": "^1.1.2",
