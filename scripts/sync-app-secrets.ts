@@ -37,7 +37,15 @@ if (dryRun) {
 // Define which vars each app needs
 const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
   "duyet-api": {
-    secrets: ["OPENROUTER_API_KEY"],
+    secrets: [
+      "OPENROUTER_API_KEY",
+      "CLICKHOUSE_HOST",
+      "CLICKHOUSE_PORT",
+      "CLICKHOUSE_USER",
+      "CLICKHOUSE_PASSWORD",
+      "CLICKHOUSE_DATABASE",
+      "CLICKHOUSE_PROTOCOL",
+    ],
     buildVars: [],
   },
   "duyet-blog": {

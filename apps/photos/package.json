@@ -16,8 +16,8 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-photos",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "bun test",
+    "test:watch": "bun test --watch"
   },
   "dependencies": {
     "@clickhouse/client": "^1.8.1",

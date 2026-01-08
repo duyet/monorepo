@@ -6,12 +6,19 @@
 
 import { Hono } from 'hono';
 import cardDescriptionStreamingRouter from './routes/card-description-streaming.js';
+import aiPercentageRouter from './routes/ai-percentage.js';
 
 /**
  * Cloudflare Workers bindings interface
  */
 export interface Env {
   OPENROUTER_API_KEY?: string;
+  CLICKHOUSE_HOST?: string;
+  CLICKHOUSE_PORT?: string;
+  CLICKHOUSE_USER?: string;
+  CLICKHOUSE_PASSWORD?: string;
+  CLICKHOUSE_DATABASE?: string;
+  CLICKHOUSE_PROTOCOL?: string;
 }
 
 /**
@@ -33,6 +40,7 @@ app.get('/', (c) => {
     endpoints: {
       health: '/',
       cardDescription: '/api/llm/generate',
+      aiPercentage: '/api/ai/percentage',
     },
   });
 });
@@ -48,6 +56,11 @@ app.get('/health', (c) => {
  * Register LLM card description streaming routes
  */
 app.route('/api/llm/generate', cardDescriptionStreamingRouter);
+
+/**
+ * Register AI percentage routes
+ */
+app.route('/api/ai/percentage', aiPercentageRouter);
 
 /**
  * 404 handler

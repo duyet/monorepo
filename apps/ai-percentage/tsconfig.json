@@ -1,0 +1,31 @@
+{
+  "extends": "@duyet/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "eslint.config.mjs",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/*.ts",
+    "components/*.tsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "tailwind.config.mjs",
+    "postcss.config.js",
+    "app",
+    "./components",
+    ".next/types/**/*.ts"
+  ]
+}

@@ -1,5 +1,5 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { wakatimeConfig } from "@duyet/config";
+import { getClient as getClickHouseClient } from "@duyet/libs/clickhouse";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 
