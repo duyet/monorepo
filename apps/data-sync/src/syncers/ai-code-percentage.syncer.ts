@@ -4,23 +4,40 @@ import type { SyncOptions } from "../lib/base/types";
 
 interface GitHubCommit {
   repo: string;
+  repo_url: string;
   sha: string;
-  message: string;
-  author_email: string;
+  short_sha: string;
+  commit_url: string;
+  web_url: string;
   author_name: string;
+  author_email: string;
+  author_date: string;
+  committer_name: string;
+  committer_email: string;
+  committer_date: string;
+  message: string;
+  message_headline: string;
+  message_body: string;
   additions: number;
   deletions: number;
   changed_files: number;
-  committed_date: string;
+  parents: string[];
   co_authors: Array<{
     name: string;
     email: string;
   }>;
+  signature_exists: boolean;
+  signature_valid: boolean;
+  signature_method: string | null;
+  committed_date: string;
+  authored_date: string;
+  pushed_date: string | null;
 }
 
 interface GitHubRepoCommitResponse {
   data: {
     repository: {
+      url: string;
       defaultBranchRef: {
         target: {
           history: {
@@ -30,17 +47,40 @@ interface GitHubRepoCommitResponse {
             };
             edges: Array<{
               node: {
-                sha: string;
+                oid: string;
+                abbreviatedOid: string;
+                url: string;
                 message: string;
+                messageHeadline: string;
+                messageBody: string;
                 author: {
-                  email: string;
                   name: string;
+                  email: string;
                   date: string;
                 };
+                committer: {
+                  name: string;
+                  email: string;
+                  date: string;
+                };
+                signature: {
+                  exists: boolean;
+                  valid: boolean | null;
+                  method: string | null;
+                } | null;
                 additions: number;
                 deletions: number;
                 changedFiles: number;
+                pushedDate: string | null;
                 committedDate: string;
+                authoredDate: string;
+                parents: {
+                  edges: Array<{
+                    node: {
+                      oid: string;
+                    };
+                  }>;
+                };
                 coAuthors: {
                   edges: Array<{
                     node: {
@@ -59,17 +99,34 @@ interface GitHubRepoCommitResponse {
 }
 
 interface RawCommitRecord {
+  date: string;
   repo: string;
   repo_owner: string;
+  repo_url: string;
   sha: string;
-  message: string;
-  author_email: string;
+  short_sha: string;
+  commit_url: string;
+  web_url: string;
   author_name: string;
+  author_email: string;
+  author_date: string;
+  committer_name: string;
+  committer_email: string;
+  committer_date: string;
+  message: string;
+  message_headline: string;
+  message_body: string;
   additions: number;
   deletions: number;
   changed_files: number;
-  co_authors: string[];
+  parents: string[];
+  co_authors: string[]; // Stored as array of "name <email>" strings
+  signature_exists: number;
+  signature_valid: number;
+  signature_method: string;
   committed_at: string;
+  authored_at: string;
+  pushed_date: string | null;
 }
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
@@ -77,6 +134,7 @@ const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
 const REPO_COMMIT_QUERY = `
   query($owner: String!, $name: String!, $after: String, $since: GitTimestamp) {
     repository(owner: $owner, name: $name) {
+      url
       defaultBranchRef {
         target {
           ... on Commit {
@@ -87,18 +145,41 @@ const REPO_COMMIT_QUERY = `
               }
               edges {
                 node {
-                  sha: oid
+                  oid: sha
+                  abbreviatedOid
+                  url
                   message
+                  messageHeadline
+                  messageBody
                   author {
-                    email
                     name
+                    email
                     date
+                  }
+                  committer {
+                    name
+                    email
+                    date
+                  }
+                  signature {
+                    exists
+                    valid
+                    method
                   }
                   additions
                   deletions
                   changedFiles
+                  pushedDate
                   committedDate
-                  coAuthors(first: 5) {
+                  authoredDate
+                  parents(first: 10) {
+                    edges {
+                      node {
+                        oid
+                      }
+                    }
+                  }
+                  coAuthors(first: 10) {
                     edges {
                       node {
                         name
@@ -142,7 +223,8 @@ export class AICodePercentageSyncer extends BaseSyncer<
       : undefined;
 
     this.logger.info(
-      `Fetching commits for user: ${this.owner}${since ? ` since ${since}` : ""}`
+      `Fetching commits for user: ${this.owner}` +
+        (since ? ` since ${since}` : "")
     );
 
     const repos = await this.fetchAllRepos(token);
@@ -193,6 +275,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
       {
         data: {
           repository: {
+            url: `https://github.com/${this.owner}`,
             defaultBranchRef: {
               target: {
                 history: {
@@ -202,17 +285,38 @@ export class AICodePercentageSyncer extends BaseSyncer<
                   },
                   edges: allCommits.map((commit) => ({
                     node: {
-                      sha: commit.sha,
+                      oid: commit.sha,
+                      abbreviatedOid: commit.short_sha,
+                      url: commit.commit_url,
                       message: commit.message,
+                      messageHeadline: commit.message_headline,
+                      messageBody: commit.message_body || "",
                       author: {
-                        email: commit.author_email,
                         name: commit.author_name,
-                        date: commit.committed_date,
+                        email: commit.author_email,
+                        date: commit.author_date,
+                      },
+                      committer: {
+                        name: commit.committer_name,
+                        email: commit.committer_email,
+                        date: commit.committer_date,
+                      },
+                      signature: {
+                        exists: commit.signature_exists,
+                        valid: commit.signature_valid ? commit.signature_valid : null,
+                        method: commit.signature_method,
                       },
                       additions: commit.additions,
                       deletions: commit.deletions,
                       changedFiles: commit.changed_files,
+                      pushedDate: commit.pushed_date,
                       committedDate: commit.committed_date,
+                      authoredDate: commit.authored_date,
+                      parents: {
+                        edges: commit.parents.map((oid) => ({
+                          node: { oid },
+                        })),
+                      },
                       coAuthors: {
                         edges: commit.co_authors.map((author) => ({
                           node: {
@@ -247,6 +351,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
             edges {
               node {
                 name
+                url
               }
             }
           }
@@ -355,21 +460,40 @@ export class AICodePercentageSyncer extends BaseSyncer<
         break;
       }
 
+      const repoUrl = response.data?.repository?.url || `https://github.com/${this.owner}/${repoName}`;
+
       for (const edge of edges) {
         const node = edge.node;
         commits.push({
-          sha: node.sha,
+          repo: repoName,
+          repo_url: repoUrl,
+          sha: node.oid,
+          short_sha: node.abbreviatedOid,
+          commit_url: node.url,
+          web_url: `${repoUrl}/commit/${node.abbreviatedOid}`,
           message: node.message,
-          author_email: node.author.email,
+          message_headline: node.messageHeadline,
+          message_body: node.messageBody || "",
           author_name: node.author.name,
+          author_email: node.author.email,
+          author_date: node.author.date,
+          committer_name: node.committer.name,
+          committer_email: node.committer.email,
+          committer_date: node.committer.date,
           additions: node.additions,
           deletions: node.deletions,
           changed_files: node.changedFiles,
-          committed_date: node.committedDate,
+          parents: node.parents.edges.map((e: any) => e.node.oid),
           co_authors: node.coAuthors.edges.map((e: any) => ({
             name: e.node.name,
             email: e.node.email,
           })),
+          signature_exists: node.signature?.exists || false,
+          signature_valid: node.signature?.valid || false,
+          signature_method: node.signature?.method || null,
+          committed_date: node.committedDate,
+          authored_date: node.authoredDate,
+          pushed_date: node.pushedDate,
         });
       }
 
@@ -401,22 +525,47 @@ export class AICodePercentageSyncer extends BaseSyncer<
     }
 
     const records: RawCommitRecord[] = [];
+    const repoOwner = this.owner;
 
     for (const edge of edges) {
       const commit = edge.node;
 
+      // Format co_authors as array of "name <email>" strings
+      const coAuthorsFormatted = commit.coAuthors.edges.map((e: any) => {
+        const name = e.node.name;
+        const email = e.node.email;
+        return `${name} <${email}>`;
+      });
+
       records.push({
-        repo: commit.repo,
-        repo_owner: this.owner,
-        sha: commit.sha,
+        date: new Date(commit.committedDate).toISOString().split('T')[0],
+        repo: "monorepo", // Default repo name, will be updated in fetchAllCommits
+        repo_owner: repoOwner,
+        repo_url: data[0].data.repository.url,
+        sha: commit.oid,
+        short_sha: commit.abbreviatedOid,
+        commit_url: commit.url,
+        web_url: `${data[0].data.repository.url}/commit/${commit.abbreviatedOid}`,
+        author_name: commit.author.name,
+        author_email: commit.author.email,
+        author_date: commit.author.date,
+        committer_name: commit.committer.name,
+        committer_email: commit.committer.email,
+        committer_date: commit.committer.date,
         message: commit.message,
-        author_email: commit.author_email,
-        author_name: commit.author_name,
+        message_headline: commit.messageHeadline,
+        message_body: commit.messageBody || "",
         additions: commit.additions,
         deletions: commit.deletions,
-        changed_files: commit.changed_files,
-        co_authors: commit.co_authors.map((c: any) => c.email),
-        committed_at: commit.committed_date,
+        changed_files: commit.changedFiles,
+        parents: commit.parents.edges.map((e: any) => e.node.oid),
+        co_authors: coAuthorsFormatted,
+        signature_exists: commit.signature?.exists ? 1 : 0,
+        signature_valid: commit.signature?.valid ? 1 : 0,
+        signature_method: commit.signature?.method || "",
+        committed_at: commit.committedDate,
+        authored_at: commit.authoredDate,
+        pushed_date: commit.pushedDate || null,
       });
     }
 
