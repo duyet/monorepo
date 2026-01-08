@@ -28,16 +28,13 @@
   "devDependencies": {
     "@duyet/interfaces": "*",
     "@duyet/tsconfig": "*",
-    "@types/jest": "^30.0.0",
     "@types/sanitize-html": "^2.16.0",
-    "jest": "^30.0.0",
     "next": "16.1.1",
-    "ts-jest": "^29.1.4",
     "typescript": "*"
   },
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage"
   }
 }

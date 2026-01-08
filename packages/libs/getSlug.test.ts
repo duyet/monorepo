@@ -1,3 +1,4 @@
+import { test, expect } from "bun:test";
 import { getSlug } from "./getSlug";
 
 test("getSlug()", () => {

@@ -1,3 +1,4 @@
+import { test, expect } from "bun:test";
 import { clearUrl } from "./clearUrl";
 
 test("clearUrl()", () => {
