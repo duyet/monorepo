@@ -14,14 +14,10 @@
   "scripts": {
     "lint": "biome lint .",
     "check-types": "tsc --noEmit",
-    "test": "jest"
+    "test": "bun test"
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",
-    "@jest/globals": "^30.0.0",
-    "@types/jest": "^30.0.0",
-    "jest": "^30.0.0",
-    "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {

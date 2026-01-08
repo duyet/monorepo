@@ -17,9 +17,9 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-insights",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage"
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",

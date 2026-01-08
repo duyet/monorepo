@@ -123,7 +123,7 @@ cardDescriptionRouter.post('/', async (c) => {
     // Truncate content if too long (limit to ~3000 chars for context window)
     const MAX_CONTENT_LENGTH = 3000;
     if (content.length > MAX_CONTENT_LENGTH) {
-      content = content.substring(0, MAX_CONTENT_LENGTH) + '...';
+      content = `${content.substring(0, MAX_CONTENT_LENGTH)}...`;
     }
 
     // Call OpenRouter API directly

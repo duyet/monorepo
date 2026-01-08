@@ -1,7 +1,8 @@
+import { describe, test, expect } from "bun:test";
 import { GET, dynamic } from "../route";
 
 describe("Robots.txt Route", () => {
-  it("should return robots.txt content", async () => {
+  test("should return robots.txt content", async () => {
     const response = await GET();
     const text = await response.text();
 
@@ -10,7 +11,7 @@ describe("Robots.txt Route", () => {
     expect(response.status).toBe(200);
   });
 
-  it("should include sitemap URLs", async () => {
+  test("should include sitemap URLs", async () => {
     const response = await GET();
     const text = await response.text();
 
@@ -18,14 +19,14 @@ describe("Robots.txt Route", () => {
     expect(text).toContain("Sitemap: https://blog.duyet.net/sitemap");
   });
 
-  it("should have correct content type", async () => {
+  test("should have correct content type", async () => {
     const response = await GET();
     const contentType = response.headers.get("Content-Type");
 
     expect(contentType).toBe("text/plain");
   });
 
-  it("should be statically generated", () => {
+  test("should be statically generated", () => {
     expect(dynamic).toBe("force-static");
   });
 });

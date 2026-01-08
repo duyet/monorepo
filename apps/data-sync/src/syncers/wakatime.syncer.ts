@@ -1,6 +1,6 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { getClickHouseClient } from "@duyet/libs/clickhouse";
-import { createLogger } from "../logger";
+import { getClient as getClickHouseClient } from "@duyet/libs/clickhouse";
+import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 
 interface WakaTimeCategory {
