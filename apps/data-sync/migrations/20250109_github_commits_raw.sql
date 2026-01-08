@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS github_commits_raw (
   changed_files Int32,
   co_authors Array(String),
   is_ai Bool MATERIALIZED (
-    hasCoAuthor(co_authors) OR
+    length(co_authors) > 0 OR
     endsWith(author_email, '@users.noreply.github.com') OR
     lowercase(message) LIKE '%[bot]%' OR
     lowercase(message) LIKE '%[auto]%' OR
