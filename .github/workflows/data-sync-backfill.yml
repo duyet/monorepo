@@ -13,31 +13,11 @@ on:
         required: false
         type: boolean
         default: true
-      github:
-        description: 'Enable GitHub backfill'
+      sources:
+        description: 'Comma-separated list of sources to sync (github,wakatime,cloudflare,unsplash,posthog)'
         required: false
-        type: boolean
-        default: true
-      wakatime:
-        description: 'Enable WakaTime backfill'
-        required: false
-        type: boolean
-        default: false
-      cloudflare:
-        description: 'Enable Cloudflare backfill'
-        required: false
-        type: boolean
-        default: false
-      unsplash:
-        description: 'Enable Unsplash backfill'
-        required: false
-        type: boolean
-        default: false
-      posthog:
-        description: 'Enable PostHog backfill'
-        required: false
-        type: boolean
-        default: false
+        type: string
+        default: 'github'
 
 env:
   CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
@@ -60,6 +40,30 @@ env:
   BACKFILL_DAYS: ${{ inputs.backfill_days }}
 
 jobs:
+  # Parse sources input into a matrix
+  setup-matrix:
+    name: Setup Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      sources: ${{ steps.parse.outputs.sources }}
+    steps:
+      - id: parse
+        run: |
+          # Parse comma-separated sources into JSON array
+          SOURCES="${{ inputs.sources }}"
+          IFS=',' read -ra ARRAY <<< "$SOURCES"
+          JSON="["
+          for i in "${!ARRAY[@]}"; do
+            source=$(echo "${ARRAY[$i]}" | xargs)
+            if [ $i -gt 0 ]; then
+              JSON="$JSON,"
+            fi
+            JSON="$JSON\"$source\""
+          done
+          JSON="$JSON]"
+          echo "sources=$JSON" >> $GITHUB_OUTPUT
+          echo "Sources to sync: $JSON"
+
   # Migrations job - runs first, required by all sync jobs
   migrations:
     name: Run Migrations
@@ -99,13 +103,16 @@ jobs:
         working-directory: apps/data-sync
         run: bun run migrate:up
 
-  # GitHub backfill job
-  backfill-github:
-    name: Backfill GitHub
+  # Backfill jobs - run in parallel for each source
+  backfill:
+    name: Backfill ${{ matrix.source }}
     runs-on: ubuntu-latest
-    timeout-minutes: 60
-    needs: migrations
-    if: inputs.github == true
+    timeout-minutes: ${{ matrix.source == 'github' && 60 || 30 }}
+    needs: [setup-matrix, migrations]
+    strategy:
+      fail-fast: false
+      matrix:
+        source: ${{ fromJson(needs.setup-matrix.outputs.sources) }}
 
     steps:
       - name: Checkout
@@ -124,10 +131,10 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Sync GitHub
+      - name: Sync ${{ matrix.source }}
         working-directory: apps/data-sync
         run: |
-          SYNC_CMD="bun run sync github"
+          SYNC_CMD="bun run sync ${{ matrix.source }}"
           if [ "$DRY_RUN" = "true" ]; then
             SYNC_CMD="$SYNC_CMD --dry-run"
           fi
@@ -141,195 +148,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: github-backfill-logs-${{ github.run_id }}
-          path: apps/data-sync/logs/
-          retention-days: 7
-          if-no-files-found: ignore
-
-  # WakaTime backfill job
-  backfill-wakatime:
-    name: Backfill WakaTime
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    needs: migrations
-    if: inputs.wakatime == true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Tailscale
-        uses: tailscale/github-action@v4
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
-
-      - name: Sync WakaTime
-        working-directory: apps/data-sync
-        run: |
-          SYNC_CMD="bun run sync wakatime"
-          if [ "$DRY_RUN" = "true" ]; then
-            SYNC_CMD="$SYNC_CMD --dry-run"
-          fi
-          if [ "$BACKFILL_DAYS" -gt 0 ]; then
-            SYNC_CMD="$SYNC_CMD --backfill-days=$BACKFILL_DAYS"
-          fi
-          echo "Running: $SYNC_CMD"
-          eval $SYNC_CMD
-
-      - name: Upload sync logs
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: wakatime-backfill-logs-${{ github.run_id }}
-          path: apps/data-sync/logs/
-          retention-days: 7
-          if-no-files-found: ignore
-
-  # Cloudflare backfill job
-  backfill-cloudflare:
-    name: Backfill Cloudflare
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    needs: migrations
-    if: inputs.cloudflare == true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Tailscale
-        uses: tailscale/github-action@v4
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
-
-      - name: Sync Cloudflare
-        working-directory: apps/data-sync
-        run: |
-          SYNC_CMD="bun run sync cloudflare"
-          if [ "$DRY_RUN" = "true" ]; then
-            SYNC_CMD="$SYNC_CMD --dry-run"
-          fi
-          if [ "$BACKFILL_DAYS" -gt 0 ]; then
-            SYNC_CMD="$SYNC_CMD --backfill-days=$BACKFILL_DAYS"
-          fi
-          echo "Running: $SYNC_CMD"
-          eval $SYNC_CMD
-
-      - name: Upload sync logs
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: cloudflare-backfill-logs-${{ github.run_id }}
-          path: apps/data-sync/logs/
-          retention-days: 7
-          if-no-files-found: ignore
-
-  # Unsplash backfill job
-  backfill-unsplash:
-    name: Backfill Unsplash
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    needs: migrations
-    if: inputs.unsplash == true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Tailscale
-        uses: tailscale/github-action@v4
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
-
-      - name: Sync Unsplash
-        working-directory: apps/data-sync
-        run: |
-          SYNC_CMD="bun run sync unsplash"
-          if [ "$DRY_RUN" = "true" ]; then
-            SYNC_CMD="$SYNC_CMD --dry-run"
-          fi
-          if [ "$BACKFILL_DAYS" -gt 0 ]; then
-            SYNC_CMD="$SYNC_CMD --backfill-days=$BACKFILL_DAYS"
-          fi
-          echo "Running: $SYNC_CMD"
-          eval $SYNC_CMD
-
-      - name: Upload sync logs
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: unsplash-backfill-logs-${{ github.run_id }}
-          path: apps/data-sync/logs/
-          retention-days: 7
-          if-no-files-found: ignore
-
-  # PostHog backfill job
-  backfill-posthog:
-    name: Backfill PostHog
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    needs: migrations
-    if: inputs.posthog == true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Tailscale
-        uses: tailscale/github-action@v4
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
-
-      - name: Sync PostHog
-        working-directory: apps/data-sync
-        run: |
-          SYNC_CMD="bun run sync posthog"
-          if [ "$DRY_RUN" = "true" ]; then
-            SYNC_CMD="$SYNC_CMD --dry-run"
-          fi
-          if [ "$BACKFILL_DAYS" -gt 0 ]; then
-            SYNC_CMD="$SYNC_CMD --backfill-days=$BACKFILL_DAYS"
-          fi
-          echo "Running: $SYNC_CMD"
-          eval $SYNC_CMD
-
-      - name: Upload sync logs
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: posthog-backfill-logs-${{ github.run_id }}
+          name: ${{ matrix.source }}-backfill-logs-${{ github.run_id }}
           path: apps/data-sync/logs/
           retention-days: 7
           if-no-files-found: ignore
