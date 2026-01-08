@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LinkCard, ContentCard } from "@duyet/components";
+import { LinkCard, ContentCard, AiContentCard } from "@duyet/components";
 import { nodes } from "../../homelab/lib/data/nodes";
 
 export const dynamic = "force-static";
@@ -51,7 +51,7 @@ export default function HomePage() {
 
         {/* Links Grid */}
         <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
-          <ContentCard
+          <AiContentCard
             title="Blog"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_BLOG_URL ||
@@ -59,10 +59,11 @@ export default function HomePage() {
               "homepage",
               "blog_card"
             )}
-            description="Technical writings on data engineering, distributed systems, and open source."
+            fallbackDescription="Technical writings on data engineering, distributed systems, and open source."
             color="terracotta"
             illustration="blob"
             featured
+            cardType="blog"
           />
 
           <ContentCard

@@ -1,0 +1,32 @@
+# Cloudflare Workers configuration
+name = "duyet-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Environment variables (set via wrangler secret)
+# OPENROUTER_API_KEY
+
+# Route configuration for production
+routes = [
+  { pattern = "api.duyet.net/*", zone_name = "duyet.net" }
+]
+
+# Build configuration
+[build]
+command = ""
+
+# Development configuration
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Production environment
+[env.production]
+name = "duyet-api-production"
+
+# Staging environment
+[env.staging]
+name = "duyet-api-staging"
+routes = [
+  { pattern = "api-staging.duyet.net/*", zone_name = "duyet.net" }
+]

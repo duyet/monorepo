@@ -13,7 +13,9 @@
     "fmt": "biome format --write .",
     "lint": "biome lint .",
     "start": "dotenv -- turbo start",
-    "test": "dotenv -- turbo test"
+    "test": "dotenv -- turbo test",
+    "config": "turbo run config",
+    "deploy": "turbo deploy && bun run config"
   },
   "lint-staged": {
     "*": "biome format --write"

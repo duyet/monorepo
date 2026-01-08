@@ -154,3 +154,8 @@ src/
 └── commands/        # CLI commands
 migrations/          # Database migrations
 ```
+
+---
+
+**This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
+

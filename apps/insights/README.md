@@ -41,3 +41,8 @@ yarn dev
 ```
 
 Visit http://localhost:3001 to see the dashboard.
+
+---
+
+**This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
+

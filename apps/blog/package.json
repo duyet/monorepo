@@ -8,6 +8,7 @@
     "path": false
   },
   "scripts": {
+    "config": "bun ../../scripts/sync-app-secrets.ts duyet-blog",
     "analyze": "cross-env ANALYZE=true bun --bun next build",
     "build": "bun --bun next build",
     "check-types": "tsc --noEmit",
@@ -16,6 +17,7 @@
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
+    "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-blog",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

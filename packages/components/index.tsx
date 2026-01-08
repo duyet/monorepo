@@ -43,3 +43,7 @@ export * from "./cards";
 
 // Illustration Components
 export * from "./illustrations";
+
+// AI Components
+export * from "./ai";
+export * from "./thinking";
