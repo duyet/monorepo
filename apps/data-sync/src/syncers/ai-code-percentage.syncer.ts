@@ -142,8 +142,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
       : undefined;
 
     this.logger.info(
-      `Fetching commits for user: ${this.owner}` +
-        (since ? ` since ${since}` : "")
+      `Fetching commits for user: ${this.owner}${since ? ` since ${since}` : ""}`
     );
 
     const repos = await this.fetchAllRepos(token);
