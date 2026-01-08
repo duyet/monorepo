@@ -9,3 +9,4 @@ jobs:
     uses: duyet/github-actions/.github/workflows/claude-code-review.yml@main
     secrets:
       api_key: ${{ secrets.OPENROUTER_API_KEY }}
+      bot_github_token: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
