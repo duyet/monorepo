@@ -1,5 +1,5 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { BaseSyncer } from "../lib/base";
+import { getClickHouseClient } from "@duyet/libs/clickhouse";
 import type { SyncOptions } from "../lib/base/types";
 
 interface GitHubContributionDay {

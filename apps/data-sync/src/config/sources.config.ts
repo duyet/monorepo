@@ -42,6 +42,12 @@ export const sourceConfigs: Record<string, SourceConfig> = {
     schedule: "0 3 * * 0", // Weekly on Sunday at 3am
     description: "Unsplash full photo metadata with EXIF and location",
   },
+  "ai-code-percentage": {
+    name: "ai-code-percentage",
+    enabled: true,
+    schedule: "0 4 * * *", // Daily at 4am
+    description: "AI vs human code percentage analysis",
+  },
 };
 
 export const ALL_SOURCES = Object.keys(sourceConfigs);
