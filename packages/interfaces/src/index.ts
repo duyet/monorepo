@@ -4,7 +4,6 @@ export type { CloudflareAnalyticsByDate } from "./cloudflare";
 export type {
   CommonEnvironmentVariables,
   CrossAppUrls,
-  Auth0Variables,
   BaseEnvironmentVariables,
   FullEnvironmentVariables,
 } from "./environment";
