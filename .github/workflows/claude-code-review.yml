@@ -4,6 +4,12 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+permissions:
+  issues: read
+  pull-requests: write
+  id-token: write
+  contents: read
+
 jobs:
   review:
     uses: duyet/github-actions/.github/workflows/claude-code-review.yml@main
