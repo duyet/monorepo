@@ -44,7 +44,7 @@ AS SELECT
   sumState(additions) as total_lines_added,
   sumState(if(is_ai = 1, additions, 0)) as ai_lines_added,
   sumState(if(is_ai = 0, additions, 0)) as human_lines_added,
-  uniqStateCombined(repo) as repo_count,
+  uniqState(repo) as repo_count,
   max(synced_at) as synced_at
 FROM github_commits_raw
 GROUP BY date, owner;
