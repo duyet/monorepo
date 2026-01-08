@@ -97,7 +97,7 @@ aiPercentageRouter.get('/current', async (c) => {
         total_lines_added,
         human_lines_added,
         ai_lines_added
-      FROM monorepo_ai_code_percentage
+      FROM monorepo_ai_code_percentage_v2_v2
       ORDER BY date DESC
       LIMIT 1
       FORMAT JSONEachRow
@@ -170,7 +170,7 @@ aiPercentageRouter.get('/history', async (c) => {
         total_commits,
         human_commits,
         ai_commits
-      FROM monorepo_ai_code_percentage
+      FROM monorepo_ai_code_percentage_v2
       ${dateCondition}
       ORDER BY date ASC
       FORMAT JSONEachRow
@@ -221,7 +221,7 @@ aiPercentageRouter.get('/available', async (c) => {
   try {
     const query = `
       SELECT count() as count
-      FROM monorepo_ai_code_percentage
+      FROM monorepo_ai_code_percentage_v2
       LIMIT 1
       FORMAT JSONEachRow
     `;
