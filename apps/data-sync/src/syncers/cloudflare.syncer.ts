@@ -54,10 +54,13 @@ export class CloudflareSyncer extends BaseSyncer<
   ): Promise<CloudflareAnalyticsResponse[]> {
     const zoneId = process.env.CLOUDFLARE_ZONE_ID;
     const apiKey = process.env.CLOUDFLARE_API_KEY;
+    const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 
-    if (!zoneId || !apiKey) {
+    // Support both auth methods: API_KEY (local dev) or API_TOKEN (production)
+    const authToken = apiToken || apiKey;
+    if (!zoneId || !authToken) {
       throw new Error(
-        "CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY environment variables are required"
+        "CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY or CLOUDFLARE_API_TOKEN environment variables are required"
       );
     }
 
@@ -65,6 +68,10 @@ export class CloudflareSyncer extends BaseSyncer<
     this.logger.info(
       `Fetching Cloudflare analytics from ${startDate} to ${endDate}`
     );
+
+    // Chunked rolling: split date range into smaller chunks to avoid rate limits
+    const chunks = this.getDateChunks(startDate, endDate);
+    this.logger.info(`Fetching data in ${chunks.length} chunks`);
 
     const query = `
       query viewer($zoneTag: string, $date_start: string, $date_end: string) {
@@ -93,39 +100,64 @@ export class CloudflareSyncer extends BaseSyncer<
       }
     `;
 
-    const variables = {
-      zoneTag: zoneId,
-      date_start: startDate,
-      date_end: endDate,
-    };
+    const allResponses: CloudflareAnalyticsResponse[] = [];
 
-    const headers = {
-      Authorization: `Bearer ${apiKey}`,
-    };
+    // Fetch each chunk sequentially
+    for (let i = 0; i < chunks.length; i++) {
+      const chunk = chunks[i];
+      this.logger.info(
+        `Fetching chunk ${i + 1}/${chunks.length}: ${chunk.start} to ${chunk.end}`
+      );
 
-    try {
-      const response = await this.withRetry(async () => {
-        const data = await request<CloudflareAnalyticsResponse>(
-          "https://api.cloudflare.com/client/v4/graphql",
-          query,
-          variables,
-          headers
-        );
+      const variables = {
+        zoneTag: zoneId,
+        date_start: chunk.start,
+        date_end: chunk.end,
+      };
 
-        if (!data?.viewer?.zones?.[0]?.httpRequests1dGroups) {
-          throw new Error("Cloudflare API returned invalid response format");
+      const headers = {
+        Authorization: `Bearer ${authToken}`,
+      };
+
+      try {
+        const response = await this.withRetry(async () => {
+          const data = await request<CloudflareAnalyticsResponse>(
+            "https://api.cloudflare.com/client/v4/graphql",
+            query,
+            variables,
+            headers
+          );
+
+          if (!data?.viewer?.zones?.[0]?.httpRequests1dGroups) {
+            throw new Error("Cloudflare API returned invalid response format");
+          }
+
+          return data;
+        });
+
+        allResponses.push(response);
+
+        // Small delay between chunks to avoid rate limiting
+        if (i < chunks.length - 1) {
+          await this.sleep(500); // 500ms delay
         }
-
-        return data;
-      });
-
-      return [response];
-    } catch (error) {
-      this.logger.error("Failed to fetch from Cloudflare API", {
-        error: error instanceof Error ? error.message : String(error),
-      });
-      throw error;
+      } catch (error) {
+        this.logger.error(
+          `Failed to fetch chunk ${i + 1}/${chunks.length}: ${chunk.start} to ${chunk.end}`,
+          {
+            error: error instanceof Error ? error.message : String(error),
+          }
+        );
+        // Continue with next chunk on error
+        continue;
+      }
     }
+
+    this.logger.info(
+      `Successfully fetched ${allResponses.length} of ${chunks.length} chunks`
+    );
+
+    return allResponses;
   }
 
   protected async transform(
@@ -170,25 +202,44 @@ export class CloudflareSyncer extends BaseSyncer<
       options.startDate ||
       new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-    // Cloudflare free tier has a 365-day limit
-    const maxDaysPerRequest = 364;
-    const daysDiff = Math.floor(
-      (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)
-    );
-
-    let actualStartDate = startDate;
-    if (daysDiff > maxDaysPerRequest) {
-      this.logger.warn(
-        `Requested ${daysDiff} days but limiting to ${maxDaysPerRequest} days due to Cloudflare quota limits`
-      );
-      actualStartDate = new Date(
-        endDate.getTime() - maxDaysPerRequest * 24 * 60 * 60 * 1000
-      );
-    }
-
     return {
-      startDate: actualStartDate.toISOString().split("T")[0],
+      startDate: startDate.toISOString().split("T")[0],
       endDate: endDate.toISOString().split("T")[0],
     };
+  }
+
+  /**
+   * Split date range into chunks to avoid rate limits
+   * Uses 7-day chunks for daily sync pattern
+   */
+  private getDateChunks(startDate: string, endDate: string): Array<{
+    start: string;
+    end: string;
+  }> {
+    const chunks: Array<{ start: string; end: string }> = [];
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Use 7-day chunks (daily sync -> rolling last 7 days)
+    const chunkDays = 7;
+    const chunkMs = chunkDays * 24 * 60 * 60 * 1000;
+
+    let currentStart = new Date(start);
+    while (currentStart < end) {
+      let currentEnd = new Date(currentStart.getTime() + chunkMs);
+      if (currentEnd > end) {
+        currentEnd = end;
+      }
+
+      chunks.push({
+        start: currentStart.toISOString().split("T")[0],
+        end: currentEnd.toISOString().split("T")[0],
+      });
+
+      currentStart = currentEnd;
+    }
+
+    return chunks;
   }
 }

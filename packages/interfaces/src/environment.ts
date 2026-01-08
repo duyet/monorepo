@@ -16,14 +16,6 @@ export interface CrossAppUrls {
 }
 
 /**
- * Auth0 authentication variables
- */
-export interface Auth0Variables {
-  readonly NEXT_PUBLIC_AUTH0_DOMAIN: string;
-  readonly NEXT_PUBLIC_AUTH0_CLIENT_ID: string;
-}
-
-/**
  * Base environment variables used by most apps
  */
 export interface BaseEnvironmentVariables
@@ -33,10 +25,9 @@ export interface BaseEnvironmentVariables
 }
 
 /**
- * Full environment including Auth0 (used by blog app)
+ * Full environment (used by blog app)
  */
 export interface FullEnvironmentVariables
-  extends BaseEnvironmentVariables,
-    Auth0Variables {
+  extends BaseEnvironmentVariables {
   readonly NEXT_PUBLIC_GITHUB_REPO_URL: string;
 }

@@ -112,25 +112,16 @@ export async function Cloudflare({ days = 30 }: { days?: number | "all" }) {
 
 const getData = async (days: number | "all" = 30) => {
   // Check if required environment variables are present
-  if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
-    console.warn(
-      "Cloudflare API credentials not configured, returning empty data"
+  const zoneId = process.env.CLOUDFLARE_ZONE_ID;
+  const apiKey = process.env.CLOUDFLARE_API_KEY;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+
+  // Support both auth methods: API_KEY (local dev) or API_TOKEN (production)
+  const authToken = apiToken || apiKey;
+  if (!zoneId || !authToken) {
+    throw new Error(
+      "Cloudflare API credentials not configured. CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY or CLOUDFLARE_API_TOKEN environment variables are required."
     );
-    const emptyData = {
-      viewer: {
-        zones: [
-          {
-            httpRequests1dGroups: [],
-          },
-        ],
-      },
-    };
-    return {
-      data: emptyData,
-      generatedAt: new Date().toISOString(),
-      totalRequests: 0,
-      totalPageviews: 0,
-    };
   }
 
   const query = `
@@ -166,7 +157,7 @@ const getData = async (days: number | "all" = 30) => {
   const actualDays = Math.min(requestedDays, maxDaysPerRequest);
 
   const headers = {
-    Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
+    Authorization: `Bearer ${authToken}`,
   };
 
   // Calculate date range
@@ -183,74 +174,40 @@ const getData = async (days: number | "all" = 30) => {
   }
 
   const variables = {
-    zoneTag: process.env.CLOUDFLARE_ZONE_ID,
+    zoneTag: zoneId,
     date_start: startDate.toISOString().split("T")[0],
     date_end: endDate.toISOString().split("T")[0],
   };
 
-  try {
-    const data: CloudflareAnalyticsByDate = await request(
-      "https://api.cloudflare.com/client/v4/graphql",
-      query,
-      variables,
-      headers
-    );
+  const data: CloudflareAnalyticsByDate = await request(
+    "https://api.cloudflare.com/client/v4/graphql",
+    query,
+    variables,
+    headers
+  );
 
-    const zone = data.viewer.zones[0];
+  const zone = data.viewer.zones[0];
 
-    if (!zone || !zone.httpRequests1dGroups) {
-      console.warn("No zone data returned from Cloudflare API");
-      const emptyData = {
-        viewer: {
-          zones: [
-            {
-              httpRequests1dGroups: [],
-            },
-          ],
-        },
-      };
-      return {
-        data: emptyData,
-        generatedAt: new Date().toISOString(),
-        totalRequests: 0,
-        totalPageviews: 0,
-      };
-    }
-
-    const totalRequests = zone.httpRequests1dGroups.reduce(
-      (total, i) => total + i.sum.requests,
-      0
-    );
-
-    const totalPageviews = zone.httpRequests1dGroups.reduce(
-      (total, i) => total + i.sum.pageViews,
-      0
-    );
-
-    const generatedAt = new Date().toISOString();
-
-    return {
-      data,
-      generatedAt,
-      totalRequests,
-      totalPageviews,
-    };
-  } catch (error) {
-    console.error("Cloudflare API error:", error);
-    const emptyData = {
-      viewer: {
-        zones: [
-          {
-            httpRequests1dGroups: [],
-          },
-        ],
-      },
-    };
-    return {
-      data: emptyData,
-      generatedAt: new Date().toISOString(),
-      totalRequests: 0,
-      totalPageviews: 0,
-    };
+  if (!zone || !zone.httpRequests1dGroups) {
+    throw new Error("No zone data returned from Cloudflare API");
   }
+
+  const totalRequests = zone.httpRequests1dGroups.reduce(
+    (total, i) => total + i.sum.requests,
+    0
+  );
+
+  const totalPageviews = zone.httpRequests1dGroups.reduce(
+    (total, i) => total + i.sum.pageViews,
+    0
+  );
+
+  const generatedAt = new Date().toISOString();
+
+  return {
+    data,
+    generatedAt,
+    totalRequests,
+    totalPageviews,
+  };
 };

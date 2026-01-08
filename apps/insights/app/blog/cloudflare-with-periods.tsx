@@ -61,23 +61,16 @@ const getDataForAllPeriods = async (): Promise<
 
 const getDataForPeriod = async (days: number) => {
   // Check if required environment variables are present
-  if (!process.env.CLOUDFLARE_ZONE_ID || !process.env.CLOUDFLARE_API_KEY) {
-    console.warn(
-      "Cloudflare API credentials not configured, returning empty data"
+  const zoneId = process.env.CLOUDFLARE_ZONE_ID;
+  const apiKey = process.env.CLOUDFLARE_API_KEY;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+
+  // Support both auth methods: API_KEY (local dev) or API_TOKEN (production)
+  const authToken = apiToken || apiKey;
+  if (!zoneId || !authToken) {
+    throw new Error(
+      "Cloudflare API credentials not configured. CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY or CLOUDFLARE_API_TOKEN environment variables are required."
     );
-    return {
-      data: {
-        viewer: {
-          zones: [
-            {
-              httpRequests1dGroups: [],
-            },
-          ],
-        },
-      },
-      totalRequests: 0,
-      totalPageviews: 0,
-    };
   }
 
   // Cloudflare free tier only allows max 364 days of data (31536000s limit)
@@ -118,7 +111,7 @@ const getDataForPeriod = async (days: number) => {
     }`;
 
   const variables = {
-    zoneTag: process.env.CLOUDFLARE_ZONE_ID,
+    zoneTag: zoneId,
     date_start: new Date(new Date().setDate(new Date().getDate() - actualDays))
       .toISOString()
       .split("T")[0],
@@ -126,77 +119,35 @@ const getDataForPeriod = async (days: number) => {
   };
 
   const headers = {
-    Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
+    Authorization: `Bearer ${authToken}`,
   };
 
-  try {
-    const data: CloudflareAnalyticsByDate = await request(
-      "https://api.cloudflare.com/client/v4/graphql",
-      query,
-      variables,
-      headers
-    );
+  const data: CloudflareAnalyticsByDate = await request(
+    "https://api.cloudflare.com/client/v4/graphql",
+    query,
+    variables,
+    headers
+  );
 
-    const zone = data.viewer.zones[0];
+  const zone = data.viewer.zones[0];
 
-    if (!zone || !zone.httpRequests1dGroups) {
-      console.warn("No zone data returned from Cloudflare API");
-      return {
-        data: {
-          viewer: {
-            zones: [
-              {
-                httpRequests1dGroups: [],
-              },
-            ],
-          },
-        },
-        totalRequests: 0,
-        totalPageviews: 0,
-      };
-    }
-
-    const totalRequests = zone.httpRequests1dGroups.reduce(
-      (total, i) => total + i.sum.requests,
-      0
-    );
-
-    const totalPageviews = zone.httpRequests1dGroups.reduce(
-      (total, i) => total + i.sum.pageViews,
-      0
-    );
-
-    return {
-      data,
-      totalRequests,
-      totalPageviews,
-    };
-  } catch (error) {
-    console.error(`Cloudflare API error for ${actualDays} days:`, error);
-
-    // Check if it's a quota error and suggest a shorter period
-    if (
-      error instanceof Error &&
-      error.message.includes("cannot request data older than")
-    ) {
-      console.warn(
-        "Cloudflare quota exceeded, consider reducing the time period"
-      );
-    }
-
-    // Return empty data structure on error
-    return {
-      data: {
-        viewer: {
-          zones: [
-            {
-              httpRequests1dGroups: [],
-            },
-          ],
-        },
-      },
-      totalRequests: 0,
-      totalPageviews: 0,
-    };
+  if (!zone || !zone.httpRequests1dGroups) {
+    throw new Error("No zone data returned from Cloudflare API");
   }
+
+  const totalRequests = zone.httpRequests1dGroups.reduce(
+    (total, i) => total + i.sum.requests,
+    0
+  );
+
+  const totalPageviews = zone.httpRequests1dGroups.reduce(
+    (total, i) => total + i.sum.pageViews,
+    0
+  );
+
+  return {
+    data,
+    totalRequests,
+    totalPageviews,
+  };
 };
