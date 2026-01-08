@@ -20,7 +20,11 @@ export default function Page() {
 
       <p className="mt-12 text-xs text-muted-foreground text-center">
         Data Source: GitHub + ClickHouse | Last updated:{" "}
-        {new Date().toLocaleDateString()}
+        {new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}
       </p>
     </main>
   );
