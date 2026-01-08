@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS github_commits_raw (
   is_ai Bool MATERIALIZED (
     length(co_authors) > 0 OR
     endsWith(author_email, '@users.noreply.github.com') OR
-    lowercase(message) LIKE '%[bot]%' OR
-    lowercase(message) LIKE '%[auto]%' OR
-    lowercase(message) LIKE '%[ci]%'
+    toLowerString(message) LIKE '%[bot]%' OR
+    toLowerString(message) LIKE '%[auto]%' OR
+    toLowerString(message) LIKE '%[ci]%'
   ),
   committed_at DateTime,
   inserted_at DateTime DEFAULT now()
