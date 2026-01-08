@@ -12,6 +12,7 @@ export interface AICodePercentageData {
 }
 
 export interface CurrentAICodePercentage {
+  date: string;
   ai_percentage: number;
   total_lines_added: number;
   human_lines_added: number;
