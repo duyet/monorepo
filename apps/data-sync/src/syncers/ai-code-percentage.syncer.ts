@@ -34,70 +34,6 @@ interface GitHubCommit {
   pushed_date: string | null;
 }
 
-interface GitHubRepoCommitResponse {
-  data: {
-    repository: {
-      url: string;
-      defaultBranchRef: {
-        target: {
-          history: {
-            pageInfo: {
-              hasNextPage: boolean;
-              endCursor: string;
-            };
-            edges: Array<{
-              node: {
-                oid: string;
-                abbreviatedOid: string;
-                url: string;
-                message: string;
-                messageHeadline: string;
-                messageBody: string;
-                author: {
-                  name: string;
-                  email: string;
-                  date: string;
-                };
-                committer: {
-                  name: string;
-                  email: string;
-                  date: string;
-                };
-                signature: {
-                  exists: boolean;
-                  valid: boolean | null;
-                  method: string | null;
-                } | null;
-                additions: number;
-                deletions: number;
-                changedFiles: number;
-                pushedDate: string | null;
-                committedDate: string;
-                authoredDate: string;
-                parents: {
-                  edges: Array<{
-                    node: {
-                      oid: string;
-                    };
-                  }>;
-                };
-                coAuthors: {
-                  edges: Array<{
-                    node: {
-                      name: string;
-                      email: string;
-                    };
-                  }>;
-                };
-              };
-            }>;
-          };
-        };
-      };
-    };
-  };
-}
-
 interface RawCommitRecord {
   date: string;
   repo: string;
@@ -198,14 +134,22 @@ const REPO_COMMIT_QUERY = `
 `;
 
 export class AICodePercentageSyncer extends BaseSyncer<
-  GitHubRepoCommitResponse,
+  any,
   RawCommitRecord[]
 > {
-  private owner: string;
+  private owners: string[];
+  private owner: string = '';
 
-  constructor(client: ClickHouseClient, owner?: string) {
+  constructor(client: ClickHouseClient, owner?: string | string[]) {
     super(client, "ai-code-percentage");
-    this.owner = owner || process.env.GITHUB_USERNAME || "duyet";
+
+    if (owner) {
+      this.owners = Array.isArray(owner) ? owner : [owner];
+    } else {
+      // Support multiple owners from environment variable (comma-separated)
+      const ownersEnv = process.env.GITHUB_USERNAMES || process.env.GITHUB_USERNAME || "duyet";
+      this.owners = ownersEnv.split(',').map(o => o.trim());
+    }
   }
 
   protected getTableName(): string {
@@ -214,7 +158,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
 
   protected async fetchFromApi(
     options: SyncOptions
-  ): Promise<GitHubRepoCommitResponse[]> {
+  ): Promise<any[]> {
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
     // Calculate since date if startDate is provided
@@ -223,59 +167,80 @@ export class AICodePercentageSyncer extends BaseSyncer<
       : undefined;
 
     this.logger.info(
-      `Fetching commits for user: ${this.owner}` +
+      `Fetching commits for ${this.owners.length} users: ${this.owners.join(', ')}` +
         (since ? ` since ${since}` : "")
     );
 
-    const repos = await this.fetchAllRepos(token);
+    // Fetch repos and commits for all owners
+    const allCommits: Array<GitHubCommit & { repo: string; repo_owner: string }> = [];
 
-    if (repos.length === 0) {
-      this.logger.warn("No repositories found");
-      return [];
-    }
+    for (const currentOwner of this.owners) {
+      this.logger.info(`Fetching repositories for ${currentOwner}...`);
 
-    this.logger.info(`Processing ${repos.length} repositories`);
+      const repos = await this.fetchAllRepos(token, currentOwner);
 
-    // Process repos in batches to avoid overwhelming the API
-    const batchSize = 10;
-    const commitsByRepo: Map<string, GitHubCommit[]> = new Map();
+      if (repos.length === 0) {
+        this.logger.warn(`No repositories found for ${currentOwner}`);
+        continue;
+      }
 
-    for (let i = 0; i < repos.length; i += batchSize) {
-      const batch = repos.slice(i, i + batchSize);
-      this.logger.info(
-        `Fetching commits from batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(repos.length / batchSize)}`
-      );
+      this.logger.info(`Processing ${repos.length} repositories for ${currentOwner}`);
 
-      for (const repo of batch) {
-        const commits = await this.fetchAllCommits(token, repo, since);
-        commitsByRepo.set(repo, commits);
+      // Process repos in batches to avoid overwhelming the API
+      const batchSize = 10;
+      const commitsByRepo: Map<string, GitHubCommit[]> = new Map();
 
-        if (commits.length > 0) {
-          this.logger.debug(
-            `Fetched ${commits.length} commits from ${repo}`
-          );
+      for (let i = 0; i < repos.length; i += batchSize) {
+        const batch = repos.slice(i, i + batchSize);
+        this.logger.info(
+          `Fetching commits from batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(repos.length / batchSize)} for ${currentOwner}`
+        );
+
+        for (const repo of batch) {
+          const commits = await this.fetchAllCommits(token, repo, since, currentOwner);
+          commitsByRepo.set(repo, commits);
+
+          if (commits.length > 0) {
+            this.logger.debug(
+              `Fetched ${commits.length} commits from ${currentOwner}/${repo}`
+            );
+          }
+        }
+
+        // Rate limit delay between batches
+        if (i + batchSize < repos.length) {
+          await this.sleep(2000);
         }
       }
 
-      // Rate limit delay between batches
-      if (i + batchSize < repos.length) {
-        await this.sleep(2000);
+      // Flatten commits with repo names and owner
+      for (const [repo, commits] of commitsByRepo.entries()) {
+        allCommits.push(...commits.map(c => ({ ...c, repo, repo_owner: currentOwner })));
       }
-    }
-
-    // Flatten commits with repo names
-    const allCommits: Array<GitHubCommit & { repo: string }> = [];
-    for (const [repo, commits] of commitsByRepo.entries()) {
-      allCommits.push(...commits.map(c => ({ ...c, repo })));
     }
 
     this.logger.info(`Total commits fetched: ${allCommits.length}`);
 
-    return [
-      {
+    if (allCommits.length === 0) {
+      return [];
+    }
+
+    // Group by owner to create separate responses
+    const commitsByOwner = new Map<string, Array<typeof allCommits[0]>>();
+    for (const commit of allCommits) {
+      if (!commitsByOwner.has(commit.repo_owner)) {
+        commitsByOwner.set(commit.repo_owner, []);
+      }
+      commitsByOwner.get(commit.repo_owner)!.push(commit);
+    }
+
+    // Create separate response for each owner
+    const responses: any[] = [];
+    for (const [currentOwner, commits] of commitsByOwner) {
+      responses.push({
         data: {
           repository: {
-            url: `https://github.com/${this.owner}`,
+            url: `https://github.com/${currentOwner}`,
             defaultBranchRef: {
               target: {
                 history: {
@@ -283,7 +248,9 @@ export class AICodePercentageSyncer extends BaseSyncer<
                     hasNextPage: false,
                     endCursor: "",
                   },
-                  edges: allCommits.map((commit) => ({
+                  edges: commits.map((commit) => ({
+                    // Include repo name as custom field
+                    _repo: commit.repo,
                     node: {
                       oid: commit.sha,
                       abbreviatedOid: commit.short_sha,
@@ -332,11 +299,13 @@ export class AICodePercentageSyncer extends BaseSyncer<
             },
           },
         },
-      },
-    ];
+      });
+    }
+
+    return responses;
   }
 
-  private async fetchAllRepos(token: string): Promise<string[]> {
+  private async fetchAllRepos(token: string, owner: string): Promise<string[]> {
     const repos: string[] = [];
     let after: string | null = null;
 
@@ -376,7 +345,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
             headers,
             body: JSON.stringify({
               query: reposQuery,
-              variables: { login: this.owner, after },
+              variables: { login: owner, after },
             }),
           });
 
@@ -402,7 +371,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
         }
       } while (after);
 
-      this.logger.info(`Found ${repos.length} repositories`);
+      this.logger.info(`Found ${repos.length} repositories for ${owner}`);
     } catch (error) {
       this.logger.error("Failed to fetch repositories", error);
     }
@@ -413,12 +382,14 @@ export class AICodePercentageSyncer extends BaseSyncer<
   private async fetchAllCommits(
     token: string,
     repoName: string,
-    since?: string
+    since?: string,
+    owner?: string
   ): Promise<GitHubCommit[]> {
     const commits: GitHubCommit[] = [];
     let after: string | null = null;
     let pageCount = 0;
     const MAX_PAGES = 100; // Increased for backfill
+    const currentOwner = owner || this.owners[0];
 
     while (after !== null && pageCount < MAX_PAGES) {
       const response = await this.withRetry(async () => {
@@ -437,7 +408,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
           body: JSON.stringify({
             query: REPO_COMMIT_QUERY,
             variables: {
-              owner: this.owner,
+              owner: currentOwner,
               name: repoName,
               after,
               since,
@@ -460,7 +431,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
         break;
       }
 
-      const repoUrl = response.data?.repository?.url || `https://github.com/${this.owner}/${repoName}`;
+      const repoUrl = response.data?.repository?.url || `https://github.com/${currentOwner}/${repoName}`;
 
       for (const edge of edges) {
         const node = edge.node;
@@ -511,62 +482,64 @@ export class AICodePercentageSyncer extends BaseSyncer<
   }
 
   protected async transform(
-    data: GitHubRepoCommitResponse[]
+    data: any[]
   ): Promise<RawCommitRecord[]> {
     if (!data || data.length === 0) {
       return [];
     }
 
-    const edges =
-      data[0].data?.repository?.defaultBranchRef?.target?.history?.edges || [];
-
-    if (edges.length === 0) {
-      return [];
-    }
-
     const records: RawCommitRecord[] = [];
-    const repoOwner = this.owner;
 
-    for (const edge of edges) {
-      const commit = edge.node;
+    // Process all responses (one per owner)
+    for (const response of data) {
+      const edges =
+        response.data?.repository?.defaultBranchRef?.target?.history?.edges || [];
 
-      // Format co_authors as array of "name <email>" strings
-      const coAuthorsFormatted = commit.coAuthors.edges.map((e: any) => {
-        const name = e.node.name;
-        const email = e.node.email;
-        return `${name} <${email}>`;
-      });
+      const repoUrl = response.data?.repository?.url || '';
+      // Extract repo_owner from URL (e.g., "https://github.com/duyet" -> "duyet")
+      const repoOwner = repoUrl.split('github.com/')[1] || this.owners[0];
 
-      records.push({
-        date: new Date(commit.committedDate).toISOString().split('T')[0],
-        repo: "monorepo", // Default repo name, will be updated in fetchAllCommits
-        repo_owner: repoOwner,
-        repo_url: data[0].data.repository.url,
-        sha: commit.oid,
-        short_sha: commit.abbreviatedOid,
-        commit_url: commit.url,
-        web_url: `${data[0].data.repository.url}/commit/${commit.abbreviatedOid}`,
-        author_name: commit.author.name,
-        author_email: commit.author.email,
-        author_date: commit.author.date,
-        committer_name: commit.committer.name,
-        committer_email: commit.committer.email,
-        committer_date: commit.committer.date,
-        message: commit.message,
-        message_headline: commit.messageHeadline,
-        message_body: commit.messageBody || "",
-        additions: commit.additions,
-        deletions: commit.deletions,
-        changed_files: commit.changedFiles,
-        parents: commit.parents.edges.map((e: any) => e.node.oid),
-        co_authors: coAuthorsFormatted,
-        signature_exists: commit.signature?.exists ? 1 : 0,
-        signature_valid: commit.signature?.valid ? 1 : 0,
-        signature_method: commit.signature?.method || "",
-        committed_at: commit.committedDate,
-        authored_at: commit.authoredDate,
-        pushed_date: commit.pushedDate || null,
-      });
+      for (const edge of edges) {
+        const commit = edge.node;
+
+        // Format co_authors as array of "name <email>" strings
+        const coAuthorsFormatted = commit.coAuthors.edges.map((e: any) => {
+          const name = e.node.name;
+          const email = e.node.email;
+          return `${name} <${email}>`;
+        });
+
+        records.push({
+          date: new Date(commit.committedDate).toISOString().split('T')[0],
+          repo: edge._repo || "unknown", // Use repo name from edge
+          repo_owner: repoOwner,
+          repo_url: repoUrl,
+          sha: commit.oid,
+          short_sha: commit.abbreviatedOid,
+          commit_url: commit.url,
+          web_url: `${repoUrl}/commit/${commit.abbreviatedOid}`,
+          author_name: commit.author.name,
+          author_email: commit.author.email,
+          author_date: commit.author.date,
+          committer_name: commit.committer.name,
+          committer_email: commit.committer.email,
+          committer_date: commit.committer.date,
+          message: commit.message,
+          message_headline: commit.messageHeadline,
+          message_body: commit.messageBody || "",
+          additions: commit.additions,
+          deletions: commit.deletions,
+          changed_files: commit.changedFiles,
+          parents: commit.parents.edges.map((e: any) => e.node.oid),
+          co_authors: coAuthorsFormatted,
+          signature_exists: commit.signature?.exists ? 1 : 0,
+          signature_valid: commit.signature?.valid ? 1 : 0,
+          signature_method: commit.signature?.method || "",
+          committed_at: commit.committedDate,
+          authored_at: commit.authoredDate,
+          pushed_date: commit.pushedDate || null,
+        });
+      }
     }
 
     this.logger.info(`Transformed ${records.length} commit records`);

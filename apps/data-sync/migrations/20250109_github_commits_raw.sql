@@ -47,7 +47,7 @@ CREATE TABLE github_commits_raw (
   parents Array(String),
 
   -- Co-authors (from commit message)
-  co_authors Array(Tuple(String, String)), -- Array of (name, email) tuples
+  co_authors Array(String), -- Array of "name <email>" strings
 
   -- Signature (GPG/GPGSSH/SMIME)
   signature_exists Bool DEFAULT 0,
