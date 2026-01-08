@@ -2,13 +2,8 @@
 -- @version: 5
 
 -- UP
--- Clean up any existing partial state from failed migrations
-DROP TABLE IF EXISTS github_commits_raw;
-DROP VIEW IF EXISTS monorepo_ai_code_percentage_v2;
-DROP TABLE IF EXISTS monorepo_ai_percentage_mv;
-
 -- Raw commits table - stores every GitHub commit for analysis
-CREATE TABLE github_commits_raw (
+CREATE TABLE IF NOT EXISTS github_commits_raw (
   date Date,
   repo String,
   owner String,
@@ -29,10 +24,6 @@ PARTITION BY toYYYYMM(date)
 ORDER BY (date, repo, committed_at)
 TTL committed_at + INTERVAL 3 YEAR DELETE
 SETTINGS index_granularity = 8192;
-
--- Index for faster queries
-ALTER TABLE github_commits_raw
-ADD INDEX idx_is_ai (is_ai) TYPE minmax GRANULARITY 4;
 
 -- Materialized view - aggregates daily AI percentages from raw commits
 CREATE MATERIALIZED VIEW IF NOT EXISTS monorepo_ai_percentage_mv
