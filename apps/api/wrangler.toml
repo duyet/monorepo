@@ -1,6 +1,6 @@
 # Cloudflare Workers configuration
 name = "duyet-api"
-main = "src/index.ts"
+main = "dist/index.js"
 compatibility_date = "2024-01-01"
 
 # Environment variables (set via wrangler secret)

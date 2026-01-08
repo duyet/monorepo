@@ -19,7 +19,6 @@
     "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-ai-percentage"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.12.1",
     "@duyet/config": "*",
     "@duyet/libs": "*",
     "@radix-ui/react-icons": "^1.3.0",
