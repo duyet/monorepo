@@ -112,8 +112,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "date") {
       const dateValue = data[field];
-      post.date =
-        dateValue instanceof Date ? dateValue : new Date(dateValue);
+      post.date = dateValue instanceof Date ? dateValue : new Date(dateValue);
     }
 
     if (field === "content") {

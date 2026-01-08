@@ -42,7 +42,12 @@ export async function generateStaticParams() {
   } catch (error) {
     // Return fallback years for build
     const currentYear = new Date().getFullYear();
-    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3];
+    const fallbackYears = [
+      currentYear,
+      currentYear - 1,
+      currentYear - 2,
+      currentYear - 3,
+    ];
     return fallbackYears.map((year) => ({ year: year.toString() }));
   }
 }
@@ -60,7 +65,11 @@ export default async function YearPage({ params }: YearPageProps) {
 
   // Validate year format
   const yearNum = Number.parseInt(year);
-  if (Number.isNaN(yearNum) || yearNum < 2000 || yearNum > new Date().getFullYear()) {
+  if (
+    Number.isNaN(yearNum) ||
+    yearNum < 2000 ||
+    yearNum > new Date().getFullYear()
+  ) {
     notFound();
   }
 
@@ -110,7 +119,10 @@ export default async function YearPage({ params }: YearPageProps) {
 
         <div>
           <Container className="py-12">
-            <section className="mb-8 text-center" aria-labelledby="intro-heading">
+            <section
+              className="mb-8 text-center"
+              aria-labelledby="intro-heading"
+            >
               <div className="mb-6">
                 <Link
                   href="/"

@@ -169,9 +169,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
         commitsByRepo.set(repo, commits);
 
         if (commits.length > 0) {
-          this.logger.debug(
-            `Fetched ${commits.length} commits from ${repo}`
-          );
+          this.logger.debug(`Fetched ${commits.length} commits from ${repo}`);
         }
       }
 
@@ -184,7 +182,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
     // Flatten commits with repo names
     const allCommits: Array<GitHubCommit & { repo: string }> = [];
     for (const [repo, commits] of commitsByRepo.entries()) {
-      allCommits.push(...commits.map(c => ({ ...c, repo })));
+      allCommits.push(...commits.map((c) => ({ ...c, repo })));
     }
 
     this.logger.info(`Total commits fetched: ${allCommits.length}`);
@@ -276,14 +274,15 @@ export class AICodePercentageSyncer extends BaseSyncer<
           });
 
           if (!res.ok) {
-            throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
+            throw new Error(
+              `GitHub API error: ${res.status} ${res.statusText}`
+            );
           }
 
           return res.json();
         });
 
-        const repoNodes =
-          response.data?.user?.repositories?.edges || [];
+        const repoNodes = response.data?.user?.repositories?.edges || [];
 
         for (const edge of repoNodes) {
           repos.push(edge.node.name);

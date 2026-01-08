@@ -125,10 +125,7 @@ export default {
     ...(tremorThemeModule.safelist || []),
     ...(claudeThemeModule.safelist || []),
   ],
-  plugins: [
-    ...(tremorThemeModule.plugins || []),
-    addVariablesForColors,
-  ],
+  plugins: [...(tremorThemeModule.plugins || []), addVariablesForColors],
   darkMode: ["class", 'html[class~="dark"]'],
 };
 

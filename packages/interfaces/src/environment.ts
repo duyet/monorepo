@@ -27,7 +27,6 @@ export interface BaseEnvironmentVariables
 /**
  * Full environment (used by blog app)
  */
-export interface FullEnvironmentVariables
-  extends BaseEnvironmentVariables {
+export interface FullEnvironmentVariables extends BaseEnvironmentVariables {
   readonly NEXT_PUBLIC_GITHUB_REPO_URL: string;
 }

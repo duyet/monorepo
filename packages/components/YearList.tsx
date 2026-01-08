@@ -17,9 +17,13 @@ export default function YearList({
   const years = Object.keys(getPostsByAllYear([], yearLimit));
 
   if (order === "desc") {
-    years.sort((a: string, b: string) => Number.parseInt(b) - Number.parseInt(a));
+    years.sort(
+      (a: string, b: string) => Number.parseInt(b) - Number.parseInt(a)
+    );
   } else {
-    years.sort((a: string, b: string) => Number.parseInt(a) - Number.parseInt(b));
+    years.sort(
+      (a: string, b: string) => Number.parseInt(a) - Number.parseInt(b)
+    );
   }
 
   return (
