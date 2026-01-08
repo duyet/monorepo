@@ -148,8 +148,6 @@ export class CloudflareSyncer extends BaseSyncer<
             error: error instanceof Error ? error.message : String(error),
           }
         );
-        // Continue with next chunk on error
-        continue;
       }
     }
 

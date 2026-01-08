@@ -165,6 +165,6 @@ export async function hasClickHousePhotos(): Promise<boolean> {
   `;
 
   const result = await executeQuery<{ count: string }>(query);
-  const count = result.length > 0 ? parseInt(result[0].count, 10) : 0;
+  const count = result.length > 0 ? Number.parseInt(result[0].count, 10) : 0;
   return count > 0;
 }
