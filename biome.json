@@ -53,7 +53,8 @@
       "coverage",
       "bun.lock",
       "public",
-      "_posts"
+      "_posts",
+      ".wrangler"
     ]
   },
   "javascript": {
