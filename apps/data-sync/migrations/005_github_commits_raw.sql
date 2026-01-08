@@ -2,8 +2,13 @@
 -- @version: 5
 
 -- UP
+-- Clean up any existing partial state from failed migrations
+DROP TABLE IF EXISTS github_commits_raw;
+DROP VIEW IF EXISTS monorepo_ai_code_percentage_v2;
+DROP TABLE IF EXISTS monorepo_ai_percentage_mv;
+
 -- Raw commits table - stores every GitHub commit for analysis
-CREATE TABLE IF NOT EXISTS github_commits_raw (
+CREATE TABLE github_commits_raw (
   date Date,
   repo String,
   owner String,
