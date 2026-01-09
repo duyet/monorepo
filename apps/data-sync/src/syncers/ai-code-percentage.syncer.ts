@@ -138,7 +138,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
   RawCommitRecord[]
 > {
   private owners: string[];
-  private owner: string = '';
+  private owner = '';
 
   constructor(client: ClickHouseClient, owner?: string | string[]) {
     super(client, "ai-code-percentage");
