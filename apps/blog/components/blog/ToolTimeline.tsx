@@ -39,7 +39,6 @@ export function ToolTimeline({
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
   // Detect mobile breakpoint (640px = sm in Tailwind)
@@ -226,7 +225,7 @@ export function ToolTimeline({
                         className={cn(
                           "mt-1 inline-block px-2 py-1 rounded-full text-xs font-medium",
                           "bg-opacity-20",
-                          colors.bg.replace("bg-", "bg-") + " bg-opacity-20",
+                          `${colors.bg.replace("bg-", "bg-")} bg-opacity-20`,
                           colors.text
                         )}
                       >

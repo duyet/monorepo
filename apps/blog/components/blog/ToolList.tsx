@@ -9,7 +9,6 @@ import {
   Circle,
   Square,
   Triangle,
-  Hexagon,
 } from "lucide-react";
 import type { ToolListProps, Tool, ToolStatus, ToolCategory } from "./types";
 
@@ -93,11 +92,10 @@ const StatusBadge = ({ status }: { status: ToolStatus }) => {
 };
 
 // Tool card component
-const ToolCard = ({ tool, index }: { tool: Tool; index: number }) => {
+const ToolCard = ({ tool }: { tool: Tool }) => {
   return (
     <article
       className="flex flex-col gap-3 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:shadow-md dark:hover:shadow-lg hover:shadow-gray-300 dark:hover:shadow-gray-950 transition-shadow duration-200"
-      role="article"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
@@ -260,7 +258,6 @@ export function ToolList({ tools, className = "" }: ToolListProps) {
               : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
           }`}
           aria-pressed={selectedStatus === "all"}
-          role="button"
           tabIndex={0}
         >
           All
@@ -274,7 +271,6 @@ export function ToolList({ tools, className = "" }: ToolListProps) {
               : "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 hover:bg-green-200 dark:hover:bg-green-800"
           }`}
           aria-pressed={selectedStatus === "active"}
-          role="button"
           tabIndex={0}
         >
           <Circle size={14} aria-hidden="true" />
@@ -289,7 +285,6 @@ export function ToolList({ tools, className = "" }: ToolListProps) {
               : "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800"
           }`}
           aria-pressed={selectedStatus === "testing"}
-          role="button"
           tabIndex={0}
         >
           <Square size={14} aria-hidden="true" />
@@ -306,7 +301,6 @@ export function ToolList({ tools, className = "" }: ToolListProps) {
               : "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
           }`}
           aria-pressed={selectedStatus === "deprecated"}
-          role="button"
           tabIndex={0}
         >
           <Triangle size={14} aria-hidden="true" />
@@ -339,6 +333,7 @@ export function ToolList({ tools, className = "" }: ToolListProps) {
           {showCategoryDropdown && (
             <div
               role="listbox"
+              tabIndex={0}
               className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10"
             >
               <button
@@ -426,7 +421,7 @@ export function ToolList({ tools, className = "" }: ToolListProps) {
       {paginatedTools.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           {paginatedTools.map((tool, index) => (
-            <ToolCard key={`${tool.name}-${index}`} tool={tool} index={index} />
+            <ToolCard key={`${tool.name}-${index}`} tool={tool} />
           ))}
         </div>
       ) : (

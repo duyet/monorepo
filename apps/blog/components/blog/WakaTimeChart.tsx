@@ -134,14 +134,14 @@ function WakaTimeChartContent({
                     <stop
                       offset="5%"
                       stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"]
+                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
                       stopOpacity={0.8}
                     />
                     <stop
                       offset="95%"
                       stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"]
+                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
                       stopOpacity={0.1}
                     />
@@ -175,7 +175,7 @@ function WakaTimeChartContent({
                   type="monotone"
                   dataKey={lang}
                   stackId="activity"
-                  stroke={LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"]}
+                  stroke={LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other}
                   fill={`url(#gradient-${lang})`}
                   isAnimationActive={isVisible && !prefersReducedMotion.current}
                   animationDuration={animationDuration}
@@ -205,14 +205,14 @@ function WakaTimeChartContent({
                     <stop
                       offset="5%"
                       stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"]
+                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
                       stopOpacity={0.8}
                     />
                     <stop
                       offset="95%"
                       stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"]
+                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
                       stopOpacity={0.1}
                     />
@@ -250,7 +250,7 @@ function WakaTimeChartContent({
                   type="monotone"
                   dataKey={lang}
                   stackId="activity"
-                  stroke={LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"]}
+                  stroke={LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other}
                   fill={`url(#gradient-${lang})`}
                   isAnimationActive={isVisible && !prefersReducedMotion.current}
                   animationDuration={animationDuration}
@@ -268,7 +268,7 @@ function WakaTimeChartContent({
                 className="h-3 w-3 rounded-full"
                 style={{
                   backgroundColor:
-                    LANGUAGE_COLORS[lang] || LANGUAGE_COLORS["Other"],
+                    LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other,
                 }}
               />
               <span className="text-xs text-neutral-700 dark:text-neutral-300">
