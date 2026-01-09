@@ -25,10 +25,6 @@ ORDER BY (date, repo, committed_at)
 TTL committed_at + INTERVAL 3 YEAR DELETE
 SETTINGS index_granularity = 8192;
 
--- Index for faster queries
-ALTER TABLE github_commits_raw
-ADD INDEX idx_is_ai (is_ai) TYPE minmax GRANULARITY 4;
-
 -- Materialized view - aggregates daily AI percentages from raw commits
 CREATE MATERIALIZED VIEW IF NOT EXISTS monorepo_ai_percentage_mv
 ENGINE = AggregatingMergeTree()
@@ -44,7 +40,7 @@ AS SELECT
   sumState(additions) as total_lines_added,
   sumState(if(is_ai = 1, additions, 0)) as ai_lines_added,
   sumState(if(is_ai = 0, additions, 0)) as human_lines_added,
-  uniqStateCombined(repo) as repo_count,
+  uniqState(repo) as repo_count,
   max(synced_at) as synced_at
 FROM github_commits_raw
 GROUP BY date, owner;
