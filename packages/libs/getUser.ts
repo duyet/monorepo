@@ -1,13 +1,2 @@
-export default async function getUser(token: string) {
-  const response = await fetch(
-    `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/userinfo`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  return await response.json();
-}
+// This file is deprecated and no longer used.
+// Auth0 authentication has been removed from the codebase.

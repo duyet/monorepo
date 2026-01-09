@@ -16,10 +16,6 @@ declare namespace NodeJS {
     // Base variables
     readonly NEXT_PUBLIC_BASE_URL: string;
 
-    // Auth0 (from Auth0Variables)
-    readonly NEXT_PUBLIC_AUTH0_DOMAIN: string;
-    readonly NEXT_PUBLIC_AUTH0_CLIENT_ID: string;
-
     // Blog-specific
     readonly NEXT_PUBLIC_GITHUB_REPO_URL: string;
   }
