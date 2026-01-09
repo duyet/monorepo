@@ -1,5 +1,3 @@
-"use server";
-
 import matter from "gray-matter";
 
 import getSlug from "./getSlug";
