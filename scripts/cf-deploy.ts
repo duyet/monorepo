@@ -291,7 +291,7 @@ async function deployApp(appName: string): Promise<{
   }
 
   const result = await runCommand(
-    ["wrangler", "pages", "deploy", "out", `--project-name=${appConfig.projectName}`],
+    ["bunx", "wrangler", "pages", "deploy", "out", `--project-name=${appConfig.projectName}`],
     appDir,
     `Deploy ${appName}`,
     true
