@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +56,19 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fs = nodeFs();
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+  const postsDir = getPostsDirectory();
+
+  // Check for .mdx first, then fall back to .md for backward compatibility
+  const mdxPath = join(postsDir, `${fileName}.mdx`);
+  const mdPath = join(postsDir, `${fileName}.md`);
+
+  if (fs.existsSync(mdxPath)) {
+    return getPostByPath(mdxPath, fields);
+  }
+
+  return getPostByPath(mdPath, fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
@@ -112,8 +123,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "date") {
       const dateValue = data[field];
-      post.date =
-        dateValue instanceof Date ? dateValue : new Date(dateValue);
+      post.date = dateValue instanceof Date ? dateValue : new Date(dateValue);
     }
 
     if (field === "content") {
@@ -149,6 +159,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "series") {
       post.series = data.series || undefined;
+    }
+
+    if (field === "isMDX") {
+      post.isMDX = fullPath.endsWith(".mdx");
     }
   });
 

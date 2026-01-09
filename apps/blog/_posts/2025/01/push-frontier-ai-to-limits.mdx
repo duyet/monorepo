@@ -1,0 +1,171 @@
+---
+title: Pushing Frontier AI to Its Limits
+date: "2025-01-10"
+category: AI
+tags:
+  - AI
+  - Productivity
+  - Tools
+slug: /2025/01/push-frontier-ai-to-limits.html
+description: A deep dive into my AI coding tools journey, with interactive comparisons and visualizations.
+featured: true
+---
+
+# Pushing Frontier AI to Its Limits
+
+As an engineer, I'm always looking for ways to improve my workflow. Over the past year, I've extensively tested various AI coding tools. This post shares my findings with interactive components you can explore.
+
+## Tool Comparison
+
+Here's how I rate the top AI coding assistants:
+
+<ToolComparison
+  name="Claude (Anthropic)"
+  rating={5}
+  winner={true}
+  pros={[
+    "Exceptional at complex reasoning",
+    "Great at understanding context",
+    "Follows instructions precisely",
+    "Strong coding capabilities"
+  ]}
+  cons={[
+    "Knowledge cutoff limitations",
+    "Can be verbose at times",
+    "Rate limits on free tier"
+  ]}
+  description="Claude has become my go-to AI assistant for coding tasks. Its ability to understand complex requirements and produce clean, well-documented code is unmatched. The Claude Code CLI integration makes it seamless to use in my development workflow."
+/>
+
+<ToolComparison
+  name="GitHub Copilot"
+  rating={4}
+  pros={[
+    "Excellent IDE integration",
+    "Fast inline completions",
+    "Good for boilerplate code"
+  ]}
+  cons={[
+    "Less accurate for complex logic",
+    "Limited context window",
+    "Subscription required"
+  ]}
+  description="Copilot is great for day-to-day coding tasks, especially for completing repetitive patterns. However, for more complex architectural decisions, I still prefer Claude."
+/>
+
+## Feature Comparison Matrix
+
+Let me break down the features across different tools:
+
+<FeatureMatrix
+  tools={["Claude", "Copilot", "Cursor", "Cody"]}
+  features={[
+    {
+      featureName: "Code Understanding",
+      scores: [
+        { toolName: "Claude", score: 5, explanation: "Best-in-class context understanding" },
+        { toolName: "Copilot", score: 3, explanation: "Limited context window" },
+        { toolName: "Cursor", score: 4, explanation: "Good with codebase indexing" },
+        { toolName: "Cody", score: 4, explanation: "Strong with Sourcegraph integration" }
+      ]
+    },
+    {
+      featureName: "Code Generation",
+      scores: [
+        { toolName: "Claude", score: 5 },
+        { toolName: "Copilot", score: 4 },
+        { toolName: "Cursor", score: 4 },
+        { toolName: "Cody", score: 3 }
+      ]
+    },
+    {
+      featureName: "Multi-file Refactoring",
+      scores: [
+        { toolName: "Claude", score: 5, explanation: "Handles complex refactors well" },
+        { toolName: "Copilot", score: 2, explanation: "Single file focus" },
+        { toolName: "Cursor", score: 4, explanation: "Good multi-file support" },
+        { toolName: "Cody", score: 3 }
+      ]
+    },
+    {
+      featureName: "IDE Integration",
+      scores: [
+        { toolName: "Claude", score: 3, explanation: "CLI-focused" },
+        { toolName: "Copilot", score: 5, explanation: "Native VS Code integration" },
+        { toolName: "Cursor", score: 5, explanation: "Built as an IDE" },
+        { toolName: "Cody", score: 4 }
+      ]
+    }
+  ]}
+  title="AI Coding Tools Comparison"
+  description="Comparing features across popular AI coding assistants"
+/>
+
+## My AI Development Workflow
+
+Here's how I integrate AI tools into my development process:
+
+<WorkflowDiagram
+  nodes={[
+    {
+      id: "plan",
+      icon: "Lightbulb",
+      title: "Plan",
+      description: "Use Claude to break down the task into smaller steps. Discuss architecture decisions and potential pitfalls before writing any code."
+    },
+    {
+      id: "implement",
+      icon: "Code",
+      title: "Implement",
+      description: "Write code with AI assistance. Claude Code helps with complex logic while Copilot handles boilerplate and completions."
+    },
+    {
+      id: "review",
+      icon: "CheckCircle",
+      title: "Review",
+      description: "AI-assisted code review to catch bugs, improve performance, and ensure best practices are followed."
+    }
+  ]}
+/>
+
+## My Coding Activity
+
+Here's a visualization of my recent coding activity across different languages:
+
+<WakaTimeChart
+  data={[
+    { date: "2025-01-01", TypeScript: 5.2, Python: 2.1, Rust: 1.5, Go: 0.8 },
+    { date: "2025-01-02", TypeScript: 6.1, Python: 1.8, Rust: 2.2, Go: 0.5 },
+    { date: "2025-01-03", TypeScript: 4.5, Python: 3.2, Rust: 1.8, Go: 1.2 },
+    { date: "2025-01-04", TypeScript: 3.8, Python: 2.5, Rust: 2.5, Go: 1.5 },
+    { date: "2025-01-05", TypeScript: 5.5, Python: 1.5, Rust: 3.0, Go: 0.8 },
+    { date: "2025-01-06", TypeScript: 6.2, Python: 2.8, Rust: 1.2, Go: 0.6 },
+    { date: "2025-01-07", TypeScript: 5.8, Python: 2.0, Rust: 1.8, Go: 1.0 }
+  ]}
+  title="Weekly Coding Activity"
+/>
+
+## Tool Evolution Timeline
+
+My journey with AI coding tools over the years:
+
+<ToolTimeline
+  events={[
+    { id: "1", name: "GitHub Copilot", date: "2022-06", status: "adopted", details: "Started using Copilot during the technical preview", reason: "Early access to AI-powered code completion" },
+    { id: "2", name: "ChatGPT", date: "2022-11", status: "testing", details: "Experimented with ChatGPT for coding questions", reason: "Exploring conversational AI for development" },
+    { id: "3", name: "Claude", date: "2023-03", status: "adopted", details: "Switched to Claude for complex coding tasks", reason: "Better reasoning and context understanding" },
+    { id: "4", name: "Cursor", date: "2023-08", status: "testing", details: "Tried Cursor as a dedicated AI IDE", reason: "Evaluating IDE-native AI integration" },
+    { id: "5", name: "Claude Code", date: "2024-01", status: "active", details: "Using Claude Code as my primary AI coding tool", reason: "CLI integration, powerful agentic capabilities" },
+    { id: "6", name: "GitHub Copilot", date: "2024-06", status: "deprecated", details: "Reduced usage of Copilot", reason: "Claude Code covers most use cases better" }
+  ]}
+/>
+
+## Conclusion
+
+AI coding tools have fundamentally changed how I approach software development. The key is finding the right tool for each task:
+
+- **Complex reasoning & architecture**: Claude
+- **Quick completions & boilerplate**: Copilot (still useful)
+- **Full workflow automation**: Claude Code CLI
+
+What's your experience with AI coding tools? I'd love to hear about your setup!

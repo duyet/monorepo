@@ -2,13 +2,24 @@ import type { Post } from "@duyet/interfaces";
 import { getPostBySlug } from "@duyet/libs/getPost";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { cn } from "@duyet/libs/utils";
+import { MDXRemote } from "next-mdx-remote-client/rsc";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeHighlight from "rehype-highlight";
 
 import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
+import { mdxComponents } from "../../../../../components/mdx-components";
 
-export default function Content({ post }: { post: Post }) {
+interface ContentPost extends Post {
+  isMDX?: boolean;
+  mdxSource?: string;
+}
+
+export default async function Content({ post }: { post: ContentPost }) {
   return (
     <>
       <header className="mb-8 flex flex-col gap-4">
@@ -27,13 +38,33 @@ export default function Content({ post }: { post: Post }) {
         <OldPostWarning post={post} year={5} className="" />
       </header>
 
-      <article
-        className={cn(
-          'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
-          "mb-10 mt-10 max-w-none"
-        )}
-        dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
-      />
+      {post.isMDX && post.mdxSource ? (
+        <article
+          className={cn(
+            'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
+            "mb-10 mt-10 max-w-none"
+          )}
+        >
+          <MDXRemote
+            source={post.mdxSource}
+            components={mdxComponents}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkMath],
+                rehypePlugins: [rehypeKatex, rehypeHighlight],
+              },
+            }}
+          />
+        </article>
+      ) : (
+        <article
+          className={cn(
+            'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
+            "mb-10 mt-10 max-w-none"
+          )}
+          dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
+        />
+      )}
 
       <Snippet html={post.snippet || ""} />
     </>
@@ -52,8 +83,24 @@ export async function getPost(slug: string[]) {
     "tags",
     "series",
     "snippet",
+    "isMDX",
   ]);
+
   const markdownContent = post.content || "Error";
+
+  // Handle MDX files differently - pass raw source for RSC compilation
+  if (post.isMDX) {
+    return {
+      ...post,
+      content: "", // HTML content not used for MDX
+      mdxSource: markdownContent, // Pass raw MDX source
+      isMDX: true,
+      markdown_content: markdownContent,
+      edit_url: getGithubEditUrl(post.slug),
+    };
+  }
+
+  // Regular markdown processing
   const content = await markdownToHtml(markdownContent);
 
   return {
