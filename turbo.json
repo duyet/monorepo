@@ -69,6 +69,10 @@
     },
     "check-types": {
       "dependsOn": ["^check-types"]
+    },
+    "cf:deploy": {
+      "cache": false,
+      "dependsOn": ["build"]
     }
   }
 }

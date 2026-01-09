@@ -18,6 +18,7 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-blog",
+    "cf:deploy": "bun ../../scripts/cf-deploy.ts blog",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage"

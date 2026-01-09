@@ -11,7 +11,8 @@
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
-    "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-home"
+    "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-home",
+    "cf:deploy": "bun ../../scripts/cf-deploy.ts home"
   },
   "dependencies": {
     "@duyet/components": "*",

@@ -15,7 +15,9 @@
     "start": "dotenv -- turbo start",
     "test": "dotenv -- turbo test",
     "config": "turbo run config",
-    "deploy": "turbo deploy && bun run config"
+    "deploy": "turbo deploy && bun run config",
+    "cf:deploy": "bun scripts/cf-deploy.ts",
+    "cf:deploy:app": "bun scripts/cf-deploy.ts"
   },
   "lint-staged": {
     "*": "biome format --write"
