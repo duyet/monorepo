@@ -26,7 +26,7 @@ env:
   CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
   CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
   GITHUB_USERNAME: duyetbot
-  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
   WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
   CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
   CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
@@ -113,6 +113,26 @@ jobs:
       fail-fast: false
       matrix:
         source: ${{ fromJson(needs.setup-matrix.outputs.sources) }}
+
+    env:
+      CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+      CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
+      CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+      CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+      CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+      GITHUB_USERNAME: duyetbot
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+      CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
+      CF_ZONE_TAG: ${{ secrets.CF_ZONE_TAG }}
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+      UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
+      POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+      POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+      DRY_RUN: ${{ inputs.dry_run }}
+      BACKFILL_DAYS: ${{ inputs.backfill_days }}
 
     steps:
       - name: Checkout
