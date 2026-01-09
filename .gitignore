@@ -39,3 +39,8 @@ next-env.d.ts
 # Million Lint
 .million
 .wrangler-seeds*.json
+
+*.local.*
+
+# wrangler
+.wrangler
