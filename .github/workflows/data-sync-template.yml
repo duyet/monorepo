@@ -91,7 +91,7 @@ jobs:
       CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
       # GitHub
       GITHUB_USERNAME: duyetbot
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
       # WakaTime
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
       # Cloudflare
