@@ -44,3 +44,8 @@ next-env.d.ts
 # wrangler
 .wrangler
 .wrangler-seeds*.json
+
+*.local.*
+
+# wrangler
+.wrangler
