@@ -160,7 +160,7 @@ async function runCommand(
 }
 
 /**
- * Build all apps in parallel using turbo
+ * Build apps for Cloudflare Pages deployment using turbo
  */
 async function buildAllApps(): Promise<boolean> {
   console.log("\n╔════════════════════════════════════════════════╗");
@@ -168,23 +168,41 @@ async function buildAllApps(): Promise<boolean> {
   console.log("╚════════════════════════════════════════════════╝\n");
 
   if (dryRun) {
-    console.log("[DRY RUN] Would run: bun run build");
+    console.log(
+      `[DRY RUN] Would build ${appsToDeployList.length} app(s): ${appsToDeployList.join(", ")}`
+    );
     return true;
   }
 
-  console.log("[INFO] Building all apps in parallel...");
-  const result = await runCommand(
-    ["bun", "run", "build"],
-    rootDir,
-    "Build"
+  // Build only the apps we're deploying to Cloudflare Pages
+  console.log(
+    `[INFO] Building ${appsToDeployList.length} app(s) for deployment...`
   );
 
-  if (!result.success) {
-    console.error("[FATAL] Build failed");
+  // Build each app individually to handle failures gracefully
+  const buildResults = await Promise.all(
+    appsToDeployList.map((app) =>
+      runCommand(
+        ["bun", "run", "build"],
+        join(rootDir, "apps", app),
+        `Build ${app}`,
+        true // Allow failure to continue
+      )
+    )
+  );
+
+  const failed = appsToDeployList.filter((_, i) => !buildResults[i].success);
+
+  if (failed.length > 0) {
+    console.error(
+      `[ERROR] ${failed.length} app(s) failed to build: ${failed.join(", ")}`
+    );
     return false;
   }
 
-  console.log("[✓] All apps built successfully\n");
+  console.log(
+    `[✓] All ${appsToDeployList.length} app(s) built successfully\n`
+  );
   return true;
 }
 

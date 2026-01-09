@@ -7,6 +7,15 @@ export interface CommonEnvironmentVariables {
 }
 
 /**
+ * Auth0 authentication variables (used by blog app)
+ */
+export interface Auth0Variables {
+  readonly NEXT_PUBLIC_AUTH0_DOMAIN: string;
+  readonly NEXT_PUBLIC_AUTH0_CLIENT_ID: string;
+  readonly NEXT_PUBLIC_AUTH0_ADMIN_EMAIL: string;
+}
+
+/**
  * Cross-app URLs for linking between applications
  */
 export interface CrossAppUrls {
