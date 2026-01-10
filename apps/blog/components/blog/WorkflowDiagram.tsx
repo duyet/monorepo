@@ -1,298 +1,148 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as LucideIcons from "lucide-react";
 import { Circle } from "lucide-react";
-import type { WorkflowDiagramProps, WorkflowNode } from "./types";
+import type { WorkflowDiagramProps } from "./types";
 
-const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
-  const [expandedNodeId, setExpandedNodeId] = useState<string | null>(null);
+/**
+ * WorkflowDiagram - Connected workflow steps
+ * Semantic color system with consistent sizing
+ */
+const WorkflowDiagram = ({ nodes }: WorkflowDiagramProps) => {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  // Get icon component safely with fallback
   const getIconComponent = (iconName: string | undefined) => {
-    if (!iconName) {
-      return Circle;
-    }
-    const IconComponent =
-      (LucideIcons[
-        iconName as keyof typeof LucideIcons
-      ] as React.ComponentType<{
+    if (!iconName) return Circle;
+    return (
+      (LucideIcons[iconName as keyof typeof LucideIcons] as React.ComponentType<{
         className?: string;
         size?: number;
-      }>) || Circle;
-    return IconComponent;
+      }>) || Circle
+    );
   };
 
-  const toggleNode = (nodeId: string) => {
-    setExpandedNodeId(expandedNodeId === nodeId ? null : nodeId);
-  };
+  if (nodes.length === 0) {
+    return <div className="text-sm text-gray-500 dark:text-gray-400">No workflow</div>;
+  }
 
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLButtonElement>,
-    nodeId: string
-  ) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleNode(nodeId);
-    }
-  };
+  return (
+    <div className="w-full">
+      {/* Desktop: Horizontal flow */}
+      <div className="hidden sm:flex items-center justify-between gap-4">
+        {nodes.map((node, idx) => {
+          const IconComponent = getIconComponent(node.icon);
+          const isExpanded = expandedId === node.id;
 
-  // Check if we're on mobile
-  const isMobile = () => {
-    if (typeof window === "undefined") return false;
-    return window.innerWidth < 768;
-  };
+          return (
+            <div key={node.id} className="flex-1 flex flex-col items-center relative">
+              {/* Step button */}
+              <button
+                onClick={() => setExpandedId(isExpanded ? null : node.id)}
+                className="flex flex-col items-center gap-3 w-full group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-950 focus:ring-blue-400 rounded-lg"
+              >
+                <div className="relative">
+                  <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center transition-all ${
+                    isExpanded
+                      ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-950/30 shadow-md"
+                      : "border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 group-hover:border-gray-400 dark:group-hover:border-slate-600"
+                  }`}>
+                    <IconComponent size={24} className="text-gray-700 dark:text-gray-300" />
+                  </div>
+                </div>
+                <span className="text-center text-sm font-medium text-gray-900 dark:text-white px-2 line-clamp-2">
+                  {node.title}
+                </span>
+              </button>
 
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    setMobile(isMobile());
-    const handleResize = () => setMobile(isMobile());
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Desktop compact layout
-  const DesktopLayout = () => (
-    <div className="relative mx-auto w-full max-w-2xl py-6">
-      {/* SVG for arrows - minimal */}
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 400 400"
-        preserveAspectRatio="xMidYMid meet"
-        aria-hidden="true"
-      >
-        {/* Arrow 1: Top to Right */}
-        <path
-          d="M 200 50 Q 280 150 280 250"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          fill="none"
-          className="text-amber-200 dark:text-amber-800"
-          markerEnd="url(#arrowhead-1)"
-          strokeLinecap="round"
-        />
-        <defs>
-          <marker
-            id="arrowhead-1"
-            markerWidth="10"
-            markerHeight="10"
-            refX="9"
-            refY="3"
-            orient="auto"
-          >
-            <polygon
-              points="0 0, 10 3, 0 6"
-              fill="currentColor"
-              className="text-amber-200 dark:text-amber-800"
-            />
-          </marker>
-        </defs>
-
-        {/* Arrow 2: Right to Left */}
-        <path
-          d="M 280 250 Q 200 300 120 250"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          fill="none"
-          className="text-amber-200 dark:text-amber-800"
-          markerEnd="url(#arrowhead-2)"
-          strokeLinecap="round"
-        />
-        <defs>
-          <marker
-            id="arrowhead-2"
-            markerWidth="10"
-            markerHeight="10"
-            refX="9"
-            refY="3"
-            orient="auto"
-          >
-            <polygon
-              points="0 0, 10 3, 0 6"
-              fill="currentColor"
-              className="text-amber-200 dark:text-amber-800"
-            />
-          </marker>
-        </defs>
-
-        {/* Arrow 3: Left to Top */}
-        <path
-          d="M 120 250 Q 100 150 200 50"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          fill="none"
-          className="text-amber-200 dark:text-amber-800"
-          markerEnd="url(#arrowhead-3)"
-          strokeLinecap="round"
-        />
-        <defs>
-          <marker
-            id="arrowhead-3"
-            markerWidth="10"
-            markerHeight="10"
-            refX="9"
-            refY="3"
-            orient="auto"
-          >
-            <polygon
-              points="0 0, 10 3, 0 6"
-              fill="currentColor"
-              className="text-amber-200 dark:text-amber-800"
-            />
-          </marker>
-        </defs>
-      </svg>
-
-      {/* Nodes container */}
-      <div className="relative flex h-72 items-center justify-center">
-        {/* Top node */}
-        {nodes.length > 0 && (
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 transform">
-            <WorkflowNodeCard
-              node={nodes[0]}
-              isExpanded={expandedNodeId === nodes[0].id}
-              onToggle={() => toggleNode(nodes[0].id)}
-              onKeyDown={(e) => handleKeyDown(e, nodes[0].id)}
-              getIconComponent={getIconComponent}
-            />
-          </div>
-        )}
-
-        {/* Right node */}
-        {nodes.length > 1 && (
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 transform">
-            <WorkflowNodeCard
-              node={nodes[1]}
-              isExpanded={expandedNodeId === nodes[1].id}
-              onToggle={() => toggleNode(nodes[1].id)}
-              onKeyDown={(e) => handleKeyDown(e, nodes[1].id)}
-              getIconComponent={getIconComponent}
-            />
-          </div>
-        )}
-
-        {/* Left node */}
-        {nodes.length > 2 && (
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 transform">
-            <WorkflowNodeCard
-              node={nodes[2]}
-              isExpanded={expandedNodeId === nodes[2].id}
-              onToggle={() => toggleNode(nodes[2].id)}
-              onKeyDown={(e) => handleKeyDown(e, nodes[2].id)}
-              getIconComponent={getIconComponent}
-            />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-
-  // Mobile vertical compact layout
-  const MobileLayout = () => (
-    <div className="space-y-4 py-4">
-      {nodes.map((node, index) => (
-        <div key={node.id}>
-          <WorkflowNodeCard
-            node={node}
-            isExpanded={expandedNodeId === node.id}
-            onToggle={() => toggleNode(node.id)}
-            onKeyDown={(e) => handleKeyDown(e, node.id)}
-            getIconComponent={getIconComponent}
-          />
-
-          {/* Down arrow between nodes */}
-          {index < nodes.length - 1 && (
-            <div className="flex justify-center py-2 text-amber-200 dark:text-amber-800" aria-hidden="true">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+              {/* Connector arrow */}
+              {idx < nodes.length - 1 && (
+                <div className="absolute top-8 left-[60%] w-[calc(100%-80px)] h-0.5 bg-gradient-to-r from-gray-300 dark:from-slate-700 to-gray-300 dark:to-slate-700" />
+              )}
             </div>
-          )}
+          );
+        })}
+      </div>
 
-          {/* Loop arrow after last node */}
-          {index === nodes.length - 1 && (
-            <div className="flex justify-center py-2 text-amber-200 dark:text-amber-800" aria-hidden="true">
-              <div className="flex flex-col items-center gap-1">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-                <span className="text-xs text-amber-300 dark:text-amber-700">loops</span>
+      {/* Mobile: Vertical flow */}
+      <div className="sm:hidden space-y-3">
+        {nodes.map((node, idx) => {
+          const IconComponent = getIconComponent(node.icon);
+          const isExpanded = expandedId === node.id;
+
+          return (
+            <div key={node.id} className="relative pl-8">
+              {/* Connector */}
+              {idx < nodes.length - 1 && (
+                <div className="absolute left-2.5 top-12 w-0.5 h-6 bg-gradient-to-b from-gray-300 dark:from-slate-700 to-transparent" />
+              )}
+
+              {/* Step dot */}
+              <div className="absolute left-0 top-2 w-5 h-5 rounded-full border-2 border-white dark:border-slate-950 bg-gray-50 dark:bg-slate-900 ring-2 ring-gray-300 dark:ring-slate-700" />
+
+              {/* Mobile button */}
+              <button
+                onClick={() => setExpandedId(isExpanded ? null : node.id)}
+                className="w-full text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-950 focus:ring-blue-400 rounded-lg"
+              >
+                <div className={`rounded-lg border p-3.5 transition-all ${
+                  isExpanded
+                    ? "border-blue-400 dark:border-blue-500 bg-blue-50 dark:bg-blue-950/20"
+                    : "border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-gray-300 dark:hover:border-slate-700"
+                }`}>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center border border-gray-200 dark:border-slate-800">
+                      <IconComponent size={20} className="text-gray-600 dark:text-gray-400" />
+                    </div>
+                    <h3 className="font-medium text-gray-900 dark:text-white text-sm">
+                      {node.title}
+                    </h3>
+                  </div>
+                </div>
+              </button>
+
+              {/* Expanded content */}
+              {isExpanded && (
+                <div className="mt-2 ml-4 p-3.5 rounded-lg bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    {node.description}
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop expanded details */}
+      {expandedId && (
+        <div className="hidden sm:block mt-8 p-6 rounded-lg bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800">
+          {nodes.map((node) => {
+            if (node.id !== expandedId) return null;
+            return (
+              <div key={node.id} className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white dark:bg-slate-950 flex items-center justify-center border-2 border-gray-200 dark:border-slate-800">
+                    {(() => {
+                      const IconComponent = getIconComponent(node.icon);
+                      return <IconComponent size={20} className="text-gray-700 dark:text-gray-300" />;
+                    })()}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-gray-900 dark:text-white text-base mb-1">
+                      {node.title}
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {node.description}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })}
         </div>
-      ))}
-    </div>
-  );
-
-  return (
-    <div className={`w-full ${className}`}>
-      {mobile ? <MobileLayout /> : <DesktopLayout />}
-    </div>
-  );
-};
-
-interface WorkflowNodeCardProps {
-  node: WorkflowNode;
-  isExpanded: boolean;
-  onToggle: () => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
-  getIconComponent: (
-    iconName: string | undefined
-  ) => React.ComponentType<{ className?: string; size?: number }>;
-}
-
-const WorkflowNodeCard = ({
-  node,
-  isExpanded,
-  onToggle,
-  onKeyDown,
-  getIconComponent,
-}: WorkflowNodeCardProps) => {
-  const IconComponent = getIconComponent(node.icon);
-
-  return (
-    <button
-      onClick={onToggle}
-      onKeyDown={onKeyDown}
-      className="w-40 rounded-2xl border border-amber-100 bg-amber-50/80 p-3 transition-all duration-200 hover:border-amber-200 hover:bg-amber-50 dark:border-amber-900/30 dark:bg-amber-950/20 dark:hover:border-amber-800/50 focus:outline-none focus:ring-2 focus:ring-amber-300/50 dark:focus:ring-amber-700/50"
-      aria-expanded={isExpanded}
-      aria-label={`${node.title}, press Enter to expand details`}
-    >
-      <div className="mb-2 flex justify-center text-amber-700 dark:text-amber-600">
-        <IconComponent size={24} />
-      </div>
-
-      <h3 className="text-sm font-semibold text-amber-950 dark:text-amber-100">
-        {node.title}
-      </h3>
-
-      {/* Expandable description */}
-      {isExpanded && (
-        <p className="mt-2 text-xs text-amber-800 dark:text-amber-200">
-          {node.description}
-        </p>
       )}
-
-      {/* Expand indicator */}
-      <div className="mt-2 flex items-center justify-center text-amber-500 dark:text-amber-600">
-        <svg
-          className={`h-3 w-3 transition-transform ${isExpanded ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
-      </div>
-    </button>
+    </div>
   );
 };
 

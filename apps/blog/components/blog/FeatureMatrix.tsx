@@ -1,109 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { HelpCircle, ArrowUpDown } from "lucide-react";
 import type {
   FeatureMatrixProps,
   FeatureMatrixRating,
-  SortState,
 } from "./types";
 
 /**
- * Rating configuration - minimal design
- */
-type RatingConfigValue = {
-  label: string;
-};
-
-const ratingConfigMap: Record<FeatureMatrixRating, RatingConfigValue> = {
-  5: { label: "5/5" },
-  4: { label: "4/5" },
-  3: { label: "3/5" },
-  2: { label: "2/5" },
-  1: { label: "1/5" },
-  0: { label: "N/A" },
-};
-
-const nullRatingConfig: RatingConfigValue = {
-  label: "—",
-};
-
-function getRatingConfig(score: FeatureMatrixRating | null): RatingConfigValue {
-  if (score === null) {
-    return nullRatingConfig;
-  }
-  return ratingConfigMap[score];
-}
-
-/**
- * Tooltip component for explanations
- */
-function Tooltip({
-  explanation,
-  children,
-}: {
-  explanation: string | undefined;
-  children: React.ReactNode;
-}) {
-  if (!explanation) {
-    return children;
-  }
-
-  return (
-    <div className="relative inline-block group">
-      {children}
-      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-10">
-        <div className="bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded px-2 py-1 whitespace-nowrap shadow-lg">
-          {explanation}
-        </div>
-        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-100" />
-      </div>
-    </div>
-  );
-}
-
-/**
- * Rating cell component - minimal design
- */
-function RatingCell({
-  score,
-  explanation,
-  isWinner,
-}: {
-  score: FeatureMatrixRating | null;
-  explanation: string | undefined;
-  isWinner: boolean;
-}) {
-  const config = getRatingConfig(score);
-
-  return (
-    <Tooltip explanation={explanation}>
-      <div
-        className={`
-          px-1 py-0.5 text-center text-xs font-medium
-          flex items-center justify-center gap-0.5
-          ${explanation ? "cursor-help" : ""}
-          ${isWinner ? "font-semibold text-gray-900 dark:text-white" : "text-gray-700 dark:text-gray-300"}
-        `}
-        role="cell"
-        aria-label={`${config.label}${explanation ? `. ${explanation}` : ""}`}
-      >
-        <span>{config.label}</span>
-        {isWinner && (
-          <span
-            className="text-xs text-gray-500 dark:text-gray-400"
-            aria-label="Best in category"
-          >
-            ★
-          </span>
-        )}
-      </div>
-    </Tooltip>
-  );
-}
-
-/**
- * FeatureMatrix component - Minimal, compact design
+ * FeatureMatrix - Minimal table comparison
+ * Uses semantic color palette from design system
  */
 export function FeatureMatrix({
   tools,
@@ -111,187 +15,116 @@ export function FeatureMatrix({
   className = "",
   title,
   description,
-  showTooltips = true,
 }: FeatureMatrixProps) {
-  const [sort, setSort] = useState<SortState>({
-    columnIndex: null,
-    direction: null,
-  });
-
-  // Sort features based on selected column
-  const sortedFeatures = useMemo(() => {
-    if (sort.columnIndex === null || sort.direction === null) {
-      return features;
-    }
-
-    const colIndex = sort.columnIndex;
-    const direction = sort.direction;
-
-    const sorted = [...features].sort((a, b) => {
-      const scoreA = a.scores[colIndex]?.score ?? -1;
-      const scoreB = b.scores[colIndex]?.score ?? -1;
-
-      if (direction === "asc") {
-        return scoreA - scoreB;
-      }
-      return scoreB - scoreA;
-    });
-
-    return sorted;
-  }, [features, sort]);
-
-  // Find winner for each row
-  const getWinnerIndex = (
-    scores: (typeof features)[0]["scores"]
-  ): number | null => {
-    let maxScore = -1;
-    let maxIndex = null;
-
-    scores.forEach((score, index) => {
-      if (score.score !== null && score.score > maxScore) {
-        maxScore = score.score;
-        maxIndex = index;
-      }
-    });
-
-    return maxIndex;
-  };
-
-  const handleHeaderClick = (columnIndex: number) => {
-    if (sort.columnIndex === columnIndex) {
-      if (sort.direction === "asc") {
-        setSort({ columnIndex, direction: "desc" });
-      } else if (sort.direction === "desc") {
-        setSort({ columnIndex: null, direction: null });
-      } else {
-        setSort({ columnIndex, direction: "asc" });
-      }
-    } else {
-      setSort({ columnIndex, direction: "asc" });
-    }
-  };
-
   if (!features.length || !tools.length) {
     return (
-      <div className={`p-4 text-center text-gray-600 dark:text-gray-400 ${className}`}>
-        <p>No comparison data available</p>
+      <div className={`text-sm text-gray-500 dark:text-gray-400 ${className}`}>
+        No comparison data
       </div>
     );
   }
 
+  const getRatingColor = (score: FeatureMatrixRating | null) => {
+    if (score === null) return "text-gray-400 dark:text-gray-500";
+    if (score >= 4) return "text-green-700 dark:text-green-400 font-semibold";
+    if (score === 3) return "text-blue-700 dark:text-blue-400 font-medium";
+    if (score === 2) return "text-amber-700 dark:text-amber-400 font-medium";
+    return "text-red-700 dark:text-red-400 font-medium";
+  };
+
+  const getRatingLabel = (score: FeatureMatrixRating | null): string => {
+    if (score === null) return "—";
+    if (score >= 4) return "★★★★";
+    if (score === 3) return "★★★☆";
+    if (score === 2) return "★★☆☆";
+    return "★☆☆☆";
+  };
+
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`space-y-5 ${className}`}>
       {title && (
-        <h2 className="text-lg font-semibold mb-0.5 text-gray-900 dark:text-white">
-          {title}
-        </h2>
-      )}
-      {description && (
-        <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-          {description}
-        </p>
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+            {title}
+          </h2>
+          {description && (
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {description}
+            </p>
+          )}
+        </div>
       )}
 
-      {/* Minimal Table */}
-      <div className="overflow-x-auto border border-amber-200 dark:border-amber-900/30 rounded">
-        <table className="w-full border-collapse text-xs">
+      {/* Comparison Table */}
+      <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-slate-800">
+        <table className="w-full">
           <thead>
-            <tr className="border-b border-amber-200 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-950/20">
-              <th className="sticky left-0 bg-amber-50/50 dark:bg-amber-950/20 px-2 py-1 text-left font-semibold text-gray-900 dark:text-white min-w-[120px]">
+            <tr className="border-b border-gray-200 dark:border-slate-800 bg-gradient-to-r from-gray-50 dark:from-slate-900 to-gray-50 dark:to-slate-950">
+              <th className="text-left px-5 py-3 font-semibold text-gray-900 dark:text-white text-sm">
                 Feature
               </th>
-              {tools.map((tool, index) => (
+              {tools.map((tool) => (
                 <th
                   key={tool}
-                  onClick={() => handleHeaderClick(index)}
-                  className={`
-                    px-2 py-1 text-center font-semibold text-gray-900 dark:text-white
-                    cursor-pointer hover:bg-amber-100/50 dark:hover:bg-amber-900/30
-                    transition-colors min-w-[80px] select-none
-                    ${
-                      sort.columnIndex === index
-                        ? "bg-amber-100/50 dark:bg-amber-900/30"
-                        : ""
-                    }
-                  `}
-                  role="columnheader"
-                  aria-sort={
-                    sort.columnIndex === index
-                      ? sort.direction === "asc"
-                        ? "ascending"
-                        : "descending"
-                      : "none"
-                  }
+                  className="text-center px-4 py-3 font-semibold text-gray-900 dark:text-white text-sm min-w-[140px]"
                 >
-                  <div className="flex items-center justify-center gap-0.5">
-                    <span>{tool}</span>
-                    <ArrowUpDown
-                      className={`
-                        w-2.5 h-2.5 transition-all
-                        ${
-                          sort.columnIndex === index
-                            ? "opacity-100 text-gray-700 dark:text-gray-300"
-                            : "opacity-0 text-gray-400"
-                        }
-                      `}
-                      aria-hidden="true"
-                    />
-                  </div>
+                  {tool}
                 </th>
               ))}
             </tr>
           </thead>
-
           <tbody>
-            {sortedFeatures.map((feature, rowIndex) => {
-              const winnerIndex = getWinnerIndex(feature.scores);
-
-              return (
-                <tr
-                  key={feature.featureName}
-                  className={`
-                    border-b border-amber-200 dark:border-amber-900/30
-                    ${rowIndex % 2 === 0 ? "bg-white dark:bg-gray-950" : "bg-amber-50/30 dark:bg-amber-950/10"}
-                    hover:bg-amber-100/30 dark:hover:bg-amber-900/20 transition-colors
-                  `}
-                >
-                  <td className="sticky left-0 bg-inherit px-2 py-1 font-medium text-gray-900 dark:text-white min-w-[120px]">
-                    <div className="flex items-center gap-1">
-                      <span>{feature.featureName}</span>
-                      {feature.scores.some((s) => s.explanation) &&
-                        showTooltips && (
-                          <HelpCircle
-                            className="w-3 h-3 text-gray-400 flex-shrink-0"
-                            aria-hidden="true"
-                          />
-                        )}
+            {features.map((feature, idx) => (
+              <tr
+                key={feature.featureName}
+                className={`border-b border-gray-200 dark:border-slate-800 ${
+                  idx % 2 === 0 ? "bg-gray-50/50 dark:bg-slate-900/30" : ""
+                }`}
+              >
+                <td className="px-5 py-4 font-medium text-gray-900 dark:text-white text-sm">
+                  {feature.featureName}
+                </td>
+                {feature.scores.map((score, idx) => (
+                  <td key={idx} className="text-center px-4 py-4">
+                    <div className={`text-sm ${getRatingColor(score.score)}`}>
+                      {getRatingLabel(score.score)}
                     </div>
+                    {score.explanation && (
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        {score.explanation}
+                      </div>
+                    )}
                   </td>
-
-                  {feature.scores.map((toolScore, colIndex) => (
-                    <td
-                      key={`${feature.featureName}-${toolScore.toolName}`}
-                      className="px-2 py-1 text-center"
-                    >
-                      <RatingCell
-                        score={toolScore.score}
-                        explanation={
-                          showTooltips ? toolScore.explanation : undefined
-                        }
-                        isWinner={colIndex === winnerIndex}
-                      />
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      {/* Legend - Minimal */}
-      <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
-        <p>5 = Excellent, 4 = Good, 3 = Fair, 2 = Poor, 1 = Very Poor</p>
+      {/* Legend */}
+      <div className="bg-gray-50 dark:bg-slate-900/50 rounded-lg p-4 border border-gray-200 dark:border-slate-800">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-3">
+          Rating Guide
+        </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div>
+            <div className="text-green-700 dark:text-green-400 font-semibold">★★★★</div>
+            <div className="text-gray-600 dark:text-gray-400">Excellent</div>
+          </div>
+          <div>
+            <div className="text-blue-700 dark:text-blue-400 font-medium">★★★☆</div>
+            <div className="text-gray-600 dark:text-gray-400">Good</div>
+          </div>
+          <div>
+            <div className="text-amber-700 dark:text-amber-400 font-medium">★★☆☆</div>
+            <div className="text-gray-600 dark:text-gray-400">Fair</div>
+          </div>
+          <div>
+            <div className="text-red-700 dark:text-red-400 font-medium">★☆☆☆</div>
+            <div className="text-gray-600 dark:text-gray-400">Limited</div>
+          </div>
+        </div>
       </div>
     </div>
   );
