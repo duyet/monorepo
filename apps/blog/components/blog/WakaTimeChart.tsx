@@ -1,17 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { useTheme } from "next-themes";
 import type { WakaTimeChartProps } from "./types";
 
 const LANGUAGE_COLORS: Record<string, string> = {
@@ -34,18 +23,8 @@ function WakaTimeChartContent({
   data,
   title = "Coding Activity",
 }: WakaTimeChartProps) {
-  const { theme } = useTheme();
   const chartRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [animationDuration, setAnimationDuration] = useState(0);
-
-  // Check for prefers-reduced-motion
-  const prefersReducedMotion = useRef(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    prefersReducedMotion.current = mediaQuery.matches;
-  }, []);
 
   // Intersection Observer for scroll-into-view animation
   useEffect(() => {
@@ -53,9 +32,6 @@ function WakaTimeChartContent({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          if (!prefersReducedMotion.current) {
-            setAnimationDuration(1500);
-          }
           observer.unobserve(entry.target);
         }
       },
@@ -96,12 +72,19 @@ function WakaTimeChartContent({
     )
   ).sort();
 
-  // Theme colors
-  const isDark = theme === "dark";
-  const textColor = isDark ? "#d4d4d8" : "#18181b";
-  const gridColor = isDark ? "#3f3f46" : "#e4e4e7";
-  const tooltipBg = isDark ? "#27272a" : "#ffffff";
-  const tooltipBorder = isDark ? "#52525b" : "#e4e4e7";
+  // Calculate max value for scaling
+  const maxValue = Math.max(
+    ...data.map((point) =>
+      languages.reduce((sum, lang) => sum + (Number(point[lang]) || 0), 0)
+    )
+  );
+
+  // Format date for display
+  const formatDate = (dateString: string | Date) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
 
   return (
     <div ref={chartRef} className="w-full">
@@ -111,171 +94,80 @@ function WakaTimeChartContent({
         </h3>
       )}
 
-      <div className="overflow-x-auto rounded border border-amber-200 bg-white p-2 dark:border-amber-900/30 dark:bg-gray-950">
-        {/* Mobile: Horizontal scroll layout */}
-        <div className="md:hidden">
-          <ResponsiveContainer width="100%" height={200} minWidth={300}>
-            <AreaChart
-              data={isVisible ? data : []}
-              margin={{ top: 5, right: 5, left: -20, bottom: 5 }}
-            >
-              <defs>
-                {languages.map((lang) => (
-                  <linearGradient
-                    key={`gradient-${lang}`}
-                    id={`gradient-${lang}`}
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop
-                      offset="5%"
-                      stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
-                      }
-                      stopOpacity={0.6}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
-                      }
-                      stopOpacity={0.05}
-                    />
-                  </linearGradient>
-                ))}
-              </defs>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke={gridColor}
-                vertical={false}
-              />
-              <XAxis
-                dataKey="date"
-                stroke={textColor}
-                tick={{ fontSize: 10 }}
-                interval={Math.floor(data.length / 4)}
-              />
-              <YAxis stroke={textColor} tick={{ fontSize: 10 }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: tooltipBg,
-                  border: `1px solid ${tooltipBorder}`,
-                  borderRadius: "4px",
-                  color: textColor,
-                  fontSize: 11,
-                }}
-                wrapperStyle={{ outline: "none" }}
-              />
-              {languages.map((lang) => (
-                <Area
-                  key={lang}
-                  type="monotone"
-                  dataKey={lang}
-                  stackId="activity"
-                  stroke={LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other}
-                  fill={`url(#gradient-${lang})`}
-                  isAnimationActive={isVisible && !prefersReducedMotion.current}
-                  animationDuration={animationDuration}
-                />
-              ))}
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
+      <div className="rounded border border-amber-200 bg-white p-3 dark:border-amber-900/30 dark:bg-gray-950">
+        {/* Chart Container */}
+        <div className="space-y-3">
+          {/* Stacked Bar Chart */}
+          <div className="space-y-1">
+            <div className="flex items-end justify-between gap-0.5 h-48">
+              {isVisible &&
+                data.map((point, idx) => {
+                  const total = languages.reduce(
+                    (sum, lang) => sum + (Number(point[lang]) || 0),
+                    0
+                  );
+                  const height = total > 0 ? (total / maxValue) * 100 : 0;
 
-        {/* Desktop: Full width layout */}
-        <div className="hidden md:block">
-          <ResponsiveContainer width="100%" height={280}>
-            <AreaChart
-              data={isVisible ? data : []}
-              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-            >
-              <defs>
-                {languages.map((lang) => (
-                  <linearGradient
-                    key={`gradient-${lang}`}
-                    id={`gradient-${lang}`}
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop
-                      offset="5%"
-                      stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
-                      }
-                      stopOpacity={0.6}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor={
-                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
-                      }
-                      stopOpacity={0.05}
-                    />
-                  </linearGradient>
-                ))}
-              </defs>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke={gridColor}
-                vertical={false}
-              />
-              <XAxis
-                dataKey="date"
-                stroke={textColor}
-                tick={{ fontSize: 11 }}
-              />
-              <YAxis stroke={textColor} tick={{ fontSize: 11 }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: tooltipBg,
-                  border: `1px solid ${tooltipBorder}`,
-                  borderRadius: "4px",
-                  color: textColor,
-                  fontSize: 12,
-                }}
-                wrapperStyle={{ outline: "none" }}
-              />
-              <Legend
-                wrapperStyle={{ color: textColor, fontSize: 11 }}
-                verticalAlign="top"
-                height={24}
-              />
-              {languages.map((lang) => (
-                <Area
-                  key={lang}
-                  type="monotone"
-                  dataKey={lang}
-                  stackId="activity"
-                  stroke={LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other}
-                  fill={`url(#gradient-${lang})`}
-                  isAnimationActive={isVisible && !prefersReducedMotion.current}
-                  animationDuration={animationDuration}
-                />
-              ))}
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
+                  return (
+                    <div
+                      key={idx}
+                      className="flex-1 flex flex-col items-center group"
+                      title={`${point.date}: ${total}h`}
+                    >
+                      {/* Stacked bars */}
+                      <div className="w-full flex flex-col-reverse items-center h-40 gap-0">
+                        {languages.map((lang) => {
+                          const value = Number(point[lang]) || 0;
+                          const barHeight = total > 0 ? (value / total) * height : 0;
 
-        {/* Legend with color indicators (Mobile only) */}
-        <div className="mt-2 grid grid-cols-2 gap-1.5 md:hidden">
-          {languages.map((lang) => (
-            <div key={lang} className="flex items-center gap-1.5">
-              <div
-                className="h-2 w-2 rounded-full"
-                style={{
-                  backgroundColor:
-                    LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other,
-                }}
-              />
-              <span className="text-xs text-gray-700 dark:text-gray-300">
-                {lang}
-              </span>
+                          return (
+                            <div
+                              key={lang}
+                              className="w-full transition-all duration-300 hover:opacity-80"
+                              style={{
+                                height: `${barHeight}%`,
+                                backgroundColor:
+                                  LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other,
+                                minHeight: barHeight > 0 ? "2px" : "0",
+                              }}
+                              title={`${lang}: ${value}h`}
+                            />
+                          );
+                        })}
+                      </div>
+
+                      {/* Date label */}
+                      <span className="text-xs text-gray-600 dark:text-gray-400 mt-2 text-center whitespace-nowrap">
+                        {formatDate(point.date)}
+                      </span>
+                    </div>
+                  );
+                })}
             </div>
-          ))}
+
+            {/* Grid background */}
+            <div className="relative h-40 pointer-events-none border-l border-b border-amber-200 dark:border-amber-900/30" />
+          </div>
+
+          {/* Legend */}
+          <div className="pt-2 border-t border-amber-200 dark:border-amber-900/30">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+              {languages.map((lang) => (
+                <div key={lang} className="flex items-center gap-1.5">
+                  <div
+                    className="h-2 w-2 rounded-full flex-shrink-0"
+                    style={{
+                      backgroundColor:
+                        LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other,
+                    }}
+                  />
+                  <span className="text-xs text-gray-700 dark:text-gray-300 truncate">
+                    {lang}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
