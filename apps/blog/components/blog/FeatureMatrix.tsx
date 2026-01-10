@@ -47,18 +47,37 @@ export function FeatureMatrix({
         </div>
       )}
 
-      {/* Features as inline metadata */}
-      <div className="space-y-2">
+      {/* Features as grid */}
+      <div className="space-y-4">
         {features.map((feature) => (
-          <div key={feature.featureName} className="text-base text-gray-700 dark:text-gray-300">
-            <span className="text-gray-500 dark:text-gray-400 font-medium">{feature.featureName}:</span>{" "}
-            {feature.scores.map((score, idx) => (
-              <span key={idx}>
-                {tools[idx]} {getRatingLabel(score.score)}
-                {score.explanation && ` (${score.explanation})`}
-                {idx < feature.scores.length - 1 && " • "}
-              </span>
-            ))}
+          <div key={feature.featureName} className="space-y-2">
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              {feature.featureName}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {feature.scores.map((score, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400 p-2 border border-gray-200 dark:border-slate-800 rounded"
+                >
+                  <div className="flex-shrink-0 w-2 h-2 rounded-full mt-1.5 bg-gray-400 dark:bg-gray-600" />
+                  <div className="flex-1">
+                    <span className="font-medium text-gray-700 dark:text-gray-300">
+                      {tools[idx]}
+                    </span>
+                    <span className="text-gray-600 dark:text-gray-400">
+                      {" — "}
+                      {getRatingLabel(score.score)}
+                    </span>
+                    {score.explanation && (
+                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        {score.explanation}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>

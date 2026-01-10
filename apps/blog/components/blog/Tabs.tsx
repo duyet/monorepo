@@ -59,7 +59,7 @@ export function Tabs({
 
       {/* Tab content */}
       {activeTabContent && (
-        <div className="text-base text-gray-700 dark:text-gray-300">
+        <div className="prose dark:prose-invert prose-code:break-words max-w-none">
           {activeTabContent.content}
         </div>
       )}

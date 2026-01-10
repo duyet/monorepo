@@ -28,60 +28,69 @@ export function ToolComparison({
 
   return (
     <div
-      className={`border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 space-y-2 ${className}`}
+      className={`border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-4 space-y-3 ${className}`}
       role="region"
       aria-labelledby={`tool-${name}`}
     >
       {/* Title line with rating - clickable to expand */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex items-baseline gap-2 flex-wrap hover:text-gray-900 dark:hover:text-white transition-colors w-full text-left text-base"
+        className="flex items-center justify-between w-full text-left hover:text-gray-900 dark:hover:text-white transition-colors group"
       >
-        <h3 id={`tool-${name}`} className="font-medium text-gray-900 dark:text-white">
-          {name}
-        </h3>
-        <span className="text-gray-500 dark:text-gray-400">—</span>
-        <span className="text-gray-600 dark:text-gray-400 text-sm">
-          {rating.toFixed(1)}/5
-          {winner && " • Recommended"}
-        </span>
-        <span className="text-gray-400 dark:text-gray-600 text-sm ml-auto">
+        <div className="flex items-baseline gap-3">
+          <h3 id={`tool-${name}`} className="font-medium text-base text-gray-900 dark:text-white">
+            {name}
+          </h3>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            {rating.toFixed(1)}/5
+          </span>
+          {winner && (
+            <span className="text-xs font-medium px-2 py-1 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded">
+              Recommended
+            </span>
+          )}
+        </div>
+        <span className="text-gray-400 dark:text-gray-600 text-sm flex-shrink-0">
           {expanded ? "−" : "+"}
         </span>
       </button>
 
       {/* Expandable content */}
       {expanded && (
-        <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-slate-800">
+        <div className="space-y-3 pt-3 border-t border-gray-200 dark:border-slate-800">
           {/* Description if provided */}
           {description && (
-            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+            <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
               {description}
             </p>
           )}
 
           {/* Strengths and Limitations */}
-          <div className="space-y-1.5 text-gray-700 dark:text-gray-300 text-sm">
+          <div className="space-y-3">
             {pros.length > 0 && (
               <div>
-                <span className="text-gray-500 dark:text-gray-400 font-medium">Strengths:</span>{" "}
-                {pros.map((pro, idx) => (
-                  <span key={idx}>
-                    {pro}
-                    {idx < pros.length - 1 && " • "}
-                  </span>
-                ))}
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 block mb-2">Strengths</span>
+                <ul className="space-y-1">
+                  {pros.map((pro, idx) => (
+                    <li key={idx} className="text-sm text-gray-700 dark:text-gray-300 flex gap-2">
+                      <span className="text-gray-500 dark:text-gray-500 flex-shrink-0">•</span>
+                      <span>{pro}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
             {cons.length > 0 && (
               <div>
-                <span className="text-gray-500 dark:text-gray-400 font-medium">Limitations:</span>{" "}
-                {cons.map((con, idx) => (
-                  <span key={idx}>
-                    {con}
-                    {idx < cons.length - 1 && " • "}
-                  </span>
-                ))}
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 block mb-2">Limitations</span>
+                <ul className="space-y-1">
+                  {cons.map((con, idx) => (
+                    <li key={idx} className="text-sm text-gray-700 dark:text-gray-300 flex gap-2">
+                      <span className="text-gray-500 dark:text-gray-500 flex-shrink-0">•</span>
+                      <span>{con}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
