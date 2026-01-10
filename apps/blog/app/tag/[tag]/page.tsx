@@ -136,7 +136,11 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
             .map(([year, yearPosts]) => (
-              <YearPost key={year} year={Number.parseInt(year)} posts={yearPosts} />
+              <YearPost
+                key={year}
+                year={Number.parseInt(year)}
+                posts={yearPosts}
+              />
             ))}
         </div>
 

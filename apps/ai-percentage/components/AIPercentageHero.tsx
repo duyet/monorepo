@@ -4,9 +4,8 @@ import type { CurrentAICodePercentage } from "../lib/types";
 import { getCurrentAICodePercentage } from "../lib/queries";
 
 export function AIPercentageHero() {
-  const { data, error, isLoading } = useSWR(
-    "ai-percentage-current",
-    () => getCurrentAICodePercentage()
+  const { data, error, isLoading } = useSWR("ai-percentage-current", () =>
+    getCurrentAICodePercentage()
   );
 
   const [displayPercentage, setDisplayPercentage] = useState(0);
@@ -50,7 +49,12 @@ export function AIPercentageHero() {
     );
   }
 
-  const { ai_percentage, total_lines_added, ai_lines_added, human_lines_added } = data;
+  const {
+    ai_percentage,
+    total_lines_added,
+    ai_lines_added,
+    human_lines_added,
+  } = data;
 
   return (
     <div className="space-y-8 text-center py-12">
@@ -58,9 +62,7 @@ export function AIPercentageHero() {
         <div className="text-8xl font-bold text-purple-600 dark:text-purple-400">
           {displayPercentage.toFixed(1)}%
         </div>
-        <div className="text-xl text-muted-foreground">
-          Code written by AI
-        </div>
+        <div className="text-xl text-muted-foreground">Code written by AI</div>
       </div>
 
       <div className="grid grid-cols-3 gap-4 md:grid-cols-3">

@@ -210,7 +210,10 @@ export class CloudflareSyncer extends BaseSyncer<
    * Split date range into chunks to avoid rate limits
    * Uses 7-day chunks for daily sync pattern
    */
-  private getDateChunks(startDate: string, endDate: string): Array<{
+  private getDateChunks(
+    startDate: string,
+    endDate: string
+  ): Array<{
     start: string;
     end: string;
   }> {

@@ -97,14 +97,12 @@ export async function getAllPhotos(): Promise<Photo[]> {
       console.log("🚫 All photo providers failed to return photos.");
 
       // Prefer rate limit errors if present (most common issue)
-      const rateLimitError = errors.find(
-        (e) => e instanceof RateLimitError
-      ) as RateLimitError | undefined;
+      const rateLimitError = errors.find((e) => e instanceof RateLimitError) as
+        | RateLimitError
+        | undefined;
 
       if (rateLimitError) {
-        console.log(
-          `   💡 Rate limit error: ${rateLimitError.userMessage}`
-        );
+        console.log(`   💡 Rate limit error: ${rateLimitError.userMessage}`);
         throw rateLimitError;
       }
 
@@ -116,7 +114,9 @@ export async function getAllPhotos(): Promise<Photo[]> {
     const cloudinaryResult = await getAllCloudinaryPhotos().catch(() => []);
     if (cloudinaryResult.length > 0) {
       allPhotos.push(...cloudinaryResult);
-      console.log(`✅ Cloudinary (additional): ${cloudinaryResult.length} photos`);
+      console.log(
+        `✅ Cloudinary (additional): ${cloudinaryResult.length} photos`
+      );
     }
   }
 

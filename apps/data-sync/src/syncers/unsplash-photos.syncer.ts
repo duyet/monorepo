@@ -242,8 +242,7 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
               exif: details.exif || photo.exif,
               location: details.location || photo.location,
               description: details.description || photo.description,
-              alt_description:
-                details.alt_description || photo.alt_description,
+              alt_description: details.alt_description || photo.alt_description,
             });
             enrichedCount++;
             // Rate limit between detail requests
@@ -295,7 +294,10 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
     const formatTimestamp = (iso: string | null): string | null => {
       if (!iso) return null;
       // Convert "2025-11-30T17:07:21Z" to "2025-11-30 17:07:21"
-      return iso.replace("T", " ").replace("Z", "").replace(/\.\d{3}Z$/, "");
+      return iso
+        .replace("T", " ")
+        .replace("Z", "")
+        .replace(/\.\d{3}Z$/, "");
     };
 
     return data.map((photo) => ({
@@ -379,56 +381,58 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
       });
 
       // Build JSONEachRow data - include all fields with proper sanitization
-      const jsonRows = batch.map((record) => {
-        const r = {
-          photo_id: record.photo_id,
-          provider: record.provider,
-          created_at: record.created_at,
-          updated_at: record.updated_at,
-          promoted_at: record.promoted_at,
-          width: record.width,
-          height: record.height,
-          color: record.color || "",
-          blur_hash: record.blur_hash || "",
-          description: record.description || "",
-          alt_description: record.alt_description || "",
-          url_raw: record.url_raw,
-          url_full: record.url_full,
-          url_regular: record.url_regular,
-          url_small: record.url_small,
-          url_thumb: record.url_thumb,
-          link_self: record.link_self,
-          link_html: record.link_html,
-          link_download: record.link_download,
-          link_download_location: record.link_download_location,
-          likes: record.likes,
-          downloads: record.downloads,
-          views: record.views,
-          location_name: record.location_name || null,
-          location_city: record.location_city || null,
-          location_country: record.location_country || null,
-          location_latitude: record.location_latitude,
-          location_longitude: record.location_longitude,
-          exif_make: record.exif_make || null,
-          exif_model: record.exif_model || null,
-          exif_exposure_time: record.exif_exposure_time || null,
-          exif_aperture: record.exif_aperture || null,
-          exif_focal_length: record.exif_focal_length || null,
-          exif_iso: record.exif_iso || null,
-          user_id: record.user_id,
-          user_username: record.user_username,
-          user_name: record.user_name,
-          user_profile_image_small: record.user_profile_image_small,
-          user_profile_image_medium: record.user_profile_image_medium,
-          user_profile_image_large: record.user_profile_image_large,
-          user_link_html: record.user_link_html,
-          raw_data: record.raw_data,
-          sync_version: syncVersion,
-          is_deleted: 0,
-          synced_at: currentTimestamp,
-        };
-        return JSON.stringify(r);
-      }).join("\n");
+      const jsonRows = batch
+        .map((record) => {
+          const r = {
+            photo_id: record.photo_id,
+            provider: record.provider,
+            created_at: record.created_at,
+            updated_at: record.updated_at,
+            promoted_at: record.promoted_at,
+            width: record.width,
+            height: record.height,
+            color: record.color || "",
+            blur_hash: record.blur_hash || "",
+            description: record.description || "",
+            alt_description: record.alt_description || "",
+            url_raw: record.url_raw,
+            url_full: record.url_full,
+            url_regular: record.url_regular,
+            url_small: record.url_small,
+            url_thumb: record.url_thumb,
+            link_self: record.link_self,
+            link_html: record.link_html,
+            link_download: record.link_download,
+            link_download_location: record.link_download_location,
+            likes: record.likes,
+            downloads: record.downloads,
+            views: record.views,
+            location_name: record.location_name || null,
+            location_city: record.location_city || null,
+            location_country: record.location_country || null,
+            location_latitude: record.location_latitude,
+            location_longitude: record.location_longitude,
+            exif_make: record.exif_make || null,
+            exif_model: record.exif_model || null,
+            exif_exposure_time: record.exif_exposure_time || null,
+            exif_aperture: record.exif_aperture || null,
+            exif_focal_length: record.exif_focal_length || null,
+            exif_iso: record.exif_iso || null,
+            user_id: record.user_id,
+            user_username: record.user_username,
+            user_name: record.user_name,
+            user_profile_image_small: record.user_profile_image_small,
+            user_profile_image_medium: record.user_profile_image_medium,
+            user_profile_image_large: record.user_profile_image_large,
+            user_link_html: record.user_link_html,
+            raw_data: record.raw_data,
+            sync_version: syncVersion,
+            is_deleted: 0,
+            synced_at: currentTimestamp,
+          };
+          return JSON.stringify(r);
+        })
+        .join("\n");
 
       // Use ClickHouse HTTP API with POST body
       const query = `INSERT INTO ${tableName} FORMAT JSONEachRow`;
@@ -437,7 +441,7 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          "Authorization": `Basic ${auth}`,
+          Authorization: `Basic ${auth}`,
           "Content-Type": "application/json; charset=utf-8",
         },
         body: jsonRows,
@@ -445,8 +449,12 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
 
       if (!response.ok) {
         const errorText = await response.text();
-        this.logger.error(`ClickHouse HTTP error. JSON preview: ${jsonRows.substring(0, 500)}...`);
-        throw new Error(`ClickHouse HTTP error: ${response.status} ${response.statusText} - ${errorText}`);
+        this.logger.error(
+          `ClickHouse HTTP error. JSON preview: ${jsonRows.substring(0, 500)}...`
+        );
+        throw new Error(
+          `ClickHouse HTTP error: ${response.status} ${response.statusText} - ${errorText}`
+        );
       }
 
       totalInserted += batch.length;
