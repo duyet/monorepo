@@ -1,158 +1,237 @@
 ---
 title: Pushing Frontier AI to Its Limits
-date: "2026-01-10"
+date: 2026-01-01
 category: AI
+series: Pushing Frontier AI to Its Limits
 tags:
-  - AI
-  - Productivity
-  - Tools
+ - AI
 slug: /2026/01/ai.html
 description: A deep dive into my AI coding tools journey, with interactive comparisons and visualizations.
 featured: true
 ---
 
-# Pushing Frontier AI to Its Limits
+My last post was in November 2024 - more than 14 months ago. Right at the explosion of LLM hype, then the AI Agents, Coding Agents, ... I stayed silent for a while. Since everyone was talking about how LLMs could solve LeetCode problems, or how RAG could change how companies work. People with ML backgrounds didn't quite accept the fact that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to be playing with data, feature engineering, params model tuning. 
 
-As an engineer, I'm always looking for ways to improve my workflow. Over the past year, I've extensively tested various AI coding tools. This post shares my findings with interactive components you can explore.
+But then it became clear: so many new AI applications, new techniques, new "tasks" emerged around it. Prompt engineering, token optimization, better tool calling. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs with web search is just table stakes.
 
-## Feature Comparison
+I started using and building AI agents more seriously. There are thousands of models out there, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, MCP, deployed RAG systems for work.
 
-Here's a detailed breakdown of key features across different AI coding tools:
+Coding agents control the terminal. I'm not writing code or even reading it - I'm watching them work instead. I test their results, tell them what I expect tests to look like to keep them focused, and build skills to teach them specific tasks. This is the new normal.
 
-<FeatureMatrix
-  tools={["Claude", "Copilot", "Cursor", "Cody"]}
-  features={[
-    {
-      featureName: "Code Understanding",
-      scores: [
-        { toolName: "Claude", score: 5, explanation: "Best-in-class context understanding" },
-        { toolName: "Copilot", score: 3, explanation: "Limited context window" },
-        { toolName: "Cursor", score: 4, explanation: "Good with codebase indexing" },
-        { toolName: "Cody", score: 4, explanation: "Strong with Sourcegraph integration" }
-      ]
-    },
-    {
-      featureName: "Code Generation",
-      scores: [
-        { toolName: "Claude", score: 5 },
-        { toolName: "Copilot", score: 4 },
-        { toolName: "Cursor", score: 4 },
-        { toolName: "Cody", score: 3 }
-      ]
-    },
-    {
-      featureName: "Multi-file Refactoring",
-      scores: [
-        { toolName: "Claude", score: 5, explanation: "Handles complex refactors well" },
-        { toolName: "Copilot", score: 2, explanation: "Single file focus" },
-        { toolName: "Cursor", score: 4, explanation: "Good multi-file support" },
-        { toolName: "Cody", score: 3 }
-      ]
-    },
-    {
-      featureName: "IDE Integration",
-      scores: [
-        { toolName: "Claude", score: 3, explanation: "CLI-focused" },
-        { toolName: "Copilot", score: 5, explanation: "Native VS Code integration" },
-        { toolName: "Cursor", score: 5, explanation: "Built as an IDE" },
-        { toolName: "Cody", score: 4 }
-      ]
-    }
-  ]}
-  description="Comparing key capabilities across popular AI coding assistants"
-/>
+While people are still scared of vibe coding, I ship it to production. For me, AI agents are no longer just tools for learning or asking questions about your codebase - they're fully capable of producing production-grade code. My top language on WakaTime is now **Markdown**. Things change fast. Your model gets stuck today, but tomorrow someone releases something better. I see startups and tools on X getting killed overnight when a big upstream provider releases something new.
 
-## My AI Development Workflow
+I've tried over a hundred tools - GitHub Copilot from the early days, v0.dev, Codex, Claude Code, Cursor, Windsurf, opencode, etc. Both free and subscription. I can't tell you which one is "the best" because they'll be legacy by next week. When choosing the right framework to build AI applications, there are tons of options: [LangChain](https://www.langchain.com/), [LangGraph](https://www.langchain.com/langgraph), [OpenAI Agents SDK](https://platform.openai.com/docs/guides/agents-sdk), then Claude Agent SDK came along and was better, [Cloudflare Agents](https://agents.cloudflare.com/), [Vercel AI SDK](https://ai-sdk.dev/). The competition never ends. I think maybe 90% of AI projects were just wrapping LLM APIs - most don't actually ship anything real. A few stand out and become the next big thing, but the rest? Just demos and POCs that go nowhere. I have no idea which ones will survive.
 
-Here's how I integrate AI tools into my development process:
+I didn't stop writing - tons of drafts sitting in my Obsidian folder, none published because they became outdated before I could publish it. That's why I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post or series will be updated from time to time.
 
-<Tabs
-  tabs={[
-    {
-      id: "plan",
-      label: "Plan",
-      content: (
-        <div className="space-y-4">
-          <p className="text-base text-gray-700 dark:text-gray-300">
-            <strong>Use Claude to break down the task into smaller steps.</strong> This is where I invest the most time with AI. I discuss:
-          </p>
-          <ul className="space-y-2 ml-4 text-sm text-gray-600 dark:text-gray-400">
-            <li>• Architecture decisions and design patterns</li>
-            <li>• Potential pitfalls and edge cases</li>
-            <li>• Technology stack and dependency choices</li>
-            <li>• Testing strategy and error handling</li>
-            <li>• Performance and scalability concerns</li>
-          </ul>
-          <p className="text-sm text-gray-500 dark:text-gray-500">
-            This phase prevents costly mistakes and ensures a solid foundation before writing any code.
-          </p>
-        </div>
-      )
-    },
-    {
-      id: "implement",
-      label: "Implement",
-      content: (
-        <div className="space-y-4">
-          <p className="text-base text-gray-700 dark:text-gray-300">
-            <strong>Write code with AI assistance across tools.</strong> Different tools excel at different tasks:
-          </p>
-          <ul className="space-y-2 ml-4 text-sm text-gray-600 dark:text-gray-400">
-            <li>• <strong>Claude Code:</strong> Complex logic, refactoring, multi-file changes</li>
-            <li>• <strong>GitHub Copilot:</strong> Quick completions, boilerplate code, inline suggestions</li>
-            <li>• <strong>Manual coding:</strong> For parts requiring deep domain knowledge</li>
-          </ul>
-          <p className="text-sm text-gray-500 dark:text-gray-500">
-            I use a hybrid approach, leveraging each tool's strengths for maximum productivity.
-          </p>
-        </div>
-      )
-    },
-    {
-      id: "review",
-      label: "Review",
-      content: (
-        <div className="space-y-4">
-          <p className="text-base text-gray-700 dark:text-gray-300">
-            <strong>AI-assisted code review to validate quality.</strong> I ask Claude to:
-          </p>
-          <ul className="space-y-2 ml-4 text-sm text-gray-600 dark:text-gray-400">
-            <li>• Spot bugs and potential runtime errors</li>
-            <li>• Improve performance and reduce complexity</li>
-            <li>• Ensure best practices and project standards are followed</li>
-            <li>• Identify edge cases and error scenarios</li>
-            <li>• Check for security vulnerabilities</li>
-          </ul>
-          <p className="text-sm text-gray-500 dark:text-gray-500">
-            This automated review catches issues before they reach production.
-          </p>
-        </div>
-      )
-    }
+<ClaudeCard
+  title="Top on my list"
+  items={[
+    { label: "Coding Agent", value: "Claude Code, opencode" },
+    { label: "Models", value: "Opus 4.5, GLM 4.7, Grok 4.1 Fast" },
+    { label: "LLM Provider", value: "OpenRouter" },
   ]}
 />
 
-## Tool Evolution Timeline
 
-My journey with AI coding tools over the years:
+## Claude Code
 
-<ToolTimeline
-  events={[
-    { id: "1", name: "GitHub Copilot", date: "2022-06", status: "adopted", details: "Started using Copilot during the technical preview", reason: "Early access to AI-powered code completion" },
-    { id: "2", name: "ChatGPT", date: "2022-11", status: "testing", details: "Experimented with ChatGPT for coding questions", reason: "Exploring conversational AI for development" },
-    { id: "3", name: "Claude", date: "2023-03", status: "adopted", details: "Switched to Claude for complex coding tasks", reason: "Better reasoning and context understanding" },
-    { id: "4", name: "Cursor", date: "2023-08", status: "testing", details: "Tried Cursor as a dedicated AI IDE", reason: "Evaluating IDE-native AI integration" },
-    { id: "5", name: "Claude Code", date: "2024-01", status: "active", details: "Using Claude Code as my primary AI coding tool", reason: "CLI integration, powerful agentic capabilities" },
-    { id: "6", name: "GitHub Copilot", date: "2024-06", status: "deprecated", details: "Reduced usage of Copilot", reason: "Claude Code covers most use cases better" }
-  ]}
-/>
+Claude Code is still the king among all the coding agents I've tried up to now. I've subscribed to [Cursor](https://cursor.com/), [Codex](https://openai.com/codex/), [Antigravity](https://antigravity.google/), [Roo Code](https://roocode.com/), [Kilo Code](https://kilo.ai/), [Kiro](https://kiro.dev/), etc. None of them can beat Claude Code in my opinion.
 
-## Conclusion
+It just works - not only for coding, but for understanding complex systems, refactoring, writing docs, do your homework, travel plan, summary news, fix your system, etc. "90% of code in Claude Code is written by itself" - [How Claude Code is built](https://newsletter.pragmaticengineer.com/p/how-claude-code-is-built). It's a general-purpose AI agent. Interestingly, it wasn't originally designed for coding. It started as [Boris's side project](https://x.com/bcherny/status/2004887829252317325).
 
-AI coding tools have fundamentally changed how I approach software development. The key is finding the right tool for each task:
+> The idea for Claude Code came from a command-line tool using Claude to state what music an engineer was listening to at work. It spread like wildfire at Anthropic after being given access to the filesystem. Today, Claude Code has its own fully-fledged team
 
-- **Complex reasoning & architecture**: Claude
-- **Quick completions & boilerplate**: Copilot (still useful)
-- **Full workflow automation**: Claude Code CLI
+The shift from Copilot or Cursor (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. The experience is very different. It's more like working on a team and less like working with an overly-zealous pair programmer who can't stop stealing the keyboard to complete the code you were in the middle of writing. With a team of agents, they do their work on their own. I just review the results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most of the code from my GitHub repos is now generated without writing a single line myself. I just prompt, watch, and test the results. This duyet.net site also gets updated automatically by Claude Code overnight with a custom cronjob script without any manual intervention - my experiment to see how far Claude Code can go.
 
-What's your experience with AI coding tools? I'd love to hear about your setup!
+There's no one correct way to use Claude Code. The following sections are for anyone curious about how I use it - skip this if you're already familiar with Claude Code.
+
+### My Claude Code Setup
+
+{/* ![[cc_setup.png]] */}
+![Claude Code Setup](/media/2026/01/claude/cc_setup.png)
+
+I would prefer to disable Auto-compact as it is slow, wastes 45.0k tokens (22.5%) for the autocompact buffer, and usually loses context. I try to use sub-agents when possible as they have their own context. For other cases I run `/export` to the clipboard then `/clear` and paste the previous content back - the export won't include thinking tokens or tool calls, so you save a lot and the model still keeps good track. 
+
+I always work with `--dangerously-skip-permissions` - it's not as dangerous as you'd think.
+
+```bash
+claude --dangerously-skip-permissions --chrome
+```
+
+**Quick tip**: If you use both Claude Code and other coding agents (like Codex), create a symlink so they share the same instructions:
+
+```bash
+ln -s CLAUDE.md AGENTS.md
+```
+
+Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md` - now you only maintain one file.
+ 
+
+My default list of MCPs are: [context7](https://github.com/upstash/context7#installation), [sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking), and [zread](https://zread.ai/mcp). It depends on the project I'm working on.
+
+With [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agents) I build a coordinated agent team for parallel task execution with leader delegation to senior/junior. The key is keeping roles minimal. I don't need a dozen specialized agents - just enough hierarchy to parallelize work while maintaining quality on the complex parts.
+
+{/* ![[cc_team_agent.png]] */}
+![Team Agents](/media/2026/01/claude/cc_team_agent.png)
+
+### duyet/claude-plugins
+
+https://github.com/duyet/claude-plugins: A collection of plugins I personally use for Claude Code, including **skills**, **MCPs**, **commands**, and **hooks** across all my machines and Claude Agent SDK apps. You might find something useful here. The sub-agents and skills in this repo keep consistent results across all my codebases - I use Claude Code to learn patterns and update them from time to time. 
+
+I started seeing AI engineers on X sharing their commands. I have a list of my own to make the workflow faster. This saves me from repeated prompting - some of the commands I use most:
+
+```
+/fix:and-push
+/fix:and-create-pr
+/orchestration [complex task]
+/leader --team-size=5 implement the static rendering
+```
+
+{/* ![[cc_commands.png]] */}
+![Commands](/media/2026/01/claude/cc_commands.png)
+
+### The Workflow
+
+{/* ![[cc_plan.png]] */}
+![Plan Mode](/media/2026/01/claude/cc_plan.png)
+
+<Steps>
+  <Step title="Plan">
+    I use Plan mode (shift+tab twice) for most session starts and create a new session for every new task.
+    Claude creates a plan file for you to review - I keep adjusting it until I get the plan I expected.
+
+    Once I have the perfect plan, Claude can usually do it in one shot until finished without asking anything else.
+  </Step>
+  <Step title="Implement">
+    When I have a good plan, I usually don't do anything at this stage - I can open a new Claude Code session to plan other tasks or another project.
+    You can also inject prompts while it's working if something isn't going in the right direction, or just ask Claude to explain in the middle. It's smart enough to
+    catch up with what you want and continue working after that.
+  </Step>
+  <Step title="Review">
+    The **Explanatory** output style is really useful when it shows you its implementation choices.
+    You can invoke agents to do code review - `@code-simplifier` simplifies the code after Claude is done working,
+    `@refactor` or `@testing` which already have detailed instructions for testing your application.
+
+    [Claude Hooks](https://code.claude.com/docs/en/hooks-guide) are also useful here,
+    saving a lot of time (e.g., formatting code or running prompt-based hooks for verification).
+  </Step>
+</Steps>
+
+For complex tasks, my `/interview` plugin may be useful - it conducts in-depth requirements interviews for your plan file before implementation. The `/interview` command puts Claude into an interview mode where it systematically asks clarifying questions about a feature or plan. It uses the `AskUserQuestion` tool to gather decisions
+
+```
+/plugin install interview@duyet-claude-plugins
+```
+
+```
+/interview:interview ~/.claude/plans/adaptive-dazzling-lamport.md
+```
+
+{/* ![[cc_interview.png]] */}
+![Interview](/media/2026/01/claude/cc_interview.png)
+
+### Claude Code + Ralph Loop
+
+The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) - This is my favorite for long-running tasks or vibe coding on fun projects while I'm asleep. There's a lot of explanation and examples over there. You can prompt it to do tasks and plan the next steps for each iteration. With a large number of Z.AI GLM 4.7 tokens I can let it run 24/7. You define your goal condition and let the agent loop over and over until it has verifiably reached that promised goal. Please run it with either `--permission-mode=dontAsk` or `--dangerously-skip-permissions`
+
+```
+/plugin install ralph-wiggum@claude-plugins-official
+```
+
+```
+/ralph-wiggum:ralph-loop "Implement feature X following TDD:
+1. Write failing tests
+2. Implement feature
+3. Run tests
+4. If any fail, debug and fix
+5. Refactor if needed
+6. Repeat until all green
+7. Output: <promise>COMPLETE</promise>" --completion-promise "COMPLETE"
+```
+
+## z_claude, mi_claude & or_claude
+
+The good thing about Claude Code is that you can use it with alternative providers that offer the same Anthropic API interface. I've created some wrapper scripts for this:
+
+- [z_claude](https://gist.github.com/duyet/ad5971afe423cf992f519aa8a2ea10d5) - Uses Z.AI's GLM 4.7 model, which works great. I use this a lot to burn their tokens instead of my Claude MAX subscription.
+- [mi_claude](https://gist.github.com/duyet/7f03bbcf392ca67c6d41bd221d4ab8fd) - Uses Xiaomi Mimo API.
+- [or_claude](https://gist.github.com/duyet/d9a9f9b6daa5b3ae4b9343e08743540d) - Uses [OpenRouter](https://openrouter.ai/docs/guides/guides/claude-code-integration) models, there are some good, new and free models with rate limits.
+
+You can start working with `claude` using Opus, then exit and continue the same session with `z_claude --continue`. Use `mi_claude` or `or_claude` the same way.
+
+For OpenRouter, set up your environment like this:
+
+```bash
+export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+export ANTHROPIC_API_KEY="$OPENROUTER_API_KEY"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="openai/gpt-5.1-codex-max"
+
+or_claude
+```
+
+## Claude Code (+ OpenRouter) on GitHub Actions
+
+You can run Claude Code in CI/CD pipelines with GitHub Actions. Check out the official documentation: [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions)
+
+```yaml
+- name: Run Claude Code Review
+  id: review
+  uses: anthropics/claude-code-action@v1
+  env:
+    ANTHROPIC_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+    ANTHROPIC_BASE_URL: https://openrouter.ai/api
+    ANTHROPIC_DEFAULT_HAIKU_MODEL: xiaomi/mimo-v2-flash:free
+    ANTHROPIC_DEFAULT_SONNET_MODEL: xiaomi/mimo-v2-flash:free
+    ANTHROPIC_DEFAULT_OPUS_MODEL: xiaomi/mimo-v2-flash:free
+  with:
+    anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+    additional_permissions: |
+      actions: read
+    claude_args: |
+      --allowed-tools Bash Edit Glob Grep Read Write
+      --mcp-config .github/mcp-config.json
+    plugins: |
+      ralph-wiggum@claude-plugins-official
+```
+
+The good part is I'm running Claude GitHub Actions with OpenRouter at no cost by using free models. I have an OpenRouter preset that can switch between SOTA free models automatically.
+
+I put together some reusable workflows at [duyet/github-actions](https://github.com/duyet/github-actions) that you can use:
+
+```yaml
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    uses: duyet/github-actions/.github/workflows/claude-code-review.yml@main
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      id-token: write
+    secrets:
+      api_key: ${{ secrets.OPENROUTER_API_KEY }}
+      bot_github_token: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
+```
+
+Some use cases:
+
+- **Code Review** - Automated PR reviews with AI feedback
+- **Nightly Codebase Analysis** - A scheduled workflow that runs every night to scan the codebase, find things to improve or refactor, then creates an issue and assigns it back to @claude to fix itself via PR
+
+This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible - smart cronjobs, automated refactoring, dependency updates, test generation, documentation sync. The AI does the boring stuff while you sleep.
+
+## opencode
+
+[opencode](https://github.com/sst/opencode) is a solid alternative to Claude Code and works really well. It has integrated support for many providers including Z.AI, OpenRouter, Claude Code Subscription, Codex, and more.
+
+![opencode](/media/2026/01/claude/opencode.png)
+
+I put all my providers into opencode - it's basically a terminal interface for coding agents that lets you switch between models on the fly. Need Opus for something complex? Switch. Running low on tokens? Jump to a cheaper model. The UI is clean, sessions are easy to capture and share, and it just feels nice to use.
+
+The multi-provider setup means I can keep working without worrying about hitting rate limits or burning through my subscription too fast.

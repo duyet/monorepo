@@ -1,0 +1,49 @@
+export function BlogIcon() {
+  return (
+    <svg
+      width="80"
+      height="80"
+      viewBox="0 0 80 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="24"
+        y="20"
+        width="32"
+        height="40"
+        rx="6"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        fill="none"
+      />
+      <line
+        x1="32"
+        y1="32"
+        x2="48"
+        y2="32"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+      <line
+        x1="32"
+        y1="40"
+        x2="48"
+        y2="40"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+      <line
+        x1="32"
+        y1="48"
+        x2="42"
+        y2="48"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}

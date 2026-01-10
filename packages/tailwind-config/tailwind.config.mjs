@@ -91,11 +91,34 @@ export default {
               marginTop: theme("spacing.10"),
             },
             pre: {
-              padding: 5,
+              backgroundColor: "white",
+              borderWidth: "1px",
+              borderColor: theme("colors.gray.200"),
+              borderRadius: theme("borderRadius.xl"),
+              padding: theme("spacing.4"),
+              color: theme("colors.gray.800"),
+            },
+            "pre code": {
+              backgroundColor: "transparent",
+              color: "inherit",
+              fontSize: theme("fontSize.sm")[0],
             },
             code: {
               overflowWrap: "break-word",
               wordBreak: "break-word",
+              backgroundColor: theme("colors.gray.100"),
+              borderRadius: theme("borderRadius.md"),
+              paddingLeft: theme("spacing.1"),
+              paddingRight: theme("spacing.1"),
+              paddingTop: theme("spacing.0.5"),
+              paddingBottom: theme("spacing.0.5"),
+              fontWeight: "400",
+            },
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
             },
           },
         },
@@ -104,6 +127,15 @@ export default {
             a: {
               color: theme("colors.white"),
               textDecoration: "underline",
+            },
+            pre: {
+              backgroundColor: theme("colors.gray.900"),
+              borderColor: theme("colors.gray.700"),
+              color: theme("colors.gray.100"),
+            },
+            code: {
+              backgroundColor: theme("colors.gray.800"),
+              color: theme("colors.gray.200"),
             },
           },
         },

@@ -6,14 +6,12 @@ interface TimelineSliderProps {
   versions: Version[];
   currentIndex: number;
   onIndexChange: (index: number) => void;
-  isUpcoming: (index: number) => boolean;
 }
 
 export function TimelineSlider({
   versions,
   currentIndex,
   onIndexChange,
-  isUpcoming,
 }: TimelineSliderProps) {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 

@@ -10,9 +10,10 @@ import rehypeHighlight from "rehype-highlight";
 
 import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
+import "@/styles/highlight.css";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
-import { mdxComponents } from "../../../../../components/mdx-components";
+import { mdxComponents } from "@/components/MdxComponents";
 
 interface ContentPost extends Post {
   isMDX?: boolean;
@@ -42,6 +43,7 @@ export default async function Content({ post }: { post: ContentPost }) {
         <article
           className={cn(
             'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
+            "prose-h1:font-serif prose-h1:tracking-tight",
             "mb-10 mt-10 max-w-none"
           )}
         >
@@ -60,6 +62,7 @@ export default async function Content({ post }: { post: ContentPost }) {
         <article
           className={cn(
             'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
+            "prose-h1:font-serif prose-h1:tracking-tight",
             "mb-10 mt-10 max-w-none"
           )}
           dangerouslySetInnerHTML={{ __html: post.content || "No content" }}

@@ -3,7 +3,7 @@
 // Main VersionDiff component - refactored into smaller subcomponents
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import type { Version, VersionDiffProps } from "../../blog/types";
+import type { VersionDiffProps } from "../../blog/types";
 import { TimelineSlider } from "./TimelineSlider";
 import { VersionHeader } from "./VersionHeader";
 import { DiffLine } from "./DiffLine";
@@ -96,7 +96,6 @@ export function VersionDiff({
           versions={versions}
           currentIndex={currentIndex}
           onIndexChange={handleVersionChange}
-          isUpcoming={(idx) => isVersionUpcoming(versions[idx].date)}
         />
       )}
 

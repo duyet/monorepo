@@ -13,7 +13,9 @@ loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
  */
 const config = {
   output: "export",
+  trailingSlash: true,
   transpilePackages: ["@duyet/components", "@duyet/libs"],
+  serverExternalPackages: ["sanitize-html", "postcss"],
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
