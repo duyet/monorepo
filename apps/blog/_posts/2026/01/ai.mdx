@@ -1,12 +1,12 @@
 ---
 title: Pushing Frontier AI to Its Limits
-date: "2025-01-10"
+date: "2026-01-10"
 category: AI
 tags:
   - AI
   - Productivity
   - Tools
-slug: /2025/01/push-frontier-ai-to-limits.html
+slug: /2026/01/ai.html
 description: A deep dive into my AI coding tools journey, with interactive comparisons and visualizations.
 featured: true
 ---
@@ -105,44 +105,70 @@ Let me break down the features across different tools:
 
 Here's how I integrate AI tools into my development process:
 
-<WorkflowDiagram
-  nodes={[
+<Tabs
+  tabs={[
     {
       id: "plan",
-      icon: "Lightbulb",
-      title: "Plan",
-      description: "Use Claude to break down the task into smaller steps. Discuss architecture decisions and potential pitfalls before writing any code."
+      label: "Plan",
+      content: (
+        <div className="space-y-4">
+          <p className="text-base text-gray-700 dark:text-gray-300">
+            <strong>Use Claude to break down the task into smaller steps.</strong> This is where I invest the most time with AI. I discuss:
+          </p>
+          <ul className="space-y-2 ml-4 text-sm text-gray-600 dark:text-gray-400">
+            <li>• Architecture decisions and design patterns</li>
+            <li>• Potential pitfalls and edge cases</li>
+            <li>• Technology stack and dependency choices</li>
+            <li>• Testing strategy and error handling</li>
+            <li>• Performance and scalability concerns</li>
+          </ul>
+          <p className="text-sm text-gray-500 dark:text-gray-500">
+            This phase prevents costly mistakes and ensures a solid foundation before writing any code.
+          </p>
+        </div>
+      )
     },
     {
       id: "implement",
-      icon: "Code",
-      title: "Implement",
-      description: "Write code with AI assistance. Claude Code helps with complex logic while Copilot handles boilerplate and completions."
+      label: "Implement",
+      content: (
+        <div className="space-y-4">
+          <p className="text-base text-gray-700 dark:text-gray-300">
+            <strong>Write code with AI assistance across tools.</strong> Different tools excel at different tasks:
+          </p>
+          <ul className="space-y-2 ml-4 text-sm text-gray-600 dark:text-gray-400">
+            <li>• <strong>Claude Code:</strong> Complex logic, refactoring, multi-file changes</li>
+            <li>• <strong>GitHub Copilot:</strong> Quick completions, boilerplate code, inline suggestions</li>
+            <li>• <strong>Manual coding:</strong> For parts requiring deep domain knowledge</li>
+          </ul>
+          <p className="text-sm text-gray-500 dark:text-gray-500">
+            I use a hybrid approach, leveraging each tool's strengths for maximum productivity.
+          </p>
+        </div>
+      )
     },
     {
       id: "review",
-      icon: "CheckCircle",
-      title: "Review",
-      description: "AI-assisted code review to catch bugs, improve performance, and ensure best practices are followed."
+      label: "Review",
+      content: (
+        <div className="space-y-4">
+          <p className="text-base text-gray-700 dark:text-gray-300">
+            <strong>AI-assisted code review to validate quality.</strong> I ask Claude to:
+          </p>
+          <ul className="space-y-2 ml-4 text-sm text-gray-600 dark:text-gray-400">
+            <li>• Spot bugs and potential runtime errors</li>
+            <li>• Improve performance and reduce complexity</li>
+            <li>• Ensure best practices and project standards are followed</li>
+            <li>• Identify edge cases and error scenarios</li>
+            <li>• Check for security vulnerabilities</li>
+          </ul>
+          <p className="text-sm text-gray-500 dark:text-gray-500">
+            This automated review catches issues before they reach production.
+          </p>
+        </div>
+      )
     }
   ]}
-/>
-
-## My Coding Activity
-
-Here's a visualization of my recent coding activity across different languages:
-
-<WakaTimeChart
-  data={[
-    { date: "2025-01-01", TypeScript: 5.2, Python: 2.1, Rust: 1.5, Go: 0.8 },
-    { date: "2025-01-02", TypeScript: 6.1, Python: 1.8, Rust: 2.2, Go: 0.5 },
-    { date: "2025-01-03", TypeScript: 4.5, Python: 3.2, Rust: 1.8, Go: 1.2 },
-    { date: "2025-01-04", TypeScript: 3.8, Python: 2.5, Rust: 2.5, Go: 1.5 },
-    { date: "2025-01-05", TypeScript: 5.5, Python: 1.5, Rust: 3.0, Go: 0.8 },
-    { date: "2025-01-06", TypeScript: 6.2, Python: 2.8, Rust: 1.2, Go: 0.6 },
-    { date: "2025-01-07", TypeScript: 5.8, Python: 2.0, Rust: 1.8, Go: 1.0 }
-  ]}
-  title="Weekly Coding Activity"
 />
 
 ## Tool Evolution Timeline
