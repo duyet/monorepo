@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useTheme } from "next-themes";
-import type { WakaTimeChartProps, WakaTimeDataPoint } from "./types";
+import type { WakaTimeChartProps } from "./types";
 
 const LANGUAGE_COLORS: Record<string, string> = {
   TypeScript: "#3178c6",
@@ -43,7 +43,6 @@ function WakaTimeChartContent({
   const prefersReducedMotion = useRef(false);
 
   useEffect(() => {
-    // Check user's motion preference
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     prefersReducedMotion.current = mediaQuery.matches;
   }, []);
@@ -54,7 +53,6 @@ function WakaTimeChartContent({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Set animation duration only if motion is not reduced
           if (!prefersReducedMotion.current) {
             setAnimationDuration(1500);
           }
@@ -80,9 +78,9 @@ function WakaTimeChartContent({
     return (
       <div
         ref={chartRef}
-        className="flex items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 p-8 dark:border-neutral-800 dark:bg-neutral-900"
+        className="flex items-center justify-center rounded border border-amber-200 bg-amber-50/30 p-4 dark:border-amber-900/30 dark:bg-gray-950"
       >
-        <p className="text-center text-neutral-600 dark:text-neutral-400">
+        <p className="text-center text-xs text-gray-600 dark:text-gray-400">
           No data available
         </p>
       </div>
@@ -98,7 +96,7 @@ function WakaTimeChartContent({
     )
   ).sort();
 
-  // Theme colors for chart elements
+  // Theme colors
   const isDark = theme === "dark";
   const textColor = isDark ? "#d4d4d8" : "#18181b";
   const gridColor = isDark ? "#3f3f46" : "#e4e4e7";
@@ -108,18 +106,18 @@ function WakaTimeChartContent({
   return (
     <div ref={chartRef} className="w-full">
       {title && (
-        <h3 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
           {title}
         </h3>
       )}
 
-      <div className="overflow-x-auto rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="overflow-x-auto rounded border border-amber-200 bg-white p-2 dark:border-amber-900/30 dark:bg-gray-950">
         {/* Mobile: Horizontal scroll layout */}
         <div className="md:hidden">
-          <ResponsiveContainer width="100%" height={250} minWidth={300}>
+          <ResponsiveContainer width="100%" height={200} minWidth={300}>
             <AreaChart
               data={isVisible ? data : []}
-              margin={{ top: 10, right: 10, left: -20, bottom: 10 }}
+              margin={{ top: 5, right: 5, left: -20, bottom: 5 }}
             >
               <defs>
                 {languages.map((lang) => (
@@ -136,14 +134,14 @@ function WakaTimeChartContent({
                       stopColor={
                         LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
-                      stopOpacity={0.8}
+                      stopOpacity={0.6}
                     />
                     <stop
                       offset="95%"
                       stopColor={
                         LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
-                      stopOpacity={0.1}
+                      stopOpacity={0.05}
                     />
                   </linearGradient>
                 ))}
@@ -156,16 +154,17 @@ function WakaTimeChartContent({
               <XAxis
                 dataKey="date"
                 stroke={textColor}
-                tick={{ fontSize: 11 }}
-                interval={Math.floor(data.length / 5)}
+                tick={{ fontSize: 10 }}
+                interval={Math.floor(data.length / 4)}
               />
-              <YAxis stroke={textColor} tick={{ fontSize: 11 }} />
+              <YAxis stroke={textColor} tick={{ fontSize: 10 }} />
               <Tooltip
                 contentStyle={{
                   backgroundColor: tooltipBg,
                   border: `1px solid ${tooltipBorder}`,
-                  borderRadius: "8px",
+                  borderRadius: "4px",
                   color: textColor,
+                  fontSize: 11,
                 }}
                 wrapperStyle={{ outline: "none" }}
               />
@@ -187,10 +186,10 @@ function WakaTimeChartContent({
 
         {/* Desktop: Full width layout */}
         <div className="hidden md:block">
-          <ResponsiveContainer width="100%" height={350}>
+          <ResponsiveContainer width="100%" height={280}>
             <AreaChart
               data={isVisible ? data : []}
-              margin={{ top: 10, right: 30, left: 0, bottom: 10 }}
+              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
               <defs>
                 {languages.map((lang) => (
@@ -207,14 +206,14 @@ function WakaTimeChartContent({
                       stopColor={
                         LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
-                      stopOpacity={0.8}
+                      stopOpacity={0.6}
                     />
                     <stop
                       offset="95%"
                       stopColor={
                         LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other
                       }
-                      stopOpacity={0.1}
+                      stopOpacity={0.05}
                     />
                   </linearGradient>
                 ))}
@@ -227,22 +226,23 @@ function WakaTimeChartContent({
               <XAxis
                 dataKey="date"
                 stroke={textColor}
-                tick={{ fontSize: 12 }}
+                tick={{ fontSize: 11 }}
               />
-              <YAxis stroke={textColor} tick={{ fontSize: 12 }} />
+              <YAxis stroke={textColor} tick={{ fontSize: 11 }} />
               <Tooltip
                 contentStyle={{
                   backgroundColor: tooltipBg,
                   border: `1px solid ${tooltipBorder}`,
-                  borderRadius: "8px",
+                  borderRadius: "4px",
                   color: textColor,
+                  fontSize: 12,
                 }}
                 wrapperStyle={{ outline: "none" }}
               />
               <Legend
-                wrapperStyle={{ color: textColor, fontSize: 12 }}
+                wrapperStyle={{ color: textColor, fontSize: 11 }}
                 verticalAlign="top"
-                height={36}
+                height={24}
               />
               {languages.map((lang) => (
                 <Area
@@ -261,17 +261,17 @@ function WakaTimeChartContent({
         </div>
 
         {/* Legend with color indicators (Mobile only) */}
-        <div className="mt-4 grid grid-cols-2 gap-2 md:hidden">
+        <div className="mt-2 grid grid-cols-2 gap-1.5 md:hidden">
           {languages.map((lang) => (
-            <div key={lang} className="flex items-center gap-2">
+            <div key={lang} className="flex items-center gap-1.5">
               <div
-                className="h-3 w-3 rounded-full"
+                className="h-2 w-2 rounded-full"
                 style={{
                   backgroundColor:
                     LANGUAGE_COLORS[lang] || LANGUAGE_COLORS.Other,
                 }}
               />
-              <span className="text-xs text-neutral-700 dark:text-neutral-300">
+              <span className="text-xs text-gray-700 dark:text-gray-300">
                 {lang}
               </span>
             </div>

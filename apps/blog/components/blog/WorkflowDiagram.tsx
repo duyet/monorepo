@@ -1,25 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import * as LucideIcons from "lucide-react";
-import { ArrowDown, Circle } from "lucide-react";
+import { Circle } from "lucide-react";
 import type { WorkflowDiagramProps, WorkflowNode } from "./types";
 
 const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
   const [expandedNodeId, setExpandedNodeId] = useState<string | null>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  // Check for prefers-reduced-motion on mount
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) =>
-      setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
 
   // Get icon component safely with fallback
   const getIconComponent = (iconName: string | undefined) => {
@@ -40,7 +27,7 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
     setExpandedNodeId(expandedNodeId === nodeId ? null : nodeId);
   };
 
-  const handleKeyPress = (
+  const handleKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
     nodeId: string
   ) => {
@@ -65,10 +52,10 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Desktop circular layout
+  // Desktop compact layout
   const DesktopLayout = () => (
-    <div className="relative mx-auto w-full max-w-2xl py-12">
-      {/* SVG for arrows */}
+    <div className="relative mx-auto w-full max-w-2xl py-6">
+      {/* SVG for arrows - minimal */}
       <svg
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 400 400"
@@ -76,23 +63,14 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
         aria-hidden="true"
       >
         {/* Arrow 1: Top to Right */}
-        <motion.path
+        <path
           d="M 200 50 Q 280 150 280 250"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.5"
           fill="none"
-          className="text-gray-400 dark:text-gray-600"
+          className="text-amber-200 dark:text-amber-800"
           markerEnd="url(#arrowhead-1)"
           strokeLinecap="round"
-          animate={{
-            pathLength: prefersReducedMotion ? 1 : [0, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop" as const,
-            ease: "easeInOut" as const,
-          }}
         />
         <defs>
           <marker
@@ -106,29 +84,20 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
             <polygon
               points="0 0, 10 3, 0 6"
               fill="currentColor"
-              className="text-gray-400 dark:text-gray-600"
+              className="text-amber-200 dark:text-amber-800"
             />
           </marker>
         </defs>
 
         {/* Arrow 2: Right to Left */}
-        <motion.path
+        <path
           d="M 280 250 Q 200 300 120 250"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.5"
           fill="none"
-          className="text-gray-400 dark:text-gray-600"
+          className="text-amber-200 dark:text-amber-800"
           markerEnd="url(#arrowhead-2)"
           strokeLinecap="round"
-          animate={{
-            pathLength: prefersReducedMotion ? 1 : [0, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop" as const,
-            ease: "easeInOut" as const,
-          }}
         />
         <defs>
           <marker
@@ -142,29 +111,20 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
             <polygon
               points="0 0, 10 3, 0 6"
               fill="currentColor"
-              className="text-gray-400 dark:text-gray-600"
+              className="text-amber-200 dark:text-amber-800"
             />
           </marker>
         </defs>
 
         {/* Arrow 3: Left to Top */}
-        <motion.path
+        <path
           d="M 120 250 Q 100 150 200 50"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.5"
           fill="none"
-          className="text-gray-400 dark:text-gray-600"
+          className="text-amber-200 dark:text-amber-800"
           markerEnd="url(#arrowhead-3)"
           strokeLinecap="round"
-          animate={{
-            pathLength: prefersReducedMotion ? 1 : [0, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop" as const,
-            ease: "easeInOut" as const,
-          }}
         />
         <defs>
           <marker
@@ -178,14 +138,14 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
             <polygon
               points="0 0, 10 3, 0 6"
               fill="currentColor"
-              className="text-gray-400 dark:text-gray-600"
+              className="text-amber-200 dark:text-amber-800"
             />
           </marker>
         </defs>
       </svg>
 
-      {/* Nodes container - triangular arrangement */}
-      <div className="relative flex h-80 items-center justify-center">
+      {/* Nodes container */}
+      <div className="relative flex h-72 items-center justify-center">
         {/* Top node */}
         {nodes.length > 0 && (
           <div className="absolute top-0 left-1/2 -translate-x-1/2 transform">
@@ -193,7 +153,7 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
               node={nodes[0]}
               isExpanded={expandedNodeId === nodes[0].id}
               onToggle={() => toggleNode(nodes[0].id)}
-              onKeyPress={(e) => handleKeyPress(e, nodes[0].id)}
+              onKeyDown={(e) => handleKeyDown(e, nodes[0].id)}
               getIconComponent={getIconComponent}
             />
           </div>
@@ -206,7 +166,7 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
               node={nodes[1]}
               isExpanded={expandedNodeId === nodes[1].id}
               onToggle={() => toggleNode(nodes[1].id)}
-              onKeyPress={(e) => handleKeyPress(e, nodes[1].id)}
+              onKeyDown={(e) => handleKeyDown(e, nodes[1].id)}
               getIconComponent={getIconComponent}
             />
           </div>
@@ -219,7 +179,7 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
               node={nodes[2]}
               isExpanded={expandedNodeId === nodes[2].id}
               onToggle={() => toggleNode(nodes[2].id)}
-              onKeyPress={(e) => handleKeyPress(e, nodes[2].id)}
+              onKeyDown={(e) => handleKeyDown(e, nodes[2].id)}
               getIconComponent={getIconComponent}
             />
           </div>
@@ -228,60 +188,38 @@ const WorkflowDiagram = ({ nodes, className = "" }: WorkflowDiagramProps) => {
     </div>
   );
 
-  // Mobile vertical layout
+  // Mobile vertical compact layout
   const MobileLayout = () => (
-    <div className="space-y-8 py-8">
+    <div className="space-y-4 py-4">
       {nodes.map((node, index) => (
         <div key={node.id}>
           <WorkflowNodeCard
             node={node}
             isExpanded={expandedNodeId === node.id}
             onToggle={() => toggleNode(node.id)}
-            onKeyPress={(e) => handleKeyPress(e, node.id)}
+            onKeyDown={(e) => handleKeyDown(e, node.id)}
             getIconComponent={getIconComponent}
           />
 
           {/* Down arrow between nodes */}
           {index < nodes.length - 1 && (
-            <motion.div
-              className="flex justify-center py-4 text-gray-400 dark:text-gray-600"
-              animate={{
-                opacity: prefersReducedMotion ? 1 : [0.6, 1, 0.6],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "loop" as const,
-                ease: "easeInOut" as const,
-              }}
-              aria-hidden="true"
-            >
-              <ArrowDown size={24} />
-            </motion.div>
+            <div className="flex justify-center py-2 text-amber-200 dark:text-amber-800" aria-hidden="true">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
           )}
 
           {/* Loop arrow after last node */}
           {index === nodes.length - 1 && (
-            <motion.div
-              className="flex justify-center py-4 text-gray-400 dark:text-gray-600"
-              animate={{
-                opacity: prefersReducedMotion ? 1 : [0.6, 1, 0.6],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "loop" as const,
-                ease: "easeInOut" as const,
-              }}
-              aria-hidden="true"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <ArrowDown size={24} />
-                <span className="text-xs text-gray-500 dark:text-gray-500">
-                  loops
-                </span>
+            <div className="flex justify-center py-2 text-amber-200 dark:text-amber-800" aria-hidden="true">
+              <div className="flex flex-col items-center gap-1">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+                <span className="text-xs text-amber-300 dark:text-amber-700">loops</span>
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
       ))}
@@ -299,7 +237,7 @@ interface WorkflowNodeCardProps {
   node: WorkflowNode;
   isExpanded: boolean;
   onToggle: () => void;
-  onKeyPress: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
   getIconComponent: (
     iconName: string | undefined
   ) => React.ComponentType<{ className?: string; size?: number }>;
@@ -309,89 +247,52 @@ const WorkflowNodeCard = ({
   node,
   isExpanded,
   onToggle,
-  onKeyPress,
+  onKeyDown,
   getIconComponent,
 }: WorkflowNodeCardProps) => {
   const IconComponent = getIconComponent(node.icon);
 
   return (
-    <motion.div
-      variants={{
-        initial: { scale: 1 },
-        hover: { scale: 1.05 },
-      }}
-      whileHover="hover"
-      whileTap={{ scale: 0.95 }}
-      className="w-48"
+    <button
+      onClick={onToggle}
+      onKeyDown={onKeyDown}
+      className="w-40 rounded-2xl border border-amber-100 bg-amber-50/80 p-3 transition-all duration-200 hover:border-amber-200 hover:bg-amber-50 dark:border-amber-900/30 dark:bg-amber-950/20 dark:hover:border-amber-800/50 focus:outline-none focus:ring-2 focus:ring-amber-300/50 dark:focus:ring-amber-700/50"
+      aria-expanded={isExpanded}
+      aria-label={`${node.title}, press Enter to expand details`}
     >
-      <button
-        onClick={onToggle}
-        onKeyPress={onKeyPress}
-        className="w-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-blue-600 dark:focus:ring-offset-gray-950"
-        aria-expanded={isExpanded}
-        aria-label={`${node.title}, press Enter to expand details`}
-      >
-        <motion.div
-          className="mb-3 flex justify-center text-blue-600 dark:text-blue-400"
-          variants={{
-            initial: { scale: 1 },
-            hover: { scale: 1.1 },
-          }}
-          whileHover="hover"
-        >
-          <IconComponent size={32} />
-        </motion.div>
+      <div className="mb-2 flex justify-center text-amber-700 dark:text-amber-600">
+        <IconComponent size={24} />
+      </div>
 
-        <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-          {node.title}
-        </h3>
+      <h3 className="text-sm font-semibold text-amber-950 dark:text-amber-100">
+        {node.title}
+      </h3>
 
-        {/* Expandable description */}
-        <motion.div
-          initial="collapsed"
-          animate={isExpanded ? "expanded" : "collapsed"}
-          variants={{
-            collapsed: { opacity: 0, height: 0, marginTop: 0 },
-            expanded: {
-              opacity: 1,
-              height: "auto",
-              marginTop: 12,
-              transition: {
-                duration: 0.3,
-                ease: "easeInOut",
-              },
-            },
-          }}
-          className="overflow-hidden"
-        >
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            {node.description}
-          </p>
-        </motion.div>
+      {/* Expandable description */}
+      {isExpanded && (
+        <p className="mt-2 text-xs text-amber-800 dark:text-amber-200">
+          {node.description}
+        </p>
+      )}
 
-        {/* Expand indicator */}
-        <motion.div
-          className="mt-3 flex items-center justify-center text-gray-400 dark:text-gray-600"
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
+      {/* Expand indicator */}
+      <div className="mt-2 flex items-center justify-center text-amber-500 dark:text-amber-600">
+        <svg
+          className={`h-3 w-3 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
         >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-        </motion.div>
-      </button>
-    </motion.div>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
+      </div>
+    </button>
   );
 };
 
