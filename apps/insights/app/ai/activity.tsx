@@ -74,8 +74,8 @@ export async function CCUsageActivity({
             height={400}
           />
           <div className="mt-3 text-xs text-muted-foreground">
-            Data shows tokens in thousands (K). Model names are normalized
-            for display (e.g., claude-3-5-sonnet → Sonnet 3.5).
+            Data shows tokens in thousands (K). Model names are normalized for
+            display (e.g., claude-3-5-sonnet → Sonnet 3.5).
           </div>
         </div>
       )}

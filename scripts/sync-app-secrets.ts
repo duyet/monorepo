@@ -26,7 +26,9 @@ const appName = process.argv[2];
 const dryRun = process.argv.includes("--dry-run");
 
 if (!appName) {
-  console.error("[ERROR] App name required. Usage: bun sync-app-secrets.ts <app-name> [--dry-run]");
+  console.error(
+    "[ERROR] App name required. Usage: bun sync-app-secrets.ts <app-name> [--dry-run]"
+  );
   process.exit(1);
 }
 
@@ -269,7 +271,9 @@ async function setSecretsBulk(
 ): Promise<boolean> {
   if (dryRun || Object.keys(secrets).length === 0) {
     if (dryRun && Object.keys(secrets).length > 0) {
-      console.log(`  [DRY RUN] Would sync ${Object.keys(secrets).length} secrets via bulk`);
+      console.log(
+        `  [DRY RUN] Would sync ${Object.keys(secrets).length} secrets via bulk`
+      );
     }
     return true;
   }
@@ -327,7 +331,9 @@ async function setBuildVarsForPages(
 ): Promise<boolean> {
   if (dryRun || Object.keys(buildVars).length === 0) {
     if (dryRun && Object.keys(buildVars).length > 0) {
-      console.log(`  [DRY RUN] Would sync ${Object.keys(buildVars).length} build vars:`);
+      console.log(
+        `  [DRY RUN] Would sync ${Object.keys(buildVars).length} build vars:`
+      );
       for (const [key, value] of Object.entries(buildVars)) {
         console.log(`    - ${key}=${value}`);
       }
@@ -371,7 +377,9 @@ async function main() {
   // Load environment variables from root
   const env = loadEnvFiles();
   if (Object.keys(env).length === 0) {
-    console.error(`  [ERROR] No environment variables found in root .env files`);
+    console.error(
+      `  [ERROR] No environment variables found in root .env files`
+    );
     process.exit(1);
   }
 
@@ -391,9 +399,8 @@ async function main() {
     console.log(`  [INFO] Syncing ${secretKeys.length} secrets:`);
     for (const key of secretKeys) {
       const value = secrets[key];
-      const masked = value.length > 8
-        ? `${value.slice(0, 4)}...${value.slice(-4)}`
-        : "****";
+      const masked =
+        value.length > 8 ? `${value.slice(0, 4)}...${value.slice(-4)}` : "****";
       console.log(`    - ${key}: ${masked}`);
     }
 
@@ -409,7 +416,9 @@ async function main() {
 
   // Sync build vars for Pages projects
   if (isPagesProject && Object.keys(buildVars).length > 0) {
-    console.log(`  [INFO] Syncing ${Object.keys(buildVars).length} build vars for Pages:`);
+    console.log(
+      `  [INFO] Syncing ${Object.keys(buildVars).length} build vars for Pages:`
+    );
     for (const [key, value] of Object.entries(buildVars)) {
       console.log(`    - ${key}=${value}`);
     }

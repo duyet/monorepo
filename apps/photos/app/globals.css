@@ -61,13 +61,13 @@
   --cactus-light: oklch(0.88 0.03 165);
   --oat: oklch(0.88 0.03 75);
   --oat-light: oklch(0.92 0.02 75);
-  --sage: oklch(0.80 0.03 170);
+  --sage: oklch(0.8 0.03 170);
   --sage-light: oklch(0.86 0.02 170);
-  --lavender: oklch(0.80 0.04 280);
+  --lavender: oklch(0.8 0.04 280);
   --lavender-light: oklch(0.88 0.03 280);
   --terracotta: oklch(0.62 0.15 35);
-  --terracotta-light: oklch(0.78 0.10 35);
-  --terracotta-medium: oklch(0.70 0.12 35);
+  --terracotta-light: oklch(0.78 0.1 35);
+  --terracotta-medium: oklch(0.7 0.12 35);
   --coral: oklch(0.72 0.12 40);
   --coral-light: oklch(0.82 0.08 40);
   --cream: oklch(0.98 0.005 85);

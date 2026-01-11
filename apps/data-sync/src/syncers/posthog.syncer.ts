@@ -98,14 +98,10 @@ export class PostHogSyncer extends BaseSyncer<
               );
             }
             if (res.status === 404) {
-              throw new Error(
-                `PostHog project not found: ${this.projectId}`
-              );
+              throw new Error(`PostHog project not found: ${this.projectId}`);
             }
             const errorText = await res.text().catch(() => res.statusText);
-            throw new Error(
-              `PostHog API error: ${res.status} ${errorText}`
-            );
+            throw new Error(`PostHog API error: ${res.status} ${errorText}`);
           }
 
           return res.json() as Promise<PostHogEventsResponse>;

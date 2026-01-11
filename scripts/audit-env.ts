@@ -74,7 +74,9 @@ const ISSUES = ALL_VARS.filter((v) => v.public && v.sensitive);
 console.log("=== ENVIRONMENT VARIABLE AUDIT ===\n");
 
 if (ISSUES.length > 0) {
-  console.log("❌ CRITICAL: Found variables with NEXT_PUBLIC_ prefix that contain sensitive data:\n");
+  console.log(
+    "❌ CRITICAL: Found variables with NEXT_PUBLIC_ prefix that contain sensitive data:\n"
+  );
   for (const issue of ISSUES) {
     console.log(`  ❌ ${issue.name}`);
     console.log(`     → Rename to: ${issue.name.replace("NEXT_PUBLIC_", "")}`);
@@ -85,7 +87,9 @@ if (ISSUES.length > 0) {
   console.log("  NEXT_PUBLIC_AXIOM_TOKEN → AXIOM_TOKEN");
   console.log("  NEXT_PUBLIC_SELINE_TOKEN → SELINE_TOKEN");
   console.log("  NEXT_PUBLIC_CLOUDFLARE_API_TOKEN → CLOUDFLARE_API_TOKEN");
-  console.log("  UNSPLASH_ACCESS_KEY → UNSPLASH_ACCESS_KEY (no prefix needed, already backend only)");
+  console.log(
+    "  UNSPLASH_ACCESS_KEY → UNSPLASH_ACCESS_KEY (no prefix needed, already backend only)"
+  );
 } else {
   console.log("✅ All environment variables are correctly categorized!");
 }

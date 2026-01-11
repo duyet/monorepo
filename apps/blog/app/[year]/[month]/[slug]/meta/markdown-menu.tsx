@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Copy, ExternalLink, ChevronDown, Check, Sparkles } from "lucide-react";
 import { cn } from "@duyet/libs/utils";
 
 interface MarkdownMenuProps {
@@ -14,6 +15,23 @@ export function MarkdownMenu({
 }: MarkdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleCopy = async () => {
     await onCopyMarkdown();
@@ -22,86 +40,71 @@ export function MarkdownMenu({
     setIsOpen(false);
   };
 
+  const handleChatInClaude = () => {
+    const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(`Please analyze this blog post:\n\n${window.location.href}`)}`;
+    window.open(claudeUrl, "_blank");
+    setIsOpen(false);
+  };
+
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
+      {/* Compact trigger */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 text-neutral-500 transition-colors hover:text-neutral-900"
-        title="Markdown options"
+        className="flex items-center gap-1 hover:text-gray-900 dark:hover:text-white transition-colors"
       >
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-          />
-        </svg>
-        <span className="text-xs">Markdown</span>
+        <Copy className="h-3.5 w-3.5" />
+        <span>Copy</span>
+        <ChevronDown
+          className={cn(
+            "h-3 w-3 transition-transform",
+            isOpen && "rotate-180"
+          )}
+        />
       </button>
 
+      {/* Dropdown */}
       {isOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-10"
+        <div
+          className={cn(
+            "absolute right-0 z-50 mt-2 w-48",
+            "rounded-xl border border-gray-200 dark:border-slate-700",
+            "bg-white dark:bg-slate-800",
+            "shadow-lg",
+            "overflow-hidden"
+          )}
+        >
+          <button
+            onClick={handleCopy}
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
+          >
+            {copied ? (
+              <Check className="h-4 w-4 text-green-500" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+            {copied ? "Copied!" : "Copy as Markdown"}
+          </button>
+
+          <a
+            href={markdownUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
             onClick={() => setIsOpen(false)}
-          />
-          <div className="absolute right-0 z-20 mt-2 w-48 rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
-            <div className="py-1">
-              <button
-                onClick={handleCopy}
-                className={cn(
-                  "flex w-full items-center gap-2 px-4 py-2 text-sm text-left",
-                  "text-neutral-700 hover:bg-neutral-100",
-                  "dark:text-neutral-300 dark:hover:bg-neutral-800"
-                )}
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                  />
-                </svg>
-                {copied ? "Copied!" : "Copy Markdown"}
-              </button>
-              <a
-                href={markdownUrl}
-                className={cn(
-                  "flex w-full items-center gap-2 px-4 py-2 text-sm",
-                  "text-neutral-700 hover:bg-neutral-100",
-                  "dark:text-neutral-300 dark:hover:bg-neutral-800"
-                )}
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-                View as Markdown
-              </a>
-            </div>
-          </div>
-        </>
+          >
+            <ExternalLink className="h-4 w-4" />
+            Open Markdown
+          </a>
+
+          <button
+            onClick={handleChatInClaude}
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
+          >
+            <Sparkles className="h-4 w-4 text-terracotta" />
+            Chat in Claude.ai
+          </button>
+        </div>
       )}
     </div>
   );

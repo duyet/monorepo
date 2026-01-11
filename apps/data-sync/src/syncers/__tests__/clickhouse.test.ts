@@ -117,7 +117,9 @@ describe("ClickHouse Client", () => {
 
   afterEach(async () => {
     // Close client and restore environment
-    const { getClient, closeClient } = await import("../../lib/clickhouse/client");
+    const { getClient, closeClient } = await import(
+      "../../lib/clickhouse/client"
+    );
     const client = getClient();
     if (client) {
       await closeClient();

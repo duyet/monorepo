@@ -1,7 +1,7 @@
 import type { Series } from "@duyet/interfaces";
 import { cn } from "@duyet/libs";
 import { getAllSeries } from "@duyet/libs/getSeries";
-import { SeriesBox } from "../../components/series";
+import { SeriesBox } from "@/components/layout";
 
 const seriesBackgrounds = [
   "bg-oat",

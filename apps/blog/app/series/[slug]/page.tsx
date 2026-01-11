@@ -1,6 +1,6 @@
 import { getAllSeries, getSeries } from "@duyet/libs/getSeries";
 import { notFound } from "next/navigation";
-import { SeriesBox } from "../../../components/series";
+import { SeriesBox } from "@/components/layout";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;

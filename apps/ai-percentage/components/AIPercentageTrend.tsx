@@ -9,9 +9,8 @@ interface AIPercentageTrendProps {
 }
 
 export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
-  const { data, error, isLoading } = useSWR(
-    `ai-percentage-trend-${days}`,
-    () => getAICodePercentageHistory(days)
+  const { data, error, isLoading } = useSWR(`ai-percentage-trend-${days}`, () =>
+    getAICodePercentageHistory(days)
   );
 
   if (isLoading) {
@@ -73,7 +72,16 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
       </div>
 
       <div className="mt-2 text-right text-xs text-muted-foreground">
-        Trend: {data.length > 1 && data[data.length - 1].ai_percentage > data[0].ai_percentage ? "↑" : "↓"} {Math.abs((data[data.length - 1]?.ai_percentage || 0) - (data[0]?.ai_percentage || 0)).toFixed(1)}%
+        Trend:{" "}
+        {data.length > 1 &&
+        data[data.length - 1].ai_percentage > data[0].ai_percentage
+          ? "↑"
+          : "↓"}{" "}
+        {Math.abs(
+          (data[data.length - 1]?.ai_percentage || 0) -
+            (data[0]?.ai_percentage || 0)
+        ).toFixed(1)}
+        %
       </div>
     </div>
   );

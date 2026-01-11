@@ -16,7 +16,7 @@
     "lint": "biome lint .",
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
-    "deploy": "bun run build && wrangler pages deploy out --project-name=duyet-ai-percentage"
+    "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-ai-percentage"
   },
   "dependencies": {
     "@duyet/config": "*",

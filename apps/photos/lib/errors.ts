@@ -65,8 +65,7 @@ export class AuthError extends PhotoFetchError {
   readonly provider: "unsplash" | "cloudinary";
 
   constructor(provider: "unsplash" | "cloudinary") {
-    const providerName =
-      provider === "unsplash" ? "Unsplash" : "Cloudinary";
+    const providerName = provider === "unsplash" ? "Unsplash" : "Cloudinary";
     super(`Authentication failed for ${providerName}. Check API credentials.`);
 
     this.provider = provider;

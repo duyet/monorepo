@@ -20,7 +20,9 @@ async function main() {
   // Parse date options for backfill
   const startDateArg = args.find((arg) => arg.startsWith("--start-date="));
   const endDateArg = args.find((arg) => arg.startsWith("--end-date="));
-  const backfillDaysArg = args.find((arg) => arg.startsWith("--backfill-days="));
+  const backfillDaysArg = args.find((arg) =>
+    arg.startsWith("--backfill-days=")
+  );
 
   let startDate: Date | undefined;
   let endDate: Date | undefined;

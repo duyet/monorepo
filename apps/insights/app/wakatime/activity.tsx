@@ -1,7 +1,11 @@
 import { BarChart } from "@/components/charts";
 import { getWakaTimeActivityWithAI } from "./wakatime-utils";
 
-type ActivityWithAI = Array<{ date: string; "Human Hours": number; "AI Hours": number }>;
+type ActivityWithAI = Array<{
+  date: string;
+  "Human Hours": number;
+  "AI Hours": number;
+}>;
 type ActivityTotalOnly = Array<{ date: string; "Total Hours": number }>;
 
 export async function WakaTimeActivity({
@@ -12,7 +16,8 @@ export async function WakaTimeActivity({
   const codingActivity = await getWakaTimeActivityWithAI(days);
 
   // Detect data format to determine if we have AI breakdown
-  const hasAIBreakdown = codingActivity.length > 0 && "Human Hours" in codingActivity[0];
+  const hasAIBreakdown =
+    codingActivity.length > 0 && "Human Hours" in codingActivity[0];
   const categories = hasAIBreakdown
     ? ["Human Hours", "AI Hours"]
     : ["Total Hours"];

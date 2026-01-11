@@ -19,14 +19,3 @@ command = ""
 [dev]
 port = 8787
 local_protocol = "http"
-
-# Production environment
-[env.production]
-name = "duyet-api-production"
-
-# Staging environment
-[env.staging]
-name = "duyet-api-staging"
-routes = [
-  { pattern = "api-staging.duyet.net/*", zone_name = "duyet.net" }
-]
