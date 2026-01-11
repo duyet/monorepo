@@ -7,6 +7,10 @@ on:
 
 jobs:
   analyze:
+    # FIXME: Temporarily disabled - upstream workflow passes 'provider' and 'model'
+    # inputs to claude-schedule.yml which doesn't accept them.
+    # See: https://github.com/duyet/github-actions (claude-nightly-analysis.yml:88-89)
+    if: false
     uses: duyet/github-actions/.github/workflows/claude-nightly-analysis.yml@main
     permissions:
       contents: write
