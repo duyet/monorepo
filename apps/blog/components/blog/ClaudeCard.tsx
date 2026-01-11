@@ -194,7 +194,7 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                   hoveredIndex === index && "translate-x-1",
                   index !== items.length - 1 && [
                     "border-b",
-                    activeColor.text.replace("text-", "border-") + "/30",
+                    `${activeColor.text.replace("text-", "border-")}/30`,
                   ]
                 )}
               >
