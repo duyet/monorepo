@@ -58,7 +58,7 @@
     "@duyet/tsconfig": "*",
     "@next/bundle-analyzer": "16.1.1",
     "@tailwindcss/postcss": "^4.1.6",
-    "@types/node": "^24.0.0",
+    "@types/node": "^25.0.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "@types/rss": "^0.0.32",

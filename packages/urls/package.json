@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",
-    "@types/node": "^24.0.0",
+    "@types/node": "^25.0.0",
     "typescript": "^5.3.3"
   }
 }
