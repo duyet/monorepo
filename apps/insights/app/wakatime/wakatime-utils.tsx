@@ -382,6 +382,22 @@ export async function getWakaTimeActivityWithAI(
 ): Promise<ActivityWithAI | ActivityTotalOnly> {
   const numDays = typeof days === "number" ? days : 9999;
 
+  // Try hybrid fetch first (ClickHouse + API)
+  try {
+    const { getHybridActivityForChart } = await import("./lib/hybrid-fetch");
+    const hybridData = await getHybridActivityForChart(days);
+
+    if (hybridData.length > 0) {
+      console.log(
+        `[WakaTime] Using hybrid data: ${hybridData.length} days (ClickHouse + API)`
+      );
+      return hybridData as ActivityWithAI;
+    }
+  } catch (error) {
+    console.warn("[WakaTime] Hybrid fetch not available, using API fallback:", error);
+  }
+
+  // Fallback to API-only approach
   // Use insights endpoint for larger ranges (365+ days) - total hours only
   if (numDays >= 365) {
     return getActivityFromInsights(days);
@@ -577,16 +593,19 @@ export async function getWakaTimeHourlyHeatmap() {
   ] as const;
 
   try {
-    // Get weekday insights
+    // Get weekday insights - use last_30_days as last_year may not be supported
+    // by the weekday insights endpoint (returns 400)
     const weekdayInsights: WeekdayInsights | null = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.weekday(wakatimeConfig.ranges.last_year)
+      wakatimeConfig.endpoints.insights.weekday(
+        wakatimeConfig.ranges.last_30_days
+      )
     );
 
     if (
       !weekdayInsights?.data?.weekdays ||
       !Array.isArray(weekdayInsights.data.weekdays)
     ) {
-      console.warn("Weekday insights not available or empty");
+      // Silently return empty - API might not support this endpoint for all accounts
       return [];
     }
 
@@ -595,7 +614,6 @@ export async function getWakaTimeHourlyHeatmap() {
       (weekday) => weekday.total_seconds > 0
     );
     if (!hasData) {
-      console.warn("No weekday activity data available");
       return [];
     }
 

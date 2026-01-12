@@ -1,0 +1,215 @@
+name: Deploy Preview to Cloudflare Pages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'bun.lock'
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  TURBO_REMOTE_ONLY: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  deployments: write
+
+jobs:
+  detect-changes:
+    name: Detect changed apps
+    runs-on: ubuntu-latest
+    outputs:
+      blog: ${{ steps.filter.outputs.blog }}
+      cv: ${{ steps.filter.outputs.cv }}
+      home: ${{ steps.filter.outputs.home }}
+      homelab: ${{ steps.filter.outputs.homelab }}
+      insights: ${{ steps.filter.outputs.insights }}
+      photos: ${{ steps.filter.outputs.photos }}
+      packages: ${{ steps.filter.outputs.packages }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            blog:
+              - 'apps/blog/**'
+            cv:
+              - 'apps/cv/**'
+            home:
+              - 'apps/home/**'
+            homelab:
+              - 'apps/homelab/**'
+            insights:
+              - 'apps/insights/**'
+            photos:
+              - 'apps/photos/**'
+            packages:
+              - 'packages/**'
+
+      - name: Set deployment matrix
+        id: set-matrix
+        run: |
+          APPS=()
+          PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
+
+          if [[ "${{ steps.filter.outputs.blog }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"blog","project":"duyet-blog","domain":"blog.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.cv }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"cv","project":"duyet-cv","domain":"cv.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.home }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"home","project":"duyet-home","domain":"duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.homelab }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"homelab","project":"duyet-homelab","domain":"homelab.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.insights }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"insights","project":"duyet-insights","domain":"insights.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.photos }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"photos","project":"duyet-photos","domain":"photos.duyet.net"}')
+          fi
+
+          if [ ${#APPS[@]} -eq 0 ]; then
+            echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
+          else
+            MATRIX=$(printf '%s,' "${APPS[@]}" | sed 's/,$//')
+            echo "matrix={\"include\":[$MATRIX]}" >> $GITHUB_OUTPUT
+          fi
+
+  deploy-preview:
+    name: Deploy ${{ matrix.app }}
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build app
+        run: |
+          cd apps/${{ matrix.app }}
+          bun run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
+          NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
+          NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
+          NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
+          NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
+          NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
+
+      - name: Deploy to Cloudflare Pages (Preview)
+        id: deploy
+        run: |
+          cd apps/${{ matrix.app }}
+
+          # Get branch name, sanitize for CF Pages (replace / with -)
+          BRANCH="${{ github.head_ref }}"
+          BRANCH_SLUG=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-28)
+
+          # Deploy to preview branch
+          OUTPUT=$(bunx wrangler pages deploy out \
+            --project-name=${{ matrix.project }} \
+            --branch="$BRANCH_SLUG" \
+            --commit-dirty=true 2>&1)
+
+          echo "$OUTPUT"
+
+          # Extract the deployment URL
+          URL=$(echo "$OUTPUT" | grep -oE 'https://[a-z0-9-]+\.'"${{ matrix.project }}"'\.pages\.dev' | head -1)
+
+          if [ -z "$URL" ]; then
+            URL="https://${BRANCH_SLUG}.${{ matrix.project }}.pages.dev"
+          fi
+
+          echo "url=$URL" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH_SLUG" >> $GITHUB_OUTPUT
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Save deployment info
+        run: |
+          mkdir -p /tmp/deployments
+          echo "${{ steps.deploy.outputs.url }}" > /tmp/deployments/${{ matrix.app }}.txt
+
+      - name: Upload deployment URL
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-${{ matrix.app }}
+          path: /tmp/deployments/${{ matrix.app }}.txt
+          retention-days: 1
+
+  comment-pr:
+    name: Comment deployment URLs
+    needs: [detect-changes, deploy-preview]
+    if: always() && needs.detect-changes.outputs.matrix != '{"include":[]}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all deployment artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: deployments
+          pattern: deployment-*
+          merge-multiple: true
+
+      - name: Build comment body
+        id: comment
+        run: |
+          COMMENT="## 🚀 Preview Deployments\n\n"
+          COMMENT+="| App | Preview URL |\n"
+          COMMENT+="|-----|-------------|\n"
+
+          for file in deployments/*.txt; do
+            if [ -f "$file" ]; then
+              APP=$(basename "$file" .txt)
+              URL=$(cat "$file")
+              COMMENT+="| **$APP** | [$URL]($URL) |\n"
+            fi
+          done
+
+          COMMENT+="\n---\n"
+          COMMENT+="_Deployed from commit ${{ github.event.pull_request.head.sha }}_"
+
+          # Save to file for multiline handling
+          echo -e "$COMMENT" > comment.md
+
+      - name: Find existing comment
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: duyetbot
+          body-includes: Preview Deployments
+
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.DUYETBOT_TOKEN }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: comment.md
+          edit-mode: replace

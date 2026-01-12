@@ -12,7 +12,8 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-homelab",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-homelab"
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-homelab --commit-dirty=true",
+    "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-homelab --commit-dirty=true"
   },
   "dependencies": {
     "@duyet/components": "*",

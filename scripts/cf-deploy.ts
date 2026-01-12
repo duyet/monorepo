@@ -2,12 +2,20 @@
 /**
  * Comprehensive Cloudflare Pages Deployment Orchestrator
  *
- * Usage: bun cf-deploy.ts [app-name] [--dry-run]
+ * Usage: bun cf-deploy.ts [app-name] [--prod] [--dry-run]
+ *
+ * Options:
+ *   --prod     Deploy to production (main branch, custom domains)
+ *   --dry-run  Show what would be deployed without making changes
  *
  * Deploys all apps (or specific app) to Cloudflare Pages with proper orchestration:
  * 1. Build phase: Build all apps in parallel
  * 2. Config phase: Sync secrets and environment variables
  * 3. Deploy phase: Deploy each app to its Cloudflare Pages project
+ *
+ * Deployment modes:
+ * - Without --prod: Preview deployment (aliased URL like <hash>.<project>.pages.dev)
+ * - With --prod: Production deployment (custom domains like blog.duyet.net)
  *
  * Apps and their deployment targets:
  * - home → duyet.net (duyet-home project)
@@ -119,12 +127,17 @@ const APPS_CONFIG: Record<
 
 // CLI args
 const dryRun = process.argv.includes("--dry-run");
+const isProd = process.argv.includes("--prod");
 // Filter out node/bun executable and script path, keep only actual arguments
 const args = process.argv.slice(2);
 const targetApp = args.find((arg) => !arg.startsWith("--"));
 
 if (dryRun) {
   console.log("[INFO] Dry run mode - no changes will be made\n");
+}
+
+if (isProd) {
+  console.log("[INFO] Production deployment mode enabled\n");
 }
 
 // Validate arguments
@@ -319,32 +332,51 @@ async function deployApp(appName: string): Promise<{
 }> {
   const appConfig = APPS_CONFIG[appName];
   const appDir = join(rootDir, "apps", appName);
+  const deployTarget = isProd ? "production" : "preview";
 
   console.log(`  📦 ${appName}`);
   console.log(`     → Project: ${appConfig.projectName}`);
-  console.log(`     → Domain: https://${appConfig.domain}`);
+  console.log(`     → Target: ${deployTarget}`);
+  if (isProd) {
+    console.log(`     → Domain: https://${appConfig.domain}`);
+  }
+
+  // Build wrangler command
+  const wranglerCmd = [
+    "bunx",
+    "wrangler",
+    "pages",
+    "deploy",
+    "out",
+    `--project-name=${appConfig.projectName}`,
+  ];
+
+  // For preview deployments, use current git branch
+  // Production deployments (isProd) don't specify --branch, which deploys to production
+  if (!isProd) {
+    // Get current git branch for preview deployment alias
+    const gitBranch = Bun.spawnSync({
+      cmd: ["git", "branch", "--show-current"],
+      cwd: rootDir,
+    });
+    const branch = gitBranch.stdout.toString().trim();
+    if (branch && branch !== "main" && branch !== "master") {
+      wranglerCmd.push(`--branch=${branch}`);
+    }
+  }
+
+  // Allow deploying uncommitted changes
+  wranglerCmd.push("--commit-dirty=true");
 
   if (dryRun) {
-    console.log(`     [DRY RUN] Would deploy: wrangler pages deploy out`);
+    console.log(`     [DRY RUN] Would run: ${wranglerCmd.join(" ")}`);
     return { success: true, app: appName };
   }
 
-  const result = await runCommand(
-    [
-      "bunx",
-      "wrangler",
-      "pages",
-      "deploy",
-      "out",
-      `--project-name=${appConfig.projectName}`,
-    ],
-    appDir,
-    `Deploy ${appName}`,
-    true
-  );
+  const result = await runCommand(wranglerCmd, appDir, `Deploy ${appName}`, true);
 
   if (result.success) {
-    console.log(`     ✓ Deployed successfully`);
+    console.log(`     ✓ Deployed successfully to ${deployTarget}`);
   } else {
     console.log(`     ✗ Deployment failed`);
   }
@@ -389,6 +421,8 @@ async function deployPhase(): Promise<boolean> {
  * Print final summary
  */
 function printSummary(success: boolean) {
+  const deployMode = isProd ? "PRODUCTION" : "PREVIEW";
+
   console.log("\n╔════════════════════════════════════════════════╗");
   console.log("║              📊 DEPLOYMENT SUMMARY            ║");
   console.log("╚════════════════════════════════════════════════╝\n");
@@ -398,17 +432,27 @@ function printSummary(success: boolean) {
     return;
   }
 
+  console.log(`[MODE] ${deployMode}\n`);
   console.log("[APPS DEPLOYED]");
   for (const app of appsToDeployList) {
     const config = APPS_CONFIG[app];
     const status = success ? "✓" : "?";
-    console.log(`  ${status} ${app} → https://${config.domain}`);
+    if (isProd) {
+      console.log(`  ${status} ${app} → https://${config.domain}`);
+    } else {
+      console.log(`  ${status} ${app} → https://${config.projectName}.pages.dev (preview)`);
+    }
   }
 
   console.log("\n[NEXT STEPS]");
   if (success) {
     console.log("  ✓ All deployments completed successfully");
-    console.log("  ✓ Check your deployed apps at the domains above");
+    if (isProd) {
+      console.log("  ✓ Check your deployed apps at the custom domains above");
+    } else {
+      console.log("  ✓ Preview deployments are available at the pages.dev URLs");
+      console.log("  ✓ Use --prod flag to deploy to production");
+    }
     console.log(
       "  ✓ Verify functionality and monitor Cloudflare Pages dashboard"
     );
@@ -429,14 +473,19 @@ async function main() {
   console.log("┃     Cloudflare Pages Deployment Orchestrator   ┃");
   console.log("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
+  const deployMode = isProd ? "PRODUCTION" : "PREVIEW";
   console.log("\n[DEPLOYMENT PLAN]");
   console.log(`  Apps: ${appsToDeployList.join(", ")}`);
+  console.log(`  Mode: ${deployMode}`);
   console.log(`  Phase 1: Build all apps`);
   console.log(`  Phase 2: Sync secrets/env vars`);
   console.log(`  Phase 3: Deploy to Cloudflare Pages`);
 
   if (dryRun) {
-    console.log("\n  MODE: DRY RUN (no actual changes will be made)");
+    console.log("\n  ⚠️  DRY RUN (no actual changes will be made)");
+  }
+  if (!isProd) {
+    console.log("\n  💡 Tip: Use --prod to deploy to production");
   }
 
   // Build
