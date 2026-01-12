@@ -26,6 +26,28 @@ Navigate to specific app directories and run:
 - `bun run check-types` - TypeScript type checking
 - `bun run analyze` - Bundle analysis (available in blog app)
 
+### Cloudflare Pages Deployment
+
+Local deployment commands:
+
+```bash
+# Deploy all apps to preview (branch deployment)
+bun run cf:deploy
+
+# Deploy all apps to production
+bun run cf:deploy --prod
+
+# Deploy all apps to production via turbo
+bun run cf:deploy:prod
+
+# Deploy specific app to production
+cd apps/blog && bun run cf:deploy:prod
+```
+
+GitHub Actions automatically deploy:
+- **Production**: Push to `master`/`main` deploys changed apps to production
+- **Preview**: PRs get preview deployments with URLs commented by @duyetbot
+
 ## Architecture Overview
 
 This is a **Bun monorepo** managed by **Turborepo** containing:
