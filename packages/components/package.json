@@ -37,7 +37,7 @@
     "@duyet/interfaces": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
-    "@types/node": "^24.0.0",
+    "@types/node": "^25.0.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "@types/rss": "^0.0.32",
