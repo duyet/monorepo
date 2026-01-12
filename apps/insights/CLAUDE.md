@@ -51,7 +51,7 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 
 ### 3. WakaTime Integration (`/app/wakatime/`)
 
-**Purpose**: Coding productivity and time tracking
+**Purpose**: Coding productivity and time tracking with AI code percentage breakdown
 
 **Components**:
 
@@ -59,7 +59,41 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 - `languages.tsx` - Language usage over time
 - `metrics.tsx` - Productivity metrics and summaries
 
-**Key Feature**: Smart caching and error handling for API rate limits
+**Hybrid Storage Library** (`/app/wakatime/lib/`):
+
+```
+/app/wakatime/lib/
+├── index.ts          # Module exports
+├── types.ts          # TypeScript interfaces
+├── clickhouse.ts     # Read-only ClickHouse queries
+└── hybrid-fetch.ts   # Merge ClickHouse + API data
+```
+
+**Hybrid Data Architecture**:
+
+The WakaTime integration uses a hybrid storage strategy to minimize API calls while ensuring data freshness:
+
+```
+User Request (90 days)
+        │
+        ├── ClickHouse Query ──→ Historical (83 days cached)
+        │
+        └── WakaTime API ──────→ Fresh (7 days real-time)
+        │
+        └── Merge & Return (90 days combined)
+```
+
+- **Historical data (>7 days)**: Stored in ClickHouse (`monorepo_wakatime_activity` table), fetched once
+- **Recent data (≤7 days)**: Always fetched fresh from WakaTime API
+- **Fallback chain**: Hybrid → ClickHouse-only → API-only (graceful degradation)
+
+**Data Sync**: Write operations are handled by `apps/data-sync` via `WakaTimeActivitySyncer`. Run `bun run sync wakatime-activity` to populate/update ClickHouse data.
+
+**Key Features**:
+
+- Smart caching and error handling for API rate limits
+- AI code percentage breakdown (human vs AI-assisted coding hours)
+- Static generation compatible (all fetching at build time)
 
 ### 4. CCUsage Analytics (`/app/ccusage/`) - **NEW FEATURE**
 

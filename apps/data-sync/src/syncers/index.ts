@@ -6,8 +6,10 @@ import { PostHogSyncer } from "./posthog.syncer";
 import { UnsplashSyncer } from "./unsplash.syncer";
 import { UnsplashPhotosSyncer } from "./unsplash-photos.syncer";
 import { WakaTimeSyncer } from "./wakatime.syncer";
+import { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
 
 export { WakaTimeSyncer } from "./wakatime.syncer";
+export { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
 export { CloudflareSyncer } from "./cloudflare.syncer";
 export { GitHubSyncer } from "./github.syncer";
 export { UnsplashSyncer } from "./unsplash.syncer";
@@ -23,6 +25,7 @@ export type SyncerConstructor = new (
 
 export const syncerMap: Record<string, SyncerConstructor> = {
   wakatime: WakaTimeSyncer,
+  "wakatime-activity": WakaTimeActivitySyncer,
   cloudflare: CloudflareSyncer,
   github: GitHubSyncer,
   unsplash: UnsplashSyncer,
