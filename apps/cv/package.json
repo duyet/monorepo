@@ -17,7 +17,7 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-cv",
-    "cf:deploy": "bun ../../scripts/cf-deploy.ts cv"
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-cv"
   },
   "dependencies": {
     "@commitlint/cli": "^20.0.0",

@@ -20,11 +20,54 @@
 
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, "..");
+
+/**
+ * Parse a .env file and return key-value pairs
+ * Handles comments, empty lines, and quoted values
+ */
+function parseEnvFile(filePath: string): Record<string, string> {
+  if (!existsSync(filePath)) {
+    console.error(`[ERROR] Environment file not found: ${filePath}`);
+    process.exit(1);
+  }
+
+  const content = readFileSync(filePath, "utf-8");
+  const env: Record<string, string> = {};
+
+  for (const line of content.split("\n")) {
+    const trimmed = line.trim();
+    // Skip empty lines and comments
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const eqIndex = trimmed.indexOf("=");
+    if (eqIndex === -1) continue;
+
+    const key = trimmed.slice(0, eqIndex).trim();
+    let value = trimmed.slice(eqIndex + 1).trim();
+
+    // Remove surrounding quotes if present
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    env[key] = value;
+  }
+
+  return env;
+}
+
+// Load production environment from .env.production
+// These values override .env.local during build (process.env has highest precedence)
+const envProductionPath = join(rootDir, ".env.production");
+const PRODUCTION_ENV = parseEnvFile(envProductionPath);
 
 // Configuration for apps that deploy to Cloudflare Pages
 const APPS_CONFIG: Record<
@@ -117,7 +160,8 @@ async function runCommand(
   cmd: string[],
   cwd: string,
   description: string,
-  ignoreError = false
+  ignoreError = false,
+  env?: Record<string, string>
 ): Promise<{
   success: boolean;
   code: number;
@@ -125,15 +169,16 @@ async function runCommand(
   stderr: string;
 }> {
   return new Promise((resolve) => {
-    const process = Bun.spawnSync({
+    const processResult = Bun.spawnSync({
       cmd,
       cwd,
       stdio: ["inherit", "pipe", "pipe"],
+      env: env ? { ...Bun.env, ...env } : undefined,
     });
 
-    const stdout = process.stdout.toString();
-    const stderr = process.stderr.toString();
-    const success = process.exitCode === 0;
+    const stdout = processResult.stdout.toString();
+    const stderr = processResult.stderr.toString();
+    const success = processResult.exitCode === 0;
 
     if (!success && !ignoreError) {
       console.error(`  [ERROR] ${description} failed`);
@@ -142,7 +187,7 @@ async function runCommand(
 
     resolve({
       success,
-      code: process.exitCode || 1,
+      code: processResult.exitCode || 1,
       stdout,
       stderr,
     });
@@ -168,15 +213,23 @@ async function buildAllApps(): Promise<boolean> {
   console.log(
     `[INFO] Building ${appsToDeployList.length} app(s) for deployment...`
   );
+  console.log(`[INFO] Loading environment from: .env.production`);
+  console.log(`[INFO] Production URLs:`);
+  console.log(`       NEXT_PUBLIC_DUYET_HOME_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`);
+  console.log(`       NEXT_PUBLIC_DUYET_BLOG_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`);
+  console.log(`       NODE_ENV=${PRODUCTION_ENV.NODE_ENV || "(not set)"}`);
 
   // Build each app individually to handle failures gracefully
+  // Pass PRODUCTION_ENV which sets process.env values directly
+  // process.env has highest precedence and overrides .env.local localhost URLs
   const buildResults = await Promise.all(
     appsToDeployList.map((app) =>
       runCommand(
         ["bun", "run", "build"],
         join(rootDir, "apps", app),
         `Build ${app}`,
-        true // Allow failure to continue
+        true, // Allow failure to continue
+        PRODUCTION_ENV
       )
     )
   );

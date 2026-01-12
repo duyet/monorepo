@@ -34,23 +34,31 @@ function cacheSet(key: string, value: string): void {
  */
 export function getPostPaths(dir?: string): string[] {
   const fs = nodeFs();
-  const join = nodeJoin();
 
   const _dir = dir || getPostsDirectory();
-  const slugs = fs.readdirSync(_dir);
+  const entries: string[] = fs.readdirSync(_dir);
 
-  return slugs.flatMap((file: string) => {
-    const child = join(_dir, file);
+  // Pre-filter to only process markdown files or directories
+  // This helps Turbopack narrow down the file pattern scope
+  const filtered = entries.filter((entry: string) => {
+    const ext = entry.slice(-4).toLowerCase();
+    // Only process: directories, .md files, .mdx files
+    return !entry.includes(".") || ext === ".mdx" || entry.slice(-3) === ".md";
+  });
+
+  return filtered.flatMap((file: string) => {
+    const fullPath = `${_dir}/${file}`;
     // If the file is a directory, recursively get the slugs from that directory
-    if (fs.statSync(child).isDirectory()) {
-      return getPostPaths(child);
+    if (fs.statSync(fullPath).isDirectory()) {
+      return getPostPaths(fullPath);
     }
 
+    // Only return markdown files
     if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
-    return [join(_dir, file)];
+    return [fullPath];
   });
 }
 

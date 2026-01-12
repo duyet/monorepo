@@ -16,7 +16,7 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-photos",
-    "cf:deploy": "bun ../../scripts/cf-deploy.ts photos",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-photos",
     "test": "bun test",
     "test:watch": "bun test --watch"
   },

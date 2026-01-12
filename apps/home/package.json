@@ -12,7 +12,7 @@
     "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-home",
-    "cf:deploy": "bun ../../scripts/cf-deploy.ts home"
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-home"
   },
   "dependencies": {
     "@duyet/components": "*",

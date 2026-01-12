@@ -27,9 +27,27 @@ I didn't stop writing - tons of drafts sitting in my Obsidian folder, none publi
 <ClaudeCard
   title="Top on my list"
   items={[
-    { label: "Coding Agent", value: "Claude Code, opencode" },
-    { label: "Models", value: "Opus 4.5, GLM 4.7, Grok 4.1 Fast" },
-    { label: "LLM Provider", value: "OpenRouter" },
+    {
+      label: "Coding Agent",
+      items: [
+        { label: "Claude Code", link: "#claude-code" },
+        { label: "opencode", link: "#opencode" }
+      ]
+    },
+    {
+      label: "Models",
+      items: [
+        { label: "Opus 4.5", link: "#z-claude-mi-claude-or-claude" },
+        { label: "GLM 4.7", link: "#z-claude-mi-claude-or-claude" },
+        { label: "Grok 4.1 Fast", link: "#z-claude-mi-claude-or-claude" }
+      ]
+    },
+    {
+      label: "LLM Provider",
+      items: [
+        { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" }
+      ]
+    },
   ]}
 />
 
@@ -42,11 +60,11 @@ It just works - not only for coding, but for understanding complex systems, refa
 
 > The idea for Claude Code came from a command-line tool using Claude to state what music an engineer was listening to at work. It spread like wildfire at Anthropic after being given access to the filesystem. Today, Claude Code has its own fully-fledged team
 
-The shift from Copilot or Cursor (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. The experience is very different. It's more like working on a team and less like working with an overly-zealous pair programmer who can't stop stealing the keyboard to complete the code you were in the middle of writing. With a team of agents, they do their work on their own. I just review the results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most of the code from my GitHub repos is now generated without writing a single line myself. I just prompt, watch, and test the results. This duyet.net site also gets updated automatically by Claude Code overnight with a custom cronjob script without any manual intervention - my experiment to see how far Claude Code can go.
+The shift from Copilot or Cursor (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. The experience is very different. It's more like having teammates who do their own work, not a pair programmer grabbing your keyboard. With a team of agents, they do their work on their own. I just review the results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most of the code from my GitHub repos is now generated without writing a single line myself. I just prompt, watch, and test the results. This duyet.net site also gets updated automatically by Claude Code overnight with a custom cronjob script without any manual intervention - my experiment to see how far Claude Code can go.
 
 There's no one correct way to use Claude Code. The following sections are for anyone curious about how I use it - skip this if you're already familiar with Claude Code.
 
-### My Claude Code Setup
+## My Claude Code Setup
 
 {/* ![[cc_setup.png]] */}
 ![Claude Code Setup](/media/2026/01/claude/cc_setup.png)
@@ -59,14 +77,7 @@ I always work with `--dangerously-skip-permissions` - it's not as dangerous as y
 claude --dangerously-skip-permissions --chrome
 ```
 
-**Quick tip**: If you use both Claude Code and other coding agents (like Codex), create a symlink so they share the same instructions:
 
-```bash
-ln -s CLAUDE.md AGENTS.md
-```
-
-Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md` - now you only maintain one file.
- 
 
 My default list of MCPs are: [context7](https://github.com/upstash/context7#installation), [sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking), and [zread](https://zread.ai/mcp). It depends on the project I'm working on.
 
@@ -75,7 +86,7 @@ With [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agen
 {/* ![[cc_team_agent.png]] */}
 ![Team Agents](/media/2026/01/claude/cc_team_agent.png)
 
-### duyet/claude-plugins
+## duyet/claude-plugins
 
 https://github.com/duyet/claude-plugins: A collection of plugins I personally use for Claude Code, including **skills**, **MCPs**, **commands**, and **hooks** across all my machines and Claude Agent SDK apps. You might find something useful here. The sub-agents and skills in this repo keep consistent results across all my codebases - I use Claude Code to learn patterns and update them from time to time. 
 
@@ -91,34 +102,94 @@ I started seeing AI engineers on X sharing their commands. I have a list of my o
 {/* ![[cc_commands.png]] */}
 ![Commands](/media/2026/01/claude/cc_commands.png)
 
-### The Workflow
+## Plan Mode
 
 {/* ![[cc_plan.png]] */}
 ![Plan Mode](/media/2026/01/claude/cc_plan.png)
 
+Plan mode does significantly better than just prompting directly. When you give Claude time to think and plan first, the results are way more accurate. Less back-and-forth, fewer mistakes.
+
 <Steps>
   <Step title="Plan">
-    I use Plan mode (shift+tab twice) for most session starts and create a new session for every new task.
-    Claude creates a plan file for you to review - I keep adjusting it until I get the plan I expected.
+    Hit `shift+tab` twice to enter Plan mode. I do this for most tasks and start a new session for each one.
+    Claude writes a plan file for you to review - keep adjusting until you're happy with it.
 
-    Once I have the perfect plan, Claude can usually do it in one shot until finished without asking anything else.
+    Once the plan is solid, Claude usually finishes the whole thing in one shot without asking questions.
+
+    **Tip**: If you're not clear about something, trigger the deep research agent first:
+    ```
+    Deep research about [topic] and then implement [feature]
+    ```
+    This helps Claude gather context before planning.
+
   </Step>
   <Step title="Implement">
-    When I have a good plan, I usually don't do anything at this stage - I can open a new Claude Code session to plan other tasks or another project.
-    You can also inject prompts while it's working if something isn't going in the right direction, or just ask Claude to explain in the middle. It's smart enough to
-    catch up with what you want and continue working after that.
+    With a good plan, I usually don't do much here - just let it run.
+    You can open another Claude Code session to work on something else while waiting.
+
+    If things go off track, inject a prompt mid-way. Claude will catch up and keep going.
   </Step>
   <Step title="Review">
-    The **Explanatory** output style is really useful when it shows you its implementation choices.
-    You can invoke agents to do code review - `@code-simplifier` simplifies the code after Claude is done working,
-    `@refactor` or `@testing` which already have detailed instructions for testing your application.
+    The **Explanatory** output style shows you why Claude made certain choices - useful for learning.
 
-    [Claude Hooks](https://code.claude.com/docs/en/hooks-guide) are also useful here,
-    saving a lot of time (e.g., formatting code or running prompt-based hooks for verification).
+    I use agents for review: `@code-simplifier` cleans up the code, `@refactor` or `@testing` for specific checks.
+
+    [Claude Hooks](https://code.claude.com/docs/en/hooks-guide) save time here - auto-format, run linters, or custom verification.
   </Step>
 </Steps>
 
-For complex tasks, my `/interview` plugin may be useful - it conducts in-depth requirements interviews for your plan file before implementation. The `/interview` command puts Claude into an interview mode where it systematically asks clarifying questions about a feature or plan. It uses the `AskUserQuestion` tool to gather decisions
+## CLAUDE.md
+
+First thing Claude does when starting a session is read your `CLAUDE.md` file. Most people ignore it, but it's actually really important. It keeps things consistent across sessions and saves time - Claude doesn't need to re-investigate your project setup every time.
+
+A few tips:
+- **Keep it short** - Claude reads this every session, don't make it a novel
+- **Make it specific** - tell it your stack (`use bun, not npm`), your conventions (`use semantic commits`), your preferences
+- **Update it constantly** - if you keep correcting Claude on the same thing, that's a signal it should be in CLAUDE.md. Just say `take note to CLAUDE.md about X`
+
+If you use both Claude Code and other coding agents (like Codex), create a symlink so they share the same instructions:
+
+```bash
+ln -s CLAUDE.md AGENTS.md
+```
+
+Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md` - now you only maintain one file.
+
+Here's a snippet from my global `~/.claude/CLAUDE.md` that applies to every project:
+
+```markdown
+# Git Workflow
+
+- follow semantic commit format with consistent scope
+- use simple English—avoid words like "comprehensive", "elaborate", "extensive"
+
+# Shortcuts
+
+- `cm` → commit changes (`/commit:commit`)
+- `cp` → commit and push (`/commit:and-push`)
+- `ok`, `c`, `continue` → acknowledge and continue
+- `p`, `parallel` → assign tasks to multiple agents in parallel
+
+# Notes
+
+- Early stage, no users. No backward compatibility concerns
+- Do things RIGHT: clean, organized, modular, scalable, zero technical debt
+- Never create compatibility shims or workarounds—always full implementations
+- Build for 10,000+ users: sustainable, maintainable, no half-baked hacks
+- Never remove, hide, or rename existing features/UI unless explicitly requested
+- If something isn't wired yet, keep UX surface intact—stub or annotate instead
+- Context window auto-compacts near limit; never stop tasks early
+- Save progress to memory before context refresh
+- Delegate to sub-agents proactively when context nears limit
+- In PLAN mode: break down tasks for parallel agent execution
+- Assign simple tasks to junior agents, complex tasks to senior agents
+- Use sub-agents whenever possible to maximize parallelism
+- Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
+```
+
+## Interview Mode
+
+For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins/tree/master/interview) plugin - it asks clarifying questions before you start planning. Helps catch missing requirements early.
 
 ```
 /plugin install interview@duyet-claude-plugins
@@ -131,7 +202,7 @@ For complex tasks, my `/interview` plugin may be useful - it conducts in-depth r
 {/* ![[cc_interview.png]] */}
 ![Interview](/media/2026/01/claude/cc_interview.png)
 
-### Claude Code + Ralph Loop
+## Claude Code + Ralph Loop
 
 The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) - This is my favorite for long-running tasks or vibe coding on fun projects while I'm asleep. There's a lot of explanation and examples over there. You can prompt it to do tasks and plan the next steps for each iteration. With a large number of Z.AI GLM 4.7 tokens I can let it run 24/7. You define your goal condition and let the agent loop over and over until it has verifiably reached that promised goal. Please run it with either `--permission-mode=dontAsk` or `--dangerously-skip-permissions`
 
@@ -154,25 +225,17 @@ The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/pl
 
 The good thing about Claude Code is that you can use it with alternative providers that offer the same Anthropic API interface. I've created some wrapper scripts for this:
 
-- [z_claude](https://gist.github.com/duyet/ad5971afe423cf992f519aa8a2ea10d5) - Uses Z.AI's GLM 4.7 model, which works great. I use this a lot to burn their tokens instead of my Claude MAX subscription.
+- [z_claude](https://gist.github.com/duyet/ad5971afe423cf992f519aa8a2ea10d5) - Uses Z.AI's GLM 4.7 model, which works great. Unbelievably cheap (starts at $3/mo). I use this a lot to burn their tokens instead of my Claude MAX subscription.
 - [mi_claude](https://gist.github.com/duyet/7f03bbcf392ca67c6d41bd221d4ab8fd) - Uses Xiaomi Mimo API.
 - [or_claude](https://gist.github.com/duyet/d9a9f9b6daa5b3ae4b9343e08743540d) - Uses [OpenRouter](https://openrouter.ai/docs/guides/guides/claude-code-integration) models, there are some good, new and free models with rate limits.
 
 You can start working with `claude` using Opus, then exit and continue the same session with `z_claude --continue`. Use `mi_claude` or `or_claude` the same way.
 
-For OpenRouter, set up your environment like this:
-
-```bash
-export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
-export ANTHROPIC_API_KEY="$OPENROUTER_API_KEY"
-export ANTHROPIC_DEFAULT_SONNET_MODEL="openai/gpt-5.1-codex-max"
-
-or_claude
-```
+![z_claude](/media/2026/01/claude/z_claude.png)
 
 ## Claude Code (+ OpenRouter) on GitHub Actions
 
-You can run Claude Code in CI/CD pipelines with GitHub Actions. Check out the official documentation: [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions)
+The good part is I'm running Claude GitHub Actions with OpenRouter at no cost by using free models. I have an OpenRouter preset that can switch between SOTA free models automatically.
 
 ```yaml
 - name: Run Claude Code Review
@@ -195,7 +258,6 @@ You can run Claude Code in CI/CD pipelines with GitHub Actions. Check out the of
       ralph-wiggum@claude-plugins-official
 ```
 
-The good part is I'm running Claude GitHub Actions with OpenRouter at no cost by using free models. I have an OpenRouter preset that can switch between SOTA free models automatically.
 
 I put together some reusable workflows at [duyet/github-actions](https://github.com/duyet/github-actions) that you can use:
 
@@ -219,19 +281,32 @@ jobs:
       bot_github_token: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
 ```
 
+Check out the official documentation: [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions).
 Some use cases:
 
 - **Code Review** - Automated PR reviews with AI feedback
 - **Nightly Codebase Analysis** - A scheduled workflow that runs every night to scan the codebase, find things to improve or refactor, then creates an issue and assigns it back to @claude to fix itself via PR
 
-This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible - smart cronjobs, automated refactoring, dependency updates, test generation, documentation sync. The AI does the boring stuff while you sleep.
+This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible: smart cronjobs, automated refactoring, documentation sync, etc. The AI does the boring stuff while you sleep.
+
+![Github Actions + OpenRouter](/media/2026/01/claude/github_actions.png)
+![Github Actions + OpenRouter](/media/2026/01/claude/github_actions_2.png)
 
 ## opencode
 
-[opencode](https://github.com/sst/opencode) is a solid alternative to Claude Code and works really well. It has integrated support for many providers including Z.AI, OpenRouter, Claude Code Subscription, Codex, and more.
+If you want to try a good coding agent with nice UI/UX - [opencode](https://github.com/sst/opencode) is really solid right now. Fast, simple, and it reads all your Claude config and plugins out of the box.
 
 ![opencode](/media/2026/01/claude/opencode.png)
 
-I put all my providers into opencode - it's basically a terminal interface for coding agents that lets you switch between models on the fly. Need Opus for something complex? Switch. Running low on tokens? Jump to a cheaper model. The UI is clean, sessions are easy to capture and share, and it just feels nice to use.
+It connects to a lot of providers: Z.AI, OpenRouter, Codex, Claude, plus some free Zen models from their own provider. When I hit rate limits on one, I just switch to another. When Opus is overkill, I drop down to something cheaper.
 
-The multi-provider setup means I can keep working without worrying about hitting rate limits or burning through my subscription too fast.
+You can save and share sessions - handy when you want to show someone how you solved something. They also have a native web UI now.
+
+I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode) - it adds some powerful workflows on top of opencode:
+
+- **Sisyphus agent** - an orchestrator (Opus 4.5) that "keeps the boulder rolling" through autonomous task completion. It uses subagents, background parallel execution, and won't stop until tasks are actually finished
+- **Multi-model orchestration** - coordinates GPT-5.2, Gemini, and Claude by specialized purpose
+- **Background parallelization** - runs exploration and research tasks async while main work continues
+- **Magic word `ultrawork`** - add this to your prompt and it activates maximum orchestration: parallel agents, background tasks, deep exploration, relentless execution
+
+![opencode](/media/2026/01/claude/opencode_2.png)

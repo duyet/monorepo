@@ -3,9 +3,14 @@
 import { useState } from "react";
 import { cn } from "@duyet/libs/utils";
 
+export interface ClaudeCardValueItem {
+  label: string;
+  link?: string;
+}
+
 export interface ClaudeCardItem {
   label: string;
-  value: string;
+  items: ClaudeCardValueItem[]; // Array of label/link items
 }
 
 export interface ClaudeCardProps {
@@ -189,13 +194,8 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 className={cn(
-                  "flex items-baseline gap-3 sm:gap-4 py-3 sm:py-4 cursor-default",
-                  "transition-all duration-200",
-                  hoveredIndex === index && "translate-x-1",
-                  index !== items.length - 1 && [
-                    "border-b",
-                    `${activeColor.text.replace("text-", "border-")}/30`,
-                  ]
+                  "flex items-baseline gap-3 sm:gap-4 py-3 sm:py-4",
+                  index !== items.length - 1 && "border-b border-gray-900/20 dark:border-white/20"
                 )}
               >
                 <span
@@ -207,26 +207,51 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <div className="flex-1 flex flex-wrap items-baseline gap-x-2">
-                  <span
+                <div className="flex-1 flex flex-col gap-1">
+                  <strong
                     className={cn(
-                      "font-medium text-sm sm:text-base",
-                      activeColor.text,
-                      activeColor.textDark
+                      "font-semibold text-base sm:text-lg",
+                      "text-gray-900 dark:text-white"
                     )}
                   >
                     {item.label}
-                  </span>
-                  {item.value && (
-                    <span
-                      className={cn(
-                        "text-sm sm:text-base opacity-75",
-                        activeColor.text,
-                        activeColor.textDark
-                      )}
-                    >
-                      {item.value}
-                    </span>
+                  </strong>
+                  {item.items && item.items.length > 0 && (
+                    <div className="flex flex-wrap gap-x-1.5 gap-y-0.5">
+                      {item.items.map((valueItem, itemIndex) => (
+                        <span key={itemIndex} className="inline-flex items-center">
+                          {valueItem.link ? (
+                            <a
+                              href={valueItem.link}
+                              className={cn(
+                                "text-sm sm:text-base cursor-pointer",
+                                activeColor.text,
+                                activeColor.textDark,
+                                "opacity-70 hover:opacity-100",
+                                "underline underline-offset-2",
+                                "decoration-current/40 hover:decoration-current/70",
+                                "transition-all duration-200"
+                              )}
+                            >
+                              {valueItem.label}
+                            </a>
+                          ) : (
+                            <span
+                              className={cn(
+                                "text-sm sm:text-base opacity-70",
+                                activeColor.text,
+                                activeColor.textDark
+                              )}
+                            >
+                              {valueItem.label}
+                            </span>
+                          )}
+                          {itemIndex < item.items.length - 1 && (
+                            <span className={cn("ml-1 opacity-50", activeColor.text, activeColor.textDark)}>,</span>
+                          )}
+                        </span>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>
