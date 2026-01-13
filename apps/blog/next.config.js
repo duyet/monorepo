@@ -14,6 +14,8 @@ loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 const config = {
   output: "export",
   transpilePackages: ["@duyet/components", "@duyet/libs"],
+  // Allow MDX files to be processed
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,

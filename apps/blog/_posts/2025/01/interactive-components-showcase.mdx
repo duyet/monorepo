@@ -1,0 +1,224 @@
+---
+title: Interactive Components Showcase
+date: '2025-01-15'
+author: Duyet
+series: MDX Features
+category: Development
+tags:
+  - MDX
+  - React Components
+  - Interactive Content
+slug: /2025/01/interactive-components-showcase.html
+description: A comprehensive showcase of all interactive MDX components available for rich blog content, including tool comparisons, feature matrices, charts, timelines, and more.
+twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2025%2F01%2Finteractive-components-showcase.html
+---
+
+# Interactive Components Showcase
+
+This post demonstrates all the interactive components available for MDX content in the blog. Each component is designed to make technical content more engaging and easier to understand.
+
+## 1. Tool Comparison
+
+Perfect for comparing software tools, libraries, or frameworks with pros, cons, and ratings.
+
+<ToolComparison
+  title="Text Editor Comparison"
+  tools={[
+    {
+      name: "VS Code",
+      pros: ["IntelliSense", "Huge extension ecosystem", "Git integration"],
+      cons: ["Memory intensive", "Can be slow on large files"],
+      rating: 4.5
+    },
+    {
+      name: "Neovim",
+      pros: ["Extremely fast", "Lightweight", "Fully customizable"],
+      cons: ["Steep learning curve", "Requires configuration"],
+      rating: 4.2
+    },
+    {
+      name: "Sublime Text",
+      pros: ["Blazing fast", "Clean UI", "Multiple cursors"],
+      cons: ["Paid license", "Smaller ecosystem"],
+      rating: 4.0
+    }
+  ]}
+/>
+
+## 2. Feature Matrix
+
+Display feature comparisons in a sortable table with visual scoring indicators.
+
+<FeatureMatrix
+  title="Web Framework Comparison"
+  description="Comparing popular frameworks across key features"
+  features={[
+    { name: "Performance", description: "Speed and efficiency" },
+    { name: "Developer Experience", description: "Ease of use and learning curve" },
+    { name: "Ecosystem", description: "Available plugins and libraries" },
+    { name: "Community", description: "Support and documentation" }
+  ]}
+  tools={[
+    { name: "React", score: 5, color: "bg-blue-500", shape: "circle" },
+    { name: "Vue", score: 4, color: "bg-green-500", shape: "square" },
+    { name: "Angular", score: 3, color: "bg-red-500", shape: "triangle" }
+  ]}
+/>
+
+## 3. WakaTime Chart
+
+Visualize coding activity with a beautiful stacked area chart.
+
+<WakaTimeChart
+  title="Weekly Coding Activity"
+  data={sampleWakaTimeData}
+/>
+
+## 4. Tool Timeline
+
+Show development timelines or project milestones in either horizontal or vertical format.
+
+### Horizontal Timeline
+
+<ToolTimeline
+  title="Product Development Timeline"
+  orientation="horizontal"
+  events={[
+    { date: "Q1 2024", title: "Planning", description: "Requirements gathering", status: "completed", icon: "calendar" },
+    { date: "Q2 2024", title: "Design", description: "UI/UX design phase", status: "completed", icon: "circle" },
+    { date: "Q3 2024", title: "Development", description: "Core features implementation", status: "current", icon: "circle" },
+    { date: "Q4 2024", title: "Launch", description: "Production release", status: "upcoming", icon: "calendar" }
+  ]}
+/>
+
+### Vertical Timeline
+
+<ToolTimeline
+  title="Technology Adoption Journey"
+  orientation="vertical"
+  events={[
+    { date: "2020", title: "Started with JavaScript", description: "Learned ES6 fundamentals and basic DOM manipulation" },
+    { date: "2021", title: "React Ecosystem", description: "Dived into React hooks, context, and state management" },
+    { date: "2022", title: "TypeScript", description: "Added type safety to all projects" },
+    { date: "2023", title: "Full Stack", description: "Explored backend with Node.js and databases" },
+    { date: "2024", title: "Cloud Native", description: "Deploying to Kubernetes and serverless platforms" }
+  ]}
+/>
+
+## 5. Workflow Diagram
+
+Interactive circular workflow diagram with animated transitions.
+
+<WorkflowDiagram
+  title="Development Workflow"
+  steps={[
+    { id: "PLAN", label: "Plan", description: "Define requirements and scope" },
+    { id: "CODE", label: "Code", description: "Implement features" },
+    { id: "TEST", label: "Test", description: "Unit and integration tests" },
+    { id: "REVIEW", label: "Review", description: "Code review process" },
+    { id: "DEPLOY", label: "Deploy", description: "Release to production" }
+  ]}
+/>
+
+## 6. Version Diff Viewer
+
+Compare code versions with a Git-style diff viewer.
+
+### Single File Diff
+
+<VersionDiff
+  title="API Endpoint Update"
+  before={`// Old endpoint
+app.get('/api/users/:id', async (req, res) => {
+  const user = await Users.findById(req.params.id);
+  if (!user) return res.status(404).json({ error: 'Not found' });
+  return res.json(user);
+});`}
+  after={`// Updated endpoint with validation
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const user = await Users.findById(req.params.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    return res.json({ data: user, timestamp: new Date() });
+  } catch (error) {
+    return res.status(500).json({ error: 'Server error' });
+  }
+});`}
+  language="javascript"
+/>
+
+### Multi-File Diff
+
+<VersionDiffMulti
+  title="Configuration Changes"
+  files={[
+    {
+      name: "config.js",
+      before: `module.exports = {
+  port: 3000,
+  database: "mongodb://localhost:27017/app"
+}`,
+      after: `module.exports = {
+  port: process.env.PORT || 3000,
+  database: process.env.MONGO_URI || "mongodb://localhost:27017/app",
+  redis: process.env.REDIS_URL || "redis://localhost:6379"
+}`
+    },
+    {
+      name: "package.json",
+      before: `"dependencies": {
+  "express": "^4.18.0"
+}`,
+      after: `"dependencies": {
+  "express": "^4.18.0",
+  "ioredis": "^5.0.0",
+  "mongoose": "^7.0.0"
+}`
+    }
+  ]}
+/>
+
+## 7. Tool List
+
+Filterable tool directory with fuzzy search capability.
+
+<ToolList
+  title="Development Tools"
+  tools={sampleTools}
+/>
+
+## Using Components in Your Posts
+
+To use these components in your MDX posts:
+
+1. **Import the component** (automatically available in MDX context)
+2. **Pass props** as needed
+3. **Customize** the content and data
+
+### Example Usage
+
+```mdx
+<ToolComparison
+  tools={[
+    {
+      name: "My Tool",
+      pros: ["Fast", "Reliable"],
+      cons: ["Complex setup"],
+      rating: 4.5
+    }
+  ]}
+/>
+```
+
+## Benefits of Interactive Content
+
+- **Better Engagement**: Readers interact with dynamic content
+- **Clearer Comparisons**: Visual aids make complex decisions easier
+- **Memorable Content**: Interactive elements stick in memory
+- **Rich Documentation**: Perfect for technical tutorials and reviews
+
+## Conclusion
+
+These components open up new possibilities for creating engaging technical content. They work seamlessly alongside traditional Markdown, so you can mix and match based on your content needs.
+
+All existing `.md` posts continue to work without modification, ensuring backward compatibility.

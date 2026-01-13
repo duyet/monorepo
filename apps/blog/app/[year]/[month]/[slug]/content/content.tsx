@@ -7,8 +7,15 @@ import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
+import { MDXContent } from "../mdx-content";
 
 export default function Content({ post }: { post: Post }) {
+  const isMdx = post.path?.endsWith('.mdx') || false;
+
+  if (isMdx) {
+    return <MDXContent post={post} />;
+  }
+
   return (
     <>
       <header className="mb-8 flex flex-col gap-4">
@@ -52,7 +59,18 @@ export async function getPost(slug: string[]) {
     "tags",
     "series",
     "snippet",
+    "path", // Include path to detect MDX files
   ]);
+
+  // For MDX files, use raw content (will be processed by MDX renderer)
+  if (post.path?.endsWith('.mdx')) {
+    return {
+      ...post,
+      edit_url: getGithubEditUrl(post.slug, '.mdx'),
+    };
+  }
+
+  // For markdown files, use traditional HTML conversion
   const markdownContent = post.content || "Error";
   const content = await markdownToHtml(markdownContent);
 
@@ -60,12 +78,12 @@ export async function getPost(slug: string[]) {
     ...post,
     content,
     markdown_content: markdownContent,
-    edit_url: getGithubEditUrl(post.slug),
+    edit_url: getGithubEditUrl(post.slug, '.md'),
   };
 }
 
-const getGithubEditUrl = (slug: string) => {
-  const file = slug.replace(/\.md|\.html|\.htm$/, ".md").replace(/^\/?/, "");
+const getGithubEditUrl = (slug: string, extension: string = '.md') => {
+  const file = slug.replace(/\.md|\.mdx|\.html|\.htm$/, extension).replace(/^\/?/, "");
   const repoUrl =
     process.env.NEXT_PUBLIC_GITHUB_REPO_URL ||
     "https://github.com/duyet/monorepo";
