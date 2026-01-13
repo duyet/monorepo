@@ -1,0 +1,318 @@
+---
+title: "Interactive Components Demo"
+date: "2024-12-15"
+author: "duyet"
+excerpt: "A comprehensive demo of all 7 interactive MDX components available in the blog. Includes tool comparisons, feature matrices, charts, timelines, workflows, version diffs, and searchable tool lists."
+tags: ["MDX", "React", "Interactive", "Demo", "Components"]
+featured: true
+---
+
+## Introduction
+
+Welcome to the interactive components demo! This post showcases all 7 powerful MDX components that you can use to create rich, interactive blog content.
+
+## Component Showcase
+
+### 1. ToolComparison Component
+
+The ToolComparison component helps you compare different tools with pros, cons, and ratings:
+
+<ToolComparison
+  tools={[
+    {
+      name: "Next.js",
+      description: "React framework with server-side rendering and static generation",
+      pros: [
+        "Excellent performance with built-in optimization",
+        "Zero-config setup with TypeScript support",
+        "Vercel integration for seamless deployments"
+      ],
+      cons: [
+        "Large JavaScript bundle size",
+        "Learning curve for advanced features",
+        "Opinionated architecture"
+      ],
+      rating: 4.5
+    },
+    {
+      name: "Astro",
+      description: "All-in-one web framework for fast content-driven websites",
+      pros: [
+        "Ships zero JavaScript by default",
+        "UI-agnostic (use any framework)",
+        "Excellent content-focused features"
+      ],
+      cons: [
+        "Newer ecosystem with fewer integrations",
+        "Limited dynamic features without JS",
+        "Small community compared to Next.js"
+      ],
+      rating: 4.2
+    }
+  ]}
+/>
+
+---
+
+### 2. FeatureMatrix Component
+
+The FeatureMatrix component provides a sortable table with color-coded ratings:
+
+<FeatureMatrix
+  features={[
+    { name: "Performance" },
+    { name: "DX" },
+    { name: "SEO" },
+    { name: "BundleSize" }
+  ]}
+  tools={[
+    {
+      name: "Next.js",
+      features: {
+        Performance: "high",
+        DX: "medium",
+        SEO: "high",
+        BundleSize: "medium"
+      }
+    },
+    {
+      name: "Astro",
+      features: {
+        Performance: "high",
+        DX: "high",
+        SEO: "high",
+        BundleSize: "high"
+      }
+    },
+    {
+      name: "Gatsby",
+      features: {
+        Performance: "medium",
+        DX: "medium",
+        SEO: "high",
+        BundleSize: "low"
+      }
+    }
+  ]}
+  description="Comparison of popular static site frameworks"
+/>
+
+---
+
+### 3. WakaTimeChart Component
+
+The WakaTimeChart component displays development time data as a beautiful stacked area chart:
+
+<WakaTimeChart
+  data={[
+    { date: "2024-12-01", hours: 2.5, language: "TypeScript" },
+    { date: "2024-12-01", hours: 1.2, language: "Python" },
+    { date: "2024-12-01", hours: 0.8, language: "Shell" },
+    { date: "2024-12-02", hours: 3.1, language: "TypeScript" },
+    { date: "2024-12-02", hours: 1.5, language: "Python" },
+    { date: "2024-12-02", hours: 1.2, language: "Go" },
+    { date: "2024-12-03", hours: 2.8, language: "TypeScript" },
+    { date: "2024-12-03", hours: 2.0, language: "Python" },
+    { date: "2024-12-03", hours: 0.5, language: "Shell" },
+    { date: "2024-12-04", hours: 4.2, language: "TypeScript" },
+    { date: "2024-12-04", hours: 1.8, language: "Rust" },
+    { date: "2024-12-04", hours: 0.9, language: "Go" },
+    { date: "2024-12-05", hours: 3.5, language: "TypeScript" },
+    { date: "2024-12-05", hours: 2.3, language: "Python" },
+    { date: "2024-12-05", hours: 1.1, language: "JavaScript" }
+  ]}
+  title="Weekly Development Activity"
+  description="Time tracked via WakaTime for the week of Dec 1-5, 2024"
+  height={350}
+/>
+
+---
+
+### 4. ToolTimeline Component
+
+The ToolTimeline component can display events in either horizontal or vertical format:
+
+<ToolTimeline
+  orientation="vertical"
+  title="My Development Journey"
+  description="A timeline of tool and technology adoptions"
+  events={[
+    {
+      date: "2020-03-01",
+      title: "Started with React",
+      description: "Beginning of my React journey with hooks and functional components",
+      icon: "milestone",
+      link: "https://reactjs.org",
+      github: "https://github.com/facebook/react"
+    },
+    {
+      date: "2021-06-15",
+      title: "Moved to Next.js",
+      description: "Migrated from Create React App to Next.js for better SEO and performance",
+      icon: "release",
+      link: "https://nextjs.org",
+      github: "https://github.com/vercel/next.js"
+    },
+    {
+      date: "2022-09-10",
+      title: "TypeScript Adoption",
+      description: "Added TypeScript for better type safety and developer experience",
+      icon: "update",
+      link: "https://www.typescriptlang.org",
+      github: "https://github.com/microsoft/typescript"
+    },
+    {
+      date: "2024-01-20",
+      title: "MDX Integration",
+      description: "Integrated MDX for creating interactive blog posts with components",
+      icon: "milestone",
+      link: "https://mdxjs.com",
+      github: "https://github.com/mdx-js/mdx"
+    }
+  ]}
+/>
+
+---
+
+### 5. WorkflowDiagram Component
+
+The WorkflowDiagram component shows circular workflows with animated connections:
+
+<WorkflowDiagram
+  type="circular"
+  centerText="CI/CD Pipeline"
+  steps={[
+    { id: "1", name: "Code", description: "Developer pushes code", status: "completed", time: "0:00" },
+    { id: "2", name: "Test", description: "Run automated tests", status: "completed", time: "0:15" },
+    { id: "3", name: "Build", description: "Create production bundle", status: "in-progress", time: "0:30" },
+    { id: "4", name: "Deploy", description: "Deploy to production", status: "pending", time: "0:45" },
+    { id: "5", name: "Monitor", description: "Monitor application health", status: "pending", time: "1:00" }
+  ]}
+/>
+
+---
+
+### 6. VersionDiff Component
+
+The VersionDiff component displays Git-style differences between versions:
+
+<VersionDiff
+  oldVersion="v1.0.0"
+  newVersion="v2.0.0"
+  diffs={[
+    { type: "unchanged", content: "export interface User {", line: 1 },
+    { type: "unchanged", content: "  id: string;", line: 2 },
+    { type: "unchanged", content: "  email: string;", line: 3 },
+    { type: "removed", content: "  username: string;", line: 4 },
+    { type: "modified", content: "  name: string; // was: displayName", line: 5 },
+    { type: "added", content: "  firstName?: string;", line: 6 },
+    { type: "added", content: "  lastName?: string;", line: 7 },
+    { type: "unchanged", content: "  role: 'admin' | 'user';", line: 8 },
+    { type: "added", content: "  permissions?: string[];", line: 9 },
+    { type: "unchanged", content: "}", line: 10 }
+  ]}
+  title="User Interface Changes"
+  description="Significant changes to the User interface in v2.0.0"
+/>
+
+---
+
+### 7. ToolList Component
+
+The ToolList component provides a searchable, filterable list of tools:
+
+<ToolList
+  title="My Tech Stack"
+  description="Tools and technologies I use regularly"
+  tools={[
+    {
+      id: "vscode",
+      name: "Visual Studio Code",
+      description: "Lightweight but powerful source code editor with excellent JavaScript/TypeScript support",
+      category: "Development",
+      tags: ["Editor", "JavaScript", "TypeScript", "Extensions"],
+      website: "https://code.visualstudio.com",
+      github: "https://github.com/microsoft/vscode",
+      downloads: 100000000,
+      featured: true
+    },
+    {
+      id: "docker",
+      name: "Docker",
+      description: "Platform for developing, shipping, and running applications in containers",
+      category: "Utilities",
+      tags: ["Container", "DevOps", "Virtualization"],
+      website: "https://www.docker.com",
+      downloads: 50000000,
+      stars: 95000
+    },
+    {
+      id: "figma",
+      name: "Figma",
+      description: "Collaborative interface design tool with real-time collaboration",
+      category: "Design",
+      tags: ["Design", "UI/UX", "Prototyping", "Collaboration"],
+      website: "https://www.figma.com",
+      downloads: 20000000
+    },
+    {
+      id: "nextjs",
+      name: "Next.js",
+      description: "React framework for production with server-side rendering and static generation",
+      category: "Development",
+      tags: ["React", "Framework", "SSR", "Static"],
+      website: "https://nextjs.org",
+      github: "https://github.com/vercel/next.js",
+      stars: 120000
+    },
+    {
+      id: "posthog",
+      name: "PostHog",
+      description: "Open-source product analytics platform with session recording and feature flags",
+      category: "Analytics",
+      tags: ["Analytics", "Product", "Open-source", "Privacy"],
+      website: "https://posthog.com",
+      github: "https://github.com/posthog/posthog",
+      stars: 20000
+    },
+    {
+      id: "netlify",
+      name: "Netlify",
+      description: "Cloud platform for modern web projects with continuous deployment",
+      category: "Deployment",
+      tags: ["CDN", "Deployment", "Serverless", "Edge"],
+      website: "https://www.netlify.com",
+      downloads: 10000000
+    }
+  ]}
+/>
+
+---
+
+## Usage Examples
+
+You can use these components in any MDX file like this:
+
+```mdx
+import { ToolComparison, FeatureMatrix, WakaTimeChart } from '@/components/mdx'
+
+# My Article
+
+<ToolComparison tools={...} />
+```
+
+## Conclusion
+
+These 7 components provide a rich set of interactive features for your blog:
+
+1. **ToolComparison** - Side-by-side pros/cons with ratings
+2. **FeatureMatrix** - Sortable tables with color-coded scores
+3. **WakaTimeChart** - Beautiful data visualizations
+4. **ToolTimeline** - Horizontal/vertical event timelines
+5. **WorkflowDiagram** - Circular and linear process flows
+6. **VersionDiff** - Git-style code differences
+7. **ToolList** - Searchable tool directories
+
+Try searching or filtering the ToolList above, click the table headers in FeatureMatrix to sort, or hover over the timeline events for more details!
+
+**Happy blogging! 🚀**
