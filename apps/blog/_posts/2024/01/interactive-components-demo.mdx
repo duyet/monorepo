@@ -1,0 +1,204 @@
+---
+slug: /2024/01/interactive-components-demo
+title: "Interactive MDX Components Demo"
+date: 2024-01-15
+category: Tutorial
+tags: [MDX, React, Interactive, Components]
+description: A comprehensive showcase of all 7 interactive MDX components available for blog posts
+---
+
+# Interactive MDX Components Demo
+
+This post demonstrates all 7 interactive components available for MDX blog posts. These components enhance your content with rich, interactive elements.
+
+---
+
+## 1. ToolComparison
+
+Compare tools with pros/cons ratings:
+
+<ToolComparison
+  tools={[
+    {
+      name: "React",
+      rating: 5,
+      pros: ["Component-based", "Huge ecosystem", "Great performance"],
+      cons: ["Steep learning curve", "Frequent updates"]
+    },
+    {
+      name: "Vue",
+      rating: 4,
+      pros: ["Easy to learn", "Flexible", "Great docs"],
+      cons: ["Smaller ecosystem", "Enterprise adoption"]
+    }
+  ]}
+  title="Framework Comparison"
+/>
+
+---
+
+## 2. FeatureMatrix
+
+Sortable feature comparison table:
+
+<FeatureMatrix
+  features={[
+    { name: "Performance", scores: { React: 8, Vue: 9, Svelte: 10 } },
+    { name: "Bundle Size", scores: { React: 6, Vue: 8, Svelte: 9 } },
+    { name: "Learning Curve", scores: { React: 5, Vue: 9, Svelte: 8 } },
+    { name: "Ecosystem", scores: { React: 10, Vue: 8, Svelte: 6 } },
+    { name: "TypeScript Support", scores: { React: 9, Vue: 9, Svelte: 8 } },
+  ]}
+  tools={["React", "Vue", "Svelte"]}
+  title="Framework Feature Matrix"
+/>
+
+---
+
+## 3. WakaTimeChart
+
+Visualize coding activity:
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", coding: 4.5, building: 2.1, debugging: 1.2, reviewing: 0.8 },
+    { date: "Tue", coding: 5.2, building: 1.8, debugging: 1.5, reviewing: 1.0 },
+    { date: "Wed", coding: 6.1, building: 2.3, debugging: 0.9, reviewing: 0.7 },
+    { date: "Thu", coding: 4.8, building: 2.0, debugging: 1.8, reviewing: 1.2 },
+    { date: "Fri", coding: 5.5, building: 2.5, debugging: 1.1, reviewing: 0.9 },
+    { date: "Sat", coding: 3.2, building: 1.5, debugging: 0.8, reviewing: 0.5 },
+    { date: "Sun", coding: 2.1, building: 0.9, debugging: 0.5, reviewing: 0.3 },
+  ]}
+  title="Weekly Coding Activity"
+/>
+
+---
+
+## 4. ToolTimeline
+
+Show development progress:
+
+<ToolTimeline
+  events={[
+    { date: "2024-01-01", title: "Planning", description: "Define project requirements and scope", completed: true },
+    { date: "2024-01-05", title: "Design", description: "Create wireframes and design system", completed: true },
+    { date: "2024-01-10", title: "Development", description: "Implement core features and components", completed: true },
+    { date: "2024-01-15", title: "Testing", description: "QA testing and bug fixes", completed: false },
+    { date: "2024-01-20", title: "Deployment", description: "Production release and monitoring", completed: false },
+  ]}
+  title="Project Timeline"
+  orientation="vertical"
+/>
+
+---
+
+## 5. WorkflowDiagram
+
+Visualize circular workflows:
+
+<WorkflowDiagram
+  steps={[
+    { label: "Planning", description: "Requirements", status: "completed" },
+    { label: "Design", description: "Prototypes", status: "completed" },
+    { label: "Coding", description: "Implementation", status: "current" },
+    { label: "Testing", description: "QA", status: "pending" },
+    { label: "Deploy", description: "Release", status: "pending" },
+  ]}
+  title="Development Workflow"
+  circular={true}
+/>
+
+---
+
+## 6. VersionDiff
+
+Show code changes:
+
+<VersionDiff
+  filename="config.json"
+  lines={[
+    { type: "unchanged", content: "{", lineNumbers: { old: 1, new: 1 } },
+    { type: "unchanged", content: '  "version": "1.0.0",', lineNumbers: { old: 2, new: 2 } },
+    { type: "removed", content: '  "debug": false,', lineNumbers: { old: 3, new: undefined } },
+    { type: "added", content: '  "debug": true,', lineNumbers: { old: undefined, new: 3 } },
+    { type: "unchanged", content: '  "features": {', lineNumbers: { old: 4, new: 4 } },
+    { type: "added", content: '    "mdx": true,', lineNumbers: { old: undefined, new: 5 } },
+    { type: "unchanged", content: '    "math": true', lineNumbers: { old: 5, new: 6 } },
+    { type: "unchanged", content: "  }", lineNumbers: { old: 6, new: 7 } },
+    { type: "unchanged", content: "}", lineNumbers: { old: 7, new: 8 } },
+  ]}
+  title="Configuration Changes"
+/>
+
+---
+
+## 7. ToolList
+
+Filterable tool catalog:
+
+<ToolList
+  tools={[
+    {
+      name: "Next.js",
+      category: "Framework",
+      description: "The React framework for production applications",
+      tags: ["react", "ssr", "rsc"],
+      url: "https://nextjs.org"
+    },
+    {
+      name: "Tailwind CSS",
+      category: "Styling",
+      description: "Utility-first CSS framework for rapid UI development",
+      tags: ["css", "utility", "design"],
+      url: "https://tailwindcss.com"
+    },
+    {
+      name: "Prisma",
+      category: "Database",
+      description: "Next-generation ORM for Node.js and TypeScript",
+      tags: ["database", "orm", "typesafe"],
+      url: "https://prisma.io"
+    },
+    {
+      name: "Vite",
+      category: "Tooling",
+      description: "Next Generation Frontend Tooling",
+      tags: ["build", "dev-server", "esm"],
+      url: "https://vitejs.dev"
+    },
+    {
+      name: "PostHog",
+      category: "Analytics",
+      description: "Product analytics and session recording",
+      tags: ["analytics", "tracking", "insights"],
+      url: "https://posthog.com"
+    },
+    {
+      name: "Radix UI",
+      category: "Components",
+      description: "Unstyled, accessible, open source React primitives",
+      tags: ["components", "a11y", "unstyled"],
+      url: "https://radix-ui.com"
+    },
+  ]}
+  title="Developer Tools Catalog"
+  showSearch={true}
+/>
+
+---
+
+## Conclusion
+
+All 7 components are now available for use in MDX posts! These interactive elements can help make technical content more engaging and informative. Each component is designed to work seamlessly with Next.js 15 and React 19.
+
+### Usage Tips
+
+1. **ToolComparison**: Great for evaluating alternatives
+2. **FeatureMatrix**: Perfect for detailed comparisons with sorting
+3. **WakaTimeChart**: Useful for productivity tracking posts
+4. **ToolTimeline**: Ideal for project updates and roadmaps
+5. **WorkflowDiagram**: Excellent for process explanations
+6. **VersionDiff**: Perfect for showing code evolution
+7. **ToolList**: Great for resource roundups and catalogs
+
+Happy blogging! 🚀

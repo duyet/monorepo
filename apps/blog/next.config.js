@@ -8,12 +8,21 @@ const rootDir = path.resolve(__dirname, "../..");
 loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
 loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
+// MDX configuration
+const withMDX = require("@next/mdx")({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
 /**
  * @type {import('next').NextConfig}
  */
-const config = {
+const nextConfig = {
   output: "export",
   transpilePackages: ["@duyet/components", "@duyet/libs"],
+  pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
@@ -52,5 +61,5 @@ const config = {
   // redirects,
 };
 
-module.exports = config;
+module.exports = withMDX(nextConfig);
 // module.exports = withAxiom(config)
