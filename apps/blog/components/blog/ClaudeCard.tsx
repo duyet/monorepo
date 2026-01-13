@@ -164,7 +164,8 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
         {/* SVG Background Icon */}
         <div
           className={cn(
-            "absolute right-2 top-2 w-16 h-16 sm:right-auto sm:top-auto sm:left-4 sm:bottom-4 sm:w-32 sm:h-32 md:w-40 md:h-40",
+            "absolute right-2 top-2 w-16 h-16",
+            "lg:right-auto lg:top-auto lg:left-4 lg:bottom-4 lg:w-32 lg:h-32 xl:w-40 xl:h-40",
             "opacity-20 pointer-events-none transition-all duration-300",
             activeColor.text,
             activeColor.textDark

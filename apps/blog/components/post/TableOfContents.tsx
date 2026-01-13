@@ -9,9 +9,45 @@ interface TOCItem {
   level: number;
 }
 
+// TOC Icon SVG
+const TOCIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4 6h16M4 12h16M4 18h7"
+    />
+  </svg>
+);
+
+// Close Icon SVG
+const CloseIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
 export function TableOfContents() {
   const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isDesktopVisible, setIsDesktopVisible] = useState(true);
 
   useEffect(() => {
     const extractHeadings = () => {
@@ -24,15 +60,13 @@ export function TableOfContents() {
 
       elements.forEach((element) => {
         const text = element.textContent || "";
-        if (!text.trim()) return; // Skip empty headings
+        if (!text.trim()) return;
 
-        // Skip the first h1 (page title)
         if (element.tagName === "H1" && isFirstH1) {
           isFirstH1 = false;
           return;
         }
 
-        // Generate ID if not present
         let id = element.id;
         if (!id) {
           id = text
@@ -43,30 +77,18 @@ export function TableOfContents() {
         }
 
         const level = element.tagName === "H1" ? 1 : element.tagName === "H2" ? 2 : 3;
-        items.push({
-          id,
-          text: text.trim(),
-          level,
-        });
+        items.push({ id, text: text.trim(), level });
       });
 
       setHeadings(items);
     };
 
-    // Initial extraction with delay for MDX to render
     const timeoutId = setTimeout(extractHeadings, 100);
-
-    // Also observe for dynamic content changes
-    const observer = new MutationObserver(() => {
-      extractHeadings();
-    });
+    const observer = new MutationObserver(() => extractHeadings());
 
     const article = document.querySelector("article");
     if (article) {
-      observer.observe(article, {
-        childList: true,
-        subtree: true
-      });
+      observer.observe(article, { childList: true, subtree: true });
     }
 
     return () => {
@@ -86,72 +108,57 @@ export function TableOfContents() {
           }
         });
       },
-      {
-        rootMargin: "-80px 0px -80% 0px",
-        threshold: 0,
-      }
+      { rootMargin: "-80px 0px -80% 0px", threshold: 0 }
     );
 
     headings.forEach(({ id }) => {
       const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
+      if (element) observer.observe(element);
     });
 
     return () => observer.disconnect();
   }, [headings]);
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileOpen(false);
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
   if (headings.length === 0) {
     return null;
   }
 
-  return (
-    <nav
-      className={cn(
-        // Hidden on small screens, visible on 2xl+ (1536px)
-        "hidden 2xl:block",
-        // Fixed position on right side
-        "fixed top-24 right-8 w-56",
-        // Ensure it doesn't overlap content
-        "max-h-[calc(100vh-8rem)] overflow-y-auto",
-        // Subtle styling
-        "text-sm"
+  const handleLinkClick = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveId(id);
+      setIsMobileOpen(false);
+    }
+  };
+
+  const TOCContent = ({ showHeader = true }: { showHeader?: boolean }) => (
+    <>
+      {showHeader && (
+        <div className="flex items-center gap-2 mb-4 font-medium text-gray-500 dark:text-gray-400">
+          <TOCIcon className="w-4 h-4" />
+          On this page
+        </div>
       )}
-    >
-      <div className="flex items-center gap-2 mb-4 font-medium text-gray-500 dark:text-gray-400">
-        <svg
-          className="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h7"
-          />
-        </svg>
-        On this page
-      </div>
 
       <ul className="space-y-1 border-l border-gray-200 dark:border-gray-800">
         {headings.map((heading) => (
           <li key={heading.id}>
             <a
               href={`#${heading.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                const element = document.getElementById(heading.id);
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
-                  setActiveId(heading.id);
-                }
-              }}
+              onClick={(e) => handleLinkClick(e, heading.id)}
               className={cn(
                 "block py-1.5 border-l-2 -ml-px transition-all duration-200",
-                heading.level === 1 && "pl-3 font-semibold",
+                heading.level === 1 && "pl-3",
                 heading.level === 2 && "pl-4",
                 heading.level === 3 && "pl-6 text-xs",
                 activeId === heading.id
@@ -164,6 +171,88 @@ export function TableOfContents() {
           </li>
         ))}
       </ul>
-    </nav>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile/Tablet: Floating toggle button */}
+      <button
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        className={cn(
+          "xl:hidden",
+          "fixed bottom-6 right-6 z-40",
+          "w-12 h-12 rounded-full",
+          "bg-white dark:bg-gray-800",
+          "shadow-lg border border-gray-200 dark:border-gray-700",
+          "flex items-center justify-center",
+          "hover:bg-gray-50 dark:hover:bg-gray-700",
+          "transition-all duration-200",
+          "hover:scale-105 active:scale-95"
+        )}
+        aria-label={isMobileOpen ? "Close table of contents" : "Open table of contents"}
+      >
+        {isMobileOpen ? (
+          <CloseIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+        ) : (
+          <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+        )}
+      </button>
+
+      {/* Mobile/Tablet: Slide-out panel (no backdrop, doesn't block content) */}
+      <nav
+        className={cn(
+          "xl:hidden",
+          "fixed top-20 right-0 z-30",
+          "w-72 max-w-[80vw]",
+          "bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm",
+          "shadow-xl border-l border-gray-200 dark:border-gray-700",
+          "p-4 pt-4",
+          "max-h-[70vh] overflow-y-auto",
+          "text-sm rounded-l-xl",
+          "transition-transform duration-300 ease-out",
+          isMobileOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <TOCContent />
+      </nav>
+
+      {/* Desktop: Toggle button (only visible when TOC is hidden) */}
+      <button
+        onClick={() => setIsDesktopVisible(!isDesktopVisible)}
+        className={cn(
+          "hidden xl:flex",
+          "fixed top-24 z-40",
+          "items-center justify-center",
+          "transition-all duration-300",
+          isDesktopVisible
+            ? "right-[16.5rem] w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+            : "right-4 w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+        )}
+        aria-label={isDesktopVisible ? "Hide table of contents" : "Show table of contents"}
+      >
+        {isDesktopVisible ? (
+          <CloseIcon className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
+        ) : (
+          <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+        )}
+      </button>
+
+      {/* Desktop: Fixed sidebar */}
+      <nav
+        className={cn(
+          "hidden xl:block",
+          "fixed top-24 right-8 w-56",
+          "max-h-[calc(100vh-8rem)] overflow-y-auto",
+          "text-sm",
+          "transition-all duration-300",
+          isDesktopVisible
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-8 pointer-events-none"
+        )}
+      >
+        <TOCContent />
+      </nav>
+    </>
   );
 }
