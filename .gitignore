@@ -50,3 +50,6 @@ next-env.d.ts
 # wrangler
 .wrangler
 .playwright-mcp
+
+# Blog attachments (local drafts)
+**/attachments/
