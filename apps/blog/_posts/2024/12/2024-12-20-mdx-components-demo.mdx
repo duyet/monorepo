@@ -1,0 +1,397 @@
+---
+slug: /2024/12/2024-12-20-mdx-components-demo
+title: "MDX Interactive Components Demo"
+date: "2024-12-20"
+category: "Development"
+tags: ["MDX", "React", "Components", "Interactive"]
+author: "duyet"
+featured: true
+description: "A comprehensive demonstration of 7 interactive MDX components that enhance your blog posts"
+---
+
+# MDX Interactive Components Demo
+
+Welcome to this comprehensive demonstration of our new MDX interactive components! These components will help you create engaging, data-rich content in your blog posts. Below, you'll find examples of all 7 available components.
+
+## 1. ToolComparison Component
+
+Perfect for comparing multiple tools, libraries, or frameworks:
+
+<ToolComparison
+  tools={[
+    {
+      name: "React",
+      description: "A JavaScript library for building user interfaces",
+      rating: 5,
+      pros: ["Great ecosystem", "Strong community", "Good performance", "Flexibility"],
+      cons: ["Steep learning curve", "JSX can be confusing", "Frequent updates"],
+      features: ["Virtual DOM", "Component-based", "Hooks", "JSX"]
+    },
+    {
+      name: "Vue.js",
+      description: "The progressive JavaScript framework",
+      rating: 4,
+      pros: ["Easy to learn", "Great documentation", "Performance", "Flexibility"],
+      cons: ["Smaller ecosystem", "Corporate backing concerns"],
+      features: ["Reactive components", "Single file components", "Template syntax"]
+    },
+    {
+      name: "Svelte",
+      description: "Cybernetically enhanced web apps",
+      rating: 4,
+      pros: ["Zero runtime overhead", "Simple syntax", "Built-in state management"],
+      cons: ["Smaller ecosystem", "Newer tooling", "Fewer job opportunities"],
+      features: ["Compiler approach", "No virtual DOM", "Reactive statements"]
+    }
+  ]}
+/>
+
+## 2. FeatureMatrix Component
+
+Ideal for detailed feature comparisons with sorting capabilities:
+
+<FeatureMatrix
+  features={["Performance", "Ease of Use", "Community", "Documentation", "Ecosystem"]}
+  rows={[
+    {
+      name: "Docker",
+      description: "Containerization platform",
+      scores: { Performance: 9, "Ease of Use": 7, Community: 10, Documentation: 9, Ecosystem: 10 }
+    },
+    {
+      name: "Kubernetes",
+      description: "Container orchestration",
+      scores: { Performance: 8, "Ease of Use": 5, Community: 9, Documentation: 7, Ecosystem: 9 }
+    },
+    {
+      name: "Podman",
+      description: "Docker alternative",
+      scores: { Performance: 8, "Ease of Use": 9, Community: 7, Documentation: 8, Ecosystem: 7 }
+    },
+    {
+      name: "Nomad",
+      description: "Workload orchestrator",
+      scores: { Performance: 9, "Ease of Use": 8, Community: 6, Documentation: 8, Ecosystem: 6 }
+    }
+  ]}
+  title="Container Tools Comparison Matrix"
+/>
+
+## 3. WakaTimeChart Component
+
+Visualize your coding activity with beautiful charts:
+
+<WakaTimeChart
+  title="Weekly Coding Activity"
+  data={[
+    { date: "Mon", hours: 4.5, language: "TypeScript" },
+    { date: "Mon", hours: 2.3, language: "Python" },
+    { date: "Mon", hours: 1.2, language: "Go" },
+    { date: "Tue", hours: 5.2, language: "TypeScript" },
+    { date: "Tue", hours: 1.8, language: "Python" },
+    { date: "Tue", hours: 2.1, language: "Go" },
+    { date: "Wed", hours: 3.7, language: "TypeScript" },
+    { date: "Wed", hours: 2.5, language: "Python" },
+    { date: "Wed", hours: 1.5, language: "Go" },
+    { date: "Thu", hours: 6.1, language: "TypeScript" },
+    { date: "Thu", hours: 1.9, language: "Python" },
+    { date: "Thu", hours: 0.8, language: "Go" },
+    { date: "Fri", hours: 4.8, language: "TypeScript" },
+    { date: "Fri", hours: 2.2, language: "Python" },
+    { date: "Fri", hours: 1.3, language: "Go" },
+    { date: "Sat", hours: 2.5, language: "TypeScript" },
+    { date: "Sat", hours: 3.0, language: "Python" },
+    { date: "Sat", hours: 0.5, language: "Go" },
+    { date: "Sun", hours: 1.8, language: "TypeScript" },
+    { date: "Sun", hours: 1.2, language: "Python" },
+    { date: "Sun", hours: 0.9, language: "Go" },
+  ]}
+  height={300}
+/>
+
+## 4. ToolTimeline Component
+
+Show development processes or tool adoption timelines:
+
+<ToolTimeline
+  title="Software Development Lifecycle"
+  orientation="vertical"
+  items={[
+    {
+      id: "planning",
+      title: "Planning & Requirements",
+      description: "Gather requirements, define scope, and plan resources",
+      status: "completed",
+      date: "Week 1-2",
+      details: "Completed stakeholder interviews, created detailed specification document"
+    },
+    {
+      id: "design",
+      title: "System Design",
+      description: "Create architecture diagrams and API specifications",
+      status: "completed",
+      date: "Week 3-4",
+      details: "Approved microservices architecture, established CI/CD pipeline"
+    },
+    {
+      id: "dev",
+      title: "Development Phase",
+      description: "Implement core features and integrate services",
+      status: "in-progress",
+      date: "Week 5-8",
+      details: "Currently working on user authentication and database integration"
+    },
+    {
+      id: "testing",
+      title: "Testing & QA",
+      description: "Comprehensive testing including unit, integration, and E2E",
+      status: "planned",
+      date: "Week 9-10",
+      details: "Test plan ready, automation scripts in preparation"
+    },
+    {
+      id: "deployment",
+      title: "Production Deployment",
+      description: "Deploy to production environment with monitoring",
+      status: "planned",
+      date: "Week 11",
+      details: "Deployment runbook being reviewed by DevOps team"
+    }
+  ]}
+/>
+
+## 5. WorkflowDiagram Component
+
+Visualize complex workflows with progress tracking:
+
+<WorkflowDiagram
+  title="CI/CD Pipeline Workflow"
+  steps={[
+    {
+      id: "checkout",
+      title: "Code Checkout",
+      description: "Pull latest code from repository",
+      status: "completed",
+      timeSpent: 2,
+      estimatedTime: 5,
+      notes: "GitHub Action triggered by push to main branch"
+    },
+    {
+      id: "dependencies",
+      title: "Install Dependencies",
+      description: "Install all project dependencies",
+      status: "completed",
+      timeSpent: 45,
+      estimatedTime: 60,
+      dependencies: ["checkout"],
+      notes: "Using bun for faster installation"
+    },
+    {
+      id: "lint",
+      title: "Linting & Formatting",
+      description: "Run ESLint and Prettier checks",
+      status: "completed",
+      timeSpent: 8,
+      estimatedTime: 10,
+      dependencies: ["dependencies"]
+    },
+    {
+      id: "typecheck",
+      title: "Type Checking",
+      description: "TypeScript type checking",
+      status: "completed",
+      timeSpent: 12,
+      estimatedTime: 15,
+      dependencies: ["dependencies"]
+    },
+    {
+      id: "tests",
+      title: "Run Tests",
+      description: "Execute unit and integration tests",
+      status: "in-progress",
+      timeSpent: 30,
+      estimatedTime: 45,
+      dependencies: ["dependencies"],
+      notes: "Unit tests: ✅ | Integration tests: ⏳ | E2E tests: 🔜"
+    },
+    {
+      id: "build",
+      title: "Build Application",
+      description: "Create production build",
+      status: "pending",
+      estimatedTime: 120,
+      dependencies: ["tests", "lint", "typecheck"]
+    },
+    {
+      id: "deploy",
+      title: "Deploy to Production",
+      description: "Deploy to Vercel and Cloudflare Pages",
+      status: "pending",
+      estimatedTime: 5,
+      dependencies: ["build"],
+      notes: "Dual deployment to Vercel and Cloudflare for redundancy"
+    }
+  ]}
+/>
+
+## 6. VersionDiff Component
+
+Show Git-style diffs with code changes:
+
+<VersionDiff
+  title="Code Changes - Feature Implementation"
+  diffs={[
+    {
+      filename: "src/components/App.tsx",
+      added: 12,
+      removed: 3,
+      changes: [
+        { type: "unchanged", content: "import { useState } from 'react';", oldLineNum: 1, newLineNum: 1 },
+        { type: "unchanged", content: "import { Button } from './Button';", oldLineNum: 2, newLineNum: 2 },
+        { type: "unchanged", content: "", oldLineNum: 3, newLineNum: 3 },
+        { type: "removed", content: "const [count, setCount] = useState(0);", oldLineNum: 4 },
+        { type: "added", content: "const [counter, setCounter] = useState(0);", newLineNum: 4 },
+        { type: "unchanged", content: "const [loading, setLoading] = useState(false);", oldLineNum: 5, newLineNum: 5 },
+        { type: "unchanged", content: "", oldLineNum: 6, newLineNum: 6 },
+        { type: "context", content: "// Handle button click", oldLineNum: 7, newLineNum: 6 },
+        { type: "removed", content: "const handleClick = () => {", oldLineNum: 8 },
+        { type: "removed", content: "  setCount(count + 1);", oldLineNum: 9 },
+        { type: "removed", content: "};", oldLineNum: 10 },
+        { type: "added", content: "const handleIncrement = async () => {", newLineNum: 6 },
+        { type: "added", content: "  setLoading(true);", newLineNum: 7 },
+        { type: "added", content: "  try {", newLineNum: 8 },
+        { type: "added", content: "    await api.increment();", newLineNum: 9 },
+        { type: "added", content: "    setCounter(counter + 1);", newLineNum: 10 },
+        { type: "added", content: "  } finally {", newLineNum: 11 },
+        { type: "added", content: "    setLoading(false);", newLineNum: 12 },
+        { type: "added", content: "  }", newLineNum: 13 },
+        { type: "added", content: "};", newLineNum: 14 },
+        { type: "unchanged", content: "", oldLineNum: 11, newLineNum: 15 },
+        { type: "unchanged", content: "return (", oldLineNum: 12, newLineNum: 16 },
+        { type: "unchanged", content: "  <div>", oldLineNum: 13, newLineNum: 17 },
+        { type: "unchanged", content: "    <h1>Counter: {count}</h1>", oldLineNum: 14, newLineNum: 18 },
+        { type: "added", content: "    {loading && <span>Loading...</span>}", newLineNum: 19 },
+        { type: "unchanged", content: "    <Button", oldLineNum: 15, newLineNum: 20 },
+        { type: "unchanged", content: "      onClick={handleClick}", oldLineNum: 16, newLineNum: 21 },
+        { type: "added", content: "      disabled={loading}", newLineNum: 22 },
+        { type: "unchanged", content: "    />", oldLineNum: 17, newLineNum: 23 },
+        { type: "unchanged", content: "  </div>", oldLineNum: 18, newLineNum: 24 },
+        { type: "unchanged", content: ");", oldLineNum: 19, newLineNum: 25 },
+      ]
+    },
+    {
+      filename: "src/utils/api.ts",
+      added: 8,
+      removed: 0,
+      changes: [
+        { type: "unchanged", content: "const API_BASE = 'https://api.example.com';", oldLineNum: 1, newLineNum: 1 },
+        { type: "unchanged", content: "", oldLineNum: 2, newLineNum: 2 },
+        { type: "added", content: "export const increment = async (): Promise<void> => {", newLineNum: 3 },
+        { type: "added", content: "  const response = await fetch(`${API_BASE}/increment`, {", newLineNum: 4 },
+        { type: "added", content: "    method: 'POST',", newLineNum: 5 },
+        { type: "added", content: "    headers: { 'Content-Type': 'application/json' }", newLineNum: 6 },
+        { type: "added", content: "  });", newLineNum: 7 },
+        { type: "added", content: "  if (!response.ok) throw new Error('Failed to increment');", newLineNum: 8 },
+        { type: "added", content: "};", newLineNum: 9 },
+      ]
+    }
+  ]}
+/>
+
+## 7. ToolList Component
+
+Searchable and filterable tool directory:
+
+<ToolList
+  title="Development Tool Directory"
+  tools={[
+    {
+      name: "Visual Studio Code",
+      description: "Free, open-source code editor with excellent TypeScript support",
+      category: "Editor",
+      tags: ["typescript", "javascript", "vscode", "microsoft"],
+      url: "https://code.visualstudio.com",
+      rating: 5
+    },
+    {
+      name: "Neovim",
+      description: "Hyperextensible Vim-based text editor",
+      category: "Editor",
+      tags: ["vim", "terminal", "configurable"],
+      url: "https://neovim.io",
+      rating: 4
+    },
+    {
+      name: "Docker",
+      description: "Containerization platform for building and running applications",
+      category: "DevOps",
+      tags: ["containers", "virtualization", "linux"],
+      url: "https://www.docker.com",
+      rating: 5
+    },
+    {
+      name: "Kubernetes",
+      description: "Container orchestration system for automating deployment and scaling",
+      category: "DevOps",
+      tags: ["orchestration", "containers", "scaling"],
+      url: "https://kubernetes.io",
+      rating: 4
+    },
+    {
+      name: "Postman",
+      description: "API platform for building and using APIs",
+      category: "API",
+      tags: ["testing", "api", "collaboration"],
+      url: "https://www.postman.com",
+      rating: 4
+    },
+    {
+      name: "Insomnia",
+      description: "REST and GraphQL client for API testing",
+      category: "API",
+      tags: ["testing", "api", "graphql"],
+      url: "https://insomnia.rest",
+      rating: 4
+    },
+    {
+      name: "Git",
+      description: "Distributed version control system",
+      category: "VCS",
+      tags: ["version-control", "git", "github"],
+      url: "https://git-scm.com",
+      rating: 5
+    },
+    {
+      name: "PostgreSQL",
+      description: "Advanced open-source relational database",
+      category: "Database",
+      tags: ["sql", "database", "relational"],
+      url: "https://www.postgresql.org",
+      rating: 5
+    }
+  ]}
+/>
+
+## Conclusion
+
+These 7 interactive MDX components provide powerful ways to create engaging, data-rich content for your blog posts. Each component is designed to work seamlessly with markdown content while offering rich interactivity.
+
+### Benefits of MDX Components
+
+- **Better Engagement**: Interactive elements keep readers engaged
+- **Data Visualization**: Present complex information clearly
+- **Comparative Analysis**: Easy tool and feature comparisons
+- **Progress Tracking**: Visualize workflows and timelines
+- **Developer Friendly**: Simple JSX-like syntax
+
+### Getting Started
+
+To use these components in your posts, simply import them in your MDX files:
+
+```mdx
+import { ToolComparison, FeatureMatrix, WakaTimeChart } from '@/components'
+
+<ToolComparison tools={...} />
+```
+
+Happy blogging with MDX! 🚀
