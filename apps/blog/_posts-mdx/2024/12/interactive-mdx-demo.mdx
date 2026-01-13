@@ -1,0 +1,288 @@
+---
+title: 'Interactive MDX Components Demo'
+date: '2024-12-15'
+author: duyetbot
+category: 'Tutorial'
+tags:
+  - MDX
+  - Components
+  - Interactive
+  - React
+slug: /2024/12/interactive-mdx-demo.html
+description: 'A comprehensive demonstration of the new MDX interactive components available for blog posts'
+featured: true
+---
+
+import {
+  ToolComparison,
+  FeatureMatrix,
+  WakaTimeChart,
+  ToolTimeline,
+  WorkflowDiagram,
+  VersionDiff,
+  ToolList
+} from '@/components/mdx'
+
+# Interactive MDX Components Demo
+
+This post demonstrates all 7 new interactive components available for MDX blog posts. These components bring rich, interactive content to your technical writing.
+
+---
+
+## 1. ToolComparison
+
+Use this component to compare tools with pros, cons, and ratings:
+
+<ToolComparison
+  tools={[
+    {
+      name: "React",
+      pros: ["Huge ecosystem", "Great documentation", "Strong community"],
+      cons: ["Steep learning curve", "Frequent breaking changes"],
+      rating: 4
+    },
+    {
+      name: "Vue",
+      pros: ["Easy to learn", "Great documentation", "Flexible"],
+      cons: ["Smaller ecosystem", "Less job opportunities"],
+      rating: 3
+    },
+    {
+      name: "Svelte",
+      pros: ["Excellent performance", "No virtual DOM", "Clean syntax"],
+      cons: ["Younger ecosystem", "Less tooling"],
+      rating: 4
+    }
+  ]}
+/>
+
+---
+
+## 2. FeatureMatrix
+
+A sortable comparison table with color-coded scoring:
+
+<FeatureMatrix
+  data={[
+    { feature: "Performance", tool1: 9, tool2: 7, tool3: 8 },
+    { feature: "Ecosystem", tool1: 10, tool2: 8, tool3: 6 },
+    { feature: "Learning Curve", tool1: 5, tool2: 9, tool3: 7 },
+    { feature: "Documentation", tool1: 9, tool2: 10, tool3: 7 },
+    { feature: "TypeScript", tool1: 10, tool2: 9, tool3: 8 },
+    { feature: "Bundle Size", tool1: 7, tool2: 8, tool3: 9 }
+  ]}
+  tools={["React", "Vue", "Svelte"]}
+/>
+
+> 💡 Click on column headers to sort! Scores are color+shape coded: green=high, yellow=medium, red=low
+
+---
+
+## 3. WakaTimeChart
+
+Stacked area chart for time tracking data:
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", coding: 4.5, reviewing: 1.2, debugging: 1.8, meetings: 0.5 },
+    { date: "Tue", coding: 5.1, reviewing: 0.8, debugging: 2.1, meetings: 0.7 },
+    { date: "Wed", coding: 3.8, reviewing: 1.5, debugging: 1.2, meetings: 1.0 },
+    { date: "Thu", coding: 6.2, reviewing: 0.9, debugging: 0.8, meetings: 0.3 },
+    { date: "Fri", coding: 4.0, reviewing: 2.0, debugging: 1.0, meetings: 0.5 }
+  ]}
+/>
+
+---
+
+## 4. ToolTimeline
+
+Choose between horizontal or vertical timeline layouts:
+
+### Horizontal Timeline
+
+<ToolTimeline
+  orientation="horizontal"
+  items={[
+    { date: "Q1 2023", title: "Research", description: "Exploring options", variant: "default" },
+    { date: "Q2 2023", title: "Design", description: "Architecture phase", variant: "success" },
+    { date: "Q3 2023", title: "Development", description: "Core features", variant: "success" },
+    { date: "Q4 2023", title: "Testing", description: "QA & bug fixes", variant: "warning" },
+    { date: "Q1 2024", title: "Launch", description: "Production release", variant: "success" }
+  ]}
+/>
+
+### Vertical Timeline
+
+<ToolTimeline
+  orientation="vertical"
+  items={[
+    { date: "Jan 2023", title: "Project Kickoff", description: "Initial planning meeting" },
+    { date: "Mar 2023", title: "MVP Complete", description: "Basic functionality ready" },
+    { date: "Jun 2023", title: "User Testing", description: "First feedback round" },
+    { date: "Sep 2023", title: "Beta Release", description: "Limited public beta" },
+    { date: "Dec 2023", title: "Version 1.0", description: "Full production launch" }
+  ]}
+/>
+
+---
+
+## 5. WorkflowDiagram
+
+Animated circular workflow or linear flow:
+
+### Circular Workflow
+
+<WorkflowDiagram
+  variant="circular"
+  steps={[
+    { label: "Plan", icon: "📋" },
+    { label: "Code", icon: "💻" },
+    { label: "Test", icon: "✅" },
+    { label: "Deploy", icon: "🚀" }
+  ]}
+/>
+
+### Linear Workflow
+
+<WorkflowDiagram
+  variant="linear"
+  steps={[
+    { label: "Design", icon: "🎨" },
+    { label: "Develop", icon: "⚙️" },
+    { label: "Review", icon: "🔍" },
+    { label: "Merge", icon: "🔀" },
+    { label: "Release", icon: "🎉" }
+  ]}
+/>
+
+---
+
+## 6. VersionDiff
+
+Git-style diff viewer for code changes:
+
+<VersionDiff
+  oldVersion="1.2.0"
+  newVersion="1.3.0"
+  filename="src/components/Button.tsx"
+  lines={[
+    { type: 'context', content: 'interface ButtonProps {', line: 1 },
+    { type: 'context', content: '  label: string;', line: 2 },
+    { type: 'context', content: '  onClick: () => void;', line: 3 },
+    { type: 'removed', content: '  variant?: "primary" | "secondary";', line: 4 },
+    { type: 'added', content: '  variant?: "primary" | "secondary" | "danger";', line: 4 },
+    { type: 'context', content: '}', line: 5 },
+    { type: 'context', content: '', line: 6 },
+    { type: 'context', content: 'export const Button = (props: ButtonProps) => {', line: 7 },
+    { type: 'removed', content: '  const styles = props.variant === "primary" ? "bg-blue-500" : "bg-gray-500";', line: 8 },
+    { type: 'added', content: '  const styles = props.variant === "primary" ? "bg-blue-500" :', line: 8 },
+    { type: 'added', content: '               props.variant === "danger" ? "bg-red-500" : "bg-gray-500";', line: 9 },
+    { type: 'context', content: '  return <button className={styles}>{props.label}</button>;', line: 10 },
+    { type: 'context', content: '}', line: 11 }
+  ]}
+/>
+
+---
+
+## 7. ToolList
+
+Filterable grid with fuzzy search:
+
+<ToolList
+  tools={[
+    {
+      name: "TypeScript",
+      description: "Typed JavaScript at scale",
+      category: "Language",
+      tags: ["types", "compile-time", "javascript"],
+      url: "https://www.typescriptlang.org"
+    },
+    {
+      name: "React",
+      description: "JavaScript library for building user interfaces",
+      category: "Framework",
+      tags: ["ui", "virtual-dom", "jsx"],
+      url: "https://react.dev"
+    },
+    {
+      name: "Next.js",
+      description: "The React Framework for the web",
+      category: "Framework",
+      tags: ["ssr", "ssg", "fullstack"],
+      url: "https://nextjs.org"
+    },
+    {
+      name: "Prisma",
+      description: "Next-generation ORM for Node.js and TypeScript",
+      category: "Database",
+      tags: ["orm", "postgresql", "mysql"],
+      url: "https://www.prisma.io"
+    },
+    {
+      name: "Tailwind CSS",
+      description: "Utility-first CSS framework",
+      category: "CSS",
+      tags: ["styling", "utility", "design"],
+      url: "https://tailwindcss.com"
+    },
+    {
+      name: "Vite",
+      description: "Next Generation Frontend Tooling",
+      category: "Tooling",
+      tags: ["build", "dev-server", "fast"],
+      url: "https://vitejs.dev"
+    },
+    {
+      name: "PostHog",
+      description: "Product analytics suite",
+      category: "Analytics",
+      tags: ["metrics", "tracking", "insights"],
+      url: "https://posthog.com"
+    },
+    {
+      name: "Docker",
+      description: "Containerization platform",
+      category: "DevOps",
+      tags: ["containers", "deployment", "docker"],
+      url: "https://www.docker.com"
+    }
+  ]}
+/>
+
+> 🔍 Try searching for "react" or filtering by category!
+
+---
+
+## Using These Components
+
+To use these components in your MDX posts:
+
+1. Import from `@/components/mdx`
+2. Use them like regular JSX components
+3. They work seamlessly with markdown content
+
+```mdx
+import { ToolComparison } from '@/components/mdx'
+
+# My Post
+
+<ToolComparison tools={[...]} />
+
+Regular markdown content...
+```
+
+## Benefits of MDX
+
+- **Interactive**: Components are fully reactive
+- **Expressive**: Combine markdown with custom components
+- **Type-safe**: Full TypeScript support
+- **Performance**: Server-side rendered by default
+- **Flexible**: Mix and match components as needed
+
+---
+
+## Conclusion
+
+These 7 components provide a powerful toolkit for creating rich, interactive technical content. Whether you're comparing tools, showing workflows, or analyzing code changes, MDX makes it easy to embed interactive elements directly in your markdown.
+
+Happy writing! 🚀

@@ -1,6 +1,7 @@
 import Container from "@duyet/components/Container";
 import { getAllPosts } from "@duyet/libs/getPost";
 import type { Metadata } from "next";
+import path from "path";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
 
@@ -20,9 +21,40 @@ export const dynamicParams = false;
 export async function generateStaticParams() {
   const posts = getAllPosts(["slug"]);
 
-  return posts.flatMap(({ slug }) => {
+  // Get MDX posts too
+  const mdxPostsDir = path.join(process.cwd(), "_posts");
+  let mdxPosts: string[] = [];
+
+  try {
+    const fs = require('fs');
+    const getPostPaths = (dir: string): string[] => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      const paths: string[] = [];
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          paths.push(...getPostPaths(fullPath));
+        } else if (entry.isFile() && entry.name.endsWith('.mdx')) {
+          paths.push(fullPath);
+        }
+      }
+      return paths;
+    };
+
+    const mdxPaths = getPostPaths(mdxPostsDir);
+    mdxPosts = mdxPaths.map(p => {
+      const rel = path.relative(mdxPostsDir, p);
+      return rel.replace(/\.mdx$/, '').replace(/\\/g, '/');
+    });
+  } catch (e) {
+    // Ignore if no MDX posts
+  }
+
+  const allPosts = [...posts.map(p => p.slug), ...mdxPosts];
+
+  return allPosts.flatMap((slug) => {
     const slugArray = slug
-      .replace(/\.md|\.html$/, ".html")
+      .replace(/\.md|\.mdx|\.html$/, ".html")
       .replace(/^\//, "")
       .split("/");
 

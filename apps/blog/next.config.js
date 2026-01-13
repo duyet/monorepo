@@ -8,12 +8,42 @@ const rootDir = path.resolve(__dirname, "../..");
 loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
 loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
+const withMDX = require("@next/mdx")({
+  options: {
+    remarkPlugins: [
+      require("remark-gfm"),
+      require("remark-math"),
+      require("remark-directive"),
+    ],
+    rehypePlugins: [
+      require("rehype-slug"),
+      require("rehype-autolink-headings"),
+      require("rehype-highlight"),
+      require("rehype-katex"),
+    ],
+  },
+});
+
 /**
  * @type {import('next').NextConfig}
  */
-const config = {
+let config = {
   output: "export",
   transpilePackages: ["@duyet/components", "@duyet/libs"],
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  experimental: {
+    mdxRs: true,
+  },
+  webpack: (config, { isServer }) => {
+    // Exclude MDX from server-side bundle
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@mdx-js/loader': '@mdx-js/loader/client',
+      };
+    }
+    return config;
+  },
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
@@ -52,5 +82,5 @@ const config = {
   // redirects,
 };
 
-module.exports = config;
-// module.exports = withAxiom(config)
+module.exports = withMDX(config);
+// module.exports = withAxiom(withMDX(config))

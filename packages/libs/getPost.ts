@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +56,20 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+
+  // Try .md first, then .mdx
+  const mdPath = join(getPostsDirectory(), `${fileName}.md`);
+  const mdxPath = join(getPostsDirectory(), `${fileName}.mdx`);
+
+  const fs = nodeFs();
+  if (fs.existsSync(mdPath)) {
+    return getPostByPath(mdPath, fields);
+  } else if (fs.existsSync(mdxPath)) {
+    return getPostByPath(mdxPath, fields);
+  } else {
+    throw new Error(`Post not found: ${slug}`);
+  }
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
