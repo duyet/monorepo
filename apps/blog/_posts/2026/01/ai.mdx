@@ -67,7 +67,7 @@ It just works - not only for coding, but for understanding complex systems, refa
 
 The shift from [Copilot](https://github.com/features/copilot) or [Cursor](https://cursor.com/) (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. It's more like having teammates who do their own work, not a pair programmer grabbing your keyboard. They work on their own - I just review results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most code in my GitHub repos is now generated without me writing a single line. I just prompt, watch, and test.
 
-[duyet.net](https://duyet.net) gets updated automatically by Claude Code overnight with a custom tool claude wrapper - my experiment to see how far Claude Code can go, sometime it research for new design, sometime it is broken the website, but it is fun too see. The script looks something like this:
+[duyet.net](https://duyet.net) gets updated automatically by Claude Code overnight with a custom Claude wrapper - my experiment to see how far Claude Code can go. Sometimes it researches new designs, sometimes it breaks the website, but it's fun to see. The script looks something like this:
 
 ```bash
 while true; do cat prompt.md | claude --dangerously-skip-permissions; sleep 1h; done
@@ -91,18 +91,21 @@ I always work with `--dangerously-skip-permissions` - it's not as dangerous as y
 claude --dangerously-skip-permissions --chrome
 ```
 
-
-
 My default list of MCPs are: [context7](https://github.com/upstash/context7#installation), [sequential-thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking), and [zread](https://zread.ai/mcp). It depends on the project I'm working on.
-
-With [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agents) I build a coordinated agent team for parallel task execution with leader delegation to senior/junior. The key is keeping roles minimal. I don't need a dozen specialized agents - just enough hierarchy to parallelize work while maintaining quality on the complex parts.
-
-![Team Agents](/media/2026/01/ai/cc_team_agent.png)
 
 ### History
 
 - Mid 2025: [SuperClaude_Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - a collection of commands, agents, and behaviors installed in your `.claude` folder. Claude Plugins is more convenient now.
 - Early 2025: [Zen MCP](https://github.com/BeehiveInnovations/pal-mcp-server) was a game changer at the time - it let you invoke other providers like Gemini for brainstorming.
+
+## Parallel agents
+
+Don't just try to generate code, start leading a team of parallel agents and using background tasks for your agents. 
+
+I built a [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agents) plugin for a coordinated agent team for parallel task execution with leader delegation to senior/junior. I keep the number of roles minimal, but you can add more for specific tasks. High-level architecture for you, try to parallelize work while maintaining quality on the complex parts.
+
+![Team Agents](/media/2026/01/ai/cc_team_agent.png)
+
 
 ## duyet/claude-plugins
 
@@ -168,13 +171,13 @@ A few tips:
 - **Update it constantly** - if you keep correcting Claude on the same thing, that's a signal it should be in CLAUDE.md. Just say `remember this to CLAUDE.md`
 - **Subdirectory CLAUDE.md files** - this is useful for monorepos, lazy loaded when Claude is actively working in that part of the codebase (e.g. `apps/home/CLAUDE.md`, `apps/blog/CLAUDE.md`, etc).
 
-[AGENTS.md](https://agents.md) the similar mission. If you use both Claude Code and other coding agents (like Codex, Cursor), create a symlink so they share the same instructions:
+[AGENTS.md](https://agents.md) serves a similar purpose. If you use both Claude Code and other coding agents (like Codex, Cursor), create a symlink so they share the same instructions:
 
 ```bash
 ln -s CLAUDE.md AGENTS.md
 ```
 
-or put instructions in `AGENTS.md` an open standard and `CLAUDE.md`:
+or put instructions in `AGENTS.md` (an open standard) and reference it from `CLAUDE.md`:
 
 ```
 @AGENTS.md
