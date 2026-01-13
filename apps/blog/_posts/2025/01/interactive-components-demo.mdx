@@ -1,0 +1,266 @@
+---
+slug: /2025/01/interactive-components-demo
+title: "Interactive Components Demo: MDX in Your Blog"
+date: 2025-01-15
+category: Development
+tags: [MDX, React, Components, Tutorial]
+description: "A comprehensive demonstration of all 7 interactive MDX components available in the blog platform."
+---
+
+Welcome to the **Interactive Components Demo**! This post showcases all the new MDX components available for creating rich, interactive content in your blog.
+
+The blog now supports both traditional `.md` files and modern `.mdx` files with React components. This flexibility allows you to choose the right approach for your content.
+
+## What is MDX?
+
+MDX is a format that lets you write JSX inside your Markdown content. It allows you to import and use React components directly in your markdown, making your content interactive and dynamic.
+
+## Component Showcase
+
+Let's explore each of the 7 interactive components available:
+
+### 1. ToolComparison Component
+
+The ToolComparison component displays pros, cons, and ratings for different tools in a visually appealing way:
+
+<ToolComparison tools={[
+  {
+    name: "React",
+    pros: ["Large ecosystem", "Component-based architecture", "Strong community support"],
+    cons: ["Steep learning curve", "JSX syntax", "Requires build tooling"],
+    rating: 9
+  },
+  {
+    name: "Vue.js",
+    pros: ["Easy learning curve", "Great documentation", "Flexible architecture"],
+    cons: ["Smaller ecosystem", "Limited job market"],
+    rating: 8
+  },
+  {
+    name: "Svelte",
+    pros: ["No virtual DOM", "Built-in reactivity", "Excellent performance"],
+    cons: ["Smaller ecosystem", "Newer framework"],
+    rating: 7
+  }
+]} />
+
+### 2. FeatureMatrix Component
+
+The FeatureMatrix creates a sortable table with color-coded scores and shapes for quick comparison:
+
+<FeatureMatrix
+  features={[
+    { name: "Performance", scores: { React: 8, Vue: 7, Svelte: 9, Angular: 6 } },
+    { name: "Learning Curve", scores: { React: 6, Vue: 9, Svelte: 8, Angular: 5 } },
+    { name: "Ecosystem", scores: { React: 10, Vue: 8, Svelte: 5, Angular: 9 } },
+    { name: "TypeScript", scores: { React: 9, Vue: 9, Svelte: 8, Angular: 10 } },
+    { name: "Community", scores: { React: 10, Vue: 8, Svelte: 6, Angular: 9 } }
+  ]}
+  categories={["React", "Vue", "Svelte", "Angular"]}
+/>
+
+### 3. WakaTimeChart Component
+
+Visualize your coding activity with an interactive stacked area chart:
+
+<WakaTimeChart data={[
+  { date: "Mon", coding: 6.2, reviewing: 1.1, debugging: 0.8 },
+  { date: "Tue", coding: 5.8, reviewing: 1.3, debugging: 1.2 },
+  { date: "Wed", coding: 7.2, reviewing: 0.9, debugging: 0.5 },
+  { date: "Thu", coding: 6.5, reviewing: 1.8, debugging: 0.9 },
+  { date: "Fri", coding: 5.9, reviewing: 1.2, debugging: 1.1 },
+  { date: "Sat", coding: 4.2, reviewing: 0.5, debugging: 0.3 },
+  { date: "Sun", coding: 3.8, reviewing: 0.3, debugging: 0.2 }
+]} />
+
+### 4. ToolTimeline Component
+
+Show development timelines with status indicators. Choose between horizontal and vertical layouts:
+
+<ToolTimeline
+  orientation="vertical"
+  items={[
+    { date: "2024-Q1", title: "Research & Planning", description: "Evaluate existing solutions and requirements", status: "completed", category: "planning" },
+    { date: "2024-Q2", title: "MVP Development", description: "Build core functionality", status: "completed", category: "development" },
+    { date: "2024-Q3", title: "Beta Testing", description: "Gather user feedback", status: "in-progress", category: "testing" },
+    { date: "2024-Q4", title: "Launch", description: "Public release with marketing campaign", status: "planned", category: "launch" },
+    { date: "2025-Q1", title: "Post-launch Support", description: "Bug fixes and updates", status: "planned", category: "maintenance" }
+  ]}
+/>
+
+### 5. WorkflowDiagram Component
+
+Display circular or linear workflows with animated arrows and status indicators:
+
+<WorkflowDiagram
+  orientation="circular"
+  steps={[
+    { id: "1", title: "Design", description: "Create mockups", status: "completed" },
+    { id: "2", title: "Develop", description: "Build components", status: "completed" },
+    { id: "3", title: "Test", description: "QA testing", status: "active" },
+    { id: "4", title: "Deploy", description: "Production release", status: "pending" },
+    { id: "5", title: "Monitor", description: "Performance tracking", status: "pending" },
+    { id: "6", title: "Iterate", description: "Plan next version", status: "pending" }
+  ]}
+/>
+
+### 6. VersionDiff Component
+
+Show code changes like Git diffs with line numbers and copy functionality:
+
+<VersionDiff files={[
+  {
+    filename: "src/components/Button.tsx",
+    additions: 3,
+    deletions: 1,
+    lines: [
+      { type: "unchanged", content: "import React from 'react';", lineNum: 1 },
+      { type: "unchanged", content: "", lineNum: 2 },
+      { type: "removed", content: "- export const Button = ({ label }: { label: string }) => (", lineNum: 3 },
+      { type: "added", content: "+ export const Button = ({ label, onClick }: { label: string; onClick?: () => void }) => (", lineNum: 3 },
+      { type: "unchanged", content: "  <button className=\"btn-primary\">", lineNum: 4 },
+      { type: "unchanged", content: "    {label}", lineNum: 5 },
+      { type: "unchanged", content: "  </button>", lineNum: 6 },
+      { type: "unchanged", content: ");", lineNum: 7 }
+    ]
+  },
+  {
+    filename: "package.json",
+    additions: 1,
+    deletions: 0,
+    lines: [
+      { type: "unchanged", content: "{", lineNum: 1 },
+      { type: "unchanged", content: "  \"name\": \"my-app\",", lineNum: 2 },
+      { type: "unchanged", content: "  \"version\": \"1.0.0\",", lineNum: 3 },
+      { type: "added", content: "+   \"type\": \"module\",", lineNum: 4 },
+      { type: "unchanged", content: "  \"dependencies\": {", lineNum: 5 },
+      { type: "unchanged", content: "    \"react\": \"^18.0.0\"", lineNum: 6 },
+      { type: "unchanged", content: "  }", lineNum: 7 },
+      { type: "unchanged", content: "}", lineNum: 8 }
+    ]
+  }
+]} />
+
+### 7. ToolList Component
+
+Create a filterable grid with fuzzy search for tool recommendations:
+
+<ToolList tools={[
+  {
+    id: "react",
+    name: "React",
+    description: "A JavaScript library for building user interfaces",
+    tags: ["ui", "component", "virtual-dom"],
+    category: "framework",
+    rating: 9,
+    url: "https://react.dev"
+  },
+  {
+    id: "vue",
+    name: "Vue.js",
+    description: "The progressive JavaScript framework",
+    tags: ["ui", "component", "progressive"],
+    category: "framework",
+    rating: 8,
+    url: "https://vuejs.org"
+  },
+  {
+    id: "nextjs",
+    name: "Next.js",
+    description: "The React framework for production",
+    tags: ["react", "framework", "ssr"],
+    category: "framework",
+    rating: 9,
+    url: "https://nextjs.org"
+  },
+  {
+    id: "vite",
+    name: "Vite",
+    description: "Next Generation Frontend Tooling",
+    tags: ["build", "dev-server", "esm"],
+    category: "tooling",
+    rating: 9,
+    url: "https://vitejs.dev"
+  },
+  {
+    id: "typescript",
+    name: "TypeScript",
+    description: "JavaScript with syntax for types",
+    tags: ["typescript", "types", "language"],
+    category: "language",
+    rating: 10,
+    url: "https://www.typescriptlang.org"
+  },
+  {
+    id: "tailwind",
+    name: "Tailwind CSS",
+    description: "A utility-first CSS framework",
+    tags: ["css", "styling", "utility"],
+    category: "tooling",
+    rating: 8,
+    url: "https://tailwindcss.com"
+  }
+]} />
+
+## Usage Guide
+
+### Adding MDX to Your Content
+
+To use these components in your own posts:
+
+1. **Create a `.mdx` file** in the `_posts` directory with proper frontmatter
+2. **Import components** (they're automatically available)
+3. **Use components** in your MDX content with JSX syntax
+
+### File Structure
+
+```
+_posts/
+  2025/
+    01/
+      my-post.mdx
+```
+
+### Frontmatter Template
+
+```mdx
+---
+slug: /2025/01/my-post
+title: "My Amazing Post"
+date: 2025-01-15
+category: Development
+tags: [react, components, mdx]
+description: "Post description for SEO"
+---
+
+Your content here...
+```
+
+### Component Props
+
+Each component has specific props for customization. Check the component source files for detailed prop interfaces and usage examples.
+
+## Why MDX?
+
+MDX provides several advantages:
+
+- **Interactive Content**: Embed React components directly
+- **Type Safety**: Full TypeScript support
+- **Reusability**: Create custom components for your specific needs
+- **Performance**: Client-side hydration only when needed
+- **Flexibility**: Mix static content with dynamic elements
+
+## Backward Compatibility
+
+All existing `.md` posts continue to work exactly as before. The MDX support is additive - you can choose the format that works best for each post.
+
+## Future Enhancements
+
+- More specialized components for specific use cases
+- Component library documentation
+- Better error handling and debugging
+- MDX live code playground examples
+
+---
+
+**Ready to start creating interactive content?** Create your first `.mdx` post and start using these components today! Remember to test your components locally before publishing.

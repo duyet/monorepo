@@ -65,4 +65,10 @@ export async function markdownToHtml(markdown: VFileCompatible) {
   return sanitized;
 }
 
+export async function mdxToHtml(mdxContent: string) {
+  // For MDX files, we'll extract the raw content for client-side rendering
+  // This preserves the markdown content for later MDX compilation
+  return mdxContent;
+}
+
 export default markdownToHtml;
