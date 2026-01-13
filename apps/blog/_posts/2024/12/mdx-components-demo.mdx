@@ -1,0 +1,475 @@
+---
+slug: /2024/12/mdx-components-demo
+title: "MDX Components Showcase - Interactive Post"
+date: "2024-12-15T00:00:00.000Z"
+description: "Explore all 7 new interactive MDX components with real examples"
+category: "Development"
+tags: ["MDX", "React", "Components", "Tutorial"]
+featured: true
+series: "Interactive Content"
+---
+
+# MDX Components Showcase
+
+Welcome to this comprehensive guide showcasing all 7 interactive MDX components available for use in our blog posts. These components are designed to enhance content creation by providing rich, interactive elements that engage readers.
+
+## Overview
+
+Our MDX support allows you to use React components directly in your markdown files, enabling:
+
+- Interactive data visualizations
+- Component-based UIs within content
+- Rich comparisons and analyses
+- Real-time user interaction
+
+Let's explore each component with practical examples.
+
+---
+
+## 1. ToolComparison
+
+The ToolComparison component helps you compare multiple tools side-by-side with interactive card selection.
+
+```jsx
+<ToolComparison tools={[
+  {
+    name: "VSCode",
+    description: "Modern, extensible code editor",
+    pros: ["Fast performance", "Huge extension ecosystem", "Free"],
+    cons: ["Can be memory heavy", "Steep learning curve"],
+    rating: 4.8
+  },
+  {
+    name: "JetBrains IDE",
+    description: "Professional-grade IDE suite",
+    pros: ["Deep language intelligence", "Excellent refactoring tools"],
+    cons: ["Paid subscription", "Resource intensive"],
+    rating: 4.5
+  }
+]} />
+```
+
+<ToolComparison
+  tools={[
+    {
+      name: "VSCode",
+      description: "Modern, extensible code editor from Microsoft",
+      pros: ["Fast performance", "Huge extension ecosystem", "Free and open-source", "Integrated terminal"],
+      cons: ["Can be memory heavy", "Steep learning curve for beginners", "Limited built-in features"],
+      rating: 4.8
+    },
+    {
+      name: "JetBrains IDE",
+      description: "Professional-grade IDE suite (PyCharm/WebStorm/IntelliJ)",
+      pros: ["Deep language intelligence", "Excellent refactoring tools", "Built-in debugger", "Git integration"],
+      cons: ["Paid subscription", "Resource intensive", "Slower startup"],
+      rating: 4.5
+    },
+    {
+      name: "Sublime Text",
+      description: "Lightweight, fast text editor",
+      pros: ["Blazing fast", "Minimalist UI", "Powerful search", "Cross-platform"],
+      cons: ["Limited built-in features", "Plugin ecosystem smaller", "Requires license"],
+      rating: 4.2
+    }
+  ]}
+/>
+
+---
+
+## 2. FeatureMatrix
+
+The FeatureMatrix creates a sortable table with color and shape-coded scoring.
+
+```jsx
+<FeatureMatrix
+  features={[
+    { name: "Speed", description: "Performance and load times" },
+    { name: "UI", description: "User interface quality" },
+    { name: "Features", description: "Built-in functionality" }
+  ]}
+  tools={[
+    { name: "Tool A", scores: { Speed: 5, UI: 4, Features: 3 } },
+    { name: "Tool B", scores: { Speed: 3, UI: 5, Features: 4 } }
+  ]}
+/>
+```
+
+<FeatureMatrix
+  features={[
+    { name: "Speed", description: "Performance and load times" },
+    { name: "UI", description: "User interface quality" },
+    { name: "Features", description: "Built-in functionality" },
+    { name: "Documentation", description: "Help resources and guides" },
+    { name: "Support", description: "Community and official support" }
+  ]}
+  tools={[
+    {
+      name: "React",
+      scores: { Speed: 5, UI: 4, Features: 5, Documentation: 5, Support: 5 },
+      color: "bg-blue-500"
+    },
+    {
+      name: "Vue",
+      scores: { Speed: 4, UI: 5, Features: 4, Documentation: 5, Support: 4 },
+      color: "bg-green-500"
+    },
+    {
+      name: "Svelte",
+      scores: { Speed: 5, UI: 4, Features: 3, Documentation: 4, Support: 3 },
+      color: "bg-orange-500"
+    },
+    {
+      name: "Angular",
+      scores: { Speed: 3, UI: 4, Features: 5, Documentation: 4, Support: 5 },
+      color: "bg-red-500"
+    }
+  ]}
+/>
+
+---
+
+## 3. WakaTimeChart
+
+Visualize coding activity with an interactive stacked area chart.
+
+```jsx
+<WakaTimeChart data={[
+  { date: "2024-12-01", coding: 4.5, building: 2.1, debugging: 1.8, reviewing: 1.2 },
+  { date: "2024-12-02", coding: 3.8, building: 1.5, debugging: 2.2, reviewing: 0.8 },
+  // ... more data
+]} />
+```
+
+<WakaTimeChart
+  data={[
+    { date: "Dec 01", coding: 4.5, building: 2.1, debugging: 1.8, reviewing: 1.2 },
+    { date: "Dec 02", coding: 3.8, building: 1.5, debugging: 2.2, reviewing: 0.8 },
+    { date: "Dec 03", coding: 5.2, building: 2.8, debugging: 1.2, reviewing: 1.5 },
+    { date: "Dec 04", coding: 2.1, building: 1.2, debugging: 3.1, reviewing: 0.9 },
+    { date: "Dec 05", coding: 4.8, building: 2.3, debugging: 1.5, reviewing: 1.8 },
+    { date: "Dec 06", coding: 3.5, building: 1.8, debugging: 2.0, reviewing: 1.0 },
+    { date: "Dec 07", coding: 6.2, building: 3.1, debugging: 1.1, reviewing: 2.1 }
+  ]}
+/>
+
+---
+
+## 4. ToolTimeline
+
+Create vertical or horizontal timelines with status tracking.
+
+```jsx
+<ToolTimeline
+  events={[
+    { name: "Planning", date: "2024-01", description: "Initial requirements gathering", status: "completed" },
+    { name: "Development", date: "2024-02", description: "Core feature implementation", status: "in-progress" },
+    { name: "Testing", date: "2024-03", description: "QA and bug fixes", status: "planned" }
+  ]}
+  orientation="vertical"
+/>
+```
+
+<ToolTimeline
+  events={[
+    {
+      name: "Research",
+      date: "2024-Q1",
+      description: "Market research and competitor analysis",
+      status: "completed",
+      icon: "📊"
+    },
+    {
+      name: "Design",
+      date: "2024-Q1",
+      description: "UI/UX mockups and wireframes",
+      status: "completed",
+      icon: "🎨"
+    },
+    {
+      name: "Development",
+      date: "2024-Q2",
+      description: "Build the core application",
+      status: "in-progress",
+      icon: "💻"
+    },
+    {
+      name: "Testing",
+      date: "2024-Q3",
+      description: "Unit tests, integration tests, QA",
+      status: "planned",
+      icon: "🧪"
+    },
+    {
+      name: "Deployment",
+      date: "2024-Q4",
+      description: "Production deployment and monitoring",
+      status: "planned",
+      icon: "🚀"
+    },
+    {
+      name: "Maintenance",
+      date: "2025-Q1",
+      description: "Ongoing support and improvements",
+      status: "delayed",
+      icon: "🔧"
+    }
+  ]}
+/>
+
+---
+
+## 5. WorkflowDiagram
+
+Interactive workflow with dependency tracking and progress visualization.
+
+```jsx
+<WorkflowDiagram
+  steps={[
+    { id: "setup", title: "Setup Environment", description: "Install dependencies", dependencies: [] },
+    { id: "build", title: "Build Foundation", description: "Core architecture", dependencies: ["setup"] },
+    { id: "test", title: "Testing", description: "Unit and integration tests", dependencies: ["build"] }
+  ]}
+/>
+```
+
+<WorkflowDiagram
+  steps={[
+    {
+      id: "setup",
+      title: "Environment Setup",
+      description: "Install Node.js, set up repositories, configure environment variables",
+      dependencies: [],
+      estimatedTime: "1 hour"
+    },
+    {
+      id: "database",
+      title: "Database Schema",
+      description: "Design and implement database structure, migrations, and seed data",
+      dependencies: ["setup"],
+      estimatedTime: "2 hours"
+    },
+    {
+      id: "api",
+      title: "API Development",
+      description: "Build REST endpoints, authentication, and validation",
+      dependencies: ["database"],
+      estimatedTime: "4 hours"
+    },
+    {
+      id: "frontend",
+      title: "Frontend Components",
+      description: "Create UI components and integrate with API",
+      dependencies: ["api"],
+      estimatedTime: "6 hours"
+    },
+    {
+      id: "testing",
+      title: "Testing & QA",
+      description: "Write tests, perform QA checks, bug fixes",
+      dependencies: ["frontend"],
+      estimatedTime: "3 hours"
+    },
+    {
+      id: "deploy",
+      title: "Deployment",
+      description: "Deploy to production and configure monitoring",
+      dependencies: ["testing"],
+      estimatedTime: "1 hour"
+    }
+  ]}
+/>
+
+---
+
+## 6. VersionDiff
+
+Display code changes in Git-style diff format.
+
+```jsx
+<VersionDiff
+  fileName="main.js"
+  oldVersion={`const greeting = "Hello";
+console.log(greeting);`}
+  newVersion={`const greeting = "Hello, MDX!";
+const name = "World";
+console.log(greeting + " " + name);`}
+/>
+```
+
+<VersionDiff
+  fileName="utils.ts"
+  oldVersion={`export const add = (a: number, b: number) => {
+  return a + b;
+}
+
+export const subtract = (a: number, b: number) => {
+  return a - b;
+}`}
+  newVersion={`export const add = (a: number, b: number): number => {
+  return a + b;
+}
+
+export const subtract = (a: number, b: number): number => {
+  return a - b;
+}
+
+export const multiply = (a: number, b: number): number => {
+  return a * b;
+}
+
+export const divide = (a: number, b: number): number => {
+  if (b === 0) throw new Error("Division by zero");
+  return a / b;
+}`}
+/>
+
+---
+
+## 7. ToolList
+
+Filterable grid with fuzzy search and multiple filter options.
+
+```jsx
+<ToolList
+  tools={[
+    {
+      id: "tool-1",
+      name: "React",
+      description: "JavaScript UI library",
+      category: "Development",
+      tags: ["frontend", "library", "jsx"],
+      rating: 4.8,
+      featured: true
+    }
+  ]}
+/>
+```
+
+<ToolList
+  tools={[
+    {
+      id: "tool-1",
+      name: "React",
+      description: "A JavaScript library for building user interfaces",
+      category: "Development",
+      tags: ["frontend", "library", "jsx", "components"],
+      rating: 4.8,
+      icon: "⚛️",
+      featured: true
+    },
+    {
+      id: "tool-2",
+      name: "VSCode",
+      description: "Code editor with extensions and debugging",
+      category: "Development",
+      tags: ["editor", "javascript", "typescript", "debugging"],
+      rating: 4.7,
+      icon: "⚡",
+      featured: true
+    },
+    {
+      id: "tool-3",
+      name: "Figma",
+      description: "Design tool for UI/UX creation",
+      category: "Design",
+      tags: ["design", "ui", "ux", "prototyping"],
+      rating: 4.6,
+      icon: "🎨"
+    },
+    {
+      id: "tool-4",
+      name: "Notion",
+      description: "All-in-one workspace for notes and docs",
+      category: "Productivity",
+      tags: ["notes", "docs", "knowledge", "collaboration"],
+      rating: 4.5,
+      icon: "📝"
+    },
+    {
+      id: "tool-5",
+      name: "Git",
+      description: "Distributed version control system",
+      category: "Utilities",
+      tags: ["git", "version-control", "collaboration"],
+      rating: 4.9,
+      icon: "🔧"
+    },
+    {
+      id: "tool-6",
+      name: "Docker",
+      description: "Container platform for applications",
+      category: "Development",
+      tags: ["docker", "containers", "devops", "deployment"],
+      rating: 4.7,
+      icon: "🐳"
+    },
+    {
+      id: "tool-7",
+      name: "Adobe XD",
+      description: "Design and prototyping tool",
+      category: "Design",
+      tags: ["design", "prototyping", "ui", "vector"],
+      rating: 4.3,
+      icon: "🖌️"
+    },
+    {
+      id: "tool-8",
+      name: "Postman",
+      description: "API testing and development tool",
+      category: "Development",
+      tags: ["api", "testing", "rest", "json"],
+      rating: 4.6,
+      icon: "📮"
+    },
+    {
+      id: "tool-9",
+      name: "Slack",
+      description: "Team communication and collaboration",
+      category: "Productivity",
+      tags: ["chat", "team", "collaboration", "messaging"],
+      rating: 4.4,
+      icon: "💬"
+    },
+    {
+      id: "tool-10",
+      name: "Trello",
+      description: "Project management and Kanban boards",
+      category: "Productivity",
+      tags: ["kanban", "projects", "task-management", "agile"],
+      rating: 4.3,
+      icon: "📋"
+    }
+  ]}
+/>
+
+---
+
+## Benefits of MDX Components
+
+Using these interactive components in your MDX posts provides:
+
+- **Enhanced Engagement**: Readers can interact with content instead of passive reading
+- **Better Data Visualization**: Complex information becomes easier to understand
+- **Rich Comparisons**: Make informed decisions with interactive comparison tables
+- **Progress Tracking**: Visualize workflows and completion status
+- **Code Understanding**: Diff viewers make changes clear and readable
+
+## Getting Started
+
+To use these components in your MDX posts:
+
+1. **MDX Files**: Save your posts with `.mdx` extension in the `_posts` directory
+2. **Import Components**: Components are auto-imported (or explicitly import from `@duyet/components`)
+3. **Use in Content**: Just use JSX syntax directly in your markdown
+4. **Front Matter**: Use standard front matter for metadata
+
+## Conclusion
+
+MDX transforms static content into interactive experiences. Whether you're writing tutorials, documenting processes, or sharing data insights, these components help you create more engaging and effective content.
+
+Try each component above to see how they enhance the reading experience!
+
+---
+
+*This demo showcases all 7 interactive MDX components. Feel free to experiment with them in your own posts.*

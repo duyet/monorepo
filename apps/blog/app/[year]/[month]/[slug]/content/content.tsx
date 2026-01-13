@@ -52,9 +52,11 @@ export async function getPost(slug: string[]) {
     "tags",
     "series",
     "snippet",
+    "extension",
   ]);
   const markdownContent = post.content || "Error";
-  const content = await markdownToHtml(markdownContent);
+  const isMdx = post.extension === "mdx";
+  const content = await markdownToHtml(markdownContent, isMdx);
 
   return {
     ...post,

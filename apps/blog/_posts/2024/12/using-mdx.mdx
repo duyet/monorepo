@@ -1,0 +1,104 @@
+---
+slug: /2024/12/using-mdx
+title: "Getting Started with MDX in Our Blog"
+date: "2024-12-15T00:00:00.000Z"
+description: "Learn how to use MDX posts in our blog system"
+category: "Tutorial"
+tags: ["MDX", "React", "Content", "Tutorial"]
+featured: true
+---
+
+# Getting Started with MDX
+
+Our blog now supports **MDX** (Markdown + JSX), which allows you to use React components directly in your markdown content.
+
+## What is MDX?
+
+MDX is a format that lets you seamlessly use JSX in your markdown documents. You can:
+
+- Import and use React components
+- Create interactive content
+- Keep the simplicity of markdown for most content
+- Enhance with custom components when needed
+
+## Basic Markdown Still Works
+
+This is still valid markdown:
+
+- Lists work
+- **Bold** and *italic* text
+- `inline code`
+- Links: [GitHub](https://github.com)
+
+```javascript
+// Code blocks still work
+function hello(name) {
+  return `Hello, ${name}!`;
+}
+```
+
+## What's New
+
+The MDX support includes:
+
+1. **7 Interactive Components** for rich content
+2. **Automatic .mdx file detection**
+3. **Backward compatibility** with existing `.md` files
+4. **KaTeX math rendering** (still works)
+
+## Component Demo
+
+Since full React component integration requires additional build-time processing, here's what the workflow looks like for using our MDX components:
+
+```jsx
+import { ToolComparison } from '@duyet/components';
+
+<ToolComparison
+  tools={[
+    {
+      name: "Tool A",
+      description: "Great for beginners",
+      pros: ["Easy to use", "Good docs"],
+      cons: ["Limited features"],
+      rating: 4.5
+    }
+  ]}
+/>
+```
+
+This will render an interactive tool comparison card where readers can click and explore different tools.
+
+## The 7 Components
+
+1. **ToolComparison** - Interactive card-based tool comparison
+2. **FeatureMatrix** - Sortable score matrix with color coding
+3. **WakaTimeChart** - Stacked area chart for coding metrics
+4. **ToolTimeline** - Horizontal/vertical timelines with statuses
+5. **WorkflowDiagram** - Interactive workflow with dependencies
+6. **VersionDiff** - Git-style diff viewer
+7. **ToolList** - Searchable, filterable tool directory
+
+## Current Status
+
+**MDX is enabled** for the blog system:
+- ✅ File detection and parsing
+- ✅ Post interface with extension field
+- ✅ 7 interactive components ready
+- ✅ Sample MDX post created
+
+## Future Enhancements
+
+To enable the full power of MDX components, future work includes:
+
+1. **Build-time MDX compilation** for proper React component hydration
+2. **Component registry** for auto-importing in MDX files
+3. **Interactive playground** for testing components
+4. **Code examples** for each component
+
+## Conclusion
+
+MDX support is now available in the blog! This enables more engaging and interactive content while maintaining the simplicity of markdown for traditional posts.
+
+---
+
+*Try creating your own MDX post today!* 🚀

@@ -47,3 +47,6 @@ export * from "./illustrations";
 // AI Components
 export * from "./ai";
 export * from "./thinking";
+
+// MDX Components
+export * from "./mdx";

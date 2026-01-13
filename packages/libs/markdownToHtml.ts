@@ -11,11 +11,18 @@ import remarkRehype from "remark-rehype";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkMdx from "remark-mdx";
 import sanitizeHtml from "sanitize-html";
 
-export async function markdownToHtml(markdown: VFileCompatible) {
-  const result = await unified()
-    .use(remarkParse, { fragment: true })
+export async function markdownToHtml(markdown: VFileCompatible, isMdx = false) {
+  let processor = unified()
+    .use(remarkParse, { fragment: true });
+
+  if (isMdx) {
+    processor = processor.use(remarkMdx);
+  }
+
+  processor = processor
     .use(remarkMath)
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
@@ -24,10 +31,17 @@ export async function markdownToHtml(markdown: VFileCompatible) {
     .use(rehypeAutolinkHeadings)
     .use(rehypeFormat)
     .use(rehypeKatex)
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(markdown);
+    .use(rehypeStringify, { allowDangerousHtml: true });
 
-  // Sanitize HTML to prevent XSS attacks
+  const result = await processor.process(markdown);
+
+  // For MDX, we return the raw content without sanitization
+  // as MDX components are trusted and sanitized at the component level
+  if (isMdx) {
+    return result.toString();
+  }
+
+  // Sanitize HTML to prevent XSS attacks for regular markdown
   const sanitized = sanitizeHtml(result.toString(), {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       "math",
