@@ -68,9 +68,23 @@ const getDataForPeriod = async (days: number) => {
   // Support both auth methods: API_KEY (local dev) or API_TOKEN (production)
   const authToken = apiToken || apiKey;
   if (!zoneId || !authToken) {
-    throw new Error(
-      "Cloudflare API credentials not configured. CLOUDFLARE_ZONE_ID and CLOUDFLARE_API_KEY or CLOUDFLARE_API_TOKEN environment variables are required."
+    // Return empty data for SSG builds without credentials
+    console.warn(
+      "[Cloudflare] API credentials not configured - returning empty data for SSG build"
     );
+    return {
+      data: {
+        viewer: {
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
+      },
+      totalRequests: 0,
+      totalPageviews: 0,
+    };
   }
 
   // Cloudflare free tier only allows max 364 days of data (31536000s limit)
