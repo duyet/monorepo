@@ -1,0 +1,284 @@
+---
+slug: /2025/01/interactive-components-demo
+title: Interactive Components Demo - MDX Support
+date: 2025-01-15
+description: A comprehensive showcase of 7 interactive components demonstrating the new MDX support in the blog
+category: Blog
+tags: [MDX, React, Interactive, Components, Demo, Tutorial]
+---
+
+# Interactive Components Demo
+
+Welcome to the interactive components demonstration! This post showcases all 7 interactive components available with MDX support in our blog.
+
+MDX allows us to use JSX components directly in our markdown files, making it easy to create rich, interactive content.
+
+## 1. Tool Comparison
+
+Here's a comparison of popular development tools with pros, cons, and ratings:
+
+<ToolComparison
+  tools={[
+    {
+      name: "VS Code",
+      pros: ["Extensions ecosystem", "Git integration", "Debugging tools", "Lightweight"],
+      cons: ["Can be slow with large files", "Memory usage"],
+      rating: 4.5
+    },
+    {
+      name: "IntelliJ IDEA",
+      pros: ["Smart code completion", "Refactoring tools", "Database tools"],
+      cons: ["Resource heavy", "Paid for Ultimate"],
+      rating: 4.2
+    },
+    {
+      name: "Neovim",
+      pros: ["Extremely fast", "Highly customizable", "Terminal based"],
+      cons: ["Steep learning curve", "Configuration complexity"],
+      rating: 4.0
+    }
+  ]}
+/>
+
+## 2. Feature Matrix
+
+The following matrix compares features across different tools with sortable columns and color-coded scores:
+
+<FeatureMatrix
+  features={[
+    {
+      name: "Code Intelligence",
+      tools: [
+        { name: "ToolA", score: 9, color: "#3b82f6", shape: "circle" },
+        { name: "ToolB", score: 7, color: "#10b981", shape: "square" },
+        { name: "ToolC", score: 8, color: "#f59e0b", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Debugging",
+      tools: [
+        { name: "ToolA", score: 8, color: "#3b82f6", shape: "circle" },
+        { name: "ToolB", score: 9, color: "#10b981", shape: "square" },
+        { name: "ToolC", score: 7, color: "#f59e0b", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Integration",
+      tools: [
+        { name: "ToolA", score: 7, color: "#3b82f6", shape: "circle" },
+        { name: "ToolB", score: 8, color: "#10b981", shape: "square" },
+        { name: "ToolC", score: 9, color: "#f59e0b", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Performance",
+      tools: [
+        { name: "ToolA", score: 8, color: "#3b82f6", shape: "circle" },
+        { name: "ToolB", score: 6, color: "#10b981", shape: "square" },
+        { name: "ToolC", score: 9, color: "#f59e0b", shape: "triangle" }
+      ]
+    }
+  ]}
+/>
+
+## 3. WakaTime Activity Chart
+
+Visualize your coding activity with a beautiful stacked area chart:
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", coding: 5.2, debugging: 1.8, documentation: 0.8, meetings: 1.2 },
+    { date: "Tue", coding: 6.1, debugging: 2.3, documentation: 1.1, meetings: 0.8 },
+    { date: "Wed", coding: 4.8, debugging: 1.9, documentation: 0.6, meetings: 1.5 },
+    { date: "Thu", coding: 7.2, debugging: 2.1, documentation: 1.3, meetings: 1.0 },
+    { date: "Fri", coding: 5.9, debugging: 1.7, documentation: 0.9, meetings: 1.1 },
+    { date: "Sat", coding: 3.2, debugging: 0.8, documentation: 0.4, meetings: 0.2 },
+    { date: "Sun", coding: 2.1, debugging: 0.5, documentation: 0.2, meetings: 0.1 }
+  ]}
+/>
+
+## 4. Tool Timeline
+
+Visualize the progression of tools and technologies over time with status indicators:
+
+<ToolTimeline
+  events={[
+    {
+      date: "2020-Q1",
+      title: "Initial Planning",
+      description: "Research and select development tools for the project",
+      status: "completed"
+    },
+    {
+      date: "2020-Q2",
+      title: "VS Code Adoption",
+      description: "Migrate team to VS Code with standardized extensions",
+      status: "completed"
+    },
+    {
+      date: "2020-Q3",
+      title: "CI/CD Setup",
+      description: "Implement automated testing and deployment pipeline",
+      status: "completed"
+    },
+    {
+      date: "2021-Q1",
+      title: "Docker Migration",
+      description: "Containerize all services for consistent environments",
+      status: "completed"
+    },
+    {
+      date: "2021-Q3",
+      title: "Kubernetes Adoption",
+      description: "Deploy to Kubernetes cluster for scaling",
+      status: "in-progress"
+    },
+    {
+      date: "2022-Q2",
+      title: "Service Mesh",
+      description: "Implement Istio for advanced traffic management",
+      status: "planned"
+    },
+    {
+      date: "2022-Q4",
+      title: "Serverless",
+      description: "Migrate non-critical services to serverless",
+      status: "planned"
+    }
+  ]}
+/>
+
+## 5. Workflow Diagram
+
+A circular workflow diagram showing the development process:
+
+<WorkflowDiagram
+  steps={[
+    { id: "1", label: "Plan", description: "Define requirements" },
+    { id: "2", label: "Design", description: "Create wireframes" },
+    { id: "3", label: "Develop", description: "Write code" },
+    { id: "4", label: "Test", description: "Unit & integration tests" },
+    { id: "5", label: "Deploy", description: "Production release" },
+    { id: "6", label: "Monitor", description: "Performance tracking" },
+    { id: "7", label: "Feedback", description: "User feedback loop" },
+    { id: "8", label: "Improve", description: "Iterate & optimize" }
+  ]}
+  direction="clockwise"
+/>
+
+## 6. Version Diff Viewer
+
+A git-style diff viewer showing what changed between versions:
+
+<VersionDiff
+  oldVersion={`function calculateTotal(items) {
+  let total = 0;
+  for (let i = 0; i < items.length; i++) {
+    total += items[i].price * items[i].quantity;
+  }
+  return total;
+}`}
+  newVersion={`function calculateTotal(items) {
+  return items.reduce((total, item) => {
+    const itemPrice = item.price * (1 - (item.discount || 0));
+    return total + itemPrice * item.quantity;
+  }, 0);
+}
+
+function applyDiscount(items, discountCode) {
+  // Apply discount logic here
+}`}
+  title="Payment Module Update"
+/>
+
+## 7. Tool List
+
+Filterable grid of tools with fuzzy search:
+
+<ToolList
+  tools={[
+    {
+      name: "Docker",
+      category: "Container",
+      description: "Platform for developing, shipping, and running applications",
+      tags: ["container", "docker", "devops"],
+      rating: 5,
+      url: "https://docker.com"
+    },
+    {
+      name: "Kubernetes",
+      category: "Orchestration",
+      description: "Container orchestration system for automating deployment",
+      tags: ["k8s", "orchestration", "devops"],
+      rating: 4,
+      url: "https://kubernetes.io"
+    },
+    {
+      name: "Terraform",
+      category: "Infrastructure",
+      description: "Infrastructure as code tool for cloud provisioning",
+      tags: ["iac", "terraform", "cloud"],
+      rating: 4.5,
+      url: "https://terraform.io"
+    },
+    {
+      name: "React",
+      category: "Frontend",
+      description: "JavaScript library for building user interfaces",
+      tags: ["react", "frontend", "javascript"],
+      rating: 5,
+      url: "https://react.dev"
+    },
+    {
+      name: "Next.js",
+      category: "Framework",
+      description: "React framework with server-side rendering",
+      tags: ["nextjs", "react", "frontend"],
+      rating: 4.8,
+      url: "https://nextjs.org"
+    },
+    {
+      name: "PostgreSQL",
+      category: "Database",
+      description: "Advanced open-source relational database",
+      tags: ["database", "sql", "postgres"],
+      rating: 4.7,
+      url: "https://postgresql.org"
+    }
+  ]}
+/>
+
+## Writing Your Own MDX
+
+To use these components in your own MDX posts:
+
+1. Create a file with `.mdx` extension in `_posts/YYYY/MM/`
+2. Add the frontmatter with `slug`, `title`, `date`, etc.
+3. Use any of the 7 components directly in your content
+
+Example:
+\`\`\`mdx
+---
+slug: /2025/01/my-post
+title: My MDX Post
+---
+
+# Hello MDX
+
+<ToolComparison tools={[...]} />
+\`\`\`
+
+## Conclusion
+
+MDX support brings powerful interactivity to our blog while maintaining backward compatibility with existing `.md` files. You can now create rich, interactive content that enhances the reader experience.
+
+The 7 interactive components provide:
+- **ToolComparison**: Side-by-side tool comparisons
+- **FeatureMatrix**: Sortable comparison tables
+- **WakaTimeChart**: Activity visualization
+- **ToolTimeline**: Progress tracking
+- **WorkflowDiagram**: Process illustration
+- **VersionDiff**: Code comparison
+- **ToolList**: Filterable tool directories
+
+Happy writing!

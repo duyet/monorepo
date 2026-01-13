@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +56,23 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+  const fullPath = join(getPostsDirectory(), `${fileName}.md`);
+  const fullPathMdx = join(getPostsDirectory(), `${fileName}.mdx`);
+
+  const fs = nodeFs();
+
+  // Try .md first, then .mdx
+  if (fs.existsSync(fullPath)) {
+    return getPostByPath(fullPath, fields);
+  }
+
+  if (fs.existsSync(fullPathMdx)) {
+    return getPostByPath(fullPathMdx, fields);
+  }
+
+  // Fallback to .md
+  return getPostByPath(fullPath, fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
@@ -108,6 +123,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "path") {
       post.path = fullPath;
+    }
+
+    if (field === "isMdx") {
+      post.isMdx = fullPath.toLowerCase().endsWith('.mdx');
     }
 
     if (field === "date") {

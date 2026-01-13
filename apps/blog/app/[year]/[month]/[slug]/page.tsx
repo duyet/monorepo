@@ -21,8 +21,9 @@ export async function generateStaticParams() {
   const posts = getAllPosts(["slug"]);
 
   return posts.flatMap(({ slug }) => {
+    // Handle both .md and .mdx files
     const slugArray = slug
-      .replace(/\.md|\.html$/, ".html")
+      .replace(/\.md|\.mdx|\.html$/, ".html")
       .replace(/^\//, "")
       .split("/");
 
