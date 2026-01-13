@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 

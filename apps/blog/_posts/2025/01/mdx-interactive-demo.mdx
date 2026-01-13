@@ -1,0 +1,300 @@
+---
+slug: /2025/01/mdx-interactive-demo
+title: "MDX Interactive Components Demo"
+date: 2025-01-13
+category: Development
+tags: [MDX, React, Interactive, Components]
+excerpt: "A comprehensive demonstration of 7 interactive MDX components for rich blog content"
+snippet: "Explore the power of MDX with these 7 interactive components: ToolComparison, FeatureMatrix, WakaTimeChart, ToolTimeline, WorkflowDiagram, VersionDiff, and ToolList."
+featured: true
+---
+
+# MDX Interactive Components Demo
+
+This post demonstrates all 7 interactive MDX components available in the blog system. Each component provides rich, interactive content capabilities for your blog posts.
+
+## 1. ToolComparison Component
+
+The ToolComparison component allows you to compare multiple tools side-by-side with pros, cons, and ratings.
+
+<ToolComparison
+  tools={[
+    {
+      name: "React",
+      pros: [
+        "Huge ecosystem and community",
+        "Excellent developer tools",
+        "Great for SPAs",
+        "Component-based architecture"
+      ],
+      cons: [
+        "Steeper learning curve",
+        "JSX requires build step",
+        "Overkill for simple sites"
+      ],
+      rating: 5
+    },
+    {
+      name: "Vue",
+      pros: [
+        "Gentle learning curve",
+        "Single file components",
+        "Excellent documentation",
+        "Flexible and lightweight"
+      ],
+      cons: [
+        "Smaller ecosystem than React",
+        "Fewer job opportunities",
+        "Can be inconsistent"
+      ],
+      rating: 4
+    },
+    {
+      name: "Svelte",
+      pros: [
+        "No virtual DOM overhead",
+        "Truly reactive by default",
+        "Excellent compiler optimization",
+        "Minimal boilerplate"
+      ],
+      cons: [
+        "Smaller ecosystem",
+        "Newer, less battle-tested",
+        "Limited component libraries"
+      ],
+      rating: 4
+    }
+  ]}
+/>
+
+## 2. FeatureMatrix Component
+
+The FeatureMatrix component creates a sortable table with color and shape-coded scores.
+
+<FeatureMatrix
+  features={[
+    {
+      name: "Performance",
+      tools: [
+        { name: "React", score: 4, color: "blue", shape: "circle" },
+        { name: "Vue", score: 3, color: "green", shape: "square" },
+        { name: "Svelte", score: 5, color: "purple", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Learning Curve",
+      tools: [
+        { name: "React", score: 2, color: "red", shape: "circle" },
+        { name: "Vue", score: 4, color: "green", shape: "square" },
+        { name: "Svelte", score: 4, color: "purple", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Ecosystem",
+      tools: [
+        { name: "React", score: 5, color: "blue", shape: "circle" },
+        { name: "Vue", score: 4, color: "green", shape: "square" },
+        { name: "Svelte", score: 2, color: "red", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Bundle Size",
+      tools: [
+        { name: "React", score: 3, color: "yellow", shape: "circle" },
+        { name: "Vue", score: 4, color: "green", shape: "square" },
+        { name: "Svelte", score: 5, color: "purple", shape: "triangle" }
+      ]
+    }
+  ]}
+/>
+
+## 3. WakaTimeChart Component
+
+The WakaTimeChart component displays a stacked area chart for tracking development time.
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", frontend: 2.5, backend: 3.0, database: 1.0, testing: 0.5, other: 0.5 },
+    { date: "Tue", frontend: 3.0, backend: 2.5, database: 1.5, testing: 1.0, other: 0.5 },
+    { date: "Wed", frontend: 2.0, backend: 4.0, database: 1.0, testing: 0.5, other: 0.5 },
+    { date: "Thu", frontend: 3.5, backend: 2.0, database: 1.0, testing: 1.5, other: 0.5 },
+    { date: "Fri", frontend: 2.5, backend: 3.0, database: 1.5, testing: 1.0, other: 0.5 },
+    { date: "Sat", frontend: 1.0, backend: 1.5, database: 0.5, testing: 0.5, other: 1.0 },
+    { date: "Sun", frontend: 0.5, backend: 1.0, database: 0.0, testing: 0.0, other: 0.5 }
+  ]}
+/>
+
+## 4. ToolTimeline Component
+
+The ToolTimeline component creates vertical timelines for project milestones.
+
+<ToolTimeline
+  events={[
+    {
+      date: "2024-01-15",
+      title: "Initial Release",
+      description: "First stable version released with basic features",
+      version: "1.0.0",
+      type: "release",
+      link: "https://github.com/example/releases/v1.0.0"
+    },
+    {
+      date: "2024-03-20",
+      title: "Major Feature Update",
+      description: "Added dark mode, offline support, and performance improvements",
+      version: "2.0.0",
+      type: "feature",
+      link: "https://github.com/example/releases/v2.0.0"
+    },
+    {
+      date: "2024-05-10",
+      title: "Critical Bug Fixes",
+      description: "Fixed memory leaks and security vulnerabilities",
+      version: "2.0.1",
+      type: "bugfix",
+      link: "https://github.com/example/releases/v2.0.1"
+    },
+    {
+      date: "2024-08-01",
+      title: "Community Announcement",
+      description: "New partnership and roadmap for next year",
+      type: "announcement"
+    }
+  ]}
+/>
+
+## 5. WorkflowDiagram Component
+
+The WorkflowDiagram component creates circular flow diagrams with animation.
+
+<WorkflowDiagram
+  nodes={[
+    { id: "A", title: "Input", description: "User data collection", position: { x: 150, y: 100 } },
+    { id: "B", title: "Process", description: "Data validation", position: { x: 250, y: 200 } },
+    { id: "C", title: "Analyze", description: "ML processing", position: { x: 150, y: 300 } },
+    { id: "D", title: "Output", description: "Results delivery", position: { x: 50, y: 200 } }
+  ]}
+  edges={[
+    { from: "A", to: "B", label: "validate" },
+    { from: "B", to: "C", label: "transform" },
+    { from: "C", to: "D", label: "export" },
+    { from: "D", to: "A", label: "feedback" }
+  ]}
+/>
+
+## 6. VersionDiff Component
+
+The VersionDiff component displays git-style diff comparisons.
+
+<VersionDiff
+  files={[
+    {
+      path: "src/components/Button.tsx",
+      oldVersion: "v1.0.0",
+      newVersion: "v1.1.0",
+      changes: [
+        { type: "unchanged", line: 1, content: "import React from 'react';" },
+        { type: "unchanged", line: 2, content: "" },
+        { type: "removed", line: 3, content: "export const Button = ({ children }) => (" },
+        { type: "added", line: 3, content: "export interface ButtonProps { children: React.ReactNode; onClick?: () => void; }" },
+        { type: "added", line: 4, content: "" },
+        { type: "added", line: 5, content: "export const Button = ({ children, onClick }: ButtonProps) => (" },
+        { type: "unchanged", line: 6, content: "  <button className=\"btn\" onClick={onClick}>" },
+        { type: "unchanged", line: 7, content: "    {children}" },
+        { type: "unchanged", line: 8, content: "  </button>" },
+        { type: "unchanged", line: 9, content: ");" }
+      ]
+    },
+    {
+      path: "README.md",
+      changes: [
+        { type: "unchanged", line: 1, content: "# Project Name" },
+        { type: "unchanged", line: 2, content: "" },
+        { type: "removed", line: 3, content: "Version: 1.0.0" },
+        { type: "added", line: 3, content: "Version: 1.1.0" },
+        { type: "added", line: 4, content: "- Added TypeScript support" }
+      ]
+    }
+  ]}
+/>
+
+## 7. ToolList Component
+
+The ToolList component provides a filterable grid with fuzzy search.
+
+<ToolList
+  tools={[
+    {
+      id: "1",
+      name: "VS Code",
+      category: "Editor",
+      description: "Lightweight but powerful source code editor",
+      tags: ["javascript", "typescript", "web", "free"],
+      rating: 4.8,
+      price: "Free",
+      url: "https://code.visualstudio.com"
+    },
+    {
+      id: "2",
+      name: "WebStorm",
+      category: "IDE",
+      description: "Professional JavaScript IDE with all features included",
+      tags: ["javascript", "typescript", "enterprise", "paid"],
+      rating: 4.6,
+      price: "$129/year",
+      url: "https://www.jetbrains.com/webstorm"
+    },
+    {
+      id: "3",
+      name: "Sublime Text",
+      category: "Editor",
+      description: "Sophisticated text editor for code, markup and prose",
+      tags: ["multi-language", "fast", "paid"],
+      rating: 4.4,
+      price: "$99",
+      url: "https://www.sublimetext.com"
+    },
+    {
+      id: "4",
+      name: "Vim",
+      category: "Editor",
+      description: "Highly configurable text editor built to make creating and changing any kind of text very efficient",
+      tags: ["terminal", "keyboard-centric", "free", "steep-curve"],
+      rating: 4.2,
+      price: "Free",
+      url: "https://www.vim.org"
+    },
+    {
+      id: "5",
+      name: "GitHub Copilot",
+      category: "AI Assistant",
+      description: "AI pair programmer in your editor",
+      tags: ["ai", "autocomplete", "paid", "productivity"],
+      rating: 4.5,
+      price: "$10/month",
+      url: "https://github.com/features/copilot"
+    },
+    {
+      id: "6",
+      name: "Docker",
+      category: "Container",
+      description: "Containerization platform for developing and shipping apps",
+      tags: ["devops", "containers", "cloud", "free"],
+      rating: 4.7,
+      price: "Free",
+      url: "https://www.docker.com"
+    }
+  ]}
+/>
+
+## Conclusion
+
+These 7 interactive components provide powerful ways to create rich, engaging content in your MDX posts. Each component is:
+
+- **Client-side**: Interactive on the client
+- **Customizable**: Props for data and styling
+- **Type-safe**: Full TypeScript support
+- **Accessible**: Follows web accessibility standards
+- **Responsive**: Works on all screen sizes
+
+You can use these components in your own MDX posts by importing them in your MDX content or using them directly in your post files. Happy writing!
