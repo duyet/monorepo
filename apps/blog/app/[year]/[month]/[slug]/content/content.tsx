@@ -28,9 +28,9 @@ export default async function Content({ post }: { post: ContentPost }) {
           className={cn(
             "mt-2 inline-block break-words py-2",
             "font-serif text-neutral-900 dark:text-neutral-100",
-            "text-4xl font-bold tracking-normal",
-            "md:text-5xl md:tracking-tight",
-            "lg:text-6xl lg:tracking-tight"
+            "text-3xl font-bold tracking-normal",
+            "md:text-4xl md:tracking-tight",
+            "lg:text-5xl lg:tracking-tight"
           )}
         >
           {post.title}
