@@ -1,0 +1,342 @@
+---
+slug: /2024/12/interactive-components-demo
+title: "MDX Interactive Components Demo"
+date: 2024-12-15
+category: Tutorial
+tags: [MDX, React, Next.js, Components, Interactive]
+featured: true
+description: "A comprehensive demonstration of all 7 interactive MDX components available in the blog"
+---
+
+# MDX Interactive Components Demo
+
+Welcome to the new MDX-powered blog! This post demonstrates all 7 interactive components that you can now use in your .mdx posts. These components bring rich, interactive content to your blog while maintaining compatibility with existing .md posts.
+
+## Tool Comparison
+
+The **ToolComparison** component helps you compare two tools side-by-side with pros, cons, and ratings:
+
+<ToolComparison
+  tool1="React"
+  tool2="Vue"
+  pros1={["Large ecosystem", "Great for complex apps", "Strong community support", "Excellent TypeScript support"]}
+  cons1={["Steeper learning curve", "Bundle size can be large"]}
+  pros2={["Easy to learn", "Small bundle size", "Great documentation", "Flexible"]}
+  cons2={["Smaller ecosystem", "Fewer enterprise resources"]}
+  rating1={4.5}
+  rating2={4.2}
+/>
+
+## Feature Matrix
+
+The **FeatureMatrix** component creates sortable tables with color-coded ratings:
+
+<FeatureMatrix
+  tools={["Next.js", "Nuxt", "SvelteKit"]}
+  rows={[
+    {
+      feature: { name: "Server Components", category: "Architecture" },
+      tool1Value: "Excellent",
+      tool2Value: "Fair",
+      tool3Value: "Good"
+    },
+    {
+      feature: { name: "File-based Routing", category: "Routing" },
+      tool1Value: "Excellent",
+      tool2Value: "Excellent",
+      tool3Value: "Excellent"
+    },
+    {
+      feature: { name: "Built-in SEO", category: "Features" },
+      tool1Value: "Good",
+      tool2Value: "Excellent",
+      tool3Value: "Good"
+    },
+    {
+      feature: { name: "Hot Reload", category: "DX" },
+      tool1Value: "Excellent",
+      tool2Value: "Good",
+      tool3Value: "Excellent"
+    },
+    {
+      feature: { name: "Bundle Size", category: "Performance" },
+      tool1Value: "Good",
+      tool2Value: "Excellent",
+      tool3Value: "Excellent"
+    }
+  ]}
+/>
+
+## WakaTime Chart
+
+Visualize coding activity with the **WakaTimeChart** component:
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", coding: 4.5, reviewing: 1.2, debugging: 0.8, other: 0.5 },
+    { date: "Tue", coding: 3.8, reviewing: 2.1, debugging: 1.2, other: 0.4 },
+    { date: "Wed", coding: 5.2, reviewing: 0.8, debugging: 0.6, other: 0.3 },
+    { date: "Thu", coding: 4.1, reviewing: 1.5, debugging: 1.8, other: 0.6 },
+    { date: "Fri", coding: 3.5, reviewing: 2.3, debugging: 0.4, other: 0.7 },
+    { date: "Sat", coding: 2.2, reviewing: 0.5, debugging: 0.3, other: 1.1 },
+    { date: "Sun", coding: 1.8, reviewing: 0.2, debugging: 0.2, other: 0.8 }
+  ]}
+  title="Weekly Development Activity"
+  height={300}
+/>
+
+## Tool Timeline
+
+Show project milestones and progress with the **ToolTimeline** component:
+
+<ToolTimeline
+  items={[
+    {
+      title: "Project Kickoff",
+      date: "Jan 1, 2024",
+      description: "Initial planning and requirements gathering",
+      status: "completed"
+    },
+    {
+      title: "Design System",
+      date: "Jan 15, 2024",
+      description: "Create component library and design tokens",
+      status: "completed"
+    },
+    {
+      title: "Core Implementation",
+      date: "Feb 1, 2024",
+      description: "Build main features and functionality",
+      status: "in-progress"
+    },
+    {
+      title: "Testing & QA",
+      date: "Mar 1, 2024",
+      description: "Comprehensive testing and bug fixes",
+      status: "pending"
+    },
+    {
+      title: "Production Launch",
+      date: "Mar 15, 2024",
+      description: "Deploy to production environment",
+      status: "pending"
+    }
+  ]}
+/>
+
+### Horizontal Timeline
+
+You can also use horizontal timelines for different visual presentations:
+
+<ToolTimeline
+  direction="horizontal"
+  items={[
+    {
+      title: "Research",
+      date: "Q1",
+      status: "completed"
+    },
+    {
+      title: "Build",
+      date: "Q2",
+      status: "in-progress"
+    },
+    {
+      title: "Test",
+      date: "Q3",
+      status: "pending"
+    },
+    {
+      title: "Launch",
+      date: "Q4",
+      status: "pending"
+    }
+  ]}
+/>
+
+## Workflow Diagram
+
+Visualize processes with the **WorkflowDiagram** component:
+
+<WorkflowDiagram
+  nodes={[
+    { id: "1", label: "Input", icon: "📥" },
+    { id: "2", label: "Process", icon: "⚙️" },
+    { id: "3", label: "Validate", icon: "✅" },
+    { id: "4", label: "Store", icon: "💾" },
+    { id: "5", label: "Output", icon: "📤" }
+  ]}
+  animated={true}
+/>
+
+### Vertical Workflow
+
+For linear processes, use the vertical variant:
+
+<WorkflowDiagram
+  nodes={[
+    { id: "1", label: "Plan", icon: "📋" },
+    { id: "2", label: "Code", icon: "💻" },
+    { id: "3", label: "Review", icon: "👀" },
+    { id: "4", label: "Deploy", icon: "🚀" }
+  ]}
+/>
+
+## Version Diff
+
+Show code changes with the **VersionDiff** component:
+
+<VersionDiff
+  title="API Changes"
+  filename="src/api/users.ts"
+  lines={[
+    { type: "header", content: "diff --git a/src/api/users.ts b/src/api/users.ts" },
+    { type: "header", content: "--- a/src/api/users.ts" },
+    { type: "header", content: "+++ b/src/api/users.ts" },
+    { oldLine: 1, newLine: 1, content: "interface User {", type: "context" },
+    { oldLine: 2, newLine: 2, content: "  id: string;", type: "context" },
+    { oldLine: 3, newLine: 3, content: "  name: string;", type: "context" },
+    { oldLine: 4, newLine: 4, content: "  email: string;", type: "context" },
+    { oldLine: 5, newLine: 5, content: "}", type: "context" },
+    { oldLine: 6, newLine: 6, content: " ", type: "context" },
+    { oldLine: 7, newLine: 7, content: "-const getUsers = () => {", type: "removed" },
+    { oldLine: 8, newLine: 8, content: "-  return fetch('/api/users').then(res => res.json());", type: "removed" },
+    { oldLine: 9, newLine: 9, content: "};", type: "context" },
+    { oldLine: 10, newLine: 10, content: " ", type: "context" },
+    { oldLine: 11, newLine: 11, content: "+const getUsers = async (): Promise<User[]> => {", type: "added" },
+    { oldLine: 12, newLine: 12, content: "+  const response = await fetch('/api/users');", type: "added" },
+    { oldLine: 13, newLine: 13, content: "+  if (!response.ok) throw new Error('Failed to fetch');", type: "added" },
+    { oldLine: 14, newLine: 14, content: "+  return response.json();", type: "added" },
+    { oldLine: 15, newLine: 15, content: "+};", type: "added" }
+  ]}
+/>
+
+You can also use the helper to generate diffs programmatically:
+
+```typescript
+const diff = createGitDiff(
+  "config.js",
+  `module.exports = { debug: true }`,
+  `module.exports = { debug: false }`
+);
+```
+
+## Tool List
+
+The **ToolList** component provides a filterable grid of tools with fuzzy search:
+
+<ToolList
+  tools={[
+    {
+      name: "TypeScript",
+      category: "Language",
+      description: "JavaScript with syntax for types",
+      stars: 5,
+      tags: ["static-typing", "javascript", "es6"],
+      url: "https://www.typescriptlang.org"
+    },
+    {
+      name: "Next.js",
+      category: "Framework",
+      description: "The React framework for production",
+      stars: 5,
+      tags: ["react", "ssr", "rsc"],
+      url: "https://nextjs.org"
+    },
+    {
+      name: "Tailwind CSS",
+      category: "Styling",
+      description: "Utility-first CSS framework",
+      stars: 4.5,
+      tags: ["css", "utility", "design"],
+      url: "https://tailwindcss.com"
+    },
+    {
+      name: "Prisma",
+      category: "Database",
+      description: "Modern database toolkit for TypeScript",
+      stars: 4.5,
+      tags: ["orm", "database", "typescript"],
+      url: "https://www.prisma.io"
+    },
+    {
+      name: "Vite",
+      category: "Build Tool",
+      description: "Next Generation Frontend Tooling",
+      stars: 4.8,
+      tags: ["build", "fast", "dev-server"],
+      url: "https://vitejs.dev"
+    },
+    {
+      name: "PostgreSQL",
+      category: "Database",
+      description: "The world's most advanced open source database",
+      stars: 4.9,
+      tags: ["sql", "relational", "production"],
+      url: "https://www.postgresql.org"
+    }
+  ]}
+/>
+
+### Fuzzy Search Tool List
+
+For more flexible searching, use the **FuzzyToolList** component:
+
+<FuzzyToolList
+  tools={[
+    {
+      name: "React Query",
+      category: "State Management",
+      description: "Powerful asynchronous state management for React",
+      tags: ["async", "data-fetching", "cache"],
+      stars: 4.7
+    },
+    {
+      name: "Zustand",
+      category: "State Management",
+      description: "A small, fast and scalable bearbones state management",
+      tags: ["store", "simple", "hooks"],
+      stars: 4.5
+    },
+    {
+      name: "Redux Toolkit",
+      category: "State Management",
+      description: "The official, opinionated, batteries-included toolset for efficient Redux development",
+      tags: ["redux", "enterprise", "typescript"],
+      stars: 4.3
+    }
+  ]}
+/>
+
+## Using Custom MDX Components
+
+You can also import additional components directly in your MDX files:
+
+```jsx
+import { BarChart, Bar } from 'recharts'
+
+<BarChart data={[{ name: 'A', value: 400 }, { name: 'B', value: 300 }]}>
+  <Bar dataKey="value" fill="#3b82f6" />
+</BarChart>
+```
+
+## Backward Compatibility
+
+All existing `.md` posts continue to work without any changes. The system automatically:
+
+1. Detects file type (`.md` vs `.mdx`)
+2. Processes markdown normally for `.md` files
+3. Renders MDX components for `.mdx` files
+4. Falls back gracefully if MDX isn't configured
+
+## Conclusion
+
+These interactive components open up new possibilities for creating engaging, data-rich content. Whether you're writing tutorials, product comparisons, or project updates, these tools help make your content more valuable to readers.
+
+Happy writing!
+
+---
+**Resources:**
+- [MDX Documentation](https://mdxjs.com/)
+- [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- [Recharts Documentation](https://recharts.org/)

@@ -46,7 +46,8 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    // Support both .md and .mdx files
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,7 +57,22 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+
+  // Try .mdx first, then fall back to .md
+  const fs = nodeFs();
+  const possiblePaths = [
+    join(getPostsDirectory(), `${fileName}.mdx`),
+    join(getPostsDirectory(), `${fileName}.md`),
+  ];
+
+  for (const path of possiblePaths) {
+    if (fs.existsSync(path)) {
+      return getPostByPath(path, fields);
+    }
+  }
+
+  // If neither exists, default to .md (will fail later if it doesn't exist)
   return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
 }
 
@@ -85,6 +101,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     tags_slug: [],
     snippet: "",
     featured: false,
+    fileType: fullPath.endsWith(".mdx") ? "mdx" : "md",
+    isMDX: fullPath.endsWith(".mdx"),
+    rawContent: content,
+    frontmatter: data,
   };
 
   // Ensure only the minimal needed data is exposed

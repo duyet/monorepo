@@ -15,6 +15,10 @@ export type Post = {
   series?: string;
   snippet?: string;
   path?: string;
+  fileType?: "md" | "mdx";
+  isMDX?: boolean;
+  rawContent?: string;
+  frontmatter?: Record<string, any>;
 };
 
 export interface TagCount {

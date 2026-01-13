@@ -1,5 +1,4 @@
 export * from "./clickhouse";
-export * from "./clickhouse";
 export * from "./clearUrl";
 export * from "./date";
 export * from "./fetcher";
@@ -7,5 +6,6 @@ export * from "./getPost";
 export * from "./getSlug";
 export * from "./getUser";
 export * from "./markdownToHtml";
+export * from "./mdxToHtml";
 export * from "./next-routes";
 export * from "./utils";

@@ -47,7 +47,10 @@
     "remark-math": "^6.0.0",
     "rss": "^1.2.2",
     "sanitize-html": "^2.17.0",
-    "swr": "^2.0.0"
+    "swr": "^2.0.0",
+    "next-mdx-remote": "^5.0.0",
+    "recharts": "^2.15.0",
+    "fuzzyjs": "^5.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.0.0",

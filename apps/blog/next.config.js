@@ -48,6 +48,12 @@ const config = {
       },
     ],
   },
+  // Support for MDX - we'll handle this via getPost utility functions
+  // MDX processing is done at runtime with next-mdx-remote
+  experimental: {
+    // Enable MDX support if needed for future versions
+    mdxRs: false, // Using next-mdx-remote instead
+  },
   // Redirects don't work with static export
   // redirects,
 };
