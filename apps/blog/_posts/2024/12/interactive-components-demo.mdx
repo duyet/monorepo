@@ -1,0 +1,242 @@
+---
+slug: /2024/12/interactive-components-demo
+title: Interactive Components Demo - MDX Support
+date: 2024-12-01
+description: A comprehensive showcase of 7 interactive components demonstrating the new MDX support in the blog
+category: Blog
+tags: [MDX, React, Interactive, Components, Demo]
+---
+
+# Interactive Components Demo
+
+Welcome to the interactive components demonstration! This post showcases all 7 interactive components available with MDX support in our blog.
+
+## 1. Tool Comparison
+
+Here's a comparison of popular development tools:
+
+<ToolComparison
+  tools={[
+    {
+      name: "VS Code",
+      pros: ["Extensions ecosystem", "Git integration", "Debugging tools", "Lightweight"],
+      cons: ["Can be slow with large files", "Memory usage"],
+      rating: 4.5
+    },
+    {
+      name: "IntelliJ IDEA",
+      pros: ["Smart code completion", "Refactoring tools", "Database tools"],
+      cons: ["Resource heavy", "Paid for Ultimate"],
+      rating: 4.2
+    },
+    {
+      name: "Neovim",
+      pros: ["Extremely fast", "Highly customizable", "Terminal based"],
+      cons: ["Steep learning curve", "Configuration complexity"],
+      rating: 4.0
+    }
+  ]}
+/>
+
+## 2. Feature Matrix
+
+The following matrix compares features across different tools with sortable columns:
+
+<FeatureMatrix
+  features={[
+    {
+      name: "Code Intelligence",
+      tools: [
+        { name: "ToolA", score: 9, color: "blue", shape: "circle" },
+        { name: "ToolB", score: 7, color: "green", shape: "square" },
+        { name: "ToolC", score: 8, color: "yellow", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Debugging",
+      tools: [
+        { name: "ToolA", score: 8, color: "blue", shape: "circle" },
+        { name: "ToolB", score: 9, color: "green", shape: "square" },
+        { name: "ToolC", score: 7, color: "yellow", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Integration",
+      tools: [
+        { name: "ToolA", score: 7, color: "blue", shape: "circle" },
+        { name: "ToolB", score: 8, color: "green", shape: "square" },
+        { name: "ToolC", score: 9, color: "yellow", shape: "triangle" }
+      ]
+    },
+    {
+      name: "Performance",
+      tools: [
+        { name: "ToolA", score: 8, color: "blue", shape: "circle" },
+        { name: "ToolB", score: 6, color: "green", shape: "square" },
+        { name: "ToolC", score: 9, color: "yellow", shape: "triangle" }
+      ]
+    }
+  ]}
+/>
+
+## 3. WakaTime Activity Chart
+
+Visualize your coding activity with a beautiful stacked area chart:
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", coding: 5.2, debugging: 1.8, documentation: 0.8, meetings: 1.2 },
+    { date: "Tue", coding: 6.1, debugging: 2.3, documentation: 1.1, meetings: 0.8 },
+    { date: "Wed", coding: 4.8, debugging: 1.9, documentation: 0.6, meetings: 1.5 },
+    { date: "Thu", coding: 7.2, debugging: 2.1, documentation: 1.3, meetings: 1.0 },
+    { date: "Fri", coding: 5.9, debugging: 1.7, documentation: 0.9, meetings: 1.1 },
+    { date: "Sat", coding: 3.2, debugging: 0.8, documentation: 0.4, meetings: 0.2 },
+    { date: "Sun", coding: 2.1, debugging: 0.5, documentation: 0.2, meetings: 0.1 }
+  ]}
+/>
+
+## 4. Tool Timeline
+
+Visualize the progression of tools and technologies over time:
+
+<ToolTimeline
+  orientation="horizontal"
+  items={[
+    {
+      title: "Initial Release",
+      date: "January 2024",
+      description: "First public release with basic features",
+      status: "completed"
+    },
+    {
+      title: "Major Update",
+      date: "March 2024",
+      description: "Added 10+ new features and improvements",
+      status: "completed"
+    },
+    {
+      title: "Cloud Integration",
+      date: "June 2024",
+      description: "Cloud sync and collaboration features",
+      status: "active"
+    },
+    {
+      title: "AI Enhancement",
+      date: "Q1 2025",
+      description: "Machine learning powered suggestions",
+      status: "planned"
+    }
+  ]}
+/>
+
+## 5. Workflow Diagram
+
+A circular workflow showing the development process:
+
+<WorkflowDiagram
+  steps={[
+    {
+      title: "Plan",
+      description: "Requirements & Design"
+    },
+    {
+      title: "Code",
+      description: "Implementation"
+    },
+    {
+      title: "Test",
+      description: "Quality Assurance"
+    },
+    {
+      title: "Review",
+      description: "Peer Review"
+    },
+    {
+      title: "Deploy",
+      description: "Production Release"
+    }
+  ]}
+/>
+
+## 6. Version Diff
+
+See what changed between versions in a git-style diff:
+
+<VersionDiff
+  oldVersion="v1.2.0"
+  newVersion="v2.0.0"
+  changes={[
+    { type: "removed", line: 45, content: "const oldConfig = legacy.load();" },
+    { type: "modified", line: 67, content: "const timeout = 3000; // was: 5000" },
+    { type: "added", line: 68, content: "const retryCount = 3;" },
+    { type: "modified", line: 89, content: "export function process(data) {" },
+    { type: "added", line: 90, content: "  if (!data) throw new Error('No data');" },
+    { type: "removed", line: 91, content: "  return oldProcess(data);" },
+    { type: "added", line: 92, content: "  return newProcess(data, retryCount);" }
+  ]}
+/>
+
+## 7. Tool List
+
+A searchable, filterable list of tools:
+
+<ToolList
+  tools={[
+    {
+      name: "TypeScript",
+      category: "language",
+      description: "Strongly typed JavaScript that scales",
+      tags: ["types", "javascript", "frontend"]
+    },
+    {
+      name: "React",
+      category: "framework",
+      description: "A JavaScript library for building user interfaces",
+      tags: ["ui", "components", "frontend"]
+    },
+    {
+      name: "Next.js",
+      category: "framework",
+      description: "The React framework for production",
+      tags: ["ssr", "fullstack", "react"]
+    },
+    {
+      name: "PostgreSQL",
+      category: "database",
+      description: "Advanced relational database system",
+      tags: ["sql", "relational", "production"]
+    },
+    {
+      name: "Redis",
+      category: "database",
+      description: "In-memory data structure store",
+      tags: ["cache", "in-memory", "fast"]
+    },
+    {
+      name: "Docker",
+      category: "devops",
+      description: "Container platform for applications",
+      tags: ["containers", "deployment", "ci"]
+    },
+    {
+      name: "GitHub Actions",
+      category: "devops",
+      description: "Automation for your CI/CD workflows",
+      tags: ["ci", "cd", "automation"]
+    }
+  ]}
+/>
+
+## Summary
+
+These 7 interactive components demonstrate the power and flexibility of MDX support in our blog. You can:
+
+- **Compare tools** with ratings and detailed pros/cons
+- **Analyze features** with sortable matrices
+- **Visualize data** with custom charts
+- **Show timelines** with status indicators
+- **Display workflows** with circular diagrams
+- **Track changes** with git-style diffs
+- **List items** with search and filtering
+
+MDX allows us to seamlessly blend Markdown content with React components, making our posts more interactive and engaging!
