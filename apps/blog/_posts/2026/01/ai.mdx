@@ -81,7 +81,6 @@ There's no one correct way to use Claude Code. The following sections are for an
 
 ## Claude Code Setup
 
-{/* ![[cc_setup.png]] */}
 ![Claude Code Setup](/media/2026/01/ai/cc_setup.png)
 
 I prefer disabling Auto-compact - it's slow, wastes 45.0k tokens (22.5%) for the buffer, and usually loses context. I use sub-agents when possible since they have their own context. Otherwise I run `/export` to the clipboard, then `/clear` and paste the previous content back. The export won't include thinking tokens or tool calls, so you save a lot and the model still tracks well. 
@@ -98,7 +97,6 @@ My default list of MCPs are: [context7](https://github.com/upstash/context7#inst
 
 With [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agents) I build a coordinated agent team for parallel task execution with leader delegation to senior/junior. The key is keeping roles minimal. I don't need a dozen specialized agents - just enough hierarchy to parallelize work while maintaining quality on the complex parts.
 
-{/* ![[cc_team_agent.png]] */}
 ![Team Agents](/media/2026/01/ai/cc_team_agent.png)
 
 ### History
@@ -160,7 +158,7 @@ Plan mode performs significantly better than just prompting directly. When you g
   </Step>
 </Steps>
 
-## CLAUDE.md
+## CLAUDE.md, AGENTS.md
 
 First thing Claude does when starting a session is read your `CLAUDE.md` file. Most people ignore it, but it's actually really important. It keeps things consistent across sessions and saves time - Claude doesn't need to re-investigate your project setup every time.
 
@@ -170,7 +168,7 @@ A few tips:
 - **Update it constantly** - if you keep correcting Claude on the same thing, that's a signal it should be in CLAUDE.md. Just say `remember this to CLAUDE.md`
 - **Subdirectory CLAUDE.md files** - this is useful for monorepos, lazy loaded when Claude is actively working in that part of the codebase (e.g. `apps/home/CLAUDE.md`, `apps/blog/CLAUDE.md`, etc).
 
-If you use both Claude Code and other coding agents (like Codex), create a symlink so they share the same instructions:
+[AGENTS.md](https://agents.md) the similar mission. If you use both Claude Code and other coding agents (like Codex, Cursor), create a symlink so they share the same instructions:
 
 ```bash
 ln -s CLAUDE.md AGENTS.md
@@ -228,7 +226,6 @@ For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins
 /interview:interview ~/.claude/plans/adaptive-dazzling-lamport.md
 ```
 
-{/* ![[cc_interview.png]] */}
 ![Interview](/media/2026/01/ai/cc_interview.png)
 
 ## Claude Code + Ralph Loop
