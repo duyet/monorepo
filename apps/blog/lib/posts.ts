@@ -20,28 +20,42 @@ export function getAllPosts(): Post[] {
     return []
   }
 
-  const fileNames = fs.readdirSync(postsDirectory)
   const allPostsData: Post[] = []
+  const years = fs.readdirSync(postsDirectory)
 
-  fileNames.forEach((fileName) => {
-    if (fileName.endsWith('.md') || fileName.endsWith('.mdx')) {
-      const slug = fileName.replace(/\.(mdx|md)$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data, content } = matter(fileContents)
+  for (const year of years) {
+    const yearPath = path.join(postsDirectory, year)
+    if (!fs.statSync(yearPath).isDirectory()) continue
 
-      allPostsData.push({
-        slug,
-        title: data.title || slug,
-        date: data.date || new Date().toISOString(),
-        author: data.author,
-        excerpt: data.excerpt || content.slice(0, 200) + '...',
-        content,
-        tags: data.tags || [],
-        featured: data.featured || false,
-      })
+    const months = fs.readdirSync(yearPath)
+
+    for (const month of months) {
+      const monthPath = path.join(yearPath, month)
+      if (!fs.statSync(monthPath).isDirectory()) continue
+
+      const files = fs.readdirSync(monthPath)
+
+      for (const file of files) {
+        if (file.endsWith('.md') || file.endsWith('.mdx')) {
+          const slug = file.replace(/\.(mdx|md)$/, '')
+          const fullPath = path.join(monthPath, file)
+          const fileContents = fs.readFileSync(fullPath, 'utf8')
+          const { data, content } = matter(fileContents)
+
+          allPostsData.push({
+            slug,
+            title: data.title || slug,
+            date: data.date || new Date().toISOString(),
+            author: data.author,
+            excerpt: data.excerpt || content.slice(0, 200) + '...',
+            content,
+            tags: data.tags || [],
+            featured: data.featured || false,
+          })
+        }
+      }
     }
-  })
+  }
 
   return allPostsData.sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -53,6 +67,44 @@ export function getPostBySlug(slug: string): Post | null {
     return null
   }
 
+  // First try to find the slug in year/month directories
+  const years = fs.readdirSync(postsDirectory)
+
+  for (const year of years) {
+    const yearPath = path.join(postsDirectory, year)
+    if (!fs.statSync(yearPath).isDirectory()) continue
+
+    const months = fs.readdirSync(yearPath)
+
+    for (const month of months) {
+      const monthPath = path.join(yearPath, month)
+      if (!fs.statSync(monthPath).isDirectory()) continue
+
+      const files = fs.readdirSync(monthPath)
+
+      for (const file of files) {
+        const fileName = file.replace(/\.(mdx|md)$/, '')
+        if (fileName === slug) {
+          const fullPath = path.join(monthPath, file)
+          const fileContents = fs.readFileSync(fullPath, 'utf8')
+          const { data, content } = matter(fileContents)
+
+          return {
+            slug,
+            title: data.title || slug,
+            date: data.date || new Date().toISOString(),
+            author: data.author,
+            excerpt: data.excerpt || content.slice(0, 200) + '...',
+            content,
+            tags: data.tags || [],
+            featured: data.featured || false,
+          }
+        }
+      }
+    }
+  }
+
+  // If not found in year/month directories, try flat structure
   const possibleFiles = [
     `${slug}.mdx`,
     `${slug}.md`,

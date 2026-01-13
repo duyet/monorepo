@@ -53,5 +53,13 @@ const config = {
   // redirects,
 };
 
-module.exports = config;
-// module.exports = withAxiom(config)
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+module.exports = withMDX(config);
+// module.exports = withAxiom(withMDX(config))

@@ -1,10 +1,23 @@
 import React from 'react'
-import { getPostBySlug, getAllPosts } from '@/lib/posts'
+import { getAllPosts, getPostBySlug } from '@/lib/posts'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { ToolComparison, FeatureMatrix, WakaTimeChart, ToolTimeline, WorkflowDiagram, VersionDiff, ToolList } from '@/components/mdx'
 
 interface PageProps {
   params: {
     slug: string
   }
+}
+
+const components = {
+  ToolComparison,
+  FeatureMatrix,
+  WakaTimeChart,
+  ToolTimeline,
+  WorkflowDiagram,
+  VersionDiff,
+  ToolList,
 }
 
 export async function generateStaticParams() {
@@ -29,7 +42,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
-export default function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(params.slug)
 
   if (!post) {
@@ -41,16 +54,10 @@ export default function BlogPostPage({ params }: PageProps) {
     )
   }
 
-  // Simple MDX rendering - for now, just show the content as HTML
-  // In a real implementation, you would use a proper MDX renderer
-  const contentHtml = post.content
-    .replace(/<ToolComparison.*?<\/ToolComparison>/gs, '<div class="tool-comparison-placeholder">Tool Comparison Component</div>')
-    .replace(/<FeatureMatrix.*?<\/FeatureMatrix>/gs, '<div class="feature-matrix-placeholder">Feature Matrix Component</div>')
-    .replace(/<WakaTimeChart.*?<\/WakaTimeChart>/gs, '<div class="chart-placeholder">WakaTime Chart Component</div>')
-    .replace(/<ToolTimeline.*?<\/ToolTimeline>/gs, '<div class="timeline-placeholder">Tool Timeline Component</div>')
-    .replace(/<WorkflowDiagram.*?<\/WorkflowDiagram>/gs, '<div class="workflow-placeholder">Workflow Diagram Component</div>')
-    .replace(/<VersionDiff.*?<\/VersionDiff>/gs, '<div class="diff-placeholder">Version Diff Component</div>')
-    .replace(/<ToolList.*?<\/ToolList>/gs, '<div class="tool-list-placeholder">Tool List Component</div>')
+  // Serialize the MDX content
+  const mdxSource = await serialize(post.content, {
+    parseFrontmatter: true,
+  })
 
   return (
     <article className="max-w-4xl mx-auto px-4 py-12">
@@ -72,10 +79,12 @@ export default function BlogPostPage({ params }: PageProps) {
         )}
       </header>
 
-      <div
-        className="prose prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: contentHtml }}
-      />
+      <div className="prose prose-lg max-w-none">
+        <MDXRemote
+          source={mdxSource.compiledSource}
+          components={components}
+        />
+      </div>
     </article>
   )
 }
