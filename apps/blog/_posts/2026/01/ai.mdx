@@ -10,19 +10,20 @@ description: A deep dive into my AI coding tools journey, with interactive compa
 featured: true
 ---
 
-My last post was in November 2024 - more than 14 months ago. Right at the explosion of LLM hype, then AI Agents, Coding Agents... I stayed silent for a while because everyone was talking about how LLMs could solve LeetCode problems, or how RAG could change how companies work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to be playing with data, feature engineering, model tuning. 
+My last post was in November 2024 - more than 14 months ago. Right when the LLM hype exploded, then AI Agents, Coding Agents... I stayed silent for a while because everyone was talking about how LLMs could solve LeetCode problems, or how RAG could change how companies work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to be playing with data, feature engineering, model tuning. 
 
-But then it became clear: so many new AI applications, new techniques, new "tasks" emerged around it. Prompt engineering, token optimization, better tool calling. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs with web search are just table stakes.
+But then so many new AI applications, new techniques, new "tasks" emerged around it. Prompt engineering, token optimization, creating MCPs for existing apps, tool calling, etc. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs with web search are just table stakes.
 
-I started using and building AI agents more seriously. There are thousands of models out there, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
+I started using and building AI agents more seriously. Thousands of models out there now, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
 
-Coding agents control the terminal. I'm not writing code or even reading it - I'm watching them work instead. I test their results, tell them what I expect tests to look like to keep them focused, and build skills to teach them specific tasks. This is the new normal.
+Coding agents control the terminal. I'm not writing code or even reading it - I'm watching them work instead. I test their results, tell them what I expect tests to look like to keep them focused, and build skills to teach them specific tasks. This is the new normal, I guess.
 
-While people are still scared of vibe coding, I ship it to production. For me, AI agents are no longer just tools for learning or asking questions about your codebase - they're fully capable of producing production-grade code. My top language on [WakaTime](https://wakatime.com/) is now **Markdown**. Things change fast. Your model gets stuck today, but tomorrow someone releases something better. I see startups and tools on X getting killed overnight when a big upstream provider releases something new.
+While people are still scared of vibe coding, I ship it to production. For me, AI agents are no longer just tools for learning or asking questions about your codebase - they're fully capable of producing production-grade code if you plug them into the right tools and give them good instructions. My top language on [WakaTime](https://wakatime.com/) is now `markdown`, damn. Things change fast. Your model gets stuck today, but tomorrow someone releases something better. You have an idea, someone builds a product around it, and it gets killed or goes legacy some random morning.
 
-I've tried over a hundred tools - [GitHub Copilot](https://github.com/features/copilot) from the early days, [v0.dev](https://v0.dev), [Codex](https://openai.com/codex/), [Claude Code](https://code.claude.com), [Cursor](https://cursor.com/), [Windsurf](https://codeium.com/windsurf), [opencode](https://github.com/sst/opencode), etc. Both free and subscription. I can't tell you which one is "the best" because they'll be legacy by next week. When choosing the right framework to build AI applications, there are tons of options: [LangChain](https://www.langchain.com/), [LangGraph](https://www.langchain.com/langgraph), [OpenAI Agents SDK](https://platform.openai.com/docs/guides/agents-sdk), then [Claude Agent SDK](https://docs.anthropic.com/en/docs/agents-and-tools/claude-agent-sdk) came along and was better, [Cloudflare Agents](https://agents.cloudflare.com/), [Vercel AI SDK](https://ai-sdk.dev/). The competition never ends. I think maybe 90% of AI projects were just wrapping LLM APIs - most don't actually ship anything real. A few stand out and become the next big thing, but the rest? Just demos and POCs that go nowhere. I have no idea which ones will survive.
+I've tried over a hundred tools in the past year: [GitHub Copilot](https://github.com/features/copilot) from the early days, [Tabnine](https://www.tabnine.com/), [v0.dev](https://v0.dev), [Codex](https://openai.com/codex/), [Claude Code](https://code.claude.com), [Cursor](https://cursor.com/), [Windsurf](https://codeium.com/windsurf), [opencode](https://github.com/sst/opencode), n8n + AI Agent node, code review tools like [CodeRabbit](https://coderabbit.ai/), [Greptile](https://greptile.com/), [Sourcery](https://sourcery.ai/), etc. 
+Both free and subscription. I can't tell you which one is "the best" because they'll be legacy by next week. When choosing a framework for AI applications, there are tons of options: [LangChain](https://www.langchain.com/), [LangGraph](https://www.langchain.com/langgraph), [OpenAI Agents SDK](https://platform.openai.com/docs/guides/agents-sdk), then [Claude Agent SDK](https://docs.anthropic.com/en/docs/agents-and-tools/claude-agent-sdk) came along and was better, [Cloudflare Agents](https://agents.cloudflare.com/), [Vercel AI SDK](https://ai-sdk.dev/). The competition never ends. Maybe 90% of AI projects are just wrapping LLM APIs - most don't ship anything real. A few stand out and become the next big thing, but the rest? Just demos and POCs that go nowhere. I have no idea which ones will survive.
 
-I didn't stop writing - tons of drafts sitting in my [Obsidian](https://obsidian.md/) folder, none published because they became outdated before I could publish it. That's why I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post or series will be updated from time to time.
+I didn't stop writing - tons of drafts sitting in my [Obsidian](https://obsidian.md/) folder, none published because they became outdated before I could finish them. That's why I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
 
 <ClaudeCard
   title="Top on my list"
@@ -48,6 +49,15 @@ I didn't stop writing - tons of drafts sitting in my [Obsidian](https://obsidian
         { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" }
       ]
     },
+    {
+      label: "Chat",
+      items: [
+        { label: "Claude", link: "https://claude.ai" },
+        { label: "ChatGPT", link: "https://chat.openai.com" },
+        { label: "Grok", link: "https://grok.com" },
+        { label: "Gemini", link: "https://gemini.google.com" }
+      ]
+    },
   ]}
 />
 
@@ -60,7 +70,7 @@ It just works - not only for coding, but for understanding complex systems, refa
 
 > The idea for Claude Code came from a command-line tool using Claude to state what music an engineer was listening to at work. It spread like wildfire at Anthropic after being given access to the filesystem. Today, Claude Code has its own fully-fledged team
 
-The shift from [Copilot](https://github.com/features/copilot) or [Cursor](https://cursor.com/) (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. The experience is very different. It's more like having teammates who do their own work, not a pair programmer grabbing your keyboard. With a team of agents, they do their work on their own. I just review the results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most of the code from my GitHub repos is now generated without writing a single line myself. I just prompt, watch, and test the results. This duyet.net site also gets updated automatically by Claude Code overnight with a custom cronjob script without any manual intervention - my experiment to see how far Claude Code can go. The script looks something like this:
+The shift from [Copilot](https://github.com/features/copilot) or [Cursor](https://cursor.com/) (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. It's more like having teammates who do their own work, not a pair programmer grabbing your keyboard. They work on their own - I just review results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most code in my GitHub repos is now generated without me writing a single line. I just prompt, watch, and test. This duyet.net site also gets updated automatically by Claude Code overnight with a custom cronjob - my experiment to see how far Claude Code can go. The script looks something like this:
 
 ```bash
 while true; do cat prompt.md | claude --dangerously-skip-permissions; sleep 1h; done
@@ -75,7 +85,7 @@ There's no one correct way to use Claude Code. The following sections are for an
 {/* ![[cc_setup.png]] */}
 ![Claude Code Setup](/media/2026/01/claude/cc_setup.png)
 
-I would prefer to disable Auto-compact as it is slow, wastes 45.0k tokens (22.5%) for the autocompact buffer, and usually loses context. I try to use sub-agents when possible as they have their own context. For other cases I run `/export` to the clipboard then `/clear` and paste the previous content back - the export won't include thinking tokens or tool calls, so you save a lot and the model still keeps good track. 
+I prefer disabling Auto-compact - it's slow, wastes 45.0k tokens (22.5%) for the buffer, and usually loses context. I use sub-agents when possible since they have their own context. Otherwise I run `/export` to the clipboard, then `/clear` and paste the previous content back. The export won't include thinking tokens or tool calls, so you save a lot and the model still tracks well. 
 
 I always work with `--dangerously-skip-permissions` - it's not as dangerous as you'd think.
 
@@ -92,9 +102,14 @@ With [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agen
 {/* ![[cc_team_agent.png]] */}
 ![Team Agents](/media/2026/01/claude/cc_team_agent.png)
 
+### Deprecated
+
+- Mid 2025: [SuperClaude_Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - a collection of commands, agents, and behaviors installed in your `.claude` folder. Claude Plugins is more convenient now.
+- Early 2025: [Zen MCP](https://github.com/BeehiveInnovations/pal-mcp-server) was a game changer at the time - it let you invoke other providers like Gemini for brainstorming.
+
 ## duyet/claude-plugins
 
-https://github.com/duyet/claude-plugins: A collection of plugins I personally use for Claude Code, including **skills**, **MCPs**, **commands**, and **hooks** across all my machines and Claude Agent SDK apps. You might find something useful here. The sub-agents and skills in this repo keep consistent results across all my codebases - I use Claude Code to learn patterns and update them from time to time. 
+https://github.com/duyet/claude-plugins: A collection of plugins I use for Claude Code, including **skills**, **MCPs**, **commands**, and **hooks** across all my machines and Claude Agent SDK apps. You might find something useful here. The sub-agents and skills in this repo keep results consistent across codebases - I use Claude Code to learn patterns and update them over time. 
 
 I started seeing AI engineers on X sharing their commands. I have a list of my own to make the workflow faster. This saves me from repeated prompting - some of the commands I use most:
 
@@ -135,7 +150,7 @@ Plan mode does significantly better than just prompting directly. When you give 
 
     If things go off track, inject a prompt mid-way. Claude will catch up and keep going.
 
-    You can trigger to do the specific tasks on background agents (research, small changes, refactor, etc) while working.
+    You can kick off background agents for specific tasks (research, small changes, refactoring) while working.
   </Step>
   <Step title="Review">
     The **Explanatory** output style shows you why Claude made certain choices - useful for learning.
@@ -267,7 +282,7 @@ The good part is I'm running Claude GitHub Actions with OpenRouter at no cost by
 ```
 
 
-I put together some reusable workflows at [duyet/github-actions](https://github.com/duyet/github-actions) that others repo can reuse:
+I put together some reusable workflows at [duyet/github-actions](https://github.com/duyet/github-actions) that other repos can reuse:
 
 ```yaml
 name: Claude Code Review
@@ -318,3 +333,4 @@ I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode
 - **Magic word `ultrawork`** - add this to your prompt and it activates maximum orchestration: parallel agents, background tasks, deep exploration, relentless execution
 
 ![opencode](/media/2026/01/claude/opencode_2.png)
+
