@@ -1,3 +1,10 @@
+const withMDX = require("@next/mdx")({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
 // const { withAxiom } = require('next-axiom')
 // const redirects = require('./next.redirects')
 const { loadEnvConfig } = require("@next/env");
@@ -11,9 +18,10 @@ loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 /**
  * @type {import('next').NextConfig}
  */
-const config = {
+let config = {
   output: "export",
   transpilePackages: ["@duyet/components", "@duyet/libs"],
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
@@ -52,5 +60,5 @@ const config = {
   // redirects,
 };
 
-module.exports = config;
+module.exports = withMDX(config);
 // module.exports = withAxiom(config)

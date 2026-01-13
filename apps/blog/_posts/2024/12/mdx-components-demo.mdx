@@ -1,0 +1,334 @@
+---
+slug: /2024/12/mdx-components-demo
+title: "MDX Components Showcase: Interactive Content for Your Blog"
+excerpt: "Explore 7 powerful interactive components you can use in your MDX blog posts"
+date: 2024-12-15
+tags: ["MDX", "React", "Components", "Tutorial", "Interactive"]
+category: "Web Development"
+description: "A comprehensive showcase of interactive MDX components including tool comparisons, charts, timelines, and more."
+---
+
+Welcome to the MDX Components Demo! This post showcases all 7 interactive components that can be embedded directly in your markdown files.
+
+## What is MDX?
+
+MDX is a format that lets you write JSX inside markdown files. It combines the simplicity of markdown with the power of React components, enabling rich interactive content directly in your blog posts.
+
+## Component Showcase
+
+### 1. ToolComparison Component
+
+The `ToolComparison` component lets you display side-by-side comparisons of tools with pros and cons:
+
+```jsx
+<ToolComparison tools={[
+  {
+    name: "Next.js",
+    description: "React framework for production",
+    pros: ["SSR & SSG support", "Great DX", "Vercel integration"],
+    cons: ["Complex configuration", "Steep learning curve"]
+  },
+  {
+    name: "Astro",
+    description: "All-in-one web framework",
+    pros: ["Fast by default", "Islands architecture", "Flexible"],
+    cons: ["Ecosystem still growing", "Newer framework"]
+  }
+]} />
+```
+
+<ToolComparison tools={[
+  {
+    name: "Next.js",
+    description: "React framework for production with SSR, SSG, and ISR capabilities",
+    pros: ["Server-side rendering out of the box", "Excellent developer experience with TypeScript", "Zero-config deployment to Vercel", "Built-in image optimization", "Large ecosystem and community"],
+    cons: ["Bundle size can be large", "Complexity for simple sites", "Vercel lock-in concerns", "Hot reload can be slow sometimes"]
+  },
+  {
+    name: "Astro",
+    description: "All-in-one web framework for fast content-driven websites",
+    pros: ["Zero JS by default (islands architecture)", "Extremely fast performance", "Bring your own framework (React, Vue, Svelte)", "Simple content collection API", "Great for blogs and marketing sites"],
+    cons: ["Runtime performance less tested", "Newer with smaller ecosystem", "Some advanced features require config", "Limited SSR capabilities compared to Next.js"]
+  }
+]} />
+
+### 2. FeatureMatrix Component
+
+The `FeatureMatrix` provides a clean tabular comparison:
+
+```jsx
+<FeatureMatrix
+  tools={[
+    { name: "Next.js", features: { SSR: true, SSG: true, ISR: true, "Edge Functions": true } },
+    { name: "Astro", features: { SSR: true, SSG: true, ISR: false, "Edge Functions": false } },
+    { name: "Remix", features: { SSR: true, SSG: false, ISR: false, "Edge Functions": true } }
+  ]}
+  features={["SSR", "SSG", "ISR", "Edge Functions"]}
+/>
+```
+
+<FeatureMatrix
+  tools={[
+    { name: "Next.js", features: { SSR: true, SSG: true, ISR: true, "Edge Functions": true, "Image Optimization": true, "Zero Config": true } },
+    { name: "Astro", features: { SSR: true, SSG: true, ISR: false, "Edge Functions": false, "Image Optimization": true, "Zero Config": false } },
+    { name: "Remix", features: { SSR: true, SSG: false, ISR: false, "Edge Functions": true, "Image Optimization": false, "Zero Config": false } }
+  ]}
+  features={["SSR", "SSG", "ISR", "Edge Functions", "Image Optimization", "Zero Config"]}
+/>
+
+### 3. WakaTimeChart Component
+
+Visualize development activity with interactive charts:
+
+```jsx
+<WakaTimeChart data={[
+  { date: "2024-12-01", hours: 3.5 },
+  { date: "2024-12-02", hours: 4.2 },
+  { date: "2024-12-03", hours: 5.8 },
+  { date: "2024-12-04", hours: 2.5 },
+  { date: "2024-12-05", hours: 6.1 },
+  { date: "2024-12-06", hours: 3.8 },
+  { date: "2024-12-07", hours: 4.5 }
+]} title="Weekly Development Activity" />
+```
+
+<WakaTimeChart data={[
+  { date: "2024-12-01", hours: 3.5 },
+  { date: "2024-12-02", hours: 4.2 },
+  { date: "2024-12-03", hours: 5.8 },
+  { date: "2024-12-04", hours: 2.5 },
+  { date: "2024-12-05", hours: 6.1 },
+  { date: "2024-12-06", hours: 3.8 },
+  { date: "2024-12-07", hours: 4.5 }
+]} title="Weekly Development Activity" />
+
+### 4. ToolTimeline Component
+
+Create beautiful vertical timelines for project milestones:
+
+```jsx
+<ToolTimeline events={[
+  {
+    date: "2024-01",
+    title: "Project Kickoff",
+    description: "Initial planning and research phase",
+    status: "completed"
+  },
+  {
+    date: "2024-06",
+    title: "MVP Release",
+    description: "First version shipped to early users",
+    status: "completed"
+  },
+  {
+    date: "2024-12",
+    title: "Public Launch",
+    description: "Full public release with marketing",
+    status: "current"
+  }
+]} />
+```
+
+<ToolTimeline events={[
+  {
+    date: "2020-03",
+    title: "Project Started",
+    description: "Initial development and research phase began",
+    status: "completed"
+  },
+  {
+    date: "2020-08",
+    title: "MVP Release",
+    description: "First version shipped to early users",
+    status: "completed"
+  },
+  {
+    date: "2021-02",
+    title: "Public Launch",
+    description: "Full public release with marketing campaign",
+    status: "current"
+  },
+  {
+    date: "2021-06",
+    title: "Mobile App",
+    description: "iOS and Android applications planned",
+    status: "upcoming"
+  },
+  {
+    date: "2021-12",
+    title: "Enterprise Features",
+    description: "Advanced features for enterprise customers",
+    status: "upcoming"
+  }
+]} title="Product Development Timeline" />
+
+### 5. WorkflowDiagram Component
+
+Visualize workflows with animated SVG diagrams:
+
+```jsx
+<WorkflowDiagram
+  steps={[
+    { icon: "📝", label: "Input", description: "User provides data" },
+    { icon: "⚙️", label: "Process", description: "System processes input" },
+    { icon: "🔍", label: "Validate", description: "Check data quality" },
+    { icon: "📤", label: "Output", description: "Generate result" }
+  ]}
+  orientation="horizontal"
+/>
+```
+
+<WorkflowDiagram
+  steps={[
+    { icon: "📝", label: "Input", description: "User provides data" },
+    { icon: "⚙️", label: "Process", description: "System processes input" },
+    { icon: "🔍", label: "Validate", description: "Check data quality" },
+    { icon: "📤", label: "Output", description: "Generate result" }
+  ]}
+  title="Data Processing Workflow"
+  orientation="horizontal"
+/>
+
+### 6. VersionDiff Component
+
+Show Git-style code changes:
+
+```jsx
+<VersionDiff
+  oldVersion="v1.0.0"
+  newVersion="v1.1.0"
+  lines={[
+    { type: "unchanged", content: "const config = {", line: 1 },
+    { type: "removed", content: "  api: 'old-key'", line: 2 },
+    { type: "added", content: "  api: 'new-key'", line: 2 },
+    { type: "added", content: "  cache: true,", line: 3 },
+    { type: "unchanged", content: "}", line: 4 }
+  ]}
+/>
+```
+
+<VersionDiff
+  oldVersion="v2.0.0"
+  newVersion="v2.1.0"
+  title="Configuration Changes"
+  lines={[
+    { type: "unchanged", content: "// Configuration file", line: 1 },
+    { type: "unchanged", content: "", line: 2 },
+    { type: "unchanged", content: "export const config = {", line: 3 },
+    { type: "removed", content: "  apiKey: 'old-api-key-12345',", line: 4 },
+    { type: "added", content: "  apiKey: 'new-api-key-67890',", line: 4 },
+    { type: "unchanged", content: "  timeout: 5000,", line: 5 },
+    { type: "unchanged", content: "  retries: 3,", line: 6 },
+    { type: "removed", content: "  debug: false", line: 7 },
+    { type: "added", content: "  debug: true", line: 7 },
+    { type: "added", content: "  logging: true,", line: 8 },
+    { type: "unchanged", content: "};", line: 9 }
+  ]}
+/>
+
+### 7. ToolList Component
+
+A searchable, filterable directory of tools:
+
+```jsx
+<ToolList
+  tools={[
+    {
+      name: "Next.js",
+      description: "React framework for production",
+      category: "Framework",
+      tags: ["react", "ssr", "typescript"],
+      url: "https://nextjs.org"
+    },
+    {
+      name: "Vite",
+      description: "Next Generation Frontend Tooling",
+      category: "Build Tool",
+      tags: ["dev-server", "hmr"],
+      url: "https://vitejs.dev"
+    }
+  ]}
+/>
+```
+
+<ToolList
+  tools={[
+    {
+      name: "Next.js",
+      description: "React framework for production with SSR, SSG, and ISR capabilities",
+      category: "Framework",
+      url: "https://nextjs.org",
+      tags: ["react", "ssr", "typescript", "vercel"],
+      icon: "⚡"
+    },
+    {
+      name: "Astro",
+      description: "All-in-one web framework for fast content-driven websites",
+      category: "Framework",
+      url: "https://astro.build",
+      tags: ["static", "islands", "performance"],
+      icon: "🚀"
+    },
+    {
+      name: "Vite",
+      description: "Next Generation Frontend Tooling with instant HMR",
+      category: "Build Tool",
+      url: "https://vitejs.dev",
+      tags: ["dev-server", "hmr", "esbuild"],
+      icon: "⚡"
+    },
+    {
+      name: "Turborepo",
+      description: "High-performance build system for JavaScript and TypeScript codebases",
+      category: "Build Tool",
+      url: "https://turbo.build",
+      tags: ["monorepo", "cache", "workspace"],
+      icon: "📦"
+    },
+    {
+      name: "PostgreSQL",
+      description: "Powerful, open-source object-relational database system",
+      category: "Database",
+      url: "https://postgresql.org",
+      tags: ["sql", "relational", "production"],
+      icon: "🗄️"
+    },
+    {
+      name: "Playwright",
+      description: "End-to-end testing framework for modern web apps",
+      category: "Testing",
+      url: "https://playwright.dev",
+      tags: ["e2e", "automation", "browser"],
+      icon: "🎭"
+    }
+  ]}
+  title="Development Tool Directory"
+  showSearch={true}
+  showFilters={true}
+/>
+
+## Why Use MDX?
+
+MDX enables you to:
+
+1. **Enhance content with interactivity** - Add charts, tables, and interactive components
+2. **Keep content in version control** - Everything is just files
+3. **Reuse components** - Standardize your documentation
+4. **Improve user experience** - Interactive elements are more engaging
+5. **Combine simplicity with power** - Simple markdown when you need it, React when you want it
+
+## Getting Started
+
+To use MDX in your blog:
+
+1. Install required dependencies: `@next/mdx`, `@mdx-js/loader`, etc.
+2. Configure Next.js with MDX support
+3. Create your custom components
+4. Write posts with `.mdx` extension
+5. Import and use components directly in your content
+
+## Conclusion
+
+This showcase demonstrates how MDX can transform static blog posts into rich, interactive experiences. Whether you're documenting APIs, sharing tutorials, or writing technical articles, these components can help make your content more engaging and useful.
+
+Happy writing! 🚀
