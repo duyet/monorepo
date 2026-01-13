@@ -14,7 +14,8 @@ export async function CCUsageProjects() {
   const formatTokens = (tokens: number) => {
     if (tokens >= 1000000) {
       return `${(tokens / 1000000).toFixed(1)}M`;
-    }if (tokens >= 1000) {
+    }
+    if (tokens >= 1000) {
       return `${(tokens / 1000).toFixed(1)}K`;
     }
     return tokens.toString();

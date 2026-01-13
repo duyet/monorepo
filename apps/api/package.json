@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-api",
-    "dev": "wrangler dev src/index.ts --port 8787",
-    "deploy": "wrangler deploy",
+    "dev": "bunx wrangler dev src/index.ts --port 8787",
+    "deploy": "bun run build && bunx wrangler deploy",
     "build": "bun build src/index.ts --outdir ./dist --target bun",
     "start": "bun run dist/index.js",
     "check-types": "tsc --noEmit",
@@ -24,7 +24,6 @@
     "@duyet/tsconfig": "*",
     "@types/node": "^25.0.0",
     "bun-types": "^1.3.4",
-    "typescript": "^5.8.3",
-    "wrangler": "^4.54.0"
+    "typescript": "^5.8.3"
   }
 }

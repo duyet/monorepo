@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import Container from "@duyet/components/Container";
 import { getPostsByAllYear } from "@duyet/libs/getPost";
-import { YearPost } from "../../components/year-post";
+import { YearPost } from "@/components/post";
 
 export default function Featured() {
   const postsByYear = getPostsByAllYear(

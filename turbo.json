@@ -38,7 +38,12 @@
     "OPENROUTER_API_KEY",
     "NEXT_PUBLIC_API_BASE_URL"
   ],
-  "globalDependencies": [".env", ".env.local", ".env.development", ".env.production"],
+  "globalDependencies": [
+    ".env",
+    ".env.local",
+    ".env.development",
+    ".env.production"
+  ],
   "tasks": {
     "build": {
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
@@ -71,8 +76,10 @@
       "dependsOn": ["^check-types"]
     },
     "cf:deploy": {
-      "cache": false,
-      "dependsOn": ["build"]
+      "cache": false
+    },
+    "cf:deploy:prod": {
+      "cache": false
     }
   }
 }

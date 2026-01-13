@@ -1,9 +1,24 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/dist",
+      "!**/build",
+      "!**/.turbo",
+      "!**/coverage",
+      "!**/bun.lock",
+      "!**/public",
+      "!**/_posts",
+      "!**/.wrangler"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -21,7 +36,9 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noShadowRestrictedNames": "off",
-        "noImplicitAnyLet": "off"
+        "noImplicitAnyLet": "off",
+        "noUnknownAtRules": "off",
+        "useIterableCallbackReturn": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
@@ -31,31 +48,34 @@
         "useButtonType": "off",
         "useKeyWithClickEvents": "off",
         "useAltText": "off",
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off",
+        "useAriaPropsSupportedByRole": "off"
       },
       "complexity": {
-        "noForEach": "off"
+        "noForEach": "off",
+        "noImportantStyles": "off",
+        "noUselessUndefinedInitialization": "off"
       },
       "style": {
         "noUnusedTemplateLiteral": "off",
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noHeadElement": "off"
+      },
+      "performance": {
+        "noImgElement": "off",
+        "noDynamicNamespaceImportAccess": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
+        "useParseIntRadix": "off",
+        "noUnusedImports": "off",
+        "noUnusedVariables": "off",
+        "useHookAtTopLevel": "off",
+        "noUnusedPrivateClassMembers": "off",
+        "noUnusedFunctionParameters": "off"
       }
-    },
-    "ignore": [
-      "node_modules",
-      ".next",
-      "dist",
-      "build",
-      ".turbo",
-      "coverage",
-      "bun.lock",
-      "public",
-      "_posts",
-      ".wrangler"
-    ]
+    }
   },
   "javascript": {
     "formatter": {
@@ -69,6 +89,14 @@
   "json": {
     "parser": {
       "allowTrailingCommas": true
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true
+    },
+    "linter": {
+      "enabled": false
     }
   }
 }

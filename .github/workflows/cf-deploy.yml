@@ -1,0 +1,185 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'bun.lock'
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to deploy (leave empty for changed apps only)'
+        required: false
+        type: choice
+        options:
+          - ''
+          - all
+          - blog
+          - cv
+          - home
+          - homelab
+          - insights
+          - photos
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  TURBO_REMOTE_ONLY: true
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  detect-changes:
+    name: Detect changed apps
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          filters: |
+            blog:
+              - 'apps/blog/**'
+            cv:
+              - 'apps/cv/**'
+            home:
+              - 'apps/home/**'
+            homelab:
+              - 'apps/homelab/**'
+            insights:
+              - 'apps/insights/**'
+            photos:
+              - 'apps/photos/**'
+            packages:
+              - 'packages/**'
+
+      - name: Set deployment matrix
+        id: set-matrix
+        run: |
+          # App configurations
+          declare -A APPS
+          APPS[blog]='{"app":"blog","project":"duyet-blog","url":"https://blog.duyet.net"}'
+          APPS[cv]='{"app":"cv","project":"duyet-cv","url":"https://cv.duyet.net"}'
+          APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
+          APPS[homelab]='{"app":"homelab","project":"duyet-homelab","url":"https://homelab.duyet.net"}'
+          APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
+          APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
+
+          DEPLOY_APPS=()
+
+          # Manual dispatch
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            INPUT_APP="${{ github.event.inputs.app }}"
+            if [[ "$INPUT_APP" == "all" ]]; then
+              for app in blog cv home homelab insights photos; do
+                DEPLOY_APPS+=("${APPS[$app]}")
+              done
+            elif [[ -n "$INPUT_APP" ]]; then
+              DEPLOY_APPS+=("${APPS[$INPUT_APP]}")
+            fi
+          else
+            # Auto-detect changes
+            PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
+
+            for app in blog cv home homelab insights photos; do
+              APP_CHANGED="${{ steps.filter.outputs[app] }}"
+              if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+                DEPLOY_APPS+=("${APPS[$app]}")
+              fi
+            done
+          fi
+
+          # Build matrix JSON
+          if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then
+            echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
+            echo "No apps to deploy"
+          else
+            MATRIX=$(printf '%s,' "${DEPLOY_APPS[@]}" | sed 's/,$//')
+            echo "matrix={\"include\":[$MATRIX]}" >> $GITHUB_OUTPUT
+            echo "Apps to deploy: ${DEPLOY_APPS[*]}"
+          fi
+
+  deploy:
+    name: Deploy ${{ matrix.app }}
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+    environment:
+      name: production
+      url: ${{ matrix.url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            apps/${{ matrix.app }}/.next/cache
+          key: ${{ runner.os }}-${{ matrix.app }}-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.app }}-
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Deploy to Cloudflare Pages
+        run: |
+          cd apps/${{ matrix.app }}
+          bun run cf:deploy:prod
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Production environment variables
+          NODE_ENV: production
+          NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
+          NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
+          NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
+          NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
+          NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
+          NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          # App-specific secrets (only used by apps that need them)
+          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          UNSPLASH_USERNAME: ${{ secrets.UNSPLASH_USERNAME }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+
+      - name: Deployment summary
+        run: |
+          echo "### ✅ Deployed ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **App**: ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL**: ${{ matrix.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Project**: ${{ matrix.project }}" >> $GITHUB_STEP_SUMMARY

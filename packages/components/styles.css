@@ -26,9 +26,78 @@
     --foreground: #374151; /* gray-700 */
   }
 
-  :root.dark {
+  .dark {
     /* Dark mode colors - consistent across blog, cv, insights */
+    /* Using .dark selector to match next-themes which adds class to <html> */
     --background: #0f172a; /* slate-900 */
     --foreground: #f8fafc; /* slate-50 */
   }
+
 }
+
+/*
+ * Code styling - placed outside @layer for higher specificity
+ * to override Tailwind prose plugin defaults
+ */
+
+/* Prose code block styling */
+.prose pre {
+  padding: 1em;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Remove pre padding when hljs handles it */
+.prose pre:has(.hljs) {
+  padding: 0;
+}
+
+.prose code {
+  font-size: 0.875em;
+}
+
+/* Light mode inline code */
+.prose :where(code):not(:where(pre code)) {
+  background-color: #f1f5f9 !important; /* slate-100 */
+  color: #334155 !important; /* slate-700 */
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.375rem;
+}
+
+/* Dark mode inline code */
+.dark .prose :where(code):not(:where(pre code)) {
+  background-color: #334155 !important; /* slate-700 */
+  color: #e2e8f0 !important; /* slate-200 */
+}
+
+/* Light mode code blocks - all pre elements in prose */
+.prose pre,
+.prose pre[class*="language-"],
+article pre {
+  background-color: #f8fafc !important; /* slate-50 */
+  border: 1px solid #e2e8f0 !important; /* slate-200 */
+  color: #334155 !important; /* slate-700 */
+}
+
+/* Dark mode code blocks - use github-dark background */
+.dark .prose pre,
+.dark .prose pre[class*="language-"],
+.dark article pre,
+html.dark .prose pre {
+  background-color: #0d1117 !important; /* github-dark background */
+  border-color: #30363d !important; /* github-dark border */
+  color: #c9d1d9 !important; /* github-dark text */
+}
+
+/* Dark mode links - neutral color with underline */
+.dark .prose a {
+  color: #e2e8f0; /* slate-200 */
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.dark .prose a:hover {
+  color: #f8fafc; /* slate-50 */
+}
+

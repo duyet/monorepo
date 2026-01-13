@@ -14,7 +14,7 @@ export async function WakaTimeHourlyHeatmap() {
       <div className="mb-4">
         <h3 className="font-medium">Coding Activity by Day of Week</h3>
         <p className="text-xs text-muted-foreground">
-          Weekly coding patterns based on last year of activity
+          Weekly coding patterns based on the last 30 days
         </p>
       </div>
 

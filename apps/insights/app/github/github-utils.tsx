@@ -75,10 +75,10 @@ export async function fetchAllRepositories(
           retryCount++;
           continue;
         }
-          console.error(
-            `Rate limit exceeded after ${maxRetries} retries. Stopping.`
-          );
-          break;
+        console.error(
+          `Rate limit exceeded after ${maxRetries} retries. Stopping.`
+        );
+        break;
       }
 
       if (!response.ok) {

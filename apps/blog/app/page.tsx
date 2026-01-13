@@ -4,8 +4,8 @@ import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
 import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
-import { HomeCards } from "../components/home-cards";
-import { YearPost } from "../components/year-post";
+import { HomeCards } from "@/components/layout";
+import { YearPost } from "@/components/post";
 
 export default async function Page() {
   const postsByYear = getPostsByAllYear(["slug", "title", "date", "category"]);

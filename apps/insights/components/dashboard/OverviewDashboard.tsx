@@ -69,13 +69,15 @@ export async function OverviewDashboard() {
     getWakaTimeMetrics(30),
   ]);
 
-  const aiTokens = aiMetrics.status === "fulfilled" && aiMetrics.value
-    ? formatTokens(aiMetrics.value.totalTokens)
-    : mockOverviewData.aiSessions.value; // Fallback to mock if fetch fails
+  const aiTokens =
+    aiMetrics.status === "fulfilled" && aiMetrics.value
+      ? formatTokens(aiMetrics.value.totalTokens)
+      : mockOverviewData.aiSessions.value; // Fallback to mock if fetch fails
 
-  const codingHours = wakaTimeMetrics.status === "fulfilled" && wakaTimeMetrics.value
-    ? wakaTimeMetrics.value.totalHours.toFixed(1)
-    : mockOverviewData.commits.value; // Fallback to mock if fetch fails
+  const codingHours =
+    wakaTimeMetrics.status === "fulfilled" && wakaTimeMetrics.value
+      ? wakaTimeMetrics.value.totalHours.toFixed(1)
+      : mockOverviewData.commits.value; // Fallback to mock if fetch fails
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -113,12 +115,8 @@ export async function OverviewDashboard() {
                 <Clock className="h-3 w-3" />
                 <span>Coding Hours</span>
               </div>
-              <div className="text-lg font-semibold">
-                {codingHours}
-              </div>
-              <div className="text-xs text-green-600">
-                vs last 30 days
-              </div>
+              <div className="text-lg font-semibold">{codingHours}</div>
+              <div className="text-xs text-green-600">vs last 30 days</div>
             </div>
           </CompactCard>
 
@@ -128,12 +126,8 @@ export async function OverviewDashboard() {
                 <Zap className="h-3 w-3" />
                 <span>AI Tokens</span>
               </div>
-              <div className="text-lg font-semibold">
-                {aiTokens}
-              </div>
-              <div className="text-xs text-green-600">
-                vs last 30 days
-              </div>
+              <div className="text-lg font-semibold">{aiTokens}</div>
+              <div className="text-xs text-green-600">vs last 30 days</div>
             </div>
           </CompactCard>
 

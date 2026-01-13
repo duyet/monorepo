@@ -146,7 +146,7 @@ interface DurationsResponse {
 }
 
 // Helper function to add delay between requests (rate limiting)
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Get activity from durations endpoint (with AI breakdown) for smaller periods
 async function getActivityFromDurations(
@@ -160,7 +160,10 @@ async function getActivityFromDurations(
   }
 
   const numDays = days;
-  const activityMap = new Map<string, { humanSeconds: number; aiSeconds: number }>();
+  const activityMap = new Map<
+    string,
+    { humanSeconds: number; aiSeconds: number }
+  >();
 
   // Track consecutive failures to detect premium-only endpoints
   let consecutivePremiumErrors = 0;
@@ -312,7 +315,9 @@ async function getActivityFromInsights(
   const range = getInsightsRange(days);
   const numDays = typeof days === "number" ? days : 9999;
 
-  console.log(`[WakaTime Insights] Fetching ${numDays} days with range: ${range}`);
+  console.log(
+    `[WakaTime Insights] Fetching ${numDays} days with range: ${range}`
+  );
 
   const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}&api_key=${apiKey}`;
 
@@ -350,7 +355,9 @@ async function getActivityFromInsights(
       })
       .slice(0, typeof days === "number" ? days : undefined);
 
-    console.log(`[WakaTime Insights] Retrieved ${filteredDays.length} days of data`);
+    console.log(
+      `[WakaTime Insights] Retrieved ${filteredDays.length} days of data`
+    );
 
     return filteredDays.map((day) => ({
       date: day.date,
@@ -363,12 +370,34 @@ async function getActivityFromInsights(
 }
 
 // Union type for activity data formats
-type ActivityWithAI = Array<{ date: string; "Human Hours": number; "AI Hours": number }>;
+type ActivityWithAI = Array<{
+  date: string;
+  "Human Hours": number;
+  "AI Hours": number;
+}>;
 type ActivityTotalOnly = Array<{ date: string; "Total Hours": number }>;
 
-export async function getWakaTimeActivityWithAI(days: number | "all" = 30): Promise<ActivityWithAI | ActivityTotalOnly> {
+export async function getWakaTimeActivityWithAI(
+  days: number | "all" = 30
+): Promise<ActivityWithAI | ActivityTotalOnly> {
   const numDays = typeof days === "number" ? days : 9999;
 
+  // Try hybrid fetch first (ClickHouse + API)
+  try {
+    const { getHybridActivityForChart } = await import("./lib/hybrid-fetch");
+    const hybridData = await getHybridActivityForChart(days);
+
+    if (hybridData.length > 0) {
+      console.log(
+        `[WakaTime] Using hybrid data: ${hybridData.length} days (ClickHouse + API)`
+      );
+      return hybridData as ActivityWithAI;
+    }
+  } catch (error) {
+    console.warn("[WakaTime] Hybrid fetch not available, using API fallback:", error);
+  }
+
+  // Fallback to API-only approach
   // Use insights endpoint for larger ranges (365+ days) - total hours only
   if (numDays >= 365) {
     return getActivityFromInsights(days);
@@ -384,12 +413,16 @@ export async function getWakaTimeActivityWithAI(days: number | "all" = 30): Prom
     const minExpectedDays = Math.floor(days * 0.5);
 
     if (durationsData.length >= minExpectedDays) {
-      console.log(`[WakaTime] Using durations data: ${durationsData.length}/${days} days with AI breakdown`);
+      console.log(
+        `[WakaTime] Using durations data: ${durationsData.length}/${days} days with AI breakdown`
+      );
       return durationsData;
     }
 
     // Fall back to insights endpoint for complete data (no AI breakdown)
-    console.log(`[WakaTime] Durations insufficient (${durationsData.length}/${days}), falling back to insights`);
+    console.log(
+      `[WakaTime] Durations insufficient (${durationsData.length}/${days}), falling back to insights`
+    );
     return getActivityFromInsights(days);
   }
 
@@ -408,7 +441,9 @@ async function getFallbackActivityData(days: number) {
 
   // Generate approximated daily data points for visualization
   return Array.from({ length: activeDays }, (_, i) => {
-    const date = new Date(Date.now() - (activeDays - 1 - i) * 24 * 60 * 60 * 1000)
+    const date = new Date(
+      Date.now() - (activeDays - 1 - i) * 24 * 60 * 60 * 1000
+    )
       .toISOString()
       .split("T")[0];
 
@@ -558,16 +593,19 @@ export async function getWakaTimeHourlyHeatmap() {
   ] as const;
 
   try {
-    // Get weekday insights
+    // Get weekday insights - use last_30_days as last_year may not be supported
+    // by the weekday insights endpoint (returns 400)
     const weekdayInsights: WeekdayInsights | null = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.weekday(wakatimeConfig.ranges.last_year)
+      wakatimeConfig.endpoints.insights.weekday(
+        wakatimeConfig.ranges.last_30_days
+      )
     );
 
     if (
       !weekdayInsights?.data?.weekdays ||
       !Array.isArray(weekdayInsights.data.weekdays)
     ) {
-      console.warn("Weekday insights not available or empty");
+      // Silently return empty - API might not support this endpoint for all accounts
       return [];
     }
 
@@ -576,7 +614,6 @@ export async function getWakaTimeHourlyHeatmap() {
       (weekday) => weekday.total_seconds > 0
     );
     if (!hasData) {
-      console.warn("No weekday activity data available");
       return [];
     }
 

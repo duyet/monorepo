@@ -1,6 +1,5 @@
-import Link from "next/link";
-
-import { YearPost } from "@/components/year-post";
+import { YearPost } from "@/components/post";
+import { HeroBanner } from "@/components/layout";
 import {
   getCategoryColorClass,
   getCategoryMetadata,
@@ -66,84 +65,26 @@ export default async function PostsByCategory({
   return (
     <div className="min-h-screen">
       <Container>
-        {/* Hero Banner */}
-        <div className={`${colorClass} mb-12 rounded-3xl p-8 md:p-12 lg:p-16`}>
-          <div className="mb-4">
-            <Link
-              href="/category"
-              className="inline-flex items-center text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
-            >
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              All Categories
-            </Link>
-          </div>
-
-          <h1 className="mb-6 font-serif text-4xl font-bold text-neutral-900 md:text-5xl lg:text-6xl">
-            {categoryName}
-          </h1>
-
-          <p className="mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700">
-            {metadata.description}
-          </p>
-
-          <div className="flex flex-wrap gap-4 text-sm font-medium text-neutral-600">
-            <div className="flex items-center gap-2">
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              <span>
-                {postCount} {postCount === 1 ? "post" : "posts"}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              <span>
-                {yearCount} {yearCount === 1 ? "year" : "years"}
-              </span>
-            </div>
-          </div>
-        </div>
+        <HeroBanner
+          title={categoryName}
+          description={metadata.description}
+          colorClass={colorClass}
+          postCount={postCount}
+          yearCount={yearCount}
+          backLinkHref="/category"
+          backLinkText="All Categories"
+        />
 
         {/* Posts organized by year */}
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
             .map(([year, yearPosts]) => (
-              <YearPost key={year} year={Number.parseInt(year)} posts={yearPosts} />
+              <YearPost
+                key={year}
+                year={Number.parseInt(year)}
+                posts={yearPosts}
+              />
             ))}
         </div>
 

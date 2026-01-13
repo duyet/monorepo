@@ -38,13 +38,13 @@ const CHART_COLORS = [
   "var(--chart-3)",
   "var(--chart-4)",
   "var(--chart-5)",
-  "hsl(30, 80%, 55%)",   // orange
-  "hsl(280, 65%, 60%)",  // purple
-  "hsl(180, 60%, 45%)",  // teal
-  "hsl(340, 75%, 55%)",  // pink
-  "hsl(60, 70%, 50%)",   // yellow
-  "hsl(200, 70%, 50%)",  // sky blue
-  "hsl(140, 60%, 45%)",  // green
+  "hsl(30, 80%, 55%)", // orange
+  "hsl(280, 65%, 60%)", // purple
+  "hsl(180, 60%, 45%)", // teal
+  "hsl(340, 75%, 55%)", // pink
+  "hsl(60, 70%, 50%)", // yellow
+  "hsl(200, 70%, 50%)", // sky blue
+  "hsl(140, 60%, 45%)", // green
 ];
 
 // Format large numbers with appropriate units (K, M, B)
