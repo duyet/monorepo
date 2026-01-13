@@ -26,23 +26,6 @@ const TOCIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// Close Icon SVG
-const CloseIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </svg>
-);
-
 export function TableOfContents() {
   const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
@@ -192,11 +175,7 @@ export function TableOfContents() {
         )}
         aria-label={isMobileOpen ? "Close table of contents" : "Open table of contents"}
       >
-        {isMobileOpen ? (
-          <CloseIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-        ) : (
-          <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-        )}
+        <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
       </button>
 
       {/* Mobile/Tablet: Slide-out panel (no backdrop, doesn't block content) */}
@@ -217,25 +196,22 @@ export function TableOfContents() {
         <TOCContent />
       </nav>
 
-      {/* Desktop: Toggle button (only visible when TOC is hidden) */}
+      {/* Desktop: Toggle button on right side */}
       <button
         onClick={() => setIsDesktopVisible(!isDesktopVisible)}
         className={cn(
           "hidden xl:flex",
-          "fixed top-24 z-40",
+          "fixed top-24 right-4 z-40",
+          "w-10 h-10 rounded-full",
           "items-center justify-center",
-          "transition-all duration-300",
-          isDesktopVisible
-            ? "right-[16.5rem] w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-            : "right-4 w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+          "bg-white dark:bg-gray-800",
+          "shadow-lg border border-gray-200 dark:border-gray-700",
+          "hover:bg-gray-50 dark:hover:bg-gray-700",
+          "transition-all duration-300"
         )}
         aria-label={isDesktopVisible ? "Hide table of contents" : "Show table of contents"}
       >
-        {isDesktopVisible ? (
-          <CloseIcon className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
-        ) : (
-          <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-        )}
+        <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
       </button>
 
       {/* Desktop: Fixed sidebar */}
