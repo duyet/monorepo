@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +56,17 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+
+  // Try .mdx first, then .md for backward compatibility
+  const mdxPath = join(getPostsDirectory(), `${fileName}.mdx`);
+  const mdPath = join(getPostsDirectory(), `${fileName}.md`);
+
+  if (nodeFs.existsSync(mdxPath)) {
+    return getPostByPath(mdxPath, fields);
+  } else {
+    return getPostByPath(mdPath, fields);
+  }
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
@@ -85,6 +94,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     tags_slug: [],
     snippet: "",
     featured: false,
+    extension: fullPath.endsWith(".mdx") ? "mdx" : "md",
   };
 
   // Ensure only the minimal needed data is exposed

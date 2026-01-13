@@ -1,0 +1,322 @@
+---
+slug: /2025/01/interactive-components-showcase
+title: "Interactive MDX Components Showcase"
+date: 2025-01-10
+category: Development
+tags: [MDX, React, Components, Blog, Interactive]
+excerpt: "Discover 7 powerful interactive components that enhance technical blog posts with rich visualizations and comparisons"
+featured: true
+snippet: "A comprehensive showcase of interactive MDX components including ToolComparison, FeatureMatrix, WakaTimeChart, ToolTimeline, WorkflowDiagram, VersionDiff, and ToolList."
+---
+
+import { sampleWakaTimeData } from "@/components/interactive/WakaTimeChart";
+
+# Interactive MDX Components Showcase
+
+Welcome to the future of technical blogging! This post demonstrates **7 powerful interactive components** that you can use in your MDX posts to create rich, engaging content.
+
+## Why MDX?
+
+MDX allows you to use JSX components directly in your markdown, combining the simplicity of markdown with the power of React components. Perfect for technical tutorials, comparisons, and data visualization.
+
+---
+
+## 1. ToolComparison
+
+Compare tools with pros, cons, and ratings in a clean card layout.
+
+<ToolComparison
+  title="Editor Comparison 2025"
+  tools={[
+    {
+      name: "VS Code",
+      pros: ["Huge extension ecosystem", "Excellent IntelliSense", "Free and open source", "Integrated Git tools"],
+      cons: ["Memory intensive", "Can be slow with large projects"],
+      rating: 4.5
+    },
+    {
+      name: "Neovim",
+      pros: ["Extremely fast and lightweight", "Fully customizable", "Terminal-first workflow"],
+      cons: ["Steep learning curve", "Requires configuration time"],
+      rating: 4.2
+    },
+    {
+      name: "Cursor",
+      pros: ["AI-first approach", "Built on VS Code", "Excellent autocomplete"],
+      cons: ["Newer platform", "Subscription required for advanced features"],
+      rating: 4.3
+    }
+  ]}
+/>
+
+---
+
+## 2. FeatureMatrix
+
+A sortable table with color-coded scoring system.
+
+<FeatureMatrix
+  title="IDE Feature Comparison Matrix"
+  headers={["VS Code", "Neovim", "Cursor"]}
+  rows={[
+    {
+      feature: "Performance",
+      "VS Code": 6,
+      "Neovim": 9,
+      "Cursor": 7
+    },
+    {
+      feature: "Customization",
+      "VS Code": 8,
+      "Neovim": 10,
+      "Cursor": 7
+    },
+    {
+      feature: "AI Features",
+      "VS Code": 5,
+      "Neovim": 3,
+      "Cursor": 9
+    },
+    {
+      feature: "Ecosystem",
+      "VS Code": 10,
+      "Neovim": 7,
+      "Cursor": 6
+    },
+    {
+      feature: "Learning Curve",
+      "VS Code": 8,
+      "Neovim": 4,
+      "Cursor": 9
+    }
+  ]}
+/>
+
+> **Color legend**: 🟢 High (8-10) | 🟡 Medium (5-7) | 🔴 Low (0-4)
+
+---
+
+## 3. WakaTimeChart
+
+Visualize your coding activity with an interactive stacked area chart.
+
+<WakaTimeChart
+  title="Weekly Coding Activity (Sample Data)"
+  data={sampleWakaTimeData}
+  color="#3b82f6"
+/>
+
+*Hover over the chart to see detailed time tracking for each day.*
+
+---
+
+## 4. ToolTimeline
+
+Track project milestones with horizontal or vertical timelines.
+
+<ToolTimeline
+  title="Project Development Timeline"
+  events={[
+    {
+      date: "Jan 2024",
+      title: "Project Kickoff",
+      description: "Initial planning and requirements gathering",
+      status: "completed"
+    },
+    {
+      date: "Feb 2024",
+      title: "MVP Development",
+      description: "Core features implementation",
+      status: "completed"
+    },
+    {
+      date: "Mar 2024",
+      title: "Beta Testing",
+      description: "User feedback collection and iteration",
+      status: "completed"
+    },
+    {
+      date: "Apr 2024",
+      title: "Public Launch",
+      description: "Marketing campaign and deployment",
+      status: "in-progress"
+    },
+    {
+      date: "May 2024",
+      title: "Feature Expansion",
+      description: "Additional integrations and improvements",
+      status: "pending"
+    }
+  ]}
+/>
+
+### Vertical Layout Example
+
+<ToolTimeline
+  title="Release Schedule"
+  orientation="vertical"
+  events={[
+    {
+      date: "Q1 2025",
+      title: "Version 2.0",
+      description: "Complete UI redesign and performance improvements"
+    },
+    {
+      date: "Q2 2025",
+      title: "Cloud Integration",
+      description: "Synchronize data across devices"
+    },
+    {
+      date: "Q3 2025",
+      title: "Enterprise Features",
+      description: "Advanced security and team collaboration"
+    }
+  ]}
+/>
+
+---
+
+## 5. WorkflowDiagram
+
+Interactive circular workflow with progress tracking.
+
+<WorkflowDiagram
+  title="Modern Development Workflow"
+  steps={[
+    {
+      name: "Planning",
+      description: "Define requirements and scope"
+    },
+    {
+      name: "Design",
+      description: "Create wireframes and architecture"
+    },
+    {
+      name: "Development",
+      description: "Write code and implement features"
+    },
+    {
+      name: "Testing",
+      description: "Unit tests, integration tests, QA"
+    },
+    {
+      name: "Deployment",
+      description: "CI/CD pipeline execution"
+    },
+    {
+      name: "Monitoring",
+      description: "Analytics and performance tracking"
+    }
+  ]}
+/>
+
+> **Pro tip**: Click on any step in the diagram to jump directly to it!
+
+---
+
+## 6. VersionDiff
+
+View code changes in a familiar Git-style diff format.
+
+<VersionDiff
+  title="Configuration Changes"
+  diffs={[
+    {
+      filename: "next.config.js",
+      lines: [
+        { line: "const { loadEnvConfig } = require('@next/env');", type: "unchanged" },
+        { line: "const path = require('node:path');", type: "unchanged" },
+        { line: "const createMDX = require('@next/mdx');", type: "added" },
+        { line: "", type: "unchanged" },
+        { line: "// MDX configuration", type: "added" },
+        { line: "const withMDX = createMDX({", type: "added" },
+        { line: "  options: {", type: "added" },
+        { line: "    remarkPlugins: ['remark-gfm', 'remark-math'],", type: "added" },
+        { line: "  }", type: "added" },
+        { line: "});", type: "added" },
+        { line: "", type: "unchanged" },
+        { line: "const config = {", type: "unchanged" },
+        { line: "  output: 'export',", type: "unchanged" },
+        { line: "  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx']", type: "added" },
+        { line: "};", type: "unchanged" },
+        { line: "", type: "unchanged" },
+        { line: "module.exports = withMDX(config);", type: "added" },
+      ]
+    }
+  ]}
+/>
+
+---
+
+## 7. ToolList
+
+Searchable, filterable directory of tools.
+
+<ToolList
+  title="Developer Tools Directory"
+  tools={[
+    {
+      name: "GitHub",
+      description: "Code hosting and collaboration platform",
+      category: "Version Control",
+      tags: ["git", "collaboration", "CI/CD"],
+      url: "https://github.com"
+    },
+    {
+      name: "Docker",
+      description: "Containerization platform for consistent environments",
+      category: "DevOps",
+      tags: ["containers", "virtualization", "deployment"]
+    },
+    {
+      name: "Postman",
+      description: "API development and testing platform",
+      category: "Testing",
+      tags: ["API", "testing", "automation"]
+    },
+    {
+      name: "Figma",
+      description: "Collaborative design tool for UI/UX",
+      category: "Design",
+      tags: ["design", "prototyping", "collaboration"]
+    },
+    {
+      name: "Vercel",
+      description: "Platform for frontend deployment",
+      category: "Hosting",
+      tags: ["deploy", "serverless", "Next.js"]
+    },
+    {
+      name: "ESLint",
+      description: "JavaScript linting tool for code quality",
+      category: "Code Quality",
+      tags: ["linting", "typescript", "javascript"]
+    }
+  ]}
+/>
+
+---
+
+## Conclusion
+
+These 7 interactive components transform static blog posts into engaging, interactive experiences. They're perfect for:
+
+- **Technical comparisons** (ToolComparison, FeatureMatrix)
+- **Data visualization** (WakaTimeChart)
+- **Project documentation** (ToolTimeline, WorkflowDiagram)
+- **Code reviews** (VersionDiff)
+- **Resource directories** (ToolList)
+
+### Getting Started
+
+To use these components in your own blog:
+
+1. Install the MDX dependencies
+2. Copy the components to your project
+3. Configure your MDX provider
+4. Start writing interactive content!
+
+Happy blogging! 🚀
+
+---
+*This post was written using MDX with interactive components. Try filtering the ToolList or clicking through the WorkflowDiagram steps above!*

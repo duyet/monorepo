@@ -11,6 +11,7 @@ import remarkRehype from "remark-rehype";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkMdx from "remark-mdx";
 import sanitizeHtml from "sanitize-html";
 
 export async function markdownToHtml(markdown: VFileCompatible) {
@@ -63,6 +64,32 @@ export async function markdownToHtml(markdown: VFileCompatible) {
   });
 
   return sanitized;
+}
+
+/**
+ * Parse MDX content and return the compiled source
+ * This is used for MDX files that will be rendered as React components
+ */
+export async function mdxToHtml(mdx: VFileCompatible) {
+  const result = await unified()
+    .use(remarkParse)
+    .use(remarkMdx)
+    .use(remarkMath)
+    .use(remarkGfm)
+    .process(mdx);
+
+  return result.toString();
+}
+
+/**
+ * Extract frontmatter from MDX or MD content
+ */
+export function extractFrontmatter(content: string): {
+  data: Record<string, unknown>;
+  content: string;
+} {
+  const matter = require("gray-matter");
+  return matter(content);
 }
 
 export default markdownToHtml;
