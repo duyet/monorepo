@@ -54,18 +54,20 @@ export async function getPost(slug: string[]) {
     "snippet",
   ]);
   const markdownContent = post.content || "Error";
-  const content = await markdownToHtml(markdownContent);
+  const isMDX = post.is_mdx || false;
+  const content = await markdownToHtml(markdownContent, isMDX);
 
   return {
     ...post,
     content,
     markdown_content: markdownContent,
     edit_url: getGithubEditUrl(post.slug),
+    is_mdx: isMDX,
   };
 }
 
 const getGithubEditUrl = (slug: string) => {
-  const file = slug.replace(/\.md|\.html|\.htm$/, ".md").replace(/^\/?/, "");
+  const file = slug.replace(/\.md|\.mdx|\.html|\.htm$/, ".md").replace(/^\/?/, "");
   const repoUrl =
     process.env.NEXT_PUBLIC_GITHUB_REPO_URL ||
     "https://github.com/duyet/monorepo";
