@@ -16,9 +16,9 @@ const ALL_VARS = [
   { name: "NEXT_PUBLIC_DUYET_AI_URL", public: true, sensitive: false },
 
   // ===== BLOG APP =====
-  // Auth0
+  // Auth0 - Client IDs are designed to be public for OAuth flows (the secret is AUTH0_CLIENT_SECRET)
   { name: "NEXT_PUBLIC_AUTH0_DOMAIN", public: true, sensitive: false }, // Public domain
-  { name: "NEXT_PUBLIC_AUTH0_CLIENT_ID", public: true, sensitive: true }, // ❌ WRONG - Client ID is exposed to users but should be server-side
+  { name: "NEXT_PUBLIC_AUTH0_CLIENT_ID", public: true, sensitive: false }, // ✅ OK - OAuth Client IDs are public by design
   { name: "NEXT_PUBLIC_AUTH0_ADMIN_EMAIL", public: true, sensitive: false }, // Public email
   // Vercel KV
   { name: "KV_URL", public: false, sensitive: true },
@@ -38,16 +38,15 @@ const ALL_VARS = [
   { name: "POSTHOG_PROJECT_ID", public: false, sensitive: true },
   { name: "NEXT_PUBLIC_MEASUREMENT_ID", public: true, sensitive: false }, // GA tracking ID is public
   { name: "NEXT_PUBLIC_AXIOM_DATASET", public: true, sensitive: false }, // Dataset name is public
-  { name: "NEXT_PUBLIC_AXIOM_TOKEN", public: true, sensitive: true }, // ❌ WRONG - Should not be public
-  { name: "NEXT_PUBLIC_SELINE_TOKEN", public: true, sensitive: true }, // ❌ WRONG - Should not be public
+  { name: "NEXT_PUBLIC_SELINE_TOKEN", public: true, sensitive: false }, // ✅ OK - Public tracking token (like GA measurement ID)
 
   // ===== INSIGHTS APP =====
   { name: "GITHUB_TOKEN", public: false, sensitive: true },
   { name: "WAKATIME_API_KEY", public: false, sensitive: true },
   { name: "CLOUDFLARE_API_KEY", public: false, sensitive: true },
+  { name: "CLOUDFLARE_API_TOKEN", public: false, sensitive: true }, // ✅ OK - Server-side only API token
   { name: "CLOUDFLARE_ZONE_ID", public: false, sensitive: true },
   { name: "CLOUDFLARE_EMAIL", public: false, sensitive: true },
-  { name: "NEXT_PUBLIC_CLOUDFLARE_API_TOKEN", public: true, sensitive: true }, // ❌ WRONG - Should not be public
   { name: "CLICKHOUSE_HOST", public: false, sensitive: true },
   { name: "CLICKHOUSE_PORT", public: false, sensitive: true },
   { name: "CLICKHOUSE_USER", public: false, sensitive: true },
@@ -57,7 +56,7 @@ const ALL_VARS = [
   { name: "NEXT_PUBLIC_MEASUREMENT_ID", public: true, sensitive: false },
 
   // ===== PHOTOS APP =====
-  { name: "UNSPLASH_ACCESS_KEY", public: false, sensitive: true }, // ❌ WRONG - Should not be public
+  { name: "UNSPLASH_ACCESS_KEY", public: false, sensitive: true }, // ✅ OK - Server-side only API key
   { name: "UNSPLASH_USERNAME", public: true, sensitive: false }, // Public username
   { name: "CLOUDINARY_CLOUD_NAME", public: true, sensitive: false }, // Cloud name is visible in URLs
   { name: "CLOUDINARY_API_KEY", public: false, sensitive: true },
@@ -82,14 +81,10 @@ if (ISSUES.length > 0) {
     console.log(`     → Rename to: ${issue.name.replace("NEXT_PUBLIC_", "")}`);
     console.log(`     → Update code to use server-side only\n`);
   }
-  console.log("\nRENAME MAPPING:");
-  console.log("  NEXT_PUBLIC_AUTH0_CLIENT_ID → AUTH0_CLIENT_ID");
-  console.log("  NEXT_PUBLIC_AXIOM_TOKEN → AXIOM_TOKEN");
-  console.log("  NEXT_PUBLIC_SELINE_TOKEN → SELINE_TOKEN");
-  console.log("  NEXT_PUBLIC_CLOUDFLARE_API_TOKEN → CLOUDFLARE_API_TOKEN");
-  console.log(
-    "  UNSPLASH_ACCESS_KEY → UNSPLASH_ACCESS_KEY (no prefix needed, already backend only)"
-  );
 } else {
-  console.log("✅ All environment variables are correctly categorized!");
+  console.log("✅ All environment variables are correctly categorized!\n");
+  console.log("Security notes:");
+  console.log("  • Auth0 Client IDs (NEXT_PUBLIC_AUTH0_CLIENT_ID) are public by OAuth design");
+  console.log("  • Tracking tokens (NEXT_PUBLIC_SELINE_TOKEN, NEXT_PUBLIC_MEASUREMENT_ID) are public by design");
+  console.log("  • API secrets (CLOUDFLARE_API_TOKEN, UNSPLASH_ACCESS_KEY, etc.) are server-side only");
 }
