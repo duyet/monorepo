@@ -15,6 +15,7 @@ export type Post = {
   series?: string;
   snippet?: string;
   path?: string;
+  extension?: "md" | "mdx";
 };
 
 export interface TagCount {
