@@ -5,8 +5,6 @@
  * Separates types from actual configuration values for better organization.
  */
 
-import type { Profile } from "@duyet/profile";
-
 /**
  * Core application URLs
  */

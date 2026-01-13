@@ -1,57 +1,64 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from "lucide-react";
 
 interface DiffLine {
-  type: 'added' | 'removed' | 'unchanged' | 'modified'
-  content: string
-  line?: number
+  type: "added" | "removed" | "unchanged" | "modified";
+  content: string;
+  line?: number;
 }
 
 interface VersionDiffProps {
-  oldVersion: string
-  newVersion: string
-  diffs: DiffLine[]
-  title?: string
-  description?: string
+  oldVersion: string;
+  newVersion: string;
+  diffs: DiffLine[];
+  title?: string;
+  description?: string;
 }
 
-const getDiffStyle = (type: DiffLine['type']) => {
+const getDiffStyle = (type: DiffLine["type"]) => {
   switch (type) {
-    case 'added':
-      return 'bg-green-50 border-green-200'
-    case 'removed':
-      return 'bg-red-50 border-red-200'
-    case 'modified':
-      return 'bg-yellow-50 border-yellow-200'
-    case 'unchanged':
-      return 'bg-gray-50 border-gray-200'
+    case "added":
+      return "bg-green-50 border-green-200";
+    case "removed":
+      return "bg-red-50 border-red-200";
+    case "modified":
+      return "bg-yellow-50 border-yellow-200";
+    case "unchanged":
+      return "bg-gray-50 border-gray-200";
     default:
-      return 'bg-gray-50 border-gray-200'
+      return "bg-gray-50 border-gray-200";
   }
-}
+};
 
-const getDiffIcon = (type: DiffLine['type']) => {
+const getDiffIcon = (type: DiffLine["type"]) => {
   switch (type) {
-    case 'added':
-      return <Plus className="w-4 h-4 text-green-600" />
-    case 'removed':
-      return <Minus className="w-4 h-4 text-red-600" />
-    case 'modified':
-      return <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-    case 'unchanged':
-      return <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+    case "added":
+      return <Plus className="w-4 h-4 text-green-600" />;
+    case "removed":
+      return <Minus className="w-4 h-4 text-red-600" />;
+    case "modified":
+      return <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>;
+    case "unchanged":
+      return <div className="w-4 h-4 bg-gray-400 rounded-full"></div>;
     default:
-      return null
+      return null;
   }
-}
+};
 
-export function VersionDiff({ oldVersion, newVersion, diffs, title, description }: VersionDiffProps) {
+export function VersionDiff({
+  oldVersion,
+  newVersion,
+  diffs,
+  title,
+  description,
+}: VersionDiffProps) {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2">{title || 'Version Changes'}</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          {title || "Version Changes"}
+        </h2>
         {description && <p className="text-gray-600">{description}</p>}
         <div className="flex items-center justify-center space-x-4 mt-4">
           <div className="flex items-center space-x-2">
@@ -85,12 +92,10 @@ export function VersionDiff({ oldVersion, newVersion, diffs, title, description 
                 {getDiffIcon(diff.type)}
               </div>
               <div className="col-span-1 text-gray-500 font-mono text-xs">
-                {diff.line || ''}
+                {diff.line || ""}
               </div>
               <div className="col-span-10">
-                <code className="text-gray-800">
-                  {diff.content}
-                </code>
+                <code className="text-gray-800">{diff.content}</code>
               </div>
             </div>
           ))}
@@ -121,29 +126,29 @@ export function VersionDiff({ oldVersion, newVersion, diffs, title, description 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
         <div className="bg-green-50 p-4 rounded-lg text-center">
           <div className="text-2xl font-bold text-green-600">
-            {diffs.filter(d => d.type === 'added').length}
+            {diffs.filter((d) => d.type === "added").length}
           </div>
           <div className="text-sm text-green-700">Added</div>
         </div>
         <div className="bg-red-50 p-4 rounded-lg text-center">
           <div className="text-2xl font-bold text-red-600">
-            {diffs.filter(d => d.type === 'removed').length}
+            {diffs.filter((d) => d.type === "removed").length}
           </div>
           <div className="text-sm text-red-700">Removed</div>
         </div>
         <div className="bg-yellow-50 p-4 rounded-lg text-center">
           <div className="text-2xl font-bold text-yellow-600">
-            {diffs.filter(d => d.type === 'modified').length}
+            {diffs.filter((d) => d.type === "modified").length}
           </div>
           <div className="text-sm text-yellow-700">Modified</div>
         </div>
         <div className="bg-gray-50 p-4 rounded-lg text-center">
           <div className="text-2xl font-bold text-gray-600">
-            {diffs.filter(d => d.type === 'unchanged').length}
+            {diffs.filter((d) => d.type === "unchanged").length}
           </div>
           <div className="text-sm text-gray-700">Unchanged</div>
         </div>
       </div>
     </div>
-  )
+  );
 }

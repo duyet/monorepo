@@ -67,7 +67,8 @@ const CombinedLabel = (props: LabelProps) => {
   const numX = typeof x === "string" ? Number.parseFloat(x) : x;
   const numY = typeof y === "string" ? Number.parseFloat(y) : y;
   const numWidth = typeof width === "string" ? Number.parseFloat(width) : width;
-  const numHeight = typeof height === "string" ? Number.parseFloat(height) : height;
+  const numHeight =
+    typeof height === "string" ? Number.parseFloat(height) : height;
   const numValue = typeof value === "string" ? Number.parseFloat(value) : value;
 
   const isShortBar = payload.isShortBar || (payload.percent || 0) < 15;
@@ -76,7 +77,8 @@ const CombinedLabel = (props: LabelProps) => {
   const percentage = `${Number(numValue || payload.percent || 0).toFixed(1)}%`;
 
   // Get computed colors from CSS variables
-  const isDark = typeof window !== "undefined" &&
+  const isDark =
+    typeof window !== "undefined" &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   return (

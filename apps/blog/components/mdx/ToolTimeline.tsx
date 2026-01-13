@@ -1,55 +1,61 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { Calendar, ExternalLink, Github } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Calendar, ExternalLink, Github } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface TimelineEvent {
-  date: string
-  title: string
-  description: string
-  icon?: 'release' | 'update' | 'milestone'
-  link?: string
-  github?: string
+  date: string;
+  title: string;
+  description: string;
+  icon?: "release" | "update" | "milestone";
+  link?: string;
+  github?: string;
 }
 
 interface ToolTimelineProps {
-  events: TimelineEvent[]
-  orientation?: 'horizontal' | 'vertical'
-  title?: string
-  description?: string
+  events: TimelineEvent[];
+  orientation?: "horizontal" | "vertical";
+  title?: string;
+  description?: string;
 }
 
-const getEventIcon = (type: 'release' | 'update' | 'milestone') => {
+const getEventIcon = (type: "release" | "update" | "milestone") => {
   switch (type) {
-    case 'release':
-      return <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-    case 'update':
-      return <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-    case 'milestone':
-      return <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
+    case "release":
+      return <div className="w-4 h-4 bg-blue-500 rounded-full"></div>;
+    case "update":
+      return <div className="w-4 h-4 bg-green-500 rounded-full"></div>;
+    case "milestone":
+      return <div className="w-4 h-4 bg-purple-500 rounded-full"></div>;
     default:
-      return <div className="w-4 h-4 bg-gray-500 rounded-full"></div>
+      return <div className="w-4 h-4 bg-gray-500 rounded-full"></div>;
   }
-}
+};
 
-const getEventColor = (type: 'release' | 'update' | 'milestone') => {
+const getEventColor = (type: "release" | "update" | "milestone") => {
   switch (type) {
-    case 'release':
-      return 'border-blue-200 bg-blue-50'
-    case 'update':
-      return 'border-green-200 bg-green-50'
-    case 'milestone':
-      return 'border-purple-200 bg-purple-50'
+    case "release":
+      return "border-blue-200 bg-blue-50";
+    case "update":
+      return "border-green-200 bg-green-50";
+    case "milestone":
+      return "border-purple-200 bg-purple-50";
     default:
-      return 'border-gray-200 bg-gray-50'
+      return "border-gray-200 bg-gray-50";
   }
-}
+};
 
-export function ToolTimeline({ events, orientation = 'vertical', title, description }: ToolTimelineProps) {
-  const sortedEvents = [...events].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+export function ToolTimeline({
+  events,
+  orientation = "vertical",
+  title,
+  description,
+}: ToolTimelineProps) {
+  const sortedEvents = [...events].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
-  if (orientation === 'horizontal') {
+  if (orientation === "horizontal") {
     return (
       <div className="space-y-6">
         {title && (
@@ -70,21 +76,23 @@ export function ToolTimeline({ events, orientation = 'vertical', title, descript
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`relative p-6 rounded-lg border ${getEventColor(event.icon || 'release')}`}
+                className={`relative p-6 rounded-lg border ${getEventColor(event.icon || "release")}`}
               >
                 {/* Timeline dot */}
                 <div className="absolute -top-2 -left-2 bg-white p-2 rounded-full shadow-md z-10">
-                  {getEventIcon(event.icon || 'release')}
+                  {getEventIcon(event.icon || "release")}
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2 text-sm text-gray-600">
                     <Calendar className="w-4 h-4" />
-                    <span>{new Date(event.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}</span>
+                    <span>
+                      {new Date(event.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </span>
                   </div>
 
                   <h3 className="text-lg font-semibold">{event.title}</h3>
@@ -120,7 +128,7 @@ export function ToolTimeline({ events, orientation = 'vertical', title, descript
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // Vertical timeline
@@ -142,7 +150,7 @@ export function ToolTimeline({ events, orientation = 'vertical', title, descript
             <div key={index} className="relative flex">
               {/* Timeline dot */}
               <div className="absolute left-4 top-0 bg-white p-2 rounded-full shadow-md z-10">
-                {getEventIcon(event.icon || 'release')}
+                {getEventIcon(event.icon || "release")}
               </div>
 
               {/* Event content */}
@@ -151,16 +159,18 @@ export function ToolTimeline({ events, orientation = 'vertical', title, descript
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className={`p-6 rounded-lg border ${getEventColor(event.icon || 'release')}`}
+                  className={`p-6 rounded-lg border ${getEventColor(event.icon || "release")}`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
                     <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2 sm:mb-0">
                       <Calendar className="w-4 h-4" />
-                      <span>{new Date(event.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}</span>
+                      <span>
+                        {new Date(event.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </span>
                     </div>
                     <div className="flex space-x-2">
                       {event.link && (
@@ -197,5 +207,5 @@ export function ToolTimeline({ events, orientation = 'vertical', title, descript
         </div>
       </div>
     </div>
-  )
+  );
 }

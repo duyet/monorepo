@@ -2,11 +2,15 @@
   "name": "@duyet/components",
   "version": "0.1.0",
   "license": "MIT",
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./index.tsx",
   "module": "./index.tsx",
   "types": "./index.tsx",
-  "files": ["**"],
+  "files": [
+    "**"
+  ],
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

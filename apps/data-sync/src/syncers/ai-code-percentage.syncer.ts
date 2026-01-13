@@ -133,12 +133,8 @@ const REPO_COMMIT_QUERY = `
   }
 `;
 
-export class AICodePercentageSyncer extends BaseSyncer<
-  any,
-  RawCommitRecord[]
-> {
+export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
   private owners: string[];
-  private owner = '';
 
   constructor(client: ClickHouseClient, owner?: string | string[]) {
     super(client, "ai-code-percentage");
@@ -147,8 +143,9 @@ export class AICodePercentageSyncer extends BaseSyncer<
       this.owners = Array.isArray(owner) ? owner : [owner];
     } else {
       // Support multiple owners from environment variable (comma-separated)
-      const ownersEnv = process.env.GITHUB_USERNAMES || process.env.GITHUB_USERNAME || "duyet";
-      this.owners = ownersEnv.split(',').map(o => o.trim());
+      const ownersEnv =
+        process.env.GITHUB_USERNAMES || process.env.GITHUB_USERNAME || "duyet";
+      this.owners = ownersEnv.split(",").map((o) => o.trim());
     }
   }
 
@@ -156,9 +153,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
     return "github_commits_raw";
   }
 
-  protected async fetchFromApi(
-    options: SyncOptions
-  ): Promise<any[]> {
+  protected async fetchFromApi(options: SyncOptions): Promise<any[]> {
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
     // Calculate since date if startDate is provided
@@ -167,11 +162,13 @@ export class AICodePercentageSyncer extends BaseSyncer<
       : undefined;
 
     this.logger.info(
-      `Fetching commits for ${this.owners.length} users: ${this.owners.join(', ')}${since ? ` since ${since}` : ""}`
+      `Fetching commits for ${this.owners.length} users: ${this.owners.join(", ")}${since ? ` since ${since}` : ""}`
     );
 
     // Fetch repos and commits for all owners
-    const allCommits: Array<GitHubCommit & { repo: string; repo_owner: string }> = [];
+    const allCommits: Array<
+      GitHubCommit & { repo: string; repo_owner: string }
+    > = [];
 
     for (const currentOwner of this.owners) {
       this.logger.info(`Fetching repositories for ${currentOwner}...`);
@@ -183,7 +180,9 @@ export class AICodePercentageSyncer extends BaseSyncer<
         continue;
       }
 
-      this.logger.info(`Processing ${repos.length} repositories for ${currentOwner}`);
+      this.logger.info(
+        `Processing ${repos.length} repositories for ${currentOwner}`
+      );
 
       // Process repos in batches to avoid overwhelming the API
       const batchSize = 10;
@@ -196,7 +195,12 @@ export class AICodePercentageSyncer extends BaseSyncer<
         );
 
         for (const repo of batch) {
-          const commits = await this.fetchAllCommits(token, repo, since, currentOwner);
+          const commits = await this.fetchAllCommits(
+            token,
+            repo,
+            since,
+            currentOwner
+          );
           commitsByRepo.set(repo, commits);
 
           if (commits.length > 0) {
@@ -214,7 +218,9 @@ export class AICodePercentageSyncer extends BaseSyncer<
 
       // Flatten commits with repo names and owner
       for (const [repo, commits] of commitsByRepo.entries()) {
-        allCommits.push(...commits.map(c => ({ ...c, repo, repo_owner: currentOwner })));
+        allCommits.push(
+          ...commits.map((c) => ({ ...c, repo, repo_owner: currentOwner }))
+        );
       }
     }
 
@@ -225,7 +231,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
     }
 
     // Group by owner to create separate responses
-    const commitsByOwner = new Map<string, Array<typeof allCommits[0]>>();
+    const commitsByOwner = new Map<string, Array<(typeof allCommits)[0]>>();
     for (const commit of allCommits) {
       if (!commitsByOwner.has(commit.repo_owner)) {
         commitsByOwner.set(commit.repo_owner, []);
@@ -269,7 +275,9 @@ export class AICodePercentageSyncer extends BaseSyncer<
                       },
                       signature: {
                         exists: commit.signature_exists,
-                        valid: commit.signature_valid ? commit.signature_valid : null,
+                        valid: commit.signature_valid
+                          ? commit.signature_valid
+                          : null,
                         method: commit.signature_method,
                       },
                       additions: commit.additions,
@@ -349,14 +357,15 @@ export class AICodePercentageSyncer extends BaseSyncer<
           });
 
           if (!res.ok) {
-            throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
+            throw new Error(
+              `GitHub API error: ${res.status} ${res.statusText}`
+            );
           }
 
           return res.json();
         });
 
-        const repoNodes =
-          response.data?.user?.repositories?.edges || [];
+        const repoNodes = response.data?.user?.repositories?.edges || [];
 
         for (const edge of repoNodes) {
           repos.push(edge.node.name);
@@ -430,7 +439,9 @@ export class AICodePercentageSyncer extends BaseSyncer<
         break;
       }
 
-      const repoUrl = response.data?.repository?.url || `https://github.com/${currentOwner}/${repoName}`;
+      const repoUrl =
+        response.data?.repository?.url ||
+        `https://github.com/${currentOwner}/${repoName}`;
 
       for (const edge of edges) {
         const node = edge.node;
@@ -480,9 +491,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
     return commits;
   }
 
-  protected async transform(
-    data: any[]
-  ): Promise<RawCommitRecord[]> {
+  protected async transform(data: any[]): Promise<RawCommitRecord[]> {
     if (!data || data.length === 0) {
       return [];
     }
@@ -492,11 +501,12 @@ export class AICodePercentageSyncer extends BaseSyncer<
     // Process all responses (one per owner)
     for (const response of data) {
       const edges =
-        response.data?.repository?.defaultBranchRef?.target?.history?.edges || [];
+        response.data?.repository?.defaultBranchRef?.target?.history?.edges ||
+        [];
 
-      const repoUrl = response.data?.repository?.url || '';
+      const repoUrl = response.data?.repository?.url || "";
       // Extract repo_owner from URL (e.g., "https://github.com/duyet" -> "duyet")
-      const repoOwner = repoUrl.split('github.com/')[1] || this.owners[0];
+      const repoOwner = repoUrl.split("github.com/")[1] || this.owners[0];
 
       for (const edge of edges) {
         const commit = edge.node;
@@ -509,7 +519,7 @@ export class AICodePercentageSyncer extends BaseSyncer<
         });
 
         records.push({
-          date: new Date(commit.committedDate).toISOString().split('T')[0],
+          date: new Date(commit.committedDate).toISOString().split("T")[0],
           repo: edge._repo || "unknown", // Use repo name from edge
           repo_owner: repoOwner,
           repo_url: repoUrl,

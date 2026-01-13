@@ -517,7 +517,7 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
     try {
       // Use the download_location from photo.links which includes auth params
       await trackPhotoDownload(photo.links.download_location);
-    } catch (error) {
+    } catch (_error) {
       downloadTrackingErrors++;
       // Silent fail - don't clutter logs
     }

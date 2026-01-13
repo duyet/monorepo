@@ -124,72 +124,72 @@
   }
 
   body {
-    font-size: 11pt !important;
-    line-height: 1.3 !important;
-    background: white !important;
-    color: black !important;
+    font-size: 11pt;
+    line-height: 1.3;
+    background: white;
+    color: black;
   }
 
   /* Remove underlines from all links in print */
   a {
-    text-decoration: none !important;
+    text-decoration: none;
   }
 
   /* Compress layout for single page */
   main {
-    min-height: auto !important;
-    margin: 10mm 15mm !important;
+    min-height: auto;
+    margin: 10mm 15mm;
   }
 
   /* Reduce all gaps and spacing */
   .flex.flex-col.gap-8 {
-    gap: 0.5rem !important;
+    gap: 0.5rem;
   }
 
   .flex.flex-col.gap-5 {
-    gap: 0.4rem !important;
+    gap: 0.4rem;
   }
 
   .flex.flex-col.gap-3 {
-    gap: 0.3rem !important;
+    gap: 0.3rem;
   }
 
   .flex.flex-col.gap-2 {
-    gap: 0.2rem !important;
+    gap: 0.2rem;
   }
 
   /* Optimize header spacing */
   header {
-    margin-bottom: 0.3rem !important;
+    margin-bottom: 0.3rem;
   }
 
   h1 {
-    font-size: 18pt !important;
-    margin-bottom: 0.3rem !important;
+    font-size: 18pt;
+    margin-bottom: 0.3rem;
   }
 
   /* Compact sections */
   section {
-    margin-bottom: 0.4rem !important;
+    margin-bottom: 0.4rem;
   }
 
   /* Reduce padding and margins */
   .mb-2 {
-    margin-bottom: 0.2rem !important;
+    margin-bottom: 0.2rem;
   }
 
   .mb-10 {
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
   }
 
   .mt-10,
   .mt-20 {
-    margin-top: 0 !important;
+    margin-top: 0;
   }
 
   /* Prevent page breaks */
   * {
-    page-break-inside: avoid !important;
+    page-break-inside: avoid;
   }
 
   /* Keep sections together */
@@ -197,62 +197,62 @@
   header,
   .experience-item,
   .education-item {
-    break-inside: avoid !important;
+    break-inside: avoid;
   }
 
   /* Hide print button and unnecessary elements */
   .print\:hidden {
-    display: none !important;
+    display: none;
   }
 
   /* Optimize container */
   .container,
   [class*="Container"] {
-    max-width: 100% !important;
-    padding: 0 !important;
+    max-width: 100%;
+    padding: 0;
   }
 
   /* Compress text elements */
   p,
   div,
   span {
-    line-height: 1.3 !important;
+    line-height: 1.3;
   }
 
   /* Reduce separator spacing */
   hr,
   [role="separator"] {
-    margin: 0.2rem 0 !important;
+    margin: 0.2rem 0;
   }
 
   /* Print footer styling */
   .cv-print-footer {
-    margin-top: 0.3rem !important;
-    padding-top: 0.2rem !important;
+    margin-top: 0.3rem;
+    padding-top: 0.2rem;
   }
 
   .cv-print-footer p {
-    font-size: 6pt !important;
-    font-weight: 300 !important;
-    text-align: left !important;
-    color: #666 !important;
-    line-height: 1.2 !important;
+    font-size: 6pt;
+    font-weight: 300;
+    text-align: left;
+    color: #666;
+    line-height: 1.2;
   }
 
   .cv-print-footer a {
-    color: #666 !important;
-    text-decoration: none !important;
-    font-weight: 300 !important;
+    color: #666;
+    text-decoration: none;
+    font-weight: 300;
   }
 
   .cv-print-footer .cv-footer-separator {
-    margin: 0.1rem 0 !important;
-    width: 30% !important;
-    max-width: 30% !important;
-    height: 0.5px !important;
-    border: none !important;
-    border-top: 0.5px solid #ccc !important;
-    opacity: 0.5 !important;
-    background: transparent !important;
+    margin: 0.1rem 0;
+    width: 30%;
+    max-width: 30%;
+    height: 0.5px;
+    border: none;
+    border-top: 0.5px solid #ccc;
+    opacity: 0.5;
+    background: transparent;
   }
 }

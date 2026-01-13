@@ -124,7 +124,7 @@ export async function getCloudinaryPhotos(
  */
 export async function getAllCloudinaryPhotos(): Promise<Photo[]> {
   const allPhotos: Photo[] = [];
-  let nextCursor: string | undefined = undefined;
+  let nextCursor: string | undefined ;
   const maxPages = 10; // Limit to avoid excessive API calls
 
   console.log("📸 Fetching photos from Cloudinary...");

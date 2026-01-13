@@ -39,10 +39,15 @@ export async function generateStaticParams() {
     const uniqueYears = Array.from(new Set([...allYears, ...yearsFromPhotos]));
 
     return uniqueYears.map((year) => ({ year }));
-  } catch (error) {
+  } catch (_error) {
     // Return fallback years for build
     const currentYear = new Date().getFullYear();
-    const fallbackYears = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3];
+    const fallbackYears = [
+      currentYear,
+      currentYear - 1,
+      currentYear - 2,
+      currentYear - 3,
+    ];
     return fallbackYears.map((year) => ({ year: year.toString() }));
   }
 }
@@ -59,8 +64,12 @@ export default async function YearPage({ params }: YearPageProps) {
   const { year } = await params;
 
   // Validate year format
-  const yearNum = Number.parseInt(year);
-  if (Number.isNaN(yearNum) || yearNum < 2000 || yearNum > new Date().getFullYear()) {
+  const yearNum = Number.parseInt(year, 10);
+  if (
+    Number.isNaN(yearNum) ||
+    yearNum < 2000 ||
+    yearNum > new Date().getFullYear()
+  ) {
     notFound();
   }
 
@@ -71,7 +80,7 @@ export default async function YearPage({ params }: YearPageProps) {
   try {
     allPhotos = await getAllPhotos();
     yearPhotos = getPhotosByYear(allPhotos, year);
-  } catch (e) {
+  } catch (_e) {
     error = "Failed to load photos. Please try again later.";
   }
 
@@ -110,7 +119,10 @@ export default async function YearPage({ params }: YearPageProps) {
 
         <div>
           <Container className="py-12">
-            <section className="mb-8 text-center" aria-labelledby="intro-heading">
+            <section
+              className="mb-8 text-center"
+              aria-labelledby="intro-heading"
+            >
               <div className="mb-6">
                 <Link
                   href="/"
@@ -148,9 +160,9 @@ export default async function YearPage({ params }: YearPageProps) {
   ).sort((a, b) => b - a);
 
   const currentYearIndex = allYears.indexOf(yearNum);
-  const previousYear =
+  const _previousYear =
     currentYearIndex > 0 ? allYears[currentYearIndex - 1] : null;
-  const nextYear =
+  const _nextYear =
     currentYearIndex < allYears.length - 1
       ? allYears[currentYearIndex + 1]
       : null;

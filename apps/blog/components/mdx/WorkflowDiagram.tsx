@@ -1,53 +1,58 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, ArrowLeft, RefreshCw, CheckCircle2 } from 'lucide-react'
+import { motion } from "framer-motion";
+import { RefreshCw, CheckCircle2 } from "lucide-react";
 
 interface Step {
-  id: string
-  name: string
-  description: string
-  status?: 'pending' | 'in-progress' | 'completed'
-  time?: string
+  id: string;
+  name: string;
+  description: string;
+  status?: "pending" | "in-progress" | "completed";
+  time?: string;
 }
 
 interface WorkflowDiagramProps {
-  steps: Step[]
-  title?: string
-  description?: string
-  type?: 'circular' | 'linear'
-  centerText?: string
+  steps: Step[];
+  title?: string;
+  description?: string;
+  type?: "circular" | "linear";
+  centerText?: string;
 }
 
-const getStatusColor = (status: Step['status']) => {
+const getStatusColor = (status: Step["status"]) => {
   switch (status) {
-    case 'completed':
-      return 'bg-green-500'
-    case 'in-progress':
-      return 'bg-blue-500'
-    case 'pending':
-      return 'bg-gray-300'
+    case "completed":
+      return "bg-green-500";
+    case "in-progress":
+      return "bg-blue-500";
+    case "pending":
+      return "bg-gray-300";
     default:
-      return 'bg-gray-300'
+      return "bg-gray-300";
   }
-}
+};
 
-const getStatusIcon = (status: Step['status']) => {
+const getStatusIcon = (status: Step["status"]) => {
   switch (status) {
-    case 'completed':
-      return <CheckCircle2 className="w-4 h-4 text-white" />
-    case 'in-progress':
-      return <RefreshCw className="w-4 h-4 text-white animate-spin" />
-    case 'pending':
-      return <div className="w-4 h-4 bg-white opacity-30 rounded-full"></div>
+    case "completed":
+      return <CheckCircle2 className="w-4 h-4 text-white" />;
+    case "in-progress":
+      return <RefreshCw className="w-4 h-4 text-white animate-spin" />;
+    case "pending":
+      return <div className="w-4 h-4 bg-white opacity-30 rounded-full"></div>;
     default:
-      return null
+      return null;
   }
-}
+};
 
-export function WorkflowDiagram({ steps, title, description, type = 'circular', centerText }: WorkflowDiagramProps) {
-  if (type === 'circular') {
+export function WorkflowDiagram({
+  steps,
+  title,
+  description,
+  type = "circular",
+  centerText,
+}: WorkflowDiagramProps) {
+  if (type === "circular") {
     return (
       <div className="space-y-6">
         {title && (
@@ -87,10 +92,10 @@ export function WorkflowDiagram({ steps, title, description, type = 'circular', 
 
             {/* Steps around the circle */}
             {steps.map((step, index) => {
-              const angle = (index / steps.length) * 2 * Math.PI - Math.PI / 2
-              const radius = 150
-              const x = 200 + radius * Math.cos(angle)
-              const y = 200 + radius * Math.sin(angle)
+              const angle = (index / steps.length) * 2 * Math.PI - Math.PI / 2;
+              const radius = 150;
+              const x = 200 + radius * Math.cos(angle);
+              const y = 200 + radius * Math.sin(angle);
 
               return (
                 <motion.div
@@ -102,10 +107,12 @@ export function WorkflowDiagram({ steps, title, description, type = 'circular', 
                   style={{
                     left: x,
                     top: y,
-                    transform: 'translate(-50%, -50%)',
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
-                  <div className={`relative group ${step.status === 'completed' ? 'z-10' : ''}`}>
+                  <div
+                    className={`relative group ${step.status === "completed" ? "z-10" : ""}`}
+                  >
                     {/* Connection line */}
                     {index < steps.length - 1 && (
                       <div className="absolute -top-1/2 -right-full w-1/2 h-px bg-gray-300"></div>
@@ -114,9 +121,11 @@ export function WorkflowDiagram({ steps, title, description, type = 'circular', 
                     {/* Step circle */}
                     <div
                       className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md border-2 transition-all duration-300 ${
-                        step.status === 'completed' ? `${getStatusColor(step.status)} border-green-300` :
-                        step.status === 'in-progress' ? `${getStatusColor(step.status)} border-blue-300` :
-                        'bg-gray-200 border-gray-300'
+                        step.status === "completed"
+                          ? `${getStatusColor(step.status)} border-green-300`
+                          : step.status === "in-progress"
+                            ? `${getStatusColor(step.status)} border-blue-300`
+                            : "bg-gray-200 border-gray-300"
                       }`}
                     >
                       {getStatusIcon(step.status)}
@@ -127,28 +136,35 @@ export function WorkflowDiagram({ steps, title, description, type = 'circular', 
                       <div className="bg-gray-800 text-white text-xs rounded-lg p-2 whitespace-nowrap">
                         <div className="font-semibold">{step.name}</div>
                         <div className="text-gray-300">{step.description}</div>
-                        {step.time && <div className="text-gray-400 mt-1">{step.time}</div>}
+                        {step.time && (
+                          <div className="text-gray-400 mt-1">{step.time}</div>
+                        )}
                       </div>
                     </div>
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </div>
         </div>
 
         {/* Step labels at bottom */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-          {steps.map((step, index) => (
-            <div key={step.id} className="text-center p-3 bg-gray-50 rounded-lg">
-              <div className={`w-3 h-3 rounded-full mx-auto mb-2 ${getStatusColor(step.status)}`}></div>
+          {steps.map((step, _index) => (
+            <div
+              key={step.id}
+              className="text-center p-3 bg-gray-50 rounded-lg"
+            >
+              <div
+                className={`w-3 h-3 rounded-full mx-auto mb-2 ${getStatusColor(step.status)}`}
+              ></div>
               <div className="font-medium text-sm">{step.name}</div>
               <div className="text-xs text-gray-600 mt-1">{step.time}</div>
             </div>
           ))}
         </div>
       </div>
-    )
+    );
   }
 
   // Linear workflow
@@ -180,17 +196,23 @@ export function WorkflowDiagram({ steps, title, description, type = 'circular', 
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   className={`p-6 rounded-lg border ${
-                    step.status === 'completed' ? 'border-green-200 bg-green-50' :
-                    step.status === 'in-progress' ? 'border-blue-200 bg-blue-50' :
-                    'border-gray-200 bg-gray-50'
+                    step.status === "completed"
+                      ? "border-green-200 bg-green-50"
+                      : step.status === "in-progress"
+                        ? "border-blue-200 bg-blue-50"
+                        : "border-gray-200 bg-gray-50"
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold mb-1">{step.name}</h3>
+                      <h3 className="text-lg font-semibold mb-1">
+                        {step.name}
+                      </h3>
                       <p className="text-gray-700 mb-2">{step.description}</p>
                       {step.time && (
-                        <span className="text-sm text-gray-500">{step.time}</span>
+                        <span className="text-sm text-gray-500">
+                          {step.time}
+                        </span>
                       )}
                     </div>
                   </div>
@@ -206,5 +228,5 @@ export function WorkflowDiagram({ steps, title, description, type = 'circular', 
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 import type { Series } from "@duyet/interfaces";
-import { ContentCard, FeaturedCard, AiFeaturedCard } from "@duyet/components";
+import { ContentCard, AiFeaturedCard } from "@duyet/components";
 
 interface HomeCardsProps {
   seriesList: Series[];

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { DateRangeDays } from "@/lib/types";
 import { AIPercentageChart } from "@/components/AIPercentageChart";
 import { AIPercentageHero } from "@/components/AIPercentageHero";
 import { AIPercentageTrend } from "@/components/AIPercentageTrend";
@@ -42,7 +41,7 @@ function TimeRange() {
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1y");
 
   const periods = DATE_RANGES;
-  const currentPeriod =
+  const _currentPeriod =
     periods.find((p) => p.value === selectedPeriod) || periods[3];
 
   return (

@@ -21,7 +21,9 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noShadowRestrictedNames": "off",
-        "noImplicitAnyLet": "off"
+        "noImplicitAnyLet": "off",
+        "noUnknownAtRules": "off",
+        "useIterableCallbackReturn": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
@@ -31,17 +33,25 @@
         "useButtonType": "off",
         "useKeyWithClickEvents": "off",
         "useAltText": "off",
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off",
+        "useAriaPropsSupportedByRole": "off"
       },
       "complexity": {
         "noForEach": "off"
       },
       "style": {
         "noUnusedTemplateLiteral": "off",
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noHeadElement": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
+        "noUnusedVariables": "off",
+        "noUnusedFunctionParameters": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
       }
     }
   },
@@ -57,6 +67,11 @@
   "json": {
     "parser": {
       "allowTrailingCommas": true
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }

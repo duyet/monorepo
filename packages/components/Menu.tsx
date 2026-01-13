@@ -3,7 +3,7 @@ import { cn } from "@duyet/libs/utils";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
-import { duyetUrls, createNavigation } from "@duyet/urls";
+import { duyetUrls, } from "@duyet/urls";
 
 export type NavigationItem = {
   name: string;

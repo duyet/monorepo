@@ -83,7 +83,10 @@ export function PopularContentTable({
                     >
                       {index + 1}
                     </span>
-                    <span className="min-w-0 truncate text-sm" title={cleanPath}>
+                    <span
+                      className="min-w-0 truncate text-sm"
+                      title={cleanPath}
+                    >
                       {cleanPath}
                     </span>
                   </div>

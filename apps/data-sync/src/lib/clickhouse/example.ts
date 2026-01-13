@@ -11,7 +11,6 @@ import {
   closeClient,
   convertRetentionPolicy,
   executeQuery,
-  getClient,
   getRetentionStatus,
   getTableSizes,
   optimizeTables,

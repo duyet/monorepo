@@ -1,8 +1,8 @@
 // const { withAxiom } = require('next-axiom')
 // const redirects = require('./next.redirects')
 const { loadEnvConfig } = require("@next/env");
-const path = require("path");
-const createMDX = require("@next/mdx");
+const path = require("node:path");
+const _createMDX = require("@next/mdx");
 
 // Load env from monorepo root and app directory
 const rootDir = path.resolve(__dirname, "../..");

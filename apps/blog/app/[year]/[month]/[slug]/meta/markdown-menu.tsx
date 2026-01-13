@@ -50,6 +50,9 @@ export function MarkdownMenu({
           <div
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
+            role="button"
+            tabIndex={-1}
+            aria-label="Close menu"
           />
           <div className="absolute right-0 z-20 mt-2 w-48 rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
             <div className="py-1">

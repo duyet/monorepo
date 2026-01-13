@@ -1,9 +1,8 @@
-import React from 'react'
-import Link from 'next/link'
-import { getAllPosts } from '@/lib/posts'
+import Link from "next/link";
+import { getAllPosts } from "@/lib/posts";
 
 export default function BlogPage() {
-  const posts = getAllPosts()
+  const posts = getAllPosts();
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -16,7 +15,10 @@ export default function BlogPage() {
       ) : (
         <div className="space-y-6">
           {posts.map((post) => (
-            <article key={post.slug} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+            <article
+              key={post.slug}
+              className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow"
+            >
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold mb-2">
@@ -29,15 +31,13 @@ export default function BlogPage() {
                   </h2>
                   <div className="text-gray-600 text-sm space-y-1">
                     <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </time>
-                    {post.author && (
-                      <span> • by {post.author}</span>
-                    )}
+                    {post.author && <span> • by {post.author}</span>}
                   </div>
                 </div>
                 {post.featured && (
@@ -66,5 +66,5 @@ export default function BlogPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -1,7 +1,10 @@
 {
   "name": "duyet",
   "private": true,
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/duyet/monorepo.git"

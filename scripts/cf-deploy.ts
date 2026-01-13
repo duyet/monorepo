@@ -85,21 +85,13 @@ if (dryRun) {
 }
 
 // Validate arguments
-const appsToDeployList = targetApp
-  ? [targetApp]
-  : Object.keys(APPS_CONFIG);
+const appsToDeployList = targetApp ? [targetApp] : Object.keys(APPS_CONFIG);
 
 // Verify all requested apps exist
-const invalidApps = appsToDeployList.filter(
-  (app) => !APPS_CONFIG[app]
-);
+const invalidApps = appsToDeployList.filter((app) => !APPS_CONFIG[app]);
 if (invalidApps.length > 0) {
-  console.error(
-    `[ERROR] Unknown app(s): ${invalidApps.join(", ")}`
-  );
-  console.error(
-    `Available apps: ${Object.keys(APPS_CONFIG).join(", ")}`
-  );
+  console.error(`[ERROR] Unknown app(s): ${invalidApps.join(", ")}`);
+  console.error(`Available apps: ${Object.keys(APPS_CONFIG).join(", ")}`);
   process.exit(1);
 }
 
@@ -113,9 +105,7 @@ for (const app of appsToDeployList) {
 
   const wranglerToml = join(appDir, "wrangler.toml");
   if (!existsSync(wranglerToml)) {
-    console.error(
-      `[ERROR] wrangler.toml not found in ${appDir}`
-    );
+    console.error(`[ERROR] wrangler.toml not found in ${appDir}`);
     process.exit(1);
   }
 }
@@ -200,9 +190,7 @@ async function buildAllApps(): Promise<boolean> {
     return false;
   }
 
-  console.log(
-    `[✓] All ${appsToDeployList.length} app(s) built successfully\n`
-  );
+  console.log(`[✓] All ${appsToDeployList.length} app(s) built successfully\n`);
   return true;
 }
 
@@ -216,9 +204,7 @@ async function syncAppSecrets(appName: string): Promise<boolean> {
   }
 
   if (dryRun) {
-    console.log(
-      `    [DRY RUN] Would sync secrets for ${appName}`
-    );
+    console.log(`    [DRY RUN] Would sync secrets for ${appName}`);
     return true;
   }
 
@@ -249,7 +235,9 @@ async function configPhase(): Promise<boolean> {
     return true;
   }
 
-  console.log(`[INFO] Syncing secrets for ${appsWithSecrets.length} app(s)...\n`);
+  console.log(
+    `[INFO] Syncing secrets for ${appsWithSecrets.length} app(s)...\n`
+  );
 
   const results = await Promise.all(
     appsWithSecrets.map((app) => syncAppSecrets(app))
@@ -258,10 +246,10 @@ async function configPhase(): Promise<boolean> {
   const failed = appsWithSecrets.filter((_, i) => !results[i]);
 
   if (failed.length > 0) {
+    console.warn(`[WARN] Failed to sync secrets for: ${failed.join(", ")}`);
     console.warn(
-      `[WARN] Failed to sync secrets for: ${failed.join(", ")}`
+      "[WARN] Deployment will continue, but secrets may not be available\n"
     );
-    console.warn("[WARN] Deployment will continue, but secrets may not be available\n");
   } else {
     console.log("[✓] Secrets synced successfully\n");
   }
@@ -284,14 +272,19 @@ async function deployApp(appName: string): Promise<{
   console.log(`     → Domain: https://${appConfig.domain}`);
 
   if (dryRun) {
-    console.log(
-      `     [DRY RUN] Would deploy: wrangler pages deploy out`
-    );
+    console.log(`     [DRY RUN] Would deploy: wrangler pages deploy out`);
     return { success: true, app: appName };
   }
 
   const result = await runCommand(
-    ["bunx", "wrangler", "pages", "deploy", "out", `--project-name=${appConfig.projectName}`],
+    [
+      "bunx",
+      "wrangler",
+      "pages",
+      "deploy",
+      "out",
+      `--project-name=${appConfig.projectName}`,
+    ],
     appDir,
     `Deploy ${appName}`,
     true
@@ -335,9 +328,7 @@ async function deployPhase(): Promise<boolean> {
     return false;
   }
 
-  console.log(
-    `[✓] All ${succeeded.length} app(s) deployed successfully`
-  );
+  console.log(`[✓] All ${succeeded.length} app(s) deployed successfully`);
   return true;
 }
 
@@ -363,25 +354,15 @@ function printSummary(success: boolean) {
 
   console.log("\n[NEXT STEPS]");
   if (success) {
-    console.log(
-      "  ✓ All deployments completed successfully"
-    );
-    console.log(
-      "  ✓ Check your deployed apps at the domains above"
-    );
+    console.log("  ✓ All deployments completed successfully");
+    console.log("  ✓ Check your deployed apps at the domains above");
     console.log(
       "  ✓ Verify functionality and monitor Cloudflare Pages dashboard"
     );
   } else {
-    console.log(
-      "  ✗ Some deployments failed"
-    );
-    console.log(
-      "  ✗ Check the logs above for error details"
-    );
-    console.log(
-      "  ✗ Ensure Cloudflare API credentials are configured"
-    );
+    console.log("  ✗ Some deployments failed");
+    console.log("  ✗ Check the logs above for error details");
+    console.log("  ✗ Ensure Cloudflare API credentials are configured");
   }
 
   console.log("");
@@ -414,7 +395,9 @@ async function main() {
   // Config
   const configSuccess = await configPhase();
   if (!configSuccess) {
-    console.warn("[WARN] Config phase had issues, continuing with deployment...");
+    console.warn(
+      "[WARN] Config phase had issues, continuing with deployment..."
+    );
   }
 
   // Deploy

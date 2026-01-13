@@ -80,7 +80,11 @@ export function TokenBarChart({
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={index} tickLine={false} axisLine={false} />
-        <YAxis tickLine={false} axisLine={false} tickFormatter={formatYAxisLabel} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={formatYAxisLabel}
+        />
         <ChartTooltip
           content={
             <ChartTooltipContent
