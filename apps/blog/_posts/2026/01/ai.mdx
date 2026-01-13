@@ -167,7 +167,8 @@ First thing Claude does when starting a session is read your `CLAUDE.md` file. M
 A few tips:
 - **Keep it short** - Claude reads this every session, don't make it a novel
 - **Make it specific** - tell it your stack (`use bun, not npm`), your conventions (`use semantic commits`), your preferences
-- **Update it constantly** - if you keep correcting Claude on the same thing, that's a signal it should be in CLAUDE.md. Just say `add this to CLAUDE.md`
+- **Update it constantly** - if you keep correcting Claude on the same thing, that's a signal it should be in CLAUDE.md. Just say `remember this to CLAUDE.md`
+- **Subdirectory CLAUDE.md files** - this is useful for monorepos, lazy loaded when Claude is actively working in that part of the codebase (e.g. `apps/home/CLAUDE.md`, `apps/blog/CLAUDE.md`, etc).
 
 If you use both Claude Code and other coding agents (like Codex), create a symlink so they share the same instructions:
 
@@ -175,7 +176,13 @@ If you use both Claude Code and other coding agents (like Codex), create a symli
 ln -s CLAUDE.md AGENTS.md
 ```
 
-Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md` - now you only maintain one file.
+or put instructions in `AGENTS.md` an open standard and `CLAUDE.md`:
+
+```
+@AGENTS.md
+```
+
+Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md` - you only maintain one.
 
 Here's a snippet from my global `~/.claude/CLAUDE.md` that applies to every project:
 
