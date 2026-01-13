@@ -1,0 +1,317 @@
+---
+title: "Interactive Components Demo: MDX in the Blog"
+slug: "/2025/01/interactive-components-demo"
+date: "2025-01-15"
+category: "Tutorial"
+tags: ["MDX", "React", "Components", "Interactive", "Tutorial"]
+excerpt: "A comprehensive demonstration of the 7 new interactive MDX components available in the blog: ToolComparison, FeatureMatrix, WakaTimeChart, ToolTimeline, WorkflowDiagram, VersionDiff, and ToolList."
+description: "A comprehensive demonstration of the 7 new interactive MDX components available in the blog: ToolComparison, FeatureMatrix, WakaTimeChart, ToolTimeline, WorkflowDiagram, VersionDiff, and ToolList."
+featured: true
+---
+
+# Interactive Components Demo
+
+This post demonstrates all 7 interactive MDX components available in the blog. These components can be used directly in `.mdx` files to create rich, interactive content.
+
+## 1. Tool Comparison Component
+
+The `ToolComparison` component helps you compare tools with pros, cons, and ratings.
+
+<ToolComparison
+  tools={[
+    {
+      name: "React",
+      description: "A JavaScript library for building user interfaces",
+      pros: ["Large ecosystem", "Virtual DOM performance", "Great community support", "Extensive documentation"],
+      cons: ["Steep learning curve", "JSX syntax", "Frequent API changes"],
+      rating: 4.8
+    },
+    {
+      name: "Vue.js",
+      description: "Progressive framework for building web interfaces",
+      pros: ["Easy to learn", "Great documentation", "Flexible", "Small bundle size"],
+      cons: ["Smaller ecosystem than React", "Fewer job opportunities"],
+      rating: 4.5
+    },
+    {
+      name: "Svelte",
+      description: "Cybernetically enhanced web apps",
+      pros: ["No virtual DOM", "Excellent performance", "Minimal boilerplate", "True reactivity"],
+      cons: ["Smaller ecosystem", "Limited tooling"],
+      rating: 4.3
+    }
+  ]}
+/>
+
+## 2. Feature Matrix Component
+
+The `FeatureMatrix` component creates a sortable comparison table with color-coded scores.
+
+<FeatureMatrix
+  columns={[
+    { key: "performance", label: "Performance", color: "text-blue-600", shape: "circle" },
+    { key: "ease", label: "Ease of Use", color: "text-green-600", shape: "square" },
+    { key: "features", label: "Features", color: "text-purple-600", shape: "star" }
+  ]}
+  data={[
+    { name: "React", performance: 8, ease: 7, features: 9 },
+    { name: "Vue", performance: 9, ease: 9, features: 7 },
+    { name: "Svelte", performance: 10, ease: 8, features: 6 },
+    { name: "Angular", performance: 7, ease: 5, features: 10 },
+    { name: "Solid", performance: 10, ease: 7, features: 7 }
+  ]}
+/>
+
+## 3. WakaTime Chart Component
+
+The `WakaTimeChart` component displays development time distribution using stacked area charts.
+
+<WakaTimeChart
+  data={[
+    { date: "Mon", React: 2.5, TypeScript: 1.5, Testing: 0.8, Docs: 0.5 },
+    { date: "Tue", React: 3.2, TypeScript: 1.8, Testing: 1.2, Docs: 0.3 },
+    { date: "Wed", React: 2.8, TypeScript: 2.0, Testing: 0.5, Docs: 0.7 },
+    { date: "Thu", React: 4.1, TypeScript: 1.2, Testing: 1.5, Docs: 0.2 },
+    { date: "Fri", React: 3.5, TypeScript: 1.6, Testing: 0.9, Docs: 0.4 },
+    { date: "Sat", React: 1.2, TypeScript: 0.8, Testing: 0.3, Docs: 0.2 },
+    { date: "Sun", React: 0.5, TypeScript: 0.3, Testing: 0.2, Docs: 0.1 }
+  ]}
+  title="Weekly Development Time"
+/>
+
+## 4. Tool Timeline Component
+
+The `ToolTimeline` component displays sequential events with status indicators.
+
+<ToolTimeline
+  orientation="vertical"
+  title="Project Development Timeline"
+  items={[
+    {
+      title: "Planning Phase",
+      description: "Define requirements and design architecture",
+      date: "Q1 2024",
+      status: "completed"
+    },
+    {
+      title: "Development Sprint 1",
+      description: "Build core components and infrastructure",
+      date: "Q2 2024",
+      status: "completed"
+    },
+    {
+      title: "Testing & QA",
+      description: "Unit tests, integration tests, and bug fixes",
+      date: "Q3 2024",
+      status: "in-progress"
+    },
+    {
+      title: "Beta Release",
+      description: "Limited user testing and feedback collection",
+      date: "Q4 2024",
+      status: "planned"
+    },
+    {
+      title: "Production Launch",
+      description: "Full public release and marketing campaign",
+      date: "Q1 2025",
+      status: "planned"
+    }
+  ]}
+/>
+
+## 5. Workflow Diagram Component
+
+The `WorkflowDiagram` component displays processes as visual flow diagrams.
+
+<WorkflowDiagram
+  title="CI/CD Pipeline Workflow"
+  circular={false}
+  steps={[
+    { title: "Commit", description: "Developer pushes code to repository", icon: "📝" },
+    { title: "Build", description: "Automated compilation and bundling", icon: "🔨" },
+    { title: "Test", description: "Run unit and integration tests", icon: "✅" },
+    { title: "Deploy", description: "Deploy to staging environment", icon: "🚀" },
+    { title: "Monitor", description: "Monitor application health", icon: "📊" }
+  ]}
+/>
+
+## 6. Version Diff Component
+
+The `VersionDiff` component displays git-style code differences with line numbers.
+
+<VersionDiff
+  diffs={[
+    {
+      filename: "src/components/App.tsx",
+      additions: 5,
+      deletions: 2,
+      lines: [
+        { type: "context", oldLine: 1, newLine: 1, content: "import React from 'react';" },
+        { type: "context", oldLine: 2, newLine: 2, content: "import { useState } from 'react';" },
+        { type: "removed", oldLine: 3, newLine: null, content: "const initialCount = 0;" },
+        { type: "added", oldLine: null, newLine: 3, content: "const initialCount = 10;" },
+        { type: "context", oldLine: 4, newLine: 4, content: "" },
+        { type: "context", oldLine: 5, newLine: 5, content: "export function Counter() {" },
+        { type: "added", oldLine: null, newLine: 6, content: "  const [step, setStep] = useState(1);" },
+        { type: "context", oldLine: 6, newLine: 7, content: "  const [count, setCount] = useState(initialCount);" },
+        { type: "context", oldLine: 7, newLine: 8, content: "" },
+        { type: "removed", oldLine: 8, newLine: null, content: "  const increment = () => setCount(count + 1);" },
+        { type: "removed", oldLine: 9, newLine: null, content: "  const decrement = () => setCount(count - 1);" },
+        { type: "added", oldLine: null, newLine: 9, content: "  const increment = () => setCount(count + step);" },
+        { type: "added", oldLine: null, newLine: 10, content: "  const decrement = () => setCount(count - step);" },
+        { type: "context", oldLine: 10, newLine: 11, content: "" },
+        { type: "context", oldLine: 11, newLine: 12, content: "  return (" },
+        { type: "context", oldLine: 12, newLine: 13, content: "    <div>" },
+        { type: "context", oldLine: 13, newLine: 14, content: "      <h2>Count: {count}</h2>" },
+        { type: "context", oldLine: 14, newLine: 15, content: "      <button onClick={increment}>+</button>" },
+        { type: "context", oldLine: 15, newLine: 16, content: "      <button onClick={decrement}>-</button>" },
+        { type: "added", oldLine: null, newLine: 17, content: "      <input type=\"number\" value={step} onChange={e => setStep(Number(e.target.value))} />" },
+        { type: "context", oldLine: 16, newLine: 18, content: "    </div>" },
+        { type: "context", oldLine: 17, newLine: 19, content: "  );" },
+        { type: "context", oldLine: 18, newLine: 20, content: "}" }
+      ]
+    },
+    {
+      filename: "package.json",
+      additions: 1,
+      deletions: 1,
+      lines: [
+        { type: "context", oldLine: 1, newLine: 1, content: "{" },
+        { type: "context", oldLine: 2, newLine: 2, content: "  \"name\": \"my-app\"," },
+        { type: "removed", oldLine: 3, newLine: null, content: "  \"version\": \"1.0.0\"," },
+        { type: "added", oldLine: null, newLine: 3, content: "  \"version\": \"1.1.0\"," },
+        { type: "context", oldLine: 4, newLine: 4, content: "  \"dependencies\": {" },
+        { type: "context", oldLine: 5, newLine: 5, content: "    \"react\": \"^18.0.0\"" },
+        { type: "context", oldLine: 6, newLine: 6, content: "  }" },
+        { type: "context", oldLine: 7, newLine: 7, content: "}" }
+      ]
+    }
+  ]}
+/>
+
+## 7. Tool List Component
+
+The `ToolList` component provides a searchable, filterable grid of tools with fuzzy search.
+
+<ToolList
+  title="Development Tools Database"
+  tools={[
+    {
+      name: "VS Code",
+      category: "Editor",
+      description: "Popular code editor with extensive extension ecosystem",
+      rating: 4.7,
+      tags: ["editor", "microsoft", "typescript"],
+      url: "https://code.visualstudio.com"
+    },
+    {
+      name: "Docker",
+      category: "DevOps",
+      description: "Containerization platform for application deployment",
+      rating: 4.6,
+      tags: ["containers", "devops", "deployment"],
+      url: "https://www.docker.com"
+    },
+    {
+      name: "GitHub",
+      category: "Version Control",
+      description: "Code hosting platform for collaboration and CI/CD",
+      rating: 4.8,
+      tags: ["git", "ci-cd", "collaboration"],
+      url: "https://github.com"
+    },
+    {
+      name: "PostgreSQL",
+      category: "Database",
+      description: "Advanced open-source relational database",
+      rating: 4.7,
+      tags: ["database", "sql", "production"],
+      url: "https://www.postgresql.org"
+    },
+    {
+      name: "Tailwind CSS",
+      category: "Styling",
+      description: "Utility-first CSS framework for rapid UI development",
+      rating: 4.6,
+      tags: ["css", "styling", "utility"],
+      url: "https://tailwindcss.com"
+    },
+    {
+      name: "Jest",
+      category: "Testing",
+      description: "Delightful JavaScript testing framework",
+      rating: 4.5,
+      tags: ["testing", "javascript", "unit-tests"],
+      url: "https://jestjs.io"
+    },
+    {
+      name: "Redis",
+      category: "Database",
+      description: "In-memory data structure store, used as cache and broker",
+      rating: 4.7,
+      tags: ["cache", "database", "performance"],
+      url: "https://redis.io"
+    },
+    {
+      name: "Next.js",
+      category: "Framework",
+      description: "React framework for production-grade web applications",
+      rating: 4.8,
+      tags: ["react", "framework", "ssr", "static"],
+      url: "https://nextjs.org"
+    }
+  ]}
+/>
+
+## How to Use These Components
+
+To use these components in your own MDX posts:
+
+1. Save your post as `.mdx` instead of `.md` in the `_posts` directory
+2. Import components using the global scope (automatically available)
+3. Use the component syntax: `<ComponentName prop1={value} />`
+
+### Example
+
+```mdx
+---
+title: "My Interactive Post"
+slug: "/2025/01/my-post"
+date: "2025-01-15"
+category: "Guide"
+tags: ["mdx", "interactive"]
+---
+
+# My Interactive Post
+
+Here's a tool comparison:
+
+<ToolComparison
+  tools={[
+    {
+      name: "Tool A",
+      description: "A great tool",
+      pros: ["Fast", "Easy"],
+      cons: ["Expensive"],
+      rating: 4.5
+    }
+  ]}
+/>
+
+And that's it!
+```
+
+## Summary
+
+These 7 components provide powerful ways to create interactive, data-driven content:
+
+- **ToolComparison**: Compare tools with ratings and pros/cons
+- **FeatureMatrix**: Sortable tables with visual scoring
+- **WakaTimeChart**: Stacked area charts for time data
+- **ToolTimeline**: Sequential event timelines
+- **WorkflowDiagram**: Process flows with arrows
+- **VersionDiff**: Code difference viewer
+- **ToolList**: Searchable, filterable tool databases
+
+All components are responsive, accessible, and work seamlessly with the existing blog infrastructure. Enjoy creating rich, interactive content with MDX!

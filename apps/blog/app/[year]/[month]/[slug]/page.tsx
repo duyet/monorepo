@@ -3,6 +3,7 @@ import { getAllPosts } from "@duyet/libs/getPost";
 import type { Metadata } from "next";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
+import { getAllPostPaths } from "@/lib/mdx";
 
 interface Params {
   year: string;
@@ -18,14 +19,11 @@ export const dynamic = "force-static";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const posts = getAllPosts(["slug"]);
+  // Get all post paths including .mdx files
+  const slugs = getAllPostPaths();
 
-  return posts.flatMap(({ slug }) => {
-    const slugArray = slug
-      .replace(/\.md|\.html$/, ".html")
-      .replace(/^\//, "")
-      .split("/");
-
+  return slugs.map((slug) => {
+    const slugArray = slug.replace(/^\/?/, "").split("/");
     return {
       year: slugArray[0],
       month: slugArray[1],

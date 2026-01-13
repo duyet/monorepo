@@ -7,8 +7,16 @@ import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
+import { processPostWithMDX, MDXRemote, mdxComponents } from "@/lib/mdx";
 
-export default function Content({ post }: { post: Post }) {
+interface MDXPost extends Post {
+  isMDX?: boolean;
+  mdxContent?: any;
+}
+
+export default function Content({ post }: { post: MDXPost }) {
+  const isMDX = post.isMDX === true;
+
   return (
     <>
       <header className="mb-8 flex flex-col gap-4">
@@ -27,32 +35,49 @@ export default function Content({ post }: { post: Post }) {
         <OldPostWarning post={post} year={5} className="" />
       </header>
 
-      <article
-        className={cn(
-          'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
-          "mb-10 mt-10 max-w-none"
-        )}
-        dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
-      />
+      {isMDX ? (
+        // MDX content rendered with components
+        <article
+          className={cn(
+            'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
+            "mb-10 mt-10 max-w-none"
+          )}
+        >
+          <MDXRemote
+            {...post.mdxContent!}
+            components={mdxComponents}
+          />
+        </article>
+      ) : (
+        // Regular markdown rendered as HTML
+        <article
+          className={cn(
+            'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
+            "mb-10 mt-10 max-w-none"
+          )}
+          dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
+        />
+      )}
 
-      <Snippet html={post.snippet || ""} />
+      {!isMDX && <Snippet html={post.snippet || ""} />}
     </>
   );
 }
 
 export async function getPost(slug: string[]) {
-  const post = getPostBySlug(slug.join("/"), [
-    "slug",
-    "title",
-    "excerpt",
-    "date",
-    "content",
-    "category",
-    "category_slug",
-    "tags",
-    "series",
-    "snippet",
-  ]);
+  // Use MDX-aware processing
+  const post = await processPostWithMDX(slug);
+
+  // For MDX posts, we don't need HTML conversion
+  if (post.isMDX) {
+    return {
+      ...post,
+      markdown_content: "", // MDX content is in mdxContent
+      edit_url: getGithubEditUrl(post.slug, true),
+    };
+  }
+
+  // Regular markdown processing
   const markdownContent = post.content || "Error";
   const content = await markdownToHtml(markdownContent);
 
@@ -60,14 +85,15 @@ export async function getPost(slug: string[]) {
     ...post,
     content,
     markdown_content: markdownContent,
-    edit_url: getGithubEditUrl(post.slug),
+    edit_url: getGithubEditUrl(post.slug, false),
   };
 }
 
-const getGithubEditUrl = (slug: string) => {
-  const file = slug.replace(/\.md|\.html|\.htm$/, ".md").replace(/^\/?/, "");
+const getGithubEditUrl = (slug: string, isMDX: boolean = false) => {
+  const extension = isMDX ? ".mdx" : ".md";
+  const file = slug.replace(/\.(md|mdx|html|htm)$/, "").replace(/^\/?/, "");
   const repoUrl =
     process.env.NEXT_PUBLIC_GITHUB_REPO_URL ||
     "https://github.com/duyet/monorepo";
-  return `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
+  return `${repoUrl}/edit/master/apps/blog/_posts/${file}${extension}`;
 };
