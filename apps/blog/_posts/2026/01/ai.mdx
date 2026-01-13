@@ -10,11 +10,11 @@ description: A deep dive into my AI coding tools journey, with interactive compa
 featured: true
 ---
 
-My last post was in November 2024 - more than 14 months ago. Right when the LLM hype exploded, then AI Agents, Coding Agents... I stayed silent for a while because everyone was talking about how LLMs could solve LeetCode problems, or how RAG could change how companies work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to lie in playing with data, feature engineering, and model tuning. 
+My last post was more than 14 months ago. Right when the LLM hype exploded, then AI Agents, Coding Agents... I stayed silent for a while busy watching everyone talk about how LLMs could solve LeetCode problems, or how RAG could change how traditional chatbots work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to lie in playing with data, feature engineering, model tuning, etc. 
 
-But then so many new AI applications, new techniques, new "tasks" emerged around it. Prompt engineering, token optimization, creating MCPs for existing apps, tool calling, etc. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs without web search or skills or MCP are just ... weird.
+But then so many new AI applications became useful. New techniques, new "tasks" emerged around it. Prompt engineering, token optimization, creating MCPs for existing apps, tool calling, etc. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs without web search or skills or MCP are just ... weird.
 
-I started using and building AI agents more seriously. There are thousands of models out there now, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
+I started using AI agents and build things more seriously. There are thousands of models out there now, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
 
 Coding agents control the terminal. I'm not writing code or even reading it - I'm watching them work instead. I test their results, tell them what I expect tests to look like to keep them focused, and build skills to teach them specific tasks. This is the new normal, I guess.
 
@@ -24,7 +24,7 @@ Both free and paid. I can't tell you which one is "the best" because they'll be 
 
 While people are still scared of vibe coding, I ship it to production. For me, AI agents are no longer just tools for learning or asking questions about your codebase - they're fully capable of producing production-grade code if you plug them into the right tools and give them good instructions. My top language on [WakaTime](https://wakatime.com/) is now `markdown`, damn. Things change fast. Your model gets stuck today, but tomorrow someone releases something better. You have an idea, someone builds a product around it, and it gets killed or goes legacy some random morning.
 
-![Claude Cowork](/media/2026/01/claude/claude_cowork_2.png)
+![Claude Cowork](/media/2026/01/ai/claude_cowork_killed_startup.png)
 
 I didn't stop writing - tons of drafts in my [Obsidian](https://obsidian.md/) folder, none published because they became outdated before I could finish them. That's why I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
 
@@ -49,16 +49,8 @@ I didn't stop writing - tons of drafts in my [Obsidian](https://obsidian.md/) fo
     {
       label: "LLM Provider",
       items: [
-        { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" }
-      ]
-    },
-    {
-      label: "Chat",
-      items: [
-        { label: "Claude", link: "https://claude.ai" },
-        { label: "ChatGPT", link: "https://chat.openai.com" },
-        { label: "Grok", link: "https://grok.com" },
-        { label: "Gemini", link: "https://gemini.google.com" }
+        { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" },
+        { label: "Cloudflare AI Gateway" }
       ]
     },
   ]}
@@ -67,26 +59,30 @@ I didn't stop writing - tons of drafts in my [Obsidian](https://obsidian.md/) fo
 
 ## Claude Code
 
-Claude Code is still the king among all the coding agents I've tried up to now. I've subscribed to [Cursor](https://cursor.com/), [Codex](https://openai.com/codex/), [Antigravity](https://antigravity.google/), [Roo Code](https://roocode.com/), [Kilo Code](https://kilo.ai/), [Kiro](https://kiro.dev/), etc. None of them can beat Claude Code in my opinion.
+[Claude Code](https://claude.ai/code) is still the king among all the coding agents I've tried. I've used [Cursor](https://cursor.com/), [Codex](https://openai.com/codex/), [Antigravity](https://antigravity.google/), [Gemini CLI](https://geminicli.com/), [Droid](https://factory.ai/product/cli), [Roo Code](https://roocode.com/), [Kilo Code](https://kilo.ai/), [Kiro](https://kiro.dev/), etc. None of them can beat Claude Code in my opinion. But I suggest you try all of them if you can - use a different one for each side project.
 
 It just works - not only for coding, but for understanding complex systems, refactoring, writing docs, doing homework, planning travel, summarizing news, fixing your system, etc. "90% of code in Claude Code is written by itself" - [How Claude Code is built](https://newsletter.pragmaticengineer.com/p/how-claude-code-is-built). It's a general-purpose AI agent. Interestingly, it wasn't originally designed for coding. It started as [Boris's side project](https://x.com/bcherny/status/2004887829252317325).
 
 > The idea for Claude Code came from a command-line tool that used Claude to display what music an engineer was listening to at work. It spread like wildfire at Anthropic after being given access to the filesystem. Today, Claude Code has its own fully-fledged team
 
-The shift from [Copilot](https://github.com/features/copilot) or [Cursor](https://cursor.com/) (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. It's more like having teammates who do their own work, not a pair programmer grabbing your keyboard. They work on their own - I just review results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most code in my GitHub repos is now generated without me writing a single line. I just prompt, watch, and test. This duyet.net site also gets updated automatically by Claude Code overnight with a custom cronjob - my experiment to see how far Claude Code can go. The script looks something like this:
+The shift from [Copilot](https://github.com/features/copilot) or [Cursor](https://cursor.com/) (back in early 2025) to coding agents is like going from autocomplete to having other developers on your team. It's more like having teammates who do their own work, not a pair programmer grabbing your keyboard. They work on their own - I just review results, give feedback when asked, and honestly still can't believe this works. Your mindset changes from "I need to write good code" to "I need to write good prompts and build good skills". Most code in my GitHub repos is now generated without me writing a single line. I just prompt, watch, and test.
+
+[duyet.net](https://duyet.net) gets updated automatically by Claude Code overnight with a custom tool claude wrapper - my experiment to see how far Claude Code can go, sometime it research for new design, sometime it is broken the website, but it is fun too see. The script looks something like this:
 
 ```bash
 while true; do cat prompt.md | claude --dangerously-skip-permissions; sleep 1h; done
 ```
 
-The `prompt.md` file contains the task list and instructions. Claude reads it, executes, and updates the state for each loop. For more advanced use cases, check out [Claude Code + Ralph Loop](#claude-code--ralph-loop) - it runs non-stop sessions that consume tasks while you can prompt it to read state or a `TODO.md` file on the fly.
+The `prompt.md` file contains the task list and instructions. Claude reads it, executes, and updates the state for each loop. For more advanced use cases, check out [Claude Code + Ralph Loop](#claude-code-ralph-loop) - it runs non-stop sessions that consume tasks while you can prompt it to read state or a `TODO.md` file on the fly.
+
+![Claude Cronjob Dashboard](/media/2026/01/ai/claude_cronjob.png)
 
 There's no one correct way to use Claude Code. The following sections are for anyone curious about how I use it - skip this if you're already familiar with Claude Code.
 
-## My Claude Code Setup
+## Claude Code Setup
 
 {/* ![[cc_setup.png]] */}
-![Claude Code Setup](/media/2026/01/claude/cc_setup.png)
+![Claude Code Setup](/media/2026/01/ai/cc_setup.png)
 
 I prefer disabling Auto-compact - it's slow, wastes 45.0k tokens (22.5%) for the buffer, and usually loses context. I use sub-agents when possible since they have their own context. Otherwise I run `/export` to the clipboard, then `/clear` and paste the previous content back. The export won't include thinking tokens or tool calls, so you save a lot and the model still tracks well. 
 
@@ -103,9 +99,9 @@ My default list of MCPs are: [context7](https://github.com/upstash/context7#inst
 With [team-agents](https://github.com/duyet/claude-plugins/tree/master/team-agents) I build a coordinated agent team for parallel task execution with leader delegation to senior/junior. The key is keeping roles minimal. I don't need a dozen specialized agents - just enough hierarchy to parallelize work while maintaining quality on the complex parts.
 
 {/* ![[cc_team_agent.png]] */}
-![Team Agents](/media/2026/01/claude/cc_team_agent.png)
+![Team Agents](/media/2026/01/ai/cc_team_agent.png)
 
-### Deprecated
+### History
 
 - Mid 2025: [SuperClaude_Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - a collection of commands, agents, and behaviors installed in your `.claude` folder. Claude Plugins is more convenient now.
 - Early 2025: [Zen MCP](https://github.com/BeehiveInnovations/pal-mcp-server) was a game changer at the time - it let you invoke other providers like Gemini for brainstorming.
@@ -124,12 +120,12 @@ I started seeing AI engineers on X sharing their commands. I have a list of my o
 ```
 
 {/* ![[cc_commands.png]] */}
-![Commands](/media/2026/01/claude/cc_commands.png)
+![Commands](/media/2026/01/ai/cc_commands.png)
 
 ## Plan Mode
 
 {/* ![[cc_plan.png]] */}
-![Plan Mode](/media/2026/01/claude/cc_plan.png)
+![Plan Mode](/media/2026/01/ai/cc_plan.png)
 
 Plan mode performs significantly better than just prompting directly. When you give Claude time to think and plan first, the results are way more accurate. Less back-and-forth, fewer mistakes.
 
@@ -226,7 +222,7 @@ For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins
 ```
 
 {/* ![[cc_interview.png]] */}
-![Interview](/media/2026/01/claude/cc_interview.png)
+![Interview](/media/2026/01/ai/cc_interview.png)
 
 ## Claude Code + Ralph Loop
 
@@ -257,7 +253,7 @@ The good thing about Claude Code is that you can use it with alternative provide
 
 You can start working with `claude` using Opus, then exit and continue the same session with `z_claude --continue`. Use `mi_claude` or `or_claude` the same way.
 
-![z_claude](/media/2026/01/claude/z_claude.png)
+![z_claude](/media/2026/01/ai/z_claude.png)
 
 ## Claude Code (+ OpenRouter) on GitHub Actions
 
@@ -315,14 +311,14 @@ Some use cases:
 
 This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible: smart cronjobs, automated refactoring, documentation sync, etc. The AI does the boring stuff while you sleep.
 
-![Github Actions + OpenRouter](/media/2026/01/claude/github_actions.png)
-![Github Actions + OpenRouter](/media/2026/01/claude/github_actions_2.png)
+![Github Actions + OpenRouter](/media/2026/01/ai/github_actions.png)
+![Github Actions + OpenRouter](/media/2026/01/ai/github_actions_2.png)
 
 ## opencode
 
 If you want to try a good coding agent with nice UI/UX - [opencode](https://github.com/sst/opencode) is really solid right now. Fast, simple, and it reads all your Claude config and plugins out of the box.
 
-![opencode](/media/2026/01/claude/opencode.png)
+![opencode](/media/2026/01/ai/opencode.png)
 
 It connects to a lot of providers: Z.AI, OpenRouter, Codex, Claude, plus some free Zen models from their own provider. When I hit rate limits on one, I just switch to another. When Opus is overkill, I drop down to something cheaper.
 
@@ -335,5 +331,5 @@ I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode
 - **Background parallelization** - runs exploration and research tasks async while main work continues
 - **Magic word `ultrawork`** - add this to your prompt and it activates maximum orchestration: parallel agents, background tasks, deep exploration, relentless execution
 
-![opencode](/media/2026/01/claude/opencode_2.png)
+![opencode](/media/2026/01/ai/opencode_2.png)
 
