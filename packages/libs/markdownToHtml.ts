@@ -6,6 +6,7 @@ import rehypeSlug from "rehype-slug";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkParse from "remark-parse";
+import remarkMdx from "remark-mdx";
 import rehypeFormat from "rehype-format";
 import remarkRehype from "remark-rehype";
 import rehypeHighlight from "rehype-highlight";
@@ -13,11 +14,12 @@ import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import sanitizeHtml from "sanitize-html";
 
-export async function markdownToHtml(markdown: VFileCompatible) {
+export async function markdownToHtml(markdown: VFileCompatible, isMdx = false) {
   const result = await unified()
     .use(remarkParse, { fragment: true })
     .use(remarkMath)
     .use(remarkGfm)
+    .use(isMdx ? remarkMdx : () => {})
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeHighlight, { detect: true })
     .use(rehypeSlug)

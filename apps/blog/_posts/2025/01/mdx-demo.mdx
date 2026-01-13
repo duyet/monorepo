@@ -1,0 +1,301 @@
+---
+slug: /2025/01/mdx-demo
+title: "MDX Demo: 7 Interactive Components for Your Blog"
+date: "2025-01-15"
+category: "Technology"
+tags: ["MDX", "React", "Interactive", "Components"]
+description: "Explore 7 powerful interactive components that bring your blog posts to life with MDX support."
+featured: true
+snippet: "Discover how MDX can transform your blog with interactive components for comparisons, charts, timelines, and more."
+---
+
+# MDX Demo: Interactive Blog Components
+
+Welcome to the MDX demonstration post! This post showcases 7 interactive components that enhance your blog with rich, engaging content. MDX allows you to use JSX components directly in your Markdown files.
+
+## What is MDX?
+
+MDX is a powerful format that combines Markdown with JSX. It lets you write interactive components inline with your markdown content, making your blog posts more engaging and functional.
+
+## Component Showcase
+
+### 1. ToolComparison - Card-based Comparison
+
+<ToolComparison
+  title="Popular Code Editors Comparison"
+  tools={[
+    {
+      name: "VS Code",
+      description: "Microsoft's popular open-source editor with extensive extensions",
+      pros: ["Free", "Huge extension marketplace", "Integrated terminal", "Git integration"],
+      cons: ["Can be slow with large files", "Memory intensive"],
+      rating: 9,
+      price: "Free"
+    },
+    {
+      name: "IntelliJ IDEA",
+      description: "JetBrains' powerful IDE for Java and JVM languages",
+      pros: ["Excellent refactoring", "Smart code completion", "Great debugging"],
+      cons: ["Paid (community edition available)", "Heavy resource usage"],
+      rating: 8,
+      price: "$149/year"
+    },
+    {
+      name: "Vim",
+      description: "Modal text editor for efficient keyboard-driven editing",
+      pros: ["Extremely fast", "Lightweight", "Available everywhere"],
+      cons: ["Steep learning curve", "Requires configuration"],
+      rating: 7,
+      price: "Free"
+    }
+  ]}
+/>
+
+### 2. FeatureMatrix - Sortable Comparison Table
+
+<FeatureMatrix
+  title="Development Framework Feature Matrix"
+  headers={["React", "Vue", "Angular", "Svelte"]}
+  rows={[
+    {
+      feature: "Learning Curve",
+      scores: { React: 6, Vue: 8, Angular: 4, Svelte: 9 },
+      shape: "circle"
+    },
+    {
+      feature: "Performance",
+      scores: { React: 7, Vue: 8, Angular: 6, Svelte: 9 },
+      shape: "square"
+    },
+    {
+      feature: "Bundle Size",
+      scores: { React: 6, Vue: 8, Angular: 4, Svelte: 9 },
+      shape: "star"
+    },
+    {
+      feature: "Community",
+      scores: { React: 10, Vue: 8, Angular: 9, Svelte: 5 },
+      shape: "triangle"
+    },
+    {
+      feature: "Tooling",
+      scores: { React: 9, Vue: 7, Angular: 10, Svelte: 6 },
+      shape: "circle"
+    }
+  ]}
+/>
+
+### 3. WakaTimeChart - Coding Activity Visualization
+
+<WakaTimeChart
+  title="Weekly Development Activity"
+  data={[
+    { date: "2025-01-08", code: 4.5, review: 2.1, documentation: 1.2, meetings: 0.5 },
+    { date: "2025-01-09", code: 6.2, review: 1.8, documentation: 0.8, meetings: 1.0 },
+    { date: "2025-01-10", code: 3.8, review: 3.2, documentation: 2.0, meetings: 0.8 },
+    { date: "2025-01-11", code: 5.5, review: 1.5, documentation: 1.5, meetings: 0.5 },
+    { date: "2025-01-12", code: 7.2, review: 0.8, documentation: 0.8, meetings: 0.3 },
+    { date: "2025-01-13", code: 4.0, review: 4.0, documentation: 1.2, meetings: 1.5 },
+    { date: "2025-01-14", code: 5.8, review: 2.5, documentation: 1.8, meetings: 0.7 }
+  ]}
+  height={300}
+/>
+
+### 4. ToolTimeline - Project Milestones
+
+<ToolTimeline
+  title="Project Development Timeline"
+  orientation="vertical"
+  items={[
+    {
+      id: "planning",
+      title: "Planning Phase",
+      description: "Requirements gathering and architecture design",
+      date: "January 2025",
+      status: "completed",
+      details: "Completed user stories, wireframes, and technical specifications. Team aligned on scope."
+    },
+    {
+      id: "development",
+      title: "Development Sprint",
+      description: "Core feature implementation and integration",
+      date: "February 2025",
+      status: "active",
+      details: "Currently implementing core features. Backend API 80% complete, frontend 60% complete."
+    },
+    {
+      id: "testing",
+      title: "QA & Testing",
+      description: "Automated tests and user acceptance testing",
+      date: "March 2025",
+      status: "planned",
+      details: "Unit tests, integration tests, and beta testing with select users."
+    },
+    {
+      id: "launch",
+      title: "Production Launch",
+      description: "Deploy to production and monitor",
+      date: "April 2025",
+      status: "planned",
+      details: "Deployment, monitoring, and post-launch support plan."
+    }
+  ]}
+/>
+
+### 5. WorkflowDiagram - CI/CD Pipeline
+
+<WorkflowDiagram
+  title="CI/CD Workflow Process"
+  steps={[
+    {
+      id: "code",
+      title: "Write Code",
+      description: "Develop features and fix bugs",
+      icon: "📝",
+      dependencies: []
+    },
+    {
+      id: "test",
+      title: "Run Tests",
+      description: "Execute unit tests and linting",
+      icon: "✅",
+      dependencies: ["code"]
+    },
+    {
+      id: "build",
+      title: "Build Application",
+      description: "Compile and bundle assets",
+      icon: "📦",
+      dependencies: ["test"]
+    },
+    {
+      id: "deploy",
+      title: "Deploy",
+      description: "Deploy to staging/production",
+      icon: "🚀",
+      dependencies: ["build"]
+    },
+    {
+      id: "monitor",
+      title: "Monitor",
+      description: "Track metrics and errors",
+      icon: "📊",
+      dependencies: ["deploy"]
+    }
+  ]}
+/>
+
+### 6. VersionDiff - Code Changes
+
+<VersionDiff
+  title="API Migration Changes"
+  fileName="src/api/migration.ts"
+  lines={[
+    { type: "unchanged", content: "// Migration from v1 to v2", oldLine: 1, newLine: 1 },
+    { type: "removed", content: "const fetchUserV1 = async (id) => {", oldLine: 2, newLine: null },
+    { type: "removed", content: "  return fetch(`/api/v1/users/${id}`);", oldLine: 3, newLine: null },
+    { type: "removed", content: "}", oldLine: 4, newLine: null },
+    { type: "unchanged", content: "", oldLine: null, newLine: 2 },
+    { type: "added", content: "const fetchUserV2 = async (id: string) => {", oldLine: null, newLine: 3 },
+    { type: "added", content: "  const response = await fetch(`/api/v2/users/${id}`, {", oldLine: null, newLine: 4 },
+    { type: "added", content: "    headers: { 'Content-Type': 'application/json' }", oldLine: null, newLine: 5 },
+    { type: "added", content: "  });", oldLine: null, newLine: 6 },
+    { type: "added", content: "  return response.json();", oldLine: null, newLine: 7 },
+    { type: "added", content: "}", oldLine: null, newLine: 8 },
+    { type: "unchanged", content: "", oldLine: null, newLine: 9 },
+    { type: "modified", content: "const getUsers = async () => {", oldLine: 5, newLine: 10 },
+    { type: "unchanged", content: "  // Fetch multiple users", oldLine: 6, newLine: 11 },
+    { type: "removed", content: "  return Promise.all([fetchUserV1('1'), fetchUserV1('2')]);", oldLine: 7, newLine: null },
+    { type: "added", content: "  return Promise.all([fetchUserV2('1'), fetchUserV2('2')]);", oldLine: null, newLine: 12 },
+    { type: "unchanged", content: "}", oldLine: 8, newLine: 13 }
+  ]}
+/>
+
+### 7. ToolList - Interactive Tool Directory
+
+<ToolList
+  title="Development Tools Library"
+  tools={[
+    {
+      id: "vscode",
+      name: "VS Code",
+      description: "Free, open-source editor with excellent TypeScript support",
+      category: "Editor",
+      tags: ["typescript", "javascript", "free"],
+      website: "https://code.visualstudio.com"
+    },
+    {
+      id: "docker",
+      name: "Docker",
+      description: "Containerization platform for consistent environments",
+      category: "DevOps",
+      tags: ["containers", "deployment", "linux"],
+      website: "https://docker.com"
+    },
+    {
+      id: "figma",
+      name: "Figma",
+      description: "Collaborative design tool for UI/UX workflows",
+      category: "Design",
+      tags: ["design", "mockups", "collaborative"],
+      website: "https://figma.com"
+    },
+    {
+      id: "react",
+      name: "React",
+      description: "JavaScript library for building user interfaces",
+      category: "Framework",
+      tags: ["javascript", "components", "spa"],
+      website: "https://react.dev"
+    },
+    {
+      id: "postman",
+      name: "Postman",
+      description: "API testing and development platform",
+      category: "Testing",
+      tags: ["api", "testing", "rest"],
+      website: "https://postman.com"
+    },
+    {
+      id: "git",
+      name: "Git",
+      description: "Distributed version control system",
+      category: "Tools",
+      tags: ["version-control", "collaboration"],
+      website: "https://git-scm.com"
+    },
+    {
+      id: "vercel",
+      name: "Vercel",
+      description: "Cloud platform for frontend deployment",
+      category: "Hosting",
+      tags: ["deployment", "nextjs", "cloud"],
+      website: "https://vercel.com"
+    }
+  ]}
+/>
+
+## Conclusion
+
+MDX brings the power of React components to your Markdown content, enabling you to create rich, interactive blog posts. These 7 components demonstrate just a few possibilities:
+
+1. **ToolComparison** - Visual comparisons with expandable details
+2. **FeatureMatrix** - Sortable tables with color-coded scores
+3. **WakaTimeChart** - Data visualization with Recharts
+4. **ToolTimeline** - Project milestones with status tracking
+5. **WorkflowDiagram** - Interactive process diagrams
+6. **VersionDiff** - Git-style code comparisons
+7. **ToolList** - Filterable tool directory with fuzzy search
+
+Each component is fully interactive and can be customized for your specific needs. Try clicking through the examples above to see how they work!
+
+### Getting Started with MDX
+
+To use MDX in your Next.js project:
+
+1. Install dependencies: `npm install @mdx-js/mdx @mdx-js/react remark-mdx`
+2. Configure your Next.js MDX loader
+3. Create `.mdx` files in your posts directory
+4. Import and use components in your MDX content
+
+The future of blog content is interactive, and MDX makes it possible!

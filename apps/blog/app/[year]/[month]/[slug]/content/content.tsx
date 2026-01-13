@@ -1,6 +1,6 @@
 import type { Post } from "@duyet/interfaces";
 import { getPostBySlug } from "@duyet/libs/getPost";
-import { markdownToHtml } from "@duyet/libs/markdownToHtml";
+import { markdownToHtml, mdxToHtml } from "@duyet/libs/markdownToHtml";
 import { cn } from "@duyet/libs/utils";
 
 import "katex/dist/contrib/mhchem.min.js";
@@ -8,7 +8,17 @@ import "katex/dist/katex.min.css";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
 
+// Dynamic import for MDX content (client-side only)
+import dynamic from "next/dynamic";
+
+const MDXContentClient = dynamic(
+  () => import("../../../components/mdx/MDXContent").then((mod) => mod.MDXContent),
+  { ssr: false, loading: () => <div>Loading MDX content...</div> }
+);
+
 export default function Content({ post }: { post: Post }) {
+  const isMDX = post.extension === "mdx";
+
   return (
     <>
       <header className="mb-8 flex flex-col gap-4">
@@ -32,8 +42,13 @@ export default function Content({ post }: { post: Post }) {
           'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
           "mb-10 mt-10 max-w-none"
         )}
-        dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
-      />
+      >
+        {isMDX ? (
+          <MDXContentClient content={post.markdown_content || post.content || ""} />
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: post.content || "No content" }} />
+        )}
+      </article>
 
       <Snippet html={post.snippet || ""} />
     </>
@@ -52,20 +67,32 @@ export async function getPost(slug: string[]) {
     "tags",
     "series",
     "snippet",
+    "extension",
   ]);
+
   const markdownContent = post.content || "Error";
-  const content = await markdownToHtml(markdownContent);
+  const extension = post.extension || "md";
+
+  // Process content based on extension
+  let content = "";
+  if (extension === "mdx") {
+    // For MDX, we store the raw content and let the client-side MDX renderer handle it
+    // We also process it to HTML for SEO/preview
+    content = await mdxToHtml(markdownContent);
+  } else {
+    content = await markdownToHtml(markdownContent);
+  }
 
   return {
     ...post,
     content,
     markdown_content: markdownContent,
-    edit_url: getGithubEditUrl(post.slug),
+    edit_url: getGithubEditUrl(post.slug, extension),
   };
 }
 
-const getGithubEditUrl = (slug: string) => {
-  const file = slug.replace(/\.md|\.html|\.htm$/, ".md").replace(/^\/?/, "");
+const getGithubEditUrl = (slug: string, extension: string = "md") => {
+  const file = slug.replace(/\.md|\.mdx|\.html|\.htm$/, `.${extension}`).replace(/^\/?/, "");
   const repoUrl =
     process.env.NEXT_PUBLIC_GITHUB_REPO_URL ||
     "https://github.com/duyet/monorepo";

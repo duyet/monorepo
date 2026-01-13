@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import getSlug from "./getSlug";
 import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 import { normalizeTag } from "./tags";
+import { mdxToHtml } from "./mdxToHtml";
 
 const nodeFs = () => require("node:fs");
 const nodeJoin = () => require("node:path").join;
@@ -46,7 +47,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +57,18 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+  const fs = nodeFs();
+
+  // Try .mdx first, then .md
+  const mdxPath = join(getPostsDirectory(), `${fileName}.mdx`);
+  const mdPath = join(getPostsDirectory(), `${fileName}.md`);
+
+  if (fs.existsSync(mdxPath)) {
+    return getPostByPath(mdxPath, fields);
+  }
+
+  return getPostByPath(mdPath, fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
@@ -85,6 +96,7 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
     tags_slug: [],
     snippet: "",
     featured: false,
+    extension: fullPath.endsWith(".mdx") ? "mdx" : "md",
   };
 
   // Ensure only the minimal needed data is exposed
@@ -149,6 +161,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "series") {
       post.series = data.series || undefined;
+    }
+
+    if (field === "extension") {
+      post.extension = fullPath.endsWith(".mdx") ? "mdx" : "md";
     }
   });
 
@@ -313,4 +329,24 @@ export function getPostsByYear(year: number, fields: string[] = []) {
   const postByYears = getPostsByAllYear(extraFields);
 
   return postByYears[year] || [];
+}
+
+/**
+ * Process MDX content into HTML for rendering
+ * This handles both regular Markdown and MDX with components
+ */
+export async function processPostContent(post: Post): Promise<string> {
+  const extension = post.extension || "md";
+  const content = post.content || "";
+
+  if (extension === "mdx") {
+    // For MDX, we need special processing
+    // However, for static export, we can't easily render React components
+    // So we'll use a hybrid approach: sanitize the MDX and provide component placeholders
+    return await mdxToHtml(content);
+  }
+
+  // For regular markdown, use the standard markdownToHtml
+  const { markdownToHtml } = await import("./markdownToHtml");
+  return await markdownToHtml(content, false);
 }
