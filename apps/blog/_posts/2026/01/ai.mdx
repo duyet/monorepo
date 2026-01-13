@@ -134,11 +134,13 @@ Plan mode does significantly better than just prompting directly. When you give 
     You can open another Claude Code session to work on something else while waiting.
 
     If things go off track, inject a prompt mid-way. Claude will catch up and keep going.
+
+    You can trigger to do the specific tasks on background agents (research, small changes, refactor, etc) while working.
   </Step>
   <Step title="Review">
     The **Explanatory** output style shows you why Claude made certain choices - useful for learning.
 
-    I use agents for review: `@code-simplifier` cleans up the code, `@refactor` or `@testing` for specific checks.
+    I use agents for review: [`@code-simplifier`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier) cleans up the code, `@refactor` or `@testing` for specific checks.
 
     [Claude Hooks](https://code.claude.com/docs/en/hooks-guide) save time here - auto-format, run linters, or custom verification.
   </Step>
@@ -265,7 +267,7 @@ The good part is I'm running Claude GitHub Actions with OpenRouter at no cost by
 ```
 
 
-I put together some reusable workflows at [duyet/github-actions](https://github.com/duyet/github-actions) that you can use:
+I put together some reusable workflows at [duyet/github-actions](https://github.com/duyet/github-actions) that others repo can reuse:
 
 ```yaml
 name: Claude Code Review

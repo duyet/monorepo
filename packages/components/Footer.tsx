@@ -3,7 +3,7 @@ import type { ReactNode, ReactElement } from "react";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
-import { duyetUrls, createNavigation } from "@duyet/urls";
+import { duyetUrls } from "@duyet/urls";
 
 import { cn } from "@duyet/libs/utils";
 import Container from "./Container";
@@ -54,7 +54,6 @@ function createFooterNavigation(urls: UrlsConfig, profile: Profile) {
         name: "Rust Tiếng Việt",
         href: `${urls.external.rust}?utm_source=blog&utm_medium=footer&utm_campaign=rust_tieng_viet`,
       },
-      { name: "/ai", href: `${urls.apps.blog}/ai` },
       { name: "/archives", href: `${urls.apps.blog}/archives` },
       { name: "/series", href: `${urls.apps.blog}/series` },
       { name: "/tags", href: `${urls.apps.blog}/tags` },
