@@ -1,5 +1,4 @@
 export * from "./clickhouse";
-export * from "./clickhouse";
 export * from "./clearUrl";
 export * from "./date";
 export * from "./fetcher";

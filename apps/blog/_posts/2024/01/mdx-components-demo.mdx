@@ -1,0 +1,301 @@
+---
+title: "MDX Interactive Components Demo"
+date: "2024-01-15"
+excerpt: "Demonstration of all 7 interactive MDX components available for rich blog content"
+tags: ["mdx", "react", "components", "demo"]
+category: "web-development"
+series: "Interactive Content"
+---
+
+# MDX Interactive Components Demo
+
+This post demonstrates all 7 interactive components available in our MDX-powered blog system. These components allow for rich, interactive content while maintaining compatibility with existing markdown posts.
+
+## 1. Tool Comparison Component
+
+This component displays tools with pros, cons, and ratings in a card-based layout.
+
+import { ToolComparison } from '@/components/mdx'
+
+<ToolComparison tools={[
+  {
+    name: "React",
+    description: "A JavaScript library for building user interfaces",
+    pros: ["Component-based architecture", "Large ecosystem", "Great performance", "Strong community"],
+    cons: ["Steep learning curve", "Requires additional libraries", "Frequent updates"],
+    rating: 5
+  },
+  {
+    name: "Vue.js",
+    description: "The progressive JavaScript framework",
+    pros: ["Easy learning curve", "Great documentation", "Flexible", "Small bundle size"],
+    cons: ["Smaller ecosystem", "Less enterprise adoption"],
+    rating: 4
+  },
+  {
+    name: "Angular",
+    description: "Platform for building mobile and desktop web applications",
+    pros: ["Full-featured framework", "TypeScript-first", "Enterprise-ready", "Excellent tooling"],
+    cons: ["Complex", "Steep learning curve", "Verbose"],
+    rating: 4
+  }
+]} />
+
+## 2. Feature Matrix Component
+
+A sortable table with color and shape-coded scores for feature comparisons.
+
+import { FeatureMatrix } from '@/components/mdx'
+
+<FeatureMatrix
+  features={[
+    { name: "Performance", description: "Speed and efficiency" },
+    { name: "Developer Experience", description: "Ease of use" },
+    { name: "Ecosystem", description: "Community and libraries" },
+    { name: "Learning", description: "Time to productivity" },
+    { name: "Documentation", description: "Quality and completeness" }
+  ]}
+  tools={[
+    {
+      name: "React",
+      features: {
+        "Performance": "excellent",
+        "Developer Experience": "good",
+        "Ecosystem": "excellent",
+        "Learning": "poor",
+        "Documentation": "good"
+      }
+    },
+    {
+      name: "Vue",
+      features: {
+        "Performance": "good",
+        "Developer Experience": "excellent",
+        "Ecosystem": "good",
+        "Learning": "excellent",
+        "Documentation": "excellent"
+      }
+    },
+    {
+      name: "Svelte",
+      features: {
+        "Performance": "excellent",
+        "Developer Experience": "excellent",
+        "Ecosystem": "fair",
+        "Learning": "good",
+        "Documentation": "good"
+      }
+    }
+  ]}
+/>
+
+## 3. WakaTime Chart Component
+
+A beautiful stacked area chart showing coding activity.
+
+import { WakaTimeChart } from '@/components/mdx'
+
+<WakaTimeChart
+  title="Weekly Coding Activity"
+  data={[
+    { date: "2024-01-08", hours: 6.5 },
+    { date: "2024-01-09", hours: 8.2 },
+    { date: "2024-01-10", hours: 5.8 },
+    { date: "2024-01-11", hours: 9.1 },
+    { date: "2024-01-12", hours: 7.3 },
+    { date: "2024-01-13", hours: 4.5 },
+    { date: "2024-01-14", hours: 6.9 }
+  ]}
+/>
+
+## 4. Tool Timeline Component
+
+Display events in a timeline format, available in horizontal or vertical layouts.
+
+import { ToolTimeline } from '@/components/mdx'
+
+<ToolTimeline
+  events={[
+    {
+      date: "2024-01-01",
+      title: "Project Kickoff",
+      description: "Initial planning and requirement gathering",
+      status: "completed"
+    },
+    {
+      date: "2024-01-05",
+      title: "Design Phase",
+      description: "UI/UX design and prototyping",
+      status: "completed"
+    },
+    {
+      date: "2024-01-10",
+      title: "Development",
+      description: "Core feature implementation",
+      status: "in-progress"
+    },
+    {
+      date: "2024-01-20",
+      title: "Testing",
+      description: "QA testing and bug fixes",
+      status: "planned"
+    },
+    {
+      date: "2024-01-25",
+      title: "Deployment",
+      description: "Production release",
+      status: "planned"
+    }
+  ]}
+  orientation="vertical"
+/>
+
+## 5. Workflow Diagram Component
+
+Interactive circular workflow with animated arrows and progress tracking.
+
+import { WorkflowDiagram } from '@/components/mdx'
+
+<WorkflowDiagram
+  title="Development Workflow"
+  steps={[
+    {
+      id: "planning",
+      title: "Planning",
+      description: "Define requirements and set goals",
+      status: "completed",
+      next: ["design"]
+    },
+    {
+      id: "design",
+      title: "Design",
+      description: "Create wireframes and mockups",
+      status: "completed",
+      next: ["development"]
+    },
+    {
+      id: "development",
+      title: "Development",
+      description: "Write code and implement features",
+      status: "in-progress",
+      next: ["testing"]
+    },
+    {
+      id: "testing",
+      title: "Testing",
+      description: "Unit tests, integration tests, QA",
+      status: "pending",
+      next: ["deployment"]
+    },
+    {
+      id: "deployment",
+      title: "Deployment",
+      description: "Deploy to production environment",
+      status: "pending"
+    }
+  ]}
+/>
+
+## 6. Version Diff Component
+
+Git-style diff viewer for comparing versions with syntax highlighting.
+
+import { VersionDiff } from '@/components/mdx'
+
+<VersionDiff
+  oldVersion={{
+    name: "v1.0.0",
+    sha: "abc123def456789",
+    date: "2024-01-01",
+    author: "John Doe"
+  }}
+  newVersion={{
+    name: "v1.1.0",
+    sha: "def789abc012345",
+    date: "2024-01-15",
+    author: "Jane Smith"
+  }}
+  diffLines={[
+    { type: "unchanged", content: "function calculateTotal(items) {", lineNumbers: { old: 1, new: 1 } },
+    { type: "removed", content: "  let total = 0;", lineNumbers: { old: 2, new: undefined } },
+    { type: "removed", content: "  for (let i = 0; i < items.length; i++) {", lineNumbers: { old: 3, new: undefined } },
+    { type: "added", content: "  return items.reduce((sum, item) => {", lineNumbers: { old: undefined, new: 2 } },
+    { type: "unchanged", content: "    if (item.active) {", lineNumbers: { old: 4, new: 3 } },
+    { type: "removed", content: "      total += item.price;", lineNumbers: { old: 5, new: undefined } },
+    { type: "added", content: "      return sum + item.price;", lineNumbers: { old: undefined, new: 4 } },
+    { type: "unchanged", content: "    }", lineNumbers: { old: 6, new: 5 } },
+    { type: "added", content: "    return sum;", lineNumbers: { old: undefined, new: 6 } },
+    { type: "unchanged", content: "  }", lineNumbers: { old: 7, new: 7 } },
+    { type: "removed", content: "  return total;", lineNumbers: { old: 8, new: undefined } },
+    { type: "added", content: "  }, 0);", lineNumbers: { old: undefined, new: 8 } },
+    { type: "unchanged", content: "}", lineNumbers: { old: 9, new: 9 } },
+    { type: "added", content: "", lineNumbers: { old: undefined, new: 10 } },
+    { type: "added", content: "// Performance improvement: O(n) instead of O(n)", lineNumbers: { old: undefined, new: 11 } }
+  ]}
+/>
+
+## 7. Tool List Component
+
+Filterable tool grid with fuzzy search and category filtering.
+
+import { ToolList } from '@/components/mdx'
+
+<ToolList
+  title="Development Tools"
+  tools={[
+    {
+      name: "VS Code",
+      description: "Free, open-source code editor with extensive extensions",
+      category: "Editor",
+      tags: ["typescript", "javascript", "extensions"],
+      website: "https://code.visualstudio.com",
+      openSource: true
+    },
+    {
+      name: "Docker",
+      description: "Platform for developing, shipping, and running applications",
+      category: "DevOps",
+      tags: ["containers", "kubernetes", "deployment"],
+      website: "https://docker.com",
+      openSource: true
+    },
+    {
+      name: "Postman",
+      description: "API platform for building and using APIs",
+      category: "Testing",
+      tags: ["api", "testing", "collaboration"],
+      website: "https://postman.com",
+      openSource: false
+    },
+    {
+      name: "Git",
+      description: "Distributed version control system",
+      category: "Version Control",
+      tags: ["git", "version-control", "scm"],
+      website: "https://git-scm.com",
+      openSource: true
+    },
+    {
+      name: "Webpack",
+      description: "Module bundler for JavaScript applications",
+      category: "Build Tools",
+      tags: ["bundler", "javascript", "modules"],
+      website: "https://webpack.js.org",
+      openSource: true
+    },
+    {
+      name: "Figma",
+      description: "Collaborative design tool for UI/UX",
+      category: "Design",
+      tags: ["design", "ui", "ux", "collaboration"],
+      website: "https://figma.com",
+      openSource: false
+    }
+  ]}
+/>
+
+## Conclusion
+
+These 7 interactive components provide a rich set of tools for creating engaging blog content while maintaining compatibility with existing markdown posts. Each component is fully responsive and supports both light and dark themes.
+
+The system preserves all existing .md posts while adding MDX (.mdx) support for new content with interactive features.

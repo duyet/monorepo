@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +56,17 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+
+  // Try .mdx first, then fall back to .md
+  const mdxPath = join(getPostsDirectory(), `${fileName}.mdx`);
+  const mdPath = join(getPostsDirectory(), `${fileName}.md`);
+
+  if (nodeFs().existsSync(mdxPath)) {
+    return getPostByPath(mdxPath, fields);
+  }
+
+  return getPostByPath(mdPath, fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
@@ -73,6 +82,9 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   }
 
   const { data, content } = matter(fileContent);
+
+  // Store file extension for markdown processing
+  const extension = fullPath.endsWith(".mdx") ? ".mdx" : ".md";
 
   const post: Post = {
     slug: "",
@@ -108,6 +120,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "path") {
       post.path = fullPath;
+    }
+
+    if (field === "extension") {
+      post.extension = extension;
     }
 
     if (field === "date") {
