@@ -1,0 +1,321 @@
+---
+slug: /2024/01/mdx-demo
+title: "MDX Demo: Interactive Components Showcase"
+date: 2024-01-25
+category: Development
+tags: [MDX, React, Components, Tutorial]
+description: A comprehensive showcase of the 7 interactive MDX components available for blog posts
+---
+
+## Introduction to MDX
+
+This post demonstrates the new **MDX support** in the blog engine. MDX allows you to use JSX components directly in your markdown content, enabling rich, interactive experiences.
+
+### What is MDX?
+
+MDX is a format that lets you seamlessly use JSX in your markdown documents. You can import React components and use them right inside your content!
+
+## Component 1: ToolComparison
+
+Compare tools interactively with expandable details:
+
+<ToolComparison tools={[
+  {
+    name: "React",
+    description: "A JavaScript library for building user interfaces",
+    pros: ["Huge ecosystem", "Great documentation", "Component-based"],
+    cons: ["Steep learning curve", "Frequent updates"],
+    category: "frontend",
+    stars: 220
+  },
+  {
+    name: "Vue",
+    description: "The progressive JavaScript framework",
+    pros: ["Easy to learn", "Flexible", "Great performance"],
+    cons: ["Smaller ecosystem", "Less enterprise adoption"],
+    category: "frontend",
+    stars: 205
+  },
+  {
+    name: "Svelte",
+    description: "Cybernetically enhanced web apps",
+    pros: ["No virtual DOM", "Compile-time optimization", "Simple syntax"],
+    cons: ["Smaller ecosystem", "Tooling maturity"],
+    category: "frontend",
+    stars: 78
+  }
+]} />
+
+## Component 2: FeatureMatrix
+
+Compare features across multiple tools in a matrix:
+
+<FeatureMatrix tools={[
+  {
+    tool: "React",
+    category: "Frontend",
+    features: {
+      "Hot Reload": true,
+      "SSR": true,
+      "TypeScript": true,
+      "Build Size": "Large",
+      "Learning Curve": "Steep"
+    }
+  },
+  {
+    tool: "Vue",
+    category: "Frontend",
+    features: {
+      "Hot Reload": true,
+      "SSR": true,
+      "TypeScript": "Partial",
+      "Build Size": "Medium",
+      "Learning Curve": "Easy"
+    }
+  },
+  {
+    tool: "Svelte",
+    category: "Frontend",
+    features: {
+      "Hot Reload": true,
+      "SSR": true,
+      "TypeScript": true,
+      "Build Size": "Small",
+      "Learning Curve": "Medium"
+    }
+  }
+]} />
+
+## Component 3: WakaTimeChart
+
+Visualize coding time distribution with interactive charts:
+
+<WakaTimeChart data={[
+  { name: "TypeScript", hours: 45, color: "#3178c6", percentage: 35 },
+  { name: "React", hours: 32, color: "#61dafb", percentage: 25 },
+  { name: "Python", hours: 28, color: "#3776ab", percentage: 22 },
+  { name: "Go", hours: 15, color: "#00add8", percentage: 12 },
+  { name: "Others", hours: 8, color: "#888888", percentage: 6 }
+]} title="Weekly Coding Time Distribution" period="weekly" />
+
+## Component 4: ToolTimeline
+
+Display chronological events with filtering:
+
+<ToolTimeline events={[
+  {
+    date: "2023-01-15",
+    title: "Initial Release",
+    description: "First version released with basic functionality and core features.",
+    type: "release",
+    version: "1.0.0",
+    tags: ["launch", "mvp"]
+  },
+  {
+    date: "2023-03-10",
+    title: "Performance Update",
+    description: "Major performance improvements with optimized rendering and caching strategies.",
+    type: "update",
+    version: "1.1.0",
+    tags: ["performance", "optimization"]
+  },
+  {
+    date: "2023-06-22",
+    title: "Breaking Changes",
+    description: "API refactoring for better scalability. Migration guide provided.",
+    type: "deprecation",
+    version: "2.0.0",
+    tags: ["breaking", "api"]
+  },
+  {
+    date: "2023-09-15",
+    title: "5000 Stars",
+    description: "Reached 5000 stars on GitHub, celebrating community growth.",
+    type: "milestone",
+    tags: ["community", "milestone"]
+  }
+]} />
+
+## Component 5: WorkflowDiagram
+
+Visualize workflows with dependency tracking:
+
+<WorkflowDiagram steps={[
+  {
+    id: "setup",
+    name: "Setup Environment",
+    description: "Install dependencies and configure development environment",
+    status: "completed",
+    dependencies: [],
+    duration: "10 min"
+  },
+  {
+    id: "config",
+    name: "Configuration",
+    description: "Set up environment variables and configuration files",
+    status: "completed",
+    dependencies: ["setup"],
+    duration: "15 min"
+  },
+  {
+    id: "build",
+    name: "Build Process",
+    description: "Compile source code and prepare for deployment",
+    status: "in-progress",
+    dependencies: ["config"],
+    duration: "20 min"
+  },
+  {
+    id: "test",
+    name: "Testing",
+    description: "Run automated tests and validate the build",
+    status: "pending",
+    dependencies: ["build"],
+    duration: "30 min"
+  },
+  {
+    id: "deploy",
+    name: "Deployment",
+    description: "Deploy to production environment",
+    status: "pending",
+    dependencies: ["test"],
+    duration: "5 min"
+  }
+]} />
+
+## Component 6: VersionDiff
+
+Show version differences with filtering and breaking change highlighting:
+
+<VersionDiff fromVersion="2.1.0" toVersion="3.0.0" changes={[
+  {
+    type: "added",
+    category: "Features",
+    description: "New GraphQL API support with full type safety",
+    breaking: false
+  },
+  {
+    type: "added",
+    category: "Features",
+    description: "WebSocket support for real-time updates",
+    breaking: false
+  },
+  {
+    type: "removed",
+    category: "Features",
+    description: "Legacy REST API v1 endpoints removed",
+    breaking: true
+  },
+  {
+    type: "removed",
+    category: "Dependencies",
+    description: "Dropped support for Node.js 14",
+    breaking: true
+  },
+  {
+    type: "modified",
+    category: "API",
+    description: "Changed authentication header format from X-Auth to Authorization",
+    breaking: true
+  },
+  {
+    type: "modified",
+    category: "Performance",
+    description: "Optimized database queries reducing load time by 40%",
+    breaking: false
+  },
+  {
+    type: "fixed",
+    category: "Security",
+    description: "Fixed XSS vulnerability in comment system",
+    breaking: false
+  },
+  {
+    type: "fixed",
+    category: "Bug",
+    description: "Resolved memory leak in long-running processes",
+    breaking: false
+  }
+]} />
+
+## Component 7: ToolList
+
+Searchable list of tools with filtering and sorting:
+
+<ToolList title="Development Tools" tools={[
+  {
+    name: "Next.js",
+    description: "The React framework for production",
+    language: "TypeScript",
+    stars: 120000,
+    forks: 25000,
+    url: "https://nextjs.org",
+    tags: ["react", "framework", "ssr", "fullstack"],
+    featured: true
+  },
+  {
+    name: "Tailwind CSS",
+    description: "A utility-first CSS framework",
+    language: "TypeScript",
+    stars: 80000,
+    forks: 4200,
+    url: "https://tailwindcss.com",
+    tags: ["css", "styling", "utility-first"],
+    featured: true
+  },
+  {
+    name: "Vite",
+    description: "Next Generation Frontend Tooling",
+    language: "TypeScript",
+    stars: 65000,
+    forks: 6200,
+    url: "https://vitejs.dev",
+    tags: ["build-tool", "dev-server", "fast"],
+    featured: false
+  },
+  {
+    name: "tRPC",
+    description: "Move Fast and Break Nothing",
+    language: "TypeScript",
+    stars: 32000,
+    forks: 1400,
+    url: "https://trpc.io",
+    tags: ["api", "typescript", "rpc"],
+    featured: false
+  },
+  {
+    name: "Prisma",
+    description: "Next-generation Node.js and TypeScript ORM",
+    language: "TypeScript",
+    stars: 35000,
+    forks: 3500,
+    url: "https://prisma.io",
+    tags: ["database", "orm", "typesafe"],
+    featured: false
+  }
+]} />
+
+## Conclusion
+
+MDX brings the power of React components to your markdown content. These 7 interactive components make your blog posts more engaging:
+
+1. **ToolComparison** - Interactive tool comparison
+2. **FeatureMatrix** - Feature comparison table
+3. **WakaTimeChart** - Coding time visualization
+4. **ToolTimeline** - Chronological event tracking
+5. **WorkflowDiagram** - Process visualization
+6. **VersionDiff** - Version comparison
+7. **ToolList** - Searchable tool directory
+
+All components support dark mode, responsive design, and interactive user experiences!
+
+### Getting Started
+
+To use MDX in your posts, simply:
+
+1. Create a file with `.mdx` extension
+2. Add frontmatter metadata
+3. Use JSX components in your content
+4. The blog engine handles the rest!
+
+Happy blogging! 🚀

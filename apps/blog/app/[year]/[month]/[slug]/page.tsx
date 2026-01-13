@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 
   return posts.flatMap(({ slug }) => {
     const slugArray = slug
-      .replace(/\.md|\.html$/, ".html")
+      .replace(/\.md|\.mdx|\.html$/, ".html")
       .replace(/^\//, "")
       .split("/");
 
