@@ -13,7 +13,7 @@ import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import sanitizeHtml from "sanitize-html";
 
-export async function markdownToHtml(markdown: VFileCompatible) {
+export async function markdownToHtml(markdown: VFileCompatible, isMDX = false) {
   const result = await unified()
     .use(remarkParse, { fragment: true })
     .use(remarkMath)
@@ -50,6 +50,7 @@ export async function markdownToHtml(markdown: VFileCompatible) {
       "line",
       "polyline",
       "polygon",
+      ...(isMDX ? ["script", "style"] : []),
     ]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
@@ -58,6 +59,10 @@ export async function markdownToHtml(markdown: VFileCompatible) {
       img: ["src", "alt", "title", "width", "height", "loading", "class"],
       svg: ["width", "height", "viewBox", "fill", "stroke", "class"],
       path: ["d", "fill", "stroke", "stroke-width", "class"],
+      ...(isMDX ? {
+        script: ["type", "src"],
+        style: ["type"],
+      } : {}),
     },
     allowedSchemes: ["http", "https", "mailto", "data"],
   });

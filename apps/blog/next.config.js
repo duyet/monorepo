@@ -2,6 +2,14 @@
 // const redirects = require('./next.redirects')
 const { loadEnvConfig } = require("@next/env");
 const path = require("node:path");
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    providerImportSource: "@mdx-js/react",
+  },
+});
 
 // Load env from monorepo root and app directory
 const rootDir = path.resolve(__dirname, "../..");
@@ -52,5 +60,5 @@ const config = {
   // redirects,
 };
 
-module.exports = config;
+module.exports = withMDX(config);
 // module.exports = withAxiom(config)

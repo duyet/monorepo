@@ -46,7 +46,7 @@ export function getPostPaths(dir?: string): string[] {
       return getPostPaths(child);
     }
 
-    if (!file.endsWith(".md")) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) {
       return [];
     }
 
@@ -56,8 +56,9 @@ export function getPostPaths(dir?: string): string[] {
 
 export function getPostBySlug(slug: string, fields: string[] = []): Post {
   const join = nodeJoin();
-  const fileName = slug.replace(/\.(md|htm|html)$/, "");
-  return getPostByPath(join(getPostsDirectory(), `${fileName}.md`), fields);
+  const fileName = slug.replace(/\.(md|mdx|htm|html)$/, "");
+  const extension = slug.endsWith('.mdx') ? '.mdx' : '.md';
+  return getPostByPath(join(getPostsDirectory(), `${fileName}${extension}`), fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
@@ -90,7 +91,14 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
     if (field === "slug") {
-      post[field] = data.slug || fullPath;
+      // Convert absolute path to relative slug format
+      if (!data.slug) {
+        const relativePath = fullPath.replace(getPostsDirectory(), "");
+        const cleanPath = relativePath.replace(/^\/|\/$/g, "");
+        post[field] = `/${cleanPath}`;
+      } else {
+        post[field] = data.slug;
+      }
 
       // Validate slug format /yyyy/mm/slug(.html)
       const slugRegex = /^\/(\d{4})\/(\d{2})\/(.+)$/;
