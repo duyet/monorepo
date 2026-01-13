@@ -9,8 +9,8 @@ jobs:
   analyze:
     uses: duyet/github-actions/.github/workflows/claude-nightly-analysis.yml@main
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
+      pull-requests: read
       issues: write
       id-token: write
       actions: read
