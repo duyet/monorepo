@@ -23,9 +23,13 @@ export default function Archives() {
       </div>
       <div className="flex flex-col gap-8">
         {Object.entries(postsByYear)
-          .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+          .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
           .map(([year, posts]) => (
-            <YearPost key={year} year={Number.parseInt(year)} posts={posts} />
+            <YearPost
+              key={year}
+              year={Number.parseInt(year, 10)}
+              posts={posts}
+            />
           ))}
       </div>
     </Container>

@@ -31,7 +31,7 @@ export function LightboxTopControls({
   totalCount,
   isFullscreen,
   showInfo,
-  onClose,
+  onClose: _onClose,
   onToggleFullscreen,
   onToggleInfo,
   className,

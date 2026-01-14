@@ -17,11 +17,11 @@ export default function YearList({
 
   if (order === "desc") {
     years.sort(
-      (a: string, b: string) => Number.parseInt(b) - Number.parseInt(a)
+      (a: string, b: string) => Number.parseInt(b, 10) - Number.parseInt(a, 10)
     );
   } else {
     years.sort(
-      (a: string, b: string) => Number.parseInt(a) - Number.parseInt(b)
+      (a: string, b: string) => Number.parseInt(a, 10) - Number.parseInt(b, 10)
     );
   }
 

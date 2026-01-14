@@ -78,11 +78,11 @@ export default async function PostsByCategory({
         {/* Posts organized by year */}
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
-            .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+            .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, yearPosts]) => (
               <YearPost
                 key={year}
-                year={Number.parseInt(year)}
+                year={Number.parseInt(year, 10)}
                 posts={yearPosts}
               />
             ))}

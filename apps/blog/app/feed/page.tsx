@@ -8,7 +8,7 @@ type Params = Promise<Record<string, string>>;
 
 async function getPosts(params: Params) {
   const { page } = await params;
-  const pageNumber = page ? Number.parseInt(page) - 1 : 0;
+  const pageNumber = page ? Number.parseInt(page, 10) - 1 : 0;
 
   return getAllPosts(
     [
