@@ -1,7 +1,10 @@
 {
   "name": "duyet",
   "private": true,
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/duyet/monorepo.git"
@@ -24,18 +27,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
-    "@commitlint/cli": "^20.0.0",
-    "@commitlint/config-conventional": "^20.0.0",
     "@duyet/tsconfig": "*",
-    "@next/env": "^16.1.1",
-    "@tailwindcss/postcss": "^4.1.6",
     "dotenv-cli": "^11.0.0",
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.6",
     "turbo": "^2.5.3",
-    "tw-animate-css": "^1.2.9",
     "typescript": "^5.8.3"
   },
   "packageManager": "bun@1.3.4"
