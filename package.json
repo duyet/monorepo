@@ -30,6 +30,7 @@
     "@duyet/tsconfig": "*",
     "@next/env": "^16.1.1",
     "@tailwindcss/postcss": "^4.1.6",
+    "@types/node": "^22.15.29",
     "dotenv-cli": "^11.0.0",
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
