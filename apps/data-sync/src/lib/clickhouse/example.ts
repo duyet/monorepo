@@ -5,20 +5,18 @@
  * and retention policies together in a typical data-sync workflow.
  */
 
+import { retentionPolicies } from "../../config/retention.config";
 import {
-  MigrationRunner,
   applyRetentionPolicies,
   closeClient,
   convertRetentionPolicy,
   executeQuery,
-  getClient,
   getRetentionStatus,
   getTableSizes,
+  MigrationRunner,
   optimizeTables,
   ping,
 } from "./index";
-
-import { retentionPolicies } from "../../config/retention.config";
 
 /**
  * Initialize database with migrations

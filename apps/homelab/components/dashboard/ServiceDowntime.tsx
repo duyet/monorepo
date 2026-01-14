@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { AlertCircle, Clock, ExternalLink } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDowntimeHistory } from "@/hooks/useDashboard";
 import { EXTERNAL_LINKS } from "@/lib/constants";
-import { AlertCircle, Clock, ExternalLink } from "lucide-react";
 
 export function ServiceDowntime() {
   const downtimeHistory = useDowntimeHistory();

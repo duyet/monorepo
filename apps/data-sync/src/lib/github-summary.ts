@@ -59,7 +59,7 @@ export async function getTableStatus(
           lastSync: row.last_sync,
         });
       }
-    } catch (error) {
+    } catch (_error) {
       // Table might not exist yet, skip
       statuses.push({
         table: table.replace("monorepo_", ""),

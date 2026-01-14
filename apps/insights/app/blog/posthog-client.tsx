@@ -1,16 +1,16 @@
 "use client";
 
-import { PeriodSelector } from "@/components/period-selector";
+import { FileText, TrendingUp, Users } from "lucide-react";
+import { useState } from "react";
 import { PopularContentTable } from "@/components/PopularContentTable";
+import { PeriodSelector } from "@/components/period-selector";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import {
   DEFAULT_PERIOD,
-  TIME_PERIODS,
   type PeriodData,
+  TIME_PERIODS,
   type TimePeriod,
 } from "@/types/periods";
-import { FileText, TrendingUp, Users } from "lucide-react";
-import { useState } from "react";
 import type { PostHogDataByPeriod } from "./posthog-with-periods";
 
 interface PostHogClientProps {

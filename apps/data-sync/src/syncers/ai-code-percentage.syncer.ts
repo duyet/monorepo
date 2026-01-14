@@ -135,7 +135,6 @@ const REPO_COMMIT_QUERY = `
 
 export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
   private owners: string[];
-  private owner = "";
 
   constructor(client: ClickHouseClient, owner?: string | string[]) {
     super(client, "ai-code-percentage");

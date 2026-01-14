@@ -76,7 +76,9 @@ class MockGitHubClient {
 
   async searchRepos(query: string): Promise<MockGitHubRepo[]> {
     const allRepos: MockGitHubRepo[] = [];
-    this.repos.forEach((repos) => allRepos.push(...repos));
+    for (const repos of this.repos.values()) {
+      allRepos.push(...repos);
+    }
     return allRepos.filter(
       (repo) =>
         repo.name.toLowerCase().includes(query.toLowerCase()) ||

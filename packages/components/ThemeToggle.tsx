@@ -1,11 +1,10 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
-import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import { Sun, Moon, Monitor } from "lucide-react";
-
 import { cn } from "@duyet/libs/utils";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import { Monitor, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const toggleGroupClasses = cn(
   "p-[3px] w-fit flex rounded-full border border-gray-200",

@@ -1,5 +1,5 @@
-import { CompactMetric } from "@/components/ui/CompactMetric";
 import { Eye, GitFork, Star, TrendingUp } from "lucide-react";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 import { fetchAllRepositories, type GitHubRepository } from "./github-utils";
 
 const owner = "duyet";

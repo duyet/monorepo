@@ -36,9 +36,7 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noShadowRestrictedNames": "off",
-        "noImplicitAnyLet": "off",
-        "noUnknownAtRules": "off",
-        "useIterableCallbackReturn": "off"
+        "noImplicitAnyLet": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
@@ -54,7 +52,6 @@
       },
       "complexity": {
         "noForEach": "off",
-        "noImportantStyles": "off",
         "noUselessUndefinedInitialization": "off"
       },
       "style": {
@@ -68,12 +65,7 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
-        "useParseIntRadix": "off",
-        "noUnusedImports": "off",
-        "noUnusedVariables": "off",
-        "useHookAtTopLevel": "off",
-        "noUnusedPrivateClassMembers": "off",
-        "noUnusedFunctionParameters": "off"
+        "useHookAtTopLevel": "off"
       }
     }
   },
@@ -93,7 +85,8 @@
   },
   "css": {
     "parser": {
-      "cssModules": true
+      "cssModules": true,
+      "tailwindDirectives": true
     },
     "linter": {
       "enabled": false

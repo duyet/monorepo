@@ -1,7 +1,6 @@
-import getSlug from "./getSlug";
 import type { Series } from "@duyet/interfaces";
-
 import { getPostByPath, getPostPaths } from "./getPost";
+import getSlug from "./getSlug";
 
 export function getAllSeries(): Series[] {
   const paths = getPostPaths();

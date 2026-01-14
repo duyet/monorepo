@@ -1,9 +1,8 @@
-import Link from "next/link";
-
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
 import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
+import Link from "next/link";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
 
@@ -64,9 +63,13 @@ export default async function Page() {
 
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
-            .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+            .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (
-              <YearPost key={year} year={Number.parseInt(year)} posts={posts} />
+              <YearPost
+                key={year}
+                year={Number.parseInt(year, 10)}
+                posts={posts}
+              />
             ))}
         </div>
       </Container>

@@ -1,9 +1,9 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@duyet/components/ui/tabs";
-import { DEFAULT_PERIOD, PERIODS, type PeriodValue } from "@/lib/periods";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { DEFAULT_PERIOD, PERIODS, type PeriodValue } from "@/lib/periods";
 
 export function GlobalPeriodSelector() {
   const pathname = usePathname();

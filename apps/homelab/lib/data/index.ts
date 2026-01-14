@@ -3,27 +3,23 @@
  * Central export point for all mock data modules
  */
 
-// Export types
-export type {
-  Node,
-  Service,
-  NetworkStats,
-  NetworkSpeedTest,
-  ServiceDowntime,
-  ClusterStats,
-} from "./types";
-
-// Export node data
-export { nodes, cpuHistory, memoryHistory, clusterStats } from "./nodes";
-
-// Export service data
-export { services } from "./services";
-
-// Export network data
-export { networkTraffic, speedTest } from "./network";
-
 // Export downtime data
 export { downtimeHistory } from "./downtime";
+// Export network data
+export { networkTraffic, speedTest } from "./network";
+// Export node data
+export { clusterStats, cpuHistory, memoryHistory, nodes } from "./nodes";
+// Export service data
+export { services } from "./services";
+// Export types
+export type {
+  ClusterStats,
+  NetworkSpeedTest,
+  NetworkStats,
+  Node,
+  Service,
+  ServiceDowntime,
+} from "./types";
 
 // Re-export utilities for convenience
-export { random, generateUptime, getHistoricalTime } from "./utils";
+export { generateUptime, getHistoricalTime, random } from "./utils";

@@ -164,5 +164,4 @@ export function createProfile(
 }
 
 // Re-export Duyet's profile as the default example
-export { duyetProfile } from "./duyet.profile";
-export { duyetProfile as defaultProfile } from "./duyet.profile";
+export { duyetProfile, duyetProfile as defaultProfile } from "./duyet.profile";

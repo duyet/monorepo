@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { cn } from "@duyet/libs/utils";
+import { useState } from "react";
 
 export interface ClaudeCardValueItem {
   label: string;
@@ -34,13 +34,17 @@ const BlocksIcon = () => (
       fill="none"
       strokeLinecap="round"
     />
-    <path
-      d="M40 50 Q45 40 55 45 L60 50"
-      fill="none"
-      strokeLinecap="round"
-    />
+    <path d="M40 50 Q45 40 55 45 L60 50" fill="none" strokeLinecap="round" />
     {/* Geometric shapes */}
-    <rect x="55" y="25" width="20" height="20" rx="2" fill="white" stroke="currentColor" />
+    <rect
+      x="55"
+      y="25"
+      width="20"
+      height="20"
+      rx="2"
+      fill="white"
+      stroke="currentColor"
+    />
     <circle cx="90" cy="35" r="12" fill="white" stroke="currentColor" />
     <polygon points="70,60 85,60 77.5,45" fill="white" stroke="currentColor" />
     {/* Squiggly lines */}
@@ -66,12 +70,28 @@ const CodeBoardIcon = () => (
     stroke="currentColor"
   >
     {/* Presentation board frame */}
-    <rect x="25" y="20" width="70" height="50" rx="3" fill="white" stroke="currentColor" />
+    <rect
+      x="25"
+      y="20"
+      width="70"
+      height="50"
+      rx="3"
+      fill="white"
+      stroke="currentColor"
+    />
     {/* Board hanger */}
     <line x1="60" y1="10" x2="60" y2="20" strokeLinecap="round" />
     <circle cx="60" cy="8" r="4" fill="none" />
     {/* Code symbols */}
-    <text x="40" y="50" fontSize="20" fill="currentColor" fontFamily="monospace">&lt;/&gt;</text>
+    <text
+      x="40"
+      y="50"
+      fontSize="20"
+      fill="currentColor"
+      fontFamily="monospace"
+    >
+      &lt;/&gt;
+    </text>
     {/* Hand pointer */}
     <path
       d="M55 75 Q50 85 55 90 Q60 95 65 90"
@@ -196,7 +216,8 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                 onMouseLeave={() => setHoveredIndex(null)}
                 className={cn(
                   "flex items-baseline gap-3 sm:gap-4 py-3 sm:py-4",
-                  index !== items.length - 1 && "border-b border-gray-900/20 dark:border-white/20"
+                  index !== items.length - 1 &&
+                    "border-b border-gray-900/20 dark:border-white/20"
                 )}
               >
                 <span
@@ -220,7 +241,10 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                   {item.items && item.items.length > 0 && (
                     <div className="flex flex-wrap gap-x-1.5 gap-y-0.5">
                       {item.items.map((valueItem, itemIndex) => (
-                        <span key={itemIndex} className="inline-flex items-center">
+                        <span
+                          key={itemIndex}
+                          className="inline-flex items-center"
+                        >
                           {valueItem.link ? (
                             <a
                               href={valueItem.link}
@@ -248,7 +272,15 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                             </span>
                           )}
                           {itemIndex < item.items.length - 1 && (
-                            <span className={cn("ml-1 opacity-50", activeColor.text, activeColor.textDark)}>,</span>
+                            <span
+                              className={cn(
+                                "ml-1 opacity-50",
+                                activeColor.text,
+                                activeColor.textDark
+                              )}
+                            >
+                              ,
+                            </span>
                           )}
                         </span>
                       ))}

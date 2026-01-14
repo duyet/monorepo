@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@config './tailwind.config.mjs';
+@config "./tailwind.config.mjs";
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -32,7 +32,6 @@
     --background: #0f172a; /* slate-900 */
     --foreground: #f8fafc; /* slate-50 */
   }
-
 }
 
 /*
@@ -100,4 +99,3 @@ html.dark .prose pre {
 .dark .prose a:hover {
   color: #f8fafc; /* slate-50 */
 }
-

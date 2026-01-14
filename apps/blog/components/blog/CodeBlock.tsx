@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Copy, Check } from "lucide-react";
 import { cn } from "@duyet/libs/utils";
+import { Check, Copy } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface CodeBlockProps {
   children?: React.ReactNode;

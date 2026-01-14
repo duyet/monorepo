@@ -2,9 +2,9 @@
  * Node mock data generation
  */
 
-import { NODE_RESOURCE_RANGES, HISTORICAL_DATA } from "../constants";
+import { HISTORICAL_DATA, NODE_RESOURCE_RANGES } from "../constants";
 import type { Node } from "./types";
-import { random, generateUptime, getHistoricalTime } from "./utils";
+import { generateUptime, getHistoricalTime, random } from "./utils";
 
 /**
  * Generate 5 nodes with dynamic data (microk8s cluster)

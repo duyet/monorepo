@@ -1,5 +1,5 @@
-import { CompactMetric } from "@/components/ui/CompactMetric";
 import { Calendar, GitCommit, Zap } from "lucide-react";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 import type { CommitStats } from "../utils/types";
 
 interface CommitMetricsProps {

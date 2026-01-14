@@ -15,7 +15,7 @@ My last post was more than 14 months ago. Right around the time when the LLM hyp
 
 But then so many new AI applications became useful. New techniques, new "tasks" emerged around it. Prompt engineering, token optimization, creating MCPs for existing apps, tool calling, etc. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs without web search or reasoning or MCPs are just ... weird.
 
-I started using AI agents and started building things more seriously. There are thousands of models out there now, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
+You and I can't ignore that anymore. I started building from small stuff, creating UDF calling OpenAI to process a pandas dataset, building an MCP on top of ClickHouse, started using AI agents and building things more seriously. There are thousands of models out there now, from large to small, closed to open weight. The coding agents now really good I could say. I built LLM workflows, played with [MCP](https://modelcontextprotocol.io/), deployed vector database, RAG, etc.
 
 Coding agents control the terminal. I'm not writing code or even reading it - I'm watching them work instead. I test their results, tell them what I expect tests to look like to keep them focused, and build skills to teach them specific tasks. This is the new normal, I guess.
 
@@ -339,3 +339,11 @@ I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode
 
 ![opencode](/media/2026/01/ai/opencode_2.png)
 
+opencode can also run [headless](https://opencode.ai/docs/server/) on a remote machine (VM/CI runner/container) and your local CLI connects as a client. Handy for offloading heavy workloads to a beefy VM while you work from a laptop. 
+
+
+```bash
+opencode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+```
+
+![opencode](/media/2026/01/ai/opencode_serve.png)

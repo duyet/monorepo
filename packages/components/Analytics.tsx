@@ -1,5 +1,5 @@
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 const POSTHOG_API_KEY = process.env.POSTHOG_API_KEY;

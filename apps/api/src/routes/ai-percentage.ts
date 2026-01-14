@@ -27,7 +27,6 @@ function getClickHouseUrl(env: Env): string | null {
   const host = env.CLICKHOUSE_HOST;
   const password = env.CLICKHOUSE_PASSWORD;
   const user = env.CLICKHOUSE_USER || "default";
-  const database = env.CLICKHOUSE_DATABASE || "default";
   const protocol = env.CLICKHOUSE_PROTOCOL || "https";
   const port = env.CLICKHOUSE_PORT || "443";
 

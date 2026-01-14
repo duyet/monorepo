@@ -1,20 +1,20 @@
 "use client";
 
 import {
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
-import {
   Bar,
   CartesianGrid,
   BarChart as RechartsBarChart,
   XAxis,
   YAxis,
 } from "recharts";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 interface BarChartProps {
   data: Array<Record<string, unknown>>;
@@ -24,8 +24,6 @@ interface BarChartProps {
   stack?: boolean;
   legend?: boolean;
   valueFormatter?: (value: unknown) => string;
-  /** Use logarithmic scale for Y-axis (useful for data with large value ranges) */
-  logScale?: boolean;
   /** Hide Y-axis ticks */
   hideYAxis?: boolean;
   /** Chart height in pixels */
@@ -64,7 +62,6 @@ export function BarChart({
   stack = false,
   legend = false,
   valueFormatter,
-  logScale = false,
   hideYAxis = false,
   height,
 }: BarChartProps) {

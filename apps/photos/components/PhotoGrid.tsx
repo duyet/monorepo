@@ -1,11 +1,11 @@
 "use client";
 
-import { MASONRY_CONFIG, getMasonryClasses } from "@/lib/GridUtilities";
-import type { Photo } from "@/lib/photo-provider";
 import { cn } from "@duyet/libs/utils";
 import { Images } from "lucide-react";
 import { useCallback, useState } from "react";
 import Masonry from "react-masonry-css";
+import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
+import type { Photo } from "@/lib/photo-provider";
 import ErrorBoundary from "./ErrorBoundary";
 import Lightbox from "./Lightbox";
 import { EmptyState } from "./LoadingStates";

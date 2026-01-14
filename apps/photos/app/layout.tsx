@@ -1,11 +1,11 @@
 import "./globals.css";
 
-import PhotoNav from "@/components/PhotoNav";
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { Inter, Libre_Baskerville } from "next/font/google";
+import PhotoNav from "@/components/PhotoNav";
 
 const inter = Inter({
   weight: ["400", "700"],

@@ -1,9 +1,8 @@
 "use client";
 
+import { cn } from "@duyet/libs/utils";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
 import * as React from "react";
-
-import { cn } from "@duyet/libs/utils";
 
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,

@@ -1,5 +1,5 @@
+import { AiContentCard, ContentCard, LinkCard } from "@duyet/components";
 import Link from "next/link";
-import { LinkCard, ContentCard, AiContentCard } from "@duyet/components";
 import { nodes } from "../../homelab/lib/data/nodes";
 
 export const dynamic = "force-static";

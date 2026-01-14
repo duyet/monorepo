@@ -1,5 +1,5 @@
-import cloudinary from "./cloudinary";
 import type { AdminAndResourceOptions } from "cloudinary";
+import cloudinary from "./cloudinary";
 import type { CloudinaryPhoto, Photo } from "./types";
 
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;

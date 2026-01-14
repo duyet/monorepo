@@ -1,6 +1,5 @@
-import type React from "react";
-
 import { cn } from "@duyet/libs/utils";
+import type React from "react";
 
 type ContainerProps = {
   children: React.ReactNode | React.ReactNode[];

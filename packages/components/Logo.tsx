@@ -1,6 +1,6 @@
 import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 import LOGO from "./logo.svg";
 

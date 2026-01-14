@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useServices } from "@/hooks/useDashboard";
 import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useServices } from "@/hooks/useDashboard";
 import { ServiceCard } from "./ServiceCard";
 
 export function ServicesStatus() {

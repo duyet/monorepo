@@ -1,9 +1,9 @@
 "use client";
 
-import { TIME_PERIODS, type TimePeriod } from "@/types/periods";
 import { Button } from "@duyet/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { TIME_PERIODS, type TimePeriod } from "@/types/periods";
 
 interface PeriodSelectorProps {
   activePeriod: TimePeriod;

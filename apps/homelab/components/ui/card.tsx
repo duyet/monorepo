@@ -1,13 +1,12 @@
-import * as React from "react";
-
 import {
+  CardDescription,
   Card as SharedCard,
-  CardHeader as SharedCardHeader,
   CardContent as SharedCardContent,
   CardFooter as SharedCardFooter,
+  CardHeader as SharedCardHeader,
   CardTitle as SharedCardTitle,
-  CardDescription,
 } from "@duyet/components/ui/card";
+import * as React from "react";
 
 // Override Card to remove shadow and border
 const Card = React.forwardRef<

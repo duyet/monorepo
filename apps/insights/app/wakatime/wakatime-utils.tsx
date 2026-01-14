@@ -394,7 +394,10 @@ export async function getWakaTimeActivityWithAI(
       return hybridData as ActivityWithAI;
     }
   } catch (error) {
-    console.warn("[WakaTime] Hybrid fetch not available, using API fallback:", error);
+    console.warn(
+      "[WakaTime] Hybrid fetch not available, using API fallback:",
+      error
+    );
   }
 
   // Fallback to API-only approach

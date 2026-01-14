@@ -1,12 +1,12 @@
 "use client";
 
+import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
 import {
   GeometricPattern,
   OrganicBlob,
   WavyLines,
 } from "../illustrations/AbstractShapes";
-import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
 import { ThinkingAnimation } from "../thinking/ThinkingAnimation";
 import { useCardDescription } from "./useCardDescription";
 

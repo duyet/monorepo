@@ -5,8 +5,8 @@
  */
 
 import { Hono } from "hono";
-import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 import aiPercentageRouter from "./routes/ai-percentage.js";
+import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 
 /**
  * Cloudflare Workers bindings interface

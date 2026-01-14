@@ -1,9 +1,9 @@
+import { Suspense } from "react";
 import {
   generatePeriodStaticParams,
   getPeriodConfig,
   getPeriodDays,
 } from "@/lib/periods";
-import { Suspense } from "react";
 import { SkeletonCard } from "../../../components/SkeletonCard";
 import { CCUsageActivity } from "../activity";
 import { CCUsageCosts } from "../costs";

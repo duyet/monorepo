@@ -1,8 +1,8 @@
 "use client";
 
-import { Progress } from "@/components/ui/progress";
 import { cn } from "@duyet/libs";
 import Link from "next/link";
+import { Progress } from "@/components/ui/progress";
 
 interface BarListItem {
   name: string;

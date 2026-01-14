@@ -1,5 +1,5 @@
-import { describe, test, expect } from "bun:test";
-import { GET, dynamic } from "../route";
+import { describe, expect, test } from "bun:test";
+import { dynamic, GET } from "../route";
 
 describe("Robots.txt Route", () => {
   test("should return robots.txt content", async () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, Info, CheckCircle, AlertTriangle } from "lucide-react";
+import { AlertCircle, AlertTriangle, CheckCircle, Info } from "lucide-react";
 
 export type InfoBoxType = "info" | "warning" | "success" | "error";
 

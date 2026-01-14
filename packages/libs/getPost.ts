@@ -1,7 +1,6 @@
+import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import matter from "gray-matter";
-
 import getSlug from "./getSlug";
-import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 import { normalizeTag } from "./tags";
 
 const nodeFs = () => require("node:fs");
@@ -307,7 +306,7 @@ export function getPostsByAllYear(
 
   // Sort posts by year
   Object.keys(postsByYear).forEach((year: string) => {
-    postsByYear[Number.parseInt(year)].sort((post1: Post, post2: Post) =>
+    postsByYear[Number.parseInt(year, 10)].sort((post1: Post, post2: Post) =>
       post1.date > post2.date ? -1 : 1
     );
   });
@@ -320,7 +319,7 @@ export function getPostsByAllYear(
     const limitedYears = years.slice(0, yearLimit);
     return limitedYears.reduce(
       (acc, year: string) => {
-        acc[Number.parseInt(year)] = postsByYear[Number.parseInt(year)];
+        acc[Number.parseInt(year, 10)] = postsByYear[Number.parseInt(year, 10)];
         return acc;
       },
       {} as Record<number, Post[]>

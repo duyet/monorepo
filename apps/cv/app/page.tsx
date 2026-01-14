@@ -1,17 +1,16 @@
-import Link from "next/link";
-
-import { Education } from "@/components/education";
-import { ExperienceItem } from "@/components/experience";
-import { InlineLink } from "@/components/inline-link";
-import { Overview } from "@/components/overview";
-import { Section } from "@/components/section";
-import { Skill } from "@/components/skill";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
 import { Separator } from "@duyet/components/ui/separator";
+import Link from "next/link";
+import { Education } from "@/components/education";
+import { ExperienceItem } from "@/components/experience";
+import { InlineLink } from "@/components/inline-link";
+import { Overview } from "@/components/overview";
+import { Section } from "@/components/section";
+import { Skill } from "@/components/skill";
 
 import { cvData } from "@/config/cv.data";
 import {

@@ -6,11 +6,11 @@
 
 import type { Profile } from "@duyet/profile";
 import type {
-  UrlsConfig,
   AppUrls,
-  NavLink,
-  Navigation,
   DeepPartial,
+  Navigation,
+  NavLink,
+  UrlsConfig,
 } from "./types";
 
 /**

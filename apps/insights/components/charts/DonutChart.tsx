@@ -1,12 +1,12 @@
 "use client";
 
+import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 import {
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
 } from "@/components/ui/chart";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 interface DonutChartProps {
   data: Array<Record<string, unknown>>;

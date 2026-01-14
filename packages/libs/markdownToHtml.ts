@@ -1,17 +1,16 @@
-import type { VFileCompatible } from "vfile";
-
-import { unified } from "unified";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import remarkParse from "remark-parse";
-import rehypeFormat from "rehype-format";
-import remarkRehype from "remark-rehype";
-import rehypeHighlight from "rehype-highlight";
-import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeFormat from "rehype-format";
+import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
+import rehypeStringify from "rehype-stringify";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
 import sanitizeHtml from "sanitize-html";
+import { unified } from "unified";
+import type { VFileCompatible } from "vfile";
 
 export async function markdownToHtml(markdown: VFileCompatible) {
   const result = await unified()

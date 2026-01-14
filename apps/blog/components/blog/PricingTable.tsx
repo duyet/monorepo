@@ -30,14 +30,18 @@ export function PricingTable({
 
   if (!rows || rows.length === 0) {
     return (
-      <div className={`text-base text-gray-500 dark:text-gray-400 ${className}`}>
+      <div
+        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+      >
         No pricing data available
       </div>
     );
   }
 
   return (
-    <div className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}>
+    <div
+      className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}
+    >
       {title && (
         <div className="space-y-1">
           <h2 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -72,13 +76,17 @@ export function PricingTable({
             {expandedRow === idx && (
               <div className="mt-3 pt-3 border-t border-gray-200 dark:border-slate-800 space-y-2">
                 <div className="flex justify-between gap-4 text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">Input:</span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Input:
+                  </span>
                   <span className="text-gray-700 dark:text-gray-300 font-medium">
                     {row.input}
                   </span>
                 </div>
                 <div className="flex justify-between gap-4 text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">Output:</span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Output:
+                  </span>
                   <span className="text-gray-700 dark:text-gray-300 font-medium">
                     {row.output}
                   </span>

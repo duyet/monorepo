@@ -16,24 +16,21 @@
  * ```
  */
 
+// Export Duyet's configuration
+export { duyetUrls, duyetUrls as defaultUrls } from "./duyet.urls";
 // Export all types
 export type {
   AppUrls,
-  ExternalUrls,
-  UrlsConfig,
-  NavLink,
-  Navigation,
   DeepPartial,
+  ExternalUrls,
+  Navigation,
+  NavLink,
+  UrlsConfig,
 } from "./types";
-
 // Export utilities
 export {
-  createUrls,
   createNavigation,
-  getAppUrls,
+  createUrls,
   getAppUrl,
+  getAppUrls,
 } from "./utils";
-
-// Export Duyet's configuration
-export { duyetUrls } from "./duyet.urls";
-export { duyetUrls as defaultUrls } from "./duyet.urls";

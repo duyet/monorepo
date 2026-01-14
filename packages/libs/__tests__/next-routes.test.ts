@@ -3,7 +3,7 @@
  */
 
 import { NextResponse } from "next/server";
-import { createPingRoute, createLlmsTxtRoute } from "../next-routes";
+import { createLlmsTxtRoute, createPingRoute } from "../next-routes";
 
 describe("createPingRoute", () => {
   it("should create a ping route with GET handler", () => {

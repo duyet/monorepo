@@ -1,13 +1,12 @@
-import Link from "next/link";
 import { cn } from "@duyet/libs/utils";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-
-import Menu, { type NavigationItem } from "./Menu";
+import Link from "next/link";
 import Container from "./Container";
 import Logo from "./Logo";
+import Menu, { type NavigationItem } from "./Menu";
 
 interface HeaderProps {
   /** Profile configuration (defaults to duyetProfile) */
@@ -107,11 +106,7 @@ export default function Header({
             </Link>
           </div>
 
-          <Menu
-            profile={profile}
-            urls={urls}
-            navigationItems={navigationItems}
-          />
+          <Menu urls={urls} navigationItems={navigationItems} />
         </nav>
       </Container>
     </header>

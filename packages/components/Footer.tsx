@@ -1,15 +1,14 @@
-import Link from "next/link";
-import type { ReactNode, ReactElement } from "react";
+import { cn } from "@duyet/libs/utils";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-
-import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
+import type { ReactElement, ReactNode } from "react";
 import Container from "./Container";
-import ThemeToggle from "./ThemeToggle";
-import Social from "./Social";
 import Logo from "./Logo";
+import Social from "./Social";
+import ThemeToggle from "./ThemeToggle";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(

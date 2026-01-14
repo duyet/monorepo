@@ -1,10 +1,10 @@
+import { Calendar, Code, GitCommit, GitFork, Star } from "lucide-react";
+import { Suspense } from "react";
 import { CompactAreaChart } from "@/components/charts/CompactChart";
 import { Breadcrumb } from "@/components/navigation/CompactNavigation";
 import { CompactCard, StatsCard } from "@/components/ui/CompactCard";
 import { DashboardGrid, GridItem } from "@/components/ui/DashboardGrid";
 import { QuickFilters } from "@/components/ui/DateRangeSelector";
-import { Calendar, Code, GitCommit, GitFork, Star } from "lucide-react";
-import { Suspense } from "react";
 import { GithubActivity } from "./activity";
 import { GithubCard } from "./card";
 import { CommitTimeline } from "./commit-timeline";

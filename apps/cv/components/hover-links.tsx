@@ -1,13 +1,12 @@
 "use client";
 
-import * as seline from "@seline-analytics/web";
-import Link from "next/link";
-
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
+import * as seline from "@seline-analytics/web";
+import Link from "next/link";
 
 export function HoverLinks({
   text,

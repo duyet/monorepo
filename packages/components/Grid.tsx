@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import type { Post } from "@duyet/interfaces";
+import Link from "next/link";
 import { Thumb } from "./Thumb";
 
 export type Props = {

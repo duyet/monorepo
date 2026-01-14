@@ -1,5 +1,9 @@
 "use client";
 
+import { cn } from "@duyet/libs/utils";
+import * as Dialog from "@radix-ui/react-dialog";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import {
   getOptimalImageSrc,
   getResponsiveSizes,
@@ -9,10 +13,6 @@ import {
   formatPhotoMetadata,
 } from "@/lib/MetadataFormatters";
 import type { Photo } from "@/lib/photo-provider";
-import { cn } from "@duyet/libs/utils";
-import * as Dialog from "@radix-ui/react-dialog";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useLightboxNavigation } from "../hooks/UseKeyboardNavigation";
 import {
   InfoPanel,

@@ -1,23 +1,23 @@
 import { createApi } from "unsplash-js";
-import type { PhotosByYear, UnsplashPhoto } from "./types";
 import {
+  cleanExpiredCache,
+  getCachedPhotoData,
+  getCacheStats,
   loadPhotoCache,
   savePhotoCache,
-  getCachedPhotoData,
   setCachedPhotoData,
-  getCacheStats,
-  cleanExpiredCache,
 } from "./cache";
 import { UNSPLASH_USERNAME } from "./config";
 import {
-  RateLimitError,
-  AuthError,
-  NetworkError,
   ApiError,
-  UnknownPhotoError,
-  PhotoFetchError,
+  AuthError,
   isRateLimitError,
+  NetworkError,
+  PhotoFetchError,
+  RateLimitError,
+  UnknownPhotoError,
 } from "./errors";
+import type { PhotosByYear, UnsplashPhoto } from "./types";
 
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const USERNAME = UNSPLASH_USERNAME;
@@ -517,7 +517,7 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
     try {
       // Use the download_location from photo.links which includes auth params
       await trackPhotoDownload(photo.links.download_location);
-    } catch (error) {
+    } catch (_error) {
       downloadTrackingErrors++;
       // Silent fail - don't clutter logs
     }

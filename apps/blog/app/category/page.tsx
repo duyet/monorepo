@@ -1,8 +1,8 @@
-import { getCategoryMetadata } from "@/lib/category-metadata";
 import { ContentCard } from "@duyet/components";
 import Container from "@duyet/components/Container";
 import { getAllCategories } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
+import { getCategoryMetadata } from "@/lib/category-metadata";
 
 export default function Categories() {
   const categories = getAllCategories();

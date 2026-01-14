@@ -1,12 +1,11 @@
-import Link from "next/link";
-import { Calendar, Folder, Tag } from "lucide-react";
-
 import Icons from "@duyet/components/Icons";
 import type { Post } from "@duyet/interfaces";
 import { distanceToNow } from "@duyet/libs/date";
 import { getSeries } from "@duyet/libs/getSeries";
 import { getSlug } from "@duyet/libs/getSlug";
 import { cn } from "@duyet/libs/utils";
+import { Calendar, Folder, Tag } from "lucide-react";
+import Link from "next/link";
 import { SeriesBox } from "@/components/layout";
 import { MarkdownMenuWrapper } from "./markdown-menu-wrapper";
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { join } from "node:path";
 import { logger } from "../lib";
-import { MigrationRunner, closeClient } from "../lib/clickhouse";
+import { closeClient, MigrationRunner } from "../lib/clickhouse";
 
 const MIGRATIONS_DIR = join(import.meta.dir, "../../migrations");
 

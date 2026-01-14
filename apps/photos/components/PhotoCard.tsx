@@ -1,5 +1,8 @@
 "use client";
 
+import { cn } from "@duyet/libs/utils";
+import { useCallback } from "react";
+import { OWNER_USERNAME } from "@/lib/config";
 import {
   generateBlurDataURL,
   getOptimalImageSrc,
@@ -11,9 +14,6 @@ import {
   formatPhotoDescription,
 } from "@/lib/MetadataFormatters";
 import type { Photo } from "@/lib/photo-provider";
-import { OWNER_USERNAME } from "@/lib/config";
-import { cn } from "@duyet/libs/utils";
-import { useCallback } from "react";
 import LazyImage from "./LazyImage";
 
 interface PhotoCardProps {

@@ -1,6 +1,6 @@
-import { AbstractShapes } from "../illustrations/AbstractShapes";
 import { cn } from "@duyet/libs/utils";
 import Link from "next/link";
+import { AbstractShapes } from "../illustrations/AbstractShapes";
 
 interface FeaturedCardProps {
   title: string;

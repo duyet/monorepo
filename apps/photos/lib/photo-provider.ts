@@ -1,15 +1,12 @@
-import type { Photo } from "./types";
-import {
-  getAllUnsplashPhotos,
-  type UnsplashFetchResult,
-} from "./unsplash-provider";
-import { getAllCloudinaryPhotos } from "./cloudinary-provider";
 import {
   getAllClickHousePhotos,
   hasClickHousePhotos,
 } from "./clickhouse-provider";
+import { getAllCloudinaryPhotos } from "./cloudinary-provider";
 import type { PhotoFetchError } from "./errors";
-import { UnknownPhotoError, RateLimitError } from "./errors";
+import { RateLimitError, UnknownPhotoError } from "./errors";
+import type { Photo } from "./types";
+import { getAllUnsplashPhotos } from "./unsplash-provider";
 
 // Re-export Photo type for convenience
 export type { Photo } from "./types";

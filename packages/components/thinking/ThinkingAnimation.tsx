@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ThinkingAnimationProps {
   className?: string;

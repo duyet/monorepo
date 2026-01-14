@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import type { Photo } from "@/lib/photo-provider";
-import { formatFeedCaption } from "@/lib/MetadataFormatters";
 import { generateBlurDataURL } from "@/lib/ImageOptimization";
+import { formatFeedCaption } from "@/lib/MetadataFormatters";
+import type { Photo } from "@/lib/photo-provider";
 import PhotoMetadata from "./PhotoMetadata";
 
 interface PhotoFeedProps {

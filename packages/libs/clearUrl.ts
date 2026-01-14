@@ -9,7 +9,7 @@ export const clearUrl = (url: string) => {
       .replace(/\/+/g, "/")
       .replace(/^\/+/, "");
     return cleanedPathname ? `${origin}/${cleanedPathname}` : origin;
-  } catch (error) {
+  } catch (_error) {
     throw new Error("Invalid URL");
   }
 };

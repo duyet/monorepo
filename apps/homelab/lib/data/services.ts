@@ -3,7 +3,7 @@
  */
 
 import type { Service } from "./types";
-import { random, generateUptime } from "./utils";
+import { generateUptime, random } from "./utils";
 
 interface ServiceConfig {
   name: string;
