@@ -11,11 +11,11 @@ description: Reflect on what I'm thinking and doing in this LLM era
 featured: true
 ---
 
-My last post was more than 14 months ago. Right when the LLM hype exploded, then AI Agents, Coding Agents... I stayed silent for a while busy watching everyone talk about how LLMs could solve LeetCode problems, or how RAG could change how traditional chatbots work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to lie in playing with data, feature engineering, model tuning, etc. 
+My last post was more than 14 months ago. Right around the time when the LLM hype exploded, AI workflows, AI agents, ... I stayed silent for a while busy watching everyone blowing mind about how LLMs could solve LeetCode problems to 80% hard problem, or how RAG could change how traditional chatbots work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to lie in playing with data, feature engineering, model tuning, etc. 
 
-But then so many new AI applications became useful. New techniques, new "tasks" emerged around it. Prompt engineering, token optimization, creating MCPs for existing apps, tool calling, etc. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs without web search or skills or MCP are just ... weird.
+But then so many new AI applications became useful. New techniques, new "tasks" emerged around it. Prompt engineering, token optimization, creating MCPs for existing apps, tool calling, etc. The models just got so much better - we gave them tools to push their capacity beyond pure reasoning. People used to complain about LLMs hallucinating on outdated data. Now LLMs without web search or reasoning or MCPs are just ... weird.
 
-I started using AI agents and build things more seriously. There are thousands of models out there now, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
+I started using AI agents and started building things more seriously. There are thousands of models out there now, from large to small, closed to open weight. The coding agents got really good. I built LLM workflows, played with AI agents, [MCP](https://modelcontextprotocol.io/), deployed RAG systems for work.
 
 Coding agents control the terminal. I'm not writing code or even reading it - I'm watching them work instead. I test their results, tell them what I expect tests to look like to keep them focused, and build skills to teach them specific tasks. This is the new normal, I guess.
 
@@ -27,7 +27,7 @@ While people are still scared of vibe coding, I ship it to production. For me, A
 
 ![Claude Cowork](/media/2026/01/ai/claude_cowork_killed_startup.png)
 
-I didn't stop writing - tons of drafts in my [Obsidian](https://obsidian.md/) folder, none published because they became outdated before I could finish them. That's why I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
+I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), none published because they became outdated before I could finish them. I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
 
 <ClaudeCard
   title="Top on my list"
@@ -121,12 +121,10 @@ I started seeing AI engineers on X sharing their commands. I have a list of my o
 /leader --team-size=5 implement the static rendering
 ```
 
-{/* ![[cc_commands.png]] */}
 ![Commands](/media/2026/01/ai/cc_commands.png)
 
 ## Plan Mode
 
-{/* ![[cc_plan.png]] */}
 ![Plan Mode](/media/2026/01/ai/cc_plan.png)
 
 Plan mode performs significantly better than just prompting directly. When you give Claude time to think and plan first, the results are way more accurate. Less back-and-forth, fewer mistakes.
@@ -192,7 +190,7 @@ Here's a snippet from my global `~/.claude/CLAUDE.md` that applies to every proj
 # Git Workflow
 
 - follow semantic commit format with consistent scope
-- use simple English—avoid words like "comprehensive", "elaborate", "extensive"
+- use simple English-avoid words like "comprehensive", "elaborate", "extensive"
 
 # Shortcuts
 
@@ -205,17 +203,17 @@ Here's a snippet from my global `~/.claude/CLAUDE.md` that applies to every proj
 
 - Early stage, no users. No backward compatibility concerns
 - Do things RIGHT: clean, organized, modular, scalable, zero technical debt
-- Never create compatibility shims or workarounds—always full implementations
+- Never create compatibility shims or workarounds-always full implementations
 - Build for 10,000+ users: sustainable, maintainable, no half-baked hacks
 - Never remove, hide, or rename existing features/UI unless explicitly requested
-- If something isn't wired yet, keep UX surface intact—stub or annotate instead
+- If something isn't wired yet, keep UX surface intact-stub or annotate instead
 - Context window auto-compacts near limit; never stop tasks early
 - Save progress to memory before context refresh
 - Delegate to sub-agents proactively when context nears limit
 - In PLAN mode: break down tasks for parallel agent execution
 - Assign simple tasks to junior agents, complex tasks to senior agents
 - Use sub-agents whenever possible to maximize parallelism
-- Use Context7 for library docs, zread for GitHub repo exploration—verify before implementing
+- Use Context7 for library docs, zread for GitHub repo exploration-verify before implementing
 ```
 
 ## Interview Mode
