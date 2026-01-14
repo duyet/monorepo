@@ -25,10 +25,13 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { period } = await params;
   const config = getPeriodConfig(period);
+  const isAllTime = config.days === "all";
 
   return {
     title: `Blog Insights - ${config.label}`,
-    description: `Blog insights for the last ${config.label}`,
+    description: isAllTime
+      ? "All-time blog insights and analytics"
+      : `Blog insights for the last ${config.label}`,
   };
 }
 

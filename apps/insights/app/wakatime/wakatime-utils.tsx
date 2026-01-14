@@ -527,6 +527,57 @@ function groupSumBy<T>(
   }, new Map<string, number>());
 }
 
+// Get monthly activity data for charts (used when period is "all")
+export async function getWakaTimeMonthlyActivity(): Promise<
+  Array<{ date: string; "Total Hours": number }>
+> {
+  const startYear = wakatimeConfig.dataStartYear;
+
+  try {
+    const insights: InsightsResponse | null = await wakaTimeRequest(
+      wakatimeConfig.endpoints.insights.days(wakatimeConfig.ranges.all_time)
+    );
+
+    if (!insights?.data?.days || !Array.isArray(insights.data.days)) {
+      console.warn("No days data available from WakaTime insights");
+      return [];
+    }
+
+    // Filter by start year
+    const filteredDays = insights.data.days.filter((day) => {
+      if (!day.date || day.total == null) return false;
+      const date = new Date(day.date);
+      return date.getFullYear() >= startYear;
+    });
+
+    // Group by month
+    const monthlyMap = groupSumBy(
+      filteredDays,
+      (day) => {
+        const date = new Date(day.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        return `${year}-${String(month).padStart(2, "0")}`;
+      },
+      (day) => day.total
+    );
+
+    // Convert to array and sort by year-month
+    return Array.from(monthlyMap.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([yearMonth]) => {
+        const totalSeconds = monthlyMap.get(yearMonth) || 0;
+        return {
+          date: yearMonth,
+          "Total Hours": toHours(totalSeconds),
+        };
+      });
+  } catch (error) {
+    console.error("Error fetching WakaTime monthly activity:", error);
+    return [];
+  }
+}
+
 // Get historical monthly activity trend for multiple years
 export async function getWakaTimeMonthlyTrend() {
   const startYear = wakatimeConfig.dataStartYear;
