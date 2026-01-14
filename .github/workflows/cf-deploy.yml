@@ -93,9 +93,10 @@ jobs:
           else
             # Auto-detect changes
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
+            FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
             for app in blog cv home homelab insights photos; do
-              APP_CHANGED="${{ steps.filter.outputs[app] }}"
+              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
               fi
