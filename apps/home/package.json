@@ -9,7 +9,6 @@
     "dev": "bun --bun next dev --turbopack -p 3001",
     "fmt": "bun run fix",
     "lint": "biome lint .",
-    "prettier-check": "prettier --check .",
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-home",
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-home --commit-dirty=true",
@@ -32,7 +31,6 @@
     "swr": "^2.0.0"
   },
   "devDependencies": {
-    "@duyet/prettier": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@tailwindcss/postcss": "^4.1.6",
