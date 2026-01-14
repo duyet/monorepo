@@ -1,4 +1,4 @@
-import { formatDistance, formatDistanceToNowStrict, format } from "date-fns";
+import { format, formatDistance, formatDistanceToNowStrict } from "date-fns";
 
 export function distanceToNow(dateTime: number | Date): string {
   return formatDistanceToNowStrict(dateTime, {

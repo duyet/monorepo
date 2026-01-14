@@ -1,5 +1,5 @@
-import type { Photo } from "./types";
 import { executeQuery } from "./clickhouse";
+import type { Photo } from "./types";
 
 /**
  * ClickHouse row type matching monorepo_unsplash_photos table schema.

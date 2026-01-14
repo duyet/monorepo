@@ -1,13 +1,13 @@
-import { YearPost } from "@/components/post";
-import { HeroBanner } from "@/components/layout";
-import {
-  getCategoryColorClass,
-  getCategoryMetadata,
-} from "@/lib/category-metadata";
 import Container from "@duyet/components/Container";
 import type { Post } from "@duyet/interfaces";
 import { getAllCategories, getPostsByCategory } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
+import { HeroBanner } from "@/components/layout";
+import { YearPost } from "@/components/post";
+import {
+  getCategoryColorClass,
+  getCategoryMetadata,
+} from "@/lib/category-metadata";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;

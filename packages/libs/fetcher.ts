@@ -12,12 +12,12 @@ export const fetcher = async (url: string, options = {}) => {
     try {
       const errorData = await res.json();
       (error as any).info = errorData;
-    } catch (jsonError) {
+    } catch (_jsonError) {
       // If response body is not JSON, store the text
       try {
         const errorText = await res.text();
         (error as any).info = { message: errorText };
-      } catch (textError) {
+      } catch (_textError) {
         (error as any).info = { message: "Unable to parse error response" };
       }
     }

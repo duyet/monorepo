@@ -1,8 +1,8 @@
 import { getAllPosts } from "@duyet/libs/getPost";
 import type { Metadata } from "next";
+import { TableOfContents } from "@/components/post/TableOfContents";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
-import { TableOfContents } from "@/components/post/TableOfContents";
 
 interface Params {
   year: string;

@@ -1,6 +1,6 @@
+import { Suspense } from "react";
 import { OverviewDashboard } from "@/components/dashboard/OverviewDashboard";
 import { SkeletonCard } from "@/components/SkeletonCard";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "@duyet Insights Dashboard",

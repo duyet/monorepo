@@ -1,9 +1,8 @@
-import Link from "next/link";
-
 import Container from "@duyet/components/Container";
 import Feed from "@duyet/components/Feed";
 import Header from "@duyet/components/Header";
 import { getAllPosts } from "@duyet/libs/getPost";
+import Link from "next/link";
 
 type Params = Promise<Record<string, string>>;
 

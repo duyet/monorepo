@@ -8,14 +8,14 @@ import { UnsplashPhotosSyncer } from "./unsplash-photos.syncer";
 import { WakaTimeSyncer } from "./wakatime.syncer";
 import { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
 
-export { WakaTimeSyncer } from "./wakatime.syncer";
-export { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
+export { AICodePercentageSyncer } from "./ai-code-percentage.syncer";
 export { CloudflareSyncer } from "./cloudflare.syncer";
 export { GitHubSyncer } from "./github.syncer";
+export { PostHogSyncer } from "./posthog.syncer";
 export { UnsplashSyncer } from "./unsplash.syncer";
 export { UnsplashPhotosSyncer } from "./unsplash-photos.syncer";
-export { PostHogSyncer } from "./posthog.syncer";
-export { AICodePercentageSyncer } from "./ai-code-percentage.syncer";
+export { WakaTimeSyncer } from "./wakatime.syncer";
+export { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
 
 export type SyncerConstructor = new (
   client: ClickHouseClient

@@ -1,9 +1,8 @@
-import Link from "next/link";
-
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
 import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
+import Link from "next/link";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
 

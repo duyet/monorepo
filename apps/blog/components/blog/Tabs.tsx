@@ -18,16 +18,14 @@ export interface TabsProps {
  * Tabs - Tabbed interface with underline indicator
  * Claude-style minimal design with simple border indicator
  */
-export function Tabs({
-  tabs,
-  defaultTab,
-  className = "",
-}: TabsProps) {
+export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
   const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id);
 
   if (!tabs || tabs.length === 0) {
     return (
-      <div className={`text-base text-gray-500 dark:text-gray-400 ${className}`}>
+      <div
+        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+      >
         No tabs available
       </div>
     );

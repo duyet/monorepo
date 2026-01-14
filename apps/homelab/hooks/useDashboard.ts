@@ -5,17 +5,17 @@
 
 import { useMemo } from "react";
 import {
-  nodes,
-  cpuHistory,
-  memoryHistory,
-  clusterStats,
-  services,
-  networkTraffic,
-  speedTest,
-  downtimeHistory,
-  type Node,
-  type Service,
   type ClusterStats,
+  clusterStats,
+  cpuHistory,
+  downtimeHistory,
+  memoryHistory,
+  type Node,
+  networkTraffic,
+  nodes,
+  type Service,
+  services,
+  speedTest,
 } from "@/lib/data";
 
 /**

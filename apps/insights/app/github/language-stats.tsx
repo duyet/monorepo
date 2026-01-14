@@ -1,6 +1,6 @@
+import { Archive, Code, GitBranch, Star } from "lucide-react";
 import { DonutChart } from "@/components/charts";
 import { CompactMetric } from "@/components/ui/CompactMetric";
-import { Archive, Code, GitBranch, Star } from "lucide-react";
 import { fetchAllRepositories, getGithubToken } from "./github-utils";
 
 const owner = "duyet";

@@ -1,6 +1,6 @@
 export {
   AbstractShapes,
-  WavyLines,
   GeometricPattern,
   OrganicBlob,
+  WavyLines,
 } from "./AbstractShapes";

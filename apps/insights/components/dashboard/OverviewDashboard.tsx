@@ -1,9 +1,4 @@
 import {
-  CompactAreaChart,
-  CompactPieChart,
-} from "@/components/charts/CompactChart";
-import { CompactCard } from "@/components/ui/CompactCard";
-import {
   BarChart3,
   Clock,
   Eye,
@@ -15,6 +10,11 @@ import {
 } from "lucide-react";
 import { getCCUsageMetrics } from "@/app/ai/ccusage-utils";
 import { getWakaTimeMetrics } from "@/app/wakatime/wakatime-utils";
+import {
+  CompactAreaChart,
+  CompactPieChart,
+} from "@/components/charts/CompactChart";
+import { CompactCard } from "@/components/ui/CompactCard";
 
 // Format tokens with B/M/K suffixes (consistent with AI tab)
 function formatTokens(tokens: number): string {

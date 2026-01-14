@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
+import Image from "next/image";
 
 export type Props = {
   posts: Post[];

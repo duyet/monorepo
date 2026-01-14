@@ -1,5 +1,5 @@
-import type { Photo } from "./photo-provider";
 import { OWNER_USERNAME } from "./config";
+import type { Photo } from "./photo-provider";
 
 /**
  * Professional metadata formatting utilities

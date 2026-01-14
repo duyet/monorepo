@@ -1,7 +1,6 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { getClickHouseClient } from "@duyet/libs/clickhouse";
 import { createLogger } from "../logger";
-import type { SyncError, SyncMetadata, SyncOptions, SyncResult } from "./types";
+import type { SyncError, SyncOptions, SyncResult } from "./types";
 
 export abstract class BaseSyncer<TApiResponse, TRecord> {
   protected readonly sourceName: string;

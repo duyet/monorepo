@@ -1,5 +1,5 @@
-import { CompactMetric } from "@/components/ui/CompactMetric";
 import { Brain, Calendar, Database, DollarSign } from "lucide-react";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 import { getCCUsageMetrics } from "./ccusage-utils";
 import type { CCUsageMetricsProps } from "./types";
 

@@ -23,9 +23,8 @@ mock.module("@duyet/libs/getPost", () => ({
   ],
 }));
 
-import { describe, test, expect } from "bun:test";
-import { GET, dynamic } from "../route";
-import { getAllPosts } from "@duyet/libs/getPost";
+import { describe, expect, test } from "bun:test";
+import { dynamic, GET } from "../route";
 
 describe("RSS Feed Route", () => {
   test("should return valid RSS XML", async () => {

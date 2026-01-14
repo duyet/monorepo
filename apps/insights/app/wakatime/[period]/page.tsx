@@ -1,11 +1,11 @@
+import Image from "next/image";
+import { Suspense } from "react";
 import type { PeriodDays } from "@/lib/periods";
 import {
   generatePeriodStaticParams,
   getPeriodConfig,
   getPeriodDays,
 } from "@/lib/periods";
-import Image from "next/image";
-import { Suspense } from "react";
 import { SkeletonCard } from "../../../components/SkeletonCard";
 import { StaticCard } from "../../../components/StaticCard";
 import { WakaTimeActivity } from "../activity";

@@ -32,7 +32,6 @@
     --background: #0f172a; /* slate-900 */
     --foreground: #f8fafc; /* slate-50 */
   }
-
 }
 
 /*
@@ -100,4 +99,3 @@ html.dark .prose pre {
 .dark .prose a:hover {
   color: #f8fafc; /* slate-50 */
 }
-

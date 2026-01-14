@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { PageLayout, SectionLayout } from "@/components/layouts";
 import type { PeriodDays } from "@/lib/periods";
 import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
-import Image from "next/image";
 import { StaticCard } from "../../components/StaticCard";
 import { WakaTimeActivity } from "./activity";
 import { WakaTimeHourlyHeatmap } from "./hourly-heatmap";

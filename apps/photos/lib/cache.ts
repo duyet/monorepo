@@ -47,7 +47,7 @@ export async function loadPhotoCache(): Promise<PhotoCache> {
     }
 
     return cache;
-  } catch (error) {
+  } catch (_error) {
     // Cache file doesn't exist or is invalid, return empty cache
     return { version: "1.0", entries: {} };
   }

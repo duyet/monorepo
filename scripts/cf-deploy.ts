@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * Comprehensive Cloudflare Pages Deployment Orchestrator
  *
@@ -26,9 +27,9 @@
  * - homelab → homelab.duyet.net (duyet-homelab project)
  */
 
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
 import { existsSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -228,8 +229,12 @@ async function buildAllApps(): Promise<boolean> {
   );
   console.log(`[INFO] Loading environment from: .env.production`);
   console.log(`[INFO] Production URLs:`);
-  console.log(`       NEXT_PUBLIC_DUYET_HOME_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`);
-  console.log(`       NEXT_PUBLIC_DUYET_BLOG_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`);
+  console.log(
+    `       NEXT_PUBLIC_DUYET_HOME_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`
+  );
+  console.log(
+    `       NEXT_PUBLIC_DUYET_BLOG_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`
+  );
   console.log(`       NODE_ENV=${PRODUCTION_ENV.NODE_ENV || "(not set)"}`);
 
   // Build each app individually to handle failures gracefully
@@ -373,7 +378,12 @@ async function deployApp(appName: string): Promise<{
     return { success: true, app: appName };
   }
 
-  const result = await runCommand(wranglerCmd, appDir, `Deploy ${appName}`, true);
+  const result = await runCommand(
+    wranglerCmd,
+    appDir,
+    `Deploy ${appName}`,
+    true
+  );
 
   if (result.success) {
     console.log(`     ✓ Deployed successfully to ${deployTarget}`);
@@ -440,7 +450,9 @@ function printSummary(success: boolean) {
     if (isProd) {
       console.log(`  ${status} ${app} → https://${config.domain}`);
     } else {
-      console.log(`  ${status} ${app} → https://${config.projectName}.pages.dev (preview)`);
+      console.log(
+        `  ${status} ${app} → https://${config.projectName}.pages.dev (preview)`
+      );
     }
   }
 
@@ -450,7 +462,9 @@ function printSummary(success: boolean) {
     if (isProd) {
       console.log("  ✓ Check your deployed apps at the custom domains above");
     } else {
-      console.log("  ✓ Preview deployments are available at the pages.dev URLs");
+      console.log(
+        "  ✓ Preview deployments are available at the pages.dev URLs"
+      );
       console.log("  ✓ Use --prod flag to deploy to production");
     }
     console.log(

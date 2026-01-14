@@ -1,8 +1,8 @@
-import { AreaChart } from "@/components/charts";
-import { CompactMetric } from "@/components/ui/CompactMetric";
 import type { CloudflareAnalyticsByDate } from "@duyet/interfaces";
 import { request } from "graphql-request";
 import { Activity, Eye, Globe, Users } from "lucide-react";
+import { AreaChart } from "@/components/charts";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 
 export interface CloudflareProps {
   data: CloudflareAnalyticsByDate;

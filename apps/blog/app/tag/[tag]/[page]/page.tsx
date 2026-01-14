@@ -1,7 +1,6 @@
-import { redirect } from "next/navigation";
-
 import { getAllTags } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;

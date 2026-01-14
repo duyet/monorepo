@@ -17,7 +17,7 @@ class MockVercelKV {
   async set(
     key: string,
     value: any,
-    options?: { ex?: number; px?: number; nx?: boolean; xx?: boolean }
+    _options?: { ex?: number; px?: number; nx?: boolean; xx?: boolean }
   ): Promise<"OK"> {
     this.store[key] = value;
     return "OK";

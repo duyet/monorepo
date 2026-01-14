@@ -1,6 +1,5 @@
-import useSWR from "swr";
 import { useEffect, useState } from "react";
-import type { CurrentAICodePercentage } from "../lib/types";
+import useSWR from "swr";
 import { getCurrentAICodePercentage } from "../lib/queries";
 
 export function AIPercentageHero() {
@@ -29,7 +28,7 @@ export function AIPercentageHero() {
 
       requestAnimationFrame(animate);
     }
-  }, [data?.ai_percentage]);
+  }, [data?.ai_percentage, displayPercentage]);
 
   if (isLoading) {
     return (
@@ -49,12 +48,7 @@ export function AIPercentageHero() {
     );
   }
 
-  const {
-    ai_percentage,
-    total_lines_added,
-    ai_lines_added,
-    human_lines_added,
-  } = data;
+  const { total_lines_added, ai_lines_added, human_lines_added } = data;
 
   return (
     <div className="space-y-8 text-center py-12">

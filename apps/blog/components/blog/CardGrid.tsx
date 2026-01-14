@@ -1,8 +1,8 @@
 "use client";
 
-import type React from "react";
 import * as LucideIcons from "lucide-react";
 import { Circle } from "lucide-react";
+import type React from "react";
 
 export interface Card {
   id: string;
@@ -33,7 +33,9 @@ export function CardGrid({
   const getIconComponent = (iconName: string | undefined) => {
     if (!iconName) return Circle;
     return (
-      (LucideIcons[iconName as keyof typeof LucideIcons] as React.ComponentType<{
+      (LucideIcons[
+        iconName as keyof typeof LucideIcons
+      ] as React.ComponentType<{
         className?: string;
         size?: number;
       }>) || Circle
@@ -42,7 +44,9 @@ export function CardGrid({
 
   if (!cards || cards.length === 0) {
     return (
-      <div className={`text-base text-gray-500 dark:text-gray-400 ${className}`}>
+      <div
+        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+      >
         No cards available
       </div>
     );

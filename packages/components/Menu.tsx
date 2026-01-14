@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { cn } from "@duyet/libs/utils";
-import type { Profile } from "@duyet/profile";
-import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
-import { duyetUrls, createNavigation } from "@duyet/urls";
+import { duyetUrls } from "@duyet/urls";
+import Link from "next/link";
 
 export type NavigationItem = {
   name: string;
@@ -40,8 +38,6 @@ export const BLOG = { name: "Blog", href: duyetUrls.apps.blog };
 export const CV = { name: "CV", href: duyetUrls.apps.cv };
 
 type Props = {
-  /** Profile configuration (defaults to duyetProfile) */
-  profile?: Profile;
   /** URLs configuration (defaults to duyetUrls) */
   urls?: UrlsConfig;
   /** Optional CSS classes */
@@ -59,14 +55,12 @@ type Props = {
  * @example
  * ```tsx
  * import { Menu } from '@duyet/components'
- * import { duyetProfile } from '@duyet/profile'
  * import { duyetUrls } from '@duyet/urls'
  *
- * <Menu profile={duyetProfile} urls={duyetUrls} />
+ * <Menu urls={duyetUrls} />
  * ```
  */
 export default function Menu({
-  profile = duyetProfile,
   urls = duyetUrls,
   className,
   navigationItems,

@@ -1,5 +1,5 @@
-import { generatePeriodStaticParams, getPeriodConfig } from "@/lib/periods";
 import { Suspense } from "react";
+import { generatePeriodStaticParams, getPeriodConfig } from "@/lib/periods";
 import { SkeletonCard } from "../../../components/SkeletonCard";
 import { GithubActivity } from "../activity";
 import { GithubCard } from "../card";

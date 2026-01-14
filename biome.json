@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -36,9 +36,7 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noShadowRestrictedNames": "off",
-        "noImplicitAnyLet": "off",
-        "noUnknownAtRules": "off",
-        "useIterableCallbackReturn": "off"
+        "noImplicitAnyLet": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
@@ -54,7 +52,6 @@
       },
       "complexity": {
         "noForEach": "off",
-        "noImportantStyles": "off",
         "noUselessUndefinedInitialization": "off"
       },
       "style": {
@@ -68,12 +65,7 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
-        "useParseIntRadix": "off",
-        "noUnusedImports": "off",
-        "noUnusedVariables": "off",
-        "useHookAtTopLevel": "off",
-        "noUnusedPrivateClassMembers": "off",
-        "noUnusedFunctionParameters": "off"
+        "useHookAtTopLevel": "off"
       }
     }
   },

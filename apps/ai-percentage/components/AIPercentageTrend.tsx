@@ -1,8 +1,8 @@
 "use client";
 
 import useSWR from "swr";
-import type { DateRangeDays } from "../lib/types";
 import { getAICodePercentageHistory } from "../lib/queries";
+import type { DateRangeDays } from "../lib/types";
 
 interface AIPercentageTrendProps {
   days?: DateRangeDays;

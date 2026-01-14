@@ -1,10 +1,10 @@
-import { YearPost } from "@/components/post";
-import { HeroBanner } from "@/components/layout";
-import { getTagColorClass, getTagMetadata } from "@/lib/tag-metadata";
 import Container from "@duyet/components/Container";
 import type { Post } from "@duyet/interfaces";
 import { getAllTags, getPostsByTag } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
+import { HeroBanner } from "@/components/layout";
+import { YearPost } from "@/components/post";
+import { getTagColorClass, getTagMetadata } from "@/lib/tag-metadata";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;

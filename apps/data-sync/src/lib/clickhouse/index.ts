@@ -9,32 +9,32 @@
 
 // Client exports
 export {
-  getClient,
-  getClickHouseConfig,
-  ping,
-  executeQuery,
-  executeCommand,
-  executeStatements,
-  closeClient,
   type ClickHouseConfig,
+  closeClient,
+  executeCommand,
+  executeQuery,
+  executeStatements,
+  getClickHouseConfig,
+  getClient,
+  ping,
   type QueryResult,
 } from "./client";
 
 // Migration exports
 export {
-  MigrationRunner,
-  type Migration,
   type AppliedMigration,
+  type Migration,
+  MigrationRunner,
   type MigrationStatus,
 } from "./migrations";
 
 // Retention exports
 export {
   applyRetentionPolicies,
-  optimizeTables,
-  getTableSizes,
-  getRetentionStatus,
   convertRetentionPolicy,
+  getRetentionStatus,
+  getTableSizes,
+  optimizeTables,
   type RetentionPolicy,
   type RetentionResult,
 } from "./retention";

@@ -1,7 +1,6 @@
-import Link from "next/link";
-
 import { getPostsByAllYear } from "@duyet/libs/getPost";
 import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
 
 type Props = {
   order?: "asc" | "desc";

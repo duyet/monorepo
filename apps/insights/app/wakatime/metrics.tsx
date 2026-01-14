@@ -1,5 +1,5 @@
-import { CompactMetric } from "@/components/ui/CompactMetric";
 import { Calendar, Clock, Code, Zap } from "lucide-react";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 import { getWakaTimeMetrics } from "./wakatime-utils";
 
 export async function WakaTimeMetrics({

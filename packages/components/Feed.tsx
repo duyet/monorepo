@@ -1,7 +1,6 @@
-import Link from "next/link";
-
 import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
 import { Thumb } from "./Thumb";
 
 interface FeedItemProps {

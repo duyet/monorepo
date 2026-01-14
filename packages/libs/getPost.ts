@@ -1,7 +1,6 @@
+import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import matter from "gray-matter";
-
 import getSlug from "./getSlug";
-import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 import { normalizeTag } from "./tags";
 
 const nodeFs = () => require("node:fs");

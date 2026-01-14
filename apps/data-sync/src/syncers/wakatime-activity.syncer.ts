@@ -235,14 +235,14 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
             if (!duration.duration) continue;
 
             const humanActivity =
-              (duration.human_additions || 0) +
-              (duration.human_deletions || 0);
+              (duration.human_additions || 0) + (duration.human_deletions || 0);
             const aiActivity =
               (duration.ai_additions || 0) + (duration.ai_deletions || 0);
             const totalActivity = humanActivity + aiActivity;
 
             if (totalActivity > 0) {
-              humanSeconds += duration.duration * (humanActivity / totalActivity);
+              humanSeconds +=
+                duration.duration * (humanActivity / totalActivity);
               aiSeconds += duration.duration * (aiActivity / totalActivity);
             } else {
               humanSeconds += duration.duration * 0.8;
@@ -262,7 +262,9 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
       }
     }
 
-    this.logger.info(`Got AI breakdown for ${result.size}/${dates.length} days`);
+    this.logger.info(
+      `Got AI breakdown for ${result.size}/${dates.length} days`
+    );
     return result;
   }
 

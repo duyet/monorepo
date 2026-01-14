@@ -1,5 +1,5 @@
-import { createClient } from "@clickhouse/client";
 import type { ClickHouseClient } from "@clickhouse/client";
+import { createClient } from "@clickhouse/client";
 
 /**
  * ClickHouse configuration interface

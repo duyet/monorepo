@@ -1,16 +1,16 @@
 "use client";
 
+import { Activity, Eye, Globe, Users } from "lucide-react";
+import { useState } from "react";
 import { AreaChart } from "@/components/charts";
 import { PeriodSelector } from "@/components/period-selector";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import {
   DEFAULT_PERIOD,
-  TIME_PERIODS,
   type PeriodData,
+  TIME_PERIODS,
   type TimePeriod,
 } from "@/types/periods";
-import { Activity, Eye, Globe, Users } from "lucide-react";
-import { useState } from "react";
 import type { CloudflareDataByPeriod } from "./cloudflare-with-periods";
 
 interface CloudflareClientProps {

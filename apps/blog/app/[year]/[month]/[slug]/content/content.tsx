@@ -3,17 +3,17 @@ import { getPostBySlug } from "@duyet/libs/getPost";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { cn } from "@duyet/libs/utils";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
+import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import rehypeHighlight from "rehype-highlight";
 
 import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
+import { mdxComponents } from "@/components/MdxComponents";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
-import { mdxComponents } from "@/components/MdxComponents";
 
 interface ContentPost extends Post {
   isMDX?: boolean;

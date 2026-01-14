@@ -1,6 +1,6 @@
-import { TIME_PERIODS, type PeriodData } from "@/types/periods";
 import type { CloudflareAnalyticsByDate } from "@duyet/interfaces";
 import { request } from "graphql-request";
+import { type PeriodData, TIME_PERIODS } from "@/types/periods";
 import { CloudflareClient } from "./cloudflare-client";
 
 export interface CloudflareDataByPeriod {

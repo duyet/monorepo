@@ -1,4 +1,4 @@
-import { createClient, type ClickHouseClient } from "@clickhouse/client";
+import { type ClickHouseClient, createClient } from "@clickhouse/client";
 
 interface ClickHouseConfig {
   host: string;

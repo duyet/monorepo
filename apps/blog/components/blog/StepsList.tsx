@@ -30,14 +30,18 @@ export function StepsList({
 
   if (!steps || steps.length === 0) {
     return (
-      <div className={`text-base text-gray-500 dark:text-gray-400 ${className}`}>
+      <div
+        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+      >
         No steps available
       </div>
     );
   }
 
   return (
-    <div className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}>
+    <div
+      className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}
+    >
       {title && (
         <h2 className="text-lg font-medium text-gray-900 dark:text-white">
           {title}
@@ -49,7 +53,8 @@ export function StepsList({
           <div key={step.id}>
             <button
               onClick={() =>
-                expandable && setExpandedStep(expandedStep === step.id ? null : step.id)
+                expandable &&
+                setExpandedStep(expandedStep === step.id ? null : step.id)
               }
               className="w-full text-left flex gap-3 hover:text-gray-900 dark:hover:text-white transition-colors"
             >

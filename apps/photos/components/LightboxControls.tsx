@@ -33,9 +33,8 @@ export function LightboxTopControls({
   showInfo,
   onToggleFullscreen,
   onToggleInfo,
-  onClose,
   className,
-}: Omit<LightboxControlsProps, "onNext" | "onPrevious">) {
+}: Omit<LightboxControlsProps, "onNext" | "onPrevious" | "onClose">) {
   return (
     <div
       className={cn(

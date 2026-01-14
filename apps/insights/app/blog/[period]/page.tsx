@@ -1,10 +1,10 @@
+import { Suspense } from "react";
 import type { PeriodDays } from "@/lib/periods";
 import {
   generatePeriodStaticParams,
   getPeriodConfig,
   getPeriodDays,
 } from "@/lib/periods";
-import { Suspense } from "react";
 import { SkeletonCard } from "../../../components/SkeletonCard";
 import { Cloudflare } from "../cloudflare";
 import { PostHog } from "../posthog";

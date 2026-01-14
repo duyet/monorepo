@@ -115,12 +115,11 @@ export function useKeyboardNavigation(options: KeyboardNavigationOptions) {
 }
 
 export interface TouchGestureOptions {
-  isEnabled: boolean;
-  onSwipeLeft?: () => void;
-  onSwipeRight?: () => void;
-  onSwipeUp?: () => void;
-  onSwipeDown?: () => void;
-  onPinchZoom?: (scale: number) => void;
+  isEnabled?: boolean;
+  onSwipeLeft?: (direction: "left" | "right") => void;
+  onSwipeRight?: (direction: "left" | "right") => void;
+  onSwipeUp?: (direction: "up" | "down") => void;
+  onSwipeDown?: (direction: "up" | "down") => void;
   minimumSwipeDistance?: number;
   touchThreshold?: number;
 }
@@ -132,7 +131,6 @@ export function useTouchGestures(options: TouchGestureOptions) {
     onSwipeRight,
     onSwipeUp,
     onSwipeDown,
-    onPinchZoom,
     minimumSwipeDistance = 50,
     touchThreshold = 10,
   } = options;

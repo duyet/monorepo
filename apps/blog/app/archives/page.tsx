@@ -1,7 +1,6 @@
-import Link from "next/link";
-
 import Container from "@duyet/components/Container";
 import { getPostsByAllYear } from "@duyet/libs/getPost";
+import Link from "next/link";
 import { YearPost } from "@/components/post";
 
 export const dynamic = "force-static";

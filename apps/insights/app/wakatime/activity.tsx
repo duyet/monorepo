@@ -1,13 +1,6 @@
 import { BarChart } from "@/components/charts";
 import { getWakaTimeActivityWithAI } from "./wakatime-utils";
 
-type ActivityWithAI = Array<{
-  date: string;
-  "Human Hours": number;
-  "AI Hours": number;
-}>;
-type ActivityTotalOnly = Array<{ date: string; "Total Hours": number }>;
-
 export async function WakaTimeActivity({
   days = 30,
 }: {

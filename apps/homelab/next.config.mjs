@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
-import { loadEnvConfig } from "@next/env";
+
 import path from "node:path";
+import { loadEnvConfig } from "@next/env";
 
 // Load env from monorepo root and app directory
 const rootDir = path.resolve(process.cwd(), "../..");

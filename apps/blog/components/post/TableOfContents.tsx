@@ -59,7 +59,8 @@ export function TableOfContents() {
           element.id = id;
         }
 
-        const level = element.tagName === "H1" ? 1 : element.tagName === "H2" ? 2 : 3;
+        const level =
+          element.tagName === "H1" ? 1 : element.tagName === "H2" ? 2 : 3;
         items.push({ id, text: text.trim(), level });
       });
 
@@ -173,7 +174,9 @@ export function TableOfContents() {
           "transition-all duration-200",
           "hover:scale-105 active:scale-95"
         )}
-        aria-label={isMobileOpen ? "Close table of contents" : "Open table of contents"}
+        aria-label={
+          isMobileOpen ? "Close table of contents" : "Open table of contents"
+        }
       >
         <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
       </button>
@@ -209,7 +212,9 @@ export function TableOfContents() {
           "hover:bg-gray-50 dark:hover:bg-gray-700",
           "transition-all duration-300"
         )}
-        aria-label={isDesktopVisible ? "Hide table of contents" : "Show table of contents"}
+        aria-label={
+          isDesktopVisible ? "Hide table of contents" : "Show table of contents"
+        }
       >
         <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
       </button>
