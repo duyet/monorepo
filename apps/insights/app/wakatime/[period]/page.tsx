@@ -28,10 +28,13 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { period } = await params;
   const config = getPeriodConfig(period);
+  const isAllTime = config.days === "all";
 
   return {
     title: `WakaTime Coding Analytics @duyet - ${config.label}`,
-    description: `Programming activity for the last ${config.label}`,
+    description: isAllTime
+      ? "All-time programming activity and coding insights"
+      : `Programming activity for the last ${config.label}`,
   };
 }
 
@@ -46,6 +49,9 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
   const activityDescription = isAllTime
     ? "Coding all the time"
     : `Coding hours over the last ${config.label}`;
+  const overviewDescription = isAllTime
+    ? "All-time programming activity summary"
+    : `Programming activity summary for the last ${config.label}`;
 
   return (
     <div className="space-y-8">
@@ -65,7 +71,7 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Coding Overview</h2>
             <p className="text-sm text-muted-foreground">
-              Programming activity summary for the last {config.label}
+              {overviewDescription}
             </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
