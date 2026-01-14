@@ -116,10 +116,10 @@ export function useKeyboardNavigation(options: KeyboardNavigationOptions) {
 
 export interface TouchGestureOptions {
   isEnabled?: boolean;
-  onSwipeLeft?: (direction: "left" | "right") => void;
-  onSwipeRight?: (direction: "left" | "right") => void;
-  onSwipeUp?: (direction: "up" | "down") => void;
-  onSwipeDown?: (direction: "up" | "down") => void;
+  onSwipeLeft?: () => void;
+  onSwipeRight?: () => void;
+  onSwipeUp?: () => void;
+  onSwipeDown?: () => void;
   minimumSwipeDistance?: number;
   touchThreshold?: number;
 }

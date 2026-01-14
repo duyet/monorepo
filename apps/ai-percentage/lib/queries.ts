@@ -1,4 +1,8 @@
-import type { AICodePercentageData, CurrentAICodePercentage } from "./types";
+import type {
+  AICodePercentageData,
+  CurrentAICodePercentage,
+  DateRangeDays,
+} from "./types";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.duyet.net";
