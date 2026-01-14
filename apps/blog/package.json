@@ -45,7 +45,6 @@
     "@duyet/interfaces": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
-    "@next/env": "^16.1.1",
     "@types/react": "^19.1.4",
     "@types/rss": "^0.0.32",
     "typescript": "*"
