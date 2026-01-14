@@ -39,6 +39,13 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
   const { period } = await params;
   const config = getPeriodConfig(period);
   const days = getPeriodDays(period) as PeriodDays;
+  const isAllTime = days === "all";
+
+  // Dynamic section titles based on period
+  const activityTitle = isAllTime ? "Monthly Activity" : "Daily Activity";
+  const activityDescription = isAllTime
+    ? "Coding all the time"
+    : `Coding hours over the last ${config.label}`;
 
   return (
     <div className="space-y-8">
@@ -69,9 +76,9 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
         {/* Coding Activity */}
         <div>
           <div className="mb-4">
-            <h2 className="text-lg font-semibold">Daily Activity</h2>
+            <h2 className="text-lg font-semibold">{activityTitle}</h2>
             <p className="text-sm text-muted-foreground">
-              Coding hours over the last {config.label}
+              {activityDescription}
             </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
