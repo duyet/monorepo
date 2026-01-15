@@ -6,6 +6,7 @@ import { cn } from "@duyet/libs/utils";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
@@ -55,7 +56,7 @@ export default async function Content({ post }: { post: ContentPost }) {
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm, remarkMath],
-                rehypePlugins: [rehypeKatex, rehypeHighlight],
+                rehypePlugins: [rehypeSlug, rehypeKatex, rehypeHighlight],
               },
             }}
           />
