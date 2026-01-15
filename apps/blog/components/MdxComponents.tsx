@@ -1,6 +1,10 @@
 import type { MDXComponents } from "mdx/types";
 import { CardGrid } from "./blog/CardGrid";
-import { ClaudeCard } from "./blog/ClaudeCard";
+import {
+  ClaudeCard,
+  ClaudeCardGrid,
+  ClaudeCardNested,
+} from "./blog/ClaudeCard";
 import { CodeBlock } from "./blog/CodeBlock";
 import { ComparisonList } from "./blog/ComparisonList";
 import { InfoBox } from "./blog/InfoBox";
@@ -50,6 +54,8 @@ export const mdxComponents: MDXComponents = {
   Steps,
   Step,
   ClaudeCard,
+  ClaudeCardGrid,
+  ClaudeCardNested,
   pre: CodeBlock,
   Image,
   img: Image, // Handle standard markdown image syntax ![alt](url)

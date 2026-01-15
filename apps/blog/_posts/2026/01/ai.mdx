@@ -29,31 +29,22 @@ While people are still scared of vibe coding, I ship it to production. For me, A
 
 I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), none published because they became outdated before I could finish them. I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
 
-<ClaudeCard
+<ClaudeCardNested
   title="Top on my list"
-  items={[
-    {
-      label: "Coding Agent",
-      items: [
-        { label: "Claude Code", link: "#claude-code" },
-        { label: "opencode", link: "#opencode" }
-      ]
-    },
-    {
-      label: "Models",
-      items: [
-        { label: "Opus 4.5", link: "#z-claude-mi-claude-or-claude" },
-        { label: "GLM 4.7", link: "#z-claude-mi-claude-or-claude" },
-        { label: "Grok 4.1 Fast", link: "#z-claude-mi-claude-or-claude" }
-      ]
-    },
-    {
-      label: "LLM Provider",
-      items: [
-        { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" },
-        { label: "Cloudflare AI Gateway" }
-      ]
-    },
+  description="Updated Jan 2026"
+  nestedCards={[
+    { label: "Coding Agent", items: [
+      { label: "Claude Code", link: "#claude-code" },
+      { label: "opencode", link: "#opencode" }
+    ]},
+    { label: "Model", items: [
+      { label: "Opus 4.5", link: "#z-claude-mi-claude-or-claude" },
+      { label: "GLM 4.7", link: "#z-claude-mi-claude-or-claude" }
+    ]},
+    { label: "Provider", items: [
+      { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" },
+      { label: "Cloudflare AI Gateway" }
+    ]}
   ]}
 />
 
@@ -388,7 +379,7 @@ I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode
 
 ![opencode](/media/2026/01/ai/opencode_2.png)
 
-opencode can also run [headless](https://opencode.ai/docs/server/) on a remote machine (VM/CI runner/container) and your local CLI connects as a client. Handy for offloading heavy workloads to a beefy VM while you work from a laptop. 
+Vibe from anywhere: opencode can also run [headless](https://opencode.ai/docs/server/) on a remote machine (VM/CI runner/container) and your local CLI connects as a client. Handy for offloading heavy workloads to a beefy VM while you work from a laptop. 
 
 
 ```bash
@@ -396,3 +387,32 @@ opencode serve
 ```
 
 ![opencode](/media/2026/01/ai/opencode_serve.png)
+
+## On the list
+
+Things I want to test or build when I have more time:
+
+<ClaudeCardGrid
+  cards={[
+    {
+      title: "KaibanJS",
+      description: "Like Trello or Asana, but for AI Agents and humans",
+      link: "https://github.com/kaiban-ai/KaibanJS"
+    },
+    {
+      title: "RAGFlow",
+      description: "Open-source RAG engine with deep document understanding",
+      link: "https://github.com/infiniflow/ragflow"
+    },
+    {
+      title: "OpenHands",
+      description: "AI software development agents that write and execute code",
+      link: "https://github.com/OpenHands/OpenHands"
+    },
+    {
+      title: "elizaOS",
+      description: "Build autonomous AI agents with the most popular agentic framework",
+      link: "https://github.com/elizaos/eliza"
+    }
+  ]}
+/>

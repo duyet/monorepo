@@ -19,6 +19,40 @@ export interface ClaudeCardProps {
   className?: string;
 }
 
+// Nested card item - supports multiple linked items per card
+export interface ClaudeNestedCard {
+  label: string; // "Coding Agent"
+  items: ClaudeCardValueItem[]; // Array of {label, link?}
+}
+
+// Extended props for nested variant
+export interface ClaudeCardNestedProps {
+  title: string;
+  description?: string; // Description text below title
+  actionButton?: {
+    // "See all courses" button
+    label: string;
+    link: string;
+  };
+  nestedCards: ClaudeNestedCard[]; // Grid of inner cards
+  colorScheme?: number; // Allow explicit color selection (0-7)
+  className?: string;
+}
+
+// Grid card item (for simple card grids like "On the list")
+export interface ClaudeGridCard {
+  title: string;
+  description?: string;
+  link?: string;
+}
+
+// Props for grid variant
+export interface ClaudeCardGridProps {
+  cards: ClaudeGridCard[];
+  colorScheme?: number; // Allow explicit color selection (0-7)
+  className?: string;
+}
+
 // SVG Icons for each item - hand-drawn style matching the reference
 const BlocksIcon = () => (
   <svg
@@ -135,29 +169,170 @@ const GlobeCodeIcon = () => (
   </svg>
 );
 
+// Arrow icon for nested cards
+const ArrowIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    className={cn("w-5 h-5", className)}
+    strokeWidth="2"
+    stroke="currentColor"
+  >
+    <path
+      d="M5 12h14M12 5l7 7-7 7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+// Network/connection icon (hand-drawn style)
+const NetworkIcon = () => (
+  <svg
+    viewBox="0 0 120 100"
+    fill="none"
+    className="w-full h-full"
+    strokeWidth="2"
+    stroke="currentColor"
+  >
+    {/* Central node */}
+    <circle cx="60" cy="50" r="8" fill="white" stroke="currentColor" />
+    {/* Connected nodes */}
+    <circle cx="30" cy="30" r="6" fill="white" stroke="currentColor" />
+    <circle cx="90" cy="30" r="6" fill="white" stroke="currentColor" />
+    <circle cx="30" cy="70" r="6" fill="white" stroke="currentColor" />
+    <circle cx="90" cy="70" r="6" fill="white" stroke="currentColor" />
+    {/* Connection lines */}
+    <path d="M35 33 L52 45" strokeLinecap="round" />
+    <path d="M85 33 L68 45" strokeLinecap="round" />
+    <path d="M35 67 L52 55" strokeLinecap="round" />
+    <path d="M85 67 L68 55" strokeLinecap="round" />
+    {/* Hand pointing */}
+    <path
+      d="M95 80 Q100 75 105 80 Q110 85 105 90"
+      fill="none"
+      strokeLinecap="round"
+    />
+    {/* Squiggly accent */}
+    <path
+      d="M15 50 Q20 45 15 40 Q10 35 15 30"
+      fill="none"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+// Chart/analytics icon (hand-drawn style)
+const ChartIcon = () => (
+  <svg
+    viewBox="0 0 120 100"
+    fill="none"
+    className="w-full h-full"
+    strokeWidth="2"
+    stroke="currentColor"
+  >
+    {/* Chart background */}
+    <rect
+      x="25"
+      y="20"
+      width="70"
+      height="55"
+      rx="3"
+      fill="white"
+      stroke="currentColor"
+    />
+    {/* Chart line */}
+    <path
+      d="M35 55 L50 45 L65 50 L80 30"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2.5"
+    />
+    {/* Data points */}
+    <circle cx="35" cy="55" r="3" fill="currentColor" />
+    <circle cx="50" cy="45" r="3" fill="currentColor" />
+    <circle cx="65" cy="50" r="3" fill="currentColor" />
+    <circle cx="80" cy="30" r="3" fill="currentColor" />
+    {/* Hand pointing */}
+    <path
+      d="M55 80 Q50 90 55 95 Q60 100 65 95"
+      fill="none"
+      strokeLinecap="round"
+    />
+    <circle cx="60" cy="87" r="5" fill="none" strokeWidth="1.5" />
+  </svg>
+);
+
 // Pastel color palette matching homepage design system
 const colorSchemes = [
   {
     bg: "bg-terracotta-light", // Soft peach #f4b8a0
     bgDark: "dark:bg-terracotta/30",
+    nested: "bg-terracotta/20", // Darker for nested cards
+    nestedDark: "dark:bg-terracotta/40",
     text: "text-gray-700",
     textDark: "dark:text-gray-200",
   },
   {
     bg: "bg-lavender-light", // Soft lavender #dfe0ec
     bgDark: "dark:bg-lavender/30",
+    nested: "bg-lavender/40",
+    nestedDark: "dark:bg-lavender/50",
     text: "text-gray-700",
     textDark: "dark:text-gray-200",
   },
   {
     bg: "bg-sage-light", // Soft sage #d0ddd8
     bgDark: "dark:bg-sage/30",
+    nested: "bg-sage/40",
+    nestedDark: "dark:bg-sage/50",
+    text: "text-gray-700",
+    textDark: "dark:text-gray-200",
+  },
+  {
+    bg: "bg-oat-light", // Warm beige #ebe5db (like "Featured courses")
+    bgDark: "dark:bg-oat/30",
+    nested: "bg-oat/60",
+    nestedDark: "dark:bg-oat/50",
+    text: "text-gray-700",
+    textDark: "dark:text-gray-200",
+  },
+  {
+    bg: "bg-cream", // Warm cream #faf8f3
+    bgDark: "dark:bg-cream-warm/30",
+    nested: "bg-cream-warm",
+    nestedDark: "dark:bg-cream-warm/50",
+    text: "text-gray-700",
+    textDark: "dark:text-gray-200",
+  },
+  {
+    bg: "bg-cactus-light", // Muted green #d4e3de
+    bgDark: "dark:bg-cactus/30",
+    nested: "bg-cactus/40",
+    nestedDark: "dark:bg-cactus/50",
+    text: "text-gray-700",
+    textDark: "dark:text-gray-200",
+  },
+  {
+    bg: "bg-coral-light", // Soft coral #ffc4a8
+    bgDark: "dark:bg-coral/30",
+    nested: "bg-coral/30",
+    nestedDark: "dark:bg-coral/50",
+    text: "text-gray-700",
+    textDark: "dark:text-gray-200",
+  },
+  {
+    bg: "bg-ivory", // Off-white #f5f3ef
+    bgDark: "dark:bg-ivory-medium/30",
+    nested: "bg-ivory-medium",
+    nestedDark: "dark:bg-ivory-medium/50",
     text: "text-gray-700",
     textDark: "dark:text-gray-200",
   },
 ];
 
-const icons = [BlocksIcon, CodeBoardIcon, GlobeCodeIcon];
+const icons = [BlocksIcon, CodeBoardIcon, GlobeCodeIcon, NetworkIcon, ChartIcon];
 
 /**
  * ClaudeCard - Anthropic-style card with title and numbered items
@@ -292,6 +467,214 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * ClaudeCardNested - Anthropic-style card with nested inner cards
+ * Layout: Title/description on left, grid of clickable cards on right
+ * Like the "Featured courses" design from Anthropic Academy
+ */
+// Simple hash function for deterministic "random" based on string
+const hashString = (str: string) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+};
+
+export function ClaudeCardNested({
+  title,
+  description,
+  actionButton,
+  nestedCards,
+  colorScheme,
+  className,
+}: ClaudeCardNestedProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Deterministic color based on title hash (SSR-safe)
+  const baseColor = colorScheme ?? hashString(title) % colorSchemes.length;
+
+  // Change color based on which nested card is hovered
+  const activeIndex = hoveredIndex !== null ? hoveredIndex : 0;
+  const activeColor =
+    colorSchemes[(baseColor + activeIndex) % colorSchemes.length];
+  const ActiveIcon = icons[(baseColor + activeIndex) % icons.length];
+
+  return (
+    <div
+      className={cn(
+        "my-8 rounded-3xl overflow-hidden transition-colors duration-300",
+        activeColor.bg,
+        activeColor.bgDark,
+        className
+      )}
+    >
+      <div className="relative p-6 sm:p-8 md:p-10">
+        {/* SVG Background Icon */}
+        <div
+          className={cn(
+            "absolute right-4 bottom-4 w-24 h-24",
+            "lg:w-32 lg:h-32 xl:w-40 xl:h-40",
+            "opacity-10 pointer-events-none",
+            activeColor.text,
+            activeColor.textDark
+          )}
+        >
+          <ActiveIcon />
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-5 lg:gap-7">
+          {/* Left side - Title, Description, Action Button */}
+          <div className="flex flex-col justify-start">
+            <h3
+              className={cn(
+                "text-2xl md:text-4xl font-serif leading-tight mt-2",
+                "text-gray-900 dark:text-white"
+              )}
+            >
+              {title}
+            </h3>
+
+            {description && (
+              <p
+                className={cn(
+                  "text-base leading-relaxed",
+                  activeColor.text,
+                  activeColor.textDark,
+                  "opacity-80"
+                )}
+              >
+                {description}
+              </p>
+            )}
+
+            {actionButton && (
+              <div className="mt-2">
+                <a
+                  href={actionButton.link}
+                  className={cn(
+                    "inline-flex items-center gap-2 px-5 py-2.5",
+                    "rounded-full border-2 border-gray-900 dark:border-white",
+                    "text-sm font-medium",
+                    "text-gray-900 dark:text-white",
+                    "hover:bg-gray-900 hover:text-white",
+                    "dark:hover:bg-white dark:hover:text-gray-900",
+                    "transition-all duration-200"
+                  )}
+                >
+                  {actionButton.label}
+                </a>
+              </div>
+            )}
+          </div>
+
+          {/* Right side - Nested Cards Grid */}
+          <div className="flex flex-col gap-3 sm:gap-4 lg:col-span-2">
+            {nestedCards.map((card, index) => (
+              <div
+                key={index}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={cn(
+                  "group not-prose flex-1 grid grid-cols-[7rem_1fr_auto] items-start gap-3 p-4",
+                  "rounded-2xl transition-colors duration-200",
+                  activeColor.nested,
+                  activeColor.nestedDark
+                )}
+              >
+                <span
+                  className={cn(
+                    "text-xs sm:text-sm font-medium uppercase tracking-wide",
+                    activeColor.text,
+                    activeColor.textDark,
+                    "opacity-60"
+                  )}
+                >
+                  {card.label}
+                </span>
+
+                <div className="flex flex-row gap-4 lg:flex-col lg:gap-x-1.5 lg:gap-y-0.5">
+                  {card.items.map((item, itemIndex) => (
+                    <span key={itemIndex} className="inline-flex items-center">
+                      {item.link ? (
+                        <a
+                          href={item.link}
+                          className={cn(
+                            "text-sm sm:text-base no-underline",
+                            "text-gray-900 dark:text-white",
+                            "hover:opacity-70 transition-opacity"
+                          )}
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span className="text-sm sm:text-base text-gray-900 dark:text-white">
+                          {item.label}
+                        </span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+
+                <ArrowIcon
+                  className={cn(
+                    activeColor.text,
+                    activeColor.textDark,
+                    "rotate-90 opacity-40 group-hover:opacity-70 transition-opacity"
+                  )}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * ClaudeCardGrid - Simple auto-responsive grid of cards
+ * Clean minimal cards with border, no effects
+ */
+export function ClaudeCardGrid({ cards, className }: ClaudeCardGridProps) {
+  return (
+    <div
+      className={cn(
+        "not-prose grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+        className
+      )}
+    >
+      {cards.map((card, index) => {
+        const CardWrapper = card.link ? "a" : "div";
+        const cardProps = card.link
+          ? { href: card.link, target: "_blank", rel: "noopener noreferrer" }
+          : {};
+
+        return (
+          <CardWrapper
+            key={index}
+            {...cardProps}
+            className={cn(
+              "flex flex-col gap-1 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 no-underline",
+              "hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:no-underline transition-colors"
+            )}
+          >
+            <h4 className="font-semibold text-gray-900 dark:text-white">
+              {card.title}
+            </h4>
+            {card.description && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                {card.description}
+              </p>
+            )}
+          </CardWrapper>
+        );
+      })}
     </div>
   );
 }
