@@ -1,4 +1,5 @@
 import type { Post } from "@duyet/interfaces";
+import { extractHeadings, type TOCItem } from "@duyet/libs/extractHeadings";
 import { getPostBySlug } from "@duyet/libs/getPost";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { cn } from "@duyet/libs/utils";
@@ -18,6 +19,7 @@ import { Snippet } from "./snippet";
 interface ContentPost extends Post {
   isMDX?: boolean;
   mdxSource?: string;
+  headings?: TOCItem[];
 }
 
 export default async function Content({ post }: { post: ContentPost }) {
@@ -91,6 +93,9 @@ export async function getPost(slug: string[]) {
 
   const markdownContent = post.content || "Error";
 
+  // Extract headings at build time for static TableOfContents
+  const headings = await extractHeadings(markdownContent);
+
   // Handle MDX files differently - pass raw source for RSC compilation
   if (post.isMDX) {
     return {
@@ -98,6 +103,7 @@ export async function getPost(slug: string[]) {
       content: "", // HTML content not used for MDX
       mdxSource: markdownContent, // Pass raw MDX source
       isMDX: true,
+      headings,
       markdown_content: markdownContent,
       edit_url: getGithubEditUrl(post.slug),
     };
@@ -109,6 +115,7 @@ export async function getPost(slug: string[]) {
   return {
     ...post,
     content,
+    headings,
     markdown_content: markdownContent,
     edit_url: getGithubEditUrl(post.slug),
   };
