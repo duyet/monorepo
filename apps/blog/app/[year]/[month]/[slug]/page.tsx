@@ -60,8 +60,8 @@ export default async function Post({ params }: PostProps) {
         </article>
       </div>
 
-      {/* Table of Contents - fixed right side, outside content */}
-      <TableOfContents />
+      {/* Table of Contents - pre-extracted headings for static rendering */}
+      <TableOfContents headings={post.headings} />
     </div>
   );
 }

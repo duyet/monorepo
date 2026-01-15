@@ -1,13 +1,8 @@
 "use client";
 
+import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
 import { useEffect, useState } from "react";
-
-interface TOCItem {
-  id: string;
-  text: string;
-  level: number;
-}
 
 // TOC Icon SVG
 const TOCIcon = ({ className }: { className?: string }) => (
@@ -26,60 +21,16 @@ const TOCIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function TableOfContents() {
-  const [headings, setHeadings] = useState<TOCItem[]>([]);
+interface TableOfContentsProps {
+  /** Pre-extracted headings from build time for static rendering */
+  headings?: TOCItem[];
+}
+
+export function TableOfContents({ headings: initialHeadings = [] }: TableOfContentsProps) {
+  const [headings] = useState<TOCItem[]>(initialHeadings);
   const [activeId, setActiveId] = useState<string>("");
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isDesktopVisible, setIsDesktopVisible] = useState(true);
-
-  useEffect(() => {
-    const extractHeadings = () => {
-      const article = document.querySelector("article");
-      if (!article) return;
-
-      const elements = article.querySelectorAll("h1, h2, h3");
-      const items: TOCItem[] = [];
-      let isFirstH1 = true;
-
-      elements.forEach((element) => {
-        const text = element.textContent || "";
-        if (!text.trim()) return;
-
-        if (element.tagName === "H1" && isFirstH1) {
-          isFirstH1 = false;
-          return;
-        }
-
-        let id = element.id;
-        if (!id) {
-          id = text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "");
-          element.id = id;
-        }
-
-        const level =
-          element.tagName === "H1" ? 1 : element.tagName === "H2" ? 2 : 3;
-        items.push({ id, text: text.trim(), level });
-      });
-
-      setHeadings(items);
-    };
-
-    const timeoutId = setTimeout(extractHeadings, 100);
-    const observer = new MutationObserver(() => extractHeadings());
-
-    const article = document.querySelector("article");
-    if (article) {
-      observer.observe(article, { childList: true, subtree: true });
-    }
-
-    return () => {
-      clearTimeout(timeoutId);
-      observer.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     if (headings.length === 0) return;
