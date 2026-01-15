@@ -81,9 +81,11 @@
         "react-dom": "19.2.3",
         "rehype-highlight": "^7.0.0",
         "rehype-katex": "^7.0.1",
+        "rehype-slug": "^6.0.0",
         "remark-gfm": "^4.0.0",
         "remark-math": "^6.0.0",
         "rss": "^1.2.2",
+        "unist-util-visit": "^5.0.0",
       },
       "devDependencies": {
         "@duyet/interfaces": "*",
@@ -282,6 +284,7 @@
       "dependencies": {
         "clsx": "^2.0.0",
         "date-fns": "^4.0.0",
+        "github-slugger": "^2.0.0",
         "gray-matter": "4.0.3",
         "rehype-autolink-headings": "^7.0.0",
         "rehype-format": "^5.0.0",

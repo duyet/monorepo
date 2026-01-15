@@ -230,7 +230,51 @@ For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins
 
 ![Interview](/media/2026/01/ai/cc_interview.png)
 
-## Claude Code + Ralph Loop
+## Long-running and self-improving coding agent
+
+Long-running autonomous coding agents - this is something I've always wanted to achieve. From the beginning, I put them inside an interval bash script loop. Now I have a better version using Claude Agent SDK in TypeScript called *duyetbot-agent* (need a better name!) that runs 24/7, written by Claude Code, but you can plan to build something similar with some ideas:
+
+```
+Build a long-running autonomous coding agent using Claude Agent SDK 
+that continuously processes tasks, creates PRs, and manages its own backlog.
+
+Core components:
+
+- Orchestrator: Main loop managing session lifecycle, scheduler, monitoring, analytics dashboard
+- Sub-Agents: Planner Agent, Coder Agent, Reviewer Agent, PR Manager
+- Tools: Git worktree management, GitHub MCP, memory persistence (Supermemory)
+- Stop Hooks: Graceful exit with state preservation
+- Skills: Reusable workflow templates
+- Configuration: Flexible YAML-based settings
+- Quality Gates: Automated checks before PR creation
+...
+```
+
+I was thinking of publishing it for general use, but it still needs a lot of work to be generic enough. Don't expect too much from me though, some big name will probably do it first. I believe this is a milestone the industry has always wanted to reach before we get to AGI.
+
+[Claude Code + Ralph Loop](#claude-code-ralph-loop) is the easiest way to try this, it uses StopHook to extend your session and keep working for hours or days to complete your task. See Boris's explanation:
+
+> Claude consistently runs for minutes, hours, and days at a time (using Stop hooks)
+> https://x.com/simonw/status/2004916070973645242
+
+I've also put my agent source code folder under its loop, to build a self-improving coding agent. I want to see how possible it is to have an agent that codes itself. It's not as good as expected with many issues, but it's still something I want to achieve
+
+- bad execution loop and bad plan will generate broken agent and stops infinite loops
+- reflection mechanism, need to extract the failure, error pattern, root cause to enhance the codebase itself
+- better context engineering and long-term memory improvement
+- code safety, detect potentially dangerous operations, monitoring and rollback, etc
+
+Some solutions out there you can try:
+[Continuous Claude](https://github.com/AnandChowdhary/continuous-claude), 
+[Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3)
+
+Good reads:
+
+- [Scaling long-running autonomous coding](https://cursor.com/blog/scaling-agents)
+- [Anthropic CEO on Claude, AGI & the Future of AI & Humanity | Lex Fridman Podcast #452](https://lexfridman.com/dario-amodei-transcript)
+- [2025 LLM Year in Review - Andrej Karpathy](https://karpathy.bearblog.dev/year-in-review-2025/)
+
+### Claude Code + Ralph Loop
 
 The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) is my favorite for long-running tasks or vibe coding on fun projects while I'm asleep. You define a goal condition and let the agent loop until it verifiably reaches that goal. With cheap Z.AI GLM 4.7 tokens, I can let it run 24/7. Run it with `--permission-mode=dontAsk` or `--dangerously-skip-permissions`.
 
@@ -249,20 +293,11 @@ The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/pl
 7. Output: <promise>COMPLETE</promise>" --completion-promise "COMPLETE"
 ```
 
-## z_claude, mi_claude & or_claude
+### Claude Code (+ OpenRouter) on GitHub Actions
 
-The good thing about Claude Code is that you can use it with alternative providers that offer the same Anthropic API interface. I've created some wrapper scripts for this:
+![Claude Github Action](/media/2026/01/ai/claude_github_action.jpg)
 
-- [z_claude](https://gist.github.com/duyet/ad5971afe423cf992f519aa8a2ea10d5) - Uses Z.AI's GLM 4.7 model, which works great. Unbelievably cheap (starts at $3/mo). I use this a lot to burn their tokens instead of my Claude MAX subscription.
-- [mi_claude](https://gist.github.com/duyet/7f03bbcf392ca67c6d41bd221d4ab8fd) - Uses Xiaomi Mimo API.
-- [or_claude](https://gist.github.com/duyet/d9a9f9b6daa5b3ae4b9343e08743540d) - Uses [OpenRouter](https://openrouter.ai/docs/guides/guides/claude-code-integration) models. Plenty of good free models available, though with rate limits.
-
-You can start working with `claude` using Opus, then exit and continue the same session with `z_claude --continue`. Use `mi_claude` or `or_claude` the same way.
-
-![z_claude](/media/2026/01/ai/z_claude.png)
-
-## Claude Code (+ OpenRouter) on GitHub Actions
-
+Something else you can try for maximize automation that [Claude Code Action](https://github.com/anthropics/claude-code-action) which is Claude Agent SDK that running on Github Actions.
 The best part is I'm running Claude GitHub Actions with OpenRouter at no cost by using free models. I have an OpenRouter preset that can switch between SOTA free models automatically.
 
 ```yaml
@@ -314,19 +349,34 @@ Some use cases:
 
 - **Code Review** - Automated PR reviews with AI feedback
 - **Nightly Codebase Analysis** - A scheduled workflow that scans the codebase every night, finds things to improve or refactor, creates an issue, and assigns it to @claude to fix via PR
+- Triggering cross-repo workflows (e.g. SDK change -> updates docs). 
+
 
 This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible: smart cronjobs, automated refactoring, documentation sync, etc. The AI does the boring stuff while you sleep.
 
 ![Github Actions + OpenRouter](/media/2026/01/ai/github_actions.png)
 ![Github Actions + OpenRouter](/media/2026/01/ai/github_actions_2.png)
 
+## z_claude, mi_claude & or_claude
+
+The good thing about Claude Code is that you can use it with alternative providers that offer the same Anthropic API interface. I've created some wrapper scripts for this:
+
+- [z_claude](https://gist.github.com/duyet/ad5971afe423cf992f519aa8a2ea10d5) - Uses Z.AI's GLM 4.7 model, which works great. Unbelievably cheap (starts at $3/mo). I use this a lot to burn their tokens instead of my Claude MAX subscription.
+- [mi_claude](https://gist.github.com/duyet/7f03bbcf392ca67c6d41bd221d4ab8fd) - Uses Xiaomi Mimo API.
+- [or_claude](https://gist.github.com/duyet/d9a9f9b6daa5b3ae4b9343e08743540d) - Uses [OpenRouter](https://openrouter.ai/docs/guides/guides/claude-code-integration) models. Plenty of good free models available, though with rate limits.
+
+You can start working with `claude` using Opus, then exit and continue the same session with `z_claude --continue`. Use `mi_claude` or `or_claude` the same way.
+
+![z_claude](/media/2026/01/ai/z_claude.png)
+
 ## opencode
 
 If you want to try a good coding agent with nice UI/UX - [opencode](https://github.com/sst/opencode) is really solid right now. Fast, simple, and it reads all your Claude config and plugins out of the box.
+It can consolidates all your subscriptions: ~Claude Code~, Z.AI, 
+[GitHub Copilot](https://x.com/github/status/2011822451613712646), Codex, ...  seamlessly switch between all of the models + plus some free Zen models from their own provider.
 
 ![opencode](/media/2026/01/ai/opencode.png)
 
-It connects to a lot of providers: Z.AI, OpenRouter, Codex, Claude, plus some free Zen models from their own provider. When I hit rate limits on one, I just switch to another. When Opus is overkill, I drop down to something cheaper.
 
 You can save and share sessions - handy when you want to show someone how you solved something. They also have a native web UI now.
 
@@ -343,7 +393,7 @@ opencode can also run [headless](https://opencode.ai/docs/server/) on a remote m
 
 
 ```bash
-opencode serve [--port <number>] [--hostname <string>] [--cors <origin>]
+opencode serve
 ```
 
 ![opencode](/media/2026/01/ai/opencode_serve.png)

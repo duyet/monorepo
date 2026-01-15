@@ -1,3 +1,4 @@
+import GithubSlugger from "github-slugger";
 import type { Heading, PhrasingContent, Root } from "mdast";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
@@ -31,6 +32,7 @@ export async function extractHeadings(
   markdown: VFileCompatible
 ): Promise<TOCItem[]> {
   const headings: TOCItem[] = [];
+  const slugger = new GithubSlugger();
   let isFirstH1 = true;
 
   const tree = unified().use(remarkParse).parse(markdown) as Root;
@@ -52,11 +54,8 @@ export async function extractHeadings(
       return;
     }
 
-    // Generate slug ID from text
-    const id = text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
+    // Generate slug ID using github-slugger (same as rehype-slug)
+    const id = slugger.slug(text);
 
     headings.push({ id, text, level });
   });
