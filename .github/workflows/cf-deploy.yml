@@ -146,6 +146,45 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Debug environment variables
+        run: |
+          echo "### Environment Variables Debug" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### ClickHouse Configuration:" >> $GITHUB_STEP_SUMMARY
+          echo "- CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "- CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "- CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "- CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "- CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### Other API Keys:" >> $GITHUB_STEP_SUMMARY
+          echo "- GITHUB_TOKEN: ${GITHUB_TOKEN:+SET}${GITHUB_TOKEN:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "- WAKATIME_API_KEY: ${WAKATIME_API_KEY:+SET}${WAKATIME_API_KEY:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "- POSTHOG_API_KEY: ${POSTHOG_API_KEY:+SET}${POSTHOG_API_KEY:-NOT SET}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### Build Environment:" >> $GITHUB_STEP_SUMMARY
+          echo "- NODE_ENV: $NODE_ENV" >> $GITHUB_STEP_SUMMARY
+          echo "- App: ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
+
+          # Also print to logs for debugging
+          echo "=== ClickHouse Environment Check ==="
+          echo "CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}"
+          echo "CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}"
+          echo "CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}"
+          echo "CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}"
+          echo "CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}"
+          echo "==================================="
+        env:
+          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+          NODE_ENV: production
+
       - name: Deploy to Cloudflare Pages
         run: |
           cd apps/${{ matrix.app }}

@@ -108,6 +108,23 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Debug environment variables
+        run: |
+          echo "=== ClickHouse Environment Check ==="
+          echo "CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}"
+          echo "CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}"
+          echo "CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}"
+          echo "CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}"
+          echo "CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}"
+          echo "==================================="
+          echo "App: ${{ matrix.app }}"
+        env:
+          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
+          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
+          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
+
       - name: Build app
         run: |
           cd apps/${{ matrix.app }}
