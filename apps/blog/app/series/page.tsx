@@ -3,6 +3,8 @@ import { cn } from "@duyet/libs";
 import { getAllSeries } from "@duyet/libs/getSeries";
 import { SeriesBox } from "@/components/layout";
 
+export const dynamic = "force-static";
+
 const seriesBackgrounds = [
   "bg-oat",
   "bg-sage",
