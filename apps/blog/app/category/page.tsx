@@ -4,6 +4,8 @@ import { getAllCategories } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
 import { getCategoryMetadata } from "@/lib/category-metadata";
 
+export const dynamic = "force-static";
+
 export default function Categories() {
   const categories = getAllCategories();
   const categoryEntries = Object.entries(categories).sort(

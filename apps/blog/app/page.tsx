@@ -6,6 +6,8 @@ import Link from "next/link";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
 
+export const dynamic = "force-static";
+
 export default async function Page() {
   const postsByYear = getPostsByAllYear(["slug", "title", "date", "category"]);
   const postCount = Object.values(postsByYear).reduce(
