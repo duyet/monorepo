@@ -28,7 +28,7 @@ jobs:
       api_key: ${{ secrets.OPENROUTER_API_KEY }}
       bot_github_token: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}
     with:
-      dry_run: ${{ inputs.dry_run }}
+      dry_run: ${{ inputs.dry_run || 'false' }}
       # Custom prompt for comprehensive code enhancement
       prompt: |
         You are running a nightly code enhancement job for the monorepo repository.
@@ -109,6 +109,8 @@ jobs:
         !**/dist/**
         !**/build/**
         !**/*.config.js
+        !**/*.config.ts
+        !**/*.config.tsx
 
       # Enable write tools for implementation
       allowed_tools: Read,Grep,Glob,Write,Edit,Bash,Skill
