@@ -5,6 +5,8 @@ import { getAllTags } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
 import { getTagMetadata } from "@/lib/tag-metadata";
 
+export const dynamic = "force-static";
+
 export default function Tags() {
   const tags: TagCount = getAllTags();
   const tagEntries = Object.entries(tags).sort(([, a], [, b]) => b - a);

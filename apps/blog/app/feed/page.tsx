@@ -4,6 +4,8 @@ import Header from "@duyet/components/Header";
 import { getAllPosts } from "@duyet/libs/getPost";
 import Link from "next/link";
 
+export const dynamic = "force-static";
+
 type Params = Promise<Record<string, string>>;
 
 async function getPosts(params: Params) {

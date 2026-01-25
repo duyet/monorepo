@@ -3,6 +3,8 @@ import { getPostsByAllYear } from "@duyet/libs/getPost";
 import Link from "next/link";
 import { YearPost } from "@/components/post";
 
+export const dynamic = "force-static";
+
 export default function Featured() {
   const postsByYear = getPostsByAllYear(
     ["slug", "title", "date", "category", "featured"],
