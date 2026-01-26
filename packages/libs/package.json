@@ -30,7 +30,7 @@
     "@duyet/tsconfig": "*",
     "@types/mdast": "^4.0.0",
     "@types/sanitize-html": "^2.16.0",
-    "next": "16.1.3",
+    "next": "16.1.4",
     "typescript": "*"
   },
   "scripts": {
