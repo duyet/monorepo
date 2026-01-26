@@ -26,7 +26,7 @@
     "@duyet/libs": "*",
     "@radix-ui/react-dialog": "^1.1.2",
     "cloudinary": "^2.5.1",
-    "lucide-react": "^0.562.0",
+    "lucide-react": "^0.563.0",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
