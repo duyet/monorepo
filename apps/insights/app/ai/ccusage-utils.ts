@@ -8,7 +8,60 @@ import type {
   CCUsageProjectData,
   DateRangeDays,
 } from "./types";
-import { executeClickHouseQueryLegacy } from "./utils/clickhouse-client";
+import {
+  executeClickHouseQuery,
+  executeClickHouseQueryLegacy,
+} from "./utils/clickhouse-client";
+
+// Track if we've already done a health check this build
+let healthCheckCompleted = false;
+let healthCheckPassed = false;
+
+/**
+ * Quick ping test - runs SELECT 1 with 10 second timeout
+ * Returns true if ClickHouse responds, false otherwise
+ */
+async function pingClickHouse(): Promise<{
+  success: boolean;
+  latencyMs: number;
+  error?: string;
+}> {
+  console.log("[ClickHouse Ping] Sending ping...");
+  const startTime = Date.now();
+
+  try {
+    const result = await executeClickHouseQuery(
+      "SELECT 1 as ping, now() as server_time",
+      10000, // 10 second timeout for ping
+      1 // Only 1 attempt for ping
+    );
+
+    const latencyMs = Date.now() - startTime;
+
+    if (result.success && result.data.length > 0) {
+      console.log("[ClickHouse Ping] ✓ Pong received:", {
+        latencyMs,
+        serverTime: result.data[0]?.server_time,
+      });
+      return { success: true, latencyMs };
+    }
+
+    console.error("[ClickHouse Ping] ✗ No response:", {
+      latencyMs,
+      error: result.error,
+    });
+    return { success: false, latencyMs, error: result.error };
+  } catch (error) {
+    const latencyMs = Date.now() - startTime;
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
+
+    console.error("[ClickHouse Ping] ✗ Ping failed:", {
+      latencyMs,
+      error: errorMsg,
+    });
+    return { success: false, latencyMs, error: errorMsg };
+  }
+}
 
 // ============================================================================
 // Re-export formatCurrency for backward compatibility
@@ -110,6 +163,31 @@ export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
   console.log("[CCUsage Metrics] Fetching metrics for days:", days);
+
+  // Run health check on first call to quickly detect connectivity issues
+  if (!healthCheckCompleted) {
+    console.log(
+      "[CCUsage Metrics] First query - running ClickHouse health check..."
+    );
+    const pingResult = await pingClickHouse();
+    if (!pingResult.success) {
+      console.error(
+        "[CCUsage Metrics] ✗ Health check FAILED - ClickHouse may be unreachable:",
+        {
+          latencyMs: pingResult.latencyMs,
+          error: pingResult.error,
+        }
+      );
+      console.error(
+        "[CCUsage Metrics] This usually indicates: network issues, wrong credentials, or ClickHouse server down"
+      );
+      // Continue anyway - the actual queries will also fail but with more details
+    } else {
+      console.log("[CCUsage Metrics] ✓ Health check passed");
+    }
+    healthCheckCompleted = true;
+    healthCheckPassed = pingResult.success;
+  }
 
   const dateCondition = getDateCondition(days);
   const query = `

@@ -39,6 +39,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
+    "@commitlint/cli": "^20.3.1",
+    "@commitlint/config-conventional": "^20.3.1",
     "@duyet/tsconfig": "*",
     "@next/env": "^16.1.1",
     "@types/node": "^22.15.29",
