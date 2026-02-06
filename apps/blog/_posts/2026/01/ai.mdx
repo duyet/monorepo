@@ -164,10 +164,10 @@ Plan mode performs significantly better than just prompting directly. When you g
 
 ## Agent Teams
 
-[Agent Teams](https://code.claude.com/docs/en/agent-teams) - multiple Claude Code sessions that coordinate with each other, not just report back to a parent. Teammates can message each other directly. Still experimental (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`).
+[Agent Teams](https://code.claude.com/docs/en/agent-teams) just dropped - this is basically what I was trying to build with my [team-agents plugin](#parallel-agents). Multiple Claude Code sessions that actually talk to each other, not just report back to a parent. Now it's built-in. Enable with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`.
 
+Use cases I'm trying:
 - **Parallel code review** - spawn reviewers for security, performance, and test coverage, each applying a different lens to the same PR
-- **Research and exploration** - multiple teammates investigate different aspects simultaneously, then share findings
 - **New features with clear boundaries** - each teammate owns a separate module without stepping on each other
 - **Debugging** - spawn teammates with different theories, have them try to disprove each other
 
