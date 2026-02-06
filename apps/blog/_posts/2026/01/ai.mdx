@@ -162,6 +162,22 @@ Plan mode performs significantly better than just prompting directly. When you g
   </Step>
 </Steps>
 
+## Agent Teams
+
+[Agent Teams](https://code.claude.com/docs/en/agent-teams) is the next evolution beyond sub-agents and my [team-agents plugin](#parallel-agents). Instead of one session spawning disposable sub-agents that just report back, Agent Teams lets you coordinate multiple full Claude Code sessions that talk to each other, share a task list, and self-coordinate.
+
+The lead session orchestrates - it breaks down tasks, spawns teammates, and synthesizes results. Each teammate is a full independent Claude Code instance with its own context window. The key difference from sub-agents: teammates can message each other directly, not just report back to the parent. This matters for tasks like code review (security reviewer challenges the performance reviewer's findings) or debugging with competing hypotheses.
+
+Best use cases I've found so far:
+- **Parallel code review** - spawn reviewers for security, performance, and test coverage. They each apply a different lens to the same PR
+- **Research and exploration** - multiple teammates investigate different aspects simultaneously, then share findings
+- **New features with clear boundaries** - each teammate owns a separate module without stepping on each other
+- **Debugging** - spawn teammates with different theories, have them try to disprove each other
+
+It's still experimental - enable it with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` in your settings. I use split-pane mode with tmux so I can see all teammates working at once. Combined with delegate mode (`shift+tab` to cycle into it), the lead focuses purely on orchestration and won't start coding itself.
+
+The token usage is significantly higher than sub-agents since each teammate has its own context, but for complex parallel work it's worth it. For routine tasks, stick with sub-agents.
+
 ## CLAUDE.md, AGENTS.md
 
 First thing Claude does when starting a session is read your `CLAUDE.md` file. Most people ignore it, but it's actually really important. It keeps things consistent across sessions and saves time - Claude doesn't need to re-investigate your project setup every time.
