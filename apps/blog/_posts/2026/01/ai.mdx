@@ -42,7 +42,7 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
       { label: "opencode", link: "#opencode" }
     ]},
     { label: "Model", items: [
-      { label: "Opus 4.5", link: "#z-claude-mi-claude-or-claude" },
+      { label: "Opus 4.6", link: "#z-claude-mi-claude-or-claude" },
       { label: "GLM 4.7", link: "#z-claude-mi-claude-or-claude" }
     ]},
     { label: "Provider", items: [
@@ -234,7 +234,7 @@ For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins
 
 ## Long-running and self-improving coding agent
 
-Long-running autonomous coding agents - this is something I've always wanted to achieve. From the beginning, I put them inside an interval bash script loop. Now I have a better version using Claude Agent SDK in TypeScript called *duyetbot-agent* (need a better name!) that runs 24/7, written by Claude Code, but you can plan to build something similar with some ideas:
+Long-running autonomous coding agents - this is something I've always wanted to achieve. From the beginning, I put them inside an interval bash script loop. Now I have a better version using Claude Agent SDK in TypeScript called *OpenClaw* (~~Clawdbot~~ → ~~BoltBot~~ → OpenClaw) that runs 24/7, written by Claude Code, but you can plan to build something similar with some ideas:
 
 ```
 Build a long-running autonomous coding agent using Claude Agent SDK 
@@ -383,7 +383,7 @@ You can save and share sessions - handy when you want to show someone how you so
 
 I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode) - it adds some powerful workflows on top of opencode:
 
-- **Sisyphus agent** - an orchestrator (Opus 4.5) that "keeps the boulder rolling" through autonomous task completion. It uses subagents, background parallel execution, and won't stop until tasks are actually finished
+- **Sisyphus agent** - an orchestrator (Opus 4.6) that "keeps the boulder rolling" through autonomous task completion. It uses subagents, background parallel execution, and won't stop until tasks are actually finished
 - **Multi-model orchestration** - coordinates GPT-5.2, Gemini, and Claude by specialized purpose
 - **Background parallelization** - runs exploration and research tasks async while main work continues
 - **Magic word `ultrawork`** - add this to your prompt and it activates maximum orchestration: parallel agents, background tasks, deep exploration, relentless execution
