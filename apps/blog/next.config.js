@@ -50,8 +50,24 @@ const config = {
       },
     ],
   },
-  // Redirects don't work with static export
-  // redirects,
+  // DNS prefetch and preconnect hints for external domains
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = config;

@@ -29,6 +29,20 @@ const config = {
     ],
   },
   transpilePackages: ["@duyet/components", "@duyet/libs"],
+  // DNS prefetch and preconnect hints for external domains
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = config;

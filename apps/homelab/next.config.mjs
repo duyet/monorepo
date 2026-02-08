@@ -15,8 +15,27 @@ loadEnvConfig(
 
 const nextConfig = {
   reactStrictMode: true,
-  output: "export",
+  // Removed static export to enable API routes
+  // output: "export",
   transpilePackages: ["@duyet/components", "@duyet/config", "@duyet/libs"],
+  // Enable image optimization for deployment
+  images: {
+    unoptimized: false,
+  },
+  // DNS prefetch and preconnect hints for external domains
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
