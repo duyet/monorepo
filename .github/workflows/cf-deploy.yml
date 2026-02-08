@@ -127,9 +127,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - uses: oven-sh/setup-bun@v2
 
@@ -184,3 +184,20 @@ jobs:
           echo "- **App**: ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
           echo "- **URL**: ${{ matrix.url }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Project**: ${{ matrix.project }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Health check
+        run: |
+          echo "Checking ${{ matrix.url }}..."
+          max_attempts=5
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            if curl -s -f -o /dev/null "${{ matrix.url }}"; then
+              echo "✅ Health check passed for ${{ matrix.url }}"
+              exit 0
+            fi
+            echo "Attempt $attempt/$max_attempts failed, waiting 10s..."
+            sleep 10
+            attempt=$((attempt + 1))
+          done
+          echo "❌ Health check failed after $max_attempts attempts"
+          exit 1
