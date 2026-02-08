@@ -1,3 +1,5 @@
+"use client";
+
 import {
   HoverCard,
   HoverCardContent,
@@ -5,12 +7,14 @@ import {
 } from "@duyet/components/ui/hover-card";
 import { Separator } from "@duyet/components/ui/separator";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { Education } from "@/components/education";
 import { ExperienceItem } from "@/components/experience";
 import { InlineLink } from "@/components/inline-link";
 import { Overview } from "@/components/overview";
 import { Section } from "@/components/section";
 import { Skill } from "@/components/skill";
+import { CvActions } from "@/components/cv-actions";
 
 import { cvData } from "@/config/cv.data";
 import {
@@ -29,6 +33,28 @@ export const dynamic = "force-static";
 
 export default function Page() {
   const { personal, experience, education } = cvData;
+  const cvRef = useRef<HTMLDivElement>(null);
+
+  // Update print preview content when component mounts or updates
+  useEffect(() => {
+    const updatePreviewContent = () => {
+      const previewContent = document.getElementById("print-preview-content");
+      if (previewContent && cvRef.current) {
+        // Clone the CV content for preview
+        previewContent.innerHTML = cvRef.current?.innerHTML || "";
+      }
+    };
+
+    // Initial update
+    updatePreviewContent();
+
+    // Update when preview mode is toggled
+    const observer = new MutationObserver(updatePreviewContent);
+    const body = document.body;
+    observer.observe(body, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
+  }, []);
 
   const renderContactLinks = () => {
     return personal.contacts.map((contact) => {
@@ -82,72 +108,27 @@ export default function Page() {
 
   return (
     <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-foreground">
-      <header className="flex flex-col gap-3">
-        <h1
-          className="mb-2 inline-flex gap-2 text-2xl font-bold"
-          style={{ fontFamily: "var(--font-lora)" }}
-        >
-          <span>{personal.name}</span>
-          <Separator orientation="vertical" />
-          <span className="text-red-500">{personal.title}</span>
-        </h1>
+      {/* CV Actions Toolbar */}
+      <div className="mb-4 print:hidden">
+        <CvActions />
+      </div>
 
-        <InlineLink links={renderContactLinks()} />
+      <div ref={cvRef} id="cv-content">
+        <header className="flex flex-col gap-3">
+          <h1
+            className="mb-2 inline-flex gap-2 text-2xl font-bold"
+            style={{ fontFamily: "var(--font-lora)" }}
+          >
+            <span>{personal.name}</span>
+            <Separator orientation="vertical" />
+            <span className="text-red-500">{personal.title}</span>
+          </h1>
 
-        <Overview className="text-sm">
-          Data Engineer with 6+ years of experience in modern data warehousing,
-          distributed systems, and cloud computing. Proficient in{" "}
-          <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
-          {", "}
-          <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
-          {", "}
-          <SkillClickHouse />
-          {", "}
-          <SkillSpark />
-          {", "}
-          <SkillAirflow />
-          {", "}
-          <SkillPython />
-          {", "}
-          <SkillRust />.
-        </Overview>
-      </header>
+          <InlineLink links={renderContactLinks()} />
 
-      <Section title="Experience">
-        <div className="flex flex-col gap-5">
-          {experience.map((exp) => (
-            <ExperienceItem
-              key={exp.id}
-              title={exp.title}
-              company={exp.company}
-              companyUrl={exp.companyUrl}
-              companyLogo={exp.companyLogo}
-              companyLogoClassName={exp.companyLogoClassName}
-              from={exp.from}
-              to={exp.to}
-              responsibilities={exp.responsibilities}
-            />
-          ))}
-        </div>
-      </Section>
-
-      <Section title="Education">
-        {education.map((edu) => (
-          <Education
-            key={edu.id}
-            major={edu.major}
-            thesis={edu.thesis}
-            thesisUrl={edu.thesisUrl}
-            university={edu.university}
-            period={edu.period}
-          />
-        ))}
-      </Section>
-
-      <Section title="Skills">
-        <div className="flex flex-col gap-2">
-          <div>
-            <strong>Data Engineering:</strong>{" "}
+          <Overview className="text-sm">
+            Data Engineer with 6+ years of experience in modern data warehousing,
+            distributed systems, and cloud computing. Proficient in{" "}
             <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
             {", "}
             <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
@@ -156,45 +137,97 @@ export default function Page() {
             {", "}
             <SkillSpark />
             {", "}
-            <Skill skill="Kafka" />
-            {", "}
             <SkillAirflow />
-            {", "}
-            <Skill skill="AWS" />
-            {", "}
-            <Skill skill="BigQuery" />
-            {", "}
-            <Skill skill="Data Studio" />
             {", "}
             <SkillPython />
             {", "}
-            <SkillRust />
-            {", "}
-            <SkillTypescript />.
-          </div>
-          <div>
-            <strong>DevOps:</strong> <SkillCICD />
-            {", "}
-            <SkillKubernetes />
-            {", "}
-            <SkillHelm />.
-          </div>
-        </div>
-      </Section>
+            <SkillRust />.
+          </Overview>
+        </header>
 
-      <footer className="cv-print-footer hidden print:block">
-        <Separator className="cv-footer-separator my-2" />
-        <p className="text-xs text-muted-foreground">
-          Live version at{" "}
-          <Link
-            href="https://duyet.net/cv"
-            className="underline"
-            target="_blank"
-          >
-            https://duyet.net/cv
-          </Link>
-        </p>
-      </footer>
+        <Section title="Experience">
+          <div className="flex flex-col gap-5">
+            {experience.map((exp) => (
+              <ExperienceItem
+                key={exp.id}
+                title={exp.title}
+                company={exp.company}
+                companyUrl={exp.companyUrl}
+                companyLogo={exp.companyLogo}
+                companyLogoClassName={exp.companyLogoClassName}
+                from={exp.from}
+                to={exp.to}
+                responsibilities={exp.responsibilities}
+              />
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Education">
+          {education.map((edu) => (
+            <Education
+              key={edu.id}
+              major={edu.major}
+              thesis={edu.thesis}
+              thesisUrl={edu.thesisUrl}
+              university={edu.university}
+              period={edu.period}
+            />
+          ))}
+        </Section>
+
+        <Section title="Skills">
+          <div className="flex flex-col gap-2">
+            <div>
+              <strong>Data Engineering:</strong>{" "}
+              <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
+              {", "}
+              <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
+              {", "}
+              <SkillClickHouse />
+              {", "}
+              <SkillSpark />
+              {", "}
+              <Skill skill="Kafka" />
+              {", "}
+              <SkillAirflow />
+              {", "}
+              <Skill skill="AWS" />
+              {", "}
+              <Skill skill="BigQuery" />
+              {", "}
+              <Skill skill="Data Studio" />
+              {", "}
+              <SkillPython />
+              {", "}
+              <SkillRust />
+              {", "}
+              <SkillTypescript />.
+            </div>
+            <div>
+              <strong>DevOps:</strong> <SkillCICD />
+              {", "}
+              <SkillKubernetes />
+              {", "}
+              <SkillHelm />.
+            </div>
+          </div>
+        </Section>
+
+        <footer className="cv-print-footer hidden print:block">
+          <Separator className="cv-footer-separator my-2" />
+          <p className="text-xs text-muted-foreground">
+            Live version at{" "}
+            <Link
+              href="https://duyet.net/cv"
+              className="underline"
+              target="_blank"
+            >
+              https://duyet.net/cv
+            </Link>
+          </p>
+        </footer>
+      </div>
     </div>
   );
 }
