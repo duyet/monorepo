@@ -133,7 +133,7 @@ const REPO_COMMIT_QUERY = `
   }
 `;
 
-export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
+export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
   private owners: string[];
 
   constructor(client: ClickHouseClient, owner?: string | string[]) {
@@ -154,7 +154,10 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
   }
 
   protected async fetchFromApi(options: SyncOptions): Promise<any[]> {
-    const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+    const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
+    if (!token) {
+      throw new Error("GITHUB_TOKEN or GH_TOKEN environment variable is required");
+    }
 
     // Calculate since date if startDate is provided
     const since = options.startDate

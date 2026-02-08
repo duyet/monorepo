@@ -5,10 +5,13 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
+    "moduleResolution": "bundler",
+    "types": ["@types/bun"],
     "outDir": "./dist",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
