@@ -24,6 +24,19 @@ const iconProps = {
   size: 16,
 };
 
+/**
+ * ThemeToggle component - allows switching between light, dark, and system themes
+ *
+ * Uses next-themes for theme persistence and Radix UI for accessible toggle buttons.
+ * Handles hydration mismatch by waiting for client-side mount.
+ *
+ * @example
+ * ```tsx
+ * import { ThemeToggle } from '@duyet/components'
+ *
+ * <ThemeToggle />
+ * ```
+ */
 export default function ThemeToggle() {
   // Avoid hydration mismatch
   // https://github.com/pacocoursey/next-themes#avoid-hydration-mismatch
@@ -42,8 +55,6 @@ export default function ThemeToggle() {
   const onChange = (value: string) => {
     if (value) setTheme(value);
   };
-
-  console.log("current theme", theme);
 
   return (
     <ToggleGroup.Root

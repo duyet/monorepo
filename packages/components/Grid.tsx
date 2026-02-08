@@ -2,11 +2,25 @@ import type { Post } from "@duyet/interfaces";
 import Link from "next/link";
 import { Thumb } from "./Thumb";
 
-export type Props = {
+/**
+ * Props for the Grid component
+ */
+export type GridProps = {
+  /** Array of posts to display in a grid layout */
   posts: Post[];
 };
 
-export default function Gird({ posts }: Props) {
+/**
+ * Grid component - displays posts in a responsive 3-column grid layout
+ *
+ * @example
+ * ```tsx
+ * import { Grid } from '@duyet/components'
+ *
+ * <Grid posts={posts} />
+ * ```
+ */
+export default function Grid({ posts }: GridProps) {
   if (!posts) {
     return null;
   }
@@ -20,13 +34,17 @@ export default function Gird({ posts }: Props) {
   );
 }
 
+/**
+ * GridItem component - individual item within the grid
+ * @internal
+ */
 export function GridItem({ post }: { post: Post }) {
   return (
     <article key={post.slug} className="mb-12 bg-gray-100 p-5 border-xl">
       <Thumb url={post.thumbnail} alt={post.title} width={500} height={500} />
 
       <p className="mt-4 leading-relaxed">
-        <Link as={`${post.slug}`} href="/[...slug]">
+        <Link href={`/${post.slug}`}>
           {post.title}
         </Link>
       </p>
