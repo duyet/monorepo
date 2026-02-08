@@ -100,3 +100,60 @@
   --color-claude-rose: var(--claude-rose);
   --color-claude-neutral: var(--claude-neutral);
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Reduce padding on mobile */
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Make charts responsive */
+  .recharts-wrapper {
+    min-height: 200px !important;
+  }
+
+  /* Optimize cards for mobile */
+  .rounded-3xl {
+    border-radius: 1rem;
+  }
+
+  /* Make text more readable on mobile */
+  body {
+    font-size: 16px;
+  }
+
+  /* Hide non-critical elements on very small screens */
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Optimize charts for mobile */
+@media (max-width: 640px) {
+  .recharts-tooltip {
+    font-size: 12px;
+  }
+
+  .recharts-legend-wrapper {
+    font-size: 11px;
+  }
+}
