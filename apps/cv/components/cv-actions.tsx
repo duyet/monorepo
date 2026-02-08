@@ -1,13 +1,11 @@
 "use client";
 
-import { Download, FileText, LinkIcon, Mail, Printer, Share2, X } from "lucide-react";
+import { Download, LinkIcon, Mail, Printer, Share2 } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@duyet/components/ui/button";
-
 export function CvActions() {
-  const [isPreviewMode, setIsPreviewMode] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const handlePrint = () => {
     window.print();
@@ -39,6 +37,8 @@ export function CvActions() {
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
       setShowShareOptions(false);
     } catch (error) {
       console.error("Failed to copy link:", error);
@@ -54,102 +54,85 @@ export function CvActions() {
     setShowShareOptions(false);
   };
 
-  const togglePrintPreview = () => {
-    setIsPreviewMode(!isPreviewMode);
-    document.body.classList.toggle("print-preview", !isPreviewMode);
-  };
-
   return (
     <>
-      <div className="flex flex-wrap gap-2 print:hidden">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handlePrint}
-          className="gap-2"
-        >
-          <Printer className="h-4 w-4" />
-          Print
-        </Button>
+      {/* Print Preview Modal */}
+      <div id="print-preview" className="hidden print:block" />
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={togglePrintPreview}
-          className="gap-2"
-        >
-          <FileText className="h-4 w-4" />
-          {isPreviewMode ? "Exit Preview" : "Preview"}
-        </Button>
-
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleDownloadPDF}
-          className="gap-2"
-        >
-          <Download className="h-4 w-4" />
-          Download
-        </Button>
-
-        <div className="relative">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowShareOptions(!showShareOptions)}
-            className="gap-2"
-          >
-            <Share2 className="h-4 w-4" />
-            Share
-          </Button>
-
-          {showShareOptions && (
-            <>
-              <div
-                className="fixed inset-0 z-40"
-                onClick={() => setShowShareOptions(false)}
-              />
-              <div className="absolute right-0 top-full z-50 mt-2 min-w-[160px] rounded-md border bg-popover p-1 shadow-md">
-                <button
-                  onClick={handleCopyLink}
-                  className="flex w-full items-center gap-2 rounded-sm px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                >
-                  <LinkIcon className="h-4 w-4" />
-                  Copy Link
-                </button>
-                <button
-                  onClick={handleShareViaEmail}
-                  className="flex w-full items-center gap-2 rounded-sm px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                >
-                  <Mail className="h-4 w-4" />
-                  Email
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
-      {isPreviewMode && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 print:hidden">
-          <div className="max-h-[90vh] w-full max-w-4xl overflow-auto rounded-lg bg-white p-8 shadow-2xl dark:bg-gray-900">
-            <div className="mb-4 flex justify-end">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={togglePrintPreview}
-                className="gap-2"
+      {/* Clean Footer Actions - Only visible on screen, hidden on print */}
+      <footer className="mt-16 border-t print:hidden">
+        <div className="mx-auto max-w-4xl px-4 py-8">
+          <div className="flex flex-col items-center justify-center gap-6">
+            {/* Main Actions */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={handlePrint}
+                className="group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800"
               >
-                <X className="h-4 w-4" />
-                Close Preview
-              </Button>
+                <Printer className="h-4 w-4" />
+                Print
+              </button>
+
+              <button
+                onClick={handleDownloadPDF}
+                className="group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+              >
+                <Download className="h-4 w-4" />
+                Download PDF
+              </button>
+
+              <div className="relative">
+                <button
+                  onClick={() => setShowShareOptions(!showShareOptions)}
+                  className="group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Share
+                </button>
+
+                {showShareOptions && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowShareOptions(false)}
+                    />
+                    <div className="absolute bottom-full left-1/2 z-50 mb-2 -translate-x-1/2 min-w-[200px] rounded-xl border bg-white p-2 shadow-lg dark:bg-gray-900 dark:border-gray-800">
+                      <button
+                        onClick={handleCopyLink}
+                        className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                      >
+                        <LinkIcon className="h-4 w-4 flex-shrink-0" />
+                        <span>{copiedLink ? "Copied!" : "Copy Link"}</span>
+                      </button>
+                      <button
+                        onClick={handleShareViaEmail}
+                        className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                      >
+                        <Mail className="h-4 w-4 flex-shrink-0" />
+                        <span>Email</span>
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="origin-scale-100 scale-95 print:scale-100">
-              <div id="print-preview-content" />
-            </div>
+
+            {/* Small copyright note */}
+            <p className="text-center text-xs text-gray-400">
+              © {new Date().getFullYear()} Duyet Le. All rights reserved.
+            </p>
           </div>
         </div>
-      )}
+      </footer>
+
+      {/* Print Preview Styles */}
+      <style jsx>{`
+        @media print {
+          footer {
+            display: none;
+          }
+        }
+      `}</style>
     </>
   );
 }
