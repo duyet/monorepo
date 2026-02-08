@@ -10,6 +10,7 @@ interface FeaturedCardProps {
   date?: string;
   color?: "terracotta" | "sage" | "coral" | "lavender";
   className?: string;
+  prefetch?: boolean;
 }
 
 const colorClasses = {
@@ -34,15 +35,18 @@ export function FeaturedCard({
   date,
   color = "terracotta",
   className,
+  prefetch = false,
 }: FeaturedCardProps) {
   return (
     <Link
       href={href}
+      prefetch={prefetch}
       className={cn(
-        "group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-lg md:p-12",
+        "group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-lg md:p-12 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900",
         colorClasses[color],
         className
       )}
+      aria-label={title}
     >
       <div className="relative z-10 flex flex-col gap-4">
         {category && (

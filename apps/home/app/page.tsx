@@ -2,6 +2,44 @@ import { AiContentCard, ContentCard, LinkCard } from "@duyet/components";
 import Link from "next/link";
 import { nodes } from "../../homelab/lib/data/nodes";
 
+// JSON-LD Structured Data for Person
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Duyet Le",
+  url: "https://duyet.net",
+  jobTitle: "Data Engineer",
+  description:
+    "Data Engineer building data infrastructure with expertise in Rust, TypeScript, and open source.",
+  sameAs: [
+    "https://github.com/duyet",
+    "https://linkedin.com/in/duyet",
+    "https://blog.duyet.net",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "Self-employed",
+  },
+};
+
+// JSON-LD Structured Data for WebSite
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "duyet.net",
+  url: "https://duyet.net",
+  description: "Personal homepage of Duyet Le, Data Engineer",
+  author: {
+    "@type": "Person",
+    name: "Duyet Le",
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://duyet.net/search?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export const dynamic = "force-static";
 export const revalidate = 3600;
 
@@ -37,20 +75,34 @@ function addUtmParams(
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center bg-neutral-50">
-      <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-12">
-        {/* Header */}
-        <div className="mb-8 text-center sm:mb-12">
-          <h1 className="mb-4 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
-            Duyet
-          </h1>
-          <p className="text-base leading-relaxed text-neutral-700 sm:text-lg">
-            Data Engineering
-          </p>
-        </div>
+    <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([jsonLd, webSiteJsonLd]),
+        }}
+      />
 
-        {/* Links Grid */}
-        <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="flex min-h-screen items-center bg-gradient-to-br from-neutral-50 via-neutral-50 to-amber-50/30 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
+        <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-12">
+          {/* Header with glassmorphism effect */}
+          <div className="mb-8 text-center sm:mb-12">
+            <div className="relative inline-block">
+              {/* Subtle gradient glow behind header */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-amber-100 via-orange-100 to-rose-100 opacity-50 blur-xl dark:from-amber-900/20 dark:via-orange-900/20 dark:to-rose-900/20" />
+              <h1 className="relative mb-4 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl dark:text-neutral-100">
+                Duyet
+              </h1>
+            </div>
+            <p className="relative text-base leading-relaxed text-neutral-700 sm:text-lg dark:text-neutral-300">
+              Data Engineering
+            </p>
+          </div>
+
+          {/* Links Grid with enhanced spacing and prefetching */}
+          <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="animate-fade-in">
           <AiContentCard
             title="Blog"
             href={addUtmParams(
@@ -64,7 +116,11 @@ export default function HomePage() {
             illustration="blob"
             featured
             cardType="blog"
+            prefetch={true}
           />
+          </div>
+
+          <div className="animate-fade-in animation-delay-100">
 
           <ContentCard
             title="Resume"
@@ -77,7 +133,11 @@ export default function HomePage() {
             description="Experience building scalable data infrastructure and leading engineering teams."
             color="oat"
             illustration="wavy"
+            prefetch={true}
           />
+          </div>
+
+          <div className="animate-fade-in animation-delay-200">
 
           <ContentCard
             title="Insights"
@@ -91,7 +151,11 @@ export default function HomePage() {
             color="cactus"
             tags={["Coding Stats", "Website Traffic", "LLM Token Usage"]}
             illustration="wavy"
+            prefetch={true}
           />
+          </div>
+
+          <div className="animate-fade-in animation-delay-300">
 
           <ContentCard
             title="Homelab"
@@ -105,7 +169,11 @@ export default function HomePage() {
             color="lavender"
             tags={homelabNodes}
             illustration="geometric"
+            prefetch={true}
           />
+          </div>
+
+          <div className="animate-fade-in animation-delay-400">
 
           <LinkCard
             title="Photos"
@@ -118,7 +186,11 @@ export default function HomePage() {
             description="Photography portfolio and visual stories from travels and daily life."
             color="cream"
             backgroundImage="https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872"
+            prefetch={true}
           />
+          </div>
+
+          <div className="animate-fade-in animation-delay-500">
 
           <LinkCard
             title="Chat"
@@ -129,7 +201,11 @@ export default function HomePage() {
             )}
             description="Experimental @duyetbot LLM base for questions about duyet.net and related topics."
             color="sage"
+            prefetch={true}
           />
+          </div>
+
+          <div className="animate-fade-in">
 
           <LinkCard
             title="About"
@@ -137,57 +213,75 @@ export default function HomePage() {
             description="Learn more about my experience, skills, and professional background."
             color="ivory"
           />
+          </div>
         </div>
 
-        {/* Social Links */}
-        <div className="flex flex-wrap justify-center gap-6 text-sm font-medium text-neutral-600 sm:gap-10">
-          <Link
-            href={addUtmParams(
-              "https://github.com/duyet",
-              "homepage",
-              "footer_github"
-            )}
-            target="_blank"
-            className="transition-colors duration-200 hover:text-neutral-900"
+          {/* Social Links with enhanced accessibility and micro-interactions */}
+          <nav
+            className="flex flex-wrap justify-center gap-6 text-sm font-medium text-neutral-600 sm:gap-10 dark:text-neutral-400"
+            aria-label="Social links and resources"
           >
-            GitHub
-          </Link>
-          <Link
-            href={addUtmParams(
-              "https://linkedin.com/in/duyet",
-              "homepage",
-              "footer_linkedin"
-            )}
-            target="_blank"
-            className="transition-colors duration-200 hover:text-neutral-900"
-          >
-            LinkedIn
-          </Link>
-          <Link
-            href="/ls"
-            className="transition-colors duration-200 hover:text-neutral-900"
-          >
-            Short URLs
-          </Link>
-          <a
-            href="/llms.txt"
-            className="transition-colors duration-200 hover:text-neutral-900"
-          >
-            llms.txt
-          </a>
-          <Link
-            href={addUtmParams(
-              "https://status.duyet.net",
-              "homepage",
-              "footer_status"
-            )}
-            target="_blank"
-            className="transition-colors duration-200 hover:text-neutral-900"
-          >
-            Status
-          </Link>
+            <Link
+              href={addUtmParams(
+                "https://github.com/duyet",
+                "homepage",
+                "footer_github"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative transition-all duration-200 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-md dark:hover:text-neutral-100 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900"
+              aria-label="Visit GitHub profile"
+            >
+              GitHub
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <Link
+              href={addUtmParams(
+                "https://linkedin.com/in/duyet",
+                "homepage",
+                "footer_linkedin"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative transition-all duration-200 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-md dark:hover:text-neutral-100 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900"
+              aria-label="Visit LinkedIn profile"
+            >
+              LinkedIn
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <Link
+              href="/ls"
+              className="group relative transition-all duration-200 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-md dark:hover:text-neutral-100 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900"
+              aria-label="View short URLs directory"
+            >
+              Short URLs
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <a
+              href="/llms.txt"
+              className="group relative transition-all duration-200 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-md dark:hover:text-neutral-100 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900"
+              aria-label="View llms.txt file for LLM context"
+            >
+              llms.txt
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 group-hover:w-full" />
+            </a>
+            <Link
+              href={addUtmParams(
+                "https://status.duyet.net",
+                "homepage",
+                "footer_status"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative transition-all duration-200 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-md dark:hover:text-neutral-100 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900"
+              aria-label="View system status page"
+            >
+              Status
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 group-hover:w-full" />
+            </Link>
+          </nav>
         </div>
       </div>
-    </div>
+    </>
   );
 }
