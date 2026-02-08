@@ -136,17 +136,49 @@ const getDataForPeriod = async (days: number) => {
     Authorization: `Bearer ${authToken}`,
   };
 
-  const data: CloudflareAnalyticsByDate = await request(
-    "https://api.cloudflare.com/client/v4/graphql",
-    query,
-    variables,
-    headers
-  );
+  let data: CloudflareAnalyticsByDate;
+  try {
+    data = await request(
+      "https://api.cloudflare.com/client/v4/graphql",
+      query,
+      variables,
+      headers
+    );
+  } catch (error) {
+    console.error("[Cloudflare] GraphQL request failed:", error instanceof Error ? error.message : String(error));
+    return {
+      data: {
+        viewer: {
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
+      },
+      totalRequests: 0,
+      totalPageviews: 0,
+    };
+  }
 
   const zone = data.viewer.zones[0];
 
   if (!zone || !zone.httpRequests1dGroups) {
-    throw new Error("No zone data returned from Cloudflare API");
+    console.error("No zone data returned from Cloudflare API");
+    // Return empty data instead of throwing to avoid SSG serialization issues
+    return {
+      data: {
+        viewer: {
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
+      },
+      totalRequests: 0,
+      totalPageviews: 0,
+    };
   }
 
   const totalRequests = zone.httpRequests1dGroups.reduce(

@@ -115,8 +115,6 @@ self.addEventListener("fetch", (event) => {
  * Handle request based on cache strategy
  */
 async function handleRequest(request, strategy) {
-  const url = new URL(request.url);
-
   switch (strategy) {
     case "cacheFirst":
       return cacheFirst(request);
@@ -248,7 +246,7 @@ async function syncData() {
  * Handle messages from clients
  */
 self.addEventListener("message", (event) => {
-  const { type, data } = event.data;
+  const { type } = event.data;
 
   switch (type) {
     case "SKIP_WAITING":
@@ -290,5 +288,4 @@ async function getCacheStatus(port) {
   port.postMessage({ type: "CACHE_STATUS", data: status });
 }
 
-// Export for TypeScript
-export {};
+// Note: TypeScript types for service worker should be in a separate .d.ts file

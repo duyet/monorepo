@@ -36,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps) {
       suppressHydrationWarning
     >
       <Head />
-      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
+      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased" suppressHydrationWarning>
         <ThemeProvider>
           <ServiceWorkerProvider />
           <Header
