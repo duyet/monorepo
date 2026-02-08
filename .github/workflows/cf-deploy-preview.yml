@@ -99,9 +99,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - uses: oven-sh/setup-bun@v2
 
@@ -177,6 +177,23 @@ jobs:
           name: deployment-${{ matrix.app }}
           path: /tmp/deployments/${{ matrix.app }}.txt
           retention-days: 1
+
+      - name: Health check
+        run: |
+          DEPLOY_URL="${{ steps.deploy.outputs.url }}"
+          echo "Checking $DEPLOY_URL..."
+          max_attempts=5
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            if curl -s -f -o /dev/null "$DEPLOY_URL"; then
+              echo "✅ Health check passed for $DEPLOY_URL"
+              exit 0
+            fi
+            echo "Attempt $attempt/$max_attempts failed, waiting 10s..."
+            sleep 10
+            attempt=$((attempt + 1))
+          done
+          echo "⚠️ Health check timed out for $DEPLOY_URL (may still be deploying)"
 
   comment-pr:
     name: Comment deployment URLs

@@ -1,5 +1,8 @@
 import { getAllPosts } from "@duyet/libs/getPost";
+import { getRelatedPosts } from "@duyet/libs/getRelatedPosts";
 import type { Metadata } from "next";
+import { ReadingProgress } from "@/components/post/ReadingProgress";
+import { RelatedPosts } from "@/components/post/RelatedPosts";
 import { TableOfContents } from "@/components/post/TableOfContents";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
@@ -50,13 +53,18 @@ export default async function Post({ params }: PostProps) {
   const slug = rawSlug.replace(/\.(md|html)$/, "");
   const post = await getPost([year, month, slug]);
 
+  // Get related posts based on tags and category
+  const relatedPosts = getRelatedPosts(post, 4);
+
   return (
     <div className="relative">
+      <ReadingProgress />
       {/* Main content - centered, original width */}
       <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <article>
           <Content post={post} />
           <Meta className="mt-10" post={post} />
+          <RelatedPosts posts={relatedPosts} />
         </article>
       </div>
 

@@ -7,44 +7,11 @@
 import type { Profile } from "@duyet/profile";
 import type {
   AppUrls,
-  DeepPartial,
   Navigation,
   NavLink,
   UrlsConfig,
 } from "./types";
-
-/**
- * Deep merge helper
- *
- * Recursively merges two objects, with source values overriding target values.
- *
- * @param target - Base object
- * @param source - Override object
- * @returns Merged object
- */
-function deepMerge<T extends object>(target: T, source: DeepPartial<T>): T {
-  const result = { ...target };
-
-  for (const key in source) {
-    const sourceValue = source[key];
-    const targetValue = result[key];
-
-    if (
-      sourceValue &&
-      typeof sourceValue === "object" &&
-      !Array.isArray(sourceValue) &&
-      targetValue &&
-      typeof targetValue === "object" &&
-      !Array.isArray(targetValue)
-    ) {
-      result[key] = deepMerge(targetValue, sourceValue as any) as any;
-    } else if (sourceValue !== undefined) {
-      result[key] = sourceValue as any;
-    }
-  }
-
-  return result;
-}
+import { deepMerge, type DeepPartial } from "@duyet/libs";
 
 /**
  * Create a custom URLs configuration

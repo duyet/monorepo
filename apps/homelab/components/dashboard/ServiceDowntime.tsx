@@ -6,7 +6,7 @@ import { useDowntimeHistory } from "@/hooks/useDashboard";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 
 export function ServiceDowntime() {
-  const downtimeHistory = useDowntimeHistory();
+  const { downtimeHistory } = useDowntimeHistory();
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
@@ -34,7 +34,7 @@ export function ServiceDowntime() {
           </div>
         ) : (
           <div className="space-y-2">
-            {downtimeHistory.map((incident, index) => (
+            {downtimeHistory.map((incident: any, index: number) => (
               <div
                 key={index}
                 className="flex items-start gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-2 dark:border-neutral-800 dark:bg-neutral-900/50"

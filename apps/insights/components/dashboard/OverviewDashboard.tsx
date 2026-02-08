@@ -13,7 +13,7 @@ import { getWakaTimeMetrics } from "@/app/wakatime/wakatime-utils";
 import {
   CompactAreaChart,
   CompactPieChart,
-} from "@/components/charts/CompactChart";
+} from "@/components/charts/LazyCharts";
 import { CompactCard } from "@/components/ui/CompactCard";
 
 // Format tokens with B/M/K suffixes (consistent with AI tab)

@@ -5,7 +5,7 @@ import {
   ClaudeCardGrid,
   ClaudeCardNested,
 } from "./blog/ClaudeCard";
-import { CodeBlock } from "./blog/CodeBlock";
+import { LazyCodeBlock } from "./blog/LazyCodeBlock";
 import { ComparisonList } from "./blog/ComparisonList";
 import { InfoBox } from "./blog/InfoBox";
 // Import components directly for RSC compatibility
@@ -56,7 +56,7 @@ export const mdxComponents: MDXComponents = {
   ClaudeCard,
   ClaudeCardGrid,
   ClaudeCardNested,
-  pre: CodeBlock,
+  pre: LazyCodeBlock,
   Image,
   img: Image, // Handle standard markdown image syntax ![alt](url)
 };

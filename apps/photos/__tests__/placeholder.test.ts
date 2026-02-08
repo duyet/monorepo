@@ -1,3 +1,6 @@
-import { test } from "bun:test";
+import { test, expect } from "bun:test";
 
-test("placeholder", () => {});
+// Placeholder test for photos app
+test("photos app test suite is configured", () => {
+  expect(true).toBe(true);
+});

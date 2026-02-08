@@ -26,6 +26,8 @@
  * ```
  */
 
+import { type DeepPartial, deepMerge } from "@duyet/libs";
+
 /**
  * Personal information about the profile owner
  */
@@ -99,43 +101,6 @@ export interface Profile {
   social: SocialLinks;
   /** Visual appearance and branding */
   appearance: Appearance;
-}
-
-/**
- * Deep partial type for profile overrides
- */
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
-};
-
-/**
- * Deep merge two objects
- * Later values override earlier values
- */
-function deepMerge<T extends object>(target: T, source: DeepPartial<T>): T {
-  const result = { ...target };
-
-  for (const key in source) {
-    const sourceValue = source[key];
-    const targetValue = result[key];
-
-    if (
-      sourceValue &&
-      typeof sourceValue === "object" &&
-      !Array.isArray(sourceValue) &&
-      targetValue &&
-      typeof targetValue === "object" &&
-      !Array.isArray(targetValue)
-    ) {
-      // Recursively merge objects
-      result[key] = deepMerge(targetValue, sourceValue as any) as any;
-    } else if (sourceValue !== undefined) {
-      // Override primitive values
-      result[key] = sourceValue as any;
-    }
-  }
-
-  return result;
 }
 
 /**

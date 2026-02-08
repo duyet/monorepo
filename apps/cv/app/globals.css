@@ -128,11 +128,14 @@
     line-height: 1.3 !important;
     background: white !important;
     color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   /* Remove underlines from all links in print */
   a {
     text-decoration: none !important;
+    color: inherit !important;
   }
 
   /* Compress layout for single page */
@@ -166,6 +169,15 @@
   h1 {
     font-size: 18pt !important;
     margin-bottom: 0.3rem !important;
+  }
+
+  h2 {
+    font-size: 14pt !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  h3 {
+    font-size: 12pt !important;
   }
 
   /* Compact sections */
@@ -255,4 +267,43 @@
     opacity: 0.5 !important;
     background: transparent !important;
   }
+
+  /* Optimize list styling */
+  ul {
+    margin: 0 !important;
+    padding-left: 1.2rem !important;
+  }
+
+  li {
+    margin: 0.1rem 0 !important;
+  }
+
+  /* Company logos - convert to grayscale for print */
+  img {
+    filter: grayscale(100%) !important;
+  }
+
+  /* Ensure text is readable in print */
+  .text-gray-600,
+  .text-gray-300 {
+    color: #333 !important;
+  }
+
+  .dark\:text-gray-300 {
+    color: #333 !important;
+  }
+
+  .dark\:text-gray-400 {
+    color: #666 !important;
+  }
+}
+
+/* Print preview mode styles */
+body.print-preview {
+  overflow: hidden !important;
+}
+
+body.print-preview main {
+  position: relative;
+  z-index: 1;
 }
