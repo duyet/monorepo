@@ -38,7 +38,7 @@ jobs:
         run: bun install
 
       - name: Type check
-        run: bun run check-types
+        run: bun run turbo check-types
 
   unittest:
     runs-on: ubuntu-latest
@@ -107,11 +107,5 @@ jobs:
         run: bun install
 
       - name: Run npm audit
-        run: bun audit && bunx audit-ci --moderate
+        run: bun audit
         continue-on-error: true
-
-      - name: Upload SARIF
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: audit-results.sarif
