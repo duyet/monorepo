@@ -1,0 +1,17 @@
+name = "duyet-agents-api"
+main = "chat-api.ts"
+compatibility_date = "2024-01-01"
+
+# Enable Workers Observability for analytics and logging
+[observability]
+enabled = true
+
+# AI binding for Workers AI (no API key needed)
+[ai]
+binding = "AI"
+
+# Environment variables
+[vars]
+# AI Gateway name for analytics, rate limiting, and caching
+# Must be configured in Cloudflare dashboard: https://dash.cloudflare.com/?to=/:account/ai/ai-gateway
+AI_GATEWAY = "monorepo"
