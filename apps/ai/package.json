@@ -6,16 +6,15 @@
     "dev": "next dev -p 3002",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "biome lint .",
     "check-types": "tsc --noEmit",
-    "fmt": "prettier --write \"**/*.{js,ts,tsx,jsx,json,md,toml,yaml,yml,css,scss}\" --ignore-path ../../.gitignore .",
-    "prettier-check": "prettier --check .",
+    "fmt": "bun run fix",
+    "fix": "biome check --write .",
     "preview": "opennextjs-cloudflare build && wrangler dev",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types"
   },
-  "prettier": "@duyet/prettier",
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",
@@ -29,9 +28,7 @@
     "wrangler": "^4"
   },
   "devDependencies": {
-    "@duyet/eslint-config-custom": "*",
     "@duyet/interfaces": "*",
-    "@duyet/prettier": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@tailwindcss/postcss": "^4",
@@ -39,9 +36,7 @@
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.12",
-    "eslint": "*",
     "postcss": "^8.4.18",
-    "prettier": "^3.0.0",
     "tailwindcss": "^4",
     "typescript": "*"
   }
