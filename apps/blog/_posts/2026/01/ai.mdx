@@ -42,7 +42,7 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
       { label: "opencode", link: "#opencode" }
     ]},
     { label: "Model", items: [
-      { label: "Opus 4.5", link: "#z-claude-mi-claude-or-claude" },
+      { label: "Opus 4.6", link: "#z-claude-mi-claude-or-claude" },
       { label: "GLM 4.7", link: "#z-claude-mi-claude-or-claude" }
     ]},
     { label: "Provider", items: [
@@ -162,6 +162,17 @@ Plan mode performs significantly better than just prompting directly. When you g
   </Step>
 </Steps>
 
+## Agent Teams
+
+[Agent Teams](https://code.claude.com/docs/en/agent-teams) just dropped - this is basically what I was trying to build with my [team-agents plugin](#parallel-agents). Multiple Claude Code sessions that actually talk to each other, not just report back to a parent. Now it's built-in. Enable with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`.
+
+Haven't tried it much yet, but I think this will become the new standard for how AI agents work together.
+
+Use cases I'm planning to try:
+- **Parallel code review** - spawn reviewers for security, performance, and test coverage, each applying a different lens to the same PR
+- **New features with clear boundaries** - each teammate owns a separate module without stepping on each other
+- **Debugging** - spawn teammates with different theories, have them try to disprove each other
+
 ## CLAUDE.md, AGENTS.md
 
 First thing Claude does when starting a session is read your `CLAUDE.md` file. Most people ignore it, but it's actually really important. It keeps things consistent across sessions and saves time - Claude doesn't need to re-investigate your project setup every time.
@@ -252,7 +263,7 @@ Core components:
 ...
 ```
 
-I was thinking of publishing it for general use, but it still needs a lot of work to be generic enough. (2026-01-25: Yes someone did it, check out [clawd.bot](https://clawd.bot) is a personal agent and I am really impressed, you might try it out). Don't expect too much from me though, some big name will probably do it first. I believe this is a milestone the industry has always wanted to reach before we get to AGI.
+I was thinking of publishing it for general use, but it still needs a lot of work to be generic enough. (2026-01-25: Yes someone did it, check out [OpenClaw](https://clawd.bot) (~~Clawdbot~~ → ~~BoltBot~~ → OpenClaw, they changed the name a few times) - a personal agent and I am really impressed, you might try it out). Don't expect too much from me though, some big name will probably do it first. I believe this is a milestone the industry has always wanted to reach before we get to AGI.
 
 [Claude Code + Ralph Loop](#claude-code-ralph-loop) is the easiest way to try this, it uses StopHook to extend your session and keep working for hours or days to complete your task. See Boris's explanation:
 
@@ -383,7 +394,7 @@ You can save and share sessions - handy when you want to show someone how you so
 
 I suggest trying [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode) - it adds some powerful workflows on top of opencode:
 
-- **Sisyphus agent** - an orchestrator (Opus 4.5) that "keeps the boulder rolling" through autonomous task completion. It uses subagents, background parallel execution, and won't stop until tasks are actually finished
+- **Sisyphus agent** - an orchestrator (Opus 4.6) that "keeps the boulder rolling" through autonomous task completion. It uses subagents, background parallel execution, and won't stop until tasks are actually finished
 - **Multi-model orchestration** - coordinates GPT-5.2, Gemini, and Claude by specialized purpose
 - **Background parallelization** - runs exploration and research tasks async while main work continues
 - **Magic word `ultrawork`** - add this to your prompt and it activates maximum orchestration: parallel agents, background tasks, deep exploration, relentless execution
