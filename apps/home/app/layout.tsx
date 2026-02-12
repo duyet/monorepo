@@ -6,7 +6,6 @@ import Head from "@duyet/components/Head";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { Inter, Libre_Baskerville } from "next/font/google";
-import PreconnectHints from "./components/PreconnectHints";
 
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
@@ -26,28 +25,6 @@ export const metadata = {
   title: "Duyet Le - Data Engineer",
   description:
     "Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net"
-  ),
-  openGraph: {
-    title: "Duyet Le - Data Engineer",
-    description:
-      "Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.",
-    url: "https://duyet.net",
-    siteName: "duyet.net",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: "Duyet Le - Data Engineer",
-    description:
-      "Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
 
 export default function RootLayout({
@@ -62,7 +39,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <Head />
-      <PreconnectHints />
       <body
         className={cn(
           "text-claude-black subpixel-antialiased",

@@ -334,29 +334,31 @@ export interface LocalPhoto {
   blur_hash?: string
 }
 
-// Unified photo type that can be either Unsplash or Local
-export type Photo =
-  | (UnsplashPhoto & { source: 'unsplash' })
-  | LocalPhoto
-
-// Type guard to check if a photo is from Unsplash
-export function isUnsplashPhoto(photo: Photo): photo is UnsplashPhoto & { source: 'unsplash' } {
-  return photo.source === 'unsplash' || 'user' in photo && 'links' in (photo as any).user
-}
+// Unified photo type that can be either a standard Photo or Local
+export type UnifiedPhoto = Photo | LocalPhoto;
 
 // Type guard to check if a photo is local
-export function isLocalPhoto(photo: Photo): photo is LocalPhoto {
-  return photo.source === 'local'
+export function isLocalPhoto(
+  photo: Photo | LocalPhoto
+): photo is LocalPhoto {
+  return "source" in photo && photo.source === "local";
+}
+
+// Type guard to check if a photo is a standard (non-local) Photo
+export function isStandardPhoto(
+  photo: Photo | LocalPhoto
+): photo is Photo {
+  return !isLocalPhoto(photo);
 }
 
 // Unified PhotosByYear that can contain both types
 export interface UnifiedPhotosByYear {
-  [year: string]: Photo[]
+  [year: string]: UnifiedPhoto[];
 }
 
 // Upload response from API
 export interface UploadResponse {
-  success: boolean
-  photo?: LocalPhoto
-  error?: string
+  success: boolean;
+  photo?: LocalPhoto;
+  error?: string;
 }

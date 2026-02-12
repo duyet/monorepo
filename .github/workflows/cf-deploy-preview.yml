@@ -141,6 +141,15 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
 
+          # Skip deploy if no static output directory exists
+          if [ ! -d "out" ]; then
+            echo "No 'out' directory found — app likely uses server-side rendering."
+            echo "Skipping Cloudflare Pages deploy for ${{ matrix.app }}."
+            echo "url=skipped" >> $GITHUB_OUTPUT
+            echo "branch=skipped" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           # Get branch name, sanitize for CF Pages (replace / with -)
           BRANCH="${{ github.head_ref }}"
           BRANCH_SLUG=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-28)

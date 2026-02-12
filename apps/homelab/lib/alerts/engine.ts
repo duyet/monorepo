@@ -179,7 +179,9 @@ export class AlertEngine {
         this.activeAlerts.set(existingKey, alert);
         this.alertHistory.push(alert);
         // Notify listeners
-        this.listeners.forEach((listener) => listener(alert));
+        for (const listener of this.listeners) {
+          listener(alert);
+        }
       }
     }
 
@@ -188,7 +190,7 @@ export class AlertEngine {
       allAlerts.map((a) => `${a.thresholdId}-${a.entity}`)
     );
 
-    for (const [key, alert] of this.activeAlerts) {
+    for (const [key, alert] of Array.from(this.activeAlerts.entries())) {
       if (!triggeredEntities.has(key)) {
         // Alert is resolved
         alert.status = "resolved";

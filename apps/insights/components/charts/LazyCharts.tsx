@@ -35,76 +35,78 @@ function ChartSkeleton({ height = 200, className = "" }: ChartSkeletonProps) {
   );
 }
 
-// Wrapper component for lazy-loaded charts
+/**
+ * Wraps a lazy component with a Suspense boundary and skeleton fallback.
+ * The Suspense here catches the thrown promise from React.lazy() during
+ * the dynamic import, displaying the skeleton until the chunk loads.
+ */
 function withLazyLoading<P extends object>(
-  Component: ComponentType<P>,
+  LazyComponent: ComponentType<P>,
   fallbackHeight = 200
 ) {
   return function LazyChart(props: P) {
     return (
       <Suspense fallback={<ChartSkeleton height={fallbackHeight} />}>
-        <Component {...props} />
+        <LazyComponent {...props} />
       </Suspense>
     );
   };
 }
 
-// Lazy load AreaChart component
-export const LazyAreaChart = lazy(() =>
-  import("./AreaChart").then((module) => ({
-    default: withLazyLoading(module.AreaChart, 200),
-  }))
+// Lazy load chart components — withLazyLoading wraps lazy() so Suspense
+// catches the dynamic import promise and shows the skeleton fallback.
+
+const RawLazyAreaChart = lazy(() =>
+  import("./AreaChart").then((m) => ({ default: m.AreaChart }))
+);
+export const LazyAreaChart = withLazyLoading(RawLazyAreaChart, 200);
+
+const RawLazyBarChart = lazy(() =>
+  import("./BarChart").then((m) => ({ default: m.BarChart }))
+);
+export const LazyBarChart = withLazyLoading(RawLazyBarChart, 200);
+
+const RawLazyDonutChart = lazy(() =>
+  import("./DonutChart").then((m) => ({ default: m.DonutChart }))
+);
+export const LazyDonutChart = withLazyLoading(RawLazyDonutChart, 200);
+
+const RawLazyCompactAreaChart = lazy(() =>
+  import("./CompactChart").then((m) => ({ default: m.CompactAreaChart }))
+);
+export const LazyCompactAreaChart = withLazyLoading(
+  RawLazyCompactAreaChart,
+  200
 );
 
-// Lazy load BarChart component
-export const LazyBarChart = lazy(() =>
-  import("./BarChart").then((module) => ({
-    default: withLazyLoading(module.BarChart, 200),
-  }))
+const RawLazyCompactLineChart = lazy(() =>
+  import("./CompactChart").then((m) => ({ default: m.CompactLineChart }))
+);
+export const LazyCompactLineChart = withLazyLoading(
+  RawLazyCompactLineChart,
+  200
 );
 
-// Lazy load DonutChart component
-export const LazyDonutChart = lazy(() =>
-  import("./DonutChart").then((module) => ({
-    default: withLazyLoading(module.DonutChart, 200),
-  }))
+const RawLazyCompactBarChart = lazy(() =>
+  import("./CompactChart").then((m) => ({ default: m.CompactBarChart }))
+);
+export const LazyCompactBarChart = withLazyLoading(
+  RawLazyCompactBarChart,
+  200
 );
 
-// Lazy load CompactChart components (heavier, more feature-rich charts)
-export const LazyCompactAreaChart = lazy(() =>
-  import("./CompactChart").then((module) => ({
-    default: (props: React.ComponentProps<typeof module.CompactAreaChart>) =>
-      withLazyLoading(module.CompactAreaChart, props.height ?? 200)(props),
-  }))
+const RawLazyCompactPieChart = lazy(() =>
+  import("./CompactChart").then((m) => ({ default: m.CompactPieChart }))
+);
+export const LazyCompactPieChart = withLazyLoading(
+  RawLazyCompactPieChart,
+  200
 );
 
-export const LazyCompactLineChart = lazy(() =>
-  import("./CompactChart").then((module) => ({
-    default: (props: React.ComponentProps<typeof module.CompactLineChart>) =>
-      withLazyLoading(module.CompactLineChart, props.height ?? 200)(props),
-  }))
+const RawLazyMiniSparkline = lazy(() =>
+  import("./CompactChart").then((m) => ({ default: m.MiniSparkline }))
 );
-
-export const LazyCompactBarChart = lazy(() =>
-  import("./CompactChart").then((module) => ({
-    default: (props: React.ComponentProps<typeof module.CompactBarChart>) =>
-      withLazyLoading(module.CompactBarChart, props.height ?? 200)(props),
-  }))
-);
-
-export const LazyCompactPieChart = lazy(() =>
-  import("./CompactChart").then((module) => ({
-    default: (props: React.ComponentProps<typeof module.CompactPieChart>) =>
-      withLazyLoading(module.CompactPieChart, props.height ?? 200)(props),
-  }))
-);
-
-export const LazyMiniSparkline = lazy(() =>
-  import("./CompactChart").then((module) => ({
-    default: (props: React.ComponentProps<typeof module.MiniSparkline>) =>
-      withLazyLoading(module.MiniSparkline, props.height ?? 40)(props),
-  }))
-);
+export const LazyMiniSparkline = withLazyLoading(RawLazyMiniSparkline, 40);
 
 // Re-export for convenience - use these in your components
 export {

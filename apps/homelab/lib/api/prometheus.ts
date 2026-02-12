@@ -10,6 +10,7 @@ export interface PrometheusQueryResult {
     result: Array<{
       metric: Record<string, string>;
       value?: [number, string];
+      values?: Array<[number, string]>;
     }>;
   };
 }
@@ -196,7 +197,7 @@ export class PrometheusClient {
       for (const item of inResult.data.result) {
         if (Array.isArray(item.values)) {
           for (const [timestamp, value] of item.values) {
-            const timeKey = new Date(parseInt(timestamp, 10) * 1000).toLocaleTimeString("en-US", {
+            const timeKey = new Date(timestamp * 1000).toLocaleTimeString("en-US", {
               hour: "2-digit",
               minute: "2-digit",
               hour12: false,

@@ -13,11 +13,6 @@ import { AlertStatusBanner } from "@/components/dashboard/AlertStatusBanner";
 import { useNodes, useServices } from "@/hooks/useDashboard";
 import { useAlerts } from "@/hooks/useAlerts";
 
-export const metadata = {
-  title: "Homelab Dashboard | duyet.net",
-  description: "Real-time monitoring dashboard for microk8s cluster",
-};
-
 export default function HomelabPage() {
   // Get data for alert evaluation
   const { nodes } = useNodes();
