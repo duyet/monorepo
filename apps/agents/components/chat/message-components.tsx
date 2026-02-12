@@ -22,7 +22,7 @@ export function UserMessage({ message }: { message: Message }) {
   };
 
   return (
-    <div className="flex justify-end gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+    <div className="flex justify-end gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 group">
       <div className="flex max-w-[85%] flex-col items-end gap-1">
         <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-primary-foreground shadow-sm">
           <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
@@ -71,7 +71,7 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeSanitize]}
               components={{
-                a: ({ node, ...props }) => (
+                a: ({ ...props }) => (
                   <a
                     {...props}
                     target="_blank"
@@ -79,27 +79,25 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
                     className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors underline-offset-2"
                   />
                 ),
-                code: ({ node, ...props }) => (
+                code: ({ ...props }) => (
                   <code
                     {...props}
                     className="px-1.5 py-0.5 bg-muted rounded text-sm font-mono"
                   />
                 ),
-                pre: ({ node, ...props }) => (
-                  <div className="relative group">
-                    <pre
-                      {...props}
-                      className="bg-muted-foreground/10 text-foreground p-4 rounded-xl overflow-x-auto text-sm border border-border/50"
-                    />
-                  </div>
+                pre: ({ ...props }) => (
+                  <pre
+                    {...props}
+                    className="bg-muted-foreground/10 text-foreground p-4 rounded-xl overflow-x-auto text-sm border border-border/50"
+                  />
                 ),
-                p: ({ node, ...props }) => (
+                p: ({ ...props }) => (
                   <p {...props} className="mb-2 last:mb-0" />
                 ),
-                ul: ({ node, ...props }) => (
+                ul: ({ ...props }) => (
                   <ul {...props} className="mb-2 last:mb-0 space-y-1 pl-4" />
                 ),
-                ol: ({ node, ...props }) => (
+                ol: ({ ...props }) => (
                   <ol {...props} className="mb-2 last:mb-0 space-y-1 pl-4" />
                 ),
               }}
@@ -160,7 +158,6 @@ export function WelcomeMessage({ content }: WelcomeMessageProps) {
   );
 }
 
-// Utility function for formatting relative time
 function formatRelativeTime(timestamp: number): string {
   const now = Date.now();
   const diff = now - timestamp;
