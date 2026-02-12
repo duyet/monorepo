@@ -61,7 +61,7 @@ export function getClickHouseClient(): ClickHouseClient | null {
       username: config.user,
       password: config.password,
       database: config.database,
-      request_timeout: 10000,
+      request_timeout: 15000,
       clickhouse_settings: {
         max_execution_time: 30,
         max_result_rows: "1000",
@@ -88,6 +88,8 @@ export async function executeQuery<T>(query: string): Promise<T[]> {
   }
 
   try {
+    let timer: ReturnType<typeof setTimeout>;
+
     const queryPromise = async () => {
       const result = await clickhouse.query({
         query,
@@ -97,14 +99,16 @@ export async function executeQuery<T>(query: string): Promise<T[]> {
       return (Array.isArray(data) ? data : []) as T[];
     };
 
-    const timeoutPromise = new Promise<T[]>((_, reject) =>
-      setTimeout(
+    const timeoutPromise = new Promise<T[]>((_, reject) => {
+      timer = setTimeout(
         () => reject(new Error("ClickHouse query timed out")),
         QUERY_TIMEOUT_MS
-      )
-    );
+      );
+    });
 
-    return await Promise.race([queryPromise(), timeoutPromise]);
+    const result = await Promise.race([queryPromise(), timeoutPromise]);
+    clearTimeout(timer!);
+    return result;
   } catch (error) {
     console.error("[Photos ClickHouse] Query failed:", error);
     return [];
