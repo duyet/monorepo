@@ -51,7 +51,7 @@ export interface AnalyticsToolParams {
 }
 
 // Cloudflare Pages Function environment
-export type Env = {}
+export type Env = Record<string, unknown>
 
 // Agent tool definitions for LLM
 export interface AgentTool {

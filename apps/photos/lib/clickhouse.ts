@@ -106,9 +106,11 @@ export async function executeQuery<T>(query: string): Promise<T[]> {
       );
     });
 
-    const result = await Promise.race([queryPromise(), timeoutPromise]);
-    clearTimeout(timer!);
-    return result;
+    try {
+      return await Promise.race([queryPromise(), timeoutPromise]);
+    } finally {
+      clearTimeout(timer!);
+    }
   } catch (error) {
     console.error("[Photos ClickHouse] Query failed:", error);
     return [];
