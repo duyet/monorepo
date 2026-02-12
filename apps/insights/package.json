@@ -39,6 +39,7 @@
     "@duyet/interfaces": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@types/bun": "latest",
     "@types/react": "^19.1.4",
     "typescript": "*"
   }

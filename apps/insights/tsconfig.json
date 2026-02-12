@@ -9,6 +9,7 @@
     "strictNullChecks": true,
     "allowJs": true,
     "baseUrl": ".",
+    "types": ["@types/bun"],
     "paths": {
       "@/*": ["./*"]
     }

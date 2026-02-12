@@ -25,6 +25,7 @@
  * - photos → photos.duyet.net (duyet-photos project)
  * - insights → insights.duyet.net (duyet-insights project)
  * - homelab → homelab.duyet.net (duyet-homelab project)
+ * - agents → agents.duyet.net (duyet-agents project)
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -122,6 +123,12 @@ const APPS_CONFIG: Record<
     name: "homelab",
     projectName: "duyet-homelab",
     domain: "homelab.duyet.net",
+    secrets: false,
+  },
+  agents: {
+    name: "agents",
+    projectName: "duyet-agents",
+    domain: "agents.duyet.net",
     secrets: false,
   },
 };
