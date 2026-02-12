@@ -108,11 +108,6 @@ export default function Page() {
 
   return (
     <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-foreground">
-      {/* CV Actions Toolbar */}
-      <div className="mb-4 print:hidden">
-        <CvActions />
-      </div>
-
       <div ref={cvRef} id="cv-content">
         <header className="flex flex-col gap-3">
           <h1
@@ -228,6 +223,9 @@ export default function Page() {
           </p>
         </footer>
       </div>
+
+      {/* CV Actions Footer - Clean design at bottom */}
+      <CvActions />
     </div>
   );
 }
