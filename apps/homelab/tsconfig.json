@@ -2,6 +2,7 @@
   "extends": "@duyet/tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "target": "es2015",
     "paths": {
       "@/*": ["./*"]
     },

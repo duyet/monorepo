@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    workbox?: unknown;
+  }
+}
+
 export function ServiceWorkerRegister() {
   const [_canInstall, setCanInstall] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
