@@ -33,7 +33,7 @@
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^22.0.0",
+    "@types/node": "^25.0.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.12",
