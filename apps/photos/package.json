@@ -39,6 +39,7 @@
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@types/react": "^19.1.4",
+    "tailwind-highlightjs": "^2.0.1",
     "typescript": "*"
   }
 }

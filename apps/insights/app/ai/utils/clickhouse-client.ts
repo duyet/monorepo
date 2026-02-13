@@ -131,6 +131,17 @@ export function getClickHouseClient() {
 }
 
 /**
+ * Check if we're in a build environment where ClickHouse may not be available
+ */
+function isBuildEnvironment(): boolean {
+  return (
+    process.env.NODE_ENV === "production" &&
+    !process.env.VERCEL &&
+    !process.env.CF_PAGES
+  );
+}
+
+/**
  * Execute ClickHouse query with retry logic and comprehensive error handling
  */
 export async function executeClickHouseQuery(
@@ -138,6 +149,15 @@ export async function executeClickHouseQuery(
   timeoutMs = 60000,
   maxRetries = 3
 ): Promise<QueryResult> {
+  // During local build, use shorter timeout and fewer retries
+  // since ClickHouse may not be accessible
+  if (isBuildEnvironment()) {
+    timeoutMs = 5000; // 5 second timeout during build
+    maxRetries = 1; // Only 1 retry during build
+    console.log(
+      "[ClickHouse Query] Build environment detected, using reduced timeout"
+    );
+  }
   console.log("[ClickHouse Query] Starting query execution:", {
     queryLength: query.length,
     timeout: timeoutMs,

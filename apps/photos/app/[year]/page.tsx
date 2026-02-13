@@ -88,7 +88,7 @@ export default async function YearPage({ params }: YearPageProps) {
   // This allows the build to succeed even when a year has no photos yet
   // (e.g., early in the current year before photos are added)
 
-  if (error) {
+  if (error && allPhotos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
