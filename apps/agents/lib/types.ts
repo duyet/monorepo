@@ -63,3 +63,50 @@ export interface AgentTool {
     required?: string[];
   };
 }
+
+// Agent types for multi-agent system
+export interface Agent {
+  id: string;
+  name: string;
+  description: string;
+  avatar?: string;
+  systemPrompt: string;
+  tools: AgentTool[];
+}
+
+// Tool execution tracking for transparency panel
+export interface ToolExecution {
+  id: string;
+  toolName: string;
+  parameters: Record<string, unknown>;
+  startTime: number;
+  endTime?: number;
+  status: "pending" | "running" | "complete" | "error";
+  result?: unknown;
+  error?: string;
+}
+
+// SSE event types for tool streaming
+export interface ToolStartEvent {
+  type: "tool_start";
+  tool: string;
+  params: Record<string, unknown>;
+}
+
+export interface ToolCompleteEvent {
+  type: "tool_complete";
+  tool: string;
+  result: unknown;
+}
+
+export interface ToolErrorEvent {
+  type: "tool_error";
+  tool: string;
+  error: string;
+}
+
+export type StreamEvent =
+  | ToolStartEvent
+  | ToolCompleteEvent
+  | ToolErrorEvent
+  | { type: "response"; response: string };

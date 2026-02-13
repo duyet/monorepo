@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import type { Message } from "@/lib/types";
+import type { Message, ToolExecution, Agent } from "@/lib/types";
+import { getDefaultAgent } from "@/lib/agents";
+import {
+  parseStreamEvent,
+  createToolExecution,
+} from "./use-activity";
 
 const CHAT_API_URL =
   process.env.NEXT_PUBLIC_CHAT_API_URL ||
@@ -22,6 +27,11 @@ export interface UseChatReturn {
   error: Error | null;
   stop: () => void;
   reload: () => Promise<void>;
+  // Agent and activity tracking
+  activeAgent: Agent;
+  setActiveAgent: (agent: Agent) => void;
+  toolExecutions: ToolExecution[];
+  thinkingSteps: string[];
 }
 
 export function useChat(options: UseChatOptions = {}): UseChatReturn {
@@ -32,6 +42,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState("");
   const [error, setError] = useState<Error | null>(null);
+  const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
+  const [toolExecutions, setToolExecutions] = useState<ToolExecution[]>([]);
+  const [thinkingSteps, setThinkingSteps] = useState<string[]>([]);
+
   const abortControllerRef = useRef<AbortController | null>(null);
   // Ref mirrors state to avoid stale closures in async callbacks
   const messagesRef = useRef(messages);
@@ -215,5 +229,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     error,
     stop,
     reload,
+    activeAgent,
+    setActiveAgent,
+    toolExecutions,
+    thinkingSteps,
   };
 }

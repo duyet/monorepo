@@ -6,23 +6,10 @@ const rootDir = path.resolve(__dirname, "../..");
 loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
 loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
-/**
- * @type {import('next').NextConfig}
- */
 const config = {
   // Use static export for Cloudflare Pages deployment
   output: "export",
   trailingSlash: true,
-  transpilePackages: ["@duyet/components", "@duyet/libs"],
-
-  // Fix turbopack root for monorepo builds
-  // Only set turbopack.root if not in Vercel build environment
-  ...(process.env.VERCEL !== '1' && {
-    turbopack: {
-      root: path.resolve(__dirname, "../.."),
-    },
-  }),
-
   images: {
     unoptimized: true,
     remotePatterns: [
