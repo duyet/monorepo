@@ -15,12 +15,12 @@ loadEnvConfig(
 
 const nextConfig = {
   reactStrictMode: true,
-  // Removed static export to enable API routes
-  // output: "export",
+  // Static export for Cloudflare Pages deployment
+  output: "export",
   transpilePackages: ["@duyet/components", "@duyet/config", "@duyet/libs"],
   // Enable image optimization for deployment
   images: {
-    unoptimized: false,
+    unoptimized: true,
   },
   // DNS prefetch and preconnect hints for external domains
   async headers() {

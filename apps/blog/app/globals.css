@@ -26,21 +26,21 @@
 /* Enhanced prose typography for better reading experience */
 @layer components {
   .prose {
-    --tw-prose-body: theme("colors.gray.700");
-    --tw-prose-headings: theme("colors.gray.900");
-    --tw-prose-links: theme("colors.blue.600");
-    --tw-prose-links-hover: theme("colors.blue.700");
-    --tw-prose-bold: theme("colors.gray.900");
-    --tw-prose-counters: theme("colors.gray.500");
-    --tw-prose-bullets: theme("colors.gray.300");
-    --tw-prose-hr: theme("colors.gray.200");
-    --tw-prose-quotes: theme("colors.gray.900");
-    --tw-prose-quote-borders: theme("colors.gray.200");
-    --tw-prose-code: theme("colors.gray.900");
-    --tw-prose-pre-code: theme("colors.gray.200");
-    --tw-prose-pre-bg: theme("colors.gray.900");
-    --tw-prose-th-borders: theme("colors.gray.200");
-    --tw-prose-td-borders: theme("colors.gray.200");
+    --tw-prose-body: var(--color-gray-700);
+    --tw-prose-headings: var(--color-gray-900);
+    --tw-prose-links: var(--color-blue-600);
+    --tw-prose-links-hover: var(--color-blue-700);
+    --tw-prose-bold: var(--color-gray-900);
+    --tw-prose-counters: var(--color-gray-500);
+    --tw-prose-bullets: var(--color-gray-300);
+    --tw-prose-hr: var(--color-gray-200);
+    --tw-prose-quotes: var(--color-gray-900);
+    --tw-prose-quote-borders: var(--color-gray-200);
+    --tw-prose-code: var(--color-gray-900);
+    --tw-prose-pre-code: var(--color-gray-200);
+    --tw-prose-pre-bg: var(--color-gray-900);
+    --tw-prose-th-borders: var(--color-gray-200);
+    --tw-prose-td-borders: var(--color-gray-200);
 
     /* Improved readability */
     font-size: 1.0625rem; /* Slightly larger base font */
@@ -50,21 +50,21 @@
 
   /* Dark mode prose overrides */
   .dark .prose {
-    --tw-prose-body: theme("colors.gray.300");
-    --tw-prose-headings: theme("colors.white");
-    --tw-prose-links: theme("colors.blue.400");
-    --tw-prose-links-hover: theme("colors.blue.300");
-    --tw-prose-bold: theme("colors.white");
-    --tw-prose-counters: theme("colors.gray.400");
-    --tw-prose-bullets: theme("colors.gray.600");
-    --tw-prose-hr: theme("colors.gray.700");
-    --tw-prose-quotes: theme("colors.gray.100");
-    --tw-prose-quote-borders: theme("colors.gray.700");
-    --tw-prose-code: theme("colors.gray.100");
-    --tw-prose-pre-code: theme("colors.gray.300");
-    --tw-prose-pre-bg: theme("colors.gray.800");
-    --tw-prose-th-borders: theme("colors.gray.700");
-    --tw-prose-td-borders: theme("colors.gray.700");
+    --tw-prose-body: var(--color-gray-300);
+    --tw-prose-headings: var(--color-white);
+    --tw-prose-links: var(--color-blue-400);
+    --tw-prose-links-hover: var(--color-blue-300);
+    --tw-prose-bold: var(--color-white);
+    --tw-prose-counters: var(--color-gray-400);
+    --tw-prose-bullets: var(--color-gray-600);
+    --tw-prose-hr: var(--color-gray-700);
+    --tw-prose-quotes: var(--color-gray-100);
+    --tw-prose-quote-borders: var(--color-gray-700);
+    --tw-prose-code: var(--color-gray-100);
+    --tw-prose-pre-code: var(--color-gray-300);
+    --tw-prose-pre-bg: var(--color-gray-800);
+    --tw-prose-th-borders: var(--color-gray-700);
+    --tw-prose-td-borders: var(--color-gray-700);
   }
 
   /* Enhanced heading styles with anchor links */
@@ -93,23 +93,23 @@
   }
 
   .prose ul > li::marker {
-    color: theme("colors.gray.400");
+    color: var(--color-gray-400);
   }
 
   .dark .prose ul > li::marker {
-    color: theme("colors.gray.600");
+    color: var(--color-gray-600);
   }
 
   /* Enhanced blockquote styling */
   .prose blockquote {
     border-left-width: 4px;
-    border-left-color: theme("colors.gray.300");
+    border-left-color: var(--color-gray-300);
     font-style: italic;
     padding-left: 1.5em;
   }
 
   .dark .prose blockquote {
-    border-left-color: theme("colors.gray.700");
+    border-left-color: var(--color-gray-700);
   }
 
   /* Enhanced code blocks */
@@ -119,8 +119,8 @@
   }
 
   .prose pre {
-    border-radius: theme("borderRadius.xl");
-    box-shadow: theme("boxShadow.sm");
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
   }
 
   /* Enhanced table styling */
