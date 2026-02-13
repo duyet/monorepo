@@ -64,6 +64,10 @@ const config = {
             key: "X-Content-Type-Options",
             value: "nosniff",
           },
+          {
+            key: "Content-Signal",
+            value: "ai-train=yes, search=yes, ai-input=yes",
+          },
         ],
       },
     ];

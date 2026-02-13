@@ -81,11 +81,18 @@ export async function generateMetadata({
   const slug = rawSlug.replace(/\.(md|html)$/, "");
   const post = await getPost([year, month, slug]);
 
+  const mdUrl = `https://blog.duyet.net/${year}/${month}/${slug}.md`;
+
   return {
     title: post.title,
     description: post.excerpt,
     creator: post.author,
     category: post.category,
     keywords: post.tags,
+    alternates: {
+      types: {
+        "text/markdown": mdUrl,
+      },
+    },
   };
 }

@@ -32,6 +32,10 @@ const config = {
             key: "X-DNS-Prefetch-Control",
             value: "on",
           },
+          {
+            key: "Content-Signal",
+            value: "ai-train=yes, search=yes, ai-input=yes",
+          },
         ],
       },
     ];
