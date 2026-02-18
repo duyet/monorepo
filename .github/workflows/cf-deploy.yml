@@ -156,16 +156,39 @@ jobs:
       - name: Test connectivity to ClickHouse
         if: matrix.app == 'photos' || matrix.app == 'insights'
         run: |
-          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
-          if ping -c 3 "$CLICKHOUSE_HOST"; then
-            echo "✓ ClickHouse reachable via Tailscale"
+          echo "Testing connectivity to ClickHouse..."
+          echo "  Host: $CLICKHOUSE_HOST"
+          echo "  Port: ${CLICKHOUSE_PORT:-8123}"
+          PORT="${CLICKHOUSE_PORT:-8123}"
+
+          # Test ICMP
+          if ping -c 1 -W 5 "$CLICKHOUSE_HOST" > /dev/null 2>&1; then
+            echo "✓ ICMP ping OK"
           else
-            echo "✗ Cannot reach ClickHouse"
+            echo "✗ ICMP ping failed"
             tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || true
             exit 1
           fi
+
+          # Test HTTP port
+          if curl -sf --max-time 10 "http://${CLICKHOUSE_HOST}:${PORT}/ping" > /dev/null 2>&1; then
+            echo "✓ ClickHouse HTTP port $PORT OK"
+          else
+            echo "✗ ClickHouse HTTP port $PORT unreachable, trying common ports..."
+            for p in 8123 8443 9000 443; do
+              if curl -sf --max-time 5 "http://${CLICKHOUSE_HOST}:${p}/ping" > /dev/null 2>&1; then
+                echo "  ✓ Found ClickHouse on port $p"
+              elif curl -sf --max-time 5 "https://${CLICKHOUSE_HOST}:${p}/ping" > /dev/null 2>&1; then
+                echo "  ✓ Found ClickHouse on port $p (HTTPS)"
+              else
+                echo "  ✗ Port $p: no response"
+              fi
+            done
+            echo "Continuing build anyway (will fall back to other providers)"
+          fi
         env:
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
 
       - name: Deploy to Cloudflare Pages
         run: |
