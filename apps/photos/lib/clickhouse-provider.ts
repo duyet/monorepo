@@ -162,6 +162,23 @@ export async function getAllClickHousePhotos(): Promise<Photo[]> {
  * Used to determine whether to use ClickHouse or fallback to API.
  */
 export async function hasClickHousePhotos(): Promise<boolean> {
+  // Debug: check total rows vs filtered rows
+  const totalQuery = `
+    SELECT count() as count
+    FROM monorepo_unsplash_photos FINAL
+    WHERE is_deleted = 0
+  `;
+  const totalResult = await executeQuery<{ count: string }>(totalQuery);
+  const totalCount =
+    totalResult.length > 0
+      ? Number.parseInt(totalResult[0].count, 10)
+      : 0;
+  console.log(`   📊 ClickHouse total photos: ${totalCount}`);
+
+  if (totalCount === 0) {
+    return false;
+  }
+
   const query = `
     SELECT count() as count
     FROM monorepo_unsplash_photos FINAL
@@ -173,5 +190,8 @@ export async function hasClickHousePhotos(): Promise<boolean> {
     username: UNSPLASH_USERNAME,
   });
   const count = result.length > 0 ? Number.parseInt(result[0].count, 10) : 0;
+  console.log(
+    `   📊 ClickHouse photos for '${UNSPLASH_USERNAME}': ${count}`,
+  );
   return count > 0;
 }
