@@ -11,24 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useClusterStats } from "@/hooks/useDashboard";
 
 export function ClusterOverview() {
-  const { clusterStats, loading } = useClusterStats();
-
-  if (loading || !clusterStats) {
-    return (
-      <Card>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="rounded-3xl bg-neutral-100 dark:bg-neutral-800 p-6 animate-pulse">
-                <div className="h-16"></div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
-
+  const clusterStats = useClusterStats();
   return (
     <Card>
       <CardContent>

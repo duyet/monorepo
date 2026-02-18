@@ -1,4 +1,5 @@
 import { executeQuery } from "./clickhouse";
+import { UNSPLASH_USERNAME } from "./config";
 import type { Photo } from "./types";
 
 /**
@@ -136,11 +137,14 @@ export async function getAllClickHousePhotos(): Promise<Photo[]> {
     SELECT *
     FROM monorepo_unsplash_photos FINAL
     WHERE is_deleted = 0
+      AND user_username = {username:String}
     ORDER BY created_at DESC
     LIMIT 500
   `;
 
-  const rows = await executeQuery<ClickHousePhotoRow>(query);
+  const rows = await executeQuery<ClickHousePhotoRow>(query, {
+    username: UNSPLASH_USERNAME,
+  });
 
   if (rows.length === 0) {
     console.log("   ⚠️  No photos found in ClickHouse");
@@ -162,9 +166,12 @@ export async function hasClickHousePhotos(): Promise<boolean> {
     SELECT count() as count
     FROM monorepo_unsplash_photos FINAL
     WHERE is_deleted = 0
+      AND user_username = {username:String}
   `;
 
-  const result = await executeQuery<{ count: string }>(query);
+  const result = await executeQuery<{ count: string }>(query, {
+    username: UNSPLASH_USERNAME,
+  });
   const count = result.length > 0 ? Number.parseInt(result[0].count, 10) : 0;
   return count > 0;
 }

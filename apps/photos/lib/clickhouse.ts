@@ -81,7 +81,10 @@ const QUERY_TIMEOUT_MS = 10_000; // 10s timeout for ClickHouse queries
  * Execute a ClickHouse query and return typed results.
  * Returns empty array if client is unavailable, query fails, or times out.
  */
-export async function executeQuery<T>(query: string): Promise<T[]> {
+export async function executeQuery<T>(
+  query: string,
+  query_params?: Record<string, string | number>,
+): Promise<T[]> {
   const clickhouse = getClickHouseClient();
   if (!clickhouse) {
     return [];
@@ -94,6 +97,7 @@ export async function executeQuery<T>(query: string): Promise<T[]> {
       const result = await clickhouse.query({
         query,
         format: "JSONEachRow",
+        query_params,
       });
       const data = await result.json();
       return (Array.isArray(data) ? data : []) as T[];

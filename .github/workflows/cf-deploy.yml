@@ -146,6 +146,27 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Test connectivity to ClickHouse
+        if: matrix.app == 'photos' || matrix.app == 'insights'
+        run: |
+          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
+          if ping -c 3 "$CLICKHOUSE_HOST"; then
+            echo "✓ ClickHouse reachable via Tailscale"
+          else
+            echo "✗ Cannot reach ClickHouse"
+            tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || true
+            exit 1
+          fi
+        env:
+          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+
       - name: Deploy to Cloudflare Pages
         run: |
           cd apps/${{ matrix.app }}

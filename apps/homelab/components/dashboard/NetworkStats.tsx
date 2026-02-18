@@ -15,11 +15,6 @@ import { useNetworkStats } from "@/hooks/useDashboard";
 
 export function NetworkStats() {
   const { networkTraffic, speedTest } = useNetworkStats();
-
-  if (!speedTest) {
-    return null; // or return a loading state
-  }
-
   return (
     <div className="space-y-6">
       {/* Speedtest Results */}

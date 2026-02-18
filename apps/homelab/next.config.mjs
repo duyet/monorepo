@@ -15,31 +15,8 @@ loadEnvConfig(
 
 const nextConfig = {
   reactStrictMode: true,
-  // Static export for Cloudflare Pages deployment
   output: "export",
   transpilePackages: ["@duyet/components", "@duyet/config", "@duyet/libs"],
-  // Enable image optimization for deployment
-  images: {
-    unoptimized: true,
-  },
-  // DNS prefetch and preconnect hints for external domains
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "Content-Signal",
-            value: "ai-train=yes, search=yes, ai-input=yes",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default nextConfig;
