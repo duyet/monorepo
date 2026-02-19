@@ -159,6 +159,14 @@ const serviceConfigs: ServiceConfig[] = [
     cpuRange: [0.3, 0.8],
     memRange: [100, 200],
   },
+  {
+    name: "openclaw",
+    namespace: "openclaw",
+    node: "minipc-01",
+    port: 18789,
+    cpuRange: [2, 4],
+    memRange: [500, 800],
+  },
 ];
 
 /**

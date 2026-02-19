@@ -37,7 +37,7 @@ export const nodes: Node[] = [
     memoryTotal: 16,
     storage: 512,
     uptime: generateUptime(),
-    services: 6,
+    services: 7,
   },
   {
     id: "node-2",
@@ -342,5 +342,5 @@ export const clusterStats = {
   usedMemory: Number(
     nodes.reduce((acc, n) => acc + n.memoryUsed, 0).toFixed(1)
   ),
-  totalStorage: nodes.reduce((acc, n) => acc + n.storage, 0), // in GB
+  totalStorage: 8192, // 8 TiB total NAS + node storage
 };
