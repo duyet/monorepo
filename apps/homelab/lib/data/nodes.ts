@@ -7,7 +7,7 @@ import type { Node } from "./types";
 import { generateUptime, getHistoricalTime, random } from "./utils";
 
 /**
- * Generate 5 nodes with dynamic data (microk8s cluster)
+ * Cluster nodes with dynamic resource data
  */
 export const nodes: Node[] = [
   {
