@@ -33,7 +33,7 @@ export const PERIODS: PeriodConfig[] = [
   },
   {
     value: "all",
-    label: "All",
+    label: "All time",
     days: "all",
     description: "All time",
   },

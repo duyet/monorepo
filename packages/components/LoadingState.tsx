@@ -1,7 +1,7 @@
 "use client";
 
-import { RefreshCw } from "lucide-react";
 import { cn } from "@duyet/libs/utils";
+import { RefreshCw } from "lucide-react";
 
 /**
  * Shared loading state components for consistent UX across apps

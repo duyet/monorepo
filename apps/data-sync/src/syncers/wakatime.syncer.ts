@@ -1,7 +1,22 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { getClient as getClickHouseClient } from "@duyet/libs/clickhouse";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+
+const WAKATIME_API_BASE_URL = "https://wakatime.com/api/v1";
+
+const wakatimeConfig = {
+  baseUrl: WAKATIME_API_BASE_URL,
+  endpoints: {
+    stats: (range: string) => `/users/current/stats/${range}`,
+  },
+  ranges: {
+    last_7_days: "last_7_days",
+    last_30_days: "last_30_days",
+    last_6_months: "last_6_months",
+    last_year: "last_year",
+    all_time: "all_time",
+  },
+};
 
 interface WakaTimeCategory {
   name: string;

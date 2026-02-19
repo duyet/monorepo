@@ -1,0 +1,98 @@
+name: Deploy Cloudflare Workers
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'apps/agents/workers/**'
+  workflow_dispatch:
+    inputs:
+      worker:
+        description: 'Worker to deploy'
+        required: false
+        type: choice
+        options:
+          - agents-api
+          - all
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  TURBO_REMOTE_ONLY: true
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy-agents-api:
+    name: Deploy duyet-agents-api Worker
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Deploy Worker to Cloudflare
+        run: |
+          cd apps/agents/workers
+
+          # Deploy the worker
+          bunx wrangler deploy
+
+          # Set AI Gateway token secret
+          if [ -n "${{ secrets.AI_GATEWAY_TOKEN }}" ]; then
+            echo "Setting AI_GATEWAY_TOKEN secret..."
+            echo "${{ secrets.AI_GATEWAY_TOKEN }}" | bunx wrangler secret put AI_GATEWAY_TOKEN
+          else
+            echo "Warning: AI_GATEWAY_TOKEN secret not set in GitHub Secrets"
+            echo "Skipping secret configuration - worker may not function correctly"
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deployment summary
+        run: |
+          echo "### ✅ Deployed Worker" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Worker**: duyet-agents-api" >> $GITHUB_STEP_SUMMARY
+          echo "- **Location**: apps/agents/workers/" >> $GITHUB_STEP_SUMMARY
+          echo "- **Secrets**: AI_GATEWAY_TOKEN configured" >> $GITHUB_STEP_SUMMARY
+
+      - name: Health check
+        run: |
+          # Get worker URL from wrangler
+          WORKER_URL=$(bunx wrangler deployments list --name duyet-agents-api --json 2>/dev/null | jq -r '.[0].url // empty')
+
+          if [ -n "$WORKER_URL" ]; then
+            echo "Checking $WORKER_URL/chat..."
+            max_attempts=3
+            attempt=1
+            while [ $attempt -le $max_attempts ]; do
+              if curl -s -f -o /dev/null "${WORKER_URL}/chat"; then
+                echo "✅ Worker health check passed"
+                exit 0
+              fi
+              echo "Attempt $attempt/$max_attempts failed, waiting 5s..."
+              sleep 5
+              attempt=$((attempt + 1))
+            done
+            echo "⚠️ Worker health check timed out"
+          else
+            echo "⚠️ Could not determine worker URL, skipping health check"
+          fi
+        working-directory: apps/agents/workers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

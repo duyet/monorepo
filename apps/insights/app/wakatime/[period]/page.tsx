@@ -1,11 +1,11 @@
+import Image from "next/image";
+import { Suspense } from "react";
 import type { PeriodDays } from "@/lib/periods";
 import {
   generatePeriodStaticParams,
   getPeriodConfig,
   getPeriodDays,
 } from "@/lib/periods";
-import Image from "next/image";
-import { Suspense } from "react";
 import { SkeletonCard } from "../../../components/SkeletonCard";
 import { StaticCard } from "../../../components/StaticCard";
 import { WakaTimeActivity } from "../activity";
@@ -28,10 +28,13 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { period } = await params;
   const config = getPeriodConfig(period);
+  const isAllTime = config.days === "all";
 
   return {
     title: `WakaTime Coding Analytics @duyet - ${config.label}`,
-    description: `Programming activity for the last ${config.label}`,
+    description: isAllTime
+      ? "All-time programming activity and coding insights"
+      : `Programming activity for the last ${config.label}`,
   };
 }
 
@@ -39,6 +42,16 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
   const { period } = await params;
   const config = getPeriodConfig(period);
   const days = getPeriodDays(period) as PeriodDays;
+  const isAllTime = days === "all";
+
+  // Dynamic section titles based on period
+  const activityTitle = isAllTime ? "Monthly Activity" : "Daily Activity";
+  const activityDescription = isAllTime
+    ? "Coding all the time"
+    : `Coding hours over the last ${config.label}`;
+  const overviewDescription = isAllTime
+    ? "All-time programming activity summary"
+    : `Programming activity summary for the last ${config.label}`;
 
   return (
     <div className="space-y-8">
@@ -58,7 +71,7 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Coding Overview</h2>
             <p className="text-sm text-muted-foreground">
-              Programming activity summary for the last {config.label}
+              {overviewDescription}
             </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>
@@ -69,9 +82,9 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
         {/* Coding Activity */}
         <div>
           <div className="mb-4">
-            <h2 className="text-lg font-semibold">Daily Activity</h2>
+            <h2 className="text-lg font-semibold">{activityTitle}</h2>
             <p className="text-sm text-muted-foreground">
-              Coding hours over the last {config.label}
+              {activityDescription}
             </p>
           </div>
           <Suspense fallback={<SkeletonCard />}>

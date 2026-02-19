@@ -5,7 +5,7 @@
  * Separates types from actual configuration values for better organization.
  */
 
-import type { Profile } from "@duyet/profile";
+import type { DeepPartial } from "@duyet/libs";
 
 /**
  * Core application URLs
@@ -83,9 +83,5 @@ export interface Navigation {
   general?: NavLink[];
 }
 
-/**
- * Deep partial type for URL overrides
- */
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
-};
+// Re-export DeepPartial for convenience
+export type { DeepPartial };

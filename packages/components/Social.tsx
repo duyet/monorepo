@@ -1,16 +1,16 @@
-import type { ReactElement } from "react";
+import { cn } from "@duyet/libs";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
+import type { ReactElement } from "react";
 import {
-  Github,
-  Twitter,
-  LinkedIn,
-  Unsplash,
-  TikTok,
-  Medium,
   DevTo,
+  Github,
+  LinkedIn,
+  Medium,
+  TikTok,
+  Twitter,
+  Unsplash,
 } from "./Icons";
-import { cn } from "@duyet/libs";
 
 export interface SocialProps {
   /** Profile containing social links */

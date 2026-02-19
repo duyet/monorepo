@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useNetworkStats } from "@/hooks/useDashboard";
 import { ArrowDown, ArrowUp, Gauge } from "lucide-react";
 import {
   Area,
@@ -12,6 +10,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNetworkStats } from "@/hooks/useDashboard";
 
 export function NetworkStats() {
   const { networkTraffic, speedTest } = useNetworkStats();

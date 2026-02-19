@@ -1,12 +1,6 @@
 "use client";
 
 import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
-import {
   Area,
   AreaChart,
   Bar,
@@ -20,6 +14,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 const CHART_COLORS = [
   "var(--chart-1)",

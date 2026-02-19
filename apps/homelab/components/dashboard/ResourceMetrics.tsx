@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useResourceMetrics } from "@/hooks/useDashboard";
 import {
   CartesianGrid,
   Line,
@@ -11,6 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useResourceMetrics } from "@/hooks/useDashboard";
 
 export function ResourceMetrics() {
   const { cpuHistory, memoryHistory } = useResourceMetrics();

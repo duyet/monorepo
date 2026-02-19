@@ -1,11 +1,10 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
-import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import { Sun, Moon, Monitor } from "lucide-react";
-
 import { cn } from "@duyet/libs/utils";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import { Monitor, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const toggleGroupClasses = cn(
   "p-[3px] w-fit flex rounded-full border border-gray-200",
@@ -25,6 +24,19 @@ const iconProps = {
   size: 16,
 };
 
+/**
+ * ThemeToggle component - allows switching between light, dark, and system themes
+ *
+ * Uses next-themes for theme persistence and Radix UI for accessible toggle buttons.
+ * Handles hydration mismatch by waiting for client-side mount.
+ *
+ * @example
+ * ```tsx
+ * import { ThemeToggle } from '@duyet/components'
+ *
+ * <ThemeToggle />
+ * ```
+ */
 export default function ThemeToggle() {
   // Avoid hydration mismatch
   // https://github.com/pacocoursey/next-themes#avoid-hydration-mismatch
@@ -43,8 +55,6 @@ export default function ThemeToggle() {
   const onChange = (value: string) => {
     if (value) setTheme(value);
   };
-
-  console.log("current theme", theme);
 
   return (
     <ToggleGroup.Root

@@ -1,23 +1,26 @@
 import type { Post } from "@duyet/interfaces";
+import { extractHeadings, type TOCItem } from "@duyet/libs/extractHeadings";
 import { getPostBySlug } from "@duyet/libs/getPost";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { cn } from "@duyet/libs/utils";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
+import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import rehypeHighlight from "rehype-highlight";
 
 import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
+import { mdxComponents } from "@/components/MdxComponents";
 import { OldPostWarning } from "./old-post-warning";
 import { Snippet } from "./snippet";
-import { mdxComponents } from "@/components/MdxComponents";
 
 interface ContentPost extends Post {
   isMDX?: boolean;
   mdxSource?: string;
+  headings?: TOCItem[];
 }
 
 export default async function Content({ post }: { post: ContentPost }) {
@@ -53,7 +56,7 @@ export default async function Content({ post }: { post: ContentPost }) {
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm, remarkMath],
-                rehypePlugins: [rehypeKatex, rehypeHighlight],
+                rehypePlugins: [rehypeSlug, rehypeKatex, rehypeHighlight],
               },
             }}
           />
@@ -91,6 +94,9 @@ export async function getPost(slug: string[]) {
 
   const markdownContent = post.content || "Error";
 
+  // Extract headings at build time for static TableOfContents
+  const headings = await extractHeadings(markdownContent);
+
   // Handle MDX files differently - pass raw source for RSC compilation
   if (post.isMDX) {
     return {
@@ -98,6 +104,7 @@ export async function getPost(slug: string[]) {
       content: "", // HTML content not used for MDX
       mdxSource: markdownContent, // Pass raw MDX source
       isMDX: true,
+      headings,
       markdown_content: markdownContent,
       edit_url: getGithubEditUrl(post.slug),
     };
@@ -109,6 +116,7 @@ export async function getPost(slug: string[]) {
   return {
     ...post,
     content,
+    headings,
     markdown_content: markdownContent,
     edit_url: getGithubEditUrl(post.slug),
   };

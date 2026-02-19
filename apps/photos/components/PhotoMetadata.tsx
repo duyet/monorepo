@@ -1,13 +1,13 @@
 "use client";
 
+import { Info, X } from "lucide-react";
 import { useState } from "react";
-import type { Photo } from "@/lib/photo-provider";
 import {
-  formatExifSettings,
   formatCameraName,
+  formatExifSettings,
   formatPhotoDate,
 } from "@/lib/MetadataFormatters";
-import { Info, X } from "lucide-react";
+import type { Photo } from "@/lib/photo-provider";
 
 interface PhotoMetadataProps {
   photo: Photo;

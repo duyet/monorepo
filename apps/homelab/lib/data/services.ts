@@ -3,7 +3,7 @@
  */
 
 import type { Service } from "./types";
-import { random, generateUptime } from "./utils";
+import { generateUptime, random } from "./utils";
 
 interface ServiceConfig {
   name: string;
@@ -158,6 +158,14 @@ const serviceConfigs: ServiceConfig[] = [
     port: 9100,
     cpuRange: [0.3, 0.8],
     memRange: [100, 200],
+  },
+  {
+    name: "openclaw",
+    namespace: "openclaw",
+    node: "openclaw",
+    port: 18789,
+    cpuRange: [2, 4],
+    memRange: [500, 800],
   },
 ];
 

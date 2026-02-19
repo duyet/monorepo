@@ -31,9 +31,9 @@ export function LightboxTopControls({
   totalCount,
   isFullscreen,
   showInfo,
+  onClose: _onClose,
   onToggleFullscreen,
   onToggleInfo,
-  onClose,
   className,
 }: Omit<LightboxControlsProps, "onNext" | "onPrevious">) {
   return (

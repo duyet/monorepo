@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
 import Container from "@duyet/components/Container";
+import type { Metadata } from "next";
+
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "AI",

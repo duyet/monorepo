@@ -26,14 +26,18 @@ export function ComparisonList({
 }: ComparisonListProps) {
   if (!items || items.length === 0) {
     return (
-      <div className={`text-base text-gray-500 dark:text-gray-400 ${className}`}>
+      <div
+        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+      >
         No items to compare
       </div>
     );
   }
 
   return (
-    <div className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}>
+    <div
+      className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}
+    >
       {title && (
         <div className="space-y-1">
           <h2 className="text-lg font-medium text-gray-900 dark:text-white">

@@ -1,15 +1,16 @@
-import Link from "next/link";
-
 import Container from "@duyet/components/Container";
 import Feed from "@duyet/components/Feed";
 import Header from "@duyet/components/Header";
 import { getAllPosts } from "@duyet/libs/getPost";
+import Link from "next/link";
+
+export const dynamic = "force-static";
 
 type Params = Promise<Record<string, string>>;
 
 async function getPosts(params: Params) {
   const { page } = await params;
-  const pageNumber = page ? Number.parseInt(page) - 1 : 0;
+  const pageNumber = page ? Number.parseInt(page, 10) - 1 : 0;
 
   return getAllPosts(
     [

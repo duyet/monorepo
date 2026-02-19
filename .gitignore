@@ -53,3 +53,6 @@ next-env.d.ts
 
 # Blog attachments (local drafts)
 **/attachments/
+
+# Screenshot files
+*-app.png

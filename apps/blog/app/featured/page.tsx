@@ -1,8 +1,9 @@
-import Link from "next/link";
-
 import Container from "@duyet/components/Container";
 import { getPostsByAllYear } from "@duyet/libs/getPost";
+import Link from "next/link";
 import { YearPost } from "@/components/post";
+
+export const dynamic = "force-static";
 
 export default function Featured() {
   const postsByYear = getPostsByAllYear(
@@ -48,9 +49,13 @@ export default function Featured() {
 
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)
-            .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+            .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (
-              <YearPost key={year} year={Number.parseInt(year)} posts={posts} />
+              <YearPost
+                key={year}
+                year={Number.parseInt(year, 10)}
+                posts={posts}
+              />
             ))}
         </div>
       </Container>

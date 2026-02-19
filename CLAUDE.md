@@ -86,8 +86,6 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 - `@duyet/libs` - Utility libraries and functions
 - `@duyet/interfaces` - TypeScript type definitions
 - `@duyet/config` - Shared configuration for all apps (app, api, ui configs)
-- `@duyet/eslint-config-custom` - ESLint configuration
-- `@duyet/prettier` - Prettier configuration
 - `@duyet/tailwind-config` - Tailwind CSS configuration
 - `@duyet/tsconfig` - TypeScript configurations
 

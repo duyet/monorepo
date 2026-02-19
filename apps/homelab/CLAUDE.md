@@ -242,7 +242,6 @@ The homelab app uses shared packages from the monorepo:
 - `@duyet/config` - homelabConfig (metadata, fonts, header text)
 - `@duyet/libs` - Utility functions (if needed)
 - `@duyet/tailwind-config` - Base Tailwind configuration
-- `@duyet/eslint-config-custom` - ESLint rules (flat config)
 
 ## Common Tasks
 

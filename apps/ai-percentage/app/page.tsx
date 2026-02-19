@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { DateRangeDays } from "@/lib/types";
 import { AIPercentageChart } from "@/components/AIPercentageChart";
 import { AIPercentageHero } from "@/components/AIPercentageHero";
 import { AIPercentageTrend } from "@/components/AIPercentageTrend";
@@ -41,10 +40,6 @@ export default function Page() {
 function TimeRange() {
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1y");
 
-  const periods = DATE_RANGES;
-  const currentPeriod =
-    periods.find((p) => p.value === selectedPeriod) || periods[3];
-
   return (
     <div className="flex items-center justify-end gap-2">
       <label htmlFor="time-range" className="text-sm text-muted-foreground">
@@ -56,7 +51,7 @@ function TimeRange() {
         onChange={(e) => setSelectedPeriod(e.target.value)}
         className="rounded border bg-card px-3 py-1.5 text-sm"
       >
-        {periods.map((period) => (
+        {DATE_RANGES.map((period) => (
           <option key={period.value} value={period.value}>
             {period.label}
           </option>

@@ -1,9 +1,8 @@
-import Link from "next/link";
-
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
-import { IsNewPost, IsFeatured } from "./PostBadges";
+import Link from "next/link";
+import { IsFeatured, IsNewPost } from "./PostBadges";
 
 export interface YearPostProps {
   year: number;

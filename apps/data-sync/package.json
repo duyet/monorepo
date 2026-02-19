@@ -25,8 +25,7 @@
   "dependencies": {
     "@clickhouse/client": "^1.8.1",
     "@duyet/config": "*",
-    "graphql-request": "^6.1.0",
-    "graphql": "^16.9.0"
+    "graphql-request": "^6.1.0"
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",

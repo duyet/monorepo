@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Copy, ExternalLink, ChevronDown, Check, Sparkles } from "lucide-react";
 import { cn } from "@duyet/libs/utils";
+import { Check, ChevronDown, Copy, ExternalLink, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface MarkdownMenuProps {
   markdownUrl: string;
@@ -56,10 +56,7 @@ export function MarkdownMenu({
         <Copy className="h-3.5 w-3.5" />
         <span>Copy</span>
         <ChevronDown
-          className={cn(
-            "h-3 w-3 transition-transform",
-            isOpen && "rotate-180"
-          )}
+          className={cn("h-3 w-3 transition-transform", isOpen && "rotate-180")}
         />
       </button>
 

@@ -1,16 +1,16 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
+  apiConfig,
   appConfig,
   blogConfig,
-  insightsConfig,
-  apiConfig,
-  githubConfig,
-  wakatimeConfig,
-  uiConfig,
-  PERIODS,
+  calculateBackoffDelay,
   getPeriodDays,
   getWakaTimeRange,
-  calculateBackoffDelay,
+  githubConfig,
+  insightsConfig,
+  PERIODS,
+  uiConfig,
+  wakatimeConfig,
 } from "../src";
 
 describe("@duyet/config", () => {

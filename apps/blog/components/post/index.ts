@@ -1,2 +1,2 @@
+export { IsFeatured, IsNewPost } from "./PostBadges";
 export { YearPost } from "./YearPost";
-export { IsNewPost, IsFeatured } from "./PostBadges";

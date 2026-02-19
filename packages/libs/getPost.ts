@@ -1,8 +1,8 @@
+import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import matter from "gray-matter";
-
 import getSlug from "./getSlug";
-import type { TagCount, Post, CategoryCount } from "@duyet/interfaces";
 import { normalizeTag } from "./tags";
+import { ValidationError, FileSystemError } from "./errors";
 
 const nodeFs = () => require("node:fs");
 const nodeJoin = () => require("node:path").join;
@@ -76,18 +76,30 @@ export function getPostBySlug(slug: string, fields: string[] = []): Post {
     return getPostByPath(mdxPath, fields);
   }
 
+  // Check if the .md file exists before attempting to read
+  if (!fs.existsSync(mdPath)) {
+    throw new FileSystemError(`Post not found: ${slug}`, { path: mdPath });
+  }
+
   return getPostByPath(mdPath, fields);
 }
 
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
-  let fileContent;
+  let fileContent: string;
 
   const cachedContent = cacheGet(fullPath);
   if (cachedContent) {
     fileContent = cachedContent;
   } else {
     const fs = nodeFs();
-    fileContent = fs.readFileSync(fullPath, "utf8");
+    try {
+      fileContent = fs.readFileSync(fullPath, "utf8");
+    } catch (error) {
+      throw new FileSystemError(`Failed to read post file: ${fullPath}`, {
+        path: fullPath,
+        cause: error instanceof Error ? error : undefined,
+      });
+    }
     cacheSet(fullPath, fileContent);
   }
 
@@ -115,8 +127,9 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       const slugRegex = /^\/(\d{4})\/(\d{2})\/(.+)$/;
       const match = post[field].match(slugRegex);
       if (!match) {
-        throw new Error(
-          `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`
+        throw new ValidationError(
+          `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`,
+          { slug: post[field], path: fullPath }
         );
       }
     }
@@ -307,7 +320,7 @@ export function getPostsByAllYear(
 
   // Sort posts by year
   Object.keys(postsByYear).forEach((year: string) => {
-    postsByYear[Number.parseInt(year)].sort((post1: Post, post2: Post) =>
+    postsByYear[Number.parseInt(year, 10)].sort((post1: Post, post2: Post) =>
       post1.date > post2.date ? -1 : 1
     );
   });
@@ -320,7 +333,7 @@ export function getPostsByAllYear(
     const limitedYears = years.slice(0, yearLimit);
     return limitedYears.reduce(
       (acc, year: string) => {
-        acc[Number.parseInt(year)] = postsByYear[Number.parseInt(year)];
+        acc[Number.parseInt(year, 10)] = postsByYear[Number.parseInt(year, 10)];
         return acc;
       },
       {} as Record<number, Post[]>

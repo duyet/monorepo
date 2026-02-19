@@ -64,7 +64,7 @@ ${Object.entries(
     return acc;
   }, {})
 )
-  .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+  .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
   .map(([year, yearPosts]) => {
     return `### ${year} (${yearPosts.length} posts)
 

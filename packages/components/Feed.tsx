@@ -1,18 +1,40 @@
-import Link from "next/link";
-
 import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
 import { Thumb } from "./Thumb";
 
+/**
+ * Props for individual feed items
+ */
 interface FeedItemProps {
+  /** Post data to display */
   post: Post;
+  /** Hide thumbnail image if true */
   noThumbnail?: boolean;
 }
 
+/**
+ * Props for the Feed component
+ */
 export interface FeedProps extends Omit<FeedItemProps, "post"> {
+  /** Array of posts to display */
   posts: Post[];
 }
 
+/**
+ * Feed component - displays posts in a vertical list layout
+ *
+ * Features large typography, category links, and optional thumbnails.
+ * Suitable for blog index pages and archives.
+ *
+ * @example
+ * ```tsx
+ * import { Feed } from '@duyet/components'
+ *
+ * <Feed posts={posts} />
+ * <Feed posts={posts} noThumbnail />
+ * ```
+ */
 export default function Feed({ posts, ...props }: FeedProps) {
   if (!posts) {
     return <p>No blog posted yet :/</p>;
@@ -23,6 +45,10 @@ export default function Feed({ posts, ...props }: FeedProps) {
   ));
 }
 
+/**
+ * FeedItem component - individual item within the feed
+ * @internal
+ */
 export function FeedItem({ post, noThumbnail }: FeedItemProps) {
   return (
     <article key={post.slug} className="mb-16">
@@ -38,8 +64,7 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
       </div>
 
       <Link
-        as={`${post.slug}`}
-        href="/[...slug]"
+        href={`/${post.slug}`}
         className={cn(
           "inline-block text-4xl font-bold py-2 mt-2 hover:underline",
           "from-gray-900 to-gray-800 bg-clip-text",

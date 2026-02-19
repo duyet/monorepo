@@ -1,7 +1,6 @@
-import type React from "react";
-
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
+import type React from "react";
 
 interface YearLayoutProps {
   params: Promise<{

@@ -1,20 +1,33 @@
 import type { MDXComponents } from "mdx/types";
-
+import { CardGrid } from "./blog/CardGrid";
+import {
+  ClaudeCard,
+  ClaudeCardGrid,
+  ClaudeCardNested,
+} from "./blog/ClaudeCard";
+import { LazyCodeBlock } from "./blog/LazyCodeBlock";
+import { ComparisonList } from "./blog/ComparisonList";
+import { InfoBox } from "./blog/InfoBox";
 // Import components directly for RSC compatibility
 import { PricingTable } from "./blog/PricingTable";
-import { InfoBox } from "./blog/InfoBox";
-import { CardGrid } from "./blog/CardGrid";
-import { Tabs } from "./blog/Tabs";
+import { Step, Steps } from "./blog/Steps";
 import { StepsList } from "./blog/StepsList";
-import { ComparisonList } from "./blog/ComparisonList";
-import { CodeBlock } from "./blog/CodeBlock";
-import { Steps, Step } from "./blog/Steps";
-import { ClaudeCard } from "./blog/ClaudeCard";
+import { Tabs } from "./blog/Tabs";
 
 // Custom Image component for MDX
-function Image({ src, alt, ...props }: { src?: string; alt?: string; [key: string]: unknown }) {
+function Image({
+  src,
+  alt,
+  ...props
+}: {
+  src?: string;
+  alt?: string;
+  [key: string]: unknown;
+}) {
   // Handle Obsidian-style image references
-  const imageSrc = src?.startsWith("[[") ? `/attachments/${src.replace(/^\[\[|\]\]$/g, "")}` : src;
+  const imageSrc = src?.startsWith("[[")
+    ? `/attachments/${src.replace(/^\[\[|\]\]$/g, "")}`
+    : src;
 
   return (
     <span className="block my-4">
@@ -41,7 +54,9 @@ export const mdxComponents: MDXComponents = {
   Steps,
   Step,
   ClaudeCard,
-  pre: CodeBlock,
+  ClaudeCardGrid,
+  ClaudeCardNested,
+  pre: LazyCodeBlock,
   Image,
   img: Image, // Handle standard markdown image syntax ![alt](url)
 };

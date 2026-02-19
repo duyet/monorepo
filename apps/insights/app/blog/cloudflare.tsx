@@ -1,8 +1,8 @@
-import { AreaChart } from "@/components/charts";
-import { CompactMetric } from "@/components/ui/CompactMetric";
 import type { CloudflareAnalyticsByDate } from "@duyet/interfaces";
 import { request } from "graphql-request";
 import { Activity, Eye, Globe, Users } from "lucide-react";
+import { AreaChart } from "@/components/charts";
+import { CompactMetric } from "@/components/ui/CompactMetric";
 
 export interface CloudflareProps {
   data: CloudflareAnalyticsByDate;
@@ -194,17 +194,50 @@ const getData = async (days: number | "all" = 30) => {
     date_end: endDate.toISOString().split("T")[0],
   };
 
-  const data: CloudflareAnalyticsByDate = await request(
-    "https://api.cloudflare.com/client/v4/graphql",
-    query,
-    variables,
-    headers
-  );
+  let data: CloudflareAnalyticsByDate;
+  try {
+    data = await request(
+      "https://api.cloudflare.com/client/v4/graphql",
+      query,
+      variables,
+      headers
+    );
+  } catch (error) {
+    console.error("[Cloudflare] GraphQL request failed:", error instanceof Error ? error.message : String(error));
+    return {
+      data: {
+        viewer: {
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
+      },
+      generatedAt: new Date().toISOString(),
+      totalRequests: 0,
+      totalPageviews: 0,
+    };
+  }
 
   const zone = data.viewer.zones[0];
 
   if (!zone || !zone.httpRequests1dGroups) {
-    throw new Error("No zone data returned from Cloudflare API");
+    console.error("No zone data returned from Cloudflare API");
+    return {
+      data: {
+        viewer: {
+          zones: [
+            {
+              httpRequests1dGroups: [],
+            },
+          ],
+        },
+      },
+      generatedAt: new Date().toISOString(),
+      totalRequests: 0,
+      totalPageviews: 0,
+    };
   }
 
   const totalRequests = zone.httpRequests1dGroups.reduce(

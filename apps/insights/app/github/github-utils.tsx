@@ -65,7 +65,7 @@ export async function fetchAllRepositories(
 
         if (retryCount < maxRetries) {
           const waitTime = retryAfter
-            ? Number.parseInt(retryAfter) * 1000
+            ? Number.parseInt(retryAfter, 10) * 1000
             : calculateBackoffDelay(retryCount, githubConfig.retry);
 
           console.warn(

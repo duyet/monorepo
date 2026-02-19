@@ -5,6 +5,8 @@
  * Contains metadata, URLs, fonts, and other app-level settings.
  */
 
+import { agentsConfig } from "./agents.config"
+
 export interface AppMetadata {
   title: string;
   description: string;
@@ -53,6 +55,7 @@ export interface AppUrls {
   home: string;
   photos: string;
   homelab: string;
+  agents: string;
 }
 
 // Environment-aware URL configuration
@@ -66,6 +69,8 @@ export const appUrls: AppUrls = {
     process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net",
   homelab:
     process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
+  agents:
+    process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
 };
 
 // Blog app configuration
@@ -235,4 +240,8 @@ export const appConfig = {
   home: homeConfig,
   photos: photosConfig,
   homelab: homelabConfig,
+  agents: agentsConfig,
 };
+
+// Named exports for convenience
+export { agentsConfig };

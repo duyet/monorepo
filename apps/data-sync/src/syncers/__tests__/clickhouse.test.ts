@@ -1,4 +1,4 @@
-import { describe, expect, beforeEach, afterEach, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 
 describe("ClickHouse Config", () => {
   const originalEnv = { ...process.env };

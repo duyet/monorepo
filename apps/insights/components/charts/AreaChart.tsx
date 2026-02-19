@@ -1,17 +1,17 @@
 "use client";
 
 import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
-import {
   Area,
   CartesianGrid,
   AreaChart as RechartsAreaChart,
   XAxis,
 } from "recharts";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 interface AreaChartProps {
   data: Array<Record<string, unknown>>;

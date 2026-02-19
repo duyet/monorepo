@@ -1,5 +1,4 @@
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/react";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 const POSTHOG_API_KEY = process.env.POSTHOG_API_KEY;
@@ -8,7 +7,6 @@ const SELINE_TOKEN = process.env.NEXT_PUBLIC_SELINE_TOKEN;
 export default function AnalyticWrapper() {
   return (
     <>
-      <Analytics />
 
       {GA_MEASUREMENT_ID && (
         <Script

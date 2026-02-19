@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
 import { cn } from "@duyet/libs/utils";
+import { motion } from "framer-motion";
+import React from "react";
 
 export const BackgroundBeams = React.memo(
   ({ className }: { className?: string }) => {
@@ -89,7 +89,7 @@ export const BackgroundBeams = React.memo(
             />
           ))}
           <defs>
-            {paths.map((path, index) => (
+            {paths.map((_path, index) => (
               <motion.linearGradient
                 id={`linearGradient-${index}`}
                 key={`gradient-${index}`}

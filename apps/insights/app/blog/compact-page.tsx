@@ -1,13 +1,3 @@
-import { MobileOptimizedChart } from "@/components/mobile/MobileOptimizedChart";
-import { Breadcrumb } from "@/components/navigation/CompactNavigation";
-import { SkeletonCard } from "@/components/SkeletonCard";
-import { CompactCard, StatsCard } from "@/components/ui/CompactCard";
-import { DashboardGrid, GridItem } from "@/components/ui/DashboardGrid";
-import { QuickFilters } from "@/components/ui/DateRangeSelector";
-import {
-  CollapsibleSection,
-  ProgressiveDisclosure,
-} from "@/components/ui/ProgressiveDisclosure";
 import {
   Activity,
   Clock,
@@ -19,6 +9,16 @@ import {
   Zap,
 } from "lucide-react";
 import { Suspense } from "react";
+import { MobileOptimizedChart } from "@/components/mobile/MobileOptimizedChart";
+import { Breadcrumb } from "@/components/navigation/CompactNavigation";
+import { SkeletonCard } from "@/components/SkeletonCard";
+import { CompactCard, StatsCard } from "@/components/ui/CompactCard";
+import { DashboardGrid, GridItem } from "@/components/ui/DashboardGrid";
+import { QuickFilters } from "@/components/ui/DateRangeSelector";
+import {
+  CollapsibleSection,
+  ProgressiveDisclosure,
+} from "@/components/ui/ProgressiveDisclosure";
 import { Cloudflare } from "./cloudflare";
 import { PostHog } from "./posthog";
 

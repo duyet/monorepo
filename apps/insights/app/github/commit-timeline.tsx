@@ -1,6 +1,6 @@
+import { Calendar, GitCommit, Zap } from "lucide-react";
 import { AreaChart } from "@/components/charts";
 import { CompactMetric } from "@/components/ui/CompactMetric";
-import { Calendar, GitCommit, Zap } from "lucide-react";
 import { getGithubToken } from "./github-utils";
 
 const owner = "duyet";

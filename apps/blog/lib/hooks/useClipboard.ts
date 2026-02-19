@@ -1,5 +1,5 @@
 // Hook for copy-to-clipboard with feedback state
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 interface UseClipboardOptions {
   timeout?: number;

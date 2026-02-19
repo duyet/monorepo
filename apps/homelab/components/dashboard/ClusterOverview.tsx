@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { useClusterStats } from "@/hooks/useDashboard";
 import {
   Activity,
   CheckCircle2,
@@ -9,6 +7,8 @@ import {
   HardDrive,
   Server,
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { useClusterStats } from "@/hooks/useDashboard";
 
 export function ClusterOverview() {
   const clusterStats = useClusterStats();

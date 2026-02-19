@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {
-  ResumeIcon,
+  BlogIcon,
   GithubIcon,
   LinkedInIcon,
-  BlogIcon,
+  ResumeIcon,
 } from "@/components/icons";
 
 export const dynamic = "force-static";

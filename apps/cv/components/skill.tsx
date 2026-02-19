@@ -1,14 +1,13 @@
 "use client";
 
-import * as seline from "@seline-analytics/web";
-import Link from "next/link";
-import type React from "react";
-
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
+import * as seline from "@seline-analytics/web";
+import Link from "next/link";
+import type React from "react";
 
 export function Skill({
   skill,

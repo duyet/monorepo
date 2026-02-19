@@ -1,16 +1,16 @@
+import Container from "@duyet/components/Container";
 import type { Metadata } from "next";
 import Link from "next/link";
 import PhotoFeed from "@/components/PhotoFeed";
 import { RetryButton } from "@/components/RetryButton";
-import { getAllPhotos, type Photo } from "@/lib/photo-provider";
-import Container from "@duyet/components/Container";
 import type { PhotoFetchError } from "@/lib/errors";
 import {
-  RateLimitError,
   AuthError,
   NetworkError,
+  RateLimitError,
   UnknownPhotoError,
 } from "@/lib/errors";
+import { getAllPhotos, type Photo } from "@/lib/photo-provider";
 
 export const revalidate = 86400; // Revalidate daily
 
@@ -42,7 +42,9 @@ export default async function FeedPage() {
         : new UnknownPhotoError(e);
   }
 
-  if (photoError) {
+  // Only show error state if we have no photos at all
+  // If we have fallback photos, proceed normally
+  if (photoError && photos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">

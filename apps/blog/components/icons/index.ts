@@ -1,4 +1,4 @@
-export { ResumeIcon } from "./ResumeIcon";
+export { BlogIcon } from "./BlogIcon";
 export { GithubIcon } from "./GithubIcon";
 export { LinkedInIcon } from "./LinkedInIcon";
-export { BlogIcon } from "./BlogIcon";
+export { ResumeIcon } from "./ResumeIcon";

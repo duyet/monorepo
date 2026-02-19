@@ -1,8 +1,8 @@
 "use client";
 
-import { AbstractShapes } from "../illustrations/AbstractShapes";
 import { cn } from "@duyet/libs/utils";
 import Link from "next/link";
+import { AbstractShapes } from "../illustrations/AbstractShapes";
 import { ThinkingAnimation } from "../thinking/ThinkingAnimation";
 import { useCardDescription } from "./useCardDescription";
 

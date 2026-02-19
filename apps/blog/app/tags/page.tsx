@@ -1,9 +1,11 @@
-import { getTagMetadata } from "@/lib/tag-metadata";
 import { ContentCard } from "@duyet/components";
 import Container from "@duyet/components/Container";
 import type { TagCount } from "@duyet/interfaces";
 import { getAllTags } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
+import { getTagMetadata } from "@/lib/tag-metadata";
+
+export const dynamic = "force-static";
 
 export default function Tags() {
   const tags: TagCount = getAllTags();

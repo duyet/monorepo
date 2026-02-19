@@ -4,7 +4,7 @@
 
 import { HISTORICAL_DATA } from "../constants";
 import type { NetworkSpeedTest } from "./types";
-import { random, getHistoricalTime } from "./utils";
+import { getHistoricalTime, random } from "./utils";
 
 /**
  * Generate network traffic with realistic day/night patterns

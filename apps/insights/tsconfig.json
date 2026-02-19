@@ -9,12 +9,14 @@
     "strictNullChecks": true,
     "allowJs": true,
     "baseUrl": ".",
+    "types": ["@types/bun"],
     "paths": {
       "@/*": ["./*"]
     }
   },
   "include": [
     "next-env.d.ts",
+    "types.d.ts",
     "eslint.config.mjs",
     "app/**/*.ts",
     "app/**/*.tsx",

@@ -1,7 +1,7 @@
-import type { UnsplashPhoto, Photo } from "./types";
-import { getAllUserPhotos as getUnsplashPhotos } from "./unsplash";
 import type { PhotoFetchError } from "./errors";
 import { UnknownPhotoError } from "./errors";
+import type { Photo, UnsplashPhoto } from "./types";
+import { getAllUserPhotos as getUnsplashPhotos } from "./unsplash";
 
 /**
  * Result type for getAllUnsplashPhotos

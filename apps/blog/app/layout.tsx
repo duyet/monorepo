@@ -5,6 +5,7 @@ import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { blogConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
 // import { AxiomWebVitals } from 'next-axiom'
@@ -54,6 +55,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <Analytics />
+          <ServiceWorkerRegister />
         </ThemeProvider>
       </body>
     </html>

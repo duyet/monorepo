@@ -1,5 +1,5 @@
-import { describe, test, expect } from "bun:test";
-import { distanceFormat, distanceToNow, dateFormat } from "./date";
+import { describe, expect, test } from "bun:test";
+import { dateFormat, distanceFormat, distanceToNow } from "./date";
 
 describe("distanceToNow", () => {
   test("should format future date with suffix", () => {

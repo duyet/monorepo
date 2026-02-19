@@ -104,7 +104,8 @@ export async function queryPostHog(
     return data;
   } catch (error) {
     // Handle network errors, JSON parsing errors, etc.
-    console.error("[PostHog] Request failed:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("[PostHog] Request failed:", errorMessage);
     return null;
   }
 }

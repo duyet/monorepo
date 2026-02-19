@@ -1,10 +1,10 @@
+import { cn } from "@duyet/libs/utils";
+import Link from "next/link";
 import {
   GeometricPattern,
   OrganicBlob,
   WavyLines,
 } from "../illustrations/AbstractShapes";
-import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
 
 interface LinkCardProps {
   title: string;
@@ -24,6 +24,7 @@ interface LinkCardProps {
   featured?: boolean;
   backgroundImage?: string;
   illustration?: "wavy" | "geometric" | "blob" | "none";
+  prefetch?: boolean;
 }
 
 const colorClasses = {
@@ -77,6 +78,7 @@ export function LinkCard({
   featured = false,
   backgroundImage,
   illustration = "none",
+  prefetch = false,
 }: LinkCardProps) {
   const IllustrationComponent = illustrations[illustration];
   const isExternal = href.startsWith("http");
@@ -84,14 +86,16 @@ export function LinkCard({
   return (
     <Link
       href={href}
+      prefetch={prefetch}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
       className={cn(
-        "group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md",
+        "group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900",
         color && colorClasses[color],
         featured && "sm:col-span-2 lg:col-span-2",
         className
       )}
+      aria-label={isExternal ? `${title} (opens in new tab)` : title}
     >
       {backgroundImage && (
         <>

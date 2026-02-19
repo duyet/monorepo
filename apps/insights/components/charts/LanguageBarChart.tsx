@@ -1,12 +1,6 @@
 "use client";
 
 import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import {
   Bar,
   BarChart,
   CartesianGrid,
@@ -14,6 +8,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 interface LanguageData {
   name: string;

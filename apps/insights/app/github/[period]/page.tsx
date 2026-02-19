@@ -1,5 +1,5 @@
-import { generatePeriodStaticParams, getPeriodConfig } from "@/lib/periods";
 import { Suspense } from "react";
+import { generatePeriodStaticParams, getPeriodConfig } from "@/lib/periods";
 import { SkeletonCard } from "../../../components/SkeletonCard";
 import { GithubActivity } from "../activity";
 import { GithubCard } from "../card";
@@ -26,10 +26,13 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { period } = await params;
   const config = getPeriodConfig(period);
+  const isAllTime = config.days === "all";
 
   return {
     title: `GitHub Insights @duyet - ${config.label}`,
-    description: `GitHub repository analytics for the last ${config.label}`,
+    description: isAllTime
+      ? "All-time GitHub repository analytics and insights"
+      : `GitHub repository analytics for the last ${config.label}`,
   };
 }
 

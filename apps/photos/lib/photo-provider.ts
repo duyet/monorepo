@@ -1,15 +1,13 @@
-import type { Photo } from "./types";
-import {
-  getAllUnsplashPhotos,
-  type UnsplashFetchResult,
-} from "./unsplash-provider";
-import { getAllCloudinaryPhotos } from "./cloudinary-provider";
 import {
   getAllClickHousePhotos,
   hasClickHousePhotos,
 } from "./clickhouse-provider";
+import { getAllCloudinaryPhotos } from "./cloudinary-provider";
 import type { PhotoFetchError } from "./errors";
-import { UnknownPhotoError, RateLimitError } from "./errors";
+import { RateLimitError, UnknownPhotoError } from "./errors";
+import type { Photo } from "./types";
+import { getAllUnsplashPhotos } from "./unsplash-provider";
+import { getFallbackPhotos } from "./fallback-provider";
 
 // Re-export Photo type for convenience
 export type { Photo } from "./types";
@@ -24,13 +22,14 @@ export type GetAllPhotosResult =
 
 /**
  * Get all photos from all enabled providers.
- * Priority: ClickHouse (if available) > Unsplash API > Cloudinary
+ * Priority: ClickHouse (if available) > Unsplash API > Cloudinary > Fallback
  *
  * - ClickHouse: Fast, no rate limits, weekly sync
  * - Unsplash API: Fallback when ClickHouse unavailable/empty
  * - Cloudinary: Always fetched as additional photo source
+ * - Fallback: Sample photos when all providers fail
  *
- * Throws an error if all providers fail to return photos.
+ * Always returns photos, never throws.
  */
 export async function getAllPhotos(): Promise<Photo[]> {
   console.log("📸 Fetching photos from all providers...");
@@ -91,23 +90,14 @@ export async function getAllPhotos(): Promise<Photo[]> {
       errors.push(new UnknownPhotoError(cloudinaryResult.reason));
     }
 
-    // If both providers failed and we have no photos, throw the error
+    // If both providers failed and we have no photos, use fallback
     if (allPhotos.length === 0 && errors.length > 0) {
       console.log("");
       console.log("🚫 All photo providers failed to return photos.");
+      console.log("   📦 Using fallback photos...");
 
-      // Prefer rate limit errors if present (most common issue)
-      const rateLimitError = errors.find((e) => e instanceof RateLimitError) as
-        | RateLimitError
-        | undefined;
-
-      if (rateLimitError) {
-        console.log(`   💡 Rate limit error: ${rateLimitError.userMessage}`);
-        throw rateLimitError;
-      }
-
-      // Otherwise throw the first error
-      throw errors[0];
+      const fallbackPhotos = await getFallbackPhotos();
+      allPhotos.push(...fallbackPhotos);
     }
   } else {
     // ClickHouse succeeded - still fetch Cloudinary for additional photos

@@ -1,12 +1,12 @@
+import Container from "@duyet/components/Container";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import PhotoGrid from "@/components/PhotoGrid";
 import {
   getAllPhotos,
   getPhotosByYear,
   type Photo,
 } from "@/lib/photo-provider";
-import Container from "@duyet/components/Container";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 
 interface YearPageProps {
   params: Promise<{
@@ -39,7 +39,7 @@ export async function generateStaticParams() {
     const uniqueYears = Array.from(new Set([...allYears, ...yearsFromPhotos]));
 
     return uniqueYears.map((year) => ({ year }));
-  } catch (error) {
+  } catch (_error) {
     // Return fallback years for build
     const currentYear = new Date().getFullYear();
     const fallbackYears = [
@@ -64,7 +64,7 @@ export default async function YearPage({ params }: YearPageProps) {
   const { year } = await params;
 
   // Validate year format
-  const yearNum = Number.parseInt(year);
+  const yearNum = Number.parseInt(year, 10);
   if (
     Number.isNaN(yearNum) ||
     yearNum < 2000 ||
@@ -80,7 +80,7 @@ export default async function YearPage({ params }: YearPageProps) {
   try {
     allPhotos = await getAllPhotos();
     yearPhotos = getPhotosByYear(allPhotos, year);
-  } catch (e) {
+  } catch (_e) {
     error = "Failed to load photos. Please try again later.";
   }
 
@@ -88,7 +88,7 @@ export default async function YearPage({ params }: YearPageProps) {
   // This allows the build to succeed even when a year has no photos yet
   // (e.g., early in the current year before photos are added)
 
-  if (error) {
+  if (error && allPhotos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
@@ -160,9 +160,9 @@ export default async function YearPage({ params }: YearPageProps) {
   ).sort((a, b) => b - a);
 
   const currentYearIndex = allYears.indexOf(yearNum);
-  const previousYear =
+  const _previousYear =
     currentYearIndex > 0 ? allYears[currentYearIndex - 1] : null;
-  const nextYear =
+  const _nextYear =
     currentYearIndex < allYears.length - 1
       ? allYears[currentYearIndex + 1]
       : null;

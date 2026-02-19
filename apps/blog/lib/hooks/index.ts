@@ -1,3 +1,4 @@
 // Barrel export for custom hooks
-export * from "./useOutsideClick";
+
 export * from "./useClipboard";
+export * from "./useOutsideClick";

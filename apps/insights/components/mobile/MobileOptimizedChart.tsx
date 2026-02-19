@@ -1,14 +1,14 @@
 "use client";
 
+import { cn } from "@duyet/libs";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
+import { useState } from "react";
 import {
   CompactAreaChart,
   CompactBarChart,
   CompactLineChart,
   MiniSparkline,
 } from "@/components/charts/CompactChart";
-import { cn } from "@duyet/libs";
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
-import { useState } from "react";
 
 interface MobileOptimizedChartProps {
   data: Array<Record<string, unknown>>;

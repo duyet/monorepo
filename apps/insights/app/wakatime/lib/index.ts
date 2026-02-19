@@ -5,30 +5,27 @@
  * Sync/backfill operations are handled by apps/data-sync.
  */
 
-// Types
-export type {
-  WakaTimeDailyActivity,
-  WakaTimeActivityForChart,
-  WakaTimeActivityTotalOnly,
-  WakaTimeActivityData,
-  HybridFetchResult,
-  HybridFetchConfig,
-} from "./types";
-
-export { DEFAULT_HYBRID_CONFIG } from "./types";
-
 // ClickHouse operations (read-only)
 export {
+  getActivityStats,
   getClickHouseActivity,
-  getStoredDates,
-  hasActivityData,
   getMostRecentDate,
   getOldestDate,
-  getActivityStats,
+  getStoredDates,
+  hasActivityData,
 } from "./clickhouse";
-
 // Hybrid fetch (ClickHouse + API)
 export {
-  getHybridDailyActivity,
   getHybridActivityForChart,
+  getHybridDailyActivity,
 } from "./hybrid-fetch";
+// Types
+export type {
+  HybridFetchConfig,
+  HybridFetchResult,
+  WakaTimeActivityData,
+  WakaTimeActivityForChart,
+  WakaTimeActivityTotalOnly,
+  WakaTimeDailyActivity,
+} from "./types";
+export { DEFAULT_HYBRID_CONFIG } from "./types";

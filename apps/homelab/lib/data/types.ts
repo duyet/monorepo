@@ -7,7 +7,7 @@ export interface Node {
   name: string;
   ip: string;
   status: "online" | "offline" | "degraded" | "maintenance";
-  type: "minipc" | "raspberry-pi" | "banana-board";
+  type: "minipc" | "raspberry-pi" | "banana-board" | "server";
   cpu: number; // percentage
   memory: number; // percentage
   memoryUsed: number; // GB

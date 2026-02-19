@@ -1,7 +1,0 @@
-.next
-.vercel
-.github
-_posts
-node_modules
-public
-**/*.md
