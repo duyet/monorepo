@@ -212,41 +212,22 @@ CLICKHOUSE_DATABASE=analytics_db
 
 ## Development Commands
 
-### Local Development
-
 ```bash
-# Install dependencies
-yarn install
+# Development
+bun run dev          # Start dev server on http://localhost:3000
+bun run build        # Build for production
+bun run check-types  # TypeScript type check
+bun run lint         # Run Biome linter
+bun run fmt          # Format code
+bun run analyze      # Analyze bundle size
 
-# Start development server
-yarn dev  # Runs on http://localhost:3000
+# Testing
+bun run test         # Run all unit tests
+bun run test ccusage # Test specific module
 
-# Type checking
-yarn check-types
-
-# Linting and formatting
-yarn lint
-yarn fmt
-```
-
-### Production Build
-
-```bash
-# Build for production
-yarn build
-
-# Analyze bundle size
-yarn analyze
-```
-
-### Testing
-
-```bash
-# Run unit tests
-yarn test
-
-# Test specific module
-yarn test ccusage
+# Deploy to Cloudflare Pages
+bun run cf:deploy        # Preview deployment
+bun run cf:deploy:prod   # Production deployment
 ```
 
 ## Code Quality Guidelines
