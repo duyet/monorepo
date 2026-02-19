@@ -42,7 +42,9 @@ export default async function FeedPage() {
         : new UnknownPhotoError(e);
   }
 
-  if (photoError) {
+  // Only show error state if we have no photos at all
+  // If we have fallback photos, proceed normally
+  if (photoError && photos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">

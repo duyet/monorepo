@@ -25,6 +25,7 @@
  * - photos → photos.duyet.net (duyet-photos project)
  * - insights → insights.duyet.net (duyet-insights project)
  * - homelab → homelab.duyet.net (duyet-homelab project)
+ * - agents → agents.duyet.net (duyet-agents project)
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -124,6 +125,12 @@ const APPS_CONFIG: Record<
     domain: "homelab.duyet.net",
     secrets: false,
   },
+  agents: {
+    name: "agents",
+    projectName: "duyet-agents",
+    domain: "agents.duyet.net",
+    secrets: false,
+  },
 };
 
 // CLI args
@@ -132,6 +139,9 @@ const isProd = process.argv.includes("--prod");
 // Filter out node/bun executable and script path, keep only actual arguments
 const args = process.argv.slice(2);
 const targetApp = args.find((arg) => !arg.startsWith("--"));
+
+// Track which apps were actually built and should be deployed
+let appsToDeploy: string[] = [];
 
 if (dryRun) {
   console.log("[INFO] Dry run mode - no changes will be made\n");
@@ -209,6 +219,132 @@ async function runCommand(
 }
 
 /**
+ * Get changed apps compared to a base branch using git
+ *
+ * This function determines which apps need to be rebuilt by analyzing:
+ * 1. Direct changes to app directories
+ * 2. Changes to shared packages (affects all apps)
+ * 3. Changes to shared config files (affects all apps)
+ *
+ * @param baseBranch - The git branch to compare against (default: origin/master)
+ * @returns Array of app names that need to be built
+ */
+function getChangedApps(baseBranch = "origin/master"): string[] {
+  if (dryRun) {
+    console.log(`[DRY RUN] Would check for changed apps against ${baseBranch}`);
+    return appsToDeployList;
+  }
+
+  // Get all changed files including deletions and renames
+  const gitResult = Bun.spawnSync({
+    cmd: [
+      "git",
+      "diff",
+      "--name-only",
+      "--diff-filter=d", // Exclude deleted files from triggering rebuilds
+      `${baseBranch}...HEAD`,
+      "--",
+      "apps/",
+      "packages/",
+      "turbo.json",
+      "package.json",
+      "bun.lockb",
+      ".env.production",
+      "scripts/",
+    ],
+    cwd: rootDir,
+  });
+
+  if (gitResult.exitCode !== 0) {
+    console.warn(
+      `[WARN] Could not determine changed apps (git diff failed), building all requested apps`
+    );
+    return appsToDeployList;
+  }
+
+  const changedFiles = gitResult.stdout
+    .toString()
+    .split("\n")
+    .filter(Boolean);
+
+  // Extract app names from changed files
+  const changedAppsSet = new Set<string>();
+
+  for (const file of changedFiles) {
+    if (file.startsWith("apps/")) {
+      const parts = file.split("/");
+      const appName = parts[1]; // apps/{appName}/...
+      if (appsToDeployList.includes(appName)) {
+        changedAppsSet.add(appName);
+      }
+    }
+  }
+
+  // Check for changes in shared packages that affect all apps
+  const sharedPackageChanges = changedFiles.filter((file) =>
+    file.startsWith("packages/")
+  );
+
+  // Check for changes in critical config files
+  const configChanges = changedFiles.filter((file) =>
+    [
+      "turbo.json",
+      "package.json",
+      "bun.lockb",
+      ".env.production",
+      "scripts/cf-deploy.ts",
+    ].includes(file)
+  );
+
+  // Determine if we need to build all apps
+  const buildAllApps =
+    sharedPackageChanges.length > 0 ||
+    configChanges.some((file) => file === "turbo.json" || file === "package.json" || file === "bun.lockb");
+
+  if (buildAllApps) {
+    const reasons = [];
+    if (sharedPackageChanges.length > 0) {
+      reasons.push(`shared packages changed (${sharedPackageChanges.length} files)`);
+    }
+    if (configChanges.some(f => ["turbo.json", "package.json", "bun.lockb"].includes(f))) {
+      reasons.push("core config changed");
+    }
+    console.log(
+      `[INFO] Building all apps: ${reasons.join(", ")}`
+    );
+    return appsToDeployList;
+  }
+
+  const result = Array.from(changedAppsSet);
+
+  // Log what we found
+  if (result.length > 0) {
+    console.log(`[INFO] Changed apps detected: ${result.join(", ")}`);
+  } else {
+    console.log(`[INFO] No app changes detected`);
+  }
+
+  // Log config changes that don't require full rebuild
+  if (configChanges.length > 0) {
+    console.log(`[INFO] Config changes (deployment only): ${configChanges.join(", ")}`);
+  }
+
+  // If no specific app changes detected but we have a target, build it
+  if (result.length === 0 && targetApp) {
+    console.log(`[INFO] No changes detected, but building requested app: ${targetApp}`);
+    return [targetApp];
+  }
+
+  // If deploying all and no changes, build all for safety
+  if (result.length === 0 && !targetApp) {
+    console.log("[INFO] No app changes detected. Building all apps for safety.");
+    return appsToDeployList;
+  }
+
+  return result;
+}
+
+/**
  * Build apps for Cloudflare Pages deployment using turbo
  */
 async function buildAllApps(): Promise<boolean> {
@@ -223,9 +359,16 @@ async function buildAllApps(): Promise<boolean> {
     return true;
   }
 
-  // Build only the apps we're deploying to Cloudflare Pages
+  // Determine which apps actually need to be built
+  const appsToBuild = getChangedApps();
+
+  if (appsToBuild.length === 0) {
+    console.log("[INFO] No apps need to be built. Skipping build phase.\n");
+    return true;
+  }
+
   console.log(
-    `[INFO] Building ${appsToDeployList.length} app(s) for deployment...`
+    `[INFO] Building ${appsToBuild.length} app(s) for deployment: ${appsToBuild.join(", ")}`
   );
   console.log(`[INFO] Loading environment from: .env.production`);
   console.log(`[INFO] Production URLs:`);
@@ -241,7 +384,7 @@ async function buildAllApps(): Promise<boolean> {
   // Pass PRODUCTION_ENV which sets process.env values directly
   // process.env has highest precedence and overrides .env.local localhost URLs
   const buildResults = await Promise.all(
-    appsToDeployList.map((app) =>
+    appsToBuild.map((app) =>
       runCommand(
         ["bun", "run", "build"],
         join(rootDir, "apps", app),
@@ -252,7 +395,8 @@ async function buildAllApps(): Promise<boolean> {
     )
   );
 
-  const failed = appsToDeployList.filter((_, i) => !buildResults[i].success);
+  const failed = appsToBuild.filter((_, i) => !buildResults[i].success);
+  const succeeded = appsToBuild.filter((_, i) => buildResults[i].success);
 
   if (failed.length > 0) {
     console.error(
@@ -261,7 +405,11 @@ async function buildAllApps(): Promise<boolean> {
     return false;
   }
 
-  console.log(`[✓] All ${appsToDeployList.length} app(s) built successfully\n`);
+  console.log(`[✓] All ${appsToBuild.length} app(s) built successfully\n`);
+
+  // Store successfully built apps for deployment phase
+  appsToDeploy = succeeded;
+
   return true;
 }
 
@@ -405,10 +553,13 @@ async function deployPhase(): Promise<boolean> {
   console.log("║     🚀 PHASE 3: Deploying to Cloudflare       ║");
   console.log("╚════════════════════════════════════════════════╝\n");
 
-  console.log(`[INFO] Deploying ${appsToDeployList.length} app(s)...\n`);
+  // Only deploy apps that were successfully built
+  const appsToDeployNow = appsToDeploy.length > 0 ? appsToDeploy : appsToDeployList;
+
+  console.log(`[INFO] Deploying ${appsToDeployNow.length} app(s)...\n`);
 
   const results = await Promise.all(
-    appsToDeployList.map((app) => deployApp(app))
+    appsToDeployNow.map((app) => deployApp(app))
   );
 
   const failed = results.filter((r) => !r.success);
@@ -444,7 +595,11 @@ function printSummary(success: boolean) {
 
   console.log(`[MODE] ${deployMode}\n`);
   console.log("[APPS DEPLOYED]");
-  for (const app of appsToDeployList) {
+
+  // Show which apps were actually deployed
+  const actuallyDeployed = appsToDeploy.length > 0 ? appsToDeploy : appsToDeployList;
+
+  for (const app of actuallyDeployed) {
     const config = APPS_CONFIG[app];
     const status = success ? "✓" : "?";
     if (isProd) {
@@ -453,6 +608,17 @@ function printSummary(success: boolean) {
       console.log(
         `  ${status} ${app} → https://${config.projectName}.pages.dev (preview)`
       );
+    }
+  }
+
+  // Show apps that were skipped if any
+  if (appsToDeploy.length > 0 && appsToDeploy.length < appsToDeployList.length) {
+    const skippedApps = appsToDeployList.filter(app => !appsToDeploy.includes(app));
+    if (skippedApps.length > 0) {
+      console.log("\n[APPS SKIPPED - No Changes]");
+      for (const app of skippedApps) {
+        console.log(`  ⊝ ${app} - No changes detected`);
+      }
     }
   }
 

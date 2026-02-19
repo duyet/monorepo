@@ -16,6 +16,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@duyet/libs": "*",
     "@duyet/profile": "*"
   },
   "devDependencies": {

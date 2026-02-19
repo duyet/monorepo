@@ -46,13 +46,11 @@ export default function HomelabPage() {
         <ServiceDowntime />
       </ErrorBoundary>
 
-      {/* Orchestration and Info Footer */}
-      <div className="space-y-2 border-t pt-4">
-        <p className="text-xs text-neutral-600 dark:text-neutral-400">
-          <span className="font-medium">Orchestration:</span> microk8s
-        </p>
+      {/* Info Footer */}
+      <div className="border-t pt-4">
         <p className="text-xs text-neutral-500 dark:text-neutral-500">
-          This is not a realtime dashboard. Snapshot taken at {snapshotDate}
+          This is not a realtime dashboard. Data is captured by AI Agent and
+          committed directly to source code. Snapshot taken at {snapshotDate}.
         </p>
       </div>
     </div>

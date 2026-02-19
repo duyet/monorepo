@@ -42,7 +42,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
@@ -125,11 +125,11 @@ jobs:
       name: production
       url: ${{ matrix.url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - uses: oven-sh/setup-bun@v2
 
@@ -145,6 +145,50 @@ jobs:
 
       - name: Install dependencies
         run: bun install
+
+      - name: Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Test connectivity to ClickHouse
+        if: matrix.app == 'photos' || matrix.app == 'insights'
+        run: |
+          echo "Testing connectivity to ClickHouse..."
+          echo "  Host: $CLICKHOUSE_HOST"
+          echo "  Port: ${CLICKHOUSE_PORT:-8123}"
+          PORT="${CLICKHOUSE_PORT:-8123}"
+
+          # Test ICMP
+          if ping -c 1 -W 5 "$CLICKHOUSE_HOST" > /dev/null 2>&1; then
+            echo "✓ ICMP ping OK"
+          else
+            echo "✗ ICMP ping failed"
+            tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || true
+            exit 1
+          fi
+
+          # Test HTTP port
+          if curl -sf --max-time 10 "http://${CLICKHOUSE_HOST}:${PORT}/ping" > /dev/null 2>&1; then
+            echo "✓ ClickHouse HTTP port $PORT OK"
+          else
+            echo "✗ ClickHouse HTTP port $PORT unreachable, trying common ports..."
+            for p in 8123 8443 9000 443; do
+              if curl -sf --max-time 5 "http://${CLICKHOUSE_HOST}:${p}/ping" > /dev/null 2>&1; then
+                echo "  ✓ Found ClickHouse on port $p"
+              elif curl -sf --max-time 5 "https://${CLICKHOUSE_HOST}:${p}/ping" > /dev/null 2>&1; then
+                echo "  ✓ Found ClickHouse on port $p (HTTPS)"
+              else
+                echo "  ✗ Port $p: no response"
+              fi
+            done
+            echo "Continuing build anyway (will fall back to other providers)"
+          fi
+        env:
+          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
+          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
 
       - name: Deploy to Cloudflare Pages
         run: |
@@ -184,3 +228,20 @@ jobs:
           echo "- **App**: ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
           echo "- **URL**: ${{ matrix.url }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Project**: ${{ matrix.project }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Health check
+        run: |
+          echo "Checking ${{ matrix.url }}..."
+          max_attempts=5
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            if curl -s -f -o /dev/null "${{ matrix.url }}"; then
+              echo "✅ Health check passed for ${{ matrix.url }}"
+              exit 0
+            fi
+            echo "Attempt $attempt/$max_attempts failed, waiting 10s..."
+            sleep 10
+            attempt=$((attempt + 1))
+          done
+          echo "❌ Health check failed after $max_attempts attempts"
+          exit 1

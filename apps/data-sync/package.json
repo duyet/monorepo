@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",
+    "@types/bun": "latest",
     "typescript": "^5.7.2"
   }
 }

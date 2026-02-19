@@ -8,6 +8,10 @@ Allow: /
 
 Sitemap: ${siteUrl}/sitemap.xml
 Sitemap: ${siteUrl}/sitemap
+
+# LLM and AI agent resources
+# llms.txt: ${siteUrl}/llms.txt
+# llms-full.txt: ${siteUrl}/llms-full.txt
 `;
 
   return new Response(robotsTxt, {

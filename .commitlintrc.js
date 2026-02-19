@@ -26,6 +26,8 @@ module.exports = {
         "docs",
         // Library-related changes
         "lib",
+        // Agent-related changes
+        "agents",
       ],
     ],
     "scope-empty": [1, "never"],

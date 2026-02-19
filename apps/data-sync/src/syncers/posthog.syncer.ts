@@ -33,7 +33,7 @@ const POSTHOG_API_URL = "https://app.posthog.com";
 
 export class PostHogSyncer extends BaseSyncer<
   PostHogEventsResponse,
-  PostHogPathRecord[]
+  PostHogPathRecord
 > {
   private apiKey: string;
   private projectId: string;
@@ -56,7 +56,7 @@ export class PostHogSyncer extends BaseSyncer<
 
   protected async fetchFromApi(
     options: SyncOptions
-  ): Promise<PostHogEventsResponse> {
+  ): Promise<PostHogEventsResponse[]> {
     const { startDate, endDate } = this.determineDateRange(options);
     const allEvents: PostHogEvent[] = [];
 
@@ -127,7 +127,7 @@ export class PostHogSyncer extends BaseSyncer<
         `Total events fetched: ${allEvents.length} across ${pageCount} pages`
       );
 
-      return { results: allEvents, next: null };
+      return [{ results: allEvents, next: null }];
     } catch (error) {
       this.logger.error("Failed to fetch from PostHog API", {
         error: error instanceof Error ? error.message : String(error),
@@ -137,11 +137,11 @@ export class PostHogSyncer extends BaseSyncer<
   }
 
   protected async transform(
-    data: PostHogEventsResponse
+    data: PostHogEventsResponse[]
   ): Promise<PostHogPathRecord[]> {
     const records: PostHogPathRecord[] = [];
 
-    if (!data.results || data.results.length === 0) {
+    if (!data || data.length === 0) {
       this.logger.warn("No events in PostHog response");
       return records;
     }
@@ -149,7 +149,8 @@ export class PostHogSyncer extends BaseSyncer<
     // Aggregate events by date and path
     const pathMap = new Map<string, AggregatedPathData>();
 
-    for (const event of data.results) {
+    for (const response of data) {
+      for (const event of response.results) {
       if (event.event !== "$pageview") {
         continue;
       }
@@ -199,6 +200,7 @@ export class PostHogSyncer extends BaseSyncer<
         (event.properties.$session_id as string | undefined) ||
         event.distinct_id;
       aggregated.sessions.add(sessionId);
+      }
     }
 
     // Convert aggregated data to records
@@ -215,7 +217,7 @@ export class PostHogSyncer extends BaseSyncer<
     }
 
     this.logger.info(
-      `Transformed ${records.length} path records from ${data.results.length} events`
+      `Transformed ${records.length} path records from ${data.reduce((sum, d) => sum + d.results.length, 0)} events`
     );
     return records;
   }

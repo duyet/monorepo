@@ -11,6 +11,7 @@ import { insightsConfig } from "@duyet/config";
 import { Inter } from "next/font/google";
 import { GlobalPeriodSelector } from "../components/GlobalPeriodSelector";
 import { CompactNavigation } from "../components/navigation/CompactNavigation";
+import { ServiceWorkerProvider } from "../components/sw/ServiceWorkerProvider";
 
 // Note: Next.js font loaders require literal values, so we use the config as reference
 // but must provide literals here. Config values are defined in @duyet/config for documentation.
@@ -35,8 +36,9 @@ export default function RootLayout({ children }: LayoutProps) {
       suppressHydrationWarning
     >
       <Head />
-      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
+      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased" suppressHydrationWarning>
         <ThemeProvider>
+          <ServiceWorkerProvider />
           <Header
             longText={insightsConfig.header.longText}
             shortText={insightsConfig.header.shortText}

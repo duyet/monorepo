@@ -224,3 +224,141 @@ export interface Photo {
   // Original data from the provider
   originalData?: UnsplashPhoto | CloudinaryPhoto;
 }
+
+// Extended EXIF metadata for local photos
+export interface DetailedExif {
+  // Camera information
+  make?: string
+  model?: string
+  lensModel?: string
+
+  // Shooting parameters
+  exposureTime?: string
+  fNumber?: string | number
+  aperture?: string
+  iso?: number
+  focalLength?: string | number
+  focalLengthIn35mm?: number
+
+  // Date and time
+  dateTime?: string
+  dateTimeOriginal?: string
+  dateTimeDigitized?: string
+
+  // GPS location
+  gps?: {
+    latitude?: number
+    longitude?: number
+    altitude?: number
+    latitudeRef?: string
+    longitudeRef?: string
+  }
+
+  // Image properties
+  orientation?: number
+  width?: number
+  height?: number
+  colorSpace?: string
+  whiteBalance?: string
+
+  // Additional metadata
+  software?: string
+  artist?: string
+  copyright?: string
+  description?: string
+  userComment?: string
+
+  // Shooting modes
+  exposureMode?: string
+  exposureProgram?: string
+  meteringMode?: string
+  flash?: string
+  sceneCaptureType?: string
+}
+
+// Local photo interface
+export interface LocalPhoto {
+  id: string
+  source: 'local'
+  filename: string
+  originalName: string
+  created_at: string
+  updated_at: string
+  width: number
+  height: number
+  size: number // file size in bytes
+  mimeType: string
+
+  // URLs for local photos
+  urls: {
+    raw: string
+    full: string
+    regular: string
+    small: string
+    thumb: string
+  }
+
+  // Metadata
+  description?: string
+  alt_description?: string
+  tags?: string[]
+
+  // EXIF data
+  exif?: DetailedExif
+
+  // Location from EXIF or manual entry
+  location?: {
+    name?: string
+    city?: string
+    country?: string
+    position?: {
+      latitude: number
+      longitude: number
+    }
+  }
+
+  // User info (for local photos, this is the uploader)
+  user?: {
+    name: string
+    username: string
+  }
+
+  // Stats (for consistency with Unsplash)
+  stats?: {
+    views: number
+    downloads: number
+  }
+
+  // Color information
+  color?: string
+  blur_hash?: string
+}
+
+// Unified photo type that can be either a standard Photo or Local
+export type UnifiedPhoto = Photo | LocalPhoto;
+
+// Type guard to check if a photo is local
+export function isLocalPhoto(
+  photo: Photo | LocalPhoto
+): photo is LocalPhoto {
+  return "source" in photo && photo.source === "local";
+}
+
+// Type guard to check if a photo is a standard (non-local) Photo
+export function isStandardPhoto(
+  photo: Photo | LocalPhoto
+): photo is Photo {
+  return !isLocalPhoto(photo);
+}
+
+// Unified PhotosByYear that can contain both types
+export interface UnifiedPhotosByYear {
+  [year: string]: UnifiedPhoto[];
+}
+
+// Upload response from API
+export interface UploadResponse {
+  success: boolean;
+  photo?: LocalPhoto;
+  error?: string;
+}

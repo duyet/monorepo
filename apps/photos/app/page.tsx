@@ -17,7 +17,11 @@ import {
 
 export const revalidate = 86400; // Revalidate daily for static export
 
-export default async function PhotosPage() {
+type PageProps = {
+  searchParams: { fallback?: string };
+};
+
+export default async function PhotosPage({ searchParams }: PageProps) {
   let photos: Photo[] = [];
   let photosByYear: { [year: string]: Photo[] } = {};
   let photoError: PhotoFetchError | null = null;
@@ -36,11 +40,14 @@ export default async function PhotosPage() {
   }
 
   const totalPhotos = photos.length;
+  const isFallback = photos.length > 0 && photos.some((p) => p.id.startsWith("fallback-"));
   const years = Object.keys(photosByYear)
     .map(Number)
     .sort((a, b) => b - a); // Sort years in descending order
 
-  if (photoError) {
+  // Only show error state if we have no photos at all
+  // If we have fallback photos, proceed normally
+  if (photoError && photos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
@@ -115,17 +122,27 @@ export default async function PhotosPage() {
               Photography Collection
             </h1>
             <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-              A curated selection of {totalPhotos} photos from{" "}
-              <a
-                href="https://unsplash.com/@_duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
-              >
-                Unsplash
-              </a>{" "}
-              and Cloudinary. Explore landscapes, architecture, and moments
-              captured through the lens. Prefer a narrative experience?{" "}
+              {isFallback ? (
+                <>
+                  A selection of <span className="font-semibold">{totalPhotos} sample photos</span> to
+                  showcase the gallery. Configure your photo providers to display your own collection.
+                </>
+              ) : (
+                <>
+                  A curated selection of {totalPhotos} photos from{" "}
+                  <a
+                    href="https://unsplash.com/@_duyet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
+                  >
+                    Unsplash
+                  </a>{" "}
+                  and Cloudinary. Explore landscapes, architecture, and moments
+                  captured through the lens.
+                </>
+              )}{" "}
+              Prefer a narrative experience?{" "}
               <Link
                 href="/feed"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"

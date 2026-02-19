@@ -1,5 +1,4 @@
 import merge from "deepmerge";
-import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette.js";
 import claudeThemeModule from "./claude.theme.cjs";
 import { colors as designSystemColors } from "./colors.js";
 import shadcnThemeModule from "./shadcn.theme.cjs";
@@ -156,19 +155,6 @@ export default {
     ...(tremorThemeModule.safelist || []),
     ...(claudeThemeModule.safelist || []),
   ],
-  plugins: [...(tremorThemeModule.plugins || []), addVariablesForColors],
+  plugins: [...(tremorThemeModule.plugins || [])],
   darkMode: ["class", 'html[class~="dark"]'],
 };
-
-// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
-// https://ui.aceternity.com/components/background-boxes
-function addVariablesForColors({ addBase, theme }) {
-  const allColors = flattenColorPalette(theme("colors"));
-  const newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
-
-  addBase({
-    ":root": newVars,
-  });
-}

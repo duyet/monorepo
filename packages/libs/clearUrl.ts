@@ -1,4 +1,6 @@
-export const clearUrl = (url: string) => {
+import { ValidationError } from "./errors";
+
+export const clearUrl = (url: string): string => {
   try {
     const urlObj = new URL(url);
     // Remove query parameters and hash by only using origin and pathname
@@ -9,8 +11,11 @@ export const clearUrl = (url: string) => {
       .replace(/\/+/g, "/")
       .replace(/^\/+/, "");
     return cleanedPathname ? `${origin}/${cleanedPathname}` : origin;
-  } catch (_error) {
-    throw new Error("Invalid URL");
+  } catch (error) {
+    throw new ValidationError("Invalid URL provided", {
+      input: url,
+      cause: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
