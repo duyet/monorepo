@@ -162,7 +162,7 @@ const serviceConfigs: ServiceConfig[] = [
   {
     name: "openclaw",
     namespace: "openclaw",
-    node: "minipc-01",
+    node: "openclaw",
     port: 18789,
     cpuRange: [2, 4],
     memRange: [500, 800],

@@ -35,9 +35,9 @@ export const nodes: Node[] = [
       ).toFixed(2)
     ),
     memoryTotal: 16,
-    storage: 512,
+    storage: 2560,
     uptime: generateUptime(),
-    services: 7,
+    services: 6,
   },
   {
     id: "node-2",
@@ -64,7 +64,7 @@ export const nodes: Node[] = [
       ).toFixed(2)
     ),
     memoryTotal: 16,
-    storage: 512,
+    storage: 2560,
     uptime: generateUptime(),
     services: 7,
   },
@@ -78,7 +78,7 @@ export const nodes: Node[] = [
     memory: 0,
     memoryUsed: 0,
     memoryTotal: 16,
-    storage: 512,
+    storage: 1024,
     uptime: "0d 0h 0m",
     services: 0,
   },
@@ -107,7 +107,7 @@ export const nodes: Node[] = [
       ).toFixed(2)
     ),
     memoryTotal: 8,
-    storage: 128,
+    storage: 512,
     uptime: generateUptime(),
     services: 3,
   },
@@ -136,7 +136,36 @@ export const nodes: Node[] = [
       ).toFixed(2)
     ),
     memoryTotal: 4,
-    storage: 64,
+    storage: 512,
+    uptime: generateUptime(),
+    services: 1,
+  },
+  {
+    id: "node-6",
+    name: "openclaw",
+    ip: "192.168.1.140",
+    status: "online",
+    type: "server",
+    cpu: Number(
+      random(
+        NODE_RESOURCE_RANGES.OPENCLAW.CPU.min,
+        NODE_RESOURCE_RANGES.OPENCLAW.CPU.max
+      ).toFixed(1)
+    ),
+    memory: Number(
+      random(
+        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY.min,
+        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY.max
+      ).toFixed(1)
+    ),
+    memoryUsed: Number(
+      random(
+        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY_USED.min,
+        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY_USED.max
+      ).toFixed(2)
+    ),
+    memoryTotal: 16,
+    storage: 1024,
     uptime: generateUptime(),
     services: 1,
   },
@@ -342,5 +371,5 @@ export const clusterStats = {
   usedMemory: Number(
     nodes.reduce((acc, n) => acc + n.memoryUsed, 0).toFixed(1)
   ),
-  totalStorage: 8192, // 8 TiB total NAS + node storage
+  totalStorage: nodes.reduce((acc, n) => acc + n.storage, 0), // in GB
 };

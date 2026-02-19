@@ -25,6 +25,11 @@ export const NODE_RESOURCE_RANGES = {
     MEMORY: { min: 40, max: 50 },
     MEMORY_USED: { min: 1.6, max: 2 },
   },
+  OPENCLAW: {
+    CPU: { min: 30, max: 50 },
+    MEMORY: { min: 50, max: 65 },
+    MEMORY_USED: { min: 8, max: 10 },
+  },
 } as const;
 
 // Uptime ranges
@@ -103,6 +108,7 @@ export const SERVICE_NAMESPACES = [
   "n8n",
   "home-assistant",
   "network",
+  "openclaw",
 ] as const;
 
 export type ServiceNamespace = (typeof SERVICE_NAMESPACES)[number];
