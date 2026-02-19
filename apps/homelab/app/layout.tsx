@@ -31,7 +31,8 @@ export default function RootLayout({ children }: LayoutProps) {
     >
       <Head />
       <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
-        {/* Clean up orphaned localStorage keys from removed alert system */}
+        {/* Clean up orphaned localStorage keys from removed alert system
+            TODO: remove after 1-2 releases once migration window has passed */}
         <script
           dangerouslySetInnerHTML={{
             __html: `try{localStorage.removeItem("alert_thresholds")}catch(e){}`,
