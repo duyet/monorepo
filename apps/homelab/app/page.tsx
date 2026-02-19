@@ -49,7 +49,8 @@ export default function HomelabPage() {
       {/* Info Footer */}
       <div className="border-t pt-4">
         <p className="text-xs text-neutral-500 dark:text-neutral-500">
-          This is not a realtime dashboard. Snapshot taken at {snapshotDate}
+          This is not a realtime dashboard. Data is captured by AI Agent and
+          committed directly to source code. Snapshot taken at {snapshotDate}.
         </p>
       </div>
     </div>
