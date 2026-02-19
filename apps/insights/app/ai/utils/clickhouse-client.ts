@@ -40,11 +40,14 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
     port,
     protocol: explicitProtocol,
     nodeEnv: process.env.NODE_ENV,
+    isCI: !!(process.env.CI || process.env.GITHUB_ACTIONS),
     buildEnv: process.env.VERCEL
       ? "vercel"
       : process.env.CF_PAGES
         ? "cloudflare"
-        : "local",
+        : process.env.CI
+          ? "ci"
+          : "local",
   });
 
   if (!host || !username || !password || !database) {
@@ -131,9 +134,18 @@ export function getClickHouseClient() {
 }
 
 /**
- * Check if we're in a build environment where ClickHouse may not be available
+ * Check if we're in a local build environment where ClickHouse may not be available.
+ * Returns false in CI/CD environments (GitHub Actions) where ClickHouse IS accessible
+ * via Tailscale VPN, so full timeouts and retries should be used.
  */
 function isBuildEnvironment(): boolean {
+  // In CI/CD (GitHub Actions), ClickHouse is accessible via Tailscale VPN
+  if (process.env.CI || process.env.GITHUB_ACTIONS) {
+    return false;
+  }
+
+  // Only apply reduced timeout for truly local production builds
+  // where ClickHouse is typically not available
   return (
     process.env.NODE_ENV === "production" &&
     !process.env.VERCEL &&
@@ -155,7 +167,8 @@ export async function executeClickHouseQuery(
     timeoutMs = 5000; // 5 second timeout during build
     maxRetries = 1; // Only 1 retry during build
     console.log(
-      "[ClickHouse Query] Build environment detected, using reduced timeout"
+      "[ClickHouse Query] Local build environment detected (no CI), using reduced timeout:",
+      { timeoutMs, maxRetries }
     );
   }
   console.log("[ClickHouse Query] Starting query execution:", {
