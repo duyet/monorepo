@@ -45,7 +45,7 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
       ? "vercel"
       : process.env.CF_PAGES
         ? "cloudflare"
-        : process.env.CI
+        : process.env.CI || process.env.GITHUB_ACTIONS
           ? "ci"
           : "local",
   });
