@@ -31,6 +31,12 @@ export default function RootLayout({ children }: LayoutProps) {
     >
       <Head />
       <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
+        {/* Clean up orphaned localStorage keys from removed alert system */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{localStorage.removeItem("alert_thresholds")}catch(e){}`,
+          }}
+        />
         <ThemeProvider>
           <Header
             longText={homelabConfig.header.longText}
