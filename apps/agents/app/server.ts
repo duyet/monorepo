@@ -7,7 +7,7 @@
  * The agent is deployed as a Durable Object on Cloudflare Pages.
  */
 
-import { AIChatAgent } from "@cloudflare/ai-chat";
+import { AIChatAgent } from "agents/ai-chat-agent";
 import {
   searchBlogTool,
   getCVTool,

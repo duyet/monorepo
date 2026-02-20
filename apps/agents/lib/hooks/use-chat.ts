@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
+import { useChat as useAIChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
+import type { UIMessage, DynamicToolUIPart, TextUIPart } from "ai";
 import type { Message, ToolExecution, Agent, ChatMode } from "@/lib/types";
 import { getDefaultAgent } from "@/lib/agents";
 
 const CHAT_API_URL =
-  process.env.NEXT_PUBLIC_CHAT_API_URL ||
-  "https://duyet-agents-api.duyet.workers.dev/chat";
+  process.env.NEXT_PUBLIC_CHAT_API_URL || "/api/chat";
 
 export interface UseChatOptions {
   onError?: (error: Error) => void;
@@ -18,12 +20,12 @@ export interface UseChatReturn {
   messages: Message[];
   input: string;
   setInput: (value: string) => void;
-  handleSubmit: (e?: React.FormEvent) => Promise<void>;
+  handleSubmit: (e?: React.FormEvent) => void;
   isLoading: boolean;
   streamingContent: string;
   error: Error | null;
   stop: () => void;
-  reload: () => Promise<void>;
+  reload: () => void;
   // Agent and activity tracking
   activeAgent: Agent;
   setActiveAgent: (agent: Agent) => void;
@@ -33,207 +35,149 @@ export interface UseChatReturn {
   setMode: (mode: ChatMode) => void;
 }
 
-export function useChat(options: UseChatOptions = {}): UseChatReturn {
-  const { onError, onFinish, mode: initialMode = 'agent' } = options;
+/** Extract concatenated text from a UIMessage's TextUIPart parts */
+function getTextContent(msg: UIMessage): string {
+  return msg.parts
+    .filter((p): p is TextUIPart => p.type === "text")
+    .map((p) => p.text)
+    .join("");
+}
 
-  const [messages, setMessages] = useState<Message[]>([]);
+export function useChat(options: UseChatOptions = {}): UseChatReturn {
+  const { onError, onFinish, mode: initialMode = "agent" } = options;
+
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [streamingContent, setStreamingContent] = useState("");
-  const [error, setError] = useState<Error | null>(null);
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
-  const [toolExecutions, _setToolExecutions] = useState<ToolExecution[]>([]);
-  const [thinkingSteps, _setThinkingSteps] = useState<string[]>([]);
   const [mode, setMode] = useState<ChatMode>(initialMode);
 
-  const abortControllerRef = useRef<AbortController | null>(null);
-  // Ref mirrors state to avoid stale closures in async callbacks
-  const messagesRef = useRef(messages);
-  messagesRef.current = messages;
+  // Keep a ref so the transport's body function always reads the latest mode
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
 
-  const sendRequest = useCallback(
-    async (allMessages: Message[], currentMode: ChatMode) => {
-      setIsLoading(true);
-      setStreamingContent("");
-      setError(null);
-
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-      abortControllerRef.current = new AbortController();
-
-      try {
-        const response = await fetch(CHAT_API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            messages: allMessages.map((m) => ({
-              role: m.role,
-              content: m.content,
-            })),
-            mode: currentMode,
-          }),
-          signal: abortControllerRef.current.signal,
-        });
-
-        if (!response.ok) {
-          const errorData = await response
-            .json()
-            .catch(() => ({ error: "Unknown error" }));
-          throw new Error(
-            errorData.error ||
-              `HTTP ${response.status}: ${response.statusText}`
-          );
-        }
-
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
-        let fullContent = "";
-
-        if (reader) {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split("\n");
-
-            for (const line of lines) {
-              if (line.startsWith("data: ")) {
-                const data = line.slice(6);
-                if (data === "[DONE]") continue;
-
-                try {
-                  const parsed = JSON.parse(data);
-                  if (parsed.response) {
-                    fullContent += parsed.response;
-                    setStreamingContent(fullContent);
-                  }
-                } catch {
-                  // Skip invalid JSON chunks
-                }
-              }
-            }
-          }
-        }
-
-        const assistantMessage: Message = {
-          id: `assistant-${Date.now()}`,
-          role: "assistant",
-          content:
-            fullContent ||
-            "I apologize, but I couldn't generate a response. Please try again.",
-          timestamp: Date.now(),
-        };
-
-        setMessages((prev) => [...prev, assistantMessage]);
-        onFinish?.(assistantMessage);
-      } catch (err) {
-        const chatError =
-          err instanceof Error ? err : new Error("Unknown error occurred");
-
-        if (chatError.name === "AbortError") {
-          // Preserve any partial streamed content as a message
-          const partial = streamingContent;
-          if (partial) {
-            setMessages((prev) => [
-              ...prev,
-              {
-                id: `assistant-${Date.now()}`,
-                role: "assistant",
-                content: partial,
-                timestamp: Date.now(),
-              },
-            ]);
-          }
-        } else {
-          console.error("Chat error:", chatError);
-          setError(chatError);
-          onError?.(chatError);
-
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: `error-${Date.now()}`,
-              role: "assistant",
-              content: `Sorry, I encountered an error. Please try again.\n\n**Error:** ${chatError.message}`,
-              timestamp: Date.now(),
-            },
-          ]);
-        }
-      } finally {
-        setIsLoading(false);
-        setStreamingContent("");
-        abortControllerRef.current = null;
-      }
-    },
-    [onError, onFinish, streamingContent]
+  // Transport created once; body is evaluated per-request via function
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: CHAT_API_URL,
+        body: () => ({ mode: modeRef.current }),
+      }),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  const {
+    messages: aiMessages,
+    sendMessage,
+    stop,
+    regenerate,
+    status,
+    error: aiError,
+  } = useAIChat({
+    transport,
+    onError,
+    onFinish: onFinish
+      ? ({ message: msg }) => {
+          onFinish({
+            id: msg.id,
+            role: "assistant",
+            content: getTextContent(msg),
+            timestamp: Date.now(),
+          });
+        }
+      : undefined,
+  });
+
+  const isActiveStatus = status === "streaming" || status === "submitted";
+
+  /**
+   * Convert UIMessage[] → Message[].
+   * While streaming, the last assistant message is being built — exclude it here
+   * and expose its current text via streamingContent instead.
+   */
+  const messages = useMemo<Message[]>(() => {
+    const converted = aiMessages
+      .filter((m) => m.role === "user" || m.role === "assistant")
+      .map((m) => ({
+        id: m.id,
+        role: m.role as "user" | "assistant",
+        content: getTextContent(m),
+        timestamp: Date.now(),
+      }));
+
+    if (
+      isActiveStatus &&
+      converted.length > 0 &&
+      converted[converted.length - 1].role === "assistant"
+    ) {
+      return converted.slice(0, -1);
+    }
+    return converted;
+  }, [aiMessages, isActiveStatus]);
+
+  /** Live text of the currently-streaming assistant message */
+  const streamingContent = useMemo(() => {
+    if (!isActiveStatus) return "";
+    const lastMsg = aiMessages[aiMessages.length - 1];
+    if (!lastMsg || lastMsg.role !== "assistant") return "";
+    return getTextContent(lastMsg);
+  }, [aiMessages, isActiveStatus]);
+
+  /** Collect tool executions from DynamicToolUIPart parts across all messages */
+  const toolExecutions = useMemo<ToolExecution[]>(() => {
+    const executions: ToolExecution[] = [];
+    for (const msg of aiMessages) {
+      if (msg.role !== "assistant") continue;
+      for (const part of msg.parts) {
+        if (part.type !== "dynamic-tool") continue;
+        const p = part as DynamicToolUIPart;
+        const execStatus: ToolExecution["status"] =
+          p.state === "output-available"
+            ? "complete"
+            : p.state === "input-available" || p.state === "input-streaming"
+              ? "running"
+              : "error";
+        executions.push({
+          id: p.toolCallId,
+          toolName: p.toolName,
+          parameters: (p.input as Record<string, unknown>) || {},
+          startTime: Date.now(),
+          endTime: p.state === "output-available" ? Date.now() : undefined,
+          status: execStatus,
+          result: p.state === "output-available" ? p.output : undefined,
+        });
+      }
+    }
+    return executions;
+  }, [aiMessages]);
 
   const handleSubmit = useCallback(
-    async (e?: React.FormEvent) => {
+    (e?: React.FormEvent) => {
       e?.preventDefault();
-
       const trimmedInput = input.trim();
-      if (!trimmedInput || isLoading) return;
-
-      const userMessage: Message = {
-        id: `user-${Date.now()}`,
-        role: "user",
-        content: trimmedInput,
-        timestamp: Date.now(),
-      };
-
-      const allMessages = [...messagesRef.current, userMessage];
-      setMessages(allMessages);
+      if (!trimmedInput || status !== "ready") return;
       setInput("");
-
-      await sendRequest(allMessages, mode);
+      sendMessage({ text: trimmedInput });
     },
-    [input, isLoading, sendRequest, mode]
+    [input, status, sendMessage]
   );
 
-  const stop = useCallback(() => {
-    abortControllerRef.current?.abort();
-  }, []);
-
-  const reload = useCallback(async () => {
-    const currentMessages = messagesRef.current;
-    if (currentMessages.length === 0) return;
-
-    const lastUserMessage = [...currentMessages]
-      .reverse()
-      .find((m) => m.role === "user");
-    if (!lastUserMessage) return;
-
-    // Keep messages up to and including the last user message
-    const idx = currentMessages.findIndex((m) => m.id === lastUserMessage.id);
-    const kept = currentMessages.slice(0, idx + 1);
-    setMessages(kept);
-
-    await sendRequest(kept, mode);
-  }, [sendRequest, mode]);
-
-  useEffect(() => {
-    return () => {
-      abortControllerRef.current?.abort();
-    };
-  }, []);
+  const reload = useCallback(() => {
+    regenerate();
+  }, [regenerate]);
 
   return {
     messages,
     input,
     setInput,
     handleSubmit,
-    isLoading,
+    isLoading: isActiveStatus,
     streamingContent,
-    error,
+    error: aiError ?? null,
     stop,
     reload,
     activeAgent,
     setActiveAgent,
     toolExecutions,
-    thinkingSteps,
+    thinkingSteps: [],
     mode,
     setMode,
   };
