@@ -2,6 +2,8 @@
  * Types for the AI Agent application
  */
 
+export type ChatMode = 'fast' | 'agent'
+
 export interface Message {
   id: string;
   role: "user" | "assistant";

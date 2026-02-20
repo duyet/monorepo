@@ -22,7 +22,7 @@ const MCP_SERVER_URL = "https://mcp.duyet.net";
 /**
  * Generic fetch wrapper for MCP server calls
  */
-async function fetchMCP(endpoint: string, options?: RequestInit): Promise<Response> {
+async function _fetchMCP(endpoint: string, options?: RequestInit): Promise<Response> {
   const url = `${MCP_SERVER_URL}${endpoint}`;
 
   const response = await fetch(url, {

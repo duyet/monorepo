@@ -1,12 +1,8 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import type { Message, ToolExecution, Agent } from "@/lib/types";
+import type { Message, ToolExecution, Agent, ChatMode } from "@/lib/types";
 import { getDefaultAgent } from "@/lib/agents";
-import {
-  parseStreamEvent,
-  createToolExecution,
-} from "./use-activity";
 
 const CHAT_API_URL =
   process.env.NEXT_PUBLIC_CHAT_API_URL ||
@@ -15,6 +11,7 @@ const CHAT_API_URL =
 export interface UseChatOptions {
   onError?: (error: Error) => void;
   onFinish?: (message: Message) => void;
+  mode?: ChatMode;
 }
 
 export interface UseChatReturn {
@@ -32,10 +29,12 @@ export interface UseChatReturn {
   setActiveAgent: (agent: Agent) => void;
   toolExecutions: ToolExecution[];
   thinkingSteps: string[];
+  mode: ChatMode;
+  setMode: (mode: ChatMode) => void;
 }
 
 export function useChat(options: UseChatOptions = {}): UseChatReturn {
-  const { onError, onFinish } = options;
+  const { onError, onFinish, mode: initialMode = 'agent' } = options;
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -43,8 +42,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const [streamingContent, setStreamingContent] = useState("");
   const [error, setError] = useState<Error | null>(null);
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
-  const [toolExecutions, setToolExecutions] = useState<ToolExecution[]>([]);
-  const [thinkingSteps, setThinkingSteps] = useState<string[]>([]);
+  const [toolExecutions, _setToolExecutions] = useState<ToolExecution[]>([]);
+  const [thinkingSteps, _setThinkingSteps] = useState<string[]>([]);
+  const [mode, setMode] = useState<ChatMode>(initialMode);
 
   const abortControllerRef = useRef<AbortController | null>(null);
   // Ref mirrors state to avoid stale closures in async callbacks
@@ -52,7 +52,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   messagesRef.current = messages;
 
   const sendRequest = useCallback(
-    async (allMessages: Message[]) => {
+    async (allMessages: Message[], currentMode: ChatMode) => {
       setIsLoading(true);
       setStreamingContent("");
       setError(null);
@@ -71,6 +71,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
               role: m.role,
               content: m.content,
             })),
+            mode: currentMode,
           }),
           signal: abortControllerRef.current.signal,
         });
@@ -187,9 +188,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       setMessages(allMessages);
       setInput("");
 
-      await sendRequest(allMessages);
+      await sendRequest(allMessages, mode);
     },
-    [input, isLoading, sendRequest]
+    [input, isLoading, sendRequest, mode]
   );
 
   const stop = useCallback(() => {
@@ -210,8 +211,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     const kept = currentMessages.slice(0, idx + 1);
     setMessages(kept);
 
-    await sendRequest(kept);
-  }, [sendRequest]);
+    await sendRequest(kept, mode);
+  }, [sendRequest, mode]);
 
   useEffect(() => {
     return () => {
@@ -233,5 +234,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     setActiveAgent,
     toolExecutions,
     thinkingSteps,
+    mode,
+    setMode,
   };
 }

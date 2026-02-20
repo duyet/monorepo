@@ -9,6 +9,7 @@
 
 import { streamText } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
+import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../../lib/agent";
 
 // Set runtime to edge for Cloudflare Workers compatibility
 export const runtime = "edge";
@@ -18,7 +19,7 @@ export const runtime = "edge";
  */
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const { messages, mode = 'agent' } = await req.json();
 
     // Create Workers AI provider
     // The AI binding is automatically injected in Cloudflare Pages Functions
@@ -29,32 +30,14 @@ export async function POST(req: Request) {
       apiKey: env.CLOUDFLARE_API_KEY || "",
     });
 
-    // System prompt
-    const systemPrompt = `You are Duyet's AI assistant. You can help users with:
-
-- **Blog Search** - Search through 296+ blog posts on data engineering, cloud computing, and programming
-- **CV Information** - Learn about Duyet's experience and skills
-- **GitHub Activity** - See recent commits, PRs, and issues
-- **Analytics** - View contact form statistics
-
-When answering questions:
-1. Use available tools to get accurate, up-to-date information
-2. Always cite sources when referencing blog posts or data
-3. Be helpful and conversational
-4. Format sources as markdown links at the end of your response
-
-Example response with sources:
-"Based on the blog posts, here's what I found...
-
-**Sources:**
-- [Blog Post Title](https://blog.duyet.net/post-url)"`;
+    const system = mode === 'fast' ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
 
     // Stream the response using Workers AI
     const result = streamText({
       model: workersai("@cf/meta/llama-3.3-70b-instruct-fp8-fast"),
-      system: systemPrompt,
+      system,
       messages,
-      temperature: 0.7,
+      temperature: mode === 'fast' ? 0.3 : 0.7,
     });
 
     // Return the streaming response
