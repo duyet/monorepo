@@ -80,14 +80,14 @@ export const TIME_POINTS = [
   24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2,
 ] as const;
 
-// Chart colors (matching Claude-inspired palette from globals.css)
+// Chart colors — vivid, high-contrast strokes for Recharts
 export const CHART_COLORS = {
-  CLAUDE_LAVENDER: "#9090ff",
-  CLAUDE_MINT: "#a8d5ba",
-  CLAUDE_PEACH: "#ffc79d",
-  CLAUDE_SUNSHINE: "#ffd79d",
-  CLAUDE_SKY: "#b0d4f1",
-  CLAUDE_ROSE: "#ffb3ba",
+  CLAUDE_LAVENDER: "#6366f1",
+  CLAUDE_MINT: "#10b981",
+  CLAUDE_PEACH: "#f97316",
+  CLAUDE_SUNSHINE: "#f59e0b",
+  CLAUDE_SKY: "#3b82f6",
+  CLAUDE_ROSE: "#ef4444",
 } as const;
 
 // External links

@@ -12,8 +12,8 @@ export function SmartDevicesOverview() {
     <div className="space-y-8">
       {/* Connected Devices Summary */}
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-claude-mint dark:bg-claude-mint/20">
-          <Wifi className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/30">
+          <Wifi className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
         </div>
         <div>
           <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">

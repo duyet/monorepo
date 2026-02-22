@@ -297,8 +297,8 @@ export function BoschWashingMachine() {
     <div className="space-y-6">
       {/* Device Header */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender dark:bg-claude-lavender/20">
-          <RefreshCw className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-900/30">
+          <RefreshCw className="h-5 w-5 text-violet-600 dark:text-violet-400" />
         </div>
         <div>
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -320,10 +320,10 @@ export function BoschWashingMachine() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-3xl bg-claude-lavender p-5 dark:bg-claude-lavender/20">
+        <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-br from-violet-100 to-violet-50 p-5 dark:border-violet-700/20 dark:from-violet-900/25 dark:to-violet-950/10">
           <div className="flex items-center gap-2">
-            <RefreshCw className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
-            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+            <RefreshCw className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+            <p className="text-xs font-medium text-violet-700 dark:text-violet-300">
               Lifetime Cycles
             </p>
           </div>
@@ -335,10 +335,10 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl bg-claude-sky p-5 dark:bg-claude-sky/20">
+        <div className="rounded-3xl border border-sky-200/70 bg-gradient-to-br from-sky-100 to-sky-50 p-5 dark:border-sky-700/20 dark:from-sky-900/25 dark:to-sky-950/10">
           <div className="flex items-center gap-2">
-            <Droplets className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
-            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+            <Droplets className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+            <p className="text-xs font-medium text-sky-700 dark:text-sky-300">
               Avg Water / Month
             </p>
           </div>
@@ -354,10 +354,10 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl bg-claude-yellow p-5 dark:bg-claude-yellow/20">
+        <div className="rounded-3xl border border-amber-200/70 bg-gradient-to-br from-amber-100 to-amber-50 p-5 dark:border-amber-700/20 dark:from-amber-900/25 dark:to-amber-950/10">
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
-            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+            <Zap className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
               Avg Energy / Month
             </p>
           </div>

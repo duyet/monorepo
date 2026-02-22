@@ -42,12 +42,12 @@
   --ring: oklch(0.623 0.214 259.815);
 
   /* Claude-inspired brand colors */
-  --claude-lavender: oklch(0.76 0.12 280);
-  --claude-mint: oklch(0.82 0.08 155);
-  --claude-peach: oklch(0.88 0.08 50);
-  --claude-sunshine: oklch(0.88 0.1 85);
-  --claude-sky: oklch(0.82 0.08 225);
-  --claude-rose: oklch(0.82 0.08 15);
+  --claude-lavender: oklch(0.80 0.17 280);
+  --claude-mint: oklch(0.80 0.13 155);
+  --claude-peach: oklch(0.86 0.13 50);
+  --claude-sunshine: oklch(0.85 0.17 85);
+  --claude-sky: oklch(0.80 0.13 225);
+  --claude-rose: oklch(0.80 0.16 15);
   --claude-neutral: oklch(0.92 0.005 286);
 }
 
