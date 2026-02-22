@@ -121,13 +121,13 @@ export default function HomePage() {
           />
 
           <LinkCard
-            title="Chat"
+            title="AI Agents"
             href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_AI_URL || "https://ai.duyet.net",
+              process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
               "homepage",
-              "ai_card"
+              "agents_card"
             )}
-            description="Experimental @duyetbot LLM base for questions about duyet.net and related topics."
+            description="AI Agents powered by @duyetbot — chat, search tools, and automations."
             color="sage"
           />
 

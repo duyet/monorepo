@@ -7,8 +7,6 @@ loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
 loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
 const config = {
-  // Use static export for Cloudflare Pages deployment
-  output: "export",
   trailingSlash: true,
   images: {
     unoptimized: true,

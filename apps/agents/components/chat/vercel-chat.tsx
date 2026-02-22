@@ -4,21 +4,23 @@ import { useRef, useEffect, useState } from "react";
 import { useChat, useAutoResize, useAutoScroll, useKeyboardShortcuts } from "@/lib/hooks";
 import { AGENTS } from "@/lib/agents";
 import { cn } from "@/lib/utils";
+import type { ChatMode } from "@/lib/types";
 import { AgentSwitcher } from "../agent-switcher";
 import { ActivityPanel } from "../activity/activity-panel";
+import { ChatHeader } from "./chat-header";
 import { UserMessage, AssistantMessage, WelcomeMessage } from "./message-components";
 import { LoadingIndicator } from "./loading-indicator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send, RefreshCw, X, Maximize2, Minimize2 } from "lucide-react";
+import { Send, RefreshCw, X } from "lucide-react";
 
 const WELCOME_MESSAGE = `Hello! I'm @duyetbot - a virtual version of Duyet. I can help you with:
 
-• **Blog Search** - Search through 296+ blog posts on data engineering, cloud computing, and programming
-• **CV Information** - Learn about Duyet's experience and skills
-• **GitHub Activity** - See recent commits, PRs, and issues
-• **Analytics** - View contact form statistics
+- **Blog Search** — Search through 296+ blog posts on data engineering, cloud computing, and programming
+- **CV Information** — Learn about Duyet's experience and skills
+- **GitHub Activity** — See recent commits, PRs, and issues
+- **Analytics** — View contact form statistics
 
 What would you like to know?`;
 
@@ -40,9 +42,22 @@ export function VercelChat() {
     setActiveAgent,
     toolExecutions,
     thinkingSteps,
+    mode,
+    setMode,
   } = useChat({
     onError: (err) => console.error("Chat error:", err),
   });
+
+  // Sync mode with localStorage (read on mount, write on change)
+  useEffect(() => {
+    const saved = localStorage.getItem("chat-mode") as ChatMode;
+    if (saved === "fast" || saved === "agent") setMode(saved);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleModeChange = (newMode: ChatMode) => {
+    setMode(newMode);
+    localStorage.setItem("chat-mode", newMode);
+  };
 
   // Auto-resize textarea on input
   const { ref: textareaCallbackRef, resize } = useAutoResize({
@@ -91,8 +106,11 @@ export function VercelChat() {
       {/* Left: Chat Panel */}
       <div className={cn(
         "flex w-full flex-col border-r",
-        !hasActivity && "lg:w-1/2" // Full width when no activity
+        mode === "agent" && hasActivity && "lg:w-1/2"
       )}>
+        {/* Mode toggle header */}
+        <ChatHeader mode={mode} onModeChange={handleModeChange} />
+
         {/* Agent Switcher */}
         <AgentSwitcher
           agents={AGENTS}
@@ -101,8 +119,8 @@ export function VercelChat() {
         />
 
         {/* Messages Area */}
-        <ScrollArea className="flex-1 px-4 py-6">
-          <div ref={containerRef} className="mx-auto max-w-3xl space-y-6">
+        <ScrollArea className="flex-1 px-4 py-4">
+          <div ref={containerRef} className="mx-auto max-w-3xl space-y-4">
             {!hasMessages && !streamingContent ? (
               <WelcomeMessage content={WELCOME_MESSAGE} />
             ) : (
@@ -133,115 +151,87 @@ export function VercelChat() {
           </div>
         </ScrollArea>
 
-        {/* Input Area */}
-        <div className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <form onSubmit={(e) => handleSubmit(e)} className="mx-auto max-w-3xl p-4">
-            <div className="flex gap-2 items-end">
-              <div className="flex-1 relative">
-                <Textarea
-                  ref={(el) => {
-                    textareaCallbackRef(el);
-                    inputRef.current = el;
-                  }}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Ask me anything..."
-                  disabled={isLoading}
-                  rows={1}
-                  className="min-h-[44px] max-h-[200px] resize-none"
-                />
-              </div>
-
-              {isLoading ? (
-                <Button
-                  type="button"
-                  onClick={stop}
-                  size="icon"
-                  variant="destructive"
-                  className="h-[44px] w-[44px] shrink-0"
-                >
-                  <X className="h-4 w-4" />
-                  <span className="sr-only">Stop generation</span>
-                </Button>
-              ) : (
-                <>
-                  {hasAssistantResponse && (
+        {/* Input Area — v0.dev style contained box */}
+        <div className="border-t bg-background px-4 py-3">
+          <form onSubmit={(e) => handleSubmit(e)} className="mx-auto max-w-2xl">
+            <div className={cn(
+              "rounded-lg border bg-background transition-shadow",
+              "focus-within:ring-1 focus-within:ring-ring"
+            )}>
+              <Textarea
+                ref={(el) => { textareaCallbackRef(el); inputRef.current = el; }}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask me anything..."
+                disabled={isLoading}
+                rows={2}
+                className="min-h-[64px] max-h-[160px] resize-none border-0 bg-transparent px-3 pt-3 pb-1 shadow-none focus-visible:ring-0 text-sm"
+              />
+              {/* Inner toolbar */}
+              <div className="flex items-center justify-between px-2 pb-2">
+                <p className="text-[11px] text-muted-foreground/60 pl-1 font-[family-name:var(--font-geist-mono)]">
+                  ↵ send · ⇧↵ newline
+                </p>
+                <div className="flex items-center gap-1">
+                  {isLoading ? (
                     <Button
                       type="button"
-                      onClick={() => reload()}
-                      size="icon"
+                      onClick={stop}
+                      size="sm"
                       variant="outline"
-                      className="h-[44px] w-[44px] shrink-0"
+                      className="h-7 rounded-md px-2.5 text-xs"
                     >
-                      <RefreshCw className="h-4 w-4" />
-                      <span className="sr-only">Regenerate response</span>
+                      <X className="h-3 w-3 mr-1" />
+                      Stop
                     </Button>
+                  ) : (
+                    <>
+                      {hasAssistantResponse && (
+                        <Button
+                          type="button"
+                          onClick={() => reload()}
+                          size="icon"
+                          variant="ghost"
+                          className="h-7 w-7 rounded-md"
+                        >
+                          <RefreshCw className="h-3.5 w-3.5" />
+                          <span className="sr-only">Regenerate</span>
+                        </Button>
+                      )}
+                      <Button
+                        type="submit"
+                        disabled={!canSubmit}
+                        size="sm"
+                        className="h-7 rounded-md px-2.5 text-xs"
+                      >
+                        <Send className="h-3 w-3 mr-1" />
+                        Send
+                      </Button>
+                    </>
                   )}
-                  <Button
-                    type="submit"
-                    disabled={!canSubmit}
-                    size="icon"
-                    className="h-[44px] w-[44px] shrink-0"
-                  >
-                    <Send className="h-4 w-4" />
-                    <span className="sr-only">Send message</span>
-                  </Button>
-                </>
-              )}
+                </div>
+              </div>
             </div>
-
-            <div className="flex items-center justify-between mt-3">
-              <p className="text-xs text-muted-foreground">
-                Powered by Cloudflare Workers AI • Press{" "}
-                <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs font-mono">⌘K</kbd> to focus •{" "}
-                <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs font-mono">Esc</kbd> to stop
-              </p>
-              {error && (
-                <p className="text-xs text-destructive flex items-center gap-1">
-                  <span>!</span>
-                  {error.message}
-                </p>
-              )}
-            </div>
+            {error && (
+              <p className="mt-1.5 text-xs text-destructive pl-1">{error.message}</p>
+            )}
           </form>
         </div>
       </div>
 
-      {/* Right: Activity Panel */}
-      <div className="hidden lg:flex w-1/2 flex-col bg-muted/30">
-        {/* Activity Panel Header */}
-        <div className="flex items-center justify-between border-b bg-background/95 backdrop-blur px-4 py-2">
-          <h2 className="text-sm font-semibold">Activity</h2>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsActivityMinimized(!isActivityMinimized)}
-          >
-            {isActivityMinimized ? (
-              <Maximize2 className="h-4 w-4" />
-            ) : (
-              <Minimize2 className="h-4 w-4" />
-            )}
-          </Button>
-        </div>
-
-        {/* Activity Panel Content */}
-        {isActivityMinimized ? (
-          <div className="flex-1 flex items-center justify-center p-8">
-            <p className="text-sm text-muted-foreground">
-              Activity panel minimized
-            </p>
-          </div>
-        ) : (
+      {/* Right: Activity Panel — hidden in fast mode */}
+      {mode === "agent" && (
+        <div className="hidden lg:flex w-1/2 flex-col">
           <ActivityPanel
             executions={toolExecutions}
             thinkingSteps={thinkingSteps}
             isLoading={isLoading}
+            isMinimized={isActivityMinimized}
+            onToggleMinimize={() => setIsActivityMinimized((v) => !v)}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

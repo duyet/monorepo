@@ -1,6 +1,3 @@
 name = "duyet-agents"
 compatibility_date = "2024-01-01"
-pages_build_output_dir = ".next"
-
-# Note: Using static export for frontend
-# Chat API will be deployed as a separate Cloudflare Worker
+pages_build_output_dir = ".vercel/output/static"

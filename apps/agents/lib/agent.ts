@@ -16,7 +16,7 @@ import {
 } from "./tools";
 
 // System prompt for the AI agent
-const SYSTEM_PROMPT = `You are Duyet's AI assistant. You help answer questions about:
+export const SYSTEM_PROMPT = `You are Duyet's AI assistant. You help answer questions about:
 - Duyet's blog posts (data engineering, cloud computing, programming)
 - Duyet's CV and professional experience
 - Recent GitHub activity
@@ -42,6 +42,8 @@ When answering:
 2. Call the appropriate tools
 3. Synthesize the information into a helpful response
 4. Include source citations when relevant`;
+
+export const FAST_SYSTEM_PROMPT = `You are Duyet's AI assistant. Answer questions about Duyet concisely and helpfully. You can discuss blog posts, CV, GitHub activity, or general topics.`
 
 // Tool definitions for the LLM
 export const AGENT_TOOLS = [
@@ -128,7 +130,7 @@ export const AGENT_TOOLS = [
  * Execute a tool call
  * Note: Tool functions return different property names, so we normalize them
  */
-async function executeToolCall(
+async function _executeToolCall(
   toolName: string,
   parameters: Record<string, unknown>
 ): Promise<{ result: string; sources: Source[] }> {

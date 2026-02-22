@@ -127,9 +127,9 @@ When answering questions:
                 const lines = chunk.split("\n").filter((line) => line.trim());
                 for (const line of lines) {
                   if (line.startsWith("data: ")) {
-                    writer.write(encoder.encode(line + "\n\n"));
+                    writer.write(encoder.encode(`${line}\n\n`));
                   } else {
-                    writer.write(encoder.encode("data: " + line + "\n\n"));
+                    writer.write(encoder.encode(`data: ${line}\n\n`));
                   }
                 }
               }
@@ -140,7 +140,7 @@ When answering questions:
         } else {
           // Non-streaming response (fallback)
           const responseText = JSON.stringify(aiResponse);
-          writer.write(encoder.encode("data: " + responseText + "\n\n"));
+          writer.write(encoder.encode(`data: ${responseText}\n\n`));
           writer.write(encoder.encode("data: [DONE]\n\n"));
           writer.close();
         }

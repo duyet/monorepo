@@ -1,10 +1,11 @@
+"use client";
+
 import type { Message } from "@/lib/types";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
 import { useState } from "react";
 
 interface MessageProps {
@@ -22,15 +23,15 @@ export function UserMessage({ message }: { message: Message }) {
   };
 
   return (
-    <div className="flex justify-end gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 group">
-      <div className="flex max-w-[85%] flex-col items-end gap-1">
-        <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-primary-foreground shadow-sm">
+    <div className="flex justify-end gap-3 group">
+      <div className="flex max-w-[80%] flex-col items-end gap-1">
+        <div className="rounded-md bg-foreground px-3.5 py-2.5 text-background">
           <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
             {message.content}
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[11px] text-muted-foreground/60 font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
           <Button
@@ -40,7 +41,7 @@ export function UserMessage({ message }: { message: Message }) {
             onClick={handleCopy}
           >
             {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-            <span className="sr-only">Copy message</span>
+            <span className="sr-only">Copy</span>
           </Button>
         </div>
       </div>
@@ -58,57 +59,50 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
   };
 
   return (
-    <div className="flex justify-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300 group">
-      <Avatar className="mt-0.5 shrink-0">
-        <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-500 text-white text-xs">
-          @
-        </AvatarFallback>
-      </Avatar>
-      <div className="flex max-w-[85%] flex-col gap-1">
-        <div className="rounded-2xl rounded-bl-sm border bg-background px-4 py-2.5 shadow-sm">
-          <div className="prose prose-sm dark:prose-invert max-w-none">
-            <Markdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeSanitize]}
-              components={{
-                a: ({ ...props }) => (
-                  <a
-                    {...props}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors underline-offset-2"
-                  />
-                ),
-                code: ({ ...props }) => (
-                  <code
-                    {...props}
-                    className="px-1.5 py-0.5 bg-muted rounded text-sm font-mono"
-                  />
-                ),
-                pre: ({ ...props }) => (
-                  <pre
-                    {...props}
-                    className="bg-muted-foreground/10 text-foreground p-4 rounded-xl overflow-x-auto text-sm border border-border/50"
-                  />
-                ),
-                p: ({ ...props }) => (
-                  <p {...props} className="mb-2 last:mb-0" />
-                ),
-                ul: ({ ...props }) => (
-                  <ul {...props} className="mb-2 last:mb-0 space-y-1 pl-4" />
-                ),
-                ol: ({ ...props }) => (
-                  <ol {...props} className="mb-2 last:mb-0 space-y-1 pl-4" />
-                ),
-              }}
-            >
-              {message.content}
-            </Markdown>
-          </div>
+    <div className="flex justify-start gap-3 group">
+      {/* Avatar — small neutral square, Vercel-style */}
+      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-sm border bg-muted">
+        <span className="text-[10px] font-bold text-muted-foreground font-[family-name:var(--font-geist-mono)]">@</span>
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed">
+          <Markdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeSanitize]}
+            components={{
+              a: ({ ...props }) => (
+                <a
+                  {...props}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors"
+                />
+              ),
+              code: ({ ...props }) => (
+                <code
+                  {...props}
+                  className="px-1.5 py-0.5 bg-muted rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-foreground"
+                />
+              ),
+              pre: ({ ...props }) => (
+                <pre
+                  {...props}
+                  className="bg-muted border border-border rounded-md p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)]"
+                />
+              ),
+              p: ({ ...props }) => <p {...props} className="mb-2 last:mb-0" />,
+              ul: ({ ...props }) => <ul {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
+              ol: ({ ...props }) => <ol {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
+            }}
+          >
+            {message.content}
+          </Markdown>
           {isStreaming && <StreamingCursor />}
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">
+
+        <div className="flex items-center gap-1.5">
+          <span className="text-[11px] text-muted-foreground/60 font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
           {!isStreaming && (
@@ -119,7 +113,7 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
               onClick={handleCopy}
             >
               {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-              <span className="sr-only">Copy message</span>
+              <span className="sr-only">Copy</span>
             </Button>
           )}
         </div>
@@ -130,52 +124,68 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
 
 export function StreamingCursor() {
   return (
-    <span className="inline-flex ml-1 animate-pulse">
-      <span className="w-0.5 h-4 bg-foreground" />
+    <span className="inline-flex ml-0.5 align-middle animate-pulse">
+      <span className="w-0.5 h-[1em] bg-foreground" />
     </span>
   );
 }
+
+const CAPABILITIES = [
+  { icon: BookOpen, label: "Blog Search", desc: "296+ posts" },
+  { icon: User,     label: "CV",          desc: "Experience & skills" },
+  { icon: GitBranch,label: "GitHub",      desc: "Commits, PRs, issues" },
+  { icon: BarChart2,label: "Analytics",   desc: "Contact stats" },
+] as const;
 
 interface WelcomeMessageProps {
   content: string;
 }
 
-export function WelcomeMessage({ content }: WelcomeMessageProps) {
+export function WelcomeMessage({ content: _ }: WelcomeMessageProps) {
   return (
-    <div className="flex justify-center animate-in fade-in zoom-in-95 duration-500">
-      <div className="max-w-lg text-center space-y-4 px-4">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow-lg">
-          <span className="text-white text-xl">@</span>
+    <div className="flex flex-col items-center gap-6 py-8 animate-in fade-in duration-500">
+      {/* Title */}
+      <div className="flex flex-col items-center gap-2 text-center">
+        <div className="flex h-9 w-9 items-center justify-center rounded-md border bg-foreground">
+          <span className="text-background text-sm font-bold font-[family-name:var(--font-geist-mono)]">@</span>
         </div>
-        <h2 className="text-xl font-semibold tracking-tight">
-          Welcome to @duyetbot
-        </h2>
-        <div className="prose prose-sm dark:prose-invert max-w-none mx-auto text-muted-foreground">
-          <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
+        <div>
+          <h2 className="text-base font-semibold tracking-tight">@duyetbot</h2>
+          <p className="text-xs text-muted-foreground">Virtual version of Duyet · Ask me anything</p>
         </div>
       </div>
+
+      {/* Capability cards — 2×2 grid */}
+      <div className="grid grid-cols-2 gap-2 w-full max-w-sm">
+        {CAPABILITIES.map(({ icon: Icon, label, desc }) => (
+          <div
+            key={label}
+            className="flex items-start gap-2.5 rounded-md border bg-muted/30 px-3 py-2.5 hover:bg-muted/60 transition-colors cursor-default"
+          >
+            <Icon className="h-3.5 w-3.5 mt-0.5 text-muted-foreground shrink-0" />
+            <div>
+              <p className="text-xs font-medium text-foreground">{label}</p>
+              <p className="text-[11px] text-muted-foreground">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-xs text-muted-foreground">Type a message to get started ↓</p>
     </div>
   );
 }
 
 function formatRelativeTime(timestamp: number): string {
-  const now = Date.now();
-  const diff = now - timestamp;
-
+  const diff = Date.now() - timestamp;
   const seconds = Math.floor(diff / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
 
-  if (seconds < 60) {
-    return "just now";
-  } else if (minutes < 60) {
-    return `${minutes}m ago`;
-  } else if (hours < 24) {
-    return `${hours}h ago`;
-  } else if (days < 7) {
-    return `${days}d ago`;
-  } else {
-    return new Date(timestamp).toLocaleDateString();
-  }
+  if (seconds < 60) return "just now";
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days < 7) return `${days}d ago`;
+  return new Date(timestamp).toLocaleDateString();
 }
