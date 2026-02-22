@@ -17,8 +17,8 @@ import { useSmartDevices } from "@/hooks/useDashboard";
 import type { ConsumptionData } from "@/lib/data";
 
 const TOOLTIP_STYLE = {
-  backgroundColor: "rgba(255, 255, 255, 0.95)",
-  border: "1px solid #e5e5e5",
+  backgroundColor: "#FBF7F0",
+  border: "1px solid #E6D9C9",
   borderRadius: "8px",
   fontSize: "12px",
 };
@@ -52,9 +52,9 @@ function ComparisonBadge({
     <span
       className={`inline-flex items-center gap-1 text-xs font-medium ${
         isAbove
-          ? "text-red-600 dark:text-red-400"
+          ? "text-claude-coral"
           : isBelow
-            ? "text-green-600 dark:text-green-400"
+            ? "text-claude-mint"
             : "text-neutral-500 dark:text-neutral-400"
       }`}
     >
@@ -272,14 +272,14 @@ const STATUS_CONFIG = {
   online: {
     label: "Running",
     badgeClass:
-      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
-    dotClass: "bg-green-500",
+      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    dotClass: "bg-claude-mint",
   },
   idle: {
     label: "Idle",
     badgeClass:
-      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
-    dotClass: "bg-green-500",
+      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    dotClass: "bg-claude-mint",
   },
   offline: {
     label: "Offline",
@@ -297,8 +297,8 @@ export function BoschWashingMachine() {
     <div className="space-y-6">
       {/* Device Header */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-900/30">
-          <RefreshCw className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender/25 dark:bg-claude-lavender/10">
+          <RefreshCw className="h-5 w-5 text-claude-lavender" />
         </div>
         <div>
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -320,10 +320,10 @@ export function BoschWashingMachine() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-br from-violet-100 to-violet-50 p-5 dark:border-violet-700/20 dark:from-violet-900/25 dark:to-violet-950/10">
+        <div className="rounded-3xl border border-claude-lavender/30 bg-gradient-to-br from-claude-lavender/25 to-claude-lavender/5 p-5 dark:border-claude-lavender/10 dark:from-claude-lavender/10 dark:to-claude-lavender/5">
           <div className="flex items-center gap-2">
-            <RefreshCw className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-            <p className="text-xs font-medium text-violet-700 dark:text-violet-300">
+            <RefreshCw className="h-4 w-4 text-claude-lavender" />
+            <p className="text-xs font-medium text-claude-lavender">
               Lifetime Cycles
             </p>
           </div>
@@ -335,10 +335,10 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl border border-sky-200/70 bg-gradient-to-br from-sky-100 to-sky-50 p-5 dark:border-sky-700/20 dark:from-sky-900/25 dark:to-sky-950/10">
+        <div className="rounded-3xl border border-claude-sky/30 bg-gradient-to-br from-claude-sky/25 to-claude-sky/5 p-5 dark:border-claude-sky/10 dark:from-claude-sky/10 dark:to-claude-sky/5">
           <div className="flex items-center gap-2">
-            <Droplets className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-            <p className="text-xs font-medium text-sky-700 dark:text-sky-300">
+            <Droplets className="h-4 w-4 text-claude-sky" />
+            <p className="text-xs font-medium text-claude-sky">
               Avg Water / Month
             </p>
           </div>
@@ -354,10 +354,10 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl border border-amber-200/70 bg-gradient-to-br from-amber-100 to-amber-50 p-5 dark:border-amber-700/20 dark:from-amber-900/25 dark:to-amber-950/10">
+        <div className="rounded-3xl border border-claude-peach/30 bg-gradient-to-br from-claude-peach/25 to-claude-peach/5 p-5 dark:border-claude-peach/10 dark:from-claude-peach/10 dark:to-claude-peach/5">
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-            <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
+            <Zap className="h-4 w-4 text-claude-peach" />
+            <p className="text-xs font-medium text-claude-peach">
               Avg Energy / Month
             </p>
           </div>
@@ -378,19 +378,19 @@ export function BoschWashingMachine() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ConsumptionChart
           title="Water Consumption"
-          icon={<Droplets className="h-4 w-4 text-blue-500" />}
+          icon={<Droplets className="h-4 w-4 text-claude-sky" />}
           unit="L"
           consumption={data.waterConsumption}
           colorDefault="#b3d9ff"
-          colorActive="#4dabf7"
+          colorActive="#90c8ff"
         />
         <ConsumptionChart
           title="Energy Consumption"
-          icon={<Zap className="h-4 w-4 text-amber-500" />}
+          icon={<Zap className="h-4 w-4 text-claude-peach" />}
           unit="kWh"
           consumption={data.energyConsumption}
           colorDefault="#f0d9a8"
-          colorActive="#f59f00"
+          colorActive="#D97757"
         />
       </div>
     </div>
