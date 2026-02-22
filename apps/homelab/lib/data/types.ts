@@ -101,3 +101,61 @@ export interface SmartDevice {
   status: "online" | "offline" | "idle";
   icon: string;
 }
+
+/**
+ * Dyson Air Purifier types
+ */
+
+export type AirQualityLevel =
+  | "good"
+  | "fair"
+  | "moderate"
+  | "poor"
+  | "very-poor";
+
+export interface PollutantReading {
+  label: string;
+  shortLabel: string;
+  value: number;
+  unit: string;
+  level: AirQualityLevel;
+}
+
+export interface AirQualityHistoryPoint {
+  time: string;
+  pm25: number;
+  pm10: number;
+  voc: number;
+  no2: number;
+  hcho: number;
+  temperature: number;
+  humidity: number;
+}
+
+export interface FilterStatus {
+  name: string;
+  remainingPercent: number;
+  remainingMonths: number;
+}
+
+export interface AirQualityReport {
+  comparedToLastMonth: "improved" | "deteriorated" | "stable";
+  highestPollutionDay: string;
+  highestPollutionDate: string;
+  aqiRating: AirQualityLevel;
+  dominantPollutant: string;
+}
+
+export interface DysonAirPurifierData {
+  model: string;
+  modelCode: string;
+  brand: "dyson";
+  status: "online" | "offline" | "idle";
+  currentTemperature: number;
+  currentHumidity: number;
+  airQuality: AirQualityLevel;
+  pollutants: PollutantReading[];
+  history: AirQualityHistoryPoint[];
+  filters: FilterStatus[];
+  report: AirQualityReport;
+}

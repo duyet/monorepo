@@ -13,13 +13,19 @@ export { clusterStats, cpuHistory, memoryHistory, nodes } from "./nodes";
 export { services } from "./services";
 // Export types
 export type {
+  AirQualityHistoryPoint,
+  AirQualityLevel,
+  AirQualityReport,
   ClusterStats,
   ConsumptionData,
   DailyConsumption,
+  DysonAirPurifierData,
+  FilterStatus,
   MonthlyConsumption,
   NetworkSpeedTest,
   NetworkStats,
   Node,
+  PollutantReading,
   Service,
   ServiceDowntime,
   SmartDevice,
@@ -27,7 +33,11 @@ export type {
 } from "./types";
 
 // Export smart device data
-export { boschWashingMachine, smartDevices } from "./smart-devices";
+export {
+  boschWashingMachine,
+  dysonAirPurifier,
+  smartDevices,
+} from "./smart-devices";
 
 // Re-export utilities for convenience
 export { generateUptime, getHistoricalTime, random } from "./utils";
