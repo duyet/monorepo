@@ -461,7 +461,7 @@ function FilterStatusCard() {
                   </span>
                 </div>
                 {/* Progress bar */}
-                <div className="h-3 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700">
+                <div className="h-3 w-full overflow-hidden rounded-full bg-claude-tan/50 dark:bg-neutral-700">
                   <div
                     className={`h-full rounded-full transition-all ${
                       isLow
@@ -507,7 +507,7 @@ function AirQualityReportCard() {
       <CardContent>
         <div className="space-y-4">
           {/* Trend vs last month */}
-          <div className="flex items-center justify-between rounded-xl bg-claude-cream p-3 dark:bg-neutral-800/50">
+          <div className="flex items-center justify-between rounded-xl bg-claude-beige p-3 dark:bg-neutral-700/30">
             <span className="text-xs text-neutral-600 dark:text-neutral-400">
               vs. Last Month
             </span>
@@ -531,7 +531,7 @@ function AirQualityReportCard() {
           </div>
 
           {/* Highest pollution */}
-          <div className="flex items-center justify-between rounded-xl bg-claude-cream p-3 dark:bg-neutral-800/50">
+          <div className="flex items-center justify-between rounded-xl bg-claude-beige p-3 dark:bg-neutral-700/30">
             <span className="text-xs text-neutral-600 dark:text-neutral-400">
               Highest Pollution
             </span>
@@ -541,7 +541,7 @@ function AirQualityReportCard() {
           </div>
 
           {/* AQI Rating */}
-          <div className="flex items-center justify-between rounded-xl bg-claude-cream p-3 dark:bg-neutral-800/50">
+          <div className="flex items-center justify-between rounded-xl bg-claude-beige p-3 dark:bg-neutral-700/30">
             <span className="text-xs text-neutral-600 dark:text-neutral-400">
               AQI Rating
             </span>
@@ -553,7 +553,7 @@ function AirQualityReportCard() {
           </div>
 
           {/* Dominant Pollutant */}
-          <div className="flex items-center justify-between rounded-xl bg-claude-cream p-3 dark:bg-neutral-800/50">
+          <div className="flex items-center justify-between rounded-xl bg-claude-beige p-3 dark:bg-neutral-700/30">
             <span className="text-xs text-neutral-600 dark:text-neutral-400">
               Dominant Pollutant
             </span>
