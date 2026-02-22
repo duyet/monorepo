@@ -10,6 +10,7 @@ import {
   clusterStats,
   cpuHistory,
   downtimeHistory,
+  dysonAirPurifier,
   memoryHistory,
   type Node,
   networkTraffic,
@@ -171,11 +172,13 @@ export function useNamespaces() {
 export function useSmartDevices(): {
   devices: typeof smartDevices;
   boschWashingMachine: typeof boschWashingMachine;
+  dysonAirPurifier: typeof dysonAirPurifier;
 } {
   return useMemo(
     () => ({
       devices: smartDevices,
       boschWashingMachine,
+      dysonAirPurifier,
     }),
     [],
   );

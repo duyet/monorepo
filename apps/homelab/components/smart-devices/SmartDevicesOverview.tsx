@@ -3,6 +3,7 @@
 import { Wifi } from "lucide-react";
 import { useSmartDevices } from "@/hooks/useDashboard";
 import { BoschWashingMachine } from "./BoschWashingMachine";
+import { DysonAirPurifier } from "./DysonAirPurifier";
 
 export function SmartDevicesOverview() {
   const { devices } = useSmartDevices();
@@ -24,15 +25,14 @@ export function SmartDevicesOverview() {
         </div>
       </div>
 
-      {/* Device Sections */}
-      <BoschWashingMachine />
+      {/* Dyson Air Purifier */}
+      <DysonAirPurifier />
 
-      {/* Placeholder for future devices */}
-      <div className="rounded-2xl border border-dashed border-neutral-300 p-8 text-center dark:border-neutral-700">
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          More devices coming soon (Dyson, etc.)
-        </p>
-      </div>
+      {/* Separator */}
+      <div className="border-t border-neutral-200 dark:border-neutral-800" />
+
+      {/* Bosch Washing Machine */}
+      <BoschWashingMachine />
     </div>
   );
 }
