@@ -72,21 +72,19 @@ export interface MonthlyConsumption {
   value: number;
 }
 
+export interface ConsumptionData {
+  monthlyAverage: number;
+  unit: string;
+  monthly: MonthlyConsumption[];
+}
+
 export interface WashingMachineData {
   model: string;
   brand: "bosch";
   status: "online" | "offline" | "idle";
   lifetimeCycles: number;
-  waterConsumption: {
-    monthlyAverage: number;
-    unit: "L";
-    monthly: MonthlyConsumption[];
-  };
-  energyConsumption: {
-    monthlyAverage: number;
-    unit: "kWh";
-    monthly: MonthlyConsumption[];
-  };
+  waterConsumption: ConsumptionData & { unit: "L" };
+  energyConsumption: ConsumptionData & { unit: "kWh" };
 }
 
 export interface SmartDevice {

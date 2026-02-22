@@ -168,7 +168,10 @@ export function useNamespaces() {
 /**
  * Hook for smart devices data
  */
-export function useSmartDevices() {
+export function useSmartDevices(): {
+  devices: typeof smartDevices;
+  boschWashingMachine: typeof boschWashingMachine;
+} {
   return useMemo(
     () => ({
       devices: smartDevices,

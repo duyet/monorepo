@@ -1,12 +1,8 @@
 "use client";
 
-import { RefreshCw, Wifi } from "lucide-react";
+import { Wifi } from "lucide-react";
 import { useSmartDevices } from "@/hooks/useDashboard";
 import { BoschWashingMachine } from "./BoschWashingMachine";
-
-const deviceIcons: Record<string, React.ReactNode> = {
-  "washing-machine": <RefreshCw className="h-5 w-5" />,
-};
 
 export function SmartDevicesOverview() {
   const { devices } = useSmartDevices();
@@ -15,7 +11,7 @@ export function SmartDevicesOverview() {
     <div className="space-y-8">
       {/* Connected Devices Summary */}
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#a8d5ba] dark:bg-[#a8d5ba]/20">
+        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-claude-mint dark:bg-claude-mint/20">
           <Wifi className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
         </div>
         <div>

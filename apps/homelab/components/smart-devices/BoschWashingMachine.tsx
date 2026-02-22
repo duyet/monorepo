@@ -15,6 +15,24 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSmartDevices } from "@/hooks/useDashboard";
 
+const TOOLTIP_STYLE = {
+  backgroundColor: "rgba(255, 255, 255, 0.95)",
+  border: "1px solid #e5e5e5",
+  borderRadius: "8px",
+  fontSize: "12px",
+};
+
+function formatTooltipValue(
+  value: number | string | readonly (number | string)[] | undefined,
+  unit: string,
+): [string, string] {
+  const num = Array.isArray(value) ? Number(value[0]) : Number(value);
+  return [
+    `${Number.isFinite(num) ? num : 0} ${unit}`,
+    unit === "L" ? "Water" : "Energy",
+  ];
+}
+
 function ComparisonBadge({
   value,
   average,
@@ -22,8 +40,9 @@ function ComparisonBadge({
   value: number;
   average: number;
 }) {
-  const diff = ((value - average) / average) * 100;
+  const diff = average === 0 ? 0 : ((value - average) / average) * 100;
   const isAbove = diff > 0;
+  const isBelow = diff < 0;
   const percentage = Math.abs(diff).toFixed(0);
 
   return (
@@ -31,19 +50,51 @@ function ComparisonBadge({
       className={`inline-flex items-center gap-1 text-xs font-medium ${
         isAbove
           ? "text-red-600 dark:text-red-400"
-          : "text-green-600 dark:text-green-400"
+          : isBelow
+            ? "text-green-600 dark:text-green-400"
+            : "text-neutral-500 dark:text-neutral-400"
       }`}
     >
-      {isAbove ? (
-        <ArrowUp className="h-3 w-3" />
-      ) : (
-        <ArrowDown className="h-3 w-3" />
-      )}
+      {isAbove && <ArrowUp className="h-3 w-3" />}
+      {isBelow && <ArrowDown className="h-3 w-3" />}
       {percentage}%
       <span className="text-neutral-500 dark:text-neutral-400">vs average</span>
     </span>
   );
 }
+
+function makeBarClickHandler(
+  selected: string | null,
+  setSelected: (value: string | null) => void,
+) {
+  return (state: { activeLabel?: string | number | null }) => {
+    if (state?.activeLabel) {
+      const label = String(state.activeLabel);
+      setSelected(label === selected ? null : label);
+    }
+  };
+}
+
+const STATUS_CONFIG = {
+  online: {
+    label: "Running",
+    badgeClass:
+      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
+    dotClass: "bg-green-500",
+  },
+  idle: {
+    label: "Idle",
+    badgeClass:
+      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
+    dotClass: "bg-green-500",
+  },
+  offline: {
+    label: "Offline",
+    badgeClass:
+      "bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400",
+    dotClass: "bg-neutral-400",
+  },
+} as const;
 
 export function BoschWashingMachine() {
   const { boschWashingMachine: data } = useSmartDevices();
@@ -68,18 +119,13 @@ export function BoschWashingMachine() {
     );
   }, [selectedEnergyMonth, data.energyConsumption.monthly]);
 
-  const tooltipStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.95)",
-    border: "1px solid #e5e5e5",
-    borderRadius: "8px",
-    fontSize: "12px",
-  };
+  const statusConfig = STATUS_CONFIG[data.status];
 
   return (
     <div className="space-y-6">
       {/* Device Header */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#c5c5ff] dark:bg-[#c5c5ff]/20">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender dark:bg-claude-lavender/20">
           <RefreshCw className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
         </div>
         <div>
@@ -90,15 +136,19 @@ export function BoschWashingMachine() {
             Washing Machine
           </p>
         </div>
-        <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-[#a8d5ba]/30 px-3 py-1 text-xs font-medium text-green-700 dark:bg-[#a8d5ba]/10 dark:text-green-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-          {data.status === "idle" ? "Idle" : "Running"}
+        <span
+          className={`ml-auto inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${statusConfig.badgeClass}`}
+        >
+          <span
+            className={`h-1.5 w-1.5 rounded-full ${statusConfig.dotClass}`}
+          />
+          {statusConfig.label}
         </span>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-3xl bg-[#c5c5ff] p-5 dark:bg-[#c5c5ff]/20">
+        <div className="rounded-3xl bg-claude-lavender p-5 dark:bg-claude-lavender/20">
           <div className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
             <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -113,7 +163,7 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl bg-[#b3d9ff] p-5 dark:bg-[#b3d9ff]/20">
+        <div className="rounded-3xl bg-claude-sky p-5 dark:bg-claude-sky/20">
           <div className="flex items-center gap-2">
             <Droplets className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
             <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -132,7 +182,7 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl bg-[#f0d9a8] p-5 dark:bg-[#f0d9a8]/20">
+        <div className="rounded-3xl bg-claude-yellow p-5 dark:bg-claude-yellow/20">
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
             <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -182,15 +232,10 @@ export function BoschWashingMachine() {
             <ResponsiveContainer width="100%" height={220}>
               <BarChart
                 data={data.waterConsumption.monthly}
-                onClick={(state) => {
-                  if (state?.activeLabel) {
-                    setSelectedWaterMonth(
-                      String(state.activeLabel) === selectedWaterMonth
-                        ? null
-                        : String(state.activeLabel),
-                    );
-                  }
-                }}
+                onClick={makeBarClickHandler(
+                  selectedWaterMonth,
+                  setSelectedWaterMonth,
+                )}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -220,11 +265,8 @@ export function BoschWashingMachine() {
                   }}
                 />
                 <Tooltip
-                  contentStyle={tooltipStyle}
-                  formatter={(value: number | undefined) => [
-                    `${value ?? 0} L`,
-                    "Water",
-                  ]}
+                  contentStyle={TOOLTIP_STYLE}
+                  formatter={(v) => formatTooltipValue(v, "L")}
                   cursor={{ fill: "rgba(0,0,0,0.04)" }}
                 />
                 <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={32}>
@@ -287,15 +329,10 @@ export function BoschWashingMachine() {
             <ResponsiveContainer width="100%" height={220}>
               <BarChart
                 data={data.energyConsumption.monthly}
-                onClick={(state) => {
-                  if (state?.activeLabel) {
-                    setSelectedEnergyMonth(
-                      String(state.activeLabel) === selectedEnergyMonth
-                        ? null
-                        : String(state.activeLabel),
-                    );
-                  }
-                }}
+                onClick={makeBarClickHandler(
+                  selectedEnergyMonth,
+                  setSelectedEnergyMonth,
+                )}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -325,11 +362,8 @@ export function BoschWashingMachine() {
                   }}
                 />
                 <Tooltip
-                  contentStyle={tooltipStyle}
-                  formatter={(value: number | undefined) => [
-                    `${value ?? 0} kWh`,
-                    "Energy",
-                  ]}
+                  contentStyle={TOOLTIP_STYLE}
+                  formatter={(v) => formatTooltipValue(v, "kWh")}
                   cursor={{ fill: "rgba(0,0,0,0.04)" }}
                 />
                 <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={32}>

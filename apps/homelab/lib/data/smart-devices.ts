@@ -6,11 +6,12 @@
 import type { SmartDevice, WashingMachineData } from "./types";
 
 export const boschWashingMachine: WashingMachineData = {
-  model: "Bosch Series 8",
+  model: "Bosch Series 6",
   brand: "bosch",
   status: "idle",
   lifetimeCycles: 461,
   waterConsumption: {
+    // 12-month Bosch app average (includes Dec which is not shown in the monthly array)
     monthlyAverage: 152.3,
     unit: "L",
     monthly: [
@@ -28,6 +29,7 @@ export const boschWashingMachine: WashingMachineData = {
     ],
   },
   energyConsumption: {
+    // 12-month Bosch app average (includes Dec which is not shown in the monthly array)
     monthlyAverage: 19.6,
     unit: "kWh",
     monthly: [
@@ -49,8 +51,8 @@ export const boschWashingMachine: WashingMachineData = {
 export const smartDevices: SmartDevice[] = [
   {
     id: "bosch-washer",
-    name: "Bosch Series 8",
-    brand: "Bosch",
+    name: "Bosch Series 6",
+    brand: "bosch",
     type: "washing-machine",
     status: "idle",
     icon: "washing-machine",

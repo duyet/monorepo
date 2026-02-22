@@ -14,6 +14,7 @@ export { services } from "./services";
 // Export types
 export type {
   ClusterStats,
+  ConsumptionData,
   MonthlyConsumption,
   NetworkSpeedTest,
   NetworkStats,
