@@ -16,7 +16,7 @@ export function ClusterOverview() {
     <Card>
       <CardContent>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-3xl bg-[#c5c5ff] p-6 dark:bg-[#c5c5ff]/20">
+          <div className="rounded-3xl bg-claude-lavender p-6 dark:bg-claude-lavender/30">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -33,7 +33,7 @@ export function ClusterOverview() {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-[#a8d5ba] p-6 dark:bg-[#a8d5ba]/20">
+          <div className="rounded-3xl bg-claude-mint p-6 dark:bg-claude-mint/30">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -50,7 +50,7 @@ export function ClusterOverview() {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-[#f5dcd0] p-6 dark:bg-[#f5dcd0]/20">
+          <div className="rounded-3xl bg-claude-peach p-6 dark:bg-claude-peach/30">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -67,7 +67,7 @@ export function ClusterOverview() {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-[#f0d9a8] p-6 dark:bg-[#f0d9a8]/20">
+          <div className="rounded-3xl bg-claude-yellow p-6 dark:bg-claude-yellow/30">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -87,7 +87,7 @@ export function ClusterOverview() {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-[#e8e8e8] p-6 dark:bg-[#e8e8e8]/20">
+          <div className="rounded-3xl bg-neutral-200 p-6 dark:bg-neutral-200/30">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">

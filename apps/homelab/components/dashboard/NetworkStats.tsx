@@ -24,7 +24,7 @@ export function NetworkStats() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-3xl bg-[#a8d5ba] p-4 dark:bg-[#a8d5ba]/20">
+            <div className="rounded-3xl bg-claude-mint p-4 dark:bg-claude-mint/30">
               <div className="flex items-center gap-2">
                 <ArrowDown className="h-4 w-4 text-neutral-700 dark:text-green-400" />
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -39,7 +39,7 @@ export function NetworkStats() {
               </p>
             </div>
 
-            <div className="rounded-3xl bg-[#f5dcd0] p-4 dark:bg-[#f5dcd0]/20">
+            <div className="rounded-3xl bg-claude-peach p-4 dark:bg-claude-peach/30">
               <div className="flex items-center gap-2">
                 <ArrowUp className="h-4 w-4 text-neutral-700 dark:text-red-400" />
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -54,7 +54,7 @@ export function NetworkStats() {
               </p>
             </div>
 
-            <div className="rounded-3xl bg-[#c5c5ff] p-4 dark:bg-[#c5c5ff]/20">
+            <div className="rounded-3xl bg-claude-lavender p-4 dark:bg-claude-lavender/30">
               <div className="flex items-center gap-2">
                 <Gauge className="h-4 w-4 text-neutral-700 dark:text-purple-400" />
                 <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
@@ -85,12 +85,12 @@ export function NetworkStats() {
             <AreaChart data={networkTraffic}>
               <defs>
                 <linearGradient id="inbound" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#b3d9ff" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#b3d9ff" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#90c8ff" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#90c8ff" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="outbound" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#ff9999" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#ff9999" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#ff8585" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#ff8585" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
@@ -125,7 +125,7 @@ export function NetworkStats() {
               <Area
                 type="monotone"
                 dataKey="in"
-                stroke="#4dabf7"
+                stroke="#3b82f6"
                 fillOpacity={1}
                 fill="url(#inbound)"
                 strokeWidth={1}
@@ -134,7 +134,7 @@ export function NetworkStats() {
               <Area
                 type="monotone"
                 dataKey="out"
-                stroke="#ff6b6b"
+                stroke="#ef4444"
                 fillOpacity={1}
                 fill="url(#outbound)"
                 strokeWidth={1}
@@ -144,11 +144,11 @@ export function NetworkStats() {
           </ResponsiveContainer>
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#b3d9ff]" />
+              <div className="h-3 w-3 rounded-full bg-claude-sky" />
               <span className="text-muted-foreground">Incoming</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#ff9999]" />
+              <div className="h-3 w-3 rounded-full bg-claude-coral" />
               <span className="text-muted-foreground">Outgoing</span>
             </div>
           </div>

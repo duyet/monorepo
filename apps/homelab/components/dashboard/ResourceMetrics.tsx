@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useResourceMetrics } from "@/hooks/useDashboard";
+import { CHART_COLORS } from "@/lib/constants";
 
 export function ResourceMetrics() {
   const { cpuHistory, memoryHistory } = useResourceMetrics();
@@ -48,21 +49,21 @@ export function ResourceMetrics() {
               <Line
                 type="monotone"
                 dataKey="minipc-01"
-                stroke="#9090ff"
+                stroke={CHART_COLORS.CLAUDE_LAVENDER}
                 strokeWidth={1}
                 dot={false}
               />
               <Line
                 type="monotone"
                 dataKey="minipc-02"
-                stroke="#76c893"
+                stroke={CHART_COLORS.CLAUDE_MINT}
                 strokeWidth={1}
                 dot={false}
               />
               <Line
                 type="monotone"
                 dataKey="minipc-03"
-                stroke="#ffc857"
+                stroke={CHART_COLORS.CLAUDE_SUNSHINE}
                 strokeWidth={1}
                 dot={false}
               />
@@ -70,19 +71,19 @@ export function ResourceMetrics() {
           </ResponsiveContainer>
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#c5c5ff]" />
+              <div className="h-3 w-3 rounded-full bg-claude-lavender" />
               <span className="text-neutral-600 dark:text-neutral-400">
                 minipc-01
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#a8d5ba]" />
+              <div className="h-3 w-3 rounded-full bg-claude-mint" />
               <span className="text-neutral-600 dark:text-neutral-400">
                 minipc-02
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#f0d9a8]" />
+              <div className="h-3 w-3 rounded-full bg-claude-yellow" />
               <span className="text-neutral-600 dark:text-neutral-400">
                 minipc-03
               </span>
@@ -123,21 +124,21 @@ export function ResourceMetrics() {
               <Line
                 type="monotone"
                 dataKey="minipc-01"
-                stroke="#9090ff"
+                stroke={CHART_COLORS.CLAUDE_LAVENDER}
                 strokeWidth={1}
                 dot={false}
               />
               <Line
                 type="monotone"
                 dataKey="minipc-02"
-                stroke="#76c893"
+                stroke={CHART_COLORS.CLAUDE_MINT}
                 strokeWidth={1}
                 dot={false}
               />
               <Line
                 type="monotone"
                 dataKey="minipc-03"
-                stroke="#ffc857"
+                stroke={CHART_COLORS.CLAUDE_SUNSHINE}
                 strokeWidth={1}
                 dot={false}
               />
@@ -145,19 +146,19 @@ export function ResourceMetrics() {
           </ResponsiveContainer>
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#c5c5ff]" />
+              <div className="h-3 w-3 rounded-full bg-claude-lavender" />
               <span className="text-neutral-600 dark:text-neutral-400">
                 minipc-01
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#a8d5ba]" />
+              <div className="h-3 w-3 rounded-full bg-claude-mint" />
               <span className="text-neutral-600 dark:text-neutral-400">
                 minipc-02
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#f0d9a8]" />
+              <div className="h-3 w-3 rounded-full bg-claude-yellow" />
               <span className="text-neutral-600 dark:text-neutral-400">
                 minipc-03
               </span>
