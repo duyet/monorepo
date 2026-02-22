@@ -72,10 +72,16 @@ export interface MonthlyConsumption {
   value: number;
 }
 
+export interface DailyConsumption {
+  date: string;
+  value: number;
+}
+
 export interface ConsumptionData {
   monthlyAverage: number;
   unit: string;
   monthly: MonthlyConsumption[];
+  daily: DailyConsumption[];
 }
 
 export interface WashingMachineData {
