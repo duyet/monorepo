@@ -218,10 +218,9 @@ function loadEnvFiles(): Record<string, string> {
   return env;
 }
 
-// Mapping from old NEXT_PUBLIC_ names to new secret names (for backwards compatibility)
-const ENV_REMAPPING: Record<string, string> = {
-  NEXT_PUBLIC_CLOUDFLARE_API_TOKEN: "CLOUDFLARE_API_TOKEN",
-};
+// Mapping from old variable names to new ones (for backwards compatibility during migration)
+// Note: NEXT_PUBLIC_CLOUDFLARE_API_TOKEN was removed as sensitive tokens should never be public
+const ENV_REMAPPING: Record<string, string> = {};
 
 function getVarsForApp(
   appName: string,

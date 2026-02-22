@@ -8,6 +8,10 @@ export interface CommonEnvironmentVariables {
 
 /**
  * Auth0 authentication variables (used by blog app)
+ *
+ * Note: AUTH0_CLIENT_ID is intentionally public (NEXT_PUBLIC_) as OAuth Client IDs
+ * are designed to be exposed to browsers for authentication flows.
+ * The sensitive secret is AUTH0_CLIENT_SECRET (server-side only).
  */
 export interface Auth0Variables {
   readonly NEXT_PUBLIC_AUTH0_DOMAIN: string;
