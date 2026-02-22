@@ -10,13 +10,12 @@ slug: /2026/02/claws.html
 description: OpenClaw, NanoClaw, PicoClaw, ZeroClaw, ...
 ---
 
-| | **Language** | **Binary size** | **Memory (peak)** | **Startup** | **Min hardware** | **License** |
-|---|---|---|---|---|---|---|
-| [**OpenClaw**](https://openclaw.ai) | TypeScript | 430k+ LOC · npm | 1.52 GB | ~6 s | macOS / Windows / Linux | MIT |
-| [**NanoBot**](https://github.com/HKUDS/nanobot) | Python | ~4,000 LOC | — | — | any | — |
-| [**NanoClaw**](https://nanoclaw.dev) | TypeScript | ~3,900 LOC | single Node.js process | — | macOS or Linux + Docker | MIT |
-| [**TinyClaw**](https://github.com/TinyAGI/tinyclaw) | Python | — | — | — | any | — |
-| [**IronClaw**](https://github.com/nearai/ironclaw) | Rust | — | 512 MB (sandbox) | — | any | — |
-| [**PicoClaw**](https://picoclaw.net) | Go | single binary | &lt;10 MB | &lt;1 s | 64 MB RAM / $10 board | open source |
-| [**ZeroClaw**](https://zeroclaw.org) | Rust | 3.4 MB | very low | &lt;10 ms | — | MIT |
-| [**NullClaw**](https://nullclaw.org) | Zig | 678 KB static | ~1 MB | &lt;2 ms | $5 board | — |
+| | [**OpenClaw**](https://openclaw.ai) | [**NanoBot**](https://github.com/HKUDS/nanobot) | [**PicoClaw**](https://picoclaw.net) | [**ZeroClaw**](https://zeroclaw.org) | [**NullClaw 🦞**](https://nullclaw.org) |
+|---|---|---|---|---|---|
+| **Language** | TypeScript | Python | Go | Rust | **Zig** |
+| **RAM** | &gt;1 GB | &gt;100 MB | &lt;10 MB | &lt;5 MB | **~1 MB** |
+| **Startup (0.8 GHz)** | &gt;500 s | &gt;30 s | &lt;1 s | &lt;10 ms | **&lt;8 ms** |
+| **Binary size** | ~28 MB (dist) | N/A (scripts) | ~8 MB | 3.4 MB | **678 KB** |
+| **Tests** | — | — | — | 1,017 | **2,843** |
+| **Source files** | ~400+ | — | — | ~120 | **~110** |
+| **Cost** | Mac Mini · $599 | Linux SBC · ~$50 | Linux board · $10 | Any $10 hardware | **Any $5 hardware** |
