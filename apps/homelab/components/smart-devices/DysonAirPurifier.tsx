@@ -575,8 +575,8 @@ export function DysonAirPurifier() {
     <div className="space-y-6">
       {/* Device Header */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender dark:bg-claude-lavender/20">
-          <Wind className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-900/30">
+          <Wind className="h-5 w-5 text-violet-600 dark:text-violet-400" />
         </div>
         <div>
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -598,7 +598,7 @@ export function DysonAirPurifier() {
 
       {/* Air Quality Status + Pollutants */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-3xl bg-claude-mint/40 p-6 dark:bg-claude-mint/10">
+        <div className="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-100 to-emerald-50 p-6 dark:border-emerald-700/20 dark:from-emerald-900/25 dark:to-emerald-950/10">
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">
             Current Air Quality
           </p>
@@ -608,7 +608,7 @@ export function DysonAirPurifier() {
             humidity={data.currentHumidity}
           />
         </div>
-        <div className="rounded-3xl bg-claude-lavender/30 p-6 dark:bg-claude-lavender/10">
+        <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-br from-violet-100 to-violet-50 p-6 dark:border-violet-700/20 dark:from-violet-900/25 dark:to-violet-950/10">
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">
             Pollutant Levels
           </p>
