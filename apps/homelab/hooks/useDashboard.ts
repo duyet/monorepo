@@ -5,6 +5,7 @@
 
 import { useMemo } from "react";
 import {
+  boschWashingMachine,
   type ClusterStats,
   clusterStats,
   cpuHistory,
@@ -15,6 +16,7 @@ import {
   nodes,
   type Service,
   services,
+  smartDevices,
   speedTest,
 } from "@/lib/data";
 
@@ -54,7 +56,7 @@ export function useResourceMetrics() {
       cpuHistory,
       memoryHistory,
     }),
-    []
+    [],
   );
 }
 
@@ -68,7 +70,7 @@ export function useServices(namespace?: string) {
       : services;
 
     const namespaces = Array.from(
-      new Set(services.map((s) => s.namespace))
+      new Set(services.map((s) => s.namespace)),
     ).sort();
 
     const servicesByNamespace = services.reduce(
@@ -79,7 +81,7 @@ export function useServices(namespace?: string) {
         acc[service.namespace].push(service);
         return acc;
       },
-      {} as Record<string, Service[]>
+      {} as Record<string, Service[]>,
     );
 
     const servicesByNode = services.reduce(
@@ -90,7 +92,7 @@ export function useServices(namespace?: string) {
         acc[service.node].push(service);
         return acc;
       },
-      {} as Record<string, Service[]>
+      {} as Record<string, Service[]>,
     );
 
     return {
@@ -114,7 +116,7 @@ export function useNetworkStats() {
       networkTraffic,
       speedTest,
     }),
-    []
+    [],
   );
 }
 
@@ -139,7 +141,7 @@ export function useServiceSearch(searchQuery: string) {
       (service) =>
         service.name.toLowerCase().includes(query) ||
         service.namespace.toLowerCase().includes(query) ||
-        service.node.toLowerCase().includes(query)
+        service.node.toLowerCase().includes(query),
     );
   }, [searchQuery]);
 }
@@ -157,8 +159,21 @@ export function useNode(nodeName: string): Node | undefined {
 export function useNamespaces() {
   return useMemo(() => {
     const namespaces = Array.from(
-      new Set(services.map((s) => s.namespace))
+      new Set(services.map((s) => s.namespace)),
     ).sort();
     return namespaces;
   }, []);
+}
+
+/**
+ * Hook for smart devices data
+ */
+export function useSmartDevices() {
+  return useMemo(
+    () => ({
+      devices: smartDevices,
+      boschWashingMachine,
+    }),
+    [],
+  );
 }

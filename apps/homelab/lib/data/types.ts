@@ -62,3 +62,38 @@ export interface ClusterStats {
   usedMemory: number;
   totalStorage: number;
 }
+
+/**
+ * Smart device types
+ */
+
+export interface MonthlyConsumption {
+  month: string;
+  value: number;
+}
+
+export interface WashingMachineData {
+  model: string;
+  brand: "bosch";
+  status: "online" | "offline" | "idle";
+  lifetimeCycles: number;
+  waterConsumption: {
+    monthlyAverage: number;
+    unit: "L";
+    monthly: MonthlyConsumption[];
+  };
+  energyConsumption: {
+    monthlyAverage: number;
+    unit: "kWh";
+    monthly: MonthlyConsumption[];
+  };
+}
+
+export interface SmartDevice {
+  id: string;
+  name: string;
+  brand: string;
+  type: "washing-machine" | "vacuum" | "air-purifier" | "thermostat" | "other";
+  status: "online" | "offline" | "idle";
+  icon: string;
+}
