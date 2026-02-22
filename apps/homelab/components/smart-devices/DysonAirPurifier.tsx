@@ -292,8 +292,8 @@ function AirQualityChart() {
             />
             <Tooltip
               contentStyle={TOOLTIP_STYLE}
-              formatter={(v: number) => [
-                `${v} ${config.unit}`,
+              formatter={(v: number | undefined) => [
+                `${v ?? 0} ${config.unit}`,
                 config.label,
               ]}
             />
@@ -387,8 +387,8 @@ function TemperatureHumidityChart() {
             />
             <Tooltip
               contentStyle={TOOLTIP_STYLE}
-              formatter={(v: number, name: string) => [
-                `${v}${name === "temperature" ? "°C" : "%"}`,
+              formatter={(v: number | undefined, name: string) => [
+                `${v ?? 0}${name === "temperature" ? "°C" : "%"}`,
                 name === "temperature" ? "Temperature" : "Humidity",
               ]}
             />
