@@ -387,7 +387,7 @@ function TemperatureHumidityChart() {
             />
             <Tooltip
               contentStyle={TOOLTIP_STYLE}
-              formatter={(v: number | undefined, name: string) => [
+              formatter={(v: number | undefined, name?: string) => [
                 `${v ?? 0}${name === "temperature" ? "°C" : "%"}`,
                 name === "temperature" ? "Temperature" : "Humidity",
               ]}
