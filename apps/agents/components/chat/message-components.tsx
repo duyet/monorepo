@@ -131,17 +131,25 @@ export function StreamingCursor() {
 }
 
 const CAPABILITIES = [
-  { icon: BookOpen, label: "Blog Search", desc: "296+ posts" },
-  { icon: User,     label: "CV",          desc: "Experience & skills" },
-  { icon: GitBranch,label: "GitHub",      desc: "Commits, PRs, issues" },
-  { icon: BarChart2,label: "Analytics",   desc: "Contact stats" },
-] as const;
+  { icon: BookOpen, label: "Blog Search", desc: "296+ posts",         prompt: "Search blog posts about ClickHouse" },
+  { icon: User,     label: "CV",          desc: "Experience & skills", prompt: "Tell me about Duyet's work experience" },
+  { icon: GitBranch,label: "GitHub",      desc: "Commits, PRs, issues",prompt: "What has Duyet been working on recently?" },
+  { icon: BarChart2,label: "Analytics",   desc: "Contact stats",       prompt: "Show me the contact form analytics" },
+];
+
+const QUICK_PROMPTS = [
+  "What is Duyet's tech stack?",
+  "Find posts about Rust",
+  "Show recent GitHub activity",
+  "Summarize Duyet's CV",
+];
 
 interface WelcomeMessageProps {
   content: string;
+  onPromptSelect?: (prompt: string) => void;
 }
 
-export function WelcomeMessage({ content: _ }: WelcomeMessageProps) {
+export function WelcomeMessage({ content: _, onPromptSelect }: WelcomeMessageProps) {
   return (
     <div className="flex flex-col items-center gap-6 py-8 animate-in fade-in duration-500">
       {/* Title */}
@@ -157,21 +165,35 @@ export function WelcomeMessage({ content: _ }: WelcomeMessageProps) {
 
       {/* Capability cards — 2×2 grid */}
       <div className="grid grid-cols-2 gap-2 w-full max-w-sm">
-        {CAPABILITIES.map(({ icon: Icon, label, desc }) => (
-          <div
+        {CAPABILITIES.map(({ icon: Icon, label, desc, prompt }) => (
+          <button
             key={label}
-            className="flex items-start gap-2.5 rounded-md border bg-muted/30 px-3 py-2.5 hover:bg-muted/60 transition-colors cursor-default"
+            type="button"
+            onClick={() => onPromptSelect?.(prompt)}
+            className="flex items-start gap-2.5 rounded-md border bg-muted/30 px-3 py-2.5 hover:bg-muted/60 transition-colors cursor-pointer text-left"
           >
             <Icon className="h-3.5 w-3.5 mt-0.5 text-muted-foreground shrink-0" />
             <div>
               <p className="text-xs font-medium text-foreground">{label}</p>
               <p className="text-[11px] text-muted-foreground">{desc}</p>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
-      <p className="text-xs text-muted-foreground">Type a message to get started ↓</p>
+      {/* Quick-start prompt chips */}
+      <div className="flex flex-wrap justify-center gap-2 w-full max-w-sm">
+        {QUICK_PROMPTS.map((prompt) => (
+          <button
+            key={prompt}
+            type="button"
+            onClick={() => onPromptSelect?.(prompt)}
+            className="rounded-full border bg-background px-3 py-1 text-[11px] text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-colors cursor-pointer"
+          >
+            {prompt}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

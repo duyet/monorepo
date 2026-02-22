@@ -162,6 +162,7 @@
         "remark-gfm": "^4.0.0",
         "remark-math": "^6.0.0",
         "rss": "^1.2.2",
+        "tw-animate-css": "^1.3.0",
         "unist-util-visit": "^5.0.0",
       },
       "devDependencies": {

@@ -13,7 +13,7 @@ import { LoadingIndicator } from "./loading-indicator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send, RefreshCw, X } from "lucide-react";
+import { Send, RefreshCw, X, Activity } from "lucide-react";
 
 const WELCOME_MESSAGE = `Hello! I'm @duyetbot - a virtual version of Duyet. I can help you with:
 
@@ -27,6 +27,7 @@ What would you like to know?`;
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [isActivityMinimized, setIsActivityMinimized] = useState(false);
+  const [showMobileActivity, setShowMobileActivity] = useState(false);
 
   const {
     messages,
@@ -57,6 +58,11 @@ export function VercelChat() {
   const handleModeChange = (newMode: ChatMode) => {
     setMode(newMode);
     localStorage.setItem("chat-mode", newMode);
+  };
+
+  const handlePromptSelect = (prompt: string) => {
+    setInput(prompt);
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   // Auto-resize textarea on input
@@ -122,7 +128,7 @@ export function VercelChat() {
         <ScrollArea className="flex-1 px-4 py-4">
           <div ref={containerRef} className="mx-auto max-w-3xl space-y-4">
             {!hasMessages && !streamingContent ? (
-              <WelcomeMessage content={WELCOME_MESSAGE} />
+              <WelcomeMessage content={WELCOME_MESSAGE} onPromptSelect={handlePromptSelect} />
             ) : (
               messages.map((message) =>
                 message.role === "user" ? (
@@ -170,9 +176,23 @@ export function VercelChat() {
               />
               {/* Inner toolbar */}
               <div className="flex items-center justify-between px-2 pb-2">
-                <p className="text-[11px] text-muted-foreground/60 pl-1 font-[family-name:var(--font-geist-mono)]">
-                  ↵ send · ⇧↵ newline
-                </p>
+                <div className="flex items-center gap-1">
+                  <p className="text-[11px] text-muted-foreground/60 pl-1 font-[family-name:var(--font-geist-mono)]">
+                    ↵ send · ⇧↵ newline
+                  </p>
+                  {mode === "agent" && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 px-2 text-xs lg:hidden"
+                      onClick={() => setShowMobileActivity((v) => !v)}
+                    >
+                      <Activity className="h-3 w-3 mr-1" />
+                      Activity{toolExecutions.length > 0 && ` (${toolExecutions.length})`}
+                    </Button>
+                  )}
+                </div>
                 <div className="flex items-center gap-1">
                   {isLoading ? (
                     <Button
@@ -220,7 +240,7 @@ export function VercelChat() {
         </div>
       </div>
 
-      {/* Right: Activity Panel — hidden in fast mode */}
+      {/* Right: Activity Panel — hidden in fast mode, desktop only */}
       {mode === "agent" && (
         <div className="hidden lg:flex w-1/2 flex-col">
           <ActivityPanel
@@ -229,6 +249,19 @@ export function VercelChat() {
             isLoading={isLoading}
             isMinimized={isActivityMinimized}
             onToggleMinimize={() => setIsActivityMinimized((v) => !v)}
+          />
+        </div>
+      )}
+
+      {/* Mobile Activity Panel — bottom sheet */}
+      {mode === "agent" && showMobileActivity && (
+        <div className="lg:hidden fixed inset-x-0 bottom-0 z-50 h-72 border-t bg-background shadow-lg">
+          <ActivityPanel
+            executions={toolExecutions}
+            thinkingSteps={thinkingSteps}
+            isLoading={isLoading}
+            isMinimized={false}
+            onToggleMinimize={() => setShowMobileActivity(false)}
           />
         </div>
       )}
