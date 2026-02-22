@@ -45,7 +45,7 @@ export default function HomePage() {
             Duyet
           </h1>
           <p className="text-base leading-relaxed text-neutral-700 sm:text-lg">
-            Data Engineering
+            Data Engineering · Ho Chi Minh City
           </p>
         </div>
 
@@ -120,15 +120,17 @@ export default function HomePage() {
             backgroundImage="https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872"
           />
 
-          <LinkCard
+          <ContentCard
             title="AI Agents"
             href={addUtmParams(
               process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
               "homepage",
               "agents_card"
             )}
-            description="AI Agents powered by @duyetbot — chat, search tools, and automations."
+            description="Chat with @duyetbot — ask about blog posts, CV, and GitHub activity."
             color="sage"
+            tags={["Chat", "Blog Search", "GitHub"]}
+            illustration="blob"
           />
 
           <LinkCard
@@ -136,6 +138,7 @@ export default function HomePage() {
             href="/about"
             description="Learn more about my experience, skills, and professional background."
             color="ivory"
+            illustration="geometric"
           />
         </div>
 
