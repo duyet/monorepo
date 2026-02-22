@@ -4,7 +4,9 @@ import { NetworkStats } from "@/components/dashboard/NetworkStats";
 import { ResourceMetrics } from "@/components/dashboard/ResourceMetrics";
 import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
 import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
+import { DashboardTabs } from "@/components/DashboardTabs";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
 
 export const metadata = {
   title: "Homelab Dashboard | duyet.net",
@@ -14,7 +16,7 @@ export const metadata = {
 export default function HomelabPage() {
   const snapshotDate = new Date().toLocaleString();
 
-  return (
+  const infrastructure = (
     <div className="space-y-8">
       {/* Cluster Topology */}
       <ErrorBoundary>
@@ -45,6 +47,21 @@ export default function HomelabPage() {
       <ErrorBoundary>
         <ServiceDowntime />
       </ErrorBoundary>
+    </div>
+  );
+
+  const smartDevices = (
+    <ErrorBoundary>
+      <SmartDevicesOverview />
+    </ErrorBoundary>
+  );
+
+  return (
+    <div className="space-y-8">
+      <DashboardTabs
+        infrastructure={infrastructure}
+        smartDevices={smartDevices}
+      />
 
       {/* Info Footer */}
       <div className="border-t pt-4">

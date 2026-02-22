@@ -14,12 +14,20 @@ export { services } from "./services";
 // Export types
 export type {
   ClusterStats,
+  ConsumptionData,
+  DailyConsumption,
+  MonthlyConsumption,
   NetworkSpeedTest,
   NetworkStats,
   Node,
   Service,
   ServiceDowntime,
+  SmartDevice,
+  WashingMachineData,
 } from "./types";
+
+// Export smart device data
+export { boschWashingMachine, smartDevices } from "./smart-devices";
 
 // Re-export utilities for convenience
 export { generateUptime, getHistoricalTime, random } from "./utils";
