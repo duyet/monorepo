@@ -23,6 +23,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSmartDevices } from "@/hooks/useDashboard";
+import { CHART_COLORS } from "@/lib/constants";
 import type { AirQualityLevel } from "@/lib/data";
 
 const AQ_COLORS: Record<AirQualityLevel, string> = {
@@ -44,9 +45,9 @@ const AQ_BG: Record<AirQualityLevel, string> = {
 const AQ_TEXT: Record<AirQualityLevel, string> = {
   good: "text-claude-mint",
   fair: "text-claude-yellow",
-  moderate: "text-claude-orange",
+  moderate: "text-claude-peach",
   poor: "text-claude-coral",
-  "very-poor": "text-claude-copper",
+  "very-poor": "text-claude-coral",
 };
 
 const AQ_LABEL: Record<AirQualityLevel, string> = {
@@ -218,7 +219,7 @@ function AirQualityChart() {
   const config = METRIC_CONFIG[activeMetric];
 
   return (
-    <Card>
+    <Card className="border-none bg-transparent p-0">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
@@ -321,7 +322,7 @@ function TemperatureHumidityChart() {
   }, [data.history]);
 
   return (
-    <Card>
+    <Card className="border-none bg-transparent p-0">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
@@ -396,7 +397,7 @@ function TemperatureHumidityChart() {
               yAxisId="temp"
               type="monotone"
               dataKey="temperature"
-              stroke="#D97757"
+              stroke={CHART_COLORS.CLAUDE_ORANGE}
               strokeWidth={2}
               dot={false}
               activeDot={{ r: 4, strokeWidth: 2 }}
@@ -405,7 +406,7 @@ function TemperatureHumidityChart() {
               yAxisId="humidity"
               type="monotone"
               dataKey="humidity"
-              stroke="#90c8ff"
+              stroke={CHART_COLORS.CLAUDE_SKY}
               strokeWidth={2}
               dot={false}
               strokeDasharray="4 2"

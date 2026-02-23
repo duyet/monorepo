@@ -169,7 +169,7 @@ function ConsumptionChart({
   };
 
   return (
-    <Card>
+    <Card className="border-none bg-transparent p-0">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
