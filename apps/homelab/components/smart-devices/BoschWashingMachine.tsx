@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSmartDevices } from "@/hooks/useDashboard";
+import { CHART_COLORS } from "@/lib/constants";
 import type { ConsumptionData } from "@/lib/data";
 
 const TOOLTIP_STYLE = {
@@ -381,16 +382,16 @@ export function BoschWashingMachine() {
           icon={<Droplets className="h-4 w-4 text-claude-sky" />}
           unit="L"
           consumption={data.waterConsumption}
-          colorDefault="#b3d9ff"
-          colorActive="#90c8ff"
+          colorDefault={CHART_COLORS.CLAUDE_SKY_LIGHT}
+          colorActive={CHART_COLORS.CLAUDE_SKY}
         />
         <ConsumptionChart
           title="Energy Consumption"
           icon={<Zap className="h-4 w-4 text-claude-peach" />}
           unit="kWh"
           consumption={data.energyConsumption}
-          colorDefault="#f0d9a8"
-          colorActive="#D97757"
+          colorDefault={CHART_COLORS.CLAUDE_SUNSHINE_LIGHT}
+          colorActive={CHART_COLORS.CLAUDE_ORANGE}
         />
       </div>
     </div>

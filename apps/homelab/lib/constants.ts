@@ -87,9 +87,11 @@ export const CHART_COLORS = {
   CLAUDE_PEACH: "#ffc9a0",
   CLAUDE_SUNSHINE: "#f5cc70",
   CLAUDE_SKY: "#90c8ff",
+  CLAUDE_SKY_LIGHT: "#b3d9ff",
   CLAUDE_ROSE: "#ff8585",
   CLAUDE_ORANGE: "#D97757",
   CLAUDE_COPPER: "#CC785C",
+  CLAUDE_SUNSHINE_LIGHT: "#f0d9a8",
 } as const;
 
 // External links

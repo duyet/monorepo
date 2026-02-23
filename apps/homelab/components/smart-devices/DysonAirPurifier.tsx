@@ -29,9 +29,9 @@ import type { AirQualityLevel } from "@/lib/data";
 const AQ_COLORS: Record<AirQualityLevel, string> = {
   good: "#8fd4ab",
   fair: "#f5cc70",
-  moderate: "#D97757",
+  moderate: "#ffc9a0",
   poor: "#ff8585",
-  "very-poor": "#CC785C",
+  "very-poor": "#ff8585",
 };
 
 const AQ_BG: Record<AirQualityLevel, string> = {
@@ -234,6 +234,7 @@ function AirQualityChart() {
         <div className="flex flex-wrap gap-1 pt-1">
           {(Object.keys(METRIC_CONFIG) as AqMetric[]).map((key) => (
             <button
+              type="button"
               key={key}
               onClick={() => setActiveMetric(key)}
               className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
@@ -338,6 +339,7 @@ function TemperatureHumidityChart() {
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={chartData}>
             <CartesianGrid
+              yAxisId="temp"
               strokeDasharray="3 3"
               opacity={0.15}
               vertical={false}
