@@ -20,14 +20,14 @@ export function AgentSwitcher({
   if (agents.length <= 1) {
     return (
       <div className={cn("border-b border-border bg-muted/20 px-4 py-1.5 flex items-center gap-2", className)}>
-        <span className="h-1.5 w-1.5 rounded-full bg-green-500 shrink-0" />
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
         <span className="text-xs text-muted-foreground truncate">{activeAgent.description}</span>
       </div>
     );
   }
 
   return (
-    <div className={cn("border-b border-border bg-card", className)}>
+    <div className={cn("border-b border-border bg-background", className)}>
       <div className="flex items-center gap-1 px-3 py-1.5 overflow-x-auto">
         {agents.map((agent) => {
           const isActive = agent.id === activeAgent.id;
@@ -37,15 +37,15 @@ export function AgentSwitcher({
               type="button"
               onClick={() => onAgentChange(agent)}
               className={cn(
-                "flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap",
+                "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap",
                 isActive
-                  ? "bg-background text-foreground shadow-sm border border-border"
+                  ? "bg-[#e3dacc] text-neutral-800 border border-[#d4c8b5]"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               <span>{agent.avatar || agent.name.slice(0, 2)}</span>
               <span>{agent.name}</span>
-              {isActive && <span className="h-1.5 w-1.5 rounded-full bg-green-500" />}
+              {isActive && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />}
             </button>
           );
         })}
