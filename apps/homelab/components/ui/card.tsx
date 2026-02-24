@@ -9,14 +9,14 @@ import {
 import { cn } from "@duyet/libs/utils";
 import * as React from "react";
 
-// Override Card with warm Claude cream/beige background
+// Override Card with rounded corners and gray border
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCard
     ref={ref}
-    className={cn("shadow-none rounded-2xl border border-claude-tan/40 bg-claude-cream dark:border-neutral-700/50 dark:bg-neutral-800/80", className)}
+    className={cn("shadow-none rounded-2xl border border-neutral-200 dark:border-neutral-700/50 dark:bg-neutral-800/80", className)}
     {...props}
   />
 ));
