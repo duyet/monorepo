@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { List, Search } from 'lucide-react'
-import { useState } from 'react'
+import { List, Search, X } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import type { Model } from '@/lib/data'
 
 type View = 'models' | 'organizations' | 'open'
@@ -27,44 +27,84 @@ export function FilterInfo({ resultCount, view, license, year, org, liteMode, mo
     onSearchChange?.(value)
   }
 
+  const clearSearch = () => {
+    setSearchQuery('')
+    onSearchChange?.('')
+  }
+
+  // Read lite mode from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const isLite = params.get('lite') === '1'
+    if (isLite !== liteMode) {
+      // Force re-render with parent's liteMode if different
+    }
+  }, [liteMode])
+
+  const toggleLiteMode = () => {
+    const url = new URL(window.location.href)
+    if (liteMode) {
+      url.searchParams.delete('lite')
+    } else {
+      url.searchParams.set('lite', '1')
+    }
+    window.location.href = url.toString()
+  }
+
   return (
     <div className="mb-8 flex items-center gap-4 rounded-lg border px-4 py-3" style={{
       borderColor: 'var(--border)',
       backgroundColor: 'var(--bg-card)',
     }}>
-      {/* Search input */}
-      <div className="relative flex-1 max-w-xs">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
-        <input
-          type="text"
-          placeholder="Search models..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="w-full rounded-md border py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-1"
-          style={{
-            borderColor: 'var(--border)',
-            backgroundColor: 'var(--bg)',
-            color: 'var(--text)',
-          }}
-        />
+      {/* Left side: Search and Result Count */}
+      <div className="flex items-center gap-4 flex-1">
+        {/* Search input */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
+          <input
+            type="text"
+            placeholder="Search models..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="w-64 rounded-md border py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1"
+            style={{
+              borderColor: 'var(--border)',
+              backgroundColor: 'var(--bg)',
+              color: 'var(--text)',
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={clearSearch}
+              className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              <X className="h-3 w-3" />
+            </button>
+          )}
+        </div>
+
+        {/* Result Count */}
+        <span className="text-sm whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
+          <span className="font-semibold" style={{ color: 'var(--text)' }}>
+            {resultCount.toLocaleString()}
+          </span>
+          {' '}{view === 'organizations' ? 'organizations' : 'models'}
+        </span>
       </div>
 
-      {/* Result Count */}
-      <span className="text-sm whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
-        <span className="font-semibold" style={{ color: 'var(--text)' }}>
-          {resultCount.toLocaleString()}
-        </span>
-        {' '}{view === 'organizations' ? 'organizations' : 'models'}
-      </span>
-
-      {/* Lite mode toggle icon */}
-      <Link
-        href="/lite"
+      {/* Right side: Lite mode toggle */}
+      <button
+        onClick={toggleLiteMode}
         className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
-        title="Switch to lite mode"
+        style={{
+          borderColor: liteMode ? 'var(--accent)' : undefined,
+          backgroundColor: liteMode ? 'var(--accent-subtle)' : undefined,
+        }}
+        title={liteMode ? 'Switch to full view' : 'Switch to lite mode'}
       >
         <List className="h-4 w-4" style={{ color: 'var(--text-muted)' }} />
-      </Link>
+      </button>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Timeline } from '@/components/timeline'
 import { OrgTimeline } from '@/components/org-timeline'
 import { FilterInfo } from '@/components/filter-info'
@@ -24,8 +24,24 @@ interface StaticViewProps {
   liteMode?: boolean
 }
 
-export function StaticView({ models: allModels, stats, view, license, year, org, liteMode }: StaticViewProps) {
+export function StaticView({ models: allModels, stats, view, license, year, org }: StaticViewProps) {
   const [searchQuery, setSearchQuery] = useState('')
+  const [liteMode, setLiteMode] = useState(false)
+
+  // Read lite mode and search from URL on mount
+  useEffect(() => {
+    const updateFromUrl = () => {
+      const params = new URLSearchParams(window.location.search)
+      const initialSearch = params.get('search') || ''
+      const isLite = params.get('lite') === '1'
+      setSearchQuery(initialSearch)
+      setLiteMode(isLite)
+    }
+
+    updateFromUrl()
+    window.addEventListener('popstate', updateFromUrl)
+    return () => window.removeEventListener('popstate', updateFromUrl)
+  }, [])
 
   // Filter models based on search
   const filteredModels = useMemo(() => {
