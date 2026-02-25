@@ -74,16 +74,6 @@ export default function LLMTimelinePage() {
         {/* Footer */}
         <footer className="mt-12 border-t border-neutral-200 pt-8 text-center text-sm text-neutral-500 dark:border-neutral-700 dark:text-neutral-400">
           <p>
-            Data updated manually. Inspired by{' '}
-            <Link
-              href="https://llm-timeline.com"
-              target="_blank"
-              className="text-neutral-700 underline dark:text-neutral-300"
-            >
-              llm-timeline.com
-            </Link>
-          </p>
-          <p className="mt-2">
             Built by{' '}
             <Link
               href="https://duyet.net"
