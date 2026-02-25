@@ -24,6 +24,7 @@ on:
           - home
           - homelab
           - insights
+          - llm-timeline
           - photos
 
 env:
@@ -61,6 +62,8 @@ jobs:
               - 'apps/homelab/**'
             insights:
               - 'apps/insights/**'
+            llm-timeline:
+              - 'apps/llm-timeline/**'
             photos:
               - 'apps/photos/**'
             packages:
@@ -76,6 +79,7 @@ jobs:
           APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
           APPS[homelab]='{"app":"homelab","project":"duyet-homelab","url":"https://homelab.duyet.net"}'
           APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
+          APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
           APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
 
           DEPLOY_APPS=()
@@ -84,7 +88,7 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in blog cv home homelab insights photos; do
+              for app in blog cv home homelab insights llm-timeline photos; do
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
@@ -95,7 +99,7 @@ jobs:
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            for app in blog cv home homelab insights photos; do
+            for app in blog cv home homelab insights llm-timeline photos; do
               APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
@@ -205,6 +209,7 @@ jobs:
           NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
           NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
           NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}
