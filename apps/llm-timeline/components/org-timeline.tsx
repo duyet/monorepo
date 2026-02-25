@@ -37,17 +37,16 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
             <div className="mb-6 flex items-center gap-4">
               <div
                 className="overflow-hidden"
-                style={{ maxWidth: '14rem', flexShrink: 0 }}
+                style={{ maxWidth: '20rem', flexShrink: 0, minWidth: '8rem' }}
               >
                 <span
-                  className="select-none text-5xl font-bold leading-none"
+                  className="select-none text-5xl font-bold leading-none block"
                   style={{
                     fontFamily: 'var(--font-mono)',
                     color: 'var(--year-watermark)',
-                    display: 'block',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
-                    textOverflow: 'clip',
+                    textOverflow: 'ellipsis',
                   }}
                   aria-hidden="true"
                 >
@@ -58,8 +57,8 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
               <div className="flex shrink-0 items-center gap-2">
                 <OrgAvatar org={org} size="sm" />
                 <span
-                  className="text-sm font-medium"
-                  style={{ color: 'var(--text)' }}
+                  className="text-sm font-medium truncate"
+                  style={{ color: 'var(--text)', maxWidth: '12rem' }}
                 >
                   {org}
                 </span>
