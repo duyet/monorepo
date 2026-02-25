@@ -1,4 +1,4 @@
-import { SearchParamsWrapper } from '@/components/search-params-wrapper'
+import { StaticAppClient } from '@/components/app-client'
 import { models } from '@/lib/data'
 import { filterModels, groupByYear, groupByOrg, getStats, slugify, type FilterState } from '@/lib/utils'
 import type { Model } from '@/lib/data'
@@ -53,7 +53,7 @@ export function TimelinePage({
   }
 
   return (
-    <SearchParamsWrapper
+    <StaticAppClient
       initialModels={filtered}
       initialView={view}
       initialLicense={license}

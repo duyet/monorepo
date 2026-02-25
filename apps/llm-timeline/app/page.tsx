@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { Github } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { SearchParamsWrapper } from '@/components/search-params-wrapper'
+import { AppClient } from '@/components/app-client'
 import { models, lastSynced, years } from '@/lib/data'
 import { getStats } from '@/lib/utils'
 
@@ -50,7 +51,9 @@ export default function LLMTimelinePage() {
         </header>
 
         {/* Stats + Interactive: Filters + Timeline */}
-        <SearchParamsWrapper stats={stats} initialModels={models} />
+        <Suspense fallback={null}>
+          <AppClient stats={stats} initialModels={models} />
+        </Suspense>
 
         {/* Footer */}
         <footer

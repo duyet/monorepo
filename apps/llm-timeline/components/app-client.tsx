@@ -30,6 +30,81 @@ const DEFAULT_FILTERS: FilterState = {
   org: '',
 }
 
+// ============================================================================
+// StaticAppClient - For static routes (org/year/license pages)
+// NO URL hooks, so no Suspense boundary needed, renders instantly
+// ============================================================================
+export function StaticAppClient({
+  initialModels,
+  stats,
+  initialView = 'models',
+  initialLicense = 'all',
+  initialLiteMode = false,
+}: AppClientProps) {
+  const [view, setView] = useState<View>(initialView)
+  const [liteMode, setLiteMode] = useState(initialLiteMode)
+  const [filters, setFilters] = useState<FilterState>({
+    ...DEFAULT_FILTERS,
+    license: initialLicense,
+  })
+  const [isPending, startTransition] = useTransition()
+
+  const handleFilterChange = (next: FilterState) => {
+    startTransition(() => setFilters(next))
+  }
+
+  const handleViewChange = (nextView: View) => {
+    setView(nextView)
+    if (nextView !== 'open' && filters.license === 'open') {
+      startTransition(() => setFilters((prev) => ({ ...prev, license: 'all' })))
+    }
+  }
+
+  const effectiveFilters = useMemo(
+    () => ({
+      ...filters,
+      license: view === 'open' ? 'open' : filters.license,
+    }),
+    [filters, view]
+  )
+
+  const filteredModels = useMemo(
+    () => filterModels(initialModels, effectiveFilters),
+    [initialModels, effectiveFilters]
+  )
+  const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels])
+  const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels])
+
+  return (
+    <>
+      <StatsHeader
+        {...stats}
+        activeView={view}
+        onViewChange={handleViewChange}
+      />
+      <div className={isPending ? 'opacity-70 transition-opacity' : ''}>
+        <Filters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          resultCount={filteredModels.length}
+          liteMode={liteMode}
+          onLiteModeToggle={() => setLiteMode((prev) => !prev)}
+        />
+        {view === 'organizations' ? (
+          <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+        ) : (
+          <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
+        )}
+      </div>
+    </>
+  )
+}
+
+// ============================================================================
+// AppClient - For main page with URL sync
+// Uses useSearchParams, requires Suspense boundary
+// ============================================================================
+
 export function AppClient({
   initialModels,
   stats,
