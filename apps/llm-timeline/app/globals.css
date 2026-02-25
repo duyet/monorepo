@@ -2,18 +2,34 @@
 
 @layer base {
   :root {
-    --font-inter:
-      "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
-      sans-serif;
+    --bg: #f8f7f3;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fefefe;
+    --border: #e5e1d8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --accent: #d97706;
+    --accent-subtle: #fef3c7;
+  }
+
+  .dark {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-card-hover: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #f59e0b;
+    --accent-subtle: #1c1506;
   }
 
   html {
-    font-family: var(--font-inter);
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
 
   body {
-    background-color: #fbf7f0;
-    color: #1f1f1f;
+    background-color: var(--bg);
+    color: var(--text);
   }
 }
 

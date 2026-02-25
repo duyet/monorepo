@@ -30,22 +30,40 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
   const hasActiveFilters =
     filters.search || filters.license !== 'all' || filters.type !== 'all' || filters.org
 
+  const inputStyle = {
+    backgroundColor: 'var(--bg-card)',
+    borderColor: 'var(--border)',
+    color: 'var(--text)',
+  }
+
+  const selectClassName =
+    'rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-1 appearance-none cursor-pointer'
+
   return (
     <div className="mb-8 space-y-4">
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+        <Search
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
+          style={{ color: 'var(--text-muted)' }}
+        />
         <input
           type="text"
           placeholder="Search models, organizations..."
           value={filters.search}
           onChange={(e) => updateFilter('search', e.target.value)}
-          className="w-full rounded-lg border border-neutral-200 bg-white py-2.5 pl-10 pr-4 text-sm placeholder:text-neutral-400 focus:border-neutral-400 focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+          className="w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1"
+          style={{
+            ...inputStyle,
+            // @ts-expect-error CSS custom properties
+            '--tw-ring-color': 'var(--accent)',
+          }}
         />
         {filters.search && (
           <button
             onClick={() => updateFilter('search', '')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
+            style={{ color: 'var(--text-muted)' }}
           >
             <X className="h-4 w-4" />
           </button>
@@ -58,7 +76,8 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
         <select
           value={filters.license}
           onChange={(e) => updateFilter('license', e.target.value as FilterState['license'])}
-          className="rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm focus:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+          className={selectClassName}
+          style={inputStyle}
         >
           <option value="all">All Licenses</option>
           <option value="open">Open</option>
@@ -70,7 +89,8 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
         <select
           value={filters.type}
           onChange={(e) => updateFilter('type', e.target.value as FilterState['type'])}
-          className="rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm focus:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+          className={selectClassName}
+          style={inputStyle}
         >
           <option value="all">All Types</option>
           <option value="model">Models</option>
@@ -81,7 +101,8 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
         <select
           value={filters.org}
           onChange={(e) => updateFilter('org', e.target.value)}
-          className="rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm focus:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+          className={selectClassName}
+          style={inputStyle}
         >
           <option value="">All Organizations</option>
           {organizations.map((org) => (
@@ -95,7 +116,8 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+            className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors hover:opacity-80"
+            style={{ color: 'var(--text-muted)' }}
           >
             <X className="h-3 w-3" />
             Clear
@@ -103,8 +125,14 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
         )}
 
         {/* Result Count */}
-        <span className="ml-auto text-sm text-neutral-500 dark:text-neutral-400">
-          {resultCount} result{resultCount !== 1 ? 's' : ''}
+        <span
+          className="ml-auto text-sm"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            color: 'var(--text-muted)',
+          }}
+        >
+          {resultCount.toLocaleString()} result{resultCount !== 1 ? 's' : ''}
         </span>
       </div>
     </div>

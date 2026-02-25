@@ -13,16 +13,25 @@ const latestYear = years[0]
 
 export default function LLMTimelinePage() {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto max-w-4xl px-4 py-8">
         {/* Header */}
         <header className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h1
+                className="text-3xl font-bold"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--text)',
+                }}
+              >
                 LLM Timeline
               </h1>
-              <p className="mt-1 text-neutral-600 dark:text-neutral-400">
+              <p
+                className="mt-1 text-sm"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 Interactive timeline of Large Language Model releases ({firstYear}–{latestYear})
               </p>
             </div>
@@ -31,7 +40,8 @@ export default function LLMTimelinePage() {
               <Link
                 href="https://github.com/duyet/monorepo"
                 target="_blank"
-                className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                style={{ color: 'var(--text-muted)' }}
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5" />
@@ -47,24 +57,35 @@ export default function LLMTimelinePage() {
         <TimelineClient />
 
         {/* Footer */}
-        <footer className="mt-12 border-t border-neutral-200 pt-8 text-center text-sm text-neutral-500 dark:border-neutral-700 dark:text-neutral-400">
+        <footer
+          className="mt-12 border-t pt-8 text-center text-sm"
+          style={{
+            borderColor: 'var(--border)',
+            color: 'var(--text-muted)',
+          }}
+        >
           <p>
             Built by{' '}
-            <Link href="https://duyet.net" className="text-neutral-700 underline dark:text-neutral-300">
+            <Link
+              href="https://duyet.net"
+              className="underline"
+              style={{ color: 'var(--text)' }}
+            >
               duyet
             </Link>
           </p>
-          <p className="mt-2 text-xs text-neutral-400 dark:text-neutral-500">
+          <p className="mt-2 text-xs" style={{ color: 'var(--text-muted)' }}>
             Data from{' '}
             <Link
               href="https://lifearchitect.ai/models-table"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline hover:opacity-80"
             >
               LifeArchitect.AI Models Table
             </Link>
-            {' '}· Last updated: {lastSynced}
+            {' '}· Last updated:{' '}
+            <span style={{ fontFamily: 'var(--font-mono)' }}>{lastSynced}</span>
           </p>
         </footer>
       </div>

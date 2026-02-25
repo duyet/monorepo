@@ -21,18 +21,33 @@ export function StatsHeader({
   ]
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
       {stats.map(({ label, value, icon: Icon }) => (
         <div
           key={label}
-          className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-800"
+          className="rounded-lg border p-4"
+          style={{
+            borderColor: 'var(--border)',
+            borderTopColor: 'var(--accent)',
+            borderTopWidth: '2px',
+            backgroundColor: 'var(--bg-card)',
+          }}
         >
-          <Icon className="h-4 w-4 text-neutral-400" />
-          <div>
-            <div className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-              {value}
-            </div>
-            <div className="text-xs text-neutral-500 dark:text-neutral-400">{label}</div>
+          <div
+            className="text-2xl font-semibold"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              color: 'var(--text)',
+            }}
+          >
+            {value.toLocaleString()}
+          </div>
+          <div
+            className="mt-1 flex items-center gap-1.5 text-xs uppercase tracking-wider"
+            style={{ color: 'var(--text-muted)' }}
+          >
+            <Icon className="h-3 w-3" />
+            {label}
           </div>
         </div>
       ))}
