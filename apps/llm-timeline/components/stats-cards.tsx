@@ -37,10 +37,10 @@ export function StatsCards({
           <Link
             key={label}
             href={href}
-            className="rounded-lg border p-4 transition-all hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
+            className="rounded-lg border p-4 transition-all hover:bg-muted hover:text-accent-foreground"
             style={{
-              borderColor: isActive ? 'var(--accent)' : 'var(--border)',
-              backgroundColor: 'var(--bg-card)',
+              borderColor: isActive ? 'var(--primary)' : 'var(--border)',
+              backgroundColor: isActive ? 'var(--accent)' : 'var(--card)',
             }}
           >
             {/* Number */}

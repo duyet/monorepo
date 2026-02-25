@@ -96,14 +96,14 @@ export function FilterInfo({ resultCount, view, license, year, org, liteMode, mo
       {/* Right side: Lite mode toggle */}
       <button
         onClick={toggleLiteMode}
-        className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+        className="rounded-lg p-2 transition-colors hover:bg-muted"
         style={{
-          borderColor: liteMode ? 'var(--accent)' : undefined,
-          backgroundColor: liteMode ? 'var(--accent-subtle)' : undefined,
+          borderColor: liteMode ? 'var(--primary)' : undefined,
+          backgroundColor: liteMode ? 'var(--accent)' : undefined,
         }}
         title={liteMode ? 'Switch to full view' : 'Switch to lite mode'}
       >
-        <List className="h-4 w-4" style={{ color: 'var(--text-muted)' }} />
+        <List className="h-4 w-4" style={{ color: 'var(--muted-foreground)' }} />
       </button>
     </div>
   )
