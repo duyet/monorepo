@@ -22,7 +22,7 @@ export function StatsCards({
     view: 'models' | 'organizations' | 'open'
   }> = [
     { label: 'Models', value: models, icon: Sparkles, href: '/', view: 'models' },
-    { label: 'Organizations', value: organizations, icon: Building2, href: '/org/openai', view: 'organizations' },
+    { label: 'Organizations', value: organizations, icon: Building2, href: '/org', view: 'organizations' },
     { label: 'Open Weights', value: open, icon: LockOpen, href: '/license/open', view: 'open' },
   ]
 
@@ -35,20 +35,12 @@ export function StatsCards({
           <Link
             key={label}
             href={href}
-            className="relative overflow-hidden rounded-lg border-2 border-t-0 p-4 transition-all hover:shadow-md"
+            className="rounded-lg border p-4 transition-all hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
             style={{
-              borderColor: 'var(--border)',
-              borderTopColor: 'var(--accent)',
+              borderColor: isActive ? 'var(--accent)' : 'var(--border)',
               backgroundColor: 'var(--bg-card)',
-              opacity: isActive ? 1 : 0.9,
             }}
           >
-            {/* Accent top border */}
-            <div
-              className="absolute left-0 right-0 top-0 h-1"
-              style={{ backgroundColor: 'var(--accent)' }}
-            />
-
             {/* Number */}
             <div
               className="text-3xl font-bold"

@@ -38,6 +38,7 @@ export function StaticView({ models, stats, view, license, year, org, liteMode }
       {/* Filter Info */}
       <FilterInfo
         resultCount={models.length}
+        view={view}
         license={license}
         year={year}
         org={org}
