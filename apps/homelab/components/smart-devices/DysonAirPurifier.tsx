@@ -582,7 +582,7 @@ export function DysonAirPurifier() {
       {/* Bento Grid */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Air Quality Status */}
-        <div className="rounded-2xl border border-claude-mint/30 bg-gradient-to-br from-claude-mint/25 to-claude-mint/5 p-5 dark:border-claude-mint/10 dark:from-claude-mint/10 dark:to-claude-mint/5">
+        <div className={BENTO_CELL}>
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">
             Current Air Quality
           </p>
@@ -594,7 +594,7 @@ export function DysonAirPurifier() {
         </div>
 
         {/* Pollutant Levels */}
-        <div className="rounded-2xl border border-claude-lavender/30 bg-gradient-to-br from-claude-lavender/25 to-claude-lavender/5 p-5 lg:col-span-2 dark:border-claude-lavender/10 dark:from-claude-lavender/10 dark:to-claude-lavender/5">
+        <div className={`${BENTO_CELL} lg:col-span-2`}>
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">
             Pollutant Levels
           </p>
