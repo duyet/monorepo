@@ -194,15 +194,6 @@
     margin-bottom: 1em;
   }
 
-  /* Message bubbles */
-  .message-user {
-    @apply bg-foreground text-background rounded-2xl rounded-br-sm px-4 py-3 max-w-[80%];
-  }
-
-  .message-assistant {
-    @apply bg-muted text-foreground rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%];
-  }
-
   /* Chat input */
   .chat-input {
     @apply w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-ring resize-none;

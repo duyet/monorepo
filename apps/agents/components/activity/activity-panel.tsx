@@ -39,7 +39,7 @@ export function ActivityPanel({
   const hasActivity = executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
   return (
-    <div className={cn("flex flex-col h-full bg-background border-l border-[#e3dacc]", className)}>
+    <div className={cn("flex flex-col h-full bg-background border-l border-border", className)}>
       {/* Header */}
       <div className="border-b border-border bg-muted/30 px-4 py-2">
         <div className="flex items-center justify-between">

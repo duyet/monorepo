@@ -22,8 +22,8 @@ export function ChatHeader({
       <div className="flex h-12 items-center justify-between px-4">
         {/* Identity */}
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#e07856] shrink-0">
-            <span className="text-white text-xs font-bold leading-none font-[family-name:var(--font-serif)]">D</span>
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary shrink-0">
+            <span className="text-primary-foreground text-xs font-bold leading-none font-[family-name:var(--font-serif)]">D</span>
           </div>
           <div className="flex items-center gap-2 min-w-0">
             <span className="text-sm font-bold font-[family-name:var(--font-serif)] tracking-tight truncate">{title}</span>
@@ -42,7 +42,7 @@ export function ChatHeader({
               className={cn(
                 "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
                 mode === "fast"
-                  ? "bg-[#e07856] text-white shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -55,7 +55,7 @@ export function ChatHeader({
               className={cn(
                 "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
                 mode === "agent"
-                  ? "bg-[#e07856] text-white shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >

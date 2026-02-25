@@ -39,7 +39,7 @@ export function AgentSwitcher({
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap",
                 isActive
-                  ? "bg-[#e3dacc] text-neutral-800 border border-[#d4c8b5]"
+                  ? "bg-secondary text-secondary-foreground border border-border"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >

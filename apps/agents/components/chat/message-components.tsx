@@ -61,8 +61,8 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
   return (
     <div className="flex justify-start gap-3 group">
       {/* Avatar — warm oat circle */}
-      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e3dacc]">
-        <span className="text-[10px] font-bold text-[#7a6a56]">D</span>
+      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted">
+        <span className="text-[10px] font-bold text-muted-foreground">D</span>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -154,8 +154,8 @@ export function WelcomeMessage({ content: _, onPromptSelect }: WelcomeMessagePro
     <div className="flex flex-col items-center gap-6 py-8 animate-in fade-in duration-500">
       {/* Identity */}
       <div className="flex flex-col items-center gap-3 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e07856]">
-          <span className="text-white text-lg font-bold font-[family-name:var(--font-serif)]">D</span>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary">
+          <span className="text-primary-foreground text-lg font-bold font-[family-name:var(--font-serif)]">D</span>
         </div>
         <div>
           <h2 className="text-lg font-bold font-[family-name:var(--font-serif)] tracking-tight text-foreground">@duyetbot</h2>
@@ -188,7 +188,7 @@ export function WelcomeMessage({ content: _, onPromptSelect }: WelcomeMessagePro
             key={prompt}
             type="button"
             onClick={() => onPromptSelect?.(prompt)}
-            className="rounded-full bg-white/70 px-3 py-1 text-[11px] font-medium text-neutral-700 hover:bg-white/90 transition-colors cursor-pointer"
+            className="rounded-full bg-muted/70 px-3 py-1 text-[11px] font-medium text-foreground hover:bg-muted transition-colors cursor-pointer dark:bg-muted dark:text-foreground"
           >
             {prompt}
           </button>
