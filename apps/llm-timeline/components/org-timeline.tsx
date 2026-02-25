@@ -1,6 +1,7 @@
 import { ModelCard } from './model-card'
 import { OrgAvatar } from './org-avatar'
 import type { Model } from '@/lib/data'
+import { cn } from '@duyet/libs/utils'
 
 interface OrgTimelineProps {
   modelsByOrg: Map<string, Model[]>
@@ -28,46 +29,67 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
 
   return (
     <div className="space-y-8">
-      {sortedOrgs.map((org) => {
+      {sortedOrgs.map((org, orgIndex) => {
         const orgModels = modelsByOrg.get(org) || []
+        const isLastOrg = orgIndex === sortedOrgs.length - 1
         return (
           <div key={org} style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
-            {/* Org Header */}
-            <div className="mb-6 flex items-center gap-4">
+            {/* Org Header with timeline treatment */}
+            <div className="mb-6 relative flex gap-4">
+              {/* Timeline Line */}
+              {!isLastOrg && (
+                <div
+                  className="absolute left-[11px] top-6 h-full w-px"
+                  style={{ backgroundColor: 'var(--border)' }}
+                />
+              )}
+
+              {/* Timeline Dot for org header */}
               <div
-                className="overflow-hidden"
-                style={{ maxWidth: '14rem', flexShrink: 0 }}
-              >
-                <span
-                  className="select-none text-5xl font-bold leading-none"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    color: 'var(--year-watermark)',
-                    display: 'block',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'clip',
-                  }}
-                  aria-hidden="true"
+                className="relative z-10 mt-2 h-5 w-5 shrink-0 rounded-full border-2"
+                style={{
+                  borderColor: 'var(--accent)',
+                  backgroundColor: 'var(--accent)',
+                }}
+              />
+
+              {/* Header content */}
+              <div className="flex-1 flex items-center gap-4">
+                <div
+                  className="overflow-hidden"
+                  style={{ maxWidth: '14rem', flexShrink: 0 }}
                 >
-                  {org}
-                </span>
-              </div>
-              <div className="h-px flex-1" style={{ backgroundColor: 'var(--border)' }} />
-              <div className="flex shrink-0 items-center gap-2">
-                <OrgAvatar org={org} size="sm" />
-                <span
-                  className="text-sm font-medium"
-                  style={{ color: 'var(--text)' }}
-                >
-                  {org}
-                </span>
-                <span
-                  className="text-xs uppercase tracking-widest"
-                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
-                >
-                  {orgModels.length} model{orgModels.length !== 1 ? 's' : ''}
-                </span>
+                  <span
+                    className="select-none text-5xl font-bold leading-none"
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      color: 'var(--year-watermark)',
+                      display: 'block',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'clip',
+                    }}
+                    aria-hidden="true"
+                  >
+                    {org}
+                  </span>
+                </div>
+                <div className="h-px flex-1" style={{ backgroundColor: 'var(--border)' }} />
+                <div className="flex shrink-0 items-center gap-2">
+                  <OrgAvatar org={org} size="sm" />
+                  <span
+                    className="text-sm font-medium"
+                    style={{ color: 'var(--text)' }}
+                  >
+                    {org}
+                  </span>
+                  <span
+                    className="text-xs uppercase tracking-widest"
+                    style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
+                  >
+                    {orgModels.length} model{orgModels.length !== 1 ? 's' : ''}
+                  </span>
+                </div>
               </div>
             </div>
 
