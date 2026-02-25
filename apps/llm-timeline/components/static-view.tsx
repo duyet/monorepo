@@ -1,3 +1,6 @@
+'use client'
+
+import { useState, useMemo } from 'react'
 import { Timeline } from '@/components/timeline'
 import { OrgTimeline } from '@/components/org-timeline'
 import { FilterInfo } from '@/components/filter-info'
@@ -21,9 +24,23 @@ interface StaticViewProps {
   liteMode?: boolean
 }
 
-export function StaticView({ models, stats, view, license, year, org, liteMode }: StaticViewProps) {
-  const modelsByYear = groupByYear(models)
-  const modelsByOrg = groupByOrg(models)
+export function StaticView({ models: allModels, stats, view, license, year, org, liteMode }: StaticViewProps) {
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // Filter models based on search
+  const filteredModels = useMemo(() => {
+    if (!searchQuery.trim()) return allModels
+
+    const query = searchQuery.toLowerCase()
+    return allModels.filter(model =>
+      model.name.toLowerCase().includes(query) ||
+      model.org.toLowerCase().includes(query) ||
+      model.desc.toLowerCase().includes(query)
+    )
+  }, [allModels, searchQuery])
+
+  const modelsByYear = groupByYear(filteredModels)
+  const modelsByOrg = groupByOrg(filteredModels)
 
   return (
     <>
@@ -33,15 +50,19 @@ export function StaticView({ models, stats, view, license, year, org, liteMode }
         organizations={stats.organizations}
         open={stats.open}
         activeView={view}
+        activeLicense={license}
       />
 
-      {/* Filter Info */}
+      {/* Filter Info with Search */}
       <FilterInfo
-        resultCount={models.length}
+        resultCount={filteredModels.length}
         view={view}
         license={license}
         year={year}
         org={org}
+        liteMode={liteMode}
+        models={allModels}
+        onSearchChange={setSearchQuery}
       />
 
       {/* Timeline */}

@@ -6,6 +6,7 @@ interface StatsCardsProps {
   organizations: number
   open: number
   activeView?: 'models' | 'organizations' | 'open'
+  activeLicense?: 'all' | 'open' | 'closed' | 'partial'
 }
 
 export function StatsCards({
@@ -13,6 +14,7 @@ export function StatsCards({
   organizations,
   open,
   activeView,
+  activeLicense,
 }: StatsCardsProps) {
   const stats: Array<{
     label: string
@@ -29,7 +31,7 @@ export function StatsCards({
   return (
     <div className="mb-8 grid grid-cols-3 gap-4">
       {stats.map(({ label, value, icon: Icon, href, view }) => {
-        const isActive = activeView === view
+        const isActive = activeView === view || (view === 'open' && activeLicense === 'open')
 
         return (
           <Link
