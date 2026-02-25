@@ -10,7 +10,7 @@
     --text-muted: #6b7280;
     --accent: #d97706;
     --accent-subtle: #fef3c7;
-    --year-watermark: rgba(217, 119, 6, 0.13);
+    --year-watermark: rgba(156, 163, 175, 0.20);
   }
 
   .dark {
@@ -22,7 +22,7 @@
     --text-muted: #8b949e;
     --accent: #f59e0b;
     --accent-subtle: #1c1506;
-    --year-watermark: rgba(245, 158, 11, 0.10);
+    --year-watermark: rgba(148, 163, 184, 0.15);
   }
 
   html {
