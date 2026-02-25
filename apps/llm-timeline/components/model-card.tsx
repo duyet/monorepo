@@ -12,49 +12,66 @@ interface ModelCardProps {
 export function ModelCard({ model, isLast, lite }: ModelCardProps) {
   if (lite) {
     return (
-      <div className="flex items-center gap-2 py-1" style={{ minHeight: '32px' }}>
+      <div className="relative flex items-center gap-3 py-1.5" style={{ minHeight: '32px' }}>
+        {/* Small dot indicator */}
         <div
-          className="h-2 w-2 shrink-0 rounded-full"
+          className="shrink-0"
           style={{
-            backgroundColor:
-              model.type === 'milestone' ? 'var(--accent)' : 'var(--border)',
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            backgroundColor: model.type === 'milestone' ? 'var(--accent)' : 'var(--border)',
           }}
         />
-        <OrgAvatar org={model.org} size="sm" />
-        <span
-          className="truncate text-sm font-medium"
-          style={{ color: 'var(--text)' }}
-        >
-          {model.name}
-        </span>
-        <span className="shrink-0 text-xs" style={{ color: 'var(--text-muted)' }}>
-          ·
-        </span>
-        <span
-          className="shrink-0 text-xs"
-          style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}
-        >
-          {model.date.slice(0, 7)}
-        </span>
-        <span className="shrink-0 text-xs" style={{ color: 'var(--text-muted)' }}>
-          ·
-        </span>
-        <span
-          className={cn(
-            'shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
-            getTypeColor(model.type)
-          )}
-        >
-          {model.type}
-        </span>
-        <span
-          className={cn(
-            'shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
-            getLicenseColor(model.license)
-          )}
-        >
-          {model.license}
-        </span>
+
+        {/* Model name on left */}
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <OrgAvatar org={model.org} size="sm" />
+          <span
+            className="truncate text-sm font-medium"
+            style={{ color: 'var(--text)' }}
+          >
+            {model.name}
+          </span>
+        </div>
+
+        {/* Dots separator */}
+        <div
+          className="flex-1 px-2"
+          style={{
+            backgroundImage: 'radial-gradient(circle, var(--border) 1px, transparent 1px)',
+            backgroundSize: '4px 4px',
+            backgroundRepeat: 'repeat-x',
+            backgroundPosition: 'center',
+            opacity: 0.4,
+          }}
+        />
+
+        {/* Year and metadata on right */}
+        <div className="flex shrink-0 items-center gap-2">
+          <span
+            className="text-xs"
+            style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}
+          >
+            {model.date.slice(0, 4)}
+          </span>
+          <span
+            className={cn(
+              'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+              getTypeColor(model.type)
+            )}
+          >
+            {model.type}
+          </span>
+          <span
+            className={cn(
+              'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+              getLicenseColor(model.license)
+            )}
+          >
+            {model.license}
+          </span>
+        </div>
       </div>
     )
   }
