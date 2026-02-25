@@ -6958,3 +6958,6 @@ export const organizations = Array.from(new Set(models.map(m => m.org))).sort()
 
 // Get unique years for grouping
 export const years = Array.from(new Set(models.map(m => new Date(m.date).getFullYear()))).sort((a, b) => b - a)
+
+// Last data sync date (ISO format YYYY-MM-DD)
+export const lastSynced = '2026-02-25'

@@ -1,6 +1,7 @@
 import { formatDate, getLicenseColor, getTypeColor } from '@/lib/utils'
 import type { Model } from '@/lib/data'
 import { cn } from '@duyet/libs/utils'
+import { OrgAvatar } from '@/components/org-avatar'
 
 interface ModelCardProps {
   model: Model
@@ -38,7 +39,8 @@ export function ModelCard({ model, isLast }: ModelCardProps) {
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                 {model.name}
               </h3>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              <p className="flex items-center gap-1.5 text-sm text-neutral-500 dark:text-neutral-400">
+                <OrgAvatar org={model.org} size="sm" />
                 {model.org} · {formatDate(model.date)}
               </p>
             </div>

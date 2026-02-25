@@ -391,6 +391,8 @@ function generateDataTs(models: Model[], sourceUrl: string, syncDate: string): s
     'export const years = Array.from(new Set(models.map(m => new Date(m.date).getFullYear()))).sort((a, b) => b - a)',
   )
   lines.push('')
+  lines.push('// Last data sync date (ISO format YYYY-MM-DD)')
+  lines.push(`export const lastSynced = '${syncDate}'`)
 
   return lines.join('\n')
 }

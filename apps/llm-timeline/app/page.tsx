@@ -1,29 +1,17 @@
-'use client'
-
-import { useState, useMemo } from 'react'
-import { Github, Moon, Sun } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { Filters } from '@/components/filters'
-import { StatsHeader } from '@/components/stats-header'
-import { Timeline } from '@/components/timeline'
-import { models } from '@/lib/data'
-import { filterModels, groupByYear, getStats, type FilterState } from '@/lib/utils'
 import Link from 'next/link'
+import { Github } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { StatsHeader } from '@/components/stats-header'
+import { TimelineClient } from '@/components/timeline-client'
+import { models, lastSynced, years } from '@/lib/data'
+import { getStats } from '@/lib/utils'
+
+// Computed once at build time — not inside component to avoid re-computation
+const stats = getStats(models)
+const firstYear = years[years.length - 1]
+const latestYear = years[0]
 
 export default function LLMTimelinePage() {
-  const [filters, setFilters] = useState<FilterState>({
-    search: '',
-    license: 'all',
-    type: 'all',
-    org: '',
-  })
-  const { theme, setTheme } = useTheme()
-
-  // Filter and group models
-  const filteredModels = useMemo(() => filterModels(models, filters), [filters])
-  const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels])
-  const stats = useMemo(() => getStats(models), [])
-
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       <div className="mx-auto max-w-4xl px-4 py-8">
@@ -35,17 +23,11 @@ export default function LLMTimelinePage() {
                 LLM Timeline
               </h1>
               <p className="mt-1 text-neutral-600 dark:text-neutral-400">
-                Interactive timeline of Large Language Model releases (2017-2025)
+                Interactive timeline of Large Language Model releases ({firstYear}–{latestYear})
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
+              <ThemeToggle />
               <Link
                 href="https://github.com/duyet/monorepo"
                 target="_blank"
@@ -61,26 +43,28 @@ export default function LLMTimelinePage() {
         {/* Stats */}
         <StatsHeader {...stats} />
 
-        {/* Filters */}
-        <Filters
-          filters={filters}
-          onFilterChange={setFilters}
-          resultCount={filteredModels.length}
-        />
-
-        {/* Timeline */}
-        <Timeline modelsByYear={modelsByYear} />
+        {/* Interactive: Filters + Timeline */}
+        <TimelineClient />
 
         {/* Footer */}
         <footer className="mt-12 border-t border-neutral-200 pt-8 text-center text-sm text-neutral-500 dark:border-neutral-700 dark:text-neutral-400">
           <p>
             Built by{' '}
-            <Link
-              href="https://duyet.net"
-              className="text-neutral-700 underline dark:text-neutral-300"
-            >
+            <Link href="https://duyet.net" className="text-neutral-700 underline dark:text-neutral-300">
               duyet
             </Link>
+          </p>
+          <p className="mt-2 text-xs text-neutral-400 dark:text-neutral-500">
+            Data from{' '}
+            <Link
+              href="https://lifearchitect.ai/models-table"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-neutral-600 dark:hover:text-neutral-300"
+            >
+              LifeArchitect.AI Models Table
+            </Link>
+            {' '}· Last updated: {lastSynced}
           </p>
         </footer>
       </div>

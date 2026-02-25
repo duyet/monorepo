@@ -24,7 +24,7 @@ export function Timeline({ modelsByYear }: TimelineProps) {
       {sortedYears.map((year) => {
         const yearModels = modelsByYear.get(year) || []
         return (
-          <div key={year}>
+          <div key={year} style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
             {/* Year Header */}
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 font-semibold text-white dark:bg-white dark:text-neutral-900">
