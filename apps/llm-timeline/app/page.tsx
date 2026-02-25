@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Suspense } from 'react'
 import { Github } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { SearchParamsWrapper } from '@/components/search-params-wrapper'
@@ -51,9 +50,7 @@ export default function LLMTimelinePage() {
         </header>
 
         {/* Stats + Interactive: Filters + Timeline */}
-        <Suspense fallback={<div>Loading...</div>}>
-          <SearchParamsWrapper stats={stats} initialModels={models} />
-        </Suspense>
+        <SearchParamsWrapper stats={stats} initialModels={models} />
 
         {/* Footer */}
         <footer

@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { TimelinePage } from '@/components/timeline-page'
 import { years } from '@/lib/data'
@@ -32,9 +31,5 @@ export default async function YearPage({ params }: { params: Promise<{ year: str
     notFound()
   }
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TimelinePage view="models" license="all" year={yearNum} />
-    </Suspense>
-  )
+  return <TimelinePage view="models" license="all" year={yearNum} />
 }
