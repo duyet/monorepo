@@ -77,11 +77,11 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
   }
 
   return (
-    <div className="relative flex gap-4 pb-6">
+    <div className="relative flex gap-3 pb-6">
       {/* Timeline Line */}
       {!isLast && (
         <div
-          className="absolute left-[11px] top-6 h-full w-px"
+          className="absolute left-[7px] top-4 h-full w-px"
           style={{ backgroundColor: 'var(--border)' }}
         />
       )}
@@ -89,7 +89,7 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
       {/* Timeline Dot — larger/accent for milestones */}
       <div
         className={cn(
-          'relative z-10 mt-2 h-5 w-5 shrink-0 rounded-full border-2',
+          'relative z-10 mt-2 h-3 w-3 shrink-0 rounded-full border-2',
           model.type === 'milestone'
             ? 'border-[--accent] bg-[--accent]'
             : 'border-[--border] bg-[--bg-card]'
