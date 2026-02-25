@@ -80,6 +80,10 @@ export const TIME_POINTS = [
   24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2,
 ] as const;
 
+// Bento grid cell styling — flat, consistent tiles
+export const BENTO_CELL =
+  "rounded-2xl border border-neutral-200 p-5 dark:border-neutral-700/50 dark:bg-neutral-800/80";
+
 // Chart colors — Claude brand palette for Recharts
 export const CHART_COLORS = {
   CLAUDE_LAVENDER: "#b8b5ff",
