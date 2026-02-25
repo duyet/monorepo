@@ -1,6 +1,6 @@
 'use client'
 
-import { Search, X } from 'lucide-react'
+import { Search, X, Rows2, LayoutList } from 'lucide-react'
 import type { FilterState } from '@/lib/utils'
 import { organizations } from '@/lib/data'
 
@@ -8,9 +8,11 @@ interface FiltersProps {
   filters: FilterState
   onFilterChange: (filters: FilterState) => void
   resultCount: number
+  liteMode?: boolean
+  onLiteModeToggle?: () => void
 }
 
-export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) {
+export function Filters({ filters, onFilterChange, resultCount, liteMode, onLiteModeToggle }: FiltersProps) {
   const updateFilter = <K extends keyof FilterState>(
     key: K,
     value: FilterState[K]
@@ -134,6 +136,23 @@ export function Filters({ filters, onFilterChange, resultCount }: FiltersProps) 
         >
           {resultCount.toLocaleString()} result{resultCount !== 1 ? 's' : ''}
         </span>
+
+        {/* Lite Mode Toggle */}
+        {onLiteModeToggle && (
+          <button
+            onClick={onLiteModeToggle}
+            className="rounded-lg border p-1.5 transition-colors"
+            style={{
+              borderColor: liteMode ? 'var(--accent)' : 'var(--border)',
+              backgroundColor: liteMode ? 'var(--accent-subtle)' : 'var(--bg-card)',
+              color: liteMode ? 'var(--accent)' : 'var(--text-muted)',
+            }}
+            title={liteMode ? 'Switch to full view' : 'Switch to compact view'}
+            aria-label={liteMode ? 'Switch to full view' : 'Switch to compact view'}
+          >
+            {liteMode ? <LayoutList className="h-4 w-4" /> : <Rows2 className="h-4 w-4" />}
+          </button>
+        )}
       </div>
     </div>
   )

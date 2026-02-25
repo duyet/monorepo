@@ -103,6 +103,33 @@ export function getTypeColor(type: Model['type']): string {
 }
 
 /**
+ * Group models by organization
+ * Sorted by model count descending; within each org sorted by date descending
+ */
+export function groupByOrg(models: Model[]): Map<string, Model[]> {
+  const groups = new Map<string, Model[]>()
+
+  for (const model of models) {
+    const existing = groups.get(model.org) || []
+    existing.push(model)
+    groups.set(model.org, existing)
+  }
+
+  // Sort each group by date descending
+  groups.forEach((orgModels, org) => {
+    groups.set(
+      org,
+      orgModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    )
+  })
+
+  // Return map sorted by model count descending
+  return new Map(
+    Array.from(groups.entries()).sort(([, a], [, b]) => b.length - a.length)
+  )
+}
+
+/**
  * Calculate statistics from models
  */
 export function getStats(models: Model[]) {

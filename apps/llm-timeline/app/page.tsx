@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { Github } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { StatsHeader } from '@/components/stats-header'
-import { TimelineClient } from '@/components/timeline-client'
+import { AppClient } from '@/components/app-client'
 import { models, lastSynced, years } from '@/lib/data'
 import { getStats } from '@/lib/utils'
 
@@ -50,11 +49,8 @@ export default function LLMTimelinePage() {
           </div>
         </header>
 
-        {/* Stats */}
-        <StatsHeader {...stats} />
-
-        {/* Interactive: Filters + Timeline */}
-        <TimelineClient />
+        {/* Stats + Interactive: Filters + Timeline */}
+        <AppClient stats={stats} />
 
         {/* Footer */}
         <footer

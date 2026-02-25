@@ -3,9 +3,10 @@ import type { Model } from '@/lib/data'
 
 interface TimelineProps {
   modelsByYear: Map<number, Model[]>
+  liteMode?: boolean
 }
 
-export function Timeline({ modelsByYear }: TimelineProps) {
+export function Timeline({ modelsByYear, liteMode }: TimelineProps) {
   // Sort years descending (newest first)
   const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a)
 
@@ -39,8 +40,7 @@ export function Timeline({ modelsByYear }: TimelineProps) {
                   className="select-none text-6xl font-bold leading-none"
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    color: 'var(--border)',
-                    opacity: 0.4,
+                    color: 'var(--year-watermark)',
                   }}
                   aria-hidden="true"
                 >
@@ -63,6 +63,7 @@ export function Timeline({ modelsByYear }: TimelineProps) {
                   key={`${model.date}-${model.name}`}
                   model={model}
                   isLast={index === yearModels.length - 1}
+                  lite={liteMode}
                 />
               ))}
             </div>

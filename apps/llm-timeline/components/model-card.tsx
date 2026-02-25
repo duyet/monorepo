@@ -6,21 +6,59 @@ import { OrgAvatar } from '@/components/org-avatar'
 interface ModelCardProps {
   model: Model
   isLast?: boolean
+  lite?: boolean
 }
 
-function getAccentBorderColor(license: Model['license']): string {
-  switch (license) {
-    case 'open':
-      return 'var(--accent)'
-    case 'partial':
-      return '#a855f7'
-    case 'closed':
-    default:
-      return 'var(--border)'
+export function ModelCard({ model, isLast, lite }: ModelCardProps) {
+  if (lite) {
+    return (
+      <div className="flex items-center gap-2 py-1" style={{ minHeight: '32px' }}>
+        <div
+          className="h-2 w-2 shrink-0 rounded-full"
+          style={{
+            backgroundColor:
+              model.type === 'milestone' ? 'var(--accent)' : 'var(--border)',
+          }}
+        />
+        <OrgAvatar org={model.org} size="sm" />
+        <span
+          className="truncate text-sm font-medium"
+          style={{ color: 'var(--text)' }}
+        >
+          {model.name}
+        </span>
+        <span className="shrink-0 text-xs" style={{ color: 'var(--text-muted)' }}>
+          ·
+        </span>
+        <span
+          className="shrink-0 text-xs"
+          style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}
+        >
+          {model.date.slice(0, 7)}
+        </span>
+        <span className="shrink-0 text-xs" style={{ color: 'var(--text-muted)' }}>
+          ·
+        </span>
+        <span
+          className={cn(
+            'shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+            getTypeColor(model.type)
+          )}
+        >
+          {model.type}
+        </span>
+        <span
+          className={cn(
+            'shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+            getLicenseColor(model.license)
+          )}
+        >
+          {model.license}
+        </span>
+      </div>
+    )
   }
-}
 
-export function ModelCard({ model, isLast }: ModelCardProps) {
   return (
     <div className="relative flex gap-4 pb-6">
       {/* Timeline Line */}
@@ -51,8 +89,6 @@ export function ModelCard({ model, isLast }: ModelCardProps) {
         className="flex-1 rounded-lg border p-4 transition-colors"
         style={{
           borderColor: 'var(--border)',
-          borderLeftColor: getAccentBorderColor(model.license),
-          borderLeftWidth: '3px',
           backgroundColor: 'var(--bg-card)',
         }}
         onMouseEnter={(e) => {
