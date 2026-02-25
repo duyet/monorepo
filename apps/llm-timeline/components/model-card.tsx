@@ -1,3 +1,5 @@
+'use client'
+
 import { getLicenseColor, getTypeColor } from '@/lib/utils'
 import type { Model } from '@/lib/data'
 import { cn } from '@duyet/libs/utils'

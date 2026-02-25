@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import { Suspense } from 'react'
 import { Github } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { AppClient } from '@/components/app-client'
+import { StaticView } from '@/components/static-view'
 import { models, lastSynced, years } from '@/lib/data'
-import { getStats } from '@/lib/utils'
+import { getStats, groupByYear } from '@/lib/utils'
 
 // Computed once at build time — not inside component to avoid re-computation
 const stats = getStats(models)
 const firstYear = years[years.length - 1]
 const latestYear = years[0]
+const modelsByYear = groupByYear(models)
 
 export default function LLMTimelinePage() {
   return (
@@ -50,10 +50,13 @@ export default function LLMTimelinePage() {
           </div>
         </header>
 
-        {/* Stats + Interactive: Filters + Timeline */}
-        <Suspense fallback={null}>
-          <AppClient stats={stats} initialModels={models} />
-        </Suspense>
+        {/* Static View - fully pre-rendered */}
+        <StaticView
+          models={models}
+          stats={stats}
+          view="models"
+          license="all"
+        />
 
         {/* Footer */}
         <footer

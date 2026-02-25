@@ -1,9 +1,9 @@
-import { StaticAppClient } from '@/components/app-client'
+import { StaticView } from '@/components/static-view'
 import { models } from '@/lib/data'
 import { filterModels, groupByYear, groupByOrg, getStats, slugify, type FilterState } from '@/lib/utils'
 import type { Model } from '@/lib/data'
 
-type View = 'models' | 'organizations' | 'open'
+type View = 'models' | 'organizations'
 
 interface TimelinePageProps {
   view?: View
@@ -23,7 +23,7 @@ export function TimelinePage({
   // Build filter state from props
   const baseFilters: FilterState = {
     search: '',
-    license: view === 'open' ? 'open' : license,
+    license: license,
     type: 'all',
     org: '',
   }
@@ -35,11 +35,13 @@ export function TimelinePage({
   }
 
   // Apply org filter if orgSlug is specified
+  let orgName: string | undefined
   if (orgSlug) {
     // Find the org name by matching slug
     const orgs = Array.from(new Set(models.map(m => m.org)))
     const matchedOrg = orgs.find(org => slugify(org) === orgSlug)
     if (matchedOrg) {
+      orgName = matchedOrg
       filtered = filtered.filter(model => model.org === matchedOrg)
     }
   }
@@ -53,12 +55,14 @@ export function TimelinePage({
   }
 
   return (
-    <StaticAppClient
-      initialModels={filtered}
-      initialView={view}
-      initialLicense={license}
-      initialLiteMode={liteMode}
+    <StaticView
+      models={filtered}
       stats={stats}
+      view={view}
+      license={license}
+      year={year}
+      org={orgName}
+      liteMode={liteMode}
     />
   )
 }
