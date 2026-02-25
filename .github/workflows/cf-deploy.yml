@@ -13,18 +13,10 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: 'App to deploy (leave empty for changed apps only)'
+        description: 'App to deploy (empty=auto-detect, "all"=all apps, or app name e.g. "blog")'
         required: false
-        type: choice
-        options:
-          - ''
-          - all
-          - blog
-          - cv
-          - home
-          - homelab
-          - insights
-          - photos
+        type: string
+        default: ''
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -46,61 +38,41 @@ jobs:
         with:
           fetch-depth: 2
 
-      - uses: dorny/paths-filter@v3
-        id: filter
-        if: github.event_name != 'workflow_dispatch'
-        with:
-          filters: |
-            blog:
-              - 'apps/blog/**'
-            cv:
-              - 'apps/cv/**'
-            home:
-              - 'apps/home/**'
-            homelab:
-              - 'apps/homelab/**'
-            insights:
-              - 'apps/insights/**'
-            photos:
-              - 'apps/photos/**'
-            packages:
-              - 'packages/**'
-
       - name: Set deployment matrix
         id: set-matrix
         run: |
-          # App configurations
-          declare -A APPS
-          APPS[blog]='{"app":"blog","project":"duyet-blog","url":"https://blog.duyet.net"}'
-          APPS[cv]='{"app":"cv","project":"duyet-cv","url":"https://cv.duyet.net"}'
-          APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
-          APPS[homelab]='{"app":"homelab","project":"duyet-homelab","url":"https://homelab.duyet.net"}'
-          APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
-          APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
-
+          # Single source of truth: read app registry
+          APPS_JSON=$(cat .github/cf-pages-apps.json)
           DEPLOY_APPS=()
 
-          # Manual dispatch
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in blog cv home homelab insights photos; do
-                DEPLOY_APPS+=("${APPS[$app]}")
-              done
+              # Deploy all registered apps
+              while IFS= read -r entry; do
+                DEPLOY_APPS+=("$entry")
+              done < <(echo "$APPS_JSON" | jq -c '.[]')
             elif [[ -n "$INPUT_APP" ]]; then
-              DEPLOY_APPS+=("${APPS[$INPUT_APP]}")
+              # Deploy a specific app by name
+              entry=$(echo "$APPS_JSON" | jq -c ".[] | select(.app == \"$INPUT_APP\")")
+              [[ -n "$entry" ]] && DEPLOY_APPS+=("$entry")
             fi
           else
-            # Auto-detect changes
-            PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
-            FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
+            # Auto-detect: compare HEAD~1 to HEAD (fetch-depth: 2 is set above)
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only HEAD)
+            PACKAGES_CHANGED=false
+            echo "$CHANGED_FILES" | grep -q '^packages/' && PACKAGES_CHANGED=true
 
-            for app in blog cv home homelab insights photos; do
-              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
-              if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-                DEPLOY_APPS+=("${APPS[$app]}")
+            echo "Changed files:"
+            echo "$CHANGED_FILES"
+            echo "Packages changed: $PACKAGES_CHANGED"
+
+            while IFS= read -r entry; do
+              app=$(echo "$entry" | jq -r '.app')
+              if echo "$CHANGED_FILES" | grep -q "^apps/$app/" || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+                DEPLOY_APPS+=("$entry")
               fi
-            done
+            done < <(echo "$APPS_JSON" | jq -c '.[]')
           fi
 
           # Build matrix JSON

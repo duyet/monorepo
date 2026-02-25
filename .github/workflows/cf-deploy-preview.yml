@@ -24,66 +24,45 @@ jobs:
     name: Detect changed apps
     runs-on: ubuntu-latest
     outputs:
-      blog: ${{ steps.filter.outputs.blog }}
-      cv: ${{ steps.filter.outputs.cv }}
-      home: ${{ steps.filter.outputs.home }}
-      homelab: ${{ steps.filter.outputs.homelab }}
-      insights: ${{ steps.filter.outputs.insights }}
-      photos: ${{ steps.filter.outputs.photos }}
-      packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v6
-
-      - uses: dorny/paths-filter@v3
-        id: filter
         with:
-          filters: |
-            blog:
-              - 'apps/blog/**'
-            cv:
-              - 'apps/cv/**'
-            home:
-              - 'apps/home/**'
-            homelab:
-              - 'apps/homelab/**'
-            insights:
-              - 'apps/insights/**'
-            photos:
-              - 'apps/photos/**'
-            packages:
-              - 'packages/**'
+          fetch-depth: 0
 
       - name: Set deployment matrix
         id: set-matrix
         run: |
-          APPS=()
-          PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
+          # Single source of truth: read app registry
+          APPS_JSON=$(cat .github/cf-pages-apps.json)
+          DEPLOY_APPS=()
 
-          if [[ "${{ steps.filter.outputs.blog }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"blog","project":"duyet-blog","domain":"blog.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.cv }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"cv","project":"duyet-cv","domain":"cv.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.home }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"home","project":"duyet-home","domain":"duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.homelab }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"homelab","project":"duyet-homelab","domain":"homelab.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.insights }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"insights","project":"duyet-insights","domain":"insights.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.photos }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"photos","project":"duyet-photos","domain":"photos.duyet.net"}')
-          fi
+          # Diff against PR base branch to catch all changes in the PR
+          git fetch origin ${{ github.base_ref }} --depth=1
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD \
+            2>/dev/null || git diff --name-only HEAD)
+          PACKAGES_CHANGED=false
+          echo "$CHANGED_FILES" | grep -q '^packages/' && PACKAGES_CHANGED=true
 
-          if [ ${#APPS[@]} -eq 0 ]; then
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          echo "Packages changed: $PACKAGES_CHANGED"
+
+          while IFS= read -r entry; do
+            app=$(echo "$entry" | jq -r '.app')
+            if echo "$CHANGED_FILES" | grep -q "^apps/$app/" || \
+               [[ "$PACKAGES_CHANGED" == "true" ]]; then
+              DEPLOY_APPS+=("$entry")
+            fi
+          done < <(echo "$APPS_JSON" | jq -c '.[]')
+
+          if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then
             echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
+            echo "No apps to deploy"
           else
-            MATRIX=$(printf '%s,' "${APPS[@]}" | sed 's/,$//')
+            MATRIX=$(printf '%s,' "${DEPLOY_APPS[@]}" | sed 's/,$//')
             echo "matrix={\"include\":[$MATRIX]}" >> $GITHUB_OUTPUT
+            echo "Apps to deploy: ${DEPLOY_APPS[*]}"
           fi
 
   deploy-preview:
