@@ -80,6 +80,13 @@ export default function LLMTimelinePage() {
             >
               LifeArchitect.AI Models Table
             </Link>
+            {' '}·{' '}
+            <Link
+              href="/llms.txt"
+              className="underline hover:opacity-80"
+            >
+              llms.txt
+            </Link>
             {' '}· Last updated:{' '}
             <span style={{ fontFamily: 'var(--font-mono)' }}>{lastSynced}</span>
           </p>

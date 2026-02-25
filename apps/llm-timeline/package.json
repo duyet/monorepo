@@ -14,7 +14,8 @@
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-llm-timeline --commit-dirty=true",
     "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-llm-timeline --commit-dirty=true",
     "rss": "bun scripts/generate-rss.ts",
-    "prebuild": "bun scripts/generate-rss.ts",
+    "llms-txt": "bun scripts/generate-llms-txt.ts",
+    "prebuild": "bun scripts/generate-rss.ts && bun scripts/generate-llms-txt.ts",
     "sync": "bun scripts/sync-data.ts",
     "sync:dry": "bun scripts/sync-data.ts --dry-run --verbose"
   },
