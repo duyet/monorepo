@@ -1,3 +1,4 @@
+import { PageLayout } from '@/components/page-layout'
 import { TimelinePage } from '@/components/timeline-page'
 
 export const metadata = {
@@ -9,5 +10,9 @@ export const metadata = {
 }
 
 export default function LitePage() {
-  return <TimelinePage view="models" license="all" liteMode={true} />
+  return (
+    <PageLayout description="A streamlined, minimalist view of Large Language Model releases">
+      <TimelinePage view="models" license="all" liteMode={true} />
+    </PageLayout>
+  )
 }

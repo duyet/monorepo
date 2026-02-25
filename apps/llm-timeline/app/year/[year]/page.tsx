@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { PageLayout } from '@/components/page-layout'
 import { TimelinePage } from '@/components/timeline-page'
 import { years } from '@/lib/data'
 
@@ -31,5 +32,9 @@ export default async function YearPage({ params }: { params: Promise<{ year: str
     notFound()
   }
 
-  return <TimelinePage view="models" license="all" year={yearNum} />
+  return (
+    <PageLayout title={`LLM Models Released in ${year}`} description={`Timeline of Large Language Model releases from ${year}`}>
+      <TimelinePage view="models" license="all" year={yearNum} />
+    </PageLayout>
+  )
 }

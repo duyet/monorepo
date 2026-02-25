@@ -2,12 +2,12 @@
 
 @layer base {
   :root {
-    --bg: #f8f7f3;
+    --bg: #fafafa;
     --bg-card: #ffffff;
-    --bg-card-hover: #fefefe;
-    --border: #e5e1d8;
+    --bg-card-hover: #f8f8f8;
+    --border: #e5e7eb;
     --text: #1a1a1a;
-    --text-muted: #6b6b6b;
+    --text-muted: #6b7280;
     --accent: #d97706;
     --accent-subtle: #fef3c7;
     --year-watermark: rgba(217, 119, 6, 0.13);

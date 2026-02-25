@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { PageLayout } from '@/components/page-layout'
 import { TimelinePage } from '@/components/timeline-page'
 import { organizations } from '@/lib/data'
 import { slugify } from '@/lib/utils'
@@ -35,5 +36,9 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
     notFound()
   }
 
-  return <TimelinePage view="models" license="all" orgSlug={slug} />
+  return (
+    <PageLayout title={`${org} LLM Models`} description={`Timeline of Large Language Model releases from ${org}`}>
+      <TimelinePage view="models" license="all" orgSlug={slug} />
+    </PageLayout>
+  )
 }

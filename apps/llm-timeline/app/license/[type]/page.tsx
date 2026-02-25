@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { PageLayout } from '@/components/page-layout'
 import { TimelinePage } from '@/components/timeline-page'
 
 const LICENSES = ['open', 'closed', 'partial'] as const
@@ -44,5 +45,9 @@ export default async function LicensePage({ params }: { params: Promise<{ type: 
     notFound()
   }
 
-  return <TimelinePage view="models" license={type as LicenseType} />
+  return (
+    <PageLayout title={`${LICENSE_LABELS[type as LicenseType]} Models`} description={LICENSE_DESCRIPTIONS[type as LicenseType]}>
+      <TimelinePage view="models" license={type as LicenseType} />
+    </PageLayout>
+  )
 }
