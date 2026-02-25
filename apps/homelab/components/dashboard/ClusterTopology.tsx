@@ -1,17 +1,15 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNodes } from "@/hooks/useDashboard";
 
 export function ClusterTopology() {
   const { nodes } = useNodes();
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Cluster Topology</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div>
+      <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Cluster Topology
+      </h2>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {nodes.map((node) => (
             <div
               key={node.id}
@@ -66,7 +64,6 @@ export function ClusterTopology() {
             </div>
           ))}
         </div>
-      </CardContent>
-    </Card>
+    </div>
   );
 }

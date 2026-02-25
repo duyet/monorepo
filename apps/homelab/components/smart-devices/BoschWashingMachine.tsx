@@ -374,7 +374,7 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        {/* Water Consumption Chart — 2 cols on md+ */}
+        {/* Water Consumption Chart — full width */}
         <ConsumptionChart
           title="Water Consumption"
           icon={<Droplets className="h-4 w-4 text-claude-sky" />}
@@ -382,10 +382,10 @@ export function BoschWashingMachine() {
           consumption={data.waterConsumption}
           colorDefault={CHART_COLORS.CLAUDE_SKY_LIGHT}
           colorActive={CHART_COLORS.CLAUDE_SKY}
-          className="md:col-span-2"
+          className="md:col-span-3"
         />
 
-        {/* Energy Consumption Chart — 1 col on md+ */}
+        {/* Energy Consumption Chart — full width */}
         <ConsumptionChart
           title="Energy Consumption"
           icon={<Zap className="h-4 w-4 text-claude-peach" />}
@@ -393,6 +393,7 @@ export function BoschWashingMachine() {
           consumption={data.energyConsumption}
           colorDefault={CHART_COLORS.CLAUDE_SUNSHINE_LIGHT}
           colorActive={CHART_COLORS.CLAUDE_ORANGE}
+          className="md:col-span-3"
         />
       </div>
     </div>
