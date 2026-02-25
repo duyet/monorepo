@@ -133,6 +133,19 @@ export default function HomePage() {
             illustration="blob"
           />
 
+          <ContentCard
+            title="LLM Timeline"
+            href={addUtmParams(
+              process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL || "https://llm-timeline.duyet.net",
+              "homepage",
+              "llm_timeline_card"
+            )}
+            description="Interactive timeline of Large Language Model releases from 2017 to present."
+            color="terracotta"
+            tags={["AI", "LLM", "History"]}
+            illustration="geometric"
+          />
+
           <LinkCard
             title="About"
             href="/about"
