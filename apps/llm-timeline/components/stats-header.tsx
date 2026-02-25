@@ -1,9 +1,8 @@
 import { Building2, Sparkles, LockOpen } from 'lucide-react'
 
-type View = 'models' | 'organizations'
+type View = 'models' | 'organizations' | 'open'
 
 interface StatsHeaderProps {
-  total: number
   models: number
   organizations: number
   open: number
@@ -12,7 +11,6 @@ interface StatsHeaderProps {
 }
 
 export function StatsHeader({
-  total,
   models,
   organizations,
   open,
@@ -25,14 +23,13 @@ export function StatsHeader({
     icon: React.ComponentType<{ className?: string }>
     view?: View
   }> = [
-    { label: 'Total', value: total, icon: Sparkles },
     { label: 'Models', value: models, icon: Sparkles, view: 'models' },
     { label: 'Organizations', value: organizations, icon: Building2, view: 'organizations' },
-    { label: 'Open Weights', value: open, icon: LockOpen },
+    { label: 'Open Weights', value: open, icon: LockOpen, view: 'open' },
   ]
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div className="mb-8 grid grid-cols-3 gap-3 sm:grid-cols-3">
       {stats.map(({ label, value, icon: Icon, view }) => {
         const isActive = view !== undefined && activeView === view
         const isClickable = view !== undefined

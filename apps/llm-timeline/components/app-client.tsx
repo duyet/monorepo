@@ -8,11 +8,10 @@ import { StatsHeader } from '@/components/stats-header'
 import { models } from '@/lib/data'
 import { filterModels, groupByYear, groupByOrg, type FilterState } from '@/lib/utils'
 
-type View = 'models' | 'organizations'
+type View = 'models' | 'organizations' | 'open'
 
 interface AppClientProps {
   stats: {
-    total: number
     models: number
     organizations: number
     open: number
@@ -36,7 +35,27 @@ export function AppClient({ stats }: AppClientProps) {
     startTransition(() => setFilters(next))
   }
 
-  const filteredModels = useMemo(() => filterModels(models, filters), [filters])
+  const handleViewChange = (nextView: View) => {
+    setView(nextView)
+    // Reset license filter when switching away from 'open' view
+    if (nextView !== 'open' && filters.license === 'open') {
+      startTransition(() => setFilters((prev) => ({ ...prev, license: 'all' })))
+    }
+  }
+
+  // When in 'open' view, override license filter to 'open'
+  const effectiveFilters = useMemo(
+    () => ({
+      ...filters,
+      license: view === 'open' ? 'open' : filters.license,
+    }),
+    [filters, view]
+  )
+
+  const filteredModels = useMemo(
+    () => filterModels(models, effectiveFilters),
+    [effectiveFilters]
+  )
   const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels])
   const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels])
 
@@ -45,7 +64,7 @@ export function AppClient({ stats }: AppClientProps) {
       <StatsHeader
         {...stats}
         activeView={view}
-        onViewChange={(v) => setView(v)}
+        onViewChange={handleViewChange}
       />
       <div className={isPending ? 'opacity-70 transition-opacity' : ''}>
         <Filters
@@ -55,10 +74,10 @@ export function AppClient({ stats }: AppClientProps) {
           liteMode={liteMode}
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />
-        {view === 'models' ? (
-          <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
-        ) : (
+        {view === 'organizations' ? (
           <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+        ) : (
+          <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
         )}
       </div>
     </>
