@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { TimelinePage } from '@/components/timeline-page'
 
 export const metadata = {
@@ -10,9 +9,5 @@ export const metadata = {
 }
 
 export default function LitePage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TimelinePage view="models" license="all" liteMode={true} />
-    </Suspense>
-  )
+  return <TimelinePage view="models" license="all" liteMode={true} />
 }

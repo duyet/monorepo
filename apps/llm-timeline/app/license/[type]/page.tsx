@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { TimelinePage } from '@/components/timeline-page'
 
@@ -45,9 +44,5 @@ export default async function LicensePage({ params }: { params: Promise<{ type: 
     notFound()
   }
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TimelinePage view="models" license={type as LicenseType} />
-    </Suspense>
-  )
+  return <TimelinePage view="models" license={type as LicenseType} />
 }

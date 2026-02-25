@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { TimelinePage } from '@/components/timeline-page'
 import { organizations } from '@/lib/data'
@@ -36,9 +35,5 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
     notFound()
   }
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TimelinePage view="models" license="all" orgSlug={slug} />
-    </Suspense>
-  )
+  return <TimelinePage view="models" license="all" orgSlug={slug} />
 }
