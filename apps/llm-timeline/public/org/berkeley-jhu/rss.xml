@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Berkeley/JHU Models</title>
+    <link>https://llm-timeline.duyet.net/org/berkeley-jhu</link>
+    <description>Large Language Model releases from Berkeley/JHU.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/berkeley-jhu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Berkeley/JHU Models</title>
+      <link>https://llm-timeline.duyet.net/org/berkeley-jhu</link>
+    </image>
+  <item>
+    <title>LVM-3B (Berkeley/JHU)</title>
+    <link>https://llm-timeline.duyet.net/org/berkeley-jhu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LVM-3B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Berkeley/JHU</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+Paper is 25MB. First Large Vision Model (LVM); no text. Based on Llama and LAION 5B (1.49B).</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 01-ai Models</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <description>Large Language Model releases from 01-ai.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/01-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — 01-ai Models</title>
+      <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    </image>
+  <item>
+    <title>Yi-Lightning (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi-Lightning-2024-10-01</guid>
+    <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+&quot;New MoE hybrid expert architecture&quot; and https://x.com/01AI_Yi/status/1845776529185476613</description>
+  </item>
+  <item>
+    <title>Yi-Coder (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi-Coder-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+6B=3T tokens, 9B=+0.8T tokens, 9B-Coder=+2.4T tokens=6.2T tokens. See Yi 1.5 34B in this table</description>
+  </item>
+  <item>
+    <title>Yi-XLarge (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi-XLarge-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 2000B
+License: open
+Type: model
+Still training as of May/2024: https://appserversrc.8btc.cn/FnDYlEC4STBhphu6M3NL4CKH43FW dead link, use: https://finance.china.com.cn/roll/20240513/6116857.shtml</description>
+  </item>
+  <item>
+    <title>Yi-Large (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi-Large-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 1000B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Yi 1.5 34B (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi%201.5%2034B-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 34.4B
+License: open
+Type: model
+Uses 600B more training tokens than Yi 1.0 (Nov/2023).</description>
+  </item>
+  <item>
+    <title>Yi-34B (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/org/01-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi-34B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 34.4B
+License: open
+Type: model
+Controversy about Llama 2 base. https://twitter.com/kaifulee/status/1724673131875377465 MMLU=76.3 (PaLM 2=78.3) Outperforms Llama 2. Chinese and English. https://www.bloomberg.com/news/articles/2023-11-05/kai-fu-lee-s-open-source-01-ai-bests-llama-2-according-to-hugging-face</description>
+  </item>
+  </channel>
+</rss>

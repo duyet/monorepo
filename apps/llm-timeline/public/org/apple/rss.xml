@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Apple Models</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <description>Large Language Model releases from Apple.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/apple/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Apple Models</title>
+      <link>https://llm-timeline.duyet.net/org/apple</link>
+    </image>
+  <item>
+    <title>DiffuCoder (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiffuCoder-2025-06-01</guid>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+&quot;We adapt our model from Qwen2.5-Coder (Hui et al., 2024) as the base model to perform continual pre-training using the adaptation approach from Gong et al. (2025). During this pre-training, we use a 400B-token code pre-training corpus from RefineCode (Huang et al., 2024) and Stackv2 (Lozhkov et al., 2024).&quot;</description>
+  </item>
+  <item>
+    <title>4M-21 (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#4M-21-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+Vision model based on T5-XXL. Modalities: RGB, Caption, Bounding boxes, Semantic segmentation, Depth, Human poses, Surface normals, CLIP, DINOv2, ImageBind, Metadata, Canny edges, SAM edges, SAM instances, Color palette. Project page: https://4m.epfl.ch/</description>
+  </item>
+  <item>
+    <title>Apple On-Device model Jun/2024 (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apple%20On-Device%20model%20Jun%2F2024-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 3.04B
+License: open
+Type: model
+https://lifearchitect.ai/apple/ Likely to be the Apple OpenELM model (Apr/2024). &quot;two of these models — a ~3 billion parameter on-device language model, and a larger server-based language model available with Private Cloud Compute&quot;. https://machinelearning.apple.com/research/introducing-apple-foundation-models The server-based model is possibly Ferret, although it is more properly called a multimodal model (not just language). It could also be Apple GPT based on their Ajax framework: https://archive.md/f3C0r</description>
+  </item>
+  <item>
+    <title>OpenELM (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenELM-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 3.04B
+License: open
+Type: model
+On-device model (laptop, phone). Open-source Efficient Language Models (OpenELM). https://venturebeat.com/ai/apple-releases-openelm-small-open-source-ai-models-designed-to-run-on-device/</description>
+  </item>
+  <item>
+    <title>Ferret-UI (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ferret-UI-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Vicuna base, multimodal. Extension of Ferret from Oct/2023.</description>
+  </item>
+  <item>
+    <title>ReALM-3B (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ReALM-3B-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+FLAN-T5 (Oct/2022) finetune.</description>
+  </item>
+  <item>
+    <title>MM1 (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MM1-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>closed</category>
+    <description>Parameters: 30B
+License: closed
+Type: model
+VLM, outperforms Flamingo 80B (Apr/2022) across benchmarks. 2T text tokens + ~10B+ other text (estimate). Unreleased.</description>
+  </item>
+  <item>
+    <title>Ask (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ask-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+Internal employee model only</description>
+  </item>
+  <item>
+    <title>MGIE (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MGIE-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+MLLM and diffusion model initialized from LLaVA-7B (Llama 2 + Vicuna) + StableDiffusion-v1.5.</description>
+  </item>
+  <item>
+    <title>Ferret (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ferret-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Vicuna base, multimodal</description>
+  </item>
+  <item>
+    <title>UniLM (Apple)</title>
+    <link>https://llm-timeline.duyet.net/org/apple</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UniLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 0.034B
+License: open
+Type: model
+Apple&apos;s Transformer model for iOS 17 + macOS Sonoma. Announce is actually Jun/2023. GPT-2 base? 128 token context window</description>
+  </item>
+  </channel>
+</rss>

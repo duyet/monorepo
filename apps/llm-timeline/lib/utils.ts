@@ -143,3 +143,13 @@ export function getStats(models: Model[]) {
     closed: models.filter(m => m.license === 'closed').length,
   }
 }
+
+/**
+ * Convert string to URL-safe slug
+ */
+export function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}

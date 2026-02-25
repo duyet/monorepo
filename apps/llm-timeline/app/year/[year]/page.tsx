@@ -32,5 +32,9 @@ export default async function YearPage({ params }: { params: Promise<{ year: str
     notFound()
   }
 
-  return <TimelinePage view="models" license="all" year={yearNum} />
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TimelinePage view="models" license="all" year={yearNum} />
+    </Suspense>
+  )
 }

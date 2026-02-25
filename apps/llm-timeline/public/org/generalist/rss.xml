@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Generalist Models</title>
+    <link>https://llm-timeline.duyet.net/org/generalist</link>
+    <description>Large Language Model releases from Generalist.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/generalist/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Generalist Models</title>
+      <link>https://llm-timeline.duyet.net/org/generalist</link>
+    </image>
+  <item>
+    <title>GEN-0 (Generalist)</title>
+    <link>https://llm-timeline.duyet.net/org/generalist</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GEN-0-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Generalist</category>
+    <category>partial</category>
+    <description>Parameters: 10B
+License: partial
+Type: model
+&quot;GEN-0, a new class of embodied foundation models built for multimodal training directly on high-fidelity raw physical interaction. Its architecture builds on the strengths of vision and language models while also going beyond them—natively designed to capture human-level reflexes and physical commonsense. One core feature is Harmonic Reasoning, in which the models are trained to simultaneously think and act seamlessly... GEN-0 is pretrained on our in-house robotics dataset, which includes over 270,000 hours of real-world diverse manipulation data, growing at a rate of 10,000 hours a week and accelerating.&quot;</description>
+  </item>
+  </channel>
+</rss>

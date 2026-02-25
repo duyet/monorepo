@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2021 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <description>Large Language Model releases from 2021.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2021/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — 2021 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2021</link>
+    </image>
+  <item>
+    <title>ERNIE 3.0 Titan (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%203.0%20Titan-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 260B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>XGLM (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XGLM-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 7.5B
+License: open
+Type: model
+Multilingual: 30 languages, 16 families.</description>
+  </item>
+  <item>
+    <title>Fairseq (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fairseq-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 1100B
+License: open
+Type: model
+13B &amp; 1100B param models.</description>
+  </item>
+  <item>
+    <title>Gopher (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gopher-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 280B
+License: closed
+Type: model
+Dataset: https://lifearchitect.ai/whats-in-my-ai/</description>
+  </item>
+  <item>
+    <title>GLaM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLaM-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1200B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Anthropic-LM 52B (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Anthropic-LM%2052B-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 52B
+License: closed
+Type: model
+Internal research only</description>
+  </item>
+  <item>
+    <title>RETRO (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RETRO-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 7.5B
+License: closed
+Type: model
+with retrieval</description>
+  </item>
+  <item>
+    <title>Luminous (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+Devs from EleutherAI</description>
+  </item>
+  <item>
+    <title>DeBERTaV3 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeBERTaV3-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+RoBERTa=162B token dataset.</description>
+  </item>
+  <item>
+    <title>BERT-480 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-480-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 480B
+License: closed
+Type: model
+Submission to benchmarks. Original dataset was BookCorpus + Wikipedia: https://arxiv.org/pdf/1810.04805.pdf</description>
+  </item>
+  <item>
+    <title>BERT-200 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-200-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+Submission to benchmarks. Original dataset was BookCorpus + Wikipedia: https://arxiv.org/pdf/1810.04805.pdf</description>
+  </item>
+  <item>
+    <title>Cedille FR-Boris (Coteries)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cedille%20FR-Boris-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Coteries</category>
+    <category>open</category>
+    <description>Parameters: 6B
+License: open
+Type: model
+French only. GPT-J.</description>
+  </item>
+  <item>
+    <title>MT-NLG (Microsoft/NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MT-NLG-2021-10-01</guid>
+    <pubDate>Fri, 01 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Microsoft/NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 530B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>FLAN (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAN-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+Fine-tuned LaMDA</description>
+  </item>
+  <item>
+    <title>Command xlarge (Cohere)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Command%20xlarge-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Cohere</category>
+    <category>open</category>
+    <description>Parameters: 52.4B
+License: open
+Type: model
+Stealth &apos;ebooks and webpages&apos;. 52B: https://crfm.stanford.edu/helm/v1.0/?models=1</description>
+  </item>
+  <item>
+    <title>PLATO-XL (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PLATO-XL-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+Chatbot. Reddit comments + CN social</description>
+  </item>
+  <item>
+    <title>Macaw (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Macaw-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>partial</category>
+    <description>Parameters: 11B
+License: partial
+Type: model
+Chatbot</description>
+  </item>
+  <item>
+    <title>Codex (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Codex-2021-08-01</guid>
+    <pubDate>Sun, 01 Aug 2021 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+Code</description>
+  </item>
+  <item>
+    <title>Jurassic-1 (AI21)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jurassic-1-2021-08-01</guid>
+    <pubDate>Sun, 01 Aug 2021 00:00:00 GMT</pubDate>
+    <category>AI21</category>
+    <category>open</category>
+    <description>Parameters: 178B
+License: open
+Type: model
+Emulated GPT-3 dataset</description>
+  </item>
+  <item>
+    <title>BlenderBot 2.0 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%202.0-2021-07-01</guid>
+    <pubDate>Thu, 01 Jul 2021 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 9.4B
+License: open
+Type: model
+Chatbot</description>
+  </item>
+  <item>
+    <title>GPT-J (EleutherAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-J-2021-06-01</guid>
+    <pubDate>Tue, 01 Jun 2021 00:00:00 GMT</pubDate>
+    <category>EleutherAI</category>
+    <category>open</category>
+    <description>Parameters: 6B
+License: open
+Type: model
+Popular</description>
+  </item>
+  <item>
+    <title>LaMDA (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LaMDA-2021-06-01</guid>
+    <pubDate>Tue, 01 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+Chatbot</description>
+  </item>
+  <item>
+    <title>ruGPT-3 (Huawei/Sberbank)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ruGPT-3-2021-02-01</guid>
+    <pubDate>Mon, 01 Feb 2021 00:00:00 GMT</pubDate>
+    <category>Huawei/Sberbank</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+Russian GPT-3 with input from Huawei</description>
+  </item>
+  <item>
+    <title>Switch (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2021</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Switch-2021-01-01</guid>
+    <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 1600B
+License: open
+Type: model</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Closed License Models</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <description>Proprietary models with API-only access</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/license/closed/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Closed License Models</title>
+      <link>https://llm-timeline.duyet.net/license/closed</link>
+    </image>
+  <item>
+    <title>EDEN (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EDEN-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 28B
+License: closed
+Type: model
+&quot;EDEN (environmentally-derived evolutionary network) family of metagenomic foundation models, including a 28 billion parameter model trained on 9.7 trillion nucleotide tokens from BaseData1 . This dataset, at the time of training, contained more than 10 billion novel genes from over 1 million new species, and is intentionally enriched for environmental and host-associated metagenomes, phage sequences, and mobile genetic elements, enabling the model to learn from diverse and novel cross-species evolutionary mechanisms and apply them to key challenges in human health.&quot;</description>
+  </item>
+  <item>
+    <title>mHC 27B (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mHC%2027B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>closed</category>
+    <description>Parameters: 27B
+License: closed
+Type: model
+27BA4.14B. Scaling tested with 3B MoE on 1T tokens=334:1. &quot;Manifold-Constrained Hyper-Connections (mHC), a general framework that projects the residual connection space of HC onto a specific manifold to restore the identity mapping property, while incorporating rigorous infrastructure optimization to ensure efficiency. Empirical experiments demonstrate that mHC is effective for training at scale, offering tangible performance improvements and superior scalability.&quot;</description>
+  </item>
+  <item>
+    <title>Ranke-4B (UZH)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ranke-4B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>UZH</category>
+    <category>closed</category>
+    <description>Parameters: 4B
+License: closed
+Type: model
+Base Model: Qwen 3. 600B tokens of pre-(1913, 1929, 1933, 1939, 1946) data only.</description>
+  </item>
+  <item>
+    <title>TimesFM-ICF (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TimesFM-ICF-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 0.2B
+License: closed
+Type: model
+TimesFM-ICF is 6.8% more accurate than TimesFM (Base). Time-series forecasting only. &apos;a large pretraining corpus of 100B real world time-points&apos; may be more than 100B tokens.</description>
+  </item>
+  <item>
+    <title>KAT-V1-200B (Kuaishou)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KAT-V1-200B-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Kuaishou</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+200BA40B. In training as of Jul/2025. &quot;to address the overthinking problem in reasoning-intensive tasks&quot;</description>
+  </item>
+  <item>
+    <title>DeepTransformers (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepTransformers-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model
+&quot;Atlas, a long-term memory module with high capacity that learns to memorize the context by optimizing the memory based on the current and past tokens, overcoming the online nature of long-term memory models. Building on this insight, we present a new family of Transformer-like architectures, called DeepTransformers, that are strict generalizations of the original Transformer architecture.&quot;</description>
+  </item>
+  <item>
+    <title>Atlas (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Atlas-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model
+&quot;Atlas, a long-term memory module with high capacity that learns to memorize the context by optimizing the memory based on the current and past tokens, overcoming the online nature of long-term memory models. Building on this insight, we present a new family of Transformer-like architectures, called DeepTransformers, that are strict generalizations of the original Transformer architecture.&quot;</description>
+  </item>
+  <item>
+    <title>Pangu Ultra MoE (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%20Ultra%20MoE-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 718B
+License: closed
+Type: model
+718B-A39B. Trained on 6,000 Ascend NPUs (Kunpeng 920 processors in Huawei Atlas 800T A2 servers).</description>
+  </item>
+  <item>
+    <title>Llama 4 Behemoth (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%204%20Behemoth-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 2000B
+License: closed
+Type: model
+2T-A288B. Announced Apr/2025, abandoned Jul/2025. &quot;We also trained a teacher model, Llama 4 Behemoth, that outperforms GPT-4.5, Claude Sonnet 3.7, and Gemini 2.0 Pro on STEM-focused benchmarks such as MATH-500 and GPQA Diamond... 288B active parameters, 16 experts, and nearly two trillion total parameters.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini Robotics (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+Gemini 2.0 Pro (cloud). &quot;The second model is Gemini Robotics, a state-of-theart Vision-Language-Action (VLA) model that connects strong embodied reasoning priors to dexterous low-level control of real-world robots to solve challenging manipulation tasks. As a generalist VLA, Gemini Robotics can perform a wide array of diverse and complicated tasks, while also closely following language guidance and generalizing to distribution shifts in instructions, visuals, and motions. To emphasize the flexibility and generality of the Gemini Robotics models, we also introduce an optional specialization stage, which demonstrates how Gemini Robotics can be adapted for extreme dexterity, for advanced reasoning in difficult generalization settings, and for controlling completely new robot embodiments.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini Robotics-ER (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-ER-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 30B
+License: closed
+Type: model
+Gemini 2.0 Flash (on device). &quot;The first model is Gemini Robotics-ER, a VLM with strong embodied reasoning capabilities at its core, exhibiting generalization across a wide range of embodied reasoning tasks while also maintaining its core foundation model capabilities. Gemini Robotics-ER exhibits strong performance on multiple capabilities critical for understanding the physical world, ranging from 3D perception to detailed pointing to robot state estimation and affordance prediction via code.&quot;</description>
+  </item>
+  <item>
+    <title>S2 (Figure)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#S2-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Figure</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+Likely based on OpenVLA 7B (Jun/2024, based on Llama 2 7B) or Molmo 7B-O (Sep/2024, based on OLMo-7B-1024 with OpenAI CLIP). &quot;high quality, multi-robot, multi-operator dataset of diverse teleoperated behaviors, ~500 hours in total. To generate natural language-conditioned training pairs, we use an auto-labeling VLM to generate hindsight instructions. The VLM processes segmented video clips from the onboard robot cameras, prompted with: &quot;What instruction would you have given the robot to get the action seen in this video?&quot; All items handled during training are excluded from evaluations to prevent contamination. Architecture Our system comprises two main components: S2, a VLM backbone, and S1, a latent-conditional visuomotor transformer. S2 is built on a 7B-parameter open-source, open-weight VLM pretrained on internet-scale data. It processes monocular robot images and robot state information (consisting of wrist pose and finger positions) after projecting them into vision-language embedding space. Combined with natural language commands specifying desired behaviors, S2 distills all semantic task-relevant information into a single continuous latent vector, passed to S1 to condition its low-level actions. S1, an 80M parameter cross-attention encoder-decoder transformer, handles low-level control. It relies on a fully convolutional, multi-scale vision backbone for visual processing, initialized from pretraining done entirely in simulation. While S1 receives the same image and state inputs as S2, it processes them at a higher frequency to enable more responsive closed-loop control. The latent vector from S2 is projected into S1&apos;s token space and concatenated with visual features from S1&apos;s vision backbone along the sequence dimension, providing task conditioning. S1 outputs full upper body humanoid control at 200hz, including desired wrist poses, finger flexion and abduction control, and torso and head orientation targets. We append to the action space a synthetic &quot;percentage task completion&quot; action, allowing Helix to predict its own termination condition, which makes it easier to sequence multiple learned behaviors.&quot;</description>
+  </item>
+  <item>
+    <title>S1 (Figure)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#S1-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Figure</category>
+    <category>closed</category>
+    <description>Parameters: 0.08B
+License: closed
+Type: model
+&quot;high quality, multi-robot, multi-operator dataset of diverse teleoperated behaviors, ~500 hours in total. To generate natural language-conditioned training pairs, we use an auto-labeling VLM to generate hindsight instructions. The VLM processes segmented video clips from the onboard robot cameras, prompted with: &quot;What instruction would you have given the robot to get the action seen in this video?&quot; All items handled during training are excluded from evaluations to prevent contamination. Architecture Our system comprises two main components: S2, a VLM backbone, and S1, a latent-conditional visuomotor transformer. S2 is built on a 7B-parameter open-source, open-weight VLM pretrained on internet-scale data. It processes monocular robot images and robot state information (consisting of wrist pose and finger positions) after projecting them into vision-language embedding space. Combined with natural language commands specifying desired behaviors, S2 distills all semantic task-relevant information into a single continuous latent vector, passed to S1 to condition its low-level actions. S1, an 80M parameter cross-attention encoder-decoder transformer, handles low-level control. It relies on a fully convolutional, multi-scale vision backbone for visual processing, initialized from pretraining done entirely in simulation. While S1 receives the same image and state inputs as S2, it processes them at a higher frequency to enable more responsive closed-loop control. The latent vector from S2 is projected into S1&apos;s token space and concatenated with visual features from S1&apos;s vision backbone along the sequence dimension, providing task conditioning. S1 outputs full upper body humanoid control at 200hz, including desired wrist poses, finger flexion and abduction control, and torso and head orientation targets. We append to the action space a synthetic &quot;percentage task completion&quot; action, allowing Helix to predict its own termination condition, which makes it easier to sequence multiple learned behaviors.&quot;</description>
+  </item>
+  <item>
+    <title>GPT-4b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4b-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+Protein sequence model. &quot;The model was trained on examples of protein sequences from many species, as well as information on which proteins tend to interact with one another. While that’s a lot of data, it’s just a fraction of what OpenAI’s flagship chatbots were trained on, making GPT-4b an example of a “small language model” that works with a focused data set.&quot; https://www.technologyreview.com/2025/01/17/1110086/openai-has-created-an-ai-model-for-longevity-science/</description>
+  </item>
+  <item>
+    <title>EON-8B (LinkedIn)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EON-8B-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>LinkedIn</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+&quot;We found the EON-8B model (a domain-adapted Llama 3.1-8B variant) to be 75x and 6x cost effective in comparison to GPT-4 and GPT-4o respectively (Figure 4)... On tasks seen during training, the EON-8B model outperformed base Llama-3-8B-Instruct and its performance was comparable to SOTA GPT models.&quot;</description>
+  </item>
+  <item>
+    <title>o1-2024-12-17 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o1-2024-12-17-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+&quot;o1-2024-12-17 sets new state-of-the-art results on several benchmarks, improving cost-efficiency and performance.&quot;</description>
+  </item>
+  <item>
+    <title>1T (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#1T-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>closed</category>
+    <description>Parameters: 1000B
+License: closed
+Type: model
+&quot;For Sandia’s trillion parameter training run, Cerebras configured a 55 terabyte MemoryX device.&quot;</description>
+  </item>
+  <item>
+    <title>Bi-Mamba (CMU)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bi-Mamba-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>CMU</category>
+    <category>closed</category>
+    <description>Parameters: 2.7B
+License: closed
+Type: model
+Unreleased, but will be replicated. &quot;a scalable and powerful 1-bit Mamba architecture designed for more efficient large language models&quot;</description>
+  </item>
+  <item>
+    <title>SFR-LLaMA-3.1-70B-Judge (Salesforce)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SFR-LLaMA-3.1-70B-Judge-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Salesforce</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+Code coming soon: https://github.com/SalesforceAIResearch/SFRJudge &quot;we opt to focus on datasets that evaluate modern (2023 and beyond) LLM responses, as older datasets likely contain lower quality responses from less capable models, with correspondingly stale annotations. We supplement human-annotated data with synthetically generated data to endow our judge models with specific capabilities (e.g., following fine-grained rubrics in evaluation)&quot;</description>
+  </item>
+  <item>
+    <title>Unnamed 1T (China Telecom Artificial Intelligence Research Institute)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unnamed%201T-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>China Telecom Artificial Intelligence Research Institute</category>
+    <category>closed</category>
+    <description>Parameters: 1000B
+License: closed
+Type: model
+Trained on Chinese GPUs: &quot;Ascend Atlas 800T A2 training server – a Huawei product listed as supporting the Kunpeng 920 7265 or Kunpeng 920 5250 processors&quot; https://www.theregister.com/2024/10/02/china_telecom_model_trained_local_tech/</description>
+  </item>
+  <item>
+    <title>o1-preview (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o1-preview-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>LTM-2-mini (Magic)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LTM-2-mini-2024-08-01</guid>
+    <pubDate>Thu, 01 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Magic</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+Context=100M tokens equals ~10 million lines of code or ~750 novels.</description>
+  </item>
+  <item>
+    <title>SpreadsheetLLM (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SpreadsheetLLM-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1760B
+License: closed
+Type: model
+Notable finetune of GPT4-0125-preview &quot;outperforming the vanilla approach by 25.6% in GPT4’s in-context learning setting&quot;</description>
+  </item>
+  <item>
+    <title>FLAMe (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAMe-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 24B
+License: closed
+Type: model
+LLM-as-a-Judge autorater. Foundational Large Autorater Models (FLAMe). Uses an instruction-tuned PaLM-2-24B model. Unrelated to Microsoft FLAME Jan/2023.</description>
+  </item>
+  <item>
+    <title>Causal Axioms (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Causal%20Axioms-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 0.067B
+License: closed
+Type: model
+&quot;the training dataset follows a specific structure, we develop a custom tokenizer. Alphanumeric node names are tokenized at a character level, while special terms such as ‘causes’, ‘Does’, ‘cause’, ‘Yes’, and ‘No’ are tokenized at the word level... Our training setup consists of around 175k instances of sequential chains with size of chains ranging from 3 to 6 nodes... All models are trained for 100 epochs. [LifeArchitect.ai estimate is 12 tokens per node x 6 nodes x 175,000 instances x 100 epochs = 1.26B tokens]&quot; Based on GPT-2 arch.</description>
+  </item>
+  <item>
+    <title>CriticGPT (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CriticGPT-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+&quot;LLM Critics Help Catch LLM Bugs&quot; Announce: https://openai.com/index/finding-gpt4s-mistakes-with-gpt-4/</description>
+  </item>
+  <item>
+    <title>Claude 3.5 Sonnet (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%203.5%20Sonnet-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+MMLU=90.4 with prompting. Model card: https://www-cdn.anthropic.com/fed9cc193a14b84131812372d8d5857f8f304c52/Model_Card_Claude_3_Addendum.pdf</description>
+  </item>
+  <item>
+    <title>GPT-4o (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4o-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+gpt-4o-2024-05-13 no longer easily available, so hidden in the Model Table rankings. Omnimodel. ‘[GPT-4o is] likely an early checkpoint of GPT-5’. https://twitter.com/drjimfan/status/1790089671365767313 ELO: https://twitter.com/LiamFedus/status/1790064963966370209 Demo: https://youtu.be/DQacCB9tDaw</description>
+  </item>
+  <item>
+    <title>xLSTM (ELLIS)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#xLSTM-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>ELLIS</category>
+    <category>closed</category>
+    <description>Parameters: 2.7B
+License: closed
+Type: model
+New method LSTM to xLSTM, see also RNNs. Code/weights doesn&apos;t seem to be released. https://github.com/AI-Guru/xlstm-resources</description>
+  </item>
+  <item>
+    <title>Med-Gemini-L 1.0 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Gemini-L%201.0-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+Med-Gemini-M 1.0 and Med-Gemini-L 1.0 (Pro and Ultra finetunes) &quot;For language tasks that require less complex reasoning, such as summarizing medical notes and creating referral letters, we introduce Med-Gemini-M 1.0 by fine-tuning the Gemini 1.0 Pro model. For other tasks that require more advanced reasoning, we introduce Med-Gemini-L 1.0 by fine-tuning the Gemini 1.0 Ultra model using a self-training method to enable the models to efficiently use web search.&quot;</description>
+  </item>
+  <item>
+    <title>HLAT (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HLAT-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+HLAT=High-quality LLM pre-trained on AWS Trainium. Same arch as Llama 7B. The pre-training is performed up to 64 Amazon EC2 trn1.32xlarge instances with totalling up to 1024 AWS Trainium accelerators. Read more about Trainium: https://www.aboutamazon.com/news/aws/what-you-need-to-know-about-the-aws-ai-chips-powering-amazons-partnership-with-anthropic</description>
+  </item>
+  <item>
+    <title>ReALM-3B (Apple)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ReALM-3B-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+FLAN-T5 (Oct/2022) finetune.</description>
+  </item>
+  <item>
+    <title>MM1 (Apple)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MM1-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>closed</category>
+    <description>Parameters: 30B
+License: closed
+Type: model
+VLM, outperforms Flamingo 80B (Apr/2022) across benchmarks. 2T text tokens + ~10B+ other text (estimate). Unreleased.</description>
+  </item>
+  <item>
+    <title>530B (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#530B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 530B
+License: closed
+Type: model
+Trained using 12,288 A100 GPUs, replicating MT-NLG size</description>
+  </item>
+  <item>
+    <title>175B (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#175B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 175B
+License: closed
+Type: model
+Trained using 12,288 A100 GPUs, replicating GPT-3 size</description>
+  </item>
+  <item>
+    <title>Ask (Apple)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ask-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+Internal employee model only</description>
+  </item>
+  <item>
+    <title>MambaByte (Cornell)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MambaByte-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Cornell</category>
+    <category>closed</category>
+    <description>Parameters: 0.972B
+License: closed
+Type: model
+Used bytes instead of tokens. 4 bytes≈1 token, so 150B bytes≈37.5B tokens</description>
+  </item>
+  <item>
+    <title>DeepSeekMoE (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeekMoE-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>closed</category>
+    <description>Parameters: 16B
+License: closed
+Type: model
+MoE activated parameters is 10-15% of dense, so I need to rethink ALScore for MoE. &apos;preliminary efforts to scale up DeepSeekMoE to 145B&apos;</description>
+  </item>
+  <item>
+    <title>DocLLM (JPMorgan)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DocLLM-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>JPMorgan</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+Document spatial layout structure.</description>
+  </item>
+  <item>
+    <title>WaveCoder-DS-6.7B (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WaveCoder-DS-6.7B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 6.7B
+License: closed
+Type: model
+To obtain WaveCoder models, We choose StarCoder-15B, CodeLLaMa (7B and 13B), DeepseekCoder-6.7B as the base model and fine-tune all the base model for 3 epochs</description>
+  </item>
+  <item>
+    <title>YunShan (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YunShan-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+Finance + law fine-tune of PanGu-π</description>
+  </item>
+  <item>
+    <title>PanGu-Pi (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Pi-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+Dense, named PanGu-π</description>
+  </item>
+  <item>
+    <title>LVM-3B (Berkeley/JHU)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LVM-3B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Berkeley/JHU</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+Paper is 25MB. First Large Vision Model (LVM); no text. Based on Llama and LAION 5B (1.49B).</description>
+  </item>
+  <item>
+    <title>Q-Transformer (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Q-Transformer-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+Robotics, builds on RT-1</description>
+  </item>
+  <item>
+    <title>Transformers-Arithmetic (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformers-Arithmetic-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 0.1B
+License: closed
+Type: model
+Proving maths is not memorized. Uses GPT-2-style model. Sébastien Bubeck</description>
+  </item>
+  <item>
+    <title>Nemotron-2 43B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-2%2043B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 43B
+License: closed
+Type: model
+Used to train HelpSteer (16/Nov/2023): https://arxiv.org/abs/2311.09528</description>
+  </item>
+  <item>
+    <title>Mirasol3B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mirasol3B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+Combiner + autoregressive transformer for video/audio/text</description>
+  </item>
+  <item>
+    <title>Grok-0 (xAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grok-0-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>closed</category>
+    <description>Parameters: 33B
+License: closed
+Type: model
+Announced Nov/2023, trained Jul/2023</description>
+  </item>
+  <item>
+    <title>PaLI-3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-3-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 5B
+License: closed
+Type: model
+VLM. Next iteration of PaLI via Pathways. https://lifearchitect.ai/pathways/</description>
+  </item>
+  <item>
+    <title>MotionLM (Waymo)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MotionLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Waymo</category>
+    <category>closed</category>
+    <description>Parameters: 0.09B
+License: closed
+Type: model
+LLM for autonomous vehicle forecasting. https://youtu.be/jrMMNmN21I8?t=1560</description>
+  </item>
+  <item>
+    <title>GAIA-1 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GAIA-1-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>Parameters: 9B
+License: closed
+Type: model
+World model, generates video. Uses T5-large 770M for language + all vision parameters</description>
+  </item>
+  <item>
+    <title>Llama 2 Long (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%202%20Long-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+Unreleased to date. Context window=32,768 tokens (compare to Llama 2=4096 tokens)</description>
+  </item>
+  <item>
+    <title>Kosmos-2.5 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kosmos-2.5-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Raven (UI/NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Raven-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>UI/NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+RAG Atlas</description>
+  </item>
+  <item>
+    <title>Med-PaLM M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%20M-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+Uses PaLM 1. Already outperformed by Med-PaLM 2. Med-PaLM Multimodal (Med-PaLM M).</description>
+  </item>
+  <item>
+    <title>xTrimoPGLM (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#xTrimoPGLM-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+Protein language model</description>
+  </item>
+  <item>
+    <title>AudioPaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AudioPaLM-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 340B
+License: closed
+Type: model
+a unified multimodal architecture that can process and generate text and speech with applications including speech recognition and speech-to-speech translation</description>
+  </item>
+  <item>
+    <title>Phi-1 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Phi-1-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model
+Code model. ‘breaking existing scaling laws by training a 1.3B-parameter model, which we call phi-1, for roughly 8 passes over 7B tokens (slightly over 50B total tokens seen) followed by finetuning on less than 200M tokens.’</description>
+  </item>
+  <item>
+    <title>InternLM (Shanghai AI Laboratory/SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternLM-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Laboratory/SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 104B
+License: closed
+Type: model
+Outperforms ChatGPT, LLaMA on RACE-h, Chinese + English</description>
+  </item>
+  <item>
+    <title>PassGPT (ETH Zürich)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PassGPT-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>ETH Zürich</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+GPT-2 trained on leaked passwords</description>
+  </item>
+  <item>
+    <title>DIDACT (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DIDACT-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+Iterative coding model trained on Google&apos;s monorepo. Jacob: https://twitter.com/jacobaustin132/status/1663972128176128002</description>
+  </item>
+  <item>
+    <title>LTM-1 (Magic)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LTM-1-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Magic</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+Context window=5M</description>
+  </item>
+  <item>
+    <title>GPT-4 MathMix (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20MathMix-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 1760B
+License: closed
+Type: model
+Unreleased, includes step by step research</description>
+  </item>
+  <item>
+    <title>LIMA (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMA-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 65B
+License: closed
+Type: model
+LLaMA-65B with nearly no fine-tuning, no RLHF</description>
+  </item>
+  <item>
+    <title>BloombergGPT (Bloomberg)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BloombergGPT-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Bloomberg</category>
+    <category>closed</category>
+    <description>Parameters: 50B
+License: closed
+Type: model
+Video: https://youtu.be/m2Scj2SO85Y Underperforms GPT-3, based on BLOOM. Tokens: &apos;We select a model size motivated by Hoffmann et al. (2022) and train a 50 billion parameter model on 569 billion tokens from our corpus of over 700 billion tokens to produce a model that is competitive with larger models.&apos;</description>
+  </item>
+  <item>
+    <title>PanGu-Sigma (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Sigma-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 1085B
+License: closed
+Type: model
+Sparse. 1.085T parameters named PanGu-Σ.</description>
+  </item>
+  <item>
+    <title>CoLT5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoLT5-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 5.2B
+License: closed
+Type: model
+up to 64k context window [48k words or about 96 pages -Alan]</description>
+  </item>
+  <item>
+    <title>Med-PaLM 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%202-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 340B
+License: closed
+Type: model
+Recently, our next iteration, Med-PaLM 2, consistently performed at an “expert” doctor level on medical exam questions, scoring 85%. This is an 18% improvement from Med-PaLM’s previous performance and far surpasses similar AI models.</description>
+  </item>
+  <item>
+    <title>Kosmos-1 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kosmos-1-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1.6B
+License: closed
+Type: model
+Proto-AGI. Multimodal large language model (MLLM). Raven’s Progressive Matrices as real images, not digits as in testing of text-davinci-003 at https://lifearchitect.ai/ravens/</description>
+  </item>
+  <item>
+    <title>Toolformer+Atlas 11B+NLLB 54B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Toolformer%2BAtlas%2011B%2BNLLB%2054B-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 6.7B
+License: closed
+Type: model
+Based on GPT-J 6.7B + access to other models via API</description>
+  </item>
+  <item>
+    <title>FLAME (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAME-2023-01-01</guid>
+    <pubDate>Sun, 01 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 0.06B
+License: closed
+Type: model
+T5 for Excel formulas, very small 60M params, &quot;We start from a dataset of 927M formulas&quot; estimate 10x multiplier for 9B tokens</description>
+  </item>
+  <item>
+    <title>Med-PaLM 1 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%201-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+Collab between Google &amp; DeepMind. Makes 1% less errors than humans</description>
+  </item>
+  <item>
+    <title>RL-CAI (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RL-CAI-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 52B
+License: closed
+Type: model
+RLAIF=reinforcement learning with AI feedback</description>
+  </item>
+  <item>
+    <title>RT-1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-1-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 0.035B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>SED (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SED-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+SED 420M (diffusion text model)</description>
+  </item>
+  <item>
+    <title>Flan-PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-PaLM-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>U-PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-PaLM-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Sparrow (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparrow-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+Chatbot as a fine-tuned version of Chinchilla 70B</description>
+  </item>
+  <item>
+    <title>PaLI (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 17B
+License: closed
+Type: model
+PaLM Vision model, new datasets of 10B multilingual text-image pairs</description>
+  </item>
+  <item>
+    <title>Z-Code++ (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Z-Code%2B%2B-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 0.71B
+License: closed
+Type: model
+abstractive text summarization, 710M, outperforms PaLM 540B. &quot;Due to the limited computational resource, Z-Code++LARGE is trained with only 500B tokens instead of 1T tokens as that for mT5 training.&quot;</description>
+  </item>
+  <item>
+    <title>6.9B FIM (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#6.9B%20FIM-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 6.9B
+License: closed
+Type: model
+Several models: 8 sizes, NLP, Code, FIM/non-FIM. 100B tokens for 6.9B params... beyond chinchilla</description>
+  </item>
+  <item>
+    <title>‘monorepo-Transformer’ (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#%E2%80%98monorepo-Transformer%E2%80%99-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 0.5B
+License: closed
+Type: model
+Unnamed. Writes &gt;3% of internal google code.</description>
+  </item>
+  <item>
+    <title>PanGu-Coder (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Coder-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 2.6B
+License: closed
+Type: model
+Python via GH</description>
+  </item>
+  <item>
+    <title>Minerva (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minerva-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+PaLM finetuned on LaTeX/arXiv maths</description>
+  </item>
+  <item>
+    <title>Unified-IO (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unified-IO-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>closed</category>
+    <description>Parameters: 2.8B
+License: closed
+Type: model
+Based on T5. Demo only</description>
+  </item>
+  <item>
+    <title>Perceiver AR (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Perceiver%20AR-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+Context window=100,000. Params=364m wiki, 975M pg-19, 826M books, music=?, imagenet=770M,</description>
+  </item>
+  <item>
+    <title>LIMoE (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMoE-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 5.6B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>UL2 20B (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UL2%2020B-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+Unifying Language model. C4 only.</description>
+  </item>
+  <item>
+    <title>Gato (Cat) (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gato%20(Cat)-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+Proto-AGI. Generalist agent (LLM, VLM, robot)</description>
+  </item>
+  <item>
+    <title>NOOR (TII)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NOOR-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>TII</category>
+    <category>closed</category>
+    <description>Parameters: 10B
+License: closed
+Type: model
+Arabic. &quot;World’s largest high-quality cross-domain Arabic dataset, combining web data with books, poetry, news articles, and technical information&quot;</description>
+  </item>
+  <item>
+    <title>PaLM-Coder (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-Coder-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Chinchilla (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chinchilla-2022-03-01</guid>
+    <pubDate>Tue, 01 Mar 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+First to double tokens per size increase</description>
+  </item>
+  <item>
+    <title>Gopher (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gopher-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 280B
+License: closed
+Type: model
+Dataset: https://lifearchitect.ai/whats-in-my-ai/</description>
+  </item>
+  <item>
+    <title>GLaM (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLaM-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1200B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Anthropic-LM 52B (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Anthropic-LM%2052B-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 52B
+License: closed
+Type: model
+Internal research only</description>
+  </item>
+  <item>
+    <title>RETRO (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RETRO-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 7.5B
+License: closed
+Type: model
+with retrieval</description>
+  </item>
+  <item>
+    <title>BERT-480 (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-480-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 480B
+License: closed
+Type: model
+Submission to benchmarks. Original dataset was BookCorpus + Wikipedia: https://arxiv.org/pdf/1810.04805.pdf</description>
+  </item>
+  <item>
+    <title>BERT-200 (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-200-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+Submission to benchmarks. Original dataset was BookCorpus + Wikipedia: https://arxiv.org/pdf/1810.04805.pdf</description>
+  </item>
+  <item>
+    <title>MT-NLG (Microsoft/NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MT-NLG-2021-10-01</guid>
+    <pubDate>Fri, 01 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Microsoft/NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 530B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>FLAN (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAN-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+Fine-tuned LaMDA</description>
+  </item>
+  <item>
+    <title>LaMDA (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LaMDA-2021-06-01</guid>
+    <pubDate>Tue, 01 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+Chatbot</description>
+  </item>
+  <item>
+    <title>Transformer++ (American Express)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%2B%2B-2020-03-01</guid>
+    <pubDate>Sun, 01 Mar 2020 00:00:00 GMT</pubDate>
+    <category>American Express</category>
+    <category>closed</category>
+    <description>Parameters: 0.212B
+License: closed
+Type: model
+Not to be confused with the more common usage of Transformer++, the ~2023 Transformer++ based on Llama. See Mamba paper.</description>
+  </item>
+  <item>
+    <title>Meena (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/closed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Meena-2020-01-01</guid>
+    <pubDate>Wed, 01 Jan 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 2.6B
+License: closed
+Type: model
+Dialogue model. Trained 61B tokens for 164x epochs to 10T tokens!</description>
+  </item>
+  </channel>
+</rss>

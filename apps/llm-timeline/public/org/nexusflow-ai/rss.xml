@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nexusflow.ai Models</title>
+    <link>https://llm-timeline.duyet.net/org/nexusflow-ai</link>
+    <description>Large Language Model releases from Nexusflow.ai.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nexusflow-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Nexusflow.ai Models</title>
+      <link>https://llm-timeline.duyet.net/org/nexusflow-ai</link>
+    </image>
+  <item>
+    <title>NexusRaven-V2 13B (Nexusflow.ai)</title>
+    <link>https://llm-timeline.duyet.net/org/nexusflow-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NexusRaven-V2%2013B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Nexusflow.ai</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+Based on CodeLlama. &apos;surpasses GPT-4 by up to 7% in function calling success rates in human-generated use cases involving nested and composite functions.&apos;</description>
+  </item>
+  </channel>
+</rss>

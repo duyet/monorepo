@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Kuaishou Models</title>
+    <link>https://llm-timeline.duyet.net/org/kuaishou</link>
+    <description>Large Language Model releases from Kuaishou.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/kuaishou/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Kuaishou Models</title>
+      <link>https://llm-timeline.duyet.net/org/kuaishou</link>
+    </image>
+  <item>
+    <title>Klear-46B-A2.5B (Kuaishou)</title>
+    <link>https://llm-timeline.duyet.net/org/kuaishou</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Klear-46B-A2.5B-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Kuaishou</category>
+    <category>open</category>
+    <description>Parameters: 46B
+License: open
+Type: model
+46B-A2.5B.</description>
+  </item>
+  <item>
+    <title>KAT-V1-200B (Kuaishou)</title>
+    <link>https://llm-timeline.duyet.net/org/kuaishou</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KAT-V1-200B-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Kuaishou</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+200BA40B. In training as of Jul/2025. &quot;to address the overthinking problem in reasoning-intensive tasks&quot;</description>
+  </item>
+  <item>
+    <title>KAT-V1-40B (Kuaishou)</title>
+    <link>https://llm-timeline.duyet.net/org/kuaishou</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KAT-V1-40B-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Kuaishou</category>
+    <category>open</category>
+    <description>Parameters: 40B
+License: open
+Type: model
+&quot;to address the overthinking problem in reasoning-intensive tasks&quot;</description>
+  </item>
+  </channel>
+</rss>

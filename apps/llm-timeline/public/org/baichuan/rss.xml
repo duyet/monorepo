@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Baichuan Models</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan</link>
+    <description>Large Language Model releases from Baichuan.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/baichuan/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Baichuan Models</title>
+      <link>https://llm-timeline.duyet.net/org/baichuan</link>
+    </image>
+  <item>
+    <title>Baichuan-M3 (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan-M3-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: 235B
+License: open
+Type: model
+&quot;new-generation medical-enhanced large language model&quot;</description>
+  </item>
+  <item>
+    <title>Baichuan-M2 (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan-M2-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+Base: Qwen2.5. &quot;medical augmented reasoning model&quot;</description>
+  </item>
+  <item>
+    <title>Baichuan-M1-14B (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan-M1-14B-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+Medical LLM. Huge increase to 20T tokens for 14B params standard.</description>
+  </item>
+  <item>
+    <title>Baichuan 2 (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan%202-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Great paper. Chinese-English bilingual dataset</description>
+  </item>
+  </channel>
+</rss>

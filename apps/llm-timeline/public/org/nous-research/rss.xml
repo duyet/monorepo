@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nous Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research</link>
+    <description>Large Language Model releases from Nous Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nous-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Nous Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/nous-research</link>
+    </image>
+  <item>
+    <title>Hermes 4 (Nous Research)</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hermes%204-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Nous Research</category>
+    <category>open</category>
+    <description>Parameters: 405B
+License: open
+Type: model
+Based on Llama 3. Announce: https://hermes4.nousresearch.com/</description>
+  </item>
+  <item>
+    <title>DeepHermes 3 Preview (Nous Research)</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepHermes%203%20Preview-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Nous Research</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+Based on Llama 3 8B. GPQA score based on GPT-4o&apos;s analysis of the chart :-/ &quot;one of the first models in the world to unify Reasoning (long chains of thought that improve answer accuracy) and normal LLM response modes into one model.&quot; https://x.com/NousResearch/status/1890148004029759612</description>
+  </item>
+  <item>
+    <title>DisTrO 15B (Nous Research)</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DisTrO%2015B-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Nous Research</category>
+    <category>open</category>
+    <description>Parameters: 15B
+License: open
+Type: model
+&quot;About 14 DGXes scattered around the globe. Sometimes more sometimes less, it varies depending on availability. On average, around 112 H100s.&quot; https://x.com/bloc97_/status/1863675225810043331 &quot;we introduce DisTrO, a family of architecture-agnostic and network-agnostic distributed optimizers that reduces the inter-GPU communication requirements by four to five orders of magnitude without relying on amortized analysis, enabling low-latency training of large neural networks on slow internet bandwidths with heterogeneous networking hardware.&quot;</description>
+  </item>
+  <item>
+    <title>OLMo-Bitnet-1B (Nous Research)</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OLMo-Bitnet-1B-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Nous Research</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+1.58-bit quantized (ternary weights) means we can run a 70B model in ~14GB VRAM. See also BitNet b1.58</description>
+  </item>
+  </channel>
+</rss>

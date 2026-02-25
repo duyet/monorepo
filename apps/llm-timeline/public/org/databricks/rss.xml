@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Databricks Models</title>
+    <link>https://llm-timeline.duyet.net/org/databricks</link>
+    <description>Large Language Model releases from Databricks.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/databricks/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Databricks Models</title>
+      <link>https://llm-timeline.duyet.net/org/databricks</link>
+    </image>
+  <item>
+    <title>Dolly 2.0 (Databricks)</title>
+    <link>https://llm-timeline.duyet.net/org/databricks</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dolly%202.0-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Databricks</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+Fine-tuned Pythia 12B</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Aleph Alpha Models</title>
+    <link>https://llm-timeline.duyet.net/org/aleph-alpha</link>
+    <description>Large Language Model releases from Aleph Alpha.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/aleph-alpha/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Aleph Alpha Models</title>
+      <link>https://llm-timeline.duyet.net/org/aleph-alpha</link>
+    </image>
+  <item>
+    <title>Pharia-1-LLM-7B (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/org/aleph-alpha</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pharia-1-LLM-7B-2024-08-01</guid>
+    <pubDate>Thu, 01 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Luminous Supreme Control (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/org/aleph-alpha</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous%20Supreme%20Control-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+‘Control’ means instruction tuned</description>
+  </item>
+  <item>
+    <title>Luminous (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/org/aleph-alpha</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+Devs from EleutherAI</description>
+  </item>
+  </channel>
+</rss>

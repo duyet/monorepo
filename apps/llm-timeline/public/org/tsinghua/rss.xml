@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <description>Large Language Model releases from Tsinghua.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Tsinghua Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    </image>
+  <item>
+    <title>JustRL-Nemotron-1.5B (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JustRL-Nemotron-1.5B-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+&quot;JustRL, a simple recipe with fixed hyperparameters, achieves state-of-the-art performance on two different 1.5B base models (54.5% and 64.3% across 9 math benchmarks) while using 2× less compute than sophisticated approaches. The same hyperparameters transfer across both models without tuning, and training remains stable over thousands of steps without intervention. This suggests the field may be adding complexity to solve problems that disappear with a stable, scaled-up baseline.&quot;</description>
+  </item>
+  <item>
+    <title>MiniCPM-2.4B (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniCPM-2.4B-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: 2.4B
+License: open
+Type: model
+MoE option=https://huggingface.co/openbmb/MiniCPM-MoE-8x2B</description>
+  </item>
+  <item>
+    <title>Eurus (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Eurus-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Fine-tune of Mistral-7B and CodeLlama-70B.</description>
+  </item>
+  <item>
+    <title>xTrimoPGLM (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#xTrimoPGLM-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+Protein language model</description>
+  </item>
+  <item>
+    <title>OpenChat (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenChat-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Llama 2 13B -&gt; OpenChat 13B</description>
+  </item>
+  <item>
+    <title>CodeGeeX (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeGeeX-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GLM-130B (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-130B-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+50% English (200B tokens), so included here</description>
+  </item>
+  </channel>
+</rss>

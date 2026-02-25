@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2019 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2019</link>
+    <description>Large Language Model releases from 2019.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2019/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — 2019 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2019</link>
+    </image>
+  <item>
+    <title>T5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2019</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5-2019-10-01</guid>
+    <pubDate>Tue, 01 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+&quot;Text-to-Text Transfer Transformer&quot;. C4 + NLP language problems. &quot;compared the following three configurations: First, the standard baseline model, which was pre-trained on 235 ≈ 34B tokens; second, the baseline trained instead for about 1 trillion tokens (i.e. the same amount of pre-training used for T5), which we refer to as “baseline-1T”; and third, T5-Base.&quot;</description>
+  </item>
+  <item>
+    <title>Megatron-LM (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2019</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-LM-2019-09-01</guid>
+    <pubDate>Sun, 01 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 8.3B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>RoBERTa (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2019</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RoBERTa-2019-07-01</guid>
+    <pubDate>Mon, 01 Jul 2019 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 0.355B
+License: open
+Type: model
+calcs: &quot;In total, this batch size and number of steps corresponds to pre-training on 235 ≈ 34B tokens. This is considerably less than BERT (Devlin et al., 2018), which used roughly 137B tokens, or RoBERTa (Liu et al., 2019c), which used roughly 2.2T tokens. Using only 2 35 tokens results in a reasonable computational budget while still providing a sufficient amount of pre-training for acceptable performance. We consider the effect of pre-training for more steps in Sections 3.6 and 3.7. Note that 2 35 tokens only covers a fraction of the entire C4 data set, so we never repeat any data during pre-training.&quot; https://arxiv.org/pdf/1910.10683.pdf MMLU shows RoBERTa-base 125M only=27.9 (not 355M)</description>
+  </item>
+  <item>
+    <title>GPT-2 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2019</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2-2019-02-01</guid>
+    <pubDate>Fri, 01 Feb 2019 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+WebText 10B token corpus × 4 epochs → 40B tokens processed. Reddit outbound only</description>
+  </item>
+  </channel>
+</rss>
