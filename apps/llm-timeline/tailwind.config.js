@@ -10,19 +10,6 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/components/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    ...config.theme,
-    extend: {
-      ...config.theme?.extend,
-      colors: {
-        ...config.theme?.extend?.colors,
-      },
-      fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-      },
-    },
-  },
   safelist: [
     "bg-ivory",
     "bg-oat-light",
