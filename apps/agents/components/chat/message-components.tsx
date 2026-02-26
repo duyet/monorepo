@@ -5,7 +5,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
 import { Button } from "@duyet/components";
-import { Copy, Check, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
+import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
 import { useState } from "react";
 
 interface MessageProps {
@@ -15,11 +15,18 @@ interface MessageProps {
 
 export function UserMessage({ message }: { message: Message }) {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(message.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (!navigator.clipboard) return;
+    try {
+      await navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2000);
+    }
   };
 
   return (
@@ -40,7 +47,7 @@ export function UserMessage({ message }: { message: Message }) {
             className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={handleCopy}
           >
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {copied ? <Check className="h-3 w-3" /> : copyFailed ? <X className="h-3 w-3 text-red-500" /> : <Copy className="h-3 w-3" />}
             <span className="sr-only">Copy</span>
           </Button>
         </div>
@@ -51,11 +58,18 @@ export function UserMessage({ message }: { message: Message }) {
 
 export function AssistantMessage({ message, isStreaming }: MessageProps) {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(message.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (!navigator.clipboard) return;
+    try {
+      await navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2000);
+    }
   };
 
   return (
@@ -112,7 +126,7 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
               className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
               onClick={handleCopy}
             >
-              {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+              {copied ? <Check className="h-3 w-3" /> : copyFailed ? <X className="h-3 w-3 text-red-500" /> : <Copy className="h-3 w-3" />}
               <span className="sr-only">Copy</span>
             </Button>
           )}
@@ -173,11 +187,10 @@ const QUICK_PROMPTS = [
 ];
 
 interface WelcomeMessageProps {
-  content: string;
   onPromptSelect?: (prompt: string) => void;
 }
 
-export function WelcomeMessage({ content: _, onPromptSelect }: WelcomeMessageProps) {
+export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
     <div className="py-12 sm:py-16 animate-in fade-in duration-500">
       {/* Header — about page style */}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { useChat, useAutoResize, useAutoScroll, useKeyboardShortcuts } from "@/lib/hooks";
+import { useChat, useAutoResize, useAutoScroll, useKeyboardShortcuts, useMergeRefs } from "@/lib/hooks";
 import { cn } from "@duyet/libs";
 import type { ChatMode } from "@/lib/types";
 import { ActivityPanel } from "../activity/activity-panel";
@@ -10,15 +10,6 @@ import { LoadingIndicator } from "./loading-indicator";
 import { Textarea } from "@duyet/components";
 import { Button } from "@duyet/components";
 import { Send, RefreshCw, X, Activity, Zap, Wrench } from "lucide-react";
-
-const WELCOME_MESSAGE = `Hello! I'm @duyetbot - a virtual version of Duyet. I can help you with:
-
-- **Blog Search** — Search through 296+ blog posts on data engineering, cloud computing, and programming
-- **CV Information** — Learn about Duyet's experience and skills
-- **GitHub Activity** — See recent commits, PRs, and issues
-- **Analytics** — View contact form statistics
-
-What would you like to know?`;
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -63,6 +54,7 @@ export function VercelChat() {
     maxHeight: 200,
     minHeight: 44,
   });
+  const textareaRef = useMergeRefs(textareaCallbackRef, inputRef);
 
   // Auto-scroll on new messages or streaming content
   const { containerRef, scrollToBottom } = useAutoScroll({
@@ -103,10 +95,7 @@ export function VercelChat() {
 
       {/* Welcome state — about-page style hero + cards */}
       {!hasMessages && !streamingContent && (
-        <WelcomeMessage
-          content={WELCOME_MESSAGE}
-          onPromptSelect={handlePromptSelect}
-        />
+        <WelcomeMessage onPromptSelect={handlePromptSelect} />
       )}
 
       {/* Chat state — messages + optional activity panel */}
@@ -185,7 +174,7 @@ export function VercelChat() {
             "focus-within:ring-2 focus-within:ring-neutral-300 dark:focus-within:ring-neutral-600"
           )}>
             <Textarea
-              ref={(el) => { textareaCallbackRef(el); inputRef.current = el; }}
+              ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}

@@ -8,6 +8,10 @@ loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
 const config = {
   trailingSlash: true,
+  // Turbopack needs the monorepo root to resolve workspace packages (e.g. `next` itself)
+  turbopack: {
+    root: rootDir,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
