@@ -31,6 +31,7 @@ jobs:
       insights: ${{ steps.filter.outputs.insights }}
       llm-timeline: ${{ steps.filter.outputs.llm-timeline }}
       photos: ${{ steps.filter.outputs.photos }}
+      agents: ${{ steps.filter.outputs.agents }}
       packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -51,6 +52,8 @@ jobs:
               - 'apps/llm-timeline/**'
             photos:
               - 'apps/photos/**'
+            agents:
+              - 'apps/agents/**'
             packages:
               - 'packages/**'
 
@@ -80,6 +83,9 @@ jobs:
           fi
           if [[ "${{ steps.filter.outputs.llm-timeline }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
             APPS+=('{"app":"llm-timeline","project":"duyet-llm-timeline","domain":"llm-timeline.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.agents }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"agents","project":"duyet-agents","domain":"agents.duyet.net"}')
           fi
 
           if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then

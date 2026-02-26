@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { cn } from "@duyet/libs/utils";
 import { CATEGORY_ORDER, type Category } from "../../config/categories";
 
-type UrlEntry = {
+interface UrlEntry {
   path: string;
   target: string;
   desc?: string;
   category?: Category;
-};
+}
 
 export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,12 +50,14 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         <div className="relative">
           <input
             type="text"
+            aria-label="Search by path, URL, or description"
             placeholder="Search by path, URL, or description..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-2xl border border-neutral-300 bg-white px-5 py-4 pl-12 text-neutral-900 placeholder-neutral-500 shadow-sm transition-all focus:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200"
           />
           <svg
+            aria-hidden="true"
             className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400"
             fill="none"
             viewBox="0 0 24 24"
@@ -69,10 +72,12 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           </svg>
           {searchQuery && (
             <button
+              type="button"
+              aria-label="Clear search"
               onClick={() => setSearchQuery("")}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 transition-colors hover:text-neutral-900"
             >
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -211,7 +216,10 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       href={target}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
-                      className={`group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-neutral-50${i !== 0 ? " border-t border-neutral-100" : ""}`}
+                      className={cn(
+                        "group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-neutral-50",
+                        i !== 0 && "border-t border-neutral-100"
+                      )}
                     >
                       <code className="w-28 flex-shrink-0 font-mono text-sm font-semibold text-neutral-900 sm:w-36">
                         {path}
