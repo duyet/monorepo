@@ -42,20 +42,20 @@ export function AppCard({
       aria-label={isExternal ? `${title} (${domain})` : title}
     >
       {/* Screenshot */}
-      <div className="relative h-44 w-full overflow-hidden">
+      <div className="relative h-40 w-full overflow-hidden rounded-lg border border-neutral-200 transition-shadow group-hover:shadow-md">
         <Image
           src={screenshot}
           alt={`${title} screenshot`}
           fill
           unoptimized
-          className="object-cover object-top"
+          className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
         />
       </div>
 
-      {/* Title + Domain row */}
-      <div className="flex items-center justify-between px-2 py-3">
-        <p className="text-sm font-medium text-neutral-900">{title}</p>
-        <p className="text-xs text-neutral-500">{domain}</p>
+      {/* Title + Domain stacked */}
+      <div className="px-1 pt-3 pb-1">
+        <p className="text-sm font-medium text-neutral-900 group-hover:text-neutral-700 transition-colors">{title}</p>
+        <p className="mt-0.5 text-xs text-neutral-400 truncate">{domain}</p>
       </div>
     </Link>
   );
