@@ -50,7 +50,7 @@ const apps: AppItem[] = [
     screenshot: "/screenshots/llm-timeline.png",
   },
   {
-    name: "OpenClaw",
+    name: "OpenClaw Mission Control",
     href: "https://claw.duyet.net",
     utmContent: "claw_bento",
     screenshot: "/screenshots/openclaw.png",
@@ -63,7 +63,7 @@ const apps: AppItem[] = [
     screenshot: "/screenshots/ai-agents.png",
   },
   {
-    name: "CH Monitor",
+    name: "ClickHouse Monitoring",
     href: "https://clickhouse-monitor.duyet.workers.dev",
     utmContent: "ch_monitor_bento",
     screenshot: "/screenshots/ch-monitor.png",
@@ -80,7 +80,7 @@ const apps: AppItem[] = [
 export default function HomePage() {
   return (
     <div className="flex min-h-screen items-center bg-neutral-50">
-      <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-12">
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         {/* Header */}
         <div className="mb-8 text-center sm:mb-12">
           <h1 className="mb-4 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
@@ -92,7 +92,7 @@ export default function HomePage() {
         </div>
 
         {/* Links Grid */}
-        <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 grid gap-3 sm:mb-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           <AiContentCard
             title="Blog"
             href={addUtmParams(
@@ -162,7 +162,7 @@ export default function HomePage() {
           <p className="mb-3 text-xs font-medium uppercase tracking-widest text-neutral-400">
             Apps
           </p>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {apps.map((item) => (
               <AppCard
                 key={item.utmContent}
