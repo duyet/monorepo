@@ -16,6 +16,8 @@ module.exports = {
         "insights",
         "photos",
         "travel",
+        // Auth-related changes
+        "auth",
         // CI-related changes
         "ci",
         // UI-related changes
