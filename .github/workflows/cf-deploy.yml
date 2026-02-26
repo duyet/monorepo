@@ -26,6 +26,7 @@ on:
           - insights
           - llm-timeline
           - photos
+          - agents
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -66,6 +67,8 @@ jobs:
               - 'apps/llm-timeline/**'
             photos:
               - 'apps/photos/**'
+            agents:
+              - 'apps/agents/**'
             packages:
               - 'packages/**'
 
@@ -81,13 +84,14 @@ jobs:
           APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
           APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
           APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
+          APPS[agents]='{"app":"agents","project":"duyet-agents","url":"https://agents.duyet.net"}'
 
           DEPLOY_APPS=()
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in blog cv home homelab insights llm-timeline photos; do
+              for app in blog cv home homelab insights llm-timeline photos agents; do
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
@@ -100,7 +104,7 @@ jobs:
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            for app in blog cv home homelab insights llm-timeline photos; do
+            for app in blog cv home homelab insights llm-timeline photos agents; do
               APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
