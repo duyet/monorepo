@@ -15,7 +15,7 @@
  *
  * To update existing data, find the model by name and modify fields.
  * Data source: https://docs.google.com/spreadsheets/d/1kc262HZSMAWI6FVsh0zJwbB-ooYvzhCHaHcNUiA0_hY/export?format=csv&gid=1158069878
- * Last synced: 2026-02-25
+ * Last synced: 2026-02-26
  * ============================================================================
  */
 
@@ -6960,4 +6960,4 @@ export const organizations = Array.from(new Set(models.map(m => m.org))).sort()
 export const years = Array.from(new Set(models.map(m => new Date(m.date).getFullYear()))).sort((a, b) => b - a)
 
 // Last data sync date (ISO format YYYY-MM-DD)
-export const lastSynced = '2026-02-25'
+export const lastSynced = '2026-02-26'
