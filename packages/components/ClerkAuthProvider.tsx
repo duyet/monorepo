@@ -55,8 +55,6 @@ function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps
   return (
     <ClerkProvider
       publishableKey={publishableKey}
-      afterSignInUrl="/"
-      afterSignUpUrl="/"
     >
       {children}
     </ClerkProvider>
