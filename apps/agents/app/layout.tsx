@@ -7,10 +7,19 @@ import Head from "@duyet/components/Head";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { agentsConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Libre_Baskerville, Geist_Mono } from "next/font/google";
 
-const geist = Geist({
-  variable: "--font-geist",
+const inter = Inter({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const libreBaskerville = Libre_Baskerville({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -28,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={cn(geist.variable, geistMono.variable)}
+      className={cn(inter.variable, libreBaskerville.variable, geistMono.variable)}
       lang={agentsConfig.metadata.lang}
       suppressHydrationWarning
     >
@@ -36,7 +45,8 @@ export default function RootLayout({
       <body
         className={cn(
           "bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased",
-          "transition-colors duration-1000"
+          "font-[family-name:var(--font-inter)]",
+          "transition-colors duration-300"
         )}
       >
         <ThemeProvider>

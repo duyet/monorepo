@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: 'App to deploy (leave empty for changed apps only)'
+        description: 'App to deploy (empty=auto-detect, "all"=all apps, or app name e.g. "blog")'
         required: false
         type: choice
         options:
@@ -84,7 +84,6 @@ jobs:
 
           DEPLOY_APPS=()
 
-          # Manual dispatch
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
@@ -92,7 +91,9 @@ jobs:
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
-              DEPLOY_APPS+=("${APPS[$INPUT_APP]}")
+              # Deploy a specific app by name
+              entry=$(echo "$APPS_JSON" | jq -c ".[] | select(.app == \"$INPUT_APP\")")
+              [[ -n "$entry" ]] && DEPLOY_APPS+=("$entry")
             fi
           else
             # Auto-detect changes
@@ -104,7 +105,7 @@ jobs:
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
               fi
-            done
+            done < <(echo "$APPS_JSON" | jq -c '.[]')
           fi
 
           # Build matrix JSON

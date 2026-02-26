@@ -1,0 +1,9 @@
+[
+  {"app":"blog",     "project":"duyet-blog",     "url":"https://blog.duyet.net",     "domain":"blog.duyet.net"},
+  {"app":"cv",       "project":"duyet-cv",        "url":"https://cv.duyet.net",        "domain":"cv.duyet.net"},
+  {"app":"home",     "project":"duyet-home",      "url":"https://duyet.net",           "domain":"duyet.net"},
+  {"app":"homelab",  "project":"duyet-homelab",   "url":"https://homelab.duyet.net",   "domain":"homelab.duyet.net"},
+  {"app":"insights", "project":"duyet-insights",  "url":"https://insights.duyet.net",  "domain":"insights.duyet.net"},
+  {"app":"photos",   "project":"duyet-photos",    "url":"https://photos.duyet.net",    "domain":"photos.duyet.net"},
+  {"app":"agents",   "project":"duyet-agents",    "url":"https://agents.duyet.net",    "domain":"agents.duyet.net"}
+]

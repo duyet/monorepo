@@ -39,9 +39,9 @@ export function ActivityPanel({
   const hasActivity = executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
   return (
-    <div className={cn("flex flex-col h-full bg-background border-l", className)}>
+    <div className={cn("flex flex-col h-full bg-background border-l border-border", className)}>
       {/* Header */}
-      <div className="border-b border-border bg-card px-4 py-2">
+      <div className="border-b border-border bg-muted/30 px-4 py-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Activity className="h-3.5 w-3.5 text-muted-foreground" />

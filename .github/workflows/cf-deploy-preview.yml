@@ -35,9 +35,6 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v6
-
-      - uses: dorny/paths-filter@v3
-        id: filter
         with:
           filters: |
             blog:
@@ -85,11 +82,13 @@ jobs:
             APPS+=('{"app":"llm-timeline","project":"duyet-llm-timeline","domain":"llm-timeline.duyet.net"}')
           fi
 
-          if [ ${#APPS[@]} -eq 0 ]; then
+          if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then
             echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
+            echo "No apps to deploy"
           else
-            MATRIX=$(printf '%s,' "${APPS[@]}" | sed 's/,$//')
+            MATRIX=$(printf '%s,' "${DEPLOY_APPS[@]}" | sed 's/,$//')
             echo "matrix={\"include\":[$MATRIX]}" >> $GITHUB_OUTPUT
+            echo "Apps to deploy: ${DEPLOY_APPS[*]}"
           fi
 
   deploy-preview:

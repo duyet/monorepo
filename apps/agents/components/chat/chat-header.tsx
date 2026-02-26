@@ -19,14 +19,14 @@ export function ChatHeader({
 }: ChatHeaderProps) {
   return (
     <div className="border-b bg-background">
-      <div className="flex h-11 items-center justify-between px-4">
+      <div className="flex h-12 items-center justify-between px-4">
         {/* Identity */}
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-foreground shrink-0">
-            <span className="text-background text-[11px] font-bold leading-none font-[family-name:var(--font-geist-mono)]">@</span>
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary shrink-0">
+            <span className="text-primary-foreground text-xs font-bold leading-none font-[family-name:var(--font-serif)]">D</span>
           </div>
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-sm font-semibold tracking-tight truncate">{title}</span>
+            <span className="text-sm font-bold font-[family-name:var(--font-serif)] tracking-tight truncate">{title}</span>
             <span className="hidden sm:inline text-xs text-muted-foreground truncate">{subtitle}</span>
           </div>
           {/* Online indicator */}
@@ -35,14 +35,14 @@ export function ChatHeader({
 
         {/* Mode toggle */}
         {onModeChange && (
-          <div className="flex items-center rounded-md border bg-muted/40 p-0.5 gap-0.5 shrink-0">
+          <div className="flex items-center rounded-full border border-border bg-muted/40 p-0.5 gap-0.5 shrink-0">
             <button
               type="button"
               onClick={() => onModeChange("fast")}
               className={cn(
-                "flex items-center gap-1.5 rounded px-2.5 py-1 text-xs font-medium transition-all duration-150",
+                "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
                 mode === "fast"
-                  ? "bg-background text-foreground shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -53,9 +53,9 @@ export function ChatHeader({
               type="button"
               onClick={() => onModeChange("agent")}
               className={cn(
-                "flex items-center gap-1.5 rounded px-2.5 py-1 text-xs font-medium transition-all duration-150",
+                "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
                 mode === "agent"
-                  ? "bg-background text-foreground shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >

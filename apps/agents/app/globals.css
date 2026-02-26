@@ -4,26 +4,27 @@
 
 @layer base {
   :root {
-    --background: hsl(0, 0%, 100%);
-    --foreground: hsl(240, 10%, 3.9%);
-    --card: hsl(0, 0%, 100%);
-    --card-foreground: hsl(240, 10%, 3.9%);
-    --popover: hsl(0, 0%, 100%);
-    --popover-foreground: hsl(240, 10%, 3.9%);
-    --primary: hsl(240, 5.9%, 10%);
+    /* Warm palette matching home page design */
+    --background: hsl(38, 57%, 96%);        /* #fbf7f0 — home page body bg */
+    --foreground: hsl(0, 0%, 12%);          /* #1f1f1f — home page dark text */
+    --card: hsl(38, 50%, 94%);              /* slightly warmer card bg */
+    --card-foreground: hsl(0, 0%, 12%);
+    --popover: hsl(38, 57%, 96%);
+    --popover-foreground: hsl(0, 0%, 12%);
+    --primary: hsl(17, 60%, 60%);           /* terracotta — matches home page accent */
     --primary-foreground: hsl(0, 0%, 98%);
-    --secondary: hsl(240, 4.8%, 95.9%);
-    --secondary-foreground: hsl(240, 5.9%, 10%);
-    --muted: hsl(240, 4.8%, 95.9%);
-    --muted-foreground: hsl(240, 3.8%, 46.1%);
-    --accent: hsl(240, 4.8%, 95.9%);
-    --accent-foreground: hsl(240, 5.9%, 10%);
+    --secondary: hsl(36, 29%, 90%);         /* oat-light */
+    --secondary-foreground: hsl(0, 0%, 12%);
+    --muted: hsl(36, 29%, 90%);             /* oat-light */
+    --muted-foreground: hsl(36, 12%, 45%);  /* warm gray */
+    --accent: hsl(39, 40%, 92%);            /* ivory/cream */
+    --accent-foreground: hsl(0, 0%, 12%);
     --destructive: hsl(0, 84.2%, 60.2%);
     --destructive-foreground: hsl(0, 0%, 98%);
-    --border: hsl(240, 5.9%, 90%);
-    --input: hsl(240, 5.9%, 90%);
-    --ring: hsl(240, 5.9%, 10%);
-    --radius: 0.5rem;
+    --border: hsl(36, 20%, 86%);            /* warm border */
+    --input: hsl(36, 20%, 86%);
+    --ring: hsl(25, 90%, 55%);              /* amber-500 — matches home focus ring */
+    --radius: 0.75rem;                      /* more rounded, matches home cards */
     --chart-1: hsl(12, 76%, 61%);
     --chart-2: hsl(173, 58%, 39%);
     --chart-3: hsl(197, 37%, 24%);
@@ -32,25 +33,25 @@
   }
 
   .dark {
-    --background: hsl(240, 10%, 3.9%);
-    --foreground: hsl(0, 0%, 98%);
-    --card: hsl(240, 10%, 3.9%);
-    --card-foreground: hsl(0, 0%, 98%);
-    --popover: hsl(240, 10%, 3.9%);
-    --popover-foreground: hsl(0, 0%, 98%);
-    --primary: hsl(0, 0%, 98%);
-    --primary-foreground: hsl(240, 5.9%, 10%);
-    --secondary: hsl(240, 3.7%, 15.9%);
-    --secondary-foreground: hsl(0, 0%, 98%);
-    --muted: hsl(240, 3.7%, 15.9%);
-    --muted-foreground: hsl(240, 5%, 64.9%);
-    --accent: hsl(240, 3.7%, 15.9%);
-    --accent-foreground: hsl(0, 0%, 98%);
+    --background: hsl(20, 10%, 8%);         /* warm dark */
+    --foreground: hsl(36, 20%, 93%);        /* warm near-white */
+    --card: hsl(20, 10%, 10%);
+    --card-foreground: hsl(36, 20%, 93%);
+    --popover: hsl(20, 10%, 8%);
+    --popover-foreground: hsl(36, 20%, 93%);
+    --primary: hsl(17, 65%, 62%);           /* terracotta stays warm in dark */
+    --primary-foreground: hsl(0, 0%, 98%);
+    --secondary: hsl(20, 8%, 18%);
+    --secondary-foreground: hsl(36, 20%, 93%);
+    --muted: hsl(20, 8%, 18%);
+    --muted-foreground: hsl(36, 10%, 60%);
+    --accent: hsl(20, 8%, 18%);
+    --accent-foreground: hsl(36, 20%, 93%);
     --destructive: hsl(0, 62.8%, 30.6%);
     --destructive-foreground: hsl(0, 0%, 98%);
-    --border: hsl(240, 3.7%, 15.9%);
-    --input: hsl(240, 3.7%, 15.9%);
-    --ring: hsl(240, 4.9%, 83.9%);
+    --border: hsl(20, 8%, 22%);
+    --input: hsl(20, 8%, 22%);
+    --ring: hsl(25, 80%, 55%);              /* amber stays warm in dark */
     --chart-1: hsl(220, 70%, 50%);
     --chart-2: hsl(160, 60%, 45%);
     --chart-3: hsl(30, 80%, 55%);
@@ -193,19 +194,9 @@
     margin-bottom: 1em;
   }
 
-  /* Message bubbles */
-  /* Message bubbles */
-  .message-user {
-    @apply bg-blue-600 text-white rounded-2xl rounded-br-sm px-4 py-3 max-w-[80%];
-  }
-
-  .message-assistant {
-    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%];
-  }
-
   /* Chat input */
   .chat-input {
-    @apply w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none;
+    @apply w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-ring resize-none;
   }
 
   /* Typing indicator animation */
