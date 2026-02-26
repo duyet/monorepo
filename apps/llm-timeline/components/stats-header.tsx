@@ -37,9 +37,7 @@ export function StatsHeader({
             className="rounded-lg border p-4"
             style={{
               borderColor: isActive ? 'var(--accent)' : 'var(--border)',
-              borderTopColor: isActive ? 'var(--accent)' : 'var(--accent)',
-              borderTopWidth: '2px',
-              backgroundColor: isActive ? 'var(--accent-subtle)' : 'var(--bg-card)',
+              backgroundColor: isActive ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'var(--bg-card)',
               cursor: isClickable ? 'pointer' : 'default',
               transition: 'border-color 0.15s, background-color 0.15s',
             }}
