@@ -52,9 +52,10 @@ function ClientClerkProvider({ children, publishableKey }: { children: ReactNode
     return <>{children}</>;
   }
 
+  // Don't render children until ClerkProvider is ready
+  // This prevents SignedOut/SignedIn from rendering without context
   if (!isReady || !ClerkProvider) {
-    // Return children during loading to prevent context errors
-    return <>{children}</>;
+    return null;
   }
 
   return (
@@ -90,7 +91,7 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
 
   // Only render ClerkProvider on client side to avoid SSR issues
   if (!isClient) {
-    return <>{props.children}</>;
+    return null;
   }
 
   return <ClientClerkProvider publishableKey={publishableKey}>{props.children}</ClientClerkProvider>;
