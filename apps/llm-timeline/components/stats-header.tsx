@@ -1,11 +1,10 @@
-import { Building2, Sparkles, LockOpen } from 'lucide-react'
+import { Building2, Sparkles } from 'lucide-react'
 
-type View = 'models' | 'organizations' | 'open'
+type View = 'models' | 'organizations'
 
 interface StatsHeaderProps {
   models: number
   organizations: number
-  open: number
   activeView: View
   onViewChange: (v: View) => void
 }
@@ -13,7 +12,6 @@ interface StatsHeaderProps {
 export function StatsHeader({
   models,
   organizations,
-  open,
   activeView,
   onViewChange,
 }: StatsHeaderProps) {
@@ -25,11 +23,10 @@ export function StatsHeader({
   }> = [
     { label: 'Models', value: models, icon: Sparkles, view: 'models' },
     { label: 'Organizations', value: organizations, icon: Building2, view: 'organizations' },
-    { label: 'Open Weights', value: open, icon: LockOpen, view: 'open' },
   ]
 
   return (
-    <div className="mb-8 grid grid-cols-3 gap-3 sm:grid-cols-3">
+    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-2">
       {stats.map(({ label, value, icon: Icon, view }) => {
         const isActive = view !== undefined && activeView === view
         const isClickable = view !== undefined

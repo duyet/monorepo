@@ -5,7 +5,7 @@ import { List, Search, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import type { Model } from '@/lib/data'
 
-type View = 'models' | 'organizations' | 'open'
+type View = 'models' | 'organizations'
 
 interface FilterInfoProps {
   resultCount: number
@@ -16,9 +16,10 @@ interface FilterInfoProps {
   liteMode?: boolean
   models: Model[]
   onSearchChange?: (query: string) => void
+  onLicenseChange?: (license: 'all' | 'open' | 'closed' | 'partial') => void
 }
 
-export function FilterInfo({ resultCount, view, license, year, org, liteMode, models, onSearchChange }: FilterInfoProps) {
+export function FilterInfo({ resultCount, view, license = 'all', year, org, liteMode, models, onSearchChange, onLicenseChange }: FilterInfoProps) {
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +93,25 @@ export function FilterInfo({ resultCount, view, license, year, org, liteMode, mo
           {' '}{view === 'organizations' ? 'organizations' : 'models'}
         </span>
       </div>
+
+      {/* Center: License dropdown */}
+      {onLicenseChange && (
+        <select
+          value={license}
+          onChange={(e) => onLicenseChange(e.target.value as 'all' | 'open' | 'closed' | 'partial')}
+          className="rounded-md border py-2 px-3 text-sm focus:outline-none focus:ring-1"
+          style={{
+            borderColor: 'var(--border)',
+            backgroundColor: 'var(--bg)',
+            color: 'var(--text)',
+          }}
+        >
+          <option value="all">All Licenses</option>
+          <option value="open">Open Weights</option>
+          <option value="closed">Closed</option>
+          <option value="partial">Partials</option>
+        </select>
+      )}
 
       {/* Right side: Lite mode toggle */}
       <button

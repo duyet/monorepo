@@ -9,14 +9,13 @@ import { StatsHeader } from '@/components/stats-header'
 import { filterModels, groupByYear, groupByOrg, type FilterState } from '@/lib/utils'
 import type { Model } from '@/lib/data'
 
-type View = 'models' | 'organizations' | 'open'
+type View = 'models' | 'organizations'
 
 interface AppClientProps {
   initialModels: Model[]
   stats: {
     models: number
     organizations: number
-    open: number
   }
   initialView?: View
   initialLicense?: FilterState['license']
@@ -55,22 +54,11 @@ export function StaticAppClient({
 
   const handleViewChange = (nextView: View) => {
     setView(nextView)
-    if (nextView !== 'open' && filters.license === 'open') {
-      startTransition(() => setFilters((prev) => ({ ...prev, license: 'all' })))
-    }
   }
 
-  const effectiveFilters = useMemo(
-    () => ({
-      ...filters,
-      license: view === 'open' ? 'open' : filters.license,
-    }),
-    [filters, view]
-  )
-
   const filteredModels = useMemo(
-    () => filterModels(initialModels, effectiveFilters),
-    [initialModels, effectiveFilters]
+    () => filterModels(initialModels, filters),
+    [initialModels, filters]
   )
   const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels])
   const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels])
@@ -166,24 +154,11 @@ export function AppClient({
 
   const handleViewChange = (nextView: View) => {
     setView(nextView)
-    // Reset license filter when switching away from 'open' view
-    if (nextView !== 'open' && filters.license === 'open') {
-      startTransition(() => setFilters((prev) => ({ ...prev, license: 'all' })))
-    }
   }
 
-  // When in 'open' view, override license filter to 'open'
-  const effectiveFilters = useMemo(
-    () => ({
-      ...filters,
-      license: view === 'open' ? 'open' : filters.license,
-    }),
-    [filters, view]
-  )
-
   const filteredModels = useMemo(
-    () => filterModels(initialModels, effectiveFilters),
-    [initialModels, effectiveFilters]
+    () => filterModels(initialModels, filters),
+    [initialModels, filters]
   )
   const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels])
   const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels])

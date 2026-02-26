@@ -51,7 +51,6 @@ export function TimelinePage({
   const stats = {
     models: statsResult.models,
     organizations: statsResult.organizations,
-    open: statsResult.open,
   }
 
   return (

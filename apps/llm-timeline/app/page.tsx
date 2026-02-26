@@ -13,7 +13,10 @@ export default function LLMTimelinePage() {
     <PageLayout description={`Interactive timeline of Large Language Model releases (${firstYear}–${latestYear})`}>
       <StaticView
         models={models}
-        stats={stats}
+        stats={{
+          models: stats.models,
+          organizations: stats.organizations,
+        }}
         view="models"
         license="all"
       />

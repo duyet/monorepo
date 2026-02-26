@@ -6,16 +6,15 @@ import { OrgTimeline } from '@/components/org-timeline'
 import { FilterInfo } from '@/components/filter-info'
 import { StatsCards } from '@/components/stats-cards'
 import type { Model } from '@/lib/data'
-import { groupByYear, groupByOrg } from '@/lib/utils'
+import { groupByYear, groupByOrg, filterModels, type FilterState } from '@/lib/utils'
 
-type View = 'models' | 'organizations' | 'open'
+type View = 'models' | 'organizations'
 
 interface StaticViewProps {
   models: Model[]
   stats: {
     models: number
     organizations: number
-    open: number
   }
   view: View
   license?: 'all' | 'open' | 'closed' | 'partial'
@@ -24,8 +23,16 @@ interface StaticViewProps {
   liteMode?: boolean
 }
 
-export function StaticView({ models: allModels, stats, view, license, year, org }: StaticViewProps) {
+const DEFAULT_FILTERS: FilterState = {
+  search: '',
+  license: 'all',
+  type: 'all',
+  org: '',
+}
+
+export function StaticView({ models: allModels, stats, view, license = 'all', year, org }: StaticViewProps) {
   const [searchQuery, setSearchQuery] = useState('')
+  const [licenseFilter, setLicenseFilter] = useState<'all' | 'open' | 'closed' | 'partial'>(license)
   const [liteMode, setLiteMode] = useState(false)
 
   // Read lite mode and search from URL on mount
@@ -43,17 +50,15 @@ export function StaticView({ models: allModels, stats, view, license, year, org 
     return () => window.removeEventListener('popstate', updateFromUrl)
   }, [])
 
-  // Filter models based on search
+  // Filter models based on search and license
   const filteredModels = useMemo(() => {
-    if (!searchQuery.trim()) return allModels
-
-    const query = searchQuery.toLowerCase()
-    return allModels.filter(model =>
-      model.name.toLowerCase().includes(query) ||
-      model.org.toLowerCase().includes(query) ||
-      model.desc.toLowerCase().includes(query)
-    )
-  }, [allModels, searchQuery])
+    const filters: FilterState = {
+      ...DEFAULT_FILTERS,
+      search: searchQuery,
+      license: licenseFilter,
+    }
+    return filterModels(allModels, filters)
+  }, [allModels, searchQuery, licenseFilter])
 
   const modelsByYear = groupByYear(filteredModels)
   const modelsByOrg = groupByOrg(filteredModels)
@@ -64,21 +69,20 @@ export function StaticView({ models: allModels, stats, view, license, year, org 
       <StatsCards
         models={stats.models}
         organizations={stats.organizations}
-        open={stats.open}
         activeView={view}
-        activeLicense={license}
       />
 
       {/* Filter Info with Search */}
       <FilterInfo
         resultCount={filteredModels.length}
         view={view}
-        license={license}
+        license={licenseFilter}
         year={year}
         org={org}
         liteMode={liteMode}
         models={allModels}
         onSearchChange={setSearchQuery}
+        onLicenseChange={setLicenseFilter}
       />
 
       {/* Timeline */}

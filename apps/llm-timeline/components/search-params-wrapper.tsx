@@ -5,14 +5,13 @@ import { AppClient } from '@/components/app-client'
 import type { Model } from '@/lib/data'
 import type { FilterState } from '@/lib/utils'
 
-type View = 'models' | 'organizations' | 'open'
+type View = 'models' | 'organizations'
 
 interface SearchParamsWrapperProps {
   initialModels: Model[]
   stats: {
     models: number
     organizations: number
-    open: number
   }
   initialView?: View
   initialLicense?: FilterState['license']
