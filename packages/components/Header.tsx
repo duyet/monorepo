@@ -11,23 +11,59 @@ import Container from "./Container";
 import Logo from "./Logo";
 import Menu, { type NavigationItem } from "./Menu";
 
-// Clerk auth components from JavaScript SDK
-// These are client-side only and work with static exports
-// We use lazy loading to avoid SSR issues with static export
-import { lazy, Suspense } from "react";
+// Inline auth button component that only renders when Clerk is available
+function AuthButtons({ urls }: { urls: UrlsConfig }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [SignedOut, setSignedOut] = useState<React.ComponentType<any> | null>(null);
+  const [SignedIn, setSignedIn] = useState<React.ComponentType<any> | null>(null);
+  const [SignInButton, setSignInButton] = useState<React.ComponentType<any> | null>(null);
+  const [UserButton, setUserButton] = useState<React.ComponentType<any> | null>(null);
 
-const ClerkSignedOut = lazy(() =>
-  import("@clerk/clerk-react").then((mod) => ({ default: mod.SignedOut }))
-);
-const ClerkSignedIn = lazy(() =>
-  import("@clerk/clerk-react").then((mod) => ({ default: mod.SignedIn }))
-);
-const ClerkSignInButton = lazy(() =>
-  import("@clerk/clerk-react").then((mod) => ({ default: mod.SignInButton }))
-);
-const ClerkUserButton = lazy(() =>
-  import("@clerk/clerk-react").then((mod) => ({ default: mod.UserButton }))
-);
+  useEffect(() => {
+    // Dynamically import Clerk components only on client side
+    import("@clerk/clerk-react")
+      .then((mod) => {
+        setSignedOut(() => mod.SignedOut);
+        setSignedIn(() => mod.SignedIn);
+        setSignInButton(() => mod.SignInButton);
+        setUserButton(() => mod.UserButton);
+        setIsLoaded(true);
+      })
+      .catch(() => {
+        // Clerk not available, just hide auth buttons
+        setIsLoaded(true);
+      });
+  }, []);
+
+  if (!isLoaded || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
+    return null;
+  }
+
+  return (
+    <>
+      <SignedOut>
+        <SignInButton mode="modal">
+          <button
+            type="button"
+            className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+          >
+            Sign in
+          </button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <UserButton
+          appearance={{
+            elements: {
+              avatarBox: "h-8 w-8",
+            },
+          }}
+          afterSignOutUrl={urls.apps.blog}
+        />
+      </SignedIn>
+    </>
+  );
+}
 
 interface HeaderProps {
   /** Profile configuration (defaults to duyetProfile) */
@@ -76,12 +112,6 @@ export default function Header({
   className,
   containerClassName,
 }: HeaderProps) {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   // Use profile defaults if not overridden
   const displayShortText = shortText ?? profile.personal.shortName;
   const displayLongText = longText ?? profile.personal.title;
@@ -137,31 +167,8 @@ export default function Header({
           <div className="flex flex-row gap-3 sm:gap-5 flex-wrap items-center">
             <Menu urls={urls} navigationItems={navigationItems} className="gap-3 sm:gap-5" />
 
-            {/* Clerk Auth Buttons - client-side only with lazy loading */}
-            {isClient && (
-              <Suspense fallback={null}>
-                <ClerkSignedOut>
-                  <ClerkSignInButton mode="modal">
-                    <button
-                      type="button"
-                      className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
-                    >
-                      Sign in
-                    </button>
-                  </ClerkSignInButton>
-                </ClerkSignedOut>
-                <ClerkSignedIn>
-                  <ClerkUserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "h-8 w-8",
-                      },
-                    }}
-                    afterSignOutUrl={urls.apps.blog}
-                  />
-                </ClerkSignedIn>
-              </Suspense>
-            )}
+            {/* Clerk Auth Buttons - client-side only */}
+            <AuthButtons urls={urls} />
           </div>
         </nav>
       </Container>

@@ -1,11 +1,6 @@
 "use client";
 
-import { lazy, Suspense, ReactNode, useEffect, useState } from "react";
-
-// Lazy load ClerkProvider to avoid SSR issues with static export
-const ClerkProvider = lazy(() =>
-  import("@clerk/clerk-react").then((mod) => ({ default: mod.ClerkProvider }))
-);
+import { ReactNode, useEffect, useState } from "react";
 
 interface ClerkAuthProviderProps {
   children: ReactNode;
@@ -15,7 +10,7 @@ interface ClerkAuthProviderProps {
 /**
  * Clerk authentication provider wrapper for static exports
  *
- * Uses Clerk's React SDK with lazy loading to avoid SSR issues
+ * Uses Clerk's React SDK with dynamic loading to avoid SSR issues
  * with Next.js static export (output: 'export').
  *
  * @example
@@ -28,13 +23,36 @@ interface ClerkAuthProviderProps {
  * ```
  */
 
-function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps) {
-  if (!publishableKey) {
+function isValidPublishableKey(key: string): boolean {
+  // Clerk publishable keys start with pk_test_ or pk_live_
+  return /^(pk_test_|pk_live_)[A-Za-z0-9_-]+$/.test(key);
+}
+
+function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps & { publishableKey: string }) {
+  const [ClerkProvider, setClerkProvider] = useState<any>(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    import("@clerk/clerk-react")
+      .then((mod) => {
+        setClerkProvider(() => mod.ClerkProvider);
+      })
+      .catch((err) => {
+        console.error("Failed to load Clerk:", err);
+        setError(err as Error);
+      });
+  }, []);
+
+  if (error) {
+    console.warn("[ClerkAuthProvider] Failed to load Clerk, rendering without auth:", error.message);
+    return <>{children}</>;
+  }
+
+  if (!ClerkProvider) {
     return <>{children}</>;
   }
 
   return (
-    // @ts-ignore - ClerkProvider is dynamically imported
     <ClerkProvider
       publishableKey={publishableKey}
       afterSignInUrl="/"
@@ -46,12 +64,7 @@ function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps
 }
 
 export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
-  const [isClient, setIsClient] = useState(false);
   const publishableKey = props.publishableKey ?? process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   if (!publishableKey) {
     console.warn(
@@ -60,13 +73,12 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
     return <>{props.children}</>;
   }
 
-  if (!isClient) {
+  if (!isValidPublishableKey(publishableKey)) {
+    console.warn(
+      `[ClerkAuthProvider] Invalid publishable key format (starts with: ${publishableKey.slice(0, 8)}...). Auth features will be disabled.`
+    );
     return <>{props.children}</>;
   }
 
-  return (
-    <Suspense fallback={<> {props.children}</>}>
-      <InnerClerkProvider {...props} publishableKey={publishableKey} />
-    </Suspense>
-  );
+  return <InnerClerkProvider {...props} publishableKey={publishableKey} />;
 }
