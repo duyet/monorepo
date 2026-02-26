@@ -2,15 +2,14 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { CATEGORY_ORDER, type Category } from "../../config/categories";
 
 type UrlEntry = {
   path: string;
   target: string;
   desc?: string;
-  category?: string;
+  category?: Category;
 };
-
-const CATEGORY_ORDER = ["Apps", "Social", "Tools", "Other"];
 
 export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
   const [searchQuery, setSearchQuery] = useState("");

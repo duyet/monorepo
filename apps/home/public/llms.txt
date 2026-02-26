@@ -60,5 +60,5 @@ Each platform provides structured information for AI systems:
 - **Insights**: https://insights.duyet.net/llms.txt - Analytics dashboard and development metrics
 - **Photos**: https://photos.duyet.net/llms.txt - Photography portfolio from Unsplash
 - **MCP Tools**: https://mcp.duyet.net/llms.txt - AI tools and utilities
-- **LLM Timeline**: https://llm-timeline.duyet.net/llms.txt - LLM model timeline and history data
+- **LLM Timeline**: https://llm-timeline.duyet.net/llms.txt - LLM timeline and history data
 - **AI Agents**: https://agents.duyet.net/llms.txt - AI chat interface information

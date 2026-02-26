@@ -1,37 +1,14 @@
 import Link from "next/link";
+import {
+  CATEGORY_MAP,
+  CATEGORY_ORDER,
+  DEFAULT_CATEGORY,
+} from "../config/categories";
 import { urls } from "../config/urls";
 import UrlsList from "./components/UrlsList";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
-
-const CATEGORY_MAP: Record<string, string> = {
-  "/": "Apps",
-  "/blog": "Apps",
-  "/cv": "Apps",
-  "/about": "Apps",
-  "/ai": "Apps",
-  "/i": "Apps",
-  "/insights": "Apps",
-  "/photos": "Apps",
-  "/mcp": "Apps",
-  "/github": "Social",
-  "/in": "Social",
-  "/x": "Social",
-  "/un": "Social",
-  "/tiktok": "Social",
-  "/tt": "Social",
-  "/ni": "Social",
-  "/rs": "Tools",
-  "/rust": "Tools",
-  "/monitor": "Tools",
-  "/clickhouse": "Tools",
-  "/ch": "Tools",
-  "/mo": "Tools",
-  "/numi": "Tools",
-};
-
-const DEFAULT_CATEGORY = "Other";
 
 export default function ListPage() {
   // Filter out system URLs and format for display (server-side)
@@ -47,7 +24,10 @@ export default function ListPage() {
       category: CATEGORY_MAP[path] ?? DEFAULT_CATEGORY,
     }))
     .sort((a, b) => {
-      if (a.category !== b.category) return a.category.localeCompare(b.category);
+      const aIdx = CATEGORY_ORDER.indexOf(a.category);
+      const bIdx = CATEGORY_ORDER.indexOf(b.category);
+      const catDiff = (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
+      if (catDiff !== 0) return catDiff;
       return a.path.localeCompare(b.path);
     });
 
