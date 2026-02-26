@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
+import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { Inter, Libre_Baskerville } from "next/font/google";
@@ -46,6 +47,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
+          <Header longText="Duyet Le" shortText="Home" />
           {children}
           <Analytics />
         </ThemeProvider>

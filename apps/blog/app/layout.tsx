@@ -2,7 +2,6 @@ import "@duyet/components/styles.css";
 import "./globals.css";
 
 import Analytics from "@duyet/components/Analytics";
-import ClerkAuthProvider from "@duyet/components/ClerkAuthProvider";
 import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
 import ThemeProvider from "@duyet/components/ThemeProvider";
@@ -52,14 +51,12 @@ export default function RootLayout({
           "transition-colors duration-1000"
         )}
       >
-        <ClerkAuthProvider>
-          <ThemeProvider>
-            {children}
-            <Footer />
-            <Analytics />
-            <ServiceWorkerRegister />
-          </ThemeProvider>
-        </ClerkAuthProvider>
+        <ThemeProvider>
+          {children}
+          <Footer />
+          <Analytics />
+          <ServiceWorkerRegister />
+        </ThemeProvider>
       </body>
     </html>
   );

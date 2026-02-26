@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
+import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { DM_Serif_Display, IBM_Plex_Mono, DM_Sans } from "next/font/google";
@@ -58,8 +59,11 @@ export default function RootLayout({
           "transition-colors duration-300"
         )}
       >
-        <ThemeProvider>{children}</ThemeProvider>
-        <Analytics />
+        <ThemeProvider>
+          <Header longText="LLM Timeline" shortText="Timeline" />
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

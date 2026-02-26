@@ -105,6 +105,10 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_PHOTOS_URL",
       "NEXT_PUBLIC_DUYET_HOME_URL",
       "NEXT_PUBLIC_MEASUREMENT_ID",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+    secrets: [
+      "CLERK_SECRET_KEY",
     ],
   },
   "duyet-photos": {
@@ -123,6 +127,10 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_HOME_URL",
       "UNSPLASH_USERNAME",
       "PHOTOS_OWNER_USERNAME",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+    secrets: [
+      "CLERK_SECRET_KEY",
     ],
   },
   "duyet-home": {
@@ -136,10 +144,16 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_HOME_URL",
       "NEXT_PUBLIC_DUYET_API_URL",
       "NEXT_PUBLIC_DUYET_AI_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+    secrets: [
+      "CLERK_SECRET_KEY",
     ],
   },
   "duyet-cv": {
-    secrets: [],
+    secrets: [
+      "CLERK_SECRET_KEY",
+    ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -147,10 +161,13 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
       "NEXT_PUBLIC_DUYET_PHOTOS_URL",
       "NEXT_PUBLIC_DUYET_HOME_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
   },
   "duyet-homelab": {
-    secrets: [],
+    secrets: [
+      "CLERK_SECRET_KEY",
+    ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -158,6 +175,63 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
       "NEXT_PUBLIC_DUYET_PHOTOS_URL",
       "NEXT_PUBLIC_DUYET_HOME_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+  },
+  "duyet-llm-timeline": {
+    secrets: [
+      "CLERK_SECRET_KEY",
+    ],
+    buildVars: [
+      "NEXT_PUBLIC_DUYET_BLOG_URL",
+      "NEXT_PUBLIC_DUYET_CV_URL",
+      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
+      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
+      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
+      "NEXT_PUBLIC_DUYET_HOME_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+  },
+  "duyet-agents": {
+    secrets: [
+      "CLERK_SECRET_KEY",
+    ],
+    buildVars: [
+      "NEXT_PUBLIC_DUYET_BLOG_URL",
+      "NEXT_PUBLIC_DUYET_CV_URL",
+      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
+      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
+      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
+      "NEXT_PUBLIC_DUYET_HOME_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+  },
+  "duyet-ai": {
+    secrets: [
+      "CLERK_SECRET_KEY",
+    ],
+    buildVars: [
+      "NEXT_PUBLIC_DUYET_BLOG_URL",
+      "NEXT_PUBLIC_DUYET_CV_URL",
+      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
+      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
+      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
+      "NEXT_PUBLIC_DUYET_HOME_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    ],
+  },
+  "duyet-ai-percentage": {
+    secrets: [
+      "CLERK_SECRET_KEY",
+    ],
+    buildVars: [
+      "NEXT_PUBLIC_DUYET_BLOG_URL",
+      "NEXT_PUBLIC_DUYET_CV_URL",
+      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
+      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
+      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
+      "NEXT_PUBLIC_DUYET_HOME_URL",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
   },
 };

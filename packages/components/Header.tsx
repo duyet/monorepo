@@ -8,6 +8,7 @@ import { duyetUrls } from "@duyet/urls";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Container from "./Container";
+import ClerkAuthProvider from "./ClerkAuthProvider";
 import Icons from "./Icons";
 import Logo from "./Logo";
 import Menu, { type NavigationItem } from "./Menu";
@@ -19,7 +20,6 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
   const [SignedIn, setSignedIn] = useState<React.ComponentType<any> | null>(null);
   const [SignInButton, setSignInButton] = useState<React.ComponentType<any> | null>(null);
   const [UserButton, setUserButton] = useState<React.ComponentType<any> | null>(null);
-  const [hasClerkContext, setHasClerkContext] = useState(false);
 
   useEffect(() => {
     // Dynamically import Clerk components only on client side
@@ -30,22 +30,14 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
         setSignInButton(() => mod.SignInButton);
         setUserButton(() => mod.UserButton);
         setIsLoaded(true);
-        // Check if Clerk context is available
-        try {
-          const useAuth = mod.useAuth;
-          setHasClerkContext(true);
-        } catch {
-          setHasClerkContext(false);
-        }
       })
       .catch(() => {
         // Clerk not available, just hide auth buttons
         setIsLoaded(true);
-        setHasClerkContext(false);
       });
   }, []);
 
-  if (!isLoaded || !hasClerkContext || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
+  if (!isLoaded || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
     return null;
   }
 
@@ -178,8 +170,10 @@ export default function Header({
           <div className="flex flex-row gap-3 sm:gap-5 flex-wrap items-center">
             <Menu urls={urls} navigationItems={navigationItems} className="gap-3 sm:gap-5" />
 
-            {/* Clerk Auth Buttons - client-side only */}
-            <AuthButtons urls={urls} />
+            {/* Clerk Auth Buttons - wrapped with ClerkAuthProvider */}
+            <ClerkAuthProvider>
+              <AuthButtons urls={urls} />
+            </ClerkAuthProvider>
           </div>
         </nav>
       </Container>
