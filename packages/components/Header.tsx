@@ -8,41 +8,38 @@ import { duyetUrls } from "@duyet/urls";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Container from "./Container";
-import ClerkAuthProvider from "./ClerkAuthProvider";
 import Icons from "./Icons";
 import Logo from "./Logo";
 import Menu, { type NavigationItem } from "./Menu";
 
-// Inline auth button component that only renders when Clerk is available
+// Self-contained auth button component
+// Loads ClerkProvider + auth components in a single dynamic import
+// to avoid race conditions between provider and consumer
 function AuthButtons({ urls }: { urls: UrlsConfig }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [SignedOut, setSignedOut] = useState<React.ComponentType<any> | null>(null);
-  const [SignedIn, setSignedIn] = useState<React.ComponentType<any> | null>(null);
-  const [SignInButton, setSignInButton] = useState<React.ComponentType<any> | null>(null);
-  const [UserButton, setUserButton] = useState<React.ComponentType<any> | null>(null);
+  const [clerkModule, setClerkModule] = useState<any>(null);
 
   useEffect(() => {
-    // Dynamically import Clerk components only on client side
+    const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    if (!key) return;
+
     import("@clerk/clerk-react")
-      .then((mod) => {
-        setSignedOut(() => mod.SignedOut);
-        setSignedIn(() => mod.SignedIn);
-        setSignInButton(() => mod.SignInButton);
-        setUserButton(() => mod.UserButton);
-        setIsLoaded(true);
-      })
+      .then((mod) => setClerkModule(mod))
       .catch(() => {
-        // Clerk not available, just hide auth buttons
-        setIsLoaded(true);
+        // Clerk not available, hide auth buttons
       });
   }, []);
 
-  if (!isLoaded || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
+  if (!clerkModule) return null;
+
+  const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } = clerkModule;
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  if (!publishableKey || !ClerkProvider || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
     return null;
   }
 
   return (
-    <>
+    <ClerkProvider publishableKey={publishableKey}>
       <SignedOut>
         <SignInButton mode="modal">
           <button
@@ -64,7 +61,7 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
           afterSignOutUrl={urls.apps.blog}
         />
       </SignedIn>
-    </>
+    </ClerkProvider>
   );
 }
 
@@ -170,10 +167,7 @@ export default function Header({
           <div className="flex flex-row gap-3 sm:gap-5 flex-wrap items-center">
             <Menu urls={urls} navigationItems={navigationItems} className="gap-3 sm:gap-5" />
 
-            {/* Clerk Auth Buttons - wrapped with ClerkAuthProvider */}
-            <ClerkAuthProvider>
-              <AuthButtons urls={urls} />
-            </ClerkAuthProvider>
+            <AuthButtons urls={urls} />
           </div>
         </nav>
       </Container>

@@ -12,7 +12,7 @@
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-home",
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-home --commit-dirty=true",
-    "cf:deploy:prod": "mv ../../.env.local ../../.env.local.bak 2>/dev/null || true && bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-home --commit-dirty=true && mv ../../.env.local.bak ../../.env.local 2>/dev/null || true"
+    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh home duyet-home"
   },
   "dependencies": {
     "@duyet/components": "*",

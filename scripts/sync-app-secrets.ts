@@ -96,6 +96,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "CLICKHOUSE_DATABASE",
       "CLICKHOUSE_PROTOCOL",
       "CLOUDFLARE_API_TOKEN",
+      "CLERK_SECRET_KEY",
     ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -107,9 +108,6 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_MEASUREMENT_ID",
       "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
   },
   "duyet-photos": {
     secrets: [
@@ -117,6 +115,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "CLOUDINARY_API_KEY",
       "CLOUDINARY_API_SECRET",
       "CLOUDINARY_CLOUD_NAME",
+      "CLERK_SECRET_KEY",
     ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -129,12 +128,11 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "PHOTOS_OWNER_USERNAME",
       "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
+  },
+  "duyet-home": {
     secrets: [
       "CLERK_SECRET_KEY",
     ],
-  },
-  "duyet-home": {
-    secrets: [],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -145,9 +143,6 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_API_URL",
       "NEXT_PUBLIC_DUYET_AI_URL",
       "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
-    secrets: [
-      "CLERK_SECRET_KEY",
     ],
   },
   "duyet-cv": {
