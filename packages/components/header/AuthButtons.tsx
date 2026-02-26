@@ -54,7 +54,7 @@ export function AuthButtons({ urls }: { urls: UrlsConfig }) {
         <SignInButton mode="modal">
           <button
             type="button"
-            className="h-8 w-8 flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:border-neutral-900 dark:hover:border-neutral-100 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+            className="h-8 w-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             aria-label="Sign in"
           >
             <Icons.UserEmpty className="h-4 w-4" />
