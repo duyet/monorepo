@@ -14,6 +14,7 @@ export const urls: Urls = {
 
   "/": "https://duyet.net",
   "/ai": { target: "https://ai.duyet.net", desc: "AI chatbot" },
+  "/claw": { target: "https://claw.duyet.net", desc: "OpenClaw Mission Control" },
   "/blog": "https://blog.duyet.net",
   "/cv": "https://cv.duyet.net",
   "/about": { target: "/about", desc: "about me", system: false },

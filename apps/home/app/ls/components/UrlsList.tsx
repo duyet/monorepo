@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { CATEGORY_ORDER, type Category } from "../../config/categories";
 
 type UrlEntry = {
   path: string;
   target: string;
   desc?: string;
+  category?: Category;
 };
 
 export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filter based on search query
   const filteredUrls = useMemo(() => {
     if (!searchQuery) return urls;
-
     const query = searchQuery.toLowerCase();
     return urls.filter(
       ({ path, target, desc }) =>
@@ -24,6 +24,23 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         desc?.toLowerCase().includes(query)
     );
   }, [searchQuery, urls]);
+
+  const grouped = useMemo(() => {
+    const map = new Map<string, UrlEntry[]>();
+    urls.forEach((entry) => {
+      const cat = entry.category ?? "Other";
+      if (!map.has(cat)) map.set(cat, []);
+      map.get(cat)!.push(entry);
+    });
+    const sorted = new Map<string, UrlEntry[]>();
+    CATEGORY_ORDER.forEach((key) => {
+      if (map.has(key)) sorted.set(key, map.get(key)!);
+    });
+    Array.from(map.keys()).forEach((key) => {
+      if (!sorted.has(key)) sorted.set(key, map.get(key)!);
+    });
+    return sorted;
+  }, [urls]);
 
   return (
     <>
@@ -86,69 +103,8 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         </div>
       </div>
 
-      {/* URL Grid */}
-      {filteredUrls.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {filteredUrls.map(({ path, target, desc }) => {
-            const isExternal = target.startsWith("http");
-
-            return (
-              <Link
-                key={path}
-                href={target}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md"
-              >
-                <div className="flex flex-col gap-2">
-                  {/* Path */}
-                  <div className="flex items-center gap-2">
-                    <code className="inline-flex items-center rounded-lg bg-neutral-100 px-3 py-1.5 font-mono text-sm font-semibold text-neutral-900 transition-colors group-hover:bg-neutral-200">
-                      {path}
-                    </code>
-                    {isExternal && (
-                      <svg
-                        className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  {desc && <p className="text-sm text-neutral-700">{desc}</p>}
-
-                  {/* Target URL */}
-                  <div className="mt-1 flex items-center gap-2 text-xs text-neutral-500">
-                    <svg
-                      className="h-3 w-3 flex-shrink-0"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                    <span className="truncate font-mono">{target}</span>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      ) : (
+      {/* URL List */}
+      {filteredUrls.length === 0 ? (
         <div className="rounded-2xl border border-neutral-200 bg-white p-12 text-center">
           <svg
             className="mx-auto mb-4 h-12 w-12 text-neutral-300"
@@ -172,6 +128,121 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           >
             Clear search
           </button>
+        </div>
+      ) : searchQuery ? (
+        /* Search results: flat card grid */
+        <div className="grid gap-4 sm:grid-cols-2">
+          {filteredUrls.map(({ path, target, desc }) => {
+            const isExternal = target.startsWith("http");
+            return (
+              <Link
+                key={path}
+                href={target}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md"
+              >
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <code className="inline-flex items-center rounded-lg bg-neutral-100 px-3 py-1.5 font-mono text-sm font-semibold text-neutral-900 transition-colors group-hover:bg-neutral-200">
+                      {path}
+                    </code>
+                    {isExternal && (
+                      <svg
+                        className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  {desc && <p className="text-sm text-neutral-700">{desc}</p>}
+                  <div className="mt-1 flex items-center gap-2 text-xs text-neutral-500">
+                    <svg
+                      className="h-3 w-3 flex-shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                    <span className="truncate font-mono">{target}</span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      ) : (
+        /* Default: grouped table layout */
+        <div>
+          {Array.from(grouped.entries()).map(([category, entries]) => (
+            <div key={category} className="mb-8">
+              {/* Category header */}
+              <div className="mb-2 flex items-center gap-3">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-neutral-400">
+                  {category}
+                </h2>
+                <div className="flex-1 border-t border-neutral-200" />
+                <span className="text-xs text-neutral-400">
+                  {entries.length}
+                </span>
+              </div>
+
+              {/* Table rows */}
+              <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+                {entries.map(({ path, target, desc }, i) => {
+                  const isExternal = target.startsWith("http");
+                  return (
+                    <Link
+                      key={path}
+                      href={target}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      className={`group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-neutral-50${i !== 0 ? " border-t border-neutral-100" : ""}`}
+                    >
+                      <code className="w-28 flex-shrink-0 font-mono text-sm font-semibold text-neutral-900 sm:w-36">
+                        {path}
+                      </code>
+                      <p className="min-w-0 flex-1 truncate text-sm text-neutral-600">
+                        {desc ?? (
+                          <span className="text-neutral-300">—</span>
+                        )}
+                      </p>
+                      <span className="hidden truncate font-mono text-xs text-neutral-400 sm:block sm:max-w-[200px]">
+                        {target}
+                      </span>
+                      <svg
+                        className="h-4 w-4 flex-shrink-0 text-neutral-300 transition-transform group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </>
