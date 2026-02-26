@@ -28,31 +28,6 @@ function addUtmParams(
   return urlObj.toString();
 }
 
-type AppLinkCardProps = {
-  title: string;
-  href: string;
-  description: string;
-  icon: React.ReactNode;
-};
-
-function AppLinkCard({ title, href, description, icon }: AppLinkCardProps) {
-  return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex flex-1 items-center gap-3 px-5 py-4 transition-colors hover:bg-neutral-50"
-    >
-      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
-        {icon}
-      </span>
-      <div className="min-w-0">
-        <p className="text-sm font-semibold text-neutral-900">{title}</p>
-        <p className="truncate text-xs text-neutral-500">{description}</p>
-      </div>
-    </Link>
-  );
-}
 
 export default function HomePage() {
   return (
@@ -136,19 +111,76 @@ export default function HomePage() {
 
         {/* Apps Section */}
         <div className="mb-8 sm:mb-12">
-          <div className="flex flex-col divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-white sm:flex-row sm:divide-x sm:divide-y-0">
-            <AppLinkCard
-              title="OpenClaw"
+          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-neutral-400">
+            Apps
+          </p>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+
+            {/* LLM Timeline — wide */}
+            <Link
+              href={addUtmParams(
+                process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
+                  "https://llm-timeline.duyet.net",
+                "homepage",
+                "llm_timeline_bento"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm md:col-span-2"
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                  <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none" />
+                  <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
+                  <circle cx="7" cy="18" r="2" fill="currentColor" stroke="none" />
+                </svg>
+              </div>
+              <p className="font-semibold text-neutral-900">LLM Timeline</p>
+              <p className="mt-1 text-sm text-neutral-500">
+                50+ models from 2017 to present
+              </p>
+              <svg
+                className="absolute right-5 top-5 h-4 w-4 text-neutral-300 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </Link>
+
+            {/* OpenClaw — narrow */}
+            <Link
               href={addUtmParams(
                 "https://claw.duyet.net",
                 "homepage",
-                "claw_compact"
+                "claw_bento"
               )}
-              description="Mission Control"
-              icon={
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm"
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
                 <svg
-                  width="16"
-                  height="16"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -161,58 +193,40 @@ export default function HomePage() {
                   <rect x="2" y="13" width="9" height="9" rx="1" />
                   <rect x="13" y="13" width="9" height="9" rx="1" />
                 </svg>
-              }
-            />
-
-            <AppLinkCard
-              title="LLM Timeline"
-              href={addUtmParams(
-                process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
-                  "https://llm-timeline.duyet.net",
-                "homepage",
-                "llm_timeline_compact"
-              )}
-              description="History of LLM releases"
-              icon={
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
+              </div>
+              <p className="font-semibold text-neutral-900">OpenClaw</p>
+              <p className="mt-1 text-sm text-neutral-500">Mission Control</p>
+              <svg
+                className="absolute right-5 top-5 h-4 w-4 text-neutral-300 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                  <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none" />
-                  <circle
-                    cx="15"
-                    cy="12"
-                    r="2"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                  <circle cx="7" cy="18" r="2" fill="currentColor" stroke="none" />
-                </svg>
-              }
-            />
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </Link>
 
-            <AppLinkCard
-              title="AI Agents"
+            {/* AI Agents — narrow */}
+            <Link
               href={addUtmParams(
                 process.env.NEXT_PUBLIC_DUYET_AGENTS_URL ||
                   "https://agents.duyet.net",
                 "homepage",
-                "agents_compact"
+                "agents_bento"
               )}
-              description="Chat with @duyetbot"
-              icon={
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm"
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
                 <svg
-                  width="16"
-                  height="16"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -222,37 +236,43 @@ export default function HomePage() {
                 >
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                   <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
-                  <circle
-                    cx="12"
-                    cy="10"
-                    r="1"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                  <circle
-                    cx="15"
-                    cy="10"
-                    r="1"
-                    fill="currentColor"
-                    stroke="none"
-                  />
+                  <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
                 </svg>
-              }
-            />
+              </div>
+              <p className="font-semibold text-neutral-900">AI Agents</p>
+              <p className="mt-1 text-sm text-neutral-500">Chat with @duyetbot</p>
+              <svg
+                className="absolute right-5 top-5 h-4 w-4 text-neutral-300 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </Link>
 
-            <AppLinkCard
-              title="Homelab"
+            {/* Homelab — wide */}
+            <Link
               href={addUtmParams(
                 process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
                   "https://homelab.duyet.net",
                 "homepage",
-                "homelab_compact"
+                "homelab_bento"
               )}
-              description="Infrastructure monitoring"
-              icon={
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm md:col-span-2"
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
                 <svg
-                  width="16"
-                  height="16"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -264,16 +284,28 @@ export default function HomePage() {
                   <rect x="2" y="11" width="20" height="5" rx="1" />
                   <rect x="2" y="19" width="20" height="2" rx="1" />
                   <circle cx="6" cy="5.5" r="1" fill="currentColor" stroke="none" />
-                  <circle
-                    cx="6"
-                    cy="13.5"
-                    r="1"
-                    fill="currentColor"
-                    stroke="none"
-                  />
+                  <circle cx="6" cy="13.5" r="1" fill="currentColor" stroke="none" />
                 </svg>
-              }
-            />
+              </div>
+              <p className="font-semibold text-neutral-900">Homelab</p>
+              <p className="mt-1 text-sm text-neutral-500">
+                Infrastructure monitoring
+              </p>
+              <svg
+                className="absolute right-5 top-5 h-4 w-4 text-neutral-300 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </Link>
+
           </div>
         </div>
 
