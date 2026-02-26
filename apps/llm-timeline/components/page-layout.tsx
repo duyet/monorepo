@@ -14,7 +14,7 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
   const latestYear = years[0]
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg)' }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="mx-auto max-w-4xl px-4 py-8">
         {/* Header */}
         <header className="mb-8">
