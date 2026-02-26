@@ -136,9 +136,6 @@ export default function HomePage() {
 
         {/* Apps Section */}
         <div className="mb-8 sm:mb-12">
-          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-neutral-400">
-            Apps
-          </p>
           <div className="flex flex-col divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-white sm:flex-row sm:divide-x sm:divide-y-0">
             <AppLinkCard
               title="LLM Timeline"
