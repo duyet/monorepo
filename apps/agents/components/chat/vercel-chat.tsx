@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useChat, useAutoResize, useAutoScroll, useKeyboardShortcuts } from "@/lib/hooks";
 import { AGENTS } from "@/lib/agents";
-import { cn } from "@/lib/utils";
+import { cn } from "@duyet/libs";
 import type { ChatMode } from "@/lib/types";
 import { AgentSwitcher } from "../agent-switcher";
 import { ActivityPanel } from "../activity/activity-panel";
@@ -11,8 +11,8 @@ import { ChatHeader } from "./chat-header";
 import { UserMessage, AssistantMessage, WelcomeMessage } from "./message-components";
 import { LoadingIndicator } from "./loading-indicator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Textarea } from "@duyet/components";
+import { Button } from "@duyet/components";
 import { Send, RefreshCw, X, Activity } from "lucide-react";
 
 const WELCOME_MESSAGE = `Hello! I'm @duyetbot - a virtual version of Duyet. I can help you with:

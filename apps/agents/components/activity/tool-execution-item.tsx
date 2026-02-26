@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@duyet/components";
+import { Card, CardContent } from "@duyet/components";
 import type { ToolExecution } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@duyet/libs";
 
 interface ToolExecutionItemProps {
   execution: ToolExecution;

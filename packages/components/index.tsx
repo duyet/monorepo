@@ -41,4 +41,6 @@ export * from "./ui/progress";
 export * from "./ui/separator";
 export * from "./ui/skeleton";
 export * from "./ui/tabs";
+export * from "./ui/accordion";
+export * from "./ui/textarea";
 export { default as YearList } from "./YearList";
