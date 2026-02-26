@@ -31,10 +31,10 @@ export function cloudinaryToPhoto(cloudinaryPhoto: CloudinaryPhoto): Photo {
     tags: cloudinaryPhoto.tags,
     urls: {
       raw: `${baseUrl}/${publicId}`,
-      full: `${baseUrl}/q_90/${publicId}`,
-      regular: `${baseUrl}/w_1080,q_80/${publicId}`,
-      small: `${baseUrl}/w_400,q_80/${publicId}`,
-      thumb: `${baseUrl}/w_200,h_200,c_fill/${publicId}`,
+      full: `${baseUrl}/f_auto,q_90/${publicId}`,
+      regular: `${baseUrl}/f_auto,w_1080,q_80/${publicId}`,
+      small: `${baseUrl}/f_auto,w_400,q_80/${publicId}`,
+      thumb: `${baseUrl}/f_auto,w_200,h_200,c_fill/${publicId}`,
     },
     links: {
       html: cloudinaryPhoto.secure_url,
