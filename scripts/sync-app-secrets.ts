@@ -65,6 +65,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "POSTGRES_DATABASE",
       "POSTGRES_USER",
       "POSTGRES_PASSWORD",
+      "CLERK_SECRET_KEY",
     ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -76,6 +77,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
       "NEXT_PUBLIC_DUYET_API_URL",
       "NEXT_PUBLIC_AUTH0_ADMIN_EMAIL",
       "NEXT_PUBLIC_AUTH0_DOMAIN",
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
   },
   "duyet-insights": {

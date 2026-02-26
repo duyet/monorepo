@@ -1,12 +1,33 @@
+"use client";
+
 import { cn } from "@duyet/libs/utils";
 import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import Container from "./Container";
 import Logo from "./Logo";
 import Menu, { type NavigationItem } from "./Menu";
+
+// Clerk auth components from JavaScript SDK
+// These are client-side only and work with static exports
+// We use lazy loading to avoid SSR issues with static export
+import { lazy, Suspense } from "react";
+
+const ClerkSignedOut = lazy(() =>
+  import("@clerk/clerk-react").then((mod) => ({ default: mod.SignedOut }))
+);
+const ClerkSignedIn = lazy(() =>
+  import("@clerk/clerk-react").then((mod) => ({ default: mod.SignedIn }))
+);
+const ClerkSignInButton = lazy(() =>
+  import("@clerk/clerk-react").then((mod) => ({ default: mod.SignInButton }))
+);
+const ClerkUserButton = lazy(() =>
+  import("@clerk/clerk-react").then((mod) => ({ default: mod.UserButton }))
+);
 
 interface HeaderProps {
   /** Profile configuration (defaults to duyetProfile) */
@@ -55,9 +76,16 @@ export default function Header({
   className,
   containerClassName,
 }: HeaderProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   // Use profile defaults if not overridden
   const displayShortText = shortText ?? profile.personal.shortName;
   const displayLongText = longText ?? profile.personal.title;
+
   return (
     <header
       className={cn(
@@ -106,7 +134,35 @@ export default function Header({
             </Link>
           </div>
 
-          <Menu urls={urls} navigationItems={navigationItems} />
+          <div className="flex flex-row gap-3 sm:gap-5 flex-wrap items-center">
+            <Menu urls={urls} navigationItems={navigationItems} className="gap-3 sm:gap-5" />
+
+            {/* Clerk Auth Buttons - client-side only with lazy loading */}
+            {isClient && (
+              <Suspense fallback={null}>
+                <ClerkSignedOut>
+                  <ClerkSignInButton mode="modal">
+                    <button
+                      type="button"
+                      className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+                    >
+                      Sign in
+                    </button>
+                  </ClerkSignInButton>
+                </ClerkSignedOut>
+                <ClerkSignedIn>
+                  <ClerkUserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "h-8 w-8",
+                      },
+                    }}
+                    afterSignOutUrl={urls.apps.blog}
+                  />
+                </ClerkSignedIn>
+              </Suspense>
+            )}
+          </div>
         </nav>
       </Container>
     </header>

@@ -24,6 +24,8 @@
     "test:coverage": "bun test --coverage"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^5.125.1",
+    "@clerk/clerk-react": "^5.61.1",
     "@duyet/components": "*",
     "@duyet/config": "*",
     "@duyet/libs": "*",

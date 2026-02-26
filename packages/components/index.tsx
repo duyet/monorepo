@@ -1,4 +1,5 @@
 export { default as Analytics } from "./Analytics";
+export { default as ClerkAuthProvider } from "./ClerkAuthProvider";
 // AI Components
 export * from "./ai";
 export { default as Container } from "./Container";
