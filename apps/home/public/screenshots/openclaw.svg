@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#fafafa"/>
+  <!-- Browser chrome -->
+  <rect width="800" height="44" fill="#f0f0f0"/>
+  <rect width="800" height="1" y="44" fill="#e0e0e0"/>
+  <circle cx="22" cy="22" r="6" fill="#ff5f57"/>
+  <circle cx="42" cy="22" r="6" fill="#ffbd2e"/>
+  <circle cx="62" cy="22" r="6" fill="#28c840"/>
+  <rect x="100" y="12" width="500" height="20" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="350" y="26" font-family="system-ui,sans-serif" font-size="11" fill="#999" text-anchor="middle">claw.duyet.net</text>
+
+  <!-- App content: dark mission control dashboard -->
+  <rect x="0" y="44" width="800" height="456" fill="#0a0a0a"/>
+
+  <!-- Top nav bar -->
+  <rect x="0" y="44" width="800" height="48" fill="#111111"/>
+  <rect x="0" y="92" width="800" height="1" fill="#222"/>
+  <text x="24" y="73" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#fff">OpenClaw</text>
+  <text x="110" y="73" font-family="system-ui,sans-serif" font-size="11" fill="#666">Mission Control</text>
+
+  <!-- Nav tabs -->
+  <rect x="400" y="56" width="60" height="24" rx="4" fill="#1f1f1f"/>
+  <text x="430" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#888" text-anchor="middle">Overview</text>
+  <rect x="468" y="56" width="60" height="24" rx="4" fill="#6366f1"/>
+  <text x="498" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Deploys</text>
+  <rect x="536" y="56" width="60" height="24" rx="4" fill="#1f1f1f"/>
+  <text x="566" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#888" text-anchor="middle">Logs</text>
+
+  <!-- Metric cards row -->
+  <!-- Card 1 -->
+  <rect x="20" y="108" width="170" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="34" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">DEPLOYMENTS</text>
+  <text x="34" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">247</text>
+  <text x="34" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#10b981">↑ 12% this week</text>
+
+  <!-- Card 2 -->
+  <rect x="202" y="108" width="170" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="216" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">UPTIME</text>
+  <text x="216" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">99.9%</text>
+  <text x="216" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#10b981">All systems go</text>
+
+  <!-- Card 3 -->
+  <rect x="384" y="108" width="170" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="398" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">AVG RESPONSE</text>
+  <text x="398" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">142ms</text>
+  <text x="398" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#f59e0b">↑ 8ms vs last week</text>
+
+  <!-- Card 4 -->
+  <rect x="566" y="108" width="214" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
+  <text x="580" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">ERROR RATE</text>
+  <text x="580" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">0.02%</text>
+  <text x="580" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#10b981">↓ 0.01% improved</text>
+
+  <!-- Services grid -->
+  <text x="20" y="214" font-family="system-ui,sans-serif" font-size="10" fill="#555" font-weight="600" letter-spacing="0.5">SERVICES</text>
+
+  <!-- Service rows -->
+  <!-- Row 1 -->
+  <rect x="20" y="222" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
+  <circle cx="42" cy="240" r="6" fill="#10b981"/>
+  <text x="58" y="244" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">blog.duyet.net</text>
+  <text x="200" y="244" font-family="system-ui,sans-serif" font-size="9" fill="#555">Next.js</text>
+  <text x="660" y="244" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
+  <text x="760" y="244" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">2m ago</text>
+
+  <!-- Row 2 -->
+  <rect x="20" y="264" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
+  <circle cx="42" cy="282" r="6" fill="#10b981"/>
+  <text x="58" y="286" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">insights.duyet.net</text>
+  <text x="200" y="286" font-family="system-ui,sans-serif" font-size="9" fill="#555">Next.js</text>
+  <text x="660" y="286" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
+  <text x="760" y="286" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">5m ago</text>
+
+  <!-- Row 3 -->
+  <rect x="20" y="306" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
+  <circle cx="42" cy="324" r="6" fill="#10b981"/>
+  <text x="58" y="328" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">agents.duyet.net</text>
+  <text x="200" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#555">Workers</text>
+  <text x="660" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
+  <text x="760" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">1m ago</text>
+
+  <!-- Row 4 -->
+  <rect x="20" y="348" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
+  <circle cx="42" cy="366" r="6" fill="#f59e0b"/>
+  <text x="58" y="370" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">homelab.duyet.net</text>
+  <text x="200" y="370" font-family="system-ui,sans-serif" font-size="9" fill="#555">Docker</text>
+  <text x="660" y="370" font-family="system-ui,sans-serif" font-size="9" fill="#f59e0b" text-anchor="end">⚠ Degraded</text>
+  <text x="760" y="370" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">12m ago</text>
+
+  <!-- Row 5 -->
+  <rect x="20" y="390" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
+  <circle cx="42" cy="408" r="6" fill="#10b981"/>
+  <text x="58" y="412" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">photos.duyet.net</text>
+  <text x="200" y="412" font-family="system-ui,sans-serif" font-size="9" fill="#555">Next.js</text>
+  <text x="660" y="412" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
+  <text x="760" y="412" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">3m ago</text>
+</svg>

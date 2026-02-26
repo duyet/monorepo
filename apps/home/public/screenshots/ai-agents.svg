@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#fafafa"/>
+  <!-- Browser chrome -->
+  <rect width="800" height="44" fill="#f0f0f0"/>
+  <rect width="800" height="1" y="44" fill="#e0e0e0"/>
+  <circle cx="22" cy="22" r="6" fill="#ff5f57"/>
+  <circle cx="42" cy="22" r="6" fill="#ffbd2e"/>
+  <circle cx="62" cy="22" r="6" fill="#28c840"/>
+  <rect x="100" y="12" width="500" height="20" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="350" y="26" font-family="system-ui,sans-serif" font-size="11" fill="#999" text-anchor="middle">agents.duyet.net</text>
+
+  <!-- App content: chat UI -->
+  <rect x="0" y="44" width="800" height="456" fill="#ffffff"/>
+
+  <!-- Top nav -->
+  <rect x="0" y="44" width="800" height="52" fill="#fff" stroke="#e5e5e5" stroke-width="0"/>
+  <rect x="0" y="96" width="800" height="1" fill="#f0f0f0"/>
+  <!-- Bot avatar + name -->
+  <circle cx="44" cy="70" r="18" fill="#6366f1"/>
+  <text x="44" y="75" font-family="system-ui,sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">D</text>
+  <text x="70" y="66" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#111">@duyetbot</text>
+  <text x="70" y="80" font-family="system-ui,sans-serif" font-size="10" fill="#888">AI Assistant · Online</text>
+  <!-- Status dot -->
+  <circle cx="84" cy="82" r="4" fill="#10b981"/>
+
+  <!-- Chat messages -->
+  <!-- User message 1 -->
+  <rect x="460" y="112" width="320" height="40" rx="16" rx-bottom-right="4" fill="#6366f1"/>
+  <text x="480" y="130" font-family="system-ui,sans-serif" font-size="11" fill="#fff">What can you help me with?</text>
+  <text x="480" y="144" font-family="system-ui,sans-serif" font-size="9" fill="#a5b4fc">10:24 AM</text>
+
+  <!-- Bot message 1 -->
+  <rect x="20" y="164" width="380" height="64" rx="16" rx-bottom-left="4" fill="#f4f4f5"/>
+  <text x="38" y="182" font-family="system-ui,sans-serif" font-size="11" fill="#111">Hi! I'm duyetbot. I can help you with</text>
+  <text x="38" y="198" font-family="system-ui,sans-serif" font-size="11" fill="#111">data engineering, code review, and</text>
+  <text x="38" y="214" font-family="system-ui,sans-serif" font-size="11" fill="#111">technical questions.</text>
+  <text x="38" y="226" font-family="system-ui,sans-serif" font-size="9" fill="#999">10:24 AM</text>
+
+  <!-- User message 2 -->
+  <rect x="480" y="244" width="300" height="40" rx="16" rx-bottom-right="4" fill="#6366f1"/>
+  <text x="500" y="262" font-family="system-ui,sans-serif" font-size="11" fill="#fff">Show me a ClickHouse query</text>
+  <text x="500" y="276" font-family="system-ui,sans-serif" font-size="9" fill="#a5b4fc">10:25 AM</text>
+
+  <!-- Bot message 2: code block -->
+  <rect x="20" y="296" width="500" height="110" rx="12" rx-bottom-left="4" fill="#1e1e1e"/>
+  <rect x="20" y="296" width="500" height="24" rx-top-left="12" rx-top-right="12" fill="#2a2a2a"/>
+  <text x="36" y="312" font-family="monospace,system-ui" font-size="9" fill="#888">sql</text>
+  <circle cx="496" cy="308" r="5" fill="#3a3a3a"/>
+  <text x="36" y="334" font-family="monospace,system-ui" font-size="10" fill="#e879f9">SELECT</text>
+  <text x="86" y="334" font-family="monospace,system-ui" font-size="10" fill="#60a5fa"> date, count() </text>
+  <text x="36" y="350" font-family="monospace,system-ui" font-size="10" fill="#e879f9">FROM</text>
+  <text x="75" y="350" font-family="monospace,system-ui" font-size="10" fill="#a3e635"> events </text>
+  <text x="36" y="366" font-family="monospace,system-ui" font-size="10" fill="#e879f9">WHERE</text>
+  <text x="82" y="366" font-family="monospace,system-ui" font-size="10" fill="#60a5fa"> date >= today() - 7 </text>
+  <text x="36" y="382" font-family="monospace,system-ui" font-size="10" fill="#e879f9">GROUP BY</text>
+  <text x="96" y="382" font-family="monospace,system-ui" font-size="10" fill="#60a5fa"> date </text>
+  <text x="36" y="398" font-family="monospace,system-ui" font-size="10" fill="#e879f9">ORDER BY</text>
+  <text x="96" y="398" font-family="monospace,system-ui" font-size="10" fill="#60a5fa"> date DESC</text>
+  <text x="36" y="402" font-family="system-ui,sans-serif" font-size="9" fill="#555">10:25 AM</text>
+
+  <!-- Typing indicator -->
+  <rect x="20" y="422" width="80" height="30" rx="15" fill="#f4f4f5"/>
+  <circle cx="40" cy="437" r="4" fill="#9ca3af"/>
+  <circle cx="54" cy="437" r="4" fill="#9ca3af" opacity="0.7"/>
+  <circle cx="68" cy="437" r="4" fill="#9ca3af" opacity="0.4"/>
+
+  <!-- Input bar -->
+  <rect x="20" y="458" width="760" height="32" rx="16" fill="#f4f4f5"/>
+  <text x="38" y="478" font-family="system-ui,sans-serif" font-size="11" fill="#aaa">Message @duyetbot...</text>
+  <!-- Send button -->
+  <circle cx="764" cy="474" r="14" fill="#6366f1"/>
+  <path d="M757 474 L771 474 M765 468 L771 474 L765 480" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
