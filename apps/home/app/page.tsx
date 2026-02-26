@@ -51,7 +51,7 @@ const apps: AppItem[] = [
       process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
       "https://llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
-    screenshot: "/screenshots/llm-timeline.svg",
+    screenshot: "/screenshots/llm-timeline.png",
     accent: "amber",
   },
   {
@@ -59,7 +59,7 @@ const apps: AppItem[] = [
     description: "Mission Control",
     href: "https://claw.duyet.net",
     utmContent: "claw_bento",
-    screenshot: "/screenshots/openclaw.svg",
+    screenshot: "/screenshots/openclaw.png",
     accent: "slate",
   },
   {
@@ -68,7 +68,7 @@ const apps: AppItem[] = [
     href:
       process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
     utmContent: "agents_bento",
-    screenshot: "/screenshots/ai-agents.svg",
+    screenshot: "/screenshots/ai-agents.png",
     accent: "indigo",
   },
   {
@@ -76,7 +76,7 @@ const apps: AppItem[] = [
     description: "ClickHouse dashboard",
     href: "https://clickhouse-monitor.duyet.workers.dev",
     utmContent: "ch_monitor_bento",
-    screenshot: "/screenshots/ch-monitor.svg",
+    screenshot: "/screenshots/ch-monitor.png",
     accent: "yellow",
   },
   {
@@ -85,7 +85,7 @@ const apps: AppItem[] = [
     href:
       process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
     utmContent: "homelab_bento",
-    screenshot: "/screenshots/homelab.svg",
+    screenshot: "/screenshots/homelab.png",
     accent: "blue",
   },
 ];
