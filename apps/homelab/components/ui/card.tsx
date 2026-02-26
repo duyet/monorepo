@@ -6,16 +6,17 @@ import {
   CardHeader as SharedCardHeader,
   CardTitle as SharedCardTitle,
 } from "@duyet/components/ui/card";
+import { cn } from "@duyet/libs/utils";
 import * as React from "react";
 
-// Override Card to remove shadow and border
+// Override Card with rounded corners and gray border
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCard
     ref={ref}
-    className={`shadow-none border-none ${className || ""}`}
+    className={cn("shadow-none rounded-2xl border border-neutral-200 dark:border-neutral-700/50 dark:bg-neutral-800/80", className)}
     {...props}
   />
 ));

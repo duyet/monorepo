@@ -2,7 +2,6 @@
 
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useServices } from "@/hooks/useDashboard";
 import { ServiceCard } from "./ServiceCard";
 
@@ -35,11 +34,10 @@ export function ServicesStatus() {
   }, [selectedNamespace, searchQuery, allServices, servicesByNamespace]);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Running Services</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div>
+      <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Running Services
+      </h2>
         {/* Search bar */}
         <div className="mb-4">
           <div className="relative">
@@ -128,7 +126,6 @@ export function ServicesStatus() {
             Showing {filteredServices.length} of {allServices.length} services
           </p>
         )}
-      </CardContent>
-    </Card>
+    </div>
   );
 }

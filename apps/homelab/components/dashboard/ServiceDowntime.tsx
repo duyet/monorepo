@@ -1,16 +1,17 @@
 "use client";
 
 import { AlertCircle, Clock, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDowntimeHistory } from "@/hooks/useDashboard";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 
 export function ServiceDowntime() {
   const downtimeHistory = useDowntimeHistory();
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <CardTitle>Recent Service Downtime</CardTitle>
+    <div>
+      <div className="mb-4 flex flex-row items-center justify-between">
+        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+          Recent Service Downtime
+        </h2>
         <a
           href={EXTERNAL_LINKS.UPTIME_MONITOR}
           target="_blank"
@@ -20,8 +21,7 @@ export function ServiceDowntime() {
           View full history
           <ExternalLink className="h-3 w-3" />
         </a>
-      </CardHeader>
-      <CardContent>
+      </div>
         {downtimeHistory.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <div className="rounded-full bg-green-100 p-4 dark:bg-green-900/30">
@@ -67,7 +67,6 @@ export function ServiceDowntime() {
             ))}
           </div>
         )}
-      </CardContent>
-    </Card>
+    </div>
   );
 }
