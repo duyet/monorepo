@@ -32,10 +32,15 @@ jobs:
       llm-timeline: ${{ steps.filter.outputs.llm-timeline }}
       photos: ${{ steps.filter.outputs.photos }}
       agents: ${{ steps.filter.outputs.agents }}
+      ai: ${{ steps.filter.outputs.ai }}
+      ai-percentage: ${{ steps.filter.outputs.ai-percentage }}
       packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v6
+
+      - uses: dorny/paths-filter@v3
+        id: filter
         with:
           filters: |
             blog:
@@ -54,6 +59,10 @@ jobs:
               - 'apps/photos/**'
             agents:
               - 'apps/agents/**'
+            ai:
+              - 'apps/ai/**'
+            ai-percentage:
+              - 'apps/ai-percentage/**'
             packages:
               - 'packages/**'
 
@@ -87,14 +96,20 @@ jobs:
           if [[ "${{ steps.filter.outputs.agents }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
             APPS+=('{"app":"agents","project":"duyet-agents","domain":"agents.duyet.net"}')
           fi
+          if [[ "${{ steps.filter.outputs.ai }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"ai","project":"duyet-ai","domain":"ai.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.ai-percentage }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"ai-percentage","project":"duyet-ai-percentage","domain":"ai-percentage.duyet.net"}')
+          fi
 
-          if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then
+          if [ ${#APPS[@]} -eq 0 ]; then
             echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
             echo "No apps to deploy"
           else
-            MATRIX=$(printf '%s,' "${DEPLOY_APPS[@]}" | sed 's/,$//')
+            MATRIX=$(printf '%s,' "${APPS[@]}" | sed 's/,$//')
             echo "matrix={\"include\":[$MATRIX]}" >> $GITHUB_OUTPUT
-            echo "Apps to deploy: ${DEPLOY_APPS[*]}"
+            echo "Apps to deploy: ${APPS[*]}"
           fi
 
   deploy-preview:
@@ -132,6 +147,9 @@ jobs:
           NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
           NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
           NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
+          NEXT_PUBLIC_DUYET_AGENTS_URL: https://agents.duyet.net
+          NEXT_PUBLIC_DUYET_AI_URL: https://ai.duyet.net
+          NEXT_PUBLIC_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}
