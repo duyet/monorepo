@@ -83,13 +83,16 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
       {/* Timeline Line */}
       {!isLast && (
         <div
-          className="absolute left-[11px] top-0 h-full w-px"
+          className="absolute left-[13px] top-0 h-full w-px"
           style={{ backgroundColor: 'var(--border)' }}
         />
       )}
 
       {/* Org logo as timeline dot */}
-      <div className="relative z-10 shrink-0">
+      <div
+        className="relative z-10 shrink-0 rounded-lg p-1"
+        style={{ backgroundColor: 'var(--background)' }}
+      >
         <OrgAvatar org={model.org} size="sm" />
       </div>
 
