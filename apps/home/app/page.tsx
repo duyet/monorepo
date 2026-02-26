@@ -257,7 +257,53 @@ export default function HomePage() {
               </svg>
             </Link>
 
-            {/* Homelab — wide */}
+            {/* ClickHouse Monitor — narrow */}
+            <Link
+              href={addUtmParams(
+                "https://clickhouse-monitor.duyet.workers.dev",
+                "homepage",
+                "ch_monitor_bento"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm"
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+                  <path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6" />
+                </svg>
+              </div>
+              <p className="font-semibold text-neutral-900">CH Monitor</p>
+              <p className="mt-1 text-sm text-neutral-500">
+                ClickHouse dashboard
+              </p>
+              <svg
+                className="absolute right-5 top-5 h-4 w-4 text-neutral-300 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </Link>
+
+            {/* Homelab — narrow (col-1 to complete the row of 3) */}
             <Link
               href={addUtmParams(
                 process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
@@ -267,7 +313,7 @@ export default function HomePage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm md:col-span-2"
+              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-sm"
             >
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
                 <svg
