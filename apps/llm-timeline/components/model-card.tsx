@@ -119,16 +119,16 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
       >
         {/* Header row */}
         <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
             <OrgAvatar org={model.org} size="sm" />
-            <div>
+            <div className="min-w-0 flex-1">
               <h3
-                className="text-base font-semibold"
+                className="text-base font-semibold truncate"
                 style={{ color: 'var(--text)', fontFamily: 'var(--font-sans)' }}
               >
                 {model.name}
               </h3>
-              <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-xs truncate" style={{ color: 'var(--text-muted)' }}>
                 {model.org}
               </p>
             </div>
