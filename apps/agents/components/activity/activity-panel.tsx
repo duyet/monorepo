@@ -1,13 +1,13 @@
 "use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@duyet/components";
+import { Button } from "@duyet/components";
 import { ToolExecutionItem } from "./tool-execution-item";
 import { ThinkingSteps, ThinkingDots } from "./thinking-steps";
 import { Activity, Clock, CheckCircle2, AlertCircle, Loader2, Minimize2, Maximize2 } from "lucide-react";
 import type { ToolExecution } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@duyet/libs";
 
 interface ActivityPanelProps {
   executions: ToolExecution[];

@@ -4,14 +4,14 @@ import { useState } from "react";
 import {
   Card,
   CardContent,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+} from "@duyet/components";
+import { Badge } from "@duyet/components";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@duyet/components";
 import {
   ChevronRight,
   Loader2,
@@ -24,7 +24,7 @@ import {
   Search,
   type LucideIcon,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@duyet/libs";
 
 export type ToolExecutionState = "running" | "done" | "error";
 

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <!-- Page background -->
+  <rect width="800" height="500" fill="#ffffff"/>
+
+  <!-- ── Header ── -->
+  <text x="32" y="44" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#0a0a0a">LLM Timeline</text>
+  <text x="32" y="62" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Interactive timeline of Large Language Model releases (2017–2026)</text>
+
+  <!-- ── Stat cards ── -->
+  <!-- "769 MODELS" — warm beige + amber border -->
+  <rect x="32" y="74" width="148" height="44" rx="8" fill="#fffbf0" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="48" y="93" font-family="system-ui,sans-serif" font-size="16" font-weight="800" fill="#0a0a0a">769</text>
+  <text x="48" y="108" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#6b7280" letter-spacing="0.5">MODELS</text>
+
+  <!-- "188 ORGANIZATIONS" — white + grey border -->
+  <rect x="188" y="74" width="164" height="44" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="204" y="93" font-family="system-ui,sans-serif" font-size="16" font-weight="800" fill="#0a0a0a">188</text>
+  <text x="204" y="108" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#6b7280" letter-spacing="0.5">ORGANIZATIONS</text>
+
+  <!-- ── Search bar ── -->
+  <rect x="32" y="128" width="480" height="32" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- Search icon -->
+  <circle cx="50" cy="144" r="6" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="54" y1="148" x2="58" y2="152" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="68" y="149" font-family="system-ui,sans-serif" font-size="11" fill="#9ca3af">Search models...</text>
+  <text x="430" y="149" font-family="system-ui,sans-serif" font-size="10" fill="#d1d5db" text-anchor="end">769 models</text>
+  <!-- Licenses dropdown -->
+  <rect x="524" y="128" width="120" height="32" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="540" y="149" font-family="system-ui,sans-serif" font-size="11" fill="#374151">All Licenses</text>
+  <path d="M628 141 L634 141 L631 145 Z" fill="#9ca3af"/>
+  <!-- Filter icon -->
+  <rect x="656" y="128" width="36" height="32" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="664" y1="140" x2="684" y2="140" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="667" y1="145" x2="681" y2="145" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="671" y1="150" x2="677" y2="150" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Divider -->
+  <line x1="32" y1="172" x2="768" y2="172" stroke="#f3f4f6" stroke-width="1"/>
+
+  <!-- ── Year: 2026 ── -->
+  <text x="32" y="206" font-family="system-ui,sans-serif" font-size="36" font-weight="800" fill="#0a0a0a">2026</text>
+  <text x="720" y="206" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#9ca3af" text-anchor="end" letter-spacing="0.5">34 MODELS</text>
+
+  <!-- ── Model cards ── -->
+  <!-- Card 1: Gemini 2.5 -->
+  <rect x="32" y="216" width="736" height="64" rx="10" fill="#ffffff" stroke="#f3f4f6" stroke-width="1"/>
+  <!-- Org logo placeholder -->
+  <rect x="48" y="228" width="32" height="32" rx="6" fill="#e8f4ff"/>
+  <text x="64" y="248" font-family="system-ui,sans-serif" font-size="10" fill="#1a73e8" text-anchor="middle" font-weight="700">G</text>
+  <!-- Model info -->
+  <text x="94" y="240" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#0a0a0a">Gemini 2.5 Pro</text>
+  <text x="94" y="256" font-family="system-ui,sans-serif" font-size="10" fill="#6b7280">Google · Jan 2026</text>
+  <!-- Tags -->
+  <rect x="94" y="262" width="44" height="14" rx="7" fill="#f3f4f6"/>
+  <text x="116" y="273" font-family="system-ui,sans-serif" font-size="7" fill="#374151" text-anchor="middle" font-weight="600">MODEL</text>
+  <rect x="144" y="262" width="44" height="14" rx="7" fill="#fef3c7"/>
+  <text x="166" y="273" font-family="system-ui,sans-serif" font-size="7" fill="#92400e" text-anchor="middle" font-weight="600">PROP.</text>
+  <!-- Description -->
+  <text x="500" y="244" font-family="system-ui,sans-serif" font-size="9.5" fill="#6b7280">Multimodal reasoning model with 1M context…</text>
+  <!-- Arrow -->
+  <text x="752" y="252" font-family="system-ui,sans-serif" font-size="14" fill="#d1d5db" text-anchor="middle">›</text>
+
+  <!-- Card 2: Llama 4 -->
+  <rect x="32" y="288" width="736" height="64" rx="10" fill="#ffffff" stroke="#f3f4f6" stroke-width="1"/>
+  <rect x="48" y="300" width="32" height="32" rx="6" fill="#e8f0ff"/>
+  <text x="64" y="320" font-family="system-ui,sans-serif" font-size="10" fill="#3b5bdb" text-anchor="middle" font-weight="700">M</text>
+  <text x="94" y="312" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#0a0a0a">Llama 4 Scout</text>
+  <text x="94" y="328" font-family="system-ui,sans-serif" font-size="10" fill="#6b7280">Meta · Feb 2026</text>
+  <rect x="94" y="334" width="44" height="14" rx="7" fill="#f3f4f6"/>
+  <text x="116" y="345" font-family="system-ui,sans-serif" font-size="7" fill="#374151" text-anchor="middle" font-weight="600">MODEL</text>
+  <rect x="144" y="334" width="44" height="14" rx="7" fill="#dcfce7"/>
+  <text x="166" y="345" font-family="system-ui,sans-serif" font-size="7" fill="#166534" text-anchor="middle" font-weight="600">OPEN</text>
+  <text x="500" y="316" font-family="system-ui,sans-serif" font-size="9.5" fill="#6b7280">10M context window, mixture of experts…</text>
+  <text x="752" y="324" font-family="system-ui,sans-serif" font-size="14" fill="#d1d5db" text-anchor="middle">›</text>
+
+  <!-- Card 3: Claude 4 -->
+  <rect x="32" y="360" width="736" height="64" rx="10" fill="#ffffff" stroke="#f3f4f6" stroke-width="1"/>
+  <rect x="48" y="372" width="32" height="32" rx="6" fill="#fef3e8"/>
+  <text x="64" y="392" font-family="system-ui,sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">A</text>
+  <text x="94" y="384" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#0a0a0a">Claude Opus 4</text>
+  <text x="94" y="400" font-family="system-ui,sans-serif" font-size="10" fill="#6b7280">Anthropic · Mar 2026</text>
+  <rect x="94" y="406" width="44" height="14" rx="7" fill="#f3f4f6"/>
+  <text x="116" y="417" font-family="system-ui,sans-serif" font-size="7" fill="#374151" text-anchor="middle" font-weight="600">MODEL</text>
+  <rect x="144" y="406" width="44" height="14" rx="7" fill="#fef3c7"/>
+  <text x="166" y="417" font-family="system-ui,sans-serif" font-size="7" fill="#92400e" text-anchor="middle" font-weight="600">PROP.</text>
+  <text x="500" y="388" font-family="system-ui,sans-serif" font-size="9.5" fill="#6b7280">Extended thinking, 200K context, tool use…</text>
+  <text x="752" y="396" font-family="system-ui,sans-serif" font-size="14" fill="#d1d5db" text-anchor="middle">›</text>
+
+  <!-- Bottom fade -->
+  <defs>
+    <linearGradient id="fadeBot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="420" width="800" height="80" fill="url(#fadeBot)"/>
+</svg>

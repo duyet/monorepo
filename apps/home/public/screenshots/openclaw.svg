@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <!-- Page background -->
+  <rect width="800" height="500" fill="#ffffff"/>
+
+  <!-- ── Nav bar ── -->
+  <rect width="800" height="52" fill="#ffffff"/>
+  <rect y="52" width="800" height="1" fill="#f3f4f6"/>
+  <!-- Logo -->
+  <text x="32" y="30" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0a0a0a">OpenClaw</text>
+  <text x="102" y="30" font-family="system-ui,sans-serif" font-size="9" fill="#9ca3af" letter-spacing="0.5">/</text>
+  <text x="112" y="30" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#6b7280" letter-spacing="0.5">MISSION CONTROL</text>
+  <!-- Nav links -->
+  <text x="290" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Capabilities</text>
+  <text x="376" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Boards</text>
+  <text x="428" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Activity</text>
+  <text x="480" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Gateways</text>
+  <!-- CTAs -->
+  <text x="604" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Sign In</text>
+  <rect x="644" y="16" width="112" height="28" rx="6" fill="#0a0a0a"/>
+  <text x="700" y="34" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">Start Free Trial</text>
+
+  <!-- ── Hero section ── -->
+  <!-- Badge pill -->
+  <rect x="32" y="72" width="176" height="20" rx="10" fill="#f3f4f6"/>
+  <circle cx="46" cy="82" r="3" fill="#22c55e"/>
+  <text x="56" y="86" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#374151" letter-spacing="0.3">OPENCLAW MISSION CONTROL</text>
+
+  <!-- Headline -->
+  <text x="32" y="118" font-family="system-ui,sans-serif" font-size="26" font-weight="800" fill="#0a0a0a">Command</text>
+  <text x="178" y="118" font-family="Georgia,serif" font-size="26" font-weight="700" font-style="italic" fill="#4d7c4d"> autonomous work.</text>
+  <text x="32" y="148" font-family="system-ui,sans-serif" font-size="26" font-weight="800" fill="#0a0a0a">Keep human oversight.</text>
+
+  <!-- Subtitle -->
+  <text x="32" y="170" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Track tasks, approvals, and agent health across every workflow.</text>
+
+  <!-- CTA buttons -->
+  <rect x="32" y="184" width="124" height="32" rx="7" fill="#0a0a0a"/>
+  <text x="94" y="204" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">Open Boards →</text>
+  <rect x="164" y="184" width="120" height="32" rx="7" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="224" y="204" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#374151" text-anchor="middle">Create Board</text>
+
+  <!-- Feature pills -->
+  <text x="32" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#16a34a">✓</text>
+  <text x="46" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#374151">Agent-First Operations</text>
+  <text x="196" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#16a34a">✓</text>
+  <text x="210" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#374151">Approval Queues</text>
+  <text x="342" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#16a34a">✓</text>
+  <text x="356" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#374151">Live Signals</text>
+
+  <!-- ── Command Surface panel ── -->
+  <rect x="0" y="252" width="800" height="248" rx="0" fill="#0d1117"/>
+
+  <!-- Panel header -->
+  <text x="32" y="278" font-family="monospace,system-ui" font-size="10" font-weight="600" fill="#ffffff" letter-spacing="1">COMMAND SURFACE</text>
+  <text x="176" y="278" font-family="monospace,system-ui" font-size="10" fill="#22c55e" letter-spacing="0.5">— LIVE</text>
+  <!-- Green status dot -->
+  <circle cx="224" cy="274" r="3" fill="#22c55e"/>
+
+  <!-- Stats row -->
+  <rect x="32" y="290" width="100" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="82" y="309" font-family="monospace,system-ui" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">12</text>
+  <text x="82" y="324" font-family="monospace,system-ui" font-size="7" fill="#8b949e" text-anchor="middle" letter-spacing="0.5">BOARDS</text>
+
+  <rect x="144" y="290" width="100" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="194" y="309" font-family="monospace,system-ui" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">08</text>
+  <text x="194" y="324" font-family="monospace,system-ui" font-size="7" fill="#8b949e" text-anchor="middle" letter-spacing="0.5">AGENTS</text>
+
+  <rect x="256" y="290" width="100" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="306" y="309" font-family="monospace,system-ui" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">46</text>
+  <text x="306" y="324" font-family="monospace,system-ui" font-size="7" fill="#8b949e" text-anchor="middle" letter-spacing="0.5">TASKS</text>
+
+  <!-- Two-column content -->
+  <!-- Left column: Board -->
+  <text x="32" y="360" font-family="monospace,system-ui" font-size="8" fill="#8b949e" font-weight="600" letter-spacing="0.5">BOARD — IN PROGRESS</text>
+  <rect x="32" y="368" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="48" cy="382" r="4" fill="#f59e0b"/>
+  <text x="62" y="386" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Analyze Q1 pipeline metrics</text>
+  <text x="340" y="386" font-family="monospace,system-ui" font-size="8" fill="#8b949e" text-anchor="end">agent-3</text>
+
+  <rect x="32" y="402" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="48" cy="416" r="4" fill="#3b82f6"/>
+  <text x="62" y="420" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Generate weekly summary report</text>
+  <text x="340" y="420" font-family="monospace,system-ui" font-size="8" fill="#8b949e" text-anchor="end">agent-1</text>
+
+  <rect x="32" y="436" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="48" cy="450" r="4" fill="#22c55e"/>
+  <text x="62" y="454" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Deploy to staging environment</text>
+  <text x="340" y="454" font-family="monospace,system-ui" font-size="8" fill="#22c55e" text-anchor="end">done</text>
+
+  <!-- Right column: Approvals -->
+  <text x="416" y="360" font-family="monospace,system-ui" font-size="8" fill="#f59e0b" font-weight="600" letter-spacing="0.5">APPROVALS — 3 PENDING</text>
+  <rect x="416" y="368" width="352" height="28" rx="5" fill="#161b22" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="432" y="382" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Approve: Delete stale records in prod</text>
+  <rect x="720" y="372" width="36" height="18" rx="4" fill="#f59e0b"/>
+  <text x="738" y="385" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#000" text-anchor="middle">OK</text>
+
+  <rect x="416" y="402" width="352" height="28" rx="5" fill="#161b22" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="432" y="416" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Approve: Send Slack digest to team</text>
+  <rect x="720" y="406" width="36" height="18" rx="4" fill="#f59e0b"/>
+  <text x="738" y="419" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#000" text-anchor="middle">OK</text>
+
+  <rect x="416" y="436" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="432" y="450" font-family="system-ui,sans-serif" font-size="9" fill="#6b7280">Approve: Reindex search index</text>
+  <rect x="720" y="440" width="36" height="18" rx="4" fill="#21262d"/>
+  <text x="738" y="453" font-family="system-ui,sans-serif" font-size="8" fill="#8b949e" text-anchor="middle">wait</text>
+</svg>
