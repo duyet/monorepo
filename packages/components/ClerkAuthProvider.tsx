@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, Suspense, useEffect, useState } from "react";
 
 interface ClerkAuthProviderProps {
   children: ReactNode;
@@ -28,27 +28,32 @@ function isValidPublishableKey(key: string): boolean {
   return /^(pk_test_|pk_live_)[A-Za-z0-9_-]+$/.test(key);
 }
 
-function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps & { publishableKey: string }) {
+// Client-side only wrapper that handles dynamic Clerk loading
+function ClientClerkProvider({ children, publishableKey }: { children: ReactNode; publishableKey: string }) {
   const [ClerkProvider, setClerkProvider] = useState<any>(null);
+  const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     import("@clerk/clerk-react")
       .then((mod) => {
         setClerkProvider(() => mod.ClerkProvider);
+        setIsReady(true);
       })
       .catch((err) => {
         console.error("Failed to load Clerk:", err);
         setError(err as Error);
+        setIsReady(true);
       });
   }, []);
 
   if (error) {
-    console.warn("[ClerkAuthProvider] Failed to load Clerk, rendering without auth:", error.message);
+    console.warn("[ClerkAuthProvider] Failed to load Clerk:", error.message);
     return <>{children}</>;
   }
 
-  if (!ClerkProvider) {
+  if (!isReady || !ClerkProvider) {
+    // Return children during loading to prevent context errors
     return <>{children}</>;
   }
 
@@ -62,7 +67,12 @@ function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps
 }
 
 export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
+  const [isClient, setIsClient] = useState(false);
   const publishableKey = props.publishableKey ?? process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (!publishableKey) {
     console.warn(
@@ -73,10 +83,15 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
 
   if (!isValidPublishableKey(publishableKey)) {
     console.warn(
-      `[ClerkAuthProvider] Invalid publishable key format (starts with: ${publishableKey.slice(0, 8)}...). Auth features will be disabled.`
+      `[ClerkAuthProvider] Invalid publishable key format. Auth features will be disabled.`
     );
     return <>{props.children}</>;
   }
 
-  return <InnerClerkProvider {...props} publishableKey={publishableKey} />;
+  // Only render ClerkProvider on client side to avoid SSR issues
+  if (!isClient) {
+    return <>{props.children}</>;
+  }
+
+  return <ClientClerkProvider publishableKey={publishableKey}>{props.children}</ClientClerkProvider>;
 }

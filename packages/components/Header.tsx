@@ -19,6 +19,7 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
   const [SignedIn, setSignedIn] = useState<React.ComponentType<any> | null>(null);
   const [SignInButton, setSignInButton] = useState<React.ComponentType<any> | null>(null);
   const [UserButton, setUserButton] = useState<React.ComponentType<any> | null>(null);
+  const [hasClerkContext, setHasClerkContext] = useState(false);
 
   useEffect(() => {
     // Dynamically import Clerk components only on client side
@@ -29,14 +30,22 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
         setSignInButton(() => mod.SignInButton);
         setUserButton(() => mod.UserButton);
         setIsLoaded(true);
+        // Check if Clerk context is available
+        try {
+          const useAuth = mod.useAuth;
+          setHasClerkContext(true);
+        } catch {
+          setHasClerkContext(false);
+        }
       })
       .catch(() => {
         // Clerk not available, just hide auth buttons
         setIsLoaded(true);
+        setHasClerkContext(false);
       });
   }, []);
 
-  if (!isLoaded || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
+  if (!isLoaded || !hasClerkContext || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
     return null;
   }
 
@@ -46,11 +55,10 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
         <SignInButton mode="modal">
           <button
             type="button"
-            className="flex items-center gap-2 text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+            className="h-8 w-8 flex items-center justify-center rounded-full border-2 border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:border-neutral-900 dark:hover:border-neutral-100 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             aria-label="Sign in"
           >
-            <Icons.User className="h-5 w-5" />
-            <span className="hidden sm:inline">Sign in</span>
+            <Icons.UserEmpty className="h-4 w-4" />
           </button>
         </SignInButton>
       </SignedOut>
