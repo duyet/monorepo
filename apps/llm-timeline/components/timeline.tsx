@@ -33,11 +33,11 @@ export function Timeline({ modelsByYear, liteMode }: TimelineProps) {
         return (
           <div key={year} style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
             {/* Year Header */}
-            <div className="mb-6 flex items-center gap-4">
-              <div className="relative flex items-center overflow-hidden">
+            <div className="mb-6 flex items-center gap-4 overflow-hidden">
+              <div className="relative flex items-center shrink-0 overflow-hidden">
                 {/* Large background year as watermark */}
                 <span
-                  className="select-none text-5xl font-bold leading-none"
+                  className="select-none text-4xl font-bold leading-none"
                   style={{
                     fontFamily: 'var(--font-mono)',
                     color: 'var(--year-watermark)',
@@ -47,7 +47,7 @@ export function Timeline({ modelsByYear, liteMode }: TimelineProps) {
                   {year}
                 </span>
               </div>
-              <div className="h-px flex-1 min-w-0" style={{ backgroundColor: 'var(--border)' }} />
+              <div className="h-px flex-1 min-w-0 shrink" style={{ backgroundColor: 'var(--border)' }} />
               <span
                 className="text-xs uppercase tracking-widest shrink-0 whitespace-nowrap"
                 style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}

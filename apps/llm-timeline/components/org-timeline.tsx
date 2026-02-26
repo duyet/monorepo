@@ -34,26 +34,21 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
         return (
           <div key={org} style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
             {/* Org Header — no timeline dot/line, models provide the timeline flow */}
-            <div className="mb-6 flex items-center gap-4">
-              <div
-                className="overflow-hidden"
-                style={{ maxWidth: '20rem', flexShrink: 0, minWidth: '8rem' }}
-              >
+            <div className="mb-6 flex items-center gap-4 overflow-hidden">
+              <div className="shrink-0 overflow-hidden">
                 <span
-                  className="select-none text-5xl font-bold leading-none block"
+                  className="select-none text-3xl font-bold leading-none block"
                   style={{
                     fontFamily: 'var(--font-mono)',
                     color: 'var(--year-watermark)',
                     whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
                   }}
                   aria-hidden="true"
                 >
                   {org}
                 </span>
               </div>
-              <div className="h-px flex-1" style={{ backgroundColor: 'var(--border)' }} />
+              <div className="h-px flex-1 min-w-0 shrink" style={{ backgroundColor: 'var(--border)' }} />
               <div className="flex shrink-0 items-center gap-2">
                 <OrgAvatar org={org} size="sm" />
                 <span
