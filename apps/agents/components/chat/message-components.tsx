@@ -25,13 +25,13 @@ export function UserMessage({ message }: { message: Message }) {
   return (
     <div className="flex justify-end gap-3 group">
       <div className="flex max-w-[80%] flex-col items-end gap-1">
-        <div className="rounded-2xl rounded-br-sm bg-foreground px-4 py-2.5 text-background">
+        <div className="rounded-2xl rounded-br-sm bg-neutral-900 px-4 py-2.5 text-white dark:bg-neutral-100 dark:text-neutral-900">
           <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
             {message.content}
           </p>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground/60 font-[family-name:var(--font-geist-mono)]">
+          <span className="text-[11px] text-neutral-400 font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
           <Button
@@ -60,13 +60,13 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
 
   return (
     <div className="flex justify-start gap-3 group">
-      {/* Avatar — warm oat circle */}
-      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted">
-        <span className="text-[10px] font-bold text-muted-foreground">D</span>
+      {/* Avatar */}
+      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
+        <span className="text-[10px] font-bold text-neutral-600 dark:text-neutral-400">D</span>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed">
+        <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
           <Markdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeSanitize]}
@@ -76,19 +76,19 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
                   {...props}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors"
+                  className="text-neutral-900 underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 transition-colors dark:text-neutral-100"
                 />
               ),
               code: ({ ...props }) => (
                 <code
                   {...props}
-                  className="px-1.5 py-0.5 bg-muted rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-foreground"
+                  className="px-1.5 py-0.5 bg-neutral-100 rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200"
                 />
               ),
               pre: ({ ...props }) => (
                 <pre
                   {...props}
-                  className="bg-muted border border-border rounded-md p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)]"
+                  className="bg-neutral-100 border border-neutral-200 rounded-2xl p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)] dark:bg-neutral-800 dark:border-neutral-700"
                 />
               ),
               p: ({ ...props }) => <p {...props} className="mb-2 last:mb-0" />,
@@ -102,7 +102,7 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
         </div>
 
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground/60 font-[family-name:var(--font-geist-mono)]">
+          <span className="text-[11px] text-neutral-400 font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
           {!isStreaming && (
@@ -125,16 +125,44 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
 export function StreamingCursor() {
   return (
     <span className="inline-flex ml-0.5 align-middle animate-pulse">
-      <span className="w-0.5 h-[1em] bg-foreground" />
+      <span className="w-0.5 h-[1em] bg-neutral-900 dark:bg-neutral-100" />
     </span>
   );
 }
 
 const CAPABILITIES = [
-  { icon: BookOpen,  label: "Blog Search", desc: "296+ posts",          prompt: "Search blog posts about ClickHouse", color: "bg-orange-100/50 dark:bg-orange-950/30", iconColor: "text-orange-700 dark:text-orange-400" },
-  { icon: User,      label: "CV",          desc: "Experience & skills",  prompt: "Tell me about Duyet's work experience", color: "bg-purple-100/50 dark:bg-purple-950/30", iconColor: "text-purple-700 dark:text-purple-400" },
-  { icon: GitBranch, label: "GitHub",      desc: "Commits, PRs, issues", prompt: "What has Duyet been working on recently?", color: "bg-blue-100/50 dark:bg-blue-950/30", iconColor: "text-blue-700 dark:text-blue-400" },
-  { icon: BarChart2, label: "Analytics",   desc: "Contact stats",        prompt: "Show me the contact form analytics", color: "bg-amber-100/60 dark:bg-amber-950/30", iconColor: "text-amber-700 dark:text-amber-400" },
+  {
+    icon: BookOpen,
+    label: "Blog Search",
+    desc: "296+ posts on data engineering, cloud, and programming",
+    prompt: "Search blog posts about ClickHouse",
+    color: "bg-orange-100/50 dark:bg-orange-950/30",
+    iconColor: "text-orange-700 dark:text-orange-400",
+  },
+  {
+    icon: User,
+    label: "CV",
+    desc: "Experience, skills, and professional background",
+    prompt: "Tell me about Duyet's work experience",
+    color: "bg-purple-100/50 dark:bg-purple-950/30",
+    iconColor: "text-purple-700 dark:text-purple-400",
+  },
+  {
+    icon: GitBranch,
+    label: "GitHub",
+    desc: "Recent commits, pull requests, and open source contributions",
+    prompt: "What has Duyet been working on recently?",
+    color: "bg-blue-100/50 dark:bg-blue-950/30",
+    iconColor: "text-blue-700 dark:text-blue-400",
+  },
+  {
+    icon: BarChart2,
+    label: "Analytics",
+    desc: "Contact form stats and site performance insights",
+    prompt: "Show me the contact form analytics",
+    color: "bg-amber-100/60 dark:bg-amber-950/30",
+    iconColor: "text-amber-700 dark:text-amber-400",
+  },
 ];
 
 const QUICK_PROMPTS = [
@@ -151,48 +179,57 @@ interface WelcomeMessageProps {
 
 export function WelcomeMessage({ content: _, onPromptSelect }: WelcomeMessageProps) {
   return (
-    <div className="flex flex-col items-center gap-6 py-8 animate-in fade-in duration-500">
-      {/* Identity */}
-      <div className="flex flex-col items-center gap-3 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary">
-          <span className="text-primary-foreground text-lg font-bold font-[family-name:var(--font-serif)]">D</span>
-        </div>
-        <div>
-          <h2 className="text-lg font-bold font-[family-name:var(--font-serif)] tracking-tight text-foreground">@duyetbot</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">Virtual version of Duyet · Ask me anything</p>
-        </div>
+    <div className="py-12 sm:py-16 animate-in fade-in duration-500">
+      {/* Header — about page style */}
+      <div className="mb-12 text-center">
+        <h1 className="mb-4 font-serif text-5xl font-normal text-neutral-900 dark:text-neutral-100 sm:text-6xl">
+          @duyetbot
+        </h1>
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+          Virtual version of Duyet. Ask me about blog posts, career, GitHub
+          activity, or analytics.
+        </p>
       </div>
 
-      {/* Capability cards — 2×2 grid with home-page card colors */}
-      <div className="grid grid-cols-2 gap-2.5 w-full max-w-sm">
+      {/* Capability cards — about page card style */}
+      <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {CAPABILITIES.map(({ icon: Icon, label, desc, prompt, color, iconColor }) => (
           <button
             key={label}
             type="button"
             onClick={() => onPromptSelect?.(prompt)}
-            className={`flex items-start gap-2.5 rounded-3xl px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm hover:scale-[1.02] cursor-pointer text-left border-0 ${color}`}
+            className={`group flex flex-col p-8 ${color} rounded-3xl transition-transform duration-200 hover:scale-[1.02] cursor-pointer text-left border-0`}
           >
-            <Icon className={`h-3.5 w-3.5 mt-0.5 shrink-0 ${iconColor}`} />
-            <div>
-              <p className="text-xs font-semibold text-foreground">{label}</p>
-              <p className="text-[11px] text-foreground/70 mt-0.5">{desc}</p>
+            <div className={`mb-6 ${iconColor}`}>
+              <Icon className="h-10 w-10" strokeWidth={1.5} />
             </div>
+            <h3 className="mb-2 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+              {label}
+            </h3>
+            <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+              {desc}
+            </p>
           </button>
         ))}
       </div>
 
-      {/* Quick-start prompt chips — home-page tag style */}
-      <div className="flex flex-wrap justify-center gap-2 w-full max-w-sm">
-        {QUICK_PROMPTS.map((prompt) => (
-          <button
-            key={prompt}
-            type="button"
-            onClick={() => onPromptSelect?.(prompt)}
-            className="rounded-full bg-muted/70 px-3 py-1 text-[11px] font-medium text-foreground hover:bg-muted transition-colors cursor-pointer dark:bg-muted dark:text-foreground"
-          >
-            {prompt}
-          </button>
-        ))}
+      {/* Quick-start prompts — skills section style */}
+      <div className="rounded-3xl bg-stone-100/70 px-8 py-6 dark:bg-neutral-800/50">
+        <h2 className="mb-4 font-serif text-xl font-normal text-neutral-900 dark:text-neutral-100">
+          Quick starts
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          {QUICK_PROMPTS.map((prompt) => (
+            <button
+              key={prompt}
+              type="button"
+              onClick={() => onPromptSelect?.(prompt)}
+              className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100 cursor-pointer dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            >
+              {prompt}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

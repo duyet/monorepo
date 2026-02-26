@@ -4,6 +4,7 @@ import "./globals.css";
 import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
+import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { agentsConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
@@ -50,6 +51,10 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
+          <Header
+            longText={agentsConfig.header.longText}
+            shortText={agentsConfig.header.shortText}
+          />
           {children}
           <Footer />
           <Analytics />
