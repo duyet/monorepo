@@ -130,7 +130,8 @@ export function FooterContent({
               <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
                 &copy; {new Date().getFullYear()}{" "}
                 {urls.apps.home.replace(/^https?:\/\//, "")} |{" "}
-                {profile.personal.title}
+                {profile.personal.title} | Built{" "}
+                {new Date().toISOString().split("T")[0]}
               </p>
             </div>
             <div className="mt-5">
