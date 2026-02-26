@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — DeepSeek-AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <description>Large Language Model releases from DeepSeek-AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deepseek-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — DeepSeek-AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    </image>
+  <item>
+    <title>Engram (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Engram-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>partial</category>
+    <description>Parameters: 39.5B
+License: partial
+Type: model
+39.5BA3.8B. &quot;we explore conditional memory as a complementary sparsity axis, instantiated via Engram, a module that modernizes classic N -gram embeddings for O ( 1 ) lookup.&quot;</description>
+  </item>
+  <item>
+    <title>mHC 27B (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mHC%2027B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>closed</category>
+    <description>Parameters: 27B
+License: closed
+Type: model
+27BA4.14B. Scaling tested with 3B MoE on 1T tokens=334:1. &quot;Manifold-Constrained Hyper-Connections (mHC), a general framework that projects the residual connection space of HC onto a specific manifold to restore the identity mapping property, while incorporating rigorous infrastructure optimization to ensure efficiency. Empirical experiments demonstrate that mHC is effective for training at scale, offering tangible performance improvements and superior scalability.&quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.2-Speciale (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.2-Speciale-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+The word &apos;Speciale&apos; may be a reference to Ferrari. &quot;It shows gold-medal performance in the IOI 2025, ICPC World Final 2025, IMO 2025, and CMO 2025.&quot; API: https://api-docs.deepseek.com/news/news251201</description>
+  </item>
+  <item>
+    <title>DeepSeek-Math-V2 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-Math-V2-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+&quot;DeepSeekMath-V2, demonstrates strong theorem-proving capabilities, achieving gold-level scores on IMO 2025 and CMO 2024 and a near-perfect 118/120 on Putnam 2024 with scaled testtime compute. &quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-OCR (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-OCR-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+2D vision tokens for 1D text achieves huge compression. Encoder/Decoder: DeepEncoder 380M (80M SAM-base + 300M CLIP-large), DeepSeek-3B-MoE (A570M).</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.1-Terminus (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.1-Terminus-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+Hybrid reasoning. Dataset tokens: https://x.com/deepseek_ai/status/1958417072536608952 HLE: https://x.com/deepseek_ai/status/1958417068568481854/photo/2</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.1-Base (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.1-Base-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+Hybrid reasoning. Dataset tokens: https://x.com/deepseek_ai/status/1958417072536608952 HLE: https://x.com/deepseek_ai/status/1958417068568481854/photo/2</description>
+  </item>
+  <item>
+    <title>DeepSeek-R1-0528 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-R1-0528-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+Censorship increased significantly. &quot;overall performance is now approaching that of leading models, such as o3 and Gemini 2.5 Pro.&quot; MMLU shows MMLU-Redux score with lower error rate.</description>
+  </item>
+  <item>
+    <title>DeepSeek-GRM-27B (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-GRM-27B-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+Gemma-2-27B base. &quot;Self-Principled Critique Tuning (SPCT) to foster scalable reward generation behaviors in GRMs through online RL, to generate principles adaptively and critiques accurately, resulting in DeepSeek-GRM models... The models will be released and open-sourced.&quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3 0324 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3%200324-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+Non-reasoning. Significant increase in benchmark performance compared to original V3 from Dec/2024: MMLU-Pro: 75.9 ➜ 81.2, GPQA: 59.1 ➜ 68.4. 37B active.</description>
+  </item>
+  <item>
+    <title>DeepSeek-R1 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-R1-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+&quot;DeepSeek-R1 achieves performance comparable to OpenAI-o1 across math, code, and reasoning tasks. To support the research community, we have open-sourced DeepSeek-R1-Zero, DeepSeek-R1, and six dense models distilled from DeepSeek-R1 based on Llama and Qwen. DeepSeek-R1-Distill-Qwen-32B outperforms OpenAI-o1-mini across various benchmarks&quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+37B active. Explain: https://threadreaderapp.com/thread/1872318161883959485.html Announce: https://github.com/deepseek-ai/DeepSeek-V3?tab=readme-ov-file</description>
+  </item>
+  <item>
+    <title>DeepSeek-R1-Lite (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-R1-Lite-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 67B
+License: open
+Type: model
+Scores 0/5 on latest ALPrompt 2024 H2 &quot;DeepSeek-R1-Lite is currently still in the iterative development stage. It currently only supports web usage and does not support API calls. The base model used by DeepSeek-R1-Lite is also a relatively small model, unable to fully unleash the potential of long reasoning chains. At present, we are continuously iterating on the inference series models. In the future, the official DeepSeek-R1 model will be fully open-sourced. We will publicly release the technical report and deploy API services.&quot; https://mp-weixin-qq-com.translate.goog/s/e1YnTxZlzFvjcmrLLTA8fw?_x_tr_sl=zh-CN&amp;_x_tr_tl=en&amp;_x_tr_hl=zh-TW</description>
+  </item>
+  <item>
+    <title>DeepSeek-V2.5 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V2.5-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 236B
+License: open
+Type: model
+&quot;DeepSeek-V2.5 is an upgraded version that combines DeepSeek-V2-Chat and DeepSeek-Coder-V2-Instruct.&quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-Coder-V2 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-Coder-V2-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 236B
+License: open
+Type: model
+DeepSeek-V2 with additional 6 trillion tokens.</description>
+  </item>
+  <item>
+    <title>DeepSeek-V2 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V2-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 236B
+License: open
+Type: model
+Huge dataset, 12% Chinese &quot;Therefore, we acknowledge that DeepSeek-V2 still has a slight gap in basic English capabilities with LLaMA3 70B&quot;.</description>
+  </item>
+  <item>
+    <title>DeepSeek-VL (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-VL-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Vision, based on DeepSeek-LLM-7B</description>
+  </item>
+  <item>
+    <title>DeepSeek-Coder (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-Coder-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 33B
+License: open
+Type: model
+surpasses existing closed-source models like Codex and GPT-3.5... permissive license that allows for both research and unrestricted commercial use.&apos;</description>
+  </item>
+  <item>
+    <title>DeepSeekMoE (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeekMoE-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>closed</category>
+    <description>Parameters: 16B
+License: closed
+Type: model
+MoE activated parameters is 10-15% of dense, so I need to rethink ALScore for MoE. &apos;preliminary efforts to scale up DeepSeekMoE to 145B&apos;</description>
+  </item>
+  <item>
+    <title>DeepSeek (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: 67B
+License: open
+Type: model
+Chinese/English. Outperforms Llama 2. MMLU=71.3 outperforms GPT-3.5.</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Barcelona Supercomputing Center Models</title>
+    <link>https://llm-timeline.duyet.net/org/barcelona-supercomputing-center</link>
+    <description>Large Language Model releases from Barcelona Supercomputing Center.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/barcelona-supercomputing-center/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Barcelona Supercomputing Center Models</title>
+      <link>https://llm-timeline.duyet.net/org/barcelona-supercomputing-center</link>
+    </image>
+  <item>
+    <title>Salamandra (Barcelona Supercomputing Center)</title>
+    <link>https://llm-timeline.duyet.net/org/barcelona-supercomputing-center</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Salamandra-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Barcelona Supercomputing Center</category>
+    <category>open</category>
+    <description>Parameters: 40B
+License: open
+Type: model
+&quot;The final [pre-training] dataset is composed of 55.51% FineWeb-Edu, 25.32% Colossal Oscar, 8.38% Wikipedia, 7.17% Aya Collection, and 3.63% StarCoder, totalling 315 billion tokens.&quot;</description>
+  </item>
+  </channel>
+</rss>

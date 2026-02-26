@@ -21,32 +21,32 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSmartDevices } from "@/hooks/useDashboard";
+import { BENTO_CELL, CHART_COLORS } from "@/lib/constants";
 import type { AirQualityLevel } from "@/lib/data";
 
 const AQ_COLORS: Record<AirQualityLevel, string> = {
-  good: "#22c55e",
-  fair: "#eab308",
-  moderate: "#f97316",
-  poor: "#ef4444",
-  "very-poor": "#7c2d12",
+  good: "#8fd4ab",
+  fair: "#f5cc70",
+  moderate: "#ffc9a0",
+  poor: "#ff8585",
+  "very-poor": "#ff8585",
 };
 
 const AQ_BG: Record<AirQualityLevel, string> = {
-  good: "bg-green-100 dark:bg-green-900/30",
-  fair: "bg-yellow-100 dark:bg-yellow-900/30",
-  moderate: "bg-orange-100 dark:bg-orange-900/30",
-  poor: "bg-red-100 dark:bg-red-900/30",
-  "very-poor": "bg-red-200 dark:bg-red-900/50",
+  good: "bg-claude-mint/20 dark:bg-claude-mint/10",
+  fair: "bg-claude-yellow/25 dark:bg-claude-yellow/10",
+  moderate: "bg-claude-peach/30 dark:bg-claude-peach/10",
+  poor: "bg-claude-coral/20 dark:bg-claude-coral/10",
+  "very-poor": "bg-claude-coral/30 dark:bg-claude-coral/15",
 };
 
 const AQ_TEXT: Record<AirQualityLevel, string> = {
-  good: "text-green-700 dark:text-green-400",
-  fair: "text-yellow-700 dark:text-yellow-400",
-  moderate: "text-orange-700 dark:text-orange-400",
-  poor: "text-red-700 dark:text-red-400",
-  "very-poor": "text-red-800 dark:text-red-300",
+  good: "text-claude-mint",
+  fair: "text-claude-yellow",
+  moderate: "text-claude-peach",
+  poor: "text-claude-coral",
+  "very-poor": "text-claude-coral",
 };
 
 const AQ_LABEL: Record<AirQualityLevel, string> = {
@@ -58,8 +58,8 @@ const AQ_LABEL: Record<AirQualityLevel, string> = {
 };
 
 const TOOLTIP_STYLE = {
-  backgroundColor: "rgba(255, 255, 255, 0.95)",
-  border: "1px solid #e5e5e5",
+  backgroundColor: "#FBF7F0",
+  border: "1px solid #E6D9C9",
   borderRadius: "8px",
   fontSize: "12px",
 };
@@ -68,14 +68,14 @@ const STATUS_CONFIG = {
   online: {
     label: "Running",
     badgeClass:
-      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
-    dotClass: "bg-green-500",
+      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    dotClass: "bg-claude-mint",
   },
   idle: {
     label: "Standby",
     badgeClass:
-      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
-    dotClass: "bg-green-500",
+      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    dotClass: "bg-claude-mint",
   },
   offline: {
     label: "Offline",
@@ -91,11 +91,11 @@ const METRIC_CONFIG: Record<
   AqMetric,
   { label: string; color: string; unit: string }
 > = {
-  pm25: { label: "PM2.5", color: "#8b5cf6", unit: "\u00b5g/m\u00b3" },
-  pm10: { label: "PM10", color: "#3b82f6", unit: "\u00b5g/m\u00b3" },
-  voc: { label: "VOC", color: "#10b981", unit: "\u00b5g/m\u00b3" },
-  no2: { label: "NO\u2082", color: "#f59e0b", unit: "\u00b5g/m\u00b3" },
-  hcho: { label: "HCHO", color: "#ef4444", unit: "mg/m\u00b3" },
+  pm25: { label: "PM2.5", color: "#b8b5ff", unit: "\u00b5g/m\u00b3" },
+  pm10: { label: "PM10", color: "#90c8ff", unit: "\u00b5g/m\u00b3" },
+  voc: { label: "VOC", color: "#8fd4ab", unit: "\u00b5g/m\u00b3" },
+  no2: { label: "NO\u2082", color: "#f5cc70", unit: "\u00b5g/m\u00b3" },
+  hcho: { label: "HCHO", color: "#ff8585", unit: "mg/m\u00b3" },
 };
 
 function AirQualityRing({
@@ -124,7 +124,7 @@ function AirQualityRing({
             fill="none"
             stroke="currentColor"
             strokeWidth="6"
-            className="text-neutral-200 dark:text-neutral-700"
+            className="text-claude-tan dark:text-neutral-700"
           />
           <circle
             cx="50"
@@ -151,8 +151,8 @@ function AirQualityRing({
       {/* Temperature & Humidity */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-100 dark:bg-orange-900/20">
-            <Thermometer className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-claude-peach/30 dark:bg-claude-peach/10">
+            <Thermometer className="h-4 w-4 text-claude-orange" />
           </div>
           <div>
             <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
@@ -164,8 +164,8 @@ function AirQualityRing({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/20">
-            <Droplets className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-claude-sky/30 dark:bg-claude-sky/10">
+            <Droplets className="h-4 w-4 text-claude-sky" />
           </div>
           <div>
             <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
@@ -211,28 +211,27 @@ function AirQualityChart() {
   const [activeMetric, setActiveMetric] = useState<AqMetric>("pm25");
 
   const chartData = useMemo(() => {
-    // Show last 24 hours
     return data.history.slice(-24);
   }, [data.history]);
 
   const config = METRIC_CONFIG[activeMetric];
 
   return (
-    <Card>
-      <CardHeader>
+    <div className={`${BENTO_CELL} md:col-span-2 lg:col-span-2`}>
+      <div className="mb-4 space-y-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
-            <Gauge className="h-4 w-4 text-purple-500" />
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+            <Gauge className="h-4 w-4 text-claude-lavender" />
             Air Quality History
-          </CardTitle>
+          </h4>
           <span className="text-xs text-neutral-500 dark:text-neutral-400">
             Last 24h
           </span>
         </div>
-        {/* Metric Tabs */}
-        <div className="flex flex-wrap gap-1 pt-1">
+        <div className="flex flex-wrap gap-1">
           {(Object.keys(METRIC_CONFIG) as AqMetric[]).map((key) => (
             <button
+              type="button"
               key={key}
               onClick={() => setActiveMetric(key)}
               className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
@@ -245,71 +244,69 @@ function AirQualityChart() {
             </button>
           ))}
         </div>
-      </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={200}>
-          <AreaChart data={chartData}>
-            <defs>
-              <linearGradient
-                id={`gradient-${activeMetric}`}
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop offset="5%" stopColor={config.color} stopOpacity={0.3} />
-                <stop offset="95%" stopColor={config.color} stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              opacity={0.15}
-              vertical={false}
-            />
-            <XAxis
-              dataKey="time"
-              tick={{ fontSize: 10 }}
-              stroke="currentColor"
-              opacity={0.4}
-              axisLine={false}
-              tickLine={false}
-              interval={3}
-            />
-            <YAxis
-              tick={{ fontSize: 10 }}
-              stroke="currentColor"
-              opacity={0.4}
-              axisLine={false}
-              tickLine={false}
-              width={35}
-              label={{
-                value: config.unit,
-                angle: -90,
-                position: "insideLeft",
-                fontSize: 9,
-                opacity: 0.4,
-              }}
-            />
-            <Tooltip
-              contentStyle={TOOLTIP_STYLE}
-              formatter={(v: number | undefined) => [
-                `${v ?? 0} ${config.unit}`,
-                config.label,
-              ]}
-            />
-            <Area
-              type="monotone"
-              dataKey={activeMetric}
-              stroke={config.color}
-              strokeWidth={2}
-              fill={`url(#gradient-${activeMetric})`}
-              dot={false}
-              activeDot={{ r: 4, strokeWidth: 2 }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
+      </div>
+      <ResponsiveContainer width="100%" height={200}>
+        <AreaChart data={chartData}>
+          <defs>
+            <linearGradient
+              id={`gradient-${activeMetric}`}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop offset="5%" stopColor={config.color} stopOpacity={0.3} />
+              <stop offset="95%" stopColor={config.color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid
+            strokeDasharray="3 3"
+            opacity={0.15}
+            vertical={false}
+          />
+          <XAxis
+            dataKey="time"
+            tick={{ fontSize: 10 }}
+            stroke="currentColor"
+            opacity={0.4}
+            axisLine={false}
+            tickLine={false}
+            interval={3}
+          />
+          <YAxis
+            tick={{ fontSize: 10 }}
+            stroke="currentColor"
+            opacity={0.4}
+            axisLine={false}
+            tickLine={false}
+            width={35}
+            label={{
+              value: config.unit,
+              angle: -90,
+              position: "insideLeft",
+              fontSize: 9,
+              opacity: 0.4,
+            }}
+          />
+          <Tooltip
+            contentStyle={TOOLTIP_STYLE}
+            formatter={(v: number | undefined) => [
+              `${v ?? 0} ${config.unit}`,
+              config.label,
+            ]}
+          />
+          <Area
+            type="monotone"
+            dataKey={activeMetric}
+            stroke={config.color}
+            strokeWidth={2}
+            fill={`url(#gradient-${activeMetric})`}
+            dot={false}
+            activeDot={{ r: 4, strokeWidth: 2 }}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
@@ -321,249 +318,235 @@ function TemperatureHumidityChart() {
   }, [data.history]);
 
   return (
-    <Card>
-      <CardHeader>
+    <div className={`${BENTO_CELL} md:col-span-2 lg:col-span-2`}>
+      <div className="mb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
-            <Thermometer className="h-4 w-4 text-orange-500" />
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+            <Thermometer className="h-4 w-4 text-claude-orange" />
             Temperature & Humidity
-          </CardTitle>
+          </h4>
           <span className="text-xs text-neutral-500 dark:text-neutral-400">
             Last 24h
           </span>
         </div>
-      </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={200}>
-          <LineChart data={chartData}>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              opacity={0.15}
-              vertical={false}
-            />
-            <XAxis
-              dataKey="time"
-              tick={{ fontSize: 10 }}
-              stroke="currentColor"
-              opacity={0.4}
-              axisLine={false}
-              tickLine={false}
-              interval={3}
-            />
-            <YAxis
-              yAxisId="temp"
-              tick={{ fontSize: 10 }}
-              stroke="currentColor"
-              opacity={0.4}
-              axisLine={false}
-              tickLine={false}
-              width={30}
-              domain={["auto", "auto"]}
-              label={{
-                value: "°C",
-                angle: -90,
-                position: "insideLeft",
-                fontSize: 9,
-                opacity: 0.4,
-              }}
-            />
-            <YAxis
-              yAxisId="humidity"
-              orientation="right"
-              tick={{ fontSize: 10 }}
-              stroke="currentColor"
-              opacity={0.4}
-              axisLine={false}
-              tickLine={false}
-              width={30}
-              domain={["auto", "auto"]}
-              label={{
-                value: "%",
-                angle: 90,
-                position: "insideRight",
-                fontSize: 9,
-                opacity: 0.4,
-              }}
-            />
-            <Tooltip
-              contentStyle={TOOLTIP_STYLE}
-              formatter={(v: number | undefined, name?: string) => [
-                `${v ?? 0}${name === "temperature" ? "°C" : "%"}`,
-                name === "temperature" ? "Temperature" : "Humidity",
-              ]}
-            />
-            <Line
-              yAxisId="temp"
-              type="monotone"
-              dataKey="temperature"
-              stroke="#f97316"
-              strokeWidth={2}
-              dot={false}
-              activeDot={{ r: 4, strokeWidth: 2 }}
-            />
-            <Line
-              yAxisId="humidity"
-              type="monotone"
-              dataKey="humidity"
-              stroke="#3b82f6"
-              strokeWidth={2}
-              dot={false}
-              strokeDasharray="4 2"
-              activeDot={{ r: 4, strokeWidth: 2 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-        <div className="mt-2 flex items-center justify-center gap-6 text-xs text-neutral-500 dark:text-neutral-400">
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-0.5 w-4 rounded bg-orange-500" />
-            Temperature
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-0.5 w-4 rounded border-b border-dashed border-blue-500 bg-transparent" />
-            Humidity
-          </span>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={chartData}>
+          <CartesianGrid
+            yAxisId="temp"
+            strokeDasharray="3 3"
+            opacity={0.15}
+            vertical={false}
+          />
+          <XAxis
+            dataKey="time"
+            tick={{ fontSize: 10 }}
+            stroke="currentColor"
+            opacity={0.4}
+            axisLine={false}
+            tickLine={false}
+            interval={3}
+          />
+          <YAxis
+            yAxisId="temp"
+            tick={{ fontSize: 10 }}
+            stroke="currentColor"
+            opacity={0.4}
+            axisLine={false}
+            tickLine={false}
+            width={30}
+            domain={["auto", "auto"]}
+            label={{
+              value: "°C",
+              angle: -90,
+              position: "insideLeft",
+              fontSize: 9,
+              opacity: 0.4,
+            }}
+          />
+          <YAxis
+            yAxisId="humidity"
+            orientation="right"
+            tick={{ fontSize: 10 }}
+            stroke="currentColor"
+            opacity={0.4}
+            axisLine={false}
+            tickLine={false}
+            width={30}
+            domain={["auto", "auto"]}
+            label={{
+              value: "%",
+              angle: 90,
+              position: "insideRight",
+              fontSize: 9,
+              opacity: 0.4,
+            }}
+          />
+          <Tooltip
+            contentStyle={TOOLTIP_STYLE}
+            formatter={(v: number | undefined, name?: string) => [
+              `${v ?? 0}${name === "temperature" ? "°C" : "%"}`,
+              name === "temperature" ? "Temperature" : "Humidity",
+            ]}
+          />
+          <Line
+            yAxisId="temp"
+            type="monotone"
+            dataKey="temperature"
+            stroke={CHART_COLORS.CLAUDE_ORANGE}
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 4, strokeWidth: 2 }}
+          />
+          <Line
+            yAxisId="humidity"
+            type="monotone"
+            dataKey="humidity"
+            stroke={CHART_COLORS.CLAUDE_SKY}
+            strokeWidth={2}
+            dot={false}
+            strokeDasharray="4 2"
+            activeDot={{ r: 4, strokeWidth: 2 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+      <div className="mt-2 flex items-center justify-center gap-6 text-xs text-neutral-500 dark:text-neutral-400">
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-0.5 w-4 rounded bg-claude-orange" />
+          Temperature
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-0.5 w-4 rounded border-b border-dashed border-claude-sky bg-transparent" />
+          Humidity
+        </span>
+      </div>
+    </div>
   );
 }
 
-function FilterStatusCard() {
+function FilterStatus() {
   const { dysonAirPurifier: data } = useSmartDevices();
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm">
-          <Wind className="h-4 w-4 text-purple-500" />
-          Filter Life
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {data.filters.map((filter) => {
-            const isLow = filter.remainingPercent <= 20;
+    <div className={BENTO_CELL}>
+      <h4 className="mb-4 flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+        <Wind className="h-4 w-4 text-claude-lavender" />
+        Filter Life
+      </h4>
+      <div className="space-y-4">
+        {data.filters.map((filter) => {
+          const isLow = filter.remainingPercent <= 20;
 
-            return (
-              <div key={filter.name} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                    {filter.name}
-                  </span>
-                  <span
-                    className={`text-sm font-bold ${
-                      isLow
-                        ? "text-red-600 dark:text-red-400"
-                        : "text-neutral-900 dark:text-neutral-100"
-                    }`}
-                  >
-                    {filter.remainingPercent}%
-                  </span>
-                </div>
-                {/* Progress bar */}
-                <div className="h-3 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700">
-                  <div
-                    className={`h-full rounded-full transition-all ${
-                      isLow
-                        ? "bg-gradient-to-r from-red-500 to-red-400"
-                        : "bg-gradient-to-r from-purple-500 to-purple-400"
-                    }`}
-                    style={{ width: `${filter.remainingPercent}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-                  <span>
-                    ~{filter.remainingMonths} month
-                    {filter.remainingMonths !== 1 ? "s" : ""} remaining
-                  </span>
-                  {isLow && (
-                    <span className="flex items-center gap-1 text-red-600 dark:text-red-400">
-                      <AlertTriangle className="h-3 w-3" />
-                      Replace soon
-                    </span>
-                  )}
-                </div>
+          return (
+            <div key={filter.name} className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  {filter.name}
+                </span>
+                <span
+                  className={`text-sm font-bold ${
+                    isLow
+                      ? "text-claude-coral"
+                      : "text-neutral-900 dark:text-neutral-100"
+                  }`}
+                >
+                  {filter.remainingPercent}%
+                </span>
               </div>
-            );
-          })}
-        </div>
-      </CardContent>
-    </Card>
+              <div className="h-3 w-full overflow-hidden rounded-full bg-claude-tan/50 dark:bg-neutral-700">
+                <div
+                  className={`h-full rounded-full transition-all ${
+                    isLow
+                      ? "bg-claude-coral"
+                      : "bg-claude-lavender"
+                  }`}
+                  style={{ width: `${filter.remainingPercent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+                <span>
+                  ~{filter.remainingMonths} month
+                  {filter.remainingMonths !== 1 ? "s" : ""} remaining
+                </span>
+                {isLow && (
+                  <span className="flex items-center gap-1 text-claude-coral">
+                    <AlertTriangle className="h-3 w-3" />
+                    Replace soon
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
-function AirQualityReportCard() {
+function AirQualityReport() {
   const { dysonAirPurifier: data } = useSmartDevices();
   const { report } = data;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm">
-          <Gauge className="h-4 w-4 text-blue-500" />
-          Indoor Air Quality Report
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {/* Trend vs last month */}
-          <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-800/50">
-            <span className="text-xs text-neutral-600 dark:text-neutral-400">
-              vs. Last Month
-            </span>
-            <span
-              className={`flex items-center gap-1 text-xs font-semibold ${
-                report.comparedToLastMonth === "improved"
-                  ? "text-green-600 dark:text-green-400"
-                  : report.comparedToLastMonth === "deteriorated"
-                    ? "text-red-600 dark:text-red-400"
-                    : "text-neutral-600 dark:text-neutral-400"
-              }`}
-            >
-              {report.comparedToLastMonth === "improved" ? (
-                <ArrowDownRight className="h-3.5 w-3.5" />
-              ) : report.comparedToLastMonth === "deteriorated" ? (
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              ) : null}
-              {report.comparedToLastMonth.charAt(0).toUpperCase() +
-                report.comparedToLastMonth.slice(1)}
-            </span>
-          </div>
-
-          {/* Highest pollution */}
-          <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-800/50">
-            <span className="text-xs text-neutral-600 dark:text-neutral-400">
-              Highest Pollution
-            </span>
-            <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
-              {report.highestPollutionDate}
-            </span>
-          </div>
-
-          {/* AQI Rating */}
-          <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-800/50">
-            <span className="text-xs text-neutral-600 dark:text-neutral-400">
-              AQI Rating
-            </span>
-            <span
-              className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${AQ_BG[report.aqiRating]} ${AQ_TEXT[report.aqiRating]}`}
-            >
-              {AQ_LABEL[report.aqiRating]}
-            </span>
-          </div>
-
-          {/* Dominant Pollutant */}
-          <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-800/50">
-            <span className="text-xs text-neutral-600 dark:text-neutral-400">
-              Dominant Pollutant
-            </span>
-            <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-              {report.dominantPollutant}
-            </span>
-          </div>
+    <div className={BENTO_CELL}>
+      <h4 className="mb-4 flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+        <Gauge className="h-4 w-4 text-claude-sky" />
+        Indoor Air Quality Report
+      </h4>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
+          <span className="text-xs text-neutral-600 dark:text-neutral-400">
+            vs. Last Month
+          </span>
+          <span
+            className={`flex items-center gap-1 text-xs font-semibold ${
+              report.comparedToLastMonth === "improved"
+                ? "text-claude-mint"
+                : report.comparedToLastMonth === "deteriorated"
+                  ? "text-claude-coral"
+                  : "text-neutral-600 dark:text-neutral-400"
+            }`}
+          >
+            {report.comparedToLastMonth === "improved" ? (
+              <ArrowDownRight className="h-3.5 w-3.5" />
+            ) : report.comparedToLastMonth === "deteriorated" ? (
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            ) : null}
+            {report.comparedToLastMonth.charAt(0).toUpperCase() +
+              report.comparedToLastMonth.slice(1)}
+          </span>
         </div>
-      </CardContent>
-    </Card>
+
+        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
+          <span className="text-xs text-neutral-600 dark:text-neutral-400">
+            Highest Pollution
+          </span>
+          <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
+            {report.highestPollutionDate}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
+          <span className="text-xs text-neutral-600 dark:text-neutral-400">
+            AQI Rating
+          </span>
+          <span
+            className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${AQ_BG[report.aqiRating]} ${AQ_TEXT[report.aqiRating]}`}
+          >
+            {AQ_LABEL[report.aqiRating]}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
+          <span className="text-xs text-neutral-600 dark:text-neutral-400">
+            Dominant Pollutant
+          </span>
+          <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+            {report.dominantPollutant}
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -572,11 +555,11 @@ export function DysonAirPurifier() {
   const statusConfig = STATUS_CONFIG[data.status];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Device Header */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-900/30">
-          <Wind className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender/25 dark:bg-claude-lavender/10">
+          <Wind className="h-5 w-5 text-claude-lavender" />
         </div>
         <div>
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -596,9 +579,10 @@ export function DysonAirPurifier() {
         </span>
       </div>
 
-      {/* Air Quality Status + Pollutants */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-100 to-emerald-50 p-6 dark:border-emerald-700/20 dark:from-emerald-900/25 dark:to-emerald-950/10">
+      {/* Bento Grid */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* Air Quality Status */}
+        <div className={BENTO_CELL}>
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">
             Current Air Quality
           </p>
@@ -608,24 +592,26 @@ export function DysonAirPurifier() {
             humidity={data.currentHumidity}
           />
         </div>
-        <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-br from-violet-100 to-violet-50 p-6 dark:border-violet-700/20 dark:from-violet-900/25 dark:to-violet-950/10">
+
+        {/* Pollutant Levels */}
+        <div className={`${BENTO_CELL} lg:col-span-2`}>
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">
             Pollutant Levels
           </p>
           <PollutantGrid />
         </div>
-      </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Air Quality History Chart — spans 2 cols */}
         <AirQualityChart />
-        <TemperatureHumidityChart />
-      </div>
 
-      {/* Report + Filter Status */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <AirQualityReportCard />
-        <FilterStatusCard />
+        {/* Indoor Air Quality Report — 1 col */}
+        <AirQualityReport />
+
+        {/* Filter Life — 1 col */}
+        <FilterStatus />
+
+        {/* Temperature & Humidity Chart — spans 2 cols */}
+        <TemperatureHumidityChart />
       </div>
     </div>
   );

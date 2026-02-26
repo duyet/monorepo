@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — JHU Models</title>
+    <link>https://llm-timeline.duyet.net/org/jhu</link>
+    <description>Large Language Model releases from JHU.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/jhu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — JHU Models</title>
+      <link>https://llm-timeline.duyet.net/org/jhu</link>
+    </image>
+  <item>
+    <title>mmBERT (JHU)</title>
+    <link>https://llm-timeline.duyet.net/org/jhu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mmBERT-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>JHU</category>
+    <category>open</category>
+    <description>Parameters: 0.307B
+License: open
+Type: model
+&quot;a modern multilingual encoder trained on 3T tokens and 1833 languages. We introduce several novel elements in training: an inverse masking schedule and a cascading annealed language learning schedule for multilingual data&quot; Announce: https://huggingface.co/blog/mmbert</description>
+  </item>
+  </channel>
+</rss>

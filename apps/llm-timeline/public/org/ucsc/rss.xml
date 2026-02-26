@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UCSC Models</title>
+    <link>https://llm-timeline.duyet.net/org/ucsc</link>
+    <description>Large Language Model releases from UCSC.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ucsc/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — UCSC Models</title>
+      <link>https://llm-timeline.duyet.net/org/ucsc</link>
+    </image>
+  <item>
+    <title>MatMul-Free LM (UCSC)</title>
+    <link>https://llm-timeline.duyet.net/org/ucsc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MatMul-Free%20LM-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>UCSC</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+&quot;we explore alternative methods for mixing tokens without relying on matrix multiplications.&quot; Compared with Transformer++ based on Llama-2, not to be confused with the pre-GPT-3 American Express Transformer++ paper from 2/Mar/2020. Instead, Transformer++ is defined in the Mamba paper: &apos;Transformer++: A Transformer with an improved architecture, namely rotary positional encodings (Su et al. 2021) and SwiGLU MLP (Shazeer 2020)&apos;</description>
+  </item>
+  </channel>
+</rss>

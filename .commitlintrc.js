@@ -28,6 +28,8 @@ module.exports = {
         "lib",
         // Agent-related changes
         "agents",
+        // LLM Timeline app
+        "llm-timeline",
       ],
     ],
     "scope-empty": [1, "never"],

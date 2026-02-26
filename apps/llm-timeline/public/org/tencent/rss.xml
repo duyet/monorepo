@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tencent Models</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <description>Large Language Model releases from Tencent.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tencent/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Tencent Models</title>
+      <link>https://llm-timeline.duyet.net/org/tencent</link>
+    </image>
+  <item>
+    <title>WeDLM (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WeDLM-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+Project page: https://wedlm.github.io/ &quot;WeDLM, a diffusion decoding framework built entirely on standard causal attention to make parallel generation prefix-cache friendly. The core idea is to let each masked position condition on all currently observed tokens while keeping a strict causal mask, achieved by Topological Reordering that moves observed tokens to the physical prefix while preserving their logical positions.. We instantiate WeDLM on both Qwen2.5-7B and Qwen3-8B, utilizing 100B tokens for continued training and 10B tokens for SFT.&quot;</description>
+  </item>
+  <item>
+    <title>HY 2.0 (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HY%202.0-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 406B
+License: open
+Type: model
+406BA32B.</description>
+  </item>
+  <item>
+    <title>GeoVista (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GeoVista-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Base model: Qwen2.5-VL-7B-Instruct. &quot;GeoVista, an agentic model that seamlessly integrates tool invocation within the reasoning loop, including an image-zoom-in tool to magnify regions of interest and a web-search tool to retrieve related web information. &quot; Project page: https://ekonwang.github.io/geo-vista/</description>
+  </item>
+  <item>
+    <title>Hunyuan-A13B (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hunyuan-A13B-2025-06-01</guid>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 80B
+License: open
+Type: model
+80B-A13B. &apos;We have open-sourced Hunyuan-A13B-Pretrain , Hunyuan-A13B-Instruct , Hunyuan-A13B-Instruct-FP8 , Hunyuan-A13B-Instruct-GPTQ-Int4 on Hugging Face.&apos;</description>
+  </item>
+  <item>
+    <title>Hunyuan T1 (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hunyuan%20T1-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 389B
+License: open
+Type: model
+&quot;Based on Turbo S, by introducing technologies such as long thinking chains, retrieval enhancement and reinforcement learning, Hunyuan also launched the reasoning model T1 with deep thinking. This model has been fully launched on Tencent Yuanbao （ Tencent Hunyuan T1 model is open to all users ） , users can choose Deepseek R1 or Tencent Hunyuan T1 model to answer. The official version of Tencent Hunyuan T1 model will be launched soon, providing API access and other services to the outside world.&quot;</description>
+  </item>
+  <item>
+    <title>Hunyuan Turbo S (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hunyuan%20Turbo%20S-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 389B
+License: open
+Type: model
+Fast thinking (&quot;Instant reply&quot;). &quot;This is also the first time in the industry that the Mamba architecture has been successfully applied losslessly to a very large MoE model.&quot;</description>
+  </item>
+  <item>
+    <title>Hunyuan-Large (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hunyuan-Large-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 389B
+License: open
+Type: model
+Hunyuan-Large is pre-trained on 7T tokens, which contains nearly 1.5T tokens of high-quality and diverse synthetic data.&apos; &apos;389 billion parameters and 52 billion activation parameters, capable of handling up to 256K tokens&apos;</description>
+  </item>
+  <item>
+    <title>FuseLLM (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FuseLLM-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Fusion of Llama-2-7B (2T tok), OpenLLaMA-7B (2T tok), and MPT-7B (1T tok).</description>
+  </item>
+  <item>
+    <title>LLaMA Pro (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA%20Pro-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 8.3B
+License: open
+Type: model
+We pre-train LLAMA PRO’s expanded blocks on 80B tokens using open-source code and math data for 2830 GPU Hours (16 NVIDIA H800 GPUs for about 7 days).</description>
+  </item>
+  <item>
+    <title>Hunyuan (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/org/tencent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hunyuan-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model</description>
+  </item>
+  </channel>
+</rss>

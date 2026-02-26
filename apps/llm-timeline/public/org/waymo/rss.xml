@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Waymo Models</title>
+    <link>https://llm-timeline.duyet.net/org/waymo</link>
+    <description>Large Language Model releases from Waymo.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/waymo/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Waymo Models</title>
+      <link>https://llm-timeline.duyet.net/org/waymo</link>
+    </image>
+  <item>
+    <title>MotionLM (Waymo)</title>
+    <link>https://llm-timeline.duyet.net/org/waymo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MotionLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Waymo</category>
+    <category>closed</category>
+    <description>Parameters: 0.09B
+License: closed
+Type: model
+LLM for autonomous vehicle forecasting. https://youtu.be/jrMMNmN21I8?t=1560</description>
+  </item>
+  </channel>
+</rss>

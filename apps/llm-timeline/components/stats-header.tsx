@@ -1,44 +1,76 @@
-import { Calendar, Building2, Sparkles, LockOpen } from 'lucide-react'
+import { Building2, Sparkles } from 'lucide-react'
+
+type View = 'models' | 'organizations'
 
 interface StatsHeaderProps {
-  total: number
   models: number
-  milestones: number
   organizations: number
-  open: number
+  activeView: View
+  onViewChange: (v: View) => void
 }
 
 export function StatsHeader({
-  total,
   models,
-  milestones,
   organizations,
-  open,
+  activeView,
+  onViewChange,
 }: StatsHeaderProps) {
-  const stats = [
-    { label: 'Total', value: total, icon: Sparkles },
-    { label: 'Models', value: models, icon: Sparkles },
-    { label: 'Milestones', value: milestones, icon: Calendar },
-    { label: 'Organizations', value: organizations, icon: Building2 },
-    { label: 'Open Weights', value: open, icon: LockOpen },
+  const stats: Array<{
+    label: string
+    value: number
+    icon: React.ComponentType<{ className?: string }>
+    view?: View
+  }> = [
+    { label: 'Models', value: models, icon: Sparkles, view: 'models' },
+    { label: 'Organizations', value: organizations, icon: Building2, view: 'organizations' },
   ]
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-      {stats.map(({ label, value, icon: Icon }) => (
-        <div
-          key={label}
-          className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-800"
-        >
-          <Icon className="h-4 w-4 text-neutral-400" />
-          <div>
-            <div className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-              {value}
+    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-2">
+      {stats.map(({ label, value, icon: Icon, view }) => {
+        const isActive = view !== undefined && activeView === view
+        const isClickable = view !== undefined
+
+        return (
+          <div
+            key={label}
+            className="rounded-lg border p-4"
+            style={{
+              borderColor: isActive ? 'var(--accent)' : 'var(--border)',
+              backgroundColor: isActive ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'var(--bg-card)',
+              cursor: isClickable ? 'pointer' : 'default',
+              transition: 'border-color 0.15s, background-color 0.15s',
+            }}
+            onClick={isClickable ? () => onViewChange(view) : undefined}
+            role={isClickable ? 'button' : undefined}
+            tabIndex={isClickable ? 0 : undefined}
+            onKeyDown={
+              isClickable
+                ? (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') onViewChange(view)
+                  }
+                : undefined
+            }
+          >
+            <div
+              className="text-2xl font-semibold"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--text)',
+              }}
+            >
+              {value.toLocaleString()}
             </div>
-            <div className="text-xs text-neutral-500 dark:text-neutral-400">{label}</div>
+            <div
+              className="mt-1 flex items-center gap-1.5 text-xs uppercase tracking-wider"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              <Icon className="h-3 w-3" />
+              {label}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

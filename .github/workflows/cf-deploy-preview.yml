@@ -24,37 +24,63 @@ jobs:
     name: Detect changed apps
     runs-on: ubuntu-latest
     outputs:
+      blog: ${{ steps.filter.outputs.blog }}
+      cv: ${{ steps.filter.outputs.cv }}
+      home: ${{ steps.filter.outputs.home }}
+      homelab: ${{ steps.filter.outputs.homelab }}
+      insights: ${{ steps.filter.outputs.insights }}
+      llm-timeline: ${{ steps.filter.outputs.llm-timeline }}
+      photos: ${{ steps.filter.outputs.photos }}
+      packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 0
+          filters: |
+            blog:
+              - 'apps/blog/**'
+            cv:
+              - 'apps/cv/**'
+            home:
+              - 'apps/home/**'
+            homelab:
+              - 'apps/homelab/**'
+            insights:
+              - 'apps/insights/**'
+            llm-timeline:
+              - 'apps/llm-timeline/**'
+            photos:
+              - 'apps/photos/**'
+            packages:
+              - 'packages/**'
 
       - name: Set deployment matrix
         id: set-matrix
         run: |
-          # Single source of truth: read app registry
-          APPS_JSON=$(cat .github/cf-pages-apps.json)
-          DEPLOY_APPS=()
+          APPS=()
+          PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
 
-          # Diff against PR base branch to catch all changes in the PR
-          git fetch origin ${{ github.base_ref }} --depth=1
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD \
-            2>/dev/null || git diff --name-only HEAD)
-          PACKAGES_CHANGED=false
-          echo "$CHANGED_FILES" | grep -q '^packages/' && PACKAGES_CHANGED=true
-
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
-          echo "Packages changed: $PACKAGES_CHANGED"
-
-          while IFS= read -r entry; do
-            app=$(echo "$entry" | jq -r '.app')
-            if echo "$CHANGED_FILES" | grep -q "^apps/$app/" || \
-               [[ "$PACKAGES_CHANGED" == "true" ]]; then
-              DEPLOY_APPS+=("$entry")
-            fi
-          done < <(echo "$APPS_JSON" | jq -c '.[]')
+          if [[ "${{ steps.filter.outputs.blog }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"blog","project":"duyet-blog","domain":"blog.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.cv }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"cv","project":"duyet-cv","domain":"cv.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.home }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"home","project":"duyet-home","domain":"duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.homelab }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"homelab","project":"duyet-homelab","domain":"homelab.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.insights }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"insights","project":"duyet-insights","domain":"insights.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.photos }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"photos","project":"duyet-photos","domain":"photos.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.llm-timeline }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"llm-timeline","project":"duyet-llm-timeline","domain":"llm-timeline.duyet.net"}')
+          fi
 
           if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then
             echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
@@ -99,6 +125,7 @@ jobs:
           NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
           NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
           NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}

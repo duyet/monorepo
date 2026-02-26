@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Jina AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/jina-ai</link>
+    <description>Large Language Model releases from Jina AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/jina-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Jina AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/jina-ai</link>
+    </image>
+  <item>
+    <title>Reader-LM (Jina AI)</title>
+    <link>https://llm-timeline.duyet.net/org/jina-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reader-LM-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Jina AI</category>
+    <category>open</category>
+    <description>Parameters: 1.54B
+License: open
+Type: model
+HTML-&gt;Markdown. Specialist small model; outperforms GPT-4o general model, does not outperform Gemini Pro 1.5.</description>
+  </item>
+  <item>
+    <title>jina-embeddings-v2 (Jina AI)</title>
+    <link>https://llm-timeline.duyet.net/org/jina-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#jina-embeddings-v2-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Jina AI</category>
+    <category>open</category>
+    <description>Parameters: 0.435B
+License: open
+Type: model
+Alternative to text-embedding-ada-002. Related v1 paper: https://arxiv.org/abs/2307.11224</description>
+  </item>
+  </channel>
+</rss>

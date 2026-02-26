@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — SambaNova Models</title>
+    <link>https://llm-timeline.duyet.net/org/sambanova</link>
+    <description>Large Language Model releases from SambaNova.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sambanova/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — SambaNova Models</title>
+      <link>https://llm-timeline.duyet.net/org/sambanova</link>
+    </image>
+  <item>
+    <title>EvaByte (SambaNova)</title>
+    <link>https://llm-timeline.duyet.net/org/sambanova</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EvaByte-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>SambaNova</category>
+    <category>open</category>
+    <description>Parameters: 6.5B
+License: open
+Type: model
+&quot;efficient byte-level processing at scale... [compared to tokenizer-based LMs:] 5x less training data, excelling in coding tasks, and decoding up to 2x faster. Its token-free design also brings added flexibility, avoiding tokenizer quirks while naturally extending to multimodal applications without any architecture tweaks.&quot;</description>
+  </item>
+  <item>
+    <title>Samba-1 (SambaNova)</title>
+    <link>https://llm-timeline.duyet.net/org/sambanova</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Samba-1-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SambaNova</category>
+    <category>partial</category>
+    <description>Parameters: 1400B
+License: partial
+Type: model
+CoE: Collection of experts: Llama2 7B / 13B / 70B Mistral 7B DeepSeek Coder 1.3B / 6.7B / 33B Falcon 40B DePlot CLIP Llava</description>
+  </item>
+  </channel>
+</rss>

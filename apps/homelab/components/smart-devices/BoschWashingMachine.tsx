@@ -12,13 +12,13 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSmartDevices } from "@/hooks/useDashboard";
+import { BENTO_CELL, CHART_COLORS } from "@/lib/constants";
 import type { ConsumptionData } from "@/lib/data";
 
 const TOOLTIP_STYLE = {
-  backgroundColor: "rgba(255, 255, 255, 0.95)",
-  border: "1px solid #e5e5e5",
+  backgroundColor: "#FBF7F0",
+  border: "1px solid #E6D9C9",
   borderRadius: "8px",
   fontSize: "12px",
 };
@@ -52,9 +52,9 @@ function ComparisonBadge({
     <span
       className={`inline-flex items-center gap-1 text-xs font-medium ${
         isAbove
-          ? "text-red-600 dark:text-red-400"
+          ? "text-claude-coral"
           : isBelow
-            ? "text-green-600 dark:text-green-400"
+            ? "text-claude-mint"
             : "text-neutral-500 dark:text-neutral-400"
       }`}
     >
@@ -118,6 +118,7 @@ function ConsumptionChart({
   consumption,
   colorDefault,
   colorActive,
+  className,
 }: {
   title: string;
   icon: React.ReactNode;
@@ -125,13 +126,13 @@ function ConsumptionChart({
   consumption: ConsumptionData;
   colorDefault: string;
   colorActive: string;
+  className?: string;
 }) {
   const [viewMode, setViewMode] = useState<ViewMode>("month");
   const [selectedBar, setSelectedBar] = useState<string | null>(null);
 
   const chartData = useMemo(() => {
     if (viewMode === "day") {
-      // Show last 30 days
       return consumption.daily.slice(-30).map((d) => ({
         label: d.date,
         value: d.value,
@@ -162,20 +163,19 @@ function ConsumptionChart({
   const currentAverage =
     viewMode === "month" ? consumption.monthlyAverage : dailyAverage;
 
-  // Reset selection when switching view mode
   const handleViewModeChange = (mode: ViewMode) => {
     setViewMode(mode);
     setSelectedBar(null);
   };
 
   return (
-    <Card>
-      <CardHeader>
+    <div className={`${BENTO_CELL} ${className ?? ""}`}>
+      <div className="mb-4 space-y-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
             {icon}
             {title}
-          </CardTitle>
+          </h4>
           <div className="flex items-center gap-2">
             {selectedEntry && (
               <ComparisonBadge
@@ -194,77 +194,75 @@ function ConsumptionChart({
             </span>
           </p>
         )}
-      </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart
-            data={chartData}
-            onClick={makeBarClickHandler(selectedBar, setSelectedBar)}
+      </div>
+      <ResponsiveContainer width="100%" height={220}>
+        <BarChart
+          data={chartData}
+          onClick={makeBarClickHandler(selectedBar, setSelectedBar)}
+        >
+          <CartesianGrid
+            strokeDasharray="3 3"
+            opacity={0.2}
+            vertical={false}
+          />
+          <XAxis
+            dataKey="label"
+            tick={{ fontSize: viewMode === "day" ? 10 : 12 }}
+            stroke="currentColor"
+            opacity={0.5}
+            axisLine={false}
+            tickLine={false}
+            interval={viewMode === "day" ? 4 : 0}
+          />
+          <YAxis
+            tick={{ fontSize: 12 }}
+            stroke="currentColor"
+            opacity={0.5}
+            axisLine={false}
+            tickLine={false}
+            label={{
+              value: unit,
+              angle: -90,
+              position: "insideLeft",
+              fontSize: 11,
+              opacity: 0.5,
+            }}
+          />
+          <Tooltip
+            contentStyle={TOOLTIP_STYLE}
+            formatter={(v) => formatTooltipValue(v, unit)}
+            cursor={{ fill: "rgba(0,0,0,0.04)" }}
+          />
+          <Bar
+            dataKey="value"
+            radius={[6, 6, 0, 0]}
+            maxBarSize={viewMode === "day" ? 12 : 32}
           >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              opacity={0.2}
-              vertical={false}
-            />
-            <XAxis
-              dataKey="label"
-              tick={{ fontSize: viewMode === "day" ? 10 : 12 }}
-              stroke="currentColor"
-              opacity={0.5}
-              axisLine={false}
-              tickLine={false}
-              interval={viewMode === "day" ? 4 : 0}
-            />
-            <YAxis
-              tick={{ fontSize: 12 }}
-              stroke="currentColor"
-              opacity={0.5}
-              axisLine={false}
-              tickLine={false}
-              label={{
-                value: unit,
-                angle: -90,
-                position: "insideLeft",
-                fontSize: 11,
-                opacity: 0.5,
-              }}
-            />
-            <Tooltip
-              contentStyle={TOOLTIP_STYLE}
-              formatter={(v) => formatTooltipValue(v, unit)}
-              cursor={{ fill: "rgba(0,0,0,0.04)" }}
-            />
-            <Bar
-              dataKey="value"
-              radius={[6, 6, 0, 0]}
-              maxBarSize={viewMode === "day" ? 12 : 32}
-            >
-              {chartData.map((entry) => (
-                <Cell
-                  key={entry.label}
-                  fill={
-                    selectedBar === entry.label ? colorActive : colorDefault
-                  }
-                  opacity={selectedBar && selectedBar !== entry.label ? 0.4 : 1}
-                  className="cursor-pointer"
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-        <div className="mt-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-          <span>
-            {viewMode === "month" ? "Monthly" : "Daily"} avg:{" "}
-            <span className="font-medium">
-              {currentAverage} {unit}
-            </span>
+            {chartData.map((entry) => (
+              <Cell
+                key={entry.label}
+                fill={
+                  selectedBar === entry.label ? colorActive : colorDefault
+                }
+                opacity={selectedBar && selectedBar !== entry.label ? 0.4 : 1}
+                className="cursor-pointer"
+              />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+      <div className="mt-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+        <span>
+          {viewMode === "month" ? "Monthly" : "Daily"} avg:{" "}
+          <span className="font-medium">
+            {currentAverage} {unit}
           </span>
-          <span>
-            {viewMode === "day" ? "Last 30 days" : "Click a bar to compare"}
-          </span>
-        </div>
-      </CardContent>
-    </Card>
+        </span>
+        <span>
+          {viewMode === "day" ? "Last 30 days" : "Click a bar to compare"}
+        </span>
+      </div>
+    </div>
   );
 }
 
@@ -272,14 +270,14 @@ const STATUS_CONFIG = {
   online: {
     label: "Running",
     badgeClass:
-      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
-    dotClass: "bg-green-500",
+      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    dotClass: "bg-claude-mint",
   },
   idle: {
     label: "Idle",
     badgeClass:
-      "bg-claude-mint/30 text-green-700 dark:bg-claude-mint/10 dark:text-green-400",
-    dotClass: "bg-green-500",
+      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    dotClass: "bg-claude-mint",
   },
   offline: {
     label: "Offline",
@@ -294,11 +292,11 @@ export function BoschWashingMachine() {
   const statusConfig = STATUS_CONFIG[data.status];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Device Header */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-900/30">
-          <RefreshCw className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender/25 dark:bg-claude-lavender/10">
+          <RefreshCw className="h-5 w-5 text-claude-lavender" />
         </div>
         <div>
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -318,12 +316,13 @@ export function BoschWashingMachine() {
         </span>
       </div>
 
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-br from-violet-100 to-violet-50 p-5 dark:border-violet-700/20 dark:from-violet-900/25 dark:to-violet-950/10">
+      {/* Bento Grid */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {/* Lifetime Cycles */}
+        <div className="rounded-2xl border border-claude-lavender/30 bg-gradient-to-br from-claude-lavender/25 to-claude-lavender/5 p-5 dark:border-claude-lavender/10 dark:from-claude-lavender/10 dark:to-claude-lavender/5">
           <div className="flex items-center gap-2">
-            <RefreshCw className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-            <p className="text-xs font-medium text-violet-700 dark:text-violet-300">
+            <RefreshCw className="h-4 w-4 text-claude-lavender" />
+            <p className="text-xs font-medium text-claude-lavender">
               Lifetime Cycles
             </p>
           </div>
@@ -335,10 +334,11 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl border border-sky-200/70 bg-gradient-to-br from-sky-100 to-sky-50 p-5 dark:border-sky-700/20 dark:from-sky-900/25 dark:to-sky-950/10">
+        {/* Avg Water / Month */}
+        <div className="rounded-2xl border border-claude-sky/30 bg-gradient-to-br from-claude-sky/25 to-claude-sky/5 p-5 dark:border-claude-sky/10 dark:from-claude-sky/10 dark:to-claude-sky/5">
           <div className="flex items-center gap-2">
-            <Droplets className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-            <p className="text-xs font-medium text-sky-700 dark:text-sky-300">
+            <Droplets className="h-4 w-4 text-claude-sky" />
+            <p className="text-xs font-medium text-claude-sky">
               Avg Water / Month
             </p>
           </div>
@@ -354,10 +354,11 @@ export function BoschWashingMachine() {
           </p>
         </div>
 
-        <div className="rounded-3xl border border-amber-200/70 bg-gradient-to-br from-amber-100 to-amber-50 p-5 dark:border-amber-700/20 dark:from-amber-900/25 dark:to-amber-950/10">
+        {/* Avg Energy / Month */}
+        <div className="rounded-2xl border border-claude-peach/30 bg-gradient-to-br from-claude-peach/25 to-claude-peach/5 p-5 dark:border-claude-peach/10 dark:from-claude-peach/10 dark:to-claude-peach/5">
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-            <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
+            <Zap className="h-4 w-4 text-claude-peach" />
+            <p className="text-xs font-medium text-claude-peach">
               Avg Energy / Month
             </p>
           </div>
@@ -372,25 +373,27 @@ export function BoschWashingMachine() {
             Monthly average
           </p>
         </div>
-      </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Water Consumption Chart — full width */}
         <ConsumptionChart
           title="Water Consumption"
-          icon={<Droplets className="h-4 w-4 text-blue-500" />}
+          icon={<Droplets className="h-4 w-4 text-claude-sky" />}
           unit="L"
           consumption={data.waterConsumption}
-          colorDefault="#b3d9ff"
-          colorActive="#4dabf7"
+          colorDefault={CHART_COLORS.CLAUDE_SKY_LIGHT}
+          colorActive={CHART_COLORS.CLAUDE_SKY}
+          className="md:col-span-3"
         />
+
+        {/* Energy Consumption Chart — full width */}
         <ConsumptionChart
           title="Energy Consumption"
-          icon={<Zap className="h-4 w-4 text-amber-500" />}
+          icon={<Zap className="h-4 w-4 text-claude-peach" />}
           unit="kWh"
           consumption={data.energyConsumption}
-          colorDefault="#f0d9a8"
-          colorActive="#f59f00"
+          colorDefault={CHART_COLORS.CLAUDE_SUNSHINE_LIGHT}
+          colorActive={CHART_COLORS.CLAUDE_ORANGE}
+          className="md:col-span-3"
         />
       </div>
     </div>

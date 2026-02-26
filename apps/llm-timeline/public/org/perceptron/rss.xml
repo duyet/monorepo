@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Perceptron Models</title>
+    <link>https://llm-timeline.duyet.net/org/perceptron</link>
+    <description>Large Language Model releases from Perceptron.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/perceptron/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Perceptron Models</title>
+      <link>https://llm-timeline.duyet.net/org/perceptron</link>
+    </image>
+  <item>
+    <title>Isaac 0.1 (Perceptron)</title>
+    <link>https://llm-timeline.duyet.net/org/perceptron</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Isaac%200.1-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Perceptron</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+&quot;perceptive-language model...delivering capabilities that meet or exceed those of models over 50 times its size. Founded by the team behind Meta&apos;s Chameleon multimodal models, Perceptron is tackling a fundamental challenge: bringing the power of physical AI to the dynamic, multimodal, and real-time environments we live and work in.&quot;</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Cerebras Models</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    <description>Large Language Model releases from Cerebras.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cerebras/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Cerebras Models</title>
+      <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    </image>
+  <item>
+    <title>1T (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#1T-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>closed</category>
+    <description>Parameters: 1000B
+License: closed
+Type: model
+&quot;For Sandia’s trillion parameter training run, Cerebras configured a 55 terabyte MemoryX device.&quot;</description>
+  </item>
+  <item>
+    <title>Sparse Llama 7B (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparse%20Llama%207B-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+https://www.cerebras.net/blog/introducing-sparse-llama-70-smaller-3x-faster-full-accuracy &quot;For the 50% sparse model, we utilized 45 billion tokens of pretraining data, while an additional 100 billion tokens were used for the 70% model. This represents approximately 2% to 8% of the original 2 trillion tokens used to train the base Llama-2 model.&quot;</description>
+  </item>
+  <item>
+    <title>FLOR-6.3B (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLOR-6.3B-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>open</category>
+    <description>Parameters: 6.3B
+License: open
+Type: model
+Spanish, Catalan. Bloom-7.1B (341B tok) + continued pre-training on 140B tok. Trained on Cerebras hardware.</description>
+  </item>
+  <item>
+    <title>BTLM-3B-8K (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BTLM-3B-8K-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+Runs on devices with as little as 3GB of memory [iPhone, Macbook] when quantized to 4-bit</description>
+  </item>
+  <item>
+    <title>Cerebras-GPT (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cerebras-GPT-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+20:1 tokens to parameters as per https://lifearchitect.ai/chinchilla/</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Amazon Models</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <description>Large Language Model releases from Amazon.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/amazon/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Amazon Models</title>
+      <link>https://llm-timeline.duyet.net/org/amazon</link>
+    </image>
+  <item>
+    <title>Nova 2 Pro (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nova%202%20Pro-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+&quot;Nova 2 Pro is Amazon&apos;s most intelligent reasoning model that can process text, images, video, and speech to generate text.&quot;</description>
+  </item>
+  <item>
+    <title>Nova Premier (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nova%20Premier-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 470B
+License: open
+Type: model
+Announce: https://aws.amazon.com/blogs/aws/amazon-nova-premier-our-most-capable-model-for-complex-tasks-and-teacher-for-model-distillation/</description>
+  </item>
+  <item>
+    <title>Nova Pro (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nova%20Pro-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 90B
+License: open
+Type: model
+Multimodal, same performance as Llama 3.2 90B ∴ est 90B. Model card was hidden: https://assets.amazon.science/9f/a3/ae41627f4ab2bde091f1ebc6b830/the-amazon-nova-family-of-models-technical-report-and-model-card.pdf via https://www.amazon.science/publications/the-amazon-nova-family-of-models-technical-report-and-model-card</description>
+  </item>
+  <item>
+    <title>HLAT (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HLAT-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+HLAT=High-quality LLM pre-trained on AWS Trainium. Same arch as Llama 7B. The pre-training is performed up to 64 Amazon EC2 trn1.32xlarge instances with totalling up to 1024 AWS Trainium accelerators. Read more about Trainium: https://www.aboutamazon.com/news/aws/what-you-need-to-know-about-the-aws-ai-chips-powering-amazons-partnership-with-anthropic</description>
+  </item>
+  <item>
+    <title>Titan (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Titan-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+No official information at all. 2nd hand via Jack Clark: https://importai.substack.com/p/import-ai-365-wmd-benchmark-amazon &apos;$65m training run. Specifically, they trained a 200B dense model on 4T tokens of data across 13,760 NVIDIA A100 chips (using 1,720 P4d nodes). It took 48 days to train.&apos;</description>
+  </item>
+  <item>
+    <title>Multimodal-CoT (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multimodal-CoT-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 0.738B
+License: open
+Type: model
+Models &lt;1B with vision CoT</description>
+  </item>
+  <item>
+    <title>AlexaTM 20B (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/org/amazon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlexaTM%2020B-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+Wikipedia and mC4 only. seq2seq</description>
+  </item>
+  </channel>
+</rss>

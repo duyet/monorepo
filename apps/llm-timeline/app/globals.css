@@ -2,18 +2,70 @@
 
 @layer base {
   :root {
-    --font-inter:
-      "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
-      sans-serif;
+    --radius: 0.5rem;
+    --background: oklch(0.98 0.005 120);
+    --foreground: oklch(0.15 0.01 120);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.15 0.01 120);
+    --muted: oklch(0.94 0.005 120);
+    --muted-foreground: oklch(0.45 0.01 120);
+    --accent: oklch(0.94 0.03 70);
+    --accent-foreground: oklch(0.15 0.01 120);
+    --primary: oklch(0.55 0.18 55);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.94 0.005 120);
+    --secondary-foreground: oklch(0.15 0.01 120);
+    --border: oklch(0.88 0.01 120);
+    --input: oklch(0.88 0.01 120);
+    --ring: oklch(0.55 0.18 55);
+    --year-watermark: oklch(from oklch(0.55 0.18 55) / 35%);
+  }
+
+  .dark {
+    --background: oklch(0.15 0.01 120);
+    --foreground: oklch(0.95 0.01 120);
+    --card: oklch(0.20 0.01 120);
+    --card-foreground: oklch(0.95 0.01 120);
+    --muted: oklch(0.18 0.01 120);
+    --muted-foreground: oklch(0.65 0.01 120);
+    --accent: oklch(0.25 0.03 70);
+    --accent-foreground: oklch(0.95 0.01 120);
+    --primary: oklch(0.65 0.18 55);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.18 0.01 120);
+    --secondary-foreground: oklch(0.95 0.01 120);
+    --border: oklch(0.25 0.01 120);
+    --input: oklch(0.25 0.01 120);
+    --ring: oklch(0.65 0.18 55);
+    --year-watermark: oklch(from oklch(0.65 0.18 55) / 30%);
+  }
+
+  @theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-radius: var(--radius);
   }
 
   html {
-    font-family: var(--font-inter);
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
 
   body {
-    background-color: #fbf7f0;
-    color: #1f1f1f;
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
   }
 }
 

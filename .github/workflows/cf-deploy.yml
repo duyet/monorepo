@@ -15,8 +15,17 @@ on:
       app:
         description: 'App to deploy (empty=auto-detect, "all"=all apps, or app name e.g. "blog")'
         required: false
-        type: string
-        default: ''
+        type: choice
+        options:
+          - ''
+          - all
+          - blog
+          - cv
+          - home
+          - homelab
+          - insights
+          - llm-timeline
+          - photos
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -38,39 +47,63 @@ jobs:
         with:
           fetch-depth: 2
 
+      - uses: dorny/paths-filter@v3
+        id: filter
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          filters: |
+            blog:
+              - 'apps/blog/**'
+            cv:
+              - 'apps/cv/**'
+            home:
+              - 'apps/home/**'
+            homelab:
+              - 'apps/homelab/**'
+            insights:
+              - 'apps/insights/**'
+            llm-timeline:
+              - 'apps/llm-timeline/**'
+            photos:
+              - 'apps/photos/**'
+            packages:
+              - 'packages/**'
+
       - name: Set deployment matrix
         id: set-matrix
         run: |
-          # Single source of truth: read app registry
-          APPS_JSON=$(cat .github/cf-pages-apps.json)
+          # App configurations
+          declare -A APPS
+          APPS[blog]='{"app":"blog","project":"duyet-blog","url":"https://blog.duyet.net"}'
+          APPS[cv]='{"app":"cv","project":"duyet-cv","url":"https://cv.duyet.net"}'
+          APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
+          APPS[homelab]='{"app":"homelab","project":"duyet-homelab","url":"https://homelab.duyet.net"}'
+          APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
+          APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
+          APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
+
           DEPLOY_APPS=()
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              # Deploy all registered apps
-              while IFS= read -r entry; do
-                DEPLOY_APPS+=("$entry")
-              done < <(echo "$APPS_JSON" | jq -c '.[]')
+              for app in blog cv home homelab insights llm-timeline photos; do
+                DEPLOY_APPS+=("${APPS[$app]}")
+              done
             elif [[ -n "$INPUT_APP" ]]; then
               # Deploy a specific app by name
               entry=$(echo "$APPS_JSON" | jq -c ".[] | select(.app == \"$INPUT_APP\")")
               [[ -n "$entry" ]] && DEPLOY_APPS+=("$entry")
             fi
           else
-            # Auto-detect: compare HEAD~1 to HEAD (fetch-depth: 2 is set above)
-            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only HEAD)
-            PACKAGES_CHANGED=false
-            echo "$CHANGED_FILES" | grep -q '^packages/' && PACKAGES_CHANGED=true
+            # Auto-detect changes
+            PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
+            FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            echo "Changed files:"
-            echo "$CHANGED_FILES"
-            echo "Packages changed: $PACKAGES_CHANGED"
-
-            while IFS= read -r entry; do
-              app=$(echo "$entry" | jq -r '.app')
-              if echo "$CHANGED_FILES" | grep -q "^apps/$app/" || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-                DEPLOY_APPS+=("$entry")
+            for app in blog cv home homelab insights llm-timeline photos; do
+              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
+              if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+                DEPLOY_APPS+=("${APPS[$app]}")
               fi
             done < <(echo "$APPS_JSON" | jq -c '.[]')
           fi
@@ -177,6 +210,7 @@ jobs:
           NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
           NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
           NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}

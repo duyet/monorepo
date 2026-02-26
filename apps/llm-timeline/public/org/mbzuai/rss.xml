@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — MBZUAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/mbzuai</link>
+    <description>Large Language Model releases from MBZUAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mbzuai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — MBZUAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/mbzuai</link>
+    </image>
+  <item>
+    <title>K2-V2 (MBZUAI)</title>
+    <link>https://llm-timeline.duyet.net/org/mbzuai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2-V2-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>MBZUAI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+8.5x more tokens trained than K2 (1.4T v 12T). Project page: https://ifm.ai/k2/</description>
+  </item>
+  <item>
+    <title>K2-Think (MBZUAI)</title>
+    <link>https://llm-timeline.duyet.net/org/mbzuai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2-Think-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>MBZUAI</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+&quot;Built on the Qwen2.5 base model, our system shows that smaller models can compete at the highest levels by combining advanced post-training and test-time computation techniques. The approach is based on six key technical pillars: Long Chain-of-thought Supervised Finetuning, Reinforcement Learning with Verifiable Rewards (RLVR), Agentic planning prior to reasoning, Test-time Scaling, Speculative Decoding, and Inference-optimized Hardware, all using publicly available open-source datasets.&quot;</description>
+  </item>
+  </channel>
+</rss>

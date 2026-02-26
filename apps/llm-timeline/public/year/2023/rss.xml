@@ -1,0 +1,1790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2023 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <description>Large Language Model releases from 2023.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2023/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — 2023 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2023</link>
+    </image>
+  <item>
+    <title>MACE-MP-0 (Cambridge)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MACE-MP-0-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Cambridge</category>
+    <category>open</category>
+    <description>Parameters: 0.00469B
+License: open
+Type: model
+&quot;Uses 4-body equivariant messages; covers 89 elements; supports fine-tuning for ab initio accuracy with minimal data.&quot;</description>
+  </item>
+  <item>
+    <title>Unified-IO 2 (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unified-IO%202-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+600TB dataset (plus 120+ fine-tuning datasets) includes &apos;1B imagetext pairs, 1T text tokens, 180M video clips, 130M interleaved image &amp; text, 3M 3D assets, and 1M agent trajectories.&apos;</description>
+  </item>
+  <item>
+    <title>WaveCoder-DS-6.7B (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WaveCoder-DS-6.7B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 6.7B
+License: closed
+Type: model
+To obtain WaveCoder models, We choose StarCoder-15B, CodeLLaMa (7B and 13B), DeepseekCoder-6.7B as the base model and fine-tune all the base model for 3 epochs</description>
+  </item>
+  <item>
+    <title>YunShan (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YunShan-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+Finance + law fine-tune of PanGu-π</description>
+  </item>
+  <item>
+    <title>PanGu-Pi (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Pi-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+Dense, named PanGu-π</description>
+  </item>
+  <item>
+    <title>YAYI 2 (Wenge)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YAYI%202-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Wenge</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+Dataset=240TB filtered to 10.6TB for 2.65T tokens</description>
+  </item>
+  <item>
+    <title>Emu2 (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Emu2-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: 37B
+License: open
+Type: model
+VLM. Gemini clone. Outperforms Flamingo 80B. The Pile for text, but only sampled 3.6B tokens (1.4% of the dataset).</description>
+  </item>
+  <item>
+    <title>MedLM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedLM-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>License: partial
+Type: model
+Available to &apos;white-listed&apos; orgs only.</description>
+  </item>
+  <item>
+    <title>SOLAR-10.7B (Upstage AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SOLAR-10.7B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Upstage AI</category>
+    <category>open</category>
+    <description>Parameters: 10.7B
+License: open
+Type: model
+South Korean. Llama-2 arch. SOTA for its size (Dec/2023).</description>
+  </item>
+  <item>
+    <title>DeciLM-7B (Deci)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeciLM-7B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Deci</category>
+    <category>open</category>
+    <description>Parameters: 7.04B
+License: open
+Type: model
+4.4x times faster than Mistral. English only.</description>
+  </item>
+  <item>
+    <title>Mistral-medium (Mistral)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral-medium-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Mistral</category>
+    <category>open</category>
+    <description>Parameters: 180B
+License: open
+Type: model
+MMLU=75.3% (GPT-3.5-turbo 20B=70%, Llama 2 70B=68.9%)</description>
+  </item>
+  <item>
+    <title>mixtral-8x7b-32kseqlen (Mistral)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mixtral-8x7b-32kseqlen-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Mistral</category>
+    <category>open</category>
+    <description>Parameters: 46.7B
+License: open
+Type: model
+MoE=7Bx8, aka mistral-small. &apos;Concretely, Mixtral has 45B total parameters but only uses 12B parameters per token. It, therefore, processes input and generates output at the same speed and for the same cost as a 12B model.&apos;</description>
+  </item>
+  <item>
+    <title>StripedHyena 7B (Together)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StripedHyena%207B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Together</category>
+    <category>open</category>
+    <description>Parameters: 7.65B
+License: open
+Type: model
+RedPajama (C4), new arch beyond just Transformers</description>
+  </item>
+  <item>
+    <title>NexusRaven-V2 13B (Nexusflow.ai)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NexusRaven-V2%2013B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Nexusflow.ai</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+Based on CodeLlama. &apos;surpasses GPT-4 by up to 7% in function calling success rates in human-generated use cases involving nested and composite functions.&apos;</description>
+  </item>
+  <item>
+    <title>Gemini Ultra 1.0 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Ultra%201.0-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 1500B
+License: open
+Type: model
+Original MMLU=83.7. MMLU=90.04 with prompting. Chinchilla (20:1), dense, maybe 600B-2000T. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>Mamba (CMU)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mamba-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>CMU</category>
+    <category>open</category>
+    <description>Parameters: 2.8B
+License: open
+Type: model
+The Pile, new arch beyond just Transformers. 2.7B MMLU=26.2. 7B MMLU=33.3.</description>
+  </item>
+  <item>
+    <title>LVM-3B (Berkeley/JHU)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LVM-3B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Berkeley/JHU</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+Paper is 25MB. First Large Vision Model (LVM); no text. Based on Llama and LAION 5B (1.49B).</description>
+  </item>
+  <item>
+    <title>SeaLLM-13b (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SeaLLM-13b-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Llama 2 for Southeast Asian (SEA) languages: Vietnamese 🇻🇳, Indonesian 🇮🇩, Thai 🇹🇭, Malay 🇲🇾, Khmer🇰🇭, Lao🇱🇦, Tagalog🇵🇭 and Burmese🇲🇲</description>
+  </item>
+  <item>
+    <title>pplx-70b-online (Perplexity)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#pplx-70b-online-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Perplexity</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Web access. Higher &apos;freshness&apos; and &apos;truth&apos; scores.</description>
+  </item>
+  <item>
+    <title>SeamlessM4T-Large v2 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SeamlessM4T-Large%20v2-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 2.3B
+License: open
+Type: model
+Based on NLLB and older models. https://github.com/facebookresearch/seamless_communication</description>
+  </item>
+  <item>
+    <title>Q-Transformer (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Q-Transformer-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+Robotics, builds on RT-1</description>
+  </item>
+  <item>
+    <title>Yuan 2.0 (IEIT)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yuan%202.0-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>IEIT</category>
+    <category>open</category>
+    <description>Parameters: 102.6B
+License: open
+Type: model
+Chinese + EN dataset include The Pile: DM, arxiv, wikipedia, book3, stack exchange, Freelaw and medical</description>
+  </item>
+  <item>
+    <title>MEDITRON (EPFL)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MEDITRON-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>EPFL</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Llama 2 trained on med data using NVIDIA Megatron-LM. &quot;outperforms Llama-2-70B, GPT-3.5 (text-davinci-003, 8-shot), and Flan-PaLM on multiple medical reasoning tasks.&quot;</description>
+  </item>
+  <item>
+    <title>Transformers-Arithmetic (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformers-Arithmetic-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 0.1B
+License: closed
+Type: model
+Proving maths is not memorized. Uses GPT-2-style model. Sébastien Bubeck</description>
+  </item>
+  <item>
+    <title>Starling-7B (Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Starling-7B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Llama 2 7B -&gt; OpenChat 7B -&gt; Starling-7B (RLAIF)</description>
+  </item>
+  <item>
+    <title>Inflection-2 (Inflection AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Inflection-2-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Inflection AI</category>
+    <category>open</category>
+    <description>Parameters: 1200B
+License: open
+Type: model
+“now the 2nd best LLM in the world”. Finished training 19/Nov/2023, waiting for fine-tuning and release.</description>
+  </item>
+  <item>
+    <title>Claude 2.1 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%202.1-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+Less hallucinations, 200k context length, tool use</description>
+  </item>
+  <item>
+    <title>TÜLU 2 (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T%C3%9CLU%202-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Llama 2 finetune with RLHF direct preference optimization (DPO).</description>
+  </item>
+  <item>
+    <title>Nemotron-3 22B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-3%2022B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 22B
+License: open
+Type: model
+8B released, 22B internal.</description>
+  </item>
+  <item>
+    <title>Nemotron-2 43B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-2%2043B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 43B
+License: closed
+Type: model
+Used to train HelpSteer (16/Nov/2023): https://arxiv.org/abs/2311.09528</description>
+  </item>
+  <item>
+    <title>Orca 2 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Orca%202-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>partial</category>
+    <description>Parameters: 13B
+License: partial
+Type: model
+Llama 2 13B (2T) -&gt; Orca 2 (GPT-4 finetune). Still an imitation model, overhyped: The False Promise of Imitating Proprietary LLMs https://arxiv.org/abs/2305.15717</description>
+  </item>
+  <item>
+    <title>Phi-2 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Phi-2-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+https://twitter.com/SebastienBubeck/status/1724854157004190095</description>
+  </item>
+  <item>
+    <title>Florence-2 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Florence-2-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 0.771B
+License: open
+Type: model
+VLM, Flamingo alt</description>
+  </item>
+  <item>
+    <title>Mirasol3B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mirasol3B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+Combiner + autoregressive transformer for video/audio/text</description>
+  </item>
+  <item>
+    <title>OtterHD-8B (NTU)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OtterHD-8B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NTU</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+Evolution of Persimmon-9.3B and Fuyu 8B</description>
+  </item>
+  <item>
+    <title>Gauss (Samsung)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gauss-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Samsung</category>
+    <category>partial</category>
+    <description>Parameters: 7B
+License: partial
+Type: model
+Gauss Language specializing in generating texts, Gauss Code on software and code description and Gauss Image for image creation.</description>
+  </item>
+  <item>
+    <title>Grok-1 (xAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grok-1-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>open</category>
+    <description>Parameters: 314B
+License: open
+Type: model
+Context window=8192. UI: https://twitter.com/TobyPhln/status/1721053802235621734</description>
+  </item>
+  <item>
+    <title>Grok-0 (xAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grok-0-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>closed</category>
+    <description>Parameters: 33B
+License: closed
+Type: model
+Announced Nov/2023, trained Jul/2023</description>
+  </item>
+  <item>
+    <title>Yi-34B (01-ai)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yi-34B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>01-ai</category>
+    <category>open</category>
+    <description>Parameters: 34.4B
+License: open
+Type: model
+Controversy about Llama 2 base. https://twitter.com/kaifulee/status/1724673131875377465 MMLU=76.3 (PaLM 2=78.3) Outperforms Llama 2. Chinese and English. https://www.bloomberg.com/news/articles/2023-11-05/kai-fu-lee-s-open-source-01-ai-bests-llama-2-according-to-hugging-face</description>
+  </item>
+  <item>
+    <title>GPT-4 Turbo (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20Turbo-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+https://openai.com/blog/new-models-and-developer-products-announced-at-devday</description>
+  </item>
+  <item>
+    <title>MatFormer (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MatFormer-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 0.85B
+License: open
+Type: model
+Matryoshka Transformer or MatFormer model architecture. 850M (696M / 620M / 582M). &quot;850M decoder-only MatFormer language model (MatLM) allows us to extract multiple smaller models spanning from 582M to 850M parameters, each exhibiting better validation loss and one-shot downstream evaluations than independently trained counterparts.&quot;</description>
+  </item>
+  <item>
+    <title>Skywork-13B (Kunlun Tech)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skywork-13B-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Kunlun Tech</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+CN + EN.</description>
+  </item>
+  <item>
+    <title>Kimi Chat (Moonshot AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20Chat-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Moonshot AI</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model
+Chinese. Long context. No paper.</description>
+  </item>
+  <item>
+    <title>jina-embeddings-v2 (Jina AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#jina-embeddings-v2-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Jina AI</category>
+    <category>open</category>
+    <description>Parameters: 0.435B
+License: open
+Type: model
+Alternative to text-embedding-ada-002. Related v1 paper: https://arxiv.org/abs/2307.11224</description>
+  </item>
+  <item>
+    <title>Fuyu (Adept)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fuyu-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Adept</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+VLM. 8B available under open licence, Medium size is closed</description>
+  </item>
+  <item>
+    <title>ERNIE 4.0 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%204.0-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 1000B
+License: open
+Type: model
+Dense (confirmed). English-dubbed launch video (2h52m): https://twitter.com/i/broadcasts/1yNGaZaeallJj &amp; https://youtu.be/wYozcsavRuM</description>
+  </item>
+  <item>
+    <title>Zephyr (Hugging Face H4)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zephyr-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Hugging Face H4</category>
+    <category>open</category>
+    <description>Parameters: 7.3B
+License: open
+Type: model
+Mistral with &apos;aligned&apos; data removed from dataset</description>
+  </item>
+  <item>
+    <title>PaLI-3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-3-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 5B
+License: closed
+Type: model
+VLM. Next iteration of PaLI via Pathways. https://lifearchitect.ai/pathways/</description>
+  </item>
+  <item>
+    <title>Retro 48B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Retro%2048B-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 48B
+License: open
+Type: model
+the largest LLM pretrained with retrieval before instruction tuning.&apos;</description>
+  </item>
+  <item>
+    <title>Ferret (Apple)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ferret-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Vicuna base, multimodal</description>
+  </item>
+  <item>
+    <title>Lemur (XLANG Lab)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Lemur-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>XLANG Lab</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+https://arxiv.org/abs/2310.06830</description>
+  </item>
+  <item>
+    <title>AceGPT (KAUST/Shenzhen)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AceGPT-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>KAUST/Shenzhen</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Arabic. Llama 2 + RLAIF</description>
+  </item>
+  <item>
+    <title>Yasa-1 (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yasa-1-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>partial</category>
+    <description>License: partial
+Type: model
+Multi-modal. No public arch info. Researchers from DeepMind, Google, Baidu and Meta building enterprise models</description>
+  </item>
+  <item>
+    <title>RT-X (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-X-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 55B
+License: open
+Type: model
+Robotics using UL2. &apos;RT-1 model trained using the robotic data mixture as RT-1-X, and the RT-2 model trained using the robotic data mixture as RT-2-X.&apos;</description>
+  </item>
+  <item>
+    <title>MotionLM (Waymo)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MotionLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Waymo</category>
+    <category>closed</category>
+    <description>Parameters: 0.09B
+License: closed
+Type: model
+LLM for autonomous vehicle forecasting. https://youtu.be/jrMMNmN21I8?t=1560</description>
+  </item>
+  <item>
+    <title>GAIA-1 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GAIA-1-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>Parameters: 9B
+License: closed
+Type: model
+World model, generates video. Uses T5-large 770M for language + all vision parameters</description>
+  </item>
+  <item>
+    <title>Qwen (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+Chinese. Full name is &apos;Tongyi Qianwen&apos; 通义千问. &apos;Lags behind both GPT-3.5 and GPT-4&apos;. Originally 7B/14B params Apr/2023</description>
+  </item>
+  <item>
+    <title>Llama 2 Long (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%202%20Long-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+Unreleased to date. Context window=32,768 tokens (compare to Llama 2=4096 tokens)</description>
+  </item>
+  <item>
+    <title>LeoLM (Hessian AI/LAION)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LeoLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Hessian AI/LAION</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Llama 2 &apos;extended&apos; and pretrained on 2000B Llama 2 tokens + 65B tokens of German</description>
+  </item>
+  <item>
+    <title>Mistral 7B (Mistral)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%207B-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Mistral</category>
+    <category>open</category>
+    <description>Parameters: 7.3B
+License: open
+Type: model
+Apache 2.0, Sliding Window Attention (SWA) to handle longer sequences at smaller cost</description>
+  </item>
+  <item>
+    <title>Kosmos-2.5 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kosmos-2.5-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Baichuan 2 (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan%202-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Great paper. Chinese-English bilingual dataset</description>
+  </item>
+  <item>
+    <title>BOLT2.5B (ThirdAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BOLT2.5B-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>ThirdAI</category>
+    <category>open</category>
+    <description>Parameters: 2.5B
+License: open
+Type: model
+CPU trained</description>
+  </item>
+  <item>
+    <title>DeciLM (Deci)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeciLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Deci</category>
+    <category>open</category>
+    <description>Parameters: 5.7B
+License: open
+Type: model
+Faster inference (4.8× throughput of Llama 2)</description>
+  </item>
+  <item>
+    <title>MoLM (IBM)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MoLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+ModuleFormer is based on the Sparse Mixture of Experts (MoE).</description>
+  </item>
+  <item>
+    <title>NExT-GPT (Singapore)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NExT-GPT-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Singapore</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Multimodal. Vicuna 7B + other modalities</description>
+  </item>
+  <item>
+    <title>Phi-1.5 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Phi-1.5-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+Textbooks only. 30B-token dataset</description>
+  </item>
+  <item>
+    <title>UniLM (Apple)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UniLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 0.034B
+License: open
+Type: model
+Apple&apos;s Transformer model for iOS 17 + macOS Sonoma. Announce is actually Jun/2023. GPT-2 base? 128 token context window</description>
+  </item>
+  <item>
+    <title>Persimmon-8B (Adept)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Persimmon-8B-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Adept</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+Open Apache license and publicly accessible weights.</description>
+  </item>
+  <item>
+    <title>FLM-101B (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLM-101B-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: 101B
+License: open
+Type: model
+Train for $100k compute budget (on a cluster of 24 DGX-A800 GPU 8×80G servers for 21 days)</description>
+  </item>
+  <item>
+    <title>Falcon 180B (TII)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Falcon%20180B-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>TII</category>
+    <category>open</category>
+    <description>Parameters: 180B
+License: open
+Type: model
+Major milestone for open source models (largest open dense model to date).</description>
+  </item>
+  <item>
+    <title>Hunyuan (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hunyuan-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>phi-CTNL (Independent)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#phi-CTNL-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: 0.1B
+License: open
+Type: model
+Satire. MMLU=100. &apos;phi-CTNL (pronounced “fictional”) that achieves perfect results across diverse academic benchmarks&apos;</description>
+  </item>
+  <item>
+    <title>Granite (IBM)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Granite-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Original trained on 1T tokens, update 15/Feb/2024 trained on 2.5T tokens: granite-13b-chat-v2 (v2.1.0). &quot;At IBM, we curated 6.48TB of data to train our LLM Granite.13B. This was reduced to 2.07 TB after pre-processing, a 68% decrease.&quot;</description>
+  </item>
+  <item>
+    <title>Jais (Inception)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jais-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Inception</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Arabic, trained in Abu Dhabi, UAE using Cerebras.</description>
+  </item>
+  <item>
+    <title>Code Llama 34B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Code%20Llama%2034B-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+Outperforms GPT-3.5. Initial Llama 2 (2T tokens) trained on 500B tokens of code, 100B tokens of python</description>
+  </item>
+  <item>
+    <title>IDEFICS (Hugging Face)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#IDEFICS-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Hugging Face</category>
+    <category>open</category>
+    <description>Parameters: 80B
+License: open
+Type: model
+Clone of Flamingo using Llama-1 65B. Named after Asterix and Obelix&apos;s dog Idefix (Image-aware Decoder Enhanced à la Flamingo with Interleaved Cross-attentionS)</description>
+  </item>
+  <item>
+    <title>Raven (UI/NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Raven-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>UI/NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+RAG Atlas</description>
+  </item>
+  <item>
+    <title>DukunLM (AzaleAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DukunLM-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>AzaleAI</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Indonesian fine-tune of WizardLM (which is a Llama fine-tune).</description>
+  </item>
+  <item>
+    <title>WizardLM (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WizardLM-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Assume Llama-2 fine-tune. Outperforms text-davinci-003. May merge this entry with the Apr/2023 7B release</description>
+  </item>
+  <item>
+    <title>Platypus (Boston University)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Platypus-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Boston University</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Fine-tune of Llama 2, family includes merges with Beluga, Dolphin, and Camel fine-tunes.</description>
+  </item>
+  <item>
+    <title>Japanese StableLM Alpha 7B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Japanese%20StableLM%20Alpha%207B-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Best-performing openly available language model for Japanese speakers.</description>
+  </item>
+  <item>
+    <title>Stable Code 3B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Code%203B-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+Context window=16,384. Trained on The Stack dataset.</description>
+  </item>
+  <item>
+    <title>Med-Flamingo (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Flamingo-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: 8.3B
+License: open
+Type: model
+Uses LAION OpenFlamingo 9B, based on LLaMA-7B text + 1.3B vision</description>
+  </item>
+  <item>
+    <title>Alfred-40B-0723 (LightOn)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Alfred-40B-0723-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>LightOn</category>
+    <category>open</category>
+    <description>Parameters: 40B
+License: open
+Type: model
+First finetuned version of Falcon with RLHF. Enterprise: https://www.lighton.ai/paradigm</description>
+  </item>
+  <item>
+    <title>LLaMA-2-7B-32K (Together)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-2-7B-32K-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Together</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+32k context window instead of 4k (Llama 2)</description>
+  </item>
+  <item>
+    <title>Med-PaLM M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%20M-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+Uses PaLM 1. Already outperformed by Med-PaLM 2. Med-PaLM Multimodal (Med-PaLM M).</description>
+  </item>
+  <item>
+    <title>BTLM-3B-8K (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BTLM-3B-8K-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+Runs on devices with as little as 3GB of memory [iPhone, Macbook] when quantized to 4-bit</description>
+  </item>
+  <item>
+    <title>Stable Beluga 2 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%202-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Fine-tuned Llama 2. Non-commercial use license. Codename was FreeWilly2</description>
+  </item>
+  <item>
+    <title>Stable Beluga 1 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%201-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 65B
+License: open
+Type: model
+Fine-tuned LLaMA-1. Non-commercial use license. Codename was FreeWilly1</description>
+  </item>
+  <item>
+    <title>Meta-Transformer (Shanghai AI Laboratory/CUHK)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Meta-Transformer-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Laboratory/CUHK</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+Proto-AGI. 12 modalities (text, image, point cloud, audio, video, infrared, hyperspectral, X-ray, time-series, tabular, Inertial Measurement Unit (IMU), and graph data).</description>
+  </item>
+  <item>
+    <title>Llama 2 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%202-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Context window=4096. MMLU=68.9 (GPT-3.5=70.0, GPT-4=86.4)</description>
+  </item>
+  <item>
+    <title>WormGPT ((Undisclosed))</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WormGPT-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>(Undisclosed)</category>
+    <category>partial</category>
+    <description>Parameters: 6B
+License: partial
+Type: model
+GPT-J (2021) finetune/module.</description>
+  </item>
+  <item>
+    <title>Claude 2 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%202-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+More HHH, 200k context length</description>
+  </item>
+  <item>
+    <title>LongLLaMA (IDEAS/DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LongLLaMA-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>IDEAS/DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+256k context length</description>
+  </item>
+  <item>
+    <title>xTrimoPGLM (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#xTrimoPGLM-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+Protein language model</description>
+  </item>
+  <item>
+    <title>XGen (Salesforce)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XGen-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Salesforce</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+8K sequence length. Released under Apache-2.0.</description>
+  </item>
+  <item>
+    <title>Zhinao (Intellectual Brain) (360 cn)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zhinao%20(Intellectual%20Brain)-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>360 cn</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Yasa (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yasa-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>partial</category>
+    <description>License: partial
+Type: model
+No public arch info. Researchers from DeepMind, Google, Baidu and Meta building enterprise models</description>
+  </item>
+  <item>
+    <title>Kosmos-2 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kosmos-2-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 1.6B
+License: open
+Type: model
+Proto-AGI. Multimodal large language model (MLLM). a multimodal large language model with grounding capability built upon KOSMOS-1</description>
+  </item>
+  <item>
+    <title>AudioPaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AudioPaLM-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 340B
+License: closed
+Type: model
+a unified multimodal architecture that can process and generate text and speech with applications including speech recognition and speech-to-speech translation</description>
+  </item>
+  <item>
+    <title>Inflection-1 (Inflection AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Inflection-1-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Inflection AI</category>
+    <category>open</category>
+    <description>Parameters: 120B
+License: open
+Type: model
+Comparable with benchmarking results from InternLM 104B, 1-2% better. ‘Inflection-1 was trained using thousands of NVIDIA H100 GPUs on a very large dataset.’</description>
+  </item>
+  <item>
+    <title>Phi-1 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Phi-1-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model
+Code model. ‘breaking existing scaling laws by training a 1.3B-parameter model, which we call phi-1, for roughly 8 passes over 7B tokens (slightly over 50B total tokens seen) followed by finetuning on less than 200M tokens.’</description>
+  </item>
+  <item>
+    <title>InternLM (Shanghai AI Laboratory/SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternLM-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Laboratory/SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 104B
+License: closed
+Type: model
+Outperforms ChatGPT, LLaMA on RACE-h, Chinese + English</description>
+  </item>
+  <item>
+    <title>BlenderBot 3x (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%203x-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+OPT-175B with new dialogue data</description>
+  </item>
+  <item>
+    <title>Orca (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Orca-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>partial</category>
+    <description>Parameters: 13B
+License: partial
+Type: model
+LLaMA -&gt; Vicuna -&gt; Orca (GPT-4 finetune). Still an imitation model, overhyped: The False Promise of Imitating Proprietary LLMs https://arxiv.org/abs/2305.15717</description>
+  </item>
+  <item>
+    <title>PassGPT (ETH Zürich)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PassGPT-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>ETH Zürich</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+GPT-2 trained on leaked passwords</description>
+  </item>
+  <item>
+    <title>DIDACT (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DIDACT-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+Iterative coding model trained on Google&apos;s monorepo. Jacob: https://twitter.com/jacobaustin132/status/1663972128176128002</description>
+  </item>
+  <item>
+    <title>LTM-1 (Magic)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LTM-1-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Magic</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+Context window=5M</description>
+  </item>
+  <item>
+    <title>GPT-4 MathMix (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20MathMix-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 1760B
+License: closed
+Type: model
+Unreleased, includes step by step research</description>
+  </item>
+  <item>
+    <title>PandaGPT (Cambridge/Tencent)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PandaGPT-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Cambridge/Tencent</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Proto-AGI. 6 modalities (text, image/video, audio, depth, thermal, and IMU/accelerometer/gyroscope/compass). Based on Vicuna.</description>
+  </item>
+  <item>
+    <title>Falcon (TII)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Falcon-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>TII</category>
+    <category>open</category>
+    <description>Parameters: 40B
+License: open
+Type: model
+Abu Dhabi</description>
+  </item>
+  <item>
+    <title>202305-refact2b-mqa-lion (Refact)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#202305-refact2b-mqa-lion-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Refact</category>
+    <category>partial</category>
+    <description>Parameters: 1.6B
+License: partial
+Type: model
+LiON vs Adam, code, RedPajama+The Stack</description>
+  </item>
+  <item>
+    <title>Guanaco (UW)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Guanaco-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>UW</category>
+    <category>open</category>
+    <description>Parameters: 65B
+License: open
+Type: model
+LLaMA-65B via QLoRA</description>
+  </item>
+  <item>
+    <title>LIMA (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMA-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 65B
+License: closed
+Type: model
+LLaMA-65B with nearly no fine-tuning, no RLHF</description>
+  </item>
+  <item>
+    <title>Formosa (FFM) (Asus/TWS)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Formosa%20(FFM)-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Asus/TWS</category>
+    <category>partial</category>
+    <description>Parameters: 176B
+License: partial
+Type: model
+BLOOMZ finetune? Chinese, Taiwan&apos;s first LLM. Subscription hardware: https://archive.md/cVdJt</description>
+  </item>
+  <item>
+    <title>CodeT5+ (Salesforce)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeT5%2B-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Salesforce</category>
+    <category>open</category>
+    <description>Parameters: 16B
+License: open
+Type: model
+InstructCodeT5+ 16B sets new SoTA results of 35.0% pass@1 and 54.5% pass@10 against other open code LLMs, even surpassing the closed-source OpenAI code-cushman-001&apos;</description>
+  </item>
+  <item>
+    <title>PaLM 2 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM%202-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 340B
+License: open
+Type: model
+“What we found in our work is that it’s not really the sort of size of model — that the larger is not always better,” Deepmind VP Zoubin Ghahramani said in a press briefing ahead of today’s announcement. “That’s why we’ve provided a family of models of different sizes. We think that actually parameter count is not really a useful way of thinking about the capabilities of models and capabilities are really to be judged by people using the models and finding out whether they’re useful in the tests that they try to achieve with these models.”</description>
+  </item>
+  <item>
+    <title>StarCoder (HF/ServiceNow)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StarCoder-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>HF/ServiceNow</category>
+    <category>open</category>
+    <description>Parameters: 15.5B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>MPT (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPT-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Llongboi&apos; -Apache 2.0 license suitable for commercial use. -Base 7B LLM trained on 1T tokens outperforms LLaMA and GPT3. -64K+ context length. -$200k to train from scratch.</description>
+  </item>
+  <item>
+    <title>Pi (Inflection AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pi-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Inflection AI</category>
+    <category>open</category>
+    <description>Parameters: 60B
+License: open
+Type: model
+No indication of params/tokens. Devs from DeepMind.</description>
+  </item>
+  <item>
+    <title>GPT-2B-001 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2B-001-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+No paper yet</description>
+  </item>
+  <item>
+    <title>Titan (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Titan-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+No official information at all. 2nd hand via Jack Clark: https://importai.substack.com/p/import-ai-365-wmd-benchmark-amazon &apos;$65m training run. Specifically, they trained a 200B dense model on 4T tokens of data across 13,760 NVIDIA A100 chips (using 1,720 P4d nodes). It took 48 days to train.&apos;</description>
+  </item>
+  <item>
+    <title>WizardLM (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WizardLM-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+LLaMA 7B self-instructed fine-tune.</description>
+  </item>
+  <item>
+    <title>MPT (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPT-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+More 1B models coming with different datasets. Many more.</description>
+  </item>
+  <item>
+    <title>StableLM (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 65B
+License: open
+Type: model
+contains 1.5 trillion tokens, roughly 3x the size of The Pile. These models will be trained on up to 1.5 trillion tokens. The context length for these models is 4096 tokens.</description>
+  </item>
+  <item>
+    <title>Dolly 2.0 (Databricks)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dolly%202.0-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Databricks</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+Fine-tuned Pythia 12B</description>
+  </item>
+  <item>
+    <title>Pythia (EleutherAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pythia-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>EleutherAI</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Koala-13B (Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Koala-13B-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+LLaMA base. Academic licence only.</description>
+  </item>
+  <item>
+    <title>C1.2 (Character.ai)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#C1.2-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Character.ai</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+No details released.</description>
+  </item>
+  <item>
+    <title>BloombergGPT (Bloomberg)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BloombergGPT-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Bloomberg</category>
+    <category>closed</category>
+    <description>Parameters: 50B
+License: closed
+Type: model
+Video: https://youtu.be/m2Scj2SO85Y Underperforms GPT-3, based on BLOOM. Tokens: &apos;We select a model size motivated by Hoffmann et al. (2022) and train a 50 billion parameter model on 569 billion tokens from our corpus of over 700 billion tokens to produce a model that is competitive with larger models.&apos;</description>
+  </item>
+  <item>
+    <title>OpenFlamingo-9B (LAION)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenFlamingo-9B-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>LAION</category>
+    <category>open</category>
+    <description>Parameters: 8.3B
+License: open
+Type: model
+Uses LLaMA-7B. Demo: https://7164d2142d11.ngrok.app/</description>
+  </item>
+  <item>
+    <title>GPT4All-LoRa (Nomic)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT4All-LoRa-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Nomic</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+chatbot trained on ~800k GPT-3.5-Turbo Generations based on LLaMa</description>
+  </item>
+  <item>
+    <title>Cerebras-GPT (Cerebras)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cerebras-GPT-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+20:1 tokens to parameters as per https://lifearchitect.ai/chinchilla/</description>
+  </item>
+  <item>
+    <title>PanGu-Sigma (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Sigma-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 1085B
+License: closed
+Type: model
+Sparse. 1.085T parameters named PanGu-Σ.</description>
+  </item>
+  <item>
+    <title>CoLT5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoLT5-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 5.2B
+License: closed
+Type: model
+up to 64k context window [48k words or about 96 pages -Alan]</description>
+  </item>
+  <item>
+    <title>Med-PaLM 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%202-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 340B
+License: closed
+Type: model
+Recently, our next iteration, Med-PaLM 2, consistently performed at an “expert” doctor level on medical exam questions, scoring 85%. This is an 18% improvement from Med-PaLM’s previous performance and far surpasses similar AI models.</description>
+  </item>
+  <item>
+    <title>GPT-4 Classic (gpt-4-0314 &amp; gpt-4-0613, non-Turbo) (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20Classic%20(gpt-4-0314%20%26%20gpt-4-0613%2C%20non-Turbo)-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1760B
+License: open
+Type: model
+Original MMLU=86.4. MMLU=90.1 with prompting. Proto-AGI. 1.76T parameters MoE.</description>
+  </item>
+  <item>
+    <title>Alpaca (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Alpaca-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+Stanford Alpaca: An Instruction-following LLaMA model&apos;</description>
+  </item>
+  <item>
+    <title>Jurassic-2 (AI21)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jurassic-2-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>AI21</category>
+    <category>open</category>
+    <description>Parameters: 178B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GPT-NeoX-Chat-Base-20B (Together)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-NeoX-Chat-Base-20B-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Together</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+instruction-tuned 20 billion parameter language model, a 6 billion parameter moderation model, and an extensible retrieval system for including up-to-date responses from custom repositories. It was trained on the OIG-43M training dataset, which was a collaboration between Together, LAION, and Ontocord.ai. &apos;</description>
+  </item>
+  <item>
+    <title>Kosmos-1 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kosmos-1-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 1.6B
+License: closed
+Type: model
+Proto-AGI. Multimodal large language model (MLLM). Raven’s Progressive Matrices as real images, not digits as in testing of text-davinci-003 at https://lifearchitect.ai/ravens/</description>
+  </item>
+  <item>
+    <title>LLaMA-65B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-65B-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 65B
+License: open
+Type: model
+Researchers only, noncommercial only. &apos;LLaMA-65B is competitive with the best models, Chinchilla70B and PaLM-540B.&apos;</description>
+  </item>
+  <item>
+    <title>MOSS (Fudan University)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MOSS-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Fudan University</category>
+    <category>open</category>
+    <description>Parameters: 16B
+License: open
+Type: model
+Major bandwidth issues: https://www.reuters.com/technology/china-fudan-university-team-apologises-after-chatgpt-style-platform-crashes-2023-02-21/</description>
+  </item>
+  <item>
+    <title>Palmyra (Writer)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Palmyra-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Writer</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+Only up to 5B available open-source &apos;trained on over 300 billion tokens of text data, and the size of the resulting model is over 20 billion parameters. &apos; https://writer.com/product/cowrite/</description>
+  </item>
+  <item>
+    <title>Luminous Supreme Control (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous%20Supreme%20Control-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+‘Control’ means instruction tuned</description>
+  </item>
+  <item>
+    <title>Toolformer+Atlas 11B+NLLB 54B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Toolformer%2BAtlas%2011B%2BNLLB%2054B-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 6.7B
+License: closed
+Type: model
+Based on GPT-J 6.7B + access to other models via API</description>
+  </item>
+  <item>
+    <title>Multimodal-CoT (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multimodal-CoT-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: 0.738B
+License: open
+Type: model
+Models &lt;1B with vision CoT</description>
+  </item>
+  <item>
+    <title>FLAME (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2023</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAME-2023-01-01</guid>
+    <pubDate>Sun, 01 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 0.06B
+License: closed
+Type: model
+T5 for Excel formulas, very small 60M params, &quot;We start from a dataset of 927M formulas&quot; estimate 10x multiplier for 9B tokens</description>
+  </item>
+  </channel>
+</rss>

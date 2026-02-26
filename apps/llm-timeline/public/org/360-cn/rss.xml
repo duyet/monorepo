@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 360 cn Models</title>
+    <link>https://llm-timeline.duyet.net/org/360-cn</link>
+    <description>Large Language Model releases from 360 cn.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/360-cn/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — 360 cn Models</title>
+      <link>https://llm-timeline.duyet.net/org/360-cn</link>
+    </image>
+  <item>
+    <title>Zhinao (Intellectual Brain) (360 cn)</title>
+    <link>https://llm-timeline.duyet.net/org/360-cn</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zhinao%20(Intellectual%20Brain)-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>360 cn</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model</description>
+  </item>
+  </channel>
+</rss>

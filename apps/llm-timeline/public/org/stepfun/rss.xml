@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — StepFun Models</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <description>Large Language Model releases from StepFun.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stepfun/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — StepFun Models</title>
+      <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    </image>
+  <item>
+    <title>Step 3.5 Flash (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step%203.5%20Flash-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: 196B
+License: open
+Type: model
+196B-A11B.</description>
+  </item>
+  <item>
+    <title>Step 3 (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step%203-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: 321B
+License: open
+Type: model
+321B-A38B. https://x.com/CyouSakura/status/1948767450751009227</description>
+  </item>
+  <item>
+    <title>Step-2 (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-2-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: 1000B
+License: open
+Type: model
+Launched early Jul/2024: https://pandaily.com/stepfun-releases-three-large-models-of-the-step-series/ &quot;StepFun, founded in April 2023 with the mission to “Scale-up possibilities for everyone,” unites top talent in artificial intelligence from both domestic and international backgrounds, and is dedicated to advancing toward AGI. The company has already launched the Step series of foundation models, which includes Step-2, a cutting-edge trillion-parameter Mixture of Experts (MoE) language model; Step-1.5V, a powerful multimodal large model; and Step-1V, an innovative image generation model, among others.&quot;</description>
+  </item>
+  </channel>
+</rss>

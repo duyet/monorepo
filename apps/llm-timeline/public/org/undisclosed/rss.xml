@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — (Undisclosed) Models</title>
+    <link>https://llm-timeline.duyet.net/org/undisclosed</link>
+    <description>Large Language Model releases from (Undisclosed).</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/undisclosed/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — (Undisclosed) Models</title>
+      <link>https://llm-timeline.duyet.net/org/undisclosed</link>
+    </image>
+  <item>
+    <title>WormGPT ((Undisclosed))</title>
+    <link>https://llm-timeline.duyet.net/org/undisclosed</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WormGPT-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>(Undisclosed)</category>
+    <category>partial</category>
+    <description>Parameters: 6B
+License: partial
+Type: model
+GPT-J (2021) finetune/module.</description>
+  </item>
+  </channel>
+</rss>
