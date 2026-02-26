@@ -1,7 +1,6 @@
 import {
   AiContentCard,
   AppCard,
-  type AppCardAccent,
   ContentCard,
   LinkCard,
 } from "@duyet/components";
@@ -36,57 +35,45 @@ function addUtmParams(
 
 interface AppItem {
   name: string;
-  description: string;
   href: string;
   utmContent: string;
   screenshot: string;
-  accent: AppCardAccent;
 }
 
 const apps: AppItem[] = [
   {
     name: "LLM Timeline",
-    description: "50+ models from 2017 to present",
     href:
       process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
       "https://llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
     screenshot: "/screenshots/llm-timeline.png",
-    accent: "amber",
   },
   {
     name: "OpenClaw",
-    description: "Mission Control",
     href: "https://claw.duyet.net",
     utmContent: "claw_bento",
     screenshot: "/screenshots/openclaw.png",
-    accent: "slate",
   },
   {
     name: "AI Agents",
-    description: "Chat with @duyetbot",
     href:
       process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
     utmContent: "agents_bento",
     screenshot: "/screenshots/ai-agents.png",
-    accent: "indigo",
   },
   {
     name: "CH Monitor",
-    description: "ClickHouse dashboard",
     href: "https://clickhouse-monitor.duyet.workers.dev",
     utmContent: "ch_monitor_bento",
     screenshot: "/screenshots/ch-monitor.png",
-    accent: "yellow",
   },
   {
     name: "Homelab",
-    description: "Infrastructure monitoring",
     href:
       process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
     utmContent: "homelab_bento",
     screenshot: "/screenshots/homelab.png",
-    accent: "blue",
   },
 ];
 
@@ -180,10 +167,8 @@ export default function HomePage() {
               <AppCard
                 key={item.utmContent}
                 title={item.name}
-                description={item.description}
                 href={addUtmParams(item.href, "homepage", item.utmContent)}
                 screenshot={item.screenshot}
-                accent={item.accent}
               />
             ))}
           </div>
