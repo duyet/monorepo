@@ -1,5 +1,5 @@
 /**
- * Chat API Route - Cloudflare Pages Function
+ * Chat API — Cloudflare Pages Function
  *
  * Handles streaming chat with Workers AI + tool calling.
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with maxSteps.
@@ -8,7 +8,7 @@
 import { streamText, tool } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { z } from "zod";
-import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../../lib/agent";
+import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../lib/agent";
 import {
   searchBlogTool,
   getBlogPostTool,
@@ -16,9 +16,12 @@ import {
   getGitHubTool,
   getAnalyticsTool,
   getAboutTool,
-} from "../../../lib/tools";
+} from "../../lib/tools";
 
-export const runtime = "edge";
+interface Env {
+  CLOUDFLARE_ACCOUNT_ID: string;
+  CLOUDFLARE_API_KEY: string;
+}
 
 const AGENT_TOOLS = {
   searchBlog: tool({
@@ -91,18 +94,13 @@ const AGENT_TOOLS = {
   }),
 };
 
-export async function POST(req: Request) {
+export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
-    const { messages, mode = "agent" } = await req.json();
-
-    const env = process.env as {
-      CLOUDFLARE_ACCOUNT_ID?: string;
-      CLOUDFLARE_API_KEY?: string;
-    };
+    const { messages, mode = "agent" } = await context.request.json();
 
     const workersai = createWorkersAI({
-      accountId: env.CLOUDFLARE_ACCOUNT_ID || "",
-      apiKey: env.CLOUDFLARE_API_KEY || "",
+      accountId: context.env.CLOUDFLARE_ACCOUNT_ID,
+      apiKey: context.env.CLOUDFLARE_API_KEY,
     });
 
     const isFast = mode === "fast";
@@ -130,4 +128,4 @@ export async function POST(req: Request) {
       }
     );
   }
-}
+};

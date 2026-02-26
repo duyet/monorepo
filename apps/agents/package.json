@@ -10,15 +10,14 @@
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-agents",
     "build": "next build",
-    "next-on-pages": "bunx next-on-pages",
     "check-types": "tsc --noEmit",
     "dev": "bun --bun next dev --turbopack -p 3004",
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "start": "bun --bun next start",
-    "deploy": "bun run next-on-pages && bunx wrangler pages deploy .vercel/output/static --project-name=duyet-agents",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local next-on-pages && bunx wrangler pages deploy .vercel/output/static --project-name=duyet-agents --commit-dirty=true",
-    "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local next-on-pages && bunx wrangler pages deploy .vercel/output/static --project-name=duyet-agents --commit-dirty=true"
+    "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-agents",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-agents --commit-dirty=true",
+    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agents duyet-agents"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.80",
@@ -48,7 +47,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
     "@duyet/interfaces": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",

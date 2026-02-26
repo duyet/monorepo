@@ -43,6 +43,19 @@ function getTextContent(msg: UIMessage): string {
     .join("");
 }
 
+/** Map DynamicToolUIPart state to ToolExecution status */
+function toExecutionStatus(state: DynamicToolUIPart["state"]): ToolExecution["status"] {
+  switch (state) {
+    case "output-available":
+      return "complete";
+    case "input-available":
+    case "input-streaming":
+      return "running";
+    default:
+      return "error";
+  }
+}
+
 export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const { onError, onFinish, mode: initialMode = "agent" } = options;
 
@@ -129,20 +142,15 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       for (const part of msg.parts) {
         if (part.type !== "dynamic-tool") continue;
         const p = part as DynamicToolUIPart;
-        const execStatus: ToolExecution["status"] =
-          p.state === "output-available"
-            ? "complete"
-            : p.state === "input-available" || p.state === "input-streaming"
-              ? "running"
-              : "error";
+        const isComplete = p.state === "output-available";
         executions.push({
           id: p.toolCallId,
           toolName: p.toolName,
           parameters: (p.input as Record<string, unknown>) || {},
           startTime: Date.now(),
-          endTime: p.state === "output-available" ? Date.now() : undefined,
-          status: execStatus,
-          result: p.state === "output-available" ? p.output : undefined,
+          endTime: isComplete ? Date.now() : undefined,
+          status: toExecutionStatus(p.state),
+          result: isComplete ? p.output : undefined,
         });
       }
     }
@@ -160,10 +168,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     [input, status, sendMessage]
   );
 
-  const reload = useCallback(() => {
-    regenerate();
-  }, [regenerate]);
-
   return {
     messages,
     input,
@@ -173,7 +177,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     streamingContent,
     error: aiError ?? null,
     stop,
-    reload,
+    reload: regenerate,
     activeAgent,
     setActiveAgent,
     toolExecutions,

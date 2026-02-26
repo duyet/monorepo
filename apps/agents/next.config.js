@@ -7,11 +7,9 @@ loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
 loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
 const config = {
+  output: "export",
   trailingSlash: true,
-  // Turbopack needs the monorepo root to resolve workspace packages (e.g. `next` itself)
-  turbopack: {
-    root: rootDir,
-  },
+  transpilePackages: ["@duyet/components", "@duyet/libs"],
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -28,24 +26,6 @@ const config = {
         hostname: "avatars.githubusercontent.com",
       },
     ],
-  },
-  // Headers for security and CSP
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-        ],
-      },
-    ];
   },
 };
 

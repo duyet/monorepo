@@ -7,8 +7,7 @@ import type { ChatMode } from "@/lib/types";
 import { ActivityPanel } from "../activity/activity-panel";
 import { UserMessage, AssistantMessage, WelcomeMessage } from "./message-components";
 import { LoadingIndicator } from "./loading-indicator";
-import { Textarea } from "@duyet/components";
-import { Button } from "@duyet/components";
+import { Button, Textarea } from "@duyet/components";
 import { Send, RefreshCw, X, Activity, Zap, Wrench } from "lucide-react";
 
 export function VercelChat() {
@@ -168,7 +167,7 @@ export function VercelChat() {
 
       {/* Input area */}
       <div className={cn("mt-6", !hasMessages && "mt-0")}>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <div className={cn(
             "rounded-3xl border border-neutral-200 bg-white transition-shadow dark:border-neutral-800 dark:bg-neutral-900",
             "focus-within:ring-2 focus-within:ring-neutral-300 dark:focus-within:ring-neutral-600"

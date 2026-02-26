@@ -6,28 +6,46 @@ import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
 import { Button } from "@duyet/components";
 import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 interface MessageProps {
   message: Message;
   isStreaming?: boolean;
 }
 
-export function UserMessage({ message }: { message: Message }) {
-  const [copied, setCopied] = useState(false);
-  const [copyFailed, setCopyFailed] = useState(false);
+type CopyState = "idle" | "copied" | "failed";
 
-  const handleCopy = async () => {
+function useCopyToClipboard(text: string): { state: CopyState; copy: () => void } {
+  const [state, setState] = useState<CopyState>("idle");
+
+  const copy = useCallback(async () => {
     if (!navigator.clipboard) return;
     try {
-      await navigator.clipboard.writeText(message.content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(text);
+      setState("copied");
+      setTimeout(() => setState("idle"), 2000);
     } catch {
-      setCopyFailed(true);
-      setTimeout(() => setCopyFailed(false), 2000);
+      setState("failed");
+      setTimeout(() => setState("idle"), 2000);
     }
-  };
+  }, [text]);
+
+  return { state, copy };
+}
+
+function CopyIcon({ state }: { state: CopyState }) {
+  switch (state) {
+    case "copied":
+      return <Check className="h-3 w-3" />;
+    case "failed":
+      return <X className="h-3 w-3 text-red-500" />;
+    default:
+      return <Copy className="h-3 w-3" />;
+  }
+}
+
+export function UserMessage({ message }: MessageProps) {
+  const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
 
   return (
     <div className="flex justify-end gap-3 group">
@@ -47,7 +65,7 @@ export function UserMessage({ message }: { message: Message }) {
             className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={handleCopy}
           >
-            {copied ? <Check className="h-3 w-3" /> : copyFailed ? <X className="h-3 w-3 text-red-500" /> : <Copy className="h-3 w-3" />}
+            <CopyIcon state={copyState} />
             <span className="sr-only">Copy</span>
           </Button>
         </div>
@@ -57,20 +75,7 @@ export function UserMessage({ message }: { message: Message }) {
 }
 
 export function AssistantMessage({ message, isStreaming }: MessageProps) {
-  const [copied, setCopied] = useState(false);
-  const [copyFailed, setCopyFailed] = useState(false);
-
-  const handleCopy = async () => {
-    if (!navigator.clipboard) return;
-    try {
-      await navigator.clipboard.writeText(message.content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      setCopyFailed(true);
-      setTimeout(() => setCopyFailed(false), 2000);
-    }
-  };
+  const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
 
   return (
     <div className="flex justify-start gap-3 group">
@@ -126,7 +131,7 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
               className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
               onClick={handleCopy}
             >
-              {copied ? <Check className="h-3 w-3" /> : copyFailed ? <X className="h-3 w-3 text-red-500" /> : <Copy className="h-3 w-3" />}
+              <CopyIcon state={copyState} />
               <span className="sr-only">Copy</span>
             </Button>
           )}
