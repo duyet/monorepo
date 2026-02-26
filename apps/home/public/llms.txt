@@ -18,6 +18,7 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 - **LLM Timeline**: https://llm-timeline.duyet.net - Interactive timeline of Large Language Model releases from 2017 to present
   - Alternate URLs: https://duyet-llm-timeline.pages.dev (Cloudflare)
 - **AI Agents**: https://agents.duyet.net - Chat interface with @duyetbot for blog, CV, and GitHub activity
+- **OpenClaw**: https://claw.duyet.net - Mission Control dashboard
 - **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
 - **Rust Tiếng Việt**: https://duyet.net/rust - Vietnamese Rust programming language guide
 - **ClickHouse Monitoring**: https://duyet.net/monitor - Real-time ClickHouse cluster monitoring

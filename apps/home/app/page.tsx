@@ -138,6 +138,33 @@ export default function HomePage() {
         <div className="mb-8 sm:mb-12">
           <div className="flex flex-col divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-white sm:flex-row sm:divide-x sm:divide-y-0">
             <AppLinkCard
+              title="OpenClaw"
+              href={addUtmParams(
+                "https://claw.duyet.net",
+                "homepage",
+                "claw_compact"
+              )}
+              description="Mission Control"
+              icon={
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="2" width="9" height="9" rx="1" />
+                  <rect x="13" y="2" width="9" height="9" rx="1" />
+                  <rect x="2" y="13" width="9" height="9" rx="1" />
+                  <rect x="13" y="13" width="9" height="9" rx="1" />
+                </svg>
+              }
+            />
+
+            <AppLinkCard
               title="LLM Timeline"
               href={addUtmParams(
                 process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
