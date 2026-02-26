@@ -5,6 +5,34 @@ import UrlsList from "./components/UrlsList";
 export const dynamic = "force-static";
 export const revalidate = 3600;
 
+const CATEGORY_MAP: Record<string, string> = {
+  "/": "Apps",
+  "/blog": "Apps",
+  "/cv": "Apps",
+  "/about": "Apps",
+  "/ai": "Apps",
+  "/i": "Apps",
+  "/insights": "Apps",
+  "/photos": "Apps",
+  "/mcp": "Apps",
+  "/github": "Social",
+  "/in": "Social",
+  "/x": "Social",
+  "/un": "Social",
+  "/tiktok": "Social",
+  "/tt": "Social",
+  "/ni": "Social",
+  "/rs": "Tools",
+  "/rust": "Tools",
+  "/monitor": "Tools",
+  "/clickhouse": "Tools",
+  "/ch": "Tools",
+  "/mo": "Tools",
+  "/numi": "Tools",
+};
+
+const DEFAULT_CATEGORY = "Other";
+
 export default function ListPage() {
   // Filter out system URLs and format for display (server-side)
   const publicUrls = Object.entries(urls)
@@ -16,8 +44,12 @@ export default function ListPage() {
       path,
       target: typeof value === "string" ? value : value.target,
       desc: typeof value === "string" ? undefined : value.desc,
+      category: CATEGORY_MAP[path] ?? DEFAULT_CATEGORY,
     }))
-    .sort((a, b) => a.path.localeCompare(b.path));
+    .sort((a, b) => {
+      if (a.category !== b.category) return a.category.localeCompare(b.category);
+      return a.path.localeCompare(b.path);
+    });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
@@ -43,10 +75,15 @@ export default function ListPage() {
             </svg>
             Back to home
           </Link>
-          <h1 className="mb-3 font-serif text-5xl font-normal text-neutral-900">
-            Short URLs
-          </h1>
-          <p className="text-lg text-neutral-600">
+          <div className="flex items-baseline gap-4">
+            <h1 className="font-serif text-5xl font-normal text-neutral-900">
+              Short URLs
+            </h1>
+            <span className="rounded-full bg-neutral-200 px-3 py-1 text-sm font-medium text-neutral-600">
+              {publicUrls.length}
+            </span>
+          </div>
+          <p className="mt-3 text-lg text-neutral-600">
             Quick links and redirects for duyet.net
           </p>
         </div>
@@ -57,14 +94,13 @@ export default function ListPage() {
         {/* Footer */}
         <div className="mt-12 border-t border-neutral-200 pt-8 text-center">
           <p className="text-sm text-neutral-500">
-            Managed via{" "}
-            <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-xs">
-              public/_redirects
-            </code>{" "}
-            and{" "}
-            <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-xs">
-              app/config/urls.ts
-            </code>
+            All short URLs redirect via{" "}
+            <Link
+              href="/"
+              className="underline underline-offset-2 transition-colors hover:text-neutral-900"
+            >
+              duyet.net
+            </Link>
           </p>
         </div>
       </div>

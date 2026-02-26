@@ -1,15 +1,8 @@
 import { AiContentCard, ContentCard, LinkCard } from "@duyet/components";
 import Link from "next/link";
-import { nodes } from "../../homelab/lib/data/nodes";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
-
-// Extract node names from homelab data (limit to 3, add "..." if more exist)
-const homelabNodes =
-  nodes.length > 3
-    ? [...nodes.slice(0, 3).map((node) => node.name), "..."]
-    : nodes.map((node) => node.name);
 
 // Build date for resume card
 const buildDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
@@ -45,7 +38,7 @@ export default function HomePage() {
             Duyet
           </h1>
           <p className="text-base leading-relaxed text-neutral-700 sm:text-lg">
-            Data Engineering · Ho Chi Minh City
+            Data Engineering
           </p>
         </div>
 
@@ -93,20 +86,6 @@ export default function HomePage() {
             illustration="wavy"
           />
 
-          <ContentCard
-            title="Homelab"
-            href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
-                "https://homelab.duyet.net",
-              "homepage",
-              "homelab_card"
-            )}
-            description="Homelab monitoring dashboard (beta)."
-            color="lavender"
-            tags={homelabNodes}
-            illustration="geometric"
-          />
-
           <LinkCard
             title="Photos"
             href={addUtmParams(
@@ -120,32 +99,6 @@ export default function HomePage() {
             backgroundImage="https://images.unsplash.com/photo-1760809974561-545e45bea13e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=872"
           />
 
-          <ContentCard
-            title="AI Agents"
-            href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
-              "homepage",
-              "agents_card"
-            )}
-            description="Chat with @duyetbot — ask about blog posts, CV, and GitHub activity."
-            color="sage"
-            tags={["Chat", "Blog Search", "GitHub"]}
-            illustration="blob"
-          />
-
-          <ContentCard
-            title="LLM Timeline"
-            href={addUtmParams(
-              process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL || "https://llm-timeline.duyet.net",
-              "homepage",
-              "llm_timeline_card"
-            )}
-            description="Interactive timeline of Large Language Model releases from 2017 to present."
-            color="terracotta"
-            tags={["AI", "LLM", "History"]}
-            illustration="geometric"
-          />
-
           <LinkCard
             title="About"
             href="/about"
@@ -153,6 +106,131 @@ export default function HomePage() {
             color="ivory"
             illustration="geometric"
           />
+        </div>
+
+        {/* Apps Section */}
+        <div className="mb-8 sm:mb-12">
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-neutral-400">
+            Apps
+          </p>
+          <div className="flex flex-col divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-white sm:flex-row sm:divide-x sm:divide-y-0">
+            <Link
+              href={addUtmParams(
+                process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
+                  "https://llm-timeline.duyet.net",
+                "homepage",
+                "llm_timeline_compact"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-1 items-center gap-3 px-5 py-4 transition-colors hover:bg-neutral-50"
+            >
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                  <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none" />
+                  <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
+                  <circle cx="7" cy="18" r="2" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-neutral-900">
+                  LLM Timeline
+                </p>
+                <p className="truncate text-xs text-neutral-500">
+                  History of LLM releases
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              href={addUtmParams(
+                process.env.NEXT_PUBLIC_DUYET_AGENTS_URL ||
+                  "https://agents.duyet.net",
+                "homepage",
+                "agents_compact"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-1 items-center gap-3 px-5 py-4 transition-colors hover:bg-neutral-50"
+            >
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-neutral-900">
+                  AI Agents
+                </p>
+                <p className="truncate text-xs text-neutral-500">
+                  Chat with @duyetbot
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              href={addUtmParams(
+                process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL ||
+                  "https://homelab.duyet.net",
+                "homepage",
+                "homelab_compact"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-1 items-center gap-3 px-5 py-4 transition-colors hover:bg-neutral-50"
+            >
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 transition-colors group-hover:bg-neutral-200">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="3" width="20" height="5" rx="1" />
+                  <rect x="2" y="11" width="20" height="5" rx="1" />
+                  <rect x="2" y="19" width="20" height="2" rx="1" />
+                  <circle cx="6" cy="5.5" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="6" cy="13.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-neutral-900">
+                  Homelab
+                </p>
+                <p className="truncate text-xs text-neutral-500">
+                  Infrastructure monitoring
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
 
         {/* Social Links */}
