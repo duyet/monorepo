@@ -1,98 +1,106 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
-  <!-- Background -->
-  <rect width="800" height="500" fill="#fafafa"/>
-  <!-- Browser chrome -->
-  <rect width="800" height="44" fill="#f0f0f0"/>
-  <rect width="800" height="1" y="44" fill="#e0e0e0"/>
-  <circle cx="22" cy="22" r="6" fill="#ff5f57"/>
-  <circle cx="42" cy="22" r="6" fill="#ffbd2e"/>
-  <circle cx="62" cy="22" r="6" fill="#28c840"/>
-  <rect x="100" y="12" width="500" height="20" rx="10" fill="#fff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="350" y="26" font-family="system-ui,sans-serif" font-size="11" fill="#999" text-anchor="middle">claw.duyet.net</text>
+  <!-- Page background -->
+  <rect width="800" height="500" fill="#ffffff"/>
 
-  <!-- App content: dark mission control dashboard -->
-  <rect x="0" y="44" width="800" height="456" fill="#0a0a0a"/>
+  <!-- ── Nav bar ── -->
+  <rect width="800" height="52" fill="#ffffff"/>
+  <rect y="52" width="800" height="1" fill="#f3f4f6"/>
+  <!-- Logo -->
+  <text x="32" y="30" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0a0a0a">OpenClaw</text>
+  <text x="102" y="30" font-family="system-ui,sans-serif" font-size="9" fill="#9ca3af" letter-spacing="0.5">/</text>
+  <text x="112" y="30" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#6b7280" letter-spacing="0.5">MISSION CONTROL</text>
+  <!-- Nav links -->
+  <text x="290" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Capabilities</text>
+  <text x="376" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Boards</text>
+  <text x="428" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Activity</text>
+  <text x="480" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Gateways</text>
+  <!-- CTAs -->
+  <text x="604" y="30" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Sign In</text>
+  <rect x="644" y="16" width="112" height="28" rx="6" fill="#0a0a0a"/>
+  <text x="700" y="34" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">Start Free Trial</text>
 
-  <!-- Top nav bar -->
-  <rect x="0" y="44" width="800" height="48" fill="#111111"/>
-  <rect x="0" y="92" width="800" height="1" fill="#222"/>
-  <text x="24" y="73" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#fff">OpenClaw</text>
-  <text x="110" y="73" font-family="system-ui,sans-serif" font-size="11" fill="#666">Mission Control</text>
+  <!-- ── Hero section ── -->
+  <!-- Badge pill -->
+  <rect x="32" y="72" width="176" height="20" rx="10" fill="#f3f4f6"/>
+  <circle cx="46" cy="82" r="3" fill="#22c55e"/>
+  <text x="56" y="86" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#374151" letter-spacing="0.3">OPENCLAW MISSION CONTROL</text>
 
-  <!-- Nav tabs -->
-  <rect x="400" y="56" width="60" height="24" rx="4" fill="#1f1f1f"/>
-  <text x="430" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#888" text-anchor="middle">Overview</text>
-  <rect x="468" y="56" width="60" height="24" rx="4" fill="#6366f1"/>
-  <text x="498" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Deploys</text>
-  <rect x="536" y="56" width="60" height="24" rx="4" fill="#1f1f1f"/>
-  <text x="566" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#888" text-anchor="middle">Logs</text>
+  <!-- Headline -->
+  <text x="32" y="118" font-family="system-ui,sans-serif" font-size="26" font-weight="800" fill="#0a0a0a">Command</text>
+  <text x="178" y="118" font-family="Georgia,serif" font-size="26" font-weight="700" font-style="italic" fill="#4d7c4d"> autonomous work.</text>
+  <text x="32" y="148" font-family="system-ui,sans-serif" font-size="26" font-weight="800" fill="#0a0a0a">Keep human oversight.</text>
 
-  <!-- Metric cards row -->
-  <!-- Card 1 -->
-  <rect x="20" y="108" width="170" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="34" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">DEPLOYMENTS</text>
-  <text x="34" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">247</text>
-  <text x="34" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#10b981">↑ 12% this week</text>
+  <!-- Subtitle -->
+  <text x="32" y="170" font-family="system-ui,sans-serif" font-size="11" fill="#6b7280">Track tasks, approvals, and agent health across every workflow.</text>
 
-  <!-- Card 2 -->
-  <rect x="202" y="108" width="170" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="216" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">UPTIME</text>
-  <text x="216" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">99.9%</text>
-  <text x="216" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#10b981">All systems go</text>
+  <!-- CTA buttons -->
+  <rect x="32" y="184" width="124" height="32" rx="7" fill="#0a0a0a"/>
+  <text x="94" y="204" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">Open Boards →</text>
+  <rect x="164" y="184" width="120" height="32" rx="7" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="224" y="204" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#374151" text-anchor="middle">Create Board</text>
 
-  <!-- Card 3 -->
-  <rect x="384" y="108" width="170" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="398" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">AVG RESPONSE</text>
-  <text x="398" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">142ms</text>
-  <text x="398" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#f59e0b">↑ 8ms vs last week</text>
+  <!-- Feature pills -->
+  <text x="32" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#16a34a">✓</text>
+  <text x="46" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#374151">Agent-First Operations</text>
+  <text x="196" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#16a34a">✓</text>
+  <text x="210" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#374151">Approval Queues</text>
+  <text x="342" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#16a34a">✓</text>
+  <text x="356" y="234" font-family="system-ui,sans-serif" font-size="10" fill="#374151">Live Signals</text>
 
-  <!-- Card 4 -->
-  <rect x="566" y="108" width="214" height="80" rx="8" fill="#141414" stroke="#222" stroke-width="1"/>
-  <text x="580" y="130" font-family="system-ui,sans-serif" font-size="9" fill="#666">ERROR RATE</text>
-  <text x="580" y="158" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#fff">0.02%</text>
-  <text x="580" y="174" font-family="system-ui,sans-serif" font-size="8" fill="#10b981">↓ 0.01% improved</text>
+  <!-- ── Command Surface panel ── -->
+  <rect x="0" y="252" width="800" height="248" rx="0" fill="#0d1117"/>
 
-  <!-- Services grid -->
-  <text x="20" y="214" font-family="system-ui,sans-serif" font-size="10" fill="#555" font-weight="600" letter-spacing="0.5">SERVICES</text>
+  <!-- Panel header -->
+  <text x="32" y="278" font-family="monospace,system-ui" font-size="10" font-weight="600" fill="#ffffff" letter-spacing="1">COMMAND SURFACE</text>
+  <text x="176" y="278" font-family="monospace,system-ui" font-size="10" fill="#22c55e" letter-spacing="0.5">— LIVE</text>
+  <!-- Green status dot -->
+  <circle cx="224" cy="274" r="3" fill="#22c55e"/>
 
-  <!-- Service rows -->
-  <!-- Row 1 -->
-  <rect x="20" y="222" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
-  <circle cx="42" cy="240" r="6" fill="#10b981"/>
-  <text x="58" y="244" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">blog.duyet.net</text>
-  <text x="200" y="244" font-family="system-ui,sans-serif" font-size="9" fill="#555">Next.js</text>
-  <text x="660" y="244" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
-  <text x="760" y="244" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">2m ago</text>
+  <!-- Stats row -->
+  <rect x="32" y="290" width="100" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="82" y="309" font-family="monospace,system-ui" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">12</text>
+  <text x="82" y="324" font-family="monospace,system-ui" font-size="7" fill="#8b949e" text-anchor="middle" letter-spacing="0.5">BOARDS</text>
 
-  <!-- Row 2 -->
-  <rect x="20" y="264" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
-  <circle cx="42" cy="282" r="6" fill="#10b981"/>
-  <text x="58" y="286" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">insights.duyet.net</text>
-  <text x="200" y="286" font-family="system-ui,sans-serif" font-size="9" fill="#555">Next.js</text>
-  <text x="660" y="286" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
-  <text x="760" y="286" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">5m ago</text>
+  <rect x="144" y="290" width="100" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="194" y="309" font-family="monospace,system-ui" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">08</text>
+  <text x="194" y="324" font-family="monospace,system-ui" font-size="7" fill="#8b949e" text-anchor="middle" letter-spacing="0.5">AGENTS</text>
 
-  <!-- Row 3 -->
-  <rect x="20" y="306" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
-  <circle cx="42" cy="324" r="6" fill="#10b981"/>
-  <text x="58" y="328" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">agents.duyet.net</text>
-  <text x="200" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#555">Workers</text>
-  <text x="660" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
-  <text x="760" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">1m ago</text>
+  <rect x="256" y="290" width="100" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="306" y="309" font-family="monospace,system-ui" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">46</text>
+  <text x="306" y="324" font-family="monospace,system-ui" font-size="7" fill="#8b949e" text-anchor="middle" letter-spacing="0.5">TASKS</text>
 
-  <!-- Row 4 -->
-  <rect x="20" y="348" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
-  <circle cx="42" cy="366" r="6" fill="#f59e0b"/>
-  <text x="58" y="370" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">homelab.duyet.net</text>
-  <text x="200" y="370" font-family="system-ui,sans-serif" font-size="9" fill="#555">Docker</text>
-  <text x="660" y="370" font-family="system-ui,sans-serif" font-size="9" fill="#f59e0b" text-anchor="end">⚠ Degraded</text>
-  <text x="760" y="370" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">12m ago</text>
+  <!-- Two-column content -->
+  <!-- Left column: Board -->
+  <text x="32" y="360" font-family="monospace,system-ui" font-size="8" fill="#8b949e" font-weight="600" letter-spacing="0.5">BOARD — IN PROGRESS</text>
+  <rect x="32" y="368" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="48" cy="382" r="4" fill="#f59e0b"/>
+  <text x="62" y="386" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Analyze Q1 pipeline metrics</text>
+  <text x="340" y="386" font-family="monospace,system-ui" font-size="8" fill="#8b949e" text-anchor="end">agent-3</text>
 
-  <!-- Row 5 -->
-  <rect x="20" y="390" width="760" height="36" rx="6" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
-  <circle cx="42" cy="408" r="6" fill="#10b981"/>
-  <text x="58" y="412" font-family="system-ui,sans-serif" font-size="11" fill="#e5e5e5">photos.duyet.net</text>
-  <text x="200" y="412" font-family="system-ui,sans-serif" font-size="9" fill="#555">Next.js</text>
-  <text x="660" y="412" font-family="system-ui,sans-serif" font-size="9" fill="#10b981" text-anchor="end">● Operational</text>
-  <text x="760" y="412" font-family="system-ui,sans-serif" font-size="9" fill="#555" text-anchor="end">3m ago</text>
+  <rect x="32" y="402" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="48" cy="416" r="4" fill="#3b82f6"/>
+  <text x="62" y="420" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Generate weekly summary report</text>
+  <text x="340" y="420" font-family="monospace,system-ui" font-size="8" fill="#8b949e" text-anchor="end">agent-1</text>
+
+  <rect x="32" y="436" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="48" cy="450" r="4" fill="#22c55e"/>
+  <text x="62" y="454" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Deploy to staging environment</text>
+  <text x="340" y="454" font-family="monospace,system-ui" font-size="8" fill="#22c55e" text-anchor="end">done</text>
+
+  <!-- Right column: Approvals -->
+  <text x="416" y="360" font-family="monospace,system-ui" font-size="8" fill="#f59e0b" font-weight="600" letter-spacing="0.5">APPROVALS — 3 PENDING</text>
+  <rect x="416" y="368" width="352" height="28" rx="5" fill="#161b22" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="432" y="382" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Approve: Delete stale records in prod</text>
+  <rect x="720" y="372" width="36" height="18" rx="4" fill="#f59e0b"/>
+  <text x="738" y="385" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#000" text-anchor="middle">OK</text>
+
+  <rect x="416" y="402" width="352" height="28" rx="5" fill="#161b22" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="432" y="416" font-family="system-ui,sans-serif" font-size="9" fill="#e6edf3">Approve: Send Slack digest to team</text>
+  <rect x="720" y="406" width="36" height="18" rx="4" fill="#f59e0b"/>
+  <text x="738" y="419" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#000" text-anchor="middle">OK</text>
+
+  <rect x="416" y="436" width="352" height="28" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="432" y="450" font-family="system-ui,sans-serif" font-size="9" fill="#6b7280">Approve: Reindex search index</text>
+  <rect x="720" y="440" width="36" height="18" rx="4" fill="#21262d"/>
+  <text x="738" y="453" font-family="system-ui,sans-serif" font-size="8" fill="#8b949e" text-anchor="middle">wait</text>
 </svg>
