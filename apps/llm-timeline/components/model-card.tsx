@@ -53,7 +53,7 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
         <div className="flex shrink-0 items-center gap-2">
           <span
             className="text-xs"
-            style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}
+            style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
           >
             {model.date.slice(0, 4)}
           </span>
@@ -138,7 +138,7 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           <div className="text-right">
             <div
               className="text-xs"
-              style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}
+              style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
             >
               {model.date.slice(0, 7)}
             </div>
