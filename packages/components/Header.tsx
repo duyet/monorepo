@@ -8,6 +8,7 @@ import { duyetUrls } from "@duyet/urls";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Container from "./Container";
+import Icons from "./Icons";
 import Logo from "./Logo";
 import Menu, { type NavigationItem } from "./Menu";
 
@@ -45,9 +46,11 @@ function AuthButtons({ urls }: { urls: UrlsConfig }) {
         <SignInButton mode="modal">
           <button
             type="button"
-            className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+            className="flex items-center gap-2 text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+            aria-label="Sign in"
           >
-            Sign in
+            <Icons.User className="h-5 w-5" />
+            <span className="hidden sm:inline">Sign in</span>
           </button>
         </SignInButton>
       </SignedOut>
