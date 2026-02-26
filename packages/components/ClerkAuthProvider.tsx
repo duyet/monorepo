@@ -1,11 +1,6 @@
 "use client";
 
-import { lazy, Suspense, ReactNode, useEffect, useState } from "react";
-
-// Lazy load ClerkProvider to avoid SSR issues with static export
-const ClerkProvider = lazy(() =>
-  import("@clerk/clerk-react").then((mod) => ({ default: mod.ClerkProvider }))
-);
+import { ReactNode, Suspense, useEffect, useState } from "react";
 
 interface ClerkAuthProviderProps {
   children: ReactNode;
@@ -15,7 +10,7 @@ interface ClerkAuthProviderProps {
 /**
  * Clerk authentication provider wrapper for static exports
  *
- * Uses Clerk's React SDK with lazy loading to avoid SSR issues
+ * Uses Clerk's React SDK with dynamic loading to avoid SSR issues
  * with Next.js static export (output: 'export').
  *
  * @example
@@ -28,17 +23,44 @@ interface ClerkAuthProviderProps {
  * ```
  */
 
-function InnerClerkProvider({ children, publishableKey }: ClerkAuthProviderProps) {
-  if (!publishableKey) {
+function isValidPublishableKey(key: string): boolean {
+  // Clerk publishable keys start with pk_test_ or pk_live_
+  return /^(pk_test_|pk_live_)[A-Za-z0-9_-]+$/.test(key);
+}
+
+// Client-side only wrapper that handles dynamic Clerk loading
+function ClientClerkProvider({ children, publishableKey }: { children: ReactNode; publishableKey: string }) {
+  const [ClerkProvider, setClerkProvider] = useState<any>(null);
+  const [isReady, setIsReady] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    import("@clerk/clerk-react")
+      .then((mod) => {
+        setClerkProvider(() => mod.ClerkProvider);
+        setIsReady(true);
+      })
+      .catch((err) => {
+        console.error("Failed to load Clerk:", err);
+        setError(err as Error);
+        setIsReady(true);
+      });
+  }, []);
+
+  if (error) {
+    console.warn("[ClerkAuthProvider] Failed to load Clerk:", error.message);
     return <>{children}</>;
   }
 
+  // Don't render children until ClerkProvider is ready
+  // This prevents SignedOut/SignedIn from rendering without context
+  if (!isReady || !ClerkProvider) {
+    return null;
+  }
+
   return (
-    // @ts-ignore - ClerkProvider is dynamically imported
     <ClerkProvider
       publishableKey={publishableKey}
-      afterSignInUrl="/"
-      afterSignUpUrl="/"
     >
       {children}
     </ClerkProvider>
@@ -60,13 +82,17 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
     return <>{props.children}</>;
   }
 
-  if (!isClient) {
+  if (!isValidPublishableKey(publishableKey)) {
+    console.warn(
+      `[ClerkAuthProvider] Invalid publishable key format. Auth features will be disabled.`
+    );
     return <>{props.children}</>;
   }
 
-  return (
-    <Suspense fallback={<> {props.children}</>}>
-      <InnerClerkProvider {...props} publishableKey={publishableKey} />
-    </Suspense>
-  );
+  // Only render ClerkProvider on client side to avoid SSR issues
+  if (!isClient) {
+    return null;
+  }
+
+  return <ClientClerkProvider publishableKey={publishableKey}>{props.children}</ClientClerkProvider>;
 }

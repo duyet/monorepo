@@ -1,0 +1,8 @@
+# Generated build artifacts (created by prebuild scripts)
+# These are regenerated automatically during `bun run build`
+public/rss.xml
+public/sitemap.xml
+public/llms.txt
+public/license/
+public/org/
+public/year/
