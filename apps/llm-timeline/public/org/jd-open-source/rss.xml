@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — JD Open Source Models</title>
+    <link>https://llm-timeline.duyet.net/org/jd-open-source</link>
+    <description>Large Language Model releases from JD Open Source.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/jd-open-source/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — JD Open Source Models</title>
+      <link>https://llm-timeline.duyet.net/org/jd-open-source</link>
+    </image>
+  <item>
+    <title>JoyAI-LLM Flash (JD Open Source)</title>
+    <link>https://llm-timeline.duyet.net/org/jd-open-source</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JoyAI-LLM%20Flash-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>JD Open Source</category>
+    <category>open</category>
+    <description>Parameters: 48B
+License: open
+Type: model
+48B-A3B.</description>
+  </item>
+  </channel>
+</rss>

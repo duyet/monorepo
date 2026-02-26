@@ -131,6 +131,12 @@ const APPS_CONFIG: Record<
     domain: "agents.duyet.net",
     secrets: false,
   },
+  "llm-timeline": {
+    name: "llm-timeline",
+    projectName: "duyet-llm-timeline",
+    domain: "llm-timeline.duyet.net",
+    secrets: false,
+  },
 };
 
 // CLI args

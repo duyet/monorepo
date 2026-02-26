@@ -29,6 +29,7 @@ jobs:
       home: ${{ steps.filter.outputs.home }}
       homelab: ${{ steps.filter.outputs.homelab }}
       insights: ${{ steps.filter.outputs.insights }}
+      llm-timeline: ${{ steps.filter.outputs.llm-timeline }}
       photos: ${{ steps.filter.outputs.photos }}
       packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -49,6 +50,8 @@ jobs:
               - 'apps/homelab/**'
             insights:
               - 'apps/insights/**'
+            llm-timeline:
+              - 'apps/llm-timeline/**'
             photos:
               - 'apps/photos/**'
             packages:
@@ -77,6 +80,9 @@ jobs:
           fi
           if [[ "${{ steps.filter.outputs.photos }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
             APPS+=('{"app":"photos","project":"duyet-photos","domain":"photos.duyet.net"}')
+          fi
+          if [[ "${{ steps.filter.outputs.llm-timeline }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+            APPS+=('{"app":"llm-timeline","project":"duyet-llm-timeline","domain":"llm-timeline.duyet.net"}')
           fi
 
           if [ ${#APPS[@]} -eq 0 ]; then
@@ -120,6 +126,7 @@ jobs:
           NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
           NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
           NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}

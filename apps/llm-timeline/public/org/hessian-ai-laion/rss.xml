@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hessian AI/LAION Models</title>
+    <link>https://llm-timeline.duyet.net/org/hessian-ai-laion</link>
+    <description>Large Language Model releases from Hessian AI/LAION.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hessian-ai-laion/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Hessian AI/LAION Models</title>
+      <link>https://llm-timeline.duyet.net/org/hessian-ai-laion</link>
+    </image>
+  <item>
+    <title>LeoLM (Hessian AI/LAION)</title>
+    <link>https://llm-timeline.duyet.net/org/hessian-ai-laion</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LeoLM-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Hessian AI/LAION</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+Llama 2 &apos;extended&apos; and pretrained on 2000B Llama 2 tokens + 65B tokens of German</description>
+  </item>
+  </channel>
+</rss>

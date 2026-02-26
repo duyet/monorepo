@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — EvolutionaryScale Models</title>
+    <link>https://llm-timeline.duyet.net/org/evolutionaryscale</link>
+    <description>Large Language Model releases from EvolutionaryScale.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/evolutionaryscale/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — EvolutionaryScale Models</title>
+      <link>https://llm-timeline.duyet.net/org/evolutionaryscale</link>
+    </image>
+  <item>
+    <title>ESM3 (EvolutionaryScale)</title>
+    <link>https://llm-timeline.duyet.net/org/evolutionaryscale</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM3-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>EvolutionaryScale</category>
+    <category>partial</category>
+    <description>Parameters: 98B
+License: partial
+Type: model
+Biology large language model: &quot;sequence, structure, and function are all masked and predicted during training, ESM3 can generate in all three modalities.&quot; 1.4B only released.</description>
+  </item>
+  </channel>
+</rss>

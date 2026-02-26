@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — DeepMind Models</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <description>Large Language Model releases from DeepMind.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deepmind/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — DeepMind Models</title>
+      <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    </image>
+  <item>
+    <title>SED (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SED-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+SED 420M (diffusion text model)</description>
+  </item>
+  <item>
+    <title>Sparrow (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparrow-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+Chatbot as a fine-tuned version of Chinchilla 70B</description>
+  </item>
+  <item>
+    <title>Perceiver AR (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Perceiver%20AR-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+Context window=100,000. Params=364m wiki, 975M pg-19, 826M books, music=?, imagenet=770M,</description>
+  </item>
+  <item>
+    <title>Gato (Cat) (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gato%20(Cat)-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+Proto-AGI. Generalist agent (LLM, VLM, robot)</description>
+  </item>
+  <item>
+    <title>Chinchilla (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chinchilla-2022-03-01</guid>
+    <pubDate>Tue, 01 Mar 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+First to double tokens per size increase</description>
+  </item>
+  <item>
+    <title>Gopher (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gopher-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 280B
+License: closed
+Type: model
+Dataset: https://lifearchitect.ai/whats-in-my-ai/</description>
+  </item>
+  <item>
+    <title>RETRO (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RETRO-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 7.5B
+License: closed
+Type: model
+with retrieval</description>
+  </item>
+  </channel>
+</rss>

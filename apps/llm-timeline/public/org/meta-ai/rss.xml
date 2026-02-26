@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Meta AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <description>Large Language Model releases from Meta AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/meta-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Meta AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    </image>
+  <item>
+    <title>Llama 4 Behemoth (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%204%20Behemoth-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 2000B
+License: closed
+Type: model
+2T-A288B. Announced Apr/2025, abandoned Jul/2025. &quot;We also trained a teacher model, Llama 4 Behemoth, that outperforms GPT-4.5, Claude Sonnet 3.7, and Gemini 2.0 Pro on STEM-focused benchmarks such as MATH-500 and GPQA Diamond... 288B active parameters, 16 experts, and nearly two trillion total parameters.&quot;</description>
+  </item>
+  <item>
+    <title>Llama 4 Maverick (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%204%20Maverick-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 400B
+License: open
+Type: model
+400B-A17B. &quot;Our most powerful open source multimodal model. 17B active params x 128 experts, 400B total params&quot;</description>
+  </item>
+  <item>
+    <title>Llama 4 Scout (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%204%20Scout-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 109B
+License: open
+Type: model
+200 languages, &quot;includes diverse text, image, and video datasets.&quot;</description>
+  </item>
+  <item>
+    <title>BLT (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLT-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+Byte Latent Transformer (BLT), a new byte-level LLM architecture that, for the first time, matches tokenization-based LLM performance</description>
+  </item>
+  <item>
+    <title>Large Concept Model (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Large%20Concept%20Model-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+&quot;autoregressive sentence prediction in an embedding space.&quot; 7.7T tokens is a misprint, should be 2.2T as in paper.</description>
+  </item>
+  <item>
+    <title>Llama 3.3 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%203.3-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Drop-in replacement for Llama 3.1 70B, comparable performance to Llama 3.1 405B.</description>
+  </item>
+  <item>
+    <title>Llama 3.2 90B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%203.2%2090B-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 90B
+License: open
+Type: model
+Vision (VLM)</description>
+  </item>
+  <item>
+    <title>Llama 3.2 3B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%203.2%203B-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 3.21B
+License: open
+Type: model
+Text (LLM). &quot;Pre-training. [For Llama 3.2 3B] We prune the models from their 8B siblings and use logits from the 8B and 70B models as token-level targets (token-level distillation). We then use knowledge distillation to recover performance.&quot;</description>
+  </item>
+  <item>
+    <title>Llama 3.1 405B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%203.1%20405B-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 405B
+License: open
+Type: model
+Announce: https://ai.meta.com/blog/meta-llama-3-1/ Model card: https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md</description>
+  </item>
+  <item>
+    <title>Chameleon (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chameleon-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+Multimodal</description>
+  </item>
+  <item>
+    <title>Llama 3 70B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%203%2070B-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Instruct MMLU-Pro=56.2</description>
+  </item>
+  <item>
+    <title>MobileLLM (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MobileLLM-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+Optimizing Sub-billion Parameter Language Models for On-Device Use Cases</description>
+  </item>
+  <item>
+    <title>CodeLlama-70B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeLlama-70B-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Paper link is to 34B from Aug/2023. This 70B model finished training Jan/2024.</description>
+  </item>
+  <item>
+    <title>SeamlessM4T-Large v2 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SeamlessM4T-Large%20v2-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 2.3B
+License: open
+Type: model
+Based on NLLB and older models. https://github.com/facebookresearch/seamless_communication</description>
+  </item>
+  <item>
+    <title>Llama 2 Long (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%202%20Long-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+Unreleased to date. Context window=32,768 tokens (compare to Llama 2=4096 tokens)</description>
+  </item>
+  <item>
+    <title>Code Llama 34B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Code%20Llama%2034B-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+Outperforms GPT-3.5. Initial Llama 2 (2T tokens) trained on 500B tokens of code, 100B tokens of python</description>
+  </item>
+  <item>
+    <title>Llama 2 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%202-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+Context window=4096. MMLU=68.9 (GPT-3.5=70.0, GPT-4=86.4)</description>
+  </item>
+  <item>
+    <title>BlenderBot 3x (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%203x-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+OPT-175B with new dialogue data</description>
+  </item>
+  <item>
+    <title>LIMA (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMA-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 65B
+License: closed
+Type: model
+LLaMA-65B with nearly no fine-tuning, no RLHF</description>
+  </item>
+  <item>
+    <title>LLaMA-65B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-65B-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 65B
+License: open
+Type: model
+Researchers only, noncommercial only. &apos;LLaMA-65B is competitive with the best models, Chinchilla70B and PaLM-540B.&apos;</description>
+  </item>
+  <item>
+    <title>Toolformer+Atlas 11B+NLLB 54B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Toolformer%2BAtlas%2011B%2BNLLB%2054B-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>Parameters: 6.7B
+License: closed
+Type: model
+Based on GPT-J 6.7B + access to other models via API</description>
+  </item>
+  <item>
+    <title>OPT-IML (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-IML-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+Instruct</description>
+  </item>
+  <item>
+    <title>Galactica (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Galactica-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 120B
+License: open
+Type: model
+scientific only</description>
+  </item>
+  <item>
+    <title>Atlas (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Atlas-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>BlenderBot 3 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%203-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>NLLB (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NLLB-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 54.5B
+License: open
+Type: model
+54.5B MOE, 3.3B dense. 200+ languages</description>
+  </item>
+  <item>
+    <title>OPT-175B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-175B-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+Only 30B available (Jun/2022)</description>
+  </item>
+  <item>
+    <title>InCoder (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InCoder-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 6.7B
+License: open
+Type: model
+Python and JavaScript</description>
+  </item>
+  <item>
+    <title>SeeKeR (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SeeKeR-2022-03-01</guid>
+    <pubDate>Tue, 01 Mar 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+BART and compared to GPT-2</description>
+  </item>
+  <item>
+    <title>CM3 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CM3-2022-01-01</guid>
+    <pubDate>Sat, 01 Jan 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+LLM with multimodal capabilities</description>
+  </item>
+  <item>
+    <title>XGLM (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XGLM-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 7.5B
+License: open
+Type: model
+Multilingual: 30 languages, 16 families.</description>
+  </item>
+  <item>
+    <title>Fairseq (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fairseq-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 1100B
+License: open
+Type: model
+13B &amp; 1100B param models.</description>
+  </item>
+  <item>
+    <title>BlenderBot 2.0 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%202.0-2021-07-01</guid>
+    <pubDate>Thu, 01 Jul 2021 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 9.4B
+License: open
+Type: model
+Chatbot</description>
+  </item>
+  <item>
+    <title>Megatron-11B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-11B-2020-04-01</guid>
+    <pubDate>Wed, 01 Apr 2020 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+My favourite model until GPT-3 and GPT-4 came along: https://github.com/facebookresearch/fairseq/blob/main/examples/megatron_11b/README.md</description>
+  </item>
+  <item>
+    <title>RoBERTa (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RoBERTa-2019-07-01</guid>
+    <pubDate>Mon, 01 Jul 2019 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 0.355B
+License: open
+Type: model
+calcs: &quot;In total, this batch size and number of steps corresponds to pre-training on 235 ≈ 34B tokens. This is considerably less than BERT (Devlin et al., 2018), which used roughly 137B tokens, or RoBERTa (Liu et al., 2019c), which used roughly 2.2T tokens. Using only 2 35 tokens results in a reasonable computational budget while still providing a sufficient amount of pre-training for acceptable performance. We consider the effect of pre-training for more steps in Sections 3.6 and 3.7. Note that 2 35 tokens only covers a fraction of the entire C4 data set, so we never repeat any data during pre-training.&quot; https://arxiv.org/pdf/1910.10683.pdf MMLU shows RoBERTa-base 125M only=27.9 (not 355M)</description>
+  </item>
+  </channel>
+</rss>

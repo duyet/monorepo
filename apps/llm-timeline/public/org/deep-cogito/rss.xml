@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Deep Cogito Models</title>
+    <link>https://llm-timeline.duyet.net/org/deep-cogito</link>
+    <description>Large Language Model releases from Deep Cogito.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deep-cogito/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Deep Cogito Models</title>
+      <link>https://llm-timeline.duyet.net/org/deep-cogito</link>
+    </image>
+  <item>
+    <title>Cogito 70B (Deep Cogito)</title>
+    <link>https://llm-timeline.duyet.net/org/deep-cogito</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cogito%2070B-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Deep Cogito</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+&quot;We are releasing early checkpoints of models in sizes 3B, 8B, 14B, 32B and 70B trained using this methodology, starting from pretrained Llama / Qwen base checkpoints.&quot;</description>
+  </item>
+  </channel>
+</rss>

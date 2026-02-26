@@ -1,0 +1,37 @@
+{
+  "name": "llm-timeline",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "config": "bun ../../scripts/sync-app-secrets.ts duyet-llm-timeline",
+    "build": "bun next build",
+    "check-types": "tsc --noEmit",
+    "dev": "bun --bun next dev --turbopack -p 3005",
+    "fmt": "bun run fix",
+    "lint": "biome lint .",
+    "start": "bun --bun next start",
+    "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-llm-timeline",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-llm-timeline --commit-dirty=true",
+    "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-llm-timeline --commit-dirty=true",
+    "rss": "bun scripts/generate-rss.ts",
+    "llms-txt": "bun scripts/generate-llms-txt.ts",
+    "sitemap": "bun scripts/generate-sitemap.ts",
+    "prebuild": "bun scripts/generate-rss.ts && bun scripts/generate-sitemap.ts && bun scripts/generate-llms-txt.ts",
+    "sync": "bun scripts/sync-data.ts",
+    "sync:dry": "bun scripts/sync-data.ts --dry-run --verbose"
+  },
+  "dependencies": {
+    "@duyet/components": "*",
+    "@duyet/libs": "*",
+    "lucide-react": "^0.563.0",
+    "next": "15.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@duyet/tailwind-config": "*",
+    "@duyet/tsconfig": "*",
+    "@types/react": "^19.1.4",
+    "typescript": "*"
+  }
+}

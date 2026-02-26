@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hugging Face H4 Models</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-h4</link>
+    <description>Large Language Model releases from Hugging Face H4.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hugging-face-h4/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Hugging Face H4 Models</title>
+      <link>https://llm-timeline.duyet.net/org/hugging-face-h4</link>
+    </image>
+  <item>
+    <title>Zephyr 141B-A35B (Hugging Face H4)</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-h4</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zephyr%20141B-A35B-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Hugging Face H4</category>
+    <category>open</category>
+    <description>Parameters: 35B
+License: open
+Type: model
+mixtral-8x22b finetune using Odds Ratio Preference Optimization (ORPO).</description>
+  </item>
+  <item>
+    <title>Zephyr (Hugging Face H4)</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-h4</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zephyr-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Hugging Face H4</category>
+    <category>open</category>
+    <description>Parameters: 7.3B
+License: open
+Type: model
+Mistral with &apos;aligned&apos; data removed from dataset</description>
+  </item>
+  </channel>
+</rss>

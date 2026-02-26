@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Anthropic Models</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <description>Large Language Model releases from Anthropic.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/anthropic/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Anthropic Models</title>
+      <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    </image>
+  <item>
+    <title>Claude Sonnet 4.6 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Sonnet%204.6-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 400B
+License: open
+Type: model
+1M context. Announce: https://www.anthropic.com/news/claude-sonnet-4-6 Showing GMMLU (Global MMLU by Cohere).</description>
+  </item>
+  <item>
+    <title>Claude Opus 4.6 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204.6-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 5000B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Claude Opus 4.5 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204.5-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 5000B
+License: open
+Type: model
+&quot;the best model in the world for coding, agents, and computer use.&quot; Announce: https://www.anthropic.com/news/claude-opus-4-5</description>
+  </item>
+  <item>
+    <title>Claude Sonnet 4.5 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Sonnet%204.5-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 400B
+License: open
+Type: model
+The Claude Sonnet 4.5 &quot;system card&quot; is an absolute farce. Announce: https://www.anthropic.com/news/claude-sonnet-4-5</description>
+  </item>
+  <item>
+    <title>Claude Opus 4.1 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204.1-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 2000B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Claude Opus 4 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 6000B
+License: open
+Type: model
+&quot;Claude Opus 4 is our most intelligent model to date, pushing the frontier in coding, agentic search, and creative writing. With advanced reasoning and powerful collaboration capabilities…Both models can also alternate between reasoning and tool use—like web search—to improve responses…Claude Opus 4 can work continuously for hours on complex, long-running tasks&quot;</description>
+  </item>
+  <item>
+    <title>Claude 3.7 Sonnet (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%203.7%20Sonnet-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+Knowledge cutoff now November 2024 (was April 2024). &quot;the first hybrid reasoning model on the market.&quot; https://www.anthropic.com/news/claude-3-7-sonnet</description>
+  </item>
+  <item>
+    <title>Claude 3.5 Sonnet (new) (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%203.5%20Sonnet%20(new)-2024-10-01</guid>
+    <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+Absurd naming scheme. Paper addendum pp51-64: https://assets.anthropic.com/m/61e7d27f8c8f5919/original/Claude-3-Model-Card.pdf#page=51</description>
+  </item>
+  <item>
+    <title>Claude 3.5 Sonnet (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%203.5%20Sonnet-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+MMLU=90.4 with prompting. Model card: https://www-cdn.anthropic.com/fed9cc193a14b84131812372d8d5857f8f304c52/Model_Card_Claude_3_Addendum.pdf</description>
+  </item>
+  <item>
+    <title>Claude 3 Opus (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%203%20Opus-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 2500B
+License: open
+Type: model
+Original MMLU=86.8 (GPT-4=86.4). MMLU=88.2 with CoT prompting. Original GPQA=50.4. 200k context, 1M for researchers.</description>
+  </item>
+  <item>
+    <title>Claude 2.1 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%202.1-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+Less hallucinations, 200k context length, tool use</description>
+  </item>
+  <item>
+    <title>Claude 2 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%202-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+More HHH, 200k context length</description>
+  </item>
+  <item>
+    <title>RL-CAI (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RL-CAI-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 52B
+License: closed
+Type: model
+RLAIF=reinforcement learning with AI feedback</description>
+  </item>
+  <item>
+    <title>Anthropic-LM 52B (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/org/anthropic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Anthropic-LM%2052B-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: 52B
+License: closed
+Type: model
+Internal research only</description>
+  </item>
+  </channel>
+</rss>

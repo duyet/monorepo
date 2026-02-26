@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Cambridge/LBNL Models</title>
+    <link>https://llm-timeline.duyet.net/org/cambridge-lbnl</link>
+    <description>Large Language Model releases from Cambridge/LBNL.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cambridge-lbnl/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Cambridge/LBNL Models</title>
+      <link>https://llm-timeline.duyet.net/org/cambridge-lbnl</link>
+    </image>
+  <item>
+    <title>MACE-MH-1 (Cambridge/LBNL)</title>
+    <link>https://llm-timeline.duyet.net/org/cambridge-lbnl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MACE-MH-1-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Cambridge/LBNL</category>
+    <category>open</category>
+    <description>Parameters: 0.025B
+License: open
+Type: model
+MACE-MH-1 (Multi-Head 1). Features Multiple Heads (OMAT PBE, OMOL r2scan, OC20) to maintain high accuracy across domains</description>
+  </item>
+  </channel>
+</rss>

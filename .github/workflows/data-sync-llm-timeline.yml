@@ -1,0 +1,54 @@
+name: Data Sync (LLM Timeline)
+
+on:
+  schedule:
+    # Every Monday 6am UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (preview without writing)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  sync:
+    name: Sync LLM model data from Google Sheets
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Sync data (dry run)
+        if: ${{ inputs.dry_run == true }}
+        working-directory: apps/llm-timeline
+        run: bun scripts/sync-data.ts --dry-run --verbose
+
+      - name: Sync data
+        if: ${{ inputs.dry_run != true }}
+        working-directory: apps/llm-timeline
+        run: bun scripts/sync-data.ts
+
+      - name: Commit updated data
+        if: ${{ inputs.dry_run != true }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: |
+            chore(llm-timeline): sync model data from Google Sheets
+
+            Co-Authored-By: duyet <me@duyet.net>
+            Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>
+          file_pattern: apps/llm-timeline/lib/data.ts
+          commit_user_name: duyetbot
+          commit_user_email: duyetbot@users.noreply.github.com

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — OpenAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <description>Large Language Model releases from OpenAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/openai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — OpenAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/openai</link>
+    </image>
+  <item>
+    <title>GPT-5.2 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-5.2-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 3000B
+License: open
+Type: model
+&quot;GPT‑5.2 sets a new state of the art across many benchmarks, including GDPval, where it outperforms industry professionals at well-specified knowledge work tasks spanning 44 occupations.&quot; Announce: https://openai.com/index/introducing-gpt-5-2/ MMLU is for Spanish.</description>
+  </item>
+  <item>
+    <title>GPT-5.1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-5.1-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 2000B
+License: open
+Type: model
+Personality change via fine-tuning. GPQA (no tools) increased from GPT-5=85.7 to GPT-5.1=88.1. MMLU is for Spanish.</description>
+  </item>
+  <item>
+    <title>GPT-5 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-5-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1700B
+License: open
+Type: model
+Announce: https://openai.com/index/introducing-gpt-5/. MMLU is based on ES and PT translated from EN.</description>
+  </item>
+  <item>
+    <title>gpt-oss-120b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-oss-120b-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 120B
+License: open
+Type: model
+116.8B total parameters and 5.1B “active” parameters per token per forward pass. https://openai.com/index/introducing-gpt-oss/</description>
+  </item>
+  <item>
+    <title>gpt-oss-20b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-oss-20b-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+20.9B total and 3.6B active parameters. https://openai.com/index/introducing-gpt-oss/</description>
+  </item>
+  <item>
+    <title>codex-1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#codex-1-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 600B
+License: open
+Type: model
+o3 base. &quot;codex-1, a version of OpenAI o3 optimized for software engineering. It was trained using reinforcement learning on real-world coding tasks in a variety of environments to generate code that closely mirrors human style and PR preferences, adheres precisely to instructions, and can iteratively run tests until it receives a passing result.&quot;</description>
+  </item>
+  <item>
+    <title>o4-mini (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o4-mini-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+https://openai.com/index/introducing-o3-and-o4-mini/ MMLU shows a translated LOTE.</description>
+  </item>
+  <item>
+    <title>o3 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o3-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 600B
+License: open
+Type: model
+https://openai.com/index/introducing-o3-and-o4-mini/ MMLU shows a translated LOTE.</description>
+  </item>
+  <item>
+    <title>GPT-4.1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4.1-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 300B
+License: open
+Type: model
+Outperforms GPT‑4o &quot;across the board, with major gains in coding and instruction following. They also have larger context windows—supporting up to 1 million tokens of context—and are able to better use that context with improved long-context comprehension. They feature a refreshed knowledge cutoff of June 2024.&quot;</description>
+  </item>
+  <item>
+    <title>GPT-4.5 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4.5-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 3000B
+License: open
+Type: model
+&quot;Our largest and best model for chat&quot; https://openai.com/index/introducing-gpt-4-5/ &quot;GPT-4.5 is not a frontier model, but it is OpenAI’s largest LLM, improving on GPT-4’s computational efficiency by more than 10x. While GPT-4.5 demonstrates increased world knowledge, improved writing ability, and refined personality over previous models, it does not introduce net-new frontier capabilities compared to previous reasoning releases, and its performance is below that of o1, o3-mini, and deep research on most preparedness evaluations.&quot;</description>
+  </item>
+  <item>
+    <title>o3-mini (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o3-mini-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+GPQA=79.7 for &apos;high&apos; thinking. ALPrompt 2025H1=1/5. My analysis is that this model’s performance is very poor, with responses often becoming disordered and illogical. OpenAI compared o3-mini to OpenAI’s software engineers, and it performed very poorly (o3-mini=0%, o1=12%). &quot;o3-mini models have the lowest performance, with scores of 0%… We suspect o3-mini’s low performance is due to poor instruction following and confusion about specifying tools in the correct format. The model often attempts to use a hallucinated bash tool rather than python despite constant, multi-shot prompting and feedback that this format is incorrect. This resulted in long conversations that likely hurt its performance.&quot; (o3-mini paper, p31)</description>
+  </item>
+  <item>
+    <title>GPT-4b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4b-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+Protein sequence model. &quot;The model was trained on examples of protein sequences from many species, as well as information on which proteins tend to interact with one another. While that’s a lot of data, it’s just a fraction of what OpenAI’s flagship chatbots were trained on, making GPT-4b an example of a “small language model” that works with a focused data set.&quot; https://www.technologyreview.com/2025/01/17/1110086/openai-has-created-an-ai-model-for-longevity-science/</description>
+  </item>
+  <item>
+    <title>o3-preview (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o3-preview-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 600B
+License: open
+Type: model
+SoTA model for Dec/2024. Parameter estimate is very rough centrepoint for range 400B-52T.</description>
+  </item>
+  <item>
+    <title>o1-2024-12-17 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o1-2024-12-17-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+&quot;o1-2024-12-17 sets new state-of-the-art results on several benchmarks, improving cost-efficiency and performance.&quot;</description>
+  </item>
+  <item>
+    <title>o1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o1-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+&quot;a version of our most intelligent model that thinks longer for the most reliable responses&quot; System card about safety only: https://cdn.openai.com/o1-system-card-20241205.pdf</description>
+  </item>
+  <item>
+    <title>gpt-4o-2024-11-20 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-4o-2024-11-20-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 200B
+License: open
+Type: model
+Material decrease in benchmark scores (GPQA: -13.37%, MMLU: -3.38%) compared to Aug/2024. Pruned? Quantized? https://github.com/openai/simple-evals</description>
+  </item>
+  <item>
+    <title>o1-preview (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#o1-preview-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>GPT-4o mini (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4o%20mini-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+Omnimodel. &quot;OpenAI would not disclose exactly how large GPT-4o mini is, but said it’s roughly in the same tier as other small AI models, such as Llama 3 8b, Claude Haiku and Gemini 1.5 Flash.&quot; https://techcrunch.com/2024/07/18/openai-unveils-gpt-4o-mini-a-small-ai-model-powering-chatgpt/ &quot;tested GPT-4o to identify potential risks, which we have addressed and plan to share the details of in the forthcoming GPT-4o system card and Preparedness scorecard.&quot; And related paper about instruction hierarchy: https://arxiv.org/abs/2404.13208</description>
+  </item>
+  <item>
+    <title>CriticGPT (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CriticGPT-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+&quot;LLM Critics Help Catch LLM Bugs&quot; Announce: https://openai.com/index/finding-gpt4s-mistakes-with-gpt-4/</description>
+  </item>
+  <item>
+    <title>GPT-4o (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4o-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 200B
+License: closed
+Type: model
+gpt-4o-2024-05-13 no longer easily available, so hidden in the Model Table rankings. Omnimodel. ‘[GPT-4o is] likely an early checkpoint of GPT-5’. https://twitter.com/drjimfan/status/1790089671365767313 ELO: https://twitter.com/LiamFedus/status/1790064963966370209 Demo: https://youtu.be/DQacCB9tDaw</description>
+  </item>
+  <item>
+    <title>gpt-4-turbo-2024-04-09 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-4-turbo-2024-04-09-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+This is such a significantly better model that I&apos;ve added it here. This GPQA=46.5%, old GPT-4 GPQA=36%. https://twitter.com/EpochAIResearch/status/1778463039932584205 MMLU scores are unclear, but may have improved by 1%: https://twitter.com/OpenAI/status/1778602770784002136. Final benchmarks are here: https://archive.md/6Cc0Z</description>
+  </item>
+  <item>
+    <title>GPT-4 Turbo (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20Turbo-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+https://openai.com/blog/new-models-and-developer-products-announced-at-devday</description>
+  </item>
+  <item>
+    <title>GPT-4 MathMix (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20MathMix-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 1760B
+License: closed
+Type: model
+Unreleased, includes step by step research</description>
+  </item>
+  <item>
+    <title>GPT-4 Classic (gpt-4-0314 &amp; gpt-4-0613, non-Turbo) (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4%20Classic%20(gpt-4-0314%20%26%20gpt-4-0613%2C%20non-Turbo)-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1760B
+License: open
+Type: model
+Original MMLU=86.4. MMLU=90.1 with prompting. Proto-AGI. 1.76T parameters MoE.</description>
+  </item>
+  <item>
+    <title>ChatGPT (gpt-3.5-turbo) (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ChatGPT%20(gpt-3.5-turbo)-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+Instruct with strict policies (&quot;extremely limited&quot;)</description>
+  </item>
+  <item>
+    <title>text-davinci-003 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#text-davinci-003-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>6.9B FIM (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#6.9B%20FIM-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 6.9B
+License: closed
+Type: model
+Several models: 8 sizes, NLP, Code, FIM/non-FIM. 100B tokens for 6.9B params... beyond chinchilla</description>
+  </item>
+  <item>
+    <title>Codex (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Codex-2021-08-01</guid>
+    <pubDate>Sun, 01 Aug 2021 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+Code</description>
+  </item>
+  <item>
+    <title>GPT-3 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-3-2020-05-01</guid>
+    <pubDate>Fri, 01 May 2020 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+No RLHF (base only). Popular: 3.1M wpm. Dataset: https://lifearchitect.ai/whats-in-my-ai/</description>
+  </item>
+  <item>
+    <title>GPT-2 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2-2019-02-01</guid>
+    <pubDate>Fri, 01 Feb 2019 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+WebText 10B token corpus × 4 epochs → 40B tokens processed. Reddit outbound only</description>
+  </item>
+  <item>
+    <title>GPT-1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-1-2018-06-01</guid>
+    <pubDate>Fri, 01 Jun 2018 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 0.117B
+License: open
+Type: model
+&quot;GPT-1 — 984 M tokens corpus × 100 epochs × 1 token per word → 98.4 B tokens processed&quot; Books only. &quot;We train for 100 epochs on minibatches of 64 randomly sampled, contiguous sequences of 512 tokens.&quot; =3,276,800</description>
+  </item>
+  </channel>
+</rss>

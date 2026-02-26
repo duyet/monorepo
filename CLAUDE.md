@@ -80,6 +80,11 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
    - Live at https://homelab.duyet.net (official) / https://duyet-homelab.pages.dev (Cloudflare)
    - Documentation for personal infrastructure and homelab setup
 
+7. **llm-timeline** (`apps/llm-timeline/`) - Interactive timeline of LLM releases
+   - Live at https://llm-timeline.duyet.net (official) / https://duyet-llm-timeline.pages.dev (Cloudflare)
+   - 50+ LLM models from 2017-2025 with search and filtering by license, type, organization
+   - Client-side filtering with dark mode support
+
 ### Shared Packages (`/packages/`)
 
 - `@duyet/components` - Shared React components

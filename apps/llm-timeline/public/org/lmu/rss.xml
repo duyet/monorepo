@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — LMU Models</title>
+    <link>https://llm-timeline.duyet.net/org/lmu</link>
+    <description>Large Language Model releases from LMU.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/lmu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — LMU Models</title>
+      <link>https://llm-timeline.duyet.net/org/lmu</link>
+    </image>
+  <item>
+    <title>MaLA-500 (LMU)</title>
+    <link>https://llm-timeline.duyet.net/org/lmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MaLA-500-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>LMU</category>
+    <category>open</category>
+    <description>Parameters: 10B
+License: open
+Type: model
+Extends Llama 2 7B to 10B using 534 languages.</description>
+  </item>
+  </channel>
+</rss>
