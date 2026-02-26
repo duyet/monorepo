@@ -98,16 +98,14 @@ export function AppCard({
       aria-label={isExternal ? `${title} (opens in new tab)` : title}
     >
       {/* Inset screenshot — shadow + ring creates depth over the tinted background */}
-      <div className="mb-3 overflow-hidden rounded-lg shadow-md ring-1 ring-black/10">
-        <div className="relative h-36 w-full">
-          <Image
-            src={screenshot}
-            alt={`${title} screenshot`}
-            fill
-            unoptimized
-            className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
-          />
-        </div>
+      <div className="relative mb-3 h-36 overflow-hidden rounded-lg shadow-md ring-1 ring-black/10">
+        <Image
+          src={screenshot}
+          alt={`${title} screenshot`}
+          fill
+          unoptimized
+          className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+        />
       </div>
 
       {/* Info row */}

@@ -1,10 +1,10 @@
 import {
   AiContentCard,
   AppCard,
+  type AppCardAccent,
   ContentCard,
   LinkCard,
 } from "@duyet/components";
-import type { AppCardAccent } from "@duyet/components";
 import Link from "next/link";
 
 export const dynamic = "force-static";
