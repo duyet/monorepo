@@ -60,8 +60,10 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <Header longText="LLM Timeline" shortText="Timeline" />
           {children}
+          <div className="border-t">
+            <Header logo={false} longText="LLM Timeline" shortText="Timeline" />
+          </div>
           <Analytics />
         </ThemeProvider>
       </body>
