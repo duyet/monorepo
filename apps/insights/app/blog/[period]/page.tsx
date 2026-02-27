@@ -9,7 +9,7 @@ import { SkeletonCard } from "../../../components/SkeletonCard";
 import { Cloudflare } from "../cloudflare";
 import { PostHog } from "../posthog";
 
-export const revalidate = 3600; // Revalidate every hour on Vercel (ISR)
+export const dynamic = "force-static";
 
 // Generate static pages for all time periods
 export function generateStaticParams() {

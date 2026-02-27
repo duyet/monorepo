@@ -27,8 +27,8 @@ fi
 
 cd "$ROOT_DIR/apps/$APP_DIR"
 
-# Build with production env (CLOUDFLARE_BUILD=1 enables output: "export" for static Cloudflare Pages)
-CLOUDFLARE_BUILD=1 bun run --env-file="$ROOT_DIR/.env.production" \
+# Build with production env
+bun run --env-file="$ROOT_DIR/.env.production" \
         --env-file="$ROOT_DIR/.env.production.local" \
         build
 

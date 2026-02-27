@@ -10,7 +10,8 @@ export const metadata = {
   description: "Blog Insights data collected from Cloudflare and PostHog.",
 };
 
-export const revalidate = 3600; // Revalidate every hour on Vercel (ISR)
+// Static generation only
+export const dynamic = "force-static";
 
 const STATIC_DAYS: PeriodDays = getPeriodDays(DEFAULT_PERIOD) as PeriodDays;
 
