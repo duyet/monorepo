@@ -120,55 +120,59 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        {hasParts ? (
-          /* Parts-based rendering: text + inline tool cards */
-          <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
-            {parts.map((part, i) => {
-              if (part.type === "text") {
-                return (
-                  <Markdown
-                    key={`text-${i}`}
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeSanitize]}
-                    components={MARKDOWN_COMPONENTS}
-                  >
-                    {part.text}
-                  </Markdown>
-                );
-              }
-              if (part.type === "dynamic-tool") {
-                return (
-                  <InlineToolCard
-                    key={part.toolCallId}
-                    part={part}
-                    onApprove={onToolApprove}
-                    onDeny={onToolDeny}
-                  />
-                );
-              }
-              return null;
-            })}
-            {isStreaming && <StreamingCursor />}
-          </div>
-        ) : (
-          /* Fallback: text-only rendering */
-          <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
-            <Markdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeSanitize]}
-              components={MARKDOWN_COMPONENTS}
-            >
-              {message.content}
-            </Markdown>
-            {isStreaming && <StreamingCursor />}
-          </div>
-        )}
+        <div className="text-sm leading-relaxed text-foreground [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-[family-name:var(--font-geist-mono)] [&_pre]:rounded-xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-[12px] [&_p]:mb-2 [&_p:last-child]:mb-0 [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ol]:pl-4 [&_ol]:space-y-0.5">
+          {hasParts ? (
+            <>
+              {parts.map((part, i) => {
+                if (part.type === "text") {
+                  return (
+                    <Markdown
+                      key={`text-${i}`}
+                      remarkPlugins={[remarkGfm]}
+                      rehypePlugins={[rehypeSanitize]}
+                      components={MARKDOWN_COMPONENTS}
+                    >
+                      {part.text}
+                    </Markdown>
+                  );
+                }
+                if (part.type === "dynamic-tool") {
+                  return (
+                    <InlineToolCard
+                      key={part.toolCallId}
+                      part={part}
+                      onApprove={onToolApprove}
+                      onDeny={onToolDeny}
+                    />
+                  );
+                }
+                return null;
+              })}
+              {isStreaming && <StreamingCursor />}
+            </>
+          ) : message.content ? (
+            <>
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeSanitize]}
+                components={MARKDOWN_COMPONENTS}
+              >
+                {message.content}
+              </Markdown>
+              {isStreaming && <StreamingCursor />}
+            </>
+          ) : isStreaming ? (
+            <StreamingCursor />
+          ) : (
+            <span className="text-muted-foreground italic text-xs">No response</span>
+          )}
+        </div>
 
         <div className="flex items-center gap-1.5">
           <span className="text-[11px] text-neutral-400 font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
-          {!isStreaming && (
+          {!isStreaming && message.content && (
             <Button
               variant="ghost"
               size="icon"

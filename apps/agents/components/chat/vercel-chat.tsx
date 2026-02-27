@@ -219,8 +219,10 @@ export function VercelChat() {
       <ChatTopBar
         onToggleSidebar={() => setSidebarOpen((v) => !v)}
         onToggleActivity={() => setPanelOpen((v) => !v)}
+        onNewChat={handleNewChat}
         showActivityButton={hasActivity}
         activityCount={toolExecutions.length}
+        conversationTitle={activeConversation?.title}
       />
 
       {/* Messages area */}

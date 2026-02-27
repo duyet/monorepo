@@ -3,7 +3,7 @@ import "./globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
-import ThemeProvider from "@duyet/components/ThemeProvider";
+import { Providers } from "@/components/providers";
 import { agentsConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
 import { Inter, Libre_Baskerville, Geist_Mono } from "next/font/google";
@@ -48,12 +48,12 @@ export default function RootLayout({
           "transition-colors duration-300"
         )}
       >
-        <ThemeProvider>
+        <Providers>
           <div className="flex h-screen flex-col overflow-hidden">
             <main className="flex-1 overflow-hidden">{children}</main>
           </div>
           <Analytics />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
