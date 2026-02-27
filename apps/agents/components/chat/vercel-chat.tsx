@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import { useChat, useAutoResize, useAutoScroll, useKeyboardShortcuts, useMergeRefs } from "@/lib/hooks";
 import { cn } from "@duyet/libs";
 import type { ChatMode } from "@/lib/types";
+import type { UIMessage } from "ai";
 import { ActivityPanel } from "../activity/activity-panel";
 import { UserMessage, AssistantMessage, WelcomeMessage } from "./message-components";
 import { LoadingIndicator } from "./loading-indicator";
@@ -16,6 +17,7 @@ export function VercelChat() {
 
   const {
     messages,
+    uiMessages,
     input,
     setInput,
     handleSubmit,
@@ -28,9 +30,36 @@ export function VercelChat() {
     thinkingSteps,
     mode,
     setMode,
+    addToolApprovalResponse,
   } = useChat({
     onError: (err) => console.error("Chat error:", err),
   });
+
+  // Build a map from message ID → UIMessage parts for inline tool rendering
+  const partsMap = useMemo(() => {
+    const map = new Map<string, UIMessage["parts"]>();
+    for (const msg of uiMessages) {
+      if (msg.role === "assistant") {
+        map.set(msg.id, msg.parts);
+      }
+    }
+    return map;
+  }, [uiMessages]);
+
+  // Approval handlers
+  const handleToolApprove = useCallback(
+    (approvalId: string) => {
+      addToolApprovalResponse({ id: approvalId, approved: true });
+    },
+    [addToolApprovalResponse]
+  );
+
+  const handleToolDeny = useCallback(
+    (approvalId: string, reason?: string) => {
+      addToolApprovalResponse({ id: approvalId, approved: false, reason });
+    },
+    [addToolApprovalResponse]
+  );
 
   // Sync mode with localStorage (read on mount, write on change)
   useEffect(() => {
@@ -121,22 +150,35 @@ export function VercelChat() {
                   message.role === "user" ? (
                     <UserMessage key={message.id} message={message} />
                   ) : (
-                    <AssistantMessage key={message.id} message={message} />
+                    <AssistantMessage
+                      key={message.id}
+                      message={message}
+                      parts={partsMap.get(message.id)}
+                      onToolApprove={handleToolApprove}
+                      onToolDeny={handleToolDeny}
+                    />
                   )
                 )}
 
-                {/* Live streaming content */}
-                {streamingContent && (
-                  <AssistantMessage
-                    message={{
-                      id: "streaming",
-                      role: "assistant",
-                      content: streamingContent,
-                      timestamp: Date.now(),
-                    }}
-                    isStreaming
-                  />
-                )}
+                {/* Live streaming content with inline tool cards */}
+                {streamingContent && (() => {
+                  const lastUiMsg = uiMessages[uiMessages.length - 1];
+                  const streamingParts = lastUiMsg?.role === "assistant" ? lastUiMsg.parts : undefined;
+                  return (
+                    <AssistantMessage
+                      message={{
+                        id: "streaming",
+                        role: "assistant",
+                        content: streamingContent,
+                        timestamp: Date.now(),
+                      }}
+                      parts={streamingParts}
+                      onToolApprove={handleToolApprove}
+                      onToolDeny={handleToolDeny}
+                      isStreaming
+                    />
+                  );
+                })()}
 
                 {/* Loading dots (before streaming starts) */}
                 {isLoading && !streamingContent && <LoadingIndicator />}

@@ -65,6 +65,7 @@ const AGENT_TOOLS = {
         .optional()
         .describe("Number of activities to retrieve (max 20)"),
     }),
+    needsApproval: true,
     execute: async ({ limit = 5 }) => {
       const { activity } = await getGitHubTool(limit);
       return activity;
@@ -78,6 +79,7 @@ const AGENT_TOOLS = {
         .optional()
         .describe("Type of analytics report (default: summary)"),
     }),
+    needsApproval: true,
     execute: async ({ reportType = "summary" }) => {
       const { analytics } = await getAnalyticsTool(reportType);
       return analytics;

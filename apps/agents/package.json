@@ -21,7 +21,7 @@
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agents duyet-agents"
   },
   "dependencies": {
-    "@ai-sdk/react": "^3.0.80",
+    "@ai-sdk/react": "^3.0.103",
     "@cloudflare/ai-chat": "^0.1.0",
     "@duyet/components": "*",
     "@duyet/config": "*",
@@ -32,7 +32,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tooltip": "^1.2.8",
     "agents": "^0.5.0",
-    "ai": "^6.0.78",
+    "ai": "^6.0.101",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.0",

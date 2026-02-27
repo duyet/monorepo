@@ -2,8 +2,8 @@
 
 import { useState, useRef, useCallback, useMemo } from "react";
 import { useChat as useAIChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
-import type { UIMessage, DynamicToolUIPart, TextUIPart } from "ai";
+import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalResponses } from "ai";
+import type { UIMessage, DynamicToolUIPart, TextUIPart, ChatAddToolApproveResponseFunction } from "ai";
 import type { Message, ToolExecution, Agent, ChatMode } from "@/lib/types";
 import { getDefaultAgent } from "@/lib/agents";
 
@@ -18,6 +18,7 @@ export interface UseChatOptions {
 
 export interface UseChatReturn {
   messages: Message[];
+  uiMessages: UIMessage[];
   input: string;
   setInput: (value: string) => void;
   handleSubmit: (e?: React.FormEvent) => void;
@@ -33,6 +34,8 @@ export interface UseChatReturn {
   thinkingSteps: string[];
   mode: ChatMode;
   setMode: (mode: ChatMode) => void;
+  // Human-in-the-loop approval
+  addToolApprovalResponse: ChatAddToolApproveResponseFunction;
 }
 
 /** Extract concatenated text from a UIMessage's TextUIPart parts */
@@ -50,7 +53,11 @@ function toExecutionStatus(state: DynamicToolUIPart["state"]): ToolExecution["st
       return "complete";
     case "input-available":
     case "input-streaming":
+    case "approval-requested":
+    case "approval-responded":
       return "running";
+    case "output-denied":
+      return "error";
     default:
       return "error";
   }
@@ -84,8 +91,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     regenerate,
     status,
     error: aiError,
+    addToolApprovalResponse,
   } = useAIChat({
     transport,
+    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
     onError,
     onFinish: onFinish
       ? ({ message: msg }) => {
@@ -170,6 +179,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
 
   return {
     messages,
+    uiMessages: aiMessages,
     input,
     setInput,
     handleSubmit,
@@ -184,5 +194,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     thinkingSteps: [],
     mode,
     setMode,
+    addToolApprovalResponse,
   };
 }

@@ -1,16 +1,24 @@
 "use client";
 
 import type { Message } from "@/lib/types";
+import type { UIMessage } from "ai";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
 import { Button } from "@duyet/components";
 import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
 import { useState, useCallback } from "react";
+import { InlineToolCard } from "./inline-tool-card";
 
 interface MessageProps {
   message: Message;
   isStreaming?: boolean;
+}
+
+interface AssistantMessageProps extends MessageProps {
+  parts?: UIMessage["parts"];
+  onToolApprove?: (id: string) => void;
+  onToolDeny?: (id: string, reason?: string) => void;
 }
 
 type CopyState = "idle" | "copied" | "failed";
@@ -74,8 +82,35 @@ export function UserMessage({ message }: MessageProps) {
   );
 }
 
-export function AssistantMessage({ message, isStreaming }: MessageProps) {
+const MARKDOWN_COMPONENTS = {
+  a: ({ ...props }: React.ComponentProps<"a">) => (
+    <a
+      {...props}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-neutral-900 underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 transition-colors dark:text-neutral-100"
+    />
+  ),
+  code: ({ ...props }: React.ComponentProps<"code">) => (
+    <code
+      {...props}
+      className="px-1.5 py-0.5 bg-neutral-100 rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200"
+    />
+  ),
+  pre: ({ ...props }: React.ComponentProps<"pre">) => (
+    <pre
+      {...props}
+      className="bg-neutral-100 border border-neutral-200 rounded-2xl p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)] dark:bg-neutral-800 dark:border-neutral-700"
+    />
+  ),
+  p: ({ ...props }: React.ComponentProps<"p">) => <p {...props} className="mb-2 last:mb-0" />,
+  ul: ({ ...props }: React.ComponentProps<"ul">) => <ul {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
+  ol: ({ ...props }: React.ComponentProps<"ol">) => <ol {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
+};
+
+export function AssistantMessage({ message, isStreaming, parts, onToolApprove, onToolDeny }: AssistantMessageProps) {
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
+  const hasParts = parts && parts.length > 0;
 
   return (
     <div className="flex justify-start gap-3 group">
@@ -85,40 +120,49 @@ export function AssistantMessage({ message, isStreaming }: MessageProps) {
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
-          <Markdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeSanitize]}
-            components={{
-              a: ({ ...props }) => (
-                <a
-                  {...props}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-neutral-900 underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 transition-colors dark:text-neutral-100"
-                />
-              ),
-              code: ({ ...props }) => (
-                <code
-                  {...props}
-                  className="px-1.5 py-0.5 bg-neutral-100 rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200"
-                />
-              ),
-              pre: ({ ...props }) => (
-                <pre
-                  {...props}
-                  className="bg-neutral-100 border border-neutral-200 rounded-2xl p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)] dark:bg-neutral-800 dark:border-neutral-700"
-                />
-              ),
-              p: ({ ...props }) => <p {...props} className="mb-2 last:mb-0" />,
-              ul: ({ ...props }) => <ul {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
-              ol: ({ ...props }) => <ol {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
-            }}
-          >
-            {message.content}
-          </Markdown>
-          {isStreaming && <StreamingCursor />}
-        </div>
+        {hasParts ? (
+          /* Parts-based rendering: text + inline tool cards */
+          <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
+            {parts.map((part, i) => {
+              if (part.type === "text") {
+                return (
+                  <Markdown
+                    key={`text-${i}`}
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeSanitize]}
+                    components={MARKDOWN_COMPONENTS}
+                  >
+                    {part.text}
+                  </Markdown>
+                );
+              }
+              if (part.type === "dynamic-tool") {
+                return (
+                  <InlineToolCard
+                    key={part.toolCallId}
+                    part={part}
+                    onApprove={onToolApprove}
+                    onDeny={onToolDeny}
+                  />
+                );
+              }
+              return null;
+            })}
+            {isStreaming && <StreamingCursor />}
+          </div>
+        ) : (
+          /* Fallback: text-only rendering */
+          <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
+            <Markdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeSanitize]}
+              components={MARKDOWN_COMPONENTS}
+            >
+              {message.content}
+            </Markdown>
+            {isStreaming && <StreamingCursor />}
+          </div>
+        )}
 
         <div className="flex items-center gap-1.5">
           <span className="text-[11px] text-neutral-400 font-[family-name:var(--font-geist-mono)]">
@@ -197,34 +241,23 @@ interface WelcomeMessageProps {
 
 export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
-    <div className="py-16 sm:py-24 animate-in fade-in duration-500">
-      {/* Hero heading */}
-      <div className="mb-16 text-center">
-        <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 dark:text-neutral-100 sm:text-7xl lg:text-8xl tracking-tight">
-          @duyetbot
-        </h1>
-        <p className="mx-auto max-w-2xl text-xl leading-relaxed text-neutral-500 dark:text-neutral-400 sm:text-2xl">
-          Virtual version of Duyet. Ask me about blog posts, career, GitHub
-          activity, or analytics.
-        </p>
-      </div>
-
+    <div className="py-12 sm:py-16 animate-in fade-in duration-500">
       {/* Capability cards */}
-      <div className="mb-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {CAPABILITIES.map(({ icon: Icon, label, desc, prompt, color, iconColor }) => (
           <button
             key={label}
             type="button"
             onClick={() => onPromptSelect?.(prompt)}
-            className={`group flex flex-col p-10 ${color} rounded-3xl transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer text-left border-0`}
+            className={`group flex flex-col p-6 ${color} rounded-3xl transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer text-left border-0`}
           >
-            <div className={`mb-8 ${iconColor}`}>
-              <Icon className="h-12 w-12" strokeWidth={1.5} />
+            <div className={`mb-4 ${iconColor}`}>
+              <Icon className="h-8 w-8" strokeWidth={1.5} />
             </div>
-            <h3 className="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+            <h3 className="mb-2 text-base font-semibold text-neutral-900 dark:text-neutral-100">
               {label}
             </h3>
-            <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
               {desc}
             </p>
           </button>
@@ -232,22 +265,32 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
       </div>
 
       {/* Quick-start prompts */}
-      <div className="rounded-3xl bg-stone-100/70 px-10 py-8 dark:bg-neutral-800/50">
-        <h2 className="mb-5 font-serif text-2xl font-normal text-neutral-900 dark:text-neutral-100">
+      <div className="mb-10 rounded-3xl bg-stone-100/70 px-8 py-6 dark:bg-neutral-800/50">
+        <h2 className="mb-4 font-serif text-xl font-normal text-neutral-900 dark:text-neutral-100">
           Quick starts
         </h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2.5">
           {QUICK_PROMPTS.map((prompt) => (
             <button
               key={prompt}
               type="button"
               onClick={() => onPromptSelect?.(prompt)}
-              className="inline-block rounded-full bg-neutral-50 px-6 py-3 text-base font-medium text-neutral-800 transition-all hover:bg-neutral-200 hover:shadow-sm cursor-pointer dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+              className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-all hover:bg-neutral-200 hover:shadow-sm cursor-pointer dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
             >
               {prompt}
             </button>
           ))}
         </div>
+      </div>
+
+      {/* Footer branding */}
+      <div className="text-center">
+        <p className="font-serif text-3xl font-normal text-neutral-400 dark:text-neutral-600 sm:text-4xl tracking-tight">
+          @duyetbot
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-neutral-400 dark:text-neutral-500">
+          Virtual version of Duyet. Ask me about blog posts, career, GitHub activity, or analytics.
+        </p>
       </div>
     </div>
   );

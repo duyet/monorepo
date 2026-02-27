@@ -8,14 +8,20 @@ import { describe, test, expect, mock, beforeEach } from "bun:test";
  * The actual AI streaming is mocked since it requires a real Cloudflare AI binding.
  */
 
+// Capture tools passed to streamText for assertion
+let lastStreamTextArgs: any = null;
+
 // Mock AI SDK modules before importing the function
 mock.module("ai", () => ({
-  streamText: mock(({ model, system, messages, tools }: any) => ({
-    toUIMessageStreamResponse: () =>
-      new Response("data: test-stream\n\n", {
-        headers: { "Content-Type": "text/event-stream" },
-      }),
-  })),
+  streamText: mock((args: any) => {
+    lastStreamTextArgs = args;
+    return {
+      toUIMessageStreamResponse: () =>
+        new Response("data: test-stream\n\n", {
+          headers: { "Content-Type": "text/event-stream" },
+        }),
+    };
+  }),
   tool: (config: any) => config,
   convertToModelMessages: mock((msgs: any[]) =>
     msgs.map((m: any) => ({
@@ -113,5 +119,53 @@ describe("Chat API — onRequestPost", () => {
     expect(response.status).toBe(500);
     const json = await response.json();
     expect(json.error).toContain("Failed to process");
+  });
+
+  test("getGitHub tool has needsApproval set to true", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "Show GitHub" }] },
+      ],
+      mode: "agent",
+    });
+
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.tools.getGitHub.needsApproval).toBe(true);
+  });
+
+  test("getAnalytics tool has needsApproval set to true", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "Show analytics" }] },
+      ],
+      mode: "agent",
+    });
+
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.tools.getAnalytics.needsApproval).toBe(true);
+  });
+
+  test("searchBlog tool does not have needsApproval", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "Search blog" }] },
+      ],
+      mode: "agent",
+    });
+
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.tools.searchBlog.needsApproval).toBeUndefined();
+  });
+
+  test("fast mode does not include tools", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "Hello" }] },
+      ],
+      mode: "fast",
+    });
+
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.tools).toBeUndefined();
   });
 });
