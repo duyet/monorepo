@@ -244,6 +244,9 @@ jobs:
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          # Cloudflare AI Gateway (agents app)
+          CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
+          CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}
 
       - name: Deployment summary
         run: |
