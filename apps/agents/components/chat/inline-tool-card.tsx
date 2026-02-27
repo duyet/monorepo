@@ -83,11 +83,11 @@ export function InlineToolCard({ part, onApprove, onDeny }: InlineToolCardProps)
   // Streaming / preparing state — compact pill
   if (part.state === "input-streaming") {
     return (
-      <div className="my-1.5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+      <div className="my-1.5 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1.5 text-xs text-muted-foreground">
         <Loader2 className="h-3 w-3 animate-spin" />
         <ToolIcon className="h-3 w-3" />
         <span>{displayName}</span>
-        <span className="text-neutral-400 dark:text-neutral-500">Preparing...</span>
+        <span className="text-muted-foreground">Preparing...</span>
       </div>
     );
   }
@@ -95,12 +95,12 @@ export function InlineToolCard({ part, onApprove, onDeny }: InlineToolCardProps)
   // Input ready — compact pill with params
   if (part.state === "input-available") {
     return (
-      <div className="my-1.5 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs dark:border-neutral-700 dark:bg-neutral-800">
+      <div className="my-1.5 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1.5 text-xs">
         <Loader2 className="h-3 w-3 animate-spin text-blue-500" />
-        <ToolIcon className="h-3 w-3 text-neutral-500 dark:text-neutral-400" />
-        <span className="font-medium text-neutral-700 dark:text-neutral-300">{displayName}</span>
+        <ToolIcon className="h-3 w-3 text-muted-foreground" />
+        <span className="font-medium text-foreground">{displayName}</span>
         {params && (
-          <span className="max-w-[200px] truncate text-neutral-400 dark:text-neutral-500">
+          <span className="max-w-[200px] truncate text-muted-foreground">
             {params}
           </span>
         )}
@@ -119,7 +119,7 @@ export function InlineToolCard({ part, onApprove, onDeny }: InlineToolCardProps)
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200">
+              <span className="text-sm font-medium text-foreground">
                 {displayName}
               </span>
               <span className="rounded-full bg-amber-200/60 px-2 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-800/40 dark:text-amber-300">
@@ -127,7 +127,7 @@ export function InlineToolCard({ part, onApprove, onDeny }: InlineToolCardProps)
               </span>
             </div>
             {params && (
-              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+              <p className="mt-1 text-xs text-muted-foreground">
                 {params}
               </p>
             )}
@@ -197,33 +197,33 @@ export function InlineToolCard({ part, onApprove, onDeny }: InlineToolCardProps)
   // Output available — collapsible result card
   if (part.state === "output-available") {
     return (
-      <div className="my-2 rounded-2xl border border-neutral-200 bg-neutral-50/50 dark:border-neutral-700 dark:bg-neutral-800/50">
+      <div className="my-2 rounded-2xl border border-border bg-muted/50">
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
           className="flex w-full items-center gap-2 px-3 py-2.5 text-left"
         >
           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-          <ToolIcon className="h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400" />
-          <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+          <ToolIcon className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-xs font-medium text-foreground">
             {displayName}
           </span>
           {params && (
-            <span className="max-w-[200px] truncate text-xs text-neutral-400 dark:text-neutral-500">
+            <span className="max-w-[200px] truncate text-xs text-muted-foreground">
               {params}
             </span>
           )}
           <span className="ml-auto">
             {expanded ? (
-              <ChevronDown className="h-3 w-3 text-neutral-400" />
+              <ChevronDown className="h-3 w-3 text-muted-foreground" />
             ) : (
-              <ChevronRight className="h-3 w-3 text-neutral-400" />
+              <ChevronRight className="h-3 w-3 text-muted-foreground" />
             )}
           </span>
         </button>
         {expanded && (
-          <div className="border-t border-neutral-200 px-3 pb-3 pt-2 dark:border-neutral-700">
-            <pre className="overflow-x-auto whitespace-pre-wrap break-words text-xs text-neutral-600 dark:text-neutral-400 font-[family-name:var(--font-geist-mono)]">
+          <div className="border-t border-border px-3 pb-3 pt-2">
+            <pre className="overflow-x-auto whitespace-pre-wrap break-words text-xs text-muted-foreground font-[family-name:var(--font-geist-mono)]">
               {formatResult(part.output)}
             </pre>
           </div>
@@ -257,13 +257,13 @@ export function InlineToolCard({ part, onApprove, onDeny }: InlineToolCardProps)
   // Output denied
   if (part.state === "output-denied") {
     return (
-      <div className="my-2 rounded-2xl border border-neutral-200 bg-neutral-50/50 p-3 dark:border-neutral-700 dark:bg-neutral-800/50">
+      <div className="my-2 rounded-2xl border border-border bg-muted/50 p-3">
         <div className="flex items-center gap-2">
-          <ShieldX className="h-3.5 w-3.5 text-neutral-400" />
-          <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+          <ShieldX className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-xs font-medium text-muted-foreground">
             {displayName}
           </span>
-          <span className="rounded-full bg-neutral-200/60 px-2 py-0.5 text-[10px] font-medium text-neutral-600 dark:bg-neutral-700/40 dark:text-neutral-400">
+          <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
             Denied
           </span>
         </div>

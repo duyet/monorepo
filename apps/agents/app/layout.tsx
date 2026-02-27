@@ -2,6 +2,7 @@ import "@duyet/components/styles.css";
 import "./globals.css";
 
 import Analytics from "@duyet/components/Analytics";
+import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
 import { Providers } from "@/components/providers";
 import { agentsConfig } from "@duyet/config";
@@ -52,6 +53,7 @@ export default function RootLayout({
           <div className="flex h-screen flex-col overflow-hidden">
             <main className="flex-1 overflow-hidden">{children}</main>
           </div>
+          <Footer className="shrink-0" />
           <Analytics />
         </Providers>
       </body>

@@ -9,6 +9,7 @@ import { Button } from "@duyet/components";
 import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
 import { useState, useCallback } from "react";
 import { InlineToolCard } from "./inline-tool-card";
+import { Reasoning } from "./reasoning";
 
 interface MessageProps {
   message: Message;
@@ -58,13 +59,13 @@ export function UserMessage({ message }: MessageProps) {
   return (
     <div className="flex justify-end gap-3 group">
       <div className="flex max-w-[80%] flex-col items-end gap-1">
-        <div className="rounded-2xl rounded-br-sm bg-neutral-900 px-4 py-2.5 text-white dark:bg-neutral-100 dark:text-neutral-900">
+        <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-primary-foreground">
           <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
             {message.content}
           </p>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-neutral-400 font-[family-name:var(--font-geist-mono)]">
+          <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
           <Button
@@ -88,19 +89,19 @@ const MARKDOWN_COMPONENTS = {
       {...props}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-neutral-900 underline underline-offset-2 decoration-neutral-300 hover:decoration-neutral-900 transition-colors dark:text-neutral-100"
+      className="text-foreground underline underline-offset-2 decoration-muted-foreground/40 hover:decoration-foreground transition-colors"
     />
   ),
   code: ({ ...props }: React.ComponentProps<"code">) => (
     <code
       {...props}
-      className="px-1.5 py-0.5 bg-neutral-100 rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200"
+      className="px-1.5 py-0.5 bg-muted rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-foreground"
     />
   ),
   pre: ({ ...props }: React.ComponentProps<"pre">) => (
     <pre
       {...props}
-      className="bg-neutral-100 border border-neutral-200 rounded-2xl p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)] dark:bg-neutral-800 dark:border-neutral-700"
+      className="bg-muted border border-border rounded-2xl p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)]"
     />
   ),
   p: ({ ...props }: React.ComponentProps<"p">) => <p {...props} className="mb-2 last:mb-0" />,
@@ -115,8 +116,8 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
   return (
     <div className="flex justify-start gap-3 group">
       {/* Avatar */}
-      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
-        <span className="text-[10px] font-bold text-neutral-600 dark:text-neutral-400">D</span>
+      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted">
+        <span className="text-[10px] font-bold text-muted-foreground">D</span>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -124,6 +125,15 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
           {hasParts ? (
             <>
               {parts.map((part, i) => {
+                if (part.type === "reasoning") {
+                  return (
+                    <Reasoning
+                      key={`reasoning-${i}`}
+                      text={part.text}
+                      isStreaming={part.state === "streaming"}
+                    />
+                  );
+                }
                 if (part.type === "text") {
                   return (
                     <Markdown
@@ -169,7 +179,7 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
         </div>
 
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-neutral-400 font-[family-name:var(--font-geist-mono)]">
+          <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
           {!isStreaming && message.content && (
@@ -192,7 +202,7 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
 export function StreamingCursor() {
   return (
     <span className="inline-flex ml-0.5 align-middle animate-pulse">
-      <span className="w-0.5 h-[1em] bg-neutral-900 dark:bg-neutral-100" />
+      <span className="w-0.5 h-[1em] bg-foreground" />
     </span>
   );
 }
@@ -253,15 +263,15 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
             key={label}
             type="button"
             onClick={() => onPromptSelect?.(prompt)}
-            className={`group flex flex-col p-6 ${color} rounded-3xl transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer text-left border-0`}
+            className={`group flex flex-col p-6 ${color} rounded-xl transition-all duration-200 hover:scale-[1.02] cursor-pointer text-left border-0`}
           >
             <div className={`mb-4 ${iconColor}`}>
               <Icon className="h-8 w-8" strokeWidth={1.5} />
             </div>
-            <h3 className="mb-2 text-base font-semibold text-neutral-900 dark:text-neutral-100">
+            <h3 className="mb-2 text-base font-semibold text-foreground">
               {label}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               {desc}
             </p>
           </button>
@@ -270,7 +280,7 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
 
       {/* Quick-start prompts */}
       <div className="mb-10">
-        <h2 className="mb-4 font-serif text-xl font-normal text-neutral-900 dark:text-neutral-100">
+        <h2 className="mb-4 font-serif text-xl font-normal text-foreground">
           Quick starts
         </h2>
         <div className="flex flex-wrap gap-2.5">
@@ -279,7 +289,7 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
               key={prompt}
               type="button"
               onClick={() => onPromptSelect?.(prompt)}
-              className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-all hover:bg-neutral-200 hover:shadow-sm cursor-pointer dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+              className="inline-block rounded-full bg-muted px-5 py-2 text-sm font-medium text-foreground transition-all hover:bg-accent cursor-pointer"
             >
               {prompt}
             </button>
