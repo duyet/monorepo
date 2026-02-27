@@ -4,14 +4,13 @@
  * Handles streaming chat with Workers AI via AI Gateway + tool calling.
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with maxSteps.
  *
- * Provider: ai-gateway-provider unified API with dynamic route
+ * Provider: workers-ai-provider with built-in AI Gateway support
  */
 
 import { streamText, tool, convertToModelMessages } from "ai";
-import { createAiGateway } from "ai-gateway-provider";
-import { unified } from "ai-gateway-provider/providers/unified";
+import { createWorkersAI } from "workers-ai-provider";
 import { z } from "zod";
-import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../lib/agent";
+import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT, FAST_MODEL, AGENT_MODEL } from "../../lib/agent";
 import {
   searchBlogTool,
   getBlogPostTool,
@@ -118,21 +117,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const messages = await convertToModelMessages(uiMessages);
 
-    // AI Gateway with dynamic route — model selection managed in CF dashboard
-    const aigateway = createAiGateway({
-      binding: AI.gateway("monorepo"),
-    });
+    // Workers AI with built-in AI Gateway routing
+    const workersai = createWorkersAI({ binding: AI, gateway: { id: "monorepo" } });
 
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
-    const route = isFast ? "dynamic/duyet-agents-fast" : "dynamic/duyet-agents";
+    const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
 
     // Log system prompt
     const systemPreview = system.length > 100 ? `${system.substring(0, 100)}...` : system;
     console.log(`[Chat API][${requestId}] System prompt (${system.length} chars):`, systemPreview);
 
-    // Log message count and route
-    console.log(`[Chat API][${requestId}] Messages:`, messages.length, "| Route:", route);
+    // Log message count and model
+    console.log(`[Chat API][${requestId}] Messages:`, messages.length, "| Model:", modelId);
 
     // Prepare messages with system prompt prepended
     const messagesWithSystem = [
@@ -140,7 +137,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...messages,
     ];
 
-    const model = aigateway(unified(route));
+    const model = workersai(modelId);
 
     const result = streamText({
       model,
@@ -149,7 +146,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${route}`);
+    console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);
 
     return result.toUIMessageStreamResponse();
   } catch (error) {

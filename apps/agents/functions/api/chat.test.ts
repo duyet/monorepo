@@ -31,17 +31,11 @@ mock.module("ai", () => ({
   ),
 }));
 
-mock.module("ai-gateway-provider", () => ({
-  createAiGateway: mock((_opts: any) => (innerModel: any) => ({
-    ...innerModel,
-    provider: "ai-gateway",
-  })),
-}));
-
-mock.module("ai-gateway-provider/providers/unified", () => ({
-  unified: mock((route: string) => ({
-    route,
-    provider: "unified",
+mock.module("workers-ai-provider", () => ({
+  createWorkersAI: mock((_opts: any) => (modelId: string) => ({
+    modelId,
+    provider: "workers-ai",
+    config: {},
   })),
 }));
 
