@@ -1,5 +1,7 @@
+'use client'
+
 import Link from 'next/link'
-import { Github } from 'lucide-react'
+import { Github, Download, User } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { lastSynced, years } from '@/lib/data'
 
@@ -37,8 +39,18 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <ThemeToggle />
+              <Link
+                href="/data.json"
+                download="llm-timeline-data.json"
+                className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                style={{ color: 'var(--text-muted)' }}
+                title="Download all model data as JSON"
+                aria-label="Download data"
+              >
+                <Download className="h-5 w-5" />
+              </Link>
               <Link
                 href="https://github.com/duyet/monorepo"
                 target="_blank"
@@ -48,6 +60,14 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
               >
                 <Github className="h-5 w-5" />
               </Link>
+              <button
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                style={{ color: 'var(--text-muted)' }}
+                aria-label="Sign in"
+              >
+                <User className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign in</span>
+              </button>
             </div>
           </div>
         </header>
