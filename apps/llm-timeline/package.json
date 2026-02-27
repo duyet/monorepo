@@ -32,7 +32,9 @@
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@happy-dom/global-registrator": "^20.7.0",
     "@types/react": "^19.1.4",
+    "happy-dom": "^20.7.0",
     "typescript": "*"
   }
 }
