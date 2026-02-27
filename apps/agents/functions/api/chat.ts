@@ -143,17 +143,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Log message count and model
     console.log(`[Chat API][${requestId}] Messages:`, messages.length, "| Model:", modelId);
 
-    // Prepare messages with system prompt prepended
-    const messagesWithSystem = [
-      { role: "system", content: system },
-      ...messages,
-    ];
-
     const model = workersai(modelId);
 
     const result = streamText({
       model,
-      messages: messagesWithSystem,
+      system,
+      messages,
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast
         ? {}
