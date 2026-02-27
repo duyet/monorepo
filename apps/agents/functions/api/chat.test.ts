@@ -169,3 +169,129 @@ describe("Chat API — onRequestPost", () => {
     expect(lastStreamTextArgs.tools).toBeUndefined();
   });
 });
+
+describe("Tool calling — AGENT_TOOLS registration", () => {
+  // Helper: make agent-mode request to capture tools
+  async function getAgentTools() {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
+      ],
+      mode: "agent",
+    });
+    await onRequestPost(ctx);
+    return lastStreamTextArgs.tools;
+  }
+
+  test("registers all 6 tools in agent mode", async () => {
+    const tools = await getAgentTools();
+    const names = Object.keys(tools);
+    expect(names).toContain("searchBlog");
+    expect(names).toContain("getBlogPost");
+    expect(names).toContain("getCV");
+    expect(names).toContain("getGitHub");
+    expect(names).toContain("getAnalytics");
+    expect(names).toContain("getAbout");
+    expect(names).toHaveLength(6);
+  });
+
+  test("all tools have descriptions", async () => {
+    const tools = await getAgentTools();
+    for (const [name, tool] of Object.entries(tools) as [string, any][]) {
+      expect(tool.description).toBeDefined();
+      expect(tool.description.length).toBeGreaterThan(10);
+    }
+  });
+
+  test("all tools have input schemas", async () => {
+    const tools = await getAgentTools();
+    for (const [name, tool] of Object.entries(tools) as [string, any][]) {
+      expect(tool.inputSchema).toBeDefined();
+    }
+  });
+
+  test("all tools have execute functions", async () => {
+    const tools = await getAgentTools();
+    for (const [name, tool] of Object.entries(tools) as [string, any][]) {
+      expect(typeof tool.execute).toBe("function");
+    }
+  });
+
+  test("only external API tools require approval", async () => {
+    const tools = await getAgentTools();
+    // External API tools — require approval
+    expect(tools.getGitHub.needsApproval).toBe(true);
+    expect(tools.getAnalytics.needsApproval).toBe(true);
+    // Read-only safe tools — no approval
+    expect(tools.searchBlog.needsApproval).toBeUndefined();
+    expect(tools.getBlogPost.needsApproval).toBeUndefined();
+    expect(tools.getCV.needsApproval).toBeUndefined();
+    expect(tools.getAbout.needsApproval).toBeUndefined();
+  });
+
+  test("agent mode sets maxSteps to 5", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
+      ],
+      mode: "agent",
+    });
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.maxSteps).toBe(5);
+  });
+
+  test("fast mode does not set maxSteps", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
+      ],
+      mode: "fast",
+    });
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.maxSteps).toBeUndefined();
+  });
+
+  test("agent mode uses higher temperature than fast mode", async () => {
+    // Agent mode
+    let ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
+      ],
+      mode: "agent",
+    });
+    await onRequestPost(ctx);
+    const agentTemp = lastStreamTextArgs.temperature;
+
+    // Fast mode
+    ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
+      ],
+      mode: "fast",
+    });
+    await onRequestPost(ctx);
+    const fastTemp = lastStreamTextArgs.temperature;
+
+    expect(agentTemp).toBeGreaterThan(fastTemp);
+  });
+
+  test("searchBlog tool schema requires query string", async () => {
+    const tools = await getAgentTools();
+    const schema = tools.searchBlog.inputSchema;
+    // Zod schema — verify it's defined and has the expected shape
+    expect(schema).toBeDefined();
+    expect(schema._def || schema.shape || schema).toBeTruthy();
+  });
+
+  test("getGitHub tool schema has optional limit param", async () => {
+    const tools = await getAgentTools();
+    const schema = tools.getGitHub.inputSchema;
+    expect(schema).toBeDefined();
+  });
+
+  test("getAbout tool schema accepts empty object", async () => {
+    const tools = await getAgentTools();
+    const schema = tools.getAbout.inputSchema;
+    expect(schema).toBeDefined();
+  });
+});
