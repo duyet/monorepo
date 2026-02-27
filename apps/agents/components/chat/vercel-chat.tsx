@@ -40,11 +40,23 @@ export function VercelChat() {
     conversations,
     activeId,
     activeConversation,
+    activeMessages,
     createNew,
     switchTo,
     remove,
     updateTitle,
+    saveMessages,
   } = useConversations();
+
+  // Track the conversation ID for remounting useChat
+  const [chatKey, setChatKey] = useState<string | null>(activeId);
+
+  // Sync chatKey with activeId - when conversation changes, force remount
+  useEffect(() => {
+    if (activeId !== chatKey) {
+      setChatKey(activeId);
+    }
+  }, [activeId, chatKey]);
 
   const {
     messages,
@@ -63,7 +75,10 @@ export function VercelChat() {
     setMode,
     addToolApprovalResponse,
   } = useChat({
+    id: chatKey ?? undefined,
     onError: (err) => console.error("Chat error:", err),
+    messages: activeMessages,
+    onMessagesChange: saveMessages,
   });
 
   // Build a map from message ID → UIMessage parts for inline tool rendering
@@ -103,10 +118,10 @@ export function VercelChat() {
     localStorage.setItem("chat-mode", newMode);
   };
 
-  const handlePromptSelect = (prompt: string) => {
+  const handlePromptSelect = async (prompt: string) => {
     // Auto-create conversation if none active
     if (!activeId) {
-      createNew(mode);
+      await createNew(mode);
     }
     setInput(prompt);
     setTimeout(() => inputRef.current?.focus(), 0);
@@ -153,20 +168,20 @@ export function VercelChat() {
   }, [activeId]);
 
   // Auto-create conversation on first message submit
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
     if (!activeId) {
-      createNew(mode);
+      await createNew(mode);
     }
 
     handleSubmit(e);
   };
 
-  const handleNewChat = () => {
+  const handleNewChat = async () => {
     console.log("[VercelChat] New chat button clicked, mode:", mode);
-    createNew(mode);
+    await createNew(mode);
     console.log("[VercelChat] createNew called, activeId:", activeId);
   };
 
@@ -225,7 +240,7 @@ export function VercelChat() {
       conversations={conversations}
       activeId={activeId}
       onNewChat={handleNewChat}
-      onSelectConversation={switchTo}
+      onSelectConversation={async (id) => { await switchTo(id); }}
       onDeleteConversation={remove}
       collapsed={!sidebarOpen}
       onToggleCollapse={() => setSidebarOpen((v) => !v)}
@@ -266,11 +281,11 @@ export function VercelChat() {
       {/* Messages area */}
       <div ref={containerRef} className="flex-1 overflow-y-auto">
         {!hasMessages && !streamingContent ? (
-          <div className="mx-auto max-w-3xl px-3 sm:px-4">
+          <div className="px-3 sm:px-4 lg:px-6 xl:px-8">
             <WelcomeMessage onPromptSelect={handlePromptSelect} />
           </div>
         ) : (
-          <div className="mx-auto max-w-3xl px-3 sm:px-4 py-6 space-y-4">
+          <div className="px-3 sm:px-4 lg:px-6 xl:px-8 py-6 space-y-4">
             {messages.map((message) =>
               message.role === "user" ? (
                 <UserMessage key={message.id} message={message} />
@@ -312,8 +327,8 @@ export function VercelChat() {
       </div>
 
       {/* Sticky input area */}
-      <div className="border-t border-border bg-background px-3 sm:px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <form onSubmit={handleFormSubmit} className="mx-auto max-w-3xl">
+      <div className="border-t border-border bg-background px-3 sm:px-4 lg:px-6 xl:px-8 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <form onSubmit={handleFormSubmit}>
           <Textarea
             ref={textareaRef}
             value={input}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { useChat as useAIChat } from "@ai-sdk/react";
 import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalResponses } from "ai";
 import type { UIMessage, DynamicToolUIPart, TextUIPart, ChatAddToolApproveResponseFunction } from "ai";
@@ -12,9 +12,12 @@ const CHAT_API_URL =
   process.env.NEXT_PUBLIC_CHAT_API_URL || "/api/chat";
 
 export interface UseChatOptions {
+  id?: string;
   onError?: (error: Error) => void;
   onFinish?: (message: Message) => void;
+  onMessagesChange?: (messages: Message[]) => void;
   mode?: ChatMode;
+  messages?: Message[];
 }
 
 export interface UseChatReturn {
@@ -65,7 +68,7 @@ function toExecutionStatus(state: DynamicToolUIPart["state"]): ToolExecution["st
 }
 
 export function useChat(options: UseChatOptions = {}): UseChatReturn {
-  const { onError, onFinish, mode: initialMode = "agent" } = options;
+  const { id, onError, onFinish, onMessagesChange, mode: initialMode = "agent", messages: initialMessages } = options;
 
   const [input, setInput] = useState("");
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
@@ -102,8 +105,14 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     error: aiError,
     addToolApprovalResponse,
   } = useAIChat({
+    id,
     transport,
     sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
+    messages: initialMessages?.map(m => ({
+      id: m.id,
+      role: m.role,
+      parts: [{ type: 'text', text: m.content }],
+    })),
     onError,
     onFinish: onFinish
       ? ({ message: msg }) => {
@@ -113,7 +122,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           const duration = Date.now() - startTime;
 
           // Count tool calls from parts
-          const toolCalls = msg.parts.filter(p => p.type === "dynamic-tool" || p.type.startsWith("tool-")).length;
+          const toolCalls = msg.parts.filter((p) => {
+            const type = p.type as string;
+            return type === "dynamic-tool" || type.startsWith("tool-");
+          }).length;
 
           const messageWithMeta: Message = {
             id: msg.id,
@@ -187,6 +199,13 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     return converted;
   }, [aiMessages, isActiveStatus]);
 
+  // Notify parent when messages change (for persistence to conversations)
+  useEffect(() => {
+    if (onMessagesChange) {
+      onMessagesChange(messages);
+    }
+  }, [messages, onMessagesChange]);
+
   /** Live text of the currently-streaming assistant message */
   const streamingContent = useMemo(() => {
     if (!isActiveStatus) return "";
@@ -215,9 +234,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         }
 
         // Count tool calls dynamically
-        const toolCallCount = lastMsg.parts.filter(p =>
-          p.type === "dynamic-tool" || p.type.startsWith("tool-")
-        ).length;
+        const toolCallCount = lastMsg.parts.filter((p) => {
+          const type = p.type as string;
+          return type === "dynamic-tool" || type.startsWith("tool-");
+        }).length;
         const currentMeta = messageMetadataRef.current.get(lastMsg.id);
         if (currentMeta) {
           currentMeta.toolCalls = toolCallCount;
@@ -227,11 +247,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           id: lastMsg.id,
           role: lastMsg.role,
           partsCount: lastMsg.parts?.length || 0,
-          parts: lastMsg.parts?.map(p => {
+          parts: lastMsg.parts?.map((p) => {
             const info: any = { type: p.type };
-            if (p.type === 'text') info.textLength = p.text?.length;
-            if ('state' in p) info.state = p.state;
-            if ('toolName' in p) info.toolName = p.toolName;
+            if (p.type === 'text') info.textLength = (p as any).text?.length;
+            if ('state' in p) info.state = (p as any).state;
+            if ('toolName' in p) info.toolName = (p as any).toolName;
             return info;
           }),
           toolCalls: toolCallCount,
@@ -246,8 +266,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     for (const msg of aiMessages) {
       if (msg.role !== "assistant") continue;
       for (const part of msg.parts) {
-        if (part.type !== "dynamic-tool") continue;
-        const p = part as DynamicToolUIPart;
+        const type = part.type as string;
+        if (type !== "dynamic-tool") continue;
+        const p = part as any;
+        if (!p.toolCallId || !p.toolName) continue;
         const isComplete = p.state === "output-available";
         executions.push({
           id: p.toolCallId,
@@ -256,7 +278,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           startTime: Date.now(),
           endTime: isComplete ? Date.now() : undefined,
           status: toExecutionStatus(p.state),
-          result: isComplete ? p.output : undefined,
+          result: isComplete ? p.output as string : undefined,
         });
       }
     }
