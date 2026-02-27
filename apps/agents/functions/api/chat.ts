@@ -2,12 +2,12 @@
  * Chat API — Cloudflare Pages Function
  *
  * Handles streaming chat with Workers AI via AI Gateway + tool calling.
- * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with maxSteps.
+ * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with stepCountIs.
  *
  * Provider: workers-ai-provider with built-in AI Gateway support
  */
 
-import { streamText, tool, convertToModelMessages } from "ai";
+import { streamText, tool, convertToModelMessages, stepCountIs, pruneMessages } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { z } from "zod";
 import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT, FAST_MODEL, AGENT_MODEL } from "../../lib/agent";
@@ -115,7 +115,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Log incoming request
     console.log(`[Chat API][${requestId}] Request: mode=${mode}, messages=${uiMessages.length}`);
 
-    const messages = await convertToModelMessages(uiMessages);
+    const allMessages = await convertToModelMessages(uiMessages);
+
+    // Prune old tool calls to prevent context overflow
+    const messages = pruneMessages({ messages: allMessages, toolCalls: "require-last-only" });
 
     // Workers AI with built-in AI Gateway routing
     const workersai = createWorkersAI({ binding: AI, gateway: { id: "monorepo" } });
@@ -143,7 +146,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       model,
       messages: messagesWithSystem,
       temperature: isFast ? 0.3 : 0.7,
-      ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
+      ...(isFast ? {} : { tools: AGENT_TOOLS, stopWhen: stepCountIs(5) }),
     });
 
     console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);

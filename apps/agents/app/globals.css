@@ -30,14 +30,6 @@
     --chart-4: oklch(0.9 0.09 75);
     --chart-5: oklch(0.8 0.15 15);
 
-    /* Chat bubble colors */
-    --user-bubble: oklch(0.623 0.214 259.815);
-    --user-bubble-fg: oklch(0.97 0.014 254.604);
-    --assistant-bubble: oklch(0.97 0.005 286);
-    --assistant-bubble-fg: oklch(0.141 0.005 285.823);
-    --assistant-accent: oklch(0.72 0.12 165);
-    --mode-fast: oklch(0.82 0.14 85);
-    --mode-agent: oklch(0.70 0.15 250);
   }
 
   .dark {
@@ -65,14 +57,6 @@
     --chart-4: oklch(0.8 0.11 75);
     --chart-5: oklch(0.7 0.17 15);
 
-    /* Chat bubble colors */
-    --user-bubble: oklch(0.45 0.18 260);
-    --user-bubble-fg: oklch(0.95 0.01 255);
-    --assistant-bubble: oklch(0.22 0.008 286);
-    --assistant-bubble-fg: oklch(0.95 0 0);
-    --assistant-accent: oklch(0.55 0.1 165);
-    --mode-fast: oklch(0.65 0.12 85);
-    --mode-agent: oklch(0.55 0.13 250);
   }
 
   *,

@@ -20,7 +20,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-// Tool icon mapping (shared with tool-call.tsx)
+// Tool icon mapping
 const TOOL_ICONS: Record<string, LucideIcon> = {
   search: Search,
   getGitHub: Globe,

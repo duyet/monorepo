@@ -29,6 +29,8 @@ mock.module("ai", () => ({
       content: typeof m.content === "string" ? m.content : m.parts?.[0]?.text || "",
     }))
   ),
+  stepCountIs: mock((n: number) => ({ type: "stepCount", stepCount: n })),
+  pruneMessages: mock(({ messages }: any) => messages),
 }));
 
 mock.module("workers-ai-provider", () => ({
@@ -233,7 +235,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(tools.getAbout.needsApproval).toBeUndefined();
   });
 
-  test("agent mode sets maxSteps to 5", async () => {
+  test("agent mode sets stopWhen with stepCountIs(5)", async () => {
     const ctx = makeContext({
       messages: [
         { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
@@ -241,10 +243,10 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
       mode: "agent",
     });
     await onRequestPost(ctx);
-    expect(lastStreamTextArgs.maxSteps).toBe(5);
+    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 5 });
   });
 
-  test("fast mode does not set maxSteps", async () => {
+  test("fast mode does not set stopWhen", async () => {
     const ctx = makeContext({
       messages: [
         { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
@@ -252,7 +254,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
       mode: "fast",
     });
     await onRequestPost(ctx);
-    expect(lastStreamTextArgs.maxSteps).toBeUndefined();
+    expect(lastStreamTextArgs.stopWhen).toBeUndefined();
   });
 
   test("agent mode uses higher temperature than fast mode", async () => {
