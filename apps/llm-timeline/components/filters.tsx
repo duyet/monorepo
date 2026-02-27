@@ -2,7 +2,10 @@
 
 import { Search, X, Rows2, LayoutList } from 'lucide-react'
 import type { FilterState } from '@/lib/utils'
-import { organizations } from '@/lib/data'
+import { organizations, models as allModels } from '@/lib/data'
+
+// Compute unique sources for filter dropdown
+const uniqueSources = Array.from(new Set(allModels.filter(m => m.source).map(m => m.source!)))
 
 interface FiltersProps {
   filters: FilterState
@@ -118,13 +121,16 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
         {/* Source Filter */}
         <select
           value={filters.source}
-          onChange={(e) => updateFilter('source', e.target.value as FilterState['source'])}
+          onChange={(e) => updateFilter('source', e.target.value)}
           className={selectClassName}
           style={inputStyle}
         >
           <option value="all">All Sources</option>
-          <option value="curated">Curated</option>
-          <option value="epoch">Epoch AI</option>
+          {uniqueSources.map((src) => (
+            <option key={src} value={src}>
+              {src === 'epoch' ? 'Epoch AI' : src.charAt(0).toUpperCase() + src.slice(1)}
+            </option>
+          ))}
         </select>
 
         {/* Clear Filters */}

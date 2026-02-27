@@ -7,10 +7,7 @@ interface StatsHeaderProps {
   organizations: number
   activeView: View
   onViewChange: (v: View) => void
-  sourceStats?: {
-    curated: number
-    epoch: number
-  }
+  sourceStats?: Record<string, number>
 }
 
 export function StatsHeader({
@@ -80,32 +77,33 @@ export function StatsHeader({
     </div>
 
     {/* Source breakdown */}
-    {sourceStats && (sourceStats.curated > 0 || sourceStats.epoch > 0) && (
+    {sourceStats && Object.keys(sourceStats).length > 0 && (
       <div className="mt-3 text-xs" style={{ color: 'var(--text-muted)' }}>
         Data sources:{' '}
-        {sourceStats.curated > 0 && (
-          <span className="font-medium" style={{ color: 'var(--text)' }}>
-            {sourceStats.curated.toLocaleString()} curated
-          </span>
-        )}
-        {sourceStats.curated > 0 && sourceStats.epoch > 0 && ' + '}
-        {sourceStats.epoch > 0 && (
-          <span>
+        {Object.entries(sourceStats).map(([name, count], i) => (
+          <span key={name}>
+            {i > 0 && ' + '}
             <span className="font-medium" style={{ color: 'var(--text)' }}>
-              {sourceStats.epoch.toLocaleString()}
+              {count.toLocaleString()}
             </span>{' '}
-            from{' '}
-            <a
-              href="https://epoch.ai/data"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-              style={{ color: 'var(--accent)' }}
-            >
-              Epoch AI
-            </a>
+            {name === 'epoch' ? (
+              <>
+                from{' '}
+                <a
+                  href="https://epoch.ai/data"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  Epoch AI
+                </a>
+              </>
+            ) : (
+              name
+            )}
           </span>
-        )}
+        ))}
       </div>
     )}
     </>

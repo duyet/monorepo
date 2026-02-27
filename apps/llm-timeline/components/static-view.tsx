@@ -16,10 +16,7 @@ interface StaticViewProps {
     models: number
     organizations: number
   }
-  sourceStats?: {
-    curated: number
-    epoch: number
-  }
+  sourceStats?: Record<string, number>
   view: View
   license?: 'all' | 'open' | 'closed' | 'partial'
   year?: number

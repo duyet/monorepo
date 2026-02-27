@@ -5,7 +5,7 @@ export interface FilterState {
   license: 'all' | 'open' | 'closed' | 'partial'
   type: 'all' | 'model' | 'milestone'
   org: string
-  source: 'all' | 'curated' | 'epoch'
+  source: string  // 'all' or source name like 'curated', 'epoch'
 }
 
 /**
@@ -108,18 +108,17 @@ export function getTypeColor(type: Model['type']): string {
   }
 }
 
+const SOURCE_COLORS: Record<string, string> = {
+  curated: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800',
+  epoch: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800',
+}
+
 /**
  * Get color for data source
  */
-export function getSourceColor(source?: 'curated' | 'epoch'): string {
-  switch (source) {
-    case 'curated':
-      return 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800'
-    case 'epoch':
-      return 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800'
-    default:
-      return 'bg-neutral-100 text-neutral-600 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700'
-  }
+export function getSourceColor(source?: string): string {
+  if (source && source in SOURCE_COLORS) return SOURCE_COLORS[source]
+  return 'bg-neutral-100 text-neutral-600 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700'
 }
 
 /**
@@ -153,6 +152,13 @@ export function groupByOrg(models: Model[]): Map<string, Model[]> {
  * Calculate statistics from models
  */
 export function getStats(models: Model[]) {
+  const sources: Record<string, number> = {}
+  for (const m of models) {
+    if (m.source) {
+      sources[m.source] = (sources[m.source] || 0) + 1
+    }
+  }
+
   return {
     total: models.length,
     models: models.filter(m => m.type === 'model').length,
@@ -161,8 +167,7 @@ export function getStats(models: Model[]) {
     years: new Set(models.map(m => new Date(m.date).getFullYear())).size,
     open: models.filter(m => m.license === 'open').length,
     closed: models.filter(m => m.license === 'closed').length,
-    curated: models.filter(m => m.source === 'curated').length,
-    epoch: models.filter(m => m.source === 'epoch').length,
+    sources,
   }
 }
 

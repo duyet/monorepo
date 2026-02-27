@@ -1,9 +1,14 @@
 /**
- * Merge and de-duplicate models from multiple data sources
- * Epoch.ai is the priority source per user decision
+ * Merge and de-duplicate models from N data sources
+ * Higher priority sources win on duplicates
  */
 
-import type { Model, MergeStats } from './types'
+import type { Model, MergeStats, DataSourceAdapter } from './types'
+
+export interface SourceResult {
+  source: DataSourceAdapter
+  models: Model[]
+}
 
 /**
  * Create a unique key for de-duplication
@@ -14,46 +19,43 @@ export function createModelKey(model: Model): string {
 }
 
 /**
- * Merge data from curated and epoch sources
- * Per user decision: epoch data wins on duplicates
+ * Merge models from N data sources, deduplicating by key
  *
  * Strategy:
- * 1. Add all epoch models (priority source)
- * 2. Add curated models only if not duplicate
- * 3. Sort by date ascending
+ * 1. Sort sources by priority descending (highest priority added first)
+ * 2. For each model: add if key unseen, skip as duplicate otherwise
+ * 3. Sort final list by date ascending
  */
-export function mergeDataSources(
-  curated: Model[],
-  epoch: Model[]
+export function mergeAllSources(
+  results: SourceResult[]
 ): { models: Model[]; stats: MergeStats } {
   const seen = new Set<string>()
   const merged: Model[] = []
   let duplicateCount = 0
 
-  // Add all epoch models first (priority source)
-  for (const model of epoch) {
-    const key = createModelKey(model)
-    seen.add(key)
-    merged.push(model)
-  }
+  const sorted = [...results].sort((a, b) => b.source.priority - a.source.priority)
 
-  // Add curated models only if not duplicate
-  for (const model of curated) {
-    const key = createModelKey(model)
-    if (seen.has(key)) {
-      duplicateCount++
-      continue // Skip duplicate, epoch version wins
+  for (const { models } of sorted) {
+    for (const model of models) {
+      const key = createModelKey(model)
+      if (seen.has(key)) {
+        duplicateCount++
+        continue
+      }
+      seen.add(key)
+      merged.push(model)
     }
-    seen.add(key)
-    merged.push(model)
   }
 
-  // Sort by date ascending
   merged.sort((a, b) => a.date.localeCompare(b.date))
 
+  const sources: Record<string, number> = {}
+  for (const { source, models } of results) {
+    sources[source.name] = models.length
+  }
+
   const stats: MergeStats = {
-    curated: curated.length,
-    epoch: epoch.length,
+    sources,
     duplicates: duplicateCount,
     total: merged.length,
   }
@@ -67,8 +69,9 @@ export function mergeDataSources(
 export function formatMergeStats(stats: MergeStats): string {
   const lines: string[] = []
   lines.push(`Merge Statistics:`)
-  lines.push(`  Curated models: ${stats.curated}`)
-  lines.push(`  Epoch models: ${stats.epoch}`)
+  for (const [name, count] of Object.entries(stats.sources)) {
+    lines.push(`  ${name}: ${count}`)
+  }
   lines.push(`  Duplicates removed: ${stats.duplicates}`)
   lines.push(`  Total unique models: ${stats.total}`)
   return lines.join('\n')

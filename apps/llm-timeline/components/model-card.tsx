@@ -190,6 +190,54 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
         >
           {model.desc}
         </p>
+
+        {/* Metadata (from Epoch.ai or other enriched sources) */}
+        {(model.domain || model.link || model.trainingCompute || model.trainingHardware || model.authors) && (
+          <div
+            className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t pt-2 text-[11px]"
+            style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+          >
+            {model.domain && (
+              <span>
+                {model.link ? (
+                  <a
+                    href={model.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-dotted hover:opacity-80"
+                    style={{ color: 'var(--accent)' }}
+                  >
+                    {model.domain}
+                  </a>
+                ) : (
+                  model.domain
+                )}
+              </span>
+            )}
+            {!model.domain && model.link && (
+              <a
+                href={model.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-dotted hover:opacity-80"
+                style={{ color: 'var(--accent)' }}
+              >
+                Paper
+              </a>
+            )}
+            {model.trainingCompute && (
+              <span style={{ fontFamily: 'var(--font-mono)' }}>
+                {model.trainingCompute} FLOP
+              </span>
+            )}
+            {model.trainingHardware && <span>{model.trainingHardware}</span>}
+            {model.authors && (
+              <span className="truncate max-w-[200px]" title={model.authors}>
+                {model.authors}
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

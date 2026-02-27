@@ -17,10 +17,7 @@ export default function LLMTimelinePage() {
           models: stats.models,
           organizations: stats.organizations,
         }}
-        sourceStats={{
-          curated: stats.curated,
-          epoch: stats.epoch,
-        }}
+        sourceStats={stats.sources}
         view="models"
         license="all"
       />

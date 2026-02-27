@@ -5,10 +5,7 @@ interface StatsCardsProps {
   models: number
   organizations: number
   activeView?: 'models' | 'organizations'
-  sourceStats?: {
-    curated: number
-    epoch: number
-  }
+  sourceStats?: Record<string, number>
 }
 
 export function StatsCards({
@@ -69,32 +66,33 @@ export function StatsCards({
     </div>
 
     {/* Source breakdown */}
-    {sourceStats && (sourceStats.curated > 0 || sourceStats.epoch > 0) && (
+    {sourceStats && Object.keys(sourceStats).length > 0 && (
       <div className="mb-8 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
         Data sources:{' '}
-        {sourceStats.curated > 0 && (
-          <span className="font-medium" style={{ color: 'var(--text)' }}>
-            {sourceStats.curated.toLocaleString()} curated
-          </span>
-        )}
-        {sourceStats.curated > 0 && sourceStats.epoch > 0 && ' + '}
-        {sourceStats.epoch > 0 && (
-          <span>
+        {Object.entries(sourceStats).map(([name, count], i) => (
+          <span key={name}>
+            {i > 0 && ' + '}
             <span className="font-medium" style={{ color: 'var(--text)' }}>
-              {sourceStats.epoch.toLocaleString()}
+              {count.toLocaleString()}
             </span>{' '}
-            from{' '}
-            <a
-              href="https://epoch.ai/data"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-              style={{ color: 'var(--accent)' }}
-            >
-              Epoch AI
-            </a>
+            {name === 'epoch' ? (
+              <>
+                from{' '}
+                <a
+                  href="https://epoch.ai/data"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  Epoch AI
+                </a>
+              </>
+            ) : (
+              name
+            )}
           </span>
-        )}
+        ))}
       </div>
     )}
   </>

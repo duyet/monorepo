@@ -1,6 +1,6 @@
 /**
- * Extended type definitions for LLM Timeline data
- * Supports both curated and Epoch.ai data sources
+ * Core type definitions for LLM Timeline data
+ * Supports N data sources via the DataSourceAdapter pattern
  */
 
 export interface Model {
@@ -11,25 +11,39 @@ export interface Model {
   type: 'model' | 'milestone'
   license: 'open' | 'closed' | 'partial'
   desc: string
-  source?: 'curated' | 'epoch' // Track data source
-  epoch?: EpochMetadata // Optional epoch.ai metadata
-}
+  source?: string // Track data source origin (e.g., 'curated', 'epoch')
 
-export interface EpochMetadata {
+  // Optional metadata — any source can populate these
   domain?: string
-  task?: string
-  approach?: string
-  trainingCompute?: number // FLOP
+  link?: string
+  trainingCompute?: string // Formatted FLOP string e.g. "1.2e25"
   trainingHardware?: string
   trainingDataset?: string
-  modelAccessibility?: string
-  link?: string
   authors?: string
 }
 
+/**
+ * Interface for pluggable data source adapters
+ * Implement this to add a new data source to the sync pipeline
+ */
+export interface DataSourceAdapter {
+  /** Unique identifier, e.g. 'curated', 'epoch' */
+  name: string
+  /** Human-readable label, e.g. 'Google Sheets (curated)' */
+  label: string
+  /** Higher priority wins on dedup (curated=100, epoch=50) */
+  priority: number
+  /** Source URLs for help text */
+  urls: string[]
+  /** Fetch and parse models from this source */
+  fetch(opts: { verbose?: boolean }): Promise<Model[]>
+}
+
+/**
+ * N-source merge statistics
+ */
 export interface MergeStats {
-  curated: number
-  epoch: number
+  sources: Record<string, number> // e.g. { curated: 771, epoch: 3156 }
   duplicates: number
   total: number
 }
