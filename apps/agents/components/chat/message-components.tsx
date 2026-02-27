@@ -11,11 +11,7 @@ import {
   User,
   GitBranch,
   BarChart2,
-  SearchIcon,
-  FileTextIcon,
-  InfoIcon,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { useMemo } from "react";
 import {
   Tool,
@@ -35,7 +31,6 @@ import {
 import {
   ChainOfThought,
   ChainOfThoughtHeader,
-  ChainOfThoughtStep,
   ChainOfThoughtContent,
 } from "@/components/ai-elements/chain-of-thought";
 import {
@@ -72,15 +67,6 @@ function CopyIcon({ state }: { state: CopyState }) {
   }
 }
 
-/** Map tool name to a relevant icon */
-function getToolIcon(toolName: string): LucideIcon {
-  const lower = toolName.toLowerCase();
-  if (lower.includes("search") || lower.includes("blog")) return SearchIcon;
-  if (lower.includes("cv") || lower.includes("resume")) return FileTextIcon;
-  if (lower.includes("github") || lower.includes("git")) return GitBranch;
-  if (lower.includes("analytics") || lower.includes("stat")) return BarChart2;
-  return InfoIcon;
-}
 
 export function UserMessage({ message }: MessageProps) {
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
@@ -120,18 +106,12 @@ export function AssistantMessage({
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
   const hasParts = parts && parts.length > 0;
 
-  // Merge ALL reasoning parts across multi-step tool calls into one collapsible
-  // and collect tool parts as ChainOfThoughtStep entries
+  // Merge ALL reasoning parts into one collapsible, keep other parts in order
   const groupedParts = useMemo(() => {
     if (!parts) return [];
 
     const reasoningTexts: string[] = [];
     let lastReasoningState: string | undefined;
-    const toolSteps: Array<{
-      toolCallId: string;
-      toolName: string;
-      state: string;
-    }> = [];
     const nonReasoningParts: Array<{ part: typeof parts[0]; originalIndex: number }> = [];
 
     for (let i = 0; i < parts.length; i++) {
@@ -139,13 +119,6 @@ export function AssistantMessage({
       if (part.type === "reasoning") {
         reasoningTexts.push(part.text);
         lastReasoningState = part.state;
-      } else if (part.type === "dynamic-tool") {
-        toolSteps.push({
-          toolCallId: part.toolCallId,
-          toolName: part.toolName,
-          state: part.state,
-        });
-        nonReasoningParts.push({ part, originalIndex: i });
       } else {
         nonReasoningParts.push({ part, originalIndex: i });
       }
@@ -155,18 +128,16 @@ export function AssistantMessage({
       type: "reasoning-group" | "single";
       reasoningText?: string;
       reasoningState?: string;
-      toolSteps?: typeof toolSteps;
       part?: typeof parts[0];
       originalIndex: number;
     }> = [];
 
-    // Single merged reasoning group (with tool steps) at the top
-    if (reasoningTexts.length > 0 || toolSteps.length > 0) {
+    // Single merged reasoning group at the top
+    if (reasoningTexts.length > 0) {
       result.push({
         type: "reasoning-group",
         reasoningText: reasoningTexts.join(""),
         reasoningState: lastReasoningState,
-        toolSteps,
         originalIndex: 0,
       });
     }
@@ -190,12 +161,7 @@ export function AssistantMessage({
           <>
             {groupedParts.map((grouped, idx) => {
               if (grouped.type === "reasoning-group") {
-                const steps = grouped.toolSteps ?? [];
-                const hasReasoningText = Boolean(grouped.reasoningText);
-                const hasSteps = steps.length > 0;
-
-                // Only render ChainOfThought if there's something to show
-                if (!hasReasoningText && !hasSteps) return null;
+                if (!grouped.reasoningText) return null;
 
                 return (
                   <ChainOfThought
@@ -204,34 +170,9 @@ export function AssistantMessage({
                     defaultOpen={isReasoningStreaming}
                   >
                     <ChainOfThoughtHeader />
-                    {/* Tool steps */}
-                    {hasSteps && (
-                      <div className="mt-3 space-y-0 border-l border-border/60 pl-3">
-                        {steps.map((step) => {
-                          const Icon = getToolIcon(step.toolName);
-                          const status =
-                            step.state === "output-available" || step.state === "output-error"
-                              ? "complete"
-                              : step.state === "input-available"
-                                ? "active"
-                                : "pending";
-                          return (
-                            <ChainOfThoughtStep
-                              key={step.toolCallId}
-                              icon={Icon}
-                              label={step.toolName}
-                              status={status}
-                            />
-                          );
-                        })}
-                      </div>
-                    )}
-                    {/* Reasoning text */}
-                    {hasReasoningText && (
-                      <ChainOfThoughtContent>
-                        {grouped.reasoningText ?? ""}
-                      </ChainOfThoughtContent>
-                    )}
+                    <ChainOfThoughtContent>
+                      {grouped.reasoningText ?? ""}
+                    </ChainOfThoughtContent>
                   </ChainOfThought>
                 );
               }
