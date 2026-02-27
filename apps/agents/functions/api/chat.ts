@@ -108,7 +108,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const { messages: uiMessages, mode = "agent" } = await context.request.json();
     const messages = await convertToModelMessages(uiMessages);
 
-    const workersai = createWorkersAI({ binding: AI });
+    const workersai = createWorkersAI({
+      binding: AI,
+      gateway: { id: "monorepo" },
+    });
 
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
