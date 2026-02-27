@@ -5,12 +5,17 @@ interface StatsCardsProps {
   models: number
   organizations: number
   activeView?: 'models' | 'organizations'
+  sourceStats?: {
+    curated: number
+    epoch: number
+  }
 }
 
 export function StatsCards({
   models,
   organizations,
   activeView,
+  sourceStats,
 }: StatsCardsProps) {
   const stats: Array<{
     label: string
@@ -24,7 +29,8 @@ export function StatsCards({
   ]
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-4">
+    <>
+      <div className="mb-8 grid grid-cols-2 gap-4">
       {stats.map(({ label, value, icon: Icon, href, view }) => {
         const isActive = activeView === view
 
@@ -61,5 +67,36 @@ export function StatsCards({
         )
       })}
     </div>
+
+    {/* Source breakdown */}
+    {sourceStats && (sourceStats.curated > 0 || sourceStats.epoch > 0) && (
+      <div className="mb-8 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
+        Data sources:{' '}
+        {sourceStats.curated > 0 && (
+          <span className="font-medium" style={{ color: 'var(--text)' }}>
+            {sourceStats.curated.toLocaleString()} curated
+          </span>
+        )}
+        {sourceStats.curated > 0 && sourceStats.epoch > 0 && ' + '}
+        {sourceStats.epoch > 0 && (
+          <span>
+            <span className="font-medium" style={{ color: 'var(--text)' }}>
+              {sourceStats.epoch.toLocaleString()}
+            </span>{' '}
+            from{' '}
+            <a
+              href="https://epoch.ai/data"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+              style={{ color: 'var(--accent)' }}
+            >
+              Epoch AI
+            </a>
+          </span>
+        )}
+      </div>
+    )}
+  </>
   )
 }

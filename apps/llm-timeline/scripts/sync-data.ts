@@ -1,12 +1,13 @@
 #!/usr/bin/env bun
 /**
- * sync-data.ts — Pull LLM model data from Google Sheets and regenerate lib/data.ts
+ * sync-data.ts — Pull LLM model data from Google Sheets + Epoch.ai and regenerate lib/data.ts
  *
  * Usage:
- *   bun scripts/sync-data.ts             # Fetch and write lib/data.ts
- *   bun scripts/sync-data.ts --dry-run   # Preview changes, don't write
- *   bun scripts/sync-data.ts --verbose   # Show column mapping and row details
- *   bun scripts/sync-data.ts --help      # Show this help
+ *   bun scripts/sync-data.ts              # Fetch from both sources and write lib/data.ts
+ *   bun scripts/sync-data.ts --dry-run    # Preview changes, don't write
+ *   bun scripts/sync-data.ts --verbose    # Show column mapping and row details
+ *   bun scripts/sync-data.ts --no-epoch   # Skip epoch.ai fetch (curated only)
+ *   bun scripts/sync-data.ts --help       # Show this help
  *
  * Env vars (optional overrides):
  *   GOOGLE_SHEET_ID   — spreadsheet ID
@@ -15,6 +16,9 @@
 
 import { resolve } from 'path'
 import { writeFileSync } from 'fs'
+import { fetchEpochModels } from './fetch-epoch'
+import { mergeDataSources, formatMergeStats } from '../lib/deduplicator'
+import type { Model } from '../lib/types'
 
 // ---------------------------------------------------------------------------
 // Config
@@ -37,11 +41,12 @@ const OUTPUT_PATH = resolve(process.cwd(), 'lib/data.ts')
 const args = process.argv.slice(2)
 const isDryRun = args.includes('--dry-run')
 const isVerbose = args.includes('--verbose')
+const noEpoch = args.includes('--no-epoch')
 const showHelp = args.includes('--help') || args.includes('-h')
 
 if (showHelp) {
   console.log(`
-sync-data.ts — Sync LLM model data from Google Sheets to lib/data.ts
+sync-data.ts — Sync LLM model data from Google Sheets + Epoch.ai to lib/data.ts
 
 Usage:
   bun scripts/sync-data.ts [flags]
@@ -49,37 +54,27 @@ Usage:
 Flags:
   --dry-run   Print the generated output without writing the file
   --verbose   Show column mapping, skipped rows, and row-level details
+  --no-epoch  Skip Epoch.ai fetch, use Google Sheets data only
   --help      Show this help message
 
 Env vars:
   GOOGLE_SHEET_ID   Override the Google Sheets spreadsheet ID
   GOOGLE_SHEET_GID  Override the sheet tab GID
 
-Source: ${CSV_URL}
+Sources:
+  Curated: ${CSV_URL}
+  Epoch:   https://epoch.ai/data/all_ai_models.csv
+
 Output: ${OUTPUT_PATH}
 `)
   process.exit(0)
 }
 
 // ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
-interface Model {
-  name: string
-  date: string // YYYY-MM-DD
-  org: string
-  params: string | null
-  type: 'model' | 'milestone'
-  license: 'open' | 'closed' | 'partial'
-  desc: string
-}
-
-// ---------------------------------------------------------------------------
 // CSV parser — handles quoted fields and embedded commas/newlines (RFC 4180)
 // ---------------------------------------------------------------------------
 
-function parseCsv(text: string): string[][] {
+export function parseCsv(text: string): string[][] {
   const rows: string[][] = []
   let i = 0
 
@@ -330,10 +325,17 @@ function normalizeText(raw: string): string {
 // ---------------------------------------------------------------------------
 
 function singleQuote(s: string): string {
-  return `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`
+  return `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r')}'`
 }
 
-function generateDataTs(models: Model[], sourceUrl: string, syncDate: string): string {
+interface MergeStatsForGen {
+  curated: number
+  epoch?: number
+  duplicates?: number
+  total: number
+}
+
+function generateDataTs(models: Model[], sourceUrl: string, syncDate: string, mergeStats?: MergeStatsForGen): string {
   const lines: string[] = []
 
   lines.push('/**')
@@ -350,9 +352,19 @@ function generateDataTs(models: Model[], sourceUrl: string, syncDate: string): s
   lines.push(' *   - type: "model" for regular models, "milestone" for key events')
   lines.push(' *   - license: "open" | "closed" | "partial"')
   lines.push(' *   - desc: Brief description')
+  lines.push(' *   - source: "curated" | "epoch" (optional, for tracking data source)')
   lines.push(' *')
   lines.push(' * To update existing data, find the model by name and modify fields.')
-  lines.push(` * Data source: ${sourceUrl}`)
+  lines.push(' *')
+  if (mergeStats && mergeStats.epoch) {
+    lines.push(' * Data sources:')
+    lines.push(` *   Curated: ${sourceUrl}`)
+    lines.push(' *   Epoch:   https://epoch.ai/data/all_ai_models.csv (CC BY 4.0)')
+    lines.push(' *')
+    lines.push(` * Merge stats: ${mergeStats.curated} curated + ${mergeStats.epoch} epoch - ${mergeStats.duplicates} duplicates = ${mergeStats.total} total`)
+  } else {
+    lines.push(` * Data source: ${sourceUrl}`)
+  }
   lines.push(` * Last synced: ${syncDate}`)
   lines.push(' * ============================================================================')
   lines.push(' */')
@@ -365,6 +377,7 @@ function generateDataTs(models: Model[], sourceUrl: string, syncDate: string): s
   lines.push("  type: 'model' | 'milestone'")
   lines.push("  license: 'open' | 'closed' | 'partial'")
   lines.push('  desc: string')
+  lines.push('  source?: \'curated\' | \'epoch\'')
   lines.push('}')
   lines.push('')
   lines.push('export const models: Model[] = [')
@@ -378,6 +391,9 @@ function generateDataTs(models: Model[], sourceUrl: string, syncDate: string): s
     lines.push(`    type: ${singleQuote(m.type)},`)
     lines.push(`    license: ${singleQuote(m.license)},`)
     lines.push(`    desc: ${singleQuote(m.desc)},`)
+    if (m.source) {
+      lines.push(`    source: ${singleQuote(m.source)},`)
+    }
     lines.push('  },')
   }
 
@@ -402,8 +418,11 @@ function generateDataTs(models: Model[], sourceUrl: string, syncDate: string): s
 // ---------------------------------------------------------------------------
 
 async function main() {
-  console.log(`Fetching CSV from Google Sheets...`)
-  console.log(`  URL: ${CSV_URL}`)
+  console.log(`Fetching data sources...`)
+
+  // Fetch curated data from Google Sheets
+  console.log(`\n1. Fetching from Google Sheets...`)
+  console.log(`   URL: ${CSV_URL}`)
 
   let csvText: string
   try {
@@ -465,7 +484,7 @@ async function main() {
   }
 
   // Parse rows
-  const models: Model[] = []
+  const curatedModels: Model[] = []
   let skipped = 0
 
   for (let i = 0; i < dataRows.length; i++) {
@@ -493,7 +512,7 @@ async function main() {
       continue
     }
 
-    models.push({
+    curatedModels.push({
       name,
       date,
       org,
@@ -501,35 +520,68 @@ async function main() {
       type: normalizeType(rawType),
       license: normalizeLicense(rawLicense),
       desc: normalizeText(rawDesc),
+      source: 'curated',
     })
   }
 
-  console.log(`\nParsed ${dataRows.length} rows → ${models.length} valid, ${skipped} skipped`)
+  console.log(`\nParsed ${dataRows.length} rows → ${curatedModels.length} valid, ${skipped} skipped`)
 
-  if (models.length === 0) {
+  if (curatedModels.length === 0) {
     console.error(`No valid models found — aborting to prevent overwriting with empty data`)
     process.exit(1)
   }
 
   // Sort by date ascending
-  models.sort((a, b) => a.date.localeCompare(b.date))
+  curatedModels.sort((a, b) => a.date.localeCompare(b.date))
+
+  console.log(`\n2. Fetching from Epoch.ai...`)
+
+  let epochModels: Model[] = []
+  if (!noEpoch) {
+    try {
+      epochModels = await fetchEpochModels({ verbose: isVerbose })
+      console.log(`   Fetched ${epochModels.length} models from Epoch.ai`)
+    } catch (err) {
+      console.error(`   Warning: Failed to fetch Epoch.ai data: ${err}`)
+      console.error(`   Continuing with curated data only...`)
+    }
+  } else {
+    console.log(`   Skipped (--no-epoch flag set)`)
+  }
+
+  // Merge data sources (epoch wins on duplicates)
+  console.log(`\n3. Merging data sources...`)
+
+  let finalModels: Model[]
+  let mergeStats
+
+  if (epochModels.length > 0) {
+    const result = mergeDataSources(curatedModels, epochModels)
+    finalModels = result.models
+    mergeStats = result.stats
+
+    console.log(formatMergeStats(mergeStats))
+  } else {
+    finalModels = curatedModels
+    console.log(`   Using curated data only (${finalModels.length} models)`)
+  }
 
   const syncDate = new Date().toISOString().slice(0, 10)
-  const output = generateDataTs(models, CSV_URL, syncDate)
+  const output = generateDataTs(finalModels, CSV_URL, syncDate, mergeStats)
 
-  const orgs = Array.from(new Set(models.map(m => m.org))).sort()
-  const years = Array.from(new Set(models.map(m => new Date(m.date).getFullYear()))).sort((a, b) => b - a)
+  const orgs = Array.from(new Set(finalModels.map(m => m.org))).sort()
+  const years = Array.from(new Set(finalModels.map(m => new Date(m.date).getFullYear()))).sort((a, b) => b - a)
 
   if (isDryRun) {
     console.log(`\n--- DRY RUN: Preview of lib/data.ts (first 60 lines) ---\n`)
     console.log(output.split('\n').slice(0, 60).join('\n'))
-    console.log(`\n... (${output.split('\n').length} total lines, ${models.length} models)`)
+    console.log(`\n... (${output.split('\n').length} total lines, ${finalModels.length} models)`)
     console.log(`Organizations (${orgs.length}): ${orgs.slice(0, 10).join(', ')}${orgs.length > 10 ? ', ...' : ''}`)
     console.log(`Years: ${years.join(', ')}`)
     console.log(`\nWould write to: ${OUTPUT_PATH}`)
   } else {
     writeFileSync(OUTPUT_PATH, output, 'utf-8')
-    console.log(`\nWrote ${models.length} models to ${OUTPUT_PATH}`)
+    console.log(`\nWrote ${finalModels.length} models to ${OUTPUT_PATH}`)
     console.log(`Organizations: ${orgs.length}`)
     console.log(`Years: ${years.join(', ')}`)
   }

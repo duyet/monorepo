@@ -26,11 +26,12 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
       license: 'all',
       type: 'all',
       org: '',
+      source: 'all',
     })
   }
 
   const hasActiveFilters =
-    filters.search || filters.license !== 'all' || filters.type !== 'all' || filters.org
+    filters.search || filters.license !== 'all' || filters.type !== 'all' || filters.org || filters.source !== 'all'
 
   const inputStyle = {
     backgroundColor: 'var(--bg-card)',
@@ -112,6 +113,18 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
               {org}
             </option>
           ))}
+        </select>
+
+        {/* Source Filter */}
+        <select
+          value={filters.source}
+          onChange={(e) => updateFilter('source', e.target.value as FilterState['source'])}
+          className={selectClassName}
+          style={inputStyle}
+        >
+          <option value="all">All Sources</option>
+          <option value="curated">Curated</option>
+          <option value="epoch">Epoch AI</option>
         </select>
 
         {/* Clear Filters */}

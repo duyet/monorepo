@@ -7,6 +7,10 @@ interface StatsHeaderProps {
   organizations: number
   activeView: View
   onViewChange: (v: View) => void
+  sourceStats?: {
+    curated: number
+    epoch: number
+  }
 }
 
 export function StatsHeader({
@@ -14,6 +18,7 @@ export function StatsHeader({
   organizations,
   activeView,
   onViewChange,
+  sourceStats,
 }: StatsHeaderProps) {
   const stats: Array<{
     label: string
@@ -26,7 +31,8 @@ export function StatsHeader({
   ]
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-2">
+    <>
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-2">
       {stats.map(({ label, value, icon: Icon, view }) => {
         const isActive = view !== undefined && activeView === view
         const isClickable = view !== undefined
@@ -72,5 +78,36 @@ export function StatsHeader({
         )
       })}
     </div>
+
+    {/* Source breakdown */}
+    {sourceStats && (sourceStats.curated > 0 || sourceStats.epoch > 0) && (
+      <div className="mt-3 text-xs" style={{ color: 'var(--text-muted)' }}>
+        Data sources:{' '}
+        {sourceStats.curated > 0 && (
+          <span className="font-medium" style={{ color: 'var(--text)' }}>
+            {sourceStats.curated.toLocaleString()} curated
+          </span>
+        )}
+        {sourceStats.curated > 0 && sourceStats.epoch > 0 && ' + '}
+        {sourceStats.epoch > 0 && (
+          <span>
+            <span className="font-medium" style={{ color: 'var(--text)' }}>
+              {sourceStats.epoch.toLocaleString()}
+            </span>{' '}
+            from{' '}
+            <a
+              href="https://epoch.ai/data"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+              style={{ color: 'var(--accent)' }}
+            >
+              Epoch AI
+            </a>
+          </span>
+        )}
+      </div>
+    )}
+    </>
   )
 }

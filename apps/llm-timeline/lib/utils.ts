@@ -5,6 +5,7 @@ export interface FilterState {
   license: 'all' | 'open' | 'closed' | 'partial'
   type: 'all' | 'model' | 'milestone'
   org: string
+  source: 'all' | 'curated' | 'epoch'
 }
 
 /**
@@ -34,6 +35,11 @@ export function filterModels(models: Model[], filters: FilterState): Model[] {
 
     // Organization filter
     if (filters.org && model.org !== filters.org) {
+      return false
+    }
+
+    // Source filter
+    if (filters.source !== 'all' && model.source !== filters.source) {
       return false
     }
 
@@ -103,6 +109,20 @@ export function getTypeColor(type: Model['type']): string {
 }
 
 /**
+ * Get color for data source
+ */
+export function getSourceColor(source?: 'curated' | 'epoch'): string {
+  switch (source) {
+    case 'curated':
+      return 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800'
+    case 'epoch':
+      return 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800'
+    default:
+      return 'bg-neutral-100 text-neutral-600 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700'
+  }
+}
+
+/**
  * Group models by organization
  * Sorted by model count descending; within each org sorted by date descending
  */
@@ -141,15 +161,24 @@ export function getStats(models: Model[]) {
     years: new Set(models.map(m => new Date(m.date).getFullYear())).size,
     open: models.filter(m => m.license === 'open').length,
     closed: models.filter(m => m.license === 'closed').length,
+    curated: models.filter(m => m.source === 'curated').length,
+    epoch: models.filter(m => m.source === 'epoch').length,
   }
 }
 
 /**
  * Convert string to URL-safe slug
  */
-export function slugify(str: string): string {
-  return str
+export function slugify(str: string, maxLength = 100): string {
+  let slug = str
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
+
+  // Truncate to maxLength, ensuring we don't cut mid-word
+  if (slug.length > maxLength) {
+    slug = slug.slice(0, maxLength).replace(/-[^-]*$/, '')
+  }
+
+  return slug
 }

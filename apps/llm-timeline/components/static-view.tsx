@@ -16,6 +16,10 @@ interface StaticViewProps {
     models: number
     organizations: number
   }
+  sourceStats?: {
+    curated: number
+    epoch: number
+  }
   view: View
   license?: 'all' | 'open' | 'closed' | 'partial'
   year?: number
@@ -28,9 +32,10 @@ const DEFAULT_FILTERS: FilterState = {
   license: 'all',
   type: 'all',
   org: '',
+  source: 'all',
 }
 
-export function StaticView({ models: allModels, stats, view, license = 'all', year, org }: StaticViewProps) {
+export function StaticView({ models: allModels, stats, sourceStats, view, license = 'all', year, org }: StaticViewProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [licenseFilter, setLicenseFilter] = useState<'all' | 'open' | 'closed' | 'partial'>(license)
   const [liteMode, setLiteMode] = useState(false)
@@ -70,6 +75,7 @@ export function StaticView({ models: allModels, stats, view, license = 'all', ye
         models={stats.models}
         organizations={stats.organizations}
         activeView={view}
+        sourceStats={sourceStats}
       />
 
       {/* Filter Info with Search */}

@@ -1,6 +1,6 @@
 'use client'
 
-import { getLicenseColor, getTypeColor } from '@/lib/utils'
+import { getLicenseColor, getTypeColor, getSourceColor } from '@/lib/utils'
 import type { Model } from '@/lib/data'
 import { cn } from '@duyet/libs/utils'
 import { OrgAvatar } from '@/components/org-avatar'
@@ -73,6 +73,16 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           >
             {model.license}
           </span>
+          {model.source && (
+            <span
+              className={cn(
+                'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+                getSourceColor(model.source)
+              )}
+            >
+              {model.source === 'epoch' ? 'Epoch' : 'Curated'}
+            </span>
+          )}
         </div>
       </div>
     )
@@ -161,6 +171,16 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           >
             {model.license}
           </span>
+          {model.source && (
+            <span
+              className={cn(
+                'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+                getSourceColor(model.source)
+              )}
+            >
+              {model.source === 'epoch' ? 'Epoch' : 'Curated'}
+            </span>
+          )}
         </div>
 
         {/* Description */}

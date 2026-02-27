@@ -26,6 +26,7 @@ export function TimelinePage({
     license: license,
     type: 'all',
     org: '',
+    source: 'all',
   }
 
   // Apply year filter if specified
