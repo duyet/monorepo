@@ -19,8 +19,7 @@ import {
 } from "../../lib/tools";
 
 interface Env {
-  CLOUDFLARE_ACCOUNT_ID: string;
-  CLOUDFLARE_API_KEY: string;
+  AI: Ai;
 }
 
 const AGENT_TOOLS = {
@@ -95,10 +94,10 @@ const AGENT_TOOLS = {
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const { CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_KEY } = context.env;
-  if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_API_KEY) {
+  const { AI } = context.env;
+  if (!AI) {
     return new Response(
-      JSON.stringify({ error: "Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_KEY" }),
+      JSON.stringify({ error: "Missing AI binding — check wrangler.toml [ai] config" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
@@ -107,10 +106,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const { messages: uiMessages, mode = "agent" } = await context.request.json();
     const messages = await convertToModelMessages(uiMessages);
 
-    const workersai = createWorkersAI({
-      accountId: CLOUDFLARE_ACCOUNT_ID,
-      apiKey: CLOUDFLARE_API_KEY,
-    });
+    const workersai = createWorkersAI({ binding: AI });
 
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;

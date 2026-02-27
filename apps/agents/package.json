@@ -14,6 +14,7 @@
     "dev": "bun --bun next dev --turbopack -p 3004",
     "fmt": "bun run fix",
     "lint": "biome lint .",
+    "test": "bun test",
     "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-agents",
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-agents --commit-dirty=true",
