@@ -190,6 +190,8 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
   "duyet-agents": {
     secrets: [
       "CLERK_SECRET_KEY",
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_KEY",
     ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",

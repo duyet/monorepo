@@ -95,13 +95,21 @@ const AGENT_TOOLS = {
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
+  const { CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_KEY } = context.env;
+  if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_API_KEY) {
+    return new Response(
+      JSON.stringify({ error: "Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_KEY" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     const { messages: uiMessages, mode = "agent" } = await context.request.json();
     const messages = await convertToModelMessages(uiMessages);
 
     const workersai = createWorkersAI({
-      accountId: context.env.CLOUDFLARE_ACCOUNT_ID,
-      apiKey: context.env.CLOUDFLARE_API_KEY,
+      accountId: CLOUDFLARE_ACCOUNT_ID,
+      apiKey: CLOUDFLARE_API_KEY,
     });
 
     const isFast = mode === "fast";
