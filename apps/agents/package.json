@@ -35,7 +35,6 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "agents": "^0.5.0",
     "ai": "^6.0.103",
-    "ai-gateway-provider": "^3.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.0",

@@ -38,13 +38,6 @@ mock.module("workers-ai-provider", () => ({
   })),
 }));
 
-mock.module("ai-gateway-provider", () => ({
-  createAiGateway: mock((_opts: any) => (innerModel: any) => ({
-    ...innerModel,
-    provider: "ai-gateway",
-  })),
-}));
-
 // Now import the function
 const chatModule = await import("./chat");
 const onRequestPost = chatModule.onRequestPost;
@@ -57,10 +50,7 @@ function makeContext(body: any, env: Record<string, any> = {}): any {
       body: JSON.stringify(body),
     }),
     env: {
-      AI: env.AI ?? {
-        run: mock(() => Promise.resolve({ response: "test" })),
-        gateway: mock((_name: string) => ({ gateway: _name })),
-      },
+      AI: env.AI ?? { run: mock(() => Promise.resolve({ response: "test" })) },
       ...env,
     },
   };

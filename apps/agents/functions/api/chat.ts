@@ -4,12 +4,11 @@
  * Handles streaming chat with Workers AI via AI Gateway + tool calling.
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with maxSteps.
  *
- * Provider chain: workers-ai-provider → ai-gateway-provider → Cloudflare AI Gateway
+ * Provider: workers-ai-provider with built-in AI Gateway routing
  */
 
 import { streamText, tool, convertToModelMessages } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
-import { createAiGateway } from "ai-gateway-provider";
 import { z } from "zod";
 import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT, FAST_MODEL, AGENT_MODEL } from "../../lib/agent";
 import {
@@ -118,12 +117,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const messages = await convertToModelMessages(uiMessages);
 
-    // Workers AI provider (uses native binding — no HTTP overhead)
-    const workersai = createWorkersAI({ binding: AI });
-
-    // AI Gateway provider for observability, caching, and rate limiting
-    const aigateway = createAiGateway({
-      binding: AI.gateway("monorepo"),
+    // Workers AI provider with built-in AI Gateway routing
+    const workersai = createWorkersAI({
+      binding: AI,
+      gateway: { id: "monorepo" },
     });
 
     const isFast = mode === "fast";
@@ -143,8 +140,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...messages,
     ];
 
-    // Route through AI Gateway → Workers AI
-    const model = aigateway(workersai(modelId));
+    const model = workersai(modelId);
 
     const result = streamText({
       model,
