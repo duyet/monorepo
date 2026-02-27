@@ -1,9 +1,24 @@
 'use client'
 
 import Link from 'next/link'
-import { Github, Download, User } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { lastSynced, years } from '@/lib/data'
+import Icons from '@duyet/components/Icons'
+import { AuthButtons } from '@duyet/components/header/AuthButtons'
+
+// URL configuration for AuthButtons
+const urls = {
+  apps: {
+    blog: 'https://blog.duyet.net',
+    cv: 'https://cv.duyet.net',
+    insights: 'https://insights.duyet.net',
+    home: 'https://duyet.net',
+    photos: 'https://photos.duyet.net',
+    homelab: 'https://homelab.duyet.net',
+  },
+  external: {},
+}
 
 interface PageLayoutProps {
   children: React.ReactNode
@@ -58,16 +73,9 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
                 style={{ color: 'var(--text-muted)' }}
                 aria-label="GitHub"
               >
-                <Github className="h-5 w-5" />
+                <Icons.Github className="h-5 w-5" />
               </Link>
-              <button
-                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                style={{ color: 'var(--text-muted)' }}
-                aria-label="Sign in"
-              >
-                <User className="h-4 w-4" />
-                <span className="hidden sm:inline">Sign in</span>
-              </button>
+              <AuthButtons urls={urls} />
             </div>
           </div>
         </header>
