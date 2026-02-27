@@ -108,7 +108,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const { messages: uiMessages, mode = "agent" } = await context.request.json();
 
     // Log incoming request
-    console.log(`[Chat API] Request: mode=${mode}, messages=${uiMessages.length}`);
+    console.log("[Chat API] Request: mode=" + mode + ", messages=" + uiMessages.length);
 
     const messages = await convertToModelMessages(uiMessages);
 
@@ -120,15 +120,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
 
-    // Log system prompt (truncated)
-    console.log(`[Chat API] System prompt (${system.length} chars): ${system.substring(0, 100)}...`);
+    // Log system prompt
+    const systemPreview = system.length > 100 ? system.substring(0, 100) + "..." : system;
+    console.log("[Chat API] System prompt (" + system.length + " chars):", systemPreview);
 
-    // Log messages being sent
-    console.log(`[Chat API] Messages to model:`, JSON.stringify(messages.map(m => ({ role: m.role, content: m.content?.substring(0, 50) })));
+    // Log message count
+    console.log("[Chat API] Messages to model:", messages.length, "messages");
 
     // Prepare messages with system prompt prepended (Workers AI compatibility)
     const messagesWithSystem = [
-      { role: "system" as const, content: system },
+      { role: "system", content: system },
       ...messages,
     ];
 
@@ -139,16 +140,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    console.log(`[Chat API] Streaming started for model: llama-3.3-70b-instruct-fp8-fast`);
+    console.log("[Chat API] Streaming started for model: llama-3.3-70b-instruct-fp8-fast");
 
     return result.toUIMessageStreamResponse();
   } catch (error) {
     console.error("[Chat API] Error:", error);
-    console.error("[Chat API] Error stack:", error instanceof Error ? error.stack : "No stack trace");
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error("[Chat API] Error details:", errorMessage);
     return new Response(
       JSON.stringify({
         error: "Failed to process chat request",
-        details: error instanceof Error ? error.message : "Unknown error",
+        details: errorMessage,
       }),
       {
         status: 500,
