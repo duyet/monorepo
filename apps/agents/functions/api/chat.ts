@@ -27,9 +27,9 @@ interface Env {
 const AGENT_TOOLS = {
   searchBlog: tool({
     description:
-      "Search for blog posts by topic or keywords. Returns matching posts with titles and URLs.",
+      "Search Duyet's blog (296+ posts) by topic, technology, or keywords. Use for: finding articles about data engineering, ClickHouse, Rust, Spark, cloud computing, etc. Returns matching posts with titles, URLs, and snippets.",
     inputSchema: z.object({
-      query: z.string().describe("Search query for blog posts"),
+      query: z.string().describe("Search query — topic, keyword, or technology name"),
     }),
     execute: async ({ query }) => {
       const { results } = await searchBlogTool(query);
@@ -37,9 +37,10 @@ const AGENT_TOOLS = {
     },
   }),
   getBlogPost: tool({
-    description: "Get the full content of a specific blog post by URL",
+    description:
+      "Fetch the full content of a specific blog post. Use after searchBlog when user wants detailed information from a post. Requires the full URL from blog.duyet.net or duyet.net.",
     inputSchema: z.object({
-      url: z.string().describe("URL of the blog post"),
+      url: z.string().describe("Full URL of the blog post (e.g., https://blog.duyet.net/posts/...)"),
     }),
     execute: async ({ url }) => {
       const { content } = await getBlogPostTool(url);
@@ -47,12 +48,13 @@ const AGENT_TOOLS = {
     },
   }),
   getCV: tool({
-    description: "Get Duyet's CV/Resume information",
+    description:
+      "Retrieve Duyet's CV/Resume information. Use for questions about work experience, skills, education, or professional background. Choose 'summary' for quick overview, 'detailed' for comprehensive info.",
     inputSchema: z.object({
       format: z
         .enum(["summary", "detailed"])
         .optional()
-        .describe("Format of the CV data (default: summary)"),
+        .describe("Format: 'summary' for quick overview, 'detailed' for full CV"),
     }),
     execute: async ({ format = "summary" }) => {
       const { content } = await getCVTool(format);
@@ -60,12 +62,15 @@ const AGENT_TOOLS = {
     },
   }),
   getGitHub: tool({
-    description: "Get recent GitHub activity including commits, issues, PRs",
+    description:
+      "Fetch recent GitHub activity including commits, pull requests, issues, and releases. Use for questions about recent coding activity, open source contributions, or project updates. Requires user approval — inform them before calling.",
     inputSchema: z.object({
       limit: z
         .number()
+        .min(1)
+        .max(20)
         .optional()
-        .describe("Number of activities to retrieve (max 20)"),
+        .describe("Number of recent activities (1-20, default 5)"),
     }),
     needsApproval: true,
     execute: async ({ limit = 5 }) => {
@@ -74,12 +79,15 @@ const AGENT_TOOLS = {
     },
   }),
   getAnalytics: tool({
-    description: "Get contact form analytics and reports",
+    description:
+      "Get contact form analytics and reports. Use for questions about site traffic, contact submissions, or user engagement patterns. Requires user approval — inform them before calling. Available reports: summary, purpose_breakdown, daily_trends, recent_activity.",
     inputSchema: z.object({
       reportType: z
         .enum(["summary", "purpose_breakdown", "daily_trends", "recent_activity"])
         .optional()
-        .describe("Type of analytics report (default: summary)"),
+        .describe(
+          "Report type: 'summary' (overview), 'purpose_breakdown' (contact reasons), 'daily_trends' (time patterns), 'recent_activity' (latest submissions)"
+        ),
     }),
     needsApproval: true,
     execute: async ({ reportType = "summary" }) => {
@@ -88,7 +96,8 @@ const AGENT_TOOLS = {
     },
   }),
   getAbout: tool({
-    description: "Get general information about Duyet",
+    description:
+      "Get general background information about Duyet — who he is, what he does, his expertise areas. Use as a starting point for general questions.",
     inputSchema: z.object({}),
     execute: async () => {
       const { about } = await getAboutTool();
