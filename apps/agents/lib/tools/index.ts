@@ -6,6 +6,7 @@
  */
 
 import { getAbout, getAnalytics, getBlogPostContent, getCVData, getGitHubActivity, searchBlog } from "../mcp-client";
+import { fetchLlmsTxtTool } from "./llms";
 import type { Source } from "../types";
 
 /**

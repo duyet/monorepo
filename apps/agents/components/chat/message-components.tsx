@@ -323,7 +323,7 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
       {/* Greeting */}
       <div className="mb-8 text-center">
         <h1 className="text-2xl sm:text-3xl font-normal text-foreground mb-2">
-          Hi, I&apos;m Duyet&apos;s AI assistant
+          Hi, I&apos;m duyetbot
         </h1>
         <p className="text-sm text-muted-foreground">
           Ask me about blog posts, CV, GitHub activity, or anything else

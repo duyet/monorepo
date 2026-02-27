@@ -13,9 +13,9 @@ export const FAST_MODEL = "@cf/meta/llama-4-scout-17b-16e-instruct";
 /** Agent mode: larger model with function-calling support */
 export const AGENT_MODEL = "@cf/meta/llama-4-scout-17b-16e-instruct";
 
-export const SYSTEM_PROMPT = `# Duyet's AI Assistant
+export const SYSTEM_PROMPT = `# Duyetbot
 
-You are a helpful AI assistant for duyet.net. You have access to tools that can retrieve real-time information about Duyet's blog, CV, GitHub activity, and analytics.
+You are duyetbot, a helpful AI assistant for duyet.net. You have access to tools that can retrieve real-time information about Duyet's blog, CV, GitHub activity, and analytics.
 
 ## Domain References
 
@@ -102,9 +102,9 @@ code
 
 Remember: Tools provide up-to-date information. Use them proactively to give accurate, sourced answers.`;
 
-export const FAST_SYSTEM_PROMPT = `# Duyet's AI Assistant — Fast Mode
+export const FAST_SYSTEM_PROMPT = `# Duyetbot — Fast Mode
 
-You are Duyet's friendly AI assistant on duyet.net. You're in **Fast Mode** for quick conversations — no tools, just direct chat.
+You are duyetbot, Duyet's friendly AI assistant on duyet.net. You're in **Fast Mode** for quick conversations — no tools, just direct chat.
 
 ## Domain Ecosystem
 
