@@ -146,7 +146,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       model,
       messages: messagesWithSystem,
       temperature: isFast ? 0.3 : 0.7,
-      ...(isFast ? {} : { tools: AGENT_TOOLS, stopWhen: stepCountIs(5) }),
+      ...(isFast
+        ? {}
+        : { tools: AGENT_TOOLS, toolChoice: "auto" as const, stopWhen: stepCountIs(5) }),
     });
 
     console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);

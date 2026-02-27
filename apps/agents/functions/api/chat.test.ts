@@ -246,6 +246,17 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 5 });
   });
 
+  test("agent mode sets toolChoice to auto", async () => {
+    const ctx = makeContext({
+      messages: [
+        { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
+      ],
+      mode: "agent",
+    });
+    await onRequestPost(ctx);
+    expect(lastStreamTextArgs.toolChoice).toBe("auto");
+  });
+
   test("fast mode does not set stopWhen", async () => {
     const ctx = makeContext({
       messages: [

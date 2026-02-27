@@ -1,0 +1,25 @@
+diff --git a/dist/index.js b/dist/index.js
+index 3feb55f72f17d5fc5f4fc36920610a060324077b..7e843e8aece969f8a47f16c0bb27c155f0f2fe24 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -868,6 +868,7 @@ var WorkersAIChatLanguageModel = class {
+       temperature: args.temperature,
+       tools: args.tools,
+       top_p: args.top_p,
++      ...args.tool_choice != null ? { tool_choice: args.tool_choice } : {},
+       ...imagePart ? { image: Array.from(imagePart.image) } : {},
+       // Only include response_format when actually set
+       ...args.response_format ? { response_format: args.response_format } : {},
+diff --git a/src/workersai-chat-language-model.ts b/src/workersai-chat-language-model.ts
+index 982ec0b840b473f3fd0328b789554883569ad913..9d4bdb44dca312acf983f31bb45875712bdcae62 100644
+--- a/src/workersai-chat-language-model.ts
++++ b/src/workersai-chat-language-model.ts
+@@ -140,6 +140,8 @@ export class WorkersAIChatLanguageModel implements LanguageModelV3 {
+ 			temperature: args.temperature,
+ 			tools: args.tools,
+ 			top_p: args.top_p,
++			// Include tool_choice when tools are present (fix: was previously omitted)
++			...(args.tool_choice != null ? { tool_choice: args.tool_choice } : {}),
+ 			...(imagePart ? { image: Array.from(imagePart.image) } : {}),
+ 			// Only include response_format when actually set
+ 			...(args.response_format ? { response_format: args.response_format } : {}),
