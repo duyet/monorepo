@@ -106,6 +106,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   try {
     const { messages: uiMessages, mode = "agent" } = await context.request.json();
+
+    // Log incoming request
+    console.log(`[Chat API] Request: mode=${mode}, messages=${uiMessages.length}`);
+
     const messages = await convertToModelMessages(uiMessages);
 
     const workersai = createWorkersAI({
@@ -116,17 +120,31 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
 
+    // Log system prompt (truncated)
+    console.log(`[Chat API] System prompt (${system.length} chars): ${system.substring(0, 100)}...`);
+
+    // Log messages being sent
+    console.log(`[Chat API] Messages to model:`, JSON.stringify(messages.map(m => ({ role: m.role, content: m.content?.substring(0, 50) })));
+
+    // Prepare messages with system prompt prepended (Workers AI compatibility)
+    const messagesWithSystem = [
+      { role: "system" as const, content: system },
+      ...messages,
+    ];
+
     const result = streamText({
       model: workersai("@cf/meta/llama-3.3-70b-instruct-fp8-fast"),
-      system,
-      messages,
+      messages: messagesWithSystem,
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
+    console.log(`[Chat API] Streaming started for model: llama-3.3-70b-instruct-fp8-fast`);
+
     return result.toUIMessageStreamResponse();
   } catch (error) {
-    console.error("Chat API error:", error);
+    console.error("[Chat API] Error:", error);
+    console.error("[Chat API] Error stack:", error instanceof Error ? error.stack : "No stack trace");
     return new Response(
       JSON.stringify({
         error: "Failed to process chat request",
