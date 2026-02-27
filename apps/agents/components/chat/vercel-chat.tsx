@@ -230,11 +230,11 @@ export function VercelChat() {
       {/* Messages area */}
       <div ref={containerRef} className="flex-1 overflow-y-auto">
         {!hasMessages && !streamingContent ? (
-          <div className="mx-auto max-w-3xl px-4">
+          <div className="mx-auto max-w-3xl px-3 sm:px-4">
             <WelcomeMessage onPromptSelect={handlePromptSelect} />
           </div>
         ) : (
-          <div className="mx-auto max-w-3xl px-4 py-6 space-y-4">
+          <div className="mx-auto max-w-3xl px-3 sm:px-4 py-6 space-y-4">
             {messages.map((message) =>
               message.role === "user" ? (
                 <UserMessage key={message.id} message={message} />
@@ -276,7 +276,7 @@ export function VercelChat() {
       </div>
 
       {/* Sticky input area */}
-      <div className="border-t border-border bg-background px-4 py-3">
+      <div className="border-t border-border bg-background px-3 sm:px-4 py-3 shadow-[0_-1px_3px_rgba(0,0,0,0.05)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <form onSubmit={handleFormSubmit} className="mx-auto max-w-3xl">
           <Textarea
             ref={textareaRef}
@@ -362,7 +362,7 @@ function ModeToggle({
         className={cn(
           "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
           mode === "fast"
-            ? "bg-background text-foreground shadow-sm"
+            ? "bg-amber-100 text-amber-700 shadow-sm dark:bg-amber-900/30 dark:text-amber-400"
             : "text-muted-foreground hover:text-foreground"
         )}
       >
@@ -375,7 +375,7 @@ function ModeToggle({
         className={cn(
           "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
           mode === "agent"
-            ? "bg-background text-foreground shadow-sm"
+            ? "bg-blue-100 text-blue-700 shadow-sm dark:bg-blue-900/30 dark:text-blue-400"
             : "text-muted-foreground hover:text-foreground"
         )}
       >

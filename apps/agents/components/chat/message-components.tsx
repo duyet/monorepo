@@ -57,9 +57,9 @@ export function UserMessage({ message }: MessageProps) {
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
 
   return (
-    <div className="flex justify-end gap-3 group">
-      <div className="flex max-w-[80%] flex-col items-end gap-1">
-        <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-primary-foreground">
+    <div className="flex justify-end gap-3 group animate-in fade-in slide-in-from-bottom-2 duration-300">
+      <div className="flex max-w-[75%] flex-col items-end gap-1">
+        <div className="rounded-2xl rounded-br-sm bg-[var(--user-bubble)] px-4 py-2.5 text-[var(--user-bubble-fg)] shadow-sm">
           <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
             {message.content}
           </p>
@@ -114,14 +114,14 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
   const hasParts = parts && parts.length > 0;
 
   return (
-    <div className="flex justify-start gap-3 group">
+    <div className="flex justify-start gap-3 group animate-in fade-in slide-in-from-bottom-2 duration-300">
       {/* Avatar */}
-      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted">
-        <span className="text-[10px] font-bold text-muted-foreground">D</span>
+      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--assistant-accent)]/15">
+        <span className="text-[10px] font-bold text-[var(--assistant-accent)]">D</span>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <div className="text-sm leading-relaxed text-foreground [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-[family-name:var(--font-geist-mono)] [&_pre]:rounded-xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-[12px] [&_p]:mb-2 [&_p:last-child]:mb-0 [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ol]:pl-4 [&_ol]:space-y-0.5">
+        <div className="rounded-2xl rounded-tl-sm bg-[var(--assistant-bubble)] px-4 py-3 text-sm leading-relaxed text-[var(--assistant-bubble-fg)] shadow-sm [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-[family-name:var(--font-geist-mono)] [&_pre]:rounded-xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-[12px] [&_p]:mb-2 [&_p:last-child]:mb-0 [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ol]:pl-4 [&_ol]:space-y-0.5">
           {hasParts ? (
             <>
               {parts.map((part, i) => {
@@ -256,8 +256,18 @@ interface WelcomeMessageProps {
 export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
     <div className="py-12 sm:py-16 animate-in fade-in duration-500">
+      {/* Greeting */}
+      <div className="mb-8 text-center">
+        <h1 className="text-2xl sm:text-3xl font-serif font-normal text-foreground mb-2">
+          Hi, I&apos;m Duyet&apos;s AI assistant
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Ask me about blog posts, CV, GitHub activity, or anything else
+        </p>
+      </div>
+
       {/* Capability cards */}
-      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-8 grid gap-4 grid-cols-1 sm:grid-cols-2">
         {CAPABILITIES.map(({ icon: Icon, label, desc, prompt, color, iconColor }) => (
           <button
             key={label}
@@ -283,13 +293,13 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
         <h2 className="mb-4 font-serif text-xl font-normal text-foreground">
           Quick starts
         </h2>
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex gap-2.5 overflow-x-auto snap-x snap-mandatory pb-2 sm:flex-wrap sm:overflow-visible sm:snap-none sm:pb-0">
           {QUICK_PROMPTS.map((prompt) => (
             <button
               key={prompt}
               type="button"
               onClick={() => onPromptSelect?.(prompt)}
-              className="inline-block rounded-full bg-muted px-5 py-2 text-sm font-medium text-foreground transition-all hover:bg-accent cursor-pointer"
+              className="shrink-0 snap-start rounded-full bg-muted px-5 py-2 text-sm font-medium text-foreground transition-all hover:bg-accent cursor-pointer"
             >
               {prompt}
             </button>

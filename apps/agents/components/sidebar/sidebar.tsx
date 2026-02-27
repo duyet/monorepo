@@ -1,6 +1,6 @@
 "use client";
 
-import type { Conversation, ChatMode } from "@/lib/types";
+import type { Conversation } from "@/lib/types";
 import { ConversationList } from "./conversation-list";
 import { Button } from "@duyet/components";
 import { Plus, PanelLeftClose, PanelLeft, Sun, Moon } from "lucide-react";
@@ -17,6 +17,51 @@ interface SidebarProps {
   onToggleCollapse: () => void;
 }
 
+/** Collapsed rail — thin strip with icon buttons */
+function SidebarRail({
+  onNewChat,
+  onToggleCollapse,
+}: {
+  onNewChat: () => void;
+  onToggleCollapse: () => void;
+}) {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <div className="flex h-full w-12 flex-col items-center bg-muted/30 border-r border-border py-2 gap-1">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-9 w-9"
+        onClick={onToggleCollapse}
+      >
+        <PanelLeft className="h-4 w-4" />
+        <span className="sr-only">Expand sidebar</span>
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-9 w-9"
+        onClick={onNewChat}
+      >
+        <Plus className="h-4 w-4" />
+        <span className="sr-only">New chat</span>
+      </Button>
+      <div className="flex-1" />
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-9 w-9"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      >
+        <Sun className="h-3.5 w-3.5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute h-3.5 w-3.5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    </div>
+  );
+}
+
 export function Sidebar({
   conversations,
   activeId,
@@ -27,6 +72,10 @@ export function Sidebar({
   onToggleCollapse,
 }: SidebarProps) {
   const { theme, setTheme } = useTheme();
+
+  if (collapsed) {
+    return <SidebarRail onNewChat={onNewChat} onToggleCollapse={onToggleCollapse} />;
+  }
 
   return (
     <div className={cn("flex h-full flex-col bg-muted/30 border-r border-border")}>
@@ -47,11 +96,7 @@ export function Sidebar({
           className="h-9 w-9 shrink-0"
           onClick={onToggleCollapse}
         >
-          {collapsed ? (
-            <PanelLeft className="h-4 w-4" />
-          ) : (
-            <PanelLeftClose className="h-4 w-4" />
-          )}
+          <PanelLeftClose className="h-4 w-4" />
         </Button>
       </div>
 

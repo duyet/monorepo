@@ -1,14 +1,17 @@
 /**
  * Chat API — Cloudflare Pages Function
  *
- * Handles streaming chat with Workers AI + tool calling.
+ * Handles streaming chat with Workers AI via AI Gateway + tool calling.
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with maxSteps.
+ *
+ * Provider chain: workers-ai-provider → ai-gateway-provider → Cloudflare AI Gateway
  */
 
 import { streamText, tool, convertToModelMessages } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
+import { createWorkersAI } from "workers-ai-provider";
+import { createAiGateway } from "ai-gateway-provider";
 import { z } from "zod";
-import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../lib/agent";
+import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT, FAST_MODEL, AGENT_MODEL } from "../../lib/agent";
 import {
   searchBlogTool,
   getBlogPostTool,
@@ -20,8 +23,6 @@ import {
 
 interface Env {
   AI: Ai;
-  // Cloudflare AI Gateway: https://dash.cloudflare.com -> AI Gateway -> monorepo
-  AI_GATEWAY_URL?: string;
 }
 
 const AGENT_TOOLS = {
@@ -113,25 +114,28 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const requestId = crypto.randomUUID().substring(0, 8);
 
     // Log incoming request
-    console.log("[Chat API][" + requestId + "] Request: mode=" + mode + ", messages=" + uiMessages.length);
+    console.log(`[Chat API][${requestId}] Request: mode=${mode}, messages=${uiMessages.length}`);
 
     const messages = await convertToModelMessages(uiMessages);
 
-    // Use AI Gateway router for centralized model management and observability
-    const aiGatewayUrl = context.env.AI_GATEWAY_URL || "https://gateway.ai.cloudflare.com/v1/23050adb6c92e313643a29e1ba64c88a/monorepo";
-    const openai = createOpenAI({
-      baseURL: aiGatewayUrl,
+    // Workers AI provider (uses native binding — no HTTP overhead)
+    const workersai = createWorkersAI({ binding: AI });
+
+    // AI Gateway provider for observability, caching, and rate limiting
+    const aigateway = createAiGateway({
+      binding: AI.gateway("monorepo"),
     });
 
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
+    const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
 
     // Log system prompt
-    const systemPreview = system.length > 100 ? system.substring(0, 100) + "..." : system;
-    console.log("[Chat API][" + requestId + "] System prompt (" + system.length + " chars):", systemPreview);
+    const systemPreview = system.length > 100 ? `${system.substring(0, 100)}...` : system;
+    console.log(`[Chat API][${requestId}] System prompt (${system.length} chars):`, systemPreview);
 
-    // Log message count
-    console.log("[Chat API][" + requestId + "] Messages to model:", messages.length, "messages");
+    // Log message count and model
+    console.log(`[Chat API][${requestId}] Messages:`, messages.length, "| Model:", modelId);
 
     // Prepare messages with system prompt prepended
     const messagesWithSystem = [
@@ -139,22 +143,24 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...messages,
     ];
 
-    // Use AI Gateway router for model selection and management
+    // Route through AI Gateway → Workers AI
+    const model = aigateway(workersai(modelId));
+
     const result = streamText({
-      model: openai("dynamic/duyet-agents"),
+      model,
       messages: messagesWithSystem,
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    console.log("[Chat API][" + requestId + "] Streaming started via AI Gateway router: duyet-agents");
+    console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);
 
     return result.toUIMessageStreamResponse();
   } catch (error) {
-    const requestId = "error-" + crypto.randomUUID().substring(0, 8);
-    console.error("[Chat API][" + requestId + "] Error:", error);
+    const requestId = `error-${crypto.randomUUID().substring(0, 8)}`;
+    console.error(`[Chat API][${requestId}] Error:`, error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    console.error("[Chat API][" + requestId + "] Error details:", errorMessage);
+    console.error(`[Chat API][${requestId}] Error details:`, errorMessage);
     return new Response(
       JSON.stringify({
         error: "Failed to process chat request",

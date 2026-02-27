@@ -32,10 +32,12 @@ export function AppLayout({
         <div
           className={cn(
             "shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out",
-            sidebarOpen ? "w-[260px]" : "w-0"
+            sidebarOpen ? "w-[260px]" : "w-12"
           )}
         >
-          <div className="h-full w-[260px]">{sidebar}</div>
+          <div className={cn("h-full", sidebarOpen ? "w-[260px]" : "w-12")}>
+            {sidebar}
+          </div>
         </div>
       ) : (
         <Sheet open={sidebarOpen} onOpenChange={onSidebarOpenChange}>
@@ -49,26 +51,23 @@ export function AppLayout({
       <div className="flex flex-1 flex-col min-w-0">{children}</div>
 
       {/* Right panel — persistent on lg+, Sheet on mobile */}
-      {panel && (
-        <>
-          {isDesktop ? (
-            <div
-              className={cn(
-                "shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out",
-                panelOpen ? "w-[300px]" : "w-0"
-              )}
-            >
-              <div className="h-full w-[300px]">{panel}</div>
-            </div>
-          ) : (
-            <Sheet open={panelOpen} onOpenChange={onPanelOpenChange}>
-              <SheetContent side="right" className="w-[320px] p-0">
-                {panel}
-              </SheetContent>
-            </Sheet>
-          )}
-        </>
-      )}
+      {panel &&
+        (isDesktop ? (
+          <div
+            className={cn(
+              "shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out",
+              panelOpen ? "w-[300px]" : "w-0"
+            )}
+          >
+            <div className="h-full w-[300px]">{panel}</div>
+          </div>
+        ) : (
+          <Sheet open={panelOpen} onOpenChange={onPanelOpenChange}>
+            <SheetContent side="right" className="w-[320px] p-0">
+              {panel}
+            </SheetContent>
+          </Sheet>
+        ))}
     </div>
   );
 }

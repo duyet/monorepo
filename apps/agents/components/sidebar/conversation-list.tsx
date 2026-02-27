@@ -14,7 +14,6 @@ interface ConversationListProps {
 }
 
 function groupByDate(conversations: Conversation[]) {
-  const now = Date.now();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const yesterday = new Date(today);

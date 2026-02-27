@@ -1,4 +1,4 @@
-import { describe, test, expect, mock, beforeEach } from "bun:test";
+import { describe, test, expect, mock } from "bun:test";
 
 /**
  * Tests for the Chat API Pages Function.
@@ -38,6 +38,13 @@ mock.module("workers-ai-provider", () => ({
   })),
 }));
 
+mock.module("ai-gateway-provider", () => ({
+  createAiGateway: mock((_opts: any) => (innerModel: any) => ({
+    ...innerModel,
+    provider: "ai-gateway",
+  })),
+}));
+
 // Now import the function
 const chatModule = await import("./chat");
 const onRequestPost = chatModule.onRequestPost;
@@ -50,7 +57,10 @@ function makeContext(body: any, env: Record<string, any> = {}): any {
       body: JSON.stringify(body),
     }),
     env: {
-      AI: env.AI ?? { run: mock(() => Promise.resolve({ response: "test" })) },
+      AI: env.AI ?? {
+        run: mock(() => Promise.resolve({ response: "test" })),
+        gateway: mock((_name: string) => ({ gateway: _name })),
+      },
       ...env,
     },
   };
@@ -197,7 +207,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
 
   test("all tools have descriptions", async () => {
     const tools = await getAgentTools();
-    for (const [name, tool] of Object.entries(tools) as [string, any][]) {
+    for (const [, tool] of Object.entries(tools) as [string, any][]) {
       expect(tool.description).toBeDefined();
       expect(tool.description.length).toBeGreaterThan(10);
     }
@@ -205,14 +215,14 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
 
   test("all tools have input schemas", async () => {
     const tools = await getAgentTools();
-    for (const [name, tool] of Object.entries(tools) as [string, any][]) {
+    for (const [, tool] of Object.entries(tools) as [string, any][]) {
       expect(tool.inputSchema).toBeDefined();
     }
   });
 
   test("all tools have execute functions", async () => {
     const tools = await getAgentTools();
-    for (const [name, tool] of Object.entries(tools) as [string, any][]) {
+    for (const [, tool] of Object.entries(tools) as [string, any][]) {
       expect(typeof tool.execute).toBe("function");
     }
   });

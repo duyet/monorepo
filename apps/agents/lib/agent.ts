@@ -7,6 +7,12 @@
 
 import type { AgentTool } from "./types";
 
+/** Fast mode: lightweight model for quick conversational responses */
+export const FAST_MODEL = "@cf/zai-org/glm-4.7-flash";
+
+/** Agent mode: larger model with tool-calling support */
+export const AGENT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+
 export const SYSTEM_PROMPT = `You are Duyet's AI assistant. You help answer questions about:
 - Duyet's blog posts (data engineering, cloud computing, programming)
 - Duyet's CV and professional experience
