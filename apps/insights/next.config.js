@@ -9,8 +9,10 @@ const rootDir = path.resolve(__dirname, "../..");
 loadEnvConfig(rootDir, process.env.NODE_ENV || "development", console, false);
 loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
+const isCloudflare = process.env.CLOUDFLARE_BUILD === "1";
+
 const config = {
-  output: "export",
+  output: isCloudflare ? "export" : undefined,
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
