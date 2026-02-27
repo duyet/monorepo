@@ -8,8 +8,26 @@ import rehypeSanitize from "rehype-sanitize";
 import { Button } from "@duyet/components";
 import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
 import { useState, useCallback } from "react";
-import { InlineToolCard } from "./inline-tool-card";
-import { Reasoning } from "./reasoning";
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from "@/components/ai-elements/tool";
+import {
+  Confirmation,
+  ConfirmationRequest,
+  ConfirmationAccepted,
+  ConfirmationRejected,
+  ConfirmationActions,
+  ConfirmationAction,
+} from "@/components/ai-elements/confirmation";
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningTrigger,
+} from "@/components/ai-elements/reasoning";
 
 interface MessageProps {
   message: Message;
@@ -126,12 +144,16 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
             <>
               {parts.map((part, i) => {
                 if (part.type === "reasoning") {
+                  const isStreaming = part.state === "streaming";
                   return (
                     <Reasoning
                       key={`reasoning-${i}`}
-                      text={part.text}
-                      isStreaming={part.state === "streaming"}
-                    />
+                      isStreaming={isStreaming}
+                      defaultOpen={isStreaming}
+                    >
+                      <ReasoningTrigger />
+                      <ReasoningContent>{part.text}</ReasoningContent>
+                    </Reasoning>
                   );
                 }
                 if (part.type === "text") {
@@ -148,12 +170,52 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
                 }
                 if (part.type === "dynamic-tool") {
                   return (
-                    <InlineToolCard
+                    <Tool
                       key={part.toolCallId}
-                      part={part}
-                      onApprove={onToolApprove}
-                      onDeny={onToolDeny}
-                    />
+                      defaultOpen={part.state === "output-available" || part.state === "output-error"}
+                    >
+                      <ToolHeader
+                        type="dynamic-tool"
+                        state={part.state}
+                        toolName={part.toolName}
+                      />
+                      <ToolContent>
+                        <ToolInput input={part.input} />
+                        <ToolOutput output={part.output} errorText={part.errorText} />
+
+                        {/* Approval workflow */}
+                        <Confirmation approval={part.approval} state={part.state}>
+                          <ConfirmationRequest>
+                            <p className="text-sm">
+                              Do you want to approve <strong>{part.toolName}</strong>?
+                            </p>
+                            <ConfirmationActions>
+                              <ConfirmationAction
+                                onClick={() => onToolDeny?.(part.approval!.id)}
+                                variant="outline"
+                              >
+                                Deny
+                              </ConfirmationAction>
+                              <ConfirmationAction
+                                onClick={() => onToolApprove?.(part.approval!.id)}
+                              >
+                                Approve
+                              </ConfirmationAction>
+                            </ConfirmationActions>
+                          </ConfirmationRequest>
+                          <ConfirmationAccepted>
+                            <p className="text-sm text-green-600 dark:text-green-400">
+                              You approved this tool execution
+                            </p>
+                          </ConfirmationAccepted>
+                          <ConfirmationRejected>
+                            <p className="text-sm text-red-600 dark:text-red-400">
+                              You rejected this tool execution
+                            </p>
+                          </ConfirmationRejected>
+                        </Confirmation>
+                      </ToolContent>
+                    </Tool>
                   );
                 }
                 return null;
