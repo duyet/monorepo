@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import { Menu, Activity, PenSquare, User } from "lucide-react";
+import { Menu, Activity, PenSquare, User, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 
 let ClerkComponents: {
@@ -14,6 +14,7 @@ let ClerkComponents: {
 interface ChatTopBarProps {
   onToggleSidebar: () => void;
   onToggleActivity: () => void;
+  onToggleTools?: () => void;
   onNewChat: () => void;
   showActivityButton: boolean;
   activityCount: number;
@@ -23,6 +24,7 @@ interface ChatTopBarProps {
 export function ChatTopBar({
   onToggleSidebar,
   onToggleActivity,
+  onToggleTools,
   onNewChat,
   showActivityButton,
   activityCount,
@@ -76,8 +78,19 @@ export function ChatTopBar({
         </span>
       </div>
 
-      {/* Right: activity toggle + auth */}
+      {/* Right: tools toggle + activity toggle + auth */}
       <div className="flex items-center gap-1">
+        {onToggleTools && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8"
+            onClick={onToggleTools}
+          >
+            <Settings className="h-4 w-4" />
+            <span className="sr-only">Toggle tools</span>
+          </Button>
+        )}
         {showActivityButton && (
           <Button
             variant="ghost"

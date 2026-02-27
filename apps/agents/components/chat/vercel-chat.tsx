@@ -13,6 +13,7 @@ import { cn } from "@duyet/libs";
 import type { ChatMode } from "@/lib/types";
 import type { UIMessage } from "ai";
 import { ActivityPanel } from "../activity/activity-panel";
+import { ToolsPanel } from "./tools-panel";
 import {
   UserMessage,
   AssistantMessage,
@@ -24,6 +25,7 @@ import { Sidebar } from "../sidebar/sidebar";
 import { AppLayout } from "../layout/app-layout";
 import { Button, Textarea } from "@duyet/components";
 import { Send, RefreshCw, X, Zap, Wrench } from "lucide-react";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -31,6 +33,7 @@ export function VercelChat() {
   // Layout state
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
 
   // Conversation management
   const {
@@ -240,6 +243,7 @@ export function VercelChat() {
   ) : null;
 
   return (
+    <>
     <AppLayout
       sidebar={sidebarContent}
       panel={activityContent}
@@ -252,6 +256,7 @@ export function VercelChat() {
       <ChatTopBar
         onToggleSidebar={() => setSidebarOpen((v) => !v)}
         onToggleActivity={() => setPanelOpen((v) => !v)}
+        onToggleTools={() => setToolsPanelOpen((v) => !v)}
         onNewChat={handleNewChat}
         showActivityButton={hasActivity}
         activityCount={toolExecutions.length}
@@ -374,6 +379,14 @@ export function VercelChat() {
         </form>
       </div>
     </AppLayout>
+
+    {/* Tools panel sheet */}
+    <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
+      <SheetContent side="right" className="w-[320px] p-0">
+        <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
+      </SheetContent>
+    </Sheet>
+  </>
   );
 }
 

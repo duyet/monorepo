@@ -221,7 +221,7 @@ export const highlightCode = (
       // Notify all subscribers
       const subs = subscribers.get(tokensCacheKey);
       if (subs) {
-        subs.forEach((sub) => sub(tokenized));
+        subs.forEach((sub) => void sub(tokenized));
         subscribers.delete(tokensCacheKey);
       }
     })

@@ -2,15 +2,18 @@
  * Title Generation API — Cloudflare Pages Function
  *
  * Generates a short conversation title from the first user message + assistant reply.
- * Uses the fast model via Workers AI + AI Gateway for low latency.
+ * Uses the fast model via AI Gateway unified API for low latency.
  */
 
 import { generateText } from "ai";
-import { createWorkersAI } from "workers-ai-provider";
+import { createAiGateway } from "ai-gateway-provider";
+import { createUnified } from "ai-gateway-provider/providers/unified";
 import { FAST_MODEL } from "../../lib/agent";
 
 interface Env {
   AI: Ai;
+  CF_AIG_ACCOUNT_ID?: string;
+  CF_AIG_TOKEN?: string;
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -30,10 +33,15 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    const workersai = createWorkersAI({ binding: AI, gateway: { id: "monorepo" } });
+    const aigateway = createAiGateway({
+      accountId: context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
+      gateway: "monorepo",
+      apiKey: context.env.CF_AIG_TOKEN,
+    });
+    const unified = createUnified();
 
     const { text } = await generateText({
-      model: workersai(FAST_MODEL),
+      model: aigateway(unified(`workers-ai/${FAST_MODEL}`)),
       messages: [
         {
           role: "system",
