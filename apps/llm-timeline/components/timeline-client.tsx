@@ -12,6 +12,8 @@ const DEFAULT_FILTERS: FilterState = {
   type: 'all',
   org: '',
   source: 'all',
+  domain: 'all',
+  params: 'all',
 }
 
 export function TimelineClient() {

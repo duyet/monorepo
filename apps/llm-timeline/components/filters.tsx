@@ -1,8 +1,8 @@
 'use client'
 
-import { Search, X, Rows2, LayoutList } from 'lucide-react'
+import { Search, X, Rows2, LayoutList, Download } from 'lucide-react'
 import type { FilterState } from '@/lib/utils'
-import { organizations, models as allModels } from '@/lib/data'
+import { organizations, domains, models as allModels } from '@/lib/data'
 
 // Compute unique sources for filter dropdown
 const uniqueSources = Array.from(new Set(allModels.filter(m => m.source).map(m => m.source!)))
@@ -30,11 +30,19 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
       type: 'all',
       org: '',
       source: 'all',
+      domain: 'all',
+      params: 'all',
     })
   }
 
   const hasActiveFilters =
-    filters.search || filters.license !== 'all' || filters.type !== 'all' || filters.org || filters.source !== 'all'
+    filters.search ||
+    filters.license !== 'all' ||
+    filters.type !== 'all' ||
+    filters.org ||
+    filters.source !== 'all' ||
+    filters.domain !== 'all' ||
+    filters.params !== 'all'
 
   const inputStyle = {
     backgroundColor: 'var(--bg-card)',
@@ -133,6 +141,36 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
           ))}
         </select>
 
+        {/* Domain Filter */}
+        <select
+          value={filters.domain}
+          onChange={(e) => updateFilter('domain', e.target.value)}
+          className={selectClassName}
+          style={inputStyle}
+        >
+          <option value="all">All Domains</option>
+          {domains.map((d) => (
+            <option key={d} value={d}>
+              {d}
+            </option>
+          ))}
+        </select>
+
+        {/* Params Filter */}
+        <select
+          value={filters.params}
+          onChange={(e) => updateFilter('params', e.target.value)}
+          className={selectClassName}
+          style={inputStyle}
+        >
+          <option value="all">All Sizes</option>
+          <option value="unknown">Unknown</option>
+          <option value="small">Small (&lt;1B)</option>
+          <option value="medium">Medium (1-10B)</option>
+          <option value="large">Large (10-100B)</option>
+          <option value="xl">XL (&gt;100B)</option>
+        </select>
+
         {/* Clear Filters */}
         {hasActiveFilters && (
           <button
@@ -144,6 +182,18 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
             Clear
           </button>
         )}
+
+        {/* Download Data Button */}
+        <a
+          href="/data.json"
+          download="llm-timeline-data.json"
+          className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm transition-colors hover:opacity-80"
+          style={{ color: 'var(--text-muted)', borderColor: 'var(--border)' }}
+          title="Download all model data as JSON"
+        >
+          <Download className="h-3 w-3" />
+          Data
+        </a>
 
         {/* Result Count */}
         <span

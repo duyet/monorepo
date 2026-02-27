@@ -30,6 +30,8 @@ const DEFAULT_FILTERS: FilterState = {
   type: 'all',
   org: '',
   source: 'all',
+  domain: 'all',
+  params: 'all',
 }
 
 export function StaticView({ models: allModels, stats, sourceStats, view, license = 'all', year, org }: StaticViewProps) {

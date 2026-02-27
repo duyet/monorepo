@@ -28,6 +28,8 @@ const DEFAULT_FILTERS: FilterState = {
   type: 'all',
   org: '',
   source: 'all',
+  domain: 'all',
+  params: 'all',
 }
 
 // ============================================================================
@@ -130,6 +132,8 @@ export function AppClient({
       type: urlType,
       org: urlOrg,
       source: (searchParams.get('source') as FilterState['source']) || 'all',
+      domain: searchParams.get('domain') || 'all',
+      params: searchParams.get('params') || 'all',
     })
   }, [searchParams, initialView, initialLicense])
 
@@ -144,6 +148,8 @@ export function AppClient({
     if (filters.type !== 'all') params.set('type', filters.type)
     if (filters.org) params.set('org', filters.org)
     if (filters.source !== 'all') params.set('source', filters.source)
+    if (filters.domain !== 'all') params.set('domain', filters.domain)
+    if (filters.params !== 'all') params.set('params', filters.params)
 
     const queryString = params.toString()
     const url = queryString ? `${pathname}?${queryString}` : pathname

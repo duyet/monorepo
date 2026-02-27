@@ -108,6 +108,13 @@ ${modelEntries}
 ]
 
 export const organizations: string[] = Array.from(new Set(models.map((m) => m.org))).sort()
+export const domains: string[] = Array.from(
+  new Set(
+    models
+      .filter(m => m.domain)
+      .flatMap(m => m.domain!.split(',').map(d => d.trim()))
+  )
+).sort()
 export const years: number[] = Array.from(new Set(models.map((m) => new Date(m.date).getFullYear()))).sort(
   (a, b) => b - a,
 )

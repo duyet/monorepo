@@ -27,6 +27,8 @@ export function TimelinePage({
     type: 'all',
     org: '',
     source: 'all',
+    domain: 'all',
+    params: 'all',
   }
 
   // Apply year filter if specified

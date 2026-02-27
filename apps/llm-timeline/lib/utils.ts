@@ -6,6 +6,30 @@ export interface FilterState {
   type: 'all' | 'model' | 'milestone'
   org: string
   source: string  // 'all' or source name like 'curated', 'epoch'
+  domain: string  // 'all' or domain name like 'Language', 'Vision', 'Biology'
+  params: string  // 'all' | 'small' | 'medium' | 'large' | 'xl' | 'unknown'
+}
+
+/**
+ * Get params bucket from parameter string
+ */
+export function getParamsBucket(params: string | null): string {
+  if (!params) return 'unknown'
+  const match = params.match(/^[\d.]+([KMBT])/i)
+  if (!match) return 'unknown'
+
+  const value = parseFloat(params)
+  const unit = match[1].toUpperCase()
+
+  let billions = value
+  if (unit === 'K') billions = value / 1e6
+  else if (unit === 'M') billions = value / 1e3
+  else if (unit === 'T') billions = value * 1000
+
+  if (billions < 1) return 'small'
+  if (billions < 10) return 'medium'
+  if (billions < 100) return 'large'
+  return 'xl'
 }
 
 /**
@@ -40,6 +64,18 @@ export function filterModels(models: Model[], filters: FilterState): Model[] {
 
     // Source filter
     if (filters.source !== 'all' && model.source !== filters.source) {
+      return false
+    }
+
+    // Domain filter
+    if (filters.domain !== 'all' && filters.domain !== '') {
+      if (!model.domain) return false
+      const modelDomains = model.domain.split(',').map(d => d.trim())
+      if (!modelDomains.includes(filters.domain)) return false
+    }
+
+    // Params filter
+    if (filters.params !== 'all' && getParamsBucket(model.params) !== filters.params) {
       return false
     }
 
