@@ -18,6 +18,15 @@ export interface Message {
   content: string;
   sources?: Source[];
   timestamp: number;
+  // Metadata for assistant messages
+  model?: string;
+  duration?: number; // milliseconds
+  tokens?: {
+    prompt?: number;
+    completion?: number;
+    total?: number;
+  };
+  toolCalls?: number;
 }
 
 export interface Source {

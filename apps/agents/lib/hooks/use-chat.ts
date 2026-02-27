@@ -6,6 +6,7 @@ import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalRespons
 import type { UIMessage, DynamicToolUIPart, TextUIPart, ChatAddToolApproveResponseFunction } from "ai";
 import type { Message, ToolExecution, Agent, ChatMode } from "@/lib/types";
 import { getDefaultAgent } from "@/lib/agents";
+import { FAST_MODEL, AGENT_MODEL } from "@/lib/agent";
 
 const CHAT_API_URL =
   process.env.NEXT_PUBLIC_CHAT_API_URL || "/api/chat";
@@ -70,6 +71,14 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
   const [mode, setMode] = useState<ChatMode>(initialMode);
 
+  // Track message start times for duration calculation
+  const messageStartTimeRef = useRef<Map<string, number>>(new Map());
+  const messageMetadataRef = useRef<Map<string, {
+    model: string;
+    toolCalls: number;
+    startTime: number;
+  }>>(new Map());
+
   // Keep a ref so the transport's body function always reads the latest mode
   const modeRef = useRef(mode);
   modeRef.current = mode;
@@ -98,13 +107,34 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     onError,
     onFinish: onFinish
       ? ({ message: msg }) => {
-          console.log("[useChat] Message finished:", { id: msg.id, contentLength: getTextContent(msg).length });
-          onFinish({
+          const content = getTextContent(msg);
+          const metadata = messageMetadataRef.current.get(msg.id);
+          const startTime = metadata?.startTime || messageStartTimeRef.current.get(msg.id) || Date.now();
+          const duration = Date.now() - startTime;
+
+          // Count tool calls from parts
+          const toolCalls = msg.parts.filter(p => p.type === "dynamic-tool" || p.type.startsWith("tool-")).length;
+
+          const messageWithMeta: Message = {
             id: msg.id,
             role: "assistant",
-            content: getTextContent(msg),
+            content,
             timestamp: Date.now(),
+            model: metadata?.model || (modeRef.current === "fast" ? FAST_MODEL : AGENT_MODEL),
+            duration,
+            toolCalls,
+          };
+
+          console.log("[useChat] Message finished:", {
+            id: msg.id,
+            contentLength: content.length,
+            duration: `${duration}ms`,
+            toolCalls,
           });
+
+          onFinish?.(messageWithMeta);
+          messageMetadataRef.current.delete(msg.id);
+          messageStartTimeRef.current.delete(msg.id);
         }
       : undefined,
   });
@@ -124,12 +154,28 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const messages = useMemo<Message[]>(() => {
     const converted = aiMessages
       .filter((m) => m.role === "user" || m.role === "assistant")
-      .map((m) => ({
-        id: m.id,
-        role: m.role as "user" | "assistant",
-        content: getTextContent(m),
-        timestamp: Date.now(),
-      }));
+      .map((m) => {
+        const baseMessage = {
+          id: m.id,
+          role: m.role as "user" | "assistant",
+          content: getTextContent(m),
+          timestamp: Date.now(),
+        };
+
+        // Add metadata for completed assistant messages
+        if (m.role === "assistant" && !isActiveStatus) {
+          const metadata = messageMetadataRef.current.get(m.id);
+          if (metadata) {
+            return {
+              ...baseMessage,
+              model: metadata.model,
+              toolCalls: metadata.toolCalls,
+            };
+          }
+        }
+
+        return baseMessage;
+      });
 
     if (
       isActiveStatus &&
@@ -157,12 +203,38 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   useMemo(() => {
     if (isActiveStatus) {
       const lastMsg = aiMessages[aiMessages.length - 1];
-      if (lastMsg) {
+      if (lastMsg && lastMsg.role === "assistant") {
+        // Track message start time
+        if (!messageStartTimeRef.current.has(lastMsg.id)) {
+          messageStartTimeRef.current.set(lastMsg.id, Date.now());
+          messageMetadataRef.current.set(lastMsg.id, {
+            model: modeRef.current === "fast" ? FAST_MODEL : AGENT_MODEL,
+            toolCalls: 0,
+            startTime: Date.now(),
+          });
+        }
+
+        // Count tool calls dynamically
+        const toolCallCount = lastMsg.parts.filter(p =>
+          p.type === "dynamic-tool" || p.type.startsWith("tool-")
+        ).length;
+        const currentMeta = messageMetadataRef.current.get(lastMsg.id);
+        if (currentMeta) {
+          currentMeta.toolCalls = toolCallCount;
+        }
+
         console.log("[useChat] Last UIMessage parts:", {
           id: lastMsg.id,
           role: lastMsg.role,
           partsCount: lastMsg.parts?.length || 0,
-          parts: lastMsg.parts?.map(p => ({ type: p.type, ...(p.type === 'text' ? { textLength: p.text?.length } : {}) }))
+          parts: lastMsg.parts?.map(p => {
+            const info: any = { type: p.type };
+            if (p.type === 'text') info.textLength = p.text?.length;
+            if ('state' in p) info.state = p.state;
+            if ('toolName' in p) info.toolName = p.toolName;
+            return info;
+          }),
+          toolCalls: toolCallCount,
         });
       }
     }

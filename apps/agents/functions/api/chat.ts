@@ -129,8 +129,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Prune old tool calls to prevent context overflow
     const messages = pruneMessages({ messages: allMessages, toolCalls: "require-last-only" });
 
-    // Workers AI with built-in AI Gateway routing
-    const workersai = createWorkersAI({ binding: AI, gateway: { id: "monorepo" } });
+    // Workers AI with AI Gateway dynamic routing
+    // Uses the dynamic route for unified API gateway: dynamic/duyet-agents
+    const workersai = createWorkersAI({
+      binding: AI,
+      gateway: {
+        id: "23050adb6c92e313643a29e1ba64c88a",
+        compatibility: "compat",
+        dynamic: "duyet-agents",
+      },
+    });
 
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;

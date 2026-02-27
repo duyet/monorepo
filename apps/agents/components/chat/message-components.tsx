@@ -28,6 +28,7 @@ import {
   ReasoningContent,
   ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
+import { MessageMetadata } from "./message-metadata";
 
 interface MessageProps {
   message: Message;
@@ -244,6 +245,7 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
           <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
           </span>
+          <MessageMetadata message={message} isStreaming={isStreaming} />
           {!isStreaming && message.content && (
             <Button
               variant="ghost"
