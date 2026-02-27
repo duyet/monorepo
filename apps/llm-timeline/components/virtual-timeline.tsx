@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { ModelCard } from './model-card'
 import type { Model } from '@/lib/data'
@@ -21,6 +21,16 @@ interface VirtualItem {
 
 export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps) {
   const parentRef = useRef<HTMLDivElement>(null)
+  const [scrollMargin, setScrollMargin] = useState(200) // Default offset
+
+  // Calculate offset from top of page when container mounts
+  useEffect(() => {
+    if (parentRef.current) {
+      const rect = parentRef.current.getBoundingClientRect()
+      const scrollTop = window.scrollY || document.documentElement.scrollTop
+      setScrollMargin(rect.top + scrollTop)
+    }
+  }, [])
 
   // Sort years descending (newest first)
   const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a)
@@ -66,6 +76,7 @@ export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps
   const rowVirtualizer = useVirtualizer({
     count: virtualItems.length,
     getScrollElement: () => null, // Use document scroll
+    scrollMargin: scrollMargin, // Offset from top of page
     estimateSize: (index) => {
       const item = virtualItems[index]
       if (item.type === 'group') return 80 // Year header height

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { ModelCard } from './model-card'
 import { OrgAvatar } from './org-avatar'
@@ -22,6 +22,16 @@ interface VirtualItem {
 
 export function VirtualOrgTimeline({ modelsByOrg, liteMode }: VirtualOrgTimelineProps) {
   const parentRef = useRef<HTMLDivElement>(null)
+  const [scrollMargin, setScrollMargin] = useState(200) // Default offset
+
+  // Calculate offset from top of page when container mounts
+  useEffect(() => {
+    if (parentRef.current) {
+      const rect = parentRef.current.getBoundingClientRect()
+      const scrollTop = window.scrollY || document.documentElement.scrollTop
+      setScrollMargin(rect.top + scrollTop)
+    }
+  }, [])
 
   const sortedOrgs = Array.from(modelsByOrg.keys())
 
@@ -65,6 +75,7 @@ export function VirtualOrgTimeline({ modelsByOrg, liteMode }: VirtualOrgTimeline
   const rowVirtualizer = useVirtualizer({
     count: virtualItems.length,
     getScrollElement: () => null, // Use document scroll
+    scrollMargin: scrollMargin, // Offset from top of page
     estimateSize: (index) => {
       const item = virtualItems[index]
       if (item.type === 'group') return 100 // Org header height (includes avatar)
