@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "@duyet/components/ThemeToggle";
+import { FadeIn, FadeInStagger } from "../components/FadeIn";
+import { AuthButtons } from "@duyet/components/header/AuthButtons";
 import { ArrowRight, BookOpen, FileText, BarChart, Camera, User, Wrench, Settings, Puzzle, Database, LogIn } from "lucide-react";
 
 export const dynamic = "force-static";
@@ -90,12 +92,14 @@ const BentoCard = ({
 }: { 
   children: React.ReactNode; href: string; className?: string;
 }) => (
-  <Link
-    href={href}
-    className={`group flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-sm dark:border-white/10 dark:bg-[#111] dark:hover:border-white/20 ${className}`}
-  >
-    {children}
-  </Link>
+  <FadeIn className="flex h-full w-full">
+    <Link
+      href={href}
+      className={`w-full group flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-sm dark:border-white/10 dark:bg-[#111] dark:hover:border-white/20 ${className}`}
+    >
+      {children}
+    </Link>
+  </FadeIn>
 );
 
 export default function HomePage() {
@@ -103,8 +107,10 @@ export default function HomePage() {
     <div className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors duration-300">
       <div className="w-full py-12 sm:py-20 lg:py-24 font-sans focus:outline-none">
         
-        {/* Header Section */}
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
+        <FadeInStagger faster>
+          {/* Header Section */}
+          <FadeIn>
+            <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>

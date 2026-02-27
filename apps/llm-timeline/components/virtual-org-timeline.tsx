@@ -64,7 +64,7 @@ export function VirtualOrgTimeline({ modelsByOrg, liteMode }: VirtualOrgTimeline
 
   const rowVirtualizer = useVirtualizer({
     count: virtualItems.length,
-    getScrollElement: () => parentRef.current,
+    getScrollElement: () => null, // Use document scroll
     estimateSize: (index) => {
       const item = virtualItems[index]
       if (item.type === 'group') return 100 // Org header height (includes avatar)
@@ -74,16 +74,9 @@ export function VirtualOrgTimeline({ modelsByOrg, liteMode }: VirtualOrgTimeline
   })
 
   return (
-    <div
-      ref={parentRef}
-      className="rounded-lg"
-      style={{
-        height: 'calc(100vh - 200px)',
-        overflow: 'auto',
-        contain: 'strict',
-      }}
-    >
+    <div className="rounded-lg">
       <div
+        ref={parentRef}
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
           position: 'relative',

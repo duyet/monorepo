@@ -65,7 +65,7 @@ export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps
 
   const rowVirtualizer = useVirtualizer({
     count: virtualItems.length,
-    getScrollElement: () => parentRef.current,
+    getScrollElement: () => null, // Use document scroll
     estimateSize: (index) => {
       const item = virtualItems[index]
       if (item.type === 'group') return 80 // Year header height
@@ -75,16 +75,9 @@ export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps
   })
 
   return (
-    <div
-      ref={parentRef}
-      className="rounded-lg"
-      style={{
-        height: 'calc(100vh - 200px)',
-        overflow: 'auto',
-        contain: 'strict',
-      }}
-    >
+    <div className="rounded-lg">
       <div
+        ref={parentRef}
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
           position: 'relative',
