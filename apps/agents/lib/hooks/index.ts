@@ -4,6 +4,8 @@ export { useAutoResize } from "./use-auto-resize";
 export { useKeyboardShortcuts } from "./use-keyboard-shortcuts";
 export { useActivity, parseStreamEvent, createToolExecution } from "./use-activity";
 export { useMergeRefs } from "./use-merge-refs";
+export { useConversations } from "./use-conversations";
+export { useMediaQuery } from "./use-media-query";
 
 export type { UseChatOptions, UseChatReturn } from "./use-chat";
 export type { UseAutoScrollOptions } from "./use-auto-scroll";

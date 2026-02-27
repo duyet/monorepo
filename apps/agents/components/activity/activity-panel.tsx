@@ -5,7 +5,14 @@ import { Badge } from "@duyet/components";
 import { Button } from "@duyet/components";
 import { ToolExecutionItem } from "./tool-execution-item";
 import { ThinkingSteps, ThinkingDots } from "./thinking-steps";
-import { Activity, Clock, CheckCircle2, AlertCircle, Loader2, Minimize2, Maximize2 } from "lucide-react";
+import {
+  Activity,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  X,
+} from "lucide-react";
 import type { ToolExecution } from "@/lib/types";
 import { cn } from "@duyet/libs";
 
@@ -13,8 +20,7 @@ interface ActivityPanelProps {
   executions: ToolExecution[];
   thinkingSteps?: string[];
   isLoading?: boolean;
-  isMinimized?: boolean;
-  onToggleMinimize?: () => void;
+  onClose?: () => void;
   className?: string;
 }
 
@@ -22,8 +28,7 @@ export function ActivityPanel({
   executions,
   thinkingSteps = [],
   isLoading = false,
-  isMinimized = false,
-  onToggleMinimize,
+  onClose,
   className,
 }: ActivityPanelProps) {
   // Calculate stats
@@ -36,10 +41,16 @@ export function ActivityPanel({
     .filter((e) => e.endTime)
     .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
 
-  const hasActivity = executions.length > 0 || thinkingSteps.length > 0 || isLoading;
+  const hasActivity =
+    executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
   return (
-    <div className={cn("flex flex-col h-full bg-background border-l border-border", className)}>
+    <div
+      className={cn(
+        "flex flex-col h-full bg-background border-l border-border",
+        className
+      )}
+    >
       {/* Header */}
       <div className="border-b border-border bg-muted/30 px-4 py-2">
         <div className="flex items-center justify-between">
@@ -79,33 +90,24 @@ export function ActivityPanel({
               </div>
             )}
 
-            {/* Minimize toggle */}
-            {onToggleMinimize && (
+            {/* Close button */}
+            {onClose && (
               <Button
                 type="button"
                 variant="ghost"
                 size="icon"
                 className="h-7 w-7"
-                onClick={onToggleMinimize}
+                onClick={onClose}
               >
-                {isMinimized ? (
-                  <Maximize2 className="h-3.5 w-3.5" />
-                ) : (
-                  <Minimize2 className="h-3.5 w-3.5" />
-                )}
-                <span className="sr-only">{isMinimized ? "Expand" : "Minimize"}</span>
+                <X className="h-3.5 w-3.5" />
+                <span className="sr-only">Close panel</span>
               </Button>
             )}
           </div>
         </div>
       </div>
 
-      {/* Content — hidden when minimized */}
-      {isMinimized ? (
-        <div className="flex-1 flex items-center justify-center">
-          <p className="text-xs text-muted-foreground">Panel minimized</p>
-        </div>
-      ) : (
+      {/* Content */}
       <ScrollArea className="flex-1">
         <div className="p-3 space-y-3">
           {/* Thinking steps */}
@@ -123,14 +125,7 @@ export function ActivityPanel({
           )}
 
           {/* Tool executions */}
-          {executions.length === 0 && !isLoading ? (
-            <div className="flex flex-col items-center justify-center py-12 gap-1.5">
-              <p className="text-xs font-medium text-muted-foreground">No executions yet</p>
-              <p className="text-[11px] text-muted-foreground/50">
-                Send a message to see tool activity
-              </p>
-            </div>
-          ) : (
+          {executions.length > 0 && (
             <div className="space-y-2">
               {executions.map((execution) => (
                 <ToolExecutionItem key={execution.id} execution={execution} />
@@ -139,7 +134,6 @@ export function ActivityPanel({
           )}
         </div>
       </ScrollArea>
-      )}
     </div>
   );
 }

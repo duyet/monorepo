@@ -51,8 +51,8 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <main className="min-h-screen">{children}</main>
-          <div className="border-t">
+          <main>{children}</main>
+          <div className="h-12 border-t">
             <Header
               logo={false}
               longText={agentsConfig.header.longText}

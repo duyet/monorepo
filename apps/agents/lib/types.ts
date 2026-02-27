@@ -4,6 +4,14 @@
 
 export type ChatMode = 'fast' | 'agent'
 
+export interface Conversation {
+  id: string;
+  title: string;
+  createdAt: number;
+  updatedAt: number;
+  mode: ChatMode;
+}
+
 export interface Message {
   id: string;
   role: "user" | "assistant";
