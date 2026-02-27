@@ -124,7 +124,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    return result.toDataStreamResponse();
+    return result.toUIMessageStreamResponse();
   } catch (error) {
     console.error("Chat API error:", error);
     return new Response(
