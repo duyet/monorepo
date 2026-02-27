@@ -107,8 +107,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
     const { messages: uiMessages, mode = "agent" } = await context.request.json();
 
+    // Generate unique request ID for tracing
+    const requestId = crypto.randomUUID().substring(0, 8);
+
     // Log incoming request
-    console.log("[Chat API] Request: mode=" + mode + ", messages=" + uiMessages.length);
+    console.log("[Chat API][" + requestId + "] Request: mode=" + mode + ", messages=" + uiMessages.length);
 
     const messages = await convertToModelMessages(uiMessages);
 
@@ -122,10 +125,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Log system prompt
     const systemPreview = system.length > 100 ? system.substring(0, 100) + "..." : system;
-    console.log("[Chat API] System prompt (" + system.length + " chars):", systemPreview);
+    console.log("[Chat API][" + requestId + "] System prompt (" + system.length + " chars):", systemPreview);
 
     // Log message count
-    console.log("[Chat API] Messages to model:", messages.length, "messages");
+    console.log("[Chat API][" + requestId + "] Messages to model:", messages.length, "messages");
 
     // Prepare messages with system prompt prepended (Workers AI compatibility)
     const messagesWithSystem = [
@@ -140,13 +143,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    console.log("[Chat API] Streaming started for model: llama-3.3-70b-instruct-fp8-fast");
+    console.log("[Chat API][" + requestId + "] Streaming started for model: llama-3.3-70b-instruct-fp8-fast");
 
     return result.toUIMessageStreamResponse();
   } catch (error) {
-    console.error("[Chat API] Error:", error);
+    const requestId = "error-" + crypto.randomUUID().substring(0, 8);
+    console.error("[Chat API][" + requestId + "] Error:", error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    console.error("[Chat API] Error details:", errorMessage);
+    console.error("[Chat API][" + requestId + "] Error details:", errorMessage);
     return new Response(
       JSON.stringify({
         error: "Failed to process chat request",
