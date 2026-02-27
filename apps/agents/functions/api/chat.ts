@@ -1,14 +1,15 @@
 /**
  * Chat API — Cloudflare Pages Function
  *
- * Handles streaming chat with Workers AI via AI Gateway + tool calling.
+ * Handles streaming chat via AI Gateway unified API + tool calling.
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with stepCountIs.
  *
- * Provider: workers-ai-provider with built-in AI Gateway support
+ * Provider: ai-gateway-provider with unified API
  */
 
 import { streamText, tool, convertToModelMessages, stepCountIs, pruneMessages } from "ai";
-import { createWorkersAI } from "workers-ai-provider";
+import { createAiGateway } from "ai-gateway-provider";
+import { createUnified } from "ai-gateway-provider/providers/unified";
 import { z } from "zod";
 import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT, FAST_MODEL, AGENT_MODEL } from "../../lib/agent";
 import {
@@ -18,10 +19,14 @@ import {
   getGitHubTool,
   getAnalyticsTool,
   getAboutTool,
+  fetchLlmsTxt,
 } from "../../lib/tools";
 
 interface Env {
   AI: Ai;
+  // AI Gateway configuration
+  CF_AIG_ACCOUNT_ID?: string;
+  CF_AIG_TOKEN?: string;
 }
 
 const AGENT_TOOLS = {
@@ -104,6 +109,19 @@ const AGENT_TOOLS = {
       return about;
     },
   }),
+  fetchLlmsTxt: tool({
+    description:
+      "Fetch the llms.txt file from any duyet.net domain to get AI-readable documentation. Use for discovering available features, understanding domain structure, or getting comprehensive site information. Domains: home, blog, insights, llmTimeline, cv, photos, homelab. Also accepts full URLs.",
+    inputSchema: z.object({
+      domain: z
+        .string()
+        .describe("Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL (e.g., https://blog.duyet.net/llms.txt)"),
+    }),
+    execute: async ({ domain }) => {
+      const { content } = await fetchLlmsTxt(domain);
+      return content;
+    },
+  }),
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -129,8 +147,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Prune old tool calls to prevent context overflow
     const messages = pruneMessages({ messages: allMessages, toolCalls: "require-last-only" });
 
-    // Workers AI with built-in AI Gateway routing
-    const workersai = createWorkersAI({ binding: AI, gateway: { id: "monorepo" } });
+    // AI Gateway with unified provider
+    const aigateway = createAiGateway({
+      accountId: context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
+      gateway: "monorepo",
+      apiKey: context.env.CF_AIG_TOKEN,
+    });
+    const unified = createUnified();
 
     const isFast = mode === "fast";
     const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
@@ -143,7 +166,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Log message count and model
     console.log(`[Chat API][${requestId}] Messages:`, messages.length, "| Model:", modelId);
 
-    const model = workersai(modelId);
+    // For Workers AI models, use the format: workers-ai/@cf/meta/...
+    const model = aigateway(unified(`workers-ai/${modelId}`));
 
     const result = streamText({
       model,

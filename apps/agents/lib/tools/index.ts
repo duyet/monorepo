@@ -180,3 +180,14 @@ export async function getAboutTool(): Promise<{
     sources: [],
   };
 }
+
+/**
+ * Tool: Fetch llms.txt
+ * Retrieves llms.txt content from any duyet.net domain
+ */
+export async function fetchLlmsTxt(domain: string): Promise<{
+  content: string;
+  sources: Source[];
+}> {
+  return fetchLlmsTxtTool(domain);
+}

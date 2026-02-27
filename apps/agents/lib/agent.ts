@@ -19,12 +19,19 @@ You are duyetbot, a helpful AI assistant for duyet.net. You have access to tools
 
 ## Domain References
 
-This ecosystem spans multiple domains. For comprehensive answers, reference their \`llms.txt\` files:
+This ecosystem spans multiple domains. Each has an \`llms.txt\` for AI discovery:
 
-- **Home**: https://duyet.net/llms.txt — Central hub with links to all subdomains
-- **Blog**: https://blog.duyet.net/llms.txt — 297+ technical articles on data engineering, ClickHouse, Spark, Rust, cloud computing
-- **Insights**: https://insights.duyet.net/llms.txt — Analytics dashboard, professional background, achievements
-- **LLM Timeline**: https://llm-timeline.duyet.net/llms.txt — Interactive timeline of 769+ LLM releases (2017-present)
+| Domain | llms.txt | Description |
+|--------|----------|-------------|
+| **Home** | https://duyet.net/llms.txt | Central hub with links to all subdomains |
+| **Blog** | https://blog.duyet.net/llms.txt | 297+ technical articles on data engineering, ClickHouse, Spark, Rust, cloud computing |
+| **Insights** | https://insights.duyet.net/llms.txt | Analytics dashboard, professional background, achievements |
+| **LLM Timeline** | https://llm-timeline.duyet.net/llms.txt | Interactive timeline of 769+ LLM releases (2017-present) |
+| **CV** | https://cv.duyet.net/llms.txt | Professional resume and experience |
+| **Photos** | https://photos.duyet.net/llms.txt | Photography portfolio from Unsplash |
+| **Homelab** | https://homelab.duyet.net/llms.txt | Homelab documentation and infrastructure |
+
+Use \`fetchLlmsTxt(domain)\` tool to retrieve any llms.txt content at runtime.
 
 ## Capabilities & Tools
 
@@ -36,6 +43,7 @@ This ecosystem spans multiple domains. For comprehensive answers, reference thei
 | \`getGitHub\` | Fetching recent commits, issues, PRs (limit: 1-20) |
 | \`getAnalytics\` | Getting contact form stats (reportType: "summary", "purpose_breakdown", "daily_trends", "recent_activity") |
 | \`getAbout\` | Getting general background information |
+| \`fetchLlmsTxt\` | Fetching llms.txt from any domain (domain key or full URL) |
 
 ## Response Guidelines
 
@@ -109,10 +117,16 @@ You are duyetbot, Duyet's friendly AI assistant on duyet.net. You're in **Fast M
 ## Domain Ecosystem
 
 This is a multi-domain site. Each has an \`llms.txt\` for AI discovery:
-- https://duyet.net/llms.txt — Central hub
-- https://blog.duyet.net/llms.txt — 297+ technical posts
-- https://insights.duyet.net/llms.txt — Analytics & professional background
-- https://llm-timeline.duyet.net/llms.txt — 769+ LLM models timeline
+
+| Domain | llms.txt |
+|--------|----------|
+| Home | https://duyet.net/llms.txt |
+| Blog | https://blog.duyet.net/llms.txt |
+| Insights | https://insights.duyet.net/llms.txt |
+| LLM Timeline | https://llm-timeline.duyet.net/llms.txt |
+| CV | https://cv.duyet.net/llms.txt |
+| Photos | https://photos.duyet.net/llms.txt |
+| Homelab | https://homelab.duyet.net/llms.txt |
 
 ## About Duyet
 
@@ -232,6 +246,20 @@ export const AGENT_TOOLS: AgentTool[] = [
     parameters: {
       type: "object",
       properties: {},
+    },
+  },
+  {
+    name: "fetchLlmsTxt",
+    description: "Fetch llms.txt from any duyet.net domain for AI-readable documentation",
+    parameters: {
+      type: "object",
+      properties: {
+        domain: {
+          type: "string",
+          description: "Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL",
+        },
+      },
+      required: ["domain"],
     },
   },
 ];

@@ -30,7 +30,7 @@ export interface Message {
 }
 
 export interface Source {
-  type: "blog" | "github" | "cv" | "analytics";
+  type: "blog" | "github" | "cv" | "analytics" | "llms-txt";
   title: string;
   url?: string;
   snippet?: string;

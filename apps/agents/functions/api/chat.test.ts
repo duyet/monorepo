@@ -33,12 +33,15 @@ mock.module("ai", () => ({
   pruneMessages: mock(({ messages }: any) => messages),
 }));
 
-mock.module("workers-ai-provider", () => ({
-  createWorkersAI: mock((_opts: any) => (modelId: string) => ({
-    modelId,
-    provider: "workers-ai",
-    config: {},
+mock.module("ai-gateway-provider", () => ({
+  createAiGateway: mock((_opts: any) => (_model: any) => ({
+    modelId: _model,
+    provider: "ai-gateway",
   })),
+}));
+
+mock.module("ai-gateway-provider/providers/unified", () => ({
+  createUnified: mock(() => (model: string) => model),
 }));
 
 // Now import the function
@@ -189,7 +192,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     return lastStreamTextArgs.tools;
   }
 
-  test("registers all 6 tools in agent mode", async () => {
+  test("registers all 7 tools in agent mode", async () => {
     const tools = await getAgentTools();
     const names = Object.keys(tools);
     expect(names).toContain("searchBlog");
@@ -198,7 +201,8 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(names).toContain("getGitHub");
     expect(names).toContain("getAnalytics");
     expect(names).toContain("getAbout");
-    expect(names).toHaveLength(6);
+    expect(names).toContain("fetchLlmsTxt");
+    expect(names).toHaveLength(7);
   });
 
   test("all tools have descriptions", async () => {
@@ -233,6 +237,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(tools.getBlogPost.needsApproval).toBeUndefined();
     expect(tools.getCV.needsApproval).toBeUndefined();
     expect(tools.getAbout.needsApproval).toBeUndefined();
+    expect(tools.fetchLlmsTxt.needsApproval).toBeUndefined();
   });
 
   test("agent mode sets stopWhen with stepCountIs(5)", async () => {
