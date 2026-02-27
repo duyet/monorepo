@@ -247,14 +247,13 @@ export function VercelChat() {
               )
             )}
 
-            {/* Live streaming content with inline tool cards */}
-            {streamingContent &&
+            {/* Streaming assistant message or loading dots */}
+            {isLoading &&
               (() => {
                 const lastUiMsg = uiMessages[uiMessages.length - 1];
-                const streamingParts =
-                  lastUiMsg?.role === "assistant"
-                    ? lastUiMsg.parts
-                    : undefined;
+                if (!lastUiMsg || lastUiMsg.role !== "assistant") {
+                  return <LoadingIndicator />;
+                }
                 return (
                   <AssistantMessage
                     message={{
@@ -263,16 +262,13 @@ export function VercelChat() {
                       content: streamingContent,
                       timestamp: Date.now(),
                     }}
-                    parts={streamingParts}
+                    parts={lastUiMsg.parts}
                     onToolApprove={handleToolApprove}
                     onToolDeny={handleToolDeny}
                     isStreaming
                   />
                 );
               })()}
-
-            {/* Loading dots (before streaming starts) */}
-            {isLoading && !streamingContent && <LoadingIndicator />}
           </div>
         )}
       </div>
