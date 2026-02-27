@@ -51,11 +51,14 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <Header
-            longText={agentsConfig.header.longText}
-            shortText={agentsConfig.header.shortText}
-          />
-          {children}
+          <main className="min-h-screen">{children}</main>
+          <div className="border-t">
+            <Header
+              logo={false}
+              longText={agentsConfig.header.longText}
+              shortText={agentsConfig.header.shortText}
+            />
+          </div>
           <Footer />
           <Analytics />
         </ThemeProvider>

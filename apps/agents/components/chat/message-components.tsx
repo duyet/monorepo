@@ -197,43 +197,43 @@ interface WelcomeMessageProps {
 
 export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
-    <div className="py-12 sm:py-16 animate-in fade-in duration-500">
-      {/* Header — about page style */}
-      <div className="mb-12 text-center">
-        <h1 className="mb-4 font-serif text-5xl font-normal text-neutral-900 dark:text-neutral-100 sm:text-6xl">
+    <div className="py-16 sm:py-24 animate-in fade-in duration-500">
+      {/* Hero heading */}
+      <div className="mb-16 text-center">
+        <h1 className="mb-6 font-serif text-6xl font-normal text-neutral-900 dark:text-neutral-100 sm:text-7xl lg:text-8xl tracking-tight">
           @duyetbot
         </h1>
-        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+        <p className="mx-auto max-w-2xl text-xl leading-relaxed text-neutral-500 dark:text-neutral-400 sm:text-2xl">
           Virtual version of Duyet. Ask me about blog posts, career, GitHub
           activity, or analytics.
         </p>
       </div>
 
-      {/* Capability cards — about page card style */}
-      <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Capability cards */}
+      <div className="mb-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {CAPABILITIES.map(({ icon: Icon, label, desc, prompt, color, iconColor }) => (
           <button
             key={label}
             type="button"
             onClick={() => onPromptSelect?.(prompt)}
-            className={`group flex flex-col p-8 ${color} rounded-3xl transition-transform duration-200 hover:scale-[1.02] cursor-pointer text-left border-0`}
+            className={`group flex flex-col p-10 ${color} rounded-3xl transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer text-left border-0`}
           >
-            <div className={`mb-6 ${iconColor}`}>
-              <Icon className="h-10 w-10" strokeWidth={1.5} />
+            <div className={`mb-8 ${iconColor}`}>
+              <Icon className="h-12 w-12" strokeWidth={1.5} />
             </div>
-            <h3 className="mb-2 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+            <h3 className="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
               {label}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+            <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
               {desc}
             </p>
           </button>
         ))}
       </div>
 
-      {/* Quick-start prompts — skills section style */}
-      <div className="rounded-3xl bg-stone-100/70 px-8 py-6 dark:bg-neutral-800/50">
-        <h2 className="mb-4 font-serif text-xl font-normal text-neutral-900 dark:text-neutral-100">
+      {/* Quick-start prompts */}
+      <div className="rounded-3xl bg-stone-100/70 px-10 py-8 dark:bg-neutral-800/50">
+        <h2 className="mb-5 font-serif text-2xl font-normal text-neutral-900 dark:text-neutral-100">
           Quick starts
         </h2>
         <div className="flex flex-wrap gap-3">
@@ -242,7 +242,7 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
               key={prompt}
               type="button"
               onClick={() => onPromptSelect?.(prompt)}
-              className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100 cursor-pointer dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+              className="inline-block rounded-full bg-neutral-50 px-6 py-3 text-base font-medium text-neutral-800 transition-all hover:bg-neutral-200 hover:shadow-sm cursor-pointer dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
             >
               {prompt}
             </button>

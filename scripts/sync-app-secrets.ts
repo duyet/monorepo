@@ -366,8 +366,8 @@ async function setSecretsBulk(
 
     // Use different commands for Pages vs Workers
     const cmd = isPagesProject
-      ? ["wrangler", "pages", "secret", "bulk", tmpFile]
-      : ["wrangler", "secret", "bulk", tmpFile];
+      ? ["bunx", "wrangler", "pages", "secret", "bulk", tmpFile]
+      : ["bunx", "wrangler", "secret", "bulk", tmpFile];
 
     // Run wrangler from the app directory so it finds wrangler.toml
     const result = Bun.spawnSync({
@@ -419,7 +419,7 @@ async function setBuildVarsForPages(
 
     // Set each build var individually
     for (const [key, value] of Object.entries(buildVars)) {
-      const cmd = ["wrangler", "pages", "secret", "put", key];
+      const cmd = ["bunx", "wrangler", "pages", "secret", "put", key];
 
       const result = Bun.spawnSync({
         cmd,
