@@ -7,19 +7,6 @@ import { lastSynced, years } from '@/lib/data'
 import Icons from '@duyet/components/Icons'
 import { AuthButtons } from '@duyet/components/header/AuthButtons'
 
-// URL configuration for AuthButtons
-const urls = {
-  apps: {
-    blog: 'https://blog.duyet.net',
-    cv: 'https://cv.duyet.net',
-    insights: 'https://insights.duyet.net',
-    home: 'https://duyet.net',
-    photos: 'https://photos.duyet.net',
-    homelab: 'https://homelab.duyet.net',
-  },
-  external: {},
-}
-
 interface PageLayoutProps {
   children: React.ReactNode
   title?: string
@@ -75,7 +62,10 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
               >
                 <Icons.Github className="h-5 w-5" />
               </Link>
-              <AuthButtons urls={urls} />
+              <AuthButtons
+                className="rounded-lg p-2"
+                signInClassName="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              />
             </div>
           </div>
         </header>
