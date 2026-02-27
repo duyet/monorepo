@@ -276,70 +276,63 @@ export function VercelChat() {
       </div>
 
       {/* Sticky input area */}
-      <div className="border-t border-border bg-background/80 backdrop-blur-sm px-4 py-3">
+      <div className="border-t border-border bg-background px-4 py-3">
         <form onSubmit={handleFormSubmit} className="mx-auto max-w-3xl">
-          <div
-            className={cn(
-              "rounded-xl border border-border bg-background transition-shadow",
-              "focus-within:ring-2 focus-within:ring-ring/20"
-            )}
-          >
-            <Textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask me anything about Duyet..."
-              disabled={isLoading}
-              rows={1}
-              className="min-h-[44px] max-h-[160px] resize-none border-0 bg-transparent px-4 pt-3 pb-1 shadow-none focus-visible:ring-0 text-sm text-foreground placeholder:text-muted-foreground"
-            />
-            {/* Input toolbar */}
-            <div className="flex items-center justify-between px-3 pb-2">
-              <div className="flex items-center gap-2">
-                <ModeToggle mode={mode} onModeChange={handleModeChange} />
-                <p className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)] hidden sm:block">
-                  ↵ send · ⇧↵ newline
-                </p>
-              </div>
-              <div className="flex items-center gap-1">
-                {isLoading ? (
+          <Textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask me anything about Duyet..."
+            disabled={isLoading}
+            rows={1}
+            className="min-h-[44px] max-h-[160px] resize-none rounded-xl text-sm"
+          />
+          {/* Input toolbar */}
+          <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center gap-2">
+              <ModeToggle mode={mode} onModeChange={handleModeChange} />
+              <p className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)] hidden sm:block">
+                ↵ send · ⇧↵ newline
+              </p>
+            </div>
+            <div className="flex items-center gap-1">
+              {isLoading ? (
+                <Button
+                  type="button"
+                  onClick={stop}
+                  size="sm"
+                  variant="outline"
+                  className="h-8 rounded-full px-4 text-xs"
+                >
+                  <X className="h-3 w-3 mr-1" />
+                  Stop
+                </Button>
+              ) : (
+                <>
+                  {hasAssistantResponse && (
+                    <Button
+                      type="button"
+                      onClick={() => reload()}
+                      size="icon"
+                      variant="ghost"
+                      className="h-8 w-8 rounded-full"
+                    >
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      <span className="sr-only">Regenerate</span>
+                    </Button>
+                  )}
                   <Button
-                    type="button"
-                    onClick={stop}
+                    type="submit"
+                    disabled={!canSubmit}
                     size="sm"
-                    variant="outline"
                     className="h-8 rounded-full px-4 text-xs"
                   >
-                    <X className="h-3 w-3 mr-1" />
-                    Stop
+                    <Send className="h-3 w-3 mr-1" />
+                    Send
                   </Button>
-                ) : (
-                  <>
-                    {hasAssistantResponse && (
-                      <Button
-                        type="button"
-                        onClick={() => reload()}
-                        size="icon"
-                        variant="ghost"
-                        className="h-8 w-8 rounded-full"
-                      >
-                        <RefreshCw className="h-3.5 w-3.5" />
-                        <span className="sr-only">Regenerate</span>
-                      </Button>
-                    )}
-                    <Button
-                      type="submit"
-                      disabled={!canSubmit}
-                      size="sm"
-                      className="h-8 rounded-full px-4 text-xs"
-                    >
-                      <Send className="h-3 w-3 mr-1" />
-                      Send
-                    </Button>
-                  </>
-                )}
-              </div>
+                </>
+              )}
             </div>
           </div>
           {error && (

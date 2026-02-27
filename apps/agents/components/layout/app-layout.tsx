@@ -26,7 +26,7 @@ export function AppLayout({
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   return (
-    <div className="flex h-[calc(100vh-theme(spacing.12))] overflow-hidden">
+    <div className="flex h-full overflow-hidden">
       {/* Left sidebar — persistent on lg+, Sheet on mobile */}
       {isDesktop ? (
         <div

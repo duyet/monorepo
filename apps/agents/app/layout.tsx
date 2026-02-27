@@ -2,9 +2,7 @@ import "@duyet/components/styles.css";
 import "./globals.css";
 
 import Analytics from "@duyet/components/Analytics";
-import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
-import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { agentsConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
@@ -51,15 +49,9 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <main>{children}</main>
-          <div className="h-12 border-t">
-            <Header
-              logo={false}
-              longText={agentsConfig.header.longText}
-              shortText={agentsConfig.header.shortText}
-            />
+          <div className="flex h-screen flex-col overflow-hidden">
+            <main className="flex-1 overflow-hidden">{children}</main>
           </div>
-          <Footer />
           <Analytics />
         </ThemeProvider>
       </body>

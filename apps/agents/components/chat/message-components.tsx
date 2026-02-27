@@ -265,7 +265,7 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
       </div>
 
       {/* Quick-start prompts */}
-      <div className="mb-10 rounded-3xl bg-stone-100/70 px-8 py-6 dark:bg-neutral-800/50">
+      <div className="mb-10">
         <h2 className="mb-4 font-serif text-xl font-normal text-neutral-900 dark:text-neutral-100">
           Quick starts
         </h2>
@@ -283,15 +283,6 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
         </div>
       </div>
 
-      {/* Footer branding */}
-      <div className="text-center">
-        <p className="font-serif text-3xl font-normal text-neutral-400 dark:text-neutral-600 sm:text-4xl tracking-tight">
-          @duyetbot
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-400 dark:text-neutral-500">
-          Virtual version of Duyet. Ask me about blog posts, career, GitHub activity, or analytics.
-        </p>
-      </div>
     </div>
   );
 }
