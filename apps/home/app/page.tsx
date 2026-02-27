@@ -111,12 +111,9 @@ export default function HomePage() {
           {/* Header Section */}
           <FadeIn>
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
-          <div className="mb-4 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-              <span className="text-xs font-mono tracking-wide text-neutral-500 uppercase dark:text-neutral-400">Duyet Le</span>
-            </div>
-            <ThemeToggle />
+          <div className="mb-4 flex items-center space-x-2">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            <span className="text-xs font-mono tracking-wide text-neutral-500 uppercase dark:text-neutral-400">Duyet Le</span>
           </div>
           
           <h1 className="mb-4 font-sans text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl dark:text-neutral-100">
@@ -287,7 +284,8 @@ export default function HomePage() {
               <a href="/llms.txt" className="transition-colors hover:text-neutral-900 dark:hover:text-white">llms.txt</a>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-wrap items-center gap-4">
+              <ThemeToggle />
               <Link href={addUtmParams("https://status.duyet.net", "homepage", "footer_status")} target="_blank" className="flex items-center space-x-2 transition-colors hover:text-neutral-900 dark:hover:text-white">
                 <div className="h-2 w-2 rounded-full bg-emerald-500 relative flex items-center justify-center">
                    <div className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></div>
