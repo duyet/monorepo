@@ -76,13 +76,31 @@ export function AuthButtons({
     };
   }, []);
 
-  if (!clerkModule || !isOwner.current) return null;
+  if (!clerkModule || !isOwner.current) {
+    return (
+      <button
+        type="button"
+        className={`${signInClassName} ${className}`.trim()}
+        aria-label="Sign in"
+      >
+        <Icons.UserEmpty className="h-4 w-4" />
+      </button>
+    );
+  }
 
   const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } = clerkModule;
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   if (!publishableKey || !ClerkProvider || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
-    return null;
+    return (
+      <button
+        type="button"
+        className={`${signInClassName} ${className}`.trim()}
+        aria-label="Sign in (Unavailable)"
+      >
+        <Icons.UserEmpty className="h-4 w-4" />
+      </button>
+    );
   }
 
   // Use current page URL for redirect, fallback to blog
