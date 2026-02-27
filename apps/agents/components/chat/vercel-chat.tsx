@@ -4,11 +4,16 @@ import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import {
   useChat,
   useAutoResize,
-  useAutoScroll,
   useKeyboardShortcuts,
   useMergeRefs,
   useConversations,
 } from "@/lib/hooks";
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "@/components/ai-elements/conversation";
 import { cn } from "@duyet/libs";
 import type { ChatMode } from "@/lib/types";
 import type { UIMessage } from "ai";
@@ -192,15 +197,8 @@ export function VercelChat() {
   });
   const textareaRef = useMergeRefs(textareaCallbackRef, inputRef);
 
-  // Auto-scroll on new messages or streaming content
-  const { containerRef, scrollToBottom } = useAutoScroll({
-    trigger: `${messages.length}-${streamingContent.length}`,
-  });
-
-  // Also scroll when streaming starts
-  useEffect(() => {
-    if (streamingContent) scrollToBottom();
-  }, [streamingContent, scrollToBottom]);
+  // autoScrollTrigger changes whenever new messages arrive or streaming content grows
+  const autoScrollTrigger = messages.length + streamingContent.length;
 
   // Keyboard shortcuts
   useKeyboardShortcuts(
@@ -279,13 +277,18 @@ export function VercelChat() {
       />
 
       {/* Messages area */}
-      <div ref={containerRef} className="flex-1 overflow-y-auto">
+      <Conversation
+        className="flex-1"
+        autoScrollTrigger={autoScrollTrigger}
+      >
         {!hasMessages && !streamingContent ? (
-          <div className="px-3 sm:px-4 lg:px-6 xl:px-8">
-            <WelcomeMessage onPromptSelect={handlePromptSelect} />
-          </div>
+          <ConversationEmptyState>
+            <div className="px-3 sm:px-4 lg:px-6 xl:px-8">
+              <WelcomeMessage onPromptSelect={handlePromptSelect} />
+            </div>
+          </ConversationEmptyState>
         ) : (
-          <div className="px-3 sm:px-4 lg:px-6 xl:px-8 py-6 space-y-4">
+          <ConversationContent>
             {messages.map((message) =>
               message.role === "user" ? (
                 <UserMessage key={message.id} message={message} />
@@ -322,9 +325,10 @@ export function VercelChat() {
                   />
                 );
               })()}
-          </div>
+          </ConversationContent>
         )}
-      </div>
+        <ConversationScrollButton />
+      </Conversation>
 
       {/* Sticky input area */}
       <div className="border-t border-border bg-background px-3 sm:px-4 lg:px-6 xl:px-8 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">

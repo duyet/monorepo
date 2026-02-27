@@ -4,6 +4,7 @@
 @source "../components/**/*.tsx";
 @source "../../packages/components/**/*.tsx";
 @source "../../packages/libs/**/*.tsx";
+@source "../node_modules/streamdown/dist/*.js";
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";

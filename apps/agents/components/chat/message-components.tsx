@@ -2,12 +2,21 @@
 
 import type { Message } from "@/lib/types";
 import type { UIMessage } from "ai";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeSanitize from "rehype-sanitize";
 import { Button } from "@duyet/components";
-import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
-import { useState, useCallback, useMemo } from "react";
+import {
+  Copy,
+  Check,
+  X,
+  BookOpen,
+  User,
+  GitBranch,
+  BarChart2,
+  SearchIcon,
+  FileTextIcon,
+  InfoIcon,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { useMemo } from "react";
 import {
   Tool,
   ToolContent,
@@ -24,10 +33,19 @@ import {
   ConfirmationAction,
 } from "@/components/ai-elements/confirmation";
 import {
-  Reasoning,
-  ReasoningContent,
-  ReasoningTrigger,
-} from "@/components/ai-elements/reasoning";
+  ChainOfThought,
+  ChainOfThoughtHeader,
+  ChainOfThoughtStep,
+  ChainOfThoughtContent,
+} from "@/components/ai-elements/chain-of-thought";
+import {
+  Message as MessageRoot,
+  MessageContent,
+  MessageResponse,
+  MessageActions,
+  MessageAction,
+  useCopyToClipboard,
+} from "@/components/ai-elements/message";
 import { MessageMetadata } from "./message-metadata";
 
 interface MessageProps {
@@ -43,24 +61,6 @@ interface AssistantMessageProps extends MessageProps {
 
 type CopyState = "idle" | "copied" | "failed";
 
-function useCopyToClipboard(text: string): { state: CopyState; copy: () => void } {
-  const [state, setState] = useState<CopyState>("idle");
-
-  const copy = useCallback(async () => {
-    if (!navigator.clipboard) return;
-    try {
-      await navigator.clipboard.writeText(text);
-      setState("copied");
-      setTimeout(() => setState("idle"), 2000);
-    } catch {
-      setState("failed");
-      setTimeout(() => setState("idle"), 2000);
-    }
-  }, [text]);
-
-  return { state, copy };
-}
-
 function CopyIcon({ state }: { state: CopyState }) {
   switch (state) {
     case "copied":
@@ -72,17 +72,25 @@ function CopyIcon({ state }: { state: CopyState }) {
   }
 }
 
+/** Map tool name to a relevant icon */
+function getToolIcon(toolName: string): LucideIcon {
+  const lower = toolName.toLowerCase();
+  if (lower.includes("search") || lower.includes("blog")) return SearchIcon;
+  if (lower.includes("cv") || lower.includes("resume")) return FileTextIcon;
+  if (lower.includes("github") || lower.includes("git")) return GitBranch;
+  if (lower.includes("analytics") || lower.includes("stat")) return BarChart2;
+  return InfoIcon;
+}
+
 export function UserMessage({ message }: MessageProps) {
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
 
   return (
-    <div className="flex justify-end gap-3 group animate-in fade-in slide-in-from-bottom-2 duration-300">
-      <div className="flex max-w-[75%] flex-col items-end gap-1">
-        <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-primary-foreground">
-          <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
-            {message.content}
-          </p>
-        </div>
+    <MessageRoot from="user">
+      <MessageContent from="user">
+        <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
+          {message.content}
+        </p>
         <div className="flex items-center gap-1.5">
           <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
             {formatRelativeTime(message.timestamp)}
@@ -97,47 +105,33 @@ export function UserMessage({ message }: MessageProps) {
             <span className="sr-only">Copy</span>
           </Button>
         </div>
-      </div>
-    </div>
+      </MessageContent>
+    </MessageRoot>
   );
 }
 
-const MARKDOWN_COMPONENTS = {
-  a: ({ ...props }: React.ComponentProps<"a">) => (
-    <a
-      {...props}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-foreground underline underline-offset-2 decoration-muted-foreground/40 hover:decoration-foreground transition-colors"
-    />
-  ),
-  code: ({ ...props }: React.ComponentProps<"code">) => (
-    <code
-      {...props}
-      className="px-1.5 py-0.5 bg-muted rounded text-[12px] font-[family-name:var(--font-geist-mono)] text-foreground"
-    />
-  ),
-  pre: ({ ...props }: React.ComponentProps<"pre">) => (
-    <pre
-      {...props}
-      className="bg-muted border border-border rounded-2xl p-4 overflow-x-auto text-[12px] font-[family-name:var(--font-geist-mono)]"
-    />
-  ),
-  p: ({ ...props }: React.ComponentProps<"p">) => <p {...props} className="mb-2 last:mb-0" />,
-  ul: ({ ...props }: React.ComponentProps<"ul">) => <ul {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
-  ol: ({ ...props }: React.ComponentProps<"ol">) => <ol {...props} className="mb-2 last:mb-0 space-y-0.5 pl-4" />,
-};
-
-export function AssistantMessage({ message, isStreaming, parts, onToolApprove, onToolDeny }: AssistantMessageProps) {
+export function AssistantMessage({
+  message,
+  isStreaming,
+  parts,
+  onToolApprove,
+  onToolDeny,
+}: AssistantMessageProps) {
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
   const hasParts = parts && parts.length > 0;
 
   // Merge ALL reasoning parts across multi-step tool calls into one collapsible
+  // and collect tool parts as ChainOfThoughtStep entries
   const groupedParts = useMemo(() => {
     if (!parts) return [];
 
     const reasoningTexts: string[] = [];
     let lastReasoningState: string | undefined;
+    const toolSteps: Array<{
+      toolCallId: string;
+      toolName: string;
+      state: string;
+    }> = [];
     const nonReasoningParts: Array<{ part: typeof parts[0]; originalIndex: number }> = [];
 
     for (let i = 0; i < parts.length; i++) {
@@ -145,6 +139,13 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
       if (part.type === "reasoning") {
         reasoningTexts.push(part.text);
         lastReasoningState = part.state;
+      } else if (part.type === "dynamic-tool") {
+        toolSteps.push({
+          toolCallId: part.toolCallId,
+          toolName: part.toolName,
+          state: part.state,
+        });
+        nonReasoningParts.push({ part, originalIndex: i });
       } else {
         nonReasoningParts.push({ part, originalIndex: i });
       }
@@ -154,16 +155,18 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
       type: "reasoning-group" | "single";
       reasoningText?: string;
       reasoningState?: string;
+      toolSteps?: typeof toolSteps;
       part?: typeof parts[0];
       originalIndex: number;
     }> = [];
 
-    // Single merged reasoning group at the top
-    if (reasoningTexts.length > 0) {
+    // Single merged reasoning group (with tool steps) at the top
+    if (reasoningTexts.length > 0 || toolSteps.length > 0) {
       result.push({
         type: "reasoning-group",
         reasoningText: reasoningTexts.join(""),
         reasoningState: lastReasoningState,
+        toolSteps,
         originalIndex: 0,
       });
     }
@@ -176,58 +179,87 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
     return result;
   }, [parts]);
 
-  return (
-    <div className="flex justify-start gap-3 group animate-in fade-in slide-in-from-bottom-2 duration-300">
-      {/* Avatar */}
-      <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted">
-        <span className="text-[10px] font-bold text-muted-foreground">D</span>
-      </div>
+  const isReasoningStreaming =
+    groupedParts[0]?.type === "reasoning-group" &&
+    groupedParts[0]?.reasoningState === "streaming";
 
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <div className="text-sm leading-relaxed text-foreground [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-[family-name:var(--font-geist-mono)] [&_pre]:rounded-xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-[12px] [&_p]:mb-2 [&_p:last-child]:mb-0 [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ol]:pl-4 [&_ol]:space-y-0.5">
-          {hasParts ? (
-            <>
-              {groupedParts.map((grouped, idx) => {
-                if (grouped.type === "reasoning-group") {
-                  const isStreaming = grouped.reasoningState === "streaming";
+  return (
+    <MessageRoot from="assistant">
+      <MessageContent from="assistant">
+        {hasParts ? (
+          <>
+            {groupedParts.map((grouped, idx) => {
+              if (grouped.type === "reasoning-group") {
+                const steps = grouped.toolSteps ?? [];
+                const hasReasoningText = Boolean(grouped.reasoningText);
+                const hasSteps = steps.length > 0;
+
+                // Only render ChainOfThought if there's something to show
+                if (!hasReasoningText && !hasSteps) return null;
+
+                return (
+                  <ChainOfThought
+                    key={`reasoning-${grouped.originalIndex}`}
+                    isStreaming={isReasoningStreaming}
+                    defaultOpen={isReasoningStreaming}
+                  >
+                    <ChainOfThoughtHeader />
+                    {/* Tool steps */}
+                    {hasSteps && (
+                      <div className="mt-3 space-y-0 border-l border-border/60 pl-3">
+                        {steps.map((step) => {
+                          const Icon = getToolIcon(step.toolName);
+                          const status =
+                            step.state === "output-available" || step.state === "output-error"
+                              ? "complete"
+                              : step.state === "input-available"
+                                ? "active"
+                                : "pending";
+                          return (
+                            <ChainOfThoughtStep
+                              key={step.toolCallId}
+                              icon={Icon}
+                              label={step.toolName}
+                              status={status}
+                            />
+                          );
+                        })}
+                      </div>
+                    )}
+                    {/* Reasoning text */}
+                    {hasReasoningText && (
+                      <ChainOfThoughtContent>
+                        {grouped.reasoningText ?? ""}
+                      </ChainOfThoughtContent>
+                    )}
+                  </ChainOfThought>
+                );
+              }
+
+              if (grouped.type === "single" && grouped.part) {
+                const part = grouped.part;
+                if (part.type === "text") {
                   return (
-                    <Reasoning
-                      key={`reasoning-${grouped.originalIndex}`}
-                      isStreaming={isStreaming}
-                      defaultOpen={isStreaming}
-                    >
-                      <ReasoningTrigger />
-                      <ReasoningContent>{grouped.reasoningText ?? ""}</ReasoningContent>
-                    </Reasoning>
+                    <MessageResponse key={`text-${grouped.originalIndex}`}>
+                      {part.text}
+                    </MessageResponse>
                   );
-                }
-                if (grouped.type === "single" && grouped.part) {
-                  const part = grouped.part;
-                  if (part.type === "text") {
-                    return (
-                      <Markdown
-                        key={`text-${grouped.originalIndex}`}
-                        remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeSanitize]}
-                        components={MARKDOWN_COMPONENTS}
-                      >
-                        {part.text}
-                      </Markdown>
-                    );
-                  } else if (part.type === "dynamic-tool") {
-                    return (
-                      <Tool
-                        key={part.toolCallId}
-                        defaultOpen={part.state === "output-available" || part.state === "output-error"}
-                      >
-                        <ToolHeader
-                          type="dynamic-tool"
-                          state={part.state}
-                          toolName={part.toolName}
-                        />
-                        <ToolContent>
-                          <ToolInput input={part.input} />
-                          <ToolOutput output={part.output} errorText={part.errorText} />
+                } else if (part.type === "dynamic-tool") {
+                  return (
+                    <Tool
+                      key={part.toolCallId}
+                      defaultOpen={
+                        part.state === "output-available" || part.state === "output-error"
+                      }
+                    >
+                      <ToolHeader
+                        type="dynamic-tool"
+                        state={part.state}
+                        toolName={part.toolName}
+                      />
+                      <ToolContent>
+                        <ToolInput input={part.input} />
+                        <ToolOutput output={part.output} errorText={part.errorText} />
 
                         {/* Approval workflow */}
                         <Confirmation approval={part.approval} state={part.state}>
@@ -266,27 +298,20 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
                 }
                 return null;
               }
-                return null;
-              })}
-              {isStreaming && <StreamingCursor />}
-            </>
-          ) : message.content ? (
-            <>
-              <Markdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeSanitize]}
-                components={MARKDOWN_COMPONENTS}
-              >
-                {message.content}
-              </Markdown>
-              {isStreaming && <StreamingCursor />}
-            </>
-          ) : isStreaming ? (
-            <StreamingCursor />
-          ) : (
-            <span className="text-muted-foreground italic text-xs">No response</span>
-          )}
-        </div>
+              return null;
+            })}
+            {isStreaming && <StreamingCursor />}
+          </>
+        ) : message.content ? (
+          <>
+            <MessageResponse>{message.content}</MessageResponse>
+            {isStreaming && <StreamingCursor />}
+          </>
+        ) : isStreaming ? (
+          <StreamingCursor />
+        ) : (
+          <span className="text-muted-foreground italic text-xs">No response</span>
+        )}
 
         <div className="flex items-center gap-1.5">
           <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
@@ -294,19 +319,15 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
           </span>
           <MessageMetadata message={message} isStreaming={isStreaming} />
           {!isStreaming && message.content && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
-              onClick={handleCopy}
-            >
-              <CopyIcon state={copyState} />
-              <span className="sr-only">Copy</span>
-            </Button>
+            <MessageActions>
+              <MessageAction tooltip="Copy" onClick={handleCopy}>
+                <CopyIcon state={copyState} />
+              </MessageAction>
+            </MessageActions>
           )}
         </div>
-      </div>
-    </div>
+      </MessageContent>
+    </MessageRoot>
   );
 }
 
