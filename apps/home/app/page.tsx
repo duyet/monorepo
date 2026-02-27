@@ -126,6 +126,7 @@ export default function HomePage() {
             Building scalable data infrastructure and architecting robust distributed systems. I design data pipelines and engineer intelligent applications.
           </p>
         </div>
+        </FadeIn>
 
         {/* Primary Navigation Grid (Bento Style) */}
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -293,13 +294,11 @@ export default function HomePage() {
                 </div>
                 <span>All Systems Operational</span>
               </Link>
-              <Link href="/admin" className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors" aria-label="Admin Login">
-                <LogIn className="w-4 h-4" />
-              </Link>
+              <AuthButtons signInClassName="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors" avatarSize="h-5 w-5" />
             </div>
           </div>
         </div>
-
+        </FadeInStagger>
       </div>
     </div>
   );
