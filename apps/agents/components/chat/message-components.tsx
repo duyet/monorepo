@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
 import { Button } from "@duyet/components";
 import { Copy, Check, X, BookOpen, User, GitBranch, BarChart2 } from "lucide-react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
   Tool,
   ToolContent,
@@ -132,6 +132,62 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
   const hasParts = parts && parts.length > 0;
 
+  // Group consecutive reasoning parts into single elements
+  const groupedParts = useMemo(() => {
+    if (!parts) return [];
+
+    const grouped: Array<{
+      type: "reasoning-group" | "single";
+      reasoningText?: string;
+      reasoningState?: string;
+      part?: typeof parts[0];
+      originalIndex: number;
+    }> = [];
+
+    let reasoningTexts: string[] = [];
+    let lastReasoningState: string | undefined;
+    let reasoningStartIndex = 0;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+
+      if (part.type === "reasoning") {
+        if (reasoningTexts.length === 0) {
+          reasoningStartIndex = i;
+        }
+        // Extract fields while type is narrowed to reasoning part
+        reasoningTexts.push(part.text);
+        lastReasoningState = part.state;
+      } else {
+        // Flush reasoning buffer
+        if (reasoningTexts.length > 0) {
+          grouped.push({
+            type: "reasoning-group",
+            reasoningText: reasoningTexts.join(""),
+            reasoningState: lastReasoningState,
+            originalIndex: reasoningStartIndex,
+          });
+          reasoningTexts = [];
+          lastReasoningState = undefined;
+        }
+        // Add single part
+        grouped.push({ type: "single", part, originalIndex: i });
+      }
+    }
+
+    // Flush remaining reasoning buffer
+    if (reasoningTexts.length > 0) {
+      grouped.push({
+        type: "reasoning-group",
+        reasoningText: reasoningTexts.join(""),
+        reasoningState: lastReasoningState,
+        originalIndex: reasoningStartIndex,
+      });
+    }
+
+    return grouped;
+  }, [parts]);
+
   return (
     <div className="flex justify-start gap-3 group animate-in fade-in slide-in-from-bottom-2 duration-300">
       {/* Avatar */}
@@ -143,46 +199,47 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
         <div className="text-sm leading-relaxed text-foreground [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-[family-name:var(--font-geist-mono)] [&_pre]:rounded-xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-[12px] [&_p]:mb-2 [&_p:last-child]:mb-0 [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ol]:pl-4 [&_ol]:space-y-0.5">
           {hasParts ? (
             <>
-              {parts.map((part, i) => {
-                if (part.type === "reasoning") {
-                  const isStreaming = part.state === "streaming";
+              {groupedParts.map((grouped, idx) => {
+                if (grouped.type === "reasoning-group") {
+                  const isStreaming = grouped.reasoningState === "streaming";
                   return (
                     <Reasoning
-                      key={`reasoning-${i}`}
+                      key={`reasoning-${grouped.originalIndex}`}
                       isStreaming={isStreaming}
                       defaultOpen={isStreaming}
                     >
                       <ReasoningTrigger />
-                      <ReasoningContent>{part.text}</ReasoningContent>
+                      <ReasoningContent>{grouped.reasoningText ?? ""}</ReasoningContent>
                     </Reasoning>
                   );
                 }
-                if (part.type === "text") {
-                  return (
-                    <Markdown
-                      key={`text-${i}`}
-                      remarkPlugins={[remarkGfm]}
-                      rehypePlugins={[rehypeSanitize]}
-                      components={MARKDOWN_COMPONENTS}
-                    >
-                      {part.text}
-                    </Markdown>
-                  );
-                }
-                if (part.type === "dynamic-tool") {
-                  return (
-                    <Tool
-                      key={part.toolCallId}
-                      defaultOpen={part.state === "output-available" || part.state === "output-error"}
-                    >
-                      <ToolHeader
-                        type="dynamic-tool"
-                        state={part.state}
-                        toolName={part.toolName}
-                      />
-                      <ToolContent>
-                        <ToolInput input={part.input} />
-                        <ToolOutput output={part.output} errorText={part.errorText} />
+                if (grouped.type === "single" && grouped.part) {
+                  const part = grouped.part;
+                  if (part.type === "text") {
+                    return (
+                      <Markdown
+                        key={`text-${grouped.originalIndex}`}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeSanitize]}
+                        components={MARKDOWN_COMPONENTS}
+                      >
+                        {part.text}
+                      </Markdown>
+                    );
+                  } else if (part.type === "dynamic-tool") {
+                    return (
+                      <Tool
+                        key={part.toolCallId}
+                        defaultOpen={part.state === "output-available" || part.state === "output-error"}
+                      >
+                        <ToolHeader
+                          type="dynamic-tool"
+                          state={part.state}
+                          toolName={part.toolName}
+                        />
+                        <ToolContent>
+                          <ToolInput input={part.input} />
+                          <ToolOutput output={part.output} errorText={part.errorText} />
 
                         {/* Approval workflow */}
                         <Confirmation approval={part.approval} state={part.state}>
@@ -219,6 +276,8 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
                     </Tool>
                   );
                 }
+                return null;
+              }
                 return null;
               })}
               {isStreaming && <StreamingCursor />}
