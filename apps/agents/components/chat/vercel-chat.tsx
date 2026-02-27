@@ -131,7 +131,9 @@ export function VercelChat() {
   };
 
   const handleNewChat = () => {
+    console.log("[VercelChat] New chat button clicked, mode:", mode);
     createNew(mode);
+    console.log("[VercelChat] createNew called, activeId:", activeId);
   };
 
   // Auto-resize textarea on input

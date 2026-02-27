@@ -137,13 +137,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ];
 
     const result = streamText({
-      model: workersai("@cf/meta/llama-3.3-70b-instruct-fp8-fast"),
+      model: workersai("@cf/zai-org/glm-4.7-flash"),
       messages: messagesWithSystem,
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    console.log("[Chat API][" + requestId + "] Streaming started for model: llama-3.3-70b-instruct-fp8-fast");
+    console.log("[Chat API][" + requestId + "] Streaming started for model: glm-4.7-flash");
 
     return result.toUIMessageStreamResponse();
   } catch (error) {

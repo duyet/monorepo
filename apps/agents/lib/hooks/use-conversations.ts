@@ -34,10 +34,13 @@ export function useConversations(): UseConversationsReturn {
 
   const createNew = useCallback(
     (mode: ChatMode): string => {
+      console.log("[useConversations] Creating new conversation, mode:", mode);
       const conv = createConversation(mode);
+      console.log("[useConversations] Created conversation:", conv.id, conv.title);
       saveConversation(conv);
       setConversations((prev) => [conv, ...prev]);
       setActiveId(conv.id);
+      console.log("[useConversations] Set active conversation:", conv.id);
       return conv.id;
     },
     []
