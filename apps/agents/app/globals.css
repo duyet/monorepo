@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Scan all component directories for Tailwind classes */
+@source "../components/**/*.tsx";
+@source "../../packages/components/**/*.tsx";
+@source "../../packages/libs/**/*.tsx";
+
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
 
