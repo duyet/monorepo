@@ -5,7 +5,7 @@
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with maxSteps.
  */
 
-import { streamText, tool } from "ai";
+import { streamText, tool, convertToModelMessages } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { z } from "zod";
 import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../lib/agent";
@@ -96,7 +96,8 @@ const AGENT_TOOLS = {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
-    const { messages, mode = "agent" } = await context.request.json();
+    const { messages: uiMessages, mode = "agent" } = await context.request.json();
+    const messages = await convertToModelMessages(uiMessages);
 
     const workersai = createWorkersAI({
       accountId: context.env.CLOUDFLARE_ACCOUNT_ID,
