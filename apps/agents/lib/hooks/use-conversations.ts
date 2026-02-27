@@ -61,7 +61,7 @@ async function fetchConversationWithMessages(id: string): Promise<{ conversation
     const local = loadLocalStorage().find((c) => c.id === id);
     return {
       conversation: local || null,
-      messages: local?.messages || [],
+      messages: [], // Messages loaded separately via messages cache
     };
   }
 }
@@ -159,9 +159,10 @@ async function saveMessagesToConversation(id: string, messages: Message[]): Prom
     }
   } catch (error) {
     console.error("[useConversations] API error, falling back to localStorage:", error);
+    // Messages are cached in memory, localStorage only stores conversation metadata
     const local = loadLocalStorage().find((c) => c.id === id);
     if (local) {
-      saveLocalStorage({ ...local, messages, updatedAt: Date.now() });
+      saveLocalStorage({ ...local, updatedAt: Date.now() });
     }
   }
 }
