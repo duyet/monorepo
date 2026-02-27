@@ -83,7 +83,6 @@ async function getTopPath(limit: number, dateFrom: string): Promise<Path[]> {
     includeBounceRate: true,
     doPathCleaning: false,
     limit,
-    useSessionsTable: true,
   });
 
   if (!data) {
