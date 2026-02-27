@@ -5,6 +5,8 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { Filters } from '@/components/filters'
 import { Timeline } from '@/components/timeline'
 import { OrgTimeline } from '@/components/org-timeline'
+import { VirtualTimeline } from '@/components/virtual-timeline'
+import { VirtualOrgTimeline } from '@/components/virtual-org-timeline'
 import { StatsHeader } from '@/components/stats-header'
 import { filterModels, groupByYear, groupByOrg, type FilterState } from '@/lib/utils'
 import type { Model } from '@/lib/data'
@@ -82,7 +84,13 @@ export function StaticAppClient({
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />
         {view === 'organizations' ? (
-          <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          filteredModels.length > 500 ? (
+            <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          ) : (
+            <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          )
+        ) : filteredModels.length > 500 ? (
+          <VirtualTimeline modelsByYear={modelsByYear} liteMode={liteMode} />
         ) : (
           <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
         )}
@@ -188,7 +196,13 @@ export function AppClient({
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />
         {view === 'organizations' ? (
-          <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          filteredModels.length > 500 ? (
+            <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          ) : (
+            <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          )
+        ) : filteredModels.length > 500 ? (
+          <VirtualTimeline modelsByYear={modelsByYear} liteMode={liteMode} />
         ) : (
           <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
         )}

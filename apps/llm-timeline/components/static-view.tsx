@@ -3,6 +3,8 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Timeline } from '@/components/timeline'
 import { OrgTimeline } from '@/components/org-timeline'
+import { VirtualTimeline } from '@/components/virtual-timeline'
+import { VirtualOrgTimeline } from '@/components/virtual-org-timeline'
 import { FilterInfo } from '@/components/filter-info'
 import { StatsCards } from '@/components/stats-cards'
 import type { Model } from '@/lib/data'
@@ -93,7 +95,13 @@ export function StaticView({ models: allModels, stats, sourceStats, view, licens
       {/* Timeline */}
       <div className="min-h-[50vh]">
         {view === 'organizations' ? (
-          <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          allModels.length > 500 ? (
+            <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          ) : (
+            <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+          )
+        ) : allModels.length > 500 ? (
+          <VirtualTimeline modelsByYear={modelsByYear} liteMode={liteMode} />
         ) : (
           <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
         )}
