@@ -16,14 +16,15 @@ let clerkProviderMounted = false;
  * - Optional urls config (defaults to current page for redirects)
  * - Customizable styling
  * - Auto-redirect back to current page after sign in/out
+ * - Optional signedInContent for authenticated-only features
  *
  * @example
  * // Minimal usage (redirects to current page)
  * <AuthButtons />
  *
  * @example
- * // With custom URLs
- * <AuthButtons urls={duyetUrls} />
+ * // With authenticated-only content
+ * <AuthButtons signedInContent={<a href="/api/data.json">Download</a>} />
  *
  * @example
  * // With custom styling
@@ -34,11 +35,15 @@ export function AuthButtons({
   className = "",
   signInClassName = "h-8 w-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors",
   avatarSize = "h-8 w-8",
+  signedInContent = null,
+  signedOutContent = null,
 }: {
   urls?: UrlsConfig;
   className?: string;
   signInClassName?: string;
   avatarSize?: string;
+  signedInContent?: React.ReactNode | null;
+  signedOutContent?: React.ReactNode | null;
 } = {}) {
   const [clerkModule, setClerkModule] = useState<any>(null);
   const [currentUrl, setCurrentUrl] = useState("");
@@ -85,6 +90,16 @@ export function AuthButtons({
 
   return (
     <ClerkProvider publishableKey={publishableKey}>
+      {signedOutContent && (
+        <SignedOut>
+          {signedOutContent}
+        </SignedOut>
+      )}
+      {signedInContent && (
+        <SignedIn>
+          {signedInContent}
+        </SignedIn>
+      )}
       <SignedOut>
         <SignInButton mode="modal" redirectUrl={redirectUrl}>
           <button

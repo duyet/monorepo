@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Download } from 'lucide-react'
+import { Download, Lock } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { lastSynced, years } from '@/lib/data'
 import Icons from '@duyet/components/Icons'
@@ -44,16 +44,6 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <Link
-                href="/data.json"
-                download="llm-timeline-data.json"
-                className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                style={{ color: 'var(--text-muted)' }}
-                title="Download all model data as JSON"
-                aria-label="Download data"
-              >
-                <Download className="h-5 w-5" />
-              </Link>
-              <Link
                 href="https://github.com/duyet/monorepo"
                 target="_blank"
                 className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
@@ -65,6 +55,28 @@ export function PageLayout({ children, title, description }: PageLayoutProps) {
               <AuthButtons
                 className="rounded-lg p-2"
                 signInClassName="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                signedInContent={
+                  <Link
+                    href="/data.json"
+                    download="llm-timeline-data.json"
+                    className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    style={{ color: 'var(--text-muted)' }}
+                    title="Download all model data as JSON"
+                    aria-label="Download data"
+                  >
+                    <Download className="h-5 w-5" />
+                  </Link>
+                }
+                signedOutContent={
+                  <button
+                    className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 opacity-50"
+                    style={{ color: 'var(--text-muted)' }}
+                    title="Sign in to download data"
+                    aria-label="Download requires sign in"
+                  >
+                    <Lock className="h-5 w-5" />
+                  </button>
+                }
               />
             </div>
           </div>
