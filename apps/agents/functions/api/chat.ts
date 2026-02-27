@@ -6,7 +6,7 @@
  */
 
 import { streamText, tool, convertToModelMessages } from "ai";
-import { createWorkersAI } from "workers-ai-provider";
+import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT } from "../../lib/agent";
 import {
@@ -20,6 +20,8 @@ import {
 
 interface Env {
   AI: Ai;
+  // Cloudflare AI Gateway: https://dash.cloudflare.com -> AI Gateway -> monorepo
+  AI_GATEWAY_URL?: string;
 }
 
 const AGENT_TOOLS = {
@@ -115,9 +117,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const messages = await convertToModelMessages(uiMessages);
 
-    const workersai = createWorkersAI({
-      binding: AI,
-      gateway: { id: "monorepo" },
+    // Use AI Gateway router for centralized model management and observability
+    const aiGatewayUrl = context.env.AI_GATEWAY_URL || "https://gateway.ai.cloudflare.com/v1/23050adb6c92e313643a29e1ba64c88a/monorepo";
+    const openai = createOpenAI({
+      baseURL: aiGatewayUrl,
     });
 
     const isFast = mode === "fast";
@@ -130,20 +133,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Log message count
     console.log("[Chat API][" + requestId + "] Messages to model:", messages.length, "messages");
 
-    // Prepare messages with system prompt prepended (Workers AI compatibility)
+    // Prepare messages with system prompt prepended
     const messagesWithSystem = [
       { role: "system", content: system },
       ...messages,
     ];
 
+    // Use AI Gateway router for model selection and management
     const result = streamText({
-      model: workersai("@cf/zai-org/glm-4.7-flash"),
+      model: openai("dynamic/duyet-agents"),
       messages: messagesWithSystem,
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast ? {} : { tools: AGENT_TOOLS, maxSteps: 5 }),
     });
 
-    console.log("[Chat API][" + requestId + "] Streaming started for model: glm-4.7-flash");
+    console.log("[Chat API][" + requestId + "] Streaming started via AI Gateway router: duyet-agents");
 
     return result.toUIMessageStreamResponse();
   } catch (error) {
