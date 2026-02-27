@@ -11,8 +11,8 @@ interface SidebarProps {
   conversations: Conversation[];
   activeId: string | null;
   onNewChat: () => void;
-  onSelectConversation: (id: string) => void;
-  onDeleteConversation: (id: string) => void;
+  onSelectConversation: (id: string) => Promise<void>;
+  onDeleteConversation: (id: string) => Promise<void>;
   collapsed: boolean;
   onToggleCollapse: () => void;
 }

@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 interface ConversationListProps {
   conversations: Conversation[];
   activeId: string | null;
-  onSelect: (id: string) => void;
-  onDelete: (id: string) => void;
+  onSelect: (id: string) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 }
 
 function groupByDate(conversations: Conversation[]) {

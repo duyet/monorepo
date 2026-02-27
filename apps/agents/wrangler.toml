@@ -4,3 +4,8 @@ pages_build_output_dir = "out"
 
 [ai]
 binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "duyet-agents-db"
+database_id = "local"
