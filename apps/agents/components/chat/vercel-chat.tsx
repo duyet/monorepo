@@ -109,22 +109,53 @@ export function VercelChat() {
     setTimeout(() => inputRef.current?.focus(), 0);
   };
 
+  // Generate title from model after first assistant response
+  const generateTitle = useCallback(
+    async (convId: string, userMsg: string, assistantMsg: string) => {
+      try {
+        const res = await fetch("/api/title", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userMessage: userMsg, assistantMessage: assistantMsg }),
+        });
+        const { title } = await res.json();
+        if (title && title !== "New chat") {
+          updateTitle(convId, title);
+        }
+      } catch {
+        // Fallback: use truncated first message
+        updateTitle(convId, userMsg.slice(0, 50));
+      }
+    },
+    [updateTitle]
+  );
+
+  // Watch for first assistant response to trigger title generation
+  const [titleGenerated, setTitleGenerated] = useState(false);
+  useEffect(() => {
+    if (titleGenerated || !activeId) return;
+    if (activeConversation?.title !== "New chat") return;
+
+    const firstUser = messages.find((m) => m.role === "user");
+    const firstAssistant = messages.find((m) => m.role === "assistant");
+    if (firstUser && firstAssistant && !isLoading) {
+      setTitleGenerated(true);
+      generateTitle(activeId, firstUser.content, firstAssistant.content);
+    }
+  }, [messages, isLoading, activeId, activeConversation?.title, titleGenerated, generateTitle]);
+
+  // Reset title generation flag on new conversation
+  useEffect(() => {
+    setTitleGenerated(false);
+  }, [activeId]);
+
   // Auto-create conversation on first message submit
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    let convId = activeId;
-    if (!convId) {
-      convId = createNew(mode);
-    }
-
-    // Update title with first user message if it's still "New chat"
-    if (
-      activeConversation?.title === "New chat" ||
-      messages.length === 0
-    ) {
-      updateTitle(convId, input);
+    if (!activeId) {
+      createNew(mode);
     }
 
     handleSubmit(e);
@@ -276,7 +307,7 @@ export function VercelChat() {
       </div>
 
       {/* Sticky input area */}
-      <div className="border-t border-border bg-background px-3 sm:px-4 py-3 shadow-[0_-1px_3px_rgba(0,0,0,0.05)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="border-t border-border bg-background px-3 sm:px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <form onSubmit={handleFormSubmit} className="mx-auto max-w-3xl">
           <Textarea
             ref={textareaRef}
@@ -362,7 +393,7 @@ function ModeToggle({
         className={cn(
           "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
           mode === "fast"
-            ? "bg-amber-100 text-amber-700 shadow-sm dark:bg-amber-900/30 dark:text-amber-400"
+            ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
             : "text-muted-foreground hover:text-foreground"
         )}
       >
@@ -375,7 +406,7 @@ function ModeToggle({
         className={cn(
           "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
           mode === "agent"
-            ? "bg-blue-100 text-blue-700 shadow-sm dark:bg-blue-900/30 dark:text-blue-400"
+            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
             : "text-muted-foreground hover:text-foreground"
         )}
       >

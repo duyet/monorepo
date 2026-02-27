@@ -7,7 +7,6 @@ import {
   saveConversation,
   deleteConversation as removeConversation,
   createConversation,
-  generateConversationTitle,
 } from "../conversations";
 
 export interface UseConversationsReturn {
@@ -59,15 +58,15 @@ export function useConversations(): UseConversationsReturn {
     [activeId]
   );
 
-  const updateTitle = useCallback((id: string, firstMessage: string) => {
-    const title = generateConversationTitle(firstMessage);
+  const updateTitle = useCallback((id: string, title: string) => {
+    const finalTitle = title.trim().slice(0, 60) || "New chat";
     setConversations((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, title } : c))
+      prev.map((c) => (c.id === id ? { ...c, title: finalTitle } : c))
     );
     // Also persist
     const all = loadConversations();
     const conv = all.find((c) => c.id === id);
-    if (conv) saveConversation({ ...conv, title });
+    if (conv) saveConversation({ ...conv, title: finalTitle });
   }, []);
 
   return {

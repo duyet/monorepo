@@ -46,7 +46,7 @@ export function ChatTopBar({
   }, []);
 
   return (
-    <div className="flex h-11 items-center justify-between border-b border-border bg-background px-2 shadow-sm">
+    <div className="flex h-11 items-center justify-between border-b border-border bg-background px-2">
       {/* Left: sidebar toggle + new chat */}
       <div className="flex items-center gap-1">
         <Button
@@ -71,7 +71,7 @@ export function ChatTopBar({
 
       {/* Center: conversation title */}
       <div className="flex-1 min-w-0 px-4 text-center">
-        <span className="text-sm font-medium font-serif text-foreground truncate block">
+        <span className="text-sm font-medium text-foreground truncate block">
           {conversationTitle || "New chat"}
         </span>
       </div>

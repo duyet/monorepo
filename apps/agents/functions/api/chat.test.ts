@@ -3,7 +3,7 @@ import { describe, test, expect, mock } from "bun:test";
 /**
  * Tests for the Chat API Pages Function.
  *
- * Since the function uses AI SDK's streamText + workers-ai-provider,
+ * Since the function uses AI SDK's streamText + ai-gateway-provider,
  * we test the request validation and error handling paths.
  * The actual AI streaming is mocked since it requires a real Cloudflare AI binding.
  */
@@ -31,10 +31,17 @@ mock.module("ai", () => ({
   ),
 }));
 
-mock.module("workers-ai-provider", () => ({
-  createWorkersAI: mock((_opts: any) => (_modelId: string) => ({
-    modelId: _modelId,
-    provider: "workers-ai",
+mock.module("ai-gateway-provider", () => ({
+  createAiGateway: mock((_opts: any) => (innerModel: any) => ({
+    ...innerModel,
+    provider: "ai-gateway",
+  })),
+}));
+
+mock.module("ai-gateway-provider/providers/unified", () => ({
+  unified: mock((route: string) => ({
+    route,
+    provider: "unified",
   })),
 }));
 
@@ -50,7 +57,10 @@ function makeContext(body: any, env: Record<string, any> = {}): any {
       body: JSON.stringify(body),
     }),
     env: {
-      AI: env.AI ?? { run: mock(() => Promise.resolve({ response: "test" })) },
+      AI: env.AI ?? {
+        run: mock(() => Promise.resolve({ response: "test" })),
+        gateway: mock((_name: string) => ({ gateway: _name })),
+      },
       ...env,
     },
   };
