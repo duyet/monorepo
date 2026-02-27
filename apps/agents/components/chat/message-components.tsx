@@ -132,11 +132,25 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
   const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
   const hasParts = parts && parts.length > 0;
 
-  // Group consecutive reasoning parts into single elements
+  // Merge ALL reasoning parts across multi-step tool calls into one collapsible
   const groupedParts = useMemo(() => {
     if (!parts) return [];
 
-    const grouped: Array<{
+    const reasoningTexts: string[] = [];
+    let lastReasoningState: string | undefined;
+    const nonReasoningParts: Array<{ part: typeof parts[0]; originalIndex: number }> = [];
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      if (part.type === "reasoning") {
+        reasoningTexts.push(part.text);
+        lastReasoningState = part.state;
+      } else {
+        nonReasoningParts.push({ part, originalIndex: i });
+      }
+    }
+
+    const result: Array<{
       type: "reasoning-group" | "single";
       reasoningText?: string;
       reasoningState?: string;
@@ -144,48 +158,22 @@ export function AssistantMessage({ message, isStreaming, parts, onToolApprove, o
       originalIndex: number;
     }> = [];
 
-    let reasoningTexts: string[] = [];
-    let lastReasoningState: string | undefined;
-    let reasoningStartIndex = 0;
-
-    for (let i = 0; i < parts.length; i++) {
-      const part = parts[i];
-
-      if (part.type === "reasoning") {
-        if (reasoningTexts.length === 0) {
-          reasoningStartIndex = i;
-        }
-        // Extract fields while type is narrowed to reasoning part
-        reasoningTexts.push(part.text);
-        lastReasoningState = part.state;
-      } else {
-        // Flush reasoning buffer
-        if (reasoningTexts.length > 0) {
-          grouped.push({
-            type: "reasoning-group",
-            reasoningText: reasoningTexts.join(""),
-            reasoningState: lastReasoningState,
-            originalIndex: reasoningStartIndex,
-          });
-          reasoningTexts = [];
-          lastReasoningState = undefined;
-        }
-        // Add single part
-        grouped.push({ type: "single", part, originalIndex: i });
-      }
-    }
-
-    // Flush remaining reasoning buffer
+    // Single merged reasoning group at the top
     if (reasoningTexts.length > 0) {
-      grouped.push({
+      result.push({
         type: "reasoning-group",
         reasoningText: reasoningTexts.join(""),
         reasoningState: lastReasoningState,
-        originalIndex: reasoningStartIndex,
+        originalIndex: 0,
       });
     }
 
-    return grouped;
+    // All non-reasoning parts in original order
+    for (const { part, originalIndex } of nonReasoningParts) {
+      result.push({ type: "single", part, originalIndex });
+    }
+
+    return result;
   }, [parts]);
 
   return (
