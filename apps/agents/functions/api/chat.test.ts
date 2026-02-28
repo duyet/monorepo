@@ -48,11 +48,11 @@ mock.module("ai-gateway-provider/providers/unified", () => ({
 const chatModule = await import("./chat");
 const onRequestPost = chatModule.onRequestPost;
 
-function makeContext(body: any, env: Record<string, any> = {}): any {
+function makeContext(body: any, env: Record<string, any> = {}, headers: Record<string, string> = {}): any {
   return {
     request: new Request("https://agents.duyet.net/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...headers },
       body: JSON.stringify(body),
     }),
     env: {
@@ -63,6 +63,27 @@ function makeContext(body: any, env: Record<string, any> = {}): any {
       ...env,
     },
   };
+}
+
+/** Create a mock D1 database for rate limiting tests */
+function makeMockDB(messageCount = 0) {
+  return {
+    prepare: mock((sql: string) => ({
+      bind: mock((..._args: any[]) => ({
+        first: mock(() => Promise.resolve(messageCount > 0 ? { message_count: messageCount } : null)),
+        all: mock(() => Promise.resolve({ results: [] })),
+        run: mock(() => Promise.resolve()),
+      })),
+    })),
+    batch: mock(() => Promise.resolve([])),
+  };
+}
+
+/** Create a fake JWT token with a given sub claim */
+function makeFakeJwt(sub: string): string {
+  const header = btoa(JSON.stringify({ alg: "RS256", typ: "JWT" }));
+  const payload = btoa(JSON.stringify({ sub, iat: Date.now() }));
+  return `${header}.${payload}.fake-signature`;
 }
 
 describe("Chat API — onRequestPost", () => {
@@ -240,7 +261,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(tools.fetchLlmsTxt.needsApproval).toBeUndefined();
   });
 
-  test("agent mode sets stopWhen with stepCountIs(7)", async () => {
+  test("agent mode sets stopWhen with stepCountIs(15)", async () => {
     const ctx = makeContext({
       messages: [
         { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
@@ -248,7 +269,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
       mode: "agent",
     });
     await onRequestPost(ctx);
-    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 7 });
+    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 15 });
   });
 
   test("agent mode sets toolChoice to auto", async () => {
@@ -315,5 +336,80 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     const tools = await getAgentTools();
     const schema = tools.getAbout.inputSchema;
     expect(schema).toBeDefined();
+  });
+});
+
+describe("Rate limiting — unauthenticated users", () => {
+  test("returns 429 when rate limit exceeded for anonymous user", async () => {
+    const db = makeMockDB(10); // Already at limit
+    const ctx = makeContext(
+      { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
+      { DB: db }
+    );
+
+    const response = await onRequestPost(ctx);
+    expect(response.status).toBe(429);
+    const json = await response.json();
+    expect(json.error).toContain("Rate limit");
+    expect(json.limit).toBe(10);
+  });
+
+  test("allows request when under rate limit for anonymous user", async () => {
+    const db = makeMockDB(5); // Under limit
+    const ctx = makeContext(
+      { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
+      { DB: db }
+    );
+
+    const response = await onRequestPost(ctx);
+    expect(response.status).toBe(200);
+  });
+
+  test("authenticated users bypass rate limiting", async () => {
+    const db = makeMockDB(100); // Way over limit
+    const token = makeFakeJwt("user_123");
+    const ctx = makeContext(
+      { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
+      { DB: db },
+      { Authorization: `Bearer ${token}` }
+    );
+
+    const response = await onRequestPost(ctx);
+    // Authenticated users should not be rate limited
+    expect(response.status).toBe(200);
+  });
+
+  test("works without DB binding (no rate limiting applied)", async () => {
+    const ctx = makeContext({
+      messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }],
+      mode: "fast",
+    });
+
+    const response = await onRequestPost(ctx);
+    expect(response.status).toBe(200);
+  });
+});
+
+describe("Authentication — user extraction", () => {
+  test("logs anonymous user when no auth header", async () => {
+    const ctx = makeContext({
+      messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }],
+      mode: "fast",
+    });
+
+    const response = await onRequestPost(ctx);
+    expect(response.status).toBe(200);
+  });
+
+  test("extracts user from valid JWT auth header", async () => {
+    const token = makeFakeJwt("user_456");
+    const ctx = makeContext(
+      { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
+      {},
+      { Authorization: `Bearer ${token}` }
+    );
+
+    const response = await onRequestPost(ctx);
+    expect(response.status).toBe(200);
   });
 });

@@ -14,6 +14,7 @@
  */
 
 import { createDatabaseClient, type CreateConversationParams, type CreateMessageParams } from "../../lib/db/client";
+import { getUserFromRequest } from "../../lib/auth";
 
 interface Env {
   DB: D1Database;
@@ -63,7 +64,7 @@ function parsePathname(url: string): {
 }
 
 /**
- * GET /api/conversations — List all conversations
+ * GET /api/conversations — List conversations for the authenticated user
  * GET /api/conversations/:id — Get a conversation with messages
  * GET /api/conversations/:id/messages — Get all messages for a conversation
  */
@@ -71,7 +72,8 @@ async function handleGet(
   request: Request,
   db: D1Database,
   conversationId: string | null,
-  isMessages: boolean
+  isMessages: boolean,
+  userId: string | undefined
 ): Promise<Response> {
   const client = createDatabaseClient(db);
   const url = new URL(request.url);
@@ -80,6 +82,16 @@ async function handleGet(
   try {
     if (isMessages && conversationId) {
       // GET /api/conversations/:id/messages
+      // Verify ownership if user is authenticated
+      if (userId) {
+        const conv = await client.getConversation(conversationId);
+        if (conv && conv.userId && conv.userId !== userId) {
+          return Response.json(
+            { error: "Conversation not found" },
+            { status: 404, headers: CORS_HEADERS }
+          );
+        }
+      }
       const messages = await client.getMessages(conversationId);
       return Response.json({ messages }, { headers: CORS_HEADERS });
     }
@@ -97,6 +109,13 @@ async function handleGet(
             { status: 404, headers: CORS_HEADERS }
           );
         }
+        // Check ownership
+        if (userId && conversation.userId && conversation.userId !== userId) {
+          return Response.json(
+            { error: "Conversation not found" },
+            { status: 404, headers: CORS_HEADERS }
+          );
+        }
         return Response.json({ conversation, messages }, { headers: CORS_HEADERS });
       }
 
@@ -107,11 +126,17 @@ async function handleGet(
           { status: 404, headers: CORS_HEADERS }
         );
       }
+      if (userId && conversation.userId && conversation.userId !== userId) {
+        return Response.json(
+          { error: "Conversation not found" },
+          { status: 404, headers: CORS_HEADERS }
+        );
+      }
       return Response.json({ conversation }, { headers: CORS_HEADERS });
     }
 
-    // GET /api/conversations
-    const conversations = await client.listConversations(limit);
+    // GET /api/conversations — scoped by user
+    const conversations = await client.listConversations(limit, userId);
     return Response.json({ conversations }, { headers: CORS_HEADERS });
   } catch (error) {
     console.error("[Conversations API] GET error:", error);
@@ -133,13 +158,25 @@ async function handlePost(
   request: Request,
   db: D1Database,
   conversationId: string | null,
-  isMessages: boolean
+  isMessages: boolean,
+  userId: string | undefined
 ): Promise<Response> {
   const client = createDatabaseClient(db);
 
   try {
     if (isMessages && conversationId) {
       // POST /api/conversations/:id/messages
+      // Verify ownership if user is authenticated
+      if (userId) {
+        const conv = await client.getConversation(conversationId);
+        if (conv && conv.userId && conv.userId !== userId) {
+          return Response.json(
+            { error: "Conversation not found" },
+            { status: 404, headers: CORS_HEADERS }
+          );
+        }
+      }
+
       const body = await request.json();
       const messageParams: CreateMessageParams = {
         id: body.id || crypto.randomUUID(),
@@ -160,6 +197,7 @@ async function handlePost(
       id: body.id || crypto.randomUUID(),
       mode: body.mode || "agent",
       title: body.title,
+      userId,
     };
 
     const conversation = await client.createConversation(conversationParams);
@@ -182,7 +220,8 @@ async function handlePost(
 async function handlePut(
   request: Request,
   db: D1Database,
-  conversationId: string | null
+  conversationId: string | null,
+  userId: string | undefined
 ): Promise<Response> {
   if (!conversationId) {
     return Response.json(
@@ -196,9 +235,15 @@ async function handlePut(
   try {
     const body = await request.json();
 
-    // Check if conversation exists
+    // Check if conversation exists and verify ownership
     const existing = await client.getConversation(conversationId);
     if (!existing) {
+      return Response.json(
+        { error: "Conversation not found" },
+        { status: 404, headers: CORS_HEADERS }
+      );
+    }
+    if (userId && existing.userId && existing.userId !== userId) {
       return Response.json(
         { error: "Conversation not found" },
         { status: 404, headers: CORS_HEADERS }
@@ -230,7 +275,8 @@ async function handlePut(
 async function handleDelete(
   request: Request,
   db: D1Database,
-  conversationId: string | null
+  conversationId: string | null,
+  userId: string | undefined
 ): Promise<Response> {
   if (!conversationId) {
     return Response.json(
@@ -242,9 +288,15 @@ async function handleDelete(
   const client = createDatabaseClient(db);
 
   try {
-    // Check if conversation exists
+    // Check if conversation exists and verify ownership
     const existing = await client.getConversation(conversationId);
     if (!existing) {
+      return Response.json(
+        { error: "Conversation not found" },
+        { status: 404, headers: CORS_HEADERS }
+      );
+    }
+    if (userId && existing.userId && existing.userId !== userId) {
       return Response.json(
         { error: "Conversation not found" },
         { status: 404, headers: CORS_HEADERS }
@@ -287,19 +339,23 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     return handleOptions();
   }
 
+  // Extract authenticated user (if any)
+  const user = getUserFromRequest(request);
+  const userId = user?.userId;
+
   // Parse URL path
   const { conversationId, isMessages } = parsePathname(request.url);
 
   // Route to handler based on method
   switch (request.method) {
     case "GET":
-      return handleGet(request, env.DB, conversationId, isMessages);
+      return handleGet(request, env.DB, conversationId, isMessages, userId);
     case "POST":
-      return handlePost(request, env.DB, conversationId, isMessages);
+      return handlePost(request, env.DB, conversationId, isMessages, userId);
     case "PUT":
-      return handlePut(request, env.DB, conversationId);
+      return handlePut(request, env.DB, conversationId, userId);
     case "DELETE":
-      return handleDelete(request, env.DB, conversationId);
+      return handleDelete(request, env.DB, conversationId, userId);
     default:
       return Response.json(
         { error: "Method not allowed" },
