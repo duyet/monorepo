@@ -129,8 +129,10 @@ async function handleGet(
       return Response.json({ conversation }, { headers: CORS_HEADERS });
     }
 
-    // GET /api/conversations — scoped by user
-    const conversations = await client.listConversations(limit, userId);
+    // GET /api/conversations — explicitly scoped by auth state
+    const conversations = userId
+      ? await client.listConversationsByUser(userId, limit)
+      : await client.listAnonymousConversations(limit);
     return Response.json({ conversations }, { headers: CORS_HEADERS });
   } catch (error) {
     console.error("[Conversations API] GET error:", error);
@@ -169,13 +171,28 @@ async function handlePost(
       }
 
       const body = await request.json();
+
+      // Validate required fields
+      if (!body.role || (body.role !== "user" && body.role !== "assistant")) {
+        return Response.json(
+          { error: "Invalid or missing 'role': must be 'user' or 'assistant'" },
+          { status: 400, headers: CORS_HEADERS }
+        );
+      }
+      if (!body.content || typeof body.content !== "string" || body.content.trim().length === 0) {
+        return Response.json(
+          { error: "Invalid or missing 'content': must be a non-empty string" },
+          { status: 400, headers: CORS_HEADERS }
+        );
+      }
+
       const messageParams: CreateMessageParams = {
         id: body.id || crypto.randomUUID(),
         conversationId,
-        role: body.role as "user" | "assistant",
+        role: body.role,
         content: body.content,
-        timestamp: body.timestamp || Date.now(),
-        metadata: body.metadata,
+        timestamp: typeof body.timestamp === "number" ? body.timestamp : Date.now(),
+        metadata: body.metadata && typeof body.metadata === "object" ? body.metadata : undefined,
       };
 
       const message = await client.createMessage(messageParams);

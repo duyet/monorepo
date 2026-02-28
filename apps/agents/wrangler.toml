@@ -2,6 +2,10 @@ name = "duyet-agents"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "out"
 
+[vars]
+# Server-side pepper for hashing IPs before storage. Override in dashboard for production.
+RATE_LIMIT_PEPPER = "change-me-in-production"
+
 [ai]
 binding = "AI"
 

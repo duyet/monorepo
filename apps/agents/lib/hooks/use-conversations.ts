@@ -35,14 +35,19 @@ function isAuthenticated(headers: Record<string, string>): boolean {
   return !!headers.Authorization;
 }
 
-/** Build auth headers from a token getter */
+/** Build auth headers from a token getter. Returns empty headers on any error. */
 async function getAuthHeaders(
   getToken?: () => Promise<string | null>
 ): Promise<Record<string, string>> {
   if (!getToken) return {};
-  const token = await getToken();
-  if (!token) return {};
-  return { Authorization: `Bearer ${token}` };
+  try {
+    const token = await getToken();
+    if (!token) return {};
+    return { Authorization: `Bearer ${token}` };
+  } catch (error) {
+    console.warn("[useConversations] Failed to get auth token:", error);
+    return {};
+  }
 }
 
 /**
@@ -123,7 +128,8 @@ async function createConversation(
 }
 
 /**
- * Update conversation title via API
+ * Update conversation title via API.
+ * Rethrows for authenticated users so callers can revert optimistic state.
  */
 async function updateConversationTitle(
   id: string,
@@ -139,7 +145,7 @@ async function updateConversationTitle(
     if (!response.ok) throw new Error(`Failed to update conversation: ${response.status}`);
   } catch (error) {
     console.error("[useConversations] API error:", error);
-    if (isAuthenticated(authHeaders)) return;
+    if (isAuthenticated(authHeaders)) throw error;
     const local = loadLocalStorage().find((c) => c.id === id);
     if (local) {
       saveLocalStorage({ ...local, title });
@@ -148,7 +154,8 @@ async function updateConversationTitle(
 }
 
 /**
- * Delete conversation via API
+ * Delete conversation via API.
+ * Rethrows for authenticated users so callers can revert optimistic state.
  */
 async function deleteConversation(
   id: string,
@@ -162,7 +169,7 @@ async function deleteConversation(
     if (!response.ok) throw new Error(`Failed to delete conversation: ${response.status}`);
   } catch (error) {
     console.error("[useConversations] API error:", error);
-    if (isAuthenticated(authHeaders)) return;
+    if (isAuthenticated(authHeaders)) throw error;
     removeLocalStorage(id);
   }
 }
@@ -238,10 +245,13 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
   const getAuthTokenRef = useRef(getAuthToken);
   getAuthTokenRef.current = getAuthToken;
 
+  // Track whether auth is configured so the effect re-runs when auth becomes available
+  const hasAuth = !!getAuthToken;
+
   const activeConversation = conversations.find((c) => c.id === activeId) ?? null;
   const activeMessages = messagesCacheRef.current.get(activeId || "") ?? [];
 
-  // Load conversations on mount
+  // Load conversations on mount and when auth state changes
   useEffect(() => {
     async function load() {
       setIsLoading(true);
@@ -251,7 +261,7 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
       setIsLoading(false);
     }
     load();
-  }, []);
+  }, [hasAuth]);
 
   const createNew = useCallback(async (mode: ChatMode): Promise<string> => {
     console.log("[useConversations] Creating new conversation, mode:", mode);
@@ -292,20 +302,40 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
 
   const remove = useCallback(async (id: string) => {
     const headers = await getAuthHeaders(getAuthTokenRef.current);
-    await deleteConversation(id, headers);
+    // Capture state for rollback before optimistic removal
+    const snapshot = conversations;
+    const cachedMessages = messagesCacheRef.current.get(id);
     setConversations((prev) => prev.filter((c) => c.id !== id));
     messagesCacheRef.current.delete(id);
     if (activeId === id) setActiveId(null);
-  }, [activeId]);
+    try {
+      await deleteConversation(id, headers);
+    } catch {
+      // Revert optimistic removal on failure
+      setConversations(snapshot);
+      if (cachedMessages) messagesCacheRef.current.set(id, cachedMessages);
+    }
+  }, [activeId, conversations]);
 
   const updateTitle = useCallback(async (id: string, title: string) => {
     const finalTitle = title.trim().slice(0, 60) || "New chat";
+    // Capture previous title for rollback
+    const previous = conversations.find((c) => c.id === id);
     setConversations((prev) =>
       prev.map((c) => (c.id === id ? { ...c, title: finalTitle } : c))
     );
     const headers = await getAuthHeaders(getAuthTokenRef.current);
-    await updateConversationTitle(id, finalTitle, headers);
-  }, []);
+    try {
+      await updateConversationTitle(id, finalTitle, headers);
+    } catch {
+      // Revert optimistic title change on failure
+      if (previous) {
+        setConversations((prev) =>
+          prev.map((c) => (c.id === id ? { ...c, title: previous.title } : c))
+        );
+      }
+    }
+  }, [conversations]);
 
   const saveMessages = useCallback(async (messages: Message[]) => {
     if (!activeId) return;

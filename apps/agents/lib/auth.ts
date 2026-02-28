@@ -24,10 +24,15 @@ export function getClientIp(request: Request): string {
 /**
  * Hash an IP address with a server-side pepper using SHA-256.
  * Returns a hex-encoded hash. Never stores raw IPs in the database.
+ * The pepper should be injected via RATE_LIMIT_PEPPER env var.
  */
 export async function hashIp(ip: string, pepper?: string): Promise<string> {
-  const secret = pepper || process.env.RATE_LIMIT_PEPPER || "duyet-agents-default-pepper";
-  const data = new TextEncoder().encode(`${secret}:${ip}`);
+  const secret = pepper || process.env.RATE_LIMIT_PEPPER;
+  if (!secret) {
+    console.warn("[auth] RATE_LIMIT_PEPPER not configured — using insecure default. Set RATE_LIMIT_PEPPER in wrangler.toml or dashboard.");
+  }
+  const effectiveSecret = secret || "duyet-agents-default-pepper";
+  const data = new TextEncoder().encode(`${effectiveSecret}:${ip}`);
   const hash = await crypto.subtle.digest("SHA-256", data);
   return Array.from(new Uint8Array(hash))
     .map((b) => b.toString(16).padStart(2, "0"))
@@ -94,10 +99,10 @@ async function verifyJwt(
     const kid = headerJson.kid;
     const alg = headerJson.alg;
 
-    // Must be RSA-based algorithm
+    // Only RSA-based algorithms are accepted — reject HS*, none, etc.
+    // to prevent signature bypass via algorithm substitution.
     if (!alg || !alg.startsWith("RS")) {
-      // Fall back to claims validation for non-RSA (e.g. test tokens)
-      return verifyJwtClaimsFallback(parts[1]);
+      return null;
     }
 
     const jwks = await getClerkJwks(clerkDomain);

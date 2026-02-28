@@ -100,19 +100,24 @@ export class DatabaseClient {
   }
 
   /**
-   * List conversations, ordered by most recently updated.
-   * If userId is provided, only returns conversations for that user.
+   * List conversations for a specific user, ordered by most recently updated.
+   * Always scoped by user_id — never returns other users' conversations.
    */
-  async listConversations(limit = 50, userId?: string): Promise<Conversation[]> {
-    if (userId) {
-      const stmt = this.db.prepare(
-        "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id = ? ORDER BY updated_at DESC LIMIT ?"
-      );
-      const result = await stmt.bind(userId, limit).all() as { results: ConversationRow[] };
-      return (result.results || []).map((row) => this.rowToConversation(row));
-    }
+  async listConversationsByUser(userId: string, limit = 50): Promise<Conversation[]> {
     const stmt = this.db.prepare(
-      "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations ORDER BY updated_at DESC LIMIT ?"
+      "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id = ? ORDER BY updated_at DESC LIMIT ?"
+    );
+    const result = await stmt.bind(userId, limit).all() as { results: ConversationRow[] };
+    return (result.results || []).map((row) => this.rowToConversation(row));
+  }
+
+  /**
+   * List anonymous conversations (user_id IS NULL), ordered by most recently updated.
+   * Used for unauthenticated users — only returns conversations without an owner.
+   */
+  async listAnonymousConversations(limit = 50): Promise<Conversation[]> {
+    const stmt = this.db.prepare(
+      "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id IS NULL ORDER BY updated_at DESC LIMIT ?"
     );
     const result = await stmt.bind(limit).all() as { results: ConversationRow[] };
     return (result.results || []).map((row) => this.rowToConversation(row));
