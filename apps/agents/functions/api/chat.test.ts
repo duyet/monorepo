@@ -65,12 +65,18 @@ function makeContext(body: any, env: Record<string, any> = {}, headers: Record<s
   };
 }
 
-/** Create a mock D1 database for rate limiting tests */
-function makeMockDB(messageCount = 0) {
+/**
+ * Create a mock D1 database for rate limiting tests.
+ * postIncrementCount simulates the count AFTER the atomic upsert increment.
+ * consumeRateLimit does: upsert (increment), then SELECT → returns postIncrementCount.
+ */
+function makeMockDB(postIncrementCount = 0) {
   return {
-    prepare: mock((sql: string) => ({
+    prepare: mock((_sql: string) => ({
       bind: mock((..._args: any[]) => ({
-        first: mock(() => Promise.resolve(messageCount > 0 ? { message_count: messageCount } : null)),
+        first: mock(() => Promise.resolve(
+          postIncrementCount > 0 ? { message_count: postIncrementCount } : null
+        )),
         all: mock(() => Promise.resolve({ results: [] })),
         run: mock(() => Promise.resolve()),
       })),
@@ -261,7 +267,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(tools.fetchLlmsTxt.needsApproval).toBeUndefined();
   });
 
-  test("agent mode sets stopWhen with stepCountIs(15)", async () => {
+  test("agent mode sets stopWhen with stepCountIs(5)", async () => {
     const ctx = makeContext({
       messages: [
         { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
@@ -269,7 +275,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
       mode: "agent",
     });
     await onRequestPost(ctx);
-    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 15 });
+    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 5 });
   });
 
   test("agent mode sets toolChoice to auto", async () => {
@@ -341,7 +347,9 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
 
 describe("Rate limiting — unauthenticated users", () => {
   test("returns 429 when rate limit exceeded for anonymous user", async () => {
-    const db = makeMockDB(10); // Already at limit
+    // postIncrementCount=11 means after atomic upsert the count is 11,
+    // which exceeds the limit of 10 (allowed = 11 <= 10 → false)
+    const db = makeMockDB(11);
     const ctx = makeContext(
       { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
       { DB: db }
@@ -352,6 +360,11 @@ describe("Rate limiting — unauthenticated users", () => {
     const json = await response.json();
     expect(json.error).toContain("Rate limit");
     expect(json.limit).toBe(10);
+
+    // Verify rate-limit response headers
+    expect(response.headers.get("Retry-After")).toBe("86400");
+    expect(response.headers.get("X-RateLimit-Limit")).toBe("10");
+    expect(response.headers.get("X-RateLimit-Remaining")).toBe("0");
   });
 
   test("allows request when under rate limit for anonymous user", async () => {

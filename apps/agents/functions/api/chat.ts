@@ -22,7 +22,7 @@ import {
   fetchLlmsTxt,
 } from "../../lib/tools";
 
-import { getUserFromRequest, getClientIp } from "../../lib/auth";
+import { getUserFromRequest, getClientIp, hashIp } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
@@ -142,15 +142,18 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   try {
     // Extract auth and IP for rate limiting
-    const user = getUserFromRequest(context.request);
+    const user = await getUserFromRequest(context.request);
     const clientIp = getClientIp(context.request);
 
     // Rate limit unauthenticated users (10 messages per 24h window per IP)
+    // Uses atomic consumeRateLimit to avoid check-then-increment race conditions
+    let rateLimitResult: { allowed: boolean; remaining: number; total: number } | null = null;
     if (!user && DB) {
       const dbClient = createDatabaseClient(DB);
-      const rateCheck = await dbClient.checkRateLimit(clientIp, ANON_RATE_LIMIT);
+      const ipHash = await hashIp(clientIp);
+      rateLimitResult = await dbClient.consumeRateLimit(ipHash, ANON_RATE_LIMIT);
 
-      if (!rateCheck.allowed) {
+      if (!rateLimitResult.allowed) {
         return new Response(
           JSON.stringify({
             error: "Rate limit exceeded",
@@ -215,23 +218,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast
         ? {}
-        : { tools: AGENT_TOOLS, toolChoice: "auto" as const, stopWhen: stepCountIs(15) }),
+        : { tools: AGENT_TOOLS, toolChoice: "auto" as const, stopWhen: stepCountIs(5) }),
     });
 
     console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);
 
-    // Increment rate limit counter for unauthenticated users (fire and forget)
-    if (!user && DB) {
-      const dbClient = createDatabaseClient(DB);
-      dbClient.incrementRateLimit(clientIp).catch((err) => {
-        console.error(`[Chat API][${requestId}] Failed to increment rate limit:`, err);
-      });
-    }
-
     // Store conversation for authenticated users (fire and forget)
     if (user && DB && conversationId) {
       const dbClient = createDatabaseClient(DB);
-      // Ensure conversation exists for this user
       const existing = await dbClient.getConversation(conversationId);
       if (!existing) {
         dbClient
@@ -245,11 +239,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const response = result.toUIMessageStreamResponse();
 
     // Add rate limit headers for unauthenticated users
-    if (!user && DB) {
-      const dbClient = createDatabaseClient(DB);
-      const rateCheck = await dbClient.checkRateLimit(clientIp, ANON_RATE_LIMIT);
+    if (rateLimitResult) {
       response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
-      response.headers.set("X-RateLimit-Remaining", String(Math.max(0, rateCheck.remaining - 1)));
+      response.headers.set("X-RateLimit-Remaining", String(rateLimitResult.remaining));
     }
 
     return response;

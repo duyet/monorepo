@@ -100,7 +100,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       new DefaultChatTransport({
         api: CHAT_API_URL,
         body: () => ({ mode: modeRef.current, conversationId: idRef.current }),
-        headers: async () => {
+        headers: async (): Promise<Record<string, string>> => {
           const tokenFn = getAuthTokenRef.current;
           if (!tokenFn) return {};
           const token = await tokenFn();

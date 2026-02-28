@@ -55,13 +55,13 @@ BEGIN
 END;
 
 -- Rate limiting table for unauthenticated users
--- Tracks message counts per IP address within a time window
+-- Stores salted SHA-256 hashes of IPs (never raw IPs) with a time window
 CREATE TABLE IF NOT EXISTS rate_limits (
-  ip TEXT NOT NULL,
+  ip_hash TEXT NOT NULL,
   window_start INTEGER NOT NULL,
   message_count INTEGER NOT NULL DEFAULT 0,
-  PRIMARY KEY (ip, window_start)
+  PRIMARY KEY (ip_hash, window_start)
 );
 
-CREATE INDEX IF NOT EXISTS idx_rate_limits_ip ON rate_limits(ip);
+CREATE INDEX IF NOT EXISTS idx_rate_limits_ip_hash ON rate_limits(ip_hash);
 CREATE INDEX IF NOT EXISTS idx_rate_limits_window ON rate_limits(window_start);

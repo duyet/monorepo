@@ -273,38 +273,35 @@ export class DatabaseClient {
   }
 
   /**
-   * Check rate limit for an IP address.
-   * Returns { allowed: boolean, remaining: number } for the current window.
+   * Atomically check and consume a rate limit slot for an IP hash.
+   * Increments the counter and returns whether the request is allowed.
    * Window is 24 hours. Limit is configurable (default 10).
+   *
+   * Uses INSERT ... ON CONFLICT to atomically upsert, then reads the
+   * updated count to avoid race conditions between check and increment.
    */
-  async checkRateLimit(ip: string, limit = 10): Promise<{ allowed: boolean; remaining: number; total: number }> {
+  async consumeRateLimit(ipHash: string, limit = 10): Promise<{ allowed: boolean; remaining: number; total: number }> {
     const windowDuration = 24 * 60 * 60 * 1000; // 24 hours
     const windowStart = Math.floor(Date.now() / windowDuration) * windowDuration;
 
-    const stmt = this.db.prepare(
-      "SELECT message_count FROM rate_limits WHERE ip = ? AND window_start = ?"
+    // Atomic upsert: insert or increment in one statement
+    const upsertStmt = this.db.prepare(
+      "INSERT INTO rate_limits (ip_hash, window_start, message_count) VALUES (?, ?, 1) ON CONFLICT(ip_hash, window_start) DO UPDATE SET message_count = message_count + 1"
     );
-    const result = await stmt.bind(ip, windowStart).first() as { message_count: number } | null;
-    const count = result?.message_count ?? 0;
+    await upsertStmt.bind(ipHash, windowStart).run();
+
+    // Read back the count after upsert
+    const selectStmt = this.db.prepare(
+      "SELECT message_count FROM rate_limits WHERE ip_hash = ? AND window_start = ?"
+    );
+    const result = await selectStmt.bind(ipHash, windowStart).first() as { message_count: number } | null;
+    const count = result?.message_count ?? 1;
 
     return {
-      allowed: count < limit,
+      allowed: count <= limit,
       remaining: Math.max(0, limit - count),
       total: count,
     };
-  }
-
-  /**
-   * Increment the rate limit counter for an IP address.
-   */
-  async incrementRateLimit(ip: string): Promise<void> {
-    const windowDuration = 24 * 60 * 60 * 1000; // 24 hours
-    const windowStart = Math.floor(Date.now() / windowDuration) * windowDuration;
-
-    const stmt = this.db.prepare(
-      "INSERT INTO rate_limits (ip, window_start, message_count) VALUES (?, ?, 1) ON CONFLICT(ip, window_start) DO UPDATE SET message_count = message_count + 1"
-    );
-    await stmt.bind(ip, windowStart).run();
   }
 
   /**

@@ -30,6 +30,11 @@ interface UseConversationsReturn {
   syncConversation: (id: string) => Promise<void>;
 }
 
+/** Check if auth headers contain an Authorization token */
+function isAuthenticated(headers: Record<string, string>): boolean {
+  return !!headers.Authorization;
+}
+
 /** Build auth headers from a token getter */
 async function getAuthHeaders(
   getToken?: () => Promise<string | null>
@@ -41,16 +46,22 @@ async function getAuthHeaders(
 }
 
 /**
- * Fetch conversations from the API
+ * Fetch conversations from the API.
+ * Authenticated requests do NOT fall back to localStorage on error
+ * (to avoid serving stale/wrong-user data).
  */
 async function fetchConversations(authHeaders: Record<string, string> = {}): Promise<Conversation[]> {
   try {
     const response = await fetch(API_BASE, { headers: authHeaders });
-    if (!response.ok) throw new Error("Failed to fetch conversations");
+    if (!response.ok) throw new Error(`Failed to fetch conversations: ${response.status}`);
     const data = await response.json();
     return data.conversations || [];
   } catch (error) {
-    console.error("[useConversations] API error, falling back to localStorage:", error);
+    console.error("[useConversations] API error:", error);
+    if (isAuthenticated(authHeaders)) {
+      // Authenticated: never fall back to stale local data
+      return [];
+    }
     return loadLocalStorage();
   }
 }
@@ -64,18 +75,21 @@ async function fetchConversationWithMessages(
 ): Promise<{ conversation: Conversation | null; messages: Message[] }> {
   try {
     const response = await fetch(`${API_BASE}/${id}?includeMessages=true`, { headers: authHeaders });
-    if (!response.ok) throw new Error("Failed to fetch conversation");
+    if (!response.ok) throw new Error(`Failed to fetch conversation: ${response.status}`);
     const data = await response.json();
     return {
       conversation: data.conversation,
       messages: data.messages || [],
     };
   } catch (error) {
-    console.error("[useConversations] API error, falling back to localStorage:", error);
+    console.error("[useConversations] API error:", error);
+    if (isAuthenticated(authHeaders)) {
+      return { conversation: null, messages: [] };
+    }
     const local = loadLocalStorage().find((c) => c.id === id);
     return {
       conversation: local || null,
-      messages: [], // Messages loaded separately via messages cache
+      messages: [],
     };
   }
 }
@@ -94,11 +108,14 @@ async function createConversation(
       headers: { "Content-Type": "application/json", ...authHeaders },
       body: JSON.stringify({ mode, title }),
     });
-    if (!response.ok) throw new Error("Failed to create conversation");
+    if (!response.ok) throw new Error(`Failed to create conversation: ${response.status}`);
     const data = await response.json();
     return data.conversation;
   } catch (error) {
-    console.error("[useConversations] API error, falling back to localStorage:", error);
+    console.error("[useConversations] API error:", error);
+    if (isAuthenticated(authHeaders)) {
+      throw error; // Don't fall back for authenticated users
+    }
     const conv = createLocalConversation(mode);
     saveLocalStorage(conv);
     return conv;
@@ -119,9 +136,10 @@ async function updateConversationTitle(
       headers: { "Content-Type": "application/json", ...authHeaders },
       body: JSON.stringify({ title }),
     });
-    if (!response.ok) throw new Error("Failed to update conversation");
+    if (!response.ok) throw new Error(`Failed to update conversation: ${response.status}`);
   } catch (error) {
-    console.error("[useConversations] API error, falling back to localStorage:", error);
+    console.error("[useConversations] API error:", error);
+    if (isAuthenticated(authHeaders)) return;
     const local = loadLocalStorage().find((c) => c.id === id);
     if (local) {
       saveLocalStorage({ ...local, title });
@@ -141,65 +159,74 @@ async function deleteConversation(
       method: "DELETE",
       headers: authHeaders,
     });
-    if (!response.ok) throw new Error("Failed to delete conversation");
+    if (!response.ok) throw new Error(`Failed to delete conversation: ${response.status}`);
   } catch (error) {
-    console.error("[useConversations] API error, falling back to localStorage:", error);
+    console.error("[useConversations] API error:", error);
+    if (isAuthenticated(authHeaders)) return;
     removeLocalStorage(id);
   }
 }
 
 /**
- * Save messages to a conversation via API
+ * Save messages to a conversation via API.
+ * Checks each POST response and logs failures.
  */
 async function saveMessagesToConversation(
   id: string,
   messages: Message[],
   authHeaders: Record<string, string> = {}
 ): Promise<void> {
-  try {
-    // Fetch existing messages to determine which ones to add
-    const response = await fetch(`${API_BASE}/${id}/messages`, { headers: authHeaders });
-    if (!response.ok) throw new Error("Failed to fetch existing messages");
-    const data = await response.json();
-    const existingMessages = data.messages || [];
+  // Fetch existing messages to determine which ones to add
+  const response = await fetch(`${API_BASE}/${id}/messages`, { headers: authHeaders });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch existing messages: ${response.status}`);
+  }
+  const data = await response.json();
+  const existingMessages = data.messages || [];
 
-    // Find new messages (by checking IDs)
-    const existingIds = new Set(existingMessages.map((m: Message) => m.id));
-    const newMessages = messages.filter((m) => !existingIds.has(m.id));
+  // Find new messages (by checking IDs)
+  const existingIds = new Set(existingMessages.map((m: Message) => m.id));
+  const newMessages = messages.filter((m) => !existingIds.has(m.id));
 
-    // Add new messages
-    for (const message of newMessages) {
-      await fetch(`${API_BASE}/${id}/messages`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeaders },
-        body: JSON.stringify({
-          id: message.id,
-          role: message.role,
-          content: message.content,
-          timestamp: message.timestamp,
-          metadata: {
-            model: message.model,
-            duration: message.duration,
-            tokens: message.tokens,
-            toolCalls: message.toolCalls,
-            sources: message.sources,
-          },
-        }),
-      });
+  // Add new messages, checking each response
+  const errors: Array<{ messageId: string; status: number }> = [];
+  for (const message of newMessages) {
+    const res = await fetch(`${API_BASE}/${id}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...authHeaders },
+      body: JSON.stringify({
+        id: message.id,
+        role: message.role,
+        content: message.content,
+        timestamp: message.timestamp,
+        metadata: {
+          model: message.model,
+          duration: message.duration,
+          tokens: message.tokens,
+          toolCalls: message.toolCalls,
+          sources: message.sources,
+        },
+      }),
+    });
+    if (!res.ok) {
+      errors.push({ messageId: message.id, status: res.status });
+      console.error(
+        `[useConversations] Failed to save message ${message.id}: HTTP ${res.status}`
+      );
     }
-  } catch (error) {
-    console.error("[useConversations] API error, falling back to localStorage:", error);
-    // Messages are cached in memory, localStorage only stores conversation metadata
-    const local = loadLocalStorage().find((c) => c.id === id);
-    if (local) {
-      saveLocalStorage({ ...local, updatedAt: Date.now() });
-    }
+  }
+
+  if (errors.length > 0) {
+    throw new Error(
+      `Failed to save ${errors.length}/${newMessages.length} messages`
+    );
   }
 }
 
 /**
  * Hook for managing conversations with database storage.
- * Falls back to localStorage if API is unavailable.
+ * Falls back to localStorage if API is unavailable (unauthenticated only).
+ * Authenticated requests never fall back to localStorage.
  * Pass getAuthToken to scope conversations to the authenticated user.
  */
 export function useConversations(options: UseConversationsOptions = {}): UseConversationsReturn {

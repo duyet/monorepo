@@ -15,6 +15,7 @@
 
 import { createDatabaseClient, type CreateConversationParams, type CreateMessageParams } from "../../lib/db/client";
 import { getUserFromRequest } from "../../lib/auth";
+import type { Conversation } from "../../lib/types";
 
 interface Env {
   DB: D1Database;
@@ -64,6 +65,15 @@ function parsePathname(url: string): {
 }
 
 /**
+ * Strict ownership check: deny access unless conv.userId matches the
+ * requesting userId. Anonymous requests cannot access user-owned conversations,
+ * and authenticated users cannot access other users' conversations.
+ */
+function isOwner(conv: Conversation, userId: string | undefined): boolean {
+  return conv.userId === userId;
+}
+
+/**
  * GET /api/conversations — List conversations for the authenticated user
  * GET /api/conversations/:id — Get a conversation with messages
  * GET /api/conversations/:id/messages — Get all messages for a conversation
@@ -82,15 +92,12 @@ async function handleGet(
   try {
     if (isMessages && conversationId) {
       // GET /api/conversations/:id/messages
-      // Verify ownership if user is authenticated
-      if (userId) {
-        const conv = await client.getConversation(conversationId);
-        if (conv && conv.userId && conv.userId !== userId) {
-          return Response.json(
-            { error: "Conversation not found" },
-            { status: 404, headers: CORS_HEADERS }
-          );
-        }
+      const conv = await client.getConversation(conversationId);
+      if (!conv || !isOwner(conv, userId)) {
+        return Response.json(
+          { error: "Conversation not found" },
+          { status: 404, headers: CORS_HEADERS }
+        );
       }
       const messages = await client.getMessages(conversationId);
       return Response.json({ messages }, { headers: CORS_HEADERS });
@@ -103,14 +110,7 @@ async function handleGet(
       if (includeMessages) {
         const { conversation, messages } =
           await client.getConversationWithMessages(conversationId);
-        if (!conversation) {
-          return Response.json(
-            { error: "Conversation not found" },
-            { status: 404, headers: CORS_HEADERS }
-          );
-        }
-        // Check ownership
-        if (userId && conversation.userId && conversation.userId !== userId) {
+        if (!conversation || !isOwner(conversation, userId)) {
           return Response.json(
             { error: "Conversation not found" },
             { status: 404, headers: CORS_HEADERS }
@@ -120,13 +120,7 @@ async function handleGet(
       }
 
       const conversation = await client.getConversation(conversationId);
-      if (!conversation) {
-        return Response.json(
-          { error: "Conversation not found" },
-          { status: 404, headers: CORS_HEADERS }
-        );
-      }
-      if (userId && conversation.userId && conversation.userId !== userId) {
+      if (!conversation || !isOwner(conversation, userId)) {
         return Response.json(
           { error: "Conversation not found" },
           { status: 404, headers: CORS_HEADERS }
@@ -166,15 +160,12 @@ async function handlePost(
   try {
     if (isMessages && conversationId) {
       // POST /api/conversations/:id/messages
-      // Verify ownership if user is authenticated
-      if (userId) {
-        const conv = await client.getConversation(conversationId);
-        if (conv && conv.userId && conv.userId !== userId) {
-          return Response.json(
-            { error: "Conversation not found" },
-            { status: 404, headers: CORS_HEADERS }
-          );
-        }
+      const conv = await client.getConversation(conversationId);
+      if (!conv || !isOwner(conv, userId)) {
+        return Response.json(
+          { error: "Conversation not found" },
+          { status: 404, headers: CORS_HEADERS }
+        );
       }
 
       const body = await request.json();
@@ -235,25 +226,15 @@ async function handlePut(
   try {
     const body = await request.json();
 
-    // Check if conversation exists and verify ownership
     const existing = await client.getConversation(conversationId);
-    if (!existing) {
-      return Response.json(
-        { error: "Conversation not found" },
-        { status: 404, headers: CORS_HEADERS }
-      );
-    }
-    if (userId && existing.userId && existing.userId !== userId) {
+    if (!existing || !isOwner(existing, userId)) {
       return Response.json(
         { error: "Conversation not found" },
         { status: 404, headers: CORS_HEADERS }
       );
     }
 
-    // Update conversation
     await client.updateConversation({ id: conversationId, title: body.title });
-
-    // Fetch updated conversation
     const updated = await client.getConversation(conversationId);
 
     return Response.json({ conversation: updated }, { headers: CORS_HEADERS });
@@ -273,7 +254,7 @@ async function handlePut(
  * DELETE /api/conversations/:id — Delete a conversation
  */
 async function handleDelete(
-  request: Request,
+  _request: Request,
   db: D1Database,
   conversationId: string | null,
   userId: string | undefined
@@ -288,15 +269,8 @@ async function handleDelete(
   const client = createDatabaseClient(db);
 
   try {
-    // Check if conversation exists and verify ownership
     const existing = await client.getConversation(conversationId);
-    if (!existing) {
-      return Response.json(
-        { error: "Conversation not found" },
-        { status: 404, headers: CORS_HEADERS }
-      );
-    }
-    if (userId && existing.userId && existing.userId !== userId) {
+    if (!existing || !isOwner(existing, userId)) {
       return Response.json(
         { error: "Conversation not found" },
         { status: 404, headers: CORS_HEADERS }
@@ -339,8 +313,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     return handleOptions();
   }
 
-  // Extract authenticated user (if any)
-  const user = getUserFromRequest(request);
+  // Extract authenticated user (if any) — async JWT verification
+  const user = await getUserFromRequest(request);
   const userId = user?.userId;
 
   // Parse URL path
