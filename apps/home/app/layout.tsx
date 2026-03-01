@@ -25,6 +25,10 @@ export const metadata = {
   title: "Duyet Le - Data Engineer",
   description:
     "Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf7f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#1f1f1f" },
+  ],
 };
 
 export default function RootLayout({

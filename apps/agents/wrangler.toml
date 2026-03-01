@@ -2,11 +2,14 @@ name = "duyet-agents"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "out"
 
+[vars]
+# Server-side pepper for hashing IPs before storage. Override in dashboard for production.
+RATE_LIMIT_PEPPER = "change-me-in-production"
+
 [ai]
 binding = "AI"
 
-# D1 database disabled until production ID is configured
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "duyet-agents-db"
-# database_id = "local"
+[[d1_databases]]
+binding = "DB"
+database_name = "duyet-agents-db"
+database_id = "local"

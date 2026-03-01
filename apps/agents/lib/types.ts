@@ -6,6 +6,7 @@ export type ChatMode = 'fast' | 'agent'
 
 export interface Conversation {
   id: string;
+  userId?: string;
   title: string;
   createdAt: number;
   updatedAt: number;
