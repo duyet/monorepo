@@ -18,6 +18,8 @@ export interface UseChatOptions {
   onMessagesChange?: (messages: Message[]) => void;
   mode?: ChatMode;
   messages?: Message[];
+  /** Returns a Clerk session token for authenticated requests */
+  getAuthToken?: () => Promise<string | null>;
 }
 
 export interface UseChatReturn {
@@ -68,7 +70,7 @@ function toExecutionStatus(state: DynamicToolUIPart["state"]): ToolExecution["st
 }
 
 export function useChat(options: UseChatOptions = {}): UseChatReturn {
-  const { id, onError, onFinish, onMessagesChange, mode: initialMode = "agent", messages: initialMessages } = options;
+  const { id, onError, onFinish, onMessagesChange, mode: initialMode = "agent", messages: initialMessages, getAuthToken } = options;
 
   const [input, setInput] = useState("");
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
@@ -86,12 +88,25 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
-  // Transport created once; body is evaluated per-request via function
+  // Keep refs for auth token getter and conversation id
+  const getAuthTokenRef = useRef(getAuthToken);
+  getAuthTokenRef.current = getAuthToken;
+  const idRef = useRef(id);
+  idRef.current = id;
+
+  // Transport created once; body and headers are evaluated per-request via functions
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
         api: CHAT_API_URL,
-        body: () => ({ mode: modeRef.current }),
+        body: () => ({ mode: modeRef.current, conversationId: idRef.current }),
+        headers: async (): Promise<Record<string, string>> => {
+          const tokenFn = getAuthTokenRef.current;
+          if (!tokenFn) return {};
+          const token = await tokenFn();
+          if (!token) return {};
+          return { Authorization: `Bearer ${token}` };
+        },
       }),
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );

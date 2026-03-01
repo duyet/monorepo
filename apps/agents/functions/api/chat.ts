@@ -22,11 +22,27 @@ import {
   fetchLlmsTxt,
 } from "../../lib/tools";
 
+import { getUserFromRequest, getClientIp, hashIp } from "../../lib/auth";
+import { createDatabaseClient } from "../../lib/db/client";
+
+/** Rate limit for unauthenticated users: max messages per 24h window */
+const ANON_RATE_LIMIT = 10;
+
+/** Truncate an identifier to a short prefix for safe logging (no raw PII) */
+function anonymizeForLog(value: string | undefined, prefixLen = 8): string {
+  if (!value) return "anon";
+  if (value.length <= prefixLen) return value;
+  return `${value.substring(0, prefixLen)}…`;
+}
+
 interface Env {
   AI: Ai;
+  DB?: D1Database;
   // AI Gateway configuration
   CF_AIG_ACCOUNT_ID?: string;
   CF_AIG_TOKEN?: string;
+  // Server-side pepper for hashing IPs
+  RATE_LIMIT_PEPPER?: string;
 }
 
 const AGENT_TOOLS = {
@@ -125,7 +141,7 @@ const AGENT_TOOLS = {
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const { AI } = context.env;
+  const { AI, DB, RATE_LIMIT_PEPPER } = context.env;
   if (!AI) {
     return new Response(
       JSON.stringify({ error: "Missing AI binding — check wrangler.toml [ai] config" }),
@@ -134,13 +150,48 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   try {
-    const { messages: uiMessages, mode = "agent" } = await context.request.json();
+    // Extract auth and IP for rate limiting
+    const user = await getUserFromRequest(context.request);
+    const clientIp = getClientIp(context.request);
+
+    // Rate limit unauthenticated users (10 messages per 24h window per IP)
+    // Uses atomic consumeRateLimit to avoid check-then-increment race conditions
+    let rateLimitResult: { allowed: boolean; remaining: number; total: number } | null = null;
+    if (!user && DB) {
+      const dbClient = createDatabaseClient(DB);
+      const ipHash = await hashIp(clientIp, RATE_LIMIT_PEPPER);
+      rateLimitResult = await dbClient.consumeRateLimit(ipHash, ANON_RATE_LIMIT);
+
+      if (!rateLimitResult.allowed) {
+        return new Response(
+          JSON.stringify({
+            error: "Rate limit exceeded",
+            message: `You've reached the limit of ${ANON_RATE_LIMIT} messages per day. Sign in for unlimited access.`,
+            remaining: 0,
+            limit: ANON_RATE_LIMIT,
+          }),
+          {
+            status: 429,
+            headers: {
+              "Content-Type": "application/json",
+              "Retry-After": "86400",
+              "X-RateLimit-Limit": String(ANON_RATE_LIMIT),
+              "X-RateLimit-Remaining": "0",
+            },
+          }
+        );
+      }
+    }
+
+    const { messages: uiMessages, mode = "agent", conversationId } = await context.request.json();
 
     // Generate unique request ID for tracing
     const requestId = crypto.randomUUID().substring(0, 8);
 
-    // Log incoming request
-    console.log(`[Chat API][${requestId}] Request: mode=${mode}, messages=${uiMessages.length}`);
+    // Log incoming request (anonymized — no raw PII)
+    console.log(
+      `[Chat API][${requestId}] Request: mode=${mode}, messages=${uiMessages.length}, user=${anonymizeForLog(user?.userId)}, ip=${anonymizeForLog(clientIp)}`
+    );
 
     const allMessages = await convertToModelMessages(uiMessages);
 
@@ -176,12 +227,33 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast
         ? {}
-        : { tools: AGENT_TOOLS, toolChoice: "auto" as const, stopWhen: stepCountIs(7) }),
+        : { tools: AGENT_TOOLS, toolChoice: "auto" as const, stopWhen: stepCountIs(5) }),
     });
 
     console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);
 
-    return result.toUIMessageStreamResponse();
+    // Store conversation for authenticated users (fire and forget)
+    if (user && DB && conversationId) {
+      const dbClient = createDatabaseClient(DB);
+      const existing = await dbClient.getConversation(conversationId);
+      if (!existing) {
+        dbClient
+          .createConversation({ id: conversationId, mode: mode as "fast" | "agent", userId: user.userId })
+          .catch((err) => {
+            console.error(`[Chat API][${requestId}] Failed to create conversation:`, err);
+          });
+      }
+    }
+
+    const response = result.toUIMessageStreamResponse();
+
+    // Add rate limit headers for unauthenticated users
+    if (rateLimitResult) {
+      response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
+      response.headers.set("X-RateLimit-Remaining", String(rateLimitResult.remaining));
+    }
+
+    return response;
   } catch (error) {
     const requestId = `error-${crypto.randomUUID().substring(0, 8)}`;
     console.error(`[Chat API][${requestId}] Error:`, error);

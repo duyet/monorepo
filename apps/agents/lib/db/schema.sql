@@ -3,8 +3,10 @@
 
 -- Conversations table
 -- Stores chat conversations with metadata
+-- user_id: authenticated user ID (NULL for anonymous/unauthenticated users)
 CREATE TABLE IF NOT EXISTS conversations (
   id TEXT PRIMARY KEY,
+  user_id TEXT,
   title TEXT NOT NULL DEFAULT 'New chat',
   created_at INTEGER NOT NULL,
   updated_at INTEGER NOT NULL,
@@ -29,6 +31,7 @@ CREATE TABLE IF NOT EXISTS messages (
 CREATE INDEX IF NOT EXISTS idx_messages_conversation_id ON messages(conversation_id);
 CREATE INDEX IF NOT EXISTS idx_conversations_created_at ON conversations(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_conversations_updated_at ON conversations(updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_conversations_user_id ON conversations(user_id);
 CREATE INDEX IF NOT EXISTS idx_messages_timestamp ON messages(timestamp);
 
 -- Trigger to update conversation metadata when messages are added
@@ -50,3 +53,15 @@ BEGIN
       updated_at = (SELECT MAX(timestamp) FROM messages WHERE conversation_id = OLD.conversation_id)
   WHERE id = OLD.conversation_id;
 END;
+
+-- Rate limiting table for unauthenticated users
+-- Stores salted SHA-256 hashes of IPs (never raw IPs) with a time window
+CREATE TABLE IF NOT EXISTS rate_limits (
+  ip_hash TEXT NOT NULL,
+  window_start INTEGER NOT NULL,
+  message_count INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (ip_hash, window_start)
+);
+
+CREATE INDEX IF NOT EXISTS idx_rate_limits_ip_hash ON rate_limits(ip_hash);
+CREATE INDEX IF NOT EXISTS idx_rate_limits_window ON rate_limits(window_start);
