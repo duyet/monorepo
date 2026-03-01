@@ -114,7 +114,7 @@ jobs:
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
             for app in blog cv home homelab insights llm-timeline photos agents ai ai-percentage; do
-              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
+              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
               fi
