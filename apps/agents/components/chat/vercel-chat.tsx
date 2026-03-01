@@ -31,16 +31,18 @@ import { AppLayout } from "../layout/app-layout";
 import { Button, Textarea } from "@duyet/components";
 import { Send, RefreshCw, X, Zap, Wrench } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const getAuthToken = useClerkAuthToken();
 
   // Layout state
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [panelOpen, setPanelOpen] = useState(false);
   const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
 
-  // Conversation management
+  // Conversation management (scoped to authenticated user)
   const {
     conversations,
     activeId,
@@ -51,7 +53,7 @@ export function VercelChat() {
     remove,
     updateTitle,
     saveMessages,
-  } = useConversations();
+  } = useConversations({ getAuthToken });
 
   // Track the conversation ID for remounting useChat
   const [chatKey, setChatKey] = useState<string | null>(activeId);
@@ -84,6 +86,7 @@ export function VercelChat() {
     onError: (err) => console.error("Chat error:", err),
     messages: activeMessages,
     onMessagesChange: saveMessages,
+    getAuthToken,
   });
 
   // Build a map from message ID → UIMessage parts for inline tool rendering
