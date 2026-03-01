@@ -10,9 +10,12 @@ export const revalidate = 3600;
 
 const buildDate = new Date().toISOString().split("T")[0]; 
 
-function addUtmParams(url: string, campaign = "homepage", content?: string): string {
-  if (url.startsWith("/")) return url;
-  const urlObj = new URL(url);
+function addUtmParams(url: string, campaign = "homepage", content?: string, host?: string): string {
+  // Resolve relative short links to the target absolute URL using the provided host,
+  // since Cloudflare _redirects drops query params and UTM tracking would be lost.
+  const absUrl = url.startsWith("/") && host ? `https://${host}` : url;
+  if (absUrl.startsWith("/")) return absUrl;
+  const urlObj = new URL(absUrl);
   urlObj.searchParams.set("utm_source", "home");
   urlObj.searchParams.set("utm_medium", "website");
   urlObj.searchParams.set("utm_campaign", campaign);
@@ -137,7 +140,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           
           <BentoCard
-            href="/blog"
+            href={addUtmParams("/blog", "homepage", "blog_card", "blog.duyet.net")}
             className="lg:col-span-2 sm:row-span-2 p-6 justify-between"
           >
             <div>
@@ -155,7 +158,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href="/cv"
+            href={addUtmParams("/cv", "homepage", "resume_card", "cv.duyet.net")}
             className="p-6 justify-between"
           >
             <div>
@@ -175,7 +178,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href="/insights"
+            href={addUtmParams("/insights", "homepage", "insights_card", "insights.duyet.net")}
             className="p-6 justify-between"
           >
             <div>
@@ -197,7 +200,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href="/photos"
+            href={addUtmParams("/photos", "homepage", "photos_card", "photos.duyet.net")}
             className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1"
           >
             <div className="relative h-full w-full min-h-[220px]">
@@ -282,13 +285,33 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Short URLs CTA */}
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12">
+          <Link
+            href="/ls"
+            className="group flex items-center justify-between rounded-xl border border-neutral-200 bg-white px-5 py-4 transition-all hover:border-neutral-300 hover:shadow-sm dark:border-white/10 dark:bg-[#111] dark:hover:border-white/20"
+          >
+            <div className="flex items-center gap-3">
+              <span className="inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
+                <svg className="h-4 w-4 text-neutral-600 dark:text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+              </span>
+              <div>
+                <span className="block text-sm font-semibold text-neutral-900 dark:text-white">duyet.net/ls</span>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400">All short URLs and redirects</span>
+              </div>
+            </div>
+            <ArrowRight className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-1 dark:text-neutral-500" />
+          </Link>
+        </div>
+
         {/* Footer Connections */}
         <div className="mx-auto max-w-5xl px-4 pt-10 border-t border-neutral-200 dark:border-white/10">
           <div className="flex flex-wrap items-center justify-between gap-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
             <div className="flex items-center space-x-6">
               <Link href={addUtmParams("https://github.com/duyet", "homepage", "footer_github")} target="_blank" className="transition-colors hover:text-neutral-900 dark:hover:text-white">GitHub</Link>
               <Link href={addUtmParams("https://linkedin.com/in/duyet", "homepage", "footer_linkedin")} target="_blank" className="transition-colors hover:text-neutral-900 dark:hover:text-white">LinkedIn</Link>
-              <Link href="/ls" className="transition-colors hover:text-neutral-900 dark:hover:text-white">Short URLs</Link>
               <a href="/llms.txt" className="transition-colors hover:text-neutral-900 dark:hover:text-white">llms.txt</a>
             </div>
             
