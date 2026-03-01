@@ -25,6 +25,7 @@ function addUtmParams(url: string, campaign = "homepage", content?: string): str
 interface AppItem {
   name: string;
   href: string;
+  host: string;
   utmContent: string;
   screenshot?: string;
   fallbackIcon?: React.ReactNode;
@@ -35,25 +36,29 @@ interface AppItem {
 const apps: AppItem[] = [
   {
     name: "LLM Timeline",
-    href: process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL || "https://llm-timeline.duyet.net",
+    href: "/llm-timeline",
+    host: "llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
     screenshot: "/screenshots/llm-timeline.png",
   },
   {
     name: "AI Agents",
-    href: process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
+    href: "/agents",
+    host: "agents.duyet.net",
     utmContent: "agents_bento",
     screenshot: "/screenshots/ai-agents.png",
   },
   {
     name: "OpenClaw",
-    href: "https://claw.duyet.net",
+    href: "/claw",
+    host: "claw.duyet.net",
     utmContent: "claw_bento",
     screenshot: "/screenshots/openclaw.png",
   },
   {
     name: "MCP Tools",
-    href: "https://mcp.duyet.net",
+    href: "/mcp",
+    host: "mcp.duyet.net",
     utmContent: "mcp_bento",
     screenshot: "/screenshots/mcp-tools-art.png",
     fallbackIcon: <Wrench className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
@@ -61,7 +66,8 @@ const apps: AppItem[] = [
   },
   {
     name: "Rust Tiếng Việt",
-    href: "https://duyet.net/rust",
+    href: "/rust",
+    host: "rust-tieng-viet.github.io",
     utmContent: "rust_bento",
     screenshot: "/screenshots/rust-art.png",
     fallbackIcon: <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
@@ -69,16 +75,18 @@ const apps: AppItem[] = [
   },
   {
     name: "ClickHouse Monitoring",
-    href: "https://duyet.net/monitor",
+    href: "/monitor",
+    host: "clickhouse-monitoring.vercel.app",
     utmContent: "ch_monitor_bento",
     fallbackIcon: <Database className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
     fallbackGradientClass: "bg-neutral-900",
     fallbackBgImage: "url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop')",
-    screenshot: "/screenshots/ch-monitor.png", // Keeping screenshot if available
+    screenshot: "/screenshots/ch-monitor.png",
   },
   {
     name: "Claude Plugins",
-    href: "https://github.com/duyet/claude-plugins",
+    href: "/claude-plugins",
+    host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
     screenshot: "/screenshots/claude-plugins-art.png",
     fallbackIcon: <Puzzle className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
@@ -129,7 +137,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net", "homepage", "blog_card")}
+            href="/blog"
             className="lg:col-span-2 sm:row-span-2 p-6 justify-between"
           >
             <div>
@@ -147,7 +155,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net", "homepage", "resume_card")}
+            href="/cv"
             className="p-6 justify-between"
           >
             <div>
@@ -167,7 +175,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net", "homepage", "insights_card")}
+            href="/insights"
             className="p-6 justify-between"
           >
             <div>
@@ -189,7 +197,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net", "homepage", "photos_card")}
+            href="/photos"
             className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1"
           >
             <div className="relative h-full w-full min-h-[220px]">
@@ -267,7 +275,7 @@ export default function HomePage() {
                 </div>
                 <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
                   <h4 className="text-sm font-semibold text-neutral-900 truncate dark:text-neutral-100">{item.name}</h4>
-                  <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">{new URL(item.href.startsWith('http') ? item.href : `https://${item.href}`).hostname}</div>
+                  <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">{item.host}</div>
                 </div>
               </BentoCard>
             ))}
