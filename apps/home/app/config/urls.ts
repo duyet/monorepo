@@ -14,6 +14,15 @@ export const urls: Urls = {
 
   "/": "https://duyet.net",
   "/ai": { target: "https://ai.duyet.net", desc: "AI chatbot" },
+  "/llm-timeline": {
+    target: "https://llm-timeline.duyet.net",
+    desc: "Interactive LLM releases timeline",
+  },
+  "/agents": { target: "https://agents.duyet.net", desc: "AI Agents" },
+  "/claude-plugins": {
+    target: "https://github.com/duyet/claude-plugins",
+    desc: "Claude Plugins",
+  },
   "/claw": { target: "https://claw.duyet.net", desc: "OpenClaw Mission Control" },
   "/blog": "https://blog.duyet.net",
   "/cv": "https://cv.duyet.net",

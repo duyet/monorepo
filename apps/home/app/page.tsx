@@ -10,9 +10,12 @@ export const revalidate = 3600;
 
 const buildDate = new Date().toISOString().split("T")[0]; 
 
-function addUtmParams(url: string, campaign = "homepage", content?: string): string {
-  if (url.startsWith("/")) return url;
-  const urlObj = new URL(url);
+function addUtmParams(url: string, campaign = "homepage", content?: string, host?: string): string {
+  // Resolve relative short links to the target absolute URL using the provided host,
+  // since Cloudflare _redirects drops query params and UTM tracking would be lost.
+  const absUrl = url.startsWith("/") && host ? `https://${host}` : url;
+  if (absUrl.startsWith("/")) return absUrl;
+  const urlObj = new URL(absUrl);
   urlObj.searchParams.set("utm_source", "home");
   urlObj.searchParams.set("utm_medium", "website");
   urlObj.searchParams.set("utm_campaign", campaign);
@@ -25,6 +28,7 @@ function addUtmParams(url: string, campaign = "homepage", content?: string): str
 interface AppItem {
   name: string;
   href: string;
+  host: string;
   utmContent: string;
   screenshot?: string;
   fallbackIcon?: React.ReactNode;
@@ -35,25 +39,29 @@ interface AppItem {
 const apps: AppItem[] = [
   {
     name: "LLM Timeline",
-    href: process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL || "https://llm-timeline.duyet.net",
+    href: "/llm-timeline",
+    host: "llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
     screenshot: "/screenshots/llm-timeline.png",
   },
   {
     name: "AI Agents",
-    href: process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
+    href: "/agents",
+    host: "agents.duyet.net",
     utmContent: "agents_bento",
     screenshot: "/screenshots/ai-agents.png",
   },
   {
     name: "OpenClaw",
-    href: "https://claw.duyet.net",
+    href: "/claw",
+    host: "claw.duyet.net",
     utmContent: "claw_bento",
     screenshot: "/screenshots/openclaw.png",
   },
   {
     name: "MCP Tools",
-    href: "https://mcp.duyet.net",
+    href: "/mcp",
+    host: "mcp.duyet.net",
     utmContent: "mcp_bento",
     screenshot: "/screenshots/mcp-tools-art.png",
     fallbackIcon: <Wrench className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
@@ -61,7 +69,8 @@ const apps: AppItem[] = [
   },
   {
     name: "Rust Tiếng Việt",
-    href: "https://duyet.net/rust",
+    href: "/rust",
+    host: "rust-tieng-viet.github.io",
     utmContent: "rust_bento",
     screenshot: "/screenshots/rust-art.png",
     fallbackIcon: <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
@@ -69,16 +78,18 @@ const apps: AppItem[] = [
   },
   {
     name: "ClickHouse Monitoring",
-    href: "https://duyet.net/monitor",
+    href: "/monitor",
+    host: "clickhouse-monitoring.vercel.app",
     utmContent: "ch_monitor_bento",
     fallbackIcon: <Database className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
     fallbackGradientClass: "bg-neutral-900",
     fallbackBgImage: "url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop')",
-    screenshot: "/screenshots/ch-monitor.png", // Keeping screenshot if available
+    screenshot: "/screenshots/ch-monitor.png",
   },
   {
     name: "Claude Plugins",
-    href: "https://github.com/duyet/claude-plugins",
+    href: "/claude-plugins",
+    host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
     screenshot: "/screenshots/claude-plugins-art.png",
     fallbackIcon: <Puzzle className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />,
@@ -129,7 +140,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net", "homepage", "blog_card")}
+            href={addUtmParams("/blog", "homepage", "blog_card", "blog.duyet.net")}
             className="lg:col-span-2 sm:row-span-2 p-6 justify-between"
           >
             <div>
@@ -147,7 +158,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net", "homepage", "resume_card")}
+            href={addUtmParams("/cv", "homepage", "resume_card", "cv.duyet.net")}
             className="p-6 justify-between"
           >
             <div>
@@ -167,7 +178,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net", "homepage", "insights_card")}
+            href={addUtmParams("/insights", "homepage", "insights_card", "insights.duyet.net")}
             className="p-6 justify-between"
           >
             <div>
@@ -189,7 +200,7 @@ export default function HomePage() {
           </BentoCard>
 
           <BentoCard
-            href={addUtmParams(process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net", "homepage", "photos_card")}
+            href={addUtmParams("/photos", "homepage", "photos_card", "photos.duyet.net")}
             className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1"
           >
             <div className="relative h-full w-full min-h-[220px]">
@@ -267,11 +278,32 @@ export default function HomePage() {
                 </div>
                 <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
                   <h4 className="text-sm font-semibold text-neutral-900 truncate dark:text-neutral-100">{item.name}</h4>
-                  <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">{new URL(item.href.startsWith('http') ? item.href : `https://${item.href}`).hostname}</div>
+                  <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">{item.host}</div>
                 </div>
               </BentoCard>
             ))}
           </div>
+        </div>
+
+        {/* Short URLs CTA */}
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12">
+          <Link
+            href="/ls"
+            className="group flex items-center justify-between rounded-xl border border-neutral-200 bg-white px-5 py-4 transition-all hover:border-neutral-300 hover:shadow-sm dark:border-white/10 dark:bg-[#111] dark:hover:border-white/20"
+          >
+            <div className="flex items-center gap-3">
+              <span className="inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
+                <svg className="h-4 w-4 text-neutral-600 dark:text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+              </span>
+              <div>
+                <span className="block text-sm font-semibold text-neutral-900 dark:text-white">duyet.net/ls</span>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400">All short URLs and redirects</span>
+              </div>
+            </div>
+            <ArrowRight className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-1 dark:text-neutral-500" />
+          </Link>
         </div>
 
         {/* Footer Connections */}
@@ -280,7 +312,6 @@ export default function HomePage() {
             <div className="flex items-center space-x-6">
               <Link href={addUtmParams("https://github.com/duyet", "homepage", "footer_github")} target="_blank" className="transition-colors hover:text-neutral-900 dark:hover:text-white">GitHub</Link>
               <Link href={addUtmParams("https://linkedin.com/in/duyet", "homepage", "footer_linkedin")} target="_blank" className="transition-colors hover:text-neutral-900 dark:hover:text-white">LinkedIn</Link>
-              <Link href="/ls" className="transition-colors hover:text-neutral-900 dark:hover:text-white">Short URLs</Link>
               <a href="/llms.txt" className="transition-colors hover:text-neutral-900 dark:hover:text-white">llms.txt</a>
             </div>
             
