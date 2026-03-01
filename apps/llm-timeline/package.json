@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "bun test",
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-llm-timeline",
     "build": "bun next build",
     "check-types": "tsc --noEmit",
