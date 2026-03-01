@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "@duyet/libs/utils";
 import { CATEGORY_ORDER, type Category } from "../../config/categories";
 
@@ -117,12 +117,11 @@ function CategoryHeader({
 
 export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [view, setView] = useState<ViewMode>("list");
-
-  useEffect(() => {
+  const [view, setView] = useState<ViewMode>(() => {
+    if (typeof window === "undefined") return "list";
     const saved = localStorage.getItem("ls-view") as ViewMode | null;
-    if (saved === "list" || saved === "grid") setView(saved);
-  }, []);
+    return saved === "list" || saved === "grid" ? saved : "list";
+  });
 
   function setViewAndSave(v: ViewMode) {
     setView(v);
@@ -152,8 +151,8 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
     CATEGORY_ORDER.forEach((key) => {
       if (map.has(key)) sorted.set(key, map.get(key)!);
     });
-    map.forEach((_, key) => {
-      if (!sorted.has(key)) sorted.set(key, map.get(key)!);
+    map.forEach((entries, key) => {
+      if (!sorted.has(key)) sorted.set(key, entries);
     });
     return sorted;
   }, [filteredUrls]);
