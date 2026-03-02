@@ -267,7 +267,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
     expect(tools.fetchLlmsTxt.needsApproval).toBeUndefined();
   });
 
-  test("agent mode sets stopWhen with stepCountIs(5)", async () => {
+  test("agent mode sets stopWhen with stepCountIs(30)", async () => {
     const ctx = makeContext({
       messages: [
         { id: "1", role: "user", parts: [{ type: "text", text: "test" }] },
@@ -275,7 +275,7 @@ describe("Tool calling — AGENT_TOOLS registration", () => {
       mode: "agent",
     });
     await onRequestPost(ctx);
-    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 5 });
+    expect(lastStreamTextArgs.stopWhen).toEqual({ type: "stepCount", stepCount: 30 });
   });
 
   test("agent mode sets toolChoice to auto", async () => {

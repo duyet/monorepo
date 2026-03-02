@@ -68,7 +68,7 @@ The chat API uses AI SDK v6 `streamText` with Workers AI:
 ```typescript
 // functions/api/chat.ts
 import { streamText, tool, stepCountIs, pruneMessages } from "ai";
-// Fast mode: no tools. Agent mode: full tool calling with stepCountIs(5).
+// Fast mode: no tools. Agent mode: full tool calling with stepCountIs(30).
 ```
 
 ### Agent Tools

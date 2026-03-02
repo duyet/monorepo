@@ -311,7 +311,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         : {
             tools: AGENT_TOOLS,
             toolChoice: "auto" as const,
-            stopWhen: stepCountIs(5),
+            stopWhen: stepCountIs(30),
           }),
     });
 
