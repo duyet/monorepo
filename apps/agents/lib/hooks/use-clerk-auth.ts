@@ -7,7 +7,9 @@ import { useCallback } from "react";
  * Dynamically accesses the Clerk global instance to get the current session token.
  * Returns undefined if Clerk is not configured.
  */
-export function useClerkAuthToken(): (() => Promise<string | null>) | undefined {
+export function useClerkAuthToken():
+  | (() => Promise<string | null>)
+  | undefined {
   const getToken = useCallback(async (): Promise<string | null> => {
     try {
       const clerk = (window as any).Clerk;

@@ -1,4 +1,4 @@
-import { describe, test, expect, mock } from "bun:test";
+import { describe, expect, mock, test } from "bun:test";
 import type { GitHubEvent } from "../types";
 
 function makePushEvent(isoDate: string, commitCount: number = 1): GitHubEvent {
@@ -16,7 +16,6 @@ function daysAgo(n: number): string {
 }
 
 describe("getCommitStats", () => {
-
   test("returns empty stats when fetchAllEvents returns no events", async () => {
     mock.module("../github-api", () => ({
       fetchAllEvents: mock(() => Promise.resolve([])),

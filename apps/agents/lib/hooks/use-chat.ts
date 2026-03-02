@@ -1,15 +1,22 @@
 "use client";
 
-import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { useChat as useAIChat } from "@ai-sdk/react";
-import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalResponses } from "ai";
-import type { UIMessage, DynamicToolUIPart, TextUIPart, ChatAddToolApproveResponseFunction } from "ai";
-import type { Message, ToolExecution, Agent, ChatMode } from "@/lib/types";
+import type {
+  ChatAddToolApproveResponseFunction,
+  DynamicToolUIPart,
+  TextUIPart,
+  UIMessage,
+} from "ai";
+import {
+  DefaultChatTransport,
+  lastAssistantMessageIsCompleteWithApprovalResponses,
+} from "ai";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AGENT_MODEL, FAST_MODEL } from "@/lib/agent";
 import { getDefaultAgent } from "@/lib/agents";
-import { FAST_MODEL, AGENT_MODEL } from "@/lib/agent";
+import type { Agent, ChatMode, Message, ToolExecution } from "@/lib/types";
 
-const CHAT_API_URL =
-  process.env.NEXT_PUBLIC_CHAT_API_URL || "/api/chat";
+const CHAT_API_URL = process.env.NEXT_PUBLIC_CHAT_API_URL || "/api/chat";
 
 export interface UseChatOptions {
   id?: string;
@@ -53,7 +60,9 @@ function getTextContent(msg: UIMessage): string {
 }
 
 /** Map DynamicToolUIPart state to ToolExecution status */
-function toExecutionStatus(state: DynamicToolUIPart["state"]): ToolExecution["status"] {
+function toExecutionStatus(
+  state: DynamicToolUIPart["state"]
+): ToolExecution["status"] {
   switch (state) {
     case "output-available":
       return "complete";
@@ -70,19 +79,53 @@ function toExecutionStatus(state: DynamicToolUIPart["state"]): ToolExecution["st
 }
 
 export function useChat(options: UseChatOptions = {}): UseChatReturn {
-  const { id, onError, onFinish, onMessagesChange, mode: initialMode = "agent", messages: initialMessages, getAuthToken } = options;
+  const {
+    id,
+    onError,
+    onFinish,
+    onMessagesChange,
+    mode: initialMode = "agent",
+    messages: initialMessages,
+    getAuthToken,
+  } = options;
 
   const [input, setInput] = useState("");
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
   const [mode, setMode] = useState<ChatMode>(initialMode);
 
+  // Track user settings fetched from Clerk
+  const settingsRef = useRef<{
+    customInstructions?: string;
+    language?: string;
+    timezone?: string;
+  }>({});
+
+  // Fetch settings once on mount if authenticated
+  useEffect(() => {
+    if (typeof window !== "undefined" && getAuthToken) {
+      fetch("/api/user/settings")
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) {
+            settingsRef.current = data;
+          }
+        })
+        .catch(console.error);
+    }
+  }, [getAuthToken]);
+
   // Track message start times for duration calculation
   const messageStartTimeRef = useRef<Map<string, number>>(new Map());
-  const messageMetadataRef = useRef<Map<string, {
-    model: string;
-    toolCalls: number;
-    startTime: number;
-  }>>(new Map());
+  const messageMetadataRef = useRef<
+    Map<
+      string,
+      {
+        model: string;
+        toolCalls: number;
+        startTime: number;
+      }
+    >
+  >(new Map());
 
   // Keep a ref so the transport's body function always reads the latest mode
   const modeRef = useRef(mode);
@@ -99,7 +142,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     () =>
       new DefaultChatTransport({
         api: CHAT_API_URL,
-        body: () => ({ mode: modeRef.current, conversationId: idRef.current }),
+        body: () => ({
+          mode: modeRef.current,
+          conversationId: idRef.current,
+          settings: settingsRef.current,
+        }),
         headers: async (): Promise<Record<string, string>> => {
           const tokenFn = getAuthTokenRef.current;
           if (!tokenFn) return {};
@@ -123,17 +170,20 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     id,
     transport,
     sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
-    messages: initialMessages?.map(m => ({
+    messages: initialMessages?.map((m) => ({
       id: m.id,
       role: m.role,
-      parts: [{ type: 'text', text: m.content }],
+      parts: [{ type: "text", text: m.content }],
     })),
     onError,
     onFinish: onFinish
       ? ({ message: msg }) => {
           const content = getTextContent(msg);
           const metadata = messageMetadataRef.current.get(msg.id);
-          const startTime = metadata?.startTime || messageStartTimeRef.current.get(msg.id) || Date.now();
+          const startTime =
+            metadata?.startTime ||
+            messageStartTimeRef.current.get(msg.id) ||
+            Date.now();
           const duration = Date.now() - startTime;
 
           // Count tool calls from parts
@@ -147,7 +197,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
             role: "assistant",
             content,
             timestamp: Date.now(),
-            model: metadata?.model || (modeRef.current === "fast" ? FAST_MODEL : AGENT_MODEL),
+            model:
+              metadata?.model ||
+              (modeRef.current === "fast" ? FAST_MODEL : AGENT_MODEL),
             duration,
             toolCalls,
           };
@@ -170,7 +222,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
 
   // Debug logging for status changes
   useMemo(() => {
-    console.log("[useChat] Status changed:", { status, isActiveStatus, messagesCount: aiMessages.length });
+    console.log("[useChat] Status changed:", {
+      status,
+      isActiveStatus,
+      messagesCount: aiMessages.length,
+    });
   }, [status, aiMessages.length]);
 
   /**
@@ -228,7 +284,10 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     if (!lastMsg || lastMsg.role !== "assistant") return "";
     const content = getTextContent(lastMsg);
     if (content.length > 0) {
-      console.log("[useChat] Streaming content updated:", { length: content.length, preview: content.substring(0, 50) });
+      console.log("[useChat] Streaming content updated:", {
+        length: content.length,
+        preview: content.substring(0, 50),
+      });
     }
     return content;
   }, [aiMessages, isActiveStatus]);
@@ -264,9 +323,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           partsCount: lastMsg.parts?.length || 0,
           parts: lastMsg.parts?.map((p) => {
             const info: any = { type: p.type };
-            if (p.type === 'text') info.textLength = (p as any).text?.length;
-            if ('state' in p) info.state = (p as any).state;
-            if ('toolName' in p) info.toolName = (p as any).toolName;
+            if (p.type === "text") info.textLength = (p as any).text?.length;
+            if ("state" in p) info.state = (p as any).state;
+            if ("toolName" in p) info.toolName = (p as any).toolName;
             return info;
           }),
           toolCalls: toolCallCount,
@@ -293,7 +352,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           startTime: Date.now(),
           endTime: isComplete ? Date.now() : undefined,
           status: toExecutionStatus(p.state),
-          result: isComplete ? p.output as string : undefined,
+          result: isComplete ? (p.output as string) : undefined,
         });
       }
     }

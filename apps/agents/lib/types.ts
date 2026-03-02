@@ -2,7 +2,7 @@
  * Types for the AI Agent application
  */
 
-export type ChatMode = 'fast' | 'agent'
+export type ChatMode = "fast" | "agent";
 
 export interface Conversation {
   id: string;
@@ -65,13 +65,18 @@ export interface BlogPostContentParams {
 }
 
 export interface AnalyticsToolParams {
-  report_type?: "summary" | "purpose_breakdown" | "daily_trends" | "recent_activity" | "custom_period";
+  report_type?:
+    | "summary"
+    | "purpose_breakdown"
+    | "daily_trends"
+    | "recent_activity"
+    | "custom_period";
   date_from?: string;
   date_to?: string;
 }
 
 // Cloudflare Pages Function environment
-export type Env = Record<string, unknown>
+export type Env = Record<string, unknown>;
 
 // Agent tool definitions for LLM
 export interface AgentTool {

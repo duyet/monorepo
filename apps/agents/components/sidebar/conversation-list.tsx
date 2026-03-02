@@ -1,9 +1,9 @@
 "use client";
 
-import type { Conversation } from "@/lib/types";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@duyet/components";
-import { Trash2, MessageSquare } from "lucide-react";
+import { MessageSquare, Trash2 } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import type { Conversation } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface ConversationListProps {

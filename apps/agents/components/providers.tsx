@@ -2,16 +2,14 @@
 
 import { ClerkProvider } from "@clerk/clerk-react";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const CLERK_KEY = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const isValidClerkKey = CLERK_KEY && CLERK_KEY.startsWith("pk_");
 
-  // During SSR/prerender, render without Clerk
-  if (!mounted || !CLERK_KEY) {
+  if (!isValidClerkKey) {
     return <ThemeProvider>{children}</ThemeProvider>;
   }
 

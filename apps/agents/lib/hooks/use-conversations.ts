@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
-import type { Conversation, ChatMode, Message } from "../types";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  loadConversations as loadLocalStorage,
-  saveConversation as saveLocalStorage,
-  deleteConversation as removeLocalStorage,
   createConversation as createLocalConversation,
+  loadConversations as loadLocalStorage,
+  deleteConversation as removeLocalStorage,
+  saveConversation as saveLocalStorage,
 } from "../conversations";
+import type { ChatMode, Conversation, Message } from "../types";
 
 const API_BASE = "/api/conversations";
 
@@ -55,10 +55,13 @@ async function getAuthHeaders(
  * Authenticated requests do NOT fall back to localStorage on error
  * (to avoid serving stale/wrong-user data).
  */
-async function fetchConversations(authHeaders: Record<string, string> = {}): Promise<Conversation[]> {
+async function fetchConversations(
+  authHeaders: Record<string, string> = {}
+): Promise<Conversation[]> {
   try {
     const response = await fetch(API_BASE, { headers: authHeaders });
-    if (!response.ok) throw new Error(`Failed to fetch conversations: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to fetch conversations: ${response.status}`);
     const data = await response.json();
     return data.conversations || [];
   } catch (error) {
@@ -79,8 +82,11 @@ async function fetchConversationWithMessages(
   authHeaders: Record<string, string> = {}
 ): Promise<{ conversation: Conversation | null; messages: Message[] }> {
   try {
-    const response = await fetch(`${API_BASE}/${id}?includeMessages=true`, { headers: authHeaders });
-    if (!response.ok) throw new Error(`Failed to fetch conversation: ${response.status}`);
+    const response = await fetch(`${API_BASE}/${id}?includeMessages=true`, {
+      headers: authHeaders,
+    });
+    if (!response.ok)
+      throw new Error(`Failed to fetch conversation: ${response.status}`);
     const data = await response.json();
     return {
       conversation: data.conversation,
@@ -113,7 +119,8 @@ async function createConversation(
       headers: { "Content-Type": "application/json", ...authHeaders },
       body: JSON.stringify({ mode, title }),
     });
-    if (!response.ok) throw new Error(`Failed to create conversation: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to create conversation: ${response.status}`);
     const data = await response.json();
     return data.conversation;
   } catch (error) {
@@ -142,7 +149,8 @@ async function updateConversationTitle(
       headers: { "Content-Type": "application/json", ...authHeaders },
       body: JSON.stringify({ title }),
     });
-    if (!response.ok) throw new Error(`Failed to update conversation: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to update conversation: ${response.status}`);
   } catch (error) {
     console.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) throw error;
@@ -166,7 +174,8 @@ async function deleteConversation(
       method: "DELETE",
       headers: authHeaders,
     });
-    if (!response.ok) throw new Error(`Failed to delete conversation: ${response.status}`);
+    if (!response.ok)
+      throw new Error(`Failed to delete conversation: ${response.status}`);
   } catch (error) {
     console.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) throw error;
@@ -184,7 +193,9 @@ async function saveMessagesToConversation(
   authHeaders: Record<string, string> = {}
 ): Promise<void> {
   // Fetch existing messages to determine which ones to add
-  const response = await fetch(`${API_BASE}/${id}/messages`, { headers: authHeaders });
+  const response = await fetch(`${API_BASE}/${id}/messages`, {
+    headers: authHeaders,
+  });
   if (!response.ok) {
     throw new Error(`Failed to fetch existing messages: ${response.status}`);
   }
@@ -236,7 +247,9 @@ async function saveMessagesToConversation(
  * Authenticated requests never fall back to localStorage.
  * Pass getAuthToken to scope conversations to the authenticated user.
  */
-export function useConversations(options: UseConversationsOptions = {}): UseConversationsReturn {
+export function useConversations(
+  options: UseConversationsOptions = {}
+): UseConversationsReturn {
   const { getAuthToken } = options;
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -248,7 +261,8 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
   // Track whether auth is configured so the effect re-runs when auth becomes available
   const hasAuth = !!getAuthToken;
 
-  const activeConversation = conversations.find((c) => c.id === activeId) ?? null;
+  const activeConversation =
+    conversations.find((c) => c.id === activeId) ?? null;
   const activeMessages = messagesCacheRef.current.get(activeId || "") ?? [];
 
   // Load conversations on mount and when auth state changes
@@ -267,7 +281,11 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
     console.log("[useConversations] Creating new conversation, mode:", mode);
     const headers = await getAuthHeaders(getAuthTokenRef.current);
     const conv = await createConversation(mode, undefined, headers);
-    console.log("[useConversations] Created conversation:", conv.id, conv.title);
+    console.log(
+      "[useConversations] Created conversation:",
+      conv.id,
+      conv.title
+    );
     setConversations((prev) => [conv, ...prev]);
     setActiveId(conv.id);
     messagesCacheRef.current.set(conv.id, []);
@@ -285,7 +303,10 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
 
     // Try to fetch from API
     const headers = await getAuthHeaders(getAuthTokenRef.current);
-    const { conversation, messages } = await fetchConversationWithMessages(id, headers);
+    const { conversation, messages } = await fetchConversationWithMessages(
+      id,
+      headers
+    );
 
     if (conversation) {
       // Update conversation in state if needed
@@ -296,67 +317,88 @@ export function useConversations(options: UseConversationsOptions = {}): UseConv
     }
 
     setActiveId(id);
-    console.log("[useConversations] Switching to conversation:", id, "messages:", messages.length);
+    console.log(
+      "[useConversations] Switching to conversation:",
+      id,
+      "messages:",
+      messages.length
+    );
     return messages;
   }, []);
 
-  const remove = useCallback(async (id: string) => {
-    const headers = await getAuthHeaders(getAuthTokenRef.current);
-    // Capture state for rollback before optimistic removal
-    const snapshot = conversations;
-    const cachedMessages = messagesCacheRef.current.get(id);
-    setConversations((prev) => prev.filter((c) => c.id !== id));
-    messagesCacheRef.current.delete(id);
-    if (activeId === id) setActiveId(null);
-    try {
-      await deleteConversation(id, headers);
-    } catch {
-      // Revert optimistic removal on failure
-      setConversations(snapshot);
-      if (cachedMessages) messagesCacheRef.current.set(id, cachedMessages);
-    }
-  }, [activeId, conversations]);
-
-  const updateTitle = useCallback(async (id: string, title: string) => {
-    const finalTitle = title.trim().slice(0, 60) || "New chat";
-    // Capture previous title for rollback
-    const previous = conversations.find((c) => c.id === id);
-    setConversations((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, title: finalTitle } : c))
-    );
-    const headers = await getAuthHeaders(getAuthTokenRef.current);
-    try {
-      await updateConversationTitle(id, finalTitle, headers);
-    } catch {
-      // Revert optimistic title change on failure
-      if (previous) {
-        setConversations((prev) =>
-          prev.map((c) => (c.id === id ? { ...c, title: previous.title } : c))
-        );
+  const remove = useCallback(
+    async (id: string) => {
+      const headers = await getAuthHeaders(getAuthTokenRef.current);
+      // Capture state for rollback before optimistic removal
+      const snapshot = conversations;
+      const cachedMessages = messagesCacheRef.current.get(id);
+      setConversations((prev) => prev.filter((c) => c.id !== id));
+      messagesCacheRef.current.delete(id);
+      if (activeId === id) setActiveId(null);
+      try {
+        await deleteConversation(id, headers);
+      } catch {
+        // Revert optimistic removal on failure
+        setConversations(snapshot);
+        if (cachedMessages) messagesCacheRef.current.set(id, cachedMessages);
       }
-    }
-  }, [conversations]);
+    },
+    [activeId, conversations]
+  );
 
-  const saveMessages = useCallback(async (messages: Message[]) => {
-    if (!activeId) return;
+  const updateTitle = useCallback(
+    async (id: string, title: string) => {
+      const finalTitle = title.trim().slice(0, 60) || "New chat";
+      // Capture previous title for rollback
+      const previous = conversations.find((c) => c.id === id);
+      setConversations((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, title: finalTitle } : c))
+      );
+      const headers = await getAuthHeaders(getAuthTokenRef.current);
+      try {
+        await updateConversationTitle(id, finalTitle, headers);
+      } catch {
+        // Revert optimistic title change on failure
+        if (previous) {
+          setConversations((prev) =>
+            prev.map((c) => (c.id === id ? { ...c, title: previous.title } : c))
+          );
+        }
+      }
+    },
+    [conversations]
+  );
 
-    // Update local cache immediately
-    messagesCacheRef.current.set(activeId, messages);
-    setConversations((prev) =>
-      prev.map((c) => (c.id === activeId ? { ...c, updatedAt: Date.now() } : c))
-    );
+  const saveMessages = useCallback(
+    async (messages: Message[]) => {
+      if (!activeId) return;
 
-    // Persist to API (fire and forget)
-    getAuthHeaders(getAuthTokenRef.current).then((headers) => {
-      saveMessagesToConversation(activeId, messages, headers).catch((error) => {
-        console.error("[useConversations] Failed to save messages:", error);
+      // Update local cache immediately
+      messagesCacheRef.current.set(activeId, messages);
+      setConversations((prev) =>
+        prev.map((c) =>
+          c.id === activeId ? { ...c, updatedAt: Date.now() } : c
+        )
+      );
+
+      // Persist to API (fire and forget)
+      getAuthHeaders(getAuthTokenRef.current).then((headers) => {
+        saveMessagesToConversation(activeId, messages, headers).catch(
+          (error) => {
+            console.error("[useConversations] Failed to save messages:", error);
+          }
+        );
       });
-    });
-  }, [activeId]);
+    },
+    [activeId]
+  );
 
   const syncConversation = useCallback(async (id: string) => {
     const headers = await getAuthHeaders(getAuthTokenRef.current);
-    const { conversation, messages } = await fetchConversationWithMessages(id, headers);
+    const { conversation, messages } = await fetchConversationWithMessages(
+      id,
+      headers
+    );
     if (conversation) {
       setConversations((prev) =>
         prev.map((c) => (c.id === id ? { ...conversation } : c))

@@ -5,8 +5,8 @@
 
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { Wifi, WifiOff, RefreshCw, X } from "lucide-react";
+import { RefreshCw, WifiOff, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 interface ServiceWorkerContextValue {
   isOnline: boolean;
@@ -17,9 +17,8 @@ interface ServiceWorkerContextValue {
 export function ServiceWorkerProvider() {
   const [isOnline, setIsOnline] = useState(true);
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [waitingServiceWorker, setWaitingServiceWorker] = useState<
-    ServiceWorker | null
-  >(null);
+  const [waitingServiceWorker, setWaitingServiceWorker] =
+    useState<ServiceWorker | null>(null);
 
   useEffect(() => {
     // Check online status
@@ -160,7 +159,7 @@ export function ServiceWorkerProvider() {
  */
 export function useServiceWorker(): ServiceWorkerContextValue {
   const [isOnline, setIsOnline] = useState(true);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateAvailable, _setUpdateAvailable] = useState(false);
 
   useEffect(() => {
     setIsOnline(navigator.onLine);

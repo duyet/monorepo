@@ -7,23 +7,33 @@
  * Provider: ai-gateway-provider with unified API
  */
 
-import { streamText, tool, convertToModelMessages, stepCountIs, pruneMessages } from "ai";
+import {
+  convertToModelMessages,
+  pruneMessages,
+  stepCountIs,
+  streamText,
+  tool,
+} from "ai";
 import { createAiGateway } from "ai-gateway-provider";
 import { createUnified } from "ai-gateway-provider/providers/unified";
 import { z } from "zod";
-import { SYSTEM_PROMPT, FAST_SYSTEM_PROMPT, FAST_MODEL, AGENT_MODEL } from "../../lib/agent";
 import {
-  searchBlogTool,
+  AGENT_MODEL,
+  FAST_MODEL,
+  FAST_SYSTEM_PROMPT,
+  SYSTEM_PROMPT,
+} from "../../lib/agent";
+import { getClientIp, getUserFromRequest, hashIp } from "../../lib/auth";
+import { createDatabaseClient } from "../../lib/db/client";
+import {
+  fetchLlmsTxt,
+  getAboutTool,
+  getAnalyticsTool,
   getBlogPostTool,
   getCVTool,
   getGitHubTool,
-  getAnalyticsTool,
-  getAboutTool,
-  fetchLlmsTxt,
+  searchBlogTool,
 } from "../../lib/tools";
-
-import { getUserFromRequest, getClientIp, hashIp } from "../../lib/auth";
-import { createDatabaseClient } from "../../lib/db/client";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
@@ -50,7 +60,9 @@ const AGENT_TOOLS = {
     description:
       "Search Duyet's blog (296+ posts) by topic, technology, or keywords. Use for: finding articles about data engineering, ClickHouse, Rust, Spark, cloud computing, etc. Returns matching posts with titles, URLs, and snippets.",
     inputSchema: z.object({
-      query: z.string().describe("Search query — topic, keyword, or technology name"),
+      query: z
+        .string()
+        .describe("Search query — topic, keyword, or technology name"),
     }),
     execute: async ({ query }) => {
       const { results } = await searchBlogTool(query);
@@ -61,7 +73,11 @@ const AGENT_TOOLS = {
     description:
       "Fetch the full content of a specific blog post. Use after searchBlog when user wants detailed information from a post. Requires the full URL from blog.duyet.net or duyet.net.",
     inputSchema: z.object({
-      url: z.string().describe("Full URL of the blog post (e.g., https://blog.duyet.net/posts/...)"),
+      url: z
+        .string()
+        .describe(
+          "Full URL of the blog post (e.g., https://blog.duyet.net/posts/...)"
+        ),
     }),
     execute: async ({ url }) => {
       const { content } = await getBlogPostTool(url);
@@ -75,7 +91,9 @@ const AGENT_TOOLS = {
       format: z
         .enum(["summary", "detailed"])
         .optional()
-        .describe("Format: 'summary' for quick overview, 'detailed' for full CV"),
+        .describe(
+          "Format: 'summary' for quick overview, 'detailed' for full CV"
+        ),
     }),
     execute: async ({ format = "summary" }) => {
       const { content } = await getCVTool(format);
@@ -104,7 +122,12 @@ const AGENT_TOOLS = {
       "Get contact form analytics and reports. Use for questions about site traffic, contact submissions, or user engagement patterns. Requires user approval — inform them before calling. Available reports: summary, purpose_breakdown, daily_trends, recent_activity.",
     inputSchema: z.object({
       reportType: z
-        .enum(["summary", "purpose_breakdown", "daily_trends", "recent_activity"])
+        .enum([
+          "summary",
+          "purpose_breakdown",
+          "daily_trends",
+          "recent_activity",
+        ])
         .optional()
         .describe(
           "Report type: 'summary' (overview), 'purpose_breakdown' (contact reasons), 'daily_trends' (time patterns), 'recent_activity' (latest submissions)"
@@ -131,7 +154,9 @@ const AGENT_TOOLS = {
     inputSchema: z.object({
       domain: z
         .string()
-        .describe("Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL (e.g., https://blog.duyet.net/llms.txt)"),
+        .describe(
+          "Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL (e.g., https://blog.duyet.net/llms.txt)"
+        ),
     }),
     execute: async ({ domain }) => {
       const { content } = await fetchLlmsTxt(domain);
@@ -144,7 +169,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { AI, DB, RATE_LIMIT_PEPPER } = context.env;
   if (!AI) {
     return new Response(
-      JSON.stringify({ error: "Missing AI binding — check wrangler.toml [ai] config" }),
+      JSON.stringify({
+        error: "Missing AI binding — check wrangler.toml [ai] config",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
@@ -156,11 +183,18 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Rate limit unauthenticated users (10 messages per 24h window per IP)
     // Uses atomic consumeRateLimit to avoid check-then-increment race conditions
-    let rateLimitResult: { allowed: boolean; remaining: number; total: number } | null = null;
+    let rateLimitResult: {
+      allowed: boolean;
+      remaining: number;
+      total: number;
+    } | null = null;
     if (!user && DB) {
       const dbClient = createDatabaseClient(DB);
       const ipHash = await hashIp(clientIp, RATE_LIMIT_PEPPER);
-      rateLimitResult = await dbClient.consumeRateLimit(ipHash, ANON_RATE_LIMIT);
+      rateLimitResult = await dbClient.consumeRateLimit(
+        ipHash,
+        ANON_RATE_LIMIT
+      );
 
       if (!rateLimitResult.allowed) {
         return new Response(
@@ -183,7 +217,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }
     }
 
-    const { messages: uiMessages, mode = "agent", conversationId } = await context.request.json();
+    const {
+      messages: uiMessages,
+      mode = "agent",
+      conversationId,
+      settings,
+    } = (await context.request.json()) as any;
 
     // Generate unique request ID for tracing
     const requestId = crypto.randomUUID().substring(0, 8);
@@ -196,26 +235,55 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const allMessages = await convertToModelMessages(uiMessages);
 
     // Prune old tool calls to prevent context overflow
-    const messages = pruneMessages({ messages: allMessages, toolCalls: "require-last-only" });
+    const messages = pruneMessages({
+      messages: allMessages,
+      toolCalls: "require-last-only",
+    });
 
     // AI Gateway with unified provider
     const aigateway = createAiGateway({
-      accountId: context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
+      accountId:
+        context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
       gateway: "monorepo",
       apiKey: context.env.CF_AIG_TOKEN,
     });
     const unified = createUnified();
 
     const isFast = mode === "fast";
-    const system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
+    let system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
+
+    // Inject custom user settings
+    if (settings) {
+      const parts = [];
+      if (settings.customInstructions)
+        parts.push(`User Custom Instructions:\n${settings.customInstructions}`);
+      if (settings.language)
+        parts.push(`The user's preferred language is: ${settings.language}`);
+      if (settings.timezone)
+        parts.push(`The user's current timezone is: ${settings.timezone}`);
+
+      if (parts.length > 0) {
+        system += `\n\n--- User Preferences ---\n${parts.join("\n\n")}\n------------------------`;
+      }
+    }
+
     const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
 
     // Log system prompt
-    const systemPreview = system.length > 100 ? `${system.substring(0, 100)}...` : system;
-    console.log(`[Chat API][${requestId}] System prompt (${system.length} chars):`, systemPreview);
+    const systemPreview =
+      system.length > 100 ? `${system.substring(0, 100)}...` : system;
+    console.log(
+      `[Chat API][${requestId}] System prompt (${system.length} chars):`,
+      systemPreview
+    );
 
     // Log message count and model
-    console.log(`[Chat API][${requestId}] Messages:`, messages.length, "| Model:", modelId);
+    console.log(
+      `[Chat API][${requestId}] Messages:`,
+      messages.length,
+      "| Model:",
+      modelId
+    );
 
     // For Workers AI models, use the format: workers-ai/@cf/meta/...
     const model = aigateway(unified(`workers-ai/${modelId}`));
@@ -227,10 +295,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       temperature: isFast ? 0.3 : 0.7,
       ...(isFast
         ? {}
-        : { tools: AGENT_TOOLS, toolChoice: "auto" as const, stopWhen: stepCountIs(5) }),
+        : {
+            tools: AGENT_TOOLS,
+            toolChoice: "auto" as const,
+            stopWhen: stepCountIs(5),
+          }),
     });
 
-    console.log(`[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`);
+    console.log(
+      `[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`
+    );
 
     // Store conversation for authenticated users (fire and forget)
     if (user && DB && conversationId) {
@@ -238,9 +312,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       const existing = await dbClient.getConversation(conversationId);
       if (!existing) {
         dbClient
-          .createConversation({ id: conversationId, mode: mode as "fast" | "agent", userId: user.userId })
+          .createConversation({
+            id: conversationId,
+            mode: mode as "fast" | "agent",
+            userId: user.userId,
+          })
           .catch((err) => {
-            console.error(`[Chat API][${requestId}] Failed to create conversation:`, err);
+            console.error(
+              `[Chat API][${requestId}] Failed to create conversation:`,
+              err
+            );
           });
       }
     }
@@ -250,14 +331,18 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Add rate limit headers for unauthenticated users
     if (rateLimitResult) {
       response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
-      response.headers.set("X-RateLimit-Remaining", String(rateLimitResult.remaining));
+      response.headers.set(
+        "X-RateLimit-Remaining",
+        String(rateLimitResult.remaining)
+      );
     }
 
     return response;
   } catch (error) {
     const requestId = `error-${crypto.randomUUID().substring(0, 8)}`;
     console.error(`[Chat API][${requestId}] Error:`, error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     console.error(`[Chat API][${requestId}] Error details:`, errorMessage);
     return new Response(
       JSON.stringify({

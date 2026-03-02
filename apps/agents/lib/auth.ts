@@ -29,7 +29,9 @@ export function getClientIp(request: Request): string {
 export async function hashIp(ip: string, pepper?: string): Promise<string> {
   const secret = pepper || process.env.RATE_LIMIT_PEPPER;
   if (!secret) {
-    console.warn("[auth] RATE_LIMIT_PEPPER not configured — using insecure default. Set RATE_LIMIT_PEPPER in wrangler.toml or dashboard.");
+    console.warn(
+      "[auth] RATE_LIMIT_PEPPER not configured — using insecure default. Set RATE_LIMIT_PEPPER in wrangler.toml or dashboard."
+    );
   }
   const effectiveSecret = secret || "duyet-agents-default-pepper";
   const data = new TextEncoder().encode(`${effectiveSecret}:${ip}`);
@@ -89,13 +91,15 @@ async function getClerkJwks(clerkDomain?: string): Promise<JsonWebKey[]> {
  */
 async function verifyJwt(
   token: string,
-  clerkDomain?: string,
+  clerkDomain?: string
 ): Promise<Record<string, unknown> | null> {
   try {
     const parts = token.split(".");
     if (parts.length !== 3) return null;
 
-    const headerJson = JSON.parse(new TextDecoder().decode(base64UrlDecode(parts[0])));
+    const headerJson = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(parts[0]))
+    );
     const kid = headerJson.kid;
     const alg = headerJson.alg;
 
@@ -114,7 +118,9 @@ async function verifyJwt(
     }
 
     // Find matching key by kid
-    const jwk = kid ? jwks.find((k) => (k as Record<string, unknown>).kid === kid) : jwks[0];
+    const jwk = kid
+      ? jwks.find((k) => (k as Record<string, unknown>).kid === kid)
+      : jwks[0];
     if (!jwk) return null;
 
     // Import the JWK as a CryptoKey
@@ -123,7 +129,7 @@ async function verifyJwt(
       jwk,
       { name: "RSASSA-PKCS1-v1_5", hash: { name: `SHA-${alg.slice(2)}` } },
       false,
-      ["verify"],
+      ["verify"]
     );
 
     // Verify the signature
@@ -134,13 +140,15 @@ async function verifyJwt(
       "RSASSA-PKCS1-v1_5",
       cryptoKey,
       signature.buffer as ArrayBuffer,
-      signingInput,
+      signingInput
     );
 
     if (!valid) return null;
 
     // Decode and validate claims
-    const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(parts[1])));
+    const payload = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(parts[1]))
+    );
 
     // Check expiry
     if (payload.exp && payload.exp * 1000 < Date.now()) return null;
@@ -159,9 +167,13 @@ async function verifyJwt(
  * standard JWT claims (exp, nbf, sub). Does NOT verify signature.
  * Used only when CLERK_ISSUER_URL is not configured.
  */
-function verifyJwtClaimsFallback(payloadB64: string): Record<string, unknown> | null {
+function verifyJwtClaimsFallback(
+  payloadB64: string
+): Record<string, unknown> | null {
   try {
-    const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(payloadB64)));
+    const payload = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(payloadB64))
+    );
 
     // Require sub claim
     if (!payload.sub || typeof payload.sub !== "string") return null;
@@ -187,7 +199,7 @@ function verifyJwtClaimsFallback(payloadB64: string): Record<string, unknown> | 
  */
 export async function getUserFromRequest(
   request: Request,
-  clerkDomain?: string,
+  clerkDomain?: string
 ): Promise<AuthUser | null> {
   const authHeader = request.headers.get("authorization");
   if (!authHeader?.startsWith("Bearer ")) {

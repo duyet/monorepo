@@ -175,7 +175,8 @@ Have a helpful, friendly conversation!`;
 export const AGENT_TOOLS: AgentTool[] = [
   {
     name: "searchBlog",
-    description: "Search for blog posts by topic or keywords. Returns matching posts with titles and URLs.",
+    description:
+      "Search for blog posts by topic or keywords. Returns matching posts with titles and URLs.",
     parameters: {
       type: "object",
       properties: {
@@ -195,7 +196,8 @@ export const AGENT_TOOLS: AgentTool[] = [
       properties: {
         url: {
           type: "string",
-          description: "URL of the blog post (from blog.duyet.net or duyet.net)",
+          description:
+            "URL of the blog post (from blog.duyet.net or duyet.net)",
         },
       },
       required: ["url"],
@@ -203,7 +205,8 @@ export const AGENT_TOOLS: AgentTool[] = [
   },
   {
     name: "getCV",
-    description: "Get Duyet's CV/Resume information. Available formats: summary, detailed",
+    description:
+      "Get Duyet's CV/Resume information. Available formats: summary, detailed",
     parameters: {
       type: "object",
       properties: {
@@ -223,7 +226,8 @@ export const AGENT_TOOLS: AgentTool[] = [
       properties: {
         limit: {
           type: "number",
-          description: "Number of recent activities to retrieve (default: 5, max: 20)",
+          description:
+            "Number of recent activities to retrieve (default: 5, max: 20)",
         },
       },
     },
@@ -236,7 +240,12 @@ export const AGENT_TOOLS: AgentTool[] = [
       properties: {
         reportType: {
           type: "string",
-          enum: ["summary", "purpose_breakdown", "daily_trends", "recent_activity"],
+          enum: [
+            "summary",
+            "purpose_breakdown",
+            "daily_trends",
+            "recent_activity",
+          ],
           description: "Type of analytics report (default: summary)",
         },
       },
@@ -252,17 +261,18 @@ export const AGENT_TOOLS: AgentTool[] = [
   },
   {
     name: "fetchLlmsTxt",
-    description: "Fetch llms.txt from any duyet.net domain for AI-readable documentation",
+    description:
+      "Fetch llms.txt from any duyet.net domain for AI-readable documentation",
     parameters: {
       type: "object",
       properties: {
         domain: {
           type: "string",
-          description: "Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL",
+          description:
+            "Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL",
         },
       },
       required: ["domain"],
     },
   },
 ];
-

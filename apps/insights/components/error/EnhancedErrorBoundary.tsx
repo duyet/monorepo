@@ -5,15 +5,15 @@
 
 "use client";
 
-import { Component, type ErrorInfo, type ReactNode } from "react";
 import {
   AlertTriangle,
   Bug,
   Home,
+  Info,
   RefreshCw,
   XCircle,
-  Info,
 } from "lucide-react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -183,7 +183,8 @@ function EnhancedErrorFallback({
       {/* Error Message */}
       <div className="mb-4 rounded-md bg-white/50 p-3 dark:bg-black/20">
         <p className="text-sm text-red-700 dark:text-red-300">
-          {error?.message || "An unexpected error occurred while loading this component."}
+          {error?.message ||
+            "An unexpected error occurred while loading this component."}
         </p>
       </div>
 
@@ -225,7 +226,9 @@ function EnhancedErrorFallback({
             <RefreshCw className="h-4 w-4" />
             Try Again
             {retryCount > 0 && (
-              <span className="text-xs opacity-75">({retryCount}/{maxRetries})</span>
+              <span className="text-xs opacity-75">
+                ({retryCount}/{maxRetries})
+              </span>
             )}
           </button>
         )}
@@ -254,7 +257,8 @@ function EnhancedErrorFallback({
             <Bug className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
             <p className="text-xs text-blue-700 dark:text-blue-300">
               Multiple retry attempts failed. This might be a persistent issue.
-              Please try refreshing the page or contact support if the problem continues.
+              Please try refreshing the page or contact support if the problem
+              continues.
             </p>
           </div>
         </div>

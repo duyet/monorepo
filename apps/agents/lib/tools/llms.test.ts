@@ -1,4 +1,4 @@
-import { describe, test, expect, mock, beforeEach } from "bun:test";
+import { beforeEach, describe, expect, mock, test } from "bun:test";
 import { fetchLlmsTxtTool, getLlmsDomains } from "./llms";
 
 const originalFetch = globalThis.fetch;
@@ -30,7 +30,9 @@ describe("fetchLlmsTxtTool", () => {
       )
     ) as typeof fetch;
 
-    const result = await fetchLlmsTxtTool("https://custom.example.com/llms.txt");
+    const result = await fetchLlmsTxtTool(
+      "https://custom.example.com/llms.txt"
+    );
     expect(result.content).toContain("custom llms.txt content");
     expect(result.sources[0].url).toBe("https://custom.example.com/llms.txt");
   });
@@ -47,7 +49,9 @@ describe("fetchLlmsTxtTool", () => {
     const result = await fetchLlmsTxtTool("unknowndomain");
     expect(capturedUrl).toBe("https://unknowndomain.duyet.net/llms.txt");
     expect(result.content).toContain("Unknown domain content");
-    expect(result.sources[0].url).toBe("https://unknowndomain.duyet.net/llms.txt");
+    expect(result.sources[0].url).toBe(
+      "https://unknowndomain.duyet.net/llms.txt"
+    );
   });
 
   test("returns content on success response", async () => {
@@ -63,7 +67,9 @@ describe("fetchLlmsTxtTool", () => {
 
   test("returns error message on non-OK response", async () => {
     globalThis.fetch = mock(() =>
-      Promise.resolve(new Response("Not Found", { status: 404, statusText: "Not Found" }))
+      Promise.resolve(
+        new Response("Not Found", { status: 404, statusText: "Not Found" })
+      )
     ) as typeof fetch;
 
     const result = await fetchLlmsTxtTool("cv");

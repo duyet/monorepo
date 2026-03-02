@@ -13,8 +13,12 @@
  * - GET /api/conversations/:id/messages — Get all messages for a conversation
  */
 
-import { createDatabaseClient, type CreateConversationParams, type CreateMessageParams } from "../../lib/db/client";
 import { getUserFromRequest } from "../../lib/auth";
+import {
+  type CreateConversationParams,
+  type CreateMessageParams,
+  createDatabaseClient,
+} from "../../lib/db/client";
 import type { Conversation } from "../../lib/types";
 
 interface Env {
@@ -105,7 +109,8 @@ async function handleGet(
 
     if (conversationId) {
       // GET /api/conversations/:id
-      const includeMessages = url.searchParams.get("includeMessages") === "true";
+      const includeMessages =
+        url.searchParams.get("includeMessages") === "true";
 
       if (includeMessages) {
         const { conversation, messages } =
@@ -116,7 +121,10 @@ async function handleGet(
             { status: 404, headers: CORS_HEADERS }
           );
         }
-        return Response.json({ conversation, messages }, { headers: CORS_HEADERS });
+        return Response.json(
+          { conversation, messages },
+          { headers: CORS_HEADERS }
+        );
       }
 
       const conversation = await client.getConversation(conversationId);
@@ -179,7 +187,11 @@ async function handlePost(
           { status: 400, headers: CORS_HEADERS }
         );
       }
-      if (!body.content || typeof body.content !== "string" || body.content.trim().length === 0) {
+      if (
+        !body.content ||
+        typeof body.content !== "string" ||
+        body.content.trim().length === 0
+      ) {
         return Response.json(
           { error: "Invalid or missing 'content': must be a non-empty string" },
           { status: 400, headers: CORS_HEADERS }
@@ -191,8 +203,12 @@ async function handlePost(
         conversationId,
         role: body.role,
         content: body.content,
-        timestamp: typeof body.timestamp === "number" ? body.timestamp : Date.now(),
-        metadata: body.metadata && typeof body.metadata === "object" ? body.metadata : undefined,
+        timestamp:
+          typeof body.timestamp === "number" ? body.timestamp : Date.now(),
+        metadata:
+          body.metadata && typeof body.metadata === "object"
+            ? body.metadata
+            : undefined,
       };
 
       const message = await client.createMessage(messageParams);
@@ -209,7 +225,10 @@ async function handlePost(
     };
 
     const conversation = await client.createConversation(conversationParams);
-    return Response.json({ conversation }, { status: 201, headers: CORS_HEADERS });
+    return Response.json(
+      { conversation },
+      { status: 201, headers: CORS_HEADERS }
+    );
   } catch (error) {
     console.error("[Conversations API] POST error:", error);
     return Response.json(
@@ -319,7 +338,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   if (!env.DB) {
     return Response.json(
       {
-        error: "Missing DB binding — add [[d1_databases]] binding to wrangler.toml",
+        error:
+          "Missing DB binding — add [[d1_databases]] binding to wrangler.toml",
       },
       { status: 500, headers: CORS_HEADERS }
     );

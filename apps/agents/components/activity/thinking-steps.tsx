@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Brain } from "lucide-react";
+import { Brain, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ThinkingStepsProps {

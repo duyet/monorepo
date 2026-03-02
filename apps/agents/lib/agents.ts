@@ -5,8 +5,8 @@
  * Each agent has its own system prompt, tools, and metadata.
  */
 
-import type { Agent } from "./types";
 import { AGENT_TOOLS } from "./agent";
+import type { Agent } from "./types";
 
 /**
  * Duyetbot - Main AI assistant

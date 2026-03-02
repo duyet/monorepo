@@ -13,7 +13,10 @@ declare interface D1PreparedStatement {
   bind(...params: unknown[]): D1PreparedStatement;
   first<T = unknown>(): Promise<T | null>;
   all(): Promise<{ results: unknown[] }>;
-  run(): Promise<{ success: boolean; meta?: { last_row_id?: number; duration?: number } }>;
+  run(): Promise<{
+    success: boolean;
+    meta?: { last_row_id?: number; duration?: number };
+  }>;
 }
 
 declare interface Ai {

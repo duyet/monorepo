@@ -1,11 +1,11 @@
-import { describe, test, expect, mock, beforeEach } from "bun:test";
+import { beforeEach, describe, expect, mock, test } from "bun:test";
 import {
-  searchBlog,
   getAbout,
   getAnalytics,
-  getCVData,
   getBlogPostContent,
+  getCVData,
   getGitHubActivity,
+  searchBlog,
 } from "./mcp-client";
 
 const originalFetch = globalThis.fetch;
@@ -42,9 +42,7 @@ describe("searchBlog", () => {
 
   test("returns empty array when no matches found", async () => {
     globalThis.fetch = mock(() =>
-      Promise.resolve(
-        new Response("# Blog\nNo posts here", { status: 200 })
-      )
+      Promise.resolve(new Response("# Blog\nNo posts here", { status: 200 }))
     ) as typeof fetch;
 
     const result = await searchBlog("nonexistent-xyz-topic");
@@ -54,7 +52,11 @@ describe("searchBlog", () => {
 
   test("respects limit parameter", async () => {
     const lines = Array.from({ length: 10 }, (_, i) =>
-      [`## Post ${i + 1} about Rust`, `URL: https://blog.duyet.net/rust-${i + 1}`, ""].join("\n")
+      [
+        `## Post ${i + 1} about Rust`,
+        `URL: https://blog.duyet.net/rust-${i + 1}`,
+        "",
+      ].join("\n")
     ).join("\n");
 
     globalThis.fetch = mock(() =>
@@ -155,7 +157,9 @@ describe("getCVData", () => {
   test("returns detailed format including fetched text", async () => {
     globalThis.fetch = mock(() =>
       Promise.resolve(
-        new Response("Detailed resume content from cv.duyet.net", { status: 200 })
+        new Response("Detailed resume content from cv.duyet.net", {
+          status: 200,
+        })
       )
     ) as typeof fetch;
 
@@ -220,7 +224,9 @@ describe("getBlogPostContent", () => {
       )
     ) as typeof fetch;
 
-    const result = await getBlogPostContent({ url: "https://blog.duyet.net/2024/spark" });
+    const result = await getBlogPostContent({
+      url: "https://blog.duyet.net/2024/spark",
+    });
     expect(result.success).toBe(true);
     expect(result.data!.title).toBe("My Spark Post");
     expect(result.data!.content).toContain("Post content here");
@@ -253,7 +259,9 @@ describe("getBlogPostContent", () => {
       Promise.resolve(new Response("Gone", { status: 410 }))
     ) as typeof fetch;
 
-    const result = await getBlogPostContent({ url: "https://blog.duyet.net/old-post" });
+    const result = await getBlogPostContent({
+      url: "https://blog.duyet.net/old-post",
+    });
     expect(result.success).toBe(false);
     expect(result.error).toBeDefined();
   });
@@ -263,7 +271,9 @@ describe("getBlogPostContent", () => {
       Promise.reject(new Error("DNS resolution failed"))
     ) as typeof fetch;
 
-    const result = await getBlogPostContent({ url: "https://blog.duyet.net/test" });
+    const result = await getBlogPostContent({
+      url: "https://blog.duyet.net/test",
+    });
     expect(result.success).toBe(false);
     expect(result.error).toContain("DNS resolution failed");
   });
@@ -278,7 +288,9 @@ describe("getBlogPostContent", () => {
       )
     ) as typeof fetch;
 
-    const result = await getBlogPostContent({ url: "https://blog.duyet.net/test" });
+    const result = await getBlogPostContent({
+      url: "https://blog.duyet.net/test",
+    });
     expect(result.success).toBe(true);
     expect(result.data!.content).not.toContain("<h1>");
     expect(result.data!.content).not.toContain("<script>");
@@ -329,7 +341,9 @@ describe("getGitHubActivity", () => {
 
     const result = await getGitHubActivity({ limit: 2 });
     expect(result.success).toBe(true);
-    const lines = (result.data as string).split("\n").filter((l) => l.startsWith("- "));
+    const lines = (result.data as string)
+      .split("\n")
+      .filter((l) => l.startsWith("- "));
     expect(lines.length).toBe(2);
   });
 
@@ -346,7 +360,9 @@ describe("getGitHubActivity", () => {
 
     const result = await getGitHubActivity();
     expect(result.success).toBe(true);
-    const lines = (result.data as string).split("\n").filter((l) => l.startsWith("- "));
+    const lines = (result.data as string)
+      .split("\n")
+      .filter((l) => l.startsWith("- "));
     expect(lines.length).toBe(5);
   });
 

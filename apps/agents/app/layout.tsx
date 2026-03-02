@@ -4,10 +4,10 @@ import "./globals.css";
 import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
-import { Providers } from "@/components/providers";
 import { agentsConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
-import { Inter, Libre_Baskerville, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
+import { Providers } from "@/components/providers";
 
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
@@ -37,16 +37,19 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={cn(inter.variable, libreBaskerville.variable, geistMono.variable)}
+      className={cn(
+        inter.variable,
+        libreBaskerville.variable,
+        geistMono.variable
+      )}
       lang={agentsConfig.metadata.lang}
       suppressHydrationWarning
     >
       <Head />
       <body
         className={cn(
-          "bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased",
-          "font-[family-name:var(--font-inter)]",
-          "transition-colors duration-300"
+          "bg-background text-foreground subpixel-antialiased",
+          "font-sans transition-colors duration-300"
         )}
       >
         <Providers>

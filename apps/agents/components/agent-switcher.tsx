@@ -19,9 +19,16 @@ export function AgentSwitcher({
   // With a single agent there's nothing to switch — render a compact status bar
   if (agents.length <= 1) {
     return (
-      <div className={cn("border-b border-border bg-muted/20 px-4 py-1.5 flex items-center gap-2", className)}>
+      <div
+        className={cn(
+          "border-b border-border bg-muted/20 px-4 py-1.5 flex items-center gap-2",
+          className
+        )}
+      >
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
-        <span className="text-xs text-muted-foreground truncate">{activeAgent.description}</span>
+        <span className="text-xs text-muted-foreground truncate">
+          {activeAgent.description}
+        </span>
       </div>
     );
   }
@@ -45,7 +52,9 @@ export function AgentSwitcher({
             >
               <span>{agent.avatar || agent.name.slice(0, 2)}</span>
               <span>{agent.name}</span>
-              {isActive && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />}
+              {isActive && (
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              )}
             </button>
           );
         })}

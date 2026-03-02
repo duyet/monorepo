@@ -1,20 +1,11 @@
 "use client";
 
-import type { ComponentProps, ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
-
 import { useControllableState } from "@radix-ui/react-use-controllable-state";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { cjk } from "@streamdown/cjk";
 import { code } from "@streamdown/code";
 import { math } from "@streamdown/math";
 import { mermaid } from "@streamdown/mermaid";
+import type { LucideIcon } from "lucide-react";
 import {
   BrainCircuitIcon,
   CheckCircle2Icon,
@@ -22,6 +13,7 @@ import {
   CircleDotIcon,
   CircleIcon,
 } from "lucide-react";
+import type { ComponentProps, ReactNode } from "react";
 import {
   createContext,
   memo,
@@ -33,6 +25,13 @@ import {
   useState,
 } from "react";
 import { Streamdown } from "streamdown";
+import { Badge } from "@/components/ui/badge";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { cn } from "@/lib/utils";
 
 import { Shimmer } from "./shimmer";
 
@@ -258,10 +257,7 @@ export const ChainOfThoughtStep = memo(
     status = "pending",
     ...props
   }: ChainOfThoughtStepProps) => (
-    <div
-      className={cn("flex items-start gap-3 py-1.5", className)}
-      {...props}
-    >
+    <div className={cn("flex items-start gap-3 py-1.5", className)} {...props}>
       <div className="mt-0.5 flex items-center gap-1.5">
         <StatusIcon status={status} />
         {Icon && (
@@ -304,10 +300,7 @@ export type ChainOfThoughtSearchResultsProps = ComponentProps<"div">;
 
 export const ChainOfThoughtSearchResults = memo(
   ({ className, children, ...props }: ChainOfThoughtSearchResultsProps) => (
-    <div
-      className={cn("mt-2 flex flex-wrap gap-1.5", className)}
-      {...props}
-    >
+    <div className={cn("mt-2 flex flex-wrap gap-1.5", className)} {...props}>
       {children}
     </div>
   )

@@ -1,37 +1,37 @@
 "use client";
 
-import { useRef, useEffect, useState, useMemo, useCallback } from "react";
-import {
-  useChat,
-  useAutoResize,
-  useKeyboardShortcuts,
-  useMergeRefs,
-  useConversations,
-} from "@/lib/hooks";
+import { Button, Textarea } from "@duyet/components";
+import { cn } from "@duyet/libs";
+import type { UIMessage } from "ai";
+import { RefreshCw, Send, Wrench, X, Zap } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { cn } from "@duyet/libs";
-import type { ChatMode } from "@/lib/types";
-import type { UIMessage } from "ai";
-import { ActivityPanel } from "../activity/activity-panel";
-import { ToolsPanel } from "./tools-panel";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import {
-  UserMessage,
+  useAutoResize,
+  useChat,
+  useConversations,
+  useKeyboardShortcuts,
+  useMergeRefs,
+} from "@/lib/hooks";
+import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
+import type { ChatMode } from "@/lib/types";
+import { ActivityPanel } from "../activity/activity-panel";
+import { AppLayout } from "../layout/app-layout";
+import { Sidebar } from "../sidebar/sidebar";
+import { ChatTopBar } from "./chat-top-bar";
+import { LoadingIndicator } from "./loading-indicator";
+import {
   AssistantMessage,
+  UserMessage,
   WelcomeMessage,
 } from "./message-components";
-import { LoadingIndicator } from "./loading-indicator";
-import { ChatTopBar } from "./chat-top-bar";
-import { Sidebar } from "../sidebar/sidebar";
-import { AppLayout } from "../layout/app-layout";
-import { Button, Textarea } from "@duyet/components";
-import { Send, RefreshCw, X, Zap, Wrench } from "lucide-react";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
+import { ToolsPanel } from "./tools-panel";
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -142,7 +142,10 @@ export function VercelChat() {
         const res = await fetch("/api/title", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userMessage: userMsg, assistantMessage: assistantMsg }),
+          body: JSON.stringify({
+            userMessage: userMsg,
+            assistantMessage: assistantMsg,
+          }),
         });
         const { title } = await res.json();
         if (title && title !== "New chat") {
@@ -168,7 +171,14 @@ export function VercelChat() {
       setTitleGenerated(true);
       generateTitle(activeId, firstUser.content, firstAssistant.content);
     }
-  }, [messages, isLoading, activeId, activeConversation?.title, titleGenerated, generateTitle]);
+  }, [
+    messages,
+    isLoading,
+    activeId,
+    activeConversation?.title,
+    titleGenerated,
+    generateTitle,
+  ]);
 
   // Reset title generation flag on new conversation
   useEffect(() => {
@@ -241,7 +251,9 @@ export function VercelChat() {
       conversations={conversations}
       activeId={activeId}
       onNewChat={handleNewChat}
-      onSelectConversation={async (id) => { await switchTo(id); }}
+      onSelectConversation={async (id) => {
+        await switchTo(id);
+      }}
       onDeleteConversation={remove}
       collapsed={!sidebarOpen}
       onToggleCollapse={() => setSidebarOpen((v) => !v)}
@@ -260,155 +272,172 @@ export function VercelChat() {
 
   return (
     <>
-    <AppLayout
-      sidebar={sidebarContent}
-      panel={activityContent}
-      sidebarOpen={sidebarOpen}
-      onSidebarOpenChange={setSidebarOpen}
-      panelOpen={panelOpen}
-      onPanelOpenChange={setPanelOpen}
-    >
-      {/* Chat top bar */}
-      <ChatTopBar
-        onToggleSidebar={() => setSidebarOpen((v) => !v)}
-        onToggleActivity={() => setPanelOpen((v) => !v)}
-        onToggleTools={() => setToolsPanelOpen((v) => !v)}
-        onNewChat={handleNewChat}
-        showActivityButton={hasActivity}
-        activityCount={toolExecutions.length}
-        conversationTitle={activeConversation?.title}
-      />
-
-      {/* Messages area */}
-      <Conversation
-        className="flex-1"
-        autoScrollTrigger={autoScrollTrigger}
+      <AppLayout
+        sidebar={sidebarContent}
+        panel={activityContent}
+        sidebarOpen={sidebarOpen}
+        onSidebarOpenChange={setSidebarOpen}
+        panelOpen={panelOpen}
+        onPanelOpenChange={setPanelOpen}
       >
-        {!hasMessages && !streamingContent ? (
-          <ConversationEmptyState>
-            <div className="px-3 sm:px-4 lg:px-6 xl:px-8">
-              <WelcomeMessage onPromptSelect={handlePromptSelect} />
-            </div>
-          </ConversationEmptyState>
-        ) : (
-          <ConversationContent>
-            {messages.map((message) =>
-              message.role === "user" ? (
-                <UserMessage key={message.id} message={message} />
-              ) : (
-                <AssistantMessage
-                  key={message.id}
-                  message={message}
-                  parts={partsMap.get(message.id)}
-                  onToolApprove={handleToolApprove}
-                  onToolDeny={handleToolDeny}
-                />
-              )
+        {/* Chat top bar */}
+        <ChatTopBar
+          onToggleSidebar={() => setSidebarOpen((v) => !v)}
+          onToggleActivity={() => setPanelOpen((v) => !v)}
+          onToggleTools={() => setToolsPanelOpen((v) => !v)}
+          onNewChat={handleNewChat}
+          showActivityButton={hasActivity}
+          activityCount={toolExecutions.length}
+          conversationTitle={activeConversation?.title}
+        />
+
+        {/* Messages area */}
+        <Conversation
+          className="relative flex-1"
+          autoScrollTrigger={autoScrollTrigger}
+        >
+          <div className="h-full w-full overflow-y-auto pb-40">
+            {!hasMessages && !streamingContent ? (
+              <ConversationEmptyState>
+                <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
+                  <WelcomeMessage onPromptSelect={handlePromptSelect} />
+                </div>
+              </ConversationEmptyState>
+            ) : (
+              <ConversationContent className="mx-auto max-w-3xl px-4 sm:px-6 w-full">
+                {messages.map((message) =>
+                  message.role === "user" ? (
+                    <UserMessage key={message.id} message={message} />
+                  ) : (
+                    <AssistantMessage
+                      key={message.id}
+                      message={message}
+                      parts={partsMap.get(message.id)}
+                      onToolApprove={handleToolApprove}
+                      onToolDeny={handleToolDeny}
+                    />
+                  )
+                )}
+
+                {/* Streaming assistant message or loading dots */}
+                {isLoading &&
+                  (() => {
+                    const lastUiMsg = uiMessages[uiMessages.length - 1];
+                    if (!lastUiMsg || lastUiMsg.role !== "assistant") {
+                      return <LoadingIndicator />;
+                    }
+                    return (
+                      <AssistantMessage
+                        message={{
+                          id: "streaming",
+                          role: "assistant",
+                          content: streamingContent,
+                          timestamp: Date.now(),
+                        }}
+                        parts={lastUiMsg.parts}
+                        onToolApprove={handleToolApprove}
+                        onToolDeny={handleToolDeny}
+                        isStreaming
+                      />
+                    );
+                  })()}
+              </ConversationContent>
             )}
+          </div>
+          <ConversationScrollButton className="bottom-[130px]" />
+        </Conversation>
 
-            {/* Streaming assistant message or loading dots */}
-            {isLoading &&
-              (() => {
-                const lastUiMsg = uiMessages[uiMessages.length - 1];
-                if (!lastUiMsg || lastUiMsg.role !== "assistant") {
-                  return <LoadingIndicator />;
-                }
-                return (
-                  <AssistantMessage
-                    message={{
-                      id: "streaming",
-                      role: "assistant",
-                      content: streamingContent,
-                      timestamp: Date.now(),
-                    }}
-                    parts={lastUiMsg.parts}
-                    onToolApprove={handleToolApprove}
-                    onToolDeny={handleToolDeny}
-                    isStreaming
-                  />
-                );
-              })()}
-          </ConversationContent>
-        )}
-        <ConversationScrollButton />
-      </Conversation>
+        {/* Floating input area */}
+        <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4">
+          <div className="mx-auto max-w-3xl">
+            <form
+              onSubmit={handleFormSubmit}
+              className="relative flex flex-col w-full rounded-2xl border border-input bg-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring transition-all"
+            >
+              <Textarea
+                ref={textareaRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask me anything about Duyet..."
+                disabled={isLoading}
+                rows={1}
+                className="min-h-[52px] max-h-[200px] w-full resize-none border-0 bg-transparent px-4 py-3.5 text-base focus-visible:ring-0 shadow-none pb-12"
+              />
 
-      {/* Sticky input area */}
-      <div className="border-t border-border bg-background px-3 sm:px-4 lg:px-6 xl:px-8 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <form onSubmit={handleFormSubmit}>
-          <Textarea
-            ref={textareaRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask me anything about Duyet..."
-            disabled={isLoading}
-            rows={1}
-            className="min-h-[44px] max-h-[160px] resize-none rounded-xl text-sm"
-          />
-          {/* Input toolbar */}
-          <div className="flex items-center justify-between mt-2">
-            <div className="flex items-center gap-2">
-              <ModeToggle mode={mode} onModeChange={handleModeChange} />
-              <p className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)] hidden sm:block">
-                ↵ send · ⇧↵ newline
-              </p>
-            </div>
-            <div className="flex items-center gap-1">
-              {isLoading ? (
-                <Button
-                  type="button"
-                  onClick={stop}
-                  size="sm"
-                  variant="outline"
-                  className="h-8 rounded-full px-4 text-xs"
-                >
-                  <X className="h-3 w-3 mr-1" />
-                  Stop
-                </Button>
-              ) : (
-                <>
-                  {hasAssistantResponse && (
+              {/* Input toolbar (bottom row inside the textarea container) */}
+              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <ModeToggle mode={mode} onModeChange={handleModeChange} />
+                </div>
+                <div className="flex items-center gap-1">
+                  {isLoading ? (
                     <Button
                       type="button"
-                      onClick={() => reload()}
+                      onClick={stop}
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 rounded-full"
+                      className="h-8 w-8 rounded-full text-foreground hover:bg-muted"
                     >
-                      <RefreshCw className="h-3.5 w-3.5" />
-                      <span className="sr-only">Regenerate</span>
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Stop</span>
                     </Button>
+                  ) : (
+                    <>
+                      {hasAssistantResponse && (
+                        <Button
+                          type="button"
+                          onClick={() => reload()}
+                          size="icon"
+                          variant="ghost"
+                          className="h-8 w-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
+                        >
+                          <RefreshCw className="h-4 w-4" />
+                          <span className="sr-only">Regenerate</span>
+                        </Button>
+                      )}
+                      <Button
+                        type="submit"
+                        disabled={!canSubmit}
+                        size="icon"
+                        className={cn(
+                          "h-8 w-8 rounded-full transition-all",
+                          canSubmit
+                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                            : "bg-muted text-muted-foreground opacity-50"
+                        )}
+                      >
+                        <Send className="h-4 w-4" />
+                        <span className="sr-only">Send</span>
+                      </Button>
+                    </>
                   )}
-                  <Button
-                    type="submit"
-                    disabled={!canSubmit}
-                    size="sm"
-                    className="h-8 rounded-full px-4 text-xs"
-                  >
-                    <Send className="h-3 w-3 mr-1" />
-                    Send
-                  </Button>
-                </>
-              )}
-            </div>
-          </div>
-          {error && (
-            <p className="mt-2 text-xs text-destructive pl-2">
-              {error.message}
+                </div>
+              </div>
+            </form>
+            {error && (
+              <p className="mt-2 text-xs text-destructive text-center font-medium">
+                {error.message}
+              </p>
+            )}
+            <p className="mt-3 text-center text-xs text-muted-foreground">
+              Duyetbot can make mistakes. Consider verifying important
+              information.
             </p>
-          )}
-        </form>
-      </div>
-    </AppLayout>
+          </div>
+        </div>
+      </AppLayout>
 
-    {/* Tools panel sheet */}
-    <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
-      <SheetContent side="right" className="w-[320px] p-0">
-        <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
-      </SheetContent>
-    </Sheet>
-  </>
+      {/* Tools panel sheet */}
+      <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
+        <SheetContent
+          side="right"
+          className="w-[320px] p-0 border-l border-border bg-background"
+        >
+          <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
 
@@ -421,31 +450,35 @@ function ModeToggle({
   onModeChange: (m: ChatMode) => void;
 }) {
   return (
-    <div className="flex items-center rounded-full border border-border bg-muted/40 p-0.5 gap-0.5">
+    <div className="flex items-center gap-1 shrink-0 p-0.5">
       <button
         type="button"
         onClick={() => onModeChange("fast")}
         className={cn(
-          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
+          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer",
           mode === "fast"
-            ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
-            : "text-muted-foreground hover:text-foreground"
+            ? "bg-muted text-foreground"
+            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
         )}
       >
-        <Zap className="h-3 w-3" />
+        <Zap
+          className={cn("h-3.5 w-3.5", mode === "fast" && "text-foreground")}
+        />
         Fast
       </button>
       <button
         type="button"
         onClick={() => onModeChange("agent")}
         className={cn(
-          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200",
+          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer",
           mode === "agent"
-            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-            : "text-muted-foreground hover:text-foreground"
+            ? "bg-muted text-foreground"
+            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
         )}
       >
-        <Wrench className="h-3 w-3" />
+        <Wrench
+          className={cn("h-3.5 w-3.5", mode === "agent" && "text-foreground")}
+        />
         Agent
       </button>
     </div>

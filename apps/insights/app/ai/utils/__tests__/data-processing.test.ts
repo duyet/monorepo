@@ -1,4 +1,4 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { anonymizeProjects, distributePercentages } from "../data-processing";
 
 describe("anonymizeProjects", () => {
@@ -19,7 +19,7 @@ describe("anonymizeProjects", () => {
   });
 
   test("caps at 15 projects", () => {
-    const input = Array.from({ length: 20 }, (_, i) => ({
+    const input = Array.from({ length: 20 }, (_, _i) => ({
       total_tokens: 100,
       last_activity: "2024-01-01",
     }));
@@ -75,7 +75,7 @@ describe("distributePercentages", () => {
     const input = [33.333, 33.333, 33.334];
     const result = distributePercentages(input);
     expect(result.reduce((a, b) => a + b, 0)).toBe(100);
-    result.forEach((v) => expect([33, 34]).toContain(v));
+    result.forEach((v) => { expect([33, 34]).toContain(v); });
   });
 
   test("handles single item at 100%", () => {

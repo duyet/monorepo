@@ -2,12 +2,17 @@
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import useEmblaCarousel from "embla-carousel-react";
-import { BookOpenIcon, ChevronLeftIcon, ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
+import {
+  BookOpenIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ExternalLinkIcon,
+} from "lucide-react";
 import {
   type ComponentProps,
+  createContext,
   type Dispatch,
   type SetStateAction,
-  createContext,
   useCallback,
   useContext,
   useEffect,
@@ -21,15 +26,24 @@ import { cn } from "@/lib/utils";
 
 export type InlineCitationProps = ComponentProps<"span">;
 
-export const InlineCitation = ({ className, ...props }: InlineCitationProps) => (
-  <span className={cn("inline-flex items-baseline gap-1", className)} {...props} />
+export const InlineCitation = ({
+  className,
+  ...props
+}: InlineCitationProps) => (
+  <span
+    className={cn("inline-flex items-baseline gap-1", className)}
+    {...props}
+  />
 );
 
 // ─── InlineCitationText ──────────────────────────────────────────────────────
 
 export type InlineCitationTextProps = ComponentProps<"span">;
 
-export const InlineCitationText = ({ className, ...props }: InlineCitationTextProps) => (
+export const InlineCitationText = ({
+  className,
+  ...props
+}: InlineCitationTextProps) => (
   <span className={cn("text-inherit", className)} {...props} />
 );
 
@@ -47,7 +61,9 @@ export const InlineCitationCard = ({
 
 // ─── InlineCitationCardTrigger ───────────────────────────────────────────────
 
-export type InlineCitationCardTriggerProps = ComponentProps<typeof HoverCard.Trigger> & {
+export type InlineCitationCardTriggerProps = ComponentProps<
+  typeof HoverCard.Trigger
+> & {
   sources: string[];
 };
 
@@ -63,7 +79,7 @@ export const InlineCitationCardTrigger = ({
       className={cn(
         "inline-flex cursor-pointer items-center align-baseline",
         "rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        className,
+        className
       )}
     >
       {children ?? (
@@ -81,7 +97,9 @@ export const InlineCitationCardTrigger = ({
 
 // ─── InlineCitationCardBody (HoverCard content) ───────────────────────────────
 
-export type InlineCitationCardBodyProps = ComponentProps<typeof HoverCard.Content>;
+export type InlineCitationCardBodyProps = ComponentProps<
+  typeof HoverCard.Content
+>;
 
 export const InlineCitationCardBody = ({
   className,
@@ -100,7 +118,7 @@ export const InlineCitationCardBody = ({
         "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
         "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         "data-[state=closed]:animate-out data-[state=open]:animate-in",
-        className,
+        className
       )}
       {...props}
     />
@@ -125,7 +143,8 @@ const CarouselContext = createContext<CarouselContextValue | null>(null);
 
 function useCarousel() {
   const ctx = useContext(CarouselContext);
-  if (!ctx) throw new Error("useCarousel must be used within InlineCitationCarousel");
+  if (!ctx)
+    throw new Error("useCarousel must be used within InlineCitationCarousel");
   return ctx;
 }
 
@@ -215,7 +234,7 @@ export const InlineCitationCarouselItem = ({
   useEffect(() => {
     setItemCount((n) => n + 1);
     return () => setItemCount((n) => n - 1);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -238,7 +257,7 @@ export const InlineCitationCarouselHeader = ({
   <div
     className={cn(
       "flex items-center justify-between border-b px-4 py-2.5",
-      className,
+      className
     )}
     {...props}
   >
@@ -285,7 +304,7 @@ export const InlineCitationCarouselPrev = ({
         "inline-flex h-6 w-6 items-center justify-center rounded hover:bg-muted",
         "disabled:cursor-not-allowed disabled:opacity-40",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        className,
+        className
       )}
       {...props}
     >
@@ -314,7 +333,7 @@ export const InlineCitationCarouselNext = ({
         "inline-flex h-6 w-6 items-center justify-center rounded hover:bg-muted",
         "disabled:cursor-not-allowed disabled:opacity-40",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        className,
+        className
       )}
       {...props}
     >
@@ -352,11 +371,11 @@ export const InlineCitationSource = ({
     ) : (
       <p className="font-medium text-sm leading-snug">{title}</p>
     )}
-    {url && (
-      <p className="truncate text-[11px] text-muted-foreground">{url}</p>
-    )}
+    {url && <p className="truncate text-[11px] text-muted-foreground">{url}</p>}
     {description && (
-      <p className="line-clamp-3 text-xs text-muted-foreground">{description}</p>
+      <p className="line-clamp-3 text-xs text-muted-foreground">
+        {description}
+      </p>
     )}
   </div>
 );
@@ -372,7 +391,7 @@ export const InlineCitationQuote = ({
   <blockquote
     className={cn(
       "mt-2 border-l-2 border-primary/40 pl-2.5 text-xs italic text-muted-foreground",
-      className,
+      className
     )}
     {...props}
   />

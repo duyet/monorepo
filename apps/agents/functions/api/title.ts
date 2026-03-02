@@ -34,7 +34,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     const aigateway = createAiGateway({
-      accountId: context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
+      accountId:
+        context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
       gateway: "monorepo",
       apiKey: context.env.CF_AIG_TOKEN,
     });
@@ -61,7 +62,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       maxTokens: 20,
     });
 
-    const title = text.trim().replace(/^["']|["']$/g, "").slice(0, 60) || "New chat";
+    const title =
+      text
+        .trim()
+        .replace(/^["']|["']$/g, "")
+        .slice(0, 60) || "New chat";
 
     return new Response(JSON.stringify({ title }), {
       headers: { "Content-Type": "application/json" },

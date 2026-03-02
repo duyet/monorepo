@@ -145,7 +145,10 @@ const getDataForPeriod = async (days: number) => {
       headers
     );
   } catch (error) {
-    console.error("[Cloudflare] GraphQL request failed:", error instanceof Error ? error.message : String(error));
+    console.error(
+      "[Cloudflare] GraphQL request failed:",
+      error instanceof Error ? error.message : String(error)
+    );
     return {
       data: {
         viewer: {

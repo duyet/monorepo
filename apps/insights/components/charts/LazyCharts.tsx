@@ -11,9 +11,9 @@
 
 "use client";
 
-import type { ComponentType } from "react";
-import { Suspense, lazy } from "react";
 import { Skeleton } from "@duyet/components/ui/skeleton";
+import type { ComponentType } from "react";
+import { lazy, Suspense } from "react";
 
 interface ChartSkeletonProps {
   height?: number;
@@ -90,18 +90,12 @@ export const LazyCompactLineChart = withLazyLoading(
 const RawLazyCompactBarChart = lazy(() =>
   import("./CompactChart").then((m) => ({ default: m.CompactBarChart }))
 );
-export const LazyCompactBarChart = withLazyLoading(
-  RawLazyCompactBarChart,
-  200
-);
+export const LazyCompactBarChart = withLazyLoading(RawLazyCompactBarChart, 200);
 
 const RawLazyCompactPieChart = lazy(() =>
   import("./CompactChart").then((m) => ({ default: m.CompactPieChart }))
 );
-export const LazyCompactPieChart = withLazyLoading(
-  RawLazyCompactPieChart,
-  200
-);
+export const LazyCompactPieChart = withLazyLoading(RawLazyCompactPieChart, 200);
 
 const RawLazyMiniSparkline = lazy(() =>
   import("./CompactChart").then((m) => ({ default: m.MiniSparkline }))

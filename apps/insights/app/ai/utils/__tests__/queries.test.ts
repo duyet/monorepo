@@ -1,7 +1,7 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
-  getDateCondition,
   getCreatedAtCondition,
+  getDateCondition,
   validateDaysParameter,
 } from "../queries";
 
@@ -11,15 +11,9 @@ describe("getDateCondition", () => {
   });
 
   test("returns WHERE clause with INTERVAL for valid number", () => {
-    expect(getDateCondition(7)).toBe(
-      "WHERE date > today() - INTERVAL 7 DAY"
-    );
-    expect(getDateCondition(30)).toBe(
-      "WHERE date > today() - INTERVAL 30 DAY"
-    );
-    expect(getDateCondition(90)).toBe(
-      "WHERE date > today() - INTERVAL 90 DAY"
-    );
+    expect(getDateCondition(7)).toBe("WHERE date > today() - INTERVAL 7 DAY");
+    expect(getDateCondition(30)).toBe("WHERE date > today() - INTERVAL 30 DAY");
+    expect(getDateCondition(90)).toBe("WHERE date > today() - INTERVAL 90 DAY");
   });
 });
 

@@ -3,7 +3,7 @@
  * Handles CRUD operations for conversations and messages
  */
 
-import type { Conversation, Message, ChatMode, Source } from "../types";
+import type { ChatMode, Conversation, Message, Source } from "../types";
 
 // Database row types
 export interface ConversationRow {
@@ -62,7 +62,7 @@ export interface UpdateConversationParams {
  * Database client class for D1 operations
  */
 export class DatabaseClient {
-  constructor(private db: D1Database) {}
+  constructor(private db: any) {}
 
   /**
    * Convert database row to Conversation type
@@ -103,11 +103,16 @@ export class DatabaseClient {
    * List conversations for a specific user, ordered by most recently updated.
    * Always scoped by user_id — never returns other users' conversations.
    */
-  async listConversationsByUser(userId: string, limit = 50): Promise<Conversation[]> {
+  async listConversationsByUser(
+    userId: string,
+    limit = 50
+  ): Promise<Conversation[]> {
     const stmt = this.db.prepare(
       "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id = ? ORDER BY updated_at DESC LIMIT ?"
     );
-    const result = await stmt.bind(userId, limit).all() as { results: ConversationRow[] };
+    const result = (await stmt.bind(userId, limit).all()) as {
+      results: ConversationRow[];
+    };
     return (result.results || []).map((row) => this.rowToConversation(row));
   }
 
@@ -119,7 +124,9 @@ export class DatabaseClient {
     const stmt = this.db.prepare(
       "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id IS NULL ORDER BY updated_at DESC LIMIT ?"
     );
-    const result = await stmt.bind(limit).all() as { results: ConversationRow[] };
+    const result = (await stmt.bind(limit).all()) as {
+      results: ConversationRow[];
+    };
     return (result.results || []).map((row) => this.rowToConversation(row));
   }
 
@@ -130,20 +137,29 @@ export class DatabaseClient {
     const stmt = this.db.prepare(
       "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE id = ?"
     );
-    const result = await stmt.bind(id).first() as ConversationRow | null;
+    const result = (await stmt.bind(id).first()) as ConversationRow | null;
     return result ? this.rowToConversation(result) : null;
   }
 
   /**
    * Create a new conversation
    */
-  async createConversation(params: CreateConversationParams): Promise<Conversation> {
+  async createConversation(
+    params: CreateConversationParams
+  ): Promise<Conversation> {
     const now = Date.now();
     const stmt = this.db.prepare(
       "INSERT INTO conversations (id, user_id, title, created_at, updated_at, mode, message_count) VALUES (?, ?, ?, ?, ?, ?, 0)"
     );
     await stmt
-      .bind(params.id, params.userId ?? null, params.title || "New chat", now, now, params.mode)
+      .bind(
+        params.id,
+        params.userId ?? null,
+        params.title || "New chat",
+        now,
+        now,
+        params.mode
+      )
       .run();
 
     return {
@@ -181,7 +197,9 @@ export class DatabaseClient {
     const stmt = this.db.prepare(
       "SELECT id, conversation_id, role, content, timestamp, metadata FROM messages WHERE conversation_id = ? ORDER BY timestamp ASC"
     );
-    const result = await stmt.bind(conversationId).all() as { results: MessageRow[] };
+    const result = (await stmt.bind(conversationId).all()) as {
+      results: MessageRow[];
+    };
     return (result.results || []).map((row) => this.rowToMessage(row));
   }
 
@@ -189,7 +207,9 @@ export class DatabaseClient {
    * Create a new message
    */
   async createMessage(params: CreateMessageParams): Promise<Message> {
-    const metadataJson = params.metadata ? JSON.stringify(params.metadata) : null;
+    const metadataJson = params.metadata
+      ? JSON.stringify(params.metadata)
+      : null;
     const stmt = this.db.prepare(
       "INSERT INTO messages (id, conversation_id, role, content, timestamp, metadata) VALUES (?, ?, ?, ?, ?, ?)"
     );
@@ -212,7 +232,9 @@ export class DatabaseClient {
       ...(params.metadata?.model && { model: params.metadata.model }),
       ...(params.metadata?.duration && { duration: params.metadata.duration }),
       ...(params.metadata?.tokens && { tokens: params.metadata.tokens }),
-      ...(params.metadata?.toolCalls !== undefined && { toolCalls: params.metadata.toolCalls }),
+      ...(params.metadata?.toolCalls !== undefined && {
+        toolCalls: params.metadata.toolCalls,
+      }),
       ...(params.metadata?.sources && { sources: params.metadata.sources }),
     };
   }
@@ -270,10 +292,8 @@ export class DatabaseClient {
    * Get total count of conversations
    */
   async getConversationCount(): Promise<number> {
-    const stmt = this.db.prepare(
-      "SELECT COUNT(*) as count FROM conversations"
-    );
-    const result = await stmt.first() as { count: number } | null;
+    const stmt = this.db.prepare("SELECT COUNT(*) as count FROM conversations");
+    const result = (await stmt.first()) as { count: number } | null;
     return result?.count ?? 0;
   }
 
@@ -285,9 +305,13 @@ export class DatabaseClient {
    * Uses INSERT ... ON CONFLICT to atomically upsert, then reads the
    * updated count to avoid race conditions between check and increment.
    */
-  async consumeRateLimit(ipHash: string, limit = 10): Promise<{ allowed: boolean; remaining: number; total: number }> {
+  async consumeRateLimit(
+    ipHash: string,
+    limit = 10
+  ): Promise<{ allowed: boolean; remaining: number; total: number }> {
     const windowDuration = 24 * 60 * 60 * 1000; // 24 hours
-    const windowStart = Math.floor(Date.now() / windowDuration) * windowDuration;
+    const windowStart =
+      Math.floor(Date.now() / windowDuration) * windowDuration;
 
     // Atomic upsert: insert or increment in one statement
     const upsertStmt = this.db.prepare(
@@ -299,7 +323,9 @@ export class DatabaseClient {
     const selectStmt = this.db.prepare(
       "SELECT message_count FROM rate_limits WHERE ip_hash = ? AND window_start = ?"
     );
-    const result = await selectStmt.bind(ipHash, windowStart).first() as { message_count: number } | null;
+    const result = (await selectStmt.bind(ipHash, windowStart).first()) as {
+      message_count: number;
+    } | null;
     const count = result?.message_count ?? 1;
 
     return {
@@ -314,7 +340,9 @@ export class DatabaseClient {
    */
   async cleanupRateLimits(): Promise<void> {
     const cutoff = Date.now() - 48 * 60 * 60 * 1000;
-    const stmt = this.db.prepare("DELETE FROM rate_limits WHERE window_start < ?");
+    const stmt = this.db.prepare(
+      "DELETE FROM rate_limits WHERE window_start < ?"
+    );
     await stmt.bind(cutoff).run();
   }
 
@@ -327,7 +355,9 @@ export class DatabaseClient {
     const excessStmt = this.db.prepare(
       "SELECT id FROM conversations ORDER BY updated_at DESC LIMIT -1 OFFSET ?"
     );
-    const excess = await excessStmt.bind(maxConversations).all() as { results: { id: string }[] };
+    const excess = (await excessStmt.bind(maxConversations).all()) as {
+      results: { id: string }[];
+    };
 
     if (!excess.results || excess.results.length === 0) return 0;
 
@@ -336,7 +366,9 @@ export class DatabaseClient {
 
     // Delete one by one since SQLite doesn't support unlimited bind params
     for (const id of ids) {
-      const deleteStmt = this.db.prepare("DELETE FROM conversations WHERE id = ?");
+      const deleteStmt = this.db.prepare(
+        "DELETE FROM conversations WHERE id = ?"
+      );
       await deleteStmt.bind(id).run();
     }
 
@@ -347,6 +379,6 @@ export class DatabaseClient {
 /**
  * Create a database client from a D1 binding
  */
-export function createDatabaseClient(db: D1Database): DatabaseClient {
+export function createDatabaseClient(db: any): DatabaseClient {
   return new DatabaseClient(db);
 }

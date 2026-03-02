@@ -97,7 +97,7 @@ When answering questions:
           },
           {
             gateway: gatewayOptions,
-          },
+          }
         );
 
         // Create a streaming response
@@ -150,7 +150,7 @@ When answering questions:
             "Content-Type": "text/event-stream",
             "Access-Control-Allow-Origin": "*",
             "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
+            Connection: "keep-alive",
           },
         });
       } catch (error) {
@@ -166,7 +166,7 @@ When answering questions:
               "Content-Type": "application/json",
               "Access-Control-Allow-Origin": "*",
             },
-          },
+          }
         );
       }
     }

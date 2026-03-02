@@ -1,12 +1,12 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
-  PERIODS,
+  DEFAULT_PERIOD,
+  generatePeriodStaticParams,
+  getAllPeriodValues,
   getPeriodConfig,
   getPeriodDays,
   isPeriodValue,
-  getAllPeriodValues,
-  generatePeriodStaticParams,
-  DEFAULT_PERIOD,
+  PERIODS,
 } from "../periods";
 
 describe("PERIODS constant", () => {

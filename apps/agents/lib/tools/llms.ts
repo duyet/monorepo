@@ -28,7 +28,8 @@ export async function fetchLlmsTxtTool(domain: LlmsDomain | string): Promise<{
 }> {
   const url = domain.startsWith("http")
     ? domain
-    : LLMS_TXT_DOMAINS[domain as LlmsDomain] || `https://${domain}.duyet.net/llms.txt`;
+    : LLMS_TXT_DOMAINS[domain as LlmsDomain] ||
+      `https://${domain}.duyet.net/llms.txt`;
 
   try {
     const response = await fetch(url, {

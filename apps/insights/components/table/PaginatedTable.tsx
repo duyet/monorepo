@@ -5,14 +5,14 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { Button } from "@duyet/components/ui/button";
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import { Button } from "@duyet/components/ui/button";
+import { useMemo, useState } from "react";
 
 interface PaginatedTableProps<T> {
   data: T[];

@@ -1,7 +1,7 @@
 "use client";
 
-import { Clock, Zap, Coins } from "lucide-react";
 import { cn } from "@duyet/libs";
+import { Clock, Coins, Zap } from "lucide-react";
 import type { Message } from "@/lib/types";
 
 interface MessageMetadataProps {
@@ -9,11 +9,15 @@ interface MessageMetadataProps {
   isStreaming?: boolean;
 }
 
-export function MessageMetadata({ message, isStreaming }: MessageMetadataProps) {
+export function MessageMetadata({
+  message,
+  isStreaming,
+}: MessageMetadataProps) {
   // Only show metadata for completed assistant messages
   if (message.role !== "assistant" || isStreaming) return null;
 
-  const hasMetadata = message.model || message.duration || message.tokens || message.toolCalls;
+  const hasMetadata =
+    message.model || message.duration || message.tokens || message.toolCalls;
 
   if (!hasMetadata) return null;
 
@@ -36,17 +40,24 @@ export function MessageMetadata({ message, isStreaming }: MessageMetadataProps) 
     if (!model) return null;
     if (model.includes("llama-4-scout")) return "Llama 4 Scout";
     if (model.includes("llama-3")) return "Llama 3";
-    return model.split("/").pop()?.replace(/^@cf\//, "") || model;
+    return (
+      model
+        .split("/")
+        .pop()
+        ?.replace(/^@cf\//, "") || model
+    );
   };
 
   const modelName = getModelName(message.model);
   const duration = formatDuration(message.duration);
 
   return (
-    <div className={cn(
-      "flex items-center gap-3 text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]",
-      "opacity-70 hover:opacity-100 transition-opacity"
-    )}>
+    <div
+      className={cn(
+        "flex items-center gap-3 text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]",
+        "opacity-70 hover:opacity-100 transition-opacity"
+      )}
+    >
       {modelName && (
         <span className="flex items-center gap-1" title="Model used">
           <Zap className="h-3 w-3" />
@@ -60,7 +71,8 @@ export function MessageMetadata({ message, isStreaming }: MessageMetadataProps) 
           {formatTokens(message.tokens.total)}
           {message.tokens.prompt && message.tokens.completion && (
             <span className="opacity-70">
-              ({formatTokens(message.tokens.prompt)}+{formatTokens(message.tokens.completion)})
+              ({formatTokens(message.tokens.prompt)}+
+              {formatTokens(message.tokens.completion)})
             </span>
           )}
         </span>

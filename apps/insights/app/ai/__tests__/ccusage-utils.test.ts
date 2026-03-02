@@ -1,4 +1,4 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { formatCurrency, validateDaysParameter } from "../ccusage-utils";
 
 describe("formatCurrency (ccusage-utils)", () => {
@@ -13,7 +13,7 @@ describe("formatCurrency (ccusage-utils)", () => {
 
   test("returns two decimal places for sub-dollar amounts", () => {
     expect(formatCurrency(0.05)).toBe("$0.05");
-    expect(formatCurrency(0.50)).toBe("$0.50");
+    expect(formatCurrency(0.5)).toBe("$0.50");
     expect(formatCurrency(0.99)).toBe("$0.99");
   });
 

@@ -1,13 +1,12 @@
 "use client";
 
-import type { ComponentProps, ReactNode } from "react";
-import { useState, useCallback, useRef } from "react";
-
 import { cjk } from "@streamdown/cjk";
 import { code } from "@streamdown/code";
 import { math } from "@streamdown/math";
 import { mermaid } from "@streamdown/mermaid";
 import { FileIcon } from "lucide-react";
+import type { ComponentProps, ReactNode } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 
 import {
@@ -37,18 +36,27 @@ export function Message({ from, className, children }: MessageProps) {
     <div
       data-from={from}
       className={cn(
-        "flex gap-3 group animate-in fade-in slide-in-from-bottom-2 duration-300",
-        isUser ? "justify-end" : "justify-start",
+        "flex gap-4 w-full group animate-in fade-in duration-500 py-6",
+        isUser ? "bg-transparent" : "bg-transparent",
         className
       )}
     >
-      {/* Assistant avatar — shown on the left */}
-      {!isUser && (
-        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted">
-          <span className="text-[10px] font-bold text-muted-foreground">D</span>
-        </div>
-      )}
-
+      {/* Avatar column */}
+      <div className="flex-shrink-0 mt-1">
+        {isUser ? (
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-stone-800 dark:bg-stone-200">
+            <span className="text-[10px] font-bold text-stone-50 dark:text-stone-900">
+              U
+            </span>
+          </div>
+        ) : (
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+            <span className="text-[11px] font-[family-name:var(--font-serif)] font-bold">
+              D
+            </span>
+          </div>
+        )}
+      </div>
       {children}
     </div>
   );
@@ -64,25 +72,23 @@ export interface MessageContentProps {
   children: ReactNode;
 }
 
-export function MessageContent({ from, className, children }: MessageContentProps) {
+export function MessageContent({
+  from,
+  className,
+  children,
+}: MessageContentProps) {
   const isUser = from === "user";
 
   return (
-    <div
-      className={cn(
-        isUser
-          ? "flex max-w-[75%] flex-col items-end gap-1"
-          : "flex min-w-0 flex-1 flex-col gap-1",
-        className
-      )}
-    >
-      {isUser ? (
-        <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-primary-foreground">
-          {children}
-        </div>
-      ) : (
-        children
-      )}
+    <div className={cn("flex-1 min-w-0 flex flex-col gap-2", className)}>
+      <div
+        className={cn(
+          "text-base leading-relaxed font-sans",
+          isUser ? "font-medium text-foreground" : "text-foreground"
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -109,14 +115,18 @@ export function MessageResponse({
   return (
     <div
       className={cn(
-        "text-sm leading-relaxed text-foreground",
-        "[&_a]:underline [&_a]:underline-offset-2",
-        "[&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5",
-        "[&_code]:text-[12px] [&_code]:font-[family-name:var(--font-geist-mono)]",
-        "[&_pre]:rounded-xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted",
-        "[&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-[12px]",
-        "[&_p]:mb-2 [&_p:last-child]:mb-0",
-        "[&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ol]:pl-4 [&_ol]:space-y-0.5",
+        "[&_a]:underline [&_a]:underline-offset-4 [&_a]:text-primary [&_a]:transition-colors hover:[&_a]:text-primary/80",
+        "[&_code]:rounded-md [&_code]:bg-muted/60 [&_code]:px-1.5 [&_code]:py-0.5",
+        "[&_code]:text-[0.9em] [&_code]:font-[family-name:var(--font-geist-mono)]",
+        "[&_pre]:rounded-2xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted/40",
+        "[&_pre]:p-5 [&_pre]:overflow-x-auto [&_pre]:text-sm",
+        "[&_p]:mb-4 [&_p:last-child]:mb-0",
+        "[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-6 [&_h1]:mt-8",
+        "[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-4 [&_h2]:mt-6",
+        "[&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-3 [&_h3]:mt-5",
+        "[&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:pl-5 [&_ol]:space-y-2",
+        "[&_li]:marker:text-muted-foreground",
+        "[&_blockquote]:border-l-4 [&_blockquote]:border-primary/50 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground",
         className
       )}
     >
@@ -206,11 +216,12 @@ export interface MessageAttachmentsProps {
   children: ReactNode;
 }
 
-export function MessageAttachments({ className, children }: MessageAttachmentsProps) {
+export function MessageAttachments({
+  className,
+  children,
+}: MessageAttachmentsProps) {
   return (
-    <div className={cn("flex flex-wrap gap-2 mt-1", className)}>
-      {children}
-    </div>
+    <div className={cn("flex flex-wrap gap-2 mt-1", className)}>{children}</div>
   );
 }
 
@@ -245,11 +256,7 @@ export function MessageAttachment({
         )}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={url}
-          alt={name}
-          className="max-h-40 max-w-xs object-cover"
-        />
+        <img src={url} alt={name} className="max-h-40 max-w-xs object-cover" />
       </a>
     );
   }

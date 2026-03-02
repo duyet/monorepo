@@ -1,18 +1,38 @@
 "use client";
 
-import type { Message } from "@/lib/types";
-import type { UIMessage } from "ai";
 import { Button } from "@duyet/components";
+import type { UIMessage } from "ai";
 import {
-  Copy,
-  Check,
-  X,
-  BookOpen,
-  User,
-  GitBranch,
   BarChart2,
+  BookOpen,
+  Check,
+  Copy,
+  GitBranch,
+  User,
+  X,
 } from "lucide-react";
 import { useMemo } from "react";
+import {
+  ChainOfThought,
+  ChainOfThoughtContent,
+  ChainOfThoughtHeader,
+} from "@/components/ai-elements/chain-of-thought";
+import {
+  Confirmation,
+  ConfirmationAccepted,
+  ConfirmationAction,
+  ConfirmationActions,
+  ConfirmationRejected,
+  ConfirmationRequest,
+} from "@/components/ai-elements/confirmation";
+import {
+  MessageAction,
+  MessageActions,
+  MessageContent,
+  MessageResponse,
+  Message as MessageRoot,
+  useCopyToClipboard,
+} from "@/components/ai-elements/message";
 import {
   Tool,
   ToolContent,
@@ -20,27 +40,7 @@ import {
   ToolInput,
   ToolOutput,
 } from "@/components/ai-elements/tool";
-import {
-  Confirmation,
-  ConfirmationRequest,
-  ConfirmationAccepted,
-  ConfirmationRejected,
-  ConfirmationActions,
-  ConfirmationAction,
-} from "@/components/ai-elements/confirmation";
-import {
-  ChainOfThought,
-  ChainOfThoughtHeader,
-  ChainOfThoughtContent,
-} from "@/components/ai-elements/chain-of-thought";
-import {
-  Message as MessageRoot,
-  MessageContent,
-  MessageResponse,
-  MessageActions,
-  MessageAction,
-  useCopyToClipboard,
-} from "@/components/ai-elements/message";
+import type { Message } from "@/lib/types";
 import { MessageMetadata } from "./message-metadata";
 
 interface MessageProps {
@@ -67,9 +67,10 @@ function CopyIcon({ state }: { state: CopyState }) {
   }
 }
 
-
 export function UserMessage({ message }: MessageProps) {
-  const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
+  const { state: copyState, copy: handleCopy } = useCopyToClipboard(
+    message.content
+  );
 
   return (
     <MessageRoot from="user">
@@ -103,7 +104,9 @@ export function AssistantMessage({
   onToolApprove,
   onToolDeny,
 }: AssistantMessageProps) {
-  const { state: copyState, copy: handleCopy } = useCopyToClipboard(message.content);
+  const { state: copyState, copy: handleCopy } = useCopyToClipboard(
+    message.content
+  );
   const hasParts = parts && parts.length > 0;
 
   // Merge ALL reasoning parts into one collapsible, keep other parts in order
@@ -112,7 +115,10 @@ export function AssistantMessage({
 
     const reasoningTexts: string[] = [];
     let lastReasoningState: string | undefined;
-    const nonReasoningParts: Array<{ part: typeof parts[0]; originalIndex: number }> = [];
+    const nonReasoningParts: Array<{
+      part: (typeof parts)[0];
+      originalIndex: number;
+    }> = [];
 
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
@@ -128,7 +134,7 @@ export function AssistantMessage({
       type: "reasoning-group" | "single";
       reasoningText?: string;
       reasoningState?: string;
-      part?: typeof parts[0];
+      part?: (typeof parts)[0];
       originalIndex: number;
     }> = [];
 
@@ -159,7 +165,7 @@ export function AssistantMessage({
       <MessageContent from="assistant">
         {hasParts ? (
           <>
-            {groupedParts.map((grouped, idx) => {
+            {groupedParts.map((grouped) => {
               if (grouped.type === "reasoning-group") {
                 if (!grouped.reasoningText) return null;
 
@@ -190,7 +196,8 @@ export function AssistantMessage({
                     <Tool
                       key={part.toolCallId}
                       defaultOpen={
-                        part.state === "output-available" || part.state === "output-error"
+                        part.state === "output-available" ||
+                        part.state === "output-error"
                       }
                     >
                       <ToolHeader
@@ -200,13 +207,20 @@ export function AssistantMessage({
                       />
                       <ToolContent>
                         <ToolInput input={part.input} />
-                        <ToolOutput output={part.output} errorText={part.errorText} />
+                        <ToolOutput
+                          output={part.output}
+                          errorText={part.errorText}
+                        />
 
                         {/* Approval workflow */}
-                        <Confirmation approval={part.approval} state={part.state}>
+                        <Confirmation
+                          approval={part.approval}
+                          state={part.state}
+                        >
                           <ConfirmationRequest>
                             <p className="text-sm">
-                              Do you want to approve <strong>{part.toolName}</strong>?
+                              Do you want to approve{" "}
+                              <strong>{part.toolName}</strong>?
                             </p>
                             <ConfirmationActions>
                               <ConfirmationAction
@@ -216,7 +230,9 @@ export function AssistantMessage({
                                 Deny
                               </ConfirmationAction>
                               <ConfirmationAction
-                                onClick={() => onToolApprove?.(part.approval!.id)}
+                                onClick={() =>
+                                  onToolApprove?.(part.approval!.id)
+                                }
                               >
                                 Approve
                               </ConfirmationAction>
@@ -251,7 +267,9 @@ export function AssistantMessage({
         ) : isStreaming ? (
           <StreamingCursor />
         ) : (
-          <span className="text-muted-foreground italic text-xs">No response</span>
+          <span className="text-muted-foreground italic text-xs">
+            No response
+          </span>
         )}
 
         <div className="flex items-center gap-1.5">
@@ -328,58 +346,43 @@ interface WelcomeMessageProps {
 
 export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
-    <div className="py-12 sm:py-16 animate-in fade-in duration-500">
+    <div className="py-12 sm:py-20 animate-in fade-in duration-700 flex flex-col items-center justify-center text-center">
       {/* Greeting */}
-      <div className="mb-8 text-center">
-        <h1 className="text-2xl sm:text-3xl font-normal text-foreground mb-2">
-          Hi, I&apos;m duyetbot
+      <div className="mb-10">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+          <span className="text-2xl font-[family-name:var(--font-serif)] font-bold">
+            D
+          </span>
+        </div>
+        <h1 className="text-3xl font-[family-name:var(--font-serif)] text-foreground tracking-tight mb-3">
+          How can I help you today?
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Ask me about blog posts, CV, GitHub activity, or anything else
+        <p className="text-base text-muted-foreground max-w-md mx-auto">
+          Ask me about my blog posts, GitHub projects, CV, or anything else.
         </p>
       </div>
 
-      {/* Capability cards */}
-      <div className="mb-8 grid gap-4 grid-cols-1 sm:grid-cols-2">
-        {CAPABILITIES.map(({ icon: Icon, label, desc, prompt, color, iconColor }) => (
-          <button
-            key={label}
-            type="button"
-            onClick={() => onPromptSelect?.(prompt)}
-            className={`group flex flex-col p-6 ${color} rounded-xl transition-all duration-200 hover:scale-[1.02] cursor-pointer text-left border-0`}
-          >
-            <div className={`mb-4 ${iconColor}`}>
-              <Icon className="h-8 w-8" strokeWidth={1.5} />
-            </div>
-            <h3 className="mb-2 text-base font-semibold text-foreground">
-              {label}
-            </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {desc}
-            </p>
-          </button>
-        ))}
-      </div>
-
       {/* Quick-start prompts */}
-      <div className="mb-10">
-        <h2 className="mb-4 text-sm font-medium text-muted-foreground">
-          Quick starts
-        </h2>
-        <div className="flex gap-2.5 overflow-x-auto snap-x snap-mandatory pb-2 sm:flex-wrap sm:overflow-visible sm:snap-none sm:pb-0">
-          {QUICK_PROMPTS.map((prompt) => (
+      <div className="w-full max-w-2xl mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {CAPABILITIES.map(({ icon: Icon, label, prompt }) => (
             <button
-              key={prompt}
+              key={label}
               type="button"
               onClick={() => onPromptSelect?.(prompt)}
-              className="shrink-0 snap-start rounded-full bg-muted px-5 py-2 text-sm font-medium text-foreground transition-all hover:bg-accent cursor-pointer"
+              className="group flex flex-col items-start gap-2 p-4 rounded-xl bg-transparent hover:bg-muted/50 transition-colors cursor-pointer text-left"
             >
-              {prompt}
+              <div className="flex items-center gap-2 text-muted-foreground group-hover:text-foreground transition-colors">
+                <Icon className="h-4 w-4" />
+                <span className="text-sm font-medium">{label}</span>
+              </div>
+              <span className="text-xs text-muted-foreground line-clamp-1">
+                {prompt}
+              </span>
             </button>
           ))}
         </div>
       </div>
-
     </div>
   );
 }

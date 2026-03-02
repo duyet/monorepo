@@ -1,20 +1,19 @@
 "use client";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@duyet/components";
-import { Button } from "@duyet/components";
-import { ToolExecutionItem } from "./tool-execution-item";
-import { ThinkingSteps, ThinkingDots } from "./thinking-steps";
+import { Badge, Button } from "@duyet/components";
+import { cn } from "@duyet/libs";
 import {
   Activity,
-  Clock,
-  CheckCircle2,
   AlertCircle,
+  CheckCircle2,
+  Clock,
   Loader2,
   X,
 } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ToolExecution } from "@/lib/types";
-import { cn } from "@duyet/libs";
+import { ThinkingDots, ThinkingSteps } from "./thinking-steps";
+import { ToolExecutionItem } from "./tool-execution-item";
 
 interface ActivityPanelProps {
   executions: ToolExecution[];
@@ -32,7 +31,9 @@ export function ActivityPanel({
   className,
 }: ActivityPanelProps) {
   // Calculate stats
-  const completeCount = executions.filter((e) => e.status === "complete").length;
+  const completeCount = executions.filter(
+    (e) => e.status === "complete"
+  ).length;
   const errorCount = executions.filter((e) => e.status === "error").length;
   const runningCount = executions.filter((e) => e.status === "running").length;
 

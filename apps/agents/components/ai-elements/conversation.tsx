@@ -1,9 +1,16 @@
 "use client";
 
-import type { ComponentProps, ReactNode } from "react";
-import { useRef, useState, useCallback, useEffect, createContext, useContext } from "react";
-import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import type { ComponentProps, ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { cn } from "@/lib/utils";
 
 // ─── Scroll context ────────────────────────────────────────────────────────
 
@@ -99,7 +106,10 @@ export interface ConversationContentProps extends ComponentProps<"div"> {}
 /**
  * Inner container for message list with consistent spacing.
  */
-export function ConversationContent({ className, ...props }: ConversationContentProps) {
+export function ConversationContent({
+  className,
+  ...props
+}: ConversationContentProps) {
   return (
     <div
       className={cn(
@@ -167,7 +177,8 @@ export function ConversationEmptyState({
 
 // ─── ConversationScrollButton ──────────────────────────────────────────────
 
-export interface ConversationScrollButtonProps extends ComponentProps<"button"> {}
+export interface ConversationScrollButtonProps
+  extends ComponentProps<"button"> {}
 
 /**
  * A floating button that appears when the user scrolls up in the conversation.

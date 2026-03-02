@@ -5,9 +5,16 @@
  * that the AI agent can use to answer questions.
  */
 
-import { getAbout, getAnalytics, getBlogPostContent, getCVData, getGitHubActivity, searchBlog } from "../mcp-client";
-import { fetchLlmsTxtTool } from "./llms";
+import {
+  getAbout,
+  getAnalytics,
+  getBlogPostContent,
+  getCVData,
+  getGitHubActivity,
+  searchBlog,
+} from "../mcp-client";
 import type { Source } from "../types";
+import { fetchLlmsTxtTool } from "./llms";
 
 /**
  * Tool: Search Blog Posts
@@ -73,7 +80,9 @@ export async function getBlogPostTool(url: string): Promise<{
  * Tool: Get CV Data
  * Retrieves Duyet's CV/Resume information
  */
-export async function getCVTool(format: "summary" | "detailed" = "summary"): Promise<{
+export async function getCVTool(
+  format: "summary" | "detailed" = "summary"
+): Promise<{
   content: string;
   sources: Source[];
 }> {
@@ -132,7 +141,11 @@ export async function getGitHubTool(limit = 5): Promise<{
  * Retrieves contact form analytics
  */
 export async function getAnalyticsTool(
-  reportType: "summary" | "purpose_breakdown" | "daily_trends" | "recent_activity" = "summary"
+  reportType:
+    | "summary"
+    | "purpose_breakdown"
+    | "daily_trends"
+    | "recent_activity" = "summary"
 ): Promise<{
   analytics: string;
   sources: Source[];

@@ -1,11 +1,11 @@
-import { describe, test, expect, mock, beforeEach } from "bun:test";
+import { beforeEach, describe, expect, mock, test } from "bun:test";
 import {
-  searchBlogTool,
+  getAboutTool,
+  getAnalyticsTool,
   getBlogPostTool,
   getCVTool,
   getGitHubTool,
-  getAnalyticsTool,
-  getAboutTool,
+  searchBlogTool,
 } from "./index";
 
 // Mock fetch globally
@@ -42,7 +42,9 @@ describe("searchBlogTool", () => {
 
   test("returns fallback message when no matches found", async () => {
     globalThis.fetch = mock(() =>
-      Promise.resolve(new Response("# Empty blog\nNo posts here", { status: 200 }))
+      Promise.resolve(
+        new Response("# Empty blog\nNo posts here", { status: 200 })
+      )
     ) as typeof fetch;
 
     const result = await searchBlogTool("nonexistent-topic-xyz");
@@ -51,7 +53,9 @@ describe("searchBlogTool", () => {
   });
 
   test("returns fallback on fetch error", async () => {
-    globalThis.fetch = mock(() => Promise.reject(new Error("Network error"))) as typeof fetch;
+    globalThis.fetch = mock(() =>
+      Promise.reject(new Error("Network error"))
+    ) as typeof fetch;
 
     const result = await searchBlogTool("test");
     expect(result.results).toContain("couldn't find any blog posts");
@@ -116,7 +120,9 @@ describe("getCVTool", () => {
   });
 
   test("handles fetch error gracefully", async () => {
-    globalThis.fetch = mock(() => Promise.reject(new Error("Timeout"))) as typeof fetch;
+    globalThis.fetch = mock(() =>
+      Promise.reject(new Error("Timeout"))
+    ) as typeof fetch;
 
     const result = await getCVTool();
     expect(result.content).toContain("Error");
