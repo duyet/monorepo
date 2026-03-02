@@ -3,11 +3,11 @@
  * Higher priority sources win on duplicates
  */
 
-import type { Model, MergeStats, DataSourceAdapter } from './types'
+import type { Model, MergeStats, DataSourceAdapter } from "./types";
 
 export interface SourceResult {
-  source: DataSourceAdapter
-  models: Model[]
+  source: DataSourceAdapter;
+  models: Model[];
 }
 
 /**
@@ -15,7 +15,7 @@ export interface SourceResult {
  * Uses normalized name, org, and date to identify duplicates
  */
 export function createModelKey(model: Model): string {
-  return `${model.name.toLowerCase().trim()}|${model.org.toLowerCase().trim()}|${model.date}`
+  return `${model.name.toLowerCase().trim()}|${model.org.toLowerCase().trim()}|${model.date}`;
 }
 
 /**
@@ -26,53 +26,56 @@ export function createModelKey(model: Model): string {
  * 2. For each model: add if key unseen, skip as duplicate otherwise
  * 3. Sort final list by date ascending
  */
-export function mergeAllSources(
-  results: SourceResult[]
-): { models: Model[]; stats: MergeStats } {
-  const seen = new Set<string>()
-  const merged: Model[] = []
-  let duplicateCount = 0
+export function mergeAllSources(results: SourceResult[]): {
+  models: Model[];
+  stats: MergeStats;
+} {
+  const seen = new Set<string>();
+  const merged: Model[] = [];
+  let duplicateCount = 0;
 
-  const sorted = [...results].sort((a, b) => b.source.priority - a.source.priority)
+  const sorted = [...results].sort(
+    (a, b) => b.source.priority - a.source.priority
+  );
 
   for (const { models } of sorted) {
     for (const model of models) {
-      const key = createModelKey(model)
+      const key = createModelKey(model);
       if (seen.has(key)) {
-        duplicateCount++
-        continue
+        duplicateCount++;
+        continue;
       }
-      seen.add(key)
-      merged.push(model)
+      seen.add(key);
+      merged.push(model);
     }
   }
 
-  merged.sort((a, b) => a.date.localeCompare(b.date))
+  merged.sort((a, b) => a.date.localeCompare(b.date));
 
-  const sources: Record<string, number> = {}
+  const sources: Record<string, number> = {};
   for (const { source, models } of results) {
-    sources[source.name] = models.length
+    sources[source.name] = models.length;
   }
 
   const stats: MergeStats = {
     sources,
     duplicates: duplicateCount,
     total: merged.length,
-  }
+  };
 
-  return { models: merged, stats }
+  return { models: merged, stats };
 }
 
 /**
  * Format merge statistics for display
  */
 export function formatMergeStats(stats: MergeStats): string {
-  const lines: string[] = []
-  lines.push(`Merge Statistics:`)
+  const lines: string[] = [];
+  lines.push(`Merge Statistics:`);
   for (const [name, count] of Object.entries(stats.sources)) {
-    lines.push(`  ${name}: ${count}`)
+    lines.push(`  ${name}: ${count}`);
   }
-  lines.push(`  Duplicates removed: ${stats.duplicates}`)
-  lines.push(`  Total unique models: ${stats.total}`)
-  return lines.join('\n')
+  lines.push(`  Duplicates removed: ${stats.duplicates}`);
+  lines.push(`  Total unique models: ${stats.total}`);
+  return lines.join("\n");
 }

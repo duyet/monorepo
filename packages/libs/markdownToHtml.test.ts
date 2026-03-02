@@ -80,7 +80,7 @@ describe("markdownToHtml", () => {
   });
 
   test("strips javascript: href", async () => {
-    const result = await markdownToHtml('[evil](javascript:alert(1))');
+    const result = await markdownToHtml("[evil](javascript:alert(1))");
     expect(result).not.toContain("javascript:");
   });
 

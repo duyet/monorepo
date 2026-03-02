@@ -1,53 +1,64 @@
-import { notFound } from 'next/navigation'
-import { PageLayout } from '@/components/page-layout'
-import { TimelinePage } from '@/components/timeline-page'
+import { notFound } from "next/navigation";
+import { PageLayout } from "@/components/page-layout";
+import { TimelinePage } from "@/components/timeline-page";
 
-const LICENSES = ['open', 'closed', 'partial'] as const
-type LicenseType = typeof LICENSES[number]
+const LICENSES = ["open", "closed", "partial"] as const;
+type LicenseType = (typeof LICENSES)[number];
 
 const LICENSE_LABELS: Record<LicenseType, string> = {
-  open: 'Open License',
-  closed: 'Closed License',
-  partial: 'Partial License',
-}
+  open: "Open License",
+  closed: "Closed License",
+  partial: "Partial License",
+};
 
 const LICENSE_DESCRIPTIONS: Record<LicenseType, string> = {
-  open: 'Models with openly available weights and code',
-  closed: 'Proprietary models with API-only access',
-  partial: 'Models with some restricted access or partial weights',
-}
+  open: "Models with openly available weights and code",
+  closed: "Proprietary models with API-only access",
+  partial: "Models with some restricted access or partial weights",
+};
 
 export async function generateStaticParams() {
-  return LICENSES.map((type) => ({ type }))
+  return LICENSES.map((type) => ({ type }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ type: string }> }) {
-  const { type } = await params
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ type: string }>;
+}) {
+  const { type } = await params;
 
   if (!LICENSES.includes(type as LicenseType)) {
-    return {}
+    return {};
   }
 
-  const label = LICENSE_LABELS[type as LicenseType]
+  const label = LICENSE_LABELS[type as LicenseType];
   return {
     title: `${label} Models | LLM Timeline`,
     description: LICENSE_DESCRIPTIONS[type as LicenseType],
     alternates: {
       canonical: `https://llm-timeline.duyet.net/license/${type}`,
     },
-  }
+  };
 }
 
-export default async function LicensePage({ params }: { params: Promise<{ type: string }> }) {
-  const { type } = await params
+export default async function LicensePage({
+  params,
+}: {
+  params: Promise<{ type: string }>;
+}) {
+  const { type } = await params;
 
   if (!LICENSES.includes(type as LicenseType)) {
-    notFound()
+    notFound();
   }
 
   return (
-    <PageLayout title={`${LICENSE_LABELS[type as LicenseType]} Models`} description={LICENSE_DESCRIPTIONS[type as LicenseType]}>
+    <PageLayout
+      title={`${LICENSE_LABELS[type as LicenseType]} Models`}
+      description={LICENSE_DESCRIPTIONS[type as LicenseType]}
+    >
       <TimelinePage view="models" license={type as LicenseType} />
     </PageLayout>
-  )
+  );
 }

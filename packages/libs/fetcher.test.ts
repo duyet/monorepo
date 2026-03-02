@@ -11,9 +11,7 @@ describe("fetcher", () => {
   test("returns parsed JSON on success", async () => {
     const data = { id: 1, name: "Alice" };
     globalThis.fetch = mock(() =>
-      Promise.resolve(
-        new Response(JSON.stringify(data), { status: 200 })
-      )
+      Promise.resolve(new Response(JSON.stringify(data), { status: 200 }))
     ) as typeof fetch;
 
     const result = await fetcher("https://example.com/api");
@@ -66,7 +64,9 @@ describe("fetcher", () => {
       json: () => Promise.reject(new Error("JSON parse error")),
       text: () => Promise.resolve("Internal Server Error"),
     };
-    globalThis.fetch = mock(() => Promise.resolve(mockResponse as Response)) as typeof fetch;
+    globalThis.fetch = mock(() =>
+      Promise.resolve(mockResponse as Response)
+    ) as typeof fetch;
 
     const err = await fetcher("https://example.com/crash").catch((e) => e);
     expect(err).toBeInstanceOf(NetworkError);
@@ -81,11 +81,15 @@ describe("fetcher", () => {
       json: () => Promise.reject(new Error("JSON parse error")),
       text: () => Promise.reject(new Error("Text read error")),
     };
-    globalThis.fetch = mock(() => Promise.resolve(mockResponse as Response)) as typeof fetch;
+    globalThis.fetch = mock(() =>
+      Promise.resolve(mockResponse as Response)
+    ) as typeof fetch;
 
     const err = await fetcher("https://example.com/broken").catch((e) => e);
     expect(err).toBeInstanceOf(NetworkError);
-    expect(err.context?.info).toEqual({ message: "Unable to parse error response" });
+    expect(err.context?.info).toEqual({
+      message: "Unable to parse error response",
+    });
   });
 
   test("passes options to fetch", async () => {
@@ -93,7 +97,9 @@ describe("fetcher", () => {
     let capturedOptions: RequestInit | undefined;
     globalThis.fetch = mock((_url: string, options?: RequestInit) => {
       capturedOptions = options;
-      return Promise.resolve(new Response(JSON.stringify(data), { status: 200 }));
+      return Promise.resolve(
+        new Response(JSON.stringify(data), { status: 200 })
+      );
     }) as typeof fetch;
 
     await fetcher("https://example.com/post", { method: "POST" });
@@ -103,7 +109,10 @@ describe("fetcher", () => {
   test("error message includes status code and URL", async () => {
     globalThis.fetch = mock(() =>
       Promise.resolve(
-        new Response(JSON.stringify({}), { status: 401, statusText: "Unauthorized" })
+        new Response(JSON.stringify({}), {
+          status: 401,
+          statusText: "Unauthorized",
+        })
       )
     ) as typeof fetch;
 

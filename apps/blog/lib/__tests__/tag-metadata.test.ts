@@ -106,9 +106,7 @@ describe("getTagMetadata", () => {
       const tools = ["git", "testing", "monitoring", "performance"];
       for (const tool of tools) {
         const meta = getTagMetadata(tool, 0, 0);
-        expect(meta.description.toLowerCase()).toMatch(
-          /techniques|workflows/
-        );
+        expect(meta.description.toLowerCase()).toMatch(/techniques|workflows/);
       }
     });
 
@@ -170,5 +168,4 @@ describe("getTagColorClass", () => {
     expect(getTagColorClass("terracotta", "default")).toBe("bg-terracotta");
     expect(getTagColorClass("coral", "default")).toBe("bg-coral");
   });
-
 });

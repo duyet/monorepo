@@ -20,7 +20,10 @@ describe("LibError", () => {
   });
 
   test("creates with code and context", () => {
-    const err = new LibError("oops", { code: "ERR_001", context: { key: "value" } });
+    const err = new LibError("oops", {
+      code: "ERR_001",
+      context: { key: "value" },
+    });
     expect(err.code).toBe("ERR_001");
     expect(err.context).toEqual({ key: "value" });
   });

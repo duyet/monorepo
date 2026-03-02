@@ -35,6 +35,7 @@ import { ToolsPanel } from "./tools-panel";
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const lastInputRef = useRef<string>("");
   const getAuthToken = useClerkAuthToken();
 
   // Layout state
@@ -83,7 +84,13 @@ export function VercelChat() {
     addToolApprovalResponse,
   } = useChat({
     id: chatKey ?? undefined,
-    onError: (err) => console.error("Chat error:", err),
+    onError: (err) => {
+      console.error("Chat error:", err);
+      if (lastInputRef.current) {
+        setInput(lastInputRef.current);
+        lastInputRef.current = "";
+      }
+    },
     messages: activeMessages,
     onMessagesChange: saveMessages,
     getAuthToken,
@@ -194,6 +201,7 @@ export function VercelChat() {
       await createNew(mode);
     }
 
+    lastInputRef.current = input;
     handleSubmit(e);
   };
 
@@ -352,7 +360,7 @@ export function VercelChat() {
           <div className="mx-auto max-w-3xl">
             <form
               onSubmit={handleFormSubmit}
-              className="relative flex flex-col w-full rounded-2xl border border-input bg-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring transition-all pointer-events-auto"
+              className="relative flex flex-col w-full rounded-2xl border border-input bg-background focus-within:outline-none transition-all pointer-events-auto"
             >
               <Textarea
                 ref={textareaRef}

@@ -33,7 +33,9 @@ describe("cn", () => {
   });
 
   test("deduplicates same Tailwind modifiers", () => {
-    expect(cn("hover:bg-red-500", "hover:bg-blue-500")).toBe("hover:bg-blue-500");
+    expect(cn("hover:bg-red-500", "hover:bg-blue-500")).toBe(
+      "hover:bg-blue-500"
+    );
   });
 
   test("handles mixed input types", () => {

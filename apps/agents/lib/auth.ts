@@ -29,7 +29,9 @@ export function getClientIp(request: Request): string {
 export async function hashIp(ip: string, pepper?: string): Promise<string> {
   const secret =
     pepper ||
-    (typeof process !== "undefined" ? process.env.RATE_LIMIT_PEPPER : undefined);
+    (typeof process !== "undefined"
+      ? process.env.RATE_LIMIT_PEPPER
+      : undefined);
   if (!secret) {
     console.warn(
       "[auth] RATE_LIMIT_PEPPER not configured — using insecure default. Set RATE_LIMIT_PEPPER in wrangler.toml or dashboard."

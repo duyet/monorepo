@@ -31,7 +31,7 @@ export function ConversationItem({
       e.stopPropagation();
       onDelete(conversation.threadId);
     },
-    [conversation.threadId, onDelete],
+    [conversation.threadId, onDelete]
   );
 
   return (

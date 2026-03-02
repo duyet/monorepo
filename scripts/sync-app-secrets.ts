@@ -122,9 +122,7 @@ export const appConfig: Record<
     ],
   },
   "duyet-home": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -138,9 +136,7 @@ export const appConfig: Record<
     ],
   },
   "duyet-cv": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -152,9 +148,7 @@ export const appConfig: Record<
     ],
   },
   "duyet-homelab": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -166,9 +160,7 @@ export const appConfig: Record<
     ],
   },
   "duyet-llm-timeline": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -196,9 +188,7 @@ export const appConfig: Record<
     ],
   },
   "duyet-ai": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -210,9 +200,7 @@ export const appConfig: Record<
     ],
   },
   "duyet-ai-percentage": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -470,9 +458,7 @@ async function main() {
   const appDir = join(rootDir, "apps", dirName);
   const wranglerTomlPath = join(appDir, "wrangler.toml");
   if (!existsSync(wranglerTomlPath)) {
-    console.error(
-      `  [ERROR] wrangler.toml not found at ${wranglerTomlPath}`
-    );
+    console.error(`  [ERROR] wrangler.toml not found at ${wranglerTomlPath}`);
     process.exit(1);
   }
   const wranglerToml = readFileSync(wranglerTomlPath, "utf-8");

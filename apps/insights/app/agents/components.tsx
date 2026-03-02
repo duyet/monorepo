@@ -1,4 +1,5 @@
-const formatNumber = (num: number) => new Intl.NumberFormat("en-US").format(num);
+const formatNumber = (num: number) =>
+  new Intl.NumberFormat("en-US").format(num);
 
 import { Bot, Cpu, MessageSquare } from "lucide-react";
 import {

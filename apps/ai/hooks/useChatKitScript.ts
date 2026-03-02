@@ -86,7 +86,7 @@ export function useChatKitScript(config: ScriptConfig): UseChatKitScriptResult {
   const { onErrorUpdate, loadTimeout = DEFAULT_TIMEOUT } = config;
 
   const [status, setStatus] = useState<ScriptStatus>(() =>
-    isChatKitAvailable() ? "ready" : "pending",
+    isChatKitAvailable() ? "ready" : "pending"
   );
 
   const isMountedRef = useRef(true);
@@ -142,7 +142,7 @@ export function useChatKitScript(config: ScriptConfig): UseChatKitScriptResult {
     window.addEventListener("chatkit-script-loaded", handleLoaded);
     window.addEventListener(
       "chatkit-script-error",
-      handleError as EventListener,
+      handleError as EventListener
     );
 
     // Check if already loaded
@@ -156,7 +156,7 @@ export function useChatKitScript(config: ScriptConfig): UseChatKitScriptResult {
             new CustomEvent("chatkit-script-error", {
               detail:
                 "ChatKit web component is unavailable. Verify that the script URL is reachable.",
-            }),
+            })
           );
         }
       }, loadTimeout);
@@ -167,7 +167,7 @@ export function useChatKitScript(config: ScriptConfig): UseChatKitScriptResult {
       window.removeEventListener("chatkit-script-loaded", handleLoaded);
       window.removeEventListener(
         "chatkit-script-error",
-        handleError as EventListener,
+        handleError as EventListener
       );
       if (timeoutId) {
         window.clearTimeout(timeoutId);

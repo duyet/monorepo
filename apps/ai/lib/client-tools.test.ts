@@ -231,7 +231,7 @@ describe("client-tools", () => {
       // Handler is called with params and context, not full invocation
       expect(customHandler).toHaveBeenCalledWith(
         invocation.params,
-        mockContext,
+        mockContext
       );
     });
 

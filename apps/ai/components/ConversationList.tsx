@@ -26,7 +26,7 @@ export function ConversationList({
 }: ConversationListProps) {
   // Sort conversations by last activity (most recent first)
   const sortedConversations = [...conversations].sort(
-    (a, b) => b.lastActivityAt - a.lastActivityAt,
+    (a, b) => b.lastActivityAt - a.lastActivityAt
   );
 
   return (

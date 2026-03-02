@@ -16,7 +16,10 @@ export class LibError extends Error {
   readonly code?: string;
   readonly context?: Record<string, unknown>;
 
-  constructor(message: string, options?: { code?: string; context?: Record<string, unknown> }) {
+  constructor(
+    message: string,
+    options?: { code?: string; context?: Record<string, unknown> }
+  ) {
     super(message);
     this.name = "LibError";
     this.code = options?.code;

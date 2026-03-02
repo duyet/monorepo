@@ -135,7 +135,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
       ({ path, target, desc }) =>
         path.toLowerCase().includes(query) ||
         target.toLowerCase().includes(query) ||
-        desc?.toLowerCase().includes(query),
+        desc?.toLowerCase().includes(query)
     );
   }, [searchQuery, urls]);
 
@@ -216,7 +216,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                   "rounded-md p-1.5 transition-colors",
                   view === "list"
                     ? "bg-white text-neutral-900 shadow-sm"
-                    : "text-neutral-400 hover:text-neutral-600",
+                    : "text-neutral-400 hover:text-neutral-600"
                 )}
               >
                 <ListIcon className="h-4 w-4" />
@@ -229,7 +229,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                   "rounded-md p-1.5 transition-colors",
                   view === "grid"
                     ? "bg-white text-neutral-900 shadow-sm"
-                    : "text-neutral-400 hover:text-neutral-600",
+                    : "text-neutral-400 hover:text-neutral-600"
                 )}
               >
                 <GridIcon className="h-4 w-4" />
@@ -365,7 +365,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       rel={isExternal ? "noopener noreferrer" : undefined}
                       className={cn(
                         "group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-neutral-50",
-                        i !== 0 && "border-t border-neutral-100",
+                        i !== 0 && "border-t border-neutral-100"
                       )}
                     >
                       <code className="w-28 flex-shrink-0 font-mono text-sm font-semibold text-neutral-900 sm:w-36">

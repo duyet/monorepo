@@ -122,7 +122,7 @@ export function ChatKitPanel({
 
   // Workflow configuration check
   const isWorkflowConfigured = Boolean(
-    WORKFLOW_ID && !WORKFLOW_ID.startsWith("wf_replace"),
+    WORKFLOW_ID && !WORKFLOW_ID.startsWith("wf_replace")
   );
 
   // Custom hook for managing ChatKit script loading
@@ -161,7 +161,7 @@ export function ChatKitPanel({
       processedFacts: processedFacts.current,
       isDev,
     }),
-    [onThemeRequest, onWidgetAction],
+    [onThemeRequest, onWidgetAction]
   );
 
   /**
@@ -172,7 +172,7 @@ export function ChatKitPanel({
     async (invocation: ClientToolInvocation) => {
       return executeClientTool(invocation, toolContext);
     },
-    [toolContext],
+    [toolContext]
   );
 
   /**
@@ -209,7 +209,7 @@ export function ChatKitPanel({
         console.debug("[ChatKitPanel] Thread changed:", threadId);
       }
     },
-    [setActiveThreadId, upsertConversation],
+    [setActiveThreadId, upsertConversation]
   );
 
   /**
@@ -276,14 +276,14 @@ export function ChatKitPanel({
         if (isDev) {
           console.debug(
             "[ChatKitPanel] Switched to conversation:",
-            threadId || "new chat",
+            threadId || "new chat"
           );
         }
       } catch (error) {
         console.error("[ChatKitPanel] Failed to switch conversation:", error);
       }
     },
-    [chatkit],
+    [chatkit]
   );
 
   /**
@@ -298,7 +298,7 @@ export function ChatKitPanel({
         handleSelectConversation(null);
       }
     },
-    [deleteConversation, activeThreadId, handleSelectConversation],
+    [deleteConversation, activeThreadId, handleSelectConversation]
   );
 
   // Determine which error to show (script errors block everything)

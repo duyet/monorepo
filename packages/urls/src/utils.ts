@@ -5,12 +5,7 @@
  */
 
 import type { Profile } from "@duyet/profile";
-import type {
-  AppUrls,
-  Navigation,
-  NavLink,
-  UrlsConfig,
-} from "./types";
+import type { AppUrls, Navigation, NavLink, UrlsConfig } from "./types";
 import { deepMerge, type DeepPartial } from "@duyet/libs";
 
 /**

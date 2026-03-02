@@ -1,7 +1,7 @@
 import { describe, test, expect } from "bun:test";
 
 const layoutSource = await Bun.file(
-  new URL("../app/layout.tsx", import.meta.url).pathname,
+  new URL("../app/layout.tsx", import.meta.url).pathname
 ).text();
 
 describe("CV App Configuration", () => {

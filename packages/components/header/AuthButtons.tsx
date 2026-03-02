@@ -88,10 +88,18 @@ export function AuthButtons({
     );
   }
 
-  const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } = clerkModule;
+  const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } =
+    clerkModule;
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  if (!publishableKey || !ClerkProvider || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
+  if (
+    !publishableKey ||
+    !ClerkProvider ||
+    !SignedOut ||
+    !SignedIn ||
+    !SignInButton ||
+    !UserButton
+  ) {
     return (
       <button
         type="button"
@@ -104,20 +112,13 @@ export function AuthButtons({
   }
 
   // Use current page URL for redirect, fallback to blog
-  const redirectUrl = currentUrl || urls?.apps?.blog || "https://blog.duyet.net";
+  const redirectUrl =
+    currentUrl || urls?.apps?.blog || "https://blog.duyet.net";
 
   return (
     <ClerkProvider publishableKey={publishableKey}>
-      {signedOutContent && (
-        <SignedOut>
-          {signedOutContent}
-        </SignedOut>
-      )}
-      {signedInContent && (
-        <SignedIn>
-          {signedInContent}
-        </SignedIn>
-      )}
+      {signedOutContent && <SignedOut>{signedOutContent}</SignedOut>}
+      {signedInContent && <SignedIn>{signedInContent}</SignedIn>}
       <SignedOut>
         <SignInButton mode="modal" redirectUrl={redirectUrl}>
           <button

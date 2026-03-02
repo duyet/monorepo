@@ -44,7 +44,9 @@ function parseMarkdownFrontmatter(fileContent: string): {
   const metadata = yaml.parse(yamlBlock) as SkillMetadata;
 
   if (!metadata.name || !metadata.description) {
-    throw new Error("SKILL.md frontmatter must contain 'name' and 'description'");
+    throw new Error(
+      "SKILL.md frontmatter must contain 'name' and 'description'"
+    );
   }
 
   return { metadata, content: contentBlock.trim() };
@@ -54,7 +56,9 @@ function run() {
   console.log("[build-skills] Starting skill compilation...");
 
   if (!existsSync(SKILLS_DIR)) {
-    console.warn(`[build-skills] Warning: Skills directory not found at ${SKILLS_DIR}`);
+    console.warn(
+      `[build-skills] Warning: Skills directory not found at ${SKILLS_DIR}`
+    );
     writeFileSync(
       OUTPUT_FILE,
       `// Auto-generated file. Do not edit.\nexport const AGENT_SKILLS = [];\n`
@@ -74,9 +78,11 @@ function run() {
         try {
           const rawContent = readFileSync(skillPath, "utf-8");
           const { metadata, content } = parseMarkdownFrontmatter(rawContent);
-          
+
           if (metadata.name !== entry.name) {
-             console.warn(`[build-skills] Warning: Skill name '${metadata.name}' inside SKILL.md does not match directory name '${entry.name}'. AgentSkills spec recommends they match.`);
+            console.warn(
+              `[build-skills] Warning: Skill name '${metadata.name}' inside SKILL.md does not match directory name '${entry.name}'. AgentSkills spec recommends they match.`
+            );
           }
 
           skills.push({ metadata, content });
@@ -93,7 +99,9 @@ export const AGENT_SKILLS = ${JSON.stringify(skills, null, 2)};
 `;
 
   writeFileSync(OUTPUT_FILE, fileOutput, "utf-8");
-  console.log(`[build-skills] ✅ Successfully compiled ${skills.length} skill(s) into ${OUTPUT_FILE}`);
+  console.log(
+    `[build-skills] ✅ Successfully compiled ${skills.length} skill(s) into ${OUTPUT_FILE}`
+  );
 }
 
 run();

@@ -71,7 +71,7 @@ const isDev =
  * ```
  */
 export function useChatKitSession(
-  config: SessionConfig,
+  config: SessionConfig
 ): UseChatKitSessionResult {
   const { workflowId, endpoint, onErrorUpdate, isWorkflowConfigured } = config;
 
@@ -165,7 +165,7 @@ export function useChatKitSession(
           } catch (parseError) {
             console.error(
               "[useChatKitSession] Failed to parse response",
-              parseError,
+              parseError
             );
           }
         }
@@ -197,7 +197,7 @@ export function useChatKitSession(
 
         const detail = getErrorMessage(
           error,
-          "Unable to start ChatKit session.",
+          "Unable to start ChatKit session."
         );
 
         if (isMountedRef.current) {
@@ -212,7 +212,7 @@ export function useChatKitSession(
         }
       }
     },
-    [workflowId, endpoint, isWorkflowConfigured, onErrorUpdate],
+    [workflowId, endpoint, isWorkflowConfigured, onErrorUpdate]
   );
 
   return {

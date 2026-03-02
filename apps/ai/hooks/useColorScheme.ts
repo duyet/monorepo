@@ -218,7 +218,7 @@ function useSystemColorScheme(): ColorScheme {
   return useSyncExternalStore(
     subscribeSystem,
     getSystemSnapshot,
-    getServerSnapshot,
+    getServerSnapshot
   );
 }
 
@@ -256,7 +256,7 @@ function useSystemColorScheme(): ColorScheme {
  * ```
  */
 export function useColorScheme(
-  initialPreference: ColorSchemePreference = "system",
+  initialPreference: ColorSchemePreference = "system"
 ): UseColorSchemeResult {
   // Subscribe to system color scheme changes
   const systemScheme = useSystemColorScheme();
@@ -268,13 +268,13 @@ export function useColorScheme(
         return initialPreference;
       }
       return readStoredPreference() ?? initialPreference;
-    },
+    }
   );
 
   // Resolve actual scheme from preference and system
   const scheme = useMemo<ColorScheme>(
     () => (preference === "system" ? systemScheme : preference),
-    [preference, systemScheme],
+    [preference, systemScheme]
   );
 
   // Persist preference changes to localStorage

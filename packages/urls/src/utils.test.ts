@@ -201,7 +201,14 @@ describe("getAppUrls", () => {
 
 describe("getAppUrl", () => {
   test("returns correct URL for each app key", () => {
-    const apps = ["blog", "cv", "insights", "home", "photos", "homelab"] as const;
+    const apps = [
+      "blog",
+      "cv",
+      "insights",
+      "home",
+      "photos",
+      "homelab",
+    ] as const;
     for (const app of apps) {
       expect(getAppUrl(baseUrls, app)).toBe(baseUrls.apps[app]);
     }

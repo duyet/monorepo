@@ -51,10 +51,7 @@ export function HeaderBranding({
           <>
             <span className="block sm:hidden">{shortText}</span>
             <span
-              className={cn(
-                "hidden sm:block",
-                center && "md:text-7xl md:mt-5"
-              )}
+              className={cn("hidden sm:block", center && "md:text-7xl md:mt-5")}
             >
               {longText}
             </span>

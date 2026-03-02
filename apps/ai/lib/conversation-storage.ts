@@ -82,7 +82,7 @@ export function loadConversations(): StorageResult<Conversation[]> {
  * @param conversations - Array of conversations to save
  */
 export function saveConversations(
-  conversations: Conversation[],
+  conversations: Conversation[]
 ): StorageResult<void> {
   if (!isStorageAvailable()) {
     return {
@@ -121,7 +121,7 @@ export function clearConversations(): StorageResult<void> {
   } catch (error) {
     console.error(
       "[ConversationStorage] Failed to clear conversations:",
-      error,
+      error
     );
     return {
       success: false,

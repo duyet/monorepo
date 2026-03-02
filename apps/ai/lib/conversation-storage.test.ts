@@ -40,7 +40,7 @@ describe("conversation-storage", () => {
 
       localStorage.setItem(
         "chatkit_conversation_history",
-        JSON.stringify(mockConversations),
+        JSON.stringify(mockConversations)
       );
 
       const result = loadConversations();
@@ -65,7 +65,7 @@ describe("conversation-storage", () => {
 
       localStorage.setItem(
         "chatkit_conversation_history",
-        JSON.stringify(invalidData),
+        JSON.stringify(invalidData)
       );
 
       const result = loadConversations();
@@ -91,7 +91,7 @@ describe("conversation-storage", () => {
     it("should handle non-array data", () => {
       localStorage.setItem(
         "chatkit_conversation_history",
-        JSON.stringify({ not: "an array" }),
+        JSON.stringify({ not: "an array" })
       );
 
       const result = loadConversations();

@@ -5,7 +5,7 @@
  * Contains metadata, URLs, fonts, and other app-level settings.
  */
 
-import { agentsConfig } from "./agents.config"
+import { agentsConfig } from "./agents.config";
 
 export interface AppMetadata {
   title: string;
@@ -73,7 +73,8 @@ export const appUrls: AppUrls = {
   agents:
     process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
   llmTimeline:
-    process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL || "https://llm-timeline.duyet.net",
+    process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
+    "https://llm-timeline.duyet.net",
 };
 
 // Blog app configuration
@@ -238,7 +239,8 @@ export const homelabConfig = {
 export const llmTimelineConfig = {
   metadata: {
     title: "LLM Timeline | duyet.net",
-    description: "Interactive timeline of Large Language Model releases from 2017 to present",
+    description:
+      "Interactive timeline of Large Language Model releases from 2017 to present",
     lang: "en",
   } as AppMetadata,
   fonts: {

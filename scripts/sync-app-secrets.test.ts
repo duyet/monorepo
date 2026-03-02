@@ -1,9 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import {
-  appConfig,
-  getVarsForApp,
-  parseEnvContent,
-} from "./sync-app-secrets";
+import { appConfig, getVarsForApp, parseEnvContent } from "./sync-app-secrets";
 
 describe("parseEnvContent", () => {
   test("parses basic key=value pairs", () => {
@@ -37,7 +33,9 @@ describe("parseEnvContent", () => {
   });
 
   test("handles values containing equals signs", () => {
-    const result = parseEnvContent("DATABASE_URL=postgres://user:pass@host/db?ssl=true");
+    const result = parseEnvContent(
+      "DATABASE_URL=postgres://user:pass@host/db?ssl=true"
+    );
     expect(result).toEqual({
       DATABASE_URL: "postgres://user:pass@host/db?ssl=true",
     });

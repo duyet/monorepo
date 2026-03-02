@@ -1,21 +1,25 @@
-import { notFound } from 'next/navigation'
-import { PageLayout } from '@/components/page-layout'
-import { TimelinePage } from '@/components/timeline-page'
-import { organizations } from '@/lib/data'
-import { slugify } from '@/lib/utils'
+import { notFound } from "next/navigation";
+import { PageLayout } from "@/components/page-layout";
+import { TimelinePage } from "@/components/timeline-page";
+import { organizations } from "@/lib/data";
+import { slugify } from "@/lib/utils";
 
 export async function generateStaticParams() {
-  return organizations.map((o) => ({ slug: slugify(o) }))
+  return organizations.map((o) => ({ slug: slugify(o) }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
   // Find the org name by matching slug
-  const org = organizations.find((o) => slugify(o) === slug)
+  const org = organizations.find((o) => slugify(o) === slug);
 
   if (!org) {
-    return {}
+    return {};
   }
 
   return {
@@ -24,21 +28,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     alternates: {
       canonical: `https://llm-timeline.duyet.net/org/${slug}`,
     },
-  }
+  };
 }
 
-export default async function OrgPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export default async function OrgPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
   // Validate the slug exists
-  const org = organizations.find((o) => slugify(o) === slug)
+  const org = organizations.find((o) => slugify(o) === slug);
   if (!org) {
-    notFound()
+    notFound();
   }
 
   return (
-    <PageLayout title={`${org} LLM Models`} description={`Timeline of Large Language Model releases from ${org}`}>
+    <PageLayout
+      title={`${org} LLM Models`}
+      description={`Timeline of Large Language Model releases from ${org}`}
+    >
       <TimelinePage view="models" license="all" orgSlug={slug} />
     </PageLayout>
-  )
+  );
 }

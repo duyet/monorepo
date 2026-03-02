@@ -1,18 +1,22 @@
-import { notFound } from 'next/navigation'
-import { PageLayout } from '@/components/page-layout'
-import { TimelinePage } from '@/components/timeline-page'
-import { years } from '@/lib/data'
+import { notFound } from "next/navigation";
+import { PageLayout } from "@/components/page-layout";
+import { TimelinePage } from "@/components/timeline-page";
+import { years } from "@/lib/data";
 
 export async function generateStaticParams() {
-  return years.map((year) => ({ year: year.toString() }))
+  return years.map((year) => ({ year: year.toString() }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ year: string }> }) {
-  const { year } = await params
-  const yearNum = parseInt(year, 10)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ year: string }>;
+}) {
+  const { year } = await params;
+  const yearNum = parseInt(year, 10);
 
   if (isNaN(yearNum) || !years.includes(yearNum)) {
-    return {}
+    return {};
   }
 
   return {
@@ -21,20 +25,27 @@ export async function generateMetadata({ params }: { params: Promise<{ year: str
     alternates: {
       canonical: `https://llm-timeline.duyet.net/year/${year}`,
     },
-  }
+  };
 }
 
-export default async function YearPage({ params }: { params: Promise<{ year: string }> }) {
-  const { year } = await params
-  const yearNum = parseInt(year, 10)
+export default async function YearPage({
+  params,
+}: {
+  params: Promise<{ year: string }>;
+}) {
+  const { year } = await params;
+  const yearNum = parseInt(year, 10);
 
   if (isNaN(yearNum) || !years.includes(yearNum)) {
-    notFound()
+    notFound();
   }
 
   return (
-    <PageLayout title={`LLM Models Released in ${year}`} description={`Timeline of Large Language Model releases from ${year}`}>
+    <PageLayout
+      title={`LLM Models Released in ${year}`}
+      description={`Timeline of Large Language Model releases from ${year}`}
+    >
       <TimelinePage view="models" license="all" year={yearNum} />
     </PageLayout>
-  )
+  );
 }

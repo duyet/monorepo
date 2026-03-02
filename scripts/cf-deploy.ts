@@ -268,10 +268,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     return appsToDeployList;
   }
 
-  const changedFiles = gitResult.stdout
-    .toString()
-    .split("\n")
-    .filter(Boolean);
+  const changedFiles = gitResult.stdout.toString().split("\n").filter(Boolean);
 
   // Extract app names from changed files
   const changedAppsSet = new Set<string>();
@@ -305,19 +302,26 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
   // Determine if we need to build all apps
   const buildAllApps =
     sharedPackageChanges.length > 0 ||
-    configChanges.some((file) => file === "turbo.json" || file === "package.json" || file === "bun.lockb");
+    configChanges.some(
+      (file) =>
+        file === "turbo.json" || file === "package.json" || file === "bun.lockb"
+    );
 
   if (buildAllApps) {
     const reasons = [];
     if (sharedPackageChanges.length > 0) {
-      reasons.push(`shared packages changed (${sharedPackageChanges.length} files)`);
+      reasons.push(
+        `shared packages changed (${sharedPackageChanges.length} files)`
+      );
     }
-    if (configChanges.some(f => ["turbo.json", "package.json", "bun.lockb"].includes(f))) {
+    if (
+      configChanges.some((f) =>
+        ["turbo.json", "package.json", "bun.lockb"].includes(f)
+      )
+    ) {
       reasons.push("core config changed");
     }
-    console.log(
-      `[INFO] Building all apps: ${reasons.join(", ")}`
-    );
+    console.log(`[INFO] Building all apps: ${reasons.join(", ")}`);
     return appsToDeployList;
   }
 
@@ -332,18 +336,24 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
 
   // Log config changes that don't require full rebuild
   if (configChanges.length > 0) {
-    console.log(`[INFO] Config changes (deployment only): ${configChanges.join(", ")}`);
+    console.log(
+      `[INFO] Config changes (deployment only): ${configChanges.join(", ")}`
+    );
   }
 
   // If no specific app changes detected but we have a target, build it
   if (result.length === 0 && targetApp) {
-    console.log(`[INFO] No changes detected, but building requested app: ${targetApp}`);
+    console.log(
+      `[INFO] No changes detected, but building requested app: ${targetApp}`
+    );
     return [targetApp];
   }
 
   // If deploying all and no changes, build all for safety
   if (result.length === 0 && !targetApp) {
-    console.log("[INFO] No app changes detected. Building all apps for safety.");
+    console.log(
+      "[INFO] No app changes detected. Building all apps for safety."
+    );
     return appsToDeployList;
   }
 
@@ -560,7 +570,8 @@ async function deployPhase(): Promise<boolean> {
   console.log("╚════════════════════════════════════════════════╝\n");
 
   // Only deploy apps that were successfully built
-  const appsToDeployNow = appsToDeploy.length > 0 ? appsToDeploy : appsToDeployList;
+  const appsToDeployNow =
+    appsToDeploy.length > 0 ? appsToDeploy : appsToDeployList;
 
   console.log(`[INFO] Deploying ${appsToDeployNow.length} app(s)...\n`);
 
@@ -603,7 +614,8 @@ function printSummary(success: boolean) {
   console.log("[APPS DEPLOYED]");
 
   // Show which apps were actually deployed
-  const actuallyDeployed = appsToDeploy.length > 0 ? appsToDeploy : appsToDeployList;
+  const actuallyDeployed =
+    appsToDeploy.length > 0 ? appsToDeploy : appsToDeployList;
 
   for (const app of actuallyDeployed) {
     const config = APPS_CONFIG[app];
@@ -618,8 +630,13 @@ function printSummary(success: boolean) {
   }
 
   // Show apps that were skipped if any
-  if (appsToDeploy.length > 0 && appsToDeploy.length < appsToDeployList.length) {
-    const skippedApps = appsToDeployList.filter(app => !appsToDeploy.includes(app));
+  if (
+    appsToDeploy.length > 0 &&
+    appsToDeploy.length < appsToDeployList.length
+  ) {
+    const skippedApps = appsToDeployList.filter(
+      (app) => !appsToDeploy.includes(app)
+    );
     if (skippedApps.length > 0) {
       console.log("\n[APPS SKIPPED - No Changes]");
       for (const app of skippedApps) {

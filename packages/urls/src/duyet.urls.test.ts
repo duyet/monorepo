@@ -30,9 +30,7 @@ describe("duyetUrls", () => {
   });
 
   test("external rust URL is set", () => {
-    expect(duyetUrls.external.rust).toBe(
-      "https://rust-tieng-viet.github.io"
-    );
+    expect(duyetUrls.external.rust).toBe("https://rust-tieng-viet.github.io");
   });
 
   test("external clickhouse URL is set", () => {
@@ -58,15 +56,25 @@ describe("duyetUrls navigation via createNavigation", () => {
   test("produces valid navigation from duyetUrls", async () => {
     const { createNavigation } = await import("./utils");
     const profile = {
-      personal: { name: "Duyet", shortName: "Duyet", email: "me@duyet.net", title: "Engineer", bio: "bio" },
+      personal: {
+        name: "Duyet",
+        shortName: "Duyet",
+        email: "me@duyet.net",
+        title: "Engineer",
+        bio: "bio",
+      },
       social: { github: "https://github.com/duyet" },
-      appearance: { theme: { primary: "#000", secondary: "#fff", accent: "#f00" } },
+      appearance: {
+        theme: { primary: "#000", secondary: "#fff", accent: "#f00" },
+      },
     };
 
     const nav = createNavigation(duyetUrls, profile);
     expect(nav.main.length).toBeGreaterThan(0);
     expect(nav.profile.length).toBeGreaterThan(0);
     expect(nav.social.length).toBeGreaterThan(0);
-    expect(nav.social.find((l) => l.name === "GitHub")?.href).toBe("https://github.com/duyet");
+    expect(nav.social.find((l) => l.name === "GitHub")?.href).toBe(
+      "https://github.com/duyet"
+    );
   });
 });

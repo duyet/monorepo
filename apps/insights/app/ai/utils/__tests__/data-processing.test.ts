@@ -75,7 +75,9 @@ describe("distributePercentages", () => {
     const input = [33.333, 33.333, 33.334];
     const result = distributePercentages(input);
     expect(result.reduce((a, b) => a + b, 0)).toBe(100);
-    result.forEach((v) => { expect([33, 34]).toContain(v); });
+    result.forEach((v) => {
+      expect([33, 34]).toContain(v);
+    });
   });
 
   test("handles single item at 100%", () => {

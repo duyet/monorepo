@@ -85,7 +85,11 @@ export default function Header({
           />
 
           <div className="flex flex-row gap-3 sm:gap-5 flex-wrap items-center">
-            <Menu urls={urls} navigationItems={navigationItems} className="gap-3 sm:gap-5" />
+            <Menu
+              urls={urls}
+              navigationItems={navigationItems}
+              className="gap-3 sm:gap-5"
+            />
 
             <AuthButtons urls={urls} />
           </div>

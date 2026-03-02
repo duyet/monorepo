@@ -332,7 +332,13 @@ const colorSchemes = [
   },
 ];
 
-const icons = [BlocksIcon, CodeBoardIcon, GlobeCodeIcon, NetworkIcon, ChartIcon];
+const icons = [
+  BlocksIcon,
+  CodeBoardIcon,
+  GlobeCodeIcon,
+  NetworkIcon,
+  ChartIcon,
+];
 
 /**
  * ClaudeCard - Anthropic-style card with title and numbered items

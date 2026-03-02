@@ -82,7 +82,7 @@ describe("useColorScheme", () => {
 
       await waitFor(() => {
         expect(window.localStorage.getItem("chatkit-color-scheme")).toBe(
-          "dark",
+          "dark"
         );
       });
     });

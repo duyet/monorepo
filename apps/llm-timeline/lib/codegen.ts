@@ -1,14 +1,14 @@
-import type { DataSourceAdapter, MergeStats, Model } from './types'
+import type { DataSourceAdapter, MergeStats, Model } from "./types";
 
 /**
  * Escape a string for embedding in a TypeScript single-quoted literal.
  */
 export function singleQuote(s: string): string {
   return s
-    .replace(/\\/g, '\\\\')
+    .replace(/\\/g, "\\\\")
     .replace(/'/g, "\\'")
-    .replace(/\n/g, '\\n')
-    .replace(/\r/g, '\\r')
+    .replace(/\n/g, "\\n")
+    .replace(/\r/g, "\\r");
 }
 
 /**
@@ -18,46 +18,54 @@ export function generateDataTs(
   models: Model[],
   sources: DataSourceAdapter[],
   syncDate: string,
-  stats: MergeStats,
+  stats: MergeStats
 ): string {
   // Build merge stats line: "771 curated + 3156 epoch - 1 duplicates = 3926 total"
   const statsLine = Object.entries(stats.sources)
     .map(([name, count]) => `${count} ${name}`)
-    .join(' + ')
-    .concat(` - ${stats.duplicates} duplicates = ${stats.total} total`)
+    .join(" + ")
+    .concat(` - ${stats.duplicates} duplicates = ${stats.total} total`);
 
   // Build data sources block for the header comment
   const sourcesBlock = sources
     .map((s) => {
-      const urlLines = s.urls.map((url) => ` *   ${url}`).join('\n')
-      return ` *   ${s.label}:\n${urlLines}`
+      const urlLines = s.urls.map((url) => ` *   ${url}`).join("\n");
+      return ` *   ${s.label}:\n${urlLines}`;
     })
-    .join('\n')
+    .join("\n");
 
   // Build each model entry
   const modelEntries = models
     .map((m) => {
-      const lines: string[] = []
-      lines.push(`    name: '${singleQuote(m.name)}'`)
-      lines.push(`    date: '${singleQuote(m.date)}'`)
-      lines.push(`    org: '${singleQuote(m.org)}'`)
-      lines.push(`    params: ${m.params === null ? 'null' : `'${singleQuote(m.params)}'`}`)
-      lines.push(`    type: '${m.type}'`)
-      lines.push(`    license: '${m.license}'`)
-      lines.push(`    desc: '${singleQuote(m.desc)}'`)
-      if (m.source !== undefined) lines.push(`    source: '${singleQuote(m.source)}'`)
-      if (m.domain !== undefined) lines.push(`    domain: '${singleQuote(m.domain)}'`)
-      if (m.link !== undefined) lines.push(`    link: '${singleQuote(m.link)}'`)
+      const lines: string[] = [];
+      lines.push(`    name: '${singleQuote(m.name)}'`);
+      lines.push(`    date: '${singleQuote(m.date)}'`);
+      lines.push(`    org: '${singleQuote(m.org)}'`);
+      lines.push(
+        `    params: ${m.params === null ? "null" : `'${singleQuote(m.params)}'`}`
+      );
+      lines.push(`    type: '${m.type}'`);
+      lines.push(`    license: '${m.license}'`);
+      lines.push(`    desc: '${singleQuote(m.desc)}'`);
+      if (m.source !== undefined)
+        lines.push(`    source: '${singleQuote(m.source)}'`);
+      if (m.domain !== undefined)
+        lines.push(`    domain: '${singleQuote(m.domain)}'`);
+      if (m.link !== undefined)
+        lines.push(`    link: '${singleQuote(m.link)}'`);
       if (m.trainingCompute !== undefined)
-        lines.push(`    trainingCompute: '${singleQuote(m.trainingCompute)}'`)
+        lines.push(`    trainingCompute: '${singleQuote(m.trainingCompute)}'`);
       if (m.trainingHardware !== undefined)
-        lines.push(`    trainingHardware: '${singleQuote(m.trainingHardware)}'`)
+        lines.push(
+          `    trainingHardware: '${singleQuote(m.trainingHardware)}'`
+        );
       if (m.trainingDataset !== undefined)
-        lines.push(`    trainingDataset: '${singleQuote(m.trainingDataset)}'`)
-      if (m.authors !== undefined) lines.push(`    authors: '${singleQuote(m.authors)}'`)
-      return `  {\n${lines.join(',\n')},\n  }`
+        lines.push(`    trainingDataset: '${singleQuote(m.trainingDataset)}'`);
+      if (m.authors !== undefined)
+        lines.push(`    authors: '${singleQuote(m.authors)}'`);
+      return `  {\n${lines.join(",\n")},\n  }`;
     })
-    .join(',\n')
+    .join(",\n");
 
   return `// @ts-nocheck — machine-generated file, types validated by Model interface
 /**
@@ -119,5 +127,5 @@ export const years: number[] = Array.from(new Set(models.map((m) => new Date(m.d
   (a, b) => b - a,
 )
 export const lastSynced = '${syncDate}'
-`
+`;
 }

@@ -29,7 +29,7 @@ export interface UseConversationHistoryReturn {
   /** Add or update a conversation */
   upsertConversation: (
     threadId: string,
-    updates: Partial<Omit<Conversation, "threadId">>,
+    updates: Partial<Omit<Conversation, "threadId">>
   ) => void;
 
   /** Delete a conversation */
@@ -64,13 +64,13 @@ export function useConversationHistory(): UseConversationHistoryReturn {
       if (isDev) {
         console.debug(
           "[useConversationHistory] Loaded conversations:",
-          result.data.length,
+          result.data.length
         );
       }
     } else {
       console.error(
         "[useConversationHistory] Failed to load conversations:",
-        result.error,
+        result.error
       );
     }
 
@@ -85,12 +85,12 @@ export function useConversationHistory(): UseConversationHistoryReturn {
     if (!result.success) {
       console.error(
         "[useConversationHistory] Failed to save conversations:",
-        result.error,
+        result.error
       );
     } else if (isDev) {
       console.debug(
         "[useConversationHistory] Saved conversations:",
-        conversations.length,
+        conversations.length
       );
     }
   }, [conversations, isReady]);
@@ -115,7 +115,7 @@ export function useConversationHistory(): UseConversationHistoryReturn {
           if (isDev) {
             console.debug(
               "[useConversationHistory] Updated conversation:",
-              threadId,
+              threadId
             );
           }
 
@@ -142,7 +142,7 @@ export function useConversationHistory(): UseConversationHistoryReturn {
           if (isDev) {
             console.debug(
               "[useConversationHistory] Added conversation:",
-              threadId,
+              threadId
             );
           }
 
@@ -150,7 +150,7 @@ export function useConversationHistory(): UseConversationHistoryReturn {
         }
       });
     },
-    [],
+    []
   );
 
   /**
@@ -163,7 +163,7 @@ export function useConversationHistory(): UseConversationHistoryReturn {
       if (isDev) {
         console.debug(
           "[useConversationHistory] Deleted conversation:",
-          threadId,
+          threadId
         );
       }
 
@@ -182,7 +182,7 @@ export function useConversationHistory(): UseConversationHistoryReturn {
     if (!result.success) {
       console.error(
         "[useConversationHistory] Failed to clear storage:",
-        result.error,
+        result.error
       );
     } else if (isDev) {
       console.debug("[useConversationHistory] Cleared all conversations");
@@ -196,7 +196,7 @@ export function useConversationHistory(): UseConversationHistoryReturn {
     (threadId: string): Conversation | undefined => {
       return conversations.find((c) => c.threadId === threadId);
     },
-    [conversations],
+    [conversations]
   );
 
   return {

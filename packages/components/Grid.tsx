@@ -44,9 +44,7 @@ export function GridItem({ post }: { post: Post }) {
       <Thumb url={post.thumbnail} alt={post.title} width={500} height={500} />
 
       <p className="mt-4 leading-relaxed">
-        <Link href={`/${post.slug}`}>
-          {post.title}
-        </Link>
+        <Link href={`/${post.slug}`}>{post.title}</Link>
       </p>
     </article>
   );

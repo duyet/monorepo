@@ -35,10 +35,7 @@ export function AppCard({
       prefetch={prefetch}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className={cn(
-        "group block overflow-hidden",
-        className
-      )}
+      className={cn("group block overflow-hidden", className)}
       aria-label={isExternal ? `${title} (${domain})` : title}
     >
       {/* Screenshot */}
@@ -54,7 +51,9 @@ export function AppCard({
 
       {/* Title + Domain stacked */}
       <div className="px-1 pt-3 pb-1">
-        <p className="text-sm font-medium text-neutral-900 group-hover:text-neutral-700 transition-colors">{title}</p>
+        <p className="text-sm font-medium text-neutral-900 group-hover:text-neutral-700 transition-colors">
+          {title}
+        </p>
         <p className="mt-0.5 text-xs text-neutral-400 truncate">{domain}</p>
       </div>
     </Link>

@@ -36,7 +36,7 @@ export async function POST(request: Request): Promise<Response> {
         {
           status: 500,
           headers: { "Content-Type": "application/json" },
-        },
+        }
       );
     }
 
@@ -59,7 +59,7 @@ export async function POST(request: Request): Promise<Response> {
         { error: "Missing workflow id" },
         400,
         { "Content-Type": "application/json" },
-        sessionCookie,
+        sessionCookie
       );
     }
 
@@ -113,7 +113,7 @@ export async function POST(request: Request): Promise<Response> {
         },
         upstreamResponse.status,
         { "Content-Type": "application/json" },
-        sessionCookie,
+        sessionCookie
       );
     }
 
@@ -128,7 +128,7 @@ export async function POST(request: Request): Promise<Response> {
       responsePayload,
       200,
       { "Content-Type": "application/json" },
-      sessionCookie,
+      sessionCookie
     );
   } catch (error) {
     console.error("Create session error", error);
@@ -136,7 +136,7 @@ export async function POST(request: Request): Promise<Response> {
       { error: "Unexpected error" },
       500,
       { "Content-Type": "application/json" },
-      sessionCookie,
+      sessionCookie
     );
   }
 }
@@ -158,7 +158,7 @@ async function resolveUserId(request: Request): Promise<{
 }> {
   const existing = getCookieValue(
     request.headers.get("cookie"),
-    SESSION_COOKIE_NAME,
+    SESSION_COOKIE_NAME
   );
   if (existing) {
     return { userId: existing, sessionCookie: null };
@@ -177,7 +177,7 @@ async function resolveUserId(request: Request): Promise<{
 
 function getCookieValue(
   cookieHeader: string | null,
-  name: string,
+  name: string
 ): string | null {
   if (!cookieHeader) {
     return null;
@@ -215,7 +215,7 @@ function buildJsonResponse(
   payload: unknown,
   status: number,
   headers: Record<string, string>,
-  sessionCookie: string | null,
+  sessionCookie: string | null
 ): Response {
   const responseHeaders = new Headers(headers);
 
@@ -242,7 +242,7 @@ async function safeParseJson<T>(req: Request): Promise<T | null> {
 }
 
 function extractUpstreamError(
-  payload: Record<string, unknown> | undefined,
+  payload: Record<string, unknown> | undefined
 ): string | null {
   if (!payload) {
     return null;

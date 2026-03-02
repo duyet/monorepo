@@ -43,9 +43,7 @@ describe("extractHeadings", () => {
   test("ignores h4 and deeper headings", async () => {
     const md = `## Section\n#### Deep heading\n##### Deeper`;
     const result = await extractHeadings(md);
-    expect(result).toEqual([
-      { id: "section", text: "Section", level: 2 },
-    ]);
+    expect(result).toEqual([{ id: "section", text: "Section", level: 2 }]);
   });
 
   test("generates slugs from text", async () => {

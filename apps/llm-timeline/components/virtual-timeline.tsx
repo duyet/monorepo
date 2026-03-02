@@ -1,88 +1,91 @@
-'use client'
+"use client";
 
-import { useRef, useState, useEffect } from 'react'
-import { useWindowVirtualizer } from '@tanstack/react-virtual'
-import { ModelCard } from './model-card'
-import type { Model } from '@/lib/data'
+import { useRef, useState, useEffect } from "react";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import { ModelCard } from "./model-card";
+import type { Model } from "@/lib/data";
 
 interface VirtualTimelineProps {
-  modelsByYear: Map<number, Model[]>
-  liteMode?: boolean
+  modelsByYear: Map<number, Model[]>;
+  liteMode?: boolean;
 }
 
 interface VirtualItem {
-  type: 'group' | 'model'
-  key: string
-  year?: number
-  model?: Model
-  groupIndex?: number
-  modelCount?: number
+  type: "group" | "model";
+  key: string;
+  year?: number;
+  model?: Model;
+  groupIndex?: number;
+  modelCount?: number;
 }
 
-export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps) {
-  const parentRef = useRef<HTMLDivElement>(null)
-  const [scrollMargin, setScrollMargin] = useState(200) // Default offset
+export function VirtualTimeline({
+  modelsByYear,
+  liteMode,
+}: VirtualTimelineProps) {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const [scrollMargin, setScrollMargin] = useState(200); // Default offset
 
   // Calculate offset from top of page when container mounts
   useEffect(() => {
     if (parentRef.current) {
-      const rect = parentRef.current.getBoundingClientRect()
-      const scrollTop = window.scrollY || document.documentElement.scrollTop
-      setScrollMargin(rect.top + scrollTop)
+      const rect = parentRef.current.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      setScrollMargin(rect.top + scrollTop);
     }
-  }, [])
+  }, []);
 
   // Sort years descending (newest first)
-  const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a)
+  const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a);
 
   // Flatten grouped data into a list of virtual items
-  const virtualItems: VirtualItem[] = []
+  const virtualItems: VirtualItem[] = [];
   sortedYears.forEach((year) => {
-    const yearModels = modelsByYear.get(year) || []
+    const yearModels = modelsByYear.get(year) || [];
     // Add group header
     virtualItems.push({
-      type: 'group',
+      type: "group",
       key: `group-${year}`,
       year,
       groupIndex: virtualItems.length,
       modelCount: yearModels.length,
-    })
+    });
     // Add models
     yearModels.forEach((model) => {
       virtualItems.push({
-        type: 'model',
+        type: "model",
         key: `${model.date}-${model.name}`,
         model,
-      })
-    })
-  })
+      });
+    });
+  });
 
   if (virtualItems.length === 0) {
     return (
       <div
         className="rounded-lg border p-8 text-center"
         style={{
-          borderColor: 'var(--border)',
-          backgroundColor: 'var(--bg-card)',
+          borderColor: "var(--border)",
+          backgroundColor: "var(--bg-card)",
         }}
       >
-        <p style={{ color: 'var(--text-muted)' }}>
+        <p style={{ color: "var(--text-muted)" }}>
           No models found matching your filters.
         </p>
       </div>
-    )
+    );
   }
 
   const rowVirtualizer = useWindowVirtualizer({
     count: virtualItems.length,
     scrollMargin: scrollMargin, // Offset from top of page
     estimateSize: (index) => {
-      const item = virtualItems[index]
-      if (item.type === 'group') return 80 // Year header height
-      return liteMode ? 100 : 180 // Model card height
+      const item = virtualItems[index];
+      if (item.type === "group") return 80; // Year header height
+      return liteMode ? 100 : 180; // Model card height
     },
     overscan: 5,
-  })
+  });
 
   return (
     <div className="rounded-lg">
@@ -90,27 +93,30 @@ export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps
         ref={parentRef}
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
-          position: 'relative',
-          width: '100%',
+          position: "relative",
+          width: "100%",
         }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const item = virtualItems[virtualRow.index]
-          const isGroup = item.type === 'group'
+          const item = virtualItems[virtualRow.index];
+          const isGroup = item.type === "group";
 
           if (isGroup) {
-            const groupItem = item as VirtualItem & { type: 'group'; modelCount: number }
+            const groupItem = item as VirtualItem & {
+              type: "group";
+              modelCount: number;
+            };
             return (
               <div
                 key={virtualRow.key}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: 0,
                   left: 0,
-                  width: '100%',
+                  width: "100%",
                   height: `${virtualRow.size}px`,
                   transform: `translateY(${virtualRow.start}px)`,
-                  padding: '0 1rem',
+                  padding: "0 1rem",
                 }}
               >
                 {/* Year Header */}
@@ -119,39 +125,46 @@ export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps
                     <span
                       className="select-none text-4xl font-bold leading-none"
                       style={{
-                        fontFamily: 'var(--font-mono)',
-                        color: 'var(--year-watermark)',
+                        fontFamily: "var(--font-mono)",
+                        color: "var(--year-watermark)",
                       }}
                       aria-hidden="true"
                     >
                       {groupItem.year}
                     </span>
                   </div>
-                  <div className="h-px flex-1 min-w-0 shrink" style={{ backgroundColor: 'var(--border)' }} />
+                  <div
+                    className="h-px flex-1 min-w-0 shrink"
+                    style={{ backgroundColor: "var(--border)" }}
+                  />
                   <span
                     className="text-xs uppercase tracking-widest shrink-0 whitespace-nowrap"
-                    style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      color: "var(--text-muted)",
+                    }}
                   >
-                    {groupItem.modelCount} model{groupItem.modelCount !== 1 ? 's' : ''}
+                    {groupItem.modelCount} model
+                    {groupItem.modelCount !== 1 ? "s" : ""}
                   </span>
                 </div>
               </div>
-            )
+            );
           }
 
           // Model card
-          const modelItem = item as VirtualItem & { type: 'model' }
+          const modelItem = item as VirtualItem & { type: "model" };
           return (
             <div
               key={virtualRow.key}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top: 0,
                 left: 0,
-                width: '100%',
+                width: "100%",
                 transform: `translateY(${virtualRow.start}px)`,
-                paddingLeft: '1rem',
-                paddingRight: '1rem',
+                paddingLeft: "1rem",
+                paddingRight: "1rem",
               }}
             >
               <ModelCard
@@ -160,9 +173,9 @@ export function VirtualTimeline({ modelsByYear, liteMode }: VirtualTimelineProps
                 isLast={false}
               />
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }

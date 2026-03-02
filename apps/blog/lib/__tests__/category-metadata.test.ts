@@ -109,5 +109,4 @@ describe("getCategoryColorClass", () => {
     );
     expect(getCategoryColorClass("coral", "default")).toBe("bg-coral");
   });
-
 });

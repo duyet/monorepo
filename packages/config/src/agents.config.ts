@@ -9,11 +9,13 @@ import type { AppMetadata } from "./app.config";
 export const agentsConfig = {
   metadata: {
     title: "@duyetbot | duyet.net",
-    description: "Chat with @duyetbot - a virtual version of Duyet. Ask about blog, CV, GitHub activity, or analytics.",
+    description:
+      "Chat with @duyetbot - a virtual version of Duyet. Ask about blog, CV, GitHub activity, or analytics.",
     lang: "en",
     openGraph: {
       title: "@duyetbot | duyet.net",
-      description: "Chat with @duyetbot - Duyet's AI virtual assistant. Get answers about blog posts, CV, GitHub, and analytics.",
+      description:
+        "Chat with @duyetbot - Duyet's AI virtual assistant. Get answers about blog posts, CV, GitHub, and analytics.",
       url: "https://agents.duyet.net",
       siteName: "duyet.net",
       images: [
@@ -30,7 +32,8 @@ export const agentsConfig = {
     twitter: {
       card: "summary_large_image",
       title: "@duyetbot | duyet.net",
-      description: "Chat with @duyetbot - Duyet's AI virtual assistant. Get answers about blog posts, CV, GitHub, and analytics.",
+      description:
+        "Chat with @duyetbot - Duyet's AI virtual assistant. Get answers about blog posts, CV, GitHub, and analytics.",
       images: ["https://agents.duyet.net/og-image.png"],
       creator: "@duyetdev",
     },

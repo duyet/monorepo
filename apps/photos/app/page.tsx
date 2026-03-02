@@ -40,7 +40,8 @@ export default async function PhotosPage({ searchParams }: PageProps) {
   }
 
   const totalPhotos = photos.length;
-  const isFallback = photos.length > 0 && photos.some((p) => p.id.startsWith("fallback-"));
+  const isFallback =
+    photos.length > 0 && photos.some((p) => p.id.startsWith("fallback-"));
   const years = Object.keys(photosByYear)
     .map(Number)
     .sort((a, b) => b - a); // Sort years in descending order
@@ -124,8 +125,12 @@ export default async function PhotosPage({ searchParams }: PageProps) {
             <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
               {isFallback ? (
                 <>
-                  A selection of <span className="font-semibold">{totalPhotos} sample photos</span> to
-                  showcase the gallery. Configure your photo providers to display your own collection.
+                  A selection of{" "}
+                  <span className="font-semibold">
+                    {totalPhotos} sample photos
+                  </span>{" "}
+                  to showcase the gallery. Configure your photo providers to
+                  display your own collection.
                 </>
               ) : (
                 <>

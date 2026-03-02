@@ -5,25 +5,27 @@
  * Run: bun scripts/generate-llms-txt.ts
  */
 
-import { writeFileSync } from 'fs'
-import { resolve } from 'path'
+import { writeFileSync } from "fs";
+import { resolve } from "path";
 
 // Import models from data
-import { models, lastSynced } from '../lib/data'
+import { models, lastSynced } from "../lib/data";
 
-const SITE_URL = 'https://llm-timeline.duyet.net'
-const OUTPUT_PATH = resolve(process.cwd(), 'public/llms.txt')
+const SITE_URL = "https://llm-timeline.duyet.net";
+const OUTPUT_PATH = resolve(process.cwd(), "public/llms.txt");
 
 function buildLlmsTxt(): string {
   // Sort by date descending (newest first)
-  const sorted = [...models].sort((a, b) => b.date.localeCompare(a.date))
+  const sorted = [...models].sort((a, b) => b.date.localeCompare(a.date));
 
-  const modelsList = sorted.map((m) => {
-    const params = m.params ? ` | Parameters: ${m.params}` : ''
-    return `- **${m.name}** (${m.org}) — ${m.date}${params}
+  const modelsList = sorted
+    .map((m) => {
+      const params = m.params ? ` | Parameters: ${m.params}` : "";
+      return `- **${m.name}** (${m.org}) — ${m.date}${params}
   - License: ${m.license} | Type: ${m.type}
-  - ${m.desc}`
-  }).join('\n\n')
+  - ${m.desc}`;
+    })
+    .join("\n\n");
 
   return `# LLM Timeline
 
@@ -57,11 +59,11 @@ Each model entry includes:
 ## License
 
 Data sourced from LifeArchitect.AI. Site code: MIT.
-`
+`;
 }
 
-const content = buildLlmsTxt()
-writeFileSync(OUTPUT_PATH, content, 'utf-8')
-console.log(`Generated llms.txt: ${OUTPUT_PATH}`)
-console.log(`  Models: ${models.length} total`)
-console.log(`  Last sync: ${lastSynced}`)
+const content = buildLlmsTxt();
+writeFileSync(OUTPUT_PATH, content, "utf-8");
+console.log(`Generated llms.txt: ${OUTPUT_PATH}`);
+console.log(`  Models: ${models.length} total`);
+console.log(`  Last sync: ${lastSynced}`);

@@ -48,8 +48,7 @@ const FALLBACK_PHOTOS: Omit<Photo, "provider">[] = [
     height: 3648,
     color: "#a0b8c8",
     description: "Modern skyscraper behind old building under clear sky",
-    alt_description:
-      "Modern skyscraper behind old building under clear sky",
+    alt_description: "Modern skyscraper behind old building under clear sky",
     urls: {
       raw: "https://images.unsplash.com/photo-1764521879550-4a8945fe7a94?w=5472",
       full: "https://images.unsplash.com/photo-1764521879550-4a8945fe7a94?w=2400&q=90",
@@ -117,8 +116,7 @@ const FALLBACK_PHOTOS: Omit<Photo, "provider">[] = [
     height: 4000,
     color: "#4a6e7f",
     description: "Binoculars on mountain overlook with lake and hills",
-    alt_description:
-      "Binoculars on mountain overlook with lake and hills",
+    alt_description: "Binoculars on mountain overlook with lake and hills",
     urls: {
       raw: "https://images.unsplash.com/photo-1760810502641-7e3dd29e863a?w=6000",
       full: "https://images.unsplash.com/photo-1760810502641-7e3dd29e863a?w=2400&q=90",
@@ -152,8 +150,7 @@ const FALLBACK_PHOTOS: Omit<Photo, "provider">[] = [
     height: 3456,
     color: "#7ca3c0",
     description: "Stone building with arched windows against blue sky",
-    alt_description:
-      "Stone building with arched windows against blue sky",
+    alt_description: "Stone building with arched windows against blue sky",
     urls: {
       raw: "https://images.unsplash.com/photo-1763450549919-365299eb8573?w=5184",
       full: "https://images.unsplash.com/photo-1763450549919-365299eb8573?w=2400&q=90",
@@ -221,17 +218,13 @@ const FALLBACK_PHOTOS: Omit<Photo, "provider">[] = [
  */
 export async function getFallbackPhotos(): Promise<Photo[]> {
   console.log("📸 Using fallback photos - all providers unavailable");
+  console.log("   💡 To display your own photos, configure one of:");
   console.log(
-    "   💡 To display your own photos, configure one of:",
-  );
-  console.log(
-    "      • ClickHouse: CLICKHOUSE_HOST, CLICKHOUSE_PASSWORD, CLICKHOUSE_DATABASE",
+    "      • ClickHouse: CLICKHOUSE_HOST, CLICKHOUSE_PASSWORD, CLICKHOUSE_DATABASE"
   );
   console.log("      • Unsplash: UNSPLASH_ACCESS_KEY");
   console.log("      • Cloudinary: CLOUDINARY_CLOUD_NAME");
-  console.log(
-    "      • Local photos: Place images in public/photos/ directory",
-  );
+  console.log("      • Local photos: Place images in public/photos/ directory");
 
   return FALLBACK_PHOTOS.map((photo) => ({
     ...photo,
