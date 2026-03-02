@@ -44,7 +44,7 @@ export function AppLayout({
       </div>
 
       {/* Center: chat area */}
-      <div className="flex flex-1 flex-col min-w-0 overflow-hidden">{children}</div>
+      <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">{children}</div>
 
       {/* Right panel — persistent on lg+, Sheet on mobile */}
       {panel && (
