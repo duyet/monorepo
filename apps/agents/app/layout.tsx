@@ -55,8 +55,8 @@ export default function RootLayout({
         <Providers>
           <div className="flex h-screen flex-col overflow-hidden">
             <main className="flex-1 overflow-hidden">{children}</main>
+            <Footer className="shrink-0" />
           </div>
-          <Footer className="shrink-0" />
           <Analytics />
         </Providers>
       </body>

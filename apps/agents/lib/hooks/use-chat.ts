@@ -103,10 +103,19 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   // Fetch settings once on mount if authenticated
   useEffect(() => {
     if (typeof window !== "undefined" && getAuthToken) {
-      fetch("/api/user/settings")
-        .then((res) => res.json())
+      getAuthToken()
+        .then((token) => {
+          if (!token) return;
+          return fetch("/api/user/settings", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        })
+        .then((res) => {
+          if (!res) return;
+          return res.json();
+        })
         .then((data) => {
-          if (!data.error) {
+          if (data && !data.error) {
             settingsRef.current = data;
           }
         })

@@ -348,11 +348,11 @@ export function VercelChat() {
         </Conversation>
 
         {/* Floating input area */}
-        <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4">
+        <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none">
           <div className="mx-auto max-w-3xl">
             <form
               onSubmit={handleFormSubmit}
-              className="relative flex flex-col w-full rounded-2xl border border-input bg-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring transition-all"
+              className="relative flex flex-col w-full rounded-2xl border border-input bg-background focus-within:outline-none focus-within:ring-1 focus-within:ring-ring transition-all pointer-events-auto"
             >
               <Textarea
                 ref={textareaRef}

@@ -178,7 +178,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   try {
     // Extract auth and IP for rate limiting
-    const user = await getUserFromRequest(context.request);
+    const user = await getUserFromRequest(
+      context.request,
+      context.env.CLERK_ISSUER_URL
+    );
     const clientIp = getClientIp(context.request);
 
     // Rate limit unauthenticated users (10 messages per 24h window per IP)

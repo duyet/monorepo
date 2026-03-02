@@ -351,7 +351,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   }
 
   // Extract authenticated user (if any) — async JWT verification
-  const user = await getUserFromRequest(request);
+  const user = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
   const userId = user?.userId;
 
   // Parse URL path

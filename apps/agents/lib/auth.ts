@@ -27,7 +27,9 @@ export function getClientIp(request: Request): string {
  * The pepper should be injected via RATE_LIMIT_PEPPER env var.
  */
 export async function hashIp(ip: string, pepper?: string): Promise<string> {
-  const secret = pepper || process.env.RATE_LIMIT_PEPPER;
+  const secret =
+    pepper ||
+    (typeof process !== "undefined" ? process.env.RATE_LIMIT_PEPPER : undefined);
   if (!secret) {
     console.warn(
       "[auth] RATE_LIMIT_PEPPER not configured — using insecure default. Set RATE_LIMIT_PEPPER in wrangler.toml or dashboard."
@@ -66,7 +68,9 @@ async function getClerkJwks(clerkDomain?: string): Promise<JsonWebKey[]> {
     return jwksCache.keys;
   }
 
-  const domain = clerkDomain || process.env.CLERK_ISSUER_URL;
+  const domain =
+    clerkDomain ||
+    (typeof process !== "undefined" ? process.env.CLERK_ISSUER_URL : undefined);
   if (!domain) {
     return [];
   }
