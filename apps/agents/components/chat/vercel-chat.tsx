@@ -38,7 +38,7 @@ export function VercelChat() {
   const getAuthToken = useClerkAuthToken();
 
   // Layout state
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
 
