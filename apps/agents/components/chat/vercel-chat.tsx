@@ -296,7 +296,7 @@ export function VercelChat() {
           className="relative flex-1"
           autoScrollTrigger={autoScrollTrigger}
         >
-          <div className="h-full w-full overflow-y-auto pb-40">
+          <div className="w-full pb-40 pt-14">
             {!hasMessages && !streamingContent ? (
               <ConversationEmptyState>
                 <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
