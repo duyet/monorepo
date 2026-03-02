@@ -5,4 +5,4 @@ pages_build_output_dir = "out"
 [[d1_databases]]
 binding = "AGENTS_DB"
 database_name = "duyet-agents-db"
-database_id = "local"
+database_id = "6d29934e-92cc-48ff-9149-8ddf6846fd43"
