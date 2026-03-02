@@ -54,7 +54,7 @@ export const urls: Urls = {
     desc: "@duyet on Github",
   },
   "/monitor": {
-    target: "https://clickhouse-monitoring.vercel.app",
+    target: "https://clickhouse-monitor.duyet.workers.dev/",
     desc: "ClickHouse Monitoring UI",
   },
   "/clickhouse": {
