@@ -215,54 +215,7 @@ function classifyError(error: Error): {
   ) {
     return {
       type: "CONNECTION",
-      description: "Failed to connect to ClickHouse server",
-    };
-  }
-
-  // Query syntax/execution errors
-  if (
-    message.includes("syntax") ||
-    message.includes("unknown") ||
-    message.includes("no such") ||
-    message.includes("table") ||
-    message.includes("column") ||
-    message.includes("database")
-  ) {
-    return {
-      type: "QUERY_ERROR",
-      description: "Query execution error - check SQL syntax or table/column names",
-    };
-  }
-
-  return { type: "UNKNOWN", description: "Unknown error occurred" };
-}
-
-/**
- * Truncate query for logging (show first and last parts)
- */
-function truncateQuery(query: string, maxLength = 500): string {
-  const cleaned = query.replace(/\s+/g, " ").trim();
-  if (cleaned.length <= maxLength) return cleaned;
-
-  const halfLength = Math.floor((maxLength - 20) / 2);
-  return `${cleaned.slice(0, halfLength)} ... [truncated] ... ${cleaned.slice(-halfLength)}`;
-}
-  }
-
-  // Connection errors
-  if (
-    message.includes("econnrefused") ||
-    message.includes("enotfound") ||
-    message.includes("connection") ||
-    message.includes("network") ||
-    message.includes("dns") ||
-    message.includes("socket") ||
-    message.includes("etimedout") ||
-    message.includes("econnreset")
-  ) {
-    return {
-      type: "CONNECTION",
-      description: "Failed to connect to ClickHouse server",
+      description: "Connection to database failed",
     };
   }
 
