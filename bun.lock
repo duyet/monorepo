@@ -95,6 +95,7 @@
         "@types/react": "^19.1.4",
         "http-proxy": "^1.18.1",
         "typescript": "*",
+        "yaml": "^2.8.2",
       },
     },
     "apps/ai": {

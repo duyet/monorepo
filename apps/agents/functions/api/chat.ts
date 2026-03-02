@@ -34,6 +34,7 @@ import {
   getGitHubTool,
   searchBlogTool,
 } from "../../lib/tools";
+import { AGENT_SKILLS } from "../../lib/skills-data";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
@@ -254,6 +255,15 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const isFast = mode === "fast";
     let system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
+
+    // Inject Agent Skills if available and in agent mode
+    if (!isFast && AGENT_SKILLS && AGENT_SKILLS.length > 0) {
+      const skillsXml = AGENT_SKILLS.map(
+        (skill) =>
+          `  <skill>\n    <name>${skill.metadata.name}</name>\n    <description>${skill.metadata.description.trim()}</description>\n    <content>\n${skill.content}\n    </content>\n  </skill>`
+      ).join("\n");
+      system += `\n\n<available_skills>\n${skillsXml}\n</available_skills>`;
+    }
 
     // Inject custom user settings
     if (settings) {
