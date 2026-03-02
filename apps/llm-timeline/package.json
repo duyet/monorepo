@@ -26,7 +26,7 @@
     "@duyet/libs": "*",
     "@tanstack/react-virtual": "^3.13.19",
     "lucide-react": "^0.563.0",
-    "next": "15.5.10",
+    "next": "15.5.12",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
