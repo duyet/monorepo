@@ -228,7 +228,7 @@ function StatCard({
         </h3>
         {icon}
       </div>
-      <div className="text-2xl font-bold">{value.toLocaleString()}</div>
+      <div className="text-2xl font-bold">{(value || 0).toLocaleString()}</div>
     </div>
   );
 }
