@@ -360,7 +360,7 @@ export function VercelChat() {
           <div className="mx-auto max-w-3xl">
             <form
               onSubmit={handleFormSubmit}
-              className="relative flex flex-col w-full rounded-2xl border border-input bg-background focus-within:outline-none transition-all pointer-events-auto"
+              className="relative flex flex-col w-full overflow-hidden rounded-2xl border border-input/50 bg-background focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/50 shadow-sm transition-all pointer-events-auto"
             >
               <Textarea
                 ref={textareaRef}
@@ -370,7 +370,7 @@ export function VercelChat() {
                 placeholder="Ask me anything about Duyet..."
                 disabled={isLoading}
                 rows={1}
-                className="min-h-[52px] max-h-[200px] w-full resize-none border-0 bg-transparent px-4 py-3.5 text-base focus-visible:ring-0 shadow-none pb-12"
+                className="min-h-[52px] max-h-[200px] w-full resize-none border-0 bg-transparent px-4 py-3.5 text-base focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:outline-none focus:border-0 outline-none shadow-none pb-12"
               />
 
               {/* Input toolbar (bottom row inside the textarea container) */}

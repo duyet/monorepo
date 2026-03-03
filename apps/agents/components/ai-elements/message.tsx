@@ -36,27 +36,11 @@ export function Message({ from, className, children }: MessageProps) {
     <div
       data-from={from}
       className={cn(
-        "flex gap-4 w-full group animate-in fade-in duration-500 py-6",
-        isUser ? "bg-transparent" : "bg-transparent",
+        "flex gap-4 w-full group animate-in fade-in duration-500",
+        isUser ? "justify-end py-3" : "py-6",
         className
       )}
     >
-      {/* Avatar column */}
-      <div className="flex-shrink-0 mt-1">
-        {isUser ? (
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-stone-800 dark:bg-stone-200">
-            <span className="text-[10px] font-bold text-stone-50 dark:text-stone-900">
-              U
-            </span>
-          </div>
-        ) : (
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
-            <span className="text-[11px] font-[family-name:var(--font-serif)] font-bold">
-              D
-            </span>
-          </div>
-        )}
-      </div>
       {children}
     </div>
   );
@@ -80,11 +64,15 @@ export function MessageContent({
   const isUser = from === "user";
 
   return (
-    <div className={cn("flex-1 min-w-0 flex flex-col gap-2", className)}>
+    <div className={cn(
+      "flex flex-col gap-2 relative",
+      isUser ? "bg-muted/80 w-fit max-w-[85%] px-5 py-3.5 rounded-3xl rounded-tr-sm" : "flex-1 min-w-0 w-full",
+      className
+    )}>
       <div
         className={cn(
           "text-base leading-relaxed font-sans",
-          isUser ? "font-medium text-foreground" : "text-foreground"
+          isUser ? "text-foreground" : "text-foreground"
         )}
       >
         {children}
@@ -118,8 +106,8 @@ export function MessageResponse({
         "[&_a]:underline [&_a]:underline-offset-4 [&_a]:text-primary [&_a]:transition-colors hover:[&_a]:text-primary/80",
         "[&_code]:rounded-md [&_code]:bg-muted/60 [&_code]:px-1.5 [&_code]:py-0.5",
         "[&_code]:text-[0.9em] [&_code]:font-[family-name:var(--font-geist-mono)]",
-        "[&_pre]:rounded-2xl [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted/40",
-        "[&_pre]:p-5 [&_pre]:overflow-x-auto [&_pre]:text-sm",
+        "[&_pre]:rounded-2xl [&_pre]:border [&_pre]:border-border/50 [&_pre]:bg-muted/30",
+        "[&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-sm",
         "[&_p]:mb-4 [&_p:last-child]:mb-0",
         "[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-6 [&_h1]:mt-8",
         "[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-4 [&_h2]:mt-6",
@@ -127,6 +115,8 @@ export function MessageResponse({
         "[&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:pl-5 [&_ol]:space-y-2",
         "[&_li]:marker:text-muted-foreground",
         "[&_blockquote]:border-l-4 [&_blockquote]:border-primary/50 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground",
+        "[&_table]:w-full [&_table]:text-sm [&_th]:border-b [&_td]:border-b [&_th]:py-3 [&_th]:px-4 [&_th]:text-left [&_td]:py-3 [&_td]:px-4",
+        "[&_table]:mb-6",
         className
       )}
     >

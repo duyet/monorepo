@@ -32,6 +32,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
+import { MessageResponse } from "./message";
 
 import { Shimmer } from "./shimmer";
 
@@ -156,7 +157,7 @@ export const ChainOfThought = memo(
     return (
       <ChainOfThoughtContext.Provider value={contextValue}>
         <Collapsible
-          className={cn("not-prose mb-4", className)}
+          className={cn("not-prose mb-4 rounded-2xl border border-border/60 bg-muted/40 p-4", className)}
           onOpenChange={handleOpenChange}
           open={isOpen}
           {...props}
@@ -367,14 +368,16 @@ export const ChainOfThoughtContent = memo(
   ({ className, children, ...props }: ChainOfThoughtContentProps) => (
     <CollapsibleContent
       className={cn(
-        "mt-4 text-sm",
-        "max-h-[200px] overflow-y-auto",
-        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "mt-3 pt-3 border-t border-border/40 text-sm text-muted-foreground",
+        "max-h-[500px] overflow-y-auto pr-2",
+        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
         className
       )}
       {...props}
     >
-      <Streamdown plugins={streamdownPlugins}>{children}</Streamdown>
+      <MessageResponse className="text-sm opacity-90 [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-sm" parseIncompleteMarkdown>
+        {children}
+      </MessageResponse>
     </CollapsibleContent>
   )
 );
