@@ -75,7 +75,7 @@ export function UserMessage({ message }: MessageProps) {
   return (
     <MessageRoot from="user">
       <MessageContent from="user">
-        <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
+        <p className="whitespace-pre-wrap break-words text-base leading-relaxed">
           {message.content}
         </p>
         <div className="flex items-center gap-1.5">
