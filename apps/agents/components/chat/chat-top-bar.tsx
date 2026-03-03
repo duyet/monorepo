@@ -15,7 +15,6 @@ let ClerkComponents: {
 } | null = null;
 
 interface ChatTopBarProps {
-  onToggleSidebar: () => void;
   onToggleActivity: () => void;
   onToggleTools?: () => void;
   onNewChat: () => void;
@@ -27,7 +26,6 @@ interface ChatTopBarProps {
 import { SettingsDialog } from "../settings/settings-dialog";
 
 export function ChatTopBar({
-  onToggleSidebar,
   onToggleActivity,
   onToggleTools,
   onNewChat,
@@ -64,18 +62,8 @@ export function ChatTopBar({
   return (
     <>
       <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent px-4">
-        {/* Left: sidebar toggle (mobile only) */}
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-9 w-9 text-muted-foreground hover:text-foreground md:hidden"
-            onClick={onToggleSidebar}
-          >
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle sidebar</span>
-          </Button>
-        </div>
+        {/* Left: empty placeholder to balance flex-between if needed */}
+        <div className="flex items-center gap-2 w-9"></div>
 
         {/* Center: conversation title */}
         <div className="flex-1 min-w-0 px-4 flex justify-center">

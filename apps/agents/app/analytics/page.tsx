@@ -18,8 +18,6 @@ import {
   YAxis,
 } from "recharts";
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
-import { AppLayout } from "@/components/layout/app-layout";
-import { Sidebar } from "@/components/sidebar/sidebar";
 import { useConversations } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 
@@ -32,7 +30,6 @@ interface AnalyticsData {
 
 export default function AnalyticsPage() {
   const getAuthToken = useClerkAuthToken();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -47,36 +44,16 @@ export default function AnalyticsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const sidebarContent = (
-    <Sidebar
-      conversations={conversations}
-      activeId={activeId}
-      onNewChat={() => createNew("fast")}
-      onSelectConversation={async (id) => {
-        await switchTo(id);
-      }}
-      onDeleteConversation={remove}
-      collapsed={!sidebarOpen}
-      onToggleCollapse={() => setSidebarOpen((v) => !v)}
-    />
-  );
-
   return (
-    <AppLayout
-      sidebar={sidebarContent}
-      sidebarOpen={sidebarOpen}
-      onSidebarOpenChange={setSidebarOpen}
-      panelOpen={false}
-      onPanelOpenChange={() => {}}
-    >
-      <ChatTopBar
-        onToggleSidebar={() => setSidebarOpen((v) => !v)}
-        onToggleActivity={() => {}}
-        onNewChat={() => createNew("fast")}
-        showActivityButton={false}
-        activityCount={0}
-        conversationTitle="Global System Analytics"
-      />
+    <div className="flex h-full w-full overflow-hidden relative bg-transparent">
+      <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
+        <ChatTopBar
+          onToggleActivity={() => {}}
+          onNewChat={() => createNew("fast")}
+          showActivityButton={false}
+          activityCount={0}
+          conversationTitle="Global System Analytics"
+        />
 
       <div className="flex-1 overflow-y-auto w-full bg-background pt-14 pb-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
@@ -207,7 +184,8 @@ export default function AnalyticsPage() {
           )}
         </div>
       </div>
-    </AppLayout>
+      </div>
+    </div>
   );
 }
 

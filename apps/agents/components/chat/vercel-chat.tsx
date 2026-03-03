@@ -22,8 +22,6 @@ import {
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 import type { ChatMode } from "@/lib/types";
 import { ActivityPanel } from "../activity/activity-panel";
-import { AppLayout } from "../layout/app-layout";
-import { Sidebar } from "../sidebar/sidebar";
 import { ChatTopBar } from "./chat-top-bar";
 import { LoadingIndicator } from "./loading-indicator";
 import {
@@ -39,7 +37,6 @@ export function VercelChat() {
   const getAuthToken = useClerkAuthToken();
 
   // Layout state
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
 
@@ -253,21 +250,6 @@ export function VercelChat() {
     }
   }, [hasActivity]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Sidebar component
-  const sidebarContent = (
-    <Sidebar
-      conversations={conversations}
-      activeId={activeId}
-      onNewChat={handleNewChat}
-      onSelectConversation={async (id) => {
-        await switchTo(id);
-      }}
-      onDeleteConversation={remove}
-      collapsed={!sidebarOpen}
-      onToggleCollapse={() => setSidebarOpen((v) => !v)}
-    />
-  );
-
   // Activity panel (only rendered when there's data)
   const activityContent = hasActivity ? (
     <ActivityPanel
@@ -280,24 +262,17 @@ export function VercelChat() {
 
   return (
     <>
-      <AppLayout
-        sidebar={sidebarContent}
-        panel={activityContent}
-        sidebarOpen={sidebarOpen}
-        onSidebarOpenChange={setSidebarOpen}
-        panelOpen={panelOpen}
-        onPanelOpenChange={setPanelOpen}
-      >
-        {/* Chat top bar */}
-        <ChatTopBar
-          onToggleSidebar={() => setSidebarOpen((v) => !v)}
-          onToggleActivity={() => setPanelOpen((v) => !v)}
-          onToggleTools={() => setToolsPanelOpen((v) => !v)}
-          onNewChat={handleNewChat}
-          showActivityButton={hasActivity}
-          activityCount={toolExecutions.length}
-          conversationTitle={activeConversation?.title}
-        />
+      <div className="flex h-full w-full overflow-hidden relative bg-transparent">
+        <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
+          {/* Chat top bar */}
+          <ChatTopBar
+            onToggleActivity={() => setPanelOpen((v) => !v)}
+            onToggleTools={() => setToolsPanelOpen((v) => !v)}
+            onNewChat={handleNewChat}
+            showActivityButton={hasActivity}
+            activityCount={toolExecutions.length}
+            conversationTitle={activeConversation?.title}
+          />
 
         {/* Messages area */}
         <Conversation
@@ -434,7 +409,29 @@ export function VercelChat() {
             </p>
           </div>
         </div>
-      </AppLayout>
+        </div>
+        
+        {/* Right panel logic inline */}
+        {activityContent && (
+          <>
+            <div
+              className={cn(
+                "hidden lg:block shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out border-l border-border",
+                panelOpen ? "w-[300px]" : "w-0"
+              )}
+            >
+              <div className="h-full w-[300px] bg-background">{activityContent}</div>
+            </div>
+            <div className="lg:hidden block">
+              <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
+                <SheetContent side="right" className="w-[320px] p-0 bg-background">
+                  {activityContent}
+                </SheetContent>
+              </Sheet>
+            </div>
+          </>
+        )}
+      </div>
 
       {/* Tools panel sheet */}
       <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
