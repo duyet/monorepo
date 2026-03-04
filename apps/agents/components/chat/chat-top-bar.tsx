@@ -89,6 +89,7 @@ export function ChatTopBar({
             variant="outline"
             size="icon"
             className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+            onClick={() => onToggleTools?.()}
           >
              <Share className="h-4 w-4" />
              <span className="sr-only">Share</span>

@@ -3,6 +3,7 @@
 import * as React from "react"
 import { BarChart2, Plus, Sun, Moon, Search, FolderClosed, Grid2x2, Users, LayoutDashboard, PanelLeftClose } from "lucide-react"
 import { useTheme } from "next-themes"
+import { Button } from "@duyet/components"
 
 import {
   Sidebar,
@@ -27,7 +28,24 @@ let ClerkComponents: {
   SignedIn: React.ComponentType<{ children: React.ReactNode }>;
   SignedOut: React.ComponentType<{ children: React.ReactNode }>;
   UserButton: React.ComponentType<{ appearance?: Record<string, unknown> }>;
+  useUser: () => { isLoaded: boolean; isSignedIn: boolean; user: any };
 } | null = null;
+
+function UserProfile() {
+  if (!ClerkComponents || !ClerkComponents.useUser) return null;
+  const { user, isLoaded } = ClerkComponents.useUser();
+  if (!isLoaded || !user) return null;
+
+  const plan = user.publicMetadata?.plan || "Free";
+  const name = user.fullName || user.firstName || "User";
+
+  return (
+    <div className="flex flex-col">
+      <span className="text-sm font-medium">{name}</span>
+      <span className="text-xs text-muted-foreground">{String(plan)}</span>
+    </div>
+  );
+}
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   conversations: Conversation[];
@@ -35,6 +53,12 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   onNewChat: () => void;
   onSelectConversation: (id: string) => Promise<void>;
   onDeleteConversation: (id: string) => Promise<void>;
+  onCloseSidebar?: () => void;
+  onSearch?: () => void;
+  onOpenAssets?: () => void;
+  onOpenGallery?: () => void;
+  onOpenMaxClaw?: () => void;
+  onExploreExperts?: () => void;
 }
 
 export function AppSidebar({ 
@@ -56,6 +80,7 @@ export function AppSidebar({
           SignedIn: mod.SignedIn as any,
           SignedOut: mod.SignedOut as any,
           UserButton: mod.UserButton as any,
+          useUser: mod.useUser as any,
         };
         setClerkLoaded(true);
       });
@@ -74,9 +99,14 @@ export function AppSidebar({
                 </div>
               </a>
             </SidebarMenuButton>
-            <button className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground mr-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={props.onCloseSidebar}
+              className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground mr-1"
+            >
               <PanelLeftClose className="h-4 w-4" />
-            </button>
+            </Button>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -84,45 +114,66 @@ export function AppSidebar({
       <SidebarContent className="px-2 font-medium">
         <SidebarGroup>
           <SidebarGroupContent className="space-y-1">
-            <button
+            <Button
+              variant="ghost"
               onClick={onNewChat}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
             >
               <Plus className="h-4 w-4" />
               New Task
-            </button>
-            <button className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+            </Button>
+            <Button 
+              variant="ghost"
+              onClick={props.onSearch}
+              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
+            >
               <Search className="h-4 w-4" />
               Search
-            </button>
-            <button className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+            </Button>
+            <Button 
+              variant="ghost"
+              onClick={props.onOpenAssets}
+              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
+            >
               <FolderClosed className="h-4 w-4" />
               Assets
-            </button>
-            <button className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+            </Button>
+            <Button 
+              variant="ghost"
+              onClick={props.onOpenGallery}
+              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
+            >
               <Grid2x2 className="h-4 w-4" />
               Gallery
-            </button>
+            </Button>
           </SidebarGroupContent>
         </SidebarGroup>
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2 pt-4">MiniMax Lab</SidebarGroupLabel>
           <SidebarGroupContent>
-             <button className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+             <Button 
+              variant="ghost"
+              onClick={props.onOpenMaxClaw}
+              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
+            >
               <LayoutDashboard className="h-4 w-4" />
               MaxClaw <span className="ml-auto text-[10px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground border">New</span>
-            </button>
+            </Button>
           </SidebarGroupContent>
         </SidebarGroup>
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2 pt-4">Experts</SidebarGroupLabel>
           <SidebarGroupContent>
-             <button className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+             <Button 
+              variant="ghost"
+              onClick={props.onExploreExperts}
+              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
+            >
               <Users className="h-4 w-4" />
               Explore Experts <span className="ml-auto text-[10px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground border">New</span>
-            </button>
+            </Button>
           </SidebarGroupContent>
         </SidebarGroup>
 
@@ -146,13 +197,13 @@ export function AppSidebar({
                <>
                  <ClerkComponents.SignedOut>
                    <ClerkComponents.SignInButton mode="modal">
-                     <button className="text-xs font-semibold px-2 py-1 rounded-md bg-foreground text-background">
+                     <Button variant="default" size="sm" className="h-8 text-xs font-semibold px-3">
                        Sign in
-                     </button>
+                     </Button>
                    </ClerkComponents.SignInButton>
                  </ClerkComponents.SignedOut>
                  <ClerkComponents.SignedIn>
-                   <div className="flex items-center gap-3">
+                   <div className="flex items-center gap-3 w-full">
                      <ClerkComponents.UserButton
                        appearance={{
                          elements: {
@@ -160,15 +211,14 @@ export function AppSidebar({
                          },
                        }}
                      />
-                     <div className="flex flex-col">
-                       <span className="text-sm font-medium">Duyet Le</span>
-                       <span className="text-xs text-muted-foreground">Free</span>
-                     </div>
+                     <UserProfile />
                    </div>
                  </ClerkComponents.SignedIn>
                </>
              ) : (
-               <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+               <Button variant="default" size="sm" className="h-8 text-xs font-semibold px-3 pointer-events-none opacity-50">
+                 Sign in
+               </Button>
              )}
            </div>
          </div>

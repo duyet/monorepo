@@ -65,6 +65,16 @@ export function VercelChat() {
     }
   }, [activeId, chatKey]);
 
+  // Read conversation id from URL on mount
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const urlId = new URLSearchParams(window.location.search).get("id");
+    if (urlId && urlId !== activeId) {
+      switchTo(urlId);
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, [switchTo, activeId]);
+
   const {
     messages,
     uiMessages,
@@ -353,15 +363,39 @@ export function VercelChat() {
             >
               {/* Left Icons */}
               <div className="flex items-center gap-1 pl-2 pb-1 text-muted-foreground shrink-0 hidden sm:flex">
-                <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-muted">
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="icon" 
+                  disabled
+                  title="Coming soon"
+                  aria-label="Attachments (coming soon)"
+                  className="h-9 w-9 rounded-full hover:bg-muted cursor-not-allowed opacity-50"
+                >
                   <Paperclip className="h-4 w-4" />
                 </Button>
-                <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-muted">
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="icon" 
+                  disabled
+                  title="Coming soon"
+                  aria-label="Attachments (coming soon)"
+                  className="h-9 w-9 rounded-full hover:bg-muted cursor-not-allowed opacity-50"
+                >
                   <Square className="h-4 w-4" />
                 </Button>
               </div>
               <div className="flex items-center pl-2 pb-1 sm:hidden">
-                <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-muted text-muted-foreground">
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="icon" 
+                  disabled
+                  title="Coming soon"
+                  aria-label="Attachments (coming soon)"
+                  className="h-9 w-9 rounded-full hover:bg-muted text-muted-foreground cursor-not-allowed opacity-50"
+                >
                   <Paperclip className="h-4 w-4" />
                 </Button>
               </div>
@@ -382,7 +416,10 @@ export function VercelChat() {
               <div className="flex items-center gap-3 pr-1 pb-1 shrink-0">
                 <button 
                   type="button" 
-                  className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-muted-foreground hover:text-foreground uppercase"
+                  disabled
+                  title="Coming soon"
+                  aria-label="Settings (coming soon)"
+                  className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-muted-foreground hover:text-foreground uppercase cursor-not-allowed opacity-50"
                 >
                   <Settings className="h-3.5 w-3.5" />
                   MAX
