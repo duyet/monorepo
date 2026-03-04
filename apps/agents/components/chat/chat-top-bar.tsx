@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import { Activity, Menu, PenSquare, Settings, User } from "lucide-react";
+import { Activity, Plus, Share, MoreHorizontal, LayoutDashboard } from "lucide-react";
 import { useEffect, useState } from "react";
 
 let ClerkComponents: {
@@ -61,86 +61,64 @@ export function ChatTopBar({
 
   return (
     <>
-      <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent px-4">
-        {/* Left: empty placeholder to balance flex-between if needed */}
-        <div className="flex items-center gap-2 w-9"></div>
-
-        {/* Center: conversation title */}
-        <div className="flex-1 min-w-0 px-4 flex justify-center">
-          <div className="flex items-center h-8 px-4 text-sm font-medium text-muted-foreground">
-            {conversationTitle}
-          </div>
+      <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent px-4 py-2">
+        {/* Left: Breadcrumbs / Title */}
+        <div className="flex items-center gap-3">
+           <div className="flex items-center justify-center h-8 w-8 rounded-full bg-secondary/50 text-foreground">
+             <LayoutDashboard className="h-4 w-4 text-blue-500" />
+           </div>
+           <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
+             <span>Icon Maker</span>
+             <span className="text-muted-foreground font-normal">{conversationTitle || "New Task"}</span>
+           </div>
         </div>
 
-        {/* Right: tools toggle + activity toggle + auth */}
-        <div className="flex items-center gap-2">
-          {onToggleTools && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-9 w-9 text-muted-foreground hover:text-foreground"
-              onClick={onToggleTools}
-            >
-              <Settings className="h-4 w-4" />
-              <span className="sr-only">Toggle agent tools</span>
-            </Button>
-          )}
-
-          {/* User Settings Button */}
+        {/* Right: Actions */}
+        <div className="flex items-center gap-1.5">
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
-            className="h-9 w-9 text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+            onClick={onNewChat}
+          >
+            <Plus className="h-4 w-4" />
+            <span className="sr-only">New Chat</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+          >
+             <Share className="h-4 w-4" />
+             <span className="sr-only">Share</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
             onClick={() => setSettingsOpen(true)}
           >
-            <User className="h-4 w-4" />
-            <span className="sr-only">User Settings</span>
+             <MoreHorizontal className="h-4 w-4" />
+             <span className="sr-only">More</span>
           </Button>
 
           {showActivityButton && (
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
-              className="h-9 w-9 relative text-muted-foreground hover:text-foreground"
+              className="h-8 w-8 relative text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background ml-1"
               onClick={onToggleActivity}
             >
               <Activity className="h-4 w-4" />
               {activityCount > 0 && (
-                <span className="absolute top-0.5 right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
+                <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
                   {activityCount > 9 ? "9+" : activityCount}
                 </span>
               )}
               <span className="sr-only">Toggle activity</span>
             </Button>
-          )}
-
-          {clerkLoaded && ClerkComponents ? (
-            <>
-              <ClerkComponents.SignedOut>
-                <ClerkComponents.SignInButton mode="modal">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 text-xs font-semibold px-4 hidden sm:flex"
-                  >
-                    Sign in
-                  </Button>
-                </ClerkComponents.SignInButton>
-              </ClerkComponents.SignedOut>
-              <ClerkComponents.SignedIn>
-                <div className="ml-1 pl-1">
-                  <ClerkComponents.UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "h-8 w-8",
-                      },
-                    }}
-                  />
-                </div>
-              </ClerkComponents.SignedIn>
-            </>
-          ) : (
-            <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
           )}
         </div>
       </div>

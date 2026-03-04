@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import { Badge, Button } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
@@ -45,6 +46,8 @@ export function ActivityPanel({
   const hasActivity =
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
+  const [activeTab, setActiveTab] = useState<"process" | "files">("process");
+
   return (
     <div
       className={cn(
@@ -52,65 +55,82 @@ export function ActivityPanel({
         className
       )}
     >
-      {/* Header */}
-      <div className="border-b border-border bg-muted/30 px-4 py-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Activity className="h-3.5 w-3.5 text-muted-foreground" />
-            <h2 className="text-sm font-semibold text-foreground">Activity</h2>
-          </div>
+      {/* Header Tabs */}
+      <div className="border-b border-border bg-muted/10 pt-2 px-2 flex items-center justify-between">
+        <div className="flex items-center gap-1.5 relative top-[1px]">
+          <button
+            onClick={() => setActiveTab("process")}
+            className={cn(
+              "px-4 py-1.5 text-xs font-medium rounded-t-md transition-colors",
+              activeTab === "process"
+                ? "bg-background text-foreground border border-b-0 border-border"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            Current Process
+          </button>
+          <button
+            onClick={() => setActiveTab("files")}
+            className={cn(
+              "px-4 py-1.5 text-xs font-medium rounded-t-md transition-colors",
+              activeTab === "files"
+                ? "bg-background text-foreground border border-b-0 border-border"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            Files
+          </button>
+        </div>
 
-          <div className="flex items-center gap-2">
-            {/* Stats */}
+        <div className="flex items-center gap-2 pb-1 pr-1">
+          {onClose && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
+              onClick={onClose}
+            >
+              <X className="h-3.5 w-3.5" />
+              <span className="sr-only">Close panel</span>
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <ScrollArea className="flex-1 bg-background relative z-10">
+        {activeTab === "process" ? (
+          <div className="p-4 space-y-4">
+            {/* Top Stats - Optional inside the tab now since they were in header */}
             {hasActivity && (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 pb-2">
                 {runningCount > 0 && (
-                  <Badge variant="default" className="text-xs">
-                    <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                  <Badge variant="default" className="text-[10px] px-1.5 py-0">
+                    <Loader2 className="h-2.5 w-2.5 mr-1 animate-spin" />
                     {runningCount}
                   </Badge>
                 )}
                 {completeCount > 0 && (
-                  <Badge variant="outline" className="text-xs border-border">
-                    <CheckCircle2 className="h-3 w-3 mr-1" />
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-border">
+                    <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
                     {completeCount}
                   </Badge>
                 )}
                 {errorCount > 0 && (
-                  <Badge variant="destructive" className="text-xs">
-                    <AlertCircle className="h-3 w-3 mr-1" />
+                  <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
+                    <AlertCircle className="h-2.5 w-2.5 mr-1" />
                     {errorCount}
                   </Badge>
                 )}
                 {totalDuration > 0 && (
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground font-mono">
-                    <Clock className="h-3 w-3" />
+                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-mono ml-auto">
+                    <Clock className="h-2.5 w-2.5" />
                     <span>{totalDuration}ms</span>
                   </div>
                 )}
               </div>
             )}
-
-            {/* Close button */}
-            {onClose && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7"
-                onClick={onClose}
-              >
-                <X className="h-3.5 w-3.5" />
-                <span className="sr-only">Close panel</span>
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <ScrollArea className="flex-1">
-        <div className="p-3 space-y-3">
           {/* Thinking steps */}
           {(thinkingSteps.length > 0 || isLoading) && (
             <div className="rounded-md border border-border bg-muted/30 p-3">
@@ -133,7 +153,16 @@ export function ActivityPanel({
               ))}
             </div>
           )}
-        </div>
+          </div>
+        ) : (
+          <div className="p-8 flex flex-col items-center justify-center text-center text-muted-foreground h-full min-h-[300px]">
+             <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-3">
+               <Activity className="h-5 w-5 text-muted-foreground/50" />
+             </div>
+             <p className="text-sm font-medium text-foreground">No files active</p>
+             <p className="text-xs mt-1">Files related to this conversation will appear here.</p>
+          </div>
+        )}
       </ScrollArea>
     </div>
   );

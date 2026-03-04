@@ -3,7 +3,7 @@
 import { Button, Textarea } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import type { UIMessage } from "ai";
-import { RefreshCw, Send, Wrench, X, Zap } from "lucide-react";
+import { RefreshCw, Send, Wrench, X, Zap, Paperclip, Square, Settings } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,
@@ -21,6 +21,8 @@ import {
 } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 import type { ChatMode } from "@/lib/types";
+import { AppSidebar } from "@/components/app-sidebar";
+import { AppLayout } from "@/components/layout/app-layout";
 import { ActivityPanel } from "../activity/activity-panel";
 import { ChatTopBar } from "./chat-top-bar";
 import { LoadingIndicator } from "./loading-indicator";
@@ -260,8 +262,20 @@ export function VercelChat() {
     />
   ) : null;
 
+  const sidebarContent = (
+    <AppSidebar
+      conversations={conversations}
+      activeId={activeId}
+      onNewChat={handleNewChat}
+      onSelectConversation={async (id) => {
+        await switchTo(id);
+      }}
+      onDeleteConversation={remove}
+    />
+  );
+
   return (
-    <>
+    <AppLayout sidebar={sidebarContent}>
       <div className="flex h-full w-full overflow-hidden relative bg-transparent">
         <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
           {/* Chat top bar */}
@@ -335,64 +349,86 @@ export function VercelChat() {
           <div className="mx-auto max-w-3xl">
             <form
               onSubmit={handleFormSubmit}
-              className="relative flex flex-col w-full overflow-hidden rounded-2xl border border-input/50 bg-background focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/50 shadow-sm transition-all pointer-events-auto"
+              className="relative flex items-end w-full rounded-[32px] border border-input/50 bg-background focus-within:border-primary/30 focus-within:ring-1 focus-within:ring-primary/30 shadow-md transition-all pointer-events-auto px-2 py-2"
             >
+              {/* Left Icons */}
+              <div className="flex items-center gap-1 pl-2 pb-1 text-muted-foreground shrink-0 hidden sm:flex">
+                <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-muted">
+                  <Paperclip className="h-4 w-4" />
+                </Button>
+                <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-muted">
+                  <Square className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center pl-2 pb-1 sm:hidden">
+                <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-muted text-muted-foreground">
+                  <Paperclip className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Text Area */}
               <Textarea
                 ref={textareaRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask me anything about Duyet..."
+                placeholder="Enter your request..."
                 disabled={isLoading}
                 rows={1}
-                className="min-h-[52px] max-h-[200px] w-full resize-none border-0 bg-transparent px-4 py-3.5 text-base focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:outline-none focus:border-0 outline-none shadow-none pb-12"
+                className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 text-sm focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:outline-none focus:border-0 outline-none shadow-none"
               />
 
-              {/* Input toolbar (bottom row inside the textarea container) */}
-              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <ModeToggle mode={mode} onModeChange={handleModeChange} />
-                </div>
+              {/* Right Icons */}
+              <div className="flex items-center gap-3 pr-1 pb-1 shrink-0">
+                <button 
+                  type="button" 
+                  className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-muted-foreground hover:text-foreground uppercase"
+                >
+                  <Settings className="h-3.5 w-3.5" />
+                  MAX
+                </button>
+                
                 <div className="flex items-center gap-1">
                   {isLoading ? (
                     <Button
                       type="button"
                       onClick={stop}
                       size="icon"
-                      variant="ghost"
-                      className="h-8 w-8 rounded-full text-foreground hover:bg-muted"
+                      className="h-9 w-9 rounded-full bg-foreground text-background hover:bg-foreground/90 transition-all"
                     >
                       <X className="h-4 w-4" />
                       <span className="sr-only">Stop</span>
                     </Button>
                   ) : (
                     <>
-                      {hasAssistantResponse && (
+                      {hasAssistantResponse && input.length === 0 && (
                         <Button
                           type="button"
                           onClick={() => reload()}
                           size="icon"
                           variant="ghost"
-                          className="h-8 w-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
+                          className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
                         >
                           <RefreshCw className="h-4 w-4" />
                           <span className="sr-only">Regenerate</span>
                         </Button>
                       )}
-                      <Button
-                        type="submit"
-                        disabled={!canSubmit}
-                        size="icon"
-                        className={cn(
-                          "h-8 w-8 rounded-full transition-all",
-                          canSubmit
-                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                            : "bg-muted text-muted-foreground opacity-50"
-                        )}
-                      >
-                        <Send className="h-4 w-4" />
-                        <span className="sr-only">Send</span>
-                      </Button>
+                      {(input.length > 0 || !hasAssistantResponse) && (
+                        <Button
+                          type="submit"
+                          disabled={!canSubmit}
+                          size="icon"
+                          className={cn(
+                            "h-9 w-9 rounded-full transition-all",
+                            canSubmit
+                              ? "bg-foreground text-background hover:bg-foreground/90"
+                              : "bg-muted text-muted-foreground opacity-50"
+                          )}
+                        >
+                          <Send className="h-4 w-4" />
+                          <span className="sr-only">Send</span>
+                        </Button>
+                      )}
                     </>
                   )}
                 </div>
@@ -403,10 +439,6 @@ export function VercelChat() {
                 {error.message}
               </p>
             )}
-            <p className="mt-3 text-center text-xs text-muted-foreground">
-              Duyetbot can make mistakes. Consider verifying important
-              information.
-            </p>
           </div>
         </div>
         </div>
@@ -442,7 +474,7 @@ export function VercelChat() {
           <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
         </SheetContent>
       </Sheet>
-    </>
+    </AppLayout>
   );
 }
 
