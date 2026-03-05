@@ -64,12 +64,8 @@ export function ChatTopBar({
       <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent px-4 py-2">
         {/* Left: Breadcrumbs / Title */}
         <div className="flex items-center gap-3">
-           <div className="flex items-center justify-center h-8 w-8 rounded-full bg-secondary/50 text-foreground">
-             <LayoutDashboard className="h-4 w-4 text-blue-500" />
-           </div>
            <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
-             <span>Icon Maker</span>
-             <span className="text-muted-foreground font-normal">{conversationTitle || "New Task"}</span>
+             <span>{conversationTitle || "New Task"}</span>
            </div>
         </div>
 

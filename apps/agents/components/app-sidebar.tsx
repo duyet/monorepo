@@ -122,58 +122,6 @@ export function AppSidebar({
               <Plus className="h-4 w-4" />
               New Task
             </Button>
-            <Button 
-              variant="ghost"
-              onClick={props.onSearch}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
-            >
-              <Search className="h-4 w-4" />
-              Search
-            </Button>
-            <Button 
-              variant="ghost"
-              onClick={props.onOpenAssets}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
-            >
-              <FolderClosed className="h-4 w-4" />
-              Assets
-            </Button>
-            <Button 
-              variant="ghost"
-              onClick={props.onOpenGallery}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
-            >
-              <Grid2x2 className="h-4 w-4" />
-              Gallery
-            </Button>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2 pt-4">MiniMax Lab</SidebarGroupLabel>
-          <SidebarGroupContent>
-             <Button 
-              variant="ghost"
-              onClick={props.onOpenMaxClaw}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
-            >
-              <LayoutDashboard className="h-4 w-4" />
-              MaxClaw <span className="ml-auto text-[10px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground border">New</span>
-            </Button>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2 pt-4">Experts</SidebarGroupLabel>
-          <SidebarGroupContent>
-             <Button 
-              variant="ghost"
-              onClick={props.onExploreExperts}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
-            >
-              <Users className="h-4 w-4" />
-              Explore Experts <span className="ml-auto text-[10px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground border">New</span>
-            </Button>
           </SidebarGroupContent>
         </SidebarGroup>
 
