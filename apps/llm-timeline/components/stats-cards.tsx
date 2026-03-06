@@ -39,7 +39,7 @@ export function StatsCards({
 
   return (
     <>
-      <div className="mb-8 grid grid-cols-2 gap-4">
+      <div className="mb-4 grid grid-cols-2 gap-4">
         {stats.map(({ label, value, icon: Icon, href, view }) => {
           const isActive = activeView === view;
 
@@ -80,7 +80,7 @@ export function StatsCards({
       {/* Source breakdown */}
       {sourceStats && Object.keys(sourceStats).length > 0 && (
         <div
-          className="mb-8 text-center text-xs"
+          className="mb-2 text-center text-xs"
           style={{ color: "var(--text-muted)" }}
         >
           Data sources:{" "}

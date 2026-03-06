@@ -108,7 +108,7 @@ export function StaticView({
       />
 
       {/* Timeline */}
-      <div className="min-h-[50vh]">
+      <div>
         {view === "organizations" ? (
           allModels.length > 500 ? (
             <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
