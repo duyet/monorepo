@@ -135,3 +135,13 @@ export type StreamEvent =
   | ToolCompleteEvent
   | ToolErrorEvent
   | { type: "response"; response: string };
+
+export type ActivityTabType = "process" | "files";
+
+export interface ActivityPanelProps {
+  executions: ToolExecution[];
+  thinkingSteps?: string[];
+  isLoading?: boolean;
+  onClose?: () => void;
+  className?: string;
+}

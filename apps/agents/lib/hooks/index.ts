@@ -16,5 +16,7 @@ export type {
   UseKeyboardShortcutsOptions,
 } from "./use-keyboard-shortcuts";
 export { useKeyboardShortcuts } from "./use-keyboard-shortcuts";
+export { useClerkComponents } from "./use-clerk-components";
+export type { ClerkComponents } from "./use-clerk-components";
 export { useMediaQuery } from "./use-media-query";
 export { useMergeRefs } from "./use-merge-refs";

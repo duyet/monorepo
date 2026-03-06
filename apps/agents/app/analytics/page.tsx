@@ -20,6 +20,8 @@ import {
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
 import { useConversations } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
+import { AppSidebar } from "@/components/app-sidebar";
+import { AppLayout } from "@/components/layout/app-layout";
 
 interface AnalyticsData {
   totalConversations: number;
@@ -44,8 +46,22 @@ export default function AnalyticsPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const sidebarContent = (
+    <AppSidebar
+      conversations={conversations}
+      activeId={activeId}
+      onNewChat={() => createNew("fast")}
+      onSelectConversation={async (id) => {
+        await switchTo(id);
+        window.location.href = "/";
+      }}
+      onDeleteConversation={remove}
+    />
+  );
+
   return (
-    <div className="flex h-full w-full overflow-hidden relative bg-transparent">
+    <AppLayout sidebar={sidebarContent}>
+      <div className="flex h-full w-full overflow-hidden relative bg-transparent">
       <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
         <ChatTopBar
           onToggleActivity={() => {}}
@@ -185,7 +201,8 @@ export default function AnalyticsPage() {
         </div>
       </div>
       </div>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
 
