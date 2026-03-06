@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { BarChart2, Plus, Sun, Moon, Search, FolderClosed, Grid2x2, Users, LayoutDashboard, PanelLeftClose } from "lucide-react"
-import { useTheme } from "next-themes"
+import { Plus, PanelLeftClose } from "lucide-react"
 import { Button } from "@duyet/components"
+import { useClerkComponents } from "@/lib/hooks/use-clerk-components"
 
 import {
   Sidebar,
@@ -20,20 +20,10 @@ import {
 import { ConversationList } from "./sidebar/conversation-list"
 import { Conversation } from "@/lib/types"
 
-let ClerkComponents: {
-  SignInButton: React.ComponentType<{
-    mode?: string;
-    children: React.ReactNode;
-  }>;
-  SignedIn: React.ComponentType<{ children: React.ReactNode }>;
-  SignedOut: React.ComponentType<{ children: React.ReactNode }>;
-  UserButton: React.ComponentType<{ appearance?: Record<string, unknown> }>;
-  useUser: () => { isLoaded: boolean; isSignedIn: boolean; user: any };
-} | null = null;
-
 function UserProfile() {
-  if (!ClerkComponents || !ClerkComponents.useUser) return null;
-  const { user, isLoaded } = ClerkComponents.useUser();
+  const clerk = useClerkComponents();
+  if (!clerk) return null;
+  const { user, isLoaded } = clerk.useUser();
   if (!isLoaded || !user) return null;
 
   const plan = user.publicMetadata?.plan || "Free";
@@ -61,31 +51,15 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   onExploreExperts?: () => void;
 }
 
-export function AppSidebar({ 
+export function AppSidebar({
   conversations,
   activeId,
   onNewChat,
   onSelectConversation,
   onDeleteConversation,
-  ...props 
+  ...props
 }: AppSidebarProps) {
-  const { theme, setTheme } = useTheme();
-  const [clerkLoaded, setClerkLoaded] = React.useState(false);
-
-  React.useEffect(() => {
-    if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
-      import("@clerk/clerk-react").then((mod) => {
-        ClerkComponents = {
-          SignInButton: mod.SignInButton as any,
-          SignedIn: mod.SignedIn as any,
-          SignedOut: mod.SignedOut as any,
-          UserButton: mod.UserButton as any,
-          useUser: mod.useUser as any,
-        };
-        setClerkLoaded(true);
-      });
-    }
-  }, []);
+  const clerk = useClerkComponents();
 
   return (
     <Sidebar variant="inset" {...props} className="border-r-0">
@@ -110,7 +84,7 @@ export function AppSidebar({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      
+
       <SidebarContent className="px-2 font-medium">
         <SidebarGroup>
           <SidebarGroupContent className="space-y-1">
@@ -141,18 +115,18 @@ export function AppSidebar({
       <SidebarFooter className="p-4">
          <div className="flex items-center justify-between">
            <div className="flex items-center">
-             {clerkLoaded && ClerkComponents ? (
+             {clerk ? (
                <>
-                 <ClerkComponents.SignedOut>
-                   <ClerkComponents.SignInButton mode="modal">
+                 <clerk.SignedOut>
+                   <clerk.SignInButton mode="modal">
                      <Button variant="default" size="sm" className="h-8 text-xs font-semibold px-3">
                        Sign in
                      </Button>
-                   </ClerkComponents.SignInButton>
-                 </ClerkComponents.SignedOut>
-                 <ClerkComponents.SignedIn>
+                   </clerk.SignInButton>
+                 </clerk.SignedOut>
+                 <clerk.SignedIn>
                    <div className="flex items-center gap-3 w-full">
-                     <ClerkComponents.UserButton
+                     <clerk.UserButton
                        appearance={{
                          elements: {
                            avatarBox: "h-8 w-8",
@@ -161,7 +135,7 @@ export function AppSidebar({
                      />
                      <UserProfile />
                    </div>
-                 </ClerkComponents.SignedIn>
+                 </clerk.SignedIn>
                </>
              ) : (
                <Button variant="default" size="sm" className="h-8 text-xs font-semibold px-3 pointer-events-none opacity-50">

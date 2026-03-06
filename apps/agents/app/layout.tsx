@@ -8,9 +8,6 @@ import { cn } from "@duyet/libs/utils";
 import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
 import { Providers } from "@/components/providers";
 
-import { Separator } from "@/components/ui/separator";
-
-
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],

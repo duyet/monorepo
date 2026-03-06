@@ -1,18 +1,10 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import { Activity, Plus, Share, MoreHorizontal, LayoutDashboard } from "lucide-react";
-import { useEffect, useState } from "react";
-
-let ClerkComponents: {
-  SignInButton: React.ComponentType<{
-    mode?: string;
-    children: React.ReactNode;
-  }>;
-  SignedIn: React.ComponentType<{ children: React.ReactNode }>;
-  SignedOut: React.ComponentType<{ children: React.ReactNode }>;
-  UserButton: React.ComponentType<{ appearance?: Record<string, unknown> }>;
-} | null = null;
+import { Activity, Plus, Share, MoreHorizontal } from "lucide-react";
+import { useState } from "react";
+import { useClerkComponents } from "@/lib/hooks/use-clerk-components";
+import { SettingsDialog } from "../settings/settings-dialog";
 
 interface ChatTopBarProps {
   onToggleActivity: () => void;
@@ -23,8 +15,6 @@ interface ChatTopBarProps {
   conversationTitle?: string;
 }
 
-import { SettingsDialog } from "../settings/settings-dialog";
-
 export function ChatTopBar({
   onToggleActivity,
   onToggleTools,
@@ -33,31 +23,8 @@ export function ChatTopBar({
   activityCount,
   conversationTitle,
 }: ChatTopBarProps) {
-  const [clerkLoaded, setClerkLoaded] = useState(false);
+  const clerk = useClerkComponents();
   const [settingsOpen, setSettingsOpen] = useState(false);
-
-  useEffect(() => {
-    // Dynamically import Clerk only on client when key is available
-    if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
-      import("@clerk/clerk-react").then((mod) => {
-        ClerkComponents = {
-          SignInButton: mod.SignInButton as typeof ClerkComponents extends null
-            ? never
-            : NonNullable<typeof ClerkComponents>["SignInButton"],
-          SignedIn: mod.SignedIn as typeof ClerkComponents extends null
-            ? never
-            : NonNullable<typeof ClerkComponents>["SignedIn"],
-          SignedOut: mod.SignedOut as typeof ClerkComponents extends null
-            ? never
-            : NonNullable<typeof ClerkComponents>["SignedOut"],
-          UserButton: mod.UserButton as typeof ClerkComponents extends null
-            ? never
-            : NonNullable<typeof ClerkComponents>["UserButton"],
-        };
-        setClerkLoaded(true);
-      });
-    }
-  }, []);
 
   return (
     <>
@@ -116,6 +83,31 @@ export function ChatTopBar({
               )}
               <span className="sr-only">Toggle activity</span>
             </Button>
+          )}
+
+          {clerk && (
+            <>
+              <clerk.SignedOut>
+                <clerk.SignInButton mode="modal">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 text-xs font-medium rounded-md shadow-sm bg-background ml-1"
+                  >
+                    Sign in
+                  </Button>
+                </clerk.SignInButton>
+              </clerk.SignedOut>
+              <clerk.SignedIn>
+                <div className="ml-1">
+                  <clerk.UserButton
+                    appearance={{
+                      elements: { avatarBox: "h-7 w-7" },
+                    }}
+                  />
+                </div>
+              </clerk.SignedIn>
+            </>
           )}
         </div>
       </div>
