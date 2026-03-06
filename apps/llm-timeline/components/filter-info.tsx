@@ -64,7 +64,7 @@ export function FilterInfo({
 
   return (
     <div
-      className="mb-8 flex items-center gap-4 rounded-lg border px-4 py-3"
+      className="mb-4 flex items-center gap-4 rounded-lg border px-4 py-3"
       style={{
         borderColor: "var(--border)",
         backgroundColor: "var(--bg-card)",
