@@ -1,29 +1,40 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Plus, PanelLeftClose } from "lucide-react"
-import { Button } from "@duyet/components"
-import { useClerkComponents } from "@/lib/hooks/use-clerk-components"
-
+import { Button } from "@duyet/components";
+import { cn } from "@duyet/libs/utils";
+import { PanelLeftClose, Plus } from "lucide-react";
+import type * as React from "react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-} from "@/components/ui/sidebar"
-import { ConversationList } from "./sidebar/conversation-list"
-import { Conversation } from "@/lib/types"
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
+import {
+  type ClerkComponents,
+  useClerkComponents,
+} from "@/lib/hooks/use-clerk-components";
+import type { Conversation } from "@/lib/types";
+import { ConversationList } from "./sidebar/conversation-list";
 
 function UserProfile() {
   const clerk = useClerkComponents();
   if (!clerk) return null;
-  const { user, isLoaded } = clerk.useUser();
+  return <UserProfileInner useUser={clerk.useUser} />;
+}
+
+function UserProfileInner({
+  useUser,
+}: {
+  useUser: ClerkComponents["useUser"];
+}) {
+  const { user, isLoaded } = useUser();
   if (!isLoaded || !user) return null;
 
   const plan = user.publicMetadata?.plan || "Free";
@@ -57,16 +68,27 @@ export function AppSidebar({
   onNewChat,
   onSelectConversation,
   onDeleteConversation,
-  ...props
+  onCloseSidebar,
+  onSearch: _onSearch,
+  onOpenAssets: _onOpenAssets,
+  onOpenGallery: _onOpenGallery,
+  onOpenMaxClaw: _onOpenMaxClaw,
+  onExploreExperts: _onExploreExperts,
+  className,
+  ...rest
 }: AppSidebarProps) {
   const clerk = useClerkComponents();
 
   return (
-    <Sidebar variant="inset" {...props} className="border-r-0">
+    <Sidebar variant="inset" {...rest} className={cn("border-r-0", className)}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center justify-between">
-            <SidebarMenuButton size="lg" asChild className="hover:bg-transparent">
+            <SidebarMenuButton
+              size="lg"
+              asChild
+              className="hover:bg-transparent"
+            >
               <a href="/">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-foreground text-background">
                   <span className="font-bold text-lg">D</span>
@@ -76,7 +98,7 @@ export function AppSidebar({
             <Button
               variant="ghost"
               size="icon"
-              onClick={props.onCloseSidebar}
+              onClick={onCloseSidebar}
               className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground mr-1"
             >
               <PanelLeftClose className="h-4 w-4" />
@@ -100,7 +122,9 @@ export function AppSidebar({
         </SidebarGroup>
 
         <SidebarGroup className="flex-1 overflow-hidden flex flex-col pt-4">
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2">Task History</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2">
+            Task History
+          </SidebarGroupLabel>
           <SidebarGroupContent className="flex-1 overflow-hidden">
             <ConversationList
               conversations={conversations}
@@ -113,38 +137,46 @@ export function AppSidebar({
       </SidebarContent>
 
       <SidebarFooter className="p-4">
-         <div className="flex items-center justify-between">
-           <div className="flex items-center">
-             {clerk ? (
-               <>
-                 <clerk.SignedOut>
-                   <clerk.SignInButton mode="modal">
-                     <Button variant="default" size="sm" className="h-8 text-xs font-semibold px-3">
-                       Sign in
-                     </Button>
-                   </clerk.SignInButton>
-                 </clerk.SignedOut>
-                 <clerk.SignedIn>
-                   <div className="flex items-center gap-3 w-full">
-                     <clerk.UserButton
-                       appearance={{
-                         elements: {
-                           avatarBox: "h-8 w-8",
-                         },
-                       }}
-                     />
-                     <UserProfile />
-                   </div>
-                 </clerk.SignedIn>
-               </>
-             ) : (
-               <Button variant="default" size="sm" className="h-8 text-xs font-semibold px-3 pointer-events-none opacity-50">
-                 Sign in
-               </Button>
-             )}
-           </div>
-         </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            {clerk ? (
+              <>
+                <clerk.SignedOut>
+                  <clerk.SignInButton mode="modal">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="h-8 text-xs font-semibold px-3"
+                    >
+                      Sign in
+                    </Button>
+                  </clerk.SignInButton>
+                </clerk.SignedOut>
+                <clerk.SignedIn>
+                  <div className="flex items-center gap-3 w-full">
+                    <clerk.UserButton
+                      appearance={{
+                        elements: {
+                          avatarBox: "h-8 w-8",
+                        },
+                      }}
+                    />
+                    <UserProfile />
+                  </div>
+                </clerk.SignedIn>
+              </>
+            ) : (
+              <Button
+                variant="default"
+                size="sm"
+                className="h-8 text-xs font-semibold px-3 pointer-events-none opacity-50"
+              >
+                Sign in
+              </Button>
+            )}
+          </div>
+        </div>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

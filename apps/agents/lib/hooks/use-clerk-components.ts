@@ -1,16 +1,20 @@
 "use client";
 
+import type {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 
 export interface ClerkComponents {
-  SignInButton: React.ComponentType<{
-    mode?: string;
-    children: React.ReactNode;
-  }>;
-  SignedIn: React.ComponentType<{ children: React.ReactNode }>;
-  SignedOut: React.ComponentType<{ children: React.ReactNode }>;
-  UserButton: React.ComponentType<{ appearance?: Record<string, unknown> }>;
-  useUser: () => { isLoaded: boolean; isSignedIn: boolean; user: any };
+  SignInButton: typeof SignInButton;
+  SignedIn: typeof SignedIn;
+  SignedOut: typeof SignedOut;
+  UserButton: typeof UserButton;
+  useUser: typeof useUser;
 }
 
 // Singleton promise — import fires once regardless of how many consumers mount
@@ -19,13 +23,18 @@ let clerkPromise: Promise<ClerkComponents> | null = null;
 function loadClerk(): Promise<ClerkComponents> | null {
   if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) return null;
   if (!clerkPromise) {
-    clerkPromise = import("@clerk/clerk-react").then((mod) => ({
-      SignInButton: mod.SignInButton as any,
-      SignedIn: mod.SignedIn as any,
-      SignedOut: mod.SignedOut as any,
-      UserButton: mod.UserButton as any,
-      useUser: mod.useUser as any,
-    }));
+    clerkPromise = import("@clerk/clerk-react")
+      .then((mod) => ({
+        SignInButton: mod.SignInButton,
+        SignedIn: mod.SignedIn,
+        SignedOut: mod.SignedOut,
+        UserButton: mod.UserButton,
+        useUser: mod.useUser,
+      }))
+      .catch((err) => {
+        clerkPromise = null;
+        throw err;
+      });
   }
   return clerkPromise;
 }
@@ -40,7 +49,7 @@ export function useClerkComponents(): ClerkComponents | null {
   useEffect(() => {
     const promise = loadClerk();
     if (promise) {
-      promise.then(setComponents);
+      promise.then(setComponents).catch(() => {});
     }
   }, []);
 

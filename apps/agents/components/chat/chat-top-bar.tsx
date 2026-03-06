@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import { Activity, Plus, Share, MoreHorizontal } from "lucide-react";
+import { Activity, MoreHorizontal, Plus, Wrench } from "lucide-react";
 import { useState } from "react";
 import { useClerkComponents } from "@/lib/hooks/use-clerk-components";
 import { SettingsDialog } from "../settings/settings-dialog";
@@ -31,9 +31,9 @@ export function ChatTopBar({
       <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent px-4 py-2">
         {/* Left: Breadcrumbs / Title */}
         <div className="flex items-center gap-3">
-           <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
-             <span>{conversationTitle || "New Task"}</span>
-           </div>
+          <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
+            <span>{conversationTitle || "New Task"}</span>
+          </div>
         </div>
 
         {/* Right: Actions */}
@@ -48,15 +48,17 @@ export function ChatTopBar({
             <span className="sr-only">New Chat</span>
           </Button>
 
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
-            onClick={() => onToggleTools?.()}
-          >
-             <Share className="h-4 w-4" />
-             <span className="sr-only">Share</span>
-          </Button>
+          {onToggleTools && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+              onClick={onToggleTools}
+            >
+              <Wrench className="h-4 w-4" />
+              <span className="sr-only">Tools</span>
+            </Button>
+          )}
 
           <Button
             variant="outline"
@@ -64,8 +66,8 @@ export function ChatTopBar({
             className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
             onClick={() => setSettingsOpen(true)}
           >
-             <MoreHorizontal className="h-4 w-4" />
-             <span className="sr-only">More</span>
+            <MoreHorizontal className="h-4 w-4" />
+            <span className="sr-only">More</span>
           </Button>
 
           {showActivityButton && (
