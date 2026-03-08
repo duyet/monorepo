@@ -89,7 +89,6 @@ async function getTopPath(limit = 10, dateFrom = "-90d"): Promise<Path[]> {
     includeBounceRate: true,
     doPathCleaning: false,
     limit,
-    useSessionsTable: true,
   });
 
   if (!data) {

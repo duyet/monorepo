@@ -170,9 +170,7 @@ export async function hasClickHousePhotos(): Promise<boolean> {
   `;
   const totalResult = await executeQuery<{ count: string }>(totalQuery);
   const totalCount =
-    totalResult.length > 0
-      ? Number.parseInt(totalResult[0].count, 10)
-      : 0;
+    totalResult.length > 0 ? Number.parseInt(totalResult[0].count, 10) : 0;
   console.log(`   📊 ClickHouse total photos: ${totalCount}`);
 
   if (totalCount === 0) {
@@ -190,8 +188,6 @@ export async function hasClickHousePhotos(): Promise<boolean> {
     username: UNSPLASH_USERNAME,
   });
   const count = result.length > 0 ? Number.parseInt(result[0].count, 10) : 0;
-  console.log(
-    `   📊 ClickHouse photos for '${UNSPLASH_USERNAME}': ${count}`,
-  );
+  console.log(`   📊 ClickHouse photos for '${UNSPLASH_USERNAME}': ${count}`);
   return count > 0;
 }

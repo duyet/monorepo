@@ -83,7 +83,7 @@ const QUERY_TIMEOUT_MS = 10_000; // 10s timeout for ClickHouse queries
  */
 export async function executeQuery<T>(
   query: string,
-  query_params?: Record<string, string | number>,
+  query_params?: Record<string, string | number>
 ): Promise<T[]> {
   const clickhouse = getClickHouseClient();
   if (!clickhouse) {

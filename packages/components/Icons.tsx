@@ -105,4 +105,14 @@ export const UserEmpty = (props: IconProps) => (
   </svg>
 );
 
-export default { Github, Twitter, LinkedIn, Unsplash, TikTok, Medium, DevTo, User, UserEmpty };
+export default {
+  Github,
+  Twitter,
+  LinkedIn,
+  Unsplash,
+  TikTok,
+  Medium,
+  DevTo,
+  User,
+  UserEmpty,
+};

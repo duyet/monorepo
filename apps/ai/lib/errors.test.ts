@@ -32,25 +32,25 @@ describe("errors utilities", () => {
 
     it("should extract error string from payload", () => {
       expect(extractErrorDetail({ error: "error message" }, "fallback")).toBe(
-        "error message",
+        "error message"
       );
     });
 
     it("should extract error.message from payload", () => {
       expect(
-        extractErrorDetail({ error: { message: "error message" } }, "fallback"),
+        extractErrorDetail({ error: { message: "error message" } }, "fallback")
       ).toBe("error message");
     });
 
     it("should extract details string from payload", () => {
       expect(
-        extractErrorDetail({ details: "details message" }, "fallback"),
+        extractErrorDetail({ details: "details message" }, "fallback")
       ).toBe("details message");
     });
 
     it("should extract nested details.error string", () => {
       expect(
-        extractErrorDetail({ details: { error: "nested error" } }, "fallback"),
+        extractErrorDetail({ details: { error: "nested error" } }, "fallback")
       ).toBe("nested error");
     });
 
@@ -58,14 +58,14 @@ describe("errors utilities", () => {
       expect(
         extractErrorDetail(
           { details: { error: { message: "nested message" } } },
-          "fallback",
-        ),
+          "fallback"
+        )
       ).toBe("nested message");
     });
 
     it("should extract message string from payload", () => {
       expect(extractErrorDetail({ message: "message text" }, "fallback")).toBe(
-        "message text",
+        "message text"
       );
     });
 
@@ -73,8 +73,8 @@ describe("errors utilities", () => {
       expect(
         extractErrorDetail(
           { error: "error text", message: "message text" },
-          "fallback",
-        ),
+          "fallback"
+        )
       ).toBe("error text");
     });
 
@@ -82,8 +82,8 @@ describe("errors utilities", () => {
       expect(
         extractErrorDetail(
           { error: "error text", details: "details text" },
-          "fallback",
-        ),
+          "fallback"
+        )
       ).toBe("error text");
     });
 
@@ -91,8 +91,8 @@ describe("errors utilities", () => {
       expect(
         extractErrorDetail(
           { details: "details text", message: "message text" },
-          "fallback",
-        ),
+          "fallback"
+        )
       ).toBe("details text");
     });
 
@@ -102,7 +102,7 @@ describe("errors utilities", () => {
 
     it("should return fallback for object with non-error properties", () => {
       expect(extractErrorDetail({ foo: "bar", baz: 123 }, "fallback")).toBe(
-        "fallback",
+        "fallback"
       );
     });
 
@@ -117,7 +117,7 @@ describe("errors utilities", () => {
         },
       };
       expect(extractErrorDetail(payload, "fallback")).toBe(
-        "Internal server error",
+        "Internal server error"
       );
     });
   });
@@ -139,14 +139,14 @@ describe("errors utilities", () => {
   describe("getErrorMessage", () => {
     it("should extract message from Error instance", () => {
       expect(getErrorMessage(new Error("test error"), "fallback")).toBe(
-        "test error",
+        "test error"
       );
     });
 
     it("should return fallback for non-Error values", () => {
       expect(getErrorMessage("string error", "fallback")).toBe("fallback");
       expect(getErrorMessage({ message: "object" }, "fallback")).toBe(
-        "fallback",
+        "fallback"
       );
       expect(getErrorMessage(null, "fallback")).toBe("fallback");
       expect(getErrorMessage(undefined, "fallback")).toBe("fallback");

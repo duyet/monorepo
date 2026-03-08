@@ -67,14 +67,12 @@ const TOOLTIP_STYLE = {
 const STATUS_CONFIG = {
   online: {
     label: "Running",
-    badgeClass:
-      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    badgeClass: "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
     dotClass: "bg-claude-mint",
   },
   idle: {
     label: "Standby",
-    badgeClass:
-      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    badgeClass: "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
     dotClass: "bg-claude-mint",
   },
   offline: {
@@ -139,10 +137,7 @@ function AirQualityRing({
           />
         </svg>
         <div className="text-center">
-          <p
-            className="text-lg font-bold"
-            style={{ color }}
-          >
+          <p className="text-lg font-bold" style={{ color }}>
             {AQ_LABEL[level]}
           </p>
         </div>
@@ -456,9 +451,7 @@ function FilterStatus() {
               <div className="h-3 w-full overflow-hidden rounded-full bg-claude-tan/50 dark:bg-neutral-700">
                 <div
                   className={`h-full rounded-full transition-all ${
-                    isLow
-                      ? "bg-claude-coral"
-                      : "bg-claude-lavender"
+                    isLow ? "bg-claude-coral" : "bg-claude-lavender"
                   }`}
                   style={{ width: `${filter.remainingPercent}%` }}
                 />

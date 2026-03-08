@@ -5,8 +5,16 @@
  * that the AI agent can use to answer questions.
  */
 
-import { getAbout, getAnalytics, getBlogPostContent, getCVData, getGitHubActivity, searchBlog } from "../mcp-client";
+import {
+  getAbout,
+  getAnalytics,
+  getBlogPostContent,
+  getCVData,
+  getGitHubActivity,
+  searchBlog,
+} from "../mcp-client";
 import type { Source } from "../types";
+import { fetchLlmsTxtTool } from "./llms";
 
 /**
  * Tool: Search Blog Posts
@@ -72,7 +80,9 @@ export async function getBlogPostTool(url: string): Promise<{
  * Tool: Get CV Data
  * Retrieves Duyet's CV/Resume information
  */
-export async function getCVTool(format: "summary" | "detailed" = "summary"): Promise<{
+export async function getCVTool(
+  format: "summary" | "detailed" = "summary"
+): Promise<{
   content: string;
   sources: Source[];
 }> {
@@ -131,7 +141,11 @@ export async function getGitHubTool(limit = 5): Promise<{
  * Retrieves contact form analytics
  */
 export async function getAnalyticsTool(
-  reportType: "summary" | "purpose_breakdown" | "daily_trends" | "recent_activity" = "summary"
+  reportType:
+    | "summary"
+    | "purpose_breakdown"
+    | "daily_trends"
+    | "recent_activity" = "summary"
 ): Promise<{
   analytics: string;
   sources: Source[];
@@ -178,4 +192,15 @@ export async function getAboutTool(): Promise<{
     about: response.data,
     sources: [],
   };
+}
+
+/**
+ * Tool: Fetch llms.txt
+ * Retrieves llms.txt content from any duyet.net domain
+ */
+export async function fetchLlmsTxt(domain: string): Promise<{
+  content: string;
+  sources: Source[];
+}> {
+  return fetchLlmsTxtTool(domain);
 }

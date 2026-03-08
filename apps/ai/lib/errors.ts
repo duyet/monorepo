@@ -77,7 +77,7 @@ export function createInitialErrors(): ErrorState {
  */
 export function extractErrorDetail(
   payload: Record<string, unknown> | undefined,
-  fallback: string,
+  fallback: string
 ): string {
   if (!payload) {
     return fallback;

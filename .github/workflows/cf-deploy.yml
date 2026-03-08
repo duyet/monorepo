@@ -104,8 +104,9 @@ jobs:
               done
             elif [[ -n "$INPUT_APP" ]]; then
               # Deploy a specific app by name
-              entry=$(echo "$APPS_JSON" | jq -c ".[] | select(.app == \"$INPUT_APP\")")
-              [[ -n "$entry" ]] && DEPLOY_APPS+=("$entry")
+              if [[ -n "${APPS[$INPUT_APP]+isset}" ]]; then
+                DEPLOY_APPS+=("${APPS[$INPUT_APP]}")
+              fi
             fi
           else
             # Auto-detect changes
@@ -113,11 +114,11 @@ jobs:
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
             for app in blog cv home homelab insights llm-timeline photos agents ai ai-percentage; do
-              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r ".$app")
+              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
               fi
-            done < <(echo "$APPS_JSON" | jq -c '.[]')
+            done
           fi
 
           # Build matrix JSON
@@ -244,6 +245,9 @@ jobs:
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          # Cloudflare AI Gateway (agents app)
+          CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
+          CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}
 
       - name: Deployment summary
         run: |

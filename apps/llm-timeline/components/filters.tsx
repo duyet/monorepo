@@ -1,45 +1,65 @@
-'use client'
+"use client";
 
-import { Search, X, Rows2, LayoutList } from 'lucide-react'
-import type { FilterState } from '@/lib/utils'
-import { organizations } from '@/lib/data'
+import { Search, X, Rows2, LayoutList, Download } from "lucide-react";
+import type { FilterState } from "@/lib/utils";
+import { organizations, domains, models as allModels } from "@/lib/data";
+
+// Compute unique sources for filter dropdown
+const uniqueSources = Array.from(
+  new Set(allModels.filter((m) => m.source).map((m) => m.source!))
+);
 
 interface FiltersProps {
-  filters: FilterState
-  onFilterChange: (filters: FilterState) => void
-  resultCount: number
-  liteMode?: boolean
-  onLiteModeToggle?: () => void
+  filters: FilterState;
+  onFilterChange: (filters: FilterState) => void;
+  resultCount: number;
+  liteMode?: boolean;
+  onLiteModeToggle?: () => void;
 }
 
-export function Filters({ filters, onFilterChange, resultCount, liteMode, onLiteModeToggle }: FiltersProps) {
+export function Filters({
+  filters,
+  onFilterChange,
+  resultCount,
+  liteMode,
+  onLiteModeToggle,
+}: FiltersProps) {
   const updateFilter = <K extends keyof FilterState>(
     key: K,
     value: FilterState[K]
   ) => {
-    onFilterChange({ ...filters, [key]: value })
-  }
+    onFilterChange({ ...filters, [key]: value });
+  };
 
   const clearFilters = () => {
     onFilterChange({
-      search: '',
-      license: 'all',
-      type: 'all',
-      org: '',
-    })
-  }
+      search: "",
+      license: "all",
+      type: "all",
+      org: "",
+      source: "all",
+      domain: "all",
+      params: "all",
+    });
+  };
 
   const hasActiveFilters =
-    filters.search || filters.license !== 'all' || filters.type !== 'all' || filters.org
+    filters.search ||
+    filters.license !== "all" ||
+    filters.type !== "all" ||
+    filters.org ||
+    filters.source !== "all" ||
+    filters.domain !== "all" ||
+    filters.params !== "all";
 
   const inputStyle = {
-    backgroundColor: 'var(--bg-card)',
-    borderColor: 'var(--border)',
-    color: 'var(--text)',
-  }
+    backgroundColor: "var(--bg-card)",
+    borderColor: "var(--border)",
+    color: "var(--text)",
+  };
 
   const selectClassName =
-    'rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-1 appearance-none cursor-pointer'
+    "rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-1 appearance-none cursor-pointer";
 
   return (
     <div className="mb-8 space-y-4">
@@ -47,25 +67,25 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
       <div className="relative">
         <Search
           className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-          style={{ color: 'var(--text-muted)' }}
+          style={{ color: "var(--text-muted)" }}
         />
         <input
           type="text"
           placeholder="Search models, organizations..."
           value={filters.search}
-          onChange={(e) => updateFilter('search', e.target.value)}
+          onChange={(e) => updateFilter("search", e.target.value)}
           className="w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1"
           style={{
             ...inputStyle,
             // @ts-expect-error CSS custom properties
-            '--tw-ring-color': 'var(--accent)',
+            "--tw-ring-color": "var(--accent)",
           }}
         />
         {filters.search && (
           <button
-            onClick={() => updateFilter('search', '')}
+            onClick={() => updateFilter("search", "")}
             className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
-            style={{ color: 'var(--text-muted)' }}
+            style={{ color: "var(--text-muted)" }}
           >
             <X className="h-4 w-4" />
           </button>
@@ -77,7 +97,9 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
         {/* License Filter */}
         <select
           value={filters.license}
-          onChange={(e) => updateFilter('license', e.target.value as FilterState['license'])}
+          onChange={(e) =>
+            updateFilter("license", e.target.value as FilterState["license"])
+          }
           className={selectClassName}
           style={inputStyle}
         >
@@ -90,7 +112,9 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
         {/* Type Filter */}
         <select
           value={filters.type}
-          onChange={(e) => updateFilter('type', e.target.value as FilterState['type'])}
+          onChange={(e) =>
+            updateFilter("type", e.target.value as FilterState["type"])
+          }
           className={selectClassName}
           style={inputStyle}
         >
@@ -102,7 +126,7 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
         {/* Organization Filter */}
         <select
           value={filters.org}
-          onChange={(e) => updateFilter('org', e.target.value)}
+          onChange={(e) => updateFilter("org", e.target.value)}
           className={selectClassName}
           style={inputStyle}
         >
@@ -114,27 +138,86 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
           ))}
         </select>
 
+        {/* Source Filter */}
+        <select
+          value={filters.source}
+          onChange={(e) => updateFilter("source", e.target.value)}
+          className={selectClassName}
+          style={inputStyle}
+        >
+          <option value="all">All Sources</option>
+          {uniqueSources.map((src) => (
+            <option key={src} value={src}>
+              {src === "epoch"
+                ? "Epoch AI"
+                : src.charAt(0).toUpperCase() + src.slice(1)}
+            </option>
+          ))}
+        </select>
+
+        {/* Domain Filter */}
+        <select
+          value={filters.domain}
+          onChange={(e) => updateFilter("domain", e.target.value)}
+          className={selectClassName}
+          style={inputStyle}
+        >
+          <option value="all">All Domains</option>
+          {domains.map((d) => (
+            <option key={d} value={d}>
+              {d}
+            </option>
+          ))}
+        </select>
+
+        {/* Params Filter */}
+        <select
+          value={filters.params}
+          onChange={(e) => updateFilter("params", e.target.value)}
+          className={selectClassName}
+          style={inputStyle}
+        >
+          <option value="all">All Sizes</option>
+          <option value="unknown">Unknown</option>
+          <option value="small">Small (&lt;1B)</option>
+          <option value="medium">Medium (1-10B)</option>
+          <option value="large">Large (10-100B)</option>
+          <option value="xl">XL (&gt;100B)</option>
+        </select>
+
         {/* Clear Filters */}
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
             className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors hover:opacity-80"
-            style={{ color: 'var(--text-muted)' }}
+            style={{ color: "var(--text-muted)" }}
           >
             <X className="h-3 w-3" />
             Clear
           </button>
         )}
 
+        {/* Download Data Button */}
+        <a
+          href="/data.json"
+          download="llm-timeline-data.json"
+          className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm transition-colors hover:opacity-80"
+          style={{ color: "var(--text-muted)", borderColor: "var(--border)" }}
+          title="Download all model data as JSON"
+        >
+          <Download className="h-3 w-3" />
+          Data
+        </a>
+
         {/* Result Count */}
         <span
           className="ml-auto text-sm"
           style={{
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-muted)',
+            fontFamily: "var(--font-mono)",
+            color: "var(--text-muted)",
           }}
         >
-          {resultCount.toLocaleString()} result{resultCount !== 1 ? 's' : ''}
+          {resultCount.toLocaleString()} result{resultCount !== 1 ? "s" : ""}
         </span>
 
         {/* Lite Mode Toggle */}
@@ -143,17 +226,25 @@ export function Filters({ filters, onFilterChange, resultCount, liteMode, onLite
             onClick={onLiteModeToggle}
             className="rounded-lg border p-1.5 transition-colors"
             style={{
-              borderColor: liteMode ? 'var(--accent)' : 'var(--border)',
-              backgroundColor: liteMode ? 'var(--accent-subtle)' : 'var(--bg-card)',
-              color: liteMode ? 'var(--accent)' : 'var(--text-muted)',
+              borderColor: liteMode ? "var(--accent)" : "var(--border)",
+              backgroundColor: liteMode
+                ? "var(--accent-subtle)"
+                : "var(--bg-card)",
+              color: liteMode ? "var(--accent)" : "var(--text-muted)",
             }}
-            title={liteMode ? 'Switch to full view' : 'Switch to compact view'}
-            aria-label={liteMode ? 'Switch to full view' : 'Switch to compact view'}
+            title={liteMode ? "Switch to full view" : "Switch to compact view"}
+            aria-label={
+              liteMode ? "Switch to full view" : "Switch to compact view"
+            }
           >
-            {liteMode ? <LayoutList className="h-4 w-4" /> : <Rows2 className="h-4 w-4" />}
+            {liteMode ? (
+              <LayoutList className="h-4 w-4" />
+            ) : (
+              <Rows2 className="h-4 w-4" />
+            )}
           </button>
         )}
       </div>
     </div>
-  )
+  );
 }

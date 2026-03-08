@@ -13,7 +13,7 @@
 /mcp https://mcp.duyet.net 302
 /rs https://rust-tieng-viet.github.io 302
 /rust https://rust-tieng-viet.github.io 302
-/monitor https://clickhouse-monitoring.vercel.app 302
+/monitor https://clickhouse-monitor.duyet.workers.dev/ 302
 /numi https://numi.app 302
 
 # Social Media
@@ -35,3 +35,11 @@
 # API Endpoints
 /api_nini https://script.google.com/macros/s/AKfycbyRLwRpcBUlE1Iw2mhSN1zQNHLT7EQsnFVPaduKyEUJMQwaBhEuKXJfWjzUZc20F7sR/exec 302
 /api/nini /api_nini 302
+
+# New Agents App
+/a https://agents.duyet.net 302
+/agents https://agents.duyet.net 302
+
+# New Timeline App
+/llm https://llm-timeline.duyet.net 302
+/timeline https://llm-timeline.duyet.net 302

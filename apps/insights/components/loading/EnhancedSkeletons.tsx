@@ -5,8 +5,8 @@
 
 "use client";
 
-import { Skeleton } from "@duyet/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@duyet/components/ui/card";
+import { Skeleton } from "@duyet/components/ui/skeleton";
 
 /**
  * Skeleton for metric cards

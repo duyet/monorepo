@@ -1,11 +1,22 @@
-export { useChat } from "./use-chat";
-export { useAutoScroll } from "./use-auto-scroll";
-export { useAutoResize } from "./use-auto-resize";
-export { useKeyboardShortcuts } from "./use-keyboard-shortcuts";
-export { useActivity, parseStreamEvent, createToolExecution } from "./use-activity";
-
-export type { UseChatOptions, UseChatReturn } from "./use-chat";
-export type { UseAutoScrollOptions } from "./use-auto-scroll";
-export type { UseAutoResizeOptions } from "./use-auto-resize";
-export type { KeyboardShortcutHandlers, UseKeyboardShortcutsOptions } from "./use-keyboard-shortcuts";
 export type { UseActivityReturn } from "./use-activity";
+export {
+  createToolExecution,
+  parseStreamEvent,
+  useActivity,
+} from "./use-activity";
+export type { UseAutoResizeOptions } from "./use-auto-resize";
+export { useAutoResize } from "./use-auto-resize";
+export type { UseAutoScrollOptions } from "./use-auto-scroll";
+export { useAutoScroll } from "./use-auto-scroll";
+export type { UseChatOptions, UseChatReturn } from "./use-chat";
+export { useChat } from "./use-chat";
+export { useConversations } from "./use-conversations";
+export type {
+  KeyboardShortcutHandlers,
+  UseKeyboardShortcutsOptions,
+} from "./use-keyboard-shortcuts";
+export { useKeyboardShortcuts } from "./use-keyboard-shortcuts";
+export { useClerkComponents } from "./use-clerk-components";
+export type { ClerkComponents } from "./use-clerk-components";
+export { useMediaQuery } from "./use-media-query";
+export { useMergeRefs } from "./use-merge-refs";

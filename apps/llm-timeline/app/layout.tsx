@@ -31,14 +31,18 @@ const dmSans = DM_Sans({
 
 export const metadata = {
   title: "LLM Timeline | duyet.net",
-  description: "Interactive timeline of Large Language Model releases from 2017 to present.",
+  description:
+    "Interactive timeline of Large Language Model releases from 2017 to present.",
   alternates: {
     types: {
-      'application/rss+xml': [
-        { url: 'https://llm-timeline.duyet.net/rss.xml', title: 'LLM Timeline — Model Releases' }
-      ]
-    }
-  }
+      "application/rss+xml": [
+        {
+          url: "https://llm-timeline.duyet.net/rss.xml",
+          title: "LLM Timeline — Model Releases",
+        },
+      ],
+    },
+  },
 };
 
 export default function RootLayout({
@@ -48,20 +52,39 @@ export default function RootLayout({
 }) {
   return (
     <html
-      className={cn(dmSans.variable, dmSerifDisplay.variable, ibmPlexMono.variable)}
+      className={cn(
+        dmSans.variable,
+        dmSerifDisplay.variable,
+        ibmPlexMono.variable
+      )}
       lang="en"
       suppressHydrationWarning
     >
       <Head />
       <body
-        className={cn(
-          "subpixel-antialiased",
-          "transition-colors duration-300"
-        )}
+        className={cn("subpixel-antialiased", "transition-colors duration-300")}
       >
         <ThemeProvider>
-          <Header longText="LLM Timeline" shortText="Timeline" />
           {children}
+          <div className="border-t border-neutral-200 dark:border-neutral-700">
+            <Header
+              logo={false}
+              longText="LLM Timeline"
+              shortText="LLM Timeline"
+            />
+            <div className="mx-auto max-w-7xl px-4 py-3 text-center text-xs text-neutral-500 dark:text-neutral-400">
+              Data sources: Curated +{" "}
+              <a
+                href="https://epoch.ai/data"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-neutral-700 dark:hover:text-neutral-300"
+              >
+                Epoch AI
+              </a>{" "}
+              (CC BY 4.0)
+            </div>
+          </div>
           <Analytics />
         </ThemeProvider>
       </body>

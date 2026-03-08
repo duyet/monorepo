@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 interface ClerkAuthProviderProps {
   children: ReactNode;
@@ -29,7 +29,13 @@ function isValidPublishableKey(key: string): boolean {
 }
 
 // Client-side only wrapper that handles dynamic Clerk loading
-function ClientClerkProvider({ children, publishableKey }: { children: ReactNode; publishableKey: string }) {
+function ClientClerkProvider({
+  children,
+  publishableKey,
+}: {
+  children: ReactNode;
+  publishableKey: string;
+}) {
   const [ClerkProvider, setClerkProvider] = useState<any>(null);
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -59,17 +65,14 @@ function ClientClerkProvider({ children, publishableKey }: { children: ReactNode
   }
 
   return (
-    <ClerkProvider
-      publishableKey={publishableKey}
-    >
-      {children}
-    </ClerkProvider>
+    <ClerkProvider publishableKey={publishableKey}>{children}</ClerkProvider>
   );
 }
 
 export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
   const [isClient, setIsClient] = useState(false);
-  const publishableKey = props.publishableKey ?? process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const publishableKey =
+    props.publishableKey ?? process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   useEffect(() => {
     setIsClient(true);
@@ -94,5 +97,9 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
     return null;
   }
 
-  return <ClientClerkProvider publishableKey={publishableKey}>{props.children}</ClientClerkProvider>;
+  return (
+    <ClientClerkProvider publishableKey={publishableKey}>
+      {props.children}
+    </ClientClerkProvider>
+  );
 }

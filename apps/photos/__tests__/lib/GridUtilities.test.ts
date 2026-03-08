@@ -88,13 +88,19 @@ describe("GridUtilities", () => {
     });
 
     test("sorts by popularity", () => {
-      const result = sortPhotos(mockPhotos, { by: "popularity", direction: "desc" });
+      const result = sortPhotos(mockPhotos, {
+        by: "popularity",
+        direction: "desc",
+      });
       expect(result[0].id).toBe("1"); // 1000 views + 100 downloads + 50 likes
       expect(result[2].id).toBe("3"); // 0 views/downloads/likes
     });
 
     test("sorts by dimensions", () => {
-      const result = sortPhotos(mockPhotos, { by: "dimensions", direction: "desc" });
+      const result = sortPhotos(mockPhotos, {
+        by: "dimensions",
+        direction: "desc",
+      });
       expect(result[0].id).toBe("1"); // 1920x1080 = 2,073,600 pixels
       expect(result[2].id).toBe("3"); // 1000x1000 = 1,000,000 pixels
     });

@@ -25,7 +25,16 @@ export function getRelatedPosts(
   fields: string[] = ["slug", "title", "date", "excerpt", "category", "tags"]
 ): Post[] {
   const allPosts = getAllPosts(
-    ["slug", "title", "date", "excerpt", "category", "category_slug", "tags", "tags_slug"],
+    [
+      "slug",
+      "title",
+      "date",
+      "excerpt",
+      "category",
+      "category_slug",
+      "tags",
+      "tags_slug",
+    ],
     0
   );
 
@@ -70,15 +79,15 @@ export function getRelatedPosts(
   });
 
   // Return top N posts with only requested fields
-  return scoredPosts
-    .slice(0, limit)
-    .map(({ post }) => {
-      const filteredPost: Partial<Post> = {};
-      fields.forEach((field) => {
-        if (field in post) {
-          (filteredPost as Record<string, unknown>)[field] = (post as Record<string, unknown>)[field];
-        }
-      });
-      return filteredPost as Post;
+  return scoredPosts.slice(0, limit).map(({ post }) => {
+    const filteredPost: Partial<Post> = {};
+    fields.forEach((field) => {
+      if (field in post) {
+        (filteredPost as Record<string, unknown>)[field] = (
+          post as Record<string, unknown>
+        )[field];
+      }
     });
+    return filteredPost as Post;
+  });
 }

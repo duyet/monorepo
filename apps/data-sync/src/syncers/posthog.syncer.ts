@@ -151,55 +151,55 @@ export class PostHogSyncer extends BaseSyncer<
 
     for (const response of data) {
       for (const event of response.results) {
-      if (event.event !== "$pageview") {
-        continue;
-      }
+        if (event.event !== "$pageview") {
+          continue;
+        }
 
-      // Extract path from $current_url property
-      const currentUrl = event.properties.$current_url as string | undefined;
-      if (!currentUrl) {
-        continue;
-      }
+        // Extract path from $current_url property
+        const currentUrl = event.properties.$current_url as string | undefined;
+        if (!currentUrl) {
+          continue;
+        }
 
-      // Parse URL to get pathname
-      let path: string;
-      try {
-        const urlObj = new URL(currentUrl);
-        path = urlObj.pathname;
-      } catch {
-        // If URL parsing fails, use the value as-is
-        path = currentUrl;
-      }
+        // Parse URL to get pathname
+        let path: string;
+        try {
+          const urlObj = new URL(currentUrl);
+          path = urlObj.pathname;
+        } catch {
+          // If URL parsing fails, use the value as-is
+          path = currentUrl;
+        }
 
-      // Skip empty paths
-      if (!path || path === "" || path === "/") {
-        path = "/";
-      }
+        // Skip empty paths
+        if (!path || path === "" || path === "/") {
+          path = "/";
+        }
 
-      // Extract date from timestamp
-      const eventDate = event.timestamp.split("T")[0];
+        // Extract date from timestamp
+        const eventDate = event.timestamp.split("T")[0];
 
-      // Create key for aggregation
-      const key = `${eventDate}:${path}`;
+        // Create key for aggregation
+        const key = `${eventDate}:${path}`;
 
-      if (!pathMap.has(key)) {
-        pathMap.set(key, {
-          visitors: new Set<string>(),
-          views: 0,
-          sessions: new Set<string>(),
-        });
-      }
+        if (!pathMap.has(key)) {
+          pathMap.set(key, {
+            visitors: new Set<string>(),
+            views: 0,
+            sessions: new Set<string>(),
+          });
+        }
 
-      const aggregated = pathMap.get(key)!;
-      aggregated.visitors.add(event.distinct_id);
-      aggregated.views++;
+        const aggregated = pathMap.get(key)!;
+        aggregated.visitors.add(event.distinct_id);
+        aggregated.views++;
 
-      // Use distinct_id as a simple session identifier
-      // For more accurate session tracking, you'd use $session_id
-      const sessionId =
-        (event.properties.$session_id as string | undefined) ||
-        event.distinct_id;
-      aggregated.sessions.add(sessionId);
+        // Use distinct_id as a simple session identifier
+        // For more accurate session tracking, you'd use $session_id
+        const sessionId =
+          (event.properties.$session_id as string | undefined) ||
+          event.distinct_id;
+        aggregated.sessions.add(sessionId);
       }
     }
 

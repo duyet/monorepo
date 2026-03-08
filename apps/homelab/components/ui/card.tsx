@@ -16,7 +16,10 @@ const Card = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SharedCard
     ref={ref}
-    className={cn("shadow-none rounded-2xl border border-neutral-200 dark:border-neutral-700/50 dark:bg-neutral-800/80", className)}
+    className={cn(
+      "shadow-none rounded-2xl border border-neutral-200 dark:border-neutral-700/50 dark:bg-neutral-800/80",
+      className
+    )}
     {...props}
   />
 ));

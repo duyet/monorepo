@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import type { ToolExecution, StreamEvent } from "@/lib/types";
+import { useCallback, useState } from "react";
+import type { StreamEvent, ToolExecution } from "@/lib/types";
 
 export interface UseActivityReturn {
   executions: ToolExecution[];

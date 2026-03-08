@@ -2,7 +2,16 @@
  * Types for the AI Agent application
  */
 
-export type ChatMode = 'fast' | 'agent'
+export type ChatMode = "fast" | "agent";
+
+export interface Conversation {
+  id: string;
+  userId?: string;
+  title: string;
+  createdAt: number;
+  updatedAt: number;
+  mode: ChatMode;
+}
 
 export interface Message {
   id: string;
@@ -10,10 +19,19 @@ export interface Message {
   content: string;
   sources?: Source[];
   timestamp: number;
+  // Metadata for assistant messages
+  model?: string;
+  duration?: number; // milliseconds
+  tokens?: {
+    prompt?: number;
+    completion?: number;
+    total?: number;
+  };
+  toolCalls?: number;
 }
 
 export interface Source {
-  type: "blog" | "github" | "cv" | "analytics";
+  type: "blog" | "github" | "cv" | "analytics" | "llms-txt";
   title: string;
   url?: string;
   snippet?: string;
@@ -47,13 +65,18 @@ export interface BlogPostContentParams {
 }
 
 export interface AnalyticsToolParams {
-  report_type?: "summary" | "purpose_breakdown" | "daily_trends" | "recent_activity" | "custom_period";
+  report_type?:
+    | "summary"
+    | "purpose_breakdown"
+    | "daily_trends"
+    | "recent_activity"
+    | "custom_period";
   date_from?: string;
   date_to?: string;
 }
 
 // Cloudflare Pages Function environment
-export type Env = Record<string, unknown>
+export type Env = Record<string, unknown>;
 
 // Agent tool definitions for LLM
 export interface AgentTool {
@@ -112,3 +135,13 @@ export type StreamEvent =
   | ToolCompleteEvent
   | ToolErrorEvent
   | { type: "response"; response: string };
+
+export type ActivityTabType = "process" | "files";
+
+export interface ActivityPanelProps {
+  executions: ToolExecution[];
+  thinkingSteps?: string[];
+  isLoading?: boolean;
+  onClose?: () => void;
+  className?: string;
+}

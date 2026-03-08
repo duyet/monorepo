@@ -84,7 +84,13 @@ if (ISSUES.length > 0) {
 } else {
   console.log("✅ All environment variables are correctly categorized!\n");
   console.log("Security notes:");
-  console.log("  • Auth0 Client IDs (NEXT_PUBLIC_AUTH0_CLIENT_ID) are public by OAuth design");
-  console.log("  • Tracking tokens (NEXT_PUBLIC_SELINE_TOKEN, NEXT_PUBLIC_MEASUREMENT_ID) are public by design");
-  console.log("  • API secrets (CLOUDFLARE_API_TOKEN, UNSPLASH_ACCESS_KEY, etc.) are server-side only");
+  console.log(
+    "  • Auth0 Client IDs (NEXT_PUBLIC_AUTH0_CLIENT_ID) are public by OAuth design"
+  );
+  console.log(
+    "  • Tracking tokens (NEXT_PUBLIC_SELINE_TOKEN, NEXT_PUBLIC_MEASUREMENT_ID) are public by design"
+  );
+  console.log(
+    "  • API secrets (CLOUDFLARE_API_TOKEN, UNSPLASH_ACCESS_KEY, etc.) are server-side only"
+  );
 }

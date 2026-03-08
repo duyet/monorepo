@@ -8,14 +8,51 @@ import Icons from "../Icons";
 let clerkProviderMounted = false;
 
 /**
- * Self-contained auth button component.
- * Loads ClerkProvider + auth components in a single dynamic import.
- * Uses a singleton guard to prevent multiple ClerkProviders on pages
- * with more than one Header (e.g. CV has header at top and bottom).
+ * Auth button component for user authentication.
+ *
+ * Features:
+ * - Dynamic Clerk import (only loads when key is present)
+ * - Singleton guard for pages with multiple headers
+ * - Optional urls config (defaults to current page for redirects)
+ * - Customizable styling
+ * - Auto-redirect back to current page after sign in/out
+ * - Optional signedInContent for authenticated-only features
+ *
+ * @example
+ * // Minimal usage (redirects to current page)
+ * <AuthButtons />
+ *
+ * @example
+ * // With authenticated-only content
+ * <AuthButtons signedInContent={<a href="/api/data.json">Download</a>} />
+ *
+ * @example
+ * // With custom styling
+ * <AuthButtons className="rounded-lg p-2" />
  */
-export function AuthButtons({ urls }: { urls: UrlsConfig }) {
+export function AuthButtons({
+  urls,
+  className = "",
+  signInClassName = "h-8 w-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors",
+  avatarSize = "h-8 w-8",
+  signedInContent = null,
+  signedOutContent = null,
+}: {
+  urls?: UrlsConfig;
+  className?: string;
+  signInClassName?: string;
+  avatarSize?: string;
+  signedInContent?: React.ReactNode | null;
+  signedOutContent?: React.ReactNode | null;
+} = {}) {
   const [clerkModule, setClerkModule] = useState<any>(null);
+  const [currentUrl, setCurrentUrl] = useState("");
   const isOwner = useRef(false);
+
+  useEffect(() => {
+    // Get current page URL for redirect
+    setCurrentUrl(window.location.href);
+  }, []);
 
   useEffect(() => {
     if (clerkProviderMounted) return;
@@ -39,22 +76,54 @@ export function AuthButtons({ urls }: { urls: UrlsConfig }) {
     };
   }, []);
 
-  if (!clerkModule || !isOwner.current) return null;
+  if (!clerkModule || !isOwner.current) {
+    return (
+      <button
+        type="button"
+        className={`${signInClassName} ${className}`.trim()}
+        aria-label="Sign in"
+      >
+        <Icons.UserEmpty className="h-4 w-4" />
+      </button>
+    );
+  }
 
-  const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } = clerkModule;
+  const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } =
+    clerkModule;
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  if (!publishableKey || !ClerkProvider || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
-    return null;
+  if (
+    !publishableKey ||
+    !ClerkProvider ||
+    !SignedOut ||
+    !SignedIn ||
+    !SignInButton ||
+    !UserButton
+  ) {
+    return (
+      <button
+        type="button"
+        className={`${signInClassName} ${className}`.trim()}
+        aria-label="Sign in (Unavailable)"
+      >
+        <Icons.UserEmpty className="h-4 w-4" />
+      </button>
+    );
   }
+
+  // Use current page URL for redirect, fallback to blog
+  const redirectUrl =
+    currentUrl || urls?.apps?.blog || "https://blog.duyet.net";
 
   return (
     <ClerkProvider publishableKey={publishableKey}>
+      {signedOutContent && <SignedOut>{signedOutContent}</SignedOut>}
+      {signedInContent && <SignedIn>{signedInContent}</SignedIn>}
       <SignedOut>
-        <SignInButton mode="modal">
+        <SignInButton mode="modal" redirectUrl={redirectUrl}>
           <button
             type="button"
-            className="h-8 w-8 flex items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:border-neutral-900 dark:hover:border-neutral-100 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+            className={`${signInClassName} ${className}`.trim()}
             aria-label="Sign in"
           >
             <Icons.UserEmpty className="h-4 w-4" />
@@ -65,10 +134,10 @@ export function AuthButtons({ urls }: { urls: UrlsConfig }) {
         <UserButton
           appearance={{
             elements: {
-              avatarBox: "h-8 w-8",
+              avatarBox: avatarSize,
             },
           }}
-          afterSignOutUrl={urls.apps.blog}
+          afterSignOutUrl={redirectUrl}
         />
       </SignedIn>
     </ClerkProvider>

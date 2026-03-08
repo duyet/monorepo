@@ -1,29 +1,10 @@
 import { cn } from "@duyet/libs";
 
-// Export lazy-loaded chart components for better performance
-// These lazy versions automatically include loading states
-export {
-  AreaChart,
-  BarChart,
-  DonutChart,
-  CompactAreaChart,
-  CompactBarChart,
-  CompactPieChart,
-  CompactLineChart,
-  MiniSparkline,
-} from "./LazyCharts";
-
 // Export non-lazy versions for components that need direct access
 export { AreaChart as AreaChartDirect } from "./AreaChart";
 export { BarChart as BarChartDirect } from "./BarChart";
-export { DonutChart as DonutChartDirect } from "./DonutChart";
-
 // Export other chart components (not lazy-loaded yet)
 export { BarList } from "./BarList";
-export { LanguageBarChart } from "./LanguageBarChart";
-export { TokenBarChart } from "./TokenBarChart";
-export { Legend } from "./legend";
-
 // Export CompactChart components for direct access (not lazy)
 export {
   CompactAreaChart as CompactAreaChartDirect,
@@ -32,6 +13,22 @@ export {
   CompactPieChart as CompactPieChartDirect,
   MiniSparkline as MiniSparklineDirect,
 } from "./CompactChart";
+export { DonutChart as DonutChartDirect } from "./DonutChart";
+export { LanguageBarChart } from "./LanguageBarChart";
+// Export lazy-loaded chart components for better performance
+// These lazy versions automatically include loading states
+export {
+  AreaChart,
+  BarChart,
+  CompactAreaChart,
+  CompactBarChart,
+  CompactLineChart,
+  CompactPieChart,
+  DonutChart,
+  MiniSparkline,
+} from "./LazyCharts";
+export { Legend } from "./legend";
+export { TokenBarChart } from "./TokenBarChart";
 
 interface MetricProps {
   children: React.ReactNode;

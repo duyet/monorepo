@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "bun test",
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-llm-timeline",
     "build": "bun next build",
     "check-types": "tsc --noEmit",
@@ -16,22 +17,25 @@
     "rss": "bun scripts/generate-rss.ts",
     "llms-txt": "bun scripts/generate-llms-txt.ts",
     "sitemap": "bun scripts/generate-sitemap.ts",
-    "prebuild": "bun scripts/generate-rss.ts && bun scripts/generate-sitemap.ts && bun scripts/generate-llms-txt.ts",
+    "prebuild": "bun scripts/generate-rss.ts && bun scripts/generate-sitemap.ts && bun scripts/generate-llms-txt.ts && bun scripts/generate-data-json.ts",
     "sync": "bun scripts/sync-data.ts",
     "sync:dry": "bun scripts/sync-data.ts --dry-run --verbose"
   },
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",
-    "lucide-react": "^0.563.0",
-    "next": "15.5.10",
+    "@tanstack/react-virtual": "^3.13.19",
+    "lucide-react": "^0.575.0",
+    "next": "15.5.12",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@happy-dom/global-registrator": "^20.7.0",
     "@types/react": "^19.1.4",
+    "happy-dom": "^20.7.0",
     "typescript": "*"
   }
 }

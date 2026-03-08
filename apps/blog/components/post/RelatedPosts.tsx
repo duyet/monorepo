@@ -16,12 +16,14 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
 
   return (
     <div className={cn("mt-16", className)}>
-      <h2 className={cn(
-        "flex items-center gap-2",
-        "text-xl font-bold",
-        "text-gray-900 dark:text-gray-100",
-        "mb-6"
-      )}>
+      <h2
+        className={cn(
+          "flex items-center gap-2",
+          "text-xl font-bold",
+          "text-gray-900 dark:text-gray-100",
+          "mb-6"
+        )}
+      >
         Related Posts
       </h2>
 
@@ -44,29 +46,35 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
               )}
             >
               <article>
-                <h3 className={cn(
-                  "font-semibold text-base",
-                  "text-gray-900 dark:text-gray-100",
-                  "group-hover:text-blue-600 dark:group-hover:text-blue-400",
-                  "transition-colors duration-200",
-                  "line-clamp-2 mb-2"
-                )}>
+                <h3
+                  className={cn(
+                    "font-semibold text-base",
+                    "text-gray-900 dark:text-gray-100",
+                    "group-hover:text-blue-600 dark:group-hover:text-blue-400",
+                    "transition-colors duration-200",
+                    "line-clamp-2 mb-2"
+                  )}
+                >
                   {post.title}
                 </h3>
 
                 {excerpt && (
-                  <p className={cn(
-                    "text-sm text-gray-600 dark:text-gray-400",
-                    "line-clamp-2 mb-3"
-                  )}>
+                  <p
+                    className={cn(
+                      "text-sm text-gray-600 dark:text-gray-400",
+                      "line-clamp-2 mb-3"
+                    )}
+                  >
                     {excerpt}
                   </p>
                 )}
 
-                <div className={cn(
-                  "flex items-center gap-2",
-                  "text-xs text-gray-500 dark:text-gray-500"
-                )}>
+                <div
+                  className={cn(
+                    "flex items-center gap-2",
+                    "text-xs text-gray-500 dark:text-gray-500"
+                  )}
+                >
                   <time dateTime={post.date.toISOString()}>
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
@@ -78,13 +86,15 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
                   <span>{distanceToNow(post.date)}</span>
                 </div>
 
-                <div className={cn(
-                  "flex items-center gap-1 mt-3",
-                  "text-sm font-medium",
-                  "text-blue-600 dark:text-blue-400",
-                  "opacity-0 group-hover:opacity-100",
-                  "transition-opacity duration-200"
-                )}>
+                <div
+                  className={cn(
+                    "flex items-center gap-1 mt-3",
+                    "text-sm font-medium",
+                    "text-blue-600 dark:text-blue-400",
+                    "opacity-0 group-hover:opacity-100",
+                    "transition-opacity duration-200"
+                  )}
+                >
                   Read more
                   <ArrowRight className="h-4 w-4" />
                 </div>

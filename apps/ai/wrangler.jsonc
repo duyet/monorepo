@@ -2,7 +2,11 @@
   "name": "duyetbot",
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-10-01",
-  "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env", "global_fetch_strictly_public"],
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_compat_populate_process_env",
+    "global_fetch_strictly_public"
+  ],
   // Bindings documentation: https://developers.cloudflare.com/workers/runtime-apis/bindings
   "assets": {
     "directory": ".open-next/assets",

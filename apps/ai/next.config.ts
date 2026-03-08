@@ -1,13 +1,13 @@
-import type { NextConfig } from 'next'
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@duyet/components', '@duyet/libs'],
+  transpilePackages: ["@duyet/components", "@duyet/libs"],
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias ?? {}),
-    }
-    return config
+    };
+    return config;
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

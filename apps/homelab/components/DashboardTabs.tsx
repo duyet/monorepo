@@ -16,7 +16,10 @@ interface DashboardTabsProps {
   smartDevices: React.ReactNode;
 }
 
-function DashboardTabsInner({ infrastructure, smartDevices }: DashboardTabsProps) {
+function DashboardTabsInner({
+  infrastructure,
+  smartDevices,
+}: DashboardTabsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
@@ -32,7 +35,7 @@ function DashboardTabsInner({ infrastructure, smartDevices }: DashboardTabsProps
       params.set("tab", id);
       router.replace(`?${params.toString()}`, { scroll: false });
     },
-    [router, searchParams],
+    [router, searchParams]
   );
 
   const handleKeyDown = useCallback(
@@ -57,7 +60,7 @@ function DashboardTabsInner({ infrastructure, smartDevices }: DashboardTabsProps
         tabRefs.current.get(nextTab.id)?.focus();
       }
     },
-    [activeTab, handleTabChange],
+    [activeTab, handleTabChange]
   );
 
   return (

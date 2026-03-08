@@ -1,28 +1,32 @@
-'use client'
+"use client";
 
-import { getLicenseColor, getTypeColor } from '@/lib/utils'
-import type { Model } from '@/lib/data'
-import { cn } from '@duyet/libs/utils'
-import { OrgAvatar } from '@/components/org-avatar'
+import { getLicenseColor, getTypeColor, getSourceColor } from "@/lib/utils";
+import type { Model } from "@/lib/data";
+import { cn } from "@duyet/libs/utils";
+import { OrgAvatar } from "@/components/org-avatar";
 
 interface ModelCardProps {
-  model: Model
-  isLast?: boolean
-  lite?: boolean
+  model: Model;
+  isLast?: boolean;
+  lite?: boolean;
 }
 
 export function ModelCard({ model, isLast, lite }: ModelCardProps) {
   if (lite) {
     return (
-      <div className="relative flex items-center gap-3 py-1.5" style={{ minHeight: '32px' }}>
+      <div
+        className="relative flex items-center gap-3 py-1.5"
+        style={{ minHeight: "32px" }}
+      >
         {/* Small dot indicator */}
         <div
           className="shrink-0"
           style={{
-            width: '8px',
-            height: '8px',
-            borderRadius: '50%',
-            backgroundColor: model.type === 'milestone' ? 'var(--accent)' : 'var(--border)',
+            width: "8px",
+            height: "8px",
+            borderRadius: "50%",
+            backgroundColor:
+              model.type === "milestone" ? "var(--accent)" : "var(--border)",
           }}
         />
 
@@ -31,7 +35,7 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           <OrgAvatar org={model.org} size="sm" />
           <span
             className="truncate text-sm font-medium"
-            style={{ color: 'var(--text)' }}
+            style={{ color: "var(--text)" }}
           >
             {model.name}
           </span>
@@ -41,10 +45,11 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
         <div
           className="flex-1 px-2"
           style={{
-            backgroundImage: 'radial-gradient(circle, var(--border) 1px, transparent 1px)',
-            backgroundSize: '4px 4px',
-            backgroundRepeat: 'repeat-x',
-            backgroundPosition: 'center',
+            backgroundImage:
+              "radial-gradient(circle, var(--border) 1px, transparent 1px)",
+            backgroundSize: "4px 4px",
+            backgroundRepeat: "repeat-x",
+            backgroundPosition: "center",
             opacity: 0.4,
           }}
         />
@@ -53,13 +58,16 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
         <div className="flex shrink-0 items-center gap-2">
           <span
             className="text-xs"
-            style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
+            style={{
+              fontFamily: "var(--font-mono)",
+              color: "var(--text-muted)",
+            }}
           >
             {model.date.slice(0, 4)}
           </span>
           <span
             className={cn(
-              'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+              "rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide",
               getTypeColor(model.type)
             )}
           >
@@ -67,15 +75,25 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           </span>
           <span
             className={cn(
-              'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+              "rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide",
               getLicenseColor(model.license)
             )}
           >
             {model.license}
           </span>
+          {model.source && (
+            <span
+              className={cn(
+                "rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide",
+                getSourceColor(model.source)
+              )}
+            >
+              {model.source === "epoch" ? "Epoch" : "Curated"}
+            </span>
+          )}
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -84,14 +102,14 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
       {!isLast && (
         <div
           className="absolute left-[13px] top-0 h-full w-px"
-          style={{ backgroundColor: 'var(--border)' }}
+          style={{ backgroundColor: "var(--border)" }}
         />
       )}
 
       {/* Org logo as timeline dot */}
       <div
         className="relative z-10 shrink-0 rounded-lg p-1"
-        style={{ backgroundColor: 'var(--background)' }}
+        style={{ backgroundColor: "var(--background)" }}
       >
         <OrgAvatar org={model.org} size="sm" />
       </div>
@@ -100,14 +118,16 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
       <div
         className="flex-1 rounded-lg border p-4 transition-colors"
         style={{
-          borderColor: 'var(--border)',
-          backgroundColor: 'var(--bg-card)',
+          borderColor: "var(--border)",
+          backgroundColor: "var(--bg-card)",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor = 'var(--bg-card-hover)'
+          (e.currentTarget as HTMLDivElement).style.backgroundColor =
+            "var(--bg-card-hover)";
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor = 'var(--bg-card)'
+          (e.currentTarget as HTMLDivElement).style.backgroundColor =
+            "var(--bg-card)";
         }}
       >
         {/* Header row */}
@@ -115,11 +135,14 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           <div className="min-w-0 flex-1">
             <h3
               className="text-base font-semibold truncate"
-              style={{ color: 'var(--text)', fontFamily: 'var(--font-sans)' }}
+              style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
             >
               {model.name}
             </h3>
-            <p className="text-xs truncate" style={{ color: 'var(--text-muted)' }}>
+            <p
+              className="text-xs truncate"
+              style={{ color: "var(--text-muted)" }}
+            >
               {model.org}
             </p>
           </div>
@@ -128,14 +151,20 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           <div className="text-right">
             <div
               className="text-xs"
-              style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
+              style={{
+                fontFamily: "var(--font-mono)",
+                color: "var(--text-muted)",
+              }}
             >
               {model.date.slice(0, 7)}
             </div>
             {model.params && (
               <div
                 className="text-xs"
-                style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  color: "var(--text-muted)",
+                }}
               >
                 {model.params}
               </div>
@@ -147,7 +176,7 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
         <div className="mb-2 flex gap-1.5">
           <span
             className={cn(
-              'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+              "rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide",
               getTypeColor(model.type)
             )}
           >
@@ -155,22 +184,84 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
           </span>
           <span
             className={cn(
-              'rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide',
+              "rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide",
               getLicenseColor(model.license)
             )}
           >
             {model.license}
           </span>
+          {model.source && (
+            <span
+              className={cn(
+                "rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide",
+                getSourceColor(model.source)
+              )}
+            >
+              {model.source === "epoch" ? "Epoch" : "Curated"}
+            </span>
+          )}
         </div>
 
         {/* Description */}
         <p
           className="text-sm leading-relaxed line-clamp-3"
-          style={{ color: 'var(--text-muted)' }}
+          style={{ color: "var(--text-muted)" }}
         >
           {model.desc}
         </p>
+
+        {/* Metadata (from Epoch.ai or other enriched sources) */}
+        {(model.domain ||
+          model.link ||
+          model.trainingCompute ||
+          model.trainingHardware ||
+          model.authors) && (
+          <div
+            className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t pt-2 text-[11px]"
+            style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+          >
+            {model.domain && (
+              <span>
+                {model.link ? (
+                  <a
+                    href={model.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-dotted hover:opacity-80"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    {model.domain}
+                  </a>
+                ) : (
+                  model.domain
+                )}
+              </span>
+            )}
+            {!model.domain && model.link && (
+              <a
+                href={model.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-dotted hover:opacity-80"
+                style={{ color: "var(--accent)" }}
+              >
+                Paper
+              </a>
+            )}
+            {model.trainingCompute && (
+              <span style={{ fontFamily: "var(--font-mono)" }}>
+                {model.trainingCompute} FLOP
+              </span>
+            )}
+            {model.trainingHardware && <span>{model.trainingHardware}</span>}
+            {model.authors && (
+              <span className="truncate max-w-[200px]" title={model.authors}>
+                {model.authors}
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
 }

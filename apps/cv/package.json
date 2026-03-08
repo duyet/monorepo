@@ -8,6 +8,7 @@
     "path": false
   },
   "scripts": {
+    "test": "bun test",
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-cv",
     "build": "bun --bun next build",
     "check-types": "tsc --noEmit",

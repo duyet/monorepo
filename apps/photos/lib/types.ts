@@ -228,126 +228,122 @@ export interface Photo {
 // Extended EXIF metadata for local photos
 export interface DetailedExif {
   // Camera information
-  make?: string
-  model?: string
-  lensModel?: string
+  make?: string;
+  model?: string;
+  lensModel?: string;
 
   // Shooting parameters
-  exposureTime?: string
-  fNumber?: string | number
-  aperture?: string
-  iso?: number
-  focalLength?: string | number
-  focalLengthIn35mm?: number
+  exposureTime?: string;
+  fNumber?: string | number;
+  aperture?: string;
+  iso?: number;
+  focalLength?: string | number;
+  focalLengthIn35mm?: number;
 
   // Date and time
-  dateTime?: string
-  dateTimeOriginal?: string
-  dateTimeDigitized?: string
+  dateTime?: string;
+  dateTimeOriginal?: string;
+  dateTimeDigitized?: string;
 
   // GPS location
   gps?: {
-    latitude?: number
-    longitude?: number
-    altitude?: number
-    latitudeRef?: string
-    longitudeRef?: string
-  }
+    latitude?: number;
+    longitude?: number;
+    altitude?: number;
+    latitudeRef?: string;
+    longitudeRef?: string;
+  };
 
   // Image properties
-  orientation?: number
-  width?: number
-  height?: number
-  colorSpace?: string
-  whiteBalance?: string
+  orientation?: number;
+  width?: number;
+  height?: number;
+  colorSpace?: string;
+  whiteBalance?: string;
 
   // Additional metadata
-  software?: string
-  artist?: string
-  copyright?: string
-  description?: string
-  userComment?: string
+  software?: string;
+  artist?: string;
+  copyright?: string;
+  description?: string;
+  userComment?: string;
 
   // Shooting modes
-  exposureMode?: string
-  exposureProgram?: string
-  meteringMode?: string
-  flash?: string
-  sceneCaptureType?: string
+  exposureMode?: string;
+  exposureProgram?: string;
+  meteringMode?: string;
+  flash?: string;
+  sceneCaptureType?: string;
 }
 
 // Local photo interface
 export interface LocalPhoto {
-  id: string
-  source: 'local'
-  filename: string
-  originalName: string
-  created_at: string
-  updated_at: string
-  width: number
-  height: number
-  size: number // file size in bytes
-  mimeType: string
+  id: string;
+  source: "local";
+  filename: string;
+  originalName: string;
+  created_at: string;
+  updated_at: string;
+  width: number;
+  height: number;
+  size: number; // file size in bytes
+  mimeType: string;
 
   // URLs for local photos
   urls: {
-    raw: string
-    full: string
-    regular: string
-    small: string
-    thumb: string
-  }
+    raw: string;
+    full: string;
+    regular: string;
+    small: string;
+    thumb: string;
+  };
 
   // Metadata
-  description?: string
-  alt_description?: string
-  tags?: string[]
+  description?: string;
+  alt_description?: string;
+  tags?: string[];
 
   // EXIF data
-  exif?: DetailedExif
+  exif?: DetailedExif;
 
   // Location from EXIF or manual entry
   location?: {
-    name?: string
-    city?: string
-    country?: string
+    name?: string;
+    city?: string;
+    country?: string;
     position?: {
-      latitude: number
-      longitude: number
-    }
-  }
+      latitude: number;
+      longitude: number;
+    };
+  };
 
   // User info (for local photos, this is the uploader)
   user?: {
-    name: string
-    username: string
-  }
+    name: string;
+    username: string;
+  };
 
   // Stats (for consistency with Unsplash)
   stats?: {
-    views: number
-    downloads: number
-  }
+    views: number;
+    downloads: number;
+  };
 
   // Color information
-  color?: string
-  blur_hash?: string
+  color?: string;
+  blur_hash?: string;
 }
 
 // Unified photo type that can be either a standard Photo or Local
 export type UnifiedPhoto = Photo | LocalPhoto;
 
 // Type guard to check if a photo is local
-export function isLocalPhoto(
-  photo: Photo | LocalPhoto
-): photo is LocalPhoto {
+export function isLocalPhoto(photo: Photo | LocalPhoto): photo is LocalPhoto {
   return "source" in photo && photo.source === "local";
 }
 
 // Type guard to check if a photo is a standard (non-local) Photo
-export function isStandardPhoto(
-  photo: Photo | LocalPhoto
-): photo is Photo {
+export function isStandardPhoto(photo: Photo | LocalPhoto): photo is Photo {
   return !isLocalPhoto(photo);
 }
 

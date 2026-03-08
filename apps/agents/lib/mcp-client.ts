@@ -22,7 +22,10 @@ const MCP_SERVER_URL = "https://mcp.duyet.net";
 /**
  * Generic fetch wrapper for MCP server calls
  */
-async function _fetchMCP(endpoint: string, options?: RequestInit): Promise<Response> {
+async function _fetchMCP(
+  endpoint: string,
+  options?: RequestInit
+): Promise<Response> {
   const url = `${MCP_SERVER_URL}${endpoint}`;
 
   const response = await fetch(url, {
@@ -34,7 +37,9 @@ async function _fetchMCP(endpoint: string, options?: RequestInit): Promise<Respo
   });
 
   if (!response.ok) {
-    throw new Error(`MCP server error: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `MCP server error: ${response.status} ${response.statusText}`
+    );
   }
 
   return response;
@@ -53,14 +58,17 @@ export async function getGitHubActivity(
     // As a simpler alternative, we can call GitHub API directly or use a proxy
 
     // For now, let's return a formatted response that would come from the MCP server
-    const response = await fetch("https://api.github.com/users/duyet/events/public", {
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-      },
-      next: {
-        revalidate: 300, // Cache for 5 minutes
-      },
-    });
+    const response = await fetch(
+      "https://api.github.com/users/duyet/events/public",
+      {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+        },
+        next: {
+          revalidate: 300, // Cache for 5 minutes
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`GitHub API error: ${response.status}`);
@@ -69,28 +77,31 @@ export async function getGitHubActivity(
     const events = await response.json();
 
     // Format the response similar to what MCP server would return
-    const formatted = events.slice(0, params.limit || 5).map((event: any) => {
-      const type = event.type;
-      const repo = event.repo?.name || "";
-      const created_at = new Date(event.created_at).toLocaleDateString();
+    const formatted = events
+      .slice(0, params.limit || 5)
+      .map((event: any) => {
+        const type = event.type;
+        const repo = event.repo?.name || "";
+        const created_at = new Date(event.created_at).toLocaleDateString();
 
-      let description = "";
-      if (type === "PushEvent") {
-        description = `Pushed to ${repo}`;
-      } else if (type === "CreateEvent") {
-        description = `Created ${event.payload?.ref_type || "branch"} in ${repo}`;
-      } else if (type === "DeleteEvent") {
-        description = `Deleted ${event.payload?.ref_type || "branch"} in ${repo}`;
-      } else if (type === "PullRequestEvent") {
-        description = `PR ${event.payload?.action || "updated"} in ${repo}`;
-      } else if (type === "IssuesEvent") {
-        description = `Issue ${event.payload?.action || "updated"} in ${repo}`;
-      } else {
-        description = `${type} in ${repo}`;
-      }
+        let description = "";
+        if (type === "PushEvent") {
+          description = `Pushed to ${repo}`;
+        } else if (type === "CreateEvent") {
+          description = `Created ${event.payload?.ref_type || "branch"} in ${repo}`;
+        } else if (type === "DeleteEvent") {
+          description = `Deleted ${event.payload?.ref_type || "branch"} in ${repo}`;
+        } else if (type === "PullRequestEvent") {
+          description = `PR ${event.payload?.action || "updated"} in ${repo}`;
+        } else if (type === "IssuesEvent") {
+          description = `Issue ${event.payload?.action || "updated"} in ${repo}`;
+        } else {
+          description = `${type} in ${repo}`;
+        }
 
-      return `- ${description} (${created_at})`;
-    }).join("\n");
+        return `- ${description} (${created_at})`;
+      })
+      .join("\n");
 
     return {
       success: true,
@@ -122,7 +133,8 @@ export async function getBlogPostContent(
     if (!isValidUrl) {
       return {
         success: false,
-        error: "Invalid URL. Only blog.duyet.net and duyet.net URLs are supported.",
+        error:
+          "Invalid URL. Only blog.duyet.net and duyet.net URLs are supported.",
       };
     }
 
@@ -139,7 +151,8 @@ export async function getBlogPostContent(
 
     // Extract title and content from HTML
     const titleMatch = html.match(/<title>(.*?)<\/title>/i);
-    const title = titleMatch?.[1]?.replace(" | Tôi là Duyệt", "").trim() || "Blog Post";
+    const title =
+      titleMatch?.[1]?.replace(" | Tôi là Duyệt", "").trim() || "Blog Post";
 
     // Simple content extraction - remove scripts and styles
     let content = html
@@ -168,7 +181,9 @@ export async function getBlogPostContent(
  * Get CV data from MCP server
  * Uses the duyet://cv/{format} resource
  */
-export async function getCVData(format: "summary" | "detailed" | "json" = "summary"): Promise<MCPToolResponse<string>> {
+export async function getCVData(
+  format: "summary" | "detailed" | "json" = "summary"
+): Promise<MCPToolResponse<string>> {
   try {
     // The MCP server exposes CV data via resources
     // We can fetch directly from the CV endpoint or use a proxy
@@ -188,7 +203,15 @@ export async function getCVData(format: "summary" | "detailed" | "json" = "summa
           name: "Duyet Le",
           title: "Senior Data Engineer",
           experience: "6+ years",
-          skills: ["Apache Spark", "ClickHouse", "Airflow", "DuckDB", "Rust", "Python", "TypeScript"],
+          skills: [
+            "Apache Spark",
+            "ClickHouse",
+            "Airflow",
+            "DuckDB",
+            "Rust",
+            "Python",
+            "TypeScript",
+          ],
           github: "https://github.com/duyet",
           linkedin: "https://linkedin.com/in/duyet",
           email: "me@duyet.net",
@@ -238,7 +261,9 @@ For more details, visit: https://cv.duyet.net`;
  * Get analytics from MCP server
  * Uses the get_analytics tool
  */
-export async function getAnalytics(params: AnalyticsToolParams = {}): Promise<MCPToolResponse<string>> {
+export async function getAnalytics(
+  params: AnalyticsToolParams = {}
+): Promise<MCPToolResponse<string>> {
   try {
     // The analytics data comes from the insights app or MCP server
     // For now, return a placeholder that would be replaced with actual MCP calls
@@ -272,7 +297,12 @@ For detailed analytics, visit: https://insights.duyet.net`,
  * Search blog posts
  * Simple text-based search against llms.txt
  */
-export async function searchBlog(query: string, limit = 5): Promise<MCPToolResponse<Array<{ title: string; url: string; snippet: string }>>> {
+export async function searchBlog(
+  query: string,
+  limit = 5
+): Promise<
+  MCPToolResponse<Array<{ title: string; url: string; snippet: string }>>
+> {
   try {
     // Fetch llms.txt which contains all blog posts
     const response = await fetch(`${MCP_SERVER_URL}/llms.txt`, {
@@ -315,7 +345,10 @@ export async function searchBlog(query: string, limit = 5): Promise<MCPToolRespo
     // If no matches found by title, try content search
     if (matches.length === 0) {
       for (const line of lines) {
-        if (line.toLowerCase().includes(queryLower) && line.trim().length > 20) {
+        if (
+          line.toLowerCase().includes(queryLower) &&
+          line.trim().length > 20
+        ) {
           // Find nearest title
           const titleIndex = lines
             .slice(0, lines.indexOf(line))
@@ -324,7 +357,8 @@ export async function searchBlog(query: string, limit = 5): Promise<MCPToolRespo
 
           if (titleIndex >= 0) {
             const actualIndex = lines.indexOf(line) - titleIndex - 1;
-            const title = lines[actualIndex]?.replace("## ", "").trim() || "Blog Post";
+            const title =
+              lines[actualIndex]?.replace("## ", "").trim() || "Blog Post";
 
             const urlMatch = lines
               .slice(actualIndex, actualIndex + 5)

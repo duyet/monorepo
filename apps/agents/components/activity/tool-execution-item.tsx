@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronRight, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { Badge } from "@duyet/components";
-import { Card, CardContent } from "@duyet/components";
-import type { ToolExecution } from "@/lib/types";
+import { Badge, Card, CardContent } from "@duyet/components";
 import { cn } from "@duyet/libs";
+import {
+  AlertCircle,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  Loader2,
+} from "lucide-react";
+import { useState } from "react";
+import type { ToolExecution } from "@/lib/types";
 
 interface ToolExecutionItemProps {
   execution: ToolExecution;
@@ -68,7 +73,8 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
               className={cn(
                 "shrink-0",
                 execution.status === "running" && "text-primary",
-                execution.status === "complete" && "text-green-600 dark:text-green-500",
+                execution.status === "complete" &&
+                  "text-green-600 dark:text-green-500",
                 execution.status === "error" && "text-destructive"
               )}
             >
@@ -91,9 +97,7 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
                 {Object.entries(execution.parameters)
                   .map(([key, value]) => {
                     const strValue =
-                      typeof value === "string"
-                        ? value
-                        : JSON.stringify(value);
+                      typeof value === "string" ? value : JSON.stringify(value);
                     return `${key}=${strValue.slice(0, 30)}${
                       strValue.length > 30 ? "..." : ""
                     }`;
@@ -147,7 +151,9 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
 
             {execution.status === "error" && execution.error && (
               <div>
-                <p className="text-xs font-medium text-destructive mb-2">Error</p>
+                <p className="text-xs font-medium text-destructive mb-2">
+                  Error
+                </p>
                 <p className="text-xs bg-destructive/10 text-destructive rounded p-3">
                   {execution.error}
                 </p>

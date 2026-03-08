@@ -49,7 +49,9 @@ function extractLanguage(className?: string): string | null {
   const langMatch = className.match(/language-(\w+)/);
   if (langMatch) {
     const lang = langMatch[1];
-    return LANGUAGE_LABELS[lang] || lang.charAt(0).toUpperCase() + lang.slice(1);
+    return (
+      LANGUAGE_LABELS[lang] || lang.charAt(0).toUpperCase() + lang.slice(1)
+    );
   }
 
   return null;

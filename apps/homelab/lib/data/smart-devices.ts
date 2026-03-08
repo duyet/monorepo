@@ -30,7 +30,7 @@ function generateDailyData(
   days: number,
   avgPerWash: number,
   variance: number,
-  seedOffset: number,
+  seedOffset: number
 ): DailyConsumption[] {
   const data: DailyConsumption[] = [];
   const now = new Date(2025, 9, 31); // Oct 31, 2025 (latest data point)
@@ -149,30 +149,33 @@ function generateAirQualityHistory(hours: number): AirQualityHistoryPoint[] {
 
     const basePm25 = isNight ? 3 : isCookingHour ? 12 : 6;
     const pm25 =
-      Math.round(
-        (basePm25 + (seededRandom(seed + 200) - 0.3) * 8) * 10,
-      ) / 10;
+      Math.round((basePm25 + (seededRandom(seed + 200) - 0.3) * 8) * 10) / 10;
     const pm10 =
-      Math.round(
-        (basePm25 * 1.1 + (seededRandom(seed + 300) - 0.3) * 6) * 10,
-      ) / 10;
+      Math.round((basePm25 * 1.1 + (seededRandom(seed + 300) - 0.3) * 6) * 10) /
+      10;
 
     // VOC tends to be low with occasional spikes
     const voc =
       Math.round(
-        Math.max(0, (seededRandom(seed + 400) < 0.85 ? 0 : seededRandom(seed + 401) * 3)) * 10,
+        Math.max(
+          0,
+          seededRandom(seed + 400) < 0.85 ? 0 : seededRandom(seed + 401) * 3
+        ) * 10
       ) / 10;
 
     // NO2 very low indoors
     const no2 =
       Math.round(
-        Math.max(0, (seededRandom(seed + 500) < 0.9 ? 0 : seededRandom(seed + 501) * 2)) * 10,
+        Math.max(
+          0,
+          seededRandom(seed + 500) < 0.9 ? 0 : seededRandom(seed + 501) * 2
+        ) * 10
       ) / 10;
 
     // HCHO very low with Formaldehyde sensor
     const hcho =
       Math.round(
-        Math.max(0, 0.001 + (seededRandom(seed + 600) - 0.5) * 0.002) * 1000,
+        Math.max(0, 0.001 + (seededRandom(seed + 600) - 0.5) * 0.002) * 1000
       ) / 1000;
 
     // Temperature: follows day/night cycle (26-32)
@@ -183,7 +186,7 @@ function generateAirQualityHistory(hours: number): AirQualityHistoryPoint[] {
     // Humidity: inverse to temperature somewhat (50-70%)
     const baseHumidity = isNight ? 65 : hour >= 12 && hour <= 15 ? 52 : 58;
     const humidity = Math.round(
-      baseHumidity + (seededRandom(seed + 800) - 0.5) * 12,
+      baseHumidity + (seededRandom(seed + 800) - 0.5) * 12
     );
 
     const h = time.getHours().toString().padStart(2, "0");

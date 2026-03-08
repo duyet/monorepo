@@ -27,7 +27,7 @@ type ViewMode = "day" | "month";
 
 function formatTooltipValue(
   value: number | string | readonly (number | string)[] | undefined,
-  unit: string,
+  unit: string
 ): [string, string] {
   const num = Array.isArray(value) ? Number(value[0]) : Number(value);
   return [
@@ -68,7 +68,7 @@ function ComparisonBadge({
 
 function makeBarClickHandler(
   selected: string | null,
-  setSelected: (value: string | null) => void,
+  setSelected: (value: string | null) => void
 ) {
   return (state: { activeLabel?: string | number | null }) => {
     if (state?.activeLabel) {
@@ -155,7 +155,7 @@ function ConsumptionChart({
     return (
       Math.round(
         (withValues.reduce((sum, d) => sum + d.value, 0) / withValues.length) *
-          10,
+          10
       ) / 10
     );
   }, [consumption.daily]);
@@ -200,11 +200,7 @@ function ConsumptionChart({
           data={chartData}
           onClick={makeBarClickHandler(selectedBar, setSelectedBar)}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            opacity={0.2}
-            vertical={false}
-          />
+          <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
           <XAxis
             dataKey="label"
             tick={{ fontSize: viewMode === "day" ? 10 : 12 }}
@@ -241,9 +237,7 @@ function ConsumptionChart({
             {chartData.map((entry) => (
               <Cell
                 key={entry.label}
-                fill={
-                  selectedBar === entry.label ? colorActive : colorDefault
-                }
+                fill={selectedBar === entry.label ? colorActive : colorDefault}
                 opacity={selectedBar && selectedBar !== entry.label ? 0.4 : 1}
                 className="cursor-pointer"
               />
@@ -269,14 +263,12 @@ function ConsumptionChart({
 const STATUS_CONFIG = {
   online: {
     label: "Running",
-    badgeClass:
-      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    badgeClass: "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
     dotClass: "bg-claude-mint",
   },
   idle: {
     label: "Idle",
-    badgeClass:
-      "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
+    badgeClass: "bg-claude-mint/20 text-claude-mint dark:bg-claude-mint/10",
     dotClass: "bg-claude-mint",
   },
   offline: {

@@ -20,14 +20,13 @@ export async function Cloudflare({ days = 30 }: { days?: number | "all" }) {
   const { data, generatedAt, totalRequests, totalPageviews } =
     await getData(days);
 
-  const chartData = data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => {
-    return {
+  const chartData =
+    data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => ({
       date: item.date.date, // Already in YYYY-MM-DD format from Cloudflare API
       "Page Views": item.sum.pageViews,
       Requests: item.sum.requests,
       "Unique Visitors": item.uniq.uniques,
-    };
-  });
+    })) ?? [];
 
   // Find the latest day with actual data (non-zero values)
   const httpGroups = data.viewer.zones[0]?.httpRequests1dGroups || [];
@@ -94,12 +93,18 @@ export async function Cloudflare({ days = 30 }: { days?: number | "all" }) {
             {days === "all" ? "All time" : `${days}-day`} overview
           </p>
         </div>
-        <AreaChart
-          categories={["Requests", "Page Views", "Unique Visitors"]}
-          data={chartData}
-          index="date"
-          showGridLines={true}
-        />
+        {chartData.length === 0 ? (
+          <div className="flex h-[200px] items-center justify-center text-sm text-muted-foreground">
+            No traffic data available for this period
+          </div>
+        ) : (
+          <AreaChart
+            categories={["Requests", "Page Views", "Unique Visitors"]}
+            data={chartData}
+            index="date"
+            showGridLines={true}
+          />
+        )}
       </div>
 
       <p className="text-xs text-muted-foreground">
@@ -203,7 +208,10 @@ const getData = async (days: number | "all" = 30) => {
       headers
     );
   } catch (error) {
-    console.error("[Cloudflare] GraphQL request failed:", error instanceof Error ? error.message : String(error));
+    console.error(
+      "[Cloudflare] GraphQL request failed:",
+      error instanceof Error ? error.message : String(error)
+    );
     return {
       data: {
         viewer: {

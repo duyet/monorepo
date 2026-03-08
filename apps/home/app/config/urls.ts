@@ -14,7 +14,19 @@ export const urls: Urls = {
 
   "/": "https://duyet.net",
   "/ai": { target: "https://ai.duyet.net", desc: "AI chatbot" },
-  "/claw": { target: "https://claw.duyet.net", desc: "OpenClaw Mission Control" },
+  "/llm-timeline": {
+    target: "https://llm-timeline.duyet.net",
+    desc: "Interactive LLM releases timeline",
+  },
+  "/agents": { target: "https://agents.duyet.net", desc: "AI Agents" },
+  "/claude-plugins": {
+    target: "https://github.com/duyet/claude-plugins",
+    desc: "Claude Plugins",
+  },
+  "/claw": {
+    target: "https://claw.duyet.net",
+    desc: "OpenClaw Mission Control",
+  },
   "/blog": "https://blog.duyet.net",
   "/cv": "https://cv.duyet.net",
   "/about": { target: "/about", desc: "about me", system: false },
@@ -45,7 +57,7 @@ export const urls: Urls = {
     desc: "@duyet on Github",
   },
   "/monitor": {
-    target: "https://clickhouse-monitoring.vercel.app",
+    target: "https://clickhouse-monitor.duyet.workers.dev/",
     desc: "ClickHouse Monitoring UI",
   },
   "/clickhouse": {

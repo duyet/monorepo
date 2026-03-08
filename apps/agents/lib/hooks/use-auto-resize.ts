@@ -16,9 +16,13 @@ export function useAutoResize(options: UseAutoResizeOptions = {}) {
     if (!textarea) return;
 
     textarea.style.height = "auto";
-    const newHeight = Math.max(minHeight, Math.min(maxHeight, textarea.scrollHeight));
+    const newHeight = Math.max(
+      minHeight,
+      Math.min(maxHeight, textarea.scrollHeight)
+    );
     textarea.style.height = `${newHeight}px`;
-    textarea.style.overflowY = textarea.scrollHeight > maxHeight ? "auto" : "hidden";
+    textarea.style.overflowY =
+      textarea.scrollHeight > maxHeight ? "auto" : "hidden";
   }, [maxHeight, minHeight]);
 
   // Callback ref: attaches/detaches the input listener when the element mounts/unmounts

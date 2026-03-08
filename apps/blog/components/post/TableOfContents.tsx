@@ -26,7 +26,9 @@ interface TableOfContentsProps {
   headings?: TOCItem[];
 }
 
-export function TableOfContents({ headings: initialHeadings = [] }: TableOfContentsProps) {
+export function TableOfContents({
+  headings: initialHeadings = [],
+}: TableOfContentsProps) {
   const [headings] = useState<TOCItem[]>(initialHeadings);
   const [activeId, setActiveId] = useState<string>("");
   const [isMobileOpen, setIsMobileOpen] = useState(false);

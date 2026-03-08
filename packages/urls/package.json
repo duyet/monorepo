@@ -12,6 +12,7 @@
     "./utils": "./src/utils.ts"
   },
   "scripts": {
+    "test": "bun test",
     "lint": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },

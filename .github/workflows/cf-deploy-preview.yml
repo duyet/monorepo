@@ -135,6 +135,7 @@ jobs:
         run: bun install
 
       - name: Build app
+        id: build
         run: |
           cd apps/${{ matrix.app }}
           bun run build
@@ -169,8 +170,15 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
 
+      - name: Save build failure status
+        if: failure() && steps.build.outcome == 'failure'
+        run: |
+          mkdir -p /tmp/deployments
+          echo "build_failed" > /tmp/deployments/${{ matrix.app }}.txt
+
       - name: Deploy to Cloudflare Pages (Preview)
         id: deploy
+        if: success()
         run: |
           cd apps/${{ matrix.app }}
 
@@ -209,18 +217,22 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Save deployment info
+        if: success() && steps.deploy.outputs.url != ''
         run: |
           mkdir -p /tmp/deployments
           echo "${{ steps.deploy.outputs.url }}" > /tmp/deployments/${{ matrix.app }}.txt
 
-      - name: Upload deployment URL
+      - name: Upload deployment artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: deployment-${{ matrix.app }}
           path: /tmp/deployments/${{ matrix.app }}.txt
+          if-no-files-found: ignore
           retention-days: 1
 
       - name: Health check
+        if: success() && steps.deploy.outputs.url != '' && steps.deploy.outputs.url != 'skipped'
         run: |
           DEPLOY_URL="${{ steps.deploy.outputs.url }}"
           echo "Checking $DEPLOY_URL..."
@@ -253,22 +265,48 @@ jobs:
       - name: Build comment body
         id: comment
         run: |
-          COMMENT="## 🚀 Preview Deployments\n\n"
-          COMMENT+="| App | Preview URL |\n"
-          COMMENT+="|-----|-------------|\n"
+          ACTIONS_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          OVERALL="${{ needs.deploy-preview.result }}"
 
-          for file in deployments/*.txt; do
-            if [ -f "$file" ]; then
-              APP=$(basename "$file" .txt)
-              URL=$(cat "$file")
-              COMMENT+="| **$APP** | [$URL]($URL) |\n"
+          COMMENT="## 🚀 Preview Deployments\n\n"
+
+          if [[ "$OVERALL" == "failure" ]]; then
+            COMMENT+="⚠️ One or more deployments failed. [View build logs]($ACTIONS_URL)\n\n"
+          fi
+
+          COMMENT+="| App | Status | Preview URL |\n"
+          COMMENT+="|-----|--------|-------------|\n"
+
+          # Parse matrix to know which apps were in scope
+          MATRIX='${{ needs.detect-changes.outputs.matrix }}'
+          APPS=$(echo "$MATRIX" | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          for item in data.get('include', []):
+              print(item['app'])
+          ")
+
+          for APP in $APPS; do
+            FILE="deployments/${APP}.txt"
+            if [ -f "$FILE" ]; then
+              CONTENT=$(cat "$FILE")
+              if [[ "$CONTENT" == "build_failed" ]]; then
+                COMMENT+="| **$APP** | ❌ Build failed | [View logs]($ACTIONS_URL) |\n"
+              elif [[ "$CONTENT" == "skipped" ]]; then
+                COMMENT+="| **$APP** | ⏭ Skipped (SSR) | — |\n"
+              elif [[ "$CONTENT" == http* ]]; then
+                COMMENT+="| **$APP** | ✅ Deployed | [$CONTENT]($CONTENT) |\n"
+              else
+                COMMENT+="| **$APP** | ⚠️ Unknown | [View logs]($ACTIONS_URL) |\n"
+              fi
+            else
+              COMMENT+="| **$APP** | ❌ Build failed | [View logs]($ACTIONS_URL) |\n"
             fi
           done
 
           COMMENT+="\n---\n"
-          COMMENT+="_Deployed from commit ${{ github.event.pull_request.head.sha }}_"
+          COMMENT+="_Commit: \`${{ github.event.pull_request.head.sha }}\` · [GitHub Actions]($ACTIONS_URL)_"
 
-          # Save to file for multiline handling
           echo -e "$COMMENT" > comment.md
 
       - name: Find existing comment

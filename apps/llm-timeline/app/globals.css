@@ -19,12 +19,16 @@
     --input: oklch(0.88 0.01 120);
     --ring: oklch(0.55 0.18 55);
     --year-watermark: oklch(from oklch(0.55 0.18 55) / 35%);
+    /* Alias variables for component consistency */
+    --text: oklch(0.15 0.01 120);
+    --text-muted: oklch(0.55 0.008 120);
+    --bg-card: oklch(1 0 0);
   }
 
   .dark {
     --background: oklch(0.15 0.01 120);
     --foreground: oklch(0.95 0.01 120);
-    --card: oklch(0.20 0.01 120);
+    --card: oklch(0.2 0.01 120);
     --card-foreground: oklch(0.95 0.01 120);
     --muted: oklch(0.18 0.01 120);
     --muted-foreground: oklch(0.65 0.01 120);
@@ -38,6 +42,10 @@
     --input: oklch(0.25 0.01 120);
     --ring: oklch(0.65 0.18 55);
     --year-watermark: oklch(from oklch(0.65 0.18 55) / 30%);
+    /* Alias variables for component consistency */
+    --text: oklch(0.95 0.01 120);
+    --text-muted: oklch(0.7 0.008 120);
+    --bg-card: oklch(0.2 0.01 120);
   }
 
   @theme inline {

@@ -63,7 +63,7 @@ export type ClientToolContext = {
  */
 export type ClientToolHandler = (
   params: Record<string, unknown>,
-  context: ClientToolContext,
+  context: ClientToolContext
 ) => Promise<ClientToolResult>;
 
 /**
@@ -90,7 +90,7 @@ const toolHandlers: Record<string, ClientToolHandler> = {};
  */
 export function registerClientTool(
   name: string,
-  handler: ClientToolHandler,
+  handler: ClientToolHandler
 ): void {
   toolHandlers[name] = handler;
 }
@@ -112,7 +112,7 @@ export function registerClientTool(
  */
 export async function executeClientTool(
   invocation: ClientToolInvocation,
-  context: ClientToolContext,
+  context: ClientToolContext
 ): Promise<ClientToolResult> {
   const handler = toolHandlers[invocation.name];
 
@@ -145,7 +145,7 @@ export async function executeClientTool(
  */
 async function handleSwitchTheme(
   params: Record<string, unknown>,
-  context: ClientToolContext,
+  context: ClientToolContext
 ): Promise<ClientToolResult> {
   const requested = params.theme;
 
@@ -176,7 +176,7 @@ async function handleSwitchTheme(
  */
 async function handleRecordFact(
   params: Record<string, unknown>,
-  context: ClientToolContext,
+  context: ClientToolContext
 ): Promise<ClientToolResult> {
   const id = String(params.fact_id ?? "");
   const text = String(params.fact_text ?? "");

@@ -21,23 +21,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, "..");
 
-// CLI args
-const appName = process.argv[2];
+// CLI args (only defined when running as main script)
+const appName = process.argv[2] ?? "";
 const dryRun = process.argv.includes("--dry-run");
 
-if (!appName) {
-  console.error(
-    "[ERROR] App name required. Usage: bun sync-app-secrets.ts <app-name> [--dry-run]"
-  );
-  process.exit(1);
-}
-
-if (dryRun) {
-  console.log("[INFO] Dry run mode - no changes will be made\n");
-}
-
 // Define which vars each app needs
-const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
+export const appConfig: Record<
+  string,
+  { secrets: string[]; buildVars: string[] }
+> = {
   "duyet-api": {
     secrets: [
       "OPENROUTER_API_KEY",
@@ -130,9 +122,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
     ],
   },
   "duyet-home": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -146,9 +136,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
     ],
   },
   "duyet-cv": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -160,9 +148,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
     ],
   },
   "duyet-homelab": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -174,9 +160,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
     ],
   },
   "duyet-llm-timeline": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -190,6 +174,8 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
   "duyet-agents": {
     secrets: [
       "CLERK_SECRET_KEY",
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_TOKEN",
     ],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -202,9 +188,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
     ],
   },
   "duyet-ai": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -216,9 +200,7 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
     ],
   },
   "duyet-ai-percentage": {
-    secrets: [
-      "CLERK_SECRET_KEY",
-    ],
+    secrets: ["CLERK_SECRET_KEY"],
     buildVars: [
       "NEXT_PUBLIC_DUYET_BLOG_URL",
       "NEXT_PUBLIC_DUYET_CV_URL",
@@ -231,37 +213,36 @@ const appConfig: Record<string, { secrets: string[]; buildVars: string[] }> = {
   },
 };
 
-function loadEnvFiles(): Record<string, string> {
-  const env: Record<string, string> = {};
+export function parseEnvContent(content: string): Record<string, string> {
+  const result: Record<string, string> = {};
+  const lines = content.split("\n");
 
-  // Helper to parse .env file content
-  function parseEnvContent(content: string): Record<string, string> {
-    const result: Record<string, string> = {};
-    const lines = content.split("\n");
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
 
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIndex = trimmed.indexOf("=");
+    if (eqIndex === -1) continue;
 
-      const eqIndex = trimmed.indexOf("=");
-      if (eqIndex === -1) continue;
+    const key = trimmed.substring(0, eqIndex).trim();
+    let value = trimmed.substring(eqIndex + 1).trim();
 
-      const key = trimmed.substring(0, eqIndex).trim();
-      let value = trimmed.substring(eqIndex + 1).trim();
-
-      // Remove quotes if present
-      if (
-        (value.startsWith('"') && value.endsWith('"')) ||
-        (value.startsWith("'") && value.endsWith("'"))
-      ) {
-        value = value.slice(1, -1);
-      }
-
-      result[key] = value;
+    // Remove quotes if present
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
     }
 
-    return result;
+    result[key] = value;
   }
+
+  return result;
+}
+
+function loadEnvFiles(): Record<string, string> {
+  const env: Record<string, string> = {};
 
   // 1. Load from root .env files (base configuration)
   const rootEnvFiles = [".env", ".env.local"];
@@ -293,17 +274,22 @@ function loadEnvFiles(): Record<string, string> {
 // Note: NEXT_PUBLIC_CLOUDFLARE_API_TOKEN was removed as sensitive tokens should never be public
 const ENV_REMAPPING: Record<string, string> = {};
 
-function getVarsForApp(
+export function getVarsForApp(
   appName: string,
   env: Record<string, string>
-): { secrets: Record<string, string>; buildVars: Record<string, string> } {
+): {
+  secrets: Record<string, string>;
+  buildVars: Record<string, string>;
+  missing: string[];
+} {
   const config = appConfig[appName];
   if (!config) {
-    return { secrets: {}, buildVars: {} };
+    return { secrets: {}, buildVars: {}, missing: [] };
   }
 
   const secrets: Record<string, string> = {};
   const buildVars: Record<string, string> = {};
+  const missing: string[] = [];
 
   // Get secrets
   for (const key of config.secrets) {
@@ -321,6 +307,8 @@ function getVarsForApp(
 
     if (value) {
       secrets[key] = value;
+    } else {
+      missing.push(key);
     }
   }
 
@@ -329,10 +317,12 @@ function getVarsForApp(
     const value = env[key];
     if (value) {
       buildVars[key] = value;
+    } else {
+      missing.push(key);
     }
   }
 
-  return { secrets, buildVars };
+  return { secrets, buildVars, missing };
 }
 
 async function setSecretsBulk(
@@ -364,8 +354,8 @@ async function setSecretsBulk(
 
     // Use different commands for Pages vs Workers
     const cmd = isPagesProject
-      ? ["wrangler", "pages", "secret", "bulk", tmpFile]
-      : ["wrangler", "secret", "bulk", tmpFile];
+      ? ["bunx", "wrangler", "pages", "secret", "bulk", tmpFile]
+      : ["bunx", "wrangler", "secret", "bulk", tmpFile];
 
     // Run wrangler from the app directory so it finds wrangler.toml
     const result = Bun.spawnSync({
@@ -417,7 +407,7 @@ async function setBuildVarsForPages(
 
     // Set each build var individually
     for (const [key, value] of Object.entries(buildVars)) {
-      const cmd = ["wrangler", "pages", "secret", "put", key];
+      const cmd = ["bunx", "wrangler", "pages", "secret", "put", key];
 
       const result = Bun.spawnSync({
         cmd,
@@ -454,12 +444,23 @@ async function main() {
   }
 
   // Get vars for this app
-  const { secrets, buildVars } = getVarsForApp(appName, env);
+  const { secrets, buildVars, missing } = getVarsForApp(appName, env);
+
+  // Warn about missing vars
+  if (missing.length > 0) {
+    console.warn(
+      `  [WARN] Missing ${missing.length} required var(s): ${missing.join(", ")}`
+    );
+  }
 
   // Check if this is a Pages project
   const dirName = appName.replace("duyet-", "");
   const appDir = join(rootDir, "apps", dirName);
   const wranglerTomlPath = join(appDir, "wrangler.toml");
+  if (!existsSync(wranglerTomlPath)) {
+    console.error(`  [ERROR] wrangler.toml not found at ${wranglerTomlPath}`);
+    process.exit(1);
+  }
   const wranglerToml = readFileSync(wranglerTomlPath, "utf-8");
   const isPagesProject = wranglerToml.includes("pages_build_output_dir");
 
@@ -506,7 +507,20 @@ async function main() {
   console.log(`  [OK] All vars synced successfully for ${appName}`);
 }
 
-main().catch((error) => {
-  console.error("[FATAL]", error);
-  process.exit(1);
-});
+if (import.meta.main) {
+  if (!appName) {
+    console.error(
+      "[ERROR] App name required. Usage: bun sync-app-secrets.ts <app-name> [--dry-run]"
+    );
+    process.exit(1);
+  }
+
+  if (dryRun) {
+    console.log("[INFO] Dry run mode - no changes will be made\n");
+  }
+
+  main().catch((error) => {
+    console.error("[FATAL]", error);
+    process.exit(1);
+  });
+}

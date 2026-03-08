@@ -22,7 +22,9 @@ export async function getCommitStats(owner: string): Promise<CommitStats> {
 
   try {
     // Get user events with pagination to cover full 12 weeks
-    const events = await fetchAllEvents(owner);
+    const events = await fetchAllEvents(owner).catch((err) => {
+      throw err;
+    });
 
     // Filter push events (commits)
     const pushEvents = events.filter((event) => event.type === "PushEvent");
