@@ -1,0 +1,28 @@
+{
+  "name": "@duyet/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "build": "tsc --noEmit",
+    "check-types": "tsc --noEmit",
+    "lint": "biome lint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cf:deploy": "wrangler deploy --env preview",
+    "cf:deploy:prod": "wrangler deploy"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0",
+    "agents": "^0.6.0",
+    "hono": "^4.7.11",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250525.0",
+    "@duyet/tsconfig": "*",
+    "typescript": "*",
+    "vitest": "^3.2.4",
+    "wrangler": "^4.19.0"
+  }
+}

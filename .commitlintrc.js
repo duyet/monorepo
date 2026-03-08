@@ -32,6 +32,8 @@ module.exports = {
         "agents",
         // LLM Timeline app
         "llm-timeline",
+        // MCP server
+        "mcp",
       ],
     ],
     "scope-empty": [1, "never"],

@@ -85,6 +85,11 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
    - 50+ LLM models from 2017-2025 with search and filtering by license, type, organization
    - Client-side filtering with dark mode support
 
+8. **mcp** (`apps/mcp/`) - Remote MCP server for ClickHouse monitoring
+   - Live at https://mcp.duyet.net (official) / https://duyet-mcp.pages.dev (Cloudflare)
+   - Cloudflare Worker exposing read-only ClickHouse tools via MCP protocol
+   - 7 tools: execute_query, table_stats, data_freshness, sync_status, migration_status, retention_status, system_info
+
 ### Shared Packages (`/packages/`)
 
 - `@duyet/components` - Shared React components

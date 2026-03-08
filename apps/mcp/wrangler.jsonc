@@ -1,0 +1,30 @@
+{
+  // Cloudflare Worker MCP server for duyet.net
+  "name": "duyet-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Durable Objects for McpAgent state
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "MCP_AGENT",
+        "class_name": "DuyetMcpAgent"
+      }
+    ]
+  },
+
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["DuyetMcpAgent"]
+    }
+  ],
+
+  // Secrets — set via: wrangler secret put <KEY>
+  // CLICKHOUSE_HOST, CLICKHOUSE_USER, CLICKHOUSE_PASSWORD, CLICKHOUSE_DATABASE, MCP_AUTH_TOKEN
+  "vars": {
+    "ENVIRONMENT": "production"
+  }
+}
