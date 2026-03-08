@@ -5,6 +5,14 @@ import type { CloudinaryPhoto, Photo } from "./types";
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER || ""; // Optional folder to filter photos
 
+/** Cloudinary transformation presets for each URL variant */
+const CLOUDINARY_TRANSFORMS = {
+  full: "f_auto,q_90",
+  regular: "f_auto,w_1080,q_80",
+  small: "f_auto,w_400,q_80",
+  thumb: "f_auto,w_200,h_200,c_fill,q_80",
+} as const;
+
 /**
  * Convert Cloudinary photo to generic Photo format
  */
@@ -31,10 +39,10 @@ export function cloudinaryToPhoto(cloudinaryPhoto: CloudinaryPhoto): Photo {
     tags: cloudinaryPhoto.tags,
     urls: {
       raw: `${baseUrl}/${publicId}`,
-      full: `${baseUrl}/f_auto,q_90/${publicId}`,
-      regular: `${baseUrl}/f_auto,w_1080,q_80/${publicId}`,
-      small: `${baseUrl}/f_auto,w_400,q_80/${publicId}`,
-      thumb: `${baseUrl}/f_auto,w_200,h_200,c_fill/${publicId}`,
+      full: `${baseUrl}/${CLOUDINARY_TRANSFORMS.full}/${publicId}`,
+      regular: `${baseUrl}/${CLOUDINARY_TRANSFORMS.regular}/${publicId}`,
+      small: `${baseUrl}/${CLOUDINARY_TRANSFORMS.small}/${publicId}`,
+      thumb: `${baseUrl}/${CLOUDINARY_TRANSFORMS.thumb}/${publicId}`,
     },
     links: {
       html: cloudinaryPhoto.secure_url,
