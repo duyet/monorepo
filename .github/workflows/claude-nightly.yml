@@ -64,12 +64,13 @@ jobs:
 
         ### 4. PR Creation Phase
         - Create a pull request with your changes
-        - PR title format: `nightly(nlp): [category] brief description`
+        - PR title format: `nightly(auto): [category] brief description`
         - Include in the PR body:
           - Summary of changes
           - Link to the planning issue
           - Testing performed
-          - Co-authored-by: duyet <noreply@github.com> and duyetbot <noreply@anthropic.com>
+          - Co-Authored-By: duyet <me@duyet.net>
+          - Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>
 
         ## Important Notes
         - Focus on safe, non-breaking changes
