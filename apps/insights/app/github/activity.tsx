@@ -90,6 +90,13 @@ async function getGithubStars(owner: string): Promise<GithubRepo[]> {
       { cache: "force-cache", headers }
     );
 
+    if (!res.ok) {
+      console.warn(
+        `GitHub API error ${res.status} fetching starred repos for ${owner}`
+      );
+      return [];
+    }
+
     return res.json() as Promise<GithubRepo[]>;
   };
 

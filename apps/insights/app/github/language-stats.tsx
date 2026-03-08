@@ -155,38 +155,41 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     const languageBytes: Record<string, number> = {};
 
     // Get language data for each repository (limit to top 20 to avoid rate limits)
-    const topRepos = repos.slice(0, 20);
+    const topRepos = repos.slice(0, 20).filter((repo) => !repo.archived && repo.name);
 
-    for (const repo of topRepos) {
-      if (repo.archived || !repo.name) continue;
+    const token = getGithubToken();
+    if (!token) {
+      console.warn("GITHUB_TOKEN not configured, skipping language fetch");
+    } else {
+      const languageResults = await Promise.all(
+        topRepos.map(async (repo) => {
+          try {
+            const langResponse = await fetch(
+              `https://api.github.com/repos/${owner}/${repo.name}/languages`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  Accept: "application/vnd.github.v3+json",
+                },
+                cache: "force-cache",
+              }
+            );
 
-      try {
-        const token = getGithubToken();
-        if (!token) {
-          console.warn("GITHUB_TOKEN not configured, skipping language fetch");
-          break;
-        }
-
-        const langResponse = await fetch(
-          `https://api.github.com/repos/${owner}/${repo.name}/languages`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Accept: "application/vnd.github.v3+json",
-            },
-            cache: "force-cache",
+            if (langResponse.ok) {
+              return (await langResponse.json()) as Record<string, number>;
+            }
+            return {};
+          } catch (error) {
+            console.warn(`Failed to fetch languages for ${repo.name}:`, error);
+            return {};
           }
-        );
+        })
+      );
 
-        if (langResponse.ok) {
-          const languages = await langResponse.json();
-          Object.entries(languages).forEach(([lang, bytes]) => {
-            languageBytes[lang] =
-              (languageBytes[lang] || 0) + (bytes as number);
-          });
-        }
-      } catch (error) {
-        console.warn(`Failed to fetch languages for ${repo.name}:`, error);
+      for (const languages of languageResults) {
+        Object.entries(languages).forEach(([lang, bytes]) => {
+          languageBytes[lang] = (languageBytes[lang] || 0) + (bytes as number);
+        });
       }
     }
 

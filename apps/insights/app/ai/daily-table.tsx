@@ -1,16 +1,11 @@
 import { getCCUsageActivityRaw } from "./ccusage-utils";
 import type { CCUsageActivityProps } from "./types";
+import { formatCurrency } from "./utils/formatting";
 
 function formatNumber(num: number): string {
   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
   if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
   return num.toFixed(0);
-}
-
-function formatCurrency(amount: number): string {
-  if (amount === 0) return "$0.00";
-  if (amount < 0.01) return "<$0.01";
-  return `$${amount.toFixed(2)}`;
 }
 
 interface BarCellProps {

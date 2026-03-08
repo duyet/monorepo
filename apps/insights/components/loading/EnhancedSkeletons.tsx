@@ -55,17 +55,20 @@ export function ChartSkeleton({
         >
           {/* Animated loading bars */}
           <div className="absolute inset-0 flex items-end justify-around p-4 gap-2">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full bg-primary/20 animate-pulse rounded-t"
-                style={{
-                  height: `${30 + Math.random() * 50}%`,
-                  animationDelay: `${i * 50}ms`,
-                  animationDuration: `${1 + Math.random()}s`,
-                }}
-              />
-            ))}
+            {Array.from({ length: 12 }).map((_, i) => {
+              const HEIGHTS = [75, 60, 85, 45, 70, 55, 90, 40];
+              const height = HEIGHTS[i % HEIGHTS.length];
+              return (
+                <div
+                  key={i}
+                  className="w-full bg-primary/20 animate-pulse rounded-t"
+                  style={{
+                    height: `${height}%`,
+                    animationDelay: `${i * 50}ms`,
+                  }}
+                />
+              );
+            })}
           </div>
         </div>
         {showLegend && (

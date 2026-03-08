@@ -1,14 +1,7 @@
 import { AreaChart } from "@/components/charts";
 import { getCCUsageCosts } from "./ccusage-utils";
 import type { CCUsageCostsProps, CostChartData } from "./types";
-
-function formatCurrency(amount: number): string {
-  if (amount === 0) return "$0";
-  if (amount < 0.01) return "<$0.01";
-  if (amount < 1) return `$${amount.toFixed(2)}`;
-  if (amount < 10) return `$${amount.toFixed(1)}`;
-  return `$${Math.round(amount)}`;
-}
+import { formatCurrency } from "./utils/formatting";
 
 export async function CCUsageCosts({
   days = 30,

@@ -2,14 +2,7 @@ import { Brain, Calendar, Database, DollarSign } from "lucide-react";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { getCCUsageMetrics } from "./ccusage-utils";
 import type { CCUsageMetricsProps } from "./types";
-
-function formatCurrency(amount: number): string {
-  if (amount === 0) return "$0";
-  if (amount < 0.01) return "<$0.01";
-  if (amount < 1) return `$${amount.toFixed(2)}`;
-  if (amount < 10) return `$${amount.toFixed(1)}`;
-  return `$${Math.round(amount)}`;
-}
+import { formatCurrency } from "./utils/formatting";
 
 function formatTokens(tokens: number): string {
   if (tokens >= 1000000000) {
