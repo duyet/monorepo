@@ -3,7 +3,7 @@
 import { Button, Textarea } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import type { UIMessage } from "ai";
-import { RefreshCw, Send, Wrench, X, Zap, Paperclip, Square, Settings } from "lucide-react";
+import { RefreshCw, Send, Wrench, X, Zap, Paperclip, Settings } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,
@@ -70,8 +70,9 @@ export function VercelChat() {
     if (typeof window === "undefined") return;
     const urlId = new URLSearchParams(window.location.search).get("id");
     if (urlId && urlId !== activeId) {
-      switchTo(urlId);
-      window.history.replaceState({}, "", window.location.pathname);
+      void switchTo(urlId).then(() => {
+        window.history.replaceState({}, "", window.location.pathname);
+      });
     }
   }, [switchTo, activeId]);
 
@@ -373,17 +374,6 @@ export function VercelChat() {
                   className="h-9 w-9 rounded-full hover:bg-muted cursor-not-allowed opacity-50"
                 >
                   <Paperclip className="h-4 w-4" />
-                </Button>
-                <Button 
-                  type="button" 
-                  variant="ghost" 
-                  size="icon" 
-                  disabled
-                  title="Coming soon"
-                  aria-label="Attachments (coming soon)"
-                  className="h-9 w-9 rounded-full hover:bg-muted cursor-not-allowed opacity-50"
-                >
-                  <Square className="h-4 w-4" />
                 </Button>
               </div>
               <div className="flex items-center pl-2 pb-1 sm:hidden">
