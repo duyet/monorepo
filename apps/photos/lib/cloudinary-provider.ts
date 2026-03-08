@@ -34,7 +34,7 @@ export function cloudinaryToPhoto(cloudinaryPhoto: CloudinaryPhoto): Photo {
       full: `${baseUrl}/q_90/${publicId}`,
       regular: `${baseUrl}/w_1080,q_80/${publicId}`,
       small: `${baseUrl}/w_400,q_80/${publicId}`,
-      thumb: `${baseUrl}/w_200,h_200,c_fill/${publicId}`,
+      thumb: `${baseUrl}/w_200,h_200,c_fill,q_80/${publicId}`,
     },
     links: {
       html: cloudinaryPhoto.secure_url,
