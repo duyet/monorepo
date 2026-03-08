@@ -74,11 +74,11 @@ export function getOptimalImageSrc(
 export function generateBlurDataURL(photo: Photo): string {
   const color = photo.color || "#f3f4f6";
 
-  return `data:image/svg+xml;base64,${Buffer.from(
+  return `data:image/svg+xml;base64,${btoa(
     `<svg width="${photo.width}" height="${photo.height}" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill="${color}"/>
     </svg>`
-  ).toString("base64")}`;
+  )}`;
 }
 
 /**

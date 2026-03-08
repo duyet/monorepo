@@ -96,6 +96,7 @@ export default function LazyImage({
             <p className="mt-2 text-sm text-gray-500">Failed to load image</p>
             <button
               onClick={handleRetry}
+              aria-label="Retry loading image"
               className="mt-2 rounded bg-gray-200 px-3 py-1 text-xs text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             >
               Retry

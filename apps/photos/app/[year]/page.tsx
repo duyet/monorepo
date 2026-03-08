@@ -159,14 +159,6 @@ export default async function YearPage({ params }: YearPageProps) {
     new Set(allPhotos.map((photo) => new Date(photo.created_at).getFullYear()))
   ).sort((a, b) => b - a);
 
-  const currentYearIndex = allYears.indexOf(yearNum);
-  const _previousYear =
-    currentYearIndex > 0 ? allYears[currentYearIndex - 1] : null;
-  const _nextYear =
-    currentYearIndex < allYears.length - 1
-      ? allYears[currentYearIndex + 1]
-      : null;
-
   return (
     <>
       {/* Skip to content link for accessibility */}

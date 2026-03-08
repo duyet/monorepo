@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { useCallback } from "react";
+import { useMemo } from "react";
 import { OWNER_USERNAME } from "@/lib/config";
 import {
   generateBlurDataURL,
@@ -34,7 +34,7 @@ export default function PhotoCard({
   const description = formatPhotoDescription(photo);
 
   // Get optimized image configuration
-  const imageSrc = useCallback(
+  const imageSrc = useMemo(
     () => getOptimalImageSrc(photo, { context: "grid" }),
     [photo]
   );
@@ -66,7 +66,7 @@ export default function PhotoCard({
       {/* Image Container */}
       <div className="relative overflow-hidden">
         <LazyImage
-          src={imageSrc()}
+          src={imageSrc}
           alt={description}
           width={photo.width}
           height={photo.height}
