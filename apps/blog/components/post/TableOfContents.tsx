@@ -11,6 +11,7 @@ const TOCIcon = ({ className }: { className?: string }) => (
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
+    aria-hidden="true"
   >
     <path
       strokeLinecap="round"
@@ -136,6 +137,7 @@ export function TableOfContents({
 
       {/* Mobile/Tablet: Slide-out panel (no backdrop, doesn't block content) */}
       <nav
+        aria-hidden={!isMobileOpen}
         className={cn(
           "xl:hidden",
           "fixed top-20 right-0 z-30",

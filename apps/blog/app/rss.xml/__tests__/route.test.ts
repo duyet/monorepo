@@ -52,7 +52,7 @@ describe("RSS Feed Route", () => {
 
     expect(xml).toContain("<![CDATA[Test Post]]>");
     expect(xml).toContain("<![CDATA[This is a test post]]>");
-    expect(xml).toContain("https://blog.duyet.net//2024/01/test-post");
+    expect(xml).toContain("https://blog.duyet.net/2024/01/test-post");
 
     expect(xml).toContain("<![CDATA[Another Post]]>");
     expect(xml).toContain("<![CDATA[Another test post]]>");

@@ -9,72 +9,29 @@ declare global {
 }
 
 export function ServiceWorkerRegister() {
-  const [_canInstall, setCanInstall] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
-    // Check if service worker is supported
-    if (
-      typeof window !== "undefined" &&
-      "serviceWorker" in navigator &&
-      window.workbox !== undefined
-    ) {
-      setCanInstall(true);
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
 
-      // Register service worker
-      const _wb = window.workbox;
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
-      // Add event listeners for offline/online status
-      const handleOnline = () => setIsOffline(false);
-      const handleOffline = () => setIsOffline(true);
+    // Check initial status
+    setIsOffline(!navigator.onLine);
 
-      window.addEventListener("online", handleOnline);
-      window.addEventListener("offline", handleOffline);
-
-      // Check initial status
-      setIsOffline(!navigator.onLine);
-
-      return () => {
-        window.removeEventListener("online", handleOnline);
-        window.removeEventListener("offline", handleOffline);
-      };
+    // Register service worker in production
+    if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
+      navigator.serviceWorker.register("/sw.js").catch(() => {
+        // Registration failure is non-fatal; browser will retry
+      });
     }
-  }, []);
 
-  // Simple manual service worker registration without workbox
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      "serviceWorker" in navigator &&
-      process.env.NODE_ENV === "production"
-    ) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then((registration) => {
-          console.log("Service Worker registered: ", registration);
-        })
-        .catch((registrationError) => {
-          console.log(
-            "Service Worker registration failed: ",
-            registrationError
-          );
-        });
-
-      // Add event listeners for offline/online status
-      const handleOnline = () => setIsOffline(false);
-      const handleOffline = () => setIsOffline(true);
-
-      window.addEventListener("online", handleOnline);
-      window.addEventListener("offline", handleOffline);
-
-      // Check initial status
-      setIsOffline(!navigator.onLine);
-
-      return () => {
-        window.removeEventListener("online", handleOnline);
-        window.removeEventListener("offline", handleOffline);
-      };
-    }
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
   // Show offline indicator

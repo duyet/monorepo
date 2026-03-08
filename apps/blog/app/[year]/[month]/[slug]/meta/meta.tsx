@@ -24,7 +24,7 @@ export default function Content({ post, className }: ContentProps) {
         {/* Date */}
         <div className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />
-          <time>
+          <time dateTime={new Date(post.date).toISOString()}>
             {new Date(post.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "short",
