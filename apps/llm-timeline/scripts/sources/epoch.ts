@@ -138,7 +138,7 @@ export const epoch: DataSourceAdapter = {
       let params: string | null = null;
       if (rawParams) {
         const numParams = parseFloat(rawParams.replace(/,/g, ""));
-        if (!isNaN(numParams)) {
+        if (!Number.isNaN(numParams)) {
           params = convertNumericParams(numParams);
         } else {
           params = rawParams || null;
@@ -172,7 +172,7 @@ export const epoch: DataSourceAdapter = {
       const rawCompute = getCellValue(row, colMap.trainingCompute);
       if (rawCompute) {
         const computeNum = parseFloat(rawCompute.replace(/,/g, ""));
-        model.trainingCompute = !isNaN(computeNum)
+        model.trainingCompute = !Number.isNaN(computeNum)
           ? formatTrainingCompute(computeNum)
           : rawCompute;
       }

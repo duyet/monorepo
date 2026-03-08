@@ -5,8 +5,8 @@
  * Run: bun scripts/generate-sitemap.ts
  */
 
-import { writeFileSync } from "fs";
-import { resolve } from "path";
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 // Import models and data from lib
 import {

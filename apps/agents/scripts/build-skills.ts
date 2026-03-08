@@ -8,8 +8,8 @@
  * This allows the Cloudflare Pages `workerd` runtime to inject <available_skills>
  * into the AI agent prompt without requiring native file system access.
  */
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import yaml from "yaml";
 
 const SKILLS_DIR = join(process.cwd(), "skills");

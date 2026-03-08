@@ -1,8 +1,8 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import sharp from "sharp";
 import { v4 as uuidv4 } from "uuid";
-import { LocalPhoto } from "./types";
+import type { LocalPhoto } from "./types";
 import { extractExifData, extractPhotoDate } from "./exifExtractor";
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");

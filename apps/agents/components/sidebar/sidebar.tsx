@@ -5,7 +5,6 @@ import {
   BarChart2,
   Moon,
   PanelLeft,
-  PanelLeftClose,
   Plus,
   Sun,
 } from "lucide-react";

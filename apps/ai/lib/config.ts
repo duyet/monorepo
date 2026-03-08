@@ -1,4 +1,4 @@
-import { StartScreenPrompt } from "@openai/chatkit";
+import type { StartScreenPrompt } from "@openai/chatkit";
 
 export const WORKFLOW_ID =
   process.env.NEXT_PUBLIC_CHATKIT_WORKFLOW_ID?.trim() ?? "";

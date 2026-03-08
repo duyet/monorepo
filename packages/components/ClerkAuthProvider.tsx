@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 interface ClerkAuthProviderProps {
   children: ReactNode;

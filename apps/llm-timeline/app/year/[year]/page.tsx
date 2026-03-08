@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { year } = await params;
   const yearNum = parseInt(year, 10);
 
-  if (isNaN(yearNum) || !years.includes(yearNum)) {
+  if (Number.isNaN(yearNum) || !years.includes(yearNum)) {
     return {};
   }
 
@@ -36,7 +36,7 @@ export default async function YearPage({
   const { year } = await params;
   const yearNum = parseInt(year, 10);
 
-  if (isNaN(yearNum) || !years.includes(yearNum)) {
+  if (Number.isNaN(yearNum) || !years.includes(yearNum)) {
     notFound();
   }
 

@@ -2,13 +2,10 @@ import { StaticView } from "@/components/static-view";
 import { models } from "@/lib/data";
 import {
   filterModels,
-  groupByYear,
-  groupByOrg,
   getStats,
   slugify,
   type FilterState,
 } from "@/lib/utils";
-import type { Model } from "@/lib/data";
 
 type View = "models" | "organizations";
 

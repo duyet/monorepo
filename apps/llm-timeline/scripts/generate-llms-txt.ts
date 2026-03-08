@@ -5,13 +5,13 @@
  * Run: bun scripts/generate-llms-txt.ts
  */
 
-import { writeFileSync } from "fs";
-import { resolve } from "path";
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 // Import models from data
 import { models, lastSynced } from "../lib/data";
 
-const SITE_URL = "https://llm-timeline.duyet.net";
+const _SITE_URL = "https://llm-timeline.duyet.net";
 const OUTPUT_PATH = resolve(process.cwd(), "public/llms.txt");
 
 function buildLlmsTxt(): string {

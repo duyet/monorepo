@@ -23,8 +23,8 @@ const proxy = httpProxy.createProxyServer({
   changeOrigin: true,
 });
 
-proxy.on("error", (err, req, res) => {
-  if (res && res.writeHead) {
+proxy.on("error", (_err, _req, res) => {
+  if (res?.writeHead) {
     res.writeHead(502, { "Content-Type": "text/plain" });
     res.end("Bad Gateway. The target service might still be starting up.");
   }

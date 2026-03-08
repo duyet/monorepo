@@ -30,15 +30,12 @@ import {
 import { cn } from "@/lib/utils";
 
 // Shiki uses bitflags for font styles: 1=italic, 2=bold, 4=underline
-// biome-ignore lint/suspicious/noBitwiseOperators: shiki bitflag check
 // eslint-disable-next-line no-bitwise -- shiki bitflag check
 const isItalic = (fontStyle: number | undefined) => fontStyle && fontStyle & 1;
-// biome-ignore lint/suspicious/noBitwiseOperators: shiki bitflag check
 // eslint-disable-next-line no-bitwise -- shiki bitflag check
 // oxlint-disable-next-line eslint(no-bitwise)
 const isBold = (fontStyle: number | undefined) => fontStyle && fontStyle & 2;
 const isUnderline = (fontStyle: number | undefined) =>
-  // biome-ignore lint/suspicious/noBitwiseOperators: shiki bitflag check
   // oxlint-disable-next-line eslint(no-bitwise)
   fontStyle && fontStyle & 4;
 

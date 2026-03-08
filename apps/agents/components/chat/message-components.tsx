@@ -333,7 +333,7 @@ const CAPABILITIES = [
   },
 ];
 
-const QUICK_PROMPTS = [
+const _QUICK_PROMPTS = [
   "What is Duyet's tech stack?",
   "Find posts about Rust",
   "Show recent GitHub activity",

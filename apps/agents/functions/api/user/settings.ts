@@ -43,7 +43,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
+  } catch (_error) {
     return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
     });
@@ -112,7 +112,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         headers: { "Content-Type": "application/json" },
       }
     );
-  } catch (error) {
+  } catch (_error) {
     return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
     });

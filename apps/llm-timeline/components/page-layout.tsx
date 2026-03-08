@@ -13,9 +13,9 @@ interface PageLayoutProps {
   description?: string;
 }
 
-export function PageLayout({ children, title, description }: PageLayoutProps) {
-  const firstYear = years[years.length - 1];
-  const latestYear = years[0];
+export function PageLayout({ children, _title, description }: PageLayoutProps) {
+  const _firstYear = years[years.length - 1];
+  const _latestYear = years[0];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--bg)" }}>

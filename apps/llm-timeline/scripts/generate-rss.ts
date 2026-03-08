@@ -11,8 +11,8 @@
  * - By org: /org/{slug}/rss.xml
  */
 
-import { writeFileSync, mkdirSync } from "fs";
-import { resolve, dirname } from "path";
+import { writeFileSync, mkdirSync } from "node:fs";
+import { resolve, dirname } from "node:path";
 
 // Import models and data from lib
 import { models, lastSynced, organizations, years } from "../lib/data";

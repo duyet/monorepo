@@ -21,7 +21,7 @@ type PageProps = {
   searchParams: { fallback?: string };
 };
 
-export default async function PhotosPage({ searchParams }: PageProps) {
+export default async function PhotosPage({ searchParams: _searchParams }: PageProps) {
   let photos: Photo[] = [];
   let photosByYear: { [year: string]: Photo[] } = {};
   let photoError: PhotoFetchError | null = null;

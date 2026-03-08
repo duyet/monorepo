@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Badge, Button, Tabs, TabsList, TabsTrigger, TabsContent } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
@@ -12,7 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ToolExecution, ActivityTabType, ActivityPanelProps } from "@/lib/types";
+import type { ActivityPanelProps } from "@/lib/types";
 import { ThinkingDots, ThinkingSteps } from "./thinking-steps";
 import { ToolExecutionItem } from "./tool-execution-item";
 

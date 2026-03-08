@@ -1,4 +1,4 @@
-const http = require("http");
+const http = require("node:http");
 
 const req = http.request(
   {
@@ -11,7 +11,7 @@ const req = http.request(
     },
   },
   (res) => {
-    const data = "";
+    const _data = "";
 
     // In stream mode we just print exactly what we get
     res.on("data", (chunk) => {

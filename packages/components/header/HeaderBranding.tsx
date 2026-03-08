@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import type { UrlsConfig } from "@duyet/urls";
 import Link from "next/link";
 import Logo from "../Logo";
 

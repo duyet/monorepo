@@ -55,7 +55,7 @@ export function normalizeDate(raw: string): string | null {
   // "Q1 2024" / "Q2/2024" etc.
   const quarterMatch = s.match(/Q([1-4])[\s/]+(20\d{2})/i);
   if (quarterMatch) {
-    const q = parseInt(quarterMatch[1]);
+    const q = parseInt(quarterMatch[1], 10);
     const y = quarterMatch[2];
     const month = String((q - 1) * 3 + 1).padStart(2, "0");
     return `${y}-${month}-01`;
@@ -216,7 +216,7 @@ export function convertNumericParams(
 
   const num =
     typeof floatValue === "string" ? parseFloat(floatValue) : floatValue;
-  if (isNaN(num) || num === 0) return null;
+  if (Number.isNaN(num) || num === 0) return null;
 
   if (num >= 1e12) {
     const t = num / 1e12;
@@ -245,7 +245,7 @@ export function convertNumericParams(
 export function formatTrainingCompute(flop: number): string {
   if (flop >= 1e15) {
     const exp = Math.floor(Math.log10(flop));
-    const mantissa = flop / Math.pow(10, exp);
+    const mantissa = flop / 10 ** exp;
     return mantissa === 1 ? `1e${exp}` : `${mantissa.toFixed(1)}e${exp}`;
   }
   return `${flop}`;

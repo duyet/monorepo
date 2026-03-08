@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { List, Search, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import type { Model } from "@/lib/data";
@@ -23,10 +22,10 @@ export function FilterInfo({
   resultCount,
   view,
   license = "all",
-  year,
-  org,
+  _year,
+  _org,
   liteMode,
-  models,
+  _models,
   onSearchChange,
   onLicenseChange,
 }: FilterInfoProps) {

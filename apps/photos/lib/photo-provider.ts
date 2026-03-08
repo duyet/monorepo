@@ -4,7 +4,7 @@ import {
 } from "./clickhouse-provider";
 import { getAllCloudinaryPhotos } from "./cloudinary-provider";
 import type { PhotoFetchError } from "./errors";
-import { RateLimitError, UnknownPhotoError } from "./errors";
+import { UnknownPhotoError } from "./errors";
 import type { Photo } from "./types";
 import { getAllUnsplashPhotos } from "./unsplash-provider";
 import { getFallbackPhotos } from "./fallback-provider";

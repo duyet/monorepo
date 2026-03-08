@@ -10,8 +10,8 @@
  *   bun scripts/sync-data.ts --help       # Show this help
  */
 
-import { resolve } from "path";
-import { writeFileSync } from "fs";
+import { resolve } from "node:path";
+import { writeFileSync } from "node:fs";
 import { ALL_SOURCES, getEnabledSources } from "./sources";
 import { mergeAllSources, formatMergeStats } from "../lib/deduplicator";
 import { generateDataTs } from "../lib/codegen";
@@ -34,7 +34,7 @@ const disabled = new Set(
 
 if (showHelp) {
   const sourceFlags = ALL_SOURCES.map(
-    (s) => `  --no-${s.name}`.padEnd(18) + `Skip ${s.label}`
+    (s) => `${`  --no-${s.name}`.padEnd(18)}Skip ${s.label}`
   ).join("\n");
   const sourceList = ALL_SOURCES.map(
     (s) => `  ${s.label}: ${s.urls.join(", ")}`

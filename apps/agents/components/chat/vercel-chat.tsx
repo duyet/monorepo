@@ -137,7 +137,7 @@ export function VercelChat() {
     if (saved === "fast" || saved === "agent") setMode(saved);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleModeChange = (newMode: ChatMode) => {
+  const _handleModeChange = (newMode: ChatMode) => {
     setMode(newMode);
     localStorage.setItem("chat-mode", newMode);
   };
@@ -516,7 +516,7 @@ export function VercelChat() {
 }
 
 /** Compact mode toggle pills — Fast / Agent */
-function ModeToggle({
+function _ModeToggle({
   mode,
   onModeChange,
 }: {

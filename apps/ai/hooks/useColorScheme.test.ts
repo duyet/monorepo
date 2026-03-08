@@ -9,7 +9,7 @@ describe("useColorScheme", () => {
 
     // Reset matchMedia mock
     const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
-      matches: query === "(prefers-color-scheme: dark)" ? false : false,
+      matches: false,
       media: query,
       onchange: null,
       addListener: vi.fn(),

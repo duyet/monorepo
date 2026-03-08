@@ -1,7 +1,6 @@
 import { ModelCard } from "./model-card";
 import { OrgAvatar } from "./org-avatar";
 import type { Model } from "@/lib/data";
-import { cn } from "@duyet/libs/utils";
 
 interface OrgTimelineProps {
   modelsByOrg: Map<string, Model[]>;

@@ -107,7 +107,7 @@ describe("appConfig", () => {
   });
 
   test("all apps have secrets and buildVars arrays", () => {
-    for (const [name, config] of Object.entries(appConfig)) {
+    for (const [_name, config] of Object.entries(appConfig)) {
       expect(Array.isArray(config.secrets)).toBe(true);
       expect(Array.isArray(config.buildVars)).toBe(true);
       // Ensure no empty string entries

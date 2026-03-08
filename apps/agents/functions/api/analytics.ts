@@ -17,7 +17,7 @@ export const onRequestGet = async (context: any) => {
     // Let's run a batch of generic metrics queries.
 
     // We'll wrap in try-catch raw queries if dbClient lacks custom methods.
-    const stmtDb = (dbClient as any).db; // D1 binding is usually accessible on the client instance or we use the raw DB binding.
+    const _stmtDb = (dbClient as any).db; // D1 binding is usually accessible on the client instance or we use the raw DB binding.
 
     const [convRes, msgRes, activeUsersRes] = await DB.batch([
       DB.prepare("SELECT COUNT(*) as total FROM conversations"),

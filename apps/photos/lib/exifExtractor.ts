@@ -1,5 +1,5 @@
 import ExifReader from "exifreader";
-import { DetailedExif } from "./types";
+import type { DetailedExif } from "./types";
 
 /**
  * Extract EXIF metadata from an image buffer
@@ -200,7 +200,7 @@ export function extractPhotoDate(exif?: DetailedExif): string {
       "$1-$2-$3"
     );
     const date = new Date(exifDate);
-    if (!isNaN(date.getTime())) {
+    if (!Number.isNaN(date.getTime())) {
       return date.toISOString();
     }
   }
@@ -211,7 +211,7 @@ export function extractPhotoDate(exif?: DetailedExif): string {
       "$1-$2-$3"
     );
     const date = new Date(exifDate);
-    if (!isNaN(date.getTime())) {
+    if (!Number.isNaN(date.getTime())) {
       return date.toISOString();
     }
   }

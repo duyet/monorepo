@@ -14,7 +14,6 @@ import {
   Settings,
   Puzzle,
   Database,
-  LogIn,
 } from "lucide-react";
 
 export const dynamic = "force-static";

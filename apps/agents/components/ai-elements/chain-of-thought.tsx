@@ -24,7 +24,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { Streamdown } from "streamdown";
 import { Badge } from "@/components/ui/badge";
 import {
   Collapsible,
@@ -64,7 +63,7 @@ export const useChainOfThought = () => {
 const AUTO_CLOSE_DELAY = 1000;
 const MS_IN_S = 1000;
 
-const streamdownPlugins = { cjk, code, math, mermaid };
+const _streamdownPlugins = { cjk, code, math, mermaid };
 
 // ─── ChainOfThought (root) ────────────────────────────────────────────────────
 

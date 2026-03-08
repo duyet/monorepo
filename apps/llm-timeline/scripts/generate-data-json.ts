@@ -3,8 +3,8 @@
  * generate-data-json.ts — Generate public/data.json for download
  */
 
-import { resolve } from "path";
-import { writeFileSync } from "fs";
+import { resolve } from "node:path";
+import { writeFileSync } from "node:fs";
 import { models } from "../lib/data";
 
 const OUTPUT_PATH = resolve(process.cwd(), "public/data.json");

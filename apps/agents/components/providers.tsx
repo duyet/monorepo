@@ -2,12 +2,11 @@
 
 import { ClerkProvider } from "@clerk/clerk-react";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { useEffect, useState } from "react";
 
 const CLERK_KEY = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const isValidClerkKey = CLERK_KEY && CLERK_KEY.startsWith("pk_");
+  const isValidClerkKey = CLERK_KEY?.startsWith("pk_");
 
   if (!isValidClerkKey) {
     return <ThemeProvider>{children}</ThemeProvider>;
