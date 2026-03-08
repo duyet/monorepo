@@ -115,12 +115,20 @@ describe("getCommitStats", () => {
       fetchAllEvents: mock(() => Promise.reject(new Error("Network error"))),
     }));
 
-    const { getCommitStats } = await import("../commit-stats");
-    const stats = await getCommitStats("testuser");
+    // Suppress console.error during this test since we're testing error handling
+    const originalError = console.error;
+    console.error = mock(() => {});
 
-    expect(stats.totalCommits).toBe(0);
-    expect(stats.commitHistory).toEqual([]);
-    expect(stats.mostActiveDay).toBe("Monday");
-    expect(stats.avgCommitsPerWeek).toBe(0);
+    try {
+      const { getCommitStats } = await import("../commit-stats");
+      const stats = await getCommitStats("testuser");
+
+      expect(stats.totalCommits).toBe(0);
+      expect(stats.commitHistory).toEqual([]);
+      expect(stats.mostActiveDay).toBe("Monday");
+      expect(stats.avgCommitsPerWeek).toBe(0);
+    } finally {
+      console.error = originalError;
+    }
   });
 });
