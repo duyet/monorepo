@@ -6,6 +6,14 @@
  * generic so they work across common monorepo_* table conventions.
  */
 
+/** Only allow alphanumeric + underscore in identifiers to prevent injection */
+function sanitizeIdentifier(name: string): string {
+  if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
+    throw new Error(`Invalid identifier: ${name.slice(0, 50)}`);
+  }
+  return name;
+}
+
 /**
  * Return row counts, min/max dates, and latest sync times per table.
  * Optionally filter to a specific list of tables.
@@ -13,7 +21,7 @@
 export function tableStatsQuery(tables?: string[]): string {
   const tableFilter =
     tables && tables.length > 0
-      ? `AND name IN (${tables.map((t) => `'${t}'`).join(", ")})`
+      ? `AND name IN (${tables.map((t) => `'${sanitizeIdentifier(t)}'`).join(", ")})`
       : "";
 
   return `
@@ -58,8 +66,19 @@ ORDER BY latest_sync ASC
  * @param source  Optional source name to filter (e.g. 'wakatime', 'github')
  * @param days    Lookback window in days (default 7)
  */
+const VALID_SOURCES = new Set([
+  "wakatime",
+  "cloudflare",
+  "github",
+  "posthog",
+  "unsplash",
+]);
+
 export function syncStatusQuery(source?: string, days = 7): string {
-  const sourceFilter = source ? `AND source = '${source}'` : "";
+  const sourceFilter =
+    source && VALID_SOURCES.has(source)
+      ? `AND source = '${source}'`
+      : "";
   return `
 SELECT
   source,
@@ -77,7 +96,7 @@ FROM (
   UNION ALL
   SELECT 'unsplash',   synced_at          FROM monorepo_unsplash
 )
-WHERE synced_at >= now() - INTERVAL ${days} DAY
+WHERE synced_at >= now() - INTERVAL ${Math.min(Math.max(Math.floor(days), 1), 90)} DAY
   ${sourceFilter}
 GROUP BY source, sync_date
 ORDER BY sync_date DESC, source

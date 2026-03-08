@@ -95,6 +95,23 @@ describe("assertReadOnly", () => {
       /Read-only violation/
     );
   });
+
+  it("rejects empty queries", () => {
+    expect(() => assertReadOnly("")).toThrow(/Read-only violation/);
+    expect(() => assertReadOnly("   ")).toThrow(/Read-only violation/);
+  });
+
+  it("rejects multi-statement queries", () => {
+    expect(() => assertReadOnly("SELECT 1; DROP TABLE foo")).toThrow(
+      /multi-statement/
+    );
+  });
+
+  it("allows semicolons inside string literals", () => {
+    expect(() =>
+      assertReadOnly("SELECT * FROM t WHERE name = 'foo;bar'")
+    ).not.toThrow();
+  });
 });
 
 // ── ClickHouseClient.query ────────────────────────────────────────────────────

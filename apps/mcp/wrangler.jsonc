@@ -2,7 +2,7 @@
   // Cloudflare Worker MCP server for duyet.net
   "name": "duyet-mcp",
   "main": "src/index.ts",
-  "compatibility_date": "2025-04-01",
+  "compatibility_date": "2024-12-01",
   "compatibility_flags": ["nodejs_compat"],
 
   // Durable Objects for McpAgent state

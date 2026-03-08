@@ -36,7 +36,7 @@ export async function authMiddleware(
   }
 
   // Constant-time comparison to prevent timing attacks
-  if (!timingSafeEqual(token, expectedToken)) {
+  if (!(await timingSafeEqual(token, expectedToken))) {
     return c.json(
       { error: "Unauthorized", message: "Invalid token" },
       401
@@ -47,16 +47,28 @@ export async function authMiddleware(
 }
 
 /**
- * Timing-safe string comparison.
- * Falls back to a simple XOR loop since Workers don't expose crypto.timingSafeEqual.
+ * Timing-safe string comparison using Web Crypto HMAC.
+ * Both strings are HMAC'd with the same key, then compared.
+ * This avoids timing side-channels from byte-by-byte comparison.
  */
-function timingSafeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) {
-    return false;
-  }
+async function timingSafeEqual(a: string, b: string): Promise<boolean> {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.generateKey(
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const [macA, macB] = await Promise.all([
+    crypto.subtle.sign("HMAC", key, encoder.encode(a)),
+    crypto.subtle.sign("HMAC", key, encoder.encode(b)),
+  ]);
+  // Compare the HMAC outputs — same length, constant-time via ArrayBuffer
+  const viewA = new Uint8Array(macA);
+  const viewB = new Uint8Array(macB);
+  if (viewA.length !== viewB.length) return false;
   let diff = 0;
-  for (let i = 0; i < a.length; i++) {
-    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  for (let i = 0; i < viewA.length; i++) {
+    diff |= viewA[i] ^ viewB[i];
   }
   return diff === 0;
 }

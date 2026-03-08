@@ -24,13 +24,27 @@ const READ_ONLY_PREFIXES = [
  * Throws if the query could mutate data.
  */
 export function assertReadOnly(sql: string): void {
-  const normalized = sql.trim().toLowerCase();
+  const trimmed = sql.trim();
+  if (!trimmed) {
+    throw new Error("Read-only violation: empty query");
+  }
+
+  // Reject multi-statement queries (semicolons followed by non-whitespace)
+  // Strip string literals first to avoid false positives on semicolons inside strings
+  const withoutStrings = trimmed.replace(/'[^']*'/g, "''");
+  if (/;\s*\S/.test(withoutStrings)) {
+    throw new Error(
+      "Read-only violation: multi-statement queries are not allowed"
+    );
+  }
+
+  const normalized = trimmed.toLowerCase();
   const allowed = READ_ONLY_PREFIXES.some((prefix) =>
     normalized.startsWith(prefix)
   );
   if (!allowed) {
     throw new Error(
-      `Read-only violation: query must start with one of [${READ_ONLY_PREFIXES.join(", ")}]. Got: "${sql.trim().slice(0, 80)}"`
+      `Read-only violation: query must start with one of [${READ_ONLY_PREFIXES.join(", ")}]. Got: "${trimmed.slice(0, 80)}"`
     );
   }
 }
