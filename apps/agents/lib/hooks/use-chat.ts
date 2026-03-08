@@ -230,13 +230,13 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const isActiveStatus = status === "streaming" || status === "submitted";
 
   // Debug logging for status changes
-  useMemo(() => {
+  useEffect(() => {
     console.log("[useChat] Status changed:", {
       status,
       isActiveStatus,
       messagesCount: aiMessages.length,
     });
-  }, [status, aiMessages.length]);
+  }, [status, aiMessages.length, isActiveStatus]);
 
   /**
    * Convert UIMessage[] → Message[].
@@ -301,8 +301,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     return content;
   }, [aiMessages, isActiveStatus]);
 
-  // Debug: Log UIMessage parts structure
-  useMemo(() => {
+  // Track message metadata and log UIMessage parts structure
+  useEffect(() => {
     if (isActiveStatus) {
       const lastMsg = aiMessages[aiMessages.length - 1];
       if (lastMsg && lastMsg.role === "assistant") {

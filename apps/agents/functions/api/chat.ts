@@ -46,6 +46,20 @@ function anonymizeForLog(value: string | undefined, prefixLen = 8): string {
   return `${value.substring(0, prefixLen)}…`;
 }
 
+/**
+ * Sanitize a user-supplied string before injecting into the system prompt.
+ * - Truncates to maxLen characters
+ * - Strips patterns commonly used for prompt injection (role headers, XML-like
+ *   tags that could override instructions, etc.)
+ */
+function sanitizeUserString(value: string, maxLen: number): string {
+  const truncated = value.substring(0, maxLen);
+  return truncated
+    .replace(/<\/?(?:system|assistant|user|human|prompt|instruction)[^>]*>/gi, "")
+    .replace(/^\s*(?:system|assistant|human|user)\s*:/gim, "")
+    .trim();
+}
+
 interface Env {
   AI: Ai;
   DB?: D1Database;
@@ -178,6 +192,49 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   try {
+    // Parse and validate the request body before rate limiting so malformed
+    // requests never consume a rate-limit slot.
+    const requestBodySchema = z.object({
+      messages: z.array(z.unknown()),
+      mode: z.string().optional(),
+      conversationId: z.string().optional(),
+      settings: z
+        .object({
+          customInstructions: z.string().optional(),
+          language: z.string().optional(),
+          timezone: z.string().optional(),
+        })
+        .optional(),
+    });
+
+    let parsedBody: z.infer<typeof requestBodySchema>;
+    try {
+      const raw = await context.request.json();
+      const result = requestBodySchema.safeParse(raw);
+      if (!result.success) {
+        return new Response(
+          JSON.stringify({
+            error: "Invalid request body",
+            details: result.error.flatten(),
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+      parsedBody = result.data;
+    } catch {
+      return new Response(
+        JSON.stringify({ error: "Invalid JSON in request body" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const {
+      messages: uiMessages,
+      mode = "agent",
+      conversationId,
+      settings,
+    } = parsedBody;
+
     // Extract auth and IP for rate limiting
     const user = await getUserFromRequest(
       context.request,
@@ -221,13 +278,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }
     }
 
-    const {
-      messages: uiMessages,
-      mode = "agent",
-      conversationId,
-      settings,
-    } = (await context.request.json()) as any;
-
     // Generate unique request ID for tracing
     const requestId = crypto.randomUUID().substring(0, 8);
 
@@ -245,9 +295,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     });
 
     // AI Gateway with unified provider
+    const accountId = context.env.CF_AIG_ACCOUNT_ID;
+    if (!accountId) {
+      return new Response(
+        JSON.stringify({
+          error: "Server misconfiguration: CF_AIG_ACCOUNT_ID is not set",
+        }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
     const aigateway = createAiGateway({
-      accountId:
-        context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
+      accountId,
       gateway: "monorepo",
       apiKey: context.env.CF_AIG_TOKEN,
     });
@@ -265,15 +323,26 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       system += `\n\n<available_skills>\n${skillsXml}\n</available_skills>`;
     }
 
-    // Inject custom user settings
+    // Inject custom user settings (sanitized to prevent prompt injection)
     if (settings) {
       const parts = [];
-      if (settings.customInstructions)
-        parts.push(`User Custom Instructions:\n${settings.customInstructions}`);
-      if (settings.language)
-        parts.push(`The user's preferred language is: ${settings.language}`);
-      if (settings.timezone)
-        parts.push(`The user's current timezone is: ${settings.timezone}`);
+      if (settings.customInstructions) {
+        const sanitized = sanitizeUserString(
+          settings.customInstructions,
+          500
+        );
+        if (sanitized) parts.push(`User Custom Instructions:\n${sanitized}`);
+      }
+      if (settings.language) {
+        const sanitized = sanitizeUserString(settings.language, 50);
+        if (sanitized)
+          parts.push(`The user's preferred language is: ${sanitized}`);
+      }
+      if (settings.timezone) {
+        const sanitized = sanitizeUserString(settings.timezone, 50);
+        if (sanitized)
+          parts.push(`The user's current timezone is: ${sanitized}`);
+      }
 
       if (parts.length > 0) {
         system += `\n\n--- User Preferences ---\n${parts.join("\n\n")}\n------------------------`;

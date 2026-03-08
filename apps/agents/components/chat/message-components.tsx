@@ -333,12 +333,6 @@ const CAPABILITIES = [
   },
 ];
 
-const _QUICK_PROMPTS = [
-  "What is Duyet's tech stack?",
-  "Find posts about Rust",
-  "Show recent GitHub activity",
-  "Summarize Duyet's CV",
-];
 
 interface WelcomeMessageProps {
   onPromptSelect?: (prompt: string) => void;

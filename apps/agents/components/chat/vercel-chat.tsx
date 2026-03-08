@@ -3,7 +3,7 @@
 import { Button, Textarea } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import type { UIMessage } from "ai";
-import { RefreshCw, Send, Wrench, X, Zap, Paperclip, Settings } from "lucide-react";
+import { RefreshCw, Send, X, Paperclip, Settings } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,
@@ -164,6 +164,10 @@ export function VercelChat() {
             assistantMessage: assistantMsg,
           }),
         });
+        if (!res.ok) {
+          updateTitle(convId, userMsg.slice(0, 50));
+          return;
+        }
         const { title } = await res.json();
         if (title && title !== "New chat") {
           updateTitle(convId, title);
@@ -216,9 +220,7 @@ export function VercelChat() {
   };
 
   const handleNewChat = async () => {
-    console.log("[VercelChat] New chat button clicked, mode:", mode);
     await createNew(mode);
-    console.log("[VercelChat] createNew called, activeId:", activeId);
   };
 
   // Auto-resize textarea on input
@@ -505,46 +507,3 @@ export function VercelChat() {
   );
 }
 
-/** Compact mode toggle pills — Fast / Agent */
-function _ModeToggle({
-  mode,
-  onModeChange,
-}: {
-  mode: ChatMode;
-  onModeChange: (m: ChatMode) => void;
-}) {
-  return (
-    <div className="flex items-center gap-1 shrink-0 p-0.5">
-      <button
-        type="button"
-        onClick={() => onModeChange("fast")}
-        className={cn(
-          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer",
-          mode === "fast"
-            ? "bg-muted text-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-        )}
-      >
-        <Zap
-          className={cn("h-3.5 w-3.5", mode === "fast" && "text-foreground")}
-        />
-        Fast
-      </button>
-      <button
-        type="button"
-        onClick={() => onModeChange("agent")}
-        className={cn(
-          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer",
-          mode === "agent"
-            ? "bg-muted text-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-        )}
-      >
-        <Wrench
-          className={cn("h-3.5 w-3.5", mode === "agent" && "text-foreground")}
-        />
-        Agent
-      </button>
-    </div>
-  );
-}

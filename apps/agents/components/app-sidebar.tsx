@@ -55,11 +55,6 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   onSelectConversation: (id: string) => Promise<void>;
   onDeleteConversation: (id: string) => Promise<void>;
   onCloseSidebar?: () => void;
-  onSearch?: () => void;
-  onOpenAssets?: () => void;
-  onOpenGallery?: () => void;
-  onOpenMaxClaw?: () => void;
-  onExploreExperts?: () => void;
 }
 
 export function AppSidebar({
@@ -69,11 +64,6 @@ export function AppSidebar({
   onSelectConversation,
   onDeleteConversation,
   onCloseSidebar,
-  onSearch: _onSearch,
-  onOpenAssets: _onOpenAssets,
-  onOpenGallery: _onOpenGallery,
-  onOpenMaxClaw: _onOpenMaxClaw,
-  onExploreExperts: _onExploreExperts,
   className,
   ...rest
 }: AppSidebarProps) {
@@ -99,6 +89,7 @@ export function AppSidebar({
               variant="ghost"
               size="icon"
               onClick={onCloseSidebar}
+              aria-label="Close sidebar"
               className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground mr-1"
             >
               <PanelLeftClose className="h-4 w-4" />

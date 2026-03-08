@@ -60,6 +60,7 @@ function makeContext(body: any, env: Record<string, any> = {}, headers: Record<s
         run: mock(() => Promise.resolve({ response: "test" })),
         gateway: mock((_name: string) => ({ gateway: _name })),
       },
+      CF_AIG_ACCOUNT_ID: "test-account-id",
       ...env,
     },
   };
@@ -141,20 +142,23 @@ describe("Chat API — onRequestPost", () => {
     expect(response.status).toBe(200);
   });
 
-  test("returns 500 on malformed request body", async () => {
+  test("returns 400 on malformed request body", async () => {
     const ctx = {
       request: new Request("https://agents.duyet.net/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: "not-json",
       }),
-      env: { AI: { run: mock(() => Promise.resolve({})) } },
+      env: {
+        AI: { run: mock(() => Promise.resolve({})) },
+        CF_AIG_ACCOUNT_ID: "test-account-id",
+      },
     };
 
     const response = await onRequestPost(ctx as any);
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
     const json = await response.json();
-    expect(json.error).toContain("Failed to process");
+    expect(json.error).toContain("Invalid JSON");
   });
 
   test("getGitHub tool has needsApproval set to true", async () => {
