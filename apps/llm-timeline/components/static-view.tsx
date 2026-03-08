@@ -61,7 +61,7 @@ export function StaticView({
     const updateFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
       const initialSearch = params.get("search") || "";
-      const isLite = params.get("lite") === "1";
+      const isLite = params.get("lite") === "true";
       setSearchQuery(initialSearch);
       setLiteMode(isLite);
     };
@@ -81,8 +81,8 @@ export function StaticView({
     return filterModels(allModels, filters);
   }, [allModels, searchQuery, licenseFilter]);
 
-  const modelsByYear = groupByYear(filteredModels);
-  const modelsByOrg = groupByOrg(filteredModels);
+  const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels]);
+  const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels]);
 
   return (
     <>
@@ -110,12 +110,12 @@ export function StaticView({
       {/* Timeline */}
       <div>
         {view === "organizations" ? (
-          allModels.length > 500 ? (
+          filteredModels.length > 500 ? (
             <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
           ) : (
             <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
           )
-        ) : allModels.length > 500 ? (
+        ) : filteredModels.length > 500 ? (
           <VirtualTimeline modelsByYear={modelsByYear} liteMode={liteMode} />
         ) : (
           <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />

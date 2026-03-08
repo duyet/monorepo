@@ -1,7 +1,7 @@
 "use client";
 
 import { List, Search, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Model } from "@/lib/data";
 
 type View = "models" | "organizations";
@@ -39,21 +39,12 @@ export function FilterInfo({
     onSearchChange?.("");
   };
 
-  // Read lite mode from URL on mount
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const isLite = params.get("lite") === "1";
-    if (isLite !== liteMode) {
-      // Force re-render with parent's liteMode if different
-    }
-  }, [liteMode]);
-
   const toggleLiteMode = () => {
     const url = new URL(window.location.href);
     if (liteMode) {
       url.searchParams.delete("lite");
     } else {
-      url.searchParams.set("lite", "1");
+      url.searchParams.set("lite", "true");
     }
     window.location.href = url.toString();
   };
@@ -141,6 +132,7 @@ export function FilterInfo({
           backgroundColor: liteMode ? "var(--accent)" : undefined,
         }}
         title={liteMode ? "Switch to full view" : "Switch to lite mode"}
+        aria-label="Toggle lite mode"
       >
         <List
           className="h-4 w-4"

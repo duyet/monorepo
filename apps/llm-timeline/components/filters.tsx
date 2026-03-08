@@ -86,6 +86,7 @@ export function Filters({
             onClick={() => updateFilter("search", "")}
             className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
             style={{ color: "var(--text-muted)" }}
+            aria-label="Clear search"
           >
             <X className="h-4 w-4" />
           </button>

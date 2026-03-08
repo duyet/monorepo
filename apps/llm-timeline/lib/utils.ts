@@ -135,6 +135,8 @@ export function getLicenseColor(license: Model["license"]): string {
       return "bg-coral-light text-coral-dark border-coral";
     case "partial":
       return "bg-lavender-light text-lavender-dark border-lavender";
+    default:
+      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
   }
 }
 
@@ -147,6 +149,8 @@ export function getTypeColor(type: Model["type"]): string {
       return "bg-terracotta-light text-terracotta-dark border-terracotta";
     case "model":
       return "bg-oat-light text-neutral-700 border-oat";
+    default:
+      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
   }
 }
 
