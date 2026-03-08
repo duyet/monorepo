@@ -13,7 +13,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ClerkProvider publishableKey={CLERK_KEY}>
+    <ClerkProvider publishableKey={CLERK_KEY!}>
       <ThemeProvider>{children}</ThemeProvider>
     </ClerkProvider>
   );
