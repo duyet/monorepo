@@ -22,10 +22,7 @@ export function FilterInfo({
   resultCount,
   view,
   license = "all",
-  _year,
-  _org,
   liteMode,
-  _models,
   onSearchChange,
   onLicenseChange,
 }: FilterInfoProps) {

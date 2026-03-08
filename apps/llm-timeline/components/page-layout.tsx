@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Download, Lock } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { lastSynced, years } from "@/lib/data";
+import { lastSynced } from "@/lib/data";
 import Icons from "@duyet/components/Icons";
 import { AuthButtons } from "@duyet/components/header/AuthButtons";
 
@@ -13,10 +13,7 @@ interface PageLayoutProps {
   description?: string;
 }
 
-export function PageLayout({ children, _title, description }: PageLayoutProps) {
-  const _firstYear = years[years.length - 1];
-  const _latestYear = years[0];
-
+export function PageLayout({ children, description }: PageLayoutProps) {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--bg)" }}>
       <div className="mx-auto max-w-4xl px-4 py-8 overflow-hidden">
