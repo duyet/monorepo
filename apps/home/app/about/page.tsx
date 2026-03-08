@@ -26,6 +26,7 @@ function addUtmParams(
 // Claude-style SVG Icons - minimal, geometric, soft
 const ResumeIcon = () => (
   <svg
+    aria-hidden="true"
     width="80"
     height="80"
     viewBox="0 0 80 80"
@@ -70,6 +71,7 @@ const ResumeIcon = () => (
 
 const GithubIcon = () => (
   <svg
+    aria-hidden="true"
     width="80"
     height="80"
     viewBox="0 0 80 80"
@@ -109,6 +111,7 @@ const GithubIcon = () => (
 
 const LinkedInIcon = () => (
   <svg
+    aria-hidden="true"
     width="80"
     height="80"
     viewBox="0 0 80 80"
@@ -141,6 +144,7 @@ const LinkedInIcon = () => (
 
 const BlogIcon = () => (
   <svg
+    aria-hidden="true"
     width="80"
     height="80"
     viewBox="0 0 80 80"
@@ -297,11 +301,11 @@ export default function About() {
 
         {/* Links Grid */}
         <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {links.map((link, index) => {
+          {links.map((link) => {
             const Icon = link.icon;
             return (
               <Link
-                key={index}
+                key={link.title}
                 href={link.url}
                 target={link.url.startsWith("http") ? "_blank" : undefined}
                 rel={

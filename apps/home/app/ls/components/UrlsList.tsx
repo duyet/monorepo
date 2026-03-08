@@ -249,6 +249,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           </p>
           {searchQuery && (
             <button
+              type="button"
               onClick={() => setSearchQuery("")}
               className="text-neutral-600 hover:text-neutral-900"
             >

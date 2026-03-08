@@ -41,6 +41,7 @@ export default function ListPage() {
             className="group mb-6 inline-flex items-center gap-2 text-sm text-neutral-600 transition-colors hover:text-neutral-900"
           >
             <svg
+              aria-hidden="true"
               className="h-4 w-4 transition-transform group-hover:-translate-x-1"
               fill="none"
               viewBox="0 0 24 24"

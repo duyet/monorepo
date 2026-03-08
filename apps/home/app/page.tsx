@@ -29,7 +29,7 @@ function addUtmParams(
 ): string {
   // Resolve relative short links to the target absolute URL using the provided host,
   // since Cloudflare _redirects drops query params and UTM tracking would be lost.
-  const absUrl = url.startsWith("/") && host ? `https://${host}` : url;
+  const absUrl = url.startsWith("/") && host ? `https://${host}${url}` : url;
   if (absUrl.startsWith("/")) return absUrl;
   const urlObj = new URL(absUrl);
   urlObj.searchParams.set("utm_source", "home");
@@ -383,6 +383,7 @@ export default function HomePage() {
               <div className="flex items-center gap-3">
                 <span className="inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
                   <svg
+                    aria-hidden="true"
                     className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -420,6 +421,7 @@ export default function HomePage() {
                     "footer_github"
                   )}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="transition-colors hover:text-neutral-900 dark:hover:text-white"
                 >
                   GitHub
@@ -431,6 +433,7 @@ export default function HomePage() {
                     "footer_linkedin"
                   )}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="transition-colors hover:text-neutral-900 dark:hover:text-white"
                 >
                   LinkedIn
