@@ -8,7 +8,6 @@ import { urls } from "../config/urls";
 import UrlsList from "./components/UrlsList";
 
 export const dynamic = "force-static";
-export const revalidate = 3600;
 
 export default function ListPage() {
   // Filter out system URLs and format for display (server-side)

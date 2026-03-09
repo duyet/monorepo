@@ -318,9 +318,9 @@ export default function About() {
                 <div className="mb-8 text-neutral-800">
                   <Icon />
                 </div>
-                <h3 className="mb-3 text-xl font-medium text-neutral-900">
+                <p className="mb-3 text-xl font-medium text-neutral-900">
                   {link.title}
-                </h3>
+                </p>
                 <p className="text-sm leading-relaxed text-neutral-700">
                   {link.description}
                 </p>
@@ -335,25 +335,26 @@ export default function About() {
             Skills & Stacks
           </h2>
           <div className="flex flex-wrap gap-3">
-            {skills.map(({ name, link }) => (
-              <span
-                key={name}
-                className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100"
-              >
-                {link ? (
-                  <Link
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-neutral-900"
-                  >
-                    {name}
-                  </Link>
-                ) : (
-                  name
-                )}
-              </span>
-            ))}
+            {skills.map(({ name, link }) =>
+              link ? (
+                <Link
+                  key={name}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+                >
+                  {name}
+                </Link>
+              ) : (
+                <span
+                  key={name}
+                  className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100"
+                >
+                  {name}
+                </span>
+              )
+            )}
           </div>
         </div>
       </div>

@@ -12,12 +12,10 @@ import {
   User,
   Wrench,
   Settings,
-  Puzzle,
   Database,
 } from "lucide-react";
 
 export const dynamic = "force-static";
-export const revalidate = 3600;
 
 const buildDate = new Date().toISOString().split("T")[0];
 
@@ -101,12 +99,6 @@ const apps: AppItem[] = [
     href: "/monitor",
     host: "clickhouse-monitoring.vercel.app",
     utmContent: "ch_monitor_bento",
-    fallbackIcon: (
-      <Database className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
-    ),
-    fallbackGradientClass: "bg-neutral-900",
-    fallbackBgImage:
-      "url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop')",
     screenshot: "/screenshots/ch-monitor.png",
   },
   {
@@ -115,10 +107,6 @@ const apps: AppItem[] = [
     host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
     screenshot: "/screenshots/claude-plugins-art.png",
-    fallbackIcon: (
-      <Puzzle className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
-    ),
-    fallbackGradientClass: "bg-neutral-900",
   },
 ];
 
