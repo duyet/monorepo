@@ -11,6 +11,8 @@ loadEnvConfig(__dirname, process.env.NODE_ENV || "development", console, false);
 
 const config = {
   output: "export",
+  // Increase timeout for static page generation to handle external API rate limits
+  staticPageGenerationTimeout: 120, // 120 seconds (2 minutes)
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,

@@ -65,6 +65,7 @@ export function isPostHogConfigured(): boolean {
 /**
  * Makes a validated query to PostHog API
  * Returns null if configuration is invalid or request fails
+ * Includes timeout handling to prevent build hangs during rate limits
  */
 export async function queryPostHog(
   query: object
@@ -75,6 +76,11 @@ export async function queryPostHog(
     return null;
   }
 
+  // Add timeout to prevent build hangs during rate limits
+  const timeout = 15000; // 15 seconds timeout per request
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
   try {
     const response = await fetch(config.apiUrl, {
       method: "POST",
@@ -84,7 +90,10 @@ export async function queryPostHog(
         "Content-Type": posthogConfig.headers.contentType,
       },
       body: JSON.stringify({ query }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       console.error(
@@ -103,6 +112,14 @@ export async function queryPostHog(
 
     return data;
   } catch (error) {
+    clearTimeout(timeoutId);
+
+    // Handle timeout specifically
+    if (error instanceof Error && error.name === "AbortError") {
+      console.warn("[PostHog] Request timeout - returning empty data");
+      return null;
+    }
+
     // Handle network errors, JSON parsing errors, etc.
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("[PostHog] Request failed:", errorMessage);
