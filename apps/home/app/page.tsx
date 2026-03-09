@@ -455,6 +455,7 @@ export default function HomePage() {
                     "footer_status"
                   )}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center space-x-2 transition-colors hover:text-neutral-900 dark:hover:text-white"
                 >
                   <div className="h-2 w-2 rounded-full bg-emerald-500 relative flex items-center justify-center">

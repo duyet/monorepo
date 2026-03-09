@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@duyet/libs/utils";
 import { CATEGORY_ORDER, type Category } from "../../config/categories";
 
@@ -21,6 +21,7 @@ function ListIcon({ className }: { className?: string }) {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      aria-hidden="true"
     >
       <path
         strokeLinecap="round"
@@ -39,6 +40,7 @@ function GridIcon({ className }: { className?: string }) {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      aria-hidden="true"
     >
       <path
         strokeLinecap="round"
@@ -57,6 +59,7 @@ function ExternalIcon({ className }: { className?: string }) {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      aria-hidden="true"
     >
       <path
         strokeLinecap="round"
@@ -117,11 +120,12 @@ function CategoryHeader({
 
 export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [view, setView] = useState<ViewMode>(() => {
-    if (typeof window === "undefined") return "list";
+  const [view, setView] = useState<ViewMode>("list");
+
+  useEffect(() => {
     const saved = localStorage.getItem("ls-view") as ViewMode | null;
-    return saved === "list" || saved === "grid" ? saved : "list";
-  });
+    if (saved === "list" || saved === "grid") setView(saved);
+  }, []);
 
   function setViewAndSave(v: ViewMode) {
     setView(v);
@@ -263,6 +267,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
       {filteredUrls.length === 0 && (
         <div className="rounded-2xl border border-neutral-200 bg-white p-12 text-center">
           <svg
+            aria-hidden="true"
             className="mx-auto mb-4 h-12 w-12 text-neutral-300"
             fill="none"
             viewBox="0 0 24 24"
@@ -328,6 +333,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                   {desc && <p className="text-sm text-neutral-700">{desc}</p>}
                   <div className="mt-1 flex items-center gap-2 text-xs text-neutral-500">
                     <svg
+                      aria-hidden="true"
                       className="h-3 w-3 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -379,6 +385,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                         {target}
                       </span>
                       <svg
+                        aria-hidden="true"
                         className="h-4 w-4 flex-shrink-0 text-neutral-300 transition-transform group-hover:translate-x-0.5 group-hover:text-neutral-500"
                         fill="none"
                         viewBox="0 0 24 24"
