@@ -321,12 +321,13 @@ export async function searchBlog(
 
     const queryLower = query.toLowerCase();
 
-    for (const line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
       if (line.startsWith("## ") && line.toLowerCase().includes(queryLower)) {
         const title = line.replace("## ", "").trim();
         // Find URL in next few lines
         const urlMatch = lines
-          .slice(lines.indexOf(line), lines.indexOf(line) + 5)
+          .slice(i, i + 5)
           .find((l) => l.startsWith("URL:"));
 
         if (urlMatch) {
@@ -344,24 +345,27 @@ export async function searchBlog(
 
     // If no matches found by title, try content search
     if (matches.length === 0) {
-      for (const line of lines) {
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
         if (
           line.toLowerCase().includes(queryLower) &&
           line.trim().length > 20
         ) {
-          // Find nearest title
-          const titleIndex = lines
-            .slice(0, lines.indexOf(line))
-            .reverse()
-            .findIndex((l) => l.startsWith("## "));
+          // Find nearest title above this line
+          let titleLineIndex = -1;
+          for (let j = i - 1; j >= 0; j--) {
+            if (lines[j].startsWith("## ")) {
+              titleLineIndex = j;
+              break;
+            }
+          }
 
-          if (titleIndex >= 0) {
-            const actualIndex = lines.indexOf(line) - titleIndex - 1;
+          if (titleLineIndex >= 0) {
             const title =
-              lines[actualIndex]?.replace("## ", "").trim() || "Blog Post";
+              lines[titleLineIndex]?.replace("## ", "").trim() || "Blog Post";
 
             const urlMatch = lines
-              .slice(actualIndex, actualIndex + 5)
+              .slice(titleLineIndex, titleLineIndex + 5)
               .find((l) => l.startsWith("URL:"));
 
             if (urlMatch && !matches.find((m) => m.title === title)) {

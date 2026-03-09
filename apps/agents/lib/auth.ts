@@ -117,10 +117,11 @@ async function verifyJwt(
 
     const jwks = await getClerkJwks(clerkDomain);
 
-    // If no JWKS available (e.g. no CLERK_ISSUER_URL configured), fall back to
-    // claims-only validation
+    // If no JWKS available, deny access (fail-closed).
+    // Never accept unverified tokens — a network blip fetching JWKS
+    // must not silently bypass signature verification.
     if (jwks.length === 0) {
-      return verifyJwtClaimsFallback(parts[1]);
+      return null;
     }
 
     // Find matching key by kid
@@ -169,38 +170,9 @@ async function verifyJwt(
 }
 
 /**
- * Fallback validation when JWKS is unavailable: decode payload and validate
- * standard JWT claims (exp, nbf, sub). Does NOT verify signature.
- * Used only when CLERK_ISSUER_URL is not configured.
- */
-function verifyJwtClaimsFallback(
-  payloadB64: string
-): Record<string, unknown> | null {
-  try {
-    const payload = JSON.parse(
-      new TextDecoder().decode(base64UrlDecode(payloadB64))
-    );
-
-    // Require sub claim
-    if (!payload.sub || typeof payload.sub !== "string") return null;
-
-    // Check expiry if present
-    if (payload.exp && payload.exp * 1000 < Date.now()) return null;
-
-    // Check not-before if present
-    if (payload.nbf && payload.nbf * 1000 > Date.now() + 30_000) return null;
-
-    return payload;
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Extract verified user info from Clerk session token (JWT).
  *
- * Attempts full JWKS signature verification when CLERK_ISSUER_URL is configured.
- * Falls back to claims-only validation otherwise.
+ * Requires CLERK_ISSUER_URL to be configured for JWKS signature verification.
  * Returns null if verification fails or no valid token is present.
  */
 export async function getUserFromRequest(

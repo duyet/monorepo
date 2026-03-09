@@ -44,6 +44,15 @@ mock.module("ai-gateway-provider/providers/unified", () => ({
   createUnified: mock(() => (model: string) => model),
 }));
 
+// Track mock auth state for tests
+let mockAuthUser: { userId: string } | null = null;
+
+mock.module("../../lib/auth", () => ({
+  getUserFromRequest: mock(() => Promise.resolve(mockAuthUser)),
+  getClientIp: mock(() => "127.0.0.1"),
+  hashIp: mock(() => Promise.resolve("mock-ip-hash")),
+}));
+
 // Now import the function
 const chatModule = await import("./chat");
 const onRequestPost = chatModule.onRequestPost;
@@ -86,12 +95,6 @@ function makeMockDB(postIncrementCount = 0) {
   };
 }
 
-/** Create a fake JWT token with a given sub claim */
-function makeFakeJwt(sub: string): string {
-  const header = btoa(JSON.stringify({ alg: "RS256", typ: "JWT" }));
-  const payload = btoa(JSON.stringify({ sub, iat: Date.now() }));
-  return `${header}.${payload}.fake-signature`;
-}
 
 describe("Chat API — onRequestPost", () => {
   test("returns 500 when AI binding is missing", async () => {
@@ -383,17 +386,18 @@ describe("Rate limiting — unauthenticated users", () => {
   });
 
   test("authenticated users bypass rate limiting", async () => {
+    mockAuthUser = { userId: "user_123" };
     const db = makeMockDB(100); // Way over limit
-    const token = makeFakeJwt("user_123");
     const ctx = makeContext(
       { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
       { DB: db },
-      { Authorization: `Bearer ${token}` }
+      { Authorization: "Bearer mock-token" }
     );
 
     const response = await onRequestPost(ctx);
     // Authenticated users should not be rate limited
     expect(response.status).toBe(200);
+    mockAuthUser = null;
   });
 
   test("works without DB binding (no rate limiting applied)", async () => {
@@ -419,14 +423,15 @@ describe("Authentication — user extraction", () => {
   });
 
   test("extracts user from valid JWT auth header", async () => {
-    const token = makeFakeJwt("user_456");
+    mockAuthUser = { userId: "user_456" };
     const ctx = makeContext(
       { messages: [{ id: "1", role: "user", parts: [{ type: "text", text: "Hi" }] }], mode: "fast" },
       {},
-      { Authorization: `Bearer ${token}` }
+      { Authorization: "Bearer mock-token" }
     );
 
     const response = await onRequestPost(ctx);
     expect(response.status).toBe(200);
+    mockAuthUser = null;
   });
 });

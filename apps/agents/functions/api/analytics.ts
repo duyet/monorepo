@@ -1,24 +1,30 @@
+import { getUserFromRequest } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
 
-export const onRequestGet = async (context: any) => {
-  const { DB } = context.env;
+interface Env {
+  DB: D1Database;
+  CLERK_ISSUER_URL?: string;
+}
+
+export const onRequestGet: PagesFunction<Env> = async (context) => {
+  const { request, env } = context;
+  const { DB } = env;
+
   if (!DB) {
     return new Response(JSON.stringify({ error: "Missing DB binding" }), {
       status: 500,
     });
   }
 
+  // Require authentication for analytics data
+  const user = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
+  if (!user) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+    });
+  }
+
   try {
-    const dbClient = createDatabaseClient(DB);
-
-    // Simple aggregations using standard standard DB client approaches or raw queries.
-    // If the db client doesn't expose analytics directly, we can run raw SQL.
-    // Assuming the structure from typical setup.
-    // Let's run a batch of generic metrics queries.
-
-    // We'll wrap in try-catch raw queries if dbClient lacks custom methods.
-    const _stmtDb = (dbClient as any).db; // D1 binding is usually accessible on the client instance or we use the raw DB binding.
-
     const [convRes, msgRes, activeUsersRes] = await DB.batch([
       DB.prepare("SELECT COUNT(*) as total FROM conversations"),
       DB.prepare("SELECT COUNT(*) as total FROM messages"),
@@ -31,10 +37,9 @@ export const onRequestGet = async (context: any) => {
     const totalMessages = (msgRes.results[0] as any)?.total || 0;
     const totalUsers = (activeUsersRes.results[0] as any)?.total || 0;
 
-    // Time-series mock or realistic query for last 7 days conversation creations
     const trendRes = await DB.prepare(`
-      SELECT date(created_at) as date, COUNT(*) as count 
-      FROM conversations 
+      SELECT date(created_at) as date, COUNT(*) as count
+      FROM conversations
       WHERE created_at >= date('now', '-7 days')
       GROUP BY date(created_at)
       ORDER BY date ASC

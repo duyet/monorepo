@@ -23,6 +23,7 @@ import type { Conversation } from "../../lib/types";
 
 interface Env {
   DB: D1Database;
+  CLERK_ISSUER_URL?: string;
 }
 
 // CORS headers for cross-origin requests
@@ -137,10 +138,15 @@ async function handleGet(
       return Response.json({ conversation }, { headers: CORS_HEADERS });
     }
 
-    // GET /api/conversations — explicitly scoped by auth state
-    const conversations = userId
-      ? await client.listConversationsByUser(userId, limit)
-      : await client.listAnonymousConversations(limit);
+    // GET /api/conversations — require authentication.
+    // Anonymous users cannot list conversations (prevents global data exposure).
+    if (!userId) {
+      return Response.json(
+        { conversations: [] },
+        { headers: CORS_HEADERS }
+      );
+    }
+    const conversations = await client.listConversationsByUser(userId, limit);
     return Response.json({ conversations }, { headers: CORS_HEADERS });
   } catch (error) {
     console.error("[Conversations API] GET error:", error);

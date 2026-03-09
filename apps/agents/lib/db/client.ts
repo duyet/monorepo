@@ -176,6 +176,7 @@ export class DatabaseClient {
    * Update a conversation (title only)
    */
   async updateConversation(params: UpdateConversationParams): Promise<void> {
+    if (params.title === undefined) return;
     const stmt = this.db.prepare(
       "UPDATE conversations SET title = ?, updated_at = ? WHERE id = ?"
     );
