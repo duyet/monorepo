@@ -72,7 +72,8 @@ export function getOptimalImageSrc(
  * Generate optimized blur data URL for smoother loading
  */
 export function generateBlurDataURL(photo: Photo): string {
-  const color = photo.color || "#f3f4f6";
+  const raw = photo.color || "#f3f4f6";
+  const color = /^#[0-9a-fA-F]{3,8}$/.test(raw) ? raw : "#f3f4f6";
 
   return `data:image/svg+xml;base64,${btoa(
     `<svg width="${photo.width}" height="${photo.height}" xmlns="http://www.w3.org/2000/svg">

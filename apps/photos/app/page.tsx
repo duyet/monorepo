@@ -15,7 +15,6 @@ import {
   type Photo,
 } from "@/lib/photo-provider";
 
-export const revalidate = 86400; // Revalidate daily for static export
 
 type PageProps = {
   searchParams: { fallback?: string };

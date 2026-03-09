@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 /**
  * Custom hooks for keyboard and touch navigation
@@ -135,47 +135,43 @@ export function useTouchGestures(options: TouchGestureOptions) {
     touchThreshold = 10,
   } = options;
 
+  const touchDataRef = useRef<{
+    startX: number;
+    startY: number;
+    currentX?: number;
+    currentY?: number;
+  } | null>(null);
+
   const handleTouchStart = useCallback(
     (event: React.TouchEvent) => {
       if (!isEnabled) return;
 
       const touch = event.touches[0];
-      const touchData = {
+      touchDataRef.current = {
         startX: touch.clientX,
         startY: touch.clientY,
-        startTime: Date.now(),
       };
-
-      // Store touch data on the target element
-      (event.currentTarget as any).__touchData = touchData;
     },
     [isEnabled]
   );
 
   const handleTouchMove = useCallback(
     (event: React.TouchEvent) => {
-      if (!isEnabled) return;
+      if (!isEnabled || !touchDataRef.current) return;
 
       const touch = event.touches[0];
-      const touchData = (event.currentTarget as any).__touchData;
-
-      if (!touchData) return;
-
-      // Update current position
-      touchData.currentX = touch.clientX;
-      touchData.currentY = touch.clientY;
+      touchDataRef.current.currentX = touch.clientX;
+      touchDataRef.current.currentY = touch.clientY;
     },
     [isEnabled]
   );
 
   const handleTouchEnd = useCallback(
-    (event: React.TouchEvent) => {
-      if (!isEnabled) return;
+    () => {
+      if (!isEnabled || !touchDataRef.current) return;
 
-      const touchData = (event.currentTarget as any).__touchData;
-      if (!touchData) return;
-
-      const { startX, startY, currentX, currentY } = touchData;
+      const { startX, startY, currentX, currentY } = touchDataRef.current;
+      touchDataRef.current = null;
 
       if (currentX === undefined || currentY === undefined) return;
 
@@ -184,14 +180,11 @@ export function useTouchGestures(options: TouchGestureOptions) {
       const absDeltaX = Math.abs(deltaX);
       const absDeltaY = Math.abs(deltaY);
 
-      // Check if movement is significant enough
       if (absDeltaX < touchThreshold && absDeltaY < touchThreshold) {
         return;
       }
 
-      // Determine dominant direction
       if (absDeltaX > absDeltaY) {
-        // Horizontal swipe
         if (absDeltaX > minimumSwipeDistance) {
           if (deltaX > 0) {
             onSwipeRight?.();
@@ -200,7 +193,6 @@ export function useTouchGestures(options: TouchGestureOptions) {
           }
         }
       } else {
-        // Vertical swipe
         if (absDeltaY > minimumSwipeDistance) {
           if (deltaY > 0) {
             onSwipeDown?.();
@@ -209,9 +201,6 @@ export function useTouchGestures(options: TouchGestureOptions) {
           }
         }
       }
-
-      // Clean up touch data
-      (event.currentTarget as any).__touchData = undefined;
     },
     [
       isEnabled,

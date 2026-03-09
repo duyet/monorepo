@@ -98,7 +98,6 @@ export default function Lightbox({
               totalCount={totalCount}
               isFullscreen={isFullscreen}
               showInfo={showInfo}
-              onClose={onClose}
               onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
               onToggleInfo={() => setShowInfo(!showInfo)}
             />
