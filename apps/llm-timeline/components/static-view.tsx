@@ -9,6 +9,7 @@ import { FilterInfo } from "@/components/filter-info";
 import { StatsCards } from "@/components/stats-cards";
 import type { Model } from "@/lib/data";
 import {
+  DEFAULT_FILTERS,
   groupByYear,
   groupByOrg,
   filterModels,
@@ -31,16 +32,6 @@ interface StaticViewProps {
   liteMode?: boolean;
 }
 
-const DEFAULT_FILTERS: FilterState = {
-  search: "",
-  license: "all",
-  type: "all",
-  org: "",
-  source: "all",
-  domain: "all",
-  params: "all",
-};
-
 export function StaticView({
   models: allModels,
   stats,
@@ -49,12 +40,13 @@ export function StaticView({
   license = "all",
   year,
   org,
+  liteMode: initialLiteMode = false,
 }: StaticViewProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [licenseFilter, setLicenseFilter] = useState<
     "all" | "open" | "closed" | "partial"
   >(license);
-  const [liteMode, setLiteMode] = useState(false);
+  const [liteMode, setLiteMode] = useState(initialLiteMode);
 
   // Read lite mode and search from URL on mount
   useEffect(() => {

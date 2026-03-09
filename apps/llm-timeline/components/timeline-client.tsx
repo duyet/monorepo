@@ -4,17 +4,7 @@ import { useState, useMemo, useTransition } from "react";
 import { Filters } from "@/components/filters";
 import { Timeline } from "@/components/timeline";
 import { models } from "@/lib/data";
-import { filterModels, groupByYear, type FilterState } from "@/lib/utils";
-
-const DEFAULT_FILTERS: FilterState = {
-  search: "",
-  license: "all",
-  type: "all",
-  org: "",
-  source: "all",
-  domain: "all",
-  params: "all",
-};
+import { DEFAULT_FILTERS, filterModels, groupByYear, type FilterState } from "@/lib/utils";
 
 export function TimelineClient() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

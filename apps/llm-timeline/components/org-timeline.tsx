@@ -81,7 +81,7 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
             <div className="ml-2">
               {orgModels.map((model, index) => (
                 <ModelCard
-                  key={`${model.date}-${model.name}`}
+                  key={`${model.org}-${model.date}-${model.name}`}
                   model={model}
                   isLast={index === orgModels.length - 1}
                   lite={liteMode}

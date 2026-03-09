@@ -54,7 +54,7 @@ export function VirtualTimeline({
     yearModels.forEach((model) => {
       virtualItems.push({
         type: "model",
-        key: `${model.date}-${model.name}`,
+        key: `${model.org}-${model.date}-${model.name}`,
         model,
       });
     });

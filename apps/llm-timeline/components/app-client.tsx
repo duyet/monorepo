@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useTransition, useEffect } from "react";
+import { useState, useMemo, useTransition, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Filters } from "@/components/filters";
 import { Timeline } from "@/components/timeline";
@@ -9,6 +9,7 @@ import { VirtualTimeline } from "@/components/virtual-timeline";
 import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
 import { StatsHeader } from "@/components/stats-header";
 import {
+  DEFAULT_FILTERS,
   filterModels,
   groupByYear,
   groupByOrg,
@@ -28,16 +29,6 @@ interface AppClientProps {
   initialLicense?: FilterState["license"];
   initialLiteMode?: boolean;
 }
-
-const DEFAULT_FILTERS: FilterState = {
-  search: "",
-  license: "all",
-  type: "all",
-  org: "",
-  source: "all",
-  domain: "all",
-  params: "all",
-};
 
 // ============================================================================
 // StaticAppClient - For static routes (org/year/license pages)
@@ -133,6 +124,7 @@ export function AppClient({
     license: initialLicense,
   });
   const [isPending, startTransition] = useTransition();
+  const isInitialized = useRef(false);
 
   // Sync initial state with URL params on mount
   useEffect(() => {
@@ -155,10 +147,12 @@ export function AppClient({
       domain: searchParams.get("domain") || "all",
       params: searchParams.get("params") || "all",
     });
+    isInitialized.current = true;
   }, [searchParams, initialView, initialLicense]);
 
-  // Update URL when filters change
+  // Update URL when filters change (skip until initial URL read is done)
   useEffect(() => {
+    if (!isInitialized.current) return;
     const params = new URLSearchParams();
 
     if (view !== "models") params.set("view", view);

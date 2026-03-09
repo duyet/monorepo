@@ -10,15 +10,26 @@ export interface FilterState {
   params: string; // 'all' | 'small' | 'medium' | 'large' | 'xl' | 'unknown'
 }
 
+export const DEFAULT_FILTERS: FilterState = {
+  search: "",
+  license: "all",
+  type: "all",
+  org: "",
+  source: "all",
+  domain: "all",
+  params: "all",
+};
+
 /**
  * Get params bucket from parameter string
  */
 export function getParamsBucket(params: string | null): string {
   if (!params) return "unknown";
-  const match = params.match(/^[\d.]+([KMBT])/i);
+  const cleaned = params.replace(/^[~<>≈]/, "");
+  const match = cleaned.match(/^[\d.]+([KMBT])/i);
   if (!match) return "unknown";
 
-  const value = parseFloat(params);
+  const value = parseFloat(cleaned);
   const unit = match[1].toUpperCase();
 
   let billions = value;

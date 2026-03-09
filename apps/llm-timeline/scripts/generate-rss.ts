@@ -86,7 +86,7 @@ function buildRssFeed({
     <lastBuildDate>${new Date(lastSynced).toUTCString()}</lastBuildDate>
     <atom:link href="${feedUrl}" rel="self" type="application/rss+xml"/>
     <image>
-      <url>${SITE_URL}/favicon.ico</url>
+      <url>${SITE_URL}/favicon.svg</url>
       <title>${escapeXml(title)}</title>
       <link>${link}</link>
     </image>
