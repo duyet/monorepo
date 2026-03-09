@@ -138,7 +138,7 @@ export default function PhotoCard({
         )}
         {location && (
           <p className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-            <span className="text-sm">📍</span>
+            <span className="text-sm" role="img" aria-label="Location">📍</span>
             <span className="line-clamp-1">{location}</span>
           </p>
         )}

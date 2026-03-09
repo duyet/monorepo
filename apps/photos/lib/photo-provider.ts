@@ -118,6 +118,7 @@ export async function getAllPhotos(): Promise<Photo[]> {
   uniquePhotos.sort((a, b) => {
     const dateA = new Date(a.created_at).getTime();
     const dateB = new Date(b.created_at).getTime();
+    if (isNaN(dateA) || isNaN(dateB)) return 0;
     return dateB - dateA;
   });
 
