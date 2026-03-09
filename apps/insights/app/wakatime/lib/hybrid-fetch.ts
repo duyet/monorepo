@@ -88,8 +88,8 @@ async function fetchFreshActivityFromAPI(
     return filteredDays.map((day: { date: string; total: number }) => ({
       date: day.date,
       total_seconds: day.total,
-      human_seconds: Math.round(day.total * 0.8), // Estimate 80% human
-      ai_seconds: Math.round(day.total * 0.2), // Estimate 20% AI
+      human_seconds: day.total,
+      ai_seconds: 0,
       has_ai_breakdown: false,
       source: "api" as const,
     }));
@@ -133,8 +133,10 @@ function toChartFormat(
 ): WakaTimeActivityForChart[] {
   return data.map((d) => ({
     date: d.date,
-    "Human Hours": toHours(d.human_seconds),
-    "AI Hours": toHours(d.ai_seconds),
+    "Human Hours": d.has_ai_breakdown
+      ? toHours(d.human_seconds)
+      : toHours(d.total_seconds),
+    "AI Hours": d.has_ai_breakdown ? toHours(d.ai_seconds) : 0,
   }));
 }
 

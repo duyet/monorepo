@@ -3,7 +3,6 @@
  */
 export function getWeekStart(date: Date): Date {
   const d = new Date(date);
-  const day = d.getDay();
-  const diff = d.getDate() - day;
-  return new Date(d.setDate(diff));
+  d.setDate(d.getDate() - d.getDay());
+  return d;
 }

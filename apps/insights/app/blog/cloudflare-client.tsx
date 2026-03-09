@@ -75,30 +75,45 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
   const latestDate =
     latestDataDay?.date.date || new Date().toISOString().split("T")[0];
 
+  // Compute real day-over-day change from available data
+  const previousDataDay = httpGroups
+    .slice()
+    .reverse()
+    .find(
+      (item) =>
+        item.date.date !== latestDate &&
+        (item.sum.requests > 0 || item.sum.pageViews > 0 || item.uniq.uniques > 0)
+    );
+
+  function computeChange(current: number, previous: number | undefined) {
+    if (!previous || previous === 0 || current === 0) return undefined;
+    const pct = Math.round(((current - previous) / previous) * 100);
+    return { value: pct };
+  }
+
   const metrics = [
     {
       label: "Daily Requests",
       value: dataFormatter(latestRequests),
       icon: <Activity className="h-4 w-4" />,
-      change: latestRequests > 0 ? { value: 12 } : undefined,
+      change: computeChange(latestRequests, previousDataDay?.sum.requests),
     },
     {
       label: "Daily Page Views",
       value: dataFormatter(latestPageviews),
       icon: <Eye className="h-4 w-4" />,
-      change: latestPageviews > 0 ? { value: 8 } : undefined,
+      change: computeChange(latestPageviews, previousDataDay?.sum.pageViews),
     },
     {
       label: "Daily Visitors",
       value: dataFormatter(latestUniques),
       icon: <Users className="h-4 w-4" />,
-      change: latestUniques > 0 ? { value: 15 } : undefined,
+      change: computeChange(latestUniques, previousDataDay?.uniq.uniques),
     },
     {
       label: `Total (${activePeriodInfo?.label || activePeriod})`,
       value: dataFormatter(currentData.totalRequests || 0),
       icon: <Globe className="h-4 w-4" />,
-      change: (currentData.totalRequests || 0) > 0 ? { value: 5 } : undefined,
     },
   ];
 
