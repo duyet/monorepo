@@ -166,7 +166,7 @@ jobs:
 
       - name: Upload sync logs
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.source }}-backfill-logs-${{ github.run_id }}
           path: apps/data-sync/logs/
