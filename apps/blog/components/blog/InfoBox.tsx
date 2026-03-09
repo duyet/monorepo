@@ -22,10 +22,10 @@ export function InfoBox({
   className = "",
 }: InfoBoxProps) {
   const iconMap: Record<InfoBoxType, React.ReactNode> = {
-    info: <Info size={20} />,
-    warning: <AlertTriangle size={20} />,
-    success: <CheckCircle size={20} />,
-    error: <AlertCircle size={20} />,
+    info: <Info size={20} aria-hidden="true" />,
+    warning: <AlertTriangle size={20} aria-hidden="true" />,
+    success: <CheckCircle size={20} aria-hidden="true" />,
+    error: <AlertCircle size={20} aria-hidden="true" />,
   };
 
   const borderColorMap: Record<InfoBoxType, string> = {

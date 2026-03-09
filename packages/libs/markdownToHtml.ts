@@ -58,7 +58,7 @@ export async function markdownToHtml(markdown: VFileCompatible) {
       svg: ["width", "height", "viewBox", "fill", "stroke", "class"],
       path: ["d", "fill", "stroke", "stroke-width", "class"],
     },
-    allowedSchemes: ["http", "https", "mailto", "data"],
+    allowedSchemes: ["http", "https", "mailto"],
   });
 
   return sanitized;

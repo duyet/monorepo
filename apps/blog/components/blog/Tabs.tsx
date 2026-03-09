@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export interface Tab {
   id: string;
@@ -32,11 +32,39 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
   }
 
   const activeTabContent = tabs.find((tab) => tab.id === activeTab);
+  const tablistRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const currentIndex = tabs.findIndex((t) => t.id === activeTab);
+      let nextIndex = currentIndex;
+
+      if (e.key === "ArrowRight") {
+        nextIndex = (currentIndex + 1) % tabs.length;
+      } else if (e.key === "ArrowLeft") {
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      } else if (e.key === "Home") {
+        nextIndex = 0;
+      } else if (e.key === "End") {
+        nextIndex = tabs.length - 1;
+      } else {
+        return;
+      }
+
+      e.preventDefault();
+      setActiveTab(tabs[nextIndex].id);
+      const btn = tablistRef.current?.querySelector<HTMLButtonElement>(
+        `#tab-${tabs[nextIndex].id}`
+      );
+      btn?.focus();
+    },
+    [activeTab, tabs]
+  );
 
   return (
     <div className={className}>
       {/* Tab buttons */}
-      <div role="tablist" className="flex gap-4 border-b border-gray-200 dark:border-slate-800 mb-4">
+      <div ref={tablistRef} role="tablist" className="flex gap-4 border-b border-gray-200 dark:border-slate-800 mb-4" onKeyDown={handleKeyDown}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -44,6 +72,7 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
             role="tab"
             aria-selected={activeTab === tab.id}
             aria-controls={`panel-${tab.id}`}
+            tabIndex={activeTab === tab.id ? 0 : -1}
             onClick={() => setActiveTab(tab.id)}
             className={`pb-2 text-base font-medium transition-colors relative ${
               activeTab === tab.id

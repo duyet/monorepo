@@ -34,9 +34,8 @@ export function YearPost({ year, posts, className }: YearPostProps) {
             key={post.slug}
           >
             <Link
-              as={post.slug}
               className="text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
-              href="/[...slug]"
+              href={post.slug}
             >
               {post.title}
               <IsNewPost date={post.date} />

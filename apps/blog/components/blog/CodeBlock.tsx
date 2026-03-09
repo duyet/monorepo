@@ -2,7 +2,7 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Check, Copy } from "lucide-react";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface CodeBlockProps {
   children?: React.ReactNode;
@@ -60,20 +60,24 @@ function extractLanguage(className?: string): string | null {
 export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const language = extractLanguage(className);
 
-  const handleCopy = async () => {
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  const handleCopy = useCallback(async () => {
     if (preRef.current) {
       const code = preRef.current.textContent || "";
       try {
         await navigator.clipboard.writeText(code);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setCopied(false), 2000);
       } catch {
         // Clipboard access denied or unavailable
       }
     }
-  };
+  }, []);
 
   return (
     <div className="relative group">
