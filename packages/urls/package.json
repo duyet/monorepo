@@ -23,6 +23,7 @@
   "devDependencies": {
     "@duyet/tsconfig": "*",
     "@types/node": "^25.0.0",
+    "bun-types": "latest",
     "typescript": "^5.3.3"
   }
 }
