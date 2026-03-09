@@ -60,7 +60,7 @@ function extractLanguage(className?: string): string | null {
 export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const language = extractLanguage(className);
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
