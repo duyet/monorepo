@@ -160,10 +160,9 @@ export default function HomePage() {
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <BentoCard
               href={addUtmParams(
-                "/blog",
+                "https://blog.duyet.net",
                 "homepage",
-                "blog_card",
-                "blog.duyet.net"
+                "blog_card"
               )}
               className="lg:col-span-2 sm:row-span-2 p-6 justify-between"
             >
@@ -188,10 +187,9 @@ export default function HomePage() {
 
             <BentoCard
               href={addUtmParams(
-                "/cv",
+                "https://cv.duyet.net",
                 "homepage",
-                "resume_card",
-                "cv.duyet.net"
+                "resume_card"
               )}
               className="p-6 justify-between"
             >
@@ -216,10 +214,9 @@ export default function HomePage() {
 
             <BentoCard
               href={addUtmParams(
-                "/insights",
+                "https://insights.duyet.net",
                 "homepage",
-                "insights_card",
-                "insights.duyet.net"
+                "insights_card"
               )}
               className="p-6 justify-between"
             >
@@ -249,10 +246,9 @@ export default function HomePage() {
 
             <BentoCard
               href={addUtmParams(
-                "/photos",
+                "https://photos.duyet.net",
                 "homepage",
-                "photos_card",
-                "photos.duyet.net"
+                "photos_card"
               )}
               className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1"
             >
