@@ -88,6 +88,7 @@ export function getOrgLogoUrl(org: string, darkMode = false): string | null {
  * Formula: ITU-R BT.601 perceived luminance.
  */
 export function isPerceivedDark(hex: string): boolean {
+  if (!/^[0-9A-Fa-f]{6}$/.test(hex)) return false;
   const r = parseInt(hex.slice(0, 2), 16);
   const g = parseInt(hex.slice(2, 4), 16);
   const b = parseInt(hex.slice(4, 6), 16);

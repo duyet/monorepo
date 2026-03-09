@@ -126,7 +126,7 @@ export function FilterInfo({
       {/* Right side: Lite mode toggle */}
       <button
         onClick={toggleLiteMode}
-        className="rounded-lg p-2 transition-colors hover:bg-muted"
+        className="rounded-lg p-2 transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
         style={{
           borderColor: liteMode ? "var(--primary)" : undefined,
           backgroundColor: liteMode ? "var(--accent)" : undefined,

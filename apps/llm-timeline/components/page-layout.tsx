@@ -46,6 +46,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               <Link
                 href="https://github.com/duyet/monorepo"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 style={{ color: "var(--text-muted)" }}
                 aria-label="GitHub"
@@ -69,7 +70,8 @@ export function PageLayout({ children, description }: PageLayoutProps) {
                 }
                 signedOutContent={
                   <button
-                    className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 opacity-50"
+                    disabled
+                    className="rounded-lg p-2 opacity-50 cursor-not-allowed"
                     style={{ color: "var(--text-muted)" }}
                     title="Sign in to download data"
                     aria-label="Download requires sign in"

@@ -72,7 +72,7 @@ export function Timeline({ modelsByYear, liteMode }: TimelineProps) {
             <div className="ml-2">
               {yearModels.map((model, index) => (
                 <ModelCard
-                  key={`${model.org}-${model.date}-${model.name}`}
+                  key={`${model.org}-${model.date}-${model.name}-${index}`}
                   model={model}
                   isLast={index === yearModels.length - 1}
                   lite={liteMode}
