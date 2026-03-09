@@ -12,6 +12,12 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "routes": [
+    {
+      "pattern": "ai.duyet.net/*",
+      "zone_name": "duyet.net"
+    }
+  ],
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
