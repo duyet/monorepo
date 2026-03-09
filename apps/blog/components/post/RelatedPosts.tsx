@@ -75,7 +75,7 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
                     "text-xs text-gray-500 dark:text-gray-500"
                   )}
                 >
-                  <time dateTime={post.date.toISOString()}>
+                  <time dateTime={new Date(post.date).toISOString()}>
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",

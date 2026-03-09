@@ -23,7 +23,7 @@ ${posts
     const date = new Date(post.date).toISOString().split("T")[0];
     const tags = post.tags?.join(", ") || "";
 
-    return `# ${post.title}
+    return `# ${(post.title || "").replace(/\n/g, " ")}
 
 - **URL**: ${url}
 - **Date**: ${date}

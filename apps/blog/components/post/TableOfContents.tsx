@@ -138,6 +138,7 @@ export function TableOfContents({
       {/* Mobile/Tablet: Slide-out panel (no backdrop, doesn't block content) */}
       <nav
         aria-hidden={!isMobileOpen}
+        inert={!isMobileOpen ? true : undefined}
         className={cn(
           "xl:hidden",
           "fixed top-20 right-0 z-30",
@@ -176,6 +177,8 @@ export function TableOfContents({
 
       {/* Desktop: Fixed sidebar */}
       <nav
+        aria-hidden={!isDesktopVisible}
+        inert={!isDesktopVisible ? true : undefined}
         className={cn(
           "hidden xl:block",
           "fixed top-24 right-8 w-56",

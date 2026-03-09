@@ -65,9 +65,13 @@ export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
   const handleCopy = async () => {
     if (preRef.current) {
       const code = preRef.current.textContent || "";
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        await navigator.clipboard.writeText(code);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // Clipboard access denied or unavailable
+      }
     }
   };
 
