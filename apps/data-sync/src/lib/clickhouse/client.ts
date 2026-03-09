@@ -104,8 +104,14 @@ export function getClient(): ClickHouseClient | null {
   }
 
   try {
+    // Strip port from host if present (e.g., "localhost:8124" -> "localhost")
+    // to avoid duplication when constructing the URL
+    const hostWithoutPort = config.host.includes(":")
+      ? config.host.split(":")[0]
+      : config.host;
+
     // Use official URL format: protocol://user:password@host:port/database
-    const url = `${config.protocol}://${config.user}:${config.password}@${config.host}:${config.port}${config.database ? `/${config.database}` : ""}`;
+    const url = `${config.protocol}://${config.user}:${config.password}@${hostWithoutPort}:${config.port}${config.database ? `/${config.database}` : ""}`;
 
     console.log(
       "[ClickHouse Client] Creating client with URL:",
