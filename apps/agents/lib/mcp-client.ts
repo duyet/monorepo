@@ -126,9 +126,17 @@ export async function getBlogPostContent(
     // Use the blog's existing API endpoint or fetch the post directly
     const url = params.url;
 
-    // Check if URL is from blog.duyet.net or duyet.net
-    const isValidUrl =
-      url.includes("blog.duyet.net") || url.includes("duyet.net");
+    // Validate hostname to prevent SSRF
+    let isValidUrl = false;
+    try {
+      const parsed = new URL(url);
+      isValidUrl =
+        parsed.hostname === "blog.duyet.net" ||
+        parsed.hostname.endsWith(".duyet.net") ||
+        parsed.hostname === "duyet.net";
+    } catch {
+      // Invalid URL
+    }
 
     if (!isValidUrl) {
       return {

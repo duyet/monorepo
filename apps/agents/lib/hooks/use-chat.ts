@@ -213,13 +213,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
             toolCalls,
           };
 
-          console.log("[useChat] Message finished:", {
-            id: msg.id,
-            contentLength: content.length,
-            duration: `${duration}ms`,
-            toolCalls,
-          });
-
           onFinish?.(messageWithMeta);
           messageMetadataRef.current.delete(msg.id);
           messageStartTimeRef.current.delete(msg.id);
@@ -228,15 +221,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   });
 
   const isActiveStatus = status === "streaming" || status === "submitted";
-
-  // Debug logging for status changes
-  useEffect(() => {
-    console.log("[useChat] Status changed:", {
-      status,
-      isActiveStatus,
-      messagesCount: aiMessages.length,
-    });
-  }, [status, aiMessages.length, isActiveStatus]);
 
   /**
    * Convert UIMessage[] → Message[].
@@ -292,12 +276,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     const lastMsg = aiMessages[aiMessages.length - 1];
     if (!lastMsg || lastMsg.role !== "assistant") return "";
     const content = getTextContent(lastMsg);
-    if (content.length > 0) {
-      console.log("[useChat] Streaming content updated:", {
-        length: content.length,
-        preview: content.substring(0, 50),
-      });
-    }
     return content;
   }, [aiMessages, isActiveStatus]);
 
@@ -326,19 +304,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
           currentMeta.toolCalls = toolCallCount;
         }
 
-        console.log("[useChat] Last UIMessage parts:", {
-          id: lastMsg.id,
-          role: lastMsg.role,
-          partsCount: lastMsg.parts?.length || 0,
-          parts: lastMsg.parts?.map((p) => {
-            const info: any = { type: p.type };
-            if (p.type === "text") info.textLength = (p as any).text?.length;
-            if ("state" in p) info.state = (p as any).state;
-            if ("toolName" in p) info.toolName = (p as any).toolName;
-            return info;
-          }),
-          toolCalls: toolCallCount,
-        });
       }
     }
   }, [aiMessages, isActiveStatus]);

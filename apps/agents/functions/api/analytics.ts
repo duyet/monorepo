@@ -37,13 +37,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const totalMessages = (msgRes.results[0] as any)?.total || 0;
     const totalUsers = (activeUsersRes.results[0] as any)?.total || 0;
 
+    const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
     const trendRes = await DB.prepare(`
-      SELECT date(created_at) as date, COUNT(*) as count
+      SELECT date(created_at / 1000, 'unixepoch') as date, COUNT(*) as count
       FROM conversations
-      WHERE created_at >= date('now', '-7 days')
-      GROUP BY date(created_at)
+      WHERE created_at >= ?
+      GROUP BY date(created_at / 1000, 'unixepoch')
       ORDER BY date ASC
-    `).all();
+    `).bind(sevenDaysAgo).all();
 
     const dailyTrends = trendRes.results || [];
 

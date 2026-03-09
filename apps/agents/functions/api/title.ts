@@ -34,8 +34,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     const aigateway = createAiGateway({
-      accountId:
-        context.env.CF_AIG_ACCOUNT_ID || "23050adb6c92e313643a29e1ba64c88a",
+      accountId: context.env.CF_AIG_ACCOUNT_ID,
       gateway: "monorepo",
       apiKey: context.env.CF_AIG_TOKEN,
     });

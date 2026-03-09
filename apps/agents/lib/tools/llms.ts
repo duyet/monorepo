@@ -26,10 +26,22 @@ export async function fetchLlmsTxtTool(domain: LlmsDomain | string): Promise<{
   content: string;
   sources: Source[];
 }> {
-  const url = domain.startsWith("http")
-    ? domain
-    : LLMS_TXT_DOMAINS[domain as LlmsDomain] ||
+  let url: string;
+  if (domain.startsWith("http")) {
+    // Validate that raw URLs are within the duyet.net domain
+    const parsed = new URL(domain);
+    if (!/^([a-z0-9-]+\.)?duyet\.net$/.test(parsed.hostname)) {
+      return {
+        content: `URL not allowed: ${parsed.hostname}. Only duyet.net domains are supported.`,
+        sources: [],
+      };
+    }
+    url = domain;
+  } else {
+    url =
+      LLMS_TXT_DOMAINS[domain as LlmsDomain] ||
       `https://${domain}.duyet.net/llms.txt`;
+  }
 
   try {
     const response = await fetch(url, {

@@ -352,9 +352,9 @@ export class DatabaseClient {
    * Deletes oldest conversations beyond the limit
    */
   async pruneConversations(maxConversations: number): Promise<number> {
-    // First, get conversations that would be deleted
+    // Get conversations beyond the max count (oldest first, skip the newest N)
     const excessStmt = this.db.prepare(
-      "SELECT id FROM conversations ORDER BY updated_at DESC LIMIT -1 OFFSET ?"
+      "SELECT id FROM conversations WHERE id NOT IN (SELECT id FROM conversations ORDER BY updated_at DESC LIMIT ?) ORDER BY updated_at ASC"
     );
     const excess = (await excessStmt.bind(maxConversations).all()) as {
       results: { id: string }[];

@@ -23,7 +23,15 @@ describe("fetchLlmsTxtTool", () => {
     expect(result.sources[0].title).toBe("blog llms.txt");
   });
 
-  test("fetches full URL input directly", async () => {
+  test("rejects non-duyet.net full URLs", async () => {
+    const result = await fetchLlmsTxtTool(
+      "https://custom.example.com/llms.txt"
+    );
+    expect(result.content).toContain("URL not allowed");
+    expect(result.sources).toEqual([]);
+  });
+
+  test("fetches full duyet.net URL directly", async () => {
     globalThis.fetch = mock(() =>
       Promise.resolve(
         new Response("# custom llms.txt content", { status: 200 })
@@ -31,10 +39,10 @@ describe("fetchLlmsTxtTool", () => {
     ) as typeof fetch;
 
     const result = await fetchLlmsTxtTool(
-      "https://custom.example.com/llms.txt"
+      "https://api.duyet.net/llms.txt"
     );
     expect(result.content).toContain("custom llms.txt content");
-    expect(result.sources[0].url).toBe("https://custom.example.com/llms.txt");
+    expect(result.sources[0].url).toBe("https://api.duyet.net/llms.txt");
   });
 
   test("constructs URL for unknown string domain", async () => {
