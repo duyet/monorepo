@@ -13,9 +13,9 @@ function detectClickHouseProtocol(
     return explicitProtocol.toLowerCase() === "https" ? "https" : "http";
   }
 
-  // Auto-detect based on common HTTPS ports
+  // Auto-detect based on common HTTPS ports (HTTP client only, not native TCP)
   const portNumber = Number.parseInt(port, 10);
-  const httsPorts = [443, 8443, 9440, 9000]; // Common ClickHouse HTTPS ports
+  const httsPorts = [443, 8443]; // Common HTTPS ports for HTTP API
 
   return httsPorts.includes(portNumber) ? "https" : "http";
 }
@@ -67,7 +67,7 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
         host: host ? "SET" : "MISSING",
         username: username ? "SET" : "MISSING",
         password: password ? "SET" : "MISSING",
-        database: database ? "MISSING - MUST BE SET" : "SET",
+        database: database ? "SET" : "MISSING - MUST BE SET",
       }
     );
     return null;
@@ -105,15 +105,11 @@ export function getClickHouseClient() {
   }
 
   try {
-    // Strip port from host if present (e.g., "localhost:8124" -> "localhost")
-    // to avoid duplication when constructing the URL
-    const hostWithoutPort = config.host.includes(":")
-      ? config.host.split(":")[0]
-      : config.host;
-
     // Use official URL format: protocol://username:password@host:port/database
     // This is the recommended approach per ClickHouse JS client docs
-    const url = `${config.protocol}://${config.username}:${config.password}@${hostWithoutPort}:${config.port}/${config.database}`;
+    const encodedUsername = encodeURIComponent(config.username);
+    const encodedPassword = encodeURIComponent(config.password);
+    const url = `${config.protocol}://${encodedUsername}:${encodedPassword}@${config.host}:${config.port}/${config.database}`;
     console.log(
       "[ClickHouse Client] Creating client with URL:",
       url.replace(/:([^:@]+)@/, ":***@")
@@ -238,14 +234,38 @@ function classifyError(error: Error): {
 }
 
 /**
- * Truncate query for logging (show first and last parts)
+ * Generate a safe fingerprint of a query for logging (hash-based, no literals)
  */
-function truncateQuery(query: string, maxLength = 500): string {
-  const cleaned = query.replace(/\s+/g, " ").trim();
-  if (cleaned.length <= maxLength) return cleaned;
+function getQueryFingerprint(query: string): string {
+  // Create a simple hash of the query for identification without exposing SQL
+  let hash = 0;
+  for (let i = 0; i < query.length; i++) {
+    const char = query.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return `fp_${Math.abs(hash).toString(16)}`;
+}
 
-  const halfLength = Math.floor((maxLength - 20) / 2);
-  return `${cleaned.slice(0, halfLength)} ... [truncated] ... ${cleaned.slice(-halfLength)}`;
+/**
+ * Extract query parameter count and type for logging
+ */
+function getQueryMetadata(query: string): {
+  paramCount: number;
+  type: string;
+} {
+  // Count placeholders (?)
+  const paramCount = (query.match(/\?/g) || []).length;
+
+  // Detect query type
+  const trimmed = query.trim().toUpperCase();
+  let type = "UNKNOWN";
+  if (trimmed.startsWith("SELECT")) type = "SELECT";
+  else if (trimmed.startsWith("INSERT")) type = "INSERT";
+  else if (trimmed.startsWith("UPDATE")) type = "UPDATE";
+  else if (trimmed.startsWith("DELETE")) type = "DELETE";
+
+  return { paramCount, type };
 }
 
 /**
@@ -269,15 +289,18 @@ export async function executeClickHouseQuery(
 
   const queryId = `q_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
+  const queryMetadata = getQueryMetadata(query);
+  const queryFingerprint = getQueryFingerprint(query);
+
   console.log("[ClickHouse Query] Starting query execution:", {
     queryId,
+    queryFingerprint,
+    queryType: queryMetadata.type,
     queryLength: query.length,
+    paramCount: queryMetadata.paramCount,
     timeout: timeoutMs,
     maxRetries,
   });
-
-  // Log the actual SQL query for debugging
-  console.log("[ClickHouse Query] SQL:", truncateQuery(query));
 
   const client = getClickHouseClient();
 
@@ -398,17 +421,33 @@ export async function executeClickHouseQuery(
         console.error(
           "[ClickHouse Query] QUERY ERROR: Check SQL syntax and ensure table/columns exist"
         );
-        console.error("[ClickHouse Query] Problematic query:", query);
+        console.error("[ClickHouse Query] Query fingerprint:", queryFingerprint);
       }
 
-      // Don't retry on the last attempt
-      if (attempt < maxRetries) {
+      // Only retry for transient errors (CONNECTION, TIMEOUT)
+      // Do not retry for non-transient errors (AUTH, QUERY_ERROR)
+      const isTransientError =
+        lastErrorType.type === "CONNECTION" ||
+        lastErrorType.type === "TIMEOUT";
+
+      if (isTransientError && attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
         const backoffMs = 2 ** (attempt - 1) * 1000;
-        console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms...`, {
+        console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms (transient error)...`, {
           queryId,
+          errorType: lastErrorType.type,
         });
         await new Promise((resolve) => setTimeout(resolve, backoffMs));
+      } else if (!isTransientError) {
+        console.error(
+          "[ClickHouse Query] Non-retryable error encountered, aborting retries",
+          {
+            queryId,
+            errorType: lastErrorType.type,
+            errorDescription: lastErrorType.description,
+          }
+        );
+        break;
       }
     }
     // NOTE: We do NOT close the client here to allow connection pooling and Keep-Alive
