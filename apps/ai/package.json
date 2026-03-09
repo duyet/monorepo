@@ -13,6 +13,7 @@
     "preview": "opennextjs-cloudflare build && wrangler dev",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf:deploy:prod": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
