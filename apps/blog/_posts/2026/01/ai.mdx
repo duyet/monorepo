@@ -1,8 +1,8 @@
 ---
-title: Pushing Frontier AI to Its Limits
+title: Coding Agents
 date: 2026-01-01
 category: AI
-series: Pushing Frontier AI to Its Limits
+series: Coding Agents
 tags:
  - AI
 slug: /2026/01/ai.html
@@ -140,11 +140,7 @@ Plan mode performs significantly better than just prompting directly. When you g
 
     Once the plan is solid, Claude usually finishes the whole thing in one shot without asking questions.
 
-    **Tip**: If you're not clear about something, trigger the deep research agent first:
-    ```
-    Deep research about [topic] and then implement [feature]
-    ```
-    This helps Claude gather context before planning.
+    You can also use `/batch <instruction>` to enter plan mode — it researches the codebase, decomposes the work into 5–30 independent units, and presents a plan for approval. Once approved, it spawns one background agent per unit, each in an isolated git worktree. Each agent implements its unit, runs tests, and opens a pull request. Example: `/batch migrate src/ from Solid to React`.
 
   </Step>
   <Step title="Implement">
@@ -158,7 +154,7 @@ Plan mode performs significantly better than just prompting directly. When you g
   <Step title="Review">
     The **Explanatory** output style shows you why Claude made certain choices - useful for learning.
 
-    I use agents for review: [`@code-simplifier`](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier) cleans up the code, `@refactor` or `@testing` for specific checks.
+    I use `/simplify` for review — it reviews your recently changed files for code reuse, quality, and efficiency issues, then fixes them. It spawns three review agents in parallel (code reuse, code quality, efficiency), aggregates their findings, and applies fixes. Pass optional text to focus on specific concerns: `/simplify focus on memory efficiency`. I also use `@refactor` or `@testing` for specific checks.
 
     [Claude Hooks](https://code.claude.com/docs/en/hooks-guide) save time here - auto-format, run linters, or custom verification.
   </Step>
@@ -308,6 +304,38 @@ The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/pl
 6. Repeat until all green
 7. Output: <promise>COMPLETE</promise>" --completion-promise "COMPLETE"
 ```
+
+### Claude cron scheduling tools
+
+Claude Code now has native [scheduled tasks](https://code.claude.com/docs/en/scheduled-tasks) built in — this can replace the loop or Ralph Loop for many use cases, and I find it works much better. The `/loop` command lets you schedule recurring prompts that fire in the background while you keep working.
+
+Tasks are session-scoped: they live in the current Claude Code process and are gone when you exit. For durable scheduling that survives restarts, use [GitHub Actions](#claude-code-openrouter-on-github-actions) or Desktop scheduled tasks.
+
+```
+/loop 5m check if the deployment finished and tell me what happened
+```
+
+```
+/loop babysit all my PRs, fix issues based on code review comments, merge when they look good enough, every hour
+```
+
+You can also loop over other commands or skills:
+
+```
+/loop 20m /review-pr 1234
+```
+
+Ask Claude in natural language to list or cancel tasks, or reference the underlying tools directly:
+
+```
+what scheduled tasks do I have?
+```
+
+```
+cancel the deploy check job
+```
+
+Under the hood, Claude uses `CronCreate`, `CronList`, and `CronDelete` tools. Each task has an 8-character ID, and a session can hold up to 50 scheduled tasks. Recurring tasks auto-expire after 3 days. Set `CLAUDE_CODE_DISABLE_CRON=1` to disable the scheduler entirely.
 
 ### Claude Code (+ OpenRouter) on GitHub Actions
 
