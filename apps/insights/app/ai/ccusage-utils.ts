@@ -39,10 +39,9 @@ function getDateCondition(days: DateRangeDays): string {
   if (days === "all") {
     return ""; // No date filter for all time
   }
-  // For "last N days", we want N days including today
-  // So for 7 days: today + 6 previous days
-  // Using > instead of >= to get exactly N days
-  return `WHERE date > today() - INTERVAL ${days} DAY`;
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE date > today() - INTERVAL ${safeDays} DAY`;
 }
 
 /**
@@ -53,9 +52,9 @@ function getCreatedAtCondition(days: DateRangeDays): string {
   if (days === "all") {
     return ""; // No date filter for all time
   }
-  // For "last N days", we want N days including today
-  // Using > instead of >= to get exactly N days
-  return `WHERE created_at > today() - INTERVAL ${days} DAY`;
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE created_at > today() - INTERVAL ${safeDays} DAY`;
 }
 
 /**
@@ -299,7 +298,8 @@ function distributePercentages(rawPercentages: number[]): number[] {
   const sumIntegers = items.reduce((sum, item) => sum + item.integer, 0);
 
   // Step 3: Distribute the remaining units (to reach 100)
-  const remainingUnits = 100 - sumIntegers;
+  // Clamp to avoid negative values from floating-point precision
+  const remainingUnits = Math.max(0, Math.min(100 - sumIntegers, rawPercentages.length));
 
   // Step 4: Sort by remainder (descending) and distribute remaining units
   const sortedByRemainder = [...items].sort(

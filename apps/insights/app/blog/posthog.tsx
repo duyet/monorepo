@@ -64,13 +64,13 @@ export async function PostHog({ days = 30 }: { days?: number | "all" }) {
         data={paths.map((path) => ({
           name: path.path,
           value: path.visitors,
-          href: process.env.NEXT_PUBLIC_DUYET_BLOG_URL + path.path,
+          href: (process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "") + path.path,
         }))}
       />
 
       <p className="text-xs text-muted-foreground">
         Most Popular Content | Data Source: PostHog | Last updated:{" "}
-        {new Date().toLocaleDateString()}
+        {new Date().toISOString().slice(0, 10)}
       </p>
     </div>
   );

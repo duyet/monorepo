@@ -28,7 +28,7 @@ export default function Wakatime() {
       footer={
         <p className="text-xs text-muted-foreground">
           Data Source: WakaTime | Last updated:{" "}
-          {new Date().toLocaleDateString()}
+          {new Date().toISOString().slice(0, 10)}
         </p>
       }
     >

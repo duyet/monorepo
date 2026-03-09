@@ -25,7 +25,7 @@ export default function Page() {
       description="Repository insights and development activity"
       footer={
         <p className="text-xs text-muted-foreground">
-          Last updated: {new Date().toLocaleDateString()}
+          Last updated: {new Date().toISOString().slice(0, 10)}
         </p>
       }
     >

@@ -8,10 +8,9 @@ export function getDateCondition(days: DateRangeDays): string {
   if (days === "all") {
     return ""; // No date filter for all time
   }
-  // For "last N days", we want N days including today
-  // So for 7 days: today + 6 previous days
-  // Using > instead of >= to get exactly N days
-  return `WHERE date > today() - INTERVAL ${days} DAY`;
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE date > today() - INTERVAL ${safeDays} DAY`;
 }
 
 /**
@@ -22,9 +21,9 @@ export function getCreatedAtCondition(days: DateRangeDays): string {
   if (days === "all") {
     return ""; // No date filter for all time
   }
-  // For "last N days", we want N days including today
-  // Using > instead of >= to get exactly N days
-  return `WHERE created_at > today() - INTERVAL ${days} DAY`;
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE created_at > today() - INTERVAL ${safeDays} DAY`;
 }
 
 /**

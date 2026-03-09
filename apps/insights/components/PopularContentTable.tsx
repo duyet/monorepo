@@ -70,7 +70,7 @@ export function PopularContentTable({
                   : `/${item.name}`;
 
             return (
-              <TableRow key={index} className="group">
+              <TableRow key={item.name} className="group">
                 <TableCell className="font-medium">
                   <div className="flex items-center gap-2">
                     <span

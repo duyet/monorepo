@@ -89,7 +89,7 @@ export default function CCUsage() {
 
         <p className="text-xs text-muted-foreground">
           Data Source: Claude Code | Last updated:{" "}
-          {new Date().toLocaleDateString()}
+          {new Date().toISOString().slice(0, 10)}
         </p>
       </div>
     </div>
