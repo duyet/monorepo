@@ -9,6 +9,19 @@ import { Skeleton } from "./skeleton";
  * import { LoadingPage } from "@duyet/components/LoadingPage"
  * export default function Page() { return <LoadingPage /> }
  * ```
+ *
+ * @example
+ * // Default variant - full page loading skeleton
+ * <LoadingPage variant="default" />
+ *
+ * // Card variant - centered card loading
+ * <LoadingPage variant="card" />
+ *
+ * // List variant - feed-style loading
+ * <LoadingPage variant="list" />
+ *
+ * // Minimal variant - minimal loading bar
+ * <LoadingPage variant="minimal" />
  */
 export function LoadingPage({
   variant = "default",
