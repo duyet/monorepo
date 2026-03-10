@@ -1,7 +1,10 @@
 name = "duyet-agents"
 compatibility_date = "2024-12-01"
-compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "out"
+
+# Enable Node.js compatibility for Pages Functions
+[compatibility_flags]
+nodejs_compat = true
 
 [vars]
 # Server-side pepper for hashing IPs before storage. Override in dashboard for production.
