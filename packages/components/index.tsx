@@ -19,6 +19,7 @@ export { default as Icons } from "./Icons";
 // Illustration Components
 export * from "./illustrations";
 export { default as Loading } from "./Loading";
+export { LoadingPage } from "./LoadingPage";
 export {
   EmptyState,
   ImageSkeleton,
