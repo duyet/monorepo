@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Badge, Button, Tabs, TabsList, TabsTrigger, TabsContent } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
@@ -9,11 +10,17 @@ import {
   Clock,
   Loader2,
   X,
+  Network,
+  ListTree,
+  FileCode,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ActivityPanelProps } from "@/lib/types";
 import { ThinkingDots, ThinkingSteps } from "./thinking-steps";
 import { ToolExecutionItem } from "./tool-execution-item";
+import { GraphVisualizer } from "@/components/graph";
+import { NodeTraceTimeline } from "@/components/graph";
+import { StateInspector } from "@/components/graph";
 
 export function ActivityPanel({
   executions,
@@ -21,7 +28,23 @@ export function ActivityPanel({
   isLoading = false,
   onClose,
   className,
+  // Graph state for enhanced activity panel (Unit 19)
+  graphState,
+  nodeTraces = [],
 }: ActivityPanelProps) {
+  const [activeTab, setActiveTab] = useState<
+    "process" | "files" | "graph" | "trace" | "state"
+  >("process");
+
+  // Determine if graph tabs are available
+  const hasGraphData = graphState !== null && graphState !== undefined;
+  const hasTraceData = nodeTraces.length > 0;
+
+  // Auto-switch to graph tab if graph data is available and no legacy activity
+  if (hasGraphData && activeTab === "process" && executions.length === 0) {
+    setActiveTab("graph");
+  }
+
   // Calculate stats
   const completeCount = executions.filter(
     (e) => e.status === "complete"
@@ -34,12 +57,58 @@ export function ActivityPanel({
     .filter((e) => e.endTime)
     .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
 
+  // Graph stats from traces
+  const graphCompleteCount = nodeTraces.filter((t) => t.status === "success").length;
+  const graphErrorCount = nodeTraces.filter((t) => t.status === "error").length;
+  const graphTotalDuration = nodeTraces.reduce((sum, t) => sum + t.duration, 0);
+
   const hasActivity =
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
+  // Build graph data from state and traces
+  const graphData = graphState ? {
+    nodes: [
+      { id: "input", label: "Input", type: "input" },
+      { id: "llm-router", label: "LLM Router", type: "conditional" },
+      { id: "search-blog", label: "Search Blog", type: "tool" },
+      { id: "get-cv", label: "Get CV", type: "tool" },
+      { id: "get-github", label: "Get GitHub", type: "tool" },
+      { id: "get-analytics", label: "Get Analytics", type: "tool" },
+      { id: "get-about", label: "Get About", type: "tool" },
+      { id: "fetch-llms-txt", label: "Fetch LLMs.txt", type: "tool" },
+      { id: "synthesis", label: "Synthesis", type: "output" },
+    ],
+    edges: [
+      { from: "input", to: "llm-router", label: "route" },
+      { from: "llm-router", to: "search-blog", label: "search-blog" },
+      { from: "llm-router", to: "get-cv", label: "get-cv" },
+      { from: "llm-router", to: "get-github", label: "get-github" },
+      { from: "llm-router", to: "get-analytics", label: "get-analytics" },
+      { from: "llm-router", to: "get-about", label: "get-about" },
+      { from: "llm-router", to: "fetch-llms-txt", label: "fetch-llms-txt" },
+      { from: "search-blog", to: "synthesis", label: "result" },
+      { from: "get-cv", to: "synthesis", label: "result" },
+      { from: "get-github", to: "synthesis", label: "result" },
+      { from: "get-analytics", to: "synthesis", label: "result" },
+      { from: "get-about", to: "synthesis", label: "result" },
+      { from: "fetch-llms-txt", to: "synthesis", label: "result" },
+    ],
+  } : undefined;
+
+  // Get active node from traces
+  const activeNodeId = nodeTraces.length > 0
+    ? nodeTraces[nodeTraces.length - 1].nodeId
+    : undefined;
+
+  // Get previous state from traces for diff
+  const prevState = nodeTraces.length > 1
+    ? nodeTraces[nodeTraces.length - 2].outputState as any
+    : undefined;
+
   return (
-    <Tabs 
-      defaultValue="process" 
+    <Tabs
+      value={activeTab}
+      onValueChange={(value) => setActiveTab(value as any)}
       className={cn(
         "flex flex-col h-full bg-background border-l border-border",
         className
@@ -50,13 +119,42 @@ export function ActivityPanel({
         <TabsList className="flex items-center gap-1.5 relative top-[1px] bg-transparent p-0">
           <TabsTrigger
             value="process"
-            className="px-4 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+            className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
           >
             Current Process
           </TabsTrigger>
+
+          {hasGraphData && (
+            <>
+              <TabsTrigger
+                value="graph"
+                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+              >
+                <Network className="h-3 w-3 mr-1" />
+                Graph
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="trace"
+                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+              >
+                <ListTree className="h-3 w-3 mr-1" />
+                Trace
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="state"
+                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+              >
+                <FileCode className="h-3 w-3 mr-1" />
+                State
+              </TabsTrigger>
+            </>
+          )}
+
           <TabsTrigger
             value="files"
-            className="px-4 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+            className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
           >
             Files
           </TabsTrigger>
@@ -80,6 +178,7 @@ export function ActivityPanel({
 
       {/* Content */}
       <ScrollArea className="flex-1 bg-background relative z-10">
+        {/* Process Tab - Legacy view */}
         <TabsContent value="process" className="p-4 space-y-4 m-0">
           {/* Top Stats */}
           {hasActivity && (
@@ -133,8 +232,92 @@ export function ActivityPanel({
               ))}
             </div>
           )}
+
+          {/* Show message if no data */}
+          {!hasActivity && !hasGraphData && (
+            <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
+              <Activity className="h-8 w-8 mb-2 opacity-50" />
+              <p className="text-sm font-medium text-foreground">No activity yet</p>
+              <p className="text-xs mt-1">Agent activity will appear here.</p>
+            </div>
+          )}
         </TabsContent>
 
+        {/* Graph Tab - Node-edge visualization (Unit 18) */}
+        <TabsContent value="graph" className="p-0 m-0">
+          {graphData && graphState ? (
+            <div className="h-full min-h-[400px]">
+              {/* Graph stats header */}
+              <div className="px-4 py-2 border-b border-border bg-muted/10 flex items-center gap-2">
+                {graphCompleteCount > 0 && (
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-border">
+                    <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
+                    {graphCompleteCount}
+                  </Badge>
+                )}
+                {graphErrorCount > 0 && (
+                  <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
+                    <AlertCircle className="h-2.5 w-2.5 mr-1" />
+                    {graphErrorCount}
+                  </Badge>
+                )}
+                {graphTotalDuration > 0 && (
+                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-mono ml-auto">
+                    <Clock className="h-2.5 w-2.5" />
+                    <span>{graphTotalDuration}ms</span>
+                  </div>
+                )}
+              </div>
+
+              <GraphVisualizer
+                graphData={graphData}
+                traces={nodeTraces}
+                activeNodeId={activeNodeId}
+                readOnly
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
+              <Network className="h-12 w-12 mb-3 opacity-50" />
+              <p className="text-sm font-medium text-foreground">No graph data</p>
+              <p className="text-xs mt-1">Graph visualization requires agent execution.</p>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* Trace Tab - Node execution timeline (Unit 16) */}
+        <TabsContent value="trace" className="p-0 m-0">
+          {hasTraceData ? (
+            <NodeTraceTimeline traces={nodeTraces} />
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
+              <ListTree className="h-12 w-12 mb-3 opacity-50" />
+              <p className="text-sm font-medium text-foreground">No execution traces</p>
+              <p className="text-xs mt-1">Node traces will appear after agent execution.</p>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* State Tab - State inspector (Unit 17) */}
+        <TabsContent value="state" className="p-0 m-0">
+          {graphState ? (
+            <div className="h-full min-h-[400px]">
+              <StateInspector
+                state={graphState}
+                prevState={prevState}
+                readOnly
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
+              <FileCode className="h-12 w-12 mb-3 opacity-50" />
+              <p className="text-sm font-medium text-foreground">No state data</p>
+              <p className="text-xs mt-1">Agent state requires active conversation.</p>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* Files Tab - Placeholder */}
         <TabsContent value="files" className="p-8 flex flex-col items-center justify-center text-center text-muted-foreground h-full min-h-[300px] m-0">
           <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-3">
             <Activity className="h-5 w-5 text-muted-foreground/50" />
