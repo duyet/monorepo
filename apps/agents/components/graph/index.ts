@@ -10,3 +10,6 @@ export type { GraphVisualizerProps } from "./graph-visualizer";
 export { NodeTraceTimeline } from "./node-trace";
 export type { NodeTraceTimelineProps } from "./node-trace";
 
+export { StateInspector } from "./state-inspector";
+export type { StateInspectorProps } from "./state-inspector";
+
