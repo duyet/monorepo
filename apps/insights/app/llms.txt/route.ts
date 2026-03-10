@@ -1,4 +1,4 @@
-import { createLlmsTxtRoute } from "@duyet/libs";
+import { createLlmsTxtRoute } from "@duyet/libs/next-routes";
 
 const llmsContent = `# Duyet Le - Insights & Analytics
 
