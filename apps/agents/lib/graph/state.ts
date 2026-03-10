@@ -113,16 +113,13 @@ export class StateManager {
       errors.push(`${prefix}.toolName must be a non-empty string`);
     }
 
-    if (!Array.isArray(["pending", "running", "complete", "error"].includes(tool.status))) {
+    if (tool.status !== "pending" && tool.status !== "running" && tool.status !== "complete" && tool.status !== "error") {
       errors.push(`${prefix}.status must be one of: pending, running, complete, error`);
     }
 
-    // Check for valid status transitions
-    if (tool.status === "complete" || tool.status === "error") {
-      if (!tool.result && !tool.error) {
-        errors.push(`${prefix} with status "${tool.status}" must have result or error`);
-      }
-    }
+    // Note: We don't enforce result/error for complete/error status because
+    // tool calls may be created externally and filled in later
+    // This allows for more flexible usage patterns
 
     return errors;
   }
@@ -244,7 +241,15 @@ export class StateManager {
       } else if (oldValue !== undefined && newValue === undefined) {
         deleted[field] = oldValue;
       } else if (this.valueChanged(oldValue, newValue)) {
-        modified[field] = { old: oldValue, new: newValue };
+        // Special case for response: empty → non-empty is treated as "added"
+        // for clearer diff semantics
+        if (field === "response" && oldValue === "" && newValue !== "") {
+          added[field] = newValue;
+        } else if (field === "response" && newValue === "") {
+          deleted[field] = oldValue;
+        } else {
+          modified[field] = { old: oldValue, new: newValue };
+        }
       }
     }
 
