@@ -14,6 +14,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { generateId } from "@duyet/libs";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -51,7 +52,7 @@ export class EnhancedErrorBoundary extends Component<
   }
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
-    const errorId = `err-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const errorId = generateId("err");
     return {
       hasError: true,
       error,
