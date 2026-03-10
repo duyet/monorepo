@@ -20,7 +20,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { NodeTrace } from "@/lib/graph";
 
-interface NodeTraceTimelineProps {
+export interface NodeTraceTimelineProps {
   /** Node execution traces in chronological order */
   traces: NodeTrace[];
   /** Additional CSS class name */

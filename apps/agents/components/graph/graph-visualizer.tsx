@@ -17,7 +17,6 @@ import {
   type Node,
   type NodeTypes,
 } from "@xyflow/react";
-import "@xyflow/react/style.css";
 import type { VisualGraphData, NodeTrace } from "@/lib/graph";
 import { cn } from "@duyet/libs";
 
@@ -62,7 +61,7 @@ function GraphNode({ data }: { data: GraphNodeData }) {
   );
 }
 
-interface GraphNodeData {
+interface GraphNodeData extends Record<string, unknown> {
   label: string;
   description?: string;
   nodeType: string;
@@ -70,7 +69,7 @@ interface GraphNodeData {
   duration?: number;
 }
 
-interface GraphVisualizerProps {
+export interface GraphVisualizerProps {
   /** Graph structure data from GraphRouter.getVisualGraph() */
   graphData: VisualGraphData;
   /** Node execution traces for status display */

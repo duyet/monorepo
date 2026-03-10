@@ -118,19 +118,21 @@ export class GraphRouter {
 
         // Record trace
         if (result.trace) {
-          this.traces.push({
-            nodeId: result.trace.nodeId,
-            nodeName: result.trace.nodeName,
-            startTime: result.trace.startTime,
+          // Build trace with required defaults for optional fields
+          const trace: NodeTrace = {
+            nodeId: result.trace.nodeId ?? node.id,
+            nodeName: result.trace.nodeName ?? node.name,
+            startTime: result.trace.startTime ?? Date.now(),
             endTime: result.trace.endTime,
             duration: result.trace.duration,
-            outcome: result.trace.outcome,
-            inputState: result.trace.inputState,
+            outcome: result.trace.outcome ?? "success",
+            inputState: result.trace.inputState ?? {},
             outputState: result.trace.outputState,
             stateDiff: result.trace.stateDiff,
             error: result.trace.error,
             metadata: result.trace.metadata,
-          });
+          };
+          this.traces.push(trace);
         }
 
         // Update metrics

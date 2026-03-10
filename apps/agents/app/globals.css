@@ -232,3 +232,55 @@
     animation-delay: 0.2s;
   }
 }
+
+/* React Flow base styles for graph visualization */
+@layer components {
+  .react-flow {
+    @apply w-full h-full;
+  }
+
+  .react-flow__node {
+    @apply cursor-pointer;
+  }
+
+  .react-flow__edge-path {
+    @apply stroke-border;
+  }
+
+  .react-flow__edge.selected .react-flow__edge-path,
+  .react-flow__edge:hover .react-flow__edge-path {
+    @apply stroke-primary;
+  }
+
+  .react-flow__handle {
+    @apply w-3 h-3 bg-background border-2 border-border rounded-full;
+  }
+
+  .react-flow__handle-top {
+    @apply -top-1.5 left-1/2 -translate-x-1/2;
+  }
+
+  .react-flow__handle-bottom {
+    @apply -bottom-1.5 left-1/2 -translate-x-1/2;
+  }
+
+  .react-flow__controls {
+    @apply bg-background border border-border rounded-lg shadow-lg;
+  }
+
+  .react-flow__controls-button {
+    @apply bg-background border-b border-border text-muted-foreground hover:text-foreground hover:bg-muted;
+  }
+
+  .react-flow__controls-button:last-child {
+    @apply border-b-0;
+  }
+
+  .react-flow__minimap {
+    @apply bg-background border border-border rounded-lg shadow-lg;
+  }
+
+  .react-flow__background {
+    @apply bg-muted/20;
+  }
+}

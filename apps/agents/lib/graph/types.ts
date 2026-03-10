@@ -270,6 +270,32 @@ export interface VisualEdge {
 export type NodeObserver = (trace: NodeTrace) => void;
 
 /**
+ * Checkpoint metadata for listing
+ */
+export interface CheckpointInfo {
+  /** Checkpoint ID */
+  id: string;
+
+  /** Conversation ID */
+  conversationId: string;
+
+  /** Checkpoint version number */
+  version: number;
+
+  /** Creation timestamp */
+  createdAt: number;
+
+  /** Parent checkpoint ID (if this is a child checkpoint) */
+  parentCheckpointId: string | null;
+
+  /** Step index at checkpoint */
+  stepIndex: number;
+
+  /** Current node name at checkpoint */
+  currentNode?: string;
+}
+
+/**
  * State change observer callback
  */
 export type StateObserver = (

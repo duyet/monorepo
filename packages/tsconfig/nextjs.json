@@ -19,7 +19,8 @@
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es5"
+    "target": "es2015",
+    "downlevelIteration": true
   },
   "include": [
     "remark-html.d.ts",

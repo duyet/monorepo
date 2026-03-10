@@ -21,10 +21,10 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@duet/components";
+import { Badge } from "@duyet/components";
 import type { AgentState } from "@/lib/graph";
 
-interface StateInspectorProps {
+export interface StateInspectorProps {
   /** Current agent state to inspect */
   state: AgentState | null;
   /** Previous state for comparison */
@@ -265,7 +265,7 @@ function StateSectionItem({
           )}
 
           {/* Special handling for metadata object */}
-          {section.type === "object" && typeof section.value === "object" && (
+          {section.type === "object" && typeof section.value === "object" && section.value !== null && (
             <div className="mt-2 space-y-1">
               {Object.entries(section.value).map(([key, val]) => (
                 <div key={key} className="flex gap-2 text-xs">
@@ -335,7 +335,7 @@ export function StateInspector({
       case "metadata":
         return prevState.metadata;
       default:
-        return (prevState as Record<string, unknown>)[key];
+        return (prevState as unknown as Record<string, unknown>)[key];
     }
   };
 

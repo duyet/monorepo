@@ -58,9 +58,9 @@ export function ActivityPanel({
     .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
 
   // Graph stats from traces
-  const graphCompleteCount = nodeTraces.filter((t) => t.status === "success").length;
-  const graphErrorCount = nodeTraces.filter((t) => t.status === "error").length;
-  const graphTotalDuration = nodeTraces.reduce((sum, t) => sum + t.duration, 0);
+  const graphCompleteCount = nodeTraces.filter((t) => t.outcome === "success").length;
+  const graphErrorCount = nodeTraces.filter((t) => t.outcome === "error").length;
+  const graphTotalDuration = nodeTraces.reduce((sum, t) => sum + (t.duration ?? 0), 0);
 
   const hasActivity =
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
@@ -68,30 +68,30 @@ export function ActivityPanel({
   // Build graph data from state and traces
   const graphData = graphState ? {
     nodes: [
-      { id: "input", label: "Input", type: "input" },
-      { id: "llm-router", label: "LLM Router", type: "conditional" },
-      { id: "search-blog", label: "Search Blog", type: "tool" },
-      { id: "get-cv", label: "Get CV", type: "tool" },
-      { id: "get-github", label: "Get GitHub", type: "tool" },
-      { id: "get-analytics", label: "Get Analytics", type: "tool" },
-      { id: "get-about", label: "Get About", type: "tool" },
-      { id: "fetch-llms-txt", label: "Fetch LLMs.txt", type: "tool" },
-      { id: "synthesis", label: "Synthesis", type: "output" },
+      { id: "input", position: { x: 0, y: 0 }, type: "input", data: { label: "Input", nodeType: "input" as const } },
+      { id: "llm-router", position: { x: 200, y: 0 }, type: "conditional", data: { label: "LLM Router", nodeType: "conditional" as const } },
+      { id: "search-blog", position: { x: 400, y: 0 }, type: "tool", data: { label: "Search Blog", nodeType: "tool" as const } },
+      { id: "get-cv", position: { x: 400, y: 100 }, type: "tool", data: { label: "Get CV", nodeType: "tool" as const } },
+      { id: "get-github", position: { x: 400, y: 200 }, type: "tool", data: { label: "Get GitHub", nodeType: "tool" as const } },
+      { id: "get-analytics", position: { x: 400, y: 300 }, type: "tool", data: { label: "Get Analytics", nodeType: "tool" as const } },
+      { id: "get-about", position: { x: 400, y: 400 }, type: "tool", data: { label: "Get About", nodeType: "tool" as const } },
+      { id: "fetch-llms-txt", position: { x: 400, y: 500 }, type: "tool", data: { label: "Fetch LLMs.txt", nodeType: "tool" as const } },
+      { id: "synthesis", position: { x: 600, y: 250 }, type: "output", data: { label: "Synthesis", nodeType: "synthesis" as const } },
     ],
     edges: [
-      { from: "input", to: "llm-router", label: "route" },
-      { from: "llm-router", to: "search-blog", label: "search-blog" },
-      { from: "llm-router", to: "get-cv", label: "get-cv" },
-      { from: "llm-router", to: "get-github", label: "get-github" },
-      { from: "llm-router", to: "get-analytics", label: "get-analytics" },
-      { from: "llm-router", to: "get-about", label: "get-about" },
-      { from: "llm-router", to: "fetch-llms-txt", label: "fetch-llms-txt" },
-      { from: "search-blog", to: "synthesis", label: "result" },
-      { from: "get-cv", to: "synthesis", label: "result" },
-      { from: "get-github", to: "synthesis", label: "result" },
-      { from: "get-analytics", to: "synthesis", label: "result" },
-      { from: "get-about", to: "synthesis", label: "result" },
-      { from: "fetch-llms-txt", to: "synthesis", label: "result" },
+      { id: "input-router", source: "input", target: "llm-router", label: "route" },
+      { id: "router-search", source: "llm-router", target: "search-blog", label: "search-blog" },
+      { id: "router-cv", source: "llm-router", target: "get-cv", label: "get-cv" },
+      { id: "router-github", source: "llm-router", target: "get-github", label: "get-github" },
+      { id: "router-analytics", source: "llm-router", target: "get-analytics", label: "get-analytics" },
+      { id: "router-about", source: "llm-router", target: "get-about", label: "get-about" },
+      { id: "router-llms", source: "llm-router", target: "fetch-llms-txt", label: "fetch-llms-txt" },
+      { id: "search-synthesis", source: "search-blog", target: "synthesis", label: "result" },
+      { id: "cv-synthesis", source: "get-cv", target: "synthesis", label: "result" },
+      { id: "github-synthesis", source: "get-github", target: "synthesis", label: "result" },
+      { id: "analytics-synthesis", source: "get-analytics", target: "synthesis", label: "result" },
+      { id: "about-synthesis", source: "get-about", target: "synthesis", label: "result" },
+      { id: "llms-synthesis", source: "fetch-llms-txt", target: "synthesis", label: "result" },
     ],
   } : undefined;
 

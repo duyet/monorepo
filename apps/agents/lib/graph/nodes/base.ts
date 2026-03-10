@@ -71,7 +71,7 @@ export abstract class GraphNode {
       if (result.success) {
         return {
           success: true,
-          state: result.state,
+          state: result.state ?? {},
           trace: {
             nodeId: this.id,
             nodeName: this.name,
@@ -81,14 +81,14 @@ export abstract class GraphNode {
             outcome: "success",
             inputState,
             outputState: result.state,
-            stateDiff: this.computeDiff(inputState, result.state),
+            stateDiff: result.state ? this.computeDiff(inputState, result.state) : undefined,
             metadata: this.getMetadata(),
           },
         };
       } else {
         return {
           success: false,
-          error: result.error,
+          error: result.error ?? "Unknown error",
           trace: {
             nodeId: this.id,
             nodeName: this.name,
@@ -97,7 +97,7 @@ export abstract class GraphNode {
             duration,
             outcome: "error",
             inputState,
-            error: result.error,
+            error: result.error ?? "Unknown error",
             metadata: this.getMetadata(),
           },
         };
@@ -168,16 +168,22 @@ export abstract class GraphNode {
     // Check for added and modified keys
     for (const key in output) {
       if (!(key in input)) {
-        added[key] = output[key];
-      } else if (JSON.stringify(input[key]) !== JSON.stringify(output[key])) {
-        modified[key] = { old: input[key], new: output[key] };
+        added[key] = (output as Record<string, unknown>)[key];
+      } else if (
+        JSON.stringify((input as Record<string, unknown>)[key]) !==
+        JSON.stringify((output as Record<string, unknown>)[key])
+      ) {
+        modified[key] = {
+          old: (input as Record<string, unknown>)[key],
+          new: (output as Record<string, unknown>)[key],
+        };
       }
     }
 
     // Check for deleted keys
     for (const key in input) {
       if (!(key in output)) {
-        deleted[key] = input[key];
+        deleted[key] = (input as Record<string, unknown>)[key];
       }
     }
 
