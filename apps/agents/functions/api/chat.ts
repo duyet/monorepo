@@ -40,6 +40,7 @@ import {
   GraphRouter,
   createInitialState,
   createObservability,
+  createCheckpointer,
 } from "../../lib/graph";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
@@ -455,7 +456,7 @@ async function handleGraphExecution(
       const router = new GraphRouter();
       observability.startExecution();
 
-      await router.executeGraph(initialState);
+      const finalState = await router.executeGraph(initialState);
 
       const metrics = observability.endExecution();
 
@@ -466,8 +467,23 @@ async function handleGraphExecution(
         `duration=${metrics.totalDuration}ms`
       );
 
-      // Store graph state for debugging/observability
-      // TODO: Persist checkpoints to D1 for resumability
+      // Persist checkpoint to D1 for resumability
+      if (DB) {
+        const dbClient = createDatabaseClient(DB);
+        const checkpointer = createCheckpointer(dbClient);
+
+        try {
+          const checkpointId = await checkpointer.saveCheckpoint(finalState);
+          console.log(
+            `[Chat API][${requestId}] Checkpoint saved: ${checkpointId}`
+          );
+        } catch (checkpointError) {
+          console.error(
+            `[Chat API][${requestId}] Failed to save checkpoint:`,
+            checkpointError
+          );
+        }
+      }
     } catch (error) {
       console.error(`[Chat API][${requestId}] Graph execution error:`, error);
       observability.endExecution();
