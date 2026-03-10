@@ -47,15 +47,15 @@ export function ActivityPanel({
     }
   }, [hasGraphData, activeTab, executions.length]);
 
-  // Calculate stats (memoized)
+  // Calculate stats (memoized, single-pass)
   const { completeCount, errorCount, runningCount, totalDuration } = useMemo(() => {
-    const complete = executions.filter((e) => e.status === "complete").length;
-    const error = executions.filter((e) => e.status === "error").length;
-    const running = executions.filter((e) => e.status === "running").length;
-    const duration = executions
-      .filter((e) => e.endTime)
-      .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
-    return { completeCount: complete, errorCount: error, runningCount: running, totalDuration: duration };
+    return executions.reduce((acc, e) => {
+      if (e.status === "complete") acc.completeCount++;
+      else if (e.status === "error") acc.errorCount++;
+      else if (e.status === "running") acc.runningCount++;
+      if (e.endTime) acc.totalDuration += e.endTime - e.startTime;
+      return acc;
+    }, { completeCount: 0, errorCount: 0, runningCount: 0, totalDuration: 0 });
   }, [executions]);
 
   // Graph stats from traces (single-pass reduction)

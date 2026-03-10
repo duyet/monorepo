@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { generateId } from "@duyet/libs";
 import type { StreamEvent, ToolExecution } from "@/lib/types";
 
 export interface UseActivityReturn {
@@ -116,7 +117,7 @@ export function createToolExecution(
   parameters: Record<string, unknown>
 ): ToolExecution {
   return {
-    id: `${toolName}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+    id: generateId(toolName),
     toolName,
     parameters,
     startTime: Date.now(),

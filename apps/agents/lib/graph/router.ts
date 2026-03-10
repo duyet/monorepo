@@ -6,7 +6,7 @@
  */
 
 import type { AgentState, NodeTrace, GraphMetrics } from "./types";
-import { generateId } from "../utils/id";
+import { generateId } from "@duyet/libs";
 import {
   type GraphNode,
   LLMRouterNode,
