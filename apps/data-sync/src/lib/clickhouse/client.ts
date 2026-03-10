@@ -35,9 +35,9 @@ function detectClickHouseProtocol(
 
   // Auto-detect based on common HTTPS ports
   const portNumber = Number.parseInt(port, 10);
-  const httsPorts = [443, 8443, 9440, 9000];
+  const httpsPorts = [443, 8443, 9440, 9000];
 
-  return httsPorts.includes(portNumber) ? "https" : "http";
+  return httpsPorts.includes(portNumber) ? "https" : "http";
 }
 
 /**
