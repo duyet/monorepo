@@ -13,7 +13,7 @@ export * from "./markdownToHtml";
 // Usage: Import directly via subpath export
 //   import { createPingRoute } from "@duyet/libs/next-routes";
 //
-// Used in: blog (ping), cv (ping), insights (ping, llms.txt)
+// Used in: blog (ping), cv (ping), home (ping), insights (ping, llms.txt), photos (ping)
 // Tests: packages/libs/__tests__/next-routes.test.ts
 export * from "./object-utils";
 export * from "./utils";
