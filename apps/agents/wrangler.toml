@@ -1,6 +1,5 @@
 name = "duyet-agents"
-compatibility_date = "2024-01-01"
-compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2024-12-01"
 pages_build_output_dir = "out"
 
 [vars]
@@ -14,3 +13,8 @@ binding = "AI"
 binding = "DB"
 database_name = "duyet-agents-db"
 database_id = "6d29934e-92cc-48ff-9149-8ddf6846fd43"
+
+# Enable Node.js compatibility for Pages Functions
+[[pages.functions]]
+compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2024-12-01"
