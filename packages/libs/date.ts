@@ -53,3 +53,35 @@ export function formatDuration(ms?: number): string {
 export function generateId(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 }
+
+/**
+ * Convert string to URL-safe slug
+ *
+ * Replaces non-alphanumeric characters with hyphens,
+ * converts to lowercase, and truncates to maxLength.
+ *
+ * @param str - Input string to slugify
+ * @param maxLength - Maximum length (default: 100)
+ * @returns URL-safe slug with hyphens
+ *
+ * @example
+ * ```ts
+ * slugify("Hello World!") // "hello-world"
+ * slugify("My Test String", 10) // "my-test"
+ * ```
+ */
+export function slugify(str: string, maxLength = 100): string {
+  let slug = str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  // Truncate to maxLength, ensuring we don't cut mid-word
+  if (slug.length > maxLength) {
+    const truncated = slug.slice(0, maxLength);
+    const lastHyphen = truncated.lastIndexOf("-");
+    slug = lastHyphen > 0 ? truncated.slice(0, lastHyphen) : truncated;
+  }
+
+  return slug;
+}
