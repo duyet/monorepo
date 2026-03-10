@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@duyet/components";
+import { useToggleSet } from "@/lib/hooks";
 import type { AgentState } from "@/lib/graph";
 
 export interface StateInspectorProps {
@@ -303,19 +304,7 @@ export function StateInspector({
 }: StateInspectorProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("formatted");
   const [searchQuery, setSearchQuery] = useState("");
-  const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
-
-  const toggleSection = useCallback((key: string) => {
-    setCollapsedSections((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(key)) {
-        newSet.delete(key);
-      } else {
-        newSet.add(key);
-      }
-      return newSet;
-    });
-  }, []);
+  const [collapsedSections, toggleSection] = useToggleSet<string>();
 
   const sections = useMemo(() => state ? stateToSections(state) : [], [state]);
 
