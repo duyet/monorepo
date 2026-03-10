@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { PageLayout } from "@/components/page-layout";
 import { TimelinePage } from "@/components/timeline-page";
 import { organizations } from "@/lib/data";
-import { slugify } from "@/lib/utils";
+import { slugify } from "@duyet/libs";
 
 export async function generateStaticParams() {
   return organizations.map((o) => ({ slug: slugify(o) }));

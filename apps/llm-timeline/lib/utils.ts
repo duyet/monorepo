@@ -234,7 +234,9 @@ export function getStats(models: Model[]) {
 
 /**
  * Convert string to URL-safe slug
- * @deprecated Import from @duyet/libs instead
+ *
+ * Note: Duplicate of @duyet/libs slugify() - kept here for standalone Bun scripts
+ * that can't resolve workspace dependencies. App code uses @duyet/libs version.
  */
 export function slugify(str: string, maxLength = 100): string {
   let slug = str
