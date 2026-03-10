@@ -140,6 +140,17 @@ function stateToSections(state: AgentState): StateSection[] {
 }
 
 /**
+ * Props for StateSectionItem component
+ */
+interface StateSectionItemProps {
+  section: StateSection;
+  isExpanded: boolean;
+  onToggle: () => void;
+  showDiff?: boolean;
+  diffValue?: unknown;
+}
+
+/**
  * Component for displaying a single state section
  */
 function StateSectionItem({
@@ -148,13 +159,7 @@ function StateSectionItem({
   onToggle,
   showDiff,
   diffValue,
-}: {
-  section: StateSection;
-  isExpanded: boolean;
-  onToggle: () => void;
-  showDiff?: boolean;
-  diffValue?: unknown;
-}) {
+}: StateSectionItemProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
@@ -326,17 +331,22 @@ export function StateInspector({
     [sections, searchQuery]
   );
 
-  // Calculate diff for each section
+  // Memoize diff values from previous state
+  const prevValues = useMemo(() => {
+    if (!prevState) return {};
+    return {
+      toolCalls: prevState.toolCalls,
+      metadata: prevState.metadata,
+      userInput: prevState.userInput,
+      response: prevState.response,
+      route: prevState.route,
+      error: prevState.error,
+    };
+  }, [prevState]);
+
+  // Get diff value for a section key
   const getDiffValue = (key: string) => {
-    if (!prevState) return undefined;
-    switch (key) {
-      case "toolCalls":
-        return prevState.toolCalls;
-      case "metadata":
-        return prevState.metadata;
-      default:
-        return (prevState as unknown as Record<string, unknown>)[key];
-    }
+    return prevValues[key as keyof typeof prevValues];
   };
 
   if (!state) {
