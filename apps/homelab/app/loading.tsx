@@ -1,4 +1,4 @@
-import { LoadingPage } from "@duyet/components/LoadingPage";
+import { LoadingPage } from "@duyet/components";
 
 export default function Page() {
   return <LoadingPage variant="default" />;
