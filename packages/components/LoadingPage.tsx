@@ -1,4 +1,4 @@
-import { Skeleton } from "./skeleton";
+import { Skeleton } from "./ui/skeleton";
 
 /**
  * Loading page component for Next.js static generation.
