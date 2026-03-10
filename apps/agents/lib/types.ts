@@ -147,6 +147,8 @@ export interface ActivityPanelProps {
   // Graph state for enhanced activity panel (Unit 19)
   graphState?: import("./graph").AgentState;
   nodeTraces?: import("./graph").NodeTrace[];
+  // Visual graph data from GraphRouter (Unit 10)
+  graphData?: import("./graph").VisualGraphData;
 }
 
 // ============================================================================

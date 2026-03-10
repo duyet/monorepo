@@ -32,6 +32,11 @@ import {
   WelcomeMessage,
 } from "./message-components";
 import { ToolsPanel } from "./tools-panel";
+import { GraphRouter } from "@/lib/graph/router";
+
+// Singleton GraphRouter instance for visual graph data
+const graphRouter = new GraphRouter();
+const visualGraphData = graphRouter.getVisualGraph();
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -272,6 +277,7 @@ export function VercelChat() {
       thinkingSteps={thinkingSteps}
       isLoading={isLoading}
       onClose={() => setPanelOpen(false)}
+      graphData={visualGraphData}
     />
   ) : null;
 
