@@ -1,8 +1,8 @@
 /**
  * Chat API — Cloudflare Pages Function
  *
- * Handles streaming chat via AI Gateway unified API + tool calling.
- * Mode: 'fast' = direct LLM, no tools. 'agent' = full tool use with stepCountIs.
+ * Handles streaming chat with LangGraph-style agent execution.
+ * Mode: 'fast' = direct LLM, no tools. 'agent' = full graph execution with tool calling.
  *
  * Provider: ai-gateway-provider with unified API
  */
@@ -35,6 +35,12 @@ import {
   searchBlogTool,
 } from "../../lib/tools";
 import { AGENT_SKILLS } from "../../lib/skills-data";
+// Graph system imports (Unit 11 integration)
+import {
+  GraphRouter,
+  createInitialState,
+  createObservability,
+} from "../../lib/graph";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
@@ -48,9 +54,6 @@ function anonymizeForLog(value: string | undefined, prefixLen = 8): string {
 
 /**
  * Sanitize a user-supplied string before injecting into the system prompt.
- * - Truncates to maxLen characters
- * - Strips patterns commonly used for prompt injection (role headers, XML-like
- *   tags that could override instructions, etc.)
  */
 function sanitizeUserString(value: string, maxLen: number): string {
   const truncated = value.substring(0, maxLen);
@@ -58,6 +61,47 @@ function sanitizeUserString(value: string, maxLen: number): string {
     .replace(/<\/?(?:system|assistant|user|human|prompt|instruction)[^>]*>/gi, "")
     .replace(/^\s*(?:system|assistant|human|user)\s*:/gim, "")
     .trim();
+}
+
+/**
+ * Build system prompt with skills and user settings (shared helper)
+ */
+function buildSystemPrompt(
+  basePrompt: string,
+  includeSkills: boolean,
+  settings?: { customInstructions?: string; language?: string; timezone?: string }
+): string {
+  let system = basePrompt;
+
+  if (includeSkills && AGENT_SKILLS && AGENT_SKILLS.length > 0) {
+    const skillsXml = AGENT_SKILLS.map(
+      (skill) =>
+        `  <skill>\n    <name>${skill.metadata.name}</name>\n    <description>${skill.metadata.description.trim()}</description>\n    <content>\n${skill.content}\n    </content>\n  </skill>`
+    ).join("\n");
+    system += `\n\n<available_skills>\n${skillsXml}\n</available_skills>`;
+  }
+
+  if (settings) {
+    const parts = [];
+    if (settings.customInstructions) {
+      const sanitized = sanitizeUserString(settings.customInstructions, 500);
+      if (sanitized) parts.push(`User Custom Instructions:\n${sanitized}`);
+    }
+    if (settings.language) {
+      const sanitized = sanitizeUserString(settings.language, 50);
+      if (sanitized) parts.push(`The user's preferred language is: ${sanitized}`);
+    }
+    if (settings.timezone) {
+      const sanitized = sanitizeUserString(settings.timezone, 50);
+      if (sanitized) parts.push(`The user's current timezone is: ${sanitized}`);
+    }
+
+    if (parts.length > 0) {
+      system += `\n\n--- User Preferences ---\n${parts.join("\n\n")}\n------------------------`;
+    }
+  }
+
+  return system;
 }
 
 interface Env {
@@ -192,8 +236,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   try {
-    // Parse and validate the request body before rate limiting so malformed
-    // requests never consume a rate-limit slot.
+    // Parse and validate the request body
     const requestBodySchema = z.object({
       messages: z.array(z.unknown()),
       mode: z.string().optional(),
@@ -205,6 +248,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           timezone: z.string().optional(),
         })
         .optional(),
+      // New: useGraph flag to enable LangGraph-style execution (Unit 11)
+      useGraph: z.boolean().optional(),
     });
 
     let parsedBody: z.infer<typeof requestBodySchema>;
@@ -233,6 +278,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       mode = "agent",
       conversationId,
       settings,
+      useGraph = false, // Default to legacy behavior for now
     } = parsedBody;
 
     // Extract auth and IP for rate limiting
@@ -242,8 +288,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     );
     const clientIp = getClientIp(context.request);
 
-    // Rate limit unauthenticated users (10 messages per 24h window per IP)
-    // Uses atomic consumeRateLimit to avoid check-then-increment race conditions
+    // Rate limit unauthenticated users
     let rateLimitResult: {
       allowed: boolean;
       remaining: number;
@@ -281,145 +326,36 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Generate unique request ID for tracing
     const requestId = crypto.randomUUID().substring(0, 8);
 
-    // Log incoming request (anonymized — no raw PII)
+    // Log incoming request
     console.log(
-      `[Chat API][${requestId}] Request: mode=${mode}, messages=${uiMessages.length}, user=${anonymizeForLog(user?.userId)}, ip=${anonymizeForLog(clientIp)}`
+      `[Chat API][${requestId}] Request: mode=${mode}, useGraph=${useGraph}, messages=${uiMessages.length}, user=${anonymizeForLog(user?.userId)}, ip=${anonymizeForLog(clientIp)}`
     );
 
-    const allMessages = await convertToModelMessages(uiMessages);
-
-    // Prune old tool calls to prevent context overflow
-    const messages = pruneMessages({
-      messages: allMessages,
-      toolCalls: "require-last-only",
-    });
-
-    // AI Gateway with unified provider
-    const accountId = context.env.CF_AIG_ACCOUNT_ID;
-    if (!accountId) {
-      return new Response(
-        JSON.stringify({
-          error: "Server misconfiguration: CF_AIG_ACCOUNT_ID is not set",
-        }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
-      );
-    }
-    const aigateway = createAiGateway({
-      accountId,
-      gateway: "monorepo",
-      apiKey: context.env.CF_AIG_TOKEN,
-    });
-    const unified = createUnified();
-
-    const isFast = mode === "fast";
-    let system = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
-
-    // Inject Agent Skills if available and in agent mode
-    if (!isFast && AGENT_SKILLS && AGENT_SKILLS.length > 0) {
-      const skillsXml = AGENT_SKILLS.map(
-        (skill) =>
-          `  <skill>\n    <name>${skill.metadata.name}</name>\n    <description>${skill.metadata.description.trim()}</description>\n    <content>\n${skill.content}\n    </content>\n  </skill>`
-      ).join("\n");
-      system += `\n\n<available_skills>\n${skillsXml}\n</available_skills>`;
-    }
-
-    // Inject custom user settings (sanitized to prevent prompt injection)
-    if (settings) {
-      const parts = [];
-      if (settings.customInstructions) {
-        const sanitized = sanitizeUserString(
-          settings.customInstructions,
-          500
-        );
-        if (sanitized) parts.push(`User Custom Instructions:\n${sanitized}`);
-      }
-      if (settings.language) {
-        const sanitized = sanitizeUserString(settings.language, 50);
-        if (sanitized)
-          parts.push(`The user's preferred language is: ${sanitized}`);
-      }
-      if (settings.timezone) {
-        const sanitized = sanitizeUserString(settings.timezone, 50);
-        if (sanitized)
-          parts.push(`The user's current timezone is: ${sanitized}`);
-      }
-
-      if (parts.length > 0) {
-        system += `\n\n--- User Preferences ---\n${parts.join("\n\n")}\n------------------------`;
-      }
-    }
-
-    const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
-
-    // Log system prompt
-    const systemPreview =
-      system.length > 100 ? `${system.substring(0, 100)}...` : system;
-    console.log(
-      `[Chat API][${requestId}] System prompt (${system.length} chars):`,
-      systemPreview
-    );
-
-    // Log message count and model
-    console.log(
-      `[Chat API][${requestId}] Messages:`,
-      messages.length,
-      "| Model:",
-      modelId
-    );
-
-    // For Workers AI models, use the format: workers-ai/@cf/meta/...
-    const model = aigateway(unified(`workers-ai/${modelId}`));
-
-    const result = streamText({
-      model,
-      system,
-      messages,
-      temperature: isFast ? 0.3 : 0.7,
-      ...(isFast
-        ? {}
-        : {
-            tools: AGENT_TOOLS,
-            toolChoice: "auto" as const,
-            stopWhen: stepCountIs(30),
-          }),
-    });
-
-    console.log(
-      `[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`
-    );
-
-    // Store conversation for authenticated users (fire and forget)
-    if (user && DB && conversationId) {
-      const dbClient = createDatabaseClient(DB);
-      const existing = await dbClient.getConversation(conversationId);
-      if (!existing) {
-        dbClient
-          .createConversation({
-            id: conversationId,
-            mode: mode as "fast" | "agent",
-            userId: user.userId,
-          })
-          .catch((err) => {
-            console.error(
-              `[Chat API][${requestId}] Failed to create conversation:`,
-              err
-            );
-          });
-      }
-    }
-
-    const response = result.toUIMessageStreamResponse();
-
-    // Add rate limit headers for unauthenticated users
-    if (rateLimitResult) {
-      response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
-      response.headers.set(
-        "X-RateLimit-Remaining",
-        String(rateLimitResult.remaining)
+    // Unit 11: Graph-based execution path
+    // When useGraph=true and mode=agent, use GraphRouter instead of direct LLM
+    if (useGraph && mode === "agent") {
+      return handleGraphExecution(
+        context,
+        requestId,
+        uiMessages,
+        conversationId,
+        settings,
+        user,
+        rateLimitResult
       );
     }
 
-    return response;
+    // Legacy direct LLM execution path (maintained for backward compatibility)
+    return handleDirectExecution(
+      context,
+      requestId,
+      uiMessages,
+      mode,
+      conversationId,
+      settings,
+      user,
+      rateLimitResult
+    );
   } catch (error) {
     const requestId = `error-${crypto.randomUUID().substring(0, 8)}`;
     console.error(`[Chat API][${requestId}] Error:`, error);
@@ -438,3 +374,273 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     );
   }
 };
+
+/**
+ * Handle graph-based execution using GraphRouter (Unit 11)
+ *
+ * This path uses the LangGraph-style execution system:
+ * 1. Create initial state from user input
+ * 2. Execute graph with observability
+ * 3. Stream results as nodes complete
+ *
+ * Note: For MVP, this still uses streamText for the actual LLM calls
+ * but orchestrates through the GraphRouter for state management.
+ */
+async function handleGraphExecution(
+  context: { request: Request; env: Env },
+  requestId: string,
+  uiMessages: unknown[],
+  conversationId: string | undefined,
+  settings: { customInstructions?: string; language?: string; timezone?: string } | undefined,
+  user: { userId: string } | null,
+  rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
+): Promise<Response> {
+  const { AI } = context.env;
+
+  // Get user's last message as input
+  const lastMessage = uiMessages[uiMessages.length - 1];
+  const userInput = typeof lastMessage === "object" && lastMessage !== null && "content" in lastMessage
+    ? String(lastMessage.content)
+    : String(lastMessage);
+
+  // Create initial state for graph execution
+  const convId = conversationId || crypto.randomUUID();
+  const initialState = createInitialState(convId, userInput);
+
+  console.log(`[Chat API][${requestId}] Graph execution started for conversation ${convId}`);
+
+  // Create observability middleware
+  const observability = createObservability({
+    debug: false, // Disable debug logs in production
+    logger: (level, message, ...args) => {
+      console.log(`[Chat API][${requestId}][${level.toUpperCase()}]`, message, ...args);
+    },
+  });
+
+  // For now, we still use streamText for the actual LLM interaction
+  // The graph will be executed in the background while we stream the LLM response
+  // TODO: In future, we'll stream graph state updates via SSE
+
+  // Convert messages for AI SDK
+  const allMessages = await convertToModelMessages(uiMessages);
+  const messages = pruneMessages({
+    messages: allMessages,
+    toolCalls: "require-last-only",
+  });
+
+  // Build system prompt with graph context (shared helper)
+  const system = buildSystemPrompt(SYSTEM_PROMPT, true, settings);
+
+  // AI Gateway setup
+  const accountId = context.env.CF_AIG_ACCOUNT_ID;
+  if (!accountId) {
+    return new Response(
+      JSON.stringify({
+        error: "Server misconfiguration: CF_AIG_ACCOUNT_ID is not set",
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const aigateway = createAiGateway({
+    accountId,
+    gateway: "monorepo",
+    apiKey: context.env.CF_AIG_TOKEN,
+  });
+  const unified = createUnified();
+  const model = aigateway(unified(`workers-ai/${AGENT_MODEL}`));
+
+  // Start graph execution in background (fire and forget)
+  // In production, this would be connected to a queue/stream
+  (async () => {
+    try {
+      const router = new GraphRouter();
+      observability.startExecution();
+
+      const result = await router.executeGraph(initialState);
+
+      const metrics = observability.endExecution();
+
+      console.log(
+        `[Chat API][${requestId}] Graph completed:`,
+        `nodes=${metrics.nodesExecuted}`,
+        `errors=${metrics.errorCount}`,
+        `duration=${metrics.totalDuration}ms`
+      );
+
+      // Store graph state for debugging/observability
+      // TODO: Persist checkpoints to D1 for resumability
+    } catch (error) {
+      console.error(`[Chat API][${requestId}] Graph execution error:`, error);
+      observability.endExecution();
+    }
+  })();
+
+  // Stream the LLM response immediately (don't wait for graph)
+  const result = streamText({
+    model,
+    system,
+    messages,
+    temperature: 0.7,
+    tools: AGENT_TOOLS,
+    toolChoice: "auto" as const,
+    stopWhen: stepCountIs(30),
+  });
+
+  console.log(`[Chat API][${requestId}] Streaming started via AI Gateway (graph mode)`);
+
+  // Store conversation for authenticated users
+  if (user && context.env.DB && conversationId) {
+    const dbClient = createDatabaseClient(context.env.DB);
+    const existing = await dbClient.getConversation(conversationId);
+    if (!existing) {
+      dbClient
+        .createConversation({
+          id: conversationId,
+          mode: "agent",
+          userId: user.userId,
+        })
+        .catch((err) => {
+          console.error(
+            `[Chat API][${requestId}] Failed to create conversation:`,
+            err
+          );
+        });
+    }
+  }
+
+  const response = result.toUIMessageStreamResponse();
+
+  // Add rate limit headers
+  if (rateLimitResult) {
+    response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
+    response.headers.set(
+      "X-RateLimit-Remaining",
+      String(rateLimitResult.remaining)
+    );
+  }
+
+  // Add header indicating graph execution
+  response.headers.set("X-Graph-Execution", "enabled");
+
+  return response;
+}
+
+/**
+ * Handle direct LLM execution (legacy path)
+ *
+ * This maintains the existing behavior for backward compatibility.
+ */
+async function handleDirectExecution(
+  context: { request: Request; env: Env },
+  requestId: string,
+  uiMessages: unknown[],
+  mode: string,
+  conversationId: string | undefined,
+  settings: { customInstructions?: string; language?: string; timezone?: string } | undefined,
+  user: { userId: string } | null,
+  rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
+): Promise<Response> {
+  const { AI } = context.env;
+
+  const allMessages = await convertToModelMessages(uiMessages);
+  const messages = pruneMessages({
+    messages: allMessages,
+    toolCalls: "require-last-only",
+  });
+
+  // AI Gateway with unified provider
+  const accountId = context.env.CF_AIG_ACCOUNT_ID;
+  if (!accountId) {
+    return new Response(
+      JSON.stringify({
+        error: "Server misconfiguration: CF_AIG_ACCOUNT_ID is not set",
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+  const aigateway = createAiGateway({
+    accountId,
+    gateway: "monorepo",
+    apiKey: context.env.CF_AIG_TOKEN,
+  });
+  const unified = createUnified();
+
+  const isFast = mode === "fast";
+  const basePrompt = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
+
+  // Build system prompt with skills and settings (shared helper)
+  const system = buildSystemPrompt(basePrompt, !isFast && AGENT_SKILLS.length > 0, settings);
+
+  const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
+
+  // Log system prompt
+  const systemPreview =
+    system.length > 100 ? `${system.substring(0, 100)}...` : system;
+  console.log(
+    `[Chat API][${requestId}] System prompt (${system.length} chars):`,
+    systemPreview
+  );
+
+  // Log message count and model
+  console.log(
+    `[Chat API][${requestId}] Messages:`,
+    messages.length,
+    "| Model:",
+    modelId
+  );
+
+  // For Workers AI models, use the format: workers-ai/@cf/meta/...
+  const model = aigateway(unified(`workers-ai/${modelId}`));
+
+  const result = streamText({
+    model,
+    system,
+    messages,
+    temperature: isFast ? 0.3 : 0.7,
+    ...(isFast
+      ? {}
+      : {
+          tools: AGENT_TOOLS,
+          toolChoice: "auto" as const,
+          stopWhen: stepCountIs(30),
+        }),
+  });
+
+  console.log(
+    `[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`
+  );
+
+  // Store conversation for authenticated users (fire and forget)
+  if (user && context.env.DB && conversationId) {
+    const dbClient = createDatabaseClient(context.env.DB);
+    const existing = await dbClient.getConversation(conversationId);
+    if (!existing) {
+      dbClient
+        .createConversation({
+          id: conversationId,
+          mode: mode as "fast" | "agent",
+          userId: user.userId,
+        })
+        .catch((err) => {
+          console.error(
+            `[Chat API][${requestId}] Failed to create conversation:`,
+            err
+          );
+        });
+    }
+  }
+
+  const response = result.toUIMessageStreamResponse();
+
+  // Add rate limit headers for unauthenticated users
+  if (rateLimitResult) {
+    response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
+    response.headers.set(
+      "X-RateLimit-Remaining",
+      String(rateLimitResult.remaining)
+    );
+  }
+
+  return response;
+}
