@@ -295,7 +295,6 @@ export function StateInspector({
   className,
   onRefresh,
   showRefresh = false,
-  _readOnly = true,
 }: StateInspectorProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("formatted");
   const [searchQuery, setSearchQuery] = useState("");
