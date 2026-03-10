@@ -31,6 +31,13 @@ interface ChatTopBarProps {
   conversationId?: string;
 }
 
+// Export format options configuration
+const EXPORT_FORMATS = [
+  { format: "json", label: "Export as JSON", icon: FileJson },
+  { format: "md", label: "Export as Markdown", icon: FileText },
+  { format: "txt", label: "Export as Text", icon: FileText },
+] as const;
+
 export function ChatTopBar({
   onToggleActivity,
   onToggleTools,
@@ -105,27 +112,16 @@ export function ChatTopBar({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => handleExport("json")}
-                  disabled={isExporting}
-                >
-                  <FileJson className="h-4 w-4 mr-2" />
-                  Export as JSON
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => handleExport("md")}
-                  disabled={isExporting}
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  Export as Markdown
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => handleExport("txt")}
-                  disabled={isExporting}
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  Export as Text
-                </DropdownMenuItem>
+                {EXPORT_FORMATS.map(({ format, label, icon: Icon }) => (
+                  <DropdownMenuItem
+                    key={format}
+                    onClick={() => handleExport(format as "json" | "md" | "txt")}
+                    disabled={isExporting}
+                  >
+                    <Icon className="h-4 w-4 mr-2" />
+                    {label}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           )}

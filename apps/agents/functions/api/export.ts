@@ -10,6 +10,7 @@
  * - GET /api/export?conversationId={id}&format={json|md|txt}
  */
 
+import { slugify } from "@duyet/libs";
 import { getUserFromRequest } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
 
@@ -203,10 +204,7 @@ function getContentTypeAndFilename(
   format: ExportFormat,
   conversationTitle: string
 ): { contentType: string; filename: string } {
-  const sanitizedTitle = conversationTitle
-    .replace(/[^a-z0-9]/gi, "_")
-    .toLowerCase()
-    .slice(0, 50);
+  const sanitizedTitle = slugify(conversationTitle, 50);
 
   switch (format) {
     case "json":
