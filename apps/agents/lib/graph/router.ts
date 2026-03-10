@@ -6,6 +6,7 @@
  */
 
 import type { AgentState, NodeTrace, GraphMetrics } from "./types";
+import { generateId } from "../utils/id";
 import {
   type GraphNode,
   LLMRouterNode,
@@ -313,7 +314,7 @@ export function createInitialState(
   userInput: string
 ): AgentState {
   return {
-    conversationId: conversationId ?? `conv_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+    conversationId: conversationId ?? generateId("conv"),
     userInput,
     response: "",
     toolCalls: [],

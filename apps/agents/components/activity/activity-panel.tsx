@@ -47,27 +47,27 @@ export function ActivityPanel({
     }
   }, [hasGraphData, activeTab, executions.length]);
 
-  // Calculate stats
-  const completeCount = executions.filter(
-    (e) => e.status === "complete"
-  ).length;
-  const errorCount = executions.filter((e) => e.status === "error").length;
-  const runningCount = executions.filter((e) => e.status === "running").length;
-
-  // Calculate total duration
-  const totalDuration = executions
-    .filter((e) => e.endTime)
-    .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
+  // Calculate stats (memoized)
+  const { completeCount, errorCount, runningCount, totalDuration } = useMemo(() => {
+    const complete = executions.filter((e) => e.status === "complete").length;
+    const error = executions.filter((e) => e.status === "error").length;
+    const running = executions.filter((e) => e.status === "running").length;
+    const duration = executions
+      .filter((e) => e.endTime)
+      .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
+    return { completeCount: complete, errorCount: error, runningCount: running, totalDuration: duration };
+  }, [executions]);
 
   // Graph stats from traces (single-pass reduction)
-  const { graphCompleteCount, graphErrorCount, graphTotalDuration } = useMemo(() => {
+  const graphStats = useMemo(() => {
     return nodeTraces.reduce(
-      (acc, t) => ({
-        graphCompleteCount: t.outcome === "success" ? acc.graphCompleteCount + 1 : acc.graphCompleteCount,
-        graphErrorCount: t.outcome === "error" ? acc.graphErrorCount + 1 : acc.graphErrorCount,
-        graphTotalDuration: acc.graphTotalDuration + (t.duration ?? 0),
-      }),
-      { graphCompleteCount: 0, graphErrorCount: 0, graphTotalDuration: 0 }
+      (acc, t) => {
+        if (t.outcome === "success") acc.completeCount++;
+        if (t.outcome === "error") acc.errorCount++;
+        acc.totalDuration += t.duration ?? 0;
+        return acc;
+      },
+      { completeCount: 0, errorCount: 0, totalDuration: 0 }
     );
   }, [nodeTraces]);
 
@@ -258,22 +258,22 @@ export function ActivityPanel({
             <div className="h-full min-h-[400px]">
               {/* Graph stats header */}
               <div className="px-4 py-2 border-b border-border bg-muted/10 flex items-center gap-2">
-                {graphCompleteCount > 0 && (
+                {graphStats.completeCount > 0 && (
                   <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-border">
                     <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
-                    {graphCompleteCount}
+                    {graphStats.completeCount}
                   </Badge>
                 )}
-                {graphErrorCount > 0 && (
+                {graphStats.errorCount > 0 && (
                   <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
                     <AlertCircle className="h-2.5 w-2.5 mr-1" />
-                    {graphErrorCount}
+                    {graphStats.errorCount}
                   </Badge>
                 )}
-                {graphTotalDuration > 0 && (
+                {graphStats.totalDuration > 0 && (
                   <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-mono ml-auto">
                     <Clock className="h-2.5 w-2.5" />
-                    <span>{graphTotalDuration}ms</span>
+                    <span>{graphStats.totalDuration}ms</span>
                   </div>
                 )}
               </div>
