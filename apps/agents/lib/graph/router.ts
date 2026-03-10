@@ -309,11 +309,11 @@ export class GraphRouter {
  * Create initial state for a new conversation
  */
 export function createInitialState(
-  conversationId: string,
+  conversationId: string | undefined,
   userInput: string
 ): AgentState {
   return {
-    conversationId,
+    conversationId: conversationId ?? `conv_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
     userInput,
     response: "",
     toolCalls: [],
