@@ -21,42 +21,42 @@ I met friends and new people, and took many photos for our upcoming wedding that
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
     <div>
-        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/petronas.jpeg" alt="" />
-        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/food-1.jpeg" alt="" />
+        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/petronas.jpeg" alt="Petronas Towers illuminated at night in Kuala Lumpur" />
+        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/food-1.jpeg" alt="Malaysian street food scene" />
     </div>
     <div>
-        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/street.jpeg" alt="" />
-        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/foodstreet.jpeg" alt="" />
+        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/street.jpeg" alt="Street scene in Southeast Asia" />
+        <img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/foodstreet.jpeg" alt="Bustling food street with vendors and customers" />
     </div>
 </div>
 
-<div><img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/melaka.jpeg" alt="" /></div>
+<div><img class="h-auto max-w-full rounded-lg mt-0" src="/media/2024/02/2023-summary/melaka.jpeg" alt="Historic buildings in Melaka (Malacca)" /></div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
     <div class="">
-        <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/hagiang-1.jpeg" alt="" />
-        <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/hagiang-3.jpg" alt="" />
+        <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/hagiang-1.jpeg" alt="Mountain scenery in Ha Giang region" />
+        <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/hagiang-3.jpg" alt="Rice terraces in Ha Giang" />
     </div>
     <div class="grid gap-2">
-        <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/hagiang-nini.jpg" alt="" />
-    </div>
-</div>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-    <img class="h-auto max-w-full rounded-lg grow" src="/media/2024/02/2023-summary/dalat-1.jpeg" alt="" />
-    <div class="grid gap-2">
-        <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/dalat-2.jpg" alt="" />
-        <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/kiengiang-2.jpg" alt="" />
+        <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/hagiang-nini.jpg" alt="Nini wedding photoshoot in scenic Ha Giang location" />
     </div>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    <img class="h-auto max-w-full rounded-lg grow" src="/media/2024/02/2023-summary/dalat-1.jpeg" alt="Flower fields in Dalat" />
     <div class="grid gap-2">
-        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-1.jpeg" alt="" /></div>
-        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-nini.jpg" alt="" /></div>
+        <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/dalat-2.jpg" alt="French colonial architecture in Dalat" />
+        <img class="h-auto max-w-full rounded-lg " src="/media/2024/02/2023-summary/kiengiang-2.jpg" alt="Coastal scenery in Kien Giang" />
+    </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    <div class="grid gap-2">
+        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-1.jpeg" alt="Beach scenery in Kien Giang province" /></div>
+        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/kiengiang-nini.jpg" alt="Nini at beach in Kien Giang" /></div>
     </div>
     <div class="grid gap-2">
-        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/cantho-1.jpg" alt="" /></div>
+        <div><img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/cantho-1.jpg" alt="Canal network in Can Tho Mekong Delta" /></div>
     </div>
 </div>
 
@@ -95,6 +95,6 @@ Well, it's not entirely clear yet. I'm here enjoying my low-key lifestyle, at le
 ![](/media/2024/02/2023-summary/working-in-kl.jpeg)
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-    <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/drink-2.jpeg" alt="" />
-    <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/drink-3.jpeg" alt="" />
+    <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/drink-2.jpeg" alt="Relaxing with drinks at a cafe in Kuala Lumpur" />
+    <img class="h-auto max-w-full rounded-lg" src="/media/2024/02/2023-summary/drink-3.jpeg" alt="Evening drinks with city lights in the background" />
 </div>
