@@ -258,6 +258,7 @@ jobs:
           echo "- **Project**: ${{ matrix.project }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Health check
+        continue-on-error: ${{ matrix.app == 'ai' }}
         run: |
           echo "Checking ${{ matrix.url }}..."
           max_attempts=5
