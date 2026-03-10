@@ -42,7 +42,7 @@ export class GetAnalyticsNode extends GraphNode {
         : "summary";
 
       // Call the tool
-      const { analytics, sources } = await getAnalyticsTool(validatedReportType);
+      const { analytics } = await getAnalyticsTool(validatedReportType);
 
       // Create tool call record
       const toolCall = {

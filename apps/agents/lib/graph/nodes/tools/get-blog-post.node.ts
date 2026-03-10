@@ -57,7 +57,7 @@ export class GetBlogPostNode extends GraphNode {
       }
 
       // Call the tool
-      const { content, sources } = await getBlogPostTool(url);
+      const { content } = await getBlogPostTool(url);
 
       // Create tool call record
       const toolCall = {

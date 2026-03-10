@@ -31,7 +31,7 @@ export class GetGitHubNode extends GraphNode {
       const limit = state.route ? parseInt(state.route, 10) || 5 : 5;
 
       // Call the tool
-      const { activity, sources } = await getGitHubTool(limit);
+      const { activity } = await getGitHubTool(limit);
 
       // Create tool call record
       const toolCall = {

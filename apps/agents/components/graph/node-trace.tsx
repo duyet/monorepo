@@ -130,26 +130,28 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
             )}
 
             {/* State diff summary */}
-            {trace.stateDiff && (
-              <div>
-                <span className="font-medium text-muted-foreground">State Changes:</span>{" "}
-                <div className="mt-1 p-2 bg-background rounded border border-border font-mono">
-                  {(() => {
-                    const parts: string[] = [];
-                    if (trace.stateDiff.added && Object.keys(trace.stateDiff.added).length > 0) {
-                      parts.push(`+${Object.keys(trace.stateDiff.added).length} added`);
-                    }
-                    if (trace.stateDiff.modified && Object.keys(trace.stateDiff.modified).length > 0) {
-                      parts.push(`~${Object.keys(trace.stateDiff.modified).length} modified`);
-                    }
-                    if (trace.stateDiff.deleted && Object.keys(trace.stateDiff.deleted).length > 0) {
-                      parts.push(`-${Object.keys(trace.stateDiff.deleted).length} deleted`);
-                    }
-                    return parts.join(", ") || "(no changes)";
-                  })()}
+            {trace.stateDiff && (() => {
+              const addedCount = trace.stateDiff.added ? Object.keys(trace.stateDiff.added).length : 0;
+              const modifiedCount = trace.stateDiff.modified ? Object.keys(trace.stateDiff.modified).length : 0;
+              const deletedCount = trace.stateDiff.deleted ? Object.keys(trace.stateDiff.deleted).length : 0;
+              const hasChanges = addedCount > 0 || modifiedCount > 0 || deletedCount > 0;
+
+              if (!hasChanges) return null;
+
+              const parts: string[] = [];
+              if (addedCount > 0) parts.push(`+${addedCount} added`);
+              if (modifiedCount > 0) parts.push(`~${modifiedCount} modified`);
+              if (deletedCount > 0) parts.push(`-${deletedCount} deleted`);
+
+              return (
+                <div>
+                  <span className="font-medium text-muted-foreground">State Changes:</span>{" "}
+                  <div className="mt-1 p-2 bg-background rounded border border-border font-mono">
+                    {parts.join(", ") || "(no changes)"}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Metadata */}
             {trace.metadata && Object.keys(trace.metadata).length > 0 && (

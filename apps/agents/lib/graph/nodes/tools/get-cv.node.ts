@@ -31,7 +31,7 @@ export class GetCVNode extends GraphNode {
       const format = state.route === "detailed" ? "detailed" : "summary";
 
       // Call the tool
-      const { content, sources } = await getCVTool(format);
+      const { content } = await getCVTool(format);
 
       // Create tool call record
       const toolCall = {

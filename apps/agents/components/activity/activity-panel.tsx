@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Badge, Button, Tabs, TabsList, TabsTrigger, TabsContent } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
@@ -37,13 +37,15 @@ export function ActivityPanel({
   >("process");
 
   // Determine if graph tabs are available
-  const hasGraphData = graphState !== null && graphState !== undefined;
+  const hasGraphData = graphState != null;
   const hasTraceData = nodeTraces.length > 0;
 
   // Auto-switch to graph tab if graph data is available and no legacy activity
-  if (hasGraphData && activeTab === "process" && executions.length === 0) {
-    setActiveTab("graph");
-  }
+  useEffect(() => {
+    if (hasGraphData && activeTab === "process" && executions.length === 0) {
+      setActiveTab("graph");
+    }
+  }, [hasGraphData, activeTab, executions.length]);
 
   // Calculate stats
   const completeCount = executions.filter(
@@ -57,10 +59,17 @@ export function ActivityPanel({
     .filter((e) => e.endTime)
     .reduce((sum, e) => sum + (e.endTime || 0) - e.startTime, 0);
 
-  // Graph stats from traces
-  const graphCompleteCount = nodeTraces.filter((t) => t.outcome === "success").length;
-  const graphErrorCount = nodeTraces.filter((t) => t.outcome === "error").length;
-  const graphTotalDuration = nodeTraces.reduce((sum, t) => sum + (t.duration ?? 0), 0);
+  // Graph stats from traces (single-pass reduction)
+  const { graphCompleteCount, graphErrorCount, graphTotalDuration } = useMemo(() => {
+    return nodeTraces.reduce(
+      (acc, t) => ({
+        graphCompleteCount: t.outcome === "success" ? acc.graphCompleteCount + 1 : acc.graphCompleteCount,
+        graphErrorCount: t.outcome === "error" ? acc.graphErrorCount + 1 : acc.graphErrorCount,
+        graphTotalDuration: acc.graphTotalDuration + (t.duration ?? 0),
+      }),
+      { graphCompleteCount: 0, graphErrorCount: 0, graphTotalDuration: 0 }
+    );
+  }, [nodeTraces]);
 
   const hasActivity =
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
@@ -273,7 +282,6 @@ export function ActivityPanel({
                 graphData={graphData}
                 traces={nodeTraces}
                 activeNodeId={activeNodeId}
-                readOnly
               />
             </div>
           ) : (
@@ -305,7 +313,6 @@ export function ActivityPanel({
               <StateInspector
                 state={graphState}
                 prevState={prevState}
-                readOnly
               />
             </div>
           ) : (

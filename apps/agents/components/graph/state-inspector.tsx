@@ -7,7 +7,7 @@
  * Allows inspection of current conversation state.
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Button } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
@@ -35,8 +35,6 @@ export interface StateInspectorProps {
   onRefresh?: () => void;
   /** Show refresh button */
   showRefresh?: boolean;
-  /** Read-only mode (no manual edits) */
-  readOnly?: boolean;
 }
 
 type ViewMode = "formatted" | "raw";
@@ -66,11 +64,11 @@ function formatValue(value: unknown, compact = false): string {
     return value.toString();
   }
   if (Array.isArray(value)) {
-    return `[Array(${value.length})]${compact ? "" : ` ${JSON.stringify(value).substring(0, 100)}`}`;
+    return `[Array(${value.length})]`;
   }
   if (typeof value === "object") {
     const keys = Object.keys(value);
-    return `{Object(${keys.length})${compact ? "" : ` ${JSON.stringify(value).substring(0, 100)}`}`;
+    return `{Object(${keys.length})}`;
   }
   return String(value);
 }
@@ -297,7 +295,7 @@ export function StateInspector({
   className,
   onRefresh,
   showRefresh = false,
-  readOnly = true,
+  _readOnly = true,
 }: StateInspectorProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("formatted");
   const [searchQuery, setSearchQuery] = useState("");
@@ -315,16 +313,19 @@ export function StateInspector({
     });
   }, []);
 
-  const sections = state ? stateToSections(state) : [];
+  const sections = useMemo(() => state ? stateToSections(state) : [], [state]);
 
   // Filter sections by search query
-  const filteredSections = searchQuery
-    ? sections.filter(
-        (s) =>
-          s.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          s.key.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : sections;
+  const filteredSections = useMemo(() =>
+    searchQuery
+      ? sections.filter(
+          (s) =>
+            s.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            s.key.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : sections,
+    [sections, searchQuery]
+  );
 
   // Calculate diff for each section
   const getDiffValue = (key: string) => {

@@ -28,7 +28,7 @@ export class GetAboutNode extends GraphNode {
   ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
     try {
       // Call the tool
-      const { about, sources } = await getAboutTool();
+      const { about } = await getAboutTool();
 
       // Create tool call record
       const toolCall = {

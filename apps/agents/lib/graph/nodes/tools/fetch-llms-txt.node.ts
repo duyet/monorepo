@@ -31,7 +31,7 @@ export class FetchLlmsTxtNode extends GraphNode {
       const domain = state.route || "home";
 
       // Call the tool
-      const { content, sources } = await fetchLlmsTxt(domain);
+      const { content } = await fetchLlmsTxt(domain);
 
       // Create tool call record
       const toolCall = {

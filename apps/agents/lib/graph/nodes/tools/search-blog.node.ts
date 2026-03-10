@@ -38,7 +38,7 @@ export class SearchBlogNode extends GraphNode {
       }
 
       // Call the tool
-      const { results, sources } = await searchBlogTool(query);
+      const { results } = await searchBlogTool(query);
 
       // Create tool call record
       const toolCall = {

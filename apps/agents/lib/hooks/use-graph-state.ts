@@ -57,7 +57,7 @@ export interface UseGraphStateReturn {
 export function useGraphState(
   options: UseGraphStateOptions = {}
 ): UseGraphStateReturn {
-  const { conversationId, getAuthToken, pollInterval = 5000 } = options;
+  const { conversationId, getAuthToken } = options;
 
   const [state, setState] = useState<AgentState | null>(null);
   const [isLoading, setIsLoading] = useState(false);
