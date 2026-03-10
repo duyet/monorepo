@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Badge, Button, Tabs, TabsList, TabsTrigger, TabsContent } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
@@ -32,20 +32,20 @@ export function ActivityPanel({
   graphState,
   nodeTraces = [],
 }: ActivityPanelProps) {
-  const [activeTab, setActiveTab] = useState<
-    "process" | "files" | "graph" | "trace" | "state"
-  >("process");
-
   // Determine if graph tabs are available
   const hasGraphData = graphState != null;
   const hasTraceData = nodeTraces.length > 0;
 
   // Auto-switch to graph tab if graph data is available and no legacy activity
-  useEffect(() => {
-    if (hasGraphData && activeTab === "process" && executions.length === 0) {
-      setActiveTab("graph");
+  // Compute initial tab to avoid extra render
+  const [activeTab, setActiveTab] = useState<
+    "process" | "files" | "graph" | "trace" | "state"
+  >(() => {
+    if (hasGraphData && executions.length === 0) {
+      return "graph";
     }
-  }, [hasGraphData, activeTab, executions.length]);
+    return "process";
+  });
 
   // Calculate stats (memoized, single-pass)
   const { completeCount, errorCount, runningCount, totalDuration } = useMemo(() => {
