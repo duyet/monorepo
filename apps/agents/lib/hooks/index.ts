@@ -24,3 +24,7 @@ export type { UseGraphStateOptions, UseGraphStateReturn } from "./use-graph-stat
 export { useGraphState } from "./use-graph-state";
 export type { UseCheckpointsOptions, UseCheckpointsReturn } from "./use-graph-state";
 export { useCheckpoints } from "./use-graph-state";
+export type {
+  ExportConversationOptions,
+} from "./use-export-conversation";
+export { useExportConversation } from "./use-export-conversation";
