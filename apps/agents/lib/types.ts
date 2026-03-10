@@ -144,4 +144,7 @@ export interface ActivityPanelProps {
   isLoading?: boolean;
   onClose?: () => void;
   className?: string;
+  // Graph state for enhanced activity panel (Unit 19)
+  graphState?: import("./graph").AgentState;
+  nodeTraces?: import("./graph").NodeTrace[];
 }
