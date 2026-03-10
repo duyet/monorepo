@@ -46,6 +46,7 @@
     "@streamdown/code": "^1.0.3",
     "@streamdown/math": "^1.0.2",
     "@streamdown/mermaid": "^1.0.2",
+    "@xyflow/react": "^12.10.1",
     "agents": "^0.7.0",
     "ai": "^6.0.103",
     "ai-gateway-provider": "^3.1.1",
