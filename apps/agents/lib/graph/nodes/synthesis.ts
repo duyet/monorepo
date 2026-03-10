@@ -5,7 +5,8 @@
  * Handles source aggregation and formatting.
  */
 
-import type { AgentState, Source } from "../../types";
+import type { AgentState } from "../types";
+import type { Source } from "../../types";
 import { GraphNode } from "./base";
 
 /**

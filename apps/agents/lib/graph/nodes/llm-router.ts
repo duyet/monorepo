@@ -5,7 +5,7 @@
  * Returns toolName or "done" based on conversation context.
  */
 
-import type { AgentState } from "../../types";
+import type { AgentState } from "../types";
 import { GraphNode } from "./base";
 
 /**
