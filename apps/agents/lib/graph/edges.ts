@@ -136,7 +136,7 @@ export function createConditionalEdge(
   condition: (state: AgentState) => boolean,
   trueRoute: NodeRoute,
   falseRoute: NodeRoute,
-  reason?: string
+  _reason?: string
 ): (state: AgentState) => NodeRoute {
   return (state: AgentState): NodeRoute => {
     if (condition(state)) {

@@ -262,7 +262,7 @@ export class ObservabilityMiddleware {
   /**
    * Record execution metrics for a node
    */
-  private recordMetrics(nodeId: string, duration: number, success: boolean): void {
+  private recordMetrics(nodeId: string, duration: number, _success: boolean): void {
     // Update execution count
     this.nodeExecutionCounts.set(
       nodeId,
@@ -413,7 +413,7 @@ export function withObservability<T extends (
   nodeName: string,
   executeFn: (state: AgentState) => Promise<Partial<AgentState>>
 ) => Promise<{ state: Partial<AgentState>; trace: NodeTrace }>>(
-  executeFn: T,
+  _executeFn: T,
   observability: ObservabilityMiddleware
 ): T {
   return (async (

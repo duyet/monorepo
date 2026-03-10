@@ -395,8 +395,6 @@ async function handleGraphExecution(
   user: { userId: string } | null,
   rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
 ): Promise<Response> {
-  const { AI } = context.env;
-
   // Get user's last message as input
   const lastMessage = uiMessages[uiMessages.length - 1];
   const userInput = typeof lastMessage === "object" && lastMessage !== null && "content" in lastMessage
@@ -457,7 +455,7 @@ async function handleGraphExecution(
       const router = new GraphRouter();
       observability.startExecution();
 
-      const result = await router.executeGraph(initialState);
+      await router.executeGraph(initialState);
 
       const metrics = observability.endExecution();
 
@@ -541,8 +539,6 @@ async function handleDirectExecution(
   user: { userId: string } | null,
   rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
 ): Promise<Response> {
-  const { AI } = context.env;
-
   const allMessages = await convertToModelMessages(uiMessages);
   const messages = pruneMessages({
     messages: allMessages,

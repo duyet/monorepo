@@ -29,12 +29,11 @@ export interface NodeTraceTimelineProps {
 
 interface TraceItemProps {
   trace: NodeTrace;
-  index: number;
   isExpanded: boolean;
   onToggle: () => void;
 }
 
-function TraceItem({ trace, index, isExpanded, onToggle }: TraceItemProps) {
+function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
   const statusConfig = {
     pending: {
       icon: Loader2,
@@ -249,7 +248,6 @@ export function NodeTraceTimeline({
             <TraceItem
               key={`${trace.nodeId}-${index}`}
               trace={trace}
-              index={index}
               isExpanded={expandedIndices.has(index)}
               onToggle={() => toggleExpanded(index)}
             />

@@ -5,7 +5,7 @@
  * Provides functions for validating state integrity and tracking changes.
  */
 
-import type { AgentState, StateDiff, StateMetadata, ToolCall } from "./types";
+import type { AgentState, StateDiff, ToolCall } from "./types";
 
 /**
  * State validation result
@@ -77,7 +77,7 @@ export class StateManager {
     } else {
       for (let i = 0; i < state.toolCalls.length; i++) {
         const tool = state.toolCalls[i];
-        const errors_ = this.validateToolCall(tool, i);
+        const errors_ = StateManager.validateToolCall(tool, i);
         errors.push(...errors_);
       }
     }
@@ -134,7 +134,7 @@ export class StateManager {
   static createInitialState(
     conversationId: string,
     userInput: string,
-    userId?: string
+    _userId?: string
   ): AgentState {
     const now = Date.now();
 
@@ -177,7 +177,7 @@ export class StateManager {
     state: AgentState,
     updates: Partial<AgentState>
   ): AgentState {
-    const newState = this.clone(state);
+    const newState = StateManager.clone(state);
 
     // Apply direct field updates
     if (updates.userInput !== undefined) newState.userInput = updates.userInput;
@@ -240,7 +240,7 @@ export class StateManager {
         added[field] = newValue;
       } else if (oldValue !== undefined && newValue === undefined) {
         deleted[field] = oldValue;
-      } else if (this.valueChanged(oldValue, newValue)) {
+      } else if (StateManager.valueChanged(oldValue, newValue)) {
         // Special case for response: empty → non-empty is treated as "added"
         // for clearer diff semantics
         if (field === "response" && oldValue === "" && newValue !== "") {
@@ -265,7 +265,7 @@ export class StateManager {
           // New tool call added
           if (!added.toolCalls) added.toolCalls = [];
           (added.toolCalls as ToolCall[]).push(newTool);
-        } else if (this.toolCallChanged(oldTool, newTool)) {
+        } else if (StateManager.toolCallChanged(oldTool, newTool)) {
           // Tool call modified
           if (!modified.toolCalls) modified.toolCalls = { old: oldState.toolCalls, new: newState.toolCalls };
         }
@@ -290,7 +290,7 @@ export class StateManager {
     // Handle arrays differently
     if (Array.isArray(oldValue) && Array.isArray(newValue)) {
       if (oldValue.length !== newValue.length) return true;
-      return oldValue.some((v, i) => this.valueChanged(v, newValue[i]));
+      return oldValue.some((v, i) => StateManager.valueChanged(v, newValue[i]));
     }
 
     // Handle objects
@@ -311,9 +311,9 @@ export class StateManager {
       old.id !== new_.id ||
       old.toolName !== new_.toolName ||
       old.status !== new_.status ||
-      this.valueChanged(old.parameters, new_.parameters) ||
-      this.valueChanged(old.result, new_.result) ||
-      this.valueChanged(old.error, new_.error)
+      StateManager.valueChanged(old.parameters, new_.parameters) ||
+      StateManager.valueChanged(old.result, new_.result) ||
+      StateManager.valueChanged(old.error, new_.error)
     );
   }
 
@@ -364,11 +364,11 @@ export class StateManager {
    * Validates the restored state before returning.
    */
   static restoreFromCheckpoint(checkpoint: AgentState): AgentState {
-    const validation = this.validate(checkpoint);
+    const validation = StateManager.validate(checkpoint);
     if (!validation.isValid) {
       throw new Error(`Invalid checkpoint: ${validation.errors.join(", ")}`);
     }
 
-    return this.clone(checkpoint);
+    return StateManager.clone(checkpoint);
   }
 }

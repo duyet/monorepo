@@ -200,7 +200,7 @@ export class LLMRouterNode extends GraphNode {
         }
         return { format: "summary" };
 
-      case "get-github":
+      case "get-github": {
         const limitMatch = input.match(/(\d+)/);
         if (limitMatch) {
           const limit = parseInt(limitMatch[1], 10);
@@ -209,6 +209,7 @@ export class LLMRouterNode extends GraphNode {
           }
         }
         return { limit: 5 };
+      }
 
       case "get-analytics":
         if (/daily|trend/i.test(input)) {
@@ -222,7 +223,7 @@ export class LLMRouterNode extends GraphNode {
         }
         return { reportType: "summary" };
 
-      case "fetch-llms-txt":
+      case "fetch-llms-txt": {
         const domainMatch = input.match(
           /blog|insights|llm[- ]timeline|cv|photos|homelab|home/i
         );
@@ -230,6 +231,7 @@ export class LLMRouterNode extends GraphNode {
           return { domain: domainMatch[0].toLowerCase().replace(" ", "-") };
         }
         return { domain: "home" };
+      }
 
       default:
         return {};
@@ -259,7 +261,7 @@ export class LLMRouterNode extends GraphNode {
   /**
    * Generate fallback response when intent is unclear
    */
-  private generateFallbackResponse(input: string): string {
+  private generateFallbackResponse(_input: string): string {
     return `I'm not sure which tool would be best for that question. Could you clarify what you're looking for?
 
 I can help you with:

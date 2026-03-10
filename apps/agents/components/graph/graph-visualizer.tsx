@@ -22,7 +22,7 @@ import { cn } from "@duyet/libs";
 
 // Custom node component for graph nodes
 function GraphNode({ data }: { data: GraphNodeData }) {
-  const { label, description, nodeType, status, duration } = data;
+  const { label, description, status, duration } = data;
 
   const statusColors = {
     pending: "bg-gray-100 border-gray-300 text-gray-600",
@@ -108,7 +108,6 @@ export function GraphVisualizer({
 
     // Get the most recent trace for each node
     for (const trace of traces) {
-      const existing = map.get(trace.nodeId);
       // Use the most recent trace (later traces override earlier ones)
       map.set(trace.nodeId, {
         status: trace.outcome === "running" ? "running" : trace.outcome === "success" ? "success" : trace.outcome === "error" ? "error" : "pending",

@@ -6,7 +6,6 @@
 
 import { describe, it, expect, beforeEach } from "bun:test";
 import { GraphRouter, createInitialState } from "../router";
-import type { AgentState } from "../types";
 
 describe("Graph Integration Tests", () => {
   describe("GraphRouter", () => {
@@ -189,8 +188,11 @@ describe("Graph Integration Tests", () => {
     });
 
     it("should generate unique conversation IDs", () => {
-      const state1 = createInitialState("test", "input1");
-      const state2 = createInitialState("test", "input2");
+      const state1 = createInitialState(undefined, "input1");
+      const state2 = createInitialState(undefined, "input2");
+
+      // Each call without a conversation ID should generate a unique ID
+      expect(state1.conversationId).not.toBe(state2.conversationId);
 
       // If we provide conversation IDs, they should be used
       const stateWithId = createInitialState("my-id", "input");

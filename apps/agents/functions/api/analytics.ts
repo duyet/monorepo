@@ -1,5 +1,4 @@
 import { getUserFromRequest } from "../../lib/auth";
-import { createDatabaseClient } from "../../lib/db/client";
 
 interface Env {
   DB: D1Database;

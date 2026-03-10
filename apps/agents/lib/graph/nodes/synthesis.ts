@@ -121,7 +121,7 @@ export class SynthesisNode extends GraphNode {
           });
           break;
 
-        case "fetchLlmsTxt":
+        case "fetchLlmsTxt": {
           const domain = toolCall.parameters.domain as string;
           sources.push({
             type: "llms-txt",
@@ -129,6 +129,7 @@ export class SynthesisNode extends GraphNode {
             url: `https://${domain}.duyet.net/llms.txt`,
           });
           break;
+        }
       }
     }
 
@@ -218,11 +219,12 @@ export class SynthesisNode extends GraphNode {
           parts.push(result);
           break;
 
-        case "fetchLlmsTxt":
+        case "fetchLlmsTxt": {
           const domain = toolCall.parameters.domain as string;
           parts.push(`## ${domain} Documentation`);
           parts.push(result);
           break;
+        }
 
         default:
           parts.push(result);

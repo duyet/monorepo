@@ -6,7 +6,7 @@
 
 import { describe, it, expect, beforeEach } from "bun:test";
 import { ObservabilityMiddleware, createObservability } from "../observability";
-import type { AgentState, NodeTrace } from "../types";
+import type { AgentState, } from "../types";
 
 describe("ObservabilityMiddleware", () => {
   let middleware: ObservabilityMiddleware;
@@ -14,7 +14,7 @@ describe("ObservabilityMiddleware", () => {
 
   beforeEach(() => {
     const logs: string[] = [];
-    mockLogger = (level: string, message: string, ...args: unknown[]) => {
+    mockLogger = (level: string, message: string, ..._args: unknown[]) => {
       logs.push(`[${level}] ${message}`);
     };
 

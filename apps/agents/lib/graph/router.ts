@@ -7,7 +7,7 @@
 
 import type { AgentState, NodeTrace, GraphMetrics } from "./types";
 import {
-  GraphNode,
+  type GraphNode,
   LLMRouterNode,
   SynthesisNode,
   SearchBlogNode,

@@ -10,7 +10,6 @@
  * - DELETE /checkpoint/{checkpointId} - Delete a checkpoint
  */
 
-import type { Checkpointer } from "../../lib/graph";
 import { createCheckpointer } from "../../lib/graph";
 import { createDatabaseClient } from "../../lib/db/client";
 

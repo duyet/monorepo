@@ -88,7 +88,7 @@ export class Checkpointer {
    */
   async saveCheckpoint(
     state: AgentState,
-    nodeId?: string
+    _nodeId?: string
   ): Promise<string> {
     const conversationId = state.conversationId;
 
