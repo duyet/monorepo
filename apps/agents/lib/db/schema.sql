@@ -65,3 +65,21 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 
 CREATE INDEX IF NOT EXISTS idx_rate_limits_ip_hash ON rate_limits(ip_hash);
 CREATE INDEX IF NOT EXISTS idx_rate_limits_window ON rate_limits(window_start);
+
+-- Graph checkpoints table for LangGraph state persistence
+-- Stores conversation state snapshots for resumable execution
+CREATE TABLE IF NOT EXISTS graph_checkpoints (
+  id TEXT PRIMARY KEY,
+  conversation_id TEXT NOT NULL,
+  state_snapshot TEXT NOT NULL, -- JSON string of AgentState
+  version INTEGER NOT NULL DEFAULT 1,
+  created_at INTEGER NOT NULL,
+  parent_checkpoint_id TEXT,
+  FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE,
+  FOREIGN KEY (parent_checkpoint_id) REFERENCES graph_checkpoints(id) ON DELETE SET NULL
+);
+
+-- Indexes for checkpoint queries
+CREATE INDEX IF NOT EXISTS idx_checkpoints_conversation_id ON graph_checkpoints(conversation_id);
+CREATE INDEX IF NOT EXISTS idx_checkpoints_created_at ON graph_checkpoints(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_checkpoints_version ON graph_checkpoints(conversation_id, version DESC);

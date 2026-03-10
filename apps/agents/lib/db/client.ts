@@ -1,8 +1,9 @@
 /**
  * Database client for Cloudflare D1
- * Handles CRUD operations for conversations and messages
+ * Handles CRUD operations for conversations, messages, and graph checkpoints
  */
 
+import type { AgentState } from "../graph/types";
 import type { ChatMode, Conversation, Message, Source } from "../types";
 
 // Database row types
@@ -56,6 +57,25 @@ export interface CreateMessageParams {
 export interface UpdateConversationParams {
   id: string;
   title?: string;
+}
+
+// Checkpoint row type
+export interface CheckpointRow {
+  id: string;
+  conversation_id: string;
+  state_snapshot: string;
+  version: number;
+  created_at: number;
+  parent_checkpoint_id: string | null;
+}
+
+// Checkpoint CRUD parameters
+export interface CreateCheckpointParams {
+  id: string;
+  conversationId: string;
+  stateSnapshot: AgentState;
+  version: number;
+  parentCheckpointId?: string;
 }
 
 /**
@@ -374,6 +394,200 @@ export class DatabaseClient {
     }
 
     return ids.length;
+  }
+
+  // ========== Checkpoint CRUD Operations ==========
+
+  /**
+   * Create a new checkpoint for a conversation
+   *
+   * Stores a state snapshot for potential resume/rollback.
+   * Version numbers must be increasing for a conversation.
+   */
+  async createCheckpoint(params: CreateCheckpointParams): Promise<CheckpointRow> {
+    const { id, conversationId, stateSnapshot, version, parentCheckpointId } = params;
+    const now = Date.now();
+
+    const stmt = this.db.prepare(
+      "INSERT INTO graph_checkpoints (id, conversation_id, state_snapshot, version, created_at, parent_checkpoint_id) VALUES (?, ?, ?, ?, ?, ?)"
+    );
+
+    await stmt
+      .bind(
+        id,
+        conversationId,
+        JSON.stringify(stateSnapshot),
+        version,
+        now,
+        parentCheckpointId ?? null
+      )
+      .run();
+
+    return {
+      id,
+      conversation_id: conversationId,
+      state_snapshot: JSON.stringify(stateSnapshot),
+      version,
+      created_at: now,
+      parent_checkpoint_id: parentCheckpointId ?? null,
+    };
+  }
+
+  /**
+   * Get a checkpoint by ID
+   *
+   * Returns the checkpoint with parsed state snapshot.
+   */
+  async getCheckpoint(id: string): Promise<{
+    checkpoint: CheckpointRow;
+    state: AgentState;
+  } | null> {
+    const stmt = this.db.prepare(
+      "SELECT id, conversation_id, state_snapshot, version, created_at, parent_checkpoint_id FROM graph_checkpoints WHERE id = ?"
+    );
+
+    const result = (await stmt.bind(id).first()) as CheckpointRow | null;
+
+    if (!result) {
+      return null;
+    }
+
+    return {
+      checkpoint: result,
+      state: JSON.parse(result.state_snapshot) as AgentState,
+    };
+  }
+
+  /**
+   * Get the latest checkpoint for a conversation
+   *
+   * Returns the most recent checkpoint (highest version).
+   */
+  async getLatestCheckpoint(
+    conversationId: string
+  ): Promise<{ checkpoint: CheckpointRow; state: AgentState } | null> {
+    const stmt = this.db.prepare(
+      "SELECT id, conversation_id, state_snapshot, version, created_at, parent_checkpoint_id FROM graph_checkpoints WHERE conversation_id = ? ORDER BY version DESC LIMIT 1"
+    );
+
+    const result = (await stmt.bind(conversationId).first()) as CheckpointRow | null;
+
+    if (!result) {
+      return null;
+    }
+
+    return {
+      checkpoint: result,
+      state: JSON.parse(result.state_snapshot) as AgentState,
+    };
+  }
+
+  /**
+   * List all checkpoints for a conversation
+   *
+   * Ordered by version descending (newest first).
+   */
+  async listCheckpoints(
+    conversationId: string,
+    limit = 50
+  ): Promise<CheckpointRow[]> {
+    const stmt = this.db.prepare(
+      "SELECT id, conversation_id, state_snapshot, version, created_at, parent_checkpoint_id FROM graph_checkpoints WHERE conversation_id = ? ORDER BY version DESC LIMIT ?"
+    );
+
+    const result = (await stmt.bind(conversationId, limit).all()) as {
+      results: CheckpointRow[];
+    };
+
+    return result.results || [];
+  }
+
+  /**
+   * Delete a checkpoint by ID
+   *
+   * Note: Child checkpoints will have their parent_checkpoint_id set to NULL
+   * due to the ON DELETE SET NULL foreign key constraint.
+   */
+  async deleteCheckpoint(id: string): Promise<void> {
+    const stmt = this.db.prepare("DELETE FROM graph_checkpoints WHERE id = ?");
+    await stmt.bind(id).run();
+  }
+
+  /**
+   * Delete all checkpoints for a conversation
+   *
+   * Used when a conversation is deleted.
+   */
+  async deleteCheckpointsForConversation(
+    conversationId: string
+  ): Promise<number> {
+    const stmt = this.db.prepare(
+      "DELETE FROM graph_checkpoints WHERE conversation_id = ?"
+    );
+    const result = await stmt.bind(conversationId).run();
+
+    // Return the number of deleted rows
+    return result.meta.changes ?? 0;
+  }
+
+  /**
+   * Get checkpoint version history for a conversation
+   *
+   * Returns checkpoints in version order with parent-child relationships.
+   */
+  async getCheckpointHistory(
+    conversationId: string
+  ): Promise<Array<{ checkpoint: CheckpointRow; state: AgentState }>> {
+    const stmt = this.db.prepare(
+      "SELECT id, conversation_id, state_snapshot, version, created_at, parent_checkpoint_id FROM graph_checkpoints WHERE conversation_id = ? ORDER BY version ASC"
+    );
+
+    const result = (await stmt.bind(conversationId).all()) as {
+      results: CheckpointRow[];
+    };
+
+    return (result.results || []).map((row) => ({
+      checkpoint: row,
+      state: JSON.parse(row.state_snapshot) as AgentState,
+    }));
+  }
+
+  /**
+   * Prune old checkpoints for a conversation
+   *
+   * Keeps only the latest N checkpoints to manage storage.
+   * Returns the number of checkpoints deleted.
+   */
+  async pruneCheckpoints(
+    conversationId: string,
+    keepCount = 10
+  ): Promise<number> {
+    // Get checkpoints to delete (all but the latest N)
+    const stmt = this.db.prepare(
+      "SELECT id FROM graph_checkpoints WHERE conversation_id = ? AND id NOT IN (SELECT id FROM graph_checkpoints WHERE conversation_id = ? ORDER BY version DESC LIMIT ?) ORDER BY version ASC"
+    );
+
+    const excess = (await stmt.bind(conversationId, conversationId, keepCount).all()) as {
+      results: { id: string }[];
+    };
+
+    if (!excess.results || excess.results.length === 0) {
+      return 0;
+    }
+
+    // Delete the excess checkpoints
+    const ids = excess.results.map((r) => r.id);
+    let deletedCount = 0;
+
+    for (const id of ids) {
+      const deleteStmt = this.db.prepare(
+        "DELETE FROM graph_checkpoints WHERE id = ?"
+      );
+      await deleteStmt.bind(id).run();
+      deletedCount++;
+    }
+
+    return deletedCount;
   }
 }
 

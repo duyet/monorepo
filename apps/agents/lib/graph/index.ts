@@ -24,8 +24,5 @@ export type {
   StateObserver,
 } from "./types";
 
-// These will be implemented by respective engineers:
-// export { StateManager } from "./state-manager";
-// export { Checkpointer } from "./checkpointer";
-// export { GraphRouter } from "./router";
-// export { ObservabilityMiddleware } from "./observability";
+// Router (Unit 10)
+export { GraphRouter, createInitialState, executeGraph } from "./router";
