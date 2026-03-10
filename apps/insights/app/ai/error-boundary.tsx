@@ -91,6 +91,7 @@ function DefaultErrorFallback({
           "An unexpected error occurred while loading the data."}
       </p>
       <button
+        type="button"
         onClick={onRetry}
         className="inline-flex items-center gap-2 rounded-md border border-red-300 bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:border-red-700 dark:bg-red-800 dark:text-red-200 dark:hover:bg-red-700"
       >
@@ -160,6 +161,7 @@ export function CCUsageErrorDisplay({
       <p className="mb-3 text-sm text-muted-foreground">{errorMessage}</p>
       {onRetry && (
         <button
+          type="button"
           onClick={onRetry}
           className="inline-flex items-center gap-2 text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
         >
