@@ -6,7 +6,7 @@ import { Skeleton } from "./skeleton";
  *
  * Usage in app/loading.tsx:
  * ```tsx
- * import { LoadingPage } from "@duyet/components/LoadingPage"
+ * import { LoadingPage } from "@duyet/components"
  * export default function Page() { return <LoadingPage /> }
  * ```
  *
