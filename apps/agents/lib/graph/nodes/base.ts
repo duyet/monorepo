@@ -5,7 +5,7 @@
  * Provides standard error handling, metrics collection, and state management.
  */
 
-import type { AgentState, NodeTrace } from "../types";
+import type { AgentState, NodeTrace } from "../../types";
 
 /**
  * Node execution outcome

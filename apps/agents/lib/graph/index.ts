@@ -26,3 +26,12 @@ export type {
 
 // Router (Unit 10)
 export { GraphRouter, createInitialState, executeGraph } from "./router";
+
+// Observability (Unit 15)
+export {
+  ObservabilityMiddleware,
+  createObservability,
+  withObservability,
+  type ObservabilityOptions,
+  type ObservabilityResult,
+} from "./observability";
