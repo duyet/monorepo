@@ -20,3 +20,7 @@ export { useClerkComponents } from "./use-clerk-components";
 export type { ClerkComponents } from "./use-clerk-components";
 export { useMediaQuery } from "./use-media-query";
 export { useMergeRefs } from "./use-merge-refs";
+export type { UseGraphStateOptions, UseGraphStateReturn } from "./use-graph-state";
+export { useGraphState } from "./use-graph-state";
+export type { UseCheckpointsOptions, UseCheckpointsReturn } from "./use-graph-state";
+export { useCheckpoints } from "./use-graph-state";

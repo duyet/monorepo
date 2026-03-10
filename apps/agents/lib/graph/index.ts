@@ -35,3 +35,29 @@ export {
   type ObservabilityOptions,
   type ObservabilityResult,
 } from "./observability";
+
+// Checkpointer (Unit 4)
+export {
+  Checkpointer,
+  createCheckpointer,
+  type CheckpointerOptions,
+  type CheckpointInfo,
+} from "./checkpointer";
+
+// State management utilities (Unit 1)
+export { StateManager } from "./state";
+export type { StateValidationResult } from "./state";
+
+// Conditional edge logic (Unit 9)
+export {
+  routeNextNode,
+  shouldEnd,
+  createConditionalEdge,
+  hasPendingToolsEdge,
+  toolsCompletedEdge,
+  hasResponseEdge,
+  hasErrorEdge,
+  chainEdges,
+  defaultEdgeChain,
+} from "./edges";
+export type { NodeRoute, EdgeDecision } from "./edges";
