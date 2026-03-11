@@ -8,8 +8,112 @@ import type {
   DateRangeDays,
 } from "../types";
 import { anonymizeProjects, distributePercentages } from "./data-processing";
-import { executeClickHouseQueryLegacy } from "./database";
+import {
+  executeClickHouseQuery,
+  executeClickHouseQueryLegacy,
+  testClickHouseConnection,
+} from "./database";
 import { getCreatedAtCondition, getDateCondition } from "./queries";
+
+// Track if we've already done a health check this build
+let healthCheckCompleted = false;
+let healthCheckPassed = false;
+
+/**
+ * Quick health check with 10 second timeout to verify ClickHouse connectivity
+ * Runs only once per build and caches the result
+ */
+export async function checkClickHouseHealth(): Promise<boolean> {
+  if (healthCheckCompleted) {
+    console.log("[ClickHouse Health] Using cached result:", {
+      passed: healthCheckPassed,
+    });
+    return healthCheckPassed;
+  }
+
+  console.log("[ClickHouse Health] Running quick connectivity test...");
+  const startTime = Date.now();
+
+  try {
+    // Use the test connection function with a quick timeout
+    const result = await testClickHouseConnection();
+
+    healthCheckCompleted = true;
+    healthCheckPassed = result.success;
+
+    if (result.success) {
+      console.log("[ClickHouse Health] ✓ Connection successful:", {
+        duration: `${Date.now() - startTime}ms`,
+        version: result.details.version,
+        host: result.details.host,
+      });
+    } else {
+      console.error("[ClickHouse Health] ✗ Connection failed:", {
+        duration: `${Date.now() - startTime}ms`,
+        message: result.message,
+        details: result.details,
+      });
+    }
+
+    return healthCheckPassed;
+  } catch (error) {
+    healthCheckCompleted = true;
+    healthCheckPassed = false;
+
+    console.error("[ClickHouse Health] ✗ Health check threw error:", {
+      duration: `${Date.now() - startTime}ms`,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+
+    return false;
+  }
+}
+
+/**
+ * Quick ping test - runs SELECT 1 with 10 second timeout
+ * Returns true if ClickHouse responds, false otherwise
+ */
+export async function pingClickHouse(): Promise<{
+  success: boolean;
+  latencyMs: number;
+  error?: string;
+}> {
+  console.log("[ClickHouse Ping] Sending ping...");
+  const startTime = Date.now();
+
+  try {
+    const result = await executeClickHouseQuery(
+      "SELECT 1 as ping, now() as server_time",
+      10000, // 10 second timeout for ping
+      1 // Only 1 attempt for ping
+    );
+
+    const latencyMs = Date.now() - startTime;
+
+    if (result.success && result.data.length > 0) {
+      console.log("[ClickHouse Ping] ✓ Pong received:", {
+        latencyMs,
+        serverTime: result.data[0]?.server_time,
+      });
+      return { success: true, latencyMs };
+    }
+
+    console.error("[ClickHouse Ping] ✗ No response:", {
+      latencyMs,
+      error: result.error,
+    });
+    return { success: false, latencyMs, error: result.error };
+  } catch (error) {
+    const latencyMs = Date.now() - startTime;
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
+
+    console.error("[ClickHouse Ping] ✗ Ping failed:", {
+      latencyMs,
+      error: errorMsg,
+    });
+    return { success: false, latencyMs, error: errorMsg };
+  }
+}
 
 /**
  * Get overview metrics for the specified time period
@@ -17,16 +121,33 @@ import { getCreatedAtCondition, getDateCondition } from "./queries";
 export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
+  // Run health check on first call to quickly detect connectivity issues
+  if (!healthCheckCompleted) {
+    console.log(
+      "[CCUsage Metrics] First query - running ClickHouse health check..."
+    );
+    const pingResult = await pingClickHouse();
+    if (!pingResult.success) {
+      console.error("[CCUsage Metrics] Health check failed - ClickHouse may be unreachable:", {
+        latencyMs: pingResult.latencyMs,
+        error: pingResult.error,
+      });
+      // Continue anyway - the actual queries will also fail but with more details
+    }
+    healthCheckCompleted = true;
+    healthCheckPassed = pingResult.success;
+  }
+
   const dateCondition = getDateCondition(days);
   const query = `
-    SELECT 
+    SELECT
       SUM(total_tokens) as total_tokens,
       SUM(input_tokens) as input_tokens,
       SUM(output_tokens) as output_tokens,
       SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
       SUM(total_cost) as total_cost,
       COUNT(DISTINCT date) as active_days
-    FROM ccusage_usage_daily 
+    FROM ccusage_usage_daily
     ${dateCondition}
   `;
 

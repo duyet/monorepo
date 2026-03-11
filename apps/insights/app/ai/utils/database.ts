@@ -2,4 +2,5 @@
 export {
   executeClickHouseQuery,
   executeClickHouseQueryLegacy,
+  testClickHouseConnection,
 } from "./clickhouse-client";
