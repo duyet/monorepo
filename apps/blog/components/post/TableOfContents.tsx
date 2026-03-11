@@ -25,15 +25,36 @@ const TOCIcon = ({ className }: { className?: string }) => (
 interface TableOfContentsProps {
   /** Pre-extracted headings from build time for static rendering */
   headings?: TOCItem[];
+  /** External control for mobile TOC open state */
+  isMobileOpen?: boolean;
+  /** Callback when mobile TOC open state changes */
+  onMobileOpenChange?: (isOpen: boolean) => void;
 }
 
 export function TableOfContents({
   headings: initialHeadings = [],
+  isMobileOpen: externalIsMobileOpen,
+  onMobileOpenChange,
 }: TableOfContentsProps) {
   const [headings] = useState<TOCItem[]>(initialHeadings);
   const [activeId, setActiveId] = useState<string>("");
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [internalIsMobileOpen, setInternalIsMobileOpen] = useState(false);
   const [isDesktopVisible, setIsDesktopVisible] = useState(true);
+
+  // Use external state if provided, otherwise use internal state
+  const isMobileOpen =
+    externalIsMobileOpen !== undefined
+      ? externalIsMobileOpen
+      : internalIsMobileOpen;
+
+  const handleMobileToggle = () => {
+    const newState = !isMobileOpen;
+    if (onMobileOpenChange) {
+      onMobileOpenChange(newState);
+    } else {
+      setInternalIsMobileOpen(newState);
+    }
+  };
 
   useEffect(() => {
     if (headings.length === 0) return;
@@ -59,11 +80,11 @@ export function TableOfContents({
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsMobileOpen(false);
+      if (e.key === "Escape") handleMobileToggle();
     };
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+  }, [isMobileOpen]);
 
   if (headings.length === 0) {
     return null;
@@ -75,7 +96,10 @@ export function TableOfContents({
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setActiveId(id);
-      setIsMobileOpen(false);
+      // Close mobile panel after clicking
+      if (window.innerWidth < 1280) {
+        handleMobileToggle();
+      }
     }
   };
 
@@ -114,9 +138,9 @@ export function TableOfContents({
 
   return (
     <>
-      {/* Mobile/Tablet: Floating toggle button */}
+      {/* Mobile/Tablet: Floating toggle button (fallback) */}
       <button
-        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        onClick={handleMobileToggle}
         className={cn(
           "xl:hidden",
           "fixed bottom-6 right-6 z-40",
@@ -135,7 +159,7 @@ export function TableOfContents({
         <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
       </button>
 
-      {/* Mobile/Tablet: Slide-out panel (no backdrop, doesn't block content) */}
+      {/* Mobile/Tablet: Slide-out panel */}
       <nav
         aria-hidden={!isMobileOpen}
         inert={!isMobileOpen ? true : undefined}

@@ -26,21 +26,7 @@ interface ContentPost extends Post {
 export default async function Content({ post }: { post: ContentPost }) {
   return (
     <>
-      <header className="mb-8 flex flex-col gap-4">
-        <h1
-          className={cn(
-            "mt-2 inline-block break-words py-2",
-            "font-serif text-neutral-900 dark:text-neutral-100",
-            "text-3xl font-bold tracking-normal",
-            "md:text-4xl md:tracking-tight",
-            "lg:text-5xl lg:tracking-tight"
-          )}
-        >
-          {post.title}
-        </h1>
-
-        <OldPostWarning post={post} year={5} className="" />
-      </header>
+      <OldPostWarning post={post} year={5} className="mb-8" />
 
       {post.isMDX && post.mdxSource ? (
         <article
