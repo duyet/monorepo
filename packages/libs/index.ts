@@ -7,6 +7,7 @@ export * from "./getRelatedPosts";
 export * from "./getSlug";
 export * from "./logger";
 export * from "./markdownToHtml";
+export * from "./string";
 
 // next-routes excluded: imports next/server which pulls in ua-parser-js
 // (uses __dirname, incompatible with Cloudflare Pages Functions edge runtime)

@@ -5,6 +5,8 @@ import { SearchBar, SearchResultItem } from "@/components/blog";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
+const DEFAULT_INITIAL_POST_COUNT = 20; // Balance between UX and initial render performance
+
 export interface SearchClientProps {
   posts: Post[];
 }
@@ -17,13 +19,16 @@ export function SearchClient({ posts }: SearchClientProps) {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
 
+  // Memoize search terms to avoid recreating array on every render
+  const searchTerms = useMemo(() => {
+    return query.toLowerCase().split(/\s+/);
+  }, [query]);
+
   // Memoize filtered posts for performance
   const filteredPosts = useMemo(() => {
     if (!query) {
-      return posts.slice(0, 20); // Show first 20 posts when no query
+      return posts.slice(0, DEFAULT_INITIAL_POST_COUNT);
     }
-
-    const searchTerms = query.toLowerCase().split(/\s+/);
 
     return posts.filter((post) => {
       const searchText = [
@@ -38,11 +43,11 @@ export function SearchClient({ posts }: SearchClientProps) {
       // All search terms must match (AND logic)
       return searchTerms.every((term) => searchText.includes(term));
     });
-  }, [posts, query]);
+  }, [posts, searchTerms]);
 
-  // Sort by date descending
+  // Sort by date descending (no need for spread - filteredPosts is already a new array)
   const sortedPosts = useMemo(() => {
-    return [...filteredPosts].sort((a, b) => b.date.getTime() - a.date.getTime());
+    return filteredPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
   }, [filteredPosts]);
 
   return (

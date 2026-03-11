@@ -1,7 +1,9 @@
+import { escapeRegExp } from "@duyet/libs/string";
 import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
 import Link from "next/link";
 import { IsFeatured, IsNewPost } from "@/components/post";
+import { useMemo } from "react";
 
 export interface SearchResultItemProps {
   post: Post;
@@ -17,14 +19,19 @@ export function SearchResultItem({
   highlight,
   className,
 }: SearchResultItemProps) {
-  const highlightText = (text: string) => {
-    if (!highlight) return text;
+  // Memoize regex to avoid recompilation on every render
+  const highlightRegex = useMemo(() => {
+    if (!highlight) return null;
+    return new RegExp(`(${escapeRegExp(highlight)})`, "gi");
+  }, [highlight]);
 
-    const regex = new RegExp(`(${highlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-    const parts = text.split(regex);
+  const highlightText = (text: string) => {
+    if (!highlightRegex) return text;
+
+    const parts = text.split(highlightRegex);
 
     return parts.map((part, i) =>
-      regex.test(part) ? (
+      highlightRegex.test(part) ? (
         <mark
           key={i}
           className="rounded bg-yellow-200 px-0.5 text-neutral-900 dark:bg-yellow-800 dark:text-neutral-100"

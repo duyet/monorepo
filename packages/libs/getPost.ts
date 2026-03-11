@@ -192,7 +192,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       const wordCount = content.split(/\s+/).filter((w) => w.length > 0).length;
 
       // Count code blocks for more accurate reading time
-      const codeBlockCount = (content.match(/```[\s\S]*?```/g) || []).length;
+      // Fast path: skip expensive regex if no code blocks present
+      const codeBlockCount = content.includes("```")
+        ? (content.match(/```[\s\S]*?```/g) || []).length
+        : 0;
 
       post.readingTime = getReadingTime(wordCount, codeBlockCount);
     }
