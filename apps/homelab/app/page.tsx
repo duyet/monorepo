@@ -8,6 +8,8 @@ import { DashboardTabs } from "@/components/DashboardTabs";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Homelab Dashboard | duyet.net",
   description: "Real-time monitoring dashboard for microk8s cluster",

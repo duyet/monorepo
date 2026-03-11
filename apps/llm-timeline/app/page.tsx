@@ -3,6 +3,8 @@ import { StaticView } from "@/components/static-view";
 import { models, years } from "@/lib/data";
 import { getStats } from "@/lib/utils";
 
+export const dynamic = "force-static";
+
 // Computed once at build time — not inside component to avoid re-computation
 const stats = getStats(models);
 const firstYear = years[years.length - 1];

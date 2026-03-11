@@ -9,6 +9,9 @@ import {
   RateLimitError,
   UnknownPhotoError,
 } from "@/lib/errors";
+
+export const dynamic = "force-static";
+
 import {
   getAllPhotos,
   groupPhotosByYear,
