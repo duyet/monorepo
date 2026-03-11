@@ -5,8 +5,6 @@
  * Error logs always output for production debugging.
  */
 
-type LogLevel = "debug" | "info" | "warn" | "error";
-
 const isDevelopment =
   typeof process !== "undefined" && process.env.NODE_ENV === "development";
 
