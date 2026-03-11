@@ -13,10 +13,6 @@ export interface CCUsageComparisonMetrics {
   topModel: { value1: string; value2: string };
 }
 
-function formatTokens(tokens: number): number {
-  return tokens;
-}
-
 export async function getCCUsageComparison(
   days1: number | "all",
   days2: number | "all"
@@ -32,8 +28,8 @@ export async function getCCUsageComparison(
 
   return {
     totalTokens: {
-      value1: formatTokens(metrics1.totalTokens),
-      value2: formatTokens(metrics2.totalTokens),
+      value1: metrics1.totalTokens,
+      value2: metrics2.totalTokens,
       delta: calculateDelta(metrics1.totalTokens, metrics2.totalTokens),
     },
     totalCost: {
@@ -53,17 +49,5 @@ export async function getCCUsageComparison(
   };
 }
 
-export function formatCCTokens(tokens: number): string {
-  if (tokens >= 1000000000) {
-    return `${(tokens / 1000000000).toFixed(1)}B`;
-  }
-  if (tokens >= 1000000) {
-    return `${(tokens / 1000000).toFixed(1)}M`;
-  }
-  if (tokens >= 1000) {
-    return `${(tokens / 1000).toFixed(1)}K`;
-  }
-  return tokens.toString();
-}
-
-export { formatCurrency as formatCCCost } from "./utils/formatting";
+export { formatNumber as formatCCTokens } from "@duyet/libs";
+export { formatCurrency as formatCCost } from "./utils/formatting";
