@@ -2,7 +2,7 @@
 
 import { cn } from "@duyet/libs/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export interface SearchFiltersProps {
   /** Available categories with post counts */
@@ -129,18 +129,21 @@ export function SearchFilters({
   const [customToDate, setCustomToDate] = useState<string>(currentToDate);
 
   // Sort categories by name
-  const sortedCategories = Object.entries(categories).sort(([a], [b]) =>
-    a.localeCompare(b)
+  const sortedCategories = useMemo(
+    () => Object.entries(categories).sort(([a], [b]) => a.localeCompare(b)),
+    [categories]
   );
 
   // Sort tags by count (descending), then by name
-  const sortedTags = Object.entries(tags).sort(
-    ([nameA, a], [nameB, b]) => {
-      if (a !== b) {
-        return b - a;
-      }
-      return nameA.localeCompare(nameB);
-    }
+  const sortedTags = useMemo(
+    () =>
+      Object.entries(tags).sort(([nameA, a], [nameB, b]) => {
+        if (a !== b) {
+          return b - a;
+        }
+        return nameA.localeCompare(nameB);
+      }),
+    [tags]
   );
 
   /**
@@ -154,7 +157,7 @@ export function SearchFilters({
       from?: string;
       to?: string;
     }) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(searchParams);
 
       // Update category
       if (updates.category !== undefined) {
@@ -221,55 +224,64 @@ export function SearchFilters({
   /**
    * Handle category change
    */
-  const handleCategoryChange = (category: string) => {
-    updateFilters({ category: category === currentCategory ? "" : category });
-  };
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      updateFilters({ category: category === currentCategory ? "" : category });
+    },
+    [currentCategory, updateFilters]
+  );
 
   /**
    * Handle tag toggle
    */
-  const handleTagToggle = (tag: string) => {
-    const newTags = currentTags.includes(tag)
-      ? currentTags.filter((t) => t !== tag)
-      : [...currentTags, tag];
-    updateFilters({ tags: newTags });
-  };
+  const handleTagToggle = useCallback(
+    (tag: string) => {
+      const newTags = currentTags.includes(tag)
+        ? currentTags.filter((t) => t !== tag)
+        : [...currentTags, tag];
+      updateFilters({ tags: newTags });
+    },
+    [currentTags, updateFilters]
+  );
 
   /**
    * Handle date preset change
    */
-  const handleDatePresetChange = (preset: DateRangePreset) => {
-    if (preset === "custom") {
-      setIsCustomDateRange(true);
-    } else {
-      setIsCustomDateRange(false);
-      updateFilters({ preset });
-    }
-  };
+  const handleDatePresetChange = useCallback(
+    (preset: DateRangePreset) => {
+      if (preset === "custom") {
+        setIsCustomDateRange(true);
+      } else {
+        setIsCustomDateRange(false);
+        updateFilters({ preset });
+      }
+    },
+    [updateFilters]
+  );
 
   /**
    * Handle custom date range change
    */
-  const handleCustomDateChange = (
-    field: "from" | "to",
-    value: string
-  ) => {
-    if (field === "from") {
-      setCustomFromDate(value);
-    } else {
-      setCustomToDate(value);
-    }
-    updateFilters({
-      preset: "custom",
-      from: field === "from" ? value : customFromDate,
-      to: field === "to" ? value : customToDate,
-    });
-  };
+  const handleCustomDateChange = useCallback(
+    (field: "from" | "to", value: string) => {
+      if (field === "from") {
+        setCustomFromDate(value);
+      } else {
+        setCustomToDate(value);
+      }
+      updateFilters({
+        preset: "custom",
+        from: field === "from" ? value : customFromDate,
+        to: field === "to" ? value : customToDate,
+      });
+    },
+    [customFromDate, customToDate, updateFilters]
+  );
 
   /**
    * Clear all filters
    */
-  const clearAllFilters = () => {
+  const clearAllFilters = useCallback(() => {
     const params = new URLSearchParams();
     const query = searchParams.get("q");
     if (query) {
@@ -279,7 +291,7 @@ export function SearchFilters({
     setIsCustomDateRange(false);
     setCustomFromDate("");
     setCustomToDate("");
-  };
+  }, [router, searchParams]);
 
   /**
    * Check if any filters are active
@@ -385,9 +397,11 @@ export function SearchFilters({
       <FilterSection title="Date Range">
         {!isCustomDateRange ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {getDateRangeOptions()
-              .filter((opt) => opt.value !== "custom")
-              .map((option) => (
+            {useMemo(
+              () =>
+                getDateRangeOptions()
+                  .filter((opt) => opt.value !== "custom")
+                  .map((option) => (
                 <button
                   type="button"
                   key={option.value}
@@ -402,7 +416,9 @@ export function SearchFilters({
                 >
                   {option.label}
                 </button>
-              ))}
+              )),
+              [currentPreset]
+            )}
             <button
               type="button"
               onClick={() => handleDatePresetChange("custom")}
@@ -488,6 +504,26 @@ function FilterSection({
 }
 
 /**
+ * X icon for removing filters
+ */
+const CloseIcon = () => (
+  <svg
+    className="w-3 h-3"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
+/**
  * Active filter badge with remove button
  */
 function ActiveFilterBadge({
@@ -506,19 +542,7 @@ function ActiveFilterBadge({
         className="hover:text-neutral-900 dark:hover:text-neutral-100"
         aria-label={`Remove ${label} filter`}
       >
-        <svg
-          className="w-3 h-3"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <CloseIcon />
       </button>
     </span>
   );
