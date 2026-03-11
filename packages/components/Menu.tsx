@@ -22,6 +22,20 @@ export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
 }
 
 /**
+ * Helper function to create blog-specific navigation items
+ */
+export function createBlogNavigation(urls: UrlsConfig): NavigationItem[] {
+  return [
+    { name: "Home", href: urls.apps.home },
+    { name: "About", href: `${urls.apps.home}/about` },
+    { name: "Photos", href: urls.apps.photos },
+    { name: "Insights", href: urls.apps.insights },
+    { name: "CV", href: urls.apps.cv },
+    { name: "Search", href: `${urls.apps.blog}/search` },
+  ];
+}
+
+/**
  * Helper exports for common navigation items (for backward compatibility)
  * These now use the duyetUrls configuration
  */
@@ -36,6 +50,7 @@ export const ARCHIVES = {
 export const FEED = { name: "Feed", href: duyetUrls.apps.blog };
 export const BLOG = { name: "Blog", href: duyetUrls.apps.blog };
 export const CV = { name: "CV", href: duyetUrls.apps.cv };
+export const SEARCH = { name: "Search", href: `${duyetUrls.apps.blog}/search` };
 
 type Props = {
   /** URLs configuration (defaults to duyetUrls) */

@@ -1,5 +1,7 @@
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
+import { createBlogNavigation } from "@duyet/components/Menu";
+import { duyetUrls } from "@duyet/urls";
 import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
 import Link from "next/link";
@@ -27,7 +29,11 @@ export default async function Page() {
 
   return (
     <div className="bg-cream-warm min-h-screen pb-10">
-      <Header longText="Data Engineering" />
+      <Header
+        longText="Data Engineering"
+        urls={duyetUrls}
+        navigationItems={createBlogNavigation(duyetUrls)}
+      />
       <Container>
         <div className="mb-12 text-center">
           <p className="text-lg leading-relaxed text-neutral-700">
