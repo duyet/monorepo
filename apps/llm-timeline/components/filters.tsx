@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import { Search, X, Rows2, LayoutList, Download } from "lucide-react";
 import type { FilterState } from "@/lib/utils";
 import { organizations, domains, models as allModels } from "@/lib/data";
@@ -12,6 +13,7 @@ const uniqueSources = Array.from(
 interface FiltersProps {
   filters: FilterState;
   onFilterChange: (filters: FilterState) => void;
+  onClearFilters?: () => void;
   resultCount: number;
   liteMode?: boolean;
   onLiteModeToggle?: () => void;
@@ -20,18 +22,19 @@ interface FiltersProps {
 export function Filters({
   filters,
   onFilterChange,
+  onClearFilters,
   resultCount,
   liteMode,
   onLiteModeToggle,
 }: FiltersProps) {
-  const updateFilter = <K extends keyof FilterState>(
-    key: K,
-    value: FilterState[K]
-  ) => {
-    onFilterChange({ ...filters, [key]: value });
-  };
+  const updateFilter = useCallback(
+    <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
+      onFilterChange({ ...filters, [key]: value });
+    },
+    [filters, onFilterChange]
+  );
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     onFilterChange({
       search: "",
       license: "all",
@@ -41,7 +44,7 @@ export function Filters({
       domain: "all",
       params: "all",
     });
-  };
+  }, [onFilterChange]);
 
   const hasActiveFilters =
     filters.search ||
@@ -189,9 +192,10 @@ export function Filters({
         {/* Clear Filters */}
         {hasActiveFilters && (
           <button
-            onClick={clearFilters}
+            onClick={onClearFilters || clearFilters}
             className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors hover:opacity-80"
             style={{ color: "var(--text-muted)" }}
+            aria-label="Clear all filters"
           >
             <X className="h-3 w-3" />
             Clear

@@ -8,10 +8,18 @@ import { DEFAULT_FILTERS, filterModels, groupByYear, type FilterState } from "@/
 
 export function TimelineClient() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const [isPending, startTransition] = useTransition();
 
   const handleFilterChange = (next: FilterState) => {
     startTransition(() => setFilters(next));
+    // Reset focus when filters change
+    setFocusedIndex(-1);
+  };
+
+  const handleClearFilters = () => {
+    startTransition(() => setFilters(DEFAULT_FILTERS));
+    setFocusedIndex(-1);
   };
 
   const filteredModels = useMemo(
@@ -28,9 +36,14 @@ export function TimelineClient() {
       <Filters
         filters={filters}
         onFilterChange={handleFilterChange}
+        onClearFilters={handleClearFilters}
         resultCount={filteredModels.length}
       />
-      <Timeline modelsByYear={modelsByYear} />
+      <Timeline
+        modelsByYear={modelsByYear}
+        focusedIndex={focusedIndex}
+        onFocusChange={setFocusedIndex}
+      />
     </div>
   );
 }
