@@ -312,7 +312,7 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
               className="flex items-center gap-2 rounded px-2 py-1.5 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
               title={related.desc}
             >
-              <OrgAvatar org={related.org} size="xs" />
+              <OrgAvatar org={related.org} size="sm" />
               <div className="min-w-0 flex-1">
                 <div
                   className="truncate text-xs font-medium"
