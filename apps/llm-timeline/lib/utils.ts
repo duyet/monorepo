@@ -215,3 +215,88 @@ export function getStats(models: Model[]) {
 
 // Re-export getSlug from @duyet/libs for convenience
 export { getSlug as slugify } from "@duyet/libs";
+
+/**
+ * Parse parameter string to numeric value (e.g., "70B" -> 70_000_000_000)
+ */
+function parseParamsValue(params: string | null | undefined): number {
+  if (!params) return 0;
+
+  const match = params.match(/^([\d.]+)([BKMGTP]?)/i);
+  if (!match) return 0;
+
+  const value = Number.parseFloat(match[1]);
+  const unit = match[2].toUpperCase();
+
+  const multipliers: Record<string, number> = {
+    "": 1,
+    B: 1,
+    K: 1_000,
+    M: 1_000_000,
+    G: 1_000_000_000,
+    T: 1_000_000_000_000,
+    P: 1_000_000_000_000_000,
+  };
+
+  return value * (multipliers[unit] || 1);
+}
+
+/**
+ * Find related models based on organization, license, and parameter proximity.
+ * Returns up to 5 related models, excluding the current model.
+ */
+export function getRelatedModels(
+  currentModel: Model,
+  allModels: Model[],
+  limit: number = 5
+): Model[] {
+  const currentParams = parseParamsValue(currentModel.params);
+
+  // Score each model based on similarity
+  const scored = allModels
+    .filter((m) => m.name !== currentModel.name) // Exclude current model
+    .map((model) => {
+      let score = 0;
+
+      // Same organization: +30 points
+      if (model.org === currentModel.org) {
+        score += 30;
+      }
+
+      // Same license: +20 points
+      if (model.license === currentModel.license) {
+        score += 20;
+      }
+
+      // Same type: +10 points
+      if (model.type === currentModel.type) {
+        score += 10;
+      }
+
+      // Parameter proximity (±50%): up to 40 points
+      const modelParams = parseParamsValue(model.params);
+      if (currentParams > 0 && modelParams > 0) {
+        const ratio = Math.min(currentParams, modelParams) / Math.max(currentParams, modelParams);
+        if (ratio >= 0.5) {
+          // Within 2x range: closer is better
+          score += Math.round(40 * ratio);
+        }
+      }
+
+      // Recency bonus: newer models get slight bonus (up to 10 points)
+      const currentDate = new Date(currentModel.date).getTime();
+      const modelDate = new Date(model.date).getTime();
+      if (modelDate > currentDate) {
+        const daysDiff = Math.floor((modelDate - currentDate) / (1000 * 60 * 60 * 24));
+        score += Math.min(10, Math.max(0, daysDiff / 30)); // Up to 10 points for being newer
+      }
+
+      return { model, score };
+    })
+    .filter(({ score }) => score > 0) // Only include models with some similarity
+    .sort((a, b) => b.score - a.score) // Sort by score descending
+    .slice(0, limit) // Take top N
+    .map(({ model }) => model); // Extract just the model
+
+  return scored;
+}

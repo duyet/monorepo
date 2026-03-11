@@ -1,9 +1,12 @@
 "use client";
 
-import { getLicenseColor, getTypeColor, getSourceColor } from "@/lib/utils";
+import { getLicenseColor, getTypeColor, getSourceColor, getRelatedModels } from "@/lib/utils";
 import type { Model } from "@/lib/data";
 import { cn } from "@duyet/libs/utils";
 import { OrgAvatar } from "@/components/org-avatar";
+import { useState, useMemo } from "react";
+import { ChevronDown, ChevronUp, Link2 } from "lucide-react";
+import { models } from "@/lib/data";
 
 interface ModelCardProps {
   model: Model;
@@ -261,7 +264,84 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
             )}
           </div>
         )}
+
+        {/* Related Models Section */}
+        <RelatedModelsSection model={model} />
       </div>
+    </div>
+  );
+}
+
+interface RelatedModelsSectionProps {
+  model: Model;
+}
+
+function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Memoize related models to avoid recomputation
+  const relatedModels = useMemo(() => {
+    return getRelatedModels(model, models, 4);
+  }, [model]);
+
+  if (relatedModels.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="mt-3 border-t pt-2" style={{ borderColor: "var(--border)" }}>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:opacity-80"
+        style={{ color: "var(--accent)" }}
+      >
+        {isExpanded ? (
+          <ChevronUp className="h-3 w-3" />
+        ) : (
+          <ChevronDown className="h-3 w-3" />
+        )}
+        <span>Related Models ({relatedModels.length})</span>
+      </button>
+
+      {isExpanded && (
+        <div className="mt-2 flex flex-col gap-1.5">
+          {relatedModels.map((related) => (
+            <a
+              key={related.name}
+              href={`#${related.name}`}
+              className="flex items-center gap-2 rounded px-2 py-1.5 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              title={related.desc}
+            >
+              <OrgAvatar org={related.org} size="xs" />
+              <div className="min-w-0 flex-1">
+                <div
+                  className="truncate text-xs font-medium"
+                  style={{ color: "var(--text)" }}
+                >
+                  {related.name}
+                </div>
+                <div
+                  className="flex items-center gap-2 text-[10px]"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  <span>{related.org}</span>
+                  {related.params && (
+                    <>
+                      <span>·</span>
+                      <span style={{ fontFamily: "var(--font-mono)" }}>
+                        {related.params}
+                      </span>
+                    </>
+                  )}
+                  <span>·</span>
+                  <span>{related.date.slice(0, 4)}</span>
+                </div>
+              </div>
+              <Link2 className="h-3 w-3 shrink-0" style={{ color: "var(--text-muted)" }} />
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
