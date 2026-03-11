@@ -4,7 +4,9 @@ import type { Metadata } from "next";
 
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { RelatedPosts } from "@/components/post/RelatedPosts";
+import { SeriesNav } from "@/components/post/SeriesNav";
 import { TableOfContents } from "@/components/post/TableOfContents";
+import { getSeriesNavigation } from "@/lib/getSeriesNav";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
 
@@ -57,6 +59,11 @@ export default async function Post({ params }: PostProps) {
   // Get related posts based on tags and category
   const relatedPosts = getRelatedPosts(post, 4);
 
+  // Get series navigation if post belongs to a series
+  const seriesNav = post.series
+    ? getSeriesNavigation(`${year}/${month}/${slug}`, post.series)
+    : { prev: null, next: null };
+
   return (
     <div className="relative">
       <ReadingProgress />
@@ -64,6 +71,8 @@ export default async function Post({ params }: PostProps) {
       <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <article>
           <Content post={post} />
+          {/* Series navigation between content and metadata */}
+          <SeriesNav prev={seriesNav.prev} next={seriesNav.next} />
           <Meta className="mt-10" post={post} />
           <RelatedPosts posts={relatedPosts} />
         </article>
