@@ -13,8 +13,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { extractErrorDetail, getErrorMessage } from "@/lib/errors";
 import type { ErrorState } from "@/lib/errors";
+import { extractErrorDetail, getErrorMessage } from "@/lib/errors";
 
 /**
  * Configuration options for the session hook

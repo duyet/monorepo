@@ -1,7 +1,7 @@
-import { describe, test, expect } from "bun:test";
-import { createUrls, createNavigation, getAppUrls, getAppUrl } from "./utils";
-import type { UrlsConfig } from "./types";
+import { describe, expect, test } from "bun:test";
 import type { Profile } from "@duyet/profile";
+import type { UrlsConfig } from "./types";
+import { createNavigation, createUrls, getAppUrl, getAppUrls } from "./utils";
 
 const baseUrls: UrlsConfig = {
   apps: {

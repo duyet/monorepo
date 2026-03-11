@@ -6,7 +6,7 @@ import Head from "@duyet/components/Head";
 import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
-import { DM_Serif_Display, IBM_Plex_Mono, DM_Sans } from "next/font/google";
+import { DM_Sans, DM_Serif_Display, IBM_Plex_Mono } from "next/font/google";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: ["400"],

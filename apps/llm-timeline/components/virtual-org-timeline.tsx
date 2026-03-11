@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import { useEffect, useRef, useState } from "react";
+import type { Model } from "@/lib/data";
 import { ModelCard } from "./model-card";
 import { OrgAvatar } from "./org-avatar";
-import type { Model } from "@/lib/data";
 
 interface VirtualOrgTimelineProps {
   modelsByOrg: Map<string, Model[]>;

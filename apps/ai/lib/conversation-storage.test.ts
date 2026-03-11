@@ -2,13 +2,13 @@
  * Conversation Storage Tests
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { Conversation } from "@/types/conversation";
 import {
+  clearConversations,
   loadConversations,
   saveConversations,
-  clearConversations,
 } from "./conversation-storage";
-import type { Conversation } from "@/types/conversation";
 
 describe("conversation-storage", () => {
   beforeEach(() => {

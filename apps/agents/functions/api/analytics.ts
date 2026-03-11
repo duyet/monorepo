@@ -43,7 +43,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       WHERE created_at >= ?
       GROUP BY date(created_at / 1000, 'unixepoch')
       ORDER BY date ASC
-    `).bind(sevenDaysAgo).all();
+    `)
+      .bind(sevenDaysAgo)
+      .all();
 
     const dailyTrends = trendRes.results || [];
 

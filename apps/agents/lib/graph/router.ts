@@ -5,20 +5,20 @@
  * Executes nodes sequentially with state persistence.
  */
 
-import type { AgentState, NodeTrace, GraphMetrics } from "./types";
 import { generateId } from "@duyet/libs";
 import {
-  type GraphNode,
-  LLMRouterNode,
-  SynthesisNode,
-  SearchBlogNode,
+  FetchLlmsTxtNode,
+  GetAboutNode,
+  GetAnalyticsNode,
   GetBlogPostNode,
   GetCVNode,
   GetGitHubNode,
-  GetAnalyticsNode,
-  GetAboutNode,
-  FetchLlmsTxtNode,
+  type GraphNode,
+  LLMRouterNode,
+  SearchBlogNode,
+  SynthesisNode,
 } from "./nodes";
+import type { AgentState, GraphMetrics, NodeTrace } from "./types";
 
 /**
  * Maximum number of steps to prevent infinite loops
@@ -180,7 +180,8 @@ export class GraphRouter {
         metrics: this.metrics,
       };
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
 
       this.metrics.errorCount++;
       this.metrics.totalDuration = Date.now() - startTime;
@@ -294,7 +295,11 @@ export class GraphRouter {
       { id: "post-synthesis", source: "get-blog-post", target: "synthesis" },
       { id: "cv-synthesis", source: "get-cv", target: "synthesis" },
       { id: "github-synthesis", source: "get-github", target: "synthesis" },
-      { id: "analytics-synthesis", source: "get-analytics", target: "synthesis" },
+      {
+        id: "analytics-synthesis",
+        source: "get-analytics",
+        target: "synthesis",
+      },
       { id: "about-synthesis", source: "get-about", target: "synthesis" },
       { id: "llms-synthesis", source: "fetch-llms-txt", target: "synthesis" }
     );

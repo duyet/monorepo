@@ -82,7 +82,9 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
     .find(
       (item) =>
         item.date.date !== latestDate &&
-        (item.sum.requests > 0 || item.sum.pageViews > 0 || item.uniq.uniques > 0)
+        (item.sum.requests > 0 ||
+          item.sum.pageViews > 0 ||
+          item.uniq.uniques > 0)
     );
 
   function computeChange(current: number, previous: number | undefined) {

@@ -4,9 +4,9 @@
  * Wraps getBlogPostTool as a graph node.
  */
 
+import { getBlogPostTool } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { getBlogPostTool } from "../../../tools";
 
 /**
  * Get Blog Post Node
@@ -23,9 +23,11 @@ export class GetBlogPostNode extends GraphNode {
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Extract URL from state metadata or tool calls
       let url: string | undefined;

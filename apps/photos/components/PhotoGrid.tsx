@@ -84,10 +84,7 @@ export default function PhotoGrid({
         {/* EXIF Filters */}
         {showFilters && photos.length > 0 && (
           <Suspense fallback={null}>
-            <EXIFFilters
-              photos={photos}
-              onFilterChange={handleFilterChange}
-            />
+            <EXIFFilters photos={photos} onFilterChange={handleFilterChange} />
           </Suspense>
         )}
 
@@ -124,7 +121,9 @@ export default function PhotoGrid({
             photo={selectedPhoto}
             isOpen={!!selectedPhoto}
             onClose={handleClose}
-            onNext={selectedIndex < filteredPhotos.length - 1 ? handleNext : undefined}
+            onNext={
+              selectedIndex < filteredPhotos.length - 1 ? handleNext : undefined
+            }
             onPrevious={selectedIndex > 0 ? handlePrevious : undefined}
             currentIndex={selectedIndex}
             totalCount={filteredPhotos.length}

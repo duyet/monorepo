@@ -3,7 +3,7 @@
  * Higher priority sources win on duplicates
  */
 
-import type { Model, MergeStats, DataSourceAdapter } from "./types";
+import type { DataSourceAdapter, MergeStats, Model } from "./types";
 
 export interface SourceResult {
   source: DataSourceAdapter;

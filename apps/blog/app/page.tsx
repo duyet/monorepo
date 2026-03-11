@@ -1,9 +1,9 @@
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
 import { createBlogNavigation } from "@duyet/components/Menu";
-import { duyetUrls } from "@duyet/urls";
 import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
+import { duyetUrls } from "@duyet/urls";
 import Link from "next/link";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
@@ -11,7 +11,13 @@ import { YearPost } from "@/components/post";
 export const dynamic = "force-static";
 
 export default async function Page() {
-  const postsByYear = getPostsByAllYear(["slug", "title", "date", "category", "readingTime"]);
+  const postsByYear = getPostsByAllYear([
+    "slug",
+    "title",
+    "date",
+    "category",
+    "readingTime",
+  ]);
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
     0

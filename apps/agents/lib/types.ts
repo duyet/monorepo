@@ -155,66 +155,55 @@ export interface ActivityPanelProps {
 // GRAPH TYPES (Unit 14) - Re-exported from graph module for convenience
 // ============================================================================
 
-// Core graph state types
-export type {
-  AgentState,
-  StateMetadata,
-  ToolCall,
-  NodeTrace,
-  StateDiff,
-} from "./graph/types";
-
-// Graph execution metrics
-export type {
-  GraphMetrics,
-  GraphNode,
-  ConditionalEdge,
-  GraphStructure,
-  StateCheckpoint,
-} from "./graph/types";
-
-// Visualization types
-export type {
-  VisualGraphData,
-  VisualNode,
-  VisualEdge,
-} from "./graph/types";
-
-// Observer types
-export type {
-  NodeObserver,
-  StateObserver,
-} from "./graph/types";
-
-// State management utilities (Unit 1)
-export {
-  validate,
-  createAgentState,
-  clone,
-  applyUpdate,
-  computeDiff,
-  formatDiff,
-  createCheckpoint,
-  restoreFromCheckpoint,
-} from "./graph/state";
-export type { StateValidationResult } from "./graph/state";
-
-// Conditional edge logic (Unit 9)
-export {
-  routeNextNode,
-  shouldEnd,
-  createConditionalEdge,
-  hasPendingToolsEdge,
-  toolsCompletedEdge,
-  hasResponseEdge,
-  hasErrorEdge,
-  chainEdges,
-  defaultEdgeChain,
-} from "./graph/edges";
-export type { NodeRoute, EdgeDecision } from "./graph/edges";
-
 // Database checkpoint types (Unit 3)
 export type {
   CheckpointRow,
   CreateCheckpointParams,
 } from "./db/client";
+export type { EdgeDecision, NodeRoute } from "./graph/edges";
+// Conditional edge logic (Unit 9)
+export {
+  chainEdges,
+  createConditionalEdge,
+  defaultEdgeChain,
+  hasErrorEdge,
+  hasPendingToolsEdge,
+  hasResponseEdge,
+  routeNextNode,
+  shouldEnd,
+  toolsCompletedEdge,
+} from "./graph/edges";
+export type { StateValidationResult } from "./graph/state";
+
+// State management utilities (Unit 1)
+export {
+  applyUpdate,
+  clone,
+  computeDiff,
+  createAgentState,
+  createCheckpoint,
+  formatDiff,
+  restoreFromCheckpoint,
+  validate,
+} from "./graph/state";
+// Core graph state types
+// Graph execution metrics
+// Visualization types
+// Observer types
+export type {
+  AgentState,
+  ConditionalEdge,
+  GraphMetrics,
+  GraphNode,
+  GraphStructure,
+  NodeObserver,
+  NodeTrace,
+  StateCheckpoint,
+  StateDiff,
+  StateMetadata,
+  StateObserver,
+  ToolCall,
+  VisualEdge,
+  VisualGraphData,
+  VisualNode,
+} from "./graph/types";

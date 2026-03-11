@@ -1,9 +1,9 @@
 "use client";
 
 import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
-import { SearchBar, SearchResultItem, SearchFilters } from "@/components/blog";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import { SearchBar, SearchFilters, SearchResultItem } from "@/components/blog";
 
 const DEFAULT_INITIAL_POST_COUNT = 20; // Balance between UX and initial render performance
 
@@ -17,20 +17,14 @@ export interface SearchClientProps {
  * Client component for search functionality.
  * Handles filtering and displaying search results based on URL params.
  */
-export function SearchClient({
-  posts,
-  categories,
-  tags,
-}: SearchClientProps) {
+export function SearchClient({ posts, categories, tags }: SearchClientProps) {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const categoryFilter = searchParams.get("category") || "";
 
   // Memoize tagsFilter parsing to avoid splitting on every render
   const tagsFilter = useMemo(() => {
-    return (searchParams.get("tags") || "")
-      .split(",")
-      .filter(Boolean);
+    return (searchParams.get("tags") || "").split(",").filter(Boolean);
   }, [searchParams]);
 
   const fromDate = searchParams.get("from") || "";
@@ -55,16 +49,31 @@ export function SearchClient({
     const date = new Date(toDate);
     if (Number.isNaN(date.getTime())) return null;
     // Include the entire end day by setting to 23:59:59
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      23,
+      59,
+      59,
+      999
+    );
   }, [toDate]);
 
   // Check if any filters are active
-  const hasFilters = query || categoryFilter || tagsFilter.length > 0 || fromDate || toDate;
+  const hasFilters =
+    query || categoryFilter || tagsFilter.length > 0 || fromDate || toDate;
 
   // Memoize filtered posts for performance
   const filteredPosts = useMemo(() => {
     // No query and no filters - show initial posts
-    if (!query && !categoryFilter && tagsFilter.length === 0 && !fromDate && !toDate) {
+    if (
+      !query &&
+      !categoryFilter &&
+      tagsFilter.length === 0 &&
+      !fromDate &&
+      !toDate
+    ) {
       return posts.slice(0, DEFAULT_INITIAL_POST_COUNT);
     }
 
@@ -93,7 +102,10 @@ export function SearchClient({
       }
 
       // Tags filter (posts must have ALL selected tags)
-      if (tagsFilter.length > 0 && !tagsFilter.every((tag) => post.tags.includes(tag))) {
+      if (
+        tagsFilter.length > 0 &&
+        !tagsFilter.every((tag) => post.tags.includes(tag))
+      ) {
         return false;
       }
 
@@ -108,7 +120,15 @@ export function SearchClient({
 
       return true;
     });
-  }, [posts, searchTerms, query, categoryFilter, tagsFilter, fromDateObj, toDateObj]);
+  }, [
+    posts,
+    searchTerms,
+    query,
+    categoryFilter,
+    tagsFilter,
+    fromDateObj,
+    toDateObj,
+  ]);
 
   // Sort by date descending (no need for spread - filteredPosts is already a new array)
   const sortedPosts = useMemo(() => {
@@ -144,7 +164,11 @@ export function SearchClient({
           ) : (
             <div className="flex flex-col gap-2">
               {sortedPosts.map((post) => (
-                <SearchResultItem key={post.slug} post={post} highlight={query} />
+                <SearchResultItem
+                  key={post.slug}
+                  post={post}
+                  highlight={query}
+                />
               ))}
             </div>
           )}

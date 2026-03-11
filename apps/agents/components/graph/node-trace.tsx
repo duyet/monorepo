@@ -9,16 +9,16 @@
 import { Badge } from "@duyet/components";
 import { cn, formatDuration } from "@duyet/libs";
 import {
+  AlertCircle,
+  CheckCircle2,
   ChevronDown,
   ChevronRight,
   Clock,
-  AlertCircle,
-  CheckCircle2,
   Loader2,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useToggleSet } from "@/lib/hooks";
 import type { NodeTrace } from "@/lib/graph";
+import { useToggleSet } from "@/lib/hooks";
 
 export interface NodeTraceTimelineProps {
   /** Node execution traces in chronological order */
@@ -90,8 +90,13 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
         {/* Node info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-sm font-medium truncate">{trace.nodeName}</span>
-            <Badge variant={config.badgeVariant} className="text-[10px] px-1.5 py-0">
+            <span className="text-sm font-medium truncate">
+              {trace.nodeName}
+            </span>
+            <Badge
+              variant={config.badgeVariant}
+              className="text-[10px] px-1.5 py-0"
+            >
               {trace.nodeId}
             </Badge>
           </div>
@@ -114,42 +119,57 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
             {/* Timing info */}
             {trace.startTime && (
               <div>
-                <span className="font-medium text-muted-foreground">Timing:</span>{" "}
+                <span className="font-medium text-muted-foreground">
+                  Timing:
+                </span>{" "}
                 <span className="font-mono">
                   {new Date(trace.startTime).toISOString()}{" "}
-                  {trace.endTime && `→ ${new Date(trace.endTime).toISOString()}`}
+                  {trace.endTime &&
+                    `→ ${new Date(trace.endTime).toISOString()}`}
                 </span>
               </div>
             )}
 
             {/* State diff summary */}
-            {trace.stateDiff && (() => {
-              const addedCount = trace.stateDiff.added ? Object.keys(trace.stateDiff.added).length : 0;
-              const modifiedCount = trace.stateDiff.modified ? Object.keys(trace.stateDiff.modified).length : 0;
-              const deletedCount = trace.stateDiff.deleted ? Object.keys(trace.stateDiff.deleted).length : 0;
-              const hasChanges = addedCount > 0 || modifiedCount > 0 || deletedCount > 0;
+            {trace.stateDiff &&
+              (() => {
+                const addedCount = trace.stateDiff.added
+                  ? Object.keys(trace.stateDiff.added).length
+                  : 0;
+                const modifiedCount = trace.stateDiff.modified
+                  ? Object.keys(trace.stateDiff.modified).length
+                  : 0;
+                const deletedCount = trace.stateDiff.deleted
+                  ? Object.keys(trace.stateDiff.deleted).length
+                  : 0;
+                const hasChanges =
+                  addedCount > 0 || modifiedCount > 0 || deletedCount > 0;
 
-              if (!hasChanges) return null;
+                if (!hasChanges) return null;
 
-              const parts: string[] = [];
-              if (addedCount > 0) parts.push(`+${addedCount} added`);
-              if (modifiedCount > 0) parts.push(`~${modifiedCount} modified`);
-              if (deletedCount > 0) parts.push(`-${deletedCount} deleted`);
+                const parts: string[] = [];
+                if (addedCount > 0) parts.push(`+${addedCount} added`);
+                if (modifiedCount > 0) parts.push(`~${modifiedCount} modified`);
+                if (deletedCount > 0) parts.push(`-${deletedCount} deleted`);
 
-              return (
-                <div>
-                  <span className="font-medium text-muted-foreground">State Changes:</span>{" "}
-                  <div className="mt-1 p-2 bg-background rounded border border-border font-mono">
-                    {parts.join(", ") || "(no changes)"}
+                return (
+                  <div>
+                    <span className="font-medium text-muted-foreground">
+                      State Changes:
+                    </span>{" "}
+                    <div className="mt-1 p-2 bg-background rounded border border-border font-mono">
+                      {parts.join(", ") || "(no changes)"}
+                    </div>
                   </div>
-                </div>
-              );
-            })()}
+                );
+              })()}
 
             {/* Metadata */}
             {trace.metadata && Object.keys(trace.metadata).length > 0 && (
               <div>
-                <span className="font-medium text-muted-foreground">Metadata:</span>{" "}
+                <span className="font-medium text-muted-foreground">
+                  Metadata:
+                </span>{" "}
                 <span className="font-mono">
                   {JSON.stringify(trace.metadata, null, 2)}
                 </span>
@@ -159,7 +179,9 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
             {/* Input state preview */}
             {trace.inputState && (
               <div>
-                <span className="font-medium text-muted-foreground">Input:</span>{" "}
+                <span className="font-medium text-muted-foreground">
+                  Input:
+                </span>{" "}
                 <span className="font-mono line-clamp-2">
                   {JSON.stringify({
                     conversationId: trace.inputState.conversationId,
@@ -173,7 +195,9 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
             {/* Output state preview */}
             {trace.outputState && (
               <div>
-                <span className="font-medium text-muted-foreground">Output:</span>{" "}
+                <span className="font-medium text-muted-foreground">
+                  Output:
+                </span>{" "}
                 <span className="font-mono line-clamp-2">
                   {JSON.stringify({
                     response: trace.outputState.response?.substring(0, 50),
@@ -203,10 +227,17 @@ export function NodeTraceTimeline({
 
   if (traces.length === 0) {
     return (
-      <div className={cn("flex items-center justify-center py-8 text-center", className)}>
+      <div
+        className={cn(
+          "flex items-center justify-center py-8 text-center",
+          className
+        )}
+      >
         <div>
           <Loader2 className="h-8 w-8 mx-auto mb-2 text-muted-foreground/50 animate-spin" />
-          <p className="text-sm text-muted-foreground">Waiting for execution...</p>
+          <p className="text-sm text-muted-foreground">
+            Waiting for execution...
+          </p>
         </div>
       </div>
     );

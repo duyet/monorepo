@@ -15,28 +15,28 @@
 
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
 import { ChatKit, useChatKit } from "@openai/chatkit-react";
-import {
-  STARTER_PROMPTS,
-  PLACEHOLDER_INPUT,
-  MODELS,
-  GREETING,
-  CREATE_SESSION_ENDPOINT,
-  WORKFLOW_ID,
-} from "@/lib/config";
-import { ErrorOverlay } from "./ErrorOverlay";
-import { ConversationSidebar } from "./ConversationSidebar";
-import { createInitialErrors, type ErrorState } from "@/lib/errors";
-import { useChatKitSession } from "@/hooks/useChatKitSession";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useChatKitScript } from "@/hooks/useChatKitScript";
+import { useChatKitSession } from "@/hooks/useChatKitSession";
+import type { ColorScheme } from "@/hooks/useColorScheme";
 import { useConversationHistory } from "@/hooks/useConversationHistory";
 import {
-  executeClientTool,
-  type ClientToolInvocation,
   type ClientToolContext,
+  type ClientToolInvocation,
+  executeClientTool,
 } from "@/lib/client-tools";
-import type { ColorScheme } from "@/hooks/useColorScheme";
+import {
+  CREATE_SESSION_ENDPOINT,
+  GREETING,
+  MODELS,
+  PLACEHOLDER_INPUT,
+  STARTER_PROMPTS,
+  WORKFLOW_ID,
+} from "@/lib/config";
+import { createInitialErrors, type ErrorState } from "@/lib/errors";
+import { ConversationSidebar } from "./ConversationSidebar";
+import { ErrorOverlay } from "./ErrorOverlay";
 
 /**
  * Represents a fact action from the chat conversation

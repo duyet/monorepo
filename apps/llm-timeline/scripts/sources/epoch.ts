@@ -2,15 +2,15 @@
  * epoch.ts — DataSourceAdapter for Epoch.ai data
  */
 
-import type { Model, DataSourceAdapter } from "../../lib/types";
-import { parseCsv, detectColumns, getCellValue } from "../../lib/csv";
+import { detectColumns, getCellValue, parseCsv } from "../../lib/csv";
 import {
-  normalizeDate,
-  mapAccessibility,
   convertNumericParams,
-  normalizeText,
   formatTrainingCompute,
+  mapAccessibility,
+  normalizeDate,
+  normalizeText,
 } from "../../lib/normalizers";
+import type { DataSourceAdapter, Model } from "../../lib/types";
 
 const EPOCH_CSV_URL = "https://epoch.ai/data/all_ai_models.csv";
 

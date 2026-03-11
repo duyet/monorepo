@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { AuthButtons } from "@duyet/components/header/AuthButtons";
+import Icons from "@duyet/components/Icons";
 import { Download, Lock, Scale } from "lucide-react";
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { lastSynced } from "@/lib/data";
-import Icons from "@duyet/components/Icons";
-import { AuthButtons } from "@duyet/components/header/AuthButtons";
 
 interface PageLayoutProps {
   children: React.ReactNode;

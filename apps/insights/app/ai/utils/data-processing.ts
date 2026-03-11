@@ -51,7 +51,10 @@ export function distributePercentages(rawPercentages: number[]): number[] {
 
   // Step 3: Distribute the remaining units (to reach 100)
   // Clamp to avoid negative values from floating-point precision
-  const remainingUnits = Math.max(0, Math.min(100 - sumIntegers, rawPercentages.length));
+  const remainingUnits = Math.max(
+    0,
+    Math.min(100 - sumIntegers, rawPercentages.length)
+  );
 
   // Step 4: Sort by remainder (descending) and distribute remaining units
   const sortedByRemainder = [...items].sort(

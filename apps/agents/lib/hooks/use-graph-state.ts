@@ -112,91 +112,93 @@ export function useGraphState(
   /**
    * Restore to a specific checkpoint
    */
-  const restoreCheckpoint = useCallback(async (
-    checkpointId: string
-  ): Promise<AgentState | null> => {
-    setIsLoading(true);
-    setError(null);
+  const restoreCheckpoint = useCallback(
+    async (checkpointId: string): Promise<AgentState | null> => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const headers = await getAuthHeaders(getAuthToken);
-      const response = await fetch("/checkpoint/restore", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...headers,
-        },
-        body: JSON.stringify({ checkpointId }),
-      });
+      try {
+        const headers = await getAuthHeaders(getAuthToken);
+        const response = await fetch("/checkpoint/restore", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...headers,
+          },
+          body: JSON.stringify({ checkpointId }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to restore: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`Failed to restore: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+          setState(data.state);
+          return data.state;
+        }
+
+        throw new Error(data.message || "Restore failed");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
+        console.error("[useGraphState] Failed to restore checkpoint:", err);
+        return null;
+      } finally {
+        setIsLoading(false);
       }
-
-      const data = await response.json();
-
-      if (data.success) {
-        setState(data.state);
-        return data.state;
-      }
-
-      throw new Error(data.message || "Restore failed");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
-      setError(message);
-      console.error("[useGraphState] Failed to restore checkpoint:", err);
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getAuthToken]);
+    },
+    [getAuthToken]
+  );
 
   /**
    * Restore to a specific version number
    */
-  const restoreToVersion = useCallback(async (
-    version: number
-  ): Promise<AgentState | null> => {
-    if (!conversationId) {
-      setError("Conversation ID is required for version restore");
-      return null;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const headers = await getAuthHeaders(getAuthToken);
-      const response = await fetch("/checkpoint/restore", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...headers,
-        },
-        body: JSON.stringify({ conversationId, version }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to restore: ${response.status}`);
+  const restoreToVersion = useCallback(
+    async (version: number): Promise<AgentState | null> => {
+      if (!conversationId) {
+        setError("Conversation ID is required for version restore");
+        return null;
       }
 
-      const data = await response.json();
+      setIsLoading(true);
+      setError(null);
 
-      if (data.success) {
-        setState(data.state);
-        return data.state;
+      try {
+        const headers = await getAuthHeaders(getAuthToken);
+        const response = await fetch("/checkpoint/restore", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...headers,
+          },
+          body: JSON.stringify({ conversationId, version }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to restore: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+          setState(data.state);
+          return data.state;
+        }
+
+        throw new Error(data.message || "Restore failed");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
+        console.error("[useGraphState] Failed to restore version:", err);
+        return null;
+      } finally {
+        setIsLoading(false);
       }
-
-      throw new Error(data.message || "Restore failed");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
-      setError(message);
-      console.error("[useGraphState] Failed to restore version:", err);
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [conversationId, getAuthToken]);
+    },
+    [conversationId, getAuthToken]
+  );
 
   // Load latest state on mount and when conversationId changes
   useEffect(() => {
@@ -297,79 +299,81 @@ export function useCheckpoints(
   /**
    * Restore to a specific checkpoint
    */
-  const restore = useCallback(async (
-    checkpointId: string
-  ): Promise<AgentState | null> => {
-    setIsLoading(true);
-    setError(null);
+  const restore = useCallback(
+    async (checkpointId: string): Promise<AgentState | null> => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const headers = await getAuthHeaders(getAuthToken);
-      const response = await fetch("/checkpoint/restore", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...headers,
-        },
-        body: JSON.stringify({ checkpointId }),
-      });
+      try {
+        const headers = await getAuthHeaders(getAuthToken);
+        const response = await fetch("/checkpoint/restore", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...headers,
+          },
+          body: JSON.stringify({ checkpointId }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to restore: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`Failed to restore: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+          return data.state;
+        }
+
+        throw new Error(data.message || "Restore failed");
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
+        console.error("[useCheckpoints] Failed to restore:", err);
+        return null;
+      } finally {
+        setIsLoading(false);
       }
-
-      const data = await response.json();
-
-      if (data.success) {
-        return data.state;
-      }
-
-      throw new Error(data.message || "Restore failed");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
-      setError(message);
-      console.error("[useCheckpoints] Failed to restore:", err);
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getAuthToken]);
+    },
+    [getAuthToken]
+  );
 
   /**
    * Delete a checkpoint
    */
-  const delete_ = useCallback(async (
-    checkpointId: string
-  ): Promise<boolean> => {
-    setIsLoading(true);
-    setError(null);
+  const delete_ = useCallback(
+    async (checkpointId: string): Promise<boolean> => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const headers = await getAuthHeaders(getAuthToken);
-      const response = await fetch(
-        `/checkpoint/${encodeURIComponent(checkpointId)}`,
-        {
-          method: "DELETE",
-          headers,
+      try {
+        const headers = await getAuthHeaders(getAuthToken);
+        const response = await fetch(
+          `/checkpoint/${encodeURIComponent(checkpointId)}`,
+          {
+            method: "DELETE",
+            headers,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to delete: ${response.status}`);
         }
-      );
 
-      if (!response.ok) {
-        throw new Error(`Failed to delete: ${response.status}`);
+        // Refresh the list after successful delete
+        await refresh();
+        return true;
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
+        console.error("[useCheckpoints] Failed to delete checkpoint:", err);
+        return false;
+      } finally {
+        setIsLoading(false);
       }
-
-      // Refresh the list after successful delete
-      await refresh();
-      return true;
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
-      setError(message);
-      console.error("[useCheckpoints] Failed to delete checkpoint:", err);
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getAuthToken, refresh]);
+    },
+    [getAuthToken, refresh]
+  );
 
   const clearError = useCallback(() => {
     setError(null);

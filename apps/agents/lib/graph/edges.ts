@@ -151,7 +151,9 @@ export function createConditionalEdge(
  */
 export const hasPendingToolsEdge = createConditionalEdge(
   (state) =>
-    state.toolCalls.some((tc) => tc.status === "pending" || tc.status === "running"),
+    state.toolCalls.some(
+      (tc) => tc.status === "pending" || tc.status === "running"
+    ),
   "execute_tools",
   "llm",
   "Route to tool execution if pending tools"
@@ -163,7 +165,9 @@ export const hasPendingToolsEdge = createConditionalEdge(
 export const toolsCompletedEdge = createConditionalEdge(
   (state) =>
     state.toolCalls.some((tc) => tc.status === "complete") &&
-    state.toolCalls.every((tc) => tc.status !== "pending" && tc.status !== "running"),
+    state.toolCalls.every(
+      (tc) => tc.status !== "pending" && tc.status !== "running"
+    ),
   "synthesize",
   "llm",
   "Route to synthesis if all tools completed"
@@ -222,11 +226,6 @@ export function chainEdges(
  * 5. Default → llm
  */
 export const defaultEdgeChain = chainEdges(
-  [
-    hasErrorEdge,
-    hasPendingToolsEdge,
-    toolsCompletedEdge,
-    hasResponseEdge,
-  ],
+  [hasErrorEdge, hasPendingToolsEdge, toolsCompletedEdge, hasResponseEdge],
   "llm"
 );

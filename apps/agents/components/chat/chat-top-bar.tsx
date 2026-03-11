@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@duyet/components";
+import { AuthButtons } from "@duyet/components/header/AuthButtons";
 import {
   Activity,
   Download,
@@ -11,15 +12,15 @@ import {
   Wrench,
 } from "lucide-react";
 import { useState } from "react";
-import { useClerkComponents } from "@/lib/hooks/use-clerk-components";
-import { useExportConversation } from "@/lib/hooks/use-export-conversation";
-import { SettingsDialog } from "../settings/settings-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useExportConversation } from "@/lib/hooks/use-export-conversation";
+import { SettingsDialog } from "../settings/settings-dialog";
 
 interface ChatTopBarProps {
   onToggleActivity: () => void;
@@ -47,7 +48,6 @@ export function ChatTopBar({
   conversationTitle,
   conversationId,
 }: ChatTopBarProps) {
-  const clerk = useClerkComponents();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { exportConversation, isExporting } = useExportConversation();
 
@@ -64,9 +64,10 @@ export function ChatTopBar({
 
   return (
     <>
-      <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent px-4 py-2">
+      <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent flex-shrink-0 px-2 sm:px-4 py-2">
         {/* Left: Breadcrumbs / Title */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <SidebarTrigger />
           <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
             <span>{conversationTitle || "New Task"}</span>
           </div>
@@ -115,7 +116,9 @@ export function ChatTopBar({
                 {EXPORT_FORMATS.map(({ format, label, icon: Icon }) => (
                   <DropdownMenuItem
                     key={format}
-                    onClick={() => handleExport(format as "json" | "md" | "txt")}
+                    onClick={() =>
+                      handleExport(format as "json" | "md" | "txt")
+                    }
                     disabled={isExporting}
                   >
                     <Icon className="h-4 w-4 mr-2" />
@@ -153,30 +156,10 @@ export function ChatTopBar({
             </Button>
           )}
 
-          {clerk && (
-            <>
-              <clerk.SignedOut>
-                <clerk.SignInButton mode="modal">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-8 text-xs font-medium rounded-md shadow-sm bg-background ml-1"
-                  >
-                    Sign in
-                  </Button>
-                </clerk.SignInButton>
-              </clerk.SignedOut>
-              <clerk.SignedIn>
-                <div className="ml-1">
-                  <clerk.UserButton
-                    appearance={{
-                      elements: { avatarBox: "h-7 w-7" },
-                    }}
-                  />
-                </div>
-              </clerk.SignedIn>
-            </>
-          )}
+          <AuthButtons
+            signInClassName="h-8 w-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors ml-1"
+            avatarSize="h-7 w-7"
+          />
         </div>
       </div>
 

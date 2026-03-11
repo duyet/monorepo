@@ -55,14 +55,8 @@ export class LLMRouterNode extends GraphNode {
         /contact|submission|traffic|trend/i,
       ],
     ],
-    [
-      "get-about",
-      [/about|who|duyet|introduction|background/i],
-    ],
-    [
-      "fetch-llms-txt",
-      [/llms\.txt|documentation|feature|domain/i],
-    ],
+    ["get-about", [/about|who|duyet|introduction|background/i]],
+    ["fetch-llms-txt", [/llms\.txt|documentation|feature|domain/i]],
   ]);
 
   constructor() {
@@ -74,9 +68,11 @@ export class LLMRouterNode extends GraphNode {
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // If we already have a response from tools, route to synthesis
       if (state.toolCalls.length > 0 && state.response) {
@@ -253,9 +249,7 @@ export class LLMRouterNode extends GraphNode {
       "more detail",
     ];
 
-    return followUpIndicators.some((indicator) =>
-      input.includes(indicator)
-    );
+    return followUpIndicators.some((indicator) => input.includes(indicator));
   }
 
   /**

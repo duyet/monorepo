@@ -3,8 +3,8 @@ import {
   dateFormat,
   distanceFormat,
   distanceToNow,
-  getReadingTime,
   formatReadingTime,
+  getReadingTime,
 } from "./date";
 
 describe("distanceToNow", () => {

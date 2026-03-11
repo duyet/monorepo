@@ -1,7 +1,7 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
-  getCategoryMetadata,
   getCategoryColorClass,
+  getCategoryMetadata,
 } from "../category-metadata";
 
 describe("getCategoryMetadata", () => {

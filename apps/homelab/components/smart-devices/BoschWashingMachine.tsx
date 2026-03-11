@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Droplets, RefreshCw, Zap } from "lucide-react";
+import { useMemo, useState } from "react";
 import {
   Bar,
   BarChart,

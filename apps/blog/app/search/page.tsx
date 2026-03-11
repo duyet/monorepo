@@ -1,11 +1,7 @@
 import Container from "@duyet/components/Container";
-import {
-  getAllPosts,
-  getAllCategories,
-  getAllTags,
-} from "@duyet/libs/getPost";
-import { SearchClient } from "./search-client";
+import { getAllCategories, getAllPosts, getAllTags } from "@duyet/libs/getPost";
 import type { Metadata } from "next";
+import { SearchClient } from "./search-client";
 
 // Static generation for search page
 export const dynamic = "force-static";
@@ -46,11 +42,7 @@ export default function SearchPage() {
           </p>
         </div>
 
-        <SearchClient
-          posts={allPosts}
-          categories={categories}
-          tags={tags}
-        />
+        <SearchClient posts={allPosts} categories={categories} tags={tags} />
       </div>
     </Container>
   );

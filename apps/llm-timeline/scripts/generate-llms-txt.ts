@@ -9,7 +9,7 @@ import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 // Import models from data
-import { models, lastSynced } from "../lib/data";
+import { lastSynced, models } from "../lib/data";
 
 const _SITE_URL = "https://llm-timeline.duyet.net";
 const OUTPUT_PATH = resolve(process.cwd(), "public/llms.txt");

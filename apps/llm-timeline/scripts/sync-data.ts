@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * sync-data.ts — Pull LLM model data from registered sources and regenerate lib/data.ts
  *
@@ -10,11 +11,11 @@
  *   bun scripts/sync-data.ts --help       # Show this help
  */
 
-import { resolve } from "node:path";
 import { writeFileSync } from "node:fs";
-import { ALL_SOURCES, getEnabledSources } from "./sources";
-import { mergeAllSources, formatMergeStats } from "../lib/deduplicator";
+import { resolve } from "node:path";
 import { generateDataTs } from "../lib/codegen";
+import { formatMergeStats, mergeAllSources } from "../lib/deduplicator";
+import { ALL_SOURCES, getEnabledSources } from "./sources";
 
 const OUTPUT_PATH = resolve(process.cwd(), "lib/data.ts");
 

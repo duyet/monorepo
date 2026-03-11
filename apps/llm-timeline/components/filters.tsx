@@ -1,9 +1,9 @@
 "use client";
 
+import { Download, LayoutList, Rows2, X } from "lucide-react";
 import { useCallback } from "react";
-import { X, Rows2, LayoutList, Download } from "lucide-react";
+import { models as allModels, domains, organizations } from "@/lib/data";
 import type { FilterState } from "@/lib/utils";
-import { organizations, domains, models as allModels } from "@/lib/data";
 import { SearchAutocomplete } from "./SearchAutocomplete";
 
 // Compute unique sources for filter dropdown

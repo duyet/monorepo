@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useTheme } from "next-themes";
-import { getOrgLogoUrl, getOrgInitials, getOrgColor } from "@/lib/org-logos";
 import { cn } from "@duyet/libs/utils";
+import { useTheme } from "next-themes";
+import { useState } from "react";
+import { getOrgColor, getOrgInitials, getOrgLogoUrl } from "@/lib/org-logos";
 
 interface OrgAvatarProps {
   org: string;

@@ -3,7 +3,7 @@
 import { Button, Textarea } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import type { UIMessage } from "ai";
-import { RefreshCw, Send, X, Paperclip, Settings } from "lucide-react";
+import { Paperclip, RefreshCw, Send, Settings, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,
@@ -11,7 +11,10 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
+import { AppSidebar } from "@/components/app-sidebar";
+import { AppLayout } from "@/components/layout/app-layout";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { GraphRouter } from "@/lib/graph/router";
 import {
   useAutoResize,
   useChat,
@@ -21,8 +24,6 @@ import {
 } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 import type { ChatMode } from "@/lib/types";
-import { AppSidebar } from "@/components/app-sidebar";
-import { AppLayout } from "@/components/layout/app-layout";
 import { ActivityPanel } from "../activity/activity-panel";
 import { ChatTopBar } from "./chat-top-bar";
 import { LoadingIndicator } from "./loading-indicator";
@@ -32,7 +33,6 @@ import {
   WelcomeMessage,
 } from "./message-components";
 import { ToolsPanel } from "./tools-panel";
-import { GraphRouter } from "@/lib/graph/router";
 
 // Singleton GraphRouter instance for visual graph data
 const graphRouter = new GraphRouter();
@@ -308,177 +308,177 @@ export function VercelChat() {
             conversationId={activeId ?? undefined}
           />
 
-        {/* Messages area */}
-        <Conversation
-          className="relative flex-1"
-          autoScrollTrigger={autoScrollTrigger}
-        >
-          <div className="w-full pb-40 pt-14">
-            {!hasMessages && !streamingContent ? (
-              <ConversationEmptyState>
-                <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
-                  <WelcomeMessage onPromptSelect={handlePromptSelect} />
-                </div>
-              </ConversationEmptyState>
-            ) : (
-              <ConversationContent className="mx-auto max-w-3xl px-4 sm:px-6 w-full">
-                {messages.map((message) =>
-                  message.role === "user" ? (
-                    <UserMessage key={message.id} message={message} />
-                  ) : (
-                    <AssistantMessage
-                      key={message.id}
-                      message={message}
-                      parts={partsMap.get(message.id)}
-                      onToolApprove={handleToolApprove}
-                      onToolDeny={handleToolDeny}
-                    />
-                  )
-                )}
-
-                {/* Streaming assistant message or loading dots */}
-                {isLoading &&
-                  (() => {
-                    const lastUiMsg = uiMessages[uiMessages.length - 1];
-                    if (!lastUiMsg || lastUiMsg.role !== "assistant") {
-                      return <LoadingIndicator />;
-                    }
-                    return (
+          {/* Messages area */}
+          <Conversation
+            className="relative flex-1"
+            autoScrollTrigger={autoScrollTrigger}
+          >
+            <div className="w-full pb-40 pt-14">
+              {!hasMessages && !streamingContent ? (
+                <ConversationEmptyState>
+                  <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
+                    <WelcomeMessage onPromptSelect={handlePromptSelect} />
+                  </div>
+                </ConversationEmptyState>
+              ) : (
+                <ConversationContent className="mx-auto max-w-3xl px-4 sm:px-6 w-full">
+                  {messages.map((message) =>
+                    message.role === "user" ? (
+                      <UserMessage key={message.id} message={message} />
+                    ) : (
                       <AssistantMessage
-                        message={{
-                          id: "streaming",
-                          role: "assistant",
-                          content: streamingContent,
-                          timestamp: Date.now(),
-                        }}
-                        parts={lastUiMsg.parts}
+                        key={message.id}
+                        message={message}
+                        parts={partsMap.get(message.id)}
                         onToolApprove={handleToolApprove}
                         onToolDeny={handleToolDeny}
-                        isStreaming
                       />
-                    );
-                  })()}
-              </ConversationContent>
-            )}
-          </div>
-          <ConversationScrollButton className="bottom-[130px]" />
-        </Conversation>
-
-        {/* Floating input area */}
-        <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none">
-          <div className="mx-auto max-w-3xl">
-            <form
-              onSubmit={handleFormSubmit}
-              className="relative flex items-end w-full rounded-[32px] border border-input/50 bg-background focus-within:border-primary/30 focus-within:ring-1 focus-within:ring-primary/30 shadow-md transition-all pointer-events-auto px-2 py-2"
-            >
-              {/* Left Icons */}
-              <div className="flex items-center gap-1 pl-2 pb-1 text-muted-foreground shrink-0 hidden sm:flex">
-                <Button 
-                  type="button" 
-                  variant="ghost" 
-                  size="icon" 
-                  disabled
-                  title="Coming soon"
-                  aria-label="Attachments (coming soon)"
-                  className="h-9 w-9 rounded-full hover:bg-muted cursor-not-allowed opacity-50"
-                >
-                  <Paperclip className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="flex items-center pl-2 pb-1 sm:hidden">
-                <Button 
-                  type="button" 
-                  variant="ghost" 
-                  size="icon" 
-                  disabled
-                  title="Coming soon"
-                  aria-label="Attachments (coming soon)"
-                  className="h-9 w-9 rounded-full hover:bg-muted text-muted-foreground cursor-not-allowed opacity-50"
-                >
-                  <Paperclip className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {/* Text Area */}
-              <Textarea
-                ref={textareaRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Enter your request..."
-                disabled={isLoading}
-                rows={1}
-                className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 text-sm focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:outline-none focus:border-0 outline-none shadow-none"
-              />
-
-              {/* Right Icons */}
-              <div className="flex items-center gap-3 pr-1 pb-1 shrink-0">
-                <button 
-                  type="button" 
-                  disabled
-                  title="Coming soon"
-                  aria-label="Settings (coming soon)"
-                  className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-muted-foreground hover:text-foreground uppercase cursor-not-allowed opacity-50"
-                >
-                  <Settings className="h-3.5 w-3.5" />
-                  MAX
-                </button>
-                
-                <div className="flex items-center gap-1">
-                  {isLoading ? (
-                    <Button
-                      type="button"
-                      onClick={stop}
-                      size="icon"
-                      className="h-9 w-9 rounded-full bg-foreground text-background hover:bg-foreground/90 transition-all"
-                    >
-                      <X className="h-4 w-4" />
-                      <span className="sr-only">Stop</span>
-                    </Button>
-                  ) : (
-                    <>
-                      {hasAssistantResponse && input.length === 0 && (
-                        <Button
-                          type="button"
-                          onClick={() => reload()}
-                          size="icon"
-                          variant="ghost"
-                          className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
-                        >
-                          <RefreshCw className="h-4 w-4" />
-                          <span className="sr-only">Regenerate</span>
-                        </Button>
-                      )}
-                      {(input.length > 0 || !hasAssistantResponse) && (
-                        <Button
-                          type="submit"
-                          disabled={!canSubmit}
-                          size="icon"
-                          className={cn(
-                            "h-9 w-9 rounded-full transition-all",
-                            canSubmit
-                              ? "bg-foreground text-background hover:bg-foreground/90"
-                              : "bg-muted text-muted-foreground opacity-50"
-                          )}
-                        >
-                          <Send className="h-4 w-4" />
-                          <span className="sr-only">Send</span>
-                        </Button>
-                      )}
-                    </>
+                    )
                   )}
+
+                  {/* Streaming assistant message or loading dots */}
+                  {isLoading &&
+                    (() => {
+                      const lastUiMsg = uiMessages[uiMessages.length - 1];
+                      if (!lastUiMsg || lastUiMsg.role !== "assistant") {
+                        return <LoadingIndicator />;
+                      }
+                      return (
+                        <AssistantMessage
+                          message={{
+                            id: "streaming",
+                            role: "assistant",
+                            content: streamingContent,
+                            timestamp: Date.now(),
+                          }}
+                          parts={lastUiMsg.parts}
+                          onToolApprove={handleToolApprove}
+                          onToolDeny={handleToolDeny}
+                          isStreaming
+                        />
+                      );
+                    })()}
+                </ConversationContent>
+              )}
+            </div>
+            <ConversationScrollButton className="bottom-[130px]" />
+          </Conversation>
+
+          {/* Floating input area */}
+          <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none">
+            <div className="mx-auto max-w-3xl">
+              <form
+                onSubmit={handleFormSubmit}
+                className="relative flex items-end w-full rounded-2xl border border-neutral-200 bg-white focus-within:border-neutral-300 focus-within:ring-4 focus-within:ring-neutral-100 dark:border-white/10 dark:bg-[#111] dark:focus-within:border-white/20 dark:focus-within:ring-white/5 shadow-sm transition-all pointer-events-auto px-2 py-2"
+              >
+                {/* Left Icons */}
+                <div className="flex items-center gap-1 pl-2 pb-1 text-neutral-400 dark:text-neutral-500 shrink-0 hidden sm:flex">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    disabled
+                    title="Coming soon"
+                    aria-label="Attachments (coming soon)"
+                    className="h-9 w-9 rounded-full hover:bg-neutral-100 dark:hover:bg-white/5 cursor-not-allowed opacity-50"
+                  >
+                    <Paperclip className="h-4 w-4" />
+                  </Button>
                 </div>
-              </div>
-            </form>
-            {error && (
-              <p className="mt-2 text-xs text-destructive text-center font-medium">
-                {error.message}
-              </p>
-            )}
+                <div className="flex items-center pl-2 pb-1 sm:hidden">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    disabled
+                    title="Coming soon"
+                    aria-label="Attachments (coming soon)"
+                    className="h-9 w-9 rounded-full hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-400 dark:text-neutral-500 cursor-not-allowed opacity-50"
+                  >
+                    <Paperclip className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                {/* Text Area */}
+                <Textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask me anything..."
+                  disabled={isLoading}
+                  rows={1}
+                  className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 text-base sm:text-sm focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:outline-none focus:border-0 outline-none shadow-none text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500"
+                />
+
+                {/* Right Icons */}
+                <div className="flex items-center gap-3 pr-1 pb-1 shrink-0">
+                  <button
+                    type="button"
+                    disabled
+                    title="Coming soon"
+                    aria-label="Settings (coming soon)"
+                    className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-white uppercase cursor-not-allowed opacity-50 transition-colors"
+                  >
+                    <Settings className="h-3.5 w-3.5" />
+                    MAX
+                  </button>
+
+                  <div className="flex items-center gap-1">
+                    {isLoading ? (
+                      <Button
+                        type="button"
+                        onClick={stop}
+                        size="icon"
+                        className="h-9 w-9 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 transition-all"
+                      >
+                        <X className="h-4 w-4" />
+                        <span className="sr-only">Stop</span>
+                      </Button>
+                    ) : (
+                      <>
+                        {hasAssistantResponse && input.length === 0 && (
+                          <Button
+                            type="button"
+                            onClick={() => reload()}
+                            size="icon"
+                            variant="ghost"
+                            className="h-9 w-9 rounded-xl text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/5"
+                          >
+                            <RefreshCw className="h-4 w-4" />
+                            <span className="sr-only">Regenerate</span>
+                          </Button>
+                        )}
+                        {(input.length > 0 || !hasAssistantResponse) && (
+                          <Button
+                            type="submit"
+                            disabled={!canSubmit}
+                            size="icon"
+                            className={cn(
+                              "h-9 w-9 rounded-xl transition-all",
+                              canSubmit
+                                ? "bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+                                : "bg-neutral-100 text-neutral-400 dark:bg-white/5 dark:text-neutral-600"
+                            )}
+                          >
+                            <Send className="h-4 w-4" />
+                            <span className="sr-only">Send</span>
+                          </Button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </form>
+              {error && (
+                <p className="mt-2 text-xs text-destructive text-center font-medium">
+                  {error.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-        </div>
-        
+
         {/* Right panel logic inline */}
         {activityContent && (
           <>
@@ -488,11 +488,16 @@ export function VercelChat() {
                 panelOpen ? "w-[300px]" : "w-0"
               )}
             >
-              <div className="h-full w-[300px] bg-background">{activityContent}</div>
+              <div className="h-full w-[300px] bg-background">
+                {activityContent}
+              </div>
             </div>
             <div className="lg:hidden block">
               <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
-                <SheetContent side="right" className="w-[320px] p-0 bg-background">
+                <SheetContent
+                  side="right"
+                  className="w-[320px] p-0 bg-background"
+                >
                   {activityContent}
                 </SheetContent>
               </Sheet>
@@ -513,4 +518,3 @@ export function VercelChat() {
     </AppLayout>
   );
 }
-

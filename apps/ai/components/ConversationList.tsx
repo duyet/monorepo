@@ -6,8 +6,8 @@
 
 "use client";
 
-import { ConversationItem } from "./ConversationItem";
 import type { Conversation } from "@/types/conversation";
+import { ConversationItem } from "./ConversationItem";
 
 interface ConversationListProps {
   conversations: Conversation[];

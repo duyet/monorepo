@@ -5,6 +5,7 @@
 
 "use client";
 
+import { generateId } from "@duyet/libs";
 import {
   AlertTriangle,
   Bug,
@@ -14,7 +15,6 @@ import {
   XCircle,
 } from "lucide-react";
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { generateId } from "@duyet/libs";
 
 interface ErrorBoundaryProps {
   children: ReactNode;

@@ -53,9 +53,15 @@ export function formatDelta(delta: ComparisonDelta): string {
 /**
  * Calculate period dates based on period value
  */
-export function getPeriodDates(days: number | "all"): { start: Date; end: Date } {
+export function getPeriodDates(days: number | "all"): {
+  start: Date;
+  end: Date;
+} {
   const end = new Date();
-  const start = days === "all" ? new Date(2020, 0, 1) : new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+  const start =
+    days === "all"
+      ? new Date(2020, 0, 1)
+      : new Date(Date.now() - days * 24 * 60 * 60 * 1000);
   return { start, end };
 }
 

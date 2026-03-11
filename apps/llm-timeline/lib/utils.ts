@@ -1,5 +1,5 @@
-import type { Model } from "./data";
 import { getParamsBucket, parseParamValue } from "@duyet/libs";
+import type { Model } from "./data";
 
 export interface FilterState {
   search: string;
@@ -271,7 +271,9 @@ export function getRelatedModels(
       // Parameter proximity: closer is better
       const modelParams = parseParamValue(model.params) ?? 0;
       if (currentParams > 0 && modelParams > 0) {
-        const ratio = Math.min(currentParams, modelParams) / Math.max(currentParams, modelParams);
+        const ratio =
+          Math.min(currentParams, modelParams) /
+          Math.max(currentParams, modelParams);
         if (ratio >= PARAM_PROXIMITY_THRESHOLD) {
           score += Math.round(WEIGHTS.PARAM_PROXIMITY_MAX * ratio);
         }
@@ -280,7 +282,9 @@ export function getRelatedModels(
       // Recency bonus: newer models get slight bonus
       const modelDate = new Date(model.date).getTime();
       if (modelDate > currentDate) {
-        const daysDiff = Math.floor((modelDate - currentDate) / (1000 * 60 * 60 * 24));
+        const daysDiff = Math.floor(
+          (modelDate - currentDate) / (1000 * 60 * 60 * 24)
+        );
         score += Math.min(
           WEIGHTS.RECENCY_BONUS_MAX,
           Math.max(0, daysDiff / DAYS_PER_MONTH)

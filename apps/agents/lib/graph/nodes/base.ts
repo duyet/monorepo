@@ -31,7 +31,13 @@ export abstract class GraphNode {
   readonly description?: string;
 
   /** Node type for categorization */
-  readonly type: "input" | "llm" | "tool" | "output" | "conditional" | "synthesis";
+  readonly type:
+    | "input"
+    | "llm"
+    | "tool"
+    | "output"
+    | "conditional"
+    | "synthesis";
 
   /**
    * Create a new graph node
@@ -81,7 +87,9 @@ export abstract class GraphNode {
             outcome: "success",
             inputState,
             outputState: result.state,
-            stateDiff: result.state ? this.computeDiff(inputState, result.state) : undefined,
+            stateDiff: result.state
+              ? this.computeDiff(inputState, result.state)
+              : undefined,
             metadata: this.getMetadata(),
           },
         };

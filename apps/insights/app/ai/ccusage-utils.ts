@@ -15,7 +15,7 @@ import {
 
 // Track if we've already done a health check this build
 let healthCheckCompleted = false;
-let healthCheckPassed = false;
+let _healthCheckPassed = false;
 
 /**
  * Quick ping test - runs SELECT 1 with 10 second timeout
@@ -185,7 +185,7 @@ export async function getCCUsageMetrics(
       console.log("[CCUsage Metrics] ✓ Health check passed");
     }
     healthCheckCompleted = true;
-    healthCheckPassed = pingResult.success;
+    _healthCheckPassed = pingResult.success;
   }
 
   const dateCondition = getDateCondition(days);
@@ -377,7 +377,10 @@ function distributePercentages(rawPercentages: number[]): number[] {
 
   // Step 3: Distribute the remaining units (to reach 100)
   // Clamp to avoid negative values from floating-point precision
-  const remainingUnits = Math.max(0, Math.min(100 - sumIntegers, rawPercentages.length));
+  const remainingUnits = Math.max(
+    0,
+    Math.min(100 - sumIntegers, rawPercentages.length)
+  );
 
   // Step 4: Sort by remainder (descending) and distribute remaining units
   const sortedByRemainder = [...items].sort(

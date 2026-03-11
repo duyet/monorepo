@@ -303,7 +303,6 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         if (currentMeta) {
           currentMeta.toolCalls = toolCallCount;
         }
-
       }
     }
   }, [aiMessages, isActiveStatus]);

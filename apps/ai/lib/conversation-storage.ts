@@ -5,9 +5,9 @@
  */
 
 import type {
+  CONVERSATION_STORAGE_KEY,
   Conversation,
   StorageResult,
-  CONVERSATION_STORAGE_KEY,
 } from "@/types/conversation";
 
 const STORAGE_KEY: typeof CONVERSATION_STORAGE_KEY =

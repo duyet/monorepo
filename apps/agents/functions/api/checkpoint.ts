@@ -10,8 +10,8 @@
  * - DELETE /checkpoint/{checkpointId} - Delete a checkpoint
  */
 
-import { createCheckpointer } from "../../lib/graph";
 import { createDatabaseClient } from "../../lib/db/client";
+import { createCheckpointer } from "../../lib/graph";
 
 interface Env {
   DB?: D1Database;
@@ -33,10 +33,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { DB } = env;
 
   if (!DB) {
-    return new Response(
-      JSON.stringify({ error: "Database not available" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: "Database not available" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const url = new URL(request.url);
@@ -52,10 +52,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       const checkpoint = await checkpointer.loadCheckpoint(checkpointId);
 
       if (!checkpoint) {
-        return new Response(
-          JSON.stringify({ error: "Checkpoint not found" }),
-          { status: 404, headers: { "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Checkpoint not found" }), {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        });
       }
 
       return new Response(
@@ -86,7 +86,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const limit = parseInt(url.searchParams.get("limit") || "50", 10);
 
     try {
-      const checkpoints = await checkpointer.listVersions(conversationId, limit);
+      const checkpoints = await checkpointer.listVersions(
+        conversationId,
+        limit
+      );
 
       return new Response(
         JSON.stringify({
@@ -109,7 +112,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   return new Response(
     JSON.stringify({
       error: "Missing required parameter",
-      message: "Provide either 'id' (conversation ID) or 'checkpointId' parameter",
+      message:
+        "Provide either 'id' (conversation ID) or 'checkpointId' parameter",
     }),
     { status: 400, headers: { "Content-Type": "application/json" } }
   );
@@ -130,20 +134,25 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { DB } = env;
 
   if (!DB) {
-    return new Response(
-      JSON.stringify({ error: "Database not available" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: "Database not available" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {
-    const body = await request.json() as { checkpointId?: string; conversationId?: string; version?: number };
+    const body = (await request.json()) as {
+      checkpointId?: string;
+      conversationId?: string;
+      version?: number;
+    };
 
     if (!body.checkpointId && !(body.conversationId && body.version)) {
       return new Response(
         JSON.stringify({
           error: "Missing required parameter",
-          message: "Provide either 'checkpointId' or both 'conversationId' and 'version'",
+          message:
+            "Provide either 'checkpointId' or both 'conversationId' and 'version'",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -200,10 +209,10 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
   const { DB } = env;
 
   if (!DB) {
-    return new Response(
-      JSON.stringify({ error: "Database not available" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: "Database not available" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   // Extract checkpoint ID from URL path

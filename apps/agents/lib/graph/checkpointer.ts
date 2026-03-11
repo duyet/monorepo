@@ -11,12 +11,9 @@
  * - Rollback support to any checkpoint version
  */
 
-import type { AgentState, StateCheckpoint } from "./types";
-import {
-  createCheckpoint,
-  restoreFromCheckpoint,
-} from "./state";
 import type { DatabaseClient } from "../db/client";
+import { createCheckpoint, restoreFromCheckpoint } from "./state";
+import type { AgentState, StateCheckpoint } from "./types";
 
 /**
  * Checkpointer configuration options
@@ -29,7 +26,11 @@ export interface CheckpointerOptions {
   async?: boolean;
 
   /** Custom logger */
-  logger?: (level: "debug" | "info" | "warn" | "error", message: string, ...args: unknown[]) => void;
+  logger?: (
+    level: "debug" | "info" | "warn" | "error",
+    message: string,
+    ...args: unknown[]
+  ) => void;
 }
 
 /**
@@ -89,10 +90,7 @@ export class Checkpointer {
    * @param nodeId - The node ID that created this checkpoint
    * @returns Promise that resolves when save is complete (or immediately if async)
    */
-  async saveCheckpoint(
-    state: AgentState,
-    _nodeId?: string
-  ): Promise<string> {
+  async saveCheckpoint(state: AgentState, _nodeId?: string): Promise<string> {
     const conversationId = state.conversationId;
 
     // Get next version number (cached to avoid race conditions)
@@ -157,7 +155,11 @@ export class Checkpointer {
         stepIndex: state.metadata.stepIndex,
       };
     } catch (error) {
-      this.options.logger("error", `Failed to load checkpoint ${checkpointId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to load checkpoint ${checkpointId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -187,7 +189,11 @@ export class Checkpointer {
         stepIndex: state.metadata.stepIndex,
       };
     } catch (error) {
-      this.options.logger("error", `Failed to load latest checkpoint for ${conversationId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to load latest checkpoint for ${conversationId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -221,7 +227,11 @@ export class Checkpointer {
         };
       });
     } catch (error) {
-      this.options.logger("error", `Failed to list checkpoints for ${conversationId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to list checkpoints for ${conversationId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -256,7 +266,9 @@ export class Checkpointer {
     const target = checkpoints.find((cp) => cp.version === version);
 
     if (!target) {
-      throw new Error(`Version ${version} not found for conversation ${conversationId}`);
+      throw new Error(
+        `Version ${version} not found for conversation ${conversationId}`
+      );
     }
 
     const state = JSON.parse(target.state_snapshot) as AgentState;
@@ -273,7 +285,11 @@ export class Checkpointer {
       await this.db.deleteCheckpoint(checkpointId);
       this.options.logger("info", `Deleted checkpoint ${checkpointId}`);
     } catch (error) {
-      this.options.logger("error", `Failed to delete checkpoint ${checkpointId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to delete checkpoint ${checkpointId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -287,9 +303,16 @@ export class Checkpointer {
     try {
       await this.db.deleteCheckpointsForConversation(conversationId);
       this.versionCache.delete(conversationId);
-      this.options.logger("info", `Deleted all checkpoints for conversation ${conversationId}`);
+      this.options.logger(
+        "info",
+        `Deleted all checkpoints for conversation ${conversationId}`
+      );
     } catch (error) {
-      this.options.logger("error", `Failed to delete checkpoints for ${conversationId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to delete checkpoints for ${conversationId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -310,12 +333,19 @@ export class Checkpointer {
       );
 
       if (pruned > 0) {
-        this.options.logger("info", `Pruned ${pruned} checkpoints for ${conversationId}`);
+        this.options.logger(
+          "info",
+          `Pruned ${pruned} checkpoints for ${conversationId}`
+        );
       }
 
       return pruned;
     } catch (error) {
-      this.options.logger("error", `Failed to prune checkpoints for ${conversationId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to prune checkpoints for ${conversationId}:`,
+        error
+      );
       return 0;
     }
   }
@@ -328,7 +358,10 @@ export class Checkpointer {
   async flushPendingSaves(): Promise<void> {
     const promises = Array.from(this.pendingSaves.values());
     if (promises.length > 0) {
-      this.options.logger("debug", `Flushing ${promises.length} pending checkpoint saves`);
+      this.options.logger(
+        "debug",
+        `Flushing ${promises.length} pending checkpoint saves`
+      );
       await Promise.all(promises);
     }
   }
@@ -351,7 +384,11 @@ export class Checkpointer {
         stepIndex: state.metadata.stepIndex,
       }));
     } catch (error) {
-      this.options.logger("error", `Failed to get history for ${conversationId}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to get history for ${conversationId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -404,7 +441,11 @@ export class Checkpointer {
       // Prune old checkpoints if needed
       await this.pruneCheckpoints(checkpoint.conversationId);
     } catch (error) {
-      this.options.logger("error", `Failed to save checkpoint ${checkpoint.id}:`, error);
+      this.options.logger(
+        "error",
+        `Failed to save checkpoint ${checkpoint.id}:`,
+        error
+      );
       throw error;
     }
   }

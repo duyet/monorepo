@@ -11,11 +11,11 @@
  * - By org: /org/{slug}/rss.xml
  */
 
-import { writeFileSync, mkdirSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 
 // Import models and data from lib
-import { models, lastSynced, organizations, years } from "../lib/data";
+import { lastSynced, models, organizations, years } from "../lib/data";
 import { slugify } from "../lib/utils";
 
 const SITE_URL = "https://llm-timeline.duyet.net";

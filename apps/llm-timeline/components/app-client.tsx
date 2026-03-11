@@ -1,21 +1,21 @@
 "use client";
 
-import { useState, useMemo, useTransition, useEffect, useRef } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Filters } from "@/components/filters";
-import { Timeline } from "@/components/timeline";
 import { OrgTimeline } from "@/components/org-timeline";
-import { VirtualTimeline } from "@/components/virtual-timeline";
-import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
 import { StatsHeader } from "@/components/stats-header";
+import { Timeline } from "@/components/timeline";
+import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
+import { VirtualTimeline } from "@/components/virtual-timeline";
+import type { Model } from "@/lib/data";
 import {
   DEFAULT_FILTERS,
-  filterModels,
-  groupByYear,
-  groupByOrg,
   type FilterState,
+  filterModels,
+  groupByOrg,
+  groupByYear,
 } from "@/lib/utils";
-import type { Model } from "@/lib/data";
 
 type View = "models" | "organizations";
 

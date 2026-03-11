@@ -7,12 +7,17 @@ interface EXIFStatisticsProps {
   className?: string;
 }
 
-export function EXIFStatisticsDisplay({ photos, className }: EXIFStatisticsProps) {
+export function EXIFStatisticsDisplay({
+  photos,
+  className,
+}: EXIFStatisticsProps) {
   const stats = aggregateEXIFStats(photos);
 
   if (stats.photosWithEXIF === 0) {
     return (
-      <div className={`rounded-lg border bg-card p-6 text-center ${className || ""}`}>
+      <div
+        className={`rounded-lg border bg-card p-6 text-center ${className || ""}`}
+      >
         <ImageIcon className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
         <p className="text-muted-foreground">No EXIF data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
@@ -34,25 +39,17 @@ export function EXIFStatisticsDisplay({ photos, className }: EXIFStatisticsProps
           <p className="mt-1 text-2xl font-semibold">{stats.totalPhotos}</p>
         </div>
         <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium text-muted-foreground">
-            With EXIF
-          </p>
-          <p className="mt-1 text-2xl font-semibold">
-            {stats.photosWithEXIF}
-          </p>
+          <p className="text-xs font-medium text-muted-foreground">With EXIF</p>
+          <p className="mt-1 text-2xl font-semibold">{stats.photosWithEXIF}</p>
         </div>
         <div className="rounded-lg border bg-card p-4">
           <p className="text-xs font-medium text-muted-foreground">
             Unique Cameras
           </p>
-          <p className="mt-1 text-2xl font-semibold">
-            {stats.uniqueCameras}
-          </p>
+          <p className="mt-1 text-2xl font-semibold">{stats.uniqueCameras}</p>
         </div>
         <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium text-muted-foreground">
-            Coverage
-          </p>
+          <p className="text-xs font-medium text-muted-foreground">Coverage</p>
           <p className="mt-1 text-2xl font-semibold">
             {stats.photosWithEXIF > 0
               ? `${Math.round((stats.photosWithEXIF / stats.totalPhotos) * 100)}%`
@@ -77,7 +74,10 @@ export function EXIFStatisticsDisplay({ photos, className }: EXIFStatisticsProps
           {stats.topCameras.map((item, index) => (
             <div key={item.camera} className="space-y-1">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium truncate flex-1" title={item.camera}>
+                <span
+                  className="font-medium truncate flex-1"
+                  title={item.camera}
+                >
                   <span className="text-muted-foreground mr-2">
                     #{index + 1}
                   </span>

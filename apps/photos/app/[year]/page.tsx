@@ -1,11 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import PhotoGallery from "@/components/PhotoGallery";
 import { Suspense } from "react";
-import {
-  getAllPhotos,
-  type Photo,
-} from "@/lib/photo-provider";
+import PhotoGallery from "@/components/PhotoGallery";
+import { getAllPhotos, type Photo } from "@/lib/photo-provider";
 
 interface YearPageProps {
   params: Promise<{

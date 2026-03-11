@@ -1,5 +1,5 @@
-import { describe, test, expect } from "bun:test";
-import { getTagMetadata, getTagColorClass } from "../tag-metadata";
+import { describe, expect, test } from "bun:test";
+import { getTagColorClass, getTagMetadata } from "../tag-metadata";
 
 describe("getTagMetadata", () => {
   test("returns object with required fields", () => {

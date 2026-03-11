@@ -1,9 +1,9 @@
 "use client";
 
-import { List, Search, X, GitCompare } from "lucide-react";
+import { cn } from "@duyet/libs/utils";
+import { GitCompare, List, Search, X } from "lucide-react";
 import { useState } from "react";
 import type { Model } from "@/lib/data";
-import { cn } from "@duyet/libs/utils";
 
 type View = "models" | "organizations";
 
@@ -142,12 +142,22 @@ export function FilterInfo({
               style={{
                 borderColor: comparisonMode ? "var(--primary)" : undefined,
               }}
-              title={comparisonMode ? "Exit comparison mode" : "Enter comparison mode (select 2-3 models to compare)"}
-              aria-label={comparisonMode ? "Exit comparison mode" : "Enter comparison mode"}
+              title={
+                comparisonMode
+                  ? "Exit comparison mode"
+                  : "Enter comparison mode (select 2-3 models to compare)"
+              }
+              aria-label={
+                comparisonMode
+                  ? "Exit comparison mode"
+                  : "Enter comparison mode"
+              }
             >
               <GitCompare
                 className="h-4 w-4"
-                style={{ color: comparisonMode ? "white" : "var(--muted-foreground)" }}
+                style={{
+                  color: comparisonMode ? "white" : "var(--muted-foreground)",
+                }}
               />
             </button>
           )}
@@ -181,10 +191,14 @@ export function FilterInfo({
           }}
         >
           <span style={{ color: "var(--text)" }}>
-            <strong>Comparison mode:</strong> Click on model cards to select them (max 3). Press{' '}
-            <kbd className="rounded border px-1.5 py-0.5 font-mono text-xs" style={{ borderColor: "var(--border)" }}>
+            <strong>Comparison mode:</strong> Click on model cards to select
+            them (max 3). Press{" "}
+            <kbd
+              className="rounded border px-1.5 py-0.5 font-mono text-xs"
+              style={{ borderColor: "var(--border)" }}
+            >
               c
-            </kbd>{' '}
+            </kbd>{" "}
             when ready to compare.
           </span>
         </div>

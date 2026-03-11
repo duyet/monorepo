@@ -1,8 +1,8 @@
-import { test, expect, describe } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
+  generateBlurDataURL,
   getAspectRatioInfo,
   getOptimalImageSrc,
-  generateBlurDataURL,
   getResponsiveSizes,
   shouldPrioritizeLoading,
 } from "@/lib/ImageOptimization";

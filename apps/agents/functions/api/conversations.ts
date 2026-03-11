@@ -141,10 +141,7 @@ async function handleGet(
     // GET /api/conversations — require authentication.
     // Anonymous users cannot list conversations (prevents global data exposure).
     if (!userId) {
-      return Response.json(
-        { conversations: [] },
-        { headers: CORS_HEADERS }
-      );
+      return Response.json({ conversations: [] }, { headers: CORS_HEADERS });
     }
     const conversations = await client.listConversationsByUser(userId, limit);
     return Response.json({ conversations }, { headers: CORS_HEADERS });

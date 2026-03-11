@@ -5,68 +5,63 @@
  * Provides state management, routing, observability, and visualization.
  */
 
-// Types
-export type {
-  AgentState,
-  StateMetadata,
-  ToolCall,
-  NodeTrace,
-  StateDiff,
-  GraphMetrics,
-  GraphNode,
-  ConditionalEdge,
-  GraphStructure,
-  StateCheckpoint,
-  VisualGraphData,
-  VisualNode,
-  VisualEdge,
-  NodeObserver,
-  StateObserver,
-} from "./types";
-
-// Router (Unit 10)
-export { GraphRouter, createInitialState, executeGraph } from "./router";
-
-// Observability (Unit 15)
-export {
-  ObservabilityMiddleware,
-  createObservability,
-  withObservability,
-  type ObservabilityOptions,
-  type ObservabilityResult,
-} from "./observability";
-
 // Checkpointer (Unit 4)
 export {
   Checkpointer,
-  createCheckpointer,
   type CheckpointerOptions,
   type CheckpointInfo,
+  createCheckpointer,
 } from "./checkpointer";
-
-// State management utilities (Unit 1)
-export {
-  validate,
-  createAgentState,
-  clone,
-  applyUpdate,
-  computeDiff,
-  formatDiff,
-  createCheckpoint,
-  restoreFromCheckpoint,
-} from "./state";
-export type { StateValidationResult } from "./state";
-
+export type { EdgeDecision, NodeRoute } from "./edges";
 // Conditional edge logic (Unit 9)
 export {
+  chainEdges,
+  createConditionalEdge,
+  defaultEdgeChain,
+  hasErrorEdge,
+  hasPendingToolsEdge,
+  hasResponseEdge,
   routeNextNode,
   shouldEnd,
-  createConditionalEdge,
-  hasPendingToolsEdge,
   toolsCompletedEdge,
-  hasResponseEdge,
-  hasErrorEdge,
-  chainEdges,
-  defaultEdgeChain,
 } from "./edges";
-export type { NodeRoute, EdgeDecision } from "./edges";
+// Observability (Unit 15)
+export {
+  createObservability,
+  ObservabilityMiddleware,
+  type ObservabilityOptions,
+  type ObservabilityResult,
+  withObservability,
+} from "./observability";
+// Router (Unit 10)
+export { createInitialState, executeGraph, GraphRouter } from "./router";
+export type { StateValidationResult } from "./state";
+// State management utilities (Unit 1)
+export {
+  applyUpdate,
+  clone,
+  computeDiff,
+  createAgentState,
+  createCheckpoint,
+  formatDiff,
+  restoreFromCheckpoint,
+  validate,
+} from "./state";
+// Types
+export type {
+  AgentState,
+  ConditionalEdge,
+  GraphMetrics,
+  GraphNode,
+  GraphStructure,
+  NodeObserver,
+  NodeTrace,
+  StateCheckpoint,
+  StateDiff,
+  StateMetadata,
+  StateObserver,
+  ToolCall,
+  VisualEdge,
+  VisualGraphData,
+  VisualNode,
+} from "./types";

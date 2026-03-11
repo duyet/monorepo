@@ -4,8 +4,8 @@
  * End-to-end tests for complete graph execution flow.
  */
 
-import { describe, it, expect, beforeEach } from "bun:test";
-import { GraphRouter, createInitialState } from "../router";
+import { beforeEach, describe, expect, it } from "bun:test";
+import { createInitialState, GraphRouter } from "../router";
 
 describe("Graph Integration Tests", () => {
   describe("GraphRouter", () => {
@@ -27,7 +27,10 @@ describe("Graph Integration Tests", () => {
       });
 
       it("should preserve conversation ID", async () => {
-        const initialState = createInitialState("my-conversation", "test input");
+        const initialState = createInitialState(
+          "my-conversation",
+          "test input"
+        );
 
         const result = await router.executeGraph(initialState);
 
@@ -77,7 +80,9 @@ describe("Graph Integration Tests", () => {
 
         const result = await router.executeGraph(initialState);
 
-        expect(Object.keys(result.metrics.nodeCounts).length).toBeGreaterThan(0);
+        expect(Object.keys(result.metrics.nodeCounts).length).toBeGreaterThan(
+          0
+        );
         // At minimum should have executed some core nodes
         expect(result.metrics.nodesExecuted).toBeGreaterThan(0);
       });
@@ -89,7 +94,9 @@ describe("Graph Integration Tests", () => {
         const failingRouter = new GraphRouter();
 
         // Override a node to fail
-        const originalExecute = failingRouter.getNodes().get("llm-router")?.execute;
+        const originalExecute = failingRouter
+          .getNodes()
+          .get("llm-router")?.execute;
         if (originalExecute) {
           failingRouter.getNodes().get("llm-router")!.execute = async () => {
             throw new Error("Simulated node failure");
@@ -155,17 +162,18 @@ describe("Graph Integration Tests", () => {
         expect(nodeIds).toContain("synthesis");
       });
 
-      it('should include tool nodes', () => {
+      it("should include tool nodes", () => {
         const router = new GraphRouter();
         const visualGraph = router.getVisualGraph();
 
         const nodeIds = visualGraph.nodes.map((n) => n.id);
 
         // Should have some tool nodes
-        const toolNodes = nodeIds.filter((id) =>
-          id.startsWith("search-") ||
-          id.startsWith("get-") ||
-          id.startsWith("fetch-")
+        const toolNodes = nodeIds.filter(
+          (id) =>
+            id.startsWith("search-") ||
+            id.startsWith("get-") ||
+            id.startsWith("fetch-")
         );
 
         expect(toolNodes.length).toBeGreaterThan(0);
@@ -213,9 +221,12 @@ describe("Graph Integration Tests", () => {
       expect(result.state.response.length).toBeGreaterThanOrEqual(0);
     });
 
-    it('should track tool calls in state', async () => {
+    it("should track tool calls in state", async () => {
       const router = new GraphRouter();
-      const initialState = createInitialState("test-123", "Search for blog posts");
+      const initialState = createInitialState(
+        "test-123",
+        "Search for blog posts"
+      );
 
       const result = await router.executeGraph(initialState);
 

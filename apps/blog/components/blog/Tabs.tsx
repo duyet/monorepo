@@ -64,7 +64,12 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
   return (
     <div className={className}>
       {/* Tab buttons */}
-      <div ref={tablistRef} role="tablist" className="flex gap-4 border-b border-gray-200 dark:border-slate-800 mb-4" onKeyDown={handleKeyDown}>
+      <div
+        ref={tablistRef}
+        role="tablist"
+        className="flex gap-4 border-b border-gray-200 dark:border-slate-800 mb-4"
+        onKeyDown={handleKeyDown}
+      >
         {tabs.map((tab) => (
           <button
             key={tab.id}

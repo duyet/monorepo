@@ -1,13 +1,20 @@
 "use client";
 
-import { getLicenseColor, getTypeColor, getSourceColor, getRelatedModels, MODEL_CARD_RELATED_MODELS_LIMIT, slugify } from "@/lib/utils";
-import type { Model } from "@/lib/data";
 import { cn } from "@duyet/libs/utils";
-import { OrgAvatar } from "@/components/org-avatar";
-import { useState, useMemo } from "react";
+import { Check, ChevronDown, ChevronUp, Link2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronUp, Link2, Check } from "lucide-react";
+import { useMemo, useState } from "react";
+import { OrgAvatar } from "@/components/org-avatar";
+import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
+import {
+  getLicenseColor,
+  getRelatedModels,
+  getSourceColor,
+  getTypeColor,
+  MODEL_CARD_RELATED_MODELS_LIMIT,
+  slugify,
+} from "@/lib/utils";
 
 interface ModelCardProps {
   model: Model;
@@ -18,7 +25,14 @@ interface ModelCardProps {
   onSelectionChange?: (selected: boolean) => void;
 }
 
-export function ModelCard({ model, isLast, lite, isSelectable, isSelected, onSelectionChange }: ModelCardProps) {
+export function ModelCard({
+  model,
+  isLast,
+  lite,
+  isSelectable,
+  isSelected,
+  onSelectionChange,
+}: ModelCardProps) {
   if (lite) {
     return (
       <div
@@ -36,7 +50,11 @@ export function ModelCard({ model, isLast, lite, isSelectable, isSelected, onSel
                 ? "bg-[var(--accent)] border-[var(--accent)]"
                 : "bg-[var(--bg-card)] border-[var(--border)] hover:border-[var(--accent)]"
             )}
-            aria-label={isSelected ? `Deselect ${model.name}` : `Select ${model.name} for comparison`}
+            aria-label={
+              isSelected
+                ? `Deselect ${model.name}`
+                : `Select ${model.name} for comparison`
+            }
           >
             {isSelected && <Check className="h-3 w-3 text-white" />}
           </button>
@@ -146,7 +164,11 @@ export function ModelCard({ model, isLast, lite, isSelectable, isSelected, onSel
                 ? "bg-[var(--accent)]"
                 : "bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--accent)]"
             )}
-            aria-label={isSelected ? `Deselect ${model.name}` : `Select ${model.name} for comparison`}
+            aria-label={
+              isSelected
+                ? `Deselect ${model.name}`
+                : `Select ${model.name} for comparison`
+            }
           >
             {isSelected ? (
               <Check className="h-5 w-5 text-white" />
@@ -168,7 +190,9 @@ export function ModelCard({ model, isLast, lite, isSelectable, isSelected, onSel
       <div
         className={cn(
           "flex-1 rounded-lg border p-4 transition-colors",
-          isSelectable && isSelected && "ring-2 ring-[var(--accent)] ring-offset-2"
+          isSelectable &&
+            isSelected &&
+            "ring-2 ring-[var(--accent)] ring-offset-2"
         )}
         style={{
           borderColor: isSelected ? "var(--accent)" : "var(--border)",
@@ -353,7 +377,10 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   };
 
   return (
-    <div className="mt-3 border-t pt-2" style={{ borderColor: "var(--border)" }}>
+    <div
+      className="mt-3 border-t pt-2"
+      style={{ borderColor: "var(--border)" }}
+    >
       <div className="flex items-center justify-between gap-2">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -415,7 +442,10 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
                   <span>{related.date.slice(0, 4)}</span>
                 </div>
               </div>
-              <Link2 className="h-3 w-3 shrink-0" style={{ color: "var(--text-muted)" }} />
+              <Link2
+                className="h-3 w-3 shrink-0"
+                style={{ color: "var(--text-muted)" }}
+              />
             </a>
           ))}
         </div>

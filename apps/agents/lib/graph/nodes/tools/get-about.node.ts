@@ -4,9 +4,9 @@
  * Wraps getAboutTool as a graph node.
  */
 
+import { getAboutTool } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { getAboutTool } from "../../../tools";
 
 /**
  * Get About Node
@@ -23,9 +23,11 @@ export class GetAboutNode extends GraphNode {
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Call the tool
       const { about } = await getAboutTool();

@@ -38,9 +38,7 @@ describe("fetchLlmsTxtTool", () => {
       )
     ) as typeof fetch;
 
-    const result = await fetchLlmsTxtTool(
-      "https://api.duyet.net/llms.txt"
-    );
+    const result = await fetchLlmsTxtTool("https://api.duyet.net/llms.txt");
     expect(result.content).toContain("custom llms.txt content");
     expect(result.sources[0].url).toBe("https://api.duyet.net/llms.txt");
   });

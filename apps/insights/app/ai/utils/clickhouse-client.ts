@@ -226,7 +226,8 @@ function classifyError(error: Error): {
   ) {
     return {
       type: "QUERY_ERROR",
-      description: "Query execution error - check SQL syntax or table/column names",
+      description:
+        "Query execution error - check SQL syntax or table/column names",
     };
   }
 
@@ -241,7 +242,7 @@ function getQueryFingerprint(query: string): string {
   let hash = 0;
   for (let i = 0; i < query.length; i++) {
     const char = query.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+    hash = (hash << 5) - hash + char;
     hash = hash & hash; // Convert to 32bit integer
   }
   return `fp_${Math.abs(hash).toString(16)}`;
@@ -421,22 +422,27 @@ export async function executeClickHouseQuery(
         console.error(
           "[ClickHouse Query] QUERY ERROR: Check SQL syntax and ensure table/columns exist"
         );
-        console.error("[ClickHouse Query] Query fingerprint:", queryFingerprint);
+        console.error(
+          "[ClickHouse Query] Query fingerprint:",
+          queryFingerprint
+        );
       }
 
       // Only retry for transient errors (CONNECTION, TIMEOUT)
       // Do not retry for non-transient errors (AUTH, QUERY_ERROR)
       const isTransientError =
-        lastErrorType.type === "CONNECTION" ||
-        lastErrorType.type === "TIMEOUT";
+        lastErrorType.type === "CONNECTION" || lastErrorType.type === "TIMEOUT";
 
       if (isTransientError && attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
         const backoffMs = 2 ** (attempt - 1) * 1000;
-        console.log(`[ClickHouse Query] Retrying in ${backoffMs}ms (transient error)...`, {
-          queryId,
-          errorType: lastErrorType.type,
-        });
+        console.log(
+          `[ClickHouse Query] Retrying in ${backoffMs}ms (transient error)...`,
+          {
+            queryId,
+            errorType: lastErrorType.type,
+          }
+        );
         await new Promise((resolve) => setTimeout(resolve, backoffMs));
       } else if (!isTransientError) {
         console.error(

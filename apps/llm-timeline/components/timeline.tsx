@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
-import { ModelCard } from "./model-card";
-import type { Model } from "@/lib/data";
 import { useTimelineKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import type { Model } from "@/lib/data";
+import { ModelCard } from "./model-card";
 
 interface TimelineProps {
   modelsByYear: Map<number, Model[]>;
@@ -138,7 +138,11 @@ export function Timeline({
                         onFocusChange?.(globalIndex);
                       }
                     }}
-                    className={isFocused && !comparisonMode ? "ring-2 ring-[var(--accent)] ring-offset-2 rounded-lg" : ""}
+                    className={
+                      isFocused && !comparisonMode
+                        ? "ring-2 ring-[var(--accent)] ring-offset-2 rounded-lg"
+                        : ""
+                    }
                     role="option"
                     aria-selected={isFocused}
                     tabIndex={isFocused ? 0 : -1}

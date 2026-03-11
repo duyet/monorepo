@@ -2,20 +2,20 @@
  * curated.ts — DataSourceAdapter for Google Sheets curated data
  */
 
-import type { Model, DataSourceAdapter } from "../../lib/types";
 import {
-  parseCsv,
   detectColumns,
   findHeaderRowIndex,
   getCellValue,
+  parseCsv,
 } from "../../lib/csv";
 import {
   normalizeDate,
-  normalizeParams,
   normalizeLicense,
-  normalizeType,
+  normalizeParams,
   normalizeText,
+  normalizeType,
 } from "../../lib/normalizers";
+import type { DataSourceAdapter, Model } from "../../lib/types";
 
 const DEFAULT_SHEET_ID = "1kc262HZSMAWI6FVsh0zJwbB-ooYvzhCHaHcNUiA0_hY";
 const DEFAULT_SHEET_GID = "1158069878";

@@ -1,7 +1,7 @@
 "use client";
 
 import type { UrlsConfig } from "@duyet/urls";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icons from "../Icons";
 
 // Track whether a ClerkProvider already exists in the page

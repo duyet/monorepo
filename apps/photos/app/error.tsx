@@ -19,7 +19,8 @@ export default function Error({
           Something went wrong
         </h2>
         <p className="mb-8 text-neutral-600 dark:text-neutral-400">
-          {error.message || "An unexpected error occurred while loading the photos."}
+          {error.message ||
+            "An unexpected error occurred while loading the photos."}
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <button

@@ -4,9 +4,9 @@
  * Tests for metrics collection, trace management, and observer callbacks.
  */
 
-import { describe, it, expect, beforeEach } from "bun:test";
-import { ObservabilityMiddleware, createObservability } from "../observability";
-import type { AgentState, } from "../types";
+import { beforeEach, describe, expect, it } from "bun:test";
+import { createObservability, ObservabilityMiddleware } from "../observability";
+import type { AgentState } from "../types";
 
 describe("ObservabilityMiddleware", () => {
   let middleware: ObservabilityMiddleware;
@@ -128,7 +128,12 @@ describe("ObservabilityMiddleware", () => {
         response: "New response",
       });
 
-      await middleware.observeNodeExecution("node-1", "Node 1", state, executeFn);
+      await middleware.observeNodeExecution(
+        "node-1",
+        "Node 1",
+        state,
+        executeFn
+      );
 
       const result = middleware.getResult();
       const trace = result.traces[0];

@@ -166,52 +166,49 @@ export function useTouchGestures(options: TouchGestureOptions) {
     [isEnabled]
   );
 
-  const handleTouchEnd = useCallback(
-    () => {
-      if (!isEnabled || !touchDataRef.current) return;
+  const handleTouchEnd = useCallback(() => {
+    if (!isEnabled || !touchDataRef.current) return;
 
-      const { startX, startY, currentX, currentY } = touchDataRef.current;
-      touchDataRef.current = null;
+    const { startX, startY, currentX, currentY } = touchDataRef.current;
+    touchDataRef.current = null;
 
-      if (currentX === undefined || currentY === undefined) return;
+    if (currentX === undefined || currentY === undefined) return;
 
-      const deltaX = currentX - startX;
-      const deltaY = currentY - startY;
-      const absDeltaX = Math.abs(deltaX);
-      const absDeltaY = Math.abs(deltaY);
+    const deltaX = currentX - startX;
+    const deltaY = currentY - startY;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
 
-      if (absDeltaX < touchThreshold && absDeltaY < touchThreshold) {
-        return;
-      }
+    if (absDeltaX < touchThreshold && absDeltaY < touchThreshold) {
+      return;
+    }
 
-      if (absDeltaX > absDeltaY) {
-        if (absDeltaX > minimumSwipeDistance) {
-          if (deltaX > 0) {
-            onSwipeRight?.();
-          } else {
-            onSwipeLeft?.();
-          }
-        }
-      } else {
-        if (absDeltaY > minimumSwipeDistance) {
-          if (deltaY > 0) {
-            onSwipeDown?.();
-          } else {
-            onSwipeUp?.();
-          }
+    if (absDeltaX > absDeltaY) {
+      if (absDeltaX > minimumSwipeDistance) {
+        if (deltaX > 0) {
+          onSwipeRight?.();
+        } else {
+          onSwipeLeft?.();
         }
       }
-    },
-    [
-      isEnabled,
-      onSwipeLeft,
-      onSwipeRight,
-      onSwipeUp,
-      onSwipeDown,
-      minimumSwipeDistance,
-      touchThreshold,
-    ]
-  );
+    } else {
+      if (absDeltaY > minimumSwipeDistance) {
+        if (deltaY > 0) {
+          onSwipeDown?.();
+        } else {
+          onSwipeUp?.();
+        }
+      }
+    }
+  }, [
+    isEnabled,
+    onSwipeLeft,
+    onSwipeRight,
+    onSwipeUp,
+    onSwipeDown,
+    minimumSwipeDistance,
+    touchThreshold,
+  ]);
 
   return {
     onTouchStart: handleTouchStart,

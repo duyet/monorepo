@@ -1,13 +1,13 @@
-import { test, expect, describe } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
+  calculateGridItemDimensions,
+  filterPhotos,
   getColumnsForViewport,
   getMasonryClasses,
-  sortPhotos,
-  filterPhotos,
   groupPhotosByYear,
-  calculateGridItemDimensions,
   MASONRY_CONFIG,
   PRELOAD_CONFIG,
+  sortPhotos,
 } from "@/lib/GridUtilities";
 
 const mockPhotos = [

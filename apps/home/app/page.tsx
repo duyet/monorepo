@@ -1,28 +1,28 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import ThemeToggle from "@duyet/components/ThemeToggle";
-import { FadeIn, FadeInStagger } from "../components/FadeIn";
 import { AuthButtons } from "@duyet/components/header/AuthButtons";
-import {
-  useKeyboardShortcuts,
-  KeyboardShortcutBadge,
-  KeyboardHelpTooltip,
-  KeyboardHelpButton,
-} from "../components/KeyboardShortcuts";
+import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   ArrowRight,
-  BookOpen,
-  FileText,
   BarChart,
+  BookOpen,
   Camera,
+  Database,
+  FileText,
+  Settings,
   User,
   Wrench,
-  Settings,
-  Database,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FadeIn, FadeInStagger } from "../components/FadeIn";
+import {
+  KeyboardHelpButton,
+  KeyboardHelpTooltip,
+  KeyboardShortcutBadge,
+  useKeyboardShortcuts,
+} from "../components/KeyboardShortcuts";
 
 const buildDate = new Date().toISOString().split("T")[0];
 
@@ -174,10 +174,12 @@ export default function HomePage() {
     }
   };
 
-  const { activeKey, showBadges, showHelp, setShowHelp } = useKeyboardShortcuts({
-    cards: shortcutCards,
-    onNavigate: handleNavigate,
-  });
+  const { activeKey, showBadges, showHelp, setShowHelp } = useKeyboardShortcuts(
+    {
+      cards: shortcutCards,
+      onNavigate: handleNavigate,
+    }
+  );
 
   return (
     <div className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors duration-300">
@@ -547,7 +549,10 @@ export default function HomePage() {
         </FadeInStagger>
 
         {/* Keyboard Shortcuts Help */}
-        <KeyboardHelpTooltip isOpen={showHelp} onClose={() => setShowHelp(false)} />
+        <KeyboardHelpTooltip
+          isOpen={showHelp}
+          onClose={() => setShowHelp(false)}
+        />
         <KeyboardHelpButton onClick={() => setShowHelp(true)} />
       </div>
     </div>

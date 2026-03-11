@@ -1,26 +1,35 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Badge, Button, Tabs, TabsList, TabsTrigger, TabsContent } from "@duyet/components";
+import {
+  Badge,
+  Button,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
   Activity,
   AlertCircle,
   CheckCircle2,
   Clock,
-  Loader2,
-  X,
-  Network,
-  ListTree,
   FileCode,
+  ListTree,
+  Loader2,
+  Network,
+  X,
 } from "lucide-react";
+import { useMemo, useState } from "react";
+import {
+  GraphVisualizer,
+  NodeTraceTimeline,
+  StateInspector,
+} from "@/components/graph";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ActivityPanelProps } from "@/lib/types";
 import { ThinkingDots, ThinkingSteps } from "./thinking-steps";
 import { ToolExecutionItem } from "./tool-execution-item";
-import { GraphVisualizer } from "@/components/graph";
-import { NodeTraceTimeline } from "@/components/graph";
-import { StateInspector } from "@/components/graph";
 
 export function ActivityPanel({
   executions,
@@ -50,15 +59,19 @@ export function ActivityPanel({
   });
 
   // Calculate stats (memoized, single-pass)
-  const { completeCount, errorCount, runningCount, totalDuration } = useMemo(() => {
-    return executions.reduce((acc, e) => {
-      if (e.status === "complete") acc.completeCount++;
-      else if (e.status === "error") acc.errorCount++;
-      else if (e.status === "running") acc.runningCount++;
-      if (e.endTime) acc.totalDuration += e.endTime - e.startTime;
-      return acc;
-    }, { completeCount: 0, errorCount: 0, runningCount: 0, totalDuration: 0 });
-  }, [executions]);
+  const { completeCount, errorCount, runningCount, totalDuration } =
+    useMemo(() => {
+      return executions.reduce(
+        (acc, e) => {
+          if (e.status === "complete") acc.completeCount++;
+          else if (e.status === "error") acc.errorCount++;
+          else if (e.status === "running") acc.runningCount++;
+          if (e.endTime) acc.totalDuration += e.endTime - e.startTime;
+          return acc;
+        },
+        { completeCount: 0, errorCount: 0, runningCount: 0, totalDuration: 0 }
+      );
+    }, [executions]);
 
   // Graph stats from traces (single-pass reduction)
   const graphStats = useMemo(() => {
@@ -77,14 +90,16 @@ export function ActivityPanel({
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
   // Get active node from traces
-  const activeNodeId = nodeTraces.length > 0
-    ? nodeTraces[nodeTraces.length - 1].nodeId
-    : undefined;
+  const activeNodeId =
+    nodeTraces.length > 0
+      ? nodeTraces[nodeTraces.length - 1].nodeId
+      : undefined;
 
   // Get previous state from traces for diff
-  const prevState = nodeTraces.length > 1
-    ? nodeTraces[nodeTraces.length - 2].outputState as any
-    : undefined;
+  const prevState =
+    nodeTraces.length > 1
+      ? (nodeTraces[nodeTraces.length - 2].outputState as any)
+      : undefined;
 
   return (
     <Tabs
@@ -171,13 +186,19 @@ export function ActivityPanel({
                 </Badge>
               )}
               {completeCount > 0 && (
-                <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-border">
+                <Badge
+                  variant="outline"
+                  className="text-[10px] px-1.5 py-0 border-border"
+                >
                   <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
                   {completeCount}
                 </Badge>
               )}
               {errorCount > 0 && (
-                <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
+                <Badge
+                  variant="destructive"
+                  className="text-[10px] px-1.5 py-0"
+                >
                   <AlertCircle className="h-2.5 w-2.5 mr-1" />
                   {errorCount}
                 </Badge>
@@ -218,7 +239,9 @@ export function ActivityPanel({
           {!hasActivity && !hasGraphData && (
             <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
               <Activity className="h-8 w-8 mb-2 opacity-50" />
-              <p className="text-sm font-medium text-foreground">No activity yet</p>
+              <p className="text-sm font-medium text-foreground">
+                No activity yet
+              </p>
               <p className="text-xs mt-1">Agent activity will appear here.</p>
             </div>
           )}
@@ -231,13 +254,19 @@ export function ActivityPanel({
               {/* Graph stats header */}
               <div className="px-4 py-2 border-b border-border bg-muted/10 flex items-center gap-2">
                 {graphStats.completeCount > 0 && (
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-border">
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] px-1.5 py-0 border-border"
+                  >
                     <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
                     {graphStats.completeCount}
                   </Badge>
                 )}
                 {graphStats.errorCount > 0 && (
-                  <Badge variant="destructive" className="text-[10px] px-1.5 py-0">
+                  <Badge
+                    variant="destructive"
+                    className="text-[10px] px-1.5 py-0"
+                  >
                     <AlertCircle className="h-2.5 w-2.5 mr-1" />
                     {graphStats.errorCount}
                   </Badge>
@@ -259,8 +288,12 @@ export function ActivityPanel({
           ) : (
             <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
               <Network className="h-12 w-12 mb-3 opacity-50" />
-              <p className="text-sm font-medium text-foreground">No graph data</p>
-              <p className="text-xs mt-1">Graph visualization requires agent execution.</p>
+              <p className="text-sm font-medium text-foreground">
+                No graph data
+              </p>
+              <p className="text-xs mt-1">
+                Graph visualization requires agent execution.
+              </p>
             </div>
           )}
         </TabsContent>
@@ -272,8 +305,12 @@ export function ActivityPanel({
           ) : (
             <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
               <ListTree className="h-12 w-12 mb-3 opacity-50" />
-              <p className="text-sm font-medium text-foreground">No execution traces</p>
-              <p className="text-xs mt-1">Node traces will appear after agent execution.</p>
+              <p className="text-sm font-medium text-foreground">
+                No execution traces
+              </p>
+              <p className="text-xs mt-1">
+                Node traces will appear after agent execution.
+              </p>
             </div>
           )}
         </TabsContent>
@@ -282,27 +319,33 @@ export function ActivityPanel({
         <TabsContent value="state" className="p-0 m-0">
           {graphState ? (
             <div className="h-full min-h-[400px]">
-              <StateInspector
-                state={graphState}
-                prevState={prevState}
-              />
+              <StateInspector state={graphState} prevState={prevState} />
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
               <FileCode className="h-12 w-12 mb-3 opacity-50" />
-              <p className="text-sm font-medium text-foreground">No state data</p>
-              <p className="text-xs mt-1">Agent state requires active conversation.</p>
+              <p className="text-sm font-medium text-foreground">
+                No state data
+              </p>
+              <p className="text-xs mt-1">
+                Agent state requires active conversation.
+              </p>
             </div>
           )}
         </TabsContent>
 
         {/* Files Tab - Placeholder */}
-        <TabsContent value="files" className="p-8 flex flex-col items-center justify-center text-center text-muted-foreground h-full min-h-[300px] m-0">
+        <TabsContent
+          value="files"
+          className="p-8 flex flex-col items-center justify-center text-center text-muted-foreground h-full min-h-[300px] m-0"
+        >
           <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-3">
             <Activity className="h-5 w-5 text-muted-foreground/50" />
           </div>
           <p className="text-sm font-medium text-foreground">No files active</p>
-          <p className="text-xs mt-1">Files related to this conversation will appear here.</p>
+          <p className="text-xs mt-1">
+            Files related to this conversation will appear here.
+          </p>
         </TabsContent>
       </ScrollArea>
     </Tabs>

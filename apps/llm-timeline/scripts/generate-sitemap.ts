@@ -10,11 +10,11 @@ import { resolve } from "node:path";
 
 // Import models and data from lib
 import {
-  models,
   lastSynced,
+  type Model,
+  models,
   organizations,
   years,
-  type Model,
 } from "../lib/data";
 import { slugify } from "../lib/utils";
 

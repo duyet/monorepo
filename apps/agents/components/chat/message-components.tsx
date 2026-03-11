@@ -333,49 +333,36 @@ const CAPABILITIES = [
   },
 ];
 
-
 interface WelcomeMessageProps {
   onPromptSelect?: (prompt: string) => void;
 }
 
 export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
-    <div className="py-12 sm:py-20 animate-in fade-in duration-700 flex flex-col items-center justify-center text-center">
+    <div className="py-8 sm:py-12 animate-in fade-in duration-700 font-sans focus:outline-none w-full max-w-3xl mx-auto px-4">
       {/* Greeting */}
-      <div className="mb-10">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
-          <span className="text-2xl font-[family-name:var(--font-serif)] font-bold">
-            D
-          </span>
-        </div>
-        <h1 className="text-3xl font-[family-name:var(--font-serif)] text-foreground tracking-tight mb-3">
+      <div className="mb-8">
+        <h1 className="mb-2 font-sans text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-100">
           How can I help you today?
         </h1>
-        <p className="text-base text-muted-foreground max-w-md mx-auto">
+        <p className="text-sm leading-relaxed text-neutral-600 sm:text-base font-normal dark:text-neutral-400">
           Ask me about my blog posts, GitHub projects, CV, or anything else.
         </p>
       </div>
 
-      {/* Quick-start prompts */}
-      <div className="w-full max-w-2xl mt-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {CAPABILITIES.map(({ icon: Icon, label, prompt }) => (
-            <button
-              key={label}
-              type="button"
-              onClick={() => onPromptSelect?.(prompt)}
-              className="group flex flex-col items-start gap-2 p-4 rounded-xl bg-transparent hover:bg-muted/50 transition-colors cursor-pointer text-left"
-            >
-              <div className="flex items-center gap-2 text-muted-foreground group-hover:text-foreground transition-colors">
-                <Icon className="h-4 w-4" />
-                <span className="text-sm font-medium">{label}</span>
-              </div>
-              <span className="text-xs text-muted-foreground line-clamp-1">
-                {prompt}
-              </span>
-            </button>
-          ))}
-        </div>
+      {/* Quick-start prompts - Inline/List style */}
+      <div className="flex flex-wrap gap-2 sm:gap-3">
+        {CAPABILITIES.map(({ icon: Icon, prompt, label }) => (
+          <button
+            key={label}
+            type="button"
+            onClick={() => onPromptSelect?.(prompt)}
+            className="group flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-all hover:bg-neutral-50 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:border-white/10 dark:bg-[#111] dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-white dark:focus:ring-white/20"
+          >
+            <Icon className="h-4 w-4 text-neutral-500 transition-colors group-hover:text-neutral-700 dark:text-neutral-400 dark:group-hover:text-neutral-300" />
+            <span>{prompt}</span>
+          </button>
+        ))}
       </div>
     </div>
   );

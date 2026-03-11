@@ -4,14 +4,14 @@
  * Tests for state validation, diff computation, and utilities.
  */
 
-import { describe, it, expect } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import {
-  validate,
-  createAgentState,
-  clone,
   applyUpdate,
+  clone,
   computeDiff,
+  createAgentState,
   formatDiff,
+  validate,
 } from "../state";
 import type { AgentState } from "../types";
 
@@ -55,7 +55,9 @@ describe("State management", () => {
       const result = validate(state);
 
       expect(result.isValid).toBe(false);
-      expect(result.errors.some((e) => e.includes("conversationId"))).toBe(true);
+      expect(result.errors.some((e) => e.includes("conversationId"))).toBe(
+        true
+      );
     });
 
     it("should detect invalid timestamps", () => {
@@ -104,7 +106,9 @@ describe("State management", () => {
       const result = validate(state);
 
       expect(result.isValid).toBe(true);
-      expect(result.warnings.some((w) => w.includes("Large number of tool calls"))).toBe(true);
+      expect(
+        result.warnings.some((w) => w.includes("Large number of tool calls"))
+      ).toBe(true);
     });
   });
 
@@ -185,7 +189,9 @@ describe("State management", () => {
       expect(updated.route).toBe("synthesis");
       expect(updated.metadata.stepIndex).toBe(1); // Incremented
       // UpdatedAt should be greater than or equal (accounting for fast execution)
-      expect(updated.metadata.updatedAt).toBeGreaterThanOrEqual(state.metadata.updatedAt);
+      expect(updated.metadata.updatedAt).toBeGreaterThanOrEqual(
+        state.metadata.updatedAt
+      );
     });
 
     it("should update currentNode when route is provided", () => {

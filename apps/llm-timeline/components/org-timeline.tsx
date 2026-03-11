@@ -1,6 +1,6 @@
+import type { Model } from "@/lib/data";
 import { ModelCard } from "./model-card";
 import { OrgAvatar } from "./org-avatar";
-import type { Model } from "@/lib/data";
 
 interface OrgTimelineProps {
   modelsByOrg: Map<string, Model[]>;

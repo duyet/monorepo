@@ -85,10 +85,10 @@ function formatDateForInput(date: Date): string {
 /**
  * Parse date string from input to Date
  */
-function parseDateFromInput(dateStr: string): Date | null {
+function _parseDateFromInput(dateStr: string): Date | null {
   if (!dateStr) return null;
   const date = new Date(dateStr);
-  return isNaN(date.getTime()) ? null : date;
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 /**
@@ -119,7 +119,8 @@ export function SearchFilters({
     .filter(Boolean);
   const currentFromDate = searchParams.get("from") || "";
   const currentToDate = searchParams.get("to") || "";
-  const currentPreset = (searchParams.get("preset") || "all") as DateRangePreset;
+  const currentPreset = (searchParams.get("preset") ||
+    "all") as DateRangePreset;
 
   // Determine if we're using a custom date range
   const [isCustomDateRange, setIsCustomDateRange] = useState<boolean>(
@@ -297,7 +298,10 @@ export function SearchFilters({
    * Check if any filters are active
    */
   const hasActiveFilters =
-    currentCategory || currentTags.length > 0 || currentFromDate || currentToDate;
+    currentCategory ||
+    currentTags.length > 0 ||
+    currentFromDate ||
+    currentToDate;
 
   return (
     <div className={cn("flex flex-col gap-6", className)}>
@@ -402,21 +406,21 @@ export function SearchFilters({
                 getDateRangeOptions()
                   .filter((opt) => opt.value !== "custom")
                   .map((option) => (
-                <button
-                  type="button"
-                  key={option.value}
-                  onClick={() => handleDatePresetChange(option.value)}
-                  className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
-                    currentPreset === option.value ||
-                      (!currentPreset && option.value === "all")
-                      ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                      : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
-                  )}
-                >
-                  {option.label}
-                </button>
-              )),
+                    <button
+                      type="button"
+                      key={option.value}
+                      onClick={() => handleDatePresetChange(option.value)}
+                      className={cn(
+                        "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
+                        currentPreset === option.value ||
+                          (!currentPreset && option.value === "all")
+                          ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+                          : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  )),
               [currentPreset]
             )}
             <button

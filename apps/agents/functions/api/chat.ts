@@ -25,6 +25,14 @@ import {
 } from "../../lib/agent";
 import { getClientIp, getUserFromRequest, hashIp } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
+// Graph system imports (Unit 11 integration)
+import {
+  createCheckpointer,
+  createInitialState,
+  createObservability,
+  GraphRouter,
+} from "../../lib/graph";
+import { AGENT_SKILLS } from "../../lib/skills-data";
 import {
   fetchLlmsTxt,
   getAboutTool,
@@ -34,14 +42,6 @@ import {
   getGitHubTool,
   searchBlogTool,
 } from "../../lib/tools";
-import { AGENT_SKILLS } from "../../lib/skills-data";
-// Graph system imports (Unit 11 integration)
-import {
-  GraphRouter,
-  createInitialState,
-  createObservability,
-  createCheckpointer,
-} from "../../lib/graph";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
@@ -59,7 +59,10 @@ function anonymizeForLog(value: string | undefined, prefixLen = 8): string {
 function sanitizeUserString(value: string, maxLen: number): string {
   const truncated = value.substring(0, maxLen);
   return truncated
-    .replace(/<\/?(?:system|assistant|user|human|prompt|instruction)[^>]*>/gi, "")
+    .replace(
+      /<\/?(?:system|assistant|user|human|prompt|instruction)[^>]*>/gi,
+      ""
+    )
     .replace(/^\s*(?:system|assistant|human|user)\s*:/gim, "")
     .trim();
 }
@@ -70,7 +73,11 @@ function sanitizeUserString(value: string, maxLen: number): string {
 function buildSystemPrompt(
   basePrompt: string,
   includeSkills: boolean,
-  settings?: { customInstructions?: string; language?: string; timezone?: string }
+  settings?: {
+    customInstructions?: string;
+    language?: string;
+    timezone?: string;
+  }
 ): string {
   let system = basePrompt;
 
@@ -90,7 +97,8 @@ function buildSystemPrompt(
     }
     if (settings.language) {
       const sanitized = sanitizeUserString(settings.language, 50);
-      if (sanitized) parts.push(`The user's preferred language is: ${sanitized}`);
+      if (sanitized)
+        parts.push(`The user's preferred language is: ${sanitized}`);
     }
     if (settings.timezone) {
       const sanitized = sanitizeUserString(settings.timezone, 50);
@@ -392,27 +400,38 @@ async function handleGraphExecution(
   requestId: string,
   uiMessages: unknown[],
   conversationId: string | undefined,
-  settings: { customInstructions?: string; language?: string; timezone?: string } | undefined,
+  settings:
+    | { customInstructions?: string; language?: string; timezone?: string }
+    | undefined,
   user: { userId: string } | null,
   rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
 ): Promise<Response> {
   // Get user's last message as input
   const lastMessage = uiMessages[uiMessages.length - 1];
-  const userInput = typeof lastMessage === "object" && lastMessage !== null && "content" in lastMessage
-    ? String(lastMessage.content)
-    : String(lastMessage);
+  const userInput =
+    typeof lastMessage === "object" &&
+    lastMessage !== null &&
+    "content" in lastMessage
+      ? String(lastMessage.content)
+      : String(lastMessage);
 
   // Create initial state for graph execution
   const convId = conversationId || crypto.randomUUID();
   const initialState = createInitialState(convId, userInput);
 
-  console.log(`[Chat API][${requestId}] Graph execution started for conversation ${convId}`);
+  console.log(
+    `[Chat API][${requestId}] Graph execution started for conversation ${convId}`
+  );
 
   // Create observability middleware
   const observability = createObservability({
     debug: false, // Disable debug logs in production
     logger: (level, message, ...args) => {
-      console.log(`[Chat API][${requestId}][${level.toUpperCase()}]`, message, ...args);
+      console.log(
+        `[Chat API][${requestId}][${level.toUpperCase()}]`,
+        message,
+        ...args
+      );
     },
   });
 
@@ -501,7 +520,9 @@ async function handleGraphExecution(
     stopWhen: stepCountIs(30),
   });
 
-  console.log(`[Chat API][${requestId}] Streaming started via AI Gateway (graph mode)`);
+  console.log(
+    `[Chat API][${requestId}] Streaming started via AI Gateway (graph mode)`
+  );
 
   // Store conversation for authenticated users
   if (user && context.env.DB && conversationId) {
@@ -551,7 +572,9 @@ async function handleDirectExecution(
   uiMessages: unknown[],
   mode: string,
   conversationId: string | undefined,
-  settings: { customInstructions?: string; language?: string; timezone?: string } | undefined,
+  settings:
+    | { customInstructions?: string; language?: string; timezone?: string }
+    | undefined,
   user: { userId: string } | null,
   rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
 ): Promise<Response> {
@@ -582,7 +605,11 @@ async function handleDirectExecution(
   const basePrompt = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
 
   // Build system prompt with skills and settings (shared helper)
-  const system = buildSystemPrompt(basePrompt, !isFast && AGENT_SKILLS.length > 0, settings);
+  const system = buildSystemPrompt(
+    basePrompt,
+    !isFast && AGENT_SKILLS.length > 0,
+    settings
+  );
 
   const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
 

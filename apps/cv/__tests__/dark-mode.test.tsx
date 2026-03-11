@@ -1,4 +1,4 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 
 const layoutSource = await Bun.file(
   new URL("../app/layout.tsx", import.meta.url).pathname

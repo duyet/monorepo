@@ -25,7 +25,10 @@ export function useSearchHistory() {
       if (stored) {
         const parsed = JSON.parse(stored) as string[];
         // Validate it's an array of strings
-        if (Array.isArray(parsed) && parsed.every((h) => typeof h === "string")) {
+        if (
+          Array.isArray(parsed) &&
+          parsed.every((h) => typeof h === "string")
+        ) {
           setHistory(parsed);
         }
       }

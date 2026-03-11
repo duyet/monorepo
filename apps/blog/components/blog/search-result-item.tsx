@@ -1,9 +1,9 @@
-import { escapeRegExp } from "@duyet/libs/string";
 import type { Post } from "@duyet/interfaces";
+import { escapeRegExp } from "@duyet/libs/string";
 import { cn } from "@duyet/libs/utils";
 import Link from "next/link";
-import { IsFeatured, IsNewPost } from "@/components/post";
 import { useMemo } from "react";
+import { IsFeatured, IsNewPost } from "@/components/post";
 
 export interface SearchResultItemProps {
   post: Post;
@@ -46,10 +46,7 @@ export function SearchResultItem({
 
   return (
     <article
-      className={cn(
-        "group flex flex-row items-center gap-4 py-2",
-        className
-      )}
+      className={cn("group flex flex-row items-center gap-4 py-2", className)}
     >
       <Link
         className="text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4 dark:text-neutral-200 dark:hover:text-neutral-100"

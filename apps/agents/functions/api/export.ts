@@ -89,8 +89,7 @@ function formatAsMarkdown(conversation: any, messages: any[]): string {
 
   // Messages
   for (const message of messages) {
-    const roleLabel =
-      message.role === "user" ? "👤 User" : "🤖 Assistant";
+    const roleLabel = message.role === "user" ? "👤 User" : "🤖 Assistant";
     const timestamp = new Date(message.timestamp).toLocaleString();
 
     lines.push(`## ${roleLabel}`);
@@ -146,12 +145,8 @@ function formatAsText(conversation: any, messages: any[]): string {
   lines.push(`Conversation: ${conversation.title}`);
   lines.push(`ID: ${conversation.id}`);
   lines.push(`Mode: ${conversation.mode}`);
-  lines.push(
-    `Created: ${new Date(conversation.createdAt).toLocaleString()}`
-  );
-  lines.push(
-    `Updated: ${new Date(conversation.updatedAt).toLocaleString()}`
-  );
+  lines.push(`Created: ${new Date(conversation.createdAt).toLocaleString()}`);
+  lines.push(`Updated: ${new Date(conversation.updatedAt).toLocaleString()}`);
   lines.push("");
   lines.push("=".repeat(60));
   lines.push("");
@@ -171,7 +166,9 @@ function formatAsText(conversation: any, messages: any[]): string {
     if (message.sources && message.sources.length > 0) {
       lines.push("Sources:");
       for (const source of message.sources) {
-        lines.push(`  - ${source.title}${source.url ? ` (${source.url})` : ""}`);
+        lines.push(
+          `  - ${source.title}${source.url ? ` (${source.url})` : ""}`
+        );
       }
     }
 

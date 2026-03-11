@@ -1,25 +1,25 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { Timeline } from "@/components/timeline";
-import { OrgTimeline } from "@/components/org-timeline";
-import { VirtualTimeline } from "@/components/virtual-timeline";
-import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
+import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
-import { StatsCards } from "@/components/stats-cards";
 import {
-  useKeyboardShortcuts,
-  KeyboardHelpTooltip,
   KeyboardHelpButton,
+  KeyboardHelpTooltip,
+  useKeyboardShortcuts,
 } from "@/components/KeyboardShortcuts";
-import { organizations, models as allModels } from "@/lib/data";
+import { OrgTimeline } from "@/components/org-timeline";
+import { StatsCards } from "@/components/stats-cards";
+import { Timeline } from "@/components/timeline";
+import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
+import { VirtualTimeline } from "@/components/virtual-timeline";
 import type { Model } from "@/lib/data";
+import { organizations } from "@/lib/data";
 import {
   DEFAULT_FILTERS,
-  groupByYear,
-  groupByOrg,
-  filterModels,
   type FilterState,
+  filterModels,
+  groupByOrg,
+  groupByYear,
 } from "@/lib/utils";
 
 type View = "models" | "organizations";
@@ -78,7 +78,10 @@ export function StaticView({
           const slugs = compareParam.split(",").filter(Boolean).slice(0, 3);
           const found: Model[] = [];
           for (const slug of slugs) {
-            const model = allModels.find((m) => m.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase());
+            const model = allModels.find(
+              (m) =>
+                m.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase()
+            );
             if (model && !found.find((f) => f.name === model.name)) {
               found.push(model);
             }
@@ -104,8 +107,14 @@ export function StaticView({
     return filterModels(allModels, filters);
   }, [allModels, searchQuery, licenseFilter, orgFilter]);
 
-  const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels]);
-  const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels]);
+  const modelsByYear = useMemo(
+    () => groupByYear(filteredModels),
+    [filteredModels]
+  );
+  const modelsByOrg = useMemo(
+    () => groupByOrg(filteredModels),
+    [filteredModels]
+  );
 
   // Selected model names set for efficient lookup
   const selectedModelNames = useMemo(
@@ -133,7 +142,12 @@ export function StaticView({
 
     const params = new URLSearchParams(window.location.search);
     if (selectedModels.length > 0) {
-      params.set("compare", selectedModels.map((m) => m.name.toLowerCase().replace(/\s+/g, "-")).join(","));
+      params.set(
+        "compare",
+        selectedModels
+          .map((m) => m.name.toLowerCase().replace(/\s+/g, "-"))
+          .join(",")
+      );
     } else {
       params.delete("compare");
     }
@@ -142,20 +156,16 @@ export function StaticView({
   }, [selectedModels, year, org]);
 
   // Keyboard shortcuts
-  const {
-    showBadges,
-    showHelp,
-    setShowHelp,
-    shortcutOrgs,
-  } = useKeyboardShortcuts({
-    organizations,
-    onFilterByOrg: setOrgFilter,
-    onClearFilters: () => {
-      setOrgFilter("");
-      setSearchQuery("");
-      setLicenseFilter("all");
-    },
-  });
+  const { showBadges, showHelp, setShowHelp, shortcutOrgs } =
+    useKeyboardShortcuts({
+      organizations,
+      onFilterByOrg: setOrgFilter,
+      onClearFilters: () => {
+        setOrgFilter("");
+        setSearchQuery("");
+        setLicenseFilter("all");
+      },
+    });
 
   // Keyboard shortcut for comparison
   useEffect(() => {
@@ -208,7 +218,11 @@ export function StaticView({
         onSearchChange={setSearchQuery}
         onLicenseChange={setLicenseFilter}
         comparisonMode={comparisonMode}
-        onToggleComparisonMode={enableComparisonToggle ? () => setComparisonMode(!comparisonMode) : undefined}
+        onToggleComparisonMode={
+          enableComparisonToggle
+            ? () => setComparisonMode(!comparisonMode)
+            : undefined
+        }
       />
 
       {/* Organization Shortcuts */}
@@ -222,10 +236,14 @@ export function StaticView({
               style={{
                 borderColor: "var(--border)",
                 backgroundColor:
-                  orgFilter === shortcutOrg.name ? "var(--accent-subtle)" : "var(--bg-card)",
+                  orgFilter === shortcutOrg.name
+                    ? "var(--accent-subtle)"
+                    : "var(--bg-card)",
               }}
             >
-              <span className="mr-2 font-mono text-xs opacity-60">{index + 1}</span>
+              <span className="mr-2 font-mono text-xs opacity-60">
+                {index + 1}
+              </span>
               {shortcutOrg.name}
             </button>
           ))}
@@ -290,7 +308,10 @@ export function StaticView({
                           backgroundColor: "var(--bg-card)",
                         }}
                       >
-                        <span className="text-sm font-medium" style={{ color: "var(--text)" }}>
+                        <span
+                          className="text-sm font-medium"
+                          style={{ color: "var(--text)" }}
+                        >
                           {model.name}
                         </span>
                         <button
@@ -308,7 +329,9 @@ export function StaticView({
                     disabled={!canCompare}
                     className="flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
-                      backgroundColor: canCompare ? "var(--accent)" : "var(--bg-card)",
+                      backgroundColor: canCompare
+                        ? "var(--accent)"
+                        : "var(--bg-card)",
                       color: canCompare ? "white" : "var(--text-muted)",
                     }}
                   >
@@ -333,7 +356,10 @@ export function StaticView({
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <ComparisonModalContent models={selectedModels} onClose={() => setIsModalOpen(false)} />
+                <ComparisonModalContent
+                  models={selectedModels}
+                  onClose={() => setIsModalOpen(false)}
+                />
               </div>
             </div>
           )}
@@ -348,7 +374,10 @@ interface ComparisonModalContentProps {
   onClose: () => void;
 }
 
-function ComparisonModalContent({ models, onClose }: ComparisonModalContentProps) {
+function ComparisonModalContent({
+  models,
+  onClose,
+}: ComparisonModalContentProps) {
   const { formatDate, getLicenseColor } = require("@/lib/utils");
   const { parseParamValue } = require("@duyet/libs");
 
@@ -363,14 +392,21 @@ function ComparisonModalContent({ models, onClose }: ComparisonModalContentProps
 
   return (
     <>
-      <div className="sticky top-0 z-10 border-b p-6 backdrop-blur-sm" style={{ borderBottomColor: "var(--border)" }}>
+      <div
+        className="sticky top-0 z-10 border-b p-6 backdrop-blur-sm"
+        style={{ borderBottomColor: "var(--border)" }}
+      >
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold" style={{ color: "var(--text)" }}>
+            <h2
+              className="text-xl font-semibold"
+              style={{ color: "var(--text)" }}
+            >
               Model Comparison
             </h2>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              {sortedModels.length} model{sortedModels.length > 1 ? "s" : ""} selected
+              {sortedModels.length} model{sortedModels.length > 1 ? "s" : ""}{" "}
+              selected
             </p>
           </div>
           <button
@@ -384,53 +420,129 @@ function ComparisonModalContent({ models, onClose }: ComparisonModalContentProps
       </div>
 
       <div className="p-6 space-y-6">
-        <div className="overflow-x-auto rounded-lg border" style={{ borderColor: "var(--border)" }}>
+        <div
+          className="overflow-x-auto rounded-lg border"
+          style={{ borderColor: "var(--border)" }}
+        >
           <table className="w-full">
             <thead>
-              <tr className="border-b" style={{ borderBottomColor: "var(--border)" }}>
-                <th className="px-4 py-3 text-left font-semibold w-32" style={{ color: "var(--text)" }}>
+              <tr
+                className="border-b"
+                style={{ borderBottomColor: "var(--border)" }}
+              >
+                <th
+                  className="px-4 py-3 text-left font-semibold w-32"
+                  style={{ color: "var(--text)" }}
+                >
                   Metric
                 </th>
                 {sortedModels.map((model) => (
-                  <th key={model.name} className="px-4 py-3 text-left font-semibold" style={{ color: "var(--text)" }}>
+                  <th
+                    key={model.name}
+                    className="px-4 py-3 text-left font-semibold"
+                    style={{ color: "var(--text)" }}
+                  >
                     {model.name}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b" style={{ borderBottomColor: "var(--border)" }}>
-                <td className="px-4 py-3 font-medium" style={{ color: "var(--text-muted)" }}>Organization</td>
+              <tr
+                className="border-b"
+                style={{ borderBottomColor: "var(--border)" }}
+              >
+                <td
+                  className="px-4 py-3 font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Organization
+                </td>
                 {sortedModels.map((model) => (
-                  <td key={model.name} className="px-4 py-3" style={{ color: "var(--text)" }}>{model.org}</td>
+                  <td
+                    key={model.name}
+                    className="px-4 py-3"
+                    style={{ color: "var(--text)" }}
+                  >
+                    {model.org}
+                  </td>
                 ))}
               </tr>
-              <tr className="border-b" style={{ borderBottomColor: "var(--border)" }}>
-                <td className="px-4 py-3 font-medium" style={{ color: "var(--text-muted)" }}>Release Date</td>
+              <tr
+                className="border-b"
+                style={{ borderBottomColor: "var(--border)" }}
+              >
+                <td
+                  className="px-4 py-3 font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Release Date
+                </td>
                 {sortedModels.map((model) => (
-                  <td key={model.name} className="px-4 py-3" style={{ color: "var(--text)" }}>{formatDate(model.date)}</td>
+                  <td
+                    key={model.name}
+                    className="px-4 py-3"
+                    style={{ color: "var(--text)" }}
+                  >
+                    {formatDate(model.date)}
+                  </td>
                 ))}
               </tr>
-              <tr className="border-b" style={{ borderBottomColor: "var(--border)" }}>
-                <td className="px-4 py-3 font-medium" style={{ color: "var(--text-muted)" }}>Parameters</td>
+              <tr
+                className="border-b"
+                style={{ borderBottomColor: "var(--border)" }}
+              >
+                <td
+                  className="px-4 py-3 font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Parameters
+                </td>
                 {sortedModels.map((model) => (
-                  <td key={model.name} className="px-4 py-3" style={{ color: "var(--text)" }}>{model.params || "Unknown"}</td>
+                  <td
+                    key={model.name}
+                    className="px-4 py-3"
+                    style={{ color: "var(--text)" }}
+                  >
+                    {model.params || "Unknown"}
+                  </td>
                 ))}
               </tr>
-              <tr className="border-b" style={{ borderBottomColor: "var(--border)" }}>
-                <td className="px-4 py-3 font-medium" style={{ color: "var(--text-muted)" }}>License</td>
+              <tr
+                className="border-b"
+                style={{ borderBottomColor: "var(--border)" }}
+              >
+                <td
+                  className="px-4 py-3 font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  License
+                </td>
                 {sortedModels.map((model) => (
                   <td key={model.name} className="px-4 py-3">
-                    <span className={`rounded border px-2 py-1 text-xs font-medium uppercase tracking-wide ${getLicenseColor(model.license)}`}>
+                    <span
+                      className={`rounded border px-2 py-1 text-xs font-medium uppercase tracking-wide ${getLicenseColor(model.license)}`}
+                    >
                       {model.license}
                     </span>
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="px-4 py-3 font-medium" style={{ color: "var(--text-muted)" }}>Type</td>
+                <td
+                  className="px-4 py-3 font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Type
+                </td>
                 {sortedModels.map((model) => (
-                  <td key={model.name} className="px-4 py-3 capitalize" style={{ color: "var(--text)" }}>{model.type}</td>
+                  <td
+                    key={model.name}
+                    className="px-4 py-3 capitalize"
+                    style={{ color: "var(--text)" }}
+                  >
+                    {model.type}
+                  </td>
                 ))}
               </tr>
             </tbody>
@@ -439,7 +551,10 @@ function ComparisonModalContent({ models, onClose }: ComparisonModalContentProps
 
         {sortedModels.some((m) => m.params) && (
           <div>
-            <h3 className="mb-4 text-lg font-semibold" style={{ color: "var(--text)" }}>
+            <h3
+              className="mb-4 text-lg font-semibold"
+              style={{ color: "var(--text)" }}
+            >
               Parameter Count Comparison
             </h3>
             <div className="space-y-3">
@@ -450,15 +565,27 @@ function ComparisonModalContent({ models, onClose }: ComparisonModalContentProps
                 return (
                   <div key={model.name}>
                     <div className="mb-1 flex justify-between text-sm">
-                      <span className="font-medium" style={{ color: "var(--text)" }}>{model.name}</span>
-                      <span style={{ color: "var(--text-muted)" }}>{model.params}</span>
+                      <span
+                        className="font-medium"
+                        style={{ color: "var(--text)" }}
+                      >
+                        {model.name}
+                      </span>
+                      <span style={{ color: "var(--text-muted)" }}>
+                        {model.params}
+                      </span>
                     </div>
-                    <div className="relative h-8 overflow-hidden rounded-md" style={{ backgroundColor: "var(--border)", opacity: 0.3 }}>
+                    <div
+                      className="relative h-8 overflow-hidden rounded-md"
+                      style={{ backgroundColor: "var(--border)", opacity: 0.3 }}
+                    >
                       <div
                         className="h-full rounded-md transition-all duration-500"
                         style={{
                           width: `${percentage}%`,
-                          backgroundColor: getLicenseColor(model.license).split(" ")[0],
+                          backgroundColor: getLicenseColor(model.license).split(
+                            " "
+                          )[0],
                         }}
                       />
                     </div>

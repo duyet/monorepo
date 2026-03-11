@@ -5,8 +5,8 @@
  * client-side only. We lazy load it to reduce initial bundle size.
  */
 
-import { lazy, Suspense } from "react";
 import type { ComponentProps } from "react";
+import { lazy, Suspense } from "react";
 
 const CodeBlockImpl = lazy(() =>
   import("./CodeBlock").then((module) => ({

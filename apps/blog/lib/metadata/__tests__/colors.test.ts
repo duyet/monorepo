@@ -1,4 +1,4 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { getColorClass, getRotatedColor } from "../colors";
 import type { ColorVariant } from "../types";
 

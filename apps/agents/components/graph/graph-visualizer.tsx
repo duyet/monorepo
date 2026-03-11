@@ -7,18 +7,18 @@
  * Shows execution path with active nodes and outcomes.
  */
 
-import { useCallback } from "react";
+import { cn } from "@duyet/libs";
 import {
   Background,
   Controls,
-  MiniMap,
-  ReactFlow,
   type Edge,
+  MiniMap,
   type Node,
   type NodeTypes,
+  ReactFlow,
 } from "@xyflow/react";
-import type { VisualGraphData, NodeTrace } from "@/lib/graph";
-import { cn } from "@duyet/libs";
+import { useCallback } from "react";
+import type { NodeTrace, VisualGraphData } from "@/lib/graph";
 
 // Custom node component for graph nodes
 function GraphNode({ data }: { data: GraphNodeData }) {
@@ -46,7 +46,9 @@ function GraphNode({ data }: { data: GraphNodeData }) {
       )}
     >
       <div className="flex items-center gap-2">
-        <span className="text-sm font-semibold">{statusIcons[status || "pending"]}</span>
+        <span className="text-sm font-semibold">
+          {statusIcons[status || "pending"]}
+        </span>
         <span className="text-sm font-medium truncate">{label}</span>
       </div>
       {description && (
@@ -110,7 +112,14 @@ export function GraphVisualizer({
     for (const trace of traces) {
       // Use the most recent trace (later traces override earlier ones)
       map.set(trace.nodeId, {
-        status: trace.outcome === "running" ? "running" : trace.outcome === "success" ? "success" : trace.outcome === "error" ? "error" : "pending",
+        status:
+          trace.outcome === "running"
+            ? "running"
+            : trace.outcome === "success"
+              ? "success"
+              : trace.outcome === "error"
+                ? "error"
+                : "pending",
         duration: trace.duration,
       });
     }
@@ -147,8 +156,7 @@ export function GraphVisualizer({
   });
 
   const edges: Edge[] = graphData.edges.map((edge) => {
-    const isEdgeActive =
-      activeNodeId && edge.source === activeNodeId;
+    const isEdgeActive = activeNodeId && edge.source === activeNodeId;
 
     return {
       id: edge.id,
@@ -158,9 +166,7 @@ export function GraphVisualizer({
       animated: isEdgeActive || edge.animated,
       label: edge.label,
       // Style active edges differently
-      className: isEdgeActive
-        ? "stroke-blue-500 stroke-2"
-        : "stroke-gray-400",
+      className: isEdgeActive ? "stroke-blue-500 stroke-2" : "stroke-gray-400",
       labelStyle: {
         fontSize: "10px",
         fontWeight: 500,

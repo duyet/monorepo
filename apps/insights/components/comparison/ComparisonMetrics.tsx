@@ -5,9 +5,9 @@
 
 "use client";
 
-import type { ComparisonDelta } from "@/lib/comparison";
 import { cn } from "@duyet/libs/utils";
-import { TrendingDown, TrendingUp, Minus } from "lucide-react";
+import { Minus, TrendingDown, TrendingUp } from "lucide-react";
+import type { ComparisonDelta } from "@/lib/comparison";
 
 export interface ComparisonMetricItem {
   label: string;
@@ -25,7 +25,12 @@ export interface ComparisonMetricsProps {
 }
 
 function DeltaBadge({ delta }: { delta: ComparisonDelta }) {
-  const Icon = delta.trend === "up" ? TrendingUp : delta.trend === "down" ? TrendingDown : Minus;
+  const Icon =
+    delta.trend === "up"
+      ? TrendingUp
+      : delta.trend === "down"
+        ? TrendingDown
+        : Minus;
   const colorClass =
     delta.trend === "up"
       ? "text-green-600 dark:text-green-400"
@@ -56,8 +61,12 @@ export function ComparisonMetrics({
         <thead>
           <tr className="border-b">
             <th className="pb-3 text-left text-sm font-medium">Metric</th>
-            <th className="pb-3 text-right text-sm font-medium">{period1Label}</th>
-            <th className="pb-3 text-right text-sm font-medium">{period2Label}</th>
+            <th className="pb-3 text-right text-sm font-medium">
+              {period1Label}
+            </th>
+            <th className="pb-3 text-right text-sm font-medium">
+              {period2Label}
+            </th>
             <th className="pb-3 text-right text-sm font-medium">Change</th>
           </tr>
         </thead>

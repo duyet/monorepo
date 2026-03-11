@@ -1,13 +1,7 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import {
-  BarChart2,
-  Moon,
-  PanelLeft,
-  Plus,
-  Sun,
-} from "lucide-react";
+import { BarChart2, Moon, PanelLeft, Plus, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import type { Conversation } from "@/lib/types";
 import { cn } from "@/lib/utils";

@@ -8,9 +8,6 @@ export * from "./getRelatedPosts";
 export * from "./getSlug";
 export * from "./logger";
 export * from "./markdownToHtml";
-export * from "./parseModelParams";
-export * from "./string";
-
 // next-routes excluded: imports next/server which pulls in ua-parser-js
 // (uses __dirname, incompatible with Cloudflare Pages Functions edge runtime)
 //
@@ -20,4 +17,6 @@ export * from "./string";
 // Used in: blog (ping), cv (ping), home (ping), insights (ping, llms.txt), photos (ping)
 // Tests: packages/libs/__tests__/next-routes.test.ts
 export * from "./object-utils";
+export * from "./parseModelParams";
+export * from "./string";
 export * from "./utils";

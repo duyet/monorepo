@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Building2, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 interface StatsCardsProps {
   models: number;

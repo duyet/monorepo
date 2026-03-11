@@ -4,9 +4,9 @@
  * Wraps fetchLlmsTxt tool as a graph node.
  */
 
+import { fetchLlmsTxt } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { fetchLlmsTxt } from "../../../tools";
 
 /**
  * Fetch llms.txt Node
@@ -18,14 +18,17 @@ export class FetchLlmsTxtNode extends GraphNode {
     super({
       id: "fetch-llms-txt",
       name: "Fetch llms.txt",
-      description: "Fetch llms.txt from any duyet.net domain for AI-readable documentation",
+      description:
+        "Fetch llms.txt from any duyet.net domain for AI-readable documentation",
       type: "tool",
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Extract domain from route or default to home
       const domain = state.route || "home";

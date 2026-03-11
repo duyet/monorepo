@@ -4,9 +4,9 @@
  * Wraps searchBlogTool as a graph node.
  */
 
+import { searchBlogTool } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { searchBlogTool } from "../../../tools";
 
 /**
  * Search Blog Node
@@ -23,9 +23,11 @@ export class SearchBlogNode extends GraphNode {
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Extract query from user input or state
       const query = state.userInput || state.route || "";

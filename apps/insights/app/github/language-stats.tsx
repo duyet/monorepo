@@ -155,7 +155,9 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     const languageBytes: Record<string, number> = {};
 
     // Get language data for each repository (limit to top 20 to avoid rate limits)
-    const topRepos = repos.slice(0, 20).filter((repo) => !repo.archived && repo.name);
+    const topRepos = repos
+      .slice(0, 20)
+      .filter((repo) => !repo.archived && repo.name);
 
     const token = getGithubToken();
     if (!token) {

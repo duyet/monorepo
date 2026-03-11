@@ -1,11 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  executeClientTool,
-  registerClientTool,
-  getRegisteredTools,
   type ClientToolContext,
   type ClientToolInvocation,
+  executeClientTool,
   type FactAction,
+  getRegisteredTools,
+  registerClientTool,
 } from "./client-tools";
 
 describe("client-tools", () => {

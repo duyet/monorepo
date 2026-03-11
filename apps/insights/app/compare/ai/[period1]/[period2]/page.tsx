@@ -4,20 +4,16 @@
  */
 
 import { Suspense } from "react";
-import type { PeriodDays } from "@/lib/periods";
-import {
-  getPeriodConfig,
-  getPeriodDays,
-  isPeriodValue,
-} from "@/lib/periods";
-import { generateComparisonStaticParams } from "@/lib/comparison";
 import { ComparisonMetrics } from "@/components/comparison";
-import {
-  getCCUsageComparison,
-  formatCCTokens,
-  formatCCost,
-} from "../../../../ai/ccusage-comparison-utils";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import { generateComparisonStaticParams } from "@/lib/comparison";
+import type { PeriodDays } from "@/lib/periods";
+import { getPeriodConfig, getPeriodDays, isPeriodValue } from "@/lib/periods";
+import {
+  formatCCost,
+  formatCCTokens,
+  getCCUsageComparison,
+} from "../../../../ai/ccusage-comparison-utils";
 
 export const dynamic = "force-static";
 
@@ -132,10 +128,8 @@ async function AIComparisonContent({
   ];
 
   // Get period labels
-  const period1Label =
-    days1 === "all" ? "All time" : `${days1} days`;
-  const period2Label =
-    days2 === "all" ? "All time" : `${days2} days`;
+  const period1Label = days1 === "all" ? "All time" : `${days1} days`;
+  const period2Label = days2 === "all" ? "All time" : `${days2} days`;
 
   return (
     <div>
@@ -146,7 +140,8 @@ async function AIComparisonContent({
         metrics={metrics}
       />
       <p className="mt-4 text-xs text-muted-foreground">
-        Data from ClickHouse • Positive values indicate increase in {period1Label} compared to {period2Label}
+        Data from ClickHouse • Positive values indicate increase in{" "}
+        {period1Label} compared to {period2Label}
       </p>
     </div>
   );

@@ -1,11 +1,6 @@
 import { StaticView } from "@/components/static-view";
 import { models } from "@/lib/data";
-import {
-  filterModels,
-  getStats,
-  slugify,
-  type FilterState,
-} from "@/lib/utils";
+import { type FilterState, filterModels, getStats, slugify } from "@/lib/utils";
 
 type View = "models" | "organizations";
 

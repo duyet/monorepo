@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { Keyboard, Info, X } from "lucide-react";
+import { Info, Keyboard, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 interface ShortcutOrg {
   id: string;

@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
 import { logger } from "@duyet/libs";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   createConversation as createLocalConversation,
   loadConversations as loadLocalStorage,
@@ -298,7 +298,10 @@ export function useConversations(
     // Check if we have messages cached
     if (messagesCacheRef.current.has(id)) {
       setActiveId(id);
-      logger.debug("[useConversations] Switching to conversation (cached):", id);
+      logger.debug(
+        "[useConversations] Switching to conversation (cached):",
+        id
+      );
       return messagesCacheRef.current.get(id)!;
     }
 

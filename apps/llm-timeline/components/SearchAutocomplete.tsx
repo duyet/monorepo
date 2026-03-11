@@ -66,7 +66,10 @@ export function SearchAutocomplete({
         const orgName = org.toLowerCase();
 
         // Only add org if not already matched via model search
-        if (orgName.includes(q) && !matches.some(m => m.type === "org" && m.name === org)) {
+        if (
+          orgName.includes(q) &&
+          !matches.some((m) => m.type === "org" && m.name === org)
+        ) {
           matches.push({
             type: "org",
             name: org,
@@ -96,7 +99,10 @@ export function SearchAutocomplete({
   }, [value, filterSuggestions]);
 
   const handleSelect = (suggestion: Suggestion) => {
-    const newValue = suggestion.type === "model" ? suggestion.name : suggestion.org || suggestion.name;
+    const newValue =
+      suggestion.type === "model"
+        ? suggestion.name
+        : suggestion.org || suggestion.name;
     onChange(newValue);
     setShowSuggestions(false);
     setSelectedIndex(-1);
@@ -151,12 +157,19 @@ export function SearchAutocomplete({
   const highlightMatch = (text: string, query: string) => {
     if (!query) return text;
 
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const regex = new RegExp(
+      `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+      "gi"
+    );
     const parts = text.split(regex);
 
     return parts.map((part, i) =>
       regex.test(part) ? (
-        <strong key={i} className="font-semibold" style={{ color: "var(--accent)" }}>
+        <strong
+          key={i}
+          className="font-semibold"
+          style={{ color: "var(--accent)" }}
+        >
           {part}
         </strong>
       ) : (
@@ -169,14 +182,20 @@ export function SearchAutocomplete({
     if (suggestion.type === "model") {
       return (
         <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--border)" }} />
+          <span
+            className="w-2 h-2 rounded-full"
+            style={{ backgroundColor: "var(--border)" }}
+          />
           Model
         </span>
       );
     }
     return (
       <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: "var(--accent)" }}
+        />
         Organization
       </span>
     );
@@ -239,7 +258,8 @@ export function SearchAutocomplete({
                 </span>
                 {suggestion.org && (
                   <span className="text-muted-foreground">
-                    {" "}· {suggestion.org}
+                    {" "}
+                    · {suggestion.org}
                   </span>
                 )}
               </div>

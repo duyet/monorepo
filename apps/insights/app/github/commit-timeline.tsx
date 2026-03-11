@@ -194,4 +194,3 @@ function getEmptyStats(): CommitStats {
     commitHistory: [],
   };
 }
-

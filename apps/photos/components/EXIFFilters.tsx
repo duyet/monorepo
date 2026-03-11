@@ -10,8 +10,8 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Photo } from "@/lib/photo-provider";
 
 // URL parameter keys — centralized to avoid magic strings
@@ -51,7 +51,10 @@ interface EXIFFiltersProps {
 /**
  * Convert filter state to URL query parameters
  */
-function filtersToParams(filters: EXIFFilterState, filterOptions: ReturnType<typeof computeFilterOptions>): URLSearchParams {
+function filtersToParams(
+  filters: EXIFFilterState,
+  filterOptions: ReturnType<typeof computeFilterOptions>
+): URLSearchParams {
   const params = new URLSearchParams();
 
   if (filters.camera) params.set(URL_PARAMS.CAMERA, filters.camera);
@@ -99,8 +102,14 @@ function paramsToFilters(
       Number(params.get(URL_PARAMS.ISO_MAX) || filterOptions.iso.max),
     ],
     aperture: [
-      Number.parseFloat(params.get(URL_PARAMS.APERTURE_MIN) || String(filterOptions.aperture.min)),
-      Number.parseFloat(params.get(URL_PARAMS.APERTURE_MAX) || String(filterOptions.aperture.max)),
+      Number.parseFloat(
+        params.get(URL_PARAMS.APERTURE_MIN) ||
+          String(filterOptions.aperture.min)
+      ),
+      Number.parseFloat(
+        params.get(URL_PARAMS.APERTURE_MAX) ||
+          String(filterOptions.aperture.max)
+      ),
     ],
   };
 }
@@ -122,7 +131,8 @@ function computeFilterOptions(photos: Photo[]) {
 
     // Extract camera (make + model)
     if (exif.make || exif.model || exif.name) {
-      const camera = exif.name || [exif.make, exif.model].filter(Boolean).join(" ");
+      const camera =
+        exif.name || [exif.make, exif.model].filter(Boolean).join(" ");
       if (camera) cameras.add(camera);
     }
 
@@ -212,8 +222,12 @@ export default function EXIFFilters({
 
         // Camera filter
         if (newFilters.camera) {
-          const camera = exif.name || [exif.make, exif.model].filter(Boolean).join(" ");
-          if (!camera || !camera.toLowerCase().includes(newFilters.camera.toLowerCase())) {
+          const camera =
+            exif.name || [exif.make, exif.model].filter(Boolean).join(" ");
+          if (
+            !camera ||
+            !camera.toLowerCase().includes(newFilters.camera.toLowerCase())
+          ) {
             return false;
           }
         }
@@ -253,7 +267,8 @@ export default function EXIFFilters({
         if (
           aperture !== null &&
           !Number.isNaN(aperture) &&
-          (aperture < newFilters.aperture[0] || aperture > newFilters.aperture[1])
+          (aperture < newFilters.aperture[0] ||
+            aperture > newFilters.aperture[1])
         ) {
           return false;
         }
@@ -268,7 +283,10 @@ export default function EXIFFilters({
 
   // Handle filter changes — apply immediately without extra render cycle
   const updateFilter = useCallback(
-    (key: keyof EXIFFilterState, value: EXIFFilterState[keyof EXIFFilterState]) => {
+    (
+      key: keyof EXIFFilterState,
+      value: EXIFFilterState[keyof EXIFFilterState]
+    ) => {
       setFilters((prev) => {
         const newFilters = { ...prev, [key]: value };
         applyFilters(newFilters);
@@ -336,7 +354,8 @@ export default function EXIFFilters({
         className={cn(
           "mb-6 flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-all",
           "bg-white text-neutral-700 shadow-sm hover:bg-neutral-50 hover:shadow dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700",
-          isExpanded && "border-terracotta bg-terracotta/5 dark:border-terracotta-light dark:bg-terracotta/10"
+          isExpanded &&
+            "border-terracotta bg-terracotta/5 dark:border-terracotta-light dark:bg-terracotta/10"
         )}
         aria-expanded={isExpanded}
       >
@@ -440,7 +459,8 @@ export default function EXIFFilters({
             <div className="space-y-2">
               <span className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                 <Maximize2 className="h-4 w-4" aria-hidden="true" />
-                Focal Length: {filters.focalLength[0]}–{filters.focalLength[1]}mm
+                Focal Length: {filters.focalLength[0]}–{filters.focalLength[1]}
+                mm
               </span>
               <div className="flex items-center gap-2">
                 <input
@@ -451,14 +471,17 @@ export default function EXIFFilters({
                   value={filters.focalLength[0]}
                   onChange={(e) =>
                     updateFilter("focalLength", [
-                      Number.parseInt(e.target.value, 10) || filterOptions.focalLength.min,
+                      Number.parseInt(e.target.value, 10) ||
+                        filterOptions.focalLength.min,
                       filters.focalLength[1],
                     ])
                   }
                   aria-label="Minimum focal length in millimeters"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
-                <span className="text-neutral-400 dark:text-neutral-600">–</span>
+                <span className="text-neutral-400 dark:text-neutral-600">
+                  –
+                </span>
                 <input
                   id="focal-length-max"
                   type="number"
@@ -468,16 +491,20 @@ export default function EXIFFilters({
                   onChange={(e) =>
                     updateFilter("focalLength", [
                       filters.focalLength[0],
-                      Number.parseInt(e.target.value, 10) || filterOptions.focalLength.max,
+                      Number.parseInt(e.target.value, 10) ||
+                        filterOptions.focalLength.max,
                     ])
                   }
                   aria-label="Maximum focal length in millimeters"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
-                <span className="text-xs text-neutral-500 dark:text-neutral-400">mm</span>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                  mm
+                </span>
               </div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Range: {filterOptions.focalLength.min}–{filterOptions.focalLength.max}mm
+                Range: {filterOptions.focalLength.min}–
+                {filterOptions.focalLength.max}mm
               </p>
             </div>
 
@@ -495,14 +522,17 @@ export default function EXIFFilters({
                   value={filters.iso[0]}
                   onChange={(e) =>
                     updateFilter("iso", [
-                      Number.parseInt(e.target.value, 10) || filterOptions.iso.min,
+                      Number.parseInt(e.target.value, 10) ||
+                        filterOptions.iso.min,
                       filters.iso[1],
                     ])
                   }
                   aria-label="Minimum ISO value"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
-                <span className="text-neutral-400 dark:text-neutral-600">–</span>
+                <span className="text-neutral-400 dark:text-neutral-600">
+                  –
+                </span>
                 <input
                   id="iso-max"
                   type="number"
@@ -512,7 +542,8 @@ export default function EXIFFilters({
                   onChange={(e) =>
                     updateFilter("iso", [
                       filters.iso[0],
-                      Number.parseInt(e.target.value, 10) || filterOptions.iso.max,
+                      Number.parseInt(e.target.value, 10) ||
+                        filterOptions.iso.max,
                     ])
                   }
                   aria-label="Maximum ISO value"
@@ -530,7 +561,9 @@ export default function EXIFFilters({
                 Iris: f/{filters.aperture[0]}–f/{filters.aperture[1]}
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-neutral-500 dark:text-neutral-400">f/</span>
+                <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                  f/
+                </span>
                 <input
                   id="aperture-min"
                   type="number"
@@ -540,15 +573,20 @@ export default function EXIFFilters({
                   value={filters.aperture[0]}
                   onChange={(e) =>
                     updateFilter("aperture", [
-                      Number.parseFloat(e.target.value) || filterOptions.aperture.min,
+                      Number.parseFloat(e.target.value) ||
+                        filterOptions.aperture.min,
                       filters.aperture[1],
                     ])
                   }
                   aria-label="Minimum aperture f-stop value"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
-                <span className="text-neutral-400 dark:text-neutral-600">–</span>
-                <span className="text-sm text-neutral-500 dark:text-neutral-400">f/</span>
+                <span className="text-neutral-400 dark:text-neutral-600">
+                  –
+                </span>
+                <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                  f/
+                </span>
                 <input
                   id="aperture-max"
                   type="number"
@@ -559,7 +597,8 @@ export default function EXIFFilters({
                   onChange={(e) =>
                     updateFilter("aperture", [
                       filters.aperture[0],
-                      Number.parseFloat(e.target.value) || filterOptions.aperture.max,
+                      Number.parseFloat(e.target.value) ||
+                        filterOptions.aperture.max,
                     ])
                   }
                   aria-label="Maximum aperture f-stop value"
@@ -567,7 +606,8 @@ export default function EXIFFilters({
                 />
               </div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Range: f/{filterOptions.aperture.min}–f/{filterOptions.aperture.max}
+                Range: f/{filterOptions.aperture.min}–f/
+                {filterOptions.aperture.max}
               </p>
             </div>
           </div>
@@ -591,8 +631,11 @@ export function FilterCount({
 
   return (
     <div className="mb-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
-      Showing <span className="font-semibold text-terracotta dark:text-terracotta-light">{filtered}</span> of{" "}
-      <span className="font-medium">{total}</span> photos
+      Showing{" "}
+      <span className="font-semibold text-terracotta dark:text-terracotta-light">
+        {filtered}
+      </span>{" "}
+      of <span className="font-medium">{total}</span> photos
     </div>
   );
 }

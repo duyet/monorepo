@@ -5,19 +5,15 @@
  * Wraps GraphRouter to add observability without modifying core logic.
  */
 
+import { computeDiff, createCheckpoint, formatDiff } from "./state";
 import type {
   AgentState,
+  GraphMetrics,
   NodeObserver,
   NodeTrace,
   StateDiff,
   StateObserver,
-  GraphMetrics,
 } from "./types";
-import {
-  createCheckpoint,
-  computeDiff,
-  formatDiff,
-} from "./state";
 
 /**
  * Observability configuration options
@@ -36,7 +32,11 @@ export interface ObservabilityOptions {
   onStateChanged?: StateObserver;
 
   /** Custom logger function */
-  logger?: (level: "debug" | "info" | "warn" | "error", message: string, ...args: unknown[]) => void;
+  logger?: (
+    level: "debug" | "info" | "warn" | "error",
+    message: string,
+    ...args: unknown[]
+  ) => void;
 }
 
 /**
@@ -178,7 +178,11 @@ export class ObservabilityMiddleware {
       // Log state diff if debug mode
       if (this.options.debug && stateDiff) {
         const diffFormatted = formatDiff(stateDiff);
-        this.options.logger("debug", `State diff for ${nodeName}:`, diffFormatted);
+        this.options.logger(
+          "debug",
+          `State diff for ${nodeName}:`,
+          diffFormatted
+        );
       }
 
       this.options.logger(
@@ -203,7 +207,8 @@ export class ObservabilityMiddleware {
     } catch (error) {
       const endTime = Date.now();
       const duration = endTime - startTime;
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
 
       // Update trace with error
       trace.endTime = endTime;
@@ -266,7 +271,11 @@ export class ObservabilityMiddleware {
   /**
    * Record execution metrics for a node
    */
-  private recordMetrics(nodeId: string, duration: number, _success: boolean): void {
+  private recordMetrics(
+    nodeId: string,
+    duration: number,
+    _success: boolean
+  ): void {
     // Update execution count
     this.nodeExecutionCounts.set(
       nodeId,
@@ -302,9 +311,7 @@ export class ObservabilityMiddleware {
         : 0;
 
     // Count errors from traces
-    const errorCount = this.traces.filter(
-      (t) => t.outcome === "error"
-    ).length;
+    const errorCount = this.traces.filter((t) => t.outcome === "error").length;
 
     // Calculate success rate
     const successRate =
@@ -378,12 +385,16 @@ export class ObservabilityMiddleware {
    * Export traces as JSON string
    */
   private exportTraces(): string {
-    return JSON.stringify({
-      traces: this.traces,
-      metrics: this.computeMetrics(Date.now() - this.startTime),
-      stateDiffs: Object.fromEntries(this.stateDiffs),
-      exportedAt: new Date().toISOString(),
-    }, null, 2);
+    return JSON.stringify(
+      {
+        traces: this.traces,
+        metrics: this.computeMetrics(Date.now() - this.startTime),
+        stateDiffs: Object.fromEntries(this.stateDiffs),
+        exportedAt: new Date().toISOString(),
+      },
+      null,
+      2
+    );
   }
 
   /**
@@ -402,7 +413,9 @@ export class ObservabilityMiddleware {
 /**
  * Create an observability middleware instance with default options
  */
-export function createObservability(options?: ObservabilityOptions): ObservabilityMiddleware {
+export function createObservability(
+  options?: ObservabilityOptions
+): ObservabilityMiddleware {
   return new ObservabilityMiddleware(options);
 }
 
@@ -411,15 +424,14 @@ export function createObservability(options?: ObservabilityOptions): Observabili
  *
  * Returns a wrapper function that adds observability to all node executions.
  */
-export function withObservability<T extends (
-  state: AgentState,
-  nodeId: string,
-  nodeName: string,
-  executeFn: (state: AgentState) => Promise<Partial<AgentState>>
-) => Promise<{ state: Partial<AgentState>; trace: NodeTrace }>>(
-  _executeFn: T,
-  observability: ObservabilityMiddleware
-): T {
+export function withObservability<
+  T extends (
+    state: AgentState,
+    nodeId: string,
+    nodeName: string,
+    executeFn: (state: AgentState) => Promise<Partial<AgentState>>
+  ) => Promise<{ state: Partial<AgentState>; trace: NodeTrace }>,
+>(_executeFn: T, observability: ObservabilityMiddleware): T {
   return (async (
     state: AgentState,
     nodeId: string,

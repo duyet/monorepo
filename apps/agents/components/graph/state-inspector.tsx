@@ -7,27 +7,26 @@
  * Allows inspection of current conversation state.
  */
 
-import { useState, useCallback, useMemo } from "react";
-import { Button } from "@duyet/components";
+import { Badge, Button } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
+  AlertCircle,
+  Check,
   ChevronDown,
   ChevronRight,
   Code,
-  FileText,
-  Search,
   Copy,
-  Check,
-  RefreshCw,
+  FileText,
   History,
-  RotateCcw,
   Loader2,
-  AlertCircle,
+  RefreshCw,
+  RotateCcw,
+  Search,
 } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@duyet/components";
-import { useToggleSet } from "@/lib/hooks";
 import type { AgentState } from "@/lib/graph";
+import { useToggleSet } from "@/lib/hooks";
 import { useCheckpoints } from "@/lib/hooks/use-graph-state";
 
 export interface StateInspectorProps {
@@ -96,7 +95,9 @@ function formatValue(value: unknown, compact = false): string {
     return "null";
   }
   if (typeof value === "string") {
-    return compact && value.length > 50 ? `"${value.substring(0, 50)}..."` : `"${value}"`;
+    return compact && value.length > 50
+      ? `"${value.substring(0, 50)}..."`
+      : `"${value}"`;
   }
   if (typeof value === "number") {
     return value.toString();
@@ -204,15 +205,17 @@ function StateSectionItem({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
-    const text = typeof section.value === "string"
-      ? section.value
-      : JSON.stringify(section.value, null, 2);
+    const text =
+      typeof section.value === "string"
+        ? section.value
+        : JSON.stringify(section.value, null, 2);
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [section.value]);
 
-  const hasDiff = showDiff && diffValue !== undefined && diffValue !== section.value;
+  const hasDiff =
+    showDiff && diffValue !== undefined && diffValue !== section.value;
 
   return (
     <div className="border-b border-border last:border-0">
@@ -274,7 +277,9 @@ function StateSectionItem({
 
           {hasDiff && (
             <div className="mt-2 pt-2 border-t border-border/50">
-              <p className="text-xs text-muted-foreground mb-1">Previous value:</p>
+              <p className="text-xs text-muted-foreground mb-1">
+                Previous value:
+              </p>
               <pre className="text-xs text-muted-foreground/70 font-mono overflow-x-auto">
                 {formatValue(diffValue, true)}
               </pre>
@@ -285,7 +290,8 @@ function StateSectionItem({
           {section.type === "array" && Array.isArray(section.value) && (
             <div className="mt-2 space-y-2">
               <p className="text-xs text-muted-foreground">
-                {section.value.length} item{section.value.length !== 1 ? "s" : ""}
+                {section.value.length} item
+                {section.value.length !== 1 ? "s" : ""}
               </p>
               {section.value.slice(0, 10).map((item, idx) => (
                 <details
@@ -293,7 +299,10 @@ function StateSectionItem({
                   className="pl-2 text-xs border-l-2 border-border"
                 >
                   <summary className="cursor-pointer hover:text-foreground">
-                    [{idx}] {typeof item === "object" && item ? (item as { toolName?: string }).toolName || "object" : typeof item}
+                    [{idx}]{" "}
+                    {typeof item === "object" && item
+                      ? (item as { toolName?: string }).toolName || "object"
+                      : typeof item}
                   </summary>
                   <pre className="mt-1 text-xs text-muted-foreground/70 font-mono">
                     {JSON.stringify(item, null, 2)}
@@ -309,20 +318,22 @@ function StateSectionItem({
           )}
 
           {/* Special handling for metadata object */}
-          {section.type === "object" && typeof section.value === "object" && section.value !== null && (
-            <div className="mt-2 space-y-1">
-              {Object.entries(section.value).map(([key, val]) => (
-                <div key={key} className="flex gap-2 text-xs">
-                  <span className="font-mono text-muted-foreground w-32 flex-shrink-0">
-                    {key}:
-                  </span>
-                  <span className="font-mono text-foreground break-all">
-                    {formatValue(val, false)}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
+          {section.type === "object" &&
+            typeof section.value === "object" &&
+            section.value !== null && (
+              <div className="mt-2 space-y-1">
+                {Object.entries(section.value).map(([key, val]) => (
+                  <div key={key} className="flex gap-2 text-xs">
+                    <span className="font-mono text-muted-foreground w-32 flex-shrink-0">
+                      {key}:
+                    </span>
+                    <span className="font-mono text-foreground break-all">
+                      {formatValue(val, false)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
         </div>
       )}
     </div>
@@ -345,45 +356,45 @@ function CheckpointControls({
   getAuthToken,
   onRestore,
 }: CheckpointControlsProps) {
-  const {
-    checkpoints,
-    isLoading,
-    error,
-    refresh,
-    restore,
-    clearError,
-  } = useCheckpoints({ conversationId, getAuthToken });
+  const { checkpoints, isLoading, error, refresh, restore, clearError } =
+    useCheckpoints({ conversationId, getAuthToken });
 
   const [isRestoring, setIsRestoring] = useState(false);
-  const [selectedCheckpointId, setSelectedCheckpointId] = useState<string | null>(null);
+  const [selectedCheckpointId, setSelectedCheckpointId] = useState<
+    string | null
+  >(null);
   const [restoreSuccess, setRestoreSuccess] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
 
-  const handleRestore = useCallback(async (checkpointId: string) => {
-    setIsRestoring(true);
-    setRestoreSuccess(false);
-    setRestoreError(null);
+  const handleRestore = useCallback(
+    async (checkpointId: string) => {
+      setIsRestoring(true);
+      setRestoreSuccess(false);
+      setRestoreError(null);
 
-    try {
-      const restoredState = await restore(checkpointId);
-      if (restoredState) {
-        setRestoreSuccess(true);
-        setSelectedCheckpointId(null);
-        // Call parent callback if provided
-        if (onRestore) {
-          onRestore(restoredState);
+      try {
+        const restoredState = await restore(checkpointId);
+        if (restoredState) {
+          setRestoreSuccess(true);
+          setSelectedCheckpointId(null);
+          // Call parent callback if provided
+          if (onRestore) {
+            onRestore(restoredState);
+          }
+          // Clear success message after 3 seconds
+          setTimeout(() => setRestoreSuccess(false), 3000);
         }
-        // Clear success message after 3 seconds
-        setTimeout(() => setRestoreSuccess(false), 3000);
+      } catch (err) {
+        const message =
+          err instanceof Error ? err.message : "Failed to restore checkpoint";
+        setRestoreError(message);
+        setTimeout(() => setRestoreError(null), 5000);
+      } finally {
+        setIsRestoring(false);
       }
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to restore checkpoint";
-      setRestoreError(message);
-      setTimeout(() => setRestoreError(null), 5000);
-    } finally {
-      setIsRestoring(false);
-    }
-  }, [restore, onRestore]);
+    },
+    [restore, onRestore]
+  );
 
   const isCheckpointSelected = selectedCheckpointId !== null;
 
@@ -431,10 +442,14 @@ function CheckpointControls({
           variant="outline"
           size="sm"
           className="w-full justify-start text-left h-8 px-3 text-xs"
-          onClick={() => setSelectedCheckpointId(isCheckpointSelected ? null : "selector")}
+          onClick={() =>
+            setSelectedCheckpointId(isCheckpointSelected ? null : "selector")
+          }
         >
           <History className="h-3.5 w-3.5 mr-2 text-muted-foreground" />
-          {isCheckpointSelected ? "Close history" : `View history (${checkpoints.length})`}
+          {isCheckpointSelected
+            ? "Close history"
+            : `View history (${checkpoints.length})`}
         </Button>
 
         {/* Checkpoint dropdown */}
@@ -452,7 +467,12 @@ function CheckpointControls({
                 onClick={() => refresh()}
                 disabled={isLoading}
               >
-                <RefreshCw className={cn("h-3 w-3 text-muted-foreground", isLoading && "animate-spin")} />
+                <RefreshCw
+                  className={cn(
+                    "h-3 w-3 text-muted-foreground",
+                    isLoading && "animate-spin"
+                  )}
+                />
               </Button>
             </div>
 
@@ -464,7 +484,9 @@ function CheckpointControls({
               ) : checkpoints.length === 0 ? (
                 <div className="py-8 text-center">
                   <History className="h-6 w-6 mx-auto mb-2 text-muted-foreground/50" />
-                  <p className="text-xs text-muted-foreground">No checkpoints available</p>
+                  <p className="text-xs text-muted-foreground">
+                    No checkpoints available
+                  </p>
                 </div>
               ) : (
                 <div className="divide-y divide-border">
@@ -475,7 +497,10 @@ function CheckpointControls({
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-[10px] px-1 py-0 font-mono">
+                          <Badge
+                            variant="outline"
+                            className="text-[10px] px-1 py-0 font-mono"
+                          >
                             v{checkpoint.version}
                           </Badge>
                           <span className="text-xs text-muted-foreground">
@@ -540,17 +565,21 @@ export function StateInspector({
   const [searchQuery, setSearchQuery] = useState("");
   const [collapsedSections, toggleSection] = useToggleSet<string>();
 
-  const sections = useMemo(() => state ? stateToSections(state) : [], [state]);
+  const sections = useMemo(
+    () => (state ? stateToSections(state) : []),
+    [state]
+  );
 
   // Filter sections by search query
-  const filteredSections = useMemo(() =>
-    searchQuery
-      ? sections.filter(
-          (s) =>
-            s.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            s.key.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : sections,
+  const filteredSections = useMemo(
+    () =>
+      searchQuery
+        ? sections.filter(
+            (s) =>
+              s.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              s.key.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : sections,
     [sections, searchQuery]
   );
 
@@ -581,7 +610,9 @@ export function StateInspector({
         )}
       >
         <FileText className="h-8 w-8 mx-auto mb-2 text-muted-foreground/50" />
-        <p className="text-sm font-medium text-muted-foreground">No state available</p>
+        <p className="text-sm font-medium text-muted-foreground">
+          No state available
+        </p>
         <p className="text-xs text-muted-foreground/75 mt-1">
           State data will appear here once a conversation starts.
         </p>
@@ -633,9 +664,7 @@ export function StateInspector({
               ) : (
                 <FileText className="h-3 w-3 text-muted-foreground" />
               )}
-              <span className="sr-only">
-                Toggle view mode
-              </span>
+              <span className="sr-only">Toggle view mode</span>
             </Button>
           </div>
         </div>

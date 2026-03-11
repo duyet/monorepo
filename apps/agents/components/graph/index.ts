@@ -4,12 +4,9 @@
  * Visual components for LangGraph-style agent execution.
  */
 
-export { GraphVisualizer, GraphVisualizerEmpty } from "./graph-visualizer";
 export type { GraphVisualizerProps } from "./graph-visualizer";
-
-export { NodeTraceTimeline } from "./node-trace";
+export { GraphVisualizer, GraphVisualizerEmpty } from "./graph-visualizer";
 export type { NodeTraceTimelineProps } from "./node-trace";
-
-export { StateInspector } from "./state-inspector";
+export { NodeTraceTimeline } from "./node-trace";
 export type { StateInspectorProps } from "./state-inspector";
-
+export { StateInspector } from "./state-inspector";

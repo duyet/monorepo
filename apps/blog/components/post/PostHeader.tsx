@@ -16,7 +16,11 @@ interface PostHeaderProps {
  * Post header with mobile-friendly TOC toggle button.
  * Displays the title and a "Contents" button with heading count badge.
  */
-export function PostHeader({ title, headings = [], children }: PostHeaderProps) {
+export function PostHeader({
+  title,
+  headings = [],
+  children,
+}: PostHeaderProps) {
   const [isMobileTocOpen, setIsMobileTocOpen] = useState(false);
 
   return (

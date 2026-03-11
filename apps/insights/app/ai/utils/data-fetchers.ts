@@ -128,10 +128,13 @@ export async function getCCUsageMetrics(
     );
     const pingResult = await pingClickHouse();
     if (!pingResult.success) {
-      console.error("[CCUsage Metrics] Health check failed - ClickHouse may be unreachable:", {
-        latencyMs: pingResult.latencyMs,
-        error: pingResult.error,
-      });
+      console.error(
+        "[CCUsage Metrics] Health check failed - ClickHouse may be unreachable:",
+        {
+          latencyMs: pingResult.latencyMs,
+          error: pingResult.error,
+        }
+      );
       // Continue anyway - the actual queries will also fail but with more details
     }
     healthCheckCompleted = true;

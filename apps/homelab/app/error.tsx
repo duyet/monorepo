@@ -12,9 +12,7 @@ export default function Error({
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-background">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 text-6xl font-bold text-foreground">
-          Oops!
-        </h1>
+        <h1 className="mb-4 text-6xl font-bold text-foreground">Oops!</h1>
         <h2 className="mb-4 text-xl font-semibold text-muted-foreground">
           Something went wrong
         </h2>

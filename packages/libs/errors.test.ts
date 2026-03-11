@@ -1,13 +1,13 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
-  LibError,
-  ValidationError,
-  NetworkError,
   FileSystemError,
+  isFileSystemError,
   isLibError,
   isNetworkError,
   isValidationError,
-  isFileSystemError,
+  LibError,
+  NetworkError,
+  ValidationError,
 } from "./errors";
 
 describe("LibError", () => {

@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import { generateId } from "@duyet/libs";
+import { useCallback, useState } from "react";
 import type { StreamEvent, ToolExecution } from "@/lib/types";
 
 export interface UseActivityReturn {

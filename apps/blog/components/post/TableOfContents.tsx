@@ -2,7 +2,7 @@
 
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // TOC Icon SVG
 const TOCIcon = ({ className }: { className?: string }) => (

@@ -47,8 +47,9 @@ export default function RootLayout({
       <Head />
       <body
         className={cn(
-          "bg-background text-foreground subpixel-antialiased",
-          "font-sans transition-colors duration-300"
+          "text-claude-black subpixel-antialiased",
+          "dark:bg-claude-gray-900 dark:text-claude-gray-50 transition-colors duration-300",
+          "font-sans"
         )}
       >
         <Providers>

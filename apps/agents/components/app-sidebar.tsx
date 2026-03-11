@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import { cn } from "@duyet/libs/utils";
+import { cn } from "@duyet/libs";
 import { PanelLeftClose, Plus } from "lucide-react";
 import type * as React from "react";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -15,40 +16,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar";
-import {
-  type ClerkComponents,
-  useClerkComponents,
-} from "@/lib/hooks/use-clerk-components";
 import type { Conversation } from "@/lib/types";
 import { ConversationList } from "./sidebar/conversation-list";
 
-function UserProfile() {
-  const clerk = useClerkComponents();
-  if (!clerk) return null;
-  return <UserProfileInner useUser={clerk.useUser} />;
-}
-
-function UserProfileInner({
-  useUser,
-}: {
-  useUser: ClerkComponents["useUser"];
-}) {
-  const { user, isLoaded } = useUser();
-  if (!isLoaded || !user) return null;
-
-  const plan = user.publicMetadata?.plan || "Free";
-  const name = user.fullName || user.firstName || "User";
-
-  return (
-    <div className="flex flex-col">
-      <span className="text-sm font-medium">{name}</span>
-      <span className="text-xs text-muted-foreground">{String(plan)}</span>
-    </div>
-  );
-}
-
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+export interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   conversations: Conversation[];
   activeId: string | null;
   onNewChat: () => void;
@@ -65,13 +38,16 @@ export function AppSidebar({
   onDeleteConversation,
   onCloseSidebar,
   className,
-  ...rest
+  ...props
 }: AppSidebarProps) {
-  const clerk = useClerkComponents();
-
   return (
-    <Sidebar variant="inset" {...rest} className={cn("border-r-0", className)}>
-      <SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      variant="inset"
+      className={cn("border-r-0 bg-white dark:bg-[#111]", className)}
+      {...props}
+    >
+      <SidebarHeader className="border-b border-border/50 pb-2">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center justify-between">
             <SidebarMenuButton
@@ -79,21 +55,31 @@ export function AppSidebar({
               asChild
               className="hover:bg-transparent"
             >
-              <a href="/">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-foreground text-background">
-                  <span className="font-bold text-lg">D</span>
+              <a
+                href="/"
+                className="flex items-center gap-2 overflow-hidden px-1"
+              >
+                <div className="flex flex-col flex-1 text-left text-sm leading-tight min-w-0">
+                  <span className="truncate font-semibold text-foreground">
+                    Duyet Le
+                  </span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    Agent
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onCloseSidebar}
-              aria-label="Close sidebar"
-              className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground mr-1"
-            >
-              <PanelLeftClose className="h-4 w-4" />
-            </Button>
+            {onCloseSidebar && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onCloseSidebar}
+                aria-label="Close sidebar"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent text-muted-foreground mr-1"
+              >
+                <PanelLeftClose className="h-4 w-4" />
+              </Button>
+            )}
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -127,47 +113,10 @@ export function AppSidebar({
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            {clerk ? (
-              <>
-                <clerk.SignedOut>
-                  <clerk.SignInButton mode="modal">
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className="h-8 text-xs font-semibold px-3"
-                    >
-                      Sign in
-                    </Button>
-                  </clerk.SignInButton>
-                </clerk.SignedOut>
-                <clerk.SignedIn>
-                  <div className="flex items-center gap-3 w-full">
-                    <clerk.UserButton
-                      appearance={{
-                        elements: {
-                          avatarBox: "h-8 w-8",
-                        },
-                      }}
-                    />
-                    <UserProfile />
-                  </div>
-                </clerk.SignedIn>
-              </>
-            ) : (
-              <Button
-                variant="default"
-                size="sm"
-                className="h-8 text-xs font-semibold px-3 pointer-events-none opacity-50"
-              >
-                Sign in
-              </Button>
-            )}
-          </div>
-        </div>
+      <SidebarFooter>
+        <NavUser />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }

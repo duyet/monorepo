@@ -1,6 +1,6 @@
 import type { Post } from "@duyet/interfaces";
-import { cn } from "@duyet/libs/utils";
 import { distanceToNow } from "@duyet/libs/date";
+import { cn } from "@duyet/libs/utils";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 

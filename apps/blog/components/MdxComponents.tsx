@@ -5,9 +5,9 @@ import {
   ClaudeCardGrid,
   ClaudeCardNested,
 } from "./blog/ClaudeCard";
-import { LazyCodeBlock } from "./blog/LazyCodeBlock";
 import { ComparisonList } from "./blog/ComparisonList";
 import { InfoBox } from "./blog/InfoBox";
+import { LazyCodeBlock } from "./blog/LazyCodeBlock";
 // Import components directly for RSC compatibility
 import { PricingTable } from "./blog/PricingTable";
 import { Step, Steps } from "./blog/Steps";

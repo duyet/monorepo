@@ -5,11 +5,11 @@ import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
 import Head from "@duyet/components/Head";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { blogConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
 // import { AxiomWebVitals } from 'next-axiom'
 import { Inter, Libre_Baskerville } from "next/font/google";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 // Note: Next.js font loaders require literal values, so we use the config as reference
 // but must provide literals here. Config values are defined in @duyet/config for documentation.

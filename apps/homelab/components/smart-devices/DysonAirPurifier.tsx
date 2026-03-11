@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import {
   AlertTriangle,
   ArrowDownRight,
@@ -10,6 +9,7 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
+import { useMemo, useState } from "react";
 import {
   Area,
   AreaChart,

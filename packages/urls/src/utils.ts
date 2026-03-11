@@ -4,9 +4,9 @@
  * Helper functions for URL manipulation and navigation generation.
  */
 
+import { type DeepPartial, deepMerge } from "@duyet/libs";
 import type { Profile } from "@duyet/profile";
 import type { AppUrls, Navigation, NavLink, UrlsConfig } from "./types";
-import { deepMerge, type DeepPartial } from "@duyet/libs";
 
 /**
  * Create a custom URLs configuration

@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   createInitialErrors,
   extractErrorDetail,
-  isErrorInstance,
   getErrorMessage,
+  isErrorInstance,
 } from "./errors";
 
 describe("errors utilities", () => {

@@ -18,7 +18,7 @@ import {
   InfoPanel,
   LightboxTopControls,
   NavigationButton,
-  PlaybackSpeed,
+  type PlaybackSpeed,
   SlideshowControls,
   SlideshowProgressBar,
 } from "./LightboxControls";
@@ -72,18 +72,18 @@ export default function Lightbox({
 
       // Fetch the image as blob to handle cross-origin downloads
       const response = await fetch(imageUrl);
-      if (!response.ok) throw new Error('Failed to fetch image');
+      if (!response.ok) throw new Error("Failed to fetch image");
 
       const blob = await response.blob();
       objectUrl = window.URL.createObjectURL(blob);
 
       // Create temporary anchor element to trigger download
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = objectUrl;
       // Generate filename from photo id and description
       const safeDescription = photo.description
-        ? photo.description.slice(0, 30).replace(/[^a-z0-9]/gi, '-')
-        : 'photo';
+        ? photo.description.slice(0, 30).replace(/[^a-z0-9]/gi, "-")
+        : "photo";
       a.download = `${photo.id}-${safeDescription}.jpg`;
       document.body.appendChild(a);
       a.click();
@@ -91,10 +91,10 @@ export default function Lightbox({
       // Cleanup anchor
       document.body.removeChild(a);
     } catch (error) {
-      console.error('Download failed:', error);
+      console.error("Download failed:", error);
       // Fallback: open in new tab
       const fallbackUrl = photo.urls.raw || photo.urls.full;
-      window.open(fallbackUrl, '_blank');
+      window.open(fallbackUrl, "_blank");
     } finally {
       // Always cleanup object URL to prevent memory leak
       if (objectUrl) {

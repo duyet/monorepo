@@ -1,4 +1,10 @@
-import { Brain, Calendar, Database, DollarSign, TrendingUp } from "lucide-react";
+import {
+  Brain,
+  Calendar,
+  Database,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { getCCUsageMetrics } from "./ccusage-utils";
 import type { CCUsageMetricsProps } from "./types";

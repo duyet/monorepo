@@ -5,8 +5,8 @@
  * Handles source aggregation and formatting.
  */
 
-import type { AgentState } from "../types";
 import type { Source } from "../../types";
+import type { AgentState } from "../types";
 import { GraphNode } from "./base";
 
 /**
@@ -24,9 +24,11 @@ export class SynthesisNode extends GraphNode {
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // If we already have a response, just aggregate sources
       if (state.response) {

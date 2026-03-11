@@ -156,7 +156,10 @@ export const ChainOfThought = memo(
     return (
       <ChainOfThoughtContext.Provider value={contextValue}>
         <Collapsible
-          className={cn("not-prose mb-4 rounded-2xl border border-border/60 bg-muted/40 p-4", className)}
+          className={cn(
+            "not-prose mb-4 rounded-2xl border border-border/60 bg-muted/40 p-4",
+            className
+          )}
           onOpenChange={handleOpenChange}
           open={isOpen}
           {...props}
@@ -374,7 +377,10 @@ export const ChainOfThoughtContent = memo(
       )}
       {...props}
     >
-      <MessageResponse className="text-sm opacity-90 [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-sm" parseIncompleteMarkdown>
+      <MessageResponse
+        className="text-sm opacity-90 [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-sm"
+        parseIncompleteMarkdown
+      >
         {children}
       </MessageResponse>
     </CollapsibleContent>

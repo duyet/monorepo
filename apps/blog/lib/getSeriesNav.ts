@@ -1,5 +1,5 @@
-import { getAllPosts } from "@duyet/libs/getPost";
 import type { Post } from "@duyet/interfaces";
+import { getAllPosts } from "@duyet/libs/getPost";
 
 export interface SeriesNavItem {
   slug: string;
@@ -41,9 +41,7 @@ export function getSeriesNavigation(
   const allPosts = getAllPosts(["slug", "title", "date", "series"]);
 
   // Filter posts that belong to the same series
-  const seriesPosts = allPosts.filter(
-    (post) => post.series === seriesName
-  );
+  const seriesPosts = allPosts.filter((post) => post.series === seriesName);
 
   // Sort posts by date (ascending - oldest first)
   seriesPosts.sort((a, b) => {

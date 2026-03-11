@@ -1,7 +1,7 @@
 export { default as Analytics } from "./Analytics";
-export { default as ClerkAuthProvider } from "./ClerkAuthProvider";
 // AI Components
 export * from "./ai";
+export { default as ClerkAuthProvider } from "./ClerkAuthProvider";
 export { default as Container } from "./Container";
 // Card Components
 export * from "./cards";
@@ -34,6 +34,7 @@ export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";
 export * from "./Tremor";
 export * from "./thinking";
+export * from "./ui/accordion";
 // UI Components
 export * from "./ui/badge";
 export * from "./ui/button";
@@ -43,6 +44,5 @@ export * from "./ui/progress";
 export * from "./ui/separator";
 export * from "./ui/skeleton";
 export * from "./ui/tabs";
-export * from "./ui/accordion";
 export * from "./ui/textarea";
 export { default as YearList } from "./YearList";

@@ -4,9 +4,9 @@
  * Wraps getGitHubTool as a graph node.
  */
 
+import { getGitHubTool } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { getGitHubTool } from "../../../tools";
 
 /**
  * Get GitHub Node
@@ -18,14 +18,17 @@ export class GetGitHubNode extends GraphNode {
     super({
       id: "get-github",
       name: "Get GitHub",
-      description: "Fetch recent GitHub activity including commits, PRs, and issues",
+      description:
+        "Fetch recent GitHub activity including commits, PRs, and issues",
       type: "tool",
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Extract limit from route or default to 5
       const limit = state.route ? parseInt(state.route, 10) || 5 : 5;

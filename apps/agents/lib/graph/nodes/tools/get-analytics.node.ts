@@ -4,9 +4,9 @@
  * Wraps getAnalyticsTool as a graph node.
  */
 
+import { getAnalyticsTool } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { getAnalyticsTool } from "../../../tools";
 
 /**
  * Get Analytics Node
@@ -23,9 +23,11 @@ export class GetAnalyticsNode extends GraphNode {
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Extract report type from route or default to summary
       const reportType = (state.route as any) || "summary";

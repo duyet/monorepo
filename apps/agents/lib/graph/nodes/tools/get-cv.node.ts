@@ -4,9 +4,9 @@
  * Wraps getCVTool as a graph node.
  */
 
+import { getCVTool } from "../../../tools";
 import type { AgentState } from "../../types";
 import { GraphNode } from "../base";
-import { getCVTool } from "../../../tools";
 
 /**
  * Get CV Node
@@ -18,14 +18,17 @@ export class GetCVNode extends GraphNode {
     super({
       id: "get-cv",
       name: "Get CV",
-      description: "Retrieve Duyet's CV/Resume information (summary or detailed)",
+      description:
+        "Retrieve Duyet's CV/Resume information (summary or detailed)",
       type: "tool",
     });
   }
 
-  protected async executeImpl(
-    state: AgentState
-  ): Promise<{ success: boolean; state?: Partial<AgentState>; error?: string }> {
+  protected async executeImpl(state: AgentState): Promise<{
+    success: boolean;
+    state?: Partial<AgentState>;
+    error?: string;
+  }> {
     try {
       // Determine format from route or default to summary
       const format = state.route === "detailed" ? "detailed" : "summary";

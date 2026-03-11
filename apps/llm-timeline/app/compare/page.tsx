@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useMemo, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { PageLayout } from "@/components/page-layout";
-import { models } from "@/lib/data";
-import { getLicenseColor, formatDate, slugify } from "@/lib/utils";
 import { parseParamValue } from "@duyet/libs";
-import { X, Plus, Search, Download } from "lucide-react";
+import { Download, Plus, Search, X } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { PageLayout } from "@/components/page-layout";
 import type { Model } from "@/lib/data";
+import { models } from "@/lib/data";
+import { formatDate, getLicenseColor, slugify } from "@/lib/utils";
 
 // Maximum number of models that can be compared
 const MAX_COMPARE = 4;
@@ -45,7 +45,10 @@ function CompareContent() {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams();
     if (selectedModels.length > 0) {
-      params.set("models", selectedModels.map((m) => slugify(m.name)).join(","));
+      params.set(
+        "models",
+        selectedModels.map((m) => slugify(m.name)).join(",")
+      );
     }
     const newUrl = params.toString() ? `/compare?${params}` : "/compare";
     window.history.replaceState({}, "", newUrl);
@@ -100,7 +103,15 @@ function CompareContent() {
     if (sortedModels.length < MIN_COMPARE) return;
 
     // Define CSV headers
-    const headers = ["Model", "Organization", "Release Date", "Parameters", "License", "Type", "Description"];
+    const headers = [
+      "Model",
+      "Organization",
+      "Release Date",
+      "Parameters",
+      "License",
+      "Type",
+      "Description",
+    ];
 
     // Convert models to CSV rows
     const rows = sortedModels.map((model) => [
@@ -133,7 +144,6 @@ function CompareContent() {
       URL.revokeObjectURL(url);
     }
   };
-
 
   return (
     <div className="space-y-6">
@@ -191,7 +201,10 @@ function CompareContent() {
         {showSelector && (
           <div className="mb-4 p-4 rounded-lg border">
             <div className="flex items-center gap-2 mb-3">
-              <Search className="h-4 w-4" style={{ color: "var(--text-muted)" }} />
+              <Search
+                className="h-4 w-4"
+                style={{ color: "var(--text-muted)" }}
+              />
               <input
                 type="text"
                 placeholder="Search models by name or organization..."
@@ -269,7 +282,10 @@ function CompareContent() {
                     Metric
                   </th>
                   {sortedModels.map((model) => (
-                    <th key={model.name} className="px-4 py-3 text-left font-semibold">
+                    <th
+                      key={model.name}
+                      className="px-4 py-3 text-left font-semibold"
+                    >
                       {model.name}
                     </th>
                   ))}
@@ -407,7 +423,10 @@ function CompareContent() {
                   return (
                     <div key={model.name}>
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="font-medium" style={{ color: "var(--text)" }}>
+                        <span
+                          className="font-medium"
+                          style={{ color: "var(--text)" }}
+                        >
                           {model.name}
                         </span>
                         <span style={{ color: "var(--text-muted)" }}>
@@ -425,7 +444,9 @@ function CompareContent() {
                           className="h-full rounded-md transition-all duration-500"
                           style={{
                             width: `${percentage}%`,
-                            backgroundColor: getLicenseColor(model.license).split(" ")[0],
+                            backgroundColor: getLicenseColor(
+                              model.license
+                            ).split(" ")[0],
                           }}
                         />
                       </div>
@@ -437,12 +458,12 @@ function CompareContent() {
                 className="text-xs mt-3"
                 style={{ color: "var(--text-muted)" }}
               >
-                * Models with unknown parameter counts are excluded from the chart
+                * Models with unknown parameter counts are excluded from the
+                chart
               </p>
             </div>
           )}
 
-<<<<<<< HEAD
           {/* Share link and export */}
           {hasComparison && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -451,7 +472,10 @@ function CompareContent() {
                 className="p-4 rounded-lg border"
                 style={{ borderColor: "var(--border)" }}
               >
-                <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
+                <p
+                  className="text-sm mb-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   Share this comparison:
                 </p>
                 <code
@@ -461,7 +485,9 @@ function CompareContent() {
                     color: "var(--text)",
                   }}
                 >
-                  {typeof window !== "undefined" ? window.location.href : "/compare"}
+                  {typeof window !== "undefined"
+                    ? window.location.href
+                    : "/compare"}
                 </code>
               </div>
 
@@ -470,7 +496,10 @@ function CompareContent() {
                 className="p-4 rounded-lg border"
                 style={{ borderColor: "var(--border)" }}
               >
-                <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
+                <p
+                  className="text-sm mb-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   Export comparison data:
                 </p>
                 <button
@@ -486,26 +515,6 @@ function CompareContent() {
                   <span>Download CSV</span>
                 </button>
               </div>
-=======
-          {/* Share link */}
-          {hasComparison && (
-            <div
-              className="p-4 rounded-lg border"
-              style={{ borderColor: "var(--border)" }}
-            >
-              <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
-                Share this comparison:
-              </p>
-              <code
-                className="text-sm px-2 py-1 rounded"
-                style={{
-                  backgroundColor: "var(--bg)",
-                  color: "var(--text)",
-                }}
-              >
-                {typeof window !== "undefined" ? window.location.href : "/compare"}
-              </code>
->>>>>>> 0355a7d6 (feat(llm-timeline): add side-by-side model comparison)
             </div>
           )}
         </div>
@@ -515,10 +524,7 @@ function CompareContent() {
           className="text-center py-12 rounded-lg border"
           style={{ borderColor: "var(--border)" }}
         >
-          <p
-            className="text-lg mb-2"
-            style={{ color: "var(--text-muted)" }}
-          >
+          <p className="text-lg mb-2" style={{ color: "var(--text-muted)" }}>
             Select 2-4 models to compare
           </p>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
@@ -533,7 +539,9 @@ function CompareContent() {
 export default function ComparePage() {
   return (
     <PageLayout description="Compare LLM models side-by-side">
-      <Suspense fallback={<div style={{ color: "var(--text)" }}>Loading...</div>}>
+      <Suspense
+        fallback={<div style={{ color: "var(--text)" }}>Loading...</div>}
+      >
         <CompareContent />
       </Suspense>
     </PageLayout>

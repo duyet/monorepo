@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { ModelCard } from "./model-card";
+import { useEffect, useRef, useState } from "react";
 import type { Model } from "@/lib/data";
+import { ModelCard } from "./model-card";
 
 interface VirtualTimelineProps {
   modelsByYear: Map<number, Model[]>;
@@ -160,7 +160,8 @@ export function VirtualTimeline({
 
           // Model card
           const modelItem = item as VirtualItem & { type: "model" };
-          const isSelected = selectedModelNames?.has(modelItem.model!.name) ?? false;
+          const isSelected =
+            selectedModelNames?.has(modelItem.model!.name) ?? false;
           return (
             <div
               key={virtualRow.key}

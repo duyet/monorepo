@@ -34,8 +34,15 @@ function validateToolCall(tool: ToolCall, index: number): string[] {
     errors.push(`${prefix}.toolName must be a non-empty string`);
   }
 
-  if (tool.status !== "pending" && tool.status !== "running" && tool.status !== "complete" && tool.status !== "error") {
-    errors.push(`${prefix}.status must be one of: pending, running, complete, error`);
+  if (
+    tool.status !== "pending" &&
+    tool.status !== "running" &&
+    tool.status !== "complete" &&
+    tool.status !== "error"
+  ) {
+    errors.push(
+      `${prefix}.status must be one of: pending, running, complete, error`
+    );
   }
 
   // Note: We don't enforce result/error for complete/error status because
@@ -56,8 +63,12 @@ function valueChanged(oldValue: unknown, newValue: unknown): boolean {
   }
 
   // Handle objects
-  if (typeof oldValue === "object" && oldValue !== null &&
-      typeof newValue === "object" && newValue !== null) {
+  if (
+    typeof oldValue === "object" &&
+    oldValue !== null &&
+    typeof newValue === "object" &&
+    newValue !== null
+  ) {
     return JSON.stringify(oldValue) !== JSON.stringify(newValue);
   }
 
@@ -114,11 +125,17 @@ export function validate(state: AgentState): StateValidationResult {
   if (!state.metadata) {
     errors.push("metadata is required");
   } else {
-    if (typeof state.metadata.createdAt !== "number" || state.metadata.createdAt <= 0) {
+    if (
+      typeof state.metadata.createdAt !== "number" ||
+      state.metadata.createdAt <= 0
+    ) {
       errors.push("metadata.createdAt must be a positive number");
     }
 
-    if (typeof state.metadata.updatedAt !== "number" || state.metadata.updatedAt <= 0) {
+    if (
+      typeof state.metadata.updatedAt !== "number" ||
+      state.metadata.updatedAt <= 0
+    ) {
       errors.push("metadata.updatedAt must be a positive number");
     }
 
@@ -126,7 +143,10 @@ export function validate(state: AgentState): StateValidationResult {
       errors.push("metadata.updatedAt cannot be before metadata.createdAt");
     }
 
-    if (typeof state.metadata.stepIndex !== "number" || state.metadata.stepIndex < 0) {
+    if (
+      typeof state.metadata.stepIndex !== "number" ||
+      state.metadata.stepIndex < 0
+    ) {
       errors.push("metadata.stepIndex must be a non-negative number");
     }
   }
@@ -144,11 +164,15 @@ export function validate(state: AgentState): StateValidationResult {
 
   // Check for unreasonable state size (warning)
   if (state.toolCalls.length > 100) {
-    warnings.push(`Large number of tool calls (${state.toolCalls.length}) may indicate a loop`);
+    warnings.push(
+      `Large number of tool calls (${state.toolCalls.length}) may indicate a loop`
+    );
   }
 
   if (state.metadata.stepIndex > 100) {
-    warnings.push(`High step index (${state.metadata.stepIndex}) may indicate a long-running conversation`);
+    warnings.push(
+      `High step index (${state.metadata.stepIndex}) may indicate a long-running conversation`
+    );
   }
 
   return {
@@ -249,7 +273,10 @@ export function applyUpdate(
  *
  * Identifies which fields were added, modified, or deleted.
  */
-export function computeDiff(oldState: AgentState, newState: AgentState): StateDiff {
+export function computeDiff(
+  oldState: AgentState,
+  newState: AgentState
+): StateDiff {
   const added: Record<string, unknown> = {};
   const modified: Record<string, { old: unknown; new: unknown }> = {};
   const deleted: Record<string, unknown> = {};
@@ -301,7 +328,11 @@ export function computeDiff(oldState: AgentState, newState: AgentState): StateDi
         (added.toolCalls as ToolCall[]).push(newTool);
       } else if (toolCallChanged(oldTool, newTool)) {
         // Tool call modified
-        if (!modified.toolCalls) modified.toolCalls = { old: oldState.toolCalls, new: newState.toolCalls };
+        if (!modified.toolCalls)
+          modified.toolCalls = {
+            old: oldState.toolCalls,
+            new: newState.toolCalls,
+          };
       }
     }
 
@@ -329,7 +360,9 @@ export function formatDiff(diff: StateDiff): string {
 
   if (Object.keys(diff.modified || {}).length > 0) {
     const modifiedEntries = Object.entries(diff.modified || {})
-      .map(([k, v]) => `${k}=${JSON.stringify(v.old)} → ${JSON.stringify(v.new)}`)
+      .map(
+        ([k, v]) => `${k}=${JSON.stringify(v.old)} → ${JSON.stringify(v.new)}`
+      )
       .join(", ");
     parts.push(`Modified: ${modifiedEntries}`);
   }

@@ -1,8 +1,9 @@
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
+
 GlobalRegistrator.register();
 
+import { describe, expect, it, mock } from "bun:test";
 import { render } from "@testing-library/react";
-import { describe, it, expect, mock } from "bun:test";
 import { VirtualTimeline } from "../virtual-timeline";
 
 // Mock Next.js router

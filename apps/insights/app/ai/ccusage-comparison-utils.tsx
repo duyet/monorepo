@@ -7,9 +7,21 @@ import { calculateDelta } from "@/lib/comparison";
 import { getCCUsageMetrics } from "./ccusage-utils";
 
 export interface CCUsageComparisonMetrics {
-  totalTokens: { value1: number; value2: number; delta: ReturnType<typeof calculateDelta> };
-  totalCost: { value1: number; value2: number; delta: ReturnType<typeof calculateDelta> };
-  activeDays: { value1: number; value2: number; delta: ReturnType<typeof calculateDelta> };
+  totalTokens: {
+    value1: number;
+    value2: number;
+    delta: ReturnType<typeof calculateDelta>;
+  };
+  totalCost: {
+    value1: number;
+    value2: number;
+    delta: ReturnType<typeof calculateDelta>;
+  };
+  activeDays: {
+    value1: number;
+    value2: number;
+    delta: ReturnType<typeof calculateDelta>;
+  };
   topModel: { value1: string; value2: string };
 }
 

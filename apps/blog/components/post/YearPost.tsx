@@ -50,7 +50,10 @@ export function YearPost({ year, posts, className }: YearPostProps) {
               {post.readingTime && (
                 <>
                   <span>·</span>
-                  <span className="flex items-center gap-1" title="Reading time">
+                  <span
+                    className="flex items-center gap-1"
+                    title="Reading time"
+                  >
                     <Clock className="h-3 w-3" />
                     {post.readingTime} min
                   </span>

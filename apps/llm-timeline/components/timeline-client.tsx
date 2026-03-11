@@ -1,10 +1,15 @@
 "use client";
 
-import { useState, useMemo, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { Filters } from "@/components/filters";
 import { Timeline } from "@/components/timeline";
 import { models } from "@/lib/data";
-import { DEFAULT_FILTERS, filterModels, groupByYear, type FilterState } from "@/lib/utils";
+import {
+  DEFAULT_FILTERS,
+  type FilterState,
+  filterModels,
+  groupByYear,
+} from "@/lib/utils";
 
 export function TimelineClient() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

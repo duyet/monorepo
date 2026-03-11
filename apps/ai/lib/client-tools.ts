@@ -8,8 +8,8 @@
  * @module lib/client-tools
  */
 
-import type { ColorScheme } from "@/hooks/useColorScheme";
 import type { FactAction } from "@/components/ChatKitPanel";
+import type { ColorScheme } from "@/hooks/useColorScheme";
 
 // Re-export types for test usage
 export type { FactAction };

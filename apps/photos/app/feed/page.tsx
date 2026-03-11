@@ -12,7 +12,6 @@ import {
 } from "@/lib/errors";
 import { getAllPhotos, type Photo } from "@/lib/photo-provider";
 
-
 export const metadata: Metadata = {
   title: "Photo Stream | Photos",
   description:

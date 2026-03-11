@@ -1,4 +1,4 @@
-import { test, expect } from "bun:test";
+import { expect, test } from "bun:test";
 
 // Placeholder test for photos app
 test("photos app test suite is configured", () => {

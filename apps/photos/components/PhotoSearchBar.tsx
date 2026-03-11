@@ -79,7 +79,9 @@ export function PhotoSearchBar({ className }: PhotoSearchBarProps) {
 
       const year = params.get("year");
       const newQueryString = params.toString();
-      const newPath = year ? `/${year}?${newQueryString}` : `/?${newQueryString}`;
+      const newPath = year
+        ? `/${year}?${newQueryString}`
+        : `/?${newQueryString}`;
 
       router.replace(newPath);
     },

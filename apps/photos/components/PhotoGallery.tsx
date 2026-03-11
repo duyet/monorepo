@@ -4,7 +4,13 @@ import Container from "@duyet/components/Container";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-import { filterPhotos, getPhotosByYear, groupPhotosByYear, sortPhotos, type SortOption } from "@/lib/photo-utils";
+import {
+  filterPhotos,
+  getPhotosByYear,
+  groupPhotosByYear,
+  type SortOption,
+  sortPhotos,
+} from "@/lib/photo-utils";
 import type { Photo } from "@/lib/types";
 import PhotoGrid from "./PhotoGrid";
 import { PhotoSearchBar } from "./PhotoSearchBar";
@@ -136,7 +142,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                       activeYear === year.toString()
                         ? "bg-terracotta text-white dark:bg-terracotta-dark"
                         : "bg-white text-neutral-700 hover:text-neutral-900 hover:shadow dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700"
-                  }`}
+                    }`}
                   >
                     {year}
                   </Link>
@@ -153,9 +159,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                 Showing {displayPhotos.length} photo
                 {displayPhotos.length !== 1 ? "s" : ""}
                 {query && ` matching "${query}"`}
-                {sort !== "newest" && `, sorted by ${
-                  SORT_LABELS[sort]
-                }`}
+                {sort !== "newest" && `, sorted by ${SORT_LABELS[sort]}`}
                 {activeYear && ` from ${activeYear}`}
               </p>
             )}

@@ -1,6 +1,6 @@
-import { describe, test, expect, mock, beforeEach } from "bun:test";
-import { fetcher } from "./fetcher";
+import { beforeEach, describe, expect, mock, test } from "bun:test";
 import { NetworkError } from "./errors";
+import { fetcher } from "./fetcher";
 
 const originalFetch = globalThis.fetch;
 beforeEach(() => {

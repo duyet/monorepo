@@ -7,9 +7,21 @@ import { calculateDelta } from "@/lib/comparison";
 import { getWakaTimeMetrics } from "./wakatime-utils";
 
 export interface WakaTimeComparisonMetrics {
-  totalHours: { value1: number; value2: number; delta: ReturnType<typeof calculateDelta> };
-  avgDailyHours: { value1: number; value2: number; delta: ReturnType<typeof calculateDelta> };
-  daysActive: { value1: number; value2: number; delta: ReturnType<typeof calculateDelta> };
+  totalHours: {
+    value1: number;
+    value2: number;
+    delta: ReturnType<typeof calculateDelta>;
+  };
+  avgDailyHours: {
+    value1: number;
+    value2: number;
+    delta: ReturnType<typeof calculateDelta>;
+  };
+  daysActive: {
+    value1: number;
+    value2: number;
+    delta: ReturnType<typeof calculateDelta>;
+  };
   topLanguage: { value1: string; value2: string };
 }
 

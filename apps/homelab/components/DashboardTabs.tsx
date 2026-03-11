@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Server, Smartphone } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useRef } from "react";
 
 const tabs = [
   { id: "infrastructure", label: "Infrastructure", icon: Server },

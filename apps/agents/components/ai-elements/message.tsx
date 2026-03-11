@@ -64,11 +64,15 @@ export function MessageContent({
   const isUser = from === "user";
 
   return (
-    <div className={cn(
-      "flex flex-col gap-2 relative",
-      isUser ? "bg-muted/80 w-fit max-w-[85%] px-5 py-3.5 rounded-3xl rounded-tr-sm" : "flex-1 min-w-0 w-full",
-      className
-    )}>
+    <div
+      className={cn(
+        "flex flex-col gap-2 relative",
+        isUser
+          ? "bg-muted/80 w-fit max-w-[85%] px-5 py-3.5 rounded-3xl rounded-tr-sm"
+          : "flex-1 min-w-0 w-full",
+        className
+      )}
+    >
       <div
         className={cn(
           "text-base leading-relaxed font-sans",

@@ -6,9 +6,9 @@
 
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { ConversationList } from "./ConversationList";
+import { useCallback, useEffect, useState } from "react";
 import type { Conversation } from "@/types/conversation";
+import { ConversationList } from "./ConversationList";
 
 interface ConversationSidebarProps {
   conversations: Conversation[];

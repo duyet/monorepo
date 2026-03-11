@@ -1,8 +1,9 @@
 import Container from "@duyet/components/Container";
+import { Suspense } from "react";
+import { EXIFStatisticsDisplay } from "@/components/EXIFStatistics";
 import PhotoGallery from "@/components/PhotoGallery";
 import PhotoGrid from "@/components/PhotoGrid";
 import { RetryButton } from "@/components/RetryButton";
-import { EXIFStatisticsDisplay } from "@/components/EXIFStatistics";
 import type { PhotoFetchError } from "@/lib/errors";
 import {
   AuthError,
@@ -10,21 +11,18 @@ import {
   RateLimitError,
   UnknownPhotoError,
 } from "@/lib/errors";
-import { Suspense } from "react";
 
 export const dynamic = "force-static";
 
-import {
-  getAllPhotos,
-  type Photo,
-} from "@/lib/photo-provider";
-
+import { getAllPhotos, type Photo } from "@/lib/photo-provider";
 
 type PageProps = {
   searchParams: { fallback?: string };
 };
 
-export default async function PhotosPage({ searchParams: _searchParams }: PageProps) {
+export default async function PhotosPage({
+  searchParams: _searchParams,
+}: PageProps) {
   let photos: Photo[] = [];
   let photoError: PhotoFetchError | null = null;
 

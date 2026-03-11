@@ -1,7 +1,7 @@
 "use client";
 
+import { Info, Keyboard, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Keyboard, Info, X } from "lucide-react";
 
 interface ShortcutCard {
   id: string;
@@ -14,7 +14,10 @@ interface KeyboardShortcutsProps {
   onNavigate: (id: string) => void;
 }
 
-export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsProps) {
+export function useKeyboardShortcuts({
+  cards,
+  onNavigate,
+}: KeyboardShortcutsProps) {
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const [showBadges, setShowBadges] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
@@ -68,7 +71,10 @@ export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsPro
             ) as HTMLAnchorElement;
             if (linkElement) {
               linkElement.focus();
-              linkElement.scrollIntoView({ behavior: "smooth", block: "center" });
+              linkElement.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
               onNavigate(card.id);
             }
           }
@@ -150,13 +156,17 @@ export function KeyboardHelpTooltip({
         </div>
         <div className="space-y-2 text-xs">
           <div className="flex items-center justify-between">
-            <span className="text-neutral-600 dark:text-neutral-400">Navigate to card</span>
+            <span className="text-neutral-600 dark:text-neutral-400">
+              Navigate to card
+            </span>
             <kbd className="rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-mono text-neutral-900 dark:border-white/10 dark:bg-white/5 dark:text-white">
               1-9
             </kbd>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-neutral-600 dark:text-neutral-400">Clear focus</span>
+            <span className="text-neutral-600 dark:text-neutral-400">
+              Clear focus
+            </span>
             <div className="flex gap-1">
               <kbd className="rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-mono text-neutral-900 dark:border-white/10 dark:bg-white/5 dark:text-white">
                 Esc
@@ -167,7 +177,9 @@ export function KeyboardHelpTooltip({
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-neutral-600 dark:text-neutral-400">Toggle this help</span>
+            <span className="text-neutral-600 dark:text-neutral-400">
+              Toggle this help
+            </span>
             <kbd className="rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-mono text-neutral-900 dark:border-white/10 dark:bg-white/5 dark:text-white">
               ?
             </kbd>

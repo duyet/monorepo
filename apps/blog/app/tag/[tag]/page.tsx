@@ -95,5 +95,12 @@ export default async function PostsByTag({ params }: PostsByTagProps) {
 }
 
 async function getPosts(tag: Params["tag"]) {
-  return getPostsByTag(tag, ["slug", "date", "title", "category", "featured", "readingTime"]);
+  return getPostsByTag(tag, [
+    "slug",
+    "date",
+    "title",
+    "category",
+    "featured",
+    "readingTime",
+  ]);
 }

@@ -4,16 +4,12 @@
  */
 
 import { Suspense } from "react";
-import type { PeriodDays } from "@/lib/periods";
-import {
-  getPeriodConfig,
-  getPeriodDays,
-  isPeriodValue,
-} from "@/lib/periods";
-import { generateComparisonStaticParams } from "@/lib/comparison";
 import { ComparisonMetrics } from "@/components/comparison";
-import { getWakaTimeComparison } from "../../../../wakatime/wakatime-comparison-utils";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import { generateComparisonStaticParams } from "@/lib/comparison";
+import type { PeriodDays } from "@/lib/periods";
+import { getPeriodConfig, getPeriodDays, isPeriodValue } from "@/lib/periods";
+import { getWakaTimeComparison } from "../../../../wakatime/wakatime-comparison-utils";
 
 export const dynamic = "force-static";
 
@@ -117,10 +113,8 @@ async function WakaTimeComparisonContent({
   ];
 
   // Get period labels
-  const period1Label =
-    days1 === "all" ? "All time" : `${days1} days`;
-  const period2Label =
-    days2 === "all" ? "All time" : `${days2} days`;
+  const period1Label = days1 === "all" ? "All time" : `${days1} days`;
+  const period2Label = days2 === "all" ? "All time" : `${days2} days`;
 
   return (
     <div>
@@ -131,7 +125,8 @@ async function WakaTimeComparisonContent({
         metrics={metrics}
       />
       <p className="mt-4 text-xs text-muted-foreground">
-        Data from WakaTime • Positive values indicate increase in {period1Label} compared to {period2Label}
+        Data from WakaTime • Positive values indicate increase in {period1Label}{" "}
+        compared to {period2Label}
       </p>
     </div>
   );

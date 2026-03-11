@@ -76,8 +76,16 @@ function startProcesses() {
 
   // 2. Start Wrangler Functions
   const wranglerProcess = spawn(
-    "bunx",
-    ["wrangler", "pages", "dev", "--port", FUNCTION_PORT.toString()],
+    "bun",
+    [
+      "--bun",
+      "x",
+      "wrangler",
+      "pages",
+      "dev",
+      "--port",
+      FUNCTION_PORT.toString(),
+    ],
     {
       stdio: "inherit",
       env: process.env,

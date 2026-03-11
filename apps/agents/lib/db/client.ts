@@ -404,8 +404,11 @@ export class DatabaseClient {
    * Stores a state snapshot for potential resume/rollback.
    * Version numbers must be increasing for a conversation.
    */
-  async createCheckpoint(params: CreateCheckpointParams): Promise<CheckpointRow> {
-    const { id, conversationId, stateSnapshot, version, parentCheckpointId } = params;
+  async createCheckpoint(
+    params: CreateCheckpointParams
+  ): Promise<CheckpointRow> {
+    const { id, conversationId, stateSnapshot, version, parentCheckpointId } =
+      params;
     const now = Date.now();
 
     const stmt = this.db.prepare(
@@ -470,7 +473,9 @@ export class DatabaseClient {
       "SELECT id, conversation_id, state_snapshot, version, created_at, parent_checkpoint_id FROM graph_checkpoints WHERE conversation_id = ? ORDER BY version DESC LIMIT 1"
     );
 
-    const result = (await stmt.bind(conversationId).first()) as CheckpointRow | null;
+    const result = (await stmt
+      .bind(conversationId)
+      .first()) as CheckpointRow | null;
 
     if (!result) {
       return null;
@@ -567,7 +572,9 @@ export class DatabaseClient {
       "SELECT id FROM graph_checkpoints WHERE conversation_id = ? AND id NOT IN (SELECT id FROM graph_checkpoints WHERE conversation_id = ? ORDER BY version DESC LIMIT ?) ORDER BY version ASC"
     );
 
-    const excess = (await stmt.bind(conversationId, conversationId, keepCount).all()) as {
+    const excess = (await stmt
+      .bind(conversationId, conversationId, keepCount)
+      .all()) as {
       results: { id: string }[];
     };
 

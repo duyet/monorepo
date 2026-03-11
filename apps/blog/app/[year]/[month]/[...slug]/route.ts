@@ -47,7 +47,9 @@ export async function GET(
   const url = `https://blog.duyet.net/${slugPath}/`;
   const tags = post.tags?.join(", ") || "";
 
-  const escapedTitle = (post.title ?? "").replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  const escapedTitle = (post.title ?? "")
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"');
 
   const markdown = `---
 title: "${escapedTitle}"

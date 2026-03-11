@@ -5,9 +5,9 @@ import {
 import { getAllCloudinaryPhotos } from "./cloudinary-provider";
 import type { PhotoFetchError } from "./errors";
 import { UnknownPhotoError } from "./errors";
+import { getFallbackPhotos } from "./fallback-provider";
 import type { Photo } from "./types";
 import { getAllUnsplashPhotos } from "./unsplash-provider";
-import { getFallbackPhotos } from "./fallback-provider";
 
 // Re-export Photo type for convenience
 export type { Photo } from "./types";
@@ -173,15 +173,23 @@ export interface EXIFFilters {
  * This is a helper function that can be used on the client side
  * The actual filtering is handled by the EXIFFilters component
  */
-export function filterByEXIF(photos: Photo[], exifFilters: EXIFFilters): Photo[] {
+export function filterByEXIF(
+  photos: Photo[],
+  exifFilters: EXIFFilters
+): Photo[] {
   return photos.filter((photo) => {
     // Photo must have EXIF data to be filtered
     if (!photo.exif) return false;
 
     // Camera filter
     if (exifFilters.camera) {
-      const camera = photo.exif.name || [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
-      if (!camera || !camera.toLowerCase().includes(exifFilters.camera.toLowerCase())) {
+      const camera =
+        photo.exif.name ||
+        [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
+      if (
+        !camera ||
+        !camera.toLowerCase().includes(exifFilters.camera.toLowerCase())
+      ) {
         return false;
       }
     }
@@ -212,7 +220,8 @@ export function filterByEXIF(photos: Photo[], exifFilters: EXIFFilters): Photo[]
       if (
         photo.exif.iso !== null &&
         photo.exif.iso !== undefined &&
-        (photo.exif.iso < exifFilters.iso[0] || photo.exif.iso > exifFilters.iso[1])
+        (photo.exif.iso < exifFilters.iso[0] ||
+          photo.exif.iso > exifFilters.iso[1])
       ) {
         return false;
       }
@@ -226,7 +235,8 @@ export function filterByEXIF(photos: Photo[], exifFilters: EXIFFilters): Photo[]
       if (
         aperture !== null &&
         !Number.isNaN(aperture) &&
-        (aperture < exifFilters.aperture[0] || aperture > exifFilters.aperture[1])
+        (aperture < exifFilters.aperture[0] ||
+          aperture > exifFilters.aperture[1])
       ) {
         return false;
       }
@@ -251,7 +261,9 @@ export function getEXIFOptions(photos: Photo[]) {
 
     // Extract camera
     if (photo.exif.make || photo.exif.model || photo.exif.name) {
-      const camera = photo.exif.name || [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
+      const camera =
+        photo.exif.name ||
+        [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
       if (camera) cameras.add(camera);
     }
 
@@ -268,7 +280,9 @@ export function getEXIFOptions(photos: Photo[]) {
 
     // Extract aperture
     if (photo.exif.aperture) {
-      const apt = Number.parseFloat(photo.exif.aperture.toString().replace(/^f\//, ""));
+      const apt = Number.parseFloat(
+        photo.exif.aperture.toString().replace(/^f\//, "")
+      );
       if (!Number.isNaN(apt)) apertures.add(apt);
     }
   });

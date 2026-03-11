@@ -1,10 +1,10 @@
+import { DashboardTabs } from "@/components/DashboardTabs";
 import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
 import { ClusterTopology } from "@/components/dashboard/ClusterTopology";
 import { NetworkStats } from "@/components/dashboard/NetworkStats";
 import { ResourceMetrics } from "@/components/dashboard/ResourceMetrics";
 import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
 import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
-import { DashboardTabs } from "@/components/DashboardTabs";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
 
