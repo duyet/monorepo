@@ -282,9 +282,10 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   // Memoize related models to avoid recomputation on every render.
   // NOTE: This creates O(n²) complexity across all model cards (200 cards × 200 models).
   // Consider precomputing related models at build time if performance becomes an issue.
+  // models is a stable import, excluded from deps to avoid unnecessary recomputation.
   const relatedModels = useMemo(() => {
     return getRelatedModels(model, models, MODEL_CARD_RELATED_MODELS_LIMIT);
-  }, [model, models]);
+  }, [model]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (relatedModels.length === 0) {
     return null;

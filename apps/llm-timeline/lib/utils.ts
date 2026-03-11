@@ -1,5 +1,5 @@
 import type { Model } from "./data";
-import { getParamsBucket } from "@duyet/libs";
+import { getParamsBucket, parseParamValue } from "@duyet/libs";
 
 export interface FilterState {
   search: string;
@@ -216,45 +216,6 @@ export function getStats(models: Model[]) {
 // Re-export getSlug from @duyet/libs for convenience
 export { getSlug as slugify } from "@duyet/libs";
 
-// Regex and multipliers for parameter parsing (cached to avoid recompilation)
-const PARAMS_REGEX = /^([\d.]+)([BKMGTP]?)/i;
-const PARAMS_MULTIPLIERS: Record<string, number> = {
-  "": 1,
-  B: 1,
-  K: 1_000,
-  M: 1_000_000,
-  G: 1_000_000_000,
-  T: 1_000_000_000_000,
-  P: 1_000_000_000_000_000,
-};
-
-/**
- * Parse parameter string to numeric value (e.g., "70B" -> 70_000_000_000)
- */
-function parseParamsValue(params: string | null | undefined): number {
-  if (!params) return 0;
-
-  const match = params.match(PARAMS_REGEX);
-  if (!match) return 0;
-
-  const value = Number.parseFloat(match[1]);
-  const unit = match[2].toUpperCase();
-
-  return value * (PARAMS_MULTIPLIERS[unit] || 1);
-}
-
-/**
- * Similarity scoring weights for related models.
- * Values sum to 100 for intuitive understanding.
- */
-const SIMILARITY_WEIGHTS = {
-  SAME_ORG: 30,
-  SAME_LICENSE: 20,
-  SAME_TYPE: 10,
-  PARAM_PROXIMITY_MAX: 40,
-  RECENCY_BONUS_MAX: 10,
-} as const;
-
 const DAYS_PER_MONTH = 30;
 const PARAM_PROXIMITY_THRESHOLD = 0.5; // Within 2x range
 
@@ -274,7 +235,16 @@ export function getRelatedModels(
   allModels: Model[],
   limit: number = 5
 ): Model[] {
-  const currentParams = parseParamsValue(currentModel.params);
+  // Internal scoring weights - kept inside function to avoid leaking implementation details
+  const WEIGHTS = {
+    SAME_ORG: 30,
+    SAME_LICENSE: 20,
+    SAME_TYPE: 10,
+    PARAM_PROXIMITY_MAX: 40,
+    RECENCY_BONUS_MAX: 10,
+  } as const;
+
+  const currentParams = parseParamValue(currentModel.params) ?? 0;
   const currentDate = new Date(currentModel.date).getTime();
 
   // Score each model based on similarity
@@ -285,25 +255,25 @@ export function getRelatedModels(
 
       // Same organization
       if (model.org === currentModel.org) {
-        score += SIMILARITY_WEIGHTS.SAME_ORG;
+        score += WEIGHTS.SAME_ORG;
       }
 
       // Same license
       if (model.license === currentModel.license) {
-        score += SIMILARITY_WEIGHTS.SAME_LICENSE;
+        score += WEIGHTS.SAME_LICENSE;
       }
 
       // Same type
       if (model.type === currentModel.type) {
-        score += SIMILARITY_WEIGHTS.SAME_TYPE;
+        score += WEIGHTS.SAME_TYPE;
       }
 
       // Parameter proximity: closer is better
-      const modelParams = parseParamsValue(model.params);
+      const modelParams = parseParamValue(model.params) ?? 0;
       if (currentParams > 0 && modelParams > 0) {
         const ratio = Math.min(currentParams, modelParams) / Math.max(currentParams, modelParams);
         if (ratio >= PARAM_PROXIMITY_THRESHOLD) {
-          score += Math.round(SIMILARITY_WEIGHTS.PARAM_PROXIMITY_MAX * ratio);
+          score += Math.round(WEIGHTS.PARAM_PROXIMITY_MAX * ratio);
         }
       }
 
@@ -312,7 +282,7 @@ export function getRelatedModels(
       if (modelDate > currentDate) {
         const daysDiff = Math.floor((modelDate - currentDate) / (1000 * 60 * 60 * 24));
         score += Math.min(
-          SIMILARITY_WEIGHTS.RECENCY_BONUS_MAX,
+          WEIGHTS.RECENCY_BONUS_MAX,
           Math.max(0, daysDiff / DAYS_PER_MONTH)
         );
       }

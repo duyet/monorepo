@@ -195,13 +195,13 @@ export default function EXIFFilters({
     return paramsToFilters(params, computeFilterOptions(photos));
   });
 
-  // Update URL when filters change (not when filterOptions changes)
+  // Update URL when filters change (include filterOptions for correctness)
   useEffect(() => {
     const params = filtersToParams(filters, filterOptions);
     const queryString = params.toString();
     const newUrl = queryString ? `/?${queryString}` : "/";
     router.replace(newUrl, { scroll: false });
-  }, [filters, router]); // Remove filterOptions from dependencies
+  }, [filters, router, filterOptions]);
 
   // Apply filters to photos
   const applyFilters = useCallback(
@@ -284,18 +284,10 @@ export default function EXIFFilters({
     router.replace("/", { scroll: false });
   }, [router]);
 
-  // Share current filters with timeout cleanup
+  // Share current filters with proper cleanup
   const shareFilters = useCallback(async () => {
     const url = typeof window !== "undefined" ? window.location.href : "";
     if (!url) return;
-
-    const showCopiedFeedback = () => {
-      setShareCopied(true);
-      const timeoutId = setTimeout(() => setShareCopied(false), 2000);
-      return () => clearTimeout(timeoutId);
-    };
-
-    const cleanup = showCopiedFeedback();
 
     try {
       await navigator.clipboard.writeText(url);
@@ -313,8 +305,13 @@ export default function EXIFFilters({
         document.body.removeChild(textArea);
       }
     }
-    // Always return cleanup function (caller may use it for useEffect cleanup)
-    return cleanup;
+
+    // Show feedback with cleanup
+    setShareCopied(true);
+    const timeoutId = setTimeout(() => setShareCopied(false), 2000);
+
+    // Return cleanup for potential useEffect use
+    return () => clearTimeout(timeoutId);
   }, []);
 
   // Check if any filters are active
