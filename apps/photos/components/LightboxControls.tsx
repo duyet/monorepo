@@ -21,6 +21,7 @@ interface LightboxControlsProps {
   onClose: () => void;
   onToggleFullscreen: () => void;
   onToggleInfo: () => void;
+  onDownload?: () => void;
   onNext?: () => void;
   onPrevious?: () => void;
   className?: string;
@@ -33,6 +34,7 @@ export function LightboxTopControls({
   showInfo,
   onToggleFullscreen,
   onToggleInfo,
+  onDownload,
   className,
 }: Omit<LightboxControlsProps, "onNext" | "onPrevious" | "onClose">) {
   return (
@@ -64,6 +66,18 @@ export function LightboxTopControls({
         >
           <Info className="h-5 w-5" />
         </button>
+
+        {/* Download button */}
+        {onDownload && (
+          <button
+            onClick={onDownload}
+            className="rounded-full bg-black/50 p-2.5 text-white backdrop-blur-md transition-all duration-200 hover:scale-105 hover:bg-green-600/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Download photo"
+            title="Download photo (D)"
+          >
+            <Download className="h-5 w-5" />
+          </button>
+        )}
 
         {/* Fullscreen toggle */}
         <button

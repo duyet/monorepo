@@ -229,6 +229,7 @@ export interface LightboxNavigationOptions {
   onPrevious?: () => void;
   onToggleFullscreen?: () => void;
   onToggleInfo?: () => void;
+  onDownload?: () => void;
 }
 
 export function useLightboxNavigation(options: LightboxNavigationOptions) {
@@ -241,6 +242,7 @@ export function useLightboxNavigation(options: LightboxNavigationOptions) {
     onPrevious,
     onToggleFullscreen,
     onToggleInfo,
+    onDownload,
   } = options;
 
   // Keyboard navigation
@@ -255,6 +257,7 @@ export function useLightboxNavigation(options: LightboxNavigationOptions) {
         F: onToggleFullscreen,
       }),
       ...(onToggleInfo && { i: onToggleInfo, I: onToggleInfo }),
+      ...(onDownload && { d: onDownload, D: onDownload }),
     },
   });
 
