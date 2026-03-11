@@ -12,6 +12,8 @@ interface CompactMetricProps {
   };
   icon?: ReactNode;
   className?: string;
+  /** Tooltip text shown on hover (uses native title attribute) */
+  tooltip?: string;
 }
 
 export function CompactMetric({
@@ -20,6 +22,7 @@ export function CompactMetric({
   change,
   icon,
   className,
+  tooltip,
 }: CompactMetricProps) {
   return (
     <div
@@ -27,6 +30,7 @@ export function CompactMetric({
         "rounded-lg border bg-card p-4 text-card-foreground",
         className
       )}
+      title={tooltip}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1 space-y-1">
