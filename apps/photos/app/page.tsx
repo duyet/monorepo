@@ -2,6 +2,7 @@ import Container from "@duyet/components/Container";
 import Link from "next/link";
 import PhotoGrid from "@/components/PhotoGrid";
 import { RetryButton } from "@/components/RetryButton";
+import { EXIFStatisticsDisplay } from "@/components/EXIFStatistics";
 import type { PhotoFetchError } from "@/lib/errors";
 import {
   AuthError,
@@ -177,6 +178,11 @@ export default async function PhotosPage({ searchParams: _searchParams }: PagePr
           </section>
         </Container>
       </div>
+
+      {/* EXIF Statistics */}
+      <Container className="py-8">
+        <EXIFStatisticsDisplay photos={photos} />
+      </Container>
 
       {/* Photo grid - full width with padding */}
       <section
