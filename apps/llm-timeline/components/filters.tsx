@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, forwardRef } from "react";
 import { Search, X, Rows2, LayoutList, Download } from "lucide-react";
 import type { FilterState } from "@/lib/utils";
 import { organizations, domains, models as allModels } from "@/lib/data";
@@ -19,13 +19,14 @@ interface FiltersProps {
   onLiteModeToggle?: () => void;
 }
 
-export function Filters({
+export const Filters = forwardRef<HTMLInputElement, FiltersProps>(
+  function Filters({
   filters,
   onFilterChange,
   resultCount,
   liteMode,
   onLiteModeToggle,
-}: FiltersProps) {
+}: FiltersProps, ref) {
   // Memoize updateFilter to prevent unnecessary re-renders
   const updateFilter = useCallback(
     <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
@@ -70,8 +71,9 @@ export function Filters({
           style={{ color: "var(--text-muted)" }}
         />
         <input
+          ref={ref}
           type="text"
-          placeholder="Search models, organizations..."
+          placeholder="Search models, organizations... (Press / to focus)"
           value={filters.search}
           onChange={(e) => updateFilter("search", e.target.value)}
           className="w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1"
@@ -248,4 +250,4 @@ export function Filters({
       </div>
     </div>
   );
-}
+});
