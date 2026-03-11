@@ -1,5 +1,4 @@
 import { getAllPosts } from "@duyet/libs/getPost";
-import type { Post } from "@duyet/interfaces";
 
 export interface SeriesNavItem {
   slug: string;
