@@ -53,6 +53,8 @@ export default function Lightbox({
     if (isDownloading) return;
 
     setIsDownloading(true);
+    let objectUrl: string | null = null;
+
     try {
       // Use raw if available (highest quality), otherwise fall back to full
       const imageUrl = photo.urls.raw || photo.urls.full;
@@ -62,11 +64,11 @@ export default function Lightbox({
       if (!response.ok) throw new Error('Failed to fetch image');
 
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+      objectUrl = window.URL.createObjectURL(blob);
 
       // Create temporary anchor element to trigger download
       const a = document.createElement('a');
-      a.href = url;
+      a.href = objectUrl;
       // Generate filename from photo id and description
       const safeDescription = photo.description
         ? photo.description.slice(0, 30).replace(/[^a-z0-9]/gi, '-')
@@ -75,15 +77,18 @@ export default function Lightbox({
       document.body.appendChild(a);
       a.click();
 
-      // Cleanup
+      // Cleanup anchor
       document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Download failed:', error);
       // Fallback: open in new tab
       const fallbackUrl = photo.urls.raw || photo.urls.full;
       window.open(fallbackUrl, '_blank');
     } finally {
+      // Always cleanup object URL to prevent memory leak
+      if (objectUrl) {
+        window.URL.revokeObjectURL(objectUrl);
+      }
       setIsDownloading(false);
     }
   };

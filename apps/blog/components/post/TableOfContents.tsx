@@ -2,7 +2,7 @@
 
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // TOC Icon SVG
 const TOCIcon = ({ className }: { className?: string }) => (
@@ -47,14 +47,14 @@ export function TableOfContents({
       ? externalIsMobileOpen
       : internalIsMobileOpen;
 
-  const handleMobileToggle = () => {
+  const handleMobileToggle = useCallback(() => {
     const newState = !isMobileOpen;
     if (onMobileOpenChange) {
       onMobileOpenChange(newState);
     } else {
       setInternalIsMobileOpen(newState);
     }
-  };
+  }, [isMobileOpen, onMobileOpenChange]);
 
   useEffect(() => {
     if (headings.length === 0) return;
@@ -84,7 +84,7 @@ export function TableOfContents({
     };
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [isMobileOpen]);
+  }, [handleMobileToggle]);
 
   if (headings.length === 0) {
     return null;

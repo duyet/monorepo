@@ -30,7 +30,7 @@ export function PostWithTOC({
     const handleRouteChange = () => setIsMobileTocOpen(false);
     window.addEventListener("popstate", handleRouteChange);
     return () => window.removeEventListener("popstate", handleRouteChange);
-  }, []);
+  }, [setIsMobileTocOpen]);
 
   return (
     <div className="relative">
