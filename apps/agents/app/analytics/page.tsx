@@ -39,11 +39,20 @@ export default function AnalyticsPage() {
     useConversations({ getAuthToken });
 
   useEffect(() => {
-    fetch("/api/analytics")
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    fetch("/api/analytics", { signal })
       .then((res) => res.json())
       .then((d) => setData(d))
-      .catch((err) => console.error("Failed to load analytics:", err))
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error("Failed to load analytics:", err);
+        }
+      })
       .finally(() => setLoading(false));
+
+    return () => controller.abort();
   }, []);
 
   const sidebarContent = (
@@ -118,7 +127,7 @@ export default function AnalyticsPage() {
                   </h2>
                 </div>
                 <div className="h-[300px] w-full">
-                  {data.dailyTrends && data.dailyTrends.length > 0 ? (
+                  {data.dailyTrends?.length > 0 ? (
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart
                         data={data.dailyTrends}
