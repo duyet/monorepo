@@ -6,7 +6,7 @@ import { PageLayout } from "@/components/page-layout";
 import { models } from "@/lib/data";
 import { getLicenseColor, formatDate, slugify } from "@/lib/utils";
 import { parseParamValue } from "@duyet/libs";
-import { X, Plus, Search } from "lucide-react";
+import { X, Plus, Search, Download } from "lucide-react";
 import type { Model } from "@/lib/data";
 
 // Maximum number of models that can be compared
@@ -94,6 +94,42 @@ function CompareContent() {
   );
 
   const hasComparison = sortedModels.length >= MIN_COMPARE;
+
+  // Export comparison data to CSV
+  const exportToCSV = () => {
+    if (sortedModels.length < MIN_COMPARE) return;
+
+    // Define CSV headers
+    const headers = ["Model", "Organization", "Release Date", "Parameters", "License", "Type", "Description"];
+
+    // Convert models to CSV rows
+    const rows = sortedModels.map((model) => [
+      model.name,
+      model.org,
+      formatDate(model.date),
+      model.params || "Unknown",
+      model.license,
+      model.type,
+      `"${model.desc.replace(/"/g, '""')}"`, // Escape quotes in description
+    ]);
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => row.join(",")),
+    ].join("\n");
+
+    // Create blob and trigger download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `llm-comparison-${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-6">
@@ -402,24 +438,49 @@ function CompareContent() {
             </div>
           )}
 
-          {/* Share link */}
+          {/* Share link and export */}
           {hasComparison && (
-            <div
-              className="p-4 rounded-lg border"
-              style={{ borderColor: "var(--border)" }}
-            >
-              <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
-                Share this comparison:
-              </p>
-              <code
-                className="text-sm px-2 py-1 rounded"
-                style={{
-                  backgroundColor: "var(--bg)",
-                  color: "var(--text)",
-                }}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Share link */}
+              <div
+                className="p-4 rounded-lg border"
+                style={{ borderColor: "var(--border)" }}
               >
-                {typeof window !== "undefined" ? window.location.href : "/compare"}
-              </code>
+                <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
+                  Share this comparison:
+                </p>
+                <code
+                  className="text-sm px-2 py-1 rounded"
+                  style={{
+                    backgroundColor: "var(--bg)",
+                    color: "var(--text)",
+                  }}
+                >
+                  {typeof window !== "undefined" ? window.location.href : "/compare"}
+                </code>
+              </div>
+
+              {/* Export to CSV */}
+              <div
+                className="p-4 rounded-lg border"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
+                  Export comparison data:
+                </p>
+                <button
+                  onClick={exportToCSV}
+                  className="flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  style={{
+                    backgroundColor: "var(--bg)",
+                    color: "var(--text)",
+                    border: "1px solid var(--border)",
+                  }}
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Download CSV</span>
+                </button>
+              </div>
             </div>
           )}
         </div>
