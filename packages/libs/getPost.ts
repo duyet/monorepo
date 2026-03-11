@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import getSlug from "./getSlug";
 import { normalizeTag } from "./tags";
 import { ValidationError, FileSystemError } from "./errors";
+import { getReadingTime } from "./date";
 
 const nodeFs = () => require("node:fs");
 const nodeJoin = () => require("node:path").join;
@@ -184,6 +185,16 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
     if (field === "isMDX") {
       post.isMDX = fullPath.endsWith(".mdx");
+    }
+
+    if (field === "readingTime") {
+      // Calculate word count from content
+      const wordCount = content.split(/\s+/).filter((w) => w.length > 0).length;
+
+      // Count code blocks for more accurate reading time
+      const codeBlockCount = (content.match(/```[\s\S]*?```/g) || []).length;
+
+      post.readingTime = getReadingTime(wordCount, codeBlockCount);
     }
   });
 

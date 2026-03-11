@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 
 export default function Featured() {
   const postsByYear = getPostsByAllYear(
-    ["slug", "title", "date", "category", "featured"],
+    ["slug", "title", "date", "category", "featured", "readingTime"],
     -1,
     true
   );

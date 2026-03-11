@@ -17,6 +17,7 @@ export type Post = {
   path?: string;
   isMDX?: boolean;
   mdxCode?: string;
+  readingTime?: number;
 };
 
 export interface TagCount {

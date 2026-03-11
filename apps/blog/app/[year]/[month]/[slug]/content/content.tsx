@@ -90,6 +90,7 @@ export async function getPost(slug: string[]) {
     "series",
     "snippet",
     "isMDX",
+    "readingTime",
   ]);
 
   const markdownContent = post.content || "Error";

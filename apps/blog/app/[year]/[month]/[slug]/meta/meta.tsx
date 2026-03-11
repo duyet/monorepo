@@ -4,7 +4,7 @@ import { distanceToNow } from "@duyet/libs/date";
 import { getSeries } from "@duyet/libs/getSeries";
 import { getSlug } from "@duyet/libs/getSlug";
 import { cn } from "@duyet/libs/utils";
-import { Calendar, Folder, Tag } from "lucide-react";
+import { Calendar, Clock, Folder, Tag } from "lucide-react";
 import Link from "next/link";
 import { SeriesBox } from "@/components/layout";
 import { MarkdownMenuWrapper } from "./markdown-menu-wrapper";
@@ -34,6 +34,17 @@ export default function Content({ post, className }: ContentProps) {
           <span className="text-gray-400 dark:text-gray-600">·</span>
           <span>{distanceToNow(new Date(post.date))}</span>
         </div>
+
+        {post.readingTime && (
+          <>
+            <span className="text-gray-300 dark:text-gray-700">|</span>
+            {/* Reading Time */}
+            <div className="flex items-center gap-1.5" title="Reading time">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{post.readingTime} min read</span>
+            </div>
+          </>
+        )}
 
         <span className="text-gray-300 dark:text-gray-700">|</span>
 

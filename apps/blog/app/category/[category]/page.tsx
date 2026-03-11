@@ -108,5 +108,6 @@ async function getPosts(category: Params["category"]) {
     "title",
     "category",
     "featured",
+    "readingTime",
   ]);
 }

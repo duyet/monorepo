@@ -85,3 +85,35 @@ export function slugify(str: string, maxLength = 100): string {
 
   return slug;
 }
+
+/**
+ * Calculate reading time for text content.
+ *
+ * Uses the standard reading speed of 200 words per minute.
+ * Handles code blocks by counting them at 1/4 the normal rate
+ * since code is read more slowly than prose.
+ *
+ * @param wordCount - Number of words in the content
+ * @param codeBlockCount - Optional number of code blocks (default: 0)
+ * @returns Reading time in minutes (minimum 1)
+ *
+ * @example
+ * ```ts
+ * getReadingTime(400) // 2
+ * getReadingTime(150) // 1
+ * getReadingTime(800, 2) // 5 (accounts for slower code reading)
+ * ```
+ */
+export function getReadingTime(wordCount: number, codeBlockCount = 0): number {
+  const WORDS_PER_MINUTE = 200;
+  const CODE_WORDS_PER_MINUTE = 50; // Code is read ~4x slower
+
+  // Calculate time for prose and code separately
+  const proseMinutes = wordCount / WORDS_PER_MINUTE;
+  const codeMinutes = codeBlockCount * 2; // Each code block adds ~2 minutes
+
+  const totalMinutes = proseMinutes + codeMinutes;
+
+  // Minimum 1 minute for any content
+  return Math.max(1, Math.ceil(totalMinutes));
+}

@@ -1,6 +1,7 @@
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
+import { Clock } from "lucide-react";
 import Link from "next/link";
 import { IsFeatured, IsNewPost } from "./PostBadges";
 
@@ -42,9 +43,20 @@ export function YearPost({ year, posts, className }: YearPostProps) {
               <IsFeatured featured={post.featured} />
             </Link>
             <hr className="shrink grow border-dotted border-neutral-300" />
-            <time className="flex-shrink-0 whitespace-nowrap text-sm text-neutral-500">
-              {dateFormat(post.date, "MMM dd")}
-            </time>
+            <div className="flex-shrink-0 flex items-center gap-2 text-sm text-neutral-500">
+              <time className="whitespace-nowrap">
+                {dateFormat(post.date, "MMM dd")}
+              </time>
+              {post.readingTime && (
+                <>
+                  <span>·</span>
+                  <span className="flex items-center gap-1" title="Reading time">
+                    <Clock className="h-3 w-3" />
+                    {post.readingTime} min
+                  </span>
+                </>
+              )}
+            </div>
           </article>
         ))}
       </div>
