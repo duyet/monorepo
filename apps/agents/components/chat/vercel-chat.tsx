@@ -372,7 +372,7 @@ export function VercelChat() {
             <div className="mx-auto max-w-3xl">
               <form
                 onSubmit={handleFormSubmit}
-                className="relative flex items-end gap-2 w-full rounded-xl border border-input bg-background shadow-sm transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring pointer-events-auto p-2"
+                className="relative flex items-end gap-2 w-full rounded-xl border border-input transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring pointer-events-auto p-2"
               >
                 {/* Left Icons */}
                 <div className="flex items-center gap-1 shrink-0">
@@ -398,7 +398,7 @@ export function VercelChat() {
                   placeholder="Ask me anything..."
                   disabled={isLoading}
                   rows={1}
-                  className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 text-base sm:text-sm focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
+                  className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
                 />
 
                 {/* Right Icons */}
@@ -422,7 +422,7 @@ export function VercelChat() {
                       onClick={stop}
                       size="icon"
                       variant="default"
-                      className="h-9 w-9 rounded-xl"
+                      className="h-9 w-9"
                     >
                       <X className="h-4 w-4" />
                       <span className="sr-only">Stop</span>
@@ -435,7 +435,7 @@ export function VercelChat() {
                           onClick={() => reload()}
                           size="icon"
                           variant="ghost"
-                          className="h-9 w-9 rounded-xl"
+                          className="h-9 w-9"
                         >
                           <RefreshCw className="h-4 w-4" />
                           <span className="sr-only">Regenerate</span>
@@ -447,7 +447,7 @@ export function VercelChat() {
                           disabled={!canSubmit}
                           size="icon"
                           variant={canSubmit ? "default" : "secondary"}
-                          className="h-9 w-9 rounded-xl"
+                          className="h-9 w-9"
                         >
                           <Send className="h-4 w-4" />
                           <span className="sr-only">Send</span>
