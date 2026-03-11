@@ -4,7 +4,8 @@
  */
 
 import { calculateDelta } from "@/lib/comparison";
-import { fetchAllEvents, fetchAllRepositories } from "./github-utils";
+import { fetchAllEvents } from "./utils/github-api";
+import { fetchAllRepositories } from "./github-utils";
 import type { PeriodDays } from "@/lib/periods";
 
 export interface GitHubMetrics {
