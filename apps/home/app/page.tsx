@@ -1,8 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import ThemeToggle from "@duyet/components/ThemeToggle";
 import { FadeIn, FadeInStagger } from "../components/FadeIn";
 import { AuthButtons } from "@duyet/components/header/AuthButtons";
+import {
+  useKeyboardShortcuts,
+  KeyboardShortcutBadge,
+  KeyboardHelpTooltip,
+  KeyboardHelpButton,
+} from "../components/KeyboardShortcuts";
 import {
   ArrowRight,
   BookOpen,
@@ -14,8 +23,6 @@ import {
   Settings,
   Database,
 } from "lucide-react";
-
-export const dynamic = "force-static";
 
 const buildDate = new Date().toISOString().split("T")[0];
 
@@ -115,22 +122,63 @@ const BentoCard = ({
   children,
   href,
   className = "",
+  shortcutId,
+  shortcutNumber,
+  showShortcut,
+  isFocused,
 }: {
   children: React.ReactNode;
   href: string;
   className?: string;
+  shortcutId?: string;
+  shortcutNumber?: number;
+  showShortcut?: boolean;
+  isFocused?: boolean;
 }) => (
   <FadeIn className="flex h-full w-full">
     <Link
       href={href}
-      className={`w-full group flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-sm dark:border-white/10 dark:bg-[#111] dark:hover:border-white/20 ${className}`}
+      data-shortcut-id={shortcutId}
+      className={`w-full group flex flex-col overflow-hidden rounded-xl border bg-white transition-all hover:shadow-sm dark:bg-[#111] ${className} ${isFocused ? "ring-2 ring-neutral-900 dark:ring-white" : "border-neutral-200 hover:border-neutral-300 dark:border-white/10 dark:hover:border-white/20"} relative`}
     >
+      {showShortcut && shortcutNumber && (
+        <KeyboardShortcutBadge number={shortcutNumber} isActive={!!isFocused} />
+      )}
       {children}
     </Link>
   </FadeIn>
 );
 
 export default function HomePage() {
+  const router = useRouter();
+
+  // Define all navigable cards with their IDs
+  const shortcutCards = [
+    { id: "blog", key: "1", name: "Technical Blog" },
+    { id: "cv", key: "2", name: "Experience / CV" },
+    { id: "insights", key: "3", name: "Insights Dashboard" },
+    { id: "photos", key: "4", name: "Photography" },
+    { id: "about", key: "5", name: "About Me" },
+    { id: "llm-timeline", key: "6", name: "LLM Timeline" },
+    { id: "agents", key: "7", name: "AI Agents" },
+    { id: "openclaw", key: "8", name: "OpenClaw" },
+    { id: "mcp", key: "9", name: "MCP Tools" },
+  ];
+
+  const handleNavigate = (id: string) => {
+    const link = document.querySelector(
+      `[data-shortcut-id="${id}"]`
+    ) as HTMLAnchorElement;
+    if (link) {
+      router.push(link.href);
+    }
+  };
+
+  const { activeKey, showBadges, showHelp, setShowHelp } = useKeyboardShortcuts({
+    cards: shortcutCards,
+    onNavigate: handleNavigate,
+  });
+
   return (
     <div className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors duration-300">
       <div className="w-full py-12 sm:py-20 lg:py-24 font-sans focus:outline-none">
@@ -165,6 +213,10 @@ export default function HomePage() {
                 "blog_card"
               )}
               className="lg:col-span-2 sm:row-span-2 p-6 justify-between"
+              shortcutId="blog"
+              shortcutNumber={1}
+              showShortcut={showBadges}
+              isFocused={activeKey === "1"}
             >
               <div>
                 <div className="mb-6 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -192,6 +244,10 @@ export default function HomePage() {
                 "resume_card"
               )}
               className="p-6 justify-between"
+              shortcutId="cv"
+              shortcutNumber={2}
+              showShortcut={showBadges}
+              isFocused={activeKey === "2"}
             >
               <div>
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -219,6 +275,10 @@ export default function HomePage() {
                 "insights_card"
               )}
               className="p-6 justify-between"
+              shortcutId="insights"
+              shortcutNumber={3}
+              showShortcut={showBadges}
+              isFocused={activeKey === "3"}
             >
               <div>
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -251,6 +311,10 @@ export default function HomePage() {
                 "photos_card"
               )}
               className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1"
+              shortcutId="photos"
+              shortcutNumber={4}
+              showShortcut={showBadges}
+              isFocused={activeKey === "4"}
             >
               <div className="relative h-full w-full min-h-[220px]">
                 <div
@@ -278,6 +342,10 @@ export default function HomePage() {
             <BentoCard
               href="/about"
               className="p-6 justify-between sm:col-span-2 lg:col-span-2 xl:col-span-1"
+              shortcutId="about"
+              shortcutNumber={5}
+              showShortcut={showBadges}
+              isFocused={activeKey === "5"}
             >
               <div>
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -309,52 +377,74 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {apps.map((item) => (
-                <BentoCard
-                  key={item.name}
-                  href={addUtmParams(item.href, "homepage", item.utmContent)}
-                  className="group flex flex-col overflow-hidden p-0"
-                >
-                  <div
-                    className={`relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden dark:border-white/10 ${item.screenshot ? "bg-neutral-100 dark:bg-[#0a0a0a]" : item.fallbackGradientClass || "bg-neutral-50 dark:bg-white/[0.02]"}`}
+              {apps.map((item, index) => {
+                // Only assign shortcuts to first 4 apps (keys 6-9)
+                const shortcutNumber = index < 4 ? index + 6 : undefined;
+                const shortcutId =
+                  index === 0
+                    ? "llm-timeline"
+                    : index === 1
+                      ? "agents"
+                      : index === 2
+                        ? "openclaw"
+                        : index === 3
+                          ? "mcp"
+                          : undefined;
+                const isActive = shortcutNumber
+                  ? activeKey === shortcutNumber.toString()
+                  : false;
+
+                return (
+                  <BentoCard
+                    key={item.name}
+                    href={addUtmParams(item.href, "homepage", item.utmContent)}
+                    className="group flex flex-col overflow-hidden p-0"
+                    shortcutId={shortcutId}
+                    shortcutNumber={shortcutNumber}
+                    showShortcut={showBadges}
+                    isFocused={isActive}
                   >
-                    {item.screenshot ? (
-                      <Image
-                        src={item.screenshot}
-                        alt={item.name}
-                        fill
-                        unoptimized
-                        className="object-cover object-top opacity-90 transition-opacity group-hover:opacity-100"
-                      />
-                    ) : (
-                      <>
-                        {item.fallbackBgImage && (
-                          <div
-                            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                            style={{ backgroundImage: item.fallbackBgImage }}
-                          />
-                        )}
-                        {item.fallbackBgImage && (
-                          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
-                        )}
-                        <div className="relative z-10 flex transform items-center justify-center transition-transform duration-500">
-                          {item.fallbackIcon || (
-                            <Database className="w-16 h-16 text-neutral-300 dark:text-neutral-700" />
+                    <div
+                      className={`relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden dark:border-white/10 ${item.screenshot ? "bg-neutral-100 dark:bg-[#0a0a0a]" : item.fallbackGradientClass || "bg-neutral-50 dark:bg-white/[0.02]"}`}
+                    >
+                      {item.screenshot ? (
+                        <Image
+                          src={item.screenshot}
+                          alt={item.name}
+                          fill
+                          unoptimized
+                          className="object-cover object-top opacity-90 transition-opacity group-hover:opacity-100"
+                        />
+                      ) : (
+                        <>
+                          {item.fallbackBgImage && (
+                            <div
+                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                              style={{ backgroundImage: item.fallbackBgImage }}
+                            />
                           )}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
-                    <h4 className="text-sm font-semibold text-neutral-900 truncate dark:text-neutral-100">
-                      {item.name}
-                    </h4>
-                    <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">
-                      {item.host}
+                          {item.fallbackBgImage && (
+                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+                          )}
+                          <div className="relative z-10 flex transform items-center justify-center transition-transform duration-500">
+                            {item.fallbackIcon || (
+                              <Database className="w-16 h-16 text-neutral-300 dark:text-neutral-700" />
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
-                  </div>
-                </BentoCard>
-              ))}
+                    <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
+                      <h4 className="text-sm font-semibold text-neutral-900 truncate dark:text-neutral-100">
+                        {item.name}
+                      </h4>
+                      <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">
+                        {item.host}
+                      </div>
+                    </div>
+                  </BentoCard>
+                );
+              })}
             </div>
           </div>
 
@@ -455,6 +545,10 @@ export default function HomePage() {
             </div>
           </div>
         </FadeInStagger>
+
+        {/* Keyboard Shortcuts Help */}
+        <KeyboardHelpTooltip isOpen={showHelp} onClose={() => setShowHelp(false)} />
+        <KeyboardHelpButton onClick={() => setShowHelp(true)} />
       </div>
     </div>
   );

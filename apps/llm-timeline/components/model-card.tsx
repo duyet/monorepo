@@ -1,10 +1,11 @@
 "use client";
 
-import { getLicenseColor, getTypeColor, getSourceColor, getRelatedModels, MODEL_CARD_RELATED_MODELS_LIMIT } from "@/lib/utils";
+import { getLicenseColor, getTypeColor, getSourceColor, getRelatedModels, MODEL_CARD_RELATED_MODELS_LIMIT, slugify } from "@/lib/utils";
 import type { Model } from "@/lib/data";
 import { cn } from "@duyet/libs/utils";
 import { OrgAvatar } from "@/components/org-avatar";
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronUp, Link2 } from "lucide-react";
 import { models } from "@/lib/data";
 
@@ -278,6 +279,7 @@ interface RelatedModelsSectionProps {
 
 function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
 
   // Memoize related models to avoid recomputation on every render.
   // NOTE: This creates O(n²) complexity across all model cards (200 cards × 200 models).
@@ -291,20 +293,40 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
     return null;
   }
 
+  const handleCompareAll = () => {
+    const modelSlugs = relatedModels.map((m) => slugify(m.name));
+    const url = `/compare?models=${modelSlugs.join(",")}`;
+    router.push(url);
+  };
+
   return (
     <div className="mt-3 border-t pt-2" style={{ borderColor: "var(--border)" }}>
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:opacity-80"
-        style={{ color: "var(--accent)" }}
-      >
-        {isExpanded ? (
-          <ChevronUp className="h-3 w-3" />
-        ) : (
-          <ChevronDown className="h-3 w-3" />
-        )}
-        <span>Related Models ({relatedModels.length})</span>
-      </button>
+      <div className="flex items-center justify-between gap-2">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:opacity-80"
+          style={{ color: "var(--accent)" }}
+        >
+          {isExpanded ? (
+            <ChevronUp className="h-3 w-3" />
+          ) : (
+            <ChevronDown className="h-3 w-3" />
+          )}
+          <span>Related Models ({relatedModels.length})</span>
+        </button>
+
+        <button
+          onClick={handleCompareAll}
+          className="text-[11px] font-medium px-2 py-1 rounded transition-colors hover:opacity-80"
+          style={{
+            color: "var(--accent)",
+            backgroundColor: "var(--bg)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          Compare All
+        </button>
+      </div>
 
       {isExpanded && (
         <div className="mt-2 flex flex-col gap-1.5">
