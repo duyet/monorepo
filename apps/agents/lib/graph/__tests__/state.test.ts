@@ -5,10 +5,17 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import { StateManager } from "../state";
+import {
+  validate,
+  createAgentState,
+  clone,
+  applyUpdate,
+  computeDiff,
+  formatDiff,
+} from "../state";
 import type { AgentState } from "../types";
 
-describe("StateManager", () => {
+describe("State management", () => {
   describe("validate", () => {
     it("should validate a correct state", () => {
       const state: AgentState = {
@@ -24,7 +31,7 @@ describe("StateManager", () => {
         },
       };
 
-      const result = StateManager.validate(state);
+      const result = validate(state);
 
       expect(result.isValid).toBe(true);
       expect(result.errors).toHaveLength(0);
@@ -45,7 +52,7 @@ describe("StateManager", () => {
         },
       } as AgentState;
 
-      const result = StateManager.validate(state);
+      const result = validate(state);
 
       expect(result.isValid).toBe(false);
       expect(result.errors.some((e) => e.includes("conversationId"))).toBe(true);
@@ -65,7 +72,7 @@ describe("StateManager", () => {
         },
       } as AgentState;
 
-      const result = StateManager.validate(state);
+      const result = validate(state);
 
       expect(result.isValid).toBe(false);
       expect(result.errors.some((e) => e.includes("updatedAt"))).toBe(true);
@@ -94,16 +101,16 @@ describe("StateManager", () => {
         },
       };
 
-      const result = StateManager.validate(state);
+      const result = validate(state);
 
       expect(result.isValid).toBe(true);
       expect(result.warnings.some((w) => w.includes("Large number of tool calls"))).toBe(true);
     });
   });
 
-  describe("createInitialState", () => {
+  describe("createAgentState", () => {
     it("should create initial state with defaults", () => {
-      const state = StateManager.createInitialState("conv-123", "Hello, world!");
+      const state = createAgentState("conv-123", "Hello, world!");
 
       expect(state.conversationId).toBe("conv-123");
       expect(state.userInput).toBe("Hello, world!");
@@ -116,7 +123,7 @@ describe("StateManager", () => {
     });
 
     it("should include userId when provided", () => {
-      const state = StateManager.createInitialState("conv-123", "test", "user-456");
+      const state = createAgentState("conv-123", "test", "user-456");
 
       expect(state.conversationId).toBe("conv-123");
       // Note: userId is stored in toolCalls or other fields, not directly in AgentState
@@ -149,7 +156,7 @@ describe("StateManager", () => {
         },
       };
 
-      const cloned = StateManager.clone(original);
+      const cloned = clone(original);
 
       expect(cloned).toEqual(original);
       expect(cloned).not.toBe(original);
@@ -165,9 +172,9 @@ describe("StateManager", () => {
 
   describe("applyUpdate", () => {
     it("should merge updates into state", () => {
-      const state = StateManager.createInitialState("conv-123", "Hello");
+      const state = createAgentState("conv-123", "Hello");
 
-      const updated = StateManager.applyUpdate(state, {
+      const updated = applyUpdate(state, {
         response: "Hi there!",
         route: "synthesis",
       });
@@ -182,9 +189,9 @@ describe("StateManager", () => {
     });
 
     it("should update currentNode when route is provided", () => {
-      const state = StateManager.createInitialState("conv-123", "test");
+      const state = createAgentState("conv-123", "test");
 
-      const updated = StateManager.applyUpdate(state, {
+      const updated = applyUpdate(state, {
         route: "search-blog",
       });
 
@@ -232,7 +239,7 @@ describe("StateManager", () => {
         },
       };
 
-      const diff = StateManager.computeDiff(oldState, newState);
+      const diff = computeDiff(oldState, newState);
 
       expect(diff.added?.response).toBeDefined();
       expect(diff.added?.route).toBeDefined();
@@ -274,7 +281,7 @@ describe("StateManager", () => {
         ],
       };
 
-      const diff = StateManager.computeDiff(oldState, newState);
+      const diff = computeDiff(oldState, newState);
 
       // Tool call should be marked as modified
       expect(diff.modified?.toolCalls).toBeDefined();
@@ -289,7 +296,7 @@ describe("StateManager", () => {
         deleted: { error: "gone" },
       };
 
-      const formatted = StateManager.formatDiff(diff);
+      const formatted = formatDiff(diff);
 
       expect(formatted).toContain("Added:");
       expect(formatted).toContain("Modified:");
@@ -298,7 +305,7 @@ describe("StateManager", () => {
 
     it("should return no changes message for empty diff", () => {
       const diff = {};
-      const formatted = StateManager.formatDiff(diff);
+      const formatted = formatDiff(diff);
       expect(formatted).toBe("(no changes)");
     });
   });

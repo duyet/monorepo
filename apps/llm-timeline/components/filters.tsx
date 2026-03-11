@@ -1,8 +1,10 @@
 "use client";
 
-import { Search, X, Rows2, LayoutList, Download } from "lucide-react";
+import { useCallback } from "react";
+import { X, Rows2, LayoutList, Download } from "lucide-react";
 import type { FilterState } from "@/lib/utils";
 import { organizations, domains, models as allModels } from "@/lib/data";
+import { SearchAutocomplete } from "./SearchAutocomplete";
 
 // Compute unique sources for filter dropdown
 const uniqueSources = Array.from(
@@ -12,6 +14,7 @@ const uniqueSources = Array.from(
 interface FiltersProps {
   filters: FilterState;
   onFilterChange: (filters: FilterState) => void;
+  onClearFilters?: () => void;
   resultCount: number;
   liteMode?: boolean;
   onLiteModeToggle?: () => void;
@@ -20,18 +23,19 @@ interface FiltersProps {
 export function Filters({
   filters,
   onFilterChange,
+  onClearFilters,
   resultCount,
   liteMode,
   onLiteModeToggle,
 }: FiltersProps) {
-  const updateFilter = <K extends keyof FilterState>(
-    key: K,
-    value: FilterState[K]
-  ) => {
-    onFilterChange({ ...filters, [key]: value });
-  };
+  const updateFilter = useCallback(
+    <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
+      onFilterChange({ ...filters, [key]: value });
+    },
+    [filters, onFilterChange]
+  );
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     onFilterChange({
       search: "",
       license: "all",
@@ -41,7 +45,7 @@ export function Filters({
       domain: "all",
       params: "all",
     });
-  };
+  }, [onFilterChange]);
 
   const hasActiveFilters =
     filters.search ||
@@ -63,28 +67,18 @@ export function Filters({
 
   return (
     <div className="mb-8 space-y-4">
-      {/* Search */}
-      <div className="relative">
-        <Search
-          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-          style={{ color: "var(--text-muted)" }}
-        />
-        <input
-          type="text"
-          placeholder="Search models, organizations..."
+      {/* Search with Autocomplete */}
+      <div>
+        <SearchAutocomplete
           value={filters.search}
-          onChange={(e) => updateFilter("search", e.target.value)}
-          className="w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1"
-          style={{
-            ...inputStyle,
-            // @ts-expect-error CSS custom properties
-            "--tw-ring-color": "var(--accent)",
-          }}
+          onChange={(value) => updateFilter("search", value)}
+          inputClassName="pr-10"
+          placeholder="Search models, organizations..."
         />
         {filters.search && (
           <button
             onClick={() => updateFilter("search", "")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
+            className="absolute right-3 top-[1.9rem] transition-opacity hover:opacity-70"
             style={{ color: "var(--text-muted)" }}
             aria-label="Clear search"
           >
@@ -189,9 +183,10 @@ export function Filters({
         {/* Clear Filters */}
         {hasActiveFilters && (
           <button
-            onClick={clearFilters}
+            onClick={onClearFilters || clearFilters}
             className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors hover:opacity-80"
             style={{ color: "var(--text-muted)" }}
+            aria-label="Clear all filters"
           >
             <X className="h-3 w-3" />
             Clear

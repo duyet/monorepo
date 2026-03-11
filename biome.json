@@ -10,6 +10,7 @@
       "**",
       "!**/node_modules",
       "!**/.next",
+      "!**/.open-next",
       "!**/dist",
       "!**/build",
       "!**/.turbo",
@@ -17,7 +18,8 @@
       "!**/bun.lock",
       "!**/public",
       "!**/_posts",
-      "!**/.wrangler"
+      "!**/.wrangler",
+      "!**/llm-timeline/lib/data.ts"
     ]
   },
   "formatter": {

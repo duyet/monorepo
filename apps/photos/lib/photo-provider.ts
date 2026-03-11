@@ -118,7 +118,7 @@ export async function getAllPhotos(): Promise<Photo[]> {
   uniquePhotos.sort((a, b) => {
     const dateA = new Date(a.created_at).getTime();
     const dateB = new Date(b.created_at).getTime();
-    if (isNaN(dateA) || isNaN(dateB)) return 0;
+    if (Number.isNaN(dateA) || Number.isNaN(dateB)) return 0;
     return dateB - dateA;
   });
 
@@ -155,4 +155,128 @@ export function getPhotosByYear(photos: Photo[], year: string): Photo[] {
     const photoYear = new Date(photo.created_at).getFullYear().toString();
     return photoYear === year;
   });
+}
+
+/**
+ * EXIF filter interface for client-side filtering
+ */
+export interface EXIFFilters {
+  camera?: string;
+  lens?: string;
+  focalLength?: [number, number];
+  iso?: [number, number];
+  aperture?: [number, number];
+}
+
+/**
+ * Filter photos by EXIF metadata
+ * This is a helper function that can be used on the client side
+ * The actual filtering is handled by the EXIFFilters component
+ */
+export function filterByEXIF(photos: Photo[], exifFilters: EXIFFilters): Photo[] {
+  return photos.filter((photo) => {
+    // Photo must have EXIF data to be filtered
+    if (!photo.exif) return false;
+
+    // Camera filter
+    if (exifFilters.camera) {
+      const camera = photo.exif.name || [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
+      if (!camera || !camera.toLowerCase().includes(exifFilters.camera.toLowerCase())) {
+        return false;
+      }
+    }
+
+    // Lens filter (not available in current data structure)
+    if (exifFilters.lens) {
+      // Lens data would need to be added to Photo.exif interface
+      return false;
+    }
+
+    // Focal length filter
+    if (exifFilters.focalLength) {
+      const focalLength = photo.exif.focal_length
+        ? Number.parseFloat(photo.exif.focal_length.toString())
+        : null;
+      if (
+        focalLength !== null &&
+        !Number.isNaN(focalLength) &&
+        (focalLength < exifFilters.focalLength[0] ||
+          focalLength > exifFilters.focalLength[1])
+      ) {
+        return false;
+      }
+    }
+
+    // ISO filter
+    if (exifFilters.iso) {
+      if (
+        photo.exif.iso !== null &&
+        photo.exif.iso !== undefined &&
+        (photo.exif.iso < exifFilters.iso[0] || photo.exif.iso > exifFilters.iso[1])
+      ) {
+        return false;
+      }
+    }
+
+    // Aperture filter
+    if (exifFilters.aperture) {
+      const aperture = photo.exif.aperture
+        ? Number.parseFloat(photo.exif.aperture.toString().replace(/^f\//, ""))
+        : null;
+      if (
+        aperture !== null &&
+        !Number.isNaN(aperture) &&
+        (aperture < exifFilters.aperture[0] || aperture > exifFilters.aperture[1])
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+}
+
+/**
+ * Extract unique EXIF values from a photo collection
+ * Useful for populating filter dropdowns
+ */
+export function getEXIFOptions(photos: Photo[]) {
+  const cameras = new Set<string>();
+  const focalLengths = new Set<number>();
+  const isos = new Set<number>();
+  const apertures = new Set<number>();
+
+  photos.forEach((photo) => {
+    if (!photo.exif) return;
+
+    // Extract camera
+    if (photo.exif.make || photo.exif.model || photo.exif.name) {
+      const camera = photo.exif.name || [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
+      if (camera) cameras.add(camera);
+    }
+
+    // Extract focal length
+    if (photo.exif.focal_length) {
+      const fl = Number.parseFloat(photo.exif.focal_length.toString());
+      if (!Number.isNaN(fl)) focalLengths.add(fl);
+    }
+
+    // Extract ISO
+    if (photo.exif.iso) {
+      isos.add(photo.exif.iso);
+    }
+
+    // Extract aperture
+    if (photo.exif.aperture) {
+      const apt = Number.parseFloat(photo.exif.aperture.toString().replace(/^f\//, ""));
+      if (!Number.isNaN(apt)) apertures.add(apt);
+    }
+  });
+
+  return {
+    cameras: Array.from(cameras).sort(),
+    focalLengths: Array.from(focalLengths).sort((a, b) => a - b),
+    isos: Array.from(isos).sort((a, b) => a - b),
+    apertures: Array.from(apertures).sort((a, b) => a - b),
+  };
 }

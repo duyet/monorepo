@@ -12,7 +12,10 @@
  */
 
 import type { AgentState, StateCheckpoint } from "./types";
-import { StateManager } from "./state";
+import {
+  createCheckpoint,
+  restoreFromCheckpoint,
+} from "./state";
 import type { DatabaseClient } from "../db/client";
 
 /**
@@ -99,7 +102,7 @@ export class Checkpointer {
     const checkpointId = `${conversationId}-${version}-${Date.now()}`;
 
     // Create state snapshot for storage
-    const stateSnapshot = StateManager.createCheckpoint(state);
+    const stateSnapshot = createCheckpoint(state);
 
     // Create the checkpoint record
     const checkpoint: StateCheckpoint = {
@@ -149,7 +152,7 @@ export class Checkpointer {
       return {
         id: checkpoint.id,
         conversationId: checkpoint.conversation_id,
-        state: StateManager.restoreFromCheckpoint(state),
+        state: restoreFromCheckpoint(state),
         timestamp: checkpoint.created_at,
         stepIndex: state.metadata.stepIndex,
       };
@@ -179,7 +182,7 @@ export class Checkpointer {
       return {
         id: checkpoint.id,
         conversationId: checkpoint.conversation_id,
-        state: StateManager.restoreFromCheckpoint(state),
+        state: restoreFromCheckpoint(state),
         timestamp: checkpoint.created_at,
         stepIndex: state.metadata.stepIndex,
       };
@@ -257,7 +260,7 @@ export class Checkpointer {
     }
 
     const state = JSON.parse(target.state_snapshot) as AgentState;
-    return StateManager.restoreFromCheckpoint(state);
+    return restoreFromCheckpoint(state);
   }
 
   /**
@@ -343,7 +346,7 @@ export class Checkpointer {
       return history.map(({ checkpoint, state }) => ({
         id: checkpoint.id,
         conversationId: checkpoint.conversation_id,
-        state: StateManager.restoreFromCheckpoint(state),
+        state: restoreFromCheckpoint(state),
         timestamp: checkpoint.created_at,
         stepIndex: state.metadata.stepIndex,
       }));

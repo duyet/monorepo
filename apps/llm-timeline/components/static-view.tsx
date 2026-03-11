@@ -7,6 +7,12 @@ import { VirtualTimeline } from "@/components/virtual-timeline";
 import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
 import { FilterInfo } from "@/components/filter-info";
 import { StatsCards } from "@/components/stats-cards";
+import {
+  useKeyboardShortcuts,
+  KeyboardHelpTooltip,
+  KeyboardHelpButton,
+} from "@/components/KeyboardShortcuts";
+import { organizations } from "@/lib/data";
 import type { Model } from "@/lib/data";
 import {
   DEFAULT_FILTERS,
@@ -46,6 +52,7 @@ export function StaticView({
   const [licenseFilter, setLicenseFilter] = useState<
     "all" | "open" | "closed" | "partial"
   >(license);
+  const [orgFilter, setOrgFilter] = useState("");
   const [liteMode, setLiteMode] = useState(initialLiteMode);
 
   // Read lite mode and search from URL on mount
@@ -53,8 +60,10 @@ export function StaticView({
     const updateFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
       const initialSearch = params.get("search") || "";
+      const initialOrg = params.get("org") || "";
       const isLite = params.get("lite") === "true";
       setSearchQuery(initialSearch);
+      setOrgFilter(initialOrg);
       setLiteMode(isLite);
     };
 
@@ -63,18 +72,35 @@ export function StaticView({
     return () => window.removeEventListener("popstate", updateFromUrl);
   }, []);
 
-  // Filter models based on search and license
+  // Filter models based on search, license, and org
   const filteredModels = useMemo(() => {
     const filters: FilterState = {
       ...DEFAULT_FILTERS,
       search: searchQuery,
       license: licenseFilter,
+      org: orgFilter,
     };
     return filterModels(allModels, filters);
-  }, [allModels, searchQuery, licenseFilter]);
+  }, [allModels, searchQuery, licenseFilter, orgFilter]);
 
   const modelsByYear = useMemo(() => groupByYear(filteredModels), [filteredModels]);
   const modelsByOrg = useMemo(() => groupByOrg(filteredModels), [filteredModels]);
+
+  // Keyboard shortcuts
+  const {
+    showBadges,
+    showHelp,
+    setShowHelp,
+    shortcutOrgs,
+  } = useKeyboardShortcuts({
+    organizations,
+    onFilterByOrg: setOrgFilter,
+    onClearFilters: () => {
+      setOrgFilter("");
+      setSearchQuery("");
+      setLicenseFilter("all");
+    },
+  });
 
   return (
     <>
@@ -92,12 +118,33 @@ export function StaticView({
         view={view}
         license={licenseFilter}
         year={year}
-        org={org}
+        org={orgFilter || org || ""}
         liteMode={liteMode}
         models={allModels}
         onSearchChange={setSearchQuery}
         onLicenseChange={setLicenseFilter}
       />
+
+      {/* Organization Shortcuts */}
+      {view === "models" && showBadges && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          {shortcutOrgs.map((shortcutOrg, index) => (
+            <button
+              key={shortcutOrg.id}
+              onClick={() => setOrgFilter(shortcutOrg.name)}
+              className="relative rounded-md border px-3 py-1.5 text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              style={{
+                borderColor: "var(--border)",
+                backgroundColor:
+                  orgFilter === shortcutOrg.name ? "var(--accent-subtle)" : "var(--bg-card)",
+              }}
+            >
+              <span className="mr-2 font-mono text-xs opacity-60">{index + 1}</span>
+              {shortcutOrg.name}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Timeline */}
       <div>
@@ -113,6 +160,14 @@ export function StaticView({
           <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
         )}
       </div>
+
+      {/* Keyboard Shortcuts Help */}
+      <KeyboardHelpTooltip
+        isOpen={showHelp}
+        onClose={() => setShowHelp(false)}
+        shortcutOrgs={shortcutOrgs}
+      />
+      <KeyboardHelpButton onClick={() => setShowHelp(true)} />
     </>
   );
 }

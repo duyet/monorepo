@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Download, Lock } from "lucide-react";
+import { Download, Lock, Scale } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { lastSynced } from "@/lib/data";
 import Icons from "@duyet/components/Icons";
@@ -43,6 +43,14 @@ export function PageLayout({ children, description }: PageLayoutProps) {
             </div>
             <div className="flex items-center gap-2">
               <ThemeToggle />
+              <Link
+                href="/compare"
+                className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                style={{ color: "var(--text-muted)" }}
+                aria-label="Compare models"
+              >
+                <Scale className="h-5 w-5" />
+              </Link>
               <Link
                 href="https://github.com/duyet/monorepo"
                 target="_blank"

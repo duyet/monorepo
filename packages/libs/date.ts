@@ -106,7 +106,6 @@ export function slugify(str: string, maxLength = 100): string {
  */
 export function getReadingTime(wordCount: number, codeBlockCount = 0): number {
   const WORDS_PER_MINUTE = 200;
-  const CODE_WORDS_PER_MINUTE = 50; // Code is read ~4x slower
 
   // Calculate time for prose and code separately
   const proseMinutes = wordCount / WORDS_PER_MINUTE;

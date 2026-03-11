@@ -1,4 +1,5 @@
 import type { Model } from "./data";
+import { getParamsBucket, parseParamValue } from "@duyet/libs";
 
 export interface FilterState {
   search: string;
@@ -20,28 +21,8 @@ export const DEFAULT_FILTERS: FilterState = {
   params: "all",
 };
 
-/**
- * Get params bucket from parameter string
- */
-export function getParamsBucket(params: string | null): string {
-  if (!params) return "unknown";
-  const cleaned = params.replace(/^[~<>≈]/, "");
-  const match = cleaned.match(/^[\d.]+([KMBT])/i);
-  if (!match) return "unknown";
-
-  const value = parseFloat(cleaned);
-  const unit = match[1].toUpperCase();
-
-  let billions = value;
-  if (unit === "K") billions = value / 1e6;
-  else if (unit === "M") billions = value / 1e3;
-  else if (unit === "T") billions = value * 1000;
-
-  if (billions < 1) return "small";
-  if (billions < 10) return "medium";
-  if (billions < 100) return "large";
-  return "xl";
-}
+// Re-export getParamsBucket for convenience
+export { getParamsBucket };
 
 /**
  * Filter models based on search and filter criteria
@@ -232,20 +213,86 @@ export function getStats(models: Model[]) {
   };
 }
 
+// Re-export getSlug from @duyet/libs for convenience
+export { getSlug as slugify } from "@duyet/libs";
+
+const DAYS_PER_MONTH = 30;
+const PARAM_PROXIMITY_THRESHOLD = 0.5; // Within 2x range
+
+/** Fewer related models shown in card UI (vs default limit of 5) */
+export const MODEL_CARD_RELATED_MODELS_LIMIT = 4;
+
 /**
- * Convert string to URL-safe slug
- * @deprecated Import from @duyet/libs instead
+ * Find related models based on organization, license, and parameter proximity.
+ * Returns up to limit related models, excluding the current model.
+ *
+ * @performance O(n) where n = allModels.length. Called per model card,
+ * so total is O(n²) across all cards. Consider precomputing at build time
+ * if performance issues arise (currently ~200 models × ~200 comparisons).
  */
-export function slugify(str: string, maxLength = 100): string {
-  let slug = str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+export function getRelatedModels(
+  currentModel: Model,
+  allModels: Model[],
+  limit: number = 5
+): Model[] {
+  // Internal scoring weights - kept inside function to avoid leaking implementation details
+  const WEIGHTS = {
+    SAME_ORG: 30,
+    SAME_LICENSE: 20,
+    SAME_TYPE: 10,
+    PARAM_PROXIMITY_MAX: 40,
+    RECENCY_BONUS_MAX: 10,
+  } as const;
 
-  // Truncate to maxLength, ensuring we don't cut mid-word
-  if (slug.length > maxLength) {
-    slug = slug.slice(0, maxLength).replace(/-[^-]*$/, "");
-  }
+  const currentParams = parseParamValue(currentModel.params) ?? 0;
+  const currentDate = new Date(currentModel.date).getTime();
 
-  return slug;
+  // Score each model based on similarity
+  const scored = allModels
+    .filter((m) => m.name !== currentModel.name)
+    .map((model) => {
+      let score = 0;
+
+      // Same organization
+      if (model.org === currentModel.org) {
+        score += WEIGHTS.SAME_ORG;
+      }
+
+      // Same license
+      if (model.license === currentModel.license) {
+        score += WEIGHTS.SAME_LICENSE;
+      }
+
+      // Same type
+      if (model.type === currentModel.type) {
+        score += WEIGHTS.SAME_TYPE;
+      }
+
+      // Parameter proximity: closer is better
+      const modelParams = parseParamValue(model.params) ?? 0;
+      if (currentParams > 0 && modelParams > 0) {
+        const ratio = Math.min(currentParams, modelParams) / Math.max(currentParams, modelParams);
+        if (ratio >= PARAM_PROXIMITY_THRESHOLD) {
+          score += Math.round(WEIGHTS.PARAM_PROXIMITY_MAX * ratio);
+        }
+      }
+
+      // Recency bonus: newer models get slight bonus
+      const modelDate = new Date(model.date).getTime();
+      if (modelDate > currentDate) {
+        const daysDiff = Math.floor((modelDate - currentDate) / (1000 * 60 * 60 * 24));
+        score += Math.min(
+          WEIGHTS.RECENCY_BONUS_MAX,
+          Math.max(0, daysDiff / DAYS_PER_MONTH)
+        );
+      }
+
+      return { model, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ model }) => model);
+
+  return scored;
 }

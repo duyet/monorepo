@@ -1,4 +1,4 @@
-import { Brain, Calendar, Database, DollarSign } from "lucide-react";
+import { Brain, Calendar, Database, DollarSign, TrendingUp } from "lucide-react";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { getCCUsageMetrics } from "./ccusage-utils";
 import type { CCUsageMetricsProps } from "./types";
@@ -47,10 +47,15 @@ export async function CCUsageMetrics({
       rawMetrics.activeDays > 0
         ? rawMetrics.totalCost / rawMetrics.activeDays
         : 0,
+    // Projected monthly cost based on current usage pattern
+    projectedMonthlyCost:
+      rawMetrics.activeDays > 0
+        ? (rawMetrics.totalCost / rawMetrics.activeDays) * 30
+        : 0,
   };
 
   return (
-    <div className={`grid grid-cols-2 gap-4 lg:grid-cols-4 ${className || ""}`}>
+    <div className={`grid grid-cols-2 gap-4 lg:grid-cols-5 ${className || ""}`}>
       <CompactMetric
         label="Total Tokens"
         value={formatTokens(metrics.totalTokens)}
@@ -73,6 +78,12 @@ export async function CCUsageMetrics({
         label="Top Model"
         value={metrics.topModel}
         icon={<Brain className="h-4 w-4" />}
+      />
+      <CompactMetric
+        label="Monthly Projection"
+        value={formatCurrency(metrics.projectedMonthlyCost)}
+        icon={<TrendingUp className="h-4 w-4" />}
+        tooltip="Projected cost based on current usage pattern (30 days)"
       />
     </div>
   );

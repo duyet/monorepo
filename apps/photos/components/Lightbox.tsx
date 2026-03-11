@@ -42,10 +42,51 @@ export default function Lightbox({
   const [isLoading, setIsLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [showInfo, setShowInfo] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   // Get formatted metadata and description
   const metadata = formatPhotoMetadata(photo);
   const description = formatPhotoDescription(photo);
+
+  // Download handler - fetches image and triggers browser download
+  const handleDownload = async () => {
+    if (isDownloading) return;
+
+    setIsDownloading(true);
+    try {
+      // Use raw if available (highest quality), otherwise fall back to full
+      const imageUrl = photo.urls.raw || photo.urls.full;
+
+      // Fetch the image as blob to handle cross-origin downloads
+      const response = await fetch(imageUrl);
+      if (!response.ok) throw new Error('Failed to fetch image');
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      // Create temporary anchor element to trigger download
+      const a = document.createElement('a');
+      a.href = url;
+      // Generate filename from photo id and description
+      const safeDescription = photo.description
+        ? photo.description.slice(0, 30).replace(/[^a-z0-9]/gi, '-')
+        : 'photo';
+      a.download = `${photo.id}-${safeDescription}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+
+      // Cleanup
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback: open in new tab
+      const fallbackUrl = photo.urls.raw || photo.urls.full;
+      window.open(fallbackUrl, '_blank');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   // Setup navigation hooks
   const touchHandlers = useLightboxNavigation({
@@ -57,6 +98,7 @@ export default function Lightbox({
     onPrevious,
     onToggleFullscreen: () => setIsFullscreen(!isFullscreen),
     onToggleInfo: () => setShowInfo(!showInfo),
+    onDownload: handleDownload,
   });
 
   // Reset states when photo changes or lightbox opens
@@ -100,6 +142,7 @@ export default function Lightbox({
               showInfo={showInfo}
               onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
               onToggleInfo={() => setShowInfo(!showInfo)}
+              onDownload={handleDownload}
             />
 
             {/* Navigation Buttons */}
