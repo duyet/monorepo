@@ -369,10 +369,10 @@ export function VercelChat() {
             <div className="mx-auto max-w-3xl">
               <form
                 onSubmit={handleFormSubmit}
-                className="relative flex items-end w-full rounded-2xl border border-neutral-200 bg-white focus-within:border-neutral-300 focus-within:ring-4 focus-within:ring-neutral-100 dark:border-white/10 dark:bg-[#111] dark:focus-within:border-white/20 dark:focus-within:ring-white/5 shadow-sm transition-all pointer-events-auto px-2 py-2"
+                className="relative flex items-end gap-2 w-full rounded-2xl border border-input bg-background shadow-sm transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring pointer-events-auto p-2"
               >
                 {/* Left Icons */}
-                <div className="flex items-center gap-1 pl-2 pb-1 text-neutral-400 dark:text-neutral-500 shrink-0 hidden sm:flex">
+                <div className="flex items-center gap-1 shrink-0">
                   <Button
                     type="button"
                     variant="ghost"
@@ -380,20 +380,7 @@ export function VercelChat() {
                     disabled
                     title="Coming soon"
                     aria-label="Attachments (coming soon)"
-                    className="h-9 w-9 rounded-full hover:bg-neutral-100 dark:hover:bg-white/5 cursor-not-allowed opacity-50"
-                  >
-                    <Paperclip className="h-4 w-4" />
-                  </Button>
-                </div>
-                <div className="flex items-center pl-2 pb-1 sm:hidden">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    disabled
-                    title="Coming soon"
-                    aria-label="Attachments (coming soon)"
-                    className="h-9 w-9 rounded-full hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-400 dark:text-neutral-500 cursor-not-allowed opacity-50"
+                    className="h-9 w-9 rounded-full cursor-not-allowed opacity-50"
                   >
                     <Paperclip className="h-4 w-4" />
                   </Button>
@@ -408,66 +395,63 @@ export function VercelChat() {
                   placeholder="Ask me anything..."
                   disabled={isLoading}
                   rows={1}
-                  className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 text-base sm:text-sm focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:outline-none focus:border-0 outline-none shadow-none text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500"
+                  className="flex-1 min-h-[44px] max-h-[200px] w-full resize-none border-0 bg-transparent px-3 py-3 text-base sm:text-sm focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
                 />
 
                 {/* Right Icons */}
-                <div className="flex items-center gap-3 pr-1 pb-1 shrink-0">
-                  <button
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="sm"
                     disabled
                     title="Coming soon"
                     aria-label="Settings (coming soon)"
-                    className="hidden sm:flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-white uppercase cursor-not-allowed opacity-50 transition-colors"
+                    className="hidden sm:flex h-8 px-2 cursor-not-allowed opacity-50"
                   >
-                    <Settings className="h-3.5 w-3.5" />
-                    MAX
-                  </button>
+                    <Settings className="h-3.5 w-3.5 mr-1" />
+                    <span className="text-[11px] font-semibold tracking-wide">MAX</span>
+                  </Button>
 
-                  <div className="flex items-center gap-1">
-                    {isLoading ? (
-                      <Button
-                        type="button"
-                        onClick={stop}
-                        size="icon"
-                        className="h-9 w-9 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 transition-all"
-                      >
-                        <X className="h-4 w-4" />
-                        <span className="sr-only">Stop</span>
-                      </Button>
-                    ) : (
-                      <>
-                        {hasAssistantResponse && input.length === 0 && (
-                          <Button
-                            type="button"
-                            onClick={() => reload()}
-                            size="icon"
-                            variant="ghost"
-                            className="h-9 w-9 rounded-xl text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/5"
-                          >
-                            <RefreshCw className="h-4 w-4" />
-                            <span className="sr-only">Regenerate</span>
-                          </Button>
-                        )}
-                        {(input.length > 0 || !hasAssistantResponse) && (
-                          <Button
-                            type="submit"
-                            disabled={!canSubmit}
-                            size="icon"
-                            className={cn(
-                              "h-9 w-9 rounded-xl transition-all",
-                              canSubmit
-                                ? "bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
-                                : "bg-neutral-100 text-neutral-400 dark:bg-white/5 dark:text-neutral-600"
-                            )}
-                          >
-                            <Send className="h-4 w-4" />
-                            <span className="sr-only">Send</span>
-                          </Button>
-                        )}
-                      </>
-                    )}
-                  </div>
+                  {isLoading ? (
+                    <Button
+                      type="button"
+                      onClick={stop}
+                      size="icon"
+                      variant="default"
+                      className="h-9 w-9 rounded-xl"
+                    >
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Stop</span>
+                    </Button>
+                  ) : (
+                    <>
+                      {hasAssistantResponse && input.length === 0 && (
+                        <Button
+                          type="button"
+                          onClick={() => reload()}
+                          size="icon"
+                          variant="ghost"
+                          className="h-9 w-9 rounded-xl"
+                        >
+                          <RefreshCw className="h-4 w-4" />
+                          <span className="sr-only">Regenerate</span>
+                        </Button>
+                      )}
+                      {(input.length > 0 || !hasAssistantResponse) && (
+                        <Button
+                          type="submit"
+                          disabled={!canSubmit}
+                          size="icon"
+                          variant={canSubmit ? "default" : "secondary"}
+                          className="h-9 w-9 rounded-xl"
+                        >
+                          <Send className="h-4 w-4" />
+                          <span className="sr-only">Send</span>
+                        </Button>
+                      )}
+                    </>
+                  )}
                 </div>
               </form>
               {error && (

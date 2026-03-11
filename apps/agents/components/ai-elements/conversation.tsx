@@ -1,5 +1,6 @@
 "use client";
 
+import { Card, CardContent } from "@duyet/components";
 import { ChevronDown } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import {
@@ -134,7 +135,7 @@ export interface ConversationEmptyStateProps extends ComponentProps<"div"> {
  * title/description/icon, plus arbitrary children (e.g. WelcomeMessage).
  *
  * When title/description/icon are provided, a simple centered layout is
- * rendered. Pass children to fully customise the empty state.
+ * rendered using shadcn Card. Pass children to fully customise the empty state.
  */
 export function ConversationEmptyState({
   className,
@@ -155,22 +156,26 @@ export function ConversationEmptyState({
   return (
     <div
       className={cn(
-        "flex flex-1 flex-col items-center justify-center gap-3 px-6 py-16 text-center",
+        "flex flex-1 flex-col items-center justify-center p-6",
         className
       )}
       {...props}
     >
-      {icon && (
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
-          {icon}
-        </div>
-      )}
-      {title && (
-        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-      )}
-      {description && (
-        <p className="max-w-sm text-sm text-muted-foreground">{description}</p>
-      )}
+      <Card className="max-w-sm">
+        <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+          {icon && (
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground mb-4">
+              {icon}
+            </div>
+          )}
+          {title && (
+            <h2 className="text-lg font-semibold mb-2">{title}</h2>
+          )}
+          {description && (
+            <p className="text-sm text-muted-foreground">{description}</p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

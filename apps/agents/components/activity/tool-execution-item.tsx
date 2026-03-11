@@ -126,13 +126,13 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
 
         {/* Expanded details */}
         {isExpanded && (
-          <div className="border-t bg-muted/30 p-4 space-y-3">
+          <div className="border-t border-border bg-muted/20 p-4 space-y-4">
             {/* Full parameters */}
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-2">
                 Parameters
               </p>
-              <pre className="text-xs bg-background rounded p-3 overflow-x-auto">
+              <pre className="text-xs bg-muted/50 rounded-md p-3 overflow-x-auto font-mono">
                 {JSON.stringify(execution.parameters, null, 2)}
               </pre>
             </div>
@@ -143,7 +143,7 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
                 <p className="text-xs font-medium text-muted-foreground mb-2">
                   Result
                 </p>
-                <pre className="text-xs bg-background rounded p-3 overflow-x-auto max-h-48 overflow-y-auto">
+                <pre className="text-xs bg-muted/50 rounded-md p-3 overflow-x-auto max-h-48 overflow-y-auto font-mono">
                   {JSON.stringify(execution.result, null, 2)}
                 </pre>
               </div>
@@ -154,7 +154,7 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
                 <p className="text-xs font-medium text-destructive mb-2">
                   Error
                 </p>
-                <p className="text-xs bg-destructive/10 text-destructive rounded p-3">
+                <p className="text-xs bg-destructive/10 text-destructive rounded-md p-3">
                   {execution.error}
                 </p>
               </div>

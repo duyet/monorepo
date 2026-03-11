@@ -7,6 +7,10 @@ interface AppLayoutProps {
   children: React.ReactNode;
 }
 
+/**
+ * Core layout shell using shadcn Sidebar patterns.
+ * Provides responsive sidebar behavior with automatic mobile/desktop handling.
+ */
 export function AppLayout({ sidebar, children }: AppLayoutProps) {
   return (
     <SidebarProvider>

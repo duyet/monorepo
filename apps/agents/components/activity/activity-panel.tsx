@@ -3,6 +3,8 @@
 import {
   Badge,
   Button,
+  Card,
+  CardContent,
   Tabs,
   TabsContent,
   TabsList,
@@ -214,16 +216,18 @@ export function ActivityPanel({
 
           {/* Thinking steps */}
           {(thinkingSteps.length > 0 || isLoading) && (
-            <div className="rounded-md border border-border bg-muted/30 p-3">
-              {thinkingSteps.length > 0 ? (
-                <ThinkingSteps steps={thinkingSteps} />
-              ) : (
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <ThinkingDots />
-                  <span>Thinking...</span>
-                </div>
-              )}
-            </div>
+            <Card>
+              <CardContent className="p-4">
+                {thinkingSteps.length > 0 ? (
+                  <ThinkingSteps steps={thinkingSteps} />
+                ) : (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <ThinkingDots />
+                    <span>Thinking...</span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           )}
 
           {/* Tool executions */}
@@ -237,13 +241,15 @@ export function ActivityPanel({
 
           {/* Show message if no data */}
           {!hasActivity && !hasGraphData && (
-            <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
-              <Activity className="h-8 w-8 mb-2 opacity-50" />
-              <p className="text-sm font-medium text-foreground">
-                No activity yet
-              </p>
-              <p className="text-xs mt-1">Agent activity will appear here.</p>
-            </div>
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-8 text-center">
+                <Activity className="h-8 w-8 mb-3 text-muted-foreground/50" />
+                <p className="text-sm font-medium">No activity yet</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Agent activity will appear here.
+                </p>
+              </CardContent>
+            </Card>
           )}
         </TabsContent>
 
@@ -286,15 +292,15 @@ export function ActivityPanel({
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
-              <Network className="h-12 w-12 mb-3 opacity-50" />
-              <p className="text-sm font-medium text-foreground">
-                No graph data
-              </p>
-              <p className="text-xs mt-1">
-                Graph visualization requires agent execution.
-              </p>
-            </div>
+            <Card className="m-4">
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                <Network className="h-12 w-12 mb-3 text-muted-foreground/50" />
+                <p className="text-sm font-medium">No graph data</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Graph visualization requires agent execution.
+                </p>
+              </CardContent>
+            </Card>
           )}
         </TabsContent>
 
@@ -303,15 +309,15 @@ export function ActivityPanel({
           {hasTraceData ? (
             <NodeTraceTimeline traces={nodeTraces} />
           ) : (
-            <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
-              <ListTree className="h-12 w-12 mb-3 opacity-50" />
-              <p className="text-sm font-medium text-foreground">
-                No execution traces
-              </p>
-              <p className="text-xs mt-1">
-                Node traces will appear after agent execution.
-              </p>
-            </div>
+            <Card className="m-4">
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                <ListTree className="h-12 w-12 mb-3 text-muted-foreground/50" />
+                <p className="text-sm font-medium">No execution traces</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Node traces will appear after agent execution.
+                </p>
+              </CardContent>
+            </Card>
           )}
         </TabsContent>
 
@@ -322,30 +328,31 @@ export function ActivityPanel({
               <StateInspector state={graphState} prevState={prevState} />
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground p-8">
-              <FileCode className="h-12 w-12 mb-3 opacity-50" />
-              <p className="text-sm font-medium text-foreground">
-                No state data
-              </p>
-              <p className="text-xs mt-1">
-                Agent state requires active conversation.
-              </p>
-            </div>
+            <Card className="m-4">
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                <FileCode className="h-12 w-12 mb-3 text-muted-foreground/50" />
+                <p className="text-sm font-medium">No state data</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Agent state requires active conversation.
+                </p>
+              </CardContent>
+            </Card>
           )}
         </TabsContent>
 
         {/* Files Tab - Placeholder */}
-        <TabsContent
-          value="files"
-          className="p-8 flex flex-col items-center justify-center text-center text-muted-foreground h-full min-h-[300px] m-0"
-        >
-          <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-3">
-            <Activity className="h-5 w-5 text-muted-foreground/50" />
-          </div>
-          <p className="text-sm font-medium text-foreground">No files active</p>
-          <p className="text-xs mt-1">
-            Files related to this conversation will appear here.
-          </p>
+        <TabsContent value="files" className="p-4 m-0">
+          <Card>
+            <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+              <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-3">
+                <Activity className="h-5 w-5 text-muted-foreground/50" />
+              </div>
+              <p className="text-sm font-medium">No files active</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Files related to this conversation will appear here.
+              </p>
+            </CardContent>
+          </Card>
         </TabsContent>
       </ScrollArea>
     </Tabs>

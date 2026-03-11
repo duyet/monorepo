@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@duyet/components";
 import { Brain, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -12,15 +13,17 @@ export function ThinkingSteps({ steps, className }: ThinkingStepsProps) {
   if (steps.length === 0) return null;
 
   return (
-    <div className={cn("space-y-2", className)}>
-      {/* Header */}
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-        <Brain className="h-3 w-3" />
-        <span>Thinking</span>
+    <div className={cn("space-y-3", className)}>
+      {/* Header with badge */}
+      <div className="flex items-center gap-2">
+        <Badge variant="secondary" className="text-xs">
+          <Brain className="h-3 w-3 mr-1" />
+          Thinking
+        </Badge>
       </div>
 
       {/* Steps */}
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         {steps.map((step, i) => (
           <div
             key={i}
@@ -28,9 +31,9 @@ export function ThinkingSteps({ steps, className }: ThinkingStepsProps) {
             style={{ animationDelay: `${i * 50}ms` }}
           >
             <div className="shrink-0 mt-0.5">
-              <Loader2 className="h-3 w-3 animate-spin text-muted-foreground" />
+              <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" />
             </div>
-            <p className="text-muted-foreground">{step}</p>
+            <p className="text-muted-foreground flex-1">{step}</p>
           </div>
         ))}
       </div>

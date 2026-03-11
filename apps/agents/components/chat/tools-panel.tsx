@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
   BarChart2,
@@ -130,13 +131,16 @@ export function ToolsPanel({ onClose }: ToolsPanelProps) {
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <h2 className="text-sm font-medium text-foreground">Available Tools</h2>
         {onClose && (
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8"
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Close panel"
           >
             <ChevronDown className="h-4 w-4" />
-          </button>
+          </Button>
         )}
       </div>
 
@@ -193,14 +197,17 @@ export function ToolsPanel({ onClose }: ToolsPanelProps) {
                 key={tool.name}
                 className="border border-border rounded-lg overflow-hidden"
               >
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={() =>
                     setExpandedTool(
                       expandedTool === tool.name ? null : tool.name
                     )
                   }
-                  className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-muted/50 transition-colors"
+                  className="w-full justify-start h-auto px-3 py-2 gap-2 rounded-none"
+                  aria-expanded={expandedTool === tool.name}
+                  aria-label={`Toggle ${tool.name} details`}
                 >
                   {expandedTool === tool.name ? (
                     <ChevronDown className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
@@ -210,7 +217,7 @@ export function ToolsPanel({ onClose }: ToolsPanelProps) {
                   <tool.icon
                     className={cn("h-4 w-4 flex-shrink-0", tool.color)}
                   />
-                  <span className="text-sm font-medium text-foreground flex-1">
+                  <span className="text-sm font-medium text-foreground flex-1 text-left">
                     {tool.name}
                   </span>
                   {tool.needsApproval && (
@@ -218,7 +225,7 @@ export function ToolsPanel({ onClose }: ToolsPanelProps) {
                       Approval
                     </span>
                   )}
-                </button>
+                </Button>
                 {expandedTool === tool.name && (
                   <div className="px-3 pb-2 pl-9">
                     <p className="text-xs text-muted-foreground">

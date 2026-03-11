@@ -1,10 +1,14 @@
 "use client";
 
-import { Button } from "@duyet/components";
 import { MessageSquare, Trash2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 import type { Conversation } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 interface ConversationListProps {
   conversations: Conversation[];
@@ -59,39 +63,30 @@ export function ConversationList({
     <ScrollArea className="flex-1">
       <div className="px-2 py-1">
         {groups.map((group) => (
-          <div key={group.label} className="mb-3">
+          <SidebarMenu key={group.label} className="mb-3">
             <p className="px-2 py-1.5 text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
               {group.label}
             </p>
             {group.items.map((conv) => (
-              <button
-                key={conv.id}
-                type="button"
-                onClick={() => onSelect(conv.id)}
-                className={cn(
-                  "group flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm transition-colors",
-                  activeId === conv.id
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-                )}
-              >
-                <MessageSquare className="h-3.5 w-3.5 shrink-0" />
-                <span className="flex-1 truncate">{conv.title}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
+              <SidebarMenuItem key={conv.id}>
+                <SidebarMenuButton
+                  isActive={activeId === conv.id}
+                  onClick={() => onSelect(conv.id)}
+                  tooltip={conv.title}
+                >
+                  <MessageSquare className="h-3.5 w-3.5 shrink-0" />
+                  <span className="flex-1 truncate">{conv.title}</span>
+                </SidebarMenuButton>
+                <SidebarMenuAction
+                  showOnHover
+                  onClick={() => onDelete(conv.id)}
                   aria-label={`Delete conversation: ${conv.title}`}
-                  className="h-6 w-6 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete(conv.id);
-                  }}
                 >
                   <Trash2 className="h-3 w-3" />
-                </Button>
-              </button>
+                </SidebarMenuAction>
+              </SidebarMenuItem>
             ))}
-          </div>
+          </SidebarMenu>
         ))}
       </div>
     </ScrollArea>

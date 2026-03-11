@@ -17,6 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import type { Conversation } from "@/lib/types";
 import { ConversationList } from "./sidebar/conversation-list";
@@ -87,19 +88,24 @@ export function AppSidebar({
       <SidebarContent className="px-2 font-medium">
         <SidebarGroup>
           <SidebarGroupContent className="space-y-1">
-            <Button
-              variant="ghost"
-              onClick={onNewChat}
-              className="w-full flex items-center justify-start gap-3 text-sm h-9 px-3 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors font-medium border-0 shadow-none"
-            >
-              <Plus className="h-4 w-4" />
-              New Task
-            </Button>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={onNewChat}
+                  tooltip="New Task"
+                >
+                  <Plus className="h-4 w-4" />
+                  <span>New Task</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="flex-1 overflow-hidden flex flex-col pt-4">
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-2">
+        <SidebarSeparator />
+
+        <SidebarGroup className="flex-1 overflow-hidden flex flex-col">
+          <SidebarGroupLabel>
             Task History
           </SidebarGroupLabel>
           <SidebarGroupContent className="flex-1 overflow-hidden">

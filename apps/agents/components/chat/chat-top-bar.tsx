@@ -78,8 +78,9 @@ export function ChatTopBar({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+            className="h-8 w-8"
             onClick={onNewChat}
+            aria-label="New chat"
           >
             <Plus className="h-4 w-4" />
             <span className="sr-only">New Chat</span>
@@ -89,8 +90,9 @@ export function ChatTopBar({
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+              className="h-8 w-8"
               onClick={onToggleTools}
+              aria-label="Open tools panel"
             >
               <Wrench className="h-4 w-4" />
               <span className="sr-only">Tools</span>
@@ -103,8 +105,9 @@ export function ChatTopBar({
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+                  className="h-8 w-8"
                   disabled={isExporting}
+                  aria-label="Export conversation"
                 >
                   <Download
                     className={`h-4 w-4 ${isExporting ? "animate-pulse" : ""}`}
@@ -132,8 +135,9 @@ export function ChatTopBar({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+            className="h-8 w-8"
             onClick={() => setSettingsOpen(true)}
+            aria-label="Open settings"
           >
             <MoreHorizontal className="h-4 w-4" />
             <span className="sr-only">More</span>
@@ -143,8 +147,9 @@ export function ChatTopBar({
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 relative text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background ml-1"
+              className="h-8 w-8 relative ml-1"
               onClick={onToggleActivity}
+              aria-label="Toggle activity panel"
             >
               <Activity className="h-4 w-4" />
               {activityCount > 0 && (
