@@ -1,10 +1,26 @@
 import { getAllPosts } from "@duyet/libs/getPost";
+import type { Post } from "@duyet/interfaces";
 
 export interface SeriesNavItem {
   slug: string;
   title: string;
   year: string;
   month: string;
+}
+
+/**
+ * Parse a post slug into year/month/slug components.
+ * Optimized: accepts Post object directly to avoid redundant array lookup.
+ */
+function parseSlugComponents(post: Post): SeriesNavItem {
+  const cleanSlug = post.slug.replace(/^\//, "").replace(/\.md$/, "");
+  const parts = cleanSlug.split("/");
+  return {
+    slug: parts[2], // The actual post slug
+    title: post.title,
+    year: parts[0],
+    month: parts[1],
+  };
 }
 
 /**
@@ -45,28 +61,16 @@ export function getSeriesNavigation(
     return { prev: null, next: null };
   }
 
-  // Parse slug into year/month/slug components
-  const parseSlugComponents = (slug: string): SeriesNavItem => {
-    const cleanSlug = slug.replace(/^\//, "").replace(/\.md$/, "");
-    const parts = cleanSlug.split("/");
-    return {
-      slug: parts[2], // The actual post slug
-      title: seriesPosts.find((p) => p.slug === slug)?.title || "",
-      year: parts[0],
-      month: parts[1],
-    };
-  };
-
   // Get previous post (earlier in the series)
   const prev =
     currentIndex > 0
-      ? parseSlugComponents(seriesPosts[currentIndex - 1].slug)
+      ? parseSlugComponents(seriesPosts[currentIndex - 1])
       : null;
 
   // Get next post (later in the series)
   const next =
     currentIndex < seriesPosts.length - 1
-      ? parseSlugComponents(seriesPosts[currentIndex + 1].slug)
+      ? parseSlugComponents(seriesPosts[currentIndex + 1])
       : null;
 
   return { prev, next };
