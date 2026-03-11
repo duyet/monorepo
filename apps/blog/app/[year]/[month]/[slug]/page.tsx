@@ -2,8 +2,8 @@ import { getAllPosts } from "@duyet/libs/getPost";
 import { getRelatedPosts } from "@duyet/libs/getRelatedPosts";
 import type { Metadata } from "next";
 
+import { PostWithTOC } from "@/components/post/PostWithTOC";
 import { RelatedPosts } from "@/components/post/RelatedPosts";
-import { TableOfContents } from "@/components/post/TableOfContents";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
 
@@ -57,19 +57,11 @@ export default async function Post({ params }: PostProps) {
   const relatedPosts = getRelatedPosts(post, 4);
 
   return (
-    <div className="relative">
-      {/* Main content - centered, original width */}
-      <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-        <article>
-          <Content post={post} />
-          <Meta className="mt-10" post={post} />
-          <RelatedPosts posts={relatedPosts} />
-        </article>
-      </div>
-
-      {/* Table of Contents - pre-extracted headings for static rendering */}
-      <TableOfContents headings={post.headings} />
-    </div>
+    <PostWithTOC post={post}>
+      <Content post={post} />
+      <Meta className="mt-10" post={post} />
+      <RelatedPosts posts={relatedPosts} />
+    </PostWithTOC>
   );
 }
 
