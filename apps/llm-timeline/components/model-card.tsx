@@ -1,6 +1,6 @@
 "use client";
 
-import { getLicenseColor, getTypeColor, getSourceColor, getRelatedModels } from "@/lib/utils";
+import { getLicenseColor, getTypeColor, getSourceColor, getRelatedModels, MODEL_CARD_RELATED_MODELS_LIMIT } from "@/lib/utils";
 import type { Model } from "@/lib/data";
 import { cn } from "@duyet/libs/utils";
 import { OrgAvatar } from "@/components/org-avatar";
@@ -279,10 +279,11 @@ interface RelatedModelsSectionProps {
 function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Memoize related models to avoid recomputation
-  // Note: models is static (build-time constant), so dep only matters if data.ts changes
+  // Memoize related models to avoid recomputation on every render.
+  // NOTE: This creates O(n²) complexity across all model cards (200 cards × 200 models).
+  // Consider precomputing related models at build time if performance becomes an issue.
   const relatedModels = useMemo(() => {
-    return getRelatedModels(model, models, 4);
+    return getRelatedModels(model, models, MODEL_CARD_RELATED_MODELS_LIMIT);
   }, [model, models]);
 
   if (relatedModels.length === 0) {

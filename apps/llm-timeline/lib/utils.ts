@@ -244,8 +244,30 @@ function parseParamsValue(params: string | null | undefined): number {
 }
 
 /**
+ * Similarity scoring weights for related models.
+ * Values sum to 100 for intuitive understanding.
+ */
+const SIMILARITY_WEIGHTS = {
+  SAME_ORG: 30,
+  SAME_LICENSE: 20,
+  SAME_TYPE: 10,
+  PARAM_PROXIMITY_MAX: 40,
+  RECENCY_BONUS_MAX: 10,
+} as const;
+
+const DAYS_PER_MONTH = 30;
+const PARAM_PROXIMITY_THRESHOLD = 0.5; // Within 2x range
+
+/** Fewer related models shown in card UI (vs default limit of 5) */
+export const MODEL_CARD_RELATED_MODELS_LIMIT = 4;
+
+/**
  * Find related models based on organization, license, and parameter proximity.
- * Returns up to 5 related models, excluding the current model.
+ * Returns up to limit related models, excluding the current model.
+ *
+ * @performance O(n) where n = allModels.length. Called per model card,
+ * so total is O(n²) across all cards. Consider precomputing at build time
+ * if performance issues arise (currently ~200 models × ~200 comparisons).
  */
 export function getRelatedModels(
   currentModel: Model,
@@ -253,52 +275,54 @@ export function getRelatedModels(
   limit: number = 5
 ): Model[] {
   const currentParams = parseParamsValue(currentModel.params);
+  const currentDate = new Date(currentModel.date).getTime();
 
   // Score each model based on similarity
   const scored = allModels
-    .filter((m) => m.name !== currentModel.name) // Exclude current model
+    .filter((m) => m.name !== currentModel.name)
     .map((model) => {
       let score = 0;
 
-      // Same organization: +30 points
+      // Same organization
       if (model.org === currentModel.org) {
-        score += 30;
+        score += SIMILARITY_WEIGHTS.SAME_ORG;
       }
 
-      // Same license: +20 points
+      // Same license
       if (model.license === currentModel.license) {
-        score += 20;
+        score += SIMILARITY_WEIGHTS.SAME_LICENSE;
       }
 
-      // Same type: +10 points
+      // Same type
       if (model.type === currentModel.type) {
-        score += 10;
+        score += SIMILARITY_WEIGHTS.SAME_TYPE;
       }
 
-      // Parameter proximity (±50%): up to 40 points
+      // Parameter proximity: closer is better
       const modelParams = parseParamsValue(model.params);
       if (currentParams > 0 && modelParams > 0) {
         const ratio = Math.min(currentParams, modelParams) / Math.max(currentParams, modelParams);
-        if (ratio >= 0.5) {
-          // Within 2x range: closer is better
-          score += Math.round(40 * ratio);
+        if (ratio >= PARAM_PROXIMITY_THRESHOLD) {
+          score += Math.round(SIMILARITY_WEIGHTS.PARAM_PROXIMITY_MAX * ratio);
         }
       }
 
-      // Recency bonus: newer models get slight bonus (up to 10 points)
-      const currentDate = new Date(currentModel.date).getTime();
+      // Recency bonus: newer models get slight bonus
       const modelDate = new Date(model.date).getTime();
       if (modelDate > currentDate) {
         const daysDiff = Math.floor((modelDate - currentDate) / (1000 * 60 * 60 * 24));
-        score += Math.min(10, Math.max(0, daysDiff / 30)); // Up to 10 points for being newer
+        score += Math.min(
+          SIMILARITY_WEIGHTS.RECENCY_BONUS_MAX,
+          Math.max(0, daysDiff / DAYS_PER_MONTH)
+        );
       }
 
       return { model, score };
     })
-    .filter(({ score }) => score > 0) // Only include models with some similarity
-    .sort((a, b) => b.score - a.score) // Sort by score descending
-    .slice(0, limit) // Take top N
-    .map(({ model }) => model); // Extract just the model
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ model }) => model);
 
   return scored;
 }
