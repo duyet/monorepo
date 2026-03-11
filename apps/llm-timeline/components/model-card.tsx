@@ -6,33 +6,55 @@ import { cn } from "@duyet/libs/utils";
 import { OrgAvatar } from "@/components/org-avatar";
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronUp, Link2 } from "lucide-react";
+import { ChevronDown, ChevronUp, Link2, Check } from "lucide-react";
 import { models } from "@/lib/data";
 
 interface ModelCardProps {
   model: Model;
   isLast?: boolean;
   lite?: boolean;
+  isSelectable?: boolean;
+  isSelected?: boolean;
+  onSelectionChange?: (selected: boolean) => void;
 }
 
-export function ModelCard({ model, isLast, lite }: ModelCardProps) {
+export function ModelCard({ model, isLast, lite, isSelectable, isSelected, onSelectionChange }: ModelCardProps) {
   if (lite) {
     return (
       <div
-        className="relative flex items-center gap-3 py-1.5"
+        className="relative flex items-center gap-3 py-1.5 group"
         style={{ minHeight: "32px" }}
       >
+        {/* Selection checkbox */}
+        {isSelectable && (
+          <button
+            onClick={() => onSelectionChange?.(!isSelected)}
+            className={cn(
+              "shrink-0 relative flex items-center justify-center transition-all",
+              "w-5 h-5 rounded border",
+              isSelected
+                ? "bg-[var(--accent)] border-[var(--accent)]"
+                : "bg-[var(--bg-card)] border-[var(--border)] hover:border-[var(--accent)]"
+            )}
+            aria-label={isSelected ? `Deselect ${model.name}` : `Select ${model.name} for comparison`}
+          >
+            {isSelected && <Check className="h-3 w-3 text-white" />}
+          </button>
+        )}
+
         {/* Small dot indicator */}
-        <div
-          className="shrink-0"
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            backgroundColor:
-              model.type === "milestone" ? "var(--accent)" : "var(--border)",
-          }}
-        />
+        {!isSelectable && (
+          <div
+            className="shrink-0"
+            style={{
+              width: "8px",
+              height: "8px",
+              borderRadius: "50%",
+              backgroundColor:
+                model.type === "milestone" ? "var(--accent)" : "var(--border)",
+            }}
+          />
+        )}
 
         {/* Model name on left */}
         <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -101,7 +123,7 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
   }
 
   return (
-    <div className="relative flex items-center gap-3 pb-6">
+    <div className="relative flex items-center gap-3 pb-6 group">
       {/* Timeline Line */}
       {!isLast && (
         <div
@@ -110,28 +132,59 @@ export function ModelCard({ model, isLast, lite }: ModelCardProps) {
         />
       )}
 
-      {/* Org logo as timeline dot */}
-      <div
-        className="relative z-10 shrink-0 rounded-lg p-1"
-        style={{ backgroundColor: "var(--background)" }}
-      >
-        <OrgAvatar org={model.org} size="sm" />
-      </div>
+      {/* Org logo as timeline dot or selection checkbox */}
+      {isSelectable ? (
+        <div
+          className="relative z-10 shrink-0"
+          style={{ backgroundColor: "var(--background)" }}
+        >
+          <button
+            onClick={() => onSelectionChange?.(!isSelected)}
+            className={cn(
+              "flex items-center justify-center transition-all rounded-lg p-1",
+              isSelected
+                ? "bg-[var(--accent)]"
+                : "bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--accent)]"
+            )}
+            aria-label={isSelected ? `Deselect ${model.name}` : `Select ${model.name} for comparison`}
+          >
+            {isSelected ? (
+              <Check className="h-5 w-5 text-white" />
+            ) : (
+              <OrgAvatar org={model.org} size="sm" />
+            )}
+          </button>
+        </div>
+      ) : (
+        <div
+          className="relative z-10 shrink-0 rounded-lg p-1"
+          style={{ backgroundColor: "var(--background)" }}
+        >
+          <OrgAvatar org={model.org} size="sm" />
+        </div>
+      )}
 
       {/* Card */}
       <div
-        className="flex-1 rounded-lg border p-4 transition-colors"
+        className={cn(
+          "flex-1 rounded-lg border p-4 transition-colors",
+          isSelectable && isSelected && "ring-2 ring-[var(--accent)] ring-offset-2"
+        )}
         style={{
-          borderColor: "var(--border)",
+          borderColor: isSelected ? "var(--accent)" : "var(--border)",
           backgroundColor: "var(--bg-card)",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor =
-            "var(--bg-card-hover)";
+          if (!isSelected) {
+            (e.currentTarget as HTMLDivElement).style.backgroundColor =
+              "var(--bg-card-hover)";
+          }
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.backgroundColor =
-            "var(--bg-card)";
+          if (!isSelected) {
+            (e.currentTarget as HTMLDivElement).style.backgroundColor =
+              "var(--bg-card)";
+          }
         }}
       >
         {/* Header row */}

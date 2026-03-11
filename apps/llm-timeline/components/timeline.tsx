@@ -10,6 +10,9 @@ interface TimelineProps {
   liteMode?: boolean;
   focusedIndex?: number;
   onFocusChange?: (index: number) => void;
+  comparisonMode?: boolean;
+  selectedModelNames?: Set<string>;
+  onToggleSelection?: (model: Model) => void;
 }
 
 export function Timeline({
@@ -17,6 +20,9 @@ export function Timeline({
   liteMode,
   focusedIndex = -1,
   onFocusChange,
+  comparisonMode,
+  selectedModelNames,
+  onToggleSelection,
 }: TimelineProps) {
   // Sort years descending (newest first)
   const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a);
@@ -121,11 +127,18 @@ export function Timeline({
               {yearModels.map((model, index) => {
                 const globalIndex = yearStartIndex + index;
                 const isFocused = focusedIndex === globalIndex;
+                const isSelected = selectedModelNames?.has(model.name) ?? false;
                 return (
                   <div
                     key={`${model.org}-${model.date}-${model.name}-${index}`}
-                    onClick={() => onFocusChange?.(globalIndex)}
-                    className={isFocused ? "ring-2 ring-[var(--accent)] ring-offset-2 rounded-lg" : ""}
+                    onClick={() => {
+                      if (comparisonMode) {
+                        onToggleSelection?.(model);
+                      } else {
+                        onFocusChange?.(globalIndex);
+                      }
+                    }}
+                    className={isFocused && !comparisonMode ? "ring-2 ring-[var(--accent)] ring-offset-2 rounded-lg" : ""}
                     role="option"
                     aria-selected={isFocused}
                     tabIndex={isFocused ? 0 : -1}
@@ -135,6 +148,15 @@ export function Timeline({
                       model={model}
                       isLast={index === yearModels.length - 1}
                       lite={liteMode}
+                      isSelectable={comparisonMode}
+                      isSelected={isSelected}
+                      onSelectionChange={(selected) => {
+                        if (selected) {
+                          onToggleSelection?.(model);
+                        } else {
+                          onToggleSelection?.(model); // Toggle off
+                        }
+                      }}
                     />
                   </div>
                 );

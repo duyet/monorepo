@@ -35,9 +35,13 @@ export function useKeyboardShortcuts({
 }: KeyboardShortcutsProps) {
   // Take top 9 organizations for keyboard shortcuts
   const shortcutOrgs = useMemo<ShortcutOrg[]>(() => {
-    return TOP_ORGANIZATIONS.slice(0, 9).filter((org) =>
-      organizations.includes(org)
-    );
+    return TOP_ORGANIZATIONS.slice(0, 9)
+      .filter((org) => organizations.includes(org))
+      .map((name, index) => ({
+        id: name.toLowerCase().replace(/\s+/g, "-"),
+        key: String(index + 1),
+        name,
+      }));
   }, [organizations]);
 
   const [activeKey, setActiveKey] = useState<string | null>(null);
@@ -199,6 +203,14 @@ export function KeyboardHelpTooltip({
               </span>
               <kbd className="rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-mono text-neutral-900 dark:border-white/10 dark:bg-white/5 dark:text-white">
                 ?
+              </kbd>
+            </div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-neutral-600 dark:text-neutral-400">
+                Open comparison (when 2+ models selected)
+              </span>
+              <kbd className="rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-mono text-neutral-900 dark:border-white/10 dark:bg-white/5 dark:text-white">
+                c
               </kbd>
             </div>
           </div>

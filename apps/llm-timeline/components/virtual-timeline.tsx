@@ -8,6 +8,9 @@ import type { Model } from "@/lib/data";
 interface VirtualTimelineProps {
   modelsByYear: Map<number, Model[]>;
   liteMode?: boolean;
+  comparisonMode?: boolean;
+  selectedModelNames?: Set<string>;
+  onToggleSelection?: (model: Model) => void;
 }
 
 interface VirtualItem {
@@ -22,6 +25,9 @@ interface VirtualItem {
 export function VirtualTimeline({
   modelsByYear,
   liteMode,
+  comparisonMode,
+  selectedModelNames,
+  onToggleSelection,
 }: VirtualTimelineProps) {
   const parentRef = useRef<HTMLDivElement>(null);
   const [scrollMargin, setScrollMargin] = useState(200); // Default offset
@@ -154,9 +160,15 @@ export function VirtualTimeline({
 
           // Model card
           const modelItem = item as VirtualItem & { type: "model" };
+          const isSelected = selectedModelNames?.has(modelItem.model!.name) ?? false;
           return (
             <div
               key={virtualRow.key}
+              onClick={() => {
+                if (comparisonMode) {
+                  onToggleSelection?.(modelItem.model!);
+                }
+              }}
               style={{
                 position: "absolute",
                 top: 0,
@@ -171,6 +183,15 @@ export function VirtualTimeline({
                 model={modelItem.model!}
                 lite={liteMode}
                 isLast={false}
+                isSelectable={comparisonMode}
+                isSelected={isSelected}
+                onSelectionChange={(selected) => {
+                  if (selected) {
+                    onToggleSelection?.(modelItem.model!);
+                  } else {
+                    onToggleSelection?.(modelItem.model!); // Toggle off
+                  }
+                }}
               />
             </div>
           );
