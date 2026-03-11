@@ -295,12 +295,13 @@ export default function EXIFFilters({
 
             {/* Focal Length Range */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                <Maximize2 className="h-4 w-4" />
+              <span className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                <Maximize2 className="h-4 w-4" aria-hidden="true" />
                 Focal Length: {filters.focalLength[0]}–{filters.focalLength[1]}mm
-              </label>
+              </span>
               <div className="flex items-center gap-2">
                 <input
+                  id="focal-length-min"
                   type="number"
                   min={filterOptions.focalLength.min}
                   max={filterOptions.focalLength.max}
@@ -311,10 +312,12 @@ export default function EXIFFilters({
                       filters.focalLength[1],
                     ])
                   }
+                  aria-label="Minimum focal length in millimeters"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
                 <span className="text-neutral-400 dark:text-neutral-600">–</span>
                 <input
+                  id="focal-length-max"
                   type="number"
                   min={filterOptions.focalLength.min}
                   max={filterOptions.focalLength.max}
@@ -325,6 +328,7 @@ export default function EXIFFilters({
                       Number.parseInt(e.target.value, 10) || filterOptions.focalLength.max,
                     ])
                   }
+                  aria-label="Maximum focal length in millimeters"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
                 <span className="text-xs text-neutral-500 dark:text-neutral-400">mm</span>
@@ -336,11 +340,12 @@ export default function EXIFFilters({
 
             {/* ISO Range */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <span className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                 ISO: {filters.iso[0]}–{filters.iso[1]}
-              </label>
+              </span>
               <div className="flex items-center gap-2">
                 <input
+                  id="iso-min"
                   type="number"
                   min={filterOptions.iso.min}
                   max={filterOptions.iso.max}
@@ -351,10 +356,12 @@ export default function EXIFFilters({
                       filters.iso[1],
                     ])
                   }
+                  aria-label="Minimum ISO value"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
                 <span className="text-neutral-400 dark:text-neutral-600">–</span>
                 <input
+                  id="iso-max"
                   type="number"
                   min={filterOptions.iso.min}
                   max={filterOptions.iso.max}
@@ -365,6 +372,7 @@ export default function EXIFFilters({
                       Number.parseInt(e.target.value, 10) || filterOptions.iso.max,
                     ])
                   }
+                  aria-label="Maximum ISO value"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
               </div>
@@ -375,12 +383,13 @@ export default function EXIFFilters({
 
             {/* Aperture Range */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <span className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                 Iris: f/{filters.aperture[0]}–f/{filters.aperture[1]}
-              </label>
+              </span>
               <div className="flex items-center gap-2">
                 <span className="text-sm text-neutral-500 dark:text-neutral-400">f/</span>
                 <input
+                  id="aperture-min"
                   type="number"
                   min={filterOptions.aperture.min}
                   max={filterOptions.aperture.max}
@@ -392,11 +401,13 @@ export default function EXIFFilters({
                       filters.aperture[1],
                     ])
                   }
+                  aria-label="Minimum aperture f-stop value"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
                 <span className="text-neutral-400 dark:text-neutral-600">–</span>
                 <span className="text-sm text-neutral-500 dark:text-neutral-400">f/</span>
                 <input
+                  id="aperture-max"
                   type="number"
                   min={filterOptions.aperture.min}
                   max={filterOptions.aperture.max}
@@ -408,6 +419,7 @@ export default function EXIFFilters({
                       Number.parseFloat(e.target.value) || filterOptions.aperture.max,
                     ])
                   }
+                  aria-label="Maximum aperture f-stop value"
                   className="w-20 rounded-lg border border-neutral-300 bg-white px-2 py-1.5 text-center text-sm text-neutral-900 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20 dark:border-neutral-600 dark:bg-slate-700 dark:text-neutral-100 dark:focus:border-terracotta-light"
                 />
               </div>
