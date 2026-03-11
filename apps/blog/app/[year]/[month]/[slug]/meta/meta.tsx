@@ -1,6 +1,6 @@
 import Icons from "@duyet/components/Icons";
 import type { Post } from "@duyet/interfaces";
-import { distanceToNow } from "@duyet/libs/date";
+import { distanceToNow, formatReadingTime } from "@duyet/libs/date";
 import { getSeries } from "@duyet/libs/getSeries";
 import { getSlug } from "@duyet/libs/getSlug";
 import { cn } from "@duyet/libs/utils";
@@ -41,7 +41,7 @@ export default function Content({ post, className }: ContentProps) {
             {/* Reading Time */}
             <div className="flex items-center gap-1.5" title="Reading time">
               <Clock className="h-3.5 w-3.5" />
-              <span>{post.readingTime} min read</span>
+              <span>{formatReadingTime(post.readingTime)}</span>
             </div>
           </>
         )}
