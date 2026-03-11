@@ -1,5 +1,9 @@
 import Container from "@duyet/components/Container";
-import { getAllPosts } from "@duyet/libs/getPost";
+import {
+  getAllPosts,
+  getAllCategories,
+  getAllTags,
+} from "@duyet/libs/getPost";
 import { SearchClient } from "./search-client";
 import type { Metadata } from "next";
 
@@ -8,14 +12,15 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search blog posts by title and content.",
+  description: "Search blog posts by title, category, tags, and date range.",
 };
 
 /**
  * Search page with client-side filtering.
  *
- * Posts are fetched at build time and filtered on the client side.
- * Search query is stored in URL params for shareability.
+ * Posts, categories, and tags are fetched at build time and filtered on the
+ * client side. Search query and filters are stored in URL params for
+ * shareability.
  */
 export default function SearchPage() {
   // Fetch all posts with necessary fields for search
@@ -23,6 +28,10 @@ export default function SearchPage() {
     ["slug", "title", "date", "category", "featured", "excerpt", "tags"],
     10000
   );
+
+  // Fetch categories and tags for filters
+  const categories = getAllCategories();
+  const tags = getAllTags();
 
   return (
     <Container>
@@ -32,12 +41,16 @@ export default function SearchPage() {
             Search
           </h1>
           <p className="text-neutral-600 dark:text-neutral-400">
-            Search through {allPosts.length} blog posts by title, category, or
-            tags.
+            Search through {allPosts.length} blog posts by title, category,
+            tags, or date range.
           </p>
         </div>
 
-        <SearchClient posts={allPosts} />
+        <SearchClient
+          posts={allPosts}
+          categories={categories}
+          tags={tags}
+        />
       </div>
     </Container>
   );
