@@ -103,7 +103,7 @@ npx skills add https://github.com/anthropics/claude-plugins-official --skill fro
 - Mid 2025: [SuperClaude_Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - a collection of commands, agents, and behaviors installed in your `.claude` folder. Claude Plugins is more convenient now.
 - Early 2025: [Zen MCP](https://github.com/BeehiveInnovations/pal-mcp-server) was a game changer at the time - it let you invoke other providers like Gemini for brainstorming.
 
-## Parallel agents
+## Parallel Sub-Agents / Teams
 
 Don't just try to generate code, start leading a team of parallel agents and using background tasks for your agents. 
 
@@ -111,6 +111,17 @@ I built a [team-agents](https://github.com/duyet/claude-plugins/tree/master/team
 
 ![Team Agents](/media/2026/01/ai/cc_team_agent.png)
 
+
+2026-03: [Agent Teams](https://code.claude.com/docs/en/agent-teams) just dropped - this is basically what I was trying to build with my [team-agents plugin](#parallel-agents). Multiple Claude Code sessions that actually talk to each other, not just report back to a parent. Now it's built-in. Enable with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`.
+
+Haven't tried it much yet, but I think this will become the new standard for how AI agents work together.
+
+Use cases I'm planning to try:
+- **Parallel code review** - spawn reviewers for security, performance, and test coverage, each applying a different lens to the same PR
+- **New features with clear boundaries** - each teammate owns a separate module without stepping on each other
+- **Debugging** - spawn teammates with different theories, have them try to disprove each other
+
+![Team Agents](/media/2026/01/ai/claude-agent-team.png)
 
 ## duyet/claude-plugins
 
@@ -159,17 +170,6 @@ Plan mode performs significantly better than just prompting directly. When you g
     [Claude Hooks](https://code.claude.com/docs/en/hooks-guide) save time here - auto-format, run linters, or custom verification.
   </Step>
 </Steps>
-
-## Agent Teams
-
-[Agent Teams](https://code.claude.com/docs/en/agent-teams) just dropped - this is basically what I was trying to build with my [team-agents plugin](#parallel-agents). Multiple Claude Code sessions that actually talk to each other, not just report back to a parent. Now it's built-in. Enable with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`.
-
-Haven't tried it much yet, but I think this will become the new standard for how AI agents work together.
-
-Use cases I'm planning to try:
-- **Parallel code review** - spawn reviewers for security, performance, and test coverage, each applying a different lens to the same PR
-- **New features with clear boundaries** - each teammate owns a separate module without stepping on each other
-- **Debugging** - spawn teammates with different theories, have them try to disprove each other
 
 ## CLAUDE.md, AGENTS.md
 
