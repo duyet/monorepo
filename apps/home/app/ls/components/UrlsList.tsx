@@ -284,6 +284,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             No URLs found matching &ldquo;{searchQuery}&rdquo;
           </p>
           <button
+            type="button"
             onClick={() => setSearchQuery("")}
             className="mt-3 text-sm text-neutral-900 hover:underline"
           >
