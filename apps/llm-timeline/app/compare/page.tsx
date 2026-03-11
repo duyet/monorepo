@@ -134,6 +134,7 @@ function CompareContent() {
     }
   };
 
+
   return (
     <div className="space-y-6">
       {/* Header with model selector */}
@@ -441,6 +442,7 @@ function CompareContent() {
             </div>
           )}
 
+<<<<<<< HEAD
           {/* Share link and export */}
           {hasComparison && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -484,6 +486,26 @@ function CompareContent() {
                   <span>Download CSV</span>
                 </button>
               </div>
+=======
+          {/* Share link */}
+          {hasComparison && (
+            <div
+              className="p-4 rounded-lg border"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <p className="text-sm mb-2" style={{ color: "var(--text-muted)" }}>
+                Share this comparison:
+              </p>
+              <code
+                className="text-sm px-2 py-1 rounded"
+                style={{
+                  backgroundColor: "var(--bg)",
+                  color: "var(--text)",
+                }}
+              >
+                {typeof window !== "undefined" ? window.location.href : "/compare"}
+              </code>
+>>>>>>> 0355a7d6 (feat(llm-timeline): add side-by-side model comparison)
             </div>
           )}
         </div>
