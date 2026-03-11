@@ -7,6 +7,7 @@ import {
   Download,
   FileJson,
   FileText,
+  Menu,
   MoreHorizontal,
   Plus,
   Wrench,
@@ -19,13 +20,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
 import { SettingsDialog } from "../settings/settings-dialog";
 
 interface ChatTopBarProps {
   onToggleActivity: () => void;
   onToggleTools?: () => void;
+  onToggleMenu?: () => void;
   onNewChat: () => void;
   showActivityButton: boolean;
   activityCount: number;
@@ -43,6 +44,7 @@ const EXPORT_FORMATS = [
 export function ChatTopBar({
   onToggleActivity,
   onToggleTools,
+  onToggleMenu,
   onNewChat,
   showActivityButton,
   activityCount,
@@ -68,105 +70,128 @@ export function ChatTopBar({
       <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent flex-shrink-0 px-2 sm:px-4 py-2">
         {/* Left: Breadcrumbs / Title */}
         <div className="flex items-center gap-2">
-          <SidebarTrigger />
+          {onToggleMenu && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onToggleMenu}
+              aria-label="Open sidebar"
+              className="h-8 w-8"
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+          )}
           <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
             <span>{conversationTitle || "New Task"}</span>
           </div>
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-1.5">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8"
-            onClick={onNewChat}
-            aria-label="New chat"
-          >
-            <Plus className="h-4 w-4" />
-            <span className="sr-only">New Chat</span>
-          </Button>
-
-          {onToggleTools && (
+        <div className="flex items-center gap-1">
+          {/* Conversation actions */}
+          <div className="flex items-center gap-1">
             <Button
               variant="outline"
               size="icon"
               className="h-8 w-8"
-              onClick={onToggleTools}
-              aria-label="Open tools panel"
+              onClick={onNewChat}
+              aria-label="New chat"
             >
-              <Wrench className="h-4 w-4" />
-              <span className="sr-only">Tools</span>
+              <Plus className="h-4 w-4" />
+              <span className="sr-only">New Chat</span>
             </Button>
-          )}
 
-          {canExport && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-8 w-8"
-                  disabled={isExporting}
-                  aria-label="Export conversation"
-                >
-                  <Download
-                    className={`h-4 w-4 ${isExporting ? "animate-pulse" : ""}`}
-                  />
-                  <span className="sr-only">Export</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {EXPORT_FORMATS.map(({ format, label, icon: Icon }) => (
-                  <DropdownMenuItem
-                    key={format}
-                    onClick={() =>
-                      handleExport(format as "json" | "md" | "txt")
-                    }
+            {onToggleTools && (
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={onToggleTools}
+                aria-label="Open tools panel"
+              >
+                <Wrench className="h-4 w-4" />
+                <span className="sr-only">Tools</span>
+              </Button>
+            )}
+
+            {canExport && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8"
                     disabled={isExporting}
+                    aria-label="Export conversation"
                   >
-                    <Icon className="h-4 w-4 mr-2" />
-                    {label}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+                    <Download
+                      className={`h-4 w-4 ${isExporting ? "animate-pulse" : ""}`}
+                    />
+                    <span className="sr-only">Export</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {EXPORT_FORMATS.map(({ format, label, icon: Icon }) => (
+                    <DropdownMenuItem
+                      key={format}
+                      onClick={() =>
+                        handleExport(format as "json" | "md" | "txt")
+                      }
+                      disabled={isExporting}
+                    >
+                      <Icon className="h-4 w-4 mr-2" />
+                      {label}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
 
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8"
-            onClick={() => setSettingsOpen(true)}
-            aria-label="Open settings"
-          >
-            <MoreHorizontal className="h-4 w-4" />
-            <span className="sr-only">More</span>
-          </Button>
+          {/* Separator between conversation and panel actions */}
+          <Separator orientation="vertical" className="h-6" />
 
-          {showActivityButton && (
+          {/* Panel actions */}
+          <div className="flex items-center gap-1">
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 relative"
-              onClick={onToggleActivity}
-              aria-label="Toggle activity panel"
+              className="h-8 w-8"
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Open settings"
             >
-              <Activity className="h-4 w-4" />
-              {activityCount > 0 && (
-                <Badge
-                  variant="default"
-                  className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[9px] rounded-full"
-                >
-                  {activityCount > 9 ? "9+" : activityCount}
-                </Badge>
-              )}
-              <span className="sr-only">Toggle activity</span>
+              <MoreHorizontal className="h-4 w-4" />
+              <span className="sr-only">More</span>
             </Button>
-          )}
 
+            {showActivityButton && (
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 relative"
+                onClick={onToggleActivity}
+                aria-label="Toggle activity panel"
+              >
+                <Activity className="h-4 w-4" />
+                {activityCount > 0 && (
+                  <Badge
+                    variant="default"
+                    className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[9px] rounded-full"
+                  >
+                    {activityCount > 9 ? "9+" : activityCount}
+                  </Badge>
+                )}
+                <span className="sr-only">Toggle activity</span>
+              </Button>
+            )}
+          </div>
+
+          {/* Separator before auth */}
+          <Separator orientation="vertical" className="h-6" />
+
+          {/* Auth */}
           <AuthButtons
-            signInClassName="h-8 w-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors ml-1"
+            signInClassName="h-8 w-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             avatarSize="h-7 w-7"
           />
         </div>

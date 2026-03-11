@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@duyet/components";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import {

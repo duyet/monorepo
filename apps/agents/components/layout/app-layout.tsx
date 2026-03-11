@@ -1,25 +1,17 @@
 "use client";
 
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-
 interface AppLayoutProps {
-  sidebar: React.ReactNode;
   children: React.ReactNode;
 }
 
 /**
- * Core layout shell using shadcn Sidebar patterns.
- * Provides responsive sidebar behavior with automatic mobile/desktop handling.
+ * Core layout shell - simplified container without permanent sidebar.
+ * Sidebar is now available as a modal/dialog via the Sheet component.
  */
-export function AppLayout({ sidebar, children }: AppLayoutProps) {
+export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <SidebarProvider>
-      {sidebar}
-      <SidebarInset>
-        <div className="flex flex-1 flex-col overflow-hidden w-full h-full bg-transparent">
-          {children}
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+    <div className="flex flex-1 flex-col overflow-hidden w-full h-full bg-transparent">
+      {children}
+    </div>
   );
 }

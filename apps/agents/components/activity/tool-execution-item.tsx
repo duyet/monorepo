@@ -1,15 +1,18 @@
 "use client";
 
-import { Badge, Card, CardContent } from "@duyet/components";
+import { Badge } from "@duyet/components";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { cn } from "@duyet/libs";
 import {
   AlertCircle,
   CheckCircle2,
-  ChevronDown,
-  ChevronRight,
   Loader2,
 } from "lucide-react";
-import { useState } from "react";
 import type { ToolExecution } from "@/lib/types";
 
 interface ToolExecutionItemProps {
@@ -17,7 +20,6 @@ interface ToolExecutionItemProps {
 }
 
 export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const duration = execution.endTime
     ? execution.endTime - execution.startTime
     : Date.now() - execution.startTime;
@@ -28,24 +30,28 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
       label: "Pending",
       variant: "secondary" as const,
       className: "animate-spin-slow",
+      colorClass: "text-muted-foreground",
     },
     running: {
       icon: Loader2,
       label: "Running",
       variant: "default" as const,
       className: "animate-spin",
+      colorClass: "text-primary",
     },
     complete: {
       icon: CheckCircle2,
       label: "Complete",
       variant: "outline" as const,
       className: "",
+      colorClass: "text-green-600 dark:text-green-500",
     },
     error: {
       icon: AlertCircle,
       label: "Error",
       variant: "destructive" as const,
       className: "",
+      colorClass: "text-destructive",
     },
   };
 
@@ -53,36 +59,24 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
   const StatusIcon = config.icon;
 
   return (
-    <Card
-      className={cn(
-        "overflow-hidden transition-all duration-200",
-        execution.status === "running" && "border-primary/50",
-        execution.status === "error" && "border-destructive/50"
-      )}
-    >
-      <CardContent className="p-0">
-        {/* Header - always visible */}
-        <button
-          type="button"
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full text-left hover:bg-muted/50 transition-colors"
-        >
-          <div className="flex items-center gap-3 p-4">
+    <Accordion type="single" collapsible>
+      <AccordionItem
+        value={execution.id}
+        className={cn(
+          "border rounded-lg overflow-hidden transition-all duration-200",
+          execution.status === "running" && "border-primary/50",
+          execution.status === "error" && "border-destructive/50"
+        )}
+      >
+        <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 [&[data-state=open]]:bg-muted/30">
+          <div className="flex items-center gap-3 flex-1">
             {/* Status icon */}
-            <div
-              className={cn(
-                "shrink-0",
-                execution.status === "running" && "text-primary",
-                execution.status === "complete" &&
-                  "text-green-600 dark:text-green-500",
-                execution.status === "error" && "text-destructive"
-              )}
-            >
+            <div className={cn("shrink-0", config.colorClass)}>
               <StatusIcon className={cn("h-4 w-4", config.className)} />
             </div>
 
             {/* Tool name and params preview */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 text-left">
               <div className="flex items-center gap-2">
                 <span className="font-mono text-sm font-medium">
                   {execution.toolName}
@@ -93,7 +87,7 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
               </div>
 
               {/* Parameters preview (truncated) */}
-              <p className="text-xs text-muted-foreground truncate mt-1">
+              <p className="text-xs text-muted-foreground truncate mt-0.5">
                 {Object.entries(execution.parameters)
                   .map(([key, value]) => {
                     const strValue =
@@ -112,21 +106,11 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
                 {duration}ms
               </div>
             )}
-
-            {/* Expand/collapse icon */}
-            <div className="shrink-0">
-              {isExpanded ? (
-                <ChevronDown className="h-4 w-4 text-muted-foreground" />
-              ) : (
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              )}
-            </div>
           </div>
-        </button>
+        </AccordionTrigger>
 
-        {/* Expanded details */}
-        {isExpanded && (
-          <div className="border-t border-border bg-muted/20 p-4 space-y-4">
+        <AccordionContent className="pt-0 pb-4 px-4 border-t border-border bg-muted/20">
+          <div className="pt-4 space-y-4">
             {/* Full parameters */}
             <div>
               <p className="text-xs font-medium text-muted-foreground mb-2">
@@ -160,8 +144,8 @@ export function ToolExecutionItem({ execution }: ToolExecutionItemProps) {
               </div>
             )}
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }

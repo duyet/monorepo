@@ -17,9 +17,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AppSidebar } from "@/components/app-sidebar";
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
 import { AppLayout } from "@/components/layout/app-layout";
+import { SidebarModal } from "@/components/sidebar/sidebar-modal";
 import { useConversations } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 
@@ -34,6 +34,7 @@ export default function AnalyticsPage() {
   const getAuthToken = useClerkAuthToken();
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { conversations, activeId, switchTo, remove, createNew } =
     useConversations({ getAuthToken });
@@ -55,25 +56,27 @@ export default function AnalyticsPage() {
     return () => controller.abort();
   }, []);
 
-  const sidebarContent = (
-    <AppSidebar
-      conversations={conversations}
-      activeId={activeId}
-      onNewChat={() => createNew("fast")}
-      onSelectConversation={async (id) => {
-        await switchTo(id);
-        window.location.href = "/";
-      }}
-      onDeleteConversation={remove}
-    />
-  );
-
   return (
-    <AppLayout sidebar={sidebarContent}>
+    <AppLayout>
+      {/* Sidebar Modal */}
+      <SidebarModal
+        open={sidebarOpen}
+        onOpenChange={setSidebarOpen}
+        conversations={conversations}
+        activeId={activeId}
+        onNewChat={() => createNew("fast")}
+        onSelectConversation={async (id) => {
+          await switchTo(id);
+          window.location.href = "/";
+        }}
+        onDeleteConversation={remove}
+      />
+
       <div className="flex h-full w-full overflow-hidden relative bg-transparent">
         <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
           <ChatTopBar
             onToggleActivity={() => {}}
+            onToggleMenu={() => setSidebarOpen((v) => !v)}
             onNewChat={() => createNew("fast")}
             showActivityButton={false}
             activityCount={0}

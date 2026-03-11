@@ -11,9 +11,9 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { AppSidebar } from "@/components/app-sidebar";
 import { AppLayout } from "@/components/layout/app-layout";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { SidebarModal } from "@/components/sidebar/sidebar-modal";
 import { GraphRouter } from "@/lib/graph/router";
 import {
   useAutoResize,
@@ -44,6 +44,7 @@ export function VercelChat() {
   const getAuthToken = useClerkAuthToken();
 
   // Layout state
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
 
@@ -281,26 +282,28 @@ export function VercelChat() {
     />
   ) : null;
 
-  const sidebarContent = (
-    <AppSidebar
-      conversations={conversations}
-      activeId={activeId}
-      onNewChat={handleNewChat}
-      onSelectConversation={async (id) => {
-        await switchTo(id);
-      }}
-      onDeleteConversation={remove}
-    />
-  );
-
   return (
-    <AppLayout sidebar={sidebarContent}>
+    <AppLayout>
+      {/* Sidebar Modal - contains conversation history */}
+      <SidebarModal
+        open={sidebarOpen}
+        onOpenChange={setSidebarOpen}
+        conversations={conversations}
+        activeId={activeId}
+        onNewChat={handleNewChat}
+        onSelectConversation={async (id) => {
+          await switchTo(id);
+        }}
+        onDeleteConversation={remove}
+      />
+
       <div className="flex h-full w-full overflow-hidden relative bg-transparent">
         <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
           {/* Chat top bar */}
           <ChatTopBar
             onToggleActivity={() => setPanelOpen((v) => !v)}
             onToggleTools={() => setToolsPanelOpen((v) => !v)}
+            onToggleMenu={() => setSidebarOpen((v) => !v)}
             onNewChat={handleNewChat}
             showActivityButton={hasActivity}
             activityCount={toolExecutions.length}
