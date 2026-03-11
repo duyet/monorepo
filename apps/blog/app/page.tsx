@@ -5,7 +5,6 @@ import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
 import { duyetUrls } from "@duyet/urls";
 import Link from "next/link";
-import { SearchBar } from "@/components/blog/search-bar";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
 
@@ -43,7 +42,7 @@ export default async function Page() {
       />
       <Container>
         <div className="mb-12 text-center">
-          <p className="text-lg leading-relaxed text-neutral-700 mb-6">
+          <p className="text-lg leading-relaxed text-neutral-700">
             Lists all{" "}
             <strong className="font-semibold text-neutral-900">
               {postCount} posts
@@ -72,10 +71,6 @@ export default async function Page() {
             </Link>
             .
           </p>
-
-          <div className="max-w-2xl mx-auto">
-            <SearchBar placeholder="Search posts..." />
-          </div>
         </div>
 
         <HomeCards seriesList={seriesList} topTags={topTags} />
