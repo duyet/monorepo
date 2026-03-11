@@ -116,3 +116,34 @@ export function getReadingTime(wordCount: number, codeBlockCount = 0): number {
   // Minimum 1 minute for any content
   return Math.max(1, Math.ceil(totalMinutes));
 }
+
+/**
+ * Format reading time in minutes to a human-readable string.
+ *
+ * @param minutes - Reading time in minutes
+ * @returns Formatted reading time string (e.g., "5 min read", "1 hour 15 min read")
+ *
+ * @example
+ * ```ts
+ * formatReadingTime(5) // "5 min read"
+ * formatReadingTime(60) // "1 hour read"
+ * formatReadingTime(75) // "1 hour 15 min read"
+ * formatReadingTime(120) // "2 hours read"
+ * ```
+ */
+export function formatReadingTime(minutes: number): string {
+  if (minutes < 60) {
+    return `${minutes} min read`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+
+  if (remainingMinutes === 0) {
+    return hours === 1 ? "1 hour read" : `${hours} hours read`;
+  }
+
+  return hours === 1
+    ? `1 hour ${remainingMinutes} min read`
+    : `${hours} hours ${remainingMinutes} min read`;
+}
