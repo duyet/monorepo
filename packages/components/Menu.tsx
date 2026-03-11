@@ -31,7 +31,6 @@ export function createBlogNavigation(urls: UrlsConfig): NavigationItem[] {
     { name: "Photos", href: urls.apps.photos },
     { name: "Insights", href: urls.apps.insights },
     { name: "CV", href: urls.apps.cv },
-    { name: "Search", href: `${urls.apps.blog}/search` },
   ];
 }
 
