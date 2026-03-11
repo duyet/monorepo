@@ -295,10 +295,10 @@ export default function EXIFFilters({
       return () => clearTimeout(timeoutId);
     };
 
+    const cleanup = showCopiedFeedback();
+
     try {
       await navigator.clipboard.writeText(url);
-      const cleanup = showCopiedFeedback();
-      return cleanup;
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
@@ -309,11 +309,12 @@ export default function EXIFFilters({
       textArea.select();
       try {
         document.execCommand("copy");
-        showCopiedFeedback();
       } finally {
         document.body.removeChild(textArea);
       }
     }
+    // Always return cleanup function (caller may use it for useEffect cleanup)
+    return cleanup;
   }, []);
 
   // Check if any filters are active

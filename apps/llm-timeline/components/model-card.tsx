@@ -280,9 +280,10 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Memoize related models to avoid recomputation
+  // Note: models is static (build-time constant), so dep only matters if data.ts changes
   const relatedModels = useMemo(() => {
     return getRelatedModels(model, models, 4);
-  }, [model]);
+  }, [model, models]);
 
   if (relatedModels.length === 0) {
     return null;

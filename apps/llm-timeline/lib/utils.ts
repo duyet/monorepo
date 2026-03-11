@@ -216,29 +216,31 @@ export function getStats(models: Model[]) {
 // Re-export getSlug from @duyet/libs for convenience
 export { getSlug as slugify } from "@duyet/libs";
 
+// Regex and multipliers for parameter parsing (cached to avoid recompilation)
+const PARAMS_REGEX = /^([\d.]+)([BKMGTP]?)/i;
+const PARAMS_MULTIPLIERS: Record<string, number> = {
+  "": 1,
+  B: 1,
+  K: 1_000,
+  M: 1_000_000,
+  G: 1_000_000_000,
+  T: 1_000_000_000_000,
+  P: 1_000_000_000_000_000,
+};
+
 /**
  * Parse parameter string to numeric value (e.g., "70B" -> 70_000_000_000)
  */
 function parseParamsValue(params: string | null | undefined): number {
   if (!params) return 0;
 
-  const match = params.match(/^([\d.]+)([BKMGTP]?)/i);
+  const match = params.match(PARAMS_REGEX);
   if (!match) return 0;
 
   const value = Number.parseFloat(match[1]);
   const unit = match[2].toUpperCase();
 
-  const multipliers: Record<string, number> = {
-    "": 1,
-    B: 1,
-    K: 1_000,
-    M: 1_000_000,
-    G: 1_000_000_000,
-    T: 1_000_000_000_000,
-    P: 1_000_000_000_000_000,
-  };
-
-  return value * (multipliers[unit] || 1);
+  return value * (PARAMS_MULTIPLIERS[unit] || 1);
 }
 
 /**
