@@ -8,6 +8,7 @@ export * from "./getRelatedPosts";
 export * from "./getSlug";
 export * from "./logger";
 export * from "./markdownToHtml";
+export * from "./parseModelParams";
 export * from "./string";
 
 // next-routes excluded: imports next/server which pulls in ua-parser-js

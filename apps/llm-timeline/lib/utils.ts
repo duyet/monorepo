@@ -20,28 +20,8 @@ export const DEFAULT_FILTERS: FilterState = {
   params: "all",
 };
 
-/**
- * Get params bucket from parameter string
- */
-export function getParamsBucket(params: string | null): string {
-  if (!params) return "unknown";
-  const cleaned = params.replace(/^[~<>≈]/, "");
-  const match = cleaned.match(/^[\d.]+([KMBT])/i);
-  if (!match) return "unknown";
-
-  const value = parseFloat(cleaned);
-  const unit = match[1].toUpperCase();
-
-  let billions = value;
-  if (unit === "K") billions = value / 1e6;
-  else if (unit === "M") billions = value / 1e3;
-  else if (unit === "T") billions = value * 1000;
-
-  if (billions < 1) return "small";
-  if (billions < 10) return "medium";
-  if (billions < 100) return "large";
-  return "xl";
-}
+// Re-export getParamsBucket from @duyet/libs
+export { getParamsBucket } from "@duyet/libs";
 
 /**
  * Filter models based on search and filter criteria
@@ -232,20 +212,5 @@ export function getStats(models: Model[]) {
   };
 }
 
-/**
- * Convert string to URL-safe slug
- * @deprecated Import from @duyet/libs instead
- */
-export function slugify(str: string, maxLength = 100): string {
-  let slug = str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-  // Truncate to maxLength, ensuring we don't cut mid-word
-  if (slug.length > maxLength) {
-    slug = slug.slice(0, maxLength).replace(/-[^-]*$/, "");
-  }
-
-  return slug;
-}
+// Re-export getSlug from @duyet/libs for convenience
+export { getSlug as slugify } from "@duyet/libs";

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { PageLayout } from "@/components/page-layout";
 import { models } from "@/lib/data";
 import { getLicenseColor, formatDate, slugify } from "@/lib/utils";
+import { parseParamValue } from "@duyet/libs";
 import { X, Plus, Search } from "lucide-react";
 import type { Model } from "@/lib/data";
 
@@ -84,24 +85,6 @@ function CompareContent() {
 
   const removeModel = (modelName: string) => {
     setSelectedModels(selectedModels.filter((m) => m.name !== modelName));
-  };
-
-  // Parse parameter value for comparison (convert to billions)
-  const parseParamValue = (params: string | null): number | null => {
-    if (!params) return null;
-    const cleaned = params.replace(/^[~<>≈]/, "").trim();
-    const match = cleaned.match(/^([\d.]+)([KMBT])/i);
-    if (!match) return null;
-
-    const value = parseFloat(match[1]);
-    const unit = match[2].toUpperCase();
-
-    let billions = value;
-    if (unit === "K") billions = value / 1e6;
-    else if (unit === "M") billions = value / 1e3;
-    else if (unit === "T") billions = value * 1000;
-
-    return billions;
   };
 
   // Get max param value for chart scaling
