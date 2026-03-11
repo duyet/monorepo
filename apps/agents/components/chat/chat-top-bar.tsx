@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@duyet/components";
+import { Badge, Button } from "@duyet/components";
 import { AuthButtons } from "@duyet/components/header/AuthButtons";
 import {
   Activity,
@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
 import { SettingsDialog } from "../settings/settings-dialog";
@@ -147,15 +148,18 @@ export function ChatTopBar({
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 relative ml-1"
+              className="h-8 w-8 relative"
               onClick={onToggleActivity}
               aria-label="Toggle activity panel"
             >
               <Activity className="h-4 w-4" />
               {activityCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
+                <Badge
+                  variant="default"
+                  className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[9px] rounded-full"
+                >
                   {activityCount > 9 ? "9+" : activityCount}
-                </span>
+                </Badge>
               )}
               <span className="sr-only">Toggle activity</span>
             </Button>
