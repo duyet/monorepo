@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { RelatedPosts } from "@/components/post/RelatedPosts";
 import { TableOfContents } from "@/components/post/TableOfContents";
+import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import Content, { getPost } from "./content";
 import Meta from "./meta";
 
@@ -58,6 +59,9 @@ export default async function Post({ params }: PostProps) {
 
   return (
     <div className="relative">
+      {/* Reading progress indicator */}
+      <ReadingProgress />
+
       {/* Main content - centered, original width */}
       <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <article>
