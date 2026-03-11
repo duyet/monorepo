@@ -3,7 +3,7 @@
 import { cn } from "@duyet/libs/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   getOptimalImageSrc,
   getResponsiveSizes,
@@ -18,6 +18,9 @@ import {
   InfoPanel,
   LightboxTopControls,
   NavigationButton,
+  PlaybackSpeed,
+  SlideshowControls,
+  SlideshowProgressBar,
 } from "./LightboxControls";
 
 interface LightboxProps {
@@ -43,6 +46,14 @@ export default function Lightbox({
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [showInfo, setShowInfo] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+
+  // Slideshow state
+  const [isSlideshowPlaying, setIsSlideshowPlaying] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState<PlaybackSpeed>(3);
+  const [slideshowProgress, setSlideshowProgress] = useState(0);
+  const slideshowTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const lastPhotoIdRef = useRef<string | null>(null);
 
   // Get formatted metadata and description
   const metadata = formatPhotoMetadata(photo);
@@ -93,6 +104,72 @@ export default function Lightbox({
     }
   };
 
+  // Cleanup slideshow timers
+  const cleanupSlideshow = () => {
+    if (slideshowTimerRef.current) {
+      clearTimeout(slideshowTimerRef.current);
+      slideshowTimerRef.current = null;
+    }
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+      progressIntervalRef.current = null;
+    }
+    setSlideshowProgress(0);
+  };
+
+  // Start slideshow
+  const startSlideshow = () => {
+    cleanupSlideshow();
+    setIsSlideshowPlaying(true);
+
+    // Update progress every 50ms for smooth animation
+    const progressUpdateInterval = 50;
+    const totalProgressSteps = (playbackSpeed * 1000) / progressUpdateInterval;
+    let currentStep = 0;
+
+    progressIntervalRef.current = setInterval(() => {
+      currentStep++;
+      setSlideshowProgress(currentStep / totalProgressSteps);
+
+      if (currentStep >= totalProgressSteps) {
+        // Time to advance to next photo
+        if (onNext && currentIndex < totalCount - 1) {
+          onNext();
+          // Reset progress and restart timer for next photo
+          currentStep = 0;
+          setSlideshowProgress(0);
+        } else {
+          // End of slideshow - stop at last photo
+          stopSlideshow();
+        }
+      }
+    }, progressUpdateInterval);
+  };
+
+  // Stop slideshow
+  const stopSlideshow = () => {
+    cleanupSlideshow();
+    setIsSlideshowPlaying(false);
+  };
+
+  // Toggle slideshow play/pause
+  const handleToggleSlideshow = () => {
+    if (isSlideshowPlaying) {
+      stopSlideshow();
+    } else {
+      startSlideshow();
+    }
+  };
+
+  // Handle playback speed change
+  const handleSpeedChange = (speed: PlaybackSpeed) => {
+    setPlaybackSpeed(speed);
+    // Restart slideshow if playing with new speed
+    if (isSlideshowPlaying) {
+      startSlideshow();
+    }
+  };
+
   // Setup navigation hooks
   const touchHandlers = useLightboxNavigation({
     isOpen,
@@ -104,6 +181,7 @@ export default function Lightbox({
     onToggleFullscreen: () => setIsFullscreen(!isFullscreen),
     onToggleInfo: () => setShowInfo(!showInfo),
     onDownload: handleDownload,
+    onToggleSlideshow: handleToggleSlideshow,
   });
 
   // Reset states when photo changes or lightbox opens
@@ -111,12 +189,43 @@ export default function Lightbox({
     setIsLoading(true);
   }, [photo.id]);
 
+  // Handle photo change during slideshow
+  useEffect(() => {
+    // Only restart if slideshow is playing and photo actually changed
+    if (isSlideshowPlaying && lastPhotoIdRef.current !== photo.id) {
+      // Photo changed during slideshow - the progress interval will handle advancing
+      lastPhotoIdRef.current = photo.id;
+    } else if (!lastPhotoIdRef.current) {
+      // Initialize on first photo
+      lastPhotoIdRef.current = photo.id;
+    }
+  }, [photo.id, isSlideshowPlaying]);
+
+  // Cleanup slideshow when lightbox closes
   useEffect(() => {
     if (isOpen) {
       setIsFullscreen(true);
       setShowInfo(false);
+    } else {
+      // Stop slideshow when lightbox closes
+      cleanupSlideshow();
+      setIsSlideshowPlaying(false);
     }
   }, [isOpen]);
+
+  // Cleanup slideshow on unmount
+  useEffect(() => {
+    return () => {
+      cleanupSlideshow();
+    };
+  }, []);
+
+  // Stop slideshow if user manually navigates to last photo
+  useEffect(() => {
+    if (isSlideshowPlaying && currentIndex >= totalCount - 1) {
+      stopSlideshow();
+    }
+  }, [currentIndex, totalCount, isSlideshowPlaying]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
@@ -277,6 +386,22 @@ export default function Lightbox({
                   isFullscreen={true}
                 />
               )}
+
+              {/* Slideshow Controls */}
+              {isFullscreen && onNext && (
+                <SlideshowControls
+                  isPlaying={isSlideshowPlaying}
+                  playbackSpeed={playbackSpeed}
+                  onTogglePlay={handleToggleSlideshow}
+                  onSpeedChange={handleSpeedChange}
+                />
+              )}
+
+              {/* Slideshow Progress Bar */}
+              <SlideshowProgressBar
+                isPlaying={isSlideshowPlaying}
+                progress={slideshowProgress}
+              />
             </div>
           </div>
         </Dialog.Content>
