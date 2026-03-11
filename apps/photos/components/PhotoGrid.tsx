@@ -2,7 +2,7 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Images } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
 import type { Photo } from "@/lib/photo-provider";
@@ -83,10 +83,12 @@ export default function PhotoGrid({
       <div className={cn("w-full px-4", className)}>
         {/* EXIF Filters */}
         {showFilters && photos.length > 0 && (
-          <EXIFFilters
-            photos={photos}
-            onFilterChange={handleFilterChange}
-          />
+          <Suspense fallback={null}>
+            <EXIFFilters
+              photos={photos}
+              onFilterChange={handleFilterChange}
+            />
+          </Suspense>
         )}
 
         {/* Filter count */}
