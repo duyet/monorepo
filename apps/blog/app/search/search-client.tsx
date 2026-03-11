@@ -25,9 +25,14 @@ export function SearchClient({
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const categoryFilter = searchParams.get("category") || "";
-  const tagsFilter = (searchParams.get("tags") || "")
-    .split(",")
-    .filter(Boolean);
+
+  // Memoize tagsFilter parsing to avoid splitting on every render
+  const tagsFilter = useMemo(() => {
+    return (searchParams.get("tags") || "")
+      .split(",")
+      .filter(Boolean);
+  }, [searchParams]);
+
   const fromDate = searchParams.get("from") || "";
   const toDate = searchParams.get("to") || "";
 
@@ -36,18 +41,21 @@ export function SearchClient({
     return query.toLowerCase().split(/\s+/).filter(Boolean);
   }, [query]);
 
-  // Parse date filters
+  // Parse date filters (parse once, normalize if valid)
   const fromDateObj = useMemo(() => {
     if (!fromDate) return null;
     const date = new Date(fromDate);
-    return isNaN(date.getTime()) ? null : new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    if (Number.isNaN(date.getTime())) return null;
+    // Normalize to start of day
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }, [fromDate]);
 
   const toDateObj = useMemo(() => {
     if (!toDate) return null;
     const date = new Date(toDate);
+    if (Number.isNaN(date.getTime())) return null;
     // Include the entire end day by setting to 23:59:59
-    return isNaN(date.getTime()) ? null : new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
   }, [toDate]);
 
   // Check if any filters are active
@@ -55,12 +63,15 @@ export function SearchClient({
 
   // Memoize filtered posts for performance
   const filteredPosts = useMemo(() => {
-    // Start with all posts if no query, otherwise search
-    let results = posts;
+    // No query and no filters - show initial posts
+    if (!query && !categoryFilter && tagsFilter.length === 0 && !fromDate && !toDate) {
+      return posts.slice(0, DEFAULT_INITIAL_POST_COUNT);
+    }
 
-    // Text search filter
-    if (query) {
-      results = results.filter((post) => {
+    // Combined filter pass - reduces intermediate array allocations
+    return posts.filter((post) => {
+      // Text search filter
+      if (query) {
         const searchText = [
           post.title,
           post.category,
@@ -71,36 +82,33 @@ export function SearchClient({
           .toLowerCase();
 
         // All search terms must match (AND logic)
-        return searchTerms.every((term) => searchText.includes(term));
-      });
-    } else if (!hasFilters) {
-      // No query and no filters - show initial posts
-      return posts.slice(0, DEFAULT_INITIAL_POST_COUNT);
-    }
+        if (!searchTerms.every((term) => searchText.includes(term))) {
+          return false;
+        }
+      }
 
-    // Category filter
-    if (categoryFilter) {
-      results = results.filter((post) => post.category === categoryFilter);
-    }
+      // Category filter
+      if (categoryFilter && post.category !== categoryFilter) {
+        return false;
+      }
 
-    // Tags filter (posts must have ALL selected tags)
-    if (tagsFilter.length > 0) {
-      results = results.filter((post) =>
-        tagsFilter.every((tag) => post.tags.includes(tag))
-      );
-    }
+      // Tags filter (posts must have ALL selected tags)
+      if (tagsFilter.length > 0 && !tagsFilter.every((tag) => post.tags.includes(tag))) {
+        return false;
+      }
 
-    // Date range filter
-    if (fromDateObj) {
-      results = results.filter((post) => post.date >= fromDateObj);
-    }
+      // Date range filter
+      if (fromDateObj && post.date < fromDateObj) {
+        return false;
+      }
 
-    if (toDateObj) {
-      results = results.filter((post) => post.date <= toDateObj);
-    }
+      if (toDateObj && post.date > toDateObj) {
+        return false;
+      }
 
-    return results;
-  }, [posts, searchTerms, query, categoryFilter, tagsFilter, fromDateObj, toDateObj, hasFilters]);
+      return true;
+    });
+  }, [posts, searchTerms, query, categoryFilter, tagsFilter, fromDateObj, toDateObj]);
 
   // Sort by date descending (no need for spread - filteredPosts is already a new array)
   const sortedPosts = useMemo(() => {
