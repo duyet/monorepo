@@ -15,7 +15,7 @@ import { ComparisonMetrics } from "@/components/comparison";
 import {
   getCCUsageComparison,
   formatCCTokens,
-  formatCCCost,
+  formatCCost,
 } from "../../../../ai/ccusage-comparison-utils";
 import { SkeletonCard } from "@/components/SkeletonCard";
 
@@ -113,8 +113,8 @@ async function AIComparisonContent({
     },
     {
       label: "Total Cost",
-      value1: formatCCCost(comparison.totalCost.value1),
-      value2: formatCCCost(comparison.totalCost.value2),
+      value1: formatCCost(comparison.totalCost.value1),
+      value2: formatCCost(comparison.totalCost.value2),
       delta: comparison.totalCost.delta,
     },
     {
