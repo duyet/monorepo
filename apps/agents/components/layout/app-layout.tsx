@@ -10,7 +10,7 @@ interface AppLayoutProps {
  */
 export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="flex flex-1 flex-col overflow-hidden w-full h-full bg-transparent">
+    <div className="flex flex-1 flex-col overflow-hidden w-full min-h-screen bg-transparent">
       {children}
     </div>
   );

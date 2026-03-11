@@ -368,7 +368,7 @@ export function VercelChat() {
           </Conversation>
 
           {/* Floating input area */}
-          <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none">
+          <div className="absolute bottom-0 w-full bg-background pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none border-t border-border/50">
             <div className="mx-auto max-w-3xl">
               <form
                 onSubmit={handleFormSubmit}
