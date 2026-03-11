@@ -5,6 +5,8 @@
  * Returns null for unauthenticated or unverifiable requests.
  */
 
+import { logger } from "@duyet/libs";
+
 export interface AuthUser {
   userId: string;
 }
@@ -33,7 +35,7 @@ export async function hashIp(ip: string, pepper?: string): Promise<string> {
       ? process.env.RATE_LIMIT_PEPPER
       : undefined);
   if (!secret) {
-    console.warn(
+    logger.warn(
       "[auth] RATE_LIMIT_PEPPER not configured — using insecure default. Set RATE_LIMIT_PEPPER in wrangler.toml or dashboard."
     );
   }
