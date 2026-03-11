@@ -45,7 +45,16 @@ export {
 } from "./checkpointer";
 
 // State management utilities (Unit 1)
-export { StateManager } from "./state";
+export {
+  validate,
+  createAgentState,
+  clone,
+  applyUpdate,
+  computeDiff,
+  formatDiff,
+  createCheckpoint,
+  restoreFromCheckpoint,
+} from "./state";
 export type { StateValidationResult } from "./state";
 
 // Conditional edge logic (Unit 9)

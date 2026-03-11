@@ -13,7 +13,11 @@ import type {
   StateObserver,
   GraphMetrics,
 } from "./types";
-import { StateManager } from "./state";
+import {
+  createCheckpoint,
+  computeDiff,
+  formatDiff,
+} from "./state";
 
 /**
  * Observability configuration options
@@ -136,7 +140,7 @@ export class ObservabilityMiddleware {
       nodeId,
       nodeName,
       startTime,
-      inputState: StateManager.createCheckpoint(inputState),
+      inputState: createCheckpoint(inputState),
       outcome: "running",
     };
 
@@ -150,7 +154,7 @@ export class ObservabilityMiddleware {
       const duration = endTime - startTime;
 
       // Compute state diff
-      const stateDiff = StateManager.computeDiff(inputState, {
+      const stateDiff = computeDiff(inputState, {
         ...inputState,
         ...resultState,
       } as AgentState);
@@ -158,7 +162,7 @@ export class ObservabilityMiddleware {
       // Update trace with results
       trace.endTime = endTime;
       trace.duration = duration;
-      trace.outputState = StateManager.createCheckpoint({
+      trace.outputState = createCheckpoint({
         ...inputState,
         ...resultState,
       } as AgentState);
@@ -173,7 +177,7 @@ export class ObservabilityMiddleware {
 
       // Log state diff if debug mode
       if (this.options.debug && stateDiff) {
-        const diffFormatted = StateManager.formatDiff(stateDiff);
+        const diffFormatted = formatDiff(stateDiff);
         this.options.logger("debug", `State diff for ${nodeName}:`, diffFormatted);
       }
 

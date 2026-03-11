@@ -185,7 +185,16 @@ export type {
 } from "./graph/types";
 
 // State management utilities (Unit 1)
-export { StateManager } from "./graph/state";
+export {
+  validate,
+  createAgentState,
+  clone,
+  applyUpdate,
+  computeDiff,
+  formatDiff,
+  createCheckpoint,
+  restoreFromCheckpoint,
+} from "./graph/state";
 export type { StateValidationResult } from "./graph/state";
 
 // Conditional edge logic (Unit 9)
