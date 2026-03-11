@@ -13,7 +13,7 @@ export function ReadingProgress() {
       const scrollTop = window.scrollY;
       const scrollableHeight = documentHeight - windowHeight;
       if (scrollableHeight <= 0) {
-        setProgress(100);
+        setProgress(0);
         return;
       }
       const scrollProgress = (scrollTop / scrollableHeight) * 100;
@@ -38,14 +38,20 @@ export function ReadingProgress() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Hide when at top (progress is 0)
+  const isVisible = progress > 0;
+
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 right-0 h-1",
+        "fixed top-0 left-0 right-0 h-[2px]",
         "z-50",
-        "bg-gray-200 dark:bg-gray-800"
+        "bg-gray-200 dark:bg-gray-800",
+        // Hide container when no progress
+        !isVisible && "opacity-0"
       )}
       aria-hidden="true"
+      aria-label="Reading progress"
     >
       <div
         className={cn(
