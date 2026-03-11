@@ -1,5 +1,5 @@
 import Container from "@duyet/components/Container";
-import Link from "next/link";
+import PhotoGallery from "@/components/PhotoGallery";
 import PhotoGrid from "@/components/PhotoGrid";
 import { RetryButton } from "@/components/RetryButton";
 import { EXIFStatisticsDisplay } from "@/components/EXIFStatistics";
@@ -10,12 +10,12 @@ import {
   RateLimitError,
   UnknownPhotoError,
 } from "@/lib/errors";
+import { Suspense } from "react";
 
 export const dynamic = "force-static";
 
 import {
   getAllPhotos,
-  groupPhotosByYear,
   type Photo,
 } from "@/lib/photo-provider";
 
@@ -26,12 +26,10 @@ type PageProps = {
 
 export default async function PhotosPage({ searchParams: _searchParams }: PageProps) {
   let photos: Photo[] = [];
-  let photosByYear: { [year: string]: Photo[] } = {};
   let photoError: PhotoFetchError | null = null;
 
   try {
     photos = await getAllPhotos();
-    photosByYear = groupPhotosByYear(photos);
   } catch (e) {
     photoError =
       e instanceof RateLimitError ||
@@ -41,13 +39,6 @@ export default async function PhotosPage({ searchParams: _searchParams }: PagePr
         ? e
         : new UnknownPhotoError(e);
   }
-
-  const totalPhotos = photos.length;
-  const isFallback =
-    photos.length > 0 && photos.some((p) => p.id.startsWith("fallback-"));
-  const years = Object.keys(photosByYear)
-    .map(Number)
-    .sort((a, b) => b - a); // Sort years in descending order
 
   // Only show error state if we have no photos at all
   // If we have fallback photos, proceed normally
@@ -109,8 +100,18 @@ export default async function PhotosPage({ searchParams: _searchParams }: PagePr
   }
 
   return (
+    <Suspense fallback={<PhotoGallerySkeleton photos={photos} />}>
+      <PhotoGallery photos={photos} />
+    </Suspense>
+  );
+}
+
+/**
+ * Skeleton loader for PhotoGallery while Suspense is resolving
+ */
+function PhotoGallerySkeleton({ photos }: { photos: Photo[] }) {
+  return (
     <>
-      {/* Skip to content link for accessibility */}
       <a
         href="#main-content"
         className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white shadow-lg transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
@@ -128,53 +129,8 @@ export default async function PhotosPage({ searchParams: _searchParams }: PagePr
               Photography Collection
             </h1>
             <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-              {isFallback ? (
-                <>
-                  A selection of{" "}
-                  <span className="font-semibold">
-                    {totalPhotos} sample photos
-                  </span>{" "}
-                  to showcase the gallery. Configure your photo providers to
-                  display your own collection.
-                </>
-              ) : (
-                <>
-                  A curated selection of {totalPhotos} photos from{" "}
-                  <a
-                    href="https://unsplash.com/@_duyet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
-                  >
-                    Unsplash
-                  </a>{" "}
-                  and Cloudinary. Explore landscapes, architecture, and moments
-                  captured through the lens.
-                </>
-              )}{" "}
-              Prefer a narrative experience?{" "}
-              <Link
-                href="/feed"
-                className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
-              >
-                View the photo stream
-              </Link>
-              .
+              Loading...
             </p>
-
-            {years.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-2">
-                {years.map((year) => (
-                  <Link
-                    key={year}
-                    href={`/${year}`}
-                    className="hover:bg-terracotta-light rounded-full bg-white px-4 py-1.5 text-sm font-medium text-neutral-700 shadow-sm transition-all hover:text-neutral-900 hover:shadow dark:bg-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700"
-                  >
-                    {year}
-                  </Link>
-                ))}
-              </div>
-            )}
           </section>
         </Container>
       </div>
@@ -193,19 +149,7 @@ export default async function PhotosPage({ searchParams: _searchParams }: PagePr
         <h2 id="photos-heading" className="sr-only">
           Photo Gallery
         </h2>
-        {photos.length > 0 ? (
-          <PhotoGrid photos={photos} />
-        ) : (
-          <Container>
-            <div className="flex min-h-[400px] items-center justify-center">
-              <div className="rounded-2xl bg-white p-8 text-center shadow-sm dark:bg-slate-800">
-                <p className="text-neutral-600 dark:text-neutral-400">
-                  No photos available at the moment.
-                </p>
-              </div>
-            </div>
-          </Container>
-        )}
+        <PhotoGrid photos={photos} />
       </section>
     </>
   );
