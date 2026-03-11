@@ -368,11 +368,11 @@ export function VercelChat() {
           </Conversation>
 
           {/* Floating input area */}
-          <div className="absolute bottom-0 w-full bg-background pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none border-t border-border/50">
+          <div className="absolute bottom-0 w-full pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-3 sm:px-4 pointer-events-none">
             <div className="mx-auto max-w-3xl">
               <form
                 onSubmit={handleFormSubmit}
-                className="relative flex items-end gap-2 w-full rounded-2xl border border-input bg-background shadow-sm transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring pointer-events-auto p-2"
+                className="relative flex items-end gap-2 w-full rounded-xl border border-input bg-background shadow-sm transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring pointer-events-auto p-2"
               >
                 {/* Left Icons */}
                 <div className="flex items-center gap-1 shrink-0">
