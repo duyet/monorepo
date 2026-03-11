@@ -31,6 +31,8 @@ export function ActivityPanel({
   // Graph state for enhanced activity panel (Unit 19)
   graphState,
   nodeTraces = [],
+  // Visual graph data from GraphRouter (Unit 10)
+  graphData,
 }: ActivityPanelProps) {
   // Determine if graph tabs are available
   const hasGraphData = graphState != null;
@@ -73,36 +75,6 @@ export function ActivityPanel({
 
   const hasActivity =
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
-
-  // Build graph data from state and traces (memoized to avoid recreating on every render)
-  const graphData = useMemo(() => graphState ? {
-    nodes: [
-      { id: "input", position: { x: 0, y: 0 }, type: "input", data: { label: "Input", nodeType: "input" as const } },
-      { id: "llm-router", position: { x: 200, y: 0 }, type: "conditional", data: { label: "LLM Router", nodeType: "conditional" as const } },
-      { id: "search-blog", position: { x: 400, y: 0 }, type: "tool", data: { label: "Search Blog", nodeType: "tool" as const } },
-      { id: "get-cv", position: { x: 400, y: 100 }, type: "tool", data: { label: "Get CV", nodeType: "tool" as const } },
-      { id: "get-github", position: { x: 400, y: 200 }, type: "tool", data: { label: "Get GitHub", nodeType: "tool" as const } },
-      { id: "get-analytics", position: { x: 400, y: 300 }, type: "tool", data: { label: "Get Analytics", nodeType: "tool" as const } },
-      { id: "get-about", position: { x: 400, y: 400 }, type: "tool", data: { label: "Get About", nodeType: "tool" as const } },
-      { id: "fetch-llms-txt", position: { x: 400, y: 500 }, type: "tool", data: { label: "Fetch LLMs.txt", nodeType: "tool" as const } },
-      { id: "synthesis", position: { x: 600, y: 250 }, type: "output", data: { label: "Synthesis", nodeType: "synthesis" as const } },
-    ],
-    edges: [
-      { id: "input-router", source: "input", target: "llm-router", label: "route" },
-      { id: "router-search", source: "llm-router", target: "search-blog", label: "search-blog" },
-      { id: "router-cv", source: "llm-router", target: "get-cv", label: "get-cv" },
-      { id: "router-github", source: "llm-router", target: "get-github", label: "get-github" },
-      { id: "router-analytics", source: "llm-router", target: "get-analytics", label: "get-analytics" },
-      { id: "router-about", source: "llm-router", target: "get-about", label: "get-about" },
-      { id: "router-llms", source: "llm-router", target: "fetch-llms-txt", label: "fetch-llms-txt" },
-      { id: "search-synthesis", source: "search-blog", target: "synthesis", label: "result" },
-      { id: "cv-synthesis", source: "get-cv", target: "synthesis", label: "result" },
-      { id: "github-synthesis", source: "get-github", target: "synthesis", label: "result" },
-      { id: "analytics-synthesis", source: "get-analytics", target: "synthesis", label: "result" },
-      { id: "about-synthesis", source: "get-about", target: "synthesis", label: "result" },
-      { id: "llms-synthesis", source: "fetch-llms-txt", target: "synthesis", label: "result" },
-    ],
-  } : undefined, [graphState]);
 
   // Get active node from traces
   const activeNodeId = nodeTraces.length > 0
