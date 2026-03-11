@@ -299,6 +299,7 @@ export function VercelChat() {
             showActivityButton={hasActivity}
             activityCount={toolExecutions.length}
             conversationTitle={activeConversation?.title}
+            conversationId={activeId ?? undefined}
           />
 
         {/* Messages area */}

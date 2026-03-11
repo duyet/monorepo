@@ -1,10 +1,25 @@
 "use client";
 
 import { Button } from "@duyet/components";
-import { Activity, MoreHorizontal, Plus, Wrench } from "lucide-react";
+import {
+  Activity,
+  Download,
+  FileJson,
+  FileText,
+  MoreHorizontal,
+  Plus,
+  Wrench,
+} from "lucide-react";
 import { useState } from "react";
 import { useClerkComponents } from "@/lib/hooks/use-clerk-components";
+import { useExportConversation } from "@/lib/hooks/use-export-conversation";
 import { SettingsDialog } from "../settings/settings-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface ChatTopBarProps {
   onToggleActivity: () => void;
@@ -13,7 +28,15 @@ interface ChatTopBarProps {
   showActivityButton: boolean;
   activityCount: number;
   conversationTitle?: string;
+  conversationId?: string;
 }
+
+// Export format options configuration
+const EXPORT_FORMATS = [
+  { format: "json", label: "Export as JSON", icon: FileJson },
+  { format: "md", label: "Export as Markdown", icon: FileText },
+  { format: "txt", label: "Export as Text", icon: FileText },
+] as const;
 
 export function ChatTopBar({
   onToggleActivity,
@@ -22,9 +45,22 @@ export function ChatTopBar({
   showActivityButton,
   activityCount,
   conversationTitle,
+  conversationId,
 }: ChatTopBarProps) {
   const clerk = useClerkComponents();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const { exportConversation, isExporting } = useExportConversation();
+
+  const handleExport = async (format: "json" | "md" | "txt") => {
+    if (!conversationId) return;
+    try {
+      await exportConversation({ conversationId, format });
+    } catch (error) {
+      console.error("Export failed:", error);
+    }
+  };
+
+  const canExport = Boolean(conversationId);
 
   return (
     <>
@@ -58,6 +94,36 @@ export function ChatTopBar({
               <Wrench className="h-4 w-4" />
               <span className="sr-only">Tools</span>
             </Button>
+          )}
+
+          {canExport && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-md shadow-sm bg-background"
+                  disabled={isExporting}
+                >
+                  <Download
+                    className={`h-4 w-4 ${isExporting ? "animate-pulse" : ""}`}
+                  />
+                  <span className="sr-only">Export</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {EXPORT_FORMATS.map(({ format, label, icon: Icon }) => (
+                  <DropdownMenuItem
+                    key={format}
+                    onClick={() => handleExport(format as "json" | "md" | "txt")}
+                    disabled={isExporting}
+                  >
+                    <Icon className="h-4 w-4 mr-2" />
+                    {label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
 
           <Button
