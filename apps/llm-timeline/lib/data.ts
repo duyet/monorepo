@@ -1,4 +1,5 @@
 // @ts-nocheck — machine-generated file, types validated by Model interface
+// biome-ignore-file: excluded from linting due to size (1.9 MiB) - contains 3900+ model entries
 /**
  * LLM Timeline Data
  *
