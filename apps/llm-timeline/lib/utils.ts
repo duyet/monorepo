@@ -1,4 +1,5 @@
 import type { Model } from "./data";
+import { getParamsBucket } from "@duyet/libs";
 
 export interface FilterState {
   search: string;
@@ -20,8 +21,8 @@ export const DEFAULT_FILTERS: FilterState = {
   params: "all",
 };
 
-// Re-export getParamsBucket from @duyet/libs
-export { getParamsBucket } from "@duyet/libs";
+// Re-export getParamsBucket for convenience
+export { getParamsBucket };
 
 /**
  * Filter models based on search and filter criteria
