@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback } from "react";
-import { Search, X, Rows2, LayoutList, Download } from "lucide-react";
+import { X, Rows2, LayoutList, Download } from "lucide-react";
 import type { FilterState } from "@/lib/utils";
 import { organizations, domains, models as allModels } from "@/lib/data";
+import { SearchAutocomplete } from "./SearchAutocomplete";
 
 // Compute unique sources for filter dropdown
 const uniqueSources = Array.from(
@@ -66,28 +67,18 @@ export function Filters({
 
   return (
     <div className="mb-8 space-y-4">
-      {/* Search */}
-      <div className="relative">
-        <Search
-          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-          style={{ color: "var(--text-muted)" }}
-        />
-        <input
-          type="text"
-          placeholder="Search models, organizations..."
+      {/* Search with Autocomplete */}
+      <div>
+        <SearchAutocomplete
           value={filters.search}
-          onChange={(e) => updateFilter("search", e.target.value)}
-          className="w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1"
-          style={{
-            ...inputStyle,
-            // @ts-expect-error CSS custom properties
-            "--tw-ring-color": "var(--accent)",
-          }}
+          onChange={(value) => updateFilter("search", value)}
+          inputClassName="pr-10"
+          placeholder="Search models, organizations..."
         />
         {filters.search && (
           <button
             onClick={() => updateFilter("search", "")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
+            className="absolute right-3 top-[1.9rem] transition-opacity hover:opacity-70"
             style={{ color: "var(--text-muted)" }}
             aria-label="Clear search"
           >
