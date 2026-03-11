@@ -6,9 +6,8 @@
  * Timeline view of executed nodes with outcomes and expandable details.
  */
 
-import { useState } from "react";
 import { Badge } from "@duyet/components";
-import { cn } from "@duyet/libs";
+import { cn, formatDuration } from "@duyet/libs";
 import {
   ChevronDown,
   ChevronRight,
@@ -18,6 +17,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useToggleSet } from "@/lib/hooks";
 import type { NodeTrace } from "@/lib/graph";
 
 export interface NodeTraceTimelineProps {
@@ -63,13 +63,6 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
 
   const config = statusConfig[trace.outcome] || statusConfig.pending;
   const StatusIcon = config.icon;
-
-  // Format duration for display
-  const formatDuration = (ms?: number): string => {
-    if (ms === undefined) return "—";
-    if (ms < 1000) return `${ms}ms`;
-    return `${(ms / 1000).toFixed(1)}s`;
-  };
 
   return (
     <div className="border-b border-border last:border-0">
@@ -206,17 +199,7 @@ export function NodeTraceTimeline({
   traces,
   className,
 }: NodeTraceTimelineProps) {
-  const [expandedIndices, setExpandedIndices] = useState<Set<number>>(new Set());
-
-  const toggleExpanded = (index: number) => {
-    const newExpanded = new Set(expandedIndices);
-    if (newExpanded.has(index)) {
-      newExpanded.delete(index);
-    } else {
-      newExpanded.add(index);
-    }
-    setExpandedIndices(newExpanded);
-  };
+  const [expandedIndices, toggleExpanded] = useToggleSet<number>();
 
   if (traces.length === 0) {
     return (
