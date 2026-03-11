@@ -82,7 +82,7 @@ function ListLoading() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mx-auto max-w-3xl space-y-6">
-        {[...Array(8)].map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <div key={i} className="space-y-2">
             <Skeleton className="h-20 w-full" />
             <Skeleton className="h-4 w-3/4" />

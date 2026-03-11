@@ -74,8 +74,8 @@ export function ActivityPanel({
   const hasActivity =
     executions.length > 0 || thinkingSteps.length > 0 || isLoading;
 
-  // Build graph data from state and traces
-  const graphData = graphState ? {
+  // Build graph data from state and traces (memoized to avoid recreating on every render)
+  const graphData = useMemo(() => graphState ? {
     nodes: [
       { id: "input", position: { x: 0, y: 0 }, type: "input", data: { label: "Input", nodeType: "input" as const } },
       { id: "llm-router", position: { x: 200, y: 0 }, type: "conditional", data: { label: "LLM Router", nodeType: "conditional" as const } },
@@ -102,7 +102,7 @@ export function ActivityPanel({
       { id: "about-synthesis", source: "get-about", target: "synthesis", label: "result" },
       { id: "llms-synthesis", source: "fetch-llms-txt", target: "synthesis", label: "result" },
     ],
-  } : undefined;
+  } : undefined, [graphState]);
 
   // Get active node from traces
   const activeNodeId = nodeTraces.length > 0
@@ -254,7 +254,7 @@ export function ActivityPanel({
 
         {/* Graph Tab - Node-edge visualization (Unit 18) */}
         <TabsContent value="graph" className="p-0 m-0">
-          {graphData && graphState ? (
+          {graphData ? (
             <div className="h-full min-h-[400px]">
               {/* Graph stats header */}
               <div className="px-4 py-2 border-b border-border bg-muted/10 flex items-center gap-2">
