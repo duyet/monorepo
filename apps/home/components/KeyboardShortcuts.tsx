@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Keyboard, Info, X } from "lucide-react";
 
 interface ShortcutCard {
@@ -19,8 +19,6 @@ export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsPro
   const [showBadges, setShowBadges] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
-  const onNavigateRef = useCallback(onNavigate, [onNavigate]);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignore if user is typing in an input
@@ -34,7 +32,7 @@ export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsPro
 
       // Number keys (1-9) for navigation
       if (e.key >= "1" && e.key <= "9") {
-        const index = parseInt(e.key) - 1;
+        const index = parseInt(e.key, 10) - 1;
         if (index < cards.length) {
           e.preventDefault();
           const card = cards[index];
@@ -49,14 +47,14 @@ export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsPro
             linkElement.focus();
             linkElement.scrollIntoView({ behavior: "smooth", block: "center" });
             // Navigate immediately
-            onNavigateRef(card.id);
+            onNavigate(card.id);
           }
         }
       }
 
       // Numpad support (Numpad1-Numpad9)
       if (e.code.startsWith("Numpad")) {
-        const numpadNum = parseInt(e.code.replace("Numpad", ""));
+        const numpadNum = parseInt(e.code.replace("Numpad", ""), 10);
         if (numpadNum >= 1 && numpadNum <= 9) {
           const index = numpadNum - 1;
           if (index < cards.length) {
@@ -71,7 +69,7 @@ export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsPro
             if (linkElement) {
               linkElement.focus();
               linkElement.scrollIntoView({ behavior: "smooth", block: "center" });
-              onNavigateRef(card.id);
+              onNavigate(card.id);
             }
           }
         }
@@ -98,7 +96,7 @@ export function useKeyboardShortcuts({ cards, onNavigate }: KeyboardShortcutsPro
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [cards, onNavigateRef]);
+  }, [cards, onNavigate]);
 
   return { activeKey, showBadges, showHelp, setShowHelp };
 }
