@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { logger } from "@duyet/libs";
 import {
   createConversation as createLocalConversation,
   loadConversations as loadLocalStorage,
@@ -45,7 +46,7 @@ async function getAuthHeaders(
     if (!token) return {};
     return { Authorization: `Bearer ${token}` };
   } catch (error) {
-    console.warn("[useConversations] Failed to get auth token:", error);
+    logger.warn("[useConversations] Failed to get auth token:", error);
     return {};
   }
 }
@@ -65,7 +66,7 @@ async function fetchConversations(
     const data = await response.json();
     return data.conversations || [];
   } catch (error) {
-    console.error("[useConversations] API error:", error);
+    logger.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) {
       // Authenticated: never fall back to stale local data
       return [];
@@ -93,7 +94,7 @@ async function fetchConversationWithMessages(
       messages: data.messages || [],
     };
   } catch (error) {
-    console.error("[useConversations] API error:", error);
+    logger.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) {
       return { conversation: null, messages: [] };
     }
@@ -124,7 +125,7 @@ async function createConversation(
     const data = await response.json();
     return data.conversation;
   } catch (error) {
-    console.error("[useConversations] API error:", error);
+    logger.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) {
       throw error; // Don't fall back for authenticated users
     }
@@ -152,7 +153,7 @@ async function updateConversationTitle(
     if (!response.ok)
       throw new Error(`Failed to update conversation: ${response.status}`);
   } catch (error) {
-    console.error("[useConversations] API error:", error);
+    logger.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) throw error;
     const local = loadLocalStorage().find((c) => c.id === id);
     if (local) {
@@ -177,7 +178,7 @@ async function deleteConversation(
     if (!response.ok)
       throw new Error(`Failed to delete conversation: ${response.status}`);
   } catch (error) {
-    console.error("[useConversations] API error:", error);
+    logger.error("[useConversations] API error:", error);
     if (isAuthenticated(authHeaders)) throw error;
     removeLocalStorage(id);
   }
@@ -228,7 +229,7 @@ async function saveMessagesToConversation(
     });
     if (!res.ok) {
       errors.push({ messageId: message.id, status: res.status });
-      console.error(
+      logger.error(
         `[useConversations] Failed to save message ${message.id}: HTTP ${res.status}`
       );
     }
@@ -278,10 +279,10 @@ export function useConversations(
   }, [hasAuth]);
 
   const createNew = useCallback(async (mode: ChatMode): Promise<string> => {
-    console.log("[useConversations] Creating new conversation, mode:", mode);
+    logger.debug("[useConversations] Creating new conversation, mode:", mode);
     const headers = await getAuthHeaders(getAuthTokenRef.current);
     const conv = await createConversation(mode, undefined, headers);
-    console.log(
+    logger.debug(
       "[useConversations] Created conversation:",
       conv.id,
       conv.title
@@ -289,7 +290,7 @@ export function useConversations(
     setConversations((prev) => [conv, ...prev]);
     setActiveId(conv.id);
     messagesCacheRef.current.set(conv.id, []);
-    console.log("[useConversations] Set active conversation:", conv.id);
+    logger.debug("[useConversations] Set active conversation:", conv.id);
     return conv.id;
   }, []);
 
@@ -297,7 +298,7 @@ export function useConversations(
     // Check if we have messages cached
     if (messagesCacheRef.current.has(id)) {
       setActiveId(id);
-      console.log("[useConversations] Switching to conversation (cached):", id);
+      logger.debug("[useConversations] Switching to conversation (cached):", id);
       return messagesCacheRef.current.get(id)!;
     }
 
@@ -317,7 +318,7 @@ export function useConversations(
     }
 
     setActiveId(id);
-    console.log(
+    logger.debug(
       "[useConversations] Switching to conversation:",
       id,
       "messages:",
@@ -385,7 +386,7 @@ export function useConversations(
       getAuthHeaders(getAuthTokenRef.current).then((headers) => {
         saveMessagesToConversation(activeId, messages, headers).catch(
           (error) => {
-            console.error("[useConversations] Failed to save messages:", error);
+            logger.error("[useConversations] Failed to save messages:", error);
           }
         );
       });
