@@ -1,8 +1,10 @@
 "use client";
 
+import { useCallback, useMemo } from "react";
 import { Search, X, Rows2, LayoutList, Download } from "lucide-react";
 import type { FilterState } from "@/lib/utils";
 import { organizations, domains, models as allModels } from "@/lib/data";
+import { DEFAULT_FILTERS } from "@/lib/utils";
 
 // Compute unique sources for filter dropdown
 const uniqueSources = Array.from(
@@ -24,33 +26,31 @@ export function Filters({
   liteMode,
   onLiteModeToggle,
 }: FiltersProps) {
-  const updateFilter = <K extends keyof FilterState>(
-    key: K,
-    value: FilterState[K]
-  ) => {
-    onFilterChange({ ...filters, [key]: value });
-  };
+  // Memoize updateFilter to prevent unnecessary re-renders
+  const updateFilter = useCallback(
+    <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
+      onFilterChange({ ...filters, [key]: value });
+    },
+    [filters, onFilterChange]
+  );
 
-  const clearFilters = () => {
-    onFilterChange({
-      search: "",
-      license: "all",
-      type: "all",
-      org: "",
-      source: "all",
-      domain: "all",
-      params: "all",
-    });
-  };
+  // Memoize clearFilters to prevent unnecessary re-renders
+  const clearFilters = useCallback(() => {
+    onFilterChange(DEFAULT_FILTERS);
+  }, [onFilterChange]);
 
-  const hasActiveFilters =
-    filters.search ||
-    filters.license !== "all" ||
-    filters.type !== "all" ||
-    filters.org ||
-    filters.source !== "all" ||
-    filters.domain !== "all" ||
-    filters.params !== "all";
+  // Memoize hasActiveFilters to prevent unnecessary re-computation
+  const hasActiveFilters = useMemo(
+    () =>
+      filters.search ||
+      filters.license !== "all" ||
+      filters.type !== "all" ||
+      filters.org ||
+      filters.source !== "all" ||
+      filters.domain !== "all" ||
+      filters.params !== "all",
+    [filters]
+  );
 
   const inputStyle = {
     backgroundColor: "var(--bg-card)",
