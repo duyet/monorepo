@@ -9,6 +9,8 @@ import {
   Expand,
   ExternalLink,
   Info,
+  Pause,
+  Play,
   Shrink,
   X,
 } from "lucide-react";
@@ -25,6 +27,15 @@ interface LightboxControlsProps {
   onNext?: () => void;
   onPrevious?: () => void;
   className?: string;
+}
+
+export type PlaybackSpeed = 1 | 3 | 5 | 10;
+
+export interface SlideshowControlsProps {
+  isPlaying: boolean;
+  playbackSpeed: PlaybackSpeed;
+  onTogglePlay: () => void;
+  onSpeedChange: (speed: PlaybackSpeed) => void;
 }
 
 export function LightboxTopControls({
@@ -146,6 +157,84 @@ export function NavigationButton({
     >
       <Icon className="h-6 w-6 sm:h-8 sm:w-8" />
     </button>
+  );
+}
+
+export function SlideshowControls({
+  isPlaying,
+  playbackSpeed,
+  onTogglePlay,
+  onSpeedChange,
+}: SlideshowControlsProps) {
+  const speeds: PlaybackSpeed[] = [1, 3, 5, 10];
+
+  return (
+    <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full bg-black/60 px-4 py-2 backdrop-blur-md">
+      {/* Play/Pause button */}
+      <button
+        onClick={onTogglePlay}
+        className={cn(
+          "rounded-full p-2 text-white transition-all duration-200",
+          "hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50",
+          isPlaying
+            ? "bg-green-600/70 hover:bg-green-600/80"
+            : "bg-white/20 hover:bg-white/30"
+        )}
+        aria-label={isPlaying ? "Pause slideshow" : "Start slideshow"}
+        title={isPlaying ? "Pause slideshow (S)" : "Start slideshow (S)"}
+      >
+        {isPlaying ? (
+          <Pause className="h-4 w-4" />
+        ) : (
+          <Play className="h-4 w-4" />
+        )}
+      </button>
+
+      {/* Speed selector */}
+      <div className="flex items-center gap-1">
+        {speeds.map((speed) => (
+          <button
+            key={speed}
+            onClick={() => onSpeedChange(speed)}
+            className={cn(
+              "rounded px-2 py-1 text-xs font-medium text-white transition-all duration-200",
+              "hover:scale-105 focus:outline-none focus:ring-1 focus:ring-white/50",
+              playbackSpeed === speed
+                ? "bg-white/30"
+                : "bg-transparent hover:bg-white/10"
+            )}
+            aria-label={`Set slideshow speed to ${speed} seconds`}
+            aria-pressed={playbackSpeed === speed}
+          >
+            {speed}s
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function SlideshowProgressBar({
+  isPlaying,
+  progress,
+}: {
+  isPlaying: boolean;
+  progress: number;
+}) {
+  if (!isPlaying) return null;
+
+  return (
+    <div className="absolute bottom-0 left-0 right-0 z-10 h-1 bg-black/30">
+      <div
+        className="h-full bg-green-500 transition-all duration-100 ease-linear"
+        style={{ width: `${progress * 100}%` }}
+        role="progressbar"
+        aria-valuenow={progress * 100}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Slideshow progress"
+      />
+    </div>
   );
 }
 
