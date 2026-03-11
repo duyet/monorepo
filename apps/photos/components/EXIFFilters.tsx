@@ -14,6 +14,18 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Photo } from "@/lib/photo-provider";
 
+// URL parameter keys — centralized to avoid magic strings
+const URL_PARAMS = {
+  CAMERA: "camera",
+  LENS: "lens",
+  FOCAL_MIN: "focal_min",
+  FOCAL_MAX: "focal_max",
+  ISO_MIN: "iso_min",
+  ISO_MAX: "iso_max",
+  APERTURE_MIN: "aperture_min",
+  APERTURE_MAX: "aperture_max",
+} as const;
+
 export interface EXIFFilterState {
   camera: string;
   lens: string;
@@ -42,27 +54,27 @@ interface EXIFFiltersProps {
 function filtersToParams(filters: EXIFFilterState, filterOptions: ReturnType<typeof computeFilterOptions>): URLSearchParams {
   const params = new URLSearchParams();
 
-  if (filters.camera) params.set("camera", filters.camera);
-  if (filters.lens) params.set("lens", filters.lens);
+  if (filters.camera) params.set(URL_PARAMS.CAMERA, filters.camera);
+  if (filters.lens) params.set(URL_PARAMS.LENS, filters.lens);
 
   // Only add range params if they differ from defaults
   if (filters.focalLength[0] !== filterOptions.focalLength.min) {
-    params.set("focal_min", filters.focalLength[0].toString());
+    params.set(URL_PARAMS.FOCAL_MIN, filters.focalLength[0].toString());
   }
   if (filters.focalLength[1] !== filterOptions.focalLength.max) {
-    params.set("focal_max", filters.focalLength[1].toString());
+    params.set(URL_PARAMS.FOCAL_MAX, filters.focalLength[1].toString());
   }
   if (filters.iso[0] !== filterOptions.iso.min) {
-    params.set("iso_min", filters.iso[0].toString());
+    params.set(URL_PARAMS.ISO_MIN, filters.iso[0].toString());
   }
   if (filters.iso[1] !== filterOptions.iso.max) {
-    params.set("iso_max", filters.iso[1].toString());
+    params.set(URL_PARAMS.ISO_MAX, filters.iso[1].toString());
   }
   if (filters.aperture[0] !== filterOptions.aperture.min) {
-    params.set("aperture_min", filters.aperture[0].toString());
+    params.set(URL_PARAMS.APERTURE_MIN, filters.aperture[0].toString());
   }
   if (filters.aperture[1] !== filterOptions.aperture.max) {
-    params.set("aperture_max", filters.aperture[1].toString());
+    params.set(URL_PARAMS.APERTURE_MAX, filters.aperture[1].toString());
   }
 
   return params;
@@ -76,19 +88,19 @@ function paramsToFilters(
   filterOptions: ReturnType<typeof computeFilterOptions>
 ): EXIFFilterState {
   return {
-    camera: params.get("camera") || "",
-    lens: params.get("lens") || "",
+    camera: params.get(URL_PARAMS.CAMERA) || "",
+    lens: params.get(URL_PARAMS.LENS) || "",
     focalLength: [
-      Number.parseInt(params.get("focal_min") || String(filterOptions.focalLength.min), 10),
-      Number.parseInt(params.get("focal_max") || String(filterOptions.focalLength.max), 10),
+      Number(params.get(URL_PARAMS.FOCAL_MIN) || filterOptions.focalLength.min),
+      Number(params.get(URL_PARAMS.FOCAL_MAX) || filterOptions.focalLength.max),
     ],
     iso: [
-      Number.parseInt(params.get("iso_min") || String(filterOptions.iso.min), 10),
-      Number.parseInt(params.get("iso_max") || String(filterOptions.iso.max), 10),
+      Number(params.get(URL_PARAMS.ISO_MIN) || filterOptions.iso.min),
+      Number(params.get(URL_PARAMS.ISO_MAX) || filterOptions.iso.max),
     ],
     aperture: [
-      Number.parseFloat(params.get("aperture_min") || String(filterOptions.aperture.min)),
-      Number.parseFloat(params.get("aperture_max") || String(filterOptions.aperture.max)),
+      Number.parseFloat(params.get(URL_PARAMS.APERTURE_MIN) || String(filterOptions.aperture.min)),
+      Number.parseFloat(params.get(URL_PARAMS.APERTURE_MAX) || String(filterOptions.aperture.max)),
     ],
   };
 }
@@ -177,21 +189,19 @@ export default function EXIFFilters({
   // Compute filter options from photos
   const filterOptions = useMemo(() => computeFilterOptions(photos), [photos]);
 
-  // Initialize filters from URL params or defaults
-  const initialFilters = useMemo(() => {
+  // Initialize filters from URL params using lazy initialization
+  const [filters, setFilters] = useState<EXIFFilterState>(() => {
     const params = new URLSearchParams(searchParams.toString());
-    return paramsToFilters(params, filterOptions);
-  }, [searchParams, filterOptions]);
+    return paramsToFilters(params, computeFilterOptions(photos));
+  });
 
-  const [filters, setFilters] = useState<EXIFFilterState>(initialFilters);
-
-  // Update URL when filters change
+  // Update URL when filters change (not when filterOptions changes)
   useEffect(() => {
     const params = filtersToParams(filters, filterOptions);
     const queryString = params.toString();
     const newUrl = queryString ? `/?${queryString}` : "/";
     router.replace(newUrl, { scroll: false });
-  }, [filters, router, filterOptions]);
+  }, [filters, router]); // Remove filterOptions from dependencies
 
   // Apply filters to photos
   const applyFilters = useCallback(
@@ -256,32 +266,39 @@ export default function EXIFFilters({
     [photos, onFilterChange]
   );
 
-  // Apply filters whenever filters state changes
-  useEffect(() => {
-    applyFilters(filters);
-  }, [filters, applyFilters]);
-
-  // Handle filter changes
+  // Handle filter changes — apply immediately without extra render cycle
   const updateFilter = useCallback(
     (key: keyof EXIFFilterState, value: EXIFFilterState[keyof EXIFFilterState]) => {
-      setFilters((prev) => ({ ...prev, [key]: value }));
+      setFilters((prev) => {
+        const newFilters = { ...prev, [key]: value };
+        applyFilters(newFilters);
+        return newFilters;
+      });
     },
-    []
+    [applyFilters]
   );
 
-  // Reset all filters
+  // Reset all filters and clear URL
   const resetFilters = useCallback(() => {
     setFilters(DEFAULT_FILTERS);
-  }, []);
+    router.replace("/", { scroll: false });
+  }, [router]);
 
-  // Share current filters
+  // Share current filters with timeout cleanup
   const shareFilters = useCallback(async () => {
-    const url = window.location.href;
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    if (!url) return;
+
+    const showCopiedFeedback = () => {
+      setShareCopied(true);
+      const timeoutId = setTimeout(() => setShareCopied(false), 2000);
+      return () => clearTimeout(timeoutId);
+    };
 
     try {
       await navigator.clipboard.writeText(url);
-      setShareCopied(true);
-      setTimeout(() => setShareCopied(false), 2000);
+      const cleanup = showCopiedFeedback();
+      return cleanup;
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
@@ -292,8 +309,7 @@ export default function EXIFFilters({
       textArea.select();
       try {
         document.execCommand("copy");
-        setShareCopied(true);
-        setTimeout(() => setShareCopied(false), 2000);
+        showCopiedFeedback();
       } finally {
         document.body.removeChild(textArea);
       }
