@@ -2,12 +2,12 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Images } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
 import type { Photo } from "@/lib/photo-provider";
 import ErrorBoundary from "./ErrorBoundary";
-import EXIFFilters, { FilterCount, type EXIFFilterState } from "./EXIFFilters";
+import EXIFFilters, { FilterCount } from "./EXIFFilters";
 import Lightbox from "./Lightbox";
 import { EmptyState } from "./LoadingStates";
 import PhotoCard from "./PhotoCard";
@@ -28,7 +28,7 @@ export default function PhotoGrid({
   const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
 
   // Update filtered photos when source photos change
-  useMemo(() => {
+  useEffect(() => {
     setFilteredPhotos(photos);
   }, [photos]);
 
