@@ -454,7 +454,7 @@ function CheckpointControls({
 
         {/* Checkpoint dropdown */}
         {isCheckpointSelected && (
-          <div className="absolute z-50 w-full mt-1 bg-background border border-border rounded-md shadow-lg max-h-60 overflow-hidden">
+          <div className="absolute z-50 w-full mt-1 border border-border rounded-md shadow-lg max-h-60 overflow-hidden">
             <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/30">
               <span className="text-xs font-medium text-muted-foreground">
                 Version History
@@ -621,7 +621,7 @@ export function StateInspector({
   }
 
   return (
-    <div className={cn("h-full flex flex-col bg-background", className)}>
+    <div className={cn("h-full flex flex-col", className)}>
       {/* Header */}
       <div className="px-4 py-2 border-b border-border bg-muted/30">
         <div className="flex items-center justify-between">
@@ -678,7 +678,7 @@ export function StateInspector({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={cn(
-              "h-8 w-full pl-8 pr-3 text-xs rounded-md border border-input bg-background",
+              "h-8 w-full pl-8 pr-3 text-xs rounded-md border border-input",
               "focus:outline-none focus:ring-1 focus:ring-ring"
             )}
           />

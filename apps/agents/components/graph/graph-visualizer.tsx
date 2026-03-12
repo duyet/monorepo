@@ -175,7 +175,7 @@ export function GraphVisualizer({
   });
 
   return (
-    <div className={cn("w-full h-full bg-background", className)}>
+    <div className={cn("w-full h-full", className)}>
       <ReactFlow
         nodes={nodes}
         edges={edges}

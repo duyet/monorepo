@@ -108,7 +108,7 @@ export function ActivityPanel({
       value={activeTab}
       onValueChange={(value) => setActiveTab(value as any)}
       className={cn(
-        "flex flex-col h-full bg-background border-l border-border",
+        "flex flex-col h-full border-l border-border",
         className
       )}
     >
@@ -117,7 +117,7 @@ export function ActivityPanel({
         <TabsList className="flex items-center gap-1.5 relative top-[1px] bg-transparent p-0">
           <TabsTrigger
             value="process"
-            className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+            className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
           >
             Current Process
           </TabsTrigger>
@@ -126,7 +126,7 @@ export function ActivityPanel({
             <>
               <TabsTrigger
                 value="graph"
-                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
               >
                 <Network className="h-3 w-3 mr-1" />
                 Graph
@@ -134,7 +134,7 @@ export function ActivityPanel({
 
               <TabsTrigger
                 value="trace"
-                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
               >
                 <ListTree className="h-3 w-3 mr-1" />
                 Trace
@@ -142,7 +142,7 @@ export function ActivityPanel({
 
               <TabsTrigger
                 value="state"
-                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+                className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
               >
                 <FileCode className="h-3 w-3 mr-1" />
                 State
@@ -152,7 +152,7 @@ export function ActivityPanel({
 
           <TabsTrigger
             value="files"
-            className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
+            className="px-3 py-1.5 text-xs font-medium rounded-t-md rounded-b-none transition-colors data-[state=active]:text-foreground data-[state=active]:border data-[state=active]:border-b-0 data-[state=active]:border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 data-[state=inactive]:border-transparent"
           >
             Files
           </TabsTrigger>
@@ -175,7 +175,7 @@ export function ActivityPanel({
       </div>
 
       {/* Content */}
-      <ScrollArea className="flex-1 bg-background relative z-10">
+      <ScrollArea className="flex-1 relative z-10">
         {/* Process Tab - Legacy view */}
         <TabsContent value="process" className="p-4 space-y-4 m-0">
           {/* Top Stats */}

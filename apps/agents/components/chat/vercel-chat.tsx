@@ -475,7 +475,7 @@ export function VercelChat() {
                 panelOpen ? "w-[300px]" : "w-0"
               )}
             >
-              <div className="h-full w-[300px] bg-background">
+              <div className="h-full w-[300px]">
                 {activityContent}
               </div>
             </div>
@@ -483,7 +483,7 @@ export function VercelChat() {
               <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
                 <SheetContent
                   side="right"
-                  className="w-[320px] p-0 bg-background"
+                  className="w-[320px] p-0"
                 >
                   {activityContent}
                 </SheetContent>
@@ -497,7 +497,7 @@ export function VercelChat() {
       <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
         <SheetContent
           side="right"
-          className="w-[320px] p-0 border-l border-border bg-background"
+          className="w-[320px] p-0 border-l border-border"
         >
           <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
         </SheetContent>

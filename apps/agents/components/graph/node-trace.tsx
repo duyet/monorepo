@@ -157,7 +157,7 @@ function TraceItem({ trace, isExpanded, onToggle }: TraceItemProps) {
                     <span className="font-medium text-muted-foreground">
                       State Changes:
                     </span>{" "}
-                    <div className="mt-1 p-2 bg-background rounded border border-border font-mono">
+                    <div className="mt-1 p-2 rounded border border-border font-mono">
                       {parts.join(", ") || "(no changes)"}
                     </div>
                   </div>
@@ -244,7 +244,7 @@ export function NodeTraceTimeline({
   }
 
   return (
-    <div className={cn("h-full flex flex-col bg-background", className)}>
+    <div className={cn("h-full flex flex-col", className)}>
       {/* Header with summary */}
       <div className="px-4 py-2 border-b border-border bg-muted/30">
         <div className="flex items-center justify-between">
