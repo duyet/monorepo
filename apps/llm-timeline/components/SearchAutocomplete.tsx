@@ -167,8 +167,7 @@ export function SearchAutocomplete({
       part.toLowerCase().includes(query.toLowerCase()) ? (
         <strong
           key={i}
-          className="font-semibold"
-          style={{ color: "var(--accent)" }}
+          className="font-semibold text-neutral-900 dark:text-neutral-100"
         >
           {part}
         </strong>
@@ -181,21 +180,15 @@ export function SearchAutocomplete({
   const getSuggestionIcon = (suggestion: Suggestion) => {
     if (suggestion.type === "model") {
       return (
-        <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: "var(--border)" }}
-          />
+        <span className="inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
+          <span className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-600" />
           Model
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span
-          className="w-2 h-2 rounded-full"
-          style={{ backgroundColor: "var(--accent)" }}
-        />
+      <span className="inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
+        <span className="w-2 h-2 rounded-full bg-neutral-500 dark:bg-neutral-400" />
         Organization
       </span>
     );
@@ -215,12 +208,8 @@ export function SearchAutocomplete({
             setShowSuggestions(true);
           }
         }}
-        className={`w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 ${inputClassName || ""}`}
-        style={{
-          ...inputStyle,
-          // @ts-expect-error CSS custom properties
-          "--tw-ring-color": "var(--accent)",
-        }}
+        className={`w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500 ${inputClassName || ""}`}
+        style={inputStyle}
         autoComplete="off"
         role="combobox"
         aria-expanded={showSuggestions}
@@ -236,8 +225,7 @@ export function SearchAutocomplete({
         <div
           ref={dropdownRef}
           id="search-suggestions"
-          className="absolute z-10 mt-1 w-full rounded-lg border bg-white dark:bg-neutral-900 shadow-lg max-h-64 overflow-y-auto"
-          style={{ borderColor: "var(--border)" }}
+          className="absolute z-10 mt-1 w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-lg max-h-64 overflow-y-auto"
           role="listbox"
         >
           {suggestions.map((suggestion, index) => (
@@ -257,11 +245,11 @@ export function SearchAutocomplete({
             >
               <div className="flex items-center gap-2 min-w-0 flex-1">
                 {getSuggestionIcon(suggestion)}
-                <span className="truncate">
+                <span className="truncate text-neutral-700 dark:text-neutral-300">
                   {highlightMatch(suggestion.name, value)}
                 </span>
                 {suggestion.org && (
-                  <span className="text-muted-foreground">
+                  <span className="text-neutral-500 dark:text-neutral-400">
                     {" "}
                     · {suggestion.org}
                   </span>
@@ -273,10 +261,7 @@ export function SearchAutocomplete({
       )}
 
       {/* Search Icon */}
-      <div
-        className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-        style={{ color: "var(--text-muted)" }}
-      >
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500 dark:text-neutral-400">
         <svg
           className="h-4 w-4"
           fill="none"

@@ -72,14 +72,8 @@ export function VirtualTimeline({
 
   if (virtualItems.length === 0) {
     return (
-      <div
-        className="rounded-lg border p-8 text-center"
-        style={{
-          borderColor: "var(--border)",
-          backgroundColor: "var(--bg-card)",
-        }}
-      >
-        <p style={{ color: "var(--text-muted)" }}>
+      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-8 text-center">
+        <p className="text-neutral-500 dark:text-neutral-400">
           No models found matching your filters.
         </p>
       </div>
@@ -133,9 +127,8 @@ export function VirtualTimeline({
                 <div className="mb-6 flex items-center gap-4 overflow-hidden">
                   <div className="relative flex items-center shrink-0 overflow-hidden">
                     <span
-                      className="select-none text-4xl font-bold leading-none"
+                      className="select-none text-4xl font-bold leading-none font-[family-name:var(--font-mono)]"
                       style={{
-                        fontFamily: "var(--font-mono)",
                         color: "var(--year-watermark)",
                       }}
                       aria-hidden="true"
@@ -143,17 +136,8 @@ export function VirtualTimeline({
                       {groupItem.year}
                     </span>
                   </div>
-                  <div
-                    className="h-px flex-1 min-w-0 shrink"
-                    style={{ backgroundColor: "var(--border)" }}
-                  />
-                  <span
-                    className="text-xs uppercase tracking-widest shrink-0 whitespace-nowrap"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      color: "var(--text-muted)",
-                    }}
-                  >
+                  <div className="h-px flex-1 min-w-0 shrink bg-neutral-200 dark:bg-white/10" />
+                  <span className="text-xs uppercase tracking-widest shrink-0 whitespace-nowrap font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">
                     {groupItem.modelCount} model
                     {groupItem.modelCount !== 1 ? "s" : ""}
                   </span>

@@ -61,14 +61,8 @@ export function VirtualOrgTimeline({
 
   if (virtualItems.length === 0) {
     return (
-      <div
-        className="rounded-lg border p-8 text-center"
-        style={{
-          borderColor: "var(--border)",
-          backgroundColor: "var(--bg-card)",
-        }}
-      >
-        <p style={{ color: "var(--text-muted)" }}>
+      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-8 text-center">
+        <p className="text-neutral-500 dark:text-neutral-400">
           No models found matching your filters.
         </p>
       </div>
@@ -122,36 +116,23 @@ export function VirtualOrgTimeline({
                 <div className="mb-6 flex items-center gap-4 overflow-hidden">
                   <div className="shrink-0 overflow-hidden">
                     <span
-                      className="select-none text-3xl font-bold leading-none block"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        color: "var(--year-watermark)",
-                        whiteSpace: "nowrap",
-                      }}
+                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap"
+                      style={{ color: "var(--year-watermark)" }}
                       aria-hidden="true"
                     >
                       {groupItem.org}
                     </span>
                   </div>
-                  <div
-                    className="h-px flex-1 min-w-0 shrink"
-                    style={{ backgroundColor: "var(--border)" }}
-                  />
+                  <div className="h-px flex-1 min-w-0 shrink bg-neutral-200 dark:bg-white/10" />
                   <div className="flex shrink-0 items-center gap-2">
                     <OrgAvatar org={groupItem.org!} size="sm" />
                     <span
-                      className="text-sm font-medium truncate"
-                      style={{ color: "var(--text)", maxWidth: "12rem" }}
+                      className="text-sm font-medium truncate text-neutral-900 dark:text-neutral-100"
+                      style={{ maxWidth: "12rem" }}
                     >
                       {groupItem.org}
                     </span>
-                    <span
-                      className="text-xs uppercase tracking-widest"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        color: "var(--text-muted)",
-                      }}
-                    >
+                    <span className="text-xs uppercase tracking-widest font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">
                       {groupItem.modelCount} model
                       {groupItem.modelCount !== 1 ? "s" : ""}
                     </span>

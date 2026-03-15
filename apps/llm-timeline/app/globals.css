@@ -3,49 +3,49 @@
 @layer base {
   :root {
     --radius: 0.5rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.15 0.01 120);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.15 0.01 120);
-    --muted: oklch(0.94 0.005 120);
-    --muted-foreground: oklch(0.45 0.01 120);
-    --accent: oklch(0.94 0.03 70);
-    --accent-foreground: oklch(0.15 0.01 120);
-    --primary: oklch(0.55 0.18 55);
-    --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.94 0.005 120);
-    --secondary-foreground: oklch(0.15 0.01 120);
-    --border: oklch(0.88 0.01 120);
-    --input: oklch(0.88 0.01 120);
-    --ring: oklch(0.55 0.18 55);
-    --year-watermark: oklch(from oklch(0.55 0.18 55) / 35%);
+    --background: #fbf7f0;
+    --foreground: #1f1f1f;
+    --card: #ffffff;
+    --card-foreground: #1f1f1f;
+    --muted: #f5f5f5;
+    --muted-foreground: #737373;
+    --accent: #f5f5f5;
+    --accent-foreground: #1f1f1f;
+    --primary: #404040;
+    --primary-foreground: #ffffff;
+    --secondary: #f5f5f5;
+    --secondary-foreground: #1f1f1f;
+    --border: #e5e5e5;
+    --input: #e5e5e5;
+    --ring: #a3a3a3;
+    --year-watermark: #e5e5e5;
     /* Alias variables for component consistency */
-    --text: oklch(0.15 0.01 120);
-    --text-muted: oklch(0.55 0.008 120);
-    --bg-card: oklch(1 0 0);
+    --text: #1f1f1f;
+    --text-muted: #737373;
+    --bg-card: #ffffff;
   }
 
   .dark {
-    --background: oklch(0.15 0.01 120);
-    --foreground: oklch(0.95 0.01 120);
-    --card: oklch(0.2 0.01 120);
-    --card-foreground: oklch(0.95 0.01 120);
-    --muted: oklch(0.18 0.01 120);
-    --muted-foreground: oklch(0.65 0.01 120);
-    --accent: oklch(0.25 0.03 70);
-    --accent-foreground: oklch(0.95 0.01 120);
-    --primary: oklch(0.65 0.18 55);
-    --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.18 0.01 120);
-    --secondary-foreground: oklch(0.95 0.01 120);
-    --border: oklch(0.25 0.01 120);
-    --input: oklch(0.25 0.01 120);
-    --ring: oklch(0.65 0.18 55);
-    --year-watermark: oklch(from oklch(0.65 0.18 55) / 30%);
+    --background: #1f1f1f;
+    --foreground: #f9f9f8;
+    --card: #111111;
+    --card-foreground: #f9f9f8;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --accent: #262626;
+    --accent-foreground: #f9f9f8;
+    --primary: #d4d4d4;
+    --primary-foreground: #1f1f1f;
+    --secondary: #262626;
+    --secondary-foreground: #f9f9f8;
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.1);
+    --ring: #737373;
+    --year-watermark: #404040;
     /* Alias variables for component consistency */
-    --text: oklch(0.95 0.01 120);
-    --text-muted: oklch(0.7 0.008 120);
-    --bg-card: oklch(0.2 0.01 120);
+    --text: #f5f5f5;
+    --text-muted: #a3a3a3;
+    --bg-card: #111111;
   }
 
   @theme inline {

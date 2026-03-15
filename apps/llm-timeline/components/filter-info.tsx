@@ -52,38 +52,23 @@ export function FilterInfo({
 
   return (
     <>
-      <div
-        className="mb-4 flex items-center gap-4 rounded-lg border px-4 py-3"
-        style={{
-          borderColor: "var(--border)",
-          backgroundColor: "var(--bg-card)",
-        }}
-      >
+      <div className="mb-4 flex items-center gap-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-4 py-3">
         {/* Left side: Search and Result Count */}
         <div className="flex items-center gap-4 flex-1">
           {/* Search input */}
           <div className="relative">
-            <Search
-              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-              style={{ color: "var(--text-muted)" }}
-            />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500 dark:text-neutral-400" />
             <input
               type="text"
               placeholder="Search models..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-64 rounded-md border py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1"
-              style={{
-                borderColor: "var(--border)",
-                backgroundColor: "var(--bg)",
-                color: "var(--text)",
-              }}
+              className="w-64 rounded-md border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70"
-                style={{ color: "var(--text-muted)" }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70 text-neutral-500 dark:text-neutral-400"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -91,11 +76,8 @@ export function FilterInfo({
           </div>
 
           {/* Result Count */}
-          <span
-            className="text-sm whitespace-nowrap"
-            style={{ color: "var(--text-muted)" }}
-          >
-            <span className="font-semibold" style={{ color: "var(--text)" }}>
+          <span className="text-sm whitespace-nowrap text-neutral-500 dark:text-neutral-400">
+            <span className="font-semibold text-neutral-900 dark:text-neutral-100">
               {resultCount.toLocaleString()}
             </span>{" "}
             {view === "organizations" ? "organizations" : "models"}
@@ -111,12 +93,7 @@ export function FilterInfo({
                 e.target.value as "all" | "open" | "closed" | "partial"
               )
             }
-            className="rounded-md border py-2 px-3 text-sm focus:outline-none focus:ring-1"
-            style={{
-              borderColor: "var(--border)",
-              backgroundColor: "var(--bg)",
-              color: "var(--text)",
-            }}
+            className="rounded-md border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1"
           >
             <option value="all">All Licenses</option>
             <option value="open">Open Weights</option>
@@ -150,10 +127,7 @@ export function FilterInfo({
               }
             >
               <GitCompare
-                className="h-4 w-4"
-                style={{
-                  color: comparisonMode ? "white" : "var(--muted-foreground)",
-                }}
+                className={`h-4 w-4 ${comparisonMode ? "text-white" : "text-neutral-500 dark:text-neutral-400"}`}
               />
             </button>
           )}
@@ -169,30 +143,18 @@ export function FilterInfo({
             title={liteMode ? "Switch to full view" : "Switch to lite mode"}
             aria-label="Toggle lite mode"
           >
-            <List
-              className="h-4 w-4"
-              style={{ color: "var(--muted-foreground)" }}
-            />
+            <List className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
           </button>
         </div>
       </div>
 
       {/* Comparison mode hint */}
       {comparisonMode && (
-        <div
-          className="mb-4 rounded-lg border px-4 py-2 text-sm"
-          style={{
-            borderColor: "var(--accent)",
-            backgroundColor: "var(--accent-subtle)",
-          }}
-        >
-          <span style={{ color: "var(--text)" }}>
+        <div className="mb-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-white/10 px-4 py-2 text-sm">
+          <span className="text-neutral-900 dark:text-neutral-100">
             <strong>Comparison mode:</strong> Click on model cards to select
             them (max 3). Press{" "}
-            <kbd
-              className="rounded border px-1.5 py-0.5 font-mono text-xs"
-              style={{ borderColor: "var(--border)" }}
-            >
+            <kbd className="rounded border border-neutral-200 dark:border-white/10 px-1.5 py-0.5 font-mono text-xs">
               c
             </kbd>{" "}
             when ready to compare.

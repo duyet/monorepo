@@ -237,14 +237,7 @@ export function StaticView({
             <button
               key={shortcutOrg.id}
               onClick={() => setOrgFilter(shortcutOrg.name)}
-              className="relative rounded-md border px-3 py-1.5 text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
-              style={{
-                borderColor: "var(--border)",
-                backgroundColor:
-                  orgFilter === shortcutOrg.name
-                    ? "var(--accent-subtle)"
-                    : "var(--bg-card)",
-              }}
+              className={`relative rounded-md border border-neutral-200 dark:border-white/10 px-3 py-1.5 text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 ${orgFilter === shortcutOrg.name ? "bg-neutral-100 dark:bg-white/10" : "bg-white dark:bg-[#111]"}`}
             >
               <span className="mr-2 font-mono text-xs opacity-60">
                 {index + 1}
@@ -294,29 +287,16 @@ export function StaticView({
       {enableComparisonToggle && (
         <>
           {selectedModels.length > 0 && (
-            <div
-              className="fixed bottom-0 left-0 right-0 z-40 border-t p-4 animate-in slide-in-from-bottom"
-              style={{
-                backgroundColor: "var(--bg)",
-                borderColor: "var(--border)",
-              }}
-            >
+            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] p-4 animate-in slide-in-from-bottom">
               <div className="mx-auto max-w-4xl">
                 <div className="flex items-center gap-4">
                   <div className="flex flex-1 flex-wrap gap-2">
                     {selectedModels.map((model) => (
                       <div
                         key={model.name}
-                        className="flex items-center gap-2 rounded-lg border px-3 py-2"
-                        style={{
-                          borderColor: "var(--border)",
-                          backgroundColor: "var(--bg-card)",
-                        }}
+                        className="flex items-center gap-2 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-3 py-2"
                       >
-                        <span
-                          className="text-sm font-medium"
-                          style={{ color: "var(--text)" }}
-                        >
+                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                           {model.name}
                         </span>
                         <button
@@ -332,13 +312,7 @@ export function StaticView({
                   <button
                     onClick={() => setIsModalOpen(true)}
                     disabled={!canCompare}
-                    className="flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    style={{
-                      backgroundColor: canCompare
-                        ? "var(--accent)"
-                        : "var(--bg-card)",
-                      color: canCompare ? "white" : "var(--text-muted)",
-                    }}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${canCompare ? "bg-neutral-600 dark:bg-neutral-400 text-white" : "bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400"}`}
                   >
                     Compare ({selectedModels.length})
                   </button>
@@ -354,11 +328,7 @@ export function StaticView({
               onClick={() => setIsModalOpen(false)}
             >
               <div
-                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border"
-                style={{
-                  backgroundColor: "var(--bg)",
-                  borderColor: "var(--border)",
-                }}
+                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f]"
                 onClick={(e) => e.stopPropagation()}
               >
                 <ComparisonModalContent
@@ -394,19 +364,13 @@ function ComparisonModalContent({
 
   return (
     <>
-      <div
-        className="sticky top-0 z-10 border-b p-6 backdrop-blur-sm"
-        style={{ borderBottomColor: "var(--border)" }}
-      >
+      <div className="sticky top-0 z-10 border-b border-neutral-200 dark:border-white/10 p-6 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h2
-              className="text-xl font-semibold"
-              style={{ color: "var(--text)" }}
-            >
+            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
               Model Comparison
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
               {sortedModels.length} model{sortedModels.length > 1 ? "s" : ""}{" "}
               selected
             </p>
@@ -422,27 +386,17 @@ function ComparisonModalContent({
       </div>
 
       <div className="p-6 space-y-6">
-        <div
-          className="overflow-x-auto rounded-lg border"
-          style={{ borderColor: "var(--border)" }}
-        >
+        <div className="overflow-x-auto rounded-xl border border-neutral-200 dark:border-white/10">
           <table className="w-full">
             <thead>
-              <tr
-                className="border-b"
-                style={{ borderBottomColor: "var(--border)" }}
-              >
-                <th
-                  className="px-4 py-3 text-left font-semibold w-32"
-                  style={{ color: "var(--text)" }}
-                >
+              <tr className="border-b border-neutral-200 dark:border-white/10">
+                <th className="px-4 py-3 text-left font-semibold w-32 text-neutral-900 dark:text-neutral-100">
                   Metric
                 </th>
                 {sortedModels.map((model) => (
                   <th
                     key={model.name}
-                    className="px-4 py-3 text-left font-semibold"
-                    style={{ color: "var(--text)" }}
+                    className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100"
                   >
                     {model.name}
                   </th>
@@ -450,74 +404,47 @@ function ComparisonModalContent({
               </tr>
             </thead>
             <tbody>
-              <tr
-                className="border-b"
-                style={{ borderBottomColor: "var(--border)" }}
-              >
-                <td
-                  className="px-4 py-3 font-medium"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <tr className="border-b border-neutral-200 dark:border-white/10">
+                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                   Organization
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3"
-                    style={{ color: "var(--text)" }}
+                    className="px-4 py-3 text-neutral-900 dark:text-neutral-100"
                   >
                     {model.org}
                   </td>
                 ))}
               </tr>
-              <tr
-                className="border-b"
-                style={{ borderBottomColor: "var(--border)" }}
-              >
-                <td
-                  className="px-4 py-3 font-medium"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <tr className="border-b border-neutral-200 dark:border-white/10">
+                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                   Release Date
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3"
-                    style={{ color: "var(--text)" }}
+                    className="px-4 py-3 text-neutral-900 dark:text-neutral-100"
                   >
                     {formatDate(model.date)}
                   </td>
                 ))}
               </tr>
-              <tr
-                className="border-b"
-                style={{ borderBottomColor: "var(--border)" }}
-              >
-                <td
-                  className="px-4 py-3 font-medium"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <tr className="border-b border-neutral-200 dark:border-white/10">
+                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                   Parameters
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3"
-                    style={{ color: "var(--text)" }}
+                    className="px-4 py-3 text-neutral-900 dark:text-neutral-100"
                   >
                     {model.params || "Unknown"}
                   </td>
                 ))}
               </tr>
-              <tr
-                className="border-b"
-                style={{ borderBottomColor: "var(--border)" }}
-              >
-                <td
-                  className="px-4 py-3 font-medium"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <tr className="border-b border-neutral-200 dark:border-white/10">
+                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                   License
                 </td>
                 {sortedModels.map((model) => (
@@ -531,17 +458,13 @@ function ComparisonModalContent({
                 ))}
               </tr>
               <tr>
-                <td
-                  className="px-4 py-3 font-medium"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                   Type
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3 capitalize"
-                    style={{ color: "var(--text)" }}
+                    className="px-4 py-3 capitalize text-neutral-900 dark:text-neutral-100"
                   >
                     {model.type}
                   </td>
@@ -553,10 +476,7 @@ function ComparisonModalContent({
 
         {sortedModels.some((m) => m.params) && (
           <div>
-            <h3
-              className="mb-4 text-lg font-semibold"
-              style={{ color: "var(--text)" }}
-            >
+            <h3 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
               Parameter Count Comparison
             </h3>
             <div className="space-y-3">
@@ -567,20 +487,14 @@ function ComparisonModalContent({
                 return (
                   <div key={model.name}>
                     <div className="mb-1 flex justify-between text-sm">
-                      <span
-                        className="font-medium"
-                        style={{ color: "var(--text)" }}
-                      >
+                      <span className="font-medium text-neutral-900 dark:text-neutral-100">
                         {model.name}
                       </span>
-                      <span style={{ color: "var(--text-muted)" }}>
+                      <span className="text-neutral-500 dark:text-neutral-400">
                         {model.params}
                       </span>
                     </div>
-                    <div
-                      className="relative h-8 overflow-hidden rounded-md"
-                      style={{ backgroundColor: "var(--border)", opacity: 0.3 }}
-                    >
+                    <div className="relative h-8 overflow-hidden rounded-md bg-neutral-200 dark:bg-white/10 opacity-30">
                       <div
                         className="h-full rounded-md transition-all duration-500"
                         style={{

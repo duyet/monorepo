@@ -149,10 +149,7 @@ function CompareContent() {
     <div className="space-y-6">
       {/* Header with model selector */}
       <div>
-        <h2
-          className="text-xl font-semibold mb-4"
-          style={{ color: "var(--text)" }}
-        >
+        <h2 className="text-xl font-semibold mb-4 text-neutral-900 dark:text-neutral-100">
           Model Comparison
         </h2>
 
@@ -161,12 +158,7 @@ function CompareContent() {
           {sortedModels.map((model) => (
             <div
               key={model.name}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg border"
-              style={{
-                backgroundColor: "var(--bg)",
-                borderColor: "var(--border)",
-                color: "var(--text)",
-              }}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100"
             >
               <span className="font-medium">{model.name}</span>
               <button
@@ -181,11 +173,7 @@ function CompareContent() {
           {selectedModels.length < MAX_COMPARE && (
             <button
               onClick={() => setShowSelector(!showSelector)}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-              style={{
-                borderColor: "var(--border)",
-                color: "var(--text-muted)",
-              }}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-neutral-200 dark:border-white/10 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-500 dark:text-neutral-400"
             >
               <Plus className="h-4 w-4" />
               <span>
@@ -199,31 +187,19 @@ function CompareContent() {
 
         {/* Model selector dropdown */}
         {showSelector && (
-          <div className="mb-4 p-4 rounded-lg border">
+          <div className="mb-4 p-4 rounded-xl border border-neutral-200 dark:border-white/10">
             <div className="flex items-center gap-2 mb-3">
-              <Search
-                className="h-4 w-4"
-                style={{ color: "var(--text-muted)" }}
-              />
+              <Search className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
               <input
                 type="text"
                 placeholder="Search models by name or organization..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-md border"
-                style={{
-                  backgroundColor: "var(--bg)",
-                  borderColor: "var(--border)",
-                  color: "var(--text)",
-                }}
+                className="flex-1 px-3 py-2 rounded-md border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100"
               />
               <button
                 onClick={() => setShowSelector(false)}
-                className="px-3 py-2 rounded-md border hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                style={{
-                  borderColor: "var(--border)",
-                  color: "var(--text)",
-                }}
+                className="px-3 py-2 rounded-md border border-neutral-200 dark:border-white/10 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
               >
                 Cancel
               </button>
@@ -231,10 +207,7 @@ function CompareContent() {
 
             <div className="max-h-64 overflow-y-auto space-y-1">
               {availableModels.length === 0 ? (
-                <p
-                  className="text-center py-4"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <p className="text-center py-4 text-neutral-500 dark:text-neutral-400">
                   No matching models found
                 </p>
               ) : (
@@ -242,15 +215,11 @@ function CompareContent() {
                   <button
                     key={model.name}
                     onClick={() => addModel(model)}
-                    className="w-full text-left px-3 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center justify-between"
-                    style={{ color: "var(--text)" }}
+                    className="w-full text-left px-3 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center justify-between text-neutral-900 dark:text-neutral-100"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="font-medium truncate">{model.name}</div>
-                      <div
-                        className="text-sm truncate"
-                        style={{ color: "var(--text-muted)" }}
-                      >
+                      <div className="text-sm truncate text-neutral-500 dark:text-neutral-400">
                         {model.org}
                         {model.params && ` · ${model.params}`}
                       </div>
@@ -268,16 +237,10 @@ function CompareContent() {
       {sortedModels.length > 0 ? (
         <div className="space-y-6">
           {/* Comparison table */}
-          <div
-            className="rounded-lg border overflow-x-auto"
-            style={{ borderColor: "var(--border)" }}
-          >
+          <div className="rounded-xl border border-neutral-200 dark:border-white/10 overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr
-                  style={{ borderBottomColor: "var(--border)" }}
-                  className="border-b"
-                >
+                <tr className="border-b border-neutral-200 dark:border-white/10">
                   <th className="px-4 py-3 text-left font-semibold w-32">
                     Metric
                   </th>
@@ -293,14 +256,8 @@ function CompareContent() {
               </thead>
               <tbody>
                 {/* Organization */}
-                <tr
-                  style={{ borderBottomColor: "var(--border)" }}
-                  className="border-b"
-                >
-                  <td
-                    className="px-4 py-3 font-medium"
-                    style={{ color: "var(--text-muted)" }}
-                  >
+                <tr className="border-b border-neutral-200 dark:border-white/10">
+                  <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                     Organization
                   </td>
                   {sortedModels.map((model) => (
@@ -311,14 +268,8 @@ function CompareContent() {
                 </tr>
 
                 {/* Release Date */}
-                <tr
-                  style={{ borderBottomColor: "var(--border)" }}
-                  className="border-b"
-                >
-                  <td
-                    className="px-4 py-3 font-medium"
-                    style={{ color: "var(--text-muted)" }}
-                  >
+                <tr className="border-b border-neutral-200 dark:border-white/10">
+                  <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                     Release Date
                   </td>
                   {sortedModels.map((model) => (
@@ -329,14 +280,8 @@ function CompareContent() {
                 </tr>
 
                 {/* Parameters */}
-                <tr
-                  style={{ borderBottomColor: "var(--border)" }}
-                  className="border-b"
-                >
-                  <td
-                    className="px-4 py-3 font-medium"
-                    style={{ color: "var(--text-muted)" }}
-                  >
+                <tr className="border-b border-neutral-200 dark:border-white/10">
+                  <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                     Parameters
                   </td>
                   {sortedModels.map((model) => (
@@ -347,14 +292,8 @@ function CompareContent() {
                 </tr>
 
                 {/* License */}
-                <tr
-                  style={{ borderBottomColor: "var(--border)" }}
-                  className="border-b"
-                >
-                  <td
-                    className="px-4 py-3 font-medium"
-                    style={{ color: "var(--text-muted)" }}
-                  >
+                <tr className="border-b border-neutral-200 dark:border-white/10">
+                  <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                     License
                   </td>
                   {sortedModels.map((model) => (
@@ -369,14 +308,8 @@ function CompareContent() {
                 </tr>
 
                 {/* Type */}
-                <tr
-                  style={{ borderBottomColor: "var(--border)" }}
-                  className="border-b"
-                >
-                  <td
-                    className="px-4 py-3 font-medium"
-                    style={{ color: "var(--text-muted)" }}
-                  >
+                <tr className="border-b border-neutral-200 dark:border-white/10">
+                  <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
                     Type
                   </td>
                   {sortedModels.map((model) => (
@@ -388,10 +321,7 @@ function CompareContent() {
 
                 {/* Description */}
                 <tr>
-                  <td
-                    className="px-4 py-3 font-medium align-top"
-                    style={{ color: "var(--text-muted)" }}
-                  >
+                  <td className="px-4 py-3 font-medium align-top text-neutral-500 dark:text-neutral-400">
                     Description
                   </td>
                   {sortedModels.map((model) => (
@@ -407,10 +337,7 @@ function CompareContent() {
           {/* Parameters bar chart */}
           {sortedModels.some((m) => m.params) && (
             <div>
-              <h3
-                className="text-lg font-semibold mb-4"
-                style={{ color: "var(--text)" }}
-              >
+              <h3 className="text-lg font-semibold mb-4 text-neutral-900 dark:text-neutral-100">
                 Parameter Count Comparison
               </h3>
               <div className="space-y-3">
@@ -423,20 +350,14 @@ function CompareContent() {
                   return (
                     <div key={model.name}>
                       <div className="flex justify-between text-sm mb-1">
-                        <span
-                          className="font-medium"
-                          style={{ color: "var(--text)" }}
-                        >
+                        <span className="font-medium text-neutral-900 dark:text-neutral-100">
                           {model.name}
                         </span>
-                        <span style={{ color: "var(--text-muted)" }}>
+                        <span className="text-neutral-500 dark:text-neutral-400">
                           {model.params}
                         </span>
                       </div>
-                      <div
-                        className="h-8 rounded-md overflow-hidden relative"
-                        style={{ backgroundColor: "var(--border)" }}
-                      >
+                      <div className="h-8 rounded-md overflow-hidden relative bg-neutral-200 dark:bg-white/10">
                         <div
                           className="h-full rounded-md transition-all duration-500"
                           style={{
@@ -449,10 +370,7 @@ function CompareContent() {
                   );
                 })}
               </div>
-              <p
-                className="text-xs mt-3"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <p className="text-xs mt-3 text-neutral-500 dark:text-neutral-400">
                 * Models with unknown parameter counts are excluded from the
                 chart
               </p>
@@ -463,23 +381,11 @@ function CompareContent() {
           {hasComparison && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Share link */}
-              <div
-                className="p-4 rounded-lg border"
-                style={{ borderColor: "var(--border)" }}
-              >
-                <p
-                  className="text-sm mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <div className="p-4 rounded-xl border border-neutral-200 dark:border-white/10">
+                <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
                   Share this comparison:
                 </p>
-                <code
-                  className="text-sm px-2 py-1 rounded"
-                  style={{
-                    backgroundColor: "var(--bg)",
-                    color: "var(--text)",
-                  }}
-                >
+                <code className="text-sm px-2 py-1 rounded bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100">
                   {typeof window !== "undefined"
                     ? window.location.href
                     : "/compare"}
@@ -487,24 +393,13 @@ function CompareContent() {
               </div>
 
               {/* Export to CSV */}
-              <div
-                className="p-4 rounded-lg border"
-                style={{ borderColor: "var(--border)" }}
-              >
-                <p
-                  className="text-sm mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <div className="p-4 rounded-xl border border-neutral-200 dark:border-white/10">
+                <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
                   Export comparison data:
                 </p>
                 <button
                   onClick={exportToCSV}
-                  className="flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                  style={{
-                    backgroundColor: "var(--bg)",
-                    color: "var(--text)",
-                    border: "1px solid var(--border)",
-                  }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-white/10"
                 >
                   <Download className="h-4 w-4" />
                   <span>Download CSV</span>
@@ -515,14 +410,11 @@ function CompareContent() {
         </div>
       ) : (
         // Empty state
-        <div
-          className="text-center py-12 rounded-lg border"
-          style={{ borderColor: "var(--border)" }}
-        >
-          <p className="text-lg mb-2" style={{ color: "var(--text-muted)" }}>
+        <div className="text-center py-12 rounded-xl border border-neutral-200 dark:border-white/10">
+          <p className="text-lg mb-2 text-neutral-500 dark:text-neutral-400">
             Select 2-4 models to compare
           </p>
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
             Click the "Add models" button above to get started
           </p>
         </div>
@@ -535,7 +427,7 @@ export default function ComparePage() {
   return (
     <PageLayout description="Compare LLM models side-by-side">
       <Suspense
-        fallback={<div style={{ color: "var(--text)" }}>Loading...</div>}
+        fallback={<div className="text-neutral-900 dark:text-neutral-100">Loading...</div>}
       >
         <CompareContent />
       </Suspense>

@@ -1,3 +1,4 @@
+import { cn } from "@duyet/libs/utils";
 import { Building2, Sparkles } from "lucide-react";
 import Link from "next/link";
 
@@ -47,29 +48,25 @@ export function StatsCards({
             <Link
               key={label}
               href={href}
-              className="rounded-lg border p-4 transition-all hover:bg-muted hover:text-accent-foreground"
-              style={{
-                borderColor: isActive ? "var(--primary)" : "var(--border)",
-                backgroundColor: isActive ? "var(--accent)" : "var(--card)",
-              }}
+              className={cn(
+                "rounded-xl border p-4 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm",
+                isActive
+                  ? "border-neutral-400 dark:border-white/20 bg-neutral-50 dark:bg-white/5"
+                  : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111]"
+              )}
             >
+              {/* Icon badge */}
+              <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
+                <Icon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              </div>
+
               {/* Number */}
-              <div
-                className="text-3xl font-bold"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  color: "var(--text)",
-                }}
-              >
+              <div className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)]">
                 {value.toLocaleString()}
               </div>
 
-              {/* Label with icon */}
-              <div
-                className="mt-2 flex items-center gap-2 text-sm font-medium uppercase tracking-wide"
-                style={{ color: "var(--text-muted)" }}
-              >
-                <Icon className="h-4 w-4" />
+              {/* Label */}
+              <div className="mt-1 text-sm font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 {label}
               </div>
             </Link>
@@ -79,15 +76,12 @@ export function StatsCards({
 
       {/* Source breakdown */}
       {sourceStats && Object.keys(sourceStats).length > 0 && (
-        <div
-          className="mb-2 text-center text-xs"
-          style={{ color: "var(--text-muted)" }}
-        >
+        <div className="mb-2 text-center text-xs text-neutral-500 dark:text-neutral-400">
           Data sources:{" "}
           {Object.entries(sourceStats).map(([name, count], i) => (
             <span key={name}>
               {i > 0 && " + "}
-              <span className="font-medium" style={{ color: "var(--text)" }}>
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">
                 {count.toLocaleString()}
               </span>{" "}
               {name === "epoch" ? (
@@ -97,8 +91,7 @@ export function StatsCards({
                     href="https://epoch.ai/data"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline"
-                    style={{ color: "var(--accent)" }}
+                    className="underline text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
                   >
                     Epoch AI
                   </a>

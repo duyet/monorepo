@@ -42,15 +42,7 @@ export function StatsHeader({
           return (
             <div
               key={label}
-              className="rounded-lg border p-4"
-              style={{
-                borderColor: isActive ? "var(--accent)" : "var(--border)",
-                backgroundColor: isActive
-                  ? "color-mix(in srgb, var(--accent) 10%, transparent)"
-                  : "var(--bg-card)",
-                cursor: isClickable ? "pointer" : "default",
-                transition: "border-color 0.15s, background-color 0.15s",
-              }}
+              className={`rounded-xl border p-4 transition-[border-color,background-color] duration-150 ${isActive ? "border-neutral-600 dark:border-neutral-400 bg-neutral-100 dark:bg-white/10" : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111]"} ${isClickable ? "cursor-pointer" : "cursor-default"}`}
               onClick={isClickable ? () => onViewChange(view) : undefined}
               role={isClickable ? "button" : undefined}
               tabIndex={isClickable ? 0 : undefined}
@@ -63,19 +55,10 @@ export function StatsHeader({
                   : undefined
               }
             >
-              <div
-                className="text-2xl font-semibold"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  color: "var(--text)",
-                }}
-              >
+              <div className="text-2xl font-semibold font-[family-name:var(--font-mono)] text-neutral-900 dark:text-neutral-100">
                 {value.toLocaleString()}
               </div>
-              <div
-                className="mt-1 flex items-center gap-1.5 text-xs uppercase tracking-wider"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <div className="mt-1 flex items-center gap-1.5 text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 <Icon className="h-3 w-3" />
                 {label}
               </div>
@@ -86,12 +69,12 @@ export function StatsHeader({
 
       {/* Source breakdown */}
       {sourceStats && Object.keys(sourceStats).length > 0 && (
-        <div className="mt-3 text-xs" style={{ color: "var(--text-muted)" }}>
+        <div className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
           Data sources:{" "}
           {Object.entries(sourceStats).map(([name, count], i) => (
             <span key={name}>
               {i > 0 && " + "}
-              <span className="font-medium" style={{ color: "var(--text)" }}>
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">
                 {count.toLocaleString()}
               </span>{" "}
               {name === "epoch" ? (
@@ -101,8 +84,7 @@ export function StatsHeader({
                     href="https://epoch.ai/data"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline"
-                    style={{ color: "var(--accent)" }}
+                    className="underline text-neutral-600 dark:text-neutral-400"
                   >
                     Epoch AI
                   </a>
