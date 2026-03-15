@@ -1,5 +1,5 @@
 import { cn } from "@duyet/libs/utils";
-import { Building2, Sparkles } from "lucide-react";
+import { Building2, Calendar, Database, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 interface StatsCardsProps {
@@ -15,94 +15,79 @@ export function StatsCards({
   activeView,
   sourceStats,
 }: StatsCardsProps) {
-  const stats: Array<{
-    label: string;
-    value: number;
-    icon: React.ComponentType<{ className?: string }>;
-    href: string;
-    view: "models" | "organizations";
-  }> = [
-    {
-      label: "Models",
-      value: models,
-      icon: Sparkles,
-      href: "/",
-      view: "models",
-    },
-    {
-      label: "Organizations",
-      value: organizations,
-      icon: Building2,
-      href: "/org",
-      view: "organizations",
-    },
-  ];
+  const totalSources = sourceStats
+    ? Object.values(sourceStats).reduce((a, b) => a + b, 0)
+    : 0;
 
   return (
-    <>
-      <div className="mb-4 grid grid-cols-2 gap-4">
-        {stats.map(({ label, value, icon: Icon, href, view }) => {
-          const isActive = activeView === view;
+    <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4 animate-fade-in animate-fade-in-delay-1">
+      {/* Models Card */}
+      <Link
+        href="/"
+        className={cn(
+          "group rounded-xl border p-5 transition-all hover:shadow-sm",
+          activeView === "models"
+            ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
+            : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20"
+        )}
+      >
+        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
+          <Sparkles className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+        </div>
+        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
+          {models.toLocaleString()}
+        </div>
+        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Models
+        </div>
+      </Link>
 
-          return (
-            <Link
-              key={label}
-              href={href}
-              className={cn(
-                "rounded-xl border p-4 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm",
-                isActive
-                  ? "border-neutral-400 dark:border-white/20 bg-neutral-50 dark:bg-white/5"
-                  : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111]"
-              )}
-            >
-              {/* Icon badge */}
-              <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-                <Icon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-              </div>
+      {/* Organizations Card */}
+      <Link
+        href="/org"
+        className={cn(
+          "group rounded-xl border p-5 transition-all hover:shadow-sm",
+          activeView === "organizations"
+            ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
+            : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20"
+        )}
+      >
+        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
+          <Building2 className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+        </div>
+        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
+          {organizations.toLocaleString()}
+        </div>
+        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Organizations
+        </div>
+      </Link>
 
-              {/* Number */}
-              <div className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)]">
-                {value.toLocaleString()}
-              </div>
-
-              {/* Label */}
-              <div className="mt-1 text-sm font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                {label}
-              </div>
-            </Link>
-          );
-        })}
+      {/* Data Sources Card */}
+      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-5">
+        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
+          <Database className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+        </div>
+        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
+          {totalSources > 0 ? totalSources.toLocaleString() : "—"}
+        </div>
+        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Data Points
+        </div>
       </div>
 
-      {/* Source breakdown */}
-      {sourceStats && Object.keys(sourceStats).length > 0 && (
-        <div className="mb-2 text-center text-xs text-neutral-500 dark:text-neutral-400">
-          Data sources:{" "}
-          {Object.entries(sourceStats).map(([name, count], i) => (
-            <span key={name}>
-              {i > 0 && " + "}
-              <span className="font-medium text-neutral-900 dark:text-neutral-100">
-                {count.toLocaleString()}
-              </span>{" "}
-              {name === "epoch" ? (
-                <>
-                  from{" "}
-                  <a
-                    href="https://epoch.ai/data"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
-                  >
-                    Epoch AI
-                  </a>
-                </>
-              ) : (
-                name
-              )}
-            </span>
-          ))}
+      {/* Years Covered Card */}
+      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-5">
+        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2 dark:border-white/10 dark:bg-white/5">
+          <Calendar className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
         </div>
-      )}
-    </>
+        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
+          2017–26
+        </div>
+        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+          Years Covered
+        </div>
+      </div>
+    </div>
   );
 }

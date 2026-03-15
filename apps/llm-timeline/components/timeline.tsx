@@ -63,9 +63,12 @@ export function Timeline({
 
   if (sortedYears.length === 0) {
     return (
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-8 text-center">
-        <p className="text-neutral-500 dark:text-neutral-400">
-          No models found matching your filters.
+      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-12 text-center">
+        <p className="text-lg font-medium text-neutral-400 dark:text-neutral-500">
+          No models found
+        </p>
+        <p className="mt-1 text-sm text-neutral-400 dark:text-neutral-500">
+          Try adjusting your filters
         </p>
       </div>
     );
@@ -73,7 +76,7 @@ export function Timeline({
 
   return (
     <div
-      className="space-y-6"
+      className="space-y-10"
       role="listbox"
       aria-label="Timeline of LLM models"
       tabIndex={focusedIndex >= 0 ? 0 : -1}
@@ -90,20 +93,21 @@ export function Timeline({
             }}
           >
             {/* Year Header */}
-            <div className="mb-6 flex items-center gap-4 overflow-hidden">
-              <div className="relative flex items-center shrink-0 overflow-hidden">
-                {/* Large background year as watermark */}
+            <div className="mb-8">
+              <div className="flex items-end gap-4">
                 <span
-                  className="select-none text-4xl font-bold leading-none text-neutral-200 dark:text-neutral-700 font-[family-name:var(--font-mono)]"
+                  className="select-none text-6xl sm:text-7xl font-bold leading-none text-neutral-200 dark:text-neutral-700 font-[family-name:var(--font-display)]"
                   aria-hidden="true"
                 >
                   {year}
                 </span>
+                <div className="mb-2">
+                  <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-[family-name:var(--font-mono)]">
+                    {yearModels.length} model{yearModels.length !== 1 ? "s" : ""}
+                  </span>
+                </div>
               </div>
-              <div className="h-px flex-1 min-w-0 shrink bg-neutral-200 dark:bg-white/10" />
-              <span className="text-xs uppercase tracking-widest shrink-0 whitespace-nowrap font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">
-                {yearModels.length} model{yearModels.length !== 1 ? "s" : ""}
-              </span>
+              <div className="mt-2 h-px bg-gradient-to-r from-neutral-200 dark:from-white/10 to-transparent" />
             </div>
 
             {/* Models for this year */}
@@ -124,7 +128,7 @@ export function Timeline({
                     }}
                     className={
                       isFocused && !comparisonMode
-                        ? "ring-2 ring-neutral-400 dark:ring-neutral-500 ring-offset-2 rounded-xl"
+                        ? "ring-2 ring-neutral-300 dark:ring-neutral-500 ring-offset-2 rounded-xl"
                         : ""
                     }
                     role="option"

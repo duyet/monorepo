@@ -208,7 +208,7 @@ export function SearchAutocomplete({
             setShowSuggestions(true);
           }
         }}
-        className={`w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500 ${inputClassName || ""}`}
+        className={`w-full h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 ${inputClassName || ""}`}
         style={inputStyle}
         autoComplete="off"
         role="combobox"
@@ -225,7 +225,7 @@ export function SearchAutocomplete({
         <div
           ref={dropdownRef}
           id="search-suggestions"
-          className="absolute z-10 mt-1 w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-lg max-h-64 overflow-y-auto"
+          className="absolute z-10 mt-1 w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-md max-h-64 overflow-y-auto"
           role="listbox"
         >
           {suggestions.map((suggestion, index) => (

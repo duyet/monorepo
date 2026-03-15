@@ -1,0 +1,41 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-fast {
+  animation: fadeIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-1 { animation-delay: 50ms; }
+.animate-fade-in-delay-2 { animation-delay: 100ms; }
+.animate-fade-in-delay-3 { animation-delay: 150ms; }
+.animate-fade-in-delay-4 { animation-delay: 200ms; }
+.animate-fade-in-delay-5 { animation-delay: 250ms; }
+.animate-fade-in-delay-6 { animation-delay: 300ms; }
+.animate-fade-in-delay-7 { animation-delay: 350ms; }
+.animate-fade-in-delay-8 { animation-delay: 400ms; }
+
+.transition-colors-smooth {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-in-fast {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -1,11 +1,13 @@
 import "@duyet/components/styles.css";
 import "./globals.css";
+import "./animations.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
 import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
+import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display, IBM_Plex_Mono } from "next/font/google";
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -29,7 +31,7 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "LLM Timeline | duyet.net",
   description:
     "Interactive timeline of Large Language Model releases from 2017 to present.",

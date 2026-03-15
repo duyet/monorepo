@@ -52,7 +52,7 @@ export function FilterInfo({
 
   return (
     <>
-      <div className="mb-4 flex items-center gap-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-4 py-3">
+      <div className="mb-4 flex items-center gap-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-4 py-3 animate-fade-in animate-fade-in-delay-2">
         {/* Left side: Search and Result Count */}
         <div className="flex items-center gap-4 flex-1">
           {/* Search input */}
@@ -63,7 +63,7 @@ export function FilterInfo({
               placeholder="Search models..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-64 rounded-md border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1"
+              className="w-64 h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
             />
             {searchQuery && (
               <button
@@ -93,7 +93,7 @@ export function FilterInfo({
                 e.target.value as "all" | "open" | "closed" | "partial"
               )
             }
-            className="rounded-md border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1"
+            className="rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1"
           >
             <option value="all">All Licenses</option>
             <option value="open">Open Weights</option>
@@ -109,12 +109,9 @@ export function FilterInfo({
             <button
               onClick={onToggleComparisonMode}
               className={cn(
-                "rounded-lg p-2 transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary",
-                comparisonMode && "bg-[var(--accent)]"
+                "rounded-xl p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
+                comparisonMode && "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
               )}
-              style={{
-                borderColor: comparisonMode ? "var(--primary)" : undefined,
-              }}
               title={
                 comparisonMode
                   ? "Exit comparison mode"
@@ -135,11 +132,10 @@ export function FilterInfo({
           {/* Lite mode toggle */}
           <button
             onClick={toggleLiteMode}
-            className="rounded-lg p-2 transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
-            style={{
-              borderColor: liteMode ? "var(--primary)" : undefined,
-              backgroundColor: liteMode ? "var(--accent)" : undefined,
-            }}
+            className={cn(
+              "rounded-xl p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
+              liteMode && "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
+            )}
             title={liteMode ? "Switch to full view" : "Switch to lite mode"}
             aria-label="Toggle lite mode"
           >
@@ -150,7 +146,7 @@ export function FilterInfo({
 
       {/* Comparison mode hint */}
       {comparisonMode && (
-        <div className="mb-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-white/10 px-4 py-2 text-sm">
+        <div className="mb-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-4 py-2 text-sm">
           <span className="text-neutral-900 dark:text-neutral-100">
             <strong>Comparison mode:</strong> Click on model cards to select
             them (max 3). Press{" "}
