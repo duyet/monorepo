@@ -122,13 +122,13 @@ export function formatDate(dateStr: string): string {
 export function getLicenseColor(license: Model["license"]): string {
   switch (license) {
     case "open":
-      return "bg-sage-light text-sage-dark border-sage";
+      return "bg-sage-light text-emerald-800 border-sage dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800";
     case "closed":
-      return "bg-coral-light text-coral-dark border-coral";
+      return "bg-coral-light text-red-800 border-coral dark:bg-red-950 dark:text-red-300 dark:border-red-800";
     case "partial":
-      return "bg-lavender-light text-lavender-dark border-lavender";
+      return "bg-lavender-light text-indigo-800 border-lavender dark:bg-indigo-950 dark:text-indigo-300 dark:border-indigo-800";
     default:
-      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
+      return "bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700";
   }
 }
 
@@ -155,11 +155,11 @@ export function getLicenseBarColor(license: Model["license"]): string {
 export function getTypeColor(type: Model["type"]): string {
   switch (type) {
     case "milestone":
-      return "bg-terracotta-light text-terracotta-dark border-terracotta";
+      return "bg-terracotta-light text-orange-800 border-terracotta dark:bg-orange-950 dark:text-orange-300 dark:border-orange-800";
     case "model":
-      return "bg-oat-light text-neutral-700 border-oat";
+      return "bg-oat-light text-neutral-700 border-oat dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-600";
     default:
-      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
+      return "bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700";
   }
 }
 
