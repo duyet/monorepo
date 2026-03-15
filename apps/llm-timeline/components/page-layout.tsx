@@ -21,11 +21,19 @@ export function PageLayout({ children, description }: PageLayoutProps) {
         <header className="mb-6">
           <div className="flex items-start justify-between gap-4">
             <div className="animate-fade-in">
+              {/* Subtitle row with status dot */}
+              <div className="mb-2 flex items-center gap-2 animate-fade-in">
+                <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="text-xs font-mono tracking-wide uppercase text-neutral-500 dark:text-neutral-400">
+                  Interactive LLM Release History
+                </span>
+              </div>
+
               <Link
                 href="/"
                 className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2 rounded"
               >
-                <h1 className="text-4xl sm:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight transition-opacity group-hover:opacity-80 font-[family-name:var(--font-display)]">
+                <h1 className="text-3xl sm:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight transition-opacity group-hover:opacity-80 font-[family-name:var(--font-display)]">
                   LLM Timeline
                 </h1>
               </Link>
@@ -107,34 +115,68 @@ export function PageLayout({ children, description }: PageLayoutProps) {
             </p>
           </div>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
+            <span className="text-neutral-300 dark:text-neutral-600">
+              Data sources:
+            </span>
             <Link
-              href="https://lifearchitect.ai/models-table"
+              href="https://huggingface.co/models"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
-              LifeArchitect.AI
+              Hugging Face
             </Link>
+            <span>·</span>
+            <a
+              href="https://paperswithcode.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+            >
+              PapersWithCode
+            </a>
+            <span>·</span>
+            <a
+              href="https://en.wikipedia.org/wiki/Large_language_model"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+            >
+              Wikipedia
+            </a>
+            <span>·</span>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+            >
+              GitHub
+            </a>
             <span>·</span>
             <a
               href="https://epoch.ai/data"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               Epoch AI
             </a>
             <span>·</span>
+            <span className="text-neutral-400 dark:text-neutral-500">
+              Official announcements
+            </span>
+            <span>·</span>
             <Link
               href="/llms.txt"
-              className="transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               llms.txt
             </Link>
             <span>·</span>
             <Link
               href="/rss.xml"
-              className="transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               RSS
             </Link>
