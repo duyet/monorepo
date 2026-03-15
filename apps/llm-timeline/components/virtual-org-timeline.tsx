@@ -116,20 +116,16 @@ export function VirtualOrgTimeline({
                 <div className="mb-6 flex items-center gap-4 overflow-hidden">
                   <div className="shrink-0 overflow-hidden">
                     <span
-                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap"
-                      style={{ color: "var(--year-watermark)" }}
+                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap text-neutral-200 dark:text-neutral-700"
                       aria-hidden="true"
                     >
                       {groupItem.org}
                     </span>
                   </div>
-                  <div className="h-px flex-1 min-w-0 shrink bg-neutral-200 dark:bg-white/10" />
+                  <div className="h-px flex-1 min-w-0 shrink bg-gradient-to-r from-neutral-200 dark:from-white/10 to-transparent" />
                   <div className="flex shrink-0 items-center gap-2">
                     <OrgAvatar org={groupItem.org!} size="sm" />
-                    <span
-                      className="text-sm font-medium truncate text-neutral-900 dark:text-neutral-100"
-                      style={{ maxWidth: "12rem" }}
-                    >
+                    <span className="text-sm font-medium truncate max-w-[12rem] text-neutral-900 dark:text-neutral-100">
                       {groupItem.org}
                     </span>
                     <span className="text-xs uppercase tracking-widest font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">
