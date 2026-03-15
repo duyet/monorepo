@@ -47,7 +47,7 @@ interface AppItem {
 const apps: AppItem[] = [
   {
     name: "LLM Timeline",
-    href: "/llm-timeline",
+    href: "/",
     host: "llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
     screenshot: "/screenshots/llm-timeline.png",

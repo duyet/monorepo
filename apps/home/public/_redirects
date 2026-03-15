@@ -42,6 +42,7 @@
 /agents https://agents.duyet.net 302
 
 # New Timeline App
+/llm-timeline https://llm-timeline.duyet.net 302
 /llm https://llm-timeline.duyet.net 302
 /timeline https://llm-timeline.duyet.net 302
 
