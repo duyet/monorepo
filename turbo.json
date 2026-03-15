@@ -64,7 +64,7 @@
       "outputs": [".biome/**", "node_modules/.cache/biome/**"]
     },
     "test": {
-      "outputs": ["coverage/**"],
+      "outputs": [],
       "dependsOn": []
     },
     "test:watch": {

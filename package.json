@@ -56,7 +56,7 @@
     "lint-staged": "^16.4.0",
     "tailwind-highlightjs": "^2.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "turbo": "^2.5.3",
+    "turbo": "^2.8.17",
     "tw-animate-css": "^1.3.0",
     "typescript": "^5.8.3"
   },
