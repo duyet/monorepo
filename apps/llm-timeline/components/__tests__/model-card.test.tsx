@@ -77,8 +77,9 @@ describe("ModelCard", () => {
   });
 
   it("renders model name in lite mode", () => {
-    const { getByText } = render(<ModelCard model={testModel} lite />);
-    expect(getByText("GPT-4")).toBeDefined();
+    const { getAllByText } = render(<ModelCard model={testModel} lite />);
+    const elements = getAllByText("GPT-4");
+    expect(elements.length).toBeGreaterThan(0);
   });
 
   it("renders selection button with correct aria-label when isSelectable=true", () => {

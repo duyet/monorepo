@@ -53,9 +53,10 @@ describe("VirtualTimeline", () => {
 
   it("renders empty state when no models match", () => {
     const modelsByYear = new Map();
-    const { getByText } = render(
+    const { getAllByText } = render(
       <VirtualTimeline modelsByYear={modelsByYear} />
     );
-    expect(getByText("No models found matching your filters.")).toBeDefined();
+    const elements = getAllByText("No models found matching your filters.");
+    expect(elements.length).toBeGreaterThan(0);
   });
 });

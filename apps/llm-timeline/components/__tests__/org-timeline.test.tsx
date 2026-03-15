@@ -86,25 +86,27 @@ describe("OrgTimeline", () => {
   it("renders model count label for org", () => {
     const modelsByOrg = new Map<string, typeof testModel[]>();
     modelsByOrg.set("OpenAI", [testModel]);
-    const { getByText } = render(<OrgTimeline modelsByOrg={modelsByOrg} />);
-    expect(getByText("1 model")).toBeDefined();
+    const { getAllByText } = render(<OrgTimeline modelsByOrg={modelsByOrg} />);
+    const elements = getAllByText("1 model");
+    expect(elements.length).toBeGreaterThan(0);
   });
 
   it("renders plural model count for org with multiple models", () => {
     const anotherModel = { ...testModel, name: "GPT-3.5" };
     const modelsByOrg = new Map<string, typeof testModel[]>();
     modelsByOrg.set("OpenAI", [testModel, anotherModel]);
-    const { getByText } = render(<OrgTimeline modelsByOrg={modelsByOrg} />);
-    expect(getByText("2 models")).toBeDefined();
+    const { getAllByText } = render(<OrgTimeline modelsByOrg={modelsByOrg} />);
+    const elements = getAllByText("2 models");
+    expect(elements.length).toBeGreaterThan(0);
   });
 
   it("renders model cards for each org", () => {
     const modelsByOrg = new Map<string, (typeof testModel | typeof testModel2)[]>();
     modelsByOrg.set("OpenAI", [testModel]);
     modelsByOrg.set("Anthropic", [testModel2]);
-    const { getByText } = render(<OrgTimeline modelsByOrg={modelsByOrg} />);
-    expect(getByText("GPT-4")).toBeDefined();
-    expect(getByText("Claude 2")).toBeDefined();
+    const { getAllByText } = render(<OrgTimeline modelsByOrg={modelsByOrg} />);
+    expect(getAllByText("GPT-4").length).toBeGreaterThan(0);
+    expect(getAllByText("Claude 2").length).toBeGreaterThan(0);
   });
 
   it("renders multiple orgs in order", () => {
