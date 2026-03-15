@@ -465,7 +465,7 @@ async function handleGraphExecution(
 
         const finalState = await router.executeGraph(initialState);
 
-        const metrics = observability.endExecution();
+        observability.endExecution();
 
         // Persist checkpoint to D1 for resumability
         if (context.env.DB) {
