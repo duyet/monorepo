@@ -320,25 +320,35 @@ export class DatabaseClient {
     const windowStart =
       Math.floor(Date.now() / windowDuration) * windowDuration;
 
-    // Atomic upsert: insert or increment in one statement
+    // Read current count first
+    const selectStmt = this.db.prepare(
+      "SELECT message_count FROM rate_limits WHERE ip_hash = ? AND window_start = ?"
+    );
+    const existing = (await selectStmt.bind(ipHash, windowStart).first()) as {
+      message_count: number;
+    } | null;
+    const currentCount = existing?.message_count ?? 0;
+
+    // If already at or over limit, reject without incrementing
+    if (currentCount >= limit) {
+      return {
+        allowed: false,
+        remaining: 0,
+        total: currentCount,
+      };
+    }
+
+    // Atomic upsert: insert or increment (only when under limit)
     const upsertStmt = this.db.prepare(
       "INSERT INTO rate_limits (ip_hash, window_start, message_count) VALUES (?, ?, 1) ON CONFLICT(ip_hash, window_start) DO UPDATE SET message_count = message_count + 1"
     );
     await upsertStmt.bind(ipHash, windowStart).run();
 
-    // Read back the count after upsert
-    const selectStmt = this.db.prepare(
-      "SELECT message_count FROM rate_limits WHERE ip_hash = ? AND window_start = ?"
-    );
-    const result = (await selectStmt.bind(ipHash, windowStart).first()) as {
-      message_count: number;
-    } | null;
-    const count = result?.message_count ?? 1;
-
+    const newCount = currentCount + 1;
     return {
-      allowed: count <= limit,
-      remaining: Math.max(0, limit - count),
-      total: count,
+      allowed: true,
+      remaining: Math.max(0, limit - newCount),
+      total: newCount,
     };
   }
 

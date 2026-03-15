@@ -507,9 +507,7 @@ async function handleGraphExecution(
     stopWhen: stepCountIs(30),
   });
 
-  console.log(
-    `[Chat API][${requestId}] Streaming started via AI Gateway (graph mode)`
-  );
+  // Streaming started — structured observability handles logging
 
   // Store conversation for authenticated users
   if (user && context.env.DB && conversationId) {
@@ -600,22 +598,6 @@ async function handleDirectExecution(
 
   const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
 
-  // Log system prompt
-  const systemPreview =
-    system.length > 100 ? `${system.substring(0, 100)}...` : system;
-  console.log(
-    `[Chat API][${requestId}] System prompt (${system.length} chars):`,
-    systemPreview
-  );
-
-  // Log message count and model
-  console.log(
-    `[Chat API][${requestId}] Messages:`,
-    messages.length,
-    "| Model:",
-    modelId
-  );
-
   // For Workers AI models, use the format: workers-ai/@cf/meta/...
   const model = aigateway(unified(`workers-ai/${modelId}`));
 
@@ -633,9 +615,7 @@ async function handleDirectExecution(
         }),
   });
 
-  console.log(
-    `[Chat API][${requestId}] Streaming started via AI Gateway: ${modelId}`
-  );
+  // Streaming started — structured observability handles logging
 
   // Store conversation for authenticated users (fire and forget)
   if (user && context.env.DB && conversationId) {

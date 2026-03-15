@@ -121,23 +121,12 @@ export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
   // Run health check on first call to quickly detect connectivity issues
-  if (!healthCheckCompleted) {
-    console.log(
-      "[CCUsage Metrics] First query - running ClickHouse health check..."
+  const healthy = await checkClickHouseHealth();
+  if (!healthy) {
+    console.error(
+      "[CCUsage Metrics] Health check failed - ClickHouse may be unreachable"
     );
-    const pingResult = await pingClickHouse();
-    if (!pingResult.success) {
-      console.error(
-        "[CCUsage Metrics] Health check failed - ClickHouse may be unreachable:",
-        {
-          latencyMs: pingResult.latencyMs,
-          error: pingResult.error,
-        }
-      );
-      // Continue anyway - the actual queries will also fail but with more details
-    }
-    healthCheckCompleted = true;
-    healthCheckPassed = pingResult.success;
+    // Continue anyway - the actual queries will also fail but with more details
   }
 
   const dateCondition = getDateCondition(days);

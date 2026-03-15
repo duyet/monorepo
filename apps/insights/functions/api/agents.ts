@@ -8,33 +8,31 @@ export const onRequestGet = async (context: any) => {
   }
 
   try {
+    const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
 
     // Total Volume over time (last 30 days)
     const [volumeRes, activeUsersRes, toolUsageRes, statsRes] =
       await AGENTS_DB.batch([
         AGENTS_DB.prepare(`
-        SELECT date(created_at) as date, mode, COUNT(*) as count 
-        FROM conversations 
-        WHERE created_at >= date('now', '-30 days')
-        GROUP BY date(created_at), mode
+        SELECT date(created_at / 1000, 'unixepoch') as date, mode, COUNT(*) as count
+        FROM conversations
+        WHERE created_at >= ?
+        GROUP BY date(created_at / 1000, 'unixepoch'), mode
         ORDER BY date ASC
-      `),
+      `).bind(thirtyDaysAgo),
         AGENTS_DB.prepare(`
-        SELECT COUNT(DISTINCT user_id) as total 
-        FROM conversations 
-        WHERE user_id IS NOT NULL AND created_at >= date('now', '-30 days')
-      `),
-        // Approximate tool usage: We can extract tools from messages if we had a dedicated column,
-        // but assuming we're tracking 'toolCalls' inside message JSON 'content' or 'metadata'
-        // For now, we simulate this by parsing the messages or using total tool calls if tracked natively.
+        SELECT COUNT(DISTINCT user_id) as total
+        FROM conversations
+        WHERE user_id IS NOT NULL AND created_at >= ?
+      `).bind(thirtyDaysAgo),
         AGENTS_DB.prepare(`
-        SELECT role, COUNT(*) as count 
-        FROM messages 
-        WHERE created_at >= date('now', '-30 days')
+        SELECT role, COUNT(*) as count
+        FROM messages
+        WHERE timestamp >= ?
         GROUP BY role
-      `),
+      `).bind(thirtyDaysAgo),
         AGENTS_DB.prepare(`
-        SELECT 
+        SELECT
           (SELECT COUNT(*) FROM conversations) as total_conversations,
           (SELECT COUNT(*) FROM messages) as total_messages
       `),
