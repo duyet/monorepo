@@ -94,8 +94,6 @@ export async function CommitTimeline() {
 }
 
 async function getCommitStats(owner: string): Promise<CommitStats> {
-  console.log(`Fetching GitHub commit stats for ${owner}`);
-
   try {
     // Get user events with pagination to cover full 12 weeks
     const events = await fetchAllEvents(owner);
@@ -151,10 +149,6 @@ async function getCommitStats(owner: string): Promise<CommitStats> {
         week: 12 - i,
       });
     }
-
-    console.log(
-      `Commit history generated for ${commitHistory.length} weeks, total commits: ${totalCommits}`
-    );
 
     // Find most active day
     let mostActiveDay = "Monday";

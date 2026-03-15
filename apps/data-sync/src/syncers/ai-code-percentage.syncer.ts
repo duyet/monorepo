@@ -404,7 +404,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     const MAX_PAGES = 100; // Increased for backfill
     const currentOwner = owner || this.owners[0];
 
-    while (after !== null && pageCount < MAX_PAGES) {
+    do {
       const response = await this.withRetry(async () => {
         const headers: Record<string, string> = {
           "Content-Type": "application/json",
@@ -491,7 +491,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
 
       // Rate limit delay
       await this.sleep(200);
-    }
+    } while (after !== null && pageCount < MAX_PAGES);
 
     return commits;
   }

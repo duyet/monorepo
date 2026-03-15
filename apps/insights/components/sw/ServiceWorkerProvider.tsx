@@ -47,7 +47,9 @@ export function ServiceWorkerProvider() {
         navigator.serviceWorker
           .register("/sw.js")
           .then((registration) => {
-            console.log("[SW] Service worker registered:", registration);
+            if (process.env.NODE_ENV !== "production") {
+              console.log("[SW] Service worker registered:", registration);
+            }
 
             // Check for updates
             registration.addEventListener("updatefound", () => {
@@ -77,10 +79,14 @@ export function ServiceWorkerProvider() {
 
           switch (type) {
             case "SYNC_COMPLETE":
-              console.log("[SW] Background sync complete:", data);
+              if (process.env.NODE_ENV !== "production") {
+                console.log("[SW] Background sync complete:", data);
+              }
               break;
             case "CACHE_STATUS":
-              console.log("[SW] Cache status:", data);
+              if (process.env.NODE_ENV !== "production") {
+                console.log("[SW] Cache status:", data);
+              }
               break;
             default:
               break;

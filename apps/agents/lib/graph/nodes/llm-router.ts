@@ -172,8 +172,9 @@ export class LLMRouterNode extends GraphNode {
     }
 
     const top = scores[0];
-    const maxScore = Math.max(...scores.map((s) => s.score));
-    const confidence = maxScore > 0 ? top.score / maxScore : 0;
+    const maxScore = top.score;
+    const secondScore = scores.length > 1 ? scores[1].score : 0;
+    const confidence = maxScore > 0 ? (top.score - secondScore) / maxScore : 0;
 
     return {
       toolName: top.toolName,

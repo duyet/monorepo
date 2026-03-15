@@ -1,5 +1,3 @@
-"use client";
-
 export interface ComparisonItem {
   id: string;
   label: string;

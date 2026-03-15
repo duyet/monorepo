@@ -135,7 +135,8 @@ export function getClickHouseClient() {
     );
     return clientInstance;
   } catch (error) {
-    console.error("[ClickHouse Client] Failed to create client:", error);
+    const safeMessage = String(error).replace(/\/\/[^@]+@/g, '//<credentials>@');
+    console.error("[ClickHouse Client] Failed to create client:", safeMessage);
     return null;
   }
 }

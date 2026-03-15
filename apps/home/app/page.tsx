@@ -104,6 +104,8 @@ const apps: AppItem[] = [
   },
 ];
 
+export const dynamic = "force-static";
+
 // Server component - renders immediately as HTML
 export default function HomePage() {
   return (

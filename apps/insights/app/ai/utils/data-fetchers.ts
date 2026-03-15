@@ -20,58 +20,52 @@ import {
   validateDaysParameter,
 } from "./queries";
 
-// Track if we've already done a health check this build
-let healthCheckCompleted = false;
-let healthCheckPassed = false;
+// Single in-flight promise prevents concurrent callers from running duplicate checks
+let healthCheckPromise: Promise<boolean> | null = null;
 
 /**
  * Quick health check with 10 second timeout to verify ClickHouse connectivity
- * Runs only once per build and caches the result
+ * Runs only once per build; concurrent callers share the same in-flight promise.
  */
-export async function checkClickHouseHealth(): Promise<boolean> {
-  if (healthCheckCompleted) {
-    console.log("[ClickHouse Health] Using cached result:", {
-      passed: healthCheckPassed,
-    });
-    return healthCheckPassed;
+export function checkClickHouseHealth(): Promise<boolean> {
+  if (healthCheckPromise !== null) {
+    console.log("[ClickHouse Health] Using cached/in-flight result");
+    return healthCheckPromise;
   }
 
-  console.log("[ClickHouse Health] Running quick connectivity test...");
-  const startTime = Date.now();
+  healthCheckPromise = (async () => {
+    console.log("[ClickHouse Health] Running quick connectivity test...");
+    const startTime = Date.now();
 
-  try {
-    // Use the test connection function with a quick timeout
-    const result = await testClickHouseConnection();
+    try {
+      const result = await testClickHouseConnection();
 
-    healthCheckCompleted = true;
-    healthCheckPassed = result.success;
+      if (result.success) {
+        console.log("[ClickHouse Health] ✓ Connection successful:", {
+          duration: `${Date.now() - startTime}ms`,
+          version: result.details.version,
+          host: result.details.host,
+        });
+      } else {
+        console.error("[ClickHouse Health] ✗ Connection failed:", {
+          duration: `${Date.now() - startTime}ms`,
+          message: result.message,
+          details: result.details,
+        });
+      }
 
-    if (result.success) {
-      console.log("[ClickHouse Health] ✓ Connection successful:", {
+      return result.success;
+    } catch (error) {
+      console.error("[ClickHouse Health] ✗ Health check threw error:", {
         duration: `${Date.now() - startTime}ms`,
-        version: result.details.version,
-        host: result.details.host,
+        error: error instanceof Error ? error.message : "Unknown error",
       });
-    } else {
-      console.error("[ClickHouse Health] ✗ Connection failed:", {
-        duration: `${Date.now() - startTime}ms`,
-        message: result.message,
-        details: result.details,
-      });
+
+      return false;
     }
+  })();
 
-    return healthCheckPassed;
-  } catch (error) {
-    healthCheckCompleted = true;
-    healthCheckPassed = false;
-
-    console.error("[ClickHouse Health] ✗ Health check threw error:", {
-      duration: `${Date.now() - startTime}ms`,
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
-
-    return false;
-  }
+  return healthCheckPromise;
 }
 
 /**

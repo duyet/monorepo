@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { OverviewDashboard } from "@/components/dashboard/OverviewDashboard";
 import { PageLoadingSkeleton } from "@/components/loading/EnhancedSkeletons";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "@duyet Insights Dashboard",
   description:

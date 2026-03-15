@@ -5,7 +5,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
-import * as seline from "@seline-analytics/web";
+import { track } from "@seline-analytics/web";
 import Link from "next/link";
 
 export function HoverLinks({
@@ -20,7 +20,7 @@ export function HoverLinks({
       openDelay={100}
       closeDelay={100}
       onOpenChange={(open: boolean) => {
-        if (open) seline.track("CV: Hover Link", { text });
+        if (open) track("CV: Hover Link", { text });
       }}
     >
       <HoverCardTrigger asChild>

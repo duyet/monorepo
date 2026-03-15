@@ -46,7 +46,32 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/chat" && request.method === "POST") {
       try {
-        const { messages } = await request.json();
+        const body = await request.json();
+        const messages = body?.messages;
+        if (!Array.isArray(messages)) {
+          return new Response(
+            JSON.stringify({ error: "messages must be an array" }),
+            {
+              status: 400,
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
+        }
+        if (messages.length > 50) {
+          return new Response(
+            JSON.stringify({ error: "Too many messages (max 50)" }),
+            {
+              status: 400,
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
+        }
 
         // System prompt
         const systemPrompt = {

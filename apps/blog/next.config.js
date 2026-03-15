@@ -50,28 +50,6 @@ const config = {
       },
     ],
   },
-  // DNS prefetch and preconnect hints for external domains
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "Content-Signal",
-            value: "ai-train=yes, search=yes, ai-input=yes",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 module.exports = config;

@@ -5,7 +5,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
-import * as seline from "@seline-analytics/web";
+import { track } from "@seline-analytics/web";
 import Link from "next/link";
 import type React from "react";
 
@@ -37,7 +37,7 @@ export function Skill({
       openDelay={100}
       closeDelay={100}
       onOpenChange={(open: boolean) => {
-        if (open) seline.track("CV: Hover Skill", { skill });
+        if (open) track("CV: Hover Skill", { skill });
       }}
     >
       <HoverCardTrigger asChild>

@@ -132,11 +132,8 @@ export async function GitHubLanguageStats() {
 
 async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
   try {
-    console.log(`Fetching GitHub language stats for ${owner}`);
-
     // Fetch all repositories with pagination
     const repos = await fetchAllRepositories(owner);
-    console.log(`Found ${repos.length} public repositories for ${owner}`);
 
     // Calculate repository stats
     const totalRepos = repos.length;

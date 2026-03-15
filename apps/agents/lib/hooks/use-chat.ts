@@ -307,6 +307,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     }
   }, [aiMessages, isActiveStatus]);
 
+  const toolTimestampsRef = useRef<Map<string, { start: number; end?: number }>>(new Map());
+
   /** Collect tool executions from DynamicToolUIPart parts across all messages */
   const toolExecutions = useMemo<ToolExecution[]>(() => {
     const executions: ToolExecution[] = [];
@@ -318,12 +320,22 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         const p = part as any;
         if (!p.toolCallId || !p.toolName) continue;
         const isComplete = p.state === "output-available";
+
+        const timestamps = toolTimestampsRef.current.get(p.toolCallId);
+        if (!timestamps) {
+          toolTimestampsRef.current.set(p.toolCallId, { start: Date.now() });
+        }
+        const ts = toolTimestampsRef.current.get(p.toolCallId)!;
+        if (isComplete && !ts.end) {
+          ts.end = Date.now();
+        }
+
         executions.push({
           id: p.toolCallId,
           toolName: p.toolName,
           parameters: (p.input as Record<string, unknown>) || {},
-          startTime: Date.now(),
-          endTime: isComplete ? Date.now() : undefined,
+          startTime: ts.start,
+          endTime: isComplete ? ts.end : undefined,
           status: toExecutionStatus(p.state),
           result: isComplete ? (p.output as string) : undefined,
         });

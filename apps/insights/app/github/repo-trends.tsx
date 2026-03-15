@@ -169,13 +169,8 @@ export async function RepoTrends() {
 
 async function getTrendStats(owner: string): Promise<TrendStats> {
   try {
-    console.log(`Fetching GitHub trend stats for ${owner}`);
-
     // Fetch all repositories with pagination
     const repos = await fetchAllRepositories(owner);
-    console.log(
-      `Found ${repos.length} public repositories for trends analysis`
-    );
 
     // Convert to trend data
     const repoTrends: RepoTrend[] = repos.map((repo: GitHubRepository) => ({

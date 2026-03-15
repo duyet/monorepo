@@ -46,12 +46,6 @@ import {
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
 
-/** Truncate an identifier to a short prefix for safe logging (no raw PII) */
-function anonymizeForLog(value: string | undefined, prefixLen = 8): string {
-  if (!value) return "anon";
-  if (value.length <= prefixLen) return value;
-  return `${value.substring(0, prefixLen)}…`;
-}
 
 /**
  * Sanitize a user-supplied string before injecting into the system prompt.
@@ -335,11 +329,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Generate unique request ID for tracing
     const requestId = crypto.randomUUID().substring(0, 8);
 
-    // Log incoming request
-    console.log(
-      `[Chat API][${requestId}] Request: mode=${mode}, useGraph=${useGraph}, messages=${uiMessages.length}, user=${anonymizeForLog(user?.userId)}, ip=${anonymizeForLog(clientIp)}`
-    );
-
     // Unit 11: Graph-based execution path
     // When useGraph=true and mode=agent, use GraphRouter instead of direct LLM
     if (useGraph && mode === "agent") {
@@ -418,10 +407,6 @@ async function handleGraphExecution(
   // Create initial state for graph execution
   const convId = conversationId || crypto.randomUUID();
   const initialState = createInitialState(convId, userInput);
-
-  console.log(
-    `[Chat API][${requestId}] Graph execution started for conversation ${convId}`
-  );
 
   // Create observability middleware
   const observability = createObservability({

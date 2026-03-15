@@ -1,5 +1,3 @@
-import { createDatabaseClient } from "../../../agents/lib/db/client";
-
 export const onRequestGet = async (context: any) => {
   const { AGENTS_DB } = context.env;
   if (!AGENTS_DB) {
@@ -10,7 +8,6 @@ export const onRequestGet = async (context: any) => {
   }
 
   try {
-    const _dbClient = createDatabaseClient(AGENTS_DB);
 
     // Total Volume over time (last 30 days)
     const [volumeRes, activeUsersRes, toolUsageRes, statsRes] =
