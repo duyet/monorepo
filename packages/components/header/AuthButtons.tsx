@@ -7,6 +7,18 @@ import Icons from "../Icons";
 // Track whether a ClerkProvider already exists in the page
 let clerkProviderMounted = false;
 
+// Custom hook to detect if we're inside a ClerkProvider
+function useHasClerkProvider(clerkModule: any): boolean {
+  try {
+    // If useClerk works without throwing, we're inside a provider
+    clerkModule?.useClerk();
+    return true;
+  } catch {
+    // useClerk threw, no provider exists
+    return false;
+  }
+}
+
 /**
  * Auth button component for user authentication.
  *
@@ -17,6 +29,7 @@ let clerkProviderMounted = false;
  * - Customizable styling
  * - Auto-redirect back to current page after sign in/out
  * - Optional signedInContent for authenticated-only features
+ * - Optional wrapWithProvider for apps with existing ClerkProvider
  *
  * @example
  * // Minimal usage (redirects to current page)
@@ -29,6 +42,10 @@ let clerkProviderMounted = false;
  * @example
  * // With custom styling
  * <AuthButtons className="rounded-lg p-2" />
+ *
+ * @example
+ * // App already has ClerkProvider
+ * <AuthButtons wrapWithProvider={false} />
  */
 export function AuthButtons({
   urls,
@@ -37,6 +54,7 @@ export function AuthButtons({
   avatarSize = "h-8 w-8",
   signedInContent = null,
   signedOutContent = null,
+  wrapWithProvider = true,
 }: {
   urls?: UrlsConfig;
   className?: string;
@@ -44,6 +62,7 @@ export function AuthButtons({
   avatarSize?: string;
   signedInContent?: React.ReactNode | null;
   signedOutContent?: React.ReactNode | null;
+  wrapWithProvider?: boolean;
 } = {}) {
   const [clerkModule, setClerkModule] = useState<any>(null);
   const [currentUrl, setCurrentUrl] = useState("");
@@ -115,8 +134,8 @@ export function AuthButtons({
   const redirectUrl =
     currentUrl || urls?.apps?.blog || "https://blog.duyet.net";
 
-  return (
-    <ClerkProvider publishableKey={publishableKey}>
+  const content = (
+    <>
       {signedOutContent && <SignedOut>{signedOutContent}</SignedOut>}
       {signedInContent && <SignedIn>{signedInContent}</SignedIn>}
       <SignedOut>
@@ -140,6 +159,12 @@ export function AuthButtons({
           afterSignOutUrl={redirectUrl}
         />
       </SignedIn>
-    </ClerkProvider>
+    </>
+  );
+
+  return wrapWithProvider ? (
+    <ClerkProvider publishableKey={publishableKey}>{content}</ClerkProvider>
+  ) : (
+    content
   );
 }
