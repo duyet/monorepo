@@ -39,7 +39,27 @@ function handleOptions(): Response {
 /**
  * Format conversation as JSON
  */
-function formatAsJSON(conversation: any, messages: any[]): string {
+interface ExportConversation {
+  id: string;
+  title: string;
+  mode: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+interface ExportMessage {
+  id: string;
+  role: string;
+  content: string;
+  timestamp: number;
+  model?: string;
+  duration?: number;
+  tokens?: { prompt?: number; completion?: number; total?: number };
+  toolCalls?: number;
+  sources?: Array<{ title: string; url?: string }>;
+}
+
+function formatAsJSON(conversation: ExportConversation, messages: ExportMessage[]): string {
   return JSON.stringify(
     {
       conversation: {
@@ -69,7 +89,7 @@ function formatAsJSON(conversation: any, messages: any[]): string {
 /**
  * Format conversation as Markdown
  */
-function formatAsMarkdown(conversation: any, messages: any[]): string {
+function formatAsMarkdown(conversation: ExportConversation, messages: ExportMessage[]): string {
   const lines: string[] = [];
 
   // Header
@@ -138,7 +158,7 @@ function formatAsMarkdown(conversation: any, messages: any[]): string {
 /**
  * Format conversation as plain text
  */
-function formatAsText(conversation: any, messages: any[]): string {
+function formatAsText(conversation: ExportConversation, messages: ExportMessage[]): string {
   const lines: string[] = [];
 
   // Header

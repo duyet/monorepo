@@ -1,4 +1,12 @@
-export const onRequestGet = async (context: any) => {
+interface Env {
+  AGENTS_DB: D1Database;
+}
+
+interface ActiveUsersRow {
+  total: number;
+}
+
+export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { AGENTS_DB } = context.env;
   if (!AGENTS_DB) {
     return new Response(
@@ -39,7 +47,8 @@ export const onRequestGet = async (context: any) => {
       ]);
 
     const dailyVolume = volumeRes.results || [];
-    const activeUsers30d = (activeUsersRes.results[0] as any)?.total || 0;
+    const firstRow = activeUsersRes.results[0] as ActiveUsersRow | undefined;
+    const activeUsers30d = firstRow?.total || 0;
     const roleDistribution = toolUsageRes.results || [];
     const globalStats = statsRes.results[0] || {
       total_conversations: 0,
