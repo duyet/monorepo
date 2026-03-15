@@ -29,24 +29,16 @@ let healthCheckPromise: Promise<boolean> | null = null;
  */
 export function checkClickHouseHealth(): Promise<boolean> {
   if (healthCheckPromise !== null) {
-    console.log("[ClickHouse Health] Using cached/in-flight result");
     return healthCheckPromise;
   }
 
   healthCheckPromise = (async () => {
-    console.log("[ClickHouse Health] Running quick connectivity test...");
     const startTime = Date.now();
 
     try {
       const result = await testClickHouseConnection();
 
-      if (result.success) {
-        console.log("[ClickHouse Health] ✓ Connection successful:", {
-          duration: `${Date.now() - startTime}ms`,
-          version: result.details.version,
-          host: result.details.host,
-        });
-      } else {
+      if (!result.success) {
         console.error("[ClickHouse Health] ✗ Connection failed:", {
           duration: `${Date.now() - startTime}ms`,
           message: result.message,
@@ -77,7 +69,6 @@ export async function pingClickHouse(): Promise<{
   latencyMs: number;
   error?: string;
 }> {
-  console.log("[ClickHouse Ping] Sending ping...");
   const startTime = Date.now();
 
   try {
@@ -90,10 +81,6 @@ export async function pingClickHouse(): Promise<{
     const latencyMs = Date.now() - startTime;
 
     if (result.success && result.data.length > 0) {
-      console.log("[ClickHouse Ping] ✓ Pong received:", {
-        latencyMs,
-        serverTime: result.data[0]?.server_time,
-      });
       return { success: true, latencyMs };
     }
 

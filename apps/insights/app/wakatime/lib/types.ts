@@ -76,7 +76,7 @@ export interface HybridFetchConfig {
 export const DEFAULT_HYBRID_CONFIG: HybridFetchConfig = {
   freshDataDays: 7,
   fallbackToApiOnly: true,
-  logLevel: "info",
+  logLevel: "none",
 };
 
 /**
