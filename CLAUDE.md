@@ -132,3 +132,28 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - Always include duyet and duyetbot as co-authors in commits:
   - `Co-Authored-By: duyet <me@duyet.net>`
   - `Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>`
+
+### Commitlint Scopes
+
+Commits must use one of these scopes (enforced by `.commitlintrc.js`):
+
+| Scope | Description |
+|-------|-------------|
+| `deps` | Dependency updates |
+| `post` | Blog post content |
+| `blog` | Blog app (`apps/blog`) |
+| `cv` | CV app (`apps/cv`) |
+| `home` | Home app (`apps/home`) |
+| `insights` | Insights app (`apps/insights`) |
+| `photos` | Photos app (`apps/photos`) |
+| `travel` | Travel app |
+| `auth` | Authentication changes |
+| `ci` | CI/CD pipeline |
+| `ui` | Shared UI / cross-app styling |
+| `rust` | Rust-related changes |
+| `docs` | Documentation |
+| `lib` | Shared packages (`packages/*`) |
+| `agents` | Agents app (`apps/agents`) |
+| `llm-timeline` | LLM Timeline app (`apps/llm-timeline`) |
+
+Scope-less commits are allowed (warning, not error) but discouraged. For apps without a dedicated scope (e.g. `ai`, `homelab`, `ai-percentage`, `data-sync`), use no scope or the closest match.

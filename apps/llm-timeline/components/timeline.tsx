@@ -126,11 +126,11 @@ export function Timeline({
                         onFocusChange?.(globalIndex);
                       }
                     }}
-                    className={
+                    className={`transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2 ${
                       isFocused && !comparisonMode
-                        ? "ring-2 ring-neutral-300 dark:ring-neutral-500 ring-offset-2 rounded-xl"
+                        ? "ring-2 ring-neutral-400 dark:ring-neutral-500 ring-offset-2"
                         : ""
-                    }
+                    }`}
                     role="option"
                     aria-selected={isFocused}
                     tabIndex={isFocused ? 0 : -1}
