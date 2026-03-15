@@ -7,18 +7,6 @@ import Icons from "../Icons";
 // Track whether a ClerkProvider already exists in the page
 let clerkProviderMounted = false;
 
-// Custom hook to detect if we're inside a ClerkProvider
-function useHasClerkProvider(clerkModule: any): boolean {
-  try {
-    // If useClerk works without throwing, we're inside a provider
-    clerkModule?.useClerk();
-    return true;
-  } catch {
-    // useClerk threw, no provider exists
-    return false;
-  }
-}
-
 /**
  * Auth button component for user authentication.
  *
