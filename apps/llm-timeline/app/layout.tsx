@@ -4,10 +4,9 @@ import "./animations.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
-import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, DM_Serif_Display, IBM_Plex_Mono } from "next/font/google";
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -47,6 +46,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf7f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#1f1f1f" },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -64,29 +70,14 @@ export default function RootLayout({
     >
       <Head />
       <body
-        className={cn("subpixel-antialiased", "transition-colors duration-300")}
+        className={cn(
+          "text-neutral-900 dark:text-neutral-100",
+          "subpixel-antialiased",
+          "transition-colors duration-300"
+        )}
       >
         <ThemeProvider>
           {children}
-          <div className="border-t border-neutral-200 dark:border-neutral-700">
-            <Header
-              logo={false}
-              longText="LLM Timeline"
-              shortText="LLM Timeline"
-            />
-            <div className="mx-auto max-w-7xl px-4 py-3 text-center text-xs text-neutral-500 dark:text-neutral-400">
-              Data sources: Curated +{" "}
-              <a
-                href="https://epoch.ai/data"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-neutral-700 dark:hover:text-neutral-300"
-              >
-                Epoch AI
-              </a>{" "}
-              (CC BY 4.0)
-            </div>
-          </div>
           <Analytics />
         </ThemeProvider>
       </body>
