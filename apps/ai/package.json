@@ -27,8 +27,8 @@
     "react-dom": "19.2.4"
   },
   "optionalDependencies": {
-    "@opennextjs/cloudflare": "^1.9.2",
-    "wrangler": "^4"
+    "@opennextjs/cloudflare": "^1.17.1",
+    "wrangler": "^4.73.0"
   },
   "devDependencies": {
     "@duyet/interfaces": "*",
@@ -45,6 +45,6 @@
     "happy-dom": "^20.0.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/jest-dom": "^6.6.0",
-    "vitest": "^2.0.0"
+    "vitest": "^2.1.9"
   }
 }
