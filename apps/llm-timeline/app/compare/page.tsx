@@ -158,7 +158,7 @@ function CompareContent() {
           {sortedModels.map((model) => (
             <div
               key={model.name}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100"
+              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100"
             >
               <span className="font-medium">{model.name}</span>
               <button
@@ -187,7 +187,7 @@ function CompareContent() {
 
         {/* Model selector dropdown */}
         {showSelector && (
-          <div className="mb-4 p-4 rounded-xl border border-neutral-200 dark:border-white/10">
+          <div className="mb-4 p-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111]">
             <div className="flex items-center gap-2 mb-3">
               <Search className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
               <input
@@ -195,7 +195,7 @@ function CompareContent() {
                 placeholder="Search models by name or organization..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-md border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100"
+                className="flex-1 px-3 py-2 rounded-md border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100"
               />
               <button
                 onClick={() => setShowSelector(false)}
@@ -240,7 +240,7 @@ function CompareContent() {
           <div className="rounded-xl border border-neutral-200 dark:border-white/10 overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-neutral-200 dark:border-white/10">
+                <tr className="border-b border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5">
                   <th className="px-4 py-3 text-left font-semibold w-32">
                     Metric
                   </th>
@@ -385,7 +385,7 @@ function CompareContent() {
                 <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
                   Share this comparison:
                 </p>
-                <code className="text-sm px-2 py-1 rounded bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100">
+                <code className="text-sm px-2 py-1 rounded bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-neutral-100">
                   {typeof window !== "undefined"
                     ? window.location.href
                     : "/compare"}
@@ -399,7 +399,7 @@ function CompareContent() {
                 </p>
                 <button
                   onClick={exportToCSV}
-                  className="flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-white/10"
+                  className="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs dark:border-white/10 dark:bg-white/5 text-neutral-900 dark:text-neutral-100 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
                 >
                   <Download className="h-4 w-4" />
                   <span>Download CSV</span>
