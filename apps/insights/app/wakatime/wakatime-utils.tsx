@@ -36,12 +36,13 @@ async function wakaTimeRequest(endpoint: string) {
     return null;
   }
 
-  // Add API key as query parameter
-  const separator = endpoint.includes("?") ? "&" : "?";
-  const url = `${wakatimeConfig.baseUrl}${endpoint}${separator}api_key=${apiKey}`;
+  const url = `${wakatimeConfig.baseUrl}${endpoint}`;
 
   try {
     const res = await fetch(url, {
+      headers: {
+        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
+      },
       next: { revalidate: wakatimeConfig.cache.revalidate },
     });
 
@@ -49,14 +50,14 @@ async function wakaTimeRequest(endpoint: string) {
       if (res.status === 401) {
         console.error(
           "WakaTime API authentication failed: Invalid or expired API key",
-          `URL: ${url.replace(/api_key=[^&]+/, "api_key=***")}`
+          `URL: ${url}`
         );
       } else if (res.status === 403) {
         console.error("WakaTime API access forbidden - check permissions");
       } else {
         console.error(
           `WakaTime API error: ${res.status} ${res.statusText}`,
-          `URL: ${url.replace(/api_key=[^&]+/, "api_key=***")}`
+          `URL: ${url}`
         );
       }
       return null;
@@ -175,9 +176,12 @@ async function getActivityFromDurations(
       const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
       const dateStr = date.toISOString().split("T")[0];
 
-      const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.durations(dateStr)}&api_key=${apiKey}`;
+      const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.durations(dateStr)}`;
 
       const res = await fetch(url, {
+        headers: {
+          Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
+        },
         next: { revalidate: wakatimeConfig.cache.revalidate },
       });
 
@@ -314,10 +318,13 @@ async function getActivityFromInsights(
   // Use appropriate range for the requested days
   const range = getInsightsRange(days);
 
-  const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}&api_key=${apiKey}`;
+  const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}`;
 
   try {
     const res = await fetch(url, {
+      headers: {
+        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
+      },
       next: { revalidate: wakatimeConfig.cache.revalidate },
     });
 

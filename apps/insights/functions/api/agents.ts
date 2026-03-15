@@ -1,12 +1,9 @@
-interface Env {
-  AGENTS_DB: D1Database;
-}
-
 interface ActiveUsersRow {
   total: number;
 }
 
-export const onRequestGet: PagesFunction<Env> = async (context) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Cloudflare Pages Function context
+export const onRequestGet = async (context: { env: Record<string, any> }) => {
   const { AGENTS_DB } = context.env;
   if (!AGENTS_DB) {
     return new Response(
