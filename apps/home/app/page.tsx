@@ -107,6 +107,7 @@ const apps: AppItem[] = [
     href: "/agentstate",
     host: "agentstate.app",
     utmContent: "agentstate_bento",
+    screenshot: "/screenshots/agentstate-flat-1.png",
     fallbackIcon: (
       <Database className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
     ),

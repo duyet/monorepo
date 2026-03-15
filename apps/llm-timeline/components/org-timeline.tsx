@@ -61,12 +61,19 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
             {/* Models for this org — timeline flow handled by ModelCard */}
             <div className="ml-2">
               {orgModels.map((model, index) => (
-                <ModelCard
+                <div
                   key={`${model.org}-${model.date}-${model.name}-${index}`}
-                  model={model}
-                  isLast={index === orgModels.length - 1}
-                  lite={liteMode}
-                />
+                  className="transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${model.name} by ${model.org}`}
+                >
+                  <ModelCard
+                    model={model}
+                    isLast={index === orgModels.length - 1}
+                    lite={liteMode}
+                  />
+                </div>
               ))}
             </div>
           </div>
