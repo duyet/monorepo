@@ -193,6 +193,7 @@ export function ChatTopBar({
           <AuthButtons
             signInClassName="h-8 w-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             avatarSize="h-7 w-7"
+            wrapWithProvider={false}
           />
         </div>
       </div>
