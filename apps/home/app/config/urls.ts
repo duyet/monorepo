@@ -56,9 +56,13 @@ export const urls: Urls = {
     target: "https://github.com/duyet",
     desc: "@duyet on Github",
   },
-  "/monitor": {
+  "/clickhouse-monitoring": {
     target: "https://clickhouse-monitor.duyet.workers.dev/",
     desc: "ClickHouse Monitoring UI",
+  },
+  "/monitor": {
+    target: "/clickhouse-monitoring",
+    desc: "ClickHouse Monitoring UI (legacy)",
   },
   "/clickhouse": {
     target: "https://blog.duyet.net/tag/clickhouse",

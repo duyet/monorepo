@@ -22,6 +22,7 @@ export const CATEGORY_MAP: Record<string, Category> = {
   "/ni": "Social",
   "/rs": "Tools",
   "/rust": "Tools",
+  "/clickhouse-monitoring": "Tools",
   "/monitor": "Tools",
   "/clickhouse": "Tools",
   "/ch": "Tools",
