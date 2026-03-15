@@ -46,6 +46,8 @@ export function ModelCard({
             className={cn(
               "shrink-0 relative flex items-center justify-center transition-all",
               "w-5 h-5 rounded border",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400",
+              "dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
               isSelected
                 ? "bg-neutral-700 dark:bg-neutral-300 border-neutral-700 dark:border-neutral-300"
                 : "bg-white dark:bg-[#111] border-neutral-200 dark:border-white/10 hover:border-neutral-400 dark:hover:border-white/30"
@@ -143,6 +145,8 @@ export function ModelCard({
             onClick={() => onSelectionChange?.(!isSelected)}
             className={cn(
               "flex items-center justify-center transition-all rounded-lg p-1",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400",
+              "dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
               isSelected
                 ? "bg-neutral-700 dark:bg-neutral-300"
                 : "bg-white dark:bg-[#111] border border-neutral-200 dark:border-white/10 hover:border-neutral-400 dark:hover:border-white/30"
@@ -249,7 +253,7 @@ export function ModelCard({
                     href={model.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-dotted text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                    className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
                   >
                     {model.domain}
                   </a>
@@ -263,7 +267,7 @@ export function ModelCard({
                 href={model.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline decoration-dotted text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
               >
                 Paper
               </a>
@@ -332,7 +336,14 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
 
         <button
           onClick={handleCompareAll}
-          className="text-[11px] font-medium px-2 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-600 dark:text-neutral-400 transition-colors hover:border-neutral-300 dark:hover:border-white/20 hover:text-neutral-900 dark:hover:text-neutral-200"
+          className={cn(
+            "rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs",
+            "dark:border-white/10 dark:bg-white/5",
+            "text-neutral-600 dark:text-neutral-400 transition-colors",
+            "hover:border-neutral-300 dark:hover:border-white/20 hover:text-neutral-900 dark:hover:text-neutral-200",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400",
+            "dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+          )}
         >
           Compare All
         </button>
@@ -344,7 +355,7 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
             <a
               key={related.name}
               href={`#${related.name}`}
-              className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-neutral-50 dark:hover:bg-white/5"
               title={related.desc}
             >
               <OrgAvatar org={related.org} size="sm" />
