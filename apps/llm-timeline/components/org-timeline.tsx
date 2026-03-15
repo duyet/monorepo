@@ -36,8 +36,7 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
             <div className="mb-6 flex items-center gap-4 overflow-hidden">
               <div className="shrink-0 overflow-hidden">
                 <span
-                  className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap"
-                  style={{ color: "var(--year-watermark)" }}
+                  className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap text-neutral-200 dark:text-neutral-700"
                   aria-hidden="true"
                 >
                   {org}
@@ -47,8 +46,7 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
               <div className="flex shrink-0 items-center gap-2">
                 <OrgAvatar org={org} size="sm" />
                 <span
-                  className="text-sm font-medium truncate text-neutral-900 dark:text-neutral-100"
-                  style={{ maxWidth: "12rem" }}
+                  className="text-sm font-medium truncate max-w-[12rem] text-neutral-900 dark:text-neutral-100"
                 >
                   {org}
                 </span>
@@ -63,10 +61,7 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
               {orgModels.map((model, index) => (
                 <div
                   key={`${model.org}-${model.date}-${model.name}-${index}`}
-                  className="transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${model.name} by ${model.org}`}
+                  className="transition-all rounded-xl"
                 >
                   <ModelCard
                     model={model}

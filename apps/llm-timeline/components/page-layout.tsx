@@ -105,7 +105,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               Built by{" "}
               <Link
                 href="https://duyet.net"
-                className="font-medium text-neutral-900 dark:text-neutral-100 underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-700 dark:hover:text-white"
+                className="font-medium text-neutral-900 dark:text-neutral-100 underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-all hover:text-neutral-700 dark:hover:text-white"
               >
                 duyet
               </Link>

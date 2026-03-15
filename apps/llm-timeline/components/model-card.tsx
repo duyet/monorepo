@@ -84,15 +84,7 @@ export function ModelCard({
 
         {/* Dots separator */}
         <div
-          className="flex-1 px-2"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, var(--border) 1px, transparent 1px)",
-            backgroundSize: "4px 4px",
-            backgroundRepeat: "repeat-x",
-            backgroundPosition: "center",
-            opacity: 0.4,
-          }}
+          className="flex-1 px-2 opacity-40 bg-[length:4px_4px] bg-repeat-x bg-center [background-image:radial-gradient(circle,rgb(212_212_212)_1px,transparent_1px)] dark:[background-image:radial-gradient(circle,rgb(64_64_64)_1px,transparent_1px)]"
         />
 
         {/* Year and metadata on right */}
@@ -324,7 +316,7 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
       <div className="flex items-center justify-between gap-2">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-1.5 text-[11px] font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
+          className="flex items-center gap-1.5 text-[11px] font-medium text-neutral-600 dark:text-neutral-400 transition-all hover:text-neutral-900 dark:hover:text-neutral-200"
         >
           {isExpanded ? (
             <ChevronUp className="h-3 w-3" />

@@ -16,7 +16,6 @@ interface SearchAutocompleteProps {
   value: string;
   onChange: (value: string) => void;
   inputClassName?: string;
-  inputStyle?: React.CSSProperties;
   placeholder?: string;
 }
 
@@ -24,7 +23,6 @@ export function SearchAutocomplete({
   value,
   onChange,
   inputClassName,
-  inputStyle,
   placeholder = "Search models, organizations...",
 }: SearchAutocompleteProps) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -209,7 +207,6 @@ export function SearchAutocomplete({
           }
         }}
         className={`w-full h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 ${inputClassName || ""}`}
-        style={inputStyle}
         autoComplete="off"
         role="combobox"
         aria-expanded={showSuggestions}
@@ -241,7 +238,7 @@ export function SearchAutocomplete({
                 index === selectedIndex
                   ? "bg-neutral-100 dark:bg-neutral-800"
                   : "hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
-              } transition-colors`}
+              } transition-all`}
             >
               <div className="flex items-center gap-2 min-w-0 flex-1">
                 {getSuggestionIcon(suggestion)}

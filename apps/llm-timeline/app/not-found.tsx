@@ -16,7 +16,7 @@ export default function NotFound() {
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-colors hover:opacity-90 bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
           >
             Go to timeline
           </Link>
@@ -24,7 +24,7 @@ export default function NotFound() {
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl border border-neutral-200 dark:border-white/10 px-6 py-2 font-medium transition-colors hover:opacity-80 text-neutral-900 dark:text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+            className="rounded-xl border border-neutral-200 dark:border-white/10 px-6 py-2 font-medium transition-all hover:opacity-80 text-neutral-900 dark:text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
           >
             duyet.net
           </Link>

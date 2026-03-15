@@ -1,7 +1,7 @@
 "use client";
 
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Model } from "@/lib/data";
 import { ModelCard } from "./model-card";
 import { OrgAvatar } from "./org-avatar";
@@ -39,25 +39,26 @@ export function VirtualOrgTimeline({
   const sortedOrgs = Array.from(modelsByOrg.keys());
 
   // Flatten grouped data into a list of virtual items
-  const virtualItems: VirtualItem[] = [];
-  sortedOrgs.forEach((org) => {
-    const orgModels = modelsByOrg.get(org) || [];
-    // Add group header
-    virtualItems.push({
-      type: "group",
-      key: `group-${org}`,
-      org,
-      modelCount: orgModels.length,
-    });
-    // Add models
-    orgModels.forEach((model) => {
-      virtualItems.push({
-        type: "model",
-        key: `${model.org}-${model.date}-${model.name}`,
-        model,
+  const virtualItems = useMemo(() => {
+    const items: VirtualItem[] = [];
+    sortedOrgs.forEach((org) => {
+      const orgModels = modelsByOrg.get(org) || [];
+      items.push({
+        type: "group",
+        key: `group-${org}`,
+        org,
+        modelCount: orgModels.length,
+      });
+      orgModels.forEach((model) => {
+        items.push({
+          type: "model",
+          key: `${model.org}-${model.date}-${model.name}`,
+          model,
+        });
       });
     });
-  });
+    return items;
+  }, [sortedOrgs, modelsByOrg]);
 
   if (virtualItems.length === 0) {
     return (

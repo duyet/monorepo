@@ -63,12 +63,12 @@ export function FilterInfo({
               placeholder="Search models..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-64 h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+              className="w-64 h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-70 text-neutral-500 dark:text-neutral-400"
+                className="absolute right-3 top-1/2 -translate-y-1/2 transition-all hover:opacity-70 text-neutral-500 dark:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 rounded"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -93,7 +93,7 @@ export function FilterInfo({
                 e.target.value as "all" | "open" | "closed" | "partial"
               )
             }
-            className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1"
+            className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500"
           >
             <option value="all">All Licenses</option>
             <option value="open">Open Weights</option>
@@ -109,7 +109,7 @@ export function FilterInfo({
             <button
               onClick={onToggleComparisonMode}
               className={cn(
-                "rounded-xl p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
+                "rounded-xl p-2 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
                 comparisonMode && "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
               )}
               title={
@@ -133,7 +133,7 @@ export function FilterInfo({
           <button
             onClick={toggleLiteMode}
             className={cn(
-              "rounded-xl p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
+              "rounded-xl p-2 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
               liteMode && "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
             )}
             title={liteMode ? "Switch to full view" : "Switch to lite mode"}
