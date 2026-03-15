@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { PageLayout, SectionLayout } from "@/components/layouts";
 import { GithubActivity } from "./activity";
 import { GithubCard } from "./card";
@@ -23,52 +24,83 @@ export default function Page() {
     <PageLayout
       title="GitHub Analytics"
       description="Repository insights and development activity"
-      footer={
-        <p className="text-xs text-muted-foreground">
-          Last updated: {new Date().toISOString().slice(0, 10)}
-        </p>
-      }
     >
       <SectionLayout
         title="Language Distribution"
         description="Programming languages and repository statistics"
       >
-        <GitHubLanguageStats />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <GitHubLanguageStats />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Repository Trends"
         description="Stars, forks, and trending repositories"
       >
-        <RepoTrends />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <RepoTrends />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Repository Overview"
         description="Public repositories and statistics"
       >
-        <Repos owner={owner} />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <Repos owner={owner} />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Commit Activity"
         description="Weekly commit frequency and patterns"
       >
-        <CommitTimeline />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <CommitTimeline />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Development Activity"
         description="Recent contributions and activity patterns"
       >
-        <GithubActivity owner={owner} />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <GithubActivity owner={owner} />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Profile Statistics"
         description="Overall GitHub profile metrics"
       >
-        <GithubCard owner={owner} />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <GithubCard owner={owner} />
+        </Suspense>
       </SectionLayout>
     </PageLayout>
   );

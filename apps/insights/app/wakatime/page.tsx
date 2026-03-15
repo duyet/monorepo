@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import { PageLayout, SectionLayout } from "@/components/layouts";
 import type { PeriodDays } from "@/lib/periods";
@@ -26,45 +27,72 @@ export default function Wakatime() {
       title="Coding Analytics"
       description="Programming activity and language statistics from WakaTime"
       footer={
-        <p className="text-xs text-muted-foreground">
-          Data Source: WakaTime | Last updated:{" "}
-          {new Date().toISOString().slice(0, 10)}
-        </p>
+        <p className="text-xs text-muted-foreground">Data Source: WakaTime</p>
       }
     >
       <SectionLayout
         title="Coding Overview"
         description="Programming activity summary for the last 30 days"
       >
-        <WakaTimeMetrics days={STATIC_DAYS} />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <WakaTimeMetrics days={STATIC_DAYS} />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Daily Activity"
         description="Coding hours over the last 30 days"
       >
-        <WakaTimeActivity days={STATIC_DAYS} />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <WakaTimeActivity days={STATIC_DAYS} />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Programming Languages"
         description="Language usage and distribution"
       >
-        <WakaTimeLanguages days={STATIC_DAYS} />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <WakaTimeLanguages days={STATIC_DAYS} />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Long-term Trends"
         description="Historical coding activity over multiple years"
       >
-        <WakaTimeMonthlyTrend />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <WakaTimeMonthlyTrend />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout
         title="Weekly Patterns"
         description="Coding activity breakdown by day of week"
       >
-        <WakaTimeHourlyHeatmap />
+        <Suspense
+          fallback={
+            <div className="animate-pulse h-64 bg-muted rounded-xl" />
+          }
+        >
+          <WakaTimeHourlyHeatmap />
+        </Suspense>
       </SectionLayout>
 
       <SectionLayout

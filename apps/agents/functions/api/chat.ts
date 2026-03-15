@@ -487,8 +487,8 @@ async function handleGraphExecution(
       );
 
       // Persist checkpoint to D1 for resumability
-      if (DB) {
-        const dbClient = createDatabaseClient(DB);
+      if (context.env.DB) {
+        const dbClient = createDatabaseClient(context.env.DB);
         const checkpointer = createCheckpointer(dbClient);
 
         try {

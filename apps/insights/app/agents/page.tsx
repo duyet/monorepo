@@ -13,7 +13,8 @@ export default function AgentsAnalyticsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/agents")
+    const controller = new AbortController();
+    fetch("/api/agents", { signal: controller.signal })
       .then((res) => res.json())
       .then((d: AgentAnalyticsData & { error?: string }) => {
         if (!d.error) {
@@ -34,8 +35,13 @@ export default function AgentsAnalyticsPage() {
           setData({ ...d, trends });
         }
       })
-      .catch((err) => console.error("Failed to load agent analytics:", err))
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error("Failed to load agent analytics:", err);
+        }
+      })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, []);
 
   return (

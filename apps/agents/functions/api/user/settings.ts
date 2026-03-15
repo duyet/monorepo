@@ -1,4 +1,11 @@
+import { z } from "zod";
 import { getUserFromRequest } from "../../../lib/auth";
+
+const settingsSchema = z.object({
+  customInstructions: z.string().max(5000).optional(),
+  language: z.string().max(10).optional(),
+  timezone: z.string().max(50).optional(),
+});
 
 interface Env {
   CLERK_SECRET_KEY?: string;
@@ -70,18 +77,24 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       );
     }
 
-    const body = (await context.request.json()) as any;
-    const public_metadata = {
-      customInstructions: body.customInstructions,
-      language: body.language,
-      timezone: body.timezone,
-    };
+    const rawBody = await context.request.json();
+    const parsed = settingsSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      return new Response(
+        JSON.stringify({ error: "Invalid request body", details: parsed.error.flatten() }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
-    // Clean undefined values
-    for (const key of Object.keys(public_metadata)) {
-      if ((public_metadata as any)[key] === undefined) {
-        delete (public_metadata as any)[key];
-      }
+    const public_metadata: Record<string, string> = {};
+    if (parsed.data.customInstructions !== undefined) {
+      public_metadata.customInstructions = parsed.data.customInstructions;
+    }
+    if (parsed.data.language !== undefined) {
+      public_metadata.language = parsed.data.language;
+    }
+    if (parsed.data.timezone !== undefined) {
+      public_metadata.timezone = parsed.data.timezone;
     }
 
     const res = await fetch(
