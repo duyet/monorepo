@@ -1,7 +1,3 @@
-"use client";
-
-import { AuthButtons } from "@duyet/components/header/AuthButtons";
-import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   ArrowRight,
   BarChart,
@@ -11,18 +7,12 @@ import {
   FileText,
   Settings,
   User,
-  Wrench,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FadeIn, FadeInStagger } from "../components/FadeIn";
-import {
-  KeyboardHelpButton,
-  KeyboardHelpTooltip,
-  KeyboardShortcutBadge,
-  useKeyboardShortcuts,
-} from "../components/KeyboardShortcuts";
+import { Suspense } from "react";
+import { FooterInteractive } from "./components/FooterInteractive";
+import { KeyboardFeatures } from "./components/KeyboardFeatures";
 
 const buildDate = new Date().toISOString().split("T")[0];
 
@@ -32,8 +22,6 @@ function addUtmParams(
   content?: string,
   host?: string
 ): string {
-  // Resolve relative short links to the target absolute URL using the provided host,
-  // since Cloudflare _redirects drops query params and UTM tracking would be lost.
   const absUrl = url.startsWith("/") && host ? `https://${host}${url}` : url;
   if (absUrl.startsWith("/")) return absUrl;
   const urlObj = new URL(absUrl);
@@ -86,7 +74,7 @@ const apps: AppItem[] = [
     utmContent: "mcp_bento",
     screenshot: "/screenshots/mcp-tools-art.png",
     fallbackIcon: (
-      <Wrench className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+      <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
     ),
     fallbackGradientClass: "bg-neutral-900",
   },
@@ -117,94 +105,33 @@ const apps: AppItem[] = [
   },
 ];
 
-// Flat Bento Card component representing the Vercel style
-const BentoCard = ({
-  children,
-  href,
-  className = "",
-  shortcutId,
-  shortcutNumber,
-  showShortcut,
-  isFocused,
-}: {
-  children: React.ReactNode;
-  href: string;
-  className?: string;
-  shortcutId?: string;
-  shortcutNumber?: number;
-  showShortcut?: boolean;
-  isFocused?: boolean;
-}) => (
-  <FadeIn className="flex h-full w-full">
-    <Link
-      href={href}
-      data-shortcut-id={shortcutId}
-      className={`w-full group flex flex-col overflow-hidden rounded-xl border bg-white transition-all hover:shadow-sm dark:bg-[#111] ${className} ${isFocused ? "ring-2 ring-neutral-900 dark:ring-white" : "border-neutral-200 hover:border-neutral-300 dark:border-white/10 dark:hover:border-white/20"} relative`}
-    >
-      {showShortcut && shortcutNumber && (
-        <KeyboardShortcutBadge number={shortcutNumber} isActive={!!isFocused} />
-      )}
-      {children}
-    </Link>
-  </FadeIn>
-);
-
+// Server component - renders immediately as HTML
 export default function HomePage() {
-  const router = useRouter();
-
-  // Define all navigable cards with their IDs
-  const shortcutCards = [
-    { id: "blog", key: "1", name: "Technical Blog" },
-    { id: "cv", key: "2", name: "Experience / CV" },
-    { id: "insights", key: "3", name: "Insights Dashboard" },
-    { id: "photos", key: "4", name: "Photography" },
-    { id: "about", key: "5", name: "About Me" },
-    { id: "llm-timeline", key: "6", name: "LLM Timeline" },
-    { id: "agents", key: "7", name: "AI Agents" },
-    { id: "openclaw", key: "8", name: "OpenClaw" },
-    { id: "mcp", key: "9", name: "MCP Tools" },
-  ];
-
-  const handleNavigate = (id: string) => {
-    const link = document.querySelector(
-      `[data-shortcut-id="${id}"]`
-    ) as HTMLAnchorElement;
-    if (link) {
-      router.push(link.href);
-    }
-  };
-
-  const { activeKey, showBadges, showHelp, setShowHelp } = useKeyboardShortcuts(
-    {
-      cards: shortcutCards,
-      onNavigate: handleNavigate,
-    }
-  );
-
   return (
-    <div className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors duration-300">
-      <div className="w-full py-12 sm:py-20 lg:py-24 font-sans focus:outline-none">
-        <FadeInStagger faster>
+    <>
+      <Suspense fallback={null}>
+        <KeyboardFeatures />
+      </Suspense>
+      <div className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors-smooth">
+        <div className="w-full py-12 sm:py-20 lg:py-24 font-sans focus:outline-none">
           {/* Header Section */}
-          <FadeIn>
-            <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
-              <div className="mb-4 flex items-center space-x-2">
-                <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                <span className="text-xs font-mono tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
-                  Duyet Le
-                </span>
-              </div>
-
-              <h1 className="mb-4 font-sans text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl dark:text-neutral-100">
-                Data Engineering
-              </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg font-normal dark:text-neutral-400">
-                Building scalable data infrastructure and architecting robust
-                distributed systems. I design data pipelines and engineer
-                intelligent applications.
-              </p>
+          <div className="animate-fade-in-fast mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
+            <div className="mb-4 flex items-center space-x-2">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span className="text-xs font-mono tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
+                Duyet Le
+              </span>
             </div>
-          </FadeIn>
+
+            <h1 className="mb-4 font-sans text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl dark:text-neutral-100">
+              Data Engineering
+            </h1>
+            <p className="max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg font-normal dark:text-neutral-400">
+              Building scalable data infrastructure and architecting robust
+              distributed systems. I design data pipelines and engineer
+              intelligent applications.
+            </p>
+          </div>
 
           {/* Primary Navigation Grid (Bento Style) */}
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -214,11 +141,9 @@ export default function HomePage() {
                 "homepage",
                 "blog_card"
               )}
-              className="lg:col-span-2 sm:row-span-2 p-6 justify-between"
+              className="lg:col-span-2 sm:row-span-2 p-6 justify-between animate-fade-in-delay-1"
               shortcutId="blog"
               shortcutNumber={1}
-              showShortcut={showBadges}
-              isFocused={activeKey === "1"}
             >
               <div>
                 <div className="mb-6 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -245,11 +170,9 @@ export default function HomePage() {
                 "homepage",
                 "resume_card"
               )}
-              className="p-6 justify-between"
+              className="p-6 justify-between animate-fade-in-delay-2"
               shortcutId="cv"
               shortcutNumber={2}
-              showShortcut={showBadges}
-              isFocused={activeKey === "2"}
             >
               <div>
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -279,11 +202,9 @@ export default function HomePage() {
                 "homepage",
                 "insights_card"
               )}
-              className="p-6 justify-between"
+              className="p-6 justify-between animate-fade-in-delay-3"
               shortcutId="insights"
               shortcutNumber={3}
-              showShortcut={showBadges}
-              isFocused={activeKey === "3"}
             >
               <div>
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -315,11 +236,9 @@ export default function HomePage() {
                 "homepage",
                 "photos_card"
               )}
-              className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1"
+              className="p-0 overflow-hidden sm:col-span-2 lg:col-span-1 animate-fade-in-delay-4"
               shortcutId="photos"
               shortcutNumber={4}
-              showShortcut={showBadges}
-              isFocused={activeKey === "4"}
             >
               <div className="relative h-full w-full min-h-[220px]">
                 <div
@@ -346,11 +265,9 @@ export default function HomePage() {
 
             <BentoCard
               href="/about"
-              className="p-6 justify-between sm:col-span-2 lg:col-span-2 xl:col-span-1"
+              className="p-6 justify-between sm:col-span-2 lg:col-span-2 xl:col-span-1 animate-fade-in-delay-5"
               shortcutId="about"
               shortcutNumber={5}
-              showShortcut={showBadges}
-              isFocused={activeKey === "5"}
             >
               <div>
                 <div className="mb-4 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
@@ -372,7 +289,7 @@ export default function HomePage() {
 
           {/* Apps & Projects Showcase */}
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-20">
-            <div className="flex items-center justify-between border-b border-neutral-200 pb-4 mb-6 dark:border-white/10">
+            <div className="flex items-center justify-between border-b border-neutral-200 pb-4 mb-6 dark:border-white/10 animate-fade-in-delay-6">
               <h2 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white">
                 Apps
               </h2>
@@ -383,7 +300,6 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {apps.map((item, index) => {
-                // Only assign shortcuts to first 4 apps (keys 6-9)
                 const shortcutNumber = index < 4 ? index + 6 : undefined;
                 const shortcutId =
                   index === 0
@@ -395,9 +311,7 @@ export default function HomePage() {
                         : index === 3
                           ? "mcp"
                           : undefined;
-                const isActive = shortcutNumber
-                  ? activeKey === shortcutNumber.toString()
-                  : false;
+                const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
 
                 return (
                   <BentoCard
@@ -406,8 +320,7 @@ export default function HomePage() {
                     className="group flex flex-col overflow-hidden p-0"
                     shortcutId={shortcutId}
                     shortcutNumber={shortcutNumber}
-                    showShortcut={showBadges}
-                    isFocused={isActive}
+                    animationClass={delayClass}
                   >
                     <div
                       className={`relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden dark:border-white/10 ${item.screenshot ? "bg-neutral-100 dark:bg-[#0a0a0a]" : item.fallbackGradientClass || "bg-neutral-50 dark:bg-white/[0.02]"}`}
@@ -526,7 +439,9 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-wrap items-center gap-4">
-                <ThemeToggle />
+                <Suspense fallback={<div className="w-8 h-8" />}>
+                  <FooterInteractive />
+                </Suspense>
                 <Link
                   href={addUtmParams(
                     "https://status.duyet.net",
@@ -542,22 +457,41 @@ export default function HomePage() {
                   </div>
                   <span>All Systems Operational</span>
                 </Link>
-                <AuthButtons
-                  signInClassName="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                  avatarSize="h-5 w-5"
-                />
               </div>
             </div>
           </div>
-        </FadeInStagger>
-
-        {/* Keyboard Shortcuts Help */}
-        <KeyboardHelpTooltip
-          isOpen={showHelp}
-          onClose={() => setShowHelp(false)}
-        />
-        <KeyboardHelpButton onClick={() => setShowHelp(true)} />
+        </div>
       </div>
-    </div>
+    </>
+  );
+}
+
+// Static Bento Card component - no JS required for initial render
+interface BentoCardProps {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+  shortcutId?: string;
+  shortcutNumber?: number;
+  animationClass?: string;
+}
+
+function BentoCard({
+  children,
+  href,
+  className = "",
+  shortcutId,
+  shortcutNumber,
+  animationClass = "",
+}: BentoCardProps) {
+  return (
+    <Link
+      href={href}
+      data-shortcut-id={shortcutId}
+      data-shortcut-number={shortcutNumber}
+      className={`w-full group flex flex-col overflow-hidden rounded-xl border bg-white transition-all hover:shadow-sm dark:bg-[#111] ${className} border-neutral-200 hover:border-neutral-300 dark:border-white/10 dark:hover:border-white/20 relative ${animationClass}`}
+    >
+      {children}
+    </Link>
   );
 }

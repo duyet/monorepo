@@ -1,5 +1,6 @@
 import "@duyet/components/styles.css";
 import "./globals.css";
+import "./animations.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Head from "@duyet/components/Head";
