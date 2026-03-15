@@ -32,14 +32,14 @@ export function VirtualTimeline({
   const parentRef = useRef<HTMLDivElement>(null);
   const [scrollMargin, setScrollMargin] = useState(200); // Default offset
 
-  // Calculate offset from top of page when container mounts
+  // Calculate offset from top of page when container mounts or filter state changes
   useEffect(() => {
     if (parentRef.current) {
       const rect = parentRef.current.getBoundingClientRect();
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       setScrollMargin(rect.top + scrollTop);
     }
-  }, []);
+  }, [modelsByYear]);
 
   // Sort years descending (newest first)
   const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a);

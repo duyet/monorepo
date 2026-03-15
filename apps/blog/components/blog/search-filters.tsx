@@ -83,15 +83,6 @@ function formatDateForInput(date: Date): string {
 }
 
 /**
- * Parse date string from input to Date
- */
-function _parseDateFromInput(dateStr: string): Date | null {
-  if (!dateStr) return null;
-  const date = new Date(dateStr);
-  return Number.isNaN(date.getTime()) ? null : date;
-}
-
-/**
  * Search filters component with category, tag, and date range filters.
  *
  * Filters are synchronized with URL query params for shareable search results.
@@ -279,6 +270,30 @@ export function SearchFilters({
     [customFromDate, customToDate, updateFilters]
   );
 
+  // Pre-compute date preset buttons to avoid useMemo inside JSX
+  const datePresetButtons = useMemo(
+    () =>
+      getDateRangeOptions()
+        .filter((opt) => opt.value !== "custom")
+        .map((option) => (
+          <button
+            type="button"
+            key={option.value}
+            onClick={() => handleDatePresetChange(option.value)}
+            className={cn(
+              "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
+              currentPreset === option.value ||
+                (!currentPreset && option.value === "all")
+                ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+                : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+            )}
+          >
+            {option.label}
+          </button>
+        )),
+    [currentPreset, handleDatePresetChange]
+  );
+
   /**
    * Clear all filters
    */
@@ -401,28 +416,7 @@ export function SearchFilters({
       <FilterSection title="Date Range">
         {!isCustomDateRange ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {useMemo(
-              () =>
-                getDateRangeOptions()
-                  .filter((opt) => opt.value !== "custom")
-                  .map((option) => (
-                    <button
-                      type="button"
-                      key={option.value}
-                      onClick={() => handleDatePresetChange(option.value)}
-                      className={cn(
-                        "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
-                        currentPreset === option.value ||
-                          (!currentPreset && option.value === "all")
-                          ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                          : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  )),
-              [currentPreset]
-            )}
+            {datePresetButtons}
             <button
               type="button"
               onClick={() => handleDatePresetChange("custom")}

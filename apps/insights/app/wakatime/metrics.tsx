@@ -15,19 +15,16 @@ export async function WakaTimeMetrics({
         label="Total Hours"
         value={metrics.totalHours.toFixed(1)}
         icon={<Clock className="h-4 w-4" />}
-        change={metrics.totalHours > 0 ? { value: 22 } : undefined}
       />
       <CompactMetric
         label="Daily Average"
         value={metrics.avgDailyHours.toFixed(1)}
         icon={<Zap className="h-4 w-4" />}
-        change={metrics.avgDailyHours > 0 ? { value: 15 } : undefined}
       />
       <CompactMetric
         label="Active Days"
         value={metrics.daysActive.toString()}
         icon={<Calendar className="h-4 w-4" />}
-        change={metrics.daysActive > 0 ? { value: 8 } : undefined}
       />
       <CompactMetric
         label="Top Language"

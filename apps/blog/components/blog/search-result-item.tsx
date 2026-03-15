@@ -30,8 +30,9 @@ export function SearchResultItem({
 
     const parts = text.split(highlightRegex);
 
-    return parts.map((part, i) =>
-      highlightRegex.test(part) ? (
+    return parts.map((part, i) => {
+      highlightRegex.lastIndex = 0;
+      return highlightRegex.test(part) ? (
         <mark
           key={i}
           className="rounded bg-yellow-200 px-0.5 text-neutral-900 dark:bg-yellow-800 dark:text-neutral-100"
@@ -40,8 +41,8 @@ export function SearchResultItem({
         </mark>
       ) : (
         part
-      )
-    );
+      );
+    });
   };
 
   return (

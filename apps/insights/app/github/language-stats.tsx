@@ -33,19 +33,16 @@ export async function GitHubLanguageStats() {
       label: "Total Repos",
       value: stats.totalRepos.toString(),
       icon: <GitBranch className="h-4 w-4" />,
-      change: stats.totalRepos > 0 ? { value: 12 } : undefined,
     },
     {
       label: "Total Stars",
       value: stats.totalStars.toLocaleString(),
       icon: <Star className="h-4 w-4" />,
-      change: stats.totalStars > 0 ? { value: 8 } : undefined,
     },
     {
       label: "Active Repos",
       value: stats.activeRepos.toString(),
       icon: <Code className="h-4 w-4" />,
-      change: stats.activeRepos > 0 ? { value: 15 } : undefined,
     },
     {
       label: "Archived",
@@ -63,7 +60,6 @@ export async function GitHubLanguageStats() {
             key={metric.label}
             label={metric.label}
             value={metric.value}
-            change={metric.change}
             icon={metric.icon}
           />
         ))}

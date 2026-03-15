@@ -51,7 +51,7 @@ export default function Feed({ posts, ...props }: FeedProps) {
  */
 export function FeedItem({ post, noThumbnail }: FeedItemProps) {
   return (
-    <article key={post.slug} className="mb-16">
+    <article className="mb-16">
       <div className="flex flex-row gap-2 mb-2 text-gray-400">
         <time>{post.date.toString()}</time>
 

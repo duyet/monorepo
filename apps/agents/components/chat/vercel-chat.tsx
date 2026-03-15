@@ -138,16 +138,16 @@ export function VercelChat() {
     [addToolApprovalResponse]
   );
 
-  // Sync mode with localStorage (read on mount, write on change)
-  useEffect(() => {
-    const saved = localStorage.getItem("chat-mode") as ChatMode;
-    if (saved === "fast" || saved === "agent") setMode(saved);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const _handleModeChange = (newMode: ChatMode) => {
+  const handleModeChange = (newMode: ChatMode) => {
     setMode(newMode);
     localStorage.setItem("chat-mode", newMode);
   };
+
+  // Sync mode with localStorage (read on mount, write on change)
+  useEffect(() => {
+    const saved = localStorage.getItem("chat-mode") as ChatMode;
+    if (saved === "fast" || saved === "agent") handleModeChange(saved);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePromptSelect = async (prompt: string) => {
     // Auto-create conversation if none active

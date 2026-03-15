@@ -16,12 +16,6 @@ const config = {
   images: {
     dangerouslyAllowSVG: true,
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-    ],
   },
   transpilePackages: ["@duyet/components", "@duyet/libs"],
   // DNS prefetch and preconnect hints for external domains

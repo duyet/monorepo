@@ -3,7 +3,7 @@
  * Provides reusable data fetching, formatting, and chart transformation logic
  */
 
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import type {
   CCUsageActivityData,
   CCUsageCostData,
@@ -249,33 +249,3 @@ export function useErrorHandler() {
   }, []);
 }
 
-// ============================================================================
-// Performance Monitoring Hook
-// ============================================================================
-
-/**
- * Monitor component performance for large datasets
- */
-export function usePerformanceMonitor(componentName: string, dataSize: number) {
-  const startTimeRef = useRef(performance.now());
-
-  // Reset start time on each render when inputs change
-  useEffect(() => {
-    startTimeRef.current = performance.now();
-  }, [componentName, dataSize]);
-
-  return useMemo(
-    () => ({
-      logRenderTime: () => {
-        const renderTime = performance.now() - startTimeRef.current;
-
-        if (renderTime > 100) {
-          console.warn(
-            `[Performance] ${componentName} rendered in ${renderTime.toFixed(2)}ms with ${dataSize} items`
-          );
-        }
-      },
-    }),
-    [componentName, dataSize]
-  );
-}

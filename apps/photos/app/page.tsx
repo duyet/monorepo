@@ -1,8 +1,5 @@
 import Container from "@duyet/components/Container";
-import { Suspense } from "react";
-import { EXIFStatisticsDisplay } from "@/components/EXIFStatistics";
 import PhotoGallery from "@/components/PhotoGallery";
-import PhotoGrid from "@/components/PhotoGrid";
 import { RetryButton } from "@/components/RetryButton";
 import type { PhotoFetchError } from "@/lib/errors";
 import {
@@ -97,58 +94,5 @@ export default async function PhotosPage({
     );
   }
 
-  return (
-    <Suspense fallback={<PhotoGallerySkeleton photos={photos} />}>
-      <PhotoGallery photos={photos} />
-    </Suspense>
-  );
-}
-
-/**
- * Skeleton loader for PhotoGallery while Suspense is resolving
- */
-function PhotoGallerySkeleton({ photos }: { photos: Photo[] }) {
-  return (
-    <>
-      <a
-        href="#main-content"
-        className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white shadow-lg transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
-      >
-        Skip to main content
-      </a>
-
-      <div>
-        <Container className="py-12">
-          <section className="mb-8 text-center" aria-labelledby="intro-heading">
-            <h1
-              id="intro-heading"
-              className="mb-4 font-serif text-4xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 md:text-5xl"
-            >
-              Photography Collection
-            </h1>
-            <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
-              Loading...
-            </p>
-          </section>
-        </Container>
-      </div>
-
-      {/* EXIF Statistics */}
-      <Container className="py-8">
-        <EXIFStatisticsDisplay photos={photos} />
-      </Container>
-
-      {/* Photo grid - full width with padding */}
-      <section
-        className="w-full py-8"
-        aria-labelledby="photos-heading"
-        id="main-content"
-      >
-        <h2 id="photos-heading" className="sr-only">
-          Photo Gallery
-        </h2>
-        <PhotoGrid photos={photos} />
-      </section>
-    </>
-  );
+  return <PhotoGallery photos={photos} />;
 }

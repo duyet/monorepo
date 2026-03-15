@@ -48,25 +48,21 @@ export async function Cloudflare({ days = 30 }: { days?: number | "all" }) {
       label: "Daily Requests",
       value: dataFormatter(latestRequests),
       icon: <Activity className="h-4 w-4" />,
-      change: latestRequests > 0 ? { value: 12 } : undefined,
     },
     {
       label: "Daily Page Views",
       value: dataFormatter(latestPageviews),
       icon: <Eye className="h-4 w-4" />,
-      change: latestPageviews > 0 ? { value: 8 } : undefined,
     },
     {
       label: "Daily Visitors",
       value: dataFormatter(latestUniques),
       icon: <Users className="h-4 w-4" />,
-      change: latestUniques > 0 ? { value: 15 } : undefined,
     },
     {
       label: `Total (${days === "all" ? "All time" : `${days}d`})`,
       value: dataFormatter(totalRequests || 0),
       icon: <Globe className="h-4 w-4" />,
-      change: (totalRequests || 0) > 0 ? { value: 5 } : undefined,
     },
   ];
 
@@ -79,7 +75,6 @@ export async function Cloudflare({ days = 30 }: { days?: number | "all" }) {
             key={metric.label}
             label={metric.label}
             value={metric.value}
-            change={metric.change}
             icon={metric.icon}
           />
         ))}

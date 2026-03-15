@@ -94,9 +94,14 @@ export default async function YearPage({ params }: YearPageProps) {
     );
   }
 
+  const yearPhotos = allPhotos.filter((photo) => {
+    const photoYear = new Date(photo.created_at).getFullYear().toString();
+    return photoYear === year;
+  });
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <PhotoGallery photos={allPhotos} />
+      <PhotoGallery photos={yearPhotos} />
     </Suspense>
   );
 }

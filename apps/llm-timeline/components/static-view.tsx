@@ -18,9 +18,12 @@ import {
   DEFAULT_FILTERS,
   type FilterState,
   filterModels,
+  formatDate,
+  getLicenseColor,
   groupByOrg,
   groupByYear,
 } from "@/lib/utils";
+import { parseParamValue } from "@duyet/libs";
 
 type View = "models" | "organizations";
 
@@ -378,9 +381,6 @@ function ComparisonModalContent({
   models,
   onClose,
 }: ComparisonModalContentProps) {
-  const { formatDate, getLicenseColor } = require("@/lib/utils");
-  const { parseParamValue } = require("@duyet/libs");
-
   const sortedModels = [...models].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );

@@ -66,19 +66,16 @@ export async function CCUsageMetrics({
         label="Total Tokens"
         value={formatTokens(metrics.totalTokens)}
         icon={<Database className="h-4 w-4" />}
-        change={metrics.totalTokens > 0 ? { value: 15 } : undefined}
       />
       <CompactMetric
         label="Total Cost"
         value={formatCurrency(metrics.totalCost)}
         icon={<DollarSign className="h-4 w-4" />}
-        change={metrics.totalCost > 0 ? { value: 12 } : undefined}
       />
       <CompactMetric
         label="Active Days"
         value={metrics.activeDays.toString()}
         icon={<Calendar className="h-4 w-4" />}
-        change={metrics.activeDays > 0 ? { value: 12 } : undefined}
       />
       <CompactMetric
         label="Top Model"

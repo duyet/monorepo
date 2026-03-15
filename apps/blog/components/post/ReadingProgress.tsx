@@ -51,7 +51,6 @@ export function ReadingProgress() {
         !isVisible && "opacity-0"
       )}
       aria-hidden="true"
-      aria-label="Reading progress"
     >
       <div
         className={cn(

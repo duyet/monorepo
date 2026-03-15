@@ -22,19 +22,6 @@ export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
 }
 
 /**
- * Helper function to create blog-specific navigation items
- */
-export function createBlogNavigation(urls: UrlsConfig): NavigationItem[] {
-  return [
-    { name: "Home", href: urls.apps.home },
-    { name: "About", href: `${urls.apps.home}/about` },
-    { name: "Photos", href: urls.apps.photos },
-    { name: "Insights", href: urls.apps.insights },
-    { name: "CV", href: urls.apps.cv },
-  ];
-}
-
-/**
  * Helper exports for common navigation items (for backward compatibility)
  * These now use the duyetUrls configuration
  */

@@ -37,7 +37,6 @@ export {
   useFormattedCurrency,
   useModelChartData,
   useModelNameFormatter,
-  usePerformanceMonitor,
   useProcessedCosts,
   useProcessedMetrics,
   useTokenChartData,
