@@ -25,6 +25,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
   const [language, setLanguage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   // Load settings on open
   useEffect(() => {
@@ -50,8 +51,9 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
 
   const handleSave = async () => {
     setIsSaving(true);
+    setSaveError(null);
     try {
-      await fetch("/api/user/settings", {
+      const res = await fetch("/api/user/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,9 +62,18 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const message =
+          (data as { error?: string }).error ||
+          `Failed to save settings (${res.status})`;
+        setSaveError(message);
+        return;
+      }
       onOpenChange(false);
     } catch (err) {
       console.error("Failed to save settings:", err);
+      setSaveError("Could not reach the server. Please try again.");
     } finally {
       setIsSaving(false);
     }
@@ -113,6 +124,10 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
               />
             </div>
           </div>
+        )}
+
+        {saveError && (
+          <p className="text-sm text-destructive px-1">{saveError}</p>
         )}
 
         <DialogFooter>

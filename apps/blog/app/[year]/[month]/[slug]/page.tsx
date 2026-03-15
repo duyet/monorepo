@@ -104,5 +104,17 @@ export async function generateMetadata({
         "text/markdown": mdUrl,
       },
     },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      url: `https://blog.duyet.net/${year}/${month}/${slug}`,
+      publishedTime: new Date(post.date).toISOString(),
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.excerpt,
+    },
   };
 }

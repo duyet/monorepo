@@ -45,7 +45,6 @@ export async function fetchAllRepositories(
 
   while (page <= maxPages) {
     try {
-      console.log(`Fetching repositories page ${page} for ${owner}`);
 
       const response = await fetch(
         `${githubConfig.baseUrl}${githubConfig.endpoints.searchRepositories}?q=user:${owner}+is:public&sort=updated&per_page=${perPage}&page=${page}`,
@@ -136,6 +135,5 @@ export async function fetchAllRepositories(
     }
   }
 
-  console.log(`Total repositories fetched: ${allRepos.length}`);
   return allRepos;
 }

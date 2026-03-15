@@ -32,7 +32,12 @@ export function KeyboardFeatures() {
         ) as HTMLAnchorElement;
         if (link) {
           e.preventDefault();
-          router.push(link.href);
+          const href = link.getAttribute("href") || link.href;
+          if (href.startsWith("/")) {
+            router.push(href);
+          } else {
+            window.location.href = href;
+          }
         }
       }
 

@@ -6,10 +6,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { DateRangeDays } from "./types";
 import { getCCUsageProjects } from "./utils";
 
-export async function CCUsageProjects() {
-  const projects = await getCCUsageProjects();
+export async function CCUsageProjects({
+  days = 30,
+}: {
+  days?: DateRangeDays;
+}) {
+  const projects = await getCCUsageProjects(days);
 
   const formatTokens = (tokens: number) => {
     if (tokens >= 1000000) {

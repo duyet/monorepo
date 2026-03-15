@@ -50,11 +50,13 @@ async function fetchFreshActivityFromAPI(
       : wakatimeConfig.ranges.last_30_days;
 
   const endpoint = wakatimeConfig.endpoints.insights.days(range);
-  const separator = endpoint.includes("?") ? "&" : "?";
-  const url = `${wakatimeConfig.baseUrl}${endpoint}${separator}api_key=${apiKey}`;
+  const url = `${wakatimeConfig.baseUrl}${endpoint}`;
 
   try {
     const res = await fetch(url, {
+      headers: {
+        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
+      },
       next: { revalidate: wakatimeConfig.cache.revalidate },
     });
 
@@ -79,10 +81,6 @@ async function fetchFreshActivityFromAPI(
         return date.getFullYear() >= startYear;
       })
       .slice(0, days);
-
-    console.log(
-      `[WakaTime Hybrid] API returned ${filteredDays.length} days of fresh data`
-    );
 
     // Convert to our format (no AI breakdown from insights endpoint)
     return filteredDays.map((day: { date: string; total: number }) => ({

@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@duyet/components";
-import { Brain, Loader2 } from "lucide-react";
+import { Brain } from "lucide-react";
 import { ChainOfThoughtStep } from "@/components/ai-elements/chain-of-thought";
 import { cn } from "@/lib/utils";
 
@@ -50,36 +50,3 @@ export function ThinkingDots() {
   );
 }
 
-/**
- * Tool call indicator
- */
-interface ToolCallIndicatorProps {
-  toolName: string;
-  params?: Record<string, unknown>;
-}
-
-export function ToolCallIndicator({
-  toolName,
-  params,
-}: ToolCallIndicatorProps) {
-  return (
-    <div className="flex items-start gap-2 text-sm animate-in fade-in slide-in-from-top-2 duration-300">
-      <div className="shrink-0 mt-0.5">
-        <Loader2 className="h-3 w-3 animate-spin text-primary" />
-      </div>
-      <div>
-        <p className="text-muted-foreground">
-          Calling <span className="font-mono font-medium">{toolName}</span>
-          {params && (
-            <span className="text-muted-foreground/70">
-              {" "}
-              with {Object.keys(params).length} param
-              {Object.keys(params).length !== 1 ? "s" : ""}
-            </span>
-          )}
-          ...
-        </p>
-      </div>
-    </div>
-  );
-}

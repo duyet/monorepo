@@ -344,7 +344,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // When useGraph=true and mode=agent, use GraphRouter instead of direct LLM
     if (useGraph && mode === "agent") {
       return handleGraphExecution(
-        context,
+        { request: context.request, env: context.env, waitUntil: context.waitUntil.bind(context) },
         requestId,
         uiMessages,
         conversationId,
@@ -396,7 +396,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
  * but orchestrates through the GraphRouter for state management.
  */
 async function handleGraphExecution(
-  context: { request: Request; env: Env },
+  context: { request: Request; env: Env; waitUntil: (promise: Promise<unknown>) => void },
   requestId: string,
   uiMessages: unknown[],
   conversationId: string | undefined,
@@ -468,46 +468,48 @@ async function handleGraphExecution(
   const unified = createUnified();
   const model = aigateway(unified(`workers-ai/${AGENT_MODEL}`));
 
-  // Start graph execution in background (fire and forget)
-  // In production, this would be connected to a queue/stream
-  (async () => {
-    try {
-      const router = new GraphRouter();
-      observability.startExecution();
+  // Start graph execution in background — use waitUntil so Cloudflare does
+  // not terminate the worker before the promise resolves.
+  context.waitUntil(
+    (async () => {
+      try {
+        const router = new GraphRouter();
+        observability.startExecution();
 
-      const finalState = await router.executeGraph(initialState);
+        const finalState = await router.executeGraph(initialState);
 
-      const metrics = observability.endExecution();
+        const metrics = observability.endExecution();
 
-      console.log(
-        `[Chat API][${requestId}] Graph completed:`,
-        `nodes=${metrics.nodesExecuted}`,
-        `errors=${metrics.errorCount}`,
-        `duration=${metrics.totalDuration}ms`
-      );
+        console.log(
+          `[Chat API][${requestId}] Graph completed:`,
+          `nodes=${metrics.nodesExecuted}`,
+          `errors=${metrics.errorCount}`,
+          `duration=${metrics.totalDuration}ms`
+        );
 
-      // Persist checkpoint to D1 for resumability
-      if (context.env.DB) {
-        const dbClient = createDatabaseClient(context.env.DB);
-        const checkpointer = createCheckpointer(dbClient);
+        // Persist checkpoint to D1 for resumability
+        if (context.env.DB) {
+          const dbClient = createDatabaseClient(context.env.DB);
+          const checkpointer = createCheckpointer(dbClient);
 
-        try {
-          const checkpointId = await checkpointer.saveCheckpoint(finalState);
-          console.log(
-            `[Chat API][${requestId}] Checkpoint saved: ${checkpointId}`
-          );
-        } catch (checkpointError) {
-          console.error(
-            `[Chat API][${requestId}] Failed to save checkpoint:`,
-            checkpointError
-          );
+          try {
+            const checkpointId = await checkpointer.saveCheckpoint(finalState);
+            console.log(
+              `[Chat API][${requestId}] Checkpoint saved: ${checkpointId}`
+            );
+          } catch (checkpointError) {
+            console.error(
+              `[Chat API][${requestId}] Failed to save checkpoint:`,
+              checkpointError
+            );
+          }
         }
+      } catch (error) {
+        console.error(`[Chat API][${requestId}] Graph execution error:`, error);
+        observability.endExecution();
       }
-    } catch (error) {
-      console.error(`[Chat API][${requestId}] Graph execution error:`, error);
-      observability.endExecution();
-    }
-  })();
+    })()
+  );
 
   // Stream the LLM response immediately (don't wait for graph)
   const result = streamText({

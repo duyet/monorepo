@@ -22,7 +22,7 @@ export function SearchResultItem({
   // Memoize regex to avoid recompilation on every render
   const highlightRegex = useMemo(() => {
     if (!highlight) return null;
-    return new RegExp(`(${escapeRegExp(highlight)})`, "gi");
+    return new RegExp(`(${escapeRegExp(highlight)})`, "i");
   }, [highlight]);
 
   const highlightText = (text: string) => {
@@ -31,7 +31,6 @@ export function SearchResultItem({
     const parts = text.split(highlightRegex);
 
     return parts.map((part, i) => {
-      highlightRegex.lastIndex = 0;
       return highlightRegex.test(part) ? (
         <mark
           key={i}

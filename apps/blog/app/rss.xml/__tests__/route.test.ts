@@ -62,7 +62,7 @@ describe("RSS Feed Route", () => {
     const response = await GET();
     const contentType = response.headers.get("Content-Type");
 
-    expect(contentType).toBe("text/xml");
+    expect(contentType).toBe("application/rss+xml; charset=utf-8");
   });
 
   test("should be statically generated", () => {

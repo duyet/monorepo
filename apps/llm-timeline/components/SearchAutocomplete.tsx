@@ -226,6 +226,9 @@ export function SearchAutocomplete({
         aria-expanded={showSuggestions}
         aria-controls="search-suggestions"
         aria-autocomplete="list"
+        aria-activedescendant={
+          selectedIndex >= 0 ? `suggestion-${selectedIndex}` : undefined
+        }
       />
 
       {/* Suggestions Dropdown */}
@@ -240,6 +243,7 @@ export function SearchAutocomplete({
           {suggestions.map((suggestion, index) => (
             <div
               key={`${suggestion.type}-${suggestion.name}`}
+              id={`suggestion-${index}`}
               role="option"
               tabIndex={0}
               aria-selected={index === selectedIndex}

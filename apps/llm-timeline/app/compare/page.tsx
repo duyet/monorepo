@@ -13,14 +13,14 @@ import { formatDate, getLicenseBarColor, getLicenseColor, slugify } from "@/lib/
 const MAX_COMPARE = 4;
 const MIN_COMPARE = 2;
 
-function parseParamsValue(params: string | null): string[] {
+function parseModelNamesFromParam(params: string | null): string[] {
   if (!params) return [];
   return params.split(",").filter(Boolean).slice(0, MAX_COMPARE);
 }
 
 function CompareContent() {
   const searchParams = useSearchParams();
-  const urlModels = parseParamsValue(searchParams.get("models"));
+  const urlModels = parseModelNamesFromParam(searchParams.get("models"));
 
   // Get model objects from URL names
   const getModelsFromNames = (names: string[]): Model[] => {
@@ -435,10 +435,7 @@ function CompareContent() {
                       </div>
                       <div
                         className="h-8 rounded-md overflow-hidden relative"
-                        style={{
-                          backgroundColor: "var(--border)",
-                          opacity: 0.3,
-                        }}
+                        style={{ backgroundColor: "var(--border)" }}
                       >
                         <div
                           className="h-full rounded-md transition-all duration-500"

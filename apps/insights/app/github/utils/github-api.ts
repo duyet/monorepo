@@ -26,7 +26,7 @@ export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
             Accept: "application/vnd.github.v3+json",
             "User-Agent": "insights-app",
           },
-          cache: "force-cache",
+          cache: "no-store",
         }
       );
 

@@ -64,11 +64,6 @@ export async function getClickHouseActivity(
     ORDER BY date DESC
   `;
 
-  console.log("[WakaTime ClickHouse] Fetching activity:", {
-    days,
-    startDate: formatDate(startDate),
-    cutoffDate: formatDate(cutoffDate),
-  });
 
   const result = await executeClickHouseQuery(query);
 
@@ -80,14 +75,6 @@ export async function getClickHouseActivity(
   const records = result.data.map((row) =>
     parseActivityRecord(row as unknown as ClickHouseActivityRecord)
   );
-
-  console.log("[WakaTime ClickHouse] Retrieved:", {
-    count: records.length,
-    dateRange:
-      records.length > 0
-        ? `${records[records.length - 1].date} to ${records[0].date}`
-        : "none",
-  });
 
   return records;
 }
@@ -120,11 +107,6 @@ export async function getStoredDates(
   }
 
   const dates = new Set(result.data.map((row) => String(row.date)));
-
-  console.log("[WakaTime ClickHouse] Stored dates:", {
-    range: `${formatDate(startDate)} to ${formatDate(endDate)}`,
-    count: dates.size,
-  });
 
   return dates;
 }

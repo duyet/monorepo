@@ -14,7 +14,11 @@ import {
   executeClickHouseQueryLegacy,
   testClickHouseConnection,
 } from "./database";
-import { getCreatedAtCondition, getDateCondition } from "./queries";
+import {
+  getCreatedAtCondition,
+  getDateCondition,
+  validateDaysParameter,
+} from "./queries";
 
 // Track if we've already done a health check this build
 let healthCheckCompleted = false;
@@ -338,18 +342,25 @@ export async function getCCUsageModels(
 }
 
 /**
- * Get anonymized project activity for the last 30 days
+ * Get anonymized project activity for the specified time period
  */
-export async function getCCUsageProjects(): Promise<CCUsageProjectData[]> {
+export async function getCCUsageProjects(
+  days: DateRangeDays = 30
+): Promise<CCUsageProjectData[]> {
+  const safeDays = validateDaysParameter(days);
+  const intervalClause =
+    safeDays === "all"
+      ? ""
+      : `WHERE last_activity >= today() - INTERVAL ${safeDays} DAY`;
   const query = `
-    SELECT 
+    SELECT
       session_id,
       project_path,
       SUM(total_tokens) as total_tokens,
       SUM(total_cost) as total_cost,
       MAX(last_activity) as last_activity
     FROM ccusage_usage_sessions
-    WHERE last_activity >= today() - INTERVAL 30 DAY
+    ${intervalClause}
     GROUP BY session_id, project_path
     ORDER BY total_tokens DESC
     LIMIT 15

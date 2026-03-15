@@ -137,20 +137,6 @@ export class DatabaseClient {
   }
 
   /**
-   * List anonymous conversations (user_id IS NULL), ordered by most recently updated.
-   * Used for unauthenticated users — only returns conversations without an owner.
-   */
-  async listAnonymousConversations(limit = 50): Promise<Conversation[]> {
-    const stmt = this.db.prepare(
-      "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id IS NULL ORDER BY updated_at DESC LIMIT ?"
-    );
-    const result = (await stmt.bind(limit).all()) as {
-      results: ConversationRow[];
-    };
-    return (result.results || []).map((row) => this.rowToConversation(row));
-  }
-
-  /**
    * Get a single conversation by ID
    */
   async getConversation(id: string): Promise<Conversation | null> {
@@ -354,46 +340,6 @@ export class DatabaseClient {
       remaining: Math.max(0, limit - count),
       total: count,
     };
-  }
-
-  /**
-   * Clean up expired rate limit entries (older than 48 hours)
-   */
-  async cleanupRateLimits(): Promise<void> {
-    const cutoff = Date.now() - 48 * 60 * 60 * 1000;
-    const stmt = this.db.prepare(
-      "DELETE FROM rate_limits WHERE window_start < ?"
-    );
-    await stmt.bind(cutoff).run();
-  }
-
-  /**
-   * Prune old conversations to maintain a maximum count
-   * Deletes oldest conversations beyond the limit
-   */
-  async pruneConversations(maxConversations: number): Promise<number> {
-    // Get conversations beyond the max count (oldest first, skip the newest N)
-    const excessStmt = this.db.prepare(
-      "SELECT id FROM conversations WHERE id NOT IN (SELECT id FROM conversations ORDER BY updated_at DESC LIMIT ?) ORDER BY updated_at ASC"
-    );
-    const excess = (await excessStmt.bind(maxConversations).all()) as {
-      results: { id: string }[];
-    };
-
-    if (!excess.results || excess.results.length === 0) return 0;
-
-    // Delete the excess conversations (messages will be cascade deleted)
-    const ids = excess.results.map((r) => r.id);
-
-    // Delete one by one since SQLite doesn't support unlimited bind params
-    for (const id of ids) {
-      const deleteStmt = this.db.prepare(
-        "DELETE FROM conversations WHERE id = ?"
-      );
-      await deleteStmt.bind(id).run();
-    }
-
-    return ids.length;
   }
 
   // ========== Checkpoint CRUD Operations ==========
