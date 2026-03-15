@@ -1,7 +1,26 @@
 # Cloudflare Pages Headers
 # https://developers.cloudflare.com/pages/configuration/headers/
 
+# Root and HTML files - cache but revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
+# Static assets - long cache
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images - long cache
+/screenshots/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Ensure llms.txt is served as plain text and not redirected
 /llms.txt
   Content-Type: text/plain; charset=utf-8
   X-Content-Type-Options: nosniff
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
