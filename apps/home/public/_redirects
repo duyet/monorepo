@@ -16,6 +16,7 @@
 /clickhouse-monitoring https://clickhouse-monitor.duyet.workers.dev/ 302
 /monitor /clickhouse-monitoring 302
 /numi https://numi.app 302
+/agentstate https://agentstate.app 302
 
 # Social Media
 /in https://linkedin.com/in/duyet 302

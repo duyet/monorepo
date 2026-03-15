@@ -102,6 +102,16 @@ const apps: AppItem[] = [
     utmContent: "claude_plugins_bento",
     screenshot: "/screenshots/claude-plugins-art.png",
   },
+  {
+    name: "AgentState",
+    href: "/agentstate",
+    host: "agentstate.app",
+    utmContent: "agentstate_bento",
+    fallbackIcon: (
+      <Database className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+    ),
+    fallbackGradientClass: "bg-gradient-to-br from-violet-600 to-indigo-600",
+  },
 ];
 
 export const dynamic = "force-static";

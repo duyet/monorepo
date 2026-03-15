@@ -30,6 +30,7 @@ export const urls: Urls = {
   "/blog": "https://blog.duyet.net",
   "/cv": "https://cv.duyet.net",
   "/about": { target: "/about", desc: "about me", system: false },
+  "/agentstate": { target: "https://agentstate.app", desc: "AgentState - AI agent state management" },
   "/i": { target: "https://insights.duyet.net", desc: "insights" },
   "/insights": {
     target: "https://insights.duyet.net",
