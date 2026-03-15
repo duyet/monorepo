@@ -1,9 +1,13 @@
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 
-GlobalRegistrator.register();
+try {
+  GlobalRegistrator.register();
+} catch {
+  // Already registered by another test file in the same process
+}
 
-import { describe, expect, it, mock } from "bun:test";
-import { render } from "@testing-library/react";
+import { afterEach, describe, expect, it, mock } from "bun:test";
+import { cleanup, render } from "@testing-library/react";
 import { VirtualTimeline } from "../virtual-timeline";
 
 // Mock Next.js router
@@ -23,6 +27,8 @@ mock.module("next/navigation", () => ({
     has: () => false,
   }),
 }));
+
+afterEach(cleanup);
 
 describe("VirtualTimeline", () => {
   it("renders without crashing", () => {

@@ -1,0 +1,75 @@
+import { GlobalRegistrator } from "@happy-dom/global-registrator";
+
+try {
+  GlobalRegistrator.register();
+} catch {
+  // Already registered by another test file in the same process
+}
+
+import { afterEach, describe, expect, it, mock } from "bun:test";
+import { cleanup, render } from "@testing-library/react";
+
+// Mock Next.js router — must come before component imports
+mock.module("next/navigation", () => ({
+  useRouter: () => ({
+    push: () => {},
+    replace: () => {},
+    prefetch: () => {},
+    back: () => {},
+    pathname: "/",
+    query: {},
+    asPath: "/",
+  }),
+  useSearchParams: () => ({
+    get: () => null,
+    getAll: () => ({}),
+    has: () => false,
+  }),
+}));
+
+// Mock next-themes
+mock.module("next-themes", () => ({
+  useTheme: () => ({ resolvedTheme: "light", setTheme: () => {} }),
+}));
+
+import { ThemeToggle } from "../theme-toggle";
+
+afterEach(cleanup);
+
+describe("ThemeToggle", () => {
+  it("renders without crashing", () => {
+    const { container } = render(<ThemeToggle />);
+    expect(container).toBeDefined();
+  });
+
+  it("has correct aria-label", () => {
+    const { getByRole } = render(<ThemeToggle />);
+    const btn = getByRole("button", { name: "Toggle theme" });
+    expect(btn).toBeDefined();
+  });
+
+  it("renders a button element", () => {
+    const { getByRole } = render(<ThemeToggle />);
+    const btn = getByRole("button");
+    expect(btn.tagName.toLowerCase()).toBe("button");
+  });
+
+  it("has rounded-lg border class on the button", () => {
+    const { getByRole } = render(<ThemeToggle />);
+    const btn = getByRole("button");
+    expect(btn.className).toContain("rounded-lg");
+    expect(btn.className).toContain("border");
+  });
+
+  it("has padding class p-2.5 on the button", () => {
+    const { getByRole } = render(<ThemeToggle />);
+    const btn = getByRole("button");
+    expect(btn.className).toContain("p-2.5");
+  });
+
+  it("has focus-visible ring classes for accessibility", () => {
+    const { getByRole } = render(<ThemeToggle />);
+    const btn = getByRole("button");
+    expect(btn.className).toContain("focus-visible:ring-2");
+  });
+});
