@@ -124,23 +124,22 @@ export function VirtualTimeline({
                 }}
               >
                 {/* Year Header */}
-                <div className="mb-6 flex items-center gap-4 overflow-hidden">
-                  <div className="relative flex items-center shrink-0 overflow-hidden">
+                <div className="mb-8">
+                  <div className="flex items-end gap-4">
                     <span
-                      className="select-none text-4xl font-bold leading-none font-[family-name:var(--font-mono)]"
-                      style={{
-                        color: "var(--year-watermark)",
-                      }}
+                      className="select-none text-6xl sm:text-7xl font-bold leading-none text-neutral-200 dark:text-neutral-700 font-[family-name:var(--font-display)]"
                       aria-hidden="true"
                     >
                       {groupItem.year}
                     </span>
+                    <div className="mb-2">
+                      <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-[family-name:var(--font-mono)]">
+                        {groupItem.modelCount} model
+                        {groupItem.modelCount !== 1 ? "s" : ""}
+                      </span>
+                    </div>
                   </div>
-                  <div className="h-px flex-1 min-w-0 shrink bg-neutral-200 dark:bg-white/10" />
-                  <span className="text-xs uppercase tracking-widest shrink-0 whitespace-nowrap font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">
-                    {groupItem.modelCount} model
-                    {groupItem.modelCount !== 1 ? "s" : ""}
-                  </span>
+                  <div className="mt-2 h-px bg-gradient-to-r from-neutral-200 dark:from-white/10 to-transparent" />
                 </div>
               </div>
             );
