@@ -13,6 +13,11 @@ import {
   executeClickHouseQueryLegacy,
 } from "./utils/clickhouse-client";
 
+const DEBUG = process.env.NODE_ENV !== "production";
+const debug = (...args: unknown[]) => {
+  if (DEBUG) console.log(...args);
+};
+
 // Track if we've already done a health check this build
 let healthCheckCompleted = false;
 let _healthCheckPassed = false;
@@ -26,7 +31,7 @@ async function pingClickHouse(): Promise<{
   latencyMs: number;
   error?: string;
 }> {
-  console.log("[ClickHouse Ping] Sending ping...");
+  debug("[ClickHouse Ping] Sending ping...");
   const startTime = Date.now();
 
   try {
@@ -39,7 +44,7 @@ async function pingClickHouse(): Promise<{
     const latencyMs = Date.now() - startTime;
 
     if (result.success && result.data.length > 0) {
-      console.log("[ClickHouse Ping] ✓ Pong received:", {
+      debug("[ClickHouse Ping] ✓ Pong received:", {
         latencyMs,
         serverTime: result.data[0]?.server_time,
       });
@@ -161,11 +166,11 @@ function anonymizeProjects(
 export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
-  console.log("[CCUsage Metrics] Fetching metrics for days:", days);
+  debug("[CCUsage Metrics] Fetching metrics for days:", days);
 
   // Run health check on first call to quickly detect connectivity issues
   if (!healthCheckCompleted) {
-    console.log(
+    debug(
       "[CCUsage Metrics] First query - running ClickHouse health check..."
     );
     const pingResult = await pingClickHouse();
@@ -182,7 +187,7 @@ export async function getCCUsageMetrics(
       );
       // Continue anyway - the actual queries will also fail but with more details
     } else {
-      console.log("[CCUsage Metrics] ✓ Health check passed");
+      debug("[CCUsage Metrics] ✓ Health check passed");
     }
     healthCheckCompleted = true;
     _healthCheckPassed = pingResult.success;
@@ -201,12 +206,12 @@ export async function getCCUsageMetrics(
     ${dateCondition}
   `;
 
-  console.log(
+  debug(
     "[CCUsage Metrics] Executing query with condition:",
     dateCondition || "ALL TIME"
   );
   const results = await executeClickHouseQueryLegacy(query);
-  console.log("[CCUsage Metrics] Query results:", {
+  debug("[CCUsage Metrics] Query results:", {
     rowCount: results?.length || 0,
   });
 
@@ -228,7 +233,7 @@ export async function getCCUsageMetrics(
   const cacheTokens = Number(data.cache_tokens) || 0;
   const totalCost = Number(data.total_cost) || 0;
 
-  console.log("[CCUsage Metrics] Parsed main metrics:", {
+  debug("[CCUsage Metrics] Parsed main metrics:", {
     totalTokens,
     activeDays,
     cacheTokens,
@@ -246,12 +251,12 @@ export async function getCCUsageMetrics(
     LIMIT 1
   `;
 
-  console.log("[CCUsage Metrics] Fetching top model...");
+  debug("[CCUsage Metrics] Fetching top model...");
   const modelResults = await executeClickHouseQueryLegacy(modelQuery);
   const topModel =
     modelResults.length > 0 ? String(modelResults[0].model_name) : "N/A";
 
-  console.log("[CCUsage Metrics] Top model:", topModel);
+  debug("[CCUsage Metrics] Top model:", topModel);
 
   const metricsData = {
     totalTokens: Math.round(totalTokens),
@@ -262,7 +267,7 @@ export async function getCCUsageMetrics(
     topModel,
   };
 
-  console.log("[CCUsage Metrics] Final metrics:", metricsData);
+  debug("[CCUsage Metrics] Final metrics:", metricsData);
   return metricsData;
 }
 
@@ -273,7 +278,7 @@ export async function getCCUsageMetrics(
 export async function getCCUsageActivity(
   days: DateRangeDays = 30
 ): Promise<CCUsageActivityData[]> {
-  console.log("[CCUsage Activity] Fetching activity for days:", days);
+  debug("[CCUsage Activity] Fetching activity for days:", days);
 
   const dateCondition = getDateCondition(days);
   const query = `
@@ -291,7 +296,7 @@ export async function getCCUsageActivity(
   `;
 
   const results = await executeClickHouseQueryLegacy(query);
-  console.log("[CCUsage Activity] Query results:", {
+  debug("[CCUsage Activity] Query results:", {
     rowCount: results?.length || 0,
   });
 
@@ -317,7 +322,7 @@ export async function getCCUsageActivity(
 export async function getCCUsageActivityRaw(
   days: DateRangeDays = 30
 ): Promise<CCUsageActivityData[]> {
-  console.log("[CCUsage Activity Raw] Fetching raw activity for days:", days);
+  debug("[CCUsage Activity Raw] Fetching raw activity for days:", days);
 
   const dateCondition = getDateCondition(days);
   const query = `
@@ -335,7 +340,7 @@ export async function getCCUsageActivityRaw(
   `;
 
   const results = await executeClickHouseQueryLegacy(query);
-  console.log("[CCUsage Activity Raw] Query results:", {
+  debug("[CCUsage Activity Raw] Query results:", {
     rowCount: results?.length || 0,
   });
 
@@ -408,7 +413,7 @@ function distributePercentages(rawPercentages: number[]): number[] {
 export async function getCCUsageModels(
   days: DateRangeDays = 30
 ): Promise<CCUsageModelData[]> {
-  console.log("[CCUsage Models] Fetching models for days:", days);
+  debug("[CCUsage Models] Fetching models for days:", days);
 
   const dateCondition = getCreatedAtCondition(days);
   const query = `
@@ -425,7 +430,7 @@ export async function getCCUsageModels(
   `;
 
   const results = await executeClickHouseQueryLegacy(query);
-  console.log("[CCUsage Models] Query results:", {
+  debug("[CCUsage Models] Query results:", {
     rowCount: results?.length || 0,
   });
 
@@ -612,7 +617,7 @@ function normalizeModelName(rawName: string): string {
 export async function getCCUsageActivityByModel(
   days: DateRangeDays = 30
 ): Promise<CCUsageActivityByModelData[]> {
-  console.log("[CCUsage ActivityByModel] Fetching for days:", days);
+  debug("[CCUsage ActivityByModel] Fetching for days:", days);
 
   const dateCondition = getCreatedAtCondition(days);
   const query = `
@@ -627,7 +632,7 @@ export async function getCCUsageActivityByModel(
   `;
 
   const results = await executeClickHouseQueryLegacy(query);
-  console.log("[CCUsage ActivityByModel] Query results:", {
+  debug("[CCUsage ActivityByModel] Query results:", {
     rowCount: results?.length || 0,
   });
 
@@ -659,7 +664,7 @@ export async function getCCUsageActivityByModel(
     ...models,
   }));
 
-  console.log("[CCUsage ActivityByModel] Pivoted data:", {
+  debug("[CCUsage ActivityByModel] Pivoted data:", {
     dates: chartData.length,
     models: new Set(normalizedResults.map((r) => r.model_name)).size,
   });

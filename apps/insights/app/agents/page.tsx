@@ -1,27 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AgentKpiCards, AgentTrendsChart } from "./components";
+import {
+  AgentKpiCards,
+  AgentTrendsChart,
+  type AgentAnalyticsData,
+  type AgentTrendRow,
+} from "./components";
 
 export default function AgentsAnalyticsPage() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<AgentAnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/agents")
       .then((res) => res.json())
-      .then((d) => {
+      .then((d: AgentAnalyticsData & { error?: string }) => {
         if (!d.error) {
-          // Re-shape for Tremor AreaChart
-          const trends = d.dailyVolume?.reduce((acc: any[], row: any) => {
-            let existing = acc.find((a) => a.date === row.date);
-            if (!existing) {
-              existing = { date: row.date, fast: 0, agent: 0 };
-              acc.push(existing);
-            }
-            existing[row.mode] = row.count;
-            return acc;
-          }, []);
+          // Re-shape for Recharts AreaChart
+          const trends = d.dailyVolume?.reduce(
+            (acc: AgentTrendRow[], row) => {
+              let existing = acc.find((a) => a.date === row.date);
+              if (!existing) {
+                existing = { date: row.date, fast: 0, agent: 0 };
+                acc.push(existing);
+              }
+              existing[row.mode as "fast" | "agent"] = row.count;
+              return acc;
+            },
+            []
+          );
 
           setData({ ...d, trends });
         }
@@ -50,7 +58,7 @@ export default function AgentsAnalyticsPage() {
       ) : data ? (
         <>
           <AgentKpiCards data={data} />
-          <AgentTrendsChart data={data.trends} />
+          <AgentTrendsChart data={data.trends ?? []} />
         </>
       ) : (
         <div className="flex h-64 items-center justify-center border border-border rounded-xl bg-destructive/10 text-destructive text-sm">

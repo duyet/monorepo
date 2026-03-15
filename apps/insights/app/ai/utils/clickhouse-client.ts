@@ -1,6 +1,11 @@
 import { createClient } from "@clickhouse/client";
 import type { ClickHouseConfig, QueryResult } from "../types";
 
+const DEBUG = process.env.NODE_ENV !== "production";
+const debug = (...args: unknown[]) => {
+  if (DEBUG) console.log(...args);
+};
+
 /**
  * Detect protocol (HTTP/HTTPS) based on port number or explicit configuration
  */
@@ -32,7 +37,7 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
   const explicitProtocol = process.env.CLICKHOUSE_PROTOCOL;
 
   // Debug logging for environment detection
-  console.log("[ClickHouse Config] Environment check:", {
+  debug("[ClickHouse Config] Environment check:", {
     hasHost: !!host,
     hasUsername: !!username,
     hasPassword: !!password,
@@ -75,7 +80,7 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
 
   const protocol = detectClickHouseProtocol(port, explicitProtocol);
 
-  console.log("[ClickHouse Config] Configuration created:", {
+  debug("[ClickHouse Config] Configuration created:", {
     host,
     port,
     protocol,
@@ -110,7 +115,7 @@ export function getClickHouseClient() {
     const encodedUsername = encodeURIComponent(config.username);
     const encodedPassword = encodeURIComponent(config.password);
     const url = `${config.protocol}://${encodedUsername}:${encodedPassword}@${config.host}:${config.port}/${config.database}`;
-    console.log(
+    debug(
       "[ClickHouse Client] Creating client with URL:",
       url.replace(/:([^:@]+)@/, ":***@")
     );
@@ -125,7 +130,7 @@ export function getClickHouseClient() {
       },
     });
 
-    console.log(
+    debug(
       "[ClickHouse Client] Client created successfully with connection pooling enabled"
     );
     return clientInstance;
@@ -282,7 +287,7 @@ export async function executeClickHouseQuery(
   if (isBuildEnvironment()) {
     timeoutMs = 5000; // 5 second timeout during build
     maxRetries = 1; // Only 1 retry during build
-    console.log(
+    debug(
       "[ClickHouse Query] Local build environment detected (no CI), using reduced timeout:",
       { timeoutMs, maxRetries }
     );
@@ -293,7 +298,7 @@ export async function executeClickHouseQuery(
   const queryMetadata = getQueryMetadata(query);
   const queryFingerprint = getQueryFingerprint(query);
 
-  console.log("[ClickHouse Query] Starting query execution:", {
+  debug("[ClickHouse Query] Starting query execution:", {
     queryId,
     queryFingerprint,
     queryType: queryMetadata.type,
@@ -328,13 +333,13 @@ export async function executeClickHouseQuery(
 
   // Retry logic with exponential backoff
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    console.log(`[ClickHouse Query] Attempt ${attempt}/${maxRetries}`, {
+    debug(`[ClickHouse Query] Attempt ${attempt}/${maxRetries}`, {
       queryId,
     });
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
-      console.log(`[ClickHouse Query] Timeout triggered after ${timeoutMs}ms`, {
+      debug(`[ClickHouse Query] Timeout triggered after ${timeoutMs}ms`, {
         queryId,
         attempt,
       });
@@ -355,19 +360,19 @@ export async function executeClickHouseQuery(
       const queryDuration = Date.now() - startTime;
 
       // Log response metadata for debugging
-      console.log("[ClickHouse Query] Response metadata:", {
+      debug("[ClickHouse Query] Response metadata:", {
         queryId: resultSet.query_id,
         responseQueryId: resultSet.query_id,
         duration: `${queryDuration}ms`,
       });
 
-      console.log("[ClickHouse Query] Query executed, parsing result...");
+      debug("[ClickHouse Query] Query executed, parsing result...");
 
       const data = await resultSet.json();
 
       // ClickHouse JSONEachRow format returns array of objects
       if (Array.isArray(data)) {
-        console.log("[ClickHouse Query] Success:", {
+        debug("[ClickHouse Query] Success:", {
           queryId,
           rowCount: data.length,
           hasData: data.length > 0,
@@ -379,7 +384,7 @@ export async function executeClickHouseQuery(
         };
       }
 
-      console.log("[ClickHouse Query] Success but no data returned", {
+      debug("[ClickHouse Query] Success but no data returned", {
         queryId,
       });
       return {
@@ -436,7 +441,7 @@ export async function executeClickHouseQuery(
       if (isTransientError && attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
         const backoffMs = 2 ** (attempt - 1) * 1000;
-        console.log(
+        debug(
           `[ClickHouse Query] Retrying in ${backoffMs}ms (transient error)...`,
           {
             queryId,
@@ -483,7 +488,7 @@ export async function testClickHouseConnection(): Promise<{
   message: string;
   details: Record<string, unknown>;
 }> {
-  console.log("[ClickHouse Test] Testing connection...");
+  debug("[ClickHouse Test] Testing connection...");
 
   const config = getClickHouseConfig();
   if (!config) {
@@ -523,7 +528,7 @@ export async function testClickHouseConnection(): Promise<{
         ? (data[0] as Record<string, unknown>).version
         : "unknown";
 
-    console.log("[ClickHouse Test] Connection successful:", {
+    debug("[ClickHouse Test] Connection successful:", {
       duration: `${duration}ms`,
       queryId: result.query_id,
       version,
@@ -593,10 +598,10 @@ export async function executeClickHouseQueryLegacy(
 export async function closeClickHouseClient(): Promise<void> {
   if (clientInstance) {
     try {
-      console.log("[ClickHouse Client] Closing connection...");
+      debug("[ClickHouse Client] Closing connection...");
       await clientInstance.close();
       clientInstance = null;
-      console.log("[ClickHouse Client] Connection closed successfully");
+      debug("[ClickHouse Client] Connection closed successfully");
     } catch (error) {
       console.error("[ClickHouse Client] Error closing connection:", error);
     }

@@ -1,6 +1,4 @@
-const formatNumber = (num: number) =>
-  new Intl.NumberFormat("en-US").format(num);
-
+import { formatNumber } from "@duyet/libs";
 import { Bot, Cpu, MessageSquare } from "lucide-react";
 import {
   Area,
@@ -12,8 +10,32 @@ import {
   YAxis,
 } from "recharts";
 
+export interface AgentGlobalStats {
+  total_conversations: number;
+  total_messages: number;
+}
+
+export interface AgentDailyVolumeRow {
+  date: string;
+  mode: string;
+  count: number;
+}
+
+export interface AgentTrendRow {
+  date: string;
+  fast: number;
+  agent: number;
+}
+
+export interface AgentAnalyticsData {
+  globalStats: AgentGlobalStats;
+  activeUsers30d: number;
+  dailyVolume: AgentDailyVolumeRow[];
+  trends?: AgentTrendRow[];
+}
+
 // Assuming standard Insight KPI cards format
-export function AgentKpiCards({ data }: { data: any }) {
+export function AgentKpiCards({ data }: { data: AgentAnalyticsData }) {
   if (!data) return null;
 
   return (
@@ -54,7 +76,7 @@ export function AgentKpiCards({ data }: { data: any }) {
   );
 }
 
-export function AgentTrendsChart({ data }: { data: any[] }) {
+export function AgentTrendsChart({ data }: { data: AgentTrendRow[] }) {
   if (!data || data.length === 0) return null;
 
   return (
