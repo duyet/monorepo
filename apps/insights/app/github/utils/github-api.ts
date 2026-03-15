@@ -17,7 +17,6 @@ export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
 
   while (true) {
     try {
-      console.log(`Fetching events page ${page} for ${owner}`);
 
       const response = await fetch(
         `https://api.github.com/users/${owner}/events?per_page=${perPage}&page=${page}`,
@@ -65,9 +64,6 @@ export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
 
       // If we found old events, we've gone back far enough
       if (hasOldEvents) {
-        console.log(
-          `Reached events older than 12 weeks, stopping at page ${page}`
-        );
         break;
       }
 
@@ -89,6 +85,5 @@ export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
     }
   }
 
-  console.log(`Total events fetched: ${allEvents.length} (last 12 weeks)`);
   return allEvents;
 }

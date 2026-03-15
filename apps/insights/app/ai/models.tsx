@@ -1,5 +1,5 @@
 import { LanguageBarChart } from "@/components/charts";
-import { getCCUsageModels } from "./ccusage-utils";
+import { getCCUsageModels } from "./utils";
 import type { CCUsageModelsProps, ModelChartData } from "./types";
 
 export async function CCUsageModels({

@@ -11,10 +11,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import { BuildDate } from "./components/BuildDate";
 import { FooterInteractive } from "./components/FooterInteractive";
 import { KeyboardFeatures } from "./components/KeyboardFeatures";
-
-const buildDate = new Date().toISOString().split("T")[0];
 
 function addUtmParams(
   url: string,
@@ -112,7 +111,7 @@ export default function HomePage() {
       <Suspense fallback={null}>
         <KeyboardFeatures />
       </Suspense>
-      <div className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors-smooth">
+      <main className="flex min-h-screen items-center bg-neutral-50 text-neutral-900 selection:bg-neutral-200 dark:bg-black dark:text-neutral-100 dark:selection:bg-white/20 transition-colors-smooth">
         <div className="w-full py-12 sm:py-20 lg:py-24 font-sans focus:outline-none">
           {/* Header Section */}
           <div className="animate-fade-in-fast mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
@@ -187,12 +186,7 @@ export default function HomePage() {
                 </p>
               </div>
               <div>
-                <div
-                  suppressHydrationWarning
-                  className="inline-flex rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 text-xs font-mono text-neutral-500 dark:border-white/10 dark:bg-white/5 dark:text-neutral-400"
-                >
-                  Updated {buildDate}
-                </div>
+                <BuildDate />
               </div>
             </BentoCard>
 
@@ -316,7 +310,7 @@ export default function HomePage() {
                 return (
                   <BentoCard
                     key={item.name}
-                    href={addUtmParams(item.href, "homepage", item.utmContent)}
+                    href={addUtmParams(item.href, "homepage", item.utmContent, item.host)}
                     className="group flex flex-col overflow-hidden p-0"
                     shortcutId={shortcutId}
                     shortcutNumber={shortcutNumber}
@@ -403,7 +397,7 @@ export default function HomePage() {
           </div>
 
           {/* Footer Connections */}
-          <div className="mx-auto max-w-5xl px-4 pt-10 border-t border-neutral-200 dark:border-white/10">
+          <footer className="mx-auto max-w-5xl px-4 pt-10 border-t border-neutral-200 dark:border-white/10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm font-medium text-neutral-500 dark:text-neutral-400">
               <div className="flex items-center space-x-6">
                 <Link
@@ -459,9 +453,9 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-          </div>
+          </footer>
         </div>
-      </div>
+      </main>
     </>
   );
 }
@@ -489,7 +483,7 @@ function BentoCard({
       href={href}
       data-shortcut-id={shortcutId}
       data-shortcut-number={shortcutNumber}
-      className={`w-full group flex flex-col overflow-hidden rounded-xl border bg-white transition-all hover:shadow-sm dark:bg-[#111] ${className} border-neutral-200 hover:border-neutral-300 dark:border-white/10 dark:hover:border-white/20 relative ${animationClass}`}
+      className={`w-full group flex flex-col overflow-hidden rounded-xl border bg-white transition-all hover:shadow-sm dark:bg-[#111] ${className} border-neutral-200 hover:border-neutral-300 dark:border-white/10 dark:hover:border-white/20 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2 ${animationClass}`}
     >
       {children}
     </Link>

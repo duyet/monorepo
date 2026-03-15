@@ -2,7 +2,6 @@
 
 import { cn } from "@duyet/libs/utils";
 import { GitCompare, List, Search, X } from "lucide-react";
-import { useState } from "react";
 import type { Model } from "@/lib/data";
 
 type View = "models" | "organizations";
@@ -15,6 +14,7 @@ interface FilterInfoProps {
   org?: string;
   liteMode?: boolean;
   models: Model[];
+  searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onLicenseChange?: (license: "all" | "open" | "closed" | "partial") => void;
   comparisonMode?: boolean;
@@ -26,21 +26,17 @@ export function FilterInfo({
   view,
   license = "all",
   liteMode,
+  searchQuery = "",
   onSearchChange,
   onLicenseChange,
   comparisonMode,
   onToggleComparisonMode,
 }: FilterInfoProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchQuery(value);
-    onSearchChange?.(value);
+    onSearchChange?.(e.target.value);
   };
 
   const clearSearch = () => {
-    setSearchQuery("");
     onSearchChange?.("");
   };
 

@@ -91,14 +91,14 @@ export function groupByYear(models: Model[]): Map<number, Model[]> {
     groups.set(year, existing);
   }
 
-  // Sort each group by date (newest first)
+  // Sort each group by date (newest first) using Schwartzian transform
   groups.forEach((yearModels, year) => {
     groups.set(
       year,
-      yearModels.sort(
-        (a: Model, b: Model) =>
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-      )
+      yearModels
+        .map((m) => ({ m, t: new Date(m.date).getTime() }))
+        .sort((a, b) => b.t - a.t)
+        .map(({ m }) => m)
     );
   });
 
@@ -129,6 +129,23 @@ export function getLicenseColor(license: Model["license"]): string {
       return "bg-lavender-light text-lavender-dark border-lavender";
     default:
       return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
+  }
+}
+
+/**
+ * Get CSS hex color for license type, suitable for inline style={{ backgroundColor }}.
+ * Unlike getLicenseColor(), this returns actual color values, not Tailwind class names.
+ */
+export function getLicenseBarColor(license: Model["license"]): string {
+  switch (license) {
+    case "open":
+      return "#8B9F83"; // sage green
+    case "closed":
+      return "#A0616A"; // rose/coral
+    case "partial":
+      return "#7B8DB8"; // lavender blue
+    default:
+      return "#9CA3AF"; // neutral gray
   }
 }
 
@@ -174,13 +191,14 @@ export function groupByOrg(models: Model[]): Map<string, Model[]> {
     groups.set(model.org, existing);
   }
 
-  // Sort each group by date descending
+  // Sort each group by date descending using Schwartzian transform
   groups.forEach((orgModels, org) => {
     groups.set(
       org,
-      orgModels.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      )
+      orgModels
+        .map((m) => ({ m, t: new Date(m.date).getTime() }))
+        .sort((a, b) => b.t - a.t)
+        .map(({ m }) => m)
     );
   });
 

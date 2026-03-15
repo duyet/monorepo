@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { cn } from "@duyet/libs/utils";
 import { RefreshCw } from "lucide-react";
 
@@ -106,8 +107,8 @@ export function LoadingIcon({ className }: { className?: string }) {
 interface EmptyStateProps {
   title: string;
   description?: string;
-  icon?: React.ReactNode;
-  action?: React.ReactNode;
+  icon?: ReactNode;
+  action?: ReactNode;
   className?: string;
 }
 
@@ -231,10 +232,10 @@ interface ProgressiveLoadingProps {
   isLoading: boolean;
   hasError?: boolean;
   isEmpty?: boolean;
-  loadingComponent?: React.ReactNode;
-  errorComponent?: React.ReactNode;
-  emptyComponent?: React.ReactNode;
-  children: React.ReactNode;
+  loadingComponent?: ReactNode;
+  errorComponent?: ReactNode;
+  emptyComponent?: ReactNode;
+  children: ReactNode;
   className?: string;
 }
 

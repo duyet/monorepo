@@ -56,6 +56,8 @@ export function useCardDescription({
   const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchDescription() {
       try {
         setIsLoading(true);
@@ -69,23 +71,34 @@ export function useCardDescription({
           body: JSON.stringify({
             prompt: getPromptForCardType(cardType),
           }),
+          signal: controller.signal,
         });
+
+        if (controller.signal.aborted) return;
 
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
         }
 
         const data = await response.json();
+
+        if (controller.signal.aborted) return;
+
         setDescription(data.description || fallbackDescription);
       } catch (err) {
+        if (controller.signal.aborted) return;
         setError(err as Error);
         setDescription(fallbackDescription);
       } finally {
-        setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     }
 
     fetchDescription();
+
+    return () => controller.abort();
   }, [cardType, fallbackDescription]);
 
   return {

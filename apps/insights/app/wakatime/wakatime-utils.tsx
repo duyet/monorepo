@@ -313,11 +313,6 @@ async function getActivityFromInsights(
 
   // Use appropriate range for the requested days
   const range = getInsightsRange(days);
-  const numDays = typeof days === "number" ? days : 9999;
-
-  console.log(
-    `[WakaTime Insights] Fetching ${numDays} days with range: ${range}`
-  );
 
   const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}&api_key=${apiKey}`;
 
@@ -355,10 +350,6 @@ async function getActivityFromInsights(
       })
       .slice(0, typeof days === "number" ? days : undefined);
 
-    console.log(
-      `[WakaTime Insights] Retrieved ${filteredDays.length} days of data`
-    );
-
     return filteredDays.map((day) => ({
       date: day.date,
       "Total Hours": toHours(day.total),
@@ -388,9 +379,6 @@ export async function getWakaTimeActivityWithAI(
     const hybridData = await getHybridActivityForChart(days);
 
     if (hybridData.length > 0) {
-      console.log(
-        `[WakaTime] Using hybrid data: ${hybridData.length} days (ClickHouse + API)`
-      );
       return hybridData as ActivityWithAI;
     }
   } catch (error) {
@@ -416,16 +404,10 @@ export async function getWakaTimeActivityWithAI(
     const minExpectedDays = Math.floor(days * 0.5);
 
     if (durationsData.length >= minExpectedDays) {
-      console.log(
-        `[WakaTime] Using durations data: ${durationsData.length}/${days} days with AI breakdown`
-      );
       return durationsData;
     }
 
     // Fall back to insights endpoint for complete data (no AI breakdown)
-    console.log(
-      `[WakaTime] Durations insufficient (${durationsData.length}/${days}), falling back to insights`
-    );
     return getActivityFromInsights(days);
   }
 
@@ -434,33 +416,9 @@ export async function getWakaTimeActivityWithAI(
 }
 
 // Fallback to aggregated stats when premium endpoint is unavailable
-async function getFallbackActivityData(days: number) {
-  const stats = await getWakaTimeStats(days);
-  if (!stats?.data) return [];
-
-  const { data } = stats;
-  const avgHours = (data.daily_average || 0) / 3600;
-  const activeDays = Math.min(data.days_minus_holidays || days, days);
-
-  // Generate approximated daily data points for visualization
-  return Array.from({ length: activeDays }, (_, i) => {
-    const date = new Date(
-      Date.now() - (activeDays - 1 - i) * 24 * 60 * 60 * 1000
-    )
-      .toISOString()
-      .split("T")[0];
-
-    // Approximate with 80% human, 20% AI split and some variation
-    const totalHours = avgHours * (0.7 + Math.random() * 0.6);
-    const humanHours = (totalHours * 0.8).toFixed(2);
-    const aiHours = (totalHours * 0.2).toFixed(2);
-
-    return {
-      date,
-      "Human Hours": Number.parseFloat(humanHours),
-      "AI Hours": Number.parseFloat(aiHours),
-    };
-  });
+// Returns empty array — no data is better than fabricated numbers
+async function getFallbackActivityData(_days: number) {
+  return [];
 }
 
 export async function getWakaTimeMetrics(days: number | "all" = 30) {

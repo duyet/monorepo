@@ -2,6 +2,7 @@
 
 import { Badge } from "@duyet/components";
 import { Brain, Loader2 } from "lucide-react";
+import { ChainOfThoughtStep } from "@/components/ai-elements/chain-of-thought";
 import { cn } from "@/lib/utils";
 
 interface ThinkingStepsProps {
@@ -23,18 +24,13 @@ export function ThinkingSteps({ steps, className }: ThinkingStepsProps) {
       </div>
 
       {/* Steps */}
-      <div className="space-y-2">
+      <div className="space-y-1">
         {steps.map((step, i) => (
-          <div
+          <ChainOfThoughtStep
             key={i}
-            className="flex items-start gap-2 text-sm animate-in fade-in slide-in-from-top-2 duration-300"
-            style={{ animationDelay: `${i * 50}ms` }}
-          >
-            <div className="shrink-0 mt-0.5">
-              <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" />
-            </div>
-            <p className="text-muted-foreground flex-1">{step}</p>
-          </div>
+            label={step}
+            status="active"
+          />
         ))}
       </div>
     </div>

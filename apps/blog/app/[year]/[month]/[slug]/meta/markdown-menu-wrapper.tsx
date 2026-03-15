@@ -14,8 +14,8 @@ export function MarkdownMenuWrapper({
   const handleCopyMarkdown = async () => {
     try {
       await navigator.clipboard.writeText(markdownContent);
-    } catch (err) {
-      console.error("Failed to copy markdown:", err);
+    } catch {
+      // Clipboard access denied or unavailable
     }
   };
 

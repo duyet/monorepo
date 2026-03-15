@@ -47,14 +47,15 @@ export {
 // ============================================================================
 
 export {
-  formatCurrency,
   getCCUsageActivity,
   getCCUsageCosts,
   getCCUsageEfficiency, // @deprecated Use useFormattedCurrency hook
   getCCUsageMetrics,
   getCCUsageModels,
   getCCUsageProjects,
-} from "./ccusage-utils";
+} from "./utils/data-fetchers";
+
+export { formatCurrency } from "./utils/formatting";
 
 // ============================================================================
 // ClickHouse Health Check Exports

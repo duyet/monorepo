@@ -130,9 +130,9 @@ export function SearchClient({ posts, categories, tags }: SearchClientProps) {
     toDateObj,
   ]);
 
-  // Sort by date descending (no need for spread - filteredPosts is already a new array)
+  // Sort by date descending — spread to avoid mutating the memoized filteredPosts array
   const sortedPosts = useMemo(() => {
-    return filteredPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
+    return [...filteredPosts].sort((a, b) => b.date.getTime() - a.date.getTime());
   }, [filteredPosts]);
 
   return (

@@ -24,6 +24,7 @@ export function SkillRust() {
           <Link
             href="https://blog.duyet.net/2021/11/rust-data-engineering.html"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             Rust
@@ -33,6 +34,7 @@ export function SkillRust() {
           <Link
             href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             Data Platform at Fossil
@@ -42,6 +44,7 @@ export function SkillRust() {
           <Link
             href="https://duyet.net/rust"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             Rust Tiếng Việt
@@ -68,6 +71,7 @@ export function SkillTypescript() {
           <Link
             href="https://github.com/duyet/clickhouse-monitoring"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             clickhouse-monitoring
@@ -76,6 +80,7 @@ export function SkillTypescript() {
           <Link
             href="https://github.com/duyet/monorepo"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             this CV itself
@@ -98,6 +103,7 @@ export function SkillHelm() {
           <Link
             href="https://github.com/duyet/charts"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             duyet/charts
@@ -158,6 +164,7 @@ export function SkillSpark() {
           <Link
             href="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             <strong>Kubernetes</strong>
@@ -167,6 +174,7 @@ export function SkillSpark() {
           <Link
             href="https://blog.duyet.net/tag/clickhouse"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             ClickHouse
@@ -175,6 +183,7 @@ export function SkillSpark() {
           <Link
             href="https://blog.duyet.net/2023/09/duckdb.html"
             target="_blank"
+            rel="noopener noreferrer"
             className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
           >
             DuckDB

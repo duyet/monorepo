@@ -1,7 +1,7 @@
 "use client";
 
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Model } from "@/lib/data";
 import { ModelCard } from "./model-card";
 
@@ -42,29 +42,33 @@ export function VirtualTimeline({
   }, [modelsByYear]);
 
   // Sort years descending (newest first)
-  const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a);
+  const sortedYears = useMemo(
+    () => Array.from(modelsByYear.keys()).sort((a, b) => b - a),
+    [modelsByYear]
+  );
 
   // Flatten grouped data into a list of virtual items
-  const virtualItems: VirtualItem[] = [];
-  sortedYears.forEach((year) => {
-    const yearModels = modelsByYear.get(year) || [];
-    // Add group header
-    virtualItems.push({
-      type: "group",
-      key: `group-${year}`,
-      year,
-      groupIndex: virtualItems.length,
-      modelCount: yearModels.length,
-    });
-    // Add models
-    yearModels.forEach((model) => {
-      virtualItems.push({
-        type: "model",
-        key: `${model.org}-${model.date}-${model.name}`,
-        model,
+  const virtualItems = useMemo<VirtualItem[]>(() => {
+    const items: VirtualItem[] = [];
+    sortedYears.forEach((year) => {
+      const yearModels = modelsByYear.get(year) || [];
+      items.push({
+        type: "group",
+        key: `group-${year}`,
+        year,
+        groupIndex: items.length,
+        modelCount: yearModels.length,
+      });
+      yearModels.forEach((model) => {
+        items.push({
+          type: "model",
+          key: `${model.org}-${model.date}-${model.name}`,
+          model,
+        });
       });
     });
-  });
+    return items;
+  }, [sortedYears, modelsByYear]);
 
   if (virtualItems.length === 0) {
     return (
@@ -186,12 +190,8 @@ export function VirtualTimeline({
                 isLast={false}
                 isSelectable={comparisonMode}
                 isSelected={isSelected}
-                onSelectionChange={(selected) => {
-                  if (selected) {
-                    onToggleSelection?.(modelItem.model!);
-                  } else {
-                    onToggleSelection?.(modelItem.model!); // Toggle off
-                  }
+                onSelectionChange={() => {
+                  onToggleSelection?.(modelItem.model!);
                 }}
               />
             </div>

@@ -44,6 +44,7 @@ export default function Page() {
                 className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
                 href={contact.url}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {contact.label}
               </Link>
@@ -53,6 +54,7 @@ export default function Page() {
                 className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
                 href={contact.url}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <div className="flex flex-col gap-2">
                   {contact.hoverContent.icon}
@@ -73,6 +75,7 @@ export default function Page() {
           className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
           href={contact.url}
           target="_blank"
+          rel="noopener noreferrer"
         >
           {contact.label}
         </Link>
@@ -190,6 +193,7 @@ export default function Page() {
             href="https://duyet.net/cv"
             className="underline"
             target="_blank"
+            rel="noopener noreferrer"
           >
             https://duyet.net/cv
           </Link>

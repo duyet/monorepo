@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { formatCurrency, validateDaysParameter } from "../ccusage-utils";
+import { formatCurrency } from "../utils/formatting";
+import { validateDaysParameter } from "../utils/queries";
 
 describe("formatCurrency (ccusage-utils)", () => {
   test("returns $0 for zero", () => {

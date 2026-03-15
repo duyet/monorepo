@@ -103,20 +103,3 @@ export const EXTERNAL_LINKS = {
   UPTIME_MONITOR: "https://duyet.github.io/uptime/",
 } as const;
 
-// Dashboard refresh interval (milliseconds)
-export const REFRESH_INTERVAL = 60000; // 1 minute
-
-// Service namespaces
-export const SERVICE_NAMESPACES = [
-  "ingress",
-  "management",
-  "monitoring",
-  "llm",
-  "analytics",
-  "n8n",
-  "home-assistant",
-  "network",
-  "openclaw",
-] as const;
-
-export type ServiceNamespace = (typeof SERVICE_NAMESPACES)[number];

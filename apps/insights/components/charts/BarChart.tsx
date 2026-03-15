@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   Bar,
   CartesianGrid,
@@ -65,11 +66,15 @@ export function BarChart({
   hideYAxis = false,
   height,
 }: BarChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    categories.map((category, i) => [
-      category,
-      { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ])
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        categories.map((category, i) => [
+          category,
+          { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
+        ])
+      ),
+    [categories]
   );
 
   return (

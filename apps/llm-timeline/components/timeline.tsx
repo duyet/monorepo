@@ -25,7 +25,10 @@ export function Timeline({
   onToggleSelection,
 }: TimelineProps) {
   // Sort years descending (newest first)
-  const sortedYears = Array.from(modelsByYear.keys()).sort((a, b) => b - a);
+  const sortedYears = useMemo(
+    () => Array.from(modelsByYear.keys()).sort((a, b) => b - a),
+    [modelsByYear]
+  );
 
   // Flatten all models into a single array for keyboard navigation
   const flatModels = useMemo(() => {
@@ -154,12 +157,8 @@ export function Timeline({
                       lite={liteMode}
                       isSelectable={comparisonMode}
                       isSelected={isSelected}
-                      onSelectionChange={(selected) => {
-                        if (selected) {
-                          onToggleSelection?.(model);
-                        } else {
-                          onToggleSelection?.(model); // Toggle off
-                        }
+                      onSelectionChange={() => {
+                        onToggleSelection?.(model);
                       }}
                     />
                   </div>

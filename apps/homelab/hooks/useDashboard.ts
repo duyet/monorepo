@@ -3,7 +3,7 @@
  * Encapsulates data fetching logic and provides a clean API for components
  */
 
-import { useMemo } from "react";
+import { useMemo } from "react"; // useMemo kept for hooks with real deps (useServices, useServiceSearch, useNode)
 import {
   boschWashingMachine,
   type ClusterStats,
@@ -21,44 +21,40 @@ import {
   speedTest,
 } from "@/lib/data";
 
+// Derived node slices — computed once from static module-level constants
+const _onlineNodes = nodes.filter((n) => n.status === "online");
+const _offlineNodes = nodes.filter((n) => n.status === "offline");
+const _degradedNodes = nodes.filter((n) => n.status === "degraded");
+const _nodesResult = {
+  nodes,
+  onlineNodes: _onlineNodes,
+  offlineNodes: _offlineNodes,
+  degradedNodes: _degradedNodes,
+  totalNodes: nodes.length,
+  onlineCount: _onlineNodes.length,
+};
+
 /**
  * Hook for cluster node data
  */
 export function useNodes() {
-  return useMemo(() => {
-    const onlineNodes = nodes.filter((n) => n.status === "online");
-    const offlineNodes = nodes.filter((n) => n.status === "offline");
-    const degradedNodes = nodes.filter((n) => n.status === "degraded");
-
-    return {
-      nodes,
-      onlineNodes,
-      offlineNodes,
-      degradedNodes,
-      totalNodes: nodes.length,
-      onlineCount: onlineNodes.length,
-    };
-  }, []);
+  return _nodesResult;
 }
 
 /**
  * Hook for cluster statistics
  */
 export function useClusterStats(): ClusterStats {
-  return useMemo(() => clusterStats, []);
+  return clusterStats;
 }
+
+const _resourceMetrics = { cpuHistory, memoryHistory };
 
 /**
  * Hook for resource metrics (CPU & Memory)
  */
 export function useResourceMetrics() {
-  return useMemo(
-    () => ({
-      cpuHistory,
-      memoryHistory,
-    }),
-    []
-  );
+  return _resourceMetrics;
 }
 
 /**
@@ -108,24 +104,20 @@ export function useServices(namespace?: string) {
   }, [namespace]);
 }
 
+const _networkStats = { networkTraffic, speedTest };
+
 /**
  * Hook for network statistics
  */
 export function useNetworkStats() {
-  return useMemo(
-    () => ({
-      networkTraffic,
-      speedTest,
-    }),
-    []
-  );
+  return _networkStats;
 }
 
 /**
  * Hook for service downtime history
  */
 export function useDowntimeHistory() {
-  return useMemo(() => downtimeHistory, []);
+  return downtimeHistory;
 }
 
 /**
@@ -154,17 +146,20 @@ export function useNode(nodeName: string): Node | undefined {
   return useMemo(() => nodes.find((n) => n.name === nodeName), [nodeName]);
 }
 
+const _namespaces = Array.from(new Set(services.map((s) => s.namespace))).sort();
+
 /**
  * Hook for getting all unique namespaces
  */
 export function useNamespaces() {
-  return useMemo(() => {
-    const namespaces = Array.from(
-      new Set(services.map((s) => s.namespace))
-    ).sort();
-    return namespaces;
-  }, []);
+  return _namespaces;
 }
+
+const _smartDevicesResult = {
+  devices: smartDevices,
+  boschWashingMachine,
+  dysonAirPurifier,
+};
 
 /**
  * Hook for smart devices data
@@ -174,12 +169,5 @@ export function useSmartDevices(): {
   boschWashingMachine: typeof boschWashingMachine;
   dysonAirPurifier: typeof dysonAirPurifier;
 } {
-  return useMemo(
-    () => ({
-      devices: smartDevices,
-      boschWashingMachine,
-      dysonAirPurifier,
-    }),
-    []
-  );
+  return _smartDevicesResult;
 }

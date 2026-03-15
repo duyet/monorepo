@@ -6,7 +6,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { CompactMetric } from "@/components/ui/CompactMetric";
-import { getCCUsageMetrics } from "./ccusage-utils";
+import { getCCUsageMetrics } from "./utils";
 import type { CCUsageMetricsProps } from "./types";
 import { formatCurrency } from "./utils/formatting";
 

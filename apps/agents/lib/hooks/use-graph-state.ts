@@ -29,9 +29,6 @@ export interface UseGraphStateOptions {
 
   /** Returns a Clerk session token for authenticated requests */
   getAuthToken?: () => Promise<string | null>;
-
-  /** Poll for latest checkpoint interval in ms (default: 5000) */
-  pollInterval?: number;
 }
 
 export interface UseGraphStateReturn {

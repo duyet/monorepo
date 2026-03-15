@@ -14,25 +14,7 @@ const config = {
   trailingSlash: false,
   transpilePackages: ["@duyet/components", "@duyet/libs"],
   images: {
-    dangerouslyAllowSVG: true,
     unoptimized: true,
-  },
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "Content-Signal",
-            value: "ai-train=yes, search=yes, ai-input=yes",
-          },
-        ],
-      },
-    ];
   },
 };
 

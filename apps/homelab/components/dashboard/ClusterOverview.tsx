@@ -99,7 +99,7 @@ export function ClusterOverview() {
             <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
               {(clusterStats.totalStorage / 1024).toFixed(1)}
               <span className="text-lg text-neutral-600 dark:text-neutral-400">
-                TiB
+                GiB
               </span>
             </p>
             <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">

@@ -19,6 +19,7 @@ import {
   type FilterState,
   filterModels,
   formatDate,
+  getLicenseBarColor,
   getLicenseColor,
   groupByOrg,
   groupByYear,
@@ -218,6 +219,7 @@ export function StaticView({
         org={orgFilter || org || ""}
         liteMode={liteMode}
         models={allModels}
+        searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onLicenseChange={setLicenseFilter}
         comparisonMode={comparisonMode}
@@ -583,9 +585,7 @@ function ComparisonModalContent({
                         className="h-full rounded-md transition-all duration-500"
                         style={{
                           width: `${percentage}%`,
-                          backgroundColor: getLicenseColor(model.license).split(
-                            " "
-                          )[0],
+                          backgroundColor: getLicenseBarColor(model.license),
                         }}
                       />
                     </div>

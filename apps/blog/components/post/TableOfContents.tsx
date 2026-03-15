@@ -80,11 +80,11 @@ export function TableOfContents({
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleMobileToggle();
+      if (e.key === "Escape" && isMobileOpen) handleMobileToggle();
     };
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [handleMobileToggle]);
+  }, [handleMobileToggle, isMobileOpen]);
 
   if (headings.length === 0) {
     return null;

@@ -1,6 +1,6 @@
 import { BarChart } from "@/components/charts";
 import { TokenBarChart } from "@/components/charts/TokenBarChart";
-import { getCCUsageActivity, getCCUsageActivityByModel } from "./ccusage-utils";
+import { getCCUsageActivity, getCCUsageActivityByModel } from "./utils";
 import type { CCUsageActivityProps } from "./types";
 
 export async function CCUsageActivity({

@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "@duyet/libs";
-import { Clock, Coins, Zap } from "lucide-react";
+import { Clock, Coins, Wrench, Zap } from "lucide-react";
 import type { Message } from "@/lib/types";
+import { Badge } from "@/components/ui/badge";
 
 interface MessageMetadataProps {
   message: Message;
@@ -54,19 +55,27 @@ export function MessageMetadata({
   return (
     <div
       className={cn(
-        "flex items-center gap-3 text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]",
+        "flex items-center gap-1.5",
         "opacity-70 hover:opacity-100 transition-opacity"
       )}
     >
       {modelName && (
-        <span className="flex items-center gap-1" title="Model used">
+        <Badge
+          variant="secondary"
+          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          title="Model used"
+        >
           <Zap className="h-3 w-3" />
           {modelName}
-        </span>
+        </Badge>
       )}
 
       {message.tokens && (
-        <span className="flex items-center gap-1" title="Tokens used">
+        <Badge
+          variant="secondary"
+          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          title="Tokens used"
+        >
           <Coins className="h-3 w-3" />
           {formatTokens(message.tokens.total)}
           {message.tokens.prompt && message.tokens.completion && (
@@ -75,20 +84,29 @@ export function MessageMetadata({
               {formatTokens(message.tokens.completion)})
             </span>
           )}
-        </span>
+        </Badge>
       )}
 
       {duration && (
-        <span className="flex items-center gap-1" title="Generation time">
+        <Badge
+          variant="secondary"
+          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          title="Generation time"
+        >
           <Clock className="h-3 w-3" />
           {duration}
-        </span>
+        </Badge>
       )}
 
       {message.toolCalls !== undefined && message.toolCalls > 0 && (
-        <span className="flex items-center gap-1" title="Tool calls made">
-          🛠 {message.toolCalls}
-        </span>
+        <Badge
+          variant="secondary"
+          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          title="Tool calls made"
+        >
+          <Wrench className="h-3 w-3" />
+          {message.toolCalls}
+        </Badge>
       )}
     </div>
   );

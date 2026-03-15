@@ -42,7 +42,7 @@ export function deepMerge<T extends object>(
 ): T {
   const result = { ...target };
 
-  for (const key in source) {
+  for (const key of Object.keys(source) as Array<keyof typeof source>) {
     const sourceValue = source[key];
     const targetValue = result[key];
 

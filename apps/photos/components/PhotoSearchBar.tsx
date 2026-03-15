@@ -3,7 +3,7 @@
 import { cn } from "@duyet/libs/utils";
 import { ArrowUpDown, Search, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { SortOption } from "@/lib/photo-utils";
 
 /**
@@ -52,9 +52,14 @@ export function PhotoSearchBar({ className }: PhotoSearchBarProps) {
 
   const [searchInput, setSearchInput] = useState(query);
   const debouncedQuery = useDebounce(searchInput, 300);
+  const isMountedRef = useRef(false);
 
-  // Update URL when debounced query changes
+  // Update URL when debounced query changes, but skip the initial mount
   useEffect(() => {
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      return;
+    }
     const params = new URLSearchParams(searchParams.toString());
 
     if (debouncedQuery) {

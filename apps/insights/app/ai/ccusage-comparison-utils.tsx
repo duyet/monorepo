@@ -4,7 +4,7 @@
  */
 
 import { calculateDelta } from "@/lib/comparison";
-import { getCCUsageMetrics } from "./ccusage-utils";
+import { getCCUsageMetrics } from "./utils";
 
 export interface CCUsageComparisonMetrics {
   totalTokens: {

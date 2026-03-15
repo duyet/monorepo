@@ -41,7 +41,7 @@ export default async function PhotosPage({
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
-          <div className="max-w-md rounded-2xl bg-white p-8 text-center shadow-sm dark:bg-slate-800">
+          <div className="max-w-md rounded-2xl bg-white p-8 text-center shadow-sm dark:bg-slate-900">
             <div className="mb-4 flex justify-center">
               {photoError instanceof RateLimitError ? (
                 <svg

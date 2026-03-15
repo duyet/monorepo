@@ -1,5 +1,5 @@
 import { Clock, Server, Zap } from "lucide-react";
-import { getCCUsageMetrics } from "@/app/ai/ccusage-utils";
+import { getCCUsageMetrics } from "@/app/ai/utils";
 import { getWakaTimeMetrics } from "@/app/wakatime/wakatime-utils";
 import { CompactCard } from "@/components/ui/CompactCard";
 

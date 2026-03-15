@@ -10,11 +10,13 @@
  * - DELETE /checkpoint/{checkpointId} - Delete a checkpoint
  */
 
+import { getUserFromRequest } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
 import { createCheckpointer } from "../../lib/graph";
 
 interface Env {
   DB?: D1Database;
+  CLERK_ISSUER_URL?: string;
 }
 
 /**
@@ -83,7 +85,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (conversationId) {
     const db = createDatabaseClient(DB);
     const checkpointer = createCheckpointer(db);
-    const limit = parseInt(url.searchParams.get("limit") || "50", 10);
+    const rawLimit = parseInt(url.searchParams.get("limit") || "50", 10);
+    const limit = Number.isNaN(rawLimit) || rawLimit < 1 ? 50 : Math.min(rawLimit, 200);
 
     try {
       const checkpoints = await checkpointer.listVersions(
@@ -140,6 +143,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     });
   }
 
+  // Require authentication for restore operations
+  const user = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
+  const userId = user?.userId;
+  if (!userId) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   try {
     const body = (await request.json()) as {
       checkpointId?: string;
@@ -160,6 +173,30 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const db = createDatabaseClient(DB);
     const checkpointer = createCheckpointer(db);
+
+    // Ownership check: resolve the conversation ID from the request body and
+    // verify it belongs to the requesting user before allowing restore.
+    const targetConversationId =
+      body.conversationId ||
+      (body.checkpointId
+        ? (await checkpointer.loadCheckpoint(body.checkpointId))
+            ?.conversationId
+        : undefined);
+
+    if (!targetConversationId) {
+      return new Response(
+        JSON.stringify({ error: "Checkpoint not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const conversation = await db.getConversation(targetConversationId);
+    if (!conversation || conversation.userId !== userId) {
+      return new Response(
+        JSON.stringify({ error: "Not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     let restoredState;
 
@@ -215,6 +252,16 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
     });
   }
 
+  // Require authentication for delete operations
+  const user = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
+  const userId = user?.userId;
+  if (!userId) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   // Extract checkpoint ID from URL path
   const url = new URL(request.url);
   const pathParts = url.pathname.split("/");
@@ -234,6 +281,23 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
   const checkpointer = createCheckpointer(db);
 
   try {
+    // Ownership check: verify the checkpoint's conversation belongs to the requesting user
+    const checkpoint = await checkpointer.loadCheckpoint(checkpointId);
+    if (!checkpoint) {
+      return new Response(
+        JSON.stringify({ error: "Checkpoint not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const conversation = await db.getConversation(checkpoint.conversationId);
+    if (!conversation || conversation.userId !== userId) {
+      return new Response(
+        JSON.stringify({ error: "Not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     await checkpointer.deleteCheckpoint(checkpointId);
 
     return new Response(

@@ -12,7 +12,7 @@ import ThemeToggle from "./ThemeToggle";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
-    "text-sm text-[#666666] dark:text-[#888888]",
+    "text-sm text-neutral-500 dark:text-neutral-400",
     "no-underline hover:text-gray-700",
     "dark:hover:text-white transition"
   );
@@ -110,7 +110,7 @@ export function FooterContent({
 
                 <div className="mt-6 sm:mt-12 md:mt-0">
                   <FooterHeader>{profile.personal.email}</FooterHeader>
-                  <div className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
+                  <div className="mt-4 text-sm text-gray-600 dark:text-neutral-400">
                     <Social profile={profile} />
                   </div>
                   <ul className="mt-4 space-y-1.5 list-none ml-0">
@@ -127,7 +127,7 @@ export function FooterContent({
 
           <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
             <div className="mt-5">
-              <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
+              <p className="mt-4 text-xs text-gray-500 dark:text-neutral-400">
                 &copy; {new Date().getFullYear()}{" "}
                 {urls.apps.home.replace(/^https?:\/\//, "")} |{" "}
                 {profile.personal.title} |{" "}
@@ -179,7 +179,7 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900",
+        "bg-neutral-50 pb-[env(safe-area-inset-bottom)] relative dark:bg-slate-900",
         className
       )}
     >

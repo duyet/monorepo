@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   Area,
   CartesianGrid,
@@ -36,11 +37,15 @@ export function AreaChart({
   showGridLines = true,
   className,
 }: AreaChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    categories.map((category, i) => [
-      category,
-      { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ])
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        categories.map((category, i) => [
+          category,
+          { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
+        ])
+      ),
+    [categories]
   );
 
   return (

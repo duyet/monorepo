@@ -10,8 +10,8 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Photo } from "@/lib/photo-provider";
 
 // URL parameter keys — centralized to avoid magic strings
@@ -193,25 +193,28 @@ export default function EXIFFilters({
 }: EXIFFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [isExpanded, setIsExpanded] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
 
-  // Compute filter options from photos
+  // Compute filter options from photos (memoized to avoid re-computation on every render)
   const filterOptions = useMemo(() => computeFilterOptions(photos), [photos]);
 
-  // Initialize filters from URL params using lazy initialization
+  // Initialize filters from URL params — reuse the initial filterOptions value
+  // via a ref to avoid calling computeFilterOptions a second time on mount
+  const initialFilterOptionsRef = useRef(filterOptions);
   const [filters, setFilters] = useState<EXIFFilterState>(() => {
     const params = new URLSearchParams(searchParams.toString());
-    return paramsToFilters(params, computeFilterOptions(photos));
+    return paramsToFilters(params, initialFilterOptionsRef.current);
   });
 
   // Update URL when filters change (include filterOptions for correctness)
   useEffect(() => {
     const params = filtersToParams(filters, filterOptions);
     const queryString = params.toString();
-    const newUrl = queryString ? `/?${queryString}` : "/";
+    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
     router.replace(newUrl, { scroll: false });
-  }, [filters, router, filterOptions]);
+  }, [filters, router, filterOptions, pathname]);
 
   // Apply filters to photos
   const applyFilters = useCallback(

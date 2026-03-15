@@ -46,7 +46,7 @@ export function MarkdownMenu({
 
   const handleChatInClaude = () => {
     const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(`Please analyze this blog post:\n\n${window.location.href}`)}`;
-    window.open(claudeUrl, "_blank");
+    window.open(claudeUrl, "_blank", "noopener,noreferrer");
     setIsOpen(false);
   };
 

@@ -34,7 +34,7 @@ export default async function Page() {
     .map(([tag]) => tag);
 
   return (
-    <div className="bg-cream-warm min-h-screen pb-10">
+    <div className="bg-cream-warm dark:bg-background min-h-screen pb-10">
       <Header
         longText="Data Engineering"
         urls={duyetUrls}

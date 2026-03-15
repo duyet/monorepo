@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 import {
   type ChartConfig,
@@ -33,14 +34,18 @@ export function DonutChart({
   showLabel = false,
   className,
 }: DonutChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    data.map((item, i) => {
-      const key = String(item[index]);
-      return [
-        key,
-        { label: key, color: CHART_COLORS[i % CHART_COLORS.length] },
-      ];
-    })
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        data.map((item, i) => {
+          const key = String(item[index]);
+          return [
+            key,
+            { label: key, color: CHART_COLORS[i % CHART_COLORS.length] },
+          ];
+        })
+      ),
+    [data, index]
   );
 
   // Custom label function to show language names

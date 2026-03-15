@@ -1,5 +1,5 @@
 import { AreaChart } from "@/components/charts";
-import { getCCUsageCosts } from "./ccusage-utils";
+import { getCCUsageCosts } from "./utils";
 import type { CCUsageCostsProps, CostChartData } from "./types";
 import { formatCurrency } from "./utils/formatting";
 
@@ -8,6 +8,19 @@ export async function CCUsageCosts({
   className,
 }: CCUsageCostsProps) {
   const costs = await getCCUsageCosts(days);
+
+  if (!costs || costs.length === 0) {
+    return (
+      <div
+        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
+      >
+        <p className="text-muted-foreground">No cost data available</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Daily cost breakdown will appear here once usage data is available
+        </p>
+      </div>
+    );
+  }
 
   // Process cost data with summary calculations (converted from hook)
   const total = costs.reduce((sum, day) => sum + day["Total Cost"], 0);
@@ -56,19 +69,6 @@ export async function CCUsageCosts({
     "Output Cost": row["Output Cost"],
     "Cache Cost": row["Cache Cost"],
   }));
-
-  if (!costs || costs.length === 0) {
-    return (
-      <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
-      >
-        <p className="text-muted-foreground">No cost data available</p>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Daily cost breakdown will appear here once usage data is available
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className={`space-y-6 ${className || ""}`}>

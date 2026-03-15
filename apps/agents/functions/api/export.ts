@@ -297,13 +297,16 @@ async function handleGet(
       conversation.title
     );
 
+    // Sanitize filename to prevent header injection
+    const safeFilename = filename.replace(/["\n\r\\]/g, "_");
+
     // Create response with download headers
     return new Response(content, {
       status: 200,
       headers: {
         ...CORS_HEADERS,
         "Content-Type": contentType,
-        "Content-Disposition": `attachment; filename="${filename}"`,
+        "Content-Disposition": `attachment; filename="${safeFilename}"`,
       },
     });
   } catch (error) {

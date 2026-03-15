@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getCCUsageProjects } from "./ccusage-utils";
+import { getCCUsageProjects } from "./utils";
 
 export async function CCUsageProjects() {
   const projects = await getCCUsageProjects();

@@ -64,6 +64,7 @@ export function KeyboardFeatures() {
   useEffect(() => {
     if (showBadges) {
       document.body.classList.add("keyboard-shortcuts-enabled");
+      return () => document.body.classList.remove("keyboard-shortcuts-enabled");
     }
   }, [showBadges]);
 

@@ -20,10 +20,9 @@ export function getAllSeries(): Series[] {
     const slug = getSlug(post.series);
 
     // If the series is already in the list, update the posts
-    if (acc.find((s: Series) => s.slug === slug)) {
-      // Add the current post to the series
-      acc.find((s: Series) => s.slug === slug)?.posts.push(post);
-
+    const existing = acc.find((s: Series) => s.slug === slug);
+    if (existing) {
+      existing.posts.push(post);
       return acc;
     }
 

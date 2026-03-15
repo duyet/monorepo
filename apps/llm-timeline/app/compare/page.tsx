@@ -7,7 +7,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { PageLayout } from "@/components/page-layout";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
-import { formatDate, getLicenseColor, slugify } from "@/lib/utils";
+import { formatDate, getLicenseBarColor, getLicenseColor, slugify } from "@/lib/utils";
 
 // Maximum number of models that can be compared
 const MAX_COMPARE = 4;
@@ -444,9 +444,7 @@ function CompareContent() {
                           className="h-full rounded-md transition-all duration-500"
                           style={{
                             width: `${percentage}%`,
-                            backgroundColor: getLicenseColor(
-                              model.license
-                            ).split(" ")[0],
+                            backgroundColor: getLicenseBarColor(model.license),
                           }}
                         />
                       </div>
@@ -547,5 +545,3 @@ export default function ComparePage() {
     </PageLayout>
   );
 }
-
-export const dynamic = "force-static";

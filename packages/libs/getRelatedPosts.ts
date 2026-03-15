@@ -62,7 +62,7 @@ export function getRelatedPosts(
       score += matchingTags.length * 2;
 
       // Recency bonus
-      if (post.date >= sixMonthsAgo) {
+      if (post.date.getTime() >= sixMonthsAgo.getTime()) {
         score += 1;
       }
 

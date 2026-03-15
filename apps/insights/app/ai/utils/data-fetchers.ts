@@ -1,4 +1,5 @@
 import type {
+  CCUsageActivityByModelData,
   CCUsageActivityData,
   CCUsageCostData,
   CCUsageEfficiencyData,
@@ -169,7 +170,7 @@ export async function getCCUsageMetrics(
 
   const data = results[0];
   const totalTokens = Number(data.total_tokens) || 0;
-  const activeDays = Number(data.active_days) || 1;
+  const activeDays = Number(data.active_days) || 0;
   const cacheTokens = Number(data.cache_tokens) || 0;
   const totalCost = Number(data.total_cost) || 0;
 
@@ -190,7 +191,7 @@ export async function getCCUsageMetrics(
 
   return {
     totalTokens: Math.round(totalTokens),
-    dailyAverage: Math.round(totalTokens / activeDays),
+    dailyAverage: activeDays > 0 ? Math.round(totalTokens / activeDays) : 0,
     activeDays,
     cacheTokens: Math.round(cacheTokens),
     totalCost,
@@ -443,4 +444,69 @@ export async function getCCUsageCosts(
       "Cache Cost": cacheCost,
     };
   });
+}
+
+/**
+ * Normalize model names for better display
+ * Removes date suffixes while preserving the core model identifier
+ * Examples:
+ *   "claude-opus-4-5-20251101" → "claude-opus-4-5"
+ *   "claude-3-5-sonnet-20241022" → "claude-3-5-sonnet"
+ *   "claude-3-haiku-20240307" → "claude-3-haiku"
+ */
+function normalizeModelName(rawName: string): string {
+  const normalized = rawName
+    .replace(/-\d{8}$/, "") // Remove -YYYYMMDD suffix
+    .replace(/@\d{8}$/, "") // Remove @YYYYMMDD suffix
+    .replace(/-v\d+:\d+$/, "") // Remove -v1:0 style suffixes
+    .replace(/:.*$/, ""); // Remove everything after colon (API version markers)
+
+  return normalized || rawName;
+}
+
+/**
+ * Get daily token usage by model for the specified time period
+ * Returns pivoted data suitable for stacked bar chart
+ */
+export async function getCCUsageActivityByModel(
+  days: DateRangeDays = 30
+): Promise<CCUsageActivityByModelData[]> {
+  const dateCondition = getCreatedAtCondition(days);
+  const query = `
+    SELECT
+      toDate(created_at) as date,
+      model_name,
+      SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
+    FROM ccusage_model_breakdowns
+    ${dateCondition}
+    GROUP BY toDate(created_at), model_name
+    ORDER BY date ASC
+  `;
+
+  const results = await executeClickHouseQueryLegacy(query);
+
+  if (!results || results.length === 0) return [];
+
+  // Normalize model names and convert to thousands
+  const normalizedResults = results.map((row) => ({
+    date: String(row.date),
+    model_name: normalizeModelName(String(row.model_name)),
+    total_tokens: Math.round((Number(row.total_tokens) || 0) / 1000), // Convert to K
+  }));
+
+  // Pivot: create object with date as key, object of model tokens as values
+  const pivoted = new Map<string, Record<string, number>>();
+
+  for (const row of normalizedResults) {
+    if (!pivoted.has(row.date)) {
+      pivoted.set(row.date, {});
+    }
+    pivoted.get(row.date)![row.model_name] = row.total_tokens;
+  }
+
+  // Convert to array format for Recharts
+  return Array.from(pivoted.entries()).map(([date, models]) => ({
+    date,
+    ...models,
+  }));
 }

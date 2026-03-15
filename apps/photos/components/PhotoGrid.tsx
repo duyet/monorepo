@@ -5,6 +5,9 @@ import { Images } from "lucide-react";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
+
+// Hoisted to module level — getMasonryClasses() returns static class strings that never change
+const MASONRY_CLASSES = getMasonryClasses();
 import type { Photo } from "@/lib/photo-provider";
 import ErrorBoundary from "./ErrorBoundary";
 import EXIFFilters, { FilterCount } from "./EXIFFilters";
@@ -63,8 +66,7 @@ export default function PhotoGrid({
     setFilteredPhotos(filtered);
   }, []);
 
-  // Get masonry styling
-  const masonryClasses = getMasonryClasses();
+  // masonryClasses is defined at module level (MASONRY_CLASSES)
 
   // Empty state handling
   if (!photos.length) {
@@ -101,8 +103,8 @@ export default function PhotoGrid({
         ) : (
           <Masonry
             breakpointCols={MASONRY_CONFIG.breakpoints}
-            className={masonryClasses.container}
-            columnClassName={masonryClasses.column}
+            className={MASONRY_CLASSES.container}
+            columnClassName={MASONRY_CLASSES.column}
           >
             {filteredPhotos.map((photo, index) => (
               <PhotoCard

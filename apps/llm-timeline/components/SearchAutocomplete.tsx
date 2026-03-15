@@ -164,7 +164,7 @@ export function SearchAutocomplete({
     const parts = text.split(regex);
 
     return parts.map((part, i) =>
-      regex.test(part) ? (
+      part.toLowerCase().includes(query.toLowerCase()) ? (
         <strong
           key={i}
           className="font-semibold"

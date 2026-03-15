@@ -18,7 +18,7 @@ import {
   YAxis,
 } from "recharts";
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
-import { AppLayout } from "@/components/layout/app-layout";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SidebarModal } from "@/components/sidebar/sidebar-modal";
 import { useConversations } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
@@ -57,7 +57,7 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <AppLayout>
+    <div className="flex flex-1 flex-col overflow-hidden w-full min-h-screen bg-transparent">
       {/* Sidebar Modal */}
       <SidebarModal
         open={sidebarOpen}
@@ -102,25 +102,45 @@ export default function AnalyticsPage() {
                 <div className="space-y-6">
                   {/* Stat Cards */}
                   <div className="grid gap-4 md:grid-cols-3">
-                    <StatCard
-                      title="Total Conversations"
-                      value={data.totalConversations}
-                      icon={
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium text-muted-foreground">
+                          Total Conversations
+                        </CardTitle>
                         <Activity className="h-4 w-4 text-muted-foreground" />
-                      }
-                    />
-                    <StatCard
-                      title="Total Messages"
-                      value={data.totalMessages}
-                      icon={
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">
+                          {data.totalConversations.toLocaleString()}
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium text-muted-foreground">
+                          Total Messages
+                        </CardTitle>
                         <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                      }
-                    />
-                    <StatCard
-                      title="Active Users"
-                      value={data.totalUsers}
-                      icon={<Users className="h-4 w-4 text-muted-foreground" />}
-                    />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">
+                          {data.totalMessages.toLocaleString()}
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium text-muted-foreground">
+                          Active Users
+                        </CardTitle>
+                        <Users className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">
+                          {data.totalUsers.toLocaleString()}
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
 
                   {/* Chart */}
@@ -221,28 +241,7 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </div>
-    </AppLayout>
-  );
-}
-
-function StatCard({
-  title,
-  value,
-  icon,
-}: {
-  title: string;
-  value: number | string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-xl border border-border bg-background p-6 shadow-sm">
-      <div className="flex items-center justify-between space-y-0 pb-2">
-        <h3 className="tracking-tight text-sm font-medium text-muted-foreground">
-          {title}
-        </h3>
-        {icon}
-      </div>
-      <div className="text-2xl font-bold">{(value || 0).toLocaleString()}</div>
     </div>
   );
 }
+

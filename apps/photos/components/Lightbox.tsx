@@ -55,6 +55,12 @@ export default function Lightbox({
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const lastPhotoIdRef = useRef<string | null>(null);
 
+  // Keep a current ref to onNext so the interval always calls the latest callback
+  const onNextRef = useRef(onNext);
+  useEffect(() => {
+    onNextRef.current = onNext;
+  }, [onNext]);
+
   // Get formatted metadata and description
   const metadata = formatPhotoMetadata(photo);
   const description = formatPhotoDescription(photo);
@@ -96,9 +102,9 @@ export default function Lightbox({
       const fallbackUrl = photo.urls.raw || photo.urls.full;
       window.open(fallbackUrl, "_blank");
     } finally {
-      // Always cleanup object URL to prevent memory leak
+      // Delay revocation to give the browser time to initiate the download
       if (objectUrl) {
-        window.URL.revokeObjectURL(objectUrl);
+        setTimeout(() => URL.revokeObjectURL(objectUrl!), 1000);
       }
       setIsDownloading(false);
     }
@@ -132,10 +138,10 @@ export default function Lightbox({
       setSlideshowProgress(currentStep / totalProgressSteps);
 
       if (currentStep >= totalProgressSteps) {
-        // Time to advance to next photo
-        if (onNext && currentIndex < totalCount - 1) {
-          onNext();
-          // Reset progress and restart timer for next photo
+        // Time to advance to next photo — read ref so we always have the current callback
+        if (onNextRef.current) {
+          onNextRef.current();
+          // Reset progress for next photo
           currentStep = 0;
           setSlideshowProgress(0);
         } else {

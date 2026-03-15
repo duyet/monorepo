@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   Area,
   AreaChart,
@@ -51,11 +52,15 @@ export function CompactAreaChart({
   showGrid = false,
   showTooltip = true,
 }: CompactAreaChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    categories.map((category, i) => [
-      category,
-      { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ])
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        categories.map((category, i) => [
+          category,
+          { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
+        ])
+      ),
+    [categories]
   );
 
   return (
@@ -107,11 +112,15 @@ export function CompactLineChart({
   showGrid = false,
   showTooltip = true,
 }: CompactLineChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    categories.map((category, i) => [
-      category,
-      { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ])
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        categories.map((category, i) => [
+          category,
+          { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
+        ])
+      ),
+    [categories]
   );
 
   return (
@@ -164,11 +173,15 @@ export function CompactBarChart({
   showTooltip = true,
   horizontal = false,
 }: CompactBarChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    categories.map((category, i) => [
-      category,
-      { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
-    ])
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        categories.map((category, i) => [
+          category,
+          { label: category, color: CHART_COLORS[i % CHART_COLORS.length] },
+        ])
+      ),
+    [categories]
   );
 
   return (
@@ -273,14 +286,18 @@ export function CompactPieChart({
   showTooltip = true,
   innerRadius = 0,
 }: CompactPieChartProps) {
-  const chartConfig: ChartConfig = Object.fromEntries(
-    data.map((item, i) => [
-      item[nameKey] as string,
-      {
-        label: item[nameKey] as string,
-        color: CHART_COLORS[i % CHART_COLORS.length],
-      },
-    ])
+  const chartConfig: ChartConfig = useMemo(
+    () =>
+      Object.fromEntries(
+        data.map((item, i) => [
+          item[nameKey] as string,
+          {
+            label: item[nameKey] as string,
+            color: CHART_COLORS[i % CHART_COLORS.length],
+          },
+        ])
+      ),
+    [data, nameKey]
   );
 
   return (

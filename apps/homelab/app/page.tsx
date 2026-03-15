@@ -16,6 +16,8 @@ export const metadata = {
 };
 
 export default function HomelabPage() {
+  // force-static: this date is baked in at build time, which is intentional —
+  // the page shows when the AI Agent last captured and committed the data snapshot.
   const snapshotDate = new Date().toLocaleString();
 
   const infrastructure = (

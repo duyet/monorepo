@@ -120,6 +120,9 @@ export function SearchFilters({
   const [customFromDate, setCustomFromDate] = useState<string>(currentFromDate);
   const [customToDate, setCustomToDate] = useState<string>(currentToDate);
 
+  // Memoize date range options — getDateRangeOptions() constructs Date objects on every call
+  const dateRangeOptions = useMemo(() => getDateRangeOptions(), []);
+
   // Sort categories by name
   const sortedCategories = useMemo(
     () => Object.entries(categories).sort(([a], [b]) => a.localeCompare(b)),
@@ -181,7 +184,7 @@ export function SearchFilters({
 
         // Set from/to dates for presets
         if (updates.preset !== "all" && updates.preset !== "custom") {
-          const option = getDateRangeOptions().find(
+          const option = dateRangeOptions.find(
             (opt) => opt.value === updates.preset
           );
           if (option?.fromDate && option?.toDate) {
@@ -210,7 +213,7 @@ export function SearchFilters({
       const newUrl = `/search?${params.toString()}`;
       router.replace(newUrl, { scroll: false });
     },
-    [router, searchParams]
+    [router, searchParams, dateRangeOptions]
   );
 
   /**
@@ -273,7 +276,7 @@ export function SearchFilters({
   // Pre-compute date preset buttons to avoid useMemo inside JSX
   const datePresetButtons = useMemo(
     () =>
-      getDateRangeOptions()
+      dateRangeOptions
         .filter((opt) => opt.value !== "custom")
         .map((option) => (
           <button

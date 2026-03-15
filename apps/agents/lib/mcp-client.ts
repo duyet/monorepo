@@ -64,9 +64,6 @@ export async function getGitHubActivity(
         headers: {
           Accept: "application/vnd.github.v3+json",
         },
-        next: {
-          revalidate: 300, // Cache for 5 minutes
-        },
       }
     );
 
@@ -130,6 +127,12 @@ export async function getBlogPostContent(
     let isValidUrl = false;
     try {
       const parsed = new URL(url);
+
+      // Reject URLs with credentials (SSRF bypass vector)
+      if (parsed.username || parsed.password) {
+        return { success: false, error: "Invalid URL format" };
+      }
+
       isValidUrl =
         parsed.hostname === "blog.duyet.net" ||
         parsed.hostname.endsWith(".duyet.net") ||
@@ -147,9 +150,7 @@ export async function getBlogPostContent(
     }
 
     // Fetch the blog post page
-    const response = await fetch(url, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch blog post: ${response.status}`);
@@ -195,9 +196,7 @@ export async function getCVData(
   try {
     // The MCP server exposes CV data via resources
     // We can fetch directly from the CV endpoint or use a proxy
-    const response = await fetch("https://cv.duyet.net", {
-      next: { revalidate: 86400 }, // Cache for 1 day
-    });
+    const response = await fetch("https://cv.duyet.net");
 
     if (!response.ok) {
       throw new Error(`Failed to fetch CV: ${response.status}`);
@@ -313,9 +312,7 @@ export async function searchBlog(
 > {
   try {
     // Fetch llms.txt which contains all blog posts
-    const response = await fetch(`${MCP_SERVER_URL}/llms.txt`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await fetch(`${MCP_SERVER_URL}/llms.txt`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch llms.txt: ${response.status}`);

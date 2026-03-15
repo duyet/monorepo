@@ -1,5 +1,5 @@
 import { AreaChart } from "@/components/charts";
-import { getCCUsageEfficiency } from "./ccusage-utils";
+import { getCCUsageEfficiency } from "./utils";
 
 export async function CCUsageEfficiency() {
   const efficiency = await getCCUsageEfficiency();

@@ -28,8 +28,9 @@ export default function Page() {
         type="application/pdf"
       >
         <iframe
-          src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${file}#zoom=100`}
+          src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(file)}#zoom=100`}
           title="cv"
+          className="min-h-[1000px] w-full border-0"
         />
       </object>
     </div>

@@ -353,15 +353,15 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
       {/* Quick-start prompts - Inline/List style */}
       <div className="flex flex-wrap gap-2 sm:gap-3">
         {CAPABILITIES.map(({ icon: Icon, prompt, label }) => (
-          <button
+          <Button
             key={label}
-            type="button"
+            variant="outline"
             onClick={() => onPromptSelect?.(prompt)}
-            className="group flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-all hover:bg-neutral-50 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:border-white/10 dark:bg-[#111] dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-white dark:focus:ring-white/20"
+            className="group rounded-full px-4 py-2 h-auto gap-2"
           >
-            <Icon className="h-4 w-4 text-neutral-500 transition-colors group-hover:text-neutral-700 dark:text-neutral-400 dark:group-hover:text-neutral-300" />
+            <Icon className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
             <span>{prompt}</span>
-          </button>
+          </Button>
         ))}
       </div>
     </div>

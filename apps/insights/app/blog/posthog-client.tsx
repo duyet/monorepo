@@ -50,19 +50,16 @@ export function PostHogClient({ data }: PostHogClientProps) {
       label: "Total Visitors",
       value: currentData.totalVisitors.toLocaleString(),
       icon: <Users className="h-4 w-4" />,
-      change: currentData.totalVisitors > 0 ? { value: 18 } : undefined,
     },
     {
       label: "Page Views",
       value: currentData.totalViews.toLocaleString(),
       icon: <FileText className="h-4 w-4" />,
-      change: currentData.totalViews > 0 ? { value: 25 } : undefined,
     },
     {
       label: "Avg per Page",
       value: currentData.avgVisitorsPerPage.toLocaleString(),
       icon: <TrendingUp className="h-4 w-4" />,
-      change: currentData.avgVisitorsPerPage > 0 ? { value: 10 } : undefined,
     },
   ];
 
@@ -84,7 +81,6 @@ export function PostHogClient({ data }: PostHogClientProps) {
             key={metric.label}
             label={metric.label}
             value={metric.value}
-            change={metric.change}
             icon={metric.icon}
           />
         ))}

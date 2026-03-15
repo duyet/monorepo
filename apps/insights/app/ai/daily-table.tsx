@@ -1,5 +1,5 @@
 import { formatNumber } from "@duyet/libs";
-import { getCCUsageActivityRaw } from "./ccusage-utils";
+import { getCCUsageActivityRaw } from "./utils";
 import type { CCUsageActivityProps } from "./types";
 import { formatCurrency } from "./utils/formatting";
 

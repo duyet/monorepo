@@ -42,8 +42,7 @@ export function getOptimalImageSrc(
   photo: Photo,
   options: ImageSourceOptions
 ): string {
-  const { context, devicePixelRatio = 1 } = options;
-  const aspectInfo = getAspectRatioInfo(photo);
+  const { context } = options;
 
   switch (context) {
     case "lightbox":
@@ -53,18 +52,9 @@ export function getOptimalImageSrc(
     case "preview":
       // Use small for quick previews
       return photo.urls.small;
-    default: {
-      // Optimize based on aspect ratio and device capabilities
-      if (devicePixelRatio > 2 || aspectInfo.isPortrait) {
-        return photo.urls.regular;
-      }
-
-      if (aspectInfo.isLandscape) {
-        return photo.urls.regular;
-      }
-
+    default:
+      // Grid context — regular resolution is sufficient for all aspect ratios
       return photo.urls.regular;
-    }
   }
 }
 

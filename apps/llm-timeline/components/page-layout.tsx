@@ -21,7 +21,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
         <header className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <Link href="/">
+              <Link href="/" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded">
                 <h1
                   className="text-3xl font-bold hover:opacity-80 transition-opacity"
                   style={{

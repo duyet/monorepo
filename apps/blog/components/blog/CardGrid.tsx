@@ -1,8 +1,90 @@
 "use client";
 
-import * as LucideIcons from "lucide-react";
-import { Circle } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  BarChart2,
+  BookOpen,
+  Calendar,
+  CheckCircle,
+  Circle,
+  Clock,
+  Cloud,
+  Code,
+  Cpu,
+  Database,
+  ExternalLink,
+  Eye,
+  FileText,
+  GitBranch,
+  Globe,
+  HardDrive,
+  Heart,
+  Info,
+  Key,
+  Link,
+  Lock,
+  Mail,
+  MapPin,
+  Network,
+  Search,
+  Server,
+  Settings,
+  Shield,
+  Star,
+  Terminal,
+  TrendingUp,
+  User,
+  Users,
+  Wrench,
+  XCircle,
+  Zap,
+} from "lucide-react";
 import type React from "react";
+
+const ICON_MAP: Record<
+  string,
+  React.ComponentType<{ className?: string; size?: number }>
+> = {
+  Circle,
+  Database,
+  Server,
+  Cloud,
+  Code,
+  FileText,
+  Globe,
+  Zap,
+  Heart,
+  Star,
+  BookOpen,
+  Terminal,
+  Cpu,
+  HardDrive,
+  Network,
+  Shield,
+  Lock,
+  Key,
+  Settings,
+  Wrench,
+  GitBranch,
+  BarChart2,
+  TrendingUp,
+  Activity,
+  AlertTriangle,
+  CheckCircle,
+  XCircle,
+  Info,
+  Search,
+  Eye,
+  ExternalLink,
+  Link,
+  Mail,
+  Calendar,
+  Clock,
+  MapPin,
+  User,
+  Users,
+};
 
 export interface Card {
   id: string;
@@ -32,14 +114,7 @@ export function CardGrid({
 }: CardGridProps) {
   const getIconComponent = (iconName: string | undefined) => {
     if (!iconName) return Circle;
-    return (
-      (LucideIcons[
-        iconName as keyof typeof LucideIcons
-      ] as React.ComponentType<{
-        className?: string;
-        size?: number;
-      }>) || Circle
-    );
+    return ICON_MAP[iconName] ?? Circle;
   };
 
   if (!cards || cards.length === 0) {

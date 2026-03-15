@@ -3,10 +3,15 @@
 import { Button } from "@duyet/components";
 import { cn } from "@duyet/libs";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   BarChart2,
   BookOpen,
   ChevronDown,
-  ChevronRight,
   GitBranch,
   Globe,
   Home,
@@ -105,7 +110,6 @@ interface ToolsPanelProps {
 }
 
 export function ToolsPanel({ onClose }: ToolsPanelProps) {
-  const [expandedTool, setExpandedTool] = useState<string | null>(null);
   const [settings, setSettings] = useState<{
     customInstructions?: string;
     language?: string;
@@ -191,51 +195,36 @@ export function ToolsPanel({ onClose }: ToolsPanelProps) {
           <h3 className="text-[10px] font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
             Agent Capabilities
           </h3>
-          <div className="space-y-1">
+          <Accordion type="single" collapsible className="space-y-1">
             {TOOLS.map((tool) => (
-              <div
+              <AccordionItem
                 key={tool.name}
+                value={tool.name}
                 className="border border-border rounded-lg overflow-hidden"
               >
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={() =>
-                    setExpandedTool(
-                      expandedTool === tool.name ? null : tool.name
-                    )
-                  }
-                  className="w-full justify-start h-auto px-3 py-2 gap-2 rounded-none"
-                  aria-expanded={expandedTool === tool.name}
-                  aria-label={`Toggle ${tool.name} details`}
-                >
-                  {expandedTool === tool.name ? (
-                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-                  ) : (
-                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-                  )}
-                  <tool.icon
-                    className={cn("h-4 w-4 flex-shrink-0", tool.color)}
-                  />
-                  <span className="text-sm font-medium text-foreground flex-1 text-left">
-                    {tool.name}
-                  </span>
-                  {tool.needsApproval && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100/50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
-                      Approval
+                <AccordionTrigger className="px-3 py-2 gap-2 hover:no-underline">
+                  <div className="flex items-center gap-2 flex-1">
+                    <tool.icon
+                      className={cn("h-4 w-4 flex-shrink-0", tool.color)}
+                    />
+                    <span className="text-sm font-medium text-foreground flex-1 text-left">
+                      {tool.name}
                     </span>
-                  )}
-                </Button>
-                {expandedTool === tool.name && (
-                  <div className="px-3 pb-2 pl-9">
-                    <p className="text-xs text-muted-foreground">
-                      {tool.description}
-                    </p>
+                    {tool.needsApproval && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100/50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
+                        Approval
+                      </span>
+                    )}
                   </div>
-                )}
-              </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-3 pl-9">
+                  <p className="text-xs text-muted-foreground">
+                    {tool.description}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
 
         {/* llms.txt Domains */}
