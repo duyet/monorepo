@@ -225,7 +225,7 @@ export function SearchAutocomplete({
         <div
           ref={dropdownRef}
           id="search-suggestions"
-          className="absolute z-10 mt-1 w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-md max-h-64 overflow-y-auto"
+          className="absolute z-10 mt-1 w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-lg max-h-64 overflow-y-auto"
           role="listbox"
         >
           {suggestions.map((suggestion, index) => (
@@ -237,7 +237,7 @@ export function SearchAutocomplete({
               aria-selected={index === selectedIndex}
               onClick={() => handleSelect(suggestion)}
               onMouseEnter={() => setSelectedIndex(index)}
-              className={`px-4 py-2 cursor-pointer text-sm flex items-center justify-between gap-3 ${
+              className={`mx-1 my-0.5 px-3 py-2 rounded-lg cursor-pointer text-sm flex items-center justify-between gap-3 ${
                 index === selectedIndex
                   ? "bg-neutral-100 dark:bg-neutral-800"
                   : "hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
