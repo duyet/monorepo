@@ -58,6 +58,8 @@ type Props = {
   className?: string;
   /** Custom navigation items (if not provided, uses default from urls) */
   navigationItems?: NavigationItem[];
+  /** Callback when a nav item is clicked (useful for closing mobile menu) */
+  onItemClick?: () => void;
 };
 
 /**
@@ -78,6 +80,7 @@ export default function Menu({
   urls = duyetUrls,
   className,
   navigationItems,
+  onItemClick,
 }: Props) {
   // Use provided navigation items or generate from URLs
   const items = navigationItems ?? createDefaultNavigation(urls);
@@ -92,6 +95,7 @@ export default function Menu({
         <Link
           key={name}
           href={href}
+          onClick={onItemClick}
           className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
         >
           {name}

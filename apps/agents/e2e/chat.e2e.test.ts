@@ -1,8 +1,9 @@
 import { describe, expect, test } from "bun:test";
 
 const API_URL = process.env.API_URL || "http://localhost:3006/api/chat";
+const RUN_E2E = process.env.RUN_E2E === "true";
 
-describe("Agent Chat API - E2E (Real Integration)", () => {
+describe.skipIf(!RUN_E2E)("Agent Chat API - E2E (Real Integration)", () => {
   test("returns 200 and streams AI response in fast mode", async () => {
     const response = await fetch(API_URL, {
       method: "POST",
