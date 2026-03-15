@@ -62,7 +62,7 @@ export function Filters({
   const hasActiveFilters = !!filters.search || activeFilterCount > 0;
 
   const selectClassName =
-    "h-9 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 px-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-400/50 dark:focus:ring-neutral-500/50 appearance-none cursor-pointer transition-colors hover:border-neutral-300 dark:hover:border-white/20";
+    "h-9 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 px-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-400/50 dark:focus:ring-neutral-500/50 appearance-none cursor-pointer transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm";
 
   return (
     <div className="mb-6 animate-fade-in animate-fade-in-delay-2">
@@ -81,7 +81,7 @@ export function Filters({
         <button
           onClick={() => setFiltersExpanded(!filtersExpanded)}
           className={cn(
-            "flex h-[42px] items-center gap-2 rounded-xl border px-4 text-sm font-medium transition-all",
+            "flex h-[42px] items-center gap-2 rounded-lg border px-4 text-sm font-medium transition-all",
             filtersExpanded || activeFilterCount > 0
               ? "border-neutral-300 dark:border-white/20 bg-neutral-100 dark:bg-white/10 text-neutral-700 dark:text-neutral-300"
               : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-white/20"
@@ -102,7 +102,7 @@ export function Filters({
           <button
             onClick={onLiteModeToggle}
             className={cn(
-              "h-[42px] rounded-xl border px-3 transition-all",
+              "h-[42px] rounded-lg border px-3 transition-all",
               liteMode
                 ? "border-neutral-300 dark:border-white/20 bg-neutral-100 dark:bg-white/10 text-neutral-700 dark:text-neutral-300"
                 : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-white/20"

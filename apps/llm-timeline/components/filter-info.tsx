@@ -63,7 +63,7 @@ export function FilterInfo({
               placeholder="Search models..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-64 h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+              className="w-64 h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2 pl-9 pr-9 text-sm focus:outline-none focus:ring-1 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
             />
             {searchQuery && (
               <button
@@ -93,7 +93,7 @@ export function FilterInfo({
                 e.target.value as "all" | "open" | "closed" | "partial"
               )
             }
-            className="rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1"
+            className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2 px-3 text-sm focus:outline-none focus:ring-1"
           >
             <option value="all">All Licenses</option>
             <option value="open">Open Weights</option>
