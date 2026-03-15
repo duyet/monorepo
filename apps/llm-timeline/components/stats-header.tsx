@@ -1,3 +1,4 @@
+import { cn } from "@duyet/libs/utils";
 import { Building2, Sparkles } from "lucide-react";
 
 type View = "models" | "organizations";
@@ -42,7 +43,15 @@ export function StatsHeader({
           return (
             <div
               key={label}
-              className={`rounded-xl border p-4 transition-[border-color,background-color] duration-150 ${isActive ? "border-neutral-600 dark:border-neutral-400 bg-neutral-100 dark:bg-white/10" : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111]"} ${isClickable ? "cursor-pointer" : "cursor-default"}`}
+              className={cn(
+                "rounded-xl border p-4 transition-all",
+                isActive
+                  ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
+                  : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm",
+                isClickable
+                  ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+                  : "cursor-default"
+              )}
               onClick={isClickable ? () => onViewChange(view) : undefined}
               role={isClickable ? "button" : undefined}
               tabIndex={isClickable ? 0 : undefined}
@@ -55,11 +64,13 @@ export function StatsHeader({
                   : undefined
               }
             >
+              <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
+                <Icon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              </div>
               <div className="text-2xl font-semibold font-[family-name:var(--font-mono)] text-neutral-900 dark:text-neutral-100">
                 {value.toLocaleString()}
               </div>
-              <div className="mt-1 flex items-center gap-1.5 text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                <Icon className="h-3 w-3" />
+              <div className="mt-0.5 text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 {label}
               </div>
             </div>
@@ -84,7 +95,7 @@ export function StatsHeader({
                     href="https://epoch.ai/data"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-neutral-600 dark:text-neutral-400"
+                    className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
                   >
                     Epoch AI
                   </a>
