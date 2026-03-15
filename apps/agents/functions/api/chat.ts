@@ -412,11 +412,13 @@ async function handleGraphExecution(
   const observability = createObservability({
     debug: false, // Disable debug logs in production
     logger: (level, message, ...args) => {
-      console.log(
-        `[Chat API][${requestId}][${level.toUpperCase()}]`,
-        message,
-        ...args
-      );
+      if (level === "error" || level === "warn") {
+        console.error(
+          `[Chat API][${requestId}][${level.toUpperCase()}]`,
+          message,
+          ...args
+        );
+      }
     },
   });
 
@@ -465,23 +467,13 @@ async function handleGraphExecution(
 
         const metrics = observability.endExecution();
 
-        console.log(
-          `[Chat API][${requestId}] Graph completed:`,
-          `nodes=${metrics.nodesExecuted}`,
-          `errors=${metrics.errorCount}`,
-          `duration=${metrics.totalDuration}ms`
-        );
-
         // Persist checkpoint to D1 for resumability
         if (context.env.DB) {
           const dbClient = createDatabaseClient(context.env.DB);
           const checkpointer = createCheckpointer(dbClient);
 
           try {
-            const checkpointId = await checkpointer.saveCheckpoint(finalState);
-            console.log(
-              `[Chat API][${requestId}] Checkpoint saved: ${checkpointId}`
-            );
+            await checkpointer.saveCheckpoint(finalState);
           } catch (checkpointError) {
             console.error(
               `[Chat API][${requestId}] Failed to save checkpoint:`,
