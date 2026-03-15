@@ -1,6 +1,6 @@
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
-import { createBlogNavigation } from "@duyet/components/Menu";
+import { createDefaultNavigation } from "@duyet/components/Menu";
 import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
 import { duyetUrls } from "@duyet/urls";
@@ -38,7 +38,7 @@ export default async function Page() {
       <Header
         longText="Data Engineering"
         urls={duyetUrls}
-        navigationItems={createBlogNavigation(duyetUrls)}
+        navigationItems={createDefaultNavigation(duyetUrls)}
       />
       <Container>
         <div className="mb-12 text-center">

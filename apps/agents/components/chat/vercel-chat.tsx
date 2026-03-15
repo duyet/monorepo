@@ -14,7 +14,7 @@ import {
 import { AppLayout } from "@/components/layout/app-layout";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { SidebarModal } from "@/components/sidebar/sidebar-modal";
-import { GraphRouter } from "@/lib/graph/router";
+import { VISUAL_GRAPH_DATA } from "@/lib/graph-layout";
 import {
   useAutoResize,
   useChat,
@@ -34,9 +34,7 @@ import {
 } from "./message-components";
 import { ToolsPanel } from "./tools-panel";
 
-// Singleton GraphRouter instance for visual graph data
-const graphRouter = new GraphRouter();
-const visualGraphData = graphRouter.getVisualGraph();
+const visualGraphData = VISUAL_GRAPH_DATA;
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
