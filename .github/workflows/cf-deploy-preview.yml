@@ -327,7 +327,7 @@ jobs:
           echo -e "$COMMENT" > comment.md
 
       - name: Find existing comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: find-comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
