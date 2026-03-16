@@ -15,23 +15,7 @@ import { BuildDate } from "./components/BuildDate";
 import { FooterInteractive } from "./components/FooterInteractive";
 import { KeyboardFeatures } from "./components/KeyboardFeatures";
 
-function addUtmParams(
-  url: string,
-  campaign = "homepage",
-  content?: string,
-  host?: string
-): string {
-  const absUrl = url.startsWith("/") && host ? `https://${host}${url}` : url;
-  if (absUrl.startsWith("/")) return absUrl;
-  const urlObj = new URL(absUrl);
-  urlObj.searchParams.set("utm_source", "home");
-  urlObj.searchParams.set("utm_medium", "website");
-  urlObj.searchParams.set("utm_campaign", campaign);
-  if (content) {
-    urlObj.searchParams.set("utm_content", content);
-  }
-  return urlObj.toString();
-}
+import { addUtmParams } from "./lib/utm";
 
 interface AppItem {
   name: string;

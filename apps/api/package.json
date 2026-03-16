@@ -16,7 +16,7 @@
     "fmt": "bun run fix"
   },
   "dependencies": {
-    "hono": "^4.6.0"
+    "hono": "^4.12.8"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
