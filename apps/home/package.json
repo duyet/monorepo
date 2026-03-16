@@ -18,7 +18,7 @@
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",
-    "framer-motion": "^12.34.3",
+    "framer-motion": "^12.36.0",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "react": "19.2.4",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
-    "@types/react": "^19.1.4",
-    "typescript": "*"
+    "@types/react": "^19.2.14",
+    "typescript": "^5.9.3"
   }
 }
