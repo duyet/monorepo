@@ -18,6 +18,8 @@
     "node_modules",
     "**/__tests__/**",
     "**/*.test.ts",
-    "**/*.test.tsx"
+    "**/*.test.tsx",
+    "test-setup.ts",
+    "test-fixtures.ts"
   ]
 }
