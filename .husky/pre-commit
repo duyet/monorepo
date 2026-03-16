@@ -1,2 +1,10 @@
 #!/bin/sh
-bun run test > /dev/null 2>&1
+# Redirect to temp file to avoid pipe buffer overflow with 14+ concurrent test suites.
+# On failure, cat the output so you can see which test broke.
+TMPOUT=$(mktemp)
+if ! bun run test > "$TMPOUT" 2>&1; then
+  cat "$TMPOUT"
+  rm -f "$TMPOUT"
+  exit 1
+fi
+rm -f "$TMPOUT"
