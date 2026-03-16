@@ -18,19 +18,17 @@ export default function AgentsAnalyticsPage() {
       .then((res) => res.json())
       .then((d: AgentAnalyticsData & { error?: string }) => {
         if (!d.error) {
-          // Re-shape for Recharts AreaChart
-          const trends = d.dailyVolume?.reduce(
-            (acc: AgentTrendRow[], row) => {
-              let existing = acc.find((a) => a.date === row.date);
-              if (!existing) {
-                existing = { date: row.date, fast: 0, agent: 0 };
-                acc.push(existing);
-              }
-              existing[row.mode as "fast" | "agent"] = row.count;
-              return acc;
-            },
-            []
-          );
+          // Re-shape for Recharts AreaChart using Map for O(n)
+          const trendMap = new Map<string, AgentTrendRow>();
+          for (const row of d.dailyVolume ?? []) {
+            let existing = trendMap.get(row.date);
+            if (!existing) {
+              existing = { date: row.date, fast: 0, agent: 0 };
+              trendMap.set(row.date, existing);
+            }
+            existing[row.mode as "fast" | "agent"] = row.count;
+          }
+          const trends = Array.from(trendMap.values());
 
           setData({ ...d, trends });
         }
