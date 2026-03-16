@@ -45,6 +45,6 @@
     "happy-dom": "^20.0.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/jest-dom": "^6.6.0",
-    "vitest": "^2.1.9"
+    "vitest": "^4.0.0"
   }
 }
