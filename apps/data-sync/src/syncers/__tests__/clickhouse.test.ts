@@ -1,9 +1,16 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test, spyOn } from "bun:test";
 
 describe("ClickHouse Config", () => {
   const originalEnv = { ...process.env };
+  let consoleLogSpy: any;
+  let consoleWarnSpy: any;
+  let consoleErrorSpy: any;
 
   beforeEach(() => {
+    consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
+    consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
+    consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
+
     // Clear both CH_* and CLICKHOUSE_* variables
     process.env.CH_HOST = undefined;
     process.env.CH_PORT = undefined;
@@ -25,6 +32,9 @@ describe("ClickHouse Config", () => {
   });
 
   afterEach(() => {
+    consoleLogSpy.mockRestore();
+    consoleWarnSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
     // Restore original environment
     process.env.CH_HOST = originalEnv.CH_HOST;
     process.env.CH_PORT = originalEnv.CH_PORT;
@@ -93,8 +103,15 @@ describe("ClickHouse Config", () => {
 
 describe("ClickHouse Client", () => {
   const originalEnv = { ...process.env };
+  let consoleLogSpy: any;
+  let consoleWarnSpy: any;
+  let consoleErrorSpy: any;
 
   beforeEach(() => {
+    consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
+    consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
+    consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
+
     // Clear both CH_* and CLICKHOUSE_* variables
     process.env.CH_HOST = undefined;
     process.env.CH_PORT = undefined;
@@ -124,6 +141,10 @@ describe("ClickHouse Client", () => {
     if (client) {
       await closeClient();
     }
+
+    consoleLogSpy.mockRestore();
+    consoleWarnSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
 
     process.env.CH_HOST = originalEnv.CH_HOST;
     process.env.CH_PORT = originalEnv.CH_PORT;

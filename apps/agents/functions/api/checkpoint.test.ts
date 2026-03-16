@@ -26,7 +26,7 @@ describe("Checkpoint API", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    checkpointer = createCheckpointer(mockDb);
+    checkpointer = createCheckpointer(mockDb, { logger: vi.fn() });
   });
 
   const createMockState = (
