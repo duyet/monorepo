@@ -26,7 +26,7 @@ export function Skill({
       <Link
         href={url}
         target="_blank"
-        className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+        className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
       >
         {skill}
       </Link>
@@ -45,7 +45,7 @@ export function Skill({
           <Link
             href={url}
             target="_blank"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             {skill}
           </Link>

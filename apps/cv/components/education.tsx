@@ -21,17 +21,16 @@ export function Education({
   return (
     <div className={cn("flex flex-col gap-0.5", className)}>
       <h3
-        className="text-base font-bold"
-        style={{ fontFamily: "var(--font-lora)" }}
+        className="font-[family-name:var(--font-serif)] text-base font-bold"
       >
         {major}
         <span className="px-2">-</span>
         <span className="font-normal">{university}</span>
       </h3>
-      <p className="text-xs uppercase text-gray-600">{period}</p>
+      <p className="text-xs uppercase text-neutral-600 dark:text-neutral-400">{period}</p>
       <Link
         href={thesisUrl}
-        className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+        className="hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
       >
         ⤷ {thesis} ↗︎
       </Link>

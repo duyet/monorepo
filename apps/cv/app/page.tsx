@@ -41,7 +41,7 @@ export default function Page() {
           <HoverCard key={contact.id} openDelay={100} closeDelay={100}>
             <HoverCardTrigger asChild>
               <Link
-                className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+                className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
                 href={contact.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export default function Page() {
             </HoverCardTrigger>
             <HoverCardContent>
               <Link
-                className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+                className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
                 href={contact.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -72,7 +72,7 @@ export default function Page() {
       return (
         <Link
           key={contact.id}
-          className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+          className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
           href={contact.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -87,12 +87,11 @@ export default function Page() {
     <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-foreground">
       <header className="flex flex-col gap-3">
         <h1
-          className="mb-2 inline-flex gap-2 text-2xl font-bold"
-          style={{ fontFamily: "var(--font-lora)" }}
+          className="mb-2 inline-flex gap-2 font-[family-name:var(--font-serif)] text-2xl font-bold"
         >
           <span>{personal.name}</span>
           <Separator orientation="vertical" />
-          <span className="text-red-500">{personal.title}</span>
+          <span className="text-neutral-500 dark:text-neutral-400">{personal.title}</span>
         </h1>
 
         <InlineLink links={renderContactLinks()} />

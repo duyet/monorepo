@@ -8,7 +8,7 @@ import Head from "@duyet/components/Head";
 import Header from "@duyet/components/Header";
 import { ABOUT, BLOG, HOME, INSIGHTS, PHOTOS } from "@duyet/components/Menu";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { Inter, Lora } from "next/font/google";
+import { Inter, Libre_Baskerville } from "next/font/google";
 
 const inter = Inter({
   weight: ["300", "400", "700"],
@@ -17,10 +17,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const lora = Lora({
-  weight: ["400", "500", "600", "700"],
+const libreBaskerville = Libre_Baskerville({
+  weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-lora",
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -85,16 +85,8 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html
-      className={`${inter.variable} ${lora.variable}`}
+      className={`${inter.variable} ${libreBaskerville.variable}`}
       lang="en"
-      style={{
-        width: "100%",
-        margin: 0,
-        padding: 0,
-
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, var(--font-inter)",
-      }}
       suppressHydrationWarning
     >
       <Head />
@@ -103,7 +95,7 @@ export default function RootLayout({ children }: LayoutProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
       />
 
-      <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
+      <body className="bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased">
         <ThemeProvider>
           <main>
             <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20 print:mb-10 print:mt-10">

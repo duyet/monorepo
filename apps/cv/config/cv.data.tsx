@@ -131,7 +131,7 @@ export const cvData: CVData = {
             <Link
               href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
               key="next-gen-data-platform"
-              className="hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+              className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
               target="_blank"
             >
               Designed next-gen Data Platform in Rust ↗︎

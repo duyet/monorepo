@@ -24,7 +24,7 @@ export function HoverLinks({
       }}
     >
       <HoverCardTrigger asChild>
-        <span className="cursor-context-menu underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4">
+        <span className="cursor-context-menu underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600">
           {text}
         </span>
       </HoverCardTrigger>

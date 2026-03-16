@@ -29,8 +29,7 @@ export function ExperienceItem({
   return (
     <div className={cn("flex flex-col gap-1", className)}>
       <h3
-        className="inline-flex items-center gap-2 text-base font-bold"
-        style={{ fontFamily: "var(--font-lora)" }}
+        className="inline-flex items-center gap-2 font-[family-name:var(--font-serif)] text-base font-bold"
       >
         <span>{title}</span>
         <span>-</span>
@@ -66,7 +65,7 @@ function CompanyLine({
     <span
       className={cn(
         "group inline-flex items-center gap-2 font-normal",
-        "hover:underline hover:decoration-slate-300 hover:decoration-wavy hover:decoration-1 hover:underline-offset-4"
+        "hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
       )}
     >
       {companyLogo ? (
@@ -108,11 +107,11 @@ function PeriodLine({ from, to }: { from: Date; to?: Date }) {
   const duration = distanceFormat(from, to ? to : new Date());
 
   return (
-    <div className="group inline-flex gap-2 text-xs uppercase text-gray-600 dark:text-gray-300">
-      <div className="hover:text-gray-700 dark:hover:text-gray-200">
+    <div className="group inline-flex gap-2 text-xs uppercase text-neutral-600 dark:text-neutral-300">
+      <div className="hover:text-neutral-700 dark:hover:text-neutral-200">
         {period}
       </div>
-      <div className="hidden font-bold text-gray-400 group-hover:block dark:text-gray-400">
+      <div className="hidden font-bold text-neutral-400 group-hover:block dark:text-neutral-400">
         {duration}
       </div>
     </div>

@@ -25,7 +25,7 @@ export function SkillRust() {
             href="https://blog.duyet.net/2021/11/rust-data-engineering.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             Rust
           </Link>{" "}
@@ -35,7 +35,7 @@ export function SkillRust() {
             href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             Data Platform at Fossil
           </Link>
@@ -45,7 +45,7 @@ export function SkillRust() {
             href="https://duyet.net/rust"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             Rust Tiếng Việt
           </Link>
@@ -72,7 +72,7 @@ export function SkillTypescript() {
             href="https://github.com/duyet/clickhouse-monitoring"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             clickhouse-monitoring
           </Link>{" "}
@@ -81,7 +81,7 @@ export function SkillTypescript() {
             href="https://github.com/duyet/monorepo"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             this CV itself
           </Link>
@@ -104,7 +104,7 @@ export function SkillHelm() {
             href="https://github.com/duyet/charts"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             duyet/charts
           </Link>
@@ -165,7 +165,7 @@ export function SkillSpark() {
             href="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             <strong>Kubernetes</strong>
           </Link>
@@ -175,7 +175,7 @@ export function SkillSpark() {
             href="https://blog.duyet.net/tag/clickhouse"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             ClickHouse
           </Link>
@@ -184,7 +184,7 @@ export function SkillSpark() {
             href="https://blog.duyet.net/2023/09/duckdb.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-300 decoration-wavy decoration-1 underline-offset-4"
+            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
           >
             DuckDB
           </Link>
