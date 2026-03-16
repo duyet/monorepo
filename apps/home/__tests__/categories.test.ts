@@ -49,7 +49,7 @@ describe("CATEGORY_MAP", () => {
   });
 
   it("all values are valid categories from CATEGORY_ORDER", () => {
-    for (const [path, category] of Object.entries(CATEGORY_MAP)) {
+    for (const [_path, category] of Object.entries(CATEGORY_MAP)) {
       expect(CATEGORY_ORDER).toContain(category as Category);
     }
   });
