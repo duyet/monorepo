@@ -23,7 +23,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.8.1",
+    "@clickhouse/client": "^1.12.1",
     "@duyet/config": "*",
     "graphql-request": "^6.1.0"
   },

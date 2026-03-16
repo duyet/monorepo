@@ -33,7 +33,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-is": "^19.1.0",
-    "recharts": "^3.0.2"
+    "recharts": "^3.7.0"
   },
   "devDependencies": {
     "@duyet/interfaces": "*",

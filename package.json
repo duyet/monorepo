@@ -26,13 +26,10 @@
     "*": "biome format --write"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.61.3",
-    "@clerk/nextjs": "^6.38.2",
     "@radix-ui/react-icons": "^1.3.2",
     "@tailwindcss/postcss": "^4.2.1",
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.27",
-    "graphql-request": "^7.1.2",
     "highlight.js": "^11.11.1",
     "next-themes": "^0.4.6",
     "postcss": "^8.5.8",
