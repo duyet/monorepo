@@ -70,8 +70,8 @@ export function MarkdownMenu({
         <div
           className={cn(
             "absolute right-0 z-50 mt-2 w-48",
-            "rounded-xl border border-gray-200 dark:border-slate-700",
-            "bg-white dark:bg-slate-800",
+            "rounded-xl border border-gray-200 dark:border-claude-gray-700",
+            "bg-white dark:bg-claude-gray-800",
             "shadow-lg",
             "overflow-hidden"
           )}
@@ -79,7 +79,7 @@ export function MarkdownMenu({
           <button
             type="button"
             onClick={handleCopy}
-            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-claude-gray-700/50"
           >
             {copied ? (
               <Check className="h-4 w-4 text-green-500" />
@@ -93,7 +93,7 @@ export function MarkdownMenu({
             href={markdownUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-claude-gray-700/50"
             onClick={() => setIsOpen(false)}
           >
             <ExternalLink className="h-4 w-4" />
@@ -103,7 +103,7 @@ export function MarkdownMenu({
           <button
             type="button"
             onClick={handleChatInClaude}
-            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-claude-gray-700/50"
           >
             <Sparkles className="h-4 w-4 text-terracotta" />
             Chat in Claude.ai

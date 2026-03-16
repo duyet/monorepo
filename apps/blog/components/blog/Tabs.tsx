@@ -67,7 +67,7 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
       <div
         ref={tablistRef}
         role="tablist"
-        className="flex gap-4 border-b border-gray-200 dark:border-slate-800 mb-4"
+        className="flex gap-4 border-b border-gray-200 dark:border-claude-gray-800 mb-4"
         onKeyDown={handleKeyDown}
       >
         {tabs.map((tab) => (

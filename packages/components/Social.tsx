@@ -42,7 +42,7 @@ export default function Social({
 }: SocialProps): ReactElement {
   const iconClasses = cn(
     iconSize,
-    "text-slate-400 hover:text-slate-600",
+    "text-claude-gray-400 hover:text-claude-gray-600",
     "dark:text-gray-500 dark:hover:text-white"
   );
 

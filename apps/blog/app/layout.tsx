@@ -48,7 +48,7 @@ export default function RootLayout({
       <body
         className={cn(
           "bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased",
-          "transition-colors duration-1000"
+          "transition-colors duration-300"
         )}
       >
         <ThemeProvider>

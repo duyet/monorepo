@@ -40,7 +40,7 @@ export function StepsList({
 
   return (
     <div
-      className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}
+      className={`space-y-4 border-l-2 border-gray-300 dark:border-claude-gray-700 pl-4 py-3 ${className}`}
     >
       {title && (
         <h2 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -77,7 +77,7 @@ export function StepsList({
             </button>
 
             {expandable && expandedStep === step.id && step.details && (
-              <div className="mt-2 ml-9 p-3 border-t border-gray-200 dark:border-slate-800">
+              <div className="mt-2 ml-9 p-3 border-t border-gray-200 dark:border-claude-gray-800">
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   {step.details}
                 </div>

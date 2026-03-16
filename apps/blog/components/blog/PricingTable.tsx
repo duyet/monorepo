@@ -40,7 +40,7 @@ export function PricingTable({
 
   return (
     <div
-      className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}
+      className={`space-y-4 border-l-2 border-gray-300 dark:border-claude-gray-700 pl-4 py-3 ${className}`}
     >
       {title && (
         <div className="space-y-1">
@@ -60,7 +60,7 @@ export function PricingTable({
           <button
             key={idx}
             onClick={() => setExpandedRow(expandedRow === idx ? null : idx)}
-            className="w-full text-left border border-gray-200 dark:border-slate-800 p-3 hover:bg-gray-50 dark:hover:bg-slate-900/50 transition-colors"
+            className="w-full text-left border border-gray-200 dark:border-claude-gray-800 p-3 hover:bg-gray-50 dark:hover:bg-claude-gray-900/50 transition-colors"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1">
@@ -74,7 +74,7 @@ export function PricingTable({
             </div>
 
             {expandedRow === idx && (
-              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-slate-800 space-y-2">
+              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-claude-gray-800 space-y-2">
                 <div className="flex justify-between gap-4 text-sm">
                   <span className="text-gray-500 dark:text-gray-400">
                     Input:
@@ -92,7 +92,7 @@ export function PricingTable({
                   </span>
                 </div>
                 {row.note && (
-                  <div className="mt-2 pt-2 border-t border-gray-200 dark:border-slate-800">
+                  <div className="mt-2 pt-2 border-t border-gray-200 dark:border-claude-gray-800">
                     <p className="text-xs text-gray-600 dark:text-gray-400">
                       {row.note}
                     </p>

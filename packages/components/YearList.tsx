@@ -33,7 +33,7 @@ export default function YearList({
           as={`/${year}`}
           scroll={true}
           key={year}
-          className="p-3 font-bold rounded text-sm hover:bg-slate-50"
+          className="p-3 font-bold rounded text-sm hover:bg-claude-gray-50"
         >
           {year}
         </Link>

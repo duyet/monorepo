@@ -34,7 +34,7 @@ export function ComparisonList({
 
   return (
     <div
-      className={`space-y-4 border-l-2 border-gray-300 dark:border-slate-700 pl-4 py-3 ${className}`}
+      className={`space-y-4 border-l-2 border-gray-300 dark:border-claude-gray-700 pl-4 py-3 ${className}`}
     >
       {title && (
         <div className="space-y-1">
@@ -53,7 +53,7 @@ export function ComparisonList({
         {items.map((item) => (
           <div
             key={item.id}
-            className={`flex gap-4 ${item.highlight ? "bg-gray-50 dark:bg-slate-900/50 p-2" : ""}`}
+            className={`flex gap-4 ${item.highlight ? "bg-gray-50 dark:bg-claude-gray-900/50 p-2" : ""}`}
           >
             <span className="text-gray-500 dark:text-gray-400 font-medium flex-shrink-0 text-sm">
               {item.label}:

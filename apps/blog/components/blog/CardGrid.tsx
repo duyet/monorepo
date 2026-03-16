@@ -141,7 +141,7 @@ export function CardGrid({
         return (
           <div
             key={card.id}
-            className="border border-gray-200 dark:border-slate-800 p-4 hover:bg-gray-50 dark:hover:bg-slate-900/50 transition-colors"
+            className="border border-gray-200 dark:border-claude-gray-800 p-4 hover:bg-gray-50 dark:hover:bg-claude-gray-900/50 transition-colors"
           >
             <div className="space-y-3">
               <div className="flex items-start gap-3">

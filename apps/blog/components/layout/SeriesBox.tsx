@@ -18,7 +18,7 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        "bg-oat dark:bg-slate-800 rounded-3xl p-8 md:p-12",
+        "bg-oat dark:bg-claude-gray-800 rounded-3xl p-8 md:p-12",
         className
       )}
     >
@@ -40,7 +40,7 @@ export function SeriesBox({
             <div
               className={cn(
                 "flex items-center gap-6 rounded-2xl p-4 transition-all",
-                isCurrent ? "bg-white dark:bg-slate-700" : ""
+                isCurrent ? "bg-white dark:bg-claude-gray-700" : ""
               )}
               key={slug}
             >
