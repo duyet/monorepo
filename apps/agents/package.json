@@ -10,7 +10,7 @@
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-agents",
     "prebuild": "bun run scripts/build-skills.ts",
-    "build": "bun run scripts/build-skills.ts && next build",
+    "build": "bun run scripts/build-skills.ts && bun --bun next build",
     "check-types": "tsc --noEmit",
     "dev": "bun run scripts/build-skills.ts && bun install http-proxy -D && node dev.js",
     "dev:next": "bun run scripts/build-skills.ts && bun --bun next dev --turbopack -p 3004",
