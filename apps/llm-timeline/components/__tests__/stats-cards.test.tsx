@@ -1,37 +1,4 @@
-import { GlobalRegistrator } from "@happy-dom/global-registrator";
-
-try {
-  GlobalRegistrator.register();
-} catch {
-  // Already registered by another test file in the same process
-}
-
-import { afterEach, describe, expect, it, mock } from "bun:test";
-import { cleanup, render } from "@testing-library/react";
-
-// Mock Next.js router — must come before component imports
-mock.module("next/navigation", () => ({
-  useRouter: () => ({
-    push: () => {},
-    replace: () => {},
-    prefetch: () => {},
-    back: () => {},
-    pathname: "/",
-    query: {},
-    asPath: "/",
-  }),
-  useSearchParams: () => ({
-    get: () => null,
-    getAll: () => ({}),
-    has: () => false,
-  }),
-}));
-
-// Mock next-themes
-mock.module("next-themes", () => ({
-  useTheme: () => ({ resolvedTheme: "light", setTheme: () => {} }),
-}));
-
+import { afterEach, cleanup, describe, expect, it, render } from "../../test-setup";
 import { StatsCards } from "../stats-cards";
 
 afterEach(cleanup);

@@ -1,32 +1,5 @@
-import { GlobalRegistrator } from "@happy-dom/global-registrator";
-
-try {
-  GlobalRegistrator.register();
-} catch {
-  // Already registered by another test file in the same process
-}
-
-import { afterEach, describe, expect, it, mock } from "bun:test";
-import { cleanup, render } from "@testing-library/react";
+import { afterEach, cleanup, describe, expect, it, render } from "../../test-setup";
 import { VirtualTimeline } from "../virtual-timeline";
-
-// Mock Next.js router
-mock.module("next/navigation", () => ({
-  useRouter: () => ({
-    push: () => {},
-    replace: () => {},
-    prefetch: () => {},
-    back: () => {},
-    pathname: "/",
-    query: {},
-    asPath: "/",
-  }),
-  useSearchParams: () => ({
-    get: () => null,
-    getAll: () => ({}),
-    has: () => false,
-  }),
-}));
 
 afterEach(cleanup);
 
