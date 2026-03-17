@@ -87,6 +87,16 @@ const apps: AppItem[] = [
     screenshot: "/screenshots/claude-plugins-art.png",
   },
   {
+    name: "Stamp",
+    href: "/stamp",
+    host: "stamp.duyet.net",
+    utmContent: "stamp_bento",
+    fallbackIcon: (
+      <FileText className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+    ),
+    fallbackGradientClass: "bg-neutral-900",
+  },
+  {
     name: "AgentState",
     href: "/agentstate",
     host: "agentstate.app",

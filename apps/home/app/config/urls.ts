@@ -23,6 +23,10 @@ export const urls: Urls = {
     target: "https://github.com/duyet/claude-plugins",
     desc: "Claude Plugins",
   },
+  "/stamp": {
+    target: "https://stamp.duyet.net",
+    desc: "Stamp",
+  },
   "/claw": {
     target: "https://claw.duyet.net",
     desc: "OpenClaw Mission Control",

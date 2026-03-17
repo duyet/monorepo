@@ -14,6 +14,7 @@ export const CATEGORY_MAP: Record<string, Category> = {
   "/insights": "Apps",
   "/photos": "Apps",
   "/mcp": "Apps",
+  "/stamp": "Apps",
   "/github": "Social",
   "/in": "Social",
   "/x": "Social",
