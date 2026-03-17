@@ -7,7 +7,7 @@ tags:
  - AI
  - Agents
 slug: /2026/02/claws.html
-description: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, ...
+description: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
 ---
 
 I mentioned [OpenClaw](https://openclaw.ai) in my last post as something that finally achieved what I was trying to build with long-running autonomous agents. I've been running ~~Clawdbot~~ → ~~BoltBot~~ → OpenClaw since those early days. It's similar to my `duyetbot-agent` but much better executed - I still can't believe one person built something this complete, with proper design and documentation.
@@ -33,12 +33,12 @@ The fascinating part isn't that they can do this - we've known AI can write code
 
 The claws family is interesting because it shows something happening in AI right now.
 
-|                   | [**OpenClaw**](https://openclaw.ai) | [**NanoBot**](https://github.com/HKUDS/nanobot) | [**PicoClaw**](https://picoclaw.net) | [**ZeroClaw**](https://zeroclaw.org) | [**NullClaw 🦞**](https://nullclaw.org) |
-| ----------------- | ----------------------------------- | ----------------------------------------------- | ------------------------------------ | ------------------------------------ | --------------------------------------- |
-| **Language**      | TypeScript                          | Python                                          | Go                                   | Rust                                 | Zig                                     |
-| **Memory (peak)** | &gt;1 GB                            | &gt;100 MB                                      | &lt;10 MB                            | &lt;5 MB                             | ~1 MB                                   |
-| **Binary size**   | ~28 MB (dist)                       | N/A (scripts)                                   | ~8 MB                                | 3.4 MB                               | 678 KB                                  |
-| **License**       | MIT                                 | MIT                                             | MIT                                  | Apache-2.0 / MIT                     | MIT                                     |
-| **Min hardware**  | Mac Mini                            | Linux SBC                                       | Linux board                          | Any $10 hardware                     | Any $5 hardware                         |
-| **Cost**          | $599                                | ~$50                                            | $10                                  | $10                                  | $5                                      |
+|                   | [**OpenClaw**](https://openclaw.ai) | [**NanoBot**](https://github.com/HKUDS/nanobot) | [**PicoClaw**](https://picoclaw.net) | [**ZeroClaw**](https://zeroclaw.org) | [**NullClaw 🦞**](https://nullclaw.org) | [**NemoClaw**](https://www.nvidia.com/en-us/ai/nemoclaw/) |
+| ----------------- | ----------------------------------- | ----------------------------------------------- | ------------------------------------ | ------------------------------------ | --------------------------------------- | ---------------------------------------------------------- |
+| **Language**      | TypeScript                          | Python                                          | Go                                   | Rust                                 | Zig                                     | Python / CUDA                                              |
+| **Memory (peak)** | &gt;1 GB                            | &gt;100 MB                                      | &lt;10 MB                            | &lt;5 MB                             | ~1 MB                                   | &gt;8 GB (GPU)                                             |
+| **Binary size**   | ~28 MB (dist)                       | N/A (scripts)                                   | ~8 MB                                | 3.4 MB                               | 678 KB                                  | N/A (container)                                            |
+| **License**       | MIT                                 | MIT                                             | MIT                                  | Apache-2.0 / MIT                     | MIT                                     | NVIDIA AI Enterprise                                       |
+| **Min hardware**  | Mac Mini                            | Linux SBC                                       | Linux board                          | Any $10 hardware                     | Any $5 hardware                         | NVIDIA GPU server                                          |
+| **Cost**          | $599                                | ~$50                                            | $10                                  | $10                                  | $5                                      | Enterprise pricing                                         |
 
