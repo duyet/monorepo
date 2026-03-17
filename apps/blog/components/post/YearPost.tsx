@@ -1,7 +1,6 @@
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
-import { Clock } from "lucide-react";
 import Link from "next/link";
 import { IsFeatured, IsNewPost } from "./PostBadges";
 
@@ -35,7 +34,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
             key={post.slug}
           >
             <Link
-              className="text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
+              className="cursor-pointer text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
               href={post.slug}
             >
               {post.title}
@@ -47,18 +46,6 @@ export function YearPost({ year, posts, className }: YearPostProps) {
               <time className="whitespace-nowrap">
                 {dateFormat(post.date, "MMM dd")}
               </time>
-              {post.readingTime && (
-                <>
-                  <span>·</span>
-                  <span
-                    className="flex items-center gap-1"
-                    title="Reading time"
-                  >
-                    <Clock className="h-3 w-3" />
-                    {post.readingTime} min
-                  </span>
-                </>
-              )}
             </div>
           </article>
         ))}

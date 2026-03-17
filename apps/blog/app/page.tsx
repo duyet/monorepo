@@ -16,7 +16,6 @@ export default async function Page() {
     "title",
     "date",
     "category",
-    "readingTime",
   ]);
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,

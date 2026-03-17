@@ -47,8 +47,7 @@ export default function RootLayout({
       {/* <AxiomWebVitals /> */}
       <body
         className={cn(
-          "bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased",
-          "transition-colors duration-300"
+          "bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased"
         )}
       >
         <ThemeProvider>

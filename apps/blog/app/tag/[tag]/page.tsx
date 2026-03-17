@@ -101,6 +101,5 @@ async function getPosts(tag: Params["tag"]) {
     "title",
     "category",
     "featured",
-    "readingTime",
   ]);
 }

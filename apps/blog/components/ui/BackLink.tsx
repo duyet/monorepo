@@ -9,7 +9,7 @@ export function BackLink({ href, text }: BackLinkProps) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+      className="inline-flex cursor-pointer items-center text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
     >
       <svg
         className="mr-2 h-4 w-4"

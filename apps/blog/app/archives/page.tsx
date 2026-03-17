@@ -11,7 +11,6 @@ export default function Archives() {
     "title",
     "date",
     "category",
-    "readingTime",
   ]);
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
