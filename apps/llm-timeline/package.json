@@ -27,7 +27,7 @@
     "@duyet/urls": "*",
     "@tanstack/react-virtual": "^3.13.22",
     "lucide-react": "^0.577.0",
-    "next": "15.5.12",
+    "next": "16.1.7",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
