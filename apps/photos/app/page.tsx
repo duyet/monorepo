@@ -8,18 +8,11 @@ import {
   RateLimitError,
   UnknownPhotoError,
 } from "@/lib/errors";
+import { getAllPhotos, type Photo } from "@/lib/photo-provider";
 
 export const dynamic = "force-static";
 
-import { getAllPhotos, type Photo } from "@/lib/photo-provider";
-
-type PageProps = {
-  searchParams: { fallback?: string };
-};
-
-export default async function PhotosPage({
-  searchParams: _searchParams,
-}: PageProps) {
+export default async function PhotosPage() {
   let photos: Photo[] = [];
   let photoError: PhotoFetchError | null = null;
 
@@ -41,7 +34,7 @@ export default async function PhotosPage({
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
-          <div className="max-w-md rounded-2xl bg-white p-8 text-center shadow-sm dark:bg-slate-900">
+          <div className="max-w-md rounded-2xl bg-white p-8 text-center dark:bg-slate-900">
             <div className="mb-4 flex justify-center">
               {photoError instanceof RateLimitError ? (
                 <svg

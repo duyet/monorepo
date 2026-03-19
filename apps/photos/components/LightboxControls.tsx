@@ -52,7 +52,7 @@ export function LightboxTopControls({
     <div
       className={cn(
         "absolute left-4 right-4 top-4 z-10 flex items-center justify-between",
-        className
+        className,
       )}
     >
       {/* Counter with professional styling */}
@@ -70,7 +70,7 @@ export function LightboxTopControls({
             "backdrop-blur-md hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50",
             showInfo
               ? "bg-white/30 hover:bg-white/40"
-              : "bg-black/50 hover:bg-black/70"
+              : "bg-black/50 hover:bg-black/70",
           )}
           aria-label="Toggle photo information"
           title="Toggle photo info (I)"
@@ -142,7 +142,7 @@ export function NavigationButton({
         "absolute top-1/2 z-10 -translate-y-1/2 rounded-full p-3",
         "bg-black/60 text-white backdrop-blur-md",
         "transition-all duration-200 hover:scale-110 hover:bg-black/80",
-        "shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white/50",
+        "focus:outline-none focus:ring-2 focus:ring-white/50",
         isFullscreen
           ? isPrevious
             ? "left-4"
@@ -150,7 +150,7 @@ export function NavigationButton({
           : isPrevious
             ? "left-6"
             : "right-6",
-        className
+        className,
       )}
       aria-label={`${isPrevious ? "Previous" : "Next"} photo (${isPrevious ? "←" : "→"})`}
       title={`${isPrevious ? "Previous" : "Next"} photo (${isPrevious ? "←" : "→"})`}
@@ -178,7 +178,7 @@ export function SlideshowControls({
           "hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50",
           isPlaying
             ? "bg-green-600/70 hover:bg-green-600/80"
-            : "bg-white/20 hover:bg-white/30"
+            : "bg-white/20 hover:bg-white/30",
         )}
         aria-label={isPlaying ? "Pause slideshow" : "Start slideshow"}
         title={isPlaying ? "Pause slideshow (S)" : "Start slideshow (S)"}
@@ -201,7 +201,7 @@ export function SlideshowControls({
               "hover:scale-105 focus:outline-none focus:ring-1 focus:ring-white/50",
               playbackSpeed === speed
                 ? "bg-white/30"
-                : "bg-transparent hover:bg-white/10"
+                : "bg-transparent hover:bg-white/10",
             )}
             aria-label={`Set slideshow speed to ${speed} seconds`}
             aria-pressed={playbackSpeed === speed}
@@ -295,7 +295,7 @@ export function InfoPanel({
       <div
         className={cn(
           "absolute bottom-0 left-0 right-0 z-10 bg-black/75 p-6 text-white backdrop-blur-md",
-          className
+          className,
         )}
       >
         <div className="space-y-4">
