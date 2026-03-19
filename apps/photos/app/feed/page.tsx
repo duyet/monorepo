@@ -46,7 +46,7 @@ export default async function FeedPage() {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
-          <div className="max-w-md rounded-2xl bg-white p-8 text-center shadow-sm dark:bg-slate-800">
+          <div className="max-w-md rounded-2xl bg-white p-8 text-center dark:bg-slate-800">
             <div className="mb-4 flex justify-center">
               {photoError instanceof RateLimitError ? (
                 <svg
@@ -102,7 +102,7 @@ export default async function FeedPage() {
       {/* Skip to content link for accessibility */}
       <a
         href="#feed-content"
-        className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white shadow-lg transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
+        className="bg-terracotta hover:bg-terracotta-medium sr-only z-50 rounded-lg px-4 py-2 text-white transition-all focus:not-sr-only focus:absolute focus:left-4 focus:top-20"
       >
         Skip to photo stream
       </a>

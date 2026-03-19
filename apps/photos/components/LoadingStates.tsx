@@ -35,7 +35,7 @@ export function LoadingSpinner({
         "animate-spin rounded-full border-2",
         sizeClasses[size],
         colorClasses[color],
-        className
+        className,
       )}
       aria-label="Loading..."
       role="status"
@@ -59,7 +59,7 @@ export function ImageSkeleton({
       className={cn(
         "bg-gray-200 dark:bg-gray-700",
         animated && "animate-pulse",
-        className
+        className,
       )}
       style={{ aspectRatio }}
       aria-label="Loading image..."
@@ -80,9 +80,9 @@ export function PhotoCardSkeleton({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-lg bg-gray-100 shadow-sm dark:bg-gray-800",
+        "overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800",
         "mb-4 break-inside-avoid sm:mb-6 lg:mb-8",
-        className
+        className,
       )}
     >
       {/* Image skeleton with random aspect ratio for variety */}
@@ -142,7 +142,7 @@ export function LightboxLoading({
     <div
       className={cn(
         "absolute inset-0 flex items-center justify-center bg-black/20",
-        className
+        className,
       )}
     >
       <div className="flex flex-col items-center gap-3 text-white">
@@ -174,7 +174,7 @@ export function EmptyState({
         "flex min-h-[400px] items-center justify-center text-center",
         "rounded-lg border-2 border-dashed border-gray-300 bg-gray-50",
         "dark:border-gray-600 dark:bg-gray-800",
-        className
+        className,
       )}
     >
       <div className="max-w-md space-y-4">

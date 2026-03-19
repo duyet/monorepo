@@ -2,38 +2,26 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Images } from "lucide-react";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Masonry from "react-masonry-css";
 import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
-
-// Hoisted to module level — getMasonryClasses() returns static class strings that never change
-const MASONRY_CLASSES = getMasonryClasses();
 import type { Photo } from "@/lib/photo-provider";
 import ErrorBoundary from "./ErrorBoundary";
-import EXIFFilters, { FilterCount } from "./EXIFFilters";
 import Lightbox from "./Lightbox";
 import { EmptyState } from "./LoadingStates";
 import PhotoCard from "./PhotoCard";
 
+// Hoisted to module level — getMasonryClasses() returns static class strings that never change
+const MASONRY_CLASSES = getMasonryClasses();
+
 interface PhotoGridProps {
   photos: Photo[];
   className?: string;
-  showFilters?: boolean;
 }
 
-export default function PhotoGrid({
-  photos,
-  className,
-  showFilters = true,
-}: PhotoGridProps) {
+export default function PhotoGrid({ photos, className }: PhotoGridProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
-
-  // Update filtered photos when source photos change
-  useEffect(() => {
-    setFilteredPhotos(photos);
-  }, [photos]);
 
   // Grid navigation handlers with enhanced performance
   const handlePhotoClick = useCallback((photo: Photo, index: number) => {
@@ -42,38 +30,32 @@ export default function PhotoGrid({
   }, []);
 
   const handleNext = useCallback(() => {
-    if (selectedIndex < filteredPhotos.length - 1) {
+    if (selectedIndex < photos.length - 1) {
       const nextIndex = selectedIndex + 1;
       setSelectedIndex(nextIndex);
-      setSelectedPhoto(filteredPhotos[nextIndex]);
+      setSelectedPhoto(photos[nextIndex]);
     }
-  }, [selectedIndex, filteredPhotos]);
+  }, [photos, selectedIndex]);
 
   const handlePrevious = useCallback(() => {
     if (selectedIndex > 0) {
       const prevIndex = selectedIndex - 1;
       setSelectedIndex(prevIndex);
-      setSelectedPhoto(filteredPhotos[prevIndex]);
+      setSelectedPhoto(photos[prevIndex]);
     }
-  }, [selectedIndex, filteredPhotos]);
+  }, [photos, selectedIndex]);
 
   const handleClose = useCallback(() => {
     setSelectedPhoto(null);
     setSelectedIndex(-1);
   }, []);
 
-  const handleFilterChange = useCallback((filtered: Photo[]) => {
-    setFilteredPhotos(filtered);
-  }, []);
-
-  // masonryClasses is defined at module level (MASONRY_CLASSES)
-
   // Empty state handling
   if (!photos.length) {
     return (
       <EmptyState
         title="No photos found"
-        description="There are no photos to display at the moment. Try adjusting your filters or check back later."
+        description="There are no photos to display at the moment."
         icon={<Images className="h-16 w-16" />}
         className={className}
       />
@@ -83,39 +65,20 @@ export default function PhotoGrid({
   return (
     <ErrorBoundary>
       <div className={cn("w-full px-4", className)}>
-        {/* EXIF Filters */}
-        {showFilters && photos.length > 0 && (
-          <Suspense fallback={null}>
-            <EXIFFilters photos={photos} onFilterChange={handleFilterChange} />
-          </Suspense>
-        )}
-
-        {/* Filter count */}
-        <FilterCount filtered={filteredPhotos.length} total={photos.length} />
-
-        {/* Empty state for filtered results */}
-        {filteredPhotos.length === 0 && photos.length > 0 ? (
-          <EmptyState
-            title="No photos match your filters"
-            description="Try adjusting your EXIF filter criteria to see more photos."
-            icon={<Images className="h-16 w-16" />}
-          />
-        ) : (
-          <Masonry
-            breakpointCols={MASONRY_CONFIG.breakpoints}
-            className={MASONRY_CLASSES.container}
-            columnClassName={MASONRY_CLASSES.column}
-          >
-            {filteredPhotos.map((photo, index) => (
-              <PhotoCard
-                key={photo.id}
-                photo={photo}
-                index={index}
-                onClick={() => handlePhotoClick(photo, index)}
-              />
-            ))}
-          </Masonry>
-        )}
+        <Masonry
+          breakpointCols={MASONRY_CONFIG.breakpoints}
+          className={MASONRY_CLASSES.container}
+          columnClassName={MASONRY_CLASSES.column}
+        >
+          {photos.map((photo, index) => (
+            <PhotoCard
+              key={photo.id}
+              photo={photo}
+              index={index}
+              onClick={() => handlePhotoClick(photo, index)}
+            />
+          ))}
+        </Masonry>
 
         {/* Enhanced lightbox with modular architecture */}
         {selectedPhoto && (
@@ -123,12 +86,10 @@ export default function PhotoGrid({
             photo={selectedPhoto}
             isOpen={!!selectedPhoto}
             onClose={handleClose}
-            onNext={
-              selectedIndex < filteredPhotos.length - 1 ? handleNext : undefined
-            }
+            onNext={selectedIndex < photos.length - 1 ? handleNext : undefined}
             onPrevious={selectedIndex > 0 ? handlePrevious : undefined}
             currentIndex={selectedIndex}
-            totalCount={filteredPhotos.length}
+            totalCount={photos.length}
           />
         )}
       </div>
