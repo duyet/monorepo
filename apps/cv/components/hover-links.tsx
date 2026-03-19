@@ -6,7 +6,11 @@ import {
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
 import { track } from "@seline-analytics/web";
-import Link from "next/link";
+
+import { ResumeLink } from "./resume-link";
+
+const hoverCardClassName =
+  "w-72 border-neutral-200 bg-white p-3 text-[13px] leading-5 text-neutral-700 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
 
 export function HoverLinks({
   text,
@@ -28,15 +32,17 @@ export function HoverLinks({
           {text}
         </span>
       </HoverCardTrigger>
-      <HoverCardContent asChild>
-        <div className="w-fit p-2">
-          <div className="mb-4 font-bold">Some of posts:</div>
-          <ul className="ml-4 list-disc">
+      <HoverCardContent className={hoverCardClassName}>
+        <div className="space-y-2">
+          <div className="font-medium text-neutral-900 dark:text-neutral-50">
+            Some related posts
+          </div>
+          <ul className="ml-4 list-disc space-y-1">
             {links.map((link) => (
-              <li key={link.text} className="mb-1">
-                <Link href={link.href} target="_blank">
+              <li key={link.text}>
+                <ResumeLink href={link.href} className="text-inherit">
                   {link.text} ↗︎
-                </Link>
+                </ResumeLink>
               </li>
             ))}
           </ul>

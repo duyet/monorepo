@@ -6,8 +6,12 @@ import {
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
 import { track } from "@seline-analytics/web";
-import Link from "next/link";
 import type React from "react";
+
+import { ResumeLink } from "./resume-link";
+
+const hoverCardClassName =
+  "w-72 border-neutral-200 bg-white p-3 text-[13px] leading-5 text-neutral-700 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
 
 export function Skill({
   skill,
@@ -23,13 +27,9 @@ export function Skill({
   if (!url && !icon && !note) return skill;
   if (url && !icon)
     return (
-      <Link
-        href={url}
-        target="_blank"
-        className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
-      >
+      <ResumeLink href={url} className="text-inherit">
         {skill}
-      </Link>
+      </ResumeLink>
     );
 
   return (
@@ -42,29 +42,33 @@ export function Skill({
     >
       <HoverCardTrigger asChild>
         {url ? (
-          <Link
+          <ResumeLink
             href={url}
-            target="_blank"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className="text-inherit"
           >
             {skill}
-          </Link>
+          </ResumeLink>
         ) : (
           <span>{skill}</span>
         )}
       </HoverCardTrigger>
-      <HoverCardContent asChild>
-        <div className="flex flex-col gap-2 bg-white">
-          {icon}{" "}
-          {url ? (
-            <Link href={url} target="_blank">
-              Posts about <strong>{skill}</strong>
-              {" ↗︎"}
-            </Link>
-          ) : (
-            skill
-          )}
-          {note ? <div className="mt-2">{note}</div> : null}
+      <HoverCardContent className={hoverCardClassName}>
+        <div className="flex flex-col gap-2">
+          {icon ? (
+            <div className="text-base text-neutral-500 dark:text-neutral-400">
+              {icon}
+            </div>
+          ) : null}
+          <div className="font-medium text-neutral-900 dark:text-neutral-50">
+            {url ? (
+              <ResumeLink href={url} className="text-inherit">
+                Posts about <strong>{skill}</strong> {" ↗︎"}
+              </ResumeLink>
+            ) : (
+              skill
+            )}
+          </div>
+          {note ? <div className="text-neutral-600 dark:text-neutral-300">{note}</div> : null}
         </div>
       </HoverCardContent>
     </HoverCard>

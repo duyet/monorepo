@@ -1,7 +1,7 @@
 import { cn, distanceFormat } from "@duyet/libs";
 import type { ImageProps } from "next/image";
 import Image from "next/image";
-import Link from "next/link";
+import { ResumeLink } from "./resume-link";
 
 interface ExperienceItemProps {
   title: string;
@@ -29,7 +29,7 @@ export function ExperienceItem({
   return (
     <div className={cn("flex flex-col gap-1", className)}>
       <h3
-        className="inline-flex items-center gap-2 font-[family-name:var(--font-serif)] text-base font-bold"
+        className="inline-flex items-center gap-2 font-[family-name:var(--font-serif)] text-[15px] font-bold tracking-tight"
       >
         <span>{title}</span>
         <span>-</span>
@@ -86,9 +86,9 @@ function CompanyLine({
 
   if (companyUrl) {
     return (
-      <Link href={companyUrl} className="m-0 p-0">
+      <ResumeLink href={companyUrl} className="m-0 p-0 text-inherit">
         {logoWithText}
-      </Link>
+      </ResumeLink>
     );
   }
 
