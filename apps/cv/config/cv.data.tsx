@@ -15,7 +15,7 @@ export const cvData: CVData = {
     title: "Résumé",
     email: "me@duyet.net",
     overview:
-      "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, ClickHouse, Spark, Airflow, Python, Rust.",
+      "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, Rust.",
     contacts: [
       {
         id: "email",
@@ -103,7 +103,7 @@ export const cvData: CVData = {
         },
         {
           id: 5,
-          item: "Multi-agent LLM + RAG (LlamaIndex, Qdrant, ClickHouse text2sql, Nextjs, etc)",
+          item: "Built multi-agent LLM + RAG systems with LlamaIndex, Qdrant, ClickHouse text2sql, Next.js, and LangGraph.",
         },
       ],
     },
@@ -232,6 +232,7 @@ export const cvData: CVData = {
       skills: [
         { id: "llamaindex", name: "LlamaIndex" },
         { id: "ai-sdk", name: "AI SDK" },
+        { id: "langgraph", name: "LangGraph" },
         { id: "clickhouse", name: "ClickHouse" },
         { id: "spark", name: "Spark" },
         { id: "kafka", name: "Kafka" },
@@ -261,7 +262,7 @@ export const llmsInfo: LLMsInfo = {
   role: "Senior Data Engineer",
   email: "me@duyet.net",
   website: "https://duyet.net",
-  bio: "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing.",
+  bio: "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, and Rust.",
   expertise: [
     "Data Engineering",
     "Distributed Systems",
@@ -281,11 +282,12 @@ export const llmsInfo: LLMsInfo = {
     "Optimized cloud costs from $45,000 to $20,000/month at Fossil Group",
     "Managed team of 6 engineers and analysts",
     "Designed next-gen Data Platform in Rust",
-    "Built multi-agent LLM + RAG systems",
+    "Built multi-agent LLM + RAG systems with LangGraph",
   ],
   technologies: [
     "LlamaIndex",
     "AI SDK",
+    "LangGraph",
     "ClickHouse",
     "Apache Spark",
     "Apache Airflow",

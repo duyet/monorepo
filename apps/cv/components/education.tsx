@@ -1,5 +1,5 @@
 import { cn } from "@duyet/libs";
-import Link from "next/link";
+import { ResumeLink } from "./resume-link";
 
 interface EducationProps {
   major: string;
@@ -21,19 +21,20 @@ export function Education({
   return (
     <div className={cn("flex flex-col gap-0.5", className)}>
       <h3
-        className="font-[family-name:var(--font-serif)] text-base font-bold"
+        className="font-[family-name:var(--font-serif)] text-[15px] font-bold tracking-tight"
       >
         {major}
         <span className="px-2">-</span>
         <span className="font-normal">{university}</span>
       </h3>
-      <p className="text-xs uppercase text-neutral-600 dark:text-neutral-400">{period}</p>
-      <Link
+      <p className="text-[11px] uppercase tracking-[0.12em] text-neutral-600 dark:text-neutral-400">{period}</p>
+      <ResumeLink
         href={thesisUrl}
-        className="hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
+        external
+        className="text-inherit"
       >
         ⤷ {thesis} ↗︎
-      </Link>
+      </ResumeLink>
     </div>
   );
 }
