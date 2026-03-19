@@ -9,9 +9,7 @@ import { track } from "@seline-analytics/web";
 import type React from "react";
 
 import { ResumeLink } from "./resume-link";
-
-const hoverCardClassName =
-  "w-72 border-neutral-200 bg-white p-3 text-[13px] leading-5 text-neutral-700 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+import { hoverCardClassName } from "./link-styles";
 
 export function Skill({
   skill,
@@ -24,10 +22,10 @@ export function Skill({
   icon?: React.ReactNode;
   note?: string | React.ReactNode;
 }) {
-  if (!url && !icon && !note) return skill;
-  if (url && !icon)
+    if (!url && !icon && !note) return skill;
+    if (url && !icon)
     return (
-      <ResumeLink href={url} className="text-inherit">
+      <ResumeLink href={url} external className="text-inherit">
         {skill}
       </ResumeLink>
     );
@@ -44,6 +42,7 @@ export function Skill({
         {url ? (
           <ResumeLink
             href={url}
+            external
             className="text-inherit"
           >
             {skill}
@@ -61,7 +60,7 @@ export function Skill({
           ) : null}
           <div className="font-medium text-neutral-900 dark:text-neutral-50">
             {url ? (
-              <ResumeLink href={url} className="text-inherit">
+              <ResumeLink href={url} external className="text-inherit">
                 Posts about <strong>{skill}</strong> {" ↗︎"}
               </ResumeLink>
             ) : (

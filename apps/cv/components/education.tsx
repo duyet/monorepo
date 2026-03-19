@@ -30,6 +30,7 @@ export function Education({
       <p className="text-[11px] uppercase tracking-[0.12em] text-neutral-600 dark:text-neutral-400">{period}</p>
       <ResumeLink
         href={thesisUrl}
+        external
         className="text-inherit"
       >
         ⤷ {thesis} ↗︎

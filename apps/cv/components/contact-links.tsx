@@ -5,13 +5,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
-import Link from "next/link";
 import type { ContactLink } from "@/config/cv.types";
 
 import { ResumeLink } from "./resume-link";
-
-const hoverCardClassName =
-  "w-72 border-neutral-200 bg-white p-3 text-[13px] leading-5 text-neutral-700 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+import { hoverCardClassName } from "./link-styles";
 
 export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
   return (
@@ -25,16 +22,15 @@ export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
           return (
             <HoverCard key={contact.id} openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
-                <ResumeLink href={contact.url} className="text-inherit">
+                <ResumeLink href={contact.url} external className="text-inherit">
                   {contact.label}
                 </ResumeLink>
               </HoverCardTrigger>
               <HoverCardContent className={hoverCardClassName}>
-                <Link
+                <ResumeLink
                   href={contact.url}
+                  external
                   className="block text-inherit no-underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
                 >
                   <div className="flex items-start gap-2.5">
                     {contact.hoverContent.icon ? (
@@ -51,14 +47,14 @@ export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </ResumeLink>
               </HoverCardContent>
             </HoverCard>
           );
         }
 
         return (
-          <ResumeLink key={contact.id} href={contact.url} className="text-inherit">
+          <ResumeLink key={contact.id} href={contact.url} external className="text-inherit">
             {contact.label}
           </ResumeLink>
         );

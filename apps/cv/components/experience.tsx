@@ -86,7 +86,7 @@ function CompanyLine({
 
   if (companyUrl) {
     return (
-      <ResumeLink href={companyUrl} className="m-0 p-0 text-inherit">
+      <ResumeLink href={companyUrl} external className="m-0 p-0 text-inherit">
         {logoWithText}
       </ResumeLink>
     );

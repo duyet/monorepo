@@ -2,24 +2,31 @@ import { cn } from "@duyet/libs";
 import Link, { type LinkProps } from "next/link";
 import type { ReactNode } from "react";
 
-const baseClassName =
-  "underline decoration-neutral-300 decoration-1 underline-offset-2 transition-colors hover:decoration-neutral-500 dark:decoration-neutral-600 dark:hover:decoration-neutral-400";
+import { externalLinkClassName } from "./link-styles";
 
 type ResumeLinkProps = LinkProps & {
   className?: string;
   children: ReactNode;
+  external?: boolean;
 };
 
 export function ResumeLink({
   className,
   children,
+  external = false,
   ...props
 }: ResumeLinkProps) {
+  const externalProps = external
+    ? {
+        target: "_blank" as const,
+        rel: "noopener noreferrer" as const,
+      }
+    : {};
+
   return (
     <Link
-      className={cn(baseClassName, className)}
-      target="_blank"
-      rel="noopener noreferrer"
+      className={cn(externalLinkClassName, className)}
+      {...externalProps}
       {...props}
     >
       {children}

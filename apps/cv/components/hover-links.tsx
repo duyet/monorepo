@@ -8,9 +8,7 @@ import {
 import { track } from "@seline-analytics/web";
 
 import { ResumeLink } from "./resume-link";
-
-const hoverCardClassName =
-  "w-72 border-neutral-200 bg-white p-3 text-[13px] leading-5 text-neutral-700 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+import { hoverCardClassName } from "./link-styles";
 
 export function HoverLinks({
   text,
@@ -40,7 +38,7 @@ export function HoverLinks({
           <ul className="ml-4 list-disc space-y-1">
             {links.map((link) => (
               <li key={link.text}>
-                <ResumeLink href={link.href} className="text-inherit">
+                <ResumeLink href={link.href} external className="text-inherit">
                   {link.text} ↗︎
                 </ResumeLink>
               </li>
