@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
+    "@types/bun": "latest",
     "@duyet/tsconfig": "*",
     "@tailwindcss/vite": "^4.0.0",
     "@tanstack/router-plugin": "^1.0.0",

@@ -1,12 +1,14 @@
 {
   "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
+    "types": ["@types/bun"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
   "include": [
+    "vite-env.d.ts",
     "src",
     "index.html",
     "vite.config.ts",

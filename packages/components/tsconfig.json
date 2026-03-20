@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "moduleResolution": "nodenext",
-    "module": "nodenext",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx"
   },
   "extends": "@duyet/tsconfig/react-library.json",
-  "include": ["."],
+  "include": ["vite-env.d.ts", "svg.d.ts", "src", "__tests__"],
   "exclude": ["dist", "build", "node_modules"]
 }
