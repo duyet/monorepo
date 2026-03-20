@@ -1,5 +1,5 @@
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 import { HoverLinks } from "@/components/hover-links";
 import FossilLogo from "@/public/fossil.svg";
@@ -129,9 +129,9 @@ export const cvData: CVData = {
           id: 3,
           item: (
             <Link
-              href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
+              to="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
               key="next-gen-data-platform"
-              className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
+              className="hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
               target="_blank"
             >
               Designed next-gen Data Platform in Rust ↗︎

@@ -8,8 +8,9 @@ import {
   SiRust,
   SiTypescript,
 } from "@icons-pack/react-simple-icons";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
+import { externalLinkClassName } from "@/components/link-styles";
 import { Skill } from "@/components/skill";
 
 export function SkillRust() {
@@ -22,30 +23,30 @@ export function SkillRust() {
         <span>
           I am new and have been working with{" "}
           <Link
-            href="https://blog.duyet.net/2021/11/rust-data-engineering.html"
+            to="https://blog.duyet.net/2021/11/rust-data-engineering.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             Rust
           </Link>{" "}
           for about 2 years, during which I have developed and deployed a
           production{" "}
           <Link
-            href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
+            to="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             Data Platform at Fossil
           </Link>
           , created multiple command line applications, and documented all my
           experiences in Vietnamese through{" "}
           <Link
-            href="https://duyet.net/rust"
+            to="https://duyet.net/rust"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             Rust Tiếng Việt
           </Link>
@@ -69,19 +70,19 @@ export function SkillTypescript() {
           internal tools for data serving or monitoring. Some of open-source
           works are:{" "}
           <Link
-            href="https://github.com/duyet/clickhouse-monitoring"
+            to="https://github.com/duyet/clickhouse-monitoring"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             clickhouse-monitoring
           </Link>{" "}
           or{" "}
           <Link
-            href="https://github.com/duyet/monorepo"
+            to="https://github.com/duyet/monorepo"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             this CV itself
           </Link>
@@ -101,10 +102,10 @@ export function SkillHelm() {
         <span>
           Checkout{" "}
           <Link
-            href="https://github.com/duyet/charts"
+            to="https://github.com/duyet/charts"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             duyet/charts
           </Link>
@@ -162,29 +163,29 @@ export function SkillSpark() {
           Engineer, experience running Spark with <strong>YARN</strong>,
           Databricks, <strong>AWS EMR</strong>, as well as{" "}
           <Link
-            href="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
+            to="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             <strong>Kubernetes</strong>
           </Link>
           . Haven&apos;t been using it as much lately due to the convenience
           offered by{" "}
           <Link
-            href="https://blog.duyet.net/tag/clickhouse"
+            to="https://blog.duyet.net/tag/clickhouse"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             ClickHouse
           </Link>
           {" and "}
           <Link
-            href="https://blog.duyet.net/2023/09/duckdb.html"
+            to="https://blog.duyet.net/2023/09/duckdb.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-neutral-300 decoration-1 underline-offset-2 dark:decoration-neutral-600"
+            className={externalLinkClassName}
           >
             DuckDB
           </Link>

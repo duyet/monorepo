@@ -1,21 +1,21 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "bun:test"
 
-const layoutSource = await Bun.file(
-  new URL("../app/layout.tsx", import.meta.url).pathname
-).text();
+const rootSource = await Bun.file(
+  new URL("../src/routes/__root.tsx", import.meta.url).pathname
+).text()
 
 describe("CV App Configuration", () => {
-  test("layout has correct metadata title and description", () => {
-    expect(layoutSource).toContain('"Duyet Le | Resume"');
-    expect(layoutSource).toContain("Data Engineer");
-  });
+  test("root route has correct metadata title and description", () => {
+    expect(rootSource).toContain('"Duyet Le | Resume"')
+    expect(rootSource).toContain("Data Engineer")
+  })
 
-  test("layout has suppressHydrationWarning for theme support", () => {
-    expect(layoutSource).toContain("suppressHydrationWarning");
-  });
+  test("root route has suppressHydrationWarning for theme support", () => {
+    expect(rootSource).toContain("suppressHydrationWarning")
+  })
 
-  test("layout uses ThemeProvider from @duyet/components", () => {
-    expect(layoutSource).toContain("ThemeProvider");
-    expect(layoutSource).toContain("@duyet/components/ThemeProvider");
-  });
-});
+  test("root route uses ThemeProvider from @duyet/components", () => {
+    expect(rootSource).toContain("ThemeProvider")
+    expect(rootSource).toContain("@duyet/components/ThemeProvider")
+  })
+})

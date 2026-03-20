@@ -1,11 +1,6 @@
 {
-  "extends": "@duyet/tsconfig/nextjs.json",
+  "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "strictNullChecks": true,
     "allowJs": true,
     "paths": {
@@ -13,20 +8,17 @@
     }
   },
   "include": [
-    "next-env.d.ts",
-    "types.d.ts",
-    "eslint.config.mjs",
+    "vite.config.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "app/**/*.ts",
     "app/**/*.tsx",
-    "components/*.ts",
-    "components/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "config/**/*.ts",
+    "config/**/*.tsx",
     "**/*.ts",
-    "**/*.tsx",
-    "tailwind.config.mjs",
-    "postcss.config.js",
-    "app",
-    "./components",
-    ".next/types/**/*.ts"
+    "**/*.tsx"
   ],
-  "exclude": ["node_modules", "**/__tests__"]
+  "exclude": ["node_modules", "**/__tests__", ".output", "dist"]
 }
