@@ -257,4 +257,3 @@ export function getEXIFOptions(photos: Photo[]) {
     apertures: Array.from(apertures).sort((a, b) => a - b),
   };
 }
-

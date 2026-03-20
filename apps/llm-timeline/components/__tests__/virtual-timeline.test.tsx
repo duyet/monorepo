@@ -1,4 +1,11 @@
-import { afterEach, cleanup, describe, expect, it, render } from "../../test-setup";
+import {
+  afterEach,
+  cleanup,
+  describe,
+  expect,
+  it,
+  render,
+} from "../../test-setup";
 import { VirtualTimeline } from "../virtual-timeline";
 
 afterEach(cleanup);

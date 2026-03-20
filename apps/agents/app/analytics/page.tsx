@@ -16,8 +16,8 @@ import {
   YAxis,
 } from "recharts";
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SidebarModal } from "@/components/sidebar/sidebar-modal";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useConversations } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 
@@ -242,4 +242,3 @@ export default function AnalyticsPage() {
     </div>
   );
 }
-

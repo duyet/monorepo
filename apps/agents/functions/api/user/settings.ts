@@ -81,7 +81,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const parsed = settingsSchema.safeParse(rawBody);
     if (!parsed.success) {
       return new Response(
-        JSON.stringify({ error: "Invalid request body", details: parsed.error.flatten() }),
+        JSON.stringify({
+          error: "Invalid request body",
+          details: parsed.error.flatten(),
+        }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }

@@ -11,12 +11,7 @@ import { YearPost } from "@/components/post";
 export const dynamic = "force-static";
 
 export default async function Page() {
-  const postsByYear = getPostsByAllYear([
-    "slug",
-    "title",
-    "date",
-    "category",
-  ]);
+  const postsByYear = getPostsByAllYear(["slug", "title", "date", "category"]);
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
     0

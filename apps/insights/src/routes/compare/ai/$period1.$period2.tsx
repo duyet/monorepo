@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ComparisonMetrics } from "@/components/comparison";
 import {
   formatCCost,
   formatCCTokens,
   getCCUsageComparison,
 } from "@/app/ai/ccusage-comparison-utils";
+import { ComparisonMetrics } from "@/components/comparison";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays, isPeriodValue } from "@/lib/periods";
 
@@ -17,11 +17,29 @@ export const Route = createFileRoute("/compare/ai/$period1/$period2")({
     const days2 = getPeriodDays(period2) as PeriodDays;
 
     if (!isPeriodValue(period1) || !isPeriodValue(period2)) {
-      return { period1, period2, config1, config2, days1, days2, comparison: null, invalid: true };
+      return {
+        period1,
+        period2,
+        config1,
+        config2,
+        days1,
+        days2,
+        comparison: null,
+        invalid: true,
+      };
     }
 
     const comparison = await getCCUsageComparison(days1, days2);
-    return { period1, period2, config1, config2, days1, days2, comparison, invalid: false };
+    return {
+      period1,
+      period2,
+      config1,
+      config2,
+      days1,
+      days2,
+      comparison,
+      invalid: false,
+    };
   },
   head: ({ loaderData }) => ({
     meta: [

@@ -1,4 +1,3 @@
-
 import { cn } from "@duyet/libs";
 import type { UIMessage } from "ai";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -8,9 +7,8 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { ChatInput } from "./chat-input";
 import { SidebarModal } from "@/components/sidebar/sidebar-modal";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { VISUAL_GRAPH_DATA } from "@/lib/graph-layout";
 import {
   useAutoResize,
@@ -22,6 +20,7 @@ import {
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 import type { ChatMode } from "@/lib/types";
 import { ActivityPanel } from "../activity/activity-panel";
+import { ChatInput } from "./chat-input";
 import { ChatTopBar } from "./chat-top-bar";
 import { LoadingIndicator } from "./loading-indicator";
 import {
@@ -387,16 +386,11 @@ export function VercelChat() {
                 panelOpen ? "w-[300px]" : "w-0"
               )}
             >
-              <div className="h-full w-[300px]">
-                {activityContent}
-              </div>
+              <div className="h-full w-[300px]">{activityContent}</div>
             </div>
             <div className="lg:hidden block">
               <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
-                <SheetContent
-                  side="right"
-                  className="w-[320px] p-0"
-                >
+                <SheetContent side="right" className="w-[320px] p-0">
                   {activityContent}
                 </SheetContent>
               </Sheet>

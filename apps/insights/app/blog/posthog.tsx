@@ -109,7 +109,6 @@ export async function PostHog({ days = 30 }: { days?: number | "all" }) {
   return <PostHogView {...data} />;
 }
 
-
 async function getTopPath(limit = 10, dateFrom = "-90d"): Promise<Path[]> {
   const data = await queryPostHog({
     kind: "WebStatsTableQuery",

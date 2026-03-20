@@ -40,14 +40,16 @@ function ChartSkeleton({ height = 200, className = "" }: ChartSkeletonProps) {
  * The Suspense here catches the thrown promise from React.lazy() during
  * the dynamic import, displaying the skeleton until the chunk loads.
  */
+// Returns ComponentType<Record<string, unknown>> to avoid TS4023 with isolatedModules —
+// the inferred P would reference types from lazy-loaded modules that can't be named.
 function withLazyLoading<P extends object>(
   LazyComponent: ComponentType<P>,
   fallbackHeight = 200
-) {
-  return function LazyChart(props: P) {
+): ComponentType<Record<string, unknown>> {
+  return function LazyChart(props: Record<string, unknown>) {
     return (
       <Suspense fallback={<ChartSkeleton height={fallbackHeight} />}>
-        <LazyComponent {...props} />
+        <LazyComponent {...(props as P)} />
       </Suspense>
     );
   };
@@ -106,10 +108,10 @@ export const LazyMiniSparkline = withLazyLoading(RawLazyMiniSparkline, 40);
 export {
   LazyAreaChart as AreaChart,
   LazyBarChart as BarChart,
-  LazyDonutChart as DonutChart,
   LazyCompactAreaChart as CompactAreaChart,
-  LazyCompactLineChart as CompactLineChart,
   LazyCompactBarChart as CompactBarChart,
+  LazyCompactLineChart as CompactLineChart,
   LazyCompactPieChart as CompactPieChart,
+  LazyDonutChart as DonutChart,
   LazyMiniSparkline as MiniSparkline,
 };

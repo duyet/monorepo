@@ -17,7 +17,10 @@ export const Route = createFileRoute("/org/$slug")({
     return {
       meta: [
         { title: `${org} LLM Models | LLM Timeline` },
-        { name: "description", content: `A comprehensive timeline of Large Language Model releases from ${org}.` },
+        {
+          name: "description",
+          content: `A comprehensive timeline of Large Language Model releases from ${org}.`,
+        },
       ],
     };
   },

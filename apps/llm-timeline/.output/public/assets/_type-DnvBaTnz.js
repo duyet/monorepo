@@ -1,1 +1,0 @@
-import{b as t,j as s,c as i,d as r}from"./main-CWD1AB5L.js";import{P as n}from"./page-layout-D-mZb09l.js";import{T as a}from"./timeline-page-CvWmgezF.js";import"./static-view-BOXRbfbJ.js";import"./x-BejWZo4w.js";function u(){const{type:o}=t.useParams(),e=o;return s.jsx(n,{title:`${r[e]} Models`,description:i[e],children:s.jsx(a,{view:"models",license:e})})}export{u as component};

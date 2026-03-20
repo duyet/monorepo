@@ -1,4 +1,4 @@
-import { Section } from "@/components/section";
+import type { ReactNode } from "react";
 import {
   SkillAirflow,
   SkillCICD,
@@ -11,19 +11,15 @@ import {
   SkillSpark,
   SkillTypescript,
 } from "@/app/skill-details";
+import { Section } from "@/components/section";
 import { Skill } from "@/components/skill";
-import type { ReactNode } from "react";
 
-function SkillRow({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+function SkillRow({ title, children }: { title: string; children: ReactNode }) {
   return (
     <p className="text-[15px] leading-7 text-neutral-700 dark:text-neutral-300">
-      <strong className="text-neutral-900 dark:text-neutral-100">{title}:</strong>{" "}
+      <strong className="text-neutral-900 dark:text-neutral-100">
+        {title}:
+      </strong>{" "}
       {children}
     </p>
   );
@@ -58,8 +54,7 @@ export function SkillsSection() {
           {", "}
           <SkillRust />
           {", "}
-          <SkillTypescript />
-          .
+          <SkillTypescript />.
         </SkillRow>
 
         <SkillRow title="DevOps">
@@ -67,8 +62,7 @@ export function SkillsSection() {
           {", "}
           <SkillKubernetes />
           {", "}
-          <SkillHelm />
-          .
+          <SkillHelm />.
         </SkillRow>
       </div>
     </Section>

@@ -1,3 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { DashboardTabs } from "@/components/DashboardTabs";
 import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
 import { ClusterTopology } from "@/components/dashboard/ClusterTopology";
@@ -7,7 +8,6 @@ import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
 import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
-import { createFileRoute } from "@tanstack/react-router";
 
 // Baked in at build time — shows when the AI Agent last captured and committed
 // the data snapshot.
@@ -18,7 +18,6 @@ export const Route = createFileRoute("/")({
 });
 
 function HomelabPage() {
-
   const infrastructure = (
     <div className="space-y-8">
       <ErrorBoundary>

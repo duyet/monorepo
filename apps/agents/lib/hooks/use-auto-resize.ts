@@ -1,4 +1,3 @@
-
 import { useCallback, useRef } from "react";
 
 export interface UseAutoResizeOptions {

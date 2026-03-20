@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CATEGORY_MAP,
   CATEGORY_ORDER,
@@ -32,7 +32,6 @@ const publicUrls = Object.entries(urls)
   });
 
 function ListPage() {
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">

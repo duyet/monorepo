@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import Header from "@duyet/components/Header";
+import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 
 export const Route = createFileRoute("/about")({

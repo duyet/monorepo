@@ -34,9 +34,7 @@ describe("duyetUrls", () => {
   });
 
   test("external clickhouse URL is set", () => {
-    expect(duyetUrls.external.clickhouse).toBe(
-      "https://clickhouse.duyet.net"
-    );
+    expect(duyetUrls.external.clickhouse).toBe("https://clickhouse.duyet.net");
   });
 
   test("external mcp URL is set", () => {

@@ -1,4 +1,3 @@
-
 import { Button } from "@duyet/components";
 import { BarChart2, Moon, PanelLeft, Plus, Sun } from "lucide-react";
 import { useTheme } from "next-themes";

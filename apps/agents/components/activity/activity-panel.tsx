@@ -1,4 +1,3 @@
-
 import {
   Badge,
   Button,
@@ -106,10 +105,7 @@ export function ActivityPanel({
     <Tabs
       value={activeTab}
       onValueChange={(value) => setActiveTab(value as any)}
-      className={cn(
-        "flex flex-col h-full border-l border-border",
-        className
-      )}
+      className={cn("flex flex-col h-full border-l border-border", className)}
     >
       {/* Header Tabs */}
       <div className="border-b border-border bg-muted/10 pt-2 px-2 flex items-center justify-between">

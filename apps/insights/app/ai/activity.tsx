@@ -1,6 +1,6 @@
 import { BarChart } from "@/components/charts";
 import { TokenBarChart } from "@/components/charts/TokenBarChart";
-import type { CCUsageActivityData, CCUsageActivityByModelData } from "./types";
+import type { CCUsageActivityByModelData, CCUsageActivityData } from "./types";
 
 export function CCUsageActivityView({
   activity,
@@ -11,7 +11,6 @@ export function CCUsageActivityView({
   activityByModel: CCUsageActivityByModelData[];
   className?: string;
 }) {
-
   if (!activity.length) {
     return (
       <div

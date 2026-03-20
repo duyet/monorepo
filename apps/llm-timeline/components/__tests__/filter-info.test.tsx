@@ -1,5 +1,12 @@
-import { afterEach, cleanup, describe, expect, it, render } from "../../test-setup";
 import { filterInfoBaseProps } from "../../test-fixtures";
+import {
+  afterEach,
+  cleanup,
+  describe,
+  expect,
+  it,
+  render,
+} from "../../test-setup";
 import { FilterInfo } from "../filter-info";
 
 afterEach(cleanup);
@@ -11,7 +18,9 @@ describe("FilterInfo", () => {
   });
 
   it("renders search input with placeholder", () => {
-    const { getAllByPlaceholderText } = render(<FilterInfo {...filterInfoBaseProps} />);
+    const { getAllByPlaceholderText } = render(
+      <FilterInfo {...filterInfoBaseProps} />
+    );
     const elements = getAllByPlaceholderText("Search models...");
     expect(elements.length).toBeGreaterThan(0);
   });
@@ -30,7 +39,11 @@ describe("FilterInfo", () => {
 
   it("renders 'organizations' label for organizations view", () => {
     const { getAllByText } = render(
-      <FilterInfo {...filterInfoBaseProps} view="organizations" resultCount={10} />
+      <FilterInfo
+        {...filterInfoBaseProps}
+        view="organizations"
+        resultCount={10}
+      />
     );
     const elements = getAllByText("organizations");
     expect(elements.length).toBeGreaterThan(0);

@@ -3,10 +3,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  AgentKpiCards,
-  AgentTrendsChart,
   type AgentAnalyticsData,
+  AgentKpiCards,
   type AgentTrendRow,
+  AgentTrendsChart,
 } from "@/app/agents/components";
 
 export const Route = createFileRoute("/agents/")({

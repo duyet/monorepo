@@ -24,7 +24,10 @@ export function GlobalPeriodSelector() {
     <Tabs value={currentPeriod}>
       <TabsList>
         {PERIODS.map((period) => (
-          <Link key={period.value} to={`/${currentTab}/${period.value}`}>
+          <Link
+            key={period.value}
+            to={`/${currentTab}/${period.value}` as string}
+          >
             <TabsTrigger value={period.value}>{period.label}</TabsTrigger>
           </Link>
         ))}

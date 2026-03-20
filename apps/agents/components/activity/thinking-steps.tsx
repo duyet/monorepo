@@ -1,4 +1,3 @@
-
 import { Badge } from "@duyet/components";
 import { Brain } from "lucide-react";
 import { ChainOfThoughtStep } from "@/components/ai-elements/chain-of-thought";
@@ -25,11 +24,7 @@ export function ThinkingSteps({ steps, className }: ThinkingStepsProps) {
       {/* Steps */}
       <div className="space-y-1">
         {steps.map((step, i) => (
-          <ChainOfThoughtStep
-            key={i}
-            label={step}
-            status="active"
-          />
+          <ChainOfThoughtStep key={i} label={step} status="active" />
         ))}
       </div>
     </div>
@@ -48,4 +43,3 @@ export function ThinkingDots() {
     </div>
   );
 }
-

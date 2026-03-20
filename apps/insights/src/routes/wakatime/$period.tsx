@@ -1,7 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { PeriodDays } from "@/lib/periods";
-import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
-import { StaticCard } from "@/components/StaticCard";
 import { WakaTimeActivityView } from "@/app/wakatime/activity";
 import { WakaTimeLanguagesView } from "@/app/wakatime/languages";
 import { WakaTimeMetricsView } from "@/app/wakatime/metrics";
@@ -11,6 +8,9 @@ import {
   getWakaTimeMetrics,
   getWakaTimeMonthlyActivity,
 } from "@/app/wakatime/wakatime-utils";
+import { StaticCard } from "@/components/StaticCard";
+import type { PeriodDays } from "@/lib/periods";
+import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
 
 export const Route = createFileRoute("/wakatime/$period")({
   loader: async ({ params }) => {
@@ -21,7 +21,9 @@ export const Route = createFileRoute("/wakatime/$period")({
 
     const [metrics, activity, languages] = await Promise.allSettled([
       getWakaTimeMetrics(days),
-      isAllTime ? getWakaTimeMonthlyActivity() : getWakaTimeActivityWithAI(days),
+      isAllTime
+        ? getWakaTimeMonthlyActivity()
+        : getWakaTimeActivityWithAI(days),
       getWakaTimeLanguages(days),
     ]);
 
@@ -32,7 +34,12 @@ export const Route = createFileRoute("/wakatime/$period")({
       metrics:
         metrics.status === "fulfilled"
           ? metrics.value
-          : { totalHours: 0, avgDailyHours: 0, daysActive: 0, topLanguage: "N/A" },
+          : {
+              totalHours: 0,
+              avgDailyHours: 0,
+              daysActive: 0,
+              topLanguage: "N/A",
+            },
       activity: activity.status === "fulfilled" ? activity.value : [],
       languages: languages.status === "fulfilled" ? languages.value : [],
     };
@@ -95,7 +102,10 @@ function WakaTimePeriodPage() {
               {activityDescription}
             </p>
           </div>
-          <WakaTimeActivityView codingActivity={activity} isAllTime={isAllTime} />
+          <WakaTimeActivityView
+            codingActivity={activity}
+            isAllTime={isAllTime}
+          />
         </div>
 
         <div>

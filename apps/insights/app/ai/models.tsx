@@ -8,7 +8,6 @@ export function CCUsageModelsView({
   models: CCUsageModelData[];
   className?: string;
 }) {
-
   // Transform model data for charts (converted from hook to regular functions)
   // Both charts use the same set of models for data consistency
   // LanguageBarChart internally limits to top 8, which ensures both charts show identical models

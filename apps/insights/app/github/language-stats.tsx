@@ -132,7 +132,9 @@ export function GitHubLanguageStatsView({
   );
 }
 
-export async function fetchLanguageStats(owner: string): Promise<GitHubLanguageStatsData> {
+export async function fetchLanguageStats(
+  owner: string
+): Promise<GitHubLanguageStatsData> {
   try {
     // Fetch all repositories with pagination
     const repos = await fetchAllRepositories(owner);

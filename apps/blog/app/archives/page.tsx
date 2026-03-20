@@ -6,12 +6,7 @@ import { YearPost } from "@/components/post";
 export const dynamic = "force-static";
 
 export default function Archives() {
-  const postsByYear = getPostsByAllYear([
-    "slug",
-    "title",
-    "date",
-    "category",
-  ]);
+  const postsByYear = getPostsByAllYear(["slug", "title", "date", "category"]);
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
     0

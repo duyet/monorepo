@@ -25,14 +25,30 @@
 }
 
 /* Staggered delays for visual hierarchy */
-.animate-fade-in-delay-1 { animation-delay: 50ms; }
-.animate-fade-in-delay-2 { animation-delay: 100ms; }
-.animate-fade-in-delay-3 { animation-delay: 150ms; }
-.animate-fade-in-delay-4 { animation-delay: 200ms; }
-.animate-fade-in-delay-5 { animation-delay: 250ms; }
-.animate-fade-in-delay-6 { animation-delay: 300ms; }
-.animate-fade-in-delay-7 { animation-delay: 350ms; }
-.animate-fade-in-delay-8 { animation-delay: 400ms; }
+.animate-fade-in-delay-1 {
+  animation-delay: 50ms;
+}
+.animate-fade-in-delay-2 {
+  animation-delay: 100ms;
+}
+.animate-fade-in-delay-3 {
+  animation-delay: 150ms;
+}
+.animate-fade-in-delay-4 {
+  animation-delay: 200ms;
+}
+.animate-fade-in-delay-5 {
+  animation-delay: 250ms;
+}
+.animate-fade-in-delay-6 {
+  animation-delay: 300ms;
+}
+.animate-fade-in-delay-7 {
+  animation-delay: 350ms;
+}
+.animate-fade-in-delay-8 {
+  animation-delay: 400ms;
+}
 
 /* Faster variant for above-fold content */
 .animate-fade-in-fast {
@@ -42,5 +58,8 @@
 
 /* For smooth background color transitions */
 .transition-colors-smooth {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }

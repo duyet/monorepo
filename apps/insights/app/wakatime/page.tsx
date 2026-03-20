@@ -34,9 +34,7 @@ export default function Wakatime() {
         description="Programming activity summary for the last 30 days"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <WakaTimeMetrics days={STATIC_DAYS} />
         </Suspense>
@@ -47,9 +45,7 @@ export default function Wakatime() {
         description="Coding hours over the last 30 days"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <WakaTimeActivity days={STATIC_DAYS} />
         </Suspense>
@@ -60,9 +56,7 @@ export default function Wakatime() {
         description="Language usage and distribution"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <WakaTimeLanguages days={STATIC_DAYS} />
         </Suspense>
@@ -73,9 +67,7 @@ export default function Wakatime() {
         description="Historical coding activity over multiple years"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <WakaTimeMonthlyTrend />
         </Suspense>
@@ -86,9 +78,7 @@ export default function Wakatime() {
         description="Coding activity breakdown by day of week"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <WakaTimeHourlyHeatmap />
         </Suspense>

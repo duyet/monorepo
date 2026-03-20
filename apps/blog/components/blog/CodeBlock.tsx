@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { useClipboard } from "@/lib/hooks/useClipboard";
 import { Check, Copy } from "lucide-react";
 import { useRef } from "react";
+import { useClipboard } from "@/lib/hooks/useClipboard";
 
 interface CodeBlockProps {
   children?: React.ReactNode;

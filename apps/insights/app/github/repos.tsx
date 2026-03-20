@@ -49,7 +49,12 @@ function Repo({
 }) {
   return (
     <div className="group relative rounded-lg border bg-background p-4 transition-all">
-      <a className="absolute inset-0 z-10" href={html_url} target="_blank" rel="noopener noreferrer">
+      <a
+        className="absolute inset-0 z-10"
+        href={html_url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <span className="sr-only">View project</span>
       </a>
 

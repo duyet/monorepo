@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { DateRangeDays } from "@/app/ai/types";
 import { CCUsageActivityView } from "@/app/ai/activity";
 import { CCUsageCostsView } from "@/app/ai/costs";
 import { CCUsageDailyTableView } from "@/app/ai/daily-table";
 import { CCUsageMetricsView } from "@/app/ai/metrics";
 import { CCUsageModelsView } from "@/app/ai/models";
+import type { DateRangeDays } from "@/app/ai/types";
 import {
   getCCUsageActivity,
   getCCUsageActivityByModel,
@@ -15,7 +15,9 @@ import {
 } from "@/app/ai/utils/data-fetchers";
 import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
 
-const STATIC_DAYS: DateRangeDays = getPeriodDays(DEFAULT_PERIOD) as DateRangeDays;
+const STATIC_DAYS: DateRangeDays = getPeriodDays(
+  DEFAULT_PERIOD
+) as DateRangeDays;
 
 export const Route = createFileRoute("/ai/")({
   loader: async () => {
@@ -32,17 +34,13 @@ export const Route = createFileRoute("/ai/")({
 
     return {
       days,
-      metrics:
-        metrics.status === "fulfilled"
-          ? metrics.value
-          : null,
+      metrics: metrics.status === "fulfilled" ? metrics.value : null,
       activity: activity.status === "fulfilled" ? activity.value : [],
       activityByModel:
         activityByModel.status === "fulfilled" ? activityByModel.value : [],
       models: models.status === "fulfilled" ? models.value : [],
       costs: costs.status === "fulfilled" ? costs.value : [],
-      activityRaw:
-        activityRaw.status === "fulfilled" ? activityRaw.value : [],
+      activityRaw: activityRaw.status === "fulfilled" ? activityRaw.value : [],
     };
   },
   head: () => ({
@@ -59,8 +57,15 @@ export const Route = createFileRoute("/ai/")({
 });
 
 function AiPage() {
-  const { days, metrics, activity, activityByModel, models, costs, activityRaw } =
-    Route.useLoaderData();
+  const {
+    days,
+    metrics,
+    activity,
+    activityByModel,
+    models,
+    costs,
+    activityRaw,
+  } = Route.useLoaderData();
 
   return (
     <div className="space-y-8">

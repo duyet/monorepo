@@ -1,17 +1,17 @@
 import type { GithubRepo } from "@duyet/interfaces";
 import { createFileRoute } from "@tanstack/react-router";
+import { fetchGithubStars, GithubActivityView } from "@/app/github/activity";
 import { GithubCard } from "@/app/github/card";
-import { GithubActivityView, fetchGithubStars } from "@/app/github/activity";
 import {
   CommitTimelineView,
   fetchCommitStats,
 } from "@/app/github/commit-timeline";
 import {
-  GitHubLanguageStatsView,
   fetchLanguageStats,
+  GitHubLanguageStatsView,
 } from "@/app/github/language-stats";
-import { RepoTrendsView, fetchTrendStats } from "@/app/github/repo-trends";
-import { ReposView, fetchGithubRepos } from "@/app/github/repos";
+import { fetchTrendStats, RepoTrendsView } from "@/app/github/repo-trends";
+import { fetchGithubRepos, ReposView } from "@/app/github/repos";
 import { getPeriodConfig } from "@/lib/periods";
 
 const OWNER = "duyet";

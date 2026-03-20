@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import {
   CATEGORY_MAP,
   CATEGORY_ORDER,
-  DEFAULT_CATEGORY,
   type Category,
+  DEFAULT_CATEGORY,
 } from "../app/config/categories";
 
 describe("CATEGORY_ORDER", () => {

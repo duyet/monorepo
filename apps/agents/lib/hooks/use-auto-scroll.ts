@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useRef } from "react";
 
 export interface UseAutoScrollOptions {

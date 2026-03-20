@@ -17,7 +17,10 @@ export const Route = createFileRoute("/year/$year")({
     return {
       meta: [
         { title: `LLM Models Released in ${year} | LLM Timeline` },
-        { name: "description", content: `A comprehensive timeline of Large Language Model releases from ${year}.` },
+        {
+          name: "description",
+          content: `A comprehensive timeline of Large Language Model releases from ${year}.`,
+        },
       ],
     };
   },

@@ -46,7 +46,6 @@ import {
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
 
-
 /**
  * Sanitize a user-supplied string before injecting into the system prompt.
  */
@@ -333,7 +332,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // When useGraph=true and mode=agent, use GraphRouter instead of direct LLM
     if (useGraph && mode === "agent") {
       return handleGraphExecution(
-        { request: context.request, env: context.env, waitUntil: context.waitUntil.bind(context) },
+        {
+          request: context.request,
+          env: context.env,
+          waitUntil: context.waitUntil.bind(context),
+        },
         requestId,
         uiMessages,
         conversationId,
@@ -385,7 +388,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
  * but orchestrates through the GraphRouter for state management.
  */
 async function handleGraphExecution(
-  context: { request: Request; env: Env; waitUntil: (promise: Promise<unknown>) => void },
+  context: {
+    request: Request;
+    env: Env;
+    waitUntil: (promise: Promise<unknown>) => void;
+  },
   requestId: string,
   uiMessages: unknown[],
   conversationId: string | undefined,

@@ -32,7 +32,10 @@ function FeaturedCardInner({
   description,
   date,
   color = "terracotta",
-}: Pick<FeaturedCardProps, "title" | "category" | "description" | "date" | "color">) {
+}: Pick<
+  FeaturedCardProps,
+  "title" | "category" | "description" | "date" | "color"
+>) {
   return (
     <>
       <div className="relative z-10 flex flex-col gap-4">

@@ -1,3 +1,5 @@
+import { cn } from "@duyet/libs/utils";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BarChart,
@@ -8,13 +10,11 @@ import {
   Settings,
   User,
 } from "lucide-react";
-import { Link, createFileRoute } from "@tanstack/react-router";
-import { cn } from "@duyet/libs/utils";
 import { Suspense } from "react";
+import { addUtmParams } from "../../app/lib/utm";
 import { BuildDate } from "../components/BuildDate";
 import { FooterInteractive } from "../components/FooterInteractive";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
-import { addUtmParams } from "../../app/lib/utm";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -314,7 +314,12 @@ function HomePage() {
                 return (
                   <BentoCard
                     key={item.name}
-                    href={addUtmParams(item.href, "homepage", item.utmContent, item.host)}
+                    href={addUtmParams(
+                      item.href,
+                      "homepage",
+                      item.utmContent,
+                      item.host
+                    )}
                     className="group flex flex-col overflow-hidden p-0"
                     shortcutId={shortcutId}
                     shortcutNumber={shortcutNumber}

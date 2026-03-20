@@ -1,5 +1,6 @@
-
 import { Button } from "@duyet/components";
+import { Plus } from "lucide-react";
+import { NavUser } from "@/components/nav-user";
 import {
   Sheet,
   SheetContent,
@@ -8,8 +9,6 @@ import {
 } from "@/components/ui/sheet";
 import type { Conversation } from "@/lib/types";
 import { ConversationList } from "./conversation-list";
-import { NavUser } from "@/components/nav-user";
-import { Plus } from "lucide-react";
 
 export interface SidebarModalProps {
   open: boolean;
@@ -42,9 +41,7 @@ export function SidebarModal({
               <span className="font-semibold text-foreground text-base">
                 Duyet Le
               </span>
-              <span className="text-xs text-muted-foreground">
-                Agent
-              </span>
+              <span className="text-xs text-muted-foreground">Agent</span>
             </div>
           </SheetTitle>
         </SheetHeader>

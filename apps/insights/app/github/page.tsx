@@ -30,9 +30,7 @@ export default function Page() {
         description="Programming languages and repository statistics"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <GitHubLanguageStats />
         </Suspense>
@@ -43,9 +41,7 @@ export default function Page() {
         description="Stars, forks, and trending repositories"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <RepoTrends />
         </Suspense>
@@ -56,9 +52,7 @@ export default function Page() {
         description="Public repositories and statistics"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <Repos owner={owner} />
         </Suspense>
@@ -69,9 +63,7 @@ export default function Page() {
         description="Weekly commit frequency and patterns"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <CommitTimeline />
         </Suspense>
@@ -82,9 +74,7 @@ export default function Page() {
         description="Recent contributions and activity patterns"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <GithubActivity owner={owner} />
         </Suspense>
@@ -95,9 +85,7 @@ export default function Page() {
         description="Overall GitHub profile metrics"
       >
         <Suspense
-          fallback={
-            <div className="animate-pulse h-64 bg-muted rounded-xl" />
-          }
+          fallback={<div className="animate-pulse h-64 bg-muted rounded-xl" />}
         >
           <GithubCard owner={owner} />
         </Suspense>

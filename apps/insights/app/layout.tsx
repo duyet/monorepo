@@ -20,10 +20,7 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html
-      lang={insightsConfig.metadata.lang}
-      suppressHydrationWarning
-    >
+    <html lang={insightsConfig.metadata.lang} suppressHydrationWarning>
       <Head />
       <body
         className="bg-[var(--background)] text-[var(--foreground)] antialiased"

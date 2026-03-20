@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Activity,
   BarChart3,
@@ -12,7 +13,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 
 interface NavItem {

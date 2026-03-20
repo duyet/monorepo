@@ -1,15 +1,15 @@
-import { cn } from "@duyet/libs"
-import { Link } from "@tanstack/react-router"
-import type { ReactNode } from "react"
+import { cn } from "@duyet/libs";
+import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
-import { externalLinkClassName } from "./link-styles"
+import { externalLinkClassName } from "./link-styles";
 
 type ResumeLinkProps = {
-  href: string
-  className?: string
-  children: ReactNode
-  external?: boolean
-}
+  href: string;
+  className?: string;
+  children: ReactNode;
+  external?: boolean;
+};
 
 export function ResumeLink({
   className,
@@ -23,7 +23,7 @@ export function ResumeLink({
         target: "_blank" as const,
         rel: "noopener noreferrer" as const,
       }
-    : {}
+    : {};
 
   return (
     <Link
@@ -34,5 +34,5 @@ export function ResumeLink({
     >
       {children}
     </Link>
-  )
+  );
 }

@@ -68,9 +68,9 @@ CardFooter.displayName = "CardFooter";
 // Export overridden components and shared components
 export {
   Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
   CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 };

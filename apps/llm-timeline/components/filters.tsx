@@ -1,5 +1,12 @@
 import { cn } from "@duyet/libs/utils";
-import { ChevronDown, Download, Filter, LayoutList, Rows2, X } from "lucide-react";
+import {
+  ChevronDown,
+  Download,
+  Filter,
+  LayoutList,
+  Rows2,
+  X,
+} from "lucide-react";
 import { useCallback, useState } from "react";
 import { models as allModels, domains, organizations } from "@/lib/data";
 import type { FilterState } from "@/lib/utils";
@@ -92,7 +99,12 @@ export function Filters({
               {activeFilterCount}
             </span>
           )}
-          <ChevronDown className={cn("h-3 w-3 transition-transform", filtersExpanded && "rotate-180")} />
+          <ChevronDown
+            className={cn(
+              "h-3 w-3 transition-transform",
+              filtersExpanded && "rotate-180"
+            )}
+          />
         </button>
 
         {/* View toggle */}
@@ -106,9 +118,15 @@ export function Filters({
                 : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-white/20"
             )}
             title={liteMode ? "Switch to full view" : "Switch to compact view"}
-            aria-label={liteMode ? "Switch to full view" : "Switch to compact view"}
+            aria-label={
+              liteMode ? "Switch to full view" : "Switch to compact view"
+            }
           >
-            {liteMode ? <LayoutList className="h-4 w-4" /> : <Rows2 className="h-4 w-4" />}
+            {liteMode ? (
+              <LayoutList className="h-4 w-4" />
+            ) : (
+              <Rows2 className="h-4 w-4" />
+            )}
           </button>
         )}
       </div>
@@ -119,7 +137,12 @@ export function Filters({
           <div className="flex flex-wrap items-center gap-2.5">
             <select
               value={filters.license}
-              onChange={(e) => updateFilter("license", e.target.value as FilterState["license"])}
+              onChange={(e) =>
+                updateFilter(
+                  "license",
+                  e.target.value as FilterState["license"]
+                )
+              }
               className={selectClassName}
             >
               <option value="all">All Licenses</option>
@@ -130,7 +153,9 @@ export function Filters({
 
             <select
               value={filters.type}
-              onChange={(e) => updateFilter("type", e.target.value as FilterState["type"])}
+              onChange={(e) =>
+                updateFilter("type", e.target.value as FilterState["type"])
+              }
               className={selectClassName}
             >
               <option value="all">All Types</option>
@@ -145,7 +170,9 @@ export function Filters({
             >
               <option value="">All Organizations</option>
               {organizations.map((org) => (
-                <option key={org} value={org}>{org}</option>
+                <option key={org} value={org}>
+                  {org}
+                </option>
               ))}
             </select>
 
@@ -157,7 +184,9 @@ export function Filters({
               <option value="all">All Sources</option>
               {uniqueSources.map((src) => (
                 <option key={src} value={src}>
-                  {src === "epoch" ? "Epoch AI" : src.charAt(0).toUpperCase() + src.slice(1)}
+                  {src === "epoch"
+                    ? "Epoch AI"
+                    : src.charAt(0).toUpperCase() + src.slice(1)}
                 </option>
               ))}
             </select>
@@ -169,7 +198,9 @@ export function Filters({
             >
               <option value="all">All Domains</option>
               {domains.map((d) => (
-                <option key={d} value={d}>{d}</option>
+                <option key={d} value={d}>
+                  {d}
+                </option>
               ))}
             </select>
 

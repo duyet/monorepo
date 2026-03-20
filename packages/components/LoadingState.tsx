@@ -1,8 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { cn } from "@duyet/libs/utils";
 import { RefreshCw } from "lucide-react";
+import type { ReactNode } from "react";
 
 /**
  * Shared loading state components for consistent UX across apps

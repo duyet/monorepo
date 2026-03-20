@@ -93,7 +93,8 @@ async function handleGet(
   const client = createDatabaseClient(db);
   const url = new URL(request.url);
   const rawLimit = parseInt(url.searchParams.get("limit") || "50", 10);
-  const limit = Number.isNaN(rawLimit) || rawLimit < 1 ? 50 : Math.min(rawLimit, 200);
+  const limit =
+    Number.isNaN(rawLimit) || rawLimit < 1 ? 50 : Math.min(rawLimit, 200);
 
   try {
     if (isMessages && conversationId) {

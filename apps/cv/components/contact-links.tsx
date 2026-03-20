@@ -6,9 +6,8 @@ import {
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
 import type { ContactLink } from "@/config/cv.types";
-
-import { ResumeLink } from "./resume-link";
 import { hoverCardClassName } from "./link-styles";
+import { ResumeLink } from "./resume-link";
 
 export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
   return (
@@ -22,7 +21,11 @@ export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
           return (
             <HoverCard key={contact.id} openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
-                <ResumeLink href={contact.url} external className="text-inherit">
+                <ResumeLink
+                  href={contact.url}
+                  external
+                  className="text-inherit"
+                >
                   {contact.label}
                 </ResumeLink>
               </HoverCardTrigger>
@@ -54,7 +57,12 @@ export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
         }
 
         return (
-          <ResumeLink key={contact.id} href={contact.url} external className="text-inherit">
+          <ResumeLink
+            key={contact.id}
+            href={contact.url}
+            external
+            className="text-inherit"
+          >
             {contact.label}
           </ResumeLink>
         );

@@ -7,9 +7,8 @@ import {
 } from "@duyet/components/ui/hover-card";
 import { track } from "@seline-analytics/web";
 import type React from "react";
-
-import { ResumeLink } from "./resume-link";
 import { hoverCardClassName } from "./link-styles";
+import { ResumeLink } from "./resume-link";
 
 export function Skill({
   skill,
@@ -22,8 +21,8 @@ export function Skill({
   icon?: React.ReactNode;
   note?: string | React.ReactNode;
 }) {
-    if (!url && !icon && !note) return skill;
-    if (url && !icon)
+  if (!url && !icon && !note) return skill;
+  if (url && !icon)
     return (
       <ResumeLink href={url} external className="text-inherit">
         {skill}
@@ -40,11 +39,7 @@ export function Skill({
     >
       <HoverCardTrigger asChild>
         {url ? (
-          <ResumeLink
-            href={url}
-            external
-            className="text-inherit"
-          >
+          <ResumeLink href={url} external className="text-inherit">
             {skill}
           </ResumeLink>
         ) : (
@@ -67,7 +62,9 @@ export function Skill({
               skill
             )}
           </div>
-          {note ? <div className="text-neutral-600 dark:text-neutral-300">{note}</div> : null}
+          {note ? (
+            <div className="text-neutral-600 dark:text-neutral-300">{note}</div>
+          ) : null}
         </div>
       </HoverCardContent>
     </HoverCard>

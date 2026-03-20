@@ -49,12 +49,7 @@ function AppCardContent({
   );
 }
 
-export function AppCard({
-  title,
-  href,
-  screenshot,
-  className,
-}: AppCardProps) {
+export function AppCard({ title, href, screenshot, className }: AppCardProps) {
   const isExternal = href.startsWith("http");
   const domain = extractDomain(href);
   const sharedClassName = cn("group block overflow-hidden", className);

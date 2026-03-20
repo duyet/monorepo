@@ -1,10 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import {
-  random,
-  generateUptime,
-  getHistoricalTime,
-} from "../lib/data/utils";
 import { UPTIME_RANGES } from "../lib/constants";
+import { generateUptime, getHistoricalTime, random } from "../lib/data/utils";
 
 describe("utils", () => {
   describe("random()", () => {

@@ -64,9 +64,7 @@ export interface AppUrls {
 // Falling back to process.env makes the same source work in Node / test contexts.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const viteEnv: Record<string, string> =
-  typeof import.meta !== "undefined"
-    ? (import.meta as any).env ?? {}
-    : {};
+  typeof import.meta !== "undefined" ? ((import.meta as any).env ?? {}) : {};
 const env = (key: string): string | undefined =>
   viteEnv[key] ?? process.env[key];
 

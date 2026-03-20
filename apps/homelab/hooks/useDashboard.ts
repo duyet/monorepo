@@ -146,7 +146,9 @@ export function useNode(nodeName: string): Node | undefined {
   return useMemo(() => nodes.find((n) => n.name === nodeName), [nodeName]);
 }
 
-const _namespaces = Array.from(new Set(services.map((s) => s.namespace))).sort();
+const _namespaces = Array.from(
+  new Set(services.map((s) => s.namespace))
+).sort();
 
 /**
  * Hook for getting all unique namespaces

@@ -55,6 +55,10 @@
       "path": "/year/2026"
     },
     {
+      "path": "/compare?models=",
+      "fromCrawl": true
+    },
+    {
       "path": "/llms.txt",
       "fromCrawl": true
     },
@@ -5548,5 +5552,5 @@
     }
   ],
   "host": "https://llm-timeline.duyet.net",
-  "lastBuilt": "2026-03-20T11:19:31.308Z"
+  "lastBuilt": "2026-03-20T11:34:58.258Z"
 }

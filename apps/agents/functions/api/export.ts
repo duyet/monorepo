@@ -59,7 +59,10 @@ interface ExportMessage {
   sources?: Array<{ title: string; url?: string }>;
 }
 
-function formatAsJSON(conversation: ExportConversation, messages: ExportMessage[]): string {
+function formatAsJSON(
+  conversation: ExportConversation,
+  messages: ExportMessage[]
+): string {
   return JSON.stringify(
     {
       conversation: {
@@ -89,7 +92,10 @@ function formatAsJSON(conversation: ExportConversation, messages: ExportMessage[
 /**
  * Format conversation as Markdown
  */
-function formatAsMarkdown(conversation: ExportConversation, messages: ExportMessage[]): string {
+function formatAsMarkdown(
+  conversation: ExportConversation,
+  messages: ExportMessage[]
+): string {
   const lines: string[] = [];
 
   // Header
@@ -158,7 +164,10 @@ function formatAsMarkdown(conversation: ExportConversation, messages: ExportMess
 /**
  * Format conversation as plain text
  */
-function formatAsText(conversation: ExportConversation, messages: ExportMessage[]): string {
+function formatAsText(
+  conversation: ExportConversation,
+  messages: ExportMessage[]
+): string {
   const lines: string[] = [];
 
   // Header

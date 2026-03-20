@@ -45,7 +45,6 @@ export async function fetchAllRepositories(
 
   while (page <= maxPages) {
     try {
-
       const response = await fetch(
         `${githubConfig.baseUrl}${githubConfig.endpoints.searchRepositories}?q=user:${owner}+is:public&sort=updated&per_page=${perPage}&page=${page}`,
         {

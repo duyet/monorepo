@@ -1,17 +1,12 @@
-
 import { Badge } from "@duyet/components";
+import { cn } from "@duyet/libs";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { cn } from "@duyet/libs";
-import {
-  AlertCircle,
-  CheckCircle2,
-  Loader2,
-} from "lucide-react";
 import type { ToolExecution } from "@/lib/types";
 
 interface ToolExecutionItemProps {

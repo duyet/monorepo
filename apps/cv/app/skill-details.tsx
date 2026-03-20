@@ -237,7 +237,10 @@ export function SkillLangGraph() {
     <Skill
       skill="LangGraph"
       note={
-        <span>Agent orchestration and stateful workflow graphs for multi-step LLM systems.</span>
+        <span>
+          Agent orchestration and stateful workflow graphs for multi-step LLM
+          systems.
+        </span>
       }
     />
   );

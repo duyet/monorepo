@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { DateRangeDays } from "@/app/ai/types";
 import { CCUsageActivityView } from "@/app/ai/activity";
 import { CCUsageCostsView } from "@/app/ai/costs";
 import { CCUsageDailyTableView } from "@/app/ai/daily-table";
 import { CCUsageMetricsView } from "@/app/ai/metrics";
 import { CCUsageModelsView } from "@/app/ai/models";
+import type { DateRangeDays } from "@/app/ai/types";
 import {
   getCCUsageActivity,
   getCCUsageActivityByModel,
@@ -40,8 +40,7 @@ export const Route = createFileRoute("/ai/$period")({
         activityByModel.status === "fulfilled" ? activityByModel.value : [],
       models: models.status === "fulfilled" ? models.value : [],
       costs: costs.status === "fulfilled" ? costs.value : [],
-      activityRaw:
-        activityRaw.status === "fulfilled" ? activityRaw.value : [],
+      activityRaw: activityRaw.status === "fulfilled" ? activityRaw.value : [],
     };
   },
   head: ({ loaderData }) => ({

@@ -7,7 +7,12 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { PageLayout } from "@/components/page-layout";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
-import { formatDate, getLicenseBarColor, getLicenseColor, slugify } from "@/lib/utils";
+import {
+  formatDate,
+  getLicenseBarColor,
+  getLicenseColor,
+  slugify,
+} from "@/lib/utils";
 
 // Maximum number of models that can be compared
 const MAX_COMPARE = 4;
@@ -427,7 +432,11 @@ export default function ComparePage() {
   return (
     <PageLayout description="Compare LLM models side-by-side">
       <Suspense
-        fallback={<div className="text-neutral-900 dark:text-neutral-100">Loading...</div>}
+        fallback={
+          <div className="text-neutral-900 dark:text-neutral-100">
+            Loading...
+          </div>
+        }
       >
         <CompareContent />
       </Suspense>

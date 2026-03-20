@@ -1,5 +1,12 @@
-import { afterEach, cleanup, describe, expect, it, render } from "../../test-setup";
 import { testModel } from "../../test-fixtures";
+import {
+  afterEach,
+  cleanup,
+  describe,
+  expect,
+  it,
+  render,
+} from "../../test-setup";
 import { ModelCard } from "../model-card";
 
 afterEach(cleanup);

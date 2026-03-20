@@ -101,7 +101,8 @@ export function Timeline({
                 </span>
                 <div className="mb-2">
                   <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-[family-name:var(--font-mono)]">
-                    {yearModels.length} model{yearModels.length !== 1 ? "s" : ""}
+                    {yearModels.length} model
+                    {yearModels.length !== 1 ? "s" : ""}
                   </span>
                 </div>
               </div>

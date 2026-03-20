@@ -1,17 +1,17 @@
-import { cn, distanceFormat } from "@duyet/libs"
-import type { ReactNode } from "react"
-import { ResumeLink } from "./resume-link"
+import { cn, distanceFormat } from "@duyet/libs";
+import type { ReactNode } from "react";
+import { ResumeLink } from "./resume-link";
 
 interface ExperienceItemProps {
-  title: string
-  company: string
-  companyUrl?: string
-  companyLogo?: string
-  companyLogoClassName?: string
-  from: Date
-  to?: Date
-  responsibilities: { id: number; item: string | ReactNode }[]
-  className?: string
+  title: string;
+  company: string;
+  companyUrl?: string;
+  companyLogo?: string;
+  companyLogoClassName?: string;
+  from: Date;
+  to?: Date;
+  responsibilities: { id: number; item: string | ReactNode }[];
+  className?: string;
 }
 
 export function ExperienceItem({
@@ -46,7 +46,7 @@ export function ExperienceItem({
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
 function CompanyLine({
@@ -79,29 +79,29 @@ function CompanyLine({
       ) : null}
       <span>{company}</span>
     </span>
-  )
+  );
 
   if (companyUrl) {
     return (
       <ResumeLink href={companyUrl} external className="m-0 p-0 text-inherit">
         {logoWithText}
       </ResumeLink>
-    )
+    );
   }
 
-  return logoWithText
+  return logoWithText;
 }
 
 function PeriodLine({ from, to }: { from: Date; to?: Date }) {
-  const monthFmt = new Intl.DateTimeFormat("en-US", { month: "long" })
+  const monthFmt = new Intl.DateTimeFormat("en-US", { month: "long" });
 
-  const fromString = `${monthFmt.format(from)} ${from.getFullYear()}`
+  const fromString = `${monthFmt.format(from)} ${from.getFullYear()}`;
   const toString = to
     ? `${monthFmt.format(to)} ${to.getFullYear()}`
-    : "CURRENT"
-  const period = `${fromString} - ${toString}`
+    : "CURRENT";
+  const period = `${fromString} - ${toString}`;
 
-  const duration = distanceFormat(from, to ? to : new Date())
+  const duration = distanceFormat(from, to ? to : new Date());
 
   return (
     <div className="group inline-flex gap-2 text-xs uppercase text-neutral-600 dark:text-neutral-300">
@@ -112,5 +112,5 @@ function PeriodLine({ from, to }: { from: Date; to?: Date }) {
         {duration}
       </div>
     </div>
-  )
+  );
 }

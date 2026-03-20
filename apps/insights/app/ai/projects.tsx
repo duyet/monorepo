@@ -9,11 +9,7 @@ import {
 import type { DateRangeDays } from "./types";
 import { getCCUsageProjects } from "./utils";
 
-export async function CCUsageProjects({
-  days = 30,
-}: {
-  days?: DateRangeDays;
-}) {
+export async function CCUsageProjects({ days = 30 }: { days?: DateRangeDays }) {
   const projects = await getCCUsageProjects(days);
 
   const formatTokens = (tokens: number) => {

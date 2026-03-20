@@ -6,9 +6,8 @@ import {
   HoverCardTrigger,
 } from "@duyet/components/ui/hover-card";
 import { track } from "@seline-analytics/web";
-
-import { ResumeLink } from "./resume-link";
 import { hoverCardClassName } from "./link-styles";
+import { ResumeLink } from "./resume-link";
 
 export function HoverLinks({
   text,

@@ -1,5 +1,12 @@
-import { afterEach, cleanup, describe, expect, it, render } from "../test-setup";
 import Container from "../Container";
+import {
+  afterEach,
+  cleanup,
+  describe,
+  expect,
+  it,
+  render,
+} from "../test-setup";
 
 afterEach(cleanup);
 

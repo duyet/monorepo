@@ -1,19 +1,19 @@
-import { Separator } from "@duyet/components/ui/separator"
-import { Link, createFileRoute } from "@tanstack/react-router"
-import { Education } from "@/components/education"
-import { ExperienceItem } from "@/components/experience"
-import { Profile } from "@/components/profile"
-import { Section } from "@/components/section"
-import { SkillsSection } from "@/components/skills-section"
+import { Separator } from "@duyet/components/ui/separator";
+import { createFileRoute } from "@tanstack/react-router";
+import { Education } from "@/components/education";
+import { ExperienceItem } from "@/components/experience";
+import { Profile } from "@/components/profile";
+import { Section } from "@/components/section";
+import { SkillsSection } from "@/components/skills-section";
 
-import { cvData } from "@/config/cv.data"
+import { cvData } from "@/config/cv.data";
 
 export const Route = createFileRoute("/")({
   component: Page,
-})
+});
 
 function Page() {
-  const { personal, experience, education } = cvData
+  const { personal, experience, education } = cvData;
 
   return (
     <div className="m-auto flex min-h-screen flex-col gap-6 text-sm text-foreground">
@@ -56,16 +56,16 @@ function Page() {
         <Separator className="cv-footer-separator my-2" />
         <p className="text-xs text-muted-foreground">
           Live version at{" "}
-          <Link
-            to="https://duyet.net/cv"
+          <a
+            href="https://duyet.net/cv"
             className="underline"
             target="_blank"
             rel="noopener noreferrer"
           >
             https://duyet.net/cv
-          </Link>
+          </a>
         </p>
       </footer>
     </div>
-  )
+  );
 }

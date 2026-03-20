@@ -81,7 +81,14 @@ function ContentCardInner({
   featured = false,
 }: Pick<
   ContentCardProps,
-  "title" | "category" | "description" | "tags" | "date" | "color" | "illustration" | "featured"
+  | "title"
+  | "category"
+  | "description"
+  | "tags"
+  | "date"
+  | "color"
+  | "illustration"
+  | "featured"
 >) {
   const IllustrationComponent = illustrations[illustration];
 

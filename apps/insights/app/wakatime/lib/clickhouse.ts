@@ -64,7 +64,6 @@ export async function getClickHouseActivity(
     ORDER BY date DESC
   `;
 
-
   const result = await executeClickHouseQuery(query);
 
   if (!result.success) {

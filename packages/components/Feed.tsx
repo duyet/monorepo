@@ -55,10 +55,7 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
       <div className="flex flex-row gap-2 mb-2 text-gray-400">
         <time>{post.date.toString()}</time>
 
-        <Link
-          to={`/category/${post.category_slug}`}
-          className="text-gray-400"
-        >
+        <Link to={`/category/${post.category_slug}`} className="text-gray-400">
           {post.category}
         </Link>
       </div>

@@ -7,11 +7,11 @@
 // Component Exports
 // ============================================================================
 
-export { CCUsageActivity } from "./activity";
-export { CCUsageCosts } from "./costs";
+export { CCUsageActivityView as CCUsageActivity } from "./activity";
+export { CCUsageCostsView as CCUsageCosts } from "./costs";
 export { DateFilter } from "./date-filter";
-export { CCUsageMetrics } from "./metrics";
-export { CCUsageModels } from "./models";
+export { CCUsageMetricsView as CCUsageMetrics } from "./metrics";
+export { CCUsageModelsView as CCUsageModels } from "./models";
 export { StaticDateFilter } from "./static-date-filter";
 
 // ============================================================================

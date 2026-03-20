@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { nodes, clusterStats } from "../lib/data/nodes";
+import { clusterStats, nodes } from "../lib/data/nodes";
 
 describe("nodes", () => {
   describe("nodes array", () => {
@@ -81,9 +81,7 @@ describe("nodes", () => {
 
     it("usedMemory is sum of all node memoryUsed values", () => {
       const expectedTotal = nodes.reduce((acc, n) => acc + n.memoryUsed, 0);
-      expect(clusterStats.usedMemory).toBe(
-        Number(expectedTotal.toFixed(1))
-      );
+      expect(clusterStats.usedMemory).toBe(Number(expectedTotal.toFixed(1)));
     });
 
     it("totalServices is sum of all node services", () => {

@@ -1,9 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import {
-  getTarget,
-  getPublicUrls,
-  urls,
-} from "../app/config/urls";
+import { getPublicUrls, getTarget, urls } from "../app/config/urls";
 
 describe("urls", () => {
   it("has expected keys", () => {

@@ -1,7 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { PeriodDays } from "@/lib/periods";
-import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
-import { StaticCard } from "@/components/StaticCard";
 import { WakaTimeActivityView } from "@/app/wakatime/activity";
 import { WakaTimeHourlyHeatmapView } from "@/app/wakatime/hourly-heatmap";
 import { WakaTimeLanguagesView } from "@/app/wakatime/languages";
@@ -14,6 +11,9 @@ import {
   getWakaTimeMetrics,
   getWakaTimeMonthlyTrend,
 } from "@/app/wakatime/wakatime-utils";
+import { StaticCard } from "@/components/StaticCard";
+import type { PeriodDays } from "@/lib/periods";
+import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
 
 const STATIC_DAYS: PeriodDays = getPeriodDays(DEFAULT_PERIOD) as PeriodDays;
 
@@ -34,7 +34,12 @@ export const Route = createFileRoute("/wakatime/")({
       metrics:
         metrics.status === "fulfilled"
           ? metrics.value
-          : { totalHours: 0, avgDailyHours: 0, daysActive: 0, topLanguage: "N/A" },
+          : {
+              totalHours: 0,
+              avgDailyHours: 0,
+              daysActive: 0,
+              topLanguage: "N/A",
+            },
       activity: activity.status === "fulfilled" ? activity.value : [],
       languages: languages.status === "fulfilled" ? languages.value : [],
       monthlyTrend:

@@ -314,7 +314,12 @@ export default function HomePage() {
                 return (
                   <BentoCard
                     key={item.name}
-                    href={addUtmParams(item.href, "homepage", item.utmContent, item.host)}
+                    href={addUtmParams(
+                      item.href,
+                      "homepage",
+                      item.utmContent,
+                      item.host
+                    )}
                     className="group flex flex-col overflow-hidden p-0"
                     shortcutId={shortcutId}
                     shortcutNumber={shortcutNumber}

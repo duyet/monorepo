@@ -7,7 +7,6 @@ export function WakaTimeLanguagesView({
 }: {
   languages: Language[];
 }) {
-
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {/* Language Distribution - Pie Chart */}

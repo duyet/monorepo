@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { CloudflareView, fetchCloudflareData } from "@/app/blog/cloudflare";
+import { fetchPostHogData, PostHogView } from "@/app/blog/posthog";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
-import { CloudflareView, fetchCloudflareData } from "@/app/blog/cloudflare";
-import { PostHogView, fetchPostHogData } from "@/app/blog/posthog";
 
 export const Route = createFileRoute("/blog/$period")({
   loader: async ({ params }) => {

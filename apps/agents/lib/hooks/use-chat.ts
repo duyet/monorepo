@@ -305,7 +305,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     }
   }, [aiMessages, isActiveStatus]);
 
-  const toolTimestampsRef = useRef<Map<string, { start: number; end?: number }>>(new Map());
+  const toolTimestampsRef = useRef<
+    Map<string, { start: number; end?: number }>
+  >(new Map());
 
   /** Collect tool executions from DynamicToolUIPart parts across all messages */
   const toolExecutions = useMemo<ToolExecution[]>(() => {

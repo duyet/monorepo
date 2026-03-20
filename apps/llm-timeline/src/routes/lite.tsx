@@ -6,7 +6,11 @@ export const Route = createFileRoute("/lite")({
   head: () => ({
     meta: [
       { title: "LLM Timeline (Lite Mode) | LLM Timeline" },
-      { name: "description", content: "A streamlined, minimalist view of Large Language Model releases." },
+      {
+        name: "description",
+        content:
+          "A streamlined, minimalist view of Large Language Model releases.",
+      },
     ],
   }),
   component: LitePage,

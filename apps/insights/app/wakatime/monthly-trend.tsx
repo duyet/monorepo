@@ -1,9 +1,16 @@
 import { AreaChart } from "@/components/charts";
 
-type MonthlyTrendItem = { yearMonth: string; hours: number; displayDate: string };
+type MonthlyTrendItem = {
+  yearMonth: string;
+  hours: number;
+  displayDate: string;
+};
 
-export function WakaTimeMonthlyTrendView({ monthlyData }: { monthlyData: MonthlyTrendItem[] }) {
-
+export function WakaTimeMonthlyTrendView({
+  monthlyData,
+}: {
+  monthlyData: MonthlyTrendItem[];
+}) {
   if (!monthlyData || monthlyData.length === 0) {
     return (
       <div className="rounded-lg border bg-card p-4">

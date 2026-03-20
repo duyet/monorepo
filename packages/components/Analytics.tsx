@@ -1,29 +1,24 @@
 import { useEffect } from "react";
 
+const importMetaEnv =
+  typeof import.meta !== "undefined"
+    ? ((import.meta as unknown as Record<string, unknown>).env as
+        | Record<string, string>
+        | undefined)
+    : undefined;
+
 const GA_MEASUREMENT_ID =
-  typeof import.meta !== "undefined" &&
-  (import.meta as Record<string, unknown>).env
-    ? ((import.meta as Record<string, unknown>).env as Record<string, string>)
-        .VITE_MEASUREMENT_ID
-    : process.env.NEXT_PUBLIC_MEASUREMENT_ID;
+  importMetaEnv?.VITE_MEASUREMENT_ID ?? process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 
 const POSTHOG_API_KEY =
-  typeof import.meta !== "undefined" &&
-  (import.meta as Record<string, unknown>).env
-    ? ((import.meta as Record<string, unknown>).env as Record<string, string>)
-        .VITE_POSTHOG_KEY
-    : process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  importMetaEnv?.VITE_POSTHOG_KEY ?? process.env.NEXT_PUBLIC_POSTHOG_KEY;
 
 const SELINE_TOKEN =
-  typeof import.meta !== "undefined" &&
-  (import.meta as Record<string, unknown>).env
-    ? ((import.meta as Record<string, unknown>).env as Record<string, string>)
-        .VITE_SELINE_TOKEN
-    : process.env.NEXT_PUBLIC_SELINE_TOKEN;
+  importMetaEnv?.VITE_SELINE_TOKEN ?? process.env.NEXT_PUBLIC_SELINE_TOKEN;
 
 function loadScript(
   src: string,
-  attrs?: Record<string, string>,
+  attrs?: Record<string, string>
 ): HTMLScriptElement {
   const el = document.createElement("script");
   el.src = src;
@@ -52,7 +47,7 @@ export default function AnalyticWrapper() {
   useEffect(() => {
     if (GA_MEASUREMENT_ID) {
       loadScript(
-        `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`,
+        `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
       );
       loadInlineScript(`
         window.dataLayer = window.dataLayer || [];

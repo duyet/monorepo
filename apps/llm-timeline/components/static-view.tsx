@@ -1,3 +1,4 @@
+import { parseParamValue } from "@duyet/libs";
 import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
 import {
@@ -22,7 +23,6 @@ import {
   groupByOrg,
   groupByYear,
 } from "@/lib/utils";
-import { parseParamValue } from "@duyet/libs";
 
 type View = "models" | "organizations";
 

@@ -1,5 +1,5 @@
-import { DownloadIcon } from "@radix-ui/react-icons"
-import { createFileRoute } from "@tanstack/react-router"
+import { DownloadIcon } from "@radix-ui/react-icons";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/pdf")({
   head: () => ({
@@ -9,9 +9,9 @@ export const Route = createFileRoute("/pdf")({
     ],
   }),
   component: Page,
-})
+});
 
-const file = "https://cv.duyet.net/duyet.cv.pdf"
+const file = "https://cv.duyet.net/duyet.cv.pdf";
 
 function Page() {
   return (
@@ -39,5 +39,5 @@ function Page() {
         />
       </object>
     </div>
-  )
+  );
 }

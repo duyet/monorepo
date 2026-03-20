@@ -1,5 +1,3 @@
-
-import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import {
@@ -10,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 // ─── Scroll context ────────────────────────────────────────────────────────
@@ -167,9 +166,7 @@ export function ConversationEmptyState({
               {icon}
             </div>
           )}
-          {title && (
-            <h2 className="text-lg font-semibold mb-2">{title}</h2>
-          )}
+          {title && <h2 className="text-lg font-semibold mb-2">{title}</h2>}
           {description && (
             <p className="text-sm text-muted-foreground">{description}</p>
           )}

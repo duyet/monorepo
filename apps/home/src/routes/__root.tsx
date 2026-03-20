@@ -1,11 +1,11 @@
 import "@duyet/components/styles.css";
 import "../globals.css";
 import "../animations.css";
-import { NotFound } from "../components/NotFound";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { NotFound } from "../components/NotFound";
 
 export const Route = createRootRoute({
   component: RootLayout,

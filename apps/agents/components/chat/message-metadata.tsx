@@ -1,8 +1,7 @@
-
 import { cn } from "@duyet/libs";
 import { Clock, Coins, Wrench, Zap } from "lucide-react";
-import type { Message } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
+import type { Message } from "@/lib/types";
 
 interface MessageMetadataProps {
   message: Message;

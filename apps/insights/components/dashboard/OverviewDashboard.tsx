@@ -28,12 +28,15 @@ interface OverviewDashboardProps {
   wakaTimeMetrics: WakaTimeMetricsData | null;
 }
 
-export function OverviewDashboard({ aiMetrics, wakaTimeMetrics }: OverviewDashboardProps) {
-  const aiTokens =
-    aiMetrics ? formatTokens(aiMetrics.totalTokens) : null;
+export function OverviewDashboard({
+  aiMetrics,
+  wakaTimeMetrics,
+}: OverviewDashboardProps) {
+  const aiTokens = aiMetrics ? formatTokens(aiMetrics.totalTokens) : null;
 
-  const codingHours =
-    wakaTimeMetrics ? wakaTimeMetrics.totalHours.toFixed(1) : null;
+  const codingHours = wakaTimeMetrics
+    ? wakaTimeMetrics.totalHours.toFixed(1)
+    : null;
 
   return (
     <div className="space-y-6">

@@ -45,9 +45,7 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
               <div className="h-px flex-1 min-w-0 shrink bg-neutral-200 dark:bg-white/10" />
               <div className="flex shrink-0 items-center gap-2">
                 <OrgAvatar org={org} size="sm" />
-                <span
-                  className="text-sm font-medium truncate max-w-[12rem] text-neutral-900 dark:text-neutral-100"
-                >
+                <span className="text-sm font-medium truncate max-w-[12rem] text-neutral-900 dark:text-neutral-100">
                   {org}
                 </span>
                 <span className="text-xs uppercase tracking-widest font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">

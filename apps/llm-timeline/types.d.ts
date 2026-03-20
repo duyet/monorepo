@@ -9,7 +9,9 @@ declare module "bun:test" {
   export function describe(name: string, fn: () => void): void;
   export function it(name: string, fn: () => void | Promise<void>): void;
   export interface Expect {
-    (value: unknown): {
+    (
+      value: unknown
+    ): {
       toBeDefined(): void;
       toBeNull(): void;
       toHaveLength(n: number): void;
@@ -17,7 +19,12 @@ declare module "bun:test" {
       toBe(value: unknown): void;
       toHaveElements(): void;
     };
-    extend(matchers: Record<string, (...args: unknown[]) => { pass: boolean; message: () => string }>): void;
+    extend(
+      matchers: Record<
+        string,
+        (...args: unknown[]) => { pass: boolean; message: () => string }
+      >
+    ): void;
   }
   export const expect: Expect;
   export function afterEach(fn: () => void | Promise<void>): void;

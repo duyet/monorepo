@@ -42,7 +42,6 @@ export function CCUsageDailyTableView({
   days?: number | "all";
   className?: string;
 }) {
-
   if (!activity.length) {
     return (
       <div

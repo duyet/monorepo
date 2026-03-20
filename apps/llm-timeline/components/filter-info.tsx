@@ -108,7 +108,8 @@ export function FilterInfo({
               onClick={onToggleComparisonMode}
               className={cn(
                 "rounded-xl p-2 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
-                comparisonMode && "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
+                comparisonMode &&
+                  "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
               )}
               title={
                 comparisonMode
@@ -132,7 +133,8 @@ export function FilterInfo({
             onClick={toggleLiteMode}
             className={cn(
               "rounded-xl p-2 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400",
-              liteMode && "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
+              liteMode &&
+                "bg-neutral-200 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-500"
             )}
             title={liteMode ? "Switch to full view" : "Switch to lite mode"}
             aria-label="Toggle lite mode"

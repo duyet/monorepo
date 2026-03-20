@@ -1,4 +1,3 @@
-
 import { generateId } from "@duyet/libs";
 import { useCallback, useState } from "react";
 import type { StreamEvent, ToolExecution } from "@/lib/types";

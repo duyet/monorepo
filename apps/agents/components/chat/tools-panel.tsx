@@ -1,12 +1,5 @@
-
 import { Button } from "@duyet/components";
 import { cn } from "@duyet/libs";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import {
   BarChart2,
   BookOpen,
@@ -18,6 +11,12 @@ import {
   User,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface ToolInfo {
   name: string;

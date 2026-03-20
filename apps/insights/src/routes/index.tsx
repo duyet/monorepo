@@ -11,8 +11,7 @@ export const Route = createFileRoute("/")({
     ]);
 
     return {
-      aiMetrics:
-        aiMetrics.status === "fulfilled" ? aiMetrics.value : null,
+      aiMetrics: aiMetrics.status === "fulfilled" ? aiMetrics.value : null,
       wakaTimeMetrics:
         wakaTimeMetrics.status === "fulfilled" ? wakaTimeMetrics.value : null,
     };
@@ -33,5 +32,10 @@ export const Route = createFileRoute("/")({
 function IndexPage() {
   const { aiMetrics, wakaTimeMetrics } = Route.useLoaderData();
 
-  return <OverviewDashboard aiMetrics={aiMetrics} wakaTimeMetrics={wakaTimeMetrics} />;
+  return (
+    <OverviewDashboard
+      aiMetrics={aiMetrics}
+      wakaTimeMetrics={wakaTimeMetrics}
+    />
+  );
 }

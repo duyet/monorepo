@@ -1,26 +1,20 @@
-import "@duyet/components/styles.css"
-import "../../app/globals.css"
+import "@duyet/components/styles.css";
+import "../../app/globals.css";
 
-import Analytics from "@duyet/components/Analytics"
-import Container from "@duyet/components/Container"
-import Footer from "@duyet/components/Footer"
-import Head from "@duyet/components/Head"
-import Header from "@duyet/components/Header"
+import Analytics from "@duyet/components/Analytics";
+import Container from "@duyet/components/Container";
+import Footer from "@duyet/components/Footer";
+import Head from "@duyet/components/Head";
+import Header from "@duyet/components/Header";
+import { ABOUT, BLOG, HOME, INSIGHTS, PHOTOS } from "@duyet/components/Menu";
+import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
-  ABOUT,
-  BLOG,
-  HOME,
-  INSIGHTS,
-  PHOTOS,
-} from "@duyet/components/Menu"
-import ThemeProvider from "@duyet/components/ThemeProvider"
-import {
+  createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
-  createRootRoute,
-} from "@tanstack/react-router"
-import type { ReactNode } from "react"
+} from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 const schemaOrgData = {
   "@context": "https://schema.org",
@@ -68,7 +62,7 @@ const schemaOrgData = {
     "@type": "CollegeOrUniversity",
     name: "University of Information Technology",
   },
-}
+};
 
 export const Route = createRootRoute({
   head: () => ({
@@ -102,14 +96,14 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
-})
+});
 
 function RootComponent() {
   return (
     <RootDocument>
       <Outlet />
     </RootDocument>
-  )
+  );
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
@@ -141,5 +135,5 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

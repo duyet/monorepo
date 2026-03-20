@@ -11,7 +11,6 @@ export function CCUsageCostsView({
   days?: number | "all";
   className?: string;
 }) {
-
   if (!costs || costs.length === 0) {
     return (
       <div

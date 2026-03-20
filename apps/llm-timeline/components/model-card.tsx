@@ -56,7 +56,9 @@ export function ModelCard({
                 : `Select ${model.name} for comparison`
             }
           >
-            {isSelected && <Check className="h-3 w-3 text-white dark:text-black" />}
+            {isSelected && (
+              <Check className="h-3 w-3 text-white dark:text-black" />
+            )}
           </button>
         )}
 
@@ -81,9 +83,7 @@ export function ModelCard({
         </div>
 
         {/* Dots separator */}
-        <div
-          className="flex-1 px-2 opacity-40 bg-[length:4px_4px] bg-repeat-x bg-center [background-image:radial-gradient(circle,rgb(212_212_212)_1px,transparent_1px)] dark:[background-image:radial-gradient(circle,rgb(64_64_64)_1px,transparent_1px)]"
-        />
+        <div className="flex-1 px-2 opacity-40 bg-[length:4px_4px] bg-repeat-x bg-center [background-image:radial-gradient(circle,rgb(212_212_212)_1px,transparent_1px)] dark:[background-image:radial-gradient(circle,rgb(64_64_64)_1px,transparent_1px)]" />
 
         {/* Year and metadata on right */}
         <div className="flex shrink-0 items-center gap-2">

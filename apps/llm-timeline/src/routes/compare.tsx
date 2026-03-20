@@ -1,11 +1,20 @@
-import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
+import { parseParamValue } from "@duyet/libs";
+import {
+  createFileRoute,
+  useNavigate,
+  useSearch,
+} from "@tanstack/react-router";
 import { Download, Plus, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PageLayout } from "@/components/page-layout";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
-import { formatDate, getLicenseBarColor, getLicenseColor, slugify } from "@/lib/utils";
-import { parseParamValue } from "@duyet/libs";
+import {
+  formatDate,
+  getLicenseBarColor,
+  getLicenseColor,
+  slugify,
+} from "@/lib/utils";
 
 const MAX_COMPARE = 4;
 const MIN_COMPARE = 2;
@@ -46,7 +55,10 @@ function ComparePage() {
 
   const updateUrl = (next: Model[]) => {
     navigate({
-      search: { models: next.length > 0 ? next.map((m) => slugify(m.name)).join(",") : "" },
+      search: {
+        models:
+          next.length > 0 ? next.map((m) => slugify(m.name)).join(",") : "",
+      },
       replace: true,
     });
   };
@@ -96,7 +108,15 @@ function ComparePage() {
 
   const exportToCSV = () => {
     if (sortedModels.length < MIN_COMPARE) return;
-    const headers = ["Model", "Organization", "Release Date", "Parameters", "License", "Type", "Description"];
+    const headers = [
+      "Model",
+      "Organization",
+      "Release Date",
+      "Parameters",
+      "License",
+      "Type",
+      "Description",
+    ];
     const rows = sortedModels.map((model) => [
       model.name,
       model.org,
@@ -106,7 +126,10 @@ function ComparePage() {
       model.type,
       `"${model.desc.replace(/"/g, '""')}"`,
     ]);
-    const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))].join("\n");
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => row.join(",")),
+    ].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -152,7 +175,9 @@ function ComparePage() {
               >
                 <Plus className="h-4 w-4" />
                 <span>
-                  {selectedModels.length === 0 ? "Add models to compare" : "Add another"}
+                  {selectedModels.length === 0
+                    ? "Add models to compare"
+                    : "Add another"}
                 </span>
               </button>
             )}
@@ -210,9 +235,14 @@ function ComparePage() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5">
-                    <th className="px-4 py-3 text-left font-semibold w-32">Metric</th>
+                    <th className="px-4 py-3 text-left font-semibold w-32">
+                      Metric
+                    </th>
                     {sortedModels.map((model) => (
-                      <th key={model.name} className="px-4 py-3 text-left font-semibold">
+                      <th
+                        key={model.name}
+                        className="px-4 py-3 text-left font-semibold"
+                      >
                         {model.name}
                       </th>
                     ))}
@@ -220,43 +250,67 @@ function ComparePage() {
                 </thead>
                 <tbody>
                   <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">Organization</td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">{model.org}</td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">Release Date</td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">{formatDate(model.date)}</td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">Parameters</td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">{model.params || "Unknown"}</td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">License</td>
+                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                      Organization
+                    </td>
                     {sortedModels.map((model) => (
                       <td key={model.name} className="px-4 py-3">
-                        <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getLicenseColor(model.license)}`}>
+                        {model.org}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-neutral-200 dark:border-white/10">
+                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                      Release Date
+                    </td>
+                    {sortedModels.map((model) => (
+                      <td key={model.name} className="px-4 py-3">
+                        {formatDate(model.date)}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-neutral-200 dark:border-white/10">
+                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                      Parameters
+                    </td>
+                    {sortedModels.map((model) => (
+                      <td key={model.name} className="px-4 py-3">
+                        {model.params || "Unknown"}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-neutral-200 dark:border-white/10">
+                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                      License
+                    </td>
+                    {sortedModels.map((model) => (
+                      <td key={model.name} className="px-4 py-3">
+                        <span
+                          className={`px-2 py-1 rounded-md text-xs font-medium border ${getLicenseColor(model.license)}`}
+                        >
                           {model.license}
                         </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">Type</td>
+                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                      Type
+                    </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 capitalize">{model.type}</td>
+                      <td key={model.name} className="px-4 py-3 capitalize">
+                        {model.type}
+                      </td>
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-4 py-3 font-medium align-top text-neutral-500 dark:text-neutral-400">Description</td>
+                    <td className="px-4 py-3 font-medium align-top text-neutral-500 dark:text-neutral-400">
+                      Description
+                    </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 text-sm">{model.desc}</td>
+                      <td key={model.name} className="px-4 py-3 text-sm">
+                        {model.desc}
+                      </td>
                     ))}
                   </tr>
                 </tbody>
@@ -276,13 +330,22 @@ function ComparePage() {
                     return (
                       <div key={model.name}>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="font-medium text-neutral-900 dark:text-neutral-100">{model.name}</span>
-                          <span className="text-neutral-500 dark:text-neutral-400">{model.params}</span>
+                          <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                            {model.name}
+                          </span>
+                          <span className="text-neutral-500 dark:text-neutral-400">
+                            {model.params}
+                          </span>
                         </div>
                         <div className="h-8 rounded-md overflow-hidden relative bg-neutral-200 dark:bg-white/10">
                           <div
                             className="h-full rounded-md transition-all duration-500"
-                            style={{ width: `${percentage}%`, backgroundColor: getLicenseBarColor(model.license) }}
+                            style={{
+                              width: `${percentage}%`,
+                              backgroundColor: getLicenseBarColor(
+                                model.license
+                              ),
+                            }}
                           />
                         </div>
                       </div>
@@ -290,7 +353,8 @@ function ComparePage() {
                   })}
                 </div>
                 <p className="text-xs mt-3 text-neutral-500 dark:text-neutral-400">
-                  * Models with unknown parameter counts are excluded from the chart
+                  * Models with unknown parameter counts are excluded from the
+                  chart
                 </p>
               </div>
             )}
@@ -298,13 +362,19 @@ function ComparePage() {
             {hasComparison && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl border border-neutral-200 dark:border-white/10">
-                  <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">Share this comparison:</p>
+                  <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
+                    Share this comparison:
+                  </p>
                   <code className="text-sm px-2 py-1 rounded bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-neutral-100">
-                    {typeof window !== "undefined" ? window.location.href : "/compare"}
+                    {typeof window !== "undefined"
+                      ? window.location.href
+                      : "/compare"}
                   </code>
                 </div>
                 <div className="p-4 rounded-xl border border-neutral-200 dark:border-white/10">
-                  <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">Export comparison data:</p>
+                  <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
+                    Export comparison data:
+                  </p>
                   <button
                     onClick={exportToCSV}
                     className="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs dark:border-white/10 dark:bg-white/5 text-neutral-900 dark:text-neutral-100 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
@@ -318,7 +388,9 @@ function ComparePage() {
           </div>
         ) : (
           <div className="text-center py-12 rounded-xl border border-neutral-200 dark:border-white/10">
-            <p className="text-lg mb-2 text-neutral-500 dark:text-neutral-400">Select 2-4 models to compare</p>
+            <p className="text-lg mb-2 text-neutral-500 dark:text-neutral-400">
+              Select 2-4 models to compare
+            </p>
             <p className="text-sm text-neutral-500 dark:text-neutral-400">
               Click the "Add models" button above to get started
             </p>

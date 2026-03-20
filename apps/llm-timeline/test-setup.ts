@@ -1,5 +1,5 @@
+import { afterEach, describe, expect, it, mock } from "bun:test";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
-import { afterEach, mock, expect, describe, it } from "bun:test";
 import { cleanup, render } from "@testing-library/react";
 
 // Register GlobalRegistrator once for all test files
@@ -18,7 +18,15 @@ mock.module("@tanstack/react-router", () => ({
     navigate: () => {},
     history: { push: () => {}, replace: () => {} },
   }),
-  Link: ({ children, to, ...props }: { children: React.ReactNode; to: string; [key: string]: unknown }) => {
+  Link: ({
+    children,
+    to,
+    ...props
+  }: {
+    children: React.ReactNode;
+    to: string;
+    [key: string]: unknown;
+  }) => {
     const React = require("react");
     return React.createElement("a", { href: to, ...props }, children);
   },
@@ -50,4 +58,4 @@ expect.extend({
 });
 
 // Export for test files
-export { afterEach, describe, expect, it, mock, cleanup, render };
+export { afterEach, cleanup, describe, expect, it, mock, render };

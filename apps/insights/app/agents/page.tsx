@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import {
-  AgentKpiCards,
-  AgentTrendsChart,
   type AgentAnalyticsData,
+  AgentKpiCards,
   type AgentTrendRow,
+  AgentTrendsChart,
 } from "./components";
 
 export default function AgentsAnalyticsPage() {

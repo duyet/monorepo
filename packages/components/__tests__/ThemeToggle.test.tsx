@@ -1,5 +1,13 @@
-import { afterEach, cleanup, describe, expect, it, mock, render } from "../test-setup";
 import ThemeToggle from "../ThemeToggle";
+import {
+  afterEach,
+  cleanup,
+  describe,
+  expect,
+  it,
+  mock,
+  render,
+} from "../test-setup";
 
 afterEach(cleanup);
 

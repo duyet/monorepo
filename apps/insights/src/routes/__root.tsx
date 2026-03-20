@@ -8,9 +8,14 @@ import Head from "@duyet/components/Head";
 import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { insightsConfig } from "@duyet/config";
-import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
-import { CompactNavigation } from "@/components/navigation/CompactNavigation";
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
 import { GlobalPeriodSelector } from "@/components/GlobalPeriodSelector";
+import { CompactNavigation } from "@/components/navigation/CompactNavigation";
 import { ServiceWorkerProvider } from "@/components/sw/ServiceWorkerProvider";
 
 export const Route = createRootRoute({

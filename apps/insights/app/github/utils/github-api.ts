@@ -17,7 +17,6 @@ export async function fetchAllEvents(owner: string): Promise<GitHubEvent[]> {
 
   while (true) {
     try {
-
       const response = await fetch(
         `https://api.github.com/users/${owner}/events?per_page=${perPage}&page=${page}`,
         {

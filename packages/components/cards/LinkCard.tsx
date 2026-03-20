@@ -77,7 +77,12 @@ function LinkCardInner({
   featured = false,
 }: Pick<
   LinkCardProps,
-  "title" | "description" | "color" | "backgroundImage" | "illustration" | "featured"
+  | "title"
+  | "description"
+  | "color"
+  | "backgroundImage"
+  | "illustration"
+  | "featured"
 >) {
   const IllustrationComponent = illustrations[illustration];
 

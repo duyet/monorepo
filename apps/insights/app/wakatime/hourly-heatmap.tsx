@@ -1,9 +1,17 @@
 import { BarChart } from "@/components/charts";
 
-type HeatmapItem = { day: string; dayIndex: number; hours: number; percent: number };
+type HeatmapItem = {
+  day: string;
+  dayIndex: number;
+  hours: number;
+  percent: number;
+};
 
-export function WakaTimeHourlyHeatmapView({ heatmapData }: { heatmapData: HeatmapItem[] }) {
-
+export function WakaTimeHourlyHeatmapView({
+  heatmapData,
+}: {
+  heatmapData: HeatmapItem[];
+}) {
   // Hide component completely if no data available
   if (!heatmapData || heatmapData.length === 0) {
     return null;

@@ -30,7 +30,10 @@ export function DashboardTabs({
 
   const handleTabChange = useCallback(
     (id: TabId) => {
-      navigate({ search: (prev: RootSearch) => ({ ...prev, tab: id }), replace: true });
+      navigate({
+        search: (prev: RootSearch) => ({ ...prev, tab: id }),
+        replace: true,
+      });
     },
     [navigate]
   );
@@ -104,4 +107,3 @@ export function DashboardTabs({
     </div>
   );
 }
-

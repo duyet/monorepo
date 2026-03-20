@@ -102,4 +102,3 @@ export const CHART_COLORS = {
 export const EXTERNAL_LINKS = {
   UPTIME_MONITOR: "https://duyet.github.io/uptime/",
 } as const;
-
