@@ -88,12 +88,12 @@
   }
 
   .react-flow__edge-path {
-    @apply stroke-border;
+    stroke: var(--border);
   }
 
   .react-flow__edge.selected .react-flow__edge-path,
   .react-flow__edge:hover .react-flow__edge-path {
-    @apply stroke-primary;
+    stroke: var(--primary);
   }
 
   .react-flow__handle {

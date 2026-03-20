@@ -3023,7 +3023,7 @@ var defaultSerovalPlugins = [
   p
 ];
 async function getStartManifest(matchedRoutes) {
-  const { tsrStartManifest } = await import("./assets/_tanstack-start-manifest_v-CrkfBPrK.js");
+  const { tsrStartManifest } = await import("./assets/_tanstack-start-manifest_v-B-kKHcFW.js");
   const startManifest = tsrStartManifest();
   const rootRoute = startManifest.routes[rootRouteId] = startManifest.routes[rootRouteId] || {};
   rootRoute.assets = rootRoute.assets || [];
@@ -3713,7 +3713,7 @@ function attachRouterServerSsrUtils({ router, manifest: manifest2 }) {
     },
     dehydrate: async () => {
       invariant(!_dehydrated);
-      let matchesToDehydrate = router.state.matches;
+      let matchesToDehydrate = router.stores.activeMatchesSnapshot.state;
       if (router.isShell()) matchesToDehydrate = matchesToDehydrate.slice(0, 1);
       const matches = matchesToDehydrate.map(dehydrateMatch);
       let manifestToDehydrate = void 0;
@@ -3847,7 +3847,7 @@ function getNormalizedURL(url, base) {
   };
 }
 function getStartResponseHeaders(opts) {
-  return mergeHeaders({ "Content-Type": "text/html; charset=utf-8" }, ...opts.router.state.matches.map((match) => {
+  return mergeHeaders({ "Content-Type": "text/html; charset=utf-8" }, ...opts.router.stores.activeMatchesSnapshot.state.map((match) => {
     return match.headers;
   }));
 }
@@ -3855,7 +3855,7 @@ var entriesPromise;
 var baseManifestPromise;
 var cachedFinalManifestPromise;
 async function loadEntries() {
-  const routerEntry = await import("./assets/router-8qeuaoTQ.js").then((n2) => n2.r);
+  const routerEntry = await import("./assets/router-CuHdCRg8.js").then((n2) => n2.r);
   return {
     startEntry: await import("./assets/start-HYkvq4Ni.js"),
     routerEntry

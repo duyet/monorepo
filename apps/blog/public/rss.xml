@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Tôi là Duyệt]]></title>
+        <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
+        <link>https://blog.duyet.net</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 20 Mar 2026 18:04:00 GMT</lastBuildDate>
+        <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Claws]]></title>
+            <description><![CDATA[OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...]]></description>
+            <link>https://blog.duyet.net/2026/02/claws.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/02/claws.html</guid>
+            <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Coding Agents]]></title>
+            <description><![CDATA[Reflect on what I'm thinking and doing in this LLM era]]></description>
+            <link>https://blog.duyet.net/2026/01/ai.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/ai.html</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ClickHouse Rust UDFs]]></title>
+            <description><![CDATA[In Data Platform System with ClickHouse, rather than extracting data from ClickHouse for processing in external systems, we can perform transformations directly within ClickHouse itself. ClickHouse can call any external executable program or script to process data. My idea is using custom **User-Defined Functions (UDFs) written in Rust** to handle data transformations between tables.]]></description>
+            <link>https://blog.duyet.net/2024/11/clickhouse-rust-udf.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/11/clickhouse-rust-udf.html</guid>
+            <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ReplicatedReplacingMergeTree]]></title>
+            <description><![CDATA[Learn how to set up and manage ReplicatedReplacingMergeTree in ClickHouse on Kubernetes. This comprehensive guide covers cluster setup with ClickHouse Operator, data replication, performance tuning, and best practices for high availability deployments.]]></description>
+            <link>https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree.html</guid>
+            <pubDate>Sun, 23 Jun 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ReplacingMergeTree]]></title>
+            <description><![CDATA[My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to `MergeTree` but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.]]></description>
+            <link>https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html</guid>
+            <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[MergeTree]]></title>
+            <description><![CDATA[After starting this series ClickHouse on Kubernetes, you can now configure your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features]]></description>
+            <link>https://blog.duyet.net/2024/05/clickhouse-mergetree.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/05/clickhouse-mergetree.html</guid>
+            <pubDate>Fri, 31 May 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Monitoring ClickHouse on Kubernetes]]></title>
+            <description><![CDATA[Complete guide to monitoring ClickHouse on Kubernetes. Learn about built-in dashboards, Prometheus + Grafana setup, powerful system tables for monitoring queries, and the ClickHouse Monitoring UI dashboard. Includes practical examples, essential monitoring queries, and best practices for production observability.]]></description>
+            <link>https://blog.duyet.net/2024/03/clickhouse-monitoring.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/03/clickhouse-monitoring.html</guid>
+            <pubDate>Wed, 27 Mar 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ClickHouse SELECT Advances]]></title>
+            <description><![CDATA[Dynamic column selection (also known as a `COLUMNS` expression) allows you to match some columns in a result with a re2 regular expression.]]></description>
+            <link>https://blog.duyet.net/2024/03/clickhouse-select-advances.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/03/clickhouse-select-advances.html</guid>
+            <pubDate>Tue, 26 Mar 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ClickHouse on Kubernetes]]></title>
+            <description><![CDATA[Complete guide to deploying ClickHouse on Kubernetes using the Altinity ClickHouse Operator. Learn how to set up your first single-node cluster, configure persistent storage, manage users, and customize ClickHouse versions. Includes practical examples and best practices from production experience managing clusters with trillions of rows.]]></description>
+            <link>https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html</guid>
+            <pubDate>Wed, 13 Mar 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[2023 - A Year of Moving]]></title>
+            <description><![CDATA[So, I hadn't really planned on writing a summary post for this year, as lazy as I am, but somehow, here we are.]]></description>
+            <link>https://blog.duyet.net/2024/02/2023-summary.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2024/02/2023-summary.html</guid>
+            <pubDate>Fri, 09 Feb 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Apache OpenDAL in Rust to Access Any Kind of Data Services]]></title>
+            <description><![CDATA[OpenDAL is a data access layer that allows users to easily and efficiently retrieve data from various storage services in a unified way such as S3, FTP, FS, Google Drive, HDFS, etc. They has been rewritten in Rust for the Core and have a binding from many various language like Python, Node.js, C, etc..]]></description>
+            <link>https://blog.duyet.net/2023/09/opendal.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/09/opendal.html</guid>
+            <pubDate>Sat, 09 Sep 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[My Neovim Setup in 2023]]></title>
+            <description><![CDATA[It's been years since I first started using neovim and I've been updating it regularly ever since.]]></description>
+            <link>https://blog.duyet.net/2023/09/nvim-setup-2023.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/09/nvim-setup-2023.html</guid>
+            <pubDate>Mon, 04 Sep 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[DuckDB]]></title>
+            <description><![CDATA[In this post, I want to explore the features and capabilities of DuckDB, an open-source, in-process SQL OLAP database management system written in C++11 that has been gaining popularity recently. According to what people have said, DuckDB is designed to be easy to use and flexible, allowing you to run complex queries on relational datasets using either local, file-based DuckDB instances or the cloud service MotherDuck.]]></description>
+            <link>https://blog.duyet.net/2023/09/duckdb.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/09/duckdb.html</guid>
+            <pubDate>Sun, 03 Sep 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Airflow control the parallelism and concurrency (draw)]]></title>
+            <description><![CDATA[How to control parallelism and concurrency]]></description>
+            <link>https://blog.duyet.net/2023/07/airflow-control-parallelism-concurrency.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/07/airflow-control-parallelism-concurrency.html</guid>
+            <pubDate>Sun, 16 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Fossil Data Platform Rewritten in Rust 🦀]]></title>
+            <description><![CDATA[My data engineering team at Fossil recently released some of Rust-based components of our Data Platform after faced performance and maintenance challenges of the old Python codebase. I would like to share the insights and lessons learned during the process of migrating Fossil's Data Platform from Python to Rust.]]></description>
+            <link>https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html</guid>
+            <pubDate>Sun, 18 Jun 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Running Spark in GitHub Actions]]></title>
+            <description><![CDATA[This post provides a quick and easy guide on how to run Apache Spark in GitHub Actions for testing purposes]]></description>
+            <link>https://blog.duyet.net/2023/05/spark-github-actions.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/05/spark-github-actions.html</guid>
+            <pubDate>Sun, 07 May 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Migrate (again) to Next.js 13 Pro Max]]></title>
+            <description><![CDATA[I've been using Gatsby since 2019 and while it's great that I can write my blogs in NeoVim, commit and push to Github, and have Cloudflare Pages build and publish to CDN, but I was becoming frustrated with the slow building times and the overall maintenance requirements.]]></description>
+            <link>https://blog.duyet.net/2023/05/migrate-blog-to-nextjs.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/05/migrate-blog-to-nextjs.html</guid>
+            <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Why does Helm Charts interpret 0777 as 511?]]></title>
+            <description><![CDATA[Why does Helm Charts interpret 0777 to 511? It took me quite some time to debug it.]]></description>
+            <link>https://blog.duyet.net/2023/04/helm-charts-problem.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/04/helm-charts-problem.html</guid>
+            <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[GPT vs Traditional NLP Models]]></title>
+            <description><![CDATA[The field of Natural Language Processing (NLP) has seen remarkable advancements in recent years, and the emergence of the Generative Pre-trained Transformer (GPT) has revolutionized the way NLP models operate. GPT is a cutting-edge language model that employs deep learning to generate human-like text. Unlike conventional NLP models, which required extensive training on specific tasks, GPT is pre-trained on vast amounts of data and can be fine-tuned for various NLP tasks]]></description>
+            <link>https://blog.duyet.net/2023/04/nlp-vs-gpt.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/04/nlp-vs-gpt.html</guid>
+            <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ask ChatGPT about 20 important concepts of Apache Spark]]></title>
+            <description><![CDATA[I asked ChatGPT to explain 20 important concepts of Apache Spark. Let's see what it has to say!]]></description>
+            <link>https://blog.duyet.net/2023/02/ask-chatgpt-spark.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/02/ask-chatgpt-spark.html</guid>
+            <pubDate>Sun, 26 Feb 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Data Engineering: Processing Dataframes with Polars]]></title>
+            <description><![CDATA[If you're interested in data engineering with Rust, you might want to check out Polars, a Rust DataFrame library with Pandas-like API.]]></description>
+            <link>https://blog.duyet.net/2023/02/rust-polars.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/02/rust-polars.html</guid>
+            <pubDate>Sun, 19 Feb 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Data Engineering Tools written in Rust]]></title>
+            <description><![CDATA[This blog post will provide an overview of the data engineering tools available in Rust, their advantages and benefits, as well as a discussion on why Rust is a great choice for data engineering.]]></description>
+            <link>https://blog.duyet.net/2023/01/data-engineering-rust-tools.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/01/data-engineering-rust-tools.html</guid>
+            <pubDate>Sun, 22 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?]]></title>
+            <description><![CDATA[Recently, I was working on building a new Logs dashboard at Fossil to serve our internal team for log retrieval, and I found ClickHouse to be a very interesting and fast engine for this purpose. In this post, I'll share my experience with using ClickHouse as the foundation of a light-weight data platform and how it compares to another popular choice, Athena. We'll also explore how ClickHouse can be integrated with other tools such as Kafka to create a robust and efficient data pipeline.]]></description>
+            <link>https://blog.duyet.net/2023/01/clickhouse.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/01/clickhouse.html</guid>
+            <pubDate>Tue, 10 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Airflow Dataset (Data-aware scheduling)]]></title>
+            <description><![CDATA[Airflow since 2.4, in addition to scheduling DAGs based upon time, they can also be scheduled based upon a task updating a dataset. This will change the way you schedule DAGs.]]></description>
+            <link>https://blog.duyet.net/2022/09/airflow-dataset.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/09/airflow-dataset.html</guid>
+            <pubDate>Tue, 27 Sep 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cargo: workspace inheritance]]></title>
+            <description><![CDATA[Since 1.64.0, Cargo now supports workspace inheritance, so you can avoid duplicating similar field values between crates while working within a workspace. Workspace inheritance can include things like shared version numbers, repository URLs, or rust-version.]]></description>
+            <link>https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html</guid>
+            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Why ? is good]]></title>
+            <description><![CDATA[In Rust, the question mark (?) operator is used as an alternate error propagation method for functions that yield Result or Option types. The ? operator is a shortcut that minimizes the amount of code required in a function to quickly return Err or None from the types Result<T, Err>, or Option.]]></description>
+            <link>https://blog.duyet.net/2022/09/rust-question-mark-operator.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/09/rust-question-mark-operator.html</guid>
+            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cargo: Patch Dependencies]]></title>
+            <description><![CDATA[There are several scenarios when you will need to override or patch upstream dependencies. Like testing a bugfix of your crates before pushing to crates.io, a non-working upstream crate has a new feature or a bug fix on the master branch of its git repository that you'd want to try, etc. In these cases, the [patch] section of Cargo.toml might be useful.]]></description>
+            <link>https://blog.duyet.net/2022/09/cargo-patch-deps.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/09/cargo-patch-deps.html</guid>
+            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: indoc]]></title>
+            <description><![CDATA[indoc là một crate nhỏ nhưng hữu ích giúp canh lề (indented documents). indoc!() macro nhận multiline string và un-indents lúc compile time, xoá tất cả khoảng trắng đầu tiên trên cách dòng dựa theo dòng đầu tiên.]]></description>
+            <link>https://blog.duyet.net/2022/08/rust-indoc.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-indoc.html</guid>
+            <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Rayon - A data parallelism library for Rust]]></title>
+            <description><![CDATA[rayon là thư viện data-parallelism cho Rust, gọn nhẹ và dễ dàng convert từ code tính toán tuần tự sang song song mà vẫn đảm bảo không lỗi data-race.]]></description>
+            <link>https://blog.duyet.net/2022/08/rust-rayon.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-rayon.html</guid>
+            <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust automatically upgrade to a new edition]]></title>
+            <description><![CDATA[Every two or three years, the Rust team produces a new Rust edition. Each edition contains a lot of changes. Each edition brings together the features that have landed into a clear package with fully updated documentation and tooling.]]></description>
+            <link>https://blog.duyet.net/2022/05/rust-cargo-fix.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/05/rust-cargo-fix.html</guid>
+            <pubDate>Sat, 14 May 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Source-based Code Coverage]]></title>
+            <description><![CDATA[Support for LLVM-based coverage instrumentation has been stabilized in Rust 1.60.0. To get the code coverage report in Rust, you need to generate profiling data and then use LLVM tools to process and generate reports.]]></description>
+            <link>https://blog.duyet.net/2022/04/rust-code-cov.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/04/rust-code-cov.html</guid>
+            <pubDate>Sat, 09 Apr 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Spark on Kubernetes tại Fossil 🤔]]></title>
+            <description><![CDATA[Hành trình chuyển đổi Apache Spark từ AWS EMR sang Kubernetes tại Fossil Data Platform. Tìm hiểu kiến trúc hệ thống với Spark Operator, Spark Submit Worker, và Spark Jobs UI. Bài viết chia sẻ chi tiết về lý do migration, kiến trúc microservices, GitOps workflow, và các tối ưu hóa performance trên Kubernetes production environment.]]></description>
+            <link>https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html</guid>
+            <pubDate>Wed, 09 Mar 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Box]]></title>
+            <description><![CDATA[Tất cả giá trị trên Rust mặc định đều được allocated trên stack. Giá trị có thể được boxed, allocated trên heap bằng cách sử dụng Box<T>. Box<T> là một smart pointer của Rust cho phép allocated trên heap giá trị có kiểu T, còn pointer trỏ đến giá trị đó sẽ nằm trên stack.]]></description>
+            <link>https://blog.duyet.net/2022/03/rust-box.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/03/rust-box.html</guid>
+            <pubDate>Sat, 05 Mar 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Manage Redshift/Postgres Privileges GitOps Style]]></title>
+            <description><![CDATA[The grant project aims to manage Postgres and Redshift database roles and privileges in GitOps style. Grant is the culmination of my learning of Rust for data engineering tools.]]></description>
+            <link>https://blog.duyet.net/2022/02/grant-redshift-gitops.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/grant-redshift-gitops.html</guid>
+            <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Option & Result]]></title>
+            <description><![CDATA[Rust giới thiệu hai generic enums Option và Result để giải quyết các vấn đề null pointer exceptions, exception data leak, ...]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-option-result.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-option-result.html</guid>
+            <pubDate>Tue, 15 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Design Pattern: Builder Pattern]]></title>
+            <description><![CDATA[Builder được sử dụng cực kỳ phổ biến trong Rust so với các ngôn ngữ khác, bởi vì Rust không có overloading.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Copy & Clone Trait]]></title>
+            <description><![CDATA[Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Trait]]></title>
+            <description><![CDATA[Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-trait.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-trait.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Struct]]></title>
+            <description><![CDATA[Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-struct.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-struct.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Design Pattern: Command Pattern]]></title>
+            <description><![CDATA[Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-command-design-pattern.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-command-design-pattern.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Design Pattern: Prefer Small Crates]]></title>
+            <description><![CDATA[Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: cargo-edit]]></title>
+            <description><![CDATA[cargo-edit là công cụ mở rộng của cargo cho phép có thêm một số tính năng quản lý dependencies giống như npm hoặc yarn.]]></description>
+            <link>https://blog.duyet.net/2022/02/cargo-edit.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/cargo-edit.html</guid>
+            <pubDate>Sun, 06 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Format Strings in 1.58]]></title>
+            <description><![CDATA[Bản cập nhật `Rust 1.58.0` vừa bổ sung một số tính năng mình thấy khá hay về format string.]]></description>
+            <link>https://blog.duyet.net/2022/01/rust-format-strings-1.58.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-format-strings-1.58.html</guid>
+            <pubDate>Tue, 18 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Turbofish ::<> 🐠 ]]></title>
+            <description><![CDATA[Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum, Rust có một cú pháp đặc biệt để làm điều này gọi là turbofish.]]></description>
+            <link>https://blog.duyet.net/2022/01/rust-turbofish.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-turbofish.html</guid>
+            <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: FromStr trait]]></title>
+            <description><![CDATA[FromStr là một trait để khởi tạo instance từ string trong Rust, nó tương đương abstract class nếu bạn có background OOP.]]></description>
+            <link>https://blog.duyet.net/2022/01/rust-fromstr.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-fromstr.html</guid>
+            <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[cheats.rs]]></title>
+            <description><![CDATA[This is the best cheat sheet that I have ever seen. It breaks down the different categories, from language constructs, data layouts, types, tooling, etc.]]></description>
+            <link>https://blog.duyet.net/2022/01/rust-cheatsheet.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-cheatsheet.html</guid>
+            <pubDate>Sat, 01 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Ownership]]></title>
+            <description><![CDATA[Ownership là một trong những tính năng đặc trưng của Rust, đây là cách giúp Rust đảm bảo memory safety mà không cần đến garbage collector.]]></description>
+            <link>https://blog.duyet.net/2021/12/rust-ownership.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership.html</guid>
+            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Design Pattern: Strategy Pattern]]></title>
+            <description><![CDATA[Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.]]></description>
+            <link>https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html</guid>
+            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust và Data Engineering? 🤔]]></title>
+            <description><![CDATA[Tại sao Rust là lựa chọn cho Data Engineering? Khám phá 7 lý do chính từ performance, memory safety, đến WebAssembly và hệ sinh thái data tools như Apache Arrow, DataFusion, và Polars. Bài viết chi tiết về ưu nhược điểm, learning curve, và tương lai của Rust trong lĩnh vực Data Engineering và Big Data processing.]]></description>
+            <link>https://blog.duyet.net/2021/11/rust-data-engineering.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2021/11/rust-data-engineering.html</guid>
+            <pubDate>Sat, 27 Nov 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Spark on Kubernetes - better handling for node shutdown]]></title>
+            <description><![CDATA[Spark 3.1 on the Kubernetes project is now officially declared as production-ready and Generally Available. Spot instances in Kubernetes can cut your bill by up to 70-80% if you are willing to trade in reliability. The new feature - SPIP: Add better handling for node shutdown (SPARK-20624) was implemented to deal with the problem of losing an executor when working with spot nodes - the need to recompute the shuffle or cached data.
+]]></description>
+            <link>https://blog.duyet.net/2021/11/spark-node-decommission.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2021/11/spark-node-decommission.html</guid>
+            <pubDate>Mon, 22 Nov 2021 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

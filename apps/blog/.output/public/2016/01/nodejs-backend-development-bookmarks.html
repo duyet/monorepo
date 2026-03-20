@@ -1,0 +1,569 @@
+<!DOCTYPE html><html class="font-sans [--font-inter:Inter,system-ui,sans-serif] [--font-serif:&#x27;Libre_Baskerville&#x27;,Georgia,serif]" lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/assets/logo-gAD2WqhI.svg"/><title>Nodejs - Backend Development Bookmarks | Tôi là Duyệt</title><meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)"/><meta name="description" content="Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về nodejs backend, từ các hướng dẫn cài đặt, npm, database, các frameworks, socket, security, testing, ... tất tần tật để có thể dễ dàng tra cứu. Danh sách này cũng có thể nói gần như overview được hết các kiến thức về Nodejs backend."/><meta name="author" content="Duyet Le"/><meta property="og:title" content="Nodejs - Backend Development Bookmarks"/><meta property="og:description" content="Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về nodejs backend, từ các hướng dẫn cài đặt, npm, database, các frameworks, socket, security, testing, ... tất tần tật để có thể dễ dàng tra cứu. Danh sách này cũng có thể nói gần như overview được hết các kiến thức về Nodejs backend."/><meta property="og:type" content="article"/><meta property="og:url" content="https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks"/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Nodejs - Backend Development Bookmarks"/><meta name="twitter:description" content="Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về nodejs backend, từ các hướng dẫn cài đặt, npm, database, các frameworks, socket, security, testing, ... tất tần tật để có thể dễ dàng tra cứu. Danh sách này cũng có thể nói gần như overview được hết các kiến thức về Nodejs backend."/><link rel="modulepreload" href="/assets/main-Bp2DSC5G.js"/><link rel="modulepreload" href="/assets/_slug-Cn0iyEqO.js"/><link rel="modulepreload" href="/assets/SeriesBox-D9M89V2u.js"/><link rel="modulepreload" href="/assets/index-wduJm33g.js"/><link rel="alternate" type="application/rss+xml" href="/rss.xml" title="Tôi là Duyệt — RSS Feed"/><link rel="alternate" type="text/markdown" href="https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks.md"/><link rel="stylesheet" href="/assets/main-KJ329Ruc.css#" type="text/css"/><link rel="stylesheet" href="/assets/_slug-WByDNT2U.css#" type="text/css"/></head><body class="bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased"><script>((e, i, s, u, m, a, l, h) => {
+  let d = document.documentElement, w = ["light", "dark"];
+  function p(n) {
+    (Array.isArray(e) ? e : [e]).forEach((y) => {
+      let k = y === "class", S = k && a ? m.map((f) => a[f] || f) : m;
+      k ? (d.classList.remove(...S), d.classList.add(a && a[n] ? a[n] : n)) : d.setAttribute(y, n);
+    }), R(n);
+  }
+  function R(n) {
+    h && w.includes(n) && (d.style.colorScheme = n);
+  }
+  function c() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  if (u)
+    p(u);
+  else
+    try {
+      let n = localStorage.getItem(i) || s, y = l && n === "system" ? c() : n;
+      p(y);
+    } catch (n) {}
+})("class","theme","system",null,["light","dark"],null,true,true)</script><!--$--><header class="py-10"><div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-0"><nav class="flex items-center flex-wrap justify-between transition-all gap-4"><div class="flex flex-row items-center gap-2"><a href="/" class="p-3 font-bold flex flex-row items-center"><img src="/assets/logo-gAD2WqhI.svg" alt="Logo" width="50" height="50" class="flex items-center hover:opacity-80 transition-opacity cursor-pointer rounded-full"/></a><a href="http://localhost:3001" class="font-serif text-xl sm:text-2xl font-normal text-neutral-900 dark:text-neutral-100"><span class="block sm:hidden">Duyệt</span><span class="hidden sm:block">Sr. Data Engineer</span></a></div><div class="hidden md:flex flex-row gap-3 sm:gap-5 flex-wrap items-center"><div class="flex flex-row flex-wrap items-center gap-3 sm:gap-5"><a href="http://localhost:3001" class="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8">Home</a><a href="http://localhost:3001/about" class="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8">About</a><a href="http://localhost:3004" class="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8">Photos</a><a href="http://localhost:3001" class="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8">Insights</a><a href="http://localhost:3002" class="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8">CV</a></div><button type="button" class="h-8 w-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors" aria-label="Sign in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="8" r="4"></circle><path d="M20 21c0-4.4-3.6-8-8-8s-8 3.6-8 8"></path></svg></button></div><div class="flex items-center gap-3 md:hidden"><button type="button" class="h-8 w-8 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors" aria-label="Sign in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="8" r="4"></circle><path d="M20 21c0-4.4-3.6-8-8-8s-8 3.6-8 8"></path></svg></button><button type="button" aria-label="Open menu" aria-expanded="false" class="p-1 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 rounded"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu size-5" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></nav></div></header><div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10"><div class="relative"><div class="fixed top-0 left-0 right-0 h-[2px] z-50 bg-gray-200 dark:bg-gray-800 opacity-0" aria-hidden="true"><div class="h-full transition-all duration-150 ease-out bg-gradient-to-r from-blue-500 to-purple-600" style="width:0%"></div></div><div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10"><article><header class="mb-8 flex flex-col gap-4"><h1 class="mt-2 inline-block break-words py-2 font-serif text-neutral-900 dark:text-neutral-100 text-3xl font-bold tracking-normal md:text-4xl md:tracking-tight lg:text-5xl lg:tracking-tight">Nodejs - Backend Development Bookmarks</h1><div class="border-l-4 border-yellow-400 bg-yellow-50 p-4"><div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert mr-3 h-5 w-5 text-yellow-400" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg><p class="text-sm text-yellow-700"><span class="font-medium">Note:</span> <!-- -->This post is over 11 years old. The information may be outdated.</p></div></div></header><article class="prose-a[href^=&quot;https://&quot;]:after:content-[&quot;↗︎&quot;] prose dark:prose-invert prose-code:break-words prose-h1:font-serif prose-h1:tracking-tight mb-10 mt-10 max-w-none">
+<p>Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về nodejs backend, từ các hướng dẫn cài đặt, npm, database, các frameworks, socket, security, testing, ... tất tần tật để có thể dễ dàng tra cứu. Danh sách này cũng có thể nói gần như overview được hết các kiến thức về Nodejs backend.</p>
+<ul>
+  <li>node.js</li>
+  <li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server">How To Install Node.js on an Ubuntu 14.04 server</a></li>
+  <li><a href="https://github.com/nodejs/node-v0.x-archive/wiki/Installing-Node.js-via-package-manager?utm_source=%5Bdeliciuos%5D&amp;utm_medium=twitter">Installing Node.js via package manager</a></li>
+  <li><a href="http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html">Node.js HOWTO: Install Node+NPM as user (not root) under Unix OSes</a></li>
+  <li><a href="http://nodeguide.com/">Felix's Node.js Guide</a></li>
+  <li><a href="http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/">Creating a REST API using Node.js, Express, and MongoDB</a></li>
+  <li><a href="https://github.com/ccoenraets/nodecellar">Node Cellar Sample Application with Backbone.js, Twitter Bootstrap, Node.js, Express, and MongoDB</a></li>
+  <li><a href="http://thomashunter.name/blog/the-javascript-event-loop-presentation/">JavaScript Event Loop</a></li>
+  <li>Node.js for PHP programmers</li>
+</ul>
+<ol>
+  <li><a href="http://redotheweb.com/2012/01/23/nodejs-for-php-programmers-1-event-driven-programming-and-pasta.html">Event driven Programming</a></li>
+  <li><a href="http://redotheweb.com/2012/02/07/nodejs-for-php-programmers-2-modules-packages-and-the-strawberry-house.html">Modules and Packages</a></li>
+  <li><a href="http://redotheweb.com/2012/04/15/nodejs-for-php-programmers-3-exceptions-and-errors.html">Exceptions and Errors</a></li>
+  <li><a href="http://redotheweb.com/2012/06/17/nodejs-for-php-programmers-4-streams.html">Streams</a></li>
+</ol>
+<ul>
+  <li>
+    <p>State of Node</p>
+  </li>
+  <li>
+    <p><a href="http://strongloop.com/community/nodejs-infographic">Node.js Infographic :: The State of Node</a></p>
+  </li>
+  <li>
+    <p><a href="http://joyent.com/blog/can-you-count-on-node">Can You Count on Node?</a></p>
+  </li>
+  <li>
+    <p>Experiences</p>
+  </li>
+  <li>
+    <p><a href="http://www.ziggytech.net/technology/web-development/experiences-with-nodejs-researching-node/">Experiences with Node.js: Researching Node</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.ziggytech.net/technology/web-development/experiences-with-node-js-porting-a-restful-service-written-in-java/">Experiences with Node.js: Porting a RESTful Service Written in Java</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.ziggytech.net/technology/web-development/experiences-with-node-js-final-thoughts/">Experiences with Node.js: Final Thoughts</a></p>
+  </li>
+  <li>
+    <p>Peformance and V8 Debate (dated)</p>
+  </li>
+  <li>
+    <p><a href="http://www.olympum.com/future/nodejs-to-v8-or-not-to-v8/">NodeJS: To V8 or not to V8</a></p>
+  </li>
+  <li>
+    <p><a href="http://joyent.com/blog/on-brunos-concern-about-the-current-coupling-of-node-js-and-v8">On Bruno's Concern About the Current Coupling of node.js and V8</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.olympum.com/future/answering-jason-on-v8-governance-and-impact-to-nodejs/">Answering Jason on V8 governance and impact to NodeJS</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.std.in/2011/02/06/nodejs-and-v8/">NodeJS and V8</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.olympum.com/architecture/ahead-with-node-js-and-google-v8/">Ahead with Node.JS and Google V8</a></p>
+  </li>
+  <li>
+    <p>Frameworks</p>
+  </li>
+  <li>
+    <p>Express.js</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/vdrnn/expressjs-hello-boilerplate">Hello Boilderplate</a> is a bootstrap web app including Bower, Grunt, Twitter Bootstrap, jQuery and EJS.</p>
+  </li>
+  <li>
+    <p><a href="http://walmartlabs.github.com/hapi/">Hapi</a>: A rich framework for building restful API services.</p>
+  </li>
+  <li>
+    <p><a href="http://www.deployd.com/">Deployd</a></p>
+  </li>
+  <li>
+    <p><a href="http://sailsjs.org/">Sails.js</a>: Realtime MVC Framework for Node.js</p>
+  </li>
+  <li>
+    <p><a href="http://meanjs.org/">MEANjs</a> - Open-Source Full-Stack Solution For MEAN Applications</p>
+  </li>
+  <li>
+    <p><a href="https://www.meteor.com/">Meteor</a></p>
+  </li>
+  <li>
+    <p><a href="http://koajs.com/">koa</a></p>
+  </li>
+  <li>
+    <p>Queues and Workers</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/rvagg/node-worker-farm">node-worker-farm</a></p>
+  </li>
+  <li>
+    <p>Distribute processing tasks to child processes with an über-simple API and baked-in durability &amp; custom concurrency options. Available in npm as worker-farm.</p>
+  </li>
+  <li>
+    <p><a href="http://learnboost.github.com/kue/">Kue</a> is a feature rich priority job queue for node.js backed by redis. A key feature of Kue is its clean user-interface for viewing and managing queued, active, failed, and completed jobs.</p>
+  </li>
+  <li>
+    <p>Databases</p>
+  </li>
+  <li>
+    <p><a href="http://www.html5rocks.com/en/tutorials/webdatabase/websql-indexeddb/">Migrating your WebSQL DB to IndexedDB</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.cubrid.org/blog/cubrid-appstools/common-uses-of-cubrid-nodejs-api-with-examples/">Common Uses of CUBRID Node.js API with Examples</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/coopernurse/node-pool">node-pool</a>: Generic resource pooling for node.js</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pgriess/node-msgpack">node-msgpack</a> is an addon for NodeJS that provides an API for serializing and de-serializing JavaScript objects using the <a href="http://msgpack.org/">MessagePack</a> library. The performance of this addon compared to the native JSON object is quite good, and the space required for serialized data is far less than JSON.</p>
+  </li>
+  <li>
+    <p><a href="http://mongodb.github.com/node-mongodb-native/">The Node.JS MongoDB Driver Manual</a></p>
+  </li>
+  <li>
+    <p><a href="http://bookshelfjs.org/">Bookshelf</a> is a promise based ORM for Node.js, built on Knex query builder. It extends the Model &amp; Collection foundations of Backbone.js, providing transaction support, eager/nested-eager relation loading, and support for one-to-one, one-to-many, and many-to-many relations.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/PlayNetwork/mongoose-middleware">Mongoose Middleware</a></p>
+  </li>
+  <li>
+    <p><a href="http://youtu.be/qI_g07C_Q5I">Martin Fowler: Introduction to NoSQL</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.tokutek.com/products/tokumx-for-mongodb/">TokuMX: High Performance for MongoDB</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.comsysto.com/2012/09/19/the-mongodb-tool-belt/">The MongoDB tool belt</a></p>
+  </li>
+  <li>
+    <p><a href="http://mcfunley.com/why-mongodb-never-worked-out-at-etsy">Why MongoDB Never Worked Out at Etsy</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.codecentric.de/en/2012/12/mongodb-tutorial/">MongoDB: Tutorial</a></p>
+  </li>
+  <li>
+    <p><a href="http://habrahabr.ru/post/168691/">Репликация MongoDb на Amazon EC2</a></p>
+  </li>
+  <li>
+    <p><a href="http://lynkly.tumblr.com/post/25268061482/easily-replicate-your-mysql-database">Easily Replicate your MySQL Database!</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.databasetube.com/nosql/hybrid-applications-with-mongodb-and-rdbms/">Hybrid Applications with MongoDB and RDBMS</a></p>
+  </li>
+  <li>
+    <p>Content Management Systems</p>
+  </li>
+  <li>
+    <p>Static Site Generators</p>
+  </li>
+  <li>
+    <p><a href="http://www.mickgardner.com/2012/12/an-introduction-to-static-site.html">An Introduction to Static Site Generators</a></p>
+  </li>
+  <li>
+    <p><a href="http://zespia.tw/hexo/">Hexo</a>: A fast, simple &amp; powerful blog framework, powered by Node.js.</p>
+  </li>
+  <li>
+    <p><a href="http://laktek.github.com/punch/">Punch</a>: Punch is a simple, intuitive web publishing framework that will delight both designers and developers built on Node.js.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/jonsherrard/jott">jott</a>: Minimum viable blog generator. Markup in Jade. Static HTML output.</p>
+  </li>
+  <li>
+    <p>CLI</p>
+  </li>
+  <li>
+    <p><a href="http://michaelbrooks.ca/deck/jsconf2013/">Master the CLI with Node</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/andrewjmead/global-npm-seed">global-npm-seed</a>: Learn to create a global npm module with a CLI interface.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/arturadib/shelljs">Shell.js</a> is a portable (<strong>Windows included</strong>) implementation of Unix shell commands on top of the Node.js API. You can use it to eliminate your shell script's dependency on Unix while still keeping its familiar and powerful commands.</p>
+  </li>
+  <li>
+    <p>Dependency Injection</p>
+  </li>
+  <li>
+    <p><a href="http://www.joezimjs.com/javascript/dependency-injection-with-node-js/">Dependency Injection with Node.js</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.panosru.com/dependency-injection-in-nodejs/">Dependency Injection in NodeJS</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/coopernurse/node-pool">node-pool</a></p>
+  </li>
+  <li>
+    <p>Generic resource pool. Can be used to reuse or throttle expensive resources such as database connections.</p>
+  </li>
+  <li>
+    <p>Error Handling</p>
+  </li>
+  <li>
+    <p><a href="http://www.senchalabs.org/connect/errorHandler.html">connect error handler middleware</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/mcollina/node-errormailer">node-errormailer</a>:Sending email for each error in your node app was never easier! It fully support connect and express</p>
+  </li>
+  <li>
+    <p><a href="https://npmjs.org/package/outcome">outcome</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/trentm/node-bunyan">node-bunyan</a>: a simple and fast JSON logging module for node.js services</p>
+  </li>
+  <li>
+    <p><a href="http://craig.is/writing/chrome-logger/">Chrome Logger</a></p>
+  </li>
+  <li>
+    <p>Events</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations">Comparison between different Observer Pattern implementations</a></p>
+  </li>
+  <li>
+    <p><a href="http://millermedeiros.github.com/js-signals/">js-signals</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.millermedeiros.com/signal-emitter/">Signal Emitter</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/Wolfy87/EventEmitter">EventEmitter</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/jeromeetienne/microevent.js">MicroEvent.js</a></p>
+  </li>
+  <li>
+    <p><a href="http://craig.is/riding/gators">gator.js</a></p>
+  </li>
+  <li>
+    <p>Image Manipulation</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/mikesmullin/node-gd">node-gd</a>: GD graphic library (libgd) C++ bindings for Node.js.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pkrumins/node-image">node-image</a>: This is a node.js module that unifies node-png, node-gif and node-jpeg modules.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/ajaxorg/node-o3-canvas">node-o3-canvas</a>: This is a HTML5 spec Canvas component for NodeJS based on LibAGG and Freetype. It is implemented using the Ajax.org O3 component system, and should be easy to extend and fix.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/LearnBoost/node-canvas">node-canvas</a>: Node canvas is a Cairo backed Canvas implementation for NodeJS.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/dosx/node-vips">node-vips</a>: A node.js module that provides access to the VIPS library and Exiv2 in order to resize and rotate images.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/seanmcgary/node-imagemagick">node-imagemagick</a>: Imagemagick module for NodeJS</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/NorgannasAddOns/node-imageinfo">node-imageinfo</a>: A package that returns information about an image or flash file such as type, dimensions etc.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/HumbleSoftware/js-imagediff">js-imagediff</a>: JavaScript / HTML5 Canvas based image diff utility.</p>
+  </li>
+  <li>
+    <p><a href="http://aheckmann.github.com/gm/">gm</a>: GraphicsMagick for node.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/OiNutter/Obscura">Obscura</a></p>
+  </li>
+  <li>
+    <p>Internationalisation</p>
+  </li>
+  <li>
+    <p><a href="http://ejohn.org/blog/a-strategy-for-i18n-and-node/">A Strategy for i18n and Node.js</a></p>
+  </li>
+  <li>
+    <p><a href="http://fczaja.blogspot.de/2010/08/multilanguage-database-design.html">Multilingual database design approaches</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></p>
+  </li>
+  <li>
+    <p>Websockets</p>
+  </li>
+  <li>
+    <p><a href="http://binaryjs.com/">Binary.js</a></p>
+  </li>
+  <li>
+    <p>Authentication</p>
+  </li>
+  <li>
+    <p><a href="http://passportjs.org/">Passport</a></p>
+  </li>
+  <li>
+    <p>Testing</p>
+  </li>
+  <li>
+    <p><a href="http://phantomjs.org/">PhantomJS</a></p>
+  </li>
+  <li>
+    <p><a href="http://stackoverflow.com/questions/7127226/node-js-testing-restful-api-vows-js">Node.js testing RESTful API (vows.js?)</a></p>
+  </li>
+  <li>
+    <p><a href="http://zombie.labnotes.org/">Insanely fast, headless full-stack testing using Node.js</a></p>
+  </li>
+  <li>
+    <p><a href="http://alistapart.com/article/writing-testable-javascript">Writing Testable JavaScript</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/joyent/node/wiki/modules#wiki-testing">Testing / Spec Frameworks List</a></p>
+  </li>
+  <li>
+    <p><a href="http://casperjs.org/">CasperJS</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/flatiron/api-easy">APIeasy</a>: A fluent (i.e. chainable) syntax for generating vows tests against RESTful APIs.</p>
+  </li>
+  <li>
+    <p><a href="http://visionmedia.github.io/expresso/">Expresso</a></p>
+  </li>
+  <li>
+    <p>Expresso is a JavaScript TDD framework written for nodejs. Expresso is extremely fast, and is packed with features such as additional assertion methods, code coverage reporting, CI support, and more.</p>
+  </li>
+  <li>
+    <p><a href="http://pivotal.github.io/jasmine/">Jasmine</a></p>
+  </li>
+  <li>
+    <p>Jasmine is a behavior-driven development framework for testing JavaScript code. It does not depend on any other JavaScript frameworks. It does not require a DOM. And it has a clean, obvious syntax so that you can easily write tests.</p>
+  </li>
+  <li>
+    <p><a href="http://frisbyjs.com/">frisby.js</a></p>
+  </li>
+  <li>
+    <p>Frisby is a REST API testing framework built on node.js and Jasmine that makes testing API endpoints easy, fast, and fun.</p>
+  </li>
+  <li>
+    <p><a href="http://visionmedia.github.io/mocha/">mocha</a></p>
+  </li>
+  <li>
+    <p>Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases. Hosted on GitHub.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/spumko/lab">lab</a></p>
+  </li>
+  <li>
+    <p>lab is a simple test utility for node. Unlike other test frameworks, lab does not attempt to cover many use cases or provide rich functionality and extensibility. In fact, this project started as a fork off mocha and was repeatedly refactored until only the very basic functionality was left which was then rewritten into a handful of functions.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/visionmedia/should.js">should</a></p>
+  </li>
+  <li>
+    <p>should is an expressive, readable, test framework agnostic, assertion library for node. It extends the Object prototype with a single non-enumerable getter that allows you to express how that object should behave.</p>
+  </li>
+  <li>
+    <p><a href="http://chaijs.com/">chai</a></p>
+  </li>
+  <li>
+    <p>Chai is a BDD / TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/visionmedia/supertest">supertest</a></p>
+  </li>
+  <li>
+    <p>Super-agent driven library for testing HTTP servers</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/bevry/joe">Joe</a></p>
+  </li>
+  <li>
+    <p>Joe is a javascript testing framework that actually works. Unlike Mocha, we won't die on you abruptly when executing dynamically created tests and are always able to associate the correct test to the correct corresponding test suite. Switching from Mocha is trivial and only takes a few minutes.</p>
+  </li>
+  <li>
+    <p>Web Scraping</p>
+  </li>
+  <li>
+    <p><a href="http://nrabinowitz.github.com/pjscrape/">pjScrape</a></p>
+  </li>
+  <li>
+    <p><a href="http://phantomjs.org/">PhantomJS</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/mikeal/spider">spider</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/duyet/DCrawler">DCrawler</a></p>
+  </li>
+  <li>
+    <p>Connect</p>
+  </li>
+  <li>
+    <p><a href="http://howtonode.org/connect-it">Just Connect it Already</a></p>
+  </li>
+  <li>
+    <p><a href="http://stephensugden.com/middleware_guide/">A short guide to Connect Middleware</a></p>
+  </li>
+  <li>
+    <p><a href="http://project70.com/nodejs/understanding-connect-and-middleware/">Understanding Connect And Middleware</a></p>
+  </li>
+  <li>
+    <p>Streams</p>
+  </li>
+  <li>
+    <p><a href="http://nodejs.org/api/stream.html">Official Documentation</a></p>
+  </li>
+  <li>
+    <p><a href="http://felixge.s3.amazonaws.com/11/nodejs-streams.pdf">Streams, Pipes and Mega Pipes</a>: a presentation by Felix Geisendörfer</p>
+  </li>
+  <li>
+    <p><a href="http://nodemanual.org/latest/nodejs_dev_guide/understanding_streams.html">Understanding Stream</a>: Article at nodemanual.org</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/substack/stream-handbook">Stream Handbook</a></p>
+  </li>
+  <li>
+    <p><a href="http://howtonode.org/streams-explained">Daddy, what's a stream?</a></p>
+  </li>
+  <li>
+    <p>Package Management</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/sifteo/parcel">parcel</a> is easy package management using a file server and path conventions, with built in support for Amazon S3. It is designed to encode package metadata, including name, version and OS within a path. The conventions allow this metadata to be queried, without the need for a database.</p>
+  </li>
+  <li>
+    <p>npm</p>
+  </li>
+  <li>
+    <p><a href="http://package.json.jit.su/">package.json</a>: a cheat sheet for writing npm package files.</p>
+  </li>
+  <li>
+    <p><a href="http://blog.nodejitsu.com/package-dependencies-done-right">Package.json dependencies done right</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.debuggable.com/posts/how-to-fork-patch-npm-modules:4e2eb9f3-e584-44be-b1a9-3db7cbdd56cb">How to fork &amp; patch npm modules</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.nodejitsu.com/npm-cheatsheet">npm cheatsheet</a> by nodejitsu</p>
+  </li>
+  <li>
+    <p>Refactoring</p>
+  </li>
+  <li>
+    <p><a href="http://perfectionkills.com/refactoring-javascript-with-kratko-js/">Refactoring Javascript with kratko.js</a></p>
+  </li>
+  <li>
+    <p>Routing</p>
+  </li>
+  <li>
+    <p><a href="http://shtylman.com/post/expressjs-re-routing/">expressjs re-routing</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/visionmedia/express-resource">express-resource</a> provides resourceful routing to express.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/cloudhead/journey">journey</a>: liberal JSON-only HTTP request routing for node.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/fengmk2/urlrouter">urlrouter</a>: http url router, <code>connect</code> missing router middleware</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/imrefazekas/connect-rest">connect-rest</a>: Restful web services middleware for connect node.js</p>
+  </li>
+  <li>
+    <p>Security</p>
+  </li>
+  <li>
+    <p>Authentication</p>
+  </li>
+  <li>
+    <p><a href="https://npmjs.org/package/everyauth">everyauth</a></p>
+  </li>
+  <li>
+    <p>Authentication and authorization (password, facebook, &amp; more) for your node.js Connect and Express apps.</p>
+  </li>
+  <li>
+    <p>Authorisation</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/scottkf/ability-js">ability.js</a></p>
+  </li>
+  <li>
+    <p>A simple route-based ACL component for express.js. This won't handle actual authentication, you can use everyauth for that.</p>
+  </li>
+  <li>
+    <p><a href="https://npmjs.org/package/acl">acl</a></p>
+  </li>
+  <li>
+    <p>This module provides a minimalistic ACL implementation inspired by Zend_ACL</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/andris9/xoauth2">xoauth2</a></p>
+  </li>
+  <li>
+    <p>XOAuth2 token generation with node.js</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/Mashape/mashape-oauth#using-oauth2">mashape-oauth</a></p>
+  </li>
+  <li>
+    <p>OAuth Modules for Node.js - Supporting RSA, HMAC, PLAINTEXT, 2,3-Legged, 1.0a, Echo, XAuth, and 2.0</p>
+  </li>
+  <li>
+    <p>General</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/evilpacket/helmet">helmet</a>: Collection of middleware to implement various security headers for Express / Connect</p>
+  </li>
+  <li>
+    <p><a href="http://docs.meteor.com/#accounts_passwords">meteor accounts system</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/joyent/node-http-signature">node-http-signature</a>: This document describes a way to add origin authentication, message integrity, and replay resistance to HTTP REST requests. It is intended to be used over the HTTPS protocol.</p>
+  </li>
+  <li>
+    <p>Cryptography</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/ncb000gt/node.bcrypt.js">node.bcrypt.js</a></p>
+  </li>
+  <li>
+    <p>Performance</p>
+  </li>
+  <li>
+    <p><a href="https://hacks.mozilla.org/2012/11/fully-loaded-node-a-node-js-holiday-season-part-2/">Fully Loaded Node</a></p>
+  </li>
+  <li>
+    <p><a href="https://hacks.mozilla.org/2012/12/using-secure-client-side-sessions-to-build-simple-and-scalable-node-js-applications-a-node-js-holiday-season-part-3/">Using secure client-side sessions to build simple and scalable Node.JS applications</a></p>
+  </li>
+  <li>
+    <p><a href="https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5/">Building A Node.JS Server That Won’t Melt</a></p>
+  </li>
+  <li>
+    <p><a href="https://engineering.gosquared.com/optimising-nginx-node-js-and-networking-for-heavy-workloads">Optimising NginX, Node.JS and networking for heavy workloads</a></p>
+  </li>
+  <li>
+    <p><a href="http://architects.dzone.com/articles/every-programmer-should-know">Every Programmer Should Know These Latency Numbers</a></p>
+  </li>
+  <li>
+    <p><a href="http://loader.io/">loader.io</a> is a free load testing service that allows you to stress test your web-apps/apis with thousands of concurrent connections.</p>
+  </li>
+  <li>
+    <p>Source Control</p>
+  </li>
+  <li>
+    <p><a href="https://npmjs.org/package/git-wrapper">git-wrapper</a></p>
+  </li>
+  <li>
+    <p>Networks</p>
+  </li>
+  <li>
+    <p><a href="http://programmers.stackexchange.com/questions/171734/difference-between-a-socket-and-a-port">Difference between a socket and a port</a></p>
+  </li>
+</ul>
+</article><div class="space-y-8 mt-10"><div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3"><div class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar h-3.5 w-3.5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><time dateTime="2016-01-03T00:00:00.000Z">Jan 3, 2016</time><span class="text-gray-400 dark:text-gray-600">·</span><span>10 years ago</span></div><span class="text-gray-300 dark:text-gray-700">|</span><div class="flex items-center gap-1.5" title="Reading time"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock h-3.5 w-3.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><span>9 min read</span></div><span class="text-gray-300 dark:text-gray-700">|</span><a href="/category/web" class="flex items-center gap-1.5 hover:text-gray-900 dark:hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder h-3.5 w-3.5" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg><span>Web</span></a><span class="text-gray-300 dark:text-gray-700">|</span><div class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag h-3.5 w-3.5 shrink-0" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg><div class="flex flex-wrap gap-1.5"><a href="/tag/node.js" class="hover:text-gray-900 dark:hover:text-white transition-colors">Node.js</a></div></div><span class="text-gray-300 dark:text-gray-700">|</span><a class="flex items-center gap-1.5 hover:text-gray-900 dark:hover:text-white transition-colors" href="https://github.com/duyet/monorepo/edit/master/apps/blog/_posts/2016/01/nodejs-backend-development-bookmarks.md" rel="noopener noreferrer" target="_blank" title="Edit on GitHub"><svg viewBox="0 0 438.549 438.549" class="h-3.5 w-3.5"><path fill="currentColor" d="M409.132 114.573c-19.608-33.596-46.205-60.194-79.798-79.8-33.598-19.607-70.277-29.408-110.063-29.408-39.781 0-76.472 9.804-110.063 29.408-33.596 19.605-60.192 46.204-79.8 79.8C9.803 148.168 0 184.854 0 224.63c0 47.78 13.94 90.745 41.827 128.906 27.884 38.164 63.906 64.572 108.063 79.227 5.14.954 8.945.283 11.419-1.996 2.475-2.282 3.711-5.14 3.711-8.562 0-.571-.049-5.708-.144-15.417a2549.81 2549.81 0 01-.144-25.406l-6.567 1.136c-4.187.767-9.469 1.092-15.846 1-6.374-.089-12.991-.757-19.842-1.999-6.854-1.231-13.229-4.086-19.13-8.559-5.898-4.473-10.085-10.328-12.56-17.556l-2.855-6.57c-1.903-4.374-4.899-9.233-8.992-14.559-4.093-5.331-8.232-8.945-12.419-10.848l-1.999-1.431c-1.332-.951-2.568-2.098-3.711-3.429-1.142-1.331-1.997-2.663-2.568-3.997-.572-1.335-.098-2.43 1.427-3.289 1.525-.859 4.281-1.276 8.28-1.276l5.708.853c3.807.763 8.516 3.042 14.133 6.851 5.614 3.806 10.229 8.754 13.846 14.842 4.38 7.806 9.657 13.754 15.846 17.847 6.184 4.093 12.419 6.136 18.699 6.136 6.28 0 11.704-.476 16.274-1.423 4.565-.952 8.848-2.383 12.847-4.285 1.713-12.758 6.377-22.559 13.988-29.41-10.848-1.14-20.601-2.857-29.264-5.14-8.658-2.286-17.605-5.996-26.835-11.14-9.235-5.137-16.896-11.516-22.985-19.126-6.09-7.614-11.088-17.61-14.987-29.979-3.901-12.374-5.852-26.648-5.852-42.826 0-23.035 7.52-42.637 22.557-58.817-7.044-17.318-6.379-36.732 1.997-58.24 5.52-1.715 13.706-.428 24.554 3.853 10.85 4.283 18.794 7.952 23.84 10.994 5.046 3.041 9.089 5.618 12.135 7.708 17.705-4.947 35.976-7.421 54.818-7.421s37.117 2.474 54.823 7.421l10.849-6.849c7.419-4.57 16.18-8.758 26.262-12.565 10.088-3.805 17.802-4.853 23.134-3.138 8.562 21.509 9.325 40.922 2.279 58.24 15.036 16.18 22.559 35.787 22.559 58.817 0 16.178-1.958 30.497-5.853 42.966-3.9 12.471-8.941 22.457-15.125 29.979-6.191 7.521-13.901 13.85-23.131 18.986-9.232 5.14-18.182 8.85-26.84 11.136-8.662 2.286-18.415 4.004-29.263 5.146 9.894 8.562 14.842 22.077 14.842 40.539v60.237c0 3.422 1.19 6.279 3.572 8.562 2.379 2.279 6.136 2.95 11.276 1.995 44.163-14.653 80.185-41.062 108.068-79.226 27.88-38.161 41.825-81.126 41.825-128.906-.01-39.771-9.818-76.454-29.414-110.049z"></path></svg><span>Edit</span></a><span class="text-gray-300 dark:text-gray-700">|</span><div class="relative"><button type="button" class="flex items-center gap-1 hover:text-gray-900 dark:hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy h-3.5 w-3.5" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg><span>Copy</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down h-3 w-3 transition-transform" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div></div></div><div class="mt-16"><h2 class="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Related Posts</h2><div class="grid gap-4 md:grid-cols-2"><a href="/2018/07/signale-console-logger.html" class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-all duration-200"><article><h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2 mb-2">Signale - Hackable console logger for Nodejs</h3><p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">Signale là một thư viện thay thế console logger trong Nodejs, cho kết quả đẹp, sexy hơn và nhiều chức năng.</p><div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-500"><time dateTime="2018-07-19T00:00:00.000Z">Jul 19, 2018</time><span>·</span><span>8 years ago</span></div><div class="flex items-center gap-1 mt-3 text-sm font-medium text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200">Read more<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div></article></a><a href="/2017/01/botpress-p2.html" class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-all duration-200"><article><h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2 mb-2">Botpress - Phần 2: Coding</h3><p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">Chatbot với Botpress phần 2</p><div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-500"><time dateTime="2017-01-24T00:00:00.000Z">Jan 24, 2017</time><span>·</span><span>9 years ago</span></div><div class="flex items-center gap-1 mt-3 text-sm font-medium text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200">Read more<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div></article></a><a href="/2017/01/botpress.html" class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-all duration-200"><article><h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2 mb-2">Botpress - Phần 1: Init Chatbot</h3><p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">Botpress được ví như Wordpress for Chatbot - được viết bằng Node, cài đặt đơn giản, quản lý trên giao diện web, cơ chế lập trình module - Botpress giúp rút ngắn thời gian Dev lên rất nhiều.</p><div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-500"><time dateTime="2017-01-24T00:00:00.000Z">Jan 24, 2017</time><span>·</span><span>9 years ago</span></div><div class="flex items-center gap-1 mt-3 text-sm font-medium text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200">Read more<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div></article></a><a href="/2016/07/sublime-text-plugin-nodejs.html" class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-all duration-200"><article><h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2 mb-2">Sublime Text Plugin nào cho lập trình viên Node.js</h3><p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">Hôm nay mình sẽ giới thiệu 1 số plugin cần có để lập trình Node.js trên Sublime.</p><div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-500"><time dateTime="2016-07-20T00:00:00.000Z">Jul 20, 2016</time><span>·</span><span>10 years ago</span></div><div class="flex items-center gap-1 mt-3 text-sm font-medium text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200">Read more<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div></article></a></div></div></article></div></div></div><script></script><!--/$--><footer class="bg-neutral-50 pb-[env(safe-area-inset-bottom)] relative dark:bg-claude-gray-900"><hr class="dark:border-neutral-700"/><div class="mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]"><div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10"><div aria-labelledby="footer-heading"><h2 id="footer-heading" class="sr-only">Footer</h2><div class="w-full py-8 mx-auto"><div class="xl:grid xl:grid-cols-3 xl:gap-8"><div class="grid grid-cols-1 gap-8 xl:col-span-2"><div class="grid grid-cols-1 gap-8 sm:grid-cols-3 md:gap-8"><div class="mt-6 md:mt-0"><a href="/" class="font-bold flex flex-row items-center p-0"><img src="/assets/logo-gAD2WqhI.svg" alt="Logo" width="50" height="50" class="flex items-center hover:opacity-80 transition-opacity cursor-pointer rounded-full"/></a></div><div class="mt-6 sm:mt-12 md:mt-0"><h3 class="text-sm text-black dark:text-white font-bold">Resources</h3><ul class="mt-4 space-y-1.5 list-none ml-0"><li><a href="https://rust-tieng-viet.github.io?utm_source=blog&amp;utm_medium=footer&amp;utm_campaign=rust_tieng_viet" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">Rust Tiếng Việt</a></li><li><a href="http://localhost:3000/archives" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">/archives</a></li><li><a href="http://localhost:3000/series" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">/series</a></li><li><a href="http://localhost:3000/tags" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">/tags</a></li><li><a href="https://status.duyet.net" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">Status</a></li></ul></div><div class="mt-6 sm:mt-12 md:mt-0"><h3 class="text-sm text-black dark:text-white font-bold">me@duyet.net</h3><div class="mt-4 text-sm text-gray-600 dark:text-neutral-400"><div class="flex flex-row gap-4"><a href="https://github.com/duyet" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 438.549 438.549" class="w-4 h-4 text-claude-gray-400 hover:text-claude-gray-600 dark:text-gray-500 dark:hover:text-white"><path fill="currentColor" d="M409.132 114.573c-19.608-33.596-46.205-60.194-79.798-79.8-33.598-19.607-70.277-29.408-110.063-29.408-39.781 0-76.472 9.804-110.063 29.408-33.596 19.605-60.192 46.204-79.8 79.8C9.803 148.168 0 184.854 0 224.63c0 47.78 13.94 90.745 41.827 128.906 27.884 38.164 63.906 64.572 108.063 79.227 5.14.954 8.945.283 11.419-1.996 2.475-2.282 3.711-5.14 3.711-8.562 0-.571-.049-5.708-.144-15.417a2549.81 2549.81 0 01-.144-25.406l-6.567 1.136c-4.187.767-9.469 1.092-15.846 1-6.374-.089-12.991-.757-19.842-1.999-6.854-1.231-13.229-4.086-19.13-8.559-5.898-4.473-10.085-10.328-12.56-17.556l-2.855-6.57c-1.903-4.374-4.899-9.233-8.992-14.559-4.093-5.331-8.232-8.945-12.419-10.848l-1.999-1.431c-1.332-.951-2.568-2.098-3.711-3.429-1.142-1.331-1.997-2.663-2.568-3.997-.572-1.335-.098-2.43 1.427-3.289 1.525-.859 4.281-1.276 8.28-1.276l5.708.853c3.807.763 8.516 3.042 14.133 6.851 5.614 3.806 10.229 8.754 13.846 14.842 4.38 7.806 9.657 13.754 15.846 17.847 6.184 4.093 12.419 6.136 18.699 6.136 6.28 0 11.704-.476 16.274-1.423 4.565-.952 8.848-2.383 12.847-4.285 1.713-12.758 6.377-22.559 13.988-29.41-10.848-1.14-20.601-2.857-29.264-5.14-8.658-2.286-17.605-5.996-26.835-11.14-9.235-5.137-16.896-11.516-22.985-19.126-6.09-7.614-11.088-17.61-14.987-29.979-3.901-12.374-5.852-26.648-5.852-42.826 0-23.035 7.52-42.637 22.557-58.817-7.044-17.318-6.379-36.732 1.997-58.24 5.52-1.715 13.706-.428 24.554 3.853 10.85 4.283 18.794 7.952 23.84 10.994 5.046 3.041 9.089 5.618 12.135 7.708 17.705-4.947 35.976-7.421 54.818-7.421s37.117 2.474 54.823 7.421l10.849-6.849c7.419-4.57 16.18-8.758 26.262-12.565 10.088-3.805 17.802-4.853 23.134-3.138 8.562 21.509 9.325 40.922 2.279 58.24 15.036 16.18 22.559 35.787 22.559 58.817 0 16.178-1.958 30.497-5.853 42.966-3.9 12.471-8.941 22.457-15.125 29.979-6.191 7.521-13.901 13.85-23.131 18.986-9.232 5.14-18.182 8.85-26.84 11.136-8.662 2.286-18.415 4.004-29.263 5.146 9.894 8.562 14.842 22.077 14.842 40.539v60.237c0 3.422 1.19 6.279 3.572 8.562 2.379 2.279 6.136 2.95 11.276 1.995 44.163-14.653 80.185-41.062 108.068-79.226 27.88-38.161 41.825-81.126 41.825-128.906-.01-39.771-9.818-76.454-29.414-110.049z"></path></svg></a><a href="https://x.com/_duyet" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><svg height="16" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" width="16" class="w-4 h-4 text-claude-gray-400 hover:text-claude-gray-600 dark:text-gray-500 dark:hover:text-white"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 0.5H5.75L9.48421 5.71053L14 0.5H16L10.3895 6.97368L16.5 15.5H11.25L7.51579 10.2895L3 15.5H1L6.61053 9.02632L0.5 0.5ZM12.0204 14L3.42043 2H4.97957L13.5796 14H12.0204Z" fill="currentColor"></path></svg></a><a href="https://linkedin.com/in/duyet" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" class="w-4 h-4 text-claude-gray-400 hover:text-claude-gray-600 dark:text-gray-500 dark:hover:text-white"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a><a href="https://unsplash.com/@_duyet" target="_blank" rel="noopener noreferrer" aria-label="Unsplash"><svg viewBox="0 0 24 24" class="w-4 h-4 text-claude-gray-400 hover:text-claude-gray-600 dark:text-gray-500 dark:hover:text-white"><path fill="currentColor" d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"></path></svg></a><a href="https://www.tiktok.com/@duyet.net" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" class="w-4 h-4 text-claude-gray-400 hover:text-claude-gray-600 dark:text-gray-500 dark:hover:text-white"><path fill="currentColor" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"></path></svg></a></div></div><ul class="mt-4 space-y-1.5 list-none ml-0"><li><a href="http://localhost:3001/about" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">About</a></li><li><a href="https://linkedin.com/in/duyet" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="http://localhost:3002" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">Resume</a></li><li><a href="https://github.com/duyet?tab=repositories" class="text-sm text-neutral-500 dark:text-neutral-400 no-underline hover:text-gray-700 dark:hover:text-white transition" target="_blank" rel="noopener noreferrer">Projects</a></li></ul></div></div></div></div><div class="pt-8 mt-8 sm:flex sm:items-center sm:justify-between"><div class="mt-5"><p class="mt-4 text-xs text-gray-500 dark:text-neutral-400">© <!-- -->2026<!-- --> <!-- -->localhost:3001<!-- --> |<!-- --> <!-- -->Sr. Data Engineer<!-- --> |<!-- --> <!-- -->2026-03-20</p></div><div class="mt-5"></div></div></div></div></div></div></footer><script class="$tsr" id="$tsr-stream-barrier">(self.$R=self.$R||{})["tsr"]=[];self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};
+;$_TSR.router=($R=>$R[0]={manifest:$R[1]={routes:$R[2]={__root__:$R[3]={preloads:$R[4]=["/assets/main-Bp2DSC5G.js"],assets:$R[5]=[$R[6]={tag:"link",attrs:$R[7]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[8]={tag:"script",attrs:$R[9]={type:"module",async:!0},children:"import(\"/assets/main-Bp2DSC5G.js\")"}]},"/":$R[10]={assets:$R[11]=[$R[12]={tag:"link",attrs:$R[13]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[14]={tag:"link",attrs:$R[15]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[16]={tag:"link",attrs:$R[17]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[18]={tag:"link",attrs:$R[19]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[20]={tag:"link",attrs:$R[21]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[22]={tag:"link",attrs:$R[23]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/about":$R[24]={assets:$R[25]=[$R[26]={tag:"link",attrs:$R[27]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/ai":$R[28]={assets:$R[29]=[$R[30]={tag:"link",attrs:$R[31]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/archives":$R[32]={assets:$R[33]=[$R[34]={tag:"link",attrs:$R[35]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[36]={tag:"link",attrs:$R[37]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[38]={tag:"link",attrs:$R[39]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[40]={tag:"link",attrs:$R[41]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/category":$R[42]={assets:$R[43]=[$R[44]={tag:"link",attrs:$R[45]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[46]={tag:"link",attrs:$R[47]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/featured":$R[48]={assets:$R[49]=[$R[50]={tag:"link",attrs:$R[51]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[52]={tag:"link",attrs:$R[53]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[54]={tag:"link",attrs:$R[55]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[56]={tag:"link",attrs:$R[57]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/feed":$R[58]={assets:$R[59]=[$R[60]={tag:"link",attrs:$R[61]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[62]={tag:"link",attrs:$R[63]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/html-sitemap":$R[64]={assets:$R[65]=[$R[66]={tag:"link",attrs:$R[67]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/robots":$R[68]={assets:$R[69]=[$R[70]={tag:"link",attrs:$R[71]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/search":$R[72]={assets:$R[73]=[$R[74]={tag:"link",attrs:$R[75]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[76]={tag:"link",attrs:$R[77]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/series":$R[78]={assets:$R[79]=[$R[80]={tag:"link",attrs:$R[81]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[82]={tag:"link",attrs:$R[83]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/tags":$R[84]={assets:$R[85]=[$R[86]={tag:"link",attrs:$R[87]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[88]={tag:"link",attrs:$R[89]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/category/$category":$R[90]={assets:$R[91]=[$R[92]={tag:"link",attrs:$R[93]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[94]={tag:"link",attrs:$R[95]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[96]={tag:"link",attrs:$R[97]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[98]={tag:"link",attrs:$R[99]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[100]={tag:"link",attrs:$R[101]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/series/$slug":$R[102]={assets:$R[103]=[$R[104]={tag:"link",attrs:$R[105]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[106]={tag:"link",attrs:$R[107]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/tag/$tag":$R[108]={assets:$R[109]=[$R[110]={tag:"link",attrs:$R[111]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[112]={tag:"link",attrs:$R[113]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[114]={tag:"link",attrs:$R[115]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[116]={tag:"link",attrs:$R[117]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[118]={tag:"link",attrs:$R[119]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]},"/$year/$month/$slug":$R[120]={preloads:$R[121]=["/assets/_slug-Cn0iyEqO.js","/assets/SeriesBox-D9M89V2u.js","/assets/index-wduJm33g.js"],assets:$R[122]=[$R[123]={tag:"link",attrs:$R[124]={rel:"stylesheet",href:"/assets/_slug-WByDNT2U.css#",type:"text/css"}},$R[125]={tag:"link",attrs:$R[126]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[127]={tag:"link",attrs:$R[128]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}},$R[129]={tag:"link",attrs:$R[130]={rel:"stylesheet",href:"/assets/main-KJ329Ruc.css#",type:"text/css"}}]}}},matches:$R[131]=[$R[132]={i:"__root__ ",u:1774029362565,s:"success",ssr:!0},$R[133]={i:" $year $month $slug 2016 01 nodejs-backend-development-bookmarks.html",u:1774029362565,s:"success",ssr:!0}],lastMatchId:" $year $month $slug 2016 01 nodejs-backend-development-bookmarks.html"})($R["tsr"]);$_TSR.e();document.currentScript.remove()</script><script type="module" async="">import("/assets/main-Bp2DSC5G.js")</script></body></html>
