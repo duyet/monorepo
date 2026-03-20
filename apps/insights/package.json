@@ -16,8 +16,8 @@
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "start": "vite preview --port 3001",
-    "deploy": "bun run build && bunx wrangler pages deploy dist/client --project-name=duyet-insights",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist/client --project-name=duyet-insights --commit-dirty=true",
+    "deploy": "bun run build && bunx wrangler pages deploy dist --project-name=duyet-insights",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist --project-name=duyet-insights --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh insights duyet-insights",
     "test": "bun test",
     "test:watch": "bun test --watch",
@@ -31,7 +31,6 @@
     "@radix-ui/react-progress": "^1.1.7",
     "@tailwindcss/vite": "^4.0.0",
     "@tanstack/react-router": "^1.122.0",
-    "@tanstack/react-start": "^1.122.0",
     "graphql-request": "^6.1.0",
     "lucide-react": "^0.577.0",
     "react": "19.2.4",
@@ -45,8 +44,10 @@
     "@duyet/interfaces": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@tanstack/router-plugin": "^1.122.0",
     "@types/bun": "latest",
     "@types/react": "^19.1.4",
+    "@vitejs/plugin-react": "^4.0.0",
     "typescript": "*"
   }
 }
