@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-inter:
+      "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
+      sans-serif;
+    --font-serif: "Libre Baskerville", Georgia, serif;
+  }
+
+  html {
+    font-family: var(--font-inter);
+  }
+
+  body {
+    background-color: #fbf7f0;
+    color: #1f1f1f;
+  }
+
+  .dark body {
+    background-color: #1f1f1f;
+    color: #f9f9f8;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
