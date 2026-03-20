@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface BackLinkProps {
   href: string;
   text: string;
@@ -7,7 +5,7 @@ interface BackLinkProps {
 
 export function BackLink({ href, text }: BackLinkProps) {
   return (
-    <Link
+    <a
       href={href}
       className="inline-flex cursor-pointer items-center text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
     >
@@ -25,6 +23,6 @@ export function BackLink({ href, text }: BackLinkProps) {
         />
       </svg>
       {text}
-    </Link>
+    </a>
   );
 }

@@ -2,7 +2,6 @@ import type { Post } from "@duyet/interfaces";
 import { distanceToNow } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 
 interface RelatedPostsProps {
   posts: Post[];
@@ -33,7 +32,7 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
           const excerpt = post.excerpt || "";
 
           return (
-            <Link
+            <a
               key={post.slug}
               href={`/${url}`}
               className={cn(
@@ -99,7 +98,7 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
                   <ArrowRight className="h-4 w-4" />
                 </div>
               </article>
-            </Link>
+            </a>
           );
         })}
       </div>

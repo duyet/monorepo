@@ -1,7 +1,5 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchHistory } from "@/lib/hooks/use-search-history";
 
@@ -19,20 +17,15 @@ export interface SearchBarProps {
  *
  * Press "/" to focus the search input from anywhere on the page.
  * Search query is stored in URL params for shareability.
- *
- * @example
- * ```tsx
- * <SearchBar placeholder="Search posts..." />
- * ```
  */
 export function SearchBar({
   placeholder = "Search posts...",
   className,
   inputClassName,
 }: SearchBarProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get("q") || "");
+  const navigate = useNavigate({ from: "/search" });
+  const search = useSearch({ from: "/search" });
+  const [query, setQuery] = useState(search.q || "");
   const [showHistory, setShowHistory] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { history, add, clear, isInitialized } = useSearchHistory();
@@ -40,23 +33,18 @@ export function SearchBar({
   // Update URL when query changes
   const updateSearchQuery = useCallback(
     (newQuery: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (newQuery) {
-        params.set("q", newQuery);
-      } else {
-        params.delete("q");
-      }
-      const newUrl = `/search?${params.toString()}`;
-      router.replace(newUrl, { scroll: false });
+      navigate({
+        search: (prev) => ({ ...prev, q: newQuery || undefined }),
+        replace: true,
+      });
     },
-    [router, searchParams]
+    [navigate]
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
     updateSearchQuery(value);
-    // Hide history when user starts typing
     if (value) {
       setShowHistory(false);
     }
@@ -78,15 +66,12 @@ export function SearchBar({
   };
 
   const handleFocus = () => {
-    // Show history only if input is empty and we have history
     if (!query && history.length > 0) {
       setShowHistory(true);
     }
   };
 
   const handleBlur = (e: React.FocusEvent) => {
-    // Delay hiding to allow clicking on history items
-    // Only hide if the new focus target is not within the history dropdown
     setTimeout(() => {
       if (
         !inputRef.current?.contains(e.relatedTarget as Node) &&
@@ -100,7 +85,6 @@ export function SearchBar({
   // Handle keyboard shortcut "/" to focus search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if user is typing in an input
       if (
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement

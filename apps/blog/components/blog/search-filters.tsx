@@ -1,21 +1,13 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
 
 export interface SearchFiltersProps {
-  /** Available categories with post counts */
   categories: Record<string, number>;
-  /** Available tags with post counts */
   tags: Record<string, number>;
-  /** Optional CSS classes */
   className?: string;
 }
 
-/**
- * Date range preset options
- */
 type DateRangePreset =
   | "all"
   | "7days"
@@ -31,9 +23,6 @@ interface DateRangeOption {
   toDate?: Date;
 }
 
-/**
- * Generate date range options with actual dates
- */
 function getDateRangeOptions(): DateRangeOption[] {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -72,9 +61,6 @@ function getDateRangeOptions(): DateRangeOption[] {
   ];
 }
 
-/**
- * Format date to YYYY-MM-DD for input[type="date"]
- */
 function formatDateForInput(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -82,68 +68,41 @@ function formatDateForInput(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-/**
- * Search filters component with category, tag, and date range filters.
- *
- * Filters are synchronized with URL query params for shareable search results.
- *
- * @example
- * ```tsx
- * <SearchFilters
- *   categories={{ "Engineering": 42, "Design": 15 }}
- *   tags={{ "React": 20, "TypeScript": 18 }}
- * />
- * ```
- */
 export function SearchFilters({
   categories,
   tags,
   className,
 }: SearchFiltersProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate({ from: "/search" });
+  const search = useSearch({ from: "/search" });
 
-  // Get current filter values from URL
-  const currentCategory = searchParams.get("category") || "";
-  const currentTags = (searchParams.get("tags") || "")
-    .split(",")
-    .filter(Boolean);
-  const currentFromDate = searchParams.get("from") || "";
-  const currentToDate = searchParams.get("to") || "";
-  const currentPreset = (searchParams.get("preset") ||
-    "all") as DateRangePreset;
+  const currentCategory = search.category || "";
+  const currentTags = (search.tags || "").split(",").filter(Boolean);
+  const currentFromDate = search.from || "";
+  const currentToDate = search.to || "";
 
-  // Determine if we're using a custom date range
   const [isCustomDateRange, setIsCustomDateRange] = useState<boolean>(
-    currentPreset === "custom" || Boolean(currentFromDate && currentToDate)
+    Boolean(currentFromDate && currentToDate)
   );
   const [customFromDate, setCustomFromDate] = useState<string>(currentFromDate);
   const [customToDate, setCustomToDate] = useState<string>(currentToDate);
 
-  // Memoize date range options — getDateRangeOptions() constructs Date objects on every call
   const dateRangeOptions = useMemo(() => getDateRangeOptions(), []);
 
-  // Sort categories by name
   const sortedCategories = useMemo(
     () => Object.entries(categories).sort(([a], [b]) => a.localeCompare(b)),
     [categories]
   );
 
-  // Sort tags by count (descending), then by name
   const sortedTags = useMemo(
     () =>
       Object.entries(tags).sort(([nameA, a], [nameB, b]) => {
-        if (a !== b) {
-          return b - a;
-        }
+        if (a !== b) return b - a;
         return nameA.localeCompare(nameB);
       }),
     [tags]
   );
 
-  /**
-   * Update URL with filter params
-   */
   const updateFilters = useCallback(
     (updates: {
       category?: string;
@@ -152,73 +111,48 @@ export function SearchFilters({
       from?: string;
       to?: string;
     }) => {
-      const params = new URLSearchParams(searchParams);
+      navigate({
+        search: (prev) => {
+          const next = { ...prev };
 
-      // Update category
-      if (updates.category !== undefined) {
-        if (updates.category) {
-          params.set("category", updates.category);
-        } else {
-          params.delete("category");
-        }
-      }
-
-      // Update tags
-      if (updates.tags !== undefined) {
-        if (updates.tags.length > 0) {
-          params.set("tags", updates.tags.join(","));
-        } else {
-          params.delete("tags");
-        }
-      }
-
-      // Update date range
-      if (updates.preset !== undefined) {
-        if (updates.preset !== "all") {
-          params.set("preset", updates.preset);
-        } else {
-          params.delete("preset");
-          params.delete("from");
-          params.delete("to");
-        }
-
-        // Set from/to dates for presets
-        if (updates.preset !== "all" && updates.preset !== "custom") {
-          const option = dateRangeOptions.find(
-            (opt) => opt.value === updates.preset
-          );
-          if (option?.fromDate && option?.toDate) {
-            params.set("from", formatDateForInput(option.fromDate));
-            params.set("to", formatDateForInput(option.toDate));
+          if (updates.category !== undefined) {
+            next.category = updates.category || undefined;
           }
-        }
-      }
 
-      // Update custom date range
-      if (updates.from !== undefined) {
-        if (updates.from) {
-          params.set("from", updates.from);
-        } else {
-          params.delete("from");
-        }
-      }
-      if (updates.to !== undefined) {
-        if (updates.to) {
-          params.set("to", updates.to);
-        } else {
-          params.delete("to");
-        }
-      }
+          if (updates.tags !== undefined) {
+            next.tags = updates.tags.length > 0 ? updates.tags.join(",") : undefined;
+          }
 
-      const newUrl = `/search?${params.toString()}`;
-      router.replace(newUrl, { scroll: false });
+          if (updates.preset !== undefined) {
+            if (updates.preset === "all") {
+              next.from = undefined;
+              next.to = undefined;
+            } else if (updates.preset !== "custom") {
+              const option = dateRangeOptions.find(
+                (opt) => opt.value === updates.preset
+              );
+              if (option?.fromDate && option?.toDate) {
+                next.from = formatDateForInput(option.fromDate);
+                next.to = formatDateForInput(option.toDate);
+              }
+            }
+          }
+
+          if (updates.from !== undefined) {
+            next.from = updates.from || undefined;
+          }
+          if (updates.to !== undefined) {
+            next.to = updates.to || undefined;
+          }
+
+          return next;
+        },
+        replace: true,
+      });
     },
-    [router, searchParams, dateRangeOptions]
+    [navigate, dateRangeOptions]
   );
 
-  /**
-   * Handle category change
-   */
   const handleCategoryChange = useCallback(
     (category: string) => {
       updateFilters({ category: category === currentCategory ? "" : category });
@@ -226,9 +160,6 @@ export function SearchFilters({
     [currentCategory, updateFilters]
   );
 
-  /**
-   * Handle tag toggle
-   */
   const handleTagToggle = useCallback(
     (tag: string) => {
       const newTags = currentTags.includes(tag)
@@ -239,9 +170,6 @@ export function SearchFilters({
     [currentTags, updateFilters]
   );
 
-  /**
-   * Handle date preset change
-   */
   const handleDatePresetChange = useCallback(
     (preset: DateRangePreset) => {
       if (preset === "custom") {
@@ -254,9 +182,6 @@ export function SearchFilters({
     [updateFilters]
   );
 
-  /**
-   * Handle custom date range change
-   */
   const handleCustomDateChange = useCallback(
     (field: "from" | "to", value: string) => {
       if (field === "from") {
@@ -273,7 +198,12 @@ export function SearchFilters({
     [customFromDate, customToDate, updateFilters]
   );
 
-  // Pre-compute date preset buttons to avoid useMemo inside JSX
+  // Determine active preset for styling
+  const activePreset: DateRangePreset = (() => {
+    if (!currentFromDate && !currentToDate) return "all";
+    return isCustomDateRange ? "custom" : "all";
+  })();
+
   const datePresetButtons = useMemo(
     () =>
       dateRangeOptions
@@ -285,8 +215,8 @@ export function SearchFilters({
             onClick={() => handleDatePresetChange(option.value)}
             className={cn(
               "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
-              currentPreset === option.value ||
-                (!currentPreset && option.value === "all")
+              activePreset === option.value ||
+                (!activePreset && option.value === "all")
                 ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
                 : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
             )}
@@ -294,27 +224,19 @@ export function SearchFilters({
             {option.label}
           </button>
         )),
-    [currentPreset, handleDatePresetChange]
+    [activePreset, handleDatePresetChange, dateRangeOptions]
   );
 
-  /**
-   * Clear all filters
-   */
   const clearAllFilters = useCallback(() => {
-    const params = new URLSearchParams();
-    const query = searchParams.get("q");
-    if (query) {
-      params.set("q", query);
-    }
-    router.replace(`/search?${params.toString()}`, { scroll: false });
+    navigate({
+      search: (prev) => ({ q: prev.q }),
+      replace: true,
+    });
     setIsCustomDateRange(false);
     setCustomFromDate("");
     setCustomToDate("");
-  }, [router, searchParams]);
+  }, [navigate]);
 
-  /**
-   * Check if any filters are active
-   */
   const hasActiveFilters =
     currentCategory ||
     currentTags.length > 0 ||
@@ -484,9 +406,6 @@ export function SearchFilters({
   );
 }
 
-/**
- * Filter section wrapper component
- */
 function FilterSection({
   title,
   children,
@@ -504,9 +423,6 @@ function FilterSection({
   );
 }
 
-/**
- * X icon for removing filters
- */
 const CloseIcon = () => (
   <svg
     className="w-3 h-3"
@@ -524,9 +440,6 @@ const CloseIcon = () => (
   </svg>
 );
 
-/**
- * Active filter badge with remove button
- */
 function ActiveFilterBadge({
   label,
   onRemove,

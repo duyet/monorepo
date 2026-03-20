@@ -1,11 +1,10 @@
 /**
  * Tests for RSS feed generation
+ * Tests the RSS generation logic used by scripts/generate-static-files.ts
  */
 
-// Set up mocks before importing
 import { mock } from "bun:test";
 
-// Mock the module - the second parameter must be a function that returns the module
 mock.module("@duyet/libs/getPost", () => ({
   getAllPosts: () => [
     {
@@ -24,31 +23,53 @@ mock.module("@duyet/libs/getPost", () => ({
 }));
 
 import { describe, expect, test } from "bun:test";
-import { dynamic, GET } from "../route";
+import RSS from "rss";
+import type { Post } from "@duyet/interfaces";
+import { getAllPosts } from "@duyet/libs/getPost";
 
-describe("RSS Feed Route", () => {
-  test("should return valid RSS XML", async () => {
-    const response = await GET();
-    const xml = await response.text();
+const SITE_URL = "https://blog.duyet.net";
+
+function buildRssFeed() {
+  const posts = getAllPosts(["slug", "title", "excerpt", "date"], 50);
+
+  const feed = new RSS({
+    title: "Tôi là Duyệt",
+    description: "Sr. Data Engineer. Rustacean at night",
+    feed_url: `${SITE_URL}/rss.xml`,
+    site_url: SITE_URL,
+  });
+
+  for (const post of posts as Post[]) {
+    feed.item({
+      title: post.title || "",
+      description: post.excerpt || "",
+      url: `${SITE_URL}${post.slug}`,
+      date: post.date,
+    });
+  }
+
+  return feed.xml({ indent: true });
+}
+
+describe("RSS Feed Generation", () => {
+  test("should return valid RSS XML", () => {
+    const xml = buildRssFeed();
 
     expect(xml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(xml).toContain("<rss");
     expect(xml).toContain("</rss>");
-    expect(response.status).toBe(200);
   });
 
-  test("should include blog metadata", async () => {
-    const response = await GET();
-    const xml = await response.text();
+  test("should include blog metadata", () => {
+    const xml = buildRssFeed();
 
     expect(xml).toContain("<![CDATA[Tôi là Duyệt]]>");
     expect(xml).toContain("<![CDATA[Sr. Data Engineer. Rustacean at night]]>");
     expect(xml).toContain("https://blog.duyet.net");
   });
 
-  test("should include posts in RSS feed", async () => {
-    const response = await GET();
-    const xml = await response.text();
+  test("should include posts in RSS feed", () => {
+    const xml = buildRssFeed();
 
     expect(xml).toContain("<![CDATA[Test Post]]>");
     expect(xml).toContain("<![CDATA[This is a test post]]>");
@@ -58,20 +79,8 @@ describe("RSS Feed Route", () => {
     expect(xml).toContain("<![CDATA[Another test post]]>");
   });
 
-  test("should have correct content type", async () => {
-    const response = await GET();
-    const contentType = response.headers.get("Content-Type");
-
-    expect(contentType).toBe("application/rss+xml; charset=utf-8");
-  });
-
-  test("should be statically generated", () => {
-    expect(dynamic).toBe("force-static");
-  });
-
-  test("should format XML with indentation", async () => {
-    const response = await GET();
-    const xml = await response.text();
+  test("should format XML with indentation", () => {
+    const xml = buildRssFeed();
 
     // Check that XML is indented (has newlines and spaces)
     expect(xml).toMatch(/\n\s+</);

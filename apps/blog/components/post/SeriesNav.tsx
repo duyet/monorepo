@@ -1,6 +1,5 @@
 import { cn } from "@duyet/libs/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Link from "next/link";
 
 import type { SeriesNavItem } from "@/lib/getSeriesNav";
 
@@ -11,7 +10,6 @@ interface SeriesNavProps {
 }
 
 export function SeriesNav({ prev, next, className }: SeriesNavProps) {
-  // Don't render if there's no navigation
   if (!prev && !next) {
     return null;
   }
@@ -28,7 +26,7 @@ export function SeriesNav({ prev, next, className }: SeriesNavProps) {
       <div className="grid grid-cols-2 gap-4">
         {/* Previous post in series */}
         {prev ? (
-          <Link
+          <a
             href={`/${prev.year}/${prev.month}/${prev.slug}`}
             className={cn(
               "group flex flex-col items-start gap-2",
@@ -67,15 +65,14 @@ export function SeriesNav({ prev, next, className }: SeriesNavProps) {
                 {prev.title}
               </span>
             </div>
-          </Link>
+          </a>
         ) : (
-          // Empty placeholder for layout balance
           <div />
         )}
 
         {/* Next post in series */}
         {next ? (
-          <Link
+          <a
             href={`/${next.year}/${next.month}/${next.slug}`}
             className={cn(
               "group flex flex-col items-end gap-2",
@@ -115,9 +112,8 @@ export function SeriesNav({ prev, next, className }: SeriesNavProps) {
                 )}
               />
             </div>
-          </Link>
+          </a>
         ) : (
-          // Empty placeholder for layout balance
           <div />
         )}
       </div>

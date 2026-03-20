@@ -1,7 +1,6 @@
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
 import { IsFeatured, IsNewPost } from "./PostBadges";
 
 export interface YearPostProps {
@@ -33,14 +32,14 @@ export function YearPost({ year, posts, className }: YearPostProps) {
             className="group flex flex-row items-center gap-4 py-1"
             key={post.slug}
           >
-            <Link
+            <a
               className="cursor-pointer text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
               href={post.slug}
             >
               {post.title}
               <IsNewPost date={post.date} />
               <IsFeatured featured={post.featured} />
-            </Link>
+            </a>
             <hr className="shrink grow border-dotted border-neutral-300" />
             <div className="flex-shrink-0 flex items-center gap-2 text-sm text-neutral-500">
               <time className="whitespace-nowrap">

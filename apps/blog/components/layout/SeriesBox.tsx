@@ -1,7 +1,6 @@
 import type { Series } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
 import { NewspaperIcon } from "lucide-react";
-import Link from "next/link";
 
 export function SeriesBox({
   series,
@@ -25,12 +24,12 @@ export function SeriesBox({
       <h2 className="mb-8 flex flex-row items-center gap-3 font-serif text-2xl font-bold text-neutral-900 dark:text-neutral-100 md:text-3xl">
         <NewspaperIcon size={28} strokeWidth={2} />
         Series:{" "}
-        <Link
+        <a
           className="underline-offset-4 hover:underline"
           href={`/series/${series.slug}`}
         >
           {name}
-        </Link>
+        </a>
       </h2>
 
       <div className="grid grid-cols-1 gap-2">
@@ -58,12 +57,12 @@ export function SeriesBox({
                     {title}
                   </span>
                 ) : (
-                  <Link
+                  <a
                     className="line-clamp-1 text-lg font-medium text-neutral-800 dark:text-neutral-200 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-4"
                     href={slug}
                   >
                     {title}
-                  </Link>
+                  </a>
                 )}
 
                 <p

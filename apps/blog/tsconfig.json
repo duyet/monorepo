@@ -1,22 +1,22 @@
 {
-  "extends": "@duyet/tsconfig/nextjs.json",
+  "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "strictNullChecks": true,
     "paths": {
       "@/*": ["./*"]
     }
   },
   "include": [
-    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    "scripts/**/*.ts",
     "types.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "app/rss.xml/__tests__/**/*.ts",
+    "app/robots.txt/__tests__/**/*.ts"
   ],
-  "exclude": ["node_modules", "**/__tests__"]
+  "exclude": ["node_modules", ".output"]
 }
