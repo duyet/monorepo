@@ -1,6 +1,7 @@
 import { copyFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -12,6 +13,7 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     react(),
+    ...tailwindcss(),
     {
       name: "spa-route-prerender",
       closeBundle() {

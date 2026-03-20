@@ -9,15 +9,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Scan all component directories for Tailwind classes */
-@source "../components/**/*.tsx";
-@source "../../packages/components/**/*.tsx";
-@source "../../packages/libs/**/*.tsx";
-@source "../node_modules/streamdown/dist/*.js";
-
-@plugin "@tailwindcss/typography";
-@plugin "tailwindcss-animate";
-
 /* ============================================================================
    shadcn/ui CSS Variables
    These follow the shadcn/ui theming system for consistent component styling.

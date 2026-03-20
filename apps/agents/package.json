@@ -2,6 +2,7 @@
   "name": "agents",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "browser": {
     "fs": false,
     "os": false,
@@ -69,7 +70,6 @@
     "shiki": "^4.0.0",
     "streamdown": "^2.3.0",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss-animate": "^1.0.7",
     "workers-ai-provider": "^3.1.0",
     "zod": "^4.3.6"
   },
@@ -84,6 +84,7 @@
     "http-proxy": "^1.18.1",
     "typescript": "*",
     "vite": "6",
-    "yaml": "^2.8.2"
+    "yaml": "^2.8.2",
+    "@tailwindcss/vite": "^4.0.0"
   }
 }
