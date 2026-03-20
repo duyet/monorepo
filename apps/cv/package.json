@@ -12,8 +12,8 @@
     "fmt": "bun run fix",
     "lint": "biome lint .",
     "preview": "bun --bun vite preview",
-    "deploy": "bun run build && bunx wrangler pages deploy .output/public --project-name=duyet-cv",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy .output/public --project-name=duyet-cv --commit-dirty=true",
+    "deploy": "bun run build && bunx wrangler pages deploy dist --project-name=duyet-cv",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist --project-name=duyet-cv --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh cv duyet-cv"
   },
   "dependencies": {
