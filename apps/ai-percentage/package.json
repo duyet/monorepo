@@ -2,35 +2,36 @@
   "name": "ai-percentage",
   "version": "0.1.0",
   "private": true,
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
-  },
+  "type": "module",
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-ai-percentage",
-    "build": "bun --bun next build",
+    "build": "vite build",
     "check-types": "tsc --noEmit",
-    "dev": "bun --bun next dev --turbopack -p 3002",
+    "dev": "vite dev --port 3002",
     "fmt": "bun run fix",
     "lint": "biome lint .",
-    "start": "bun --bun next start",
-    "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-ai-percentage",
-    "cf:deploy:prod": "bun run build && bunx wrangler pages deploy out --project-name=duyet-ai-percentage"
+    "cf:deploy:prod": "bun run build && bunx wrangler pages deploy dist --project-name=duyet-ai-percentage"
   },
   "dependencies": {
     "@duyet/config": "*",
     "@duyet/libs": "*",
+    "@tanstack/react-router": "^1.0.0",
     "lucide-react": "^0.577.0",
-    "next": "16.1.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "recharts": "^3.7.0"
+    "recharts": "^3.7.0",
+    "swr": "^2.4.1"
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/router-plugin": "^1.0.0",
     "@types/react": "^19.1.4",
-    "typescript": "*"
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "*",
+    "vite": "^6.0.0",
+    "vite-tsconfig-paths": "^5.0.0"
   }
 }

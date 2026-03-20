@@ -5,7 +5,7 @@ import type {
 } from "./types";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.duyet.net";
+  import.meta.env.VITE_API_BASE_URL || "https://api.duyet.net";
 
 async function fetchFromAPI<T>(endpoint: string): Promise<T | null> {
   try {

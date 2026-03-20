@@ -1,12 +1,15 @@
-"use client";
-
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { AIPercentageChart } from "@/components/AIPercentageChart";
-import { AIPercentageHero } from "@/components/AIPercentageHero";
-import { AIPercentageTrend } from "@/components/AIPercentageTrend";
-import { DATE_RANGES } from "@/lib/utils";
+import { AIPercentageChart } from "../../components/AIPercentageChart";
+import { AIPercentageHero } from "../../components/AIPercentageHero";
+import { AIPercentageTrend } from "../../components/AIPercentageTrend";
+import { DATE_RANGES } from "../../lib/utils";
 
-export default function Page() {
+export const Route = createFileRoute("/")({
+  component: Page,
+});
+
+function Page() {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="border-b pb-4">
@@ -28,7 +31,7 @@ export default function Page() {
           <AIPercentageChart />
         </div>
 
-        <p className="text-xs text-muted-foreground text-center">
+        <p className="text-center text-xs text-muted-foreground">
           Data Source: GitHub + ClickHouse | Detection: Co-author & email
           patterns | Last updated: {new Date().toLocaleDateString()}
         </p>

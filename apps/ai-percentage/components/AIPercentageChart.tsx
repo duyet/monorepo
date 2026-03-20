@@ -1,5 +1,3 @@
-"use client";
-
 import useSWR from "swr";
 import { getAICodePercentageHistory } from "../lib/queries";
 import type { DateRangeDays } from "../lib/types";
