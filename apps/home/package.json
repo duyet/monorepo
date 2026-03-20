@@ -2,32 +2,37 @@
   "name": "home",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "bun test",
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-home",
-    "build": "bun --bun next build",
+    "build": "vite build && bun scripts/prerender.ts",
     "check-types": "tsc --noEmit",
-    "dev": "bun --bun next dev --turbopack -p 3001",
+    "dev": "vite --port 3001",
     "fmt": "bun run fix",
     "lint": "biome lint .",
-    "start": "bun --bun next start",
-    "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-home",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-home --commit-dirty=true",
+    "deploy": "bun run build && bunx wrangler pages deploy dist --project-name=duyet-home",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist --project-name=duyet-home --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh home duyet-home"
   },
   "dependencies": {
     "@duyet/components": "*",
     "@duyet/libs": "*",
+    "@tanstack/react-router": "^1.0.0",
     "framer-motion": "^12.36.0",
     "lucide-react": "^0.577.0",
-    "next": "16.1.7",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/router-plugin": "^1.0.0",
     "@types/react": "^19.2.14",
-    "typescript": "^5.9.3"
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.0.0",
+    "vite-tsconfig-paths": "^5.0.0"
   }
 }

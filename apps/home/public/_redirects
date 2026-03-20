@@ -53,3 +53,6 @@
 
 # Stamp
 /stamp https://stamp.duyet.net 302
+
+# SPA fallback — must be last
+/* /index.html 200
