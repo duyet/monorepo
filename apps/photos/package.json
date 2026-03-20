@@ -2,18 +2,15 @@
   "name": "photos",
   "version": "0.1.0",
   "private": true,
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
-  },
+  "type": "module",
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-photos",
-    "build": "bun --bun next build",
-    "dev": "bun --bun next dev --turbopack -p 3003",
+    "build": "bun scripts/generate-photos-data.ts && bun --bun vite build",
+    "dev": "bun --bun vite dev --port 3003",
     "fmt": "bun run fix",
     "lint": "biome lint .",
-    "start": "bun --bun next start",
+    "start": "bun --bun vite preview --port 3003",
+    "check-types": "tsc --noEmit",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-photos",
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-photos --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh photos duyet-photos",
@@ -25,21 +22,26 @@
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@radix-ui/react-dialog": "^1.1.2",
+    "@tanstack/react-router": "^1.0.0",
     "cloudinary": "^2.5.1",
     "exifreader": "^4.32.0",
     "lucide-react": "^0.577.0",
-    "next": "16.1.7",
+    "next-themes": "^0.4.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-masonry-css": "^1.0.16",
-    "sharp": "^0.34.4",
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/router-plugin": "^1.0.0",
     "@types/react": "^19.1.4",
-    "tailwind-highlightjs": "^2.0.1",
-    "typescript": "*"
+    "@types/react-dom": "^19.1.4",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "*",
+    "vite": "^7.0.0",
+    "vite-tsconfig-paths": "^5.0.0"
   }
 }

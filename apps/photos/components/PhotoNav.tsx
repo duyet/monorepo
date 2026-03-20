@@ -1,8 +1,5 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import { Menu, Moon, Sun, X } from "lucide-react";
-import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -13,11 +10,12 @@ interface NavItem {
 }
 
 const BLOG_URL =
-  process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
+  import.meta.env.VITE_DUYET_BLOG_URL || "https://blog.duyet.net";
 const INSIGHTS_URL =
-  process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
-const CV_URL = process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net";
-const HOME_URL = process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net";
+  import.meta.env.VITE_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
+const CV_URL = import.meta.env.VITE_DUYET_CV_URL || "https://cv.duyet.net";
+const HOME_URL =
+  import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
 
 const navigationItems: NavItem[] = [
   { name: "Home", href: HOME_URL },
@@ -128,23 +126,10 @@ function NavLink({ item }: { item: NavItem }) {
     "focus:ring-terracotta focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
   );
 
-  if (item.external) {
-    return (
-      <a
-        href={item.href}
-        className={className}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {item.name}
-      </a>
-    );
-  }
-
   return (
-    <Link href={item.href} className={className}>
+    <a href={item.href} className={className}>
       {item.name}
-    </Link>
+    </a>
   );
 }
 
@@ -161,23 +146,9 @@ function MobileNavLink({
     "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
   );
 
-  if (item.external) {
-    return (
-      <a
-        href={item.href}
-        className={className}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={onClick}
-      >
-        {item.name}
-      </a>
-    );
-  }
-
   return (
-    <Link href={item.href} className={className} onClick={onClick}>
+    <a href={item.href} className={className} onClick={onClick}>
       {item.name}
-    </Link>
+    </a>
   );
 }

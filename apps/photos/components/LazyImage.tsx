@@ -1,8 +1,5 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import { AlertCircle } from "lucide-react";
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ImageSkeleton } from "./LoadingStates";
 
@@ -105,7 +102,7 @@ export default function LazyImage({
         </div>
       ) : isInView ? (
         <div className="relative w-full">
-          <Image
+          <img
             src={src}
             alt={alt}
             width={width}
@@ -118,10 +115,12 @@ export default function LazyImage({
             onLoad={handleImageLoad}
             onError={handleImageError}
             loading={priority ? "eager" : "lazy"}
-            placeholder={blurDataURL ? "blur" : "empty"}
-            blurDataURL={blurDataURL}
             sizes={sizes}
-            quality={85}
+            style={
+              isLoading && blurDataURL
+                ? { backgroundImage: `url(${blurDataURL})`, backgroundSize: "cover" }
+                : undefined
+            }
           />
 
           {/* Enhanced loading skeleton */}

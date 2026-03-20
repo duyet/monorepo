@@ -1,42 +1,33 @@
+import { createFileRoute } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
 import PhotoGallery from "@/components/PhotoGallery";
 import { RetryButton } from "@/components/RetryButton";
-import type { PhotoFetchError } from "@/lib/errors";
+import { usePhotos } from "@/hooks/usePhotos";
+import { LoadingGrid } from "@/components/LoadingStates";
 import {
   AuthError,
   NetworkError,
   RateLimitError,
-  UnknownPhotoError,
 } from "@/lib/errors";
-import { getAllPhotos, type Photo } from "@/lib/photo-provider";
 
-export const dynamic = "force-static";
+export const Route = createFileRoute("/")({
+  component: PhotosPage,
+});
 
-export default async function PhotosPage() {
-  let photos: Photo[] = [];
-  let photoError: PhotoFetchError | null = null;
+function PhotosPage() {
+  const { photos, error, isLoading } = usePhotos();
 
-  try {
-    photos = await getAllPhotos();
-  } catch (e) {
-    photoError =
-      e instanceof RateLimitError ||
-      e instanceof AuthError ||
-      e instanceof NetworkError ||
-      e instanceof UnknownPhotoError
-        ? e
-        : new UnknownPhotoError(e);
+  if (isLoading) {
+    return <LoadingGrid />;
   }
 
-  // Only show error state if we have no photos at all
-  // If we have fallback photos, proceed normally
-  if (photoError && photos.length === 0) {
+  if (error && photos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="max-w-md rounded-2xl bg-white p-8 text-center dark:bg-slate-900">
             <div className="mb-4 flex justify-center">
-              {photoError instanceof RateLimitError ? (
+              {error instanceof RateLimitError ? (
                 <svg
                   className="h-12 w-12 text-amber-500"
                   fill="none"
@@ -69,18 +60,18 @@ export default async function PhotosPage() {
               )}
             </div>
             <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-              {photoError instanceof RateLimitError
+              {error instanceof RateLimitError
                 ? "API Rate Limit Reached"
-                : photoError instanceof NetworkError
+                : error instanceof NetworkError
                   ? "Network Error"
-                  : photoError instanceof AuthError
+                  : error instanceof AuthError
                     ? "Service Configuration Error"
                     : "Unable to Load Photos"}
             </h3>
             <p className="mb-6 text-neutral-600 dark:text-neutral-400">
-              {photoError.userMessage}
+              {error.message}
             </p>
-            {photoError.retryable && <RetryButton />}
+            <RetryButton />
           </div>
         </div>
       </Container>

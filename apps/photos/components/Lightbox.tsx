@@ -1,12 +1,8 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import * as Dialog from "@radix-ui/react-dialog";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
   getOptimalImageSrc,
-  getResponsiveSizes,
 } from "@/lib/ImageOptimization";
 import {
   formatPhotoDescription,
@@ -51,8 +47,8 @@ export default function Lightbox({
   const [isSlideshowPlaying, setIsSlideshowPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState<PlaybackSpeed>(3);
   const [slideshowProgress, setSlideshowProgress] = useState(0);
-  const slideshowTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const slideshowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastPhotoIdRef = useRef<string | null>(null);
 
   // Keep a current ref to onNext so the interval always calls the latest callback
@@ -233,6 +229,9 @@ export default function Lightbox({
     }
   }, [currentIndex, totalCount, isSlideshowPlaying]);
 
+  const thumbnailSrc = photo.urls.regular;
+  const hiresSrc = getOptimalImageSrc(photo, { context: "lightbox" });
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
@@ -300,29 +299,23 @@ export default function Lightbox({
                   title="Click to exit fullscreen"
                 >
                   {/* Thumbnail/preview image - loads immediately */}
-                  <Image
-                    src={photo.urls.regular}
+                  <img
+                    src={thumbnailSrc}
                     alt={description}
-                    fill
-                    className="object-contain"
-                    priority
-                    sizes={getResponsiveSizes("lightbox")}
-                    quality={80}
+                    className="absolute inset-0 h-full w-full object-contain"
+                    loading="eager"
                   />
 
                   {/* High-resolution image - loads progressively */}
-                  <Image
-                    src={getOptimalImageSrc(photo, { context: "lightbox" })}
+                  <img
+                    src={hiresSrc}
                     alt={description}
-                    fill
                     className={cn(
-                      "object-contain transition-opacity duration-700",
+                      "absolute inset-0 h-full w-full object-contain transition-opacity duration-700",
                       isLoading ? "opacity-0" : "opacity-100"
                     )}
                     onLoad={() => setIsLoading(false)}
-                    priority
-                    sizes={getResponsiveSizes("lightbox")}
-                    quality={95}
+                    loading="eager"
                   />
                 </div>
               ) : (
@@ -335,29 +328,23 @@ export default function Lightbox({
                       title="Click to enter fullscreen"
                     >
                       {/* Thumbnail/preview image - loads immediately */}
-                      <Image
-                        src={photo.urls.regular}
+                      <img
+                        src={thumbnailSrc}
                         alt={description}
-                        fill
-                        className="object-contain"
-                        priority
-                        sizes="(max-width: 1792px) 100vw, 1792px"
-                        quality={80}
+                        className="absolute inset-0 h-full w-full object-contain"
+                        loading="eager"
                       />
 
                       {/* High-resolution image - loads progressively */}
-                      <Image
-                        src={getOptimalImageSrc(photo, { context: "lightbox" })}
+                      <img
+                        src={hiresSrc}
                         alt={description}
-                        fill
                         className={cn(
-                          "object-contain transition-opacity duration-700",
+                          "absolute inset-0 h-full w-full object-contain transition-opacity duration-700",
                           isLoading ? "opacity-0" : "opacity-100"
                         )}
                         onLoad={() => setIsLoading(false)}
-                        priority
-                        sizes="(max-width: 1792px) 100vw, 1792px"
-                        quality={95}
+                        loading="eager"
                       />
                     </div>
                   </div>
@@ -373,7 +360,7 @@ export default function Lightbox({
 
               {/* Loading Spinner Overlay - only shows spinner, no black box */}
               {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                   <div className="rounded-full bg-black/60 p-4 backdrop-blur-sm">
                     <div
                       className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent"

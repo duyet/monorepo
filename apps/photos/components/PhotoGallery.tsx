@@ -1,5 +1,4 @@
 import Container from "@duyet/components/Container";
-import Link from "next/link";
 import type { Photo } from "@/lib/types";
 import PhotoGrid from "./PhotoGrid";
 
@@ -61,12 +60,12 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                 </>
               )}{" "}
               Prefer a narrative experience?{" "}
-              <Link
+              <a
                 href="/feed"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
                 View the photo stream
-              </Link>
+              </a>
               .
             </p>
           </section>

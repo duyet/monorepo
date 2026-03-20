@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 
 /**
@@ -231,4 +229,23 @@ export function ProgressiveLoading({
   }
 
   return <div className={className}>{children}</div>;
+}
+
+/**
+ * Full-page loading grid used while photo data is being fetched.
+ */
+export function LoadingGrid({ count = 12 }: { count?: number }) {
+  return (
+    <div className="w-full px-4 py-8">
+      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+        {Array.from({ length: count }, (_, i) => (
+          <div key={i} className="mb-4 break-inside-avoid">
+            <ImageSkeleton
+              aspectRatio={i % 3 === 0 ? "4/5" : i % 3 === 1 ? "3/4" : "1/1"}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
