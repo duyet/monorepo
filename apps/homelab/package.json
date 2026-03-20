@@ -12,8 +12,8 @@
     "lint": "biome lint .",
     "start": "vite preview",
     "test": "bun test",
-    "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-homelab",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-homelab --commit-dirty=true",
+    "deploy": "bun run build && bunx wrangler pages deploy dist --project-name=duyet-homelab",
+    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist --project-name=duyet-homelab --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh homelab duyet-homelab"
   },
   "dependencies": {
