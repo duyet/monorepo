@@ -45,6 +45,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               <ThemeToggle />
               <Link
                 to="/compare"
+                search={{ models: "" }}
                 className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
                 aria-label="Compare models"
               >
@@ -165,19 +166,19 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               Official announcements
             </span>
             <span>·</span>
-            <Link
-              to="/llms.txt"
+            <a
+              href="/llms.txt"
               className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               llms.txt
-            </Link>
+            </a>
             <span>·</span>
-            <Link
-              to="/rss.xml"
+            <a
+              href="/rss.xml"
               className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               RSS
-            </Link>
+            </a>
           </div>
         </footer>
       </div>

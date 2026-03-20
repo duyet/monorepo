@@ -46,7 +46,7 @@ function ComparePage() {
 
   const updateUrl = (next: Model[]) => {
     navigate({
-      search: next.length > 0 ? { models: next.map((m) => slugify(m.name)).join(",") } : {},
+      search: { models: next.length > 0 ? next.map((m) => slugify(m.name)).join(",") : "" },
       replace: true,
     });
   };
