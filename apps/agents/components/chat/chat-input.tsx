@@ -1,4 +1,3 @@
-"use client";
 
 import { Button, Textarea } from "@duyet/components";
 import { Paperclip, RefreshCw, Send, Settings, X } from "lucide-react";

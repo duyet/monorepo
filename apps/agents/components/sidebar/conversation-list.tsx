@@ -1,4 +1,3 @@
-"use client";
 
 import { MessageSquare, Trash2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";

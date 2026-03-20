@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback } from "react";
 
 /**
@@ -22,7 +20,7 @@ export function useClerkAuthToken():
     }
   }, []);
 
-  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+  if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
     return undefined;
   }
 

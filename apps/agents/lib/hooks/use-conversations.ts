@@ -1,4 +1,3 @@
-"use client";
 
 import { logger } from "@duyet/libs";
 import { useCallback, useEffect, useRef, useState } from "react";

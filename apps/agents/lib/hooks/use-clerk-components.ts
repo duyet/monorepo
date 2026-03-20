@@ -1,5 +1,3 @@
-"use client";
-
 import type {
   SignedIn,
   SignedOut,
@@ -21,7 +19,7 @@ export interface ClerkComponents {
 let clerkPromise: Promise<ClerkComponents> | null = null;
 
 function loadClerk(): Promise<ClerkComponents> | null {
-  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) return null;
+  if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) return null;
   if (!clerkPromise) {
     clerkPromise = import("@clerk/clerk-react")
       .then((mod) => ({

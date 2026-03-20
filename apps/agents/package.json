@@ -10,15 +10,14 @@
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-agents",
     "prebuild": "bun run scripts/build-skills.ts",
-    "build": "bun run scripts/build-skills.ts && bun --bun next build",
+    "build": "bun run scripts/build-skills.ts && vite build",
     "check-types": "tsc --noEmit",
     "dev": "bun run scripts/build-skills.ts && bun install http-proxy -D && node dev.js",
-    "dev:next": "bun run scripts/build-skills.ts && bun --bun next dev --turbopack -p 3004",
+    "dev:vite": "bun run scripts/build-skills.ts && vite --port 3004",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
     "test": "bun test",
     "test:e2e": "bun run scripts/test-e2e.ts",
-    "start": "bun --bun next start",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-agents",
     "cf:deploy": "bun run scripts/build-skills.ts && bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-agents --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agents duyet-agents"
@@ -59,7 +58,7 @@
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.577.0",
     "motion": "^12.34.3",
-    "next": "16.1.7",
+    "@tanstack/react-router": "^1.168.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.71.2",
@@ -79,9 +78,12 @@
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@openrouter/ai-sdk-provider": "^2.2.5",
+    "@tanstack/router-plugin": "^1.167.0",
     "@types/react": "^19.1.4",
+    "@vitejs/plugin-react": "^4",
     "http-proxy": "^1.18.1",
     "typescript": "*",
+    "vite": "6",
     "yaml": "^2.8.2"
   }
 }

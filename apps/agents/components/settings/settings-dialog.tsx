@@ -1,4 +1,3 @@
-"use client";
 
 import { Button } from "@duyet/components";
 import { Loader2 } from "lucide-react";

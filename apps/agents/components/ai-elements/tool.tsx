@@ -1,4 +1,3 @@
-"use client";
 
 import type { DynamicToolUIPart, ToolUIPart } from "ai";
 import {

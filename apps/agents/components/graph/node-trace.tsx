@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * Node Trace Timeline Component (Unit 18)

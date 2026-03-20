@@ -1,5 +1,4 @@
-/// <reference types="next" />
-/// <reference types="next/image-types/global" />
+/// <reference types="vite/client" />
 
 // Cloudflare Pages Function types
 declare interface D1Database {

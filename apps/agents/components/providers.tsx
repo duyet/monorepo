@@ -1,9 +1,7 @@
-"use client";
-
 import { ClerkProvider } from "@clerk/clerk-react";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 
-const CLERK_KEY = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const CLERK_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const isValidClerkKey = CLERK_KEY?.startsWith("pk_");

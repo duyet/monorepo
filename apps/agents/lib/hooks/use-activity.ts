@@ -1,4 +1,3 @@
-"use client";
 
 import { generateId } from "@duyet/libs";
 import { useCallback, useState } from "react";

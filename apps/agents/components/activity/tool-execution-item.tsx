@@ -1,4 +1,3 @@
-"use client";
 
 import { Badge } from "@duyet/components";
 import {

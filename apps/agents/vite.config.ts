@@ -1,0 +1,45 @@
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import react from "@vitejs/plugin-react";
+import { copyFileSync, mkdirSync } from "node:fs";
+import { join } from "node:path";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [
+    TanStackRouterVite({
+      routesDirectory: "./src/routes",
+      generatedRouteTree: "./src/routeTree.gen.ts",
+      autoCodeSplitting: true,
+    }),
+    react(),
+    {
+      name: "spa-route-prerender",
+      closeBundle() {
+        const outDir = join(process.cwd(), "out");
+        const analyticsDir = join(outDir, "analytics");
+        try {
+          mkdirSync(analyticsDir, { recursive: true });
+          copyFileSync(
+            join(outDir, "index.html"),
+            join(analyticsDir, "index.html")
+          );
+        } catch (err: unknown) {
+          // Only ignore "file not found" errors that occur in non-build contexts
+          if ((err as NodeJS.ErrnoException).code !== "ENOENT") throw err;
+        }
+      },
+    },
+  ],
+  resolve: {
+    alias: {
+      "@": process.cwd(),
+    },
+  },
+  build: {
+    outDir: "out",
+    emptyOutDir: true,
+  },
+  server: {
+    port: 3004,
+  },
+});

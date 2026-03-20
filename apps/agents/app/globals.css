@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Font family CSS variables (previously set by next/font/google class names) */
+:root {
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-serif: "Libre Baskerville", Georgia, serif;
+  --font-geist-mono: "Geist Mono", "Courier New", monospace;
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
 /* Scan all component directories for Tailwind classes */
 @source "../components/**/*.tsx";
 @source "../../packages/components/**/*.tsx";

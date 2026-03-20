@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * Graph Visualization Component (Unit 16)

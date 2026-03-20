@@ -1,5 +1,3 @@
-"use client";
-
 import { useChat as useAIChat } from "@ai-sdk/react";
 import type {
   ChatAddToolApproveResponseFunction,
@@ -16,7 +14,7 @@ import { AGENT_MODEL, FAST_MODEL } from "@/lib/agent";
 import { getDefaultAgent } from "@/lib/agents";
 import type { Agent, ChatMode, Message, ToolExecution } from "@/lib/types";
 
-const CHAT_API_URL = process.env.NEXT_PUBLIC_CHAT_API_URL || "/api/chat";
+const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL || "/api/chat";
 
 export interface UseChatOptions {
   id?: string;

@@ -1,4 +1,3 @@
-"use client";
 
 import { cn } from "@duyet/libs";
 import { Clock, Coins, Wrench, Zap } from "lucide-react";

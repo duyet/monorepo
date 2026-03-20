@@ -1,4 +1,3 @@
-"use client";
 
 import { AuthButtons } from "@duyet/components/header/AuthButtons";
 import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";

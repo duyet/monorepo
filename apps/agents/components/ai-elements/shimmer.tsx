@@ -1,4 +1,3 @@
-"use client";
 
 import type { MotionProps } from "motion/react";
 import { motion } from "motion/react";

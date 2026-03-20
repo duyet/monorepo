@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * State Inspector Panel (Unit 17)

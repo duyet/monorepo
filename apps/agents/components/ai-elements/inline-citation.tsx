@@ -1,4 +1,3 @@
-"use client";
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import useEmblaCarousel from "embla-carousel-react";
