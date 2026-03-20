@@ -1,0 +1,2360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2022 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <description>Large Language Model releases from 2022.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2022/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2022 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2022</link>
+    </image>
+  <item>
+    <title>Hybrid H3-2.7B (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-2.7B-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>Hybrid H3-125M (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-125M-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 125M
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>Hybrid H3-355M (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-355M-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>Hybrid H3-1.3B (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-1.3B-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>OPT-IML (175B) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-IML%20(175B)-2022-12-22</guid>
+    <pubDate>Thu, 22 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>CaLM (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CaLM-2022-12-19</guid>
+    <pubDate>Mon, 19 Dec 2022 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 86M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>text-embedding-ada-002 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#text-embedding-ada-002-2022-12-15</guid>
+    <pubDate>Thu, 15 Dec 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>RT-1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-1-2022-12-13</guid>
+    <pubDate>Tue, 13 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 35M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>XiaoAI 6.0 (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XiaoAI%206.0-2022-12-11</guid>
+    <pubDate>Sun, 11 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  <item>
+    <title>TranceptEve (University of Oxford,Harvard Medical School)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TranceptEve-2022-12-10</guid>
+    <pubDate>Sat, 10 Dec 2022 00:00:00 GMT</pubDate>
+    <category>University of Oxford,Harvard Medical School</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oxford,Harvard Medical School</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 2.1 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%202.1-2022-12-07</guid>
+    <pubDate>Wed, 07 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Whisper v2 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Whisper%20v2-2022-12-05</guid>
+    <pubDate>Mon, 05 Dec 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1.6B
+License: open
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>Vega v2 (Wuhan University,JD Explore Academy,Shanghai AI Lab,Nanyang Technological University,Washington University in St Louis,Chongqing University of Posts and Telecommunications,University of Sydney)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vega%20v2-2022-12-04</guid>
+    <pubDate>Sun, 04 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Wuhan University,JD Explore Academy,Shanghai AI Lab,Nanyang Technological University,Washington University in St Louis,Chongqing University of Posts and Telecommunications,University of Sydney</category>
+    <category>closed</category>
+    <description>Parameters: 6B
+License: closed
+Type: model
+AI model by Wuhan University,JD Explore Academy,Shanghai AI Lab,Nanyang Technological University,Washington University in St Louis,Chongqing University of Posts and Telecommunications,University of Sydney</description>
+  </item>
+  <item>
+    <title>Med-PaLM 1 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%201-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Med-PaLM 1
+License: closed
+Type: model
+Collab between Google &amp; DeepMind. Makes 1% less errors than humans</description>
+  </item>
+  <item>
+    <title>OPT-IML (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-IML-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: OPT-IML
+License: open
+Type: model
+Instruct</description>
+  </item>
+  <item>
+    <title>RL-CAI (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RL-CAI-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>closed</category>
+    <description>Parameters: RL-CAI
+License: closed
+Type: model
+RLAIF=reinforcement learning with AI feedback</description>
+  </item>
+  <item>
+    <title>ERNIE-Code (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-Code-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-Code
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>RT-1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-1-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: RT-1
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>Transformer + GFM (Nanjing University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20%2B%20GFM-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Nanjing University</category>
+    <category>closed</category>
+    <description>Parameters: 185.2M
+License: closed
+Type: model
+AI model by Nanjing University</description>
+  </item>
+  <item>
+    <title>ZymCTRL (Basecamp Research,Friedrich-Alexander-Universität,University of Girona)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ZymCTRL-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Basecamp Research,Friedrich-Alexander-Universität,University of Girona</category>
+    <category>open</category>
+    <description>Parameters: 738M
+License: open
+Type: model
+AI model by Basecamp Research,Friedrich-Alexander-Universität,University of Girona</description>
+  </item>
+  <item>
+    <title>DeepNash (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepNash-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>ALM 1.0 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALM%201.0-2022-11-28</guid>
+    <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 335M
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>DiT-XL/2 + Discriminator Guidance (Korea Advanced Institute of Science and Technology (KAIST),NAVER)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiT-XL%2F2%20%2B%20Discriminator%20Guidance-2022-11-28</guid>
+    <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST),NAVER</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST),NAVER</description>
+  </item>
+  <item>
+    <title>Discriminator Guidance (Korea Advanced Institute of Science and Technology (KAIST),NAVER)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Discriminator%20Guidance-2022-11-28</guid>
+    <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST),NAVER</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST),NAVER</description>
+  </item>
+  <item>
+    <title>CICERO (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CICERO-2022-11-22</guid>
+    <pubDate>Tue, 22 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>CLUE (Naver Clova,Naver AI Lab)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CLUE-2022-11-22</guid>
+    <pubDate>Tue, 22 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Naver Clova,Naver AI Lab</category>
+    <category>closed</category>
+    <description>Parameters: 160M
+License: closed
+Type: model
+AI model by Naver Clova,Naver AI Lab</description>
+  </item>
+  <item>
+    <title>scFormer (University of Toronto,Vector Institute,University Health Network,Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#scFormer-2022-11-22</guid>
+    <pubDate>Tue, 22 Nov 2022 00:00:00 GMT</pubDate>
+    <category>University of Toronto,Vector Institute,University Health Network,Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto,Vector Institute,University Health Network,Microsoft Research</description>
+  </item>
+  <item>
+    <title>AR-LDM (Alibaba,University of Waterloo,Vector Institute)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AR-LDM-2022-11-20</guid>
+    <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Alibaba,University of Waterloo,Vector Institute</category>
+    <category>closed</category>
+    <description>Parameters: 1.5B
+License: closed
+Type: model
+AI model by Alibaba,University of Waterloo,Vector Institute</description>
+  </item>
+  <item>
+    <title>Fusion in Encoder (Samsung)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fusion%20in%20Encoder-2022-11-18</guid>
+    <pubDate>Fri, 18 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Samsung</category>
+    <category>closed</category>
+    <description>Parameters: 330M
+License: closed
+Type: model
+AI model by Samsung</description>
+  </item>
+  <item>
+    <title>Galactica (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Galactica-2022-11-16</guid>
+    <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 120B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>Luminous Sparse (Aleph Alpha,Graphcore)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous%20Sparse-2022-11-16</guid>
+    <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha,Graphcore</category>
+    <category>closed</category>
+    <description>Parameters: 2.6B
+License: closed
+Type: model
+AI model by Aleph Alpha,Graphcore</description>
+  </item>
+  <item>
+    <title>EVA-01 (Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EVA-01-2022-11-14</guid>
+    <pubDate>Mon, 14 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology</category>
+    <category>open</category>
+    <description>Parameters: 1.0B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology</description>
+  </item>
+  <item>
+    <title>AltCLIP_M9 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AltCLIP_M9-2022-11-12</guid>
+    <pubDate>Sat, 12 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Innovative Drug-like Molecule Generation from (University of Pittsburgh,Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Innovative%20Drug-like%20Molecule%20Generation%20from-2022-11-12</guid>
+    <pubDate>Sat, 12 Nov 2022 00:00:00 GMT</pubDate>
+    <category>University of Pittsburgh,Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Pittsburgh,Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>InternImage (Shanghai AI Lab,Tsinghua University,Nanjing University,SenseTime,Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternImage-2022-11-10</guid>
+    <pubDate>Thu, 10 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Tsinghua University,Nanjing University,SenseTime,Chinese University of Hong Kong (CUHK)</category>
+    <category>open</category>
+    <description>Parameters: 1.1B
+License: open
+Type: model
+AI model by Shanghai AI Lab,Tsinghua University,Nanjing University,SenseTime,Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Mogrifier RLSTM (WT2) (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mogrifier%20RLSTM%20(WT2)-2022-11-03</guid>
+    <pubDate>Thu, 03 Nov 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 35M
+License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>Mogrifier RLSTM (PTB) (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mogrifier%20RLSTM%20(PTB)-2022-11-03</guid>
+    <pubDate>Thu, 03 Nov 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>BLOOMZ-176B (Hugging Face)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOMZ-176B-2022-11-03</guid>
+    <pubDate>Thu, 03 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face</category>
+    <category>open</category>
+    <description>Parameters: 176B
+License: open
+Type: model
+AI model by Hugging Face</description>
+  </item>
+  <item>
+    <title>mT0-13B (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mT0-13B-2022-11-03</guid>
+    <pubDate>Thu, 03 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>eDiff-I (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#eDiff-I-2022-11-02</guid>
+    <pubDate>Wed, 02 Nov 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 9.1B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>ChatGPT (gpt-3.5-turbo) (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ChatGPT%20(gpt-3.5-turbo)-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: ChatGPT (gpt-3.5-turbo)
+License: open
+Type: model
+Instruct with strict policies (&quot;extremely limited&quot;)</description>
+  </item>
+  <item>
+    <title>text-davinci-003 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#text-davinci-003-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: text-davinci-003
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GPT-JT (Together)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-JT-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Together</category>
+    <category>open</category>
+    <description>Parameters: GPT-JT
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>RWKV-4 (RWKV)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RWKV-4-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>RWKV</category>
+    <category>open</category>
+    <description>Parameters: RWKV-4
+License: open
+Type: model
+RWKV (pronounced RwaKuv) is an RNN: https://www.reddit.com/r/MachineLearning/comments/yxt8sa/r_rwkv4_7b_release_an_attentionfree_rnn_language/</description>
+  </item>
+  <item>
+    <title>Galactica (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Galactica-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: Galactica
+License: open
+Type: model
+scientific only</description>
+  </item>
+  <item>
+    <title>SED (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SED-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: SED
+License: closed
+Type: model
+SED 420M (diffusion text model)</description>
+  </item>
+  <item>
+    <title>mT0 (BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mT0-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>BigScience</category>
+    <category>open</category>
+    <description>Parameters: mT0
+License: open
+Type: model
+fine-tuned</description>
+  </item>
+  <item>
+    <title>BLOOMZ (BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOMZ-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>BigScience</category>
+    <category>open</category>
+    <description>Parameters: BLOOMZ
+License: open
+Type: model
+fine-tuned</description>
+  </item>
+  <item>
+    <title>GearNet (Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,University of Cambridge,IBM Research,HEC Montreal,CIFAR AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GearNet-2022-11-01</guid>
+    <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,University of Cambridge,IBM Research,HEC Montreal,CIFAR AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,University of Cambridge,IBM Research,HEC Montreal,CIFAR AI Research</description>
+  </item>
+  <item>
+    <title>Taiyi-Stable Diffusion (IDEA CCNL)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Taiyi-Stable%20Diffusion-2022-10-31</guid>
+    <pubDate>Mon, 31 Oct 2022 00:00:00 GMT</pubDate>
+    <category>IDEA CCNL</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by IDEA CCNL</description>
+  </item>
+  <item>
+    <title>Transformer-XL + PowerSGD + L-Greco (Institute of Science and Technology Austria (ISTA),Neural Magic)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20%2B%20PowerSGD%20%2B%20L-Greco-2022-10-31</guid>
+    <pubDate>Mon, 31 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Institute of Science and Technology Austria (ISTA),Neural Magic</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Institute of Science and Technology Austria (ISTA),Neural Magic</description>
+  </item>
+  <item>
+    <title>MIF-ST (Microsoft Research,OpenBioML,University of Chicago)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MIF-ST-2022-10-26</guid>
+    <pubDate>Wed, 26 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft Research,OpenBioML,University of Chicago</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research,OpenBioML,University of Chicago</description>
+  </item>
+  <item>
+    <title>XY-LENTXL (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XY-LENTXL-2022-10-26</guid>
+    <pubDate>Wed, 26 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 2B
+License: closed
+Type: model
+AI model by Microsoft</description>
+  </item>
+  <item>
+    <title>Verbatim Memory Transformer (117M) (Johns Hopkins University,New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Verbatim%20Memory%20Transformer%20(117M)-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Johns Hopkins University,New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 117M
+License: closed
+Type: model
+AI model by Johns Hopkins University,New York University (NYU)</description>
+  </item>
+  <item>
+    <title>Verbatim Memory Transformer (108M) (Johns Hopkins University,New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Verbatim%20Memory%20Transformer%20(108M)-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Johns Hopkins University,New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 107.7M
+License: closed
+Type: model
+AI model by Johns Hopkins University,New York University (NYU)</description>
+  </item>
+  <item>
+    <title>EnCodec (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EnCodec-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>Tk-Instruct (University of Washington,Arizona State University,Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tk-Instruct-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>University of Washington,Arizona State University,Allen Institute for AI</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by University of Washington,Arizona State University,Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>DiffSBDD (CrossDocked) (Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Cornell University,Chinese Academy of Mathematics and System Science,University of Rome,Microsoft Research,University of Oxford,AITHYRA Institute)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiffSBDD%20(CrossDocked)-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Cornell University,Chinese Academy of Mathematics and System Science,University of Rome,Microsoft Research,University of Oxford,AITHYRA Institute</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Cornell University,Chinese Academy of Mathematics and System Science,University of Rome,Microsoft Research,University of Oxford,AITHYRA Institute</description>
+  </item>
+  <item>
+    <title>U-PaLM (540B) (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-PaLM%20(540B)-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>LMSI-Palm (Google,University of Illinois Urbana-Champaign (UIUC))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LMSI-Palm-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google,University of Illinois Urbana-Champaign (UIUC)</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google,University of Illinois Urbana-Champaign (UIUC)</description>
+  </item>
+  <item>
+    <title>Flan-PaLM 540B (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-PaLM%20540B-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Flan-T5 11B (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-T5%2011B-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>GPT-2 + Progressive LRD (Huawei,Huawei Noah&apos;s Ark Lab)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2%20%2B%20Progressive%20LRD-2022-10-12</guid>
+    <pubDate>Wed, 12 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Huawei,Huawei Noah&apos;s Ark Lab</category>
+    <category>closed</category>
+    <description>Parameters: 31M
+License: closed
+Type: model
+AI model by Huawei,Huawei Noah&apos;s Ark Lab</description>
+  </item>
+  <item>
+    <title>GenSLM (University of Chicago,NVIDIA,Harvard University,Cerebras Systems,Technical University of Munich,California Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GenSLM-2022-10-11</guid>
+    <pubDate>Tue, 11 Oct 2022 00:00:00 GMT</pubDate>
+    <category>University of Chicago,NVIDIA,Harvard University,Cerebras Systems,Technical University of Munich,California Institute of Technology</category>
+    <category>open</category>
+    <description>Parameters: 25B
+License: open
+Type: model
+AI model by University of Chicago,NVIDIA,Harvard University,Cerebras Systems,Technical University of Munich,California Institute of Technology</description>
+  </item>
+  <item>
+    <title>Instruct-GPT + Mind&apos;s Eye (Google,Dartmouth College)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Instruct-GPT%20%2B%20Mind&apos;s%20Eye-2022-10-11</guid>
+    <pubDate>Tue, 11 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google,Dartmouth College</category>
+    <category>closed</category>
+    <description>Parameters: 176.5B
+License: closed
+Type: model
+AI model by Google,Dartmouth College</description>
+  </item>
+  <item>
+    <title>Diplodocus (Meta AI,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Diplodocus-2022-10-11</guid>
+    <pubDate>Tue, 11 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Meta AI,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Decaying Fast Weights Transformer (WT-103) (Jenni)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Decaying%20Fast%20Weights%20Transformer%20(WT-103)-2022-10-09</guid>
+    <pubDate>Sun, 09 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Jenni</category>
+    <category>closed</category>
+    <description>Parameters: 242M
+License: closed
+Type: model
+AI model by Jenni</description>
+  </item>
+  <item>
+    <title>Imagen Video (Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Imagen%20Video-2022-10-05</guid>
+    <pubDate>Wed, 05 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 11.6B
+License: closed
+Type: model
+AI model by Google Brain</description>
+  </item>
+  <item>
+    <title>AlphaTensor (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaTensor-2022-10-05</guid>
+    <pubDate>Wed, 05 Oct 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>DiffDock (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiffDock-2022-10-04</guid>
+    <pubDate>Tue, 04 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 20.2M
+License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>NMST+GPT-2 (New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NMST%2BGPT-2-2022-10-03</guid>
+    <pubDate>Mon, 03 Oct 2022 00:00:00 GMT</pubDate>
+    <category>New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 124M
+License: closed
+Type: model
+AI model by New York University (NYU)</description>
+  </item>
+  <item>
+    <title>AminoBert (Harvard Medical School,Nabla Bio,Columbia University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AminoBert-2022-10-03</guid>
+    <pubDate>Mon, 03 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Harvard Medical School,Nabla Bio,Columbia University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Harvard Medical School,Nabla Bio,Columbia University</description>
+  </item>
+  <item>
+    <title>PACT (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PACT-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: PACT
+License: open
+Type: model
+Trained on ~5TB data, 2GB model download. &apos;In general we see an improvement in model performance as we increase the number of training tokens. Interestingly, larger models did not necessarily result in better performance for robot navigation. Even though larger models consistently presented better loss values for action prediction on a static dataset, (Fig. 7 b), when it comes to real-time deployment the larger network capacity introduces inference delays that become a disadvantage and lead to earlier crashes. For example, while LiDAR perception measurements arrive to the vehicle every 0.077s (13Hz), the largest model of 24 layers takes on average 0.023s for inference with a RTX3090 GPU, roughly 40% longer the 3 layer model (0.016s). These time differences can amount to even larger performance gaps in small embedded systems, and further emphasize the importance of multiple downstream task architectures sharing a common representation branch for real-time robotics applications.&apos;</description>
+  </item>
+  <item>
+    <title>Flan-T5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-T5-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Flan-T5
+License: open
+Type: model
+T5=1T tokens + LM-adapted T5 as 100B tokens</description>
+  </item>
+  <item>
+    <title>Flan-PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-PaLM-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: Flan-PaLM
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>U-PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-PaLM-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: U-PaLM
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>VIMA (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VIMA-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: VIMA
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GemNet-OC (Technical University of Munich,Carnegie Mellon University (CMU),Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GemNet-OC-2022-09-30</guid>
+    <pubDate>Fri, 30 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Carnegie Mellon University (CMU),Facebook AI Research</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Technical University of Munich,Carnegie Mellon University (CMU),Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Make-A-Video (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Make-A-Video-2022-09-29</guid>
+    <pubDate>Thu, 29 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>Sparrow (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparrow-2022-09-28</guid>
+    <pubDate>Wed, 28 Sep 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>CPM-Ant (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPM-Ant-2022-09-22</guid>
+    <pubDate>Thu, 22 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base)</category>
+    <category>open</category>
+    <description>Parameters: 10B
+License: open
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base)</description>
+  </item>
+  <item>
+    <title>Whisper (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Whisper-2022-09-21</guid>
+    <pubDate>Wed, 21 Sep 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 1.6B
+License: open
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>DistilProtBert (Bar-Ilan University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DistilProtBert-2022-09-18</guid>
+    <pubDate>Sun, 18 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Bar-Ilan University</category>
+    <category>open</category>
+    <description>Parameters: 230M
+License: open
+Type: model
+AI model by Bar-Ilan University</description>
+  </item>
+  <item>
+    <title>CPAC (Texas A&amp;M)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPAC-2022-09-18</guid>
+    <pubDate>Sun, 18 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Texas A&amp;M</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Texas A&amp;M</description>
+  </item>
+  <item>
+    <title>CLIP ViT-H/14 - LAION-2B (LAION)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CLIP%20ViT-H%2F14%20-%20LAION-2B-2022-09-15</guid>
+    <pubDate>Thu, 15 Sep 2022 00:00:00 GMT</pubDate>
+    <category>LAION</category>
+    <category>open</category>
+    <description>Parameters: 986M
+License: open
+Type: model
+AI model by LAION</description>
+  </item>
+  <item>
+    <title>NeMO Megatron GPT 20B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NeMO%20Megatron%20GPT%2020B-2022-09-15</guid>
+    <pubDate>Thu, 15 Sep 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>ProteinMPNN (University of Washington,Wageningen University and Research,NERSC, Lawrence Berkeley National Laboratory)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProteinMPNN-2022-09-15</guid>
+    <pubDate>Thu, 15 Sep 2022 00:00:00 GMT</pubDate>
+    <category>University of Washington,Wageningen University and Research,NERSC, Lawrence Berkeley National Laboratory</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of Washington,Wageningen University and Research,NERSC, Lawrence Berkeley National Laboratory</description>
+  </item>
+  <item>
+    <title>PaLI (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-2022-09-14</guid>
+    <pubDate>Wed, 14 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 16.9B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Deep-LDA (Fudan University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep-LDA-2022-09-14</guid>
+    <pubDate>Wed, 14 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Fudan University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Fudan University</description>
+  </item>
+  <item>
+    <title>SauTech (Saudi Data and Artificial Intelligence Authority,Saudi Company for Artificial Intelligence)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SauTech-2022-09-14</guid>
+    <pubDate>Wed, 14 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Saudi Data and Artificial Intelligence Authority,Saudi Company for Artificial Intelligence</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Saudi Data and Artificial Intelligence Authority,Saudi Company for Artificial Intelligence</description>
+  </item>
+  <item>
+    <title>OpenChat (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenChat-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: OpenChat
+License: open
+Type: model
+Llama 2 13B -&gt; OpenChat 13B</description>
+  </item>
+  <item>
+    <title>WeLM (Wechat)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WeLM-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Wechat</category>
+    <category>open</category>
+    <description>Parameters: WeLM
+License: open
+Type: model
+13% English tokens and 87% Chinese</description>
+  </item>
+  <item>
+    <title>CodeGeeX (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeGeeX-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: CodeGeeX
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Sparrow (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparrow-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Sparrow
+License: closed
+Type: model
+Chatbot as a fine-tuned version of Chinchilla 70B</description>
+  </item>
+  <item>
+    <title>PaLI (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: PaLI
+License: closed
+Type: model
+PaLM Vision model, new datasets of 10B multilingual text-image pairs</description>
+  </item>
+  <item>
+    <title>NeMo Megatron-GPT 20B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NeMo%20Megatron-GPT%2020B-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NeMo Megatron-GPT 20B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>BEIT-3 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BEIT-3-2022-08-22</guid>
+    <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 1.9B
+License: open
+Type: model
+AI model by Microsoft</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 1.5 (Runway)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%201.5-2022-08-22</guid>
+    <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Runway</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Runway</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 1.2 (Ludwig Maximilian University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%201.2-2022-08-22</guid>
+    <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Ludwig Maximilian University of Munich</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Ludwig Maximilian University of Munich</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 1.4 (Ludwig Maximilian University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%201.4-2022-08-22</guid>
+    <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Ludwig Maximilian University of Munich</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Ludwig Maximilian University of Munich</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 1.1 (Ludwig Maximilian University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%201.1-2022-08-22</guid>
+    <pubDate>Mon, 22 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Ludwig Maximilian University of Munich</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Ludwig Maximilian University of Munich</description>
+  </item>
+  <item>
+    <title>PaLM-SayCan (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-SayCan-2022-08-16</guid>
+    <pubDate>Tue, 16 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Luminous-supreme (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous-supreme-2022-08-15</guid>
+    <pubDate>Mon, 15 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+AI model by Aleph Alpha</description>
+  </item>
+  <item>
+    <title>Luminous-extended (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous-extended-2022-08-15</guid>
+    <pubDate>Mon, 15 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>closed</category>
+    <description>Parameters: 30B
+License: closed
+Type: model
+AI model by Aleph Alpha</description>
+  </item>
+  <item>
+    <title>Luminous-base (Aleph Alpha)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Luminous-base-2022-08-15</guid>
+    <pubDate>Mon, 15 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Aleph Alpha</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by Aleph Alpha</description>
+  </item>
+  <item>
+    <title>Dream Diary (造梦日记) (West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dream%20Diary%20(%E9%80%A0%E6%A2%A6%E6%97%A5%E8%AE%B0)-2022-08-15</guid>
+    <pubDate>Mon, 15 Aug 2022 00:00:00 GMT</pubDate>
+    <category>West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</description>
+  </item>
+  <item>
+    <title>PeTriBERT (University of Montpellier,BionomeeX)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PeTriBERT-2022-08-13</guid>
+    <pubDate>Sat, 13 Aug 2022 00:00:00 GMT</pubDate>
+    <category>University of Montpellier,BionomeeX</category>
+    <category>closed</category>
+    <description>Parameters: 40M
+License: closed
+Type: model
+AI model by University of Montpellier,BionomeeX</description>
+  </item>
+  <item>
+    <title>M3GNet (University of California San Diego)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#M3GNet-2022-08-11</guid>
+    <pubDate>Thu, 11 Aug 2022 00:00:00 GMT</pubDate>
+    <category>University of California San Diego</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of California San Diego</description>
+  </item>
+  <item>
+    <title>BlenderBot 3 (McGill University,Meta AI,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%203-2022-08-10</guid>
+    <pubDate>Wed, 10 Aug 2022 00:00:00 GMT</pubDate>
+    <category>McGill University,Meta AI,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</category>
+    <category>open</category>
+    <description>Parameters: 175B
+License: open
+Type: model
+AI model by McGill University,Meta AI,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</description>
+  </item>
+  <item>
+    <title>RNA-FM (Chinese University of Hong Kong (CUHK),Fudan University,Shanghai AI Lab,Harbin Institute of Technology,University of Electronic Science and Technology of China,Massachusetts Institute of Technology (MIT),Harvard University,Shanghai Zelixir Biotech,CUHK Shenzhen Research Institute)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNA-FM-2022-08-08</guid>
+    <pubDate>Mon, 08 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK),Fudan University,Shanghai AI Lab,Harbin Institute of Technology,University of Electronic Science and Technology of China,Massachusetts Institute of Technology (MIT),Harvard University,Shanghai Zelixir Biotech,CUHK Shenzhen Research Institute</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Chinese University of Hong Kong (CUHK),Fudan University,Shanghai AI Lab,Harbin Institute of Technology,University of Electronic Science and Technology of China,Massachusetts Institute of Technology (MIT),Harvard University,Shanghai Zelixir Biotech,CUHK Shenzhen Research Institute</description>
+  </item>
+  <item>
+    <title>FastSpeech 2 (Zhejiang University (ZJU),Microsoft Research Asia)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FastSpeech%202-2022-08-08</guid>
+    <pubDate>Mon, 08 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Zhejiang University (ZJU),Microsoft Research Asia</category>
+    <category>closed</category>
+    <description>Parameters: 27M
+License: closed
+Type: model
+AI model by Zhejiang University (ZJU),Microsoft Research Asia</description>
+  </item>
+  <item>
+    <title>SGPT BE 5.8B (Peking University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SGPT%20BE%205.8B-2022-08-05</guid>
+    <pubDate>Fri, 05 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Peking University</category>
+    <category>open</category>
+    <description>Parameters: 5.8B
+License: open
+Type: model
+AI model by Peking University</description>
+  </item>
+  <item>
+    <title>GLM-130B (Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-130B-2022-08-04</guid>
+    <pubDate>Thu, 04 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+AI model by Tsinghua University</description>
+  </item>
+  <item>
+    <title>AlexaTM 20B (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlexaTM%2020B-2022-08-02</guid>
+    <pubDate>Tue, 02 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>closed</category>
+    <description>Parameters: 19.8B
+License: closed
+Type: model
+AI model by Amazon</description>
+  </item>
+  <item>
+    <title>Z-Code++ (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Z-Code%2B%2B-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: Z-Code++
+License: closed
+Type: model
+abstractive text summarization, 710M, outperforms PaLM 540B. &quot;Due to the limited computational resource, Z-Code++LARGE is trained with only 500B tokens instead of 1T tokens as that for mT5 training.&quot;</description>
+  </item>
+  <item>
+    <title>Atlas (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Atlas-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: Atlas
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>BlenderBot 3 (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BlenderBot%203-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: BlenderBot 3
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GLM-130B (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-130B-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: GLM-130B
+License: open
+Type: model
+50% English (200B tokens), so included here</description>
+  </item>
+  <item>
+    <title>AlexaTM 20B (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlexaTM%2020B-2022-08-01</guid>
+    <pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: AlexaTM 20B
+License: open
+Type: model
+Wikipedia and mC4 only. seq2seq</description>
+  </item>
+  <item>
+    <title>ProtGPT2 (University of Bayreuth)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProtGPT2-2022-07-27</guid>
+    <pubDate>Wed, 27 Jul 2022 00:00:00 GMT</pubDate>
+    <category>University of Bayreuth</category>
+    <category>open</category>
+    <description>Parameters: 738M
+License: open
+Type: model
+AI model by University of Bayreuth</description>
+  </item>
+  <item>
+    <title>GPT-NeoX-Japanese (Abeja)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-NeoX-Japanese-2022-07-27</guid>
+    <pubDate>Wed, 27 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Abeja</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Abeja</description>
+  </item>
+  <item>
+    <title>OmegaPLM (Massachusetts Institute of Technology (MIT),Westlake University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OmegaPLM-2022-07-22</guid>
+    <pubDate>Fri, 22 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT),Westlake University</category>
+    <category>closed</category>
+    <description>Parameters: 670M
+License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT),Westlake University</description>
+  </item>
+  <item>
+    <title>ESM2-15B (Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM2-15B-2022-07-21</guid>
+    <pubDate>Thu, 21 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 15B
+License: open
+Type: model
+AI model by Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ESM2-3B (Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM2-3B-2022-07-21</guid>
+    <pubDate>Thu, 21 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ESM2-650M (Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM2-650M-2022-07-21</guid>
+    <pubDate>Thu, 21 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 650M
+License: open
+Type: model
+AI model by Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ESM2-150M (Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM2-150M-2022-07-21</guid>
+    <pubDate>Thu, 21 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 150M
+License: open
+Type: model
+AI model by Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ESM2-35M (Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM2-35M-2022-07-21</guid>
+    <pubDate>Thu, 21 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 35M
+License: open
+Type: model
+AI model by Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ESM2-8M (Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM2-8M-2022-07-21</guid>
+    <pubDate>Thu, 21 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 8M
+License: open
+Type: model
+AI model by Meta AI,New York University (NYU),Stanford University,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>YuYan 11B (Hong Kong Baptist University,NetEase)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YuYan%2011B-2022-07-15</guid>
+    <pubDate>Fri, 15 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hong Kong Baptist University,NetEase</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+AI model by Hong Kong Baptist University,NetEase</description>
+  </item>
+  <item>
+    <title>Transformer-XL + RMT (Moscow Institute of Physics and Technology,AIRI Artificial Intelligence Research Institute)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20%2B%20RMT-2022-07-14</guid>
+    <pubDate>Thu, 14 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Moscow Institute of Physics and Technology,AIRI Artificial Intelligence Research Institute</category>
+    <category>closed</category>
+    <description>Parameters: 247.0M
+License: closed
+Type: model
+AI model by Moscow Institute of Physics and Technology,AIRI Artificial Intelligence Research Institute</description>
+  </item>
+  <item>
+    <title>Rita-XLarge (LightOn,Harvard University,University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Rita-XLarge-2022-07-14</guid>
+    <pubDate>Thu, 14 Jul 2022 00:00:00 GMT</pubDate>
+    <category>LightOn,Harvard University,University of Oxford</category>
+    <category>open</category>
+    <description>Parameters: 1.2B
+License: open
+Type: model
+AI model by LightOn,Harvard University,University of Oxford</description>
+  </item>
+  <item>
+    <title>Delphi (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Delphi-2022-07-12</guid>
+    <pubDate>Tue, 12 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>BLOOM-176B (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM-176B-2022-07-11</guid>
+    <pubDate>Mon, 11 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 176.2B
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>NLLB (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NLLB-2022-07-06</guid>
+    <pubDate>Wed, 06 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 54.5B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>BLOOM-7.1B (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM-7.1B-2022-07-05</guid>
+    <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 7.1B
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>CodeT5-large (Salesforce)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeT5-large-2022-07-05</guid>
+    <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Salesforce</category>
+    <category>open</category>
+    <description>Parameters: 770M
+License: open
+Type: model
+AI model by Salesforce</description>
+  </item>
+  <item>
+    <title>BLOOM-1.7B (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM-1.7B-2022-07-05</guid>
+    <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 1.7B
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>BLOOM-560M (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM-560M-2022-07-05</guid>
+    <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 560M
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>BLOOM-1B (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM-1B-2022-07-05</guid>
+    <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>BLOOM-3B (Hugging Face,BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM-3B-2022-07-05</guid>
+    <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Hugging Face,BigScience</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Hugging Face,BigScience</description>
+  </item>
+  <item>
+    <title>6.9B FIM (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#6.9B%20FIM-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 6.9B FIM
+License: closed
+Type: model
+Several models: 8 sizes, NLP, Code, FIM/non-FIM. 100B tokens for 6.9B params... beyond chinchilla</description>
+  </item>
+  <item>
+    <title>‘monorepo-Transformer’ (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#%E2%80%98monorepo-Transformer%E2%80%99-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: ‘monorepo-Transformer’
+License: closed
+Type: model
+Unnamed. Writes &gt;3% of internal google code.</description>
+  </item>
+  <item>
+    <title>PanGu-Coder (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Coder-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: PanGu-Coder
+License: closed
+Type: model
+Python via GH</description>
+  </item>
+  <item>
+    <title>NLLB (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NLLB-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: NLLB
+License: open
+Type: model
+54.5B MOE, 3.3B dense. 200+ languages</description>
+  </item>
+  <item>
+    <title>J-1 RBG (AI21)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#J-1%20RBG-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>AI21</category>
+    <category>open</category>
+    <description>Parameters: J-1 RBG
+License: open
+Type: model
+J-1 fine-tuned with RBG law corpus</description>
+  </item>
+  <item>
+    <title>BLOOM (tr11-176B-ml) (BigScience)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLOOM%20(tr11-176B-ml)-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>BigScience</category>
+    <category>open</category>
+    <description>Parameters: BLOOM (tr11-176B-ml)
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>WebGPT (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WebGPT-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>Parameters: 175B
+License: closed
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>Drahim PFM AI (Drahim)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Drahim%20PFM%20AI-2022-06-30</guid>
+    <pubDate>Thu, 30 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Drahim</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Drahim</description>
+  </item>
+  <item>
+    <title>Minerva (540B) (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minerva%20(540B)-2022-06-29</guid>
+    <pubDate>Wed, 29 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540.4B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DALL-E mega (Craiyon)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DALL-E%20mega-2022-06-28</guid>
+    <pubDate>Tue, 28 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Craiyon</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Craiyon</description>
+  </item>
+  <item>
+    <title>ProGen2-xlarge (Salesforce Research,Columbia University,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProGen2-xlarge-2022-06-27</guid>
+    <pubDate>Mon, 27 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Salesforce Research,Columbia University,Johns Hopkins University</category>
+    <category>open</category>
+    <description>Parameters: 6.4B
+License: open
+Type: model
+AI model by Salesforce Research,Columbia University,Johns Hopkins University</description>
+  </item>
+  <item>
+    <title>ProGen2-base (Salesforce Research,Columbia University,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProGen2-base-2022-06-27</guid>
+    <pubDate>Mon, 27 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Salesforce Research,Columbia University,Johns Hopkins University</category>
+    <category>open</category>
+    <description>Parameters: 764M
+License: open
+Type: model
+AI model by Salesforce Research,Columbia University,Johns Hopkins University</description>
+  </item>
+  <item>
+    <title>GPT-SW3 (AI Sweden,RISE)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-SW3-2022-06-25</guid>
+    <pubDate>Sat, 25 Jun 2022 00:00:00 GMT</pubDate>
+    <category>AI Sweden,RISE</category>
+    <category>closed</category>
+    <description>Parameters: 3.5B
+License: closed
+Type: model
+AI model by AI Sweden,RISE</description>
+  </item>
+  <item>
+    <title>CodeWhisperer (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeWhisperer-2022-06-24</guid>
+    <pubDate>Fri, 24 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Amazon</description>
+  </item>
+  <item>
+    <title>YaLM (Yandex)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YaLM-2022-06-23</guid>
+    <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Yandex</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model
+AI model by Yandex</description>
+  </item>
+  <item>
+    <title>Parti (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Parti-2022-06-22</guid>
+    <pubDate>Wed, 22 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>CodeGeeX (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeGeeX-2022-06-22</guid>
+    <pubDate>Wed, 22 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>OPT-2.7B (finetuned on PTB) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-2.7B%20(finetuned%20on%20PTB)-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-1.3B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-1.3B-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-1.3B (finetuned on PTB) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-1.3B%20(finetuned%20on%20PTB)-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-2.7B (finetuned on WT2) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-2.7B%20(finetuned%20on%20WT2)-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-125M (finetuned) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-125M%20(finetuned)-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 125M
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-6.7B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-6.7B-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 6.7B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-66B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-66B-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 66B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-350M (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-350M-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 350M
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-2.7B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-2.7B-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-125M (finetuned on PTB) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-125M%20(finetuned%20on%20PTB)-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 125M
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-30B (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-30B-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>OPT-1.3B (finetuned) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OPT-1.3B%20(finetuned)-2022-06-21</guid>
+    <pubDate>Tue, 21 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>Unified-IO (XL) (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unified-IO%20(XL)-2022-06-17</guid>
+    <pubDate>Fri, 17 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 2.9B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>CoCa (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoCa-2022-06-14</guid>
+    <pubDate>Tue, 14 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 2.1B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>MetaLM (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MetaLM-2022-06-13</guid>
+    <pubDate>Mon, 13 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>EGRU (WT2) (Ruhr University Bochum,Technische Universität Dresden,University of London)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EGRU%20(WT2)-2022-06-13</guid>
+    <pubDate>Mon, 13 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Ruhr University Bochum,Technische Universität Dresden,University of London</category>
+    <category>closed</category>
+    <description>Parameters: 74M
+License: closed
+Type: model
+AI model by Ruhr University Bochum,Technische Universität Dresden,University of London</description>
+  </item>
+  <item>
+    <title>EGRU (PTB) (Ruhr University Bochum,Technische Universität Dresden,University of London)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EGRU%20(PTB)-2022-06-13</guid>
+    <pubDate>Mon, 13 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Ruhr University Bochum,Technische Universität Dresden,University of London</category>
+    <category>closed</category>
+    <description>Parameters: 55M
+License: closed
+Type: model
+AI model by Ruhr University Bochum,Technische Universität Dresden,University of London</description>
+  </item>
+  <item>
+    <title>BIG-G 137B (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BIG-G%20137B-2022-06-09</guid>
+    <pubDate>Thu, 09 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>LIMoE-H/14 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMoE-H%2F14-2022-06-06</guid>
+    <pubDate>Mon, 06 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 5.6B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DITTO (Tsinghua University,Apple,Westlake University,Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DITTO-2022-06-06</guid>
+    <pubDate>Mon, 06 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Apple,Westlake University,Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>Parameters: 750M
+License: closed
+Type: model
+AI model by Tsinghua University,Apple,Westlake University,Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Diffusion-GAN (UT Austin,Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Diffusion-GAN-2022-06-05</guid>
+    <pubDate>Sun, 05 Jun 2022 00:00:00 GMT</pubDate>
+    <category>UT Austin,Microsoft</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by UT Austin,Microsoft</description>
+  </item>
+  <item>
+    <title>Minerva (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minerva-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: Minerva
+License: closed
+Type: model
+PaLM finetuned on LaTeX/arXiv maths</description>
+  </item>
+  <item>
+    <title>GODEL-XL (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GODEL-XL-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: GODEL-XL
+License: open
+Type: model
+XL: GPT-3 175B in paper, GPT-J 2.7B released</description>
+  </item>
+  <item>
+    <title>YaLM 100B (Yandex)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YaLM%20100B-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Yandex</category>
+    <category>open</category>
+    <description>Parameters: YaLM 100B
+License: open
+Type: model
+Megatron-LM clone, Russian/English: https://medium.com/yandex/yandex-publishes-yalm-100b-its-the-largest-gpt-like-neural-network-in-open-source-d1df53d0e9a6</description>
+  </item>
+  <item>
+    <title>Unified-IO (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unified-IO-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>closed</category>
+    <description>Parameters: Unified-IO
+License: closed
+Type: model
+Based on T5. Demo only</description>
+  </item>
+  <item>
+    <title>Perceiver AR (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Perceiver%20AR-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Perceiver AR
+License: closed
+Type: model
+Context window=100,000. Params=364m wiki, 975M pg-19, 826M books, music=?, imagenet=770M,</description>
+  </item>
+  <item>
+    <title>LIMoE (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMoE-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: LIMoE
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>GPT-4chan (Independent)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4chan-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: GPT-4chan
+License: open
+Type: model
+Warning for inappropriate content. GPT-J.</description>
+  </item>
+  <item>
+    <title>B2T connection (16L) (LINE Corporation,Tohoku University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#B2T%20connection%20(16L)-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>LINE Corporation,Tohoku University</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by LINE Corporation,Tohoku University</description>
+  </item>
+  <item>
+    <title>CRL (Ulm University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CRL-2022-05-31</guid>
+    <pubDate>Tue, 31 May 2022 00:00:00 GMT</pubDate>
+    <category>Ulm University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Ulm University</description>
+  </item>
+  <item>
+    <title>PFP (Preferred Networks Inc)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PFP-2022-05-30</guid>
+    <pubDate>Mon, 30 May 2022 00:00:00 GMT</pubDate>
+    <category>Preferred Networks Inc</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Preferred Networks Inc</description>
+  </item>
+  <item>
+    <title>CogVideo (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CogVideo-2022-05-29</guid>
+    <pubDate>Sun, 29 May 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 9.4B
+License: open
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Tranception (University of Oxford,Harvard Medical School,Cohere)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tranception-2022-05-27</guid>
+    <pubDate>Fri, 27 May 2022 00:00:00 GMT</pubDate>
+    <category>University of Oxford,Harvard Medical School,Cohere</category>
+    <category>open</category>
+    <description>Parameters: 700M
+License: open
+Type: model
+AI model by University of Oxford,Harvard Medical School,Cohere</description>
+  </item>
+  <item>
+    <title>GPT-2 Medium (FlashAttention) (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2%20Medium%20(FlashAttention)-2022-05-27</guid>
+    <pubDate>Fri, 27 May 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>TRIMELMext (247M) (Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TRIMELMext%20(247M)-2022-05-25</guid>
+    <pubDate>Wed, 25 May 2022 00:00:00 GMT</pubDate>
+    <category>Princeton University</category>
+    <category>open</category>
+    <description>Parameters: 247.0M
+License: open
+Type: model
+AI model by Princeton University</description>
+  </item>
+  <item>
+    <title>TRIMELMext (7M) (Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TRIMELMext%20(7M)-2022-05-25</guid>
+    <pubDate>Wed, 25 May 2022 00:00:00 GMT</pubDate>
+    <category>Princeton University</category>
+    <category>open</category>
+    <description>Parameters: 7M
+License: open
+Type: model
+AI model by Princeton University</description>
+  </item>
+  <item>
+    <title>TRIMELMlong (150M) (Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TRIMELMlong%20(150M)-2022-05-25</guid>
+    <pubDate>Wed, 25 May 2022 00:00:00 GMT</pubDate>
+    <category>Princeton University</category>
+    <category>open</category>
+    <description>Parameters: 150M
+License: open
+Type: model
+AI model by Princeton University</description>
+  </item>
+  <item>
+    <title>Imagen (Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Imagen-2022-05-23</guid>
+    <pubDate>Mon, 23 May 2022 00:00:00 GMT</pubDate>
+    <category>Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 7.8B
+License: closed
+Type: model
+AI model by Google Brain</description>
+  </item>
+  <item>
+    <title>improved U-Net for chest X-ray images segmentation (Henan University of Technology,Nanyang Central Hospital)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#improved%20U-Net%20for%20chest%20X-ray%20images%20segmentation-2022-05-23</guid>
+    <pubDate>Mon, 23 May 2022 00:00:00 GMT</pubDate>
+    <category>Henan University of Technology,Nanyang Central Hospital</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Henan University of Technology,Nanyang Central Hospital</description>
+  </item>
+  <item>
+    <title>LSTM+GraB (Cornell University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%2BGraB-2022-05-22</guid>
+    <pubDate>Sun, 22 May 2022 00:00:00 GMT</pubDate>
+    <category>Cornell University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Cornell University</description>
+  </item>
+  <item>
+    <title>SimCSE (Princeton University,Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SimCSE-2022-05-18</guid>
+    <pubDate>Wed, 18 May 2022 00:00:00 GMT</pubDate>
+    <category>Princeton University,Tsinghua University</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Princeton University,Tsinghua University</description>
+  </item>
+  <item>
+    <title>Gato (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gato-2022-05-12</guid>
+    <pubDate>Thu, 12 May 2022 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1.2B
+License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>UL2 (Google Research,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/year/2022</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UL2-2022-05-10</guid>
+    <pubDate>Tue, 10 May 2022 00:00:00 GMT</pubDate>
+    <category>Google Research,Google Brain</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+AI model by Google Research,Google Brain</description>
+  </item>
+  </channel>
+</rss>

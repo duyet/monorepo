@@ -1,16 +1,16 @@
 import { BarChart } from "@/components/charts";
 import { TokenBarChart } from "@/components/charts/TokenBarChart";
-import { getCCUsageActivity, getCCUsageActivityByModel } from "./utils";
-import type { CCUsageActivityProps } from "./types";
+import type { CCUsageActivityData, CCUsageActivityByModelData } from "./types";
 
-export async function CCUsageActivity({
-  days = 30,
+export function CCUsageActivityView({
+  activity,
+  activityByModel,
   className,
-}: CCUsageActivityProps) {
-  const [activity, activityByModel] = await Promise.all([
-    getCCUsageActivity(days),
-    getCCUsageActivityByModel(days),
-  ]);
+}: {
+  activity: CCUsageActivityData[];
+  activityByModel: CCUsageActivityByModelData[];
+  className?: string;
+}) {
 
   if (!activity.length) {
     return (

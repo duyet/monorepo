@@ -14,7 +14,7 @@ interface RepoTrend {
   size: number;
 }
 
-interface TrendStats {
+export interface TrendStats {
   totalStars: number;
   totalForks: number;
   totalWatchers: number;
@@ -22,10 +22,8 @@ interface TrendStats {
   trendingRepos: RepoTrend[];
 }
 
-export async function RepoTrends() {
-  const stats = await getTrendStats(owner);
-
-  // Safety check for stats structure
+/** Sync view component — receives pre-fetched stats */
+export function RepoTrendsView({ stats }: { stats: TrendStats | null }) {
   if (
     !stats ||
     !Array.isArray(stats.topRepos) ||
@@ -167,7 +165,7 @@ export async function RepoTrends() {
   );
 }
 
-async function getTrendStats(owner: string): Promise<TrendStats> {
+export async function fetchTrendStats(owner: string): Promise<TrendStats> {
   try {
     // Fetch all repositories with pagination
     const repos = await fetchAllRepositories(owner);

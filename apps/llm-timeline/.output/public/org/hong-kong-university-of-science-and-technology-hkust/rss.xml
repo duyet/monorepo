@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hong Kong University of Science and Technology (HKUST) Models</title>
+    <link>https://llm-timeline.duyet.net/org/hong-kong-university-of-science-and-technology-hkust</link>
+    <description>Large Language Model releases from Hong Kong University of Science and Technology (HKUST).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hong-kong-university-of-science-and-technology-hkust/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Hong Kong University of Science and Technology (HKUST) Models</title>
+      <link>https://llm-timeline.duyet.net/org/hong-kong-university-of-science-and-technology-hkust</link>
+    </image>
+  <item>
+    <title>DualNetGO (Hong Kong University of Science and Technology (HKUST))</title>
+    <link>https://llm-timeline.duyet.net/org/hong-kong-university-of-science-and-technology-hkust</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DualNetGO-2024-07-03</guid>
+    <pubDate>Wed, 03 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Hong Kong University of Science and Technology (HKUST)</category>
+    <category>closed</category>
+    <description>Parameters: 82M
+License: closed
+Type: model
+AI model by Hong Kong University of Science and Technology (HKUST)</description>
+  </item>
+  </channel>
+</rss>

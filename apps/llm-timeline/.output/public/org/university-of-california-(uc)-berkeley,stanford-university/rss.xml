@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California (UC) Berkeley,Stanford University Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley,stanford-university</link>
+    <description>Large Language Model releases from University of California (UC) Berkeley,Stanford University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley,stanford-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California (UC) Berkeley,Stanford University Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley,stanford-university</link>
+    </image>
+  <item>
+    <title>RL for helicopter flight (University of California (UC) Berkeley,Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley,stanford-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RL%20for%20helicopter%20flight-2006-03-09</guid>
+    <pubDate>Thu, 09 Mar 2006 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley,Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley,Stanford University</description>
+  </item>
+  </channel>
+</rss>

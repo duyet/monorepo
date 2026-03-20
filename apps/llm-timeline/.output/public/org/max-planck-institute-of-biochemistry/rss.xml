@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Max Planck Institute of Biochemistry Models</title>
+    <link>https://llm-timeline.duyet.net/org/max-planck-institute-of-biochemistry</link>
+    <description>Large Language Model releases from Max Planck Institute of Biochemistry.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/max-planck-institute-of-biochemistry/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Max Planck Institute of Biochemistry Models</title>
+      <link>https://llm-timeline.duyet.net/org/max-planck-institute-of-biochemistry</link>
+    </image>
+  <item>
+    <title>ProteinStructureTransformer (Max Planck Institute of Biochemistry)</title>
+    <link>https://llm-timeline.duyet.net/org/max-planck-institute-of-biochemistry</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProteinStructureTransformer-2024-01-26</guid>
+    <pubDate>Fri, 26 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Max Planck Institute of Biochemistry</category>
+    <category>closed</category>
+    <description>Parameters: 1.1B
+License: closed
+Type: model
+AI model by Max Planck Institute of Biochemistry</description>
+  </item>
+  </channel>
+</rss>

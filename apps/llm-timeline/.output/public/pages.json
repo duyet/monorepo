@@ -1,0 +1,5552 @@
+{
+  "pages": [
+    {
+      "path": "/"
+    },
+    {
+      "path": "/compare"
+    },
+    {
+      "path": "/lite"
+    },
+    {
+      "path": "/open"
+    },
+    {
+      "path": "/org"
+    },
+    {
+      "path": "/license/open"
+    },
+    {
+      "path": "/license/closed"
+    },
+    {
+      "path": "/license/partial"
+    },
+    {
+      "path": "/year/2017"
+    },
+    {
+      "path": "/year/2018"
+    },
+    {
+      "path": "/year/2019"
+    },
+    {
+      "path": "/year/2020"
+    },
+    {
+      "path": "/year/2021"
+    },
+    {
+      "path": "/year/2022"
+    },
+    {
+      "path": "/year/2023"
+    },
+    {
+      "path": "/year/2024"
+    },
+    {
+      "path": "/year/2025"
+    },
+    {
+      "path": "/year/2026"
+    },
+    {
+      "path": "/llms.txt",
+      "fromCrawl": true
+    },
+    {
+      "path": "/rss.xml",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/(undisclosed)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/01-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/01.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/1x",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/310.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/360-security-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/360-cn",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/4paradigm",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ai-singapore",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ai-sweden",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ai-sweden%2Crise",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ai-inside",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ai21",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ai21-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/airi-artificial-intelligence-research-institute%2Csber%2Cskolkovo-institute-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/airi-artificial-intelligence-research-institute%2Cskolkovo-institute-of-science-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/aiwaves.cn",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/amd",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/asapp",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/asapp%2Ccornell-university%2Cgoogle%2Cprinceton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/at%26t",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/at%26t%2Cbell-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/aarhus-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/abacus-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/abeja",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/academia-sinica%2Cnational-taipei-university-of-technology%2Cchung-yuan-christian-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/adept",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/adobe",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/advanced-telecommunications-research-institute%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alan-turing-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/aleph-alpha",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/aleph-alpha%2Cgraphcore",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba-damo-academy",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba%2Chong-kong-polytechnic-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba%2Chuazhong-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba%2Cnanjing-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba%2Cthe-university-of-hong-kong%2Cfudan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba%2Cuniversity-of-science-and-technology-of-china-(ustc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/alibaba%2Cuniversity-of-waterloo%2Cvector-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-institute-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-institute-for-ai-(ai2)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-institute-for-ai%2Ccontextual-ai%2Cuniversity-of-washington%2Cprinceton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-institute-for-ai%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-institute-for-ai%2Cuniversity-of-washington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/allen-institute-for-ai%2Cuniversity-of-washington%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/amazon",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/amazon-machine-learning-solutions-lab%2Cjohnson-%26-johnson",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/amazon-web-services-(aws)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/american-express",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/american-university-of-beirut",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ant-group",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/anthrogen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/anthropic",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/apple",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/arc-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/arc-institute%2Cstanford-university%2Cnvidia%2Cliquid%2Cuniversity-of-california-(uc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/arcee-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/aristotle-university-of-thessaloniki",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/assemblyai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/astrazeneca",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/astrazeneca%2Cchalmers-university-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/asus%2Ftws",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/azaleai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bria-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baichuan",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baichuan%2Cwestlake-university%2Czhejiang-university-(zju)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baidu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baidu-research---silicon-valley-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baidu%2Cpeng-cheng-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/baidu%2Cwuhan-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bangladesh-university-of-engineering-and-technology%2Cuniversity-of-california-riverside",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bangladesh-university-of-engineering-and-technology%2Cuniversity-of-california-riverside%2Ccarnegie",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bar-ilan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/barcelona-institute-of-science-and-technology%2Cuniversitat-de-barcelona%2Cinstituci%C3%B3-catalana-de",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/barcelona-supercomputing-center",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/basecamp-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/basecamp-research%2Cfriedrich-alexander-universit%C3%A4t%2Cuniversity-of-girona",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/basecamp-research%2Ctechnical-university-of-munich%2Cmolecular-institute-of-biology%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beihang-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beihang-university%2Cmicrosoft-research-asia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beihang-university%2Cnanjing-university%2Cchinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beihang-university%2Cuniversity-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cchongqing-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-58-information-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-academy-of-artificial-intelligence-%2F-baai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-academy-of-artificial-intelligence-%2F-baai%2Chuazhong-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-academy-of-artificial-intelligence-%2F-baai%2Chuazhong-university-of-science-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-academy-of-artificial-intelligence-%2F-baai%2Chugging-face",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-academy-of-artificial-intelligence-%2F-baai%2Ctsinghua-university%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-beida-software-engineering-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-bitauto-interactive-advertising-company-limited",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-institute-of-technology%2Cacademy-of-military-science%2Cminzu-university-of-china",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-institute-of-technology%2Cbeihang-university%2Cpeking-university%2Csmart-grid-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-institute-of-technology%2Csun-yat-sen-university%2Cpanasonic-r%26d%2Cnational-university-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-lingxin-intelligent-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-lituo-feiyuan-technology-co.%2C-ltd.%2Ccylingo-group",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-orionstar-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-university-of-chemical-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-university-of-posts-and-telecommunications%2Cuniversity-of-west-london",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-weimeng-chuangke-network-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-yuanshi-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-zhijing-yunchuang-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/beijing-zhizhe-tianxia-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bell-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ben-gurion-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ben-gurion-university-of-the-negev",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/berkeley%2Fjhu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bigscience",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/biogeometry%2Cmila---quebec-ai-(originally-montreal-institute-for-learning-algorithms)%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/biological-cybernetics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/black-forest-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bloomberg",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bloomberg%2Cjohns-hopkins-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bosch-center-for-artificial-intelligence%2Cmax-planck-institute-for-informatics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/boston-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/brno-university-of-technology%2Cjohns-hopkins-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/brown-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/brown-university%2Cfacebook",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bytedance",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bytedance%2Cfudan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bytedance%2Cnanyang-technological-university%2Cchinese-university-of-hong-kong-(cuhk)%2Chong-kong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bytedance%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bytedance%2Ctechnical-university-of-munich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/bytedance%2Cuniversity-of-wisconsin-madison",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cmu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/caldera-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/california-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/california-institute-of-technology%2Cuniversity-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cambridge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cambridge%2Flbnl",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cambridge%2Ftencent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/capital-one",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carleton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cbosch-center-for-artificial-intelligence%2Cintel-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cgoogle-brain%2Cmonash-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cintel-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cintel-labs%2Cbosch-center-for-artificial-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cmohamed-bin-zayed-university-of-artificial-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cprinceton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cuniversity-of-california-san-diego",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/carnegie-mellon-university-(cmu)%2Cuniversity-of-pittsburgh",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cartesia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cassetteai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/causallm",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/central-south-university%2Csingapore-agency-for-science",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/centralesupelec%2Cgustave-roussy%2Cuniversit%C3%A9-paris-cit%C3%A9",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/centre-de-recherche-en-automatique-de-nancy-(cran)%2Ccenparmi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cerebras",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cerebras-systems",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cerebras-systems%2Cmohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai)%2Cinception-g42",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cerebras-systems%2Cmohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai)%2Cinception-g42%2Cg42",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cerenaut",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chai-discovery",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chan-zuckerberg-initiative",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chan-zuckerberg-initiative%2Cuniversity-of-california-san-francisco%2Cuniversity-of-california-(uc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chandar-research-lab%2Cmila---quebec-ai-(originally-montreal-institute-for-learning",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/character.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/charit%C3%A9-universit%C3%A4tsmedizin-berlin%2Csaarland-university%2Cmemorial-sloan-kettering-cancer-center",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chatdb",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chengdu-tasi-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chengdu-university-of-traditional-chinese-medicine",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chengdu-xiaoduo-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/china-mobile",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/china-mobile%2Czero-gravity-labs-(0g-ai)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/china-post-consumer-finance-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/china-telecom",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/china-telecom-artificial-intelligence-research-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/china-unicom",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Cbeijing-academy-of-artificial-intelligence-%2F-baai%2Cuniversity-of-chinese",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Cchinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Charbin-institute-of-technology%2Cnanyang-technological-university%2Cbeijing",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Chuawei-noah&#x27;s-ark-lab%2Cdublin-city-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Cmichigan-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Cshenzhen-institute-of-advanced-technology%2Cuniversity-of-chinese-academy",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Cuniversity-of-chinese-academy-of-sciences%2Ctencent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-academy-of-sciences%2Cwuhan-ai-computing-center",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Cchinese-academy-of-sciences%2Cnanyang-technological-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Ccity-university-of-hong-kong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Cfudan-university%2Cshanghai-ai-lab%2Charbin-institute-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Clanzhou-university%2Czhejiang-lab%2Czhejiang-university-(zju)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Cshanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chinese-university-of-hong-kong-(cuhk)%2Czhejiang-lab%2Czhejiang-university-(zju)%2Chuawei-noah&#x27;s-ark-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/chongqing-university%2Cministry-of-natural-resources-(china)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cisco",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/city-university-of-new-york%2Ccornell-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/clemson-university%2Ccentral-china-normal-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cleveland-clinic%2Ckent-state-university%2Cpacific-northwest-national-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cloudwalk-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cognition",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cognition%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cohere",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cohere-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cohere-for-ai%2Cbrown-university%2Ccohere%2Ccarnegie-mellon-university-(cmu)%2Cmassachusetts-institute-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cohere%2Ccohere-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/collaborations-pharmaceuticals",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/columbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/columbia-university%2Capple",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/columbia-university%2Cnew-york-university-(nyu)%2Cprinceton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/columbia-university%2Cprinceton-university%2Chebrew-university-of-jerusalem",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/columbia-university%2Crutgers-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/complutense-university-of-madrid",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/consortium",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/contextual-ai%2Cthe-university-of-hong-kong%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cornell",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cornell-aeronautical-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cornell-aeronautical-laboratory%2Ccornell-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cornell-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cosine",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/coteries",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/courant-institute-of-mathematical-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/courant-institute-of-mathematical-sciences%2Cmila---quebec-ai-(originally-montreal-institute-for",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/covariant",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/craiyon",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/creditease",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cursor",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/cyberagent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/dp-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/dahan-software-%2F-hanweb",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/dahua-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/dalian-university-of-technology%2Cdongbei-university-of-technology%2Cbaidu%2Cchina-national-health",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/darktrace",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/databricks",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deci",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deci-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deep-cogito",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepgenomics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepl",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deeplang-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepmind%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepmind%2Cuniversity-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepmind%2Cuniversity-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepmind%2Cuniversity-of-oxford%2Ccarnegie-mellon-university-(cmu)%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepmind%2Cuniversity-of-toronto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deeporigin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepseek",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepseek%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepseek%2Cthe-university-of-hong-kong%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepseek%2Ctsinghua-university%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepseek-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepgram",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/drahim",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/dreamfold%2Cuniversity-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cmcgill-university%2Cuniversity-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/du-xiaoman",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/duke-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/duke-university%2Ccornell-university%2Cmcmaster-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/duke-university%2Ccornell-university%2Csanford-burnham-prebys-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/duke-university%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/duke-university%2Cuniversity-of-chinese-academy-of-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/effyic-(%E8%AF%86%E5%9B%A0%E6%99%BA%E8%83%BD)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ellis",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/epfl",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/esat---psi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Cdeepmind%2Cgoogle%2Ctechnical-university-of-munich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Cdisney-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Cecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cswiss-national-supercomputing-centre",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Cidsia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Ckuaishou-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Cshenzhen-institute-of-advanced-technology%2Cchinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-zurich%2Cuniversity-of-zurich%2Ceth-ai-center",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eth-z%C3%BCrich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/earth-species-project",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cswiss-institute-of-bioinformatics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cswiss-institute-of-bioinformatics%2Cimperial",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cswisscom%2Cuniversity-of-freiburg",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cuniversity-at-buffalo%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cuniversity-of-cambridge%2Ccornell",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cuniversity-of-cambridge%2Charvard-medical-school",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ecole-polytechnique-f%C2%B4ed%C2%B4erale-de-lausanne-(epfl)%2Cuniversity-of-zurich%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eindhoven-university-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eindhoven-university-of-technology%2Cuniversity-of-twente",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eleutherai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eleutherai%2Cbooz-allen-hamilton%2C-mclean%2Cuniversity-of-cambridge%2Cindraprastha-institute-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/eleutherai%2Claion",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/elevenlabs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/elyza",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/equall.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/european-bioinformatics-institute%2Cuniversity-of-cambridge%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/evolutionaryscale",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/evolutionaryscale%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fashn-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fpt-software-ai-center%2Cuniversity-of-california-los-angeles-(ucla)%2Cvinuniversity%2Cdeezer",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fpt-software-ai-center%2Cuniversity-of-chicago%2Cindiana-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cbrown-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Ccourant-institute-of-mathematical-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cgeorgia-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cinria",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cloria",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cnew-york-university-(nyu)%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cuniversity-of-california-(uc)-berkeley%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cuniversity-of-le-mans",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook-ai-research%2Cuniversity-of-washington%2Cuniversity-of-california-(uc)-berkeley%2Ccarnegie",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook%2Cinria%2Csorbonne-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook%2Cinria%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook%2Cnew-york-university-(nyu)%2Cuniversity-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook%2Cuniversity-of-california-san-diego",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/facebook%2Cuniversity-of-washington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/factory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fast.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/featherless-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/figure",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/figure-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fireworks",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fish-audio",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/flagalpha",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/flatiron-institute%2Cuniversity-of-california-san-diego%2Cjagiellonian-university%2Cnew-york-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fox-chase-cancer-center%2Ctemple-university-school-of-pharmacy",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/foxconn",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fractal-analytics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fraunhofer-heinrich-hertz-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/french-engineering-school-ece%2Ctw3-partners",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university%2Cshanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university%2Cshanghai-ai-lab%2Charcam-biomedicines",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university%2Cshanghai-academy-of-artificial-intelligence-for-science%2Cnanjing-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university%2Cshanghai-qiji-zhifeng",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fudan-university%2Cuniversity-of-maryland",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fujitsu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/fujitsu%2Ccohere",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/futurehouse",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/g42%2Cinception-g42",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/galileo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/galixir-technologies%2Crensselaer-polytechnic-institute%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/geely-automobile-research-institute-(ningbo)-company",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/geely-automobile-research-institute-(ningbo)-company%2Cnational-institute-of-informatics%2Cshanghai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/generalist",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/genmo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/george-washington-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/georgia-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/georgia-institute-of-technology%2Cfacebook-ai-research%2Coregon-state-university%2Csimon-fraser-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ghent-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ginkgo-bioworks",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/goethe-university-frankfurt%2Cfraunhofer-institute-for-translational-medicine-and-pharmacology%2Cludwig",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-ai%2Ceth-zurich%2Cuniversity-of-cambridge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain%2Ccarnegie-mellon-university-(cmu)%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain%2Cgoogle-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-brain%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-cloud",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-cloud%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cgeorgia-institute-of-technology%2Cwild-dolphin-project",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cgoogle-research%2Cgoogle-cloud",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cisomorphic-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cmassachusetts-institute-of-technology-(mit)%2Cuniversity-of-california-(uc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cmcgill-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cuniversity-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cuniversity-of-california-san-diego%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-deepmind%2Cuniversity-of-nottingham%2Cuniversity-of-warwick%2Cathens-university-of-economics-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Ccarnegie-mellon-university-(cmu)%2Cgoogle-deepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Ccornell-university%2Cnaturalis-biodiversity-center%2Cchemnitz-university-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cgoogle-deepmind%2Cgoogle%2Carizona-state-university%2Clund-university%2Cuniversity-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cgoogle-deepmind%2Ctel-aviv-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cnational-library-of-medicine%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cnational-oceanic-and-atmospheric-administration-(noaa)%2Coregon-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cuniversity-of-cambridge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cweizmann-institute-of-science%2Ctel-aviv-university%2Ctechnion---israel-institute-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google-research%2Cyale-university%2Cgoogle-deepmind%2Cbrown-university%2Cuniversity-of-southern-california",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cbar-ilan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cdartmouth-college",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cgoogle-brain%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cgoogle-deepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cgoogle-research%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cnuance-communications%2Cidiap%2Cuniversity-of-illinois-urbana-champaign-(uiuc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cnational-tsing-hua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cnorthwestern-medicine%2Capollo-radiology-international",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Ctu-berlin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-of-california-los-angeles-(ucla)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-of-illinois-urbana-champaign-(uiuc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-of-michigan%2Cuniversity-of-north-carolina",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/google%2Cuniversity-of-toronto%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/gray-swan",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/griffith-university%2Cuniversity-of-iowa%2Cdezhou-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/guangdong-hong-kong-macao-joint-laboratory-of-human-machine-intelligence-synergy-systems%2Cshenzhen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/guangzhou-ai-public-computing-center%2Csun-yat-sen-university%2Cmeituan-inc%2Cpengcheng-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/guangzhou-lingju-information-technology-co-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/h2o.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hec-montreal",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hf",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hf%2Fservicenow",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/haiper",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hangzhou-ezviz-software-co.%2C-ltd.-(hikvision)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hangzhou-institute-of-medicine%2Czhejiang-university-(zju)%2Cuniversity-of-chinese-academy-of-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harbin-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harbin-institute-of-technology%2Chong-kong-polytechnic-university%2Culsee-inc.%2Cxian-jiaotong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harmonic",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harrison.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Charvard-mit-program-in-health-sciences-and-technology%2Cthe-mount-sinai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Cmassachusetts-institute-of-technology-(mit)%2Csichuan-university%2Csun-yat-sen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Cnabla-bio%2Ccolumbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Cstanford-university%2Ccolumbia-university%2Cuniversity-of-strasbourg",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Cuniversity-of-illinois-urbana-champaign-(uiuc)%2Charvard-th-chan-school-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-medical-school%2Cuniversity-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/harvard-university%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hebrew-university-of-jerusalem%2Cben-gurion-university-of-the-negev%2Cdeep-trading",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hedra-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/heidelberg-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/heidelberg-university%2Crunway",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/heinrich-heine-university%2Cconcordia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/henan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/henan-university-of-technology%2Cnanyang-central-hospital",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/heriot-watt-university%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hessian-ai%2Flaion",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hidream",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/high-performance-language-technologies-(hplt)%2Cuniversity-of-turku",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hisense",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hokkaido-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hong-kong-baptist-university%2Cnetease",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hong-kong-polytechnic-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hong-kong-university-of-science-and-technology-(hkust)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hong-kong-university-of-science-and-technology-(hkust)%2Cmultimodal-art-projection-(map)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huawei",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huawei-noah&#x27;s-ark-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huawei-noah&#x27;s-ark-lab%2Cmcgill-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huawei-noah&#x27;s-ark-lab%2Cthe-university-of-hong-kong%2Chong-kong-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huawei%2Chuawei-noah&#x27;s-ark-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huawei%2Fsberbank",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huazhong-university-of-science-and-technology%2Cfudan-university%2Cnorthwestern-polytechnical-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huazhong-university-of-science-and-technology%2Chuawei-noah&#x27;s-ark-lab%2Chuawei",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/huddersfield-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face-h4",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Cbigscience",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Cbrown-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Ckorea-advanced-institute-of-science-and-technology-(kaist)%2Cargilla",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Cservicenow%2Cmassachusetts-institute-of-technology-(mit)%2Cwellesley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Cservicenow%2Cnvidia%2Cbigcode",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Cservicenow%2Cnortheastern-university%2Cmila---quebec-ai-(originally-montreal-institute-for",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hugging-face%2Csorbonne-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hume",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hunan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hungarian-research-centre-for-linguistics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm-research%2Ceth-zurich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm-research%2Cnasa%2Cuniversity-of-alabama%2Cuniversity-of-iceland%2Cforschungszentrum-julich%2Cvirginia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm-research%2Cuniversity-of-alabama%2Cstanford-university%2Ccolorado-state-university%2Coak-ridge-national",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm%2Cforschungszentrum-julich%2Ceuropean-space-agency-(esa)%2Cnasa",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm%2Cnasa",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm%2Ctexas-a%26m",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ibm%2Cuniversity-of-california-san-diego",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/iconnai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idea-ccnl",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ideas%2Fdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idiap",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idsia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idsia%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idsia%2Csupsi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idsia%2Csupsi%2Cking-abdullah-university-of-science-and-technology-(kaust)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idsia%2Ctechnical-university-of-munich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/idsia%2Cuniversity-of-lugano%2Csupsi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ieee",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ieit",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inria",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inria%2Cecole-normale-sup%C3%A8rieure%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inria%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inria%2Cuniversity-of-illinois-urbana-champaign-(uiuc)%2Cecole-normale-sup%C3%A8rieure",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/insait%2Ceth-zurich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/iquestlab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ideogram",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/illuin-technology%2Cequall.ai%2Cuniversity-paris-saclay%2Ceth-zurich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/imperial-college-london",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/imperial-college-london%2Cuniversity-of-british-columbia-(ubc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inception",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inception-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inclusion-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inclusionai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/independent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/indian-institute-of-science-education-and-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/indian-statistical-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/indiana-university-bloomington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/indosat%2Ctech-mahindra%2Cai-singapore%2Cgoto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/indraprastha-institute-of-information-technology-delhi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/infinigence-ai%2Ctsinghua-university%2Cshanghai-jiao-tong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inflection-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/insilico-medicine-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/insilico-medicine-ai%2Charvard-medical-school",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/inspur",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/instadeep",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/institute-for-advanced-study",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/institute-of-science-and-technology-austria-(ista)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/institute-of-science-and-technology-austria-(ista)%2Cneural-magic",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/intel-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/intel%2Cargonne-national-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/intelligent-internet",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/international",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/international-school-for-advanced-studies%2Cinstitute-of-structural-biology%2Ctechnical-university-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/isfahan-university-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jd-open-source",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jd.com",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jhu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jpmorgan",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jura-bio%2Cnew-york-university-(nyu)%2Charvard-medical-school%2Ccolumbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jacobs-university-bremen%2Cuniversity-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jagiellonian-university%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jagiellonian-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jane-street",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jenni",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jeonbuk-national-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jiangnan-university%2Cuniversity-of-surrey",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jiangsu-huizhi-intelligent-digital-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/jina-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johannes-kepler-university-linz",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johannes-kepler-university-linz%2Cinstitute-of-advanced-research-in-artificial",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johns-hopkins-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johns-hopkins-university%2Ccornell-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johns-hopkins-university%2Cgoogle-ai%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johns-hopkins-university%2Cgoogle%2Cuniversity-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johns-hopkins-university%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/johns-hopkins-university%2Cxiaomi-corp",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/k.d.-feddersen-(kdf)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/karakuri-inc.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kaust%2Fshenzhen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ke-holdings-inc.-(beike)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kt",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ku-leuven%2Cesat---psi%2Capple",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kakao",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kakao%2Cpostech",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kansas-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/king-abdullah-university-of-science-and-technology-(kaust)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/king-abdullah-university-of-science-and-technology-(kaust)%2Ckarolinska-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/konan-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/korea-advanced-institute-of-science-and-technology-(kaist)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/korea-advanced-institute-of-science-and-technology-(kaist)%2Cnaver",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/korea-university%2Ckorea-advanced-institute-of-science-and-technology-(kaist)%2Clg",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/korea-university%2Cprinceton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kuaishou",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kuaishou-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kunlun-inc.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kunlun-tech",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kwaipilot",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kyoto-university%2Cnational-institute-of-biomedical-innovation%2Criken",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/kyutai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/laion",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lg",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lg-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lg%2Cshutterstock",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/line-corporation",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/line-corporation%2Ctohoku-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/llm360",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lmms-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lmu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/loria%2Cuniversity-of-lorraine%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/langboat",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/large-model-systems-organization%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lehigh-university%2Cuniversity-of-georgia%2Csamsung-research-america%2Charvard-medical-school%2Cuniversity",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lenovo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lenovo-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/leonardo-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lighton",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lighton%2Charvard-university%2Cuniversity-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lighton%2Claboratoire-de-physique-de-l&#x27;ecole-normale-(lpens)%2Cinria",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lightblue",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lightricks",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/linkedin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/link%C3%B6ping-university%2Cuppsala-university%2Cstockholm-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/liquid",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/liquid-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ludwig-maximilian-university-of-munich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/lumalabs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/luminary-cloud%2Cnvidia%2Chonda",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mbzuai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mit",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mit-ibm-watson-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mit-ibm-watson-ai-lab%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mit-ibm-watson-ai-lab%2Cmassachusetts-institute-of-technology-(mit)%2Cibm",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mts",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/magic",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mahidol-university%2Cai-entrepreneurs-association-of-thailand",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/maluuba%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/marin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2C-genesis-therapeutics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Cdatabricks",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Ceth-zurich%2Ctencent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Crecursion-pharmaceuticals%2Ceth-zurich%2Cvalence-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Crey-juan-carlos-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Ctsinghua-university%2Cmit-ibm-watson-ai-lab%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Cuniversity-of-illinois-urbana-champaign-(uiuc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/massachusetts-institute-of-technology-(mit)%2Cwestlake-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/matsuo-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/max-planck-institute-for-intelligent-systems",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/max-planck-institute-for-intelligent-systems%2Cuniversity-of-t%C3%BCbingen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/max-planck-institute-of-biochemistry",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mcgill-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mcgill-university%2Cmeta-ai%2Cmila---quebec-ai-(originally-montreal-institute-for-learning-algorithms)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mcgill-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning-algorithms)%2Cbaidu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mcgill-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mcgill-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning-algorithms)%2Chong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/megvii-inc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meituan",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meituan-inc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meituan-university%2Cbeijing-university-of-posts-and-telecommunications",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Ccarnegie-mellon-university-(cmu)%2Cuniversity-of-southern-california%2Ctel-aviv-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cchinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Chebrew-university-of-jerusalem",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Chebrew-university-of-jerusalem%2Ckyutai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Chebrew-university-of-jerusalem%2Cloria",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cking-abdullah-university-of-science-and-technology-(kaust)%2Ckorea-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cnew-york-university-(nyu)%2Cstanford-university%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Csorbonne-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cuniversite-de-technologie-de-compi%C3%A8gne--cnrs%2Cbasque-center-on-cognition",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cuniversity-college-london-(ucl)%2Cpsl-university%2Cuniversit%C3%A9-grenoble-alpes",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/meta-ai%2Cuniversity-of-texas-at-austin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/metamind-inc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/metamind-inc%2Csalesforce",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mianbi-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/michigan-state-university%2Ctal-education-group-(xueersi)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research-ai-for-science",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research-asia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research-asia%2Cnanyang-technological-university%2Cxian-jiaotong-university%2Csun-yat-sen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research-asia%2Cpeking-university%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research-asia%2Cshanghai-jiao-tong-university%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research-asia%2Csoochow-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Cbrno-university-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Cnvidia%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Cnovartis",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Copenbioml%2Cuniversity-of-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Csyngentech%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft-research%2Cuniversity-of-waterloo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Cnvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Copenai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Cuniversity-of-illinois-urbana-champaign-(uiuc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Cxian-jiaotong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Cxian-jiaotong-university%2Cuniversity-of-science-and-technology-of-china-(ustc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/microsoft%2Fnvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/midjourney",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mila---quebec-ai-(originally-montreal-institute-for-learning-algorithms)%2Cmcgill-university%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mila---quebec-ai-(originally-montreal-institute-for-learning-algorithms)%2Cuniversity-of-montreal-%2F",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/minimax",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/minimax%2Chailuo-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/miromindai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mistral",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mistral-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mistral-ai%2Call-hands-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mitsubishi-electric-research-labs%2Ccompaq-crl",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mobvoi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mobvoi%2Cwilliams-college",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai)%2Cg42",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai)%2Cpetuum%2Cuniversity-of-southern",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/moonshot",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/moonshot-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/moonvalley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/moore-threads",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/mosaicml",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/moscow-institute-of-physics-and-technology%2Cairi-artificial-intelligence-research-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/motif-technologies",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/murdoch-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nasa%2Cibm",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nasa%2Cuniversity-of-alabama%2Cibm-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/naver",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/naver%2Cnaver-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/naver%2Csearch-solutions",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/naver%2Cyonsei-university%2Cswiss-federal-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nc-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ncsoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nec-corporation",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nec-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nec-laboratories%2Ccourant-institute-of-mathematical-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nersc%2C-lawrence-berkeley-national-laboratory%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nersc%2C-lawrence-berkeley-national-laboratory%2Cuniversity-of-california-san-francisco%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nhk-broadcasting-science-research-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nio",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ntt-communication-science-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ntt-communication-science-laboratories%2Ctohoku-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ntu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Caalto-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cbrown-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cmassachusetts-institute-of-technology-(mit)%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cmassachusetts-institute-of-technology-(mit)%2Ctsinghua-university%2Cplayground%2Cpeking",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cmassachusetts-institute-of-technology-(mit)%2Cuniversity-of-california-(uc)-berkeley%2Cut-austin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cmassachusetts-institute-of-technology-(mit)%2Cuniversity-of-california-(uc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cmeta-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cnersc%2C-lawrence-berkeley-national-laboratory%2Cuniversity-of-michigan%2Crice",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cnanjing-university%2Chong-kong-polytechnic-university%2Crutgers-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cnanjing-university%2Ctsinghua-university%2Chong-kong-polytechnic-university%2Cjohns-hopkins",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cnational-university-of-singapore%2Cuniversity-of-toronto%2Cvector-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cservicenow",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Ctechnical-university-of-munich%2Cinstadeep",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Ctechnion---israel-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Ctel-aviv-university%2Cbar-ilan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cuniversity-of-toronto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cuniversity-of-toronto%2Cvector-institute%2Cuniversity-of-illinois-urbana-champaign-(uiuc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nvidia%2Cuniversity-of-washington%2Cuniversity-of-southern-california",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanbeige",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanbeige-llm-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanbeige4-3b-base",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanhu-brain-computer-interface-institute%2Clingang-laboratory%2Cmedical-school-of-nantong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanjing-agricultural-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanjing-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanjing-university%2Cant-group",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanjing-university%2Cshenzhen-institute-of-advanced-technology%2Cshanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanjing-university%2Cuniversity-of-adelaide",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanjing-university%2Cyangzhou-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nankai-university%2Cuniversity-of-washington%2Ctianjin-university%2Charvard-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nanyang-technological-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nara-institute-of-science-and-technology%2Cchinese-university-of-hong-kong-(cuhk)%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-cancer-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-institute-of-advanced-industrial-science-and-technology-(aist)%2Cuniversity-of-tokyo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-research-university-higher-school-of-economics%2Csamsung-r%26d-institute-russia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-science-and-technology-council",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-supercomputer-center-in-tianjin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-taiwan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-tsing-hua-university%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore%2Cjiangnan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore%2Cprescient-design%2Cuniversity-of-missouri%2Cuniversity-of-cambridge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore%2Cskywork-ai%2Chong-kong-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore%2Csun-yat-sen-university%2Cpeking-university%2Cchina-medical-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore%2Cuniversity-of-science-and-technology-of-china-(ustc)%2Chokkaido",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/national-university-of-singapore%2Cuniversity-of-technology-sydney%2Cqihoo-360-ai-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/naver-clova%2Cnaver-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/netease",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/netflix",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/new-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/new-york-university-(nyu)%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/new-york-university-(nyu)%2Cnet-scale-technologies%2Cnec-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/new-york-university-(nyu)%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nexusflow",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nexusflow.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nixtla",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nomic",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/northeastern-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/northeastern-university-(china)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/northeastern-university-(china)%2Cchinese-academy-of-sciences%2Cniutrans-research%2Ckingsoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/northeastern-university-(china)%2Cniutrans-research%2Ckingsoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/northeastern-university%2Cuniversity-of-rochester",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/northwestern-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nostrum-biodiscovery%2Cbarcelona-supercomputing-center%2Cinstitucio-catalana-de-recerca-i-estudis",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nous-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nous-research%2Carcee-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/nous-research%2Celeutherai%2Cuniversity-of-geneva",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/numenta%2Cincubator-491",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ohio-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/oncode-institute%2Cumc-utrecht%2Cnetherlands-cancer-institute%2Cuniversity-of-groningen%2Cradboud",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/openai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/openai%2Cretro-biosciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/openbmb-(open-lab-for-big-model-base)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/opengpt-x",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/opengpt-x%2Cfraunhofer-institute-for-algorithms-and-scientific-computing%2Cforschungszentrum",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/openlm-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/openprotein.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/oppo-mobile-telecommunications",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/oregon-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/orionstar",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/postech%2Ccarnegie-mellon-university-(cmu)%2Cadobe",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/papla-media",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Cchinese-university-of-hong-kong-(cuhk)%2Cmila---quebec-ai-(originally-montreal",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Ckuaishou-technology%2Cbeijing-university-of-posts-and-telecommunications",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Cmicrosoft-research-asia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Cnanjing-university%2Ctsinghua-university%2Cpharmolix",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Cpeng-cheng-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Cshanghai-ai-lab%2Cgriffith-university%2Cpeng-cheng-laboratory%2Cshenzhen-bay-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Ctsinghua-university%2Cpeng-cheng-laboratory%2Calibaba-damo-academy%2Clehigh-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peking-university%2Ctsinghua-peiking-center-for-life-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peng-cheng-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peng-cheng-laboratory%2Cpeking-university%2Cuniversity-of-science-and-technology-of-china",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peng-cheng-laboratory%2Cuniversity-of-texas-at-houston",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pennsylvania-state-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pennsylvania-state-university%2Crochester-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/peptone",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/perceptron",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/perplexity",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/physical-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pika-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pinterest",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pixverse-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/playground",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pleias",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/poolside",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/pragmatic-theory-inc.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/preferred-networks-inc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/preferred-networks-inc%2Critsumeikan-university%2Cnational-institute-of-informatics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/prescient-design%2Cgenentech",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/prime-intellect",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/prime-intellect%2Chugging-face%2Carcee-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Celeutherai%2Cuniversity-of-toronto%2Cvector-institute%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Cintel-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Ctsinghua-university%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Cuniversity-of-toronto%2Cvector-institute%2Cuniversity-of-cambridge%2Ccarnegie-mellon",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/princeton-university%2Cuniversity-of-virginia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/profluent-bio%2Ccalifornia-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/purdue-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/qilin-hesheng-network-technology-co.%2C-ltd.-(apus)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/quiver",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rwkv",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rwkv-foundation",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rwkv-foundation%2Celeutherai%2Cohio-state-university%2Cuniversity-of-california-santa-barbara",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rwth-aachen-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rakuten-group",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/recraft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/recursion-pharmaceuticals",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rednote",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/refact",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/refact-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/regeneron",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/reka-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/reliance",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/renmin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/renmin-university-of-china",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/renmin-university-of-china%2Cant-group",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/renmin-university-of-china%2Cdp-technology%2Cai-for-science-institute%2C-beijing-(aisi)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/renmin-university-of-china%2Chuazhong-university-of-science-and-technology%2Cmicrosoft-research-ai-for",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rensselaer-polytechnic-institute%2Cstanford-university%2Cuniversity-of-minnesota%2Ckorea-advanced",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/resemble-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rhymes-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rock-ai-%2F-shanghai-stonehill-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rubik&#x27;s-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ruhr-university-bochum%2Ctechnische-universit%C3%A4t-dresden%2Cuniversity-of-london",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ruliad",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/runway",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/runway%2Cludwig-maximilian-university-of-munich%2Cheidelberg-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rutgers-university%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sk-hynix",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sk-telecom",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sribd%2Fcuhk",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sutd%2Findependent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/saama",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/saarland-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sail",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sakana-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce-research%2Ccolumbia-university%2Cjohns-hopkins-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce-research%2Chong-kong-university-of-science-and-technology-(hkust)%2Cnanyang-technological",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce-research%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce-research%2Cuniversity-of-washington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/salesforce%2Cnanyang-technological-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/saltlux",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sambanova",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sambanova-systems%2C-inc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/samsung",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/samsung-r%26d-institute-russia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/samsung-r%26d-institute-russia%2Cnational-research-university-higher-school-of-economics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/samsung-sait-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/samsung%2Ckorea-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sapient-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sapienza-universit%C3%A0-di-roma",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sarvam",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sarvam-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/saudi-aramco",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/saudi-data-and-artificial-intelligence-authority",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/saudi-data-and-artificial-intelligence-authority%2Csaudi-company-for-artificial-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sber",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sber%2Cmoscow-institute-of-physics-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/science-applications-international-corporation-%2F-saic",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sea-ai-lab%2Csingapore-university-of-technology-%26-design",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sensetime",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sensetime%2Cchinese-university-of-hong-kong-(cuhk)%2Cchinese-academy-of-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sensetime%2Cchinese-university-of-hong-kong-(cuhk)%2Cshenzhen-institute-of-advanced-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sensifai%2Cislamic-azad-university%2Ctechnicolor-r%26i%2Cinstitute-for-research-in-fundamental-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/seoul-national-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/seoul-national-university%2Clg-ai-research%2Cnaver%2Ckangwon-national-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/servicenow",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shandong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shandong-university%2Cbiomap-research%2Cfuzhou-university%2Cshanghai-jiao-tong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shandong-university%2Ctexas-a%26m%2Cnational-university-of-singapore%2Ccolumbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cchinese-university-of-hong-kong-(cuhk)%2Cshanghaitech-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cfudan-university%2Cloughborough-university%2Cchinese-university-of-hong-kong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cmassachusetts-institute-of-technology-(mit)%2Ctaptap",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cnanjing-university%2Cthe-university-of-hong-kong%2Ctsinghua",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cpeking-university%2Cshanghai-jiao-tong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Csensetime",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Csensetime%2Cchinese-university-of-hong-kong-(cuhk)%2Cfudan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Csensetime%2Ctsinghua-university%2Cnanjing-university%2Cfudan-university%2Cchinese",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cshanghai-jiao-tong-university%2Cchinese-university-of-hong-kong-(cuhk)%2Cinnohk",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Ctsinghua-university%2Cnanjing-university%2Csensetime%2Cchinese-university-of-hong-kong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-lab%2Cuniversity-of-sydney%2Cchinese-university-of-hong-kong-(cuhk)%2Cshanghai-jiao-tong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-laboratory%2Fcuhk",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ai-laboratory%2Fsensetime",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-digivio-information-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Cchinese-academy-of-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Ceast-china-university-of-science-and-technology%2Cshanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Cministry-of-education-of-china",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Cshanghai-ai-lab%2Ceast-china-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Cshanghai-ai-lab%2Ceast-china-university-of-science-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Cuniversity-of-cambridge%2Cgeely-automobile-research-institute-(ningbo)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-jiao-tong-university%2Cuniversity-of-new-south-wales%2Cuniversity-of-cambridge%2Cshanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-kuanyu-digital-technology-co.%2C-ltd.-(bilibili)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-lingyi-artificial-intelligence-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-ocean-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-qi-zhi-institute%2Cstanford-university%2Ccarnegie-mellon-university-(cmu)%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-shuheng-information-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-tech-university%2Cdeemos-technology%2Chuazhong-university-of-science-and-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghai-xingzhi-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shanghaitech-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shannon.ai%2Cnanjing-university%2Cnanyang-technological-university%2Czhejiang-university-(zju)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shape-therapeutics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shengshu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shengshu%2Ctsinghua-university%2Cbeijing-academy-of-artificial-intelligence-%2F-baai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shenzhen-honor-software-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shenzhen-research-institue-of-big-data%2Cchinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shiyin-intelligent-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/shuchi-information-technology-(-shanghai-)-co.-%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sichuan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/silo-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/silo-ai%2Cuniversity-of-turku",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/singapore",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/singapore-university-of-technology-%26-design",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/singapore-university-of-technology-%26-design%2Cdso-national-laboratories",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/snowflake",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/snowflake-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/softbank",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/soochow-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/soongsil-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sorbonne-university%2Cuniversit%C3%A9-grenoble-alpes%2Cinstitut-universitaire-de-france-(iuf)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/soundai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/south-china-university-of-technology%2Cjinan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/southwest-petroleum-university%2Ceast-china-normal-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/speakleash%2Ccyfronet-agh",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/speechmatics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stability-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stability-ai%2Cmedical-ai-research-center-(medarc)%2Cprinceton-university%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stability-ai%2Cnortheastern-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stability-ai%2Cuniversity-of-illinois-urbana-champaign-(uiuc)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cadobe%2Cuniversity-at-buffalo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Ccz-biohub-network",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Ccalifornia-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cgoogle-research%2Cgeorgia-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cgoogle%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Charvard-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cmicrosoft%2Cgeorgia-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cprinceton-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cslac-national-laboratory%2Cprinceton-university%2Ccolumbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Csalesforce-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Csambanova-systems%2C-inc%2Cpeking-university%2Cadobe%2Cuniversity-at-buffalo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Csony",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cuniversity-at-buffalo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cuniversity-at-buffalo%2Cuniversity-of-michigan",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cuniversity-of-california-(uc)-berkeley%2Ctogether",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cuniversity-of-california-(uc)-berkeley%2Ctoyota-research-institute%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cuniversity-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cmila---quebec-ai-(originally",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stanford-university%2Cuniversity-of-washington%2Callen-institute-for-ai%2Ccontextual-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stepfun",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stockholm-university%2Cscience-for-life-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/stockmark",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sun-yat-sen-university%2Cguangzhou-national-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sun-yat-sen-university%2Cnational-supercomputing-center-in-shenzhen%2Cchongqing-university%2Ckey",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sun-yat-sen-university%2Crhegen-biotechnology%2Cchinese-academy-of-sciences",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/sun-yat-sen-university%2Cuniversity-of-california-irvine%2Cguangdong-provincial-people&#x27;s",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/suno",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/suzhou-jueqing-diyu-intelligent-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/t-bank",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tal-education-group-(xueersi)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tii",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tng",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-denmark%2Ceth-zurich%2Cuniversity-of-copenhagen%2Cstanford-university%2Cstockholm",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-denmark%2Cuniversity-of-copenhagen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-denmark%2Cuniversity-of-copenhagen%2Cuniversidad-nacional-de-san-mart%C3%ADn%2Caimst",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Ccarnegie-mellon-university-(cmu)%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Ccolumbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Cmed-ai-technology%2Cnvidia%2Coak-ridge-national-laboratory%2Cgoogle%2Cseoul",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Cnvidia%2Cseoul-national-university%2Cgoogle%2Coak-ridge-national",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Cseoul-national-university%2Cinstitute-for-advanced-study%2Ctum-school-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technical-university-of-munich%2Csorbonne-university%2Cinstitute-for-advanced-study%2Cuniversit%C3%A9-paris",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technion---israel-institute-of-technology%2Ccolumbia-university%2Cuniversity-of-montreal-%2F-universit%C3%A9",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technion---israel-institute-of-technology%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technion---israel-institute-of-technology%2Cgoogle%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technische-hochschule-ingolstadt%2Cuniversity-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cmila---quebec-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technische-universitat-berlin%2Cresearch-cluster-of-excellence%2Cuniversity-of-edinburgh",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/technology-innovation-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tecorigin-ltd%2Ctsinghua-university%2Cbaidu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tel-aviv-university%2Cfacebook",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tel-aviv-university%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tel-aviv-university%2Cuniversity-of-washington%2Cintel-labs%2Cmeta-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tencent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tensoropera",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tensortour",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/texas-a%26m",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/texas-a%26m%2Cfujitsu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/the-university-of-hong-kong%2Cbytedance",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/the-university-of-hong-kong%2Cbytedance%2Cjancsitech%2Coppo-healthlab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/the-university-of-hong-kong%2Charvard-medical-school",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/the-university-of-hong-kong%2Csun-yat-sen-university%2Cshanghai-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/thirdai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/thunder-software-technology-co.%2Cltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tianjin-medical-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tianjin-university%2Cbeijing-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tianjin-university%2Cmicrosoft-research-asia%2Cbeijing-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tigerobo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tik-tok%2Chong-kong-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tilde-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/together",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/together%2Cnous-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tohoku-university%2Ccyberagent%2Ctokyo-institute-of-technology%2Cfujitsu%2Criken%2Cnagoya-university%2Ckotoba",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tokyo-institute-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tokyo-medical-and-dental-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tongji-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/toyota-technological-institute-at-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/toyota-technological-institute-at-chicago%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/toyota-technological-institute-at-chicago%2Cgoogle-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/toyota-technological-institute-at-chicago%2Cuniversity-of-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/transwarp-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/trend-micro",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/trillion-labs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/troy-information-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Calibaba-damo-academy",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Capple%2Cwestlake-university%2Cchinese-university-of-hong-kong-(cuhk)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbeijing-academy-of-artificial-intelligence-%2F-baai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbeijing-academy-of-artificial-intelligence-%2F-baai%2Cmassachusetts-institute-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbeijing-academy-of-artificial-intelligence-%2F-baai%2Cmodelbest%2Copenbmb-(open-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbeijing-academy-of-artificial-intelligence-%2F-baai%2Ctencent",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbeijing-university-of-posts-and-telecommunications",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbeijing-university-of-posts-and-telecommunications%2Chuawei-noah&#x27;s-ark-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cbiomap-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cfacebook-ai-research%2Ccornell-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cinternational-digital-economy-academy%2Chong-kong-university-of-science-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cmila---quebec-ai-(originally-montreal-institute-for-learning",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cmodelbest",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cnanyang-technological-university%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cpingan-technology%2Cbeijing-university-of-posts-and-telecommunications",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Crenmin-university-of-china",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cshanghai-ai-lab%2C01.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cshengshu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cstanford-university%2Cnvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Ctencent%2Cnanyang-technological-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Ctsinghua-peiking-center-for-life-sciences%2Cpeking-university%2Cbeijing-academy-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cuniversity-college-london-(ucl)%2Cmonash-university%2Cbeijing-university-of-posts",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cuniversity-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cuniversity-of-california-(uc)-berkeley%2Cshanghai-qi-zhi-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cuniversity-of-california-los-angeles-(ucla)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cuniversity-of-illinois-urbana-champaign-(uiuc)%2Cshanghai-ai-lab%2Cpeking",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cuniversity-of-technology-sydney%2Cuniversity-of-texas-at-san-antonio",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cz.ai-(zhipu-ai)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/tsinghua-university%2Cz.ai-(zhipu-ai)%2Cbeihang-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/twitter",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/typhoon-%2F-scb-10x",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/uc-davis%2Cwestlake-university%2Cfacebook-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/uc-irvine",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/uc-irvine%2Cuniversity-of-chicago%2Ctoyota-technological-institute-at-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ucsc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ui%2Fnvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ut-austin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ut-austin%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ut-austin%2Cuniversity-of-california-(uc)-berkeley%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/uw",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/uzh",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/uber-ai%2Copenai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ukrainian-catholic-university%2Cigor-sikorsky-kyiv-polytechnic-institute%2Cagh-university-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ulm-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/ultralytics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/unbabel",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/unisound",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/universidad-nacional-de-cordoba%2Cinteligent-systems-lab-amsterdam%2Cuniversity-of-amsterdam%2Clear",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/universidade-de-lisboa-(ulisboa)%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/universite-de-technologie-de-compi%C3%A8gne--cnrs%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-college-london-(ucl)%2Cuniversity-of-toronto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-medicine-greifswald%2Cutrecht-university%2Cfriedrich-schiller-university-jena",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-paris-saclay%2Cradboud-university-medical-center",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-adelaide%2Caustralian-centre-for-robotic-vision",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-alberta%2Ccharles-university%2Cczech-technical-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-amsterdam",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-amsterdam%2Copenai%2Cuniversity-of-toronto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-bayreuth",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-bern%2Cidsia%2Ctechnical-university-of-munich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-bologna",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-bonn",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-bonn%2Cinstitute-for-numerical-simulation%2Cfraunhofer-institute-for-algorithms-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-british-columbia-(ubc)%2Cvector-institute%2Ccifar-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Ccalifornia-institute-of-technology%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Ccovariant",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Ccovariant%2Cgoogle%2Cchan-zuckerberg-initiative",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Cnersc%2C-lawrence-berkeley-national-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Copenai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Cstanford-university%2Ccarnegie-mellon-university-(cmu)%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Ctoyota-technological-institute-at-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-(uc)-berkeley%2Cuniversity-of-illinois-urbana-champaign-(uiuc)%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-davis%2Cpt.-jawahar-lal-nehru-memorial-medical-college%2Cpurdue-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-los-angeles-(ucla)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-los-angeles-(ucla)%2Ccolumbia-university%2Cnew-york-university-(nyu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-los-angeles-(ucla)%2Cjd.com",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-los-angeles-(ucla)%2Cmegvii-inc",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-los-angeles-(ucla)%2Cuniversity-of-pennsylvania",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-los-angeles-(ucla)%2Cuniversity-of-utah",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego%2Cbeihang-university%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego%2Cbiomap-research%2Cthe-scripps-research-institute%2Cmohamed-bin-zayed",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego%2Cbrown-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego%2Cfacebook",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-san-diego%2Csun-yat-sen-university%2Cmicrosoft-research-asia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-santa-barbara-(ucsb)%2Cmassachusetts-institute-of-technology-(mit)%2Ccarnegie",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-santa-barbara-(ucsb)%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-santa-barbara-(ucsb)%2Cuniversity-of-california-los-angeles",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-california-santa-barbara-(ucsb)%2Cuniversity-of-lincoln%2Cchinese-academy-of-agricultural",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-cambridge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-cambridge%2Calan-turing-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-cambridge%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-cambridge%2Cfederal-institute-of-materials-research-and-testing-(bam)%2Cnersc%2C-lawrence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-cambridge%2Cshanghai-jiao-tong-university%2Cuniversity-of-new-south-wales",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-cambridge%2Csouthern-university-of-science-and-technology-(sustech)%2Chong-kong",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-canterbury",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-central-florida",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-chicago%2Cbell-laboratories%2Cuniversity-of-western-ontario",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-chicago%2Cnvidia%2Charvard-university%2Ccerebras-systems%2Ctechnical-university-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-chicago%2Ctoyota-technological-institute-at-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-chinese-academy-of-sciences%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-delaware",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-edinburgh",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-edinburgh%2Ccarnegie-mellon-university-(cmu)%2Cuniversity-of-washington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-edinburgh%2Ctoshiba-cambridge-research-laboratory",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-edinburgh%2Cuniversity-of-zurich",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-electronic-science-and-technology-of-china",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-exeter",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-florida",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-florida%2Csichuan-university%2Cshihezi-university%2Cuniversity-of-macau%2Cuniversity-of-texas",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-florida%2Cuniversity-of-texas-health-science-center%2Ch.-lee-moffitt-cancer-center-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-freiburg",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-freiburg%2Ccollaborative-research-institute-intelligent-oncology-%2Cbrainlinks-braintools",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-geneva%2Cuniversity-of-edinburgh%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-genoa",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-glasgow%2Ccancer-research-uk-beatson-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-guelph%2Cvector-institute%2Ccifar-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-hyderabad",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-illinois-urbana-champaign-(uiuc)%2Cbytedance%2Cuniversity-of-chinese-academy-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-illinois-urbana-champaign-(uiuc)%2Cnec-laboratories%2Crutgers-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-illinois-urbana-champaign-(uiuc)%2Cnvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-illinois-urbana-champaign-(uiuc)%2Creed-college",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-kansas",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-liverpool%2Cuniversity-of-southern-california",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-london",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-lubeck",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-luxembourg%2Ctechnische-universitat-berlin%2Cberlin-institute-for-the-foundations-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-manchester",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-manchester%2Calan-turing-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-maryland",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-maryland%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-maryland%2Crutgers-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-massachusetts-amherst",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-michigan",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-michigan%2Cmax-planck-institute-for-informatics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-michigan%2Cstanford-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-minnesota",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-minnesota%2Cgrammarly",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-missouri",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-missouri%2Cpolitecnico-di-milano",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-montpellier%2Cbionomeex",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cjacobs-university%2Cuniversity-of-maine",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cmila---quebec-ai-(originally-montreal-institute-for",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-montreal-%2F-universit%C3%A9-de-montr%C3%A9al%2Cuniversity-of-toronto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-notre-dame",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oulu%2Cieee",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oxford",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oxford%2Charvard-medical-school",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oxford%2Charvard-medical-school%2Ccohere",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oxford%2Cmassachusetts-institute-of-technology-(mit)%2Cmicrosoft-research-ai-for-science",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oxford%2Cstanford-university%2Cbaidu",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-oxford%2Cuniversity-of-bristol%2Cuniversity-of-cambridge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-pittsburgh",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-pittsburgh%2Ccarnegie-mellon-university-(cmu)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-pittsburgh%2Cduke-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-rochester",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-san-francisco%2Cinsight-centre-nui-galway%2Cfast.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-science-and-technology-of-china-(ustc)%2Calibaba",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-science-and-technology-of-china-(ustc)%2Chefei-comprehensive-national-science",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-science-and-technology-of-china-(ustc)%2Coristruct-biotech-company%2Ciflytek-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-science-and-technology-of-china-(ustc)%2Cstate-key-laboratory-of-cognitive",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-science-and-technology-of-china-(ustc)%2Ctencent%2Czhejiang-university-(zju)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-sheffield",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-siena",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-southern-california",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-southern-california%2Cgeorgia-institute-of-technology%2Cstanford-university%2Cnvidia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-southern-california%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-technology-sydney",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-technology-sydney%2Czhejiang-university-(zju)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-texas-at-austin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-texas-at-austin%2Cgoogle",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-tokyo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-tokyo%2Cnational-institute-of-advanced-industrial-science-and-technology-(aist)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Cgoogle-deepmind%2Cgoogle-brain",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Cmassachusetts-institute-of-technology-(mit)%2Ccifar-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Cnew-york-university-(nyu)%2Cmassachusetts-institute-of-technology-(mit)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Creverie-labs%2Cdeepchem",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Ctwitter",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Cuniversity-college-london-(ucl)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Cuniversity-of-sherbrooke%2Charvard-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-toronto%2Cvector-institute%2Cuniversity-health-network%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-trento%2Cuniversity-of-amsterdam",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-turku%2Chugging-face",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-virginia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-warwick",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Callen-institute-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Callen-institute-for-ai%2Cfacebook-ai-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Carizona-state-university%2Callen-institute-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Ccolumbia-university%2Cecole-normale-sup%C3%A8rieure%2Cuniversity-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Ccolumbia-university%2Cgoogle%2Cmeta-ai%2Ctel-aviv-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cdeepmind%2Callen-institute-for-ai%2Chebrew-university-of-jerusalem%2Cthe",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cfacebook-ai-research%2Callen-institute-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cinstitute-for-protein-design%2Cgeorgia-institute-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cmicrosoft",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cmicrosoft-research%2Ccornell-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cmicrosoft%2Cdeepmind",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cmicrosoft%2Cdeepmind%2Callen-institute-for-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cnational-institute-of-informatics",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Csalesforce-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cseoul-national-university%2Cuniversity-of-sheffield",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cstanford-university%2Callen-institute-for-ai%2Chebrew-university-of",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cuniversity-of-texas-southwest-medical-center%2Cseoul-national",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-washington%2Cwageningen-university-and-research%2Cnersc%2C-lawrence-berkeley-national",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-waterloo%2C01.ai%2Cwuhan-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-waterloo%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-waterloo%2Cpeking-university%2Crsvp.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-waterloo%2Crsvp.ai%2Cpeking-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-wisconsin-madison",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-wisconsin-madison%2Cbytedance%2Cnanyang-technological-university%2Cuniversity-of-california",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-wisconsin-madison%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-wisconsin-madison%2Cmicrosoft-research%2Ccolumbia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-wisconsin-madison%2Cmorgridge-institute-for-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-zagreb",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/university-of-zagreb%2Cgenome-institute-of-singapore%2Cbioinformatics-institute",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/universit%C3%A9-paris-est",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/universit%C3%A9-de-lille%2Clink%C3%B6ping-university%2Cuniversite-de-technologie-de-compi%C3%A8gne--cnrs",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/upstage",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/upstage-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/utrecht-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/valence-labs%2Cuniversity-of-british-columbia-(ubc)%2Cvector-institute%2Cuniversity-of-toronto%2Cuniversity",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/vectara",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/vector-institute%2Cuniversity-of-toronto%2Cuniversit%C3%A9-paris-cit%C3%A9",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/veed",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/verily-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/vilnius-university%2Cchalmers-university-of-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/virginia-tech-(virginia-polytechnic-institute-and-state-university)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/visual-computing-institute%2Crwth-aachen-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/voyage-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/waseda-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/waymo",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wayve",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wechat-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wechat",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/weitu-ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wenge",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/west-lake-xinchen-%2F-xinchen-ai-%2F-%E8%A5%BF%E6%B9%96%E5%BF%83%E8%BE%B0%EF%BC%88%E6%9D%AD%E5%B7%9E%EF%BC%89%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/west-virginia-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/west-virginia-university%2Cuniversity-of-new-mexico",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/westlake-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/westlake-university%2Cinstitute-for-advanced-study%2Cmcgill-university%2Cmila---quebec-ai-(originally",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/westlake-university%2Ctsinghua-university%2Ctoyota-technological-institute-at-chicago",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/windsurf",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wolfram-research%2Casc27%2Cnewport-high-school%2Csanskriti-school",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/writer",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wuhan-university%2Cjd-explore-academy%2Cshanghai-ai-lab%2Cnanyang-technological-university%2Cwashington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/wuxi-sixiang-digital-intelligence-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xlang-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xverse-technology%2Cshenzhen-yuanxiang-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xerox",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xerox-research-centre-europe-(xrce)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xiaoduoai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xiaohongshu%2Frednote",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xiaomi",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xiaomi-corp",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xiaoyu-intelligence-information-technology-(yunnan)-co.%2C-ltd",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xinhua-zhiyun-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xian-jiaotong-university%2Cmegvii-inc%2Ctsinghua-university%2Chuazhong-university-of-science-and",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/yds-pharmatech",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/yahoo-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/yale-school-of-medicine%2Cuniversity-of-florida%2Cuniversity-of-texas-health-science-center",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/yale-school-of-public-health",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/yandex",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/yayi-(wenge)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/z.ai",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/z.ai-(zhipu-ai)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/z.ai-(zhipu-ai)%2Ctsinghua-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zte",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-lab%2Czhejiang-university-(zju)%2Chuazhong-university-of-science-and-technology%2Cmohamed-bin",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-lab%2Czhejiang-university-(zju)%2Cnanjing-university%2Ctsinghua-university%2Calibaba%2Cchinese",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-lianxin-digital-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)%2Cinstitute-for-advanced-algorithms-research%2Cnortheastern-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)%2Cjiangsu-university-of-technology%2Czhejiang-university-school-of-medicine",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)%2Cmicrosoft-research",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)%2Cmicrosoft-research-asia",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)%2Cwestlake-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhejiang-university-(zju)%2Cwestlake-university%2Cuniversity-of-washington",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhengzhou-university",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhijiang-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhipu-ai-(tsinghua)",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhixin-shuchuang-(chongqing)-technology-co.%2C-ltd.",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhuhai-wujiefangzhou-intelligent-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhuiyi-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhujian-intelligence",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zhuoshi-technology",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/zyphra",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/aixcoder",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/deepset%2Cbayerische-staatsbibliothek-muenchen",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/hexgrad",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/iflytek",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/rinna",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/vivo-ai-lab",
+      "fromCrawl": true
+    },
+    {
+      "path": "/org/xai",
+      "fromCrawl": true
+    }
+  ],
+  "host": "https://llm-timeline.duyet.net",
+  "lastBuilt": "2026-03-20T11:19:31.308Z"
+}

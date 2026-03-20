@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit),taptap</link>
+    <description>Large Language Model releases from Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit),taptap/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit),taptap</link>
+    </image>
+  <item>
+    <title>HGRN2 3B (Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit),taptap</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HGRN2%203B-2024-04-11</guid>
+    <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap</category>
+    <category>closed</category>
+    <description>Parameters: 2.9B
+License: closed
+Type: model
+AI model by Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap</description>
+  </item>
+  <item>
+    <title>HGRN2 1B (Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit),taptap</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HGRN2%201B-2024-04-11</guid>
+    <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by Shanghai AI Lab,Massachusetts Institute of Technology (MIT),Taptap</description>
+  </item>
+  </channel>
+</rss>

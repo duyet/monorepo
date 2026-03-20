@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms) Models</title>
+    <link>https://llm-timeline.duyet.net/org/courant-institute-of-mathematical-sciences-mila-quebec-ai-originally-montreal-institute-for</link>
+    <description>Large Language Model releases from Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/courant-institute-of-mathematical-sciences-mila-quebec-ai-originally-montreal-institute-for/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms) Models</title>
+      <link>https://llm-timeline.duyet.net/org/courant-institute-of-mathematical-sciences-mila-quebec-ai-originally-montreal-institute-for</link>
+    </image>
+  <item>
+    <title>WGAN-GP (Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms))</title>
+    <link>https://llm-timeline.duyet.net/org/courant-institute-of-mathematical-sciences-mila-quebec-ai-originally-montreal-institute-for</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WGAN-GP-2017-03-31</guid>
+    <pubDate>Fri, 31 Mar 2017 00:00:00 GMT</pubDate>
+    <category>Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</description>
+  </item>
+  </channel>
+</rss>

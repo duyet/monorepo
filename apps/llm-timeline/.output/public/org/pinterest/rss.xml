@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Pinterest Models</title>
+    <link>https://llm-timeline.duyet.net/org/pinterest</link>
+    <description>Large Language Model releases from Pinterest.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/pinterest/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Pinterest Models</title>
+      <link>https://llm-timeline.duyet.net/org/pinterest</link>
+    </image>
+  <item>
+    <title>TransAct (Pinterest)</title>
+    <link>https://llm-timeline.duyet.net/org/pinterest</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TransAct-2023-05-31</guid>
+    <pubDate>Wed, 31 May 2023 00:00:00 GMT</pubDate>
+    <category>Pinterest</category>
+    <category>closed</category>
+    <description>Parameters: 92M
+License: closed
+Type: model
+AI model by Pinterest</description>
+  </item>
+  </channel>
+</rss>

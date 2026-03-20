@@ -1,7 +1,6 @@
 "use client";
 
 import Container from "@duyet/components/Container";
-import Link from "next/link";
 
 export default function Error({
   error,
@@ -32,12 +31,12 @@ export default function Error({
             >
               Try again
             </button>
-            <Link
+            <a
               href="/"
               className="rounded-lg border border-neutral-300 px-6 py-2 font-medium text-neutral-700 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors"
             >
               Back to dashboard
-            </Link>
+            </a>
           </div>
         </div>
       </div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — McGill University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),Hong Kong University of Science and Technology (HKUST),University of Washington,Microsoft Research,DeepMind,Shanghai Jiao Tong University,University of Montreal / Université de Montréal Models</title>
+    <link>https://llm-timeline.duyet.net/org/mcgill-university-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-hong-kong</link>
+    <description>Large Language Model releases from McGill University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),Hong Kong University of Science and Technology (HKUST),University of Washington,Microsoft Research,DeepMind,Shanghai Jiao Tong University,University of Montreal / Université de Montréal.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mcgill-university-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-hong-kong/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — McGill University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),Hong Kong University of Science and Technology (HKUST),University of Washington,Microsoft Research,DeepMind,Shanghai Jiao Tong University,University of Montreal / Université de Montréal Models</title>
+      <link>https://llm-timeline.duyet.net/org/mcgill-university-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-hong-kong</link>
+    </image>
+  <item>
+    <title>EnzymeFlow (McGill University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),Hong Kong University of Science and Technology (HKUST),University of Washington,Microsoft Research,DeepMind,Shanghai Jiao Tong University,University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/org/mcgill-university-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-hong-kong</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EnzymeFlow-2024-10-01</guid>
+    <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
+    <category>McGill University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),Hong Kong University of Science and Technology (HKUST),University of Washington,Microsoft Research,DeepMind,Shanghai Jiao Tong University,University of Montreal / Université de Montréal</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by McGill University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),Hong Kong University of Science and Technology (HKUST),University of Washington,Microsoft Research,DeepMind,Shanghai Jiao Tong University,University of Montreal / Université de Montréal</description>
+  </item>
+  </channel>
+</rss>

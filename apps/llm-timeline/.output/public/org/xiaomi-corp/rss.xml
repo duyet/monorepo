@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Xiaomi Corp Models</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <description>Large Language Model releases from Xiaomi Corp.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/xiaomi-corp/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Xiaomi Corp Models</title>
+      <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    </image>
+  <item>
+    <title>MiMo-7B-Base (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiMo-7B-Base-2025-06-05</guid>
+    <pubDate>Thu, 05 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  <item>
+    <title>MiMo-VL-7B-SFT (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiMo-VL-7B-SFT-2025-06-04</guid>
+    <pubDate>Wed, 04 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  <item>
+    <title>MiMo‑VL‑7B‑RL (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiMo%E2%80%91VL%E2%80%917B%E2%80%91RL-2025-06-04</guid>
+    <pubDate>Wed, 04 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  <item>
+    <title>Xiaomi Pengpai Image (小米澎湃图像) (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Xiaomi%20Pengpai%20Image%20(%E5%B0%8F%E7%B1%B3%E6%BE%8E%E6%B9%83%E5%9B%BE%E5%83%8F)-2024-12-27</guid>
+    <pubDate>Fri, 27 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  <item>
+    <title>Xiaomi Edge-side Text (小米端侧文本) (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Xiaomi%20Edge-side%20Text%20(%E5%B0%8F%E7%B1%B3%E7%AB%AF%E4%BE%A7%E6%96%87%E6%9C%AC)-2024-12-27</guid>
+    <pubDate>Fri, 27 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  <item>
+    <title>XiaoAI 6.0 (Xiaomi Corp)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaomi-corp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XiaoAI%206.0-2022-12-11</guid>
+    <pubDate>Sun, 11 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Xiaomi Corp</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Xiaomi Corp</description>
+  </item>
+  </channel>
+</rss>

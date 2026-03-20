@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense } from "react";
 import { AppClient } from "@/components/app-client";
 import type { Model } from "@/lib/data";

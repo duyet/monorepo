@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Ben-Gurion University Models</title>
+    <link>https://llm-timeline.duyet.net/org/ben-gurion-university</link>
+    <description>Large Language Model releases from Ben-Gurion University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ben-gurion-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Ben-Gurion University Models</title>
+      <link>https://llm-timeline.duyet.net/org/ben-gurion-university</link>
+    </image>
+  <item>
+    <title>RHN+HSG(depth=40) (Ben-Gurion University)</title>
+    <link>https://llm-timeline.duyet.net/org/ben-gurion-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RHN%2BHSG(depth%3D40)-2018-05-23</guid>
+    <pubDate>Wed, 23 May 2018 00:00:00 GMT</pubDate>
+    <category>Ben-Gurion University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Ben-Gurion University</description>
+  </item>
+  <item>
+    <title>RHN(depth=40) (Ben-Gurion University)</title>
+    <link>https://llm-timeline.duyet.net/org/ben-gurion-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RHN(depth%3D40)-2018-05-23</guid>
+    <pubDate>Wed, 23 May 2018 00:00:00 GMT</pubDate>
+    <category>Ben-Gurion University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Ben-Gurion University</description>
+  </item>
+  <item>
+    <title>GL-LWGC-AWD-MoS-LSTM + dynamic evaluation (PTB) (Ben-Gurion University)</title>
+    <link>https://llm-timeline.duyet.net/org/ben-gurion-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GL-LWGC-AWD-MoS-LSTM%20%2B%20dynamic%20evaluation%20(PTB)-2017-08-29</guid>
+    <pubDate>Tue, 29 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Ben-Gurion University</category>
+    <category>closed</category>
+    <description>Parameters: 26M
+License: closed
+Type: model
+AI model by Ben-Gurion University</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,Google Brain Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-google-brain</link>
+    <description>Large Language Model releases from Google,Google Brain.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-google-brain/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,Google Brain Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-google-brain</link>
+    </image>
+  <item>
+    <title>EfficientNetV2-XL (Google,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/google-google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EfficientNetV2-XL-2021-06-23</guid>
+    <pubDate>Wed, 23 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Google,Google Brain</category>
+    <category>open</category>
+    <description>Parameters: 208M
+License: open
+Type: model
+AI model by Google,Google Brain</description>
+  </item>
+  </channel>
+</rss>

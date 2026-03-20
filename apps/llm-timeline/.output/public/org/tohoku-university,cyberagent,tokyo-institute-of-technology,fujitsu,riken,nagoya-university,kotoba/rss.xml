@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tohoku University,CyberAgent,Tokyo Institute of Technology,Fujitsu,RIKEN,Nagoya University,Kotoba Technologies Models</title>
+    <link>https://llm-timeline.duyet.net/org/tohoku-university,cyberagent,tokyo-institute-of-technology,fujitsu,riken,nagoya-university,kotoba</link>
+    <description>Large Language Model releases from Tohoku University,CyberAgent,Tokyo Institute of Technology,Fujitsu,RIKEN,Nagoya University,Kotoba Technologies.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tohoku-university,cyberagent,tokyo-institute-of-technology,fujitsu,riken,nagoya-university,kotoba/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tohoku University,CyberAgent,Tokyo Institute of Technology,Fujitsu,RIKEN,Nagoya University,Kotoba Technologies Models</title>
+      <link>https://llm-timeline.duyet.net/org/tohoku-university,cyberagent,tokyo-institute-of-technology,fujitsu,riken,nagoya-university,kotoba</link>
+    </image>
+  <item>
+    <title>Fugaku-LLM (Tohoku University,CyberAgent,Tokyo Institute of Technology,Fujitsu,RIKEN,Nagoya University,Kotoba Technologies)</title>
+    <link>https://llm-timeline.duyet.net/org/tohoku-university,cyberagent,tokyo-institute-of-technology,fujitsu,riken,nagoya-university,kotoba</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fugaku-LLM-2024-05-10</guid>
+    <pubDate>Fri, 10 May 2024 00:00:00 GMT</pubDate>
+    <category>Tohoku University,CyberAgent,Tokyo Institute of Technology,Fujitsu,RIKEN,Nagoya University,Kotoba Technologies</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Tohoku University,CyberAgent,Tokyo Institute of Technology,Fujitsu,RIKEN,Nagoya University,Kotoba Technologies</description>
+  </item>
+  </channel>
+</rss>

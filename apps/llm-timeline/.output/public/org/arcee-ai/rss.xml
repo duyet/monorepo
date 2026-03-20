@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Arcee AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/arcee-ai</link>
+    <description>Large Language Model releases from Arcee AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/arcee-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Arcee AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/arcee-ai</link>
+    </image>
+  <item>
+    <title>Trinity-Large (Arcee AI)</title>
+    <link>https://llm-timeline.duyet.net/org/arcee-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Trinity-Large-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Arcee AI</category>
+    <category>open</category>
+    <description>Parameters: Trinity-Large
+License: open
+Type: model
+400BA13B. &quot;we worked closely with Prime Intellect. They not only served the H100 clusters Datology used to generate synthetic data, they have been deeply involved in helping scale our training setup to the GPU footprint required for a fully frontier sized model, including the current 2048 B300 GPU configuration for Trinity Large.&quot;</description>
+  </item>
+  <item>
+    <title>Trinity-Mini (Arcee AI)</title>
+    <link>https://llm-timeline.duyet.net/org/arcee-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Trinity-Mini-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Arcee AI</category>
+    <category>open</category>
+    <description>Parameters: Trinity-Mini
+License: open
+Type: model
+26BA3B. &quot;we worked closely with Prime Intellect. They not only served the H100 clusters Datology used to generate synthetic data, they have been deeply involved in helping scale our training setup to the GPU footprint required for a fully frontier sized model, including the current 2048 B300 GPU configuration for Trinity Large.&quot;</description>
+  </item>
+  </channel>
+</rss>

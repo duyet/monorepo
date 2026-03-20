@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Yayi (Wenge) Models</title>
+    <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    <description>Large Language Model releases from Yayi (Wenge).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/yayi-wenge/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Yayi (Wenge) Models</title>
+      <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    </image>
+  <item>
+    <title>YAYI-Ultra (Yayi (Wenge))</title>
+    <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YAYI-Ultra-2025-02-15</guid>
+    <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Yayi (Wenge)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Yayi (Wenge)</description>
+  </item>
+  <item>
+    <title>YaYi 2.0 (Yayi (Wenge))</title>
+    <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YaYi%202.0-2023-12-22</guid>
+    <pubDate>Fri, 22 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Yayi (Wenge)</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by Yayi (Wenge)</description>
+  </item>
+  <item>
+    <title>YAYI-13B-Llama2 (Yayi (Wenge))</title>
+    <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YAYI-13B-Llama2-2023-07-22</guid>
+    <pubDate>Sat, 22 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Yayi (Wenge)</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Yayi (Wenge)</description>
+  </item>
+  <item>
+    <title>YAYI-7B-Llama2 (Yayi (Wenge))</title>
+    <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YAYI-7B-Llama2-2023-07-22</guid>
+    <pubDate>Sat, 22 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Yayi (Wenge)</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Yayi (Wenge)</description>
+  </item>
+  <item>
+    <title>YaYi-7B (Yayi (Wenge))</title>
+    <link>https://llm-timeline.duyet.net/org/yayi-wenge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YaYi-7B-2023-06-03</guid>
+    <pubDate>Sat, 03 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Yayi (Wenge)</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Yayi (Wenge)</description>
+  </item>
+  </channel>
+</rss>

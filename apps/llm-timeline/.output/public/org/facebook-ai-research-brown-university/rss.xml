@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Facebook AI Research,Brown University Models</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research-brown-university</link>
+    <description>Large Language Model releases from Facebook AI Research,Brown University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/facebook-ai-research-brown-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Facebook AI Research,Brown University Models</title>
+      <link>https://llm-timeline.duyet.net/org/facebook-ai-research-brown-university</link>
+    </image>
+  <item>
+    <title>AlphaX-1 (Facebook AI Research,Brown University)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research-brown-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaX-1-2019-10-02</guid>
+    <pubDate>Wed, 02 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,Brown University</category>
+    <category>closed</category>
+    <description>Parameters: 5.4M
+License: closed
+Type: model
+AI model by Facebook AI Research,Brown University</description>
+  </item>
+  </channel>
+</rss>

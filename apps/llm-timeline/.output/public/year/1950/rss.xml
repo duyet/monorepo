@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1950 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1950</link>
+    <description>Large Language Model releases from 1950.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1950/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1950 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1950</link>
+    </image>
+  <item>
+    <title>Theseus (Bell Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/1950</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Theseus-1950-07-02</guid>
+    <pubDate>Sun, 02 Jul 1950 00:00:00 GMT</pubDate>
+    <category>Bell Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 40
+License: closed
+Type: model
+AI model by Bell Laboratories</description>
+  </item>
+  </channel>
+</rss>

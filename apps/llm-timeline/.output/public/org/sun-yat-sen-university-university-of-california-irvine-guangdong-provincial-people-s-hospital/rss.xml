@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Sun Yat-sen University,University of California Irvine,Guangdong Provincial People&apos;s Hospital,Guangdong Academy of Medical Sciences Models</title>
+    <link>https://llm-timeline.duyet.net/org/sun-yat-sen-university-university-of-california-irvine-guangdong-provincial-people-s-hospital</link>
+    <description>Large Language Model releases from Sun Yat-sen University,University of California Irvine,Guangdong Provincial People&apos;s Hospital,Guangdong Academy of Medical Sciences.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sun-yat-sen-university-university-of-california-irvine-guangdong-provincial-people-s-hospital/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Sun Yat-sen University,University of California Irvine,Guangdong Provincial People&apos;s Hospital,Guangdong Academy of Medical Sciences Models</title>
+      <link>https://llm-timeline.duyet.net/org/sun-yat-sen-university-university-of-california-irvine-guangdong-provincial-people-s-hospital</link>
+    </image>
+  <item>
+    <title>Deep learning linking mechanistic models to single-cell transcriptomics data reveals transcriptional bursting in response to DNA damage (Sun Yat-sen University,University of California Irvine,Guangdong Provincial People&apos;s Hospital,Guangdong Academy of Medical Sciences)</title>
+    <link>https://llm-timeline.duyet.net/org/sun-yat-sen-university-university-of-california-irvine-guangdong-provincial-people-s-hospital</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20learning%20linking%20mechanistic%20models%20to%20single-cell%20transcriptomics%20data%20reveals%20transcriptional%20bursting%20in%20response%20to%20DNA%20damage-2024-07-12</guid>
+    <pubDate>Fri, 12 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Sun Yat-sen University,University of California Irvine,Guangdong Provincial People&apos;s Hospital,Guangdong Academy of Medical Sciences</category>
+    <category>closed</category>
+    <description>Parameters: 2.2K
+License: closed
+Type: model
+AI model by Sun Yat-sen University,University of California Irvine,Guangdong Provincial People&apos;s Hospital,Guangdong Academy of Medical Sciences</description>
+  </item>
+  </channel>
+</rss>

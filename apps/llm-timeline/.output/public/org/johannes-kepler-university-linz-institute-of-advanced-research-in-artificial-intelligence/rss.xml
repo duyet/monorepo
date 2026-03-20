@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Johannes Kepler University Linz,Institute of Advanced Research in Artificial Intelligence,University of Oslo Models</title>
+    <link>https://llm-timeline.duyet.net/org/johannes-kepler-university-linz-institute-of-advanced-research-in-artificial-intelligence</link>
+    <description>Large Language Model releases from Johannes Kepler University Linz,Institute of Advanced Research in Artificial Intelligence,University of Oslo.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/johannes-kepler-university-linz-institute-of-advanced-research-in-artificial-intelligence/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Johannes Kepler University Linz,Institute of Advanced Research in Artificial Intelligence,University of Oslo Models</title>
+      <link>https://llm-timeline.duyet.net/org/johannes-kepler-university-linz-institute-of-advanced-research-in-artificial-intelligence</link>
+    </image>
+  <item>
+    <title>Hopfield Networks (2020) (Johannes Kepler University Linz,Institute of Advanced Research in Artificial Intelligence,University of Oslo)</title>
+    <link>https://llm-timeline.duyet.net/org/johannes-kepler-university-linz-institute-of-advanced-research-in-artificial-intelligence</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hopfield%20Networks%20(2020)-2020-07-16</guid>
+    <pubDate>Thu, 16 Jul 2020 00:00:00 GMT</pubDate>
+    <category>Johannes Kepler University Linz,Institute of Advanced Research in Artificial Intelligence,University of Oslo</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Johannes Kepler University Linz,Institute of Advanced Research in Artificial Intelligence,University of Oslo</description>
+  </item>
+  </channel>
+</rss>

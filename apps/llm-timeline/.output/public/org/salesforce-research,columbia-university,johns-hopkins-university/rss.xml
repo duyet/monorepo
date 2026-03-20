@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Salesforce Research,Columbia University,Johns Hopkins University Models</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research,columbia-university,johns-hopkins-university</link>
+    <description>Large Language Model releases from Salesforce Research,Columbia University,Johns Hopkins University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/salesforce-research,columbia-university,johns-hopkins-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Salesforce Research,Columbia University,Johns Hopkins University Models</title>
+      <link>https://llm-timeline.duyet.net/org/salesforce-research,columbia-university,johns-hopkins-university</link>
+    </image>
+  <item>
+    <title>ProGen2-xlarge (Salesforce Research,Columbia University,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research,columbia-university,johns-hopkins-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProGen2-xlarge-2022-06-27</guid>
+    <pubDate>Mon, 27 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Salesforce Research,Columbia University,Johns Hopkins University</category>
+    <category>open</category>
+    <description>Parameters: 6.4B
+License: open
+Type: model
+AI model by Salesforce Research,Columbia University,Johns Hopkins University</description>
+  </item>
+  <item>
+    <title>ProGen2-base (Salesforce Research,Columbia University,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research,columbia-university,johns-hopkins-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProGen2-base-2022-06-27</guid>
+    <pubDate>Mon, 27 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Salesforce Research,Columbia University,Johns Hopkins University</category>
+    <category>open</category>
+    <description>Parameters: 764M
+License: open
+Type: model
+AI model by Salesforce Research,Columbia University,Johns Hopkins University</description>
+  </item>
+  </channel>
+</rss>

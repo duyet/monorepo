@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Technion - Israel Institute of Technology,Columbia University,University of Montreal / Université de Montréal Models</title>
+    <link>https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,columbia-university,university-of-montreal-/-université</link>
+    <description>Large Language Model releases from Technion - Israel Institute of Technology,Columbia University,University of Montreal / Université de Montréal.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,columbia-university,university-of-montreal-/-université/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Technion - Israel Institute of Technology,Columbia University,University of Montreal / Université de Montréal Models</title>
+      <link>https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,columbia-university,university-of-montreal-/-université</link>
+    </image>
+  <item>
+    <title>Binarized Neural Network (MNIST) (Technion - Israel Institute of Technology,Columbia University,University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,columbia-university,university-of-montreal-/-université</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Binarized%20Neural%20Network%20(MNIST)-2016-03-17</guid>
+    <pubDate>Thu, 17 Mar 2016 00:00:00 GMT</pubDate>
+    <category>Technion - Israel Institute of Technology,Columbia University,University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>Parameters: 37M
+License: closed
+Type: model
+AI model by Technion - Israel Institute of Technology,Columbia University,University of Montreal / Université de Montréal</description>
+  </item>
+  </channel>
+</rss>

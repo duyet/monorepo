@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ASAPP Models</title>
+    <link>https://llm-timeline.duyet.net/org/asapp</link>
+    <description>Large Language Model releases from ASAPP.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/asapp/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ASAPP Models</title>
+      <link>https://llm-timeline.duyet.net/org/asapp</link>
+    </image>
+  <item>
+    <title>SRU++ Large (ASAPP)</title>
+    <link>https://llm-timeline.duyet.net/org/asapp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SRU%2B%2B%20Large-2021-02-24</guid>
+    <pubDate>Wed, 24 Feb 2021 00:00:00 GMT</pubDate>
+    <category>ASAPP</category>
+    <category>open</category>
+    <description>Parameters: 234M
+License: open
+Type: model
+AI model by ASAPP</description>
+  </item>
+  <item>
+    <title>SRU++ Base (ASAPP)</title>
+    <link>https://llm-timeline.duyet.net/org/asapp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SRU%2B%2B%20Base-2021-02-24</guid>
+    <pubDate>Wed, 24 Feb 2021 00:00:00 GMT</pubDate>
+    <category>ASAPP</category>
+    <category>closed</category>
+    <description>Parameters: 148M
+License: closed
+Type: model
+AI model by ASAPP</description>
+  </item>
+  <item>
+    <title>SRU++ Large only 2 attention layers (k=5) (WT103) (ASAPP)</title>
+    <link>https://llm-timeline.duyet.net/org/asapp</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SRU%2B%2B%20Large%20only%202%20attention%20layers%20(k%3D5)%20(WT103)-2021-02-24</guid>
+    <pubDate>Wed, 24 Feb 2021 00:00:00 GMT</pubDate>
+    <category>ASAPP</category>
+    <category>closed</category>
+    <description>Parameters: 225M
+License: closed
+Type: model
+AI model by ASAPP</description>
+  </item>
+  </channel>
+</rss>

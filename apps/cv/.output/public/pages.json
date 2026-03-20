@@ -1,0 +1,12 @@
+{
+  "pages": [
+    {
+      "path": "/"
+    },
+    {
+      "path": "/pdf"
+    }
+  ],
+  "host": "https://cv.duyet.net",
+  "lastBuilt": "2026-03-20T11:18:48.093Z"
+}

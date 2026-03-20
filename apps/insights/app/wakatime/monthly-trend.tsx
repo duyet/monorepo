@@ -1,8 +1,8 @@
 import { AreaChart } from "@/components/charts";
-import { getWakaTimeMonthlyTrend } from "./wakatime-utils";
 
-export async function WakaTimeMonthlyTrend() {
-  const monthlyData = await getWakaTimeMonthlyTrend();
+type MonthlyTrendItem = { yearMonth: string; hours: number; displayDate: string };
+
+export function WakaTimeMonthlyTrendView({ monthlyData }: { monthlyData: MonthlyTrendItem[] }) {
 
   if (!monthlyData || monthlyData.length === 0) {
     return (

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — CreditEase Models</title>
+    <link>https://llm-timeline.duyet.net/org/creditease</link>
+    <description>Large Language Model releases from CreditEase.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/creditease/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — CreditEase Models</title>
+      <link>https://llm-timeline.duyet.net/org/creditease</link>
+    </image>
+  <item>
+    <title>MiLi (米粒) (CreditEase)</title>
+    <link>https://llm-timeline.duyet.net/org/creditease</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiLi%20(%E7%B1%B3%E7%B2%92)-2024-11-29</guid>
+    <pubDate>Fri, 29 Nov 2024 00:00:00 GMT</pubDate>
+    <category>CreditEase</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by CreditEase</description>
+  </item>
+  </channel>
+</rss>

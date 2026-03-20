@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Inspur Models</title>
+    <link>https://llm-timeline.duyet.net/org/inspur</link>
+    <description>Large Language Model releases from Inspur.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/inspur/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Inspur Models</title>
+      <link>https://llm-timeline.duyet.net/org/inspur</link>
+    </image>
+  <item>
+    <title>HaiYue (浪潮通用软件有限公司) (Inspur)</title>
+    <link>https://llm-timeline.duyet.net/org/inspur</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HaiYue%20(%E6%B5%AA%E6%BD%AE%E9%80%9A%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8)-2024-11-29</guid>
+    <pubDate>Fri, 29 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Inspur</category>
+    <category>closed</category>
+    <description>Parameters: 102B
+License: closed
+Type: model
+AI model by Inspur</description>
+  </item>
+  <item>
+    <title>Hairuo (Inspur)</title>
+    <link>https://llm-timeline.duyet.net/org/inspur</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hairuo-2024-08-29</guid>
+    <pubDate>Thu, 29 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Inspur</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Inspur</description>
+  </item>
+  <item>
+    <title>Zhiye LLM (浪潮知业大模型) (Inspur)</title>
+    <link>https://llm-timeline.duyet.net/org/inspur</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zhiye%20LLM%20(%E6%B5%AA%E6%BD%AE%E7%9F%A5%E4%B8%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B)-2024-08-14</guid>
+    <pubDate>Wed, 14 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Inspur</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Inspur</description>
+  </item>
+  <item>
+    <title>Yuan 2.0 (Inspur)</title>
+    <link>https://llm-timeline.duyet.net/org/inspur</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yuan%202.0-2023-11-27</guid>
+    <pubDate>Mon, 27 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Inspur</category>
+    <category>open</category>
+    <description>Parameters: 102.6B
+License: open
+Type: model
+AI model by Inspur</description>
+  </item>
+  <item>
+    <title>Yuan 1.0 (Inspur)</title>
+    <link>https://llm-timeline.duyet.net/org/inspur</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yuan%201.0-2021-10-12</guid>
+    <pubDate>Tue, 12 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Inspur</category>
+    <category>closed</category>
+    <description>Parameters: 245.7B
+License: closed
+Type: model
+AI model by Inspur</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Kansas State University Models</title>
+    <link>https://llm-timeline.duyet.net/org/kansas-state-university</link>
+    <description>Large Language Model releases from Kansas State University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/kansas-state-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Kansas State University Models</title>
+      <link>https://llm-timeline.duyet.net/org/kansas-state-university</link>
+    </image>
+  <item>
+    <title>CLR_ESP (Kansas State University)</title>
+    <link>https://llm-timeline.duyet.net/org/kansas-state-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CLR_ESP-2024-08-16</guid>
+    <pubDate>Fri, 16 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Kansas State University</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Kansas State University</description>
+  </item>
+  </channel>
+</rss>

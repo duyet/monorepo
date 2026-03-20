@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California (UC) Berkeley Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <description>Large Language Model releases from University of California (UC) Berkeley.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California (UC) Berkeley Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    </image>
+  <item>
+    <title>Humanoid Locomotion (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Humanoid%20Locomotion-2024-02-29</guid>
+    <pubDate>Thu, 29 Feb 2024 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 8M
+License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Starling-LM-7B-alpha (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Starling-LM-7B-alpha-2023-11-25</guid>
+    <pubDate>Sat, 25 Nov 2023 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>GPT-2 (AMPS) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2%20(AMPS)-2021-11-08</guid>
+    <pubDate>Mon, 08 Nov 2021 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 1.5M
+License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Denoising Diffusion Probabilistic Models (LSUN Bedroom) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Denoising%20Diffusion%20Probabilistic%20Models%20(LSUN%20Bedroom)-2021-06-11</guid>
+    <pubDate>Fri, 11 Jun 2021 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 256M
+License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Tensor-Transformer(1core)+PN (WT103) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tensor-Transformer(1core)%2BPN%20(WT103)-2020-03-17</guid>
+    <pubDate>Tue, 17 Mar 2020 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 85.3M
+License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Tensor-Transformer(1core)+PN (PTB) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tensor-Transformer(1core)%2BPN%20(PTB)-2020-03-17</guid>
+    <pubDate>Tue, 17 Mar 2020 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>PixelSNAIL (CIFAR 10) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelSNAIL%20(CIFAR%2010)-2017-12-28</guid>
+    <pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>PixelSNAIL (ImageNet) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelSNAIL%20(ImageNet)-2017-12-28</guid>
+    <pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Image-to-image cGAN (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Image-to-image%20cGAN-2016-11-21</guid>
+    <pubDate>Mon, 21 Nov 2016 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>TRPO (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TRPO-2015-02-19</guid>
+    <pubDate>Thu, 19 Feb 2015 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 33.5K
+License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Fully Convolutional Networks (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fully%20Convolutional%20Networks-2014-11-14</guid>
+    <pubDate>Fri, 14 Nov 2014 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  </channel>
+</rss>

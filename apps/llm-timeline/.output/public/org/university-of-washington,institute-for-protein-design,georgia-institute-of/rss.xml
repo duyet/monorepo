@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Washington,Institute for Protein Design,Georgia Institute of Technology,Microsoft,Heidelberg University Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington,institute-for-protein-design,georgia-institute-of</link>
+    <description>Large Language Model releases from University of Washington,Institute for Protein Design,Georgia Institute of Technology,Microsoft,Heidelberg University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-washington,institute-for-protein-design,georgia-institute-of/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Washington,Institute for Protein Design,Georgia Institute of Technology,Microsoft,Heidelberg University Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-washington,institute-for-protein-design,georgia-institute-of</link>
+    </image>
+  <item>
+    <title>ProteinGenerator (University of Washington,Institute for Protein Design,Georgia Institute of Technology,Microsoft,Heidelberg University)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington,institute-for-protein-design,georgia-institute-of</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProteinGenerator-2024-09-25</guid>
+    <pubDate>Wed, 25 Sep 2024 00:00:00 GMT</pubDate>
+    <category>University of Washington,Institute for Protein Design,Georgia Institute of Technology,Microsoft,Heidelberg University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Washington,Institute for Protein Design,Georgia Institute of Technology,Microsoft,Heidelberg University</description>
+  </item>
+  </channel>
+</rss>

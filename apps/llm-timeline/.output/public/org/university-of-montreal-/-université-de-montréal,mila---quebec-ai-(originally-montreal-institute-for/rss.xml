@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms) Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-montreal-/-université-de-montréal,mila---quebec-ai-(originally-montreal-institute-for</link>
+    <description>Large Language Model releases from University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-montreal-/-université-de-montréal,mila---quebec-ai-(originally-montreal-institute-for/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms) Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-montreal-/-université-de-montréal,mila---quebec-ai-(originally-montreal-institute-for</link>
+    </image>
+  <item>
+    <title>Fraternal dropout + AWD-LSTM 3-layer (PTB) (University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms))</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-montreal-/-université-de-montréal,mila---quebec-ai-(originally-montreal-institute-for</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fraternal%20dropout%20%2B%20AWD-LSTM%203-layer%20(PTB)-2017-10-31</guid>
+    <pubDate>Tue, 31 Oct 2017 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</description>
+  </item>
+  </channel>
+</rss>

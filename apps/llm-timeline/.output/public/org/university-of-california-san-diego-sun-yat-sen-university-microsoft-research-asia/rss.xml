@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California San Diego,Sun Yat-sen University,Microsoft Research Asia Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego-sun-yat-sen-university-microsoft-research-asia</link>
+    <description>Large Language Model releases from University of California San Diego,Sun Yat-sen University,Microsoft Research Asia.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-san-diego-sun-yat-sen-university-microsoft-research-asia/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California San Diego,Sun Yat-sen University,Microsoft Research Asia Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego-sun-yat-sen-university-microsoft-research-asia</link>
+    </image>
+  <item>
+    <title>Baize-v2-13B (白泽) (University of California San Diego,Sun Yat-sen University,Microsoft Research Asia)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego-sun-yat-sen-university-microsoft-research-asia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baize-v2-13B%20(%E7%99%BD%E6%B3%BD)-2023-12-02</guid>
+    <pubDate>Sat, 02 Dec 2023 00:00:00 GMT</pubDate>
+    <category>University of California San Diego,Sun Yat-sen University,Microsoft Research Asia</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by University of California San Diego,Sun Yat-sen University,Microsoft Research Asia</description>
+  </item>
+  </channel>
+</rss>

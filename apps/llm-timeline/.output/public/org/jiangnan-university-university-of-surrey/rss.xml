@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Jiangnan University,University of Surrey Models</title>
+    <link>https://llm-timeline.duyet.net/org/jiangnan-university-university-of-surrey</link>
+    <description>Large Language Model releases from Jiangnan University,University of Surrey.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/jiangnan-university-university-of-surrey/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Jiangnan University,University of Surrey Models</title>
+      <link>https://llm-timeline.duyet.net/org/jiangnan-university-university-of-surrey</link>
+    </image>
+  <item>
+    <title>DAC-CSR (Jiangnan University,University of Surrey)</title>
+    <link>https://llm-timeline.duyet.net/org/jiangnan-university-university-of-surrey</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DAC-CSR-2016-11-16</guid>
+    <pubDate>Wed, 16 Nov 2016 00:00:00 GMT</pubDate>
+    <category>Jiangnan University,University of Surrey</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Jiangnan University,University of Surrey</description>
+  </item>
+  </channel>
+</rss>

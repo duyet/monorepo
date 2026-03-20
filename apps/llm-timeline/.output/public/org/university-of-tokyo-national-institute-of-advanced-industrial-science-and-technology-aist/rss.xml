@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST) Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-tokyo-national-institute-of-advanced-industrial-science-and-technology-aist</link>
+    <description>Large Language Model releases from University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-tokyo-national-institute-of-advanced-industrial-science-and-technology-aist/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST) Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-tokyo-national-institute-of-advanced-industrial-science-and-technology-aist</link>
+    </image>
+  <item>
+    <title>Subformer (83M) (University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST))</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-tokyo-national-institute-of-advanced-industrial-science-and-technology-aist</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Subformer%20(83M)-2021-01-01</guid>
+    <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+    <category>University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST)</category>
+    <category>closed</category>
+    <description>Parameters: 83M
+License: closed
+Type: model
+AI model by University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST)</description>
+  </item>
+  <item>
+    <title>Subformer (96M) (University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST))</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-tokyo-national-institute-of-advanced-industrial-science-and-technology-aist</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Subformer%20(96M)-2021-01-01</guid>
+    <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+    <category>University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST)</category>
+    <category>closed</category>
+    <description>Parameters: 96M
+License: closed
+Type: model
+AI model by University of Tokyo,National Institute of Advanced Industrial Science and Technology (AIST)</description>
+  </item>
+  </channel>
+</rss>

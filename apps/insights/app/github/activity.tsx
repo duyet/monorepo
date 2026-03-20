@@ -1,7 +1,6 @@
 import type { GithubRepo } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
 import { StarIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 import { getGithubToken } from "./github-utils";
 
 interface JustStarsProps {
@@ -9,11 +8,17 @@ interface JustStarsProps {
   className?: string;
 }
 
-export async function GithubActivity({ owner, className }: JustStarsProps) {
-  const repos = await getGithubStars(owner);
-
-  // Safety check for repos array
-  if (!repos || !Array.isArray(repos)) {
+/** Sync view component — receives pre-fetched repos */
+export function GithubActivityView({
+  owner,
+  repos,
+  className,
+}: {
+  owner: string;
+  repos: GithubRepo[];
+  className?: string;
+}) {
+  if (!repos || !Array.isArray(repos) || repos.length === 0) {
     return (
       <div className={cn("w-full", className)}>
         <div className="rounded-lg border bg-card p-8 text-center">
@@ -47,16 +52,23 @@ function Activity({
   return (
     <div className="flex items-center justify-between gap-2 p-2">
       <p className="text-sm font-medium">
-        <Link
+        <a
           className="font-bold hover:underline"
           href={`https://github.com/${owner}`}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           @{owner}
-        </Link>
+        </a>
         {" starred "}
-        <Link className="font-bold hover:underline" href={html_url}>
+        <a
+          className="font-bold hover:underline"
+          href={html_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {full_name}
-        </Link>
+        </a>
       </p>
 
       <p className="flex flex-row gap-1 text-xs text-muted-foreground">
@@ -67,7 +79,7 @@ function Activity({
   );
 }
 
-async function getGithubStars(owner: string): Promise<GithubRepo[]> {
+export async function fetchGithubStars(owner: string): Promise<GithubRepo[]> {
   const token = getGithubToken();
   if (!token) {
     console.warn("GITHUB_TOKEN not configured, returning empty starred repos");

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nomic Models</title>
+    <link>https://llm-timeline.duyet.net/org/nomic</link>
+    <description>Large Language Model releases from Nomic.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nomic/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Nomic Models</title>
+      <link>https://llm-timeline.duyet.net/org/nomic</link>
+    </image>
+  <item>
+    <title>GPT4All-LoRa (Nomic)</title>
+    <link>https://llm-timeline.duyet.net/org/nomic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT4All-LoRa-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Nomic</category>
+    <category>open</category>
+    <description>Parameters: GPT4All-LoRa
+License: open
+Type: model
+chatbot trained on ~800k GPT-3.5-Turbo Generations based on LLaMa</description>
+  </item>
+  </channel>
+</rss>

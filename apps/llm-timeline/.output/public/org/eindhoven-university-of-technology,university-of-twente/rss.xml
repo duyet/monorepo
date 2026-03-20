@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Eindhoven University of Technology,University of Twente Models</title>
+    <link>https://llm-timeline.duyet.net/org/eindhoven-university-of-technology,university-of-twente</link>
+    <description>Large Language Model releases from Eindhoven University of Technology,University of Twente.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/eindhoven-university-of-technology,university-of-twente/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Eindhoven University of Technology,University of Twente Models</title>
+      <link>https://llm-timeline.duyet.net/org/eindhoven-university-of-technology,university-of-twente</link>
+    </image>
+  <item>
+    <title>Selfish-RNN (SNT-ASGD) Stacked LSTMs (Eindhoven University of Technology,University of Twente)</title>
+    <link>https://llm-timeline.duyet.net/org/eindhoven-university-of-technology,university-of-twente</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Selfish-RNN%20(SNT-ASGD)%20Stacked%20LSTMs-2021-01-22</guid>
+    <pubDate>Fri, 22 Jan 2021 00:00:00 GMT</pubDate>
+    <category>Eindhoven University of Technology,University of Twente</category>
+    <category>open</category>
+    <description>Parameters: 25.2M
+License: open
+Type: model
+AI model by Eindhoven University of Technology,University of Twente</description>
+  </item>
+  </channel>
+</rss>

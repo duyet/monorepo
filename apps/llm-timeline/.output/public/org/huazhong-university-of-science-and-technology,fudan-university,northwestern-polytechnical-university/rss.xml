@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Huazhong University of Science and Technology,Fudan University,Northwestern Polytechnical University Models</title>
+    <link>https://llm-timeline.duyet.net/org/huazhong-university-of-science-and-technology,fudan-university,northwestern-polytechnical-university</link>
+    <description>Large Language Model releases from Huazhong University of Science and Technology,Fudan University,Northwestern Polytechnical University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/huazhong-university-of-science-and-technology,fudan-university,northwestern-polytechnical-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Huazhong University of Science and Technology,Fudan University,Northwestern Polytechnical University Models</title>
+      <link>https://llm-timeline.duyet.net/org/huazhong-university-of-science-and-technology,fudan-university,northwestern-polytechnical-university</link>
+    </image>
+  <item>
+    <title>Beyond ESM2: Graph-Enhanced Protein Sequence Modeling with Efficient (Huazhong University of Science and Technology,Fudan University,Northwestern Polytechnical University)</title>
+    <link>https://llm-timeline.duyet.net/org/huazhong-university-of-science-and-technology,fudan-university,northwestern-polytechnical-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Beyond%20ESM2%3A%20Graph-Enhanced%20Protein%20Sequence%20Modeling%20with%20Efficient-2024-04-24</guid>
+    <pubDate>Wed, 24 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Huazhong University of Science and Technology,Fudan University,Northwestern Polytechnical University</category>
+    <category>closed</category>
+    <description>Parameters: 35.8M
+License: closed
+Type: model
+AI model by Huazhong University of Science and Technology,Fudan University,Northwestern Polytechnical University</description>
+  </item>
+  </channel>
+</rss>

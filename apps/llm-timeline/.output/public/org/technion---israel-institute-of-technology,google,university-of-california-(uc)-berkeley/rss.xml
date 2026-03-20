@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley Models</title>
+    <link>https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,google,university-of-california-(uc)-berkeley</link>
+    <description>Large Language Model releases from Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,google,university-of-california-(uc)-berkeley/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley Models</title>
+      <link>https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,google,university-of-california-(uc)-berkeley</link>
+    </image>
+  <item>
+    <title>Adaptive Subgrad (Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/technion---israel-institute-of-technology,google,university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Adaptive%20Subgrad-2011-10-03</guid>
+    <pubDate>Mon, 03 Oct 2011 00:00:00 GMT</pubDate>
+    <category>Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Speechmatics Models</title>
+    <link>https://llm-timeline.duyet.net/org/speechmatics</link>
+    <description>Large Language Model releases from Speechmatics.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/speechmatics/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Speechmatics Models</title>
+      <link>https://llm-timeline.duyet.net/org/speechmatics</link>
+    </image>
+  <item>
+    <title>Speechmatics Enhanced (Speechmatics)</title>
+    <link>https://llm-timeline.duyet.net/org/speechmatics</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Speechmatics%20Enhanced-2021-09-07</guid>
+    <pubDate>Tue, 07 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Speechmatics</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Speechmatics</description>
+  </item>
+  <item>
+    <title>Speechmatics Standard (Speechmatics)</title>
+    <link>https://llm-timeline.duyet.net/org/speechmatics</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Speechmatics%20Standard-2021-08-23</guid>
+    <pubDate>Mon, 23 Aug 2021 00:00:00 GMT</pubDate>
+    <category>Speechmatics</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Speechmatics</description>
+  </item>
+  </channel>
+</rss>

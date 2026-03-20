@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — New York University (NYU),University of California (UC) Berkeley Models</title>
+    <link>https://llm-timeline.duyet.net/org/new-york-university-(nyu),university-of-california-(uc)-berkeley</link>
+    <description>Large Language Model releases from New York University (NYU),University of California (UC) Berkeley.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/new-york-university-(nyu),university-of-california-(uc)-berkeley/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — New York University (NYU),University of California (UC) Berkeley Models</title>
+      <link>https://llm-timeline.duyet.net/org/new-york-university-(nyu),university-of-california-(uc)-berkeley</link>
+    </image>
+  <item>
+    <title>DiT-XL/2 (New York University (NYU),University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/new-york-university-(nyu),university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiT-XL%2F2-2023-03-02</guid>
+    <pubDate>Thu, 02 Mar 2023 00:00:00 GMT</pubDate>
+    <category>New York University (NYU),University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 675M
+License: open
+Type: model
+AI model by New York University (NYU),University of California (UC) Berkeley</description>
+  </item>
+  </channel>
+</rss>

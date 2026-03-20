@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — EFFYIC (识因智能) Models</title>
+    <link>https://llm-timeline.duyet.net/org/effyic-(识因智能)</link>
+    <description>Large Language Model releases from EFFYIC (识因智能).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/effyic-(识因智能)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — EFFYIC (识因智能) Models</title>
+      <link>https://llm-timeline.duyet.net/org/effyic-(识因智能)</link>
+    </image>
+  <item>
+    <title>Yiye Qingzhou-0.7B (EFFYIC (识因智能))</title>
+    <link>https://llm-timeline.duyet.net/org/effyic-(识因智能)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yiye%20Qingzhou-0.7B-2024-01-15</guid>
+    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+    <category>EFFYIC (识因智能)</category>
+    <category>closed</category>
+    <description>Parameters: 700M
+License: closed
+Type: model
+AI model by EFFYIC (识因智能)</description>
+  </item>
+  <item>
+    <title>Yiye Qingzhou-45B (EFFYIC (识因智能))</title>
+    <link>https://llm-timeline.duyet.net/org/effyic-(识因智能)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yiye%20Qingzhou-45B-2024-01-15</guid>
+    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+    <category>EFFYIC (识因智能)</category>
+    <category>closed</category>
+    <description>Parameters: 45B
+License: closed
+Type: model
+AI model by EFFYIC (识因智能)</description>
+  </item>
+  <item>
+    <title>Yiye Qingzhou (EFFYIC (识因智能))</title>
+    <link>https://llm-timeline.duyet.net/org/effyic-(识因智能)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yiye%20Qingzhou-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>EFFYIC (识因智能)</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by EFFYIC (识因智能)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA,Massachusetts Institute of Technology (MIT) Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)</link>
+    <description>Large Language Model releases from NVIDIA,Massachusetts Institute of Technology (MIT).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA,Massachusetts Institute of Technology (MIT) Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)</link>
+    </image>
+  <item>
+    <title>VILA1.5-40B (NVIDIA,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VILA1.5-40B-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 40B
+License: open
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>VILA-7B (NVIDIA,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VILA-7B-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>VILA1.5-13B (NVIDIA,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VILA1.5-13B-2024-05-03</guid>
+    <pubDate>Fri, 03 May 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 13.5B
+License: open
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>VILA-13B (NVIDIA,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VILA-13B-2023-12-12</guid>
+    <pubDate>Tue, 12 Dec 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 13.4B
+License: open
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  </channel>
+</rss>

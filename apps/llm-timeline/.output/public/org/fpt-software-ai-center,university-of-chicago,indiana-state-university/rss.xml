@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — FPT Software AI Center,University of Chicago,Indiana State University Models</title>
+    <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-chicago,indiana-state-university</link>
+    <description>Large Language Model releases from FPT Software AI Center,University of Chicago,Indiana State University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-chicago,indiana-state-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — FPT Software AI Center,University of Chicago,Indiana State University Models</title>
+      <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-chicago,indiana-state-university</link>
+    </image>
+  <item>
+    <title>ProteinReDiff (FPT Software AI Center,University of Chicago,Indiana State University)</title>
+    <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-chicago,indiana-state-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProteinReDiff-2024-06-12</guid>
+    <pubDate>Wed, 12 Jun 2024 00:00:00 GMT</pubDate>
+    <category>FPT Software AI Center,University of Chicago,Indiana State University</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by FPT Software AI Center,University of Chicago,Indiana State University</description>
+  </item>
+  </channel>
+</rss>

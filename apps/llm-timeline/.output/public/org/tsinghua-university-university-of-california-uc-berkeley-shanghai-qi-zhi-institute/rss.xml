@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,University of California (UC) Berkeley,Shanghai Qi Zhi institute Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-university-of-california-uc-berkeley-shanghai-qi-zhi-institute</link>
+    <description>Large Language Model releases from Tsinghua University,University of California (UC) Berkeley,Shanghai Qi Zhi institute.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university-university-of-california-uc-berkeley-shanghai-qi-zhi-institute/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,University of California (UC) Berkeley,Shanghai Qi Zhi institute Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university-university-of-california-uc-berkeley-shanghai-qi-zhi-institute</link>
+    </image>
+  <item>
+    <title>EfficientZero (Tsinghua University,University of California (UC) Berkeley,Shanghai Qi Zhi institute)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-university-of-california-uc-berkeley-shanghai-qi-zhi-institute</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EfficientZero-2021-10-30</guid>
+    <pubDate>Sat, 30 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,University of California (UC) Berkeley,Shanghai Qi Zhi institute</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Tsinghua University,University of California (UC) Berkeley,Shanghai Qi Zhi institute</description>
+  </item>
+  </channel>
+</rss>

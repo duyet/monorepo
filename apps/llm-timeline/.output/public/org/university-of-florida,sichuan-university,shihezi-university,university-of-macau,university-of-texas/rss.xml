@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Florida,Sichuan University,Shihezi University,University of Macau,University of Texas Health Science Center Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-florida,sichuan-university,shihezi-university,university-of-macau,university-of-texas</link>
+    <description>Large Language Model releases from University of Florida,Sichuan University,Shihezi University,University of Macau,University of Texas Health Science Center.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-florida,sichuan-university,shihezi-university,university-of-macau,university-of-texas/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Florida,Sichuan University,Shihezi University,University of Macau,University of Texas Health Science Center Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-florida,sichuan-university,shihezi-university,university-of-macau,university-of-texas</link>
+    </image>
+  <item>
+    <title>AntiFormer (University of Florida,Sichuan University,Shihezi University,University of Macau,University of Texas Health Science Center)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-florida,sichuan-university,shihezi-university,university-of-macau,university-of-texas</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AntiFormer-2024-08-20</guid>
+    <pubDate>Tue, 20 Aug 2024 00:00:00 GMT</pubDate>
+    <category>University of Florida,Sichuan University,Shihezi University,University of Macau,University of Texas Health Science Center</category>
+    <category>open</category>
+    <description>Parameters: 24.7M
+License: open
+Type: model
+AI model by University of Florida,Sichuan University,Shihezi University,University of Macau,University of Texas Health Science Center</description>
+  </item>
+  </channel>
+</rss>

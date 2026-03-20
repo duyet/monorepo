@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Valence Labs,University of British Columbia (UBC),Vector Institute,University of Toronto,University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms) Models</title>
+    <link>https://llm-timeline.duyet.net/org/valence-labs-university-of-british-columbia-ubc-vector-institute-university-of-toronto-university</link>
+    <description>Large Language Model releases from Valence Labs,University of British Columbia (UBC),Vector Institute,University of Toronto,University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/valence-labs-university-of-british-columbia-ubc-vector-institute-university-of-toronto-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Valence Labs,University of British Columbia (UBC),Vector Institute,University of Toronto,University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms) Models</title>
+      <link>https://llm-timeline.duyet.net/org/valence-labs-university-of-british-columbia-ubc-vector-institute-university-of-toronto-university</link>
+    </image>
+  <item>
+    <title>MolPhenix (Valence Labs,University of British Columbia (UBC),Vector Institute,University of Toronto,University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms))</title>
+    <link>https://llm-timeline.duyet.net/org/valence-labs-university-of-british-columbia-ubc-vector-institute-university-of-toronto-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MolPhenix-2024-09-10</guid>
+    <pubDate>Tue, 10 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Valence Labs,University of British Columbia (UBC),Vector Institute,University of Toronto,University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</category>
+    <category>closed</category>
+    <description>Parameters: 38.7M
+License: closed
+Type: model
+AI model by Valence Labs,University of British Columbia (UBC),Vector Institute,University of Toronto,University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</description>
+  </item>
+  </channel>
+</rss>

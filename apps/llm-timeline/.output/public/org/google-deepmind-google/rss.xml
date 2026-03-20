@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google DeepMind,Google Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-google</link>
+    <description>Large Language Model releases from Google DeepMind,Google.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-deepmind-google/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google DeepMind,Google Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-deepmind-google</link>
+    </image>
+  <item>
+    <title>AlphaEarth Foundations (AEF) (Google DeepMind,Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaEarth%20Foundations%20(AEF)-2025-07-30</guid>
+    <pubDate>Wed, 30 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google</category>
+    <category>closed</category>
+    <description>Parameters: 480M
+License: closed
+Type: model
+AI model by Google DeepMind,Google</description>
+  </item>
+  <item>
+    <title>Gemini 2.0 Flash Thinking (Google DeepMind,Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.0%20Flash%20Thinking-2024-12-19</guid>
+    <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind,Google</description>
+  </item>
+  <item>
+    <title>Gemini 2.0 Flash (Google DeepMind,Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.0%20Flash-2024-12-11</guid>
+    <pubDate>Wed, 11 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind,Google</description>
+  </item>
+  <item>
+    <title>RoboCat (Google DeepMind,Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RoboCat-2023-06-20</guid>
+    <pubDate>Tue, 20 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google</category>
+    <category>closed</category>
+    <description>Parameters: 1.2B
+License: closed
+Type: model
+AI model by Google DeepMind,Google</description>
+  </item>
+  </channel>
+</rss>

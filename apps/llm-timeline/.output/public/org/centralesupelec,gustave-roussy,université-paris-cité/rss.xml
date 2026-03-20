@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — CentraleSupelec,Gustave Roussy,Université Paris Cité Models</title>
+    <link>https://llm-timeline.duyet.net/org/centralesupelec,gustave-roussy,université-paris-cité</link>
+    <description>Large Language Model releases from CentraleSupelec,Gustave Roussy,Université Paris Cité.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/centralesupelec,gustave-roussy,université-paris-cité/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — CentraleSupelec,Gustave Roussy,Université Paris Cité Models</title>
+      <link>https://llm-timeline.duyet.net/org/centralesupelec,gustave-roussy,université-paris-cité</link>
+    </image>
+  <item>
+    <title>Novae (CentraleSupelec,Gustave Roussy,Université Paris Cité)</title>
+    <link>https://llm-timeline.duyet.net/org/centralesupelec,gustave-roussy,université-paris-cité</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Novae-2024-09-13</guid>
+    <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
+    <category>CentraleSupelec,Gustave Roussy,Université Paris Cité</category>
+    <category>open</category>
+    <description>Parameters: 32M
+License: open
+Type: model
+AI model by CentraleSupelec,Gustave Roussy,Université Paris Cité</description>
+  </item>
+  </channel>
+</rss>

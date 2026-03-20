@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin Models</title>
+    <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-california-los-angeles-(ucla),vinuniversity,deezer</link>
+    <description>Large Language Model releases from FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-california-los-angeles-(ucla),vinuniversity,deezer/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin Models</title>
+      <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-california-los-angeles-(ucla),vinuniversity,deezer</link>
+    </image>
+  <item>
+    <title>MGK 4 heads (medium) (FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin)</title>
+    <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-california-los-angeles-(ucla),vinuniversity,deezer</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MGK%204%20heads%20(medium)-2021-10-16</guid>
+    <pubDate>Sat, 16 Oct 2021 00:00:00 GMT</pubDate>
+    <category>FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin</category>
+    <category>closed</category>
+    <description>Parameters: 90M
+License: closed
+Type: model
+AI model by FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin</description>
+  </item>
+  <item>
+    <title>MGK 8 heads (small) (FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin)</title>
+    <link>https://llm-timeline.duyet.net/org/fpt-software-ai-center,university-of-california-los-angeles-(ucla),vinuniversity,deezer</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MGK%208%20heads%20(small)-2021-10-16</guid>
+    <pubDate>Sat, 16 Oct 2021 00:00:00 GMT</pubDate>
+    <category>FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin</category>
+    <category>closed</category>
+    <description>Parameters: 40M
+License: closed
+Type: model
+AI model by FPT Software AI Center,University of California Los Angeles (UCLA),VinUniversity,Deezer Research,Rice University,University of Texas at Austin</description>
+  </item>
+  </channel>
+</rss>

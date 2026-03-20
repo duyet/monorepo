@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NERSC, Lawrence Berkeley National Laboratory,University of California (UC) Berkeley Models</title>
+    <link>https://llm-timeline.duyet.net/org/nersc-lawrence-berkeley-national-laboratory-university-of-california-uc-berkeley</link>
+    <description>Large Language Model releases from NERSC, Lawrence Berkeley National Laboratory,University of California (UC) Berkeley.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nersc-lawrence-berkeley-national-laboratory-university-of-california-uc-berkeley/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NERSC, Lawrence Berkeley National Laboratory,University of California (UC) Berkeley Models</title>
+      <link>https://llm-timeline.duyet.net/org/nersc-lawrence-berkeley-national-laboratory-university-of-california-uc-berkeley</link>
+    </image>
+  <item>
+    <title>6-Layer-Tensor-Transformer+AdaHessian (NERSC, Lawrence Berkeley National Laboratory,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/nersc-lawrence-berkeley-national-laboratory-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#6-Layer-Tensor-Transformer%2BAdaHessian-2020-06-01</guid>
+    <pubDate>Mon, 01 Jun 2020 00:00:00 GMT</pubDate>
+    <category>NERSC, Lawrence Berkeley National Laboratory,University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 85.5M
+License: closed
+Type: model
+AI model by NERSC, Lawrence Berkeley National Laboratory,University of California (UC) Berkeley</description>
+  </item>
+  </channel>
+</rss>

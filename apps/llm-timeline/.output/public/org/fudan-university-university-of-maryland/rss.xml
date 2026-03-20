@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Fudan University,University of Maryland Models</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university-university-of-maryland</link>
+    <description>Large Language Model releases from Fudan University,University of Maryland.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fudan-university-university-of-maryland/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Fudan University,University of Maryland Models</title>
+      <link>https://llm-timeline.duyet.net/org/fudan-university-university-of-maryland</link>
+    </image>
+  <item>
+    <title>LLaVA + LVIS-INSTRUCT4V (Fudan University,University of Maryland)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university-university-of-maryland</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaVA%20%2B%20LVIS-INSTRUCT4V-2023-11-13</guid>
+    <pubDate>Mon, 13 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Fudan University,University of Maryland</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Fudan University,University of Maryland</description>
+  </item>
+  </channel>
+</rss>

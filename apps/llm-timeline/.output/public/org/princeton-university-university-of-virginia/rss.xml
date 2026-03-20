@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Princeton University,University of Virginia Models</title>
+    <link>https://llm-timeline.duyet.net/org/princeton-university-university-of-virginia</link>
+    <description>Large Language Model releases from Princeton University,University of Virginia.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/princeton-university-university-of-virginia/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Princeton University,University of Virginia Models</title>
+      <link>https://llm-timeline.duyet.net/org/princeton-university-university-of-virginia</link>
+    </image>
+  <item>
+    <title>SimPO (Princeton University,University of Virginia)</title>
+    <link>https://llm-timeline.duyet.net/org/princeton-university-university-of-virginia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SimPO-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Princeton University,University of Virginia</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Princeton University,University of Virginia</description>
+  </item>
+  </channel>
+</rss>

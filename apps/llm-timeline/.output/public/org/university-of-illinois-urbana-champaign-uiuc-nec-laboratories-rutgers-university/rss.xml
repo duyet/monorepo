@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Illinois Urbana-Champaign (UIUC),NEC Laboratories,Rutgers University Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-illinois-urbana-champaign-uiuc-nec-laboratories-rutgers-university</link>
+    <description>Large Language Model releases from University of Illinois Urbana-Champaign (UIUC),NEC Laboratories,Rutgers University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-illinois-urbana-champaign-uiuc-nec-laboratories-rutgers-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Illinois Urbana-Champaign (UIUC),NEC Laboratories,Rutgers University Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-illinois-urbana-champaign-uiuc-nec-laboratories-rutgers-university</link>
+    </image>
+  <item>
+    <title>Super-vector coding (University of Illinois Urbana-Champaign (UIUC),NEC Laboratories,Rutgers University)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-illinois-urbana-champaign-uiuc-nec-laboratories-rutgers-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Super-vector%20coding-2010-01-01</guid>
+    <pubDate>Fri, 01 Jan 2010 00:00:00 GMT</pubDate>
+    <category>University of Illinois Urbana-Champaign (UIUC),NEC Laboratories,Rutgers University</category>
+    <category>closed</category>
+    <description>Parameters: 1.0K
+License: closed
+Type: model
+AI model by University of Illinois Urbana-Champaign (UIUC),NEC Laboratories,Rutgers University</description>
+  </item>
+  </channel>
+</rss>

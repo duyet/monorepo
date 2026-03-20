@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Dahua Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/dahua-technology</link>
+    <description>Large Language Model releases from Dahua Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/dahua-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Dahua Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/dahua-technology</link>
+    </image>
+  <item>
+    <title>Xinghan Foundation Model (Dahua Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/dahua-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Xinghan%20Foundation%20Model-2023-10-25</guid>
+    <pubDate>Wed, 25 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Dahua Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Dahua Technology</description>
+  </item>
+  </channel>
+</rss>

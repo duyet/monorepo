@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UZH Models</title>
+    <link>https://llm-timeline.duyet.net/org/uzh</link>
+    <description>Large Language Model releases from UZH.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/uzh/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UZH Models</title>
+      <link>https://llm-timeline.duyet.net/org/uzh</link>
+    </image>
+  <item>
+    <title>Ranke-4B (UZH)</title>
+    <link>https://llm-timeline.duyet.net/org/uzh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ranke-4B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>UZH</category>
+    <category>closed</category>
+    <description>Parameters: Ranke-4B
+License: closed
+Type: model
+Base Model: Qwen 3. 600B tokens of pre-(1913, 1929, 1933, 1939, 1946) data only.</description>
+  </item>
+  </channel>
+</rss>

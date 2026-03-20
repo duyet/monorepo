@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Institute of Science and Technology Austria (ISTA),Neural Magic Models</title>
+    <link>https://llm-timeline.duyet.net/org/institute-of-science-and-technology-austria-(ista),neural-magic</link>
+    <description>Large Language Model releases from Institute of Science and Technology Austria (ISTA),Neural Magic.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/institute-of-science-and-technology-austria-(ista),neural-magic/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Institute of Science and Technology Austria (ISTA),Neural Magic Models</title>
+      <link>https://llm-timeline.duyet.net/org/institute-of-science-and-technology-austria-(ista),neural-magic</link>
+    </image>
+  <item>
+    <title>QMoE: compressed SwitchTransformer (Institute of Science and Technology Austria (ISTA),Neural Magic)</title>
+    <link>https://llm-timeline.duyet.net/org/institute-of-science-and-technology-austria-(ista),neural-magic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#QMoE%3A%20compressed%20SwitchTransformer-2023-10-25</guid>
+    <pubDate>Wed, 25 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Institute of Science and Technology Austria (ISTA),Neural Magic</category>
+    <category>open</category>
+    <description>Parameters: 1.6T
+License: open
+Type: model
+AI model by Institute of Science and Technology Austria (ISTA),Neural Magic</description>
+  </item>
+  <item>
+    <title>SparseOPT-175B (Institute of Science and Technology Austria (ISTA),Neural Magic)</title>
+    <link>https://llm-timeline.duyet.net/org/institute-of-science-and-technology-austria-(ista),neural-magic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SparseOPT-175B-2023-01-02</guid>
+    <pubDate>Mon, 02 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Institute of Science and Technology Austria (ISTA),Neural Magic</category>
+    <category>closed</category>
+    <description>Parameters: 87.5B
+License: closed
+Type: model
+AI model by Institute of Science and Technology Austria (ISTA),Neural Magic</description>
+  </item>
+  <item>
+    <title>Transformer-XL + PowerSGD + L-Greco (Institute of Science and Technology Austria (ISTA),Neural Magic)</title>
+    <link>https://llm-timeline.duyet.net/org/institute-of-science-and-technology-austria-(ista),neural-magic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20%2B%20PowerSGD%20%2B%20L-Greco-2022-10-31</guid>
+    <pubDate>Mon, 31 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Institute of Science and Technology Austria (ISTA),Neural Magic</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Institute of Science and Technology Austria (ISTA),Neural Magic</description>
+  </item>
+  </channel>
+</rss>

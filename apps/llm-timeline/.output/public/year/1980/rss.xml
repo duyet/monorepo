@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1980 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1980</link>
+    <description>Large Language Model releases from 1980.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1980/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1980 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1980</link>
+    </image>
+  <item>
+    <title>Neocognitron (NHK Broadcasting Science Research Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/1980</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Neocognitron-1980-04-01</guid>
+    <pubDate>Tue, 01 Apr 1980 00:00:00 GMT</pubDate>
+    <category>NHK Broadcasting Science Research Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 1.1M
+License: closed
+Type: model
+AI model by NHK Broadcasting Science Research Laboratories</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT) Models</title>
+    <link>https://llm-timeline.duyet.net/org/mit-ibm-watson-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    <description>Large Language Model releases from MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mit-ibm-watson-ai-lab,massachusetts-institute-of-technology-(mit)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT) Models</title>
+      <link>https://llm-timeline.duyet.net/org/mit-ibm-watson-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    </image>
+  <item>
+    <title>GLA Transformer 1.3B (MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/mit-ibm-watson-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLA%20Transformer%201.3B-2024-08-27</guid>
+    <pubDate>Tue, 27 Aug 2024 00:00:00 GMT</pubDate>
+    <category>MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>GLA Transformer 340M (MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/mit-ibm-watson-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLA%20Transformer%20340M-2024-08-27</guid>
+    <pubDate>Tue, 27 Aug 2024 00:00:00 GMT</pubDate>
+    <category>MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 340M
+License: open
+Type: model
+AI model by MIT-IBM Watson AI Lab,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  </channel>
+</rss>

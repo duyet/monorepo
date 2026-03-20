@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Princeton University,Carnegie Mellon University (CMU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/princeton-university-carnegie-mellon-university-cmu</link>
+    <description>Large Language Model releases from Princeton University,Carnegie Mellon University (CMU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/princeton-university-carnegie-mellon-university-cmu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Princeton University,Carnegie Mellon University (CMU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/princeton-university-carnegie-mellon-university-cmu</link>
+    </image>
+  <item>
+    <title>Mamba 2, 2.7B (Princeton University,Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/princeton-university-carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mamba%202%2C%202.7B-2024-05-31</guid>
+    <pubDate>Fri, 31 May 2024 00:00:00 GMT</pubDate>
+    <category>Princeton University,Carnegie Mellon University (CMU)</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Princeton University,Carnegie Mellon University (CMU)</description>
+  </item>
+  </channel>
+</rss>

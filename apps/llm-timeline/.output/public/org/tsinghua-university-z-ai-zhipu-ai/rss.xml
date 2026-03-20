@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Z.ai (Zhipu AI) Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-z-ai-zhipu-ai</link>
+    <description>Large Language Model releases from Tsinghua University,Z.ai (Zhipu AI).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university-z-ai-zhipu-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Z.ai (Zhipu AI) Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university-z-ai-zhipu-ai</link>
+    </image>
+  <item>
+    <title>CogAgent (Tsinghua University,Z.ai (Zhipu AI))</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-z-ai-zhipu-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CogAgent-2023-12-14</guid>
+    <pubDate>Thu, 14 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Z.ai (Zhipu AI)</category>
+    <category>open</category>
+    <description>Parameters: 18B
+License: open
+Type: model
+AI model by Tsinghua University,Z.ai (Zhipu AI)</description>
+  </item>
+  </channel>
+</rss>

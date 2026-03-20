@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Fudan University,Shanghai Academy of Artificial Intelligence for Science,Nanjing University Models</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university,shanghai-academy-of-artificial-intelligence-for-science,nanjing-university</link>
+    <description>Large Language Model releases from Fudan University,Shanghai Academy of Artificial Intelligence for Science,Nanjing University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fudan-university,shanghai-academy-of-artificial-intelligence-for-science,nanjing-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Fudan University,Shanghai Academy of Artificial Intelligence for Science,Nanjing University Models</title>
+      <link>https://llm-timeline.duyet.net/org/fudan-university,shanghai-academy-of-artificial-intelligence-for-science,nanjing-university</link>
+    </image>
+  <item>
+    <title>4D Diffusion for Dynamic Protein Structure Prediction with Reference Guided Motion Alignment (Fudan University,Shanghai Academy of Artificial Intelligence for Science,Nanjing University)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university,shanghai-academy-of-artificial-intelligence-for-science,nanjing-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#4D%20Diffusion%20for%20Dynamic%20Protein%20Structure%20Prediction%20with%20Reference%20Guided%20Motion%20Alignment-2024-09-12</guid>
+    <pubDate>Thu, 12 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Fudan University,Shanghai Academy of Artificial Intelligence for Science,Nanjing University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Fudan University,Shanghai Academy of Artificial Intelligence for Science,Nanjing University</description>
+  </item>
+  </channel>
+</rss>

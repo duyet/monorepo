@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Massachusetts Institute of Technology (MIT),Tsinghua University,MIT-IBM Watson AI Lab,DeepMind Models</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-mit-tsinghua-university-mit-ibm-watson-ai-lab-deepmind</link>
+    <description>Large Language Model releases from Massachusetts Institute of Technology (MIT),Tsinghua University,MIT-IBM Watson AI Lab,DeepMind.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-mit-tsinghua-university-mit-ibm-watson-ai-lab-deepmind/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Massachusetts Institute of Technology (MIT),Tsinghua University,MIT-IBM Watson AI Lab,DeepMind Models</title>
+      <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-mit-tsinghua-university-mit-ibm-watson-ai-lab-deepmind</link>
+    </image>
+  <item>
+    <title>Neuro-Symbolic Concept Learner (Massachusetts Institute of Technology (MIT),Tsinghua University,MIT-IBM Watson AI Lab,DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-mit-tsinghua-university-mit-ibm-watson-ai-lab-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Neuro-Symbolic%20Concept%20Learner-2019-04-26</guid>
+    <pubDate>Fri, 26 Apr 2019 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT),Tsinghua University,MIT-IBM Watson AI Lab,DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT),Tsinghua University,MIT-IBM Watson AI Lab,DeepMind</description>
+  </item>
+  </channel>
+</rss>

@@ -1,19 +1,16 @@
 import { BarChart } from "@/components/charts";
-import {
-  getWakaTimeActivityWithAI,
-  getWakaTimeMonthlyActivity,
-} from "./wakatime-utils";
 
-export async function WakaTimeActivity({
-  days = 30,
+type ActivityWithAI = Array<{ date: string; "Human Hours": number; "AI Hours": number }>;
+type ActivityTotalOnly = Array<{ date: string; "Total Hours": number }>;
+type CodingActivity = ActivityWithAI | ActivityTotalOnly;
+
+export function WakaTimeActivityView({
+  codingActivity,
+  isAllTime = false,
 }: {
-  days?: number | "all";
+  codingActivity: CodingActivity;
+  isAllTime?: boolean;
 }) {
-  // Use monthly grouped data for "all" period
-  const isAllTime = days === "all";
-  const codingActivity = isAllTime
-    ? await getWakaTimeMonthlyActivity()
-    : await getWakaTimeActivityWithAI(days);
 
   // Detect data format to determine if we have AI breakdown
   const hasAIBreakdown =

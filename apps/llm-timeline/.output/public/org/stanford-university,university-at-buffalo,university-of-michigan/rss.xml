@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stanford University,University at Buffalo,University of Michigan Models</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo,university-of-michigan</link>
+    <description>Large Language Model releases from Stanford University,University at Buffalo,University of Michigan.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo,university-of-michigan/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stanford University,University at Buffalo,University of Michigan Models</title>
+      <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo,university-of-michigan</link>
+    </image>
+  <item>
+    <title>Monarch-GPT-2-Medium (Stanford University,University at Buffalo,University of Michigan)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo,university-of-michigan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Monarch-GPT-2-Medium-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo,University of Michigan</category>
+    <category>closed</category>
+    <description>Parameters: 165M
+License: closed
+Type: model
+AI model by Stanford University,University at Buffalo,University of Michigan</description>
+  </item>
+  <item>
+    <title>Monarch-GPT-2-Small (Stanford University,University at Buffalo,University of Michigan)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo,university-of-michigan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Monarch-GPT-2-Small-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo,University of Michigan</category>
+    <category>closed</category>
+    <description>Parameters: 72M
+License: closed
+Type: model
+AI model by Stanford University,University at Buffalo,University of Michigan</description>
+  </item>
+  </channel>
+</rss>

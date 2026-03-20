@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ByteDance,University of Wisconsin Madison Models</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance-university-of-wisconsin-madison</link>
+    <description>Large Language Model releases from ByteDance,University of Wisconsin Madison.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bytedance-university-of-wisconsin-madison/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ByteDance,University of Wisconsin Madison Models</title>
+      <link>https://llm-timeline.duyet.net/org/bytedance-university-of-wisconsin-madison</link>
+    </image>
+  <item>
+    <title>LM-Design (ByteDance,University of Wisconsin Madison)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance-university-of-wisconsin-madison</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LM-Design-2023-07-23</guid>
+    <pubDate>Sun, 23 Jul 2023 00:00:00 GMT</pubDate>
+    <category>ByteDance,University of Wisconsin Madison</category>
+    <category>closed</category>
+    <description>Parameters: 6.9M
+License: closed
+Type: model
+AI model by ByteDance,University of Wisconsin Madison</description>
+  </item>
+  </channel>
+</rss>

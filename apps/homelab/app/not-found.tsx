@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 export default function NotFound() {
   return (
@@ -13,19 +13,19 @@ export default function NotFound() {
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
-            href="/"
+            to="/"
             className="rounded-lg bg-primary px-6 py-2 font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Go to homelab
           </Link>
-          <Link
+          <a
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg border border-border px-6 py-2 font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             duyet.net
-          </Link>
+          </a>
         </div>
       </div>
     </div>

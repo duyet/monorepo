@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UC Davis,Westlake University,Facebook AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/uc-davis-westlake-university-facebook-ai</link>
+    <description>Large Language Model releases from UC Davis,Westlake University,Facebook AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/uc-davis-westlake-university-facebook-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UC Davis,Westlake University,Facebook AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/uc-davis-westlake-university-facebook-ai</link>
+    </image>
+  <item>
+    <title>Memformer (4 encoder + 16 decoder) (UC Davis,Westlake University,Facebook AI)</title>
+    <link>https://llm-timeline.duyet.net/org/uc-davis-westlake-university-facebook-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Memformer%20(4%20encoder%20%2B%2016%20decoder)-2020-10-14</guid>
+    <pubDate>Wed, 14 Oct 2020 00:00:00 GMT</pubDate>
+    <category>UC Davis,Westlake University,Facebook AI</category>
+    <category>closed</category>
+    <description>Parameters: 76.2M
+License: closed
+Type: model
+AI model by UC Davis,Westlake University,Facebook AI</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — SenseTime Models</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <description>Large Language Model releases from SenseTime.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sensetime/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — SenseTime Models</title>
+      <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    </image>
+  <item>
+    <title>SenseNova V6 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseNova%20V6-2025-04-12</guid>
+    <pubDate>Sat, 12 Apr 2025 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 600B
+License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseNova Unified Large Model (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseNova%20Unified%20Large%20Model-2025-01-13</guid>
+    <pubDate>Mon, 13 Jan 2025 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseChat 5.5 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat%205.5-2024-07-06</guid>
+    <pubDate>Sat, 06 Jul 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 600B
+License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseNova 5.5 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseNova%205.5-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>open</category>
+    <description>Parameters: SenseNova 5.5
+License: open
+Type: model
+&quot;The model training was based on over 10TB tokens [sic, taken as 10T tokens instead of 10TB=2T tokens] of high-quality training data, including a large amount of synthetically-generated reasoning chain data, which help to enhance its reasoning capabilities.&quot; &amp; &quot;The updates include SenseNova 5o, the first real-time multimodal model in China, which provides a new AI interaction model on par with GPT-4o’s streaming interaction capabilities&quot;</description>
+  </item>
+  <item>
+    <title>SenseChat 5.0 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat%205.0-2024-04-23</guid>
+    <pubDate>Tue, 23 Apr 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 600B
+License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseNova 5.0 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseNova%205.0-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>open</category>
+    <description>Parameters: SenseNova 5.0
+License: open
+Type: model
+GPT-4 scale; low media coverage; no demo in Western world. https://www.techinasia.com/sensetime-pauses-trading-stock-rises-30-model-launch</description>
+  </item>
+  <item>
+    <title>SenseChat-DataAnalysis V4 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat-DataAnalysis%20V4-2024-02-06</guid>
+    <pubDate>Tue, 06 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseMirage V4 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseMirage%20V4-2024-02-06</guid>
+    <pubDate>Tue, 06 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 10B
+License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseChat-Medical V4 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat-Medical%20V4-2024-02-06</guid>
+    <pubDate>Tue, 06 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseChat-Vision V4 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat-Vision%20V4-2024-02-06</guid>
+    <pubDate>Tue, 06 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 30B
+License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseChat 4.0 (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat%204.0-2024-02-06</guid>
+    <pubDate>Tue, 06 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  <item>
+    <title>SenseChat (SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/org/sensetime</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SenseChat-2023-04-10</guid>
+    <pubDate>Mon, 10 Apr 2023 00:00:00 GMT</pubDate>
+    <category>SenseTime</category>
+    <category>closed</category>
+    <description>Parameters: 180B
+License: closed
+Type: model
+AI model by SenseTime</description>
+  </item>
+  </channel>
+</rss>

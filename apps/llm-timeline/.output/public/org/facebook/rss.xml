@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Facebook Models</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <description>Large Language Model releases from Facebook.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/facebook/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Facebook Models</title>
+      <link>https://llm-timeline.duyet.net/org/facebook</link>
+    </image>
+  <item>
+    <title>DLRM-2022 (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DLRM-2022-2021-09-15</guid>
+    <pubDate>Wed, 15 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>closed</category>
+    <description>Parameters: 3T
+License: closed
+Type: model
+AI model by Facebook</description>
+  </item>
+  <item>
+    <title>wave2vec 2.0 LARGE (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#wave2vec%202.0%20LARGE-2020-10-22</guid>
+    <pubDate>Thu, 22 Oct 2020 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>open</category>
+    <description>Parameters: 317M
+License: open
+Type: model
+AI model by Facebook</description>
+  </item>
+  <item>
+    <title>DETR (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DETR-2020-05-26</guid>
+    <pubDate>Tue, 26 May 2020 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>open</category>
+    <description>Parameters: 60M
+License: open
+Type: model
+AI model by Facebook</description>
+  </item>
+  <item>
+    <title>Transformer - LibriVox + Decoding/Rescoring (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20-%20LibriVox%20%2B%20Decoding%2FRescoring-2019-11-19</guid>
+    <pubDate>Tue, 19 Nov 2019 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>open</category>
+    <description>Parameters: 296M
+License: open
+Type: model
+AI model by Facebook</description>
+  </item>
+  <item>
+    <title>ResNeXt-101 32x48d (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNeXt-101%2032x48d-2018-05-02</guid>
+    <pubDate>Wed, 02 May 2018 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>open</category>
+    <description>Parameters: 829M
+License: open
+Type: model
+AI model by Facebook</description>
+  </item>
+  <item>
+    <title>AdClickNet (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AdClickNet-2014-08-24</guid>
+    <pubDate>Sun, 24 Aug 2014 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook</description>
+  </item>
+  </channel>
+</rss>

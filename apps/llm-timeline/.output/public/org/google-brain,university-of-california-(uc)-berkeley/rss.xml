@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google Brain,University of California (UC) Berkeley Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-brain,university-of-california-(uc)-berkeley</link>
+    <description>Large Language Model releases from Google Brain,University of California (UC) Berkeley.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-brain,university-of-california-(uc)-berkeley/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google Brain,University of California (UC) Berkeley Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-brain,university-of-california-(uc)-berkeley</link>
+    </image>
+  <item>
+    <title>ResNet-RS (Google Brain,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/google-brain,university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNet-RS-2021-03-13</guid>
+    <pubDate>Sat, 13 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Google Brain,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 192M
+License: open
+Type: model
+AI model by Google Brain,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>QT-Opt (Google Brain,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/google-brain,university-of-california-(uc)-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#QT-Opt-2018-06-27</guid>
+    <pubDate>Wed, 27 Jun 2018 00:00:00 GMT</pubDate>
+    <category>Google Brain,University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 1.2M
+License: closed
+Type: model
+AI model by Google Brain,University of California (UC) Berkeley</description>
+  </item>
+  </channel>
+</rss>

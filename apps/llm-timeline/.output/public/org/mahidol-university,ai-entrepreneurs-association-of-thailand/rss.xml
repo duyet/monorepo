@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Mahidol University,AI Entrepreneurs Association of Thailand Models</title>
+    <link>https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand</link>
+    <description>Large Language Model releases from Mahidol University,AI Entrepreneurs Association of Thailand.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Mahidol University,AI Entrepreneurs Association of Thailand Models</title>
+      <link>https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand</link>
+    </image>
+  <item>
+    <title>OpenThaiGPT 1.6 / OTG-1.6 (72B) (Mahidol University,AI Entrepreneurs Association of Thailand)</title>
+    <link>https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenThaiGPT%201.6%20%2F%20OTG-1.6%20(72B)-2025-04-02</guid>
+    <pubDate>Wed, 02 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Mahidol University,AI Entrepreneurs Association of Thailand</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by Mahidol University,AI Entrepreneurs Association of Thailand</description>
+  </item>
+  <item>
+    <title>OpenThaiGPT R1 32b / OTG-R1 (32B) (Mahidol University,AI Entrepreneurs Association of Thailand)</title>
+    <link>https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenThaiGPT%20R1%2032b%20%2F%20OTG-R1%20(32B)-2025-04-02</guid>
+    <pubDate>Wed, 02 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Mahidol University,AI Entrepreneurs Association of Thailand</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Mahidol University,AI Entrepreneurs Association of Thailand</description>
+  </item>
+  <item>
+    <title>OpenThaiGPT v1.0.0 (13B) (Mahidol University,AI Entrepreneurs Association of Thailand)</title>
+    <link>https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenThaiGPT%20v1.0.0%20(13B)-2024-04-08</guid>
+    <pubDate>Mon, 08 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Mahidol University,AI Entrepreneurs Association of Thailand</category>
+    <category>open</category>
+    <description>Parameters: 13.1B
+License: open
+Type: model
+AI model by Mahidol University,AI Entrepreneurs Association of Thailand</description>
+  </item>
+  <item>
+    <title>OpenThaiGPT v1.0.0 (7B) (Mahidol University,AI Entrepreneurs Association of Thailand)</title>
+    <link>https://llm-timeline.duyet.net/org/mahidol-university,ai-entrepreneurs-association-of-thailand</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenThaiGPT%20v1.0.0%20(7B)-2024-04-08</guid>
+    <pubDate>Mon, 08 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Mahidol University,AI Entrepreneurs Association of Thailand</category>
+    <category>open</category>
+    <description>Parameters: 6.8B
+License: open
+Type: model
+AI model by Mahidol University,AI Entrepreneurs Association of Thailand</description>
+  </item>
+  </channel>
+</rss>

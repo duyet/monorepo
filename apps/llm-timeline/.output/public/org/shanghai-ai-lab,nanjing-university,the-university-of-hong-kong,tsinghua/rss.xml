@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC) Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,nanjing-university,the-university-of-hong-kong,tsinghua</link>
+    <description>Large Language Model releases from Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-ai-lab,nanjing-university,the-university-of-hong-kong,tsinghua/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC) Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,nanjing-university,the-university-of-hong-kong,tsinghua</link>
+    </image>
+  <item>
+    <title>InternViT-6B (Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC))</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,nanjing-university,the-university-of-hong-kong,tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternViT-6B-2024-01-15</guid>
+    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC)</category>
+    <category>closed</category>
+    <description>Parameters: 6B
+License: closed
+Type: model
+AI model by Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC)</description>
+  </item>
+  <item>
+    <title>InternVL (Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC))</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,nanjing-university,the-university-of-hong-kong,tsinghua</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternVL-2024-01-15</guid>
+    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC)</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by Shanghai AI Lab,Nanjing University,The University of Hong Kong,Tsinghua University,SenseTime,University of Science and Technology of China (USTC)</description>
+  </item>
+  </channel>
+</rss>

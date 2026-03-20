@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UT Austin,Microsoft Models</title>
+    <link>https://llm-timeline.duyet.net/org/ut-austin,microsoft</link>
+    <description>Large Language Model releases from UT Austin,Microsoft.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ut-austin,microsoft/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UT Austin,Microsoft Models</title>
+      <link>https://llm-timeline.duyet.net/org/ut-austin,microsoft</link>
+    </image>
+  <item>
+    <title>Diffusion-GAN (UT Austin,Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/org/ut-austin,microsoft</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Diffusion-GAN-2022-06-05</guid>
+    <pubDate>Sun, 05 Jun 2022 00:00:00 GMT</pubDate>
+    <category>UT Austin,Microsoft</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by UT Austin,Microsoft</description>
+  </item>
+  </channel>
+</rss>

@@ -12,8 +12,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 
 interface NavItem {
@@ -68,7 +67,7 @@ interface CompactNavigationProps {
 }
 
 export function CompactNavigation({ className }: CompactNavigationProps) {
-  const pathname = usePathname();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [isOpen, setIsOpen] = useState(false);
 
   // Extract the base path (first segment) for matching
@@ -91,7 +90,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={cn(
                   "flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   "hover:bg-accent hover:text-accent-foreground",
@@ -157,7 +156,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      to={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
                         "flex items-start space-x-3 rounded-lg p-3 transition-colors",
@@ -208,7 +207,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
           {index > 0 && <span className="mx-2">/</span>}
           {item.href ? (
             <Link
-              href={item.href}
+              to={item.href}
               className="transition-colors hover:text-foreground"
             >
               {item.label}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Tokyo Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-tokyo</link>
+    <description>Large Language Model releases from University of Tokyo.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-tokyo/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Tokyo Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-tokyo</link>
+    </image>
+  <item>
+    <title>Self-Organizing Nets of Threshold Elements (University of Tokyo)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-tokyo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Self-Organizing%20Nets%20of%20Threshold%20Elements-1972-11-30</guid>
+    <pubDate>Thu, 30 Nov 1972 00:00:00 GMT</pubDate>
+    <category>University of Tokyo</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Tokyo</description>
+  </item>
+  </channel>
+</rss>

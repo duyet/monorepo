@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Microsoft,Peking University Models</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft,peking-university</link>
+    <description>Large Language Model releases from Microsoft,Peking University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/microsoft,peking-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Microsoft,Peking University Models</title>
+      <link>https://llm-timeline.duyet.net/org/microsoft,peking-university</link>
+    </image>
+  <item>
+    <title>WizardLM 13B v1.2 (Microsoft,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WizardLM%2013B%20v1.2-2023-07-25</guid>
+    <pubDate>Tue, 25 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Microsoft,Peking University</description>
+  </item>
+  <item>
+    <title>WizardLM-7B (Microsoft,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WizardLM-7B-2023-04-24</guid>
+    <pubDate>Mon, 24 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 6.7B
+License: open
+Type: model
+AI model by Microsoft,Peking University</description>
+  </item>
+  <item>
+    <title>WizardLM 70B (Microsoft,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WizardLM%2070B-2023-04-24</guid>
+    <pubDate>Mon, 24 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Microsoft,Peking University</description>
+  </item>
+  </channel>
+</rss>

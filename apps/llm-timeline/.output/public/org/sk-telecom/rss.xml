@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — SK Telecom Models</title>
+    <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    <description>Large Language Model releases from SK Telecom.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sk-telecom/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — SK Telecom Models</title>
+      <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    </image>
+  <item>
+    <title>A.X K1 (SK Telecom)</title>
+    <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#A.X%20K1-2025-12-30</guid>
+    <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
+    <category>SK Telecom</category>
+    <category>closed</category>
+    <description>Parameters: 519B
+License: closed
+Type: model
+AI model by SK Telecom</description>
+  </item>
+  <item>
+    <title>SK Telecom Telco (SK Telecom)</title>
+    <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SK%20Telecom%20Telco-2024-11-18</guid>
+    <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
+    <category>SK Telecom</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by SK Telecom</description>
+  </item>
+  <item>
+    <title>A.X (Adot) 7B (SK Telecom)</title>
+    <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#A.X%20(Adot)%207B-2023-08-15</guid>
+    <pubDate>Tue, 15 Aug 2023 00:00:00 GMT</pubDate>
+    <category>SK Telecom</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by SK Telecom</description>
+  </item>
+  <item>
+    <title>A.X (Adot) 39B (SK Telecom)</title>
+    <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#A.X%20(Adot)%2039B-2023-05-15</guid>
+    <pubDate>Mon, 15 May 2023 00:00:00 GMT</pubDate>
+    <category>SK Telecom</category>
+    <category>closed</category>
+    <description>Parameters: 39B
+License: closed
+Type: model
+AI model by SK Telecom</description>
+  </item>
+  <item>
+    <title>A.X (Adot) 18B (SK Telecom)</title>
+    <link>https://llm-timeline.duyet.net/org/sk-telecom</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#A.X%20(Adot)%2018B-2021-11-15</guid>
+    <pubDate>Mon, 15 Nov 2021 00:00:00 GMT</pubDate>
+    <category>SK Telecom</category>
+    <category>closed</category>
+    <description>Parameters: 18B
+License: closed
+Type: model
+AI model by SK Telecom</description>
+  </item>
+  </channel>
+</rss>

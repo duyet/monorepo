@@ -1,0 +1,2404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Open License Models</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <description>Models with openly available weights and code</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/license/open/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Open License Models</title>
+      <link>https://llm-timeline.duyet.net/license/open</link>
+    </image>
+  <item>
+    <title>Arrow 1.0 (Quiver)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Arrow%201.0-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Quiver</category>
+    <category>open</category>
+    <description>Parameters: Arrow 1.0
+License: open
+Type: model
+&quot;A first of it&apos;s kind SVG AI model.&quot; Announce: https://x.com/QuiverAI/status/2026792057893708072</description>
+  </item>
+  <item>
+    <title>Qwen3.5-27B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3.5-27B-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: Qwen3.5-27B
+License: open
+Type: model
+&quot;Qwen3.5 represents a significant leap forward, integrating breakthroughs in multimodal learning, architectural efficiency, reinforcement learning scale, and global accessibility&quot;</description>
+  </item>
+  <item>
+    <title>LFM2-24B-A2B (Liquid AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LFM2-24B-A2B-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Liquid AI</category>
+    <category>open</category>
+    <description>Parameters: LFM2-24B-A2B
+License: open
+Type: model
+&quot;a traditional instruct model without reasoning traces.&quot;</description>
+  </item>
+  <item>
+    <title>Mercury 2 (Inception)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mercury%202-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Inception</category>
+    <category>open</category>
+    <description>Parameters: Mercury 2
+License: open
+Type: model
+Diffusion large language model (dLLM).</description>
+  </item>
+  <item>
+    <title>Gemini 3.1 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203.1%20Pro-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 3.1 Pro
+License: open
+Type: model
+Knowledge cutoff still=January 2025. Announce: https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/</description>
+  </item>
+  <item>
+    <title>ZUNA (Zyphra)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ZUNA-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Zyphra</category>
+    <category>open</category>
+    <description>Parameters: ZUNA
+License: open
+Type: model
+For BCI, &apos;thought-to-text&apos;. Training dataset calcs: (2M hours * 3,600 seconds/hour * 256 samples/second ) / 32 samples/token = 57.6B tokens (refined to 45.1B after rigorous filtering ); 150,000 steps * 2.16M tokens/batch = 324B total tokens seen during training. Announce: https://www.zyphra.com/post/zuna</description>
+  </item>
+  <item>
+    <title>Grok 4.2 (xAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grok%204.2-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>open</category>
+    <description>Parameters: Grok 4.2
+License: open
+Type: model
+No details provided. Announce: https://x.com/elonmusk/status/2023829664318583105</description>
+  </item>
+  <item>
+    <title>INTELLECT-3.1 (Prime Intellect)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#INTELLECT-3.1-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Prime Intellect</category>
+    <category>open</category>
+    <description>Parameters: INTELLECT-3.1
+License: open
+Type: model
+Base: GLM-4.5-Air-Base, INTELLECT-3 model. 106BA12B.</description>
+  </item>
+  <item>
+    <title>Claude Sonnet 4.6 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Sonnet%204.6-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: Claude Sonnet 4.6
+License: open
+Type: model
+1M context. Announce: https://www.anthropic.com/news/claude-sonnet-4-6 Showing GMMLU (Global MMLU by Cohere).</description>
+  </item>
+  <item>
+    <title>Tiny Aya (Cohere)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tiny%20Aya-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Cohere</category>
+    <category>open</category>
+    <description>Parameters: Tiny Aya
+License: open
+Type: model
+70+ languages. Showing GMMLU (Global MMLU by Cohere).</description>
+  </item>
+  <item>
+    <title>Qwen3.5-397B-A17B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3.5-397B-A17B-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: Qwen3.5-397B-A17B
+License: open
+Type: model
+&quot;Qwen3.5 represents a significant leap forward, integrating breakthroughs in multimodal learning, architectural efficiency, reinforcement learning scale, and global accessibility&quot;</description>
+  </item>
+  <item>
+    <title>JoyAI-LLM Flash (JD Open Source)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JoyAI-LLM%20Flash-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>JD Open Source</category>
+    <category>open</category>
+    <description>Parameters: JoyAI-LLM Flash
+License: open
+Type: model
+48B-A3B.</description>
+  </item>
+  <item>
+    <title>MiniMax-M2.5 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2.5-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: MiniMax-M2.5
+License: open
+Type: model
+230B-A10B. HLE showing without tools.</description>
+  </item>
+  <item>
+    <title>GLM-5 (Z.AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-5-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Z.AI</category>
+    <category>open</category>
+    <description>Parameters: GLM-5
+License: open
+Type: model
+744B-A40B. Announce: https://z.ai/blog/glm-5</description>
+  </item>
+  <item>
+    <title>Nanbeige4.1-3B (Nanbeige)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nanbeige4.1-3B-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Nanbeige</category>
+    <category>open</category>
+    <description>Parameters: Nanbeige4.1-3B
+License: open
+Type: model
+SOTA for size (3B)</description>
+  </item>
+  <item>
+    <title>RynnBrain-30B-A3B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RynnBrain-30B-A3B-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: RynnBrain-30B-A3B
+License: open
+Type: model
+Base: Qwen3-VL-30B-A3B-Instruct. &quot;an embodied foundation model grounded in physical reality.&quot;</description>
+  </item>
+  <item>
+    <title>Claude Opus 4.6 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204.6-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: Claude Opus 4.6
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Intern-S1-Pro (Shanghai AI Laboratory/SenseTime)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Intern-S1-Pro-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Laboratory/SenseTime</category>
+    <category>open</category>
+    <description>Parameters: Intern-S1-Pro
+License: open
+Type: model
+1000TA22B. Assumes base model of Qwen3. &quot;Built upon a 235B MoE language model and a 6B Vision encoder, Intern-S1 has been further pretrained on 5 trillion tokens of multimodal data&quot;</description>
+  </item>
+  <item>
+    <title>Step 3.5 Flash (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step%203.5%20Flash-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: Step 3.5 Flash
+License: open
+Type: model
+196B-A11B.</description>
+  </item>
+  <item>
+    <title>Assistant_Pepe_8B (Independent)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Assistant_Pepe_8B-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: Assistant_Pepe_8B
+License: open
+Type: model
+Warning for inappropriate content. Base: Llama-3.1-Nemotron-8B. &quot;trained it on an extended 4chan dataset&quot; &quot;the original, gpt4chan (by Yannic Kilcher) scored especially high in truthfulness (that was b4 benchmaxxing)... outperformed the base tune (the unabliterated one), it also changed its political alignment... People were initially joking about the &quot;alignment tax&quot;, I think there&apos;s a none trivial substance in all of this. It seems to me just above a marginal error or statistical noise.&quot;</description>
+  </item>
+  <item>
+    <title>Trinity-Large (Arcee AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Trinity-Large-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Arcee AI</category>
+    <category>open</category>
+    <description>Parameters: Trinity-Large
+License: open
+Type: model
+400BA13B. &quot;we worked closely with Prime Intellect. They not only served the H100 clusters Datology used to generate synthetic data, they have been deeply involved in helping scale our training setup to the GPU footprint required for a fully frontier sized model, including the current 2048 B300 GPU configuration for Trinity Large.&quot;</description>
+  </item>
+  <item>
+    <title>SERA (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SERA-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>open</category>
+    <description>Parameters: SERA
+License: open
+Type: model
+Base: Qwen3-32B. SERA=Soft-verified Efficient Repository Agents. &quot;SERA was built largely by a single Ai2 researcher.&quot; https://allenai.org/blog/open-coding-agents &quot;SERA-32B was trained using Soft Verified Generation (SVG), a simple and efficient method that is 26x cheaper than reinforcement learning and 57x cheaper than previous synthetic data methods to reach equivalent performance. The total cost for data generation and training is approximately $2,000 (40 GPU-days).&quot;</description>
+  </item>
+  <item>
+    <title>Kimi K2.5 (Moonshot AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20K2.5-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Moonshot AI</category>
+    <category>open</category>
+    <description>Parameters: Kimi K2.5
+License: open
+Type: model
+1TA32B. 1T parameters and 384 experts. Open source SOTA. &quot;Kimi K2.5 builds on Kimi K2 [15.5T tokens] with continued pretraining over approximately 15T mixed visual and text tokens. [+ 15T=30.5T]&quot;</description>
+  </item>
+  <item>
+    <title>GLM-4.7-Flash (Z.AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.7-Flash-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Z.AI</category>
+    <category>open</category>
+    <description>Parameters: GLM-4.7-Flash
+License: open
+Type: model
+30B-A3B.</description>
+  </item>
+  <item>
+    <title>MedGemma 1.5 4B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedGemma%201.5%204B-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: MedGemma 1.5 4B
+License: open
+Type: model
+Lower MMLU score compared to previous MedGemma 1 27B (67.2 v 87). Announce: https://research.google/blog/next-generation-medical-image-interpretation-with-medgemma-15-and-medical-speech-to-text-with-medasr/</description>
+  </item>
+  <item>
+    <title>FrogBoss (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FrogBoss-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: FrogBoss
+License: open
+Type: model
+Base: Qwen3-32B.</description>
+  </item>
+  <item>
+    <title>Baichuan-M3 (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan-M3-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: Baichuan-M3
+License: open
+Type: model
+&quot;new-generation medical-enhanced large language model&quot;</description>
+  </item>
+  <item>
+    <title>SleepFM (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SleepFM-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: SleepFM
+License: open
+Type: model
+Uses a leave-one-out contrastive learning approach to align brain activity (EEG), heart activity (ECG), and respiratory signals. 130+ disease categories and 19–20+ clinical PSG channels. Dataset ~12.63B (Calculated based on 585,000 hours of data across 3 modality groups using 5-second window tokens) x 10 epochs.</description>
+  </item>
+  <item>
+    <title>TimeCapsuleLLM-v2-1800-1875 (Independent)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TimeCapsuleLLM-v2-1800-1875-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: TimeCapsuleLLM-v2-1800-1875
+License: open
+Type: model
+112GB dataset=30B tokens x 0.5 epochs = 15B tokens.</description>
+  </item>
+  <item>
+    <title>Jamba2 (AI21)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jamba2-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>AI21</category>
+    <category>open</category>
+    <description>Parameters: Jamba2
+License: open
+Type: model
+52B-A12B. Pre-training tokens from Jamba=1.2T + 500B mid.</description>
+  </item>
+  <item>
+    <title>LFM2.5 (Liquid AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LFM2.5-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Liquid AI</category>
+    <category>open</category>
+    <description>Parameters: LFM2.5
+License: open
+Type: model
+For on-device agentic applications. &quot;Extended pre-training from 10T to 28T tokens and large-scale multi-stage reinforcement learning.&quot;</description>
+  </item>
+  <item>
+    <title>MiroThinker v1.5 (MiroMindAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiroThinker%20v1.5-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>MiroMindAI</category>
+    <category>open</category>
+    <description>Parameters: MiroThinker v1.5
+License: open
+Type: model
+Base: Qwen3 235B-A22B. Official demo: https://dr.miromind.ai</description>
+  </item>
+  <item>
+    <title>Falcon-H1R (TII)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Falcon-H1R-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>TII</category>
+    <category>open</category>
+    <description>Parameters: Falcon-H1R
+License: open
+Type: model
+Base model: Falcon-H1 (May/2025). Announce: https://huggingface.co/blog/tiiuae/falcon-h1r-7b</description>
+  </item>
+  <item>
+    <title>VAETKI (NC AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VAETKI-2025-12-30</guid>
+    <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
+    <category>NC AI</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model
+AI model by NC AI</description>
+  </item>
+  <item>
+    <title>MiniMax-M2.1 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2.1-2025-12-23</guid>
+    <pubDate>Tue, 23 Dec 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 229B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>GLM-4.7 (Z.ai (Zhipu AI))</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.7-2025-12-22</guid>
+    <pubDate>Mon, 22 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI)</category>
+    <category>open</category>
+    <description>Parameters: 358B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI)</description>
+  </item>
+  <item>
+    <title>Nomos 1 (Nous Research)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nomos%201-2025-12-11</guid>
+    <pubDate>Thu, 11 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Nous Research</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by Nous Research</description>
+  </item>
+  <item>
+    <title>IQuest-Coder-V1 (IQuestLab)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#IQuest-Coder-V1-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>IQuestLab</category>
+    <category>open</category>
+    <description>Parameters: IQuest-Coder-V1
+License: open
+Type: model
+&quot;IQuest-Coder-V1 captures the dynamic evolution of software logic, delivering state-of-the-art performance across critical dimensions&quot; https://github.com/IQuestLab/IQuest-Coder-V1</description>
+  </item>
+  <item>
+    <title>A.X K1 (SK Hynix)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#A.X%20K1-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>SK Hynix</category>
+    <category>open</category>
+    <description>Parameters: A.X K1
+License: open
+Type: model
+519BA33B.</description>
+  </item>
+  <item>
+    <title>K-EXAONE (LG)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K-EXAONE-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>LG</category>
+    <category>open</category>
+    <description>Parameters: K-EXAONE
+License: open
+Type: model
+236BA23B. “EXAONE”=“EXpert AI for EveryONE”.</description>
+  </item>
+  <item>
+    <title>WeDLM (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WeDLM-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: WeDLM
+License: open
+Type: model
+Project page: https://wedlm.github.io/ &quot;WeDLM, a diffusion decoding framework built entirely on standard causal attention to make parallel generation prefix-cache friendly. The core idea is to let each masked position condition on all currently observed tokens while keeping a strict causal mask, achieved by Topological Reordering that moves observed tokens to the physical prefix while preserving their logical positions.. We instantiate WeDLM on both Qwen2.5-7B and Qwen3-8B, utilizing 100B tokens for continued training and 10B tokens for SFT.&quot;</description>
+  </item>
+  <item>
+    <title>SOLAR Open (Upstage AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SOLAR%20Open-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Upstage AI</category>
+    <category>open</category>
+    <description>Parameters: SOLAR Open
+License: open
+Type: model
+South Korean. 102BA12B. Releasing 31/Dec.</description>
+  </item>
+  <item>
+    <title>GLM-4.7 (Z.AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.7-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Z.AI</category>
+    <category>open</category>
+    <description>Parameters: GLM-4.7
+License: open
+Type: model
+355B-A32B. &quot;context window has been expanded from 128K to 200K tokens&quot;</description>
+  </item>
+  <item>
+    <title>NitroGen (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NitroGen-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NitroGen
+License: open
+Type: model
+&quot;NitroGen is a unified vision-to-action model designed to play video games directly from raw frames. It takes video game footage as input and outputs gamepad actions... trained on 40,000 hours of gameplay videos across more than 1,000 games.&quot;</description>
+  </item>
+  <item>
+    <title>MiMo-V2-Flash (Xiaomi)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiMo-V2-Flash-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Xiaomi</category>
+    <category>open</category>
+    <description>Parameters: MiMo-V2-Flash
+License: open
+Type: model
+309BA15B.</description>
+  </item>
+  <item>
+    <title>FunctionGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FunctionGemma-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: FunctionGemma
+License: open
+Type: model
+&quot;FunctionGemma, a specialized version of our Gemma 3 270M model tuned for function calling. It is designed as a strong base for further training into custom, fast, private, local agents that translate natural language into executable API actions.&quot;</description>
+  </item>
+  <item>
+    <title>T5Gemma 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5Gemma%202-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: T5Gemma 2
+License: open
+Type: model
+Base model: Gemma 3. Dataset: Gemma 3 4B checkpoint (4T) + pretraining (2T)=6T.</description>
+  </item>
+  <item>
+    <title>Gemini 3 Flash (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203%20Flash-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 3 Flash
+License: open
+Type: model
+Announce: https://deepmind.google/models/gemini/flash/</description>
+  </item>
+  <item>
+    <title>NVIDIA-Nemotron-3-Nano-30B-A3B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA-Nemotron-3-Nano-30B-A3B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NVIDIA-Nemotron-3-Nano-30B-A3B
+License: open
+Type: model
+Knowledge cutoff November 28, 2025 (post).</description>
+  </item>
+  <item>
+    <title>Bolmo (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bolmo-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>open</category>
+    <description>Parameters: Bolmo
+License: open
+Type: model
+Base Model: Olmo 3 7B. Announce: https://allenai.org/blog/bolmo</description>
+  </item>
+  <item>
+    <title>EuroLLM-22B (Consortium)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EuroLLM-22B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Consortium</category>
+    <category>open</category>
+    <description>Parameters: EuroLLM-22B
+License: open
+Type: model
+A fully open language model developed in Europe.</description>
+  </item>
+  <item>
+    <title>LLaDA2.0 Flash (Inclusion AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaDA2.0%20Flash-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Inclusion AI</category>
+    <category>open</category>
+    <description>Parameters: LLaDA2.0 Flash
+License: open
+Type: model
+Base Model: Ling-flash-2.0: 103B total parameters with 6.1B activated. &quot;largest diffusion language model to date&quot;</description>
+  </item>
+  <item>
+    <title>GPT-5.2 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-5.2-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: GPT-5.2
+License: open
+Type: model
+&quot;GPT‑5.2 sets a new state of the art across many benchmarks, including GDPval, where it outperforms industry professionals at well-specified knowledge work tasks spanning 44 occupations.&quot; Announce: https://openai.com/index/introducing-gpt-5-2/ MMLU is for Spanish.</description>
+  </item>
+  <item>
+    <title>Apriel-1.6-15B-Thinker (ServiceNow)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apriel-1.6-15B-Thinker-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>ServiceNow</category>
+    <category>open</category>
+    <description>Parameters: Apriel-1.6-15B-Thinker
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Motif 2 12.7B (Motif-Technologies)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Motif%202%2012.7B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Motif-Technologies</category>
+    <category>open</category>
+    <description>Parameters: Motif 2 12.7B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Devstral 2 (Mistral)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Devstral%202-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Mistral</category>
+    <category>open</category>
+    <description>Parameters: Devstral 2
+License: open
+Type: model
+SWE-bench Verified=72.2%.</description>
+  </item>
+  <item>
+    <title>Nanbeige4-3B-Base (Nanbeige4-3B-Base)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nanbeige4-3B-Base-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Nanbeige4-3B-Base</category>
+    <category>open</category>
+    <description>Parameters: Nanbeige4-3B-Base
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>HY 2.0 (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HY%202.0-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: HY 2.0
+License: open
+Type: model
+406BA32B.</description>
+  </item>
+  <item>
+    <title>K2-V2 (MBZUAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2-V2-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>MBZUAI</category>
+    <category>open</category>
+    <description>Parameters: K2-V2
+License: open
+Type: model
+8.5x more tokens trained than K2 (1.4T v 12T). Project page: https://ifm.ai/k2/</description>
+  </item>
+  <item>
+    <title>Trinity-Mini (Arcee AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Trinity-Mini-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Arcee AI</category>
+    <category>open</category>
+    <description>Parameters: Trinity-Mini
+License: open
+Type: model
+26BA3B. &quot;we worked closely with Prime Intellect. They not only served the H100 clusters Datology used to generate synthetic data, they have been deeply involved in helping scale our training setup to the GPU footprint required for a fully frontier sized model, including the current 2048 B300 GPU configuration for Trinity Large.&quot;</description>
+  </item>
+  <item>
+    <title>Nova 2 Pro (Amazon)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nova%202%20Pro-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Amazon</category>
+    <category>open</category>
+    <description>Parameters: Nova 2 Pro
+License: open
+Type: model
+&quot;Nova 2 Pro is Amazon&apos;s most intelligent reasoning model that can process text, images, video, and speech to generate text.&quot;</description>
+  </item>
+  <item>
+    <title>Mistral Large 3 (Mistral)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Large%203-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Mistral</category>
+    <category>open</category>
+    <description>Parameters: Mistral Large 3
+License: open
+Type: model
+675BA41B. &quot;Mistral Large 3 joins the ranks of frontier instruction-fine-tuned open-source models.&quot; EU tech doc: https://legal.cms.mistral.ai/assets/1e37fffd-7ea5-469b-822f-05dcfbb43623</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.2-Speciale (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.2-Speciale-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: DeepSeek-V3.2-Speciale
+License: open
+Type: model
+The word &apos;Speciale&apos; may be a reference to Ferrari. &quot;It shows gold-medal performance in the IOI 2025, ICPC World Final 2025, IMO 2025, and CMO 2025.&quot; API: https://api-docs.deepseek.com/news/news251201</description>
+  </item>
+  <item>
+    <title>DeepSeekMath-V2 (DeepSeek)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeekMath-V2-2025-11-27</guid>
+    <pubDate>Thu, 27 Nov 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek</category>
+    <category>open</category>
+    <description>Parameters: 685B
+License: open
+Type: model
+AI model by DeepSeek</description>
+  </item>
+  <item>
+    <title>Olmo 3 (Allen Institute for AI (Ai2))</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Olmo%203-2025-11-20</guid>
+    <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI (Ai2)</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Allen Institute for AI (Ai2)</description>
+  </item>
+  <item>
+    <title>Kimi K2 Thinking (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20K2%20Thinking-2025-11-06</guid>
+    <pubDate>Thu, 06 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>open</category>
+    <description>Parameters: 1T
+License: open
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>DeepSeek-Math-V2 (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-Math-V2-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: DeepSeek-Math-V2
+License: open
+Type: model
+&quot;DeepSeekMath-V2, demonstrates strong theorem-proving capabilities, achieving gold-level scores on IMO 2025 and CMO 2024 and a near-perfect 118/120 on Putnam 2024 with scaled testtime compute. &quot;</description>
+  </item>
+  <item>
+    <title>Orchestrator-8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Orchestrator-8B-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Orchestrator-8B
+License: open
+Type: model
+Base Model: Qwen3-8B</description>
+  </item>
+  <item>
+    <title>INTELLECT-3 (Prime Intellect)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#INTELLECT-3-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Prime Intellect</category>
+    <category>open</category>
+    <description>Parameters: INTELLECT-3
+License: open
+Type: model
+Base: GLM-4.5-Air-Base model. 106BA12B. Announce: https://www.primeintellect.ai/blog/intellect-3</description>
+  </item>
+  <item>
+    <title>Fara-7B (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fara-7B-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: Fara-7B
+License: open
+Type: model
+&quot;Fara-7B is Microsoft&apos;s first agentic small language model (SLM) designed specifically for computer use. With only 7 billion parameters, Fara-7B is an ultra-compact Computer Use Agent (CUA)...Current production baselines leverage Qwen 2.5-VL (7B).&quot;</description>
+  </item>
+  <item>
+    <title>Claude Opus 4.5 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204.5-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: Claude Opus 4.5
+License: open
+Type: model
+&quot;the best model in the world for coding, agents, and computer use.&quot; Announce: https://www.anthropic.com/news/claude-opus-4-5</description>
+  </item>
+  <item>
+    <title>Nemotron Elastic (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron%20Elastic-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron Elastic
+License: open
+Type: model
+&quot;Nemotron Elastic, a framework for building reasoning-oriented LLMs, including hybrid Mamba-Attention architectures, that embed multiple nested submodels within a single parent model, each optimized for different deployment configurations and budgets. Each of these submodels shares weights with the parent model and can be extracted zero-shot during deployment without additional training or fine-tuning...We apply Nemotron Elastic to the Nemotron Nano V2 12B model, simultaneously producing a 9B and a 6B model using only 110B training tokens&quot;</description>
+  </item>
+  <item>
+    <title>GeoVista (Tencent)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GeoVista-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Tencent</category>
+    <category>open</category>
+    <description>Parameters: GeoVista
+License: open
+Type: model
+Base model: Qwen2.5-VL-7B-Instruct. &quot;GeoVista, an agentic model that seamlessly integrates tool invocation within the reasoning loop, including an image-zoom-in tool to magnify regions of interest and a web-search tool to retrieve related web information. &quot; Project page: https://ekonwang.github.io/geo-vista/</description>
+  </item>
+  <item>
+    <title>OLMo 3 (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OLMo%203-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>open</category>
+    <description>Parameters: OLMo 3
+License: open
+Type: model
+Announce: https://allenai.org/blog/olmo3</description>
+  </item>
+  <item>
+    <title>Gemini 3 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203%20Pro-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 3 Pro
+License: open
+Type: model
+&quot;The knowledge cutoff date for Gemini 3 Pro was January 2025.&quot;</description>
+  </item>
+  <item>
+    <title>Grok 4.1 (xAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grok%204.1-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>open</category>
+    <description>Parameters: Grok 4.1
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Baguettotron (PleIAs)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baguettotron-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>PleIAs</category>
+    <category>open</category>
+    <description>Parameters: Baguettotron
+License: open
+Type: model
+&quot;The name is both a nod to French origins and to the unusual shape of the model: with 80 layers, Baguettotron is currently the deepest SLM in its size range.&quot;</description>
+  </item>
+  <item>
+    <title>ERNIE-5.0-Preview-1022 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-5.0-Preview-1022-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-5.0-Preview-1022
+License: open
+Type: model
+Very low performance on ALPrompt. 2.4T params confirmed: https://global.chinadaily.com.cn/a/202511/13/WS691571bda310d6866eb29500.html</description>
+  </item>
+  <item>
+    <title>GPT-5.1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-5.1-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: GPT-5.1
+License: open
+Type: model
+Personality change via fine-tuning. GPQA (no tools) increased from GPT-5=85.7 to GPT-5.1=88.1. MMLU is for Spanish.</description>
+  </item>
+  <item>
+    <title>TiDAR (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TiDAR-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: TiDAR
+License: open
+Type: model
+Base model: Qwen3-8B (36T) + 150B continual training. &quot;TiDAR, a sequence-level hybrid architecture that drafts tokens (Thinking) in Diffusion and samples final outputs (Talking) AutoRegressively - all within a single forward pass using specially designed structured attention masks&quot;</description>
+  </item>
+  <item>
+    <title>SONIC (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SONIC-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: SONIC
+License: open
+Type: model
+Supersizing mOtion tracking for Natural humanoId Control (SONIC). Training dataset calcs: (700 hours * 3,600 seconds/hour * 50 frames/second ) / 1 frame/token = 126M tokens (refined to 100M+ after rigorous filtering ); 150,000 steps * 6.67M tokens/batch = 1.0T total tokens seen during training.</description>
+  </item>
+  <item>
+    <title>JustRL-Nemotron-1.5B (Tsinghua)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JustRL-Nemotron-1.5B-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Tsinghua</category>
+    <category>open</category>
+    <description>Parameters: JustRL-Nemotron-1.5B
+License: open
+Type: model
+&quot;JustRL, a simple recipe with fixed hyperparameters, achieves state-of-the-art performance on two different 1.5B base models (54.5% and 64.3% across 9 math benchmarks) while using 2× less compute than sophisticated approaches. The same hyperparameters transfer across both models without tuning, and training remains stable over thousands of steps without intervention. This suggests the field may be adding complexity to solve problems that disappear with a stable, scaled-up baseline.&quot;</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-VL-28B-A3B-Thinking (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-VL-28B-A3B-Thinking-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-4.5-VL-28B-A3B-Thinking
+License: open
+Type: model
+28B-A3B. Open-sourced 12/Nov/2025 from Jun/2025 release.</description>
+  </item>
+  <item>
+    <title>Kimi K2 Thinking (Moonshot AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20K2%20Thinking-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot AI</category>
+    <category>open</category>
+    <description>Parameters: Kimi K2 Thinking
+License: open
+Type: model
+1TA32B. 1T parameters and 384 experts. Open source SOTA. HLE=51.0 on text-only subset, compare to Grok-4 HLE=50.7 also on text-only, but Grok-4 HLE=44.4 on HLE full, ∴ Kimi K2 Thinking HLE≈44 full (estimated).</description>
+  </item>
+  <item>
+    <title>Ling-1T (Inclusion AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ling-1T-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Inclusion AI</category>
+    <category>open</category>
+    <description>Parameters: Ling-1T
+License: open
+Type: model
+1TA50B.</description>
+  </item>
+  <item>
+    <title>Emu3.5 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Emu3.5-2025-10-30</guid>
+    <pubDate>Thu, 30 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 34.1B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Kimi Linear (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20Linear-2025-10-30</guid>
+    <pubDate>Thu, 30 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>open</category>
+    <description>Parameters: 48B
+License: open
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Tongyi DeepResearch (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tongyi%20DeepResearch-2025-10-28</guid>
+    <pubDate>Tue, 28 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 30.5B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>MiniMax-M2 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2-2025-10-27</guid>
+    <pubDate>Mon, 27 Oct 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 229B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>Lapa LLM (Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Lapa%20LLM-2025-10-25</guid>
+    <pubDate>Sat, 25 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic</description>
+  </item>
+  <item>
+    <title>Ring-mini-linear-2.0 (Ant Group)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ring-mini-linear-2.0-2025-10-23</guid>
+    <pubDate>Thu, 23 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Ant Group</category>
+    <category>open</category>
+    <description>Parameters: 16.4B
+License: open
+Type: model
+AI model by Ant Group</description>
+  </item>
+  <item>
+    <title>Ring-flash-linear-2.0 (Ant Group)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ring-flash-linear-2.0-2025-10-23</guid>
+    <pubDate>Thu, 23 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Ant Group</category>
+    <category>open</category>
+    <description>Parameters: 104.2B
+License: open
+Type: model
+AI model by Ant Group</description>
+  </item>
+  <item>
+    <title>Deepseek OCR (DeepSeek)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deepseek%20OCR-2025-10-21</guid>
+    <pubDate>Tue, 21 Oct 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by DeepSeek</description>
+  </item>
+  <item>
+    <title>C2S-Scale (Google Research,Yale University,Google DeepMind,Brown University,University of Southern California)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#C2S-Scale-2025-10-11</guid>
+    <pubDate>Sat, 11 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Google Research,Yale University,Google DeepMind,Brown University,University of Southern California</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Google Research,Yale University,Google DeepMind,Brown University,University of Southern California</description>
+  </item>
+  <item>
+    <title>Ring-1T (Ant Group)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ring-1T-2025-10-10</guid>
+    <pubDate>Fri, 10 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Ant Group</category>
+    <category>open</category>
+    <description>Parameters: 1T
+License: open
+Type: model
+AI model by Ant Group</description>
+  </item>
+  <item>
+    <title>Ling-1T (Ant Group)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ling-1T-2025-10-10</guid>
+    <pubDate>Fri, 10 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Ant Group</category>
+    <category>open</category>
+    <description>Parameters: 1T
+License: open
+Type: model
+AI model by Ant Group</description>
+  </item>
+  <item>
+    <title>Granite-4.0-H-Tiny (IBM)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Granite-4.0-H-Tiny-2025-10-02</guid>
+    <pubDate>Thu, 02 Oct 2025 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by IBM</description>
+  </item>
+  <item>
+    <title>Granite-4.0-H-Micro (IBM)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Granite-4.0-H-Micro-2025-10-02</guid>
+    <pubDate>Thu, 02 Oct 2025 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by IBM</description>
+  </item>
+  <item>
+    <title>Granite-4.0-H-Small (IBM)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Granite-4.0-H-Small-2025-10-02</guid>
+    <pubDate>Thu, 02 Oct 2025 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by IBM</description>
+  </item>
+  <item>
+    <title>CALM (Wechat)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CALM-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Wechat</category>
+    <category>open</category>
+    <description>Parameters: CALM
+License: open
+Type: model
+&quot;Continuous Autoregressive Language Models (CALM), a paradigm shift from discrete next-token prediction to continuous next-vector prediction. CALM uses a high-fidelity autoencoder to compress a chunk of K tokens into a single continuous vector, from which the original tokens can be reconstructed with over 99.9% accuracy... We train our models on the Pile uncopyrighted dataset (Gao et al., 2020). The raw text is processed with the Llama 3 tokenizer (Grattafiori et al., 2024), resulting in a training set of ∼230B tokens.&quot;</description>
+  </item>
+  <item>
+    <title>Kimi-Linear (Moonshot AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi-Linear-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot AI</category>
+    <category>open</category>
+    <description>Parameters: Kimi-Linear
+License: open
+Type: model
+48B-A3B. &quot;Kimi Linear is a hybrid linear attention architecture that outperforms traditional full attention methods across various contexts, including short, long, and reinforcement learning (RL) scaling regimes. At its core is Kimi Delta Attention (KDA)—a refined version of Gated DeltaNet that introduces a more efficient gating mechanism to optimize the use of finite-state RNN memory.&quot;</description>
+  </item>
+  <item>
+    <title>MiniMax-M2 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: MiniMax-M2
+License: open
+Type: model
+230B-A10B.</description>
+  </item>
+  <item>
+    <title>MACE-MH-1 (Cambridge/LBNL)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MACE-MH-1-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Cambridge/LBNL</category>
+    <category>open</category>
+    <description>Parameters: MACE-MH-1
+License: open
+Type: model
+MACE-MH-1 (Multi-Head 1). Features Multiple Heads (OMAT PBE, OMOL r2scan, OC20) to maintain high accuracy across domains</description>
+  </item>
+  <item>
+    <title>DeepSeek-OCR (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-OCR-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: DeepSeek-OCR
+License: open
+Type: model
+2D vision tokens for 1D text achieves huge compression. Encoder/Decoder: DeepEncoder 380M (80M SAM-base + 300M CLIP-large), DeepSeek-3B-MoE (A570M).</description>
+  </item>
+  <item>
+    <title>UserLM-8b (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UserLM-8b-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: UserLM-8b
+License: open
+Type: model
+&quot;we trained UserLM-8b to simulate the “user” role in conversation (by training it to predict user turns in a large corpus of conversations called WildChat).&quot;</description>
+  </item>
+  <item>
+    <title>CoDA (Salesforce)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoDA-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Salesforce</category>
+    <category>open</category>
+    <description>Parameters: CoDA
+License: open
+Type: model
+&quot;diffusion coder trained on TPU [Google TPU v4-1024 VM]&quot;</description>
+  </item>
+  <item>
+    <title>TRM (Samsung)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TRM-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Samsung</category>
+    <category>open</category>
+    <description>Parameters: TRM
+License: open
+Type: model
+&quot;Tiny Recursive Model (TRM), a much simpler recursive reasoning approach that achieves significantly higher generalization than HRM, while using a single tiny network with only 2 layers&quot;</description>
+  </item>
+  <item>
+    <title>Granite-4.0 Small (IBM)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Granite-4.0%20Small-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: Granite-4.0 Small
+License: open
+Type: model
+32B-A9B. Announce: https://www.ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models</description>
+  </item>
+  <item>
+    <title>GLM-4.6 (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.6-2025-09-30</guid>
+    <pubDate>Tue, 30 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 357B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>Kandinsky 5.0 Video Lite (Sber)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kandinsky%205.0%20Video%20Lite-2025-09-30</guid>
+    <pubDate>Tue, 30 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Sber</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by Sber</description>
+  </item>
+  <item>
+    <title>Cosmos-Transfer2.5-2B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Transfer2.5-2B-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2.5 2B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2.5%202B-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.2-Exp (DeepSeek)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.2-Exp-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek</category>
+    <category>open</category>
+    <description>Parameters: 671B
+License: open
+Type: model
+AI model by DeepSeek</description>
+  </item>
+  <item>
+    <title>MinerU2.5 (Shanghai AI Lab,Peking University,Shanghai Jiao Tong University)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MinerU2.5-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Peking University,Shanghai Jiao Tong University</category>
+    <category>open</category>
+    <description>Parameters: 1.2B
+License: open
+Type: model
+AI model by Shanghai AI Lab,Peking University,Shanghai Jiao Tong University</description>
+  </item>
+  <item>
+    <title>GigaEmbeddings (Sber,Moscow Institute of Physics and Technology)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GigaEmbeddings-2025-09-25</guid>
+    <pubDate>Thu, 25 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Sber,Moscow Institute of Physics and Technology</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Sber,Moscow Institute of Physics and Technology</description>
+  </item>
+  <item>
+    <title>SimpleFold (Apple)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SimpleFold-2025-09-23</guid>
+    <pubDate>Tue, 23 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Apple</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Apple</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.1-Terminus (DeepSeek)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.1-Terminus-2025-09-22</guid>
+    <pubDate>Mon, 22 Sep 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek</category>
+    <category>open</category>
+    <description>Parameters: 671B
+License: open
+Type: model
+AI model by DeepSeek</description>
+  </item>
+  <item>
+    <title>Qwen3-Omni-30B-A3B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Omni-30B-A3B-2025-09-22</guid>
+    <pubDate>Mon, 22 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 35.3B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Magistral Small 1.2 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Magistral%20Small%201.2-2025-09-18</guid>
+    <pubDate>Thu, 18 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Granite-Docling (IBM)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Granite-Docling-2025-09-17</guid>
+    <pubDate>Wed, 17 Sep 2025 00:00:00 GMT</pubDate>
+    <category>IBM</category>
+    <category>open</category>
+    <description>Parameters: 258M
+License: open
+Type: model
+AI model by IBM</description>
+  </item>
+  <item>
+    <title>AgentFounder-30B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AgentFounder-30B-2025-09-16</guid>
+    <pubDate>Tue, 16 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Qwen3-Next-80B-A3B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Next-80B-A3B-2025-09-10</guid>
+    <pubDate>Wed, 10 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 80B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Ling-mini-base-2.0-20T (Ant Group)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ling-mini-base-2.0-20T-2025-09-10</guid>
+    <pubDate>Wed, 10 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Ant Group</category>
+    <category>open</category>
+    <description>Parameters: 16B
+License: open
+Type: model
+AI model by Ant Group</description>
+  </item>
+  <item>
+    <title>Ling-flash-base-2.0-20T (Ant Group)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ling-flash-base-2.0-20T-2025-09-10</guid>
+    <pubDate>Wed, 10 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Ant Group</category>
+    <category>open</category>
+    <description>Parameters: 100B
+License: open
+Type: model
+AI model by Ant Group</description>
+  </item>
+  <item>
+    <title>K2 Think (Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2%20Think-2025-09-09</guid>
+    <pubDate>Tue, 09 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42</description>
+  </item>
+  <item>
+    <title>EmbeddingGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EmbeddingGemma-2025-09-05</guid>
+    <pubDate>Fri, 05 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 308M
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Chatterbox Multilingual (Resemble AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chatterbox%20Multilingual-2025-09-04</guid>
+    <pubDate>Thu, 04 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Resemble AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Resemble AI</description>
+  </item>
+  <item>
+    <title>Apertus 8B (ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apertus%208B-2025-09-02</guid>
+    <pubDate>Tue, 02 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</description>
+  </item>
+  <item>
+    <title>Apertus 70B (ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apertus%2070B-2025-09-02</guid>
+    <pubDate>Tue, 02 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</description>
+  </item>
+  <item>
+    <title>GLM-4.6 (Z.AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.6-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Z.AI</category>
+    <category>open</category>
+    <description>Parameters: GLM-4.6
+License: open
+Type: model
+355B-A32B. &quot;context window has been expanded from 128K to 200K tokens&quot;</description>
+  </item>
+  <item>
+    <title>Ring-1T-preview (InclusionAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ring-1T-preview-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>InclusionAI</category>
+    <category>open</category>
+    <description>Parameters: Ring-1T-preview
+License: open
+Type: model
+1T-A48.5B.</description>
+  </item>
+  <item>
+    <title>Claude Sonnet 4.5 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Sonnet%204.5-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: Claude Sonnet 4.5
+License: open
+Type: model
+The Claude Sonnet 4.5 &quot;system card&quot; is an absolute farce. Announce: https://www.anthropic.com/news/claude-sonnet-4-5</description>
+  </item>
+  <item>
+    <title>Gemini Robotics 1.5 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics%201.5-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Robotics 1.5
+License: open
+Type: model
+2. &quot;vision-language-action (VLA) model turns visual information and instructions into motor commands for a robot to perform a task.&quot; Available to select partners.</description>
+  </item>
+  <item>
+    <title>Gemini Robotics-ER 1.5 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-ER%201.5-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Robotics-ER 1.5
+License: open
+Type: model
+1. &quot;vision-language model (VLM) reasons about the physical world, natively calls digital tools and creates detailed, multi-step plans to complete a mission.&quot; Available to all devs.</description>
+  </item>
+  <item>
+    <title>Qwen3-Max (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Max-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: Qwen3-Max
+License: open
+Type: model
+&quot;Qwen3-Max-Thinking — still under active training — is already demonstrating remarkable potential. When augmented with tool usage and scaled test-time compute, the Thinking variant has achieved 100% on challenging reasoning benchmarks such as AIME 25 and HMMT. &quot;</description>
+  </item>
+  <item>
+    <title>Qwen3-Omni (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Omni-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: Qwen3-Omni
+License: open
+Type: model
+&quot;Qwen3-Omni is a unified end-to-end model capable of processing multiple modalities, such as text, audio, image and video, and generating real-time text or speech response.&quot;... &quot;pretraining utilizes a large-scale dataset containing approximately 2 trillion tokens, with the following distribution across modalities: text (0.57 trillion), audio (0.77 trillion), image (0.82 trillion), video (0.05 trillion), and video-audio (0.05 trillion).&quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.1-Terminus (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.1-Terminus-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: DeepSeek-V3.1-Terminus
+License: open
+Type: model
+Hybrid reasoning. Dataset tokens: https://x.com/deepseek_ai/status/1958417072536608952 HLE: https://x.com/deepseek_ai/status/1958417068568481854/photo/2</description>
+  </item>
+  <item>
+    <title>Isaac 0.1 (Perceptron)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Isaac%200.1-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Perceptron</category>
+    <category>open</category>
+    <description>Parameters: Isaac 0.1
+License: open
+Type: model
+&quot;perceptive-language model...delivering capabilities that meet or exceed those of models over 50 times its size. Founded by the team behind Meta&apos;s Chameleon multimodal models, Perceptron is tackling a fundamental challenge: bringing the power of physical AI to the dynamic, multimodal, and real-time environments we live and work in.&quot;</description>
+  </item>
+  <item>
+    <title>Grok 4 Fast (xAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grok%204%20Fast-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>open</category>
+    <description>Parameters: Grok 4 Fast
+License: open
+Type: model
+&quot;2M token context window, and a unified architecture that blends reasoning and non-reasoning modes in one model.&quot;</description>
+  </item>
+  <item>
+    <title>VaultGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VaultGemma-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: VaultGemma
+License: open
+Type: model
+&quot;Differential Privacy (DP) has emerged as the gold standard, providing a rigorous, mathematical framework to limit the influence of any single example in the training data on the resulting model. A model trained with DP provably bounds the reconstruction or leakage of information tied to individual data points.&quot; Announce: https://research.google/blog/vaultgemma-the-worlds-most-capable-differentially-private-llm/</description>
+  </item>
+  <item>
+    <title>Qwen3-Next-80B-A3B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Next-80B-A3B-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: Qwen3-Next-80B-A3B
+License: open
+Type: model
+&quot;Qwen3-Next introduces several key improvements: a hybrid attention mechanism, a highly sparse Mixture-of-Experts (MoE) structure, training-stability-friendly optimizations, and a multi-token prediction mechanism for faster inference.&quot;</description>
+  </item>
+  <item>
+    <title>K2-Think (MBZUAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2-Think-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>MBZUAI</category>
+    <category>open</category>
+    <description>Parameters: K2-Think
+License: open
+Type: model
+&quot;Built on the Qwen2.5 base model, our system shows that smaller models can compete at the highest levels by combining advanced post-training and test-time computation techniques. The approach is based on six key technical pillars: Long Chain-of-thought Supervised Finetuning, Reinforcement Learning with Verifiable Rewards (RLVR), Agentic planning prior to reasoning, Test-time Scaling, Speculative Decoding, and Inference-optimized Hardware, all using publicly available open-source datasets.&quot;</description>
+  </item>
+  <item>
+    <title>mmBERT (JHU)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mmBERT-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>JHU</category>
+    <category>open</category>
+    <description>Parameters: mmBERT
+License: open
+Type: model
+&quot;a modern multilingual encoder trained on 3T tokens and 1833 languages. We introduce several novel elements in training: an inverse masking schedule and a cascading annealed language learning schedule for multilingual data&quot; Announce: https://huggingface.co/blog/mmbert</description>
+  </item>
+  <item>
+    <title>ERNIE X1.1 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%20X1.1-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE X1.1
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-21B-A3B-Thinking (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-21B-A3B-Thinking-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-4.5-21B-A3B-Thinking
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Klear-46B-A2.5B (Kuaishou)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Klear-46B-A2.5B-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Kuaishou</category>
+    <category>open</category>
+    <description>Parameters: Klear-46B-A2.5B
+License: open
+Type: model
+46B-A2.5B.</description>
+  </item>
+  <item>
+    <title>TildeOpen-30b (Tilde AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TildeOpen-30b-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Tilde AI</category>
+    <category>open</category>
+    <description>Parameters: TildeOpen-30b
+License: open
+Type: model
+&quot;language data from across Europe&quot;</description>
+  </item>
+  <item>
+    <title>Qwen3-Max-Preview (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Max-Preview-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: Qwen3-Max-Preview
+License: open
+Type: model
+GPQA score is SuperGPQA. &quot;our biggest model yet, with over 1 trillion parameters&quot;</description>
+  </item>
+  <item>
+    <title>Kimi K2-Instruct-0905 (Moonshot AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20K2-Instruct-0905-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot AI</category>
+    <category>open</category>
+    <description>Parameters: Kimi K2-Instruct-0905
+License: open
+Type: model
+1TA32B. 1T parameters and 384 experts. Open source SOTA.</description>
+  </item>
+  <item>
+    <title>Apertus (ETH Zürich)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apertus-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ETH Zürich</category>
+    <category>open</category>
+    <description>Parameters: Apertus
+License: open
+Type: model
+&quot;Apertus – Latin for “open”&quot; 1,811 languages. Announce: https://ethz.ch/en/news-and-events/eth-news/news/2025/09/press-release-apertus-a-fully-open-transparent-multilingual-language-model.html</description>
+  </item>
+  <item>
+    <title>LongCat-Flash (Meituan)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LongCat-Flash-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Meituan</category>
+    <category>open</category>
+    <description>Parameters: LongCat-Flash
+License: open
+Type: model
+560B-A18.6B–31.3B (27B on average). Announce: https://lmsys.org/blog/2025-09-01-sglang-longcat-flash/</description>
+  </item>
+  <item>
+    <title>Baichuan-M2 (Baichuan)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan-M2-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Baichuan</category>
+    <category>open</category>
+    <description>Parameters: Baichuan-M2
+License: open
+Type: model
+Base: Qwen2.5. &quot;medical augmented reasoning model&quot;</description>
+  </item>
+  <item>
+    <title>LongCat-Flash (Meituan Inc)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LongCat-Flash-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Meituan Inc</category>
+    <category>open</category>
+    <description>Parameters: 560B
+License: open
+Type: model
+AI model by Meituan Inc</description>
+  </item>
+  <item>
+    <title>MultiverSeg (Massachusetts Institute of Technology (MIT),Databricks)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MultiverSeg-2025-08-31</guid>
+    <pubDate>Sun, 31 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT),Databricks</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT),Databricks</description>
+  </item>
+  <item>
+    <title>Wan 2.2 14B S2V (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wan%202.2%2014B%20S2V-2025-08-26</guid>
+    <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.1 (DeepSeek)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.1-2025-08-21</guid>
+    <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek</category>
+    <category>open</category>
+    <description>Parameters: 671B
+License: open
+Type: model
+AI model by DeepSeek</description>
+  </item>
+  <item>
+    <title>Seed-OSS-36B-Base (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed-OSS-36B-Base-2025-08-21</guid>
+    <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Cohere Command A Reasoning (Cohere)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cohere%20Command%20A%20Reasoning-2025-08-21</guid>
+    <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Cohere</category>
+    <category>open</category>
+    <description>Parameters: 111B
+License: open
+Type: model
+AI model by Cohere</description>
+  </item>
+  <item>
+    <title>Teuken 7B (OpenGPT-X,Fraunhofer Institute for Algorithms and Scientific Computing,Forschungszentrum Julich,Technische Universität Dresden)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Teuken%207B-2025-08-21</guid>
+    <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenGPT-X,Fraunhofer Institute for Algorithms and Scientific Computing,Forschungszentrum Julich,Technische Universität Dresden</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by OpenGPT-X,Fraunhofer Institute for Algorithms and Scientific Computing,Forschungszentrum Julich,Technische Universität Dresden</description>
+  </item>
+  <item>
+    <title>Surya (NASA,University of Alabama,IBM Research)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Surya-2025-08-20</guid>
+    <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NASA,University of Alabama,IBM Research</category>
+    <category>open</category>
+    <description>Parameters: 366M
+License: open
+Type: model
+AI model by NASA,University of Alabama,IBM Research</description>
+  </item>
+  <item>
+    <title>Gemma-SEA-LION-v4-27B-IT (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma-SEA-LION-v4-27B-IT-2025-08-20</guid>
+    <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>FlowER (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FlowER-2025-08-20</guid>
+    <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>MolmoAct-7B-D (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MolmoAct-7B-D-2025-08-19</guid>
+    <pubDate>Tue, 19 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>NVIDIA-Nemotron-Nano-9B-v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA-Nemotron-Nano-9B-v2-2025-08-18</guid>
+    <pubDate>Mon, 18 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVIDIA-Nemotron-Nano-12B-v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA-Nemotron-Nano-12B-v2-2025-08-18</guid>
+    <pubDate>Mon, 18 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Qwen Image Edit (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen%20Image%20Edit-2025-08-18</guid>
+    <pubDate>Mon, 18 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Ovis2.5 9B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ovis2.5%209B-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Ovis2.5 2B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ovis2.5%202B-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>GLM-4.5V (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.5V-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 108B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4.1V-Thinking (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.1V-Thinking-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>Canary 1B v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Canary%201B%20v2-2025-08-14</guid>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Parakeet-tdt-0.6b-v3 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Parakeet-tdt-0.6b-v3-2025-08-14</guid>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 600K
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Gemma 3 270M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20270M-2025-08-14</guid>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 270M
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>gpt-oss-120b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-oss-120b-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 116.8B
+License: open
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>gpt-oss-20b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-oss-20b-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: 20.9B
+License: open
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>GLM-4.5 (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.5-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 355B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4.5-Air (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.5-Air-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 106B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>Qwen Image (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen%20Image-2025-08-04</guid>
+    <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>MAI-1-preview (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MAI-1-preview-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: MAI-1-preview
+License: open
+Type: model
+MAI=Microsoft artificial intelligence. &quot;MAI’s first foundation model trained end-to-end... MAI-1-preview is an in-house mixture-of-experts model, pre-trained and post-trained on ~15,000 NVIDIA H100 GPUs. This model is designed to provide powerful capabilities to consumers seeking to benefit from models that specialize in following instructions and providing helpful responses to everyday queries. We will be rolling MAI-1-preview out for certain text use cases within Copilot&quot;</description>
+  </item>
+  <item>
+    <title>grok-code-fast-1 (xAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#grok-code-fast-1-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>xAI</category>
+    <category>open</category>
+    <description>Parameters: grok-code-fast-1
+License: open
+Type: model
+&quot;We built grok-code-fast-1 from scratch, starting with a brand-new model architecture. To lay a robust foundation, we carefully assembled a pre-training corpus rich with programming-related content. For post-training, we curated high-quality datasets that reflect real-world pull requests and coding tasks.&quot; Announce: https://x.ai/news/grok-code-fast-1</description>
+  </item>
+  <item>
+    <title>Hermes 4 (Nous Research)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hermes%204-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Nous Research</category>
+    <category>open</category>
+    <description>Parameters: Hermes 4
+License: open
+Type: model
+Based on Llama 3. Announce: https://hermes4.nousresearch.com/</description>
+  </item>
+  <item>
+    <title>Jet-Nemotron-4B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jet-Nemotron-4B-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Jet-Nemotron-4B
+License: open
+Type: model
+&quot;pre-training corpus and train Jet-Nemotron models for 50B tokens. This is also the setting in Section 2 where we perform PostNAS. At the second stage, we include more high-quality data from math [65] and coding [66, 67] domains into our data mixture. The models are then trained on 350B tokens.&quot;</description>
+  </item>
+  <item>
+    <title>DeepSeek-V3.1-Base (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek-V3.1-Base-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>open</category>
+    <description>Parameters: DeepSeek-V3.1-Base
+License: open
+Type: model
+Hybrid reasoning. Dataset tokens: https://x.com/deepseek_ai/status/1958417072536608952 HLE: https://x.com/deepseek_ai/status/1958417068568481854/photo/2</description>
+  </item>
+  <item>
+    <title>Nemotron Nano 2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron%20Nano%202-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron Nano 2
+License: open
+Type: model
+Announce: https://research.nvidia.com/labs/adlr/NVIDIA-Nemotron-Nano-2/</description>
+  </item>
+  <item>
+    <title>Gemma 3 270M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20270M-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemma 3 270M
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GPT-5 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-5-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: GPT-5
+License: open
+Type: model
+Announce: https://openai.com/index/introducing-gpt-5/. MMLU is based on ES and PT translated from EN.</description>
+  </item>
+  <item>
+    <title>gpt-oss-120b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-oss-120b-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: gpt-oss-120b
+License: open
+Type: model
+116.8B total parameters and 5.1B “active” parameters per token per forward pass. https://openai.com/index/introducing-gpt-oss/</description>
+  </item>
+  <item>
+    <title>gpt-oss-20b (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gpt-oss-20b-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>Parameters: gpt-oss-20b
+License: open
+Type: model
+20.9B total and 3.6B active parameters. https://openai.com/index/introducing-gpt-oss/</description>
+  </item>
+  <item>
+    <title>Claude Opus 4.1 (Anthropic)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Claude%20Opus%204.1-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Anthropic</category>
+    <category>open</category>
+    <description>Parameters: Claude Opus 4.1
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Tri-21B (Trillion Labs)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tri-21B-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Trillion Labs</category>
+    <category>open</category>
+    <description>Parameters: 20.7B
+License: open
+Type: model
+AI model by Trillion Labs</description>
+  </item>
+  <item>
+    <title>Command A Vision (Cohere)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Command%20A%20Vision-2025-07-31</guid>
+    <pubDate>Thu, 31 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Cohere</category>
+    <category>open</category>
+    <description>Parameters: 112B
+License: open
+Type: model
+AI model by Cohere</description>
+  </item>
+  <item>
+    <title>Llama Nemotron Super v1.5 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%20Nemotron%20Super%20v1.5-2025-07-29</guid>
+    <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 49B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Wan 2.2 14B T2V (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wan%202.2%2014B%20T2V-2025-07-28</guid>
+    <pubDate>Mon, 28 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Wan 2.2 14B I2V (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wan%202.2%2014B%20I2V-2025-07-28</guid>
+    <pubDate>Mon, 28 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Qwen3-235B-A22B-Thinking (Jul 2025) (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-235B-A22B-Thinking%20(Jul%202025)-2025-07-25</guid>
+    <pubDate>Fri, 25 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 235B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Qwen3-235B-A22B (Jul 2025) (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-235B-A22B%20(Jul%202025)-2025-07-25</guid>
+    <pubDate>Fri, 25 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 235B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>Qwen3-Coder-480B-A35B (Alibaba)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Qwen3-Coder-480B-A35B-2025-07-22</guid>
+    <pubDate>Tue, 22 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Alibaba</category>
+    <category>open</category>
+    <description>Parameters: 480B
+License: open
+Type: model
+AI model by Alibaba</description>
+  </item>
+  <item>
+    <title>T-Pro 2.0 (T-Bank)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T-Pro%202.0-2025-07-18</guid>
+    <pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate>
+    <category>T-Bank</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by T-Bank</description>
+  </item>
+  <item>
+    <title>OpenReasoning-Nemotron-32B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenReasoning-Nemotron-32B-2025-07-16</guid>
+    <pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>EXAONE 4.0 (32B) (LG AI Research)</title>
+    <link>https://llm-timeline.duyet.net/license/open</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EXAONE%204.0%20(32B)-2025-07-15</guid>
+    <pubDate>Tue, 15 Jul 2025 00:00:00 GMT</pubDate>
+    <category>LG AI Research</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by LG AI Research</description>
+  </item>
+  </channel>
+</rss>

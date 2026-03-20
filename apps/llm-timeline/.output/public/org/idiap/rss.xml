@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — IDIAP Models</title>
+    <link>https://llm-timeline.duyet.net/org/idiap</link>
+    <description>Large Language Model releases from IDIAP.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/idiap/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — IDIAP Models</title>
+      <link>https://llm-timeline.duyet.net/org/idiap</link>
+    </image>
+  <item>
+    <title>AWD-LSTM-DRILL + dynamic evaluation† (WT2) (IDIAP)</title>
+    <link>https://llm-timeline.duyet.net/org/idiap</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-DRILL%20%2B%20dynamic%20evaluation%E2%80%A0%20(WT2)-2019-05-14</guid>
+    <pubDate>Tue, 14 May 2019 00:00:00 GMT</pubDate>
+    <category>IDIAP</category>
+    <category>open</category>
+    <description>Parameters: 34M
+License: open
+Type: model
+AI model by IDIAP</description>
+  </item>
+  <item>
+    <title>AWD-LSTM-DRILL + dynamic evaluation† (PTB) (IDIAP)</title>
+    <link>https://llm-timeline.duyet.net/org/idiap</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-DRILL%20%2B%20dynamic%20evaluation%E2%80%A0%20(PTB)-2019-05-14</guid>
+    <pubDate>Tue, 14 May 2019 00:00:00 GMT</pubDate>
+    <category>IDIAP</category>
+    <category>open</category>
+    <description>Parameters: 24M
+License: open
+Type: model
+AI model by IDIAP</description>
+  </item>
+  </channel>
+</rss>

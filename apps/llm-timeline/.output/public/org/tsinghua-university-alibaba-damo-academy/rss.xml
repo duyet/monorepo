@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Alibaba DAMO Academy Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-alibaba-damo-academy</link>
+    <description>Large Language Model releases from Tsinghua University,Alibaba DAMO Academy.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university-alibaba-damo-academy/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Alibaba DAMO Academy Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university-alibaba-damo-academy</link>
+    </image>
+  <item>
+    <title>CogView (Tsinghua University,Alibaba DAMO Academy)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-alibaba-damo-academy</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CogView-2021-05-26</guid>
+    <pubDate>Wed, 26 May 2021 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Alibaba DAMO Academy</category>
+    <category>open</category>
+    <description>Parameters: 4B
+License: open
+Type: model
+AI model by Tsinghua University,Alibaba DAMO Academy</description>
+  </item>
+  </channel>
+</rss>

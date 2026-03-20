@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NCSOFT Models</title>
+    <link>https://llm-timeline.duyet.net/org/ncsoft</link>
+    <description>Large Language Model releases from NCSOFT.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ncsoft/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NCSOFT Models</title>
+      <link>https://llm-timeline.duyet.net/org/ncsoft</link>
+    </image>
+  <item>
+    <title>VARCO LLM 2.0 base (NCSOFT)</title>
+    <link>https://llm-timeline.duyet.net/org/ncsoft</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VARCO%20LLM%202.0%20base-2023-08-16</guid>
+    <pubDate>Wed, 16 Aug 2023 00:00:00 GMT</pubDate>
+    <category>NCSOFT</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by NCSOFT</description>
+  </item>
+  <item>
+    <title>VARCO LLM 2.0 small Finetuning (NCSOFT)</title>
+    <link>https://llm-timeline.duyet.net/org/ncsoft</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VARCO%20LLM%202.0%20small%20Finetuning-2023-08-16</guid>
+    <pubDate>Wed, 16 Aug 2023 00:00:00 GMT</pubDate>
+    <category>NCSOFT</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by NCSOFT</description>
+  </item>
+  <item>
+    <title>VARCO LLM KO/EN-13B-IST ver.1 (NCSOFT)</title>
+    <link>https://llm-timeline.duyet.net/org/ncsoft</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VARCO%20LLM%20KO%2FEN-13B-IST%20ver.1-2023-08-16</guid>
+    <pubDate>Wed, 16 Aug 2023 00:00:00 GMT</pubDate>
+    <category>NCSOFT</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by NCSOFT</description>
+  </item>
+  </channel>
+</rss>

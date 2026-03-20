@@ -1,6 +1,5 @@
 import { formatNumber } from "@duyet/libs";
-import { getCCUsageActivityRaw } from "./utils";
-import type { CCUsageActivityProps } from "./types";
+import type { CCUsageActivityData } from "./types";
 import { formatCurrency } from "./utils/formatting";
 
 interface BarCellProps {
@@ -34,11 +33,15 @@ function BarCell({
   );
 }
 
-export async function CCUsageDailyTable({
+export function CCUsageDailyTableView({
+  activity,
   days = 30,
   className,
-}: CCUsageActivityProps) {
-  const activity = await getCCUsageActivityRaw(days);
+}: {
+  activity: CCUsageActivityData[];
+  days?: number | "all";
+  className?: string;
+}) {
 
   if (!activity.length) {
     return (

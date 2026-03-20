@@ -9,22 +9,25 @@ try {
   // Already registered by another test file in the same process
 }
 
-// Mock Next.js router — must be before component imports
-mock.module("next/navigation", () => ({
+// Mock @tanstack/react-router — must be before component imports
+mock.module("@tanstack/react-router", () => ({
+  useNavigate: () => () => {},
+  useSearch: () => ({}),
+  useParams: () => ({}),
   useRouter: () => ({
-    push: () => {},
-    replace: () => {},
-    prefetch: () => {},
-    back: () => {},
-    pathname: "/",
-    query: {},
-    asPath: "/",
+    navigate: () => {},
+    history: { push: () => {}, replace: () => {} },
   }),
-  useSearchParams: () => ({
-    get: () => null,
-    getAll: () => ({}),
-    has: () => false,
-  }),
+  Link: ({ children, to, ...props }: { children: React.ReactNode; to: string; [key: string]: unknown }) => {
+    const React = require("react");
+    return React.createElement("a", { href: to, ...props }, children);
+  },
+  createRootRoute: (opts: unknown) => opts,
+  createFileRoute: () => (opts: unknown) => opts,
+  Outlet: () => null,
+  ScrollRestoration: () => null,
+  redirect: (opts: unknown) => opts,
+  notFound: () => new Error("not found"),
 }));
 
 // Mock next-themes

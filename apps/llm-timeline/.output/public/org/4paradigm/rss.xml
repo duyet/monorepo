@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 4Paradigm Models</title>
+    <link>https://llm-timeline.duyet.net/org/4paradigm</link>
+    <description>Large Language Model releases from 4Paradigm.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/4paradigm/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 4Paradigm Models</title>
+      <link>https://llm-timeline.duyet.net/org/4paradigm</link>
+    </image>
+  <item>
+    <title>Zhiyan (智言) (4Paradigm)</title>
+    <link>https://llm-timeline.duyet.net/org/4paradigm</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zhiyan%20(%E6%99%BA%E8%A8%80)-2024-11-29</guid>
+    <pubDate>Fri, 29 Nov 2024 00:00:00 GMT</pubDate>
+    <category>4Paradigm</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by 4Paradigm</description>
+  </item>
+  <item>
+    <title>Shishuo (4Paradigm)</title>
+    <link>https://llm-timeline.duyet.net/org/4paradigm</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Shishuo-2023-04-27</guid>
+    <pubDate>Thu, 27 Apr 2023 00:00:00 GMT</pubDate>
+    <category>4Paradigm</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by 4Paradigm</description>
+  </item>
+  </channel>
+</rss>

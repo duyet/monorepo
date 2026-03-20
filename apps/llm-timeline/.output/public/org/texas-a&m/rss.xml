@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Texas A&amp;M Models</title>
+    <link>https://llm-timeline.duyet.net/org/texas-a&m</link>
+    <description>Large Language Model releases from Texas A&amp;M.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/texas-a&m/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Texas A&amp;M Models</title>
+      <link>https://llm-timeline.duyet.net/org/texas-a&m</link>
+    </image>
+  <item>
+    <title>CPAC (Texas A&amp;M)</title>
+    <link>https://llm-timeline.duyet.net/org/texas-a&m</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPAC-2022-09-18</guid>
+    <pubDate>Sun, 18 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Texas A&amp;M</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Texas A&amp;M</description>
+  </item>
+  </channel>
+</rss>

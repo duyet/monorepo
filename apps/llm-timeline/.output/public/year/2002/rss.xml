@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2002 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2002</link>
+    <description>Large Language Model releases from 2002.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2002/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2002 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2002</link>
+    </image>
+  <item>
+    <title>Web mining + Decision tree recommender (Korea Advanced Institute of Science and Technology (KAIST))</title>
+    <link>https://llm-timeline.duyet.net/year/2002</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Web%20mining%20%2B%20Decision%20tree%20recommender-2002-10-01</guid>
+    <pubDate>Tue, 01 Oct 2002 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST)</description>
+  </item>
+  <item>
+    <title>Tagging via Viterbi Decoding (AT&amp;T)</title>
+    <link>https://llm-timeline.duyet.net/year/2002</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tagging%20via%20Viterbi%20Decoding-2002-06-01</guid>
+    <pubDate>Sat, 01 Jun 2002 00:00:00 GMT</pubDate>
+    <category>AT&amp;T</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by AT&amp;T</description>
+  </item>
+  <item>
+    <title>NEAT (UT Austin)</title>
+    <link>https://llm-timeline.duyet.net/year/2002</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NEAT-2002-06-01</guid>
+    <pubDate>Sat, 01 Jun 2002 00:00:00 GMT</pubDate>
+    <category>UT Austin</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by UT Austin</description>
+  </item>
+  </channel>
+</rss>

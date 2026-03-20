@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Virginia Tech (Virginia Polytechnic Institute and State University) Models</title>
+    <link>https://llm-timeline.duyet.net/org/virginia-tech-virginia-polytechnic-institute-and-state-university</link>
+    <description>Large Language Model releases from Virginia Tech (Virginia Polytechnic Institute and State University).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/virginia-tech-virginia-polytechnic-institute-and-state-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Virginia Tech (Virginia Polytechnic Institute and State University) Models</title>
+      <link>https://llm-timeline.duyet.net/org/virginia-tech-virginia-polytechnic-institute-and-state-university</link>
+    </image>
+  <item>
+    <title>ProRNA3D-Single (Virginia Tech (Virginia Polytechnic Institute and State University))</title>
+    <link>https://llm-timeline.duyet.net/org/virginia-tech-virginia-polytechnic-institute-and-state-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProRNA3D-Single-2024-07-28</guid>
+    <pubDate>Sun, 28 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Virginia Tech (Virginia Polytechnic Institute and State University)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Virginia Tech (Virginia Polytechnic Institute and State University)</description>
+  </item>
+  </channel>
+</rss>

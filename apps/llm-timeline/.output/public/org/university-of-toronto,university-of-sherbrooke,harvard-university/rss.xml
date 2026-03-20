@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Toronto,University of Sherbrooke,Harvard University Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-toronto,university-of-sherbrooke,harvard-university</link>
+    <description>Large Language Model releases from University of Toronto,University of Sherbrooke,Harvard University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-toronto,university-of-sherbrooke,harvard-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Toronto,University of Sherbrooke,Harvard University Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-toronto,university-of-sherbrooke,harvard-university</link>
+    </image>
+  <item>
+    <title>Bayesian automated hyperparameter tuning (University of Toronto,University of Sherbrooke,Harvard University)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-toronto,university-of-sherbrooke,harvard-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bayesian%20automated%20hyperparameter%20tuning-2012-12-02</guid>
+    <pubDate>Sun, 02 Dec 2012 00:00:00 GMT</pubDate>
+    <category>University of Toronto,University of Sherbrooke,Harvard University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto,University of Sherbrooke,Harvard University</description>
+  </item>
+  </channel>
+</rss>

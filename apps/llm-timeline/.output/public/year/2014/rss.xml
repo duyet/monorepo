@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2014 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <description>Large Language Model releases from 2014.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2014/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2014 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2014</link>
+    </image>
+  <item>
+    <title>N-gram+Cache (PTB) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#N-gram%2BCache%20(PTB)-2014-12-24</guid>
+    <pubDate>Wed, 24 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>N-gram (PTB) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#N-gram%20(PTB)-2014-12-24</guid>
+    <pubDate>Wed, 24 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>ADAM (CIFAR-10) (University of Amsterdam,OpenAI,University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ADAM%20(CIFAR-10)-2014-12-22</guid>
+    <pubDate>Mon, 22 Dec 2014 00:00:00 GMT</pubDate>
+    <category>University of Amsterdam,OpenAI,University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 2.4M
+License: closed
+Type: model
+AI model by University of Amsterdam,OpenAI,University of Toronto</description>
+  </item>
+  <item>
+    <title>DeepLab (Google,University of California Los Angeles (UCLA))</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLab-2014-12-22</guid>
+    <pubDate>Mon, 22 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Google,University of California Los Angeles (UCLA)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google,University of California Los Angeles (UCLA)</description>
+  </item>
+  <item>
+    <title>Fractional Max-Pooling (University of Warwick)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fractional%20Max-Pooling-2014-12-18</guid>
+    <pubDate>Thu, 18 Dec 2014 00:00:00 GMT</pubDate>
+    <category>University of Warwick</category>
+    <category>closed</category>
+    <description>Parameters: 27M
+License: closed
+Type: model
+AI model by University of Warwick</description>
+  </item>
+  <item>
+    <title>NTM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NTM-2014-12-10</guid>
+    <pubDate>Wed, 10 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>SNM-skip (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SNM-skip-2014-12-03</guid>
+    <pubDate>Wed, 03 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 62B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>TA-CNN (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TA-CNN-2014-11-29</guid>
+    <pubDate>Sat, 29 Nov 2014 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>Parameters: 706.0K
+License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Cascaded LNet-ANet (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cascaded%20LNet-ANet-2014-11-28</guid>
+    <pubDate>Fri, 28 Nov 2014 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Fully Convolutional Networks (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fully%20Convolutional%20Networks-2014-11-14</guid>
+    <pubDate>Fri, 14 Nov 2014 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>SC-NLM (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SC-NLM-2014-11-10</guid>
+    <pubDate>Mon, 10 Nov 2014 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>Spatially-Sparse CNN (University of Warwick)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Spatially-Sparse%20CNN-2014-09-23</guid>
+    <pubDate>Tue, 23 Sep 2014 00:00:00 GMT</pubDate>
+    <category>University of Warwick</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Warwick</description>
+  </item>
+  <item>
+    <title>GoogLeNet / InceptionV1 (Google,University of Michigan,University of North Carolina)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GoogLeNet%20%2F%20InceptionV1-2014-09-17</guid>
+    <pubDate>Wed, 17 Sep 2014 00:00:00 GMT</pubDate>
+    <category>Google,University of Michigan,University of North Carolina</category>
+    <category>closed</category>
+    <description>Parameters: 6.8M
+License: closed
+Type: model
+AI model by Google,University of Michigan,University of North Carolina</description>
+  </item>
+  <item>
+    <title>SPN-4+KN5 (Singapore University of Technology &amp; Design,DSO National Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SPN-4%2BKN5-2014-09-14</guid>
+    <pubDate>Sun, 14 Sep 2014 00:00:00 GMT</pubDate>
+    <category>Singapore University of Technology &amp; Design,DSO National Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 5M
+License: closed
+Type: model
+AI model by Singapore University of Technology &amp; Design,DSO National Laboratories</description>
+  </item>
+  <item>
+    <title>Seq2Seq LSTM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seq2Seq%20LSTM-2014-09-10</guid>
+    <pubDate>Wed, 10 Sep 2014 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1.9B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Large regularized LSTM (New York University (NYU),Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Large%20regularized%20LSTM-2014-09-08</guid>
+    <pubDate>Mon, 08 Sep 2014 00:00:00 GMT</pubDate>
+    <category>New York University (NYU),Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 66M
+License: closed
+Type: model
+AI model by New York University (NYU),Google Brain</description>
+  </item>
+  <item>
+    <title>VGG16 (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VGG16-2014-09-04</guid>
+    <pubDate>Thu, 04 Sep 2014 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>VGG19 (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VGG19-2014-09-04</guid>
+    <pubDate>Thu, 04 Sep 2014 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 144M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>RNNsearch-50* (Jacobs University Bremen,University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNNsearch-50*-2014-09-01</guid>
+    <pubDate>Mon, 01 Sep 2014 00:00:00 GMT</pubDate>
+    <category>Jacobs University Bremen,University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Jacobs University Bremen,University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>AdClickNet (Facebook)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AdClickNet-2014-08-24</guid>
+    <pubDate>Sun, 24 Aug 2014 00:00:00 GMT</pubDate>
+    <category>Facebook</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook</description>
+  </item>
+  <item>
+    <title>NPD (IEEE)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NPD-2014-08-06</guid>
+    <pubDate>Wed, 06 Aug 2014 00:00:00 GMT</pubDate>
+    <category>IEEE</category>
+    <category>open</category>
+    <description>Parameters: 313.9K
+License: open
+Type: model
+AI model by IEEE</description>
+  </item>
+  <item>
+    <title>ACF-WIDER (Chinese Academy of Sciences)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ACF-WIDER-2014-07-15</guid>
+    <pubDate>Tue, 15 Jul 2014 00:00:00 GMT</pubDate>
+    <category>Chinese Academy of Sciences</category>
+    <category>closed</category>
+    <description>Parameters: 6.1K
+License: closed
+Type: model
+AI model by Chinese Academy of Sciences</description>
+  </item>
+  <item>
+    <title>SmooCT (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SmooCT-2014-07-01</guid>
+    <pubDate>Tue, 01 Jul 2014 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  <item>
+    <title>DeepFace (Tel Aviv University,Facebook)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepFace-2014-06-23</guid>
+    <pubDate>Mon, 23 Jun 2014 00:00:00 GMT</pubDate>
+    <category>Tel Aviv University,Facebook</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Tel Aviv University,Facebook</description>
+  </item>
+  <item>
+    <title>RNN-WER (DeepMind,University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN-WER-2014-06-22</guid>
+    <pubDate>Sun, 22 Jun 2014 00:00:00 GMT</pubDate>
+    <category>DeepMind,University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 26.5M
+License: closed
+Type: model
+AI model by DeepMind,University of Toronto</description>
+  </item>
+  <item>
+    <title>Fragment embedding (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fragment%20embedding-2014-06-21</guid>
+    <pubDate>Sat, 21 Jun 2014 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>Parameters: 144.5M
+License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>SPPNet (Microsoft,Xi’an Jiaotong University,University of Science and Technology of China (USTC))</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SPPNet-2014-06-18</guid>
+    <pubDate>Wed, 18 Jun 2014 00:00:00 GMT</pubDate>
+    <category>Microsoft,Xi’an Jiaotong University,University of Science and Technology of China (USTC)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft,Xi’an Jiaotong University,University of Science and Technology of China (USTC)</description>
+  </item>
+  <item>
+    <title>GANs (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GANs-2014-06-10</guid>
+    <pubDate>Tue, 10 Jun 2014 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>Two-stream ConvNets for action recognition (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Two-stream%20ConvNets%20for%20action%20recognition-2014-06-09</guid>
+    <pubDate>Mon, 09 Jun 2014 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>GRUs (University of Montreal / Université de Montréal,Jacobs University,University of Maine)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GRUs-2014-06-03</guid>
+    <pubDate>Tue, 03 Jun 2014 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal,Jacobs University,University of Maine</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal,Jacobs University,University of Maine</description>
+  </item>
+  <item>
+    <title>Dropout: SVHN (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout%3A%20SVHN-2014-06-01</guid>
+    <pubDate>Sun, 01 Jun 2014 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 47.8M
+License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>AdaRNN (Beihang University)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AdaRNN-2014-06-01</guid>
+    <pubDate>Sun, 01 Jun 2014 00:00:00 GMT</pubDate>
+    <category>Beihang University</category>
+    <category>closed</category>
+    <description>Parameters: 13.0K
+License: closed
+Type: model
+AI model by Beihang University</description>
+  </item>
+  <item>
+    <title>Paragraph Vector (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Paragraph%20Vector-2014-05-14</guid>
+    <pubDate>Wed, 14 May 2014 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 32M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Clockwork RNN (CW-RNN) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Clockwork%20RNN%20(CW-RNN)-2014-02-14</guid>
+    <pubDate>Fri, 14 Feb 2014 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 10K
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>SPN-4 (Singapore University of Technology &amp; Design,DSO National Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/2014</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SPN-4-2014-01-01</guid>
+    <pubDate>Wed, 01 Jan 2014 00:00:00 GMT</pubDate>
+    <category>Singapore University of Technology &amp; Design,DSO National Laboratories</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Singapore University of Technology &amp; Design,DSO National Laboratories</description>
+  </item>
+  </channel>
+</rss>

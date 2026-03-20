@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Meta AI,Universite de Technologie de Compiègne – CNRS,Basque Center on Cognition Models</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai,universite-de-technologie-de-compiègne--cnrs,basque-center-on-cognition</link>
+    <description>Large Language Model releases from Meta AI,Universite de Technologie de Compiègne – CNRS,Basque Center on Cognition.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/meta-ai,universite-de-technologie-de-compiègne--cnrs,basque-center-on-cognition/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Meta AI,Universite de Technologie de Compiègne – CNRS,Basque Center on Cognition Models</title>
+      <link>https://llm-timeline.duyet.net/org/meta-ai,universite-de-technologie-de-compiègne--cnrs,basque-center-on-cognition</link>
+    </image>
+  <item>
+    <title>Brain2Qwerty (Meta AI,Universite de Technologie de Compiègne – CNRS,Basque Center on Cognition)</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai,universite-de-technologie-de-compiègne--cnrs,basque-center-on-cognition</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Brain2Qwerty-2025-02-18</guid>
+    <pubDate>Tue, 18 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Meta AI,Universite de Technologie de Compiègne – CNRS,Basque Center on Cognition</category>
+    <category>closed</category>
+    <description>Parameters: 400M
+License: closed
+Type: model
+AI model by Meta AI,Universite de Technologie de Compiègne – CNRS,Basque Center on Cognition</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Sail Models</title>
+    <link>https://llm-timeline.duyet.net/org/sail</link>
+    <description>Large Language Model releases from Sail.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sail/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Sail Models</title>
+      <link>https://llm-timeline.duyet.net/org/sail</link>
+    </image>
+  <item>
+    <title>Sailor2 (Sail)</title>
+    <link>https://llm-timeline.duyet.net/org/sail</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sailor2-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Sail</category>
+    <category>open</category>
+    <description>Parameters: Sailor2
+License: open
+Type: model
+SEA languages. Continual pretraining based on Qwen2.5. Project page: https://sea-sailor.github.io/blog/sailor2/</description>
+  </item>
+  <item>
+    <title>Sailor (Sail)</title>
+    <link>https://llm-timeline.duyet.net/org/sail</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sailor-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Sail</category>
+    <category>open</category>
+    <description>Parameters: Sailor
+License: open
+Type: model
+SEA languages. Based on Qwen-1.5. https://github.com/sail-sg/sailor-llm &quot;Generally Sailor models consume around 200B tokens, completing a full pass through the SailCraft corpus once. However, the Sailor-0.5B model undergoes training with 400B tokens, equivalent to 2 epochs.&quot;</description>
+  </item>
+  </channel>
+</rss>

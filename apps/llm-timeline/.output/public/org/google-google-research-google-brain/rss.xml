@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,Google Research,Google Brain Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-google-research-google-brain</link>
+    <description>Large Language Model releases from Google,Google Research,Google Brain.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-google-research-google-brain/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,Google Research,Google Brain Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-google-research-google-brain</link>
+    </image>
+  <item>
+    <title>CoAtNet (Google,Google Research,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/google-google-research-google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoAtNet-2021-06-09</guid>
+    <pubDate>Wed, 09 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Google,Google Research,Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 2.4B
+License: closed
+Type: model
+AI model by Google,Google Research,Google Brain</description>
+  </item>
+  <item>
+    <title>Conformer + Wav2vec 2.0 + Noisy Student (Google,Google Research,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/google-google-research-google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Conformer%20%2B%20Wav2vec%202.0%20%2B%20Noisy%20Student-2020-10-20</guid>
+    <pubDate>Tue, 20 Oct 2020 00:00:00 GMT</pubDate>
+    <category>Google,Google Research,Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by Google,Google Research,Google Brain</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai</link>
+    <description>Large Language Model releases from Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai</link>
+    </image>
+  <item>
+    <title>CogVideo (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CogVideo-2022-05-29</guid>
+    <pubDate>Sun, 29 May 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 9.4B
+License: open
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>CogView2 (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CogView2-2022-04-28</guid>
+    <pubDate>Thu, 28 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 6B
+License: closed
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>CPM-2 (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPM-2-2021-06-24</guid>
+    <pubDate>Thu, 24 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>CPM-Large (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPM-Large-2020-12-01</guid>
+    <pubDate>Tue, 01 Dec 2020 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 2.6B
+License: open
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  </channel>
+</rss>

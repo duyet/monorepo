@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UC Irvine,University of Chicago,Toyota Technological Institute at Chicago Models</title>
+    <link>https://llm-timeline.duyet.net/org/uc-irvine,university-of-chicago,toyota-technological-institute-at-chicago</link>
+    <description>Large Language Model releases from UC Irvine,University of Chicago,Toyota Technological Institute at Chicago.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/uc-irvine,university-of-chicago,toyota-technological-institute-at-chicago/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UC Irvine,University of Chicago,Toyota Technological Institute at Chicago Models</title>
+      <link>https://llm-timeline.duyet.net/org/uc-irvine,university-of-chicago,toyota-technological-institute-at-chicago</link>
+    </image>
+  <item>
+    <title>Multiscale deformable part model (UC Irvine,University of Chicago,Toyota Technological Institute at Chicago)</title>
+    <link>https://llm-timeline.duyet.net/org/uc-irvine,university-of-chicago,toyota-technological-institute-at-chicago</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multiscale%20deformable%20part%20model-2008-06-23</guid>
+    <pubDate>Mon, 23 Jun 2008 00:00:00 GMT</pubDate>
+    <category>UC Irvine,University of Chicago,Toyota Technological Institute at Chicago</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by UC Irvine,University of Chicago,Toyota Technological Institute at Chicago</description>
+  </item>
+  </channel>
+</rss>

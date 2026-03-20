@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2008 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <description>Large Language Model releases from 2008.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2008/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2008 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2008</link>
+    </image>
+  <item>
+    <title>GNN (University of Siena)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GNN-2008-12-09</guid>
+    <pubDate>Tue, 09 Dec 2008 00:00:00 GMT</pubDate>
+    <category>University of Siena</category>
+    <category>open</category>
+    <description>Parameters: 30
+License: open
+Type: model
+AI model by University of Siena</description>
+  </item>
+  <item>
+    <title>HLBL (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HLBL-2008-12-08</guid>
+    <pubDate>Mon, 08 Dec 2008 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 1.8M
+License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>ADAPTIVE NLPM (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ADAPTIVE%20NLPM-2008-12-08</guid>
+    <pubDate>Mon, 08 Dec 2008 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 12.2M
+License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>Sparse digit recognition SVM (University of Lubeck)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparse%20digit%20recognition%20SVM-2008-11-19</guid>
+    <pubDate>Wed, 19 Nov 2008 00:00:00 GMT</pubDate>
+    <category>University of Lubeck</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Lubeck</description>
+  </item>
+  <item>
+    <title>Boss (DARPA Urban Challenge) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Boss%20(DARPA%20Urban%20Challenge)-2008-07-23</guid>
+    <pubDate>Wed, 23 Jul 2008 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Denoising Autoencoders (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Denoising%20Autoencoders-2008-07-05</guid>
+    <pubDate>Sat, 05 Jul 2008 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>Semi-Supervised Embedding for DL (Google,NUANCE Communications,IDIAP,University of Illinois Urbana-Champaign (UIUC))</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Semi-Supervised%20Embedding%20for%20DL-2008-07-05</guid>
+    <pubDate>Sat, 05 Jul 2008 00:00:00 GMT</pubDate>
+    <category>Google,NUANCE Communications,IDIAP,University of Illinois Urbana-Champaign (UIUC)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google,NUANCE Communications,IDIAP,University of Illinois Urbana-Champaign (UIUC)</description>
+  </item>
+  <item>
+    <title>Deep Multitask NLP Network (NEC Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20Multitask%20NLP%20Network-2008-07-05</guid>
+    <pubDate>Sat, 05 Jul 2008 00:00:00 GMT</pubDate>
+    <category>NEC Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 1.5M
+License: closed
+Type: model
+AI model by NEC Laboratories</description>
+  </item>
+  <item>
+    <title>Multiscale deformable part model (UC Irvine,University of Chicago,Toyota Technological Institute at Chicago)</title>
+    <link>https://llm-timeline.duyet.net/year/2008</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multiscale%20deformable%20part%20model-2008-06-23</guid>
+    <pubDate>Mon, 23 Jun 2008 00:00:00 GMT</pubDate>
+    <category>UC Irvine,University of Chicago,Toyota Technological Institute at Chicago</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by UC Irvine,University of Chicago,Toyota Technological Institute at Chicago</description>
+  </item>
+  </channel>
+</rss>

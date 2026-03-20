@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — LLM360 Models</title>
+    <link>https://llm-timeline.duyet.net/org/llm360</link>
+    <description>Large Language Model releases from LLM360.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/llm360/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — LLM360 Models</title>
+      <link>https://llm-timeline.duyet.net/org/llm360</link>
+    </image>
+  <item>
+    <title>K2 (LLM360)</title>
+    <link>https://llm-timeline.duyet.net/org/llm360</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>LLM360</category>
+    <category>open</category>
+    <description>Parameters: K2
+License: open
+Type: model
+&quot;K2-65B is a fully reproducible LLM outperforming Llama 2 70B using 35% less compute.&quot;</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Refact AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/refact-ai</link>
+    <description>Large Language Model releases from Refact AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/refact-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Refact AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/refact-ai</link>
+    </image>
+  <item>
+    <title>Refact-1.6B (Refact AI)</title>
+    <link>https://llm-timeline.duyet.net/org/refact-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Refact-1.6B-2023-08-29</guid>
+    <pubDate>Tue, 29 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Refact AI</category>
+    <category>open</category>
+    <description>Parameters: 1.6B
+License: open
+Type: model
+AI model by Refact AI</description>
+  </item>
+  </channel>
+</rss>

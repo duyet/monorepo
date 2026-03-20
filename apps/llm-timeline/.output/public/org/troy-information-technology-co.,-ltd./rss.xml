@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Troy Information Technology Co., Ltd. Models</title>
+    <link>https://llm-timeline.duyet.net/org/troy-information-technology-co.,-ltd.</link>
+    <description>Large Language Model releases from Troy Information Technology Co., Ltd..</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/troy-information-technology-co.,-ltd./rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Troy Information Technology Co., Ltd. Models</title>
+      <link>https://llm-timeline.duyet.net/org/troy-information-technology-co.,-ltd.</link>
+    </image>
+  <item>
+    <title>Gezhi (格致大模型) (Troy Information Technology Co., Ltd.)</title>
+    <link>https://llm-timeline.duyet.net/org/troy-information-technology-co.,-ltd.</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gezhi%20(%E6%A0%BC%E8%87%B4%E5%A4%A7%E6%A8%A1%E5%9E%8B)-2025-03-19</guid>
+    <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Troy Information Technology Co., Ltd.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Troy Information Technology Co., Ltd.</description>
+  </item>
+  </channel>
+</rss>

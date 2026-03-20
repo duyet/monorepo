@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Korea University,Princeton University Models</title>
+    <link>https://llm-timeline.duyet.net/org/korea-university-princeton-university</link>
+    <description>Large Language Model releases from Korea University,Princeton University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/korea-university-princeton-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Korea University,Princeton University Models</title>
+      <link>https://llm-timeline.duyet.net/org/korea-university-princeton-university</link>
+    </image>
+  <item>
+    <title>DensePhrases (Korea University,Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/korea-university-princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DensePhrases-2020-12-23</guid>
+    <pubDate>Wed, 23 Dec 2020 00:00:00 GMT</pubDate>
+    <category>Korea University,Princeton University</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Korea University,Princeton University</description>
+  </item>
+  <item>
+    <title>RaSoR (Korea University,Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/korea-university-princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RaSoR-2020-12-23</guid>
+    <pubDate>Wed, 23 Dec 2020 00:00:00 GMT</pubDate>
+    <category>Korea University,Princeton University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Korea University,Princeton University</description>
+  </item>
+  </channel>
+</rss>

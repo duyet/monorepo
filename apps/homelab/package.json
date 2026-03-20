@@ -2,14 +2,15 @@
   "name": "homelab",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-homelab",
-    "build": "bun --bun next build",
+    "build": "bun --bun ./node_modules/.bin/vite build",
     "check-types": "tsc --noEmit",
-    "dev": "bun --bun next dev --turbopack -p 3002",
+    "dev": "vite dev",
     "fmt": "bun run fix",
     "lint": "biome lint .",
-    "start": "bun --bun next start",
+    "start": "vite preview",
     "test": "bun test",
     "deploy": "bun run build && bunx wrangler pages deploy out --project-name=duyet-homelab",
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy out --project-name=duyet-homelab --commit-dirty=true",
@@ -19,16 +20,22 @@
     "@duyet/components": "*",
     "@duyet/config": "*",
     "@duyet/libs": "*",
+    "@tanstack/react-router": "^1.0.0",
     "lucide-react": "^0.577.0",
-    "next": "16.1.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "recharts": "^3.7.0"
+    "recharts": "^3.7.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/router-plugin": "^1.0.0",
     "@types/react": "^19.1.4",
-    "typescript": "*"
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "*",
+    "vite": "^6.0.0",
+    "vite-tsconfig-paths": "^5.0.0"
   }
 }

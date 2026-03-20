@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — TNG Models</title>
+    <link>https://llm-timeline.duyet.net/org/tng</link>
+    <description>Large Language Model releases from TNG.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tng/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — TNG Models</title>
+      <link>https://llm-timeline.duyet.net/org/tng</link>
+    </image>
+  <item>
+    <title>R1T2 Chimera (TNG)</title>
+    <link>https://llm-timeline.duyet.net/org/tng</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#R1T2%20Chimera-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>TNG</category>
+    <category>open</category>
+    <description>Parameters: R1T2 Chimera
+License: open
+Type: model
+Assembly of Experts-method of V3-0324, R1, R1-0528. Announce: https://x.com/tngtech/status/1940531045432283412?s=46</description>
+  </item>
+  </channel>
+</rss>

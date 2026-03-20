@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Michigan State University,TAL Education Group (Xueersi) Models</title>
+    <link>https://llm-timeline.duyet.net/org/michigan-state-university,tal-education-group-(xueersi)</link>
+    <description>Large Language Model releases from Michigan State University,TAL Education Group (Xueersi).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/michigan-state-university,tal-education-group-(xueersi)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Michigan State University,TAL Education Group (Xueersi) Models</title>
+      <link>https://llm-timeline.duyet.net/org/michigan-state-university,tal-education-group-(xueersi)</link>
+    </image>
+  <item>
+    <title>R-Transformer (Michigan State University,TAL Education Group (Xueersi))</title>
+    <link>https://llm-timeline.duyet.net/org/michigan-state-university,tal-education-group-(xueersi)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#R-Transformer-2019-07-12</guid>
+    <pubDate>Fri, 12 Jul 2019 00:00:00 GMT</pubDate>
+    <category>Michigan State University,TAL Education Group (Xueersi)</category>
+    <category>closed</category>
+    <description>Parameters: 15.8M
+License: closed
+Type: model
+AI model by Michigan State University,TAL Education Group (Xueersi)</description>
+  </item>
+  </channel>
+</rss>

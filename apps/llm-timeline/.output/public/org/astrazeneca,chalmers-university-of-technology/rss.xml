@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — AstraZeneca,Chalmers University of Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/astrazeneca,chalmers-university-of-technology</link>
+    <description>Large Language Model releases from AstraZeneca,Chalmers University of Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/astrazeneca,chalmers-university-of-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — AstraZeneca,Chalmers University of Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/astrazeneca,chalmers-university-of-technology</link>
+    </image>
+  <item>
+    <title>PepINVENT (AstraZeneca,Chalmers University of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/astrazeneca,chalmers-university-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PepINVENT-2024-09-21</guid>
+    <pubDate>Sat, 21 Sep 2024 00:00:00 GMT</pubDate>
+    <category>AstraZeneca,Chalmers University of Technology</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by AstraZeneca,Chalmers University of Technology</description>
+  </item>
+  </channel>
+</rss>

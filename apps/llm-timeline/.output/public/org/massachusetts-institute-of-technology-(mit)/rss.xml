@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Massachusetts Institute of Technology (MIT) Models</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <description>Large Language Model releases from Massachusetts Institute of Technology (MIT).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Massachusetts Institute of Technology (MIT) Models</title>
+      <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    </image>
+  <item>
+    <title>FlowER (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FlowER-2025-08-20</guid>
+    <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>LinOSS (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LinOSS-2025-05-02</guid>
+    <pubDate>Fri, 02 May 2025 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Mdgen (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mdgen-2024-09-26</guid>
+    <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Alphaflow (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Alphaflow-2024-09-02</guid>
+    <pubDate>Mon, 02 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ESMFlow (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESMFlow-2024-09-02</guid>
+    <pubDate>Mon, 02 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ScribblePrompt-SAM (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ScribblePrompt-SAM-2024-07-16</guid>
+    <pubDate>Tue, 16 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>OpenCLIP ViT-H-14-378-quickgelu (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenCLIP%20ViT-H-14-378-quickgelu-2023-04-16</guid>
+    <pubDate>Sun, 16 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 986.7M
+License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>EigenFold (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EigenFold-2023-04-05</guid>
+    <pubDate>Wed, 05 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>DiffDock (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiffDock-2022-10-04</guid>
+    <pubDate>Tue, 04 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 20.2M
+License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>CryoDRGN (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CryoDRGN-2021-02-04</guid>
+    <pubDate>Thu, 04 Feb 2021 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ResNet-152 + ObjectNet (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNet-152%20%2B%20ObjectNet-2019-09-06</guid>
+    <pubDate>Fri, 06 Sep 2019 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>Parameters: 38M
+License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ProxylessNAS (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProxylessNAS-2019-02-23</guid>
+    <pubDate>Sat, 23 Feb 2019 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>SSA (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SSA-2019-02-22</guid>
+    <pubDate>Fri, 22 Feb 2019 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>iCCCP (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#iCCCP-2010-06-13</guid>
+    <pubDate>Sun, 13 Jun 2010 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Optimized Multi-Scale Edge Detection (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Optimized%20Multi-Scale%20Edge%20Detection-1986-11-01</guid>
+    <pubDate>Sat, 01 Nov 1986 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Learnability theory of language development (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Learnability%20theory%20of%20language%20development-1984-07-01</guid>
+    <pubDate>Sun, 01 Jul 1984 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Statistical continuous speech recognizer (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Statistical%20continuous%20speech%20recognizer-1976-04-30</guid>
+    <pubDate>Fri, 30 Apr 1976 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Graph-based structural reasoning (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Graph-based%20structural%20reasoning-1970-09-01</guid>
+    <pubDate>Tue, 01 Sep 1970 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Pandemonium (morse) (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pandemonium%20(morse)-1959-02-01</guid>
+    <pubDate>Sun, 01 Feb 1959 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>Sequence-based pattern recognition (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sequence-based%20pattern%20recognition-1955-03-01</guid>
+    <pubDate>Tue, 01 Mar 1955 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  </channel>
+</rss>

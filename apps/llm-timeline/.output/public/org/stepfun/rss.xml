@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — StepFun Models</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <description>Large Language Model releases from StepFun.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stepfun/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — StepFun Models</title>
+      <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    </image>
+  <item>
+    <title>Step 3.5 Flash (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step%203.5%20Flash-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: Step 3.5 Flash
+License: open
+Type: model
+196B-A11B.</description>
+  </item>
+  <item>
+    <title>Step 3 (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step%203-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: Step 3
+License: open
+Type: model
+321B-A38B. https://x.com/CyouSakura/status/1948767450751009227</description>
+  </item>
+  <item>
+    <title>Step-Video-T2V (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-Video-T2V-2025-02-24</guid>
+    <pubDate>Mon, 24 Feb 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-Audio-Chat 130B (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-Audio-Chat%20130B-2025-02-18</guid>
+    <pubDate>Tue, 18 Feb 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: 130B
+License: open
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-1 (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-1-2025-02-18</guid>
+    <pubDate>Tue, 18 Feb 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>closed</category>
+    <description>Parameters: 130B
+License: closed
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-Omni (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-Omni-2025-02-18</guid>
+    <pubDate>Tue, 18 Feb 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>closed</category>
+    <description>Parameters: 130B
+License: closed
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-Audio-TTS-3B (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-Audio-TTS-3B-2025-02-14</guid>
+    <pubDate>Fri, 14 Feb 2025 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-2 (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-2-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>open</category>
+    <description>Parameters: Step-2
+License: open
+Type: model
+Launched early Jul/2024: https://pandaily.com/stepfun-releases-three-large-models-of-the-step-series/ &quot;StepFun, founded in April 2023 with the mission to “Scale-up possibilities for everyone,” unites top talent in artificial intelligence from both domestic and international backgrounds, and is dedicated to advancing toward AGI. The company has already launched the Step series of foundation models, which includes Step-2, a cutting-edge trillion-parameter Mixture of Experts (MoE) language model; Step-1.5V, a powerful multimodal large model; and Step-1V, an innovative image generation model, among others.&quot;</description>
+  </item>
+  <item>
+    <title>Step-1X (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-1X-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-1.5V (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-1.5V-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+AI model by StepFun</description>
+  </item>
+  <item>
+    <title>Step-2 (StepFun)</title>
+    <link>https://llm-timeline.duyet.net/org/stepfun</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Step-2-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>StepFun</category>
+    <category>closed</category>
+    <description>Parameters: 1T
+License: closed
+Type: model
+AI model by StepFun</description>
+  </item>
+  </channel>
+</rss>

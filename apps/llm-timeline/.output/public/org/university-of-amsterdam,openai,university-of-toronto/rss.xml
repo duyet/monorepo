@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Amsterdam,OpenAI,University of Toronto Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-amsterdam,openai,university-of-toronto</link>
+    <description>Large Language Model releases from University of Amsterdam,OpenAI,University of Toronto.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-amsterdam,openai,university-of-toronto/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Amsterdam,OpenAI,University of Toronto Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-amsterdam,openai,university-of-toronto</link>
+    </image>
+  <item>
+    <title>ADAM (CIFAR-10) (University of Amsterdam,OpenAI,University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-amsterdam,openai,university-of-toronto</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ADAM%20(CIFAR-10)-2014-12-22</guid>
+    <pubDate>Mon, 22 Dec 2014 00:00:00 GMT</pubDate>
+    <category>University of Amsterdam,OpenAI,University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 2.4M
+License: closed
+Type: model
+AI model by University of Amsterdam,OpenAI,University of Toronto</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2003 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <description>Large Language Model releases from 2003.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2003/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2003 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2003</link>
+    </image>
+  <item>
+    <title>RankBoost (EachMovie) (Columbia University,Princeton University,Hebrew University of Jerusalem)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RankBoost%20(EachMovie)-2003-11-15</guid>
+    <pubDate>Sat, 15 Nov 2003 00:00:00 GMT</pubDate>
+    <category>Columbia University,Princeton University,Hebrew University of Jerusalem</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Columbia University,Princeton University,Hebrew University of Jerusalem</description>
+  </item>
+  <item>
+    <title>RankBoost (meta-search) (Columbia University,Princeton University,Hebrew University of Jerusalem)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RankBoost%20(meta-search)-2003-11-15</guid>
+    <pubDate>Sat, 15 Nov 2003 00:00:00 GMT</pubDate>
+    <category>Columbia University,Princeton University,Hebrew University of Jerusalem</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Columbia University,Princeton University,Hebrew University of Jerusalem</description>
+  </item>
+  <item>
+    <title>Bayesian object categorizer (California Institute of Technology,University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bayesian%20object%20categorizer-2003-10-13</guid>
+    <pubDate>Mon, 13 Oct 2003 00:00:00 GMT</pubDate>
+    <category>California Institute of Technology,University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 100
+License: closed
+Type: model
+AI model by California Institute of Technology,University of Oxford</description>
+  </item>
+  <item>
+    <title>NPLM (Brown) (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NPLM%20(Brown)-2003-03-15</guid>
+    <pubDate>Sat, 15 Mar 2003 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>Parameters: 4.1M
+License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>NPLM (AP News) (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NPLM%20(AP%20News)-2003-03-15</guid>
+    <pubDate>Sat, 15 Mar 2003 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>Parameters: 11.9M
+License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>LDA (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LDA-2003-02-02</guid>
+    <pubDate>Sun, 02 Feb 2003 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Statistical Shape Constellations (California Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/year/2003</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Statistical%20Shape%20Constellations-2003-01-01</guid>
+    <pubDate>Wed, 01 Jan 2003 00:00:00 GMT</pubDate>
+    <category>California Institute of Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by California Institute of Technology</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Huawei Noah&apos;s Ark Lab,The University of Hong Kong,Hong Kong University of Science and Technology (HKUST) Models</title>
+    <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab-the-university-of-hong-kong-hong-kong-university-of-science-and-technology</link>
+    <description>Large Language Model releases from Huawei Noah&apos;s Ark Lab,The University of Hong Kong,Hong Kong University of Science and Technology (HKUST).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab-the-university-of-hong-kong-hong-kong-university-of-science-and-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Huawei Noah&apos;s Ark Lab,The University of Hong Kong,Hong Kong University of Science and Technology (HKUST) Models</title>
+      <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab-the-university-of-hong-kong-hong-kong-university-of-science-and-technology</link>
+    </image>
+  <item>
+    <title>PIXART-α (Huawei Noah&apos;s Ark Lab,The University of Hong Kong,Hong Kong University of Science and Technology (HKUST))</title>
+    <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab-the-university-of-hong-kong-hong-kong-university-of-science-and-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PIXART-%CE%B1-2023-09-30</guid>
+    <pubDate>Sat, 30 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Huawei Noah&apos;s Ark Lab,The University of Hong Kong,Hong Kong University of Science and Technology (HKUST)</category>
+    <category>open</category>
+    <description>Parameters: 600M
+License: open
+Type: model
+AI model by Huawei Noah&apos;s Ark Lab,The University of Hong Kong,Hong Kong University of Science and Technology (HKUST)</description>
+  </item>
+  </channel>
+</rss>

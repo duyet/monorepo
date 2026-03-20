@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — AIRI Artificial Intelligence Research Institute,Skolkovo Institute of Science and Technology,Belozersky Institute of Physio-Chemical Biology,Ligand Pro Models</title>
+    <link>https://llm-timeline.duyet.net/org/airi-artificial-intelligence-research-institute-skolkovo-institute-of-science-and-technology-belozersky-institute-of-physio-chemical-biology-ligand-pro</link>
+    <description>Large Language Model releases from AIRI Artificial Intelligence Research Institute,Skolkovo Institute of Science and Technology,Belozersky Institute of Physio-Chemical Biology,Ligand Pro.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/airi-artificial-intelligence-research-institute-skolkovo-institute-of-science-and-technology-belozersky-institute-of-physio-chemical-biology-ligand-pro/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — AIRI Artificial Intelligence Research Institute,Skolkovo Institute of Science and Technology,Belozersky Institute of Physio-Chemical Biology,Ligand Pro Models</title>
+      <link>https://llm-timeline.duyet.net/org/airi-artificial-intelligence-research-institute-skolkovo-institute-of-science-and-technology-belozersky-institute-of-physio-chemical-biology-ligand-pro</link>
+    </image>
+  <item>
+    <title>MULAN (AIRI Artificial Intelligence Research Institute,Skolkovo Institute of Science and Technology,Belozersky Institute of Physio-Chemical Biology,Ligand Pro)</title>
+    <link>https://llm-timeline.duyet.net/org/airi-artificial-intelligence-research-institute-skolkovo-institute-of-science-and-technology-belozersky-institute-of-physio-chemical-biology-ligand-pro</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MULAN-2024-06-02</guid>
+    <pubDate>Sun, 02 Jun 2024 00:00:00 GMT</pubDate>
+    <category>AIRI Artificial Intelligence Research Institute,Skolkovo Institute of Science and Technology,Belozersky Institute of Physio-Chemical Biology,Ligand Pro</category>
+    <category>open</category>
+    <description>Parameters: 35M
+License: open
+Type: model
+AI model by AIRI Artificial Intelligence Research Institute,Skolkovo Institute of Science and Technology,Belozersky Institute of Physio-Chemical Biology,Ligand Pro</description>
+  </item>
+  </channel>
+</rss>

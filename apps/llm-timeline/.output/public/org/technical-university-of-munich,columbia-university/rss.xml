@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Technical University of Munich,Columbia University Models</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,columbia-university</link>
+    <description>Large Language Model releases from Technical University of Munich,Columbia University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/technical-university-of-munich,columbia-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Technical University of Munich,Columbia University Models</title>
+      <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,columbia-university</link>
+    </image>
+  <item>
+    <title>Ankh_large (Technical University of Munich,Columbia University)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,columbia-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ankh_large-2023-01-16</guid>
+    <pubDate>Mon, 16 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Columbia University</category>
+    <category>open</category>
+    <description>Parameters: 1.9B
+License: open
+Type: model
+AI model by Technical University of Munich,Columbia University</description>
+  </item>
+  <item>
+    <title>Ankh_base (Technical University of Munich,Columbia University)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,columbia-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ankh_base-2023-01-16</guid>
+    <pubDate>Mon, 16 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Columbia University</category>
+    <category>open</category>
+    <description>Parameters: 740M
+License: open
+Type: model
+AI model by Technical University of Munich,Columbia University</description>
+  </item>
+  </channel>
+</rss>

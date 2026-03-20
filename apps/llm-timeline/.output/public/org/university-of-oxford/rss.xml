@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Oxford Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <description>Large Language Model releases from University of Oxford.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-oxford/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Oxford Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    </image>
+  <item>
+    <title>MolSnapper (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MolSnapper-2024-09-14</guid>
+    <pubDate>Sat, 14 Sep 2024 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>CaLM (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CaLM-2022-12-19</guid>
+    <pubDate>Mon, 19 Dec 2022 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 86M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>AbLang (heavy sequences) (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AbLang%20(heavy%20sequences)-2022-01-22</guid>
+    <pubDate>Sat, 22 Jan 2022 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>Photo-Geometric Autoencoder (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Photo-Geometric%20Autoencoder-2019-11-25</guid>
+    <pubDate>Mon, 25 Nov 2019 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>DLDL (PASCAL) (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DLDL%20(PASCAL)-2016-11-06</guid>
+    <pubDate>Sun, 06 Nov 2016 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>open</category>
+    <description>Parameters: 564M
+License: open
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>Template Adaptation (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Template%20Adaptation-2016-03-12</guid>
+    <pubDate>Sat, 12 Mar 2016 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>VGG-Face (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VGG-Face-2015-01-01</guid>
+    <pubDate>Thu, 01 Jan 2015 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>VGG16 (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VGG16-2014-09-04</guid>
+    <pubDate>Thu, 04 Sep 2014 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>VGG19 (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VGG19-2014-09-04</guid>
+    <pubDate>Thu, 04 Sep 2014 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 144M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>Two-stream ConvNets for action recognition (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Two-stream%20ConvNets%20for%20action%20recognition-2014-06-09</guid>
+    <pubDate>Mon, 09 Jun 2014 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  <item>
+    <title>RCTM (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oxford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RCTM-2013-10-01</guid>
+    <pubDate>Tue, 01 Oct 2013 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  </channel>
+</rss>

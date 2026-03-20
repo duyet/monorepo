@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Peng Cheng Laboratory,University of Texas at Houston Models</title>
+    <link>https://llm-timeline.duyet.net/org/peng-cheng-laboratory,university-of-texas-at-houston</link>
+    <description>Large Language Model releases from Peng Cheng Laboratory,University of Texas at Houston.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/peng-cheng-laboratory,university-of-texas-at-houston/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Peng Cheng Laboratory,University of Texas at Houston Models</title>
+      <link>https://llm-timeline.duyet.net/org/peng-cheng-laboratory,university-of-texas-at-houston</link>
+    </image>
+  <item>
+    <title>MedBERT (Peng Cheng Laboratory,University of Texas at Houston)</title>
+    <link>https://llm-timeline.duyet.net/org/peng-cheng-laboratory,university-of-texas-at-houston</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedBERT-2021-05-20</guid>
+    <pubDate>Thu, 20 May 2021 00:00:00 GMT</pubDate>
+    <category>Peng Cheng Laboratory,University of Texas at Houston</category>
+    <category>closed</category>
+    <description>Parameters: 17M
+License: closed
+Type: model
+AI model by Peng Cheng Laboratory,University of Texas at Houston</description>
+  </item>
+  </channel>
+</rss>

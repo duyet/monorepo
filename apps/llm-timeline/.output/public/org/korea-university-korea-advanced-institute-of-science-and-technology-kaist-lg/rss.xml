@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Korea University,Korea Advanced Institute of Science and Technology (KAIST),LG Models</title>
+    <link>https://llm-timeline.duyet.net/org/korea-university-korea-advanced-institute-of-science-and-technology-kaist-lg</link>
+    <description>Large Language Model releases from Korea University,Korea Advanced Institute of Science and Technology (KAIST),LG.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/korea-university-korea-advanced-institute-of-science-and-technology-kaist-lg/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Korea University,Korea Advanced Institute of Science and Technology (KAIST),LG Models</title>
+      <link>https://llm-timeline.duyet.net/org/korea-university-korea-advanced-institute-of-science-and-technology-kaist-lg</link>
+    </image>
+  <item>
+    <title>Volcano 13B (Korea University,Korea Advanced Institute of Science and Technology (KAIST),LG)</title>
+    <link>https://llm-timeline.duyet.net/org/korea-university-korea-advanced-institute-of-science-and-technology-kaist-lg</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Volcano%2013B-2023-11-13</guid>
+    <pubDate>Mon, 13 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Korea University,Korea Advanced Institute of Science and Technology (KAIST),LG</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Korea University,Korea Advanced Institute of Science and Technology (KAIST),LG</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ServiceNow Models</title>
+    <link>https://llm-timeline.duyet.net/org/servicenow</link>
+    <description>Large Language Model releases from ServiceNow.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/servicenow/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ServiceNow Models</title>
+      <link>https://llm-timeline.duyet.net/org/servicenow</link>
+    </image>
+  <item>
+    <title>Apriel-1.6-15B-Thinker (ServiceNow)</title>
+    <link>https://llm-timeline.duyet.net/org/servicenow</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apriel-1.6-15B-Thinker-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>ServiceNow</category>
+    <category>open</category>
+    <description>Parameters: Apriel-1.6-15B-Thinker
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Apriel-5B (ServiceNow)</title>
+    <link>https://llm-timeline.duyet.net/org/servicenow</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apriel-5B-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>ServiceNow</category>
+    <category>open</category>
+    <description>Parameters: Apriel-5B
+License: open
+Type: model
+SLAM - ServiceNow Language Models Lab. The first release in the Apriel model family, designed to support research on foundation models.</description>
+  </item>
+  </channel>
+</rss>

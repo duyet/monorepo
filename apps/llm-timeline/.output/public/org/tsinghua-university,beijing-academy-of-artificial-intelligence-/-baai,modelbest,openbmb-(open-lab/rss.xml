@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base) Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai,modelbest,openbmb-(open-lab</link>
+    <description>Large Language Model releases from Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai,modelbest,openbmb-(open-lab/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base) Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai,modelbest,openbmb-(open-lab</link>
+    </image>
+  <item>
+    <title>CPM-Bee (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base))</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai,modelbest,openbmb-(open-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPM-Bee-2023-03-24</guid>
+    <pubDate>Fri, 24 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base)</category>
+    <category>open</category>
+    <description>Parameters: 10B
+License: open
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base)</description>
+  </item>
+  <item>
+    <title>CPM-Ant (Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base))</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,beijing-academy-of-artificial-intelligence-/-baai,modelbest,openbmb-(open-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CPM-Ant-2022-09-22</guid>
+    <pubDate>Thu, 22 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base)</category>
+    <category>open</category>
+    <description>Parameters: 10B
+License: open
+Type: model
+AI model by Tsinghua University,Beijing Academy of Artificial Intelligence / BAAI,ModelBest,OpenBMB (Open Lab for Big Model Base)</description>
+  </item>
+  </channel>
+</rss>

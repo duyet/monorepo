@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Partial License Models</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <description>Models with some restricted access or partial weights</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/license/partial/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Partial License Models</title>
+      <link>https://llm-timeline.duyet.net/license/partial</link>
+    </image>
+  <item>
+    <title>Engram (DeepSeek-AI)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Engram-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>DeepSeek-AI</category>
+    <category>partial</category>
+    <description>Parameters: Engram
+License: partial
+Type: model
+39.5BA3.8B. &quot;we explore conditional memory as a complementary sparsity axis, instantiated via Engram, a module that modernizes classic N -gram embeddings for O ( 1 ) lookup.&quot;</description>
+  </item>
+  <item>
+    <title>HOPE (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HOPE-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>Parameters: HOPE
+License: partial
+Type: model
+&quot;Combining our self-modifying sequence model with the continuum memory system, we present a learning module, called HOPE, showing promising results in language modeling, continual learning, and long-context reasoning tasks.&quot; Announce: https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/ May be released after paper is public.</description>
+  </item>
+  <item>
+    <title>GEN-0 (Generalist)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GEN-0-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Generalist</category>
+    <category>partial</category>
+    <description>Parameters: GEN-0
+License: partial
+Type: model
+&quot;GEN-0, a new class of embodied foundation models built for multimodal training directly on high-fidelity raw physical interaction. Its architecture builds on the strengths of vision and language models while also going beyond them—natively designed to capture human-level reflexes and physical commonsense. One core feature is Harmonic Reasoning, in which the models are trained to simultaneously think and act seamlessly... GEN-0 is pretrained on our in-house robotics dataset, which includes over 270,000 hours of real-world diverse manipulation data, growing at a rate of 10,000 hours a week and accelerating.&quot;</description>
+  </item>
+  <item>
+    <title>ESM3 (EvolutionaryScale)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ESM3-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>EvolutionaryScale</category>
+    <category>partial</category>
+    <description>Parameters: ESM3
+License: partial
+Type: model
+Biology large language model: &quot;sequence, structure, and function are all masked and predicted during training, ESM3 can generate in all three modalities.&quot; 1.4B only released.</description>
+  </item>
+  <item>
+    <title>PanGu 5.0 Super (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu%205.0%20Super-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>partial</category>
+    <description>Parameters: PanGu 5.0 Super
+License: partial
+Type: model
+https://x.com/faridofanani96/status/1804079517193113850/photo/1</description>
+  </item>
+  <item>
+    <title>DCLM-Baseline 7B 2.6T (International)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DCLM-Baseline%207B%202.6T-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>International</category>
+    <category>partial</category>
+    <description>Parameters: DCLM-Baseline 7B 2.6T
+License: partial
+Type: model
+New dataset: 240T tokens: 8× larger than previous SOTA dataset. DCLM-Pool is 240T, DCLM-Baseline is 3.8T: &quot;we combine our 3.8T DCLM-BASELINE with the StarCoder and ProofPile2 data to arrive at a 4.1T token dataset. We train a 7B model for 2.5T tokens&quot; and &quot;We release the DCLM benchmark, framework, models, and datasets at https://datacomp.ai/dclm.&quot;</description>
+  </item>
+  <item>
+    <title>LearnLM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LearnLM-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>Parameters: LearnLM
+License: partial
+Type: model
+Fine-tuned + prompted Gemini (Dec/2023). &quot;The results of LearnLM-Tutor reproduce the performance of Gemini Pro, for example an MMLU score of 0.72 and MATH score of 0.33.&quot;</description>
+  </item>
+  <item>
+    <title>RFM-1 (Covariant)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RFM-1-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Covariant</category>
+    <category>partial</category>
+    <description>Parameters: RFM-1
+License: partial
+Type: model
+Commercial, multimodal for robotics</description>
+  </item>
+  <item>
+    <title>Samba-1 (SambaNova)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Samba-1-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>SambaNova</category>
+    <category>partial</category>
+    <description>Parameters: Samba-1
+License: partial
+Type: model
+CoE: Collection of experts: Llama2 7B / 13B / 70B Mistral 7B DeepSeek Coder 1.3B / 6.7B / 33B Falcon 40B DePlot CLIP Llava</description>
+  </item>
+  <item>
+    <title>Audio Flamingo (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Audio%20Flamingo-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>partial</category>
+    <description>Parameters: Audio Flamingo
+License: partial
+Type: model
+Project page: https://audioflamingo.github.io/</description>
+  </item>
+  <item>
+    <title>Fuyu-Heavy (Adept)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fuyu-Heavy-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Adept</category>
+    <category>partial</category>
+    <description>Parameters: Fuyu-Heavy
+License: partial
+Type: model
+Fuyu-Heavy is the world’s third-most-capable multimodal model, behind only GPT4-V and Gemini Ultra, which are 10-20 times bigger.&apos; Token estimate is based on Adept Persimmon-8B using many more tokens.</description>
+  </item>
+  <item>
+    <title>MedLM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedLM-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>Parameters: MedLM
+License: partial
+Type: model
+Available to &apos;white-listed&apos; orgs only.</description>
+  </item>
+  <item>
+    <title>Orca 2 (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Orca%202-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>partial</category>
+    <description>Parameters: Orca 2
+License: partial
+Type: model
+Llama 2 13B (2T) -&gt; Orca 2 (GPT-4 finetune). Still an imitation model, overhyped: The False Promise of Imitating Proprietary LLMs https://arxiv.org/abs/2305.15717</description>
+  </item>
+  <item>
+    <title>Gauss (Samsung)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gauss-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Samsung</category>
+    <category>partial</category>
+    <description>Parameters: Gauss
+License: partial
+Type: model
+Gauss Language specializing in generating texts, Gauss Code on software and code description and Gauss Image for image creation.</description>
+  </item>
+  <item>
+    <title>Yasa-1 (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yasa-1-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>partial</category>
+    <description>Parameters: Yasa-1
+License: partial
+Type: model
+Multi-modal. No public arch info. Researchers from DeepMind, Google, Baidu and Meta building enterprise models</description>
+  </item>
+  <item>
+    <title>WormGPT ((Undisclosed))</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WormGPT-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>(Undisclosed)</category>
+    <category>partial</category>
+    <description>Parameters: WormGPT
+License: partial
+Type: model
+GPT-J (2021) finetune/module.</description>
+  </item>
+  <item>
+    <title>Yasa (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yasa-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>partial</category>
+    <description>Parameters: Yasa
+License: partial
+Type: model
+No public arch info. Researchers from DeepMind, Google, Baidu and Meta building enterprise models</description>
+  </item>
+  <item>
+    <title>Orca (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Orca-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>partial</category>
+    <description>Parameters: Orca
+License: partial
+Type: model
+LLaMA -&gt; Vicuna -&gt; Orca (GPT-4 finetune). Still an imitation model, overhyped: The False Promise of Imitating Proprietary LLMs https://arxiv.org/abs/2305.15717</description>
+  </item>
+  <item>
+    <title>202305-refact2b-mqa-lion (Refact)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#202305-refact2b-mqa-lion-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Refact</category>
+    <category>partial</category>
+    <description>Parameters: 202305-refact2b-mqa-lion
+License: partial
+Type: model
+LiON vs Adam, code, RedPajama+The Stack</description>
+  </item>
+  <item>
+    <title>Formosa (FFM) (Asus/TWS)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Formosa%20(FFM)-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Asus/TWS</category>
+    <category>partial</category>
+    <description>Parameters: Formosa (FFM)
+License: partial
+Type: model
+BLOOMZ finetune? Chinese, Taiwan&apos;s first LLM. Subscription hardware: https://archive.md/cVdJt</description>
+  </item>
+  <item>
+    <title>LaMDA 2 (Google)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LaMDA%202-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>partial</category>
+    <description>Parameters: LaMDA 2
+License: partial
+Type: model
+Chatbot with tiny walled garden demo TBA</description>
+  </item>
+  <item>
+    <title>mGPT (Sber)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#mGPT-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Sber</category>
+    <category>partial</category>
+    <description>Parameters: mGPT
+License: partial
+Type: model
+60 languages. Only 1.3B model available</description>
+  </item>
+  <item>
+    <title>Macaw (Allen AI)</title>
+    <link>https://llm-timeline.duyet.net/license/partial</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Macaw-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Allen AI</category>
+    <category>partial</category>
+    <description>Parameters: Macaw
+License: partial
+Type: model
+Chatbot</description>
+  </item>
+  </channel>
+</rss>

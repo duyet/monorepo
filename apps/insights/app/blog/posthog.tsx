@@ -3,15 +3,31 @@ import { PopularContentTable } from "@/components/PopularContentTable";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { isPostHogConfigured, queryPostHog } from "@/lib/posthog";
 
-interface Path {
+export interface Path {
   path: string;
   visitors: number;
   views: number;
 }
 
-export async function PostHog({ days = 30 }: { days?: number | "all" }) {
+export interface PostHogViewData {
+  paths: Path[];
+  totalVisitors: number;
+  totalViews: number;
+  avgVisitorsPerPage: number;
+  blogUrl: string;
+}
+
+export async function fetchPostHogData(
+  days: number | "all" = 30
+): Promise<PostHogViewData> {
   if (!isPostHogConfigured()) {
-    return null;
+    return {
+      paths: [],
+      totalVisitors: 0,
+      totalViews: 0,
+      avgVisitorsPerPage: 0,
+      blogUrl: process.env.VITE_DUYET_BLOG_URL ?? "",
+    };
   }
 
   const top = 20;
@@ -23,6 +39,22 @@ export async function PostHog({ days = 30 }: { days?: number | "all" }) {
   const avgVisitorsPerPage =
     paths.length > 0 ? Math.round(totalVisitors / paths.length) : 0;
 
+  return {
+    paths,
+    totalVisitors,
+    totalViews,
+    avgVisitorsPerPage,
+    blogUrl: process.env.VITE_DUYET_BLOG_URL ?? "",
+  };
+}
+
+export function PostHogView({
+  paths,
+  totalVisitors,
+  totalViews,
+  avgVisitorsPerPage,
+  blogUrl,
+}: PostHogViewData) {
   const metrics = [
     {
       label: "Total Visitors",
@@ -43,7 +75,6 @@ export async function PostHog({ days = 30 }: { days?: number | "all" }) {
 
   return (
     <div className="space-y-6">
-      {/* Metrics */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {metrics.map((metric) => (
           <CompactMetric
@@ -54,16 +85,13 @@ export async function PostHog({ days = 30 }: { days?: number | "all" }) {
           />
         ))}
       </div>
-
-      {/* Popular Content Table */}
       <PopularContentTable
         data={paths.map((path) => ({
           name: path.path,
           value: path.visitors,
-          href: (process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "") + path.path,
+          href: `${blogUrl}${path.path}`,
         }))}
       />
-
       <p className="text-xs text-muted-foreground">
         Most Popular Content | Data Source: PostHog | Last updated:{" "}
         {new Date().toISOString().slice(0, 10)}
@@ -71,6 +99,16 @@ export async function PostHog({ days = 30 }: { days?: number | "all" }) {
     </div>
   );
 }
+
+export async function PostHog({ days = 30 }: { days?: number | "all" }) {
+  if (!isPostHogConfigured()) {
+    return null;
+  }
+
+  const data = await fetchPostHogData(days);
+  return <PostHogView {...data} />;
+}
+
 
 async function getTopPath(limit = 10, dateFrom = "-90d"): Promise<Path[]> {
   const data = await queryPostHog({

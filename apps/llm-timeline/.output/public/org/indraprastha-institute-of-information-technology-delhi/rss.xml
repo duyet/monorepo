@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Indraprastha Institute of Information Technology Delhi Models</title>
+    <link>https://llm-timeline.duyet.net/org/indraprastha-institute-of-information-technology-delhi</link>
+    <description>Large Language Model releases from Indraprastha Institute of Information Technology Delhi.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/indraprastha-institute-of-information-technology-delhi/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Indraprastha Institute of Information Technology Delhi Models</title>
+      <link>https://llm-timeline.duyet.net/org/indraprastha-institute-of-information-technology-delhi</link>
+    </image>
+  <item>
+    <title>Thermostable protein design (Indraprastha Institute of Information Technology Delhi)</title>
+    <link>https://llm-timeline.duyet.net/org/indraprastha-institute-of-information-technology-delhi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Thermostable%20protein%20design-2024-09-24</guid>
+    <pubDate>Tue, 24 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Indraprastha Institute of Information Technology Delhi</category>
+    <category>closed</category>
+    <description>Parameters: 738M
+License: closed
+Type: model
+AI model by Indraprastha Institute of Information Technology Delhi</description>
+  </item>
+  </channel>
+</rss>

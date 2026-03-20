@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Rock AI / Shanghai Stonehill Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/rock-ai-/-shanghai-stonehill-technology</link>
+    <description>Large Language Model releases from Rock AI / Shanghai Stonehill Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/rock-ai-/-shanghai-stonehill-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Rock AI / Shanghai Stonehill Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/rock-ai-/-shanghai-stonehill-technology</link>
+    </image>
+  <item>
+    <title>Yan (Rock AI / Shanghai Stonehill Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/rock-ai-/-shanghai-stonehill-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yan-2024-01-26</guid>
+    <pubDate>Fri, 26 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Rock AI / Shanghai Stonehill Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Rock AI / Shanghai Stonehill Technology</description>
+  </item>
+  </channel>
+</rss>

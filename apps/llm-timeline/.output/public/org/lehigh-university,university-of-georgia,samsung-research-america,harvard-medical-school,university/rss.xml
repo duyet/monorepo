@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Lehigh University,University of Georgia,Samsung Research America,Harvard Medical School,University of Pennsylvania Models</title>
+    <link>https://llm-timeline.duyet.net/org/lehigh-university,university-of-georgia,samsung-research-america,harvard-medical-school,university</link>
+    <description>Large Language Model releases from Lehigh University,University of Georgia,Samsung Research America,Harvard Medical School,University of Pennsylvania.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/lehigh-university,university-of-georgia,samsung-research-america,harvard-medical-school,university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Lehigh University,University of Georgia,Samsung Research America,Harvard Medical School,University of Pennsylvania Models</title>
+      <link>https://llm-timeline.duyet.net/org/lehigh-university,university-of-georgia,samsung-research-america,harvard-medical-school,university</link>
+    </image>
+  <item>
+    <title>BiomedGPT (182M) (Lehigh University,University of Georgia,Samsung Research America,Harvard Medical School,University of Pennsylvania)</title>
+    <link>https://llm-timeline.duyet.net/org/lehigh-university,university-of-georgia,samsung-research-america,harvard-medical-school,university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BiomedGPT%20(182M)-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>Lehigh University,University of Georgia,Samsung Research America,Harvard Medical School,University of Pennsylvania</category>
+    <category>open</category>
+    <description>Parameters: 182M
+License: open
+Type: model
+AI model by Lehigh University,University of Georgia,Samsung Research America,Harvard Medical School,University of Pennsylvania</description>
+  </item>
+  </channel>
+</rss>

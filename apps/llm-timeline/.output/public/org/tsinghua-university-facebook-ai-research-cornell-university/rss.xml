@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Facebook AI Research,Cornell University Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-facebook-ai-research-cornell-university</link>
+    <description>Large Language Model releases from Tsinghua University,Facebook AI Research,Cornell University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university-facebook-ai-research-cornell-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Facebook AI Research,Cornell University Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university-facebook-ai-research-cornell-university</link>
+    </image>
+  <item>
+    <title>DenseNet201 (Tsinghua University,Facebook AI Research,Cornell University)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-facebook-ai-research-cornell-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DenseNet201-2018-01-28</guid>
+    <pubDate>Sun, 28 Jan 2018 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Facebook AI Research,Cornell University</category>
+    <category>open</category>
+    <description>Parameters: 20M
+License: open
+Type: model
+AI model by Tsinghua University,Facebook AI Research,Cornell University</description>
+  </item>
+  <item>
+    <title>DenseNet-264 (Tsinghua University,Facebook AI Research,Cornell University)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-facebook-ai-research-cornell-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DenseNet-264-2016-08-25</guid>
+    <pubDate>Thu, 25 Aug 2016 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Facebook AI Research,Cornell University</category>
+    <category>open</category>
+    <description>Parameters: 34M
+License: open
+Type: model
+AI model by Tsinghua University,Facebook AI Research,Cornell University</description>
+  </item>
+  </channel>
+</rss>

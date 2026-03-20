@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — JURA Bio,New York University (NYU),Harvard Medical School,Columbia University Models</title>
+    <link>https://llm-timeline.duyet.net/org/jura-bio,new-york-university-(nyu),harvard-medical-school,columbia-university</link>
+    <description>Large Language Model releases from JURA Bio,New York University (NYU),Harvard Medical School,Columbia University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/jura-bio,new-york-university-(nyu),harvard-medical-school,columbia-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — JURA Bio,New York University (NYU),Harvard Medical School,Columbia University Models</title>
+      <link>https://llm-timeline.duyet.net/org/jura-bio,new-york-university-(nyu),harvard-medical-school,columbia-university</link>
+    </image>
+  <item>
+    <title>JURA Bio Model (JURA Bio,New York University (NYU),Harvard Medical School,Columbia University)</title>
+    <link>https://llm-timeline.duyet.net/org/jura-bio,new-york-university-(nyu),harvard-medical-school,columbia-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JURA%20Bio%20Model-2024-09-13</guid>
+    <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
+    <category>JURA Bio,New York University (NYU),Harvard Medical School,Columbia University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by JURA Bio,New York University (NYU),Harvard Medical School,Columbia University</description>
+  </item>
+  </channel>
+</rss>

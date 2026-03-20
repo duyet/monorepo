@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Notre Dame Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-notre-dame</link>
+    <description>Large Language Model releases from University of Notre Dame.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-notre-dame/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Notre Dame Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-notre-dame</link>
+    </image>
+  <item>
+    <title>RNS-RNN (University of Notre Dame)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-notre-dame</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNS-RNN-2021-09-05</guid>
+    <pubDate>Sun, 05 Sep 2021 00:00:00 GMT</pubDate>
+    <category>University of Notre Dame</category>
+    <category>closed</category>
+    <description>Parameters: 5.8M
+License: closed
+Type: model
+AI model by University of Notre Dame</description>
+  </item>
+  </channel>
+</rss>

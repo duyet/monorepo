@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — POSTECH,Carnegie Mellon University (CMU),Adobe Models</title>
+    <link>https://llm-timeline.duyet.net/org/postech-carnegie-mellon-university-cmu-adobe</link>
+    <description>Large Language Model releases from POSTECH,Carnegie Mellon University (CMU),Adobe.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/postech-carnegie-mellon-university-cmu-adobe/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — POSTECH,Carnegie Mellon University (CMU),Adobe Models</title>
+      <link>https://llm-timeline.duyet.net/org/postech-carnegie-mellon-university-cmu-adobe</link>
+    </image>
+  <item>
+    <title>GigaGAN (POSTECH,Carnegie Mellon University (CMU),Adobe)</title>
+    <link>https://llm-timeline.duyet.net/org/postech-carnegie-mellon-university-cmu-adobe</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GigaGAN-2023-06-19</guid>
+    <pubDate>Mon, 19 Jun 2023 00:00:00 GMT</pubDate>
+    <category>POSTECH,Carnegie Mellon University (CMU),Adobe</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by POSTECH,Carnegie Mellon University (CMU),Adobe</description>
+  </item>
+  </channel>
+</rss>

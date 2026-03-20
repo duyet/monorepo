@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — DeepMind,University of Oxford,Carnegie Mellon University (CMU),Google Brain Models</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind,university-of-oxford,carnegie-mellon-university-(cmu),google-brain</link>
+    <description>Large Language Model releases from DeepMind,University of Oxford,Carnegie Mellon University (CMU),Google Brain.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deepmind,university-of-oxford,carnegie-mellon-university-(cmu),google-brain/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — DeepMind,University of Oxford,Carnegie Mellon University (CMU),Google Brain Models</title>
+      <link>https://llm-timeline.duyet.net/org/deepmind,university-of-oxford,carnegie-mellon-university-(cmu),google-brain</link>
+    </image>
+  <item>
+    <title>Hanabi 4 player (DeepMind,University of Oxford,Carnegie Mellon University (CMU),Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/deepmind,university-of-oxford,carnegie-mellon-university-(cmu),google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hanabi%204%20player-2019-02-01</guid>
+    <pubDate>Fri, 01 Feb 2019 00:00:00 GMT</pubDate>
+    <category>DeepMind,University of Oxford,Carnegie Mellon University (CMU),Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 764K
+License: closed
+Type: model
+AI model by DeepMind,University of Oxford,Carnegie Mellon University (CMU),Google Brain</description>
+  </item>
+  </channel>
+</rss>

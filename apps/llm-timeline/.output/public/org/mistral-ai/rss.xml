@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Mistral AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <description>Large Language Model releases from Mistral AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mistral-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Mistral AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    </image>
+  <item>
+    <title>Magistral Small 1.2 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Magistral%20Small%201.2-2025-09-18</guid>
+    <pubDate>Thu, 18 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Magistral Medium 1.2 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Magistral%20Medium%201.2-2025-09-18</guid>
+    <pubDate>Thu, 18 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Voxtral Small (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Voxtral%20Small-2025-07-15</guid>
+    <pubDate>Tue, 15 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24.3B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Voxtral Mini (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Voxtral%20Mini-2025-07-15</guid>
+    <pubDate>Tue, 15 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 4.7B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Small 3.2 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Small%203.2-2025-06-15</guid>
+    <pubDate>Sun, 15 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Magistral Medium 1.1 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Magistral%20Medium%201.1-2025-06-10</guid>
+    <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Magistral Small 1.1 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Magistral%20Small%201.1-2025-06-10</guid>
+    <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Codestral Embed (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Codestral%20Embed-2025-05-28</guid>
+    <pubDate>Wed, 28 May 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Medium 3 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Medium%203-2025-05-07</guid>
+    <pubDate>Wed, 07 May 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Small 3.1 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Small%203.1-2025-03-17</guid>
+    <pubDate>Mon, 17 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral OCR (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20OCR-2025-03-06</guid>
+    <pubDate>Thu, 06 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Saba (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Saba-2025-02-17</guid>
+    <pubDate>Mon, 17 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>Parameters: 24B
+License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Small 3 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Small%203-2025-01-30</guid>
+    <pubDate>Thu, 30 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 24B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Pixtral Large (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pixtral%20Large-2024-11-18</guid>
+    <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 124B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Large 2.1 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Large%202.1-2024-11-15</guid>
+    <pubDate>Fri, 15 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 123B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Moderation (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Moderation-2024-11-07</guid>
+    <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Ministral 3B (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ministral%203B-2024-10-16</guid>
+    <pubDate>Wed, 16 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Ministral 8B (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ministral%208B-2024-10-16</guid>
+    <pubDate>Wed, 16 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Small v24.09 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Small%20v24.09-2024-09-17</guid>
+    <pubDate>Tue, 17 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 22B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Pixtral 12B (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pixtral%2012B-2024-09-17</guid>
+    <pubDate>Tue, 17 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 12.4B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Large 2 (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Large%202-2024-07-24</guid>
+    <pubDate>Wed, 24 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 123B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral NeMo (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20NeMo-2024-07-18</guid>
+    <pubDate>Thu, 18 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Codestral Mamba (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Codestral%20Mamba-2024-07-16</guid>
+    <pubDate>Tue, 16 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 7.3B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mathstral (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mathstral-2024-07-16</guid>
+    <pubDate>Tue, 16 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Codestral (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Codestral-2024-05-29</guid>
+    <pubDate>Wed, 29 May 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 22.2B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mixtral 8x22B (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mixtral%208x22B-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 141B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Large (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Large-2024-02-26</guid>
+    <pubDate>Mon, 26 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mixtral 8x7B (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mixtral%208x7B-2023-12-11</guid>
+    <pubDate>Mon, 11 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 46.7B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral Medium (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%20Medium-2023-12-11</guid>
+    <pubDate>Mon, 11 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  <item>
+    <title>Mistral 7B (Mistral AI)</title>
+    <link>https://llm-timeline.duyet.net/org/mistral-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%207B-2023-10-10</guid>
+    <pubDate>Tue, 10 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Mistral AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Mistral AI</description>
+  </item>
+  </channel>
+</rss>

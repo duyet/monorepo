@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore Models</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-institute-of-technology-sun-yat-sen-university-panasonic-r-d-national-university-of-singapore</link>
+    <description>Large Language Model releases from Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beijing-institute-of-technology-sun-yat-sen-university-panasonic-r-d-national-university-of-singapore/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore Models</title>
+      <link>https://llm-timeline.duyet.net/org/beijing-institute-of-technology-sun-yat-sen-university-panasonic-r-d-national-university-of-singapore</link>
+    </image>
+  <item>
+    <title>SAF R-CNN (Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-institute-of-technology-sun-yat-sen-university-panasonic-r-d-national-university-of-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SAF%20R-CNN-2015-10-28</guid>
+    <pubDate>Wed, 28 Oct 2015 00:00:00 GMT</pubDate>
+    <category>Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore</description>
+  </item>
+  </channel>
+</rss>

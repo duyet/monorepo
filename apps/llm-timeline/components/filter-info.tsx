@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import { GitCompare, List, Search, X } from "lucide-react";
 import type { Model } from "@/lib/data";

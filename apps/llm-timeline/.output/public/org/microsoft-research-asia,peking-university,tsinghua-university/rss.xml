@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Microsoft Research Asia,Peking University,Tsinghua University Models</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,peking-university,tsinghua-university</link>
+    <description>Large Language Model releases from Microsoft Research Asia,Peking University,Tsinghua University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/microsoft-research-asia,peking-university,tsinghua-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Microsoft Research Asia,Peking University,Tsinghua University Models</title>
+      <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,peking-university,tsinghua-university</link>
+    </image>
+  <item>
+    <title>rStar-Math (Qwen2.5-Math-7B base) (Microsoft Research Asia,Peking University,Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,peking-university,tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#rStar-Math%20(Qwen2.5-Math-7B%20base)-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Microsoft Research Asia,Peking University,Tsinghua University</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Microsoft Research Asia,Peking University,Tsinghua University</description>
+  </item>
+  <item>
+    <title>rStar-Math (Qwen2-Math-7B base) (Microsoft Research Asia,Peking University,Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,peking-university,tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#rStar-Math%20(Qwen2-Math-7B%20base)-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Microsoft Research Asia,Peking University,Tsinghua University</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Microsoft Research Asia,Peking University,Tsinghua University</description>
+  </item>
+  </channel>
+</rss>

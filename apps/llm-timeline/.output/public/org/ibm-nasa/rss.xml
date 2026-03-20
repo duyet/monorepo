@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — IBM,NASA Models</title>
+    <link>https://llm-timeline.duyet.net/org/ibm-nasa</link>
+    <description>Large Language Model releases from IBM,NASA.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ibm-nasa/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — IBM,NASA Models</title>
+      <link>https://llm-timeline.duyet.net/org/ibm-nasa</link>
+    </image>
+  <item>
+    <title>Prithvi-100M (IBM,NASA)</title>
+    <link>https://llm-timeline.duyet.net/org/ibm-nasa</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Prithvi-100M-2023-11-08</guid>
+    <pubDate>Wed, 08 Nov 2023 00:00:00 GMT</pubDate>
+    <category>IBM,NASA</category>
+    <category>open</category>
+    <description>Parameters: 100M
+License: open
+Type: model
+AI model by IBM,NASA</description>
+  </item>
+  </channel>
+</rss>

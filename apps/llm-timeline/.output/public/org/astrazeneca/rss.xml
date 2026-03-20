@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — AstraZeneca Models</title>
+    <link>https://llm-timeline.duyet.net/org/astrazeneca</link>
+    <description>Large Language Model releases from AstraZeneca.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/astrazeneca/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — AstraZeneca Models</title>
+      <link>https://llm-timeline.duyet.net/org/astrazeneca</link>
+    </image>
+  <item>
+    <title>Reinvent 4 (AstraZeneca)</title>
+    <link>https://llm-timeline.duyet.net/org/astrazeneca</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reinvent%204-2024-02-21</guid>
+    <pubDate>Wed, 21 Feb 2024 00:00:00 GMT</pubDate>
+    <category>AstraZeneca</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by AstraZeneca</description>
+  </item>
+  </channel>
+</rss>

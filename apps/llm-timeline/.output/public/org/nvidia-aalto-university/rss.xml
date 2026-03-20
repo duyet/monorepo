@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA,Aalto University Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-aalto-university</link>
+    <description>Large Language Model releases from NVIDIA,Aalto University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia-aalto-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA,Aalto University Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia-aalto-university</link>
+    </image>
+  <item>
+    <title>StyleGAN3-T (NVIDIA,Aalto University)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-aalto-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StyleGAN3-T-2021-06-21</guid>
+    <pubDate>Mon, 21 Jun 2021 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Aalto University</category>
+    <category>open</category>
+    <description>Parameters: 2.2M
+License: open
+Type: model
+AI model by NVIDIA,Aalto University</description>
+  </item>
+  <item>
+    <title>StyleGAN3-R (NVIDIA,Aalto University)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-aalto-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StyleGAN3-R-2021-06-21</guid>
+    <pubDate>Mon, 21 Jun 2021 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Aalto University</category>
+    <category>open</category>
+    <description>Parameters: 1.6M
+License: open
+Type: model
+AI model by NVIDIA,Aalto University</description>
+  </item>
+  <item>
+    <title>StyleGAN2 (NVIDIA,Aalto University)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-aalto-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StyleGAN2-2019-12-03</guid>
+    <pubDate>Tue, 03 Dec 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Aalto University</category>
+    <category>open</category>
+    <description>Parameters: 30M
+License: open
+Type: model
+AI model by NVIDIA,Aalto University</description>
+  </item>
+  </channel>
+</rss>

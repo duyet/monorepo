@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Harvard University Models</title>
+    <link>https://llm-timeline.duyet.net/org/harvard-university</link>
+    <description>Large Language Model releases from Harvard University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/harvard-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Harvard University Models</title>
+      <link>https://llm-timeline.duyet.net/org/harvard-university</link>
+    </image>
+  <item>
+    <title>PlasmidGPT (Harvard University)</title>
+    <link>https://llm-timeline.duyet.net/org/harvard-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PlasmidGPT-2024-10-01</guid>
+    <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Harvard University</category>
+    <category>open</category>
+    <description>Parameters: 110M
+License: open
+Type: model
+AI model by Harvard University</description>
+  </item>
+  <item>
+    <title>gLM (Harvard University)</title>
+    <link>https://llm-timeline.duyet.net/org/harvard-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#gLM-2023-04-08</guid>
+    <pubDate>Sat, 08 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Harvard University</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Harvard University</description>
+  </item>
+  <item>
+    <title>UniRep (Harvard University)</title>
+    <link>https://llm-timeline.duyet.net/org/harvard-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UniRep-2019-03-26</guid>
+    <pubDate>Tue, 26 Mar 2019 00:00:00 GMT</pubDate>
+    <category>Harvard University</category>
+    <category>open</category>
+    <description>Parameters: 18.2M
+License: open
+Type: model
+AI model by Harvard University</description>
+  </item>
+  <item>
+    <title>Knowledge distillation student model (Harvard University)</title>
+    <link>https://llm-timeline.duyet.net/org/harvard-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Knowledge%20distillation%20student%20model-2016-09-22</guid>
+    <pubDate>Thu, 22 Sep 2016 00:00:00 GMT</pubDate>
+    <category>Harvard University</category>
+    <category>closed</category>
+    <description>Parameters: 84M
+License: closed
+Type: model
+AI model by Harvard University</description>
+  </item>
+  </channel>
+</rss>

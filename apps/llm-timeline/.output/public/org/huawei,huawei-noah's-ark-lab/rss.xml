@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Huawei,Huawei Noah&apos;s Ark Lab Models</title>
+    <link>https://llm-timeline.duyet.net/org/huawei,huawei-noah's-ark-lab</link>
+    <description>Large Language Model releases from Huawei,Huawei Noah&apos;s Ark Lab.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/huawei,huawei-noah's-ark-lab/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Huawei,Huawei Noah&apos;s Ark Lab Models</title>
+      <link>https://llm-timeline.duyet.net/org/huawei,huawei-noah's-ark-lab</link>
+    </image>
+  <item>
+    <title>GPT-2 + Progressive LRD (Huawei,Huawei Noah&apos;s Ark Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei,huawei-noah's-ark-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2%20%2B%20Progressive%20LRD-2022-10-12</guid>
+    <pubDate>Wed, 12 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Huawei,Huawei Noah&apos;s Ark Lab</category>
+    <category>closed</category>
+    <description>Parameters: 31M
+License: closed
+Type: model
+AI model by Huawei,Huawei Noah&apos;s Ark Lab</description>
+  </item>
+  </channel>
+</rss>

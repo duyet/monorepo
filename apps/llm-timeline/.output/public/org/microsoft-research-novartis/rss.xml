@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Microsoft Research,Novartis Models</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-novartis</link>
+    <description>Large Language Model releases from Microsoft Research,Novartis.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/microsoft-research-novartis/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Microsoft Research,Novartis Models</title>
+      <link>https://llm-timeline.duyet.net/org/microsoft-research-novartis</link>
+    </image>
+  <item>
+    <title>MoLeR (Microsoft Research,Novartis)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-novartis</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MoLeR-2024-05-12</guid>
+    <pubDate>Sun, 12 May 2024 00:00:00 GMT</pubDate>
+    <category>Microsoft Research,Novartis</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Microsoft Research,Novartis</description>
+  </item>
+  </channel>
+</rss>

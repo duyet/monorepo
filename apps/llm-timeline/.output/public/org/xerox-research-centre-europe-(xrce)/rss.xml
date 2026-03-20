@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Xerox Research Centre Europe (XRCE) Models</title>
+    <link>https://llm-timeline.duyet.net/org/xerox-research-centre-europe-(xrce)</link>
+    <description>Large Language Model releases from Xerox Research Centre Europe (XRCE).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/xerox-research-centre-europe-(xrce)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Xerox Research Centre Europe (XRCE) Models</title>
+      <link>https://llm-timeline.duyet.net/org/xerox-research-centre-europe-(xrce)</link>
+    </image>
+  <item>
+    <title>Fisher-Boost (Xerox Research Centre Europe (XRCE))</title>
+    <link>https://llm-timeline.duyet.net/org/xerox-research-centre-europe-(xrce)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fisher-Boost-2010-09-05</guid>
+    <pubDate>Sun, 05 Sep 2010 00:00:00 GMT</pubDate>
+    <category>Xerox Research Centre Europe (XRCE)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Xerox Research Centre Europe (XRCE)</description>
+  </item>
+  </channel>
+</rss>

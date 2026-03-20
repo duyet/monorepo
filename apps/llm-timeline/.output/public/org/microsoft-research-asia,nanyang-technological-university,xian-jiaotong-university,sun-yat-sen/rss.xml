@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Microsoft Research Asia,Nanyang Technological University,Xi’an Jiaotong University,Sun Yat-sen University Models</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,nanyang-technological-university,xian-jiaotong-university,sun-yat-sen</link>
+    <description>Large Language Model releases from Microsoft Research Asia,Nanyang Technological University,Xi’an Jiaotong University,Sun Yat-sen University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/microsoft-research-asia,nanyang-technological-university,xian-jiaotong-university,sun-yat-sen/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Microsoft Research Asia,Nanyang Technological University,Xi’an Jiaotong University,Sun Yat-sen University Models</title>
+      <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,nanyang-technological-university,xian-jiaotong-university,sun-yat-sen</link>
+    </image>
+  <item>
+    <title>PMLM-large (Microsoft Research Asia,Nanyang Technological University,Xi’an Jiaotong University,Sun Yat-sen University)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-research-asia,nanyang-technological-university,xian-jiaotong-university,sun-yat-sen</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PMLM-large-2021-10-21</guid>
+    <pubDate>Thu, 21 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Microsoft Research Asia,Nanyang Technological University,Xi’an Jiaotong University,Sun Yat-sen University</category>
+    <category>closed</category>
+    <description>Parameters: 250M
+License: closed
+Type: model
+AI model by Microsoft Research Asia,Nanyang Technological University,Xi’an Jiaotong University,Sun Yat-sen University</description>
+  </item>
+  </channel>
+</rss>

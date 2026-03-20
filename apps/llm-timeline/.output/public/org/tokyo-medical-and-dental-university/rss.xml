@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tokyo Medical and Dental University Models</title>
+    <link>https://llm-timeline.duyet.net/org/tokyo-medical-and-dental-university</link>
+    <description>Large Language Model releases from Tokyo Medical and Dental University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tokyo-medical-and-dental-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tokyo Medical and Dental University Models</title>
+      <link>https://llm-timeline.duyet.net/org/tokyo-medical-and-dental-university</link>
+    </image>
+  <item>
+    <title>Decision tree adaline (Tokyo Medical and Dental University)</title>
+    <link>https://llm-timeline.duyet.net/org/tokyo-medical-and-dental-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Decision%20tree%20adaline-1969-05-01</guid>
+    <pubDate>Thu, 01 May 1969 00:00:00 GMT</pubDate>
+    <category>Tokyo Medical and Dental University</category>
+    <category>closed</category>
+    <description>Parameters: 2.5K
+License: closed
+Type: model
+AI model by Tokyo Medical and Dental University</description>
+  </item>
+  </channel>
+</rss>

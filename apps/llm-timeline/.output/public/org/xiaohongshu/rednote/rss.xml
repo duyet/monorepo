@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Xiaohongshu/RedNote Models</title>
+    <link>https://llm-timeline.duyet.net/org/xiaohongshu/rednote</link>
+    <description>Large Language Model releases from Xiaohongshu/RedNote.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/xiaohongshu/rednote/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Xiaohongshu/RedNote Models</title>
+      <link>https://llm-timeline.duyet.net/org/xiaohongshu/rednote</link>
+    </image>
+  <item>
+    <title>dots.llm1 (Xiaohongshu/RedNote)</title>
+    <link>https://llm-timeline.duyet.net/org/xiaohongshu/rednote</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#dots.llm1-2025-06-01</guid>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Xiaohongshu/RedNote</category>
+    <category>open</category>
+    <description>Parameters: dots.llm1
+License: open
+Type: model
+142B-A14B. &quot;dots.llm1, a large-scale MoE model that activates 14 billion parameters out of a total of 142 billion parameters, delivering performance on par with state-of-the-art models while reducing training and inference costs. Leveraging our meticulously crafted and efficient data processing pipeline, dots.llm1 achieves performance comparable to Qwen2.5-72B after pretraining on 11.2T high-quality tokens and post-training to fully unlock its capabilities. Notably, no synthetic data is used during pretraining. To foster further research, we open-source intermediate training checkpoints at every one trillion tokens, providing valuable insights into the learning dynamics of large language models.&quot;</description>
+  </item>
+  </channel>
+</rss>

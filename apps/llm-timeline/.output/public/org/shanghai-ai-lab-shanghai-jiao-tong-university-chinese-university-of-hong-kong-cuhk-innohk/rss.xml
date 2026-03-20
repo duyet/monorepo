@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab-shanghai-jiao-tong-university-chinese-university-of-hong-kong-cuhk-innohk</link>
+    <description>Large Language Model releases from Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-ai-lab-shanghai-jiao-tong-university-chinese-university-of-hong-kong-cuhk-innohk/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab-shanghai-jiao-tong-university-chinese-university-of-hong-kong-cuhk-innohk</link>
+    </image>
+  <item>
+    <title>OREAL 32B (Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab-shanghai-jiao-tong-university-chinese-university-of-hong-kong-cuhk-innohk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OREAL%2032B-2025-02-10</guid>
+    <pubDate>Mon, 10 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK</description>
+  </item>
+  <item>
+    <title>OREAL 7B (Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab-shanghai-jiao-tong-university-chinese-university-of-hong-kong-cuhk-innohk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OREAL%207B-2025-02-10</guid>
+    <pubDate>Mon, 10 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Shanghai AI Lab,Shanghai Jiao Tong University,Chinese University of Hong Kong (CUHK),InnoHK</description>
+  </item>
+  </channel>
+</rss>

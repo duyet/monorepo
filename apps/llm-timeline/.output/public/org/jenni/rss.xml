@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Jenni Models</title>
+    <link>https://llm-timeline.duyet.net/org/jenni</link>
+    <description>Large Language Model releases from Jenni.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/jenni/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Jenni Models</title>
+      <link>https://llm-timeline.duyet.net/org/jenni</link>
+    </image>
+  <item>
+    <title>Decaying Fast Weights Transformer (WT-103) (Jenni)</title>
+    <link>https://llm-timeline.duyet.net/org/jenni</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Decaying%20Fast%20Weights%20Transformer%20(WT-103)-2022-10-09</guid>
+    <pubDate>Sun, 09 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Jenni</category>
+    <category>closed</category>
+    <description>Parameters: 242M
+License: closed
+Type: model
+AI model by Jenni</description>
+  </item>
+  </channel>
+</rss>

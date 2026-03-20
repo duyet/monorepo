@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beijing Institute of Technology,Beihang University,Peking University,Smart Grid Research Institute,Shanghai AI Lab Models</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-institute-of-technology,beihang-university,peking-university,smart-grid-research</link>
+    <description>Large Language Model releases from Beijing Institute of Technology,Beihang University,Peking University,Smart Grid Research Institute,Shanghai AI Lab.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beijing-institute-of-technology,beihang-university,peking-university,smart-grid-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beijing Institute of Technology,Beihang University,Peking University,Smart Grid Research Institute,Shanghai AI Lab Models</title>
+      <link>https://llm-timeline.duyet.net/org/beijing-institute-of-technology,beihang-university,peking-university,smart-grid-research</link>
+    </image>
+  <item>
+    <title>Protllm (Beijing Institute of Technology,Beihang University,Peking University,Smart Grid Research Institute,Shanghai AI Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-institute-of-technology,beihang-university,peking-university,smart-grid-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Protllm-2024-02-28</guid>
+    <pubDate>Wed, 28 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Beijing Institute of Technology,Beihang University,Peking University,Smart Grid Research Institute,Shanghai AI Lab</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beijing Institute of Technology,Beihang University,Peking University,Smart Grid Research Institute,Shanghai AI Lab</description>
+  </item>
+  </channel>
+</rss>

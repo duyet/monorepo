@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2001 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2001</link>
+    <description>Large Language Model releases from 2001.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2001/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2001 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2001</link>
+    </image>
+  <item>
+    <title>Decision tree (classification) (Mitsubishi Electric Research Labs,Compaq CRL)</title>
+    <link>https://llm-timeline.duyet.net/year/2001</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Decision%20tree%20(classification)-2001-12-08</guid>
+    <pubDate>Sat, 08 Dec 2001 00:00:00 GMT</pubDate>
+    <category>Mitsubishi Electric Research Labs,Compaq CRL</category>
+    <category>closed</category>
+    <description>Parameters: 12K
+License: closed
+Type: model
+AI model by Mitsubishi Electric Research Labs,Compaq CRL</description>
+  </item>
+  <item>
+    <title>Gradient Boosting Machine (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2001</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gradient%20Boosting%20Machine-2001-10-01</guid>
+    <pubDate>Mon, 01 Oct 2001 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Immediate trihead (Brown University)</title>
+    <link>https://llm-timeline.duyet.net/year/2001</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Immediate%20trihead-2001-07-06</guid>
+    <pubDate>Fri, 06 Jul 2001 00:00:00 GMT</pubDate>
+    <category>Brown University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Brown University</description>
+  </item>
+  <item>
+    <title>Restricted Boltzmann machine for Face Recognition (University of Toronto,University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/year/2001</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Restricted%20Boltzmann%20machine%20for%20Face%20Recognition-2001-04-01</guid>
+    <pubDate>Sun, 01 Apr 2001 00:00:00 GMT</pubDate>
+    <category>University of Toronto,University College London (UCL)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto,University College London (UCL)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — SoundAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/soundai</link>
+    <description>Large Language Model releases from SoundAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/soundai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — SoundAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/soundai</link>
+    </image>
+  <item>
+    <title>YiYuan (壹元大模型) (SoundAI)</title>
+    <link>https://llm-timeline.duyet.net/org/soundai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YiYuan%20(%E5%A3%B9%E5%85%83%E5%A4%A7%E6%A8%A1%E5%9E%8B)-2024-07-18</guid>
+    <pubDate>Thu, 18 Jul 2024 00:00:00 GMT</pubDate>
+    <category>SoundAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by SoundAI</description>
+  </item>
+  <item>
+    <title>AzeroGPT (SoundAI)</title>
+    <link>https://llm-timeline.duyet.net/org/soundai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AzeroGPT-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>SoundAI</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+AI model by SoundAI</description>
+  </item>
+  </channel>
+</rss>

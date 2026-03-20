@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1994 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1994</link>
+    <description>Large Language Model releases from 1994.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1994/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1994 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1994</link>
+    </image>
+  <item>
+    <title>Predictive Coding NN (Technical University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/year/1994</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Predictive%20Coding%20NN-1994-12-02</guid>
+    <pubDate>Fri, 02 Dec 1994 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich</category>
+    <category>closed</category>
+    <description>Parameters: 206.9K
+License: closed
+Type: model
+AI model by Technical University of Munich</description>
+  </item>
+  <item>
+    <title>Ceramic-MLP (Sapienza Università di Roma)</title>
+    <link>https://llm-timeline.duyet.net/year/1994</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ceramic-MLP-1994-01-07</guid>
+    <pubDate>Fri, 07 Jan 1994 00:00:00 GMT</pubDate>
+    <category>Sapienza Università di Roma</category>
+    <category>closed</category>
+    <description>Parameters: 1.9K
+License: closed
+Type: model
+AI model by Sapienza Università di Roma</description>
+  </item>
+  </channel>
+</rss>

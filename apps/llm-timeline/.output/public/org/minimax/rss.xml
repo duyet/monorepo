@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — MiniMax Models</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <description>Large Language Model releases from MiniMax.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/minimax/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — MiniMax Models</title>
+      <link>https://llm-timeline.duyet.net/org/minimax</link>
+    </image>
+  <item>
+    <title>MiniMax-M2.5 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2.5-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: MiniMax-M2.5
+License: open
+Type: model
+230B-A10B. HLE showing without tools.</description>
+  </item>
+  <item>
+    <title>MiniMax-M2.1 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2.1-2025-12-23</guid>
+    <pubDate>Tue, 23 Dec 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 229B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-M2 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2-2025-10-27</guid>
+    <pubDate>Mon, 27 Oct 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 229B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-M2 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M2-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: MiniMax-M2
+License: open
+Type: model
+230B-A10B.</description>
+  </item>
+  <item>
+    <title>MiniMax-M1-80k (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M1-80k-2025-06-13</guid>
+    <pubDate>Fri, 13 Jun 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 456B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-M1-40k (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M1-40k-2025-06-13</guid>
+    <pubDate>Fri, 13 Jun 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 456B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-M1 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-M1-2025-06-01</guid>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: MiniMax-M1
+License: open
+Type: model
+456B-A45.9B. Announce: https://www.minimax.io/news/minimaxm1</description>
+  </item>
+  <item>
+    <title>Minimax-Speech-02-HD (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minimax-Speech-02-HD-2025-05-12</guid>
+    <pubDate>Mon, 12 May 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-Speech-02-turbo (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-Speech-02-turbo-2025-05-02</guid>
+    <pubDate>Fri, 02 May 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>Image-01 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Image-01-2025-02-28</guid>
+    <pubDate>Fri, 28 Feb 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax Speech-01-turbo (T2A-01-turbo) (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax%20Speech-01-turbo%20(T2A-01-turbo)-2025-01-17</guid>
+    <pubDate>Fri, 17 Jan 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax Speech-01-HD (T2A-01-HD) (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax%20Speech-01-HD%20(T2A-01-HD)-2025-01-15</guid>
+    <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-Text-01 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-Text-01-2025-01-14</guid>
+    <pubDate>Tue, 14 Jan 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: 456B
+License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-VL-01 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-VL-01-2025-01-14</guid>
+    <pubDate>Tue, 14 Jan 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax-Text-01 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax-Text-01-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>open</category>
+    <description>Parameters: MiniMax-Text-01
+License: open
+Type: model
+A45.9B. &quot;The pre-training corpus for MiniMax-Text-01 encompasses a comprehensive and meticulously curated dataset, incorporating diverse sources including academic literature, books, web content, and programming code... repeatedly training high-quality documents can lead to enhanced downstream performance, with certain high-quality domains being trained up to 50 times... Our findings indicate that low-quality data suffer a substantial decrease in performance after training for more than two epochs, while high-quality data can be effectively trained for up to four epochs&quot; Login playground: https://www.hailuo.ai/</description>
+  </item>
+  <item>
+    <title>abab7 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#abab7-2024-11-29</guid>
+    <pubDate>Fri, 29 Nov 2024 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>MiniMax Video-01 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniMax%20Video-01-2024-08-31</guid>
+    <pubDate>Sat, 31 Aug 2024 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>abab6.5 (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#abab6.5-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>Parameters: 1T
+License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  <item>
+    <title>ABAB (MiniMax)</title>
+    <link>https://llm-timeline.duyet.net/org/minimax</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ABAB-2023-08-30</guid>
+    <pubDate>Wed, 30 Aug 2023 00:00:00 GMT</pubDate>
+    <category>MiniMax</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by MiniMax</description>
+  </item>
+  </channel>
+</rss>

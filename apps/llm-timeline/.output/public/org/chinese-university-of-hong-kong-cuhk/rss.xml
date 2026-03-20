@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Chinese University of Hong Kong (CUHK) Models</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <description>Large Language Model releases from Chinese University of Hong Kong (CUHK).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Chinese University of Hong Kong (CUHK) Models</title>
+      <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    </image>
+  <item>
+    <title>Mistral 7B + OVM (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mistral%207B%20%2B%20OVM-2023-11-16</guid>
+    <pubDate>Thu, 16 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Transformer LM + MinSen (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20LM%20%2B%20MinSen-2021-11-29</guid>
+    <pubDate>Mon, 29 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>PSPNet (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PSPNet-2017-07-21</guid>
+    <pubDate>Fri, 21 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>PolyNet (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PolyNet-2016-11-17</guid>
+    <pubDate>Thu, 17 Nov 2016 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>Parameters: 92M
+License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>TA-CNN (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TA-CNN-2014-11-29</guid>
+    <pubDate>Sat, 29 Nov 2014 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>Parameters: 706.0K
+License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Cascaded LNet-ANet (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-cuhk</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cascaded%20LNet-ANet-2014-11-28</guid>
+    <pubDate>Fri, 28 Nov 2014 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  </channel>
+</rss>

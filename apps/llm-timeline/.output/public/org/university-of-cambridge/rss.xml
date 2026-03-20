@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Cambridge Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-cambridge</link>
+    <description>Large Language Model releases from University of Cambridge.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-cambridge/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Cambridge Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-cambridge</link>
+    </image>
+  <item>
+    <title>Variational (untied weights, MC) LSTM (Large) (University of Cambridge)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-cambridge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Variational%20(untied%20weights%2C%20MC)%20LSTM%20(Large)-2015-12-16</guid>
+    <pubDate>Wed, 16 Dec 2015 00:00:00 GMT</pubDate>
+    <category>University of Cambridge</category>
+    <category>closed</category>
+    <description>Parameters: 66M
+License: closed
+Type: model
+AI model by University of Cambridge</description>
+  </item>
+  <item>
+    <title>FAST (University of Cambridge)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-cambridge</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FAST-2006-05-07</guid>
+    <pubDate>Sun, 07 May 2006 00:00:00 GMT</pubDate>
+    <category>University of Cambridge</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Cambridge</description>
+  </item>
+  </channel>
+</rss>

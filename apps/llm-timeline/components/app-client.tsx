@@ -1,6 +1,4 @@
-"use client";
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Filters } from "@/components/filters";
 import { OrgTimeline } from "@/components/org-timeline";
@@ -103,7 +101,7 @@ export function StaticAppClient({
 
 // ============================================================================
 // AppClient - For main page with URL sync
-// Uses useSearchParams, requires Suspense boundary
+// Uses window.location for initial read and useNavigate for URL updates
 // ============================================================================
 
 export function AppClient({
@@ -113,10 +111,9 @@ export function AppClient({
   initialLicense = "all",
   initialLiteMode = false,
 }: AppClientProps) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
+  // Use window.location for search params since AppClient is used in a context
+  // where useSearch might not have the right route context
+  const navigate = useNavigate();
   const [view, setView] = useState<View>(initialView);
   const [liteMode, setLiteMode] = useState(initialLiteMode);
   const [filters, setFilters] = useState<FilterState>({
@@ -128,6 +125,7 @@ export function AppClient({
 
   // Sync initial state with URL params on mount
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
     const urlView = (searchParams.get("view") as View) || initialView;
     const urlLicense =
       (searchParams.get("license") as FilterState["license"]) || initialLicense;
@@ -148,28 +146,25 @@ export function AppClient({
       params: searchParams.get("params") || "all",
     });
     isInitialized.current = true;
-  }, [searchParams, initialView, initialLicense]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update URL when filters change (skip until initial URL read is done)
   useEffect(() => {
     if (!isInitialized.current) return;
-    const params = new URLSearchParams();
+    const params: Record<string, string> = {};
 
-    if (view !== "models") params.set("view", view);
-    if (filters.license !== "all") params.set("license", filters.license);
-    if (liteMode) params.set("lite", "true");
-    if (filters.search) params.set("search", filters.search);
-    if (filters.type !== "all") params.set("type", filters.type);
-    if (filters.org) params.set("org", filters.org);
-    if (filters.source !== "all") params.set("source", filters.source);
-    if (filters.domain !== "all") params.set("domain", filters.domain);
-    if (filters.params !== "all") params.set("params", filters.params);
+    if (view !== "models") params.view = view;
+    if (filters.license !== "all") params.license = filters.license;
+    if (liteMode) params.lite = "true";
+    if (filters.search) params.search = filters.search;
+    if (filters.type !== "all") params.type = filters.type;
+    if (filters.org) params.org = filters.org;
+    if (filters.source !== "all") params.source = filters.source;
+    if (filters.domain !== "all") params.domain = filters.domain;
+    if (filters.params !== "all") params.params = filters.params;
 
-    const queryString = params.toString();
-    const url = queryString ? `${pathname}?${queryString}` : pathname;
-
-    router.replace(url);
-  }, [view, filters, liteMode, pathname, router]);
+    navigate({ to: "/", search: params, replace: true });
+  }, [view, filters, liteMode, navigate]);
 
   const handleFilterChange = (next: FilterState) => {
     startTransition(() => setFilters(next));

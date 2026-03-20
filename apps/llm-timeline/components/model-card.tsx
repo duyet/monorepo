@@ -1,8 +1,6 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
+import { useNavigate } from "@tanstack/react-router";
 import { Check, ChevronDown, ChevronUp, Link2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { OrgAvatar } from "@/components/org-avatar";
 import type { Model } from "@/lib/data";
@@ -291,7 +289,7 @@ interface RelatedModelsSectionProps {
 
 function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   // Memoize related models to avoid recomputation on every render.
   // NOTE: This creates O(n²) complexity across all model cards (200 cards × 200 models).
@@ -307,8 +305,7 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
 
   const handleCompareAll = () => {
     const modelSlugs = relatedModels.map((m) => slugify(m.name));
-    const url = `/compare?models=${modelSlugs.join(",")}`;
-    router.push(url);
+    navigate({ to: "/compare", search: { models: modelSlugs.join(",") } });
   };
 
   return (

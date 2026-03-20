@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import { ChevronDown, Download, Filter, LayoutList, Rows2, X } from "lucide-react";
 import { useCallback, useState } from "react";

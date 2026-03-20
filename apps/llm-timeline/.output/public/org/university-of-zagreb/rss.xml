@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Zagreb Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-zagreb</link>
+    <description>Large Language Model releases from University of Zagreb.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-zagreb/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Zagreb Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-zagreb</link>
+    </image>
+  <item>
+    <title>Transfer Learning (University of Zagreb)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-zagreb</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transfer%20Learning-1976-07-01</guid>
+    <pubDate>Thu, 01 Jul 1976 00:00:00 GMT</pubDate>
+    <category>University of Zagreb</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Zagreb</description>
+  </item>
+  </channel>
+</rss>

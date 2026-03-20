@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — TAL Education Group (Xueersi) Models</title>
+    <link>https://llm-timeline.duyet.net/org/tal-education-group-xueersi</link>
+    <description>Large Language Model releases from TAL Education Group (Xueersi).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tal-education-group-xueersi/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — TAL Education Group (Xueersi) Models</title>
+      <link>https://llm-timeline.duyet.net/org/tal-education-group-xueersi</link>
+    </image>
+  <item>
+    <title>MathGPT (TAL Education Group (Xueersi))</title>
+    <link>https://llm-timeline.duyet.net/org/tal-education-group-xueersi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MathGPT-2023-08-24</guid>
+    <pubDate>Thu, 24 Aug 2023 00:00:00 GMT</pubDate>
+    <category>TAL Education Group (Xueersi)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by TAL Education Group (Xueersi)</description>
+  </item>
+  </channel>
+</rss>

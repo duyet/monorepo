@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司 Models</title>
+    <link>https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司</link>
+    <description>Large Language Model releases from West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司 Models</title>
+      <link>https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司</link>
+    </image>
+  <item>
+    <title>Xinchen Lingo (West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司)</title>
+    <link>https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Xinchen%20Lingo-2024-09-05</guid>
+    <pubDate>Thu, 05 Sep 2024 00:00:00 GMT</pubDate>
+    <category>West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</description>
+  </item>
+  <item>
+    <title>West Lake (“Xīhú / 西湖大模型”) (West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司)</title>
+    <link>https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#West%20Lake%20(%E2%80%9CX%C4%ABh%C3%BA%20%2F%20%E8%A5%BF%E6%B9%96%E5%A4%A7%E6%A8%A1%E5%9E%8B%E2%80%9D)-2023-07-09</guid>
+    <pubDate>Sun, 09 Jul 2023 00:00:00 GMT</pubDate>
+    <category>West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</description>
+  </item>
+  <item>
+    <title>RIO (West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司)</title>
+    <link>https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RIO-2023-03-15</guid>
+    <pubDate>Wed, 15 Mar 2023 00:00:00 GMT</pubDate>
+    <category>West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+AI model by West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</description>
+  </item>
+  <item>
+    <title>Dream Diary (造梦日记) (West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司)</title>
+    <link>https://llm-timeline.duyet.net/org/west-lake-xinchen-/-xinchen-ai-/-西湖心辰（杭州）科技有限公司</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dream%20Diary%20(%E9%80%A0%E6%A2%A6%E6%97%A5%E8%AE%B0)-2022-08-15</guid>
+    <pubDate>Mon, 15 Aug 2022 00:00:00 GMT</pubDate>
+    <category>West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by West Lake Xinchen / Xinchen AI / 西湖心辰（杭州）科技有限公司</description>
+  </item>
+  </channel>
+</rss>

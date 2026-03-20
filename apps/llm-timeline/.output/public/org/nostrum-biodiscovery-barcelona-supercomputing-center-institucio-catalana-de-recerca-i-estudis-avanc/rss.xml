@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nostrum Biodiscovery,Barcelona Supercomputing Center,Institucio Catalana de Recerca i Estudis Avancçats Models</title>
+    <link>https://llm-timeline.duyet.net/org/nostrum-biodiscovery-barcelona-supercomputing-center-institucio-catalana-de-recerca-i-estudis-avanc</link>
+    <description>Large Language Model releases from Nostrum Biodiscovery,Barcelona Supercomputing Center,Institucio Catalana de Recerca i Estudis Avancçats.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nostrum-biodiscovery-barcelona-supercomputing-center-institucio-catalana-de-recerca-i-estudis-avanc/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Nostrum Biodiscovery,Barcelona Supercomputing Center,Institucio Catalana de Recerca i Estudis Avancçats Models</title>
+      <link>https://llm-timeline.duyet.net/org/nostrum-biodiscovery-barcelona-supercomputing-center-institucio-catalana-de-recerca-i-estudis-avanc</link>
+    </image>
+  <item>
+    <title>SS-pLM (Nostrum Biodiscovery,Barcelona Supercomputing Center,Institucio Catalana de Recerca i Estudis Avancçats)</title>
+    <link>https://llm-timeline.duyet.net/org/nostrum-biodiscovery-barcelona-supercomputing-center-institucio-catalana-de-recerca-i-estudis-avanc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SS-pLM-2023-08-06</guid>
+    <pubDate>Sun, 06 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Nostrum Biodiscovery,Barcelona Supercomputing Center,Institucio Catalana de Recerca i Estudis Avancçats</category>
+    <category>closed</category>
+    <description>Parameters: 14.8M
+License: closed
+Type: model
+AI model by Nostrum Biodiscovery,Barcelona Supercomputing Center,Institucio Catalana de Recerca i Estudis Avancçats</description>
+  </item>
+  </channel>
+</rss>

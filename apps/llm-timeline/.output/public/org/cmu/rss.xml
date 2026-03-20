@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — CMU Models</title>
+    <link>https://llm-timeline.duyet.net/org/cmu</link>
+    <description>Large Language Model releases from CMU.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cmu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — CMU Models</title>
+      <link>https://llm-timeline.duyet.net/org/cmu</link>
+    </image>
+  <item>
+    <title>Bi-Mamba (CMU)</title>
+    <link>https://llm-timeline.duyet.net/org/cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bi-Mamba-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>CMU</category>
+    <category>closed</category>
+    <description>Parameters: Bi-Mamba
+License: closed
+Type: model
+Unreleased, but will be replicated. &quot;a scalable and powerful 1-bit Mamba architecture designed for more efficient large language models&quot;</description>
+  </item>
+  <item>
+    <title>Mamba-2 (CMU)</title>
+    <link>https://llm-timeline.duyet.net/org/cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mamba-2-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>CMU</category>
+    <category>open</category>
+    <description>Parameters: Mamba-2
+License: open
+Type: model
+Analysis: https://tridao.me/blog/2024/mamba2-part1-model/</description>
+  </item>
+  <item>
+    <title>Mamba (CMU)</title>
+    <link>https://llm-timeline.duyet.net/org/cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mamba-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>CMU</category>
+    <category>open</category>
+    <description>Parameters: Mamba
+License: open
+Type: model
+The Pile, new arch beyond just Transformers. 2.7B MMLU=26.2. 7B MMLU=33.3.</description>
+  </item>
+  </channel>
+</rss>

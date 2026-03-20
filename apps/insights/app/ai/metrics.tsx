@@ -6,8 +6,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { CompactMetric } from "@/components/ui/CompactMetric";
-import { getCCUsageMetrics } from "./utils";
-import type { CCUsageMetricsProps } from "./types";
+import type { CCUsageMetricsData } from "./types";
 import { formatCurrency } from "./utils/formatting";
 
 function formatTokens(tokens: number): string {
@@ -23,12 +22,13 @@ function formatTokens(tokens: number): string {
   return tokens.toString();
 }
 
-export async function CCUsageMetrics({
-  days = 30,
+export function CCUsageMetricsView({
+  rawMetrics,
   className,
-}: CCUsageMetricsProps) {
-  const rawMetrics = await getCCUsageMetrics(days);
-
+}: {
+  rawMetrics: CCUsageMetricsData | null;
+  className?: string;
+}) {
   if (!rawMetrics) {
     return (
       <div className={`text-center text-muted-foreground ${className || ""}`}>

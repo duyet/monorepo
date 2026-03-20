@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University College London (UCL) Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    <description>Large Language Model releases from University College London (UCL).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-college-london-ucl/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University College London (UCL) Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    </image>
+  <item>
+    <title>DARK (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DARK-2022-01-28</guid>
+    <pubDate>Fri, 28 Jan 2022 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  <item>
+    <title>DMPFold (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DMPFold-2018-11-29</guid>
+    <pubDate>Thu, 29 Nov 2018 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>open</category>
+    <description>Parameters: 3.8M
+License: open
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  <item>
+    <title>SmooCT (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SmooCT-2014-07-01</guid>
+    <pubDate>Tue, 01 Jul 2014 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  <item>
+    <title>LBL (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LBL-2012-06-27</guid>
+    <pubDate>Wed, 27 Jun 2012 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>closed</category>
+    <description>Parameters: 2M
+License: closed
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  <item>
+    <title>PoE MNIST (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/org/university-college-london-ucl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PoE%20MNIST-2000-11-28</guid>
+    <pubDate>Tue, 28 Nov 2000 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>closed</category>
+    <description>Parameters: 3.9M
+License: closed
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Rutgers University,Google Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/rutgers-university,google-research</link>
+    <description>Large Language Model releases from Rutgers University,Google Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/rutgers-university,google-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Rutgers University,Google Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/rutgers-university,google-research</link>
+    </image>
+  <item>
+    <title>SAGAN (Rutgers University,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/rutgers-university,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SAGAN-2019-06-14</guid>
+    <pubDate>Fri, 14 Jun 2019 00:00:00 GMT</pubDate>
+    <category>Rutgers University,Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Rutgers University,Google Research</description>
+  </item>
+  </channel>
+</rss>

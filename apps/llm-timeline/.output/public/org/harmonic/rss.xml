@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Harmonic Models</title>
+    <link>https://llm-timeline.duyet.net/org/harmonic</link>
+    <description>Large Language Model releases from Harmonic.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/harmonic/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Harmonic Models</title>
+      <link>https://llm-timeline.duyet.net/org/harmonic</link>
+    </image>
+  <item>
+    <title>Aristotle (Harmonic)</title>
+    <link>https://llm-timeline.duyet.net/org/harmonic</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Aristotle-2024-09-07</guid>
+    <pubDate>Sat, 07 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Harmonic</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Harmonic</description>
+  </item>
+  </channel>
+</rss>

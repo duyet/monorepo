@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — IDSIA,SUPSI,King Abdullah University of Science and Technology (KAUST) Models</title>
+    <link>https://llm-timeline.duyet.net/org/idsia,supsi,king-abdullah-university-of-science-and-technology-(kaust)</link>
+    <description>Large Language Model releases from IDSIA,SUPSI,King Abdullah University of Science and Technology (KAUST).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/idsia,supsi,king-abdullah-university-of-science-and-technology-(kaust)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — IDSIA,SUPSI,King Abdullah University of Science and Technology (KAUST) Models</title>
+      <link>https://llm-timeline.duyet.net/org/idsia,supsi,king-abdullah-university-of-science-and-technology-(kaust)</link>
+    </image>
+  <item>
+    <title>Delta RNN (+ full context) (IDSIA,SUPSI,King Abdullah University of Science and Technology (KAUST))</title>
+    <link>https://llm-timeline.duyet.net/org/idsia,supsi,king-abdullah-university-of-science-and-technology-(kaust)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Delta%20RNN%20(%2B%20full%20context)-2021-06-11</guid>
+    <pubDate>Fri, 11 Jun 2021 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI,King Abdullah University of Science and Technology (KAUST)</category>
+    <category>closed</category>
+    <description>Parameters: 44.6M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI,King Abdullah University of Science and Technology (KAUST)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google DeepMind,Google Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <description>Large Language Model releases from Google DeepMind,Google Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-deepmind,google-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google DeepMind,Google Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    </image>
+  <item>
+    <title>AMIE (Articulate Medical Intelligence Explorer) (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AMIE%20(Articulate%20Medical%20Intelligence%20Explorer)-2025-04-09</guid>
+    <pubDate>Wed, 09 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 340B
+License: closed
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>TxGemma 27B (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TxGemma%2027B-2025-04-08</guid>
+    <pubDate>Tue, 08 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>TxGemma 9B (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TxGemma%209B-2025-04-08</guid>
+    <pubDate>Tue, 08 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>TxGemma 2B (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TxGemma%202B-2025-04-08</guid>
+    <pubDate>Tue, 08 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>open</category>
+    <description>Parameters: 2.6B
+License: open
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>Med-Gemini-2D (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Gemini-2D-2024-05-06</guid>
+    <pubDate>Mon, 06 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>Med-Gemini-3D (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Gemini-3D-2024-05-06</guid>
+    <pubDate>Mon, 06 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>Med-Gemini-M 1.5 (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Gemini-M%201.5-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  <item>
+    <title>MADLAD-400 10B (Google DeepMind,Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MADLAD-400%2010B-2023-09-09</guid>
+    <pubDate>Sat, 09 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Google Research</category>
+    <category>open</category>
+    <description>Parameters: 10.7B
+License: open
+Type: model
+AI model by Google DeepMind,Google Research</description>
+  </item>
+  </channel>
+</rss>

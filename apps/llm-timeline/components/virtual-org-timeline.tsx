@@ -1,5 +1,3 @@
-"use client";
-
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Model } from "@/lib/data";

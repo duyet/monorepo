@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beijing Academy of Artificial Intelligence / BAAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <description>Large Language Model releases from Beijing Academy of Artificial Intelligence / BAAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beijing Academy of Artificial Intelligence / BAAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    </image>
+  <item>
+    <title>Emu3.5 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Emu3.5-2025-10-30</guid>
+    <pubDate>Thu, 30 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 34.1B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Emu3 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Emu3-2024-10-21</guid>
+    <pubDate>Mon, 21 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>OmniGen (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OmniGen-2024-09-17</guid>
+    <pubDate>Tue, 17 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 3.8B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>BGE-M3 Embedding (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BGE-M3%20Embedding-2024-01-30</guid>
+    <pubDate>Tue, 30 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 335M
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Aquila2 34B (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Aquila2%2034B-2023-10-13</guid>
+    <pubDate>Fri, 13 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao Aquila-7B (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%20Aquila-7B-2023-06-10</guid>
+    <pubDate>Sat, 10 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao Aquila-33B (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%20Aquila-33B-2023-06-10</guid>
+    <pubDate>Sat, 10 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 33B
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>ALM 1.0 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALM%201.0-2022-11-28</guid>
+    <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 335M
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>AltCLIP_M9 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AltCLIP_M9-2022-11-12</guid>
+    <pubDate>Sat, 12 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao 2.0 (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%202.0-2021-05-31</guid>
+    <pubDate>Mon, 31 May 2021 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 1.8T
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao - Wen Hui (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%20-%20Wen%20Hui-2021-03-01</guid>
+    <pubDate>Mon, 01 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 11.3B
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao - Wen Lan (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%20-%20Wen%20Lan-2021-03-01</guid>
+    <pubDate>Mon, 01 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao - Wen Su (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%20-%20Wen%20Su-2021-03-01</guid>
+    <pubDate>Mon, 01 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  <item>
+    <title>Wu Dao - Wen Yuan (Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-/-baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wu%20Dao%20-%20Wen%20Yuan-2021-01-11</guid>
+    <pubDate>Mon, 11 Jan 2021 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>Parameters: 2.6B
+License: closed
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Westlake University,Tsinghua University,Toyota Technological Institute at Chicago Models</title>
+    <link>https://llm-timeline.duyet.net/org/westlake-university,tsinghua-university,toyota-technological-institute-at-chicago</link>
+    <description>Large Language Model releases from Westlake University,Tsinghua University,Toyota Technological Institute at Chicago.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/westlake-university,tsinghua-university,toyota-technological-institute-at-chicago/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Westlake University,Tsinghua University,Toyota Technological Institute at Chicago Models</title>
+      <link>https://llm-timeline.duyet.net/org/westlake-university,tsinghua-university,toyota-technological-institute-at-chicago</link>
+    </image>
+  <item>
+    <title>GGNN (Westlake University,Tsinghua University,Toyota Technological Institute at Chicago)</title>
+    <link>https://llm-timeline.duyet.net/org/westlake-university,tsinghua-university,toyota-technological-institute-at-chicago</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GGNN-2023-08-05</guid>
+    <pubDate>Sat, 05 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Westlake University,Tsinghua University,Toyota Technological Institute at Chicago</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Westlake University,Tsinghua University,Toyota Technological Institute at Chicago</description>
+  </item>
+  </channel>
+</rss>

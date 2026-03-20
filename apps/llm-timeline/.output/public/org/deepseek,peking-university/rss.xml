@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — DeepSeek,Peking University Models</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek,peking-university</link>
+    <description>Large Language Model releases from DeepSeek,Peking University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deepseek,peking-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — DeepSeek,Peking University Models</title>
+      <link>https://llm-timeline.duyet.net/org/deepseek,peking-university</link>
+    </image>
+  <item>
+    <title>DeepSeek Coder 33B (DeepSeek,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek%20Coder%2033B-2024-01-25</guid>
+    <pubDate>Thu, 25 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 33B
+License: open
+Type: model
+AI model by DeepSeek,Peking University</description>
+  </item>
+  <item>
+    <title>DeepSeek Coder 1.3B (DeepSeek,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek%20Coder%201.3B-2024-01-25</guid>
+    <pubDate>Thu, 25 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by DeepSeek,Peking University</description>
+  </item>
+  <item>
+    <title>DeepSeek Coder 6.7B (DeepSeek,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeek%20Coder%206.7B-2024-01-25</guid>
+    <pubDate>Thu, 25 Jan 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 6.7B
+License: open
+Type: model
+AI model by DeepSeek,Peking University</description>
+  </item>
+  </channel>
+</rss>

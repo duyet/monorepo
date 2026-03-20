@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Motif-Technologies Models</title>
+    <link>https://llm-timeline.duyet.net/org/motif-technologies</link>
+    <description>Large Language Model releases from Motif-Technologies.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/motif-technologies/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Motif-Technologies Models</title>
+      <link>https://llm-timeline.duyet.net/org/motif-technologies</link>
+    </image>
+  <item>
+    <title>Motif 2 12.7B (Motif-Technologies)</title>
+    <link>https://llm-timeline.duyet.net/org/motif-technologies</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Motif%202%2012.7B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Motif-Technologies</category>
+    <category>open</category>
+    <description>Parameters: Motif 2 12.7B
+License: open
+Type: model</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — SUTD/Independent Models</title>
+    <link>https://llm-timeline.duyet.net/org/sutd-independent</link>
+    <description>Large Language Model releases from SUTD/Independent.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sutd-independent/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — SUTD/Independent Models</title>
+      <link>https://llm-timeline.duyet.net/org/sutd-independent</link>
+    </image>
+  <item>
+    <title>TinyLlama (SUTD/Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/sutd-independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TinyLlama-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>SUTD/Independent</category>
+    <category>open</category>
+    <description>Parameters: TinyLlama
+License: open
+Type: model
+Overtrained&apos; using 2,727 tokens per parameter. Dataset was 1T: 3 epochs to 3T seen. Singapore</description>
+  </item>
+  </channel>
+</rss>

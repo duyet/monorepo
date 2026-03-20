@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Carnegie Mellon University (CMU),University of California San Diego Models</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-university-of-california-san-diego</link>
+    <description>Large Language Model releases from Carnegie Mellon University (CMU),University of California San Diego.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-university-of-california-san-diego/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Carnegie Mellon University (CMU),University of California San Diego Models</title>
+      <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-university-of-california-san-diego</link>
+    </image>
+  <item>
+    <title>NLM (Carnegie Mellon University (CMU),University of California San Diego)</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-university-of-california-san-diego</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NLM-2021-09-09</guid>
+    <pubDate>Thu, 09 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU),University of California San Diego</category>
+    <category>closed</category>
+    <description>Parameters: 247.0M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU),University of California San Diego</description>
+  </item>
+  </channel>
+</rss>

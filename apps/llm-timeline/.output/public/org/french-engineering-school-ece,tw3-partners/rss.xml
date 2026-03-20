@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — French Engineering School ECE,TW3 Partners Models</title>
+    <link>https://llm-timeline.duyet.net/org/french-engineering-school-ece,tw3-partners</link>
+    <description>Large Language Model releases from French Engineering School ECE,TW3 Partners.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/french-engineering-school-ece,tw3-partners/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — French Engineering School ECE,TW3 Partners Models</title>
+      <link>https://llm-timeline.duyet.net/org/french-engineering-school-ece,tw3-partners</link>
+    </image>
+  <item>
+    <title>TW3-JRGL-v2 (French Engineering School ECE,TW3 Partners)</title>
+    <link>https://llm-timeline.duyet.net/org/french-engineering-school-ece,tw3-partners</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TW3-JRGL-v2-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>French Engineering School ECE,TW3 Partners</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by French Engineering School ECE,TW3 Partners</description>
+  </item>
+  <item>
+    <title>Le_Triomphant-ECE-TW3 (French Engineering School ECE,TW3 Partners)</title>
+    <link>https://llm-timeline.duyet.net/org/french-engineering-school-ece,tw3-partners</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Le_Triomphant-ECE-TW3-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>French Engineering School ECE,TW3 Partners</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by French Engineering School ECE,TW3 Partners</description>
+  </item>
+  </channel>
+</rss>

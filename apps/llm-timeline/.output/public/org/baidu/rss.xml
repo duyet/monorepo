@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Baidu Models</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <description>Large Language Model releases from Baidu.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/baidu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Baidu Models</title>
+      <link>https://llm-timeline.duyet.net/org/baidu</link>
+    </image>
+  <item>
+    <title>ERNIE-5.0-Preview-1022 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-5.0-Preview-1022-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-5.0-Preview-1022
+License: open
+Type: model
+Very low performance on ALPrompt. 2.4T params confirmed: https://global.chinadaily.com.cn/a/202511/13/WS691571bda310d6866eb29500.html</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-VL-28B-A3B-Thinking (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-VL-28B-A3B-Thinking-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-4.5-VL-28B-A3B-Thinking
+License: open
+Type: model
+28B-A3B. Open-sourced 12/Nov/2025 from Jun/2025 release.</description>
+  </item>
+  <item>
+    <title>ERNIE X1.1 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%20X1.1-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE X1.1
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-21B-A3B-Thinking (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-21B-A3B-Thinking-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-4.5-21B-A3B-Thinking
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-VL-28B-A3B (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-VL-28B-A3B-2025-06-29</guid>
+    <pubDate>Sun, 29 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 28B
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-300B-A47B (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-300B-A47B-2025-06-29</guid>
+    <pubDate>Sun, 29 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 300B
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-21B-A3B (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-21B-A3B-2025-06-29</guid>
+    <pubDate>Sun, 29 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 21B
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-0.3B (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-0.3B-2025-06-29</guid>
+    <pubDate>Sun, 29 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 360M
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE X1 Turbo (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%20X1%20Turbo-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE X1 Turbo
+License: open
+Type: model
+Announce: https://x.com/Baidu_Inc/status/1915603080336597310</description>
+  </item>
+  <item>
+    <title>ERNIE 4.5 Turbo (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%204.5%20Turbo-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE 4.5 Turbo
+License: open
+Type: model
+Announce: https://x.com/Baidu_Inc/status/1915603080336597310</description>
+  </item>
+  <item>
+    <title>ERNIE-4.5-VL-424B-A47B (文心大模型4.5) (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-4.5-VL-424B-A47B%20(%E6%96%87%E5%BF%83%E5%A4%A7%E6%A8%A1%E5%9E%8B4.5)-2025-03-16</guid>
+    <pubDate>Sun, 16 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 424B
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE x1 (文心大模型X1) (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%20x1%20(%E6%96%87%E5%BF%83%E5%A4%A7%E6%A8%A1%E5%9E%8BX1)-2025-03-16</guid>
+    <pubDate>Sun, 16 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE 4.5 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%204.5-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE 4.5
+License: open
+Type: model
+424B-A47B. Announce: https://x.com/Baidu_Inc/status/1901094083508220035</description>
+  </item>
+  <item>
+    <title>X1 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#X1-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: X1
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>HelixProtX (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HelixProtX-2024-07-12</guid>
+    <pubDate>Fri, 12 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>Ernie 4.0 Turbo (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ernie%204.0%20Turbo-2024-06-28</guid>
+    <pubDate>Fri, 28 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE 4.0 Turbo (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%204.0%20Turbo-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE 4.0 Turbo
+License: open
+Type: model
+&quot;Ernie Bot has reached 300 million users since its launch [on 16/Mar/2023, public Aug/2023]&quot; Jun/2024</description>
+  </item>
+  <item>
+    <title>HelixFold (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HelixFold-2024-05-17</guid>
+    <pubDate>Fri, 17 May 2024 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE 4.0 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%204.0-2023-10-17</guid>
+    <pubDate>Tue, 17 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE 4.0 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%204.0-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE 4.0
+License: open
+Type: model
+Dense (confirmed). English-dubbed launch video (2h52m): https://twitter.com/i/broadcasts/1yNGaZaeallJj &amp; https://youtu.be/wYozcsavRuM</description>
+  </item>
+  <item>
+    <title>ERNIE 3.5 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%203.5-2023-06-27</guid>
+    <pubDate>Tue, 27 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-Code (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-Code-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE-Code
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>ERNIE 3.0 Titan (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%203.0%20Titan-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: ERNIE 3.0 Titan
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>PLATO-XL (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PLATO-XL-2021-09-20</guid>
+    <pubDate>Mon, 20 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>PLATO-XL (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PLATO-XL-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: PLATO-XL
+License: open
+Type: model
+Chatbot. Reddit comments + CN social</description>
+  </item>
+  <item>
+    <title>ERNIE 3.0 (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%203.0-2021-07-05</guid>
+    <pubDate>Mon, 05 Jul 2021 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 10B
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-Doc (247M) (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-Doc%20(247M)-2020-12-31</guid>
+    <pubDate>Thu, 31 Dec 2020 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 247.0M
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-Doc Base (151M, WT103) (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-Doc%20Base%20(151M%2C%20WT103)-2020-12-31</guid>
+    <pubDate>Thu, 31 Dec 2020 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 151M
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>ERNIE-GEN (large) (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE-GEN%20(large)-2020-08-06</guid>
+    <pubDate>Thu, 06 Aug 2020 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>open</category>
+    <description>Parameters: 340M
+License: open
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>DL scaling speech (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DL%20scaling%20speech-2017-12-01</guid>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>Parameters: 193M
+License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>DL scaling LM (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DL%20scaling%20LM-2017-12-01</guid>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>Parameters: 177M
+License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>DL scaling Image (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DL%20scaling%20Image-2017-12-01</guid>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>Parameters: 121M
+License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  </channel>
+</rss>

@@ -1,8 +1,8 @@
 import { BarChart } from "@/components/charts";
-import { getWakaTimeHourlyHeatmap } from "./wakatime-utils";
 
-export async function WakaTimeHourlyHeatmap() {
-  const heatmapData = await getWakaTimeHourlyHeatmap();
+type HeatmapItem = { day: string; dayIndex: number; hours: number; percent: number };
+
+export function WakaTimeHourlyHeatmapView({ heatmapData }: { heatmapData: HeatmapItem[] }) {
 
   // Hide component completely if no data available
   if (!heatmapData || heatmapData.length === 0) {

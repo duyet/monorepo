@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai Jiao Tong University,Shanghai AI Lab,East China University of Science and Technology,Shanghai Tech University,Guangzhou Inernational Bio Island,Chinese Academy of Sciences,Shanghai Academy of Experimental Medicine Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-jiao-tong-university,shanghai-ai-lab,east-china-university-of-science-and</link>
+    <description>Large Language Model releases from Shanghai Jiao Tong University,Shanghai AI Lab,East China University of Science and Technology,Shanghai Tech University,Guangzhou Inernational Bio Island,Chinese Academy of Sciences,Shanghai Academy of Experimental Medicine.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-jiao-tong-university,shanghai-ai-lab,east-china-university-of-science-and/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai Jiao Tong University,Shanghai AI Lab,East China University of Science and Technology,Shanghai Tech University,Guangzhou Inernational Bio Island,Chinese Academy of Sciences,Shanghai Academy of Experimental Medicine Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-jiao-tong-university,shanghai-ai-lab,east-china-university-of-science-and</link>
+    </image>
+  <item>
+    <title>Pro-PRIME (Shanghai Jiao Tong University,Shanghai AI Lab,East China University of Science and Technology,Shanghai Tech University,Guangzhou Inernational Bio Island,Chinese Academy of Sciences,Shanghai Academy of Experimental Medicine)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-jiao-tong-university,shanghai-ai-lab,east-china-university-of-science-and</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pro-PRIME-2024-10-28</guid>
+    <pubDate>Mon, 28 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai Jiao Tong University,Shanghai AI Lab,East China University of Science and Technology,Shanghai Tech University,Guangzhou Inernational Bio Island,Chinese Academy of Sciences,Shanghai Academy of Experimental Medicine</category>
+    <category>closed</category>
+    <description>Parameters: 650M
+License: closed
+Type: model
+AI model by Shanghai Jiao Tong University,Shanghai AI Lab,East China University of Science and Technology,Shanghai Tech University,Guangzhou Inernational Bio Island,Chinese Academy of Sciences,Shanghai Academy of Experimental Medicine</description>
+  </item>
+  </channel>
+</rss>

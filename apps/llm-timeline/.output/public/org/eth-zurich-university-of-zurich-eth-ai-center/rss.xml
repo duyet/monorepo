@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ETH Zurich,University of Zurich,ETH AI Center Models</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich-university-of-zurich-eth-ai-center</link>
+    <description>Large Language Model releases from ETH Zurich,University of Zurich,ETH AI Center.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/eth-zurich-university-of-zurich-eth-ai-center/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ETH Zurich,University of Zurich,ETH AI Center Models</title>
+      <link>https://llm-timeline.duyet.net/org/eth-zurich-university-of-zurich-eth-ai-center</link>
+    </image>
+  <item>
+    <title>Rethinking Molecular Design: Integrating Latent Variable and Auto-Regressive Models for Goal Directed Generation (ETH Zurich,University of Zurich,ETH AI Center)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich-university-of-zurich-eth-ai-center</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Rethinking%20Molecular%20Design%3A%20Integrating%20Latent%20Variable%20and%20Auto-Regressive%20Models%20for%20Goal%20Directed%20Generation-2024-08-19</guid>
+    <pubDate>Mon, 19 Aug 2024 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,University of Zurich,ETH AI Center</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ETH Zurich,University of Zurich,ETH AI Center</description>
+  </item>
+  </channel>
+</rss>

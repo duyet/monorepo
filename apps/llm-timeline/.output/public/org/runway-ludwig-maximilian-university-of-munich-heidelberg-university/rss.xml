@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Runway,Ludwig Maximilian University of Munich,Heidelberg University Models</title>
+    <link>https://llm-timeline.duyet.net/org/runway-ludwig-maximilian-university-of-munich-heidelberg-university</link>
+    <description>Large Language Model releases from Runway,Ludwig Maximilian University of Munich,Heidelberg University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/runway-ludwig-maximilian-university-of-munich-heidelberg-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Runway,Ludwig Maximilian University of Munich,Heidelberg University Models</title>
+      <link>https://llm-timeline.duyet.net/org/runway-ludwig-maximilian-university-of-munich-heidelberg-university</link>
+    </image>
+  <item>
+    <title>Stable Diffusion (LDM-KL-8-G) (Runway,Ludwig Maximilian University of Munich,Heidelberg University)</title>
+    <link>https://llm-timeline.duyet.net/org/runway-ludwig-maximilian-university-of-munich-heidelberg-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%20(LDM-KL-8-G)-2022-04-13</guid>
+    <pubDate>Wed, 13 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Runway,Ludwig Maximilian University of Munich,Heidelberg University</category>
+    <category>open</category>
+    <description>Parameters: 1.4B
+License: open
+Type: model
+AI model by Runway,Ludwig Maximilian University of Munich,Heidelberg University</description>
+  </item>
+  </channel>
+</rss>

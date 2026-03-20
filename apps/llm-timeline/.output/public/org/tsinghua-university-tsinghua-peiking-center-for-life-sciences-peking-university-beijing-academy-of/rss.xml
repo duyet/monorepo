@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Tsinghua-Peiking Center for Life Sciences,Peking University,Beijing Academy of Artificial Intelligence / BAAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-tsinghua-peiking-center-for-life-sciences-peking-university-beijing-academy-of</link>
+    <description>Large Language Model releases from Tsinghua University,Tsinghua-Peiking Center for Life Sciences,Peking University,Beijing Academy of Artificial Intelligence / BAAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university-tsinghua-peiking-center-for-life-sciences-peking-university-beijing-academy-of/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Tsinghua-Peiking Center for Life Sciences,Peking University,Beijing Academy of Artificial Intelligence / BAAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university-tsinghua-peiking-center-for-life-sciences-peking-university-beijing-academy-of</link>
+    </image>
+  <item>
+    <title>DrugCLIP (Tsinghua University,Tsinghua-Peiking Center for Life Sciences,Peking University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-tsinghua-peiking-center-for-life-sciences-peking-university-beijing-academy-of</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DrugCLIP-2024-09-03</guid>
+    <pubDate>Tue, 03 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Tsinghua-Peiking Center for Life Sciences,Peking University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Tsinghua University,Tsinghua-Peiking Center for Life Sciences,Peking University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  </channel>
+</rss>

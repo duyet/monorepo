@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 360 Security Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <description>Large Language Model releases from 360 Security Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/360-security-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 360 Security Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    </image>
+  <item>
+    <title>360Zhinao3-7B-O1.5 (360 Security Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#360Zhinao3-7B-O1.5-2025-04-14</guid>
+    <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+    <category>360 Security Technology</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by 360 Security Technology</description>
+  </item>
+  <item>
+    <title>360zhinao2-o1 (360 Security Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#360zhinao2-o1-2024-12-13</guid>
+    <pubDate>Fri, 13 Dec 2024 00:00:00 GMT</pubDate>
+    <category>360 Security Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by 360 Security Technology</description>
+  </item>
+  <item>
+    <title>360gpt2-pro (360 Security Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#360gpt2-pro-2024-11-29</guid>
+    <pubDate>Fri, 29 Nov 2024 00:00:00 GMT</pubDate>
+    <category>360 Security Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by 360 Security Technology</description>
+  </item>
+  <item>
+    <title>360Zhinao2-7B (360 Security Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#360Zhinao2-7B-2024-11-18</guid>
+    <pubDate>Mon, 18 Nov 2024 00:00:00 GMT</pubDate>
+    <category>360 Security Technology</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by 360 Security Technology</description>
+  </item>
+  <item>
+    <title>360Zhinao-7B (360 Security Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#360Zhinao-7B-2024-05-22</guid>
+    <pubDate>Wed, 22 May 2024 00:00:00 GMT</pubDate>
+    <category>360 Security Technology</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by 360 Security Technology</description>
+  </item>
+  <item>
+    <title>360 Smart Brain (360 Security Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/360-security-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#360%20Smart%20Brain-2023-09-04</guid>
+    <pubDate>Mon, 04 Sep 2023 00:00:00 GMT</pubDate>
+    <category>360 Security Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by 360 Security Technology</description>
+  </item>
+  </channel>
+</rss>

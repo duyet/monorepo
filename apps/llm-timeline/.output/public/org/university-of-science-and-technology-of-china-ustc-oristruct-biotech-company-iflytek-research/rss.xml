@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Science and Technology of China (USTC),Oristruct Biotech Company,iFLYTEK Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-science-and-technology-of-china-ustc-oristruct-biotech-company-iflytek-research</link>
+    <description>Large Language Model releases from University of Science and Technology of China (USTC),Oristruct Biotech Company,iFLYTEK Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-science-and-technology-of-china-ustc-oristruct-biotech-company-iflytek-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Science and Technology of China (USTC),Oristruct Biotech Company,iFLYTEK Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-science-and-technology-of-china-ustc-oristruct-biotech-company-iflytek-research</link>
+    </image>
+  <item>
+    <title>SCUBA-D (University of Science and Technology of China (USTC),Oristruct Biotech Company,iFLYTEK Research)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-science-and-technology-of-china-ustc-oristruct-biotech-company-iflytek-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SCUBA-D-2024-10-09</guid>
+    <pubDate>Wed, 09 Oct 2024 00:00:00 GMT</pubDate>
+    <category>University of Science and Technology of China (USTC),Oristruct Biotech Company,iFLYTEK Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Science and Technology of China (USTC),Oristruct Biotech Company,iFLYTEK Research</description>
+  </item>
+  </channel>
+</rss>

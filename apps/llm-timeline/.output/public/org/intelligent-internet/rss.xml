@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Intelligent Internet Models</title>
+    <link>https://llm-timeline.duyet.net/org/intelligent-internet</link>
+    <description>Large Language Model releases from Intelligent Internet.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/intelligent-internet/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Intelligent Internet Models</title>
+      <link>https://llm-timeline.duyet.net/org/intelligent-internet</link>
+    </image>
+  <item>
+    <title>II-Medical-8B (Intelligent Internet)</title>
+    <link>https://llm-timeline.duyet.net/org/intelligent-internet</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#II-Medical-8B-2025-05-15</guid>
+    <pubDate>Thu, 15 May 2025 00:00:00 GMT</pubDate>
+    <category>Intelligent Internet</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Intelligent Internet</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California (UC) Berkeley,OpenAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-openai</link>
+    <description>Large Language Model releases from University of California (UC) Berkeley,OpenAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-openai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California (UC) Berkeley,OpenAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-openai</link>
+    </image>
+  <item>
+    <title>Variational Lossy Autoencoder (VLAE) MNIST (University of California (UC) Berkeley,OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-openai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Variational%20Lossy%20Autoencoder%20(VLAE)%20MNIST-2017-03-04</guid>
+    <pubDate>Sat, 04 Mar 2017 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley,OpenAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley,OpenAI</description>
+  </item>
+  </channel>
+</rss>

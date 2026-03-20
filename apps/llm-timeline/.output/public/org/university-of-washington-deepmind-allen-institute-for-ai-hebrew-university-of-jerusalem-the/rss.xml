@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Washington,DeepMind,Allen Institute for AI,Hebrew University of Jerusalem,The University of Hong Kong Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-deepmind-allen-institute-for-ai-hebrew-university-of-jerusalem-the</link>
+    <description>Large Language Model releases from University of Washington,DeepMind,Allen Institute for AI,Hebrew University of Jerusalem,The University of Hong Kong.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-washington-deepmind-allen-institute-for-ai-hebrew-university-of-jerusalem-the/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Washington,DeepMind,Allen Institute for AI,Hebrew University of Jerusalem,The University of Hong Kong Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-washington-deepmind-allen-institute-for-ai-hebrew-university-of-jerusalem-the</link>
+    </image>
+  <item>
+    <title>RFA-GATE-Gaussian-Stateful Big (University of Washington,DeepMind,Allen Institute for AI,Hebrew University of Jerusalem,The University of Hong Kong)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-deepmind-allen-institute-for-ai-hebrew-university-of-jerusalem-the</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RFA-GATE-Gaussian-Stateful%20Big-2021-03-03</guid>
+    <pubDate>Wed, 03 Mar 2021 00:00:00 GMT</pubDate>
+    <category>University of Washington,DeepMind,Allen Institute for AI,Hebrew University of Jerusalem,The University of Hong Kong</category>
+    <category>closed</category>
+    <description>Parameters: 242M
+License: closed
+Type: model
+AI model by University of Washington,DeepMind,Allen Institute for AI,Hebrew University of Jerusalem,The University of Hong Kong</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NAVER Models</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <description>Large Language Model releases from NAVER.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/naver/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NAVER Models</title>
+      <link>https://llm-timeline.duyet.net/org/naver</link>
+    </image>
+  <item>
+    <title>HyperCLOVA X SEED 32B Think (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HyperCLOVA%20X%20SEED%2032B%20Think-2025-12-29</guid>
+    <pubDate>Mon, 29 Dec 2025 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>Parameters: 32B
+License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  <item>
+    <title>HyperCLOVA X (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HyperCLOVA%20X-2023-08-24</guid>
+    <pubDate>Thu, 24 Aug 2023 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  <item>
+    <title>LLaMA-7B (LoRA finetuned) (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-7B%20(LoRA%20finetuned)-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  <item>
+    <title>LLaMA-65B (LoRA finetuned) (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-65B%20(LoRA%20finetuned)-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>Parameters: 65.2B
+License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  <item>
+    <title>LLaMA-13B (LoRA finetuned) (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-13B%20(LoRA%20finetuned)-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  <item>
+    <title>LLaMA-33B (LoRA finetuned) (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaMA-33B%20(LoRA%20finetuned)-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>Parameters: 33B
+License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  <item>
+    <title>HyperCLOVA 204B (NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HyperCLOVA%20204B-2021-09-10</guid>
+    <pubDate>Fri, 10 Sep 2021 00:00:00 GMT</pubDate>
+    <category>NAVER</category>
+    <category>closed</category>
+    <description>Parameters: 204B
+License: closed
+Type: model
+AI model by NAVER</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1993 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1993</link>
+    <description>Large Language Model releases from 1993.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1993/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1993 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1993</link>
+    </image>
+  <item>
+    <title>Learning-curve prediction (AT&amp;T)</title>
+    <link>https://llm-timeline.duyet.net/year/1993</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Learning-curve%20prediction-1993-11-29</guid>
+    <pubDate>Mon, 29 Nov 1993 00:00:00 GMT</pubDate>
+    <category>AT&amp;T</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by AT&amp;T</description>
+  </item>
+  <item>
+    <title>Siamese-TDNN (Bell Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/1993</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Siamese-TDNN-1993-08-01</guid>
+    <pubDate>Sun, 01 Aug 1993 00:00:00 GMT</pubDate>
+    <category>Bell Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 744
+License: closed
+Type: model
+AI model by Bell Laboratories</description>
+  </item>
+  </channel>
+</rss>

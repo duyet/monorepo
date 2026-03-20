@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Chinese University of Hong Kong (CUHK),Microsoft Models</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),microsoft</link>
+    <description>Large Language Model releases from Chinese University of Hong Kong (CUHK),Microsoft.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),microsoft/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Chinese University of Hong Kong (CUHK),Microsoft Models</title>
+      <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),microsoft</link>
+    </image>
+  <item>
+    <title>Quantized ADMM (Chinese University of Hong Kong (CUHK),Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),microsoft</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Quantized%20ADMM-2021-11-29</guid>
+    <pubDate>Mon, 29 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK),Microsoft</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK),Microsoft</description>
+  </item>
+  </channel>
+</rss>

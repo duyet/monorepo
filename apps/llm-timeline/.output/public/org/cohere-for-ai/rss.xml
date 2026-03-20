@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Cohere for AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/cohere-for-ai</link>
+    <description>Large Language Model releases from Cohere for AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cohere-for-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Cohere for AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/cohere-for-ai</link>
+    </image>
+  <item>
+    <title>Aya Expanse 32B (Cohere for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/cohere-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Aya%20Expanse%2032B-2024-10-24</guid>
+    <pubDate>Thu, 24 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Cohere for AI</category>
+    <category>open</category>
+    <description>Parameters: 32.3B
+License: open
+Type: model
+AI model by Cohere for AI</description>
+  </item>
+  <item>
+    <title>Aya Expanse 8B (Cohere for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/cohere-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Aya%20Expanse%208B-2024-10-24</guid>
+    <pubDate>Thu, 24 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Cohere for AI</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Cohere for AI</description>
+  </item>
+  </channel>
+</rss>

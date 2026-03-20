@@ -1,5 +1,4 @@
-/// <reference types="next" />
-/// <reference types="next/image-types/global" />
+/// <reference types="vite/client" />
 
 // Type declarations for bun:test (used in test files)
 declare module "bun:test" {

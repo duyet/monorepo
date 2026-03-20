@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Oppo Mobile Telecommunications Models</title>
+    <link>https://llm-timeline.duyet.net/org/oppo-mobile-telecommunications</link>
+    <description>Large Language Model releases from Oppo Mobile Telecommunications.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/oppo-mobile-telecommunications/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Oppo Mobile Telecommunications Models</title>
+      <link>https://llm-timeline.duyet.net/org/oppo-mobile-telecommunications</link>
+    </image>
+  <item>
+    <title>AndesGPT (Oppo Mobile Telecommunications)</title>
+    <link>https://llm-timeline.duyet.net/org/oppo-mobile-telecommunications</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AndesGPT-2023-11-16</guid>
+    <pubDate>Thu, 16 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Oppo Mobile Telecommunications</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Oppo Mobile Telecommunications</description>
+  </item>
+  </channel>
+</rss>

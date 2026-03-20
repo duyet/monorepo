@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Cerebras Systems Models</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras-systems</link>
+    <description>Large Language Model releases from Cerebras Systems.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cerebras-systems/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Cerebras Systems Models</title>
+      <link>https://llm-timeline.duyet.net/org/cerebras-systems</link>
+    </image>
+  <item>
+    <title>BTLM-3B (Cerebras Systems)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras-systems</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BTLM-3B-2023-09-20</guid>
+    <pubDate>Wed, 20 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras Systems</category>
+    <category>open</category>
+    <description>Parameters: 2.6B
+License: open
+Type: model
+AI model by Cerebras Systems</description>
+  </item>
+  <item>
+    <title>Cerebras-GPT-13B (Cerebras Systems)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras-systems</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cerebras-GPT-13B-2023-04-06</guid>
+    <pubDate>Thu, 06 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras Systems</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Cerebras Systems</description>
+  </item>
+  <item>
+    <title>Sparse Wide GPT-3 Small (Cerebras Systems)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras-systems</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparse%20Wide%20GPT-3%20Small-2023-03-21</guid>
+    <pubDate>Tue, 21 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras Systems</category>
+    <category>closed</category>
+    <description>Parameters: 1.3B
+License: closed
+Type: model
+AI model by Cerebras Systems</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tilde AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/tilde-ai</link>
+    <description>Large Language Model releases from Tilde AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tilde-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tilde AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/tilde-ai</link>
+    </image>
+  <item>
+    <title>TildeOpen-30b (Tilde AI)</title>
+    <link>https://llm-timeline.duyet.net/org/tilde-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TildeOpen-30b-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Tilde AI</category>
+    <category>open</category>
+    <description>Parameters: TildeOpen-30b
+License: open
+Type: model
+&quot;language data from across Europe&quot;</description>
+  </item>
+  </channel>
+</rss>

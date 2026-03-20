@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2007 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <description>Large Language Model releases from 2007.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2007/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2007 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2007</link>
+    </image>
+  <item>
+    <title>Enhanced Neighborhood-Based Filtering (AT&amp;T)</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Enhanced%20Neighborhood-Based%20Filtering-2007-10-28</guid>
+    <pubDate>Sun, 28 Oct 2007 00:00:00 GMT</pubDate>
+    <category>AT&amp;T</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by AT&amp;T</description>
+  </item>
+  <item>
+    <title>BLSTM for handwriting (1) (University of Bern,IDSIA,Technical University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLSTM%20for%20handwriting%20(1)-2007-09-23</guid>
+    <pubDate>Sun, 23 Sep 2007 00:00:00 GMT</pubDate>
+    <category>University of Bern,IDSIA,Technical University of Munich</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Bern,IDSIA,Technical University of Munich</description>
+  </item>
+  <item>
+    <title>Fisher Kernel GMM (Xerox)</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fisher%20Kernel%20GMM-2007-07-16</guid>
+    <pubDate>Mon, 16 Jul 2007 00:00:00 GMT</pubDate>
+    <category>Xerox</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Xerox</description>
+  </item>
+  <item>
+    <title>SB-LM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SB-LM-2007-06-22</guid>
+    <pubDate>Fri, 22 Jun 2007 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 300B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>KN-LM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KN-LM-2007-06-22</guid>
+    <pubDate>Fri, 22 Jun 2007 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 21B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Empirical evaluation of deep architectures (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2007</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Empirical%20evaluation%20of%20deep%20architectures-2007-06-01</guid>
+    <pubDate>Fri, 01 Jun 2007 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  </channel>
+</rss>

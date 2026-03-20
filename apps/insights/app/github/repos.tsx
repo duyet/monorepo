@@ -1,7 +1,6 @@
 import type { GithubRepo } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
 import { CodeIcon, StarIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 import { getGithubToken } from "./github-utils";
 
 interface RepoProps {
@@ -9,25 +8,17 @@ interface RepoProps {
   className?: string;
 }
 
-export async function Repos({ owner, className }: RepoProps) {
-  const repos = await getGithubRepos(
-    owner,
-    ["clickhouse-monitoring", "pricetrack", "grant-rs", "charts"],
-    [
-      "awesome-web-scraper",
-      "vietnamese-wordlist",
-      "vietnamese-namedb",
-      "vietnamese-frontend-interview-questions",
-      "opencv-car-detection",
-      "saveto",
-      "firebase-shorten-url",
-      "google-search-crawler",
-    ],
-    12
-  );
-
-  // Safety check for repos array
-  if (!repos || !Array.isArray(repos)) {
+/** Sync view component — receives pre-fetched repos */
+export function ReposView({
+  owner,
+  repos,
+  className,
+}: {
+  owner: string;
+  repos: GithubRepo[];
+  className?: string;
+}) {
+  if (!repos || !Array.isArray(repos) || repos.length === 0) {
     return (
       <div className={cn("w-full", className)}>
         <div className="rounded-lg border bg-card p-8 text-center">
@@ -58,9 +49,9 @@ function Repo({
 }) {
   return (
     <div className="group relative rounded-lg border bg-background p-4 transition-all">
-      <Link className="absolute inset-0 z-10" href={html_url} prefetch={false}>
+      <a className="absolute inset-0 z-10" href={html_url} target="_blank" rel="noopener noreferrer">
         <span className="sr-only">View project</span>
-      </Link>
+      </a>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
@@ -95,7 +86,7 @@ function Repo({
 /**
  * Get Github projects of a user with some preferred projects and ignored projects
  */
-async function getGithubRepos(
+export async function fetchGithubRepos(
   owner: string,
   preferredProjects: string[] = [],
   ignoredProjects: string[] = [],

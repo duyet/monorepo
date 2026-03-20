@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Baidu,Peng Cheng Laboratory Models</title>
+    <link>https://llm-timeline.duyet.net/org/baidu,peng-cheng-laboratory</link>
+    <description>Large Language Model releases from Baidu,Peng Cheng Laboratory.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/baidu,peng-cheng-laboratory/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Baidu,Peng Cheng Laboratory Models</title>
+      <link>https://llm-timeline.duyet.net/org/baidu,peng-cheng-laboratory</link>
+    </image>
+  <item>
+    <title>ERNIE 3.0 Titan (Baidu,Peng Cheng Laboratory)</title>
+    <link>https://llm-timeline.duyet.net/org/baidu,peng-cheng-laboratory</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ERNIE%203.0%20Titan-2021-12-23</guid>
+    <pubDate>Thu, 23 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Baidu,Peng Cheng Laboratory</category>
+    <category>closed</category>
+    <description>Parameters: 260B
+License: closed
+Type: model
+AI model by Baidu,Peng Cheng Laboratory</description>
+  </item>
+  </channel>
+</rss>

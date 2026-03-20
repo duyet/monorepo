@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import Image from "next/image";
 import { TextDataSource } from "./TextDataSource";
 
 interface StaticCardProps {
@@ -29,23 +28,22 @@ export function StaticCard({
       {title ? <div className="mb-5 font-bold">{title}</div> : null}
 
       <div className="block flex flex-col items-stretch dark:hidden">
-        <Image
+        <img
           alt={title || ""}
           height={500}
-          loader={({ src }) => src}
           src={url.light}
-          unoptimized
           width={800}
+          className="w-full"
         />
       </div>
 
       <div className="flex hidden flex-col gap-5 dark:block">
-        <Image
+        <img
           alt={title || ""}
           height={500}
           src={url.dark}
-          unoptimized
           width={800}
+          className="w-full"
         />
       </div>
 

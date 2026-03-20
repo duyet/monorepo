@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/shannon-ai-nanjing-university-nanyang-technological-university-zhejiang-university-zju</link>
+    <description>Large Language Model releases from Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shannon-ai-nanjing-university-nanyang-technological-university-zhejiang-university-zju/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/shannon-ai-nanjing-university-nanyang-technological-university-zhejiang-university-zju</link>
+    </image>
+  <item>
+    <title>base LM+GNN+kNN (Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU))</title>
+    <link>https://llm-timeline.duyet.net/org/shannon-ai-nanjing-university-nanyang-technological-university-zhejiang-university-zju</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#base%20LM%2BGNN%2BkNN-2021-10-17</guid>
+    <pubDate>Sun, 17 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU)</category>
+    <category>open</category>
+    <description>Parameters: 274M
+License: open
+Type: model
+AI model by Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU)</description>
+  </item>
+  <item>
+    <title>base LM+GNN (WT103) (Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU))</title>
+    <link>https://llm-timeline.duyet.net/org/shannon-ai-nanjing-university-nanyang-technological-university-zhejiang-university-zju</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#base%20LM%2BGNN%20(WT103)-2021-10-17</guid>
+    <pubDate>Sun, 17 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU)</category>
+    <category>closed</category>
+    <description>Parameters: 247M
+License: closed
+Type: model
+AI model by Shannon.AI,Nanjing University,Nanyang Technological University,Zhejiang University (ZJU)</description>
+  </item>
+  </channel>
+</rss>

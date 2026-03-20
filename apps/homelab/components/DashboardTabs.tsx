@@ -1,8 +1,7 @@
-"use client";
-
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Server, Smartphone } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
+import type { RootSearch } from "@/src/routes/__root";
 
 const tabs = [
   { id: "infrastructure", label: "Infrastructure", icon: Server },
@@ -16,26 +15,24 @@ interface DashboardTabsProps {
   smartDevices: React.ReactNode;
 }
 
-function DashboardTabsInner({
+export function DashboardTabs({
   infrastructure,
   smartDevices,
 }: DashboardTabsProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate({ from: "/" });
+  const search = useSearch({ strict: false }) as RootSearch;
   const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
-  const rawTab = searchParams.get("tab");
+  const rawTab = search.tab ?? "";
   const activeTab: TabId = tabs.some((t) => t.id === rawTab)
     ? (rawTab as TabId)
     : "infrastructure";
 
   const handleTabChange = useCallback(
     (id: TabId) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("tab", id);
-      router.replace(`?${params.toString()}`, { scroll: false });
+      navigate({ search: (prev: RootSearch) => ({ ...prev, tab: id }), replace: true });
     },
-    [router, searchParams]
+    [navigate]
   );
 
   const handleKeyDown = useCallback(
@@ -108,14 +105,3 @@ function DashboardTabsInner({
   );
 }
 
-export function DashboardTabs(props: DashboardTabsProps) {
-  return (
-    <Suspense
-      fallback={
-        <div className="h-10 w-64 animate-pulse rounded-full bg-neutral-100 dark:bg-neutral-800" />
-      }
-    >
-      <DashboardTabsInner {...props} />
-    </Suspense>
-  );
-}

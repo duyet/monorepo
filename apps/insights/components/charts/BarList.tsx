@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@duyet/libs";
-import Link from "next/link";
 import { Progress } from "@/components/ui/progress";
 
 interface BarListItem {
@@ -38,12 +37,14 @@ export function BarList({ data, className }: BarListProps) {
         return (
           <div key={index}>
             {item.href ? (
-              <Link
+              <a
                 href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:bg-muted/50 block rounded-md p-2 transition-colors"
               >
                 <ItemContent />
-              </Link>
+              </a>
             ) : (
               <div className="p-2">
                 <ItemContent />

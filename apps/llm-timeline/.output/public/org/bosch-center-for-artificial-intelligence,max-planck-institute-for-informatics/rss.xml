@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Bosch Center for Artificial Intelligence,Max Planck Institute for Informatics Models</title>
+    <link>https://llm-timeline.duyet.net/org/bosch-center-for-artificial-intelligence,max-planck-institute-for-informatics</link>
+    <description>Large Language Model releases from Bosch Center for Artificial Intelligence,Max Planck Institute for Informatics.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bosch-center-for-artificial-intelligence,max-planck-institute-for-informatics/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Bosch Center for Artificial Intelligence,Max Planck Institute for Informatics Models</title>
+      <link>https://llm-timeline.duyet.net/org/bosch-center-for-artificial-intelligence,max-planck-institute-for-informatics</link>
+    </image>
+  <item>
+    <title>U-Net GAN (FFHQ) (Bosch Center for Artificial Intelligence,Max Planck Institute for Informatics)</title>
+    <link>https://llm-timeline.duyet.net/org/bosch-center-for-artificial-intelligence,max-planck-institute-for-informatics</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-Net%20GAN%20(FFHQ)-2021-03-19</guid>
+    <pubDate>Fri, 19 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Bosch Center for Artificial Intelligence,Max Planck Institute for Informatics</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Bosch Center for Artificial Intelligence,Max Planck Institute for Informatics</description>
+  </item>
+  </channel>
+</rss>

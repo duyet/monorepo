@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Missouri Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-missouri</link>
+    <description>Large Language Model releases from University of Missouri.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-missouri/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Missouri Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-missouri</link>
+    </image>
+  <item>
+    <title>HiCEGNN (University of Missouri)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-missouri</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HiCEGNN-2025-03-22</guid>
+    <pubDate>Sat, 22 Mar 2025 00:00:00 GMT</pubDate>
+    <category>University of Missouri</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of Missouri</description>
+  </item>
+  <item>
+    <title>TransFew (University of Missouri)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-missouri</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TransFew-2024-08-17</guid>
+    <pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate>
+    <category>University of Missouri</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Missouri</description>
+  </item>
+  <item>
+    <title>DNCON2 (University of Missouri)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-missouri</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DNCON2-2018-05-01</guid>
+    <pubDate>Tue, 01 May 2018 00:00:00 GMT</pubDate>
+    <category>University of Missouri</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of Missouri</description>
+  </item>
+  </channel>
+</rss>

@@ -1,12 +1,13 @@
 import { LanguageBarChart } from "@/components/charts";
-import { getCCUsageModels } from "./utils";
-import type { CCUsageModelsProps, ModelChartData } from "./types";
+import type { CCUsageModelData, ModelChartData } from "./types";
 
-export async function CCUsageModels({
-  days = 30,
+export function CCUsageModelsView({
+  models,
   className,
-}: CCUsageModelsProps) {
-  const models = await getCCUsageModels(days);
+}: {
+  models: CCUsageModelData[];
+  className?: string;
+}) {
 
   // Transform model data for charts (converted from hook to regular functions)
   // Both charts use the same set of models for data consistency

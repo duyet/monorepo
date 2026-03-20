@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Allen Institute for AI,University of Washington Models</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <description>Large Language Model releases from Allen Institute for AI,University of Washington.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Allen Institute for AI,University of Washington Models</title>
+      <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    </image>
+  <item>
+    <title>MolmoAct-7B-D (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MolmoAct-7B-D-2025-08-19</guid>
+    <pubDate>Tue, 19 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Tulu 3 405B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tulu%203%20405B-2025-01-30</guid>
+    <pubDate>Thu, 30 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 405B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Tulu 3 (Tülu 3) 70B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tulu%203%20(T%C3%BClu%203)%2070B-2024-11-21</guid>
+    <pubDate>Thu, 21 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Tulu 3 8B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tulu%203%208B-2024-11-21</guid>
+    <pubDate>Thu, 21 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Molmo 72B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Molmo%2072B-2024-09-25</guid>
+    <pubDate>Wed, 25 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>OLMo-7B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OLMo-7B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>OLMo-1B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OLMo-1B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Tulu V2 DPO 70B (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tulu%20V2%20DPO%2070B-2023-11-20</guid>
+    <pubDate>Mon, 20 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Delphi (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Delphi-2022-07-12</guid>
+    <pubDate>Tue, 12 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Unified-IO (XL) (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unified-IO%20(XL)-2022-06-17</guid>
+    <pubDate>Fri, 17 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 2.9B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Specter (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Specter-2020-05-20</guid>
+    <pubDate>Wed, 20 May 2020 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 110M
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>UnifiedQA (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UnifiedQA-2020-05-02</guid>
+    <pubDate>Sat, 02 May 2020 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  <item>
+    <title>Transformer ELMo (Allen Institute for AI,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20ELMo-2019-01-01</guid>
+    <pubDate>Tue, 01 Jan 2019 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI,University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 56M
+License: closed
+Type: model
+AI model by Allen Institute for AI,University of Washington</description>
+  </item>
+  </channel>
+</rss>

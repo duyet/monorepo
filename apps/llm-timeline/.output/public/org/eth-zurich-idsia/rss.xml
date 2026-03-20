@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ETH Zurich,IDSIA Models</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich-idsia</link>
+    <description>Large Language Model releases from ETH Zurich,IDSIA.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/eth-zurich-idsia/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ETH Zurich,IDSIA Models</title>
+      <link>https://llm-timeline.duyet.net/org/eth-zurich-idsia</link>
+    </image>
+  <item>
+    <title>VD-RHN (ETH Zurich,IDSIA)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich-idsia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VD-RHN-2016-07-12</guid>
+    <pubDate>Tue, 12 Jul 2016 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,IDSIA</category>
+    <category>closed</category>
+    <description>Parameters: 32M
+License: closed
+Type: model
+AI model by ETH Zurich,IDSIA</description>
+  </item>
+  <item>
+    <title>Variational RHN + WT (PTB) (ETH Zurich,IDSIA)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich-idsia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Variational%20RHN%20%2B%20WT%20(PTB)-2016-07-12</guid>
+    <pubDate>Tue, 12 Jul 2016 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,IDSIA</category>
+    <category>closed</category>
+    <description>Parameters: 23M
+License: closed
+Type: model
+AI model by ETH Zurich,IDSIA</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nous Research,Arcee AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research,arcee-ai</link>
+    <description>Large Language Model releases from Nous Research,Arcee AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nous-research,arcee-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Nous Research,Arcee AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/nous-research,arcee-ai</link>
+    </image>
+  <item>
+    <title>Hermes 2 Theta Llama-3 70B (Nous Research,Arcee AI)</title>
+    <link>https://llm-timeline.duyet.net/org/nous-research,arcee-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hermes%202%20Theta%20Llama-3%2070B-2024-06-20</guid>
+    <pubDate>Thu, 20 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Nous Research,Arcee AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Nous Research,Arcee AI</description>
+  </item>
+  </channel>
+</rss>

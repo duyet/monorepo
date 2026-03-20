@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UT Austin Models</title>
+    <link>https://llm-timeline.duyet.net/org/ut-austin</link>
+    <description>Large Language Model releases from UT Austin.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ut-austin/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UT Austin Models</title>
+      <link>https://llm-timeline.duyet.net/org/ut-austin</link>
+    </image>
+  <item>
+    <title>NEAT (UT Austin)</title>
+    <link>https://llm-timeline.duyet.net/org/ut-austin</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NEAT-2002-06-01</guid>
+    <pubDate>Sat, 01 Jun 2002 00:00:00 GMT</pubDate>
+    <category>UT Austin</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by UT Austin</description>
+  </item>
+  </channel>
+</rss>

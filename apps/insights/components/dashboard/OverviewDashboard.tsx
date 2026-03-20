@@ -1,7 +1,13 @@
 import { Clock, Server, Zap } from "lucide-react";
-import { getCCUsageMetrics } from "@/app/ai/utils";
-import { getWakaTimeMetrics } from "@/app/wakatime/wakatime-utils";
+import type { CCUsageMetricsData } from "@/app/ai/types";
 import { CompactCard } from "@/components/ui/CompactCard";
+
+interface WakaTimeMetricsData {
+  totalHours: number;
+  avgDailyHours: number;
+  daysActive: number;
+  topLanguage: string;
+}
 
 // Format tokens with B/M/K suffixes (consistent with AI tab)
 function formatTokens(tokens: number): string {
@@ -17,22 +23,17 @@ function formatTokens(tokens: number): string {
   return tokens.toString();
 }
 
-export async function OverviewDashboard() {
-  // Fetch real data for AI tokens and Coding hours (consistent with AI/WakaTime tabs)
-  const [aiMetrics, wakaTimeMetrics] = await Promise.allSettled([
-    getCCUsageMetrics(30),
-    getWakaTimeMetrics(30),
-  ]);
+interface OverviewDashboardProps {
+  aiMetrics: CCUsageMetricsData | null;
+  wakaTimeMetrics: WakaTimeMetricsData | null;
+}
 
+export function OverviewDashboard({ aiMetrics, wakaTimeMetrics }: OverviewDashboardProps) {
   const aiTokens =
-    aiMetrics.status === "fulfilled" && aiMetrics.value
-      ? formatTokens(aiMetrics.value.totalTokens)
-      : null;
+    aiMetrics ? formatTokens(aiMetrics.totalTokens) : null;
 
   const codingHours =
-    wakaTimeMetrics.status === "fulfilled" && wakaTimeMetrics.value
-      ? wakaTimeMetrics.value.totalHours.toFixed(1)
-      : null;
+    wakaTimeMetrics ? wakaTimeMetrics.totalHours.toFixed(1) : null;
 
   return (
     <div className="space-y-6">

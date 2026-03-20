@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Carnegie Mellon University (CMU),Intel Labs,Bosch Center for Artificial Intelligence Models</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-intel-labs-bosch-center-for-artificial-intelligence</link>
+    <description>Large Language Model releases from Carnegie Mellon University (CMU),Intel Labs,Bosch Center for Artificial Intelligence.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-intel-labs-bosch-center-for-artificial-intelligence/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Carnegie Mellon University (CMU),Intel Labs,Bosch Center for Artificial Intelligence Models</title>
+      <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-intel-labs-bosch-center-for-artificial-intelligence</link>
+    </image>
+  <item>
+    <title>TrellisNet-MoS (1.4x larger) PTB (Carnegie Mellon University (CMU),Intel Labs,Bosch Center for Artificial Intelligence)</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu-intel-labs-bosch-center-for-artificial-intelligence</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TrellisNet-MoS%20(1.4x%20larger)%20PTB-2018-10-15</guid>
+    <pubDate>Mon, 15 Oct 2018 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU),Intel Labs,Bosch Center for Artificial Intelligence</category>
+    <category>open</category>
+    <description>Parameters: 34M
+License: open
+Type: model
+AI model by Carnegie Mellon University (CMU),Intel Labs,Bosch Center for Artificial Intelligence</description>
+  </item>
+  </channel>
+</rss>

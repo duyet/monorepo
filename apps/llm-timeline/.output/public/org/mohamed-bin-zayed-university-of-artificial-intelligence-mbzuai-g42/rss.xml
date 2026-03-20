@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42 Models</title>
+    <link>https://llm-timeline.duyet.net/org/mohamed-bin-zayed-university-of-artificial-intelligence-mbzuai-g42</link>
+    <description>Large Language Model releases from Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mohamed-bin-zayed-university-of-artificial-intelligence-mbzuai-g42/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42 Models</title>
+      <link>https://llm-timeline.duyet.net/org/mohamed-bin-zayed-university-of-artificial-intelligence-mbzuai-g42</link>
+    </image>
+  <item>
+    <title>K2 Think (Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42)</title>
+    <link>https://llm-timeline.duyet.net/org/mohamed-bin-zayed-university-of-artificial-intelligence-mbzuai-g42</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#K2%20Think-2025-09-09</guid>
+    <pubDate>Tue, 09 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),G42</description>
+  </item>
+  </channel>
+</rss>

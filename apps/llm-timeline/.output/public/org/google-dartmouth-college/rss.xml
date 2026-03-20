@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,Dartmouth College Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-dartmouth-college</link>
+    <description>Large Language Model releases from Google,Dartmouth College.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-dartmouth-college/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,Dartmouth College Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-dartmouth-college</link>
+    </image>
+  <item>
+    <title>Instruct-GPT + Mind&apos;s Eye (Google,Dartmouth College)</title>
+    <link>https://llm-timeline.duyet.net/org/google-dartmouth-college</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Instruct-GPT%20%2B%20Mind&apos;s%20Eye-2022-10-11</guid>
+    <pubDate>Tue, 11 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google,Dartmouth College</category>
+    <category>closed</category>
+    <description>Parameters: 176.5B
+License: closed
+Type: model
+AI model by Google,Dartmouth College</description>
+  </item>
+  </channel>
+</rss>

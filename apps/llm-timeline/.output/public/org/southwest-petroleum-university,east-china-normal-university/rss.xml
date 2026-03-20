@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Southwest Petroleum University,East China Normal University Models</title>
+    <link>https://llm-timeline.duyet.net/org/southwest-petroleum-university,east-china-normal-university</link>
+    <description>Large Language Model releases from Southwest Petroleum University,East China Normal University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/southwest-petroleum-university,east-china-normal-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Southwest Petroleum University,East China Normal University Models</title>
+      <link>https://llm-timeline.duyet.net/org/southwest-petroleum-university,east-china-normal-university</link>
+    </image>
+  <item>
+    <title>MolPath (Southwest Petroleum University,East China Normal University)</title>
+    <link>https://llm-timeline.duyet.net/org/southwest-petroleum-university,east-china-normal-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MolPath-2024-10-13</guid>
+    <pubDate>Sun, 13 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Southwest Petroleum University,East China Normal University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Southwest Petroleum University,East China Normal University</description>
+  </item>
+  </channel>
+</rss>

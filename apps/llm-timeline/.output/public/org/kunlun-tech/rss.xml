@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Kunlun Tech Models</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-tech</link>
+    <description>Large Language Model releases from Kunlun Tech.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/kunlun-tech/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Kunlun Tech Models</title>
+      <link>https://llm-timeline.duyet.net/org/kunlun-tech</link>
+    </image>
+  <item>
+    <title>Skywork MoE 16x13B (Kunlun Tech)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-tech</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skywork%20MoE%2016x13B-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Kunlun Tech</category>
+    <category>open</category>
+    <description>Parameters: Skywork MoE 16x13B
+License: open
+Type: model
+CN + EN. &quot;(MoE) model with 146 billion parameters, 16 experts, and 22 billion activated parameters. This model is initialized from the pre-existing dense checkpoints of our Skywork-13B model.&quot;</description>
+  </item>
+  <item>
+    <title>Skywork-13B (Kunlun Tech)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-tech</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skywork-13B-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Kunlun Tech</category>
+    <category>open</category>
+    <description>Parameters: Skywork-13B
+License: open
+Type: model
+CN + EN.</description>
+  </item>
+  </channel>
+</rss>

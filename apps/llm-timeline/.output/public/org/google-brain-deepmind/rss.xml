@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google Brain,DeepMind Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-brain-deepmind</link>
+    <description>Large Language Model releases from Google Brain,DeepMind.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-brain-deepmind/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google Brain,DeepMind Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-brain-deepmind</link>
+    </image>
+  <item>
+    <title>SPN (ImageNet 128) (Google Brain,DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-brain-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SPN%20(ImageNet%20128)-2018-12-04</guid>
+    <pubDate>Tue, 04 Dec 2018 00:00:00 GMT</pubDate>
+    <category>Google Brain,DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 250M
+License: closed
+Type: model
+AI model by Google Brain,DeepMind</description>
+  </item>
+  <item>
+    <title>SPN (CelebA HQ) (Google Brain,DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-brain-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SPN%20(CelebA%20HQ)-2018-12-04</guid>
+    <pubDate>Tue, 04 Dec 2018 00:00:00 GMT</pubDate>
+    <category>Google Brain,DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 50M
+License: closed
+Type: model
+AI model by Google Brain,DeepMind</description>
+  </item>
+  </channel>
+</rss>

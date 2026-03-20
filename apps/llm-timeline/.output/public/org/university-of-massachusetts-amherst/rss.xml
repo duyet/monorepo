@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Massachusetts Amherst Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-massachusetts-amherst</link>
+    <description>Large Language Model releases from University of Massachusetts Amherst.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-massachusetts-amherst/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Massachusetts Amherst Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-massachusetts-amherst</link>
+    </image>
+  <item>
+    <title>Transformer-C (University of Massachusetts Amherst)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-massachusetts-amherst</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-C-2021-04-08</guid>
+    <pubDate>Thu, 08 Apr 2021 00:00:00 GMT</pubDate>
+    <category>University of Massachusetts Amherst</category>
+    <category>closed</category>
+    <description>Parameters: 148M
+License: closed
+Type: model
+AI model by University of Massachusetts Amherst</description>
+  </item>
+  <item>
+    <title>ASE+ACE (University of Massachusetts Amherst)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-massachusetts-amherst</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ASE%2BACE-1983-09-01</guid>
+    <pubDate>Thu, 01 Sep 1983 00:00:00 GMT</pubDate>
+    <category>University of Massachusetts Amherst</category>
+    <category>closed</category>
+    <description>Parameters: 324
+License: closed
+Type: model
+AI model by University of Massachusetts Amherst</description>
+  </item>
+  </channel>
+</rss>

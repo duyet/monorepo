@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Tencent,Nanyang Technological University Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,tencent,nanyang-technological-university</link>
+    <description>Large Language Model releases from Tsinghua University,Tencent,Nanyang Technological University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university,tencent,nanyang-technological-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Tencent,Nanyang Technological University Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university,tencent,nanyang-technological-university</link>
+    </image>
+  <item>
+    <title>Oryx 34B (Tsinghua University,Tencent,Nanyang Technological University)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,tencent,nanyang-technological-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Oryx%2034B-2024-09-19</guid>
+    <pubDate>Thu, 19 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Tencent,Nanyang Technological University</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+AI model by Tsinghua University,Tencent,Nanyang Technological University</description>
+  </item>
+  <item>
+    <title>Oryx 7B (Tsinghua University,Tencent,Nanyang Technological University)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,tencent,nanyang-technological-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Oryx%207B-2024-09-19</guid>
+    <pubDate>Thu, 19 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Tencent,Nanyang Technological University</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Tsinghua University,Tencent,Nanyang Technological University</description>
+  </item>
+  </channel>
+</rss>

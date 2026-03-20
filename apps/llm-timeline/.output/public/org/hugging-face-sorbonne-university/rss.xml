@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hugging Face,Sorbonne University Models</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-sorbonne-university</link>
+    <description>Large Language Model releases from Hugging Face,Sorbonne University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hugging-face-sorbonne-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Hugging Face,Sorbonne University Models</title>
+      <link>https://llm-timeline.duyet.net/org/hugging-face-sorbonne-university</link>
+    </image>
+  <item>
+    <title>Idefics2 (Hugging Face,Sorbonne University)</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-sorbonne-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Idefics2-2024-05-03</guid>
+    <pubDate>Fri, 03 May 2024 00:00:00 GMT</pubDate>
+    <category>Hugging Face,Sorbonne University</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Hugging Face,Sorbonne University</description>
+  </item>
+  </channel>
+</rss>

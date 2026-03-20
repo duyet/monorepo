@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,sensetime,tsinghua-university,nanjing-university,fudan-university,chinese</link>
+    <description>Large Language Model releases from Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-ai-lab,sensetime,tsinghua-university,nanjing-university,fudan-university,chinese/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,sensetime,tsinghua-university,nanjing-university,fudan-university,chinese</link>
+    </image>
+  <item>
+    <title>InternVL2_5-26B (Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,sensetime,tsinghua-university,nanjing-university,fudan-university,chinese</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternVL2_5-26B-2024-12-06</guid>
+    <pubDate>Fri, 06 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University</category>
+    <category>open</category>
+    <description>Parameters: 25.5B
+License: open
+Type: model
+AI model by Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University</description>
+  </item>
+  <item>
+    <title>InternVL2_5-38B (Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,sensetime,tsinghua-university,nanjing-university,fudan-university,chinese</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternVL2_5-38B-2024-12-06</guid>
+    <pubDate>Fri, 06 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University</category>
+    <category>open</category>
+    <description>Parameters: 38.4B
+License: open
+Type: model
+AI model by Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University</description>
+  </item>
+  <item>
+    <title>InternVL2_5-78B (Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,sensetime,tsinghua-university,nanjing-university,fudan-university,chinese</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#InternVL2_5-78B-2024-12-06</guid>
+    <pubDate>Fri, 06 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University</category>
+    <category>open</category>
+    <description>Parameters: 78.4B
+License: open
+Type: model
+AI model by Shanghai AI Lab,SenseTime,Tsinghua University,Nanjing University,Fudan University,Chinese University of Hong Kong (CUHK),Shanghai Jiao Tong University</description>
+  </item>
+  </channel>
+</rss>

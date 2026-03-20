@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Harvard Medical School Models</title>
+    <link>https://llm-timeline.duyet.net/org/ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),university-of-cambridge,harvard-medical-school</link>
+    <description>Large Language Model releases from Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Harvard Medical School.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),university-of-cambridge,harvard-medical-school/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Harvard Medical School Models</title>
+      <link>https://llm-timeline.duyet.net/org/ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),university-of-cambridge,harvard-medical-school</link>
+    </image>
+  <item>
+    <title>RENNAISSANCE (Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Harvard Medical School)</title>
+    <link>https://llm-timeline.duyet.net/org/ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),university-of-cambridge,harvard-medical-school</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RENNAISSANCE-2024-08-30</guid>
+    <pubDate>Fri, 30 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Harvard Medical School</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Ecole Polytechnique F´ed´erale de Lausanne (EPFL),University of Cambridge,Harvard Medical School</description>
+  </item>
+  </channel>
+</rss>

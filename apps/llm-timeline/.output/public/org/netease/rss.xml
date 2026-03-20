@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NetEase Models</title>
+    <link>https://llm-timeline.duyet.net/org/netease</link>
+    <description>Large Language Model releases from NetEase.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/netease/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NetEase Models</title>
+      <link>https://llm-timeline.duyet.net/org/netease</link>
+    </image>
+  <item>
+    <title>Zi Yue (NetEase)</title>
+    <link>https://llm-timeline.duyet.net/org/netease</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zi%20Yue-2023-07-28</guid>
+    <pubDate>Fri, 28 Jul 2023 00:00:00 GMT</pubDate>
+    <category>NetEase</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NetEase</description>
+  </item>
+  <item>
+    <title>Zi Yue 2.0 (NetEase)</title>
+    <link>https://llm-timeline.duyet.net/org/netease</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zi%20Yue%202.0-2023-07-28</guid>
+    <pubDate>Fri, 28 Jul 2023 00:00:00 GMT</pubDate>
+    <category>NetEase</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NetEase</description>
+  </item>
+  </channel>
+</rss>

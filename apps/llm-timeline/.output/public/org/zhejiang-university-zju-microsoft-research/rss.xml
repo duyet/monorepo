@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Zhejiang University (ZJU),Microsoft Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/zhejiang-university-zju-microsoft-research</link>
+    <description>Large Language Model releases from Zhejiang University (ZJU),Microsoft Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/zhejiang-university-zju-microsoft-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Zhejiang University (ZJU),Microsoft Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/zhejiang-university-zju-microsoft-research</link>
+    </image>
+  <item>
+    <title>FastSpeech (Zhejiang University (ZJU),Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/org/zhejiang-university-zju-microsoft-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FastSpeech-2019-11-20</guid>
+    <pubDate>Wed, 20 Nov 2019 00:00:00 GMT</pubDate>
+    <category>Zhejiang University (ZJU),Microsoft Research</category>
+    <category>closed</category>
+    <description>Parameters: 30.1M
+License: closed
+Type: model
+AI model by Zhejiang University (ZJU),Microsoft Research</description>
+  </item>
+  </channel>
+</rss>

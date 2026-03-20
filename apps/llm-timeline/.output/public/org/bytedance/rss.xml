@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ByteDance Models</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <description>Large Language Model releases from ByteDance.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bytedance/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ByteDance Models</title>
+      <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    </image>
+  <item>
+    <title>Seedream 4.0 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seedream%204.0-2025-09-28</guid>
+    <pubDate>Sun, 28 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seed-OSS-36B-Base (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed-OSS-36B-Base-2025-08-21</guid>
+    <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seed Prover (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed%20Prover-2025-07-23</guid>
+    <pubDate>Wed, 23 Jul 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seed-1.6-Thinking (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed-1.6-Thinking-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 230B
+License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seed 1.6 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed%201.6-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 230B
+License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seedance 1.0 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seedance%201.0-2025-06-10</guid>
+    <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seed1.5-VL (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed1.5-VL-2025-05-11</guid>
+    <pubDate>Sun, 11 May 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seedream 3.0 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seedream%203.0-2025-04-16</guid>
+    <pubDate>Wed, 16 Apr 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seaweed-7B (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seaweed-7B-2025-04-11</guid>
+    <pubDate>Fri, 11 Apr 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Seed-Thinking-v1.5 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seed-Thinking-v1.5-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>Parameters: Seed-Thinking-v1.5
+License: open
+Type: model
+200B-A20B. &quot;Seed-Thinking-v1.5, capable of reasoning through thinking before responding, resulting in improved performance on a wide range of benchmarks. Seed-Thinking-v1.5 achieves 86.7 on AIME 2024, 55.0 on Codeforces and 77.3 on GPQA, demonstrating excellent reasoning abilities in STEM and coding.&quot;</description>
+  </item>
+  <item>
+    <title>Seedream 2.0 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seedream%202.0-2025-03-10</guid>
+    <pubDate>Mon, 10 Mar 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>BFS-Prover (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BFS-Prover-2025-02-25</guid>
+    <pubDate>Tue, 25 Feb 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>OmniHuman-1 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OmniHuman-1-2025-02-13</guid>
+    <pubDate>Thu, 13 Feb 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao-1.5-pro (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao-1.5-pro-2025-01-22</guid>
+    <pubDate>Wed, 22 Jan 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>UI-TARS-72B (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UI-TARS-72B-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>Parameters: UI-TARS-72B
+License: open
+Type: model
+VLM. SoTA agent &apos;computer use&apos; model to 23/Jan/2024.</description>
+  </item>
+  <item>
+    <title>Doubao-1.5-pro (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao-1.5-pro-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>Parameters: Doubao-1.5-pro
+License: open
+Type: model
+Includes 2.4B param ViT. &quot;Doubao-1.5-pro uses a sparse MoE architecture. In the pre-training stage, the performance of the MoE model activated with only a small number of parameters can exceed that of ultra-large dense pre-trained models such as Llama3.1-405B. Through the study of the sparsity scaling law, the team determined the sparse ratio that balances performance and efficiency, and determined based on the MoE scaling law that a model activated with a small number of parameters can achieve the performance of a world-class model.&quot;</description>
+  </item>
+  <item>
+    <title>Infinity (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Infinity-2024-12-05</guid>
+    <pubDate>Thu, 05 Dec 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>TokenFlow-XL (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TokenFlow-XL-2024-12-04</guid>
+    <pubDate>Wed, 04 Dec 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>TokenFlow-t2i (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TokenFlow-t2i-2024-12-04</guid>
+    <pubDate>Wed, 04 Dec 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>SeedEdit (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SeedEdit-2024-11-11</guid>
+    <pubDate>Mon, 11 Nov 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao-pro (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao-pro-2024-10-28</guid>
+    <pubDate>Mon, 28 Oct 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 500B
+License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>GR-2 (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GR-2-2024-10-08</guid>
+    <pubDate>Tue, 08 Oct 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 230M
+License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>PixelDance (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelDance-2024-09-24</guid>
+    <pubDate>Tue, 24 Sep 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>ByteDance Seaweed (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ByteDance%20Seaweed-2024-09-24</guid>
+    <pubDate>Tue, 24 Sep 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>X-Portrait (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#X-Portrait-2024-07-25</guid>
+    <pubDate>Thu, 25 Jul 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao-lite (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao-lite-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Role-Playing Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Role-Playing%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Text-to-Speech Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Text-to-Speech%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Voice Cloning Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Voice%20Cloning%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Speech Recognition Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Speech%20Recognition%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Text-to-Image Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Text-to-Image%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Function Call Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Function%20Call%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Vectorization Model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Vectorization%20Model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Image-to-Image generation model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Image-to-Image%20generation%20model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Real-Time translation model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Real-Time%20translation%20model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Doubao Video Generation model (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Doubao%20Video%20Generation%20model-2024-05-15</guid>
+    <pubDate>Wed, 15 May 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>SDXL-Lightning (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SDXL-Lightning-2024-02-24</guid>
+    <pubDate>Sat, 24 Feb 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>530B (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#530B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 530B
+License: closed
+Type: model
+Trained using 12,288 A100 GPUs, replicating MT-NLG size</description>
+  </item>
+  <item>
+    <title>175B (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#175B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>Parameters: 175B
+License: closed
+Type: model
+Trained using 12,288 A100 GPUs, replicating GPT-3 size</description>
+  </item>
+  <item>
+    <title>Fulu Gua (福禄瓜) (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fulu%20Gua%20(%E7%A6%8F%E7%A6%84%E7%93%9C)-2023-12-22</guid>
+    <pubDate>Fri, 22 Dec 2023 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  <item>
+    <title>Dou Bao (ByteDance)</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dou%20Bao-2023-08-18</guid>
+    <pubDate>Fri, 18 Aug 2023 00:00:00 GMT</pubDate>
+    <category>ByteDance</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by ByteDance</description>
+  </item>
+  </channel>
+</rss>

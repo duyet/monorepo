@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — IDSIA,SUPSI Models</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <description>Large Language Model releases from IDSIA,SUPSI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/idsia-supsi/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — IDSIA,SUPSI Models</title>
+      <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    </image>
+  <item>
+    <title>Linear Transformer (small) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Linear%20Transformer%20(small)-2021-02-22</guid>
+    <pubDate>Mon, 22 Feb 2021 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 40M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>Highway Network (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Highway%20Network-2015-11-23</guid>
+    <pubDate>Mon, 23 Nov 2015 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 2.3M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>Clockwork RNN (CW-RNN) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Clockwork%20RNN%20(CW-RNN)-2014-02-14</guid>
+    <pubDate>Fri, 14 Feb 2014 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 10K
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>DNN EM segmentation (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DNN%20EM%20segmentation-2012-12-03</guid>
+    <pubDate>Mon, 03 Dec 2012 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 218.9K
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>MCDNN (MNIST) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MCDNN%20(MNIST)-2012-02-13</guid>
+    <pubDate>Mon, 13 Feb 2012 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 2.7M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>High Performance CNN (NORB) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/org/idsia-supsi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#High%20Performance%20CNN%20(NORB)-2011-07-16</guid>
+    <pubDate>Sat, 16 Jul 2011 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 4.9M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  </channel>
+</rss>

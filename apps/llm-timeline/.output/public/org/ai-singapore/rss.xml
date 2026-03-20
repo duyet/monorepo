@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — AI Singapore Models</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <description>Large Language Model releases from AI Singapore.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ai-singapore/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — AI Singapore Models</title>
+      <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    </image>
+  <item>
+    <title>Gemma-SEA-LION-v4-27B-IT (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma-SEA-LION-v4-27B-IT-2025-08-20</guid>
+    <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>SEA-LION v3.5 70B R (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION%20v3.5%2070B%20R-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: SEA-LION v3.5 70B R
+License: open
+Type: model
+&quot;Based on Llama 3.1 70B. SEA-LION v3.5, our first set of hybrid reasoning models trained on Southeast Asian data. Mode selection is managed through the tokenizer’s chat template and offers versatile functionality, handling both complex reasoning tasks and general text generation.&quot;</description>
+  </item>
+  <item>
+    <title>SEA-LION V3 Gemma2 9B (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION%20V3%20Gemma2%209B-2024-12-19</guid>
+    <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>SEA-LION V3 Llama3.1 8B (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION%20V3%20Llama3.1%208B-2024-12-19</guid>
+    <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>SEA-LION V3 Llama3.1 70B (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION%20V3%20Llama3.1%2070B-2024-12-19</guid>
+    <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>SEA-LION-v1-7B-IT (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION-v1-7B-IT-2024-12-16</guid>
+    <pubDate>Mon, 16 Dec 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 7.5B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>SEA-LIONv3 (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LIONv3-2024-11-01</guid>
+    <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: SEA-LIONv3
+License: open
+Type: model
+SEA-LION is a collection of Large Language Models (LLMs) which has been pretrained and instruct-tuned for the Southeast Asia (SEA) region. The Gemma2 9B CPT SEA-LIONv3 base model which has undergone continued pre-training from the base Gemma-2-9B model. SEA-LION stands for Southeast Asian Languages In One Network.&apos; News: https://www.techinasia.com/news/ai-singapore-boosts-sea-ai-sealion-v3-model</description>
+  </item>
+  <item>
+    <title>Llama SEA-LION V2 8B (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%20SEA-LION%20V2%208B-2024-07-30</guid>
+    <pubDate>Tue, 30 Jul 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>Llama-SEA-LION-v2-8B-IT (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama-SEA-LION-v2-8B-IT-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>Sea-Lion (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sea-Lion-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: Sea-Lion
+License: open
+Type: model
+MPT base. MMLU=26.87. Southeast Asian languages like Thai, Vietnamese and Bahasa Indonesia. https://www.computerweekly.com/feature/Sea-Lion-explained-Southeast-Asias-first-large-language-model</description>
+  </item>
+  <item>
+    <title>SEA-LION V1 3B (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION%20V1%203B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  <item>
+    <title>SEA-LION V1 7B (AI Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/ai-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEA-LION%20V1%207B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>AI Singapore</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by AI Singapore</description>
+  </item>
+  </channel>
+</rss>

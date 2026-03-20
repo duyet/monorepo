@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Mitsubishi Electric Research Labs,Compaq CRL Models</title>
+    <link>https://llm-timeline.duyet.net/org/mitsubishi-electric-research-labs,compaq-crl</link>
+    <description>Large Language Model releases from Mitsubishi Electric Research Labs,Compaq CRL.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mitsubishi-electric-research-labs,compaq-crl/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Mitsubishi Electric Research Labs,Compaq CRL Models</title>
+      <link>https://llm-timeline.duyet.net/org/mitsubishi-electric-research-labs,compaq-crl</link>
+    </image>
+  <item>
+    <title>Decision tree (classification) (Mitsubishi Electric Research Labs,Compaq CRL)</title>
+    <link>https://llm-timeline.duyet.net/org/mitsubishi-electric-research-labs,compaq-crl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Decision%20tree%20(classification)-2001-12-08</guid>
+    <pubDate>Sat, 08 Dec 2001 00:00:00 GMT</pubDate>
+    <category>Mitsubishi Electric Research Labs,Compaq CRL</category>
+    <category>closed</category>
+    <description>Parameters: 12K
+License: closed
+Type: model
+AI model by Mitsubishi Electric Research Labs,Compaq CRL</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beihang University,University of Montreal / Université de Montréal,Chongqing University Models</title>
+    <link>https://llm-timeline.duyet.net/org/beihang-university-university-of-montreal-universit-de-montr-al-chongqing-university</link>
+    <description>Large Language Model releases from Beihang University,University of Montreal / Université de Montréal,Chongqing University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beihang-university-university-of-montreal-universit-de-montr-al-chongqing-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beihang University,University of Montreal / Université de Montréal,Chongqing University Models</title>
+      <link>https://llm-timeline.duyet.net/org/beihang-university-university-of-montreal-universit-de-montr-al-chongqing-university</link>
+    </image>
+  <item>
+    <title>GRU + p-tHSM (pretrain via Brown) (PTB) (Beihang University,University of Montreal / Université de Montréal,Chongqing University)</title>
+    <link>https://llm-timeline.duyet.net/org/beihang-university-university-of-montreal-universit-de-montr-al-chongqing-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GRU%20%2B%20p-tHSM%20(pretrain%20via%20Brown)%20(PTB)-2017-08-19</guid>
+    <pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Beihang University,University of Montreal / Université de Montréal,Chongqing University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beihang University,University of Montreal / Université de Montréal,Chongqing University</description>
+  </item>
+  <item>
+    <title>GRU + p-tHSM (pretrain via Brown) (WT2) (Beihang University,University of Montreal / Université de Montréal,Chongqing University)</title>
+    <link>https://llm-timeline.duyet.net/org/beihang-university-university-of-montreal-universit-de-montr-al-chongqing-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GRU%20%2B%20p-tHSM%20(pretrain%20via%20Brown)%20(WT2)-2017-08-19</guid>
+    <pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Beihang University,University of Montreal / Université de Montréal,Chongqing University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beihang University,University of Montreal / Université de Montréal,Chongqing University</description>
+  </item>
+  </channel>
+</rss>

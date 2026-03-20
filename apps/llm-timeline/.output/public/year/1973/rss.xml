@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1973 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1973</link>
+    <description>Large Language Model releases from 1973.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1973/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1973 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1973</link>
+    </image>
+  <item>
+    <title>Piecewise linear model (University of Kansas)</title>
+    <link>https://llm-timeline.duyet.net/year/1973</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Piecewise%20linear%20model-1973-11-01</guid>
+    <pubDate>Thu, 01 Nov 1973 00:00:00 GMT</pubDate>
+    <category>University of Kansas</category>
+    <category>closed</category>
+    <description>Parameters: 357
+License: closed
+Type: model
+AI model by University of Kansas</description>
+  </item>
+  </channel>
+</rss>

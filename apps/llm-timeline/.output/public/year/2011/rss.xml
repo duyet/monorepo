@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2011 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <description>Large Language Model releases from 2011.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2011/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2011 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2011</link>
+    </image>
+  <item>
+    <title>HOGWILD! (University of Wisconsin Madison)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HOGWILD!-2011-11-11</guid>
+    <pubDate>Fri, 11 Nov 2011 00:00:00 GMT</pubDate>
+    <category>University of Wisconsin Madison</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Wisconsin Madison</description>
+  </item>
+  <item>
+    <title>Adaptive Subgrad (Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Adaptive%20Subgrad-2011-10-03</guid>
+    <pubDate>Mon, 03 Oct 2011 00:00:00 GMT</pubDate>
+    <category>Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Technion - Israel Institute of Technology,Google,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>CNN committee (traffic sign) (IDSIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CNN%20committee%20(traffic%20sign)-2011-10-03</guid>
+    <pubDate>Mon, 03 Oct 2011 00:00:00 GMT</pubDate>
+    <category>IDSIA</category>
+    <category>closed</category>
+    <description>Parameters: 1.4M
+License: closed
+Type: model
+AI model by IDSIA</description>
+  </item>
+  <item>
+    <title>CNN Committee (NIST) (IDSIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CNN%20Committee%20(NIST)-2011-09-18</guid>
+    <pubDate>Sun, 18 Sep 2011 00:00:00 GMT</pubDate>
+    <category>IDSIA</category>
+    <category>closed</category>
+    <description>Parameters: 128.4K
+License: closed
+Type: model
+AI model by IDSIA</description>
+  </item>
+  <item>
+    <title>CNN Committee (MNIST) (IDSIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CNN%20Committee%20(MNIST)-2011-09-18</guid>
+    <pubDate>Sun, 18 Sep 2011 00:00:00 GMT</pubDate>
+    <category>IDSIA</category>
+    <category>closed</category>
+    <description>Parameters: 120.6K
+License: closed
+Type: model
+AI model by IDSIA</description>
+  </item>
+  <item>
+    <title>High Performance CNN (NORB) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#High%20Performance%20CNN%20(NORB)-2011-07-16</guid>
+    <pubDate>Sat, 16 Jul 2011 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 4.9M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>Recursive sentiment autoencoder (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Recursive%20sentiment%20autoencoder-2011-07-01</guid>
+    <pubDate>Fri, 01 Jul 2011 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Recursive Neural Network (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Recursive%20Neural%20Network-2011-06-28</guid>
+    <pubDate>Tue, 28 Jun 2011 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Cross-Lingual POS Tagger (Carnegie Mellon University (CMU),Google Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cross-Lingual%20POS%20Tagger-2011-06-19</guid>
+    <pubDate>Sun, 19 Jun 2011 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU),Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU),Google Research</description>
+  </item>
+  <item>
+    <title>Vector Space Model (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vector%20Space%20Model-2011-06-19</guid>
+    <pubDate>Sun, 19 Jun 2011 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>Parameters: 255K
+License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Deep Autoencoders (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20Autoencoders-2011-04-29</guid>
+    <pubDate>Fri, 29 Apr 2011 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 139.8M
+License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>Deep rectifier networks (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20rectifier%20networks-2011-04-13</guid>
+    <pubDate>Wed, 13 Apr 2011 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>Optimized Single-layer Net (University of Michigan,Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2011</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Optimized%20Single-layer%20Net-2011-04-11</guid>
+    <pubDate>Mon, 11 Apr 2011 00:00:00 GMT</pubDate>
+    <category>University of Michigan,Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Michigan,Stanford University</description>
+  </item>
+  </channel>
+</rss>

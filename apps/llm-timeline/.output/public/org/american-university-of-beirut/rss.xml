@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — American University of Beirut Models</title>
+    <link>https://llm-timeline.duyet.net/org/american-university-of-beirut</link>
+    <description>Large Language Model releases from American University of Beirut.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/american-university-of-beirut/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — American University of Beirut Models</title>
+      <link>https://llm-timeline.duyet.net/org/american-university-of-beirut</link>
+    </image>
+  <item>
+    <title>AraELECTRA (American University of Beirut)</title>
+    <link>https://llm-timeline.duyet.net/org/american-university-of-beirut</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AraELECTRA-2021-03-07</guid>
+    <pubDate>Sun, 07 Mar 2021 00:00:00 GMT</pubDate>
+    <category>American University of Beirut</category>
+    <category>open</category>
+    <description>Parameters: 136M
+License: open
+Type: model
+AI model by American University of Beirut</description>
+  </item>
+  <item>
+    <title>AraGPT2-Mega (American University of Beirut)</title>
+    <link>https://llm-timeline.duyet.net/org/american-university-of-beirut</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AraGPT2-Mega-2020-12-31</guid>
+    <pubDate>Thu, 31 Dec 2020 00:00:00 GMT</pubDate>
+    <category>American University of Beirut</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+AI model by American University of Beirut</description>
+  </item>
+  <item>
+    <title>AraBERT (American University of Beirut)</title>
+    <link>https://llm-timeline.duyet.net/org/american-university-of-beirut</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AraBERT-2020-03-30</guid>
+    <pubDate>Mon, 30 Mar 2020 00:00:00 GMT</pubDate>
+    <category>American University of Beirut</category>
+    <category>open</category>
+    <description>Parameters: 110M
+License: open
+Type: model
+AI model by American University of Beirut</description>
+  </item>
+  <item>
+    <title>AraBERT LArge v2 (American University of Beirut)</title>
+    <link>https://llm-timeline.duyet.net/org/american-university-of-beirut</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AraBERT%20LArge%20v2-2020-03-30</guid>
+    <pubDate>Mon, 30 Mar 2020 00:00:00 GMT</pubDate>
+    <category>American University of Beirut</category>
+    <category>open</category>
+    <description>Parameters: 371M
+License: open
+Type: model
+AI model by American University of Beirut</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California Los Angeles (UCLA),Columbia University,New York University (NYU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-los-angeles-(ucla),columbia-university,new-york-university-(nyu)</link>
+    <description>Large Language Model releases from University of California Los Angeles (UCLA),Columbia University,New York University (NYU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-los-angeles-(ucla),columbia-university,new-york-university-(nyu)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California Los Angeles (UCLA),Columbia University,New York University (NYU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-los-angeles-(ucla),columbia-university,new-york-university-(nyu)</link>
+    </image>
+  <item>
+    <title>FinGPT-13B (University of California Los Angeles (UCLA),Columbia University,New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-los-angeles-(ucla),columbia-university,new-york-university-(nyu)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FinGPT-13B-2023-10-07</guid>
+    <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+    <category>University of California Los Angeles (UCLA),Columbia University,New York University (NYU)</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by University of California Los Angeles (UCLA),Columbia University,New York University (NYU)</description>
+  </item>
+  </channel>
+</rss>

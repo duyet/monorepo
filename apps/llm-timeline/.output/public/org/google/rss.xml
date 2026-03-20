@@ -1,0 +1,1267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google Models</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <description>Large Language Model releases from Google.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google Models</title>
+      <link>https://llm-timeline.duyet.net/org/google</link>
+    </image>
+  <item>
+    <title>Gemini 2.5 Computer Use (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Computer%20Use-2025-10-07</guid>
+    <pubDate>Tue, 07 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>TimesFM-ICF (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TimesFM-ICF-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: TimesFM-ICF
+License: closed
+Type: model
+TimesFM-ICF is 6.8% more accurate than TimesFM (Base). Time-series forecasting only. &apos;a large pretraining corpus of 100B real world time-points&apos; may be more than 100B tokens.</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Flash Image (Nano Banana) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Flash%20Image%20(Nano%20Banana)-2025-08-26</guid>
+    <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>imagen 4 fast (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#imagen%204%20fast-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>MedSigLIP (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedSigLIP-2025-07-09</guid>
+    <pubDate>Wed, 09 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 800M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>SignGemma (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SignGemma-2025-05-27</guid>
+    <pubDate>Tue, 27 May 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>MedGemma 27B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedGemma%2027B-2025-05-20</guid>
+    <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Gemma 3n (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203n-2025-05-20</guid>
+    <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 7.8B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Imagen 4 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Imagen%204-2025-05-20</guid>
+    <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Imagen 4 ultra (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Imagen%204%20ultra-2025-05-20</guid>
+    <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Sec-Gemini v1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sec-Gemini%20v1-2025-04-04</guid>
+    <pubDate>Fri, 04 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaliGemma 2 3B Mix 224 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaliGemma%202%203B%20Mix%20224-2025-02-19</guid>
+    <pubDate>Wed, 19 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 2.9B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaliGemma 2 3B Mix 448 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaliGemma%202%203B%20Mix%20448-2025-02-19</guid>
+    <pubDate>Wed, 19 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 2.9B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Chirp 2 Speech-to-Text (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chirp%202%20Speech-to-Text-2024-10-09</guid>
+    <pubDate>Wed, 09 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DataGemma (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DataGemma-2024-09-12</guid>
+    <pubDate>Thu, 12 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 27.2B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>CXR Foundation (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CXR%20Foundation-2024-08-02</guid>
+    <pubDate>Fri, 02 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Gemma 1.1 7B Instruct (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%201.1%207B%20Instruct-2024-02-24</guid>
+    <pubDate>Sat, 24 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 8.5B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>TimesFM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TimesFM-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: TimesFM
+License: open
+Type: model
+Time-series forecasting only. &apos;a large pretraining corpus of 100B real world time-points&apos; may be more than 100B tokens.</description>
+  </item>
+  <item>
+    <title>Chirp (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chirp-2023-06-27</guid>
+    <pubDate>Tue, 27 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 2B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>AudioPaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AudioPaLM-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: AudioPaLM
+License: closed
+Type: model
+a unified multimodal architecture that can process and generate text and speech with applications including speech recognition and speech-to-speech translation</description>
+  </item>
+  <item>
+    <title>PaLM 2 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM%202-2023-05-10</guid>
+    <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 340B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaLM-2 Bison (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-2%20Bison-2023-05-10</guid>
+    <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaLM-2 Unicorn (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-2%20Unicorn-2023-05-10</guid>
+    <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaLM-2 Gecko (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-2%20Gecko-2023-05-10</guid>
+    <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaLM-2 Otter (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-2%20Otter-2023-05-10</guid>
+    <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaLM 2 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM%202-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: PaLM 2
+License: open
+Type: model
+“What we found in our work is that it’s not really the sort of size of model — that the larger is not always better,” Deepmind VP Zoubin Ghahramani said in a press briefing ahead of today’s announcement. “That’s why we’ve provided a family of models of different sizes. We think that actually parameter count is not really a useful way of thinking about the capabilities of models and capabilities are really to be judged by people using the models and finding out whether they’re useful in the tests that they try to achieve with these models.”</description>
+  </item>
+  <item>
+    <title>CoLT5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoLT5-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: CoLT5
+License: closed
+Type: model
+up to 64k context window [48k words or about 96 pages -Alan]</description>
+  </item>
+  <item>
+    <title>ViT-22B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ViT-22B-2023-02-10</guid>
+    <pubDate>Fri, 10 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 21.7B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>MusicLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MusicLM-2023-01-26</guid>
+    <pubDate>Thu, 26 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 860M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>RT-1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-1-2022-12-13</guid>
+    <pubDate>Tue, 13 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 35M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>RT-1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-1-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: RT-1
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>U-PaLM (540B) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-PaLM%20(540B)-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Flan-PaLM 540B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-PaLM%20540B-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Flan-T5 11B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-T5%2011B-2022-10-20</guid>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Flan-T5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-T5-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Flan-T5
+License: open
+Type: model
+T5=1T tokens + LM-adapted T5 as 100B tokens</description>
+  </item>
+  <item>
+    <title>Flan-PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan-PaLM-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: Flan-PaLM
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>U-PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-PaLM-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: U-PaLM
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>PaLI (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-2022-09-14</guid>
+    <pubDate>Wed, 14 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 16.9B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>PaLI (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: PaLI
+License: closed
+Type: model
+PaLM Vision model, new datasets of 10B multilingual text-image pairs</description>
+  </item>
+  <item>
+    <title>PaLM-SayCan (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-SayCan-2022-08-16</guid>
+    <pubDate>Tue, 16 Aug 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>‘monorepo-Transformer’ (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#%E2%80%98monorepo-Transformer%E2%80%99-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: ‘monorepo-Transformer’
+License: closed
+Type: model
+Unnamed. Writes &gt;3% of internal google code.</description>
+  </item>
+  <item>
+    <title>Minerva (540B) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minerva%20(540B)-2022-06-29</guid>
+    <pubDate>Wed, 29 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 540.4B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>BIG-G 137B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BIG-G%20137B-2022-06-09</guid>
+    <pubDate>Thu, 09 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>LIMoE-H/14 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMoE-H%2F14-2022-06-06</guid>
+    <pubDate>Mon, 06 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 5.6B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Minerva (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minerva-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: Minerva
+License: closed
+Type: model
+PaLM finetuned on LaTeX/arXiv maths</description>
+  </item>
+  <item>
+    <title>LIMoE (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LIMoE-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: LIMoE
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>UL2 20B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UL2%2020B-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: UL2 20B
+License: closed
+Type: model
+Unifying Language model. C4 only.</description>
+  </item>
+  <item>
+    <title>LaMDA 2 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LaMDA%202-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>partial</category>
+    <description>Parameters: LaMDA 2
+License: partial
+Type: model
+Chatbot with tiny walled garden demo TBA</description>
+  </item>
+  <item>
+    <title>PaLM-Coder (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-Coder-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: PaLM-Coder
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>PaLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-2022-04-01</guid>
+    <pubDate>Fri, 01 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: PaLM
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>LaMDA (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LaMDA-2022-02-10</guid>
+    <pubDate>Thu, 10 Feb 2022 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>GLaM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLaM-2021-12-13</guid>
+    <pubDate>Mon, 13 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1.2T
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>GLaM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLaM-2021-12-01</guid>
+    <pubDate>Wed, 01 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: GLaM
+License: closed
+Type: model</description>
+  </item>
+  <item>
+    <title>BASIC-L (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BASIC-L-2021-11-19</guid>
+    <pubDate>Fri, 19 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 3.1B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>BERT-480 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-480-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: BERT-480
+License: closed
+Type: model
+Submission to benchmarks. Original dataset was BookCorpus + Wikipedia: https://arxiv.org/pdf/1810.04805.pdf</description>
+  </item>
+  <item>
+    <title>BERT-200 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-200-2021-11-01</guid>
+    <pubDate>Mon, 01 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: BERT-200
+License: closed
+Type: model
+Submission to benchmarks. Original dataset was BookCorpus + Wikipedia: https://arxiv.org/pdf/1810.04805.pdf</description>
+  </item>
+  <item>
+    <title>FLAN (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAN-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: FLAN
+License: closed
+Type: model
+Fine-tuned LaMDA</description>
+  </item>
+  <item>
+    <title>LaMDA (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LaMDA-2021-06-01</guid>
+    <pubDate>Tue, 01 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: LaMDA
+License: closed
+Type: model
+Chatbot</description>
+  </item>
+  <item>
+    <title>Multitask Unified Model (MUM) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multitask%20Unified%20Model%20(MUM)-2021-05-18</guid>
+    <pubDate>Tue, 18 May 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Switch (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Switch-2021-01-11</guid>
+    <pubDate>Mon, 11 Jan 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 1.6T
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Switch (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Switch-2021-01-01</guid>
+    <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Switch
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>GShard (dense) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GShard%20(dense)-2020-06-30</guid>
+    <pubDate>Tue, 30 Jun 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 2.3B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>GShard (600B) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GShard%20(600B)-2020-06-30</guid>
+    <pubDate>Tue, 30 Jun 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 600B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Conformer (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Conformer-2020-05-16</guid>
+    <pubDate>Sat, 16 May 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 118.8M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>ContextNet (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ContextNet-2020-05-07</guid>
+    <pubDate>Thu, 07 May 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 112.7M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>MetNet (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MetNet-2020-03-24</guid>
+    <pubDate>Tue, 24 Mar 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 225M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>FFN SwiGLU (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FFN%20SwiGLU-2020-02-14</guid>
+    <pubDate>Fri, 14 Feb 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 220M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>ContextNet + Noisy Student (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ContextNet%20%2B%20Noisy%20Student-2020-01-19</guid>
+    <pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Meena (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Meena-2020-01-01</guid>
+    <pubDate>Wed, 01 Jan 2020 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: Meena
+License: closed
+Type: model
+Dialogue model. Trained 61B tokens for 164x epochs to 10T tokens!</description>
+  </item>
+  <item>
+    <title>T5-3B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5-3B-2019-10-23</guid>
+    <pubDate>Wed, 23 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 2.8B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>T5-11B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5-11B-2019-10-23</guid>
+    <pubDate>Wed, 23 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>M4-50B (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#M4-50B-2019-10-11</guid>
+    <pubDate>Fri, 11 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 50B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>T5 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5-2019-10-01</guid>
+    <pubDate>Tue, 01 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: T5
+License: open
+Type: model
+&quot;Text-to-Text Transfer Transformer&quot;. C4 + NLP language problems. &quot;compared the following three configurations: First, the standard baseline model, which was pre-trained on 235 ≈ 34B tokens; second, the baseline trained instead for about 1 trillion tokens (i.e. the same amount of pre-training used for T5), which we refer to as “baseline-1T”; and third, T5-Base.&quot;</description>
+  </item>
+  <item>
+    <title>VQ-VAE-2 (ImageNet) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VQ-VAE-2%20(ImageNet)-2019-06-02</guid>
+    <pubDate>Sun, 02 Jun 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>VQ-VAE-2 (FFHQ) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VQ-VAE-2%20(FFHQ)-2019-06-02</guid>
+    <pubDate>Sun, 02 Jun 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>MnasNet-A3 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MnasNet-A3-2019-05-29</guid>
+    <pubDate>Wed, 29 May 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 5.2M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>MnasNet-A1 + SSDLite (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MnasNet-A1%20%2B%20SSDLite-2019-05-29</guid>
+    <pubDate>Wed, 29 May 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 4.9M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>EfficientNet-B1 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EfficientNet-B1-2019-05-28</guid>
+    <pubDate>Tue, 28 May 2019 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 7.8M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>GPipe (Transformer) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPipe%20(Transformer)-2018-11-16</guid>
+    <pubDate>Fri, 16 Nov 2018 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 6B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>BERT-Large (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-Large-2018-10-11</guid>
+    <pubDate>Thu, 11 Oct 2018 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: 340M
+License: open
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>BERT (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BERT-2018-10-01</guid>
+    <pubDate>Mon, 01 Oct 2018 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: BERT
+License: open
+Type: model
+&quot;BERT — 128 000 tokens per step × 1 000 000 steps → 128 B tokens processed&quot;</description>
+  </item>
+  <item>
+    <title>DeepLabV3+ (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLabV3%2B-2018-02-07</guid>
+    <pubDate>Wed, 07 Feb 2018 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DeepLabV3 (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLabV3-2017-06-17</guid>
+    <pubDate>Sat, 17 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Transformer (big) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20(big)-2017-06-01</guid>
+    <pubDate>Thu, 01 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Transformer (big)
+License: open
+Type: model
+&quot;Transformer Big — 32 768 tokens per step × 300 000 steps → 9.83 B tokens processed&quot; &quot;We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million sentence pairs... For English-French, we used the significantly larger WMT 2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece vocabulary. Sentence pairs were batched together by approximate sequence length. Each training batch contained a set of sentence pairs containing approximately 25000 source tokens and 25000 target tokens.&quot;</description>
+  </item>
+  <item>
+    <title>Transformer (base) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20(base)-2017-06-01</guid>
+    <pubDate>Thu, 01 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Transformer (base)
+License: open
+Type: model
+&quot;Transformer Base — 32 768 tokens per step × 100 000 steps → 3.28 B tokens processed&quot; &quot;We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million sentence pairs... For English-French, we used the significantly larger WMT 2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece vocabulary. Sentence pairs were batched together by approximate sequence length. Each training batch contained a set of sentence pairs containing approximately 25000 source tokens and 25000 target tokens.&quot;</description>
+  </item>
+  <item>
+    <title>Tacotron (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tacotron-2017-04-06</guid>
+    <pubDate>Thu, 06 Apr 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Xception (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Xception-2016-10-07</guid>
+    <pubDate>Fri, 07 Oct 2016 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 22.9M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>GNMT (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GNMT-2016-09-26</guid>
+    <pubDate>Mon, 26 Sep 2016 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 278M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Youtube recommendation model (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Youtube%20recommendation%20model-2016-09-15</guid>
+    <pubDate>Thu, 15 Sep 2016 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Wide &amp; Deep (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Wide%20%26%20Deep-2016-06-24</guid>
+    <pubDate>Fri, 24 Jun 2016 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Search-Proven Best LSTM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Search-Proven%20Best%20LSTM-2015-07-06</guid>
+    <pubDate>Mon, 06 Jul 2015 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 20M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>BatchNorm (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BatchNorm-2015-06-15</guid>
+    <pubDate>Mon, 15 Jun 2015 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 13.6M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>SNM-skip (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SNM-skip-2014-12-03</guid>
+    <pubDate>Wed, 03 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 62B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Seq2Seq LSTM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Seq2Seq%20LSTM-2014-09-10</guid>
+    <pubDate>Wed, 10 Sep 2014 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1.9B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Paragraph Vector (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Paragraph%20Vector-2014-05-14</guid>
+    <pubDate>Wed, 14 May 2014 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 32M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>RNN for 1B words (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN%20for%201B%20words-2013-12-11</guid>
+    <pubDate>Wed, 11 Dec 2013 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DeViSE (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeViSE-2013-12-05</guid>
+    <pubDate>Thu, 05 Dec 2013 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Word2Vec (large) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Word2Vec%20(large)-2013-10-16</guid>
+    <pubDate>Wed, 16 Oct 2013 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 692M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Multilingual DNN (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multilingual%20DNN-2013-05-26</guid>
+    <pubDate>Sun, 26 May 2013 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 206.9M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DistBelief NNLM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DistBelief%20NNLM-2013-01-16</guid>
+    <pubDate>Wed, 16 Jan 2013 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DistBelief Speech (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DistBelief%20Speech-2012-12-03</guid>
+    <pubDate>Mon, 03 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 47.2M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DistBelief Vision (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DistBelief%20Vision-2012-12-03</guid>
+    <pubDate>Mon, 03 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1.7B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Unsupervised High-level Feature Learner (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unsupervised%20High-level%20Feature%20Learner-2012-07-12</guid>
+    <pubDate>Thu, 12 Jul 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Ngram corpus (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ngram%20corpus-2012-07-08</guid>
+    <pubDate>Sun, 08 Jul 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Conditional Maximum Entropy Model (Gigaworld) (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Conditional%20Maximum%20Entropy%20Model%20(Gigaworld)-2009-07-01</guid>
+    <pubDate>Wed, 01 Jul 2009 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>SB-LM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SB-LM-2007-06-22</guid>
+    <pubDate>Fri, 22 Jun 2007 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 300B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>KN-LM (Google)</title>
+    <link>https://llm-timeline.duyet.net/org/google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KN-LM-2007-06-22</guid>
+    <pubDate>Fri, 22 Jun 2007 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 21B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  </channel>
+</rss>

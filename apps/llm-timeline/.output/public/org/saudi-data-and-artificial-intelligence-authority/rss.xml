@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Saudi Data and Artificial Intelligence Authority Models</title>
+    <link>https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority</link>
+    <description>Large Language Model releases from Saudi Data and Artificial Intelligence Authority.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Saudi Data and Artificial Intelligence Authority Models</title>
+      <link>https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority</link>
+    </image>
+  <item>
+    <title>ALLaM adapted13B (Saudi Data and Artificial Intelligence Authority)</title>
+    <link>https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALLaM%20adapted13B-2024-05-21</guid>
+    <pubDate>Tue, 21 May 2024 00:00:00 GMT</pubDate>
+    <category>Saudi Data and Artificial Intelligence Authority</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by Saudi Data and Artificial Intelligence Authority</description>
+  </item>
+  <item>
+    <title>ALLaM adapted 70B (Saudi Data and Artificial Intelligence Authority)</title>
+    <link>https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALLaM%20adapted%2070B-2024-05-21</guid>
+    <pubDate>Tue, 21 May 2024 00:00:00 GMT</pubDate>
+    <category>Saudi Data and Artificial Intelligence Authority</category>
+    <category>closed</category>
+    <description>Parameters: 70B
+License: closed
+Type: model
+AI model by Saudi Data and Artificial Intelligence Authority</description>
+  </item>
+  <item>
+    <title>ALLaM 7B (Saudi Data and Artificial Intelligence Authority)</title>
+    <link>https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALLaM%207B-2024-05-21</guid>
+    <pubDate>Tue, 21 May 2024 00:00:00 GMT</pubDate>
+    <category>Saudi Data and Artificial Intelligence Authority</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Saudi Data and Artificial Intelligence Authority</description>
+  </item>
+  <item>
+    <title>ALLaM 34B (Saudi Data and Artificial Intelligence Authority)</title>
+    <link>https://llm-timeline.duyet.net/org/saudi-data-and-artificial-intelligence-authority</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALLaM%2034B-2024-05-21</guid>
+    <pubDate>Tue, 21 May 2024 00:00:00 GMT</pubDate>
+    <category>Saudi Data and Artificial Intelligence Authority</category>
+    <category>closed</category>
+    <description>Parameters: 34B
+License: closed
+Type: model
+AI model by Saudi Data and Artificial Intelligence Authority</description>
+  </item>
+  </channel>
+</rss>

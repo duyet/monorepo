@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Resemble AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/resemble-ai</link>
+    <description>Large Language Model releases from Resemble AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/resemble-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Resemble AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/resemble-ai</link>
+    </image>
+  <item>
+    <title>Chatterbox Multilingual (Resemble AI)</title>
+    <link>https://llm-timeline.duyet.net/org/resemble-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chatterbox%20Multilingual-2025-09-04</guid>
+    <pubDate>Thu, 04 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Resemble AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Resemble AI</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hume Models</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <description>Large Language Model releases from Hume.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hume/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Hume Models</title>
+      <link>https://llm-timeline.duyet.net/org/hume</link>
+    </image>
+  <item>
+    <title>Octave 2 (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Octave%202-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  <item>
+    <title>EVI 4 mini (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EVI%204%20mini-2025-10-01</guid>
+    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  <item>
+    <title>EVI 3 (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EVI%203-2025-05-29</guid>
+    <pubDate>Thu, 29 May 2025 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  <item>
+    <title>OCTAVE 8B (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OCTAVE%208B-2024-12-23</guid>
+    <pubDate>Mon, 23 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  <item>
+    <title>OCTAVE 3B (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OCTAVE%203B-2024-12-23</guid>
+    <pubDate>Mon, 23 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>Parameters: 3B
+License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  <item>
+    <title>EVI 2 (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EVI%202-2024-09-11</guid>
+    <pubDate>Wed, 11 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  <item>
+    <title>EVI (Hume)</title>
+    <link>https://llm-timeline.duyet.net/org/hume</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EVI-2024-04-18</guid>
+    <pubDate>Thu, 18 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Hume</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Hume</description>
+  </item>
+  </channel>
+</rss>

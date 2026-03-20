@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Universidade de Lisboa (ULisboa),DeepMind Models</title>
+    <link>https://llm-timeline.duyet.net/org/universidade-de-lisboa-ulisboa-deepmind</link>
+    <description>Large Language Model releases from Universidade de Lisboa (ULisboa),DeepMind.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/universidade-de-lisboa-ulisboa-deepmind/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Universidade de Lisboa (ULisboa),DeepMind Models</title>
+      <link>https://llm-timeline.duyet.net/org/universidade-de-lisboa-ulisboa-deepmind</link>
+    </image>
+  <item>
+    <title>$\infty$-former (SM) (Universidade de Lisboa (ULisboa),DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/universidade-de-lisboa-ulisboa-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#%24%5Cinfty%24-former%20(SM)-2021-09-01</guid>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Universidade de Lisboa (ULisboa),DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 124M
+License: closed
+Type: model
+AI model by Universidade de Lisboa (ULisboa),DeepMind</description>
+  </item>
+  </channel>
+</rss>

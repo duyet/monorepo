@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California San Diego,Facebook Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego,facebook</link>
+    <description>Large Language Model releases from University of California San Diego,Facebook.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-san-diego,facebook/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California San Diego,Facebook Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego,facebook</link>
+    </image>
+  <item>
+    <title>ResNeXt-50 (University of California San Diego,Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego,facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNeXt-50-2016-11-16</guid>
+    <pubDate>Wed, 16 Nov 2016 00:00:00 GMT</pubDate>
+    <category>University of California San Diego,Facebook</category>
+    <category>open</category>
+    <description>Parameters: 25M
+License: open
+Type: model
+AI model by University of California San Diego,Facebook</description>
+  </item>
+  <item>
+    <title>ResNeXt-101 (64×4d) (University of California San Diego,Facebook)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-san-diego,facebook</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNeXt-101%20(64%C3%974d)-2016-11-16</guid>
+    <pubDate>Wed, 16 Nov 2016 00:00:00 GMT</pubDate>
+    <category>University of California San Diego,Facebook</category>
+    <category>open</category>
+    <description>Parameters: 83M
+License: open
+Type: model
+AI model by University of California San Diego,Facebook</description>
+  </item>
+  </channel>
+</rss>

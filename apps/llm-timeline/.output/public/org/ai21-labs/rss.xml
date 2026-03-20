@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — AI21 Labs Models</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <description>Large Language Model releases from AI21 Labs.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ai21-labs/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — AI21 Labs Models</title>
+      <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    </image>
+  <item>
+    <title>Jamba 1.6 Mini (AI21 Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jamba%201.6%20Mini-2025-03-06</guid>
+    <pubDate>Thu, 06 Mar 2025 00:00:00 GMT</pubDate>
+    <category>AI21 Labs</category>
+    <category>open</category>
+    <description>Parameters: 52B
+License: open
+Type: model
+AI model by AI21 Labs</description>
+  </item>
+  <item>
+    <title>Jamba 1.6 Large (AI21 Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jamba%201.6%20Large-2025-03-06</guid>
+    <pubDate>Thu, 06 Mar 2025 00:00:00 GMT</pubDate>
+    <category>AI21 Labs</category>
+    <category>open</category>
+    <description>Parameters: 398B
+License: open
+Type: model
+AI model by AI21 Labs</description>
+  </item>
+  <item>
+    <title>Jamba 1.5-Large (AI21 Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jamba%201.5-Large-2024-08-22</guid>
+    <pubDate>Thu, 22 Aug 2024 00:00:00 GMT</pubDate>
+    <category>AI21 Labs</category>
+    <category>open</category>
+    <description>Parameters: 398B
+License: open
+Type: model
+AI model by AI21 Labs</description>
+  </item>
+  <item>
+    <title>Jamba 1.5 Mini (AI21 Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jamba%201.5%20Mini-2024-08-22</guid>
+    <pubDate>Thu, 22 Aug 2024 00:00:00 GMT</pubDate>
+    <category>AI21 Labs</category>
+    <category>open</category>
+    <description>Parameters: 52B
+License: open
+Type: model
+AI model by AI21 Labs</description>
+  </item>
+  <item>
+    <title>Jamba (AI21 Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jamba-2024-03-28</guid>
+    <pubDate>Thu, 28 Mar 2024 00:00:00 GMT</pubDate>
+    <category>AI21 Labs</category>
+    <category>open</category>
+    <description>Parameters: 51.6B
+License: open
+Type: model
+AI model by AI21 Labs</description>
+  </item>
+  <item>
+    <title>Jurassic-1-Jumbo (AI21 Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/ai21-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jurassic-1-Jumbo-2021-08-11</guid>
+    <pubDate>Wed, 11 Aug 2021 00:00:00 GMT</pubDate>
+    <category>AI21 Labs</category>
+    <category>closed</category>
+    <description>Parameters: 178B
+License: closed
+Type: model
+AI model by AI21 Labs</description>
+  </item>
+  </channel>
+</rss>

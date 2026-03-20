@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hugging Face,Brown University Models</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-brown-university</link>
+    <description>Large Language Model releases from Hugging Face,Brown University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hugging-face-brown-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Hugging Face,Brown University Models</title>
+      <link>https://llm-timeline.duyet.net/org/hugging-face-brown-university</link>
+    </image>
+  <item>
+    <title>T0-XXL (Hugging Face,Brown University)</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face-brown-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T0-XXL-2021-10-15</guid>
+    <pubDate>Fri, 15 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Hugging Face,Brown University</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Hugging Face,Brown University</description>
+  </item>
+  </channel>
+</rss>

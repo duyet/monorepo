@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST) Models</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance-nanyang-technological-university-chinese-university-of-hong-kong-cuhk-hong-kong</link>
+    <description>Large Language Model releases from ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bytedance-nanyang-technological-university-chinese-university-of-hong-kong-cuhk-hong-kong/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST) Models</title>
+      <link>https://llm-timeline.duyet.net/org/bytedance-nanyang-technological-university-chinese-university-of-hong-kong-cuhk-hong-kong</link>
+    </image>
+  <item>
+    <title>LLaVA-OV-7B (ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST))</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance-nanyang-technological-university-chinese-university-of-hong-kong-cuhk-hong-kong</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaVA-OV-7B-2024-08-06</guid>
+    <pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST)</category>
+    <category>open</category>
+    <description>Parameters: 7.6B
+License: open
+Type: model
+AI model by ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST)</description>
+  </item>
+  <item>
+    <title>LLaVA-OV-72B (ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST))</title>
+    <link>https://llm-timeline.duyet.net/org/bytedance-nanyang-technological-university-chinese-university-of-hong-kong-cuhk-hong-kong</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LLaVA-OV-72B-2024-08-06</guid>
+    <pubDate>Tue, 06 Aug 2024 00:00:00 GMT</pubDate>
+    <category>ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST)</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by ByteDance,Nanyang Technological University,Chinese University of Hong Kong (CUHK),Hong Kong University of Science and Technology (HKUST)</description>
+  </item>
+  </channel>
+</rss>

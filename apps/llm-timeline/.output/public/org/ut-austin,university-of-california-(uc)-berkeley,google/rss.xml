@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UT Austin,University of California (UC) Berkeley,Google Models</title>
+    <link>https://llm-timeline.duyet.net/org/ut-austin,university-of-california-(uc)-berkeley,google</link>
+    <description>Large Language Model releases from UT Austin,University of California (UC) Berkeley,Google.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ut-austin,university-of-california-(uc)-berkeley,google/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UT Austin,University of California (UC) Berkeley,Google Models</title>
+      <link>https://llm-timeline.duyet.net/org/ut-austin,university-of-california-(uc)-berkeley,google</link>
+    </image>
+  <item>
+    <title>Diabetic Retinopathy Detection Net (UT Austin,University of California (UC) Berkeley,Google)</title>
+    <link>https://llm-timeline.duyet.net/org/ut-austin,university-of-california-(uc)-berkeley,google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Diabetic%20Retinopathy%20Detection%20Net-2016-12-13</guid>
+    <pubDate>Tue, 13 Dec 2016 00:00:00 GMT</pubDate>
+    <category>UT Austin,University of California (UC) Berkeley,Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by UT Austin,University of California (UC) Berkeley,Google</description>
+  </item>
+  </channel>
+</rss>

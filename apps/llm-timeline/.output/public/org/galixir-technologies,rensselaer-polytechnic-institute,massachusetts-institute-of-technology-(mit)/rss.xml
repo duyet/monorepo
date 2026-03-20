@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Galixir Technologies,Rensselaer Polytechnic Institute,Massachusetts Institute of Technology (MIT) Models</title>
+    <link>https://llm-timeline.duyet.net/org/galixir-technologies,rensselaer-polytechnic-institute,massachusetts-institute-of-technology-(mit)</link>
+    <description>Large Language Model releases from Galixir Technologies,Rensselaer Polytechnic Institute,Massachusetts Institute of Technology (MIT).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/galixir-technologies,rensselaer-polytechnic-institute,massachusetts-institute-of-technology-(mit)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Galixir Technologies,Rensselaer Polytechnic Institute,Massachusetts Institute of Technology (MIT) Models</title>
+      <link>https://llm-timeline.duyet.net/org/galixir-technologies,rensselaer-polytechnic-institute,massachusetts-institute-of-technology-(mit)</link>
+    </image>
+  <item>
+    <title>AutoDiff (Galixir Technologies,Rensselaer Polytechnic Institute,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/galixir-technologies,rensselaer-polytechnic-institute,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AutoDiff-2024-04-02</guid>
+    <pubDate>Tue, 02 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Galixir Technologies,Rensselaer Polytechnic Institute,Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Galixir Technologies,Rensselaer Polytechnic Institute,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Trillion Labs Models</title>
+    <link>https://llm-timeline.duyet.net/org/trillion-labs</link>
+    <description>Large Language Model releases from Trillion Labs.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/trillion-labs/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Trillion Labs Models</title>
+      <link>https://llm-timeline.duyet.net/org/trillion-labs</link>
+    </image>
+  <item>
+    <title>Tri-21B (Trillion Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/trillion-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tri-21B-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Trillion Labs</category>
+    <category>open</category>
+    <description>Parameters: 20.7B
+License: open
+Type: model
+AI model by Trillion Labs</description>
+  </item>
+  <item>
+    <title>Trillion-7B (Trillion Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/trillion-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Trillion-7B-2025-04-21</guid>
+    <pubDate>Mon, 21 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Trillion Labs</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Trillion Labs</description>
+  </item>
+  </channel>
+</rss>

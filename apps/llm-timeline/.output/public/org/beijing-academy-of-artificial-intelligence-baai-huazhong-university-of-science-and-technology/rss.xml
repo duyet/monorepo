@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-baai-huazhong-university-of-science-and-technology</link>
+    <description>Large Language Model releases from Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-baai-huazhong-university-of-science-and-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-baai-huazhong-university-of-science-and-technology</link>
+    </image>
+  <item>
+    <title>EVA-01 (Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-academy-of-artificial-intelligence-baai-huazhong-university-of-science-and-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EVA-01-2022-11-14</guid>
+    <pubDate>Mon, 14 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology</category>
+    <category>open</category>
+    <description>Parameters: 1.0B
+License: open
+Type: model
+AI model by Beijing Academy of Artificial Intelligence / BAAI,Huazhong University of Science and Technology,Zhejiang University (ZJU),Beijing Institute of Technology</description>
+  </item>
+  </channel>
+</rss>

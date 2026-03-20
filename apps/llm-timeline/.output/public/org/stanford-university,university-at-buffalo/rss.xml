@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stanford University,University at Buffalo Models</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <description>Large Language Model releases from Stanford University,University at Buffalo.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stanford University,University at Buffalo Models</title>
+      <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    </image>
+  <item>
+    <title>Hybrid H3-2.7B (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-2.7B-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>Hybrid H3-125M (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-125M-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 125M
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>Hybrid H3-355M (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-355M-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>Hybrid H3-1.3B (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20H3-1.3B-2022-12-28</guid>
+    <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>GPT-2 Medium (FlashAttention) (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2%20Medium%20(FlashAttention)-2022-05-27</guid>
+    <pubDate>Fri, 27 May 2022 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  <item>
+    <title>HiPPO-LegS (Stanford University,University at Buffalo)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-at-buffalo</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HiPPO-LegS-2020-10-23</guid>
+    <pubDate>Fri, 23 Oct 2020 00:00:00 GMT</pubDate>
+    <category>Stanford University,University at Buffalo</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stanford University,University at Buffalo</description>
+  </item>
+  </channel>
+</rss>

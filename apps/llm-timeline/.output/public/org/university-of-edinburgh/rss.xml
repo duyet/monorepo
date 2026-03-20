@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Edinburgh Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <description>Large Language Model releases from University of Edinburgh.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-edinburgh/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Edinburgh Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    </image>
+  <item>
+    <title>Transformer-XL + RMS dynamic eval (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20%2B%20RMS%20dynamic%20eval-2019-04-17</guid>
+    <pubDate>Wed, 17 Apr 2019 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 257.0M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>LSTM + dynamic eval (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%20%2B%20dynamic%20eval-2017-09-21</guid>
+    <pubDate>Thu, 21 Sep 2017 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 50M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>AWD-LSTM + dynamic eval (PTB) (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20%2B%20dynamic%20eval%20(PTB)-2017-09-21</guid>
+    <pubDate>Thu, 21 Sep 2017 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>AWD-LSTM + dynamic eval (WT2) (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20%2B%20dynamic%20eval%20(WT2)-2017-09-21</guid>
+    <pubDate>Thu, 21 Sep 2017 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 33M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>GLEE (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLEE-1968-07-01</guid>
+    <pubDate>Mon, 01 Jul 1968 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>Boxes (pole) (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Boxes%20(pole)-1968-07-01</guid>
+    <pubDate>Mon, 01 Jul 1968 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>MENACE (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MENACE-1963-11-01</guid>
+    <pubDate>Fri, 01 Nov 1963 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  </channel>
+</rss>

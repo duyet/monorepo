@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Salesforce Research,University of Washington Models</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research,university-of-washington</link>
+    <description>Large Language Model releases from Salesforce Research,University of Washington.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/salesforce-research,university-of-washington/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Salesforce Research,University of Washington Models</title>
+      <link>https://llm-timeline.duyet.net/org/salesforce-research,university-of-washington</link>
+    </image>
+  <item>
+    <title>xGen-MM (BLIP-3) (Salesforce Research,University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research,university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#xGen-MM%20(BLIP-3)-2024-08-16</guid>
+    <pubDate>Fri, 16 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Salesforce Research,University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 4B
+License: closed
+Type: model
+AI model by Salesforce Research,University of Washington</description>
+  </item>
+  </channel>
+</rss>

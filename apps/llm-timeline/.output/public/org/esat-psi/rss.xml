@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ESAT - PSI Models</title>
+    <link>https://llm-timeline.duyet.net/org/esat-psi</link>
+    <description>Large Language Model releases from ESAT - PSI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/esat-psi/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ESAT - PSI Models</title>
+      <link>https://llm-timeline.duyet.net/org/esat-psi</link>
+    </image>
+  <item>
+    <title>TF-LM-discourse LSTM (WT2) (ESAT - PSI)</title>
+    <link>https://llm-timeline.duyet.net/org/esat-psi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TF-LM-discourse%20LSTM%20(WT2)-2018-05-01</guid>
+    <pubDate>Tue, 01 May 2018 00:00:00 GMT</pubDate>
+    <category>ESAT - PSI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ESAT - PSI</description>
+  </item>
+  <item>
+    <title>TF-LM-discourse LSTM (PTB) (ESAT - PSI)</title>
+    <link>https://llm-timeline.duyet.net/org/esat-psi</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TF-LM-discourse%20LSTM%20(PTB)-2018-05-01</guid>
+    <pubDate>Tue, 01 May 2018 00:00:00 GMT</pubDate>
+    <category>ESAT - PSI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by ESAT - PSI</description>
+  </item>
+  </channel>
+</rss>

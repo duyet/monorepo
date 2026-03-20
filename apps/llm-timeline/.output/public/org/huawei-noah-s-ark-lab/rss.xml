@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Huawei Noah&apos;s Ark Lab Models</title>
+    <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab</link>
+    <description>Large Language Model releases from Huawei Noah&apos;s Ark Lab.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Huawei Noah&apos;s Ark Lab Models</title>
+      <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab</link>
+    </image>
+  <item>
+    <title>PanGu-Σ (Huawei Noah&apos;s Ark Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-%CE%A3-2023-03-20</guid>
+    <pubDate>Mon, 20 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Huawei Noah&apos;s Ark Lab</category>
+    <category>closed</category>
+    <description>Parameters: 1.1T
+License: closed
+Type: model
+AI model by Huawei Noah&apos;s Ark Lab</description>
+  </item>
+  <item>
+    <title>PanGu-α (Huawei Noah&apos;s Ark Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei-noah-s-ark-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-%CE%B1-2021-04-25</guid>
+    <pubDate>Sun, 25 Apr 2021 00:00:00 GMT</pubDate>
+    <category>Huawei Noah&apos;s Ark Lab</category>
+    <category>closed</category>
+    <description>Parameters: 207B
+License: closed
+Type: model
+AI model by Huawei Noah&apos;s Ark Lab</description>
+  </item>
+  </channel>
+</rss>

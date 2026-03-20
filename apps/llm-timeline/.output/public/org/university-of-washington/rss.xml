@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Washington Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <description>Large Language Model releases from University of Washington.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-washington/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Washington Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    </image>
+  <item>
+    <title>Loop-Diffusion (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Loop-Diffusion-2024-09-26</guid>
+    <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>ChemNet (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ChemNet-2024-09-25</guid>
+    <pubDate>Wed, 25 Sep 2024 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>Guanaco-65B (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Guanaco-65B-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 65B
+License: open
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>Transformer-XL DeFINE (107M) (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20DeFINE%20(107M)-2019-11-27</guid>
+    <pubDate>Wed, 27 Nov 2019 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 107.4M
+License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>Adaptive LSTM + DeFINE (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Adaptive%20LSTM%20%2B%20DeFINE-2019-11-27</guid>
+    <pubDate>Wed, 27 Nov 2019 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 48.7M
+License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>AWD-LSTM + DeFINE (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20%2B%20DeFINE-2019-11-27</guid>
+    <pubDate>Wed, 27 Nov 2019 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 20M
+License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>Grover-Mega (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Grover-Mega-2019-05-29</guid>
+    <pubDate>Wed, 29 May 2019 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>DOC + Finetune∗ + Partial Shuffle (PTB) (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DOC%20%2B%20Finetune%E2%88%97%20%2B%20Partial%20Shuffle%20(PTB)-2019-03-11</guid>
+    <pubDate>Mon, 11 Mar 2019 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>YOLOv3 (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YOLOv3-2018-04-08</guid>
+    <pubDate>Sun, 08 Apr 2018 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 56.9M
+License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  <item>
+    <title>Speaker-independent vowel classification (University of Washington)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Speaker-independent%20vowel%20classification-1989-11-27</guid>
+    <pubDate>Mon, 27 Nov 1989 00:00:00 GMT</pubDate>
+    <category>University of Washington</category>
+    <category>closed</category>
+    <description>Parameters: 3.0K
+License: closed
+Type: model
+AI model by University of Washington</description>
+  </item>
+  </channel>
+</rss>

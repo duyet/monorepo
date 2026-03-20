@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Baichuan,Westlake University,Zhejiang University (ZJU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan-westlake-university-zhejiang-university-zju</link>
+    <description>Large Language Model releases from Baichuan,Westlake University,Zhejiang University (ZJU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/baichuan-westlake-university-zhejiang-university-zju/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Baichuan,Westlake University,Zhejiang University (ZJU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/baichuan-westlake-university-zhejiang-university-zju</link>
+    </image>
+  <item>
+    <title>Baichuan-Omni (Baichuan,Westlake University,Zhejiang University (ZJU))</title>
+    <link>https://llm-timeline.duyet.net/org/baichuan-westlake-university-zhejiang-university-zju</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baichuan-Omni-2024-10-11</guid>
+    <pubDate>Fri, 11 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Baichuan,Westlake University,Zhejiang University (ZJU)</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Baichuan,Westlake University,Zhejiang University (ZJU)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,5 +1,3 @@
-"use client";
-
 import { useMemo } from "react";
 import { useTimelineKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 import type { Model } from "@/lib/data";

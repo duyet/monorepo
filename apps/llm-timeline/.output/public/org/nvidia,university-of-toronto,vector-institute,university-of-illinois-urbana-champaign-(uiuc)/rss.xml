@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA,University of Toronto,Vector Institute,University of Illinois Urbana-Champaign (UIUC) Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,university-of-toronto,vector-institute,university-of-illinois-urbana-champaign-(uiuc)</link>
+    <description>Large Language Model releases from NVIDIA,University of Toronto,Vector Institute,University of Illinois Urbana-Champaign (UIUC).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia,university-of-toronto,vector-institute,university-of-illinois-urbana-champaign-(uiuc)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA,University of Toronto,Vector Institute,University of Illinois Urbana-Champaign (UIUC) Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia,university-of-toronto,vector-institute,university-of-illinois-urbana-champaign-(uiuc)</link>
+    </image>
+  <item>
+    <title>Diffusion Renderer (NVIDIA,University of Toronto,Vector Institute,University of Illinois Urbana-Champaign (UIUC))</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,university-of-toronto,vector-institute,university-of-illinois-urbana-champaign-(uiuc)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Diffusion%20Renderer-2025-03-22</guid>
+    <pubDate>Sat, 22 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA,University of Toronto,Vector Institute,University of Illinois Urbana-Champaign (UIUC)</category>
+    <category>open</category>
+    <description>Parameters: 1.1B
+License: open
+Type: model
+AI model by NVIDIA,University of Toronto,Vector Institute,University of Illinois Urbana-Champaign (UIUC)</description>
+  </item>
+  </channel>
+</rss>

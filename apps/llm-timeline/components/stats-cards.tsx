@@ -1,6 +1,6 @@
 import { cn } from "@duyet/libs/utils";
+import { Link } from "@tanstack/react-router";
 import { Building2, Calendar, Database, Sparkles } from "lucide-react";
-import Link from "next/link";
 
 interface StatsCardsProps {
   models: number;
@@ -23,7 +23,7 @@ export function StatsCards({
     <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4 animate-fade-in animate-fade-in-delay-1">
       {/* Models Card */}
       <Link
-        href="/"
+        to="/"
         className={cn(
           "group rounded-xl border p-5 transition-all hover:shadow-sm",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
@@ -45,7 +45,7 @@ export function StatsCards({
 
       {/* Organizations Card */}
       <Link
-        href="/org"
+        to="/org"
         className={cn(
           "group rounded-xl border p-5 transition-all hover:shadow-sm",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",

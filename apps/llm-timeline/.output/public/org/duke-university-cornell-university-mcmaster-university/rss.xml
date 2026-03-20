@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Duke University,Cornell University,McMaster University Models</title>
+    <link>https://llm-timeline.duyet.net/org/duke-university-cornell-university-mcmaster-university</link>
+    <description>Large Language Model releases from Duke University,Cornell University,McMaster University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/duke-university-cornell-university-mcmaster-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Duke University,Cornell University,McMaster University Models</title>
+      <link>https://llm-timeline.duyet.net/org/duke-university-cornell-university-mcmaster-university</link>
+    </image>
+  <item>
+    <title>PepMLM (Duke University,Cornell University,McMaster University)</title>
+    <link>https://llm-timeline.duyet.net/org/duke-university-cornell-university-mcmaster-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PepMLM-2024-08-11</guid>
+    <pubDate>Sun, 11 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Duke University,Cornell University,McMaster University</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Duke University,Cornell University,McMaster University</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stability AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <description>Large Language Model releases from Stability AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stability-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stability AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    </image>
+  <item>
+    <title>ControlNet (SD 3.5 Large) Depth (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ControlNet%20(SD%203.5%20Large)%20Depth-2024-11-26</guid>
+    <pubDate>Tue, 26 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>ControlNet (SD 3.5 Large) Blur (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ControlNet%20(SD%203.5%20Large)%20Blur-2024-11-26</guid>
+    <pubDate>Tue, 26 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>ControlNet (SD 3.5 Large) Canny (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ControlNet%20(SD%203.5%20Large)%20Canny-2024-11-26</guid>
+    <pubDate>Tue, 26 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 3.5 Medium (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%203.5%20Medium-2024-10-29</guid>
+    <pubDate>Tue, 29 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 2.5B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 3.5 Large (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%203.5%20Large-2024-10-22</guid>
+    <pubDate>Tue, 22 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 8.1B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 3.5 Large Turbo (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%203.5%20Large%20Turbo-2024-10-22</guid>
+    <pubDate>Tue, 22 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 3 Medium (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%203%20Medium-2024-06-12</guid>
+    <pubDate>Wed, 12 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 2.5B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable LM 2 12B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20LM%202%2012B-2024-04-08</guid>
+    <pubDate>Mon, 08 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 12.1B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Video 3D (SV3D) (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Video%203D%20(SV3D)-2024-03-18</guid>
+    <pubDate>Mon, 18 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Code Instruct 3B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Code%20Instruct%203B-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: Stable Code Instruct 3B
+License: open
+Type: model
+Context window=16,384. Trained on The Stack dataset.</description>
+  </item>
+  <item>
+    <title>Stable Beluga 2.5 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%202.5-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: Stable Beluga 2.5
+License: open
+Type: model
+Mentioned in Stability release about Intel chips 11/Mar/2024, availablity unknown</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 3 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%203-2024-02-22</guid>
+    <pubDate>Thu, 22 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Cascade (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Cascade-2024-02-12</guid>
+    <pubDate>Mon, 12 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 5.1B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>StableLM-2-12B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM-2-12B-2024-02-07</guid>
+    <pubDate>Wed, 07 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>closed</category>
+    <description>Parameters: 12.1B
+License: closed
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>StableLM-2-1.6B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM-2-1.6B-2024-01-18</guid>
+    <pubDate>Thu, 18 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 1.6B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Code 3B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Code%203B-2024-01-09</guid>
+    <pubDate>Tue, 09 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 2.8B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>StableLM - Zephyr 3B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM%20-%20Zephyr%203B-2023-12-07</guid>
+    <pubDate>Thu, 07 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>SD-Turbo (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SD-Turbo-2023-11-28</guid>
+    <pubDate>Tue, 28 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>ControlNet (SDv2) (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ControlNet%20(SDv2)-2023-11-26</guid>
+    <pubDate>Sun, 26 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Video Diffusion (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Video%20Diffusion-2023-11-25</guid>
+    <pubDate>Sat, 25 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 1.6 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%201.6-2023-11-10</guid>
+    <pubDate>Fri, 10 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>StableLM-3B-4E1T (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM-3B-4E1T-2023-09-29</guid>
+    <pubDate>Fri, 29 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 2.8B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Japanese StableLM Base Alpha 7B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Japanese%20StableLM%20Base%20Alpha%207B-2023-08-10</guid>
+    <pubDate>Thu, 10 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>StableLM-Base-Alpha-7B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM-Base-Alpha-7B-2023-08-05</guid>
+    <pubDate>Sat, 05 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 6.9B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Japanese StableLM Alpha 7B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Japanese%20StableLM%20Alpha%207B-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: Japanese StableLM Alpha 7B
+License: open
+Type: model
+Best-performing openly available language model for Japanese speakers.</description>
+  </item>
+  <item>
+    <title>Stable Code 3B (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Code%203B-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: Stable Code 3B
+License: open
+Type: model
+Context window=16,384. Trained on The Stack dataset.</description>
+  </item>
+  <item>
+    <title>Stable Beluga 1 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%201-2023-07-21</guid>
+    <pubDate>Fri, 21 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 65.2B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Beluga 2 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%202-2023-07-20</guid>
+    <pubDate>Thu, 20 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Diffusion XL (SDXL) (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%20XL%20(SDXL)-2023-07-04</guid>
+    <pubDate>Tue, 04 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: 3.4B
+License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  <item>
+    <title>Stable Beluga 2 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%202-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: Stable Beluga 2
+License: open
+Type: model
+Fine-tuned Llama 2. Non-commercial use license. Codename was FreeWilly2</description>
+  </item>
+  <item>
+    <title>Stable Beluga 1 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Beluga%201-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: Stable Beluga 1
+License: open
+Type: model
+Fine-tuned LLaMA-1. Non-commercial use license. Codename was FreeWilly1</description>
+  </item>
+  <item>
+    <title>StableLM (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StableLM-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>Parameters: StableLM
+License: open
+Type: model
+contains 1.5 trillion tokens, roughly 3x the size of The Pile. These models will be trained on up to 1.5 trillion tokens. The context length for these models is 4096 tokens.</description>
+  </item>
+  <item>
+    <title>Stable Diffusion 2.1 (Stability AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stability-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stable%20Diffusion%202.1-2022-12-07</guid>
+    <pubDate>Wed, 07 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Stability AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Stability AI</description>
+  </item>
+  </channel>
+</rss>

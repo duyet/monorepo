@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Xi’an Jiaotong University,Megvii Inc,Tsinghua University,Huazhong University of Science and Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/xian-jiaotong-university,megvii-inc,tsinghua-university,huazhong-university-of-science-and</link>
+    <description>Large Language Model releases from Xi’an Jiaotong University,Megvii Inc,Tsinghua University,Huazhong University of Science and Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/xian-jiaotong-university,megvii-inc,tsinghua-university,huazhong-university-of-science-and/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Xi’an Jiaotong University,Megvii Inc,Tsinghua University,Huazhong University of Science and Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/xian-jiaotong-university,megvii-inc,tsinghua-university,huazhong-university-of-science-and</link>
+    </image>
+  <item>
+    <title>DreamLLM (Xi’an Jiaotong University,Megvii Inc,Tsinghua University,Huazhong University of Science and Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/xian-jiaotong-university,megvii-inc,tsinghua-university,huazhong-university-of-science-and</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DreamLLM-2023-09-20</guid>
+    <pubDate>Wed, 20 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Xi’an Jiaotong University,Megvii Inc,Tsinghua University,Huazhong University of Science and Technology</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Xi’an Jiaotong University,Megvii Inc,Tsinghua University,Huazhong University of Science and Technology</description>
+  </item>
+  </channel>
+</rss>

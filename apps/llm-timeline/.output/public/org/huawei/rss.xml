@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Huawei Models</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <description>Large Language Model releases from Huawei.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/huawei/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Huawei Models</title>
+      <link>https://llm-timeline.duyet.net/org/huawei</link>
+    </image>
+  <item>
+    <title>Pangu Pro MoE (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%20Pro%20MoE-2025-05-28</guid>
+    <pubDate>Wed, 28 May 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>open</category>
+    <description>Parameters: 72.0B
+License: open
+Type: model
+AI model by Huawei</description>
+  </item>
+  <item>
+    <title>Pangu Ultra MoE (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%20Ultra%20MoE-2025-05-07</guid>
+    <pubDate>Wed, 07 May 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 718B
+License: closed
+Type: model
+AI model by Huawei</description>
+  </item>
+  <item>
+    <title>Pangu Ultra MoE (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%20Ultra%20MoE-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: Pangu Ultra MoE
+License: closed
+Type: model
+718B-A39B. Trained on 6,000 Ascend NPUs (Kunpeng 920 processors in Huawei Atlas 800T A2 servers).</description>
+  </item>
+  <item>
+    <title>Pangu Ultra (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%20Ultra-2025-04-10</guid>
+    <pubDate>Thu, 10 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 135B
+License: closed
+Type: model
+AI model by Huawei</description>
+  </item>
+  <item>
+    <title>Dream 7B (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dream%207B-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>open</category>
+    <description>Parameters: Dream 7B
+License: open
+Type: model
+&quot;with Huawei Noah’s Ark Lab, we [Hong Kong University] release Dream 7B (Diffusion reasoning model), the most powerful open diffusion large language model to date.&quot;</description>
+  </item>
+  <item>
+    <title>Pangu Ultra (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%20Ultra-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>open</category>
+    <description>Parameters: Pangu Ultra
+License: open
+Type: model
+Trained on 8,192 Ascend NPUs (Kunpeng 920 processors in Huawei Atlas 800T A2 servers).</description>
+  </item>
+  <item>
+    <title>PanGu 5.0 Super (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu%205.0%20Super-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>partial</category>
+    <description>Parameters: PanGu 5.0 Super
+License: partial
+Type: model
+https://x.com/faridofanani96/status/1804079517193113850/photo/1</description>
+  </item>
+  <item>
+    <title>YunShan (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#YunShan-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: YunShan
+License: closed
+Type: model
+Finance + law fine-tune of PanGu-π</description>
+  </item>
+  <item>
+    <title>PanGu-Pi (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Pi-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: PanGu-Pi
+License: closed
+Type: model
+Dense, named PanGu-π</description>
+  </item>
+  <item>
+    <title>Pangu 3.0 (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu%203.0-2023-07-07</guid>
+    <pubDate>Fri, 07 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: 100B
+License: closed
+Type: model
+AI model by Huawei</description>
+  </item>
+  <item>
+    <title>Pangu-Weather (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pangu-Weather-2023-07-05</guid>
+    <pubDate>Wed, 05 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>open</category>
+    <description>Parameters: 256M
+License: open
+Type: model
+AI model by Huawei</description>
+  </item>
+  <item>
+    <title>PanGu-Sigma (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Sigma-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: PanGu-Sigma
+License: closed
+Type: model
+Sparse. 1.085T parameters named PanGu-Σ.</description>
+  </item>
+  <item>
+    <title>PanGu-Coder (Huawei)</title>
+    <link>https://llm-timeline.duyet.net/org/huawei</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PanGu-Coder-2022-07-01</guid>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate>
+    <category>Huawei</category>
+    <category>closed</category>
+    <description>Parameters: PanGu-Coder
+License: closed
+Type: model
+Python via GH</description>
+  </item>
+  </channel>
+</rss>

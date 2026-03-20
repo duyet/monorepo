@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Papla Media Models</title>
+    <link>https://llm-timeline.duyet.net/org/papla-media</link>
+    <description>Large Language Model releases from Papla Media.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/papla-media/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Papla Media Models</title>
+      <link>https://llm-timeline.duyet.net/org/papla-media</link>
+    </image>
+  <item>
+    <title>Papla P1 (Papla Media)</title>
+    <link>https://llm-timeline.duyet.net/org/papla-media</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Papla%20P1-2025-03-31</guid>
+    <pubDate>Mon, 31 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Papla Media</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Papla Media</description>
+  </item>
+  </channel>
+</rss>

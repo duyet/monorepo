@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — LinkedIn Models</title>
+    <link>https://llm-timeline.duyet.net/org/linkedin</link>
+    <description>Large Language Model releases from LinkedIn.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/linkedin/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — LinkedIn Models</title>
+      <link>https://llm-timeline.duyet.net/org/linkedin</link>
+    </image>
+  <item>
+    <title>EON-8B (LinkedIn)</title>
+    <link>https://llm-timeline.duyet.net/org/linkedin</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EON-8B-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>LinkedIn</category>
+    <category>closed</category>
+    <description>Parameters: EON-8B
+License: closed
+Type: model
+&quot;We found the EON-8B model (a domain-adapted Llama 3.1-8B variant) to be 75x and 6x cost effective in comparison to GPT-4 and GPT-4o respectively (Figure 4)... On tasks seen during training, the EON-8B model outperformed base Llama-3-8B-Instruct and its performance was comparable to SOTA GPT models.&quot;</description>
+  </item>
+  <item>
+    <title>Talent Search and Recommendation Systems (LinkedIn)</title>
+    <link>https://llm-timeline.duyet.net/org/linkedin</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Talent%20Search%20and%20Recommendation%20Systems-2018-09-18</guid>
+    <pubDate>Tue, 18 Sep 2018 00:00:00 GMT</pubDate>
+    <category>LinkedIn</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by LinkedIn</description>
+  </item>
+  </channel>
+</rss>

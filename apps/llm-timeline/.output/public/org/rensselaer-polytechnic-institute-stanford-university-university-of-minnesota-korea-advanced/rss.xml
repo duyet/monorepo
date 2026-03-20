@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Rensselaer Polytechnic Institute,Stanford University,University of Minnesota,Korea Advanced Institute of Science and Technology (KAIST),University of Illinois Urbana-Champaign (UIUC) Models</title>
+    <link>https://llm-timeline.duyet.net/org/rensselaer-polytechnic-institute-stanford-university-university-of-minnesota-korea-advanced</link>
+    <description>Large Language Model releases from Rensselaer Polytechnic Institute,Stanford University,University of Minnesota,Korea Advanced Institute of Science and Technology (KAIST),University of Illinois Urbana-Champaign (UIUC).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/rensselaer-polytechnic-institute-stanford-university-university-of-minnesota-korea-advanced/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Rensselaer Polytechnic Institute,Stanford University,University of Minnesota,Korea Advanced Institute of Science and Technology (KAIST),University of Illinois Urbana-Champaign (UIUC) Models</title>
+      <link>https://llm-timeline.duyet.net/org/rensselaer-polytechnic-institute-stanford-university-university-of-minnesota-korea-advanced</link>
+    </image>
+  <item>
+    <title>Protein-Mamba (Rensselaer Polytechnic Institute,Stanford University,University of Minnesota,Korea Advanced Institute of Science and Technology (KAIST),University of Illinois Urbana-Champaign (UIUC))</title>
+    <link>https://llm-timeline.duyet.net/org/rensselaer-polytechnic-institute-stanford-university-university-of-minnesota-korea-advanced</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Protein-Mamba-2024-09-24</guid>
+    <pubDate>Tue, 24 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Rensselaer Polytechnic Institute,Stanford University,University of Minnesota,Korea Advanced Institute of Science and Technology (KAIST),University of Illinois Urbana-Champaign (UIUC)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Rensselaer Polytechnic Institute,Stanford University,University of Minnesota,Korea Advanced Institute of Science and Technology (KAIST),University of Illinois Urbana-Champaign (UIUC)</description>
+  </item>
+  </channel>
+</rss>

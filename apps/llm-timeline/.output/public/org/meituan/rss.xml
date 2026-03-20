@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Meituan Models</title>
+    <link>https://llm-timeline.duyet.net/org/meituan</link>
+    <description>Large Language Model releases from Meituan.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/meituan/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Meituan Models</title>
+      <link>https://llm-timeline.duyet.net/org/meituan</link>
+    </image>
+  <item>
+    <title>LongCat-Flash (Meituan)</title>
+    <link>https://llm-timeline.duyet.net/org/meituan</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LongCat-Flash-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Meituan</category>
+    <category>open</category>
+    <description>Parameters: LongCat-Flash
+License: open
+Type: model
+560B-A18.6B–31.3B (27B on average). Announce: https://lmsys.org/blog/2025-09-01-sglang-longcat-flash/</description>
+  </item>
+  </channel>
+</rss>

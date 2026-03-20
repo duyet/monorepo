@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Carnegie Mellon University (CMU),Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Cartesia Models</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-(cmu),mohamed-bin-zayed-university-of-artificial-intelligence</link>
+    <description>Large Language Model releases from Carnegie Mellon University (CMU),Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Cartesia.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/carnegie-mellon-university-(cmu),mohamed-bin-zayed-university-of-artificial-intelligence/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Carnegie Mellon University (CMU),Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Cartesia Models</title>
+      <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-(cmu),mohamed-bin-zayed-university-of-artificial-intelligence</link>
+    </image>
+  <item>
+    <title>Hybrid-Phi-Mamba-1.5B (Carnegie Mellon University (CMU),Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Cartesia)</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-(cmu),mohamed-bin-zayed-university-of-artificial-intelligence</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid-Phi-Mamba-1.5B-2024-08-19</guid>
+    <pubDate>Mon, 19 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU),Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Cartesia</category>
+    <category>closed</category>
+    <description>Parameters: 1.5B
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU),Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Cartesia</description>
+  </item>
+  </channel>
+</rss>

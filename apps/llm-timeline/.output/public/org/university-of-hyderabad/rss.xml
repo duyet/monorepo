@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Hyderabad Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-hyderabad</link>
+    <description>Large Language Model releases from University of Hyderabad.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-hyderabad/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Hyderabad Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-hyderabad</link>
+    </image>
+  <item>
+    <title>Multi-cell LSTM (University of Hyderabad)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-hyderabad</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multi-cell%20LSTM-2018-11-15</guid>
+    <pubDate>Thu, 15 Nov 2018 00:00:00 GMT</pubDate>
+    <category>University of Hyderabad</category>
+    <category>closed</category>
+    <description>Parameters: 7.2M
+License: closed
+Type: model
+AI model by University of Hyderabad</description>
+  </item>
+  </channel>
+</rss>

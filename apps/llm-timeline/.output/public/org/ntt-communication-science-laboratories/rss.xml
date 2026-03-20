@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NTT Communication Science Laboratories Models</title>
+    <link>https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories</link>
+    <description>Large Language Model releases from NTT Communication Science Laboratories.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NTT Communication Science Laboratories Models</title>
+      <link>https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories</link>
+    </image>
+  <item>
+    <title>tsuzumi 7B upgrade 2024 (NTT Communication Science Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#tsuzumi%207B%20upgrade%202024-2024-04-11</guid>
+    <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
+    <category>NTT Communication Science Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by NTT Communication Science Laboratories</description>
+  </item>
+  <item>
+    <title>tsuzumi 7B (NTT Communication Science Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#tsuzumi%207B-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>NTT Communication Science Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by NTT Communication Science Laboratories</description>
+  </item>
+  <item>
+    <title>AWD-LSTM+WT+Cache+IOG (WT2) (NTT Communication Science Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%2BWT%2BCache%2BIOG%20(WT2)-2017-09-26</guid>
+    <pubDate>Tue, 26 Sep 2017 00:00:00 GMT</pubDate>
+    <category>NTT Communication Science Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 53M
+License: closed
+Type: model
+AI model by NTT Communication Science Laboratories</description>
+  </item>
+  <item>
+    <title>AWD-LSTM+WT+Cache+IOG (PTB) (NTT Communication Science Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/ntt-communication-science-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%2BWT%2BCache%2BIOG%20(PTB)-2017-09-26</guid>
+    <pubDate>Tue, 26 Sep 2017 00:00:00 GMT</pubDate>
+    <category>NTT Communication Science Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 30M
+License: closed
+Type: model
+AI model by NTT Communication Science Laboratories</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,University of California Los Angeles (UCLA) Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-university-of-california-los-angeles-ucla</link>
+    <description>Large Language Model releases from Google,University of California Los Angeles (UCLA).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-university-of-california-los-angeles-ucla/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,University of California Los Angeles (UCLA) Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-university-of-california-los-angeles-ucla</link>
+    </image>
+  <item>
+    <title>BASIC-L + Lion (Google,University of California Los Angeles (UCLA))</title>
+    <link>https://llm-timeline.duyet.net/org/google-university-of-california-los-angeles-ucla</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BASIC-L%20%2B%20Lion-2023-02-13</guid>
+    <pubDate>Mon, 13 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Google,University of California Los Angeles (UCLA)</category>
+    <category>closed</category>
+    <description>Parameters: 3.1B
+License: closed
+Type: model
+AI model by Google,University of California Los Angeles (UCLA)</description>
+  </item>
+  <item>
+    <title>DeepLab (Google,University of California Los Angeles (UCLA))</title>
+    <link>https://llm-timeline.duyet.net/org/google-university-of-california-los-angeles-ucla</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLab-2014-12-22</guid>
+    <pubDate>Mon, 22 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Google,University of California Los Angeles (UCLA)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google,University of California Los Angeles (UCLA)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Zhejiang Lab,Zhejiang University (ZJU),Huazhong University of Science and Technology,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) Models</title>
+    <link>https://llm-timeline.duyet.net/org/zhejiang-lab,zhejiang-university-(zju),huazhong-university-of-science-and-technology,mohamed-bin</link>
+    <description>Large Language Model releases from Zhejiang Lab,Zhejiang University (ZJU),Huazhong University of Science and Technology,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/zhejiang-lab,zhejiang-university-(zju),huazhong-university-of-science-and-technology,mohamed-bin/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Zhejiang Lab,Zhejiang University (ZJU),Huazhong University of Science and Technology,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) Models</title>
+      <link>https://llm-timeline.duyet.net/org/zhejiang-lab,zhejiang-university-(zju),huazhong-university-of-science-and-technology,mohamed-bin</link>
+    </image>
+  <item>
+    <title>ProTeM (Zhejiang Lab,Zhejiang University (ZJU),Huazhong University of Science and Technology,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI))</title>
+    <link>https://llm-timeline.duyet.net/org/zhejiang-lab,zhejiang-university-(zju),huazhong-university-of-science-and-technology,mohamed-bin</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProTeM-2024-09-17</guid>
+    <pubDate>Tue, 17 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Zhejiang Lab,Zhejiang University (ZJU),Huazhong University of Science and Technology,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Zhejiang Lab,Zhejiang University (ZJU),Huazhong University of Science and Technology,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)</description>
+  </item>
+  </channel>
+</rss>

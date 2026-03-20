@@ -1,0 +1,1715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google DeepMind Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <description>Large Language Model releases from Google DeepMind.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-deepmind/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google DeepMind Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    </image>
+  <item>
+    <title>Gemini 3.1 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203.1%20Pro-2026-02-01</guid>
+    <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 3.1 Pro
+License: open
+Type: model
+Knowledge cutoff still=January 2025. Announce: https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/</description>
+  </item>
+  <item>
+    <title>MedGemma 1.5 4B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedGemma%201.5%204B-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: MedGemma 1.5 4B
+License: open
+Type: model
+Lower MMLU score compared to previous MedGemma 1 27B (67.2 v 87). Announce: https://research.google/blog/next-generation-medical-image-interpretation-with-medgemma-15-and-medical-speech-to-text-with-medasr/</description>
+  </item>
+  <item>
+    <title>FunctionGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FunctionGemma-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: FunctionGemma
+License: open
+Type: model
+&quot;FunctionGemma, a specialized version of our Gemma 3 270M model tuned for function calling. It is designed as a strong base for further training into custom, fast, private, local agents that translate natural language into executable API actions.&quot;</description>
+  </item>
+  <item>
+    <title>T5Gemma 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5Gemma%202-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: T5Gemma 2
+License: open
+Type: model
+Base model: Gemma 3. Dataset: Gemma 3 4B checkpoint (4T) + pretraining (2T)=6T.</description>
+  </item>
+  <item>
+    <title>Gemini 3 Flash (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203%20Flash-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 3 Flash
+License: open
+Type: model
+Announce: https://deepmind.google/models/gemini/flash/</description>
+  </item>
+  <item>
+    <title>Gemini 3 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203%20Pro-2025-11-18</guid>
+    <pubDate>Tue, 18 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 3 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%203%20Pro-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 3 Pro
+License: open
+Type: model
+&quot;The knowledge cutoff date for Gemini 3 Pro was January 2025.&quot;</description>
+  </item>
+  <item>
+    <title>HOPE (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HOPE-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>Parameters: HOPE
+License: partial
+Type: model
+&quot;Combining our self-modifying sequence model with the continuum memory system, we present a learning module, called HOPE, showing promising results in language modeling, continual learning, and long-context reasoning tasks.&quot; Announce: https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/ May be released after paper is public.</description>
+  </item>
+  <item>
+    <title>Veo 3.1 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Veo%203.1-2025-10-15</guid>
+    <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Robotics 1.5 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics%201.5-2025-09-25</guid>
+    <pubDate>Thu, 25 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Robotics-ER 1.5 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-ER%201.5-2025-09-25</guid>
+    <pubDate>Thu, 25 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>EmbeddingGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EmbeddingGemma-2025-09-05</guid>
+    <pubDate>Fri, 05 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 308M
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Robotics 1.5 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics%201.5-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Robotics 1.5
+License: open
+Type: model
+2. &quot;vision-language-action (VLA) model turns visual information and instructions into motor commands for a robot to perform a task.&quot; Available to select partners.</description>
+  </item>
+  <item>
+    <title>Gemini Robotics-ER 1.5 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-ER%201.5-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Robotics-ER 1.5
+License: open
+Type: model
+1. &quot;vision-language model (VLM) reasons about the physical world, natively calls digital tools and creates detailed, multi-step plans to complete a mission.&quot; Available to all devs.</description>
+  </item>
+  <item>
+    <title>VaultGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VaultGemma-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: VaultGemma
+License: open
+Type: model
+&quot;Differential Privacy (DP) has emerged as the gold standard, providing a rigorous, mathematical framework to limit the influence of any single example in the training data on the resulting model. A model trained with DP provably bounds the reconstruction or leakage of information tied to individual data points.&quot; Announce: https://research.google/blog/vaultgemma-the-worlds-most-capable-differentially-private-llm/</description>
+  </item>
+  <item>
+    <title>Gemma 3 270M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20270M-2025-08-14</guid>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 270M
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Genie 3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Genie%203-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 270M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20270M-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemma 3 270M
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Veo 3 Fast (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Veo%203%20Fast-2025-07-31</guid>
+    <pubDate>Thu, 31 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Embedding (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Embedding-2025-07-14</guid>
+    <pubDate>Mon, 14 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>T5Gemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5Gemma-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: T5Gemma
+License: open
+Type: model
+Related paper: https://arxiv.org/abs/2504.06225. Dataset was Gemma 2 9B on 8T tokens + 2T tokens adapted.</description>
+  </item>
+  <item>
+    <title>MedGemma 1 27B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedGemma%201%2027B-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: MedGemma 1 27B
+License: open
+Type: model
+Multimodal model. Text MMLU score for med only=87.0.</description>
+  </item>
+  <item>
+    <title>AlphaGenome (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaGenome-2025-06-25</guid>
+    <pubDate>Wed, 25 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 450M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Flash-Lite (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Flash-Lite-2025-06-15</guid>
+    <pubDate>Sun, 15 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>FGN (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FGN-2025-06-12</guid>
+    <pubDate>Thu, 12 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 720M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Pro (Jun 2025) (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Pro%20(Jun%202025)-2025-06-05</guid>
+    <pubDate>Thu, 05 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Flash Native Audio (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Flash%20Native%20Audio-2025-06-03</guid>
+    <pubDate>Tue, 03 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Robotics On-Device (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics%20On-Device-2025-06-01</guid>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Robotics On-Device
+License: open
+Type: model
+See Mar/2025 Gemini Robotics-ER model for comparison. Announce: https://deepmind.google/discover/blog/gemini-robotics-on-device-brings-ai-to-local-robotic-devices/</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Pro 06-05 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Pro%2006-05-2025-06-01</guid>
+    <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 2.5 Pro 06-05
+License: open
+Type: model
+&quot;an upgraded preview of Gemini 2.5 Pro, our most intelligent model yet. Building on the version we released in May and showed at I/O, this model will be the generally available, stable version starting in a couple of weeks, ready for enterprise-scale applications.&quot;</description>
+  </item>
+  <item>
+    <title>DataRater test model (1B) (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DataRater%20test%20model%20(1B)-2025-05-23</guid>
+    <pubDate>Fri, 23 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Veo 3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Veo%203-2025-05-21</guid>
+    <pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Lyria RealTime (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Lyria%20RealTime-2025-05-20</guid>
+    <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Pro (May 2025) (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Pro%20(May%202025)-2025-05-06</guid>
+    <pubDate>Tue, 06 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>DeepTransformers (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepTransformers-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: DeepTransformers
+License: closed
+Type: model
+&quot;Atlas, a long-term memory module with high capacity that learns to memorize the context by optimizing the memory based on the current and past tokens, overcoming the online nature of long-term memory models. Building on this insight, we present a new family of Transformer-like architectures, called DeepTransformers, that are strict generalizations of the original Transformer architecture.&quot;</description>
+  </item>
+  <item>
+    <title>Atlas (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Atlas-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Atlas
+License: closed
+Type: model
+&quot;Atlas, a long-term memory module with high capacity that learns to memorize the context by optimizing the memory based on the current and past tokens, overcoming the online nature of long-term memory models. Building on this insight, we present a new family of Transformer-like architectures, called DeepTransformers, that are strict generalizations of the original Transformer architecture.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini Diffusion (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Diffusion-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Diffusion
+License: open
+Type: model
+&quot;Gemini Diffusion’s external benchmark performance is comparable to much larger models [like Gemini-2.0-Flash-Lite], whilst also being faster.&quot;</description>
+  </item>
+  <item>
+    <title>Gemma 3n (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203n-2025-05-01</guid>
+    <pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemma 3n
+License: open
+Type: model
+Matryoshka Transformer or MatFormer model architecture. 850M (696M / 620M / 582M).</description>
+  </item>
+  <item>
+    <title>Gemma 3 QAT 4B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20QAT%204B-2025-04-18</guid>
+    <pubDate>Fri, 18 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 4B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 QAT 1B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20QAT%201B-2025-04-18</guid>
+    <pubDate>Fri, 18 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 QAT 12B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20QAT%2012B-2025-04-18</guid>
+    <pubDate>Fri, 18 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 QAT 27B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%20QAT%2027B-2025-04-18</guid>
+    <pubDate>Fri, 18 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Flash (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Flash-2025-04-17</guid>
+    <pubDate>Thu, 17 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>T5Gemma (Gemma 9B-9B) (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T5Gemma%20(Gemma%209B-9B)-2025-04-08</guid>
+    <pubDate>Tue, 08 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 16.7B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Flash Preview (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Flash%20Preview-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 2.5 Flash Preview
+License: open
+Type: model
+Context in=1M, out=64k. Knowledge cutoff Jan/2025. Codename &apos;nebula&apos;. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>DolphinGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DolphinGemma-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: DolphinGemma
+License: open
+Type: model
+&quot;trained on Atlantic spotted dolphin sounds, we anticipate its potential utility for researchers studying other cetacean species, like bottlenose or spinner dolphins... Developed by Google, this AI model makes use of specific Google audio technologies: the SoundStream tokenizer efficiently represents dolphin sounds, which are then processed by a model architecture suited for complex sequences. This ~400M parameter model is optimally-sized to run directly on the Pixel phones WDP uses in the field.&quot;</description>
+  </item>
+  <item>
+    <title>Sec-Gemini v1 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sec-Gemini%20v1-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Sec-Gemini v1
+License: open
+Type: model
+&quot;Sec-Gemini v1 achieves this by combining Gemini’s advanced capabilities with near real-time cybersecurity knowledge and tooling. This combination allows it to achieve superior performance on key cybersecurity workflows, including incident root cause analysis, threat analysis, and vulnerability impact understanding.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Pro (Mar 2025) (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Pro%20(Mar%202025)-2025-03-25</guid>
+    <pubDate>Tue, 25 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 27B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%2027B-2025-03-12</guid>
+    <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 12B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%2012B-2025-03-12</guid>
+    <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 4B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%204B-2025-03-12</guid>
+    <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 4B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 3 1B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203%201B-2025-03-12</guid>
+    <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Robotics (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-2025-03-12</guid>
+    <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Robotics-ER (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-ER-2025-03-12</guid>
+    <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Agentic-Tx (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Agentic-Tx-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Agentic-Tx
+License: open
+Type: model
+&quot;a therapeutics-focused agentic system powered by Gemini 2.0 Pro. Agentic-Tx is equipped with 18 tools, including: TxGemma as a tool for multi-step reasoning&quot;</description>
+  </item>
+  <item>
+    <title>TxGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TxGemma-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: TxGemma
+License: open
+Type: model
+&quot;a suite of efficient, generalist large language models (LLMs) capable of therapeutic property prediction as well as interactive reasoning and explainability. Unlike task-specific models, TxGemma synthesizes information from diverse sources, enabling broad application across the therapeutic development pipeline.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini 2.5 Pro Preview (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.5%20Pro%20Preview-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 2.5 Pro Preview
+License: open
+Type: model
+Context in=1M, out=64k. Knowledge cutoff Jan/2025. HLE SOTA. Codename &apos;nebula&apos;. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>Gemini Robotics (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Gemini Robotics
+License: closed
+Type: model
+Gemini 2.0 Pro (cloud). &quot;The second model is Gemini Robotics, a state-of-theart Vision-Language-Action (VLA) model that connects strong embodied reasoning priors to dexterous low-level control of real-world robots to solve challenging manipulation tasks. As a generalist VLA, Gemini Robotics can perform a wide array of diverse and complicated tasks, while also closely following language guidance and generalizing to distribution shifts in instructions, visuals, and motions. To emphasize the flexibility and generality of the Gemini Robotics models, we also introduce an optional specialization stage, which demonstrates how Gemini Robotics can be adapted for extreme dexterity, for advanced reasoning in difficult generalization settings, and for controlling completely new robot embodiments.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini Robotics-ER (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Robotics-ER-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Gemini Robotics-ER
+License: closed
+Type: model
+Gemini 2.0 Flash (on device). &quot;The first model is Gemini Robotics-ER, a VLM with strong embodied reasoning capabilities at its core, exhibiting generalization across a wide range of embodied reasoning tasks while also maintaining its core foundation model capabilities. Gemini Robotics-ER exhibits strong performance on multiple capabilities critical for understanding the physical world, ranging from 3D perception to detailed pointing to robot state estimation and affordance prediction via code.&quot;</description>
+  </item>
+  <item>
+    <title>Gemma 3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%203-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemma 3
+License: open
+Type: model
+Trained on 1T more tokens than Gemma 2. &quot;introduces vision understanding abilities, a wider coverage of languages and longer context – at least 128K tokens.&quot;</description>
+  </item>
+  <item>
+    <title>SigLIP 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SigLIP%202-2025-02-20</guid>
+    <pubDate>Thu, 20 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 1.1B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.0 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.0%20Pro-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 2.0 Pro
+License: open
+Type: model
+Context=2M. Disappointing benchmarks, this is the &apos;pro&apos; (medium) not &apos;ultra&apos; (large) model. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>Veo 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Veo%202-2024-12-16</guid>
+    <pubDate>Mon, 16 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.0 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.0%20Pro-2024-12-11</guid>
+    <pubDate>Wed, 11 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Genie 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Genie%202-2024-12-04</guid>
+    <pubDate>Wed, 04 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.0 Flash exp (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.0%20Flash%20exp-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 2.0 Flash exp
+License: open
+Type: model
+Gemini 2.0 Flash was first model released, 11/Dec/2024. &quot;New Modalities: Gemini 2.0 introduces native image generation and controllable text-to-speech capabilities&quot; Announce: https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024/ Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>Gemini-Exp-1114 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini-Exp-1114-2024-11-15</guid>
+    <pubDate>Fri, 15 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>AlphaChip (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaChip-2024-09-26</guid>
+    <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Demostart (in progress) (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Demostart%20(in%20progress)-2024-09-12</guid>
+    <pubDate>Thu, 12 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>GenMS (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GenMS-2024-09-10</guid>
+    <pubDate>Tue, 10 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>ALOHA Unleashed (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALOHA%20Unleashed-2024-09-08</guid>
+    <pubDate>Sun, 08 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 217M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>AlphaProteo (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaProteo-2024-09-05</guid>
+    <pubDate>Thu, 05 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini-1.5-Pro-002 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini-1.5-Pro-002-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini-1.5-Pro-002
+License: open
+Type: model
+Sparse MoE. Context window=2M. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>Data-Gemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Data-Gemma-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Data-Gemma
+License: open
+Type: model
+RAG/RIG: &quot;the LLM is fine-tuned to produce natural language Data Commons queries alongside statistics&quot;</description>
+  </item>
+  <item>
+    <title>3-ensemble of Self-ensembles on CIFAR-100 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#3-ensemble%20of%20Self-ensembles%20on%20CIFAR-100-2024-08-08</guid>
+    <pubDate>Thu, 08 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 60.2M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Table Tennis Agent (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Table%20Tennis%20Agent-2024-08-07</guid>
+    <pubDate>Wed, 07 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 185K
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.5 Flash-8B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.5%20Flash-8B-2024-08-01</guid>
+    <pubDate>Thu, 01 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 1.5 Flash-8B
+License: open
+Type: model
+Announce: https://x.com/OfficialLoganK/status/1828480085353234535 1M context for all modalities. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>AlphaProof (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaProof-2024-07-25</guid>
+    <pubDate>Thu, 25 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>AlphaGeometry 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaGeometry%202-2024-07-25</guid>
+    <pubDate>Thu, 25 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>PaliGemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaliGemma-2024-07-10</guid>
+    <pubDate>Wed, 10 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>FLAMe (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAMe-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: FLAMe
+License: closed
+Type: model
+LLM-as-a-Judge autorater. Foundational Large Autorater Models (FLAMe). Uses an instruction-tuned PaLM-2-24B model. Unrelated to Microsoft FLAME Jan/2023.</description>
+  </item>
+  <item>
+    <title>Flexi-JEST++ (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flexi-JEST%2B%2B-2024-06-25</guid>
+    <pubDate>Tue, 25 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>JEST++ (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JEST%2B%2B-2024-06-25</guid>
+    <pubDate>Tue, 25 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 2 9B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%202%209B-2024-06-24</guid>
+    <pubDate>Mon, 24 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 2 27B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%202%2027B-2024-06-24</guid>
+    <pubDate>Mon, 24 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 27B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 2 2B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%202%202B-2024-06-24</guid>
+    <pubDate>Mon, 24 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 2.6B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%202-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemma 2
+License: open
+Type: model
+Announce: https://blog.google/technology/developers/google-gemma-2/</description>
+  </item>
+  <item>
+    <title>Veo (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Veo-2024-05-14</guid>
+    <pubDate>Tue, 14 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Imagen 3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Imagen%203-2024-05-14</guid>
+    <pubDate>Tue, 14 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.5 Flash (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.5%20Flash-2024-05-10</guid>
+    <pubDate>Fri, 10 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.5 Flash 8B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.5%20Flash%208B-2024-05-10</guid>
+    <pubDate>Fri, 10 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>LearnLM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LearnLM-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>Parameters: LearnLM
+License: partial
+Type: model
+Fine-tuned + prompted Gemini (Dec/2023). &quot;The results of LearnLM-Tutor reproduce the performance of Gemini Pro, for example an MMLU score of 0.72 and MATH score of 0.33.&quot;</description>
+  </item>
+  <item>
+    <title>Gemini 1.5 Flash (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.5%20Flash-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 1.5 Flash
+License: open
+Type: model
+1M context length. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>Med-Gemini-L 1.0 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Gemini-L%201.0-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Med-Gemini-L 1.0
+License: closed
+Type: model
+Med-Gemini-M 1.0 and Med-Gemini-L 1.0 (Pro and Ultra finetunes) &quot;For language tasks that require less complex reasoning, such as summarizing medical notes and creating referral letters, we introduce Med-Gemini-M 1.0 by fine-tuning the Gemini 1.0 Pro model. For other tasks that require more advanced reasoning, we introduce Med-Gemini-L 1.0 by fine-tuning the Gemini 1.0 Ultra model using a self-training method to enable the models to efficiently use web search.&quot;</description>
+  </item>
+  <item>
+    <title>GenCast (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GenCast-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>SIMA (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SIMA-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Griffin (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Griffin-2024-02-29</guid>
+    <pubDate>Thu, 29 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 14B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Hawk (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hawk-2024-02-29</guid>
+    <pubDate>Thu, 29 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Genie (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Genie-2024-02-23</guid>
+    <pubDate>Fri, 23 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 10.7B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 7B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%207B-2024-02-21</guid>
+    <pubDate>Wed, 21 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 8.5B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemma 2B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma%202B-2024-02-21</guid>
+    <pubDate>Wed, 21 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 2.5B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.5 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.5%20Pro-2024-02-15</guid>
+    <pubDate>Thu, 15 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.0 Pro Vision (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.0%20Pro%20Vision-2024-02-15</guid>
+    <pubDate>Thu, 15 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 2.0 Flash-Lite (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%202.0%20Flash-Lite-2024-02-05</guid>
+    <pubDate>Mon, 05 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Hawk (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hawk-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Hawk
+License: open
+Type: model
+MMLU=35. RNN.</description>
+  </item>
+  <item>
+    <title>Griffin (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Griffin-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Griffin
+License: open
+Type: model
+MMLU=49.5. RNN.</description>
+  </item>
+  <item>
+    <title>Gemma (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemma-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemma
+License: open
+Type: model
+MMLU=64.3 (Llama 2 70B=68.9, ChatGPT 20B=70). Text only. Probably dense. Largest trained dataset (6T) besides frontier models.</description>
+  </item>
+  <item>
+    <title>Gemini 1.5 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.5%20Pro-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini 1.5 Pro
+License: open
+Type: model
+Sparse MoE. Context window=1M and 10M for research. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>RT-1 + AutoRT (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-1%20%2B%20AutoRT-2024-01-04</guid>
+    <pubDate>Thu, 04 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 35M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Nano-2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Nano-2-2023-12-19</guid>
+    <pubDate>Tue, 19 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 3.3B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini Nano-1 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Nano-1-2023-12-19</guid>
+    <pubDate>Tue, 19 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1.8B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>FunSearch (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FunSearch-2023-12-14</guid>
+    <pubDate>Thu, 14 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 15B
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Imagen 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Imagen%202-2023-12-13</guid>
+    <pubDate>Wed, 13 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.0 Ultra (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.0%20Ultra-2023-12-06</guid>
+    <pubDate>Wed, 06 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Gemini 1.0 Pro (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%201.0%20Pro-2023-12-06</guid>
+    <pubDate>Wed, 06 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>SARA-RT-2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SARA-RT-2-2023-12-04</guid>
+    <pubDate>Mon, 04 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 5B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>MedLM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MedLM-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>partial</category>
+    <description>Parameters: MedLM
+License: partial
+Type: model
+Available to &apos;white-listed&apos; orgs only.</description>
+  </item>
+  <item>
+    <title>Gemini Ultra 1.0 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Gemini%20Ultra%201.0-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: Gemini Ultra 1.0
+License: open
+Type: model
+Original MMLU=83.7. MMLU=90.04 with prompting. Chinchilla (20:1), dense, maybe 600B-2000T. Note: Gemini outputs are watermarked. I do not use GDM models. https://lifearchitect.ai/watermarking/</description>
+  </item>
+  <item>
+    <title>GNoME for crystal discovery (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GNoME%20for%20crystal%20discovery-2023-11-29</guid>
+    <pubDate>Wed, 29 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 16.2M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Lyria (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Lyria-2023-11-16</guid>
+    <pubDate>Thu, 16 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>GraphCast (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GraphCast-2023-11-14</guid>
+    <pubDate>Tue, 14 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Q-Transformer (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Q-Transformer-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Q-Transformer
+License: closed
+Type: model
+Robotics, builds on RT-1</description>
+  </item>
+  <item>
+    <title>Mirasol3B (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mirasol3B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Mirasol3B
+License: closed
+Type: model
+Combiner + autoregressive transformer for video/audio/text</description>
+  </item>
+  <item>
+    <title>RT-2-X (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-2-X-2023-10-13</guid>
+    <pubDate>Fri, 13 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 55B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>MatFormer (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MatFormer-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: MatFormer
+License: open
+Type: model
+Matryoshka Transformer or MatFormer model architecture. 850M (696M / 620M / 582M). &quot;850M decoder-only MatFormer language model (MatLM) allows us to extract multiple smaller models spanning from 582M to 850M parameters, each exhibiting better validation loss and one-shot downstream evaluations than independently trained counterparts.&quot;</description>
+  </item>
+  <item>
+    <title>PaLI-3 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-3-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: PaLI-3
+License: closed
+Type: model
+VLM. Next iteration of PaLI via Pathways. https://lifearchitect.ai/pathways/</description>
+  </item>
+  <item>
+    <title>RT-X (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-X-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: RT-X
+License: open
+Type: model
+Robotics using UL2. &apos;RT-1 model trained using the robotic data mixture as RT-1-X, and the RT-2 model trained using the robotic data mixture as RT-2-X.&apos;</description>
+  </item>
+  <item>
+    <title>AlphaMissense (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaMissense-2023-09-22</guid>
+    <pubDate>Fri, 22 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 93M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>RT-2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RT-2-2023-07-28</guid>
+    <pubDate>Fri, 28 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 55B
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Med-PaLM M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%20M-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Med-PaLM M
+License: closed
+Type: model
+Uses PaLM 1. Already outperformed by Med-PaLM 2. Med-PaLM Multimodal (Med-PaLM M).</description>
+  </item>
+  <item>
+    <title>DIDACT (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DIDACT-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: DIDACT
+License: closed
+Type: model
+Iterative coding model trained on Google&apos;s monorepo. Jacob: https://twitter.com/jacobaustin132/status/1663972128176128002</description>
+  </item>
+  <item>
+    <title>Agile Soccer Robot (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Agile%20Soccer%20Robot-2023-04-26</guid>
+    <pubDate>Wed, 26 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>SigLIP 400M (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SigLIP%20400M-2023-03-27</guid>
+    <pubDate>Mon, 27 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 400M
+License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>SigLiT (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SigLiT-2023-03-27</guid>
+    <pubDate>Mon, 27 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Med-PaLM 2 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%202-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Med-PaLM 2
+License: closed
+Type: model
+Recently, our next iteration, Med-PaLM 2, consistently performed at an “expert” doctor level on medical exam questions, scoring 85%. This is an 18% improvement from Med-PaLM’s previous performance and far surpasses similar AI models.</description>
+  </item>
+  <item>
+    <title>Med-PaLM 1 (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-PaLM%201-2022-12-01</guid>
+    <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: Med-PaLM 1
+License: closed
+Type: model
+Collab between Google &amp; DeepMind. Makes 1% less errors than humans</description>
+  </item>
+  <item>
+    <title>Differentiable neural computer (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Differentiable%20neural%20computer-2016-10-12</guid>
+    <pubDate>Wed, 12 Oct 2016 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>WaveNet (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WaveNet-2016-09-12</guid>
+    <pubDate>Mon, 12 Sep 2016 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Attend-Infer-Repeat (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Attend-Infer-Repeat-2016-08-12</guid>
+    <pubDate>Fri, 12 Aug 2016 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 82.1M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>PixelCNN (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelCNN-2016-06-16</guid>
+    <pubDate>Thu, 16 Jun 2016 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Dueling DQN (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dueling%20DQN-2016-04-05</guid>
+    <pubDate>Tue, 05 Apr 2016 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1.7M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Double DQN (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Double%20DQN-2016-03-02</guid>
+    <pubDate>Wed, 02 Mar 2016 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 1.5M
+License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Advantage Learning (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Advantage%20Learning-2015-12-15</guid>
+    <pubDate>Tue, 15 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>The Attentive Reader (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#The%20Attentive%20Reader-2015-11-19</guid>
+    <pubDate>Thu, 19 Nov 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Deep Deterministic Policy Gradients (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20Deterministic%20Policy%20Gradients-2015-09-09</guid>
+    <pubDate>Wed, 09 Sep 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>Draw (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Draw-2015-05-20</guid>
+    <pubDate>Wed, 20 May 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>NTM (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NTM-2014-12-10</guid>
+    <pubDate>Wed, 10 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  </channel>
+</rss>

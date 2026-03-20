@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Bloomberg,Johns Hopkins University Models</title>
+    <link>https://llm-timeline.duyet.net/org/bloomberg-johns-hopkins-university</link>
+    <description>Large Language Model releases from Bloomberg,Johns Hopkins University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bloomberg-johns-hopkins-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Bloomberg,Johns Hopkins University Models</title>
+      <link>https://llm-timeline.duyet.net/org/bloomberg-johns-hopkins-university</link>
+    </image>
+  <item>
+    <title>BloombergGPT (Bloomberg,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/org/bloomberg-johns-hopkins-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BloombergGPT-2023-03-30</guid>
+    <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Bloomberg,Johns Hopkins University</category>
+    <category>closed</category>
+    <description>Parameters: 50.6B
+License: closed
+Type: model
+AI model by Bloomberg,Johns Hopkins University</description>
+  </item>
+  </channel>
+</rss>

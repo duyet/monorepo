@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stockholm University,Science for Life Laboratory Models</title>
+    <link>https://llm-timeline.duyet.net/org/stockholm-university,science-for-life-laboratory</link>
+    <description>Large Language Model releases from Stockholm University,Science for Life Laboratory.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stockholm-university,science-for-life-laboratory/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stockholm University,Science for Life Laboratory Models</title>
+      <link>https://llm-timeline.duyet.net/org/stockholm-university,science-for-life-laboratory</link>
+    </image>
+  <item>
+    <title>EvoBind2 (Stockholm University,Science for Life Laboratory)</title>
+    <link>https://llm-timeline.duyet.net/org/stockholm-university,science-for-life-laboratory</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EvoBind2-2024-10-12</guid>
+    <pubDate>Sat, 12 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Stockholm University,Science for Life Laboratory</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stockholm University,Science for Life Laboratory</description>
+  </item>
+  </channel>
+</rss>

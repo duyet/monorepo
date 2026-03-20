@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Indian Statistical Institute Models</title>
+    <link>https://llm-timeline.duyet.net/org/indian-statistical-institute</link>
+    <description>Large Language Model releases from Indian Statistical Institute.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/indian-statistical-institute/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Indian Statistical Institute Models</title>
+      <link>https://llm-timeline.duyet.net/org/indian-statistical-institute</link>
+    </image>
+  <item>
+    <title>Fuzzy NN (Indian Statistical Institute)</title>
+    <link>https://llm-timeline.duyet.net/org/indian-statistical-institute</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fuzzy%20NN-1992-09-01</guid>
+    <pubDate>Tue, 01 Sep 1992 00:00:00 GMT</pubDate>
+    <category>Indian Statistical Institute</category>
+    <category>closed</category>
+    <description>Parameters: 1.2K
+License: closed
+Type: model
+AI model by Indian Statistical Institute</description>
+  </item>
+  </channel>
+</rss>

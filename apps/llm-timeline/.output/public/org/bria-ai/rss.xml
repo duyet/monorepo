@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — BRIA AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/bria-ai</link>
+    <description>Large Language Model releases from BRIA AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bria-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — BRIA AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/bria-ai</link>
+    </image>
+  <item>
+    <title>BRIA 3.1 (BRIA AI)</title>
+    <link>https://llm-timeline.duyet.net/org/bria-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BRIA%203.1-2025-02-15</guid>
+    <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
+    <category>BRIA AI</category>
+    <category>open</category>
+    <description>Parameters: 4B
+License: open
+Type: model
+AI model by BRIA AI</description>
+  </item>
+  <item>
+    <title>RMBG v2.0 (BRIA AI)</title>
+    <link>https://llm-timeline.duyet.net/org/bria-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RMBG%20v2.0-2024-12-23</guid>
+    <pubDate>Mon, 23 Dec 2024 00:00:00 GMT</pubDate>
+    <category>BRIA AI</category>
+    <category>open</category>
+    <description>Parameters: 221M
+License: open
+Type: model
+AI model by BRIA AI</description>
+  </item>
+  <item>
+    <title>VRMBG 2.0 (BRIA AI)</title>
+    <link>https://llm-timeline.duyet.net/org/bria-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VRMBG%202.0-2024-12-23</guid>
+    <pubDate>Mon, 23 Dec 2024 00:00:00 GMT</pubDate>
+    <category>BRIA AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by BRIA AI</description>
+  </item>
+  <item>
+    <title>BRIA 2.3 (BRIA AI)</title>
+    <link>https://llm-timeline.duyet.net/org/bria-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BRIA%202.3-2024-05-14</guid>
+    <pubDate>Tue, 14 May 2024 00:00:00 GMT</pubDate>
+    <category>BRIA AI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by BRIA AI</description>
+  </item>
+  </channel>
+</rss>

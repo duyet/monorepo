@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Imperial College London Models</title>
+    <link>https://llm-timeline.duyet.net/org/imperial-college-london</link>
+    <description>Large Language Model releases from Imperial College London.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/imperial-college-london/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Imperial College London Models</title>
+      <link>https://llm-timeline.duyet.net/org/imperial-college-london</link>
+    </image>
+  <item>
+    <title>DiscDiff (Imperial College London)</title>
+    <link>https://llm-timeline.duyet.net/org/imperial-college-london</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiscDiff-2024-02-08</guid>
+    <pubDate>Thu, 08 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Imperial College London</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Imperial College London</description>
+  </item>
+  </channel>
+</rss>

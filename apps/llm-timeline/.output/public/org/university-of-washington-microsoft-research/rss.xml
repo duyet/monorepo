@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Washington,Microsoft Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research</link>
+    <description>Large Language Model releases from University of Washington,Microsoft Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Washington,Microsoft Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research</link>
+    </image>
+  <item>
+    <title>DLWP (University of Washington,Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DLWP-2021-02-09</guid>
+    <pubDate>Tue, 09 Feb 2021 00:00:00 GMT</pubDate>
+    <category>University of Washington,Microsoft Research</category>
+    <category>closed</category>
+    <description>Parameters: 2.7M
+License: closed
+Type: model
+AI model by University of Washington,Microsoft Research</description>
+  </item>
+  <item>
+    <title>WDC20 / DLWP (University of Washington,Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WDC20%20%2F%20DLWP-2020-03-15</guid>
+    <pubDate>Sun, 15 Mar 2020 00:00:00 GMT</pubDate>
+    <category>University of Washington,Microsoft Research</category>
+    <category>closed</category>
+    <description>Parameters: 672.1K
+License: closed
+Type: model
+AI model by University of Washington,Microsoft Research</description>
+  </item>
+  </channel>
+</rss>

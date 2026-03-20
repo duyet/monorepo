@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Lenovo Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/lenovo-research</link>
+    <description>Large Language Model releases from Lenovo Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/lenovo-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Lenovo Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/lenovo-research</link>
+    </image>
+  <item>
+    <title>TransfoRNN(d=1024)(2-layer) (PTB) (Lenovo Research)</title>
+    <link>https://llm-timeline.duyet.net/org/lenovo-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TransfoRNN(d%3D1024)(2-layer)%20(PTB)-2021-04-04</guid>
+    <pubDate>Sun, 04 Apr 2021 00:00:00 GMT</pubDate>
+    <category>Lenovo Research</category>
+    <category>closed</category>
+    <description>Parameters: 97.6M
+License: closed
+Type: model
+AI model by Lenovo Research</description>
+  </item>
+  </channel>
+</rss>

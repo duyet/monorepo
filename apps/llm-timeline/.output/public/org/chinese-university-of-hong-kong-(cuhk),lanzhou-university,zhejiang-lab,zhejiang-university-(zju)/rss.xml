@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Chinese University of Hong Kong (CUHK),Lanzhou University,Zhejiang Lab,Zhejiang University (ZJU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),lanzhou-university,zhejiang-lab,zhejiang-university-(zju)</link>
+    <description>Large Language Model releases from Chinese University of Hong Kong (CUHK),Lanzhou University,Zhejiang Lab,Zhejiang University (ZJU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),lanzhou-university,zhejiang-lab,zhejiang-university-(zju)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Chinese University of Hong Kong (CUHK),Lanzhou University,Zhejiang Lab,Zhejiang University (ZJU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),lanzhou-university,zhejiang-lab,zhejiang-university-(zju)</link>
+    </image>
+  <item>
+    <title>MPDF (Chinese University of Hong Kong (CUHK),Lanzhou University,Zhejiang Lab,Zhejiang University (ZJU))</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-university-of-hong-kong-(cuhk),lanzhou-university,zhejiang-lab,zhejiang-university-(zju)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPDF-2024-09-07</guid>
+    <pubDate>Sat, 07 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK),Lanzhou University,Zhejiang Lab,Zhejiang University (ZJU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK),Lanzhou University,Zhejiang Lab,Zhejiang University (ZJU)</description>
+  </item>
+  </channel>
+</rss>

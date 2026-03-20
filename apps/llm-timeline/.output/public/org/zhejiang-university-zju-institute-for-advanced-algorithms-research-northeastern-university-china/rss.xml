@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Zhejiang University (ZJU),Institute for Advanced Algorithms Research,Northeastern University (China),China Telecom,State Key Laboratory of Media Convergence Production Technology and Systems Models</title>
+    <link>https://llm-timeline.duyet.net/org/zhejiang-university-zju-institute-for-advanced-algorithms-research-northeastern-university-china</link>
+    <description>Large Language Model releases from Zhejiang University (ZJU),Institute for Advanced Algorithms Research,Northeastern University (China),China Telecom,State Key Laboratory of Media Convergence Production Technology and Systems.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/zhejiang-university-zju-institute-for-advanced-algorithms-research-northeastern-university-china/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Zhejiang University (ZJU),Institute for Advanced Algorithms Research,Northeastern University (China),China Telecom,State Key Laboratory of Media Convergence Production Technology and Systems Models</title>
+      <link>https://llm-timeline.duyet.net/org/zhejiang-university-zju-institute-for-advanced-algorithms-research-northeastern-university-china</link>
+    </image>
+  <item>
+    <title>Xinyu (Zhejiang University (ZJU),Institute for Advanced Algorithms Research,Northeastern University (China),China Telecom,State Key Laboratory of Media Convergence Production Technology and Systems)</title>
+    <link>https://llm-timeline.duyet.net/org/zhejiang-university-zju-institute-for-advanced-algorithms-research-northeastern-university-china</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Xinyu-2024-08-23</guid>
+    <pubDate>Fri, 23 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Zhejiang University (ZJU),Institute for Advanced Algorithms Research,Northeastern University (China),China Telecom,State Key Laboratory of Media Convergence Production Technology and Systems</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by Zhejiang University (ZJU),Institute for Advanced Algorithms Research,Northeastern University (China),China Telecom,State Key Laboratory of Media Convergence Production Technology and Systems</description>
+  </item>
+  </channel>
+</rss>

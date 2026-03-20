@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — CassetteAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/cassetteai</link>
+    <description>Large Language Model releases from CassetteAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cassetteai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — CassetteAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/cassetteai</link>
+    </image>
+  <item>
+    <title>CassetteAI (CassetteAI)</title>
+    <link>https://llm-timeline.duyet.net/org/cassetteai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CassetteAI-2025-03-27</guid>
+    <pubDate>Thu, 27 Mar 2025 00:00:00 GMT</pubDate>
+    <category>CassetteAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by CassetteAI</description>
+  </item>
+  </channel>
+</rss>

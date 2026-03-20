@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Cambridge,Alan Turing Institute Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-cambridge,alan-turing-institute</link>
+    <description>Large Language Model releases from University of Cambridge,Alan Turing Institute.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-cambridge,alan-turing-institute/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Cambridge,Alan Turing Institute Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-cambridge,alan-turing-institute</link>
+    </image>
+  <item>
+    <title>WD+LR+M (University of Cambridge,Alan Turing Institute)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-cambridge,alan-turing-institute</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WD%2BLR%2BM-2021-10-20</guid>
+    <pubDate>Wed, 20 Oct 2021 00:00:00 GMT</pubDate>
+    <category>University of Cambridge,Alan Turing Institute</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Cambridge,Alan Turing Institute</description>
+  </item>
+  </channel>
+</rss>

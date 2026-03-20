@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Facebook AI Research,Georgia Institute of Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research,georgia-institute-of-technology</link>
+    <description>Large Language Model releases from Facebook AI Research,Georgia Institute of Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/facebook-ai-research,georgia-institute-of-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Facebook AI Research,Georgia Institute of Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/facebook-ai-research,georgia-institute-of-technology</link>
+    </image>
+  <item>
+    <title>6-Act Tether (Facebook AI Research,Georgia Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research,georgia-institute-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#6-Act%20Tether-2021-08-03</guid>
+    <pubDate>Tue, 03 Aug 2021 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,Georgia Institute of Technology</category>
+    <category>open</category>
+    <description>Parameters: 5M
+License: open
+Type: model
+AI model by Facebook AI Research,Georgia Institute of Technology</description>
+  </item>
+  </channel>
+</rss>

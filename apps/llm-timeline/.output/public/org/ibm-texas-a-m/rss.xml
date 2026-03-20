@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — IBM,Texas A&amp;M Models</title>
+    <link>https://llm-timeline.duyet.net/org/ibm-texas-a-m</link>
+    <description>Large Language Model releases from IBM,Texas A&amp;M.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ibm-texas-a-m/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — IBM,Texas A&amp;M Models</title>
+      <link>https://llm-timeline.duyet.net/org/ibm-texas-a-m</link>
+    </image>
+  <item>
+    <title>Fold2Seq (IBM,Texas A&amp;M)</title>
+    <link>https://llm-timeline.duyet.net/org/ibm-texas-a-m</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fold2Seq-2021-06-24</guid>
+    <pubDate>Thu, 24 Jun 2021 00:00:00 GMT</pubDate>
+    <category>IBM,Texas A&amp;M</category>
+    <category>closed</category>
+    <description>Parameters: 12.4M
+License: closed
+Type: model
+AI model by IBM,Texas A&amp;M</description>
+  </item>
+  </channel>
+</rss>

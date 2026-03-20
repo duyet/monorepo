@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Washington,Microsoft Research,Cornell University Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research-cornell-university</link>
+    <description>Large Language Model releases from University of Washington,Microsoft Research,Cornell University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research-cornell-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Washington,Microsoft Research,Cornell University Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research-cornell-university</link>
+    </image>
+  <item>
+    <title>3D city reconstruction (University of Washington,Microsoft Research,Cornell University)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-research-cornell-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#3D%20city%20reconstruction-2009-09-29</guid>
+    <pubDate>Tue, 29 Sep 2009 00:00:00 GMT</pubDate>
+    <category>University of Washington,Microsoft Research,Cornell University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Washington,Microsoft Research,Cornell University</description>
+  </item>
+  </channel>
+</rss>

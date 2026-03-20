@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Bell Laboratories Models</title>
+    <link>https://llm-timeline.duyet.net/org/bell-laboratories</link>
+    <description>Large Language Model releases from Bell Laboratories.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/bell-laboratories/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Bell Laboratories Models</title>
+      <link>https://llm-timeline.duyet.net/org/bell-laboratories</link>
+    </image>
+  <item>
+    <title>Siamese-TDNN (Bell Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/bell-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Siamese-TDNN-1993-08-01</guid>
+    <pubDate>Sun, 01 Aug 1993 00:00:00 GMT</pubDate>
+    <category>Bell Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 744
+License: closed
+Type: model
+AI model by Bell Laboratories</description>
+  </item>
+  <item>
+    <title>Boosting (Bell Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/bell-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Boosting-1992-11-30</guid>
+    <pubDate>Mon, 30 Nov 1992 00:00:00 GMT</pubDate>
+    <category>Bell Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 2.6K
+License: closed
+Type: model
+AI model by Bell Laboratories</description>
+  </item>
+  <item>
+    <title>Linear Decision Functions (Bell Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/bell-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Linear%20Decision%20Functions-1962-06-01</guid>
+    <pubDate>Fri, 01 Jun 1962 00:00:00 GMT</pubDate>
+    <category>Bell Laboratories</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Bell Laboratories</description>
+  </item>
+  <item>
+    <title>Theseus (Bell Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/bell-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Theseus-1950-07-02</guid>
+    <pubDate>Sun, 02 Jul 1950 00:00:00 GMT</pubDate>
+    <category>Bell Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 40
+License: closed
+Type: model
+AI model by Bell Laboratories</description>
+  </item>
+  </channel>
+</rss>

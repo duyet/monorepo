@@ -1,12 +1,12 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@duyet/components/ui/tabs";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { DEFAULT_PERIOD, PERIODS, type PeriodValue } from "@/lib/periods";
 
 export function GlobalPeriodSelector() {
-  const pathname = usePathname();
+  const location = useRouterState({ select: (s) => s.location });
+  const pathname = location.pathname;
 
   // Extract current tab and period from pathname
   // Patterns: /blog, /blog/30, /github, /github/7, etc.
@@ -24,7 +24,7 @@ export function GlobalPeriodSelector() {
     <Tabs value={currentPeriod}>
       <TabsList>
         {PERIODS.map((period) => (
-          <Link key={period.value} href={`/${currentTab}/${period.value}`}>
+          <Link key={period.value} to={`/${currentTab}/${period.value}`}>
             <TabsTrigger value={period.value}>{period.label}</TabsTrigger>
           </Link>
         ))}

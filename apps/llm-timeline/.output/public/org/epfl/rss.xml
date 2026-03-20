@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — EPFL Models</title>
+    <link>https://llm-timeline.duyet.net/org/epfl</link>
+    <description>Large Language Model releases from EPFL.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/epfl/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — EPFL Models</title>
+      <link>https://llm-timeline.duyet.net/org/epfl</link>
+    </image>
+  <item>
+    <title>MEDITRON (EPFL)</title>
+    <link>https://llm-timeline.duyet.net/org/epfl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MEDITRON-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>EPFL</category>
+    <category>open</category>
+    <description>Parameters: MEDITRON
+License: open
+Type: model
+Llama 2 trained on med data using NVIDIA Megatron-LM. &quot;outperforms Llama-2-70B, GPT-3.5 (text-davinci-003, 8-shot), and Flan-PaLM on multiple medical reasoning tasks.&quot;</description>
+  </item>
+  </channel>
+</rss>

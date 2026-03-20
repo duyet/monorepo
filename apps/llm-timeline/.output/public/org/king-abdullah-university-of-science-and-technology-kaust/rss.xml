@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — King Abdullah University of Science and Technology (KAUST) Models</title>
+    <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust</link>
+    <description>Large Language Model releases from King Abdullah University of Science and Technology (KAUST).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — King Abdullah University of Science and Technology (KAUST) Models</title>
+      <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust</link>
+    </image>
+  <item>
+    <title>MiniGPT4 (Vicuna finetune) (King Abdullah University of Science and Technology (KAUST))</title>
+    <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MiniGPT4%20(Vicuna%20finetune)-2023-10-02</guid>
+    <pubDate>Mon, 02 Oct 2023 00:00:00 GMT</pubDate>
+    <category>King Abdullah University of Science and Technology (KAUST)</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by King Abdullah University of Science and Technology (KAUST)</description>
+  </item>
+  </channel>
+</rss>

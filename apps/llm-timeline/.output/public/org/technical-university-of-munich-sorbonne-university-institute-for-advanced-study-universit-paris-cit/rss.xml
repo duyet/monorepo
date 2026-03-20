@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Technical University of Munich,Sorbonne University,Institute for Advanced Study,Université Paris Cité,Institut Universitaire de France (IUF) Models</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich-sorbonne-university-institute-for-advanced-study-universit-paris-cit</link>
+    <description>Large Language Model releases from Technical University of Munich,Sorbonne University,Institute for Advanced Study,Université Paris Cité,Institut Universitaire de France (IUF).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/technical-university-of-munich-sorbonne-university-institute-for-advanced-study-universit-paris-cit/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Technical University of Munich,Sorbonne University,Institute for Advanced Study,Université Paris Cité,Institut Universitaire de France (IUF) Models</title>
+      <link>https://llm-timeline.duyet.net/org/technical-university-of-munich-sorbonne-university-institute-for-advanced-study-universit-paris-cit</link>
+    </image>
+  <item>
+    <title>VespaG (Technical University of Munich,Sorbonne University,Institute for Advanced Study,Université Paris Cité,Institut Universitaire de France (IUF))</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich-sorbonne-university-institute-for-advanced-study-universit-paris-cit</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VespaG-2024-09-09</guid>
+    <pubDate>Mon, 09 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Sorbonne University,Institute for Advanced Study,Université Paris Cité,Institut Universitaire de France (IUF)</category>
+    <category>closed</category>
+    <description>Parameters: 660K
+License: closed
+Type: model
+AI model by Technical University of Munich,Sorbonne University,Institute for Advanced Study,Université Paris Cité,Institut Universitaire de France (IUF)</description>
+  </item>
+  </channel>
+</rss>

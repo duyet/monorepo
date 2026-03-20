@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Fast.ai Models</title>
+    <link>https://llm-timeline.duyet.net/org/fast.ai</link>
+    <description>Large Language Model releases from Fast.ai.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fast.ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Fast.ai Models</title>
+      <link>https://llm-timeline.duyet.net/org/fast.ai</link>
+    </image>
+  <item>
+    <title>ULMFiT (Fast.ai)</title>
+    <link>https://llm-timeline.duyet.net/org/fast.ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ULMFiT-2018-01-01</guid>
+    <pubDate>Mon, 01 Jan 2018 00:00:00 GMT</pubDate>
+    <category>Fast.ai</category>
+    <category>open</category>
+    <description>Parameters: ULMFiT
+License: open
+Type: model
+&quot;ULMFiT — 103 M tokens corpus × 14 epochs → 1.44 B tokens processed&quot; &quot;Corpus size. WikiText-103 contains about 103 million word-level tokens. Training schedule. The reference pre-training run trains for 14 full epochs on that corpus. Total tokens seen. 103 M tokens × 14 epochs → roughly 1.44 billion token prediction steps.&quot; Aussie Prof Jeremy Howard: https://www.abc.net.au/news/science/2023-11-15/jeremy-howard-taught-ai-to-the-world-and-helped-invent-chatgpt/103092474</description>
+  </item>
+  </channel>
+</rss>

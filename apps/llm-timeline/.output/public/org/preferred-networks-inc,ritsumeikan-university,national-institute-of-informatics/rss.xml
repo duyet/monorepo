@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Preferred Networks Inc,Ritsumeikan University,National Institute of Informatics Models</title>
+    <link>https://llm-timeline.duyet.net/org/preferred-networks-inc,ritsumeikan-university,national-institute-of-informatics</link>
+    <description>Large Language Model releases from Preferred Networks Inc,Ritsumeikan University,National Institute of Informatics.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/preferred-networks-inc,ritsumeikan-university,national-institute-of-informatics/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Preferred Networks Inc,Ritsumeikan University,National Institute of Informatics Models</title>
+      <link>https://llm-timeline.duyet.net/org/preferred-networks-inc,ritsumeikan-university,national-institute-of-informatics</link>
+    </image>
+  <item>
+    <title>Spectrally Normalized GAN (Preferred Networks Inc,Ritsumeikan University,National Institute of Informatics)</title>
+    <link>https://llm-timeline.duyet.net/org/preferred-networks-inc,ritsumeikan-university,national-institute-of-informatics</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Spectrally%20Normalized%20GAN-2018-02-16</guid>
+    <pubDate>Fri, 16 Feb 2018 00:00:00 GMT</pubDate>
+    <category>Preferred Networks Inc,Ritsumeikan University,National Institute of Informatics</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Preferred Networks Inc,Ritsumeikan University,National Institute of Informatics</description>
+  </item>
+  </channel>
+</rss>

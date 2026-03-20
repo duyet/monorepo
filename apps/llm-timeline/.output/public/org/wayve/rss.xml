@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Wayve Models</title>
+    <link>https://llm-timeline.duyet.net/org/wayve</link>
+    <description>Large Language Model releases from Wayve.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/wayve/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Wayve Models</title>
+      <link>https://llm-timeline.duyet.net/org/wayve</link>
+    </image>
+  <item>
+    <title>GAIA-2 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/org/wayve</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GAIA-2-2025-03-26</guid>
+    <pubDate>Wed, 26 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>Parameters: 8.7B
+License: closed
+Type: model
+AI model by Wayve</description>
+  </item>
+  <item>
+    <title>PRISM-1 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/org/wayve</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PRISM-1-2024-06-17</guid>
+    <pubDate>Mon, 17 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Wayve</description>
+  </item>
+  <item>
+    <title>LINGO-2 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/org/wayve</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LINGO-2-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Wayve</description>
+  </item>
+  <item>
+    <title>GAIA-1 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/org/wayve</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GAIA-1-2023-09-29</guid>
+    <pubDate>Fri, 29 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>Parameters: 9B
+License: closed
+Type: model
+AI model by Wayve</description>
+  </item>
+  <item>
+    <title>GAIA-1 (Wayve)</title>
+    <link>https://llm-timeline.duyet.net/org/wayve</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GAIA-1-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Wayve</category>
+    <category>closed</category>
+    <description>Parameters: GAIA-1
+License: closed
+Type: model
+World model, generates video. Uses T5-large 770M for language + all vision parameters</description>
+  </item>
+  </channel>
+</rss>

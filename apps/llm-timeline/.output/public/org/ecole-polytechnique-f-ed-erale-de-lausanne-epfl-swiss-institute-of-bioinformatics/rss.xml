@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss Institute of Bioinformatics Models</title>
+    <link>https://llm-timeline.duyet.net/org/ecole-polytechnique-f-ed-erale-de-lausanne-epfl-swiss-institute-of-bioinformatics</link>
+    <description>Large Language Model releases from Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss Institute of Bioinformatics.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ecole-polytechnique-f-ed-erale-de-lausanne-epfl-swiss-institute-of-bioinformatics/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss Institute of Bioinformatics Models</title>
+      <link>https://llm-timeline.duyet.net/org/ecole-polytechnique-f-ed-erale-de-lausanne-epfl-swiss-institute-of-bioinformatics</link>
+    </image>
+  <item>
+    <title>DiffPALM (Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss Institute of Bioinformatics)</title>
+    <link>https://llm-timeline.duyet.net/org/ecole-polytechnique-f-ed-erale-de-lausanne-epfl-swiss-institute-of-bioinformatics</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiffPALM-2024-06-24</guid>
+    <pubDate>Mon, 24 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss Institute of Bioinformatics</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss Institute of Bioinformatics</description>
+  </item>
+  </channel>
+</rss>

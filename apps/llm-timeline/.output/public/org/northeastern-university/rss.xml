@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Northeastern University Models</title>
+    <link>https://llm-timeline.duyet.net/org/northeastern-university</link>
+    <description>Large Language Model releases from Northeastern University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/northeastern-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Northeastern University Models</title>
+      <link>https://llm-timeline.duyet.net/org/northeastern-university</link>
+    </image>
+  <item>
+    <title>DNABERT (Northeastern University)</title>
+    <link>https://llm-timeline.duyet.net/org/northeastern-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DNABERT-2021-08-15</guid>
+    <pubDate>Sun, 15 Aug 2021 00:00:00 GMT</pubDate>
+    <category>Northeastern University</category>
+    <category>open</category>
+    <description>Parameters: 110M
+License: open
+Type: model
+AI model by Northeastern University</description>
+  </item>
+  <item>
+    <title>RCAN (Northeastern University)</title>
+    <link>https://llm-timeline.duyet.net/org/northeastern-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RCAN-2018-07-08</guid>
+    <pubDate>Sun, 08 Jul 2018 00:00:00 GMT</pubDate>
+    <category>Northeastern University</category>
+    <category>closed</category>
+    <description>Parameters: 16M
+License: closed
+Type: model
+AI model by Northeastern University</description>
+  </item>
+  </channel>
+</rss>

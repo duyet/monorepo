@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Independent Models</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <description>Large Language Model releases from Independent.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/independent/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Independent Models</title>
+      <link>https://llm-timeline.duyet.net/org/independent</link>
+    </image>
+  <item>
+    <title>Assistant_Pepe_8B (Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Assistant_Pepe_8B-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: Assistant_Pepe_8B
+License: open
+Type: model
+Warning for inappropriate content. Base: Llama-3.1-Nemotron-8B. &quot;trained it on an extended 4chan dataset&quot; &quot;the original, gpt4chan (by Yannic Kilcher) scored especially high in truthfulness (that was b4 benchmaxxing)... outperformed the base tune (the unabliterated one), it also changed its political alignment... People were initially joking about the &quot;alignment tax&quot;, I think there&apos;s a none trivial substance in all of this. It seems to me just above a marginal error or statistical noise.&quot;</description>
+  </item>
+  <item>
+    <title>TimeCapsuleLLM-v2-1800-1875 (Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TimeCapsuleLLM-v2-1800-1875-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: TimeCapsuleLLM-v2-1800-1875
+License: open
+Type: model
+112GB dataset=30B tokens x 0.5 epochs = 15B tokens.</description>
+  </item>
+  <item>
+    <title>ChuXin (Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ChuXin-2024-05-01</guid>
+    <pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: ChuXin
+License: open
+Type: model
+&quot;results on the ”Needle In A Haystack”(NIAH) tests indicate that ChuXin-1M performs well across all context window lengths up to 1M.&quot;</description>
+  </item>
+  <item>
+    <title>Parakeet (Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Parakeet-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: Parakeet
+License: open
+Type: model
+Tiny model (378M) for testing</description>
+  </item>
+  <item>
+    <title>phi-CTNL (Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#phi-CTNL-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: phi-CTNL
+License: open
+Type: model
+Satire. MMLU=100. &apos;phi-CTNL (pronounced “fictional”) that achieves perfect results across diverse academic benchmarks&apos;</description>
+  </item>
+  <item>
+    <title>GPT-4chan (Independent)</title>
+    <link>https://llm-timeline.duyet.net/org/independent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-4chan-2022-06-01</guid>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Independent</category>
+    <category>open</category>
+    <description>Parameters: GPT-4chan
+License: open
+Type: model
+Warning for inappropriate content. GPT-J.</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA,University of Washington,University of Southern California Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,university-of-washington,university-of-southern-california</link>
+    <description>Large Language Model releases from NVIDIA,University of Washington,University of Southern California.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia,university-of-washington,university-of-southern-california/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA,University of Washington,University of Southern California Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia,university-of-washington,university-of-southern-california</link>
+    </image>
+  <item>
+    <title>HAMSTER VLM (NVIDIA,University of Washington,University of Southern California)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,university-of-washington,university-of-southern-california</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HAMSTER%20VLM-2025-02-08</guid>
+    <pubDate>Sat, 08 Feb 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA,University of Washington,University of Southern California</category>
+    <category>open</category>
+    <description>Parameters: 13.5B
+License: open
+Type: model
+AI model by NVIDIA,University of Washington,University of Southern California</description>
+  </item>
+  </channel>
+</rss>

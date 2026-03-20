@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Kunlun Inc. Models</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <description>Large Language Model releases from Kunlun Inc..</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/kunlun-inc/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Kunlun Inc. Models</title>
+      <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    </image>
+  <item>
+    <title>MindLink-72B (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MindLink-72B-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>Parameters: 72B
+License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>MindLink-32B (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MindLink-32B-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>Parameters: 32B
+License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Skywork-R1V3 (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skywork-R1V3-2025-06-10</guid>
+    <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>Parameters: 38B
+License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Skywork-OR1-32B (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skywork-OR1-32B-2025-05-29</guid>
+    <pubDate>Thu, 29 May 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>SkyReels-V2 (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SkyReels-V2-2025-04-21</guid>
+    <pubDate>Mon, 21 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>Parameters: 14B
+License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>SkyReels-A2 (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SkyReels-A2-2025-04-03</guid>
+    <pubDate>Thu, 03 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>Parameters: 14B
+License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>SkyReels-A1 (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SkyReels-A1-2025-02-15</guid>
+    <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Tiangong 4.0 (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tiangong%204.0-2025-01-06</guid>
+    <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Tiangong SkyPaint (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tiangong%20SkyPaint-2024-10-15</guid>
+    <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Tiangong 3.0 (MoE) (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tiangong%203.0%20(MoE)-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>Parameters: 400B
+License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Tiangong SkyMusic (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tiangong%20SkyMusic-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  <item>
+    <title>Skywork-13B (Kunlun Inc.)</title>
+    <link>https://llm-timeline.duyet.net/org/kunlun-inc</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skywork-13B-2023-10-30</guid>
+    <pubDate>Mon, 30 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Kunlun Inc.</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Kunlun Inc.</description>
+  </item>
+  </channel>
+</rss>

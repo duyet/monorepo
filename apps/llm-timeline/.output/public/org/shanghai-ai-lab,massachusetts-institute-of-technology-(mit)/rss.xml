@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai AI Lab,Massachusetts Institute of Technology (MIT) Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    <description>Large Language Model releases from Shanghai AI Lab,Massachusetts Institute of Technology (MIT).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai AI Lab,Massachusetts Institute of Technology (MIT) Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    </image>
+  <item>
+    <title>HGRN 1B (WT 103) (Shanghai AI Lab,Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-ai-lab,massachusetts-institute-of-technology-(mit)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HGRN%201B%20(WT%20103)-2023-11-08</guid>
+    <pubDate>Wed, 08 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Shanghai AI Lab,Massachusetts Institute of Technology (MIT)</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Shanghai AI Lab,Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  </channel>
+</rss>

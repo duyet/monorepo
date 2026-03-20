@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Allen Institute for AI (Ai2) Models</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai-(ai2)</link>
+    <description>Large Language Model releases from Allen Institute for AI (Ai2).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/allen-institute-for-ai-(ai2)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Allen Institute for AI (Ai2) Models</title>
+      <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai-(ai2)</link>
+    </image>
+  <item>
+    <title>Olmo 3 (Allen Institute for AI (Ai2))</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai-(ai2)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Olmo%203-2025-11-20</guid>
+    <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI (Ai2)</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Allen Institute for AI (Ai2)</description>
+  </item>
+  </channel>
+</rss>

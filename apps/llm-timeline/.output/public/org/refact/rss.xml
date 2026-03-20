@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Refact Models</title>
+    <link>https://llm-timeline.duyet.net/org/refact</link>
+    <description>Large Language Model releases from Refact.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/refact/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Refact Models</title>
+      <link>https://llm-timeline.duyet.net/org/refact</link>
+    </image>
+  <item>
+    <title>202305-refact2b-mqa-lion (Refact)</title>
+    <link>https://llm-timeline.duyet.net/org/refact</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#202305-refact2b-mqa-lion-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>Refact</category>
+    <category>partial</category>
+    <description>Parameters: 202305-refact2b-mqa-lion
+License: partial
+Type: model
+LiON vs Adam, code, RedPajama+The Stack</description>
+  </item>
+  </channel>
+</rss>

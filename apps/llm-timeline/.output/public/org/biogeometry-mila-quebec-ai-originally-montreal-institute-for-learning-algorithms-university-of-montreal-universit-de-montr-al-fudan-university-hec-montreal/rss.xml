@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — BioGeometry,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,Fudan University,HEC Montreal Models</title>
+    <link>https://llm-timeline.duyet.net/org/biogeometry-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-university-of-montreal-universit-de-montr-al-fudan-university-hec-montreal</link>
+    <description>Large Language Model releases from BioGeometry,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,Fudan University,HEC Montreal.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/biogeometry-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-university-of-montreal-universit-de-montr-al-fudan-university-hec-montreal/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.ico</url>
+      <title>LLM Timeline — BioGeometry,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,Fudan University,HEC Montreal Models</title>
+      <link>https://llm-timeline.duyet.net/org/biogeometry-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-university-of-montreal-universit-de-montr-al-fudan-university-hec-montreal</link>
+    </image>
+  <item>
+    <title>GearBind (BioGeometry,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,Fudan University,HEC Montreal)</title>
+    <link>https://llm-timeline.duyet.net/org/biogeometry-mila-quebec-ai-originally-montreal-institute-for-learning-algorithms-university-of-montreal-universit-de-montr-al-fudan-university-hec-montreal</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GearBind-2024-09-06</guid>
+    <pubDate>Fri, 06 Sep 2024 00:00:00 GMT</pubDate>
+    <category>BioGeometry,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,Fudan University,HEC Montreal</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by BioGeometry,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal,Fudan University,HEC Montreal</description>
+  </item>
+  </channel>
+</rss>

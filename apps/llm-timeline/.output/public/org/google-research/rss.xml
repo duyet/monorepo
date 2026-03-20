@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <description>Large Language Model releases from Google Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-research</link>
+    </image>
+  <item>
+    <title>Transformers in music recommendation (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformers%20in%20music%20recommendation-2024-08-16</guid>
+    <pubDate>Fri, 16 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>Derm Foundational Model (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Derm%20Foundational%20Model-2024-03-08</guid>
+    <pubDate>Fri, 08 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>open</category>
+    <description>Parameters: 928M
+License: open
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>GQA-8-XXL (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GQA-8-XXL-2023-12-23</guid>
+    <pubDate>Sat, 23 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 11B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>AudioLM (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AudioLM-2023-07-26</guid>
+    <pubDate>Wed, 26 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 1.5B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>PaLI-X (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLI-X-2023-05-29</guid>
+    <pubDate>Mon, 29 May 2023 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 55B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>Parti (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Parti-2022-06-22</guid>
+    <pubDate>Wed, 22 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 20B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>CoCa (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CoCa-2022-06-14</guid>
+    <pubDate>Tue, 14 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 2.1B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>XMC-GAN (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XMC-GAN-2022-04-14</guid>
+    <pubDate>Thu, 14 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>PaLM (540B) (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM%20(540B)-2022-04-04</guid>
+    <pubDate>Mon, 04 Apr 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 540.4B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>MaskGIT (ImageNet) (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MaskGIT%20(ImageNet)-2022-02-08</guid>
+    <pubDate>Tue, 08 Feb 2022 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 227M
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>LongT5 (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LongT5-2021-12-15</guid>
+    <pubDate>Wed, 15 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>ViT-G/14 (LiT) (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ViT-G%2F14%20(LiT)-2021-11-15</guid>
+    <pubDate>Mon, 15 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 3.0B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>FLAN 137B (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLAN%20137B-2021-09-03</guid>
+    <pubDate>Fri, 03 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 137B
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>ALIGN (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALIGN-2021-06-11</guid>
+    <pubDate>Fri, 11 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 820M
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>Transformer-XL + AutoDropout (PTB) (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20%2B%20AutoDropout%20(PTB)-2021-01-05</guid>
+    <pubDate>Tue, 05 Jan 2021 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>Routing Transformer (WT-103) (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Routing%20Transformer%20(WT-103)-2020-03-12</guid>
+    <pubDate>Thu, 12 Mar 2020 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>open</category>
+    <description>Parameters: 79.5M
+License: open
+Type: model
+AI model by Google Research</description>
+  </item>
+  <item>
+    <title>Local Transformer (WT103) (Google Research)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Local%20Transformer%20(WT103)-2020-03-12</guid>
+    <pubDate>Thu, 12 Mar 2020 00:00:00 GMT</pubDate>
+    <category>Google Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google Research</description>
+  </item>
+  </channel>
+</rss>

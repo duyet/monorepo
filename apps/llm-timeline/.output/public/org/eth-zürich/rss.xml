@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ETH Zürich Models</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zürich</link>
+    <description>Large Language Model releases from ETH Zürich.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/eth-zürich/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ETH Zürich Models</title>
+      <link>https://llm-timeline.duyet.net/org/eth-zürich</link>
+    </image>
+  <item>
+    <title>Apertus (ETH Zürich)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zürich</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apertus-2025-09-01</guid>
+    <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ETH Zürich</category>
+    <category>open</category>
+    <description>Parameters: Apertus
+License: open
+Type: model
+&quot;Apertus – Latin for “open”&quot; 1,811 languages. Announce: https://ethz.ch/en/news-and-events/eth-news/news/2025/09/press-release-apertus-a-fully-open-transparent-multilingual-language-model.html</description>
+  </item>
+  <item>
+    <title>PassGPT (ETH Zürich)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zürich</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PassGPT-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>ETH Zürich</category>
+    <category>closed</category>
+    <description>Parameters: PassGPT
+License: closed
+Type: model
+GPT-2 trained on leaked passwords</description>
+  </item>
+  </channel>
+</rss>

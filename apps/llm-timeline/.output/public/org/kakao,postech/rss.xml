@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Kakao,POSTECH Models</title>
+    <link>https://llm-timeline.duyet.net/org/kakao,postech</link>
+    <description>Large Language Model releases from Kakao,POSTECH.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/kakao,postech/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Kakao,POSTECH Models</title>
+      <link>https://llm-timeline.duyet.net/org/kakao,postech</link>
+    </image>
+  <item>
+    <title>RQ-Transformer (LSUN-cat dataset) (Kakao,POSTECH)</title>
+    <link>https://llm-timeline.duyet.net/org/kakao,postech</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RQ-Transformer%20(LSUN-cat%20dataset)-2022-03-03</guid>
+    <pubDate>Thu, 03 Mar 2022 00:00:00 GMT</pubDate>
+    <category>Kakao,POSTECH</category>
+    <category>closed</category>
+    <description>Parameters: 612M
+License: closed
+Type: model
+AI model by Kakao,POSTECH</description>
+  </item>
+  <item>
+    <title>RQ-Transformer (1.4B params ImageNet dataset) (Kakao,POSTECH)</title>
+    <link>https://llm-timeline.duyet.net/org/kakao,postech</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RQ-Transformer%20(1.4B%20params%20ImageNet%20dataset)-2022-03-03</guid>
+    <pubDate>Thu, 03 Mar 2022 00:00:00 GMT</pubDate>
+    <category>Kakao,POSTECH</category>
+    <category>closed</category>
+    <description>Parameters: 1.4B
+License: closed
+Type: model
+AI model by Kakao,POSTECH</description>
+  </item>
+  <item>
+    <title>RQ-Transformer (3.8B params ImageNet dataset) (Kakao,POSTECH)</title>
+    <link>https://llm-timeline.duyet.net/org/kakao,postech</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RQ-Transformer%20(3.8B%20params%20ImageNet%20dataset)-2022-03-03</guid>
+    <pubDate>Thu, 03 Mar 2022 00:00:00 GMT</pubDate>
+    <category>Kakao,POSTECH</category>
+    <category>closed</category>
+    <description>Parameters: 3.8B
+License: closed
+Type: model
+AI model by Kakao,POSTECH</description>
+  </item>
+  </channel>
+</rss>

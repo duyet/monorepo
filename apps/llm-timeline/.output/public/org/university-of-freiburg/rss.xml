@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Freiburg Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-freiburg</link>
+    <description>Large Language Model releases from University of Freiburg.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-freiburg/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Freiburg Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-freiburg</link>
+    </image>
+  <item>
+    <title>RNAformer (University of Freiburg)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-freiburg</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNAformer-2024-12-01</guid>
+    <pubDate>Sun, 01 Dec 2024 00:00:00 GMT</pubDate>
+    <category>University of Freiburg</category>
+    <category>closed</category>
+    <description>Parameters: 32M
+License: closed
+Type: model
+AI model by University of Freiburg</description>
+  </item>
+  <item>
+    <title>Decoupled weight decay regularization (University of Freiburg)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-freiburg</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Decoupled%20weight%20decay%20regularization-2019-01-04</guid>
+    <pubDate>Fri, 04 Jan 2019 00:00:00 GMT</pubDate>
+    <category>University of Freiburg</category>
+    <category>open</category>
+    <description>Parameters: 36.5M
+License: open
+Type: model
+AI model by University of Freiburg</description>
+  </item>
+  <item>
+    <title>U-Net (University of Freiburg)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-freiburg</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-Net-2015-05-18</guid>
+    <pubDate>Mon, 18 May 2015 00:00:00 GMT</pubDate>
+    <category>University of Freiburg</category>
+    <category>open</category>
+    <description>Parameters: 37.7M
+License: open
+Type: model
+AI model by University of Freiburg</description>
+  </item>
+  </channel>
+</rss>

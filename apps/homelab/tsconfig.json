@@ -1,16 +1,11 @@
 {
-  "extends": "@duyet/tsconfig/nextjs.json",
+  "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "src/routeTree.gen.ts"],
   "exclude": ["node_modules", "**/__tests__"]
 }

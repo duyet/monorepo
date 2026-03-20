@@ -1,5 +1,3 @@
-"use client";
-
 import { useMemo, useState, useTransition } from "react";
 import { Filters } from "@/components/filters";
 import { Timeline } from "@/components/timeline";

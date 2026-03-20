@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Korea Advanced Institute of Science and Technology (KAIST),NAVER Models</title>
+    <link>https://llm-timeline.duyet.net/org/korea-advanced-institute-of-science-and-technology-(kaist),naver</link>
+    <description>Large Language Model releases from Korea Advanced Institute of Science and Technology (KAIST),NAVER.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/korea-advanced-institute-of-science-and-technology-(kaist),naver/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Korea Advanced Institute of Science and Technology (KAIST),NAVER Models</title>
+      <link>https://llm-timeline.duyet.net/org/korea-advanced-institute-of-science-and-technology-(kaist),naver</link>
+    </image>
+  <item>
+    <title>DiT-XL/2 + Discriminator Guidance (Korea Advanced Institute of Science and Technology (KAIST),NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/korea-advanced-institute-of-science-and-technology-(kaist),naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DiT-XL%2F2%20%2B%20Discriminator%20Guidance-2022-11-28</guid>
+    <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST),NAVER</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST),NAVER</description>
+  </item>
+  <item>
+    <title>Discriminator Guidance (Korea Advanced Institute of Science and Technology (KAIST),NAVER)</title>
+    <link>https://llm-timeline.duyet.net/org/korea-advanced-institute-of-science-and-technology-(kaist),naver</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Discriminator%20Guidance-2022-11-28</guid>
+    <pubDate>Mon, 28 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST),NAVER</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST),NAVER</description>
+  </item>
+  </channel>
+</rss>

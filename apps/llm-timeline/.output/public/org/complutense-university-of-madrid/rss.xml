@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Complutense University of Madrid Models</title>
+    <link>https://llm-timeline.duyet.net/org/complutense-university-of-madrid</link>
+    <description>Large Language Model releases from Complutense University of Madrid.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/complutense-university-of-madrid/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Complutense University of Madrid Models</title>
+      <link>https://llm-timeline.duyet.net/org/complutense-university-of-madrid</link>
+    </image>
+  <item>
+    <title>Invariant image recognition (Complutense University of Madrid)</title>
+    <link>https://llm-timeline.duyet.net/org/complutense-university-of-madrid</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Invariant%20image%20recognition-1989-06-18</guid>
+    <pubDate>Sun, 18 Jun 1989 00:00:00 GMT</pubDate>
+    <category>Complutense University of Madrid</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Complutense University of Madrid</description>
+  </item>
+  </channel>
+</rss>

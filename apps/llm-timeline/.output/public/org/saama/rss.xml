@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Saama Models</title>
+    <link>https://llm-timeline.duyet.net/org/saama</link>
+    <description>Large Language Model releases from Saama.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/saama/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Saama Models</title>
+      <link>https://llm-timeline.duyet.net/org/saama</link>
+    </image>
+  <item>
+    <title>OpenBioLLM-Llama3-70B (Saama)</title>
+    <link>https://llm-timeline.duyet.net/org/saama</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenBioLLM-Llama3-70B-2025-01-14</guid>
+    <pubDate>Tue, 14 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Saama</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Saama</description>
+  </item>
+  <item>
+    <title>OpenBioLLM-Llama3-8B (Saama)</title>
+    <link>https://llm-timeline.duyet.net/org/saama</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenBioLLM-Llama3-8B-2025-01-14</guid>
+    <pubDate>Tue, 14 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Saama</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by Saama</description>
+  </item>
+  </channel>
+</rss>

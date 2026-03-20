@@ -1,9 +1,7 @@
-"use client";
-
 import { AuthButtons } from "@duyet/components/header/AuthButtons";
 import Icons from "@duyet/components/Icons";
+import { Link } from "@tanstack/react-router";
 import { Download, Lock, Scale } from "lucide-react";
-import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { lastSynced } from "@/lib/data";
 
@@ -30,7 +28,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               </div>
 
               <Link
-                href="/"
+                to="/"
                 className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2 rounded"
               >
                 <h1 className="text-3xl sm:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight transition-opacity group-hover:opacity-80 font-[family-name:var(--font-display)]">
@@ -46,13 +44,13 @@ export function PageLayout({ children, description }: PageLayoutProps) {
             <div className="flex items-center gap-1.5 animate-fade-in animate-fade-in-delay-2">
               <ThemeToggle />
               <Link
-                href="/compare"
+                to="/compare"
                 className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
                 aria-label="Compare models"
               >
                 <Scale className="h-4 w-4" />
               </Link>
-              <Link
+              <a
                 href="https://github.com/duyet/monorepo"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -60,12 +58,12 @@ export function PageLayout({ children, description }: PageLayoutProps) {
                 aria-label="GitHub"
               >
                 <Icons.Github className="h-4 w-4" />
-              </Link>
+              </a>
               <AuthButtons
                 className="rounded-lg p-2.5"
                 signInClassName="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
                 signedInContent={
-                  <Link
+                  <a
                     href="/data.json"
                     download="llm-timeline-data.json"
                     className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
@@ -73,7 +71,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
                     aria-label="Download data"
                   >
                     <Download className="h-4 w-4" />
-                  </Link>
+                  </a>
                 }
                 signedOutContent={
                   <button
@@ -103,12 +101,12 @@ export function PageLayout({ children, description }: PageLayoutProps) {
           <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-neutral-500 dark:text-neutral-400">
             <p>
               Built by{" "}
-              <Link
+              <a
                 href="https://duyet.net"
                 className="font-medium text-neutral-900 dark:text-neutral-100 underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-all hover:text-neutral-700 dark:hover:text-white"
               >
                 duyet
-              </Link>
+              </a>
             </p>
             <p className="font-[family-name:var(--font-mono)] text-xs">
               Updated {lastSynced}
@@ -118,14 +116,14 @@ export function PageLayout({ children, description }: PageLayoutProps) {
             <span className="text-neutral-300 dark:text-neutral-600">
               Data sources:
             </span>
-            <Link
+            <a
               href="https://huggingface.co/models"
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               Hugging Face
-            </Link>
+            </a>
             <span>·</span>
             <a
               href="https://paperswithcode.com"
@@ -168,14 +166,14 @@ export function PageLayout({ children, description }: PageLayoutProps) {
             </span>
             <span>·</span>
             <Link
-              href="/llms.txt"
+              to="/llms.txt"
               className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               llms.txt
             </Link>
             <span>·</span>
             <Link
-              href="/rss.xml"
+              to="/rss.xml"
               className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               RSS

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Insilico Medicine AI,Harvard Medical School Models</title>
+    <link>https://llm-timeline.duyet.net/org/insilico-medicine-ai-harvard-medical-school</link>
+    <description>Large Language Model releases from Insilico Medicine AI,Harvard Medical School.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/insilico-medicine-ai-harvard-medical-school/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Insilico Medicine AI,Harvard Medical School Models</title>
+      <link>https://llm-timeline.duyet.net/org/insilico-medicine-ai-harvard-medical-school</link>
+    </image>
+  <item>
+    <title>Precious3GPT (Insilico Medicine AI,Harvard Medical School)</title>
+    <link>https://llm-timeline.duyet.net/org/insilico-medicine-ai-harvard-medical-school</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Precious3GPT-2024-07-05</guid>
+    <pubDate>Fri, 05 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Insilico Medicine AI,Harvard Medical School</category>
+    <category>closed</category>
+    <description>Parameters: 89M
+License: closed
+Type: model
+AI model by Insilico Medicine AI,Harvard Medical School</description>
+  </item>
+  </channel>
+</rss>

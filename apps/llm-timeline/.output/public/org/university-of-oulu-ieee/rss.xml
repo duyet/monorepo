@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Oulu,IEEE Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oulu-ieee</link>
+    <description>Large Language Model releases from University of Oulu,IEEE.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-oulu-ieee/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Oulu,IEEE Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-oulu-ieee</link>
+    </image>
+  <item>
+    <title>Local Binary Patterns for facial recognition (University of Oulu,IEEE)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-oulu-ieee</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Local%20Binary%20Patterns%20for%20facial%20recognition-2006-12-01</guid>
+    <pubDate>Fri, 01 Dec 2006 00:00:00 GMT</pubDate>
+    <category>University of Oulu,IEEE</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oulu,IEEE</description>
+  </item>
+  </channel>
+</rss>

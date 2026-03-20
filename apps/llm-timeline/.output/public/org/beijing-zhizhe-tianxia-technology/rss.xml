@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beijing Zhizhe Tianxia Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-zhizhe-tianxia-technology</link>
+    <description>Large Language Model releases from Beijing Zhizhe Tianxia Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beijing-zhizhe-tianxia-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beijing Zhizhe Tianxia Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/beijing-zhizhe-tianxia-technology</link>
+    </image>
+  <item>
+    <title>ZhihaiTu AI (知海图) (Beijing Zhizhe Tianxia Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-zhizhe-tianxia-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ZhihaiTu%20AI%20(%E7%9F%A5%E6%B5%B7%E5%9B%BE)-2023-11-04</guid>
+    <pubDate>Sat, 04 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Beijing Zhizhe Tianxia Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beijing Zhizhe Tianxia Technology</description>
+  </item>
+  </channel>
+</rss>

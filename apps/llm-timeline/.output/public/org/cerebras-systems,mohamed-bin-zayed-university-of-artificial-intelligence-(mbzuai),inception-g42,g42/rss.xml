@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Cerebras Systems,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Inception G42,G42 Models</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras-systems,mohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai),inception-g42,g42</link>
+    <description>Large Language Model releases from Cerebras Systems,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Inception G42,G42.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cerebras-systems,mohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai),inception-g42,g42/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Cerebras Systems,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Inception G42,G42 Models</title>
+      <link>https://llm-timeline.duyet.net/org/cerebras-systems,mohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai),inception-g42,g42</link>
+    </image>
+  <item>
+    <title>Jais-30b (phase 1) (Cerebras Systems,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Inception G42,G42)</title>
+    <link>https://llm-timeline.duyet.net/org/cerebras-systems,mohamed-bin-zayed-university-of-artificial-intelligence-(mbzuai),inception-g42,g42</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jais-30b%20(phase%201)-2023-11-08</guid>
+    <pubDate>Wed, 08 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Cerebras Systems,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Inception G42,G42</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by Cerebras Systems,Mohamed bin Zayed University of Artificial Intelligence (MBZUAI),Inception G42,G42</description>
+  </item>
+  </channel>
+</rss>

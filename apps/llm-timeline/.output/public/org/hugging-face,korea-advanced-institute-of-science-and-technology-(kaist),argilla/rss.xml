@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hugging Face,Korea Advanced Institute of Science and Technology (KAIST),Argilla Models</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face,korea-advanced-institute-of-science-and-technology-(kaist),argilla</link>
+    <description>Large Language Model releases from Hugging Face,Korea Advanced Institute of Science and Technology (KAIST),Argilla.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hugging-face,korea-advanced-institute-of-science-and-technology-(kaist),argilla/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Hugging Face,Korea Advanced Institute of Science and Technology (KAIST),Argilla Models</title>
+      <link>https://llm-timeline.duyet.net/org/hugging-face,korea-advanced-institute-of-science-and-technology-(kaist),argilla</link>
+    </image>
+  <item>
+    <title>Zephyr 141B-A39B (Hugging Face,Korea Advanced Institute of Science and Technology (KAIST),Argilla)</title>
+    <link>https://llm-timeline.duyet.net/org/hugging-face,korea-advanced-institute-of-science-and-technology-(kaist),argilla</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Zephyr%20141B-A39B-2024-04-10</guid>
+    <pubDate>Wed, 10 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Hugging Face,Korea Advanced Institute of Science and Technology (KAIST),Argilla</category>
+    <category>open</category>
+    <description>Parameters: 141B
+License: open
+Type: model
+AI model by Hugging Face,Korea Advanced Institute of Science and Technology (KAIST),Argilla</description>
+  </item>
+  </channel>
+</rss>

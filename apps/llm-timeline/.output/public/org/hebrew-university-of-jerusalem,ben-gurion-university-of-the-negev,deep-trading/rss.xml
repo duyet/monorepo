@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Hebrew University of Jerusalem,Ben-Gurion University of the Negev,Deep Trading Models</title>
+    <link>https://llm-timeline.duyet.net/org/hebrew-university-of-jerusalem,ben-gurion-university-of-the-negev,deep-trading</link>
+    <description>Large Language Model releases from Hebrew University of Jerusalem,Ben-Gurion University of the Negev,Deep Trading.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/hebrew-university-of-jerusalem,ben-gurion-university-of-the-negev,deep-trading/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Hebrew University of Jerusalem,Ben-Gurion University of the Negev,Deep Trading Models</title>
+      <link>https://llm-timeline.duyet.net/org/hebrew-university-of-jerusalem,ben-gurion-university-of-the-negev,deep-trading</link>
+    </image>
+  <item>
+    <title>ProteinBERT (Hebrew University of Jerusalem,Ben-Gurion University of the Negev,Deep Trading)</title>
+    <link>https://llm-timeline.duyet.net/org/hebrew-university-of-jerusalem,ben-gurion-university-of-the-negev,deep-trading</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProteinBERT-2022-02-10</guid>
+    <pubDate>Thu, 10 Feb 2022 00:00:00 GMT</pubDate>
+    <category>Hebrew University of Jerusalem,Ben-Gurion University of the Negev,Deep Trading</category>
+    <category>open</category>
+    <description>Parameters: 16M
+License: open
+Type: model
+AI model by Hebrew University of Jerusalem,Ben-Gurion University of the Negev,Deep Trading</description>
+  </item>
+  </channel>
+</rss>

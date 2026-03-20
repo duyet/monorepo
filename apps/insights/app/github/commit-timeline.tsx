@@ -11,17 +11,15 @@ interface CommitActivity extends Record<string, unknown> {
   week: number;
 }
 
-interface CommitStats {
+export interface CommitStats {
   totalCommits: number;
   avgCommitsPerWeek: number;
   mostActiveDay: string;
   commitHistory: CommitActivity[];
 }
 
-export async function CommitTimeline() {
-  const stats = await getCommitStats(owner);
-
-  // Safety check for stats structure
+/** Sync view component — receives pre-fetched stats */
+export function CommitTimelineView({ stats }: { stats: CommitStats | null }) {
   if (!stats || !Array.isArray(stats.commitHistory)) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
@@ -93,7 +91,7 @@ export async function CommitTimeline() {
   );
 }
 
-async function getCommitStats(owner: string): Promise<CommitStats> {
+export async function fetchCommitStats(owner: string): Promise<CommitStats> {
   try {
     // Get user events with pagination to cover full 12 weeks
     const events = await fetchAllEvents(owner);

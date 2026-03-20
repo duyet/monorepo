@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — King Abdullah University of Science and Technology (KAUST),Karolinska Institute Models</title>
+    <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust-karolinska-institute</link>
+    <description>Large Language Model releases from King Abdullah University of Science and Technology (KAUST),Karolinska Institute.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust-karolinska-institute/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — King Abdullah University of Science and Technology (KAUST),Karolinska Institute Models</title>
+      <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust-karolinska-institute</link>
+    </image>
+  <item>
+    <title>PrePR-CT (King Abdullah University of Science and Technology (KAUST),Karolinska Institute)</title>
+    <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust-karolinska-institute</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PrePR-CT-2024-07-24</guid>
+    <pubDate>Wed, 24 Jul 2024 00:00:00 GMT</pubDate>
+    <category>King Abdullah University of Science and Technology (KAUST),Karolinska Institute</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by King Abdullah University of Science and Technology (KAUST),Karolinska Institute</description>
+  </item>
+  <item>
+    <title>LEP-AD (King Abdullah University of Science and Technology (KAUST),Karolinska Institute)</title>
+    <link>https://llm-timeline.duyet.net/org/king-abdullah-university-of-science-and-technology-kaust-karolinska-institute</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LEP-AD-2023-03-15</guid>
+    <pubDate>Wed, 15 Mar 2023 00:00:00 GMT</pubDate>
+    <category>King Abdullah University of Science and Technology (KAUST),Karolinska Institute</category>
+    <category>closed</category>
+    <description>Parameters: 3.0B
+License: closed
+Type: model
+AI model by King Abdullah University of Science and Technology (KAUST),Karolinska Institute</description>
+  </item>
+  </channel>
+</rss>

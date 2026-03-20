@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Netflix Models</title>
+    <link>https://llm-timeline.duyet.net/org/netflix</link>
+    <description>Large Language Model releases from Netflix.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/netflix/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Netflix Models</title>
+      <link>https://llm-timeline.duyet.net/org/netflix</link>
+    </image>
+  <item>
+    <title>Netflix Recommender System (Netflix)</title>
+    <link>https://llm-timeline.duyet.net/org/netflix</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Netflix%20Recommender%20System-2015-12-01</guid>
+    <pubDate>Tue, 01 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Netflix</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Netflix</description>
+  </item>
+  </channel>
+</rss>

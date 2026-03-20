@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google DeepMind,University of Nottingham,University of Warwick,Athens University of Economics and Business,Google,University of Oxford Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-university-of-nottingham-university-of-warwick-athens-university-of-economics-and</link>
+    <description>Large Language Model releases from Google DeepMind,University of Nottingham,University of Warwick,Athens University of Economics and Business,Google,University of Oxford.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-deepmind-university-of-nottingham-university-of-warwick-athens-university-of-economics-and/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google DeepMind,University of Nottingham,University of Warwick,Athens University of Economics and Business,Google,University of Oxford Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-deepmind-university-of-nottingham-university-of-warwick-athens-university-of-economics-and</link>
+    </image>
+  <item>
+    <title>Aeneas (Google DeepMind,University of Nottingham,University of Warwick,Athens University of Economics and Business,Google,University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind-university-of-nottingham-university-of-warwick-athens-university-of-economics-and</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Aeneas-2025-07-23</guid>
+    <pubDate>Wed, 23 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,University of Nottingham,University of Warwick,Athens University of Economics and Business,Google,University of Oxford</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind,University of Nottingham,University of Warwick,Athens University of Economics and Business,Google,University of Oxford</description>
+  </item>
+  </channel>
+</rss>

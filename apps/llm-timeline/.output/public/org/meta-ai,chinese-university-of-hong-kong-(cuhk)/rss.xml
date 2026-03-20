@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Meta AI,Chinese University of Hong Kong (CUHK) Models</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai,chinese-university-of-hong-kong-(cuhk)</link>
+    <description>Large Language Model releases from Meta AI,Chinese University of Hong Kong (CUHK).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/meta-ai,chinese-university-of-hong-kong-(cuhk)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Meta AI,Chinese University of Hong Kong (CUHK) Models</title>
+      <link>https://llm-timeline.duyet.net/org/meta-ai,chinese-university-of-hong-kong-(cuhk)</link>
+    </image>
+  <item>
+    <title>MemSizer (language modeling) (Meta AI,Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/org/meta-ai,chinese-university-of-hong-kong-(cuhk)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MemSizer%20(language%20modeling)-2022-03-23</guid>
+    <pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate>
+    <category>Meta AI,Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>Parameters: 357M
+License: closed
+Type: model
+AI model by Meta AI,Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  </channel>
+</rss>

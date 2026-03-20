@@ -1,5 +1,4 @@
 import Container from "@duyet/components/Container";
-import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -15,12 +14,12 @@ export default function NotFound() {
           <p className="mb-8 text-neutral-600 dark:text-neutral-400">
             Sorry, we couldn't find the page you're looking for.
           </p>
-          <Link
+          <a
             href="/"
             className="inline-block rounded-lg bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700 transition-colors"
           >
             Back to dashboard
-          </Link>
+          </a>
         </div>
       </div>
     </Container>

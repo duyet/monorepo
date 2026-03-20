@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Facebook AI Research,University of Washington,University of California (UC) Berkeley,Carnegie Mellon University (CMU),Toyota Technological Institute at Chicago Models</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research-university-of-washington-university-of-california-uc-berkeley-carnegie-mellon</link>
+    <description>Large Language Model releases from Facebook AI Research,University of Washington,University of California (UC) Berkeley,Carnegie Mellon University (CMU),Toyota Technological Institute at Chicago.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/facebook-ai-research-university-of-washington-university-of-california-uc-berkeley-carnegie-mellon/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Facebook AI Research,University of Washington,University of California (UC) Berkeley,Carnegie Mellon University (CMU),Toyota Technological Institute at Chicago Models</title>
+      <link>https://llm-timeline.duyet.net/org/facebook-ai-research-university-of-washington-university-of-california-uc-berkeley-carnegie-mellon</link>
+    </image>
+  <item>
+    <title>Incoder-6.7B (Facebook AI Research,University of Washington,University of California (UC) Berkeley,Carnegie Mellon University (CMU),Toyota Technological Institute at Chicago)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research-university-of-washington-university-of-california-uc-berkeley-carnegie-mellon</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Incoder-6.7B-2023-04-09</guid>
+    <pubDate>Sun, 09 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,University of Washington,University of California (UC) Berkeley,Carnegie Mellon University (CMU),Toyota Technological Institute at Chicago</category>
+    <category>open</category>
+    <description>Parameters: 6.7B
+License: open
+Type: model
+AI model by Facebook AI Research,University of Washington,University of California (UC) Berkeley,Carnegie Mellon University (CMU),Toyota Technological Institute at Chicago</description>
+  </item>
+  </channel>
+</rss>

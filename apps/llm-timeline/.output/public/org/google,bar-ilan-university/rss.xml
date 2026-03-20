@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,Bar-Ilan University Models</title>
+    <link>https://llm-timeline.duyet.net/org/google,bar-ilan-university</link>
+    <description>Large Language Model releases from Google,Bar-Ilan University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google,bar-ilan-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,Bar-Ilan University Models</title>
+      <link>https://llm-timeline.duyet.net/org/google,bar-ilan-university</link>
+    </image>
+  <item>
+    <title>NMT Transformer 437M (Google,Bar-Ilan University)</title>
+    <link>https://llm-timeline.duyet.net/org/google,bar-ilan-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NMT%20Transformer%20437M-2019-02-28</guid>
+    <pubDate>Thu, 28 Feb 2019 00:00:00 GMT</pubDate>
+    <category>Google,Bar-Ilan University</category>
+    <category>closed</category>
+    <description>Parameters: 437.7M
+License: closed
+Type: model
+AI model by Google,Bar-Ilan University</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Alibaba,University of Waterloo,Vector Institute Models</title>
+    <link>https://llm-timeline.duyet.net/org/alibaba-university-of-waterloo-vector-institute</link>
+    <description>Large Language Model releases from Alibaba,University of Waterloo,Vector Institute.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/alibaba-university-of-waterloo-vector-institute/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Alibaba,University of Waterloo,Vector Institute Models</title>
+      <link>https://llm-timeline.duyet.net/org/alibaba-university-of-waterloo-vector-institute</link>
+    </image>
+  <item>
+    <title>AR-LDM (Alibaba,University of Waterloo,Vector Institute)</title>
+    <link>https://llm-timeline.duyet.net/org/alibaba-university-of-waterloo-vector-institute</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AR-LDM-2022-11-20</guid>
+    <pubDate>Sun, 20 Nov 2022 00:00:00 GMT</pubDate>
+    <category>Alibaba,University of Waterloo,Vector Institute</category>
+    <category>closed</category>
+    <description>Parameters: 1.5B
+License: closed
+Type: model
+AI model by Alibaba,University of Waterloo,Vector Institute</description>
+  </item>
+  </channel>
+</rss>

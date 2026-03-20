@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai Xingzhi Technology Co., Ltd. Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-xingzhi-technology-co.,-ltd.</link>
+    <description>Large Language Model releases from Shanghai Xingzhi Technology Co., Ltd..</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-xingzhi-technology-co.,-ltd./rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai Xingzhi Technology Co., Ltd. Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-xingzhi-technology-co.,-ltd.</link>
+    </image>
+  <item>
+    <title>Aha (大模型) (Shanghai Xingzhi Technology Co., Ltd.)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-xingzhi-technology-co.,-ltd.</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Aha%20(%E5%A4%A7%E6%A8%A1%E5%9E%8B)-2024-10-31</guid>
+    <pubDate>Thu, 31 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Shanghai Xingzhi Technology Co., Ltd.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Shanghai Xingzhi Technology Co., Ltd.</description>
+  </item>
+  </channel>
+</rss>

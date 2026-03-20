@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Shanghai Lingyi Artificial Intelligence Technology Co., Ltd. Models</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-lingyi-artificial-intelligence-technology-co-ltd</link>
+    <description>Large Language Model releases from Shanghai Lingyi Artificial Intelligence Technology Co., Ltd..</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/shanghai-lingyi-artificial-intelligence-technology-co-ltd/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Shanghai Lingyi Artificial Intelligence Technology Co., Ltd. Models</title>
+      <link>https://llm-timeline.duyet.net/org/shanghai-lingyi-artificial-intelligence-technology-co-ltd</link>
+    </image>
+  <item>
+    <title>Baigong (百工) (Shanghai Lingyi Artificial Intelligence Technology Co., Ltd.)</title>
+    <link>https://llm-timeline.duyet.net/org/shanghai-lingyi-artificial-intelligence-technology-co-ltd</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Baigong%20(%E7%99%BE%E5%B7%A5)-2025-02-21</guid>
+    <pubDate>Fri, 21 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Shanghai Lingyi Artificial Intelligence Technology Co., Ltd.</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Shanghai Lingyi Artificial Intelligence Technology Co., Ltd.</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Inception Labs Models</title>
+    <link>https://llm-timeline.duyet.net/org/inception-labs</link>
+    <description>Large Language Model releases from Inception Labs.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/inception-labs/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Inception Labs Models</title>
+      <link>https://llm-timeline.duyet.net/org/inception-labs</link>
+    </image>
+  <item>
+    <title>Mercury Coder Mini (Inception Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/inception-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mercury%20Coder%20Mini-2025-06-17</guid>
+    <pubDate>Tue, 17 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Inception Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Inception Labs</description>
+  </item>
+  <item>
+    <title>Mercury Coder Small (Inception Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/inception-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mercury%20Coder%20Small-2025-06-17</guid>
+    <pubDate>Tue, 17 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Inception Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Inception Labs</description>
+  </item>
+  <item>
+    <title>Mercury (Inception Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/inception-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mercury-2025-02-27</guid>
+    <pubDate>Thu, 27 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Inception Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Inception Labs</description>
+  </item>
+  </channel>
+</rss>

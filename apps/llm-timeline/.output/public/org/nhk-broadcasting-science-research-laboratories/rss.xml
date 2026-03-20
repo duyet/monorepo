@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NHK Broadcasting Science Research Laboratories Models</title>
+    <link>https://llm-timeline.duyet.net/org/nhk-broadcasting-science-research-laboratories</link>
+    <description>Large Language Model releases from NHK Broadcasting Science Research Laboratories.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nhk-broadcasting-science-research-laboratories/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NHK Broadcasting Science Research Laboratories Models</title>
+      <link>https://llm-timeline.duyet.net/org/nhk-broadcasting-science-research-laboratories</link>
+    </image>
+  <item>
+    <title>Hierarchical Cognitron (NHK Broadcasting Science Research Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/nhk-broadcasting-science-research-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hierarchical%20Cognitron-1984-04-01</guid>
+    <pubDate>Sun, 01 Apr 1984 00:00:00 GMT</pubDate>
+    <category>NHK Broadcasting Science Research Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 9.3K
+License: closed
+Type: model
+AI model by NHK Broadcasting Science Research Laboratories</description>
+  </item>
+  <item>
+    <title>Neocognitron (NHK Broadcasting Science Research Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/org/nhk-broadcasting-science-research-laboratories</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Neocognitron-1980-04-01</guid>
+    <pubDate>Tue, 01 Apr 1980 00:00:00 GMT</pubDate>
+    <category>NHK Broadcasting Science Research Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 1.1M
+License: closed
+Type: model
+AI model by NHK Broadcasting Science Research Laboratories</description>
+  </item>
+  </channel>
+</rss>

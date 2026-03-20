@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Microsoft/NVIDIA Models</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-nvidia</link>
+    <description>Large Language Model releases from Microsoft/NVIDIA.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/microsoft-nvidia/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Microsoft/NVIDIA Models</title>
+      <link>https://llm-timeline.duyet.net/org/microsoft-nvidia</link>
+    </image>
+  <item>
+    <title>MT-NLG (Microsoft/NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/microsoft-nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MT-NLG-2021-10-01</guid>
+    <pubDate>Fri, 01 Oct 2021 00:00:00 GMT</pubDate>
+    <category>Microsoft/NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: MT-NLG
+License: closed
+Type: model</description>
+  </item>
+  </channel>
+</rss>

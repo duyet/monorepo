@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2005 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2005</link>
+    <description>Large Language Model releases from 2005.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2005/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2005 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2005</link>
+    </image>
+  <item>
+    <title>Vision-based obstacle avoidance system (2005) (New York University (NYU),Net-Scale technologies,NEC Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/2005</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vision-based%20obstacle%20avoidance%20system%20(2005)-2005-12-05</guid>
+    <pubDate>Mon, 05 Dec 2005 00:00:00 GMT</pubDate>
+    <category>New York University (NYU),Net-Scale technologies,NEC Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 72K
+License: closed
+Type: model
+AI model by New York University (NYU),Net-Scale technologies,NEC Laboratories</description>
+  </item>
+  <item>
+    <title>Monocular Depth Prediction (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2005</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Monocular%20Depth%20Prediction-2005-12-05</guid>
+    <pubDate>Mon, 05 Dec 2005 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>Parameters: 1.5M
+License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>RankNet (Microsoft Research,Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2005</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RankNet-2005-08-07</guid>
+    <pubDate>Sun, 07 Aug 2005 00:00:00 GMT</pubDate>
+    <category>Microsoft Research,Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 5.7K
+License: closed
+Type: model
+AI model by Microsoft Research,Microsoft</description>
+  </item>
+  <item>
+    <title>BiLSTM for Speech (IDSIA,Technical University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/year/2005</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BiLSTM%20for%20Speech-2005-08-01</guid>
+    <pubDate>Mon, 01 Aug 2005 00:00:00 GMT</pubDate>
+    <category>IDSIA,Technical University of Munich</category>
+    <category>closed</category>
+    <description>Parameters: 152.1K
+License: closed
+Type: model
+AI model by IDSIA,Technical University of Munich</description>
+  </item>
+  </channel>
+</rss>

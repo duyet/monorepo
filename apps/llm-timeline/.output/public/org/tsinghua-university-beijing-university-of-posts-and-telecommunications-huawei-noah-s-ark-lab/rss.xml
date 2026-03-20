@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-beijing-university-of-posts-and-telecommunications-huawei-noah-s-ark-lab</link>
+    <description>Large Language Model releases from Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university-beijing-university-of-posts-and-telecommunications-huawei-noah-s-ark-lab/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university-beijing-university-of-posts-and-telecommunications-huawei-noah-s-ark-lab</link>
+    </image>
+  <item>
+    <title>LSTM(large)+Sememe+cell (Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-beijing-university-of-posts-and-telecommunications-huawei-noah-s-ark-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM(large)%2BSememe%2Bcell-2019-10-20</guid>
+    <pubDate>Sun, 20 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab</category>
+    <category>closed</category>
+    <description>Parameters: 48M
+License: closed
+Type: model
+AI model by Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab</description>
+  </item>
+  <item>
+    <title>LSTM(medium)+Sememe+cell (WT2) (Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university-beijing-university-of-posts-and-telecommunications-huawei-noah-s-ark-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM(medium)%2BSememe%2Bcell%20(WT2)-2019-10-20</guid>
+    <pubDate>Sun, 20 Oct 2019 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by Tsinghua University,Beijing University of Posts and Telecommunications,Huawei Noah&apos;s Ark Lab</description>
+  </item>
+  </channel>
+</rss>

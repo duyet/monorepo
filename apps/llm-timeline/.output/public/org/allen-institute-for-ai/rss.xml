@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Allen Institute for AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <description>Large Language Model releases from Allen Institute for AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/allen-institute-for-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Allen Institute for AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    </image>
+  <item>
+    <title>Atlantes (Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Atlantes-2025-04-26</guid>
+    <pubDate>Sat, 26 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>CodeScientist (Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeScientist-2025-03-20</guid>
+    <pubDate>Thu, 20 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>OLMo 2 32B (Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OLMo%202%2032B-2025-03-13</guid>
+    <pubDate>Thu, 13 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>OLMo 1.7-7B (Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OLMo%201.7-7B-2024-04-17</guid>
+    <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>Unicorn (Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unicorn-2021-03-24</guid>
+    <pubDate>Wed, 24 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>SciBERT (Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SciBERT-2019-03-26</guid>
+    <pubDate>Tue, 26 Mar 2019 00:00:00 GMT</pubDate>
+    <category>Allen Institute for AI</category>
+    <category>open</category>
+    <description>Parameters: 110M
+License: open
+Type: model
+AI model by Allen Institute for AI</description>
+  </item>
+  </channel>
+</rss>

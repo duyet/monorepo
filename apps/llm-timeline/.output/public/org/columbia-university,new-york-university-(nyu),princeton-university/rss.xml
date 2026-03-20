@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Columbia University,New York University (NYU),Princeton University Models</title>
+    <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    <description>Large Language Model releases from Columbia University,New York University (NYU),Princeton University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Columbia University,New York University (NYU),Princeton University Models</title>
+      <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    </image>
+  <item>
+    <title>Dropout-LSTM+Noise(Bernoulli) (WT2) (Columbia University,New York University (NYU),Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout-LSTM%2BNoise(Bernoulli)%20(WT2)-2018-05-03</guid>
+    <pubDate>Thu, 03 May 2018 00:00:00 GMT</pubDate>
+    <category>Columbia University,New York University (NYU),Princeton University</category>
+    <category>closed</category>
+    <description>Parameters: 51M
+License: closed
+Type: model
+AI model by Columbia University,New York University (NYU),Princeton University</description>
+  </item>
+  <item>
+    <title>LSTM+Noise(Beta) (Columbia University,New York University (NYU),Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%2BNoise(Beta)-2018-05-03</guid>
+    <pubDate>Thu, 03 May 2018 00:00:00 GMT</pubDate>
+    <category>Columbia University,New York University (NYU),Princeton University</category>
+    <category>closed</category>
+    <description>Parameters: 51M
+License: closed
+Type: model
+AI model by Columbia University,New York University (NYU),Princeton University</description>
+  </item>
+  <item>
+    <title>AWD-LSTM-MoS+Noisin+dynamic evaluation (PTB) (Columbia University,New York University (NYU),Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-MoS%2BNoisin%2Bdynamic%20evaluation%20(PTB)-2018-05-03</guid>
+    <pubDate>Thu, 03 May 2018 00:00:00 GMT</pubDate>
+    <category>Columbia University,New York University (NYU),Princeton University</category>
+    <category>closed</category>
+    <description>Parameters: 22M
+License: closed
+Type: model
+AI model by Columbia University,New York University (NYU),Princeton University</description>
+  </item>
+  <item>
+    <title>Dropout-LSTM+Noise(Laplace) - medium (WT2) (Columbia University,New York University (NYU),Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout-LSTM%2BNoise(Laplace)%20-%20medium%20(WT2)-2018-05-03</guid>
+    <pubDate>Thu, 03 May 2018 00:00:00 GMT</pubDate>
+    <category>Columbia University,New York University (NYU),Princeton University</category>
+    <category>closed</category>
+    <description>Parameters: 13M
+License: closed
+Type: model
+AI model by Columbia University,New York University (NYU),Princeton University</description>
+  </item>
+  <item>
+    <title>Dropout-LSTM+Noise(Bernoulli) - large(PTB) (Columbia University,New York University (NYU),Princeton University)</title>
+    <link>https://llm-timeline.duyet.net/org/columbia-university,new-york-university-(nyu),princeton-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout-LSTM%2BNoise(Bernoulli)%20-%20large(PTB)-2018-05-03</guid>
+    <pubDate>Thu, 03 May 2018 00:00:00 GMT</pubDate>
+    <category>Columbia University,New York University (NYU),Princeton University</category>
+    <category>closed</category>
+    <description>Parameters: 51M
+License: closed
+Type: model
+AI model by Columbia University,New York University (NYU),Princeton University</description>
+  </item>
+  </channel>
+</rss>

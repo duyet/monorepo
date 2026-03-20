@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beijing 58 Information Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-58-information-technology</link>
+    <description>Large Language Model releases from Beijing 58 Information Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beijing-58-information-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beijing 58 Information Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/beijing-58-information-technology</link>
+    </image>
+  <item>
+    <title>LinGan VL (临感VL) (Beijing 58 Information Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-58-information-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LinGan%20VL%20(%E4%B8%B4%E6%84%9FVL)-2024-12-27</guid>
+    <pubDate>Fri, 27 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Beijing 58 Information Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beijing 58 Information Technology</description>
+  </item>
+  <item>
+    <title>ChatLing (灵犀大模型) (Beijing 58 Information Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/beijing-58-information-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ChatLing%20(%E7%81%B5%E7%8A%80%E5%A4%A7%E6%A8%A1%E5%9E%8B)-2024-07-18</guid>
+    <pubDate>Thu, 18 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Beijing 58 Information Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beijing 58 Information Technology</description>
+  </item>
+  </channel>
+</rss>

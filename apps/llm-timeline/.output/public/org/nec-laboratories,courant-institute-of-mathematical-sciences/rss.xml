@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NEC Laboratories,Courant Institute of Mathematical Sciences Models</title>
+    <link>https://llm-timeline.duyet.net/org/nec-laboratories,courant-institute-of-mathematical-sciences</link>
+    <description>Large Language Model releases from NEC Laboratories,Courant Institute of Mathematical Sciences.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nec-laboratories,courant-institute-of-mathematical-sciences/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NEC Laboratories,Courant Institute of Mathematical Sciences Models</title>
+      <link>https://llm-timeline.duyet.net/org/nec-laboratories,courant-institute-of-mathematical-sciences</link>
+    </image>
+  <item>
+    <title>Synergistic Face Detector (NEC Laboratories,Courant Institute of Mathematical Sciences)</title>
+    <link>https://llm-timeline.duyet.net/org/nec-laboratories,courant-institute-of-mathematical-sciences</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Synergistic%20Face%20Detector-2004-12-01</guid>
+    <pubDate>Wed, 01 Dec 2004 00:00:00 GMT</pubDate>
+    <category>NEC Laboratories,Courant Institute of Mathematical Sciences</category>
+    <category>closed</category>
+    <description>Parameters: 16.6K
+License: closed
+Type: model
+AI model by NEC Laboratories,Courant Institute of Mathematical Sciences</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Brno University of Technology,Johns Hopkins University Models</title>
+    <link>https://llm-timeline.duyet.net/org/brno-university-of-technology,johns-hopkins-university</link>
+    <description>Large Language Model releases from Brno University of Technology,Johns Hopkins University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/brno-university-of-technology,johns-hopkins-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Brno University of Technology,Johns Hopkins University Models</title>
+      <link>https://llm-timeline.duyet.net/org/brno-university-of-technology,johns-hopkins-university</link>
+    </image>
+  <item>
+    <title>KN5 LM + RNN 400/10 (WSJ) (Brno University of Technology,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/org/brno-university-of-technology,johns-hopkins-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KN5%20LM%20%2B%20RNN%20400%2F10%20(WSJ)-2010-09-26</guid>
+    <pubDate>Sun, 26 Sep 2010 00:00:00 GMT</pubDate>
+    <category>Brno University of Technology,Johns Hopkins University</category>
+    <category>closed</category>
+    <description>Parameters: 22.2M
+License: closed
+Type: model
+AI model by Brno University of Technology,Johns Hopkins University</description>
+  </item>
+  <item>
+    <title>RNN 500/10 + RT09 LM (NIST RT05) (Brno University of Technology,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/org/brno-university-of-technology,johns-hopkins-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN%20500%2F10%20%2B%20RT09%20LM%20(NIST%20RT05)-2010-09-26</guid>
+    <pubDate>Sun, 26 Sep 2010 00:00:00 GMT</pubDate>
+    <category>Brno University of Technology,Johns Hopkins University</category>
+    <category>closed</category>
+    <description>Parameters: 19.3M
+License: closed
+Type: model
+AI model by Brno University of Technology,Johns Hopkins University</description>
+  </item>
+  <item>
+    <title>RNN 1000/5 + RT09 LM (NIST RT05) (Brno University of Technology,Johns Hopkins University)</title>
+    <link>https://llm-timeline.duyet.net/org/brno-university-of-technology,johns-hopkins-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN%201000%2F5%20%2B%20RT09%20LM%20(NIST%20RT05)-2010-09-26</guid>
+    <pubDate>Sun, 26 Sep 2010 00:00:00 GMT</pubDate>
+    <category>Brno University of Technology,Johns Hopkins University</category>
+    <category>closed</category>
+    <description>Parameters: 77.0M
+License: closed
+Type: model
+AI model by Brno University of Technology,Johns Hopkins University</description>
+  </item>
+  </channel>
+</rss>

@@ -40,9 +40,9 @@ export function PostHogClient({ data }: PostHogClientProps) {
     );
   }
 
-  const blogUrl = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "";
+  const blogUrl = import.meta.env.VITE_DUYET_BLOG_URL || "";
   if (!blogUrl) {
-    console.warn("NEXT_PUBLIC_DUYET_BLOG_URL is not defined");
+    console.warn("VITE_DUYET_BLOG_URL is not defined");
   }
 
   const metrics = [

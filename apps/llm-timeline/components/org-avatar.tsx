@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import { useTheme } from "next-themes";
 import { useState } from "react";

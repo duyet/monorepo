@@ -5,7 +5,7 @@ import { fetchAllRepositories, getGithubToken } from "./github-utils";
 
 const owner = "duyet";
 
-interface GitHubLanguageStats {
+export interface GitHubLanguageStatsData {
   languages: { name: string; percentage: number; bytes: number }[];
   totalRepos: number;
   totalStars: number;
@@ -13,10 +13,12 @@ interface GitHubLanguageStats {
   activeRepos: number;
 }
 
-export async function GitHubLanguageStats() {
-  const stats = await getLanguageStats(owner);
-
-  // Safety check in case stats is null/undefined or languages is not an array
+/** Sync view component — receives pre-fetched stats */
+export function GitHubLanguageStatsView({
+  stats,
+}: {
+  stats: GitHubLanguageStatsData | null;
+}) {
   if (!stats || !Array.isArray(stats.languages)) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
@@ -130,7 +132,7 @@ export async function GitHubLanguageStats() {
   );
 }
 
-async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
+export async function fetchLanguageStats(owner: string): Promise<GitHubLanguageStatsData> {
   try {
     // Fetch all repositories with pagination
     const repos = await fetchAllRepositories(owner);
@@ -219,3 +221,6 @@ async function getLanguageStats(owner: string): Promise<GitHubLanguageStats> {
     };
   }
 }
+
+// Legacy alias for backward compat
+export { fetchLanguageStats as getLanguageStats };

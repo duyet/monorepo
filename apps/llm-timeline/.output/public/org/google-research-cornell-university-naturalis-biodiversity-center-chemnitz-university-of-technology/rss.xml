@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google Research,Cornell University,Naturalis Biodiversity Center,Chemnitz University of Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-research-cornell-university-naturalis-biodiversity-center-chemnitz-university-of-technology</link>
+    <description>Large Language Model releases from Google Research,Cornell University,Naturalis Biodiversity Center,Chemnitz University of Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-research-cornell-university-naturalis-biodiversity-center-chemnitz-university-of-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google Research,Cornell University,Naturalis Biodiversity Center,Chemnitz University of Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-research-cornell-university-naturalis-biodiversity-center-chemnitz-university-of-technology</link>
+    </image>
+  <item>
+    <title>Bird Vocalization Classifier (Perch) (Google Research,Cornell University,Naturalis Biodiversity Center,Chemnitz University of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/google-research-cornell-university-naturalis-biodiversity-center-chemnitz-university-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bird%20Vocalization%20Classifier%20(Perch)-2023-12-18</guid>
+    <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Google Research,Cornell University,Naturalis Biodiversity Center,Chemnitz University of Technology</category>
+    <category>open</category>
+    <description>Parameters: 7.8M
+License: open
+Type: model
+AI model by Google Research,Cornell University,Naturalis Biodiversity Center,Chemnitz University of Technology</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Johns Hopkins University,New York University (NYU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/johns-hopkins-university,new-york-university-(nyu)</link>
+    <description>Large Language Model releases from Johns Hopkins University,New York University (NYU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/johns-hopkins-university,new-york-university-(nyu)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Johns Hopkins University,New York University (NYU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/johns-hopkins-university,new-york-university-(nyu)</link>
+    </image>
+  <item>
+    <title>Verbatim Memory Transformer (117M) (Johns Hopkins University,New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/org/johns-hopkins-university,new-york-university-(nyu)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Verbatim%20Memory%20Transformer%20(117M)-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Johns Hopkins University,New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 117M
+License: closed
+Type: model
+AI model by Johns Hopkins University,New York University (NYU)</description>
+  </item>
+  <item>
+    <title>Verbatim Memory Transformer (108M) (Johns Hopkins University,New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/org/johns-hopkins-university,new-york-university-(nyu)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Verbatim%20Memory%20Transformer%20(108M)-2022-10-24</guid>
+    <pubDate>Mon, 24 Oct 2022 00:00:00 GMT</pubDate>
+    <category>Johns Hopkins University,New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 107.7M
+License: closed
+Type: model
+AI model by Johns Hopkins University,New York University (NYU)</description>
+  </item>
+  </channel>
+</rss>

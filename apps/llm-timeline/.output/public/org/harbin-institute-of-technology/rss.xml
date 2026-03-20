@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Harbin Institute of Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/harbin-institute-of-technology</link>
+    <description>Large Language Model releases from Harbin Institute of Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/harbin-institute-of-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Harbin Institute of Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/harbin-institute-of-technology</link>
+    </image>
+  <item>
+    <title>KwooVa (Harbin Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/harbin-institute-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KwooVa-2024-11-02</guid>
+    <pubDate>Sat, 02 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Harbin Institute of Technology</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+AI model by Harbin Institute of Technology</description>
+  </item>
+  <item>
+    <title>KwooLa (Harbin Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/harbin-institute-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KwooLa-2024-11-02</guid>
+    <pubDate>Sat, 02 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Harbin Institute of Technology</category>
+    <category>closed</category>
+    <description>Parameters: 14B
+License: closed
+Type: model
+AI model by Harbin Institute of Technology</description>
+  </item>
+  <item>
+    <title>KwooGr (Harbin Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/harbin-institute-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#KwooGr-2024-11-02</guid>
+    <pubDate>Sat, 02 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Harbin Institute of Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Harbin Institute of Technology</description>
+  </item>
+  <item>
+    <title>HuaTuo (Harbin Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/harbin-institute-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HuaTuo-2023-04-14</guid>
+    <pubDate>Fri, 14 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Harbin Institute of Technology</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Harbin Institute of Technology</description>
+  </item>
+  </channel>
+</rss>

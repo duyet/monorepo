@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,nvidia,seoul-national-university,google,oak-ridge-national</link>
+    <description>Large Language Model releases from Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/technical-university-of-munich,nvidia,seoul-national-university,google,oak-ridge-national/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,nvidia,seoul-national-university,google,oak-ridge-national</link>
+    </image>
+  <item>
+    <title>ProtBERT-BFD (Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,nvidia,seoul-national-university,google,oak-ridge-national</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProtBERT-BFD-2021-05-04</guid>
+    <pubDate>Tue, 04 May 2021 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology</category>
+    <category>open</category>
+    <description>Parameters: 420M
+License: open
+Type: model
+AI model by Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology</description>
+  </item>
+  <item>
+    <title>ProtBERT-UniRef (Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,nvidia,seoul-national-university,google,oak-ridge-national</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProtBERT-UniRef-2021-05-04</guid>
+    <pubDate>Tue, 04 May 2021 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology</category>
+    <category>closed</category>
+    <description>Parameters: 420M
+License: closed
+Type: model
+AI model by Technical University of Munich,NVIDIA,Seoul National University,Google,Oak Ridge National Laboratory,Med AI Technology</description>
+  </item>
+  </channel>
+</rss>

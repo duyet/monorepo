@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — OpenLM Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/openlm-research</link>
+    <description>Large Language Model releases from OpenLM Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/openlm-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — OpenLM Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/openlm-research</link>
+    </image>
+  <item>
+    <title>OpenLLaMA-13B (OpenLM Research)</title>
+    <link>https://llm-timeline.duyet.net/org/openlm-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenLLaMA-13B-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>OpenLM Research</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by OpenLM Research</description>
+  </item>
+  </channel>
+</rss>

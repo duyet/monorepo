@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic Models</title>
+    <link>https://llm-timeline.duyet.net/org/ukrainian-catholic-university,igor-sikorsky-kyiv-polytechnic-institute,agh-university-of</link>
+    <description>Large Language Model releases from Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ukrainian-catholic-university,igor-sikorsky-kyiv-polytechnic-institute,agh-university-of/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic Models</title>
+      <link>https://llm-timeline.duyet.net/org/ukrainian-catholic-university,igor-sikorsky-kyiv-polytechnic-institute,agh-university-of</link>
+    </image>
+  <item>
+    <title>Lapa LLM (Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic)</title>
+    <link>https://llm-timeline.duyet.net/org/ukrainian-catholic-university,igor-sikorsky-kyiv-polytechnic-institute,agh-university-of</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Lapa%20LLM-2025-10-25</guid>
+    <pubDate>Sat, 25 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by Ukrainian Catholic University,Igor Sikorsky Kyiv Polytechnic Institute,AGH University of Krakow,Lviv Polytechnic</description>
+  </item>
+  </channel>
+</rss>

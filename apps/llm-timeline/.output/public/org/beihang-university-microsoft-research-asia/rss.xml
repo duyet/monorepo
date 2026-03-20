@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Beihang University,Microsoft Research Asia Models</title>
+    <link>https://llm-timeline.duyet.net/org/beihang-university-microsoft-research-asia</link>
+    <description>Large Language Model releases from Beihang University,Microsoft Research Asia.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/beihang-university-microsoft-research-asia/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Beihang University,Microsoft Research Asia Models</title>
+      <link>https://llm-timeline.duyet.net/org/beihang-university-microsoft-research-asia</link>
+    </image>
+  <item>
+    <title>TrOCR (Beihang University,Microsoft Research Asia)</title>
+    <link>https://llm-timeline.duyet.net/org/beihang-university-microsoft-research-asia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TrOCR-2021-09-21</guid>
+    <pubDate>Tue, 21 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Beihang University,Microsoft Research Asia</category>
+    <category>open</category>
+    <description>Parameters: 558M
+License: open
+Type: model
+AI model by Beihang University,Microsoft Research Asia</description>
+  </item>
+  </channel>
+</rss>

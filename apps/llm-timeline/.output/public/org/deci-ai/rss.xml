@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Deci AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/deci-ai</link>
+    <description>Large Language Model releases from Deci AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deci-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Deci AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/deci-ai</link>
+    </image>
+  <item>
+    <title>DeciCoder-6B (Deci AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deci-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeciCoder-6B-2024-01-15</guid>
+    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Deci AI</category>
+    <category>open</category>
+    <description>Parameters: 6B
+License: open
+Type: model
+AI model by Deci AI</description>
+  </item>
+  <item>
+    <title>DeciLM 6B (Deci AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deci-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeciLM%206B-2023-09-13</guid>
+    <pubDate>Wed, 13 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Deci AI</category>
+    <category>open</category>
+    <description>Parameters: 5.7B
+License: open
+Type: model
+AI model by Deci AI</description>
+  </item>
+  <item>
+    <title>DeciCoder-1B (Deci AI)</title>
+    <link>https://llm-timeline.duyet.net/org/deci-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeciCoder-1B-2023-08-15</guid>
+    <pubDate>Tue, 15 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Deci AI</category>
+    <category>open</category>
+    <description>Parameters: 1.1B
+License: open
+Type: model
+AI model by Deci AI</description>
+  </item>
+  </channel>
+</rss>

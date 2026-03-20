@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Pika Labs Models</title>
+    <link>https://llm-timeline.duyet.net/org/pika-labs</link>
+    <description>Large Language Model releases from Pika Labs.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/pika-labs/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Pika Labs Models</title>
+      <link>https://llm-timeline.duyet.net/org/pika-labs</link>
+    </image>
+  <item>
+    <title>Pika 2.2 (Pika Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/pika-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pika%202.2-2025-02-27</guid>
+    <pubDate>Thu, 27 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Pika Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Pika Labs</description>
+  </item>
+  <item>
+    <title>Pika 2.1 (Pika Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/pika-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pika%202.1-2025-01-15</guid>
+    <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Pika Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Pika Labs</description>
+  </item>
+  <item>
+    <title>Pika 2.0 (Pika Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/pika-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pika%202.0-2024-12-15</guid>
+    <pubDate>Sun, 15 Dec 2024 00:00:00 GMT</pubDate>
+    <category>Pika Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Pika Labs</description>
+  </item>
+  <item>
+    <title>Pika 1.5 (Pika Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/pika-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pika%201.5-2024-10-15</guid>
+    <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Pika Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Pika Labs</description>
+  </item>
+  </channel>
+</rss>

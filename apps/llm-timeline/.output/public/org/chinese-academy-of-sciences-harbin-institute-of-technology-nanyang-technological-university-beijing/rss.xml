@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Chinese Academy of Sciences,Harbin Institute of Technology,Nanyang Technological University,Beijing Academy of Artificial Intelligence / BAAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-academy-of-sciences-harbin-institute-of-technology-nanyang-technological-university-beijing</link>
+    <description>Large Language Model releases from Chinese Academy of Sciences,Harbin Institute of Technology,Nanyang Technological University,Beijing Academy of Artificial Intelligence / BAAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/chinese-academy-of-sciences-harbin-institute-of-technology-nanyang-technological-university-beijing/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Chinese Academy of Sciences,Harbin Institute of Technology,Nanyang Technological University,Beijing Academy of Artificial Intelligence / BAAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/chinese-academy-of-sciences-harbin-institute-of-technology-nanyang-technological-university-beijing</link>
+    </image>
+  <item>
+    <title>FLM-101B (Chinese Academy of Sciences,Harbin Institute of Technology,Nanyang Technological University,Beijing Academy of Artificial Intelligence / BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/chinese-academy-of-sciences-harbin-institute-of-technology-nanyang-technological-university-beijing</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLM-101B-2023-09-07</guid>
+    <pubDate>Thu, 07 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Chinese Academy of Sciences,Harbin Institute of Technology,Nanyang Technological University,Beijing Academy of Artificial Intelligence / BAAI</category>
+    <category>open</category>
+    <description>Parameters: 101B
+License: open
+Type: model
+AI model by Chinese Academy of Sciences,Harbin Institute of Technology,Nanyang Technological University,Beijing Academy of Artificial Intelligence / BAAI</description>
+  </item>
+  </channel>
+</rss>

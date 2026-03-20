@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Sarvam Models</title>
+    <link>https://llm-timeline.duyet.net/org/sarvam</link>
+    <description>Large Language Model releases from Sarvam.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/sarvam/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Sarvam Models</title>
+      <link>https://llm-timeline.duyet.net/org/sarvam</link>
+    </image>
+  <item>
+    <title>Shuka-1 (Sarvam)</title>
+    <link>https://llm-timeline.duyet.net/org/sarvam</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Shuka-1-2024-08-30</guid>
+    <pubDate>Fri, 30 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Sarvam</category>
+    <category>open</category>
+    <description>Parameters: 9.6B
+License: open
+Type: model
+AI model by Sarvam</description>
+  </item>
+  <item>
+    <title>Saaras v1 (Sarvam)</title>
+    <link>https://llm-timeline.duyet.net/org/sarvam</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Saaras%20v1-2024-08-13</guid>
+    <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Sarvam</category>
+    <category>closed</category>
+    <description>Parameters: 1.5B
+License: closed
+Type: model
+AI model by Sarvam</description>
+  </item>
+  </channel>
+</rss>

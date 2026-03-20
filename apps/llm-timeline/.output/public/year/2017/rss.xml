@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2017 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <description>Large Language Model releases from 2017.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2017/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2017 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2017</link>
+    </image>
+  <item>
+    <title>PixelSNAIL (CIFAR 10) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelSNAIL%20(CIFAR%2010)-2017-12-28</guid>
+    <pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>PixelSNAIL (ImageNet) (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelSNAIL%20(ImageNet)-2017-12-28</guid>
+    <pubDate>Thu, 28 Dec 2017 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Tacotron 2 (Google,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tacotron%202-2017-12-19</guid>
+    <pubDate>Tue, 19 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Google,University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>WGAN (Wasserstein GAN) (Facebook AI Research,Courant Institute of Mathematical Sciences)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WGAN%20(Wasserstein%20GAN)-2017-12-06</guid>
+    <pubDate>Wed, 06 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,Courant Institute of Mathematical Sciences</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research,Courant Institute of Mathematical Sciences</description>
+  </item>
+  <item>
+    <title>AlphaZero (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaZero-2017-12-05</guid>
+    <pubDate>Tue, 05 Dec 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>2-layer-LSTM+Deep-Gradient-Compression (Tsinghua University,Stanford University,NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#2-layer-LSTM%2BDeep-Gradient-Compression-2017-12-05</guid>
+    <pubDate>Tue, 05 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,Stanford University,NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 6.0M
+License: closed
+Type: model
+AI model by Tsinghua University,Stanford University,NVIDIA</description>
+  </item>
+  <item>
+    <title>PNASNet-5 (Johns Hopkins University,Google AI,Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PNASNet-5-2017-12-02</guid>
+    <pubDate>Sat, 02 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Johns Hopkins University,Google AI,Stanford University</category>
+    <category>closed</category>
+    <description>Parameters: 86.1M
+License: closed
+Type: model
+AI model by Johns Hopkins University,Google AI,Stanford University</description>
+  </item>
+  <item>
+    <title>DL scaling speech (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DL%20scaling%20speech-2017-12-01</guid>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>Parameters: 193M
+License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>DL scaling LM (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DL%20scaling%20LM-2017-12-01</guid>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>Parameters: 177M
+License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>DL scaling Image (Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DL%20scaling%20Image-2017-12-01</guid>
+    <pubDate>Fri, 01 Dec 2017 00:00:00 GMT</pubDate>
+    <category>Baidu</category>
+    <category>closed</category>
+    <description>Parameters: 121M
+License: closed
+Type: model
+AI model by Baidu</description>
+  </item>
+  <item>
+    <title>TriNet (Visual Computing Institute,RWTH Aachen University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TriNet-2017-11-21</guid>
+    <pubDate>Tue, 21 Nov 2017 00:00:00 GMT</pubDate>
+    <category>Visual Computing Institute,RWTH Aachen University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Visual Computing Institute,RWTH Aachen University</description>
+  </item>
+  <item>
+    <title>AWD-LSTM-MoS + dynamic evaluation (WT2, 2017) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-MoS%20%2B%20dynamic%20evaluation%20(WT2%2C%202017)-2017-11-10</guid>
+    <pubDate>Fri, 10 Nov 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 35M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>AWD-LSTM-MoS + dynamic evaluation (PTB, 2017) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-MoS%20%2B%20dynamic%20evaluation%20(PTB%2C%202017)-2017-11-10</guid>
+    <pubDate>Fri, 10 Nov 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 22M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>VQ-VAE (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VQ-VAE-2017-11-02</guid>
+    <pubDate>Thu, 02 Nov 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>Fraternal dropout + AWD-LSTM 3-layer (WT2) (Jagiellonian University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fraternal%20dropout%20%2B%20AWD-LSTM%203-layer%20(WT2)-2017-10-31</guid>
+    <pubDate>Tue, 31 Oct 2017 00:00:00 GMT</pubDate>
+    <category>Jagiellonian University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>Parameters: 34M
+License: closed
+Type: model
+AI model by Jagiellonian University,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>Fraternal dropout + AWD-LSTM 3-layer (PTB) (University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fraternal%20dropout%20%2B%20AWD-LSTM%203-layer%20(PTB)-2017-10-31</guid>
+    <pubDate>Tue, 31 Oct 2017 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</description>
+  </item>
+  <item>
+    <title>DCN+ (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DCN%2B-2017-10-31</guid>
+    <pubDate>Tue, 31 Oct 2017 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>S-Norm (University of Washington,Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#S-Norm-2017-10-29</guid>
+    <pubDate>Sun, 29 Oct 2017 00:00:00 GMT</pubDate>
+    <category>University of Washington,Allen Institute for AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Washington,Allen Institute for AI</description>
+  </item>
+  <item>
+    <title>PhraseCond (Carnegie Mellon University (CMU),University of Pittsburgh)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PhraseCond-2017-10-28</guid>
+    <pubDate>Sat, 28 Oct 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU),University of Pittsburgh</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU),University of Pittsburgh</description>
+  </item>
+  <item>
+    <title>ProgressiveGAN (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProgressiveGAN-2017-10-27</guid>
+    <pubDate>Fri, 27 Oct 2017 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>LRSO-GAN (University of Technology Sydney)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LRSO-GAN-2017-10-22</guid>
+    <pubDate>Sun, 22 Oct 2017 00:00:00 GMT</pubDate>
+    <category>University of Technology Sydney</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Technology Sydney</description>
+  </item>
+  <item>
+    <title>AlphaGo Master (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaGo%20Master-2017-10-19</guid>
+    <pubDate>Thu, 19 Oct 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>AlphaGo Zero (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaGo%20Zero-2017-10-18</guid>
+    <pubDate>Wed, 18 Oct 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 46.4M
+License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>Rainbow DQN (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Rainbow%20DQN-2017-10-06</guid>
+    <pubDate>Fri, 06 Oct 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>AWD-LSTM+WT+Cache+IOG (WT2) (NTT Communication Science Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%2BWT%2BCache%2BIOG%20(WT2)-2017-09-26</guid>
+    <pubDate>Tue, 26 Sep 2017 00:00:00 GMT</pubDate>
+    <category>NTT Communication Science Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 53M
+License: closed
+Type: model
+AI model by NTT Communication Science Laboratories</description>
+  </item>
+  <item>
+    <title>AWD-LSTM+WT+Cache+IOG (PTB) (NTT Communication Science Laboratories)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%2BWT%2BCache%2BIOG%20(PTB)-2017-09-26</guid>
+    <pubDate>Tue, 26 Sep 2017 00:00:00 GMT</pubDate>
+    <category>NTT Communication Science Laboratories</category>
+    <category>closed</category>
+    <description>Parameters: 30M
+License: closed
+Type: model
+AI model by NTT Communication Science Laboratories</description>
+  </item>
+  <item>
+    <title>LSTM + dynamic eval (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%20%2B%20dynamic%20eval-2017-09-21</guid>
+    <pubDate>Thu, 21 Sep 2017 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 50M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>AWD-LSTM + dynamic eval (PTB) (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20%2B%20dynamic%20eval%20(PTB)-2017-09-21</guid>
+    <pubDate>Thu, 21 Sep 2017 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>AWD-LSTM + dynamic eval (WT2) (University of Edinburgh)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20%2B%20dynamic%20eval%20(WT2)-2017-09-21</guid>
+    <pubDate>Thu, 21 Sep 2017 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh</category>
+    <category>closed</category>
+    <description>Parameters: 33M
+License: closed
+Type: model
+AI model by University of Edinburgh</description>
+  </item>
+  <item>
+    <title>ISS (Duke University,Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ISS-2017-09-15</guid>
+    <pubDate>Fri, 15 Sep 2017 00:00:00 GMT</pubDate>
+    <category>Duke University,Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 11.1M
+License: closed
+Type: model
+AI model by Duke University,Microsoft</description>
+  </item>
+  <item>
+    <title>PyramidNet (Korea Advanced Institute of Science and Technology (KAIST))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PyramidNet-2017-09-06</guid>
+    <pubDate>Wed, 06 Sep 2017 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST)</category>
+    <category>open</category>
+    <description>Parameters: 26M
+License: open
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST)</description>
+  </item>
+  <item>
+    <title>GL-LWGC-AWD-MoS-LSTM + dynamic evaluation (WT2) (Ben-Gurion University of the Negev)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GL-LWGC-AWD-MoS-LSTM%20%2B%20dynamic%20evaluation%20(WT2)-2017-08-29</guid>
+    <pubDate>Tue, 29 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Ben-Gurion University of the Negev</category>
+    <category>closed</category>
+    <description>Parameters: 38M
+License: closed
+Type: model
+AI model by Ben-Gurion University of the Negev</description>
+  </item>
+  <item>
+    <title>GL-LWGC-AWD-MoS-LSTM + dynamic evaluation (PTB) (Ben-Gurion University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GL-LWGC-AWD-MoS-LSTM%20%2B%20dynamic%20evaluation%20(PTB)-2017-08-29</guid>
+    <pubDate>Tue, 29 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Ben-Gurion University</category>
+    <category>closed</category>
+    <description>Parameters: 26M
+License: closed
+Type: model
+AI model by Ben-Gurion University</description>
+  </item>
+  <item>
+    <title>D-LSRC(100)+KN5 (PTB) (Saarland University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#D-LSRC(100)%2BKN5%20(PTB)-2017-08-22</guid>
+    <pubDate>Tue, 22 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Saarland University</category>
+    <category>closed</category>
+    <description>Parameters: 6.0M
+License: closed
+Type: model
+AI model by Saarland University</description>
+  </item>
+  <item>
+    <title>Libratus (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Libratus-2017-08-19</guid>
+    <pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>GRU + p-tHSM (pretrain via Brown) (PTB) (Beihang University,University of Montreal / Université de Montréal,Chongqing University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GRU%20%2B%20p-tHSM%20(pretrain%20via%20Brown)%20(PTB)-2017-08-19</guid>
+    <pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Beihang University,University of Montreal / Université de Montréal,Chongqing University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beihang University,University of Montreal / Université de Montréal,Chongqing University</description>
+  </item>
+  <item>
+    <title>GRU + p-tHSM (pretrain via Brown) (WT2) (Beihang University,University of Montreal / Université de Montréal,Chongqing University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GRU%20%2B%20p-tHSM%20(pretrain%20via%20Brown)%20(WT2)-2017-08-19</guid>
+    <pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Beihang University,University of Montreal / Université de Montréal,Chongqing University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Beihang University,University of Montreal / Université de Montréal,Chongqing University</description>
+  </item>
+  <item>
+    <title>Adversarial Joint Adaptation Network (ResNet) (Tsinghua University,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Adversarial%20Joint%20Adaptation%20Network%20(ResNet)-2017-08-17</guid>
+    <pubDate>Thu, 17 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 60M
+License: closed
+Type: model
+AI model by Tsinghua University,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>NeuMF (Pinterest) (Shandong University,Texas A&amp;M,National University of Singapore,Columbia University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NeuMF%20(Pinterest)-2017-08-16</guid>
+    <pubDate>Wed, 16 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Shandong University,Texas A&amp;M,National University of Singapore,Columbia University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Shandong University,Texas A&amp;M,National University of Singapore,Columbia University</description>
+  </item>
+  <item>
+    <title>Cutout-regularized net (University of Guelph,Vector Institute,CIFAR AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cutout-regularized%20net-2017-08-15</guid>
+    <pubDate>Tue, 15 Aug 2017 00:00:00 GMT</pubDate>
+    <category>University of Guelph,Vector Institute,CIFAR AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Guelph,Vector Institute,CIFAR AI Research</description>
+  </item>
+  <item>
+    <title>EI-REHN-1000D (Korea Advanced Institute of Science and Technology (KAIST))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EI-REHN-1000D-2017-08-14</guid>
+    <pubDate>Mon, 14 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST)</category>
+    <category>closed</category>
+    <description>Parameters: 19M
+License: closed
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST)</description>
+  </item>
+  <item>
+    <title>EI-REHN-1200D (PTB) (Korea Advanced Institute of Science and Technology (KAIST))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EI-REHN-1200D%20(PTB)-2017-08-14</guid>
+    <pubDate>Mon, 14 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Korea Advanced Institute of Science and Technology (KAIST)</category>
+    <category>closed</category>
+    <description>Parameters: 25M
+License: closed
+Type: model
+AI model by Korea Advanced Institute of Science and Technology (KAIST)</description>
+  </item>
+  <item>
+    <title>OpenAI TI7 DOTA 1v1 (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenAI%20TI7%20DOTA%201v1-2017-08-11</guid>
+    <pubDate>Fri, 11 Aug 2017 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>RetinaNet-R101 (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RetinaNet-R101-2017-08-07</guid>
+    <pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>Parameters: 53M
+License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>AWD-LSTM - 3-layer LSTM (tied) + continuous cache pointer (WT2) (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20-%203-layer%20LSTM%20(tied)%20%2B%20continuous%20cache%20pointer%20(WT2)-2017-08-07</guid>
+    <pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>Parameters: 33M
+License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>AWD-LSTM - 3-layer LSTM (tied) + continuous cache pointer (PTB) (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20-%203-layer%20LSTM%20(tied)%20%2B%20continuous%20cache%20pointer%20(PTB)-2017-08-07</guid>
+    <pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>GSM (Peking University,Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GSM-2017-07-30</guid>
+    <pubDate>Sun, 30 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Peking University,Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Peking University,Microsoft Research</description>
+  </item>
+  <item>
+    <title>ConvS2S (ensemble of 8 models) (Meta AI)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ConvS2S%20(ensemble%20of%208%20models)-2017-07-25</guid>
+    <pubDate>Tue, 25 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Meta AI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Meta AI</description>
+  </item>
+  <item>
+    <title>PSPNet (Chinese University of Hong Kong (CUHK))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PSPNet-2017-07-21</guid>
+    <pubDate>Fri, 21 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Chinese University of Hong Kong (CUHK)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Chinese University of Hong Kong (CUHK)</description>
+  </item>
+  <item>
+    <title>Densely Connected LSTM + Var. Dropout (Ghent University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Densely%20Connected%20LSTM%20%2B%20Var.%20Dropout-2017-07-19</guid>
+    <pubDate>Wed, 19 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Ghent University</category>
+    <category>closed</category>
+    <description>Parameters: 23M
+License: closed
+Type: model
+AI model by Ghent University</description>
+  </item>
+  <item>
+    <title>4 layer Densely Connected LSTM 14M (PTB) (Ghent University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#4%20layer%20Densely%20Connected%20LSTM%2014M%20(PTB)-2017-07-19</guid>
+    <pubDate>Wed, 19 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Ghent University</category>
+    <category>closed</category>
+    <description>Parameters: 14M
+License: closed
+Type: model
+AI model by Ghent University</description>
+  </item>
+  <item>
+    <title>AWD-LSTM (DeepMind,University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-2017-07-18</guid>
+    <pubDate>Tue, 18 Jul 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind,University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by DeepMind,University of Oxford</description>
+  </item>
+  <item>
+    <title>JFT (Google Research,Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#JFT-2017-07-10</guid>
+    <pubDate>Mon, 10 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Google Research,Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 44.7M
+License: closed
+Type: model
+AI model by Google Research,Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>DeepLoc (Technical University of Denmark,University of Copenhagen)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLoc-2017-07-07</guid>
+    <pubDate>Fri, 07 Jul 2017 00:00:00 GMT</pubDate>
+    <category>Technical University of Denmark,University of Copenhagen</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Technical University of Denmark,University of Copenhagen</description>
+  </item>
+  <item>
+    <title>NoisyNet-Dueling (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NoisyNet-Dueling-2017-06-30</guid>
+    <pubDate>Fri, 30 Jun 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>DeepLabV3 (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLabV3-2017-06-17</guid>
+    <pubDate>Sat, 17 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>HRA (Maluuba,Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HRA-2017-06-13</guid>
+    <pubDate>Tue, 13 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Maluuba,Microsoft</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Maluuba,Microsoft</description>
+  </item>
+  <item>
+    <title>Transformer (Google Research,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-2017-06-12</guid>
+    <pubDate>Mon, 12 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google Research,Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 213M
+License: closed
+Type: model
+AI model by Google Research,Google Brain</description>
+  </item>
+  <item>
+    <title>EDSR (Seoul National University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EDSR-2017-06-10</guid>
+    <pubDate>Sat, 10 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Seoul National University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Seoul National University</description>
+  </item>
+  <item>
+    <title>Reading Twice for NLU (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reading%20Twice%20for%20NLU-2017-06-08</guid>
+    <pubDate>Thu, 08 Jun 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>PointNet++ (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PointNet%2B%2B-2017-06-07</guid>
+    <pubDate>Wed, 07 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Transformer (big) (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20(big)-2017-06-01</guid>
+    <pubDate>Thu, 01 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Transformer (big)
+License: open
+Type: model
+&quot;Transformer Big — 32 768 tokens per step × 300 000 steps → 9.83 B tokens processed&quot; &quot;We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million sentence pairs... For English-French, we used the significantly larger WMT 2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece vocabulary. Sentence pairs were batched together by approximate sequence length. Each training batch contained a set of sentence pairs containing approximately 25000 source tokens and 25000 target tokens.&quot;</description>
+  </item>
+  <item>
+    <title>Transformer (base) (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20(base)-2017-06-01</guid>
+    <pubDate>Thu, 01 Jun 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>open</category>
+    <description>Parameters: Transformer (base)
+License: open
+Type: model
+&quot;Transformer Base — 32 768 tokens per step × 100 000 steps → 3.28 B tokens processed&quot; &quot;We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million sentence pairs... For English-French, we used the significantly larger WMT 2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece vocabulary. Sentence pairs were batched together by approximate sequence length. Each training batch contained a set of sentence pairs containing approximately 25000 source tokens and 25000 target tokens.&quot;</description>
+  </item>
+  <item>
+    <title>Inflated 3D ConvNet (DeepMind,University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Inflated%203D%20ConvNet-2017-06-01</guid>
+    <pubDate>Thu, 01 Jun 2017 00:00:00 GMT</pubDate>
+    <category>DeepMind,University of Oxford</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by DeepMind,University of Oxford</description>
+  </item>
+  <item>
+    <title>SRGAN (Twitter)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SRGAN-2017-05-25</guid>
+    <pubDate>Thu, 25 May 2017 00:00:00 GMT</pubDate>
+    <category>Twitter</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Twitter</description>
+  </item>
+  <item>
+    <title>Low-Cost Collaborative Network (National University of Singapore,University of Technology Sydney,Qihoo 360 AI Institute)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Low-Cost%20Collaborative%20Network-2017-05-15</guid>
+    <pubDate>Mon, 15 May 2017 00:00:00 GMT</pubDate>
+    <category>National University of Singapore,University of Technology Sydney,Qihoo 360 AI Institute</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by National University of Singapore,University of Technology Sydney,Qihoo 360 AI Institute</description>
+  </item>
+  <item>
+    <title>Mnemonic Reader (Fudan University,Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mnemonic%20Reader-2017-05-08</guid>
+    <pubDate>Mon, 08 May 2017 00:00:00 GMT</pubDate>
+    <category>Fudan University,Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Fudan University,Microsoft Research</description>
+  </item>
+  <item>
+    <title>DeepLab (2017) (Johns Hopkins University,Google,University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepLab%20(2017)-2017-04-27</guid>
+    <pubDate>Thu, 27 Apr 2017 00:00:00 GMT</pubDate>
+    <category>Johns Hopkins University,Google,University College London (UCL)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Johns Hopkins University,Google,University College London (UCL)</description>
+  </item>
+  <item>
+    <title>Tacotron (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tacotron-2017-04-06</guid>
+    <pubDate>Thu, 06 Apr 2017 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>WGAN-GP (Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#WGAN-GP-2017-03-31</guid>
+    <pubDate>Fri, 31 Mar 2017 00:00:00 GMT</pubDate>
+    <category>Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Courant Institute of Mathematical Sciences,Mila - Quebec AI (originally Montreal Institute for Learning Algorithms)</description>
+  </item>
+  <item>
+    <title>Mask R-CNN (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mask%20R-CNN-2017-03-30</guid>
+    <pubDate>Thu, 30 Mar 2017 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>AlexNet + coordinating filters (University of Pittsburgh,Duke University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlexNet%20%2B%20coordinating%20filters-2017-03-28</guid>
+    <pubDate>Tue, 28 Mar 2017 00:00:00 GMT</pubDate>
+    <category>University of Pittsburgh,Duke University</category>
+    <category>open</category>
+    <description>Parameters: 60M
+License: open
+Type: model
+AI model by University of Pittsburgh,Duke University</description>
+  </item>
+  <item>
+    <title>Prototypical networks (University of Toronto,Twitter)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Prototypical%20networks-2017-03-15</guid>
+    <pubDate>Wed, 15 Mar 2017 00:00:00 GMT</pubDate>
+    <category>University of Toronto,Twitter</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto,Twitter</description>
+  </item>
+  <item>
+    <title>Variational Lossy Autoencoder (VLAE) MNIST (University of California (UC) Berkeley,OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Variational%20Lossy%20Autoencoder%20(VLAE)%20MNIST-2017-03-04</guid>
+    <pubDate>Sat, 04 Mar 2017 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley,OpenAI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley,OpenAI</description>
+  </item>
+  <item>
+    <title>SEST (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEST-2017-03-02</guid>
+    <pubDate>Thu, 02 Mar 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>DnCNN (Harbin Institute of Technology,Hong Kong Polytechnic University,ULSee Inc.,Xi’an Jiaotong University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DnCNN-2017-02-01</guid>
+    <pubDate>Wed, 01 Feb 2017 00:00:00 GMT</pubDate>
+    <category>Harbin Institute of Technology,Hong Kong Polytechnic University,ULSee Inc.,Xi’an Jiaotong University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Harbin Institute of Technology,Hong Kong Polytechnic University,ULSee Inc.,Xi’an Jiaotong University</description>
+  </item>
+  <item>
+    <title>VDCNN (on Amazon Review Full dataset) (Facebook AI Research,University of Le Mans)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VDCNN%20(on%20Amazon%20Review%20Full%20dataset)-2017-01-27</guid>
+    <pubDate>Fri, 27 Jan 2017 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,University of Le Mans</category>
+    <category>closed</category>
+    <description>Parameters: 7.8M
+License: closed
+Type: model
+AI model by Facebook AI Research,University of Le Mans</description>
+  </item>
+  <item>
+    <title>MoE-Multi (Jagiellonian University,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MoE-Multi-2017-01-23</guid>
+    <pubDate>Mon, 23 Jan 2017 00:00:00 GMT</pubDate>
+    <category>Jagiellonian University,Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 8.7B
+License: closed
+Type: model
+AI model by Jagiellonian University,Google Brain</description>
+  </item>
+  <item>
+    <title>PixelCNN++ (OpenAI)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PixelCNN%2B%2B-2017-01-19</guid>
+    <pubDate>Thu, 19 Jan 2017 00:00:00 GMT</pubDate>
+    <category>OpenAI</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by OpenAI</description>
+  </item>
+  <item>
+    <title>OR-WideResNet (Duke University,University of Chinese Academy of Sciences)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OR-WideResNet-2017-01-07</guid>
+    <pubDate>Sat, 07 Jan 2017 00:00:00 GMT</pubDate>
+    <category>Duke University,University of Chinese Academy of Sciences</category>
+    <category>closed</category>
+    <description>Parameters: 18.2M
+License: closed
+Type: model
+AI model by Duke University,University of Chinese Academy of Sciences</description>
+  </item>
+  <item>
+    <title>DeepStack (University of Alberta,Charles University,Czech Technical University)</title>
+    <link>https://llm-timeline.duyet.net/year/2017</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepStack-2017-01-06</guid>
+    <pubDate>Fri, 06 Jan 2017 00:00:00 GMT</pubDate>
+    <category>University of Alberta,Charles University,Czech Technical University</category>
+    <category>closed</category>
+    <description>Parameters: 2.5M
+License: closed
+Type: model
+AI model by University of Alberta,Charles University,Czech Technical University</description>
+  </item>
+  </channel>
+</rss>

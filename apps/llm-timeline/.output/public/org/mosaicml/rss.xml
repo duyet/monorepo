@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — MosaicML Models</title>
+    <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    <description>Large Language Model releases from MosaicML.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mosaicml/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — MosaicML Models</title>
+      <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    </image>
+  <item>
+    <title>DBRX (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DBRX-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: DBRX
+License: open
+Type: model
+MoE. Trained for $10M on 3,072 NVIDIA H100s connected by 3.2Tbps Infiniband.</description>
+  </item>
+  <item>
+    <title>MPT-30B (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPT-30B-2023-06-22</guid>
+    <pubDate>Thu, 22 Jun 2023 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: 30B
+License: open
+Type: model
+AI model by MosaicML</description>
+  </item>
+  <item>
+    <title>MPT-7B (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPT-7B-2023-05-05</guid>
+    <pubDate>Fri, 05 May 2023 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by MosaicML</description>
+  </item>
+  <item>
+    <title>MPT (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPT-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: MPT
+License: open
+Type: model
+Llongboi&apos; -Apache 2.0 license suitable for commercial use. -Base 7B LLM trained on 1T tokens outperforms LLaMA and GPT3. -64K+ context length. -$200k to train from scratch.</description>
+  </item>
+  <item>
+    <title>MPT (MosaicML)</title>
+    <link>https://llm-timeline.duyet.net/org/mosaicml</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MPT-2023-04-01</guid>
+    <pubDate>Sat, 01 Apr 2023 00:00:00 GMT</pubDate>
+    <category>MosaicML</category>
+    <category>open</category>
+    <description>Parameters: MPT
+License: open
+Type: model
+More 1B models coming with different datasets. Many more.</description>
+  </item>
+  </channel>
+</rss>

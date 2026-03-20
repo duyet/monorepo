@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Fox Chase Cancer Center,Temple University School of Pharmacy Models</title>
+    <link>https://llm-timeline.duyet.net/org/fox-chase-cancer-center,temple-university-school-of-pharmacy</link>
+    <description>Large Language Model releases from Fox Chase Cancer Center,Temple University School of Pharmacy.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fox-chase-cancer-center,temple-university-school-of-pharmacy/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Fox Chase Cancer Center,Temple University School of Pharmacy Models</title>
+      <link>https://llm-timeline.duyet.net/org/fox-chase-cancer-center,temple-university-school-of-pharmacy</link>
+    </image>
+  <item>
+    <title>vScreenML 2.0 (Fox Chase Cancer Center,Temple University School of Pharmacy)</title>
+    <link>https://llm-timeline.duyet.net/org/fox-chase-cancer-center,temple-university-school-of-pharmacy</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#vScreenML%202.0-2024-10-12</guid>
+    <pubDate>Sat, 12 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Fox Chase Cancer Center,Temple University School of Pharmacy</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Fox Chase Cancer Center,Temple University School of Pharmacy</description>
+  </item>
+  </channel>
+</rss>

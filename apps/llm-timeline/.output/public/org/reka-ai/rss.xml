@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Reka AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <description>Large Language Model releases from Reka AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/reka-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Reka AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    </image>
+  <item>
+    <title>Reka Flash 3.1 (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Flash%203.1-2025-07-01</guid>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>open</category>
+    <description>Parameters: Reka Flash 3.1
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Reka Flash 3 (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Flash%203-2025-03-10</guid>
+    <pubDate>Mon, 10 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>open</category>
+    <description>Parameters: 21B
+License: open
+Type: model
+AI model by Reka AI</description>
+  </item>
+  <item>
+    <title>Reka Flash 3 (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Flash%203-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>open</category>
+    <description>Parameters: Reka Flash 3
+License: open
+Type: model
+&quot;performs competitively with proprietary models such as OpenAI o1-mini, making it a good foundation to build applications that require low latency or on-device deployment. It is currently the best open model in its size category.&quot;</description>
+  </item>
+  <item>
+    <title>Reka Edge (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Edge-2024-04-18</guid>
+    <pubDate>Thu, 18 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by Reka AI</description>
+  </item>
+  <item>
+    <title>Reka Core (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Core-2024-04-15</guid>
+    <pubDate>Mon, 15 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>closed</category>
+    <description>Parameters: 67B
+License: closed
+Type: model
+AI model by Reka AI</description>
+  </item>
+  <item>
+    <title>Reka Flash (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Flash-2024-04-15</guid>
+    <pubDate>Mon, 15 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>closed</category>
+    <description>Parameters: 21B
+License: closed
+Type: model
+AI model by Reka AI</description>
+  </item>
+  <item>
+    <title>Reka Core (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Core-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>open</category>
+    <description>Parameters: Reka Core
+License: open
+Type: model
+https://www.reka.ai/news/reka-core-our-frontier-class-multimodal-language-model</description>
+  </item>
+  <item>
+    <title>Reka Edge (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Edge-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>open</category>
+    <description>Parameters: Reka Edge
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Reka Flash (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Reka%20Flash-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>open</category>
+    <description>Parameters: Reka Flash
+License: open
+Type: model
+My testing shows very poor performance equiv with tiny model</description>
+  </item>
+  <item>
+    <title>Yasa-1 (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yasa-1-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>partial</category>
+    <description>Parameters: Yasa-1
+License: partial
+Type: model
+Multi-modal. No public arch info. Researchers from DeepMind, Google, Baidu and Meta building enterprise models</description>
+  </item>
+  <item>
+    <title>Yasa (Reka AI)</title>
+    <link>https://llm-timeline.duyet.net/org/reka-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Yasa-2023-06-01</guid>
+    <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Reka AI</category>
+    <category>partial</category>
+    <description>Parameters: Yasa
+License: partial
+Type: model
+No public arch info. Researchers from DeepMind, Google, Baidu and Meta building enterprise models</description>
+  </item>
+  </channel>
+</rss>

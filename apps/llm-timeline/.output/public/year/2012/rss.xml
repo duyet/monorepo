@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2012 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <description>Large Language Model releases from 2012.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2012/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2012 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2012</link>
+    </image>
+  <item>
+    <title>RNN (SGD+CLR) (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN%20(SGD%2BCLR)-2012-12-14</guid>
+    <pubDate>Fri, 14 Dec 2012 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>Parameters: 195.6K
+License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>DistBelief Speech (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DistBelief%20Speech-2012-12-03</guid>
+    <pubDate>Mon, 03 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 47.2M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DistBelief Vision (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DistBelief%20Vision-2012-12-03</guid>
+    <pubDate>Mon, 03 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1.7B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>DNN EM segmentation (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DNN%20EM%20segmentation-2012-12-03</guid>
+    <pubDate>Mon, 03 Dec 2012 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 218.9K
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>Bayesian automated hyperparameter tuning (University of Toronto,University of Sherbrooke,Harvard University)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Bayesian%20automated%20hyperparameter%20tuning-2012-12-02</guid>
+    <pubDate>Sun, 02 Dec 2012 00:00:00 GMT</pubDate>
+    <category>University of Toronto,University of Sherbrooke,Harvard University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto,University of Sherbrooke,Harvard University</description>
+  </item>
+  <item>
+    <title>RNN+LDA (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN%2BLDA-2012-12-01</guid>
+    <pubDate>Sat, 01 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>RNN+LSA+KN5+cache (model combination w/ linear extrapolation) (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN%2BLSA%2BKN5%2Bcache%20(model%20combination%20w%2F%20linear%20extrapolation)-2012-12-01</guid>
+    <pubDate>Sat, 01 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>RNN (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RNN-2012-12-01</guid>
+    <pubDate>Sat, 01 Dec 2012 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>AlexNet (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlexNet-2012-09-30</guid>
+    <pubDate>Sun, 30 Sep 2012 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 60M
+License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>LSTM LM (RWTH Aachen University)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%20LM-2012-09-09</guid>
+    <pubDate>Sun, 09 Sep 2012 00:00:00 GMT</pubDate>
+    <category>RWTH Aachen University</category>
+    <category>closed</category>
+    <description>Parameters: 102.7M
+License: closed
+Type: model
+AI model by RWTH Aachen University</description>
+  </item>
+  <item>
+    <title>Context-dependent RNN (Microsoft Research,Brno University of Technology)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Context-dependent%20RNN-2012-07-27</guid>
+    <pubDate>Fri, 27 Jul 2012 00:00:00 GMT</pubDate>
+    <category>Microsoft Research,Brno University of Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research,Brno University of Technology</description>
+  </item>
+  <item>
+    <title>Unsupervised High-level Feature Learner (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Unsupervised%20High-level%20Feature%20Learner-2012-07-12</guid>
+    <pubDate>Thu, 12 Jul 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 1B
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Ngram corpus (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Ngram%20corpus-2012-07-08</guid>
+    <pubDate>Sun, 08 Jul 2012 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>LBL (University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LBL-2012-06-27</guid>
+    <pubDate>Wed, 27 Jun 2012 00:00:00 GMT</pubDate>
+    <category>University College London (UCL)</category>
+    <category>closed</category>
+    <description>Parameters: 2M
+License: closed
+Type: model
+AI model by University College London (UCL)</description>
+  </item>
+  <item>
+    <title>Dropout (ImageNet) (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout%20(ImageNet)-2012-06-03</guid>
+    <pubDate>Sun, 03 Jun 2012 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>Dropout (CIFAR) (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout%20(CIFAR)-2012-06-03</guid>
+    <pubDate>Sun, 03 Jun 2012 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>Dropout (MNIST) (University of Toronto)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Dropout%20(MNIST)-2012-06-03</guid>
+    <pubDate>Sun, 03 Jun 2012 00:00:00 GMT</pubDate>
+    <category>University of Toronto</category>
+    <category>closed</category>
+    <description>Parameters: 5.6M
+License: closed
+Type: model
+AI model by University of Toronto</description>
+  </item>
+  <item>
+    <title>MCDNN (MNIST) (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/year/2012</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MCDNN%20(MNIST)-2012-02-13</guid>
+    <pubDate>Mon, 13 Feb 2012 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 2.7M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  </channel>
+</rss>

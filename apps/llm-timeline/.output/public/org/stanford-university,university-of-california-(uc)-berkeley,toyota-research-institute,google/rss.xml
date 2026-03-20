@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stanford University,University of California (UC) Berkeley,Toyota Research Institute,Google DeepMind,Massachusetts Institute of Technology (MIT),Physical Intelligence Models</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-of-california-(uc)-berkeley,toyota-research-institute,google</link>
+    <description>Large Language Model releases from Stanford University,University of California (UC) Berkeley,Toyota Research Institute,Google DeepMind,Massachusetts Institute of Technology (MIT),Physical Intelligence.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stanford-university,university-of-california-(uc)-berkeley,toyota-research-institute,google/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stanford University,University of California (UC) Berkeley,Toyota Research Institute,Google DeepMind,Massachusetts Institute of Technology (MIT),Physical Intelligence Models</title>
+      <link>https://llm-timeline.duyet.net/org/stanford-university,university-of-california-(uc)-berkeley,toyota-research-institute,google</link>
+    </image>
+  <item>
+    <title>OpenVLA (Stanford University,University of California (UC) Berkeley,Toyota Research Institute,Google DeepMind,Massachusetts Institute of Technology (MIT),Physical Intelligence)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university,university-of-california-(uc)-berkeley,toyota-research-institute,google</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenVLA-2024-06-13</guid>
+    <pubDate>Thu, 13 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Stanford University,University of California (UC) Berkeley,Toyota Research Institute,Google DeepMind,Massachusetts Institute of Technology (MIT),Physical Intelligence</category>
+    <category>open</category>
+    <description>Parameters: 7.2B
+License: open
+Type: model
+AI model by Stanford University,University of California (UC) Berkeley,Toyota Research Institute,Google DeepMind,Massachusetts Institute of Technology (MIT),Physical Intelligence</description>
+  </item>
+  </channel>
+</rss>

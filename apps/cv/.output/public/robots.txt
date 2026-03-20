@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /pdf/
+
+Sitemap: https://cv.duyet.net/sitemap.xml

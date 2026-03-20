@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1996 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1996</link>
+    <description>Large Language Model releases from 1996.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1996/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1996 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1996</link>
+    </image>
+  <item>
+    <title>AdaBoost.M2 Digit Recognition (AT&amp;T)</title>
+    <link>https://llm-timeline.duyet.net/year/1996</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AdaBoost.M2%20Digit%20Recognition-1996-07-03</guid>
+    <pubDate>Wed, 03 Jul 1996 00:00:00 GMT</pubDate>
+    <category>AT&amp;T</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by AT&amp;T</description>
+  </item>
+  <item>
+    <title>System 11 (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/1996</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#System%2011-1996-06-18</guid>
+    <pubDate>Tue, 18 Jun 1996 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 6.5K
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  </channel>
+</rss>

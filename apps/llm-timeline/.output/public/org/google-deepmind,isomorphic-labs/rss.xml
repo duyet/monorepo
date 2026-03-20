@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google DeepMind,Isomorphic Labs Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,isomorphic-labs</link>
+    <description>Large Language Model releases from Google DeepMind,Isomorphic Labs.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-deepmind,isomorphic-labs/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google DeepMind,Isomorphic Labs Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-deepmind,isomorphic-labs</link>
+    </image>
+  <item>
+    <title>AlphaFold 3 (Google DeepMind,Isomorphic Labs)</title>
+    <link>https://llm-timeline.duyet.net/org/google-deepmind,isomorphic-labs</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaFold%203-2024-05-08</guid>
+    <pubDate>Wed, 08 May 2024 00:00:00 GMT</pubDate>
+    <category>Google DeepMind,Isomorphic Labs</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google DeepMind,Isomorphic Labs</description>
+  </item>
+  </channel>
+</rss>

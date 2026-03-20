@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2006 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <description>Large Language Model releases from 2006.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2006/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2006 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2006</link>
+    </image>
+  <item>
+    <title>Greedy layer-wise DNN training (University of Montreal / Université de Montréal)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Greedy%20layer-wise%20DNN%20training-2006-12-04</guid>
+    <pubDate>Mon, 04 Dec 2006 00:00:00 GMT</pubDate>
+    <category>University of Montreal / Université de Montréal</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Montreal / Université de Montréal</description>
+  </item>
+  <item>
+    <title>Local Binary Patterns for facial recognition (University of Oulu,IEEE)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Local%20Binary%20Patterns%20for%20facial%20recognition-2006-12-01</guid>
+    <pubDate>Fri, 01 Dec 2006 00:00:00 GMT</pubDate>
+    <category>University of Oulu,IEEE</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oulu,IEEE</description>
+  </item>
+  <item>
+    <title>Sparse Vision Encoding (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sparse%20Vision%20Encoding-2006-11-01</guid>
+    <pubDate>Wed, 01 Nov 2006 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Spatial Pyramid Matching (INRIA,University of Illinois Urbana-Champaign (UIUC),Ecole Normale Supèrieure)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Spatial%20Pyramid%20Matching-2006-06-17</guid>
+    <pubDate>Sat, 17 Jun 2006 00:00:00 GMT</pubDate>
+    <category>INRIA,University of Illinois Urbana-Champaign (UIUC),Ecole Normale Supèrieure</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by INRIA,University of Illinois Urbana-Champaign (UIUC),Ecole Normale Supèrieure</description>
+  </item>
+  <item>
+    <title>Hybrid CNN/SVM Object Categorizer (Courant Institute of Mathematical Sciences)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hybrid%20CNN%2FSVM%20Object%20Categorizer-2006-06-17</guid>
+    <pubDate>Sat, 17 Jun 2006 00:00:00 GMT</pubDate>
+    <category>Courant Institute of Mathematical Sciences</category>
+    <category>closed</category>
+    <description>Parameters: 3.6M
+License: closed
+Type: model
+AI model by Courant Institute of Mathematical Sciences</description>
+  </item>
+  <item>
+    <title>SVM-CNN (New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SVM-CNN-2006-06-17</guid>
+    <pubDate>Sat, 17 Jun 2006 00:00:00 GMT</pubDate>
+    <category>New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 90.9K
+License: closed
+Type: model
+AI model by New York University (NYU)</description>
+  </item>
+  <item>
+    <title>Crazy Stone (INRIA)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Crazy%20Stone-2006-05-29</guid>
+    <pubDate>Mon, 29 May 2006 00:00:00 GMT</pubDate>
+    <category>INRIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by INRIA</description>
+  </item>
+  <item>
+    <title>FAST (University of Cambridge)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FAST-2006-05-07</guid>
+    <pubDate>Sun, 07 May 2006 00:00:00 GMT</pubDate>
+    <category>University of Cambridge</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Cambridge</description>
+  </item>
+  <item>
+    <title>RL for helicopter flight (University of California (UC) Berkeley,Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RL%20for%20helicopter%20flight-2006-03-09</guid>
+    <pubDate>Thu, 09 Mar 2006 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley,Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley,Stanford University</description>
+  </item>
+  <item>
+    <title>TFE SVM (Centre de Recherche en Automatique de Nancy (CRAN),CENPARMI)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TFE%20SVM-2006-02-02</guid>
+    <pubDate>Thu, 02 Feb 2006 00:00:00 GMT</pubDate>
+    <category>Centre de Recherche en Automatique de Nancy (CRAN),CENPARMI</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Centre de Recherche en Automatique de Nancy (CRAN),CENPARMI</description>
+  </item>
+  <item>
+    <title>Stanley (DARPA Grand Challenge 2) (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/2006</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Stanley%20(DARPA%20Grand%20Challenge%202)-2006-01-01</guid>
+    <pubDate>Sun, 01 Jan 2006 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  </channel>
+</rss>

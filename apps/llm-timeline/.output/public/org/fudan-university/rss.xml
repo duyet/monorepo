@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Fudan University Models</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university</link>
+    <description>Large Language Model releases from Fudan University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fudan-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Fudan University Models</title>
+      <link>https://llm-timeline.duyet.net/org/fudan-university</link>
+    </image>
+  <item>
+    <title>AnyGPT (Fudan University)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AnyGPT-2024-03-01</guid>
+    <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+    <category>Fudan University</category>
+    <category>open</category>
+    <description>Parameters: AnyGPT
+License: open
+Type: model
+Llama 2 7B backbone with new matrices (&apos;reshaping the embedding matrix and prediction layer&apos;)</description>
+  </item>
+  <item>
+    <title>MOSS-Moon-003 (Fudan University)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MOSS-Moon-003-2023-04-19</guid>
+    <pubDate>Wed, 19 Apr 2023 00:00:00 GMT</pubDate>
+    <category>Fudan University</category>
+    <category>open</category>
+    <description>Parameters: 16B
+License: open
+Type: model
+AI model by Fudan University</description>
+  </item>
+  <item>
+    <title>MOSS (Fudan University)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MOSS-2023-02-01</guid>
+    <pubDate>Wed, 01 Feb 2023 00:00:00 GMT</pubDate>
+    <category>Fudan University</category>
+    <category>open</category>
+    <description>Parameters: MOSS
+License: open
+Type: model
+Major bandwidth issues: https://www.reuters.com/technology/china-fudan-university-team-apologises-after-chatgpt-style-platform-crashes-2023-02-21/</description>
+  </item>
+  <item>
+    <title>Deep-LDA (Fudan University)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep-LDA-2022-09-14</guid>
+    <pubDate>Wed, 14 Sep 2022 00:00:00 GMT</pubDate>
+    <category>Fudan University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Fudan University</description>
+  </item>
+  </channel>
+</rss>

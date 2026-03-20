@@ -1,6 +1,4 @@
-"use client";
-
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 export default function Error({
   error,
@@ -28,7 +26,7 @@ export default function Error({
             Try again
           </button>
           <Link
-            href="/"
+            to="/"
             className="rounded-lg border border-border px-6 py-2 font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             Go home

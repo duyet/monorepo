@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Suspense } from "react";
 import type { PeriodDays } from "@/lib/periods";
 import {
@@ -116,12 +115,11 @@ export default async function WakaTimePeriodPage({ params }: PageProps) {
           <div className="rounded-lg border bg-card p-4">
             <StaticCard
               extra={
-                <Image
+                <img
                   alt="Wakatime Badge"
                   className="mt-3"
                   height={30}
                   src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
-                  unoptimized
                   width={200}
                 />
               }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — CyberAgent Models</title>
+    <link>https://llm-timeline.duyet.net/org/cyberagent</link>
+    <description>Large Language Model releases from CyberAgent.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/cyberagent/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — CyberAgent Models</title>
+      <link>https://llm-timeline.duyet.net/org/cyberagent</link>
+    </image>
+  <item>
+    <title>Calm2-7B (CyberAgent)</title>
+    <link>https://llm-timeline.duyet.net/org/cyberagent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Calm2-7B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>CyberAgent</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by CyberAgent</description>
+  </item>
+  <item>
+    <title>OpenCALM (CyberAgent)</title>
+    <link>https://llm-timeline.duyet.net/org/cyberagent</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenCALM-2023-05-15</guid>
+    <pubDate>Mon, 15 May 2023 00:00:00 GMT</pubDate>
+    <category>CyberAgent</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by CyberAgent</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Seoul National University,LG AI Research,NAVER,Kangwon National University Models</title>
+    <link>https://llm-timeline.duyet.net/org/seoul-national-university-lg-ai-research-naver-kangwon-national-university</link>
+    <description>Large Language Model releases from Seoul National University,LG AI Research,NAVER,Kangwon National University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/seoul-national-university-lg-ai-research-naver-kangwon-national-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Seoul National University,LG AI Research,NAVER,Kangwon National University Models</title>
+      <link>https://llm-timeline.duyet.net/org/seoul-national-university-lg-ai-research-naver-kangwon-national-university</link>
+    </image>
+  <item>
+    <title>PLUS-RNN (Seoul National University,LG AI Research,NAVER,Kangwon National University)</title>
+    <link>https://llm-timeline.duyet.net/org/seoul-national-university-lg-ai-research-naver-kangwon-national-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PLUS-RNN-2021-09-03</guid>
+    <pubDate>Fri, 03 Sep 2021 00:00:00 GMT</pubDate>
+    <category>Seoul National University,LG AI Research,NAVER,Kangwon National University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Seoul National University,LG AI Research,NAVER,Kangwon National University</description>
+  </item>
+  </channel>
+</rss>

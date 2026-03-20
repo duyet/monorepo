@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Facebook AI Research,Google Brain Models</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research,google-brain</link>
+    <description>Large Language Model releases from Facebook AI Research,Google Brain.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/facebook-ai-research,google-brain/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Facebook AI Research,Google Brain Models</title>
+      <link>https://llm-timeline.duyet.net/org/facebook-ai-research,google-brain</link>
+    </image>
+  <item>
+    <title>FAIRSEQ Adaptive Inputs (Facebook AI Research,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research,google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FAIRSEQ%20Adaptive%20Inputs-2019-04-01</guid>
+    <pubDate>Mon, 01 Apr 2019 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,Google Brain</category>
+    <category>closed</category>
+    <description>Parameters: 247.0M
+License: closed
+Type: model
+AI model by Facebook AI Research,Google Brain</description>
+  </item>
+  <item>
+    <title>Big Transformer for Back-Translation (Facebook AI Research,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research,google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Big%20Transformer%20for%20Back-Translation-2018-08-28</guid>
+    <pubDate>Tue, 28 Aug 2018 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research,Google Brain</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Facebook AI Research,Google Brain</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — National Science and Technology Council Models</title>
+    <link>https://llm-timeline.duyet.net/org/national-science-and-technology-council</link>
+    <description>Large Language Model releases from National Science and Technology Council.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/national-science-and-technology-council/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — National Science and Technology Council Models</title>
+      <link>https://llm-timeline.duyet.net/org/national-science-and-technology-council</link>
+    </image>
+  <item>
+    <title>TAIDE-LX-7B (National Science and Technology Council)</title>
+    <link>https://llm-timeline.duyet.net/org/national-science-and-technology-council</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TAIDE-LX-7B-2024-04-29</guid>
+    <pubDate>Mon, 29 Apr 2024 00:00:00 GMT</pubDate>
+    <category>National Science and Technology Council</category>
+    <category>closed</category>
+    <description>Parameters: 7B
+License: closed
+Type: model
+AI model by National Science and Technology Council</description>
+  </item>
+  <item>
+    <title>TAIDE LX-13B (National Science and Technology Council)</title>
+    <link>https://llm-timeline.duyet.net/org/national-science-and-technology-council</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TAIDE%20LX-13B-2024-04-29</guid>
+    <pubDate>Mon, 29 Apr 2024 00:00:00 GMT</pubDate>
+    <category>National Science and Technology Council</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by National Science and Technology Council</description>
+  </item>
+  <item>
+    <title>Llama 3-TAIDE-LX-8B-Chat-Alpha1 (National Science and Technology Council)</title>
+    <link>https://llm-timeline.duyet.net/org/national-science-and-technology-council</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%203-TAIDE-LX-8B-Chat-Alpha1-2024-04-29</guid>
+    <pubDate>Mon, 29 Apr 2024 00:00:00 GMT</pubDate>
+    <category>National Science and Technology Council</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+AI model by National Science and Technology Council</description>
+  </item>
+  </channel>
+</rss>

@@ -1,13 +1,16 @@
 import { AreaChart } from "@/components/charts";
-import { getCCUsageCosts } from "./utils";
-import type { CCUsageCostsProps, CostChartData } from "./types";
+import type { CCUsageCostData, CostChartData } from "./types";
 import { formatCurrency } from "./utils/formatting";
 
-export async function CCUsageCosts({
+export function CCUsageCostsView({
+  costs,
   days = 30,
   className,
-}: CCUsageCostsProps) {
-  const costs = await getCCUsageCosts(days);
+}: {
+  costs: CCUsageCostData[];
+  days?: number | "all";
+  className?: string;
+}) {
 
   if (!costs || costs.length === 0) {
     return (

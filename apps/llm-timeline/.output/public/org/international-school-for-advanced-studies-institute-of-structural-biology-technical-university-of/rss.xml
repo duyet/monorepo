@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — International School for Advanced Studies,Institute of Structural Biology,Technical University of Munich Models</title>
+    <link>https://llm-timeline.duyet.net/org/international-school-for-advanced-studies-institute-of-structural-biology-technical-university-of</link>
+    <description>Large Language Model releases from International School for Advanced Studies,Institute of Structural Biology,Technical University of Munich.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/international-school-for-advanced-studies-institute-of-structural-biology-technical-university-of/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — International School for Advanced Studies,Institute of Structural Biology,Technical University of Munich Models</title>
+      <link>https://llm-timeline.duyet.net/org/international-school-for-advanced-studies-institute-of-structural-biology-technical-university-of</link>
+    </image>
+  <item>
+    <title>Machine learning a model for RNA structure prediction (International School for Advanced Studies,Institute of Structural Biology,Technical University of Munich)</title>
+    <link>https://llm-timeline.duyet.net/org/international-school-for-advanced-studies-institute-of-structural-biology-technical-university-of</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Machine%20learning%20a%20model%20for%20RNA%20structure%20prediction-2020-11-16</guid>
+    <pubDate>Mon, 16 Nov 2020 00:00:00 GMT</pubDate>
+    <category>International School for Advanced Studies,Institute of Structural Biology,Technical University of Munich</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by International School for Advanced Studies,Institute of Structural Biology,Technical University of Munich</description>
+  </item>
+  </channel>
+</rss>

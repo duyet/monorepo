@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stanford University,University of Washington,Allen Institute for AI,Contextual AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university-university-of-washington-allen-institute-for-ai-contextual-ai</link>
+    <description>Large Language Model releases from Stanford University,University of Washington,Allen Institute for AI,Contextual AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stanford-university-university-of-washington-allen-institute-for-ai-contextual-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stanford University,University of Washington,Allen Institute for AI,Contextual AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/stanford-university-university-of-washington-allen-institute-for-ai-contextual-ai</link>
+    </image>
+  <item>
+    <title>s1-32B (Stanford University,University of Washington,Allen Institute for AI,Contextual AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university-university-of-washington-allen-institute-for-ai-contextual-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#s1-32B-2025-01-31</guid>
+    <pubDate>Fri, 31 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Stanford University,University of Washington,Allen Institute for AI,Contextual AI</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Stanford University,University of Washington,Allen Institute for AI,Contextual AI</description>
+  </item>
+  <item>
+    <title>s1.1 (Stanford University,University of Washington,Allen Institute for AI,Contextual AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university-university-of-washington-allen-institute-for-ai-contextual-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#s1.1-2025-01-31</guid>
+    <pubDate>Fri, 31 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Stanford University,University of Washington,Allen Institute for AI,Contextual AI</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Stanford University,University of Washington,Allen Institute for AI,Contextual AI</description>
+  </item>
+  <item>
+    <title>s1 (Stanford University,University of Washington,Allen Institute for AI,Contextual AI)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford-university-university-of-washington-allen-institute-for-ai-contextual-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#s1-2025-01-14</guid>
+    <pubDate>Tue, 14 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Stanford University,University of Washington,Allen Institute for AI,Contextual AI</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Stanford University,University of Washington,Allen Institute for AI,Contextual AI</description>
+  </item>
+  </channel>
+</rss>

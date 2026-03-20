@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Large Model Systems Organization,University of California (UC) Berkeley Models</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <description>Large Language Model releases from Large Model Systems Organization,University of California (UC) Berkeley.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Large Model Systems Organization,University of California (UC) Berkeley Models</title>
+      <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    </image>
+  <item>
+    <title>Vicuna-7B-v1.5 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-7B-v1.5-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Vicuna-13B-v1.5 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-13B-v1.5-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Vicuna-33B-v1.3 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-33B-v1.3-2023-06-22</guid>
+    <pubDate>Thu, 22 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 33B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Vicuna-13B-v1.3 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-13B-v1.3-2023-06-22</guid>
+    <pubDate>Thu, 22 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Vicuna-7B-v1.3 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-7B-v1.3-2023-06-22</guid>
+    <pubDate>Thu, 22 Jun 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Vicuna-13B v0 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-13B%20v0-2023-03-30</guid>
+    <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>Vicuna-7B v0 (Large Model Systems Organization,University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/org/large-model-systems-organization-university-of-california-uc-berkeley</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Vicuna-7B%20v0-2023-03-30</guid>
+    <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Large Model Systems Organization,University of California (UC) Berkeley</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Large Model Systems Organization,University of California (UC) Berkeley</description>
+  </item>
+  </channel>
+</rss>

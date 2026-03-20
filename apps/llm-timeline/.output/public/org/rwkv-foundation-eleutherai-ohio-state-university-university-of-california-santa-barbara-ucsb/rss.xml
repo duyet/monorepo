@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University Models</title>
+    <link>https://llm-timeline.duyet.net/org/rwkv-foundation-eleutherai-ohio-state-university-university-of-california-santa-barbara-ucsb</link>
+    <description>Large Language Model releases from RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/rwkv-foundation-eleutherai-ohio-state-university-university-of-california-santa-barbara-ucsb/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University Models</title>
+      <link>https://llm-timeline.duyet.net/org/rwkv-foundation-eleutherai-ohio-state-university-university-of-california-santa-barbara-ucsb</link>
+    </image>
+  <item>
+    <title>RWKV-5 (Eagle) 7B (RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University)</title>
+    <link>https://llm-timeline.duyet.net/org/rwkv-foundation-eleutherai-ohio-state-university-university-of-california-santa-barbara-ucsb</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RWKV-5%20(Eagle)%207B-2024-09-26</guid>
+    <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+    <category>RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University</category>
+    <category>open</category>
+    <description>Parameters: 7.5B
+License: open
+Type: model
+AI model by RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University</description>
+  </item>
+  <item>
+    <title>RWKV-6 (Finch) 3B (RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University)</title>
+    <link>https://llm-timeline.duyet.net/org/rwkv-foundation-eleutherai-ohio-state-university-university-of-california-santa-barbara-ucsb</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RWKV-6%20(Finch)%203B-2024-09-26</guid>
+    <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+    <category>RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University</category>
+    <category>open</category>
+    <description>Parameters: 3.1B
+License: open
+Type: model
+AI model by RWKV Foundation,EleutherAI,Ohio State University,University of California Santa Barbara (UCSB),Wroclaw Tech (Wrocław University of Science and Technology),Guangdong Laboratory of Artificial Intelligence and Digital Economy (Pazhou Lab),New York University (NYU),Harvard University,Contextual AI,University of Chinese Academy of Sciences,University of California Santa Cruz,Tsinghua University,University of Edinburgh,University of British Columbia (UBC),Pennsylvania State University</description>
+  </item>
+  </channel>
+</rss>

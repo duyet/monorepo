@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,University College London (UCL) Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-university-college-london-ucl</link>
+    <description>Large Language Model releases from Google,University College London (UCL).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-university-college-london-ucl/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,University College London (UCL) Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-university-college-london-ucl</link>
+    </image>
+  <item>
+    <title>Inception v3 (Google,University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/org/google-university-college-london-ucl</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Inception%20v3-2015-12-02</guid>
+    <pubDate>Wed, 02 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Google,University College London (UCL)</category>
+    <category>closed</category>
+    <description>Parameters: 23.6M
+License: closed
+Type: model
+AI model by Google,University College London (UCL)</description>
+  </item>
+  </channel>
+</rss>

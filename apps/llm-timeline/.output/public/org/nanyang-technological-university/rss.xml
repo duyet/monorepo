@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nanyang Technological University Models</title>
+    <link>https://llm-timeline.duyet.net/org/nanyang-technological-university</link>
+    <description>Large Language Model releases from Nanyang Technological University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nanyang-technological-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Nanyang Technological University Models</title>
+      <link>https://llm-timeline.duyet.net/org/nanyang-technological-university</link>
+    </image>
+  <item>
+    <title>OtterHD-8B (Nanyang Technological University)</title>
+    <link>https://llm-timeline.duyet.net/org/nanyang-technological-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OtterHD-8B-2023-11-07</guid>
+    <pubDate>Tue, 07 Nov 2023 00:00:00 GMT</pubDate>
+    <category>Nanyang Technological University</category>
+    <category>closed</category>
+    <description>Parameters: 8B
+License: closed
+Type: model
+AI model by Nanyang Technological University</description>
+  </item>
+  <item>
+    <title>Otter (Nanyang Technological University)</title>
+    <link>https://llm-timeline.duyet.net/org/nanyang-technological-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Otter-2023-05-05</guid>
+    <pubDate>Fri, 05 May 2023 00:00:00 GMT</pubDate>
+    <category>Nanyang Technological University</category>
+    <category>open</category>
+    <description>Parameters: 1.3B
+License: open
+Type: model
+AI model by Nanyang Technological University</description>
+  </item>
+  </channel>
+</rss>

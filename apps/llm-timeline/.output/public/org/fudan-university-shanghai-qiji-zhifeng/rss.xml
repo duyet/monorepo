@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Fudan University,Shanghai Qiji Zhifeng Models</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university-shanghai-qiji-zhifeng</link>
+    <description>Large Language Model releases from Fudan University,Shanghai Qiji Zhifeng.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/fudan-university-shanghai-qiji-zhifeng/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Fudan University,Shanghai Qiji Zhifeng Models</title>
+      <link>https://llm-timeline.duyet.net/org/fudan-university-shanghai-qiji-zhifeng</link>
+    </image>
+  <item>
+    <title>BAPO 32B (Fudan University,Shanghai Qiji Zhifeng)</title>
+    <link>https://llm-timeline.duyet.net/org/fudan-university-shanghai-qiji-zhifeng</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BAPO%2032B-2025-10-21</guid>
+    <pubDate>Tue, 21 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Fudan University,Shanghai Qiji Zhifeng</category>
+    <category>closed</category>
+    <description>Parameters: 32B
+License: closed
+Type: model
+AI model by Fudan University,Shanghai Qiji Zhifeng</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — IEEE Models</title>
+    <link>https://llm-timeline.duyet.net/org/ieee</link>
+    <description>Large Language Model releases from IEEE.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/ieee/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — IEEE Models</title>
+      <link>https://llm-timeline.duyet.net/org/ieee</link>
+    </image>
+  <item>
+    <title>CMS-RCNN (IEEE)</title>
+    <link>https://llm-timeline.duyet.net/org/ieee</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CMS-RCNN-2016-06-17</guid>
+    <pubDate>Fri, 17 Jun 2016 00:00:00 GMT</pubDate>
+    <category>IEEE</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by IEEE</description>
+  </item>
+  <item>
+    <title>Deep CNN + COTS (IEEE)</title>
+    <link>https://llm-timeline.duyet.net/org/ieee</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20CNN%20%2B%20COTS-2015-07-26</guid>
+    <pubDate>Sun, 26 Jul 2015 00:00:00 GMT</pubDate>
+    <category>IEEE</category>
+    <category>closed</category>
+    <description>Parameters: 5.0M
+License: closed
+Type: model
+AI model by IEEE</description>
+  </item>
+  <item>
+    <title>NPD (IEEE)</title>
+    <link>https://llm-timeline.duyet.net/org/ieee</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NPD-2014-08-06</guid>
+    <pubDate>Wed, 06 Aug 2014 00:00:00 GMT</pubDate>
+    <category>IEEE</category>
+    <category>open</category>
+    <description>Parameters: 313.9K
+License: open
+Type: model
+AI model by IEEE</description>
+  </item>
+  </channel>
+</rss>

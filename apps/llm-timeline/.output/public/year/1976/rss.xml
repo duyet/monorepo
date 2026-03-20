@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1976 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1976</link>
+    <description>Large Language Model releases from 1976.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1976/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1976 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1976</link>
+    </image>
+  <item>
+    <title>Transfer Learning (University of Zagreb)</title>
+    <link>https://llm-timeline.duyet.net/year/1976</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transfer%20Learning-1976-07-01</guid>
+    <pubDate>Thu, 01 Jul 1976 00:00:00 GMT</pubDate>
+    <category>University of Zagreb</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Zagreb</description>
+  </item>
+  <item>
+    <title>Statistical continuous speech recognizer (Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/1976</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Statistical%20continuous%20speech%20recognizer-1976-04-30</guid>
+    <pubDate>Fri, 30 Apr 1976 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  </channel>
+</rss>

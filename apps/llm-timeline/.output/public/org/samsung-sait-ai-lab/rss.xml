@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Samsung SAIT AI Lab Models</title>
+    <link>https://llm-timeline.duyet.net/org/samsung-sait-ai-lab</link>
+    <description>Large Language Model releases from Samsung SAIT AI Lab.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/samsung-sait-ai-lab/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Samsung SAIT AI Lab Models</title>
+      <link>https://llm-timeline.duyet.net/org/samsung-sait-ai-lab</link>
+    </image>
+  <item>
+    <title>Tiny Recursive Model (TRM-Att) (Samsung SAIT AI Lab)</title>
+    <link>https://llm-timeline.duyet.net/org/samsung-sait-ai-lab</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tiny%20Recursive%20Model%20(TRM-Att)-2025-10-06</guid>
+    <pubDate>Mon, 06 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Samsung SAIT AI Lab</category>
+    <category>closed</category>
+    <description>Parameters: 7M
+License: closed
+Type: model
+AI model by Samsung SAIT AI Lab</description>
+  </item>
+  </channel>
+</rss>

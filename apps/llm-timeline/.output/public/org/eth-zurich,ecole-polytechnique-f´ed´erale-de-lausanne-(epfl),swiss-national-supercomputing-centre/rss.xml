@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom Models</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich,ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),swiss-national-supercomputing-centre</link>
+    <description>Large Language Model releases from ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/eth-zurich,ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),swiss-national-supercomputing-centre/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom Models</title>
+      <link>https://llm-timeline.duyet.net/org/eth-zurich,ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),swiss-national-supercomputing-centre</link>
+    </image>
+  <item>
+    <title>Apertus 8B (ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich,ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),swiss-national-supercomputing-centre</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apertus%208B-2025-09-02</guid>
+    <pubDate>Tue, 02 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</description>
+  </item>
+  <item>
+    <title>Apertus 70B (ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom)</title>
+    <link>https://llm-timeline.duyet.net/org/eth-zurich,ecole-polytechnique-f´ed´erale-de-lausanne-(epfl),swiss-national-supercomputing-centre</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Apertus%2070B-2025-09-02</guid>
+    <pubDate>Tue, 02 Sep 2025 00:00:00 GMT</pubDate>
+    <category>ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by ETH Zurich,Ecole Polytechnique F´ed´erale de Lausanne (EPFL),Swiss National Supercomputing Centre (CSCS),Swisscom</description>
+  </item>
+  </channel>
+</rss>

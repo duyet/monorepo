@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Nexusflow Models</title>
+    <link>https://llm-timeline.duyet.net/org/nexusflow</link>
+    <description>Large Language Model releases from Nexusflow.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nexusflow/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Nexusflow Models</title>
+      <link>https://llm-timeline.duyet.net/org/nexusflow</link>
+    </image>
+  <item>
+    <title>Athene-V2 (Nexusflow)</title>
+    <link>https://llm-timeline.duyet.net/org/nexusflow</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Athene-V2-2024-11-14</guid>
+    <pubDate>Thu, 14 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Nexusflow</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by Nexusflow</description>
+  </item>
+  <item>
+    <title>Athene-70B (Nexusflow)</title>
+    <link>https://llm-timeline.duyet.net/org/nexusflow</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Athene-70B-2024-07-19</guid>
+    <pubDate>Fri, 19 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Nexusflow</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Nexusflow</description>
+  </item>
+  <item>
+    <title>NexusRaven-V2 (Nexusflow)</title>
+    <link>https://llm-timeline.duyet.net/org/nexusflow</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NexusRaven-V2-2023-12-05</guid>
+    <pubDate>Tue, 05 Dec 2023 00:00:00 GMT</pubDate>
+    <category>Nexusflow</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Nexusflow</description>
+  </item>
+  </channel>
+</rss>

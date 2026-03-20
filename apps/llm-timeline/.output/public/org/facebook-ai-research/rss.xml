@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Facebook AI Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <description>Large Language Model releases from Facebook AI Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/facebook-ai-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Facebook AI Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    </image>
+  <item>
+    <title>V-JEPA 2 (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#V-JEPA%202-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Audioseal (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Audioseal-2024-06-06</guid>
+    <pubDate>Thu, 06 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Chameleon-34B (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Chameleon-34B-2024-05-16</guid>
+    <pubDate>Thu, 16 May 2024 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>FragLlama: Next-fragment prediction for molecular design (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FragLlama%3A%20Next-fragment%20prediction%20for%20molecular%20design-2024-05-16</guid>
+    <pubDate>Thu, 16 May 2024 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Multi-Token Prediction 7B (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multi-Token%20Prediction%207B-2024-04-30</guid>
+    <pubDate>Tue, 30 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 6.7B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Multi-Token Prediction 13B (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multi-Token%20Prediction%2013B-2024-04-30</guid>
+    <pubDate>Tue, 30 Apr 2024 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>Parameters: 13B
+License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Voicebox / VB-En (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Voicebox%20%2F%20VB-En-2023-10-19</guid>
+    <pubDate>Thu, 19 Oct 2023 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>Parameters: 358M
+License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Masked Autoencoders ViT-H (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Masked%20Autoencoders%20ViT-H-2021-11-11</guid>
+    <pubDate>Thu, 11 Nov 2021 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 632M
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>XLMR-XXL (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#XLMR-XXL-2021-08-17</guid>
+    <pubDate>Tue, 17 Aug 2021 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 10.7B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>HuBERT (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HuBERT-2021-07-27</guid>
+    <pubDate>Tue, 27 Jul 2021 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Generative BST (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Generative%20BST-2021-03-05</guid>
+    <pubDate>Fri, 05 Mar 2021 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 9.4B
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Pluribus (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Pluribus-2019-07-11</guid>
+    <pubDate>Thu, 11 Jul 2019 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>All-attention network + adaptive span (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#All-attention%20network%20%2B%20adaptive%20span-2019-07-02</guid>
+    <pubDate>Tue, 02 Jul 2019 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>Parameters: 133M
+License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Transformer (Adaptive Input Embeddings) WT103 (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer%20(Adaptive%20Input%20Embeddings)%20WT103-2018-09-28</guid>
+    <pubDate>Fri, 28 Sep 2018 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>open</category>
+    <description>Parameters: 247M
+License: open
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>RetinaNet-R101 (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RetinaNet-R101-2017-08-07</guid>
+    <pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>Parameters: 53M
+License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Mask R-CNN (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mask%20R-CNN-2017-03-30</guid>
+    <pubDate>Thu, 30 Mar 2017 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>GCNN-14 (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GCNN-14-2016-12-23</guid>
+    <pubDate>Fri, 23 Dec 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Neural cache model (size=2000) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Neural%20cache%20model%20(size%3D2000)-2016-12-13</guid>
+    <pubDate>Tue, 13 Dec 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>LSTM (PTB) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%20(PTB)-2016-12-13</guid>
+    <pubDate>Tue, 13 Dec 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>LSTM (WT2) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%20(WT2)-2016-12-13</guid>
+    <pubDate>Tue, 13 Dec 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>LSTM (WT103) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM%20(WT103)-2016-12-13</guid>
+    <pubDate>Tue, 13 Dec 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>DTN (Domain Transfer Network) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DTN%20(Domain%20Transfer%20Network)-2016-11-07</guid>
+    <pubDate>Mon, 07 Nov 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>Character-enriched word2vec (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Character-enriched%20word2vec-2016-07-15</guid>
+    <pubDate>Fri, 15 Jul 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>fastText (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#fastText-2016-07-06</guid>
+    <pubDate>Wed, 06 Jul 2016 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>N-gram+Cache (PTB) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#N-gram%2BCache%20(PTB)-2014-12-24</guid>
+    <pubDate>Wed, 24 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  <item>
+    <title>N-gram (PTB) (Facebook AI Research)</title>
+    <link>https://llm-timeline.duyet.net/org/facebook-ai-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#N-gram%20(PTB)-2014-12-24</guid>
+    <pubDate>Wed, 24 Dec 2014 00:00:00 GMT</pubDate>
+    <category>Facebook AI Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Facebook AI Research</description>
+  </item>
+  </channel>
+</rss>

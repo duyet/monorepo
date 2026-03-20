@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 1988 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/1988</link>
+    <description>Large Language Model releases from 1988.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/1988/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 1988 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/1988</link>
+    </image>
+  <item>
+    <title>MLN-ASR (McGill University)</title>
+    <link>https://llm-timeline.duyet.net/year/1988</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MLN-ASR-1988-08-01</guid>
+    <pubDate>Mon, 01 Aug 1988 00:00:00 GMT</pubDate>
+    <category>McGill University</category>
+    <category>closed</category>
+    <description>Parameters: 10K
+License: closed
+Type: model
+AI model by McGill University</description>
+  </item>
+  <item>
+    <title>MADALINE II (Stanford University)</title>
+    <link>https://llm-timeline.duyet.net/year/1988</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MADALINE%20II-1988-07-24</guid>
+    <pubDate>Sun, 24 Jul 1988 00:00:00 GMT</pubDate>
+    <category>Stanford University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Stanford University</description>
+  </item>
+  <item>
+    <title>Latent semantic analysis (University of Chicago,Bell Laboratories,University of Western Ontario)</title>
+    <link>https://llm-timeline.duyet.net/year/1988</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Latent%20semantic%20analysis-1988-04-05</guid>
+    <pubDate>Tue, 05 Apr 1988 00:00:00 GMT</pubDate>
+    <category>University of Chicago,Bell Laboratories,University of Western Ontario</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Chicago,Bell Laboratories,University of Western Ontario</description>
+  </item>
+  </channel>
+</rss>

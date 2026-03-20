@@ -1,0 +1,10 @@
+site,ttfb_ms,html_compressed_kb,html_raw_kb,http_status,timestamp
+blog.duyet.net,180,42,420,200,2026-03-20T10:00:21Z
+cv.duyet.net,210,24,98,200,2026-03-20T10:00:23Z
+duyet.net,170,11,74,200,2026-03-20T10:00:25Z
+homelab.duyet.net,180,16,113,200,2026-03-20T10:00:26Z
+llm-timeline.duyet.net,299,415,1978,200,2026-03-20T10:00:30Z
+photos.duyet.net,175,68,930,200,2026-03-20T10:00:32Z
+insights.duyet.net,175,11,63,200,2026-03-20T10:00:34Z
+agents.duyet.net,205,6,33,200,2026-03-20T10:00:36Z
+ai-percentage.duyet.net,189,2,7,200,2026-03-20T10:00:37Z

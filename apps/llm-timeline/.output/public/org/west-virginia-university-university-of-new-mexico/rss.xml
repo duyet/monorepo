@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — West Virginia University,University of New Mexico Models</title>
+    <link>https://llm-timeline.duyet.net/org/west-virginia-university-university-of-new-mexico</link>
+    <description>Large Language Model releases from West Virginia University,University of New Mexico.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/west-virginia-university-university-of-new-mexico/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — West Virginia University,University of New Mexico Models</title>
+      <link>https://llm-timeline.duyet.net/org/west-virginia-university-university-of-new-mexico</link>
+    </image>
+  <item>
+    <title>Deep Learning Enabled Discovery of Kinase Drug Targets in Pharos (West Virginia University,University of New Mexico)</title>
+    <link>https://llm-timeline.duyet.net/org/west-virginia-university-university-of-new-mexico</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20Learning%20Enabled%20Discovery%20of%20Kinase%20Drug%20Targets%20in%20Pharos-2024-10-11</guid>
+    <pubDate>Fri, 11 Oct 2024 00:00:00 GMT</pubDate>
+    <category>West Virginia University,University of New Mexico</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by West Virginia University,University of New Mexico</description>
+  </item>
+  </channel>
+</rss>

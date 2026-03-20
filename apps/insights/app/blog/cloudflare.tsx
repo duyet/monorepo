@@ -19,7 +19,31 @@ function dataFormatter(number: number) {
 export async function Cloudflare({ days = 30 }: { days?: number | "all" }) {
   const { data, generatedAt, totalRequests, totalPageviews } =
     await getData(days);
+  return (
+    <CloudflareView
+      data={data}
+      generatedAt={generatedAt}
+      totalRequests={totalRequests}
+      totalPageviews={totalPageviews}
+      days={days}
+    />
+  );
+}
 
+export async function fetchCloudflareData(
+  days: number | "all" = 30
+): Promise<CloudflareProps> {
+  const result = await getData(days);
+  return { ...result, days };
+}
+
+export function CloudflareView({
+  data,
+  generatedAt,
+  totalRequests,
+  totalPageviews,
+  days = 30,
+}: CloudflareProps) {
   const chartData =
     data.viewer.zones[0]?.httpRequests1dGroups?.map((item) => ({
       date: item.date.date, // Already in YYYY-MM-DD format from Cloudflare API

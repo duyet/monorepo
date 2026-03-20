@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Salesforce Research Models</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <description>Large Language Model releases from Salesforce Research.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/salesforce-research/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Salesforce Research Models</title>
+      <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    </image>
+  <item>
+    <title>Flan T5-XXL + BLIP-2 (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Flan%20T5-XXL%20%2B%20BLIP-2-2023-01-30</guid>
+    <pubDate>Mon, 30 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>open</category>
+    <description>Parameters: 12.1B
+License: open
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>BLIP-2 (Q-Former) (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BLIP-2%20(Q-Former)-2023-01-30</guid>
+    <pubDate>Mon, 30 Jan 2023 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>4 layer QRNN (h=2500) (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#4%20layer%20QRNN%20(h%3D2500)-2018-03-22</guid>
+    <pubDate>Thu, 22 Mar 2018 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>Parameters: 151M
+License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>QRNN (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#QRNN-2018-02-01</guid>
+    <pubDate>Thu, 01 Feb 2018 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>Parameters: 135M
+License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>DCN+ (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DCN%2B-2017-10-31</guid>
+    <pubDate>Tue, 31 Oct 2017 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>AWD-LSTM - 3-layer LSTM (tied) + continuous cache pointer (WT2) (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20-%203-layer%20LSTM%20(tied)%20%2B%20continuous%20cache%20pointer%20(WT2)-2017-08-07</guid>
+    <pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>Parameters: 33M
+License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  <item>
+    <title>AWD-LSTM - 3-layer LSTM (tied) + continuous cache pointer (PTB) (Salesforce Research)</title>
+    <link>https://llm-timeline.duyet.net/org/salesforce-research</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20-%203-layer%20LSTM%20(tied)%20%2B%20continuous%20cache%20pointer%20(PTB)-2017-08-07</guid>
+    <pubDate>Mon, 07 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Salesforce Research</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by Salesforce Research</description>
+  </item>
+  </channel>
+</rss>

@@ -1,5 +1,3 @@
-"use client";
-
 import { Info, Keyboard, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 

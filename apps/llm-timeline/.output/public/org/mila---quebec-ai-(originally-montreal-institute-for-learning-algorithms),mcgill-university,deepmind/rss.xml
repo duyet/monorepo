@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),McGill University,DeepMind Models</title>
+    <link>https://llm-timeline.duyet.net/org/mila---quebec-ai-(originally-montreal-institute-for-learning-algorithms),mcgill-university,deepmind</link>
+    <description>Large Language Model releases from Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),McGill University,DeepMind.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mila---quebec-ai-(originally-montreal-institute-for-learning-algorithms),mcgill-university,deepmind/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),McGill University,DeepMind Models</title>
+      <link>https://llm-timeline.duyet.net/org/mila---quebec-ai-(originally-montreal-institute-for-learning-algorithms),mcgill-university,deepmind</link>
+    </image>
+  <item>
+    <title>EMDR (Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),McGill University,DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/org/mila---quebec-ai-(originally-montreal-institute-for-learning-algorithms),mcgill-university,deepmind</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EMDR-2021-06-09</guid>
+    <pubDate>Wed, 09 Jun 2021 00:00:00 GMT</pubDate>
+    <category>Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),McGill University,DeepMind</category>
+    <category>open</category>
+    <description>Parameters: 440M
+License: open
+Type: model
+AI model by Mila - Quebec AI (originally Montreal Institute for Learning Algorithms),McGill University,DeepMind</description>
+  </item>
+  </channel>
+</rss>

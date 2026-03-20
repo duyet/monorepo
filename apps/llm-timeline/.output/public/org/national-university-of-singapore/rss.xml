@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — National University of Singapore Models</title>
+    <link>https://llm-timeline.duyet.net/org/national-university-of-singapore</link>
+    <description>Large Language Model releases from National University of Singapore.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/national-university-of-singapore/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — National University of Singapore Models</title>
+      <link>https://llm-timeline.duyet.net/org/national-university-of-singapore</link>
+    </image>
+  <item>
+    <title>Show-1 (National University of Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/national-university-of-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Show-1-2023-09-27</guid>
+    <pubDate>Wed, 27 Sep 2023 00:00:00 GMT</pubDate>
+    <category>National University of Singapore</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by National University of Singapore</description>
+  </item>
+  <item>
+    <title>Goat-7B (National University of Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/national-university-of-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Goat-7B-2023-05-23</guid>
+    <pubDate>Tue, 23 May 2023 00:00:00 GMT</pubDate>
+    <category>National University of Singapore</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by National University of Singapore</description>
+  </item>
+  <item>
+    <title>Network in Network (National University of Singapore)</title>
+    <link>https://llm-timeline.duyet.net/org/national-university-of-singapore</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Network%20in%20Network-2013-12-16</guid>
+    <pubDate>Mon, 16 Dec 2013 00:00:00 GMT</pubDate>
+    <category>National University of Singapore</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by National University of Singapore</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Abacus AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/abacus-ai</link>
+    <description>Large Language Model releases from Abacus AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/abacus-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Abacus AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/abacus-ai</link>
+    </image>
+  <item>
+    <title>Smaug-34B (Abacus AI)</title>
+    <link>https://llm-timeline.duyet.net/org/abacus-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Smaug-34B-2024-07-03</guid>
+    <pubDate>Wed, 03 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Abacus AI</category>
+    <category>open</category>
+    <description>Parameters: 34B
+License: open
+Type: model
+AI model by Abacus AI</description>
+  </item>
+  <item>
+    <title>Smaug-72B (Abacus AI)</title>
+    <link>https://llm-timeline.duyet.net/org/abacus-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Smaug-72B-2024-07-03</guid>
+    <pubDate>Wed, 03 Jul 2024 00:00:00 GMT</pubDate>
+    <category>Abacus AI</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by Abacus AI</description>
+  </item>
+  </channel>
+</rss>

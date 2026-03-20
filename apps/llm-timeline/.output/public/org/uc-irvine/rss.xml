@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — UC Irvine Models</title>
+    <link>https://llm-timeline.duyet.net/org/uc-irvine</link>
+    <description>Large Language Model releases from UC Irvine.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/uc-irvine/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — UC Irvine Models</title>
+      <link>https://llm-timeline.duyet.net/org/uc-irvine</link>
+    </image>
+  <item>
+    <title>LRR-4X (UC Irvine)</title>
+    <link>https://llm-timeline.duyet.net/org/uc-irvine</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LRR-4X-2016-05-08</guid>
+    <pubDate>Sun, 08 May 2016 00:00:00 GMT</pubDate>
+    <category>UC Irvine</category>
+    <category>open</category>
+    <description>Parameters: 138M
+License: open
+Type: model
+AI model by UC Irvine</description>
+  </item>
+  </channel>
+</rss>

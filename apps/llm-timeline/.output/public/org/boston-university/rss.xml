@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Boston University Models</title>
+    <link>https://llm-timeline.duyet.net/org/boston-university</link>
+    <description>Large Language Model releases from Boston University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/boston-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Boston University Models</title>
+      <link>https://llm-timeline.duyet.net/org/boston-university</link>
+    </image>
+  <item>
+    <title>Platypus-70B (Boston University)</title>
+    <link>https://llm-timeline.duyet.net/org/boston-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Platypus-70B-2023-08-14</guid>
+    <pubDate>Mon, 14 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Boston University</category>
+    <category>open</category>
+    <description>Parameters: 70B
+License: open
+Type: model
+AI model by Boston University</description>
+  </item>
+  <item>
+    <title>Platypus (Boston University)</title>
+    <link>https://llm-timeline.duyet.net/org/boston-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Platypus-2023-08-01</guid>
+    <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Boston University</category>
+    <category>open</category>
+    <description>Parameters: Platypus
+License: open
+Type: model
+Fine-tune of Llama 2, family includes merges with Beluga, Dolphin, and Camel fine-tunes.</description>
+  </item>
+  <item>
+    <title>Engine-Base (NE) (Boston University)</title>
+    <link>https://llm-timeline.duyet.net/org/boston-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Engine-Base%20(NE)-2021-12-11</guid>
+    <pubDate>Sat, 11 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Boston University</category>
+    <category>open</category>
+    <description>Parameters: 124M
+License: open
+Type: model
+AI model by Boston University</description>
+  </item>
+  <item>
+    <title>Engine-Medium(NE) (Boston University)</title>
+    <link>https://llm-timeline.duyet.net/org/boston-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Engine-Medium(NE)-2021-12-11</guid>
+    <pubDate>Sat, 11 Dec 2021 00:00:00 GMT</pubDate>
+    <category>Boston University</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by Boston University</description>
+  </item>
+  </channel>
+</rss>

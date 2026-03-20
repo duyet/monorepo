@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Z.ai (Zhipu AI),Tsinghua University Models</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <description>Large Language Model releases from Z.ai (Zhipu AI),Tsinghua University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Z.ai (Zhipu AI),Tsinghua University Models</title>
+      <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    </image>
+  <item>
+    <title>GLM-4.6 (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.6-2025-09-30</guid>
+    <pubDate>Tue, 30 Sep 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 357B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4.5V (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.5V-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 108B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4.1V-Thinking (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.1V-Thinking-2025-08-15</guid>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4.5 (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.5-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 355B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4.5-Air (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4.5-Air-2025-08-05</guid>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 106B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4-32B-0414 (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4-32B-0414-2025-04-14</guid>
+    <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>CogVideoX (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CogVideoX-2024-10-08</guid>
+    <pubDate>Tue, 08 Oct 2024 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 5B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>GLM-4V-9B (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GLM-4V-9B-2024-06-18</guid>
+    <pubDate>Tue, 18 Jun 2024 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  <item>
+    <title>CodeGeeX (Z.ai (Zhipu AI),Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/z-ai-zhipu-ai-tsinghua-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CodeGeeX-2022-06-22</guid>
+    <pubDate>Wed, 22 Jun 2022 00:00:00 GMT</pubDate>
+    <category>Z.ai (Zhipu AI),Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 13B
+License: open
+Type: model
+AI model by Z.ai (Zhipu AI),Tsinghua University</description>
+  </item>
+  </channel>
+</rss>

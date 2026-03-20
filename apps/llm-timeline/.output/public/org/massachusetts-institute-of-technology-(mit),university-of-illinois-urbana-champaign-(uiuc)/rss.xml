@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC) Models</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit),university-of-illinois-urbana-champaign-(uiuc)</link>
+    <description>Large Language Model releases from Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit),university-of-illinois-urbana-champaign-(uiuc)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC) Models</title>
+      <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit),university-of-illinois-urbana-champaign-(uiuc)</link>
+    </image>
+  <item>
+    <title>Transformer-XL Large + Phrase Induction (Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit),university-of-illinois-urbana-champaign-(uiuc)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Transformer-XL%20Large%20%2B%20Phrase%20Induction-2019-06-04</guid>
+    <pubDate>Tue, 04 Jun 2019 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC)</category>
+    <category>closed</category>
+    <description>Parameters: 257.0M
+License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC)</description>
+  </item>
+  <item>
+    <title>AWD-LSTM + Phrase Induction + finetuning (PTB) (Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC))</title>
+    <link>https://llm-timeline.duyet.net/org/massachusetts-institute-of-technology-(mit),university-of-illinois-urbana-champaign-(uiuc)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM%20%2B%20Phrase%20Induction%20%2B%20finetuning%20(PTB)-2019-06-04</guid>
+    <pubDate>Tue, 04 Jun 2019 00:00:00 GMT</pubDate>
+    <category>Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC)</category>
+    <category>closed</category>
+    <description>Parameters: 24M
+License: closed
+Type: model
+AI model by Massachusetts Institute of Technology (MIT),University of Illinois Urbana-Champaign (UIUC)</description>
+  </item>
+  </channel>
+</rss>

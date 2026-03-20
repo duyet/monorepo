@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — 2015 Model Releases</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <description>Large Language Model releases from 2015.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/year/2015/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — 2015 Model Releases</title>
+      <link>https://llm-timeline.duyet.net/year/2015</link>
+    </image>
+  <item>
+    <title>Variational (untied weights, MC) LSTM (Large) (University of Cambridge)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Variational%20(untied%20weights%2C%20MC)%20LSTM%20(Large)-2015-12-16</guid>
+    <pubDate>Wed, 16 Dec 2015 00:00:00 GMT</pubDate>
+    <category>University of Cambridge</category>
+    <category>closed</category>
+    <description>Parameters: 66M
+License: closed
+Type: model
+AI model by University of Cambridge</description>
+  </item>
+  <item>
+    <title>Advantage Learning (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Advantage%20Learning-2015-12-15</guid>
+    <pubDate>Tue, 15 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>BPL (University of Toronto,New York University (NYU),Massachusetts Institute of Technology (MIT))</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BPL-2015-12-11</guid>
+    <pubDate>Fri, 11 Dec 2015 00:00:00 GMT</pubDate>
+    <category>University of Toronto,New York University (NYU),Massachusetts Institute of Technology (MIT)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Toronto,New York University (NYU),Massachusetts Institute of Technology (MIT)</description>
+  </item>
+  <item>
+    <title>ResNet-152 (ImageNet) (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNet-152%20(ImageNet)-2015-12-10</guid>
+    <pubDate>Thu, 10 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>closed</category>
+    <description>Parameters: 60.2M
+License: closed
+Type: model
+AI model by Microsoft</description>
+  </item>
+  <item>
+    <title>ResNet-101 (ImageNet) (Microsoft)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ResNet-101%20(ImageNet)-2015-12-10</guid>
+    <pubDate>Thu, 10 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Microsoft</category>
+    <category>open</category>
+    <description>Parameters: 44.5M
+License: open
+Type: model
+AI model by Microsoft</description>
+  </item>
+  <item>
+    <title>DeepSpeech2 (English) (Baidu Research - Silicon Valley AI Lab)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSpeech2%20(English)-2015-12-08</guid>
+    <pubDate>Tue, 08 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Baidu Research - Silicon Valley AI Lab</category>
+    <category>closed</category>
+    <description>Parameters: 38M
+License: closed
+Type: model
+AI model by Baidu Research - Silicon Valley AI Lab</description>
+  </item>
+  <item>
+    <title>Inception v3 (Google,University College London (UCL))</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Inception%20v3-2015-12-02</guid>
+    <pubDate>Wed, 02 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Google,University College London (UCL)</category>
+    <category>closed</category>
+    <description>Parameters: 23.6M
+License: closed
+Type: model
+AI model by Google,University College London (UCL)</description>
+  </item>
+  <item>
+    <title>Netflix Recommender System (Netflix)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Netflix%20Recommender%20System-2015-12-01</guid>
+    <pubDate>Tue, 01 Dec 2015 00:00:00 GMT</pubDate>
+    <category>Netflix</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Netflix</description>
+  </item>
+  <item>
+    <title>Multi-scale Dilated CNN (Princeton University,Intel Labs)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Multi-scale%20Dilated%20CNN-2015-11-23</guid>
+    <pubDate>Mon, 23 Nov 2015 00:00:00 GMT</pubDate>
+    <category>Princeton University,Intel Labs</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Princeton University,Intel Labs</description>
+  </item>
+  <item>
+    <title>Highway Network (IDSIA,SUPSI)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Highway%20Network-2015-11-23</guid>
+    <pubDate>Mon, 23 Nov 2015 00:00:00 GMT</pubDate>
+    <category>IDSIA,SUPSI</category>
+    <category>closed</category>
+    <description>Parameters: 2.3M
+License: closed
+Type: model
+AI model by IDSIA,SUPSI</description>
+  </item>
+  <item>
+    <title>3DDFA (Chinese Academy of Sciences,Michigan State University)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#3DDFA-2015-11-23</guid>
+    <pubDate>Mon, 23 Nov 2015 00:00:00 GMT</pubDate>
+    <category>Chinese Academy of Sciences,Michigan State University</category>
+    <category>closed</category>
+    <description>Parameters: 5.4M
+License: closed
+Type: model
+AI model by Chinese Academy of Sciences,Michigan State University</description>
+  </item>
+  <item>
+    <title>The Attentive Reader (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#The%20Attentive%20Reader-2015-11-19</guid>
+    <pubDate>Thu, 19 Nov 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>SAF R-CNN (Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SAF%20R-CNN-2015-10-28</guid>
+    <pubDate>Wed, 28 Oct 2015 00:00:00 GMT</pubDate>
+    <category>Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by Beijing Institute of Technology,Sun Yat-sen University,Panasonic R&amp;D,National University of Singapore</description>
+  </item>
+  <item>
+    <title>AlphaGo Fan (DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AlphaGo%20Fan-2015-10-01</guid>
+    <pubDate>Thu, 01 Oct 2015 00:00:00 GMT</pubDate>
+    <category>DeepMind</category>
+    <category>closed</category>
+    <description>Parameters: 8.2M
+License: closed
+Type: model
+AI model by DeepMind</description>
+  </item>
+  <item>
+    <title>Deep Deterministic Policy Gradients (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20Deterministic%20Policy%20Gradients-2015-09-09</guid>
+    <pubDate>Wed, 09 Sep 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>LSTM-Char-Large (Harvard University,New York University (NYU))</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#LSTM-Char-Large-2015-08-26</guid>
+    <pubDate>Wed, 26 Aug 2015 00:00:00 GMT</pubDate>
+    <category>Harvard University,New York University (NYU)</category>
+    <category>closed</category>
+    <description>Parameters: 19M
+License: closed
+Type: model
+AI model by Harvard University,New York University (NYU)</description>
+  </item>
+  <item>
+    <title>Listen, Attend and Spell (Google,Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Listen%2C%20Attend%20and%20Spell-2015-08-20</guid>
+    <pubDate>Thu, 20 Aug 2015 00:00:00 GMT</pubDate>
+    <category>Google,Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google,Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>DCNN (University of Maryland,Rutgers University)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DCNN-2015-08-07</guid>
+    <pubDate>Fri, 07 Aug 2015 00:00:00 GMT</pubDate>
+    <category>University of Maryland,Rutgers University</category>
+    <category>closed</category>
+    <description>Parameters: 5.0M
+License: closed
+Type: model
+AI model by University of Maryland,Rutgers University</description>
+  </item>
+  <item>
+    <title>Deep CNN + COTS (IEEE)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20CNN%20%2B%20COTS-2015-07-26</guid>
+    <pubDate>Sun, 26 Jul 2015 00:00:00 GMT</pubDate>
+    <category>IEEE</category>
+    <category>closed</category>
+    <description>Parameters: 5.0M
+License: closed
+Type: model
+AI model by IEEE</description>
+  </item>
+  <item>
+    <title>CompACT-Deep (University of California San Diego)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CompACT-Deep-2015-07-19</guid>
+    <pubDate>Sun, 19 Jul 2015 00:00:00 GMT</pubDate>
+    <category>University of California San Diego</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California San Diego</description>
+  </item>
+  <item>
+    <title>Search-Proven Best LSTM (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Search-Proven%20Best%20LSTM-2015-07-06</guid>
+    <pubDate>Mon, 06 Jul 2015 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 20M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>Skip-Thoughts (University of Toronto,Massachusetts Institute of Technology (MIT),CIFAR AI Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Skip-Thoughts-2015-06-22</guid>
+    <pubDate>Mon, 22 Jun 2015 00:00:00 GMT</pubDate>
+    <category>University of Toronto,Massachusetts Institute of Technology (MIT),CIFAR AI Research</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by University of Toronto,Massachusetts Institute of Technology (MIT),CIFAR AI Research</description>
+  </item>
+  <item>
+    <title>BatchNorm (Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#BatchNorm-2015-06-15</guid>
+    <pubDate>Mon, 15 Jun 2015 00:00:00 GMT</pubDate>
+    <category>Google</category>
+    <category>closed</category>
+    <description>Parameters: 13.6M
+License: closed
+Type: model
+AI model by Google</description>
+  </item>
+  <item>
+    <title>CFSS (SenseTime,Chinese University of Hong Kong (CUHK),Shenzhen Institute of Advanced Technology)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CFSS-2015-06-07</guid>
+    <pubDate>Sun, 07 Jun 2015 00:00:00 GMT</pubDate>
+    <category>SenseTime,Chinese University of Hong Kong (CUHK),Shenzhen Institute of Advanced Technology</category>
+    <category>open</category>
+    <description>Parameters: 17.4K
+License: open
+Type: model
+AI model by SenseTime,Chinese University of Hong Kong (CUHK),Shenzhen Institute of Advanced Technology</description>
+  </item>
+  <item>
+    <title>Faster R-CNN (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Faster%20R-CNN-2015-06-04</guid>
+    <pubDate>Thu, 04 Jun 2015 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>Draw (Google DeepMind)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Draw-2015-05-20</guid>
+    <pubDate>Wed, 20 May 2015 00:00:00 GMT</pubDate>
+    <category>Google DeepMind</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Google DeepMind</description>
+  </item>
+  <item>
+    <title>U-Net (University of Freiburg)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#U-Net-2015-05-18</guid>
+    <pubDate>Mon, 18 May 2015 00:00:00 GMT</pubDate>
+    <category>University of Freiburg</category>
+    <category>open</category>
+    <description>Parameters: 37.7M
+License: open
+Type: model
+AI model by University of Freiburg</description>
+  </item>
+  <item>
+    <title>Deep LSTM video classifier (University of Texas at Austin,Google)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Deep%20LSTM%20video%20classifier-2015-05-01</guid>
+    <pubDate>Fri, 01 May 2015 00:00:00 GMT</pubDate>
+    <category>University of Texas at Austin,Google</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Texas at Austin,Google</description>
+  </item>
+  <item>
+    <title>Fast R-CNN (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fast%20R-CNN-2015-04-30</guid>
+    <pubDate>Thu, 30 Apr 2015 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>TC-DNN-BLSTM-DNN (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TC-DNN-BLSTM-DNN-2015-04-06</guid>
+    <pubDate>Mon, 06 Apr 2015 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 18.4M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>genCNN + dyn eval (Chinese Academy of Sciences,Huawei Noah&apos;s Ark Lab,Dublin City University)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#genCNN%20%2B%20dyn%20eval-2015-03-17</guid>
+    <pubDate>Tue, 17 Mar 2015 00:00:00 GMT</pubDate>
+    <category>Chinese Academy of Sciences,Huawei Noah&apos;s Ark Lab,Dublin City University</category>
+    <category>closed</category>
+    <description>Parameters: 8M
+License: closed
+Type: model
+AI model by Chinese Academy of Sciences,Huawei Noah&apos;s Ark Lab,Dublin City University</description>
+  </item>
+  <item>
+    <title>TRPO (University of California (UC) Berkeley)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TRPO-2015-02-19</guid>
+    <pubDate>Thu, 19 Feb 2015 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley</category>
+    <category>closed</category>
+    <description>Parameters: 33.5K
+License: closed
+Type: model
+AI model by University of California (UC) Berkeley</description>
+  </item>
+  <item>
+    <title>CRF-RNN (University of Oxford,Stanford University,Baidu)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#CRF-RNN-2015-02-11</guid>
+    <pubDate>Wed, 11 Feb 2015 00:00:00 GMT</pubDate>
+    <category>University of Oxford,Stanford University,Baidu</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Oxford,Stanford University,Baidu</description>
+  </item>
+  <item>
+    <title>MSRA (C, PReLU) (Microsoft Research)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MSRA%20(C%2C%20PReLU)-2015-02-06</guid>
+    <pubDate>Fri, 06 Feb 2015 00:00:00 GMT</pubDate>
+    <category>Microsoft Research</category>
+    <category>closed</category>
+    <description>Parameters: 87.0M
+License: closed
+Type: model
+AI model by Microsoft Research</description>
+  </item>
+  <item>
+    <title>VGG-Face (University of Oxford)</title>
+    <link>https://llm-timeline.duyet.net/year/2015</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VGG-Face-2015-01-01</guid>
+    <pubDate>Thu, 01 Jan 2015 00:00:00 GMT</pubDate>
+    <category>University of Oxford</category>
+    <category>closed</category>
+    <description>Parameters: 138M
+License: closed
+Type: model
+AI model by University of Oxford</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Carnegie Mellon University (CMU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <description>Large Language Model releases from Carnegie Mellon University (CMU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Carnegie Mellon University (CMU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    </image>
+  <item>
+    <title>AbGPT (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AbGPT-2024-09-09</guid>
+    <pubDate>Mon, 09 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 734M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>GPT-MolBERTa (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-MolBERTa-2023-09-20</guid>
+    <pubDate>Wed, 20 Sep 2023 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>PeptideBERT (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PeptideBERT-2023-08-28</guid>
+    <pubDate>Mon, 28 Aug 2023 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>open</category>
+    <description>License: open
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>PolyCoder (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PolyCoder-2022-02-26</guid>
+    <pubDate>Sat, 26 Feb 2022 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>open</category>
+    <description>Parameters: 2.7B
+License: open
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>AWD-LSTM-MoS + dynamic evaluation (WT2, 2017) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-MoS%20%2B%20dynamic%20evaluation%20(WT2%2C%202017)-2017-11-10</guid>
+    <pubDate>Fri, 10 Nov 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 35M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>AWD-LSTM-MoS + dynamic evaluation (PTB, 2017) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#AWD-LSTM-MoS%20%2B%20dynamic%20evaluation%20(PTB%2C%202017)-2017-11-10</guid>
+    <pubDate>Fri, 10 Nov 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 22M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Libratus (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Libratus-2017-08-19</guid>
+    <pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>SEST (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SEST-2017-03-02</guid>
+    <pubDate>Thu, 02 Mar 2017 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>HR-ResNet101 (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HR-ResNet101-2016-12-13</guid>
+    <pubDate>Tue, 13 Dec 2016 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>open</category>
+    <description>Parameters: 44.5M
+License: open
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Part-of-sentence tagging model (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Part-of-sentence%20tagging%20model-2016-05-29</guid>
+    <pubDate>Sun, 29 May 2016 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Named Entity Recognition model (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Named%20Entity%20Recognition%20model-2016-03-04</guid>
+    <pubDate>Fri, 04 Mar 2016 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Convolutional Pose Machines (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Convolutional%20Pose%20Machines-2016-01-30</guid>
+    <pubDate>Sat, 30 Jan 2016 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>TC-DNN-BLSTM-DNN (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TC-DNN-BLSTM-DNN-2015-04-06</guid>
+    <pubDate>Mon, 06 Apr 2015 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 18.4M
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Boss (DARPA Urban Challenge) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Boss%20(DARPA%20Urban%20Challenge)-2008-07-23</guid>
+    <pubDate>Wed, 23 Jul 2008 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Sandstorm (DARPA Grand Challenge I) (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Sandstorm%20(DARPA%20Grand%20Challenge%20I)-2004-06-14</guid>
+    <pubDate>Mon, 14 Jun 2004 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>System 11 (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#System%2011-1996-06-18</guid>
+    <pubDate>Tue, 18 Jun 1996 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 6.5K
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>ALVINN (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ALVINN-1989-12-01</guid>
+    <pubDate>Fri, 01 Dec 1989 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 36.6K
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Translation-invariant MLP (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Translation-invariant%20MLP-1987-06-15</guid>
+    <pubDate>Mon, 15 Jun 1987 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 816
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  <item>
+    <title>Distributed representation NN (Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Distributed%20representation%20NN-1986-08-15</guid>
+    <pubDate>Fri, 15 Aug 1986 00:00:00 GMT</pubDate>
+    <category>Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>Parameters: 432
+License: closed
+Type: model
+AI model by Carnegie Mellon University (CMU)</description>
+  </item>
+  </channel>
+</rss>

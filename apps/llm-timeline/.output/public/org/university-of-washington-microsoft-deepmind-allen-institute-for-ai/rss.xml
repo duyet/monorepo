@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Washington,Microsoft,DeepMind,Allen Institute for AI Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-deepmind-allen-institute-for-ai</link>
+    <description>Large Language Model releases from University of Washington,Microsoft,DeepMind,Allen Institute for AI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-washington-microsoft-deepmind-allen-institute-for-ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Washington,Microsoft,DeepMind,Allen Institute for AI Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-deepmind-allen-institute-for-ai</link>
+    </image>
+  <item>
+    <title>T2R + Random Init (University of Washington,Microsoft,DeepMind,Allen Institute for AI)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-washington-microsoft-deepmind-allen-institute-for-ai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#T2R%20%2B%20Random%20Init-2021-03-24</guid>
+    <pubDate>Wed, 24 Mar 2021 00:00:00 GMT</pubDate>
+    <category>University of Washington,Microsoft,DeepMind,Allen Institute for AI</category>
+    <category>closed</category>
+    <description>Parameters: 450M
+License: closed
+Type: model
+AI model by University of Washington,Microsoft,DeepMind,Allen Institute for AI</description>
+  </item>
+  </channel>
+</rss>

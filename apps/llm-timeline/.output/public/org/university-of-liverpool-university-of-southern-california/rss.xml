@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Liverpool,University of Southern California Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-liverpool-university-of-southern-california</link>
+    <description>Large Language Model releases from University of Liverpool,University of Southern California.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-liverpool-university-of-southern-california/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Liverpool,University of Southern California Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-liverpool-university-of-southern-california</link>
+    </image>
+  <item>
+    <title>TransformerXL-LayerFusion-CA (University of Liverpool,University of Southern California)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-liverpool-university-of-southern-california</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TransformerXL-LayerFusion-CA-2020-07-29</guid>
+    <pubDate>Wed, 29 Jul 2020 00:00:00 GMT</pubDate>
+    <category>University of Liverpool,University of Southern California</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Liverpool,University of Southern California</description>
+  </item>
+  <item>
+    <title>GPT2-LayerFusion-WS (University of Liverpool,University of Southern California)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-liverpool-university-of-southern-california</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT2-LayerFusion-WS-2020-07-29</guid>
+    <pubDate>Wed, 29 Jul 2020 00:00:00 GMT</pubDate>
+    <category>University of Liverpool,University of Southern California</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Liverpool,University of Southern California</description>
+  </item>
+  </channel>
+</rss>

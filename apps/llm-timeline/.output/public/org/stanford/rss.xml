@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Stanford Models</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <description>Large Language Model releases from Stanford.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/stanford/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Stanford Models</title>
+      <link>https://llm-timeline.duyet.net/org/stanford</link>
+    </image>
+  <item>
+    <title>SleepFM (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SleepFM-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: SleepFM
+License: open
+Type: model
+Uses a leave-one-out contrastive learning approach to align brain activity (EEG), heart activity (ECG), and respiratory signals. 130+ disease categories and 19–20+ clinical PSG channels. Dataset ~12.63B (Calculated based on 585,000 hours of data across 3 modality groups using 5-second window tokens) x 10 epochs.</description>
+  </item>
+  <item>
+    <title>s1-32B (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#s1-32B-2025-02-01</guid>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: s1-32B
+License: open
+Type: model
+Based on Qwen2.5-32B-Instruct. &quot;we curate a small dataset s1K of 1,000 questions paired with reasoning traces relying on three criteria we validate through ablations: difficulty, diversity, and quality. Second, we develop budget forcing to control test-time compute by forcefully terminating the model’s thinking process or lengthening it by appending “Wait” multiple times to the model’s generation when it tries to end. This can lead the model to doublecheck its answer, often fixing incorrect reasoning steps. After supervised finetuning the Qwen2.5-32B-Instruct language model on s1K and equipping it with budget forcing, our model s1-32B exceeds o1-preview on competition math questions by up to 27% (MATH and AIME24).&quot;</description>
+  </item>
+  <item>
+    <title>TTT-Linear (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TTT-Linear-2024-08-01</guid>
+    <pubDate>Thu, 01 Aug 2024 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: TTT-Linear
+License: open
+Type: model
+Test-Time Training (TTT) layers. Real-time learning by Stanford, UC, and Meta. Potential for frontier models in 2025+.</description>
+  </item>
+  <item>
+    <title>Med-Flamingo (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Med-Flamingo-2023-07-01</guid>
+    <pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: Med-Flamingo
+License: open
+Type: model
+Uses LAION OpenFlamingo 9B, based on LLaMA-7B text + 1.3B vision</description>
+  </item>
+  <item>
+    <title>Alpaca (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Alpaca-2023-03-01</guid>
+    <pubDate>Wed, 01 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: Alpaca
+License: open
+Type: model
+Stanford Alpaca: An Instruction-following LLaMA model&apos;</description>
+  </item>
+  <item>
+    <title>Diffusion-LM (Stanford)</title>
+    <link>https://llm-timeline.duyet.net/org/stanford</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Diffusion-LM-2022-05-01</guid>
+    <pubDate>Sun, 01 May 2022 00:00:00 GMT</pubDate>
+    <category>Stanford</category>
+    <category>open</category>
+    <description>Parameters: Diffusion-LM
+License: open
+Type: model
+GPT-J with synthetic data</description>
+  </item>
+  </channel>
+</rss>

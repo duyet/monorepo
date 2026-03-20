@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Google,TU Berlin Models</title>
+    <link>https://llm-timeline.duyet.net/org/google-tu-berlin</link>
+    <description>Large Language Model releases from Google,TU Berlin.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/google-tu-berlin/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Google,TU Berlin Models</title>
+      <link>https://llm-timeline.duyet.net/org/google-tu-berlin</link>
+    </image>
+  <item>
+    <title>PaLM-E (Google,TU Berlin)</title>
+    <link>https://llm-timeline.duyet.net/org/google-tu-berlin</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PaLM-E-2023-03-06</guid>
+    <pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate>
+    <category>Google,TU Berlin</category>
+    <category>closed</category>
+    <description>Parameters: 562B
+License: closed
+Type: model
+AI model by Google,TU Berlin</description>
+  </item>
+  </channel>
+</rss>

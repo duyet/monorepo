@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — West Virginia University Models</title>
+    <link>https://llm-timeline.duyet.net/org/west-virginia-university</link>
+    <description>Large Language Model releases from West Virginia University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/west-virginia-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — West Virginia University Models</title>
+      <link>https://llm-timeline.duyet.net/org/west-virginia-university</link>
+    </image>
+  <item>
+    <title>Graph-based Semi-Supervised Learning (GSSL) Model on MNIST (West Virginia University)</title>
+    <link>https://llm-timeline.duyet.net/org/west-virginia-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Graph-based%20Semi-Supervised%20Learning%20(GSSL)%20Model%20on%20MNIST-2019-07-17</guid>
+    <pubDate>Wed, 17 Jul 2019 00:00:00 GMT</pubDate>
+    <category>West Virginia University</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by West Virginia University</description>
+  </item>
+  </channel>
+</rss>

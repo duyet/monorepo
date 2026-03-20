@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-massachusetts-institute-of-technology-mit-university-of-california-uc-berkeley-university-of</link>
+    <description>Large Language Model releases from NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia-massachusetts-institute-of-technology-mit-university-of-california-uc-berkeley-university-of/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia-massachusetts-institute-of-technology-mit-university-of-california-uc-berkeley-university-of</link>
+    </image>
+  <item>
+    <title>NVILA 15B (NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-massachusetts-institute-of-technology-mit-university-of-california-uc-berkeley-university-of</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVILA%2015B-2024-12-05</guid>
+    <pubDate>Thu, 05 Dec 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 15B
+License: open
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University</description>
+  </item>
+  <item>
+    <title>NVILA 8B (NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia-massachusetts-institute-of-technology-mit-university-of-california-uc-berkeley-university-of</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVILA%208B-2024-12-05</guid>
+    <pubDate>Thu, 05 Dec 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT),University of California (UC) Berkeley,University of California San Diego,University of Washington,Tsinghua University</description>
+  </item>
+  </channel>
+</rss>

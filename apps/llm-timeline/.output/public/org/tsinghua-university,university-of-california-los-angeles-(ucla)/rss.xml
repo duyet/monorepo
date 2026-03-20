@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tsinghua University,University of California Los Angeles (UCLA) Models</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,university-of-california-los-angeles-(ucla)</link>
+    <description>Large Language Model releases from Tsinghua University,University of California Los Angeles (UCLA).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tsinghua-university,university-of-california-los-angeles-(ucla)/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tsinghua University,University of California Los Angeles (UCLA) Models</title>
+      <link>https://llm-timeline.duyet.net/org/tsinghua-university,university-of-california-los-angeles-(ucla)</link>
+    </image>
+  <item>
+    <title>RGC+ASQ (PTB) (Tsinghua University,University of California Los Angeles (UCLA))</title>
+    <link>https://llm-timeline.duyet.net/org/tsinghua-university,university-of-california-los-angeles-(ucla)</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#RGC%2BASQ%20(PTB)-2018-08-13</guid>
+    <pubDate>Mon, 13 Aug 2018 00:00:00 GMT</pubDate>
+    <category>Tsinghua University,University of California Los Angeles (UCLA)</category>
+    <category>closed</category>
+    <description>Parameters: 53.5M
+License: closed
+Type: model
+AI model by Tsinghua University,University of California Los Angeles (UCLA)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA,Massachusetts Institute of Technology (MIT),Tsinghua University,Playground,Peking University,The University of Hong Kong Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit),tsinghua-university,playground,peking</link>
+    <description>Large Language Model releases from NVIDIA,Massachusetts Institute of Technology (MIT),Tsinghua University,Playground,Peking University,The University of Hong Kong.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit),tsinghua-university,playground,peking/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA,Massachusetts Institute of Technology (MIT),Tsinghua University,Playground,Peking University,The University of Hong Kong Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit),tsinghua-university,playground,peking</link>
+    </image>
+  <item>
+    <title>SANA 1.5 4.8B (NVIDIA,Massachusetts Institute of Technology (MIT),Tsinghua University,Playground,Peking University,The University of Hong Kong)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia,massachusetts-institute-of-technology-(mit),tsinghua-university,playground,peking</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SANA%201.5%204.8B-2025-05-17</guid>
+    <pubDate>Sat, 17 May 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA,Massachusetts Institute of Technology (MIT),Tsinghua University,Playground,Peking University,The University of Hong Kong</category>
+    <category>open</category>
+    <description>Parameters: 4.8B
+License: open
+Type: model
+AI model by NVIDIA,Massachusetts Institute of Technology (MIT),Tsinghua University,Playground,Peking University,The University of Hong Kong</description>
+  </item>
+  </channel>
+</rss>

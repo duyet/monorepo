@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of California (UC) Berkeley,Google Brain Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-google-brain</link>
+    <description>Large Language Model releases from University of California (UC) Berkeley,Google Brain.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-google-brain/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of California (UC) Berkeley,Google Brain Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-google-brain</link>
+    </image>
+  <item>
+    <title>Walking Minotaur robot (University of California (UC) Berkeley,Google Brain)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-california-uc-berkeley-google-brain</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Walking%20Minotaur%20robot-2019-06-19</guid>
+    <pubDate>Wed, 19 Jun 2019 00:00:00 GMT</pubDate>
+    <category>University of California (UC) Berkeley,Google Brain</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of California (UC) Berkeley,Google Brain</description>
+  </item>
+  </channel>
+</rss>

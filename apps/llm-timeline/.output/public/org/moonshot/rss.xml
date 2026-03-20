@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Moonshot Models</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <description>Large Language Model releases from Moonshot.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/moonshot/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Moonshot Models</title>
+      <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    </image>
+  <item>
+    <title>Kimi K2 Thinking (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20K2%20Thinking-2025-11-06</guid>
+    <pubDate>Thu, 06 Nov 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>open</category>
+    <description>Parameters: 1T
+License: open
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi Linear (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20Linear-2025-10-30</guid>
+    <pubDate>Thu, 30 Oct 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>open</category>
+    <description>Parameters: 48B
+License: open
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi K2 (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20K2-2025-07-11</guid>
+    <pubDate>Fri, 11 Jul 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>open</category>
+    <description>Parameters: 1T
+License: open
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi-VL (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi-VL-2025-06-23</guid>
+    <pubDate>Mon, 23 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>closed</category>
+    <description>Parameters: 16B
+License: closed
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi Dev 72b (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20Dev%2072b-2025-06-16</guid>
+    <pubDate>Mon, 16 Jun 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi 1.6 (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%201.6-2025-02-27</guid>
+    <pubDate>Thu, 27 Feb 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi k1.5 (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20k1.5-2025-01-22</guid>
+    <pubDate>Wed, 22 Jan 2025 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>k0-math (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#k0-math-2024-11-16</guid>
+    <pubDate>Sat, 16 Nov 2024 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Moonshot-v1 (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Moonshot-v1-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Moonshot</description>
+  </item>
+  <item>
+    <title>Kimi Explorer (Moonshot)</title>
+    <link>https://llm-timeline.duyet.net/org/moonshot</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Kimi%20Explorer-2024-01-01</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <category>Moonshot</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Moonshot</description>
+  </item>
+  </channel>
+</rss>

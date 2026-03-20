@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — DeepSeek,Tsinghua University,Peking University Models</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek,tsinghua-university,peking-university</link>
+    <description>Large Language Model releases from DeepSeek,Tsinghua University,Peking University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/deepseek,tsinghua-university,peking-university/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — DeepSeek,Tsinghua University,Peking University Models</title>
+      <link>https://llm-timeline.duyet.net/org/deepseek,tsinghua-university,peking-university</link>
+    </image>
+  <item>
+    <title>DeepSeekMath 7B (DeepSeek,Tsinghua University,Peking University)</title>
+    <link>https://llm-timeline.duyet.net/org/deepseek,tsinghua-university,peking-university</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DeepSeekMath%207B-2024-02-05</guid>
+    <pubDate>Mon, 05 Feb 2024 00:00:00 GMT</pubDate>
+    <category>DeepSeek,Tsinghua University,Peking University</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by DeepSeek,Tsinghua University,Peking University</description>
+  </item>
+  </channel>
+</rss>

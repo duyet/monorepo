@@ -1,0 +1,1109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — NVIDIA Models</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <description>Large Language Model releases from NVIDIA.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/nvidia/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — NVIDIA Models</title>
+      <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    </image>
+  <item>
+    <title>EDEN (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#EDEN-2026-01-01</guid>
+    <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: EDEN
+License: closed
+Type: model
+&quot;EDEN (environmentally-derived evolutionary network) family of metagenomic foundation models, including a 28 billion parameter model trained on 9.7 trillion nucleotide tokens from BaseData1 . This dataset, at the time of training, contained more than 10 billion novel genes from over 1 million new species, and is intentionally enriched for environmental and host-associated metagenomes, phage sequences, and mobile genetic elements, enabling the model to learn from diverse and novel cross-species evolutionary mechanisms and apply them to key challenges in human health.&quot;</description>
+  </item>
+  <item>
+    <title>NitroGen (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NitroGen-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NitroGen
+License: open
+Type: model
+&quot;NitroGen is a unified vision-to-action model designed to play video games directly from raw frames. It takes video game footage as input and outputs gamepad actions... trained on 40,000 hours of gameplay videos across more than 1,000 games.&quot;</description>
+  </item>
+  <item>
+    <title>NVIDIA-Nemotron-3-Nano-30B-A3B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA-Nemotron-3-Nano-30B-A3B-2025-12-01</guid>
+    <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NVIDIA-Nemotron-3-Nano-30B-A3B
+License: open
+Type: model
+Knowledge cutoff November 28, 2025 (post).</description>
+  </item>
+  <item>
+    <title>Orchestrator-8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Orchestrator-8B-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Orchestrator-8B
+License: open
+Type: model
+Base Model: Qwen3-8B</description>
+  </item>
+  <item>
+    <title>Nemotron Elastic (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron%20Elastic-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron Elastic
+License: open
+Type: model
+&quot;Nemotron Elastic, a framework for building reasoning-oriented LLMs, including hybrid Mamba-Attention architectures, that embed multiple nested submodels within a single parent model, each optimized for different deployment configurations and budgets. Each of these submodels shares weights with the parent model and can be extracted zero-shot during deployment without additional training or fine-tuning...We apply Nemotron Elastic to the Nemotron Nano V2 12B model, simultaneously producing a 9B and a 6B model using only 110B training tokens&quot;</description>
+  </item>
+  <item>
+    <title>TiDAR (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TiDAR-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: TiDAR
+License: open
+Type: model
+Base model: Qwen3-8B (36T) + 150B continual training. &quot;TiDAR, a sequence-level hybrid architecture that drafts tokens (Thinking) in Diffusion and samples final outputs (Talking) AutoRegressively - all within a single forward pass using specially designed structured attention masks&quot;</description>
+  </item>
+  <item>
+    <title>SONIC (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#SONIC-2025-11-01</guid>
+    <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: SONIC
+License: open
+Type: model
+Supersizing mOtion tracking for Natural humanoId Control (SONIC). Training dataset calcs: (700 hours * 3,600 seconds/hour * 50 frames/second ) / 1 frame/token = 126M tokens (refined to 100M+ after rigorous filtering ); 150,000 steps * 6.67M tokens/batch = 1.0T total tokens seen during training.</description>
+  </item>
+  <item>
+    <title>NVIDIA Isaac GR00T N1.6 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA%20Isaac%20GR00T%20N1.6-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Transfer2.5-2B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Transfer2.5-2B-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2.5-14B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2.5-14B-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 14B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2.5 2B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2.5%202B-2025-09-29</guid>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVIDIA-Nemotron-Nano-9B-v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA-Nemotron-Nano-9B-v2-2025-08-18</guid>
+    <pubDate>Mon, 18 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 9B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVIDIA-Nemotron-Nano-12B-v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA-Nemotron-Nano-12B-v2-2025-08-18</guid>
+    <pubDate>Mon, 18 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 12B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Canary 1B v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Canary%201B%20v2-2025-08-14</guid>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 1B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Parakeet-tdt-0.6b-v3 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Parakeet-tdt-0.6b-v3-2025-08-14</guid>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 600K
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Jet-Nemotron-4B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Jet-Nemotron-4B-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Jet-Nemotron-4B
+License: open
+Type: model
+&quot;pre-training corpus and train Jet-Nemotron models for 50B tokens. This is also the setting in Section 2 where we perform PostNAS. At the second stage, we include more high-quality data from math [65] and coding [66, 67] domains into our data mixture. The models are then trained on 350B tokens.&quot;</description>
+  </item>
+  <item>
+    <title>Nemotron Nano 2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron%20Nano%202-2025-08-01</guid>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron Nano 2
+License: open
+Type: model
+Announce: https://research.nvidia.com/labs/adlr/NVIDIA-Nemotron-Nano-2/</description>
+  </item>
+  <item>
+    <title>Llama Nemotron Super v1.5 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%20Nemotron%20Super%20v1.5-2025-07-29</guid>
+    <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 49B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>OpenReasoning-Nemotron-32B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#OpenReasoning-Nemotron-32B-2025-07-16</guid>
+    <pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 32B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2-2B-Text2Image (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2-2B-Text2Image-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2-14B-Text2Image (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2-14B-Text2Image-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2-2B-Video2World (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2-2B-Video2World-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict2-14B-Video2World (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict2-14B-Video2World-2025-06-11</guid>
+    <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Reason1 7B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Reason1%207B-2025-05-19</guid>
+    <pubDate>Mon, 19 May 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Reason1 56B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Reason1%2056B-2025-05-19</guid>
+    <pubDate>Mon, 19 May 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 56B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVIDIA Isaac GR00T N1.5 3B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVIDIA%20Isaac%20GR00T%20N1.5%203B-2025-05-18</guid>
+    <pubDate>Sun, 18 May 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Earth-2 (cBottle-SR) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Earth-2%20(cBottle-SR)-2025-05-10</guid>
+    <pubDate>Sat, 10 May 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 330M
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-H 8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-H%208B-2025-04-14</guid>
+    <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-H 47B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-H%2047B-2025-04-14</guid>
+    <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 47B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-H 56B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-H%2056B-2025-04-14</guid>
+    <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 56B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>FoundationStereo (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FoundationStereo-2025-04-04</guid>
+    <pubDate>Fri, 04 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 335.3M
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>UltraLong-8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#UltraLong-8B-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: UltraLong-8B
+License: open
+Type: model
+Llama-3.1-8B-Instruct base. 4M context window.</description>
+  </item>
+  <item>
+    <title>Nemotron-H-56B-Base (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-H-56B-Base-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron-H-56B-Base
+License: open
+Type: model
+https://research.nvidia.com/labs/adlr/nemotronh/</description>
+  </item>
+  <item>
+    <title>Llama-3.1-Nemotron-Ultra-253B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama-3.1-Nemotron-Ultra-253B-2025-04-01</guid>
+    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Llama-3.1-Nemotron-Ultra-253B
+License: open
+Type: model
+Llama 3.1 405B base. &quot;Llama-3.1-Nemotron-Ultra-253B-v1 is a large language model (LLM) which is a derivative of Meta Llama-3.1-405B-Instruct (AKA the reference model). It is a reasoning model that is post trained for reasoning, human chat preferences, and tasks, such as RAG and tool calling. The model supports a context length of 128K tokens. This model fits on a single 8xH100 node for inference.&quot;</description>
+  </item>
+  <item>
+    <title>Llama Nemotron Nano 8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%20Nemotron%20Nano%208B-2025-03-18</guid>
+    <pubDate>Tue, 18 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Llama Nemotron Ultra 253B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%20Nemotron%20Ultra%20253B-2025-03-18</guid>
+    <pubDate>Tue, 18 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 253B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Llama Nemotron Super 49B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama%20Nemotron%20Super%2049B-2025-03-18</guid>
+    <pubDate>Tue, 18 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 49B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>GR00T N1 2B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GR00T%20N1%202B-2025-03-18</guid>
+    <pubDate>Tue, 18 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 2.2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Transfer1-7B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Transfer1-7B-2025-03-18</guid>
+    <pubDate>Tue, 18 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Llama-3.3-Nemotron-Super-49B-v1 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama-3.3-Nemotron-Super-49B-v1-2025-03-01</guid>
+    <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Llama-3.3-Nemotron-Super-49B-v1
+License: open
+Type: model
+Meta Llama-3.3-70B-Instruct derivative &quot;that is post trained for reasoning, human chat preferences, and tasks, such as RAG and tool calling. The model supports a context length of 128K tokens.&quot;</description>
+  </item>
+  <item>
+    <title>DoMINO (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#DoMINO-2025-01-23</guid>
+    <pubDate>Thu, 23 Jan 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-1.0- Diffusion-14B Video2World (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-1.0-%20Diffusion-14B%20Video2World-2025-01-07</guid>
+    <pubDate>Tue, 07 Jan 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict1-7b-Video2World (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict1-7b-Video2World-2025-01-07</guid>
+    <pubDate>Tue, 07 Jan 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos-Predict1-14b-Video2World (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos-Predict1-14b-Video2World-2025-01-07</guid>
+    <pubDate>Tue, 07 Jan 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 14B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Cosmos Nemotron 34B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos%20Nemotron%2034B-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Cosmos Nemotron 34B
+License: open
+Type: model
+VLM. MMMU=47.33. &quot;VILA project becomes part of Cosmos Nemotron family&quot; https://github.com/NVlabs/Cosmos-Nemotron Vision Encoder: SigLIP-400M, Language Encoder: Yi-34B https://blogs.nvidia.com/blog/nemotron-model-families/</description>
+  </item>
+  <item>
+    <title>Cosmos 1.0 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Cosmos%201.0-2025-01-01</guid>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Cosmos 1.0
+License: open
+Type: model
+WFM (world foundation model). &quot;The models range in size from 4 billion to 14 billion parameters, with Nano being the smallest and Ultra being the largest... &quot;Cosmos WFM models, were trained on 9,000 trillion tokens [9,000T] from 20 million hours of real-world human interactions, environment, industrial, robotics, and driving data...&quot; https://techcrunch.com/2025/01/06/nvidia-releases-its-own-brand-of-world-models/ Actual working: https://lifearchitect.ai/cosmos/</description>
+  </item>
+  <item>
+    <title>Fugatto 1 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Fugatto%201-2024-11-25</guid>
+    <pubDate>Mon, 25 Nov 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 2.5B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Hymba (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Hymba-2024-11-22</guid>
+    <pubDate>Fri, 22 Nov 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 1.5B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Llama-3.1-Minitron-4B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama-3.1-Minitron-4B-2024-11-04</guid>
+    <pubDate>Mon, 04 Nov 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 4B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Minitron 8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minitron%208B-2024-11-04</guid>
+    <pubDate>Mon, 04 Nov 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 8.3B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Minitron 4B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minitron%204B-2024-11-04</guid>
+    <pubDate>Mon, 04 Nov 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 4.2B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVLM-D 72B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVLM-D%2072B-2024-10-22</guid>
+    <pubDate>Tue, 22 Oct 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 72B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVLM-H 72B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVLM-H%2072B-2024-10-22</guid>
+    <pubDate>Tue, 22 Oct 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 72B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVLM-X 72B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVLM-X%2072B-2024-10-22</guid>
+    <pubDate>Tue, 22 Oct 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 72B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Llama-3.1-Nemotron-70B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Llama-3.1-Nemotron-70B-2024-10-01</guid>
+    <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Llama-3.1-Nemotron-70B
+License: open
+Type: model
+Related paper: https://arxiv.org/abs/2410.01257</description>
+  </item>
+  <item>
+    <title>nGPT (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#nGPT-2024-10-01</guid>
+    <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: nGPT
+License: open
+Type: model
+&quot;a novel neural network architecture, the normalized Transformer (nGPT) with representation learning on the hypersphere. In nGPT, all vectors forming the embeddings, MLP, attention matrices and hidden states are unit norm normalized...reducing the number of training steps required to achieve the same accuracy by a factor of 4 to 20, depending on the sequence length.&quot;</description>
+  </item>
+  <item>
+    <title>NLVM 1.0 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NLVM%201.0-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NLVM 1.0
+License: open
+Type: model
+Flamingo clone. &quot;we use Qwen2-72B-Instruct as the default text-only LLM backbone. We also employ Nous-Hermes-2-Yi-34B for ablation study and faster experimentation... we use InternViT-6B as the default vision encoder&quot;</description>
+  </item>
+  <item>
+    <title>NV-Embed-v2 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NV-Embed-v2-2024-08-30</guid>
+    <pubDate>Fri, 30 Aug 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Minitron-4B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minitron-4B-2024-08-01</guid>
+    <pubDate>Thu, 01 Aug 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Minitron-4B
+License: open
+Type: model
+Pruned and distilled from Nemotron-4 15B: https://developer.nvidia.com/blog/how-to-prune-and-distill-llama-3-1-8b-to-an-nvidia-llama-3-1-minitron-4b-model/</description>
+  </item>
+  <item>
+    <title>Minitron-8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Minitron-8B-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Minitron-8B
+License: open
+Type: model
+Pruned and distilled from Nemotron-4 15B: https://developer.nvidia.com/blog/how-to-prune-and-distill-llama-3-1-8b-to-an-nvidia-llama-3-1-minitron-4b-model/</description>
+  </item>
+  <item>
+    <title>Nemotron-4 340B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-4%20340B-2024-06-14</guid>
+    <pubDate>Fri, 14 Jun 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 340B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Mamba2-Hybrid (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Mamba2-Hybrid-2024-06-12</guid>
+    <pubDate>Wed, 12 Jun 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 8.7B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-4-340B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-4-340B-2024-06-01</guid>
+    <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron-4-340B
+License: open
+Type: model
+Open-source equiv of Mar/2023 GPT-4 (1760MoE≈340B, 13T), same param count but 2x the tokens of May/2023 PaLM 2 (340B, 3.6T), competitor to Nov/2023 Grok-1 (314B, 6T). Trained on 6,144 H100s. ~1.3TB for inference. 50+ natural and 40+ coding languages. Trained between December 2023 and May 2024. MMLU 0-shot for instruct=78.7, 5-shot for base=81.1. Permalink for paper: https://research.nvidia.com/publication/2024-06_nemotron-4-340b</description>
+  </item>
+  <item>
+    <title>NV-Embed-v1 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NV-Embed-v1-2024-05-27</guid>
+    <pubDate>Mon, 27 May 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 7B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>VISTA-2D (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VISTA-2D-2024-04-22</guid>
+    <pubDate>Mon, 22 Apr 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 100M
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Parakeet ASR rnnt 1.1B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Parakeet%20ASR%20rnnt%201.1B-2024-04-18</guid>
+    <pubDate>Thu, 18 Apr 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 1.1B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-4 15B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-4%2015B-2024-02-27</guid>
+    <pubDate>Tue, 27 Feb 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 15B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-4 15B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-4%2015B-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron-4 15B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>Audio Flamingo (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Audio%20Flamingo-2024-02-01</guid>
+    <pubDate>Thu, 01 Feb 2024 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>partial</category>
+    <description>Parameters: Audio Flamingo
+License: partial
+Type: model
+Project page: https://audioflamingo.github.io/</description>
+  </item>
+  <item>
+    <title>Nemotron-3-8B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-3-8B-2023-11-15</guid>
+    <pubDate>Wed, 15 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 8B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Nemotron-3 22B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-3%2022B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Nemotron-3 22B
+License: open
+Type: model
+8B released, 22B internal.</description>
+  </item>
+  <item>
+    <title>Nemotron-2 43B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Nemotron-2%2043B-2023-11-01</guid>
+    <pubDate>Wed, 01 Nov 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: Nemotron-2 43B
+License: closed
+Type: model
+Used to train HelpSteer (16/Nov/2023): https://arxiv.org/abs/2311.09528</description>
+  </item>
+  <item>
+    <title>Retro 48B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Retro%2048B-2023-10-01</guid>
+    <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Retro 48B
+License: open
+Type: model
+the largest LLM pretrained with retrieval before instruction tuning.&apos;</description>
+  </item>
+  <item>
+    <title>GPT-2B-001 (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#GPT-2B-001-2023-05-01</guid>
+    <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: GPT-2B-001
+License: open
+Type: model
+No paper yet</description>
+  </item>
+  <item>
+    <title>eDiff-I (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#eDiff-I-2022-11-02</guid>
+    <pubDate>Wed, 02 Nov 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 9.1B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>VIMA (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#VIMA-2022-10-01</guid>
+    <pubDate>Sat, 01 Oct 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: VIMA
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>NeMO Megatron GPT 20B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NeMO%20Megatron%20GPT%2020B-2022-09-15</guid>
+    <pubDate>Thu, 15 Sep 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 20B
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NeMo Megatron-GPT 20B (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NeMo%20Megatron-GPT%2020B-2022-09-01</guid>
+    <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: NeMo Megatron-GPT 20B
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>STT Conformer-Transducer XL (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#STT%20Conformer-Transducer%20XL-2022-04-12</guid>
+    <pubDate>Tue, 12 Apr 2022 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 600M
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>MegaMolBART (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#MegaMolBART-2021-09-14</guid>
+    <pubDate>Tue, 14 Sep 2021 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 45M
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVAE (CIFAR 10) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVAE%20(CIFAR%2010)-2021-01-08</guid>
+    <pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVAE (FFHQ) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVAE%20(FFHQ)-2021-01-08</guid>
+    <pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>NVAE (Celeba HQ) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#NVAE%20(Celeba%20HQ)-2021-01-08</guid>
+    <pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>PAR Transformer Large (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PAR%20Transformer%20Large-2020-09-09</guid>
+    <pubDate>Wed, 09 Sep 2020 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Megatron-BERT (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-BERT-2019-09-17</guid>
+    <pubDate>Tue, 17 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 3.9B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Megatron-LM (8.3B) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-LM%20(8.3B)-2019-09-17</guid>
+    <pubDate>Tue, 17 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 8.3B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Megatron-LM (2.5B) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-LM%20(2.5B)-2019-09-17</guid>
+    <pubDate>Tue, 17 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 2.5B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Megatron-LM (355M) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-LM%20(355M)-2019-09-17</guid>
+    <pubDate>Tue, 17 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 355M
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Megatron-LM (1.2B) (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-LM%20(1.2B)-2019-09-17</guid>
+    <pubDate>Tue, 17 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>Parameters: 1.2B
+License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>Megatron-LM (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Megatron-LM-2019-09-01</guid>
+    <pubDate>Sun, 01 Sep 2019 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: Megatron-LM
+License: open
+Type: model</description>
+  </item>
+  <item>
+    <title>StyleGAN (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#StyleGAN-2018-12-12</guid>
+    <pubDate>Wed, 12 Dec 2018 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>open</category>
+    <description>Parameters: 26.2M
+License: open
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  <item>
+    <title>ProgressiveGAN (NVIDIA)</title>
+    <link>https://llm-timeline.duyet.net/org/nvidia</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProgressiveGAN-2017-10-27</guid>
+    <pubDate>Fri, 27 Oct 2017 00:00:00 GMT</pubDate>
+    <category>NVIDIA</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by NVIDIA</description>
+  </item>
+  </channel>
+</rss>

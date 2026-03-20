@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — BAAI Models</title>
+    <link>https://llm-timeline.duyet.net/org/baai</link>
+    <description>Large Language Model releases from BAAI.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/baai/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — BAAI Models</title>
+      <link>https://llm-timeline.duyet.net/org/baai</link>
+    </image>
+  <item>
+    <title>Emu3 (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Emu3-2024-09-01</guid>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: Emu3
+License: open
+Type: model
+VLM. Dataset estimates are based on the unrelated UW/Salesforce dataset MINT-1T (3.4B images, 927M documents) https://arxiv.org/abs/2406.11271v1</description>
+  </item>
+  <item>
+    <title>Tele-FLM-1T (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tele-FLM-1T-2024-07-01</guid>
+    <pubDate>Mon, 01 Jul 2024 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: Tele-FLM-1T
+License: open
+Type: model
+Technical arch testing only, ratio is too low for decent performance.</description>
+  </item>
+  <item>
+    <title>Tele-FLM (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Tele-FLM-2024-04-01</guid>
+    <pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: Tele-FLM
+License: open
+Type: model
+Also known as FLM-2. &quot;We will open-source a 1T model checkpoint, namely Tele-FLM-1T, to advance further training and research.&quot; Discussion paper Jul/2024: https://arxiv.org/abs/2407.02783</description>
+  </item>
+  <item>
+    <title>Emu2 (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Emu2-2023-12-01</guid>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: Emu2
+License: open
+Type: model
+VLM. Gemini clone. Outperforms Flamingo 80B. The Pile for text, but only sampled 3.6B tokens (1.4% of the dataset).</description>
+  </item>
+  <item>
+    <title>FLM-101B (BAAI)</title>
+    <link>https://llm-timeline.duyet.net/org/baai</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#FLM-101B-2023-09-01</guid>
+    <pubDate>Fri, 01 Sep 2023 00:00:00 GMT</pubDate>
+    <category>BAAI</category>
+    <category>open</category>
+    <description>Parameters: FLM-101B
+License: open
+Type: model
+Train for $100k compute budget (on a cluster of 24 DGX-A800 GPU 8×80G servers for 21 days)</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Mobvoi,Williams College Models</title>
+    <link>https://llm-timeline.duyet.net/org/mobvoi-williams-college</link>
+    <description>Large Language Model releases from Mobvoi,Williams College.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/mobvoi-williams-college/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Mobvoi,Williams College Models</title>
+      <link>https://llm-timeline.duyet.net/org/mobvoi-williams-college</link>
+    </image>
+  <item>
+    <title>True-Regularization+Finetune+Dynamic-Eval (Mobvoi,Williams College)</title>
+    <link>https://llm-timeline.duyet.net/org/mobvoi-williams-college</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#True-Regularization%2BFinetune%2BDynamic-Eval-2019-04-08</guid>
+    <pubDate>Mon, 08 Apr 2019 00:00:00 GMT</pubDate>
+    <category>Mobvoi,Williams College</category>
+    <category>closed</category>
+    <description>Parameters: 7M
+License: closed
+Type: model
+AI model by Mobvoi,Williams College</description>
+  </item>
+  </channel>
+</rss>

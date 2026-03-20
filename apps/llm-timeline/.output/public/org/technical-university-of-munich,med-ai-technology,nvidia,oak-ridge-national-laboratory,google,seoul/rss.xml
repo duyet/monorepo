@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University Models</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,med-ai-technology,nvidia,oak-ridge-national-laboratory,google,seoul</link>
+    <description>Large Language Model releases from Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/technical-university-of-munich,med-ai-technology,nvidia,oak-ridge-national-laboratory,google,seoul/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University Models</title>
+      <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,med-ai-technology,nvidia,oak-ridge-national-laboratory,google,seoul</link>
+    </image>
+  <item>
+    <title>ProtT5-XXL (Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,med-ai-technology,nvidia,oak-ridge-national-laboratory,google,seoul</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProtT5-XXL-2021-05-04</guid>
+    <pubDate>Tue, 04 May 2021 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University</description>
+  </item>
+  <item>
+    <title>ProtT5-XXL-BFD (Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,med-ai-technology,nvidia,oak-ridge-national-laboratory,google,seoul</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProtT5-XXL-BFD-2021-05-04</guid>
+    <pubDate>Tue, 04 May 2021 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University</category>
+    <category>open</category>
+    <description>Parameters: 11B
+License: open
+Type: model
+AI model by Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University</description>
+  </item>
+  <item>
+    <title>ProtT5-XL-U50 (Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University)</title>
+    <link>https://llm-timeline.duyet.net/org/technical-university-of-munich,med-ai-technology,nvidia,oak-ridge-national-laboratory,google,seoul</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProtT5-XL-U50-2021-05-04</guid>
+    <pubDate>Tue, 04 May 2021 00:00:00 GMT</pubDate>
+    <category>Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University</category>
+    <category>open</category>
+    <description>Parameters: 3B
+License: open
+Type: model
+AI model by Technical University of Munich,Med AI Technology,NVIDIA,Oak Ridge National Laboratory,Google,Seoul National University</description>
+  </item>
+  </channel>
+</rss>

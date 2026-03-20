@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — LightOn,Laboratoire de Physique de l&apos;Ecole Normale (LPENS),INRIA Models</title>
+    <link>https://llm-timeline.duyet.net/org/lighton-laboratoire-de-physique-de-l-ecole-normale-lpens-inria</link>
+    <description>Large Language Model releases from LightOn,Laboratoire de Physique de l&apos;Ecole Normale (LPENS),INRIA.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/lighton-laboratoire-de-physique-de-l-ecole-normale-lpens-inria/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — LightOn,Laboratoire de Physique de l&apos;Ecole Normale (LPENS),INRIA Models</title>
+      <link>https://llm-timeline.duyet.net/org/lighton-laboratoire-de-physique-de-l-ecole-normale-lpens-inria</link>
+    </image>
+  <item>
+    <title>PAGnol-XL (LightOn,Laboratoire de Physique de l&apos;Ecole Normale (LPENS),INRIA)</title>
+    <link>https://llm-timeline.duyet.net/org/lighton-laboratoire-de-physique-de-l-ecole-normale-lpens-inria</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#PAGnol-XL-2021-10-16</guid>
+    <pubDate>Sat, 16 Oct 2021 00:00:00 GMT</pubDate>
+    <category>LightOn,Laboratoire de Physique de l&apos;Ecole Normale (LPENS),INRIA</category>
+    <category>closed</category>
+    <description>Parameters: 1.5B
+License: closed
+Type: model
+AI model by LightOn,Laboratoire de Physique de l&apos;Ecole Normale (LPENS),INRIA</description>
+  </item>
+  </channel>
+</rss>

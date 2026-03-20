@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Tianjin University,Beijing Institute of Technology Models</title>
+    <link>https://llm-timeline.duyet.net/org/tianjin-university,beijing-institute-of-technology</link>
+    <description>Large Language Model releases from Tianjin University,Beijing Institute of Technology.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/tianjin-university,beijing-institute-of-technology/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Tianjin University,Beijing Institute of Technology Models</title>
+      <link>https://llm-timeline.duyet.net/org/tianjin-university,beijing-institute-of-technology</link>
+    </image>
+  <item>
+    <title>TSLM+MoS (PTB) (Tianjin University,Beijing Institute of Technology)</title>
+    <link>https://llm-timeline.duyet.net/org/tianjin-university,beijing-institute-of-technology</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#TSLM%2BMoS%20(PTB)-2019-01-31</guid>
+    <pubDate>Thu, 31 Jan 2019 00:00:00 GMT</pubDate>
+    <category>Tianjin University,Beijing Institute of Technology</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Tianjin University,Beijing Institute of Technology</description>
+  </item>
+  </channel>
+</rss>

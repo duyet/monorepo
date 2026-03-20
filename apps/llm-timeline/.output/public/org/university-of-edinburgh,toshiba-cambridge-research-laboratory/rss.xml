@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Edinburgh,Toshiba Cambridge Research Laboratory Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh,toshiba-cambridge-research-laboratory</link>
+    <description>Large Language Model releases from University of Edinburgh,Toshiba Cambridge Research Laboratory.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-edinburgh,toshiba-cambridge-research-laboratory/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Edinburgh,Toshiba Cambridge Research Laboratory Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-edinburgh,toshiba-cambridge-research-laboratory</link>
+    </image>
+  <item>
+    <title>top-down frozen classifier (University of Edinburgh,Toshiba Cambridge Research Laboratory)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-edinburgh,toshiba-cambridge-research-laboratory</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#top-down%20frozen%20classifier-2021-02-09</guid>
+    <pubDate>Tue, 09 Feb 2021 00:00:00 GMT</pubDate>
+    <category>University of Edinburgh,Toshiba Cambridge Research Laboratory</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Edinburgh,Toshiba Cambridge Research Laboratory</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — University of Wisconsin Madison Models</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-wisconsin-madison</link>
+    <description>Large Language Model releases from University of Wisconsin Madison.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/university-of-wisconsin-madison/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — University of Wisconsin Madison Models</title>
+      <link>https://llm-timeline.duyet.net/org/university-of-wisconsin-madison</link>
+    </image>
+  <item>
+    <title>ProteinSetTransformer (University of Wisconsin Madison)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-wisconsin-madison</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#ProteinSetTransformer-2024-09-23</guid>
+    <pubDate>Mon, 23 Sep 2024 00:00:00 GMT</pubDate>
+    <category>University of Wisconsin Madison</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Wisconsin Madison</description>
+  </item>
+  <item>
+    <title>HOGWILD! (University of Wisconsin Madison)</title>
+    <link>https://llm-timeline.duyet.net/org/university-of-wisconsin-madison</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#HOGWILD!-2011-11-11</guid>
+    <pubDate>Fri, 11 Nov 2011 00:00:00 GMT</pubDate>
+    <category>University of Wisconsin Madison</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by University of Wisconsin Madison</description>
+  </item>
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM Timeline — Advanced Telecommunications Research Institute,Carnegie Mellon University (CMU) Models</title>
+    <link>https://llm-timeline.duyet.net/org/advanced-telecommunications-research-institute-carnegie-mellon-university-cmu</link>
+    <description>Large Language Model releases from Advanced Telecommunications Research Institute,Carnegie Mellon University (CMU).</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://llm-timeline.duyet.net/org/advanced-telecommunications-research-institute-carnegie-mellon-university-cmu/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://llm-timeline.duyet.net/favicon.svg</url>
+      <title>LLM Timeline — Advanced Telecommunications Research Institute,Carnegie Mellon University (CMU) Models</title>
+      <link>https://llm-timeline.duyet.net/org/advanced-telecommunications-research-institute-carnegie-mellon-university-cmu</link>
+    </image>
+  <item>
+    <title>Time-delay neural networks (Advanced Telecommunications Research Institute,Carnegie Mellon University (CMU))</title>
+    <link>https://llm-timeline.duyet.net/org/advanced-telecommunications-research-institute-carnegie-mellon-university-cmu</link>
+    <guid isPermaLink="false">https://llm-timeline.duyet.net/#Time-delay%20neural%20networks-1989-03-03</guid>
+    <pubDate>Fri, 03 Mar 1989 00:00:00 GMT</pubDate>
+    <category>Advanced Telecommunications Research Institute,Carnegie Mellon University (CMU)</category>
+    <category>closed</category>
+    <description>License: closed
+Type: model
+AI model by Advanced Telecommunications Research Institute,Carnegie Mellon University (CMU)</description>
+  </item>
+  </channel>
+</rss>
