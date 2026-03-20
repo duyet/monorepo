@@ -1,6 +1,6 @@
 # Duyet Le - Professional Resume & CV
 
-Professional resume and curriculum vitae for Duyet Le, a Senior Data Engineer specializing in large-scale data platforms, real-time analytics, and ClickHouse expertise.
+Professional resume and curriculum vitae for Duyet Le, a Senior Data Engineer specializing in large-scale data platforms, real-time analytics, ClickHouse expertise, and LLM-powered data tools.
 
 **Live URLs:**
 - https://cv.duyet.net (official)
@@ -9,7 +9,7 @@ Professional resume and curriculum vitae for Duyet Le, a Senior Data Engineer sp
 
 ## Professional Summary
 
-Senior Data Engineer with deep expertise in building and architecting large-scale data infrastructure, real-time analytics systems, and modern data platforms. Specialized in ClickHouse, Apache Kafka, distributed systems, and cloud-native data engineering.
+Senior Data Engineer with deep expertise in building and architecting large-scale data infrastructure, real-time analytics systems, and modern data platforms. Specialized in ClickHouse, Apache Kafka, LangGraph, distributed systems, and cloud-native data engineering.
 
 ### Core Expertise
 
@@ -56,6 +56,7 @@ Senior Data Engineer with deep expertise in building and architecting large-scal
 *LLM & AI Technologies:*
 - LLM Agent development and integration
 - LlamaIndex - RAG and knowledge management
+- LangGraph - agent orchestration and stateful workflows
 - Qdrant - vector databases
 - Model Context Protocol (MCP) integration
 - AI-powered data tools and automation
@@ -67,7 +68,7 @@ Extensive experience in building and maintaining data platforms that process and
 - Building real-time streaming pipelines with Apache Kafka
 - Optimizing data warehouse performance and query efficiency
 - Leading data infrastructure migrations and modernization projects
-- Developing AI agents and LLM-powered data tools
+- Developing AI agents and multi-agent LLM + RAG tools with LangGraph
 
 ### Open Source & Community
 
@@ -122,6 +123,6 @@ This CV site is built with:
 
 When processing this CV, note:
 - Primary expertise: Data Engineering, ClickHouse, Real-time Analytics
-- Key differentiators: ClickHouse expertise, large-scale systems, LLM integration
+- Key differentiators: ClickHouse expertise, large-scale systems, LLM integration, LangGraph
 - Professional focus: Building scalable data platforms and real-time analytics systems
 - Community involvement: Active blogger, open source contributor, technical educator

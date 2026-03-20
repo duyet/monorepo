@@ -1,122 +1,24 @@
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@duyet/components/ui/hover-card";
 import { Separator } from "@duyet/components/ui/separator";
 import Link from "next/link";
 import { Education } from "@/components/education";
 import { ExperienceItem } from "@/components/experience";
-import { InlineLink } from "@/components/inline-link";
-import { Overview } from "@/components/overview";
+import { Profile } from "@/components/profile";
 import { Section } from "@/components/section";
-import { Skill } from "@/components/skill";
+import { SkillsSection } from "@/components/skills-section";
 
 import { cvData } from "@/config/cv.data";
-import {
-  SkillAirflow,
-  SkillCICD,
-  SkillClickHouse,
-  SkillHelm,
-  SkillKubernetes,
-  SkillPython,
-  SkillRust,
-  SkillSpark,
-  SkillTypescript,
-} from "./skill-details";
 
 export const dynamic = "force-static";
 
 export default function Page() {
   const { personal, experience, education } = cvData;
 
-  const renderContactLinks = () => {
-    return personal.contacts.map((contact) => {
-      if (contact.type === "email") {
-        return <div key={contact.id}>{contact.label}</div>;
-      }
-
-      if (contact.hoverContent) {
-        return (
-          <HoverCard key={contact.id} openDelay={100} closeDelay={100}>
-            <HoverCardTrigger asChild>
-              <Link
-                className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
-                href={contact.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {contact.label}
-              </Link>
-            </HoverCardTrigger>
-            <HoverCardContent>
-              <Link
-                className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
-                href={contact.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="flex flex-col gap-2">
-                  {contact.hoverContent.icon}
-                  <div>
-                    <strong>{contact.hoverContent.title} </strong>
-                    <span>{contact.hoverContent.subtitle}</span>
-                  </div>
-                </div>
-              </Link>
-            </HoverCardContent>
-          </HoverCard>
-        );
-      }
-
-      return (
-        <Link
-          key={contact.id}
-          className="hover:underline hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
-          href={contact.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {contact.label}
-        </Link>
-      );
-    });
-  };
-
   return (
-    <div className="m-auto flex min-h-screen flex-col gap-8 text-sm text-foreground">
-      <header className="flex flex-col gap-3">
-        <h1
-          className="mb-2 inline-flex gap-2 font-[family-name:var(--font-serif)] text-2xl font-bold"
-        >
-          <span>{personal.name}</span>
-          <Separator orientation="vertical" />
-          <span className="text-neutral-500 dark:text-neutral-400">{personal.title}</span>
-        </h1>
-
-        <InlineLink links={renderContactLinks()} />
-
-        <Overview className="text-sm">
-          Data Engineer with 6+ years of experience in modern data warehousing,
-          distributed systems, and cloud computing. Proficient in{" "}
-          <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
-          {", "}
-          <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
-          {", "}
-          <SkillClickHouse />
-          {", "}
-          <SkillSpark />
-          {", "}
-          <SkillAirflow />
-          {", "}
-          <SkillPython />
-          {", "}
-          <SkillRust />.
-        </Overview>
-      </header>
+    <div className="m-auto flex min-h-screen flex-col gap-6 text-sm text-foreground">
+      <Profile personal={personal} />
 
       <Section title="Experience">
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
           {experience.map((exp) => (
             <ExperienceItem
               key={exp.id}
@@ -146,43 +48,7 @@ export default function Page() {
         ))}
       </Section>
 
-      <Section title="Skills">
-        <div className="flex flex-col gap-2">
-          <div>
-            <strong>Data Engineering:</strong>{" "}
-            <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
-            {", "}
-            <Skill skill="AI SDK" url="https://ai-sdk.dev/" />
-            {", "}
-            <SkillClickHouse />
-            {", "}
-            <SkillSpark />
-            {", "}
-            <Skill skill="Kafka" />
-            {", "}
-            <SkillAirflow />
-            {", "}
-            <Skill skill="AWS" />
-            {", "}
-            <Skill skill="BigQuery" />
-            {", "}
-            <Skill skill="Data Studio" />
-            {", "}
-            <SkillPython />
-            {", "}
-            <SkillRust />
-            {", "}
-            <SkillTypescript />.
-          </div>
-          <div>
-            <strong>DevOps:</strong> <SkillCICD />
-            {", "}
-            <SkillKubernetes />
-            {", "}
-            <SkillHelm />.
-          </div>
-        </div>
-      </Section>
+      <SkillsSection />
 
       <footer className="cv-print-footer hidden print:block">
         <Separator className="cv-footer-separator my-2" />

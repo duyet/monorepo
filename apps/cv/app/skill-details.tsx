@@ -230,3 +230,14 @@ export function SkillAirflow() {
     />
   );
 }
+
+export function SkillLangGraph() {
+  return (
+    <Skill
+      skill="LangGraph"
+      note={
+        <span>Agent orchestration and stateful workflow graphs for multi-step LLM systems.</span>
+      }
+    />
+  );
+}

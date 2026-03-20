@@ -27,7 +27,7 @@ const libreBaskerville = Libre_Baskerville({
 export const metadata = {
   title: "Duyet Le | Resume",
   description:
-    "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, ClickHouse, Spark, Airflow, Python, Rust.",
+    "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, and Rust.",
 };
 
 // Schema.org structured data for Person/Resume
@@ -48,6 +48,7 @@ const schemaOrgData = {
   knowsAbout: [
     "LlamaIndex",
     "AI SDK",
+    "LangGraph",
     "ClickHouse",
     "Apache Spark",
     "Apache Airflow",
@@ -95,7 +96,7 @@ export default function RootLayout({ children }: LayoutProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
       />
 
-      <body className="bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased">
+      <body className="bg-[var(--background)] font-sans text-[var(--foreground)] antialiased">
         <ThemeProvider>
           <main>
             <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20 print:mb-10 print:mt-10">
