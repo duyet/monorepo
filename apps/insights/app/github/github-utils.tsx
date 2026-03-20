@@ -53,7 +53,7 @@ export async function fetchAllRepositories(
             Accept: githubConfig.headers.accept,
             "User-Agent": githubConfig.headers.userAgent,
           },
-          next: { revalidate: githubConfig.cache.revalidate },
+
         }
       );
 

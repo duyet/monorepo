@@ -57,7 +57,7 @@ async function fetchFreshActivityFromAPI(
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
-      next: { revalidate: wakatimeConfig.cache.revalidate },
+
     });
 
     if (!res.ok) {
