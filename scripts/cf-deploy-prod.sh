@@ -8,8 +8,20 @@ set -euo pipefail
 
 APP_DIR="$1"
 PROJECT_NAME="$2"
-OUTPUT_DIR="${3:-out}"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+# Auto-detect output dir: use explicit arg, or read from wrangler.toml, or default to dist
+if [ -n "${3:-}" ]; then
+  OUTPUT_DIR="$3"
+else
+  # Read pages_build_output_dir from wrangler.toml if it exists
+  WRANGLER_DIR=$(grep -oP 'pages_build_output_dir\s*=\s*"\K[^"]+' "$ROOT_DIR/apps/$APP_DIR/wrangler.toml" 2>/dev/null || true)
+  if [ -n "$WRANGLER_DIR" ]; then
+    OUTPUT_DIR="$WRANGLER_DIR"
+  else
+    OUTPUT_DIR="dist"
+  fi
+fi
 ENV_LOCAL="$ROOT_DIR/.env.local"
 ENV_LOCAL_BAK="$ROOT_DIR/.env.local.deploy-bak"
 
