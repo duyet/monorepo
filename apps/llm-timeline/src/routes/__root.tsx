@@ -4,13 +4,7 @@ import "../animations.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
-import {
-  createRootRoute,
-  HeadContent,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -47,72 +41,18 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  notFoundComponent: NotFoundComponent,
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        name: "description",
-        content:
-          "Interactive timeline of Large Language Model releases from 2017 to present.",
-      },
-      { title: "LLM Timeline | duyet.net" },
-      {
-        name: "theme-color",
-        content: "#fbf7f0",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        name: "theme-color",
-        content: "#1f1f1f",
-        media: "(prefers-color-scheme: dark)",
-      },
-    ],
-    links: [
-      {
-        rel: "alternate",
-        type: "application/rss+xml",
-        href: "https://llm-timeline.duyet.net/rss.xml",
-        title: "LLM Timeline — Model Releases",
-      },
-      {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
-      },
-    ],
-  }),
-  component: RootComponent,
-});
-
-function RootComponent() {
-  return (
-    <html className="font-sans" lang="en" suppressHydrationWarning>
-      <head>
-        <HeadContent />
-      </head>
-      <body
+  component: () => (
+    <ThemeProvider>
+      <div
         className={cn(
           "text-neutral-900 dark:text-neutral-100",
           "subpixel-antialiased",
           "transition-colors duration-300"
         )}
       >
-        <ThemeProvider>
-          <Outlet />
-        </ThemeProvider>
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+        <Outlet />
+      </div>
+    </ThemeProvider>
+  ),
+  notFoundComponent: NotFoundComponent,
+});
