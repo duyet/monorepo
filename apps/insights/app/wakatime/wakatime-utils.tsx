@@ -43,7 +43,7 @@ async function wakaTimeRequest(endpoint: string) {
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
-      next: { revalidate: wakatimeConfig.cache.revalidate },
+
     });
 
     if (!res.ok) {
@@ -182,7 +182,6 @@ async function getActivityFromDurations(
         headers: {
           Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
         },
-        next: { revalidate: wakatimeConfig.cache.revalidate },
       });
 
       if (!res.ok) {
@@ -325,7 +324,7 @@ async function getActivityFromInsights(
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
-      next: { revalidate: wakatimeConfig.cache.revalidate },
+
     });
 
     if (!res.ok) {
