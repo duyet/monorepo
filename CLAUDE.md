@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `bun run build` - Build all apps and packages using Turbo
 - `bun run dev` - Start development servers for all apps with Turbo parallel execution
 - `bun run start` - Start production servers for all apps
+- `bun run config` - Sync app secrets/config through Turbo
+- `bun run deploy` - Run deploy tasks through Turbo, then refresh app config
 
 ### Code Quality
 
@@ -84,6 +86,26 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
    - Live at https://llm-timeline.duyet.net (official) / https://duyet-llm-timeline.pages.dev (Cloudflare)
    - 50+ LLM models from 2017-2025 with search and filtering by license, type, organization
    - Client-side filtering with dark mode support
+
+8. **agents** (`apps/agents/`) - AI chat interface with Cloudflare Pages Functions + Workers AI
+   - Live at https://agents.duyet.net (official) / https://duyet-agents.pages.dev (Cloudflare)
+   - Builds custom agent skills before dev/build, and uses `bun run test:e2e` for browser coverage
+
+9. **ai** (`apps/ai/`) - OpenAI ChatKit app deployed to Cloudflare via OpenNext
+   - Live at https://ai.duyet.net (official) / Cloudflare Workers
+   - Uses `bun run preview`, `bun run upload`, and `bun run cf-typegen` for Cloudflare workflows
+
+10. **ai-percentage** (`apps/ai-percentage/`) - Dashboard for AI-written code percentage
+    - Live at https://ai-percentage.duyet.net (official) / https://duyet-ai-percentage.pages.dev (Cloudflare)
+    - Reads from `api.duyet.net` and uses `bun run config` / `bun run deploy` for its Pages workflow
+
+11. **api** (`apps/api/`) - Lightweight Hono API on Cloudflare Workers
+    - Live at https://api.duyet.net
+    - Serves shared endpoints such as AI-generated descriptions and deploys with `bun run deploy`
+
+12. **data-sync** (`apps/data-sync/`) - ClickHouse sync CLI for analytics data
+    - Runs sync, migration, and cleanup jobs for WakaTime, Cloudflare, GitHub, Unsplash, and AI percentage data
+    - Uses `bun run sync <source>`, `bun run migrate`, and `bun run cleanup`
 
 ### Shared Packages (`/packages/`)
 
