@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `bun run build` - Build all apps and packages using Turbo
 - `bun run dev` - Start development servers for all apps with Turbo parallel execution
 - `bun run start` - Start production servers for all apps
+- `bun run config` - Run workspace config tasks, including app secret syncs where defined
+- `bun run deploy` - Build deployable apps, then run the workspace config step
 
 ### Code Quality
 
@@ -85,6 +87,22 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
    - 50+ LLM models from 2017-2025 with search and filtering by license, type, organization
    - Client-side filtering with dark mode support
 
+8. **agents** (`apps/agents/`) - AI chat interface with Cloudflare Pages Functions and Workers AI via AI Gateway
+   - Live at https://agents.duyet.net (Cloudflare Pages)
+   - Builds skills before compile/deploy; use `bun run dev:next` for plain Next.js dev when the wrapper is not needed
+
+9. **api** (`apps/api/`) - Hono API on Cloudflare Workers for AI-powered blog descriptions
+    - Live at https://api.duyet.net (Cloudflare Workers)
+    - Use `bun run dev`, `bun run deploy`, `bun run test`, and `bun run check-types` for local API changes
+
+10. **ai-percentage** (`apps/ai-percentage/`) - Dashboard showing the percentage of code written by AI across repositories
+    - Live at https://ai-percentage.duyet.net (Cloudflare Pages)
+    - Static export workflow; `bun run deploy` handles the full build-and-publish path
+
+11. **data-sync** (`apps/data-sync/`) - CLI for syncing analytics and activity data into ClickHouse
+    - Use `bun run sync <name>`, `bun run migrate`, and `bun run cleanup` for operational data workflows
+    - `bun run sync wakatime-activity` is the key feed for Insights WakaTime history
+
 ### Shared Packages (`/packages/`)
 
 - `@duyet/components` - Shared React components
@@ -124,6 +142,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - All apps share common ESLint, Prettier, and TypeScript configurations
 - Environment variables are globally managed through Turborepo
 - Shared components and utilities live in `/packages` and are imported as workspace dependencies
+- App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Next.js server
 
 ## Git Workflow
 
@@ -156,4 +175,4 @@ Commits must use one of these scopes (enforced by `.commitlintrc.js`):
 | `agents` | Agents app (`apps/agents`) |
 | `llm-timeline` | LLM Timeline app (`apps/llm-timeline`) |
 
-Scope-less commits are allowed (warning, not error) but discouraged. For apps without a dedicated scope (e.g. `ai`, `homelab`, `ai-percentage`, `data-sync`), use no scope or the closest match.
+Scope-less commits are allowed (warning, not error) but discouraged. For apps without a dedicated scope (e.g. `homelab`, `ai-percentage`, `data-sync`), use no scope or the closest match.
