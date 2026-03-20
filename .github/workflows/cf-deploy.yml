@@ -156,7 +156,6 @@ jobs:
         with:
           path: |
             ~/.bun/install/cache
-            apps/${{ matrix.app }}/.next/cache
           key: ${{ runner.os }}-${{ matrix.app }}-${{ hashFiles('**/bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.app }}-
@@ -254,8 +253,19 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # Production environment variables
+          # Production environment variables (Vite apps use VITE_ prefix)
           NODE_ENV: production
+          VITE_DUYET_HOME_URL: https://duyet.net
+          VITE_DUYET_BLOG_URL: https://blog.duyet.net
+          VITE_DUYET_CV_URL: https://cv.duyet.net
+          VITE_DUYET_INSIGHTS_URL: https://insights.duyet.net
+          VITE_DUYET_PHOTOS_URL: https://photos.duyet.net
+          VITE_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          VITE_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
+          VITE_DUYET_AGENTS_URL: https://agents.duyet.net
+          VITE_DUYET_AI_URL: https://ai.duyet.net
+          VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
+          # Keep NEXT_PUBLIC_ for backward compat during migration
           NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
           NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
           NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
@@ -284,6 +294,7 @@ jobs:
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           # Cloudflare AI Gateway (agents app)
           CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
           CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}

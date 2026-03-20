@@ -15,7 +15,7 @@ if [ -n "${3:-}" ]; then
   OUTPUT_DIR="$3"
 else
   # Read pages_build_output_dir from wrangler.toml if it exists
-  WRANGLER_DIR=$(grep -oP 'pages_build_output_dir\s*=\s*"\K[^"]+' "$ROOT_DIR/apps/$APP_DIR/wrangler.toml" 2>/dev/null || true)
+  WRANGLER_DIR=$(grep 'pages_build_output_dir' "$ROOT_DIR/apps/$APP_DIR/wrangler.toml" 2>/dev/null | sed 's/.*=\s*"\([^"]*\)".*/\1/' || true)
   if [ -n "$WRANGLER_DIR" ]; then
     OUTPUT_DIR="$WRANGLER_DIR"
   else
