@@ -60,21 +60,26 @@ export interface AppUrls {
 }
 
 // Environment-aware URL configuration
+// Vite replaces import.meta.env.VITE_* at build time.
+// Falling back to process.env makes the same source work in Node / test contexts.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const viteEnv: Record<string, string> =
+  typeof import.meta !== "undefined"
+    ? (import.meta as any).env ?? {}
+    : {};
+const env = (key: string): string | undefined =>
+  viteEnv[key] ?? process.env[key];
+
 export const appUrls: AppUrls = {
-  blog: process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net",
-  cv: process.env.NEXT_PUBLIC_DUYET_CV_URL || "https://cv.duyet.net",
-  insights:
-    process.env.NEXT_PUBLIC_DUYET_INSIGHTS_URL || "https://insights.duyet.net",
-  home: process.env.NEXT_PUBLIC_DUYET_HOME_URL || "https://duyet.net",
-  photos:
-    process.env.NEXT_PUBLIC_DUYET_PHOTOS_URL || "https://photos.duyet.net",
-  homelab:
-    process.env.NEXT_PUBLIC_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
-  agents:
-    process.env.NEXT_PUBLIC_DUYET_AGENTS_URL || "https://agents.duyet.net",
+  blog: env("VITE_DUYET_BLOG_URL") ?? "https://blog.duyet.net",
+  cv: env("VITE_DUYET_CV_URL") ?? "https://cv.duyet.net",
+  insights: env("VITE_DUYET_INSIGHTS_URL") ?? "https://insights.duyet.net",
+  home: env("VITE_DUYET_HOME_URL") ?? "https://duyet.net",
+  photos: env("VITE_DUYET_PHOTOS_URL") ?? "https://photos.duyet.net",
+  homelab: env("VITE_DUYET_HOMELAB_URL") ?? "https://homelab.duyet.net",
+  agents: env("VITE_DUYET_AGENTS_URL") ?? "https://agents.duyet.net",
   llmTimeline:
-    process.env.NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL ||
-    "https://llm-timeline.duyet.net",
+    env("VITE_DUYET_LLM_TIMELINE_URL") ?? "https://llm-timeline.duyet.net",
 };
 
 // Blog app configuration

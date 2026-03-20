@@ -9,7 +9,8 @@
   "exports": {
     "./base.json": "./base.json",
     "./nextjs.json": "./nextjs.json",
-    "./react-library.json": "./react-library.json"
+    "./react-library.json": "./react-library.json",
+    "./vite.json": "./vite.json"
   },
   "publishConfig": {
     "access": "public"
