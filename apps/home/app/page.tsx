@@ -75,7 +75,7 @@ const apps: AppItem[] = [
   {
     name: "ClickHouse Monitoring",
     href: "/clickhouse-monitoring",
-    host: "clickhouse-monitoring.vercel.app",
+    host: "clickhouse.duyet.net",
     utmContent: "ch_monitor_bento",
     screenshot: "/screenshots/ch-monitor.png",
   },

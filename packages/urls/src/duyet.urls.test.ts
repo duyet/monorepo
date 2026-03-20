@@ -35,7 +35,7 @@ describe("duyetUrls", () => {
 
   test("external clickhouse URL is set", () => {
     expect(duyetUrls.external.clickhouse).toBe(
-      "https://clickhouse-monitoring.vercel.app"
+      "https://clickhouse.duyet.net"
     );
   });
 

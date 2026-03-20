@@ -55,7 +55,7 @@ export const duyetUrls: UrlsConfig = {
   },
   external: {
     rust: "https://rust-tieng-viet.github.io",
-    clickhouse: "https://clickhouse-monitoring.vercel.app",
+    clickhouse: "https://clickhouse.duyet.net",
     mcp: "https://mcp.duyet.net",
     monica: "https://monica.im/invitation?c=RJF8T7RT",
     googleScript:
