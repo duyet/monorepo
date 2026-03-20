@@ -1,5 +1,5 @@
 import type { Post } from "@duyet/interfaces";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { Thumb } from "./Thumb";
 
 /**
@@ -44,7 +44,7 @@ export function GridItem({ post }: { post: Post }) {
       <Thumb url={post.thumbnail} alt={post.title} width={500} height={500} />
 
       <p className="mt-4 leading-relaxed">
-        <Link href={`/${post.slug}`}>{post.title}</Link>
+        <Link to={`/${post.slug}`}>{post.title}</Link>
       </p>
     </article>
   );
