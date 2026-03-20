@@ -2,6 +2,14 @@
   "$schema": "https://turborepo.com/schema.json",
   "globalEnv": [
     "NODE_ENV",
+    "VITE_DUYET_HOME_URL",
+    "VITE_DUYET_CV_URL",
+    "VITE_DUYET_BLOG_URL",
+    "VITE_DUYET_INSIGHTS_URL",
+    "VITE_DUYET_PHOTOS_URL",
+    "VITE_DUYET_HOMELAB_URL",
+    "VITE_DUYET_AGENTS_URL",
+    "VITE_DUYET_LLM_TIMELINE_URL",
     "NEXT_PUBLIC_DUYET_HOME_URL",
     "NEXT_PUBLIC_DUYET_CV_URL",
     "NEXT_PUBLIC_DUYET_BLOG_URL",
@@ -12,6 +20,7 @@
     "NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL",
     "CLOUDFLARE_ACCOUNT_ID",
     "OPENAI_API_KEY",
+    "VITE_CHATKIT_WORKFLOW_ID",
     "NEXT_PUBLIC_CHATKIT_WORKFLOW_ID",
     "CHATKIT_API_BASE",
     "CLOUDFLARE_AI_GATEWAY_URL",
@@ -20,6 +29,9 @@
     "CLOUDFLARE_API_KEY",
     "CLOUDFLARE_API_TOKEN",
     "CLOUDFLARE_ZONE_ID",
+    "VITE_MEASUREMENT_ID",
+    "VITE_AXIOM_DATASET",
+    "VITE_SELINE_TOKEN",
     "NEXT_PUBLIC_MEASUREMENT_ID",
     "NEXT_PUBLIC_AXIOM_DATASET",
     "NEXT_PUBLIC_SELINE_TOKEN",
@@ -42,6 +54,8 @@
     "CLOUDINARY_API_KEY",
     "CLOUDINARY_API_SECRET",
     "CLOUDINARY_FOLDER",
+    "VITE_API_BASE_URL",
+    "VITE_CLERK_PUBLISHABLE_KEY",
     "NEXT_PUBLIC_API_BASE_URL",
     "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     "CLERK_SECRET_KEY"
@@ -54,7 +68,7 @@
   ],
   "tasks": {
     "build": {
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "outputs": ["dist/**", ".output/**"],
       "dependsOn": ["^build"]
     },
     "lint": {
