@@ -19,7 +19,9 @@
       "!**/public",
       "!**/_posts",
       "!**/.wrangler",
-      "!**/llm-timeline/lib/data.ts"
+      "!**/.output",
+      "!**/llm-timeline/lib/data.ts",
+      "!**/.claude"
     ]
   },
   "formatter": {

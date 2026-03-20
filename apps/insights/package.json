@@ -10,7 +10,7 @@
   },
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-insights",
-    "build": "NODE_ENV=production vite build",
+    "build": "NODE_ENV=production bun --bun vite build",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3001",
     "fmt": "bun run fix",
@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",
-    "@cloudflare/vite-plugin": "^1.0.0",
     "@duyet/components": "*",
     "@duyet/config": "*",
     "@duyet/libs": "*",
@@ -40,8 +39,7 @@
     "react-is": "^19.1.0",
     "recharts": "^3.7.0",
     "vite": "^6.0.0",
-    "vite-tsconfig-paths": "^5.0.0",
-    "vinxi": "^0.5.0"
+    "vite-tsconfig-paths": "^5.0.0"
   },
   "devDependencies": {
     "@duyet/interfaces": "*",
