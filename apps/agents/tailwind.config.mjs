@@ -5,6 +5,12 @@ export default {
   ...config,
   safelist: [
     ...(config.safelist || []),
+    // Shadcn UI color utilities
+    "bg-background",
+    "text-foreground",
+    "border-border",
+    "text-muted-foreground",
+    "bg-muted",
     // Card color backgrounds
     "bg-ivory",
     "bg-oat-light",
