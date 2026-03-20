@@ -1,13 +1,10 @@
-import Image from "next/image";
-
 export default function Error(_props: { error?: Error; reset?: () => void }) {
   return (
     <div className="bg-indigo-900 relative overflow-hidden h-screen">
-      <Image
+      <img
         alt="error"
         className="absolute h-full w-full object-cover"
         height={800}
-        priority
         src="https://i.imgur.com/cszuWOs.jpg"
         width={1200}
       />

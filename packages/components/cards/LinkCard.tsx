@@ -1,5 +1,5 @@
 import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import {
   GeometricPattern,
   OrganicBlob,
@@ -24,7 +24,6 @@ interface LinkCardProps {
   featured?: boolean;
   backgroundImage?: string;
   illustration?: "wavy" | "geometric" | "blob" | "none";
-  prefetch?: boolean;
 }
 
 const colorClasses = {
@@ -69,34 +68,21 @@ const descriptionSizeClasses = {
   default: "text-sm",
 };
 
-export function LinkCard({
+function LinkCardInner({
   title,
-  href,
   description,
   color,
-  className,
-  featured = false,
   backgroundImage,
   illustration = "none",
-  prefetch = false,
-}: LinkCardProps) {
+  featured = false,
+}: Pick<
+  LinkCardProps,
+  "title" | "description" | "color" | "backgroundImage" | "illustration" | "featured"
+>) {
   const IllustrationComponent = illustrations[illustration];
-  const isExternal = href.startsWith("http");
 
   return (
-    <Link
-      href={href}
-      prefetch={prefetch}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      className={cn(
-        "group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900",
-        color && colorClasses[color],
-        featured && "sm:col-span-2 lg:col-span-2",
-        className
-      )}
-      aria-label={isExternal ? `${title} (opens in new tab)` : title}
-    >
+    <>
       {backgroundImage && (
         <>
           {/* Background image on hover */}
@@ -143,6 +129,56 @@ export function LinkCard({
           />
         </div>
       )}
+    </>
+  );
+}
+
+export function LinkCard({
+  title,
+  href,
+  description,
+  color,
+  className,
+  featured = false,
+  backgroundImage,
+  illustration = "none",
+}: LinkCardProps) {
+  const isExternal = href.startsWith("http");
+  const sharedClassName = cn(
+    "group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900",
+    color && colorClasses[color],
+    featured && "sm:col-span-2 lg:col-span-2",
+    className
+  );
+  const ariaLabel = isExternal ? `${title} (opens in new tab)` : title;
+  const inner = (
+    <LinkCardInner
+      title={title}
+      description={description}
+      color={color}
+      backgroundImage={backgroundImage}
+      illustration={illustration}
+      featured={featured}
+    />
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={sharedClassName}
+        aria-label={ariaLabel}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={href} className={sharedClassName} aria-label={ariaLabel}>
+      {inner}
     </Link>
   );
 }

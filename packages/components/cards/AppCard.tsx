@@ -1,6 +1,5 @@
 import { cn } from "@duyet/libs/utils";
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 export interface AppCardProps {
   title: string;
@@ -19,33 +18,23 @@ function extractDomain(url: string): string {
   }
 }
 
-export function AppCard({
+function AppCardContent({
   title,
-  href,
+  domain,
   screenshot,
-  className,
-  prefetch = false,
-}: AppCardProps) {
-  const isExternal = href.startsWith("http");
-  const domain = extractDomain(href);
-
+}: {
+  title: string;
+  domain: string;
+  screenshot: string;
+}) {
   return (
-    <Link
-      href={href}
-      prefetch={prefetch}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      className={cn("group block overflow-hidden", className)}
-      aria-label={isExternal ? `${title} (${domain})` : title}
-    >
+    <>
       {/* Screenshot */}
       <div className="relative h-40 w-full overflow-hidden rounded-lg border border-neutral-200 transition-shadow group-hover:shadow-md">
-        <Image
+        <img
           src={screenshot}
           alt={`${title} screenshot`}
-          fill
-          unoptimized
-          className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+          className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
         />
       </div>
 
@@ -56,6 +45,38 @@ export function AppCard({
         </p>
         <p className="mt-0.5 text-xs text-neutral-400 truncate">{domain}</p>
       </div>
+    </>
+  );
+}
+
+export function AppCard({
+  title,
+  href,
+  screenshot,
+  className,
+}: AppCardProps) {
+  const isExternal = href.startsWith("http");
+  const domain = extractDomain(href);
+  const sharedClassName = cn("group block overflow-hidden", className);
+  const ariaLabel = isExternal ? `${title} (${domain})` : title;
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={sharedClassName}
+        aria-label={ariaLabel}
+      >
+        <AppCardContent title={title} domain={domain} screenshot={screenshot} />
+      </a>
+    );
+  }
+
+  return (
+    <Link to={href} className={sharedClassName} aria-label={ariaLabel}>
+      <AppCardContent title={title} domain={domain} screenshot={screenshot} />
     </Link>
   );
 }

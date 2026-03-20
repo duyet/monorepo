@@ -3,7 +3,7 @@ import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import type { ReactElement, ReactNode } from "react";
 import Container from "./Container";
 import Logo from "./Logo";
@@ -31,7 +31,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link to={href} className={classes}>
       {children}
     </Link>
   );

@@ -1,6 +1,5 @@
 import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
-import Image from "next/image";
 
 export type Props = {
   posts: Post[];
@@ -12,7 +11,6 @@ export function Thumb({
   alt,
   width = 800,
   height = 300,
-  unoptimized,
   className,
 }: {
   url?: string;
@@ -24,19 +22,13 @@ export function Thumb({
 }) {
   if (!url) return null;
 
-  if (url.startsWith("http://")) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={url} className="mt-4" alt={alt} />;
-  }
-
   return (
-    <Image
+    <img
       src={url}
       className={cn("mt-4", className)}
       width={width}
       height={height}
       alt={alt || ""}
-      unoptimized={unoptimized}
     />
   );
 }

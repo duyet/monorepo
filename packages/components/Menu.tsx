@@ -1,7 +1,7 @@
 import { cn } from "@duyet/libs/utils";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 export type NavigationItem = {
   name: string;
@@ -78,16 +78,27 @@ export default function Menu({
         className
       )}
     >
-      {items.map(({ name, href }) => (
-        <Link
-          key={name}
-          href={href}
-          onClick={onItemClick}
-          className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
-        >
-          {name}
-        </Link>
-      ))}
+      {items.map(({ name, href }) =>
+        href.startsWith("http") ? (
+          <a
+            key={name}
+            href={href}
+            onClick={onItemClick}
+            className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+          >
+            {name}
+          </a>
+        ) : (
+          <Link
+            key={name}
+            to={href}
+            onClick={onItemClick}
+            className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+          >
+            {name}
+          </Link>
+        )
+      )}
     </div>
   );
 }

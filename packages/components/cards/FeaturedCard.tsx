@@ -1,5 +1,5 @@
 import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { AbstractShapes } from "../illustrations/AbstractShapes";
 
 interface FeaturedCardProps {
@@ -10,7 +10,6 @@ interface FeaturedCardProps {
   date?: string;
   color?: "terracotta" | "sage" | "coral" | "lavender";
   className?: string;
-  prefetch?: boolean;
 }
 
 const colorClasses = {
@@ -27,27 +26,15 @@ const illustrationColors = {
   lavender: "text-lavender",
 };
 
-export function FeaturedCard({
+function FeaturedCardInner({
   title,
-  href,
   category,
   description,
   date,
   color = "terracotta",
-  className,
-  prefetch = false,
-}: FeaturedCardProps) {
+}: Pick<FeaturedCardProps, "title" | "category" | "description" | "date" | "color">) {
   return (
-    <Link
-      href={href}
-      prefetch={prefetch}
-      className={cn(
-        "group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-lg md:p-12 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900",
-        colorClasses[color],
-        className
-      )}
-      aria-label={title}
-    >
+    <>
       <div className="relative z-10 flex flex-col gap-4">
         {category && (
           <div className="inline-flex items-center">
@@ -77,6 +64,52 @@ export function FeaturedCard({
           className={cn("h-full w-full", illustrationColors[color])}
         />
       </div>
+    </>
+  );
+}
+
+export function FeaturedCard({
+  title,
+  href,
+  category,
+  description,
+  date,
+  color = "terracotta",
+  className,
+}: FeaturedCardProps) {
+  const isExternal = href.startsWith("http");
+  const sharedClassName = cn(
+    "group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-lg md:p-12 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 dark:focus:ring-amber-400 dark:focus:ring-offset-neutral-900",
+    colorClasses[color],
+    className
+  );
+  const inner = (
+    <FeaturedCardInner
+      title={title}
+      category={category}
+      description={description}
+      date={date}
+      color={color}
+    />
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={sharedClassName}
+        aria-label={title}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={href} className={sharedClassName} aria-label={title}>
+      {inner}
     </Link>
   );
 }
