@@ -1,5 +1,0 @@
-{
-  "version": 1,
-  "include": ["/*"],
-  "exclude": ["/llms.txt", "/rss.xml", "/sitemap.xml", "/license/*/rss.xml", "/org/*/rss.xml", "/year/*/rss.xml"]
-}

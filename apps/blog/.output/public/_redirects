@@ -1,6 +1,0 @@
-# Category redirects
-/category/data-engineer /category/data-engineering 301
-/category/bigdata /category/data 301
-
-# Redirect .html to clean URLs
-/:year/:month/:slug.html /:year/:month/:slug/ 301

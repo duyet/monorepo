@@ -1,1 +1,0 @@
-import{l as r,m as a,j as e}from"./main-Bp2DSC5G.js";import{S as o}from"./SeriesBox-D9M89V2u.js";function m(){const{slug:t}=r.useParams(),s=a({slug:t});return s?e.jsx(o,{className:"mt-0 border-0 pb-10 pt-10",series:s}):e.jsx("div",{className:"py-12 text-center",children:e.jsx("p",{className:"text-lg text-neutral-600",children:"Series not found."})})}export{m as component};

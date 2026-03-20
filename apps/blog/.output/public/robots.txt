@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://blog.duyet.net/sitemap.xml
-Sitemap: https://blog.duyet.net/sitemap
-
-# LLM and AI agent resources
-# llms.txt: https://blog.duyet.net/llms.txt
-# llms-full.txt: https://blog.duyet.net/llms-full.txt
