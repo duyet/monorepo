@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import {

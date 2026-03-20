@@ -1,54 +1,39 @@
+import { createFileRoute } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
-import type { Metadata } from "next";
-import Link from "next/link";
 import PhotoFeed from "@/components/PhotoFeed";
 import { RetryButton } from "@/components/RetryButton";
-import type { PhotoFetchError } from "@/lib/errors";
-import {
-  AuthError,
-  NetworkError,
-  RateLimitError,
-  UnknownPhotoError,
-} from "@/lib/errors";
-import { getAllPhotos, type Photo } from "@/lib/photo-provider";
+import { LoadingGrid } from "@/components/LoadingStates";
+import { usePhotos } from "@/hooks/usePhotos";
+import { RateLimitError, NetworkError, AuthError } from "@/lib/errors";
 
-export const metadata: Metadata = {
-  title: "Photo Stream | Photos",
-  description:
-    "A chronological stream of my photography. One image at a time, each with its story.",
-  openGraph: {
-    title: "Photo Stream",
-    description:
-      "A chronological stream of my photography. One image at a time, each with its story.",
-    type: "website",
-  },
-};
+export const Route = createFileRoute("/feed")({
+  head: () => ({
+    meta: [
+      { title: "Photo Stream | Photos" },
+      {
+        name: "description",
+        content:
+          "A chronological stream of my photography. One image at a time, each with its story.",
+      },
+    ],
+  }),
+  component: FeedPage,
+});
 
-export default async function FeedPage() {
-  let photos: Photo[] = [];
-  let photoError: PhotoFetchError | null = null;
+function FeedPage() {
+  const { photos, error, isLoading } = usePhotos();
 
-  try {
-    photos = await getAllPhotos();
-  } catch (e) {
-    photoError =
-      e instanceof RateLimitError ||
-      e instanceof AuthError ||
-      e instanceof NetworkError ||
-      e instanceof UnknownPhotoError
-        ? e
-        : new UnknownPhotoError(e);
+  if (isLoading) {
+    return <LoadingGrid />;
   }
 
-  // Only show error state if we have no photos at all
-  // If we have fallback photos, proceed normally
-  if (photoError && photos.length === 0) {
+  if (error && photos.length === 0) {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="max-w-md rounded-2xl bg-white p-8 text-center dark:bg-slate-800">
             <div className="mb-4 flex justify-center">
-              {photoError instanceof RateLimitError ? (
+              {error instanceof RateLimitError ? (
                 <svg
                   className="h-12 w-12 text-amber-500"
                   fill="none"
@@ -79,18 +64,18 @@ export default async function FeedPage() {
               )}
             </div>
             <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-              {photoError instanceof RateLimitError
+              {error instanceof RateLimitError
                 ? "API Rate Limit Reached"
-                : photoError instanceof NetworkError
+                : error instanceof NetworkError
                   ? "Network Error"
-                  : photoError instanceof AuthError
+                  : error instanceof AuthError
                     ? "Service Configuration Error"
                     : "Unable to Load Photos"}
             </h3>
             <p className="mb-6 text-neutral-600 dark:text-neutral-400">
-              {photoError.userMessage}
+              {error.message}
             </p>
-            {photoError.retryable && <RetryButton />}
+            <RetryButton />
           </div>
         </div>
       </Container>
@@ -108,7 +93,6 @@ export default async function FeedPage() {
       </a>
 
       <div className="w-full">
-        {/* Header Section */}
         <Container className="py-12">
           <header className="mb-8 text-center" aria-labelledby="feed-heading">
             <h1
@@ -121,18 +105,17 @@ export default async function FeedPage() {
               My latest photos, newest first. Each image tells a story—a moment
               captured, a place remembered, a feeling preserved. For more
               photos, explore the{" "}
-              <Link
+              <a
                 href="/"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
                 full gallery
-              </Link>
+              </a>
               .
             </p>
           </header>
         </Container>
 
-        {/* Feed Content */}
         <section
           className="w-full pb-16"
           aria-labelledby="feed-heading"

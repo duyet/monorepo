@@ -8,13 +8,14 @@ Photo gallery with masonry layout, lightbox viewer, and multiple photo provider 
 
 - **Live**: https://photos.duyet.net | https://duyet-photos.pages.dev
 - **Port**: 3003 (development)
-- **Output**: Static export (`output: 'export'`)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3003 (Turbopack)
-bun run build        # Build static export to 'out/'
+bun run dev          # Start dev server on port 3003
+bun run build        # Fetch photo data + build to out/
+bun run check-types  # TypeScript type check
 bun run lint         # Run Biome linter
 bun run test         # Run tests
 bun run test:watch   # Run tests in watch mode
@@ -28,22 +29,28 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15 with App Router, static export
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Layout**: `react-masonry-css` for masonry grid
 - **Images**: Cloudinary + Unsplash + ClickHouse as photo providers
 - **EXIF**: `exifreader` for photo metadata extraction
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS v4
 - **Package Manager**: Bun
 
 ### Project Structure
 
 ```
 apps/photos/
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout (nav, theme, analytics)
+│       ├── index.tsx       # Main gallery page (/)
+│       ├── $year.tsx       # Year-filtered gallery (/:year)
+│       └── feed.tsx        # Photo stream (/feed)
 ├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Main gallery page
-│   ├── [year]/             # Year-based photo archives
-│   └── feed/               # RSS feed
+│   └── globals.css         # Global CSS with design tokens
 ├── components/
 │   ├── PhotoGrid.tsx       # Masonry grid layout
 │   ├── PhotoCard.tsx       # Individual photo card
@@ -56,51 +63,66 @@ apps/photos/
 │   ├── ErrorBoundary.tsx   # Error handling
 │   ├── LoadingStates.tsx   # Loading skeletons
 │   └── RetryButton.tsx     # Retry on error
-├── lib/
-│   ├── photo-provider.ts   # Provider interface & factory
-│   ├── unsplash-provider.ts  # Unsplash integration
-│   ├── cloudinary-provider.ts # Cloudinary integration
-│   ├── clickhouse-provider.ts # ClickHouse integration
-│   ├── fallback-provider.ts  # Fallback/local photos
-│   ├── unsplash.ts         # Unsplash API client
-│   ├── cloudinary.ts       # Cloudinary client
-│   ├── clickhouse.ts       # ClickHouse client
-│   ├── localPhotos.ts      # Local photo data
-│   ├── config.ts           # Provider configuration
-│   ├── cache.ts            # Caching utilities
-│   ├── types.ts            # TypeScript interfaces
-│   ├── errors.ts           # Error types
-│   ├── exifExtractor.ts    # EXIF data extraction
-│   ├── MetadataFormatters.ts
-│   ├── ImageOptimization.ts
-│   └── GridUtilities.ts
 ├── hooks/
-│   └── UseKeyboardNavigation.ts  # Keyboard nav for lightbox
-└── cache-config/           # Caching configuration
+│   ├── UseKeyboardNavigation.ts  # Keyboard nav for lightbox
+│   └── usePhotos.ts        # Photo data fetching hook
+├── lib/
+│   ├── photo-provider.ts   # Provider interface & factory (build-time only)
+│   ├── unsplash-provider.ts
+│   ├── cloudinary-provider.ts
+│   ├── clickhouse-provider.ts
+│   ├── fallback-provider.ts
+│   └── ...                 # Other lib utilities
+├── scripts/
+│   └── generate-photos-data.ts  # Prebuild: fetch photos → public/photos-data.json
+├── public/
+│   └── photos-data.json    # Generated at build time (do not commit)
+└── index.html              # SPA entry HTML
 ```
 
 ## Key Patterns
 
-### Photo Provider Architecture
+### Photo Data Flow
 
-Photos come from multiple sources via a provider interface:
+Photos are fetched at **build time** by `scripts/generate-photos-data.ts`, which:
+1. Tries ClickHouse first (fast, no rate limits)
+2. Falls back to Unsplash + Cloudinary APIs
+3. Falls back to sample photos if all providers fail
+4. Writes `public/photos-data.json`
 
-```typescript
-// lib/photo-provider.ts defines the interface
-// Providers: unsplash, cloudinary, clickhouse, fallback
-// Config in lib/config.ts selects which provider to use
-```
+At runtime, the SPA loads `photos-data.json` via `hooks/usePhotos.ts`.
 
-The provider is selected at build time based on environment variables. The fallback provider uses local data when APIs are unavailable.
+### Routes
 
-### Static Export with Photo Data
+| URL | Route file | Description |
+|-----|-----------|-------------|
+| `/` | `src/routes/index.tsx` | Full photo gallery |
+| `/:year` | `src/routes/$year.tsx` | Year-filtered gallery |
+| `/feed` | `src/routes/feed.tsx` | Single-column photo stream |
 
-All photo data is fetched at build time:
+### Environment Variables (build-time only)
 
-```typescript
-// app/page.tsx - fetch photos at build time
-export const dynamic = 'force-static'
-export const revalidate = 3600 // Rebuild every hour
+```bash
+# Unsplash (used during build for photo data generation)
+UNSPLASH_ACCESS_KEY=xxxxxxxxxx
+
+# Cloudinary (used during build)
+CLOUDINARY_CLOUD_NAME=xxxx
+CLOUDINARY_API_KEY=xxxx
+CLOUDINARY_API_SECRET=xxxx
+
+# ClickHouse (used during build)
+CLICKHOUSE_HOST=your-host
+CLICKHOUSE_PORT=8123
+CLICKHOUSE_USER=username
+CLICKHOUSE_PASSWORD=password
+CLICKHOUSE_DATABASE=analytics_db
+
+# Cross-app URLs (runtime, VITE_ prefix)
+VITE_DUYET_BLOG_URL=https://blog.duyet.net
+VITE_DUYET_INSIGHTS_URL=https://insights.duyet.net
+VITE_DUYET_CV_URL=https://cv.duyet.net
+VITE_DUYET_HOME_URL=https://duyet.net
 ```
 
 ### Lightbox Navigation
@@ -108,66 +130,19 @@ export const revalidate = 3600 // Rebuild every hour
 The lightbox supports keyboard navigation via `hooks/UseKeyboardNavigation.ts`:
 - Arrow keys to navigate photos
 - Escape to close
-- Space to play/pause (if video)
-
-### Adding a New Photo Provider
-
-1. Create `lib/my-provider.ts` implementing the provider interface from `lib/photo-provider.ts`
-2. Register it in `lib/config.ts`
-3. Add required environment variables
-
-## Environment Variables
-
-```bash
-# Unsplash
-UNSPLASH_ACCESS_KEY=xxxxxxxxxx
-
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=xxxx
-CLOUDINARY_API_KEY=xxxx
-CLOUDINARY_API_SECRET=xxxx
-
-# ClickHouse (for photo metadata storage)
-CLICKHOUSE_HOST=your-host
-CLICKHOUSE_PORT=8123
-CLICKHOUSE_USER=username
-CLICKHOUSE_PASSWORD=password
-CLICKHOUSE_DATABASE=analytics_db
-
-# Cross-app URLs
-NEXT_PUBLIC_DUYET_PHOTOS_URL=https://photos.duyet.net
-```
-
-## Common Tasks
-
-### Add Photos from Unsplash
-
-Update the Unsplash collection ID or username in `lib/config.ts`.
-
-### Change Photo Layout Columns
-
-Modify `react-masonry-css` breakpoint config in `components/PhotoGrid.tsx`.
-
-### Update EXIF Display Fields
-
-Edit `components/PhotoMetadata.tsx` to add/remove EXIF fields shown in the lightbox.
-
-## Build Notes
-
-- `output: 'export'` with `staticPageGenerationTimeout: 180` (3 min) for slow API calls
-- `unoptimized: true` for images (static export compatibility)
-- Unsplash images served from `images.unsplash.com` and `plus.unsplash.com`
+- Space to play/pause slideshow
 
 ## Troubleshooting
 
 ### No photos appear
 
 Check environment variables for the active photo provider. Verify API keys are valid.
-
-### Build timeout
-
-If Unsplash/Cloudinary API is slow, the 3-minute timeout may trigger. Check API rate limits.
+The `public/photos-data.json` must exist and contain photos.
 
 ### EXIF data missing
 
 Not all photos have EXIF data. `exifreader` returns empty for photos without metadata.
+
+### Route tree out of date
+
+Run `bun --bun vite build` or `bun run dev` to regenerate `src/routeTree.gen.ts`.

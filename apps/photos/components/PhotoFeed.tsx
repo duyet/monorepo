@@ -1,6 +1,3 @@
-"use client";
-
-import Image from "next/image";
 import { generateBlurDataURL } from "@/lib/ImageOptimization";
 import { formatFeedCaption } from "@/lib/MetadataFormatters";
 import type { Photo } from "@/lib/photo-provider";
@@ -40,18 +37,21 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
             itemType="https://schema.org/ImageObject"
           >
             <div className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800">
-              <Image
+              <img
                 src={photo.urls.regular}
                 alt={photo.alt_description || photo.description || "Photo"}
                 width={photo.width}
                 height={photo.height}
                 className="h-auto w-full"
-                placeholder="blur"
-                blurDataURL={blurDataURL}
                 loading={isPriority ? "eager" : "lazy"}
-                priority={isPriority}
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 896px, 1024px"
-                quality={90}
+                style={
+                  blurDataURL
+                    ? {
+                        backgroundImage: `url(${blurDataURL})`,
+                        backgroundSize: "cover",
+                      }
+                    : undefined
+                }
                 itemProp="contentUrl"
               />
             </div>

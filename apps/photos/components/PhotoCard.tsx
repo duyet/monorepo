@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@duyet/libs/utils";
 import { useMemo } from "react";
 import { OWNER_USERNAME } from "@/lib/config";
