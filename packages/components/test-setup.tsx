@@ -8,22 +8,15 @@ try {
   // Already registered by another test file in the same process
 }
 
-// Mock Next.js Link component
-mock.module("next/link", () => ({
-  __esModule: true,
-  default: ({
+// Mock @tanstack/react-router Link component
+mock.module("@tanstack/react-router", () => ({
+  Link: ({
     children,
-    href,
+    to,
     ...props
-  }: { children: React.ReactNode; href: string }) => {
-    return <a href={href} {...props}>{children}</a>;
+  }: { children: React.ReactNode; to: string; [key: string]: unknown }) => {
+    return <a href={to} {...props}>{children}</a>;
   },
-}));
-
-// Mock Next.js Image
-mock.module("next/image", () => ({
-  __esModule: true,
-  default: (props: Record<string, unknown>) => <img {...props} />,
 }));
 
 // Mock next-themes

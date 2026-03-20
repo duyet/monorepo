@@ -31,7 +31,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
-    "next": "16.1.7",
     "next-themes": "^0.4.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -51,11 +50,15 @@
   },
   "peerDependencies": {
     "@clerk/clerk-react": "^5",
+    "@tanstack/react-router": "^1",
     "react": "^18 | ^19",
     "react-dom": "^18 | ^19"
   },
   "peerDependenciesMeta": {
     "@clerk/clerk-react": {
+      "optional": true
+    },
+    "@tanstack/react-router": {
       "optional": true
     }
   }

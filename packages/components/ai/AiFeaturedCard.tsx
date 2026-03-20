@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { AbstractShapes } from "../illustrations/AbstractShapes";
 import { ThinkingAnimation } from "../thinking/ThinkingAnimation";
 import { useCardDescription } from "./useCardDescription";
@@ -48,16 +48,15 @@ export function AiFeaturedCard({
 
   const displayDescription = description || fallbackDescription;
   const showThinking = isLoading && !displayDescription;
+  const isExternal = href.startsWith("http");
+  const sharedClassName = cn(
+    "group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-lg md:p-12",
+    colorClasses[color],
+    className
+  );
 
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-lg md:p-12",
-        colorClasses[color],
-        className
-      )}
-    >
+  const inner = (
+    <>
       <div className="relative z-10 flex flex-col gap-4">
         {category && (
           <div className="inline-flex items-center">
@@ -89,6 +88,25 @@ export function AiFeaturedCard({
           className={cn("h-full w-full", illustrationColors[color])}
         />
       </div>
+    </>
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={sharedClassName}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={href} className={sharedClassName}>
+      {inner}
     </Link>
   );
 }

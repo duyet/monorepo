@@ -1,6 +1,5 @@
 import { cn } from "@duyet/libs/utils";
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 import LOGO from "./logo.svg";
 
@@ -27,10 +26,10 @@ export default function Logo({
 
   return (
     <Link
-      href="/"
+      to="/"
       className={cn("p-3 font-bold flex flex-row items-center", className)}
     >
-      <Image
+      <img
         src={LOGO}
         alt="Logo"
         width={width}

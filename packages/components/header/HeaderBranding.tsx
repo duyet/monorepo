@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import Logo from "../Logo";
 
 interface HeaderBrandingProps {
@@ -30,6 +30,22 @@ export function HeaderBranding({
   center = false,
   className,
 }: HeaderBrandingProps) {
+  const linkClassName = cn(
+    "font-serif text-xl sm:text-2xl font-normal text-neutral-900 dark:text-neutral-100",
+    className
+  );
+  const textContent =
+    shortText && longText ? (
+      <>
+        <span className="block sm:hidden">{shortText}</span>
+        <span className={cn("hidden sm:block", center && "md:text-7xl md:mt-5")}>
+          {longText}
+        </span>
+      </>
+    ) : (
+      <span>{shortText || longText}</span>
+    );
+
   return (
     <div className={cn("flex flex-row items-center gap-2")}>
       {logo && (
@@ -39,26 +55,15 @@ export function HeaderBranding({
         />
       )}
 
-      <Link
-        href={homeUrl}
-        className={cn(
-          "font-serif text-xl sm:text-2xl font-normal text-neutral-900 dark:text-neutral-100",
-          className
-        )}
-      >
-        {shortText && longText ? (
-          <>
-            <span className="block sm:hidden">{shortText}</span>
-            <span
-              className={cn("hidden sm:block", center && "md:text-7xl md:mt-5")}
-            >
-              {longText}
-            </span>
-          </>
-        ) : (
-          <span>{shortText || longText}</span>
-        )}
-      </Link>
+      {homeUrl.startsWith("http") ? (
+        <a href={homeUrl} className={linkClassName}>
+          {textContent}
+        </a>
+      ) : (
+        <Link to={homeUrl} className={linkClassName}>
+          {textContent}
+        </Link>
+      )}
     </div>
   );
 }
