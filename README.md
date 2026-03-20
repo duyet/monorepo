@@ -1,33 +1,28 @@
 # duyet.net
 
-This monorepo contains the Nextjs version of the blog, cv, photo, etc.
+This monorepo contains the public apps and shared packages for duyet.net.
 
-- **Home**: https://duyet.net (official) | https://duyet-home.pages.dev (Cloudflare)
-- **Blog**: https://blog.duyet.net (official) | https://duyet.vercel.app (Vercel) | https://duyet-blog.pages.dev (Cloudflare)
-- **CV**: https://cv.duyet.net (official) | https://duyet-cv.vercel.app (Vercel) | https://duyet-cv.pages.dev (Cloudflare)
-- **Insights**: https://insights.duyet.net (official) | https://duyet-insights.vercel.app (Vercel) | https://duyet-insights.pages.dev (Cloudflare)
-- **Photos**: https://photos.duyet.net (official) | https://duyet-photos.vercel.app (Vercel) | https://duyet-photos.pages.dev (Cloudflare)
-- **Homelab**: https://homelab.duyet.net (official) | https://duyet-homelab.pages.dev (Cloudflare)
-- **LLM Timeline**: https://llm-timeline.duyet.net (official) | https://duyet-llm-timeline.pages.dev (Cloudflare)
+## Apps
 
-## 1. Blog
+- **Home**: https://duyet.net (official) | https://duyet-home.pages.dev (Cloudflare Pages)
+- **Blog**: https://blog.duyet.net (official) | https://duyet-blog.pages.dev (Cloudflare Pages)
+- **CV**: https://cv.duyet.net (official) | https://duyet-cv.pages.dev (Cloudflare Pages)
+- **Insights**: https://insights.duyet.net (official) | https://duyet-insights.pages.dev (Cloudflare Pages)
+- **Photos**: https://photos.duyet.net (official) | https://duyet-photos.pages.dev (Cloudflare Pages)
+- **Homelab**: https://homelab.duyet.net (official) | https://duyet-homelab.pages.dev (Cloudflare Pages)
+- **LLM Timeline**: https://llm-timeline.duyet.net (official) | https://duyet-llm-timeline.pages.dev (Cloudflare Pages)
+- **AI Agents**: https://agents.duyet.net (official) | https://duyet-agents.pages.dev (Cloudflare Pages)
+- **AI Chat**: https://ai.duyet.net (official)
+- **AI Percentage**: https://ai-percentage.duyet.net (official)
+- **API**: https://api.duyet.net (official)
 
-See the [./apps/blog/README.md](./apps/blog/README.md)
+## App Docs
 
-![](./.github/screenshot/screenshot-blog.png)
+- Blog: [./apps/blog/README.md](./apps/blog/README.md)
+- Insights: [./apps/insights/README.md](./apps/insights/README.md)
+- CV: [./apps/cv/README.md](./apps/cv/README.md)
 
-## 2. Insights
+## More
 
-See the [./apps/insights/README.md](./apps/insights/README.md)
-
-![](./.github/screenshot/screenshot-insights.png)
-
-## 3. CV
-
-See the [./apps/cv/README.md](./apps/cv/README.md)
-
----
-
-**This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-
-![Alt](https://repobeats.axiom.co/api/embed/5f31f3460c5a1e44b1477bebc7ef0bb88a620b67.svg "Repobeats analytics image")
+- Repository maintained by [@duyetbot](https://github.com/duyetbot)
+- [Repobeats analytics](https://repobeats.axiom.co/)
