@@ -17,7 +17,7 @@ export default defineConfig({
     {
       name: "spa-route-prerender",
       closeBundle() {
-        const outDir = join(process.cwd(), "out");
+        const outDir = join(process.cwd(), "dist");
         const analyticsDir = join(outDir, "analytics");
         try {
           mkdirSync(analyticsDir, { recursive: true });
@@ -38,7 +38,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "out",
+    outDir: "dist",
     emptyOutDir: true,
   },
   server: {

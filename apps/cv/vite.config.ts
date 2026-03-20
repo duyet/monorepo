@@ -17,7 +17,7 @@ export default defineConfig({
     viteReact(),
   ],
   build: {
-    outDir: ".output/public",
+    outDir: "dist",
     emptyOutDir: true,
   },
 });

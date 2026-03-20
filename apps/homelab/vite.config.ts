@@ -17,7 +17,7 @@ export default defineConfig({
     viteReact(),
   ],
   build: {
-    outDir: "out",
+    outDir: "dist",
     emptyOutDir: true,
   },
 });
