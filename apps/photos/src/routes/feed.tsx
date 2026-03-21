@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
 import PhotoFeed from "@/components/PhotoFeed";
 import { RetryButton } from "@/components/RetryButton";
@@ -105,12 +105,12 @@ function FeedPage() {
               My latest photos, newest first. Each image tells a story—a moment
               captured, a place remembered, a feeling preserved. For more
               photos, explore the{" "}
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
               >
                 full gallery
-              </a>
+              </Link>
               .
             </p>
           </header>

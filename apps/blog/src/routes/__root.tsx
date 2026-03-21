@@ -5,13 +5,7 @@ import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
-import {
-  createRootRoute,
-  HeadContent,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
@@ -50,68 +44,25 @@ function NotFoundComponent() {
 
 export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        name: "description",
-        content:
-          "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.",
-      },
-      { title: "Tôi là Duyệt | blog.duyet.net" },
-      {
-        name: "theme-color",
-        content: "#fbf7f0",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        name: "theme-color",
-        content: "#1f1f1f",
-        media: "(prefers-color-scheme: dark)",
-      },
-    ],
-    links: [
-      {
-        rel: "alternate",
-        type: "application/rss+xml",
-        href: "/rss.xml",
-        title: "Tôi là Duyệt — RSS Feed",
-      },
-    ],
-  }),
   component: RootComponent,
 });
 
 function RootComponent() {
   return (
-    <html
-      className={cn(
-        "font-sans",
-        "[--font-inter:Inter,system-ui,sans-serif]",
-        "[--font-serif:'Libre_Baskerville',Georgia,serif]"
-      )}
-      lang="en"
-      suppressHydrationWarning
-    >
-      <head>
-        <HeadContent />
-      </head>
-      <body
+    <ThemeProvider>
+      <div
         className={cn(
-          "bg-[var(--background)] text-[var(--foreground)]",
-          "subpixel-antialiased"
+          "font-sans bg-[var(--background)] text-[var(--foreground)]",
+          "subpixel-antialiased",
+          "[--font-inter:Inter,system-ui,sans-serif]",
+          "[--font-serif:'Libre_Baskerville',Georgia,serif]"
         )}
       >
-        <ThemeProvider>
-          <Outlet />
-          <Footer />
-          <Analytics />
-          <ServiceWorkerRegister />
-        </ThemeProvider>
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+        <Outlet />
+        <Footer />
+        <Analytics />
+        <ServiceWorkerRegister />
+      </div>
+    </ThemeProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
 import PhotoGallery from "@/components/PhotoGallery";
 import { LoadingGrid } from "@/components/LoadingStates";
@@ -45,12 +45,12 @@ function YearPage() {
           <p className="text-gray-500 dark:text-gray-400">
             Failed to load photos. Please try again later.
           </p>
-          <a
-            href="/"
+          <Link
+            to="/"
             className="mt-4 inline-block rounded-lg bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
           >
             Back to all photos
-          </a>
+          </Link>
         </div>
       </div>
     );
