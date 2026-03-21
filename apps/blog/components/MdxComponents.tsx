@@ -31,7 +31,6 @@ function Image({
 
   return (
     <span className="block my-4">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imageSrc || ""}
         alt={alt || ""}

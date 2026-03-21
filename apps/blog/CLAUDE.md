@@ -8,13 +8,13 @@ Personal blog with MDX posts, KaTeX math rendering, and comment system.
 
 - **Live**: https://blog.duyet.net | https://duyet-blog.pages.dev
 - **Port**: 3000 (development)
-- **Output**: Static export (`output: 'export'`)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
 # From apps/blog or monorepo root
-bun run dev          # Start dev server on port 3000 (Turbopack)
+bun run dev          # Start dev server on port 3000
 bun run build        # Build static export to 'out/'
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
@@ -29,7 +29,7 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15 with App Router, static export
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Content**: MDX posts with `next-mdx-remote-client`
 - **Math**: KaTeX via `rehype-katex` + `remark-math`
 - **Code**: `rehype-highlight` for syntax highlighting
@@ -140,10 +140,9 @@ Auto-generated at `/feed` from all posts. No manual updates needed.
 
 ## Build Notes
 
-- `output: 'export'` generates static HTML in `out/` directory
-- Images are `unoptimized: true` for static export compatibility
-- Env vars loaded from monorepo root and app directory via `@next/env`
-- `serverExternalPackages: ['sanitize-html', 'postcss']` avoids bundling issues
+- Vite builds a static SPA to `out/` directory
+- Images are served unoptimized (static SPA, no image optimization server)
+- Env vars are prefixed with `VITE_` for client access
 
 ## Troubleshooting
 

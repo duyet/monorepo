@@ -7,10 +7,15 @@
  *
  * For Pages projects:
  * - Syncs secrets (private vars) via wrangler pages secret bulk
- * - Syncs NEXT_PUBLIC_* build-time vars via wrangler pages secret put
+ * - Syncs build-time vars via wrangler pages secret put
  *
  * For Workers projects:
  * - Syncs all vars via wrangler secret bulk
+ *
+ * NOTE: Environment variable names prefixed with "NEXT_PUBLIC_" are legacy names
+ * kept for Cloudflare dashboard UI compatibility. These are now used by Vite-based
+ * apps (not Next.js), and the names are retained in buildVars[] to maintain
+ * consistency with Cloudflare secret configuration.
  */
 
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";

@@ -4,16 +4,16 @@ This file provides guidance to Claude Code when working with the AI agents appli
 
 ## Overview
 
-AI chat interface using Cloudflare Pages Functions + Workers AI via AI Gateway. The agent has tools to search blog posts, get CV data, GitHub activity, and analytics. The frontend is a static Next.js site; the backend runs as Cloudflare Pages Functions.
+AI chat interface using Cloudflare Pages Functions + Workers AI via AI Gateway. The agent has tools to search blog posts, get CV data, GitHub activity, and analytics. The frontend is a Vite SPA; the backend runs as Cloudflare Pages Functions.
 
 - **Live**: Cloudflare Pages (duyet-agents project)
 - **Port**: 3004 (development)
-- **Output**: Static export for frontend; Pages Functions for API
+- **Output**: Static SPA (`out/`) for frontend; Pages Functions for API
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3004 (Turbopack)
+bun run dev          # Start dev server on port 3004
 bun run build        # Build static export
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
@@ -27,7 +27,7 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15, App Router, static export (frontend)
+- **Framework**: Vite + TanStack Router (SPA, file-based routing; frontend)
 - **AI**: Workers AI via `workers-ai-provider` + AI SDK v6 (`streamText`, `tool`, `stepCountIs`)
 - **Chat UI**: `@ai-sdk/react` for streaming chat with tool rendering
 - **UI**: Radix UI components, Framer Motion animations, `react-markdown`
