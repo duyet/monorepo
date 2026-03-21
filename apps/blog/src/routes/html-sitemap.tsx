@@ -1,7 +1,7 @@
-import type { Post } from "@duyet/interfaces";
-import { getAllCategories, getAllPosts } from "@duyet/libs/getPost";
+import type { CategoryCount, Post } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute } from "@tanstack/react-router";
+import { getAllCategories, getAllPosts } from "@/lib/posts";
 
 export const Route = createFileRoute("/html-sitemap")({
   head: () => ({
@@ -9,12 +9,21 @@ export const Route = createFileRoute("/html-sitemap")({
       { title: "HTML Sitemap | Tôi là Duyệt" },
     ],
   }),
+  loader: async () => {
+    const [posts, categoriesMap] = await Promise.all([
+      getAllPosts(),
+      getAllCategories(),
+    ]);
+    return { posts, categories: Object.keys(categoriesMap) };
+  },
   component: HtmlSitemapPage,
 });
 
 function HtmlSitemapPage() {
-  const posts = getAllPosts(["slug", "title", "excerpt", "date"], 100000);
-  const categories = Object.keys(getAllCategories());
+  const { posts, categories } = Route.useLoaderData() as {
+    posts: Post[];
+    categories: string[];
+  };
   const HOME_URL =
     import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
 

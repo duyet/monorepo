@@ -1,11 +1,11 @@
 import Container from "@duyet/components/Container";
-import type { Post } from "@duyet/interfaces";
-import { getAllTags, getPostsByTag } from "@duyet/libs/getPost";
+import type { Post, TagCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { HeroBanner } from "@/components/layout";
 import { YearPost } from "@/components/post";
 import { getTagColorClass, getTagMetadata } from "@/lib/tag-metadata";
+import { getAllTags, getPostsByTag } from "@/lib/posts";
 
 export const Route = createFileRoute("/tag/$tag")({
   head: ({ params }) => {
@@ -17,20 +17,26 @@ export const Route = createFileRoute("/tag/$tag")({
       ],
     };
   },
-  beforeLoad: ({ params }) => {
-    const tags = getAllTags();
+  loader: async ({ params }) => {
+    const [posts, tags] = await Promise.all([
+      getPostsByTag(params.tag),
+      getAllTags(),
+    ]);
     const found = Object.keys(tags).some((t) => getSlug(t) === params.tag);
     if (!found) throw notFound();
+    return { posts, tags };
   },
   component: PostsByTag,
 });
 
 function PostsByTag() {
   const { tag } = Route.useParams();
-  const posts = getPostsByTag(tag, ["slug", "date", "title", "category", "featured"]);
+  const { posts, tags } = Route.useLoaderData() as {
+    posts: Post[];
+    tags: TagCount;
+  };
 
   // Get the tag display name (reverse slug to title)
-  const tags = getAllTags();
   const tagName = Object.keys(tags).find((t) => getSlug(t) === tag) || tag;
 
   // Get the index for consistent color rotation

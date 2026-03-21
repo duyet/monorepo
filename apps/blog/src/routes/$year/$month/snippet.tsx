@@ -1,4 +1,4 @@
-import { cn } from "@duyet/libs";
+import { cn } from "@duyet/libs/utils";
 import sanitizeHtml from "sanitize-html";
 
 export function Snippet({

@@ -1,6 +1,5 @@
 import Container from "@duyet/components/Container";
-import type { Post } from "@duyet/interfaces";
-import { getAllCategories, getPostsByCategory } from "@duyet/libs/getPost";
+import type { CategoryCount, Post } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { HeroBanner } from "@/components/layout";
@@ -9,6 +8,7 @@ import {
   getCategoryColorClass,
   getCategoryMetadata,
 } from "@/lib/category-metadata";
+import { getAllCategories, getPostsByCategory } from "@/lib/posts";
 
 export const Route = createFileRoute("/category/$category")({
   head: ({ params }) => {
@@ -23,28 +23,28 @@ export const Route = createFileRoute("/category/$category")({
       ],
     };
   },
-  beforeLoad: ({ params }) => {
-    const categories = getAllCategories();
+  loader: async ({ params }) => {
+    const [posts, categories] = await Promise.all([
+      getPostsByCategory(params.category),
+      getAllCategories(),
+    ]);
     const found = Object.keys(categories).some(
       (cat) => getSlug(cat) === params.category
     );
     if (!found) throw notFound();
+    return { posts, categories };
   },
   component: PostsByCategory,
 });
 
 function PostsByCategory() {
   const { category } = Route.useParams();
-  const posts = getPostsByCategory(category, [
-    "slug",
-    "date",
-    "title",
-    "category",
-    "featured",
-  ]);
+  const { posts, categories } = Route.useLoaderData() as {
+    posts: Post[];
+    categories: CategoryCount;
+  };
 
   // Get the category display name (reverse slug to title)
-  const categories = getAllCategories();
   const categoryName =
     Object.keys(categories).find((cat) => getSlug(cat) === category) ||
     category;

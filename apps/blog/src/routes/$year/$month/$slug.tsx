@@ -1,16 +1,21 @@
 import Header from "@duyet/components/Header";
 import Container from "@duyet/components/Container";
-import { getRelatedPosts } from "@duyet/libs/getRelatedPosts";
-import { getPostBySlug } from "@duyet/libs/getPost";
+import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
+import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { use } from "react";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { RelatedPosts } from "@/components/post/RelatedPosts";
 import { SeriesNav } from "@/components/post/SeriesNav";
 import { TableOfContents } from "@/components/post/TableOfContents";
-import { getSeriesNavigation } from "@/lib/getSeriesNav";
+import {
+  getPostBySlug,
+  getRelatedPosts,
+  getSeries,
+  getSeriesNavigation,
+} from "@/lib/posts";
+import type { SeriesNavItem } from "@/lib/posts";
 import Content from "./content";
 import Meta from "./meta";
 
@@ -18,64 +23,92 @@ export const Route = createFileRoute("/$year/$month/$slug")({
   head: ({ params }) => {
     const { year, month, slug: rawSlug } = params;
     const slug = rawSlug.replace(/\.(md|html)$/, "");
-    try {
-      const post = getPostBySlug(`${year}/${month}/${slug}`, [
-        "title",
-        "excerpt",
-        "date",
-        "author",
-        "category",
-        "tags",
-      ]);
-      return {
-        meta: [
-          { title: `${post.title} | Tôi là Duyệt` },
-          { name: "description", content: post.excerpt || "" },
-          { name: "author", content: (post.author as string) || "Duyet Le" },
-          { property: "og:title", content: post.title || "" },
-          { property: "og:description", content: post.excerpt || "" },
-          { property: "og:type", content: "article" },
-          {
-            property: "og:url",
-            content: `https://blog.duyet.net/${year}/${month}/${slug}`,
-          },
-          { name: "twitter:card", content: "summary" },
-          { name: "twitter:title", content: post.title || "" },
-          { name: "twitter:description", content: post.excerpt || "" },
-        ],
-        links: [
-          {
-            rel: "alternate",
-            type: "text/markdown",
-            href: `https://blog.duyet.net/${year}/${month}/${slug}.md`,
-          },
-        ],
-      };
-    } catch {
-      return {};
-    }
+    return {
+      meta: [
+        { title: `${slug.replace(/-/g, " ")} | Tôi là Duyệt` },
+        { property: "og:type", content: "article" },
+        {
+          property: "og:url",
+          content: `https://blog.duyet.net/${year}/${month}/${slug}`,
+        },
+      ],
+      links: [
+        {
+          rel: "alternate",
+          type: "text/markdown",
+          href: `https://blog.duyet.net/${year}/${month}/${slug}.md`,
+        },
+      ],
+    };
   },
-  beforeLoad: ({ params }) => {
+  loader: async ({ params }) => {
     const { year, month, slug: rawSlug } = params;
     const slug = rawSlug.replace(/\.(md|html)$/, "");
+    const slugPath = `${year}/${month}/${slug}`;
+
+    let postWithContent;
     try {
-      getPostBySlug(`${year}/${month}/${slug}`, ["slug"]);
+      postWithContent = await getPostBySlug(slugPath);
     } catch {
       throw notFound();
     }
+
+    const markdownContent = postWithContent.content || "";
+    const headings = await extractHeadings(markdownContent);
+
+    const repoUrl =
+      import.meta.env.VITE_GITHUB_REPO_URL ||
+      "https://github.com/duyet/monorepo";
+    const file = `${year}/${month}/${slug}.md`;
+    const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
+
+    let htmlContent = "";
+    let mdxSource: string | undefined;
+
+    if (postWithContent.isMDX) {
+      mdxSource = markdownContent;
+    } else {
+      htmlContent = await markdownToHtml(markdownContent);
+    }
+
+    const [relatedPosts, seriesNav, series] = await Promise.all([
+      getRelatedPosts(postWithContent, 4),
+      postWithContent.series
+        ? getSeriesNavigation(slugPath, postWithContent.series as string)
+        : Promise.resolve({ prev: null, next: null }),
+      postWithContent.series
+        ? getSeries({ name: postWithContent.series as string })
+        : Promise.resolve(null),
+    ]);
+
+    const post = {
+      ...postWithContent,
+      content: htmlContent,
+      mdxSource,
+      headings,
+      markdown_content: markdownContent,
+      edit_url,
+    };
+
+    return { post, relatedPosts, seriesNav, series };
   },
   component: PostPage,
 });
 
-function PostPage() {
-  const { year, month, slug: rawSlug } = Route.useParams();
-  const slug = rawSlug.replace(/\.(md|html)$/, "");
+type LoadedPost = Post & {
+  mdxSource?: string;
+  headings?: TOCItem[];
+  markdown_content?: string;
+  edit_url?: string;
+};
 
-  const post = use(loadPost(year, month, slug));
-  const relatedPosts = getRelatedPosts(post, 4);
-  const seriesNav = post.series
-    ? getSeriesNavigation(`${year}/${month}/${slug}`, post.series as string)
-    : { prev: null, next: null };
+function PostPage() {
+  const { post, relatedPosts, seriesNav, series } = Route.useLoaderData() as {
+    post: LoadedPost;
+    relatedPosts: Post[];
+    seriesNav: { prev: SeriesNavItem | null; next: SeriesNavItem | null };
+    series: Series | null;
+  };
 
   return (
     <>
@@ -87,7 +120,7 @@ function PostPage() {
             <article>
               <Content post={post} />
               <SeriesNav prev={seriesNav.prev} next={seriesNav.next} />
-              <Meta className="mt-10" post={post} />
+              <Meta className="mt-10" post={post} series={series} />
               <RelatedPosts posts={relatedPosts} />
             </article>
           </div>
@@ -97,64 +130,4 @@ function PostPage() {
       </Container>
     </>
   );
-}
-
-// Cache post loading to avoid duplicate work
-const postCache = new Map<string, Promise<ReturnType<typeof fetchPost>>>();
-
-async function loadPost(year: string, month: string, slug: string) {
-  const key = `${year}/${month}/${slug}`;
-  if (!postCache.has(key)) {
-    postCache.set(key, fetchPost(year, month, slug));
-  }
-  return postCache.get(key)!;
-}
-
-async function fetchPost(year: string, month: string, slug: string) {
-  const post = getPostBySlug(`${year}/${month}/${slug}`, [
-    "slug",
-    "title",
-    "excerpt",
-    "date",
-    "content",
-    "category",
-    "category_slug",
-    "tags",
-    "series",
-    "snippet",
-    "isMDX",
-    "readingTime",
-    "author",
-  ]);
-
-  const markdownContent = post.content || "Error";
-  const headings = await extractHeadings(markdownContent);
-
-  const repoUrl =
-    import.meta.env.VITE_GITHUB_REPO_URL ||
-    "https://github.com/duyet/monorepo";
-  const file = `${year}/${month}/${slug}.md`;
-  const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
-
-  if (post.isMDX) {
-    return {
-      ...post,
-      content: "",
-      mdxSource: markdownContent,
-      isMDX: true,
-      headings,
-      markdown_content: markdownContent,
-      edit_url,
-    };
-  }
-
-  const content = await markdownToHtml(markdownContent);
-
-  return {
-    ...post,
-    content,
-    headings,
-    markdown_content: markdownContent,
-    edit_url,
-  };
 }

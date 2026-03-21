@@ -1,7 +1,8 @@
 import Container from "@duyet/components/Container";
-import { getPostsByAllYear } from "@duyet/libs/getPost";
+import type { Post } from "@duyet/interfaces";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { YearPost } from "@/components/post";
+import { getPostsByAllYear } from "@/lib/posts";
 
 export const Route = createFileRoute("/featured")({
   head: () => ({
@@ -10,15 +11,17 @@ export const Route = createFileRoute("/featured")({
       { name: "description", content: "Featured blog posts." },
     ],
   }),
+  loader: async () => {
+    const postsByYear = await getPostsByAllYear(true);
+    return { postsByYear };
+  },
   component: Featured,
 });
 
 function Featured() {
-  const postsByYear = getPostsByAllYear(
-    ["slug", "title", "date", "category", "featured"],
-    -1,
-    true
-  );
+  const { postsByYear } = Route.useLoaderData() as {
+    postsByYear: Record<number, Post[]>;
+  };
 
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,

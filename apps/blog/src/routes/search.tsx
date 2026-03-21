@@ -1,7 +1,8 @@
 import Container from "@duyet/components/Container";
-import { getAllCategories, getAllPosts, getAllTags } from "@duyet/libs/getPost";
+import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import { createFileRoute } from "@tanstack/react-router";
 import { SearchClient } from "@/components/blog/search-client";
+import { getAllCategories, getAllPosts, getAllTags } from "@/lib/posts";
 
 export type SearchParams = {
   q?: string;
@@ -28,17 +29,23 @@ export const Route = createFileRoute("/search")({
       },
     ],
   }),
+  loader: async () => {
+    const [allPosts, categories, tags] = await Promise.all([
+      getAllPosts(),
+      getAllCategories(),
+      getAllTags(),
+    ]);
+    return { allPosts, categories, tags };
+  },
   component: SearchPage,
 });
 
 function SearchPage() {
-  const allPosts = getAllPosts(
-    ["slug", "title", "date", "category", "featured", "excerpt", "tags"],
-    10000
-  );
-
-  const categories = getAllCategories();
-  const tags = getAllTags();
+  const { allPosts, categories, tags } = Route.useLoaderData() as {
+    allPosts: Post[];
+    categories: CategoryCount;
+    tags: TagCount;
+  };
 
   return (
     <Container>

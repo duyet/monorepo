@@ -1,7 +1,6 @@
 import Icons from "@duyet/components/Icons";
-import type { Post } from "@duyet/interfaces";
+import type { Post, Series } from "@duyet/interfaces";
 import { distanceToNow, formatReadingTime } from "@duyet/libs/date";
-import { getSeries } from "@duyet/libs/getSeries";
 import { getSlug } from "@duyet/libs/getSlug";
 import { cn } from "@duyet/libs/utils";
 import { Calendar, Clock, Folder, Tag } from "lucide-react";
@@ -11,10 +10,11 @@ import { MarkdownMenuWrapper } from "./markdown-menu-wrapper";
 
 interface ContentProps {
   post: Post & { markdown_content?: string; edit_url?: string };
+  series?: Series | null;
   className?: string;
 }
 
-export default function Meta({ post, className }: ContentProps) {
+export default function Meta({ post, series, className }: ContentProps) {
   const markdownUrl = post.slug.replace(/\.html$/, ".md");
 
   return (
@@ -108,11 +108,8 @@ export default function Meta({ post, className }: ContentProps) {
       </div>
 
       {/* Series Box */}
-      {Boolean(post.series) && (
-        <SeriesBox
-          current={post.slug}
-          series={getSeries({ name: post.series as string })}
-        />
+      {Boolean(post.series) && series && (
+        <SeriesBox current={post.slug} series={series} />
       )}
     </div>
   );

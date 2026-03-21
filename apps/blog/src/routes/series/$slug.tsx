@@ -1,6 +1,7 @@
-import { getAllSeries, getSeries } from "@duyet/libs/getSeries";
+import type { Series } from "@duyet/interfaces";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SeriesBox } from "@/components/layout";
+import { getAllSeries, getSeries } from "@/lib/posts";
 
 export const Route = createFileRoute("/series/$slug")({
   head: ({ params }) => ({
@@ -8,17 +9,20 @@ export const Route = createFileRoute("/series/$slug")({
       { title: `${params.slug} Series | Tôi là Duyệt` },
     ],
   }),
-  beforeLoad: ({ params }) => {
-    const allSeries = getAllSeries();
+  loader: async ({ params }) => {
+    const [allSeries, series] = await Promise.all([
+      getAllSeries(),
+      getSeries({ slug: params.slug }),
+    ]);
     const found = allSeries.some((s) => s.slug === params.slug);
     if (!found) throw notFound();
+    return { series };
   },
   component: SeriesDetailPage,
 });
 
 function SeriesDetailPage() {
-  const { slug } = Route.useParams();
-  const series = getSeries({ slug });
+  const { series } = Route.useLoaderData() as { series: Series | null };
 
   if (!series) {
     return (

@@ -1,19 +1,36 @@
 import Container from "@duyet/components/Container";
 import Header from "@duyet/components/Header";
 import { createDefaultNavigation } from "@duyet/components/Menu";
-import { getAllTags, getPostsByAllYear } from "@duyet/libs/getPost";
-import { getAllSeries } from "@duyet/libs/getSeries";
 import { duyetUrls } from "@duyet/urls";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
+import {
+  getAllSeries,
+  getAllTags,
+  getPostsByAllYear,
+} from "@/lib/posts";
+import type { Post, Series, TagCount } from "@duyet/interfaces";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const [postsByYear, seriesList, allTags] = await Promise.all([
+      getPostsByAllYear(),
+      getAllSeries(),
+      getAllTags(),
+    ]);
+    return { postsByYear, seriesList, allTags };
+  },
   component: HomePage,
 });
 
 function HomePage() {
-  const postsByYear = getPostsByAllYear(["slug", "title", "date", "category"]);
+  const { postsByYear, seriesList, allTags } = Route.useLoaderData() as {
+    postsByYear: Record<number, Post[]>;
+    seriesList: Series[];
+    allTags: TagCount;
+  };
+
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
     0
@@ -22,8 +39,7 @@ function HomePage() {
   const years = Object.keys(postsByYear).map(Number);
   const pastYears = new Date().getFullYear() - Math.min(...years);
 
-  const seriesList = getAllSeries().slice(0, 3);
-  const allTags = getAllTags();
+  const topSeriesList = seriesList.slice(0, 3);
   const topTags = Object.entries(allTags)
     .sort(([, a], [, b]) => b - a)
     .slice(0, 5)
@@ -69,7 +85,7 @@ function HomePage() {
           </p>
         </div>
 
-        <HomeCards seriesList={seriesList} topTags={topTags} />
+        <HomeCards seriesList={topSeriesList} topTags={topTags} />
 
         <div className="flex flex-col gap-12">
           {Object.entries(postsByYear)

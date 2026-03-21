@@ -1,0 +1,7 @@
+# Generated at build time by scripts/generate-posts-data.ts
+public/posts-data.json
+public/posts-content/
+public/series-data.json
+
+# Build output
+dist/

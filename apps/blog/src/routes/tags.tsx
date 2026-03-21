@@ -1,10 +1,10 @@
 import { ContentCard } from "@duyet/components";
 import Container from "@duyet/components/Container";
 import type { TagCount } from "@duyet/interfaces";
-import { getAllTags } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute } from "@tanstack/react-router";
 import { getTagMetadata } from "@/lib/tag-metadata";
+import { getAllTags } from "@/lib/posts";
 
 export const Route = createFileRoute("/tags")({
   head: () => ({
@@ -13,11 +13,15 @@ export const Route = createFileRoute("/tags")({
       { name: "description", content: "Browse posts by topics and tags." },
     ],
   }),
+  loader: async () => {
+    const tags = await getAllTags();
+    return { tags };
+  },
   component: Tags,
 });
 
 function Tags() {
-  const tags: TagCount = getAllTags();
+  const { tags } = Route.useLoaderData() as { tags: TagCount };
   const tagEntries = Object.entries(tags).sort(([, a], [, b]) => b - a);
   const totalPosts = Object.values(tags).reduce((sum, count) => sum + count, 0);
 

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-blog",
-    "prebuild": "bun scripts/generate-static-files.ts",
+    "prebuild": "bun scripts/generate-posts-data.ts && bun scripts/generate-static-files.ts",
     "build": "bun --bun vite build",
     "check-types": "tsc --noEmit",
     "dev": "bun --bun vite dev --port 3000",

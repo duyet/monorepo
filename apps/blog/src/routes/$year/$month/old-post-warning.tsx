@@ -1,5 +1,5 @@
 import type { Post } from "@duyet/interfaces";
-import { cn } from "@duyet/libs";
+import { cn } from "@duyet/libs/utils";
 import { AlertTriangle } from "lucide-react";
 
 export function OldPostWarning({

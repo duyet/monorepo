@@ -1,26 +1,21 @@
 import Container from "@duyet/components/Container";
 import Feed from "@duyet/components/Feed";
 import Header from "@duyet/components/Header";
-import { getAllPosts } from "@duyet/libs/getPost";
+import type { Post } from "@duyet/interfaces";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { getAllPosts } from "@/lib/posts";
 
 export const Route = createFileRoute("/feed")({
+  loader: async () => {
+    const allPosts = await getAllPosts();
+    const posts = allPosts.slice(0, 10);
+    return { posts };
+  },
   component: FeedPage,
 });
 
 function FeedPage() {
-  const posts = getAllPosts(
-    [
-      "date",
-      "slug",
-      "title",
-      "excerpt",
-      "thumbnail",
-      "category",
-      "category_slug",
-    ],
-    10
-  );
+  const { posts } = Route.useLoaderData() as { posts: Post[] };
 
   return (
     <div className="min-h-screen">

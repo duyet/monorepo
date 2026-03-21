@@ -1,9 +1,10 @@
 import { ContentCard } from "@duyet/components";
 import Container from "@duyet/components/Container";
-import { getAllCategories } from "@duyet/libs/getPost";
+import type { CategoryCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute } from "@tanstack/react-router";
 import { getCategoryMetadata } from "@/lib/category-metadata";
+import { getAllCategories } from "@/lib/posts";
 
 export const Route = createFileRoute("/category")({
   head: () => ({
@@ -12,11 +13,15 @@ export const Route = createFileRoute("/category")({
       { name: "description", content: "Browse posts by category." },
     ],
   }),
+  loader: async () => {
+    const categories = await getAllCategories();
+    return { categories };
+  },
   component: Categories,
 });
 
 function Categories() {
-  const categories = getAllCategories();
+  const { categories } = Route.useLoaderData() as { categories: CategoryCount };
   const categoryEntries = Object.entries(categories).sort(
     ([, a], [, b]) => b - a
   );
