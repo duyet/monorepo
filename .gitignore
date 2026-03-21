@@ -8,11 +8,6 @@ node_modules
 # testing
 /coverage
 
-# next.js
-.next
-out
-.open-next
-
 # production
 build
 dist
@@ -34,7 +29,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 .turbo
 
 # Million Lint

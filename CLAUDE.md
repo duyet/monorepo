@@ -23,10 +23,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Navigate to specific app directories and run:
 
-- `bun run dev` - Start development (blog runs on port 3000 with Turbopack)
+- `bun run dev` - Start development server (port varies per app)
 - `bun run build` - Build specific app
 - `bun run check-types` - TypeScript type checking
-- `bun run analyze` - Bundle analysis (available in blog app)
+- `bun run analyze` - Bundle analysis (available in some apps)
 
 ### Cloudflare Pages Deployment
 
@@ -56,7 +56,7 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 
 ### Apps (`/apps/`)
 
-1. **blog** (`apps/blog/`) - Next.js blog with Auth0 authentication and Vercel KV for comments
+1. **blog** (`apps/blog/`) - Vite SPA blog with Auth0 authentication and Vercel KV for comments
    - Live at https://blog.duyet.net (official) / https://duyet.vercel.app (Vercel) / https://duyet-blog.pages.dev (Cloudflare)
    - Uses Auth0 for auth, Vercel KV for Redis storage
    - Supports markdown posts with KaTeX math rendering
@@ -71,12 +71,11 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 
 4. **home** (`apps/home/`) - Personal homepage with GitHub activity
    - Live at https://duyet.net (official) / https://duyet-home.pages.dev (Cloudflare)
-   - Uses Tremor for data visualization and GraphQL for GitHub data
+   - Uses Recharts for data visualization
 
 5. **photos** (`apps/photos/`) - Photo gallery with Unsplash integration
    - Live at https://photos.duyet.net (official) / https://duyet-photos.vercel.app (Vercel) / https://duyet-photos.pages.dev (Cloudflare)
    - Features masonry layout and Framer Motion animations
-   - Tests temporarily disabled due to Jest environment issues
 
 6. **homelab** (`apps/homelab/`) - Homelab documentation and resources
    - Live at https://homelab.duyet.net (official) / https://duyet-homelab.pages.dev (Cloudflare)
@@ -89,7 +88,7 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 
 8. **agents** (`apps/agents/`) - AI chat interface with Cloudflare Pages Functions and Workers AI via AI Gateway
    - Live at https://agents.duyet.net (Cloudflare Pages)
-   - Builds skills before compile/deploy; use `bun run dev:next` for plain Next.js dev when the wrapper is not needed
+   - Builds skills before compile/deploy
 
 9. **api** (`apps/api/`) - Hono API on Cloudflare Workers for AI-powered blog descriptions
     - Live at https://api.duyet.net (Cloudflare Workers)
@@ -97,7 +96,7 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 
 10. **ai-percentage** (`apps/ai-percentage/`) - Dashboard showing the percentage of code written by AI across repositories
     - Live at https://ai-percentage.duyet.net (Cloudflare Pages)
-    - Static export workflow; `bun run deploy` handles the full build-and-publish path
+    - Static SPA; `bun run deploy` handles the full build-and-publish path
 
 11. **data-sync** (`apps/data-sync/`) - CLI for syncing analytics and activity data into ClickHouse
     - Use `bun run sync <name>`, `bun run migrate`, and `bun run cleanup` for operational data workflows
@@ -116,7 +115,7 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 
 Global environment variables are defined in `turbo.json` and include:
 
-- Next.js public URLs for cross-app linking
+- Cross-app public URLs for navigation
 - Auth0 configuration (domain, client ID, admin email)
 - Vercel KV Redis credentials
 - PostgreSQL database connections
@@ -126,7 +125,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
 
 ## Technology Stack
 
-- **Framework**: Next.js 15 with React 19
+- **Framework**: Vite + TanStack Router (SPA) with React 19
 - **Build Tool**: Turborepo for monorepo management
 - **Package Manager**: Bun (specified in package.json)
 - **Styling**: Tailwind CSS with custom configurations
@@ -142,7 +141,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - All apps share common ESLint, Prettier, and TypeScript configurations
 - Environment variables are globally managed through Turborepo
 - Shared components and utilities live in `/packages` and are imported as workspace dependencies
-- App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Next.js server
+- App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Vite server
 
 ## Git Workflow
 
