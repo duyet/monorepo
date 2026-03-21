@@ -7,8 +7,9 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { SidebarModal } from "@/components/sidebar/sidebar-modal";
+import { AppSidebar } from "@/components/app-sidebar";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { SidebarInset } from "@/components/ui/sidebar";
 import { VISUAL_GRAPH_DATA } from "@/lib/graph-layout";
 import {
   useAutoResize,
@@ -37,8 +38,7 @@ export function VercelChat() {
   const lastInputRef = useRef<string>("");
   const getAuthToken = useClerkAuthToken();
 
-  // Layout state
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // Layout state (sidebar handled by SidebarProvider)
   const [panelOpen, setPanelOpen] = useState(false);
   const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
 
@@ -277,11 +277,9 @@ export function VercelChat() {
   ) : null;
 
   return (
-    <div className="flex flex-1 flex-col overflow-hidden w-full min-h-screen bg-transparent">
-      {/* Sidebar Modal - contains conversation history */}
-      <SidebarModal
-        open={sidebarOpen}
-        onOpenChange={setSidebarOpen}
+    <>
+      {/* shadcn Sidebar — conversation history */}
+      <AppSidebar
         conversations={conversations}
         activeId={activeId}
         onNewChat={handleNewChat}
@@ -291,123 +289,127 @@ export function VercelChat() {
         onDeleteConversation={remove}
       />
 
-      <div className="flex h-full w-full overflow-hidden relative bg-transparent">
-        <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
-          {/* Chat top bar */}
-          <ChatTopBar
-            onToggleActivity={() => setPanelOpen((v) => !v)}
-            onToggleTools={() => setToolsPanelOpen((v) => !v)}
-            onToggleMenu={() => setSidebarOpen((v) => !v)}
-            onNewChat={handleNewChat}
-            showActivityButton={hasActivity}
-            activityCount={toolExecutions.length}
-            conversationTitle={activeConversation?.title}
-            conversationId={activeId ?? undefined}
-          />
+      {/* Main content area */}
+      <SidebarInset>
+        <div className="flex flex-1 flex-col overflow-hidden w-full min-h-svh bg-transparent">
+          <div className="flex h-full w-full overflow-hidden relative bg-transparent">
+            <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
+              {/* Chat top bar */}
+              <ChatTopBar
+                onToggleActivity={() => setPanelOpen((v) => !v)}
+                onToggleTools={() => setToolsPanelOpen((v) => !v)}
+                onNewChat={handleNewChat}
+                showActivityButton={hasActivity}
+                activityCount={toolExecutions.length}
+                conversationTitle={activeConversation?.title}
+                conversationId={activeId ?? undefined}
+              />
 
-          {/* Messages area */}
-          <Conversation
-            className="relative flex-1"
-            autoScrollTrigger={autoScrollTrigger}
-          >
-            <div className="w-full pb-40 pt-14">
-              {!hasMessages && !streamingContent ? (
-                <ConversationEmptyState>
-                  <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
-                    <WelcomeMessage onPromptSelect={handlePromptSelect} />
-                  </div>
-                </ConversationEmptyState>
-              ) : (
-                <ConversationContent className="mx-auto max-w-3xl px-4 sm:px-6 w-full">
-                  {messages.map((message) =>
-                    message.role === "user" ? (
-                      <UserMessage key={message.id} message={message} />
-                    ) : (
-                      <AssistantMessage
-                        key={message.id}
-                        message={message}
-                        parts={partsMap.get(message.id)}
-                        onToolApprove={handleToolApprove}
-                        onToolDeny={handleToolDeny}
-                      />
-                    )
+              {/* Messages area */}
+              <Conversation
+                className="relative flex-1"
+                autoScrollTrigger={autoScrollTrigger}
+              >
+                <div className="w-full pb-40 pt-14">
+                  {!hasMessages && !streamingContent ? (
+                    <ConversationEmptyState>
+                      <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
+                        <WelcomeMessage onPromptSelect={handlePromptSelect} />
+                      </div>
+                    </ConversationEmptyState>
+                  ) : (
+                    <ConversationContent className="mx-auto max-w-3xl px-4 sm:px-6 w-full">
+                      {messages.map((message) =>
+                        message.role === "user" ? (
+                          <UserMessage key={message.id} message={message} />
+                        ) : (
+                          <AssistantMessage
+                            key={message.id}
+                            message={message}
+                            parts={partsMap.get(message.id)}
+                            onToolApprove={handleToolApprove}
+                            onToolDeny={handleToolDeny}
+                          />
+                        )
+                      )}
+
+                      {/* Streaming assistant message or loading dots */}
+                      {isLoading &&
+                        (() => {
+                          const lastUiMsg = uiMessages[uiMessages.length - 1];
+                          if (!lastUiMsg || lastUiMsg.role !== "assistant") {
+                            return <LoadingIndicator />;
+                          }
+                          return (
+                            <AssistantMessage
+                              message={{
+                                id: "streaming",
+                                role: "assistant",
+                                content: streamingContent,
+                                timestamp: Date.now(),
+                              }}
+                              parts={lastUiMsg.parts}
+                              onToolApprove={handleToolApprove}
+                              onToolDeny={handleToolDeny}
+                              isStreaming
+                            />
+                          );
+                        })()}
+                    </ConversationContent>
                   )}
+                </div>
+                <ConversationScrollButton className="bottom-[130px]" />
+              </Conversation>
 
-                  {/* Streaming assistant message or loading dots */}
-                  {isLoading &&
-                    (() => {
-                      const lastUiMsg = uiMessages[uiMessages.length - 1];
-                      if (!lastUiMsg || lastUiMsg.role !== "assistant") {
-                        return <LoadingIndicator />;
-                      }
-                      return (
-                        <AssistantMessage
-                          message={{
-                            id: "streaming",
-                            role: "assistant",
-                            content: streamingContent,
-                            timestamp: Date.now(),
-                          }}
-                          parts={lastUiMsg.parts}
-                          onToolApprove={handleToolApprove}
-                          onToolDeny={handleToolDeny}
-                          isStreaming
-                        />
-                      );
-                    })()}
-                </ConversationContent>
-              )}
+              {/* Floating input area */}
+              <ChatInput
+                input={input}
+                setInput={setInput}
+                onSubmit={handleFormSubmit}
+                onKeyDown={handleKeyDown}
+                isLoading={isLoading}
+                canSubmit={canSubmit}
+                hasAssistantResponse={hasAssistantResponse}
+                stop={stop}
+                reload={reload}
+                error={error}
+                textareaRef={textareaRef}
+              />
             </div>
-            <ConversationScrollButton className="bottom-[130px]" />
-          </Conversation>
 
-          {/* Floating input area */}
-          <ChatInput
-            input={input}
-            setInput={setInput}
-            onSubmit={handleFormSubmit}
-            onKeyDown={handleKeyDown}
-            isLoading={isLoading}
-            canSubmit={canSubmit}
-            hasAssistantResponse={hasAssistantResponse}
-            stop={stop}
-            reload={reload}
-            error={error}
-            textareaRef={textareaRef}
-          />
-        </div>
+            {/* Right panel logic inline */}
+            {activityContent && (
+              <>
+                <div
+                  className={cn(
+                    "hidden lg:block shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out border-l border-border",
+                    panelOpen ? "w-[300px]" : "w-0"
+                  )}
+                >
+                  <div className="h-full w-[300px]">{activityContent}</div>
+                </div>
+                <div className="lg:hidden block">
+                  <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
+                    <SheetContent side="right" className="w-[320px] p-0">
+                      {activityContent}
+                    </SheetContent>
+                  </Sheet>
+                </div>
+              </>
+            )}
+          </div>
 
-        {/* Right panel logic inline */}
-        {activityContent && (
-          <>
-            <div
-              className={cn(
-                "hidden lg:block shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out border-l border-border",
-                panelOpen ? "w-[300px]" : "w-0"
-              )}
+          {/* Tools panel sheet */}
+          <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
+            <SheetContent
+              side="right"
+              className="w-[320px] p-0 border-l border-border"
             >
-              <div className="h-full w-[300px]">{activityContent}</div>
-            </div>
-            <div className="lg:hidden block">
-              <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
-                <SheetContent side="right" className="w-[320px] p-0">
-                  {activityContent}
-                </SheetContent>
-              </Sheet>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Tools panel sheet */}
-      <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
-        <SheetContent
-          side="right"
-          className="w-[320px] p-0 border-l border-border"
-        >
-          <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
-        </SheetContent>
-      </Sheet>
-    </div>
+              <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
+            </SheetContent>
+          </Sheet>
+        </div>
+      </SidebarInset>
+    </>
   );
 }

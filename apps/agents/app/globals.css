@@ -40,6 +40,14 @@
     --chart-3: #c2cfb2;
     --chart-4: #e1b382;
     --chart-5: #a69bb5;
+    --sidebar: #f5f1ea;
+    --sidebar-foreground: #1f1f1f;
+    --sidebar-primary: #18181b;
+    --sidebar-primary-foreground: #fafafa;
+    --sidebar-accent: #ece8e1;
+    --sidebar-accent-foreground: #18181b;
+    --sidebar-border: #e8e6e2;
+    --sidebar-ring: #18181b;
   }
 
   .dark {
@@ -66,6 +74,14 @@
     --chart-3: #c2cfb2;
     --chart-4: #e1b382;
     --chart-5: #a69bb5;
+    --sidebar: #2b2a27;
+    --sidebar-foreground: #f9f9f8;
+    --sidebar-primary: #fafafa;
+    --sidebar-primary-foreground: #18181b;
+    --sidebar-accent: #3d3c38;
+    --sidebar-accent-foreground: #fafafa;
+    --sidebar-border: #3d3c38;
+    --sidebar-ring: #d4d4d8;
   }
 
   *,
@@ -75,6 +91,41 @@
   ::file-selector-button {
     border-color: var(--border);
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-radius: var(--radius);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 /* React Flow base styles for graph visualization */

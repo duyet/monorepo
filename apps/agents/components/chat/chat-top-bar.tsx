@@ -5,12 +5,17 @@ import {
   Download,
   FileJson,
   FileText,
-  Menu,
   MoreHorizontal,
   Plus,
   Wrench,
 } from "lucide-react";
 import { useState } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,13 +23,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
 import { SettingsDialog } from "../settings/settings-dialog";
 
 interface ChatTopBarProps {
   onToggleActivity: () => void;
   onToggleTools?: () => void;
-  onToggleMenu?: () => void;
   onNewChat: () => void;
   showActivityButton: boolean;
   activityCount: number;
@@ -42,7 +47,6 @@ const EXPORT_FORMATS = [
 export function ChatTopBar({
   onToggleActivity,
   onToggleTools,
-  onToggleMenu,
   onNewChat,
   showActivityButton,
   activityCount,
@@ -65,27 +69,24 @@ export function ChatTopBar({
 
   return (
     <>
-      <div className="absolute top-0 w-full z-10 flex h-14 items-center justify-between bg-transparent flex-shrink-0 px-2 sm:px-4 py-2">
-        {/* Left: Breadcrumbs / Title */}
+      <header className="absolute top-0 w-full z-10 flex h-14 items-center bg-transparent flex-shrink-0 px-2 sm:px-4 py-2 gap-2">
+        {/* Left: Sidebar trigger + breadcrumb */}
         <div className="flex items-center gap-2">
-          {onToggleMenu && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onToggleMenu}
-              aria-label="Open sidebar"
-              className="h-8 w-8"
-            >
-              <Menu className="h-4 w-4" />
-            </Button>
-          )}
-          <div className="flex items-center text-sm font-semibold tracking-tight text-foreground gap-2">
-            <span>{conversationTitle || "New Task"}</span>
-          </div>
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbPage>
+                  {conversationTitle || "New Task"}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-1">
+        <div className="ml-auto flex items-center gap-1">
           {/* Conversation actions */}
           <div className="flex items-center gap-1">
             <Button
@@ -187,14 +188,14 @@ export function ChatTopBar({
           {/* Separator before auth */}
           <Separator orientation="vertical" className="h-6" />
 
-          {/* Auth */}
+          {/* Auth — self-wrapping with ClerkProvider */}
           <AuthButtons
             signInClassName="h-8 w-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             avatarSize="h-7 w-7"
-            wrapWithProvider={false}
+            wrapWithProvider={true}
           />
         </div>
-      </div>
+      </header>
 
       <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
     </>

@@ -15,9 +15,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { AppSidebar } from "@/components/app-sidebar";
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
-import { SidebarModal } from "@/components/sidebar/sidebar-modal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SidebarInset } from "@/components/ui/sidebar";
 import { useConversations } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 
@@ -32,7 +33,6 @@ export default function AnalyticsPage() {
   const getAuthToken = useClerkAuthToken();
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { conversations, activeId, switchTo, remove, createNew } =
     useConversations({ getAuthToken });
@@ -55,11 +55,8 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col overflow-hidden w-full min-h-screen bg-transparent">
-      {/* Sidebar Modal */}
-      <SidebarModal
-        open={sidebarOpen}
-        onOpenChange={setSidebarOpen}
+    <>
+      <AppSidebar
         conversations={conversations}
         activeId={activeId}
         onNewChat={() => createNew("fast")}
@@ -70,175 +67,178 @@ export default function AnalyticsPage() {
         onDeleteConversation={remove}
       />
 
-      <div className="flex h-full w-full overflow-hidden relative bg-transparent">
-        <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
-          <ChatTopBar
-            onToggleActivity={() => {}}
-            onToggleMenu={() => setSidebarOpen((v) => !v)}
-            onNewChat={() => createNew("fast")}
-            showActivityButton={false}
-            activityCount={0}
-            conversationTitle="Global System Analytics"
-          />
+      <SidebarInset>
+        <div className="flex flex-1 flex-col overflow-hidden w-full min-h-svh bg-transparent">
+          <div className="flex h-full w-full overflow-hidden relative bg-transparent">
+            <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
+              <ChatTopBar
+                onToggleActivity={() => {}}
+                onNewChat={() => createNew("fast")}
+                showActivityButton={false}
+                activityCount={0}
+                conversationTitle="Global System Analytics"
+              />
 
-          <div className="flex-1 overflow-y-auto w-full bg-background pt-14 pb-20">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
-              <div className="mb-8">
-                <h1 className="text-3xl font-semibold tracking-tight">
-                  Analytics Dashboard
-                </h1>
-                <p className="text-muted-foreground mt-2">
-                  Public overview of agent activity and global system usage.
-                </p>
-              </div>
-
-              {loading ? (
-                <div className="flex h-64 items-center justify-center border border-border rounded-xl bg-muted/20">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                </div>
-              ) : data ? (
-                <div className="space-y-6">
-                  {/* Stat Cards */}
-                  <div className="grid gap-4 md:grid-cols-3">
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-muted-foreground">
-                          Total Conversations
-                        </CardTitle>
-                        <Activity className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {data.totalConversations.toLocaleString()}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-muted-foreground">
-                          Total Messages
-                        </CardTitle>
-                        <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {data.totalMessages.toLocaleString()}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-muted-foreground">
-                          Active Users
-                        </CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {data.totalUsers.toLocaleString()}
-                        </div>
-                      </CardContent>
-                    </Card>
+              <div className="flex-1 overflow-y-auto w-full bg-background pt-14 pb-20">
+                <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+                  <div className="mb-8">
+                    <h1 className="text-3xl font-semibold tracking-tight">
+                      Analytics Dashboard
+                    </h1>
+                    <p className="text-muted-foreground mt-2">
+                      Public overview of agent activity and global system usage.
+                    </p>
                   </div>
 
-                  {/* Chart */}
-                  <div className="border border-border rounded-xl bg-background p-6">
-                    <div className="flex items-center gap-2 mb-6">
-                      <BarChart3 className="h-5 w-5 text-foreground" />
-                      <h2 className="text-lg font-medium">
-                        Conversations (Last 7 Days)
-                      </h2>
+                  {loading ? (
+                    <div className="flex h-64 items-center justify-center border border-border rounded-xl bg-muted/20">
+                      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                     </div>
-                    <div className="h-[300px] w-full">
-                      {data.dailyTrends?.length > 0 ? (
-                        <ResponsiveContainer width="100%" height="100%">
-                          <AreaChart
-                            data={data.dailyTrends}
-                            margin={{
-                              top: 10,
-                              right: 10,
-                              left: -20,
-                              bottom: 0,
-                            }}
-                          >
-                            <defs>
-                              <linearGradient
-                                id="colorCount"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
+                  ) : data ? (
+                    <div className="space-y-6">
+                      {/* Stat Cards */}
+                      <div className="grid gap-4 md:grid-cols-3">
+                        <Card>
+                          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-muted-foreground">
+                              Total Conversations
+                            </CardTitle>
+                            <Activity className="h-4 w-4 text-muted-foreground" />
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">
+                              {data.totalConversations.toLocaleString()}
+                            </div>
+                          </CardContent>
+                        </Card>
+                        <Card>
+                          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-muted-foreground">
+                              Total Messages
+                            </CardTitle>
+                            <MessageSquare className="h-4 w-4 text-muted-foreground" />
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">
+                              {data.totalMessages.toLocaleString()}
+                            </div>
+                          </CardContent>
+                        </Card>
+                        <Card>
+                          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium text-muted-foreground">
+                              Active Users
+                            </CardTitle>
+                            <Users className="h-4 w-4 text-muted-foreground" />
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">
+                              {data.totalUsers.toLocaleString()}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+
+                      {/* Chart */}
+                      <div className="border border-border rounded-xl bg-background p-6">
+                        <div className="flex items-center gap-2 mb-6">
+                          <BarChart3 className="h-5 w-5 text-foreground" />
+                          <h2 className="text-lg font-medium">
+                            Conversations (Last 7 Days)
+                          </h2>
+                        </div>
+                        <div className="h-[300px] w-full">
+                          {data.dailyTrends?.length > 0 ? (
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart
+                                data={data.dailyTrends}
+                                margin={{
+                                  top: 10,
+                                  right: 10,
+                                  left: -20,
+                                  bottom: 0,
+                                }}
                               >
-                                <stop
-                                  offset="5%"
-                                  stopColor="#8884d8"
-                                  stopOpacity={0.3}
+                                <defs>
+                                  <linearGradient
+                                    id="colorCount"
+                                    x1="0"
+                                    y1="0"
+                                    x2="0"
+                                    y2="1"
+                                  >
+                                    <stop
+                                      offset="5%"
+                                      stopColor="#8884d8"
+                                      stopOpacity={0.3}
+                                    />
+                                    <stop
+                                      offset="95%"
+                                      stopColor="#8884d8"
+                                      stopOpacity={0}
+                                    />
+                                  </linearGradient>
+                                </defs>
+                                <CartesianGrid
+                                  strokeDasharray="3 3"
+                                  vertical={false}
+                                  stroke="var(--border)"
                                 />
-                                <stop
-                                  offset="95%"
-                                  stopColor="#8884d8"
-                                  stopOpacity={0}
+                                <XAxis
+                                  dataKey="date"
+                                  axisLine={false}
+                                  tickLine={false}
+                                  tick={{
+                                    fontSize: 12,
+                                    fill: "var(--muted-foreground)",
+                                  }}
+                                  dy={10}
                                 />
-                              </linearGradient>
-                            </defs>
-                            <CartesianGrid
-                              strokeDasharray="3 3"
-                              vertical={false}
-                              stroke="var(--border)"
-                            />
-                            <XAxis
-                              dataKey="date"
-                              axisLine={false}
-                              tickLine={false}
-                              tick={{
-                                fontSize: 12,
-                                fill: "var(--muted-foreground)",
-                              }}
-                              dy={10}
-                            />
-                            <YAxis
-                              axisLine={false}
-                              tickLine={false}
-                              tick={{
-                                fontSize: 12,
-                                fill: "var(--muted-foreground)",
-                              }}
-                            />
-                            <Tooltip
-                              contentStyle={{
-                                backgroundColor: "var(--background)",
-                                border: "1px solid var(--border)",
-                                borderRadius: "8px",
-                                fontSize: "12px",
-                              }}
-                            />
-                            <Area
-                              type="monotone"
-                              dataKey="count"
-                              stroke="#8884d8"
-                              strokeWidth={2}
-                              fillOpacity={1}
-                              fill="url(#colorCount)"
-                            />
-                          </AreaChart>
-                        </ResponsiveContainer>
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
-                          Not enough data to graph recent trends.
+                                <YAxis
+                                  axisLine={false}
+                                  tickLine={false}
+                                  tick={{
+                                    fontSize: 12,
+                                    fill: "var(--muted-foreground)",
+                                  }}
+                                />
+                                <Tooltip
+                                  contentStyle={{
+                                    backgroundColor: "var(--background)",
+                                    border: "1px solid var(--border)",
+                                    borderRadius: "8px",
+                                    fontSize: "12px",
+                                  }}
+                                />
+                                <Area
+                                  type="monotone"
+                                  dataKey="count"
+                                  stroke="#8884d8"
+                                  strokeWidth={2}
+                                  fillOpacity={1}
+                                  fill="url(#colorCount)"
+                                />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          ) : (
+                            <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
+                              Not enough data to graph recent trends.
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="flex h-64 items-center justify-center border border-border rounded-xl bg-muted/20 text-destructive text-sm">
+                      Failed to load analytics data.
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="flex h-64 items-center justify-center border border-border rounded-xl bg-muted/20 text-destructive text-sm">
-                  Failed to load analytics data.
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </SidebarInset>
+    </>
   );
 }
