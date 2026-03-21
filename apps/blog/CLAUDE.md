@@ -40,18 +40,20 @@ bun run cf:deploy:prod   # Production deployment
 
 ```
 apps/blog/
-├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Homepage (latest posts)
-│   ├── [year]/             # Year archive pages
-│   ├── category/           # Category pages
-│   ├── tag/                # Tag pages
-│   ├── series/             # Series pages
-│   ├── archives/           # Full archive
-│   ├── about/              # About page
-│   ├── ai/                 # AI-related posts section
-│   ├── feed/               # RSS feed
-│   └── sitemap.ts          # XML sitemap
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout (nav, theme, analytics)
+│       ├── index.tsx       # Homepage (latest posts)
+│       ├── $year/          # Year archive pages
+│       ├── category/       # Category pages
+│       ├── tag/            # Tag pages
+│       ├── series/         # Series pages
+│       ├── archives/       # Full archive
+│       ├── about/          # About page
+│       └── ai/             # AI-related posts section
 ├── _posts/                 # Markdown/MDX blog posts
 ├── components/
 │   ├── blog/               # Blog-specific components
@@ -61,18 +63,17 @@ apps/blog/
 │   └── MdxComponents.tsx   # MDX component overrides
 ├── lib/
 │   ├── mdx.ts              # MDX parsing and processing
-│   ├── metadata/           # SEO metadata helpers
 │   ├── hooks/              # Custom React hooks
 │   ├── category-metadata.ts
 │   └── tag-metadata.ts
-└── next.config.js          # Next.js config with env loading
+└── index.html              # SPA entry HTML
 ```
 
 ## Key Patterns
 
-### Static Export
+### Static SPA
 
-All pages are statically generated. No server-side rendering or API routes.
+All content is generated at build time. No server-side rendering or API routes.
 
 ```typescript
 // Posts are read from _posts/ at build time

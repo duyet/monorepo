@@ -8,13 +8,13 @@ Personal homepage / landing page with links to all personal projects and apps.
 
 - **Live**: https://duyet.net | https://duyet-home.pages.dev
 - **Port**: 3001 (development)
-- **Output**: Static export (`output: 'export'`)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3001 (Turbopack)
-bun run build        # Build static export to 'out/'
+bun run dev          # Start dev server on port 3001
+bun run build        # Build static SPA to 'out/'
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
 
@@ -27,7 +27,7 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15 with App Router, static export
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Styling**: Tailwind CSS
 - **Components**: `@duyet/components` (ContentCard, LinkCard, AiContentCard)
 - **Package Manager**: Bun
@@ -36,28 +36,26 @@ bun run cf:deploy:prod   # Production deployment
 
 ```
 apps/home/
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout (nav, theme, analytics)
+│       ├── index.tsx       # Main homepage
+│       └── about/          # About page
+├── components/
+│   └── icons/              # Custom icon components
+├── lib/
+│   ├── utm.ts              # UTM parameter helpers
+│   └── config/
+│       └── urls.ts         # External URL configuration
 ├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Main homepage (force-static)
-│   ├── about/              # About page
-│   ├── components/
-│   │   └── icons/          # Custom icon components
-│   ├── config/
-│   │   └── urls.ts         # External URL configuration
 │   └── globals.css
-└── next.config.js
+└── index.html              # SPA entry HTML
 ```
 
 ## Key Patterns
-
-### Static Generation
-
-The homepage uses `force-static` with 1-hour revalidation:
-
-```typescript
-export const dynamic = 'force-static'
-export const revalidate = 3600
-```
 
 ### Content Cards
 
@@ -107,7 +105,6 @@ Edit `app/config/urls.ts` to update external URLs referenced across the page.
 
 ## Build Notes
 
-- `output: 'export'` generates static HTML in `out/` directory
-- `unoptimized: true` for images (static export compatibility)
+- Vite builds a static SPA to `out/` directory
 - No server-side features — fully static
 - Imports from sibling app (`homelab`) at build time are valid since Turborepo manages the build graph

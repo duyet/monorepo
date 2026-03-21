@@ -8,13 +8,13 @@ Beautiful monitoring dashboard for a 3-node minipc cluster, styled with Claude-i
 
 - **Live**: https://homelab.duyet.net | https://duyet-homelab.pages.dev
 - **Port**: 3002 (development)
-- **Output**: Static export (`output: 'export'`)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3002 (Turbopack)
-bun run build        # Build static export to 'out/'
+bun run dev          # Start dev server on port 3002
+bun run build        # Build static SPA to 'out/'
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
 
@@ -27,21 +27,24 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15 with App Router, static export
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Styling**: Tailwind CSS v4 with custom Claude color palette (OKLCH)
 - **Charts**: Recharts for data visualization
 - **Icons**: Lucide React
-- **Deployment**: Cloudflare Pages (static export)
+- **Deployment**: Cloudflare Pages (static SPA)
 - **Package Manager**: Bun
 
 ### Project Structure
 
 ```
 apps/homelab/
-├── app/
-│   ├── layout.tsx          # Root layout with theme provider
-│   ├── page.tsx            # Main dashboard page
-│   └── globals.css         # Tailwind v4 CSS with OKLCH colors
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout with theme provider
+│       └── index.tsx       # Main dashboard page
 ├── components/
 │   ├── Card.tsx            # Reusable card component
 │   └── dashboard/
@@ -55,9 +58,11 @@ apps/homelab/
 │   └── data/
 │       ├── nodes.ts         # Node data (used by apps/home too)
 │       └── mockData.ts      # Dynamic mock data generator
-├── next.config.mjs         # Next.js config with static export
+├── app/
+│   └── globals.css         # Tailwind v4 CSS with OKLCH colors
 ├── tailwind.config.mjs     # Tailwind v4 config with Claude colors
-└── postcss.config.mjs      # PostCSS with @tailwindcss/postcss
+├── postcss.config.mjs      # PostCSS with @tailwindcss/postcss
+└── index.html              # SPA entry HTML
 ```
 
 ## Key Patterns

@@ -8,13 +8,13 @@ Interactive timeline of Large Language Model releases from 2017 to present.
 
 - **Live**: https://llm-timeline.duyet.net | https://duyet-llm-timeline.pages.dev
 - **Port**: 3005 (development)
-- **Output**: Static export (`output: 'export'`)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3005 (Turbopack)
-bun run build        # Build static export to 'out/'
+bun run dev          # Start dev server on port 3005
+bun run build        # Build static SPA to 'out/'
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
 
@@ -27,7 +27,7 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15 with App Router, static export
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Styling**: Tailwind CSS
 - **Components**: `@duyet/components` (ThemeProvider, Analytics, Head)
 - **Package Manager**: Bun
@@ -36,10 +36,16 @@ bun run cf:deploy:prod   # Production deployment
 
 ```
 apps/llm-timeline/
-├── app/
-│   ├── layout.tsx          # Root layout with fonts, providers
-│   ├── page.tsx            # Main timeline page (client component)
-│   └── globals.css         # Tailwind imports + CSS vars
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout with fonts, providers
+│       ├── index.tsx       # Main timeline page
+│       ├── license.$slug/  # License filter pages
+│       ├── year.$year/     # Year filter pages
+│       └── org.$slug/      # Organization filter pages
 ├── components/
 │   ├── filters.tsx         # Search and filter controls
 │   ├── model-card.tsx      # Individual model card
@@ -48,7 +54,9 @@ apps/llm-timeline/
 ├── lib/
 │   ├── data.ts             # Model data + types (LLM-updatable)
 │   └── utils.ts            # Filtering, grouping utilities
-└── next.config.js
+├── app/
+│   └── globals.css         # Tailwind imports + CSS vars
+└── index.html              # SPA entry HTML
 ```
 
 ## Key Patterns
@@ -99,23 +107,12 @@ Organizations are auto-extracted from model data. Just add models with the new o
 
 The app generates static pages and feeds for various views:
 
-| Route Type | URL Pattern | Page File | Description |
+| Route Type | URL Pattern | Route File | Description |
 |-----------|-------------|-----------|-------------|
-| Home | `/` | `app/page.tsx` | Main timeline with all models |
-| License | `/license/{slug}` | `app/license/[slug]/page.tsx` | Filter by license type |
-| Year | `/year/{year}` | *(future)* | Filter by release year |
-| Org | `/org/{slug}` | *(future)* | Filter by organization |
-
-### generateStaticParams Usage
-
-Static routes are generated using `generateStaticParams()` in Next.js App Router:
-
-```typescript
-// Example from app/license/[slug]/page.tsx
-export async function generateStaticParams() {
-  return ['open', 'closed', 'partial'].map((slug) => ({ slug }))
-}
-```
+| Home | `/` | `src/routes/index.tsx` | Main timeline with all models |
+| License | `/license/{slug}` | `src/routes/license.$slug/` | Filter by license type |
+| Year | `/year/{year}` | `src/routes/year.$year/` | Filter by release year |
+| Org | `/org/{slug}` | `src/routes/org.$slug/` | Filter by organization |
 
 ### URL Patterns
 

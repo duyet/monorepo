@@ -7,12 +7,12 @@ This file provides guidance to Claude Code when working with the AI code percent
 Dashboard showing the percentage of code written by AI across all repositories, detected via co-author signatures and email patterns. Data is fetched from an external API (`api.duyet.net`).
 
 - **Port**: 3002 (development)
-- **Output**: Static export (`output: 'export'` via wrangler deployment)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3002 (Turbopack)
+bun run dev          # Start dev server on port 3002
 bun run build        # Build for production
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
@@ -26,7 +26,7 @@ bun run deploy       # Build + deploy with Wrangler
 
 ### Tech Stack
 
-- **Framework**: Next.js with App Router
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Data Source**: External REST API at `api.duyet.net`
 - **Styling**: Tailwind CSS
 - **Package Manager**: Bun
@@ -35,21 +35,27 @@ bun run deploy       # Build + deploy with Wrangler
 
 ```
 apps/ai-percentage/
-├── app/
-│   ├── layout.tsx              # Root layout
-│   ├── page.tsx                # Main dashboard page
-│   └── globals.css
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout
+│       └── index.tsx       # Main dashboard page
 ├── components/
 │   ├── AIPercentageHero.tsx    # Hero card with current AI %
 │   ├── AIPercentageChart.tsx   # Historical chart of AI usage
 │   ├── AIPercentageTrend.tsx   # Trend visualization
 │   ├── Card.tsx                # Reusable card component
 │   └── Skeleton.tsx            # Loading skeleton
-└── lib/
-    ├── index.ts                # Module exports
-    ├── queries.ts              # API fetching functions
-    ├── types.ts                # TypeScript interfaces
-    └── utils.ts                # Date range helpers (DATE_RANGES)
+├── lib/
+│   ├── index.ts                # Module exports
+│   ├── queries.ts              # API fetching functions
+│   ├── types.ts                # TypeScript interfaces
+│   └── utils.ts                # Date range helpers (DATE_RANGES)
+├── app/
+│   └── globals.css
+└── index.html              # SPA entry HTML
 ```
 
 ## Key Patterns
@@ -60,7 +66,7 @@ All data fetched from `api.duyet.net` at build time or on-demand:
 
 ```typescript
 // lib/queries.ts
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.duyet.net'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.duyet.net'
 
 // Available endpoints:
 // GET /ai/percentage/current   — current AI code percentage
@@ -99,7 +105,7 @@ Date ranges are defined in `lib/utils.ts` as `DATE_RANGES`. The page component u
 
 ```bash
 # API endpoint (defaults to https://api.duyet.net)
-NEXT_PUBLIC_API_BASE_URL=https://api.duyet.net
+VITE_API_BASE_URL=https://api.duyet.net
 ```
 
 ## Common Tasks

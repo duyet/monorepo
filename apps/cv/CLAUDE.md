@@ -4,17 +4,17 @@ This file provides guidance to Claude Code when working with the CV application.
 
 ## Overview
 
-Personal CV / resume hosting as a static Next.js site. Displays structured resume content and serves a PDF download.
+Personal CV / resume hosting as a Vite SPA. Displays structured resume content and serves a PDF download.
 
 - **Live**: https://cv.duyet.net | https://duyet-cv.pages.dev
 - **Port**: 3002 (development)
-- **Output**: Static export (`output: 'export'`)
+- **Output**: Static SPA (`out/`)
 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3002 (Turbopack)
-bun run build        # Build static export to 'out/'
+bun run dev          # Start dev server on port 3002
+bun run build        # Build static SPA to 'out/'
 bun run lint         # Run Biome linter
 bun run check-types  # TypeScript type check
 
@@ -27,7 +27,7 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Tech Stack
 
-- **Framework**: Next.js 15 with App Router, static export
+- **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Styling**: Tailwind CSS + Radix UI Separator
 - **Icons**: `@icons-pack/react-simple-icons` for tech stack icons
 - **Package Manager**: Bun
@@ -36,11 +36,14 @@ bun run cf:deploy:prod   # Production deployment
 
 ```
 apps/cv/
-├── app/
-│   ├── layout.tsx      # Root layout
-│   ├── page.tsx        # Main CV page
-│   ├── pdf/            # PDF viewer/download route
-│   └── globals.css     # Global styles
+├── src/
+│   ├── main.tsx            # SPA entry point
+│   ├── router.tsx          # TanStack Router setup
+│   ├── routeTree.gen.ts    # Auto-generated route tree (do not edit)
+│   └── routes/
+│       ├── __root.tsx      # Root layout
+│       ├── index.tsx       # Main CV page
+│       └── pdf/            # PDF viewer/download route
 ├── components/
 │   ├── overview.tsx    # Personal summary section
 │   ├── experience.tsx  # Work experience section
@@ -50,8 +53,9 @@ apps/cv/
 │   ├── section.tsx     # Reusable section wrapper
 │   ├── hover-links.tsx # Link components with hover effects
 │   └── inline-link.tsx
-└── public/
-    └── duyet.cv.pdf    # PDF version of the CV
+├── public/
+│   └── duyet.cv.pdf    # PDF version of the CV
+└── index.html          # SPA entry HTML
 ```
 
 ## Key Patterns
@@ -99,7 +103,6 @@ Edit `components/skill.tsx` to add a skill badge, and `components/skill-details.
 
 ## Build Notes
 
-- `output: 'export'` generates static HTML in `out/` directory
-- `unoptimized: true` for images (static export compatibility)
-- No API routes — fully static site
-- Env vars loaded from monorepo root via `@next/env`
+- Vite builds a static SPA to `out/` directory
+- No server-side features — fully static site
+- Env vars are prefixed with `VITE_` for client access

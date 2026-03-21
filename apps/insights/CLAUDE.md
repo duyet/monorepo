@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Application Overview
 
-The **insights** app is a comprehensive analytics dashboard that aggregates data from multiple sources to provide insights into development productivity, AI usage, and system performance. Built with Next.js 15 and featuring static generation for optimal performance.
+The **insights** app is a comprehensive analytics dashboard that aggregates data from multiple sources to provide insights into development productivity, AI usage, and system performance. Built as a Vite SPA with data fetched at build time for optimal performance.
 
 **Live URL**: https://insights.duyet.net | https://duyet-insights.vercel.app
 
@@ -12,12 +12,11 @@ The **insights** app is a comprehensive analytics dashboard that aggregates data
 
 ### Core Technologies
 
-- **Framework**: Next.js 15.5.0 with App Router and React 19
+- **Framework**: Vite + TanStack Router (SPA, file-based routing) with React 19
 - **Styling**: Tailwind CSS with custom design system
 - **Charts**: Recharts with shadcn/ui components
 - **Database**: ClickHouse for analytics data
 - **Type Safety**: TypeScript with strict mode
-- **Static Generation**: Force static for Vercel deployment
 
 ### Data Sources Integration
 
@@ -135,13 +134,9 @@ User Request (90 days)
 
 ## Development Patterns & Best Practices
 
-### Static Generation Strategy
+### Data Fetching Strategy
 
-```typescript
-// All pages use force-static for optimal performance
-export const dynamic = 'force-static'
-export const revalidate = 3600 // 1 hour cache
-```
+All data is fetched at build time. No server-side rendering or API routes in the SPA.
 
 ### Error Handling Pattern
 
@@ -157,14 +152,10 @@ export const revalidate = 3600 // 1 hour cache
 ### Data Fetching Pattern
 
 ```typescript
-// Server-side data fetching with proper error handling
-export default async function Page() {
-  try {
-    const data = await fetchAnalyticsData()
-    return <Dashboard data={data} />
-  } catch (error) {
-    return <ErrorFallback error={error} />
-  }
+// Build-time data fetching with proper error handling
+// Data is loaded via hooks or static JSON files in the SPA
+export function useAnalyticsData() {
+  return useMemo(() => fetchAnalyticsData(), [])
 }
 ```
 
@@ -181,7 +172,7 @@ export function useProcessedData(rawData: RawData[]) {
 
 ## Environment Variables
 
-### Public Variables (Client-side)
+### Public Variables (Client-side, Cloudflare dashboard names)
 
 ```bash
 NEXT_PUBLIC_MEASUREMENT_ID=G-XXXXXXXXX      # Google Analytics
@@ -190,7 +181,7 @@ NEXT_PUBLIC_DUYET_INSIGHTS_URL=https://insights.duyet.net
 NEXT_PUBLIC_DUYET_CV_URL=https://cv.duyet.net
 ```
 
-### Private Variables (Server-side only)
+### Build-time Variables
 
 ```bash
 # External APIs
@@ -240,17 +231,15 @@ bun run cf:deploy:prod   # Production deployment
 
 ### Component Architecture
 
-- **Server Components**: Default for all page-level components
-- **Client Components**: Only when interactivity required (marked with 'use client')
+- **Client Components**: All components run in the browser (Vite SPA)
 - **Error Boundaries**: Wrap data-dependent components
 - **Suspense Boundaries**: For async data loading
 
 ### Performance Optimization
 
-- **Static Generation**: Force static wherever possible
 - **Memoization**: Use useMemo/useCallback for expensive calculations
 - **Code Splitting**: Lazy load non-critical components
-- **Bundle Analysis**: Monitor bundle size with yarn analyze
+- **Bundle Analysis**: Monitor bundle size with `bun run analyze`
 
 ### Data Privacy & Security
 
@@ -452,11 +441,10 @@ yarn lint app/ccusage/
 
 When working on the insights app:
 
-1. **Preserve Static Generation**: Always use `export const dynamic = 'force-static'`
-2. **Respect Data Privacy**: Never expose individual user data or absolute costs
-3. **Follow Patterns**: Use existing component patterns and hook structures
-4. **Test Thoroughly**: Run full test suite before deploying
-5. **Monitor Performance**: Keep bundle size and load times optimal
-6. **Handle Errors Gracefully**: Implement proper error boundaries and fallbacks
+1. **Respect Data Privacy**: Never expose individual user data or absolute costs
+2. **Follow Patterns**: Use existing component patterns and hook structures
+3. **Test Thoroughly**: Run full test suite before deploying
+4. **Monitor Performance**: Keep bundle size and load times optimal
+5. **Handle Errors Gracefully**: Implement proper error boundaries and fallbacks
 
 The insights app is a critical productivity tool that must maintain high reliability and performance standards while respecting user privacy and data security.
