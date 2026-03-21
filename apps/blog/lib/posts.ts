@@ -81,7 +81,8 @@ export async function fetchPostContent(slug: string): Promise<PostContent> {
   // Derive key: "/2024/01/my-post" -> "2024-01-my-post"
   const key = normalizedSlug.replace(/^\//, "").replace(/\//g, "-");
   const res = await fetch(`/posts-content/${key}.json`);
-  if (!res.ok) throw new Error(`Post content not found: ${slug} (${res.status})`);
+  if (!res.ok)
+    throw new Error(`Post content not found: ${slug} (${res.status})`);
   const data: PostContent = await res.json();
   contentCache.set(normalizedSlug, data);
   return data;
@@ -90,7 +91,8 @@ export async function fetchPostContent(slug: string): Promise<PostContent> {
 export async function fetchAllSeries(): Promise<Series[]> {
   if (seriesCache) return seriesCache;
   const res = await fetch("/series-data.json");
-  if (!res.ok) throw new Error(`Failed to load series-data.json: ${res.status}`);
+  if (!res.ok)
+    throw new Error(`Failed to load series-data.json: ${res.status}`);
   const raw: Array<{
     name: string;
     slug: string;
@@ -251,10 +253,7 @@ export async function getSeriesNavigation(
   };
 }
 
-export async function getRelatedPosts(
-  post: Post,
-  limit = 4
-): Promise<Post[]> {
+export async function getRelatedPosts(post: Post, limit = 4): Promise<Post[]> {
   const posts = await fetchAllPosts();
   const candidates = posts.filter((p) => {
     if (p.slug === post.slug) return false;

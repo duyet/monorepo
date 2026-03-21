@@ -43,7 +43,6 @@ async function wakaTimeRequest(endpoint: string) {
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
-
     });
 
     if (!res.ok) {
@@ -324,7 +323,6 @@ async function getActivityFromInsights(
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
-
     });
 
     if (!res.ok) {

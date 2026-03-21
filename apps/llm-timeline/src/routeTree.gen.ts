@@ -8,201 +8,201 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as OrgRouteImport } from './routes/org'
-import { Route as OpenRouteImport } from './routes/open'
-import { Route as LiteRouteImport } from './routes/lite'
-import { Route as CompareRouteImport } from './routes/compare'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as YearYearRouteImport } from './routes/year/$year'
-import { Route as OrgSlugRouteImport } from './routes/org/$slug'
-import { Route as LicenseTypeRouteImport } from './routes/license/$type'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as OrgRouteImport } from "./routes/org";
+import { Route as OpenRouteImport } from "./routes/open";
+import { Route as LiteRouteImport } from "./routes/lite";
+import { Route as CompareRouteImport } from "./routes/compare";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as YearYearRouteImport } from "./routes/year/$year";
+import { Route as OrgSlugRouteImport } from "./routes/org/$slug";
+import { Route as LicenseTypeRouteImport } from "./routes/license/$type";
 
 const OrgRoute = OrgRouteImport.update({
-  id: '/org',
-  path: '/org',
+  id: "/org",
+  path: "/org",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const OpenRoute = OpenRouteImport.update({
-  id: '/open',
-  path: '/open',
+  id: "/open",
+  path: "/open",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LiteRoute = LiteRouteImport.update({
-  id: '/lite',
-  path: '/lite',
+  id: "/lite",
+  path: "/lite",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const CompareRoute = CompareRouteImport.update({
-  id: '/compare',
-  path: '/compare',
+  id: "/compare",
+  path: "/compare",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const YearYearRoute = YearYearRouteImport.update({
-  id: '/year/$year',
-  path: '/year/$year',
+  id: "/year/$year",
+  path: "/year/$year",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const OrgSlugRoute = OrgSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
+  id: "/$slug",
+  path: "/$slug",
   getParentRoute: () => OrgRoute,
-} as any)
+} as any);
 const LicenseTypeRoute = LicenseTypeRouteImport.update({
-  id: '/license/$type',
-  path: '/license/$type',
+  id: "/license/$type",
+  path: "/license/$type",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/compare': typeof CompareRoute
-  '/lite': typeof LiteRoute
-  '/open': typeof OpenRoute
-  '/org': typeof OrgRouteWithChildren
-  '/license/$type': typeof LicenseTypeRoute
-  '/org/$slug': typeof OrgSlugRoute
-  '/year/$year': typeof YearYearRoute
+  "/": typeof IndexRoute;
+  "/compare": typeof CompareRoute;
+  "/lite": typeof LiteRoute;
+  "/open": typeof OpenRoute;
+  "/org": typeof OrgRouteWithChildren;
+  "/license/$type": typeof LicenseTypeRoute;
+  "/org/$slug": typeof OrgSlugRoute;
+  "/year/$year": typeof YearYearRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/compare': typeof CompareRoute
-  '/lite': typeof LiteRoute
-  '/open': typeof OpenRoute
-  '/org': typeof OrgRouteWithChildren
-  '/license/$type': typeof LicenseTypeRoute
-  '/org/$slug': typeof OrgSlugRoute
-  '/year/$year': typeof YearYearRoute
+  "/": typeof IndexRoute;
+  "/compare": typeof CompareRoute;
+  "/lite": typeof LiteRoute;
+  "/open": typeof OpenRoute;
+  "/org": typeof OrgRouteWithChildren;
+  "/license/$type": typeof LicenseTypeRoute;
+  "/org/$slug": typeof OrgSlugRoute;
+  "/year/$year": typeof YearYearRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/compare': typeof CompareRoute
-  '/lite': typeof LiteRoute
-  '/open': typeof OpenRoute
-  '/org': typeof OrgRouteWithChildren
-  '/license/$type': typeof LicenseTypeRoute
-  '/org/$slug': typeof OrgSlugRoute
-  '/year/$year': typeof YearYearRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/compare": typeof CompareRoute;
+  "/lite": typeof LiteRoute;
+  "/open": typeof OpenRoute;
+  "/org": typeof OrgRouteWithChildren;
+  "/license/$type": typeof LicenseTypeRoute;
+  "/org/$slug": typeof OrgSlugRoute;
+  "/year/$year": typeof YearYearRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/compare'
-    | '/lite'
-    | '/open'
-    | '/org'
-    | '/license/$type'
-    | '/org/$slug'
-    | '/year/$year'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/compare"
+    | "/lite"
+    | "/open"
+    | "/org"
+    | "/license/$type"
+    | "/org/$slug"
+    | "/year/$year";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/compare'
-    | '/lite'
-    | '/open'
-    | '/org'
-    | '/license/$type'
-    | '/org/$slug'
-    | '/year/$year'
+    | "/"
+    | "/compare"
+    | "/lite"
+    | "/open"
+    | "/org"
+    | "/license/$type"
+    | "/org/$slug"
+    | "/year/$year";
   id:
-    | '__root__'
-    | '/'
-    | '/compare'
-    | '/lite'
-    | '/open'
-    | '/org'
-    | '/license/$type'
-    | '/org/$slug'
-    | '/year/$year'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/compare"
+    | "/lite"
+    | "/open"
+    | "/org"
+    | "/license/$type"
+    | "/org/$slug"
+    | "/year/$year";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CompareRoute: typeof CompareRoute
-  LiteRoute: typeof LiteRoute
-  OpenRoute: typeof OpenRoute
-  OrgRoute: typeof OrgRouteWithChildren
-  LicenseTypeRoute: typeof LicenseTypeRoute
-  YearYearRoute: typeof YearYearRoute
+  IndexRoute: typeof IndexRoute;
+  CompareRoute: typeof CompareRoute;
+  LiteRoute: typeof LiteRoute;
+  OpenRoute: typeof OpenRoute;
+  OrgRoute: typeof OrgRouteWithChildren;
+  LicenseTypeRoute: typeof LicenseTypeRoute;
+  YearYearRoute: typeof YearYearRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/org': {
-      id: '/org'
-      path: '/org'
-      fullPath: '/org'
-      preLoaderRoute: typeof OrgRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/open': {
-      id: '/open'
-      path: '/open'
-      fullPath: '/open'
-      preLoaderRoute: typeof OpenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lite': {
-      id: '/lite'
-      path: '/lite'
-      fullPath: '/lite'
-      preLoaderRoute: typeof LiteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/compare': {
-      id: '/compare'
-      path: '/compare'
-      fullPath: '/compare'
-      preLoaderRoute: typeof CompareRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/year/$year': {
-      id: '/year/$year'
-      path: '/year/$year'
-      fullPath: '/year/$year'
-      preLoaderRoute: typeof YearYearRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/org/$slug': {
-      id: '/org/$slug'
-      path: '/$slug'
-      fullPath: '/org/$slug'
-      preLoaderRoute: typeof OrgSlugRouteImport
-      parentRoute: typeof OrgRoute
-    }
-    '/license/$type': {
-      id: '/license/$type'
-      path: '/license/$type'
-      fullPath: '/license/$type'
-      preLoaderRoute: typeof LicenseTypeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/org": {
+      id: "/org";
+      path: "/org";
+      fullPath: "/org";
+      preLoaderRoute: typeof OrgRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/open": {
+      id: "/open";
+      path: "/open";
+      fullPath: "/open";
+      preLoaderRoute: typeof OpenRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/lite": {
+      id: "/lite";
+      path: "/lite";
+      fullPath: "/lite";
+      preLoaderRoute: typeof LiteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/compare": {
+      id: "/compare";
+      path: "/compare";
+      fullPath: "/compare";
+      preLoaderRoute: typeof CompareRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/year/$year": {
+      id: "/year/$year";
+      path: "/year/$year";
+      fullPath: "/year/$year";
+      preLoaderRoute: typeof YearYearRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/org/$slug": {
+      id: "/org/$slug";
+      path: "/$slug";
+      fullPath: "/org/$slug";
+      preLoaderRoute: typeof OrgSlugRouteImport;
+      parentRoute: typeof OrgRoute;
+    };
+    "/license/$type": {
+      id: "/license/$type";
+      path: "/license/$type";
+      fullPath: "/license/$type";
+      preLoaderRoute: typeof LicenseTypeRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 interface OrgRouteChildren {
-  OrgSlugRoute: typeof OrgSlugRoute
+  OrgSlugRoute: typeof OrgSlugRoute;
 }
 
 const OrgRouteChildren: OrgRouteChildren = {
   OrgSlugRoute: OrgSlugRoute,
-}
+};
 
-const OrgRouteWithChildren = OrgRoute._addFileChildren(OrgRouteChildren)
+const OrgRouteWithChildren = OrgRoute._addFileChildren(OrgRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -212,7 +212,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrgRoute: OrgRouteWithChildren,
   LicenseTypeRoute: LicenseTypeRoute,
   YearYearRoute: YearYearRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

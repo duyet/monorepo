@@ -1,9 +1,7 @@
 import { cn } from "@duyet/libs/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useRef, useState } from "react";
-import {
-  getOptimalImageSrc,
-} from "@/lib/ImageOptimization";
+import { getOptimalImageSrc } from "@/lib/ImageOptimization";
 import {
   formatPhotoDescription,
   formatPhotoMetadata,
@@ -48,7 +46,9 @@ export default function Lightbox({
   const [playbackSpeed, setPlaybackSpeed] = useState<PlaybackSpeed>(3);
   const [slideshowProgress, setSlideshowProgress] = useState(0);
   const slideshowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
   const lastPhotoIdRef = useRef<string | null>(null);
 
   // Keep a current ref to onNext so the interval always calls the latest callback

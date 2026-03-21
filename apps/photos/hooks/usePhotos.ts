@@ -36,10 +36,7 @@ async function fetchPhotosData(): Promise<void> {
     cacheError = null;
   } catch (err) {
     cachedPhotos = [];
-    if (
-      err instanceof NetworkError ||
-      err instanceof UnknownPhotoError
-    ) {
+    if (err instanceof NetworkError || err instanceof UnknownPhotoError) {
       cacheError = err;
     } else {
       cacheError = new UnknownPhotoError(err);

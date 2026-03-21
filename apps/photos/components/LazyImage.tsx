@@ -118,7 +118,10 @@ export default function LazyImage({
             sizes={sizes}
             style={
               isLoading && blurDataURL
-                ? { backgroundImage: `url(${blurDataURL})`, backgroundSize: "cover" }
+                ? {
+                    backgroundImage: `url(${blurDataURL})`,
+                    backgroundSize: "cover",
+                  }
                 : undefined
             }
           />

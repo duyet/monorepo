@@ -1,6 +1,5 @@
 import Container from "@duyet/components/Container";
 import Feed from "@duyet/components/Feed";
-import Header from "@duyet/components/Header";
 import type { Post } from "@duyet/interfaces";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getAllPosts } from "@/lib/posts";
@@ -19,7 +18,6 @@ function FeedPage() {
 
   return (
     <div className="min-h-screen">
-      <Header center logo={false} longText="Data Engineering" />
       <Container>
         <Feed posts={posts} />
 

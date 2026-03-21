@@ -120,7 +120,8 @@ export function SearchFilters({
           }
 
           if (updates.tags !== undefined) {
-            next.tags = updates.tags.length > 0 ? updates.tags.join(",") : undefined;
+            next.tags =
+              updates.tags.length > 0 ? updates.tags.join(",") : undefined;
           }
 
           if (updates.preset !== undefined) {

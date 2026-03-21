@@ -1,15 +1,8 @@
 import Container from "@duyet/components/Container";
-import Header from "@duyet/components/Header";
-import { createDefaultNavigation } from "@duyet/components/Menu";
-import { duyetUrls } from "@duyet/urls";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
-import {
-  getAllSeries,
-  getAllTags,
-  getPostsByAllYear,
-} from "@/lib/posts";
+import { getAllSeries, getAllTags, getPostsByAllYear } from "@/lib/posts";
 import type { Post, Series, TagCount } from "@duyet/interfaces";
 
 export const Route = createFileRoute("/")({
@@ -47,11 +40,6 @@ function HomePage() {
 
   return (
     <div className="bg-cream-warm dark:bg-background min-h-screen pb-10">
-      <Header
-        longText="Data Engineering"
-        urls={duyetUrls}
-        navigationItems={createDefaultNavigation(duyetUrls)}
-      />
       <Container>
         <div className="mb-12 text-center">
           <p className="text-lg leading-relaxed text-neutral-700">

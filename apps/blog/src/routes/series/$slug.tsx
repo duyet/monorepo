@@ -5,9 +5,7 @@ import { getAllSeries, getSeries } from "@/lib/posts";
 
 export const Route = createFileRoute("/series/$slug")({
   head: ({ params }) => ({
-    meta: [
-      { title: `${params.slug} Series | Tôi là Duyệt` },
-    ],
+    meta: [{ title: `${params.slug} Series | Tôi là Duyệt` }],
   }),
   loader: async ({ params }) => {
     const [allSeries, series] = await Promise.all([

@@ -4,11 +4,7 @@ import PhotoGallery from "@/components/PhotoGallery";
 import { RetryButton } from "@/components/RetryButton";
 import { usePhotos } from "@/hooks/usePhotos";
 import { LoadingGrid } from "@/components/LoadingStates";
-import {
-  AuthError,
-  NetworkError,
-  RateLimitError,
-} from "@/lib/errors";
+import { AuthError, NetworkError, RateLimitError } from "@/lib/errors";
 
 export const Route = createFileRoute("/")({
   component: PhotosPage,

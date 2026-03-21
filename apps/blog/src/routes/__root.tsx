@@ -3,8 +3,11 @@ import "../../app/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
+import Header from "@duyet/components/Header";
+import { createDefaultNavigation } from "@duyet/components/Menu";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
+import { duyetUrls } from "@duyet/urls";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
@@ -58,6 +61,11 @@ function RootComponent() {
           "[--font-serif:'Libre_Baskerville',Georgia,serif]"
         )}
       >
+        <Header
+          longText="Data Engineering"
+          urls={duyetUrls}
+          navigationItems={createDefaultNavigation(duyetUrls)}
+        />
         <Outlet />
         <Footer />
         <Analytics />

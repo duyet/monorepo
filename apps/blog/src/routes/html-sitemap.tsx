@@ -5,9 +5,7 @@ import { getAllCategories, getAllPosts } from "@/lib/posts";
 
 export const Route = createFileRoute("/html-sitemap")({
   head: () => ({
-    meta: [
-      { title: "HTML Sitemap | Tôi là Duyệt" },
-    ],
+    meta: [{ title: "HTML Sitemap | Tôi là Duyệt" }],
   }),
   loader: async () => {
     const [posts, categoriesMap] = await Promise.all([
@@ -24,8 +22,7 @@ function HtmlSitemapPage() {
     posts: Post[];
     categories: string[];
   };
-  const HOME_URL =
-    import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
+  const HOME_URL = import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -73,7 +70,10 @@ function HtmlSitemapPage() {
           <h2 className="mb-4 mt-8 text-2xl font-semibold">Pages</h2>
           <ul className="space-y-2">
             <li>
-              <a href="/" className="text-blue-600 underline hover:text-blue-800">
+              <a
+                href="/"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Home
               </a>
             </li>
@@ -88,22 +88,34 @@ function HtmlSitemapPage() {
               </a>
             </li>
             <li>
-              <a href="/archives" className="text-blue-600 underline hover:text-blue-800">
+              <a
+                href="/archives"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Archives
               </a>
             </li>
             <li>
-              <a href="/featured" className="text-blue-600 underline hover:text-blue-800">
+              <a
+                href="/featured"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Featured
               </a>
             </li>
             <li>
-              <a href="/tags" className="text-blue-600 underline hover:text-blue-800">
+              <a
+                href="/tags"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Tags
               </a>
             </li>
             <li>
-              <a href="/series" className="text-blue-600 underline hover:text-blue-800">
+              <a
+                href="/series"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
                 Series
               </a>
             </li>

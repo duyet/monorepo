@@ -14,8 +14,7 @@ const BLOG_URL =
 const INSIGHTS_URL =
   import.meta.env.VITE_DUYET_INSIGHTS_URL || "https://insights.duyet.net";
 const CV_URL = import.meta.env.VITE_DUYET_CV_URL || "https://cv.duyet.net";
-const HOME_URL =
-  import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
+const HOME_URL = import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
 
 const navigationItems: NavItem[] = [
   { name: "Home", href: HOME_URL },

@@ -62,7 +62,10 @@ console.log(`  ✓ posts-data.json (${postsData.length} posts)`);
 // ── posts-content/<key>.json ───────────────────────────────────────────────────
 // One file per post with raw markdown/mdx content.
 // Key is derived from slug: /2024/01/my-post -> 2024-01-my-post
-const allPostsWithContent = getAllPosts(["slug", "content", "isMDX"], 0) as Post[];
+const allPostsWithContent = getAllPosts(
+  ["slug", "content", "isMDX"],
+  0
+) as Post[];
 
 let written = 0;
 for (const post of allPostsWithContent) {

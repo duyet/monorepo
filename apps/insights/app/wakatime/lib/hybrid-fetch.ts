@@ -57,7 +57,6 @@ async function fetchFreshActivityFromAPI(
       headers: {
         Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
       },
-
     });
 
     if (!res.ok) {

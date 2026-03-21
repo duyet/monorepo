@@ -8,271 +8,271 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as WakatimeIndexRouteImport } from './routes/wakatime/index'
-import { Route as GithubIndexRouteImport } from './routes/github/index'
-import { Route as BlogIndexRouteImport } from './routes/blog/index'
-import { Route as AiIndexRouteImport } from './routes/ai/index'
-import { Route as AgentsIndexRouteImport } from './routes/agents/index'
-import { Route as WakatimePeriodRouteImport } from './routes/wakatime/$period'
-import { Route as GithubPeriodRouteImport } from './routes/github/$period'
-import { Route as BlogPeriodRouteImport } from './routes/blog/$period'
-import { Route as AiPeriodRouteImport } from './routes/ai/$period'
-import { Route as CompareWakatimePeriod1Period2RouteImport } from './routes/compare/wakatime/$period1.$period2'
-import { Route as CompareAiPeriod1Period2RouteImport } from './routes/compare/ai/$period1.$period2'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as WakatimeIndexRouteImport } from "./routes/wakatime/index";
+import { Route as GithubIndexRouteImport } from "./routes/github/index";
+import { Route as BlogIndexRouteImport } from "./routes/blog/index";
+import { Route as AiIndexRouteImport } from "./routes/ai/index";
+import { Route as AgentsIndexRouteImport } from "./routes/agents/index";
+import { Route as WakatimePeriodRouteImport } from "./routes/wakatime/$period";
+import { Route as GithubPeriodRouteImport } from "./routes/github/$period";
+import { Route as BlogPeriodRouteImport } from "./routes/blog/$period";
+import { Route as AiPeriodRouteImport } from "./routes/ai/$period";
+import { Route as CompareWakatimePeriod1Period2RouteImport } from "./routes/compare/wakatime/$period1.$period2";
+import { Route as CompareAiPeriod1Period2RouteImport } from "./routes/compare/ai/$period1.$period2";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const WakatimeIndexRoute = WakatimeIndexRouteImport.update({
-  id: '/wakatime/',
-  path: '/wakatime/',
+  id: "/wakatime/",
+  path: "/wakatime/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const GithubIndexRoute = GithubIndexRouteImport.update({
-  id: '/github/',
-  path: '/github/',
+  id: "/github/",
+  path: "/github/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
+  id: "/blog/",
+  path: "/blog/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AiIndexRoute = AiIndexRouteImport.update({
-  id: '/ai/',
-  path: '/ai/',
+  id: "/ai/",
+  path: "/ai/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AgentsIndexRoute = AgentsIndexRouteImport.update({
-  id: '/agents/',
-  path: '/agents/',
+  id: "/agents/",
+  path: "/agents/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const WakatimePeriodRoute = WakatimePeriodRouteImport.update({
-  id: '/wakatime/$period',
-  path: '/wakatime/$period',
+  id: "/wakatime/$period",
+  path: "/wakatime/$period",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const GithubPeriodRoute = GithubPeriodRouteImport.update({
-  id: '/github/$period',
-  path: '/github/$period',
+  id: "/github/$period",
+  path: "/github/$period",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const BlogPeriodRoute = BlogPeriodRouteImport.update({
-  id: '/blog/$period',
-  path: '/blog/$period',
+  id: "/blog/$period",
+  path: "/blog/$period",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AiPeriodRoute = AiPeriodRouteImport.update({
-  id: '/ai/$period',
-  path: '/ai/$period',
+  id: "/ai/$period",
+  path: "/ai/$period",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const CompareWakatimePeriod1Period2Route =
   CompareWakatimePeriod1Period2RouteImport.update({
-    id: '/compare/wakatime/$period1/$period2',
-    path: '/compare/wakatime/$period1/$period2',
+    id: "/compare/wakatime/$period1/$period2",
+    path: "/compare/wakatime/$period1/$period2",
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 const CompareAiPeriod1Period2Route = CompareAiPeriod1Period2RouteImport.update({
-  id: '/compare/ai/$period1/$period2',
-  path: '/compare/ai/$period1/$period2',
+  id: "/compare/ai/$period1/$period2",
+  path: "/compare/ai/$period1/$period2",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/ai/$period': typeof AiPeriodRoute
-  '/blog/$period': typeof BlogPeriodRoute
-  '/github/$period': typeof GithubPeriodRoute
-  '/wakatime/$period': typeof WakatimePeriodRoute
-  '/agents/': typeof AgentsIndexRoute
-  '/ai/': typeof AiIndexRoute
-  '/blog/': typeof BlogIndexRoute
-  '/github/': typeof GithubIndexRoute
-  '/wakatime/': typeof WakatimeIndexRoute
-  '/compare/ai/$period1/$period2': typeof CompareAiPeriod1Period2Route
-  '/compare/wakatime/$period1/$period2': typeof CompareWakatimePeriod1Period2Route
+  "/": typeof IndexRoute;
+  "/ai/$period": typeof AiPeriodRoute;
+  "/blog/$period": typeof BlogPeriodRoute;
+  "/github/$period": typeof GithubPeriodRoute;
+  "/wakatime/$period": typeof WakatimePeriodRoute;
+  "/agents/": typeof AgentsIndexRoute;
+  "/ai/": typeof AiIndexRoute;
+  "/blog/": typeof BlogIndexRoute;
+  "/github/": typeof GithubIndexRoute;
+  "/wakatime/": typeof WakatimeIndexRoute;
+  "/compare/ai/$period1/$period2": typeof CompareAiPeriod1Period2Route;
+  "/compare/wakatime/$period1/$period2": typeof CompareWakatimePeriod1Period2Route;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/ai/$period': typeof AiPeriodRoute
-  '/blog/$period': typeof BlogPeriodRoute
-  '/github/$period': typeof GithubPeriodRoute
-  '/wakatime/$period': typeof WakatimePeriodRoute
-  '/agents': typeof AgentsIndexRoute
-  '/ai': typeof AiIndexRoute
-  '/blog': typeof BlogIndexRoute
-  '/github': typeof GithubIndexRoute
-  '/wakatime': typeof WakatimeIndexRoute
-  '/compare/ai/$period1/$period2': typeof CompareAiPeriod1Period2Route
-  '/compare/wakatime/$period1/$period2': typeof CompareWakatimePeriod1Period2Route
+  "/": typeof IndexRoute;
+  "/ai/$period": typeof AiPeriodRoute;
+  "/blog/$period": typeof BlogPeriodRoute;
+  "/github/$period": typeof GithubPeriodRoute;
+  "/wakatime/$period": typeof WakatimePeriodRoute;
+  "/agents": typeof AgentsIndexRoute;
+  "/ai": typeof AiIndexRoute;
+  "/blog": typeof BlogIndexRoute;
+  "/github": typeof GithubIndexRoute;
+  "/wakatime": typeof WakatimeIndexRoute;
+  "/compare/ai/$period1/$period2": typeof CompareAiPeriod1Period2Route;
+  "/compare/wakatime/$period1/$period2": typeof CompareWakatimePeriod1Period2Route;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/ai/$period': typeof AiPeriodRoute
-  '/blog/$period': typeof BlogPeriodRoute
-  '/github/$period': typeof GithubPeriodRoute
-  '/wakatime/$period': typeof WakatimePeriodRoute
-  '/agents/': typeof AgentsIndexRoute
-  '/ai/': typeof AiIndexRoute
-  '/blog/': typeof BlogIndexRoute
-  '/github/': typeof GithubIndexRoute
-  '/wakatime/': typeof WakatimeIndexRoute
-  '/compare/ai/$period1/$period2': typeof CompareAiPeriod1Period2Route
-  '/compare/wakatime/$period1/$period2': typeof CompareWakatimePeriod1Period2Route
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/ai/$period": typeof AiPeriodRoute;
+  "/blog/$period": typeof BlogPeriodRoute;
+  "/github/$period": typeof GithubPeriodRoute;
+  "/wakatime/$period": typeof WakatimePeriodRoute;
+  "/agents/": typeof AgentsIndexRoute;
+  "/ai/": typeof AiIndexRoute;
+  "/blog/": typeof BlogIndexRoute;
+  "/github/": typeof GithubIndexRoute;
+  "/wakatime/": typeof WakatimeIndexRoute;
+  "/compare/ai/$period1/$period2": typeof CompareAiPeriod1Period2Route;
+  "/compare/wakatime/$period1/$period2": typeof CompareWakatimePeriod1Period2Route;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/ai/$period'
-    | '/blog/$period'
-    | '/github/$period'
-    | '/wakatime/$period'
-    | '/agents/'
-    | '/ai/'
-    | '/blog/'
-    | '/github/'
-    | '/wakatime/'
-    | '/compare/ai/$period1/$period2'
-    | '/compare/wakatime/$period1/$period2'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/ai/$period"
+    | "/blog/$period"
+    | "/github/$period"
+    | "/wakatime/$period"
+    | "/agents/"
+    | "/ai/"
+    | "/blog/"
+    | "/github/"
+    | "/wakatime/"
+    | "/compare/ai/$period1/$period2"
+    | "/compare/wakatime/$period1/$period2";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/ai/$period'
-    | '/blog/$period'
-    | '/github/$period'
-    | '/wakatime/$period'
-    | '/agents'
-    | '/ai'
-    | '/blog'
-    | '/github'
-    | '/wakatime'
-    | '/compare/ai/$period1/$period2'
-    | '/compare/wakatime/$period1/$period2'
+    | "/"
+    | "/ai/$period"
+    | "/blog/$period"
+    | "/github/$period"
+    | "/wakatime/$period"
+    | "/agents"
+    | "/ai"
+    | "/blog"
+    | "/github"
+    | "/wakatime"
+    | "/compare/ai/$period1/$period2"
+    | "/compare/wakatime/$period1/$period2";
   id:
-    | '__root__'
-    | '/'
-    | '/ai/$period'
-    | '/blog/$period'
-    | '/github/$period'
-    | '/wakatime/$period'
-    | '/agents/'
-    | '/ai/'
-    | '/blog/'
-    | '/github/'
-    | '/wakatime/'
-    | '/compare/ai/$period1/$period2'
-    | '/compare/wakatime/$period1/$period2'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/ai/$period"
+    | "/blog/$period"
+    | "/github/$period"
+    | "/wakatime/$period"
+    | "/agents/"
+    | "/ai/"
+    | "/blog/"
+    | "/github/"
+    | "/wakatime/"
+    | "/compare/ai/$period1/$period2"
+    | "/compare/wakatime/$period1/$period2";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AiPeriodRoute: typeof AiPeriodRoute
-  BlogPeriodRoute: typeof BlogPeriodRoute
-  GithubPeriodRoute: typeof GithubPeriodRoute
-  WakatimePeriodRoute: typeof WakatimePeriodRoute
-  AgentsIndexRoute: typeof AgentsIndexRoute
-  AiIndexRoute: typeof AiIndexRoute
-  BlogIndexRoute: typeof BlogIndexRoute
-  GithubIndexRoute: typeof GithubIndexRoute
-  WakatimeIndexRoute: typeof WakatimeIndexRoute
-  CompareAiPeriod1Period2Route: typeof CompareAiPeriod1Period2Route
-  CompareWakatimePeriod1Period2Route: typeof CompareWakatimePeriod1Period2Route
+  IndexRoute: typeof IndexRoute;
+  AiPeriodRoute: typeof AiPeriodRoute;
+  BlogPeriodRoute: typeof BlogPeriodRoute;
+  GithubPeriodRoute: typeof GithubPeriodRoute;
+  WakatimePeriodRoute: typeof WakatimePeriodRoute;
+  AgentsIndexRoute: typeof AgentsIndexRoute;
+  AiIndexRoute: typeof AiIndexRoute;
+  BlogIndexRoute: typeof BlogIndexRoute;
+  GithubIndexRoute: typeof GithubIndexRoute;
+  WakatimeIndexRoute: typeof WakatimeIndexRoute;
+  CompareAiPeriod1Period2Route: typeof CompareAiPeriod1Period2Route;
+  CompareWakatimePeriod1Period2Route: typeof CompareWakatimePeriod1Period2Route;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/wakatime/': {
-      id: '/wakatime/'
-      path: '/wakatime'
-      fullPath: '/wakatime/'
-      preLoaderRoute: typeof WakatimeIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/github/': {
-      id: '/github/'
-      path: '/github'
-      fullPath: '/github/'
-      preLoaderRoute: typeof GithubIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai/': {
-      id: '/ai/'
-      path: '/ai'
-      fullPath: '/ai/'
-      preLoaderRoute: typeof AiIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/agents/': {
-      id: '/agents/'
-      path: '/agents'
-      fullPath: '/agents/'
-      preLoaderRoute: typeof AgentsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/wakatime/$period': {
-      id: '/wakatime/$period'
-      path: '/wakatime/$period'
-      fullPath: '/wakatime/$period'
-      preLoaderRoute: typeof WakatimePeriodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/github/$period': {
-      id: '/github/$period'
-      path: '/github/$period'
-      fullPath: '/github/$period'
-      preLoaderRoute: typeof GithubPeriodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/$period': {
-      id: '/blog/$period'
-      path: '/blog/$period'
-      fullPath: '/blog/$period'
-      preLoaderRoute: typeof BlogPeriodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai/$period': {
-      id: '/ai/$period'
-      path: '/ai/$period'
-      fullPath: '/ai/$period'
-      preLoaderRoute: typeof AiPeriodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/compare/wakatime/$period1/$period2': {
-      id: '/compare/wakatime/$period1/$period2'
-      path: '/compare/wakatime/$period1/$period2'
-      fullPath: '/compare/wakatime/$period1/$period2'
-      preLoaderRoute: typeof CompareWakatimePeriod1Period2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/compare/ai/$period1/$period2': {
-      id: '/compare/ai/$period1/$period2'
-      path: '/compare/ai/$period1/$period2'
-      fullPath: '/compare/ai/$period1/$period2'
-      preLoaderRoute: typeof CompareAiPeriod1Period2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/wakatime/": {
+      id: "/wakatime/";
+      path: "/wakatime";
+      fullPath: "/wakatime/";
+      preLoaderRoute: typeof WakatimeIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/github/": {
+      id: "/github/";
+      path: "/github";
+      fullPath: "/github/";
+      preLoaderRoute: typeof GithubIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/blog/": {
+      id: "/blog/";
+      path: "/blog";
+      fullPath: "/blog/";
+      preLoaderRoute: typeof BlogIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/ai/": {
+      id: "/ai/";
+      path: "/ai";
+      fullPath: "/ai/";
+      preLoaderRoute: typeof AiIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/agents/": {
+      id: "/agents/";
+      path: "/agents";
+      fullPath: "/agents/";
+      preLoaderRoute: typeof AgentsIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/wakatime/$period": {
+      id: "/wakatime/$period";
+      path: "/wakatime/$period";
+      fullPath: "/wakatime/$period";
+      preLoaderRoute: typeof WakatimePeriodRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/github/$period": {
+      id: "/github/$period";
+      path: "/github/$period";
+      fullPath: "/github/$period";
+      preLoaderRoute: typeof GithubPeriodRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/blog/$period": {
+      id: "/blog/$period";
+      path: "/blog/$period";
+      fullPath: "/blog/$period";
+      preLoaderRoute: typeof BlogPeriodRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/ai/$period": {
+      id: "/ai/$period";
+      path: "/ai/$period";
+      fullPath: "/ai/$period";
+      preLoaderRoute: typeof AiPeriodRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/compare/wakatime/$period1/$period2": {
+      id: "/compare/wakatime/$period1/$period2";
+      path: "/compare/wakatime/$period1/$period2";
+      fullPath: "/compare/wakatime/$period1/$period2";
+      preLoaderRoute: typeof CompareWakatimePeriod1Period2RouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/compare/ai/$period1/$period2": {
+      id: "/compare/ai/$period1/$period2";
+      path: "/compare/ai/$period1/$period2";
+      fullPath: "/compare/ai/$period1/$period2";
+      preLoaderRoute: typeof CompareAiPeriod1Period2RouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -289,7 +289,7 @@ const rootRouteChildren: RootRouteChildren = {
   WakatimeIndexRoute: WakatimeIndexRoute,
   CompareAiPeriod1Period2Route: CompareAiPeriod1Period2Route,
   CompareWakatimePeriod1Period2Route: CompareWakatimePeriod1Period2Route,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

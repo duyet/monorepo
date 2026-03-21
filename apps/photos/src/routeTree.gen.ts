@@ -8,80 +8,80 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as FeedRouteImport } from './routes/feed'
-import { Route as YearRouteImport } from './routes/$year'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as FeedRouteImport } from "./routes/feed";
+import { Route as YearRouteImport } from "./routes/$year";
+import { Route as IndexRouteImport } from "./routes/index";
 
 const FeedRoute = FeedRouteImport.update({
-  id: '/feed',
-  path: '/feed',
+  id: "/feed",
+  path: "/feed",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const YearRoute = YearRouteImport.update({
-  id: '/$year',
-  path: '/$year',
+  id: "/$year",
+  path: "/$year",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/$year': typeof YearRoute
-  '/feed': typeof FeedRoute
+  "/": typeof IndexRoute;
+  "/$year": typeof YearRoute;
+  "/feed": typeof FeedRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/$year': typeof YearRoute
-  '/feed': typeof FeedRoute
+  "/": typeof IndexRoute;
+  "/$year": typeof YearRoute;
+  "/feed": typeof FeedRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/$year': typeof YearRoute
-  '/feed': typeof FeedRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/$year": typeof YearRoute;
+  "/feed": typeof FeedRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$year' | '/feed'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$year' | '/feed'
-  id: '__root__' | '/' | '/$year' | '/feed'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/$year" | "/feed";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/$year" | "/feed";
+  id: "__root__" | "/" | "/$year" | "/feed";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  YearRoute: typeof YearRoute
-  FeedRoute: typeof FeedRoute
+  IndexRoute: typeof IndexRoute;
+  YearRoute: typeof YearRoute;
+  FeedRoute: typeof FeedRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/feed': {
-      id: '/feed'
-      path: '/feed'
-      fullPath: '/feed'
-      preLoaderRoute: typeof FeedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$year': {
-      id: '/$year'
-      path: '/$year'
-      fullPath: '/$year'
-      preLoaderRoute: typeof YearRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/feed": {
+      id: "/feed";
+      path: "/feed";
+      fullPath: "/feed";
+      preLoaderRoute: typeof FeedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/$year": {
+      id: "/$year";
+      path: "/$year";
+      fullPath: "/$year";
+      preLoaderRoute: typeof YearRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -89,7 +89,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   YearRoute: YearRoute,
   FeedRoute: FeedRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

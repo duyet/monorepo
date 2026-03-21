@@ -2,9 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/robots")({
   head: () => ({
-    meta: [
-      { title: "Robots.txt | Tôi là Duyệt" },
-    ],
+    meta: [{ title: "Robots.txt | Tôi là Duyệt" }],
   }),
   component: RobotsPage,
 });
