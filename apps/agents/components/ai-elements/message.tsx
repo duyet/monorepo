@@ -247,7 +247,6 @@ export function MessageAttachment({
           className
         )}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={url} alt={name} className="max-h-40 max-w-xs object-cover" />
       </a>
     );

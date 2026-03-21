@@ -406,7 +406,6 @@ export const ChainOfThoughtImage = memo(
     ...props
   }: ChainOfThoughtImageProps) => (
     <figure className={cn("mt-3", className)} {...props}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt={alt}
         className="rounded-md"
