@@ -1,4 +1,4 @@
-import { createLlmsTxtRoute } from "@duyet/libs/next-routes";
+import { NextResponse } from "next/server";
 
 const llmsContent = `# Duyet Le - Insights & Analytics
 
@@ -64,4 +64,13 @@ This file follows the llms.txt standard for providing information about Duyet Le
 Generated from insights dashboard at https://insights.duyet.net
 `;
 
-export const { GET, dynamic } = createLlmsTxtRoute(llmsContent);
+export const GET = () => {
+  return new NextResponse(llmsContent.trim(), {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    },
+  });
+};
+
+export const dynamic = "force-static" as const;
