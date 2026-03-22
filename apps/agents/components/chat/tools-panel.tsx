@@ -1,5 +1,3 @@
-import { Button } from "@duyet/components";
-import { cn } from "@duyet/libs";
 import {
   BarChart2,
   BookOpen,
@@ -17,6 +15,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ToolInfo {
   name: string;

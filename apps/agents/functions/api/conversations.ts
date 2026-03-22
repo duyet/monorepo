@@ -227,6 +227,7 @@ async function handlePost(
       mode: body.mode || "agent",
       title: body.title,
       userId,
+      modelId: body.modelId,
     };
 
     const conversation = await client.createConversation(conversationParams);
@@ -275,7 +276,11 @@ async function handlePut(
       );
     }
 
-    await client.updateConversation({ id: conversationId, title: body.title });
+    await client.updateConversation({
+      id: conversationId,
+      title: body.title,
+      modelId: body.modelId,
+    });
     const updated = await client.getConversation(conversationId);
 
     return Response.json({ conversation: updated }, { headers: CORS_HEADERS });

@@ -1,13 +1,4 @@
-import { Button } from "@duyet/components";
-import {
-  BarChart2,
-  MessageSquare,
-  Moon,
-  Plus,
-  Sun,
-  Trash2,
-} from "lucide-react";
-import { useTheme } from "next-themes";
+import { MessageSquare, Plus, Trash2 } from "lucide-react";
 import { NavUser } from "@/components/nav-user";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -65,21 +56,27 @@ export function AppSidebar({
   onSelectConversation,
   onDeleteConversation,
 }: AppSidebarProps) {
-  const { theme, setTheme } = useTheme();
   const groups = groupByDate(conversations);
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
+    <Sidebar collapsible="icon" className="border-r bg-background">
+      <SidebarHeader className="border-b px-3 py-3">
+        <div className="space-y-1 px-2 pb-1 group-data-[collapsible=icon]:hidden">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            History
+          </p>
+          <p className="text-sm text-foreground">Recent conversations</p>
+        </div>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={onNewChat}
               tooltip="New Chat"
               className="font-medium"
+              variant="outline"
             >
               <Plus className="h-4 w-4" />
-              <span>New Chat</span>
+              <span>New chat</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -125,27 +122,7 @@ export function AppSidebar({
         </ScrollArea>
       </SidebarContent>
 
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Analytics">
-              <a href="/analytics">
-                <BarChart2 className="h-4 w-4" />
-                <span>Analytics</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              tooltip="Toggle theme"
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span>Toggle theme</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarFooter className="border-t px-2 py-3">
         <NavUser />
       </SidebarFooter>
       <SidebarRail />

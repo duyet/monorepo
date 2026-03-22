@@ -1,4 +1,3 @@
-import { cn } from "@duyet/libs";
 import type { UIMessage } from "ai";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -8,9 +7,9 @@ import {
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
 import { AppSidebar } from "@/components/app-sidebar";
+import { RightSidebar } from "@/components/right-sidebar";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { SidebarInset } from "@/components/ui/sidebar";
-import { VISUAL_GRAPH_DATA } from "@/lib/graph-layout";
 import {
   useAutoResize,
   useChat,
@@ -20,7 +19,6 @@ import {
 } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 import type { ChatMode } from "@/lib/types";
-import { ActivityPanel } from "../activity/activity-panel";
 import { ChatInput } from "./chat-input";
 import { ChatTopBar } from "./chat-top-bar";
 import { LoadingIndicator } from "./loading-indicator";
@@ -29,9 +27,6 @@ import {
   UserMessage,
   WelcomeMessage,
 } from "./message-components";
-import { ToolsPanel } from "./tools-panel";
-
-const visualGraphData = VISUAL_GRAPH_DATA;
 
 export function VercelChat() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -39,8 +34,7 @@ export function VercelChat() {
   const getAuthToken = useClerkAuthToken();
 
   // Layout state (sidebar handled by SidebarProvider)
-  const [panelOpen, setPanelOpen] = useState(false);
-  const [toolsPanelOpen, setToolsPanelOpen] = useState(false);
+  const [rightRailOpen, setRightRailOpen] = useState(false);
 
   // Conversation management (scoped to authenticated user)
   const {
@@ -52,6 +46,7 @@ export function VercelChat() {
     switchTo,
     remove,
     updateTitle,
+    updateModel,
     saveMessages,
   } = useConversations({ getAuthToken });
 
@@ -89,11 +84,14 @@ export function VercelChat() {
     reload,
     toolExecutions,
     thinkingSteps,
+    modelId,
+    setModelId,
     mode,
     setMode,
     addToolApprovalResponse,
   } = useChat({
     id: chatKey ?? undefined,
+    modelId: activeConversation?.modelId,
     onError: (err) => {
       console.error("Chat error:", err);
       if (lastInputRef.current) {
@@ -146,7 +144,7 @@ export function VercelChat() {
   const handlePromptSelect = async (prompt: string) => {
     // Auto-create conversation if none active
     if (!activeId) {
-      await createNew(mode);
+      await createNew(mode, modelId);
     }
     setInput(prompt);
     setTimeout(() => inputRef.current?.focus(), 0);
@@ -212,7 +210,7 @@ export function VercelChat() {
     if (!input.trim()) return;
 
     if (!activeId) {
-      await createNew(mode);
+      await createNew(mode, modelId);
     }
 
     lastInputRef.current = input;
@@ -220,7 +218,7 @@ export function VercelChat() {
   };
 
   const handleNewChat = async () => {
-    await createNew(mode);
+    await createNew(mode, modelId);
   };
 
   // Auto-resize textarea on input
@@ -256,25 +254,41 @@ export function VercelChat() {
   const hasMessages = messages.length > 0;
   const hasAssistantResponse = messages.some((m) => m.role === "assistant");
   const canSubmit = input.trim().length > 0 && !isLoading;
-  const hasActivity = toolExecutions.length > 0;
-
-  // Auto-show activity panel on first tool execution
-  useEffect(() => {
-    if (hasActivity && !panelOpen) {
-      setPanelOpen(true);
+  const tokenStats = useMemo(
+    () =>
+      messages.reduce(
+        (totals, message) => {
+          totals.prompt += message.tokens?.prompt ?? 0;
+          totals.completion += message.tokens?.completion ?? 0;
+          totals.total += message.tokens?.total ?? 0;
+          return totals;
+        },
+        { prompt: 0, completion: 0, total: 0 }
+      ),
+    [messages]
+  );
+  const approvalCount = useMemo(() => {
+    let count = 0;
+    for (const msg of uiMessages) {
+      if (msg.role !== "assistant") continue;
+      for (const part of msg.parts) {
+        if (
+          part.type === "dynamic-tool" &&
+          (part.state === "approval-requested" ||
+            part.state === "approval-responded")
+        ) {
+          count += 1;
+        }
+      }
     }
-  }, [hasActivity]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Activity panel (only rendered when there's data)
-  const activityContent = hasActivity ? (
-    <ActivityPanel
-      executions={toolExecutions}
-      thinkingSteps={thinkingSteps}
-      isLoading={isLoading}
-      onClose={() => setPanelOpen(false)}
-      graphData={visualGraphData}
-    />
-  ) : null;
+    return count;
+  }, [uiMessages]);
+  const handleModelChange = async (value: string) => {
+    setModelId(value);
+    if (activeId) {
+      await updateModel(activeId, value);
+    }
+  };
 
   return (
     <>
@@ -296,11 +310,8 @@ export function VercelChat() {
             <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
               {/* Chat top bar */}
               <ChatTopBar
-                onToggleActivity={() => setPanelOpen((v) => !v)}
-                onToggleTools={() => setToolsPanelOpen((v) => !v)}
+                onToggleRightSidebar={() => setRightRailOpen(true)}
                 onNewChat={handleNewChat}
-                showActivityButton={hasActivity}
-                activityCount={toolExecutions.length}
                 conversationTitle={activeConversation?.title}
                 conversationId={activeId ?? undefined}
               />
@@ -376,40 +387,32 @@ export function VercelChat() {
                 textareaRef={textareaRef}
               />
             </div>
-
-            {/* Right panel logic inline */}
-            {activityContent && (
-              <>
-                <div
-                  className={cn(
-                    "hidden lg:block shrink-0 overflow-hidden transition-[width] duration-300 ease-in-out border-l border-border",
-                    panelOpen ? "w-[300px]" : "w-0"
-                  )}
-                >
-                  <div className="h-full w-[300px]">{activityContent}</div>
-                </div>
-                <div className="lg:hidden block">
-                  <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
-                    <SheetContent side="right" className="w-[320px] p-0">
-                      {activityContent}
-                    </SheetContent>
-                  </Sheet>
-                </div>
-              </>
-            )}
           </div>
-
-          {/* Tools panel sheet */}
-          <Sheet open={toolsPanelOpen} onOpenChange={setToolsPanelOpen}>
-            <SheetContent
-              side="right"
-              className="w-[320px] p-0 border-l border-border"
-            >
-              <ToolsPanel onClose={() => setToolsPanelOpen(false)} />
-            </SheetContent>
-          </Sheet>
         </div>
       </SidebarInset>
+
+      <RightSidebar
+        modelId={modelId}
+        onModelChange={handleModelChange}
+        tokenStats={tokenStats}
+        toolExecutions={toolExecutions}
+        approvalCount={approvalCount}
+        thinkingStepsCount={thinkingSteps.length}
+      />
+
+      <Sheet open={rightRailOpen} onOpenChange={setRightRailOpen}>
+        <SheetContent side="right" className="w-[360px] p-0 lg:hidden">
+          <RightSidebar
+            mobile
+            modelId={modelId}
+            onModelChange={handleModelChange}
+            tokenStats={tokenStats}
+            toolExecutions={toolExecutions}
+            approvalCount={approvalCount}
+            thinkingStepsCount={thinkingSteps.length}
+          />
+        </SheetContent>
+      </Sheet>
     </>
   );
 }

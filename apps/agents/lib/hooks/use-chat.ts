@@ -10,9 +10,9 @@ import {
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from "ai";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AGENT_MODEL, FAST_MODEL } from "@/lib/agent";
 import { getDefaultAgent } from "@/lib/agents";
 import type { Agent, ChatMode, Message, ToolExecution } from "@/lib/types";
+import { DEFAULT_OPENROUTER_MODEL_ID } from "@/lib/types";
 
 const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL || "/api/chat";
 
@@ -22,6 +22,7 @@ export interface UseChatOptions {
   onFinish?: (message: Message) => void;
   onMessagesChange?: (messages: Message[]) => void;
   mode?: ChatMode;
+  modelId?: string;
   messages?: Message[];
   /** Returns a Clerk session token for authenticated requests */
   getAuthToken?: () => Promise<string | null>;
@@ -41,6 +42,8 @@ export interface UseChatReturn {
   // Agent and activity tracking
   activeAgent: Agent;
   setActiveAgent: (agent: Agent) => void;
+  modelId: string;
+  setModelId: (modelId: string) => void;
   toolExecutions: ToolExecution[];
   thinkingSteps: string[];
   mode: ChatMode;
@@ -83,6 +86,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     onFinish,
     onMessagesChange,
     mode: initialMode = "agent",
+    modelId: initialModelId = DEFAULT_OPENROUTER_MODEL_ID,
     messages: initialMessages,
     getAuthToken,
   } = options;
@@ -90,6 +94,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const [input, setInput] = useState("");
   const [activeAgent, setActiveAgent] = useState<Agent>(getDefaultAgent());
   const [mode, setMode] = useState<ChatMode>(initialMode);
+  const [modelId, setModelId] = useState(initialModelId);
+
+  useEffect(() => {
+    setModelId(initialModelId);
+  }, [initialModelId]);
 
   // Track user settings fetched from Clerk
   const settingsRef = useRef<{
@@ -130,6 +139,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         model: string;
         toolCalls: number;
         startTime: number;
+        tokens?: {
+          prompt?: number;
+          completion?: number;
+          total?: number;
+        };
       }
     >
   >(new Map());
@@ -137,6 +151,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   // Keep a ref so the transport's body function always reads the latest mode
   const modeRef = useRef(mode);
   modeRef.current = mode;
+  const modelIdRef = useRef(modelId);
+  modelIdRef.current = modelId;
 
   // Keep refs for auth token getter and conversation id
   const getAuthTokenRef = useRef(getAuthToken);
@@ -151,6 +167,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         api: CHAT_API_URL,
         body: () => ({
           mode: modeRef.current,
+          modelId: modelIdRef.current,
           conversationId: idRef.current,
           settings: settingsRef.current,
         }),
@@ -186,6 +203,17 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     onFinish: onFinish
       ? ({ message: msg }) => {
           const content = getTextContent(msg);
+          const metadataFromMessage = (
+            "metadata" in msg ? msg.metadata : {}
+          ) as {
+            model?: string;
+            tokens?: {
+              prompt?: number;
+              completion?: number;
+              total?: number;
+            };
+            toolCalls?: number;
+          };
           const metadata = messageMetadataRef.current.get(msg.id);
           const startTime =
             metadata?.startTime ||
@@ -205,10 +233,12 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
             content,
             timestamp: Date.now(),
             model:
+              metadataFromMessage.model ||
               metadata?.model ||
-              (modeRef.current === "fast" ? FAST_MODEL : AGENT_MODEL),
+              modelIdRef.current,
             duration,
-            toolCalls,
+            tokens: metadataFromMessage.tokens || metadata?.tokens,
+            toolCalls: metadataFromMessage.toolCalls ?? toolCalls,
           };
 
           onFinish?.(messageWithMeta);
@@ -239,11 +269,21 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         // Add metadata for completed assistant messages
         if (m.role === "assistant" && !isActiveStatus) {
           const metadata = messageMetadataRef.current.get(m.id);
+          const messageMetadata = ("metadata" in m ? m.metadata : {}) as {
+            model?: string;
+            tokens?: {
+              prompt?: number;
+              completion?: number;
+              total?: number;
+            };
+            toolCalls?: number;
+          };
           if (metadata) {
             return {
               ...baseMessage,
-              model: metadata.model,
-              toolCalls: metadata.toolCalls,
+              model: messageMetadata.model || metadata.model,
+              tokens: messageMetadata.tokens || metadata.tokens,
+              toolCalls: messageMetadata.toolCalls ?? metadata.toolCalls,
             };
           }
         }
@@ -286,7 +326,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         if (!messageStartTimeRef.current.has(lastMsg.id)) {
           messageStartTimeRef.current.set(lastMsg.id, Date.now());
           messageMetadataRef.current.set(lastMsg.id, {
-            model: modeRef.current === "fast" ? FAST_MODEL : AGENT_MODEL,
+            model: modelIdRef.current,
             toolCalls: 0,
             startTime: Date.now(),
           });
@@ -300,6 +340,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         const currentMeta = messageMetadataRef.current.get(lastMsg.id);
         if (currentMeta) {
           currentMeta.toolCalls = toolCallCount;
+          currentMeta.model = modelIdRef.current;
         }
       }
     }
@@ -368,6 +409,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     reload: regenerate,
     activeAgent,
     setActiveAgent,
+    modelId,
+    setModelId,
     toolExecutions,
     thinkingSteps: [],
     mode,

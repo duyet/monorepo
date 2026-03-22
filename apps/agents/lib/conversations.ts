@@ -1,4 +1,6 @@
-import type { Conversation } from "./types";
+import { type Conversation, DEFAULT_OPENROUTER_MODEL_ID } from "./types";
+
+export { DEFAULT_OPENROUTER_MODEL_ID };
 
 const STORAGE_KEY = "agent-conversations";
 const MAX_CONVERSATIONS = 50;
@@ -7,7 +9,12 @@ export function loadConversations(): Conversation[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Conversation[]) : [];
+    return raw
+      ? ((JSON.parse(raw) as Conversation[]).map((conversation) => ({
+          ...conversation,
+          modelId: conversation.modelId ?? DEFAULT_OPENROUTER_MODEL_ID,
+        })) as Conversation[])
+      : [];
   } catch {
     return [];
   }
@@ -35,12 +42,16 @@ export function generateConversationTitle(firstMessage: string): string {
   return firstMessage.trim().slice(0, 60) || "New chat";
 }
 
-export function createConversation(mode: Conversation["mode"]): Conversation {
+export function createConversation(
+  mode: Conversation["mode"],
+  modelId: string = DEFAULT_OPENROUTER_MODEL_ID
+): Conversation {
   return {
     id: crypto.randomUUID(),
     title: "New chat",
     createdAt: Date.now(),
     updatedAt: Date.now(),
     mode,
+    modelId,
   };
 }

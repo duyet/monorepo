@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS conversations (
   created_at INTEGER NOT NULL,
   updated_at INTEGER NOT NULL,
   mode TEXT NOT NULL CHECK(mode IN ('fast', 'agent')),
+  model_id TEXT NOT NULL DEFAULT 'openrouter/free',
   message_count INTEGER NOT NULL DEFAULT 0
 );
 

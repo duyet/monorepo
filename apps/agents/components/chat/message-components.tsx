@@ -1,4 +1,3 @@
-import { Button } from "@duyet/components";
 import type { UIMessage } from "ai";
 import {
   BarChart2,
@@ -38,6 +37,7 @@ import {
   ToolInput,
   ToolOutput,
 } from "@/components/ai-elements/tool";
+import { Button } from "@/components/ui/button";
 import type { Message } from "@/lib/types";
 import { MessageMetadata } from "./message-metadata";
 
@@ -71,19 +71,19 @@ export function UserMessage({ message }: MessageProps) {
   );
 
   return (
-    <MessageRoot from="user">
+    <MessageRoot from="user" className="justify-end">
       <MessageContent from="user">
-        <p className="whitespace-pre-wrap break-words text-base leading-relaxed">
+        <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
           {message.content}
         </p>
-        <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] text-muted-foreground">
             {formatRelativeTime(message.timestamp)}
           </span>
           <Button
             variant="ghost"
             size="icon"
-            className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
+            className="h-7 w-7 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
             onClick={handleCopy}
           >
             <CopyIcon state={copyState} />
@@ -216,7 +216,7 @@ export function AssistantMessage({
                           state={part.state}
                         >
                           <ConfirmationRequest>
-                            <p className="text-sm">
+                            <p className="text-sm text-foreground">
                               Do you want to approve{" "}
                               <strong>{part.toolName}</strong>?
                             </p>
@@ -237,12 +237,12 @@ export function AssistantMessage({
                             </ConfirmationActions>
                           </ConfirmationRequest>
                           <ConfirmationAccepted>
-                            <p className="text-sm text-green-600 dark:text-green-400">
+                            <p className="text-sm text-emerald-600">
                               You approved this tool execution
                             </p>
                           </ConfirmationAccepted>
                           <ConfirmationRejected>
-                            <p className="text-sm text-red-600 dark:text-red-400">
+                            <p className="text-sm text-red-600">
                               You rejected this tool execution
                             </p>
                           </ConfirmationRejected>
@@ -270,8 +270,8 @@ export function AssistantMessage({
           </span>
         )}
 
-        <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground font-[family-name:var(--font-geist-mono)]">
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] text-muted-foreground">
             {formatRelativeTime(message.timestamp)}
           </span>
           <MessageMetadata message={message} isStreaming={isStreaming} />
@@ -290,8 +290,8 @@ export function AssistantMessage({
 
 export function StreamingCursor() {
   return (
-    <span className="inline-flex ml-0.5 align-middle animate-pulse">
-      <span className="w-0.5 h-[1em] bg-foreground" />
+    <span className="inline-flex align-middle ml-0.5 animate-pulse">
+      <span className="h-[1em] w-0.5 bg-foreground" />
     </span>
   );
 }
@@ -337,25 +337,23 @@ interface WelcomeMessageProps {
 
 export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   return (
-    <div className="py-8 sm:py-12 animate-in fade-in duration-700 font-sans focus:outline-none w-full max-w-3xl mx-auto px-4">
-      {/* Greeting */}
-      <div className="mb-8">
-        <h1 className="mb-2 font-sans text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-100">
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
+      <div className="mb-8 space-y-2">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
           How can I help you today?
         </h1>
-        <p className="text-sm leading-relaxed text-neutral-600 sm:text-base font-normal dark:text-neutral-400">
+        <p className="text-sm leading-6 text-muted-foreground sm:text-base">
           Ask me about my blog posts, GitHub projects, CV, or anything else.
         </p>
       </div>
 
-      {/* Quick-start prompts - Inline/List style */}
-      <div className="flex flex-wrap gap-2 sm:gap-3">
+      <div className="flex flex-wrap gap-2">
         {CAPABILITIES.map(({ icon: Icon, prompt, label }) => (
           <Button
             key={label}
             variant="outline"
             onClick={() => onPromptSelect?.(prompt)}
-            className="group rounded-full px-4 py-2 h-auto gap-2"
+            className="group h-auto gap-2 rounded-full border-border/70 bg-background px-4 py-2.5 shadow-sm"
           >
             <Icon className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
             <span>{prompt}</span>

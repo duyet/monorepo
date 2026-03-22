@@ -34,8 +34,8 @@ export function Message({ from, className, children }: MessageProps) {
     <div
       data-from={from}
       className={cn(
-        "flex gap-4 w-full group animate-in fade-in duration-500",
-        isUser ? "justify-end py-3" : "py-6",
+        "group flex w-full gap-4 animate-in fade-in duration-300",
+        isUser ? "justify-end py-2.5" : "py-5",
         className
       )}
     >
@@ -64,19 +64,14 @@ export function MessageContent({
   return (
     <div
       className={cn(
-        "flex flex-col gap-2 relative",
+        "relative flex flex-col gap-2",
         isUser
-          ? "bg-muted/80 w-fit max-w-[85%] px-5 py-3.5 rounded-3xl rounded-tr-sm"
-          : "flex-1 min-w-0 w-full",
+          ? "w-fit max-w-[85%] rounded-3xl rounded-tr-sm border border-border/70 bg-muted/60 px-4 py-3 shadow-sm"
+          : "w-full min-w-0 flex-1",
         className
       )}
     >
-      <div
-        className={cn(
-          "text-base leading-relaxed font-sans",
-          isUser ? "text-foreground" : "text-foreground"
-        )}
-      >
+      <div className={cn("text-[15px] leading-7 text-foreground")}>
         {children}
       </div>
     </div>
@@ -105,20 +100,18 @@ export function MessageResponse({
   return (
     <div
       className={cn(
-        "[&_a]:underline [&_a]:underline-offset-4 [&_a]:text-primary [&_a]:transition-colors hover:[&_a]:text-primary/80",
-        "[&_code]:rounded-md [&_code]:bg-muted/60 [&_code]:px-1.5 [&_code]:py-0.5",
-        "[&_code]:text-[0.9em] [&_code]:font-[family-name:var(--font-geist-mono)]",
-        "[&_pre]:rounded-2xl [&_pre]:border [&_pre]:border-border/50 [&_pre]:bg-muted/30",
-        "[&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:text-sm",
+        "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:opacity-80",
+        "[&_code]:rounded-md [&_code]:bg-muted/70 [&_code]:px-1.5 [&_code]:py-0.5",
+        "[&_code]:text-[0.9em] [&_code]:font-mono",
+        "[&_pre]:overflow-x-auto [&_pre]:rounded-2xl [&_pre]:border [&_pre]:border-border/70 [&_pre]:bg-muted/20 [&_pre]:p-4 [&_pre]:text-sm",
         "[&_p]:mb-4 [&_p:last-child]:mb-0",
-        "[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-6 [&_h1]:mt-8",
-        "[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-4 [&_h2]:mt-6",
-        "[&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-3 [&_h3]:mt-5",
-        "[&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:pl-5 [&_ol]:space-y-2",
+        "[&_h1]:mb-6 [&_h1]:mt-8 [&_h1]:text-2xl [&_h1]:font-semibold",
+        "[&_h2]:mb-4 [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-semibold",
+        "[&_h3]:mb-3 [&_h3]:mt-5 [&_h3]:text-lg [&_h3]:font-medium",
+        "[&_ul]:space-y-2 [&_ul]:pl-5 [&_ol]:space-y-2 [&_ol]:pl-5",
         "[&_li]:marker:text-muted-foreground",
-        "[&_blockquote]:border-l-4 [&_blockquote]:border-primary/50 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground",
-        "[&_table]:w-full [&_table]:text-sm [&_th]:border-b [&_td]:border-b [&_th]:py-3 [&_th]:px-4 [&_th]:text-left [&_td]:py-3 [&_td]:px-4",
-        "[&_table]:mb-6",
+        "[&_blockquote]:border-l-4 [&_blockquote]:border-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground",
+        "[&_table]:mb-6 [&_table]:w-full [&_table]:text-sm [&_th]:border-b [&_td]:border-b [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_td]:px-4 [&_td]:py-3",
         className
       )}
     >
@@ -146,7 +139,7 @@ export function MessageActions({ className, children }: MessageActionsProps) {
   return (
     <div
       className={cn(
-        "flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity",
+        "flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100",
         className
       )}
     >
@@ -183,8 +176,7 @@ export function MessageAction({
             aria-label={label ?? tooltip}
             onClick={onClick}
             className={cn(
-              "flex h-5 w-5 items-center justify-center rounded text-muted-foreground",
-              "hover:text-foreground hover:bg-muted transition-colors",
+              "flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
               className
             )}
           >
@@ -213,7 +205,7 @@ export function MessageAttachments({
   children,
 }: MessageAttachmentsProps) {
   return (
-    <div className={cn("flex flex-wrap gap-2 mt-1", className)}>{children}</div>
+    <div className={cn("mt-1 flex flex-wrap gap-2", className)}>{children}</div>
   );
 }
 
@@ -243,7 +235,7 @@ export function MessageAttachment({
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "block overflow-hidden rounded-lg border border-border",
+          "block overflow-hidden rounded-xl border border-border/70 bg-background",
           className
         )}
       >
@@ -255,8 +247,7 @@ export function MessageAttachment({
   return (
     <div
       className={cn(
-        "flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs",
-        "text-muted-foreground",
+        "flex items-center gap-1.5 rounded-xl border border-border/70 bg-muted/40 px-2.5 py-1.5 text-xs text-muted-foreground",
         className
       )}
     >
