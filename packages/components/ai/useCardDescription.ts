@@ -17,9 +17,15 @@ function getPromptForCardType(cardType: "blog" | "featured"): string {
  * Falls back to NEXT_PUBLIC_API_BASE_URL for backwards compatibility
  */
 function getApiBaseUrl(): string {
+  const importMetaEnv =
+    typeof import.meta !== "undefined"
+      ? ((import.meta as unknown as Record<string, unknown>).env as
+          | Record<string, string>
+          | undefined)
+      : undefined;
   return (
-    process.env.NEXT_PUBLIC_DUYET_API_URL ||
-    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    importMetaEnv?.VITE_DUYET_API_URL ||
+    importMetaEnv?.VITE_API_BASE_URL ||
     "https://api.duyet.net"
   );
 }

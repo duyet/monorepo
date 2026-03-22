@@ -7,14 +7,11 @@ const importMetaEnv =
         | undefined)
     : undefined;
 
-const GA_MEASUREMENT_ID =
-  importMetaEnv?.VITE_MEASUREMENT_ID ?? process.env.NEXT_PUBLIC_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = importMetaEnv?.VITE_MEASUREMENT_ID;
 
-const POSTHOG_API_KEY =
-  importMetaEnv?.VITE_POSTHOG_KEY ?? process.env.NEXT_PUBLIC_POSTHOG_KEY;
+const POSTHOG_API_KEY = importMetaEnv?.VITE_POSTHOG_KEY;
 
-const SELINE_TOKEN =
-  importMetaEnv?.VITE_SELINE_TOKEN ?? process.env.NEXT_PUBLIC_SELINE_TOKEN;
+const SELINE_TOKEN = importMetaEnv?.VITE_SELINE_TOKEN;
 
 function loadScript(
   src: string,

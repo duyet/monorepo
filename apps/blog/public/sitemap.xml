@@ -97,10 +97,6 @@
     <lastmod>2022-09-27</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html</loc>
-    <lastmod>2022-09-24</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/2022/09/rust-question-mark-operator.html</loc>
     <lastmod>2022-09-24</lastmod>
   </url>
@@ -109,11 +105,15 @@
     <lastmod>2022-09-24</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2022/08/rust-indoc.html</loc>
-    <lastmod>2022-08-06</lastmod>
+    <loc>https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html</loc>
+    <lastmod>2022-09-24</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2022/08/rust-rayon.html</loc>
+    <lastmod>2022-08-06</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/2022/08/rust-indoc.html</loc>
     <lastmod>2022-08-06</lastmod>
   </url>
   <url>
@@ -141,11 +141,15 @@
     <lastmod>2022-02-15</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</loc>
+    <loc>https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</loc>
     <lastmod>2022-02-13</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</loc>
+    <lastmod>2022-02-13</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/2022/02/rust-command-design-pattern.html</loc>
     <lastmod>2022-02-13</lastmod>
   </url>
   <url>
@@ -157,11 +161,7 @@
     <lastmod>2022-02-13</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2022/02/rust-command-design-pattern.html</loc>
-    <lastmod>2022-02-13</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</loc>
+    <loc>https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</loc>
     <lastmod>2022-02-13</lastmod>
   </url>
   <url>
@@ -173,11 +173,11 @@
     <lastmod>2022-01-18</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2022/01/rust-turbofish.html</loc>
+    <loc>https://blog.duyet.net/2022/01/rust-fromstr.html</loc>
     <lastmod>2022-01-02</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2022/01/rust-fromstr.html</loc>
+    <loc>https://blog.duyet.net/2022/01/rust-turbofish.html</loc>
     <lastmod>2022-01-02</lastmod>
   </url>
   <url>
@@ -261,15 +261,15 @@
     <lastmod>2020-05-24</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2020/05/airflow-dag-serialization.html</loc>
-    <lastmod>2020-05-01</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/2020/05/data-studio-caching-with-spreadsheet.html</loc>
     <lastmod>2020-05-01</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2020/05/tldr-why-rf.html</loc>
+    <lastmod>2020-05-01</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/2020/05/airflow-dag-serialization.html</loc>
     <lastmod>2020-05-01</lastmod>
   </url>
   <url>
@@ -325,15 +325,15 @@
     <lastmod>2019-05-13</lastmod>
   </url>
   <url>
+    <loc>https://blog.duyet.net/2019/05/phuong-tien-cong-cong-san-francisco.html</loc>
+    <lastmod>2019-04-19</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2019/04/shorten-url-voi-firebase.html</loc>
     <lastmod>2019-04-19</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2019/04/google-cloud-next-19.html</loc>
-    <lastmod>2019-04-19</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/2019/05/phuong-tien-cong-cong-san-francisco.html</loc>
     <lastmod>2019-04-19</lastmod>
   </url>
   <url>
@@ -373,11 +373,11 @@
     <lastmod>2018-07-21</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2018/07/signale-console-logger.html</loc>
+    <loc>https://blog.duyet.net/2018/07/tensorflowjs.html</loc>
     <lastmod>2018-07-19</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2018/07/tensorflowjs.html</loc>
+    <loc>https://blog.duyet.net/2018/07/signale-console-logger.html</loc>
     <lastmod>2018-07-19</lastmod>
   </url>
   <url>
@@ -473,11 +473,11 @@
     <lastmod>2017-01-26</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2017/01/botpress-p2.html</loc>
+    <loc>https://blog.duyet.net/2017/01/botpress.html</loc>
     <lastmod>2017-01-24</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2017/01/botpress.html</loc>
+    <loc>https://blog.duyet.net/2017/01/botpress-p2.html</loc>
     <lastmod>2017-01-24</lastmod>
   </url>
   <url>
@@ -493,19 +493,19 @@
     <lastmod>2017-01-22</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/12/javascript-weekly-10.html</loc>
-    <lastmod>2016-12-17</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/2016/12/the-evolution-of-software-engineer.html</loc>
     <lastmod>2016-12-17</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/12/vntokenizer-tren-pyspark.html</loc>
-    <lastmod>2016-12-14</lastmod>
+    <loc>https://blog.duyet.net/2016/12/javascript-weekly-10.html</loc>
+    <lastmod>2016-12-17</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2016/12/merge-conflicts-on-github-website.html</loc>
+    <lastmod>2016-12-14</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/2016/12/vntokenizer-tren-pyspark.html</loc>
     <lastmod>2016-12-14</lastmod>
   </url>
   <url>
@@ -545,11 +545,11 @@
     <lastmod>2016-09-08</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/09/bao-mat-hai-lop.html</loc>
+    <loc>https://blog.duyet.net/2016/09/autotrack-turns-10.html</loc>
     <lastmod>2016-09-01</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/09/autotrack-turns-10.html</loc>
+    <loc>https://blog.duyet.net/2016/09/bao-mat-hai-lop.html</loc>
     <lastmod>2016-09-01</lastmod>
   </url>
   <url>
@@ -577,11 +577,11 @@
     <lastmod>2016-07-25</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/07/javascript-weekly-7_22.html</loc>
+    <loc>https://blog.duyet.net/2016/07/big-integer-javascript.html</loc>
     <lastmod>2016-07-22</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/07/big-integer-javascript.html</loc>
+    <loc>https://blog.duyet.net/2016/07/javascript-weekly-7_22.html</loc>
     <lastmod>2016-07-22</lastmod>
   </url>
   <url>
@@ -601,11 +601,11 @@
     <lastmod>2016-07-01</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html</loc>
+    <loc>https://blog.duyet.net/2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet.html</loc>
     <lastmod>2016-06-30</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet.html</loc>
+    <loc>https://blog.duyet.net/2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html</loc>
     <lastmod>2016-06-30</lastmod>
   </url>
   <url>
@@ -617,11 +617,11 @@
     <lastmod>2016-06-25</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/06/react-redux-chap-1.html</loc>
+    <loc>https://blog.duyet.net/2016/06/vntokenizer-tren-apache-spark.html</loc>
     <lastmod>2016-06-23</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/06/vntokenizer-tren-apache-spark.html</loc>
+    <loc>https://blog.duyet.net/2016/06/react-redux-chap-1.html</loc>
     <lastmod>2016-06-23</lastmod>
   </url>
   <url>
@@ -641,11 +641,11 @@
     <lastmod>2016-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/06/web-font-loader.html</loc>
+    <loc>https://blog.duyet.net/2016/06/javascript-weekly-3.html</loc>
     <lastmod>2016-06-04</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/06/javascript-weekly-3.html</loc>
+    <loc>https://blog.duyet.net/2016/06/web-font-loader.html</loc>
     <lastmod>2016-06-04</lastmod>
   </url>
   <url>
@@ -661,15 +661,15 @@
     <lastmod>2016-05-28</lastmod>
   </url>
   <url>
+    <loc>https://blog.duyet.net/2016/05/cach-su-dung-destructuring-javascript-es6.html</loc>
+    <lastmod>2016-05-27</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2016/05/es6-ep-su-dung-tham-so-trong-function.html</loc>
     <lastmod>2016-05-27</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2016/05/es6-swap-via-destructuring.html</loc>
-    <lastmod>2016-05-27</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/2016/05/cach-su-dung-destructuring-javascript-es6.html</loc>
     <lastmod>2016-05-27</lastmod>
   </url>
   <url>
@@ -697,15 +697,15 @@
     <lastmod>2016-05-07</lastmod>
   </url>
   <url>
+    <loc>https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html</loc>
+    <lastmod>2016-05-01</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2016/05/dockerizing-nodejs.html</loc>
     <lastmod>2016-05-01</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2016/05/why-docker.html</loc>
-    <lastmod>2016-05-01</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html</loc>
     <lastmod>2016-05-01</lastmod>
   </url>
   <url>
@@ -745,11 +745,11 @@
     <lastmod>2016-03-27</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet.html</loc>
+    <loc>https://blog.duyet.net/2016/03/neural-networks.html</loc>
     <lastmod>2016-03-26</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/03/neural-networks.html</loc>
+    <loc>https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet.html</loc>
     <lastmod>2016-03-26</lastmod>
   </url>
   <url>
@@ -785,11 +785,11 @@
     <lastmod>2016-02-28</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/02/japanese-stopwords-package.html</loc>
+    <loc>https://blog.duyet.net/2016/02/facebook-reactions.html</loc>
     <lastmod>2016-02-27</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/02/facebook-reactions.html</loc>
+    <loc>https://blog.duyet.net/2016/02/japanese-stopwords-package.html</loc>
     <lastmod>2016-02-27</lastmod>
   </url>
   <url>
@@ -821,11 +821,11 @@
     <lastmod>2016-02-08</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html</loc>
+    <loc>https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker.html</loc>
     <lastmod>2016-02-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker.html</loc>
+    <loc>https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html</loc>
     <lastmod>2016-02-05</lastmod>
   </url>
   <url>
@@ -833,15 +833,7 @@
     <lastmod>2016-02-04</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2016/02/docker-cai-at-odoo-89-tren-docker.html</loc>
-    <lastmod>2016-02-03</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/2016/02/nodejs-ma-hoa-mat-khau.html</loc>
-    <lastmod>2016-02-03</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/2016/02/graph-database.html</loc>
     <lastmod>2016-02-03</lastmod>
   </url>
   <url>
@@ -849,7 +841,15 @@
     <lastmod>2016-02-03</lastmod>
   </url>
   <url>
+    <loc>https://blog.duyet.net/2016/02/docker-cai-at-odoo-89-tren-docker.html</loc>
+    <lastmod>2016-02-03</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2016/02/nodejs-oc-file-packagejson.html</loc>
+    <lastmod>2016-02-03</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/2016/02/graph-database.html</loc>
     <lastmod>2016-02-03</lastmod>
   </url>
   <url>
@@ -901,11 +901,11 @@
     <lastmod>2015-11-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/11/nodejs-cache-in-memory-trong-nodejs.html</loc>
+    <loc>https://blog.duyet.net/2015/11/google-big-data-meetup-in-saigon.html</loc>
     <lastmod>2015-11-13</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/11/google-big-data-meetup-in-saigon.html</loc>
+    <loc>https://blog.duyet.net/2015/11/nodejs-cache-in-memory-trong-nodejs.html</loc>
     <lastmod>2015-11-13</lastmod>
   </url>
   <url>
@@ -913,11 +913,11 @@
     <lastmod>2015-10-30</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/10/seminar-gioi-thieu-apache-spark-va-predictionio.html</loc>
+    <loc>https://blog.duyet.net/2015/10/cai-dat-openvpn-tren-debian-ubuntu-va-centos.html</loc>
     <lastmod>2015-10-26</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/10/cai-dat-openvpn-tren-debian-ubuntu-va-centos.html</loc>
+    <loc>https://blog.duyet.net/2015/10/seminar-gioi-thieu-apache-spark-va-predictionio.html</loc>
     <lastmod>2015-10-26</lastmod>
   </url>
   <url>
@@ -957,10 +957,6 @@
     <lastmod>2015-08-27</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/08/cach-su-dung-git-rebase.html</loc>
-    <lastmod>2015-08-25</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/2015/08/how-to-remove-untracked-files.html</loc>
     <lastmod>2015-08-25</lastmod>
   </url>
@@ -973,15 +969,19 @@
     <lastmod>2015-08-25</lastmod>
   </url>
   <url>
+    <loc>https://blog.duyet.net/2015/08/cach-su-dung-git-rebase.html</loc>
+    <lastmod>2015-08-25</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2015/08/php-co-gi-moi-trong-php-7.html</loc>
     <lastmod>2015-08-22</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html</loc>
+    <loc>https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html</loc>
     <lastmod>2015-08-09</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html</loc>
+    <loc>https://blog.duyet.net/2015/08/github-project-feedback-social-platform.html</loc>
     <lastmod>2015-08-09</lastmod>
   </url>
   <url>
@@ -989,7 +989,7 @@
     <lastmod>2015-08-09</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/08/github-project-feedback-social-platform.html</loc>
+    <loc>https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html</loc>
     <lastmod>2015-08-09</lastmod>
   </url>
   <url>
@@ -1005,11 +1005,11 @@
     <lastmod>2015-08-07</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/08/git-chinh-sua-git-vua-commit.html</loc>
+    <loc>https://blog.duyet.net/2015/08/nodejs-cac-package-ma-moi-lap-trinh.html</loc>
     <lastmod>2015-08-07</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/08/nodejs-cac-package-ma-moi-lap-trinh.html</loc>
+    <loc>https://blog.duyet.net/2015/08/git-chinh-sua-git-vua-commit.html</loc>
     <lastmod>2015-08-07</lastmod>
   </url>
   <url>
@@ -1017,11 +1017,11 @@
     <lastmod>2015-08-01</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/07/web-20-nen-tang-blogging-va-publishing.html</loc>
+    <loc>https://blog.duyet.net/2015/07/giao-dien-phang-cho-sublime-text.html</loc>
     <lastmod>2015-07-20</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/07/giao-dien-phang-cho-sublime-text.html</loc>
+    <loc>https://blog.duyet.net/2015/07/web-20-nen-tang-blogging-va-publishing.html</loc>
     <lastmod>2015-07-20</lastmod>
   </url>
   <url>
@@ -1033,11 +1033,11 @@
     <lastmod>2015-07-16</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/07/big-data-monitoring-spark-with-graphite.html</loc>
+    <loc>https://blog.duyet.net/2015/07/su-dung-git-stash-hieu-qua.html</loc>
     <lastmod>2015-07-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/07/su-dung-git-stash-hieu-qua.html</loc>
+    <loc>https://blog.duyet.net/2015/07/big-data-monitoring-spark-with-graphite.html</loc>
     <lastmod>2015-07-14</lastmod>
   </url>
   <url>
@@ -1097,15 +1097,15 @@
     <lastmod>2015-04-12</lastmod>
   </url>
   <url>
+    <loc>https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-mit.html</loc>
+    <lastmod>2015-04-11</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2015/04/open-source-tim-hieu-ve-giay-phep-apache.html</loc>
     <lastmod>2015-04-11</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-gnu.html</loc>
-    <lastmod>2015-04-11</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-mit.html</loc>
     <lastmod>2015-04-11</lastmod>
   </url>
   <url>
@@ -1133,11 +1133,11 @@
     <lastmod>2015-03-09</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/02/waterfall.html</loc>
+    <loc>https://blog.duyet.net/2015/02/spiral.html</loc>
     <lastmod>2015-02-24</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/02/spiral.html</loc>
+    <loc>https://blog.duyet.net/2015/02/waterfall.html</loc>
     <lastmod>2015-02-24</lastmod>
   </url>
   <url>
@@ -1145,11 +1145,11 @@
     <lastmod>2015-02-23</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/02/dns.html</loc>
+    <loc>https://blog.duyet.net/2015/02/design-patterns.html</loc>
     <lastmod>2015-02-23</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/02/design-patterns.html</loc>
+    <loc>https://blog.duyet.net/2015/02/dns.html</loc>
     <lastmod>2015-02-23</lastmod>
   </url>
   <url>
@@ -1169,11 +1169,11 @@
     <lastmod>2015-02-15</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/02/github-la-gi.html</loc>
+    <loc>https://blog.duyet.net/2015/02/module.html</loc>
     <lastmod>2015-02-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/2015/02/module.html</loc>
+    <loc>https://blog.duyet.net/2015/02/github-la-gi.html</loc>
     <lastmod>2015-02-14</lastmod>
   </url>
   <url>
@@ -1189,107 +1189,107 @@
     <lastmod>2015-01-23</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/category/rust</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/data</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/story</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/project</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/productivity</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/news</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/software-engineering</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/category/web</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/php</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/linux</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/git</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/javascript</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/talk</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/data-engineering</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/category/docker</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/machine-learning</loc>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/category/ai</loc>
-    <lastmod>2026-03-21</lastmod>
+    <loc>https://blog.duyet.net/category/story</loc>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/server</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/project</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/machine-learning</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/data</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/rust</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/productivity</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/ai</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/linux</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/news</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/software-engineering</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/git</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/php</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/talk</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/category/docker</loc>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/security</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/automation</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/feed</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/tags</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/archives</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/featured</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/series</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
 </urlset>

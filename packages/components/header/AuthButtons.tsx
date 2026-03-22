@@ -64,7 +64,13 @@ export function AuthButtons({
   useEffect(() => {
     if (clerkProviderMounted) return;
 
-    const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    const importMetaEnv =
+      typeof import.meta !== "undefined"
+        ? ((import.meta as unknown as Record<string, unknown>).env as
+            | Record<string, string>
+            | undefined)
+        : undefined;
+    const key = importMetaEnv?.VITE_CLERK_PUBLISHABLE_KEY;
     if (!key) return;
 
     clerkProviderMounted = true;
@@ -84,20 +90,18 @@ export function AuthButtons({
   }, []);
 
   if (!clerkModule || !isOwner.current) {
-    return (
-      <button
-        type="button"
-        className={`${signInClassName} ${className}`.trim()}
-        aria-label="Sign in"
-      >
-        <Icons.UserEmpty className="h-4 w-4" />
-      </button>
-    );
+    return null;
   }
 
   const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } =
     clerkModule;
-  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const importMetaEnvOuter =
+    typeof import.meta !== "undefined"
+      ? ((import.meta as unknown as Record<string, unknown>).env as
+          | Record<string, string>
+          | undefined)
+      : undefined;
+  const publishableKey = importMetaEnvOuter?.VITE_CLERK_PUBLISHABLE_KEY;
 
   if (
     !publishableKey ||

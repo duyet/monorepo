@@ -71,8 +71,14 @@ function ClientClerkProvider({
 
 export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
   const [isClient, setIsClient] = useState(false);
+  const importMetaEnv =
+    typeof import.meta !== "undefined"
+      ? ((import.meta as unknown as Record<string, unknown>).env as
+          | Record<string, string>
+          | undefined)
+      : undefined;
   const publishableKey =
-    props.publishableKey ?? process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    props.publishableKey ?? importMetaEnv?.VITE_CLERK_PUBLISHABLE_KEY;
 
   useEffect(() => {
     setIsClient(true);
@@ -80,7 +86,7 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
 
   if (!publishableKey) {
     console.warn(
-      "[ClerkAuthProvider] NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is not defined. Auth features will be disabled."
+      "[ClerkAuthProvider] VITE_CLERK_PUBLISHABLE_KEY is not defined. Auth features will be disabled."
     );
     return <>{props.children}</>;
   }
