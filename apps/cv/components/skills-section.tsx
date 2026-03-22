@@ -10,7 +10,7 @@ import {
   SkillRust,
   SkillSpark,
   SkillTypescript,
-} from "@/app/skill-details";
+} from "@/components/skill-details";
 import { Section } from "@/components/section";
 import { Skill } from "@/components/skill";
 

@@ -9,9 +9,9 @@ import {
   SiTypescript,
 } from "@icons-pack/react-simple-icons";
 
-import { externalLinkClassName } from "@/components/link-styles";
-import { ResumeLink } from "@/components/resume-link";
-import { Skill } from "@/components/skill";
+import { externalLinkClassName } from "./link-styles";
+import { ResumeLink } from "./resume-link";
+import { Skill } from "./skill";
 
 export function SkillRust() {
   return (

@@ -32,7 +32,6 @@ jobs:
       llm-timeline: ${{ steps.filter.outputs.llm-timeline }}
       photos: ${{ steps.filter.outputs.photos }}
       agents: ${{ steps.filter.outputs.agents }}
-      ai: ${{ steps.filter.outputs.ai }}
       ai-percentage: ${{ steps.filter.outputs.ai-percentage }}
       packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -59,8 +58,6 @@ jobs:
               - 'apps/photos/**'
             agents:
               - 'apps/agents/**'
-            ai:
-              - 'apps/ai/**'
             ai-percentage:
               - 'apps/ai-percentage/**'
             packages:
@@ -95,9 +92,6 @@ jobs:
           fi
           if [[ "${{ steps.filter.outputs.agents }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
             APPS+=('{"app":"agents","project":"duyet-agents","domain":"agents.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.ai }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"ai","project":"duyet-ai","domain":"ai.duyet.net"}')
           fi
           if [[ "${{ steps.filter.outputs.ai-percentage }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
             APPS+=('{"app":"ai-percentage","project":"duyet-ai-percentage","domain":"ai-percentage.duyet.net"}')
