@@ -378,7 +378,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Unit 11: Graph-based execution path
     // When useGraph=true and mode=agent, use GraphRouter instead of direct LLM
     if (useGraph && mode === "agent") {
-      return handleGraphExecution(
+      return await handleGraphExecution(
         {
           request: context.request,
           env: context.env,
@@ -395,7 +395,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     // Legacy direct LLM execution path (maintained for backward compatibility)
-    return handleDirectExecution(
+    return await handleDirectExecution(
       context,
       requestId,
       uiMessages,
