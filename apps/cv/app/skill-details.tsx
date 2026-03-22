@@ -8,9 +8,9 @@ import {
   SiRust,
   SiTypescript,
 } from "@icons-pack/react-simple-icons";
-import { Link } from "@tanstack/react-router";
 
 import { externalLinkClassName } from "@/components/link-styles";
+import { ResumeLink } from "@/components/resume-link";
 import { Skill } from "@/components/skill";
 
 export function SkillRust() {
@@ -22,34 +22,31 @@ export function SkillRust() {
       note={
         <span>
           I am new and have been working with{" "}
-          <Link
-            to="https://blog.duyet.net/2021/11/rust-data-engineering.html"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://blog.duyet.net/2021/11/rust-data-engineering.html"
+            external
             className={externalLinkClassName}
           >
             Rust
-          </Link>{" "}
+          </ResumeLink>{" "}
           for about 2 years, during which I have developed and deployed a
           production{" "}
-          <Link
-            to="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html"
+            external
             className={externalLinkClassName}
           >
             Data Platform at Fossil
-          </Link>
+          </ResumeLink>
           , created multiple command line applications, and documented all my
           experiences in Vietnamese through{" "}
-          <Link
-            to="https://duyet.net/rust"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://duyet.net/rust"
+            external
             className={externalLinkClassName}
           >
             Rust Tiếng Việt
-          </Link>
+          </ResumeLink>
         </span>
       }
     />
@@ -69,23 +66,21 @@ export function SkillTypescript() {
           From building data visualization to present insights, to developing
           internal tools for data serving or monitoring. Some of open-source
           works are:{" "}
-          <Link
-            to="https://github.com/duyet/clickhouse-monitoring"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://github.com/duyet/clickhouse-monitoring"
+            external
             className={externalLinkClassName}
           >
             clickhouse-monitoring
-          </Link>{" "}
+          </ResumeLink>{" "}
           or{" "}
-          <Link
-            to="https://github.com/duyet/monorepo"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://github.com/duyet/monorepo"
+            external
             className={externalLinkClassName}
           >
             this CV itself
-          </Link>
+          </ResumeLink>
         </span>
       }
     />
@@ -101,14 +96,13 @@ export function SkillHelm() {
       note={
         <span>
           Checkout{" "}
-          <Link
-            to="https://github.com/duyet/charts"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://github.com/duyet/charts"
+            external
             className={externalLinkClassName}
           >
             duyet/charts
-          </Link>
+          </ResumeLink>
         </span>
       }
     />
@@ -162,33 +156,30 @@ export function SkillSpark() {
           I&apos;ve been using Spark extensively since I started as a Data
           Engineer, experience running Spark with <strong>YARN</strong>,
           Databricks, <strong>AWS EMR</strong>, as well as{" "}
-          <Link
-            to="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html"
+            external
             className={externalLinkClassName}
           >
             <strong>Kubernetes</strong>
-          </Link>
+          </ResumeLink>
           . Haven&apos;t been using it as much lately due to the convenience
           offered by{" "}
-          <Link
-            to="https://blog.duyet.net/tag/clickhouse"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://blog.duyet.net/tag/clickhouse"
+            external
             className={externalLinkClassName}
           >
             ClickHouse
-          </Link>
+          </ResumeLink>
           {" and "}
-          <Link
-            to="https://blog.duyet.net/2023/09/duckdb.html"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
+            href="https://blog.duyet.net/2023/09/duckdb.html"
+            external
             className={externalLinkClassName}
           >
             DuckDB
-          </Link>
+          </ResumeLink>
           .
         </span>
       }

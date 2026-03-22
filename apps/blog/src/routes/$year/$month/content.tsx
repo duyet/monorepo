@@ -25,10 +25,16 @@ interface ContentPost extends Post {
   edit_url?: string;
 }
 
-// MDX compiled component cache
-const mdxCache = new Map<string, Promise<React.ComponentType>>();
+interface MDXContentProps {
+  components?: typeof mdxComponents;
+}
 
-async function compileMDX(source: string): Promise<React.ComponentType> {
+// MDX compiled component cache
+const mdxCache = new Map<string, Promise<React.ComponentType<MDXContentProps>>>();
+
+async function compileMDX(
+  source: string
+): Promise<React.ComponentType<MDXContentProps>> {
   const code = await compile(source, {
     outputFormat: "function-body",
     remarkPlugins: [remarkGfm, remarkMath],
@@ -41,7 +47,7 @@ async function compileMDX(source: string): Promise<React.ComponentType> {
     baseUrl: import.meta.url,
   });
 
-  return MDXContent as React.ComponentType;
+  return MDXContent as React.ComponentType<MDXContentProps>;
 }
 
 function MDXRenderer({ source }: { source: string }) {
