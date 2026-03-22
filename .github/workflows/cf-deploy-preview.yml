@@ -24,17 +24,6 @@ jobs:
     name: Detect changed apps
     runs-on: ubuntu-latest
     outputs:
-      blog: ${{ steps.filter.outputs.blog }}
-      cv: ${{ steps.filter.outputs.cv }}
-      home: ${{ steps.filter.outputs.home }}
-      homelab: ${{ steps.filter.outputs.homelab }}
-      insights: ${{ steps.filter.outputs.insights }}
-      llm-timeline: ${{ steps.filter.outputs.llm-timeline }}
-      photos: ${{ steps.filter.outputs.photos }}
-      agents: ${{ steps.filter.outputs.agents }}
-      ai: ${{ steps.filter.outputs.ai }}
-      ai-percentage: ${{ steps.filter.outputs.ai-percentage }}
-      packages: ${{ steps.filter.outputs.packages }}
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v6
@@ -43,65 +32,47 @@ jobs:
         id: filter
         with:
           filters: |
-            blog:
-              - 'apps/blog/**'
-            cv:
-              - 'apps/cv/**'
-            home:
-              - 'apps/home/**'
-            homelab:
-              - 'apps/homelab/**'
-            insights:
-              - 'apps/insights/**'
-            llm-timeline:
-              - 'apps/llm-timeline/**'
-            photos:
-              - 'apps/photos/**'
-            agents:
-              - 'apps/agents/**'
-            ai:
-              - 'apps/ai/**'
-            ai-percentage:
-              - 'apps/ai-percentage/**'
             packages:
               - 'packages/**'
 
-      - name: Set deployment matrix
+      - name: Discover apps and detect changes
         id: set-matrix
         run: |
-          APPS=()
+          # Dynamically discover all apps that have wrangler.toml and cf:deploy:prod script
+          DEPLOYABLE_APPS=()
+          for wrangler in apps/*/wrangler.toml; do
+            app_dir=$(dirname "$wrangler")
+            app_name=$(basename "$app_dir")
+            pkg="$app_dir/package.json"
+            if [ -f "$pkg" ] && grep -q '"cf:deploy:prod"' "$pkg"; then
+              DEPLOYABLE_APPS+=("$app_name")
+            fi
+          done
+
+          echo "Discovered deployable apps: ${DEPLOYABLE_APPS[*]}"
+
+          # Check which apps have changes using git
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD 2>/dev/null || echo "")
           PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
 
-          if [[ "${{ steps.filter.outputs.blog }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"blog","project":"duyet-blog","domain":"blog.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.cv }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"cv","project":"duyet-cv","domain":"cv.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.home }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"home","project":"duyet-home","domain":"duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.homelab }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"homelab","project":"duyet-homelab","domain":"homelab.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.insights }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"insights","project":"duyet-insights","domain":"insights.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.photos }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"photos","project":"duyet-photos","domain":"photos.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.llm-timeline }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"llm-timeline","project":"duyet-llm-timeline","domain":"llm-timeline.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.agents }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"agents","project":"duyet-agents","domain":"agents.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.ai }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"ai","project":"duyet-ai","domain":"ai.duyet.net"}')
-          fi
-          if [[ "${{ steps.filter.outputs.ai-percentage }}" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-            APPS+=('{"app":"ai-percentage","project":"duyet-ai-percentage","domain":"ai-percentage.duyet.net"}')
-          fi
+          APPS=()
+          for app in "${DEPLOYABLE_APPS[@]}"; do
+            project=$(grep -oP 'name\s*=\s*"\K[^"]+' "apps/$app/wrangler.toml" | head -1)
+            if [ "$app" = "home" ]; then
+              domain="duyet.net"
+            else
+              domain="${app}.duyet.net"
+            fi
+
+            APP_CHANGED=false
+            if echo "$CHANGED_FILES" | grep -q "^apps/$app/"; then
+              APP_CHANGED=true
+            fi
+
+            if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
+              APPS+=("{\"app\":\"$app\",\"project\":\"$project\",\"domain\":\"$domain\"}")
+            fi
+          done
 
           if [ ${#APPS[@]} -eq 0 ]; then
             echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
@@ -134,23 +105,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Debug environment variables
-        run: |
-          echo "=== ClickHouse Environment Check ==="
-          echo "CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}"
-          echo "CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}"
-          echo "CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}"
-          echo "CLICKHOUSE_AUTH: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}"
-          echo "CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}"
-          echo "==================================="
-          echo "App: ${{ matrix.app }}"
-        env:
-          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
-          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
-          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
-          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
-          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
-
       - name: Build app
         id: build
         run: |
@@ -158,17 +112,16 @@ jobs:
           bun run build
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
-          NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
-          NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
-          NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
-          NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
-          NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
-          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
-          NEXT_PUBLIC_DUYET_AGENTS_URL: https://agents.duyet.net
-          NEXT_PUBLIC_DUYET_AI_URL: https://ai.duyet.net
-          NEXT_PUBLIC_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
-          # App-specific secrets (only used by apps that need them)
+          VITE_DUYET_HOME_URL: https://duyet.net
+          VITE_DUYET_BLOG_URL: https://blog.duyet.net
+          VITE_DUYET_CV_URL: https://cv.duyet.net
+          VITE_DUYET_INSIGHTS_URL: https://insights.duyet.net
+          VITE_DUYET_PHOTOS_URL: https://photos.duyet.net
+          VITE_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          VITE_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
+          VITE_DUYET_AGENTS_URL: https://agents.duyet.net
+          VITE_DUYET_AI_URL: https://ai.duyet.net
+          VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}
           CLICKHOUSE_USER: ${{ vars.CLICKHOUSE_USER }}
@@ -183,9 +136,8 @@ jobs:
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-          # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
 
       - name: Save build failure status
         if: failure() && steps.build.outcome == 'failure'

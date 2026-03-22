@@ -13,22 +13,10 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: 'App to deploy (empty=auto-detect, "all"=all apps, or app name e.g. "blog")'
+        description: 'App to deploy (empty=auto-detect, "all"=all apps, or app name)'
         required: false
-        type: choice
-        options:
-          - ''
-          - all
-          - blog
-          - cv
-          - home
-          - homelab
-          - insights
-          - llm-timeline
-          - photos
-          - agents
-          - ai
-          - ai-percentage
+        type: string
+        default: ''
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -50,73 +38,67 @@ jobs:
         with:
           fetch-depth: 2
 
-      - uses: dorny/paths-filter@v4
-        id: filter
-        if: github.event_name != 'workflow_dispatch'
-        with:
-          filters: |
-            blog:
-              - 'apps/blog/**'
-            cv:
-              - 'apps/cv/**'
-            home:
-              - 'apps/home/**'
-            homelab:
-              - 'apps/homelab/**'
-            insights:
-              - 'apps/insights/**'
-            llm-timeline:
-              - 'apps/llm-timeline/**'
-            photos:
-              - 'apps/photos/**'
-            agents:
-              - 'apps/agents/**'
-            ai:
-              - 'apps/ai/**'
-            ai-percentage:
-              - 'apps/ai-percentage/**'
-            packages:
-              - 'packages/**'
-
-      - name: Set deployment matrix
+      - name: Discover deployable apps and detect changes
         id: set-matrix
         run: |
-          # App configurations
-          declare -A APPS
-          APPS[blog]='{"app":"blog","project":"duyet-blog","url":"https://blog.duyet.net"}'
-          APPS[cv]='{"app":"cv","project":"duyet-cv","url":"https://cv.duyet.net"}'
-          APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
-          APPS[homelab]='{"app":"homelab","project":"duyet-homelab","url":"https://homelab.duyet.net"}'
-          APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
-          APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
-          APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
-          APPS[agents]='{"app":"agents","project":"duyet-agents","url":"https://agents.duyet.net"}'
-          APPS[ai]='{"app":"ai","project":"duyet-ai","url":"https://ai.duyet.net"}'
-          APPS[ai-percentage]='{"app":"ai-percentage","project":"duyet-ai-percentage","url":"https://ai-percentage.duyet.net"}'
+          # Dynamically discover all apps that have wrangler.toml (Cloudflare Pages apps)
+          DEPLOYABLE_APPS=()
+          for wrangler in apps/*/wrangler.toml; do
+            app_dir=$(dirname "$wrangler")
+            app_name=$(basename "$app_dir")
+
+            # Skip Workers-only apps (they have their own deploy workflow)
+            # Workers apps don't have an "out" build directory or cf:deploy:prod script
+            pkg="$app_dir/package.json"
+            if [ -f "$pkg" ] && grep -q '"cf:deploy:prod"' "$pkg"; then
+              DEPLOYABLE_APPS+=("$app_name")
+            fi
+          done
+
+          echo "Discovered deployable apps: ${DEPLOYABLE_APPS[*]}"
+
+          # Build app config from wrangler.toml project names
+          declare -A APP_CONFIGS
+          for app in "${DEPLOYABLE_APPS[@]}"; do
+            project=$(grep -oP 'name\s*=\s*"\K[^"]+' "apps/$app/wrangler.toml" | head -1)
+            # Domain convention: <app>.duyet.net, except home -> duyet.net
+            if [ "$app" = "home" ]; then
+              domain="duyet.net"
+            else
+              domain="${app}.duyet.net"
+            fi
+            APP_CONFIGS[$app]="{\"app\":\"$app\",\"project\":\"$project\",\"url\":\"https://$domain\"}"
+          done
 
           DEPLOY_APPS=()
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
-            if [[ "$INPUT_APP" == "all" ]]; then
-              for app in blog cv home homelab insights llm-timeline photos agents ai ai-percentage; do
-                DEPLOY_APPS+=("${APPS[$app]}")
+            if [[ "$INPUT_APP" == "all" || -z "$INPUT_APP" ]]; then
+              for app in "${DEPLOYABLE_APPS[@]}"; do
+                DEPLOY_APPS+=("${APP_CONFIGS[$app]}")
               done
-            elif [[ -n "$INPUT_APP" ]]; then
-              # Deploy a specific app by name
-              if [[ -n "${APPS[$INPUT_APP]+isset}" ]]; then
-                DEPLOY_APPS+=("${APPS[$INPUT_APP]}")
-              fi
+            elif [[ -n "${APP_CONFIGS[$INPUT_APP]+isset}" ]]; then
+              DEPLOY_APPS+=("${APP_CONFIGS[$INPUT_APP]}")
+            else
+              echo "::error::Unknown app: $INPUT_APP. Available: ${DEPLOYABLE_APPS[*]}"
+              exit 1
             fi
           else
-            # Auto-detect changes
-            PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
-            FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
+            # Auto-detect changes using git diff
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only HEAD)
+            PACKAGES_CHANGED=false
+            if echo "$CHANGED_FILES" | grep -q '^packages/'; then
+              PACKAGES_CHANGED=true
+            fi
 
-            for app in blog cv home homelab insights llm-timeline photos agents ai ai-percentage; do
-              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
+            for app in "${DEPLOYABLE_APPS[@]}"; do
+              APP_CHANGED=false
+              if echo "$CHANGED_FILES" | grep -q "^apps/$app/"; then
+                APP_CHANGED=true
+              fi
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-                DEPLOY_APPS+=("${APPS[$app]}")
+                DEPLOY_APPS+=("${APP_CONFIGS[$app]}")
               fi
             done
           fi
@@ -170,45 +152,6 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Debug environment variables
-        run: |
-          echo "### Environment Variables Debug" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### ClickHouse Configuration:" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_AUTH: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### Other API Keys:" >> $GITHUB_STEP_SUMMARY
-          echo "- GITHUB_TOKEN: ${GITHUB_TOKEN:+SET}${GITHUB_TOKEN:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- WAKATIME_API_KEY: ${WAKATIME_API_KEY:+SET}${WAKATIME_API_KEY:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- POSTHOG_API_KEY: ${POSTHOG_API_KEY:+SET}${POSTHOG_API_KEY:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### Build Environment:" >> $GITHUB_STEP_SUMMARY
-          echo "- NODE_ENV: $NODE_ENV" >> $GITHUB_STEP_SUMMARY
-          echo "- App: ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
-
-          # Also print to logs for debugging
-          echo "=== ClickHouse Environment Check ==="
-          echo "CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}"
-          echo "CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}"
-          echo "CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}"
-          echo "CLICKHOUSE_AUTH: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}"
-          echo "CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}"
-          echo "==================================="
-        env:
-          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
-          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
-          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
-          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
-          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
-          NODE_ENV: production
-
       - name: Test connectivity to ClickHouse
         if: matrix.app == 'photos' || matrix.app == 'insights'
         run: |
@@ -253,8 +196,8 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # Production environment variables (Vite apps use VITE_ prefix)
           NODE_ENV: production
+          # Vite environment variables
           VITE_DUYET_HOME_URL: https://duyet.net
           VITE_DUYET_BLOG_URL: https://blog.duyet.net
           VITE_DUYET_CV_URL: https://cv.duyet.net
@@ -265,18 +208,7 @@ jobs:
           VITE_DUYET_AGENTS_URL: https://agents.duyet.net
           VITE_DUYET_AI_URL: https://ai.duyet.net
           VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
-          # Keep NEXT_PUBLIC_ for backward compat during migration
-          NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
-          NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
-          NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
-          NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
-          NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
-          NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
-          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
-          NEXT_PUBLIC_DUYET_AGENTS_URL: https://agents.duyet.net
-          NEXT_PUBLIC_DUYET_AI_URL: https://ai.duyet.net
-          NEXT_PUBLIC_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
-          # App-specific secrets (only used by apps that need them)
+          # App-specific secrets
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}
           CLICKHOUSE_USER: ${{ vars.CLICKHOUSE_USER }}
@@ -291,11 +223,8 @@ jobs:
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-          # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-          # Cloudflare AI Gateway (agents app)
           CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
           CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}
 
@@ -308,7 +237,7 @@ jobs:
           echo "- **Project**: ${{ matrix.project }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Health check
-        continue-on-error: ${{ matrix.app == 'ai' }}
+        continue-on-error: true
         run: |
           echo "Checking ${{ matrix.url }}..."
           max_attempts=5

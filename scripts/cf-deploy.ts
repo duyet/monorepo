@@ -18,14 +18,10 @@
  * - Without --prod: Preview deployment (aliased URL like <hash>.<project>.pages.dev)
  * - With --prod: Production deployment (custom domains like blog.duyet.net)
  *
- * Apps and their deployment targets:
- * - home → duyet.net (duyet-home project)
- * - cv → cv.duyet.net (duyet-cv project)
- * - blog → blog.duyet.net (duyet-blog project)
- * - photos → photos.duyet.net (duyet-photos project)
- * - insights → insights.duyet.net (duyet-insights project)
- * - homelab → homelab.duyet.net (duyet-homelab project)
- * - agents → agents.duyet.net (duyet-agents project)
+ * Apps are discovered dynamically from the filesystem:
+ * - Any app with a wrangler.toml and "cf:deploy:prod" script is deployable
+ * - Project name is read from wrangler.toml
+ * - Domain convention: <app>.duyet.net (except home → duyet.net)
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -79,8 +75,19 @@ function parseEnvFile(filePath: string): Record<string, string> {
 const envProductionPath = join(rootDir, ".env.production");
 const PRODUCTION_ENV = parseEnvFile(envProductionPath);
 
-// Configuration for apps that deploy to Cloudflare Pages
-const APPS_CONFIG: Record<
+// Apps that require secret syncing (have sensitive env vars)
+const APPS_WITH_SECRETS = new Set(["blog", "photos", "insights"]);
+
+/**
+ * Dynamically discover deployable apps from the filesystem.
+ * An app is deployable if it has:
+ * 1. A wrangler.toml file (Cloudflare Pages project)
+ * 2. A "cf:deploy:prod" script in package.json
+ *
+ * The project name is read from wrangler.toml.
+ * The domain follows the convention: <app>.duyet.net (except home -> duyet.net).
+ */
+function discoverApps(): Record<
   string,
   {
     name: string;
@@ -88,56 +95,52 @@ const APPS_CONFIG: Record<
     domain: string;
     secrets: boolean;
   }
-> = {
-  home: {
-    name: "home",
-    projectName: "duyet-home",
-    domain: "duyet.net",
-    secrets: false,
-  },
-  cv: {
-    name: "cv",
-    projectName: "duyet-cv",
-    domain: "cv.duyet.net",
-    secrets: false,
-  },
-  blog: {
-    name: "blog",
-    projectName: "duyet-blog",
-    domain: "blog.duyet.net",
-    secrets: true,
-  },
-  photos: {
-    name: "photos",
-    projectName: "duyet-photos",
-    domain: "photos.duyet.net",
-    secrets: true,
-  },
-  insights: {
-    name: "insights",
-    projectName: "duyet-insights",
-    domain: "insights.duyet.net",
-    secrets: true,
-  },
-  homelab: {
-    name: "homelab",
-    projectName: "duyet-homelab",
-    domain: "homelab.duyet.net",
-    secrets: false,
-  },
-  agents: {
-    name: "agents",
-    projectName: "duyet-agents",
-    domain: "agents.duyet.net",
-    secrets: false,
-  },
-  "llm-timeline": {
-    name: "llm-timeline",
-    projectName: "duyet-llm-timeline",
-    domain: "llm-timeline.duyet.net",
-    secrets: false,
-  },
-};
+> {
+  const appsDir = join(rootDir, "apps");
+  const config: Record<
+    string,
+    { name: string; projectName: string; domain: string; secrets: boolean }
+  > = {};
+
+  const entries = Bun.spawnSync({
+    cmd: ["ls", appsDir],
+  });
+
+  for (const appName of entries.stdout.toString().trim().split("\n")) {
+    const appDir = join(appsDir, appName);
+    const wranglerPath = join(appDir, "wrangler.toml");
+    const pkgPath = join(appDir, "package.json");
+
+    if (!existsSync(wranglerPath) || !existsSync(pkgPath)) continue;
+
+    // Check for cf:deploy:prod script
+    const pkgContent = readFileSync(pkgPath, "utf-8");
+    if (!pkgContent.includes('"cf:deploy:prod"')) continue;
+
+    // Extract project name from wrangler.toml
+    const wranglerContent = readFileSync(wranglerPath, "utf-8");
+    const projectMatch = wranglerContent.match(/name\s*=\s*"([^"]+)"/);
+    if (!projectMatch) continue;
+
+    const projectName = projectMatch[1];
+    const domain = appName === "home" ? "duyet.net" : `${appName}.duyet.net`;
+
+    config[appName] = {
+      name: appName,
+      projectName,
+      domain,
+      secrets: APPS_WITH_SECRETS.has(appName),
+    };
+  }
+
+  return config;
+}
+
+// Dynamically discover deployable apps
+const APPS_CONFIG = discoverApps();
+console.log(
+  `[INFO] Discovered ${Object.keys(APPS_CONFIG).length} deployable app(s): ${Object.keys(APPS_CONFIG).join(", ")}`
+);
 
 // CLI args
 const dryRun = process.argv.includes("--dry-run");
@@ -389,10 +392,10 @@ async function buildAllApps(): Promise<boolean> {
   console.log(`[INFO] Loading environment from: .env.production`);
   console.log(`[INFO] Production URLs:`);
   console.log(
-    `       NEXT_PUBLIC_DUYET_HOME_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`
+    `       VITE_DUYET_HOME_URL=${PRODUCTION_ENV.VITE_DUYET_HOME_URL || PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`
   );
   console.log(
-    `       NEXT_PUBLIC_DUYET_BLOG_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`
+    `       VITE_DUYET_BLOG_URL=${PRODUCTION_ENV.VITE_DUYET_BLOG_URL || PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`
   );
   console.log(`       NODE_ENV=${PRODUCTION_ENV.NODE_ENV || "(not set)"}`);
 

@@ -17,7 +17,7 @@ interface ClerkAuthProviderProps {
  * ```tsx
  * import { ClerkAuthProvider } from '@duyet/components'
  *
- * <ClerkAuthProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+ * <ClerkAuthProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
  *   <App />
  * </ClerkAuthProvider>
  * ```
