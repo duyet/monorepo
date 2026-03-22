@@ -64,6 +64,27 @@ const TOOLTIP_STYLE = {
   fontSize: "12px",
 };
 
+function formatMetricValue(
+  value: number | string | readonly (number | string)[] | undefined,
+  unit: string
+) {
+  const numeric = Array.isArray(value) ? Number(value[0]) : Number(value);
+  return `${Number.isFinite(numeric) ? numeric : 0} ${unit}`;
+}
+
+function formatTemperatureHumidityValue(
+  value: number | string | readonly (number | string)[] | undefined,
+  name: string | number | undefined
+): [string, string] {
+  const numeric = Array.isArray(value) ? Number(value[0]) : Number(value);
+  const metricName = String(name);
+
+  return [
+    `${Number.isFinite(numeric) ? numeric : 0}${metricName === "temperature" ? "°C" : "%"}`,
+    metricName === "temperature" ? "Temperature" : "Humidity",
+  ];
+}
+
 const STATUS_CONFIG = {
   online: {
     label: "Running",
@@ -285,7 +306,7 @@ function AirQualityChart() {
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v: number | undefined) => `${v ?? 0} ${config.unit}`}
+            formatter={(value) => formatMetricValue(value, config.unit)}
             labelFormatter={() => config.label}
           />
           <Area
@@ -377,12 +398,10 @@ function TemperatureHumidityChart() {
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v: number | undefined, name?: string) =>
-              `${v ?? 0}${name === "temperature" ? "°C" : "%"}`
+            formatter={(value, name) =>
+              formatTemperatureHumidityValue(value, name)
             }
-            labelFormatter={(label, name) =>
-              name === "temperature" ? "Temperature" : "Humidity"
-            }
+            labelFormatter={() => "Temperature & Humidity"}
           />
           <Line
             yAxisId="temp"
