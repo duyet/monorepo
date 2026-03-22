@@ -11,14 +11,10 @@
     "vite.config.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "app/**/*.ts",
-    "app/**/*.tsx",
     "components/**/*.ts",
     "components/**/*.tsx",
     "config/**/*.ts",
-    "config/**/*.tsx",
-    "**/*.ts",
-    "**/*.tsx"
+    "config/**/*.tsx"
   ],
-  "exclude": ["node_modules", "**/__tests__", ".output", "dist"]
+  "exclude": ["node_modules", "**/__tests__", ".output", "dist", "app"]
 }

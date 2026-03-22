@@ -46,6 +46,7 @@
     "@duyet/interfaces": "*",
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
+    "@types/bun": "latest",
     "@tailwindcss/vite": "^4.0.0",
     "@tanstack/router-plugin": "^1.0.0",
     "@types/react": "^19.1.4",

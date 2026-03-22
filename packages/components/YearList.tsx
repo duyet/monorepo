@@ -1,6 +1,5 @@
 import { getPostsByAllYear } from "@duyet/libs/getPost";
 import { cn } from "@duyet/libs/utils";
-import { Link } from "@tanstack/react-router";
 
 type Props = {
   order?: "asc" | "desc";
@@ -28,13 +27,13 @@ export default function YearList({
   return (
     <div className={cn("flex flex-row flex-wrap gap-4", className)}>
       {years.map((year: string) => (
-        <Link
-          to={`/${year}`}
+        <a
+          href={`/${year}`}
           key={year}
           className="p-3 font-bold rounded text-sm hover:bg-claude-gray-50"
         >
           {year}
-        </Link>
+        </a>
       ))}
     </div>
   );
