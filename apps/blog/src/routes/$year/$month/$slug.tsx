@@ -16,8 +16,8 @@ import {
   getSeriesNavigation,
 } from "@/lib/posts";
 import type { SeriesNavItem } from "@/lib/posts";
-import Content from "./content";
-import Meta from "./meta";
+import Content from "./-content";
+import Meta from "./-meta";
 
 export const Route = createFileRoute("/$year/$month/$slug")({
   head: ({ params }) => {

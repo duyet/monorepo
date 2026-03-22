@@ -14,8 +14,8 @@ import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
 import { mdxComponents } from "@/components/MdxComponents";
-import { OldPostWarning } from "./old-post-warning";
-import { Snippet } from "./snippet";
+import { OldPostWarning } from "./-old-post-warning";
+import { Snippet } from "./-snippet";
 
 interface ContentPost extends Post {
   isMDX?: boolean;

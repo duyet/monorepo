@@ -6,7 +6,7 @@ import { cn } from "@duyet/libs/utils";
 import { Calendar, Clock, Folder, Tag } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { SeriesBox } from "@/components/layout";
-import { MarkdownMenuWrapper } from "./markdown-menu-wrapper";
+import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 
 interface ContentProps {
   post: Post & { markdown_content?: string; edit_url?: string };
